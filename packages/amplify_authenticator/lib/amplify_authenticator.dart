@@ -91,7 +91,7 @@ class Authenticator extends StatefulWidget {
   })  : useAmplifyTheme = false,
         super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
-    this.signUpForm = signUpForm ?? SignUpForm();
+    this.signUpForm = signUpForm ?? const SignUpForm();
     this.confirmSignInMFAForm = confirmSignInMFAForm ?? ConfirmSignInMFAForm();
   }
 
@@ -186,7 +186,9 @@ class Authenticator extends StatefulWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<AuthStringResolver>(
-        'stringResolver', stringResolver));
+      'stringResolver',
+      stringResolver,
+    ));
     properties
         .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
   }
@@ -308,7 +310,7 @@ class _AuthenticatorState extends State<Authenticator> {
 }
 
 class _AuthenticatorBody extends StatelessWidget {
-  _AuthenticatorBody({
+  const _AuthenticatorBody({
     Key? key,
     required this.child,
   }) : super(key: key);

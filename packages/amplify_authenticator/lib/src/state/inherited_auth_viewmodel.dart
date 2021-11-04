@@ -38,7 +38,8 @@ class InheritedAuthViewModel extends InheritedNotifier {
         throw FlutterError.fromParts([
           ErrorSummary('No InheritedAuthViewModel widget found.'),
           ErrorDescription(
-              'Make sure your app is wrapped with an Authenticator widget.')
+            'Make sure your app is wrapped with an Authenticator widget.',
+          )
         ]);
       }
       return true;

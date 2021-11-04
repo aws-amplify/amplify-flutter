@@ -31,48 +31,50 @@ mixin AuthenticatorPhoneField<FieldType,
         ? inputResolver.resolve(context, widget.hintTextKey!)
         : widget.hintText!;
 
-    return Row(children: [
-      DropdownButton<String>(
-        value: selectionValue,
-        items: countryCodeStrings.map((int value) {
-          return DropdownMenuItem<String>(
-            value: value.toString(),
-            child: Text('+$value'),
-          );
-        }).toList(),
-        onChanged: (newValue) {
-          setState(() {
-            selectionValue = newValue!;
-          });
-        },
-      ),
-      Expanded(
-          child: TextFormField(
-        style: enabled
-            ? null
-            : const TextStyle(
-                color: AmplifyColors.black20,
-              ),
-        initialValue: initialValue,
-        enabled: enabled,
-        validator: validator,
-        onChanged: (phoneValue) {
-          onChanged.call('+$selectionValue$phoneValue');
-        },
-        decoration: InputDecoration(
-          suffixIcon: suffixIcon,
-          errorMaxLines: errorMaxLines,
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          hintText: hintText,
-          border: const OutlineInputBorder(),
+    return Row(
+      children: [
+        DropdownButton<String>(
+          value: selectionValue,
+          items: countryCodeStrings.map((int value) {
+            return DropdownMenuItem<String>(
+              value: value.toString(),
+              child: Text('+$value'),
+            );
+          }).toList(),
+          onChanged: (newValue) {
+            setState(() {
+              selectionValue = newValue!;
+            });
+          },
         ),
-        keyboardType: TextInputType.phone,
-      ))
-    ]);
-    ;
+        Expanded(
+          child: TextFormField(
+            style: enabled
+                ? null
+                : const TextStyle(
+                    color: AmplifyColors.black20,
+                  ),
+            initialValue: initialValue,
+            enabled: enabled,
+            validator: validator,
+            onChanged: (phoneValue) {
+              onChanged.call('+$selectionValue$phoneValue');
+            },
+            decoration: InputDecoration(
+              suffixIcon: suffixIcon,
+              errorMaxLines: errorMaxLines,
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+              hintText: hintText,
+              border: const OutlineInputBorder(),
+            ),
+            keyboardType: TextInputType.phone,
+          ),
+        )
+      ],
+    );
   }
 }

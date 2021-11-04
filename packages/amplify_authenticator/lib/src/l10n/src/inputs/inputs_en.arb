@@ -129,7 +129,7 @@
     "@passwordRequirementsPreamble": {
         "description": "Preamble to list of unment password requirements."
     },
-    "passwordRequirementsCharacterType": "{characterType, select, uppercase{uppercase} lowercase{lowercase} number{number} symbol{symbol} other{}}",
+    "passwordRequirementsCharacterType": "{characterType, select, requiresUppercase{uppercase} requiresLowercase{lowercase} requiresNumbers{number} requiresSymbols{symbol} other{}}",
     "@passwordRequirementsCharacterType": {
         "description": "Character(s) in a password.",
         "placeholders": {
@@ -156,9 +156,9 @@
     "rememberDevice": "Remember Device?",
     "@rememberDevice": {
         "description": "Label for the checkbox to remember the user's device in Cognito."
-    }
+    },
     "usernameType": "Select what you want to use as a username",
-    "@rememberDevice": {
+    "@usernameType": {
         "description": " Label for the radio button set to select email or phone number as username when both are available."
     }
 }

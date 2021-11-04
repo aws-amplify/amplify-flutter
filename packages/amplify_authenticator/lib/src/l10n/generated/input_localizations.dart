@@ -237,7 +237,7 @@ abstract class AuthenticatorInputLocalizations {
   /// Character(s) in a password.
   ///
   /// In en, this message translates to:
-  /// **'{characterType, select, uppercase{uppercase} lowercase{lowercase} number{number} symbol{symbol} other{}}'**
+  /// **'{characterType, select, requiresUppercase{uppercase} requiresLowercase{lowercase} requiresNumbers{number} requiresSymbols{symbol} other{}}'**
   String passwordRequirementsCharacterType(
       PasswordPolicyCharacters characterType);
 
@@ -253,7 +253,7 @@ abstract class AuthenticatorInputLocalizations {
   /// **'Remember Device?'**
   String get rememberDevice;
 
-  /// Label for the radio button set to select email or phone number as username when both are available.
+  ///  Label for the radio button set to select email or phone number as username when both are available.
   ///
   /// In en, this message translates to:
   /// **'Select what you want to use as a username'**

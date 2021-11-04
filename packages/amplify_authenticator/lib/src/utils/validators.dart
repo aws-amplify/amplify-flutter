@@ -88,11 +88,13 @@ FormFieldValidator<String> Function(BuildContext) validateSignUpPassword({
 
         var error = inputResolver.resolve(
           context,
-          InputResolverKey.passwordRequirementsUnmet(PasswordProtectionSettings(
-            passwordPolicyMinLength:
-                meetsMinLengthRequirement ? null : minLength,
-            passwordPolicyCharacters: unmetReqs,
-          )),
+          InputResolverKey.passwordRequirementsUnmet(
+            PasswordProtectionSettings(
+              passwordPolicyMinLength:
+                  meetsMinLengthRequirement ? null : minLength,
+              passwordPolicyCharacters: unmetReqs,
+            ),
+          ),
         );
         return error.isEmpty ? null : error;
       };

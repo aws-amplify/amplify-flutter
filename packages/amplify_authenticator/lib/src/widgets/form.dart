@@ -16,14 +16,11 @@
 library authenticator.form;
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/checkbox.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/oauth/social_button.dart';
 import 'package:amplify_flutter/src/config/auth/aws_cognito_social_providers.dart';
@@ -184,46 +181,45 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
       signUpFields.add(SignUpFormField.username());
     }
 
-    signUpFields.addAll(
-        [SignUpFormField.password(), SignUpFormField.passwordConfirmation()]);
+    signUpFields.addAll([
+      SignUpFormField.password(),
+      SignUpFormField.passwordConfirmation(),
+    ]);
 
-    signUpFields.addAll(signUpAttributes
-        .map((attr) {
-          switch (attr) {
-            case 'ADDRESS':
-              return SignUpFormField.address();
-            case 'BIRTHDATE':
-              return SignUpFormField.birthdate();
-            case 'EMAIL':
-              if (!usernameAttributes
-                  .contains(AwsCognitoUsernameAttributes.email)) {
-                return SignUpFormField.email();
-              } else {
-                return null;
-              }
-            case 'FAMILY_NAME':
-              return SignUpFormField.familyName();
-            case 'MIDDLE_NAME':
-              return SignUpFormField.middleName();
-            case 'GENDER':
-              return SignUpFormField.gender();
-            case 'GIVEN_NAME':
-              return SignUpFormField.givenName();
-            case 'NAME':
-              return SignUpFormField.name();
-            case 'NICKNAME':
-              return SignUpFormField.nickname();
-            case 'PHONE_NUMBER':
-              if (!usernameAttributes
-                  .contains(AwsCognitoUsernameAttributes.phoneNumber)) {
-                return SignUpFormField.phoneNumber();
-              } else {
-                return null;
-              }
+    signUpFields.addAll(signUpAttributes.map((attr) {
+      switch (attr) {
+        case 'ADDRESS':
+          return SignUpFormField.address();
+        case 'BIRTHDATE':
+          return SignUpFormField.birthdate();
+        case 'EMAIL':
+          if (!usernameAttributes
+              .contains(AwsCognitoUsernameAttributes.email)) {
+            return SignUpFormField.email();
+          } else {
+            return null;
           }
-        })
-        .whereType<SignUpFormField>()
-        .toList());
+        case 'FAMILY_NAME':
+          return SignUpFormField.familyName();
+        case 'MIDDLE_NAME':
+          return SignUpFormField.middleName();
+        case 'GENDER':
+          return SignUpFormField.gender();
+        case 'GIVEN_NAME':
+          return SignUpFormField.givenName();
+        case 'NAME':
+          return SignUpFormField.name();
+        case 'NICKNAME':
+          return SignUpFormField.nickname();
+        case 'PHONE_NUMBER':
+          if (!usernameAttributes
+              .contains(AwsCognitoUsernameAttributes.phoneNumber)) {
+            return SignUpFormField.phoneNumber();
+          } else {
+            return null;
+          }
+      }
+    }).whereType<SignUpFormField>());
 
     return signUpFields;
   }

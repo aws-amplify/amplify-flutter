@@ -341,7 +341,8 @@ class StateMachineBloc {
         userAttributeKey: data.userAttributeKey.verifiedAttributeFormatString,
       );
       yield AttributeVerificationSent(
-          data.userAttributeKey.verifiedAttributeFormatString);
+        data.userAttributeKey.verifiedAttributeFormatString,
+      );
     } on Exception catch (e) {
       if (e is AmplifyException) {
         print(e);
