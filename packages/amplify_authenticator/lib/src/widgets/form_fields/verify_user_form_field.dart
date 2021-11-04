@@ -30,30 +30,24 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
       InputResolverKey? hintTextKey,
       String? title,
       String? hintText,
-      FormFieldValidator<FieldValue>? validator,
-      AuthenticatorInputConfig? inputConfig})
+      FormFieldValidator<FieldValue>? validator})
       : super._(
             key: key,
             field: field,
             titleKey: titleKey,
             hintTextKey: hintTextKey,
             title: title,
-            inputconfig: inputConfig,
             hintText: hintText,
             validator: validator);
 
   static VerifyUserFormField verifyAttribute(
-          {Key? key,
-          FormFieldValidator<Enum>? validator,
-          required List<InputSelection> unverifiedSelections}) =>
+          {Key? key, FormFieldValidator<UsernameAttribute>? validator}) =>
       _VerifyUserRadioField(
-          key: key ?? keyUsernameSignUpFormField,
+          key: keyUnverifiedAttributes,
           titleKey: InputResolverKey.usernameTitle,
           hintTextKey: InputResolverKey.usernameHint,
           field: VerifyAttributeField.verify,
-          validator: validator,
-          inputConfig:
-              AuthenticatorInputConfig(selections: unverifiedSelections));
+          validator: validator);
 
   /// Creates a password component.
   static VerifyUserFormField confirmVerifyAttribute({
@@ -61,7 +55,7 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
     FormFieldValidator<String>? validator,
   }) =>
       _VerifyUserTextField(
-        key: key ?? keyVerificationCodeSignInFormField,
+        key: keyAttributeToVerify,
         titleKey: InputResolverKey.verificationCodeTitle,
         hintTextKey: InputResolverKey.verificationCodeHint,
         field: VerifyAttributeField.confirmVerify,
@@ -72,16 +66,6 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
 abstract class _VerifyUserFormFieldState<FieldValue>
     extends AuthenticatorFormFieldState<VerifyAttributeField, FieldValue,
         VerifyUserFormField<FieldValue>> {
-  @override
-  bool get obscureText {
-    return false;
-  }
-
-  @override
-  TextInputType? get keyboardType {
-    return TextInputType.text;
-  }
-
   @override
   Widget? get suffixIcon {
     return null;
@@ -94,7 +78,7 @@ abstract class _VerifyUserFormFieldState<FieldValue>
 }
 
 class _VerifyUserTextField extends VerifyUserFormField<String> {
-  _VerifyUserTextField({
+  const _VerifyUserTextField({
     Key? key,
     required VerifyAttributeField field,
     InputResolverKey? titleKey,
@@ -118,6 +102,16 @@ class _VerifyUserTextField extends VerifyUserFormField<String> {
 class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
     with AuthenticatorTextField {
   @override
+  bool get obscureText {
+    return false;
+  }
+
+  @override
+  TextInputType get keyboardType {
+    return TextInputType.text;
+  }
+
+  @override
   String? get initialValue {
     return viewModel.confirmationCode;
   }
@@ -136,54 +130,74 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
       ),
     );
   }
-
-  @override
-  Widget buildForm(BuildContext context) {
-    // TODO: implement buildForm
-    throw UnimplementedError();
-  }
 }
 
-class _VerifyUserRadioField extends VerifyUserFormField<Enum> {
-  _VerifyUserRadioField({
-    Key? key,
-    required VerifyAttributeField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<Enum>? validator,
-    AuthenticatorInputConfig? inputConfig,
-  }) : super._(
+class _VerifyUserRadioField extends VerifyUserFormField<UsernameAttribute> {
+  const _VerifyUserRadioField(
+      {Key? key,
+      required VerifyAttributeField field,
+      InputResolverKey? titleKey,
+      InputResolverKey? hintTextKey,
+      String? title,
+      String? hintText,
+      FormFieldValidator<UsernameAttribute>? validator})
+      : super._(
             key: key,
             field: field,
             titleKey: titleKey,
             hintTextKey: hintTextKey,
             title: title,
             hintText: hintText,
-            validator: validator,
-            inputConfig: inputConfig);
+            validator: validator);
 
   @override
   _VerifyAttributeFieldState createState() => _VerifyAttributeFieldState();
 }
 
-class _VerifyAttributeFieldState extends _VerifyUserFormFieldState<Enum>
+class _VerifyAttributeFieldState
+    extends _VerifyUserFormFieldState<UsernameAttribute>
     with AuthenticatorRadioField {
+  List<InputSelection> _inputSelections = [];
+
   @override
-  Enum? get initialValue {
-    // return viewModel.getAttribute(widget.field.toCognitoAttribute());
-    return VerifiedAttributes.email;
+  void didChangeDependencies() {
+    final _authState = InheritedAuthBloc.of(context).currentState;
+    _inputSelections = [];
+    if (_authState is VerifyUserFlow) {
+      final List<String> _unverifiedKeys = _authState.unverifiedAttributeKeys;
+      for (var key in _unverifiedKeys) {
+        switch (key) {
+          case 'email':
+            _inputSelections.add(InputSelection<UsernameAttribute>(
+                label: InputResolverKey.usernameTypeEmail,
+                value: UsernameAttribute.email));
+            break;
+          case 'phone_number':
+            _inputSelections.add(InputSelection<UsernameAttribute>(
+                label: InputResolverKey.usernameTypePhoneNumber,
+                value: UsernameAttribute.phoneNumber));
+            break;
+        }
+      }
+    }
+    super.didChangeDependencies();
   }
 
   @override
-  ValueChanged<Enum> get onChanged {
+  UsernameAttribute? get initialValue {
+    return UsernameAttribute.email;
+  }
+
+  @override
+  ValueChanged<UsernameAttribute> get onChanged {
     return viewModel.setAttributeKeyToVerify;
   }
 
   @override
-  Widget buildForm(BuildContext context) {
-    // TODO: implement buildForm
-    throw UnimplementedError();
+  List<InputSelection> get selections {
+    return _inputSelections;
   }
+
+  @override
+  UsernameAttribute? selectionValue = UsernameAttribute.email;
 }

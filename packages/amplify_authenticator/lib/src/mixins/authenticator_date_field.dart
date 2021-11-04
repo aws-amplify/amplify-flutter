@@ -1,14 +1,25 @@
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
+import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
 mixin AuthenticatorDateField<FieldType,
         T extends AuthenticatorFormField<FieldType, String, T>>
     on AuthenticatorFormFieldState<FieldType, String, T> {
   String _convertToDateString(DateTime dt) {
-    return "${dt.year.toString()}-${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')}";
+    return formatter.format(dt);
+  }
+
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    _controller = TextEditingController(text: '');
+    super.initState();
   }
 
   @override
@@ -18,18 +29,15 @@ mixin AuthenticatorDateField<FieldType,
         ? inputResolver.resolve(context, widget.hintTextKey!)
         : widget.hintText!;
 
-    final TextEditingController _controller =
-        TextEditingController(text: initialValue);
-    void _pickTime() {
-      showDatePicker(
-              context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime(DateTime.now().year - 110),
-              lastDate: DateTime.now())
-          .then((d) {
-        _controller.value = TextEditingValue(text: _convertToDateString(d!));
-        onChanged!(_controller.text);
-      });
+    DateTime now = DateTime.now();
+    Future<void> _pickTime() async {
+      final date = await showDatePicker(
+          context: context,
+          initialDate: now,
+          firstDate: DateTime(DateTime.now().year - 110),
+          lastDate: now);
+      _controller.text = _convertToDateString(date!);
+      onChanged?.call(_controller.text);
     }
 
     return Row(children: [
@@ -42,7 +50,6 @@ mixin AuthenticatorDateField<FieldType,
       ),
       Expanded(
           child: TextFormField(
-        inputFormatters: [LengthLimitingTextInputFormatter(10)],
         style: enabled
             ? null
             : const TextStyle(
@@ -63,7 +70,6 @@ mixin AuthenticatorDateField<FieldType,
           border: const OutlineInputBorder(),
         ),
         keyboardType: TextInputType.datetime,
-        obscureText: obscureText,
         controller: _controller,
       ))
     ]);

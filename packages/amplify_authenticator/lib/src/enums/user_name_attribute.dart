@@ -14,3 +14,16 @@
  */
 
 enum UsernameAttribute { email, phoneNumber }
+
+extension UsernameAttributeX on UsernameAttribute {
+  /// Gets a string representation of [UsernameAttribute] formmatted for
+  /// Cognito's attribute verification API
+  String get verifiedAttributeFormatString {
+    switch (this) {
+      case UsernameAttribute.email:
+        return 'email';
+      case UsernameAttribute.phoneNumber:
+        return 'phone_number';
+    }
+  }
+}

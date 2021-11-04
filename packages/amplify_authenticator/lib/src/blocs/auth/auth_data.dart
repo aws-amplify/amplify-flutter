@@ -123,7 +123,7 @@ class AuthVerifyUserData {
     required this.userAttributeKey,
   });
 
-  final Enum userAttributeKey;
+  final UsernameAttribute userAttributeKey;
 }
 
 class AuthConfirmVerifyUserData {

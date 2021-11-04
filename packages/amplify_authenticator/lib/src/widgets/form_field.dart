@@ -17,9 +17,9 @@ library authenticator.form_field;
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/enums/verified_attributes.dart';
 import 'package:amplify_authenticator/src/enums/verify_attribute_field_types.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_date_field.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +38,7 @@ import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_authenticator/src/widgets/field_config.dart';
+import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_flutter/src/config/auth/aws_cognito_username_attributes.dart';
 
 import 'package:flutter/services.dart';
@@ -72,7 +72,6 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
     this.hintTextKey,
     this.title,
     this.hintText,
-    this.inputconfig,
     FormFieldValidator<FieldValue>? validator,
   })  : assert(
           titleKey != null || title != null,
@@ -96,8 +95,6 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
   /// The field this form field controls.
   final FieldType field;
 
-  final AuthenticatorInputConfig? inputconfig;
-
   /// Override of default validator.
   final FormFieldValidator<FieldValue>? validatorOverride;
 
@@ -109,8 +106,6 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
     properties.add(EnumProperty('hintTextKey', hintTextKey));
     properties.add(StringProperty('title', title));
     properties.add(StringProperty('hintText', hintText));
-    properties.add(DiagnosticsProperty<AuthenticatorInputConfig?>(
-        'inputconfig', inputconfig));
     properties.add(ObjectFlagProperty<FormFieldValidator<FieldValue>?>.has(
         'validatorOverride', validatorOverride));
   }
@@ -157,7 +152,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   bool get obscureText => false;
 
   /// The keyboard type to use when this field is focused.
-  TextInputType? get keyboardType => TextInputType.text;
+  TextInputType get keyboardType => TextInputType.text;
 
   /// The initial value to show in the field.
   FieldValue? get initialValue => null;
@@ -173,9 +168,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
 
   /// Maximum number of lines to use for error text.
   int get errorMaxLines => 1;
-
-  /// Value used by stateful widgets which require state for selected values
-  FieldValue? selectionValue;
 
   Widget buildFormField(BuildContext context);
 
@@ -214,7 +206,5 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         'validator', validator));
     properties
         .add(DiagnosticsProperty<FieldValue?>('initialValue', initialValue));
-    properties.add(
-        DiagnosticsProperty<FieldValue?>('selectionValue', selectionValue));
   }
 }

@@ -144,9 +144,6 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
         field: SignInField.verificationCode,
         validator: validator,
       );
-
-  // @override
-  // _SignInFormFieldState createState() => _SignInFormFieldState();
 }
 
 abstract class _SignInFormFieldState<FieldValue>
@@ -196,21 +193,15 @@ abstract class _SignInFormFieldState<FieldValue>
   Widget? get companionWidget {
     switch (widget.field) {
       case SignInField.password:
-        return ResetPasswordButton();
+        return const ResetPasswordButton();
       default:
         return null;
     }
   }
-
-  @override
-  Widget buildForm(BuildContext context) {
-    // TODO: implement buildForm
-    throw UnimplementedError();
-  }
 }
 
 class _SignInTextField extends SignInFormField<String> {
-  _SignInTextField({
+  const _SignInTextField({
     Key? key,
     required SignInField field,
     InputResolverKey? titleKey,
@@ -302,11 +293,5 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
       case SignInField.verificationCode:
         return validateCode;
     }
-  }
-
-  @override
-  Widget buildForm(BuildContext context) {
-    // TODO: implement buildForm
-    throw UnimplementedError();
   }
 }

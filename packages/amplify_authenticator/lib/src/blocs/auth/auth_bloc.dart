@@ -338,9 +338,10 @@ class StateMachineBloc {
   Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
     try {
       await _authService.resendUserAttributeConfirmationCode(
-        userAttributeKey: describeEnum(data.userAttributeKey),
+        userAttributeKey: data.userAttributeKey.verifiedAttributeFormatString,
       );
-      yield AttributeVerificationSent(describeEnum(data.userAttributeKey));
+      yield AttributeVerificationSent(
+          data.userAttributeKey.verifiedAttributeFormatString);
     } on Exception catch (e) {
       if (e is AmplifyException) {
         print(e);

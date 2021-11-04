@@ -1,28 +1,31 @@
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
+import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 
 import 'package:flutter/material.dart';
 
 mixin AuthenticatorPhoneField<FieldType,
         T extends AuthenticatorFormField<FieldType, String, T>>
-    on AuthenticatorFormFieldState<FieldType, String, T> {
+    on AuthenticatorFormFieldState<FieldType, String, T>
+    implements SelectableConfig<String> {
+  static late List<int> countryCodeStrings = countryCodes
+      .map((Country country) {
+        return int.parse(country.value);
+      })
+      .toSet()
+      .toList();
+
   @override
   void initState() {
     selectionValue = '1';
+    countryCodeStrings.sort();
     super.initState();
   }
 
   @override
   Widget buildFormField(BuildContext context) {
     final inputResolver = stringResolver.inputs;
-    List<int> countryCodeStrings = countryCodes
-        .map((Country country) {
-          return int.parse(country.value);
-        })
-        .toSet()
-        .toList();
-    countryCodeStrings.sort();
 
     final hintText = widget.hintText == null
         ? inputResolver.resolve(context, widget.hintTextKey!)
@@ -54,7 +57,7 @@ mixin AuthenticatorPhoneField<FieldType,
         enabled: enabled,
         validator: validator,
         onChanged: (phoneValue) {
-          onChanged!('+$selectionValue$phoneValue');
+          onChanged?.call('+$selectionValue$phoneValue');
         },
         decoration: InputDecoration(
           suffixIcon: suffixIcon,

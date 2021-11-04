@@ -252,10 +252,4 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
         return null;
     }
   }
-
-  @override
-  Widget buildForm(BuildContext context) {
-    // TODO: implement buildForm
-    throw UnimplementedError();
-  }
 }

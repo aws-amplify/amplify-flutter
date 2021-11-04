@@ -17,18 +17,13 @@ library authenticator.form;
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/enums/user_name_attribute.dart';
-import 'package:amplify_authenticator/src/enums/verified_attributes.dart';
-import 'package:amplify_authenticator/src/enums/verify_attribute_field_types.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/checkbox.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_authenticator/src/widgets/field_config.dart';
-import 'package:amplify_authenticator/src/widgets/form_field.dart';
-import 'package:amplify_authenticator/src/widgets/form_field.dart';
+import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/oauth/social_button.dart';
 import 'package:amplify_flutter/src/config/auth/aws_cognito_social_providers.dart';
@@ -67,8 +62,7 @@ abstract class AuthenticatorForm<T extends AuthenticatorForm<T>>
   List<AuthenticatorFormField> runtimeFields(BuildContext context) => const [];
 
   /// Additional actions defined at runtime.
-  List<AuthenticatorComponent> additionalActions(BuildContext context) =>
-      const [];
+  List<AuthenticatorComponent> runtimeActions(BuildContext context) => const [];
 }
 
 class AuthenticatorFormState<T extends AuthenticatorForm<T>>
@@ -96,7 +90,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
 
   @override
   Widget build(BuildContext context) {
-    final additionalActions = widget.additionalActions(context);
+    final runtimeActions = widget.runtimeActions(context);
     return Form(
       key: viewModel.formKey,
       child: Column(
@@ -106,9 +100,9 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
           Column(
             children: [
               ...widget.actions,
-              if (additionalActions.isNotEmpty) ...[
+              if (runtimeActions.isNotEmpty) ...[
                 const Divider(),
-                ...additionalActions,
+                ...runtimeActions,
               ]
             ].spacedBy(const SizedBox(height: 10)),
           ),
@@ -132,17 +126,17 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
 /// {@endtemplate}
 class SignUpForm extends AuthenticatorForm<SignUpForm> {
   /// {@macro authenticator.sign_up_form}
-  SignUpForm({Key? key, bool attributesFromConfig = true})
+  SignUpForm({Key? key, bool useAttributesFromConfig = true})
       : this.custom(
             key: key,
             fields: const [],
-            attributesFromConfig: attributesFromConfig);
+            useAttributesFromConfig: useAttributesFromConfig);
 
   /// A custom Sign Up form.
   SignUpForm.custom(
       {Key? key,
-      required List<AuthenticatorFormField> fields,
-      this.attributesFromConfig = true})
+      required List<SignUpFormField> fields,
+      this.useAttributesFromConfig = true})
       : super._(
           key: key,
           fields: fields,
@@ -153,11 +147,11 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
         );
 
   /// Whether to include the attributes specified by your Amplify configuration.
-  final bool attributesFromConfig;
+  final bool useAttributesFromConfig;
 
   @override
-  List<AuthenticatorFormField> runtimeFields(BuildContext context) {
-    if (!attributesFromConfig) {
+  List<SignUpFormField> runtimeFields(BuildContext context) {
+    if (!useAttributesFromConfig || fields.isNotEmpty) {
       return const [];
     }
 
@@ -171,7 +165,7 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
       return const [];
     }
 
-    List<AuthenticatorFormField> signUpFields = [];
+    List<SignUpFormField> signUpFields = [];
 
     final usernameAttributes = InheritedConfig.of(context)
             .amplifyConfig
@@ -250,7 +244,7 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<bool>(
-        'attributesFromConfig', attributesFromConfig));
+        'useAttributesFromConfig', useAttributesFromConfig));
   }
 }
 
@@ -276,7 +270,7 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
   /// A custom Sign In form.
   const SignInForm.custom({
     Key? key,
-    required List<AuthenticatorFormField> fields,
+    required List<SignInFormField> fields,
     this.includeDefaultSocialProviders = true,
   }) : super._(
           key: key,
@@ -291,7 +285,7 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
   final bool includeDefaultSocialProviders;
 
   @override
-  List<AuthenticatorButton> additionalActions(BuildContext context) {
+  List<AuthenticatorButton> runtimeActions(BuildContext context) {
     if (!includeDefaultSocialProviders) {
       return const [];
     }
@@ -355,7 +349,7 @@ class ConfirmSignUpForm extends AuthenticatorForm<ConfirmSignUpForm> {
   /// A custom Confirm Sign Up form.
   const ConfirmSignUpForm.custom({
     Key? key,
-    required List<AuthenticatorFormField> fields,
+    required List<ConfirmSignUpFormField> fields,
     this.resendCodeButton,
   }) : super._(
           key: key,
@@ -430,7 +424,7 @@ class ConfirmSignInNewPasswordForm
   /// A custom Confirm Sign In with New Password form.
   const ConfirmSignInNewPasswordForm.custom({
     Key? key,
-    required List<AuthenticatorFormField> fields,
+    required List<ConfirmSignInFormField> fields,
   }) : super._(
           key: key,
           fields: fields,
@@ -464,7 +458,7 @@ class SendCodeForm extends AuthenticatorForm<SendCodeForm> {
   /// A custom Send Coded form.
   const SendCodeForm.custom({
     Key? key,
-    required List<AuthenticatorFormField> fields,
+    required List<SignInFormField> fields,
   }) : super._(
           key: key,
           fields: fields,
@@ -499,7 +493,7 @@ class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
   /// A custom Reset Password form.
   const ResetPasswordForm.custom({
     Key? key,
-    required List<AuthenticatorFormField> fields,
+    required List<SignInFormField> fields,
   }) : super._(
           key: key,
           fields: fields,
@@ -533,36 +527,9 @@ class VerifyUserForm extends AuthenticatorForm<VerifyUserForm> {
           ],
         );
 
-  List<String> _unverifiedAttributeKeys(BuildContext context) {
-    final authState = InheritedAuthBloc.of(context).currentState;
-    if (authState is! VerifyUserFlow) {
-      return const [];
-    }
-    return authState.unverifiedAttributeKeys;
-  }
-
   @override
   List<AuthenticatorFormField> runtimeFields(BuildContext context) {
-    List<InputSelection> inputSelections = [];
-    _unverifiedAttributeKeys(context).forEach((key) {
-      switch (key) {
-        case 'email':
-          inputSelections.add(InputSelection<Enum>(
-              label: InputResolverKey.usernameTypeEmail,
-              value: VerifiedAttributes.email));
-          break;
-        case 'phone_number':
-          inputSelections.add(InputSelection<Enum>(
-              label: InputResolverKey.usernameTypePhoneNumber,
-              value: VerifiedAttributes.phone_number));
-          break;
-      }
-    });
-
-    return _unverifiedAttributeKeys(context).map((attributeKey) {
-      return VerifyUserFormField.verifyAttribute(
-          unverifiedSelections: inputSelections);
-    }).toList();
+    return [VerifyUserFormField.verifyAttribute()];
   }
 
   @override

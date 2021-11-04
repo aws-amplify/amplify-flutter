@@ -242,10 +242,4 @@ class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
         return validateCode;
     }
   }
-
-  @override
-  Widget buildForm(BuildContext context) {
-    // TODO: implement buildForm
-    throw UnimplementedError();
-  }
 }

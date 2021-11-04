@@ -114,11 +114,11 @@ class AuthViewModel extends ChangeNotifier {
   bool _rememberDevice = false;
   bool get rememberDevice => _rememberDevice;
 
-  Enum _attributeKeyToVerify = UsernameAttribute.email;
-  Enum get attributeKeyToVerify => _attributeKeyToVerify;
+  UsernameAttribute _attributeKeyToVerify = UsernameAttribute.email;
+  UsernameAttribute get attributeKeyToVerify => _attributeKeyToVerify;
 
-  Enum _selectedUsername = UsernameAttribute.email;
-  Enum get selectedUsername => _selectedUsername;
+  UsernameAttribute? _selectedUsername;
+  UsernameAttribute? get selectedUsername => _selectedUsername;
 
   void _setAttribute(String attribute, String value) {
     _authAttributes[attribute] = value.trim();
@@ -204,11 +204,11 @@ class AuthViewModel extends ChangeNotifier {
     _rememberDevice = value;
   }
 
-  void setSelectedUsername(Enum value) {
+  void setSelectedUsername(UsernameAttribute value) {
     _selectedUsername = value;
   }
 
-  void setAttributeKeyToVerify(Enum attributeKey) {
+  void setAttributeKeyToVerify(UsernameAttribute attributeKey) {
     _attributeKeyToVerify = attributeKey;
   }
 
@@ -317,7 +317,7 @@ class AuthViewModel extends ChangeNotifier {
         username = _authAttributes['email']!;
         break;
       case UsernameAttribute.phoneNumber:
-        username = _authAttributes['phoneNumber']!;
+        username = _authAttributes['phone_number']!;
         break;
       default:
         username = _username;
@@ -414,7 +414,7 @@ class AuthViewModel extends ChangeNotifier {
     _confirmationCode = '';
     _newUsername = '';
     _newPassword = '';
-    _selectedUsername = UsernameAttribute.email;
+    _selectedUsername = null;
     _authAttributes.clear();
     _formKey = GlobalKey<FormState>();
   }

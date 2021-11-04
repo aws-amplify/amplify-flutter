@@ -94,6 +94,10 @@ const keyUpdatedAtConfirmSignInFormField =
 const keyWebsiteConfirmSignInFormField = Key('websiteConfirmSignInFormField');
 const keyCustomConfirmSignInFormField = Key('customConfirmSignInFormField');
 
+// Attribute Verification keys
+const keyUnverifiedAttributes = Key('unverifiedAttributeFormField');
+const keyAttributeToVerify = Key('attributeToVerifyFormField');
+
 // Buttons keys
 
 const keySignUpButton = Key('signUpButton');

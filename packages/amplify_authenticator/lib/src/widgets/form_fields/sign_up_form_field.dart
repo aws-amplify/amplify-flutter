@@ -19,6 +19,7 @@ part of authenticator.form_field;
 /// A form field component on the Sign Up screen.
 /// {@endtemplate}
 ///   /// Creates a extends component.
+
 abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     SignUpField, FieldValue, SignUpFormField<FieldValue>> {
   /// {@macro authenticator.sign_up_form_field}
@@ -32,7 +33,6 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
       String? title,
       String? hintText,
       FormFieldValidator<FieldValue>? validator,
-      AuthenticatorInputConfig? inputConfig,
       String? customAttributeKey})
       : _customAttributeKey = customAttributeKey,
         super._(
@@ -41,7 +41,6 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
             titleKey: titleKey,
             hintTextKey: hintTextKey,
             title: title,
-            inputconfig: inputConfig,
             hintText: hintText,
             validator: validator);
 
@@ -231,14 +230,6 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
           key: key ?? keySelectedUsernameSignUpFormField,
           titleKey: InputResolverKey.usernameType,
           field: SignUpField.selectedUsername,
-          inputConfig: AuthenticatorInputConfig(selections: [
-            InputSelection<Enum>(
-                label: InputResolverKey.usernameTypeEmail,
-                value: UsernameAttribute.email),
-            InputSelection<Enum>(
-                label: InputResolverKey.usernameTypePhoneNumber,
-                value: UsernameAttribute.phoneNumber)
-          ]),
           validator: validator);
 
   /// Creates a custom attribute component.
@@ -279,10 +270,8 @@ abstract class _SignUpFormFieldState<FieldValue>
   }
 
   @override
-  TextInputType? get keyboardType {
+  TextInputType get keyboardType {
     switch (widget.field) {
-      case SignUpField.username:
-        return TextInputType.text;
       case SignUpField.password:
       case SignUpField.passwordConfirmation:
         return TextInputType.visiblePassword;
@@ -294,17 +283,8 @@ abstract class _SignUpFormFieldState<FieldValue>
         return TextInputType.name;
       case SignUpField.phoneNumber:
         return TextInputType.phone;
-      case SignUpField.birthdate:
-      case SignUpField.familyName:
-      case SignUpField.gender:
-      case SignUpField.givenName:
-      case SignUpField.middleName:
-      case SignUpField.nickname:
-      case SignUpField.preferredUsername:
-      case SignUpField.custom:
+      default:
         return TextInputType.text;
-      case SignUpField.selectedUsername:
-        return null;
     }
   }
 
@@ -331,7 +311,7 @@ abstract class _SignUpFormFieldState<FieldValue>
 }
 
 class _SignUpTextField extends SignUpFormField<String> {
-  _SignUpTextField({
+  const _SignUpTextField({
     Key? key,
     required SignUpField field,
     InputResolverKey? titleKey,
@@ -510,16 +490,10 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
         return null;
     }
   }
-
-  @override
-  Widget buildForm(BuildContext context) {
-    // TODO: implement buildForm
-    throw UnimplementedError();
-  }
 }
 
 class _SignUpPhoneField extends SignUpFormField<String> {
-  _SignUpPhoneField({
+  const _SignUpPhoneField({
     Key? key,
     required SignUpField field,
     InputResolverKey? titleKey,
@@ -560,14 +534,14 @@ class _SignUpPhoneFieldState extends _SignUpFormFieldState<String>
   }
 
   @override
-  Widget buildForm(BuildContext context) {
-    // TODO: implement buildForm
-    throw UnimplementedError();
-  }
+  String? selectionValue;
+
+  @override
+  List<InputSelection> get selections => throw UnimplementedError();
 }
 
 class _SignUpDateField extends SignUpFormField<String> {
-  _SignUpDateField({
+  const _SignUpDateField({
     Key? key,
     required SignUpField field,
     InputResolverKey? titleKey,
@@ -610,27 +584,18 @@ class _SignUpDateFieldState extends _SignUpFormFieldState<String>
         InputResolverKey.birthdateEmpty,
       ),
     );
-    ;
-  }
-
-  @override
-  Widget buildForm(BuildContext context) {
-    // TODO: implement buildForm
-    throw UnimplementedError();
   }
 }
 
-class _SignUpRadioField extends SignUpFormField<Enum> {
-  _SignUpRadioField({
+class _SignUpRadioField extends SignUpFormField<UsernameAttribute> {
+  const _SignUpRadioField({
     Key? key,
     required SignUpField field,
     InputResolverKey? titleKey,
     InputResolverKey? hintTextKey,
     String? title,
     String? hintText,
-    String? attributeKey,
-    FormFieldValidator<Enum>? validator,
-    AuthenticatorInputConfig? inputConfig,
+    FormFieldValidator<UsernameAttribute>? validator,
   }) : super._(
             key: key,
             field: field,
@@ -638,30 +603,36 @@ class _SignUpRadioField extends SignUpFormField<Enum> {
             hintTextKey: hintTextKey,
             title: title,
             hintText: hintText,
-            validator: validator,
-            inputConfig: inputConfig,
-            customAttributeKey: attributeKey);
+            validator: validator);
 
   @override
   _SignUpRadioFieldState createState() => _SignUpRadioFieldState();
 }
 
-class _SignUpRadioFieldState extends _SignUpFormFieldState<Enum>
+class _SignUpRadioFieldState extends _SignUpFormFieldState<UsernameAttribute>
     with AuthenticatorRadioField {
   @override
-  Enum? get initialValue {
-    // return viewModel.getAttribute(widget.field.toCognitoAttribute());
+  UsernameAttribute? get initialValue {
     return UsernameAttribute.email;
   }
 
   @override
-  ValueChanged<Enum> get onChanged {
+  ValueChanged<UsernameAttribute> get onChanged {
     return viewModel.setSelectedUsername;
   }
 
   @override
-  Widget buildForm(BuildContext context) {
-    // TODO: implement buildForm
-    throw UnimplementedError();
+  List<InputSelection> get selections {
+    return [
+      InputSelection<UsernameAttribute>(
+          label: InputResolverKey.usernameTypeEmail,
+          value: UsernameAttribute.email),
+      InputSelection<UsernameAttribute>(
+          label: InputResolverKey.usernameTypePhoneNumber,
+          value: UsernameAttribute.phoneNumber)
+    ];
   }
+
+  @override
+  UsernameAttribute? selectionValue = UsernameAttribute.email;
 }
