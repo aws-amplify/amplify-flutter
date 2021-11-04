@@ -14,6 +14,8 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/src/enums/signup_types.dart';
+import 'package:amplify_authenticator/src/enums/user_name_attribute.dart';
 
 abstract class AuthSignInData {
   const AuthSignInData();
@@ -121,7 +123,7 @@ class AuthVerifyUserData {
     required this.userAttributeKey,
   });
 
-  final String userAttributeKey;
+  final UsernameAttribute userAttributeKey;
 }
 
 class AuthConfirmVerifyUserData {

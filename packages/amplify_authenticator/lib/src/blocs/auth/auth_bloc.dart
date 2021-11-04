@@ -266,6 +266,7 @@ class StateMachineBloc {
     try {
       var unverifiedAttributeKeys =
           await _authService.getUnverifiedAttributeKeys();
+
       if (unverifiedAttributeKeys.isNotEmpty) {
         yield VerifyUserFlow(unverifiedAttributeKeys: unverifiedAttributeKeys);
       } else {
@@ -337,9 +338,10 @@ class StateMachineBloc {
   Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
     try {
       await _authService.resendUserAttributeConfirmationCode(
-        userAttributeKey: data.userAttributeKey,
+        userAttributeKey: data.userAttributeKey.verifiedAttributeFormatString,
       );
-      yield AttributeVerificationSent(data.userAttributeKey);
+      yield AttributeVerificationSent(
+          data.userAttributeKey.verifiedAttributeFormatString);
     } on Exception catch (e) {
       if (e is AmplifyException) {
         print(e);

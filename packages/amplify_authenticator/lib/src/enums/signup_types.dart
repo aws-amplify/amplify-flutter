@@ -32,6 +32,7 @@ enum SignUpField {
   phoneNumber,
   // picture,
   preferredUsername,
+  selectedUsername,
   // profile,
   // zoneinfo,
   // updatedAt,
