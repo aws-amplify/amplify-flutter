@@ -160,6 +160,13 @@ void main() {
           'isArray': false,
           'isReadOnly': false
         },
+        'likeCount': {
+          'name': 'likeCount',
+          'type': {'fieldType': 'int'},
+          'isRequired': false,
+          'isArray': false,
+          'isReadOnly': false
+        },
         'blog': {
           'name': 'blog',
           'type': {'fieldType': 'model', 'ofModelName': 'Blog'},

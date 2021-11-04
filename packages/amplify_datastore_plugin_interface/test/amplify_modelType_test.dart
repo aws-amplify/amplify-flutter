@@ -41,6 +41,7 @@ void main() {
         "title": null,
         "rating": null,
         "created": null,
+        "likeCount": null,
         "blog": null,
         "comments": null,
         'createdAt': null,
