@@ -13,20 +13,31 @@
 * permissions and limitations under the License.
 */
 
+// ignore_for_file: public_member_api_docs
+
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-// ignore_for_file: public_member_api_docs
-
-import 'ModelProvider.dart';
-
 /** This is an auto generated class representing the Person type in your schema. */
 @immutable
-class Person {
+class Person extends Model {
+  static const classType = const _PersonModelType();
+  final String id;
   final String? _name;
   final List<Address>? _propertiesAddresses;
   final Contact? _contact;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
+
+  @override
+  getInstanceType() => classType;
+
+  @override
+  String getId() {
+    return id;
+  }
 
   String get name {
     try {
@@ -58,16 +69,34 @@ class Person {
     }
   }
 
-  const Person._internal({required name, propertiesAddresses, required contact})
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const Person._internal(
+      {required this.id,
+      required name,
+      propertiesAddresses,
+      required contact,
+      createdAt,
+      updatedAt})
       : _name = name,
         _propertiesAddresses = propertiesAddresses,
-        _contact = contact;
+        _contact = contact,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory Person(
-      {required String name,
+      {String? id,
+      required String name,
       List<Address>? propertiesAddresses,
       required Contact contact}) {
     return Person._internal(
+        id: id == null ? UUID.getUUID() : id,
         name: name,
         propertiesAddresses: propertiesAddresses != null
             ? List<Address>.unmodifiable(propertiesAddresses)
@@ -83,6 +112,7 @@ class Person {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Person &&
+        id == other.id &&
         _name == other._name &&
         DeepCollectionEquality()
             .equals(_propertiesAddresses, other._propertiesAddresses) &&
@@ -97,29 +127,40 @@ class Person {
     var buffer = new StringBuffer();
 
     buffer.write("Person {");
+    buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("propertiesAddresses=" +
         (_propertiesAddresses != null
             ? _propertiesAddresses!.toString()
             : "null") +
         ", ");
-    buffer
-        .write("contact=" + (_contact != null ? _contact!.toString() : "null"));
+    buffer.write(
+        "contact=" + (_contact != null ? _contact!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   Person copyWith(
-      {String? name, List<Address>? propertiesAddresses, Contact? contact}) {
+      {String? id,
+      String? name,
+      List<Address>? propertiesAddresses,
+      Contact? contact}) {
     return Person._internal(
+        id: id ?? this.id,
         name: name ?? this.name,
         propertiesAddresses: propertiesAddresses ?? this.propertiesAddresses,
         contact: contact ?? this.contact);
   }
 
   Person.fromJson(Map<String, dynamic> json)
-      : _name = json['name'],
+      : id = json['id'],
+        _name = json['name'],
         _propertiesAddresses = json['propertiesAddresses'] is List
             ? (json['propertiesAddresses'] as List)
                 .where((e) => e != null)
@@ -130,22 +171,38 @@ class Person {
         _contact = json['contact']?['serializedData'] != null
             ? Contact.fromJson(new Map<String, dynamic>.from(
                 json['contact']['serializedData']))
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
+        'id': id,
         'name': _name,
         'propertiesAddresses':
             _propertiesAddresses?.map((Address? e) => e?.toJson()).toList(),
-        'contact': _contact?.toJson()
+        'contact': _contact?.toJson(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
       };
 
+  static final QueryField ID = QueryField(fieldName: "person.id");
+  static final QueryField NAME = QueryField(fieldName: "name");
+  static final QueryField PROPERTIESADDRESSES =
+      QueryField(fieldName: "propertiesAddresses");
+  static final QueryField CONTACT = QueryField(fieldName: "contact");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Person";
     modelSchemaDefinition.pluralName = "People";
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'name',
+    modelSchemaDefinition.addField(ModelFieldDefinition.id());
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Person.NAME,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
@@ -161,5 +218,26 @@ class Person {
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.embedded,
             ofCustomTypeName: 'Contact')));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
+}
+
+class _PersonModelType extends ModelType<Person> {
+  const _PersonModelType();
+
+  @override
+  Person fromJson(Map<String, dynamic> jsonData) {
+    return Person.fromJson(jsonData);
+  }
 }
