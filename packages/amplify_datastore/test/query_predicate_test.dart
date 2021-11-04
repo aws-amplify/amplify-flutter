@@ -143,27 +143,27 @@ void main() {
       rating: 1000,
     );
 
-    test('equals', () async {
+    test('equals', () {
       QueryPredicate testPredicate = Post.LIKECOUNT.eq(1);
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isFalse);
       expect(testPredicate.evaluate(post4), isFalse);
     });
-    test('not equals', () async {
+    test('not equals', () {
       QueryPredicate testPredicate = Post.LIKECOUNT.ne(1);
       expect(testPredicate.evaluate(post1), isFalse);
       expect(testPredicate.evaluate(post2), isTrue);
       expect(testPredicate.evaluate(post4), isTrue);
     });
 
-    test('less than', () async {
+    test('less than', () {
       QueryPredicate testPredicate = Post.LIKECOUNT.lt(5);
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isFalse);
       expect(testPredicate.evaluate(post4), isFalse);
     });
 
-    test('less than or equal', () async {
+    test('less than or equal', () {
       QueryPredicate testPredicate = Post.LIKECOUNT.le(10);
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isTrue);
@@ -171,14 +171,14 @@ void main() {
       expect(testPredicate.evaluate(post4), isFalse);
     });
 
-    test('greater than', () async {
+    test('greater than', () {
       QueryPredicate testPredicate = Post.LIKECOUNT.gt(5);
       expect(testPredicate.evaluate(post1), isFalse);
       expect(testPredicate.evaluate(post2), isTrue);
       expect(testPredicate.evaluate(post4), isFalse);
     });
 
-    test('greater than or equal', () async {
+    test('greater than or equal', () {
       QueryPredicate testPredicate = Post.LIKECOUNT.ge(10);
       expect(testPredicate.evaluate(post1), isFalse);
       expect(testPredicate.evaluate(post2), isTrue);
@@ -186,7 +186,7 @@ void main() {
       expect(testPredicate.evaluate(post4), isFalse);
     });
 
-    test('between', () async {
+    test('between', () {
       QueryPredicate testPredicate = Post.LIKECOUNT.between(5, 100);
       expect(testPredicate.evaluate(post1), isFalse);
       expect(testPredicate.evaluate(post2), isTrue);
@@ -194,26 +194,26 @@ void main() {
       expect(testPredicate.evaluate(post4), isFalse);
     });
 
-    test('contains', () async {
+    test('contains', () {
       QueryPredicate testPredicate = Post.TITLE.contains("one");
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isFalse);
     });
 
-    test('beginsWith', () async {
+    test('beginsWith', () {
       QueryPredicate testPredicate = Post.TITLE.beginsWith("post o");
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isFalse);
     });
 
-    test('and', () async {
+    test('and', () {
       QueryPredicate testPredicate =
           Post.TITLE.contains("post") & Post.RATING.lt(10);
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isFalse);
     });
 
-    test('or', () async {
+    test('or', () {
       QueryPredicate testPredicate =
           Post.TITLE.contains("two") | Post.RATING.lt(10);
       expect(testPredicate.evaluate(post1), isTrue);
@@ -221,10 +221,18 @@ void main() {
       expect(testPredicate.evaluate(post3), isFalse);
     });
 
-    test('not', () async {
+    test('not', () {
       QueryPredicate testPredicate = not(Post.RATING.lt(5));
       expect(testPredicate.evaluate(post1), isFalse);
       expect(testPredicate.evaluate(post2), isTrue);
+    });
+
+    test('Temporal type', () {
+      QueryPredicate testPredicate = Post.CREATED.lt(TemporalDateTime(
+        DateTime(2020, 01, 01, 12, 00),
+      ));
+      expect(testPredicate.evaluate(post1), isTrue);
+      expect(testPredicate.evaluate(post2), isFalse);
     });
   });
 }
