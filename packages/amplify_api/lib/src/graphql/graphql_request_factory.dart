@@ -306,14 +306,13 @@ class GraphQLRequestFactory {
       belongsToValue = modelJson[belongsToModelName]?[idFieldName];
     }
 
-    // Remove any relational fields with null values.
-    // Non-null values left in place to avoid secret deletion and let AppSync throw.
+    // Remove any relational fields.
     Set<String> associationFields = schema.fields!.entries
         .where((entry) => entry.value.association != null)
         .map((entry) => entry.key)
         .toSet();
-    modelJson.removeWhere((key, dynamic value) =>
-        associationFields.contains(key) && (value == null));
+    modelJson
+        .removeWhere((key, dynamic value) => associationFields.contains(key));
     // Assign the parent ID if the model has a parent.
     // belongsToValue intentionally not null checked here to allow AppSync to throw.
     if (belongsToKey != null && belongsToModelName != null) {
