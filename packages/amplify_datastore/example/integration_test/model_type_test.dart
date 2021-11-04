@@ -168,9 +168,7 @@ void main() {
         DateTime(2020, 01, 01, 00, 00, 00),
         DateTime(2020, 01, 01, 23, 59, 59),
         DateTime(2999, 12, 31, 23, 59, 59),
-        // TemporalDateTime values with milliseconds & microseconds are not parsed correctly on Android
-        // see: https://github.com/aws-amplify/amplify-flutter/issues/817
-        // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
+        DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
           .map((value) => DateTimeTypeModel(value: TemporalDateTime(value)))
@@ -212,9 +210,7 @@ void main() {
         DateTime(2020, 01, 01, 00, 00, 00),
         DateTime(2020, 01, 01, 23, 59, 59),
         DateTime(2999, 12, 31, 23, 59, 59),
-        // TemporalTime values with milliseconds & microseconds are not parsed correctly on Android
-        // see: https://github.com/aws-amplify/amplify-flutter/issues/817
-        // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
+        DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
           .map((value) => TimeTypeModel(value: TemporalTime(value)))

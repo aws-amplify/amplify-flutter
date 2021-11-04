@@ -128,9 +128,9 @@ void main() {
     Duration duration = Duration(hours: 3, minutes: 25, seconds: 55);
 
     expect(time.getOffset(), duration);
-    expect(
-        time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30, 25, 0, 99));
-    expect(time.format(), "1995-05-03T03:30:25.000099999+03:25:55");
+    expect(time.getDateTimeInUtc(),
+        DateTime.utc(1995, 05, 03, 03, 30, 25, 999, 990));
+    expect(time.format(), "1995-05-03T03:30:25.999990000+03:25:55");
   });
 
   test('AWSDateTime from offset with single digit duration', () async {
