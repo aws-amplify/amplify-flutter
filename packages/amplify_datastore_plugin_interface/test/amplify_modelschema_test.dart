@@ -239,7 +239,19 @@ void main() {
           isRequired: false,
           isArray: true,
           type: ModelFieldType(ModelFieldTypeEnum.embeddedCollection,
-              ofCustomTypeName: 'Address'))
+              ofCustomTypeName: 'Address')),
+      'createdAt': ModelField(
+          name: 'createdAt',
+          isRequired: false,
+          isArray: false,
+          isReadOnly: true,
+          type: ModelFieldType(ModelFieldTypeEnum.dateTime)),
+      'updatedAt': ModelField(
+          name: 'updatedAt',
+          isRequired: false,
+          isArray: false,
+          isReadOnly: true,
+          type: ModelFieldType(ModelFieldTypeEnum.dateTime))
     };
     final personSchema = Person.schema;
     expect(personSchema.name, 'Person');
