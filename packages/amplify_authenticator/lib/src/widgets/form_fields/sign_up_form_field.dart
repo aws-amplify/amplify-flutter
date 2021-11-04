@@ -359,14 +359,14 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
       case SignUpField.gender:
       case SignUpField.givenName:
       case SignUpField.middleName:
-      case SignUpField.phoneNumber:
       case SignUpField.name:
       case SignUpField.nickname:
       case SignUpField.preferredUsername:
-      case SignUpField.selectedUsername:
         return viewModel.getAttribute(widget.field.toCognitoAttribute());
       case SignUpField.custom:
         return viewModel.getAttribute(widget._customAttributeKey!);
+      default:
+        return null;
     }
   }
 
