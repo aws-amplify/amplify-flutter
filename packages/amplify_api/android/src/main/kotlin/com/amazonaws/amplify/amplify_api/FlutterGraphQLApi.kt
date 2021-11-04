@@ -28,6 +28,8 @@ import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import io.flutter.plugin.common.MethodChannel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class FlutterGraphQLApi {
     companion object {
@@ -56,8 +58,6 @@ class FlutterGraphQLApi {
                 return
             }
 
-            val operation: GraphQLOperation<String>?
-
             val responseCallback = Consumer<GraphQLResponse<String>> { response ->
                 if (cancelToken.isNotEmpty()) OperationsManager.removeOperation(cancelToken)
 
@@ -81,33 +81,37 @@ class FlutterGraphQLApi {
                 }
             }
 
-            if (apiName != null) {
-                operation = Amplify.API.query(
-                    apiName,
-                    SimpleGraphQLRequest<String>(
-                        document,
-                        variables,
-                        String::class.java,
-                        GsonVariablesSerializer()
-                    ),
-                    responseCallback,
-                    errorCallback
-                )
-            } else {
-                operation = Amplify.API.query(
-                    SimpleGraphQLRequest<String>(
-                        document,
-                        variables,
-                        String::class.java,
-                        GsonVariablesSerializer()
-                    ),
-                    responseCallback,
-                    errorCallback
-                )
-            }
+            GlobalScope.launch {
+                val operation: GraphQLOperation<String>?
 
-            if (operation != null) {
-                OperationsManager.addOperation(cancelToken, operation)
+                if (apiName != null) {
+                    operation = Amplify.API.query(
+                        apiName,
+                        SimpleGraphQLRequest<String>(
+                            document,
+                            variables,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                        ),
+                        responseCallback,
+                        errorCallback
+                    )
+                } else {
+                    operation = Amplify.API.query(
+                        SimpleGraphQLRequest<String>(
+                            document,
+                            variables,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                        ),
+                        responseCallback,
+                        errorCallback
+                    )
+                }
+
+                if (operation != null) {
+                    OperationsManager.addOperation(cancelToken, operation)
+                }
             }
         }
 
@@ -132,7 +136,6 @@ class FlutterGraphQLApi {
                 }
                 return
             }
-            val operation: GraphQLOperation<String?>?
 
             val responseCallback = Consumer<GraphQLResponse<String>> { response ->
                 if (cancelToken.isNotEmpty()) OperationsManager.removeOperation(cancelToken)
@@ -157,33 +160,37 @@ class FlutterGraphQLApi {
                 }
             }
 
-            if (apiName != null) {
-                operation = Amplify.API.mutate(
-                    apiName,
-                    SimpleGraphQLRequest<String>(
-                        document,
-                        variables,
-                        String::class.java,
-                        GsonVariablesSerializer()
-                    ),
-                    responseCallback,
-                    errorCallback
-                )
-            } else {
-                operation = Amplify.API.mutate(
-                    SimpleGraphQLRequest<String>(
-                        document,
-                        variables,
-                        String::class.java,
-                        GsonVariablesSerializer()
-                    ),
-                    responseCallback,
-                    errorCallback
-                )
-            }
+            GlobalScope.launch {
+                val operation: GraphQLOperation<String?>?
 
-            if (operation != null) {
-                OperationsManager.addOperation(cancelToken, operation)
+                if (apiName != null) {
+                    operation = Amplify.API.mutate(
+                        apiName,
+                        SimpleGraphQLRequest<String>(
+                            document,
+                            variables,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                        ),
+                        responseCallback,
+                        errorCallback
+                    )
+                } else {
+                    operation = Amplify.API.mutate(
+                        SimpleGraphQLRequest<String>(
+                            document,
+                            variables,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                        ),
+                        responseCallback,
+                        errorCallback
+                    )
+                }
+
+                if (operation != null) {
+                    OperationsManager.addOperation(cancelToken, operation)
+                }
             }
         }
 
@@ -213,7 +220,6 @@ class FlutterGraphQLApi {
                 }
                 return
             }
-            val operation: GraphQLOperation<String?>?
 
             val connectionCallback = Consumer<String> {
                 established = true
@@ -261,36 +267,40 @@ class FlutterGraphQLApi {
                 )
             }
 
-            if (apiName != null) {
-                operation = Amplify.API.subscribe(
-                    apiName,
-                    SimpleGraphQLRequest<String>(
-                        document,
-                        variables,
-                        String::class.java,
-                        GsonVariablesSerializer()
-                    ),
-                    connectionCallback,
-                    responseCallback,
-                    errorCallback,
-                    disconnectionCallback
-                )
-            } else {
-                operation = Amplify.API.subscribe(
-                    SimpleGraphQLRequest<String>(
-                        document,
-                        variables,
-                        String::class.java,
-                        GsonVariablesSerializer()
-                    ),
-                    connectionCallback,
-                    responseCallback,
-                    errorCallback,
-                    disconnectionCallback
-                )
-            }
-            if (operation != null) {
-                OperationsManager.addOperation(id, operation)
+            GlobalScope.launch {
+                val operation: GraphQLOperation<String?>?
+
+                if (apiName != null) {
+                    operation = Amplify.API.subscribe(
+                        apiName,
+                        SimpleGraphQLRequest<String>(
+                            document,
+                            variables,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                        ),
+                        connectionCallback,
+                        responseCallback,
+                        errorCallback,
+                        disconnectionCallback
+                    )
+                } else {
+                    operation = Amplify.API.subscribe(
+                        SimpleGraphQLRequest<String>(
+                            document,
+                            variables,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                        ),
+                        connectionCallback,
+                        responseCallback,
+                        errorCallback,
+                        disconnectionCallback
+                    )
+                }
+                if (operation != null) {
+                    OperationsManager.addOperation(id, operation)
+                }
             }
         }
     }

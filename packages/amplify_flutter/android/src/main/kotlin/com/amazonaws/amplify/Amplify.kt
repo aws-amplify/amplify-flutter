@@ -36,7 +36,11 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import org.json.JSONObject
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 /** Amplify */
@@ -48,7 +52,7 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
 
     override fun onAttachedToEngine(
             @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(),
+        channel = MethodChannel(flutterPluginBinding.binaryMessenger,
                 "com.amazonaws.amplify/amplify")
         channel.setMethodCallHandler(this);
         context = flutterPluginBinding.applicationContext;
@@ -112,21 +116,25 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
 
     private fun onConfigure(@NonNull result: Result, @NonNull version: String,
             @NonNull config: String) {
-        try {
-            val configuration = AmplifyConfiguration.builder(JSONObject(config))
+        GlobalScope.launch {
+            try {
+                val configuration = AmplifyConfiguration.builder(JSONObject(config))
                     .addPlatform(UserAgent.Platform.FLUTTER, version)
                     .devMenuEnabled(false)
                     .build()
-            Amplify.configure(configuration, context)
-            result.success(true);
-        } catch (e: AnalyticsException) {
-            prepareAnalyticsError(result, e);
-        } catch (e: Amplify.AlreadyConfiguredException) {
-            postExceptionToFlutterChannel(result, "AmplifyAlreadyConfiguredException",
+                Amplify.configure(configuration, context)
+                withContext(Dispatchers.Main) {
+                    result.success(true);
+                }
+            } catch (e: AnalyticsException) {
+                prepareAnalyticsError(result, e);
+            } catch (e: Amplify.AlreadyConfiguredException) {
+                postExceptionToFlutterChannel(result, "AmplifyAlreadyConfiguredException",
                     createSerializedError(e))
-        } catch (e: AmplifyException) {
-            postExceptionToFlutterChannel(result, "AmplifyException",
+            } catch (e: AmplifyException) {
+                postExceptionToFlutterChannel(result, "AmplifyException",
                     createSerializedError(e))
+            }
         }
 
     }
