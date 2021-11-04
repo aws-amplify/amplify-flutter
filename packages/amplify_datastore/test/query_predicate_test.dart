@@ -105,6 +105,15 @@ void main() {
       expect(testPredicate.serializeAsMap(),
           await getJsonFromFile('bool_and_double_operands.json'));
     });
+
+    test('when value is a temporal type', () async {
+      QueryPredicate testPredicate = Post.CREATED.eq(
+        TemporalDateTime(DateTime.utc(2020, 01, 01)),
+      );
+
+      expect(testPredicate.serializeAsMap(),
+          await getJsonFromFile('temporal_predicate.json'));
+    });
   });
 
   group('query predicate comparison', () {
