@@ -358,13 +358,11 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
         return viewModel.getAttribute(widget.field.toCognitoAttribute());
       case SignUpField.custom:
         return viewModel.getAttribute(widget._customAttributeKey!);
-      default:
-        return null;
     }
   }
 
   @override
-  ValueChanged<String>? get onChanged {
+  ValueChanged<String> get onChanged {
     switch (widget.field) {
       case SignUpField.username:
         return viewModel.setUsername;
@@ -400,7 +398,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
               value,
             );
       default:
-        return null;
+        return super.onChanged;
     }
   }
 

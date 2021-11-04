@@ -246,7 +246,7 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
   }
 
   @override
-  ValueChanged<String>? get onChanged {
+  ValueChanged<String> get onChanged {
     switch (widget.field) {
       case SignInField.username:
         return viewModel.setUsername;
@@ -263,7 +263,7 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
       case SignInField.newUsername:
         return viewModel.setNewUsername;
       default:
-        return null;
+        return super.onChanged;
     }
   }
 

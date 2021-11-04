@@ -16,7 +16,7 @@ mixin AuthenticatorRadioField<FieldType, FieldValue,
   @override
   Widget buildFormField(BuildContext context) {
     final inputResolver = stringResolver.inputs;
-    onChanged?.call(selectionValue!);
+    onChanged.call(selectionValue!);
     return Column(
       children: <Widget>[
         if (selections.isNotEmpty)
@@ -36,7 +36,7 @@ mixin AuthenticatorRadioField<FieldType, FieldValue,
                   setState(() {
                     selectionValue = value;
                   });
-                  onChanged?.call(selectionValue!);
+                  onChanged.call(selectionValue!);
                 },
                 activeColor: Colors.green,
               ),

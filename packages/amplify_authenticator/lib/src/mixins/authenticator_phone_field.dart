@@ -57,7 +57,7 @@ mixin AuthenticatorPhoneField<FieldType,
         enabled: enabled,
         validator: validator,
         onChanged: (phoneValue) {
-          onChanged?.call('+$selectionValue$phoneValue');
+          onChanged.call('+$selectionValue$phoneValue');
         },
         decoration: InputDecoration(
           suffixIcon: suffixIcon,

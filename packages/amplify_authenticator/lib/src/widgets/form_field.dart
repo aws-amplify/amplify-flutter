@@ -142,7 +142,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   }
 
   /// Callback for when `onChanged` is triggered on the [FormField].
-  ValueChanged<FieldValue>? get onChanged => (_) {};
+  ValueChanged<FieldValue> get onChanged => (_) {};
 
   /// Validates inputs of this form field.
   FormFieldValidator<FieldValue>? get validator => null;

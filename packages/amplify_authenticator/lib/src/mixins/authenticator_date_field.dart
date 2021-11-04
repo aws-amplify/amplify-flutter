@@ -38,7 +38,7 @@ mixin AuthenticatorDateField<FieldType,
           lastDate: now);
       if (date != null) {
         _controller.text = _convertToDateString(date);
-        onChanged?.call(_controller.text);
+        onChanged.call(_controller.text);
       }
     }
 

@@ -117,7 +117,7 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
   }
 
   @override
-  ValueChanged<String>? get onChanged {
+  ValueChanged<String> get onChanged {
     return viewModel.setConfirmationCode;
   }
 
