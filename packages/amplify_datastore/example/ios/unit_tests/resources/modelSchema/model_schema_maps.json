@@ -35,10 +35,28 @@
                     "associatedName": "blog",
                     "associatedType": "Blog"
                 }
+            },
+            "createdAt": {
+                "name": "createdAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
+            },
+            "updatedAt": {
+                "name": "updatedAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
             }
         }
     },
-
+    
     "CommentSchema": {
         "name": "Comment",
         "pluralName": "Comments",
@@ -74,10 +92,28 @@
                 "isRequired": true,
                 "isArray": false,
                 "isReadOnly": false
+            },
+            "createdAt": {
+                "name": "createdAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
+            },
+            "updatedAt": {
+                "name": "updatedAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
             }
         }
     },
-
+    
     "PostSchema": {
         "name": "Post",
         "pluralName": "Posts",
@@ -160,10 +196,28 @@
                     "associationType": "BelongsTo",
                     "targetName": "authorId"
                 }
+            },
+            "createdAt": {
+                "name": "createdAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
+            },
+            "updatedAt": {
+                "name": "updatedAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
             }
         }
     },
-
+    
     "PostAuthComplexSchema": {
         "name": "PostAuthComplex",
         "pluralName": "PostAuthComplexes",
@@ -202,10 +256,28 @@
                 "isRequired": false,
                 "isArray": false,
                 "isReadOnly": false
+            },
+            "createdAt": {
+                "name": "createdAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
+            },
+            "updatedAt": {
+                "name": "updatedAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
             }
         }
     },
-
+    
     "PostAuthComplexWithProviderUserPoolsSchema": {
         "name": "PostAuthComplexWithProviderUserPools",
         "pluralName": "PostAuthComplexWithProviderUserPools",
@@ -225,7 +297,8 @@
                     "fieldType": "string"
                 },
                 "isRequired": true,
-                "isArray": false
+                "isArray": false,
+                "isReadOnly": true
             },
             "owner": {
                 "name": "owner",
@@ -233,11 +306,30 @@
                     "fieldType": "string"
                 },
                 "isRequired": false,
-                "isArray": false
+                "isArray": false,
+                "isReadOnly": true
+            },
+            "createdAt": {
+                "name": "createdAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
+            },
+            "updatedAt": {
+                "name": "updatedAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
             }
         }
     },
-
+    
     "PostAuthComplexWithProviderApiKeySchema": {
         "name": "PostAuthComplexWithProviderApiKey",
         "pluralName": "PostAuthComplexWithProviderApiKeys",
@@ -255,11 +347,30 @@
                     "fieldType": "string"
                 },
                 "isRequired": true,
-                "isArray": false
+                "isArray": false,
+                "isReadOnly": true
+            },
+            "createdAt": {
+                "name": "createdAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
+            },
+            "updatedAt": {
+                "name": "updatedAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
             }
         }
     },
-
+    
     "AllTypeModelSchema": {
         "name": "AllTypeModel",
         "pluralName": "AllTypeModels",
@@ -353,6 +464,24 @@
                 "isRequired": true,
                 "isArray": false,
                 "isReadOnly": false
+            },
+            "createdAt": {
+                "name": "createdAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
+            },
+            "updatedAt": {
+                "name": "updatedAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
             }
         }
     },
@@ -360,45 +489,68 @@
         "pluralName": "People",
         "name": "Person",
         "fields": {
-          "id": {
-            "isRequired": true,
-            "name": "id",
-            "isArray": false,
-            "type": { "fieldType": "string" }
-          },
-          "name": {
-            "isRequired": true,
-            "name": "name",
-            "isArray": false,
-            "type": { "fieldType": "string" }
-          },
-          "contact": {
-            "isRequired": true,
-            "name": "contact",
-            "isArray": false,
-            "type": {
-              "ofCustomTypeName": "Contact",
-              "fieldType": "embedded"
+            "id": {
+                "isRequired": true,
+                "name": "id",
+                "isArray": false,
+                "type": { "fieldType": "string" },
+                "isReadOnly": false
+            },
+            "name": {
+                "isRequired": true,
+                "name": "name",
+                "isArray": false,
+                "type": { "fieldType": "string" },
+                "isReadOnly": false
+            },
+            "contact": {
+                "isRequired": true,
+                "name": "contact",
+                "isArray": false,
+                "type": {
+                    "ofCustomTypeName": "Contact",
+                    "fieldType": "embedded"
+                },
+                "isReadOnly": false
+            },
+            "propertiesAddresses": {
+                "isRequired": false,
+                "name": "propertiesAddresses",
+                "isArray": true,
+                "type": {
+                    "ofCustomTypeName": "Address",
+                    "fieldType": "embeddedCollection"
+                },
+                "isReadOnly": false
+            },
+            "anotherCustomTypeTree": {
+                "isRequired": false,
+                "name": "anotherCustomTypeTree",
+                "isArray": false,
+                "type": {
+                    "ofCustomTypeName": "CustomA",
+                    "fieldType": "embedded"
+                },
+                "isReadOnly": false
+            },
+            "createdAt": {
+                "name": "createdAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
+            },
+            "updatedAt": {
+                "name": "updatedAt",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": false,
+                "isArray": false,
+                "isReadOnly": true
             }
-          },
-          "propertiesAddresses": {
-            "isRequired": false,
-            "name": "propertiesAddresses",
-            "isArray": true,
-            "type": {
-              "ofCustomTypeName": "Address",
-              "fieldType": "embeddedCollection"
-            }
-          },
-          "anotherCustomTypeTree": {
-            "isRequired": false,
-            "name": "anotherCustomTypeTree",
-            "isArray": false,
-            "type": {
-              "ofCustomTypeName": "CustomA",
-              "fieldType": "embedded"
-            }
-          }
         }
-      }
+    }
 }

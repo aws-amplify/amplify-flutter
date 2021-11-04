@@ -18,7 +18,7 @@ import Amplify
 @testable import amplify_datastore
 
 struct SchemaData {
-
+    
     static var PostSchema: ModelSchema = ModelSchema(
         name: "Post",
         pluralName: "Posts",
@@ -29,32 +29,37 @@ struct SchemaData {
             "rating": ModelField(name: "rating", type: .int, isRequired: false, isArray: false),
             "blog": ModelField(name: "blog", type: .model(name: "Blog"), isRequired: false, isArray: false, association: ModelAssociation.belongsTo(targetName: "blogID")),
             "comments": ModelField(name: "comments", type: .collection(of: "Comment"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "post")),
-            "author": ModelField(name: "author", type: .model(name: "Author"), isRequired: true, isArray: false, association: ModelAssociation.belongsTo(targetName: "authorId"))
+            "author": ModelField(name: "author", type: .model(name: "Author"), isRequired: true, isArray: false, association: ModelAssociation.belongsTo(targetName: "authorId")),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var CommentSchema: ModelSchema = ModelSchema(
         name: "Comment",
         pluralName: "Comments",
         fields: [
             "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "post": ModelField(name: "post", type: .model(name: "Post"), isRequired: false, isArray: true, association: ModelAssociation.belongsTo(targetName: "postID")),
-            "content": ModelField(name: "content", type: .string, isRequired: true, isArray: false)
+            "content": ModelField(name: "content", type: .string, isRequired: true, isArray: false),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
-
+    
+    
     static var BlogSchema: ModelSchema = ModelSchema(
         name: "Blog",
         pluralName: "Blogs",
         fields: [
             "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "name": ModelField(name: "name", type: .string, isRequired: true, isArray: false),
-            "posts": ModelField(name: "posts", type: .collection(of: "Post"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "blog")
-            )
+            "posts": ModelField(name: "posts", type: .collection(of: "Post"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "blog")),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var PostAuthComplexSchema: ModelSchema = ModelSchema(
         name: "PostAuthComplex",
         pluralName: "PostAuthComplexes",
@@ -72,9 +77,11 @@ struct SchemaData {
             "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "title": ModelField(name: "title", type: .string, isRequired: true, isArray: false),
             "owner": ModelField(name: "owner", type: .string, isRequired: false, isArray: false),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var PostAuthComplexWithProviderUserPoolsSchema: ModelSchema = ModelSchema(
         name: "PostAuthComplexWithProviderUserPools",
         pluralName: "PostAuthComplexWithProviderUserPools",
@@ -92,9 +99,11 @@ struct SchemaData {
         fields: [
             "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "owner": ModelField(name: "owner", type: .string, isRequired: false, isArray: false),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var PostAuthComplexWithProviderApiKeySchema: ModelSchema = ModelSchema(
         name: "PostAuthComplexWithProviderApiKey",
         pluralName: "PostAuthComplexWithProviderApiKeys",
@@ -109,9 +118,11 @@ struct SchemaData {
         ],
         fields: [
             "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var AllTypeModelSchema: ModelSchema = ModelSchema(
         name: "AllTypeModel",
         pluralName: "AllTypeModels",
@@ -126,9 +137,11 @@ struct SchemaData {
             "timeType": ModelField(name: "timeType", type: .time, isRequired: true, isArray: false),
             "timestampType": ModelField(name: "timestampType", type: .timestamp, isRequired: true, isArray: false),
             "enumType": ModelField(name: "enumType", type: .string, isRequired: true, isArray: false),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var AuthorModelSchema: ModelSchema = ModelSchema(
         name: "Author",
         pluralName: "Authors",
@@ -136,9 +149,11 @@ struct SchemaData {
             "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "name": ModelField(name: "name", type: .string, isRequired: true, isArray: false),
             "department": ModelField(name: "department", type: .model(name: "Department"), isRequired: true, isArray: false, association: ModelAssociation.belongsTo(targetName: "departmentId")),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var DepartmentSchema: ModelSchema = ModelSchema(
         name: "Department",
         pluralName: "Departments",
@@ -146,9 +161,11 @@ struct SchemaData {
             "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "name": ModelField(name: "name", type: .string, isRequired: true, isArray: false),
             "description": ModelField(name: "description", type: .string, isRequired: true, isArray: false),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var AddressSchema: ModelSchema = ModelSchema(
         name: "Address",
         pluralName: "Addresses",
@@ -158,9 +175,11 @@ struct SchemaData {
             "city": ModelField(name: "city", type: .string, isRequired: true, isArray: false),
             "state": ModelField(name: "state", type: .string, isRequired: true, isArray: false),
             "postalCode": ModelField(name: "postalCode", type: .string, isRequired: true, isArray: false),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var PhoneSchema: ModelSchema = ModelSchema(
         name: "Phone",
         pluralName: "Phones",
@@ -168,9 +187,11 @@ struct SchemaData {
             "country": ModelField(name: "country", type: .string, isRequired: true, isArray: false),
             "area": ModelField(name: "area", type: .string, isRequired: true, isArray: false),
             "number": ModelField(name: "number", type: .string, isRequired: true, isArray: false),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var ContactSchema: ModelSchema = ModelSchema(
         name: "Contact",
         pluralName: "Contacts",
@@ -181,27 +202,33 @@ struct SchemaData {
                 name: "mailingAddresses",
                 type: .embeddedCollection(of: JSONValue.self, schema: SchemaData.AddressSchema),
                 isArray: true
-            )
+            ),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var CustomBSchema: ModelSchema = ModelSchema(
         name: "CustomB",
         pluralName: "CustomBs",
         fields: [
-            "field": ModelField(name: "field", type: .string, isRequired: true, isArray: false)
+            "field": ModelField(name: "field", type: .string, isRequired: true, isArray: false),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var CustomASchema: ModelSchema = ModelSchema(
         name: "CustomA",
         pluralName: "CustomAs",
         fields: [
             "field1": ModelField(name: "field1", type: .string, isRequired: true, isArray: false),
-            "field2": ModelField(name: "field2", type: .embedded(type: JSONValue.self, schema: SchemaData.CustomBSchema), isRequired: true)
+            "field2": ModelField(name: "field2", type: .embedded(type: JSONValue.self, schema: SchemaData.CustomBSchema), isRequired: true),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var PersonSchema: ModelSchema = ModelSchema(
         name: "Person",
         pluralName: "People",
@@ -214,10 +241,12 @@ struct SchemaData {
                 type: .embeddedCollection(of: JSONValue.self, schema: SchemaData.AddressSchema),
                 isArray: true
             ),
-            "anotherCustomTypeTree": ModelField(name: "anotherCustomTypeTree", type: .embedded(type: JSONValue.self, schema: SchemaData.CustomASchema))
+            "anotherCustomTypeTree": ModelField(name: "anotherCustomTypeTree", type: .embedded(type: JSONValue.self, schema: SchemaData.CustomASchema)),
+            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
+            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-
+    
     static var modelSchemas: [String: ModelSchema] {
         return [
             PostSchema.name: PostSchema,
@@ -230,7 +259,7 @@ struct SchemaData {
             PersonSchema.name: PersonSchema
         ]
     }
-
+    
     static var customTypeSchemas: [String: ModelSchema] {
         return [
             AddressSchema.name: AddressSchema,
@@ -240,24 +269,24 @@ struct SchemaData {
             CustomASchema.name: CustomASchema
         ]
     }
-
+    
     static var modelSchemaRegistry: FlutterSchemaRegistry {
         let modelSchemaRegistry = FlutterSchemaRegistry()
-
+        
         for (key, value) in SchemaData.modelSchemas {
             modelSchemaRegistry.addModelSchema(modelName: key, modelSchema: value)
         }
-
+        
         return modelSchemaRegistry
     }
-
+    
     static var customTypeSchemaRegistry: FlutterSchemaRegistry {
         let customTypeSchemaRegistry = FlutterSchemaRegistry()
-
+        
         for (key, customTypeSchema) in SchemaData.customTypeSchemas {
             customTypeSchemaRegistry.addModelSchema(modelName: key, modelSchema: customTypeSchema)
         }
-
+        
         return customTypeSchemaRegistry
     }
 }
