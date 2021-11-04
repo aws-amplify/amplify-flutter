@@ -57,6 +57,11 @@ abstract class QueryFieldOperator<T> {
   dynamic serializeDynamicValue(dynamic value) {
     // DateTime is deprecated and will be removed in the next major version
     if (value is DateTime) {
+      if (kDebugMode) {
+        print(
+          'WARNING: Using DateTime types in a QueryPredicate is deprecated. Use a Temporal Date/Time Type instead.',
+        );
+      }
       return value.toDateTimeIso8601String();
     } else if (value is TemporalDate) {
       return value.format();
