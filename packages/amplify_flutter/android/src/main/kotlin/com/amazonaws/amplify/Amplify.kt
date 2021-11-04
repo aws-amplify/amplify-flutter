@@ -36,19 +36,19 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.*
 import org.json.JSONObject
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 /** Amplify */
-class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
+class Amplify(
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+) : FlutterPlugin, ActivityAware, MethodCallHandler {
 
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
     private var mainActivity: Activity? = null
+    private val coroutineScope = CoroutineScope(CoroutineName("AmplifyFlutterPlugin"))
 
     override fun onAttachedToEngine(
             @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -116,7 +116,7 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
 
     private fun onConfigure(@NonNull result: Result, @NonNull version: String,
             @NonNull config: String) {
-        GlobalScope.launch {
+        coroutineScope.launch(dispatcher) {
             try {
                 val configuration = AmplifyConfiguration.builder(JSONObject(config))
                     .addPlatform(UserAgent.Platform.FLUTTER, version)
