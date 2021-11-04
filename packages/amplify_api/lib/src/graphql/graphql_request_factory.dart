@@ -179,8 +179,7 @@ class GraphQLRequestFactory {
       Model? model,
       required GraphQLRequestType requestType,
       required GraphQLRequestOperation requestOperation,
-      required Map<String, dynamic> variables,
-      int depth = 0}) {
+      required Map<String, dynamic> variables}) {
     // retrieve schema from ModelType and validate required properties
     ModelSchema schema = _getAndValidateSchema(modelType, requestOperation);
 
