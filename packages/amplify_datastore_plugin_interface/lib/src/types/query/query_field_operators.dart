@@ -55,7 +55,10 @@ abstract class QueryFieldOperator<T> {
 
   /// check the type of [value] and invoke corresponding serialize method
   dynamic serializeDynamicValue(dynamic value) {
-    if (value is TemporalDate) {
+    // DateTime is deprecated and will be removed in the next major version
+    if (value is DateTime) {
+      return value.toDateTimeIso8601String();
+    } else if (value is TemporalDate) {
       return value.format();
     } else if (value is TemporalDateTime) {
       return value.format();
