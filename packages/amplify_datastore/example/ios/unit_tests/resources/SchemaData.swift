@@ -175,8 +175,6 @@ struct SchemaData {
             "city": ModelField(name: "city", type: .string, isRequired: true, isArray: false),
             "state": ModelField(name: "state", type: .string, isRequired: true, isArray: false),
             "postalCode": ModelField(name: "postalCode", type: .string, isRequired: true, isArray: false),
-            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
     
@@ -187,8 +185,6 @@ struct SchemaData {
             "country": ModelField(name: "country", type: .string, isRequired: true, isArray: false),
             "area": ModelField(name: "area", type: .string, isRequired: true, isArray: false),
             "number": ModelField(name: "number", type: .string, isRequired: true, isArray: false),
-            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
     
@@ -203,8 +199,6 @@ struct SchemaData {
                 type: .embeddedCollection(of: JSONValue.self, schema: SchemaData.AddressSchema),
                 isArray: true
             ),
-            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
     
@@ -213,8 +207,6 @@ struct SchemaData {
         pluralName: "CustomBs",
         fields: [
             "field": ModelField(name: "field", type: .string, isRequired: true, isArray: false),
-            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
     
@@ -224,8 +216,6 @@ struct SchemaData {
         fields: [
             "field1": ModelField(name: "field1", type: .string, isRequired: true, isArray: false),
             "field2": ModelField(name: "field2", type: .embedded(type: JSONValue.self, schema: SchemaData.CustomBSchema), isRequired: true),
-            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
     
@@ -242,8 +232,6 @@ struct SchemaData {
                 isArray: true
             ),
             "anotherCustomTypeTree": ModelField(name: "anotherCustomTypeTree", type: .embedded(type: JSONValue.self, schema: SchemaData.CustomASchema)),
-            "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-            "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
     

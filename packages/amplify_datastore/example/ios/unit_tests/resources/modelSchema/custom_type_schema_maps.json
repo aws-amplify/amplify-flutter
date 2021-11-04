@@ -48,24 +48,6 @@
                 },
                 "isReadOnly": false
             },
-            "createdAt": {
-                "name": "createdAt",
-                "type": {
-                    "fieldType": "dateTime"
-                },
-                "isRequired": false,
-                "isArray": false,
-                "isReadOnly": true
-            },
-            "updatedAt": {
-                "name": "updatedAt",
-                "type": {
-                    "fieldType": "dateTime"
-                },
-                "isRequired": false,
-                "isArray": false,
-                "isReadOnly": true
-            }
         }
     },
     "PhoneSchema": {
@@ -99,24 +81,6 @@
                 },
                 "isReadOnly": false
             },
-            "createdAt": {
-                "name": "createdAt",
-                "type": {
-                    "fieldType": "dateTime"
-                },
-                "isRequired": false,
-                "isArray": false,
-                "isReadOnly": true
-            },
-            "updatedAt": {
-                "name": "updatedAt",
-                "type": {
-                    "fieldType": "dateTime"
-                },
-                "isRequired": false,
-                "isArray": false,
-                "isReadOnly": true
-            }
         }
     },
     "ContactSchema": {
@@ -152,24 +116,6 @@
                 },
                 "isReadOnly": false
             },
-            "createdAt": {
-                "name": "createdAt",
-                "type": {
-                    "fieldType": "dateTime"
-                },
-                "isRequired": false,
-                "isArray": false,
-                "isReadOnly": true
-            },
-            "updatedAt": {
-                "name": "updatedAt",
-                "type": {
-                    "fieldType": "dateTime"
-                },
-                "isRequired": false,
-                "isArray": false,
-                "isReadOnly": true
-            }
         }
     },
     "CustomASchema": {
@@ -195,24 +141,6 @@
                 },
                 "isReadOnly": false
             },
-            "createdAt": {
-                "name": "createdAt",
-                "type": {
-                    "fieldType": "dateTime"
-                },
-                "isRequired": false,
-                "isArray": false,
-                "isReadOnly": true
-            },
-            "updatedAt": {
-                "name": "updatedAt",
-                "type": {
-                    "fieldType": "dateTime"
-                },
-                "isRequired": false,
-                "isArray": false,
-                "isReadOnly": true
-            }
         }
     },
     "CustomBSchema": {
@@ -228,24 +156,6 @@
                 },
                 "isReadOnly": false
             },
-            "createdAt": {
-                "name": "createdAt",
-                "type": {
-                    "fieldType": "dateTime"
-                },
-                "isRequired": false,
-                "isArray": false,
-                "isReadOnly": true
-            },
-            "updatedAt": {
-                "name": "updatedAt",
-                "type": {
-                    "fieldType": "dateTime"
-                },
-                "isRequired": false,
-                "isArray": false,
-                "isReadOnly": true
-            }
         }
     }
 }
