@@ -9,7 +9,7 @@ mixin AuthenticatorPhoneField<FieldType,
         T extends AuthenticatorFormField<FieldType, String, T>>
     on AuthenticatorFormFieldState<FieldType, String, T>
     implements SelectableConfig<String> {
-  static late List<int> countryCodeStrings = countryCodes
+  static late final List<int> countryCodeStrings = countryCodes
       .map((Country country) {
         return int.parse(country.value);
       })
@@ -18,9 +18,9 @@ mixin AuthenticatorPhoneField<FieldType,
 
   @override
   void initState() {
+    super.initState();
     selectionValue = '1';
     countryCodeStrings.sort();
-    super.initState();
   }
 
   @override

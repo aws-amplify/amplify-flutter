@@ -154,6 +154,8 @@ class _VerifyUserRadioField extends VerifyUserFormField<UsernameAttribute> {
   _VerifyAttributeFieldState createState() => _VerifyAttributeFieldState();
 }
 
+UsernameAttribute _default = UsernameAttribute.email;
+
 class _VerifyAttributeFieldState
     extends _VerifyUserFormFieldState<UsernameAttribute>
     with AuthenticatorRadioField {
@@ -168,16 +170,17 @@ class _VerifyAttributeFieldState
       for (var key in _unverifiedKeys) {
         switch (key) {
           case 'email':
-            _inputSelections.add(InputSelection<UsernameAttribute>(
+            _inputSelections.add(const InputSelection<UsernameAttribute>(
                 label: InputResolverKey.emailTitle,
                 value: UsernameAttribute.email));
             break;
           case 'phone_number':
-            _inputSelections.add(InputSelection<UsernameAttribute>(
+            _inputSelections.add(const InputSelection<UsernameAttribute>(
                 label: InputResolverKey.phoneNumberTitle,
                 value: UsernameAttribute.phoneNumber));
             break;
         }
+        _default = _inputSelections[0].value;
       }
     }
     super.didChangeDependencies();
@@ -199,5 +202,5 @@ class _VerifyAttributeFieldState
   }
 
   @override
-  UsernameAttribute? selectionValue = UsernameAttribute.email;
+  UsernameAttribute? selectionValue = _default;
 }

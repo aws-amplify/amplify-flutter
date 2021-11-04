@@ -624,9 +624,9 @@ class _SignUpRadioFieldState extends _SignUpFormFieldState<UsernameAttribute>
   @override
   List<InputSelection> get selections {
     return [
-      InputSelection<UsernameAttribute>(
+      const InputSelection<UsernameAttribute>(
           label: InputResolverKey.emailTitle, value: UsernameAttribute.email),
-      InputSelection<UsernameAttribute>(
+      const InputSelection<UsernameAttribute>(
           label: InputResolverKey.phoneNumberTitle,
           value: UsernameAttribute.phoneNumber)
     ];

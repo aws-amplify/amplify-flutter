@@ -416,7 +416,6 @@ class AuthViewModel extends ChangeNotifier {
     _newPassword = '';
     _selectedUsername = null;
     _authAttributes.clear();
-    _formKey = GlobalKey<FormState>();
   }
 
   void resetFormKey() {

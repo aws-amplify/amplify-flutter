@@ -126,17 +126,10 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
 /// {@endtemplate}
 class SignUpForm extends AuthenticatorForm<SignUpForm> {
   /// {@macro authenticator.sign_up_form}
-  SignUpForm({Key? key, bool useAttributesFromConfig = true})
-      : this.custom(
-            key: key,
-            fields: const [],
-            useAttributesFromConfig: useAttributesFromConfig);
+  const SignUpForm({Key? key}) : this.custom(key: key, fields: const []);
 
   /// A custom Sign Up form.
-  SignUpForm.custom(
-      {Key? key,
-      required List<SignUpFormField> fields,
-      this.useAttributesFromConfig = true})
+  const SignUpForm.custom({Key? key, required List<SignUpFormField> fields})
       : super._(
           key: key,
           fields: fields,
@@ -146,12 +139,9 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
           ],
         );
 
-  /// Whether to include the attributes specified by your Amplify configuration.
-  final bool useAttributesFromConfig;
-
   @override
   List<SignUpFormField> runtimeFields(BuildContext context) {
-    if (!useAttributesFromConfig || fields.isNotEmpty) {
+    if (fields.isNotEmpty) {
       return const [];
     }
 
@@ -187,6 +177,8 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
         signUpFields.add(SignUpFormField.email());
         signUpFields.add(SignUpFormField.phoneNumber());
         signUpFields.add(SignUpFormField.selectedUserNameType());
+      } else {
+        signUpFields.add(SignUpFormField.username());
       }
     } else {
       signUpFields.add(SignUpFormField.username());
@@ -239,13 +231,6 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
   @override
   AuthenticatorFormState<SignUpForm> createState() =>
       AuthenticatorFormState<SignUpForm>._();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<bool>(
-        'useAttributesFromConfig', useAttributesFromConfig));
-  }
 }
 
 /// {@template authenticator.sign_in_form}

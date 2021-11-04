@@ -5,21 +5,21 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-final DateFormat formatter = DateFormat('yyyy-MM-dd');
-
 mixin AuthenticatorDateField<FieldType,
         T extends AuthenticatorFormField<FieldType, String, T>>
     on AuthenticatorFormFieldState<FieldType, String, T> {
+  static final DateFormat _formatter = DateFormat('yyyy-MM-dd');
+
   String _convertToDateString(DateTime dt) {
-    return formatter.format(dt);
+    return _formatter.format(dt);
   }
 
   late TextEditingController _controller;
 
   @override
   void initState() {
-    _controller = TextEditingController(text: '');
     super.initState();
+    _controller = TextEditingController(text: '');
   }
 
   @override
@@ -36,8 +36,10 @@ mixin AuthenticatorDateField<FieldType,
           initialDate: now,
           firstDate: DateTime(DateTime.now().year - 110),
           lastDate: now);
-      _controller.text = _convertToDateString(date!);
-      onChanged?.call(_controller.text);
+      if (date != null) {
+        _controller.text = _convertToDateString(date);
+        onChanged?.call(_controller.text);
+      }
     }
 
     return Row(children: [

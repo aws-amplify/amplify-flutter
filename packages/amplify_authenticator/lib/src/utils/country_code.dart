@@ -23,7 +23,7 @@ class Country {
 /// List of country information
 /// TODO: use 3rd party package or change this data to allow for default selection
 /// based on device locale
-var countryCodes = const [
+const countryCodes = [
   Country('US', '1', 'USA (+1)'),
   Country('GB', '44', 'UK (+44)'),
   Country('DZ', '213', 'Algeria (+213)'),

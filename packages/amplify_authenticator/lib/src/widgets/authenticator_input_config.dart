@@ -16,9 +16,10 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 
 /// Configuration for defining content of radio and switch types in [AuthenticatorFormField].
-class SelectableConfig<T> {
+abstract class SelectableConfig<T> {
   final List<InputSelection> selections;
   late T? selectionValue;
+
   SelectableConfig({required this.selections});
 }
 
@@ -28,5 +29,5 @@ class InputSelection<T> {
 
   final T value;
 
-  InputSelection({required this.label, required this.value});
+  const InputSelection({required this.label, required this.value});
 }
