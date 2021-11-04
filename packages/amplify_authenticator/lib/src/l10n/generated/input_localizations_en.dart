@@ -130,10 +130,4 @@ class AuthenticatorInputLocalizationsEn
 
   @override
   String get usernameType => 'Select what you want to use as a username';
-
-  @override
-  String get usernameTypeEmail => 'Email';
-
-  @override
-  String get usernameTypePhoneNumber => 'Phone Number';
 }

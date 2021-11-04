@@ -42,9 +42,7 @@ enum InputField {
   // updatedAt,
   // website,
   rememberDevice,
-  usernameType,
-  usernameTypeEmail,
-  usernameTypePhoneNumber
+  usernameType
 }
 
 enum InputResolverKeyType { title, hint, empty, passwordRequirements }
@@ -324,16 +322,6 @@ class InputResolverKey {
     InputResolverKeyType.title,
     field: InputField.usernameType,
   );
-
-  static const usernameTypeEmail = InputResolverKey._(
-    InputResolverKeyType.title,
-    field: InputField.usernameTypeEmail,
-  );
-
-  static const usernameTypePhoneNumber = InputResolverKey._(
-    InputResolverKeyType.title,
-    field: InputField.usernameTypePhoneNumber,
-  );
 }
 
 class InputResolver extends Resolver<InputResolverKey> {
@@ -393,11 +381,6 @@ class InputResolver extends Resolver<InputResolverKey> {
         return AuthenticatorLocalizations.inputsOf(context).rememberDevice;
       case InputField.usernameType:
         return AuthenticatorLocalizations.inputsOf(context).usernameType;
-      case InputField.usernameTypeEmail:
-        return AuthenticatorLocalizations.inputsOf(context).usernameTypeEmail;
-      case InputField.usernameTypePhoneNumber:
-        return AuthenticatorLocalizations.inputsOf(context)
-            .usernameTypePhoneNumber;
     }
   }
 

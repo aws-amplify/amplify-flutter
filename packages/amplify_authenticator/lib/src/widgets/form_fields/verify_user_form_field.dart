@@ -169,12 +169,12 @@ class _VerifyAttributeFieldState
         switch (key) {
           case 'email':
             _inputSelections.add(InputSelection<UsernameAttribute>(
-                label: InputResolverKey.usernameTypeEmail,
+                label: InputResolverKey.emailTitle,
                 value: UsernameAttribute.email));
             break;
           case 'phone_number':
             _inputSelections.add(InputSelection<UsernameAttribute>(
-                label: InputResolverKey.usernameTypePhoneNumber,
+                label: InputResolverKey.phoneNumberTitle,
                 value: UsernameAttribute.phoneNumber));
             break;
         }

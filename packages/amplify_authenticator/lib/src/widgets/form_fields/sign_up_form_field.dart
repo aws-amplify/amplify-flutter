@@ -625,10 +625,9 @@ class _SignUpRadioFieldState extends _SignUpFormFieldState<UsernameAttribute>
   List<InputSelection> get selections {
     return [
       InputSelection<UsernameAttribute>(
-          label: InputResolverKey.usernameTypeEmail,
-          value: UsernameAttribute.email),
+          label: InputResolverKey.emailTitle, value: UsernameAttribute.email),
       InputSelection<UsernameAttribute>(
-          label: InputResolverKey.usernameTypePhoneNumber,
+          label: InputResolverKey.phoneNumberTitle,
           value: UsernameAttribute.phoneNumber)
     ];
   }
