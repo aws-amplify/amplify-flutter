@@ -186,9 +186,7 @@ class Authenticator extends StatefulWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<AuthStringResolver>(
-      'stringResolver',
-      stringResolver,
-    ));
+        'stringResolver', stringResolver));
     properties
         .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
   }
