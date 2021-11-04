@@ -122,7 +122,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_query_malformed_request_error() {
+    fun test_query_malformed_request_error() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
 
         flutterPlugin.onMethodCall(
