@@ -119,8 +119,6 @@ class GraphQLApiUnitTests {
                 "errors" to listOf<String>()
             )
         )
-
-        println("here")
     }
 
     @Test
