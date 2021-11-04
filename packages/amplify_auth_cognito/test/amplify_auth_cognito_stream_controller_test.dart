@@ -133,12 +133,14 @@ void main() {
       },
     );
 
-    StreamSubscription sub = authStreamController.stream.listen((event) {});
+    List<AuthHubEvent> events = [];
+    StreamSubscription sub = authStreamController.stream.listen((event) {
+      events.add(event);
+    });
 
     await Future<void>.delayed(Duration.zero);
     sub.cancel();
-    expect(log.last,
-        'An Unrecognized Auth Hub event has been detected on the event channel.');
+    expect(events, isEmpty);
   }));
 }
 
