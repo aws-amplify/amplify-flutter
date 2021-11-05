@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 
 import 'button_resolver.dart';
 import 'input_resolver.dart';
+import 'message_resolver.dart';
 import 'title_resolver.dart';
 
 export 'button_resolver.dart';
@@ -40,14 +41,19 @@ class AuthStringResolver {
   /// The resolver class for titles
   final TitleResolver titles;
 
+  /// The resolver class for titles
+  final MessageResolver messages;
+
   /// {@macro authenticator.auth_string_resolver}
   const AuthStringResolver({
     ButtonResolver? buttons,
     InputResolver? inputs,
     TitleResolver? titles,
+    MessageResolver? messages,
   })  : titles = titles ?? const TitleResolver(),
         buttons = buttons ?? const ButtonResolver(),
-        inputs = inputs ?? const InputResolver();
+        inputs = inputs ?? const InputResolver(),
+        messages = messages ?? const MessageResolver();
 
   @override
   bool operator ==(Object other) =>
