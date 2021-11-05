@@ -15,22 +15,24 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'user_attribute_key.dart';
+
 /// Encapsulates parameters for a request to confirm a user attribute update
 class ConfirmUserAttributeRequest {
   /// The key of the user attribute to update
-  Object userAttributeKey;
+  final UserAttributeKey userAttributeKey;
 
   /// The confirmation code the user received after starting the user attribute operation
-  String confirmationCode;
+  final String confirmationCode;
 
-  ConfirmUserAttributeRequest({
+  const ConfirmUserAttributeRequest({
     required this.userAttributeKey,
     required this.confirmationCode,
   });
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['userAttributeKey'] = userAttributeKey.toString();
+    pendingRequest['userAttributeKey'] = userAttributeKey.key;
     pendingRequest['confirmationCode'] = confirmationCode;
     return pendingRequest;
   }

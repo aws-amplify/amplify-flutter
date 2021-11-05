@@ -52,7 +52,8 @@ class _UpdateUserAttributesWidgetState
         var attributes = _userAttributeControllers
             .map(
               (controller) => AuthUserAttribute(
-                userAttributeKey: controller.keyController.text,
+                userAttributeKey:
+                    CognitoUserAttributes.parse(controller.keyController.text),
                 value: controller.valueController.text,
               ),
             )

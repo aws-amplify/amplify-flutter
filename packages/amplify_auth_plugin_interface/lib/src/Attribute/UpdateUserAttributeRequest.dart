@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+
 import 'AuthUserAttribute.dart';
 import 'UpdateUserAttributeOptions.dart';
 
@@ -26,7 +28,7 @@ class UpdateUserAttributeRequest {
 
   /// Default constructor
   UpdateUserAttributeRequest({
-    required Object userAttributeKey,
+    required UserAttributeKey userAttributeKey,
     required String value,
     this.options,
   }) : attribute = AuthUserAttribute(

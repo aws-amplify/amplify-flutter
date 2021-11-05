@@ -31,8 +31,7 @@ dynamic getAttributeValueFromList(
   CognitoUserAttributes cognitoAttribute,
 ) {
   return userAttributes
-      .firstWhere(
-          (attribute) => attribute.userAttributeKey == cognitoAttribute.key)
+      .firstWhere((attribute) => attribute.userAttributeKey == cognitoAttribute)
       .value;
 }
 
@@ -110,7 +109,7 @@ void main() {
           (WidgetTester tester) async {
         try {
           await Amplify.Auth.updateUserAttribute(
-            userAttributeKey: 'fake-key-name',
+            userAttributeKey: CognitoUserAttributes.parse('fake-key-name'),
             value: 'mock-value',
           );
         } catch (e) {
@@ -188,7 +187,7 @@ void main() {
               value: updatedName,
             ),
             AuthUserAttribute(
-              userAttributeKey: 'fake-key-name',
+              userAttributeKey: CognitoUserAttributes.parse('fake-key-name'),
               value: 'mock-value',
             ),
           ]);

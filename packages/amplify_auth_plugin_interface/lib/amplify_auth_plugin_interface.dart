@@ -103,7 +103,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('updateUserAttribute() has not been implemented.');
   }
 
-  Future<Map<Object, UpdateUserAttributeResult>> updateUserAttributes(
+  Future<Map<UserAttributeKey, UpdateUserAttributeResult>> updateUserAttributes(
       {required UpdateUserAttributesRequest request}) {
     throw UnimplementedError(
         'updateUserAttributes() has not been implemented.');

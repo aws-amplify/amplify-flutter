@@ -1,3 +1,4 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/foundation.dart';
 
 /// Standard user attributes available for configuring via `Amplify.Auth.signUp`,
@@ -7,10 +8,11 @@ import 'package:flutter/foundation.dart';
 /// More information about these attributes can be found
 /// [here](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html).
 @immutable
-class CognitoUserAttributes {
+class CognitoUserAttributes extends UserAttributeKey {
   const CognitoUserAttributes._(this.key, {this.readOnly = false});
 
   /// The JSON key for this attribute.
+  @override
   final String key;
 
   /// Whether this attribute can only be read from Cognito.
@@ -23,6 +25,7 @@ class CognitoUserAttributes {
 
   /// Parses the given Cognito attribute key.
   factory CognitoUserAttributes.parse(String key) {
+    key = key.toLowerCase();
     return values.firstWhere(
       (attr) => attr.key == key,
       orElse: () => CognitoUserAttributes._(key),
