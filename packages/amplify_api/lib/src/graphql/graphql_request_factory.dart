@@ -15,7 +15,12 @@
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+
+/// `"id"`, the name of the id field in every compatible model/schema.
+/// Eventually needs to be dynamic to accommodate custom primary keys.
+const idFieldName = 'id';
 
 class DocumentInputs {
   // Upper document input: ($id: ID!)
@@ -61,16 +66,32 @@ class GraphQLRequestFactory {
     }
   }
 
-  String _getFieldsFromModelType(
+  String _getFieldsFromModelSchema(
       ModelSchema schema, GraphQLRequestOperation operation) {
-    // schema has been validated & schema.fields is non-nullable
-    String fields = schema.fields!.entries
-        .map((entry) => entry.value.association == null ? entry.key : '')
-        .toList()
-        .join(' ');
+    // Schema has been validated & schema.fields is non-nullable.
+    // Get a list of field names to include in the request body.
+    List<String> _fields = schema.fields!.entries
+        .where((entry) =>
+            // Ignore related fields.
+            entry.value.association == null)
+        .map((entry) => entry.key)
+        .toList(); // e.g. ["id", "name", "createdAt"]
+
+    // For create/update, add the parent ID field name. e.g. "blogID" for a post.
+    if (operation == GraphQLRequestOperation.create ||
+        operation == GraphQLRequestOperation.update) {
+      final belongsToAssociation = _getBelongsToFieldFromModelSchema(schema);
+      String? parentIdFieldName =
+          belongsToAssociation?.value.association?.targetName;
+      if (parentIdFieldName != null) {
+        _fields.add(parentIdFieldName);
+      }
+    }
+
+    String fields = _fields.join(' '); // e.g. "id name createdAt"
 
     if (operation == GraphQLRequestOperation.list) {
-      fields = 'items { $fields } nextToken';
+      return 'items { $fields } nextToken';
     }
 
     return fields;
@@ -172,7 +193,7 @@ class GraphQLRequestFactory {
     DocumentInputs documentInputs =
         _buildDocumentInputs(schema, requestOperation);
     // e.g. "id name createdAt" - fields to retrieve
-    String fields = _getFieldsFromModelType(schema, requestOperation);
+    String fields = _getFieldsFromModelSchema(schema, requestOperation);
     // e.g. "getBlog"
     String requestName = "$requestOperationVal$name";
     // e.g. query getBlog($id: ID!, $content: String) { getBlog(id: $id, content: $content) { id name createdAt } }
@@ -221,7 +242,7 @@ class GraphQLRequestFactory {
     if (queryPredicate is QueryPredicateOperation) {
       // check for the IDs where fieldName set to e.g. "blog.id" and convert to "id"
       final isId = queryPredicate.field == '${schema.name.toLowerCase()}.id';
-      final fieldName = isId ? 'id' : queryPredicate.field;
+      final fieldName = isId ? idFieldName : queryPredicate.field;
 
       return <String, dynamic>{
         fieldName: _queryFieldOperatorToPartialGraphQLFilter(
@@ -260,6 +281,45 @@ class GraphQLRequestFactory {
 
     throw ApiException(
         'Unable to translate the QueryPredicate $queryPredicate to a GraphQL filter.');
+  }
+
+  /// Calls `toJson` on the model and removes key/value pairs that refer to
+  /// children when that field is null. The structure of provisioned AppSync `input` type,
+  /// such as `CreateBlogInput` does not include nested types, so they will get
+  /// an error from AppSync if they are included in mutations.
+  ///
+  /// When the model has a parent via a belongsTo, the id from the parent is added
+  /// as a field similar to "blogID" where the value is `post.blog.id`.
+  Map<String, dynamic> buildInputVariableForMutations(Model model) {
+    ModelSchema schema = _getAndValidateSchema(model.getInstanceType(), null);
+    final modelJson = model.toJson();
+
+    // If the model has a parent in the schema, get the ID of parent and field name.
+    String? belongsToModelName; // e.g. "blog"
+    String? belongsToKey; // e.g. "blogID"
+    String? belongsToValue; // the ID value to use from `post.blog.id`
+    final belongsToAssociation = _getBelongsToFieldFromModelSchema(schema);
+    if (belongsToAssociation != null) {
+      belongsToModelName = belongsToAssociation.key;
+      belongsToKey = belongsToAssociation.value.association?.targetName;
+      belongsToValue = modelJson[belongsToModelName]?[idFieldName];
+    }
+
+    // Remove any relational fields.
+    Set<String> associationFields = schema.fields!.entries
+        .where((entry) => entry.value.association != null)
+        .map((entry) => entry.key)
+        .toSet();
+    modelJson
+        .removeWhere((key, dynamic value) => associationFields.contains(key));
+    // Assign the parent ID if the model has a parent.
+    // belongsToValue intentionally not null checked here to allow AppSync to throw.
+    if (belongsToKey != null && belongsToModelName != null) {
+      modelJson[belongsToKey] = belongsToValue;
+      modelJson.remove(belongsToModelName);
+    }
+
+    return modelJson;
   }
 }
 
@@ -317,4 +377,11 @@ dynamic _getSerializedValue(dynamic value) {
     return _getSerializedValue(TemporalDateTime(value));
   }
   return value;
+}
+
+MapEntry<String, ModelField>? _getBelongsToFieldFromModelSchema(
+    ModelSchema schema) {
+  return schema.fields!.entries.firstWhereOrNull((entry) =>
+      entry.value.association?.associationType ==
+      ModelAssociationEnum.BelongsTo);
 }

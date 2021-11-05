@@ -25,10 +25,13 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 
 import 'resources/Blog.dart';
 import 'resources/ModelProvider.dart';
+import 'resources/Post.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  // Keep track of what is created here so it can be deleted.
   List<Blog> blogCache = [];
+  List<Post> postCache = [];
 
   // utility to query blogs and return length
   group('GraphQL', () {
@@ -41,19 +44,22 @@ void main() {
             createdAt
           }
         }''';
-      var req = GraphQLRequest<String>(
+      final req = GraphQLRequest<String>(
           document: graphQLDocument, variables: <String, String>{'id': id});
-
-      var operation = Amplify.API.mutate(request: req);
-
-      var response = await operation.response;
+      final response = await Amplify.API.mutate(request: req).response;
       Map data = jsonDecode(response.data!);
-
       return true;
     }
 
-    Future<bool> deleteAllBlogs() async {
+    Future<bool> deletePost(String id) async {
+      final req = ModelMutations.deleteById<Post>(Post.classType, id);
+      await Amplify.API.mutate(request: req).response;
+      return true;
+    }
+
+    Future<bool> deleteAllBlogsAndPosts() async {
       await Future.wait(blogCache.map((blog) => deleteBlog(blog.id)));
+      await Future.wait(postCache.map((post) => deletePost(post.id)));
 
       return true;
     }
@@ -80,6 +86,27 @@ void main() {
       return blog;
     }
 
+    Future<Post> addPostAndBlogWithModelHelper(String title, int rating,
+        {bool skipDelete = false}) async {
+      String name = 'Integration Test Blog with a post - create';
+      Blog createdBlog = await addBlog(name);
+
+      Post post = Post(title: title, rating: rating, blog: createdBlog);
+      final createPostReq = ModelMutations.create(post);
+      final createPostRes =
+          await Amplify.API.mutate(request: createPostReq).response;
+      Post? data = createPostRes.data;
+      if (data == null) {
+        throw Exception(
+            'Null response while creating post. Response errors: ${createPostRes.errors}');
+      }
+      if (!skipDelete) postCache.add(data);
+
+      // TEMP, add the blog to the returned post so it can be further mutated.
+      // This is needed until the response returned here also returns the parent.
+      return data.copyWith(blog: createdBlog);
+    }
+
     setUpAll(() async {
       if (!Amplify.isConfigured) {
         await Amplify.addPlugins(
@@ -89,7 +116,7 @@ void main() {
     });
 
     tearDownAll(() async {
-      await deleteAllBlogs();
+      await deleteAllBlogsAndPosts();
     });
 
     testWidgets('should fetch', (WidgetTester tester) async {
@@ -117,11 +144,9 @@ void main() {
       String name = 'Integration Test Blog to fetch';
       Blog blog = await addBlog(name);
 
-      var req = ModelQueries.get(Blog.classType, blog.id);
-      var _r = Amplify.API.query(request: req);
-
-      var res = await _r.response;
-      Blog data = res.data!;
+      final req = ModelQueries.get(Blog.classType, blog.id);
+      final res = await Amplify.API.query(request: req).response;
+      Blog? data = res.data;
 
       expect(data, equals(blog));
     });
@@ -184,17 +209,23 @@ void main() {
       String name = 'Integration Test Blog - create';
       Blog blog = Blog(name: name);
 
-      var req = ModelMutations.create(blog);
+      final req = ModelMutations.create(blog);
+      final res = await Amplify.API.mutate(request: req).response;
+      Blog? data = res.data;
+      if (data != null) blogCache.add(data);
 
-      var _r = Amplify.API.mutate(request: req);
+      expect(data?.name, equals(blog.name));
+      expect(data?.id, equals(blog.id));
+    });
 
-      var res = await _r.response;
-      Blog data = res.data!;
+    testWidgets('should CREATE a post (model with parent) with Model helper',
+        (WidgetTester tester) async {
+      final title = 'Lorem Ipsum Test Post: ${UUID.getUUID()}';
+      const rating = 0;
+      Post data = await addPostAndBlogWithModelHelper(title, rating);
 
-      blogCache.add(data);
-
-      expect(data.name, equals(blog.name));
-      expect(data.id, equals(blog.id));
+      expect(data.title, equals(title));
+      expect(data.rating, equals(rating));
     });
 
     testWidgets('should UPDATE a blog with Model helper',
@@ -208,6 +239,40 @@ void main() {
       final res = await Amplify.API.mutate(request: req).response;
 
       expect(res.data, equals(blog));
+    });
+
+    testWidgets('should UPDATE a post (model with parent) with Model helper',
+        (WidgetTester tester) async {
+      final originalTitle = 'Lorem Ipsum Test Post: ${UUID.getUUID()}';
+      const rating = 0;
+      Post originalPost =
+          await addPostAndBlogWithModelHelper(originalTitle, rating);
+
+      final updatedTitle =
+          'Lorem Ipsum Test Post: (title updated) ${UUID.getUUID()}';
+      Post localUpdatedPost = originalPost.copyWith(title: updatedTitle);
+      final updateReq = ModelMutations.update(localUpdatedPost);
+      final updateRes = await Amplify.API.mutate(request: updateReq).response;
+      Post? mutatedPost = updateRes.data;
+      expect(mutatedPost?.title, equals(updatedTitle));
+    });
+
+    testWidgets(
+        'should get AppSync error when trying to CREATE a post (model with parent) without a parent on the instance',
+        (WidgetTester tester) async {
+      Post post =
+          Post(title: 'Lorem ipsum, fail update', rating: 0, blog: null);
+      final createPostReq = ModelMutations.create(post);
+      final createPostRes =
+          await Amplify.API.mutate(request: createPostReq).response;
+      final createdPost = createPostRes.data;
+      if (createdPost != null) {
+        postCache.add(createdPost);
+        fail('Successfully created a post when request should have failed.');
+      }
+
+      expect(createPostRes.data, isNull);
+      expect(createPostRes.errors, hasLength(1));
     });
 
     testWidgets(
@@ -242,6 +307,19 @@ void main() {
       final checkReq = ModelQueries.get(Blog.classType, blog.id);
       final checkRes = await Amplify.API.query(request: checkReq).response;
       expect(checkRes.data, isNull);
+    });
+
+    testWidgets('should Delete a post (model with parent) with Model helper',
+        (WidgetTester tester) async {
+      final title = 'Lorem Ipsum Test Post: ${UUID.getUUID()}';
+      const rating = 0;
+      Post post =
+          await addPostAndBlogWithModelHelper(title, rating, skipDelete: true);
+
+      final req = ModelMutations.deleteById(Post.classType, post.id);
+      final res = await Amplify.API.mutate(request: req).response;
+      Post? mutatedPost = res.data;
+      expect(mutatedPost?.title, equals(title));
     });
 
     testWidgets(
