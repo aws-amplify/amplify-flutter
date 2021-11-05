@@ -33,6 +33,8 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 /** AmplifyApiPlugin */
 class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
@@ -42,14 +44,20 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var context: Context
     private val graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler
     private val logger = Amplify.Logging.forNamespace("amplify:flutter:api")
+    private var dispatcher: CoroutineDispatcher
 
     constructor() {
         graphqlSubscriptionStreamHandler = GraphQLSubscriptionStreamHandler()
+        dispatcher = Dispatchers.IO
     }
 
     @VisibleForTesting
-    constructor(eventHandler: GraphQLSubscriptionStreamHandler) {
+    constructor(
+        eventHandler: GraphQLSubscriptionStreamHandler,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO
+    ) {
         graphqlSubscriptionStreamHandler = eventHandler
+        this.dispatcher = dispatcher
     }
 
     private val handler = Handler(Looper.getMainLooper())
@@ -98,9 +106,9 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                 "delete" -> FlutterRestApi.delete(result, arguments)
                 "head" -> FlutterRestApi.head(result, arguments)
                 "patch" -> FlutterRestApi.patch(result, arguments)
-                "query" -> FlutterGraphQLApi.query(result, arguments)
-                "mutate" -> FlutterGraphQLApi.mutate(result, arguments)
-                "subscribe" -> FlutterGraphQLApi.subscribe(
+                "query" -> FlutterGraphQLApi(dispatcher).query(result, arguments)
+                "mutate" -> FlutterGraphQLApi(dispatcher).mutate(result, arguments)
+                "subscribe" -> FlutterGraphQLApi(dispatcher).subscribe(
                     result,
                     arguments,
                     graphqlSubscriptionStreamHandler
