@@ -29,7 +29,9 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
   Future _fetchAttributes({bool isRefresh = false}) {
     return Amplify.Auth.fetchUserAttributes().then((attributes) {
       setState(() => _userAttributes = attributes
-        ..sort((a, b) => b.userAttributeKey.compareTo(a.userAttributeKey)));
+        ..sort((a, b) => b.userAttributeKey
+            .toString()
+            .compareTo(a.userAttributeKey.toString())));
       if (isRefresh) {
         _showSuccess('User Attributes Refreshed Successfully');
       }
@@ -91,10 +93,9 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
               child: ListView.builder(
                 itemCount: _userAttributes.length,
                 itemBuilder: (context, index) {
-                  var key = _userAttributes[index].userAttributeKey;
+                  var key = _userAttributes[index].userAttributeKey.toString();
                   var value = _userAttributes[index].value;
-                  var isInt = value is int;
-                  var stringValue = isInt ? value.toString() : value;
+                  var stringValue = value.toString();
                   return ListTile(
                     title: Text(key),
                     subtitle: Text(stringValue),

@@ -43,9 +43,9 @@ class _SignUpViewState extends State<SignUpView> {
       _signUpError = "";
     });
 
-    Map<String, String> userAttributes = {
-      "email": emailController.text,
-      "phone_number": phoneController.text,
+    Map<CognitoUserAttributes, String> userAttributes = {
+      CognitoUserAttributes.email: emailController.text,
+      CognitoUserAttributes.phoneNumber: phoneController.text,
     };
     try {
       SignUpResult res = await Amplify.Auth.signUp(
