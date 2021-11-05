@@ -62,15 +62,13 @@ class CognitoSignUpOptions extends SignUpOptions {
   ///     - Phone number was marked as a required attribute
   ///   - **and** users sign up with a chosen username or email
   CognitoSignUpOptions({
-    Map<Object, String> userAttributes = const {},
+    Map<CognitoUserAttributes, String> userAttributes = const {},
     this.validationData,
     this.clientMetadata,
   }) : super(
           userAttributes: (Map.of(userAttributes)
-                ..removeWhere(
-                  (key, value) => key is CognitoUserAttributes && key.readOnly,
-                ))
-              .map((key, value) => MapEntry(key.toString(), value)),
+                ..removeWhere((key, value) => key.readOnly))
+              .map((key, value) => MapEntry(key.key, value)),
         );
 
   @override

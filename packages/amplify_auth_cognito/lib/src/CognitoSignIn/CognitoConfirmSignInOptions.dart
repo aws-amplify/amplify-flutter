@@ -18,7 +18,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 
 class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
   Map<String, String>? clientMetadata;
-  Map<Object, String>? userAttributes;
+  Map<CognitoUserAttributes, String>? userAttributes;
   CognitoConfirmSignInOptions({this.clientMetadata, this.userAttributes})
       : super();
   Map<String, dynamic> serializeAsMap() {
@@ -28,9 +28,7 @@ class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
     }
     if (this.userAttributes != null) {
       pendingRequest["userAttributes"] = userAttributes
-        ?..removeWhere(
-          (key, value) => key is CognitoUserAttributes && key.readOnly,
-        );
+        ?..removeWhere((key, value) => key.readOnly);
     }
     return pendingRequest;
   }
