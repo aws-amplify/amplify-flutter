@@ -50,7 +50,6 @@ export 'src/types/temporal/temporal_time.dart';
 export 'src/types/temporal/temporal_timestamp.dart';
 
 // Util
-export 'src/util/json.dart';
 export 'src/util/parsers.dart';
 export 'src/util/print.dart';
 export 'src/util/uuid.dart';
