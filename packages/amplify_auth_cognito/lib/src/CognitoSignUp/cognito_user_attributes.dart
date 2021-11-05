@@ -34,8 +34,7 @@ class CognitoUserAttributes {
   /// Read-only: `false`
   static const address = CognitoUserAttributes._('address');
 
-  /// The user's birthday, represented as an ISO 8601:2004 [ISO8601‑2004]
-  /// YYYY-MM-DD format.
+  /// The user's birthday, represented as an ISO 8601 YYYY-MM-DD format.
   ///
   /// Read-only: `false`
   static const birthdate = CognitoUserAttributes._('birthdate');
