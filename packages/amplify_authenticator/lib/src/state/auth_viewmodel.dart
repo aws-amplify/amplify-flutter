@@ -337,15 +337,10 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   Future<void> resendSignUpCode() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-    setBusy(true);
     authBloc.add(AuthResendSignUpCode(_username));
     await _nextBlocEvent(
       where: (state) => state is VerificationCodeSent,
     );
-    setBusy(false);
   }
 
   Future<void> confirmVerifyUser(String userAttributeKey) async {
