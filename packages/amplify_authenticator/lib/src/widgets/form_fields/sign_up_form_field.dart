@@ -542,10 +542,15 @@ class _SignUpPhoneFieldState extends _SignUpFormFieldState<String>
   }
 
   @override
-  String? selectionValue;
+  String? selectionValue = countryCodes.first.value;
 
   @override
-  List<InputSelection> get selections => throw UnimplementedError();
+  List<InputSelection> get selections {
+    return countryCodes
+        .map((Country country) => InputSelection<CountryResolverKey, String>(
+            label: country.key, value: country.value))
+        .toList();
+  }
 }
 
 class _SignUpDateField extends SignUpFormField<String> {
@@ -634,14 +639,11 @@ class _SignUpRadioFieldState extends _SignUpFormFieldState<UsernameAttribute>
   @override
   List<InputSelection> get selections {
     return [
-      const InputSelection<UsernameAttribute>(
-        label: InputResolverKey.emailTitle,
-        value: UsernameAttribute.email,
-      ),
-      const InputSelection<UsernameAttribute>(
-        label: InputResolverKey.phoneNumberTitle,
-        value: UsernameAttribute.phoneNumber,
-      )
+      const InputSelection<InputResolverKey, UsernameAttribute>(
+          label: InputResolverKey.emailTitle, value: UsernameAttribute.email),
+      const InputSelection<InputResolverKey, UsernameAttribute>(
+          label: InputResolverKey.phoneNumberTitle,
+          value: UsernameAttribute.phoneNumber)
     ];
   }
 

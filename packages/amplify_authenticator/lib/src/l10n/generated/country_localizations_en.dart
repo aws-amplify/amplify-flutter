@@ -11,25 +11,20 @@
  * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
-*/
+ */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 
-/// Configuration for defining content of radio and switch types in [AuthenticatorFormField].
-abstract class SelectableConfig<T> {
-  final List<InputSelection> selections;
-  late T? selectionValue;
+import 'country_localizations.dart';
 
-  SelectableConfig({required this.selections});
-}
+/// The translations for English (`en`).
+class AuthenticatorCountryLocalizationsEn
+    extends AuthenticatorCountryLocalizations {
+  AuthenticatorCountryLocalizationsEn([String locale = 'en']) : super(locale);
 
-/// Allows for configuration of fields with multiple selections, such as dropdowns, switches and radio buttons
-class InputSelection<L, V> {
-  /// Display text for the selection
-  final L label;
+  @override
+  String get unitedStates => 'United States';
 
-  /// Value for the selection
-  final V value;
-
-  const InputSelection({required this.label, required this.value});
+  @override
+  String get unitedKingdom => 'United Kingdom';
 }

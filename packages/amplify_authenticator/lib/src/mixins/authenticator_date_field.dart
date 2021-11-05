@@ -42,41 +42,34 @@ mixin AuthenticatorDateField<FieldType,
       }
     }
 
-    return Row(
-      children: [
-        IconButton(
-          icon: const Icon(Icons.calendar_today),
 
-          /// TODO localization
+    return TextFormField(
+      style: enabled
+          ? null
+          : const TextStyle(
+              color: AmplifyColors.black20,
+            ),
+      enabled: enabled,
+      readOnly: true,
+      validator: validator,
+      decoration: InputDecoration(
+        prefixIcon: IconButton(
+          icon: const Icon(Icons.calendar_today),
           tooltip: 'Select birthdate',
           onPressed: _pickTime,
         ),
-        Expanded(
-          child: TextFormField(
-            style: enabled
-                ? null
-                : const TextStyle(
-                    color: AmplifyColors.black20,
-                  ),
-            enabled: enabled,
-            readOnly: true,
-            validator: validator,
-            decoration: InputDecoration(
-              suffixIcon: suffixIcon,
-              errorMaxLines: errorMaxLines,
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-              hintText: hintText,
-              border: const OutlineInputBorder(),
-            ),
-            keyboardType: TextInputType.datetime,
-            controller: _controller,
+        suffixIcon: suffixIcon,
+        errorMaxLines: errorMaxLines,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).primaryColor,
           ),
-        )
-      ],
+        ),
+        hintText: hintText,
+        border: const OutlineInputBorder(),
+      ),
+      keyboardType: TextInputType.datetime,
+      controller: _controller,
     );
   }
 }

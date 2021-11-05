@@ -1,0 +1,12 @@
+{
+    "@@locale": "en",
+    "@@context": "amplify_authenticator:countries",
+    "unitedStates": "United States",
+    "@unitedStates": {
+        "description": "Display name for the United States"
+    },
+    "unitedKingdom": "United Kingdom",
+    "@unitedKingdom": {
+        "description": "Display name for the United Kingdom"
+    }
+}
