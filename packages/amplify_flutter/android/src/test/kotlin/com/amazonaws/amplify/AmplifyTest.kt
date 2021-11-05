@@ -17,11 +17,13 @@ package com.amazonaws.amplify
 
 import android.content.Context
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
-import io.flutter.embedding.engine.FlutterEngine
-import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,27 +31,28 @@ import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 
 
+@ExperimentalCoroutinesApi
 @RunWith(RobolectricTestRunner::class)
 class AmplifyTest {
 
     lateinit var plugin: Amplify
 
     private val context: Context = mock(Context::class.java)
-    private val flutterEngine = mock(FlutterEngine::class.java)
     private var flutterPluginBinding: FlutterPlugin.FlutterPluginBinding =
         mock(FlutterPlugin.FlutterPluginBinding::class.java)
 
+    private val testDispatcher = TestCoroutineDispatcher()
+
     @Before
     fun setup() {
-        plugin = Amplify()
+        plugin = Amplify(testDispatcher)
         `when`(flutterPluginBinding.applicationContext).thenReturn(context)
-        `when`(flutterPluginBinding.flutterEngine).thenReturn(flutterEngine)
-        `when`(flutterEngine.dartExecutor).thenReturn(mock(DartExecutor::class.java))
+        `when`(flutterPluginBinding.binaryMessenger).thenReturn(mock(BinaryMessenger::class.java))
         plugin.onAttachedToEngine(flutterPluginBinding)
     }
 
     @Test
-    fun configure_throwExceptionOnSecondCall() {
+    fun configure_throwExceptionOnSecondCall() = runBlockingTest {
         // Setup
         val arguments: HashMap<String, Any> = hashMapOf(
             "version" to "1",

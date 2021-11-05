@@ -1,5 +1,9 @@
 ## 0.3.0-rc.2 (2021-11-05)
 
+### Fixes
+
+- fix(api): OIDC Fixes for REST/GraphQL
+
 ## 0.3.0-rc.1 (2021-09-24)
 
 ### Breaking Changes
