@@ -24,16 +24,16 @@ abstract class ConfirmSignInFormField<FieldValue>
   /// {@macro authenticator.confirm_sign_in_form_field}
   ///
   /// Either [titleKey] or [title] is required.
-  const ConfirmSignInFormField._(
-      {Key? key,
-      required ConfirmSignInField field,
-      InputResolverKey? titleKey,
-      InputResolverKey? hintTextKey,
-      String? title,
-      String? hintText,
-      FormFieldValidator<FieldValue>? validator,
-      String? customAttributeKey})
-      : _customAttributeKey = customAttributeKey,
+  const ConfirmSignInFormField._({
+    Key? key,
+    required ConfirmSignInField field,
+    InputResolverKey? titleKey,
+    InputResolverKey? hintTextKey,
+    String? title,
+    String? hintText,
+    FormFieldValidator<FieldValue>? validator,
+    String? customAttributeKey,
+  })  : _customAttributeKey = customAttributeKey,
         super._(
             key: key,
             field: field,

@@ -104,10 +104,10 @@ class AuthenticatorInputLocalizationsEn
     return intl.Intl.select(
         characterType,
         {
-          'uppercase': 'uppercase',
-          'lowercase': 'lowercase',
-          'number': 'number',
-          'symbol': 'symbol',
+          'requiresUppercase': 'uppercase',
+          'requiresLowercase': 'lowercase',
+          'requiresNumbers': 'number',
+          'requiresSymbols': 'symbol',
           'other': ''
         },
         desc: 'Character(s) in a password.');

@@ -23,31 +23,35 @@ part of authenticator.form_field;
 abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
     VerifyAttributeField, FieldValue, VerifyUserFormField<FieldValue>> {
   /// {@macro authenticator.verify_user_form_field}
-  const VerifyUserFormField._(
-      {Key? key,
-      required VerifyAttributeField field,
-      InputResolverKey? titleKey,
-      InputResolverKey? hintTextKey,
-      String? title,
-      String? hintText,
-      FormFieldValidator<FieldValue>? validator})
-      : super._(
-            key: key,
-            field: field,
-            titleKey: titleKey,
-            hintTextKey: hintTextKey,
-            title: title,
-            hintText: hintText,
-            validator: validator);
+  const VerifyUserFormField._({
+    Key? key,
+    required VerifyAttributeField field,
+    InputResolverKey? titleKey,
+    InputResolverKey? hintTextKey,
+    String? title,
+    String? hintText,
+    FormFieldValidator<FieldValue>? validator,
+  }) : super._(
+          key: key,
+          field: field,
+          titleKey: titleKey,
+          hintTextKey: hintTextKey,
+          title: title,
+          hintText: hintText,
+          validator: validator,
+        );
 
-  static VerifyUserFormField verifyAttribute(
-          {Key? key, FormFieldValidator<UsernameAttribute>? validator}) =>
+  static VerifyUserFormField verifyAttribute({
+    Key? key,
+    FormFieldValidator<UsernameAttribute>? validator,
+  }) =>
       _VerifyUserRadioField(
-          key: keyUnverifiedAttributes,
-          titleKey: InputResolverKey.usernameTitle,
-          hintTextKey: InputResolverKey.usernameHint,
-          field: VerifyAttributeField.verify,
-          validator: validator);
+        key: keyUnverifiedAttributes,
+        titleKey: InputResolverKey.usernameTitle,
+        hintTextKey: InputResolverKey.usernameHint,
+        field: VerifyAttributeField.verify,
+        validator: validator,
+      );
 
   /// Creates a password component.
   static VerifyUserFormField confirmVerifyAttribute({
@@ -87,13 +91,14 @@ class _VerifyUserTextField extends VerifyUserFormField<String> {
     String? hintText,
     FormFieldValidator<String>? validator,
   }) : super._(
-            key: key,
-            field: field,
-            titleKey: titleKey,
-            hintTextKey: hintTextKey,
-            title: title,
-            hintText: hintText,
-            validator: validator);
+          key: key,
+          field: field,
+          titleKey: titleKey,
+          hintTextKey: hintTextKey,
+          title: title,
+          hintText: hintText,
+          validator: validator,
+        );
 
   @override
   _VerifyUserTextFieldState createState() => _VerifyUserTextFieldState();
@@ -133,22 +138,23 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
 }
 
 class _VerifyUserRadioField extends VerifyUserFormField<UsernameAttribute> {
-  const _VerifyUserRadioField(
-      {Key? key,
-      required VerifyAttributeField field,
-      InputResolverKey? titleKey,
-      InputResolverKey? hintTextKey,
-      String? title,
-      String? hintText,
-      FormFieldValidator<UsernameAttribute>? validator})
-      : super._(
-            key: key,
-            field: field,
-            titleKey: titleKey,
-            hintTextKey: hintTextKey,
-            title: title,
-            hintText: hintText,
-            validator: validator);
+  const _VerifyUserRadioField({
+    Key? key,
+    required VerifyAttributeField field,
+    InputResolverKey? titleKey,
+    InputResolverKey? hintTextKey,
+    String? title,
+    String? hintText,
+    FormFieldValidator<UsernameAttribute>? validator,
+  }) : super._(
+          key: key,
+          field: field,
+          titleKey: titleKey,
+          hintTextKey: hintTextKey,
+          title: title,
+          hintText: hintText,
+          validator: validator,
+        );
 
   @override
   _VerifyAttributeFieldState createState() => _VerifyAttributeFieldState();
@@ -171,13 +177,15 @@ class _VerifyAttributeFieldState
         switch (key) {
           case 'email':
             _inputSelections.add(const InputSelection<UsernameAttribute>(
-                label: InputResolverKey.emailTitle,
-                value: UsernameAttribute.email));
+              label: InputResolverKey.emailTitle,
+              value: UsernameAttribute.email,
+            ));
             break;
           case 'phone_number':
             _inputSelections.add(const InputSelection<UsernameAttribute>(
-                label: InputResolverKey.phoneNumberTitle,
-                value: UsernameAttribute.phoneNumber));
+              label: InputResolverKey.phoneNumberTitle,
+              value: UsernameAttribute.phoneNumber,
+            ));
             break;
         }
         _default = _inputSelections[0].value;

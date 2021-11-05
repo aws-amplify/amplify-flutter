@@ -16,37 +16,35 @@
 library authenticator.form_field;
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/enums/verify_attribute_field_types.dart';
-import 'package:amplify_authenticator/src/mixins/authenticator_date_field.dart';
-import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/enums/confirm_signin_types.dart';
 import 'package:amplify_authenticator/src/enums/confirm_signup_types.dart';
 import 'package:amplify_authenticator/src/enums/signin_types.dart';
 import 'package:amplify_authenticator/src/enums/signup_types.dart';
 import 'package:amplify_authenticator/src/enums/user_name_attribute.dart';
+import 'package:amplify_authenticator/src/enums/verify_attribute_field_types.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/mixins/authenticator_date_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_phone_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_radio_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_text_field.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
+import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_flutter/src/config/auth/aws_cognito_username_attributes.dart';
-
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+part 'form_fields/confirm_sign_in_form_field.dart';
+part 'form_fields/confirm_sign_up_form_field.dart';
 part 'form_fields/sign_in_form_field.dart';
 part 'form_fields/sign_up_form_field.dart';
-part 'form_fields/confirm_sign_up_form_field.dart';
-part 'form_fields/confirm_sign_in_form_field.dart';
 part 'form_fields/verify_user_form_field.dart';
 
 /// {@template authenticator.authenticator_form_field}

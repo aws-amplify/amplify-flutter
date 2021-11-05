@@ -47,6 +47,7 @@ extension SignUpFieldX on SignUpField {
       case SignUpField.password:
       case SignUpField.passwordConfirmation:
       case SignUpField.custom:
+      case SignUpField.selectedUsername:
         throw StateError('Can only be called on attribute types');
       default:
         return describeEnum(this).replaceAllMapped(RegExp(r'[A-Z]'), (match) {

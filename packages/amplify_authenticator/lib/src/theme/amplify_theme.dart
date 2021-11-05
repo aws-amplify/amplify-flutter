@@ -292,17 +292,18 @@ class AmplifyTheme {
     final baseStyle = base.style!;
     const enabledStates = <MaterialState>{};
     return ElevatedButtonThemeData(
-        style: baseStyle.copyWith(
-      backgroundColor: MaterialStateProperty.all(
-        baseStyle.backgroundColor?.resolve(enabledStates),
+      style: baseStyle.copyWith(
+        backgroundColor: MaterialStateProperty.all(
+          baseStyle.backgroundColor?.resolve(enabledStates),
+        ),
+        foregroundColor: MaterialStateProperty.all(
+          baseStyle.foregroundColor?.resolve(enabledStates),
+        ),
+        side: MaterialStateProperty.all(
+          baseStyle.side?.resolve(enabledStates),
+        ),
       ),
-      foregroundColor: MaterialStateProperty.all(
-        baseStyle.foregroundColor?.resolve(enabledStates),
-      ),
-      side: MaterialStateProperty.all(
-        baseStyle.side?.resolve(enabledStates),
-      ),
-    ));
+    );
   }
 
   static final primaryElevatedButtonTheme = ElevatedButtonThemeData(

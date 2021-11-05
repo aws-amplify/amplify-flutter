@@ -19,28 +19,29 @@ mixin AuthenticatorRadioField<FieldType, FieldValue,
     onChanged.call(selectionValue!);
     return Column(
       children: <Widget>[
-        if (selections.isNotEmpty)
-          for (var selection in selections)
-            ListTile(
-              key: Key('${selection.value}${widget.titleKey}'),
-              horizontalTitleGap: 0,
-              contentPadding: EdgeInsets.zero,
-              title: Text(inputResolver.resolve(
+        for (var selection in selections)
+          ListTile(
+            key: Key('${selection.value}${widget.titleKey}'),
+            horizontalTitleGap: 0,
+            contentPadding: EdgeInsets.zero,
+            title: Text(
+              inputResolver.resolve(
                 context,
                 selection.label,
-              )),
-              leading: Radio<FieldValue>(
-                value: selection.value,
-                groupValue: selectionValue,
-                onChanged: (FieldValue? value) {
-                  setState(() {
-                    selectionValue = value;
-                  });
-                  onChanged.call(selectionValue!);
-                },
-                activeColor: Colors.green,
               ),
-            )
+            ),
+            leading: Radio<FieldValue>(
+              value: selection.value,
+              groupValue: selectionValue,
+              onChanged: (FieldValue? value) {
+                setState(() {
+                  selectionValue = value;
+                });
+                onChanged.call(selectionValue!);
+              },
+              activeColor: Colors.green,
+            ),
+          )
       ],
     );
   }
