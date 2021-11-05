@@ -15,6 +15,7 @@
 package com.amazonaws.amplify.amplify_api.auth
 
 import android.os.Looper
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.ApiAuthProviders
 import com.amplifyframework.api.aws.AuthorizationType
@@ -67,10 +68,7 @@ class FlutterAuthProviders(private val methodChannel: MethodChannel) {
         // Not blocking the main thread is required for making platform channel calls without
         // deadlock.
         if (Thread.currentThread() == Looper.getMainLooper().thread) {
-            Log.e(tag, """
-                Auth provider invoked from the main thread. This should not happen.
-                Please file an issue with the Amplify Flutter team.
-            """.trimIndent())
+            Log.e(tag, ExceptionMessages.createGithubIssueString)
             return null
         }
         try {
