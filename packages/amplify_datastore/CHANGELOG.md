@@ -1,4 +1,4 @@
-## 0.3.0-rc.2 (2021-10-25)
+## 0.3.0-rc.2 (2021-11-05)
 
 This release candidate requires a preview version of `@aws-amplify/cli`. To uninstall `@aws-amplify/cli` release version and install preview version by running following command.
 
