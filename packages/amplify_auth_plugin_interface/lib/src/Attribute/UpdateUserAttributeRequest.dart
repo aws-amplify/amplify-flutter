@@ -26,7 +26,7 @@ class UpdateUserAttributeRequest {
 
   /// Default constructor
   UpdateUserAttributeRequest({
-    required String userAttributeKey,
+    required Object userAttributeKey,
     required String value,
     this.options,
   }) : attribute = AuthUserAttribute(

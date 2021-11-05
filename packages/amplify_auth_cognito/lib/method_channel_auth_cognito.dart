@@ -325,7 +325,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   @override
-  Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes(
+  Future<Map<Object, UpdateUserAttributeResult>> updateUserAttributes(
       {required UpdateUserAttributesRequest request}) async {
     try {
       final Map<String, dynamic>? data =
@@ -445,8 +445,10 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       List<Map<dynamic, dynamic>> attributeResponse) {
     List<AuthUserAttribute> attributes = [];
     attributeResponse.forEach((element) {
-      attributes.add(AuthUserAttribute.init(
-          userAttributeKey: element["key"], value: element["value"]));
+      attributes.add(AuthUserAttribute(
+        userAttributeKey: CognitoUserAttributes.parse(element["key"]),
+        value: element["value"],
+      ));
     });
     return attributes;
   }
@@ -492,9 +494,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
                 : {}));
   }
 
-  Map<String, UpdateUserAttributeResult> _formatUpdateUserAttributesResponse(
+  Map<Object, UpdateUserAttributeResult> _formatUpdateUserAttributesResponse(
       Map<String, dynamic> res) {
-    return res.map((key, value) => MapEntry(key,
+    return res.map((key, value) => MapEntry(CognitoUserAttributes.parse(key),
         _formatUpdateUserAttributeResponse(Map<String, dynamic>.from(value))));
   }
 

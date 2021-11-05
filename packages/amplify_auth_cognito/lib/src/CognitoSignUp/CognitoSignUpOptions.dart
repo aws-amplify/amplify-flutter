@@ -15,6 +15,8 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
+import 'cognito_user_attributes.dart';
+
 class CognitoSignUpOptions extends SignUpOptions {
   /// An optional map of arbitrary key-value pairs which will be passed to your
   /// PreAuthentication Lambda trigger as-is, used for implementing additional
@@ -36,10 +38,10 @@ class CognitoSignUpOptions extends SignUpOptions {
   ///
   /// For example:
   /// ```dart
-  /// var userAttributes = <String, String>{
+  /// var userAttributes = <CognitoUserAttributes, String>{
   ///   CognitoUserAttributes.email: 'test@example.com',
   ///   CognitoUserAttributes.phoneNumber: '+18885551234',
-  ///   'custom:my_attribute': 'my_value',
+  ///   CognitoUserAttributes.custom('my_attribute'): 'my_value',
   /// };
   /// var options = CognitoSignUpOptions(userAttributes: userAttributes);
   /// ```
@@ -59,11 +61,15 @@ class CognitoSignUpOptions extends SignUpOptions {
   ///     - Phone number verification is enabled
   ///     - Phone number was marked as a required attribute
   ///   - **and** users sign up with a chosen username or email
-  const CognitoSignUpOptions(
-      {Map<String, String> userAttributes = const {},
-      this.validationData,
-      this.clientMetadata})
-      : super(userAttributes: userAttributes);
+  CognitoSignUpOptions({
+    Map<CognitoUserAttributes, String> userAttributes = const {},
+    this.validationData,
+    this.clientMetadata,
+  }) : super(
+          userAttributes: (Map.of(userAttributes)
+                ..removeWhere((key, value) => key.readOnly))
+              .map((key, value) => MapEntry(key.key, value)),
+        );
 
   @override
   Map<String, dynamic> serializeAsMap() {

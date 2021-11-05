@@ -18,7 +18,7 @@
 /// Encapsulates parameters for a request to confirm a user attribute update
 class ConfirmUserAttributeRequest {
   /// The key of the user attribute to update
-  String userAttributeKey;
+  Object userAttributeKey;
 
   /// The confirmation code the user received after starting the user attribute operation
   String confirmationCode;
@@ -30,7 +30,7 @@ class ConfirmUserAttributeRequest {
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['userAttributeKey'] = userAttributeKey;
+    pendingRequest['userAttributeKey'] = userAttributeKey.toString();
     pendingRequest['confirmationCode'] = confirmationCode;
     return pendingRequest;
   }

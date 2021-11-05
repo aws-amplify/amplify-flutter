@@ -61,7 +61,7 @@ void main() {
             "signInStep": "DONE",
             "codeDeliveryDetails": {
               "deliveryMedium": "EMAIL",
-              "attributeName": testAttributeKey,
+              "attributeName": testAttributeKey.key,
               "destination": testEmailValue
             }
           }
@@ -76,7 +76,7 @@ void main() {
         nextStep: AuthNextSignInStep(
           codeDeliveryDetails: AuthCodeDeliveryDetails(
               deliveryMedium: "EMAIL",
-              attributeName: testAttributeKey,
+              attributeName: testAttributeKey.key,
               destination: testEmailValue),
           signInStep: "DONE",
         ));

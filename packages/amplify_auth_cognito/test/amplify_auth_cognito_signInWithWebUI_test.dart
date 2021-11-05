@@ -31,7 +31,7 @@ void main() {
       nextStep: AuthNextSignInStep(
           signInStep: "DONE",
           codeDeliveryDetails: AuthCodeDeliveryDetails(
-              attributeName: CognitoUserAttributes.email,
+              attributeName: CognitoUserAttributes.email.key,
               destination: "test@test.test"),
           additionalInfo: {}));
 

@@ -83,7 +83,13 @@ void main() {
             userAttributeKey: CognitoUserAttributes.name, value: "testname")
       ]),
     );
-    expect(res, isInstanceOf<Map<String, UpdateUserAttributeResult>>());
+    expect(
+      res.keys,
+      unorderedEquals([
+        CognitoUserAttributes.email,
+        CognitoUserAttributes.name,
+      ]),
+    );
   });
 
   test(

@@ -18,13 +18,13 @@ import 'ResendUserAttributeConfirmationCodeOptions.dart';
 /// Encapsulates parameters for a request to resend a user attribute confirmation code
 class ResendUserAttributeConfirmationCodeRequest {
   /// The key of the user attribute to resend the confirmation code for
-  String userAttributeKey;
+  final Object userAttributeKey;
 
   /// Plugin-specific, advanced options such as information about the client
   final ResendUserAttributeConfirmationCodeOptions? options;
 
   /// Default constructor
-  ResendUserAttributeConfirmationCodeRequest({
+  const ResendUserAttributeConfirmationCodeRequest({
     required this.userAttributeKey,
     this.options,
   });
@@ -32,7 +32,7 @@ class ResendUserAttributeConfirmationCodeRequest {
   /// Serialize the object to a map for use over the method channel
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
-      'userAttributeKey': userAttributeKey,
+      'userAttributeKey': userAttributeKey.toString(),
       if (options != null) 'options': options?.serializeAsMap(),
     };
     return pendingRequest;

@@ -20,18 +20,19 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
 
-const emailAttributeKey = 'email';
-const nameAttributeKey = 'name';
-const phoneNumberAttributeKey = 'phone_number';
-const givenNameAttributeKey = 'given_name';
-const emailVerifiedAttributeKey = 'email_verified';
+const emailAttributeKey = CognitoUserAttributes.email;
+const nameAttributeKey = CognitoUserAttributes.name;
+const phoneNumberAttributeKey = CognitoUserAttributes.phoneNumber;
+const givenNameAttributeKey = CognitoUserAttributes.givenName;
+const emailVerifiedAttributeKey = CognitoUserAttributes.emailVerified;
 
 dynamic getAttributeValueFromList(
   List<AuthUserAttribute> userAttributes,
-  String keyName,
+  CognitoUserAttributes cognitoAttribute,
 ) {
   return userAttributes
-      .firstWhere((attribute) => attribute.userAttributeKey == keyName)
+      .firstWhere(
+          (attribute) => attribute.userAttributeKey == cognitoAttribute.key)
       .value;
 }
 

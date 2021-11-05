@@ -247,7 +247,7 @@ class AuthCategory {
   ///
   /// Accepts plugin-specific, advanced [options] for the request
   Future<UpdateUserAttributeResult> updateUserAttribute({
-    required String userAttributeKey,
+    required Object userAttributeKey,
     required String value,
     UpdateUserAttributeOptions? options,
   }) {
@@ -264,7 +264,7 @@ class AuthCategory {
   /// Updates multiple user attributes and returns a map of [UpdateUserAttributeResult]
   ///
   /// Accepts plugin-specific, advanced [options] for the request
-  Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes({
+  Future<Map<Object, UpdateUserAttributeResult>> updateUserAttributes({
     required List<AuthUserAttribute> attributes,
     UpdateUserAttributesOptions? options,
   }) {

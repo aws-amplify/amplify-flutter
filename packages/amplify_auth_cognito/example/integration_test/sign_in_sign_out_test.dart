@@ -38,8 +38,8 @@ void main() {
           username: username,
           password: password,
           options: CognitoSignUpOptions(userAttributes: {
-            'email': generateEmail(),
-            'phone_number': mockPhoneNumber
+            CognitoUserAttributes.email: generateEmail(),
+            CognitoUserAttributes.phoneNumber: mockPhoneNumber
           }));
 
       await signOutUser();
@@ -106,8 +106,8 @@ void main() {
           username: username,
           password: password,
           options: CognitoSignUpOptions(userAttributes: {
-            'email': generateEmail(),
-            'phone_number': mockPhoneNumber
+            CognitoUserAttributes.email: generateEmail(),
+            CognitoUserAttributes.phoneNumber: mockPhoneNumber
           }));
 
       // Ensure signed in before testing signOut.

@@ -28,8 +28,8 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
   List<Map<dynamic, dynamic>> sampleResponse = [
-    {"key": "username", "value": "person"},
-    {"key": "custom_num", "value": "2"},
+    {"key": "preferred_username", "value": "person"},
+    {"key": "custom:num", "value": "2"},
     {"key": "float_shouldnt_parse_shouldnt_break", "value": "1.234"}
   ];
 
@@ -53,7 +53,8 @@ void main() {
         request:
             FetchUserAttributesRequest(options: FetchUserAttributesOptions()));
     expect(res, isInstanceOf<List<AuthUserAttribute>>());
-    expect(res[0].userAttributeKey, equals('username'));
+    expect(res[0].userAttributeKey,
+        equals(CognitoUserAttributes.preferredUsername));
     expect(res[0].value, equals('person'));
   });
 
@@ -62,12 +63,13 @@ void main() {
       () async {
     var res = await testChannel.formatFetchAttributesResponse(sampleResponse);
     expect(res, isInstanceOf<List<AuthUserAttribute>>());
-    expect(res[0].userAttributeKey, equals('username'));
+    expect(res[0].userAttributeKey,
+        equals(CognitoUserAttributes.preferredUsername));
     expect(res[0].value, equals('person'));
-    expect(res[1].userAttributeKey, equals('custom_num'));
-    expect(res[1].value, equals(2));
     expect(
-        res[2].userAttributeKey, equals('float_shouldnt_parse_shouldnt_break'));
+        res[1].userAttributeKey, equals(CognitoUserAttributes.custom('num')));
+    expect(res[1].value, equals(2));
+    expect(res[2].userAttributeKey, isA<CognitoUserAttributes>());
     expect(res[2].value, equals("1.234"));
   });
 }

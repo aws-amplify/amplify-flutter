@@ -13,11 +13,12 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
 class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
   Map<String, String>? clientMetadata;
-  Map<String, String>? userAttributes;
+  Map<CognitoUserAttributes, String>? userAttributes;
   CognitoConfirmSignInOptions({this.clientMetadata, this.userAttributes})
       : super();
   Map<String, dynamic> serializeAsMap() {
@@ -26,7 +27,8 @@ class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
       pendingRequest["clientMetadata"] = clientMetadata;
     }
     if (this.userAttributes != null) {
-      pendingRequest["userAttributes"] = userAttributes;
+      pendingRequest["userAttributes"] = userAttributes
+        ?..removeWhere((key, value) => key.readOnly);
     }
     return pendingRequest;
   }

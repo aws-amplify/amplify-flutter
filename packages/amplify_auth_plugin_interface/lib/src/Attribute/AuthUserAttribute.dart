@@ -14,25 +14,25 @@
  */
 
 class AuthUserAttribute {
-  String userAttributeKey;
-  var value;
-  AuthUserAttribute.init(
-      {required this.userAttributeKey, required this.value}) {
-    this.userAttributeKey = userAttributeKey;
-    if (userAttributeKey != 'phone_number') {
-      try {
-        this.value = int.parse(value);
-      } on FormatException {}
-    }
-  }
+  final Object userAttributeKey;
+  late final Object value;
 
   /// Creates an object that holds the key and value for a user attribute.
-  AuthUserAttribute({required this.userAttributeKey, required this.value}) {}
+  AuthUserAttribute({
+    required this.userAttributeKey,
+    required String value,
+  }) {
+    Object? _value;
+    if (userAttributeKey.toString() != 'phone_number') {
+      _value = int.tryParse(value);
+    }
+    this.value = _value ?? value;
+  }
 
   // ignore: public_member_api_docs
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['userAttributeKey'] = userAttributeKey;
+    pendingRequest['userAttributeKey'] = userAttributeKey.toString();
     pendingRequest['value'] = value;
     return pendingRequest;
   }
