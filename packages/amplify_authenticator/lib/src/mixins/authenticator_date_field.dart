@@ -1,9 +1,8 @@
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
-import 'package:intl/intl.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 mixin AuthenticatorDateField<FieldType,
         T extends AuthenticatorFormField<FieldType, String, T>>
@@ -32,48 +31,52 @@ mixin AuthenticatorDateField<FieldType,
     DateTime now = DateTime.now();
     Future<void> _pickTime() async {
       final date = await showDatePicker(
-          context: context,
-          initialDate: now,
-          firstDate: DateTime(DateTime.now().year - 110),
-          lastDate: now);
+        context: context,
+        initialDate: now,
+        firstDate: DateTime(DateTime.now().year - 110),
+        lastDate: now,
+      );
       if (date != null) {
         _controller.text = _convertToDateString(date);
         onChanged.call(_controller.text);
       }
     }
 
-    return Row(children: [
-      IconButton(
-        icon: const Icon(Icons.calendar_today),
+    return Row(
+      children: [
+        IconButton(
+          icon: const Icon(Icons.calendar_today),
 
-        /// TODO localization
-        tooltip: 'Select birthdate',
-        onPressed: _pickTime,
-      ),
-      Expanded(
-          child: TextFormField(
-        style: enabled
-            ? null
-            : const TextStyle(
-                color: AmplifyColors.black20,
-              ),
-        enabled: enabled,
-        readOnly: true,
-        validator: validator,
-        decoration: InputDecoration(
-          suffixIcon: suffixIcon,
-          errorMaxLines: errorMaxLines,
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          hintText: hintText,
-          border: const OutlineInputBorder(),
+          /// TODO localization
+          tooltip: 'Select birthdate',
+          onPressed: _pickTime,
         ),
-        keyboardType: TextInputType.datetime,
-        controller: _controller,
-      ))
-    ]);
+        Expanded(
+          child: TextFormField(
+            style: enabled
+                ? null
+                : const TextStyle(
+                    color: AmplifyColors.black20,
+                  ),
+            enabled: enabled,
+            readOnly: true,
+            validator: validator,
+            decoration: InputDecoration(
+              suffixIcon: suffixIcon,
+              errorMaxLines: errorMaxLines,
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+              hintText: hintText,
+              border: const OutlineInputBorder(),
+            ),
+            keyboardType: TextInputType.datetime,
+            controller: _controller,
+          ),
+        )
+      ],
+    );
   }
 }
