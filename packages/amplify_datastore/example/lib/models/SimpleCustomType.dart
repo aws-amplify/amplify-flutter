@@ -67,7 +67,7 @@ class SimpleCustomType {
   }
 
   SimpleCustomType copyWith({String? foo}) {
-    return SimpleCustomType(foo: foo ?? this.foo);
+    return SimpleCustomType._internal(foo: foo ?? this.foo);
   }
 
   SimpleCustomType.fromJson(Map<String, dynamic> json) : _foo = json['foo'];

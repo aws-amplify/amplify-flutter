@@ -1,6 +1,6 @@
 name: amplify_storage_plugin_interface
 description: The platform interface for the storage module of Amplify Flutter.
-version: 0.3.0-rc.1
+version: 0.3.0-rc.2
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_storage_plugin_interface
 
 environment:
@@ -10,8 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.1.8
-  amplify_core: 0.3.0-rc.1
+  amplify_core: 0.3.0-rc.2
 
 dev_dependencies:
+  amplify_test: any
   flutter_test:
     sdk: flutter

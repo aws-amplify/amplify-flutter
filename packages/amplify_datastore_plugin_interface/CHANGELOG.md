@@ -1,3 +1,10 @@
+## 0.3.0-rc.2 (2021-11-05)
+
+### Features
+
+- feat: Add CustomType functionality (#847)
+- feat: Add ModelField ReadOnly support (#599)
+
 ## 0.3.0-rc.1 (2021-09-24)
 
 ## 0.2.6 (2021-10-25)

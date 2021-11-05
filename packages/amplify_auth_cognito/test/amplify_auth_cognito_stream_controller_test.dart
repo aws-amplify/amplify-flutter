@@ -20,6 +20,7 @@ import 'package:amplify_auth_cognito/src/CognitoHubEvents/AuthHubEvent.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:amplify_test/amplify_test.dart';
 
 var log = [];
 

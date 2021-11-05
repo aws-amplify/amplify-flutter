@@ -28,6 +28,8 @@ class Person extends Model {
   final String? _name;
   final List<Address>? _propertiesAddresses;
   final Contact? _contact;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -67,11 +69,26 @@ class Person extends Model {
     }
   }
 
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
   const Person._internal(
-      {required this.id, required name, propertiesAddresses, required contact})
+      {required this.id,
+      required name,
+      propertiesAddresses,
+      required contact,
+      createdAt,
+      updatedAt})
       : _name = name,
         _propertiesAddresses = propertiesAddresses,
-        _contact = contact;
+        _contact = contact,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory Person(
       {String? id,
@@ -117,8 +134,13 @@ class Person extends Model {
             ? _propertiesAddresses!.toString()
             : "null") +
         ", ");
-    buffer
-        .write("contact=" + (_contact != null ? _contact!.toString() : "null"));
+    buffer.write(
+        "contact=" + (_contact != null ? _contact!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -129,7 +151,7 @@ class Person extends Model {
       String? name,
       List<Address>? propertiesAddresses,
       Contact? contact}) {
-    return Person(
+    return Person._internal(
         id: id ?? this.id,
         name: name ?? this.name,
         propertiesAddresses: propertiesAddresses ?? this.propertiesAddresses,
@@ -149,6 +171,12 @@ class Person extends Model {
         _contact = json['contact']?['serializedData'] != null
             ? Contact.fromJson(new Map<String, dynamic>.from(
                 json['contact']['serializedData']))
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -156,7 +184,9 @@ class Person extends Model {
         'name': _name,
         'propertiesAddresses':
             _propertiesAddresses?.map((Address? e) => e?.toJson()).toList(),
-        'contact': _contact?.toJson()
+        'contact': _contact?.toJson(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
       };
 
   static final QueryField ID = QueryField(fieldName: "person.id");
@@ -188,6 +218,18 @@ class Person extends Model {
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.embedded,
             ofCustomTypeName: 'Contact')));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
