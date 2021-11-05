@@ -1,0 +1,16 @@
+{
+    "@@locale": "en",
+    "@@context": "amplify_authenticator:messages",
+    "codeSentEmail": "A new confirmation code has been sent to the email associated with this account.",
+    "@codeSentEmail": {
+        "description": "The message that is displayed after a new confirmation code is sent via email"
+    },
+    "codeSentSMS": "A new confirmation code has been sent to the phone number associated with this account.",
+    "@codeSentSMS": {
+        "description": "The message that is displayed after a new confirmation code is sent via SMS"
+    },
+    "codeSentUnknown": "A new confirmation code has been sent.",
+    "@codeSentUnknown": {
+        "description": "The message that is displayed after a new confirmation code is sent via an unknown delivery medium"
+    }
+}

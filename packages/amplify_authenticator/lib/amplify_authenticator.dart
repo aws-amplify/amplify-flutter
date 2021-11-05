@@ -22,6 +22,7 @@ import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
+import 'package:amplify_authenticator/src/l10n/string_resolver.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
@@ -33,7 +34,7 @@ import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
-import 'package:amplify_authenticator/src/widgets/exception_banner.dart';
+import 'package:amplify_authenticator/src/widgets/authenticator_banner.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
@@ -197,6 +198,7 @@ class _AuthenticatorState extends State<Authenticator> {
   late final StateMachineBloc _stateMachineBloc;
   late final AuthViewModel _viewModel;
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
+  late final StreamSubscription<StringResolver> _infoSub;
   AmplifyConfig? _config;
   late List<String> _missingConfigValues;
   bool _configInitialized = false;
@@ -204,9 +206,13 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   void initState() {
     super.initState();
-    _stateMachineBloc = StateMachineBloc(_authService)..add(const AuthLoad());
+    _stateMachineBloc = StateMachineBloc(
+      authService: _authService,
+      authStringResolver: widget.stringResolver,
+    )..add(const AuthLoad());
     _viewModel = AuthViewModel(_stateMachineBloc);
     _subscribeToExceptions();
+    _subscribeToInfoMessages();
     _waitForConfiguration();
   }
 
@@ -235,9 +241,31 @@ class _AuthenticatorState extends State<Authenticator> {
     });
   }
 
+  void _subscribeToInfoMessages() {
+    _infoSub = _stateMachineBloc.infoMessages.listen((resolver) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+          ..clearMaterialBanners()
+          ..showMaterialBanner(createMaterialBanner(
+            type: StatusType.info,
+            content: Text(resolver(context)),
+            margin: MediaQuery.of(context).viewPadding.top,
+            actions: [
+              IconButton(
+                onPressed: () =>
+                    ScaffoldMessenger.of(context).clearMaterialBanners(),
+                icon: const Icon(Icons.close),
+              ),
+            ],
+          ));
+      }
+    });
+  }
+
   @override
   void dispose() {
     _exceptionSub.cancel();
+    _infoSub.cancel();
     _stateMachineBloc.dispose();
     super.dispose();
   }
@@ -308,7 +336,7 @@ class _AuthenticatorState extends State<Authenticator> {
 }
 
 class _AuthenticatorBody extends StatelessWidget {
-  _AuthenticatorBody({
+  const _AuthenticatorBody({
     Key? key,
     required this.child,
   }) : super(key: key);

@@ -18,6 +18,7 @@ import 'dart:async';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/l10n/string_resolver.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
@@ -32,6 +33,7 @@ part 'auth_state.dart';
 /// {@endtemplate}
 class StateMachineBloc {
   final AuthService _authService;
+  final AuthStringResolver _authStringResolver;
 
   /// State controller.
   final StreamController<AuthState> _authStateController =
@@ -58,7 +60,11 @@ class StateMachineBloc {
   AuthState get currentState => _currentState;
 
   /// {@macro authenticator.state_machine_bloc}
-  StateMachineBloc(this._authService) {
+  StateMachineBloc({
+    required AuthService authService,
+    required AuthStringResolver authStringResolver,
+  })  : _authService = authService,
+        _authStringResolver = authStringResolver {
     _subscription =
         _authEventStream.asyncExpand(_eventTransformer).listen((state) {
       _controllerSink.add(state);
@@ -77,6 +83,13 @@ class StateMachineBloc {
 
   /// Exception events which occur in the bloc.
   Stream<AuthenticatorException> get exceptions => _exceptionController.stream;
+
+  /// Manages info messages separate from the bloc's state.
+  final StreamController<StringResolver> _infoMessageController =
+      StreamController<StringResolver>.broadcast();
+
+  /// Info messages generated from the bloc.
+  Stream<StringResolver> get infoMessages => _infoMessageController.stream;
 
   Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
@@ -375,7 +388,22 @@ class StateMachineBloc {
 
   Stream<AuthState> _resendSignUpCode(String username) async* {
     try {
-      await _authService.resendSignUpCode(username);
+      ResendSignUpCodeResult result =
+          await _authService.resendSignUpCode(username);
+      String? deliveryMedium = result.codeDeliveryDetails.deliveryMedium;
+      switch (deliveryMedium) {
+        case 'EMAIL':
+          _infoMessageController
+              .add(_authStringResolver.messages.codeSentEmail);
+          break;
+        case 'SMS':
+          _infoMessageController.add(_authStringResolver.messages.codeSentSMS);
+          break;
+        default:
+          _infoMessageController.add(
+            _authStringResolver.messages.codeSentUnknown,
+          );
+      }
       yield VerificationCodeSent((_currentState as AuthFlow).screen);
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
