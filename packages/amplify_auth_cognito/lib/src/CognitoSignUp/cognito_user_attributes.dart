@@ -170,7 +170,4 @@ class CognitoUserAttributes extends UserAttributeKey {
 
   @override
   int get hashCode => key.hashCode ^ readOnly.hashCode;
-
-  @override
-  String toString() => key;
 }

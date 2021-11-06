@@ -16,7 +16,7 @@
 /// {@template amplify_auth_cognito.user_attribute_key}
 /// A user attribute identifier.
 /// {@endtemplate}
-abstract class UserAttributeKey {
+abstract class UserAttributeKey implements Comparable<UserAttributeKey> {
   /// {@macro amplify_auth_cognito.user_attribute_key}
   const UserAttributeKey();
 
@@ -24,5 +24,15 @@ abstract class UserAttributeKey {
   String get key;
 
   @override
+  int compareTo(UserAttributeKey other) => key.compareTo(other.key);
+
+  @override
   String toString() => key;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is UserAttributeKey && key == other.key;
+
+  @override
+  int get hashCode => key.hashCode;
 }

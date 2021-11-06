@@ -29,8 +29,7 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
   Future _fetchAttributes({bool isRefresh = false}) {
     return Amplify.Auth.fetchUserAttributes().then((attributes) {
       setState(() => _userAttributes = attributes
-        ..sort((a, b) =>
-            b.userAttributeKey.key.compareTo(a.userAttributeKey.key)));
+        ..sort((a, b) => b.userAttributeKey.compareTo(a.userAttributeKey)));
       if (isRefresh) {
         _showSuccess('User Attributes Refreshed Successfully');
       }
