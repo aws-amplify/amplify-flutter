@@ -30,7 +30,7 @@ void main() {
   List<Map<dynamic, dynamic>> sampleResponse = [
     {"key": "preferred_username", "value": "person"},
     {"key": "custom:num", "value": "2"},
-    {"key": "float_shouldnt_parse_shouldnt_break", "value": "1.234"}
+    {"key": "custom:float_shouldnt_parse_shouldnt_break", "value": "1.234"}
   ];
 
   setUp(() {
@@ -69,7 +69,22 @@ void main() {
     expect(
         res[1].userAttributeKey, equals(CognitoUserAttributes.custom('num')));
     expect(res[1].value, equals(2));
-    expect(res[2].userAttributeKey, isA<CognitoUserAttributes>());
+    expect(
+      res[2].userAttributeKey,
+      equals(
+        CognitoUserAttributes.custom('float_shouldnt_parse_shouldnt_break'),
+      ),
+    );
     expect(res[2].value, equals("1.234"));
+  });
+
+  test('invalid cognito attribute', () {
+    const invalidResponse = [
+      {'key': 'invalid_cognito_key', 'value': 'someValue'},
+    ];
+    expectLater(
+      () async => testChannel.formatFetchAttributesResponse(invalidResponse),
+      throwsArgumentError,
+    );
   });
 }

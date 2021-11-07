@@ -11,6 +11,9 @@ import 'package:flutter/foundation.dart';
 class CognitoUserAttributes extends UserAttributeKey {
   const CognitoUserAttributes._(this.key, {this.readOnly = false});
 
+  /// Prefix for custom Cognito attributes.
+  static const _customPrefix = 'custom:';
+
   /// The JSON key for this attribute.
   @override
   final String key;
@@ -20,7 +23,7 @@ class CognitoUserAttributes extends UserAttributeKey {
 
   /// Creates a custom Cognito attribute.
   const CognitoUserAttributes.custom(String key)
-      : key = 'custom:$key',
+      : key = '$_customPrefix$key',
         readOnly = false;
 
   /// Parses the given Cognito attribute key.
@@ -28,7 +31,16 @@ class CognitoUserAttributes extends UserAttributeKey {
     key = key.toLowerCase();
     return values.firstWhere(
       (attr) => attr.key == key,
-      orElse: () => CognitoUserAttributes._(key),
+      orElse: () {
+        if (!key.startsWith(_customPrefix)) {
+          throw ArgumentError(
+            'Invalid Cognito attribute: "$key". '
+            'Keys must be one of the the standard CognitoUserAttributes values '
+            'or a custom key prefixed with "custom:".',
+          );
+        }
+        return CognitoUserAttributes._(key);
+      },
     );
   }
 
