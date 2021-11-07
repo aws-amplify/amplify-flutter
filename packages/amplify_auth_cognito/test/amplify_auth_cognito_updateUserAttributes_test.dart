@@ -85,7 +85,10 @@ void main() {
     );
     expect(
       res.keys,
-      isA<Map<CognitoUserAttributes, UpdateUserAttributeResult>>(),
+      unorderedEquals([
+        CognitoUserAttributes.email,
+        CognitoUserAttributes.name,
+      ]),
     );
   });
 
