@@ -77,6 +77,7 @@ export 'Attribute/ConfirmUserAttributeResult.dart';
 export 'Attribute/ResendUserAttributeConfirmationCodeOptions.dart';
 export 'Attribute/ResendUserAttributeConfirmationCodeRequest.dart';
 export 'Attribute/ResendUserAttributeConfirmationCodeResult.dart';
+export 'Attribute/user_attribute_key.dart';
 
 // Exception Classes
 export 'Exceptions/AuthException.dart';

@@ -247,7 +247,7 @@ class AuthCategory {
   ///
   /// Accepts plugin-specific, advanced [options] for the request
   Future<UpdateUserAttributeResult> updateUserAttribute({
-    required String userAttributeKey,
+    required UserAttributeKey userAttributeKey,
     required String value,
     UpdateUserAttributeOptions? options,
   }) {
@@ -264,7 +264,8 @@ class AuthCategory {
   /// Updates multiple user attributes and returns a map of [UpdateUserAttributeResult]
   ///
   /// Accepts plugin-specific, advanced [options] for the request
-  Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes({
+  Future<Map<UserAttributeKey, UpdateUserAttributeResult>>
+      updateUserAttributes({
     required List<AuthUserAttribute> attributes,
     UpdateUserAttributesOptions? options,
   }) {
@@ -279,7 +280,7 @@ class AuthCategory {
 
   /// Confirms a user attribute update and returns a [ConfirmUserAttributeResult]
   Future<ConfirmUserAttributeResult> confirmUserAttribute({
-    required String userAttributeKey,
+    required UserAttributeKey userAttributeKey,
     required String confirmationCode,
   }) {
     var request = ConfirmUserAttributeRequest(
@@ -294,7 +295,7 @@ class AuthCategory {
   /// Accepts plugin-specific, advanced [options] for the request
   Future<ResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
-    required String userAttributeKey,
+    required UserAttributeKey userAttributeKey,
     ResendUserAttributeConfirmationCodeOptions? options,
   }) {
     var request = ResendUserAttributeConfirmationCodeRequest(
