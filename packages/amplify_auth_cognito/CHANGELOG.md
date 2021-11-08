@@ -1,11 +1,26 @@
+## 0.3.0-rc.2 (2021-11-05)
+
+### Breaking Changes
+
+- Removed deprecated APIs and classes (#1049)
+
+#### Removed APIs
+
+- `Amplify.Auth.confirmResetPassword` (Deprecated since version `0.2.3`)
+
+#### Removed Classes
+
+- `AuthUserAttributeOptions` (Deprecated since version `0.2.3`)
+- `AuthUserAttributeRequest` (Deprecated since version `0.2.3`)
+- `ConfirmPasswordRequest` (Deprecated since version `0.2.3`)
+- `PasswordOptions` (Deprecated since version `0.2.3`)
+
 ## 0.3.0-rc.1 (2021-09-24)
 
 ### Breaking Changes
 
 - The amplify_auth_cognito fetchAuthSession API will throw a SignedOutException when the user has not signed in, and a SessionExpiredException when the tokens have expired.
 - The amplify_auth_cognito getCurrentUser API will return an AuthUser if the user is still authenticated but the session has expired.
-- Remove deprecated method confirmResetPassword()
-- Remove deprecated classes AuthUserAttributeOptions, AuthUserAttributeRequest, ConfirmPasswordRequest, and PasswordOptions
 
 ### Fixes
 
