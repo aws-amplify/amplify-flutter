@@ -381,10 +381,3 @@ dynamic _getSerializedValue(dynamic value) {
   }
   return value;
 }
-
-MapEntry<String, ModelField>? _getBelongsToFieldFromModelSchema(
-    ModelSchema schema) {
-  return schema.fields!.entries.firstWhereOrNull((entry) =>
-      entry.value.association?.associationType ==
-      ModelAssociationEnum.BelongsTo);
-}

@@ -98,7 +98,8 @@ void main() {
           await Amplify.API.mutate(request: createPostReq).response;
       Post? data = createPostRes.data;
       if (data == null) {
-        fail('create post failed');
+        throw Exception(
+            'Null response while creating post. Response errors: ${createPostRes.errors}');
       }
       if (!skipDelete) postCache.add(data);
 
@@ -361,7 +362,7 @@ void main() {
           await Amplify.API.mutate(request: createCommentReq).response;
       final createdComment = createCommentRes.data;
       if (createdComment == null) {
-        fail('Unable to create comment.');
+        fail('Unable to create comment. ${createCommentRes.errors}');
       }
 
       const getBlog = 'getBlog';
