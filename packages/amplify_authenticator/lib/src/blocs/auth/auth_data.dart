@@ -101,11 +101,11 @@ class AuthUpdatePasswordData {
 
 class AuthConfirmSignInData {
   AuthConfirmSignInData({
-    required this.code,
+    required this.confirmationValue,
     this.attributes = const {},
   });
 
-  final String code;
+  final String confirmationValue;
   final Map<String, String> attributes;
 }
 

@@ -49,7 +49,7 @@ abstract class AuthService {
   );
 
   Future<SignInResult> confirmSignIn({
-    required String code,
+    required String confirmationValue,
     Map<String, String>? attributes,
   });
 
@@ -123,11 +123,11 @@ class AmplifyAuthService implements AuthService {
 
   @override
   Future<SignInResult> confirmSignIn({
-    required String code,
+    required String confirmationValue,
     Map<String, String>? attributes,
   }) {
     return Amplify.Auth.confirmSignIn(
-      confirmationValue: code,
+      confirmationValue: confirmationValue,
       options: CognitoConfirmSignInOptions(userAttributes: attributes),
     );
   }

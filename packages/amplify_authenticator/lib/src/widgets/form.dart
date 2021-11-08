@@ -398,7 +398,7 @@ class ConfirmSignInNewPasswordForm
   }) : this.custom(
           key: key,
           fields: [
-            ConfirmSignInFormField.password(),
+            ConfirmSignInFormField.newPassword(),
           ],
         );
 

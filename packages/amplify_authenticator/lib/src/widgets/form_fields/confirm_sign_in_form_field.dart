@@ -49,10 +49,23 @@ abstract class ConfirmSignInFormField<FieldValue>
     FormFieldValidator<String>? validator,
   }) =>
       _ConfirmSignInTextField(
-        key: key ?? keyPasswordConfirmSignUpFormfield,
+        key: key ?? keyPasswordConfirmSignInFormField,
         titleKey: InputResolverKey.passwordTitle,
         hintTextKey: InputResolverKey.passwordHint,
         field: ConfirmSignInField.password,
+        validator: validator,
+      );
+
+  /// Creates a new password component.
+  static ConfirmSignInFormField newPassword({
+    Key? key,
+    FormFieldValidator<String>? validator,
+  }) =>
+      _ConfirmSignInTextField(
+        key: key ?? keyNewPasswordConfirmSignInFormField,
+        titleKey: InputResolverKey.passwordTitle,
+        hintTextKey: InputResolverKey.newPasswordHint,
+        field: ConfirmSignInField.newPassword,
         validator: validator,
       );
 
@@ -99,6 +112,7 @@ abstract class _ConfirmSignInFormFieldState<FieldValue>
   bool get obscureText {
     switch (widget.field) {
       case ConfirmSignInField.password:
+      case ConfirmSignInField.newPassword:
         return true;
       default:
         return false;
@@ -111,6 +125,7 @@ abstract class _ConfirmSignInFormFieldState<FieldValue>
       case ConfirmSignInField.code:
         return TextInputType.number;
       case ConfirmSignInField.password:
+      case ConfirmSignInField.newPassword:
         return TextInputType.visiblePassword;
       case ConfirmSignInField.address:
         return TextInputType.streetAddress;
@@ -137,6 +152,7 @@ abstract class _ConfirmSignInFormFieldState<FieldValue>
   Widget? get suffixIcon {
     switch (widget.field) {
       case ConfirmSignInField.password:
+      case ConfirmSignInField.newPassword:
         return visibilityToggle;
       default:
         return null;
@@ -178,6 +194,8 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
         return viewModel.confirmationCode;
       case ConfirmSignInField.password:
         return viewModel.password;
+      case ConfirmSignInField.newPassword:
+        return viewModel.newPassword;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
       case ConfirmSignInField.email:
@@ -201,7 +219,9 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
       case ConfirmSignInField.code:
         return viewModel.setConfirmationCode;
       case ConfirmSignInField.password:
-        return viewModel.setConfirmationCode;
+        return viewModel.setPassword;
+      case ConfirmSignInField.newPassword:
+        return viewModel.setNewPassword;
       case ConfirmSignInField.address:
         return viewModel.setAddress;
       case ConfirmSignInField.birthdate:

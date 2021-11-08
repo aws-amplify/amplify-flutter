@@ -22,6 +22,7 @@ import 'resolver.dart';
 enum InputField {
   username,
   password,
+  newPassword,
   passwordConfirmation,
   verificationCode,
   address,
@@ -81,6 +82,10 @@ class InputResolverKey {
   static const passwordEmpty = InputResolverKey._(
     InputResolverKeyType.empty,
     field: InputField.password,
+  );
+  static const newPasswordHint = InputResolverKey._(
+    InputResolverKeyType.hint,
+    field: InputField.newPassword,
   );
   static const passwordConfirmationTitle = InputResolverKey._(
     InputResolverKeyType.title,
@@ -333,6 +338,8 @@ class InputResolver extends Resolver<InputResolverKey> {
         return AuthenticatorLocalizations.inputsOf(context).username;
       case InputField.password:
         return AuthenticatorLocalizations.inputsOf(context).password;
+      case InputField.newPassword:
+        return AuthenticatorLocalizations.inputsOf(context).newPassword;
       case InputField.passwordConfirmation:
         return AuthenticatorLocalizations.inputsOf(context)
             .passwordConfirmation;
