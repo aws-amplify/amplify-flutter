@@ -40,10 +40,8 @@ export 'SignOut/SignOutResult.dart';
 export 'SignOut/SignOutOptions.dart';
 
 // Password Classes
-export 'Password/ConfirmPasswordRequest.dart';
 export 'Password/ConfirmResetPasswordOptions.dart';
 export 'Password/ConfirmResetPasswordRequest.dart';
-export 'Password/PasswordOptions.dart';
 export 'Password/ResetPasswordOptions.dart';
 export 'Password/ResetPasswordRequest.dart';
 export 'Password/ResetPasswordResult.dart';
@@ -62,8 +60,6 @@ export 'Session/AuthUserRequest.dart';
 
 // Attribute Classes
 export 'Attribute/AuthUserAttribute.dart';
-export 'Attribute/AuthUserAttributeOptions.dart';
-export 'Attribute/AuthUserAttributeRequest.dart';
 export 'Attribute/FetchUserAttributesOptions.dart';
 export 'Attribute/FetchUserAttributesRequest.dart';
 export 'Attribute/UpdateUserAttributeOptions.dart';
