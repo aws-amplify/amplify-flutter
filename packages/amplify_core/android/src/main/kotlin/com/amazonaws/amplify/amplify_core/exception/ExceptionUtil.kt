@@ -15,6 +15,8 @@
 
 package com.amazonaws.amplify.amplify_core.exception
 
+import android.os.Handler
+import android.os.Looper
 import androidx.annotation.NonNull
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.core.Amplify
@@ -34,11 +36,13 @@ class ExceptionUtil {
             errorCode: String,
             details: Map<String, Any?>
         ) {
-            result.error(
-                errorCode,
-                ExceptionMessages.defaultFallbackExceptionMessage,
-                details
-            )
+            Handler(Looper.getMainLooper()).post {
+                result.error(
+                    errorCode,
+                    ExceptionMessages.defaultFallbackExceptionMessage,
+                    details
+                )
+            }
         }
 
         @JvmStatic
