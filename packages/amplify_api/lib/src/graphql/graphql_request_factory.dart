@@ -15,12 +15,13 @@
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 import 'utils.dart';
 
 /// `"id"`, the name of the id field in every compatible model/schema.
-/// Eventually needs to be dynamic to accomodate custom primary keys.
+/// Eventually needs to be dynamic to accommodate custom primary keys.
 const idFieldName = 'id';
 
 class DocumentInputs {
@@ -307,14 +308,13 @@ class GraphQLRequestFactory {
       belongsToValue = modelJson[belongsToModelName]?[idFieldName];
     }
 
-    // Remove any relational fields with null values.
-    // Non-null values left in place to avoid secret deletion and let AppSync throw.
+    // Remove any relational fields.
     Set<String> associationFields = schema.fields!.entries
         .where((entry) => entry.value.association != null)
         .map((entry) => entry.key)
         .toSet();
-    modelJson.removeWhere((key, dynamic value) =>
-        associationFields.contains(key) && (value == null));
+    modelJson
+        .removeWhere((key, dynamic value) => associationFields.contains(key));
     // Assign the parent ID if the model has a parent.
     // belongsToValue intentionally not null checked here to allow AppSync to throw.
     if (belongsToKey != null && belongsToModelName != null) {
@@ -380,4 +380,11 @@ dynamic _getSerializedValue(dynamic value) {
     return _getSerializedValue(TemporalDateTime(value));
   }
   return value;
+}
+
+MapEntry<String, ModelField>? _getBelongsToFieldFromModelSchema(
+    ModelSchema schema) {
+  return schema.fields!.entries.firstWhereOrNull((entry) =>
+      entry.value.association?.associationType ==
+      ModelAssociationEnum.BelongsTo);
 }

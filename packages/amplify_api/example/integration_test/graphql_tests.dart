@@ -210,13 +210,20 @@ void main() {
       final req = ModelMutations.create(blog);
       final res = await Amplify.API.mutate(request: req).response;
       Blog? data = res.data;
-      if (data == null) {
-        fail('create blog failed');
-      }
-      blogCache.add(data);
+      if (data != null) blogCache.add(data);
 
-      expect(data.name, equals(blog.name));
-      expect(data.id, equals(blog.id));
+      expect(data?.name, equals(blog.name));
+      expect(data?.id, equals(blog.id));
+    });
+
+    testWidgets('should CREATE a post (model with parent) with Model helper',
+        (WidgetTester tester) async {
+      final title = 'Lorem Ipsum Test Post: ${UUID.getUUID()}';
+      const rating = 0;
+      Post data = await addPostAndBlogWithModelHelper(title, rating);
+
+      expect(data.title, equals(title));
+      expect(data.rating, equals(rating));
     });
 
     testWidgets('should CREATE a post (model with parent) with Model helper',
@@ -256,6 +263,24 @@ void main() {
       final updateRes = await Amplify.API.mutate(request: updateReq).response;
       Post? mutatedPost = updateRes.data;
       expect(mutatedPost?.title, equals(updatedTitle));
+    });
+
+    testWidgets(
+        'should get AppSync error when trying to CREATE a post (model with parent) without a parent on the instance',
+        (WidgetTester tester) async {
+      Post post =
+          Post(title: 'Lorem ipsum, fail update', rating: 0, blog: null);
+      final createPostReq = ModelMutations.create(post);
+      final createPostRes =
+          await Amplify.API.mutate(request: createPostReq).response;
+      final createdPost = createPostRes.data;
+      if (createdPost != null) {
+        postCache.add(createdPost);
+        fail('Successfully created a post when request should have failed.');
+      }
+
+      expect(createPostRes.data, isNull);
+      expect(createPostRes.errors, hasLength(1));
     });
 
     testWidgets(
