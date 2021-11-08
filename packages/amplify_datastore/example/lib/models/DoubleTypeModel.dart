@@ -13,7 +13,11 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
@@ -24,6 +28,8 @@ class DoubleTypeModel extends Model {
   static const classType = const _DoubleTypeModelModelType();
   final String id;
   final double? _value;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -37,7 +43,19 @@ class DoubleTypeModel extends Model {
     return _value;
   }
 
-  const DoubleTypeModel._internal({required this.id, value}) : _value = value;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const DoubleTypeModel._internal(
+      {required this.id, value, createdAt, updatedAt})
+      : _value = value,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory DoubleTypeModel({String? id, double? value}) {
     return DoubleTypeModel._internal(
@@ -63,21 +81,39 @@ class DoubleTypeModel extends Model {
 
     buffer.write("DoubleTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("value=" + (_value != null ? _value!.toString() : "null"));
+    buffer.write(
+        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   DoubleTypeModel copyWith({String? id, double? value}) {
-    return DoubleTypeModel(id: id ?? this.id, value: value ?? this.value);
+    return DoubleTypeModel._internal(
+        id: id ?? this.id, value: value ?? this.value);
   }
 
   DoubleTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = (json['value'] as num?)?.toDouble();
+        _value = (json['value'] as num?)?.toDouble(),
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
 
-  Map<String, dynamic> toJson() => {'id': id, 'value': _value};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'value': _value,
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "doubleTypeModel.id");
   static final QueryField VALUE = QueryField(fieldName: "value");
@@ -92,6 +128,18 @@ class DoubleTypeModel extends Model {
         key: DoubleTypeModel.VALUE,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.double)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

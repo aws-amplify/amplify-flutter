@@ -9,7 +9,8 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "name": {
         "name": "name",
@@ -17,7 +18,8 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "posts": {
         "name": "posts",
@@ -27,15 +29,33 @@
         },
         "isRequired": false,
         "isArray": true,
+        "isReadOnly": false,
         "association": {
           "associationType": "HasMany",
           "associatedName": "blog",
           "associatedType": "Blog"
         }
+      },
+      "createdAt": {
+        "name": "createdAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
+      },
+      "updatedAt": {
+        "name": "updatedAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
       }
     }
   },
-
   "CommentSchema": {
     "name": "Comment",
     "pluralName": "Comments",
@@ -46,7 +66,8 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "post": {
         "name": "post",
@@ -56,6 +77,7 @@
         },
         "isRequired": false,
         "isArray": false,
+        "isReadOnly": false,
         "association": {
           "associationType": "BelongsTo",
           "targetName": "postID"
@@ -67,11 +89,29 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
+      },
+      "createdAt": {
+        "name": "createdAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
+      },
+      "updatedAt": {
+        "name": "updatedAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
       }
     }
   },
-
   "PostSchema": {
     "name": "Post",
     "pluralName": "Posts",
@@ -82,7 +122,8 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "title": {
         "name": "title",
@@ -90,7 +131,8 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "created": {
         "name": "created",
@@ -98,7 +140,8 @@
           "fieldType": "dateTime"
         },
         "isRequired": false,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "rating": {
         "name": "rating",
@@ -106,7 +149,8 @@
           "fieldType": "int"
         },
         "isRequired": false,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "blog": {
         "name": "blog",
@@ -116,6 +160,7 @@
         },
         "isRequired": false,
         "isArray": false,
+        "isReadOnly": false,
         "association": {
           "associationType": "BelongsTo",
           "targetName": "blogID"
@@ -129,6 +174,7 @@
         },
         "isRequired": false,
         "isArray": true,
+        "isReadOnly": false,
         "association": {
           "associationType": "HasMany",
           "associatedName": "post",
@@ -141,19 +187,39 @@
           "fieldType": "int"
         },
         "isRequired": false,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
+      },
+      "createdAt": {
+        "name": "createdAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
+      },
+      "updatedAt": {
+        "name": "updatedAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
       }
     }
   },
-
   "PostAuthComplexSchema": {
     "name": "PostAuthComplex",
     "pluralName": "PostAuthComplexes",
-    "authRules": [{
-      "authStrategy": "OWNER",
-      "ownerField": "owner",
-      "identityClaim": "cognito:username"
-    }],
+    "authRules": [
+      {
+        "authStrategy": "OWNER",
+        "ownerField": "owner",
+        "identityClaim": "cognito:username"
+      }
+    ],
     "fields": {
       "id": {
         "name": "id",
@@ -161,7 +227,8 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "title": {
         "name": "title",
@@ -169,7 +236,8 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "owner": {
         "name": "owner",
@@ -177,20 +245,40 @@
           "fieldType": "string"
         },
         "isRequired": false,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
+      },
+      "createdAt": {
+        "name": "createdAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
+      },
+      "updatedAt": {
+        "name": "updatedAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
       }
     }
   },
-
   "PostAuthComplexWithProviderUserPoolsSchema": {
     "name": "PostAuthComplexWithProviderUserPools",
     "pluralName": "PostAuthComplexesWithProviderUserPools",
-    "authRules": [{
-      "authStrategy": "OWNER",
-      "ownerField": "owner",
-      "identityClaim": "cognito:username",
-      "provider": "USERPOOLS"
-    }],
+    "authRules": [
+      {
+        "authStrategy": "OWNER",
+        "ownerField": "owner",
+        "identityClaim": "cognito:username",
+        "provider": "USERPOOLS"
+      }
+    ],
     "fields": {
       "id": {
         "name": "id",
@@ -198,7 +286,8 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "owner": {
         "name": "owner",
@@ -206,18 +295,38 @@
           "fieldType": "string"
         },
         "isRequired": false,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
+      },
+      "createdAt": {
+        "name": "createdAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
+      },
+      "updatedAt": {
+        "name": "updatedAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
       }
     }
   },
-
   "PostAuthComplexWithProviderApiKeySchema": {
     "name": "PostAuthComplexWithProviderApiKey",
     "pluralName": "PostAuthComplexesWithProviderApiKeys",
-    "authRules": [{
-      "authStrategy": "PUBLIC",
-      "provider": "APIKEY"
-    }],
+    "authRules": [
+      {
+        "authStrategy": "PUBLIC",
+        "provider": "APIKEY"
+      }
+    ],
     "fields": {
       "id": {
         "name": "id",
@@ -225,11 +334,29 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
+      },
+      "createdAt": {
+        "name": "createdAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
+      },
+      "updatedAt": {
+        "name": "updatedAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
       }
     }
   },
-
   "AllTypeModelSchema": {
     "name": "AllTypeModel",
     "pluralName": "AllTypeModels",
@@ -240,7 +367,8 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "stringType": {
         "name": "stringType",
@@ -248,7 +376,8 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "intType": {
         "name": "intType",
@@ -256,7 +385,8 @@
           "fieldType": "int"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "floatType": {
         "name": "floatType",
@@ -264,7 +394,8 @@
           "fieldType": "double"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "boolType": {
         "name": "boolType",
@@ -272,7 +403,8 @@
           "fieldType": "bool"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "dateType": {
         "name": "dateType",
@@ -280,7 +412,8 @@
           "fieldType": "date"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "dateTimeType": {
         "name": "dateTimeType",
@@ -288,7 +421,8 @@
           "fieldType": "dateTime"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "timeType": {
         "name": "timeType",
@@ -296,7 +430,8 @@
           "fieldType": "time"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "timestampType": {
         "name": "timestampType",
@@ -304,7 +439,8 @@
           "fieldType": "timestamp"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
       },
       "enumType": {
         "name": "enumType",
@@ -312,7 +448,26 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
+        "isArray": false,
+        "isReadOnly": false
+      },
+      "createdAt": {
+        "name": "createdAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
+      },
+      "updatedAt": {
+        "name": "updatedAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
       }
     }
   },
@@ -324,13 +479,19 @@
         "isRequired": true,
         "name": "id",
         "isArray": false,
-        "type": { "fieldType": "string" }
+        "type": {
+          "fieldType": "string"
+        },
+        "isReadOnly": false
       },
       "name": {
         "isRequired": true,
         "name": "name",
         "isArray": false,
-        "type": { "fieldType": "string" }
+        "type": {
+          "fieldType": "string"
+        },
+        "isReadOnly": false
       },
       "contact": {
         "isRequired": true,
@@ -339,7 +500,8 @@
         "type": {
           "ofCustomTypeName": "Contact",
           "fieldType": "embedded"
-        }
+        },
+        "isReadOnly": false
       },
       "propertiesAddresses": {
         "isRequired": false,
@@ -348,7 +510,26 @@
         "type": {
           "ofCustomTypeName": "Address",
           "fieldType": "embeddedCollection"
-        }
+        },
+        "isReadOnly": false
+      },
+      "createdAt": {
+        "name": "createdAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
+      },
+      "updatedAt": {
+        "name": "updatedAt",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "isReadOnly": true
       }
     }
   }

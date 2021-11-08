@@ -30,6 +30,8 @@ import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.*
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -51,6 +53,7 @@ const val underlyingInvalidApiException =
             "recoverySuggestion=The request should include the apiName as a String}"
 
 @RunWith(RobolectricTestRunner::class)
+@ExperimentalCoroutinesApi
 @Suppress("UNCHECKED_CAST")
 class GraphQLApiUnitTests {
     lateinit var flutterPlugin: AmplifyApiPlugin
@@ -62,12 +65,14 @@ class GraphQLApiUnitTests {
 
     @Before
     fun setup() {
-        flutterPlugin = AmplifyApiPlugin()
+        flutterPlugin = AmplifyApiPlugin(mockStreamHandler, testDispatcher)
         setFinalStatic(Amplify::class.java.getDeclaredField("API"), mockApi)
     }
 
+    private val testDispatcher = TestCoroutineDispatcher()
+
     @Test
-    fun test_query_returns_success() {
+    fun test_query_returns_success() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
         testRequest["document"] = """query MyQuery {
             listBlogs {
@@ -114,11 +119,10 @@ class GraphQLApiUnitTests {
                 "errors" to listOf<String>()
             )
         )
-
     }
 
     @Test
-    fun test_query_malformed_request_error() {
+    fun test_query_malformed_request_error() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
 
         flutterPlugin.onMethodCall(
@@ -138,7 +142,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_query_api_error() {
+    fun test_query_api_error() = runBlockingTest {
         val apiException =
             ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
 
@@ -191,7 +195,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_query_with_valid_api_name() {
+    fun test_query_with_valid_api_name() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
         testRequest["apiName"] = "publicApi"
         testRequest["document"] = """query MyQuery {
@@ -245,7 +249,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_mutate_returns_success() {
+    fun test_mutate_returns_success() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
 
         testRequest["document"] = ("mutation MyMutation(\$name: String!) {"
@@ -297,7 +301,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_mutate_malformed_request_error() {
+    fun test_mutate_malformed_request_error() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
 
         flutterPlugin.onMethodCall(
@@ -317,7 +321,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_mutate_api_error() {
+    fun test_mutate_api_error() = runBlockingTest {
         val apiException =
             ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
         val testRequest = HashMap<String, Any>()
@@ -371,7 +375,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_mutate_with_valid_api_name() {
+    fun test_mutate_with_valid_api_name() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
         testRequest["apiName"] = "publicApi"
         testRequest["document"] = ("mutation MyMutation(\$name: String!) {"
@@ -425,7 +429,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_subscription_establishes_successfully() {
+    fun test_subscription_establishes_successfully() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
         val id = "someCode"
 
@@ -473,8 +477,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_subscribe_success_event() {
-        flutterPlugin = AmplifyApiPlugin(eventHandler = mockStreamHandler)
+    fun test_subscribe_success_event() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
         val id = "someCode"
 
@@ -534,8 +537,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_subscribe_error_event() {
-        flutterPlugin = AmplifyApiPlugin(eventHandler = mockStreamHandler)
+    fun test_subscribe_error_event() = runBlockingTest {
         val apiException =
             ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
         val testRequest = HashMap<String, Any>()
@@ -594,7 +596,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_subscribe_malformed_request_error() {
+    fun test_subscribe_malformed_request_error() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
 
         flutterPlugin.onMethodCall(
@@ -614,7 +616,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_subscribe_api_error() {
+    fun test_subscribe_api_error() = runBlockingTest {
         val apiException =
             ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
         val testRequest = HashMap<String, Any>()
@@ -670,7 +672,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_subscription_with_valid_api_name() {
+    fun test_subscription_with_valid_api_name() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
         val id = "someCode"
         testRequest["apiName"] = "publicApi"
@@ -720,7 +722,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_operation_with_invalid_api_name() {
+    fun test_operation_with_invalid_api_name() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
         testRequest["apiName"] = 5
         testRequest["document"] = """query MyQuery {

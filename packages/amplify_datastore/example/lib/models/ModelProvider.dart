@@ -13,7 +13,11 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'BelongsToModel.dart';
@@ -87,7 +91,7 @@ export 'TimestampTypeModel.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "1abf22a6ff86e4a92910a0fcfb17f648";
+  String version = "6a66203ff64c1b6230fe0f830046a855";
   @override
   List<ModelSchema> modelSchemas = [
     BelongsToModel.schema,
@@ -121,13 +125,13 @@ class ModelProvider implements ModelProviderInterface {
     TimestampListTypeModel.schema,
     TimestampTypeModel.schema
   ];
+  static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [
     AllScalarTypesCustomType.schema,
     AllScalarTypesListCustomType.schema,
     SimpleCustomType.schema
   ];
-  static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
 

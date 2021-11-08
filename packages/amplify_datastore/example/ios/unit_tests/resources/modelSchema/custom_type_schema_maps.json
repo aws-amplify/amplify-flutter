@@ -9,7 +9,8 @@
                 "isArray": false,
                 "type": {
                     "fieldType": "string"
-                }
+                },
+                "isReadOnly": false
             },
             "line2": {
                 "name": "line2",
@@ -17,7 +18,8 @@
                 "isArray": false,
                 "type": {
                     "fieldType": "string"
-                }
+                },
+                "isReadOnly": false
             },
             "city": {
                 "name": "city",
@@ -25,7 +27,8 @@
                 "isArray": false,
                 "type": {
                     "fieldType": "string"
-                }
+                },
+                "isReadOnly": false
             },
             "state": {
                 "name": "state",
@@ -33,7 +36,8 @@
                 "isArray": false,
                 "type": {
                     "fieldType": "string"
-                }
+                },
+                "isReadOnly": false
             },
             "postalCode": {
                 "name": "postalCode",
@@ -41,8 +45,9 @@
                 "isArray": false,
                 "type": {
                     "fieldType": "string"
-                }
-            }
+                },
+                "isReadOnly": false
+            },
         }
     },
     "PhoneSchema": {
@@ -55,7 +60,8 @@
                 "isArray": false,
                 "type": {
                     "fieldType": "string"
-                }
+                },
+                "isReadOnly": false
             },
             "area": {
                 "name": "area",
@@ -63,7 +69,8 @@
                 "isArray": false,
                 "type": {
                     "fieldType": "string"
-                }
+                },
+                "isReadOnly": false
             },
             "number": {
                 "name": "number",
@@ -71,8 +78,9 @@
                 "isArray": false,
                 "type": {
                     "fieldType": "string"
-                }
-            }
+                },
+                "isReadOnly": false
+            },
         }
     },
     "ContactSchema": {
@@ -85,7 +93,8 @@
                 "isArray": false,
                 "type": {
                     "fieldType": "string"
-                }
+                },
+                "isReadOnly": false
             },
             "phone": {
                 "name": "phone",
@@ -94,7 +103,8 @@
                 "type": {
                     "fieldType": "embedded",
                     "ofCustomTypeName": "Phone"
-                }
+                },
+                "isReadOnly": false
             },
             "mailingAddresses": {
                 "name": "mailingAddresses",
@@ -103,8 +113,9 @@
                 "type": {
                     "fieldType": "embeddedCollection",
                     "ofCustomTypeName": "Address"
-                }
-            }
+                },
+                "isReadOnly": false
+            },
         }
     },
     "CustomASchema": {
@@ -117,7 +128,8 @@
                 "isArray": false,
                 "type": {
                     "fieldType": "string"
-                }
+                },
+                "isReadOnly": false
             },
             "field2": {
                 "name": "field2",
@@ -126,8 +138,9 @@
                 "type": {
                     "fieldType": "embedded",
                     "ofCustomTypeName": "CustomB"
-                }
-            }
+                },
+                "isReadOnly": false
+            },
         }
     },
     "CustomBSchema": {
@@ -140,7 +153,8 @@
                 "isArray": false,
                 "type": {
                     "fieldType": "string"
-                }
+                },
+                "isReadOnly": false
             },
         }
     }
