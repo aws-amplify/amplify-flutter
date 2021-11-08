@@ -19,6 +19,5 @@ enum SignInField {
   email,
   phoneNumber,
   verificationCode,
-  newPassword,
-  newUsername
+  newPassword
 }

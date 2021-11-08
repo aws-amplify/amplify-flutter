@@ -27,20 +27,17 @@ class AuthViewModel extends ChangeNotifier {
     // the transitioning form's first build is called.
 
     /// When transitioning through widgets as part of authflow, maintain [ViewModel] state except for form key
-    _authBloc.stream
-        .where((event) => event is AuthFlow)
-        .distinct()
-        .listen((event) {
-      resetFormKey();
-    });
 
     /// When auth flow is complete, reset entirety of [ViewModel] state
     _authBloc.stream
-        .where((event) => event is Authenticated)
+        // .where((event) => event is Authenticated)
         .distinct()
         .listen((event) {
       resetFormKey();
-      resetAttributes();
+      resetCode();
+      if (event is Authenticated) {
+        resetAttributes();
+      }
     });
   }
 
@@ -80,9 +77,6 @@ class AuthViewModel extends ChangeNotifier {
   String _newPassword = '';
   String get newPassword => _newPassword;
 
-  String _newUsername = '';
-  String get newUsername => _newUsername;
-
   final Map<String, String> _authAttributes = {};
 
   String? getAttribute(String key) => _authAttributes[key];
@@ -101,10 +95,6 @@ class AuthViewModel extends ChangeNotifier {
 
   void setConfirmationCode(String value) {
     _confirmationCode = value;
-  }
-
-  void setNewUsername(String newUsername) {
-    _newUsername = newUsername;
   }
 
   void setNewPassword(String newPassword) {
@@ -280,7 +270,7 @@ class AuthViewModel extends ChangeNotifier {
       return;
     }
     setBusy(true);
-    final sendCode = AuthSendCodeData(username: _newUsername.trim());
+    final sendCode = AuthSendCodeData(username: _username.trim());
     authBloc.add(AuthSendCode(sendCode));
     await _nextBlocEvent(
       where: (state) => state is AuthFlow,
@@ -407,7 +397,6 @@ class AuthViewModel extends ChangeNotifier {
     _password = '';
     _passwordConfirmation = '';
     _confirmationCode = '';
-    _newUsername = '';
     _newPassword = '';
     _selectedUsername = null;
     _authAttributes.clear();
@@ -415,5 +404,9 @@ class AuthViewModel extends ChangeNotifier {
 
   void resetFormKey() {
     _formKey = GlobalKey<FormState>();
+  }
+
+  void resetCode() {
+    _confirmationCode = '';
   }
 }
