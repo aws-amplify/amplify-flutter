@@ -4,6 +4,8 @@
 
 - The amplify_auth_cognito fetchAuthSession API will throw a SignedOutException when the user has not signed in, and a SessionExpiredException when the tokens have expired.
 - The amplify_auth_cognito getCurrentUser API will return an AuthUser if the user is still authenticated but the session has expired.
+- Remove deprecated method confirmResetPassword()
+- Remove deprecated classes AuthUserAttributeOptions, AuthUserAttributeRequest, ConfirmPasswordRequest, and PasswordOptions
 
 ### Fixes
 
@@ -15,6 +17,7 @@
 ## 0.2.5 (2021-10-14)
 
 ### Fixes
+
 - fix(auth): Add global sign out
 - fix(auth): Support `preferPrivateSession` flag
 
