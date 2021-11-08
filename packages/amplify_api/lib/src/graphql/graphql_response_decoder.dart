@@ -29,10 +29,14 @@ class GraphQLResponseDecoder {
 
   GraphQLResponse<T> decode<T>(
       {required GraphQLRequest request,
-      required String data,
+      String? data,
       required List<GraphQLResponseError> errors}) {
-    // if no ModelType fallback to default
-    if (request.modelType == null) {
+    if (data == null) {
+      return GraphQLResponse(data: null, errors: errors);
+    }
+    // If no modelType fallback to default (likely String).
+    final modelType = request.modelType;
+    if (modelType == null) {
       if (T == String || T == dynamic) {
         return GraphQLResponse(
             data: data as T, errors: errors); // <T> is implied
@@ -42,26 +46,22 @@ class GraphQLResponseDecoder {
             recoverySuggestion: "Please provide a Model Type or type 'String'");
       }
     }
-
-    if (data == '') {
-      // TODO: T data is non-nullable, need to handle valid null response
-      throw ApiException('response from app sync was "null"',
-          recoverySuggestion:
-              "Current GraphQLResponse is non-nullable, please ensure item exists before fetching");
-    }
+    // From here, it appears this is a response that must be parsed into a non-string object.
 
     if (request.decodePath == null) {
       throw ApiException('No decodePath found',
           recoverySuggestion: 'Include decodePath when creating a request');
     }
 
+    // Even if the data string is not null, it may be a null value shallow
+    // nested in a small JSON object in the `decodePath`. Its structure varies by
+    // platform when null. Unpack the JSON object and null check the result along
+    // the way. If null at any point, return null response.
     Map<String, dynamic>? dataJson = json.decode(data);
     if (dataJson == null) {
-      throw ApiException(
-          'Unable to decode json response, data received was null');
+      return GraphQLResponse(data: null, errors: errors);
     }
-
-    request.decodePath!.split(".").forEach((element) {
+    request.decodePath!.split('.').forEach((element) {
       if (!dataJson!.containsKey(element)) {
         throw ApiException(
             'decodePath did not match the structure of the JSON response',
@@ -70,17 +70,13 @@ class GraphQLResponseDecoder {
       }
       dataJson = dataJson![element];
     });
-
     if (dataJson == null) {
-      // TODO: T data is non-nullable, need to handle valid null response
-      throw ApiException('response from app sync was "null"',
-          recoverySuggestion:
-              "Current GraphQLResponse is non-nullable, please ensure item exists before fetching");
+      return GraphQLResponse(data: null, errors: errors);
     }
 
+    // Found a JSON object to represent the model, parse it using model's fromJSON.
     T decodedData;
-    final modelType = request.modelType;
-    dataJson = transformAppSyncJsonToModelJson(dataJson!, modelType!);
+    dataJson = transformAppSyncJsonToModelJson(dataJson!, modelType);
     if (modelType is PaginatedModelType) {
       Map<String, dynamic>? filter = request.variables['filter'];
       int? limit = request.variables['limit'];
