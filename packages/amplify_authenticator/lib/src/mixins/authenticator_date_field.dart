@@ -42,7 +42,6 @@ mixin AuthenticatorDateField<FieldType,
       }
     }
 
-
     return TextFormField(
       style: enabled
           ? null
