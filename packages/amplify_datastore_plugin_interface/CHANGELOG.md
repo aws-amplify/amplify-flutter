@@ -1,9 +1,5 @@
 ## 0.2.7 (2021-11-08)
 
-### Chores
-
-- chore: Bump Amplify iOS to 1.15.5
-
 ### Fixes
 
 - fix(datastore): Temporal date/time query predicates
