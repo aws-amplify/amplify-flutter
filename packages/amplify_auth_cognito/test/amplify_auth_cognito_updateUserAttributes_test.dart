@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_auth_cognito/src/CognitoSignUp/cognito_user_attributes.dart';
+import 'package:amplify_auth_cognito/src/CognitoSignUp/cognito_user_attribute_key.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -77,17 +77,17 @@ void main() {
     var res = await auth.updateUserAttributes(
       request: UpdateUserAttributesRequest(attributes: [
         AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributes.email,
+            userAttributeKey: CognitoUserAttributeKey.email,
             value: "email@email.com"),
         AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributes.name, value: "testname")
+            userAttributeKey: CognitoUserAttributeKey.name, value: "testname")
       ]),
     );
     expect(
       res.keys,
       unorderedEquals([
-        CognitoUserAttributes.email,
-        CognitoUserAttributes.name,
+        CognitoUserAttributeKey.email,
+        CognitoUserAttributeKey.name,
       ]),
     );
   });
@@ -99,13 +99,13 @@ void main() {
     var res = await auth.updateUserAttributes(
       request: UpdateUserAttributesRequest(attributes: [
         AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributes.email,
+            userAttributeKey: CognitoUserAttributeKey.email,
             value: "email@email.com"),
         AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributes.name, value: "testname")
+            userAttributeKey: CognitoUserAttributeKey.name, value: "testname")
       ]),
     );
-    expect(res[CognitoUserAttributes.email]!.nextStep,
+    expect(res[CognitoUserAttributeKey.email]!.nextStep,
         isInstanceOf<AuthNextUpdateAttributeStep>());
   });
 
@@ -117,10 +117,10 @@ void main() {
       await auth.updateUserAttributes(
         request: UpdateUserAttributesRequest(attributes: [
           AuthUserAttribute(
-              userAttributeKey: CognitoUserAttributes.email,
+              userAttributeKey: CognitoUserAttributeKey.email,
               value: "email@email.com"),
           AuthUserAttribute(
-              userAttributeKey: CognitoUserAttributes.name, value: "testname")
+              userAttributeKey: CognitoUserAttributeKey.name, value: "testname")
         ]),
       );
     } on AuthException catch (e) {

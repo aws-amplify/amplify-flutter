@@ -54,7 +54,7 @@ void main() {
             FetchUserAttributesRequest(options: FetchUserAttributesOptions()));
     expect(res, isInstanceOf<List<AuthUserAttribute>>());
     expect(res[0].userAttributeKey,
-        equals(CognitoUserAttributes.preferredUsername));
+        equals(CognitoUserAttributeKey.preferredUsername));
     expect(res[0].value, equals('person'));
   });
 
@@ -64,27 +64,31 @@ void main() {
     var res = await testChannel.formatFetchAttributesResponse(sampleResponse);
     expect(res, isInstanceOf<List<AuthUserAttribute>>());
     expect(res[0].userAttributeKey,
-        equals(CognitoUserAttributes.preferredUsername));
+        equals(CognitoUserAttributeKey.preferredUsername));
     expect(res[0].value, equals('person'));
     expect(
-        res[1].userAttributeKey, equals(CognitoUserAttributes.custom('num')));
+        res[1].userAttributeKey, equals(CognitoUserAttributeKey.custom('num')));
     expect(res[1].value, equals(2));
     expect(
       res[2].userAttributeKey,
       equals(
-        CognitoUserAttributes.custom('float_shouldnt_parse_shouldnt_break'),
+        CognitoUserAttributeKey.custom('float_shouldnt_parse_shouldnt_break'),
       ),
     );
     expect(res[2].value, equals("1.234"));
   });
 
-  test('invalid cognito attribute', () {
+  test('unknown cognito attribute', () {
     const invalidResponse = [
-      {'key': 'invalid_cognito_key', 'value': 'someValue'},
+      {'key': 'unknown_cognito_key', 'value': 'someValue'},
     ];
+    final res = testChannel.formatFetchAttributesResponse(invalidResponse);
     expect(
-      () => testChannel.formatFetchAttributesResponse(invalidResponse),
-      throwsArgumentError,
+      res.single.userAttributeKey,
+      allOf([
+        isA<CognitoUserAttributeKey>(),
+        predicate<CognitoUserAttributeKey>((attr) => attr.readOnly),
+      ]),
     );
   });
 }

@@ -20,15 +20,15 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
 
-const emailAttributeKey = CognitoUserAttributes.email;
-const nameAttributeKey = CognitoUserAttributes.name;
-const phoneNumberAttributeKey = CognitoUserAttributes.phoneNumber;
-const givenNameAttributeKey = CognitoUserAttributes.givenName;
-const emailVerifiedAttributeKey = CognitoUserAttributes.emailVerified;
+const emailAttributeKey = CognitoUserAttributeKey.email;
+const nameAttributeKey = CognitoUserAttributeKey.name;
+const phoneNumberAttributeKey = CognitoUserAttributeKey.phoneNumber;
+const givenNameAttributeKey = CognitoUserAttributeKey.givenName;
+const emailVerifiedAttributeKey = CognitoUserAttributeKey.emailVerified;
 
 dynamic getAttributeValueFromList(
   List<AuthUserAttribute> userAttributes,
-  CognitoUserAttributes cognitoAttribute,
+  CognitoUserAttributeKey cognitoAttribute,
 ) {
   return userAttributes
       .firstWhere((attribute) => attribute.userAttributeKey == cognitoAttribute)
@@ -109,7 +109,7 @@ void main() {
           (WidgetTester tester) async {
         try {
           await Amplify.Auth.updateUserAttribute(
-            userAttributeKey: CognitoUserAttributes.parse('fake-key-name'),
+            userAttributeKey: CognitoUserAttributeKey.parse('fake-key-name'),
             value: 'mock-value',
           );
         } catch (e) {
@@ -187,7 +187,7 @@ void main() {
               value: updatedName,
             ),
             AuthUserAttribute(
-              userAttributeKey: CognitoUserAttributes.parse('fake-key-name'),
+              userAttributeKey: CognitoUserAttributeKey.parse('fake-key-name'),
               value: 'mock-value',
             ),
           ]);

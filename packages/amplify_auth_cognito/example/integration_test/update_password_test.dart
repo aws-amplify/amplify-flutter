@@ -40,8 +40,8 @@ void main() {
           username: username,
           password: password,
           options: CognitoSignUpOptions(userAttributes: {
-            CognitoUserAttributes.email: generateEmail(),
-            CognitoUserAttributes.phoneNumber: mockPhoneNumber
+            CognitoUserAttributeKey.email: generateEmail(),
+            CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
           }));
 
       await signOutUser();

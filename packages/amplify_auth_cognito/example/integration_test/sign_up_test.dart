@@ -39,8 +39,8 @@ void main() {
           username: username,
           password: password,
           options: CognitoSignUpOptions(userAttributes: {
-            CognitoUserAttributes.email: generateEmail(),
-            CognitoUserAttributes.phoneNumber: mockPhoneNumber
+            CognitoUserAttributeKey.email: generateEmail(),
+            CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
           }));
       // should be uncommented when https://github.com/aws-amplify/amplify-flutter/issues/581 is closed
       // currently this just confirms there is no error thrown
@@ -67,8 +67,8 @@ void main() {
       final username = generateUsername();
       final invalidPassword = '123';
       final options = CognitoSignUpOptions(userAttributes: {
-        CognitoUserAttributes.email: generateEmail(),
-        CognitoUserAttributes.phoneNumber: mockPhoneNumber
+        CognitoUserAttributeKey.email: generateEmail(),
+        CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
       });
       try {
         await Amplify.Auth.signUp(
@@ -89,8 +89,8 @@ void main() {
       // sign up first user
       final userOnePassword = generatePassword();
       final userOneOptions = CognitoSignUpOptions(userAttributes: {
-        CognitoUserAttributes.email: generateEmail(),
-        CognitoUserAttributes.phoneNumber: mockPhoneNumber
+        CognitoUserAttributeKey.email: generateEmail(),
+        CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
       });
       await Amplify.Auth.signUp(
         username: username,
@@ -101,8 +101,8 @@ void main() {
       // attempt to sign up second user with the same username
       final userTwoPassword = generatePassword();
       final userTwoOptions = CognitoSignUpOptions(userAttributes: {
-        CognitoUserAttributes.email: generateEmail(),
-        CognitoUserAttributes.phoneNumber: mockPhoneNumber
+        CognitoUserAttributeKey.email: generateEmail(),
+        CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
       });
       try {
         await Amplify.Auth.signUp(

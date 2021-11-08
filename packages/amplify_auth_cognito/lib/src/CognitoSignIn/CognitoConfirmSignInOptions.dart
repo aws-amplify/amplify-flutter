@@ -18,7 +18,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 
 class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
   final Map<String, String>? clientMetadata;
-  final Map<CognitoUserAttributes, String>? userAttributes;
+  final Map<CognitoUserAttributeKey, String>? userAttributes;
 
   const CognitoConfirmSignInOptions({
     this.clientMetadata,

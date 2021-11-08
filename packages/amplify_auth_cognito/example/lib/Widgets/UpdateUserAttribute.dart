@@ -38,7 +38,7 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
   void _updateAttribute() async {
     try {
       var res = await Amplify.Auth.updateUserAttribute(
-        userAttributeKey: CognitoUserAttributes.parse(_keyController.text),
+        userAttributeKey: CognitoUserAttributeKey.parse(_keyController.text),
         value: _valueController.text,
       );
       if (res.nextStep.updateAttributeStep == 'CONFIRM_ATTRIBUTE_WITH_CODE') {
@@ -94,7 +94,7 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
                   MaterialPageRoute(
                     builder: (context) => ConfirmUserAttribute(
                       userAttributeKey:
-                          CognitoUserAttributes.parse(_keyController.text),
+                          CognitoUserAttributeKey.parse(_keyController.text),
                     ),
                   ),
                 );

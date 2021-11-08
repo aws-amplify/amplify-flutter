@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_auth_cognito/src/CognitoSignUp/cognito_user_attributes.dart';
+import 'package:amplify_auth_cognito/src/CognitoSignUp/cognito_user_attribute_key.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -31,7 +31,7 @@ void main() {
       nextStep: AuthNextSignInStep(
           signInStep: "DONE",
           codeDeliveryDetails: AuthCodeDeliveryDetails(
-              attributeName: CognitoUserAttributes.email.key,
+              attributeName: CognitoUserAttributeKey.email.key,
               destination: "test@test.test"),
           additionalInfo: {}));
 
