@@ -87,7 +87,7 @@ class GraphQLRequestFactory {
       final provider = AmplifyAPI.instance.getModelProvider();
       final parentSchema =
           getModelSchemaByModelName(belongsToModelName, provider!);
-      final parentSelectionSet = _getFieldsFromModelSchema(
+      String parentSelectionSet = _getFieldsFromModelSchema(
           parentSchema, GraphQLRequestOperation.get,
           ignoreParents:
               true); // always format like a get, stop traversing parents
@@ -98,7 +98,7 @@ class GraphQLRequestFactory {
     String fields = _fields.join(' '); // e.g. "id name createdAt"
 
     if (operation == GraphQLRequestOperation.list) {
-      return 'items { $fields } nextToken';
+      return '$items { $fields } nextToken';
     }
 
     return fields;

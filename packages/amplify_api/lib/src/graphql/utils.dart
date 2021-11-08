@@ -18,7 +18,9 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:collection/collection.dart';
 
 const _serializedData = 'serializedData';
-const _items = 'items';
+
+/// "items", the key name for nested data in AppSync
+const items = 'items';
 
 /// e.g., given Post, returns "blog".
 String? getParentModelName(ModelType? modelType) {
@@ -64,9 +66,9 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
 
   // transform children recursively
   for (var element in _input.entries.where(
-      (element) => element.value is Map && element.value[_items] is List)) {
-    List<dynamic> items = element.value[_items];
-    final transformedItems = items
+      (element) => element.value is Map && element.value[items] is List)) {
+    List<dynamic> _items = element.value[items];
+    final transformedItems = _items
         .map((dynamic item) =>
             {_serializedData: transformAppSyncJsonToModelJson(item, null)})
         .toList();
