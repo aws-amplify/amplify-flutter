@@ -31,7 +31,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   void _checkUserAttributeKey(UserAttributeKey? userAttributeKey) {
     if (userAttributeKey is! CognitoUserAttributeKey ||
         userAttributeKey.readOnly) {
-      throw AuthException(
+      throw InvalidParameterException(
         'Invalid Cognito attribute key: "$userAttributeKey". '
         'Values must be one of the standard CognitoUserAttributeKey values '
         'or a custom attribute created with CognitoUserAttributeKey.custom.',
