@@ -82,8 +82,8 @@ void main() {
     const invalidResponse = [
       {'key': 'invalid_cognito_key', 'value': 'someValue'},
     ];
-    expectLater(
-      () async => testChannel.formatFetchAttributesResponse(invalidResponse),
+    expect(
+      () => testChannel.formatFetchAttributesResponse(invalidResponse),
       throwsArgumentError,
     );
   });
