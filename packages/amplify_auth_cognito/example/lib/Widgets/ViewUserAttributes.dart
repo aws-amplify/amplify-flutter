@@ -29,7 +29,7 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
   Future _fetchAttributes({bool isRefresh = false}) {
     return Amplify.Auth.fetchUserAttributes().then((attributes) {
       setState(() => _userAttributes = attributes
-        ..sort((a, b) => b.userAttributeKey.compareTo(a.userAttributeKey)));
+        ..sort((a, b) => a.userAttributeKey.compareTo(b.userAttributeKey)));
       if (isRefresh) {
         _showSuccess('User Attributes Refreshed Successfully');
       }
@@ -91,24 +91,28 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
               child: ListView.builder(
                 itemCount: _userAttributes.length,
                 itemBuilder: (context, index) {
-                  var key = _userAttributes[index].userAttributeKey.key;
+                  var key = _userAttributes[index].userAttributeKey
+                      as CognitoUserAttributeKey;
                   var value = _userAttributes[index].value;
                   var stringValue = value.toString();
                   return ListTile(
-                    title: Text(key),
+                    title: Text(key.key),
                     subtitle: Text(stringValue),
-                    trailing: IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => UpdateUserAttributeWidget(
-                              userAttributeKey: key,
-                            ),
+                    trailing: key.readOnly
+                        ? null
+                        : IconButton(
+                            icon: Icon(Icons.edit),
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      UpdateUserAttributeWidget(
+                                    userAttributeKey: key.key,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
                   );
                 },
               ),
