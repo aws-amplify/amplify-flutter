@@ -245,7 +245,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     Key? key,
     required String title,
     required String attributeKey,
-    String? hintText,
+    required String hintText,
     FormFieldValidator<String>? validator,
   }) =>
       _SignUpTextField(
