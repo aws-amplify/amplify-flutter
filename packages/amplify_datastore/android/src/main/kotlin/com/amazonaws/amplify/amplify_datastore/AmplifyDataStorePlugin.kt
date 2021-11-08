@@ -165,7 +165,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         val dataStoreConfigurationBuilder = DataStoreConfiguration.builder()
 
-        if(request["hasCustomErrorHandler"] as Boolean) {
+        if( (request["hasErrorHandler"] as? Boolean? == true) ) {
             var handler = DataStoreErrorHandler {
                 val args = hashMapOf(
                         "errorCode" to "DataStoreException",

@@ -88,7 +88,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'modelSchemas': modelProvider?.modelSchemas
             .map((schema) => schema.toMap())
             .toList(),
-        'hasCustomErrorHandler': errorHandler != null,
+        'hasErrorHandler': errorHandler != null,
         'modelProviderVersion': modelProvider?.version,
         'syncExpressions': syncExpressions!
             .map((syncExpression) => syncExpression.toMap())

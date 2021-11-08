@@ -126,7 +126,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             
 
             var errorHandler: DataStoreErrorHandler
-            if( args["hasCustomErrorHandler"] as! Bool ){
+            if( (args["hasErrorHandler"] as? Bool) == true ){
                 errorHandler = { error in
                     let map : [String:Any] = [
                         "errorCode" : "DataStoreException",
