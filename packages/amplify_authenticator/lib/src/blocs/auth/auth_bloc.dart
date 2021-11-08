@@ -182,7 +182,7 @@ class StateMachineBloc {
               );
             }
           }
-          yield const Authenticated();
+          yield* _checkUserVerification();
           break;
         default:
           break;
