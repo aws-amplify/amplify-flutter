@@ -30,7 +30,6 @@ class AuthViewModel extends ChangeNotifier {
 
     /// When auth flow is complete, reset entirety of [ViewModel] state
     _authBloc.stream
-        // .where((event) => event is Authenticated)
         .distinct()
         .listen((event) {
       resetFormKey();
