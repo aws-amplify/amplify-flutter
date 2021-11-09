@@ -114,21 +114,16 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
       .findAncestorStateOfType<AuthenticatorFormState>()!
       .obscureTextToggle;
 
-  late final List<AwsCognitoUsernameAttributes> _usernameAttributes = config
-          .amplifyConfig
-          ?.auth
-          ?.awsCognitoAuthPlugin
-          ?.auth?['Default']
-          ?.awsCognitoUsernameAttributes ??
-      const <AwsCognitoUsernameAttributes>[];
+  late final List<UsernameAttributes> _usernameAttributes = config.amplifyConfig
+          ?.auth?.awsCognitoAuthPlugin?.auth?['Default']?.usernameAttributes ??
+      const <UsernameAttributes>[];
 
   @nonVirtual
   TextInputType get usernameKeyboardTypeForUsername {
-    if (_usernameAttributes.contains(AwsCognitoUsernameAttributes.email) &&
+    if (_usernameAttributes.contains(UsernameAttributes.email) &&
         _usernameAttributes.length == 1) {
       return TextInputType.emailAddress;
-    } else if (_usernameAttributes
-            .contains(AwsCognitoUsernameAttributes.phoneNumber) &&
+    } else if (_usernameAttributes.contains(UsernameAttributes.phoneNumber) &&
         _usernameAttributes.length == 1) {
       return TextInputType.phone;
     } else {

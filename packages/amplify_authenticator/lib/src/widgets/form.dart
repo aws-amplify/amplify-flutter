@@ -159,15 +159,15 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
             ?.auth
             ?.awsCognitoAuthPlugin
             ?.auth?['Default']
-            ?.awsCognitoUsernameAttributes ??
+            ?.usernameAttributes ??
         const [];
 
     if (usernameAttributes.isNotEmpty) {
       if (usernameAttributes.length == 1) {
-        if (usernameAttributes.contains(AwsCognitoUsernameAttributes.email)) {
+        if (usernameAttributes.contains(UsernameAttributes.email)) {
           signUpFields.add(SignUpFormField.email());
         } else if (usernameAttributes
-            .contains(AwsCognitoUsernameAttributes.phoneNumber)) {
+            .contains(UsernameAttributes.phoneNumber)) {
           signUpFields.add(SignUpFormField.phoneNumber());
         }
       } else if (usernameAttributes.length == 2) {
@@ -193,8 +193,7 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
         case 'BIRTHDATE':
           return SignUpFormField.birthdate();
         case 'EMAIL':
-          if (!usernameAttributes
-              .contains(AwsCognitoUsernameAttributes.email)) {
+          if (!usernameAttributes.contains(UsernameAttributes.email)) {
             return SignUpFormField.email();
           } else {
             return null;
@@ -212,8 +211,7 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
         case 'NICKNAME':
           return SignUpFormField.nickname();
         case 'PHONE_NUMBER':
-          if (!usernameAttributes
-              .contains(AwsCognitoUsernameAttributes.phoneNumber)) {
+          if (!usernameAttributes.contains(UsernameAttributes.phoneNumber)) {
             return SignUpFormField.phoneNumber();
           } else {
             return null;
@@ -276,7 +274,7 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
         ?.auth
         ?.awsCognitoAuthPlugin
         ?.auth?['Default']
-        ?.awsCognitoSocialProviders;
+        ?.socialProviders;
     if (socialProviders == null || socialProviders.isEmpty) {
       return const [];
     }
@@ -284,13 +282,13 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
     return socialProviders
         .map((usernameAttributes) {
           switch (usernameAttributes) {
-            case AwsCognitoSocialProviders.facebook:
+            case SocialProviders.facebook:
               return const SocialSignInButton.facebook();
-            case AwsCognitoSocialProviders.google:
+            case SocialProviders.google:
               return const SocialSignInButton.google();
-            case AwsCognitoSocialProviders.amazon:
+            case SocialProviders.amazon:
               return const SocialSignInButton.amazon();
-            case AwsCognitoSocialProviders.apple:
+            case SocialProviders.apple:
               return const SocialSignInButton.apple();
           }
         })
