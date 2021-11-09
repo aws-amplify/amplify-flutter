@@ -1,3 +1,9 @@
+## 0.2.7 (2021-11-08)
+
+### Fixes
+
+- fix(api): Fix OIDC/Lambda in REST/GraphQL on Android
+
 ## 0.2.6 (2021-10-25)
 
 ## 0.2.5 (2021-10-14)
