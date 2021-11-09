@@ -170,7 +170,8 @@ class _VerifyAttributeFieldState
     final _authState = InheritedAuthBloc.of(context).currentState;
     _inputSelections = [];
     if (_authState is VerifyUserFlow) {
-      final List<String> _unverifiedKeys = _authState.unverifiedAttributeKeys;
+      final List<String> _unverifiedKeys = _authState.unverifiedAttributeKeys
+        ..sort();
       for (var key in _unverifiedKeys) {
         switch (key) {
           case 'email':
