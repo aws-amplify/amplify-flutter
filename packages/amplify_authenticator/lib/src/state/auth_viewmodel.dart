@@ -214,13 +214,28 @@ class AuthViewModel extends ChangeNotifier {
 
   // Auth calls
 
-  Future<void> confirmSignIn() async {
+  Future<void> confirmSignInMFA() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
     setBusy(true);
     var confirm = AuthConfirmSignInData(
-      code: _confirmationCode.trim(),
+      confirmationValue: _confirmationCode.trim(),
+      attributes: _authAttributes,
+    );
+
+    authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
+    await _nextBlocEvent();
+    setBusy(false);
+  }
+
+  Future<void> confirmSignInNewPassword() async {
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
+    setBusy(true);
+    var confirm = AuthConfirmSignInData(
+      confirmationValue: _newPassword.trim(),
       attributes: _authAttributes,
     );
 

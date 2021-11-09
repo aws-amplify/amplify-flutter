@@ -30,6 +30,9 @@ class AuthenticatorInputLocalizationsEn
   String get password => 'Password';
 
   @override
+  String get newPassword => 'New Password';
+
+  @override
   String get passwordConfirmation => 'Confirm Password';
 
   @override

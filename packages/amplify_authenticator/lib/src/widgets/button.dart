@@ -247,7 +247,7 @@ class ConfirmSignInMFAButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.confirmSignIn();
+      viewModel.confirmSignInMFA();
 }
 
 // SignOutButton should not inherit from AuthenticatorButton, since we override
@@ -519,7 +519,7 @@ class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.confirmSignIn();
+      viewModel.confirmSignInNewPassword();
 }
 
 class VerifyUserButton extends AuthenticatorElevatedButton {

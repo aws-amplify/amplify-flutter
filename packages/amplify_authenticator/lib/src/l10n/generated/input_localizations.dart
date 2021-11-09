@@ -120,6 +120,12 @@ abstract class AuthenticatorInputLocalizations {
   /// **'Password'**
   String get password;
 
+  /// User's chosen new password.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
+
   /// Confirmation of user's chosen password.
   ///
   /// In en, this message translates to:

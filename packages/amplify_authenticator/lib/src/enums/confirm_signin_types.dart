@@ -18,6 +18,7 @@ import 'package:flutter/foundation.dart';
 enum ConfirmSignInField {
   code,
   password,
+  newPassword,
   address,
   birthdate,
   email,

@@ -152,7 +152,7 @@ class StateMachineBloc {
   ) async* {
     try {
       var result = await _authService.confirmSignIn(
-        code: data.code,
+        confirmationValue: data.confirmationValue,
         attributes: data.attributes,
       );
 
