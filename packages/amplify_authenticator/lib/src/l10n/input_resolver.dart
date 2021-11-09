@@ -327,6 +327,9 @@ class InputResolverKey {
     InputResolverKeyType.title,
     field: InputField.usernameType,
   );
+
+  String resolve(BuildContext context, InputResolver inputResolver) =>
+      inputResolver.resolve(context, this);
 }
 
 class InputResolver extends Resolver<InputResolverKey> {

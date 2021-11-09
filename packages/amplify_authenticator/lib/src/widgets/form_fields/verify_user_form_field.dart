@@ -47,8 +47,6 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
   }) =>
       _VerifyUserRadioField(
         key: keyUnverifiedAttributes,
-        titleKey: InputResolverKey.usernameTitle,
-        hintTextKey: InputResolverKey.usernameHint,
         field: VerifyAttributeField.verify,
         validator: validator,
       );

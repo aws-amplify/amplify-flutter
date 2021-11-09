@@ -70,11 +70,7 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
     this.title,
     this.hintText,
     FormFieldValidator<FieldValue>? validator,
-  })  : assert(
-          titleKey != null || title != null,
-          'Either title or titleKey must be provided',
-        ),
-        validatorOverride = validator,
+  })  : validatorOverride = validator,
         super(key: key);
 
   /// Resolver key for the title
@@ -172,15 +168,15 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   @override
   Widget build(BuildContext context) {
     final inputResolver = stringResolver.inputs;
-    final String title = widget.title == null
-        ? inputResolver.resolve(context, widget.titleKey!)
-        : widget.title!;
+    final String? title =
+        widget.title ?? widget.titleKey?.resolve(context, inputResolver);
+
     return Container(
       margin: FormFieldConstants.marginBottom,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title),
+          if (title is String) Text(title),
           const Padding(padding: FormFieldConstants.gap),
           buildFormField(context),
           if (companionWidget != null) companionWidget!,
