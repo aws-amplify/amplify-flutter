@@ -13,4 +13,4 @@
  * permissions and limitations under the License.
  */
 
-enum AwsCognitoUsernameAttributes { email, phoneNumber }
+enum UsernameAttributes { email, phoneNumber }
