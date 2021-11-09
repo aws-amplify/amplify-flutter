@@ -432,7 +432,7 @@ class SendCodeForm extends AuthenticatorForm<SendCodeForm> {
   }) : this.custom(
           key: key,
           fields: [
-            SignInFormField.verifyUsername(),
+            SignInFormField.username(),
           ],
         );
 

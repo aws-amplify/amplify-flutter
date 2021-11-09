@@ -24,7 +24,6 @@ const keyPasswordSignInFormField = Key('passwordSignInFormField');
 const keyVerificationCodeSignInFormField =
     Key('verificationCodeSignInFormField');
 const keyNewPasswordSignInFormField = Key('newPasswordSignInFormField');
-const keyNewUsernameSignInFormField = Key('newUsernameSignInFormField');
 
 // Sign up form fields keys
 
