@@ -15,7 +15,6 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
-import android.database.DefaultDatabaseErrorHandler
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
@@ -165,8 +164,9 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         val dataStoreConfigurationBuilder = DataStoreConfiguration.builder()
 
-        if( (request["hasErrorHandler"] as? Boolean? == true) ) {
-            var handler = DataStoreErrorHandler {
+        var errorHandler : DataStoreErrorHandler;
+        errorHandler = if( (request["hasErrorHandler"] as? Boolean? == true) ) {
+            DataStoreErrorHandler {
                 val args = hashMapOf(
                         "errorCode" to "DataStoreException",
                         "errorMessage" to ExceptionMessages.defaultFallbackExceptionMessage,
@@ -174,8 +174,13 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 )
                 channel.invokeMethod("errorHandler", args)
             }
-            dataStoreConfigurationBuilder.errorHandler(handler!!)
         }
+        else {
+            DataStoreErrorHandler {
+                LOG.error(it.toString())
+            }
+        }
+        dataStoreConfigurationBuilder.errorHandler(errorHandler)
 
         modelProvider.setVersion(request["modelProviderVersion"] as String)
         val defaultDataStoreConfiguration = DataStoreConfiguration.defaults()

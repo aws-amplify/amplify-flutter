@@ -126,7 +126,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             
 
             var errorHandler: DataStoreErrorHandler
-            if( (args["hasErrorHandler"] as? Bool) == true ){
+            if((args["hasErrorHandler"] as? Bool) == true) {
                 errorHandler = { error in
                     let map : [String:Any] = [
                         "errorCode" : "DataStoreException",
@@ -135,8 +135,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     ]
                     self.channel!.invokeMethod("errorHandler", arguments: args)
                 }
-            }
-            else{
+            } else {
                 errorHandler = { error in
                     Amplify.Logging.error(error: error)
                 }
@@ -153,7 +152,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             
             Amplify.Logging.logLevel = .info
             print("Amplify configured with DataStore plugin")
-            result(true)            
+            result(true)
         } catch ModelSchemaError.parse(let className, let fieldName, let desiredType){
             FlutterDataStoreErrorHandler.handleDataStoreError(
                 error: DataStoreError.decodingError(

@@ -86,13 +86,13 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// Configure AmplifyDataStore plugin with mandatory [modelProvider]
   /// and optional DataStore configuration properties including
   ///
-  /// [errorHandler]: custom error handler code executed when DataStore encounters an unhandled error during its background operations
+  /// [errorHandler]: Custom error handler function that may receive an [AmplifyException] object when DataStore encounters an unhandled error during its background operations
   ///
   /// [syncInterval]: DataStore syncing interval (in seconds)
   ///
-  /// [syncMaxRecords]: max number of records to sync
+  /// [syncMaxRecords]: Max number of records to sync
   ///
-  /// [syncPageSize]: page size to sync
+  /// [syncPageSize]: Page size to sync
   Future<void> configureDataStore(
       {required ModelProviderInterface modelProvider,
       Function(AmplifyException)? errorHandler,
