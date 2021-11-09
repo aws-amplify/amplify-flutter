@@ -22,17 +22,22 @@ const _serializedData = 'serializedData';
 /// "items", the key name for nested data in AppSync
 const items = 'items';
 
-/// e.g., given Post, returns "blog".
-String? getParentModelName(ModelType? modelType) {
-  final provider = AmplifyAPI.instance.getModelProvider();
-  if (provider == null || modelType == null) return null;
-  final modelSchema =
-      getModelSchemaByModelName(modelType.modelName(), provider);
-  final belongsToEntry = getBelongsToFieldFromModelSchema(modelSchema);
-  if (belongsToEntry != null) {
-    return belongsToEntry.value.name;
-  }
-  return null;
+class _RelatedFields {
+  final Iterable<ModelField> singleFields;
+  final Iterable<ModelField> hasManyFields;
+
+  _RelatedFields(this.singleFields, this.hasManyFields);
+}
+
+/// Gets the modelFields for the given schema which we can transform/parse.
+_RelatedFields getRelatedFields(ModelSchema modelSchema) {
+  final singleFields = modelSchema.fields!.values.where((field) =>
+      field.association?.associationType == ModelAssociationEnum.HasOne ||
+      field.association?.associationType == ModelAssociationEnum.BelongsTo);
+  final hasManyFields = modelSchema.fields!.values.where((field) =>
+      field.association?.associationType == ModelAssociationEnum.HasMany);
+
+  return _RelatedFields(singleFields, hasManyFields);
 }
 
 MapEntry<String, ModelField>? getBelongsToFieldFromModelSchema(
@@ -42,37 +47,76 @@ MapEntry<String, ModelField>? getBelongsToFieldFromModelSchema(
       ModelAssociationEnum.BelongsTo);
 }
 
+/// Gets the modelSchema from provider that matches the name and validates its fields.
 ModelSchema getModelSchemaByModelName(
-    String modelName, ModelProviderInterface provider) {
-  return provider.modelSchemas.firstWhere((elem) => elem.name == modelName,
+    String modelName, GraphQLRequestOperation? operation) {
+  final provider = AmplifyAPI.instance.getModelProvider();
+  if (provider == null) {
+    throw ApiException('No modelProvider found',
+        recoverySuggestion:
+            'Pass in a modelProvider instance while instantiating APIPlugin');
+  }
+  final schema = provider.modelSchemas.firstWhere(
+      (elem) => elem.name == modelName,
       orElse: () => throw ApiException(
           'No schema found for the ModelType provided: $modelName',
           recoverySuggestion:
               'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a valid ModelType'));
+
+  if (schema.fields == null) {
+    throw ApiException('Schema found does not have a fields property',
+        recoverySuggestion:
+            'Pass in a valid modelProvider instance while instantiating APIPlugin');
+  }
+
+  if (operation == GraphQLRequestOperation.list && schema.pluralName == null) {
+    throw ApiException('No schema name found',
+        recoverySuggestion:
+            'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a valid ModelType');
+  }
+
+  return schema;
 }
 
 /// Transform the JSON from AppSync so it matches the fromJson in codegen models.
 /// 1) Look for a parent in the schema. If that parent exists in the JSON, transform it.
 /// 2) Look for list of children under [fieldName]["items"] and hoist up so no more ["items"].
 Map<String, dynamic> transformAppSyncJsonToModelJson(
-    Map<String, dynamic> input, ModelType? modelType) {
-  final parentName = getParentModelName(modelType);
+    Map<String, dynamic> input, ModelSchema modelSchema) {
+  final relatedFields = getRelatedFields(modelSchema);
+
   final _input = <String, dynamic>{...input}; // avoid mutating original
-  // transform parent
-  if (parentName != null && _input.containsKey(parentName)) {
-    _input.update(parentName,
-        (dynamic parentMap) => <String, dynamic>{_serializedData: parentMap});
+  // transform parents/hasOne recursively
+  for (var parentField in relatedFields.singleFields) {
+    final ofModelName = parentField.type.ofModelName;
+    dynamic inputValue = _input[parentField.name];
+    if (inputValue is Map && ofModelName != null) {
+      final parentSchema = getModelSchemaByModelName(ofModelName, null);
+      _input.update(
+          parentField.name,
+          (dynamic parentMap) => <String, dynamic>{
+                _serializedData:
+                    transformAppSyncJsonToModelJson(parentMap, parentSchema)
+              });
+    }
   }
 
   // transform children recursively
-  for (var element in _input.entries.where(
-      (element) => element.value is Map && element.value[items] is List)) {
-    List<dynamic> _items = element.value[items];
-    final transformedItems = _items
-        .map((dynamic item) =>
-            {_serializedData: transformAppSyncJsonToModelJson(item, null)})
-        .toList();
-    _input.update(element.key, (dynamic value) => transformedItems);
+  for (var childField in relatedFields.hasManyFields) {
+    final ofModelName = childField.type.ofModelName;
+    dynamic inputValue = _input[childField.name];
+    List<dynamic>? inputItems = (inputValue is Map) ? inputValue[items] : null;
+    if (inputItems is List && ofModelName != null) {
+      final childSchema = getModelSchemaByModelName(ofModelName, null);
+      final transformedItems = inputItems
+          .map((dynamic item) => {
+                _serializedData:
+                    transformAppSyncJsonToModelJson(item, childSchema)
+              })
+          .toList();
+      _input.update(childField.name, (dynamic value) => transformedItems);
+    }
   }
+
   return _input;
 }

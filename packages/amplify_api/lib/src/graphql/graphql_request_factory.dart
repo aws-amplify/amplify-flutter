@@ -68,7 +68,7 @@ class GraphQLRequestFactory {
     }
   }
 
-  String _getFieldsFromModelSchema(
+  String _getSelectionSetFromModelSchema(
       ModelSchema schema, GraphQLRequestOperation operation,
       {bool ignoreParents = false}) {
     // Schema has been validated & schema.fields is non-nullable.
@@ -84,10 +84,8 @@ class GraphQLRequestFactory {
     final belongsToAssociation = getBelongsToFieldFromModelSchema(schema);
     String? belongsToModelName = belongsToAssociation?.value.type.ofModelName;
     if (belongsToModelName != null && !ignoreParents) {
-      final provider = AmplifyAPI.instance.getModelProvider();
-      final parentSchema =
-          getModelSchemaByModelName(belongsToModelName, provider!);
-      String parentSelectionSet = _getFieldsFromModelSchema(
+      final parentSchema = getModelSchemaByModelName(belongsToModelName, null);
+      String parentSelectionSet = _getSelectionSetFromModelSchema(
           parentSchema, GraphQLRequestOperation.get,
           ignoreParents:
               true); // always format like a get, stop traversing parents
@@ -102,34 +100,6 @@ class GraphQLRequestFactory {
     }
 
     return fields;
-  }
-
-  ModelSchema _getAndValidateSchema(
-      ModelType modelType, GraphQLRequestOperation? operation) {
-    ModelProviderInterface? provider = AmplifyAPI.instance.getModelProvider();
-
-    if (provider == null) {
-      throw ApiException('No modelProvider found',
-          recoverySuggestion:
-              'Pass in a modelProvider instance while instantiating APIPlugin');
-    }
-
-    final schema = getModelSchemaByModelName(modelType.modelName(), provider);
-
-    if (schema.fields == null) {
-      throw ApiException('Schema found does not have a fields property',
-          recoverySuggestion:
-              'Pass in a valid modelProvider instance while instantiating APIPlugin');
-    }
-
-    if (operation == GraphQLRequestOperation.list &&
-        schema.pluralName == null) {
-      throw ApiException('No schema name found',
-          recoverySuggestion:
-              'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a valid ModelType');
-    }
-
-    return schema;
   }
 
   String _capitalize(String s) => s[0].toUpperCase() + s.substring(1);
@@ -184,7 +154,8 @@ class GraphQLRequestFactory {
       required Map<String, dynamic> variables,
       int depth = 0}) {
     // retrieve schema from ModelType and validate required properties
-    ModelSchema schema = _getAndValidateSchema(modelType, requestOperation);
+    ModelSchema schema =
+        getModelSchemaByModelName(modelType.modelName(), requestOperation);
 
     // e.g. "Blog" or "Blogs"
     String name = _getName(schema, requestOperation);
@@ -196,7 +167,7 @@ class GraphQLRequestFactory {
     DocumentInputs documentInputs =
         _buildDocumentInputs(schema, requestOperation);
     // e.g. "id name createdAt" - fields to retrieve
-    String fields = _getFieldsFromModelSchema(schema, requestOperation);
+    String fields = _getSelectionSetFromModelSchema(schema, requestOperation);
     // e.g. "getBlog"
     String requestName = "$requestOperationVal$name";
     // e.g. query getBlog($id: ID!, $content: String) { getBlog(id: $id, content: $content) { id name createdAt } }
@@ -239,7 +210,7 @@ class GraphQLRequestFactory {
     if (queryPredicate == null) {
       return null;
     }
-    ModelSchema schema = _getAndValidateSchema(modelType, null);
+    ModelSchema schema = getModelSchemaByModelName(modelType.modelName(), null);
 
     // e.g. { 'name': { 'eq': 'foo }}
     if (queryPredicate is QueryPredicateOperation) {
@@ -294,7 +265,8 @@ class GraphQLRequestFactory {
   /// When the model has a parent via a belongsTo, the id from the parent is added
   /// as a field similar to "blogID" where the value is `post.blog.id`.
   Map<String, dynamic> buildInputVariableForMutations(Model model) {
-    ModelSchema schema = _getAndValidateSchema(model.getInstanceType(), null);
+    ModelSchema schema =
+        getModelSchemaByModelName(model.getInstanceType().modelName(), null);
     final modelJson = model.toJson();
 
     // If the model has a parent in the schema, get the ID of parent and field name.
