@@ -30,7 +30,7 @@ class _RelatedFields {
 }
 
 /// Gets the modelFields for the given schema which we can transform/parse.
-_RelatedFields getRelatedFields(ModelSchema modelSchema) {
+_RelatedFields _getRelatedFields(ModelSchema modelSchema) {
   final singleFields = modelSchema.fields!.values.where((field) =>
       field.association?.associationType == ModelAssociationEnum.HasOne ||
       field.association?.associationType == ModelAssociationEnum.BelongsTo);
@@ -83,7 +83,7 @@ ModelSchema getModelSchemaByModelName(
 /// 2) Look for list of children under [fieldName]["items"] and hoist up so no more ["items"].
 Map<String, dynamic> transformAppSyncJsonToModelJson(
     Map<String, dynamic> input, ModelSchema modelSchema) {
-  final relatedFields = getRelatedFields(modelSchema);
+  final relatedFields = _getRelatedFields(modelSchema);
 
   final _input = <String, dynamic>{...input}; // avoid mutating original
   // transform parents/hasOne recursively
