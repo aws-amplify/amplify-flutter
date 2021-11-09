@@ -19,11 +19,16 @@ import 'package:flutter/material.dart';
 import 'authenticator_localizations.dart';
 import 'resolver.dart';
 
-enum CountryResolverKey { unitedStates, unitedKingdom }
+enum CountryResolverKey { selectDialCode, unitedStates, unitedKingdom }
 
 /// The resolver class for country data
 class CountryResolver extends Resolver<CountryResolverKey> {
   const CountryResolver();
+
+  /// The label for the United States.
+  String selectDialCode(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).selectDialCode;
+  }
 
   /// The label for the United States.
   String unitedStates(BuildContext context) {
@@ -38,6 +43,8 @@ class CountryResolver extends Resolver<CountryResolverKey> {
   @override
   String resolve(BuildContext context, CountryResolverKey key) {
     switch (key) {
+      case CountryResolverKey.selectDialCode:
+        return selectDialCode(context);
       case CountryResolverKey.unitedStates:
         return unitedStates(context);
       case CountryResolverKey.unitedKingdom:

@@ -23,6 +23,9 @@ class AuthenticatorCountryLocalizationsEn
   AuthenticatorCountryLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get selectDialCode => 'Select your country dial code';
+
+  @override
   String get unitedStates => 'United States';
 
   @override

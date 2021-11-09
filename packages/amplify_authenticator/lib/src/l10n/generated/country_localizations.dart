@@ -107,6 +107,12 @@ abstract class AuthenticatorCountryLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
+  /// Title of select dial code modal
+  ///
+  /// In en, this message translates to:
+  /// **'Select your country dial code'**
+  String get selectDialCode;
+
   /// Display name for the United States
   ///
   /// In en, this message translates to:

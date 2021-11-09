@@ -1,4 +1,5 @@
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
+import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
@@ -10,7 +11,11 @@ mixin AuthenticatorPhoneField<FieldType,
         T extends AuthenticatorFormField<FieldType, String, T>>
     on AuthenticatorFormFieldState<FieldType, String, T>
     implements SelectableConfig<String> {
-  double _prefixWidth = 0;
+  String _phoneText = '';
+
+  void _setPhoneNumber() {
+    onChanged('+$selectionValue$_phoneText');
+  }
 
   @override
   Widget buildFormField(BuildContext context) {
@@ -21,59 +26,75 @@ mixin AuthenticatorPhoneField<FieldType,
         : widget.hintText!;
 
     final countryResolver = stringResolver.countries;
-    return Focus(
 
-        /// Display the prefix only when phone number widget is in focus
-        onFocusChange: (hasFocus) {
-          setState(() {
-            _prefixWidth = hasFocus ? 40 : 0;
+    Future<void> showCountryDialog() async {
+      await showDialog<Country>(
+          context: context,
+          builder: (context) {
+            return SimpleDialog(
+              title: Text(countryResolver.resolve(
+                  context, CountryResolverKey.selectDialCode)),
+              children: <Widget>[
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      Country current = countryCodes[index];
+                      return SimpleDialogOption(
+                          onPressed: () {
+                            setState(() {
+                              selectionValue = current.value;
+                            });
+                            _setPhoneNumber();
+                            viewModel.resetFormKey();
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                              '${countryResolver.resolve(context, current.key)} (+${current.value})'));
+                    },
+                    itemCount: countryCodes.length,
+                  ),
+                )
+              ],
+            );
           });
-        },
-        child: TextFormField(
-          style: enabled
-              ? null
-              : const TextStyle(
-                  color: AmplifyColors.black20,
-                ),
-          initialValue: initialValue,
-          enabled: enabled,
-          validator: widget.validatorOverride ?? validator,
-          onChanged: onChanged,
-          decoration: InputDecoration(
-            prefix: SizedBox(
-                height: 15,
-                width: _prefixWidth,
-                child: PopupMenuButton(
-                  initialValue: selectionValue,
-                  child: Center(child: Text('+$selectionValue')),
-                  itemBuilder: (context) {
-                    return countryCodes.map((Country country) {
-                      return PopupMenuItem<String>(
-                        value: country.value,
-                        child: Text(
-                            '${countryResolver.resolve(context, country.key)} (+${country.value})',
-                            style: AmplifyTextTheme.body),
-                      );
-                    }).toList();
-                  },
-                  onSelected: (String value) {
-                    setState(() {
-                      selectionValue = value;
-                    });
-                  },
-                )),
-            suffixIcon: suffixIcon,
-            errorMaxLines: errorMaxLines,
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).primaryColor,
-              ),
+    }
+
+    return TextFormField(
+      style: enabled
+          ? null
+          : const TextStyle(
+              color: AmplifyColors.black20,
             ),
-            hintText: hintText,
-            border: const OutlineInputBorder(),
+      initialValue: initialValue,
+      enabled: enabled,
+      validator: widget.validatorOverride ?? validator,
+      onChanged: (String newVal) {
+        setState(() {
+          _phoneText = newVal;
+        });
+        _setPhoneNumber();
+      },
+      decoration: InputDecoration(
+        prefix: SizedBox(
+            width: 40,
+            child: InkWell(
+                child: Text('+$selectionValue',
+                    style: const TextStyle(color: AmplifyColors.black20)),
+                onTap: showCountryDialog)),
+        suffixIcon: suffixIcon,
+        errorMaxLines: errorMaxLines,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).primaryColor,
           ),
-          keyboardType: keyboardType,
-          obscureText: obscureText,
-        ));
+        ),
+        hintText: hintText,
+        border: const OutlineInputBorder(),
+      ),
+      keyboardType: keyboardType,
+      obscureText: obscureText,
+    );
   }
 }

@@ -1,6 +1,10 @@
 {
     "@@locale": "en",
     "@@context": "amplify_authenticator:countries",
+    "selectDialCode": "Select your country dial code",
+    "@selectDialCode": {
+        "description": "Title of select dial code modal"
+    },
     "unitedStates": "United States",
     "@unitedStates": {
         "description": "Display name for the United States"
