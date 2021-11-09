@@ -256,7 +256,7 @@ When prompted to edit the function now, choose "yes" and add the following code 
 created by the amplify CLI, from [documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html#aws-lambda-triggers-pre-registration-example-2).
 
 ```js
-exports.handler = (event, context, callback) => {
+exports.handler = async event => {
   // Confirm the user
   event.response.autoConfirmUser = true;
 
@@ -271,7 +271,7 @@ exports.handler = (event, context, callback) => {
   }
 
   // Return to Amazon Cognito
-  callback(null, event);
+  return event;
 };
 ```
 

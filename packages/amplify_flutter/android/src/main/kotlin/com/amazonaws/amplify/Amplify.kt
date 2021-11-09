@@ -21,6 +21,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.NonNull
+import com.amazonaws.amplify.amplify_core.AtomicResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 import com.amplifyframework.AmplifyException
@@ -36,19 +37,23 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import kotlinx.coroutines.*
 import org.json.JSONObject
 
 
 /** Amplify */
-class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
+class Amplify(
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+) : FlutterPlugin, ActivityAware, MethodCallHandler {
 
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
     private var mainActivity: Activity? = null
+    private val coroutineScope = CoroutineScope(CoroutineName("AmplifyFlutterPlugin"))
 
     override fun onAttachedToEngine(
             @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(),
+        channel = MethodChannel(flutterPluginBinding.binaryMessenger,
                 "com.amazonaws.amplify/amplify")
         channel.setMethodCallHandler(this);
         context = flutterPluginBinding.applicationContext;
@@ -63,8 +68,9 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
         }
     }
 
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-
+    override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
+        val result = AtomicResult(_result, call.method)
+        
         when (call.method) {
             "configure" ->
                 try {
@@ -112,21 +118,25 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
 
     private fun onConfigure(@NonNull result: Result, @NonNull version: String,
             @NonNull config: String) {
-        try {
-            val configuration = AmplifyConfiguration.builder(JSONObject(config))
+        coroutineScope.launch(dispatcher) {
+            try {
+                val configuration = AmplifyConfiguration.builder(JSONObject(config))
                     .addPlatform(UserAgent.Platform.FLUTTER, version)
                     .devMenuEnabled(false)
                     .build()
-            Amplify.configure(configuration, context)
-            result.success(true);
-        } catch (e: AnalyticsException) {
-            prepareAnalyticsError(result, e);
-        } catch (e: Amplify.AlreadyConfiguredException) {
-            postExceptionToFlutterChannel(result, "AmplifyAlreadyConfiguredException",
+                Amplify.configure(configuration, context)
+                withContext(Dispatchers.Main) {
+                    result.success(true);
+                }
+            } catch (e: AnalyticsException) {
+                prepareAnalyticsError(result, e);
+            } catch (e: Amplify.AlreadyConfiguredException) {
+                postExceptionToFlutterChannel(result, "AmplifyAlreadyConfiguredException",
                     createSerializedError(e))
-        } catch (e: AmplifyException) {
-            postExceptionToFlutterChannel(result, "AmplifyException",
+            } catch (e: AmplifyException) {
+                postExceptionToFlutterChannel(result, "AmplifyException",
                     createSerializedError(e))
+            }
         }
 
     }

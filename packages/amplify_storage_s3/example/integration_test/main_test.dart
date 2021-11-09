@@ -85,7 +85,8 @@ void main() async {
           local: file,
           options: options,
           onProgress: (progress) {
-            expect(progress.currentBytes, greaterThan(lastProgressBytes));
+            expect(
+                progress.currentBytes, greaterThanOrEqualTo(lastProgressBytes));
             lastProgressBytes = progress.currentBytes;
 
             expect(progress.totalBytes, fileLength);

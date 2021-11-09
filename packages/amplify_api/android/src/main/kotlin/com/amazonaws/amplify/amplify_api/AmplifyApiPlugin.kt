@@ -22,6 +22,7 @@ import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_api.auth.FlutterAuthProviders
 import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
+import com.amazonaws.amplify.amplify_core.AtomicResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
@@ -33,6 +34,8 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 /** AmplifyApiPlugin */
 class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
@@ -42,14 +45,20 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var context: Context
     private val graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler
     private val logger = Amplify.Logging.forNamespace("amplify:flutter:api")
+    private var dispatcher: CoroutineDispatcher
 
     constructor() {
         graphqlSubscriptionStreamHandler = GraphQLSubscriptionStreamHandler()
+        dispatcher = Dispatchers.IO
     }
 
     @VisibleForTesting
-    constructor(eventHandler: GraphQLSubscriptionStreamHandler) {
+    constructor(
+        eventHandler: GraphQLSubscriptionStreamHandler,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO
+    ) {
         graphqlSubscriptionStreamHandler = eventHandler
+        this.dispatcher = dispatcher
     }
 
     private val handler = Handler(Looper.getMainLooper())
@@ -66,8 +75,9 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun onMethodCall(call: MethodCall, result: Result) {
+    override fun onMethodCall(call: MethodCall, _result: Result) {
         val methodName = call.method
+        val result = AtomicResult(_result, call.method)
 
         if (methodName == "cancel") {
             onCancel(result, (call.arguments as String))
@@ -98,9 +108,9 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                 "delete" -> FlutterRestApi.delete(result, arguments)
                 "head" -> FlutterRestApi.head(result, arguments)
                 "patch" -> FlutterRestApi.patch(result, arguments)
-                "query" -> FlutterGraphQLApi.query(result, arguments)
-                "mutate" -> FlutterGraphQLApi.mutate(result, arguments)
-                "subscribe" -> FlutterGraphQLApi.subscribe(
+                "query" -> FlutterGraphQLApi(dispatcher).query(result, arguments)
+                "mutate" -> FlutterGraphQLApi(dispatcher).mutate(result, arguments)
+                "subscribe" -> FlutterGraphQLApi(dispatcher).subscribe(
                     result,
                     arguments,
                     graphqlSubscriptionStreamHandler
