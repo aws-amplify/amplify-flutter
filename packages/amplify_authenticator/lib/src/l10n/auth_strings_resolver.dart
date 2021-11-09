@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:flutter/material.dart';
 
 import 'button_resolver.dart';
@@ -35,6 +36,9 @@ class AuthStringResolver {
   /// The resolver class for shared button Widgets
   final ButtonResolver buttons;
 
+  /// The resolver class for countries
+  final CountryResolver countries;
+
   /// The resolver class for shared input Widgets
   final InputResolver inputs;
 
@@ -47,18 +51,21 @@ class AuthStringResolver {
   /// {@macro authenticator.auth_string_resolver}
   const AuthStringResolver({
     ButtonResolver? buttons,
+    CountryResolver? countries,
     InputResolver? inputs,
-    TitleResolver? titles,
     MessageResolver? messages,
-  })  : titles = titles ?? const TitleResolver(),
-        buttons = buttons ?? const ButtonResolver(),
+    TitleResolver? titles,
+  })  : buttons = buttons ?? const ButtonResolver(),
+        countries = countries ?? const CountryResolver(),
         inputs = inputs ?? const InputResolver(),
+        titles = titles ?? const TitleResolver(),
         messages = messages ?? const MessageResolver();
 
   @override
   bool operator ==(Object other) =>
       other is AuthStringResolver &&
       buttons == other.buttons &&
+      countries == other.countries &&
       inputs == other.inputs &&
       titles == other.titles;
 

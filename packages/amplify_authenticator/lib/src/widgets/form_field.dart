@@ -26,12 +26,14 @@ import 'package:amplify_authenticator/src/enums/signup_types.dart';
 import 'package:amplify_authenticator/src/enums/user_name_attribute.dart';
 import 'package:amplify_authenticator/src/enums/verify_attribute_field_types.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_date_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_phone_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_radio_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_text_field.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
+import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
@@ -199,5 +201,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         'validator', validator));
     properties
         .add(DiagnosticsProperty<FieldValue?>('initialValue', initialValue));
+    properties.add(DiagnosticsProperty<TextInputType>(
+        'usernameKeyboardTypeForUsername', usernameKeyboardTypeForUsername));
   }
 }

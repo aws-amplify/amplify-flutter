@@ -161,7 +161,8 @@ class _VerifyUserRadioField extends VerifyUserFormField<UsernameAttribute> {
 class _VerifyAttributeFieldState
     extends _VerifyUserFormFieldState<UsernameAttribute>
     with AuthenticatorRadioField {
-  List<InputSelection<UsernameAttribute>> _inputSelections = [];
+  List<InputSelection<InputResolverKey, UsernameAttribute>> _inputSelections =
+      [];
 
   @override
   void didChangeDependencies() {
@@ -171,12 +172,12 @@ class _VerifyAttributeFieldState
       final List<String> _unverifiedKeys = _authState.unverifiedAttributeKeys;
       _inputSelections = [
         if (_unverifiedKeys.contains('email'))
-          const InputSelection<UsernameAttribute>(
+          const InputSelection<InputResolverKey, UsernameAttribute>(
             label: InputResolverKey.emailTitle,
             value: UsernameAttribute.email,
           ),
         if (_unverifiedKeys.contains('phone_number'))
-          const InputSelection<UsernameAttribute>(
+          const InputSelection<InputResolverKey, UsernameAttribute>(
             label: InputResolverKey.phoneNumberTitle,
             value: UsernameAttribute.phoneNumber,
           )
