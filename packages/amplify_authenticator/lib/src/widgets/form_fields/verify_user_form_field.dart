@@ -163,32 +163,27 @@ UsernameAttribute _default = UsernameAttribute.email;
 class _VerifyAttributeFieldState
     extends _VerifyUserFormFieldState<UsernameAttribute>
     with AuthenticatorRadioField {
-  List<InputSelection> _inputSelections = [];
+  List<InputSelection<UsernameAttribute>> _inputSelections = [];
 
   @override
   void didChangeDependencies() {
     final _authState = InheritedAuthBloc.of(context).currentState;
     _inputSelections = [];
     if (_authState is VerifyUserFlow) {
-      final List<String> _unverifiedKeys = _authState.unverifiedAttributeKeys
-        ..sort();
-      for (var key in _unverifiedKeys) {
-        switch (key) {
-          case 'email':
-            _inputSelections.add(const InputSelection<UsernameAttribute>(
-              label: InputResolverKey.emailTitle,
-              value: UsernameAttribute.email,
-            ));
-            break;
-          case 'phone_number':
-            _inputSelections.add(const InputSelection<UsernameAttribute>(
-              label: InputResolverKey.phoneNumberTitle,
-              value: UsernameAttribute.phoneNumber,
-            ));
-            break;
-        }
-        _default = _inputSelections[0].value;
-      }
+      final List<String> _unverifiedKeys = _authState.unverifiedAttributeKeys;
+      _inputSelections = [
+        if (_unverifiedKeys.contains('email'))
+          const InputSelection<UsernameAttribute>(
+            label: InputResolverKey.emailTitle,
+            value: UsernameAttribute.email,
+          ),
+        if (_unverifiedKeys.contains('phone_number'))
+          const InputSelection<UsernameAttribute>(
+            label: InputResolverKey.phoneNumberTitle,
+            value: UsernameAttribute.phoneNumber,
+          )
+      ];
+      _default = _inputSelections[0].value;
     }
     super.didChangeDependencies();
   }
