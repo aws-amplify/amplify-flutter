@@ -47,7 +47,6 @@ mixin AuthenticatorPhoneField<FieldType,
                               selectionValue = current.value;
                             });
                             _setPhoneNumber();
-                            viewModel.resetFormKey();
                             Navigator.pop(context);
                           },
                           child: Text(
