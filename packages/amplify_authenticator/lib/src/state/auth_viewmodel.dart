@@ -29,9 +29,7 @@ class AuthViewModel extends ChangeNotifier {
     /// When transitioning through widgets as part of authflow, maintain [ViewModel] state except for form key
 
     /// When auth flow is complete, reset entirety of [ViewModel] state
-    _authBloc.stream
-        .distinct()
-        .listen((event) {
+    _authBloc.stream.distinct().listen((event) {
       resetFormKey();
       resetCode();
       if (event is Authenticated) {
