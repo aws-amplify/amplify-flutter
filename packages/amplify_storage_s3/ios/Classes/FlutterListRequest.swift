@@ -18,8 +18,7 @@ import Amplify
 import amplify_core
 
 struct FlutterListRequest {
-    static private let validationErrorMessage = "List request malformed."
-    
+
     let options: StorageListRequest.Options
 
     init(request: [String: Any?]) {
