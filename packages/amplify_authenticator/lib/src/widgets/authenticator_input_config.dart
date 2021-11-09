@@ -24,7 +24,7 @@ abstract class SelectableConfig<T> {
 }
 
 /// Allows for configuration of fields with multiple selections, such as dropdowns, switches and radio buttons
-class InputSelection<L, V> {
+class InputSelection<Label, Value> {
   /// Display text for the selection
   final L label;
 
