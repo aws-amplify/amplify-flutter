@@ -1,3 +1,10 @@
+## 0.2.7 (2021-11-08)
+
+### Fixes
+
+- fix(datastore): Temporal date/time query predicates
+- fix(datastore): Android TemporalTime Save Issue
+
 ## 0.2.6 (2021-10-25)
 
 ### Fixes
