@@ -176,7 +176,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          if (title is String) Text(title),
+          if (title != null) Text(title),
           const Padding(padding: FormFieldConstants.gap),
           buildFormField(context),
           if (companionWidget != null) companionWidget!,
