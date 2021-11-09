@@ -46,6 +46,8 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        let result = AtomicResult(result, call.method)
+
         innerHandle(method: call.method, callArgs: call.arguments as Any, result: result)
     }
 
