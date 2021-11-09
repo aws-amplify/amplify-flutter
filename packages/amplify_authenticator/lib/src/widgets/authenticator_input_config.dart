@@ -26,10 +26,10 @@ abstract class SelectableConfig<T> {
 /// Allows for configuration of fields with multiple selections, such as dropdowns, switches and radio buttons
 class InputSelection<Label, Value> {
   /// Display text for the selection
-  final L label;
+  final Label label;
 
   /// Value for the selection
-  final V value;
+  final Value value;
 
   const InputSelection({required this.label, required this.value});
 }
