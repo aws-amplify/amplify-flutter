@@ -19,6 +19,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
+import com.amazonaws.amplify.amplify_core.AtomicResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
@@ -99,7 +100,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         LOG.info("Initiated DataStore plugin")
     }
 
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+    override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
+        val result = AtomicResult(_result, call.method)
         var data: Map<String, Any> = HashMap()
         try {
             if (call.arguments != null) {

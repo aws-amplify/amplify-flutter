@@ -20,6 +20,7 @@ import android.content.Context
 import android.src.main.kotlin.com.amazonaws.amplify.amplify_storage_s3.types.TransferProgressStreamHandler
 import android.util.Log
 import androidx.annotation.NonNull
+import com.amazonaws.amplify.amplify_core.AtomicResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin
@@ -55,7 +56,9 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
         transferProgressEventChannel.setStreamHandler(transferProgressStreamHandler);
     }
 
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+    override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
+        val result = AtomicResult(_result, call.method)
+
         if(call.method == "addPlugin"){
             try {
                 Amplify.addPlugin(AWSS3StoragePlugin())

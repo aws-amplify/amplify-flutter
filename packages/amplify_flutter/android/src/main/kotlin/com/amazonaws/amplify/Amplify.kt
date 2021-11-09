@@ -21,6 +21,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.NonNull
+import com.amazonaws.amplify.amplify_core.AtomicResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 import com.amplifyframework.AmplifyException
@@ -67,8 +68,9 @@ class Amplify(
         }
     }
 
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-
+    override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
+        val result = AtomicResult(_result, call.method)
+        
         when (call.method) {
             "configure" ->
                 try {

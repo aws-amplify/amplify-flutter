@@ -29,6 +29,8 @@ public class SwiftAmplify: NSObject, FlutterPlugin {
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        let result = AtomicResult(result, call.method)
+
         switch call.method {
         case "configure":
             let arguments = call.arguments as! Dictionary<String, AnyObject>
