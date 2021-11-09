@@ -22,6 +22,7 @@ import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_api.auth.FlutterAuthProviders
 import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
+import com.amazonaws.amplify.amplify_core.AtomicResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
@@ -74,8 +75,9 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun onMethodCall(call: MethodCall, result: Result) {
+    override fun onMethodCall(call: MethodCall, _result: Result) {
         val methodName = call.method
+        val result = AtomicResult(_result, call.method)
 
         if (methodName == "cancel") {
             onCancel(result, (call.arguments as String))
