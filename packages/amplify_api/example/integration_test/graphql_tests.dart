@@ -227,16 +227,6 @@ void main() {
       expect(data.rating, equals(rating));
     });
 
-    testWidgets('should CREATE a post (model with parent) with Model helper',
-        (WidgetTester tester) async {
-      final title = 'Lorem Ipsum Test Post: ${UUID.getUUID()}';
-      const rating = 0;
-      Post data = await addPostAndBlogWithModelHelper(title, rating);
-
-      expect(data.title, equals(title));
-      expect(data.rating, equals(rating));
-    });
-
     testWidgets('should UPDATE a blog with Model helper',
         (WidgetTester tester) async {
       String oldName = 'Integration Test Blog to update';
