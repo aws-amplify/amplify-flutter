@@ -18,27 +18,27 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('AWSDateTime from DateTime success', () async {
-    DateTime now = DateTime.now();
+    DateTime dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
 
-    TemporalDateTime time = TemporalDateTime(now);
-    now = now.toUtc();
+    TemporalDateTime time = TemporalDateTime(dateTime);
+    dateTime = dateTime.toUtc();
 
     expect(time.getOffset(), Duration());
-    expect(time.getDateTimeInUtc(), now);
-    expect(time.format(), now.toIso8601String().substring(0, 26) + "000Z");
+    expect(time.getDateTimeInUtc(), dateTime);
+    expect(time.format(), dateTime.toIso8601String().substring(0, 26) + "000Z");
   });
 
   test('AWSDateTime from DateTime with offset success', () async {
-    DateTime now = DateTime.now();
+    DateTime dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
     Duration offset = Duration(hours: 3, minutes: 30);
 
-    TemporalDateTime time = TemporalDateTime.withOffset(now, offset);
-    now = now.toUtc();
+    TemporalDateTime time = TemporalDateTime.withOffset(dateTime, offset);
+    dateTime = dateTime.toUtc();
 
     expect(time.getOffset(), offset);
-    expect(time.getDateTimeInUtc(), now);
+    expect(time.getDateTimeInUtc(), dateTime);
     expect(time.format(),
-        now.toIso8601String().substring(0, 26) + "000" + "+03:30");
+        dateTime.toIso8601String().substring(0, 26) + "000" + "+03:30");
   });
 
   test('AWSDateTime from string YYYY-MM-DDThh:mmZ success', () async {
@@ -134,16 +134,16 @@ void main() {
   });
 
   test('AWSDateTime from offset with single digit duration', () async {
-    DateTime now = DateTime.now();
+    DateTime dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
     Duration offset = Duration(hours: 3, minutes: 3, seconds: 03);
 
-    TemporalDateTime time = TemporalDateTime.withOffset(now, offset);
-    now = now.toUtc();
+    TemporalDateTime time = TemporalDateTime.withOffset(dateTime, offset);
+    dateTime = dateTime.toUtc();
 
     expect(time.getOffset(), offset);
-    expect(time.getDateTimeInUtc(), now);
+    expect(time.getDateTimeInUtc(), dateTime);
     expect(time.format(),
-        now.toIso8601String().substring(0, 26) + "000" + "+03:03:03");
+        dateTime.toIso8601String().substring(0, 26) + "000" + "+03:03:03");
   });
 
   test('AWSDateTime from string YYYY-MM-DDThh:mm fails', () async {
