@@ -47,8 +47,6 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
   }) =>
       _VerifyUserRadioField(
         key: keyUnverifiedAttributes,
-        titleKey: InputResolverKey.usernameTitle,
-        hintTextKey: InputResolverKey.usernameHint,
         field: VerifyAttributeField.verify,
         validator: validator,
       );
@@ -160,12 +158,10 @@ class _VerifyUserRadioField extends VerifyUserFormField<UsernameAttribute> {
   _VerifyAttributeFieldState createState() => _VerifyAttributeFieldState();
 }
 
-UsernameAttribute _default = UsernameAttribute.email;
-
 class _VerifyAttributeFieldState
     extends _VerifyUserFormFieldState<UsernameAttribute>
     with AuthenticatorRadioField {
-  List<InputSelection> _inputSelections = [];
+  List<InputSelection<UsernameAttribute>> _inputSelections = [];
 
   @override
   void didChangeDependencies() {
@@ -173,30 +169,21 @@ class _VerifyAttributeFieldState
     _inputSelections = [];
     if (_authState is VerifyUserFlow) {
       final List<String> _unverifiedKeys = _authState.unverifiedAttributeKeys;
-      for (var key in _unverifiedKeys) {
-        switch (key) {
-          case 'email':
-            _inputSelections.add(const InputSelection<UsernameAttribute>(
-              label: InputResolverKey.emailTitle,
-              value: UsernameAttribute.email,
-            ));
-            break;
-          case 'phone_number':
-            _inputSelections.add(const InputSelection<UsernameAttribute>(
-              label: InputResolverKey.phoneNumberTitle,
-              value: UsernameAttribute.phoneNumber,
-            ));
-            break;
-        }
-        _default = _inputSelections[0].value;
-      }
+      _inputSelections = [
+        if (_unverifiedKeys.contains('email'))
+          const InputSelection<UsernameAttribute>(
+            label: InputResolverKey.emailTitle,
+            value: UsernameAttribute.email,
+          ),
+        if (_unverifiedKeys.contains('phone_number'))
+          const InputSelection<UsernameAttribute>(
+            label: InputResolverKey.phoneNumberTitle,
+            value: UsernameAttribute.phoneNumber,
+          )
+      ];
+      selectionValue = _inputSelections.first.value;
     }
     super.didChangeDependencies();
-  }
-
-  @override
-  UsernameAttribute? get initialValue {
-    return UsernameAttribute.email;
   }
 
   @override
@@ -210,5 +197,5 @@ class _VerifyAttributeFieldState
   }
 
   @override
-  UsernameAttribute? selectionValue = _default;
+  UsernameAttribute? selectionValue;
 }
