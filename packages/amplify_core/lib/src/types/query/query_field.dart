@@ -15,10 +15,11 @@
 
 library query_field;
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:amplify_datastore_plugin_interface/src/types/models/model_field_type.dart';
+import 'package:amplify_core/amplify_core.dart';
+
+import '../../util/parsers.dart';
+import '../models/model_field_type.dart';
 import '../temporal/datetime_parse.dart';
-import '../utils/parsers.dart';
 
 part 'query_field_operators.dart';
 part 'query_pagination.dart';
