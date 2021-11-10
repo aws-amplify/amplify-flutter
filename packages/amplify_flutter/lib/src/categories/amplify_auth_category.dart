@@ -168,30 +168,6 @@ class AuthCategory {
   /// the configuration.
   ///
   /// Optionally accepts plugin-specific, advanced [options] for the request.
-  @Deprecated('Use confirmResetPassword() instead')
-  Future<UpdatePasswordResult> confirmPassword({
-    required String username,
-    required String newPassword,
-    required String confirmationCode,
-    ConfirmResetPasswordOptions? options,
-  }) {
-    var request = ConfirmPasswordRequest(
-        username: username,
-        newPassword: newPassword,
-        confirmationCode: confirmationCode,
-        options: options);
-    return plugins.length == 1
-        ? plugins[0].confirmResetPassword(request: request)
-        : throw _pluginNotAddedException('Auth');
-  }
-
-  /// Completes the password reset process given a username, new password,
-  /// and confirmation code.
-  ///
-  /// The [username] is a login identifier or an email/phone number, depending on
-  /// the configuration.
-  ///
-  /// Optionally accepts plugin-specific, advanced [options] for the request.
   Future<UpdatePasswordResult> confirmResetPassword({
     required String username,
     required String newPassword,
@@ -247,7 +223,7 @@ class AuthCategory {
   ///
   /// Accepts plugin-specific, advanced [options] for the request
   Future<UpdateUserAttributeResult> updateUserAttribute({
-    required String userAttributeKey,
+    required UserAttributeKey userAttributeKey,
     required String value,
     UpdateUserAttributeOptions? options,
   }) {
@@ -264,7 +240,8 @@ class AuthCategory {
   /// Updates multiple user attributes and returns a map of [UpdateUserAttributeResult]
   ///
   /// Accepts plugin-specific, advanced [options] for the request
-  Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes({
+  Future<Map<UserAttributeKey, UpdateUserAttributeResult>>
+      updateUserAttributes({
     required List<AuthUserAttribute> attributes,
     UpdateUserAttributesOptions? options,
   }) {
@@ -279,7 +256,7 @@ class AuthCategory {
 
   /// Confirms a user attribute update and returns a [ConfirmUserAttributeResult]
   Future<ConfirmUserAttributeResult> confirmUserAttribute({
-    required String userAttributeKey,
+    required UserAttributeKey userAttributeKey,
     required String confirmationCode,
   }) {
     var request = ConfirmUserAttributeRequest(
@@ -294,7 +271,7 @@ class AuthCategory {
   /// Accepts plugin-specific, advanced [options] for the request
   Future<ResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
-    required String userAttributeKey,
+    required UserAttributeKey userAttributeKey,
     ResendUserAttributeConfirmationCodeOptions? options,
   }) {
     var request = ResendUserAttributeConfirmationCodeRequest(

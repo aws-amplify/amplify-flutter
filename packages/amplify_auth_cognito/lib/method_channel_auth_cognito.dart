@@ -26,6 +26,19 @@ const MethodChannel _channel =
 
 /// An implementation of [AmplifyPlatform] that uses method channels.
 class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
+  // Throws if the user attempts to update a user attribute key which is not a
+  // Cognito attribute or which is set to read-only.
+  void _checkUserAttributeKey(UserAttributeKey? userAttributeKey) {
+    if (userAttributeKey is! CognitoUserAttributeKey ||
+        userAttributeKey.readOnly) {
+      throw InvalidParameterException(
+        'Invalid Cognito attribute key: "$userAttributeKey". '
+        'Values must be one of the standard CognitoUserAttributeKey values '
+        'or a custom attribute created with CognitoUserAttributeKey.custom.',
+      );
+    }
+  }
+
   @override
   Future<void> addPlugin() async {
     try {
@@ -198,13 +211,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     }
   }
 
-  @Deprecated('Use confirmResetPassword() instead')
-  @override
-  Future<UpdatePasswordResult> confirmPassword(
-      {ConfirmResetPasswordRequest? request}) async {
-    return confirmResetPassword(request: request);
-  }
-
   @override
   Future<UpdatePasswordResult> confirmResetPassword(
       {ConfirmResetPasswordRequest? request}) async {
@@ -304,15 +310,17 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   @override
-  Future<UpdateUserAttributeResult> updateUserAttribute(
-      {UpdateUserAttributeRequest? request}) async {
-    UpdateUserAttributeResult res;
+  Future<UpdateUserAttributeResult> updateUserAttribute({
+    UpdateUserAttributeRequest? request,
+  }) async {
+    var userAttributeKey = request?.attribute.userAttributeKey;
+    _checkUserAttributeKey(userAttributeKey);
     try {
       final Map<String, dynamic>? data =
           await _channel.invokeMapMethod<String, dynamic>(
         'updateUserAttribute',
         <String, dynamic>{
-          'data': request != null ? request.serializeAsMap() : null,
+          'data': request?.serializeAsMap(),
         },
       );
       if (data == null)
@@ -325,8 +333,11 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   @override
-  Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes(
+  Future<Map<UserAttributeKey, UpdateUserAttributeResult>> updateUserAttributes(
       {required UpdateUserAttributesRequest request}) async {
+    for (var attribute in request.attributes) {
+      _checkUserAttributeKey(attribute.userAttributeKey);
+    }
     try {
       final Map<String, dynamic>? data =
           await _channel.invokeMapMethod<String, dynamic>(
@@ -348,7 +359,8 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   @override
   Future<ConfirmUserAttributeResult> confirmUserAttribute(
       {ConfirmUserAttributeRequest? request}) async {
-    ConfirmUserAttributeResult res;
+    var userAttributeKey = request?.userAttributeKey;
+    _checkUserAttributeKey(userAttributeKey);
     try {
       await _channel.invokeMapMethod<String, dynamic>(
         'confirmUserAttribute',
@@ -367,7 +379,8 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       resendUserAttributeConfirmationCode({
     ResendUserAttributeConfirmationCodeRequest? request,
   }) async {
-    ResendUserAttributeConfirmationCodeResult res;
+    var userAttributeKey = request?.userAttributeKey;
+    _checkUserAttributeKey(userAttributeKey);
     try {
       final Map<String, dynamic>? data =
           await _channel.invokeMapMethod<String, dynamic>(
@@ -445,8 +458,10 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       List<Map<dynamic, dynamic>> attributeResponse) {
     List<AuthUserAttribute> attributes = [];
     attributeResponse.forEach((element) {
-      attributes.add(AuthUserAttribute.init(
-          userAttributeKey: element["key"], value: element["value"]));
+      attributes.add(AuthUserAttribute(
+        userAttributeKey: CognitoUserAttributeKey.parse(element["key"]),
+        value: element["value"],
+      ));
     });
     return attributes;
   }
@@ -492,9 +507,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
                 : {}));
   }
 
-  Map<String, UpdateUserAttributeResult> _formatUpdateUserAttributesResponse(
-      Map<String, dynamic> res) {
-    return res.map((key, value) => MapEntry(key,
+  Map<UserAttributeKey, UpdateUserAttributeResult>
+      _formatUpdateUserAttributesResponse(Map<String, dynamic> res) {
+    return res.map((key, value) => MapEntry(CognitoUserAttributeKey.parse(key),
         _formatUpdateUserAttributeResponse(Map<String, dynamic>.from(value))));
   }
 

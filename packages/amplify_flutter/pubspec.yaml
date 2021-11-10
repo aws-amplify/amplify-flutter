@@ -16,6 +16,7 @@ dependencies:
   amplify_storage_plugin_interface: 0.3.0-rc.2
   flutter:
     sdk: flutter
+  meta: ^1.7.0
   plugin_platform_interface: ^2.0.0
 
 dev_dependencies:
