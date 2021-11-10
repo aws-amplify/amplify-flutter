@@ -26,12 +26,6 @@ const statusBadRequest = 400;
 // Matchers
 final throwsRestException = throwsA(isA<RestException>());
 
-const statusOK = 200;
-const statusBadRequest = 400;
-
-// Matchers
-final throwsRestException = throwsA(isA<RestException>());
-
 void main() {
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
 

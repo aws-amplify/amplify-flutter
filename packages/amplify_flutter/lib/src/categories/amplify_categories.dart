@@ -25,7 +25,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:flutter/services.dart';
-import 'package:meta/meta.dart';
 
 /// category parts
 part 'amplify_analytics_category.dart';

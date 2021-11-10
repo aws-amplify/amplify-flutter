@@ -26,14 +26,16 @@ class APICategory {
       try {
         await plugin.addPlugin();
         plugins.add(plugin);
-      } on AmplifyAlreadyConfiguredException catch (e) {
+      } on AmplifyAlreadyConfiguredException {
         plugins.add(plugin);
       } on PlatformException catch (e) {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
-      throw AmplifyException('API plugin has already been added, '
-          'multiple plugins for API category are currently not supported.');
+      throw const AmplifyException(
+        'API plugin has already been added, '
+        'multiple plugins for API category are currently not supported.',
+      );
     }
   }
 

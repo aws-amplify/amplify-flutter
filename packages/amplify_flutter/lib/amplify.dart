@@ -21,3 +21,5 @@ export 'package:amplify_core/amplify_core.dart';
 
 /// Top level singleton Amplify object.
 final AmplifyClass Amplify = AmplifyClass.protected();
+
+// ignore_for_file: non_constant_identifier_names

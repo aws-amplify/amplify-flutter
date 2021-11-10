@@ -48,29 +48,19 @@ void main() {
               'Check if Amplify is already configured using Amplify.isConfigured.');
 
   AmplifyException multiplePluginsForAuthException = AmplifyException(
-      'Amplify plugin AmplifyAuthCognito was not added successfully.',
-      recoverySuggestion:
-          "We currently don't have a recovery suggestion for this exception.",
-      underlyingException:
-          AmplifyException('Auth plugin has already been added, multiple '
-                  'plugins for Auth category are currently not supported.')
-              .toString());
-
-  const nullConfigurationException = AmplifyException(
-      'Configuration passed in null.',
-      recoverySuggestion:
-          'Make sure that your amplifyconfiguration.dart file exists and has '
-          'string constant ``amplifyconfig` and that you are calling configure() correctly.');
+    'Amplify plugin AmplifyAuthCognito was not added successfully.',
+    recoverySuggestion:
+        "We currently don't have a recovery suggestion for this exception.",
+    underlyingException:
+        const AmplifyException('Auth plugin has already been added, multiple '
+                'plugins for Auth category are currently not supported.')
+            .toString(),
+  );
 
   const pluginNotAddedException = AmplifyException(
       'Auth plugin has not been added to Amplify',
       recoverySuggestion:
           'Add Auth plugin to Amplify and call configure before calling Auth related APIs');
-
-  const amplifyConfigurationFailed = AmplifyException(
-      'Amplify failed to configure.',
-      recoverySuggestion:
-          'We currently don\'t have a recovery suggestion for this exception.');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 

@@ -31,7 +31,7 @@ class AuthCategory {
       try {
         await plugin.addPlugin();
         plugins.add(plugin);
-      } on AmplifyAlreadyConfiguredException catch (e) {
+      } on AmplifyAlreadyConfiguredException {
         plugins.add(plugin);
       } on PlatformException catch (e) {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));

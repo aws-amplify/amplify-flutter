@@ -296,3 +296,5 @@ void main() {
     skip: Platform.isAndroid,
   );
 }
+
+// ignore_for_file: non_constant_identifier_names

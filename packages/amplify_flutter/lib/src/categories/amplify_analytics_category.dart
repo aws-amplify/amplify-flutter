@@ -26,14 +26,16 @@ class AnalyticsCategory {
       try {
         await plugin.addPlugin();
         plugins.add(plugin);
-      } on AmplifyAlreadyConfiguredException catch (e) {
+      } on AmplifyAlreadyConfiguredException {
         plugins.add(plugin);
       } on PlatformException catch (e) {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
-      throw AmplifyException('Analytics plugin has already been added, '
-          'multiple plugins for Analytics category are currently not supported.');
+      throw const AmplifyException(
+        'Analytics plugin has already been added, '
+        'multiple plugins for Analytics category are currently not supported.',
+      );
     }
   }
 

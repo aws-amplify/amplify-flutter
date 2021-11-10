@@ -14,10 +14,12 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_flutter/categories/amplify_categories.dart';
+import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/src/amplify_impl.dart';
+import 'package:amplify_flutter/src/categories/amplify_categories.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
+
 import '../test_resources/amplifyconfiguration_all_resources.dart';
 import '../test_resources/test_values.dart';
 

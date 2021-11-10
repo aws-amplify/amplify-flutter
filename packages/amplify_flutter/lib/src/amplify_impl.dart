@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -6,6 +21,8 @@ import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_flutter/src/config/amplify_config.dart';
+import 'package:amplify_flutter/utils/parse_json_config.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -20,21 +37,24 @@ part 'method_channel_amplify.dart';
 /// instantiate an object of this class. Please use top level
 /// `Amplify` singleton object for making calls to methods of this class.
 class AmplifyClass extends PlatformInterface {
+  AmplifyConfig? _config = AmplifyConfig();
   // ignore: public_member_api_docs
-  final AuthCategory Auth = const AuthCategory();
+  AuthCategory Auth = const AuthCategory();
   // ignore: public_member_api_docs
-  final AnalyticsCategory Analytics = const AnalyticsCategory();
+  AnalyticsCategory Analytics = const AnalyticsCategory();
   // ignore: public_member_api_docs
-  final StorageCategory Storage = const StorageCategory();
+  StorageCategory Storage = const StorageCategory();
   // ignore: public_member_api_docs
-  final DataStoreCategory DataStore = const DataStoreCategory();
+  DataStoreCategory DataStore = const DataStoreCategory();
   // ignore: public_member_api_docs
-  final APICategory API = const APICategory();
+  APICategory API = const APICategory();
 
   bool _isConfigured = false;
 
   // ignore: public_member_api_docs
-  final AmplifyHub Hub = AmplifyHub();
+  AmplifyHub Hub = AmplifyHub();
+
+  final _configCompleter = Completer<AmplifyConfig>();
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -43,51 +63,54 @@ class AmplifyClass extends PlatformInterface {
   /// Throws AmplifyAlreadyConfiguredException if
   /// this method is called after configure (e.g. during hot reload).
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
-    if (_isConfigured) {
+    if (!isConfigured) {
+      try {
+        if (plugin is AuthPluginInterface) {
+          await Auth.addPlugin(plugin);
+          Hub.addChannel(HubChannel.Auth, plugin.streamController);
+        } else if (plugin is AnalyticsPluginInterface) {
+          await Analytics.addPlugin(plugin);
+        } else if (plugin is StoragePluginInterface) {
+          await Storage.addPlugin(plugin);
+        } else if (plugin is DataStorePluginInterface) {
+          try {
+            await DataStore.addPlugin(plugin);
+          } on AmplifyAlreadyConfiguredException {
+            // A new plugin is added in native libraries during `addPlugin`
+            // call for DataStore, which means during an app restart, this
+            // method will throw an exception in android. We will ignore this
+            // like other plugins and move on. Other exceptions fall through.
+          }
+          Hub.addChannel(HubChannel.DataStore, plugin.streamController);
+        } else if (plugin is APIPluginInterface) {
+          await API.addPlugin(plugin);
+        } else {
+          throw AmplifyException(
+              'The type of plugin ' +
+                  plugin.runtimeType.toString() +
+                  ' is not yet supported in Amplify.',
+              recoverySuggestion:
+                  AmplifyExceptionMessages.missingRecoverySuggestion);
+        }
+      } on Exception catch (e) {
+        safePrint('Amplify plugin was not added');
+        throw AmplifyException(
+          'Amplify plugin ' +
+              plugin.runtimeType.toString() +
+              ' was not added successfully.',
+          recoverySuggestion:
+              AmplifyExceptionMessages.missingRecoverySuggestion,
+          underlyingException: e.toString(),
+        );
+      }
+    } else {
       throw const AmplifyAlreadyConfiguredException(
         'Amplify has already been configured and adding plugins after configure is not supported.',
         recoverySuggestion:
             'Check if Amplify is already configured using Amplify.isConfigured.',
       );
     }
-    try {
-      if (plugin is AuthPluginInterface) {
-        await Auth.addPlugin(plugin);
-        Hub.addChannel(HubChannel.Auth, plugin.streamController);
-      } else if (plugin is AnalyticsPluginInterface) {
-        await Analytics.addPlugin(plugin);
-      } else if (plugin is StoragePluginInterface) {
-        await Storage.addPlugin(plugin);
-      } else if (plugin is DataStorePluginInterface) {
-        try {
-          await DataStore.addPlugin(plugin);
-        } on AmplifyAlreadyConfiguredException {
-          // A new plugin is added in native libraries during `addPlugin`
-          // call for DataStore, which means during an app restart, this
-          // method will throw an exception in android. We will ignore this
-          // like other plugins and move on. Other exceptions fall through.
-        }
-        Hub.addChannel(HubChannel.DataStore, plugin.streamController);
-      } else if (plugin is APIPluginInterface) {
-        await API.addPlugin(plugin);
-      } else {
-        throw AmplifyException(
-            'The type of plugin ' +
-                plugin.runtimeType.toString() +
-                ' is not yet supported in Amplify.',
-            recoverySuggestion:
-                AmplifyExceptionMessages.missingRecoverySuggestion);
-      }
-    } on Exception catch (e) {
-      safePrint('Amplify plugin was not added');
-      throw AmplifyException(
-        'Amplify plugin ' +
-            plugin.runtimeType.toString() +
-            ' was not added successfully.',
-        recoverySuggestion: AmplifyExceptionMessages.missingRecoverySuggestion,
-        underlyingException: e.toString(),
-      );
-    }
+    return;
   }
 
   /// Adds multiple plugins at the same time. Note: this method can only
@@ -101,8 +124,13 @@ class AmplifyClass extends PlatformInterface {
     return _isConfigured;
   }
 
+  /// A future when completes when Amplify has been successfully configured.
+  Future<AmplifyConfig> get asyncConfig {
+    return _configCompleter.future;
+  }
+
   String _getVersion() {
-    return '0.3.0-rc.2';
+    return '0.2.4';
   }
 
   /// Configures Amplify with the provided configuration string.
@@ -115,7 +143,7 @@ class AmplifyClass extends PlatformInterface {
   /// this method is called again (e.g. during hot reload).
   Future<void> configure(String configuration) async {
     // Validation #1
-    if (_isConfigured) {
+    if (isConfigured) {
       throw const AmplifyAlreadyConfiguredException(
         'Amplify has already been configured and re-configuration is not supported.',
         recoverySuggestion:
@@ -153,8 +181,12 @@ class AmplifyClass extends PlatformInterface {
             underlyingException: e.toString());
       }
     }
-
     await DataStore.configure(configuration);
+
+    if (_isConfigured && !_configCompleter.isCompleted) {
+      _config = parseConfigJson(configuration);
+      _configCompleter.complete(_config);
+    }
   }
 
   /// Adds the configuration and return true if it was successful.
@@ -183,3 +215,5 @@ class AmplifyClass extends PlatformInterface {
     _instance = instance;
   }
 }
+
+// ignore_for_file: non_constant_identifier_names

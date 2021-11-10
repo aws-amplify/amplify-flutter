@@ -8,19 +8,17 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  amplify_analytics_plugin_interface: 0.3.0-rc.2
+  amplify_api_plugin_interface: 0.3.0-rc.2
+  amplify_auth_plugin_interface: 0.3.0-rc.2
+  amplify_core: 0.3.0-rc.2
+  amplify_datastore_plugin_interface: 0.3.0-rc.2
+  amplify_storage_plugin_interface: 0.3.0-rc.2
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.0
-  amplify_storage_plugin_interface: 0.3.0-rc.2
-  amplify_analytics_plugin_interface: 0.3.0-rc.2
-  amplify_auth_plugin_interface: 0.3.0-rc.2
-  amplify_datastore_plugin_interface: 0.3.0-rc.2
-  amplify_api_plugin_interface: 0.3.0-rc.2
-  amplify_core: 0.3.0-rc.2
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   amplify_analytics_pinpoint: 0.3.0-rc.2
   amplify_api: 0.3.0-rc.2
   amplify_auth_cognito: 0.3.0-rc.2
@@ -28,6 +26,8 @@ dev_dependencies:
   amplify_lints: ^1.0.0
   amplify_storage_s3: 0.3.0-rc.2
   amplify_test: any
+  flutter_test:
+    sdk: flutter
 
 flutter:
   plugin:

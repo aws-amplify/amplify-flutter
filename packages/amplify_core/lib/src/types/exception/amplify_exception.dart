@@ -13,8 +13,11 @@
  * permissions and limitations under the License.
  */
 
+import 'package:meta/meta.dart';
+
 /// Thrown from top level Amplify APIs from the amplify-flutter package.
 /// All other Amplify APIs throw subclasses of AmplifyException.
+@immutable
 class AmplifyException implements Exception {
   /// Message contained in the exception
   final String message;
@@ -33,7 +36,7 @@ class AmplifyException implements Exception {
   /// serialized exception data
   static AmplifyException fromMap(Map<String, String> serializedException) {
     if (serializedException['message'] == null) {
-      throw FormatException(
+      throw const FormatException(
         'Cannot create AmplifyException from map.  Message field is missing',
       );
     }
@@ -53,13 +56,13 @@ class AmplifyException implements Exception {
       'underlyingException: $underlyingException)';
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-    return o is AmplifyException &&
-        o.message == message &&
-        o.recoverySuggestion == recoverySuggestion &&
-        o.underlyingException == underlyingException;
+    return other is AmplifyException &&
+        other.message == message &&
+        other.recoverySuggestion == recoverySuggestion &&
+        other.underlyingException == underlyingException;
   }
 
   @override

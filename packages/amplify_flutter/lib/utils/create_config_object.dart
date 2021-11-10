@@ -15,7 +15,7 @@
 
 import 'dart:convert';
 
-import 'package:amplify_flutter/categories/amplify_categories.dart';
+import 'package:amplify_flutter/src/categories/amplify_categories.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
 
 /// Returns an AmplifyConfig object populated only with plugin data
