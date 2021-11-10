@@ -19,14 +19,16 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'graph_ql_tests.dart' as graph_ql_tests;
+import 'graphql_tests.dart' as graph_ql_tests;
+import 'resources/ModelProvider.dart';
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('amplify_api', () {
     setUpAll(() async {
-      await Amplify.addPlugins([AmplifyAPI()]);
+      await Amplify.addPlugins(
+          [AmplifyAPI(modelProvider: ModelProvider.instance)]);
       await Amplify.configure(amplifyconfig);
     });
 

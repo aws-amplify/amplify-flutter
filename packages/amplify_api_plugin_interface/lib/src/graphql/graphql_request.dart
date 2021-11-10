@@ -20,12 +20,15 @@ class GraphQLRequest<T> {
   final String? apiName;
   final String document;
   final Map<String, dynamic> variables;
+  final String? decodePath;
+  final ModelType? modelType;
 
-  GraphQLRequest({
-    this.apiName,
-    required this.document,
-    this.variables = const <String, dynamic>{},
-  });
+  GraphQLRequest(
+      {this.apiName,
+      required this.document,
+      this.variables = const <String, dynamic>{},
+      this.decodePath,
+      this.modelType}) {}
 
   Map<String, dynamic> serializeAsMap() => <String, dynamic>{
         'document': document,
