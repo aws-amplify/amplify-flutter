@@ -1,3 +1,32 @@
+## 0.2.7 (2021-11-08)
+
+### Chores
+
+- chore: Bump Amplify iOS to 1.15.5
+
+### Fixes
+
+- fix(datastore): Temporal date/time query predicates
+- fix(datastore): Android TemporalTime Save Issue
+
+## 0.2.6 (2021-10-25)
+
+### Fixes
+
+- fix(datastore): Re-emit events on hot restart
+
+### Features
+
+- feat(datastore): Add observeQuery API
+
+## 0.2.5 (2021-10-14)
+
+### Fixes
+- fix(datastore): Sync issues with owner-based auth
+- fix(datastore): Ensure attaching nested model schema
+- fix(datastore): Timeout period not increasing
+- fix(datastore): Remove default pagination behavior on iOS
+
 ## 0.2.4 (2021-09-10)
 
 ### Fixes

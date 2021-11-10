@@ -128,9 +128,9 @@ void main() {
     Duration duration = Duration(hours: 3, minutes: 25, seconds: 55);
 
     expect(time.getOffset(), duration);
-    expect(
-        time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30, 25, 0, 99));
-    expect(time.format(), "1995-05-03T03:30:25.000099999+03:25:55");
+    expect(time.getDateTimeInUtc(),
+        DateTime.utc(1995, 05, 03, 03, 30, 25, 999, 990));
+    expect(time.format(), "1995-05-03T03:30:25.999990000+03:25:55");
   });
 
   test('AWSDateTime from offset with single digit duration', () async {
@@ -164,5 +164,18 @@ void main() {
   test('AWSDateTime from string YYYY-MM-DDThh.sssZ fails', () async {
     expect(() => TemporalDateTime.fromString("1995-05-03T03.999999999"),
         throwsException);
+  });
+
+  test('compareTo compares two TemporalDateTime objects', () {
+    var value1 = TemporalDateTime(DateTime(2020, 01, 01, 10, 30, 00));
+    var value1Copy = TemporalDateTime(DateTime(2020, 01, 01, 10, 30, 00));
+    var value2 = TemporalDateTime(DateTime(2020, 01, 01, 10, 30, 05));
+    var value3 = TemporalDateTime(DateTime(2021, 01, 01, 10, 30, 00));
+
+    expect(value1.compareTo(value1Copy), 0);
+    expect(value1.compareTo(value2), -1);
+    expect(value2.compareTo(value1), 1);
+    expect(value1.compareTo(value3), -1);
+    expect(value3.compareTo(value1), 1);
   });
 }

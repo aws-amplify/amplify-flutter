@@ -28,7 +28,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     private let dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler?
     private let dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler?
     private var channel: FlutterMethodChannel?
-    var observeSubscription: AnyCancellable?
+    private var observeSubscription: AnyCancellable?
     
     init(bridge: DataStoreBridge = DataStoreBridge(),
          flutterModelRegistration: FlutterModels = FlutterModels(),
@@ -51,6 +51,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        let result = AtomicResult(result, call.method)
         var arguments: [String: Any] = [:]
         do {
             if(call.arguments != nil) {
@@ -341,10 +342,50 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                         flutterResult: flutterResult)
                 case .success():
                     print("Successfully cleared the store")
-                    // iOS tears down the publisher after clear. Let's setup again.
-                    // See https://github.com/aws-amplify/amplify-flutter/issues/395
-                    self.observeSubscription = nil
-                    self.onSetUpObserve(flutterResult: flutterResult)
+                    flutterResult(nil)
+                }
+            }
+        }
+        catch {
+            print("An unexpected error occured: \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
+        }
+    }
+
+    func onStart(flutterResult: @escaping FlutterResult) {
+        do {
+            try bridge.onStart() { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Start API failed. Error: \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(
+                        error: error,
+                        flutterResult: flutterResult)
+                case .success():
+                    print("Successfully started datastore cloud syncing")
+                    flutterResult(nil)
+                }
+            }
+        }
+        catch {
+            print("An unexpected error occured: \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
+        }
+    }
+
+    func onStop(flutterResult: @escaping FlutterResult) {
+        do {
+            try bridge.onStop() { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Stop API failed. Error: \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(
+                        error: error,
+                        flutterResult: flutterResult)
+                case .success():
+                    print("Successfully stopped datastore cloud syncing")
                     flutterResult(nil)
                 }
             }

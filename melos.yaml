@@ -135,6 +135,18 @@ scripts:
     melos exec -- \
       flutter analyze --no-fatal-infos --no-fatal-warnings &>/dev/null || true
 
+  pod:repo-update:
+    run: melos exec -c 8 --scope="*example*,sample_app" "(cd ios && pod repo update)"
+    description: runs "pod repo update" in all example apps
+
+  pod:update-amplify:
+    run: melos exec -c 8 --ignore="amplify_core_example" --file-exists="./ios/Podfile.lock" "(cd ios && pod update Amplify AWSPluginsCore AmplifyPlugins)"
+    description: Update amplify pods in projects with a Podfile.lock
+
+  pod:update:
+    run: melos run pod:repo-update && melos run pod:update-amplify
+    description: Run "pod repo update" and then updates amplify related pods. Intended for use after amplify iOS version has been updated.
+
   postbootstrap: |
     melos run copy_dummy_config && \
     melos run packages:fix

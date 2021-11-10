@@ -13,20 +13,26 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/types/uuid.dart';
+
 import './DownloadFileOptions.dart';
 import 'dart:io';
 
 class DownloadFileRequest {
+  late String uuid;
   String key;
   File local;
   DownloadFileOptions? options;
 
-  DownloadFileRequest({required this.key, required this.local, this.options});
+  DownloadFileRequest({required this.key, required this.local, this.options}) {
+    this.uuid = UUID.getUUID();
+  }
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> result = {
-      'path': local.absolute.path,
+      'uuid': uuid,
       'key': key,
+      'path': local.absolute.path,
       'options': options?.serializeAsMap()
     };
     result.removeWhere((_, v) => v == null);

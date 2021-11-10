@@ -22,11 +22,10 @@ import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_api.auth.FlutterAuthProviders
 import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
-import com.amazonaws.amplify.amplify_core.cast
+import com.amazonaws.amplify.amplify_core.AtomicResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
-import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.api.aws.AuthorizationType
 import com.amplifyframework.core.Amplify
@@ -36,6 +35,8 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 /** AmplifyApiPlugin */
 class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
@@ -54,14 +55,20 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var context: Context
     private val graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler
     private val logger = Amplify.Logging.forNamespace("amplify:flutter:api")
+    private var dispatcher: CoroutineDispatcher
 
     constructor() {
         graphqlSubscriptionStreamHandler = GraphQLSubscriptionStreamHandler()
+        dispatcher = Dispatchers.IO
     }
 
     @VisibleForTesting
-    constructor(eventHandler: GraphQLSubscriptionStreamHandler) {
+    constructor(
+        eventHandler: GraphQLSubscriptionStreamHandler,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO
+    ) {
         graphqlSubscriptionStreamHandler = eventHandler
+        this.dispatcher = dispatcher
     }
 
     private val handler = Handler(Looper.getMainLooper())
@@ -78,8 +85,9 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun onMethodCall(call: MethodCall, result: Result) {
+    override fun onMethodCall(call: MethodCall, _result: Result) {
         val methodName = call.method
+        val result = AtomicResult(_result, call.method)
 
         if (methodName == "cancel") {
             onCancel(result, (call.arguments as String))
@@ -89,7 +97,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                 Amplify.addPlugin(
                     AWSApiPlugin
                         .builder()
-                        .apiAuthProviders(FlutterAuthProviders.factory)
+                        .apiAuthProviders(FlutterAuthProviders(channel).factory)
                         .build()
                 )
                 logger.info("Added API plugin")
@@ -103,12 +111,6 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         try {
             val arguments: Map<String, Any> = call.arguments as Map<String, Any>
 
-            // Update tokens if included with request
-            val tokens = arguments["tokens"] as? List<*>
-            if (tokens != null && tokens.isNotEmpty()) {
-                updateTokens(tokens)
-            }
-
             when (call.method) {
                 "get" -> FlutterRestApi.get(result, arguments)
                 "post" -> FlutterRestApi.post(result, arguments)
@@ -116,24 +118,13 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                 "delete" -> FlutterRestApi.delete(result, arguments)
                 "head" -> FlutterRestApi.head(result, arguments)
                 "patch" -> FlutterRestApi.patch(result, arguments)
-                "query" -> FlutterGraphQLApi.query(result, arguments)
-                "mutate" -> FlutterGraphQLApi.mutate(result, arguments)
-                "subscribe" -> FlutterGraphQLApi.subscribe(
+                "query" -> FlutterGraphQLApi(dispatcher).query(result, arguments)
+                "mutate" -> FlutterGraphQLApi(dispatcher).mutate(result, arguments)
+                "subscribe" -> FlutterGraphQLApi(dispatcher).subscribe(
                     result,
                     arguments,
                     graphqlSubscriptionStreamHandler
                 )
-                "updateTokens" -> {
-                    if (tokens == null || tokens.isEmpty()) {
-                        throw ApiException(
-                            "Invalid token map provided",
-                            "Provide tokens in the \"tokens\" field"
-                        )
-                    }
-
-                    // Tokens already updated
-                    result.success(null)
-                }
                 else -> result.notImplemented()
             }
         } catch (e: Exception) {
@@ -159,19 +150,6 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                 "The Operation may have already been completed or expired and cannot be canceled anymore",
                 "Operation does not exist"
             )
-        }
-    }
-
-    private fun updateTokens(tokens: List<*>) {
-        for (authToken in tokens.cast<Map<String, Any?>>()) {
-            val token = authToken["token"] as? String?
-            val tokenType = authToken["type"] as? String ?: throw invalidTokenType()
-            val authType: AuthorizationType = try {
-                AuthorizationType.from(tokenType)
-            } catch (e: Exception) {
-                throw invalidTokenType(tokenType)
-            }
-            FlutterAuthProviders.setToken(authType, token)
         }
     }
 

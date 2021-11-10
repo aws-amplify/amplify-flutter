@@ -52,6 +52,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttribu
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignOutRequest
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_auth_cognito.utils.isRedirectActivityDeclared
+import com.amazonaws.amplify.amplify_core.AtomicResult
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.auth.AuthSession
@@ -151,7 +152,9 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     return args as HashMap<String, Any>
   };
 
-  override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+  override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
+
+    val result = AtomicResult(_result, call.method)
 
     if(call.method == "addPlugin"){
       try {

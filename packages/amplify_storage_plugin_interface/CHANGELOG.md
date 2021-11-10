@@ -1,3 +1,13 @@
+## 0.2.7 (2021-11-08)
+
+## 0.2.6 (2021-10-25)
+
+### Features
+
+- feat(storage): Upload/download progress listener
+
+## 0.2.5 (2021-10-14)
+
 ## 0.2.4 (2021-09-10)
 
 ### Fixes

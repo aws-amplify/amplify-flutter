@@ -16,6 +16,7 @@
 export 'Storage/StorageAccessLevel.dart';
 export 'Storage/StorageOptions.dart';
 export 'Storage/StorageItem.dart';
+export 'Storage/TransferProgress.dart';
 
 export 'UploadFile/UploadFileOptions.dart';
 export 'UploadFile/UploadFileRequest.dart';

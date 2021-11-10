@@ -19,11 +19,18 @@ import 'package:flutter/services.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
+import 'types/observe_query_executor.dart';
+
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 
 /// An implementation of [AmplifyDataStore] that uses method channels.
 class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   dynamic _allModelsStreamFromMethodChannel = null;
+
+  ObserveQueryExecutor _observeQueryExecutor = ObserveQueryExecutor(
+    dataStoreEventStream:
+        AmplifyDataStore.streamWrapper.datastoreStreamController.stream,
+  );
 
   /// Internal use constructor
   AmplifyDataStoreMethodChannel() : super.tokenOnly();
@@ -171,6 +178,24 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         .map((event) => SubscriptionEvent.fromMap(event, modelType))
         .asBroadcastStream()
         .cast<SubscriptionEvent<T>>();
+  }
+
+  @override
+  Stream<QuerySnapshot<T>> observeQuery<T extends Model>(
+    ModelType<T> modelType, {
+    QueryPredicate? where,
+    List<QuerySortBy>? sortBy,
+    ObserveQueryThrottleOptions throttleOptions =
+        const ObserveQueryThrottleOptions.defaults(),
+  }) {
+    return _observeQueryExecutor.observeQuery<T>(
+      query: query,
+      observe: observe,
+      modelType: modelType,
+      where: where,
+      sortBy: sortBy,
+      throttleOptions: throttleOptions,
+    );
   }
 
   @override

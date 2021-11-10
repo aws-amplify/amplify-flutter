@@ -34,7 +34,10 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.*
+import org.mockito.kotlin.clearInvocations
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
 
 /**
  * Mock model object for building dummy GraphQL requests.
@@ -67,13 +70,12 @@ class AuthProviderTests {
     /**
      * Mock OIDC provider.
      */
-    private val mockOidcAuthProvider: OidcAuthProvider = mock(OidcAuthProvider::class.java)
+    private val mockOidcAuthProvider: OidcAuthProvider = mock()
 
     /**
      * Mock Lambda provider.
      */
-    private val mockFunctionAuthProvider: FunctionAuthProvider =
-        mock(FunctionAuthProvider::class.java)
+    private val mockFunctionAuthProvider: FunctionAuthProvider = mock()
 
     /**
      * Multi-auth configuration JSON for API category.

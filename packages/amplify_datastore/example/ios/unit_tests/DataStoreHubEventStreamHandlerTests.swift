@@ -328,4 +328,73 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         waitForExpectations(timeout: 1.0)
         hubHandler.onCancel(withArguments: nil)
     }
+    
+    func test_hot_restart_replays_sync_and_ready_events() {
+        let payloads = [
+            HubPayload(
+                eventName: HubPayload.EventName.DataStore.ready, 
+                context: nil, 
+                data: nil
+            ),
+            HubPayload(
+                eventName: HubPayload.EventName.DataStore.modelSynced,
+                context: nil,
+                data: ModelSyncedEvent(
+                    modelName: "Test",
+                    isFullSync: true,
+                    isDeltaSync: false,
+                    added: 0,
+                    updated: 0,
+                    deleted: 0
+                )
+            ),
+        ]
+        
+        var events: Set<String> = []
+        func buildEventSink(expectCount: Int) -> (FlutterEventSink, XCTestExpectation) {
+            let expect = expectation(description: "Emits \(expectCount) events")
+            let eventSink = { (event: Any?) in
+                guard let eventMap = event as? [String: Any],
+                      let eventName = eventMap["eventName"] as? String else {
+                    XCTFail("Bad event: \(event ?? "nil")")
+                    return
+                }
+                events.insert(eventName)
+                if events.count == expectCount {
+                    expect.fulfill()
+                }
+            }
+            return (eventSink, expect)
+        }
+        
+        let hubHandler = DataStoreHubEventStreamHandler()
+        var (eventSink, expect) = buildEventSink(expectCount: payloads.count)
+        let listenError = hubHandler.onListen(withArguments: nil, eventSink: eventSink)
+        XCTAssertNil(listenError)
+        
+        for payload in payloads {
+            Amplify.Hub.dispatch(to: .dataStore, payload: payload)
+        }
+        
+        let expectedEvents = Set<String>(payloads.map { shortEventName(eventName: $0.eventName) })
+        
+        wait(for: [expect], timeout: 1)
+        XCTAssertEqual(events, expectedEvents)
+        
+        (eventSink, expect) = buildEventSink(expectCount: payloads.count)
+        func hotRestart() {
+            events = []
+            
+            let cancelError = hubHandler.onCancel(withArguments: nil)
+            XCTAssertNil(cancelError)
+            
+            let listenError = hubHandler.onListen(withArguments: nil, eventSink: eventSink)
+            XCTAssertNil(listenError)
+        }
+        
+        hotRestart()
+        
+        wait(for: [expect], timeout: 1)
+        XCTAssertEqual(events, expectedEvents)
+    }
 }
