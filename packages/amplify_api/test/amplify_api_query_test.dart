@@ -92,7 +92,7 @@ void main() {
   test('ModelQueries.get Model Helper executes correctly in the happy case',
       () async {
     String expectedDoc =
-        r"query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt } }";
+        r"query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt updatedAt } }";
     final String id = UUID.getUUID();
     var queryResult = '''{
       "getBlog": {
@@ -120,7 +120,7 @@ void main() {
   test('ModelQueries.list Model Helper executes correctly in the happy case',
       () async {
     String expectedDoc =
-        r"query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }";
+        r"query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt updatedAt } nextToken } }";
     const queryResult = '''{
       "listBlogs": {
         "items": [

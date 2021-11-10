@@ -29,7 +29,7 @@ void main() {
       test('ModelQueries.get() should build a valid request', () {
         String id = UUID.getUUID();
         String expected =
-            r'query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt } }';
+            r'query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt updatedAt } }';
 
         GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
 
@@ -62,7 +62,7 @@ void main() {
       });
       test('ModelQueries.list() should build a valid request', () async {
         String expected =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt updatedAt } nextToken } }';
 
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType);
@@ -75,7 +75,7 @@ void main() {
       test('ModelQueries.list() should build a valid request with pagination',
           () async {
         String expected =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt updatedAt } nextToken } }';
 
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: 1);
@@ -179,7 +179,7 @@ void main() {
                 request: req, data: data, errors: errors);
         expect(response.data?.hasNextResult, true);
         String expectedDocument =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt updatedAt } nextToken } }';
         final resultRequest = response.data?.requestForNextResult!;
         expect(resultRequest?.document, expectedDocument);
         expect(resultRequest?.variables['nextToken'], response.data?.nextToken);
@@ -222,7 +222,7 @@ void main() {
           () async {
         const expectedTitle = 'Test Blog 1';
         const expectedDocument =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt updatedAt } nextToken } }';
         const expectedFilter = {
           'name': {'eq': expectedTitle}
         };
@@ -292,7 +292,7 @@ void main() {
           'input': {'id': id, 'name': name, 'createdAt': time}
         };
         final expectedDoc =
-            r'mutation createBlog($input: CreateBlogInput!, $condition:  ModelBlogConditionInput) { createBlog(input: $input, condition: $condition) { id name createdAt } }';
+            r'mutation createBlog($input: CreateBlogInput!, $condition:  ModelBlogConditionInput) { createBlog(input: $input, condition: $condition) { id name createdAt updatedAt } }';
 
         GraphQLRequest<Blog> req = ModelMutations.create<Blog>(blog);
 
@@ -327,7 +327,7 @@ void main() {
           }
         };
         const expectedDoc =
-            r'mutation createPost($input: CreatePostInput!, $condition:  ModelPostConditionInput) { createPost(input: $input, condition: $condition) { id title rating created blog { id name createdAt } } }';
+            r'mutation createPost($input: CreatePostInput!, $condition:  ModelPostConditionInput) { createPost(input: $input, condition: $condition) { id title rating created createdAt updatedAt blog { id name createdAt updatedAt } } }';
         GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
 
         expect(req.document, expectedDoc);
@@ -350,7 +350,7 @@ void main() {
           'condition': null
         };
         final expectedDoc =
-            r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }';
+            r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt updatedAt } }';
 
         GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog);
 
@@ -369,7 +369,7 @@ void main() {
           'condition': null
         };
         final expectedDoc =
-            r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }';
+            r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt updatedAt } }';
 
         GraphQLRequest<Blog> req =
             ModelMutations.deleteById<Blog>(Blog.classType, id);
@@ -394,7 +394,7 @@ void main() {
           'condition': null
         };
         final expectedDoc =
-            r'mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }';
+            r'mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt updatedAt } }';
 
         GraphQLRequest<Blog> req = ModelMutations.update<Blog>(blog);
 
@@ -430,7 +430,7 @@ void main() {
           'condition': null
         };
         const expectedDoc =
-            r'mutation updatePost($input: UpdatePostInput!, $condition:  ModelPostConditionInput) { updatePost(input: $input, condition: $condition) { id title rating created blog { id name createdAt } } }';
+            r'mutation updatePost($input: UpdatePostInput!, $condition:  ModelPostConditionInput) { updatePost(input: $input, condition: $condition) { id title rating created createdAt updatedAt blog { id name createdAt updatedAt } } }';
         GraphQLRequest<Post> req = ModelMutations.update<Post>(post);
 
         expect(req.document, expectedDoc);
@@ -455,7 +455,7 @@ void main() {
           }
         };
         const expectedDoc =
-            r'mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }';
+            r'mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt updatedAt } }';
 
         GraphQLRequest<Blog> req =
             ModelMutations.update(blog, where: Blog.CREATEDAT.lt(createdAt));
@@ -480,7 +480,7 @@ void main() {
           }
         };
         const expectedDoc =
-            r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }';
+            r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt updatedAt } }';
 
         GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog,
             where: Blog.CREATEDAT.lt(createdAt));
