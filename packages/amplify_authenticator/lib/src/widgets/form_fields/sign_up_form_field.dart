@@ -381,9 +381,11 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
         return viewModel.setPasswordConfirmation;
       case SignUpField.address:
         return viewModel.setAddress;
-      case SignUpField.birthdate:
-        return viewModel.setBirthdate;
       case SignUpField.email:
+        if (_usernameAttributes.length == 1 &&
+            _usernameAttributes.contains(UsernameAttributes.email)) {
+          return viewModel.setEmailAsUsername;
+        }
         return viewModel.setEmail;
       case SignUpField.familyName:
         return viewModel.setFamilyName;
@@ -397,8 +399,6 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
         return viewModel.setName;
       case SignUpField.nickname:
         return viewModel.setNickname;
-      case SignUpField.phoneNumber:
-        return viewModel.setPhoneNumber;
       case SignUpField.preferredUsername:
         return viewModel.setPreferredUsername;
       case SignUpField.custom:
@@ -533,6 +533,10 @@ class _SignUpPhoneFieldState extends _SignUpFormFieldState<String>
 
   @override
   ValueChanged<String> get onChanged {
+    if (_usernameAttributes.length == 1 &&
+        _usernameAttributes.contains(UsernameAttributes.phoneNumber)) {
+      return viewModel.setPhoneAsUsername;
+    }
     return viewModel.setPhoneNumber;
   }
 

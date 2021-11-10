@@ -82,6 +82,16 @@ class AuthViewModel extends ChangeNotifier {
     _username = value;
   }
 
+  void setEmailAsUsername(String value) {
+    _username = value;
+    _setAttribute(CognitoUserAttributeKey.email, value);
+  }
+
+  void setPhoneAsUsername(String value) {
+    _username = value;
+    _setAttribute(CognitoUserAttributeKey.phoneNumber, value);
+  }
+
   void setPassword(String value) {
     _password = value;
   }
