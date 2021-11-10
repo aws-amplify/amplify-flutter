@@ -52,6 +52,7 @@ class MockModel : Model {
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class AuthProviderTests {
+
     /**
      * Using categories allows us to create a new one per-test and configure as appropriate.
      */

@@ -370,46 +370,6 @@ class GraphQLApiUnitTests: XCTestCase {
             graphQLSubscriptionsStreamHandler: MockStreamHandler()
         )
     }
-
-    func test_subscription_establishes_successfully_with_valid_api_name() throws {
-        let testRequest: [String: Any] = [
-            "apiName": "publicApi",
-            "document": "test document",
-            "variables": ["test key":"test value"],
-            "cancelToken" : "someCode"
-        ]
-
-        class MockApiBridge: ApiBridge {
-            override func subscribe<ResultType>(request: GraphQLRequest<ResultType>,
-                                       valueListener: GraphQLSubscriptionOperation<ResultType>.InProcessListener?,
-                                       completionListener: GraphQLSubscriptionOperation<ResultType>.ResultListener?)
-                  -> GraphQLSubscriptionOperation<ResultType> {
-                valueListener?(.connection(SubscriptionConnectionState.connected))
-                let graphQLSubscriptionOperation = getMockGraphQLSubscriptionOperation(request: request)
-                return graphQLSubscriptionOperation
-            }
-        }
-
-        class MockStreamHandler: GraphQLSubscriptionsStreamHandler {
-            override func sendEvent(payload: [String : Any?]?, id: String, type: GraphQLSubscriptionEventTypes) {
-                XCTFail()
-            }
-
-            override func sendError(errorCode: String, details: [String: Any]) {
-                XCTFail()
-            }
-        }
-
-
-        FlutterGraphQLApi.subscribe(
-            flutterResult: { (result)  in
-                XCTAssertNil(result)
-            },
-            request: testRequest,
-            bridge: MockApiBridge(),
-            graphQLSubscriptionsStreamHandler: MockStreamHandler()
-        )
-    }
     
     func test_subscribe_success_event() throws {
         let testRequest: [String: Any] = [

@@ -73,6 +73,7 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         var x = encoder.unkeyedContainer()
         try x.encode(values)
     }
+
     internal func jsonValue(for key: String) -> Any?? {
         return FlutterSerializedModel.extractJsonValue(value: values[key])
     }
@@ -107,6 +108,7 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
                 case (.int, .number(let deserializedValue)):
                     return Int(deserializedValue)
                 case (.dateTime, .string(let deserializedValue)), (.date, .string(let deserializedValue)), (.time, .string(let deserializedValue)):
+
                     // If returning value for Amplify iOS library return FlutterTemporal
                     if(returnTemporalType) {
                         return FlutterTemporal(iso8601String: deserializedValue)
@@ -115,6 +117,7 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
                     else{
                         return deserializedValue
                     }
+
                 case (.timestamp, .number(let deserializedValue)):
                     return Int(deserializedValue)
                 default:
