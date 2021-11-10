@@ -33,7 +33,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     String? title,
     String? hintText,
     FormFieldValidator<FieldValue>? validator,
-    String? customAttributeKey,
+    CognitoUserAttributeKey? customAttributeKey,
   })  : _customAttributeKey = customAttributeKey,
         super._(
           key: key,
@@ -229,7 +229,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
 
   static SignUpFormField selectedUserNameType({
     Key? key,
-    FormFieldValidator<Enum>? validator,
+    FormFieldValidator<CognitoUserAttributeKey>? validator,
   }) =>
       _SignUpRadioField(
         key: key ?? keySelectedUsernameSignUpFormField,
@@ -244,7 +244,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
   static SignUpFormField custom({
     Key? key,
     required String title,
-    required String attributeKey,
+    required CognitoUserAttributeKey attributeKey,
     required String hintText,
     FormFieldValidator<String>? validator,
   }) =>
@@ -258,7 +258,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
       );
 
   /// Custom Cognito attribute key.
-  final String? _customAttributeKey;
+  final CognitoUserAttributeKey? _customAttributeKey;
 }
 
 abstract class _SignUpFormFieldState<FieldValue>
@@ -324,7 +324,7 @@ class _SignUpTextField extends SignUpFormField<String> {
     InputResolverKey? hintTextKey,
     String? title,
     String? hintText,
-    String? attributeKey,
+    CognitoUserAttributeKey? attributeKey,
     FormFieldValidator<String>? validator,
   }) : super._(
           key: key,
@@ -507,7 +507,7 @@ class _SignUpPhoneField extends SignUpFormField<String> {
     InputResolverKey? hintTextKey,
     String? title,
     String? hintText,
-    String? attributeKey,
+    CognitoUserAttributeKey? attributeKey,
     FormFieldValidator<String>? validator,
   }) : super._(
           key: key,
@@ -542,10 +542,15 @@ class _SignUpPhoneFieldState extends _SignUpFormFieldState<String>
   }
 
   @override
-  String? selectionValue;
+  String? selectionValue = countryCodes.first.value;
 
   @override
-  List<InputSelection> get selections => throw UnimplementedError();
+  List<InputSelection> get selections {
+    return countryCodes
+        .map((Country country) => InputSelection<CountryResolverKey, String>(
+            label: country.key, value: country.value))
+        .toList();
+  }
 }
 
 class _SignUpDateField extends SignUpFormField<String> {
@@ -556,7 +561,7 @@ class _SignUpDateField extends SignUpFormField<String> {
     InputResolverKey? hintTextKey,
     String? title,
     String? hintText,
-    String? attributeKey,
+    CognitoUserAttributeKey? attributeKey,
     FormFieldValidator<String>? validator,
   }) : super._(
           key: key,
@@ -596,7 +601,7 @@ class _SignUpDateFieldState extends _SignUpFormFieldState<String>
   }
 }
 
-class _SignUpRadioField extends SignUpFormField<UsernameAttribute> {
+class _SignUpRadioField extends SignUpFormField<CognitoUserAttributeKey> {
   const _SignUpRadioField({
     Key? key,
     required SignUpField field,
@@ -604,7 +609,7 @@ class _SignUpRadioField extends SignUpFormField<UsernameAttribute> {
     InputResolverKey? hintTextKey,
     String? title,
     String? hintText,
-    FormFieldValidator<UsernameAttribute>? validator,
+    FormFieldValidator<CognitoUserAttributeKey>? validator,
   }) : super._(
           key: key,
           field: field,
@@ -619,32 +624,30 @@ class _SignUpRadioField extends SignUpFormField<UsernameAttribute> {
   _SignUpRadioFieldState createState() => _SignUpRadioFieldState();
 }
 
-class _SignUpRadioFieldState extends _SignUpFormFieldState<UsernameAttribute>
+class _SignUpRadioFieldState
+    extends _SignUpFormFieldState<CognitoUserAttributeKey>
     with AuthenticatorRadioField {
   @override
-  UsernameAttribute? get initialValue {
-    return UsernameAttribute.email;
+  CognitoUserAttributeKey? get initialValue {
+    return CognitoUserAttributeKey.email;
   }
 
   @override
-  ValueChanged<UsernameAttribute> get onChanged {
+  ValueChanged<CognitoUserAttributeKey> get onChanged {
     return viewModel.setSelectedUsername;
   }
 
   @override
   List<InputSelection> get selections {
     return [
-      const InputSelection<UsernameAttribute>(
-        label: InputResolverKey.emailTitle,
-        value: UsernameAttribute.email,
-      ),
-      const InputSelection<UsernameAttribute>(
-        label: InputResolverKey.phoneNumberTitle,
-        value: UsernameAttribute.phoneNumber,
-      )
+      const InputSelection<InputResolverKey, UsernameAttribute>(
+          label: InputResolverKey.emailTitle, value: UsernameAttribute.email),
+      const InputSelection<InputResolverKey, UsernameAttribute>(
+          label: InputResolverKey.phoneNumberTitle,
+          value: UsernameAttribute.phoneNumber)
     ];
   }
 
   @override
-  UsernameAttribute? selectionValue = UsernameAttribute.email;
+  CognitoUserAttributeKey? selectionValue = CognitoUserAttributeKey.email;
 }

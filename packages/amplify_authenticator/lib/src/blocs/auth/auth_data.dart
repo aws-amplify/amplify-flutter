@@ -46,7 +46,7 @@ class AuthSignUpData {
     this.attributes = const {},
   });
 
-  final Map<String, String> attributes;
+  final Map<CognitoUserAttributeKey, String> attributes;
 
   final String password;
 
@@ -101,12 +101,12 @@ class AuthUpdatePasswordData {
 
 class AuthConfirmSignInData {
   AuthConfirmSignInData({
-    required this.code,
+    required this.confirmationValue,
     this.attributes = const {},
   });
 
-  final String code;
-  final Map<String, String> attributes;
+  final String confirmationValue;
+  final Map<CognitoUserAttributeKey, String> attributes;
 }
 
 class AuthSetUnverifiedAttributeKeysData {
@@ -122,7 +122,7 @@ class AuthVerifyUserData {
     required this.userAttributeKey,
   });
 
-  final UsernameAttribute userAttributeKey;
+  final CognitoUserAttributeKey userAttributeKey;
 }
 
 class AuthConfirmVerifyUserData {
@@ -131,6 +131,6 @@ class AuthConfirmVerifyUserData {
     required this.code,
   });
 
-  final String userAttributeKey;
+  final CognitoUserAttributeKey userAttributeKey;
   final String code;
 }

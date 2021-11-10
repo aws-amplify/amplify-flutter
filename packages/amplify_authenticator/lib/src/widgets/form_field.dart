@@ -26,12 +26,14 @@ import 'package:amplify_authenticator/src/enums/signup_types.dart';
 import 'package:amplify_authenticator/src/enums/user_name_attribute.dart';
 import 'package:amplify_authenticator/src/enums/verify_attribute_field_types.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_date_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_phone_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_radio_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_text_field.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
+import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
@@ -70,11 +72,7 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
     this.title,
     this.hintText,
     FormFieldValidator<FieldValue>? validator,
-  })  : assert(
-          titleKey != null || title != null,
-          'Either title or titleKey must be provided',
-        ),
-        validatorOverride = validator,
+  })  : validatorOverride = validator,
         super(key: key);
 
   /// Resolver key for the title
@@ -116,21 +114,16 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
       .findAncestorStateOfType<AuthenticatorFormState>()!
       .obscureTextToggle;
 
-  late final List<AwsCognitoUsernameAttributes> _usernameAttributes = config
-          .amplifyConfig
-          ?.auth
-          ?.awsCognitoAuthPlugin
-          ?.auth?['Default']
-          ?.awsCognitoUsernameAttributes ??
-      const <AwsCognitoUsernameAttributes>[];
+  late final List<UsernameAttributes> _usernameAttributes = config.amplifyConfig
+          ?.auth?.awsCognitoAuthPlugin?.auth?['Default']?.usernameAttributes ??
+      const <UsernameAttributes>[];
 
   @nonVirtual
   TextInputType get usernameKeyboardTypeForUsername {
-    if (_usernameAttributes.contains(AwsCognitoUsernameAttributes.email) &&
+    if (_usernameAttributes.contains(UsernameAttributes.email) &&
         _usernameAttributes.length == 1) {
       return TextInputType.emailAddress;
-    } else if (_usernameAttributes
-            .contains(AwsCognitoUsernameAttributes.phoneNumber) &&
+    } else if (_usernameAttributes.contains(UsernameAttributes.phoneNumber) &&
         _usernameAttributes.length == 1) {
       return TextInputType.phone;
     } else {
@@ -172,15 +165,15 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   @override
   Widget build(BuildContext context) {
     final inputResolver = stringResolver.inputs;
-    final String title = widget.title == null
-        ? inputResolver.resolve(context, widget.titleKey!)
-        : widget.title!;
+    final String? title =
+        widget.title ?? widget.titleKey?.resolve(context, inputResolver);
+
     return Container(
       margin: FormFieldConstants.marginBottom,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title),
+          if (title != null) Text(title),
           const Padding(padding: FormFieldConstants.gap),
           buildFormField(context),
           if (companionWidget != null) companionWidget!,
@@ -203,5 +196,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         'validator', validator));
     properties
         .add(DiagnosticsProperty<FieldValue?>('initialValue', initialValue));
+    properties.add(DiagnosticsProperty<TextInputType>(
+        'usernameKeyboardTypeForUsername', usernameKeyboardTypeForUsername));
   }
 }

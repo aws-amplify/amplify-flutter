@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_authenticator/src/l10n/generated/button_localizations_en.dart';
+import 'package:amplify_authenticator/src/l10n/generated/country_localizations_en.dart';
 import 'package:amplify_authenticator/src/l10n/generated/input_localizations_en.dart';
 import 'package:amplify_authenticator/src/l10n/generated/message_localizations_en.dart';
 import 'package:amplify_authenticator/src/l10n/generated/title_localizations_en.dart';
@@ -22,6 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'generated/button_localizations.dart';
+import 'generated/country_localizations.dart';
 import 'generated/input_localizations.dart';
 import 'generated/message_localizations.dart';
 import 'generated/title_localizations.dart';
@@ -37,13 +39,15 @@ abstract class AuthenticatorLocalizations {
     GlobalWidgetsLocalizations.delegate,
     AuthenticatorButtonLocalizations.delegate,
     AuthenticatorTitleLocalizations.delegate,
-    AuthenticatorInputLocalizations.delegate
+    AuthenticatorInputLocalizations.delegate,
+    AuthenticatorCountryLocalizations.delegate
   ];
 
   static final _buttonsFallback = AuthenticatorButtonLocalizationsEn();
   static final _inputsFallback = AuthenticatorInputLocalizationsEn();
   static final _titlesFallback = AuthenticatorTitleLocalizationsEn();
   static final _messagesFallback = AuthenticatorMessageLocalizationsEn();
+  static final _countriesFallback = AuthenticatorCountryLocalizationsEn();
 
   /// Retrieves the [AuthenticatorButtonLocalizations] instance, falling back
   /// to English if unavailable for this locale.
@@ -67,5 +71,11 @@ abstract class AuthenticatorLocalizations {
   /// to English if unavailable for this locale.
   static AuthenticatorMessageLocalizations messagesOf(BuildContext context) {
     return AuthenticatorMessageLocalizations.of(context) ?? _messagesFallback;
+  }
+
+  /// Retrieves the [AuthenticatorCountryLocalizations] instance, falling back
+  /// to English if unavailable for this locale.
+  static AuthenticatorCountryLocalizations countriesOf(BuildContext context) {
+    return AuthenticatorCountryLocalizations.of(context) ?? _countriesFallback;
   }
 }

@@ -12,14 +12,12 @@ AuthBlockConfig _$AuthBlockConfigFromJson(Map<String, dynamic> json) {
     oAuth: json['OAuth'] == null
         ? null
         : OAuthConfig.fromJson(json['OAuth'] as Map<String, dynamic>),
-    awsCognitoUsernameAttributes:
-        (json['awsCognitoUsernameAttributes'] as List<dynamic>?)
-            ?.map((e) => _$enumDecode(_$AwsCognitoUsernameAttributesEnumMap, e))
-            .toList(),
-    awsCognitoSocialProviders:
-        (json['awsCognitoSocialProviders'] as List<dynamic>?)
-            ?.map((e) => _$enumDecode(_$AwsCognitoSocialProvidersEnumMap, e))
-            .toList(),
+    usernameAttributes: (json['usernameAttributes'] as List<dynamic>?)
+        ?.map((e) => _$enumDecode(_$UsernameAttributesEnumMap, e))
+        .toList(),
+    socialProviders: (json['socialProviders'] as List<dynamic>?)
+        ?.map((e) => _$enumDecode(_$SocialProvidersEnumMap, e))
+        .toList(),
     mfaConfiguration: _$enumDecodeNullable(
         _$MfaConfigurationEnumMap, json['mfaConfiguration']),
     passwordProtectionSettings: json['passwordProtectionSettings'] == null
@@ -40,11 +38,11 @@ AuthBlockConfig _$AuthBlockConfigFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$AuthBlockConfigToJson(AuthBlockConfig instance) =>
     <String, dynamic>{
       'OAuth': instance.oAuth,
-      'awsCognitoUsernameAttributes': instance.awsCognitoUsernameAttributes
-          ?.map((e) => _$AwsCognitoUsernameAttributesEnumMap[e])
+      'usernameAttributes': instance.usernameAttributes
+          ?.map((e) => _$UsernameAttributesEnumMap[e])
           .toList(),
-      'awsCognitoSocialProviders': instance.awsCognitoSocialProviders
-          ?.map((e) => _$AwsCognitoSocialProvidersEnumMap[e])
+      'socialProviders': instance.socialProviders
+          ?.map((e) => _$SocialProvidersEnumMap[e])
           .toList(),
       'signupAttributes': instance.signupAttributes,
       'passwordProtectionSettings': instance.passwordProtectionSettings,
@@ -79,9 +77,9 @@ K _$enumDecode<K, V>(
   ).key;
 }
 
-const _$AwsCognitoUsernameAttributesEnumMap = {
-  AwsCognitoUsernameAttributes.email: 'EMAIL',
-  AwsCognitoUsernameAttributes.phoneNumber: 'PHONE_NUMBER',
+const _$UsernameAttributesEnumMap = {
+  UsernameAttributes.email: 'EMAIL',
+  UsernameAttributes.phoneNumber: 'PHONE_NUMBER',
 };
 
 K? _$enumDecodeNullable<K, V>(
@@ -106,9 +104,9 @@ const _$MfaTypesEnumMap = {
   MfaTypes.totp: 'TOTP',
 };
 
-const _$AwsCognitoSocialProvidersEnumMap = {
-  AwsCognitoSocialProviders.amazon: 'AMAZON',
-  AwsCognitoSocialProviders.apple: 'APPLE',
-  AwsCognitoSocialProviders.facebook: 'FACEBOOK',
-  AwsCognitoSocialProviders.google: 'GOOGLE',
+const _$SocialProvidersEnumMap = {
+  SocialProviders.amazon: 'AMAZON',
+  SocialProviders.apple: 'APPLE',
+  SocialProviders.facebook: 'FACEBOOK',
+  SocialProviders.google: 'GOOGLE',
 };

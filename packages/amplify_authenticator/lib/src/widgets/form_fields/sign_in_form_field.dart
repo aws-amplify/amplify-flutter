@@ -93,32 +93,6 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
         validator: validator,
       );
 
-  /// Creates a verifyUsername component.
-  static SignInFormField verifyUsername({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) =>
-      _SignInTextField(
-        key: key ?? keyVerificationCodeSignInFormField,
-        titleKey: InputResolverKey.usernameTitle,
-        hintTextKey: InputResolverKey.usernameHint,
-        field: SignInField.verificationCode,
-        validator: validator,
-      );
-
-  /// Creates a newUsername component.
-  static SignInFormField newUsername({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) =>
-      _SignInTextField(
-        key: key ?? keyNewUsernameSignInFormField,
-        titleKey: InputResolverKey.usernameTitle,
-        hintTextKey: InputResolverKey.usernameHint,
-        field: SignInField.newUsername,
-        validator: validator,
-      );
-
   /// Creates a newPassword component.
   static SignInFormField newPassword({
     Key? key,
@@ -164,8 +138,6 @@ abstract class _SignInFormFieldState<FieldValue>
   TextInputType get keyboardType {
     switch (widget.field) {
       case SignInField.username:
-      case SignInField.newUsername:
-        return TextInputType.text;
       case SignInField.password:
       case SignInField.newPassword:
         return TextInputType.visiblePassword;
@@ -231,17 +203,15 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
       case SignInField.username:
         return viewModel.username;
       case SignInField.email:
-        return viewModel.getAttribute(CognitoUserAttributes.email);
+        return viewModel.getAttribute(CognitoUserAttributeKey.email);
       case SignInField.phoneNumber:
-        return viewModel.getAttribute(CognitoUserAttributes.phoneNumber);
+        return viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber);
       case SignInField.password:
         return viewModel.password;
       case SignInField.verificationCode:
         return viewModel.confirmationCode;
       case SignInField.newPassword:
         return viewModel.newPassword;
-      case SignInField.newUsername:
-        return viewModel.newUsername;
     }
   }
 
@@ -260,8 +230,6 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
         return viewModel.setConfirmationCode;
       case SignInField.newPassword:
         return viewModel.setNewPassword;
-      case SignInField.newUsername:
-        return viewModel.setNewUsername;
       default:
         return super.onChanged;
     }
@@ -271,7 +239,6 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
   FormFieldValidator<String>? get validator {
     switch (widget.field) {
       case SignInField.username:
-      case SignInField.newUsername:
         return simpleValidator(
           stringResolver.inputs.resolve(
             context,

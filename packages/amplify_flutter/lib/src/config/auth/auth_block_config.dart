@@ -27,9 +27,9 @@ class AuthBlockConfig {
 
   final OAuthConfig? oAuth;
 
-  final List<AwsCognitoUsernameAttributes>? awsCognitoUsernameAttributes;
+  final List<UsernameAttributes>? usernameAttributes;
 
-  final List<AwsCognitoSocialProviders>? awsCognitoSocialProviders;
+  final List<SocialProviders>? socialProviders;
 
   final List<String>? signupAttributes;
 
@@ -44,8 +44,8 @@ class AuthBlockConfig {
   const AuthBlockConfig({
     required this.authenticationFlowType,
     this.oAuth,
-    this.awsCognitoUsernameAttributes,
-    this.awsCognitoSocialProviders,
+    this.usernameAttributes,
+    this.socialProviders,
     this.mfaConfiguration,
     this.passwordProtectionSettings,
     this.signupAttributes,

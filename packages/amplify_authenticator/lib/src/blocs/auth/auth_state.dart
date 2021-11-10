@@ -69,11 +69,11 @@ class AttributeVerificationSent extends AuthFlow {
   const AttributeVerificationSent(this.userAttributeKey)
       : super(screen: AuthScreen.confirmVerifyUser);
 
-  final String userAttributeKey;
+  final CognitoUserAttributeKey userAttributeKey;
 }
 
 class VerifyUserFlow extends AuthFlow {
-  final List<String> unverifiedAttributeKeys;
+  final List<CognitoUserAttributeKey> unverifiedAttributeKeys;
 
   const VerifyUserFlow({required this.unverifiedAttributeKeys})
       : super(screen: AuthScreen.verifyUser);

@@ -13,12 +13,21 @@
  * permissions and limitations under the License.
  */
 
-enum SocialProviders {
-  facebook,
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 
-  google,
+import 'country_localizations.dart';
 
-  amazon,
+/// The translations for English (`en`).
+class AuthenticatorCountryLocalizationsEn
+    extends AuthenticatorCountryLocalizations {
+  AuthenticatorCountryLocalizationsEn([String locale = 'en']) : super(locale);
 
-  apple
+  @override
+  String get selectDialCode => 'Select your country dial code';
+
+  @override
+  String get unitedStates => 'United States';
+
+  @override
+  String get unitedKingdom => 'United Kingdom';
 }

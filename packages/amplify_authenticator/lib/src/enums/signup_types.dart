@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/foundation.dart';
 
 enum SignUpField {
@@ -41,7 +42,7 @@ enum SignUpField {
 }
 
 extension SignUpFieldX on SignUpField {
-  String toCognitoAttribute() {
+  CognitoUserAttributeKey toCognitoAttribute() {
     switch (this) {
       case SignUpField.username:
       case SignUpField.password:
@@ -50,9 +51,11 @@ extension SignUpFieldX on SignUpField {
       case SignUpField.selectedUsername:
         throw StateError('Can only be called on attribute types');
       default:
-        return describeEnum(this).replaceAllMapped(RegExp(r'[A-Z]'), (match) {
+        final key =
+            describeEnum(this).replaceAllMapped(RegExp(r'[A-Z]'), (match) {
           return '_${match.group(0)!.toLowerCase()}';
         });
+        return CognitoUserAttributeKey.parse(key);
     }
   }
 }

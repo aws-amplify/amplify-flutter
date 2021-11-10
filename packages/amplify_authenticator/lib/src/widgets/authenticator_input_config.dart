@@ -24,10 +24,12 @@ abstract class SelectableConfig<T> {
 }
 
 /// Allows for configuration of fields with multiple selections, such as dropdowns, switches and radio buttons
-class InputSelection<T> {
-  final InputResolverKey label;
+class InputSelection<Label, Value> {
+  /// Display text for the selection
+  final Label label;
 
-  final T value;
+  /// Value for the selection
+  final Value value;
 
   const InputSelection({required this.label, required this.value});
 }

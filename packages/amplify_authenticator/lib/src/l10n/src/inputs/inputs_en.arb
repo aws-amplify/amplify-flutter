@@ -9,6 +9,10 @@
     "@password": {
         "description": "User's chosen password."
     },
+    "newPassword": "New Password",
+    "@newPassword": {
+        "description": "User's chosen new password."
+    },
     "passwordConfirmation": "Confirm Password",
     "@passwordConfirmation": {
         "description": "Confirmation of user's chosen password."

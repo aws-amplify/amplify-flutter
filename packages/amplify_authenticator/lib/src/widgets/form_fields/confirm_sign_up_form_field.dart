@@ -191,9 +191,9 @@ class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
       case ConfirmSignUpField.username:
         return viewModel.username;
       case ConfirmSignUpField.phoneNumber:
-        return viewModel.getAttribute(CognitoUserAttributes.phoneNumber);
+        return viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber);
       case ConfirmSignUpField.email:
-        return viewModel.getAttribute(CognitoUserAttributes.email);
+        return viewModel.getAttribute(CognitoUserAttributeKey.email);
       case ConfirmSignUpField.password:
         return viewModel.password;
       case ConfirmSignUpField.code:

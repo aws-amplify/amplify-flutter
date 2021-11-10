@@ -31,7 +31,7 @@ abstract class AuthService {
   Future<SignUpResult> signUp(
     String username,
     String password,
-    Map<String, String> authAttributes,
+    Map<CognitoUserAttributeKey, String> authAttributes,
   );
 
   Future<SignUpResult> confirmSignUp(String username, String code);
@@ -49,19 +49,21 @@ abstract class AuthService {
   );
 
   Future<SignInResult> confirmSignIn({
-    required String code,
-    Map<String, String>? attributes,
+    required String confirmationValue,
+    Map<CognitoUserAttributeKey, String>? attributes,
   });
 
   Future<ResendSignUpCodeResult> resendSignUpCode(String username);
 
-  Future<List<String>> getUnverifiedAttributeKeys();
+  Future<List<CognitoUserAttributeKey>> getUnverifiedAttributeKeys();
 
   Future<ResendUserAttributeConfirmationCodeResult>
-      resendUserAttributeConfirmationCode({required String userAttributeKey});
+      resendUserAttributeConfirmationCode({
+    required CognitoUserAttributeKey userAttributeKey,
+  });
 
   Future<ConfirmUserAttributeResult> confirmUserAttribute({
-    required String userAttributeKey,
+    required CognitoUserAttributeKey userAttributeKey,
     required String confirmationCode,
   });
   Future<AmplifyConfig> waitForConfiguration();
@@ -102,7 +104,7 @@ class AmplifyAuthService implements AuthService {
   Future<SignUpResult> signUp(
     String username,
     String password,
-    Map<String, String> attributes,
+    Map<CognitoUserAttributeKey, String> attributes,
   ) {
     return Amplify.Auth.signUp(
       username: username,
@@ -123,11 +125,11 @@ class AmplifyAuthService implements AuthService {
 
   @override
   Future<SignInResult> confirmSignIn({
-    required String code,
-    Map<String, String>? attributes,
+    required String confirmationValue,
+    Map<CognitoUserAttributeKey, String>? attributes,
   }) {
     return Amplify.Auth.confirmSignIn(
-      confirmationValue: code,
+      confirmationValue: confirmationValue,
       options: CognitoConfirmSignInOptions(userAttributes: attributes),
     );
   }
@@ -185,7 +187,9 @@ class AmplifyAuthService implements AuthService {
 
   @override
   Future<ResendUserAttributeConfirmationCodeResult>
-      resendUserAttributeConfirmationCode({required String userAttributeKey}) {
+      resendUserAttributeConfirmationCode({
+    required CognitoUserAttributeKey userAttributeKey,
+  }) {
     return Amplify.Auth.resendUserAttributeConfirmationCode(
       userAttributeKey: userAttributeKey,
     );
@@ -193,7 +197,7 @@ class AmplifyAuthService implements AuthService {
 
   @override
   Future<ConfirmUserAttributeResult> confirmUserAttribute({
-    required String userAttributeKey,
+    required CognitoUserAttributeKey userAttributeKey,
     required String confirmationCode,
   }) {
     return Amplify.Auth.confirmUserAttribute(
@@ -207,19 +211,19 @@ class AmplifyAuthService implements AuthService {
   /// This is based off of `verifiedContact()` from amplify-js
   /// https://github.com/aws-amplify/amplify-js/blob/6de9a1d743deef8de5205590bf7cf8134a5fb5f4/packages/auth/src/Auth.ts#L1199-L1224
   @override
-  Future<List<String>> getUnverifiedAttributeKeys() async {
+  Future<List<CognitoUserAttributeKey>> getUnverifiedAttributeKeys() async {
     const requiredAttributes = [
-      CognitoUserAttributes.email,
-      CognitoUserAttributes.phoneNumber,
+      CognitoUserAttributeKey.email,
+      CognitoUserAttributeKey.phoneNumber,
     ];
 
     final List<AuthUserAttribute> userAttributes =
         await Amplify.Auth.fetchUserAttributes();
 
-    bool attributeIsUnverified(String key) {
+    bool attributeIsUnverified(CognitoUserAttributeKey key) {
       return userAttributes
               .firstWhereOrNull(
-                (attr) => attr.userAttributeKey == '${key}_verified',
+                (attr) => attr.userAttributeKey.key == '${key}_verified',
               )
               ?.value !=
           'true';
@@ -227,6 +231,7 @@ class AmplifyAuthService implements AuthService {
 
     return userAttributes
         .map((attr) => attr.userAttributeKey)
+        .cast<CognitoUserAttributeKey>()
         .where(
           (key) =>
               requiredAttributes.contains(key) && attributeIsUnverified(key),

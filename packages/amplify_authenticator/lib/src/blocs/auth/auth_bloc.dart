@@ -152,7 +152,7 @@ class StateMachineBloc {
   ) async* {
     try {
       var result = await _authService.confirmSignIn(
-        code: data.code,
+        confirmationValue: data.confirmationValue,
         attributes: data.attributes,
       );
 
@@ -351,11 +351,9 @@ class StateMachineBloc {
   Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
     try {
       await _authService.resendUserAttributeConfirmationCode(
-        userAttributeKey: data.userAttributeKey.verifiedAttributeFormatString,
+        userAttributeKey: data.userAttributeKey,
       );
-      yield AttributeVerificationSent(
-        data.userAttributeKey.verifiedAttributeFormatString,
-      );
+      yield AttributeVerificationSent(data.userAttributeKey);
     } on Exception catch (e) {
       if (e is AmplifyException) {
         print(e);

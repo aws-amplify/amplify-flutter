@@ -43,12 +43,10 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
 
   static VerifyUserFormField verifyAttribute({
     Key? key,
-    FormFieldValidator<UsernameAttribute>? validator,
+    FormFieldValidator<CognitoUserAttributeKey>? validator,
   }) =>
       _VerifyUserRadioField(
         key: keyUnverifiedAttributes,
-        titleKey: InputResolverKey.usernameTitle,
-        hintTextKey: InputResolverKey.usernameHint,
         field: VerifyAttributeField.verify,
         validator: validator,
       );
@@ -137,7 +135,8 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
   }
 }
 
-class _VerifyUserRadioField extends VerifyUserFormField<UsernameAttribute> {
+class _VerifyUserRadioField
+    extends VerifyUserFormField<CognitoUserAttributeKey> {
   const _VerifyUserRadioField({
     Key? key,
     required VerifyAttributeField field,
@@ -145,7 +144,7 @@ class _VerifyUserRadioField extends VerifyUserFormField<UsernameAttribute> {
     InputResolverKey? hintTextKey,
     String? title,
     String? hintText,
-    FormFieldValidator<UsernameAttribute>? validator,
+    FormFieldValidator<CognitoUserAttributeKey>? validator,
   }) : super._(
           key: key,
           field: field,
@@ -160,47 +159,38 @@ class _VerifyUserRadioField extends VerifyUserFormField<UsernameAttribute> {
   _VerifyAttributeFieldState createState() => _VerifyAttributeFieldState();
 }
 
-UsernameAttribute _default = UsernameAttribute.email;
-
 class _VerifyAttributeFieldState
-    extends _VerifyUserFormFieldState<UsernameAttribute>
+    extends _VerifyUserFormFieldState<CognitoUserAttributeKey>
     with AuthenticatorRadioField {
-  List<InputSelection> _inputSelections = [];
+  List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
+      _inputSelections = [];
 
   @override
   void didChangeDependencies() {
     final _authState = InheritedAuthBloc.of(context).currentState;
     _inputSelections = [];
     if (_authState is VerifyUserFlow) {
-      final List<String> _unverifiedKeys = _authState.unverifiedAttributeKeys;
-      for (var key in _unverifiedKeys) {
-        switch (key) {
-          case 'email':
-            _inputSelections.add(const InputSelection<UsernameAttribute>(
-              label: InputResolverKey.emailTitle,
-              value: UsernameAttribute.email,
-            ));
-            break;
-          case 'phone_number':
-            _inputSelections.add(const InputSelection<UsernameAttribute>(
-              label: InputResolverKey.phoneNumberTitle,
-              value: UsernameAttribute.phoneNumber,
-            ));
-            break;
-        }
-        _default = _inputSelections[0].value;
-      }
+      final List<CognitoUserAttributeKey> _unverifiedKeys =
+          _authState.unverifiedAttributeKeys;
+      _inputSelections = [
+        if (_unverifiedKeys.contains(CognitoUserAttributeKey.email))
+          const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
+            label: InputResolverKey.emailTitle,
+            value: CognitoUserAttributeKey.email,
+          ),
+        if (_unverifiedKeys.contains(CognitoUserAttributeKey.phoneNumber))
+          const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
+            label: InputResolverKey.phoneNumberTitle,
+            value: CognitoUserAttributeKey.phoneNumber,
+          )
+      ];
+      selectionValue = _inputSelections.first.value;
     }
     super.didChangeDependencies();
   }
 
   @override
-  UsernameAttribute? get initialValue {
-    return UsernameAttribute.email;
-  }
-
-  @override
-  ValueChanged<UsernameAttribute> get onChanged {
+  ValueChanged<CognitoUserAttributeKey> get onChanged {
     return viewModel.setAttributeKeyToVerify;
   }
 
@@ -210,5 +200,5 @@ class _VerifyAttributeFieldState
   }
 
   @override
-  UsernameAttribute? selectionValue = _default;
+  CognitoUserAttributeKey? selectionValue;
 }
