@@ -152,8 +152,8 @@ class StateMachineBloc {
         yield AuthFlow.signin;
       }
     } on AmplifyException catch (e) {
-      /// On all other AmplifyExceptions other than SignedOutException or SessionExpired, we provide a message to the user
-      /// and surface the SignIn form.
+      /// On all AmplifyExceptions other than SignedOutException or SessionExpired,
+      /// we provide a message to the user and surface the SignIn form.
       _exceptionController.add(AuthenticatorException(e.message));
       yield AuthFlow.signin;
     } on Exception catch (e) {
