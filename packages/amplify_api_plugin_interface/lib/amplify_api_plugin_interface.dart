@@ -18,8 +18,10 @@ library amplify_api_plugin_interface;
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:meta/meta.dart';
 
 import 'src/types.dart';
+
 export 'src/types.dart';
 
 abstract class APIPluginInterface extends AmplifyPluginInterface {

@@ -1,6 +1,6 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/paginated_result_impl.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class PaginatedModelTypeImpl<T extends Model> extends PaginatedModelType<T> {
   const PaginatedModelTypeImpl(ModelType<T> modelType) : super(modelType);

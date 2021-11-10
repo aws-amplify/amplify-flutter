@@ -13,8 +13,7 @@
  * permissions and limitations under the License.
  */
 
-// TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 import '../../types.dart';
 

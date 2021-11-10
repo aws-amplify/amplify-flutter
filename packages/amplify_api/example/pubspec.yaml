@@ -19,8 +19,6 @@ dependencies:
     path: ../
   amplify_auth_cognito:
     path: ../../amplify_auth_cognito
-  amplify_datastore_plugin_interface:
-    path: ../../amplify_datastore_plugin_interface
   amplify_flutter:
     path: ../../amplify_flutter
 

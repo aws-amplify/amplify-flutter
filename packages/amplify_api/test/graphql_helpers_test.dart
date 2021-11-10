@@ -13,18 +13,17 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart'
-    as DataStore;
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/utils.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:collection/collection.dart';
 
 import 'resources/Blog.dart';
-import 'resources/Post.dart';
 import 'resources/ModelProvider.dart';
+import 'resources/Post.dart';
 
 void main() {
   group('with ModelProvider', () {

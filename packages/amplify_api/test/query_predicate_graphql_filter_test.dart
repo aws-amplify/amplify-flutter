@@ -1,6 +1,6 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_request_factory.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart'; // TEMP move datastore dep
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'resources/Blog.dart';
