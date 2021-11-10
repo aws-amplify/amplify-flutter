@@ -16,11 +16,9 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'resources/Blog.dart';
-import 'resources/ModelProvider.dart';
 
 // ignore_for_file: implicit_dynamic_list_literal
 
@@ -77,7 +75,7 @@ void main() {
     final id = UUID.getUUID();
     const name = 'Test App Blog';
     const time = '2020-12-14T19:54:18.733Z';
-    final dateTime = DataStore.TemporalDateTime.fromString(time);
+    final dateTime = TemporalDateTime.fromString(time);
     final mutationResult = '''{
       "createBlog": {
         "id": "$id",
@@ -106,7 +104,7 @@ void main() {
     final id = UUID.getUUID();
     const name = 'Test App Blog';
     const time = '2020-12-14T19:54:18.733Z';
-    final dateTime = DataStore.TemporalDateTime.fromString(time);
+    final dateTime = TemporalDateTime.fromString(time);
     final mutationResult = '''{
       "deleteBlog": {
         "id": "$id",
@@ -135,7 +133,7 @@ void main() {
     final id = UUID.getUUID();
     const name = 'Test App Blog';
     const time = '2020-12-14T19:54:18.733Z';
-    final dateTime = DataStore.TemporalDateTime.fromString(time);
+    final dateTime = TemporalDateTime.fromString(time);
     final mutationResult = '''{
       "updateBlog": {
         "id": "$id",

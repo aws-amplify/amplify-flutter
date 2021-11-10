@@ -17,13 +17,9 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/utils.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'resources/Blog.dart';
-import 'resources/ModelProvider.dart';
-import 'resources/Post.dart';
 
 void main() {
   group('with ModelProvider', () {
@@ -289,7 +285,7 @@ void main() {
         final id = UUID.getUUID();
         final name = 'Test Blog';
         final time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = DataStore.TemporalDateTime.fromString(time);
+        final createdAt = TemporalDateTime.fromString(time);
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
         final expectedVars = {
@@ -313,7 +309,7 @@ void main() {
         final blogId = UUID.getUUID();
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = DataStore.TemporalDateTime.fromString(time);
+        final createdAt = TemporalDateTime.fromString(time);
         Blog blog = Blog(id: blogId, name: name, createdAt: createdAt);
 
         final postId = UUID.getUUID();
@@ -345,7 +341,7 @@ void main() {
         final id = UUID.getUUID();
         final name = 'Test Blog';
         final time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = DataStore.TemporalDateTime.fromString(time);
+        final createdAt = TemporalDateTime.fromString(time);
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
@@ -389,7 +385,7 @@ void main() {
         final id = UUID.getUUID();
         final name = 'Test Blog';
         final time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = DataStore.TemporalDateTime.fromString(time);
+        final createdAt = TemporalDateTime.fromString(time);
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
@@ -415,7 +411,7 @@ void main() {
         final blogId = UUID.getUUID();
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = DataStore.TemporalDateTime.fromString(time);
+        final createdAt = TemporalDateTime.fromString(time);
         Blog blog = Blog(id: blogId, name: name, createdAt: createdAt);
 
         final postId = UUID.getUUID();
@@ -450,7 +446,7 @@ void main() {
         final id = UUID.getUUID();
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = DataStore.TemporalDateTime.fromString(time);
+        final createdAt = TemporalDateTime.fromString(time);
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
         final expectedVars = {
           'input': {'id': id, 'name': name, 'createdAt': time},
@@ -475,7 +471,7 @@ void main() {
         final id = UUID.getUUID();
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = DataStore.TemporalDateTime.fromString(time);
+        final createdAt = TemporalDateTime.fromString(time);
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
         final expectedVars = {
           'input': {'id': id},

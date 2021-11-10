@@ -19,7 +19,7 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'Blog.dart';
 import 'Comment.dart';
 import 'Post.dart';
@@ -30,36 +30,25 @@ export 'Post.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "7c46c572745b6cdd800cfba3f2febf35";
+  String version = "d1d1b26fa643bd34b6ad189f55f6cb32";
   @override
   List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, Post.schema];
   static final ModelProvider _instance = ModelProvider();
+  @override
+  List<ModelSchema> customTypeSchemas = [];
 
   static ModelProvider get instance => _instance;
-
+  
   ModelType getModelTypeByModelName(String modelName) {
-    switch (modelName) {
+    switch(modelName) {
       case "Blog":
-        {
-          return Blog.classType;
-        }
-        break;
+        return Blog.classType;
       case "Comment":
-        {
-          return Comment.classType;
-        }
-        break;
+        return Comment.classType;
       case "Post":
-        {
-          return Post.classType;
-        }
-        break;
+        return Post.classType;
       default:
-        {
-          throw Exception(
-              "Failed to find model in model provider for model name: " +
-                  modelName);
-        }
+        throw Exception("Failed to find model in model provider for model name: " + modelName);
     }
   }
 }

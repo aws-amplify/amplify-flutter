@@ -1,10 +1,8 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_request_factory.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'resources/Blog.dart';
-import 'resources/ModelProvider.dart';
 
 void main() {
   group('queryPredicateToGraphQLFilter()', () {

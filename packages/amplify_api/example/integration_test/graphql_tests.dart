@@ -18,13 +18,9 @@ import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-
-import 'resources/Blog.dart';
-import 'resources/Comment.dart';
-import 'resources/ModelProvider.dart';
-import 'resources/Post.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();

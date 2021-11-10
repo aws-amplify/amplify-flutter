@@ -17,10 +17,10 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code, implicit_dynamic_parameter
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code, implicit_dynamic_parameter, implicit_dynamic_map_literal, implicit_dynamic_type
 
 import 'ModelProvider.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
@@ -32,6 +32,7 @@ class Blog extends Model {
   final String? _name;
   final TemporalDateTime? _createdAt;
   final List<Post>? _posts;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -45,10 +46,10 @@ class Blog extends Model {
     try {
       return _name!;
     } catch (e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
+          recoverySuggestion: AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -62,10 +63,16 @@ class Blog extends Model {
     return _posts;
   }
 
-  const Blog._internal({required this.id, required name, createdAt, posts})
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const Blog._internal(
+      {required this.id, required name, createdAt, posts, updatedAt})
       : _name = name,
         _createdAt = createdAt,
-        _posts = posts;
+        _posts = posts,
+        _updatedAt = updatedAt;
 
   factory Blog(
       {String? id,
@@ -103,8 +110,11 @@ class Blog extends Model {
     buffer.write("Blog {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
     buffer.write(
-        "createdAt=" + (_createdAt != null ? _createdAt!.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -115,7 +125,7 @@ class Blog extends Model {
       String? name,
       TemporalDateTime? createdAt,
       List<Post>? posts}) {
-    return Blog(
+    return Blog._internal(
         id: id ?? this.id,
         name: name ?? this.name,
         createdAt: createdAt ?? this.createdAt,
@@ -134,14 +144,17 @@ class Blog extends Model {
                 .map((e) => Post.fromJson(
                     new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
-  // ignore: implicit_dynamic_map_literal
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
         'createdAt': _createdAt?.format(),
-        'posts': _posts?.map((Post? e) => e?.toJson()).toList()
+        'posts': _posts?.map((Post? e) => e?.toJson()).toList(),
+        'updatedAt': _updatedAt?.format()
       };
 
   static final QueryField ID = QueryField(fieldName: "blog.id");
@@ -166,13 +179,19 @@ class Blog extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Blog.CREATEDAT,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.date)));
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
         key: Blog.POSTS,
         isRequired: false,
         ofModelName: (Post).toString(),
         associatedKey: Post.BLOG));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
