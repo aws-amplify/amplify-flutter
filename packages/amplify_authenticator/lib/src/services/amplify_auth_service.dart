@@ -16,6 +16,7 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:collection/collection.dart';
@@ -37,6 +38,8 @@ abstract class AuthService {
   Future<SignUpResult> confirmSignUp(String username, String code);
 
   Future<AuthUser?> get currentUser;
+
+  Future<bool> get isValidSession;
 
   Future<bool> get isLoggedIn;
 
@@ -164,6 +167,21 @@ class AmplifyAuthService implements AuthService {
       return result.isSignedIn;
     } on SignedOutException {
       return false;
+    }
+  }
+
+  @override
+  Future<bool> get isValidSession async {
+    try {
+      await Amplify.Auth.fetchAuthSession(
+          options: CognitoSessionOptions(getAWSCredentials: true));
+      return true;
+    } on SessionExpiredException {
+      return false;
+    } on SignedOutException {
+      return false;
+    } on Exception {
+      rethrow;
     }
   }
 
