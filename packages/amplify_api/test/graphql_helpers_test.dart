@@ -28,9 +28,9 @@ import 'resources/ModelProvider.dart';
 
 void main() {
   group('with ModelProvider', () {
-    group('ModelQueries', () {
-      final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
+    final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
 
+    group('ModelQueries', () {
       test('ModelQueries.get() should build a valid request', () {
         String id = UUID.getUUID();
         String expected =
@@ -581,6 +581,47 @@ void main() {
           'blog': {
             'serializedData': {'id': 'abc123', 'title': 'blog about life'}
           }
+        };
+        final output = transformAppSyncJsonToModelJson(input, Post.schema);
+        expect(output, expectedOutput);
+      });
+
+      test('should translate list to expected format', () {
+        final input = <String, dynamic>{
+          'items': [
+            {
+              'id': 'xyz456',
+              'title': 'Lorem Ipsum',
+              'rating': 0,
+              'blog': {'id': 'abc123', 'title': 'blog about life'}
+            },
+            {
+              'id': 'lmn456',
+              'title': 'Lorem Ipsum better',
+              'rating': 0,
+              'blog': {'id': 'abc123', 'title': 'blog about life'}
+            }
+          ]
+        };
+        final expectedOutput = <String, dynamic>{
+          'items': [
+            {
+              'id': 'xyz456',
+              'title': 'Lorem Ipsum',
+              'rating': 0,
+              'blog': {
+                'serializedData': {'id': 'abc123', 'title': 'blog about life'}
+              }
+            },
+            {
+              'id': 'lmn456',
+              'title': 'Lorem Ipsum better',
+              'rating': 0,
+              'blog': {
+                'serializedData': {'id': 'abc123', 'title': 'blog about life'}
+              }
+            }
+          ]
         };
         final output = transformAppSyncJsonToModelJson(input, Post.schema);
         expect(output, expectedOutput);

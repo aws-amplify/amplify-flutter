@@ -29,8 +29,7 @@ class _RelatedFields {
   _RelatedFields(this.singleFields, this.hasManyFields);
 }
 
-/// Gets the modelFields for the given schema which we can transform/parse.
-_RelatedFields _getRelatedFields(ModelSchema modelSchema) {
+_RelatedFields _getRelatedFieldsUncached(ModelSchema modelSchema) {
   final singleFields = modelSchema.fields!.values.where((field) =>
       field.association?.associationType == ModelAssociationEnum.HasOne ||
       field.association?.associationType == ModelAssociationEnum.BelongsTo);
@@ -40,11 +39,21 @@ _RelatedFields _getRelatedFields(ModelSchema modelSchema) {
   return _RelatedFields(singleFields, hasManyFields);
 }
 
-MapEntry<String, ModelField>? getBelongsToFieldFromModelSchema(
-    ModelSchema schema) {
-  return schema.fields!.entries.firstWhereOrNull((entry) =>
-      entry.value.association?.associationType ==
-      ModelAssociationEnum.BelongsTo);
+// ignore: prefer_collection_literals
+final _fieldsMemo = Map<ModelSchema, _RelatedFields>();
+// cached to avoid repeat iterations over fields in schema to get related fields
+_RelatedFields _getRelatedFields(ModelSchema modelSchema) {
+  if (_fieldsMemo[modelSchema] != null) {
+    return _fieldsMemo[modelSchema]!;
+  }
+  final result = _getRelatedFieldsUncached(modelSchema);
+  _fieldsMemo[modelSchema] = result;
+  return _fieldsMemo[modelSchema]!;
+}
+
+ModelField? getBelongsToFieldFromModelSchema(ModelSchema modelSchema) {
+  return _getRelatedFields(modelSchema).singleFields.firstWhereOrNull((entry) =>
+      entry.association?.associationType == ModelAssociationEnum.BelongsTo);
 }
 
 /// Gets the modelSchema from provider that matches the name and validates its fields.
@@ -83,9 +92,19 @@ ModelSchema getModelSchemaByModelName(
 /// 2) Look for list of children under [fieldName]["items"] and hoist up so no more ["items"].
 Map<String, dynamic> transformAppSyncJsonToModelJson(
     Map<String, dynamic> input, ModelSchema modelSchema) {
+  final _input = <String, dynamic>{...input}; // avoid mutating original
+
+  // check for list at top-level and tranform each entry
+  if (_input[items] is List) {
+    final transformedItems = (_input[items] as List)
+        .map((dynamic e) => transformAppSyncJsonToModelJson(e, modelSchema))
+        .toList();
+    _input.update(items, (dynamic value) => transformedItems);
+    return _input;
+  }
+
   final relatedFields = _getRelatedFields(modelSchema);
 
-  final _input = <String, dynamic>{...input}; // avoid mutating original
   // transform parents/hasOne recursively
   for (var parentField in relatedFields.singleFields) {
     final ofModelName = parentField.type.ofModelName;

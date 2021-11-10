@@ -82,15 +82,14 @@ class GraphQLRequestFactory {
 
     // If belongsTo, also add selection set of parent.
     final belongsToAssociation = getBelongsToFieldFromModelSchema(schema);
-    String? belongsToModelName = belongsToAssociation?.value.type.ofModelName;
+    String? belongsToModelName = belongsToAssociation?.type.ofModelName;
     if (belongsToModelName != null && !ignoreParents) {
       final parentSchema = getModelSchemaByModelName(belongsToModelName, null);
       String parentSelectionSet = _getSelectionSetFromModelSchema(
           parentSchema, GraphQLRequestOperation.get,
           ignoreParents:
               true); // always format like a get, stop traversing parents
-      _fields
-          .add('${belongsToAssociation!.value.name} { $parentSelectionSet }');
+      _fields.add('${belongsToAssociation!.name} { $parentSelectionSet }');
     }
 
     String fields = _fields.join(' '); // e.g. "id name createdAt"
@@ -275,8 +274,8 @@ class GraphQLRequestFactory {
     String? belongsToValue; // the ID value to use from `post.blog.id`
     final belongsToAssociation = getBelongsToFieldFromModelSchema(schema);
     if (belongsToAssociation != null) {
-      belongsToModelName = belongsToAssociation.key;
-      belongsToKey = belongsToAssociation.value.association?.targetName;
+      belongsToModelName = belongsToAssociation.name;
+      belongsToKey = belongsToAssociation.association?.targetName;
       belongsToValue = modelJson[belongsToModelName]?[idFieldName];
     }
 

@@ -202,6 +202,21 @@ void main() {
       expect(data?.items, containsAll(blogs));
     });
 
+    testWidgets('should LIST posts with Model and include parents in response',
+        (WidgetTester tester) async {
+      final title = 'Lorem Ipsum Test Post: ${UUID.getUUID()}';
+      const rating = 0;
+      final createdPost = await addPostAndBlogWithModelHelper(title, rating);
+
+      final req =
+          ModelQueries.list(Post.classType, where: Post.TITLE.eq(title));
+      final res = await Amplify.API.query(request: req).response;
+      final postFromResponse = res.data?.items[0];
+
+      expect(postFromResponse?.blog?.id, isNotNull);
+      expect(postFromResponse?.blog?.id, createdPost.blog?.id);
+    });
+
     // Mutations
     testWidgets('should CREATE a blog with Model helper',
         (WidgetTester tester) async {
