@@ -94,8 +94,8 @@ class StateMachineBloc {
   Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
       yield* _authLoad();
-    } else if (event is GetCurrentUser) {
-      yield* _getCurrentUser();
+    } else if (event is IsValidSession) {
+      yield* _isValidSession();
     } else if (event is AuthSignIn) {
       yield* _signIn(event.data);
     } else if (event is AuthSignUp) {
@@ -127,21 +127,28 @@ class StateMachineBloc {
     yield const AuthLoading();
     final config = await Amplify.asyncConfig;
     yield AuthLoaded(config);
-    yield* _getCurrentUser();
+    yield* _isValidSession();
   }
 
-  Stream<AuthState> _getCurrentUser() async* {
+  Stream<AuthState> _isValidSession() async* {
     try {
-      final AuthUser? currentUser = await _authService.currentUser;
-
-      if (currentUser != null) {
-        yield const Authenticated();
-      } else {
-        yield AuthFlow.signin;
-      }
+      await Amplify.Auth.fetchAuthSession(
+          options: CognitoSessionOptions(getAWSCredentials: true));
+      yield const Authenticated();
+    } on SessionExpiredException {
+      /// When the session has expired, we display the SignIn form
+      yield AuthFlow.signin;
+    } on SignedOutException {
+      /// When the user hasn't signed in, we display the SignIn form
+      yield AuthFlow.signin;
     } on AmplifyException catch (e) {
+      /// On all other AmplifyExceptions, we provide a message to the user
+      /// and surface the SignIn form.
       _exceptionController.add(AuthenticatorException(e.message));
+      yield AuthFlow.signin;
     } on Exception catch (e) {
+      /// On all non AmplifyExceptions we display an an exception and do not
+      /// load the Auththenticator, as the app may be in an unusable state
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }

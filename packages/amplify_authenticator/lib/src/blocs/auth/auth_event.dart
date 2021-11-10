@@ -23,8 +23,8 @@ class AuthLoad extends AuthEvent {
   const AuthLoad();
 }
 
-class GetCurrentUser extends AuthEvent {
-  const GetCurrentUser();
+class IsValidSession extends AuthEvent {
+  const IsValidSession();
 }
 
 class AuthChangeScreen extends AuthEvent {
