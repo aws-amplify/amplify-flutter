@@ -144,9 +144,9 @@ void main() {
     });
 
     group('List<AWSDate>', () {
-      var now = DateTime.now();
-      var list =
-          List.generate(3, (i) => TemporalDate(now.add(Duration(days: i))));
+      var dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
+      var list = List.generate(
+          3, (i) => TemporalDate(dateTime.add(Duration(days: i))));
       var models = List.generate(5, (_) => DateListTypeModel(value: list));
       testModelOperations(models: models);
     });
@@ -186,9 +186,9 @@ void main() {
     });
 
     group('List<AWSDateTime>', () {
-      var now = DateTime.now();
-      var list =
-          List.generate(3, (i) => TemporalDateTime(now.add(Duration(days: i))));
+      var dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
+      var list = List.generate(
+          3, (i) => TemporalDateTime(dateTime.add(Duration(days: i))));
       var models = List.generate(5, (_) => DateTimeListTypeModel(value: list));
       testModelOperations(models: models);
     });
@@ -224,9 +224,9 @@ void main() {
     });
 
     group('List<AWSTime>', () {
-      var now = DateTime.now();
-      var list =
-          List.generate(3, (i) => TemporalTime(now.add(Duration(days: i))));
+      var dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
+      var list = List.generate(
+          3, (i) => TemporalTime(dateTime.add(Duration(days: i))));
       var models = List.generate(5, (_) => TimeListTypeModel(value: list));
       testModelOperations(models: models);
     });
@@ -263,9 +263,9 @@ void main() {
     group(
       'List<AWSTimestamp>',
       () {
-        var now = DateTime.now();
+        var dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
         var list = List.generate(
-            3, (i) => TemporalTimestamp(now.add(Duration(days: i))));
+            3, (i) => TemporalTimestamp(dateTime.add(Duration(days: i))));
         var models =
             List.generate(5, (_) => TimestampListTypeModel(value: list));
         testModelOperations(models: models);

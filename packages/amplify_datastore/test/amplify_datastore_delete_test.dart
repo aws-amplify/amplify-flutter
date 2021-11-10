@@ -65,7 +65,8 @@ void main() {
             id: '4281dfba-96c8-4a38-9a8e-35c7e893ea47',
             title: 'test title',
             rating: 0,
-            created: TemporalDateTime.now())),
+            created:
+                TemporalDateTime.fromString("2021-11-09T18:53:12.183540Z"))),
         throwsA(isA<DataStoreException>()
             .having((exception) => exception.message, 'message',
                 'Delete failed for whatever known reason')
