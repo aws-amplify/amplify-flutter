@@ -90,28 +90,23 @@ public class AmplifyStorageOperations {
     }
     
     public static func list(flutterResult: @escaping FlutterResult, request: Dictionary<String, AnyObject>){
-        do {
-            try FlutterListRequest.validate(request: request)
-            let req = FlutterListRequest(request: request)
-            _ = Amplify.Storage.list(options: req.options,
-                 resultListener: {event in
-                    switch event{
-                    case .success(let result):
-                        var listResultDictionary = [String:Any]();
-                        var storageItemList = [[String:Any?]]();
-                        for item in result.items {
-                            let storageItemDictionary = getStorageItemDictionary(item: item)
-                            storageItemList.append(storageItemDictionary)
-                        }
-                        listResultDictionary["items"] = storageItemList
-                        flutterResult(listResultDictionary);
-                    case.failure(let storageError):
-                        prepareError(flutterResult: flutterResult, error: storageError)
+        let req = FlutterListRequest(request: request)
+        _ = Amplify.Storage.list(options: req.options,
+             resultListener: {event in
+                switch event{
+                case .success(let result):
+                    var listResultDictionary = [String:Any]();
+                    var storageItemList = [[String:Any]]();
+                    for item in result.items {
+                        let storageItemDictionary = getStorageItemDictionary(item: item)
+                        storageItemList.append(storageItemDictionary)
                     }
-             })
-        } catch {
-            prepareError(flutterResult: flutterResult, error: error)
-        }
+                    listResultDictionary["items"] = storageItemList
+                    flutterResult(listResultDictionary);
+                case.failure(let storageError):
+                    prepareError(flutterResult: flutterResult, error: storageError)
+                }
+         })
     }
     
     internal static func downloadFile(flutterResult: @escaping FlutterResult, request: Dictionary<String, AnyObject>, transferProgressStreamHandler : TransferProgressStreamHandler){
