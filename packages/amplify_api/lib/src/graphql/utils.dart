@@ -91,11 +91,12 @@ ModelSchema getModelSchemaByModelName(
 /// 1) Look for a parent in the schema. If that parent exists in the JSON, transform it.
 /// 2) Look for list of children under [fieldName]["items"] and hoist up so no more ["items"].
 Map<String, dynamic> transformAppSyncJsonToModelJson(
-    Map<String, dynamic> input, ModelSchema modelSchema) {
+    Map<String, dynamic> input, ModelSchema modelSchema,
+    {bool isPaginated = false}) {
   final _input = <String, dynamic>{...input}; // avoid mutating original
 
   // check for list at top-level and tranform each entry
-  if (_input[items] is List) {
+  if (isPaginated && _input[items] is List) {
     final transformedItems = (_input[items] as List)
         .map((dynamic e) => transformAppSyncJsonToModelJson(e, modelSchema))
         .toList();

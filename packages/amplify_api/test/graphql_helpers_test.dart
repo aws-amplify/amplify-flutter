@@ -623,7 +623,8 @@ void main() {
             }
           ]
         };
-        final output = transformAppSyncJsonToModelJson(input, Post.schema);
+        final output = transformAppSyncJsonToModelJson(input, Post.schema,
+            isPaginated: true);
         expect(output, expectedOutput);
       });
 

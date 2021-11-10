@@ -77,7 +77,8 @@ class GraphQLResponseDecoder {
     // Found a JSON object to represent the model, parse it using model's fromJSON.
     T decodedData;
     final modelSchema = getModelSchemaByModelName(modelType.modelName(), null);
-    dataJson = transformAppSyncJsonToModelJson(dataJson!, modelSchema);
+    dataJson = transformAppSyncJsonToModelJson(dataJson!, modelSchema,
+        isPaginated: modelType is PaginatedModelType);
     if (modelType is PaginatedModelType) {
       Map<String, dynamic>? filter = request.variables['filter'];
       int? limit = request.variables['limit'];
