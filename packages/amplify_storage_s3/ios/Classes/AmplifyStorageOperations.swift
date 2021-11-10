@@ -135,11 +135,15 @@ public class AmplifyStorageOperations {
         }
     }
     
-    private static func getStorageItemDictionary(item: StorageListResult.Item) -> Dictionary<String ,Any>{
-        let itemAsDictionary: [String : Any] = [
+    private static func getStorageItemDictionary(item: StorageListResult.Item) -> Dictionary<String ,Any?>{
+        var lastModifiedStr: String? = nil
+        if let lastModified = item.lastModified {
+            lastModifiedStr = Temporal.DateTime(lastModified).iso8601String
+        }
+        let itemAsDictionary: [String : Any?] = [
             "key": item.key,
             "eTag": item.eTag as Any,
-            "lastModified": item.lastModified?.description as Any,
+            "lastModified": lastModifiedStr,
             "size": item.size as Any
         ]
         return itemAsDictionary

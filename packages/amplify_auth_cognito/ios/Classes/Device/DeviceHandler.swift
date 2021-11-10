@@ -17,6 +17,7 @@ import Foundation
 import Flutter
 import Amplify
 import AmplifyPlugins
+import amplify_core
 
 /// Handles calls to the Devices API.
 struct DeviceHandler {
@@ -43,7 +44,6 @@ struct DeviceHandler {
     func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard DeviceHandler.canHandle(call.method) else { return }
         
-        let result = AtomicResult(result)
         do {
             switch call.method {
             case "rememberDevice":
