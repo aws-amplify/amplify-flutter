@@ -1,5 +1,3 @@
-// ignore_for_file: directives_ordering
-
 /*
  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -17,11 +15,9 @@
 
 library model;
 
+import 'package:amplify_core/amplify_core.dart';
+
 import 'sorted_list.dart';
-import '../query/query_field.dart';
-
-import 'model.dart';
-
 import 'subscription_event.dart';
 
 /// {@template query_snapshot}
