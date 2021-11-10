@@ -48,7 +48,7 @@ class ModelSchema {
   }
 
   Map<String, dynamic> toMap() {
-    final map = <String, dynamic>{
+    final map = {
       'name': name,
       'pluralName': pluralName,
       'authRules': authRules?.map((x) => x.toMap()).toList(),

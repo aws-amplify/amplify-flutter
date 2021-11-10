@@ -67,7 +67,7 @@ class AuthRule {
   }
 
   Map<String, dynamic> toMap() {
-    final map = <String, dynamic>{
+    final map = {
       'authStrategy': describeEnum(authStrategy),
       'ownerField': ownerField,
       'identityClaim': identityClaim,

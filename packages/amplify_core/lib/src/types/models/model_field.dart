@@ -72,7 +72,7 @@ class ModelField {
   }
 
   Map<String, dynamic> toMap() {
-    final map = <String, dynamic>{
+    final map = {
       'name': name,
       'type': type.toMap(),
       'isRequired': isRequired,

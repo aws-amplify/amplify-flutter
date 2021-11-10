@@ -46,7 +46,7 @@ class ModelAssociation {
   }
 
   Map<String, dynamic> toMap() {
-    final map = <String, dynamic>{
+    final map = {
       'associationType': describeEnum(associationType),
       'targetName': targetName,
       'associatedName': associatedName,
