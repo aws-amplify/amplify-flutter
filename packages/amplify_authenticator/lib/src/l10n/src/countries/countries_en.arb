@@ -5,6 +5,10 @@
     "@selectDialCode": {
         "description": "Title of select dial code modal"
     },
+    "noDialCodeSearchResults": "No search results match your criteria",
+    "@noDialCodeSearchResults": {
+        "description": "Text displayed when dial code lookup has no search results"
+    }, 
     "unitedStates": "United States",
     "@unitedStates": {
         "description": "Display name for the United States"
@@ -12,5 +16,169 @@
     "unitedKingdom": "United Kingdom",
     "@unitedKingdom": {
         "description": "Display name for the United Kingdom"
+    },
+    "algeria": "Algeria",
+    "@algeria": {
+        "description": "Display name for Algeria"
+    },
+    "andorra": "Andorra",
+    "@andorra": {
+        "description": "Display name for Andorra"
+    },
+    "angola": "Angola",
+    "@angola": {
+        "description": "Display name for Angola"
+    },
+    "anquilla": "Anquilla",
+    "@anquilla": {
+        "description": "Display name for Anquilla"
+    },
+    "antiguaAndBarbuda": "Antigua And Barbuda",
+    "@antiguaAndBarbuda": {
+        "description": "Display name for AnquAntigua And Barbudailla"
+    },
+    "argentina": "Argentina",
+    "@argentina": {
+        "description": "Display name for Argentina"
+    },
+    "armenia": "Armenia",
+    "@armenia": {
+        "description": "Display name for Armenia"
+    },
+    "aruba": "Aruba",
+    "@aruba": {
+        "description": "Display name for Aruba"
+    },
+    "australia": "Australia",
+    "@australia": {
+        "description": "Display name for Australia"
+    },
+    "austria": "Austria",
+    "@austria": {
+        "description": "Display name for Austria"
+    },
+    "azerbaijan": "Azerbaijan",
+    "@azerbaijan": {
+        "description": "Display name for Azerbaijan"
+    },
+    "bahamas": "Bahamas",
+    "@bahamas": {
+        "description": "Display name for Bahamas"
+    },
+    "bahrain": "Bahrain",
+    "@bahrain": {
+        "description": "Display name for Bahrain"
+    },
+    "bangladesh": "Bangladesh",
+    "@bangladesh": {
+        "description": "Display name for Bangladesh"
+    },
+    "barbados": "Barbados",
+    "@barbados": {
+        "description": "Display name for Barbados"
+    },
+    "belarus": "Belarus",
+    "@belarus": {
+        "description": "Display name for Belarus"
+    },
+    "belgium": "Belgium",
+    "@belgium": {
+        "description": "Display name for Belgium"
+    },
+    "belize": "Belize",
+    "@belize": {
+        "description": "Display name for Belize"
+    },
+    "benin": "Benin",
+    "@benin": {
+        "description": "Display name for Benin"
+    },
+    "bermuda": "Bermuda",
+    "@bermuda": {
+        "description": "Display name for Bermuda"
+    },
+    "bhutan": "Bhutan",
+    "@bhutan": {
+        "description": "Display name for Bhutan"
+    },
+    "bolivia": "Bolivia",
+    "@bolivia": {
+        "description": "Display name for Bolivia"
+    },
+    "bosniaHerzegovina": "Bosnia Herzegovina",
+    "@bosniaHerzegovina": {
+        "description": "Display name for Bosnia Herzegovina"
+    },
+    "botswana": "Botswana",
+    "@botswana": {
+        "description": "Display name for Botswana"
+    },
+    "brazil": "Brazil",
+    "@brazil": {
+        "description": "Display name for Brazil"
+    },
+    "brunei": "Brunei",
+    "@brunei": {
+        "description": "Display name for Brunei"
+    },
+    "bulgaria": "Bulgaria",
+    "@bulgaria": {
+        "description": "Display name for Bulgaria"
+    },
+    "burkinaFaso": "Burkina Faso",
+    "@burkinaFaso": {
+        "description": "Display name for Burkina Faso"
+    },
+    "burundi": "Burundi",
+    "@burundi": {
+        "description": "Display name for Burundi"
+    },
+    "cambodia": "Cambodia",
+    "@cambodia": {
+        "description": "Display name for Cambodia"
+    },
+    "cameroon": "Cameroon",
+    "@cameroon": {
+        "description": "Display name for Cameroon"
+    },
+    "canada": "Canada",
+    "@canada": {
+        "description": "Display name for Canada"
+    },
+    "capeVerdeIslands": "Cape Verde Islands",
+    "@capeVerdeIslands": {
+        "description": "Display name for Cape Verde Islands"
+    },
+    "caymanIslands": "Cayman Islands",
+    "@caymanIslands": {
+        "description": "Display name for Cayman Islands"
+    },
+    "centralAfricanRepublic": "Central African Republic",
+    "@centralAfricanRepublic": {
+        "description": "Central African Republic"
+    },
+    "chile": "Chile",
+    "@chile": {
+        "description": "Display name for Chile"
+    },
+    "china": "China",
+    "@china": {
+        "description": "Display name for China"
+    },
+    "colombia": "Colombia",
+    "@colombia": {
+        "description": "Display name for Colombia"
+    },
+    "comoros": "Comoros",
+    "@comoros": {
+        "description": "Display name for Comoros"
+    },
+    "congo": "Congo",
+    "@congo": {
+        "description": "Display name for Congo"
+    },
+    "cookIslands": "Cook Islands",
+    "@cookIslands": {
+        "description": "Display name for Cook Islands"
     }
 }

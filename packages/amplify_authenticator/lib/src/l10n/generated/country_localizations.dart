@@ -113,6 +113,12 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Select your country dial code'**
   String get selectDialCode;
 
+  /// Text displayed when dial code lookup has no search results
+  ///
+  /// In en, this message translates to:
+  /// **'No search results match your criteria'**
+  String get noDialCodeSearchResults;
+
   /// Display name for the United States
   ///
   /// In en, this message translates to:
@@ -124,6 +130,252 @@ abstract class AuthenticatorCountryLocalizations {
   /// In en, this message translates to:
   /// **'United Kingdom'**
   String get unitedKingdom;
+
+  /// Display name for Algeria
+  ///
+  /// In en, this message translates to:
+  /// **'Algeria'**
+  String get algeria;
+
+  /// Display name for Andorra
+  ///
+  /// In en, this message translates to:
+  /// **'Andorra'**
+  String get andorra;
+
+  /// Display name for Angola
+  ///
+  /// In en, this message translates to:
+  /// **'Angola'**
+  String get angola;
+
+  /// Display name for Anquilla
+  ///
+  /// In en, this message translates to:
+  /// **'Anquilla'**
+  String get anquilla;
+
+  /// Display name for AnquAntigua And Barbudailla
+  ///
+  /// In en, this message translates to:
+  /// **'Antigua And Barbuda'**
+  String get antiguaAndBarbuda;
+
+  /// Display name for Argentina
+  ///
+  /// In en, this message translates to:
+  /// **'Argentina'**
+  String get argentina;
+
+  /// Display name for Armenia
+  ///
+  /// In en, this message translates to:
+  /// **'Armenia'**
+  String get armenia;
+
+  /// Display name for Aruba
+  ///
+  /// In en, this message translates to:
+  /// **'Aruba'**
+  String get aruba;
+
+  /// Display name for Australia
+  ///
+  /// In en, this message translates to:
+  /// **'Australia'**
+  String get australia;
+
+  /// Display name for Austria
+  ///
+  /// In en, this message translates to:
+  /// **'Austria'**
+  String get austria;
+
+  /// Display name for Azerbaijan
+  ///
+  /// In en, this message translates to:
+  /// **'Azerbaijan'**
+  String get azerbaijan;
+
+  /// Display name for Bahamas
+  ///
+  /// In en, this message translates to:
+  /// **'Bahamas'**
+  String get bahamas;
+
+  /// Display name for Bahrain
+  ///
+  /// In en, this message translates to:
+  /// **'Bahrain'**
+  String get bahrain;
+
+  /// Display name for Bangladesh
+  ///
+  /// In en, this message translates to:
+  /// **'Bangladesh'**
+  String get bangladesh;
+
+  /// Display name for Barbados
+  ///
+  /// In en, this message translates to:
+  /// **'Barbados'**
+  String get barbados;
+
+  /// Display name for Belarus
+  ///
+  /// In en, this message translates to:
+  /// **'Belarus'**
+  String get belarus;
+
+  /// Display name for Belgium
+  ///
+  /// In en, this message translates to:
+  /// **'Belgium'**
+  String get belgium;
+
+  /// Display name for Belize
+  ///
+  /// In en, this message translates to:
+  /// **'Belize'**
+  String get belize;
+
+  /// Display name for Benin
+  ///
+  /// In en, this message translates to:
+  /// **'Benin'**
+  String get benin;
+
+  /// Display name for Bermuda
+  ///
+  /// In en, this message translates to:
+  /// **'Bermuda'**
+  String get bermuda;
+
+  /// Display name for Bhutan
+  ///
+  /// In en, this message translates to:
+  /// **'Bhutan'**
+  String get bhutan;
+
+  /// Display name for Bolivia
+  ///
+  /// In en, this message translates to:
+  /// **'Bolivia'**
+  String get bolivia;
+
+  /// Display name for Bosnia Herzegovina
+  ///
+  /// In en, this message translates to:
+  /// **'Bosnia Herzegovina'**
+  String get bosniaHerzegovina;
+
+  /// Display name for Botswana
+  ///
+  /// In en, this message translates to:
+  /// **'Botswana'**
+  String get botswana;
+
+  /// Display name for Brazil
+  ///
+  /// In en, this message translates to:
+  /// **'Brazil'**
+  String get brazil;
+
+  /// Display name for Brunei
+  ///
+  /// In en, this message translates to:
+  /// **'Brunei'**
+  String get brunei;
+
+  /// Display name for Bulgaria
+  ///
+  /// In en, this message translates to:
+  /// **'Bulgaria'**
+  String get bulgaria;
+
+  /// Display name for Burkina Faso
+  ///
+  /// In en, this message translates to:
+  /// **'Burkina Faso'**
+  String get burkinaFaso;
+
+  /// Display name for Burundi
+  ///
+  /// In en, this message translates to:
+  /// **'Burundi'**
+  String get burundi;
+
+  /// Display name for Cambodia
+  ///
+  /// In en, this message translates to:
+  /// **'Cambodia'**
+  String get cambodia;
+
+  /// Display name for Cameroon
+  ///
+  /// In en, this message translates to:
+  /// **'Cameroon'**
+  String get cameroon;
+
+  /// Display name for Canada
+  ///
+  /// In en, this message translates to:
+  /// **'Canada'**
+  String get canada;
+
+  /// Display name for Cape Verde Islands
+  ///
+  /// In en, this message translates to:
+  /// **'Cape Verde Islands'**
+  String get capeVerdeIslands;
+
+  /// Display name for Cayman Islands
+  ///
+  /// In en, this message translates to:
+  /// **'Cayman Islands'**
+  String get caymanIslands;
+
+  /// Central African Republic
+  ///
+  /// In en, this message translates to:
+  /// **'Central African Republic'**
+  String get centralAfricanRepublic;
+
+  /// Display name for Chile
+  ///
+  /// In en, this message translates to:
+  /// **'Chile'**
+  String get chile;
+
+  /// Display name for China
+  ///
+  /// In en, this message translates to:
+  /// **'China'**
+  String get china;
+
+  /// Display name for Colombia
+  ///
+  /// In en, this message translates to:
+  /// **'Colombia'**
+  String get colombia;
+
+  /// Display name for Comoros
+  ///
+  /// In en, this message translates to:
+  /// **'Comoros'**
+  String get comoros;
+
+  /// Display name for Congo
+  ///
+  /// In en, this message translates to:
+  /// **'Congo'**
+  String get congo;
+
+  /// Display name for Cook Islands
+  ///
+  /// In en, this message translates to:
+  /// **'Cook Islands'**
+  String get cookIslands;
 }
 
 class _AuthenticatorCountryLocalizationsDelegate

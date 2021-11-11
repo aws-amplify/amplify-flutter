@@ -26,8 +26,134 @@ class AuthenticatorCountryLocalizationsEn
   String get selectDialCode => 'Select your country dial code';
 
   @override
+  String get noDialCodeSearchResults => 'No search results match your criteria';
+
+  @override
   String get unitedStates => 'United States';
 
   @override
   String get unitedKingdom => 'United Kingdom';
+
+  @override
+  String get algeria => 'Algeria';
+
+  @override
+  String get andorra => 'Andorra';
+
+  @override
+  String get angola => 'Angola';
+
+  @override
+  String get anquilla => 'Anquilla';
+
+  @override
+  String get antiguaAndBarbuda => 'Antigua And Barbuda';
+
+  @override
+  String get argentina => 'Argentina';
+
+  @override
+  String get armenia => 'Armenia';
+
+  @override
+  String get aruba => 'Aruba';
+
+  @override
+  String get australia => 'Australia';
+
+  @override
+  String get austria => 'Austria';
+
+  @override
+  String get azerbaijan => 'Azerbaijan';
+
+  @override
+  String get bahamas => 'Bahamas';
+
+  @override
+  String get bahrain => 'Bahrain';
+
+  @override
+  String get bangladesh => 'Bangladesh';
+
+  @override
+  String get barbados => 'Barbados';
+
+  @override
+  String get belarus => 'Belarus';
+
+  @override
+  String get belgium => 'Belgium';
+
+  @override
+  String get belize => 'Belize';
+
+  @override
+  String get benin => 'Benin';
+
+  @override
+  String get bermuda => 'Bermuda';
+
+  @override
+  String get bhutan => 'Bhutan';
+
+  @override
+  String get bolivia => 'Bolivia';
+
+  @override
+  String get bosniaHerzegovina => 'Bosnia Herzegovina';
+
+  @override
+  String get botswana => 'Botswana';
+
+  @override
+  String get brazil => 'Brazil';
+
+  @override
+  String get brunei => 'Brunei';
+
+  @override
+  String get bulgaria => 'Bulgaria';
+
+  @override
+  String get burkinaFaso => 'Burkina Faso';
+
+  @override
+  String get burundi => 'Burundi';
+
+  @override
+  String get cambodia => 'Cambodia';
+
+  @override
+  String get cameroon => 'Cameroon';
+
+  @override
+  String get canada => 'Canada';
+
+  @override
+  String get capeVerdeIslands => 'Cape Verde Islands';
+
+  @override
+  String get caymanIslands => 'Cayman Islands';
+
+  @override
+  String get centralAfricanRepublic => 'Central African Republic';
+
+  @override
+  String get chile => 'Chile';
+
+  @override
+  String get china => 'China';
+
+  @override
+  String get colombia => 'Colombia';
+
+  @override
+  String get comoros => 'Comoros';
+
+  @override
+  String get congo => 'Congo';
+
+  @override
+  String get cookIslands => 'Cook Islands';
 }
