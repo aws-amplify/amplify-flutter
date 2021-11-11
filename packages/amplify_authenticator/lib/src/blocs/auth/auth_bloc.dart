@@ -139,8 +139,6 @@ class StateMachineBloc {
       } else {
         yield AuthFlow.signin;
       }
-    } on AuthException {
-      yield AuthFlow.signin;
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
