@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
 */
 
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:flutter/material.dart';
 
 class AmplifyColors {
@@ -355,6 +356,14 @@ class AmplifyTextTheme extends TextTheme {
 class AmplifyTheme {
   const AmplifyTheme._();
 
+  static _AmplifyThemeWrapper of(BuildContext context) {
+    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
+    return _AmplifyThemeWrapper(
+      context: context,
+      useAmplifyTheme: useAmplifyTheme,
+    );
+  }
+
   static ElevatedButtonThemeData elevatedButtonThemeData({
     bool primary = true,
     bool isLoading = false,
@@ -495,7 +504,7 @@ class AmplifyTheme {
     color: AmplifyColors.backgroundPrimary,
   );
 
-  static late final ThemeData theme = () {
+  static late final ThemeData data = () {
     return ThemeData.from(
       colorScheme: ColorScheme.fromSwatch(
         primarySwatch: AmplifyColors.brandPrimary,
@@ -516,4 +525,167 @@ class AmplifyTheme {
       tabBarTheme: tabBarTheme,
     );
   }();
+}
+
+class _AmplifyThemeWrapper {
+  const _AmplifyThemeWrapper({
+    required this.context,
+    required this.useAmplifyTheme,
+  });
+
+  final BuildContext context;
+  final bool useAmplifyTheme;
+
+  ElevatedButtonThemeData elevatedButtonThemeData({
+    bool primary = true,
+    bool isLoading = false,
+  }) {
+    if (!useAmplifyTheme) {
+      return ElevatedButtonTheme.of(context);
+    }
+    return AmplifyTheme.elevatedButtonThemeData(
+      primary: primary,
+      isLoading: isLoading,
+    );
+  }
+
+  TextButtonThemeData get textButtonTheme {
+    if (!useAmplifyTheme) {
+      return TextButtonTheme.of(context);
+    }
+    return AmplifyTheme.textButtonTheme;
+  }
+
+  ProgressIndicatorThemeData progressIndicatorTheme({
+    bool primary = true,
+  }) {
+    if (!useAmplifyTheme) {
+      return ProgressIndicatorTheme.of(context);
+    }
+    return primary
+        ? AmplifyTheme.primaryProgressIndicatorTheme
+        : AmplifyTheme.secondaryProgressIndicatorTheme;
+  }
+
+  InputDecorationTheme get inputDecorationTheme {
+    if (!useAmplifyTheme) {
+      return const InputDecorationTheme();
+    }
+    return AmplifyTheme.inputDecorationTheme;
+  }
+
+  TabBarTheme get tabBarTheme {
+    if (!useAmplifyTheme) {
+      return TabBarTheme.of(context);
+    }
+    return AmplifyTheme.tabBarTheme;
+  }
+
+  RadioThemeData get radioTheme {
+    if (!useAmplifyTheme) {
+      return RadioTheme.of(context);
+    }
+    return AmplifyTheme.radioTheme;
+  }
+
+  AppBarTheme get appBarTheme {
+    if (!useAmplifyTheme) {
+      return AppBarTheme.of(context);
+    }
+    return AmplifyTheme.appBarTheme;
+  }
+
+  ThemeData get data {
+    if (!useAmplifyTheme) {
+      return Theme.of(context);
+    }
+    return AmplifyTheme.data;
+  }
+
+  Color? get fontPrimary => useAmplifyTheme ? AmplifyColors.fontPrimary : null;
+
+  Color? get fontSecondary =>
+      useAmplifyTheme ? AmplifyColors.fontSecondary : null;
+
+  Color? get fontTertiary =>
+      useAmplifyTheme ? AmplifyColors.fontTertiary : null;
+
+  Color? get fontDisabled =>
+      useAmplifyTheme ? AmplifyColors.fontDisabled : null;
+
+  Color? get fontInverse => useAmplifyTheme ? AmplifyColors.fontInverse : null;
+
+  Color? get fontInteractive =>
+      useAmplifyTheme ? AmplifyColors.fontInteractive : null;
+
+  Color? get fontHover => useAmplifyTheme ? AmplifyColors.fontHover : null;
+
+  Color? get fontFocus => useAmplifyTheme ? AmplifyColors.fontFocus : null;
+
+  Color? get fontActive => useAmplifyTheme ? AmplifyColors.fontActive : null;
+
+  Color? get fontInfo => useAmplifyTheme ? AmplifyColors.fontInfo : null;
+
+  Color? get fontWarning => useAmplifyTheme ? AmplifyColors.fontWarning : null;
+
+  Color? get fontError => useAmplifyTheme ? AmplifyColors.fontError : null;
+
+  Color? get fontSuccess => useAmplifyTheme ? AmplifyColors.fontSuccess : null;
+
+  Color? get backgroundPrimary =>
+      useAmplifyTheme ? AmplifyColors.backgroundPrimary : null;
+
+  Color? get backgroundSecondary =>
+      useAmplifyTheme ? AmplifyColors.backgroundSecondary : null;
+
+  Color? get backgroundTertiary =>
+      useAmplifyTheme ? AmplifyColors.backgroundTertiary : null;
+
+  Color? get backgroundDisabled =>
+      useAmplifyTheme ? AmplifyColors.backgroundDisabled : null;
+
+  Color? get backgroundInfo =>
+      useAmplifyTheme ? AmplifyColors.backgroundInfo : null;
+
+  Color? get backgroundWarning =>
+      useAmplifyTheme ? AmplifyColors.backgroundWarning : null;
+
+  Color? get backgroundError =>
+      useAmplifyTheme ? AmplifyColors.backgroundError : null;
+
+  Color? get backgroundSuccess =>
+      useAmplifyTheme ? AmplifyColors.backgroundSuccess : null;
+
+  Color? get borderPrimary =>
+      useAmplifyTheme ? AmplifyColors.borderPrimary : null;
+
+  Color? get borderSecondary =>
+      useAmplifyTheme ? AmplifyColors.borderSecondary : null;
+
+  Color? get borderTertiary =>
+      useAmplifyTheme ? AmplifyColors.borderTertiary : null;
+
+  Color? get borderDisabled =>
+      useAmplifyTheme ? AmplifyColors.borderDisabled : null;
+
+  Color? get borderFocus => useAmplifyTheme ? AmplifyColors.borderFocus : null;
+
+  Color? get borderError => useAmplifyTheme ? AmplifyColors.borderError : null;
+
+  Color get shadowPrimary => useAmplifyTheme
+      ? AmplifyColors.shadowPrimary
+      : Theme.of(context).shadowColor;
+
+  Color? get shadowSecondary =>
+      useAmplifyTheme ? AmplifyColors.shadowSecondary : null;
+
+  Color? get shadowTertiary =>
+      useAmplifyTheme ? AmplifyColors.shadowTertiary : null;
+
+  Color? get white => useAmplifyTheme ? AmplifyColors.white : Colors.white;
+
+  Color? get black => useAmplifyTheme ? AmplifyColors.black : Colors.black;
+
+  Color? get transparent =>
+      useAmplifyTheme ? AmplifyColors.transparent : Colors.transparent;
 }

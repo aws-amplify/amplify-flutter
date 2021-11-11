@@ -22,6 +22,12 @@ mixin AuthenticatorDateField<FieldType,
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget buildFormField(BuildContext context) {
     final inputResolver = stringResolver.inputs;
     final hintText = widget.hintText == null
@@ -45,8 +51,8 @@ mixin AuthenticatorDateField<FieldType,
     return TextFormField(
       style: enabled
           ? null
-          : const TextStyle(
-              color: AmplifyColors.fontDisabled,
+          : TextStyle(
+              color: AmplifyTheme.of(context).fontDisabled,
             ),
       enabled: enabled,
       readOnly: true,
