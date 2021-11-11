@@ -173,7 +173,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     }
     return _subscriptions[subscriptionId] = _allSubscriptionsStream
         .where((event) => event.subscriptionId == subscriptionId)
-        .transform(GraphQLSubscriptionTransformer<T>())
+        .transform(GraphQLSubscriptionTransformer<T>(request))
         .asBroadcastStream(
           onListen: (_) => _setupSubscription(
             id: subscriptionId,
