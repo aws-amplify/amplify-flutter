@@ -24,6 +24,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
     hide UUID;
 
 import 'resources/Blog.dart';
+import 'resources/Comment.dart';
 import 'resources/ModelProvider.dart';
 import 'resources/Post.dart';
 
@@ -102,9 +103,7 @@ void main() {
       }
       if (!skipDelete) postCache.add(data);
 
-      // TEMP, add the blog to the returned post so it can be further mutated.
-      // This is needed until the response returned here also returns the parent.
-      return data.copyWith(blog: createdBlog);
+      return data;
     }
 
     setUpAll(() async {
@@ -201,6 +200,21 @@ void main() {
 
       expect(data?.items.length, 1);
       expect(data?.items, containsAll(blogs));
+    });
+
+    testWidgets('should LIST posts with Model and include parents in response',
+        (WidgetTester tester) async {
+      final title = 'Lorem Ipsum Test Post: ${UUID.getUUID()}';
+      const rating = 0;
+      final createdPost = await addPostAndBlogWithModelHelper(title, rating);
+
+      final req =
+          ModelQueries.list(Post.classType, where: Post.TITLE.eq(title));
+      final res = await Amplify.API.query(request: req).response;
+      final postFromResponse = res.data?.items[0];
+
+      expect(postFromResponse?.blog?.id, isNotNull);
+      expect(postFromResponse?.blog?.id, createdPost.blog?.id);
     });
 
     // Mutations
@@ -337,6 +351,59 @@ void main() {
       final getReq = ModelQueries.get(Blog.classType, blog.id);
       final res = await Amplify.API.query(request: getReq).response;
       expect(res.data?.name, name);
+    });
+
+    testWidgets(
+        'should parse a deeply nested response if modelType and decodePath included in request',
+        (WidgetTester tester) async {
+      final originalTitle = 'Lorem Ipsum Test Post: ${UUID.getUUID()}';
+      const rating = 0;
+      Post post = await addPostAndBlogWithModelHelper(originalTitle, rating);
+      final blogId = post.blog?.id;
+      final inputComment =
+          Comment(content: 'Lorem ipsum test comment', post: post);
+      final createCommentReq = ModelMutations.create(inputComment);
+      final createCommentRes =
+          await Amplify.API.mutate(request: createCommentReq).response;
+      final createdComment = createCommentRes.data;
+      if (createdComment == null) {
+        fail('Unable to create comment. ${createCommentRes.errors}');
+      }
+
+      const getBlog = 'getBlog';
+      String graphQLDocument = '''query GetBlogPostsComments(\$id: ID!) {
+        $getBlog(id: \$id) {
+            id
+            name
+            posts {
+              items {
+                id
+                title
+                rating
+                comments {
+                  items {
+                    id
+                    content
+                  }
+                }
+              }
+            }
+        }
+      }''';
+      final nestedGetBlogReq = GraphQLRequest<Blog>(
+          document: graphQLDocument,
+          modelType: Blog.classType,
+          variables: <String, String>{'id': blogId!},
+          decodePath: getBlog);
+      final nestedResponse =
+          await Amplify.API.query(request: nestedGetBlogReq).response;
+      final responseBlog = nestedResponse.data;
+      final firstCommentFromResponse = responseBlog?.posts?[0].comments?[0];
+      expect(firstCommentFromResponse?.id, createdComment.id);
+      // clean up the comment
+      final deleteCommentReq =
+          ModelMutations.deleteById(Comment.classType, createdComment.id);
+      await Amplify.API.mutate(request: deleteCommentReq).response;
     });
   });
 }

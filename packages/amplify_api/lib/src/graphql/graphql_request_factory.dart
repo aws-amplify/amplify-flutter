@@ -18,6 +18,8 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
+import 'utils.dart';
+
 /// `"id"`, the name of the id field in every compatible model/schema.
 /// Eventually needs to be dynamic to accommodate custom primary keys.
 const idFieldName = 'id';
@@ -66,8 +68,9 @@ class GraphQLRequestFactory {
     }
   }
 
-  String _getFieldsFromModelSchema(
-      ModelSchema schema, GraphQLRequestOperation operation) {
+  String _getSelectionSetFromModelSchema(
+      ModelSchema schema, GraphQLRequestOperation operation,
+      {bool ignoreParents = false}) {
     // Schema has been validated & schema.fields is non-nullable.
     // Get a list of field names to include in the request body.
     List<String> _fields = schema.fields!.entries
@@ -77,57 +80,25 @@ class GraphQLRequestFactory {
         .map((entry) => entry.key)
         .toList(); // e.g. ["id", "name", "createdAt"]
 
-    // For create/update, add the parent ID field name. e.g. "blogID" for a post.
-    if (operation == GraphQLRequestOperation.create ||
-        operation == GraphQLRequestOperation.update) {
-      final belongsToAssociation = _getBelongsToFieldFromModelSchema(schema);
-      String? parentIdFieldName =
-          belongsToAssociation?.value.association?.targetName;
-      if (parentIdFieldName != null) {
-        _fields.add(parentIdFieldName);
-      }
+    // If belongsTo, also add selection set of parent.
+    final belongsToAssociation = getBelongsToFieldFromModelSchema(schema);
+    String? belongsToModelName = belongsToAssociation?.type.ofModelName;
+    if (belongsToModelName != null && !ignoreParents) {
+      final parentSchema = getModelSchemaByModelName(belongsToModelName, null);
+      String parentSelectionSet = _getSelectionSetFromModelSchema(
+          parentSchema, GraphQLRequestOperation.get,
+          ignoreParents:
+              true); // always format like a get, stop traversing parents
+      _fields.add('${belongsToAssociation!.name} { $parentSelectionSet }');
     }
 
     String fields = _fields.join(' '); // e.g. "id name createdAt"
 
     if (operation == GraphQLRequestOperation.list) {
-      return 'items { $fields } nextToken';
+      return '$items { $fields } nextToken';
     }
 
     return fields;
-  }
-
-  ModelSchema _getAndValidateSchema(
-      ModelType modelType, GraphQLRequestOperation? operation) {
-    ModelProviderInterface? provider = AmplifyAPI.instance.getModelProvider();
-
-    if (provider == null) {
-      throw ApiException('No modelProvider found',
-          recoverySuggestion:
-              'Pass in a modelProvider instance while instantiating APIPlugin');
-    }
-
-    ModelSchema schema = provider.modelSchemas.firstWhere(
-        (elem) => elem.name == modelType.modelName(),
-        orElse: () => throw ApiException(
-            'No schema found for the ModelType provided',
-            recoverySuggestion:
-                'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a valid ModelType'));
-
-    if (schema.fields == null) {
-      throw ApiException('Schema found does not have a fields property',
-          recoverySuggestion:
-              'Pass in a valid modelProvider instance while instantiating APIPlugin');
-    }
-
-    if (operation == GraphQLRequestOperation.list &&
-        schema.pluralName == null) {
-      throw ApiException('No schema name found',
-          recoverySuggestion:
-              'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a valid ModelType');
-    }
-
-    return schema;
   }
 
   String _capitalize(String s) => s[0].toUpperCase() + s.substring(1);
@@ -179,9 +150,11 @@ class GraphQLRequestFactory {
       Model? model,
       required GraphQLRequestType requestType,
       required GraphQLRequestOperation requestOperation,
-      required Map<String, dynamic> variables}) {
+      required Map<String, dynamic> variables,
+      int depth = 0}) {
     // retrieve schema from ModelType and validate required properties
-    ModelSchema schema = _getAndValidateSchema(modelType, requestOperation);
+    ModelSchema schema =
+        getModelSchemaByModelName(modelType.modelName(), requestOperation);
 
     // e.g. "Blog" or "Blogs"
     String name = _getName(schema, requestOperation);
@@ -193,7 +166,7 @@ class GraphQLRequestFactory {
     DocumentInputs documentInputs =
         _buildDocumentInputs(schema, requestOperation);
     // e.g. "id name createdAt" - fields to retrieve
-    String fields = _getFieldsFromModelSchema(schema, requestOperation);
+    String fields = _getSelectionSetFromModelSchema(schema, requestOperation);
     // e.g. "getBlog"
     String requestName = "$requestOperationVal$name";
     // e.g. query getBlog($id: ID!, $content: String) { getBlog(id: $id, content: $content) { id name createdAt } }
@@ -236,7 +209,7 @@ class GraphQLRequestFactory {
     if (queryPredicate == null) {
       return null;
     }
-    ModelSchema schema = _getAndValidateSchema(modelType, null);
+    ModelSchema schema = getModelSchemaByModelName(modelType.modelName(), null);
 
     // e.g. { 'name': { 'eq': 'foo }}
     if (queryPredicate is QueryPredicateOperation) {
@@ -291,17 +264,18 @@ class GraphQLRequestFactory {
   /// When the model has a parent via a belongsTo, the id from the parent is added
   /// as a field similar to "blogID" where the value is `post.blog.id`.
   Map<String, dynamic> buildInputVariableForMutations(Model model) {
-    ModelSchema schema = _getAndValidateSchema(model.getInstanceType(), null);
+    ModelSchema schema =
+        getModelSchemaByModelName(model.getInstanceType().modelName(), null);
     final modelJson = model.toJson();
 
     // If the model has a parent in the schema, get the ID of parent and field name.
     String? belongsToModelName; // e.g. "blog"
     String? belongsToKey; // e.g. "blogID"
     String? belongsToValue; // the ID value to use from `post.blog.id`
-    final belongsToAssociation = _getBelongsToFieldFromModelSchema(schema);
+    final belongsToAssociation = getBelongsToFieldFromModelSchema(schema);
     if (belongsToAssociation != null) {
-      belongsToModelName = belongsToAssociation.key;
-      belongsToKey = belongsToAssociation.value.association?.targetName;
+      belongsToModelName = belongsToAssociation.name;
+      belongsToKey = belongsToAssociation.association?.targetName;
       belongsToValue = modelJson[belongsToModelName]?[idFieldName];
     }
 
@@ -377,11 +351,4 @@ dynamic _getSerializedValue(dynamic value) {
     return _getSerializedValue(TemporalDateTime(value));
   }
   return value;
-}
-
-MapEntry<String, ModelField>? _getBelongsToFieldFromModelSchema(
-    ModelSchema schema) {
-  return schema.fields!.entries.firstWhereOrNull((entry) =>
-      entry.value.association?.associationType ==
-      ModelAssociationEnum.BelongsTo);
 }

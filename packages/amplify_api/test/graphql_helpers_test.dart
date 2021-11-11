@@ -17,6 +17,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
     as DataStore;
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
+import 'package:amplify_api/src/graphql/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:collection/collection.dart';
@@ -27,9 +28,9 @@ import 'resources/ModelProvider.dart';
 
 void main() {
   group('with ModelProvider', () {
-    group('ModelQueries', () {
-      final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
+    final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
 
+    group('ModelQueries', () {
       test('ModelQueries.get() should build a valid request', () {
         String id = UUID.getUUID();
         String expected =
@@ -331,7 +332,7 @@ void main() {
           }
         };
         const expectedDoc =
-            r'mutation createPost($input: CreatePostInput!, $condition:  ModelPostConditionInput) { createPost(input: $input, condition: $condition) { id title rating created blogID } }';
+            r'mutation createPost($input: CreatePostInput!, $condition:  ModelPostConditionInput) { createPost(input: $input, condition: $condition) { id title rating created blog { id name createdAt } } }';
         GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
 
         expect(req.document, expectedDoc);
@@ -434,7 +435,7 @@ void main() {
           'condition': null
         };
         const expectedDoc =
-            r'mutation updatePost($input: UpdatePostInput!, $condition:  ModelPostConditionInput) { updatePost(input: $input, condition: $condition) { id title rating created blogID } }';
+            r'mutation updatePost($input: UpdatePostInput!, $condition:  ModelPostConditionInput) { updatePost(input: $input, condition: $condition) { id title rating created blog { id name createdAt } } }';
         GraphQLRequest<Post> req = ModelMutations.update<Post>(post);
 
         expect(req.document, expectedDoc);
@@ -494,6 +495,153 @@ void main() {
             isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'deleteBlog');
+      });
+    });
+
+    group('transformAppSyncJsonToModelJson', () {
+      test('should be no-op for flat JSON with no parents/children', () {
+        final input = <String, dynamic>{'id': 'abc123', 'name': 'Lorem Ipsum'};
+        final output = transformAppSyncJsonToModelJson(input, Blog.schema);
+        expect(input, output);
+      });
+
+      test('should be no-op for flat JSON with null parent/children', () {
+        final blogInput = <String, dynamic>{
+          'id': 'abc123',
+          'name': 'Lorem Ipsum',
+          'posts': null
+        };
+        final blogOutput =
+            transformAppSyncJsonToModelJson(blogInput, Blog.schema);
+        expect(blogInput, blogOutput);
+
+        final postInput = <String, dynamic>{
+          'id': 'abc123',
+          'title': 'Lorem Ipsum',
+          'rating': 0,
+          'comments': null,
+          'blog': null
+        };
+        final postOutput =
+            transformAppSyncJsonToModelJson(postInput, Post.schema);
+        expect(postInput, postOutput);
+      });
+
+      test('should translate children to expected format', () {
+        final input = <String, dynamic>{
+          'id': 'abc123',
+          'name': 'Lorem Ipsum',
+          'posts': {
+            'items': [
+              {'id': 'xyz456', 'rating': 0, 'title': 'Lorem ipsum'}
+            ]
+          }
+        };
+        final expectedOutput = <String, dynamic>{
+          'id': 'abc123',
+          'name': 'Lorem Ipsum',
+          'posts': [
+            {
+              'serializedData': {
+                'id': 'xyz456',
+                'rating': 0,
+                'title': 'Lorem ipsum'
+              }
+            }
+          ]
+        };
+        final output = transformAppSyncJsonToModelJson(input, Blog.schema);
+        expect(output, expectedOutput);
+      });
+
+      test('should translate parents and children to expected format', () {
+        final input = <String, dynamic>{
+          'id': 'xyz456',
+          'title': 'Lorem Ipsum',
+          'rating': 0,
+          'comments': {
+            'items': [
+              {'id': 'def456', 'content': 'Worst... post... ever!'}
+            ]
+          },
+          'blog': {'id': 'abc123', 'title': 'blog about life'}
+        };
+        final expectedOutput = <String, dynamic>{
+          'id': 'xyz456',
+          'title': 'Lorem Ipsum',
+          'rating': 0,
+          'comments': [
+            {
+              'serializedData': {
+                'id': 'def456',
+                'content': 'Worst... post... ever!'
+              }
+            }
+          ],
+          'blog': {
+            'serializedData': {'id': 'abc123', 'title': 'blog about life'}
+          }
+        };
+        final output = transformAppSyncJsonToModelJson(input, Post.schema);
+        expect(output, expectedOutput);
+      });
+
+      test('should translate list to expected format', () {
+        final input = <String, dynamic>{
+          'items': [
+            {
+              'id': 'xyz456',
+              'title': 'Lorem Ipsum',
+              'rating': 0,
+              'blog': {'id': 'abc123', 'title': 'blog about life'}
+            },
+            {
+              'id': 'lmn456',
+              'title': 'Lorem Ipsum better',
+              'rating': 0,
+              'blog': {'id': 'abc123', 'title': 'blog about life'}
+            }
+          ]
+        };
+        final expectedOutput = <String, dynamic>{
+          'items': [
+            {
+              'id': 'xyz456',
+              'title': 'Lorem Ipsum',
+              'rating': 0,
+              'blog': {
+                'serializedData': {'id': 'abc123', 'title': 'blog about life'}
+              }
+            },
+            {
+              'id': 'lmn456',
+              'title': 'Lorem Ipsum better',
+              'rating': 0,
+              'blog': {
+                'serializedData': {'id': 'abc123', 'title': 'blog about life'}
+              }
+            }
+          ]
+        };
+        final output = transformAppSyncJsonToModelJson(input, Post.schema,
+            isPaginated: true);
+        expect(output, expectedOutput);
+      });
+
+      test('should result in no-op if wrong schema provided', () {
+        final input = <String, dynamic>{
+          'id': 'xyz456',
+          'title': 'Lorem Ipsum',
+          'rating': 0,
+          'comments': {
+            'items': [
+              {'id': 'def456', 'content': 'Worst... post... ever!'}
+            ]
+          },
+          'blog': {'id': 'abc123', 'title': 'blog about life'}
+        };
+        final output = transformAppSyncJsonToModelJson(input, Comment.schema);
+        expect(output, input);
       });
     });
   });
