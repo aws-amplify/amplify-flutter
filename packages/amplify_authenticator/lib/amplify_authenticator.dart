@@ -238,7 +238,7 @@ class _AuthenticatorState extends State<Authenticator> {
         ScaffoldMessenger.of(context)
           ..clearMaterialBanners()
           ..showMaterialBanner(createMaterialBanner(
-            useAuthenticatorTheme: _useAuthenticatorTheme,
+            useAuthenticatorTheme: widget.useAmplifyTheme,
             type: StatusType.error,
             content: Text(exception.message),
             margin: MediaQuery.of(context).viewPadding.top,
@@ -260,7 +260,7 @@ class _AuthenticatorState extends State<Authenticator> {
         ScaffoldMessenger.of(context)
           ..clearMaterialBanners()
           ..showMaterialBanner(createMaterialBanner(
-            useAuthenticatorTheme: _useAuthenticatorTheme,
+            useAuthenticatorTheme: widget.useAmplifyTheme,
             type: StatusType.info,
             content: Text(resolver(context)),
             margin: MediaQuery.of(context).viewPadding.top,
