@@ -1,4 +1,4 @@
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_auth_plugin_interface/src/Attribute/user_attribute_key.dart';
 import 'package:flutter/foundation.dart';
 
 /// User attributes available for configuring via `Amplify.Auth.signUp`,

@@ -253,7 +253,7 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
   }
 
   @override
-  FormFieldValidator<String>? get validator {
+  FormFieldValidator<String> get validator {
     switch (widget.field) {
       case ConfirmSignInField.code:
         return validateCode;
@@ -269,7 +269,7 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
       case ConfirmSignInField.phoneNumber:
         return validatePhoneNumber;
       default:
-        return null;
+        return super.validator;
     }
   }
 }

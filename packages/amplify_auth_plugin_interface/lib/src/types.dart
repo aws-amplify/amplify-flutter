@@ -112,3 +112,4 @@ export 'Exceptions/UserNotFoundException.dart';
 export 'types/AuthCodeDeliveryDetails.dart';
 export 'types/AuthNextStep.dart';
 export 'types/auth_device.dart';
+export 'types/cognito_user_attribute_key.dart';

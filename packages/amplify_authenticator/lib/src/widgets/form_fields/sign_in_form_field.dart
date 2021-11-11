@@ -44,13 +44,10 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
   /// Creates a username component.
   static SignInFormField username({
     Key? key,
-    FormFieldValidator<String>? validator,
+    FormFieldValidator<UsernameInput>? validator,
   }) =>
-      _SignInTextField(
+      _SignInUsernameField(
         key: key ?? keyUsernameSignInFormField,
-        titleKey: InputResolverKey.usernameTitle,
-        hintTextKey: InputResolverKey.usernameHint,
-        field: SignInField.username,
         validator: validator,
       );
 
@@ -236,7 +233,7 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
   }
 
   @override
-  FormFieldValidator<String>? get validator {
+  FormFieldValidator<String> get validator {
     switch (widget.field) {
       case SignInField.username:
         return simpleValidator(
@@ -262,3 +259,22 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
     }
   }
 }
+
+class _SignInUsernameField extends SignInFormField<UsernameInput> {
+  const _SignInUsernameField({
+    Key? key,
+    FormFieldValidator<UsernameInput>? validator,
+  }) : super._(
+          key: key ?? keyUsernameSignInFormField,
+          titleKey: InputResolverKey.usernameTitle,
+          hintTextKey: InputResolverKey.usernameHint,
+          field: SignInField.username,
+          validator: validator,
+        );
+
+  @override
+  _SignInUsernameFieldState createState() => _SignInUsernameFieldState();
+}
+
+class _SignInUsernameFieldState extends _SignInFormFieldState<UsernameInput>
+    with AuthenticatorUsernameField {}

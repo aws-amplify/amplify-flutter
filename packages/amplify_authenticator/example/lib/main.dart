@@ -40,7 +40,8 @@ class _MyAppState extends State<MyApp> {
 
   /// Our custom username validator, which ensures that all usernames contain
   /// the word "amplify".
-  String? _validateUsername(String? username) {
+  String? _validateUsername(UsernameInput? input) {
+    final username = input?.username;
     if (username == null || username.isEmpty) {
       return 'Username cannot be empty';
     }

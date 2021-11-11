@@ -12,8 +12,12 @@ AuthBlockConfig _$AuthBlockConfigFromJson(Map<String, dynamic> json) {
     oAuth: json['OAuth'] == null
         ? null
         : OAuthConfig.fromJson(json['OAuth'] as Map<String, dynamic>),
-    usernameAttributes: (json['usernameAttributes'] as List<dynamic>?)
-        ?.map((e) => _$enumDecode(_$UsernameAttributesEnumMap, e))
+    usernameAttributes: ((json['usernameAttributes'] as List<dynamic>?)
+          ?..addAll(json['loginMechanism'] as List<dynamic>? ?? const []))
+        ?.cast<String>()
+        ?.map((e) => CognitoUserAttributeKey.values
+            .firstWhereOrNull((attr) => e.toLowerCase() == attr.key))
+        ?.whereNotNull()
         .toList(),
     socialProviders: (json['socialProviders'] as List<dynamic>?)
         ?.map((e) => _$enumDecode(_$SocialProvidersEnumMap, e))
@@ -25,7 +29,10 @@ AuthBlockConfig _$AuthBlockConfigFromJson(Map<String, dynamic> json) {
         : PasswordProtectionSettings.fromJson(
             json['passwordProtectionSettings'] as Map<String, dynamic>),
     signupAttributes: (json['signupAttributes'] as List<dynamic>?)
-        ?.map((e) => e as String)
+        ?.cast<String>()
+        ?.map((e) => CognitoUserAttributeKey.values
+            .firstWhereOrNull((attr) => e.toLowerCase() == attr.key))
+        ?.whereNotNull()
         .toList(),
     mfaTypes: (json['mfaTypes'] as List<dynamic>?)
         ?.map((e) => _$enumDecode(_$MfaTypesEnumMap, e))
@@ -38,9 +45,8 @@ AuthBlockConfig _$AuthBlockConfigFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$AuthBlockConfigToJson(AuthBlockConfig instance) =>
     <String, dynamic>{
       'OAuth': instance.oAuth,
-      'usernameAttributes': instance.usernameAttributes
-          ?.map((e) => _$UsernameAttributesEnumMap[e])
-          .toList(),
+      'usernameAttributes':
+          instance.usernameAttributes?.map((e) => e.toString()).toList(),
       'socialProviders': instance.socialProviders
           ?.map((e) => _$SocialProvidersEnumMap[e])
           .toList(),
@@ -76,11 +82,6 @@ K _$enumDecode<K, V>(
     },
   ).key;
 }
-
-const _$UsernameAttributesEnumMap = {
-  UsernameAttributes.email: 'EMAIL',
-  UsernameAttributes.phoneNumber: 'PHONE_NUMBER',
-};
 
 K? _$enumDecodeNullable<K, V>(
   Map<K, V> enumValues,

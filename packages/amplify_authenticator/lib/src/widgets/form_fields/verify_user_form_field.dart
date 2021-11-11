@@ -125,7 +125,7 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
   }
 
   @override
-  FormFieldValidator<String>? get validator {
+  FormFieldValidator<String> get validator {
     return simpleValidator(
       stringResolver.inputs.resolve(
         context,

@@ -13,17 +13,14 @@
  * permissions and limitations under the License.
  */
 
-enum UsernameAttribute { email, phoneNumber }
+enum UsernameType { username, email, phoneNumber }
 
-extension UsernameAttributeX on UsernameAttribute {
-  /// Gets a string representation of [UsernameAttribute] formmatted for
-  /// Cognito's attribute verification API
-  String get verifiedAttributeFormatString {
-    switch (this) {
-      case UsernameAttribute.email:
-        return 'email';
-      case UsernameAttribute.phoneNumber:
-        return 'phone_number';
-    }
-  }
+class UsernameInput {
+  final UsernameType type;
+  final String username;
+
+  const UsernameInput({
+    required this.type,
+    required this.username,
+  });
 }

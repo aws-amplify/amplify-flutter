@@ -15,8 +15,6 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-import 'cognito_user_attribute_key.dart';
-
 class CognitoSignUpOptions extends SignUpOptions {
   /// An optional map of arbitrary key-value pairs which will be passed to your
   /// PreAuthentication Lambda trigger as-is, used for implementing additional
