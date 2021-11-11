@@ -132,7 +132,6 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
           fields: fields,
           actions: const [
             SignUpButton(),
-            GoToSignInButton(),
           ],
         );
 
@@ -256,7 +255,6 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
           fields: fields,
           actions: const [
             SignInButton(),
-            GoToSignUpButton(),
           ],
         );
 

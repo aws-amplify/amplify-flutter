@@ -263,7 +263,10 @@ class StateMachineBloc {
           break;
       }
     } on UserNotConfirmedException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
+      _exceptionController.add(AuthenticatorException(
+        e.message,
+        showBanner: false,
+      ));
       yield AuthFlow.confirmSignup;
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(

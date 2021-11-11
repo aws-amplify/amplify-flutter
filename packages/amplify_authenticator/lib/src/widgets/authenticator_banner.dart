@@ -43,26 +43,26 @@ extension on StatusType {
   Color get backgroundColor {
     switch (this) {
       case StatusType.info:
-        return AmplifyColors.statusInfo60;
+        return AmplifyColors.backgroundInfo;
       case StatusType.success:
-        return AmplifyColors.statusSuccess60;
+        return AmplifyColors.backgroundSuccess;
       case StatusType.warning:
-        return AmplifyColors.statusWarning60;
+        return AmplifyColors.backgroundWarning;
       case StatusType.error:
-        return AmplifyColors.statusError60;
+        return AmplifyColors.backgroundError;
     }
   }
 
   Color get textColor {
     switch (this) {
       case StatusType.info:
-        return AmplifyColors.statusInfoText;
+        return AmplifyColors.fontInfo;
       case StatusType.success:
-        return AmplifyColors.statusSuccessText;
+        return AmplifyColors.fontSuccess;
       case StatusType.warning:
-        return AmplifyColors.statusWarningText;
+        return AmplifyColors.fontWarning;
       case StatusType.error:
-        return AmplifyColors.statusErrorText;
+        return AmplifyColors.fontError;
     }
   }
 

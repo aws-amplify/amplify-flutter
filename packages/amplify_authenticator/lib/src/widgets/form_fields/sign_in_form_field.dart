@@ -165,7 +165,7 @@ abstract class _SignInFormFieldState<FieldValue>
   Widget? get companionWidget {
     switch (widget.field) {
       case SignInField.password:
-        return const ResetPasswordButton();
+        return const ForgotPasswordButton();
       default:
         return null;
     }

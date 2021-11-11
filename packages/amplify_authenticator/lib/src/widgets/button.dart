@@ -161,6 +161,7 @@ class _AmplifyElevatedButtonState
             : ElevatedButtonTheme.of(context),
         child: SizedBox(
           height: widget.size.height,
+          width: double.infinity,
           child: ElevatedButton(
             focusNode: focusNode,
             onPressed: viewModel.isBusy
@@ -440,8 +441,8 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
   }
 }
 
-class ResetPasswordButton extends StatelessAuthenticatorComponent {
-  const ResetPasswordButton({Key? key}) : super(key: key);
+class ForgotPasswordButton extends StatelessAuthenticatorComponent {
+  const ForgotPasswordButton({Key? key}) : super(key: key);
 
   @override
   Widget builder(
@@ -452,29 +453,17 @@ class ResetPasswordButton extends StatelessAuthenticatorComponent {
     final resolver = stringResolver.buttons;
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              resolver.forgotPassword(context),
-              style: const TextStyle(
-                color: Color.fromRGBO(130, 130, 130, 1),
-                fontSize: 12,
-              ),
-            ),
+      child: SizedBox(
+        width: double.infinity,
+        child: TextButton(
+          key: keyForgotPasswordButton,
+          child: Text(
+            resolver.forgotPassword(context),
+            textAlign: TextAlign.center,
+            style: AmplifyTextTheme.button$.copyWith(fontSize: 12),
           ),
-          TextButton(
-            key: keyGoToSignInButton,
-            child: Text(
-              resolver.resetPassword(context),
-              style: TextStyle(
-                fontSize: 12,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            onPressed: viewModel.goToReset,
-          ),
-        ],
+          onPressed: viewModel.goToReset,
+        ),
       ),
     );
   }

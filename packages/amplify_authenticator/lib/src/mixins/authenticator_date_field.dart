@@ -46,7 +46,7 @@ mixin AuthenticatorDateField<FieldType,
       style: enabled
           ? null
           : const TextStyle(
-              color: AmplifyColors.black20,
+              color: AmplifyColors.fontDisabled,
             ),
       enabled: enabled,
       readOnly: true,

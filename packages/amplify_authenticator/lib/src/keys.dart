@@ -112,6 +112,7 @@ const keyGoToSignInButton = Key('goToSignInButton');
 const keyConfirmSignInButton = Key('confirmSignInButton');
 const keyLostCodeButton = Key('lostCodeButton');
 const keySendCodeButton = Key('sendCodeButton');
+const keyForgotPasswordButton = Key('forgotPasswordButton');
 
 // Checkboxes keys
 

@@ -18,154 +18,230 @@ import 'package:flutter/material.dart';
 class AmplifyColors {
   const AmplifyColors._();
 
-  static const Color black = Color(0xFF000000);
-  static const Color black95 = Color(0xFF0D0D0D);
-  static const Color black90 = Color(0xFF1A1A1A);
-  static const Color black85 = Color(0xFF262626);
-  static const Color black80 = Color(0xFF333333);
-  static const Color black75 = Color(0xFF404040);
-  static const Color black70 = Color(0xFF4D4D4D);
-  static const Color black65 = Color(0xFF595959);
-  static const Color black60 = Color(0xFF666666);
-  static const Color black55 = Color(0xFF737373);
-  static const Color black50 = Color(0xFF808080);
-  static const Color black45 = Color(0xFF8C8C8C);
-  static const Color black40 = Color(0xFF999999);
-  static const Color black35 = Color(0xFFA6A6A6);
-  static const Color black30 = Color(0xFFB3B3B3);
-  static const Color black25 = Color(0xFFBFBFBF);
-  static const Color black20 = Color(0xFFCCCCCC);
-  static const Color black15 = Color(0xFFD9D9D9);
-  static const Color black10 = Color(0xFFE6E6E6);
-  static const Color black5 = Color(0xFFF2F2F2);
-  static const Color white = Color(0xFFFFFFFF);
-
-  static const Color borderPrimary = black60;
-  static const Color borderSecondary = black40;
-  static const Color borderTertiary = black20;
-
-  static const Color backgroundPrimary = white;
-  static const Color backgroundSecondary = black20;
-  static const Color backgroundTertiary = black40;
-  static const Color scaffoldBackgroundColor = black5;
-
-  static const Color textPrimary = black;
-  static const Color textSecondary = black80;
-  static const Color textTertiary = black60;
-  static const Color textInverse = white;
-  static const Color textInfo = statusInfo;
-  static const Color textSuccess = statusSuccess;
-  static const Color textWarning = statusWarning;
-  static const Color textError = statusError;
-
-  static const Color statusInfoText = Color(0xFF1F4053);
-  static const Color statusInfo = blue;
-  static const Color statusInfo80 = Color(0xFF71B3D9);
-  static const Color statusInfo60 = Color(0xFF94C6E2);
-
-  static const Color statusSuccessText = Color(0xFF1F532A);
-  static const Color statusSuccess = green;
-  static const Color statusSuccess80 = Color(0xFF71D987);
-  static const Color statusSuccess60 = Color(0xFF94E2A5);
-
-  static const Color statusWarningText = Color(0xFF5E2A0C);
-  static const Color statusWarning = orange;
-  static const Color statusWarning80 = Color(0xFFEE874B);
-  static const Color statusWarning60 = Color(0xFFF2A578);
-
-  static const Color statusErrorText = Color(0xFF66151C);
-  static const Color statusError = red;
-  static const Color statusError80 = Color(0xFFFE5D6B);
-  static const Color statusError60 = Color(0xFFFE8690);
-
-  static const MaterialColor brand = MaterialColor(_brandPrimary, {
-    200: Color(0xFFE3D3FF),
-    300: Color(0xFFC3A9FF),
-    400: Color(0xFFB598FF),
-    500: Color(_brandPrimary),
-    600: Color(0xFF5641BF),
-    700: Color(0xFF392B80),
-    800: Color(0xFF1D1640),
+  static const red10 = Color(0xfffce9e9);
+  static const red20 = Color(0xfff5bcbc);
+  static const red40 = Color(0xffef8f8f);
+  static const red60 = Color(0xffbf4040);
+  static const red80 = Color(0xff950404);
+  static const red90 = Color(0xff660000);
+  static const red100 = Color(0xff4d0000);
+  static const red = MaterialColor(0xffbf4040, {
+    50: Color(0xfffce9e9),
+    100: Color(0xfff5bcbc),
+    300: Color(0xffef8f8f),
+    500: Color(0xffbf4040),
+    700: Color(0xff950404),
+    800: Color(0xff660000),
+    900: Color(0xff4d0000),
   });
-  static const int _brandPrimary = 0xFF7256FF;
 
-  static const MaterialColor purple = MaterialColor(_purplePrimary, {
-    100: Color(0xFFEEE5FF),
-    200: Color(0xFFDCCBFF),
-    300: Color(0xFFCAB1FF),
-    400: Color(0xFFB598FF),
-    500: Color(_purplePrimary),
-    600: Color(0xFF7C60DB),
-    700: Color(0xFF5842B9),
-    800: Color(0xFF332597),
-    900: Color(0xFF000976),
+  static const orange10 = Color(0xfffcf2e9);
+  static const orange20 = Color(0xfff5d9bc);
+  static const orange40 = Color(0xffefbf8f);
+  static const orange60 = Color(0xffbf8040);
+  static const orange80 = Color(0xff954d04);
+  static const orange90 = Color(0xff663300);
+  static const orange100 = Color(0xff4d2600);
+  static const orange = MaterialColor(0xffbf8040, {
+    50: Color(0xfffcf2e9),
+    100: Color(0xfff5d9bc),
+    300: Color(0xffefbf8f),
+    500: Color(0xffbf8040),
+    700: Color(0xff954d04),
+    800: Color(0xff663300),
+    900: Color(0xff4d2600),
   });
-  static const int _purplePrimary = 0xFF9F7FFF;
 
-  static const MaterialColor teal = MaterialColor(_tealPrimary, {
-    100: Color(0xFFE2FFFD),
-    200: Color(0xFFC2FFFB),
-    300: Color(0xFF9EFFF9),
-    400: Color(0xFF70FFF7),
-    500: Color(_tealPrimary),
-    600: Color(0xFF00CBC2),
-    700: Color(0xFF009891),
-    800: Color(0xFF006863),
-    900: Color(0xFF003B39),
+  static const yellow10 = Color(0xfffcfce9);
+  static const yellow20 = Color(0xfff5f5bc);
+  static const yellow40 = Color(0xffefef8f);
+  static const yellow60 = Color(0xffbfbf40);
+  static const yellow80 = Color(0xff959504);
+  static const yellow90 = Color(0xff666600);
+  static const yellow100 = Color(0xff4d4d00);
+  static const yellow = MaterialColor(0xffbfbf40, {
+    50: Color(0xfffcfce9),
+    100: Color(0xfff5f5bc),
+    300: Color(0xffefef8f),
+    500: Color(0xffbfbf40),
+    700: Color(0xff959504),
+    800: Color(0xff666600),
+    900: Color(0xff4d4d00),
   });
-  static const int _tealPrimary = 0xFF00FFF5;
 
-  static const MaterialColor blue = MaterialColor(_bluePrimary, {
-    100: Color(0xFFDFEBF5),
-    200: Color(0xFFBED8EC),
-    300: Color(0xFF9DC5E2),
-    400: Color(0xFF78B2D9),
-    500: Color(_bluePrimary),
-    600: Color(0xFF1F7FAC),
-    700: Color(0xFF00608B),
-    800: Color(0xFF00436B),
-    900: Color(0xFF00274D),
+  static const green10 = Color(0xffe9fcec);
+  static const green20 = Color(0xffbcf5c6);
+  static const green40 = Color(0xff8fef9f);
+  static const green60 = Color(0xff40bf55);
+  static const green80 = Color(0xff04951c);
+  static const green90 = Color(0xff006611);
+  static const green100 = Color(0xff004d0d);
+  static const green = MaterialColor(0xff40bf55, {
+    50: Color(0xffe9fcec),
+    100: Color(0xffbcf5c6),
+    300: Color(0xff8fef9f),
+    500: Color(0xff40bf55),
+    700: Color(0xff04951c),
+    800: Color(0xff006611),
+    900: Color(0xff004d0d),
   });
-  static const int _bluePrimary = 0xFF4DA0CF;
 
-  static const MaterialColor green = MaterialColor(_greenPrimary, {
-    100: Color(0xFFE0F6E1),
-    200: Color(0xFFBFEDC3),
-    300: Color(0xFF9EE4A5),
-    400: Color(0xFF79DA88),
-    500: Color(_greenPrimary),
-    600: Color(0xFF0BA544),
-    700: Color(0xFF007D1F),
-    800: Color(0xFF005700),
-    900: Color(0xFF003300),
+  static const teal10 = Color(0xffe9f9fc);
+  static const teal20 = Color(0xffbcecf5);
+  static const teal40 = Color(0xff7dd6e8);
+  static const teal60 = Color(0xff40aabf);
+  static const teal80 = Color(0xff047d95);
+  static const teal90 = Color(0xff005566);
+  static const teal100 = Color(0xff00404d);
+  static const teal = MaterialColor(0xff40aabf, {
+    50: Color(0xffe9f9fc),
+    100: Color(0xffbcecf5),
+    300: Color(0xff7dd6e8),
+    500: Color(0xff40aabf),
+    700: Color(0xff047d95),
+    800: Color(0xff005566),
+    900: Color(0xff00404d),
   });
-  static const int _greenPrimary = 0xFF4DCF6A;
 
-  static const MaterialColor orange = MaterialColor(_orangePrimary, {
-    100: Color(0xFFFFE1D1),
-    200: Color(0xFFFFC3A4),
-    300: Color(0xFFFEA678),
-    400: Color(0xFFF5884D),
-    500: Color(_orangePrimary),
-    600: Color(0xFFC44A00),
-    700: Color(0xFF9F2900),
-    800: Color(0xFF7C0000),
-    900: Color(0xFF5C0000),
+  static const blue10 = Color(0xffe6eefe);
+  static const blue20 = Color(0xffb8cef9);
+  static const blue40 = Color(0xff7da1e8);
+  static const blue60 = Color(0xff406abf);
+  static const blue80 = Color(0xff043495);
+  static const blue90 = Color(0xff002266);
+  static const blue100 = Color(0xff001a4d);
+  static const blue = MaterialColor(0xff406abf, {
+    50: Color(0xffe6eefe),
+    100: Color(0xffb8cef9),
+    300: Color(0xff7da1e8),
+    500: Color(0xff406abf),
+    700: Color(0xff043495),
+    800: Color(0xff002266),
+    900: Color(0xff001a4d),
   });
-  static const int _orangePrimary = 0xFFEA691E;
 
-  static const MaterialColor red = MaterialColor(_redPrimary, {
-    100: Color(0xFFFFDCD7),
-    200: Color(0xFFFFB8B1),
-    300: Color(0xFFFF938B),
-    400: Color(0xFFFF6A68),
-    500: Color(_redPrimary),
-    600: Color(0xFFD9002D),
-    700: Color(0xFFB50015),
-    800: Color(0xFF910000),
-    900: Color(0xFF6F0000),
+  static const purple10 = Color(0xfffee6fe);
+  static const purple20 = Color(0xfff9b8f9);
+  static const purple40 = Color(0xffe87de8);
+  static const purple60 = Color(0xffbf40bf);
+  static const purple80 = Color(0xff950495);
+  static const purple90 = Color(0xff660066);
+  static const purple100 = Color(0xff4d004d);
+  static const purple = MaterialColor(0xffbf40bf, {
+    50: Color(0xfffee6fe),
+    100: Color(0xfff9b8f9),
+    300: Color(0xffe87de8),
+    500: Color(0xffbf40bf),
+    700: Color(0xff950495),
+    800: Color(0xff660066),
+    900: Color(0xff4d004d),
   });
-  static const int _redPrimary = 0xFFFE3546;
+
+  static const pink10 = Color(0xfffee6ee);
+  static const pink20 = Color(0xfffbb6cd);
+  static const pink40 = Color(0xffe87da1);
+  static const pink60 = Color(0xffbf406a);
+  static const pink80 = Color(0xff950434);
+  static const pink90 = Color(0xff660022);
+  static const pink100 = Color(0xff4d0019);
+  static const pink = MaterialColor(0xffbf406a, {
+    50: Color(0xfffee6ee),
+    100: Color(0xfffbb6cd),
+    300: Color(0xffe87da1),
+    500: Color(0xffbf406a),
+    700: Color(0xff950434),
+    800: Color(0xff660022),
+    900: Color(0xff4d0019),
+  });
+
+  static const neutral10 = Color(0xfff2f2f3);
+  static const neutral20 = Color(0xffe4e6e7);
+  static const neutral40 = Color(0xffc9cccf);
+  static const neutral60 = Color(0xffaeb3b7);
+  static const neutral80 = Color(0xff5c6670);
+  static const neutral90 = Color(0xff304050);
+  static const neutral100 = Color(0xff0d1a26);
+  static const neutral = MaterialColor(0xffaeb3b7, {
+    50: Color(0xfff2f2f3),
+    100: Color(0xffe4e6e7),
+    300: Color(0xffc9cccf),
+    500: Color(0xffaeb3b7),
+    700: Color(0xff5c6670),
+    800: Color(0xff304050),
+    900: Color(0xff0d1a26),
+  });
+
+  static const brandPrimary10 = Color(0xffe9f9fc);
+  static const brandPrimary20 = Color(0xffbcecf5);
+  static const brandPrimary40 = Color(0xff7dd6e8);
+  static const brandPrimary60 = Color(0xff40aabf);
+  static const brandPrimary80 = Color(0xff047d95);
+  static const brandPrimary90 = Color(0xff005566);
+  static const brandPrimary100 = Color(0xff00404d);
+  static const brandPrimary = MaterialColor(0xff40aabf, {
+    50: Color(0xffe9f9fc),
+    100: Color(0xffbcecf5),
+    300: Color(0xff7dd6e8),
+    500: Color(0xff40aabf),
+    700: Color(0xff047d95),
+    800: Color(0xff005566),
+    900: Color(0xff00404d),
+  });
+
+  static const brandSecondary10 = Color(0xfffee6fe);
+  static const brandSecondary20 = Color(0xfff9b8f9);
+  static const brandSecondary40 = Color(0xffe87de8);
+  static const brandSecondary60 = Color(0xffbf40bf);
+  static const brandSecondary80 = Color(0xff950495);
+  static const brandSecondary90 = Color(0xff660066);
+  static const brandSecondary100 = Color(0xff4d004d);
+  static const brandSecondary = MaterialColor(0xffbf40bf, {
+    50: Color(0xfffee6fe),
+    100: Color(0xfff9b8f9),
+    300: Color(0xffe87de8),
+    500: Color(0xffbf40bf),
+    700: Color(0xff950495),
+    800: Color(0xff660066),
+    900: Color(0xff4d004d),
+  });
+
+  static const fontPrimary = AmplifyColors.neutral100;
+  static const fontSecondary = AmplifyColors.neutral80;
+  static const fontTertiary = AmplifyColors.neutral60;
+  static const fontDisabled = AmplifyColors.fontTertiary;
+  static const fontInverse = AmplifyColors.white;
+  static const fontInteractive = AmplifyColors.brandPrimary80;
+  static const fontHover = AmplifyColors.brandPrimary90;
+  static const fontFocus = AmplifyColors.brandPrimary100;
+  static const fontActive = AmplifyColors.brandPrimary100;
+  static const fontInfo = AmplifyColors.blue80;
+  static const fontWarning = AmplifyColors.orange80;
+  static const fontError = AmplifyColors.red80;
+  static const fontSuccess = AmplifyColors.green80;
+
+  static const backgroundPrimary = AmplifyColors.white;
+  static const backgroundSecondary = AmplifyColors.neutral10;
+  static const backgroundTertiary = AmplifyColors.neutral20;
+  static const backgroundDisabled = AmplifyColors.backgroundTertiary;
+  static const backgroundInfo = AmplifyColors.blue20;
+  static const backgroundWarning = AmplifyColors.orange20;
+  static const backgroundError = AmplifyColors.red20;
+  static const backgroundSuccess = AmplifyColors.green20;
+
+  static const borderPrimary = AmplifyColors.neutral60;
+  static const borderSecondary = AmplifyColors.neutral40;
+  static const borderTertiary = AmplifyColors.neutral20;
+  static const borderDisabled = AmplifyColors.borderTertiary;
+  static const borderFocus = AmplifyColors.brandPrimary100;
+  static const borderError = AmplifyColors.red80;
+
+  static const shadowPrimary = Color(0x400d1a26);
+  static const shadowSecondary = Color(0x260d1a26);
+  static const shadowTertiary = Color(0x0d0d1a26);
+
+  static const white = Color(0xFFFFFFFF);
+  static const black = Color(0xFF000000);
+  static const transparent = Color(0x00FFFFFF);
 }
 
 class AmplifyTextTheme extends TextTheme {
@@ -184,7 +260,7 @@ class AmplifyTextTheme extends TextTheme {
         );
 
   static const fontPackage = 'amplify_authenticator';
-  static const fontFamily = 'WorkSans';
+  static const fontFamily = 'Inter';
 
   static const h1 = TextStyle(
     fontFamily: fontFamily,
@@ -313,21 +389,24 @@ class AmplifyTheme {
       shape: MaterialStateProperty.all(const RoundedRectangleBorder()),
       backgroundColor: MaterialStateProperty.resolveWith((states) {
         if (states.contains(MaterialState.disabled)) {
-          return AmplifyColors.black20;
+          return AmplifyColors.neutral20;
         }
         if (states.contains(MaterialState.hovered)) {
-          return AmplifyColors.brand[600]!;
+          return AmplifyColors.brandPrimary90;
         }
-        return AmplifyColors.brand;
+        if (states.contains(MaterialState.pressed)) {
+          return AmplifyColors.brandPrimary90;
+        }
+        return AmplifyColors.brandPrimary80;
       }),
       foregroundColor: MaterialStateProperty.resolveWith((states) {
         if (states.contains(MaterialState.disabled)) {
-          return AmplifyColors.black40;
+          return AmplifyColors.fontTertiary;
         }
-        return AmplifyColors.textInverse;
+        return AmplifyColors.fontInverse;
       }),
       padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
-      shadowColor: MaterialStateProperty.all(AmplifyColors.blue),
+      shadowColor: MaterialStateProperty.all(AmplifyColors.shadowPrimary),
     ),
   );
 
@@ -338,22 +417,22 @@ class AmplifyTheme {
       shape: MaterialStateProperty.all(const RoundedRectangleBorder()),
       side: MaterialStateProperty.resolveWith((states) {
         if (states.contains(MaterialState.disabled)) {
-          return const BorderSide(color: AmplifyColors.black20);
+          return const BorderSide(color: AmplifyColors.borderDisabled);
         }
         if (states.contains(MaterialState.hovered)) {
-          return const BorderSide(color: AmplifyColors.textPrimary);
+          return const BorderSide(color: AmplifyColors.borderFocus);
         }
         return const BorderSide(color: AmplifyColors.borderPrimary);
       }),
       backgroundColor: MaterialStateProperty.all(AmplifyColors.white),
       foregroundColor: MaterialStateProperty.resolveWith((states) {
         if (states.contains(MaterialState.disabled)) {
-          return AmplifyColors.black40;
+          return AmplifyColors.fontDisabled;
         }
-        return AmplifyColors.textPrimary;
+        return AmplifyColors.fontPrimary;
       }),
       padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
-      shadowColor: MaterialStateProperty.all(AmplifyColors.blue),
+      shadowColor: MaterialStateProperty.all(AmplifyColors.shadowSecondary),
     ),
   );
 
@@ -361,51 +440,69 @@ class AmplifyTheme {
     style: ButtonStyle(
       foregroundColor: MaterialStateProperty.resolveWith((states) {
         if (states.contains(MaterialState.disabled)) {
-          return AmplifyColors.black40;
+          return AmplifyColors.fontDisabled;
         }
-        return AmplifyColors.textPrimary;
+        if (states.contains(MaterialState.hovered)) {
+          return AmplifyColors.fontHover;
+        }
+        if (states.contains(MaterialState.focused)) {
+          return AmplifyColors.fontFocus;
+        }
+        return AmplifyColors.fontInteractive;
       }),
     ),
   );
 
-  static final primaryProgressIndicatorTheme = ProgressIndicatorThemeData(
-    color: AmplifyColors.brand[800]!,
-    circularTrackColor: AmplifyColors.white,
+  static const primaryProgressIndicatorTheme = ProgressIndicatorThemeData(
+    color: AmplifyColors.brandPrimary80,
+    circularTrackColor: AmplifyColors.neutral20,
   );
 
   static const secondaryProgressIndicatorTheme = ProgressIndicatorThemeData(
-    color: AmplifyColors.brand,
-    circularTrackColor: AmplifyColors.black20,
+    color: AmplifyColors.brandSecondary80,
+    circularTrackColor: AmplifyColors.neutral20,
   );
 
   static final inputDecorationTheme = InputDecorationTheme(
     labelStyle: AmplifyTextTheme.bodySmall.copyWith(
-      color: AmplifyColors.black60,
+      color: AmplifyColors.neutral60,
     ),
+  );
+
+  static final tabBarTheme = TabBarTheme(
+    labelColor: AmplifyColors.fontInteractive,
+    labelStyle: AmplifyTextTheme.button$.copyWith(
+      fontWeight: FontWeight.bold,
+    ),
+    unselectedLabelColor: AmplifyColors.fontSecondary,
+    unselectedLabelStyle: AmplifyTextTheme.button$.copyWith(
+      fontWeight: FontWeight.bold,
+    ),
+    labelPadding: EdgeInsets.zero,
   );
 
   static final radioTheme = RadioThemeData(
     fillColor: MaterialStateProperty.resolveWith((states) {
       if (states.contains(MaterialState.disabled)) {
-        return AmplifyColors.black20;
+        return AmplifyColors.neutral20;
       }
-      return AmplifyColors.brand;
+      return AmplifyColors.brandPrimary60;
     }),
   );
 
   static const appBarTheme = AppBarTheme(
     elevation: 0,
-    color: AmplifyColors.scaffoldBackgroundColor,
+    color: AmplifyColors.backgroundPrimary,
   );
 
   static late final ThemeData theme = () {
     return ThemeData.from(
       colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: AmplifyColors.brand,
-        primaryColorDark: AmplifyColors.brand[600]!,
+        primarySwatch: AmplifyColors.brandPrimary,
+        primaryColorDark: AmplifyColors.brandSecondary,
         accentColor: AmplifyColors.teal,
         backgroundColor: AmplifyColors.backgroundPrimary,
-        errorColor: AmplifyColors.statusError,
+        errorColor: AmplifyColors.red,
         cardColor: AmplifyColors.white,
       ),
       textTheme: const AmplifyTextTheme(),
@@ -416,6 +513,7 @@ class AmplifyTheme {
       inputDecorationTheme: inputDecorationTheme,
       radioTheme: radioTheme,
       appBarTheme: appBarTheme,
+      tabBarTheme: tabBarTheme,
     );
   }();
 }
