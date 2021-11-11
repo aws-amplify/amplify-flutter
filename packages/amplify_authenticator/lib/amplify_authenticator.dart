@@ -101,7 +101,7 @@ class Authenticator extends StatefulWidget {
     ConfirmSignInMFAForm? confirmSignInMFAForm,
     this.stringResolver = const AuthStringResolver(),
     required this.child,
-    this.useAmplifyTheme = true,
+    this.useAmplifyTheme = false,
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
     this.signUpForm = signUpForm ?? SignUpForm();
