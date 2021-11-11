@@ -64,7 +64,7 @@ mixin AuthenticatorPhoneField<FieldType,
       style: enabled
           ? null
           : const TextStyle(
-              color: AmplifyColors.black20,
+              color: AmplifyColors.fontDisabled,
             ),
       initialValue: initialValue,
       enabled: enabled,
@@ -79,8 +79,10 @@ mixin AuthenticatorPhoneField<FieldType,
         prefix: SizedBox(
             width: 40,
             child: InkWell(
-                child: Text('+$selectionValue',
-                    style: const TextStyle(color: AmplifyColors.black20)),
+                child: Text(
+                  '+$selectionValue',
+                  style: const TextStyle(color: AmplifyColors.fontDisabled),
+                ),
                 onTap: showCountryDialog)),
         suffixIcon: suffixIcon,
         errorMaxLines: errorMaxLines,

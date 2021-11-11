@@ -64,7 +64,6 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    final TitleResolver titleResolver = stringResolver.titles;
     final Size screenSize = MediaQuery.of(context).size;
     final bool isDesktop =
         screenSize.width > AuthenticatorContainerConstants.landScapeView;
@@ -76,13 +75,58 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
       containerWidth = AuthenticatorContainerConstants.smallWidth;
     }
 
-    final form = InheritedForms.of(context)[screen];
+    const signInUpTabs = [AuthScreen.signin, AuthScreen.signup];
+    final Widget child;
+    switch (screen) {
+      case AuthScreen.signin:
+        child = const _TabView(tabs: signInUpTabs, initialIndex: 0);
+        break;
+      case AuthScreen.signup:
+        child = const _TabView(tabs: signInUpTabs, initialIndex: 1);
+        break;
+      case AuthScreen.confirmSignup:
+      case AuthScreen.confirmSigninMfa:
+      case AuthScreen.confirmSigninNewPassword:
+      case AuthScreen.sendCode:
+      case AuthScreen.resetPassword:
+      case AuthScreen.verifyUser:
+      case AuthScreen.confirmVerifyUser:
+        child = _FormWrapperView(screen: screen);
+    }
+
     return Container(
       constraints: BoxConstraints(maxWidth: containerWidth),
-      padding: const EdgeInsets.all(AuthenticatorContainerConstants.padding),
-      margin: const EdgeInsets.all(AuthenticatorContainerConstants.padding) +
-          EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
       color: AmplifyColors.backgroundPrimary,
+      child: child,
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(EnumProperty<AuthScreen>('screen', screen));
+  }
+}
+
+class _FormWrapperView extends StatelessAuthenticatorComponent {
+  const _FormWrapperView({
+    Key? key,
+    required this.screen,
+  }) : super(key: key);
+
+  final AuthScreen screen;
+
+  @override
+  Widget builder(
+    BuildContext context,
+    AuthViewModel viewModel,
+    AuthStringResolver stringResolver,
+  ) {
+    final titleResolver = stringResolver.titles;
+    final form = InheritedForms.of(context)[screen];
+
+    return Padding(
+      padding: const EdgeInsets.all(AuthenticatorContainerConstants.padding),
       child: Column(
         children: <Widget>[
           Text(
@@ -102,5 +146,156 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(EnumProperty<AuthScreen>('screen', screen));
+  }
+}
+
+class _TabView extends AuthenticatorComponent<_TabView> {
+  const _TabView({
+    Key? key,
+    required this.tabs,
+    this.initialIndex = 0,
+  }) : super(key: key);
+
+  final List<AuthScreen> tabs;
+  final int initialIndex;
+
+  @override
+  _TabViewState createState() => _TabViewState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IterableProperty<AuthScreen>('tabs', tabs));
+    properties.add(IntProperty('initialIndex', initialIndex));
+  }
+}
+
+class _TabViewState extends AuthenticatorComponentState<_TabView>
+    with SingleTickerProviderStateMixin {
+  late final TabController _controller;
+
+  AuthScreen get selectedTab => widget.tabs[_controller.index];
+
+  AuthScreen get previousTab => widget.tabs[_controller.previousIndex];
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(
+      initialIndex: widget.initialIndex,
+      length: widget.tabs.length,
+      vsync: this,
+    );
+    _controller.addListener(_updateForm);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _updateForm() {
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: AmplifyColors.backgroundPrimary,
+      shadowColor: AmplifyColors.shadowPrimary,
+      elevation: 4.0,
+      shape: const Border(),
+      child: Column(
+        children: [
+          TabBar(
+            controller: _controller,
+            tabs: [
+              for (var tab in widget.tabs)
+                Tab(
+                  key: ValueKey(tab),
+                  child: _TabButtonView(
+                    screen: tab,
+                    selected: selectedTab == tab,
+                  ),
+                ),
+            ],
+          ),
+          AnimatedSize(
+            curve: Curves.easeInOut,
+            duration: const Duration(milliseconds: 150),
+            child: _FormWrapperView(screen: selectedTab),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _TabButtonView extends StatelessAuthenticatorComponent {
+  const _TabButtonView({
+    Key? key,
+    required this.screen,
+    required this.selected,
+  }) : super(key: key);
+
+  final AuthScreen screen;
+  final bool selected;
+
+  @override
+  Widget builder(
+    BuildContext context,
+    AuthViewModel viewModel,
+    AuthStringResolver stringResolver,
+  ) {
+    final resolver = stringResolver.buttons;
+    return SizedBox.expand(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: selected
+                  ? AmplifyColors.brandPrimary80
+                  : AmplifyColors.neutral40,
+            ),
+          ),
+          color: selected
+              ? AmplifyColors.backgroundPrimary
+              : AmplifyColors.backgroundDisabled,
+        ),
+        child: Center(
+          child: Text(
+            resolver.resolve(context, screen.tabTitle),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(EnumProperty<AuthScreen>('screen', screen));
+    properties.add(DiagnosticsProperty<bool>('selected', selected));
+  }
+}
+
+extension on AuthScreen {
+  ButtonResolverKey get tabTitle {
+    switch (this) {
+      case AuthScreen.signup:
+        return ButtonResolverKey.signup;
+      case AuthScreen.signin:
+        return ButtonResolverKey.signin;
+      case AuthScreen.confirmSignup:
+      case AuthScreen.confirmSigninMfa:
+      case AuthScreen.confirmSigninNewPassword:
+      case AuthScreen.sendCode:
+      case AuthScreen.resetPassword:
+      case AuthScreen.verifyUser:
+      case AuthScreen.confirmVerifyUser:
+        throw StateError('Invalid screen: $this');
+    }
   }
 }

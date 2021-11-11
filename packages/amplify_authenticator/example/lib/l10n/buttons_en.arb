@@ -37,7 +37,7 @@
     "@haveAccount": {
         "description": "Hint text for the 'Go to Sign In' button"
     },
-    "forgotPassword": "Forgot password?",
+    "forgotPassword": "Forgot your password?",
     "@forgotPassword": {
         "description": "Hint text for the 'Reset Password' button"
     },

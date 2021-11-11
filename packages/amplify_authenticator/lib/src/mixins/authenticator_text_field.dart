@@ -21,9 +21,7 @@ mixin AuthenticatorTextField<FieldType,
         return TextFormField(
           style: enabled
               ? null
-              : const TextStyle(
-                  color: AmplifyColors.black20,
-                ),
+              : const TextStyle(color: AmplifyColors.fontDisabled),
           initialValue: initialValue,
           enabled: enabled,
           validator: widget.validatorOverride ?? validator,

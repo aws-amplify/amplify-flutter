@@ -89,8 +89,8 @@ class Authenticator extends StatefulWidget {
     ConfirmSignInMFAForm? confirmSignInMFAForm,
     this.stringResolver = const AuthStringResolver(),
     required this.child,
-  })  : useAmplifyTheme = false,
-        super(key: key) {
+    this.useAmplifyTheme = true,
+  }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
     this.signUpForm = signUpForm ?? const SignUpForm();
     this.confirmSignInMFAForm = confirmSignInMFAForm ?? ConfirmSignInMFAForm();
@@ -351,7 +351,7 @@ class _AuthenticatorBody extends StatelessWidget {
     return Theme(
       data: useAmplifyTheme ? AmplifyTheme.theme : userAppTheme,
       child: Scaffold(
-        backgroundColor: AmplifyColors.scaffoldBackgroundColor,
+        backgroundColor: AmplifyColors.backgroundPrimary,
         body: StreamBuilder(
           stream: stateMachineBloc.stream,
           builder: (context, snapshot) {
