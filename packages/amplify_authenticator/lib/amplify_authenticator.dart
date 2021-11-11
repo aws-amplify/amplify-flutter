@@ -50,8 +50,20 @@ export 'src/enums/enums.dart';
 export 'src/l10n/auth_strings_resolver.dart';
 export 'src/models/authenticator_exception.dart';
 export 'src/widgets/button.dart' show SignOutButton;
-export 'src/widgets/form.dart';
-export 'src/widgets/form_field.dart';
+export 'src/widgets/form.dart'
+    show
+        SignInForm,
+        SignUpForm,
+        ConfirmSignInMFAForm,
+        ConfirmSignInNewPasswordForm,
+        ConfirmSignUpForm,
+        ConfirmVerifyUserForm;
+export 'src/widgets/form_field.dart'
+    show
+        SignInFormField,
+        SignUpFormField,
+        ConfirmSignInFormField,
+        ConfirmSignUpFormField;
 
 /// {@template authenticator.authenticator}
 /// # Amplify Authenticator
@@ -92,7 +104,7 @@ class Authenticator extends StatefulWidget {
     this.useAmplifyTheme = true,
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
-    this.signUpForm = signUpForm ?? const SignUpForm();
+    this.signUpForm = signUpForm ?? SignUpForm();
     this.confirmSignInMFAForm = confirmSignInMFAForm ?? ConfirmSignInMFAForm();
   }
 

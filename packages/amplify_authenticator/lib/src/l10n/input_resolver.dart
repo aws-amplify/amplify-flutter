@@ -396,10 +396,7 @@ class InputResolver extends Resolver<InputResolverKey> {
 
   String hint(BuildContext context, InputField field) {
     final fieldName = title(context, field);
-    // Recase to lower case
-    final lowercasedFieldName = fieldName.splitMapJoin(' ', onMatch: (match) {
-      return match.group(0)!.toLowerCase();
-    });
+    final lowercasedFieldName = fieldName.toLowerCase();
     if (field == InputField.passwordConfirmation) {
       return AuthenticatorLocalizations.inputsOf(context)
           .promptRefill(lowercasedFieldName);

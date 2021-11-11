@@ -13,10 +13,13 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_flutter/src/config/auth/aws_cognito_social_providers.dart';
 import 'package:amplify_flutter/src/config/auth/aws_cognito_username_attributes.dart';
 import 'package:amplify_flutter/src/config/auth/mfa_types.dart';
 import 'package:amplify_flutter/src/config/auth/password_protection_settings.dart';
+import 'package:collection/collection.dart';
+
 import 'mfa_configurations.dart';
 import 'oauth_config.dart';
 
@@ -27,11 +30,11 @@ class AuthBlockConfig {
 
   final OAuthConfig? oAuth;
 
-  final List<UsernameAttributes>? usernameAttributes;
+  final List<CognitoUserAttributeKey>? usernameAttributes;
 
   final List<SocialProviders>? socialProviders;
 
-  final List<String>? signupAttributes;
+  final List<CognitoUserAttributeKey>? signupAttributes;
 
   final PasswordProtectionSettings? passwordProtectionSettings;
 

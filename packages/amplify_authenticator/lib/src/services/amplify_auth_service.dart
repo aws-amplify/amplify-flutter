@@ -38,6 +38,8 @@ abstract class AuthService {
 
   Future<AuthUser?> get currentUser;
 
+  Future<bool> get isValidSession;
+
   Future<bool> get isLoggedIn;
 
   Future<ResetPasswordResult> resetPassword(String username);
@@ -148,12 +150,7 @@ class AmplifyAuthService implements AuthService {
   Future<AuthUser?> get currentUser async {
     if (!Amplify.isConfigured) return null;
 
-    if (!await isLoggedIn) {
-      return null;
-    }
-    final user = await Amplify.Auth.getCurrentUser();
-
-    return user;
+    return Amplify.Auth.getCurrentUser();
   }
 
   @override
@@ -164,6 +161,21 @@ class AmplifyAuthService implements AuthService {
       return result.isSignedIn;
     } on SignedOutException {
       return false;
+    }
+  }
+
+  @override
+  Future<bool> get isValidSession async {
+    try {
+      await Amplify.Auth.fetchAuthSession(
+          options: CognitoSessionOptions(getAWSCredentials: true));
+      return true;
+    } on SessionExpiredException {
+      return false;
+    } on SignedOutException {
+      return false;
+    } on Exception {
+      rethrow;
     }
   }
 

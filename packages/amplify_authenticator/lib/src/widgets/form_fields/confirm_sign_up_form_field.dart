@@ -218,7 +218,7 @@ class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
   }
 
   @override
-  FormFieldValidator<String>? get validator {
+  FormFieldValidator<String> get validator {
     switch (widget.field) {
       case ConfirmSignUpField.username:
         return simpleValidator(

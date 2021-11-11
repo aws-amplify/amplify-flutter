@@ -23,7 +23,6 @@ import 'package:amplify_authenticator/src/enums/confirm_signin_types.dart';
 import 'package:amplify_authenticator/src/enums/confirm_signup_types.dart';
 import 'package:amplify_authenticator/src/enums/signin_types.dart';
 import 'package:amplify_authenticator/src/enums/signup_types.dart';
-import 'package:amplify_authenticator/src/enums/user_name_attribute.dart';
 import 'package:amplify_authenticator/src/enums/verify_attribute_field_types.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
@@ -31,6 +30,7 @@ import 'package:amplify_authenticator/src/mixins/authenticator_date_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_phone_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_radio_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_text_field.dart';
+import 'package:amplify_authenticator/src/mixins/username_field.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
@@ -38,7 +38,7 @@ import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_flutter/src/config/auth/aws_cognito_username_attributes.dart';
+import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -58,7 +58,6 @@ part 'form_fields/verify_user_form_field.dart';
 /// - [ConfirmSignInFormField]
 /// - [ConfirmSignUpFormField]
 /// - [VerifyUserFormField]
-/// - [ConfirmVerifyUserFormField]
 /// {@endtemplate}
 abstract class AuthenticatorFormField<FieldType, FieldValue,
         T extends AuthenticatorFormField<FieldType, FieldValue, T>>
@@ -114,29 +113,22 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
       .findAncestorStateOfType<AuthenticatorFormState>()!
       .obscureTextToggle;
 
-  late final List<UsernameAttributes> _usernameAttributes = config.amplifyConfig
-          ?.auth?.awsCognitoAuthPlugin?.auth?['Default']?.usernameAttributes ??
-      const <UsernameAttributes>[];
-
-  @nonVirtual
-  TextInputType get usernameKeyboardTypeForUsername {
-    if (_usernameAttributes.contains(UsernameAttributes.email) &&
-        _usernameAttributes.length == 1) {
-      return TextInputType.emailAddress;
-    } else if (_usernameAttributes.contains(UsernameAttributes.phoneNumber) &&
-        _usernameAttributes.length == 1) {
-      return TextInputType.phone;
-    } else {
-      // No assumptions made
-      return TextInputType.text;
-    }
-  }
+  late final Set<CognitoUserAttributeKey> usernameAttributes = config
+          .amplifyConfig
+          ?.auth
+          ?.awsCognitoAuthPlugin
+          ?.auth?['Default']
+          ?.usernameAttributes
+          ?.toSet() ??
+      const <CognitoUserAttributeKey>{};
 
   /// Callback for when `onChanged` is triggered on the [FormField].
   ValueChanged<FieldValue> get onChanged => (_) {};
 
   /// Validates inputs of this form field.
-  FormFieldValidator<FieldValue>? get validator => null;
+  ///
+  /// By default, this validates all inputs.
+  FormFieldValidator<FieldValue> get validator => (_) => null;
 
   /// Whether to hide input.
   bool get obscureText => false;
@@ -159,22 +151,33 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   /// Maximum number of lines to use for error text.
   int get errorMaxLines => 1;
 
+  /// Title widget to use above form field.
+  ///
+  /// Defaults to a [Text] object with the form field's title.
+  Widget? get title => null;
+
   Widget buildFormField(BuildContext context);
 
   @nonVirtual
   @override
   Widget build(BuildContext context) {
     final inputResolver = stringResolver.inputs;
-    final String? title =
-        widget.title ?? widget.titleKey?.resolve(context, inputResolver);
+    Widget? title = this.title;
+    if (title == null) {
+      final titleString =
+          widget.title ?? widget.titleKey?.resolve(context, inputResolver);
+      if (titleString != null) {
+        title = Text(titleString);
+      }
+    }
 
     return Container(
       margin: FormFieldConstants.marginBottom,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          if (title != null) Text(title),
-          const Padding(padding: FormFieldConstants.gap),
+          if (title != null) title,
+          const SizedBox(height: FormFieldConstants.gap),
           buildFormField(context),
           if (companionWidget != null) companionWidget!,
         ],
@@ -196,7 +199,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         'validator', validator));
     properties
         .add(DiagnosticsProperty<FieldValue?>('initialValue', initialValue));
-    properties.add(DiagnosticsProperty<TextInputType>(
-        'usernameKeyboardTypeForUsername', usernameKeyboardTypeForUsername));
+    properties.add(IterableProperty<CognitoUserAttributeKey>(
+        'usernameAttributes', usernameAttributes));
   }
 }
