@@ -48,7 +48,7 @@ abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
   /// {@macro authenticator.authenticator_button}
   const AuthenticatorButton({
     Key? key,
-    this.size = AuthenticatorButtonSize.medium,
+    this.size = AuthenticatorButtonSize.large,
   }) : super(key: key);
 
   /// The size of the button.
