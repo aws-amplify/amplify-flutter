@@ -38,9 +38,9 @@ class ModelProvider implements ModelProviderInterface {
   List<ModelSchema> customTypeSchemas = [];
 
   static ModelProvider get instance => _instance;
-  
+
   ModelType getModelTypeByModelName(String modelName) {
-    switch(modelName) {
+    switch (modelName) {
       case "Blog":
         return Blog.classType;
       case "Comment":
@@ -48,7 +48,9 @@ class ModelProvider implements ModelProviderInterface {
       case "Post":
         return Post.classType;
       default:
-        throw Exception("Failed to find model in model provider for model name: " + modelName);
+        throw Exception(
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }
