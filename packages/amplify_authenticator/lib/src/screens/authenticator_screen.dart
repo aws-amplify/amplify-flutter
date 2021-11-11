@@ -96,6 +96,8 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
 
     return Container(
       constraints: BoxConstraints(maxWidth: containerWidth),
+      margin: const EdgeInsets.all(AuthenticatorContainerConstants.padding) +
+          EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
       color: AmplifyColors.backgroundPrimary,
       child: child,
     );
@@ -176,8 +178,6 @@ class _TabViewState extends AuthenticatorComponentState<_TabView>
 
   AuthScreen get selectedTab => widget.tabs[_controller.index];
 
-  AuthScreen get previousTab => widget.tabs[_controller.previousIndex];
-
   @override
   void initState() {
     super.initState();
@@ -229,6 +229,12 @@ class _TabViewState extends AuthenticatorComponentState<_TabView>
         ],
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(EnumProperty<AuthScreen>('selectedTab', selectedTab));
   }
 }
 
