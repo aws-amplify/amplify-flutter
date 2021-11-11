@@ -104,7 +104,7 @@ class _MyAppState extends State<MyApp> {
       // in the Authenticator component.
       localizationsDelegates: const [
         AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
+        // GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: const [
         Locale('en'), // English
