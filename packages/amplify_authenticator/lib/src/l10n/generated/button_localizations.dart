@@ -165,7 +165,7 @@ abstract class AuthenticatorButtonLocalizations {
   /// Hint text for the 'Reset Password' button
   ///
   /// In en, this message translates to:
-  /// **'Forgot password?'**
+  /// **'Forgot your password?'**
   String get forgotPassword;
 
   /// Label of button to reset a user's password

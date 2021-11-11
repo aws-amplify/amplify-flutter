@@ -51,7 +51,7 @@ class AuthenticatorButtonLocalizationsEn
   String get haveAccount => 'Have an account?';
 
   @override
-  String get forgotPassword => 'Forgot password?';
+  String get forgotPassword => 'Forgot your password?';
 
   @override
   String get resetPassword => 'Reset Password';
