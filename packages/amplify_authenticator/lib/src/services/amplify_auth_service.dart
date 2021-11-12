@@ -39,7 +39,7 @@ abstract class AuthService {
 
   Future<AuthUser?> get currentUser;
 
-  Future<bool> get isValidSession;
+  Future<bool> isValidSession();
 
   Future<bool> get isLoggedIn;
 
@@ -171,7 +171,7 @@ class AmplifyAuthService implements AuthService {
   }
 
   @override
-  Future<bool> get isValidSession async {
+  Future<bool> isValidSession() async {
     try {
       await Amplify.Auth.fetchAuthSession(
           options: CognitoSessionOptions(getAWSCredentials: true));

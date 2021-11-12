@@ -145,21 +145,21 @@ class StateMachineBloc {
 
   Stream<AuthState> _isValidSession() async* {
     try {
-      bool isValidSession = await _authService.isValidSession;
+      bool isValidSession = await _authService.isValidSession();
       if (isValidSession) {
         yield const Authenticated();
       } else {
         yield AuthFlow.signin;
       }
-    } on AmplifyException catch (e) {
-      /// On all AmplifyExceptions other than SignedOutException or SessionExpired,
-      /// we provide a message to the user and surface the SignIn form.
-      _exceptionController.add(AuthenticatorException(e.message));
+
+      /// The [isValidSession] method catches [SignedOutException] and [SessionExpiredException]
+      /// All other exceptions are re-thrown and caught here.
+    } on Exception {
+      /// On all Exceptions other than SignedOutException or SessionExpired,
+      /// we provide a generic message to the user and surface the SignIn form.
+      _exceptionController.add(const AuthenticatorException(
+          'An unknown exception has occurred while parsing the session.'));
       yield AuthFlow.signin;
-    } on Exception catch (e) {
-      /// On all other Exceptions we display an an exception and do not
-      /// load the Auththenticator, as the app may be in an unusable state
-      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
