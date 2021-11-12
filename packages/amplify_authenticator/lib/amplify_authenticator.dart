@@ -364,30 +364,33 @@ class _AuthenticatorBody extends StatelessWidget {
     final userAppTheme = Theme.of(context);
     return Theme(
       data: useAmplifyTheme ? AmplifyTheme.data : userAppTheme,
-      child: Scaffold(
-        backgroundColor: AmplifyColors.backgroundPrimary,
-        body: StreamBuilder(
-          stream: stateMachineBloc.stream,
-          builder: (context, snapshot) {
-            final state = snapshot.data ?? const AuthLoading();
-            final Widget screen;
-            if (state is AuthLoading || state is AuthLoaded) {
-              screen = const LoadingScreen();
-            } else if (state is Authenticated) {
-              return Theme(data: userAppTheme, child: child);
-            } else if (state is AuthFlow) {
-              screen = AuthenticatorScreen(screen: state.screen);
-            } else {
-              screen = const AuthenticatorScreen.signin();
-            }
+      child: StreamBuilder(
+        stream: stateMachineBloc.stream,
+        builder: (context, snapshot) {
+          final state = snapshot.data ?? const AuthLoading();
 
-            return Center(
+          if (state is Authenticated) {
+            return Theme(data: userAppTheme, child: child);
+          }
+
+          final Widget screen;
+          if (state is AuthLoading || state is AuthLoaded) {
+            screen = const LoadingScreen();
+          } else if (state is AuthFlow) {
+            screen = AuthenticatorScreen(screen: state.screen);
+          } else {
+            screen = const AuthenticatorScreen.signin();
+          }
+
+          return Scaffold(
+            backgroundColor: AmplifyColors.backgroundPrimary,
+            body: Center(
               child: SingleChildScrollView(
                 child: screen,
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
