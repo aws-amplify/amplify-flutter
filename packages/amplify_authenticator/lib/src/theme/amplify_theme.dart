@@ -14,7 +14,6 @@
 */
 
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
-import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
 class AmplifyColors {
