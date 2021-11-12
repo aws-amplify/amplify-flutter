@@ -65,13 +65,7 @@ mixin AuthenticatorDateField<FieldType,
         ),
         suffixIcon: suffixIcon,
         errorMaxLines: errorMaxLines,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
         hintText: hintText,
-        border: const OutlineInputBorder(),
       ),
       keyboardType: TextInputType.datetime,
       controller: _controller,

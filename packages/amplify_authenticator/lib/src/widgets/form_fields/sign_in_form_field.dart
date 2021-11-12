@@ -103,6 +103,19 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
         validator: validator,
       );
 
+  /// Creates a passwordConfirmation component.
+  static SignInFormField passwordConfirmation({
+    Key? key,
+    FormFieldValidator<String>? validator,
+  }) =>
+      _SignInTextField(
+        key: key ?? keyPasswordConfirmationSignUpFormField,
+        titleKey: InputResolverKey.passwordConfirmationTitle,
+        hintTextKey: InputResolverKey.passwordConfirmationHint,
+        field: SignInField.passwordConfirmation,
+        validator: validator,
+      );
+
   /// Creates a verificationCode component.
   static SignInFormField verificationCode({
     Key? key,
@@ -137,6 +150,7 @@ abstract class _SignInFormFieldState<FieldValue>
       case SignInField.username:
       case SignInField.password:
       case SignInField.newPassword:
+      case SignInField.passwordConfirmation:
         return TextInputType.visiblePassword;
       case SignInField.email:
         return TextInputType.emailAddress;
@@ -152,9 +166,20 @@ abstract class _SignInFormFieldState<FieldValue>
     switch (widget.field) {
       case SignInField.password:
       case SignInField.newPassword:
+      case SignInField.passwordConfirmation:
         return visibilityToggle;
       default:
         return null;
+    }
+  }
+
+  @override
+  int get errorMaxLines {
+    switch (widget.field) {
+      case SignInField.newPassword:
+        return 6;
+      default:
+        return super.errorMaxLines;
     }
   }
 
@@ -243,13 +268,19 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
           ),
         );
       case SignInField.password:
-      case SignInField.newPassword:
         return simpleValidator(
           stringResolver.inputs.resolve(
             context,
             InputResolverKey.passwordEmpty,
           ),
         );
+      case SignInField.passwordConfirmation:
+        return validatePasswordConfirmation(() => viewModel.newPassword);
+      case SignInField.newPassword:
+        return validateNewPassword(
+          amplifyConfig: config.amplifyConfig,
+          inputResolver: stringResolver.inputs,
+        )(context);
       case SignInField.email:
         return validateEmail;
       case SignInField.phoneNumber:

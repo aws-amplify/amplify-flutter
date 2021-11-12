@@ -52,7 +52,7 @@ extension PasswordPolicyCharactersX on PasswordPolicyCharacters {
   }
 }
 
-FormFieldValidator<String> Function(BuildContext) validateSignUpPassword({
+FormFieldValidator<String> Function(BuildContext) validateNewPassword({
   required AmplifyConfig? amplifyConfig,
   required InputResolver inputResolver,
 }) {
