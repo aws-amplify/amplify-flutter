@@ -7,8 +7,8 @@ class LocalizedCountryResolver extends CountryResolver {
   const LocalizedCountryResolver();
 
   @override
-  String unitedStates(BuildContext context) {
-    return AppLocalizations.of(context).unitedStates;
+  String us(BuildContext context) {
+    return AppLocalizations.of(context).us;
   }
 
   @override

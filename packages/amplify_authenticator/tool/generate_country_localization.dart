@@ -39,12 +39,7 @@ class GenCountry {
     return GenCountry(
         dialCode: (json['dial_code'] as String).replaceAll('+', ''),
         displayName: name,
-        key: '${name[0].toLowerCase()}${name.substring(1)}'
-            .replaceAll(' ', '')
-            .replaceAll('-', '')
-            .replaceAll(',', '')
-            .replaceAll(')', '')
-            .replaceAll('(', ''),
+        key: '${(json['code'] as String).toLowerCase()}\$',
         code: json['code'] as String);
   }
 }
@@ -66,6 +61,7 @@ void generateResolver(String dir, List<GenCountry> _countries) {
       .replaceAll('[', '');
 
   StringBuffer output = StringBuffer('''
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 $license
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
@@ -96,8 +92,8 @@ enum CountryResolverKey {
 
   for (var element in _countries) {
     output.write('''
-  String ${element.key}(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).${element.key};
+  String ${element.code.toLowerCase()}(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).${element.code.toLowerCase()};
   }
   ''');
   }
@@ -115,7 +111,7 @@ enum CountryResolverKey {
   for (var element in _countries) {
     output.write('''
     case CountryResolverKey.${element.key}:
-      return ${element.key}(context);
+      return ${element.code.toLowerCase()}(context);
     ''');
   }
 
@@ -145,8 +141,8 @@ void generateArb(String dir, List<GenCountry> _countries) {
   for (var element in _countries) {
     var comma = _countries.indexOf(element) != _countries.length - 1 ? ',' : '';
     arb.write('''
-"${element.key}": "${element.displayName}",
-    "@${element.key}": {
+"${element.code.toLowerCase()}": "${element.displayName}",
+    "@${element.code.toLowerCase()}": {
         "description": "Display name for ${element.displayName}"
     }$comma
     ''');

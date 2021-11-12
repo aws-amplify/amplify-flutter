@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/amplify_authenticator.dart';
+
 import 'country_localizations.dart';
 
 /// The translations for English (`en`).

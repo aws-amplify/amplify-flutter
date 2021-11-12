@@ -80,8 +80,8 @@
         }
     },
     "@@context": "amplify_authenticator:countries",
-    "unitedStates": "United States (English)",
-    "@unitedStates": {
+    "us": "United States (English)",
+    "@us": {
         "description": "Label of the us"
     },
     "selectDialCode": "Select country",
