@@ -19,19 +19,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 /// Creates an Authenticator-themed Material banner.
-MaterialBanner createMaterialBanner({
+MaterialBanner createMaterialBanner(
+  BuildContext context, {
   required StatusType type,
   required Widget content,
   required List<Widget> actions,
   required bool useAuthenticatorTheme,
   double margin = 0,
 }) {
+  final bool isDark =
+      MediaQuery.platformBrightnessOf(context) == Brightness.dark;
   return MaterialBanner(
-    backgroundColor: useAuthenticatorTheme ? type.backgroundColor : null,
+    backgroundColor: useAuthenticatorTheme
+        ? type.backgroundColor(context, isDark: isDark)
+        : null,
     contentTextStyle: useAuthenticatorTheme
-        ? const TextStyle(
+        ? TextStyle(
             fontSize: 16,
-            color: AmplifyColors.black,
+            color: isDark ? AmplifyColors.white : AmplifyColors.black,
           )
         : null,
     leading: Icon(
@@ -49,16 +54,20 @@ MaterialBanner createMaterialBanner({
 }
 
 extension on StatusType {
-  Color get backgroundColor {
+  Color? backgroundColor(
+    BuildContext context, {
+    required bool isDark,
+  }) {
+    final theme = AmplifyTheme.of(context, useAmplifyTheme: true);
     switch (this) {
       case StatusType.info:
-        return AmplifyColors.backgroundInfo;
+        return isDark ? theme.backgroundInfoDark : theme.backgroundInfo;
       case StatusType.success:
-        return AmplifyColors.backgroundSuccess;
+        return isDark ? theme.backgroundSuccessDark : theme.backgroundSuccess;
       case StatusType.warning:
-        return AmplifyColors.backgroundWarning;
+        return isDark ? theme.backgroundWarningDark : theme.backgroundWarning;
       case StatusType.error:
-        return AmplifyColors.backgroundError;
+        return isDark ? theme.backgroundErrorDark : theme.backgroundError;
     }
   }
 

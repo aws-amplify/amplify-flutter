@@ -16,6 +16,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
+import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -148,6 +149,10 @@ mixin AuthenticatorUsernameField<FieldType,
   Widget get title {
     final inputResolver = stringResolver.inputs;
     final labelText = Text(inputResolver.resolve(context, titleKey));
+
+    // Mirrors internal impl.
+    final thumbColor = Theme.of(context).toggleableActiveColor;
+    final trackColor = thumbColor.withOpacity(0.5);
     switch (usernameType) {
       case _UsernameType.username:
       case _UsernameType.email:
@@ -158,12 +163,14 @@ mixin AuthenticatorUsernameField<FieldType,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             labelText,
-            IconTheme(
+            IconTheme.merge(
               data: const IconThemeData(size: 16.0),
               child: Row(
                 children: [
                   const Icon(Icons.phone),
                   Switch(
+                    thumbColor: MaterialStateProperty.all(thumbColor),
+                    trackColor: MaterialStateProperty.all(trackColor),
                     value: _useEmail,
                     onChanged: (val) {
                       setState(() {
@@ -177,6 +184,28 @@ mixin AuthenticatorUsernameField<FieldType,
             ),
           ],
         );
+    }
+  }
+
+  @override
+  FormFieldValidator<UsernameInput> get validator {
+    switch (usernameType) {
+      case _UsernameType.username:
+        return (input) => simpleValidator(
+              stringResolver.inputs.resolve(
+                context,
+                InputResolverKey.usernameEmpty,
+              ),
+            )(input?.username);
+      case _UsernameType.email:
+        return (input) => validateEmail(input?.username);
+      case _UsernameType.phoneNumber:
+        return (input) => validatePhoneNumber(input?.username);
+      case _UsernameType.emailOrPhoneNumber:
+        if (_useEmail) {
+          return (input) => validateEmail(input?.username);
+        }
+        return (input) => validatePhoneNumber(input?.username);
     }
   }
 
@@ -208,13 +237,7 @@ mixin AuthenticatorUsernameField<FieldType,
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
         errorMaxLines: errorMaxLines,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
         hintText: hintText,
-        border: const OutlineInputBorder(),
         isDense: true,
       ),
       keyboardType: keyboardType,

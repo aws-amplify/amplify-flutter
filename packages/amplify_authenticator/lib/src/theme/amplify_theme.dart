@@ -14,6 +14,7 @@
 */
 
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
 class AmplifyColors {
@@ -188,6 +189,7 @@ class AmplifyColors {
     800: Color(0xff005566),
     900: Color(0xff00404d),
   });
+  static const brandPrimaryDark = brandPrimary40;
 
   static const brandSecondary10 = Color(0xfffee6fe);
   static const brandSecondary20 = Color(0xfff9b8f9);
@@ -205,15 +207,21 @@ class AmplifyColors {
     800: Color(0xff660066),
     900: Color(0xff4d004d),
   });
+  static const brandSecondaryDark = brandSecondary40;
 
   static const fontPrimary = AmplifyColors.neutral100;
+  static const fontPrimaryDark = AmplifyColors.neutral100;
   static const fontSecondary = AmplifyColors.neutral80;
+  static const fontSecondaryDark = AmplifyColors.neutral80;
   static const fontTertiary = AmplifyColors.neutral60;
   static const fontDisabled = AmplifyColors.fontTertiary;
   static const fontInverse = AmplifyColors.white;
   static const fontInteractive = AmplifyColors.brandPrimary80;
+  static const fontInteractiveDark = AmplifyColors.brandPrimary40;
   static const fontHover = AmplifyColors.brandPrimary90;
+  static const fontHoverDark = AmplifyColors.brandPrimary10;
   static const fontFocus = AmplifyColors.brandPrimary100;
+  static const fontFocusDark = AmplifyColors.brandPrimary20;
   static const fontActive = AmplifyColors.brandPrimary100;
   static const fontInfo = AmplifyColors.blue80;
   static const fontWarning = AmplifyColors.orange80;
@@ -221,16 +229,23 @@ class AmplifyColors {
   static const fontSuccess = AmplifyColors.green80;
 
   static const backgroundPrimary = AmplifyColors.white;
+  static const backgroundPrimaryDark = AmplifyColors.black;
   static const backgroundSecondary = AmplifyColors.neutral10;
   static const backgroundTertiary = AmplifyColors.neutral20;
   static const backgroundDisabled = AmplifyColors.backgroundTertiary;
+  static const backgroundDisabledDark = AmplifyColors.neutral100;
   static const backgroundInfo = AmplifyColors.blue20;
+  static const backgroundInfoDark = AmplifyColors.blue90;
   static const backgroundWarning = AmplifyColors.orange20;
+  static const backgroundWarningDark = AmplifyColors.orange90;
   static const backgroundError = AmplifyColors.red20;
+  static const backgroundErrorDark = AmplifyColors.red90;
   static const backgroundSuccess = AmplifyColors.green20;
+  static const backgroundSuccessDark = AmplifyColors.green90;
 
   static const borderPrimary = AmplifyColors.neutral60;
   static const borderSecondary = AmplifyColors.neutral40;
+  static const borderSecondaryDark = AmplifyColors.neutral90;
   static const borderTertiary = AmplifyColors.neutral20;
   static const borderDisabled = AmplifyColors.borderTertiary;
   static const borderFocus = AmplifyColors.brandPrimary100;
@@ -356,8 +371,11 @@ class AmplifyTextTheme extends TextTheme {
 class AmplifyTheme {
   const AmplifyTheme._();
 
-  static _AmplifyThemeWrapper of(BuildContext context) {
-    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
+  static _AmplifyThemeWrapper of(
+    BuildContext context, {
+    bool? useAmplifyTheme,
+  }) {
+    useAmplifyTheme ??= InheritedConfig.of(context).useAmplifyTheme;
     return _AmplifyThemeWrapper(
       context: context,
       useAmplifyTheme: useAmplifyTheme,
@@ -367,9 +385,13 @@ class AmplifyTheme {
   static ElevatedButtonThemeData elevatedButtonThemeData({
     bool primary = true,
     bool isLoading = false,
+    bool isDark = false,
   }) {
-    final base =
-        primary ? primaryElevatedButtonTheme : secondaryElevatedButtonTheme;
+    final base = primary
+        ? (isDark ? primaryElevatedButtonThemeDark : primaryElevatedButtonTheme)
+        : (isDark
+            ? secondaryElevatedButtonThemeDark
+            : secondaryElevatedButtonTheme);
     if (!isLoading) {
       return base;
     }
@@ -419,7 +441,61 @@ class AmplifyTheme {
     ),
   );
 
+  static final primaryElevatedButtonThemeDark = ElevatedButtonThemeData(
+    style: ButtonStyle(
+      elevation: MaterialStateProperty.all(0),
+      splashFactory: NoSplash.splashFactory,
+      shape: MaterialStateProperty.all(const RoundedRectangleBorder()),
+      backgroundColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.disabled)) {
+          return AmplifyColors.neutral90;
+        }
+        if (states.contains(MaterialState.hovered)) {
+          return AmplifyColors.brandPrimary10;
+        }
+        if (states.contains(MaterialState.pressed)) {
+          return AmplifyColors.brandPrimary20;
+        }
+        return AmplifyColors.brandPrimary40;
+      }),
+      foregroundColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.disabled)) {
+          return AmplifyColors.fontTertiary;
+        }
+        return AmplifyColors.fontPrimaryDark;
+      }),
+      padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
+      shadowColor: MaterialStateProperty.all(AmplifyColors.shadowPrimary),
+    ),
+  );
+
   static final secondaryElevatedButtonTheme = ElevatedButtonThemeData(
+    style: ButtonStyle(
+      elevation: MaterialStateProperty.all(0),
+      splashFactory: NoSplash.splashFactory,
+      shape: MaterialStateProperty.all(const RoundedRectangleBorder()),
+      side: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.disabled)) {
+          return const BorderSide(color: AmplifyColors.borderDisabled);
+        }
+        if (states.contains(MaterialState.hovered)) {
+          return const BorderSide(color: AmplifyColors.borderFocus);
+        }
+        return const BorderSide(color: AmplifyColors.borderPrimary);
+      }),
+      backgroundColor: MaterialStateProperty.all(AmplifyColors.white),
+      foregroundColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.disabled)) {
+          return AmplifyColors.fontDisabled;
+        }
+        return AmplifyColors.fontPrimary;
+      }),
+      padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
+      shadowColor: MaterialStateProperty.all(AmplifyColors.shadowSecondary),
+    ),
+  );
+
+  static final secondaryElevatedButtonThemeDark = ElevatedButtonThemeData(
     style: ButtonStyle(
       elevation: MaterialStateProperty.all(0),
       splashFactory: NoSplash.splashFactory,
@@ -462,7 +538,29 @@ class AmplifyTheme {
     ),
   );
 
+  static final textButtonThemeDark = TextButtonThemeData(
+    style: ButtonStyle(
+      foregroundColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.disabled)) {
+          return AmplifyColors.fontDisabled;
+        }
+        if (states.contains(MaterialState.hovered)) {
+          return AmplifyColors.fontHoverDark;
+        }
+        if (states.contains(MaterialState.focused)) {
+          return AmplifyColors.fontFocusDark;
+        }
+        return AmplifyColors.fontInteractiveDark;
+      }),
+    ),
+  );
+
   static const primaryProgressIndicatorTheme = ProgressIndicatorThemeData(
+    color: AmplifyColors.brandPrimary80,
+    circularTrackColor: AmplifyColors.neutral20,
+  );
+
+  static const primaryProgressIndicatorThemeDark = ProgressIndicatorThemeData(
     color: AmplifyColors.brandPrimary80,
     circularTrackColor: AmplifyColors.neutral20,
   );
@@ -473,8 +571,22 @@ class AmplifyTheme {
   );
 
   static final inputDecorationTheme = InputDecorationTheme(
-    labelStyle: AmplifyTextTheme.bodySmall.copyWith(
-      color: AmplifyColors.neutral60,
+    labelStyle: AmplifyTextTheme.bodyLarge.copyWith(
+      color: AmplifyColors.neutral80,
+      fontWeight: FontWeight.w500,
+    ),
+  );
+
+  static final inputDecorationThemeDark = InputDecorationTheme(
+    labelStyle: AmplifyTextTheme.bodyLarge.copyWith(
+      color: AmplifyColors.neutral40,
+      fontWeight: FontWeight.w500,
+    ),
+    focusedBorder: const OutlineInputBorder(
+      borderSide: BorderSide(color: AmplifyColors.white),
+    ),
+    border: const OutlineInputBorder(
+      borderSide: BorderSide(color: AmplifyColors.neutral90),
     ),
   );
 
@@ -490,12 +602,40 @@ class AmplifyTheme {
     labelPadding: EdgeInsets.zero,
   );
 
+  static final tabBarThemeDark = TabBarTheme(
+    labelColor: AmplifyColors.fontInteractiveDark,
+    labelStyle: AmplifyTextTheme.button$.copyWith(
+      fontWeight: FontWeight.bold,
+    ),
+    unselectedLabelColor: AmplifyColors.fontSecondaryDark,
+    unselectedLabelStyle: AmplifyTextTheme.button$.copyWith(
+      fontWeight: FontWeight.bold,
+    ),
+    labelPadding: EdgeInsets.zero,
+    indicator: const BoxDecoration(),
+  );
+
   static final radioTheme = RadioThemeData(
     fillColor: MaterialStateProperty.resolveWith((states) {
       if (states.contains(MaterialState.disabled)) {
         return AmplifyColors.neutral20;
       }
-      return AmplifyColors.brandPrimary60;
+      return AmplifyColors.brandPrimary;
+    }),
+  );
+
+  static final radioThemeDark = RadioThemeData(
+    fillColor: MaterialStateProperty.resolveWith((states) {
+      if (states.contains(MaterialState.disabled)) {
+        return AmplifyColors.neutral20;
+      }
+      return AmplifyColors.brandPrimaryDark;
+    }),
+    overlayColor: MaterialStateProperty.resolveWith((states) {
+      if (states.contains(MaterialState.disabled)) {
+        return AmplifyColors.neutral20;
+      }
+      return AmplifyColors.neutral90;
     }),
   );
 
@@ -504,27 +644,63 @@ class AmplifyTheme {
     color: AmplifyColors.backgroundPrimary,
   );
 
-  static late final ThemeData data = () {
-    return ThemeData.from(
-      colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: AmplifyColors.brandPrimary,
-        primaryColorDark: AmplifyColors.brandSecondary,
-        accentColor: AmplifyColors.teal,
-        backgroundColor: AmplifyColors.backgroundPrimary,
-        errorColor: AmplifyColors.red,
-        cardColor: AmplifyColors.white,
-      ),
-      textTheme: const AmplifyTextTheme(),
-    ).copyWith(
-      elevatedButtonTheme: primaryElevatedButtonTheme,
-      progressIndicatorTheme: primaryProgressIndicatorTheme,
-      textButtonTheme: textButtonTheme,
-      inputDecorationTheme: inputDecorationTheme,
-      radioTheme: radioTheme,
-      appBarTheme: appBarTheme,
-      tabBarTheme: tabBarTheme,
-    );
-  }();
+  static const appBarThemeDark = AppBarTheme(
+    elevation: 0,
+    color: AmplifyColors.black,
+  );
+
+  static const iconTheme = IconThemeData(color: AmplifyColors.black);
+
+  static const iconThemeDark = IconThemeData(color: AmplifyColors.white);
+
+  static late final ThemeData light = ThemeData.from(
+    colorScheme: ColorScheme.fromSwatch(
+      primarySwatch: AmplifyColors.brandPrimary,
+      primaryColorDark: AmplifyColors.brandSecondary,
+      accentColor: AmplifyColors.teal,
+      backgroundColor: AmplifyColors.backgroundPrimary,
+      errorColor: AmplifyColors.red,
+      cardColor: AmplifyColors.backgroundPrimary,
+    ),
+    textTheme: const AmplifyTextTheme(),
+  ).copyWith(
+    shadowColor: AmplifyColors.shadowPrimary,
+    elevatedButtonTheme: primaryElevatedButtonTheme,
+    progressIndicatorTheme: primaryProgressIndicatorTheme,
+    textButtonTheme: textButtonTheme,
+    inputDecorationTheme: inputDecorationTheme,
+    radioTheme: radioTheme,
+    appBarTheme: appBarTheme,
+    tabBarTheme: tabBarTheme,
+    iconTheme: iconTheme,
+  );
+
+  static late final ThemeData dark = ThemeData.from(
+    colorScheme: ColorScheme.fromSwatch(
+      primarySwatch: AmplifyColors.brandPrimary,
+      primaryColorDark: AmplifyColors.brandPrimaryDark,
+      accentColor: AmplifyColors.teal,
+      backgroundColor: AmplifyColors.backgroundPrimaryDark,
+      errorColor: AmplifyColors.red,
+      cardColor: AmplifyColors.black,
+      brightness: Brightness.dark,
+    ),
+    textTheme: const AmplifyTextTheme().apply(
+      bodyColor: AmplifyColors.white,
+      displayColor: AmplifyColors.white,
+      decorationColor: AmplifyColors.white,
+    ),
+  ).copyWith(
+    shadowColor: AmplifyColors.shadowPrimary,
+    elevatedButtonTheme: primaryElevatedButtonThemeDark,
+    progressIndicatorTheme: primaryProgressIndicatorTheme,
+    textButtonTheme: textButtonThemeDark,
+    inputDecorationTheme: inputDecorationThemeDark,
+    radioTheme: radioThemeDark,
+    appBarTheme: appBarThemeDark,
+    tabBarTheme: tabBarThemeDark,
+    iconTheme: iconThemeDark,
+  );
 }
 
 class _AmplifyThemeWrapper {
@@ -546,6 +722,7 @@ class _AmplifyThemeWrapper {
     return AmplifyTheme.elevatedButtonThemeData(
       primary: primary,
       isLoading: isLoading,
+      isDark: _isDark,
     );
   }
 
@@ -599,7 +776,25 @@ class _AmplifyThemeWrapper {
     if (!useAmplifyTheme) {
       return Theme.of(context);
     }
-    return AmplifyTheme.data;
+    return AmplifyTheme.light;
+  }
+
+  Color get primaryColor {
+    if (!useAmplifyTheme) {
+      return Theme.of(context).primaryColor;
+    }
+    return _isDark
+        ? AmplifyColors.brandPrimaryDark
+        : AmplifyColors.brandPrimary;
+  }
+
+  Color get tabColor {
+    if (!useAmplifyTheme) {
+      final bodyColor = Theme.of(context).primaryTextTheme.bodyText1?.color;
+      final indicatorColor = Theme.of(context).indicatorColor;
+      return _isDark ? bodyColor ?? indicatorColor : indicatorColor;
+    }
+    return fontInteractive!;
   }
 
   Color? get fontPrimary => useAmplifyTheme ? AmplifyColors.fontPrimary : null;
@@ -610,17 +805,37 @@ class _AmplifyThemeWrapper {
   Color? get fontTertiary =>
       useAmplifyTheme ? AmplifyColors.fontTertiary : null;
 
-  Color? get fontDisabled =>
-      useAmplifyTheme ? AmplifyColors.fontDisabled : null;
+  Color? get fontDisabled {
+    if (!useAmplifyTheme) {
+      return Theme.of(context).disabledColor;
+    }
+    return AmplifyColors.fontDisabled;
+  }
 
   Color? get fontInverse => useAmplifyTheme ? AmplifyColors.fontInverse : null;
 
-  Color? get fontInteractive =>
-      useAmplifyTheme ? AmplifyColors.fontInteractive : null;
+  Color? get fontInteractive {
+    if (!useAmplifyTheme) {
+      return null;
+    }
+    return _isDark
+        ? AmplifyColors.fontInteractiveDark
+        : AmplifyColors.fontInteractive;
+  }
 
-  Color? get fontHover => useAmplifyTheme ? AmplifyColors.fontHover : null;
+  Color? get fontHover {
+    if (!useAmplifyTheme) {
+      return null;
+    }
+    return _isDark ? AmplifyColors.fontHoverDark : AmplifyColors.fontHover;
+  }
 
-  Color? get fontFocus => useAmplifyTheme ? AmplifyColors.fontFocus : null;
+  Color? get fontFocus {
+    if (!useAmplifyTheme) {
+      return null;
+    }
+    return _isDark ? AmplifyColors.fontFocusDark : AmplifyColors.fontFocus;
+  }
 
   Color? get fontActive => useAmplifyTheme ? AmplifyColors.fontActive : null;
 
@@ -632,8 +847,14 @@ class _AmplifyThemeWrapper {
 
   Color? get fontSuccess => useAmplifyTheme ? AmplifyColors.fontSuccess : null;
 
-  Color? get backgroundPrimary =>
-      useAmplifyTheme ? AmplifyColors.backgroundPrimary : null;
+  Color? get backgroundPrimary {
+    if (!useAmplifyTheme) {
+      return null;
+    }
+    return _isDark
+        ? AmplifyColors.backgroundPrimaryDark
+        : AmplifyColors.backgroundPrimary;
+  }
 
   Color? get backgroundSecondary =>
       useAmplifyTheme ? AmplifyColors.backgroundSecondary : null;
@@ -641,32 +862,60 @@ class _AmplifyThemeWrapper {
   Color? get backgroundTertiary =>
       useAmplifyTheme ? AmplifyColors.backgroundTertiary : null;
 
-  Color? get backgroundDisabled =>
-      useAmplifyTheme ? AmplifyColors.backgroundDisabled : null;
+  Color? get backgroundDisabled {
+    if (!useAmplifyTheme) {
+      return null;
+    }
+    return _isDark
+        ? AmplifyColors.backgroundDisabledDark
+        : AmplifyColors.backgroundDisabled;
+  }
 
   Color? get backgroundInfo =>
       useAmplifyTheme ? AmplifyColors.backgroundInfo : null;
 
+  Color? get backgroundInfoDark =>
+      useAmplifyTheme ? AmplifyColors.backgroundInfoDark : null;
+
   Color? get backgroundWarning =>
       useAmplifyTheme ? AmplifyColors.backgroundWarning : null;
+
+  Color? get backgroundWarningDark =>
+      useAmplifyTheme ? AmplifyColors.backgroundWarningDark : null;
 
   Color? get backgroundError =>
       useAmplifyTheme ? AmplifyColors.backgroundError : null;
 
+  Color? get backgroundErrorDark =>
+      useAmplifyTheme ? AmplifyColors.backgroundErrorDark : null;
+
   Color? get backgroundSuccess =>
       useAmplifyTheme ? AmplifyColors.backgroundSuccess : null;
+
+  Color? get backgroundSuccessDark =>
+      useAmplifyTheme ? AmplifyColors.backgroundSuccessDark : null;
 
   Color? get borderPrimary =>
       useAmplifyTheme ? AmplifyColors.borderPrimary : null;
 
-  Color? get borderSecondary =>
-      useAmplifyTheme ? AmplifyColors.borderSecondary : null;
+  Color? get borderSecondary {
+    if (!useAmplifyTheme) {
+      return null;
+    }
+    return _isDark
+        ? AmplifyColors.borderSecondaryDark
+        : AmplifyColors.borderSecondary;
+  }
 
   Color? get borderTertiary =>
       useAmplifyTheme ? AmplifyColors.borderTertiary : null;
 
-  Color? get borderDisabled =>
-      useAmplifyTheme ? AmplifyColors.borderDisabled : null;
+  Color? get borderDisabled {
+    if (!useAmplifyTheme) {
+      return null;
+    }
+    return AmplifyColors.borderDisabled;
+  }
 
   Color? get borderFocus => useAmplifyTheme ? AmplifyColors.borderFocus : null;
 
@@ -688,4 +937,6 @@ class _AmplifyThemeWrapper {
 
   Color? get transparent =>
       useAmplifyTheme ? AmplifyColors.transparent : Colors.transparent;
+
+  bool get _isDark => Theme.of(context).brightness == Brightness.dark;
 }

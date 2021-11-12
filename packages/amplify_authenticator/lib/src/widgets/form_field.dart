@@ -170,13 +170,20 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         title = Text(titleString);
       }
     }
+    final titleStyle = Theme.of(context).inputDecorationTheme.labelStyle ??
+        Theme.of(context).textTheme.subtitle1 ??
+        const TextStyle(fontSize: 16);
 
     return Container(
       margin: FormFieldConstants.marginBottom,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          if (title != null) title,
+          if (title != null)
+            DefaultTextStyle(
+              style: titleStyle,
+              child: title,
+            ),
           const SizedBox(height: FormFieldConstants.gap),
           buildFormField(context),
           if (companionWidget != null) companionWidget!,

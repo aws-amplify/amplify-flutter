@@ -225,7 +225,6 @@ class _TabViewState extends AuthenticatorComponentState<_TabView>
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AmplifyTheme.of(context).backgroundPrimary,
       shadowColor: AmplifyTheme.of(context).shadowPrimary,
       elevation: 4.0,
       shape: const Border(),
@@ -234,7 +233,7 @@ class _TabViewState extends AuthenticatorComponentState<_TabView>
           TabBar(
             controller: _controller,
             tabs: _tabs,
-            labelColor: Theme.of(context).primaryColor,
+            labelColor: AmplifyTheme.of(context).tabColor,
           ),
           AnimatedSize(
             curve: Curves.easeInOut,
@@ -277,18 +276,23 @@ class _TabButtonView extends StatelessAuthenticatorComponent {
           border: Border(
             top: BorderSide(
               color: selected
-                  ? AmplifyColors.brandPrimary80
-                  : AmplifyColors.neutral40,
+                  ? AmplifyTheme.of(context).primaryColor
+                  : AmplifyTheme.of(context).borderSecondary!,
             ),
           ),
           color: selected
-              ? AmplifyColors.backgroundPrimary
-              : AmplifyColors.backgroundDisabled,
+              ? AmplifyTheme.of(context).backgroundPrimary
+              : AmplifyTheme.of(context).backgroundDisabled,
         ),
         child: Center(
           child: Text(
             resolver.resolve(context, screen.tabTitle),
             textAlign: TextAlign.center,
+            style: TextStyle(
+              color: selected
+                  ? AmplifyTheme.of(context).fontInteractive
+                  : AmplifyTheme.of(context).fontDisabled,
+            ),
           ),
         ),
       ),

@@ -141,54 +141,40 @@ class _AmplifyElevatedButtonState
   Widget build(BuildContext context) {
     final buttonResolver = stringResolver.buttons;
     final loadingIndicator = widget.loadingIndicator;
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        boxShadow: isFocused
-            ? const [
-                BoxShadow(
-                  color: AmplifyColors.blue,
-                  blurRadius: 4.0,
-                )
-              ]
-            : null,
+    return ElevatedButtonTheme(
+      data: AmplifyTheme.of(context).elevatedButtonThemeData(
+        primary: widget.primary,
+        isLoading: viewModel.isBusy,
       ),
-      child: ElevatedButtonTheme(
-        data: InheritedConfig.of(context).useAmplifyTheme
-            ? AmplifyTheme.elevatedButtonThemeData(
-                primary: widget.primary,
-                isLoading: viewModel.isBusy,
-              )
-            : ElevatedButtonTheme.of(context),
-        child: SizedBox(
-          height: widget.size.height,
-          width: double.infinity,
-          child: ElevatedButton(
-            focusNode: focusNode,
-            onPressed: viewModel.isBusy
-                ? null
-                : () => widget.onPressed(context, viewModel),
-            child: viewModel.isBusy && loadingIndicator != null
-                ? loadingIndicator
-                : Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (widget.leading != null) widget.leading!,
-                      Flexible(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            buttonResolver.resolve(
-                              context,
-                              widget.labelKey,
-                            ),
-                            textAlign: TextAlign.center,
+      child: SizedBox(
+        height: widget.size.height,
+        width: double.infinity,
+        child: ElevatedButton(
+          focusNode: focusNode,
+          onPressed: viewModel.isBusy
+              ? null
+              : () => widget.onPressed(context, viewModel),
+          child: viewModel.isBusy && loadingIndicator != null
+              ? loadingIndicator
+              : Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (widget.leading != null) widget.leading!,
+                    Flexible(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          buttonResolver.resolve(
+                            context,
+                            widget.labelKey,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                      if (widget.trailing != null) widget.trailing!,
-                    ].spacedBy(const SizedBox(width: 10)),
-                  ),
-          ),
+                    ),
+                    if (widget.trailing != null) widget.trailing!,
+                  ].spacedBy(const SizedBox(width: 10)),
+                ),
         ),
       ),
     );
@@ -290,10 +276,6 @@ class BackToSignInButton extends StatelessAuthenticatorComponent {
       key: keyBackToSignInButton,
       child: Text(
         stringResolver.buttons.backTo(context, AuthScreen.signin),
-        style: TextStyle(
-          fontSize: AuthenticatorButtonConstants.fontSize,
-          color: Theme.of(context).primaryColor,
-        ),
       ),
       onPressed: viewModel.goToSignIn,
     );

@@ -215,6 +215,8 @@ class _AuthenticatorState extends State<Authenticator> {
   late List<String> _missingConfigValues;
   bool _configInitialized = false;
 
+  bool _useAuthenticatorTheme = false;
+
   @override
   void initState() {
     super.initState();
@@ -238,7 +240,8 @@ class _AuthenticatorState extends State<Authenticator> {
         ScaffoldMessenger.of(context)
           ..clearMaterialBanners()
           ..showMaterialBanner(createMaterialBanner(
-            useAuthenticatorTheme: widget.useAmplifyTheme,
+            context,
+            useAuthenticatorTheme: _useAuthenticatorTheme,
             type: StatusType.error,
             content: Text(exception.message),
             margin: MediaQuery.of(context).viewPadding.top,
@@ -260,7 +263,8 @@ class _AuthenticatorState extends State<Authenticator> {
         ScaffoldMessenger.of(context)
           ..clearMaterialBanners()
           ..showMaterialBanner(createMaterialBanner(
-            useAuthenticatorTheme: widget.useAmplifyTheme,
+            context,
+            useAuthenticatorTheme: _useAuthenticatorTheme,
             type: StatusType.info,
             content: Text(resolver(context)),
             margin: MediaQuery.of(context).viewPadding.top,
@@ -323,7 +327,7 @@ class _AuthenticatorState extends State<Authenticator> {
         authBloc: _stateMachineBloc,
         child: InheritedConfig(
           amplifyConfig: _config,
-          useAmplifyTheme: widget.useAmplifyTheme,
+          useAmplifyTheme: _useAuthenticatorTheme,
           child: InheritedAuthViewModel(
             key: keyInheritedAuthViewModel,
             viewModel: _viewModel,
@@ -339,7 +343,34 @@ class _AuthenticatorState extends State<Authenticator> {
                 confirmSignInMFAForm: widget.confirmSignInMFAForm,
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),
-                child: _AuthenticatorBody(child: widget.child),
+                child: Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    _AuthenticatorBody(
+                      child: widget.child,
+                    ),
+                    Material(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (_useAuthenticatorTheme)
+                            const Text('Amplify')
+                          else
+                            const Text('Material'),
+                          Switch(
+                            activeColor: Colors.red,
+                            value: _useAuthenticatorTheme,
+                            onChanged: (val) {
+                              setState(() {
+                                _useAuthenticatorTheme = val;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -362,32 +393,38 @@ class _AuthenticatorBody extends StatelessWidget {
     final stateMachineBloc = InheritedAuthBloc.of(context);
     final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final userAppTheme = Theme.of(context);
+    final isDark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
     return Theme(
-      data: useAmplifyTheme ? AmplifyTheme.data : userAppTheme,
-      child: Scaffold(
-        backgroundColor: AmplifyColors.backgroundPrimary,
-        body: StreamBuilder(
-          stream: stateMachineBloc.stream,
-          builder: (context, snapshot) {
-            final state = snapshot.data ?? const AuthLoading();
-            final Widget screen;
-            if (state is AuthLoading || state is AuthLoaded) {
-              screen = const LoadingScreen();
-            } else if (state is Authenticated) {
-              return Theme(data: userAppTheme, child: child);
-            } else if (state is AuthFlow) {
-              screen = AuthenticatorScreen(screen: state.screen);
-            } else {
-              screen = const AuthenticatorScreen.signin();
-            }
+      data: useAmplifyTheme
+          ? (isDark ? AmplifyTheme.dark : AmplifyTheme.light)
+          : userAppTheme,
+      child: StreamBuilder(
+        stream: stateMachineBloc.stream,
+        builder: (context, snapshot) {
+          final state = snapshot.data ?? const AuthLoading();
 
-            return Center(
+          if (state is Authenticated) {
+            return Theme(data: userAppTheme, child: child);
+          }
+
+          final Widget screen;
+          if (state is AuthLoading || state is AuthLoaded) {
+            screen = const LoadingScreen();
+          } else if (state is AuthFlow) {
+            screen = AuthenticatorScreen(screen: state.screen);
+          } else {
+            screen = const AuthenticatorScreen.signin();
+          }
+
+          return Scaffold(
+            backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
+            body: Center(
               child: SingleChildScrollView(
                 child: screen,
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
