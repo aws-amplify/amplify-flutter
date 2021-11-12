@@ -280,11 +280,14 @@ class StateMachineBloc {
 
   Stream<AuthState> _checkUserVerification() async* {
     try {
-      var unverifiedAttributeKeys =
-          await _authService.getUnverifiedAttributeKeys();
+      var attributeVerificationStatus =
+          await _authService.getAttributeVerificationStatus();
+      var unverifiedAttributes =
+          attributeVerificationStatus.unverifiedAttributes;
+      var verifiedAttributes = attributeVerificationStatus.verifiedAttributes;
 
-      if (unverifiedAttributeKeys.isNotEmpty) {
-        yield VerifyUserFlow(unverifiedAttributeKeys: unverifiedAttributeKeys);
+      if (verifiedAttributes.isEmpty && unverifiedAttributes.isNotEmpty) {
+        yield VerifyUserFlow(unverifiedAttributeKeys: unverifiedAttributes);
       } else {
         yield const Authenticated();
       }

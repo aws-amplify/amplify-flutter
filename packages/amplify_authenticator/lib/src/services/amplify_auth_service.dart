@@ -55,7 +55,7 @@ abstract class AuthService {
 
   Future<ResendSignUpCodeResult> resendSignUpCode(String username);
 
-  Future<List<CognitoUserAttributeKey>> getUnverifiedAttributeKeys();
+  Future<GetAttributeVerificationStatusResult> getAttributeVerificationStatus();
 
   Future<ResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
@@ -206,13 +206,14 @@ class AmplifyAuthService implements AuthService {
     );
   }
 
-  /// Get a list of the unverified attribute keys for the given user
+  /// Returns a map of attribute keys and their verification status
   ///
   /// This is based off of `verifiedContact()` from amplify-js
   /// https://github.com/aws-amplify/amplify-js/blob/6de9a1d743deef8de5205590bf7cf8134a5fb5f4/packages/auth/src/Auth.ts#L1199-L1224
   @override
-  Future<List<CognitoUserAttributeKey>> getUnverifiedAttributeKeys() async {
-    const requiredAttributes = [
+  Future<GetAttributeVerificationStatusResult>
+      getAttributeVerificationStatus() async {
+    const verifiableAttributes = [
       CognitoUserAttributeKey.email,
       CognitoUserAttributeKey.phoneNumber,
     ];
@@ -220,27 +221,39 @@ class AmplifyAuthService implements AuthService {
     final List<AuthUserAttribute> userAttributes =
         await Amplify.Auth.fetchUserAttributes();
 
-    bool attributeIsUnverified(CognitoUserAttributeKey key) {
+    bool attributeIsVerified(CognitoUserAttributeKey key) {
       return userAttributes
               .firstWhereOrNull(
                 (attr) => attr.userAttributeKey.key == '${key}_verified',
               )
-              ?.value !=
+              ?.value ==
           'true';
     }
 
-    return userAttributes
-        .map((attr) => attr.userAttributeKey)
-        .cast<CognitoUserAttributeKey>()
-        .where(
-          (key) =>
-              requiredAttributes.contains(key) && attributeIsUnverified(key),
-        )
+    var verifiedAttributes =
+        verifiableAttributes.where(attributeIsVerified).toList();
+    var unverifiedAttributes = verifiableAttributes
+        .where((attribute) => !attributeIsVerified(attribute))
         .toList();
+
+    return GetAttributeVerificationStatusResult(
+      verifiedAttributes: verifiedAttributes,
+      unverifiedAttributes: unverifiedAttributes,
+    );
   }
 
   @override
   Future<AmplifyConfig> waitForConfiguration() {
     return Amplify.asyncConfig;
   }
+}
+
+class GetAttributeVerificationStatusResult {
+  final List<CognitoUserAttributeKey> verifiedAttributes;
+  final List<CognitoUserAttributeKey> unverifiedAttributes;
+
+  GetAttributeVerificationStatusResult({
+    required this.verifiedAttributes,
+    required this.unverifiedAttributes,
+  });
 }
