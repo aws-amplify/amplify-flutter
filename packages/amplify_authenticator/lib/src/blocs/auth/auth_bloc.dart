@@ -152,13 +152,13 @@ class StateMachineBloc {
         yield AuthFlow.signin;
       }
 
-      /// The [isValidSession] method catches [SignedOutException] and [SessionExpiredException]
-      /// All other exceptions are re-thrown and caught here.
-    } on Exception {
+      /// The [isValidSession] method will only surface a SessonExpiredException,
+      /// as we want to display a banner to alert users. All other exceptions are swallowed.
+    } on SessionExpiredException {
       /// On all Exceptions other than SignedOutException or SessionExpired,
       /// we provide a generic message to the user and surface the SignIn form.
       _exceptionController.add(const AuthenticatorException(
-          'An unknown exception has occurred while parsing the session.'));
+          'Your session has expired. Please sign in.'));
       yield AuthFlow.signin;
     }
   }
