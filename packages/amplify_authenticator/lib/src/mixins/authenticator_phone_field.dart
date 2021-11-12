@@ -11,6 +11,7 @@ mixin AuthenticatorPhoneField<FieldType,
     on AuthenticatorFormFieldState<FieldType, String, T>
     implements SelectableConfig<String> {
   String _phoneText = '';
+  String _searchVal = '';
 
   void _setPhoneNumber() {
     onChanged('+$selectionValue$_phoneText');
@@ -48,16 +49,25 @@ mixin AuthenticatorPhoneField<FieldType,
                     child: TextField(
                       decoration:
                           const InputDecoration(suffixIcon: Icon(Icons.search)),
-                      onChanged: (String searchValue) {
+                      onChanged: (String newValue) {
+                        /// Make sure we search on full list when search string gets shorter
+                        if (_searchVal.length > newValue.length) {
+                          setState(() {
+                            _countries.value = countryCodes;
+                          });
+                        }
                         setState(() {
                           /// Filter the list of countries based on localized display values
-                          searchValue.isEmpty
+                          _searchVal = newValue;
+
+                          /// If search string is empty, display full list; otherwise, filter
+                          newValue.isEmpty
                               ? _countries.value = countryCodes
                               : _countries.value = _countries.value
                                   .where((c) => countryResolver
                                       .resolve(context, c.key)
                                       .toLowerCase()
-                                      .contains(searchValue.toLowerCase()))
+                                      .contains(newValue.toLowerCase()))
                                   .toList();
                         });
                       },
