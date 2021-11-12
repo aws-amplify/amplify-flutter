@@ -29,13 +29,7 @@ mixin AuthenticatorTextField<FieldType,
           decoration: InputDecoration(
             suffixIcon: suffixIcon,
             errorMaxLines: errorMaxLines,
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
             hintText: hintText,
-            border: const OutlineInputBorder(),
             isDense: true,
           ),
           keyboardType: keyboardType,
