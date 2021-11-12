@@ -1,4 +1,3 @@
-import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
@@ -29,42 +28,46 @@ mixin AuthenticatorPhoneField<FieldType,
 
     Future<void> showCountryDialog() async {
       await showDialog<Country>(
-          context: context,
-          builder: (context) {
-            return SimpleDialog(
-              title: Text(countryResolver.resolve(
-                  context, CountryResolverKey.selectDialCode)),
-              children: <Widget>[
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      Country current = countryCodes[index];
-                      return SimpleDialogOption(
-                          onPressed: () {
-                            setState(() {
-                              selectionValue = current.value;
-                            });
-                            _setPhoneNumber();
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                              '${countryResolver.resolve(context, current.key)} (+${current.value})'));
-                    },
-                    itemCount: countryCodes.length,
-                  ),
-                )
-              ],
-            );
-          });
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            title: Text(countryResolver.resolve(
+                context, CountryResolverKey.selectDialCode)),
+            children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    Country current = countryCodes[index];
+                    return SimpleDialogOption(
+                      onPressed: () {
+                        setState(() {
+                          selectionValue = current.value;
+                        });
+                        _setPhoneNumber();
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        '${countryResolver.resolve(context, current.key)} '
+                        '(+${current.value})',
+                      ),
+                    );
+                  },
+                  itemCount: countryCodes.length,
+                ),
+              )
+            ],
+          );
+        },
+      );
     }
 
     return TextFormField(
       style: enabled
           ? null
-          : const TextStyle(
-              color: AmplifyColors.fontDisabled,
+          : TextStyle(
+              color: AmplifyTheme.of(context).fontDisabled,
             ),
       initialValue: initialValue,
       enabled: enabled,
@@ -77,13 +80,17 @@ mixin AuthenticatorPhoneField<FieldType,
       },
       decoration: InputDecoration(
         prefix: SizedBox(
-            width: 40,
-            child: InkWell(
-                child: Text(
-                  '+$selectionValue',
-                  style: const TextStyle(color: AmplifyColors.fontDisabled),
-                ),
-                onTap: showCountryDialog)),
+          width: 40,
+          child: InkWell(
+            child: Text(
+              '+$selectionValue',
+              style: TextStyle(
+                color: AmplifyTheme.of(context).fontDisabled,
+              ),
+            ),
+            onTap: showCountryDialog,
+          ),
+        ),
         suffixIcon: suffixIcon,
         errorMaxLines: errorMaxLines,
         focusedBorder: OutlineInputBorder(

@@ -238,6 +238,7 @@ class _AuthenticatorState extends State<Authenticator> {
         ScaffoldMessenger.of(context)
           ..clearMaterialBanners()
           ..showMaterialBanner(createMaterialBanner(
+            useAuthenticatorTheme: widget.useAmplifyTheme,
             type: StatusType.error,
             content: Text(exception.message),
             margin: MediaQuery.of(context).viewPadding.top,
@@ -259,6 +260,7 @@ class _AuthenticatorState extends State<Authenticator> {
         ScaffoldMessenger.of(context)
           ..clearMaterialBanners()
           ..showMaterialBanner(createMaterialBanner(
+            useAuthenticatorTheme: widget.useAmplifyTheme,
             type: StatusType.info,
             content: Text(resolver(context)),
             margin: MediaQuery.of(context).viewPadding.top,
@@ -361,7 +363,7 @@ class _AuthenticatorBody extends StatelessWidget {
     final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final userAppTheme = Theme.of(context);
     return Theme(
-      data: useAmplifyTheme ? AmplifyTheme.theme : userAppTheme,
+      data: useAmplifyTheme ? AmplifyTheme.data : userAppTheme,
       child: StreamBuilder(
         stream: stateMachineBloc.stream,
         builder: (context, snapshot) {

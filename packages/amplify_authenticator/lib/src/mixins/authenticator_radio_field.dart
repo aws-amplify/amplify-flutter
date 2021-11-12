@@ -9,11 +9,6 @@ mixin AuthenticatorRadioField<FieldType, FieldValue,
     on AuthenticatorFormFieldState<FieldType, FieldValue, T>
     implements SelectableConfig<FieldValue> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget buildFormField(BuildContext context) {
     final inputResolver = stringResolver.inputs;
     if (selectionValue != null) onChanged(selectionValue!);
@@ -39,7 +34,7 @@ mixin AuthenticatorRadioField<FieldType, FieldValue,
                 });
                 if (selectionValue != null) onChanged(selectionValue!);
               },
-              activeColor: Colors.green,
+              activeColor: Theme.of(context).primaryColor,
             ),
           )
       ],

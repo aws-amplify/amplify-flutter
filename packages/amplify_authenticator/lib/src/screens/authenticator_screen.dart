@@ -17,6 +17,7 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
@@ -98,7 +99,7 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
       constraints: BoxConstraints(maxWidth: containerWidth),
       margin: const EdgeInsets.all(AuthenticatorContainerConstants.padding) +
           EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
-      color: AmplifyColors.backgroundPrimary,
+      color: AmplifyTheme.of(context).backgroundPrimary,
       child: child,
     );
   }
@@ -199,27 +200,41 @@ class _TabViewState extends AuthenticatorComponentState<_TabView>
     setState(() {});
   }
 
+  List<Tab> get _tabs {
+    final tabs = <Tab>[];
+    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
+    for (var tab in widget.tabs) {
+      if (useAmplifyTheme) {
+        tabs.add(Tab(
+          key: ValueKey(tab),
+          child: _TabButtonView(
+            screen: tab,
+            selected: selectedTab == tab,
+          ),
+        ));
+      } else {
+        tabs.add(Tab(
+          key: ValueKey(tab),
+          text: stringResolver.buttons.resolve(context, tab.tabTitle),
+        ));
+      }
+    }
+    return tabs;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AmplifyColors.backgroundPrimary,
-      shadowColor: AmplifyColors.shadowPrimary,
+      color: AmplifyTheme.of(context).backgroundPrimary,
+      shadowColor: AmplifyTheme.of(context).shadowPrimary,
       elevation: 4.0,
       shape: const Border(),
       child: Column(
         children: [
           TabBar(
             controller: _controller,
-            tabs: [
-              for (var tab in widget.tabs)
-                Tab(
-                  key: ValueKey(tab),
-                  child: _TabButtonView(
-                    screen: tab,
-                    selected: selectedTab == tab,
-                  ),
-                ),
-            ],
+            tabs: _tabs,
+            labelColor: Theme.of(context).primaryColor,
           ),
           AnimatedSize(
             curve: Curves.easeInOut,
@@ -238,6 +253,7 @@ class _TabViewState extends AuthenticatorComponentState<_TabView>
   }
 }
 
+/// Custom tab component for Amplify theme.
 class _TabButtonView extends StatelessAuthenticatorComponent {
   const _TabButtonView({
     Key? key,

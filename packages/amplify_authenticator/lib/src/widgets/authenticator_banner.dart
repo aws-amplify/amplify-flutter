@@ -23,12 +23,21 @@ MaterialBanner createMaterialBanner({
   required StatusType type,
   required Widget content,
   required List<Widget> actions,
+  required bool useAuthenticatorTheme,
   double margin = 0,
 }) {
   return MaterialBanner(
-    backgroundColor: type.backgroundColor,
-    contentTextStyle: TextStyle(color: type.textColor),
-    leading: Icon(type.icon),
+    backgroundColor: useAuthenticatorTheme ? type.backgroundColor : null,
+    contentTextStyle: useAuthenticatorTheme
+        ? const TextStyle(
+            fontSize: 16,
+            color: AmplifyColors.black,
+          )
+        : null,
+    leading: Icon(
+      type.icon,
+      size: useAuthenticatorTheme ? 16 : null,
+    ),
     padding: EdgeInsetsDirectional.only(
       start: 16.0,
       top: 2.0 + margin,
@@ -50,19 +59,6 @@ extension on StatusType {
         return AmplifyColors.backgroundWarning;
       case StatusType.error:
         return AmplifyColors.backgroundError;
-    }
-  }
-
-  Color get textColor {
-    switch (this) {
-      case StatusType.info:
-        return AmplifyColors.fontInfo;
-      case StatusType.success:
-        return AmplifyColors.fontSuccess;
-      case StatusType.warning:
-        return AmplifyColors.fontWarning;
-      case StatusType.error:
-        return AmplifyColors.fontError;
     }
   }
 

@@ -187,8 +187,8 @@ mixin AuthenticatorUsernameField<FieldType,
     return TextFormField(
       style: enabled
           ? null
-          : const TextStyle(
-              color: AmplifyColors.fontDisabled,
+          : TextStyle(
+              color: AmplifyTheme.of(context).fontDisabled,
             ),
       initialValue: initialValue?.username,
       enabled: enabled,
