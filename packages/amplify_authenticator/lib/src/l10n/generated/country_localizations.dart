@@ -123,1453 +123,1453 @@ abstract class AuthenticatorCountryLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Afghanistan'**
-  String get afghanistan;
+  String get af;
 
   /// Display name for Aland Islands
   ///
   /// In en, this message translates to:
   /// **'Aland Islands'**
-  String get alandIslands;
+  String get ax;
 
   /// Display name for Albania
   ///
   /// In en, this message translates to:
   /// **'Albania'**
-  String get albania;
+  String get al;
 
   /// Display name for Algeria
   ///
   /// In en, this message translates to:
   /// **'Algeria'**
-  String get algeria;
+  String get dz;
 
   /// Display name for AmericanSamoa
   ///
   /// In en, this message translates to:
   /// **'AmericanSamoa'**
-  String get americanSamoa;
+  String get as1;
 
   /// Display name for Andorra
   ///
   /// In en, this message translates to:
   /// **'Andorra'**
-  String get andorra;
+  String get ad;
 
   /// Display name for Angola
   ///
   /// In en, this message translates to:
   /// **'Angola'**
-  String get angola;
+  String get ao;
 
   /// Display name for Anguilla
   ///
   /// In en, this message translates to:
   /// **'Anguilla'**
-  String get anguilla;
+  String get ai;
 
   /// Display name for Antarctica
   ///
   /// In en, this message translates to:
   /// **'Antarctica'**
-  String get antarctica;
+  String get aq;
 
   /// Display name for Antigua and Barbuda
   ///
   /// In en, this message translates to:
   /// **'Antigua and Barbuda'**
-  String get antiguaandBarbuda;
+  String get ag;
 
   /// Display name for Argentina
   ///
   /// In en, this message translates to:
   /// **'Argentina'**
-  String get argentina;
+  String get ar;
 
   /// Display name for Armenia
   ///
   /// In en, this message translates to:
   /// **'Armenia'**
-  String get armenia;
+  String get am;
 
   /// Display name for Aruba
   ///
   /// In en, this message translates to:
   /// **'Aruba'**
-  String get aruba;
+  String get aw;
 
   /// Display name for Australia
   ///
   /// In en, this message translates to:
   /// **'Australia'**
-  String get australia;
+  String get au;
 
   /// Display name for Austria
   ///
   /// In en, this message translates to:
   /// **'Austria'**
-  String get austria;
+  String get at;
 
   /// Display name for Azerbaijan
   ///
   /// In en, this message translates to:
   /// **'Azerbaijan'**
-  String get azerbaijan;
+  String get az;
 
   /// Display name for Bahamas
   ///
   /// In en, this message translates to:
   /// **'Bahamas'**
-  String get bahamas;
+  String get bs;
 
   /// Display name for Bahrain
   ///
   /// In en, this message translates to:
   /// **'Bahrain'**
-  String get bahrain;
+  String get bh;
 
   /// Display name for Bangladesh
   ///
   /// In en, this message translates to:
   /// **'Bangladesh'**
-  String get bangladesh;
+  String get bd;
 
   /// Display name for Barbados
   ///
   /// In en, this message translates to:
   /// **'Barbados'**
-  String get barbados;
+  String get bb;
 
   /// Display name for Belarus
   ///
   /// In en, this message translates to:
   /// **'Belarus'**
-  String get belarus;
+  String get by;
 
   /// Display name for Belgium
   ///
   /// In en, this message translates to:
   /// **'Belgium'**
-  String get belgium;
+  String get be;
 
   /// Display name for Belize
   ///
   /// In en, this message translates to:
   /// **'Belize'**
-  String get belize;
+  String get bz;
 
   /// Display name for Benin
   ///
   /// In en, this message translates to:
   /// **'Benin'**
-  String get benin;
+  String get bj;
 
   /// Display name for Bermuda
   ///
   /// In en, this message translates to:
   /// **'Bermuda'**
-  String get bermuda;
+  String get bm;
 
   /// Display name for Bhutan
   ///
   /// In en, this message translates to:
   /// **'Bhutan'**
-  String get bhutan;
+  String get bt;
 
   /// Display name for Bolivia, Plurinational State of
   ///
   /// In en, this message translates to:
   /// **'Bolivia, Plurinational State of'**
-  String get boliviaPlurinationalStateof;
+  String get bo;
 
   /// Display name for Bosnia and Herzegovina
   ///
   /// In en, this message translates to:
   /// **'Bosnia and Herzegovina'**
-  String get bosniaandHerzegovina;
+  String get ba;
 
   /// Display name for Botswana
   ///
   /// In en, this message translates to:
   /// **'Botswana'**
-  String get botswana;
+  String get bw;
 
   /// Display name for Brazil
   ///
   /// In en, this message translates to:
   /// **'Brazil'**
-  String get brazil;
+  String get br;
 
   /// Display name for British Indian Ocean Territory
   ///
   /// In en, this message translates to:
   /// **'British Indian Ocean Territory'**
-  String get britishIndianOceanTerritory;
+  String get io;
 
   /// Display name for Brunei Darussalam
   ///
   /// In en, this message translates to:
   /// **'Brunei Darussalam'**
-  String get bruneiDarussalam;
+  String get bn;
 
   /// Display name for Bulgaria
   ///
   /// In en, this message translates to:
   /// **'Bulgaria'**
-  String get bulgaria;
+  String get bg;
 
   /// Display name for Burkina Faso
   ///
   /// In en, this message translates to:
   /// **'Burkina Faso'**
-  String get burkinaFaso;
+  String get bf;
 
   /// Display name for Burundi
   ///
   /// In en, this message translates to:
   /// **'Burundi'**
-  String get burundi;
+  String get bi;
 
   /// Display name for Cambodia
   ///
   /// In en, this message translates to:
   /// **'Cambodia'**
-  String get cambodia;
+  String get kh;
 
   /// Display name for Cameroon
   ///
   /// In en, this message translates to:
   /// **'Cameroon'**
-  String get cameroon;
+  String get cm;
 
   /// Display name for Canada
   ///
   /// In en, this message translates to:
   /// **'Canada'**
-  String get canada;
+  String get ca;
 
   /// Display name for Cape Verde
   ///
   /// In en, this message translates to:
   /// **'Cape Verde'**
-  String get capeVerde;
+  String get cv;
 
   /// Display name for Cayman Islands
   ///
   /// In en, this message translates to:
   /// **'Cayman Islands'**
-  String get caymanIslands;
+  String get ky;
 
   /// Display name for Central African Republic
   ///
   /// In en, this message translates to:
   /// **'Central African Republic'**
-  String get centralAfricanRepublic;
+  String get cf;
 
   /// Display name for Chad
   ///
   /// In en, this message translates to:
   /// **'Chad'**
-  String get chad;
+  String get td;
 
   /// Display name for Chile
   ///
   /// In en, this message translates to:
   /// **'Chile'**
-  String get chile;
+  String get cl;
 
   /// Display name for China
   ///
   /// In en, this message translates to:
   /// **'China'**
-  String get china;
+  String get cn;
 
   /// Display name for Christmas Island
   ///
   /// In en, this message translates to:
   /// **'Christmas Island'**
-  String get christmasIsland;
+  String get cx;
 
   /// Display name for Cocos (Keeling) Islands
   ///
   /// In en, this message translates to:
   /// **'Cocos (Keeling) Islands'**
-  String get cocosKeelingIslands;
+  String get cc;
 
   /// Display name for Colombia
   ///
   /// In en, this message translates to:
   /// **'Colombia'**
-  String get colombia;
+  String get co;
 
   /// Display name for Comoros
   ///
   /// In en, this message translates to:
   /// **'Comoros'**
-  String get comoros;
+  String get km;
 
   /// Display name for Congo
   ///
   /// In en, this message translates to:
   /// **'Congo'**
-  String get congo;
+  String get cg;
 
   /// Display name for Congo The Democratic Republic of the Congo
   ///
   /// In en, this message translates to:
   /// **'Congo The Democratic Republic of the Congo'**
-  String get congoTheDemocraticRepublicoftheCongo;
+  String get cd;
 
   /// Display name for Cook Islands
   ///
   /// In en, this message translates to:
   /// **'Cook Islands'**
-  String get cookIslands;
+  String get ck;
 
   /// Display name for Costa Rica
   ///
   /// In en, this message translates to:
   /// **'Costa Rica'**
-  String get costaRica;
+  String get cr;
 
   /// Display name for Cote dIvoire
   ///
   /// In en, this message translates to:
   /// **'Cote dIvoire'**
-  String get cotedIvoire;
+  String get ci;
 
   /// Display name for Croatia
   ///
   /// In en, this message translates to:
   /// **'Croatia'**
-  String get croatia;
+  String get hr;
 
   /// Display name for Cuba
   ///
   /// In en, this message translates to:
   /// **'Cuba'**
-  String get cuba;
+  String get cu;
 
   /// Display name for Cyprus
   ///
   /// In en, this message translates to:
   /// **'Cyprus'**
-  String get cyprus;
+  String get cy;
 
   /// Display name for Czech Republic
   ///
   /// In en, this message translates to:
   /// **'Czech Republic'**
-  String get czechRepublic;
+  String get cz;
 
   /// Display name for Denmark
   ///
   /// In en, this message translates to:
   /// **'Denmark'**
-  String get denmark;
+  String get dk;
 
   /// Display name for Djibouti
   ///
   /// In en, this message translates to:
   /// **'Djibouti'**
-  String get djibouti;
+  String get dj;
 
   /// Display name for Dominica
   ///
   /// In en, this message translates to:
   /// **'Dominica'**
-  String get dominica;
+  String get dm;
 
   /// Display name for Dominican Republic
   ///
   /// In en, this message translates to:
   /// **'Dominican Republic'**
-  String get dominicanRepublic;
+  String get do1;
 
   /// Display name for Ecuador
   ///
   /// In en, this message translates to:
   /// **'Ecuador'**
-  String get ecuador;
+  String get ec;
 
   /// Display name for Egypt
   ///
   /// In en, this message translates to:
   /// **'Egypt'**
-  String get egypt;
+  String get eg;
 
   /// Display name for El Salvador
   ///
   /// In en, this message translates to:
   /// **'El Salvador'**
-  String get elSalvador;
+  String get sv;
 
   /// Display name for Equatorial Guinea
   ///
   /// In en, this message translates to:
   /// **'Equatorial Guinea'**
-  String get equatorialGuinea;
+  String get gq;
 
   /// Display name for Eritrea
   ///
   /// In en, this message translates to:
   /// **'Eritrea'**
-  String get eritrea;
+  String get er;
 
   /// Display name for Estonia
   ///
   /// In en, this message translates to:
   /// **'Estonia'**
-  String get estonia;
+  String get ee;
 
   /// Display name for Ethiopia
   ///
   /// In en, this message translates to:
   /// **'Ethiopia'**
-  String get ethiopia;
+  String get et;
 
   /// Display name for Falkland Islands (Malvinas)
   ///
   /// In en, this message translates to:
   /// **'Falkland Islands (Malvinas)'**
-  String get falklandIslandsMalvinas;
+  String get fk;
 
   /// Display name for Faroe Islands
   ///
   /// In en, this message translates to:
   /// **'Faroe Islands'**
-  String get faroeIslands;
+  String get fo;
 
   /// Display name for Fiji
   ///
   /// In en, this message translates to:
   /// **'Fiji'**
-  String get fiji;
+  String get fj;
 
   /// Display name for Finland
   ///
   /// In en, this message translates to:
   /// **'Finland'**
-  String get finland;
+  String get fi;
 
   /// Display name for France
   ///
   /// In en, this message translates to:
   /// **'France'**
-  String get france;
+  String get fr;
 
   /// Display name for French Guiana
   ///
   /// In en, this message translates to:
   /// **'French Guiana'**
-  String get frenchGuiana;
+  String get gf;
 
   /// Display name for French Polynesia
   ///
   /// In en, this message translates to:
   /// **'French Polynesia'**
-  String get frenchPolynesia;
+  String get pf;
 
   /// Display name for Gabon
   ///
   /// In en, this message translates to:
   /// **'Gabon'**
-  String get gabon;
+  String get ga;
 
   /// Display name for Gambia
   ///
   /// In en, this message translates to:
   /// **'Gambia'**
-  String get gambia;
+  String get gm;
 
   /// Display name for Georgia
   ///
   /// In en, this message translates to:
   /// **'Georgia'**
-  String get georgia;
+  String get ge;
 
   /// Display name for Germany
   ///
   /// In en, this message translates to:
   /// **'Germany'**
-  String get germany;
+  String get de;
 
   /// Display name for Ghana
   ///
   /// In en, this message translates to:
   /// **'Ghana'**
-  String get ghana;
+  String get gh;
 
   /// Display name for Gibraltar
   ///
   /// In en, this message translates to:
   /// **'Gibraltar'**
-  String get gibraltar;
+  String get gi;
 
   /// Display name for Greece
   ///
   /// In en, this message translates to:
   /// **'Greece'**
-  String get greece;
+  String get gr;
 
   /// Display name for Greenland
   ///
   /// In en, this message translates to:
   /// **'Greenland'**
-  String get greenland;
+  String get gl;
 
   /// Display name for Grenada
   ///
   /// In en, this message translates to:
   /// **'Grenada'**
-  String get grenada;
+  String get gd;
 
   /// Display name for Guadeloupe
   ///
   /// In en, this message translates to:
   /// **'Guadeloupe'**
-  String get guadeloupe;
+  String get gp;
 
   /// Display name for Guam
   ///
   /// In en, this message translates to:
   /// **'Guam'**
-  String get guam;
+  String get gu;
 
   /// Display name for Guatemala
   ///
   /// In en, this message translates to:
   /// **'Guatemala'**
-  String get guatemala;
+  String get gt;
 
   /// Display name for Guernsey
   ///
   /// In en, this message translates to:
   /// **'Guernsey'**
-  String get guernsey;
+  String get gg;
 
   /// Display name for Guinea
   ///
   /// In en, this message translates to:
   /// **'Guinea'**
-  String get guinea;
+  String get gn;
 
   /// Display name for Guinea-Bissau
   ///
   /// In en, this message translates to:
   /// **'Guinea-Bissau'**
-  String get guineaBissau;
+  String get gw;
 
   /// Display name for Guyana
   ///
   /// In en, this message translates to:
   /// **'Guyana'**
-  String get guyana;
+  String get gy;
 
   /// Display name for Haiti
   ///
   /// In en, this message translates to:
   /// **'Haiti'**
-  String get haiti;
+  String get ht;
 
   /// Display name for Holy See (Vatican City State)
   ///
   /// In en, this message translates to:
   /// **'Holy See (Vatican City State)'**
-  String get holySeeVaticanCityState;
+  String get va;
 
   /// Display name for Honduras
   ///
   /// In en, this message translates to:
   /// **'Honduras'**
-  String get honduras;
+  String get hn;
 
   /// Display name for Hong Kong
   ///
   /// In en, this message translates to:
   /// **'Hong Kong'**
-  String get hongKong;
+  String get hk;
 
   /// Display name for Hungary
   ///
   /// In en, this message translates to:
   /// **'Hungary'**
-  String get hungary;
+  String get hu;
 
   /// Display name for Iceland
   ///
   /// In en, this message translates to:
   /// **'Iceland'**
-  String get iceland;
+  String get is1;
 
   /// Display name for India
   ///
   /// In en, this message translates to:
   /// **'India'**
-  String get india;
+  String get in1;
 
   /// Display name for Indonesia
   ///
   /// In en, this message translates to:
   /// **'Indonesia'**
-  String get indonesia;
+  String get id;
 
   /// Display name for Iran, Islamic Republic of Persian Gulf
   ///
   /// In en, this message translates to:
   /// **'Iran, Islamic Republic of Persian Gulf'**
-  String get iranIslamicRepublicofPersianGulf;
+  String get ir;
 
   /// Display name for Iraq
   ///
   /// In en, this message translates to:
   /// **'Iraq'**
-  String get iraq;
+  String get iq;
 
   /// Display name for Ireland
   ///
   /// In en, this message translates to:
   /// **'Ireland'**
-  String get ireland;
+  String get ie;
 
   /// Display name for Isle of Man
   ///
   /// In en, this message translates to:
   /// **'Isle of Man'**
-  String get isleofMan;
+  String get im;
 
   /// Display name for Israel
   ///
   /// In en, this message translates to:
   /// **'Israel'**
-  String get israel;
+  String get il;
 
   /// Display name for Italy
   ///
   /// In en, this message translates to:
   /// **'Italy'**
-  String get italy;
+  String get it;
 
   /// Display name for Jamaica
   ///
   /// In en, this message translates to:
   /// **'Jamaica'**
-  String get jamaica;
+  String get jm;
 
   /// Display name for Japan
   ///
   /// In en, this message translates to:
   /// **'Japan'**
-  String get japan;
+  String get jp;
 
   /// Display name for Jersey
   ///
   /// In en, this message translates to:
   /// **'Jersey'**
-  String get jersey;
+  String get je;
 
   /// Display name for Jordan
   ///
   /// In en, this message translates to:
   /// **'Jordan'**
-  String get jordan;
+  String get jo;
 
   /// Display name for Kazakhstan
   ///
   /// In en, this message translates to:
   /// **'Kazakhstan'**
-  String get kazakhstan;
+  String get kz;
 
   /// Display name for Kenya
   ///
   /// In en, this message translates to:
   /// **'Kenya'**
-  String get kenya;
+  String get ke;
 
   /// Display name for Kiribati
   ///
   /// In en, this message translates to:
   /// **'Kiribati'**
-  String get kiribati;
+  String get ki;
 
   /// Display name for Korea, Democratic Peoples Republic of Korea
   ///
   /// In en, this message translates to:
   /// **'Korea, Democratic Peoples Republic of Korea'**
-  String get koreaDemocraticPeoplesRepublicofKorea;
+  String get kp;
 
   /// Display name for Korea, Republic of South Korea
   ///
   /// In en, this message translates to:
   /// **'Korea, Republic of South Korea'**
-  String get koreaRepublicofSouthKorea;
+  String get kr;
 
   /// Display name for Kuwait
   ///
   /// In en, this message translates to:
   /// **'Kuwait'**
-  String get kuwait;
+  String get kw;
 
   /// Display name for Kyrgyzstan
   ///
   /// In en, this message translates to:
   /// **'Kyrgyzstan'**
-  String get kyrgyzstan;
+  String get kg;
 
   /// Display name for Laos
   ///
   /// In en, this message translates to:
   /// **'Laos'**
-  String get laos;
+  String get la;
 
   /// Display name for Latvia
   ///
   /// In en, this message translates to:
   /// **'Latvia'**
-  String get latvia;
+  String get lv;
 
   /// Display name for Lebanon
   ///
   /// In en, this message translates to:
   /// **'Lebanon'**
-  String get lebanon;
+  String get lb;
 
   /// Display name for Lesotho
   ///
   /// In en, this message translates to:
   /// **'Lesotho'**
-  String get lesotho;
+  String get ls;
 
   /// Display name for Liberia
   ///
   /// In en, this message translates to:
   /// **'Liberia'**
-  String get liberia;
+  String get lr;
 
   /// Display name for Libyan Arab Jamahiriya
   ///
   /// In en, this message translates to:
   /// **'Libyan Arab Jamahiriya'**
-  String get libyanArabJamahiriya;
+  String get ly;
 
   /// Display name for Liechtenstein
   ///
   /// In en, this message translates to:
   /// **'Liechtenstein'**
-  String get liechtenstein;
+  String get li;
 
   /// Display name for Lithuania
   ///
   /// In en, this message translates to:
   /// **'Lithuania'**
-  String get lithuania;
+  String get lt;
 
   /// Display name for Luxembourg
   ///
   /// In en, this message translates to:
   /// **'Luxembourg'**
-  String get luxembourg;
+  String get lu;
 
   /// Display name for Macao
   ///
   /// In en, this message translates to:
   /// **'Macao'**
-  String get macao;
+  String get mo;
 
   /// Display name for Macedonia
   ///
   /// In en, this message translates to:
   /// **'Macedonia'**
-  String get macedonia;
+  String get mk;
 
   /// Display name for Madagascar
   ///
   /// In en, this message translates to:
   /// **'Madagascar'**
-  String get madagascar;
+  String get mg;
 
   /// Display name for Malawi
   ///
   /// In en, this message translates to:
   /// **'Malawi'**
-  String get malawi;
+  String get mw;
 
   /// Display name for Malaysia
   ///
   /// In en, this message translates to:
   /// **'Malaysia'**
-  String get malaysia;
+  String get my;
 
   /// Display name for Maldives
   ///
   /// In en, this message translates to:
   /// **'Maldives'**
-  String get maldives;
+  String get mv;
 
   /// Display name for Mali
   ///
   /// In en, this message translates to:
   /// **'Mali'**
-  String get mali;
+  String get ml;
 
   /// Display name for Malta
   ///
   /// In en, this message translates to:
   /// **'Malta'**
-  String get malta;
+  String get mt;
 
   /// Display name for Marshall Islands
   ///
   /// In en, this message translates to:
   /// **'Marshall Islands'**
-  String get marshallIslands;
+  String get mh;
 
   /// Display name for Martinique
   ///
   /// In en, this message translates to:
   /// **'Martinique'**
-  String get martinique;
+  String get mq;
 
   /// Display name for Mauritania
   ///
   /// In en, this message translates to:
   /// **'Mauritania'**
-  String get mauritania;
+  String get mr;
 
   /// Display name for Mauritius
   ///
   /// In en, this message translates to:
   /// **'Mauritius'**
-  String get mauritius;
+  String get mu;
 
   /// Display name for Mayotte
   ///
   /// In en, this message translates to:
   /// **'Mayotte'**
-  String get mayotte;
+  String get yt;
 
   /// Display name for Mexico
   ///
   /// In en, this message translates to:
   /// **'Mexico'**
-  String get mexico;
+  String get mx;
 
   /// Display name for Micronesia, Federated States of Micronesia
   ///
   /// In en, this message translates to:
   /// **'Micronesia, Federated States of Micronesia'**
-  String get micronesiaFederatedStatesofMicronesia;
+  String get fm;
 
   /// Display name for Moldova
   ///
   /// In en, this message translates to:
   /// **'Moldova'**
-  String get moldova;
+  String get md;
 
   /// Display name for Monaco
   ///
   /// In en, this message translates to:
   /// **'Monaco'**
-  String get monaco;
+  String get mc;
 
   /// Display name for Mongolia
   ///
   /// In en, this message translates to:
   /// **'Mongolia'**
-  String get mongolia;
+  String get mn;
 
   /// Display name for Montenegro
   ///
   /// In en, this message translates to:
   /// **'Montenegro'**
-  String get montenegro;
+  String get me;
 
   /// Display name for Montserrat
   ///
   /// In en, this message translates to:
   /// **'Montserrat'**
-  String get montserrat;
+  String get ms;
 
   /// Display name for Morocco
   ///
   /// In en, this message translates to:
   /// **'Morocco'**
-  String get morocco;
+  String get ma;
 
   /// Display name for Mozambique
   ///
   /// In en, this message translates to:
   /// **'Mozambique'**
-  String get mozambique;
+  String get mz;
 
   /// Display name for Myanmar
   ///
   /// In en, this message translates to:
   /// **'Myanmar'**
-  String get myanmar;
+  String get mm;
 
   /// Display name for Namibia
   ///
   /// In en, this message translates to:
   /// **'Namibia'**
-  String get namibia;
+  String get na;
 
   /// Display name for Nauru
   ///
   /// In en, this message translates to:
   /// **'Nauru'**
-  String get nauru;
+  String get nr;
 
   /// Display name for Nepal
   ///
   /// In en, this message translates to:
   /// **'Nepal'**
-  String get nepal;
+  String get np;
 
   /// Display name for Netherlands
   ///
   /// In en, this message translates to:
   /// **'Netherlands'**
-  String get netherlands;
+  String get nl;
 
   /// Display name for Netherlands Antilles
   ///
   /// In en, this message translates to:
   /// **'Netherlands Antilles'**
-  String get netherlandsAntilles;
+  String get an;
 
   /// Display name for New Caledonia
   ///
   /// In en, this message translates to:
   /// **'New Caledonia'**
-  String get newCaledonia;
+  String get nc;
 
   /// Display name for New Zealand
   ///
   /// In en, this message translates to:
   /// **'New Zealand'**
-  String get newZealand;
+  String get nz;
 
   /// Display name for Nicaragua
   ///
   /// In en, this message translates to:
   /// **'Nicaragua'**
-  String get nicaragua;
+  String get ni;
 
   /// Display name for Niger
   ///
   /// In en, this message translates to:
   /// **'Niger'**
-  String get niger;
+  String get ne;
 
   /// Display name for Nigeria
   ///
   /// In en, this message translates to:
   /// **'Nigeria'**
-  String get nigeria;
+  String get ng;
 
   /// Display name for Niue
   ///
   /// In en, this message translates to:
   /// **'Niue'**
-  String get niue;
+  String get nu;
 
   /// Display name for Norfolk Island
   ///
   /// In en, this message translates to:
   /// **'Norfolk Island'**
-  String get norfolkIsland;
+  String get nf;
 
   /// Display name for Northern Mariana Islands
   ///
   /// In en, this message translates to:
   /// **'Northern Mariana Islands'**
-  String get northernMarianaIslands;
+  String get mp;
 
   /// Display name for Norway
   ///
   /// In en, this message translates to:
   /// **'Norway'**
-  String get norway;
+  String get no;
 
   /// Display name for Oman
   ///
   /// In en, this message translates to:
   /// **'Oman'**
-  String get oman;
+  String get om;
 
   /// Display name for Pakistan
   ///
   /// In en, this message translates to:
   /// **'Pakistan'**
-  String get pakistan;
+  String get pk;
 
   /// Display name for Palau
   ///
   /// In en, this message translates to:
   /// **'Palau'**
-  String get palau;
+  String get pw;
 
   /// Display name for Palestinian Territory, Occupied
   ///
   /// In en, this message translates to:
   /// **'Palestinian Territory, Occupied'**
-  String get palestinianTerritoryOccupied;
+  String get ps;
 
   /// Display name for Panama
   ///
   /// In en, this message translates to:
   /// **'Panama'**
-  String get panama;
+  String get pa;
 
   /// Display name for Papua New Guinea
   ///
   /// In en, this message translates to:
   /// **'Papua New Guinea'**
-  String get papuaNewGuinea;
+  String get pg;
 
   /// Display name for Paraguay
   ///
   /// In en, this message translates to:
   /// **'Paraguay'**
-  String get paraguay;
+  String get py;
 
   /// Display name for Peru
   ///
   /// In en, this message translates to:
   /// **'Peru'**
-  String get peru;
+  String get pe;
 
   /// Display name for Philippines
   ///
   /// In en, this message translates to:
   /// **'Philippines'**
-  String get philippines;
+  String get ph;
 
   /// Display name for Pitcairn
   ///
   /// In en, this message translates to:
   /// **'Pitcairn'**
-  String get pitcairn;
+  String get pn;
 
   /// Display name for Poland
   ///
   /// In en, this message translates to:
   /// **'Poland'**
-  String get poland;
+  String get pl;
 
   /// Display name for Portugal
   ///
   /// In en, this message translates to:
   /// **'Portugal'**
-  String get portugal;
+  String get pt;
 
   /// Display name for Puerto Rico
   ///
   /// In en, this message translates to:
   /// **'Puerto Rico'**
-  String get puertoRico;
+  String get pr;
 
   /// Display name for Qatar
   ///
   /// In en, this message translates to:
   /// **'Qatar'**
-  String get qatar;
+  String get qa;
 
   /// Display name for Romania
   ///
   /// In en, this message translates to:
   /// **'Romania'**
-  String get romania;
+  String get ro;
 
   /// Display name for Russia
   ///
   /// In en, this message translates to:
   /// **'Russia'**
-  String get russia;
+  String get ru;
 
   /// Display name for Rwanda
   ///
   /// In en, this message translates to:
   /// **'Rwanda'**
-  String get rwanda;
+  String get rw;
 
   /// Display name for Reunion
   ///
   /// In en, this message translates to:
   /// **'Reunion'**
-  String get reunion;
+  String get re;
 
   /// Display name for Saint Barthelemy
   ///
   /// In en, this message translates to:
   /// **'Saint Barthelemy'**
-  String get saintBarthelemy;
+  String get bl;
 
   /// Display name for Saint Helena, Ascension and Tristan Da Cunha
   ///
   /// In en, this message translates to:
   /// **'Saint Helena, Ascension and Tristan Da Cunha'**
-  String get saintHelenaAscensionandTristanDaCunha;
+  String get sh;
 
   /// Display name for Saint Kitts and Nevis
   ///
   /// In en, this message translates to:
   /// **'Saint Kitts and Nevis'**
-  String get saintKittsandNevis;
+  String get kn;
 
   /// Display name for Saint Lucia
   ///
   /// In en, this message translates to:
   /// **'Saint Lucia'**
-  String get saintLucia;
+  String get lc;
 
   /// Display name for Saint Martin
   ///
   /// In en, this message translates to:
   /// **'Saint Martin'**
-  String get saintMartin;
+  String get mf;
 
   /// Display name for Saint Pierre and Miquelon
   ///
   /// In en, this message translates to:
   /// **'Saint Pierre and Miquelon'**
-  String get saintPierreandMiquelon;
+  String get pm;
 
   /// Display name for Saint Vincent and the Grenadines
   ///
   /// In en, this message translates to:
   /// **'Saint Vincent and the Grenadines'**
-  String get saintVincentandtheGrenadines;
+  String get vc;
 
   /// Display name for Samoa
   ///
   /// In en, this message translates to:
   /// **'Samoa'**
-  String get samoa;
+  String get ws;
 
   /// Display name for San Marino
   ///
   /// In en, this message translates to:
   /// **'San Marino'**
-  String get sanMarino;
+  String get sm;
 
   /// Display name for Sao Tome and Principe
   ///
   /// In en, this message translates to:
   /// **'Sao Tome and Principe'**
-  String get saoTomeandPrincipe;
+  String get st;
 
   /// Display name for Saudi Arabia
   ///
   /// In en, this message translates to:
   /// **'Saudi Arabia'**
-  String get saudiArabia;
+  String get sa;
 
   /// Display name for Senegal
   ///
   /// In en, this message translates to:
   /// **'Senegal'**
-  String get senegal;
+  String get sn;
 
   /// Display name for Serbia
   ///
   /// In en, this message translates to:
   /// **'Serbia'**
-  String get serbia;
+  String get rs;
 
   /// Display name for Seychelles
   ///
   /// In en, this message translates to:
   /// **'Seychelles'**
-  String get seychelles;
+  String get sc;
 
   /// Display name for Sierra Leone
   ///
   /// In en, this message translates to:
   /// **'Sierra Leone'**
-  String get sierraLeone;
+  String get sl;
 
   /// Display name for Singapore
   ///
   /// In en, this message translates to:
   /// **'Singapore'**
-  String get singapore;
+  String get sg;
 
   /// Display name for Slovakia
   ///
   /// In en, this message translates to:
   /// **'Slovakia'**
-  String get slovakia;
+  String get sk;
 
   /// Display name for Slovenia
   ///
   /// In en, this message translates to:
   /// **'Slovenia'**
-  String get slovenia;
+  String get si;
 
   /// Display name for Solomon Islands
   ///
   /// In en, this message translates to:
   /// **'Solomon Islands'**
-  String get solomonIslands;
+  String get sb;
 
   /// Display name for Somalia
   ///
   /// In en, this message translates to:
   /// **'Somalia'**
-  String get somalia;
+  String get so;
 
   /// Display name for South Africa
   ///
   /// In en, this message translates to:
   /// **'South Africa'**
-  String get southAfrica;
+  String get za;
 
   /// Display name for South Sudan
   ///
   /// In en, this message translates to:
   /// **'South Sudan'**
-  String get southSudan;
+  String get ss;
 
   /// Display name for South Georgia and the South Sandwich Islands
   ///
   /// In en, this message translates to:
   /// **'South Georgia and the South Sandwich Islands'**
-  String get southGeorgiaandtheSouthSandwichIslands;
+  String get gs;
 
   /// Display name for Spain
   ///
   /// In en, this message translates to:
   /// **'Spain'**
-  String get spain;
+  String get es;
 
   /// Display name for Sri Lanka
   ///
   /// In en, this message translates to:
   /// **'Sri Lanka'**
-  String get sriLanka;
+  String get lk;
 
   /// Display name for Sudan
   ///
   /// In en, this message translates to:
   /// **'Sudan'**
-  String get sudan;
+  String get sd;
 
   /// Display name for Suriname
   ///
   /// In en, this message translates to:
   /// **'Suriname'**
-  String get suriname;
+  String get sr;
 
   /// Display name for Svalbard and Jan Mayen
   ///
   /// In en, this message translates to:
   /// **'Svalbard and Jan Mayen'**
-  String get svalbardandJanMayen;
+  String get sj;
 
   /// Display name for Swaziland
   ///
   /// In en, this message translates to:
   /// **'Swaziland'**
-  String get swaziland;
+  String get sz;
 
   /// Display name for Sweden
   ///
   /// In en, this message translates to:
   /// **'Sweden'**
-  String get sweden;
+  String get se;
 
   /// Display name for Switzerland
   ///
   /// In en, this message translates to:
   /// **'Switzerland'**
-  String get switzerland;
+  String get ch;
 
   /// Display name for Syrian Arab Republic
   ///
   /// In en, this message translates to:
   /// **'Syrian Arab Republic'**
-  String get syrianArabRepublic;
+  String get sy;
 
   /// Display name for Taiwan
   ///
   /// In en, this message translates to:
   /// **'Taiwan'**
-  String get taiwan;
+  String get tw;
 
   /// Display name for Tajikistan
   ///
   /// In en, this message translates to:
   /// **'Tajikistan'**
-  String get tajikistan;
+  String get tj;
 
   /// Display name for Tanzania, United Republic of Tanzania
   ///
   /// In en, this message translates to:
   /// **'Tanzania, United Republic of Tanzania'**
-  String get tanzaniaUnitedRepublicofTanzania;
+  String get tz;
 
   /// Display name for Thailand
   ///
   /// In en, this message translates to:
   /// **'Thailand'**
-  String get thailand;
+  String get th;
 
   /// Display name for Timor-Leste
   ///
   /// In en, this message translates to:
   /// **'Timor-Leste'**
-  String get timorLeste;
+  String get tl;
 
   /// Display name for Togo
   ///
   /// In en, this message translates to:
   /// **'Togo'**
-  String get togo;
+  String get tg;
 
   /// Display name for Tokelau
   ///
   /// In en, this message translates to:
   /// **'Tokelau'**
-  String get tokelau;
+  String get tk;
 
   /// Display name for Tonga
   ///
   /// In en, this message translates to:
   /// **'Tonga'**
-  String get tonga;
+  String get to;
 
   /// Display name for Trinidad and Tobago
   ///
   /// In en, this message translates to:
   /// **'Trinidad and Tobago'**
-  String get trinidadandTobago;
+  String get tt;
 
   /// Display name for Tunisia
   ///
   /// In en, this message translates to:
   /// **'Tunisia'**
-  String get tunisia;
+  String get tn;
 
   /// Display name for Turkey
   ///
   /// In en, this message translates to:
   /// **'Turkey'**
-  String get turkey;
+  String get tr;
 
   /// Display name for Turkmenistan
   ///
   /// In en, this message translates to:
   /// **'Turkmenistan'**
-  String get turkmenistan;
+  String get tm;
 
   /// Display name for Turks and Caicos Islands
   ///
   /// In en, this message translates to:
   /// **'Turks and Caicos Islands'**
-  String get turksandCaicosIslands;
+  String get tc;
 
   /// Display name for Tuvalu
   ///
   /// In en, this message translates to:
   /// **'Tuvalu'**
-  String get tuvalu;
+  String get tv;
 
   /// Display name for Uganda
   ///
   /// In en, this message translates to:
   /// **'Uganda'**
-  String get uganda;
+  String get ug;
 
   /// Display name for Ukraine
   ///
   /// In en, this message translates to:
   /// **'Ukraine'**
-  String get ukraine;
+  String get ua;
 
   /// Display name for United Arab Emirates
   ///
   /// In en, this message translates to:
   /// **'United Arab Emirates'**
-  String get unitedArabEmirates;
+  String get ae;
 
   /// Display name for United Kingdom
   ///
   /// In en, this message translates to:
   /// **'United Kingdom'**
-  String get unitedKingdom;
+  String get gb;
 
   /// Display name for United States
   ///
   /// In en, this message translates to:
   /// **'United States'**
-  String get unitedStates;
+  String get us;
 
   /// Display name for Uruguay
   ///
   /// In en, this message translates to:
   /// **'Uruguay'**
-  String get uruguay;
+  String get uy;
 
   /// Display name for Uzbekistan
   ///
   /// In en, this message translates to:
   /// **'Uzbekistan'**
-  String get uzbekistan;
+  String get uz;
 
   /// Display name for Vanuatu
   ///
   /// In en, this message translates to:
   /// **'Vanuatu'**
-  String get vanuatu;
+  String get vu;
 
   /// Display name for Venezuela, Bolivarian Republic of Venezuela
   ///
   /// In en, this message translates to:
   /// **'Venezuela, Bolivarian Republic of Venezuela'**
-  String get venezuelaBolivarianRepublicofVenezuela;
+  String get ve;
 
   /// Display name for Vietnam
   ///
   /// In en, this message translates to:
   /// **'Vietnam'**
-  String get vietnam;
+  String get vn;
 
   /// Display name for Virgin IslandsBritish
   ///
   /// In en, this message translates to:
   /// **'Virgin IslandsBritish'**
-  String get virginIslandsBritish;
+  String get vg;
 
   /// Display name for Virgin IslandsUS
   ///
   /// In en, this message translates to:
   /// **'Virgin IslandsUS'**
-  String get virginIslandsUS;
+  String get vi;
 
   /// Display name for Wallis and Futuna
   ///
   /// In en, this message translates to:
   /// **'Wallis and Futuna'**
-  String get wallisandFutuna;
+  String get wf;
 
   /// Display name for Yemen
   ///
   /// In en, this message translates to:
   /// **'Yemen'**
-  String get yemen;
+  String get ye;
 
   /// Display name for Zambia
   ///
   /// In en, this message translates to:
   /// **'Zambia'**
-  String get zambia;
+  String get zm;
 
   /// Display name for Zimbabwe
   ///
   /// In en, this message translates to:
   /// **'Zimbabwe'**
-  String get zimbabwe;
+  String get zw;
 }
 
 class _AuthenticatorCountryLocalizationsDelegate

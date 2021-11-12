@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/amplify_authenticator.dart';
-
 import 'country_localizations.dart';
 
 /// The translations for English (`en`).
@@ -29,736 +27,728 @@ class AuthenticatorCountryLocalizationsEn
   String get noDialCodeSearchResults => 'No search results match your criteria';
 
   @override
-  String get afghanistan => 'Afghanistan';
+  String get af => 'Afghanistan';
 
   @override
-  String get alandIslands => 'Aland Islands';
+  String get ax => 'Aland Islands';
 
   @override
-  String get albania => 'Albania';
+  String get al => 'Albania';
 
   @override
-  String get algeria => 'Algeria';
+  String get dz => 'Algeria';
 
   @override
-  String get americanSamoa => 'AmericanSamoa';
+  String get as1 => 'AmericanSamoa';
 
   @override
-  String get andorra => 'Andorra';
+  String get ad => 'Andorra';
 
   @override
-  String get angola => 'Angola';
+  String get ao => 'Angola';
 
   @override
-  String get anguilla => 'Anguilla';
+  String get ai => 'Anguilla';
 
   @override
-  String get antarctica => 'Antarctica';
+  String get aq => 'Antarctica';
 
   @override
-  String get antiguaandBarbuda => 'Antigua and Barbuda';
+  String get ag => 'Antigua and Barbuda';
 
   @override
-  String get argentina => 'Argentina';
+  String get ar => 'Argentina';
 
   @override
-  String get armenia => 'Armenia';
+  String get am => 'Armenia';
 
   @override
-  String get aruba => 'Aruba';
+  String get aw => 'Aruba';
 
   @override
-  String get australia => 'Australia';
+  String get au => 'Australia';
 
   @override
-  String get austria => 'Austria';
+  String get at => 'Austria';
 
   @override
-  String get azerbaijan => 'Azerbaijan';
+  String get az => 'Azerbaijan';
 
   @override
-  String get bahamas => 'Bahamas';
+  String get bs => 'Bahamas';
 
   @override
-  String get bahrain => 'Bahrain';
+  String get bh => 'Bahrain';
 
   @override
-  String get bangladesh => 'Bangladesh';
+  String get bd => 'Bangladesh';
 
   @override
-  String get barbados => 'Barbados';
+  String get bb => 'Barbados';
 
   @override
-  String get belarus => 'Belarus';
+  String get by => 'Belarus';
 
   @override
-  String get belgium => 'Belgium';
+  String get be => 'Belgium';
 
   @override
-  String get belize => 'Belize';
+  String get bz => 'Belize';
 
   @override
-  String get benin => 'Benin';
+  String get bj => 'Benin';
 
   @override
-  String get bermuda => 'Bermuda';
+  String get bm => 'Bermuda';
 
   @override
-  String get bhutan => 'Bhutan';
+  String get bt => 'Bhutan';
 
   @override
-  String get boliviaPlurinationalStateof => 'Bolivia, Plurinational State of';
+  String get bo => 'Bolivia, Plurinational State of';
 
   @override
-  String get bosniaandHerzegovina => 'Bosnia and Herzegovina';
+  String get ba => 'Bosnia and Herzegovina';
 
   @override
-  String get botswana => 'Botswana';
+  String get bw => 'Botswana';
 
   @override
-  String get brazil => 'Brazil';
+  String get br => 'Brazil';
 
   @override
-  String get britishIndianOceanTerritory => 'British Indian Ocean Territory';
+  String get io => 'British Indian Ocean Territory';
 
   @override
-  String get bruneiDarussalam => 'Brunei Darussalam';
+  String get bn => 'Brunei Darussalam';
 
   @override
-  String get bulgaria => 'Bulgaria';
+  String get bg => 'Bulgaria';
 
   @override
-  String get burkinaFaso => 'Burkina Faso';
+  String get bf => 'Burkina Faso';
 
   @override
-  String get burundi => 'Burundi';
+  String get bi => 'Burundi';
 
   @override
-  String get cambodia => 'Cambodia';
+  String get kh => 'Cambodia';
 
   @override
-  String get cameroon => 'Cameroon';
+  String get cm => 'Cameroon';
 
   @override
-  String get canada => 'Canada';
+  String get ca => 'Canada';
 
   @override
-  String get capeVerde => 'Cape Verde';
+  String get cv => 'Cape Verde';
 
   @override
-  String get caymanIslands => 'Cayman Islands';
+  String get ky => 'Cayman Islands';
 
   @override
-  String get centralAfricanRepublic => 'Central African Republic';
+  String get cf => 'Central African Republic';
 
   @override
-  String get chad => 'Chad';
+  String get td => 'Chad';
 
   @override
-  String get chile => 'Chile';
+  String get cl => 'Chile';
 
   @override
-  String get china => 'China';
+  String get cn => 'China';
 
   @override
-  String get christmasIsland => 'Christmas Island';
+  String get cx => 'Christmas Island';
 
   @override
-  String get cocosKeelingIslands => 'Cocos (Keeling) Islands';
+  String get cc => 'Cocos (Keeling) Islands';
 
   @override
-  String get colombia => 'Colombia';
+  String get co => 'Colombia';
 
   @override
-  String get comoros => 'Comoros';
+  String get km => 'Comoros';
 
   @override
-  String get congo => 'Congo';
+  String get cg => 'Congo';
 
   @override
-  String get congoTheDemocraticRepublicoftheCongo =>
-      'Congo The Democratic Republic of the Congo';
+  String get cd => 'Congo The Democratic Republic of the Congo';
 
   @override
-  String get cookIslands => 'Cook Islands';
+  String get ck => 'Cook Islands';
 
   @override
-  String get costaRica => 'Costa Rica';
+  String get cr => 'Costa Rica';
 
   @override
-  String get cotedIvoire => 'Cote dIvoire';
+  String get ci => 'Cote dIvoire';
 
   @override
-  String get croatia => 'Croatia';
+  String get hr => 'Croatia';
 
   @override
-  String get cuba => 'Cuba';
+  String get cu => 'Cuba';
 
   @override
-  String get cyprus => 'Cyprus';
+  String get cy => 'Cyprus';
 
   @override
-  String get czechRepublic => 'Czech Republic';
+  String get cz => 'Czech Republic';
 
   @override
-  String get denmark => 'Denmark';
+  String get dk => 'Denmark';
 
   @override
-  String get djibouti => 'Djibouti';
+  String get dj => 'Djibouti';
 
   @override
-  String get dominica => 'Dominica';
+  String get dm => 'Dominica';
 
   @override
-  String get dominicanRepublic => 'Dominican Republic';
+  String get do1 => 'Dominican Republic';
 
   @override
-  String get ecuador => 'Ecuador';
+  String get ec => 'Ecuador';
 
   @override
-  String get egypt => 'Egypt';
+  String get eg => 'Egypt';
 
   @override
-  String get elSalvador => 'El Salvador';
+  String get sv => 'El Salvador';
 
   @override
-  String get equatorialGuinea => 'Equatorial Guinea';
+  String get gq => 'Equatorial Guinea';
 
   @override
-  String get eritrea => 'Eritrea';
+  String get er => 'Eritrea';
 
   @override
-  String get estonia => 'Estonia';
+  String get ee => 'Estonia';
 
   @override
-  String get ethiopia => 'Ethiopia';
+  String get et => 'Ethiopia';
 
   @override
-  String get falklandIslandsMalvinas => 'Falkland Islands (Malvinas)';
+  String get fk => 'Falkland Islands (Malvinas)';
 
   @override
-  String get faroeIslands => 'Faroe Islands';
+  String get fo => 'Faroe Islands';
 
   @override
-  String get fiji => 'Fiji';
+  String get fj => 'Fiji';
 
   @override
-  String get finland => 'Finland';
+  String get fi => 'Finland';
 
   @override
-  String get france => 'France';
+  String get fr => 'France';
 
   @override
-  String get frenchGuiana => 'French Guiana';
+  String get gf => 'French Guiana';
 
   @override
-  String get frenchPolynesia => 'French Polynesia';
+  String get pf => 'French Polynesia';
 
   @override
-  String get gabon => 'Gabon';
+  String get ga => 'Gabon';
 
   @override
-  String get gambia => 'Gambia';
+  String get gm => 'Gambia';
 
   @override
-  String get georgia => 'Georgia';
+  String get ge => 'Georgia';
 
   @override
-  String get germany => 'Germany';
+  String get de => 'Germany';
 
   @override
-  String get ghana => 'Ghana';
+  String get gh => 'Ghana';
 
   @override
-  String get gibraltar => 'Gibraltar';
+  String get gi => 'Gibraltar';
 
   @override
-  String get greece => 'Greece';
+  String get gr => 'Greece';
 
   @override
-  String get greenland => 'Greenland';
+  String get gl => 'Greenland';
 
   @override
-  String get grenada => 'Grenada';
+  String get gd => 'Grenada';
 
   @override
-  String get guadeloupe => 'Guadeloupe';
+  String get gp => 'Guadeloupe';
 
   @override
-  String get guam => 'Guam';
+  String get gu => 'Guam';
 
   @override
-  String get guatemala => 'Guatemala';
+  String get gt => 'Guatemala';
 
   @override
-  String get guernsey => 'Guernsey';
+  String get gg => 'Guernsey';
 
   @override
-  String get guinea => 'Guinea';
+  String get gn => 'Guinea';
 
   @override
-  String get guineaBissau => 'Guinea-Bissau';
+  String get gw => 'Guinea-Bissau';
 
   @override
-  String get guyana => 'Guyana';
+  String get gy => 'Guyana';
 
   @override
-  String get haiti => 'Haiti';
+  String get ht => 'Haiti';
 
   @override
-  String get holySeeVaticanCityState => 'Holy See (Vatican City State)';
+  String get va => 'Holy See (Vatican City State)';
 
   @override
-  String get honduras => 'Honduras';
+  String get hn => 'Honduras';
 
   @override
-  String get hongKong => 'Hong Kong';
+  String get hk => 'Hong Kong';
 
   @override
-  String get hungary => 'Hungary';
+  String get hu => 'Hungary';
 
   @override
-  String get iceland => 'Iceland';
+  String get is1 => 'Iceland';
 
   @override
-  String get india => 'India';
+  String get in1 => 'India';
 
   @override
-  String get indonesia => 'Indonesia';
+  String get id => 'Indonesia';
 
   @override
-  String get iranIslamicRepublicofPersianGulf =>
-      'Iran, Islamic Republic of Persian Gulf';
+  String get ir => 'Iran, Islamic Republic of Persian Gulf';
 
   @override
-  String get iraq => 'Iraq';
+  String get iq => 'Iraq';
 
   @override
-  String get ireland => 'Ireland';
+  String get ie => 'Ireland';
 
   @override
-  String get isleofMan => 'Isle of Man';
+  String get im => 'Isle of Man';
 
   @override
-  String get israel => 'Israel';
+  String get il => 'Israel';
 
   @override
-  String get italy => 'Italy';
+  String get it => 'Italy';
 
   @override
-  String get jamaica => 'Jamaica';
+  String get jm => 'Jamaica';
 
   @override
-  String get japan => 'Japan';
+  String get jp => 'Japan';
 
   @override
-  String get jersey => 'Jersey';
+  String get je => 'Jersey';
 
   @override
-  String get jordan => 'Jordan';
+  String get jo => 'Jordan';
 
   @override
-  String get kazakhstan => 'Kazakhstan';
+  String get kz => 'Kazakhstan';
 
   @override
-  String get kenya => 'Kenya';
+  String get ke => 'Kenya';
 
   @override
-  String get kiribati => 'Kiribati';
+  String get ki => 'Kiribati';
 
   @override
-  String get koreaDemocraticPeoplesRepublicofKorea =>
-      'Korea, Democratic Peoples Republic of Korea';
+  String get kp => 'Korea, Democratic Peoples Republic of Korea';
 
   @override
-  String get koreaRepublicofSouthKorea => 'Korea, Republic of South Korea';
+  String get kr => 'Korea, Republic of South Korea';
 
   @override
-  String get kuwait => 'Kuwait';
+  String get kw => 'Kuwait';
 
   @override
-  String get kyrgyzstan => 'Kyrgyzstan';
+  String get kg => 'Kyrgyzstan';
 
   @override
-  String get laos => 'Laos';
+  String get la => 'Laos';
 
   @override
-  String get latvia => 'Latvia';
+  String get lv => 'Latvia';
 
   @override
-  String get lebanon => 'Lebanon';
+  String get lb => 'Lebanon';
 
   @override
-  String get lesotho => 'Lesotho';
+  String get ls => 'Lesotho';
 
   @override
-  String get liberia => 'Liberia';
+  String get lr => 'Liberia';
 
   @override
-  String get libyanArabJamahiriya => 'Libyan Arab Jamahiriya';
+  String get ly => 'Libyan Arab Jamahiriya';
 
   @override
-  String get liechtenstein => 'Liechtenstein';
+  String get li => 'Liechtenstein';
 
   @override
-  String get lithuania => 'Lithuania';
+  String get lt => 'Lithuania';
 
   @override
-  String get luxembourg => 'Luxembourg';
+  String get lu => 'Luxembourg';
 
   @override
-  String get macao => 'Macao';
+  String get mo => 'Macao';
 
   @override
-  String get macedonia => 'Macedonia';
+  String get mk => 'Macedonia';
 
   @override
-  String get madagascar => 'Madagascar';
+  String get mg => 'Madagascar';
 
   @override
-  String get malawi => 'Malawi';
+  String get mw => 'Malawi';
 
   @override
-  String get malaysia => 'Malaysia';
+  String get my => 'Malaysia';
 
   @override
-  String get maldives => 'Maldives';
+  String get mv => 'Maldives';
 
   @override
-  String get mali => 'Mali';
+  String get ml => 'Mali';
 
   @override
-  String get malta => 'Malta';
+  String get mt => 'Malta';
 
   @override
-  String get marshallIslands => 'Marshall Islands';
+  String get mh => 'Marshall Islands';
 
   @override
-  String get martinique => 'Martinique';
+  String get mq => 'Martinique';
 
   @override
-  String get mauritania => 'Mauritania';
+  String get mr => 'Mauritania';
 
   @override
-  String get mauritius => 'Mauritius';
+  String get mu => 'Mauritius';
 
   @override
-  String get mayotte => 'Mayotte';
+  String get yt => 'Mayotte';
 
   @override
-  String get mexico => 'Mexico';
+  String get mx => 'Mexico';
 
   @override
-  String get micronesiaFederatedStatesofMicronesia =>
-      'Micronesia, Federated States of Micronesia';
+  String get fm => 'Micronesia, Federated States of Micronesia';
 
   @override
-  String get moldova => 'Moldova';
+  String get md => 'Moldova';
 
   @override
-  String get monaco => 'Monaco';
+  String get mc => 'Monaco';
 
   @override
-  String get mongolia => 'Mongolia';
+  String get mn => 'Mongolia';
 
   @override
-  String get montenegro => 'Montenegro';
+  String get me => 'Montenegro';
 
   @override
-  String get montserrat => 'Montserrat';
+  String get ms => 'Montserrat';
 
   @override
-  String get morocco => 'Morocco';
+  String get ma => 'Morocco';
 
   @override
-  String get mozambique => 'Mozambique';
+  String get mz => 'Mozambique';
 
   @override
-  String get myanmar => 'Myanmar';
+  String get mm => 'Myanmar';
 
   @override
-  String get namibia => 'Namibia';
+  String get na => 'Namibia';
 
   @override
-  String get nauru => 'Nauru';
+  String get nr => 'Nauru';
 
   @override
-  String get nepal => 'Nepal';
+  String get np => 'Nepal';
 
   @override
-  String get netherlands => 'Netherlands';
+  String get nl => 'Netherlands';
 
   @override
-  String get netherlandsAntilles => 'Netherlands Antilles';
+  String get an => 'Netherlands Antilles';
 
   @override
-  String get newCaledonia => 'New Caledonia';
+  String get nc => 'New Caledonia';
 
   @override
-  String get newZealand => 'New Zealand';
+  String get nz => 'New Zealand';
 
   @override
-  String get nicaragua => 'Nicaragua';
+  String get ni => 'Nicaragua';
 
   @override
-  String get niger => 'Niger';
+  String get ne => 'Niger';
 
   @override
-  String get nigeria => 'Nigeria';
+  String get ng => 'Nigeria';
 
   @override
-  String get niue => 'Niue';
+  String get nu => 'Niue';
 
   @override
-  String get norfolkIsland => 'Norfolk Island';
+  String get nf => 'Norfolk Island';
 
   @override
-  String get northernMarianaIslands => 'Northern Mariana Islands';
+  String get mp => 'Northern Mariana Islands';
 
   @override
-  String get norway => 'Norway';
+  String get no => 'Norway';
 
   @override
-  String get oman => 'Oman';
+  String get om => 'Oman';
 
   @override
-  String get pakistan => 'Pakistan';
+  String get pk => 'Pakistan';
 
   @override
-  String get palau => 'Palau';
+  String get pw => 'Palau';
 
   @override
-  String get palestinianTerritoryOccupied => 'Palestinian Territory, Occupied';
+  String get ps => 'Palestinian Territory, Occupied';
 
   @override
-  String get panama => 'Panama';
+  String get pa => 'Panama';
 
   @override
-  String get papuaNewGuinea => 'Papua New Guinea';
+  String get pg => 'Papua New Guinea';
 
   @override
-  String get paraguay => 'Paraguay';
+  String get py => 'Paraguay';
 
   @override
-  String get peru => 'Peru';
+  String get pe => 'Peru';
 
   @override
-  String get philippines => 'Philippines';
+  String get ph => 'Philippines';
 
   @override
-  String get pitcairn => 'Pitcairn';
+  String get pn => 'Pitcairn';
 
   @override
-  String get poland => 'Poland';
+  String get pl => 'Poland';
 
   @override
-  String get portugal => 'Portugal';
+  String get pt => 'Portugal';
 
   @override
-  String get puertoRico => 'Puerto Rico';
+  String get pr => 'Puerto Rico';
 
   @override
-  String get qatar => 'Qatar';
+  String get qa => 'Qatar';
 
   @override
-  String get romania => 'Romania';
+  String get ro => 'Romania';
 
   @override
-  String get russia => 'Russia';
+  String get ru => 'Russia';
 
   @override
-  String get rwanda => 'Rwanda';
+  String get rw => 'Rwanda';
 
   @override
-  String get reunion => 'Reunion';
+  String get re => 'Reunion';
 
   @override
-  String get saintBarthelemy => 'Saint Barthelemy';
+  String get bl => 'Saint Barthelemy';
 
   @override
-  String get saintHelenaAscensionandTristanDaCunha =>
-      'Saint Helena, Ascension and Tristan Da Cunha';
+  String get sh => 'Saint Helena, Ascension and Tristan Da Cunha';
 
   @override
-  String get saintKittsandNevis => 'Saint Kitts and Nevis';
+  String get kn => 'Saint Kitts and Nevis';
 
   @override
-  String get saintLucia => 'Saint Lucia';
+  String get lc => 'Saint Lucia';
 
   @override
-  String get saintMartin => 'Saint Martin';
+  String get mf => 'Saint Martin';
 
   @override
-  String get saintPierreandMiquelon => 'Saint Pierre and Miquelon';
+  String get pm => 'Saint Pierre and Miquelon';
 
   @override
-  String get saintVincentandtheGrenadines => 'Saint Vincent and the Grenadines';
+  String get vc => 'Saint Vincent and the Grenadines';
 
   @override
-  String get samoa => 'Samoa';
+  String get ws => 'Samoa';
 
   @override
-  String get sanMarino => 'San Marino';
+  String get sm => 'San Marino';
 
   @override
-  String get saoTomeandPrincipe => 'Sao Tome and Principe';
+  String get st => 'Sao Tome and Principe';
 
   @override
-  String get saudiArabia => 'Saudi Arabia';
+  String get sa => 'Saudi Arabia';
 
   @override
-  String get senegal => 'Senegal';
+  String get sn => 'Senegal';
 
   @override
-  String get serbia => 'Serbia';
+  String get rs => 'Serbia';
 
   @override
-  String get seychelles => 'Seychelles';
+  String get sc => 'Seychelles';
 
   @override
-  String get sierraLeone => 'Sierra Leone';
+  String get sl => 'Sierra Leone';
 
   @override
-  String get singapore => 'Singapore';
+  String get sg => 'Singapore';
 
   @override
-  String get slovakia => 'Slovakia';
+  String get sk => 'Slovakia';
 
   @override
-  String get slovenia => 'Slovenia';
+  String get si => 'Slovenia';
 
   @override
-  String get solomonIslands => 'Solomon Islands';
+  String get sb => 'Solomon Islands';
 
   @override
-  String get somalia => 'Somalia';
+  String get so => 'Somalia';
 
   @override
-  String get southAfrica => 'South Africa';
+  String get za => 'South Africa';
 
   @override
-  String get southSudan => 'South Sudan';
+  String get ss => 'South Sudan';
 
   @override
-  String get southGeorgiaandtheSouthSandwichIslands =>
-      'South Georgia and the South Sandwich Islands';
+  String get gs => 'South Georgia and the South Sandwich Islands';
 
   @override
-  String get spain => 'Spain';
+  String get es => 'Spain';
 
   @override
-  String get sriLanka => 'Sri Lanka';
+  String get lk => 'Sri Lanka';
 
   @override
-  String get sudan => 'Sudan';
+  String get sd => 'Sudan';
 
   @override
-  String get suriname => 'Suriname';
+  String get sr => 'Suriname';
 
   @override
-  String get svalbardandJanMayen => 'Svalbard and Jan Mayen';
+  String get sj => 'Svalbard and Jan Mayen';
 
   @override
-  String get swaziland => 'Swaziland';
+  String get sz => 'Swaziland';
 
   @override
-  String get sweden => 'Sweden';
+  String get se => 'Sweden';
 
   @override
-  String get switzerland => 'Switzerland';
+  String get ch => 'Switzerland';
 
   @override
-  String get syrianArabRepublic => 'Syrian Arab Republic';
+  String get sy => 'Syrian Arab Republic';
 
   @override
-  String get taiwan => 'Taiwan';
+  String get tw => 'Taiwan';
 
   @override
-  String get tajikistan => 'Tajikistan';
+  String get tj => 'Tajikistan';
 
   @override
-  String get tanzaniaUnitedRepublicofTanzania =>
-      'Tanzania, United Republic of Tanzania';
+  String get tz => 'Tanzania, United Republic of Tanzania';
 
   @override
-  String get thailand => 'Thailand';
+  String get th => 'Thailand';
 
   @override
-  String get timorLeste => 'Timor-Leste';
+  String get tl => 'Timor-Leste';
 
   @override
-  String get togo => 'Togo';
+  String get tg => 'Togo';
 
   @override
-  String get tokelau => 'Tokelau';
+  String get tk => 'Tokelau';
 
   @override
-  String get tonga => 'Tonga';
+  String get to => 'Tonga';
 
   @override
-  String get trinidadandTobago => 'Trinidad and Tobago';
+  String get tt => 'Trinidad and Tobago';
 
   @override
-  String get tunisia => 'Tunisia';
+  String get tn => 'Tunisia';
 
   @override
-  String get turkey => 'Turkey';
+  String get tr => 'Turkey';
 
   @override
-  String get turkmenistan => 'Turkmenistan';
+  String get tm => 'Turkmenistan';
 
   @override
-  String get turksandCaicosIslands => 'Turks and Caicos Islands';
+  String get tc => 'Turks and Caicos Islands';
 
   @override
-  String get tuvalu => 'Tuvalu';
+  String get tv => 'Tuvalu';
 
   @override
-  String get uganda => 'Uganda';
+  String get ug => 'Uganda';
 
   @override
-  String get ukraine => 'Ukraine';
+  String get ua => 'Ukraine';
 
   @override
-  String get unitedArabEmirates => 'United Arab Emirates';
+  String get ae => 'United Arab Emirates';
 
   @override
-  String get unitedKingdom => 'United Kingdom';
+  String get gb => 'United Kingdom';
 
   @override
-  String get unitedStates => 'United States';
+  String get us => 'United States';
 
   @override
-  String get uruguay => 'Uruguay';
+  String get uy => 'Uruguay';
 
   @override
-  String get uzbekistan => 'Uzbekistan';
+  String get uz => 'Uzbekistan';
 
   @override
-  String get vanuatu => 'Vanuatu';
+  String get vu => 'Vanuatu';
 
   @override
-  String get venezuelaBolivarianRepublicofVenezuela =>
-      'Venezuela, Bolivarian Republic of Venezuela';
+  String get ve => 'Venezuela, Bolivarian Republic of Venezuela';
 
   @override
-  String get vietnam => 'Vietnam';
+  String get vn => 'Vietnam';
 
   @override
-  String get virginIslandsBritish => 'Virgin IslandsBritish';
+  String get vg => 'Virgin IslandsBritish';
 
   @override
-  String get virginIslandsUS => 'Virgin IslandsUS';
+  String get vi => 'Virgin IslandsUS';
 
   @override
-  String get wallisandFutuna => 'Wallis and Futuna';
+  String get wf => 'Wallis and Futuna';
 
   @override
-  String get yemen => 'Yemen';
+  String get ye => 'Yemen';
 
   @override
-  String get zambia => 'Zambia';
+  String get zm => 'Zambia';
 
   @override
-  String get zimbabwe => 'Zimbabwe';
+  String get zw => 'Zimbabwe';
 }

@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
@@ -14,15 +15,6 @@ mixin AuthenticatorPhoneField<FieldType,
 
   void _setPhoneNumber() {
     onChanged('+$selectionValue$_phoneText');
-  }
-
-  final ValueNotifier<List<Country>> _countries =
-      ValueNotifier<List<Country>>([]);
-
-  @override
-  void initState() {
-    super.initState();
-    _countries.value = countryCodes;
   }
 
   @override
@@ -43,65 +35,29 @@ mixin AuthenticatorPhoneField<FieldType,
               title: Text(countryResolver.resolve(
                   context, CountryResolverKey.selectDialCode)),
               children: <Widget>[
-                Container(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: TextField(
-                      decoration:
-                          const InputDecoration(suffixIcon: Icon(Icons.search)),
-                      onChanged: (String searchValue) {
-                        setState(() {
-                          /// Filter the list of countries based on localized display values
-                          searchValue.isEmpty
-                              ? _countries.value = countryCodes
-                              : _countries.value = _countries.value
-                                  .where((c) => countryResolver
-                                      .resolve(context, c.key)
-                                      .toLowerCase()
-                                      .contains(searchValue.toLowerCase()))
-                                  .toList();
-                        });
-                      },
-                    )),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: ValueListenableBuilder<List<Country>>(
-                      valueListenable: _countries,
-                      builder: (context, _countries, Widget? _) {
-                        return _countries.isNotEmpty
-                            ? ListView.builder(
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  Country current = _countries[index];
-                                  return SimpleDialogOption(
-                                      onPressed: () {
-                                        setState(() {
-                                          selectionValue = current.value;
-                                        });
-                                        _setPhoneNumber();
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text(
-                                          '${countryResolver.resolve(context, current.key)} (+${current.value})'));
-                                },
-                                itemCount: _countries.length,
-                              )
-                            : Container(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                                child: Text(countryResolver.resolve(
-                                    context,
-                                    CountryResolverKey
-                                        .noDialCodeSearchResults)));
-                      }),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      Country current = countryCodes[index];
+                      return SimpleDialogOption(
+                          onPressed: () {
+                            setState(() {
+                              selectionValue = current.value;
+                            });
+                            _setPhoneNumber();
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                              '${countryResolver.resolve(context, current.key)} (+${current.value})'));
+                    },
+                    itemCount: countryCodes.length,
+                  ),
                 )
               ],
             );
           });
-
-      /// Reset list after dialog closes, in case user reopens
-      setState(() {
-        _countries.value = countryCodes;
-      });
     }
 
     return TextFormField(
@@ -121,17 +77,15 @@ mixin AuthenticatorPhoneField<FieldType,
       },
       decoration: InputDecoration(
         prefix: SizedBox(
-          width: 40,
-          child: InkWell(
-            child: Text(
-              '+$selectionValue',
-              style: TextStyle(
-                color: AmplifyTheme.of(context).fontDisabled,
-              ),
-            ),
-            onTap: showCountryDialog,
-          ),
-        ),
+            width: 40,
+            child: InkWell(
+                child: Text(
+                  '+$selectionValue',
+                  style: TextStyle(
+                    color: AmplifyTheme.of(context).fontDisabled,
+                  ),
+                ),
+                onTap: showCountryDialog)),
         suffixIcon: suffixIcon,
         errorMaxLines: errorMaxLines,
         focusedBorder: OutlineInputBorder(
