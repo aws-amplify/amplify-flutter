@@ -472,6 +472,7 @@ class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
           fields: [
             SignInFormField.verificationCode(),
             SignInFormField.newPassword(),
+            SignInFormField.passwordConfirmation()
           ],
         );
 

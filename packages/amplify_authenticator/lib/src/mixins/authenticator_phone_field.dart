@@ -11,9 +11,19 @@ mixin AuthenticatorPhoneField<FieldType,
     on AuthenticatorFormFieldState<FieldType, String, T>
     implements SelectableConfig<String> {
   String _phoneText = '';
+  String _searchVal = '';
 
   void _setPhoneNumber() {
     onChanged('+$selectionValue$_phoneText');
+  }
+
+  final ValueNotifier<List<Country>> _countries =
+      ValueNotifier<List<Country>>([]);
+
+  @override
+  void initState() {
+    super.initState();
+    _countries.value = countryCodes;
   }
 
   @override
@@ -28,39 +38,80 @@ mixin AuthenticatorPhoneField<FieldType,
 
     Future<void> showCountryDialog() async {
       await showDialog<Country>(
-        context: context,
-        builder: (context) {
-          return SimpleDialog(
-            title: Text(countryResolver.resolve(
-                context, CountryResolverKey.selectDialCode)),
-            children: <Widget>[
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    Country current = countryCodes[index];
-                    return SimpleDialogOption(
-                      onPressed: () {
+          context: context,
+          builder: (context) {
+            return SimpleDialog(
+              title: Text(countryResolver.resolve(
+                  context, CountryResolverKey.selectDialCode)),
+              children: <Widget>[
+                Container(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: TextField(
+                      decoration:
+                          const InputDecoration(suffixIcon: Icon(Icons.search)),
+                      onChanged: (String newValue) {
+                        /// Make sure we search on full list when search string gets shorter
+                        if (_searchVal.length > newValue.length) {
+                          setState(() {
+                            _countries.value = countryCodes;
+                          });
+                        }
                         setState(() {
-                          selectionValue = current.value;
+                          /// Filter the list of countries based on localized display values
+                          _searchVal = newValue;
+
+                          /// If search string is empty, display full list; otherwise, filter
+                          newValue.isEmpty
+                              ? _countries.value = countryCodes
+                              : _countries.value = _countries.value
+                                  .where((c) => countryResolver
+                                      .resolve(context, c.key)
+                                      .toLowerCase()
+                                      .contains(newValue.toLowerCase()))
+                                  .toList();
                         });
-                        _setPhoneNumber();
-                        Navigator.pop(context);
                       },
-                      child: Text(
-                        '${countryResolver.resolve(context, current.key)} '
-                        '(+${current.value})',
-                      ),
-                    );
-                  },
-                  itemCount: countryCodes.length,
-                ),
-              )
-            ],
-          );
-        },
-      );
+                    )),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: ValueListenableBuilder<List<Country>>(
+                      valueListenable: _countries,
+                      builder: (context, _countries, Widget? _) {
+                        return _countries.isNotEmpty
+                            ? ListView.builder(
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  Country current = _countries[index];
+                                  return SimpleDialogOption(
+                                      onPressed: () {
+                                        setState(() {
+                                          selectionValue = current.value;
+                                        });
+                                        _setPhoneNumber();
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text(
+                                          '${countryResolver.resolve(context, current.key)} (+${current.value})'));
+                                },
+                                itemCount: _countries.length,
+                              )
+                            : Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                                child: Text(countryResolver.resolve(
+                                    context,
+                                    CountryResolverKey
+                                        .noDialCodeSearchResults)));
+                      }),
+                )
+              ],
+            );
+          });
+
+      /// Reset list after dialog closes, in case user reopens
+      setState(() {
+        _countries.value = countryCodes;
+      });
     }
 
     return TextFormField(
@@ -93,13 +144,7 @@ mixin AuthenticatorPhoneField<FieldType,
         ),
         suffixIcon: suffixIcon,
         errorMaxLines: errorMaxLines,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
         hintText: hintText,
-        border: const OutlineInputBorder(),
       ),
       keyboardType: keyboardType,
       obscureText: obscureText,

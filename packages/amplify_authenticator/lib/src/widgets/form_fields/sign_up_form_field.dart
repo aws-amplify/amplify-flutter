@@ -409,7 +409,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
           ),
         );
       case SignUpField.password:
-        return validateSignUpPassword(
+        return validateNewPassword(
           amplifyConfig: config.amplifyConfig,
           inputResolver: stringResolver.inputs,
         )(context);

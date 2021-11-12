@@ -17,11 +17,13 @@ import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:flutter/material.dart';
 
 import 'button_resolver.dart';
+import 'country_resolver.dart';
 import 'input_resolver.dart';
 import 'message_resolver.dart';
 import 'title_resolver.dart';
 
 export 'button_resolver.dart';
+export 'country_resolver.dart';
 export 'input_resolver.dart';
 export 'title_resolver.dart';
 

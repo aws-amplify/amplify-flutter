@@ -78,5 +78,15 @@
                 "description": "The social sign-in provider"
             }
         }
+    },
+    "@@context": "amplify_authenticator:countries",
+    "us": "United States (English)",
+    "@us": {
+        "description": "Label of the us"
+    },
+    "selectDialCode": "Select country",
+    "@selectDialCode": {
+        "description": "Label of the dial code selector modal"
     }
 }
+
