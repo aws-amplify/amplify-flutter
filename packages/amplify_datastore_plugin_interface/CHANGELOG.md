@@ -1,3 +1,9 @@
+## 0.2.8 (2021-11-12)
+
+### Fixes
+
+- fix(datastore): (Android) Fix DataStore release mode crash (#1064)
+
 ## 0.2.7 (2021-11-08)
 
 ### Fixes
