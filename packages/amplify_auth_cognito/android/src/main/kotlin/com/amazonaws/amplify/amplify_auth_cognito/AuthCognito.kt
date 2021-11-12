@@ -16,6 +16,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
+import android.app.Activity.RESULT_CANCELED
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
@@ -131,9 +132,14 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
     var isHostedUIActivity = isRedirectActivityDeclared(context)
-    if (!isHostedUIActivity && requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
-      Amplify.Auth.handleWebUISignInResponse(data)
-      return true
+    if (requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
+        /// The HostedUI activity in amplify-android handles success case
+        /// We need a response handler if the HostedUI activity isn't used...
+         /// ... or if the HostedUI activity is used, but the user cancels
+        if (!isHostedUIActivity || resultCode == RESULT_CANCELED) {
+            Amplify.Auth.handleWebUISignInResponse(data)
+            return true
+        }
     }
     return false
   }
