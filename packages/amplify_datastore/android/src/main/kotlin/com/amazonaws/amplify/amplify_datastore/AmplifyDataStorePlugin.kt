@@ -40,6 +40,7 @@ import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreConfiguration
+import com.amplifyframework.datastore.DataStoreErrorHandler
 import com.amplifyframework.datastore.DataStoreException
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
@@ -164,6 +165,24 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
 
         val dataStoreConfigurationBuilder = DataStoreConfiguration.builder()
+
+        var errorHandler : DataStoreErrorHandler;
+        errorHandler = if( (request["hasErrorHandler"] as? Boolean? == true) ) {
+            DataStoreErrorHandler {
+                val args = hashMapOf(
+                        "errorCode" to "DataStoreException",
+                        "errorMessage" to ExceptionMessages.defaultFallbackExceptionMessage,
+                        "details" to createSerializedError(it)
+                )
+                channel.invokeMethod("errorHandler", args)
+            }
+        }
+        else {
+            DataStoreErrorHandler {
+                LOG.error(it.toString())
+            }
+        }
+        dataStoreConfigurationBuilder.errorHandler(errorHandler)
 
         modelProvider.setVersion(request["modelProviderVersion"] as String)
         val defaultDataStoreConfiguration = DataStoreConfiguration.defaults()

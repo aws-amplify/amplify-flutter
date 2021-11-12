@@ -122,10 +122,29 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
             flutterModelRegistration.version = modelProviderVersion
             let syncExpressions: [DataStoreSyncExpression] = try createSyncExpressions(syncExpressionList: syncExpressionList)
-
+            
             self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModelRegistration: flutterModelRegistration)
+            
+
+            var errorHandler: DataStoreErrorHandler
+            if((args["hasErrorHandler"] as? Bool) == true) {
+                errorHandler = { error in
+                    let map : [String:Any] = [
+                        "errorCode" : "DataStoreException",
+                        "errorMesage" : ErrorMessages.defaultFallbackErrorMessage,
+                        "details" : FlutterDataStoreErrorHandler.createSerializedError(error: error)
+                    ]
+                    self.channel!.invokeMethod("errorHandler", arguments: args)
+                }
+            } else {
+                errorHandler = { error in
+                    Amplify.Logging.error(error: error)
+                }
+            }
+            
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration,
                                                      configuration: .custom(
+                                                        errorHandler: errorHandler,
                                                         syncInterval: syncInterval,
                                                         syncMaxRecords: syncMaxRecords,
                                                         syncPageSize: syncPageSize,
