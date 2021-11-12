@@ -3,7 +3,8 @@
 ### Fixes
 
 - fix(api): "Reply already submitted" crashes (#1058)
-- fix(auth): (Android) Dropped exceptions in hosted UI cause `signInWithWebUI` to not return
+- fix(auth): (Android) Dropped exceptions in hosted UI cause `signInWithWebUI` to not return (#1015)
+- fix(datastore): (Android) Fix DataStore release mode crash (#1064)
 - fix(storage): DateTime formatting and parsing (#1044, #1062)
 - fix(storage): Storage.list crash on null "options" (#1061)
 
