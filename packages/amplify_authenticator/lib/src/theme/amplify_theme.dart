@@ -382,38 +382,7 @@ class AmplifyTheme {
     );
   }
 
-  static ElevatedButtonThemeData elevatedButtonThemeData({
-    bool primary = true,
-    bool isLoading = false,
-    bool isDark = false,
-  }) {
-    final base = primary
-        ? (isDark ? primaryElevatedButtonThemeDark : primaryElevatedButtonTheme)
-        : (isDark
-            ? secondaryElevatedButtonThemeDark
-            : secondaryElevatedButtonTheme);
-    if (!isLoading) {
-      return base;
-    }
-
-    final baseStyle = base.style!;
-    const enabledStates = <MaterialState>{};
-    return ElevatedButtonThemeData(
-      style: baseStyle.copyWith(
-        backgroundColor: MaterialStateProperty.all(
-          baseStyle.backgroundColor?.resolve(enabledStates),
-        ),
-        foregroundColor: MaterialStateProperty.all(
-          baseStyle.foregroundColor?.resolve(enabledStates),
-        ),
-        side: MaterialStateProperty.all(
-          baseStyle.side?.resolve(enabledStates),
-        ),
-      ),
-    );
-  }
-
-  static final primaryElevatedButtonTheme = ElevatedButtonThemeData(
+  static final elevatedButtonTheme = ElevatedButtonThemeData(
     style: ButtonStyle(
       elevation: MaterialStateProperty.all(0),
       splashFactory: NoSplash.splashFactory,
@@ -441,7 +410,7 @@ class AmplifyTheme {
     ),
   );
 
-  static final primaryElevatedButtonThemeDark = ElevatedButtonThemeData(
+  static final elevatedButtonThemeDark = ElevatedButtonThemeData(
     style: ButtonStyle(
       elevation: MaterialStateProperty.all(0),
       splashFactory: NoSplash.splashFactory,
@@ -466,58 +435,6 @@ class AmplifyTheme {
       }),
       padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
       shadowColor: MaterialStateProperty.all(AmplifyColors.shadowPrimary),
-    ),
-  );
-
-  static final secondaryElevatedButtonTheme = ElevatedButtonThemeData(
-    style: ButtonStyle(
-      elevation: MaterialStateProperty.all(0),
-      splashFactory: NoSplash.splashFactory,
-      shape: MaterialStateProperty.all(const RoundedRectangleBorder()),
-      side: MaterialStateProperty.resolveWith((states) {
-        if (states.contains(MaterialState.disabled)) {
-          return const BorderSide(color: AmplifyColors.borderDisabled);
-        }
-        if (states.contains(MaterialState.hovered)) {
-          return const BorderSide(color: AmplifyColors.borderFocus);
-        }
-        return const BorderSide(color: AmplifyColors.borderPrimary);
-      }),
-      backgroundColor: MaterialStateProperty.all(AmplifyColors.white),
-      foregroundColor: MaterialStateProperty.resolveWith((states) {
-        if (states.contains(MaterialState.disabled)) {
-          return AmplifyColors.fontDisabled;
-        }
-        return AmplifyColors.fontPrimary;
-      }),
-      padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
-      shadowColor: MaterialStateProperty.all(AmplifyColors.shadowSecondary),
-    ),
-  );
-
-  static final secondaryElevatedButtonThemeDark = ElevatedButtonThemeData(
-    style: ButtonStyle(
-      elevation: MaterialStateProperty.all(0),
-      splashFactory: NoSplash.splashFactory,
-      shape: MaterialStateProperty.all(const RoundedRectangleBorder()),
-      side: MaterialStateProperty.resolveWith((states) {
-        if (states.contains(MaterialState.disabled)) {
-          return const BorderSide(color: AmplifyColors.borderDisabled);
-        }
-        if (states.contains(MaterialState.hovered)) {
-          return const BorderSide(color: AmplifyColors.borderFocus);
-        }
-        return const BorderSide(color: AmplifyColors.borderPrimary);
-      }),
-      backgroundColor: MaterialStateProperty.all(AmplifyColors.white),
-      foregroundColor: MaterialStateProperty.resolveWith((states) {
-        if (states.contains(MaterialState.disabled)) {
-          return AmplifyColors.fontDisabled;
-        }
-        return AmplifyColors.fontPrimary;
-      }),
-      padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
-      shadowColor: MaterialStateProperty.all(AmplifyColors.shadowSecondary),
     ),
   );
 
@@ -555,6 +472,18 @@ class AmplifyTheme {
     ),
   );
 
+  static const outlinedButtonTheme = OutlinedButtonThemeData(
+    style: ButtonStyle(
+      splashFactory: NoSplash.splashFactory,
+    ),
+  );
+
+  static const outlinedButtonThemeDark = OutlinedButtonThemeData(
+    style: ButtonStyle(
+      splashFactory: NoSplash.splashFactory,
+    ),
+  );
+
   static const primaryProgressIndicatorTheme = ProgressIndicatorThemeData(
     color: AmplifyColors.brandPrimary80,
     circularTrackColor: AmplifyColors.neutral20,
@@ -575,6 +504,8 @@ class AmplifyTheme {
       color: AmplifyColors.neutral80,
       fontWeight: FontWeight.w500,
     ),
+    focusedBorder: const OutlineInputBorder(),
+    border: const OutlineInputBorder(),
   );
 
   static final inputDecorationThemeDark = InputDecorationTheme(
@@ -665,7 +596,7 @@ class AmplifyTheme {
     textTheme: const AmplifyTextTheme(),
   ).copyWith(
     shadowColor: AmplifyColors.shadowPrimary,
-    elevatedButtonTheme: primaryElevatedButtonTheme,
+    elevatedButtonTheme: elevatedButtonTheme,
     progressIndicatorTheme: primaryProgressIndicatorTheme,
     textButtonTheme: textButtonTheme,
     inputDecorationTheme: inputDecorationTheme,
@@ -673,6 +604,7 @@ class AmplifyTheme {
     appBarTheme: appBarTheme,
     tabBarTheme: tabBarTheme,
     iconTheme: iconTheme,
+    outlinedButtonTheme: outlinedButtonTheme,
   );
 
   static late final ThemeData dark = ThemeData.from(
@@ -692,7 +624,7 @@ class AmplifyTheme {
     ),
   ).copyWith(
     shadowColor: AmplifyColors.shadowPrimary,
-    elevatedButtonTheme: primaryElevatedButtonThemeDark,
+    elevatedButtonTheme: elevatedButtonThemeDark,
     progressIndicatorTheme: primaryProgressIndicatorTheme,
     textButtonTheme: textButtonThemeDark,
     inputDecorationTheme: inputDecorationThemeDark,
@@ -700,6 +632,7 @@ class AmplifyTheme {
     appBarTheme: appBarThemeDark,
     tabBarTheme: tabBarThemeDark,
     iconTheme: iconThemeDark,
+    outlinedButtonTheme: outlinedButtonThemeDark,
   );
 }
 
@@ -712,18 +645,13 @@ class _AmplifyThemeWrapper {
   final BuildContext context;
   final bool useAmplifyTheme;
 
-  ElevatedButtonThemeData elevatedButtonThemeData({
-    bool primary = true,
-    bool isLoading = false,
-  }) {
+  ElevatedButtonThemeData get elevatedButtonThemeData {
     if (!useAmplifyTheme) {
       return ElevatedButtonTheme.of(context);
     }
-    return AmplifyTheme.elevatedButtonThemeData(
-      primary: primary,
-      isLoading: isLoading,
-      isDark: _isDark,
-    );
+    return _isDark
+        ? AmplifyTheme.elevatedButtonThemeDark
+        : AmplifyTheme.elevatedButtonTheme;
   }
 
   TextButtonThemeData get textButtonTheme {
@@ -746,7 +674,7 @@ class _AmplifyThemeWrapper {
 
   InputDecorationTheme get inputDecorationTheme {
     if (!useAmplifyTheme) {
-      return const InputDecorationTheme();
+      return Theme.of(context).inputDecorationTheme;
     }
     return AmplifyTheme.inputDecorationTheme;
   }

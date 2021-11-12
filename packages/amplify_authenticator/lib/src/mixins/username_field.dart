@@ -150,9 +150,10 @@ mixin AuthenticatorUsernameField<FieldType,
     final inputResolver = stringResolver.inputs;
     final labelText = Text(inputResolver.resolve(context, titleKey));
 
-    // Mirrors internal impl.
+    // Mirrors internal impl. to create an "always-active" Switch theme.
     final thumbColor = Theme.of(context).toggleableActiveColor;
     final trackColor = thumbColor.withOpacity(0.5);
+
     switch (usernameType) {
       case _UsernameType.username:
       case _UsernameType.email:

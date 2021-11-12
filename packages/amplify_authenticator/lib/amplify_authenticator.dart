@@ -418,7 +418,7 @@ class _AuthenticatorBody extends StatelessWidget {
 
           return Scaffold(
             backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
-            body: Center(
+            body: SizedBox.expand(
               child: SingleChildScrollView(
                 child: screen,
               ),

@@ -97,6 +97,12 @@ abstract class AuthenticatorButtonState<T extends AuthenticatorButton<T>>
   }
 
   @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<FocusNode>('focusNode', focusNode));
@@ -141,42 +147,49 @@ class _AmplifyElevatedButtonState
   Widget build(BuildContext context) {
     final buttonResolver = stringResolver.buttons;
     final loadingIndicator = widget.loadingIndicator;
-    return ElevatedButtonTheme(
-      data: AmplifyTheme.of(context).elevatedButtonThemeData(
-        primary: widget.primary,
-        isLoading: viewModel.isBusy,
-      ),
-      child: SizedBox(
-        height: widget.size.height,
-        width: double.infinity,
-        child: ElevatedButton(
-          focusNode: focusNode,
-          onPressed: viewModel.isBusy
-              ? null
-              : () => widget.onPressed(context, viewModel),
-          child: viewModel.isBusy && loadingIndicator != null
-              ? loadingIndicator
-              : Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (widget.leading != null) widget.leading!,
-                    Flexible(
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          buttonResolver.resolve(
-                            context,
-                            widget.labelKey,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+    var content = viewModel.isBusy && loadingIndicator != null
+        ? loadingIndicator
+        : Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (widget.leading != null) widget.leading!,
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    buttonResolver.resolve(
+                      context,
+                      widget.labelKey,
                     ),
-                    if (widget.trailing != null) widget.trailing!,
-                  ].spacedBy(const SizedBox(width: 10)),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-        ),
-      ),
+              ),
+              if (widget.trailing != null) widget.trailing!,
+            ].spacedBy(const SizedBox(width: 10)),
+          );
+    Widget button;
+    if (widget.primary) {
+      button = ElevatedButton(
+        focusNode: focusNode,
+        onPressed: viewModel.isBusy
+            ? null
+            : () => widget.onPressed(context, viewModel),
+        child: content,
+      );
+    } else {
+      button = OutlinedButton(
+        focusNode: focusNode,
+        onPressed: viewModel.isBusy
+            ? null
+            : () => widget.onPressed(context, viewModel),
+        child: content,
+      );
+    }
+    return SizedBox(
+      height: widget.size.height,
+      width: double.infinity,
+      child: button,
     );
   }
 }

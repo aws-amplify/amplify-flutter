@@ -235,11 +235,7 @@ class _TabViewState extends AuthenticatorComponentState<_TabView>
             tabs: _tabs,
             labelColor: AmplifyTheme.of(context).tabColor,
           ),
-          AnimatedSize(
-            curve: Curves.easeInOut,
-            duration: const Duration(milliseconds: 150),
-            child: _FormWrapperView(screen: selectedTab),
-          )
+          _FormWrapperView(screen: selectedTab),
         ],
       ),
     );
