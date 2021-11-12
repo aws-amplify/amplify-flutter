@@ -1,4 +1,3 @@
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 /*
  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -22,1721 +21,1480 @@ import 'package:flutter/material.dart';
 enum CountryResolverKey {
   selectDialCode,
   noDialCodeSearchResults,
-  af$,
-  ax$,
-  al$,
-  dz$,
-  as1$,
-  ad$,
-  ao$,
-  ai$,
-  aq$,
-  ag$,
-  ar$,
-  am$,
-  aw$,
-  au$,
-  at$,
-  az$,
-  bs$,
-  bh$,
-  bd$,
-  bb$,
-  by$,
-  be$,
-  bz$,
-  bj$,
-  bm$,
-  bt$,
-  bo$,
-  ba$,
-  bw$,
-  br$,
-  io$,
-  bn$,
-  bg$,
-  bf$,
-  bi$,
-  kh$,
-  cm$,
-  ca$,
-  cv$,
-  ky$,
-  cf$,
-  td$,
-  cl$,
-  cn$,
-  cx$,
-  cc$,
-  co$,
-  km$,
-  cg$,
-  cd$,
-  ck$,
-  cr$,
-  ci$,
-  hr$,
-  cu$,
-  cy$,
-  cz$,
-  dk$,
-  dj$,
-  dm$,
-  do1$,
-  ec$,
-  eg$,
-  sv$,
-  gq$,
-  er$,
-  ee$,
-  et$,
-  fk$,
-  fo$,
-  fj$,
-  fi$,
-  fr$,
-  gf$,
-  pf$,
-  ga$,
-  gm$,
-  ge$,
-  de$,
-  gh$,
-  gi$,
-  gr$,
-  gl$,
-  gd$,
-  gp$,
-  gu$,
-  gt$,
-  gg$,
-  gn$,
-  gw$,
-  gy$,
-  ht$,
-  va$,
-  hn$,
-  hk$,
-  hu$,
-  is1$,
-  in1$,
-  id$,
-  ir$,
-  iq$,
-  ie$,
-  im$,
-  il$,
-  it$,
-  jm$,
-  jp$,
-  je$,
-  jo$,
-  kz$,
-  ke$,
-  ki$,
-  kp$,
-  kr$,
-  kw$,
-  kg$,
-  la$,
-  lv$,
-  lb$,
-  ls$,
-  lr$,
-  ly$,
-  li$,
-  lt$,
-  lu$,
-  mo$,
-  mk$,
-  mg$,
-  mw$,
-  my$,
-  mv$,
-  ml$,
-  mt$,
-  mh$,
-  mq$,
-  mr$,
-  mu$,
-  yt$,
-  mx$,
-  fm$,
-  md$,
-  mc$,
-  mn$,
-  me$,
-  ms$,
-  ma$,
-  mz$,
-  mm$,
-  na$,
-  nr$,
-  np$,
-  nl$,
-  an$,
-  nc$,
-  nz$,
-  ni$,
-  ne$,
-  ng$,
-  nu$,
-  nf$,
-  mp$,
-  no$,
-  om$,
-  pk$,
-  pw$,
-  ps$,
-  pa$,
-  pg$,
-  py$,
-  pe$,
-  ph$,
-  pn$,
-  pl$,
-  pt$,
-  pr$,
-  qa$,
-  ro$,
-  ru$,
-  rw$,
-  re$,
-  bl$,
-  sh$,
-  kn$,
-  lc$,
-  mf$,
-  pm$,
-  vc$,
-  ws$,
-  sm$,
-  st$,
-  sa$,
-  sn$,
-  rs$,
-  sc$,
-  sl$,
-  sg$,
-  sk$,
-  si$,
-  sb$,
-  so$,
-  za$,
-  ss$,
-  gs$,
-  es$,
-  lk$,
-  sd$,
-  sr$,
-  sj$,
-  sz$,
-  se$,
-  ch$,
-  sy$,
-  tw$,
-  tj$,
-  tz$,
-  th$,
-  tl$,
-  tg$,
-  tk$,
-  to$,
-  tt$,
-  tn$,
-  tr$,
-  tm$,
-  tc$,
-  tv$,
-  ug$,
-  ua$,
-  ae$,
-  gb$,
-  us$,
-  uy$,
-  uz$,
-  vu$,
-  ve$,
-  vn$,
-  vg$,
-  vi$,
-  wf$,
-  ye$,
-  zm$,
-  zw$
+  
+afghanistan, 
+alandIslands, 
+albania, 
+algeria, 
+americanSamoa, 
+andorra, 
+angola, 
+anguilla, 
+antarctica, 
+antiguaandBarbuda, 
+argentina, 
+armenia, 
+aruba, 
+australia, 
+austria, 
+azerbaijan, 
+bahamas, 
+bahrain, 
+bangladesh, 
+barbados, 
+belarus, 
+belgium, 
+belize, 
+benin, 
+bermuda, 
+bhutan, 
+boliviaPlurinationalStateof, 
+bosniaandHerzegovina, 
+botswana, 
+brazil, 
+britishIndianOceanTerritory, 
+bruneiDarussalam, 
+bulgaria, 
+burkinaFaso, 
+burundi, 
+cambodia, 
+cameroon, 
+canada, 
+capeVerde, 
+caymanIslands, 
+centralAfricanRepublic, 
+chad, 
+chile, 
+china, 
+christmasIsland, 
+cocosKeelingIslands, 
+colombia, 
+comoros, 
+congo, 
+congoTheDemocraticRepublicoftheCongo, 
+cookIslands, 
+costaRica, 
+cotedIvoire, 
+croatia, 
+cuba, 
+cyprus, 
+czechRepublic, 
+denmark, 
+djibouti, 
+dominica, 
+dominicanRepublic, 
+ecuador, 
+egypt, 
+elSalvador, 
+equatorialGuinea, 
+eritrea, 
+estonia, 
+ethiopia, 
+falklandIslandsMalvinas, 
+faroeIslands, 
+fiji, 
+finland, 
+france, 
+frenchGuiana, 
+frenchPolynesia, 
+gabon, 
+gambia, 
+georgia, 
+germany, 
+ghana, 
+gibraltar, 
+greece, 
+greenland, 
+grenada, 
+guadeloupe, 
+guam, 
+guatemala, 
+guernsey, 
+guinea, 
+guineaBissau, 
+guyana, 
+haiti, 
+holySeeVaticanCityState, 
+honduras, 
+hongKong, 
+hungary, 
+iceland, 
+india, 
+indonesia, 
+iranIslamicRepublicofPersianGulf, 
+iraq, 
+ireland, 
+isleofMan, 
+israel, 
+italy, 
+jamaica, 
+japan, 
+jersey, 
+jordan, 
+kazakhstan, 
+kenya, 
+kiribati, 
+koreaDemocraticPeoplesRepublicofKorea, 
+koreaRepublicofSouthKorea, 
+kuwait, 
+kyrgyzstan, 
+laos, 
+latvia, 
+lebanon, 
+lesotho, 
+liberia, 
+libyanArabJamahiriya, 
+liechtenstein, 
+lithuania, 
+luxembourg, 
+macao, 
+macedonia, 
+madagascar, 
+malawi, 
+malaysia, 
+maldives, 
+mali, 
+malta, 
+marshallIslands, 
+martinique, 
+mauritania, 
+mauritius, 
+mayotte, 
+mexico, 
+micronesiaFederatedStatesofMicronesia, 
+moldova, 
+monaco, 
+mongolia, 
+montenegro, 
+montserrat, 
+morocco, 
+mozambique, 
+myanmar, 
+namibia, 
+nauru, 
+nepal, 
+netherlands, 
+netherlandsAntilles, 
+newCaledonia, 
+newZealand, 
+nicaragua, 
+niger, 
+nigeria, 
+niue, 
+norfolkIsland, 
+northernMarianaIslands, 
+norway, 
+oman, 
+pakistan, 
+palau, 
+palestinianTerritoryOccupied, 
+panama, 
+papuaNewGuinea, 
+paraguay, 
+peru, 
+philippines, 
+pitcairn, 
+poland, 
+portugal, 
+puertoRico, 
+qatar, 
+romania, 
+russia, 
+rwanda, 
+reunion, 
+saintBarthelemy, 
+saintHelenaAscensionandTristanDaCunha, 
+saintKittsandNevis, 
+saintLucia, 
+saintMartin, 
+saintPierreandMiquelon, 
+saintVincentandtheGrenadines, 
+samoa, 
+sanMarino, 
+saoTomeandPrincipe, 
+saudiArabia, 
+senegal, 
+serbia, 
+seychelles, 
+sierraLeone, 
+singapore, 
+slovakia, 
+slovenia, 
+solomonIslands, 
+somalia, 
+southAfrica, 
+southSudan, 
+southGeorgiaandtheSouthSandwichIslands, 
+spain, 
+sriLanka, 
+sudan, 
+suriname, 
+svalbardandJanMayen, 
+swaziland, 
+sweden, 
+switzerland, 
+syrianArabRepublic, 
+taiwan, 
+tajikistan, 
+tanzaniaUnitedRepublicofTanzania, 
+thailand, 
+timorLeste, 
+togo, 
+tokelau, 
+tonga, 
+trinidadandTobago, 
+tunisia, 
+turkey, 
+turkmenistan, 
+turksandCaicosIslands, 
+tuvalu, 
+uganda, 
+ukraine, 
+unitedArabEmirates, 
+unitedKingdom, 
+unitedStates, 
+uruguay, 
+uzbekistan, 
+vanuatu, 
+venezuelaBolivarianRepublicofVenezuela, 
+vietnam, 
+virginIslandsBritish, 
+virginIslandsUS, 
+wallisandFutuna, 
+yemen, 
+zambia, 
+zimbabwe
 }
 
-class CountryResolver extends Resolver<CountryResolverKey> {
+  class CountryResolver extends Resolver<CountryResolverKey> {
   const CountryResolver();
-
+  
   String selectDialCode(BuildContext context) {
     return AuthenticatorLocalizations.countriesOf(context).selectDialCode;
   }
 
   String noDialCodeSearchResults(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context)
-        .noDialCodeSearchResults;
+    return AuthenticatorLocalizations.countriesOf(context).noDialCodeSearchResults;
   }
 
-  String af$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).af;
+    String afghanistan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).afghanistan;
   }
-
-  String ax$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ax;
+    String alandIslands(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).alandIslands;
   }
-
-  String al$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).al;
+    String albania(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).albania;
   }
-
-  String dz$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).dz;
+    String algeria(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).algeria;
   }
-
-  String as1$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).as1;
+    String americanSamoa(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).americanSamoa;
   }
-
-  String ad$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ad;
+    String andorra(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).andorra;
   }
-
-  String ao$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ao;
+    String angola(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).angola;
   }
-
-  String ai$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ai;
+    String anguilla(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).anguilla;
   }
-
-  String aq$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).aq;
+    String antarctica(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).antarctica;
   }
-
-  String ag$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ag;
+    String antiguaandBarbuda(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).antiguaandBarbuda;
   }
-
-  String ar$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ar;
+    String argentina(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).argentina;
   }
-
-  String am$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).am;
+    String armenia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).armenia;
   }
-
-  String aw$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).aw;
+    String aruba(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).aruba;
   }
-
-  String au$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).au;
+    String australia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).australia;
   }
-
-  String at$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).at;
+    String austria(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).austria;
   }
-
-  String az$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).az;
+    String azerbaijan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).azerbaijan;
   }
-
-  String bs$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bs;
+    String bahamas(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).bahamas;
   }
-
-  String bh$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bh;
+    String bahrain(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).bahrain;
   }
-
-  String bd$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bd;
+    String bangladesh(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).bangladesh;
   }
-
-  String bb$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bb;
+    String barbados(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).barbados;
   }
-
-  String by$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).by;
+    String belarus(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).belarus;
   }
-
-  String be$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).be;
+    String belgium(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).belgium;
   }
-
-  String bz$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bz;
+    String belize(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).belize;
   }
-
-  String bj$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bj;
+    String benin(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).benin;
   }
-
-  String bm$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bm;
+    String bermuda(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).bermuda;
   }
-
-  String bt$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bt;
+    String bhutan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).bhutan;
   }
-
-  String bo$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bo;
+    String boliviaPlurinationalStateof(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).boliviaPlurinationalStateof;
   }
-
-  String ba$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ba;
+    String bosniaandHerzegovina(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).bosniaandHerzegovina;
   }
-
-  String bw$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bw;
+    String botswana(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).botswana;
   }
-
-  String br$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).br;
+    String brazil(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).brazil;
   }
-
-  String io$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).io;
+    String britishIndianOceanTerritory(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).britishIndianOceanTerritory;
   }
-
-  String bn$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bn;
+    String bruneiDarussalam(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).bruneiDarussalam;
   }
-
-  String bg$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bg;
+    String bulgaria(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).bulgaria;
   }
-
-  String bf$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bf;
+    String burkinaFaso(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).burkinaFaso;
   }
-
-  String bi$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bi;
+    String burundi(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).burundi;
   }
-
-  String kh$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).kh;
+    String cambodia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).cambodia;
   }
-
-  String cm$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).cm;
+    String cameroon(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).cameroon;
   }
-
-  String ca$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ca;
+    String canada(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).canada;
   }
-
-  String cv$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).cv;
+    String capeVerde(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).capeVerde;
   }
-
-  String ky$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ky;
+    String caymanIslands(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).caymanIslands;
   }
-
-  String cf$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).cf;
+    String centralAfricanRepublic(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).centralAfricanRepublic;
   }
-
-  String td$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).td;
+    String chad(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).chad;
   }
-
-  String cl$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).cl;
+    String chile(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).chile;
   }
-
-  String cn$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).cn;
+    String china(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).china;
   }
-
-  String cx$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).cx;
+    String christmasIsland(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).christmasIsland;
   }
-
-  String cc$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).cc;
+    String cocosKeelingIslands(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).cocosKeelingIslands;
   }
-
-  String co$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).co;
+    String colombia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).colombia;
   }
-
-  String km$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).km;
+    String comoros(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).comoros;
   }
-
-  String cg$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).cg;
+    String congo(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).congo;
   }
-
-  String cd$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).cd;
+    String congoTheDemocraticRepublicoftheCongo(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).congoTheDemocraticRepublicoftheCongo;
   }
-
-  String ck$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ck;
+    String cookIslands(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).cookIslands;
   }
-
-  String cr$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).cr;
+    String costaRica(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).costaRica;
   }
-
-  String ci$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ci;
+    String cotedIvoire(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).cotedIvoire;
   }
-
-  String hr$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).hr;
+    String croatia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).croatia;
   }
-
-  String cu$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).cu;
+    String cuba(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).cuba;
   }
-
-  String cy$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).cy;
+    String cyprus(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).cyprus;
   }
-
-  String cz$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).cz;
+    String czechRepublic(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).czechRepublic;
   }
-
-  String dk$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).dk;
+    String denmark(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).denmark;
   }
-
-  String dj$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).dj;
+    String djibouti(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).djibouti;
   }
-
-  String dm$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).dm;
+    String dominica(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).dominica;
   }
-
-  String do1$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).do1;
+    String dominicanRepublic(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).dominicanRepublic;
   }
-
-  String ec$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ec;
+    String ecuador(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).ecuador;
   }
-
-  String eg$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).eg;
+    String egypt(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).egypt;
   }
-
-  String sv$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sv;
+    String elSalvador(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).elSalvador;
   }
-
-  String gq$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gq;
+    String equatorialGuinea(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).equatorialGuinea;
   }
-
-  String er$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).er;
+    String eritrea(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).eritrea;
   }
-
-  String ee$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ee;
+    String estonia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).estonia;
   }
-
-  String et$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).et;
+    String ethiopia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).ethiopia;
   }
-
-  String fk$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).fk;
+    String falklandIslandsMalvinas(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).falklandIslandsMalvinas;
   }
-
-  String fo$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).fo;
+    String faroeIslands(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).faroeIslands;
   }
-
-  String fj$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).fj;
+    String fiji(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).fiji;
   }
-
-  String fi$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).fi;
+    String finland(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).finland;
   }
-
-  String fr$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).fr;
+    String france(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).france;
   }
-
-  String gf$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gf;
+    String frenchGuiana(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).frenchGuiana;
   }
-
-  String pf$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).pf;
+    String frenchPolynesia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).frenchPolynesia;
   }
-
-  String ga$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ga;
+    String gabon(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).gabon;
   }
-
-  String gm$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gm;
+    String gambia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).gambia;
   }
-
-  String ge$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ge;
+    String georgia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).georgia;
   }
-
-  String de$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).de;
+    String germany(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).germany;
   }
-
-  String gh$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gh;
+    String ghana(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).ghana;
   }
-
-  String gi$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gi;
+    String gibraltar(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).gibraltar;
   }
-
-  String gr$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gr;
+    String greece(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).greece;
   }
-
-  String gl$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gl;
+    String greenland(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).greenland;
   }
-
-  String gd$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gd;
+    String grenada(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).grenada;
   }
-
-  String gp$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gp;
+    String guadeloupe(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).guadeloupe;
   }
-
-  String gu$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gu;
+    String guam(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).guam;
   }
-
-  String gt$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gt;
+    String guatemala(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).guatemala;
   }
-
-  String gg$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gg;
+    String guernsey(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).guernsey;
   }
-
-  String gn$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gn;
+    String guinea(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).guinea;
   }
-
-  String gw$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gw;
+    String guineaBissau(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).guineaBissau;
   }
-
-  String gy$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gy;
+    String guyana(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).guyana;
   }
-
-  String ht$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ht;
+    String haiti(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).haiti;
   }
-
-  String va$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).va;
+    String holySeeVaticanCityState(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).holySeeVaticanCityState;
   }
-
-  String hn$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).hn;
+    String honduras(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).honduras;
   }
-
-  String hk$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).hk;
+    String hongKong(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).hongKong;
   }
-
-  String hu$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).hu;
+    String hungary(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).hungary;
   }
-
-  String is1$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).is1;
+    String iceland(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).iceland;
   }
-
-  String in1$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).in1;
+    String india(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).india;
   }
-
-  String id$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).id;
+    String indonesia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).indonesia;
   }
-
-  String ir$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ir;
+    String iranIslamicRepublicofPersianGulf(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).iranIslamicRepublicofPersianGulf;
   }
-
-  String iq$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).iq;
+    String iraq(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).iraq;
   }
-
-  String ie$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ie;
+    String ireland(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).ireland;
   }
-
-  String im$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).im;
+    String isleofMan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).isleofMan;
   }
-
-  String il$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).il;
+    String israel(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).israel;
   }
-
-  String it$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).it;
+    String italy(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).italy;
   }
-
-  String jm$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).jm;
+    String jamaica(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).jamaica;
   }
-
-  String jp$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).jp;
+    String japan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).japan;
   }
-
-  String je$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).je;
+    String jersey(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).jersey;
   }
-
-  String jo$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).jo;
+    String jordan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).jordan;
   }
-
-  String kz$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).kz;
+    String kazakhstan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).kazakhstan;
   }
-
-  String ke$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ke;
+    String kenya(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).kenya;
   }
-
-  String ki$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ki;
+    String kiribati(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).kiribati;
   }
-
-  String kp$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).kp;
+    String koreaDemocraticPeoplesRepublicofKorea(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).koreaDemocraticPeoplesRepublicofKorea;
   }
-
-  String kr$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).kr;
+    String koreaRepublicofSouthKorea(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).koreaRepublicofSouthKorea;
   }
-
-  String kw$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).kw;
+    String kuwait(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).kuwait;
   }
-
-  String kg$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).kg;
+    String kyrgyzstan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).kyrgyzstan;
   }
-
-  String la$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).la;
+    String laos(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).laos;
   }
-
-  String lv$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).lv;
+    String latvia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).latvia;
   }
-
-  String lb$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).lb;
+    String lebanon(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).lebanon;
   }
-
-  String ls$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ls;
+    String lesotho(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).lesotho;
   }
-
-  String lr$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).lr;
+    String liberia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).liberia;
   }
-
-  String ly$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ly;
+    String libyanArabJamahiriya(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).libyanArabJamahiriya;
   }
-
-  String li$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).li;
+    String liechtenstein(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).liechtenstein;
   }
-
-  String lt$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).lt;
+    String lithuania(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).lithuania;
   }
-
-  String lu$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).lu;
+    String luxembourg(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).luxembourg;
   }
-
-  String mo$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mo;
+    String macao(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).macao;
   }
-
-  String mk$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mk;
+    String macedonia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).macedonia;
   }
-
-  String mg$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mg;
+    String madagascar(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).madagascar;
   }
-
-  String mw$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mw;
+    String malawi(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).malawi;
   }
-
-  String my$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).my;
+    String malaysia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).malaysia;
   }
-
-  String mv$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mv;
+    String maldives(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).maldives;
   }
-
-  String ml$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ml;
+    String mali(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).mali;
   }
-
-  String mt$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mt;
+    String malta(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).malta;
   }
-
-  String mh$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mh;
+    String marshallIslands(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).marshallIslands;
   }
-
-  String mq$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mq;
+    String martinique(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).martinique;
   }
-
-  String mr$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mr;
+    String mauritania(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).mauritania;
   }
-
-  String mu$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mu;
+    String mauritius(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).mauritius;
   }
-
-  String yt$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).yt;
+    String mayotte(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).mayotte;
   }
-
-  String mx$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mx;
+    String mexico(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).mexico;
   }
-
-  String fm$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).fm;
+    String micronesiaFederatedStatesofMicronesia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).micronesiaFederatedStatesofMicronesia;
   }
-
-  String md$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).md;
+    String moldova(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).moldova;
   }
-
-  String mc$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mc;
+    String monaco(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).monaco;
   }
-
-  String mn$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mn;
+    String mongolia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).mongolia;
   }
-
-  String me$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).me;
+    String montenegro(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).montenegro;
   }
-
-  String ms$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ms;
+    String montserrat(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).montserrat;
   }
-
-  String ma$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ma;
+    String morocco(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).morocco;
   }
-
-  String mz$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mz;
+    String mozambique(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).mozambique;
   }
-
-  String mm$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mm;
+    String myanmar(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).myanmar;
   }
-
-  String na$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).na;
+    String namibia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).namibia;
   }
-
-  String nr$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).nr;
+    String nauru(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).nauru;
   }
-
-  String np$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).np;
+    String nepal(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).nepal;
   }
-
-  String nl$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).nl;
+    String netherlands(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).netherlands;
   }
-
-  String an$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).an;
+    String netherlandsAntilles(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).netherlandsAntilles;
   }
-
-  String nc$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).nc;
+    String newCaledonia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).newCaledonia;
   }
-
-  String nz$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).nz;
+    String newZealand(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).newZealand;
   }
-
-  String ni$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ni;
+    String nicaragua(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).nicaragua;
   }
-
-  String ne$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ne;
+    String niger(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).niger;
   }
-
-  String ng$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ng;
+    String nigeria(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).nigeria;
   }
-
-  String nu$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).nu;
+    String niue(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).niue;
   }
-
-  String nf$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).nf;
+    String norfolkIsland(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).norfolkIsland;
   }
-
-  String mp$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mp;
+    String northernMarianaIslands(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).northernMarianaIslands;
   }
-
-  String no$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).no;
+    String norway(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).norway;
   }
-
-  String om$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).om;
+    String oman(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).oman;
   }
-
-  String pk$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).pk;
+    String pakistan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).pakistan;
   }
-
-  String pw$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).pw;
+    String palau(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).palau;
   }
-
-  String ps$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ps;
+    String palestinianTerritoryOccupied(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).palestinianTerritoryOccupied;
   }
-
-  String pa$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).pa;
+    String panama(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).panama;
   }
-
-  String pg$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).pg;
+    String papuaNewGuinea(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).papuaNewGuinea;
   }
-
-  String py$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).py;
+    String paraguay(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).paraguay;
   }
-
-  String pe$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).pe;
+    String peru(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).peru;
   }
-
-  String ph$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ph;
+    String philippines(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).philippines;
   }
-
-  String pn$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).pn;
+    String pitcairn(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).pitcairn;
   }
-
-  String pl$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).pl;
+    String poland(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).poland;
   }
-
-  String pt$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).pt;
+    String portugal(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).portugal;
   }
-
-  String pr$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).pr;
+    String puertoRico(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).puertoRico;
   }
-
-  String qa$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).qa;
+    String qatar(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).qatar;
   }
-
-  String ro$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ro;
+    String romania(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).romania;
   }
-
-  String ru$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ru;
+    String russia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).russia;
   }
-
-  String rw$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).rw;
+    String rwanda(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).rwanda;
   }
-
-  String re$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).re;
+    String reunion(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).reunion;
   }
-
-  String bl$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).bl;
+    String saintBarthelemy(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).saintBarthelemy;
   }
-
-  String sh$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sh;
+    String saintHelenaAscensionandTristanDaCunha(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).saintHelenaAscensionandTristanDaCunha;
   }
-
-  String kn$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).kn;
+    String saintKittsandNevis(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).saintKittsandNevis;
   }
-
-  String lc$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).lc;
+    String saintLucia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).saintLucia;
   }
-
-  String mf$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).mf;
+    String saintMartin(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).saintMartin;
   }
-
-  String pm$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).pm;
+    String saintPierreandMiquelon(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).saintPierreandMiquelon;
   }
-
-  String vc$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).vc;
+    String saintVincentandtheGrenadines(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).saintVincentandtheGrenadines;
   }
-
-  String ws$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ws;
+    String samoa(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).samoa;
   }
-
-  String sm$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sm;
+    String sanMarino(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).sanMarino;
   }
-
-  String st$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).st;
+    String saoTomeandPrincipe(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).saoTomeandPrincipe;
   }
-
-  String sa$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sa;
+    String saudiArabia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).saudiArabia;
   }
-
-  String sn$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sn;
+    String senegal(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).senegal;
   }
-
-  String rs$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).rs;
+    String serbia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).serbia;
   }
-
-  String sc$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sc;
+    String seychelles(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).seychelles;
   }
-
-  String sl$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sl;
+    String sierraLeone(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).sierraLeone;
   }
-
-  String sg$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sg;
+    String singapore(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).singapore;
   }
-
-  String sk$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sk;
+    String slovakia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).slovakia;
   }
-
-  String si$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).si;
+    String slovenia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).slovenia;
   }
-
-  String sb$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sb;
+    String solomonIslands(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).solomonIslands;
   }
-
-  String so$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).so;
+    String somalia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).somalia;
   }
-
-  String za$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).za;
+    String southAfrica(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).southAfrica;
   }
-
-  String ss$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ss;
+    String southSudan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).southSudan;
   }
-
-  String gs$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gs;
+    String southGeorgiaandtheSouthSandwichIslands(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).southGeorgiaandtheSouthSandwichIslands;
   }
-
-  String es$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).es;
+    String spain(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).spain;
   }
-
-  String lk$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).lk;
+    String sriLanka(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).sriLanka;
   }
-
-  String sd$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sd;
+    String sudan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).sudan;
   }
-
-  String sr$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sr;
+    String suriname(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).suriname;
   }
-
-  String sj$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sj;
+    String svalbardandJanMayen(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).svalbardandJanMayen;
   }
-
-  String sz$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sz;
+    String swaziland(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).swaziland;
   }
-
-  String se$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).se;
+    String sweden(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).sweden;
   }
-
-  String ch$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ch;
+    String switzerland(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).switzerland;
   }
-
-  String sy$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sy;
+    String syrianArabRepublic(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).syrianArabRepublic;
   }
-
-  String tw$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).tw;
+    String taiwan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).taiwan;
   }
-
-  String tj$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).tj;
+    String tajikistan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).tajikistan;
   }
-
-  String tz$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).tz;
+    String tanzaniaUnitedRepublicofTanzania(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).tanzaniaUnitedRepublicofTanzania;
   }
-
-  String th$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).th;
+    String thailand(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).thailand;
   }
-
-  String tl$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).tl;
+    String timorLeste(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).timorLeste;
   }
-
-  String tg$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).tg;
+    String togo(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).togo;
   }
-
-  String tk$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).tk;
+    String tokelau(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).tokelau;
   }
-
-  String to$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).to;
+    String tonga(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).tonga;
   }
-
-  String tt$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).tt;
+    String trinidadandTobago(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).trinidadandTobago;
   }
-
-  String tn$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).tn;
+    String tunisia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).tunisia;
   }
-
-  String tr$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).tr;
+    String turkey(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).turkey;
   }
-
-  String tm$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).tm;
+    String turkmenistan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).turkmenistan;
   }
-
-  String tc$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).tc;
+    String turksandCaicosIslands(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).turksandCaicosIslands;
   }
-
-  String tv$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).tv;
+    String tuvalu(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).tuvalu;
   }
-
-  String ug$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ug;
+    String uganda(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).uganda;
   }
-
-  String ua$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ua;
+    String ukraine(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).ukraine;
   }
-
-  String ae$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ae;
+    String unitedArabEmirates(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).unitedArabEmirates;
   }
-
-  String gb$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).gb;
+    String unitedKingdom(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).unitedKingdom;
   }
-
-  String us$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).us;
+    String unitedStates(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).unitedStates;
   }
-
-  String uy$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).uy;
+    String uruguay(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).uruguay;
   }
-
-  String uz$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).uz;
+    String uzbekistan(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).uzbekistan;
   }
-
-  String vu$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).vu;
+    String vanuatu(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).vanuatu;
   }
-
-  String ve$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ve;
+    String venezuelaBolivarianRepublicofVenezuela(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).venezuelaBolivarianRepublicofVenezuela;
   }
-
-  String vn$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).vn;
+    String vietnam(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).vietnam;
   }
-
-  String vg$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).vg;
+    String virginIslandsBritish(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).virginIslandsBritish;
   }
-
-  String vi$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).vi;
+    String virginIslandsUS(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).virginIslandsUS;
   }
-
-  String wf$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).wf;
+    String wallisandFutuna(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).wallisandFutuna;
   }
-
-  String ye$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ye;
+    String yemen(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).yemen;
   }
-
-  String zm$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).zm;
+    String zambia(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).zambia;
   }
-
-  String zw$(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).zw;
+    String zimbabwe(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).zimbabwe;
   }
-
-  @override
-  String resolve(BuildContext context, CountryResolverKey key) {
-    switch (key) {
-      case CountryResolverKey.selectDialCode:
-        return selectDialCode(context);
-      case CountryResolverKey.noDialCodeSearchResults:
-        return noDialCodeSearchResults(context);
-      case CountryResolverKey.af$:
-        return af$(context);
-      case CountryResolverKey.ax$:
-        return ax$(context);
-      case CountryResolverKey.al$:
-        return al$(context);
-      case CountryResolverKey.dz$:
-        return dz$(context);
-      case CountryResolverKey.as1$:
-        return as1$(context);
-      case CountryResolverKey.ad$:
-        return ad$(context);
-      case CountryResolverKey.ao$:
-        return ao$(context);
-      case CountryResolverKey.ai$:
-        return ai$(context);
-      case CountryResolverKey.aq$:
-        return aq$(context);
-      case CountryResolverKey.ag$:
-        return ag$(context);
-      case CountryResolverKey.ar$:
-        return ar$(context);
-      case CountryResolverKey.am$:
-        return am$(context);
-      case CountryResolverKey.aw$:
-        return aw$(context);
-      case CountryResolverKey.au$:
-        return au$(context);
-      case CountryResolverKey.at$:
-        return at$(context);
-      case CountryResolverKey.az$:
-        return az$(context);
-      case CountryResolverKey.bs$:
-        return bs$(context);
-      case CountryResolverKey.bh$:
-        return bh$(context);
-      case CountryResolverKey.bd$:
-        return bd$(context);
-      case CountryResolverKey.bb$:
-        return bb$(context);
-      case CountryResolverKey.by$:
-        return by$(context);
-      case CountryResolverKey.be$:
-        return be$(context);
-      case CountryResolverKey.bz$:
-        return bz$(context);
-      case CountryResolverKey.bj$:
-        return bj$(context);
-      case CountryResolverKey.bm$:
-        return bm$(context);
-      case CountryResolverKey.bt$:
-        return bt$(context);
-      case CountryResolverKey.bo$:
-        return bo$(context);
-      case CountryResolverKey.ba$:
-        return ba$(context);
-      case CountryResolverKey.bw$:
-        return bw$(context);
-      case CountryResolverKey.br$:
-        return br$(context);
-      case CountryResolverKey.io$:
-        return io$(context);
-      case CountryResolverKey.bn$:
-        return bn$(context);
-      case CountryResolverKey.bg$:
-        return bg$(context);
-      case CountryResolverKey.bf$:
-        return bf$(context);
-      case CountryResolverKey.bi$:
-        return bi$(context);
-      case CountryResolverKey.kh$:
-        return kh$(context);
-      case CountryResolverKey.cm$:
-        return cm$(context);
-      case CountryResolverKey.ca$:
-        return ca$(context);
-      case CountryResolverKey.cv$:
-        return cv$(context);
-      case CountryResolverKey.ky$:
-        return ky$(context);
-      case CountryResolverKey.cf$:
-        return cf$(context);
-      case CountryResolverKey.td$:
-        return td$(context);
-      case CountryResolverKey.cl$:
-        return cl$(context);
-      case CountryResolverKey.cn$:
-        return cn$(context);
-      case CountryResolverKey.cx$:
-        return cx$(context);
-      case CountryResolverKey.cc$:
-        return cc$(context);
-      case CountryResolverKey.co$:
-        return co$(context);
-      case CountryResolverKey.km$:
-        return km$(context);
-      case CountryResolverKey.cg$:
-        return cg$(context);
-      case CountryResolverKey.cd$:
-        return cd$(context);
-      case CountryResolverKey.ck$:
-        return ck$(context);
-      case CountryResolverKey.cr$:
-        return cr$(context);
-      case CountryResolverKey.ci$:
-        return ci$(context);
-      case CountryResolverKey.hr$:
-        return hr$(context);
-      case CountryResolverKey.cu$:
-        return cu$(context);
-      case CountryResolverKey.cy$:
-        return cy$(context);
-      case CountryResolverKey.cz$:
-        return cz$(context);
-      case CountryResolverKey.dk$:
-        return dk$(context);
-      case CountryResolverKey.dj$:
-        return dj$(context);
-      case CountryResolverKey.dm$:
-        return dm$(context);
-      case CountryResolverKey.do1$:
-        return do1$(context);
-      case CountryResolverKey.ec$:
-        return ec$(context);
-      case CountryResolverKey.eg$:
-        return eg$(context);
-      case CountryResolverKey.sv$:
-        return sv$(context);
-      case CountryResolverKey.gq$:
-        return gq$(context);
-      case CountryResolverKey.er$:
-        return er$(context);
-      case CountryResolverKey.ee$:
-        return ee$(context);
-      case CountryResolverKey.et$:
-        return et$(context);
-      case CountryResolverKey.fk$:
-        return fk$(context);
-      case CountryResolverKey.fo$:
-        return fo$(context);
-      case CountryResolverKey.fj$:
-        return fj$(context);
-      case CountryResolverKey.fi$:
-        return fi$(context);
-      case CountryResolverKey.fr$:
-        return fr$(context);
-      case CountryResolverKey.gf$:
-        return gf$(context);
-      case CountryResolverKey.pf$:
-        return pf$(context);
-      case CountryResolverKey.ga$:
-        return ga$(context);
-      case CountryResolverKey.gm$:
-        return gm$(context);
-      case CountryResolverKey.ge$:
-        return ge$(context);
-      case CountryResolverKey.de$:
-        return de$(context);
-      case CountryResolverKey.gh$:
-        return gh$(context);
-      case CountryResolverKey.gi$:
-        return gi$(context);
-      case CountryResolverKey.gr$:
-        return gr$(context);
-      case CountryResolverKey.gl$:
-        return gl$(context);
-      case CountryResolverKey.gd$:
-        return gd$(context);
-      case CountryResolverKey.gp$:
-        return gp$(context);
-      case CountryResolverKey.gu$:
-        return gu$(context);
-      case CountryResolverKey.gt$:
-        return gt$(context);
-      case CountryResolverKey.gg$:
-        return gg$(context);
-      case CountryResolverKey.gn$:
-        return gn$(context);
-      case CountryResolverKey.gw$:
-        return gw$(context);
-      case CountryResolverKey.gy$:
-        return gy$(context);
-      case CountryResolverKey.ht$:
-        return ht$(context);
-      case CountryResolverKey.va$:
-        return va$(context);
-      case CountryResolverKey.hn$:
-        return hn$(context);
-      case CountryResolverKey.hk$:
-        return hk$(context);
-      case CountryResolverKey.hu$:
-        return hu$(context);
-      case CountryResolverKey.is1$:
-        return is1$(context);
-      case CountryResolverKey.in1$:
-        return in1$(context);
-      case CountryResolverKey.id$:
-        return id$(context);
-      case CountryResolverKey.ir$:
-        return ir$(context);
-      case CountryResolverKey.iq$:
-        return iq$(context);
-      case CountryResolverKey.ie$:
-        return ie$(context);
-      case CountryResolverKey.im$:
-        return im$(context);
-      case CountryResolverKey.il$:
-        return il$(context);
-      case CountryResolverKey.it$:
-        return it$(context);
-      case CountryResolverKey.jm$:
-        return jm$(context);
-      case CountryResolverKey.jp$:
-        return jp$(context);
-      case CountryResolverKey.je$:
-        return je$(context);
-      case CountryResolverKey.jo$:
-        return jo$(context);
-      case CountryResolverKey.kz$:
-        return kz$(context);
-      case CountryResolverKey.ke$:
-        return ke$(context);
-      case CountryResolverKey.ki$:
-        return ki$(context);
-      case CountryResolverKey.kp$:
-        return kp$(context);
-      case CountryResolverKey.kr$:
-        return kr$(context);
-      case CountryResolverKey.kw$:
-        return kw$(context);
-      case CountryResolverKey.kg$:
-        return kg$(context);
-      case CountryResolverKey.la$:
-        return la$(context);
-      case CountryResolverKey.lv$:
-        return lv$(context);
-      case CountryResolverKey.lb$:
-        return lb$(context);
-      case CountryResolverKey.ls$:
-        return ls$(context);
-      case CountryResolverKey.lr$:
-        return lr$(context);
-      case CountryResolverKey.ly$:
-        return ly$(context);
-      case CountryResolverKey.li$:
-        return li$(context);
-      case CountryResolverKey.lt$:
-        return lt$(context);
-      case CountryResolverKey.lu$:
-        return lu$(context);
-      case CountryResolverKey.mo$:
-        return mo$(context);
-      case CountryResolverKey.mk$:
-        return mk$(context);
-      case CountryResolverKey.mg$:
-        return mg$(context);
-      case CountryResolverKey.mw$:
-        return mw$(context);
-      case CountryResolverKey.my$:
-        return my$(context);
-      case CountryResolverKey.mv$:
-        return mv$(context);
-      case CountryResolverKey.ml$:
-        return ml$(context);
-      case CountryResolverKey.mt$:
-        return mt$(context);
-      case CountryResolverKey.mh$:
-        return mh$(context);
-      case CountryResolverKey.mq$:
-        return mq$(context);
-      case CountryResolverKey.mr$:
-        return mr$(context);
-      case CountryResolverKey.mu$:
-        return mu$(context);
-      case CountryResolverKey.yt$:
-        return yt$(context);
-      case CountryResolverKey.mx$:
-        return mx$(context);
-      case CountryResolverKey.fm$:
-        return fm$(context);
-      case CountryResolverKey.md$:
-        return md$(context);
-      case CountryResolverKey.mc$:
-        return mc$(context);
-      case CountryResolverKey.mn$:
-        return mn$(context);
-      case CountryResolverKey.me$:
-        return me$(context);
-      case CountryResolverKey.ms$:
-        return ms$(context);
-      case CountryResolverKey.ma$:
-        return ma$(context);
-      case CountryResolverKey.mz$:
-        return mz$(context);
-      case CountryResolverKey.mm$:
-        return mm$(context);
-      case CountryResolverKey.na$:
-        return na$(context);
-      case CountryResolverKey.nr$:
-        return nr$(context);
-      case CountryResolverKey.np$:
-        return np$(context);
-      case CountryResolverKey.nl$:
-        return nl$(context);
-      case CountryResolverKey.an$:
-        return an$(context);
-      case CountryResolverKey.nc$:
-        return nc$(context);
-      case CountryResolverKey.nz$:
-        return nz$(context);
-      case CountryResolverKey.ni$:
-        return ni$(context);
-      case CountryResolverKey.ne$:
-        return ne$(context);
-      case CountryResolverKey.ng$:
-        return ng$(context);
-      case CountryResolverKey.nu$:
-        return nu$(context);
-      case CountryResolverKey.nf$:
-        return nf$(context);
-      case CountryResolverKey.mp$:
-        return mp$(context);
-      case CountryResolverKey.no$:
-        return no$(context);
-      case CountryResolverKey.om$:
-        return om$(context);
-      case CountryResolverKey.pk$:
-        return pk$(context);
-      case CountryResolverKey.pw$:
-        return pw$(context);
-      case CountryResolverKey.ps$:
-        return ps$(context);
-      case CountryResolverKey.pa$:
-        return pa$(context);
-      case CountryResolverKey.pg$:
-        return pg$(context);
-      case CountryResolverKey.py$:
-        return py$(context);
-      case CountryResolverKey.pe$:
-        return pe$(context);
-      case CountryResolverKey.ph$:
-        return ph$(context);
-      case CountryResolverKey.pn$:
-        return pn$(context);
-      case CountryResolverKey.pl$:
-        return pl$(context);
-      case CountryResolverKey.pt$:
-        return pt$(context);
-      case CountryResolverKey.pr$:
-        return pr$(context);
-      case CountryResolverKey.qa$:
-        return qa$(context);
-      case CountryResolverKey.ro$:
-        return ro$(context);
-      case CountryResolverKey.ru$:
-        return ru$(context);
-      case CountryResolverKey.rw$:
-        return rw$(context);
-      case CountryResolverKey.re$:
-        return re$(context);
-      case CountryResolverKey.bl$:
-        return bl$(context);
-      case CountryResolverKey.sh$:
-        return sh$(context);
-      case CountryResolverKey.kn$:
-        return kn$(context);
-      case CountryResolverKey.lc$:
-        return lc$(context);
-      case CountryResolverKey.mf$:
-        return mf$(context);
-      case CountryResolverKey.pm$:
-        return pm$(context);
-      case CountryResolverKey.vc$:
-        return vc$(context);
-      case CountryResolverKey.ws$:
-        return ws$(context);
-      case CountryResolverKey.sm$:
-        return sm$(context);
-      case CountryResolverKey.st$:
-        return st$(context);
-      case CountryResolverKey.sa$:
-        return sa$(context);
-      case CountryResolverKey.sn$:
-        return sn$(context);
-      case CountryResolverKey.rs$:
-        return rs$(context);
-      case CountryResolverKey.sc$:
-        return sc$(context);
-      case CountryResolverKey.sl$:
-        return sl$(context);
-      case CountryResolverKey.sg$:
-        return sg$(context);
-      case CountryResolverKey.sk$:
-        return sk$(context);
-      case CountryResolverKey.si$:
-        return si$(context);
-      case CountryResolverKey.sb$:
-        return sb$(context);
-      case CountryResolverKey.so$:
-        return so$(context);
-      case CountryResolverKey.za$:
-        return za$(context);
-      case CountryResolverKey.ss$:
-        return ss$(context);
-      case CountryResolverKey.gs$:
-        return gs$(context);
-      case CountryResolverKey.es$:
-        return es$(context);
-      case CountryResolverKey.lk$:
-        return lk$(context);
-      case CountryResolverKey.sd$:
-        return sd$(context);
-      case CountryResolverKey.sr$:
-        return sr$(context);
-      case CountryResolverKey.sj$:
-        return sj$(context);
-      case CountryResolverKey.sz$:
-        return sz$(context);
-      case CountryResolverKey.se$:
-        return se$(context);
-      case CountryResolverKey.ch$:
-        return ch$(context);
-      case CountryResolverKey.sy$:
-        return sy$(context);
-      case CountryResolverKey.tw$:
-        return tw$(context);
-      case CountryResolverKey.tj$:
-        return tj$(context);
-      case CountryResolverKey.tz$:
-        return tz$(context);
-      case CountryResolverKey.th$:
-        return th$(context);
-      case CountryResolverKey.tl$:
-        return tl$(context);
-      case CountryResolverKey.tg$:
-        return tg$(context);
-      case CountryResolverKey.tk$:
-        return tk$(context);
-      case CountryResolverKey.to$:
-        return to$(context);
-      case CountryResolverKey.tt$:
-        return tt$(context);
-      case CountryResolverKey.tn$:
-        return tn$(context);
-      case CountryResolverKey.tr$:
-        return tr$(context);
-      case CountryResolverKey.tm$:
-        return tm$(context);
-      case CountryResolverKey.tc$:
-        return tc$(context);
-      case CountryResolverKey.tv$:
-        return tv$(context);
-      case CountryResolverKey.ug$:
-        return ug$(context);
-      case CountryResolverKey.ua$:
-        return ua$(context);
-      case CountryResolverKey.ae$:
-        return ae$(context);
-      case CountryResolverKey.gb$:
-        return gb$(context);
-      case CountryResolverKey.us$:
-        return us$(context);
-      case CountryResolverKey.uy$:
-        return uy$(context);
-      case CountryResolverKey.uz$:
-        return uz$(context);
-      case CountryResolverKey.vu$:
-        return vu$(context);
-      case CountryResolverKey.ve$:
-        return ve$(context);
-      case CountryResolverKey.vn$:
-        return vn$(context);
-      case CountryResolverKey.vg$:
-        return vg$(context);
-      case CountryResolverKey.vi$:
-        return vi$(context);
-      case CountryResolverKey.wf$:
-        return wf$(context);
-      case CountryResolverKey.ye$:
-        return ye$(context);
-      case CountryResolverKey.zm$:
-        return zm$(context);
-      case CountryResolverKey.zw$:
-        return zw$(context);
+      @override
+    String resolve(BuildContext context, CountryResolverKey key) {
+      switch (key) {
+        case CountryResolverKey.selectDialCode:
+          return selectDialCode(context);
+        case CountryResolverKey.noDialCodeSearchResults:
+          return noDialCodeSearchResults(context);
+        case CountryResolverKey.afghanistan:
+      return afghanistan(context);
+        case CountryResolverKey.alandIslands:
+      return alandIslands(context);
+        case CountryResolverKey.albania:
+      return albania(context);
+        case CountryResolverKey.algeria:
+      return algeria(context);
+        case CountryResolverKey.americanSamoa:
+      return americanSamoa(context);
+        case CountryResolverKey.andorra:
+      return andorra(context);
+        case CountryResolverKey.angola:
+      return angola(context);
+        case CountryResolverKey.anguilla:
+      return anguilla(context);
+        case CountryResolverKey.antarctica:
+      return antarctica(context);
+        case CountryResolverKey.antiguaandBarbuda:
+      return antiguaandBarbuda(context);
+        case CountryResolverKey.argentina:
+      return argentina(context);
+        case CountryResolverKey.armenia:
+      return armenia(context);
+        case CountryResolverKey.aruba:
+      return aruba(context);
+        case CountryResolverKey.australia:
+      return australia(context);
+        case CountryResolverKey.austria:
+      return austria(context);
+        case CountryResolverKey.azerbaijan:
+      return azerbaijan(context);
+        case CountryResolverKey.bahamas:
+      return bahamas(context);
+        case CountryResolverKey.bahrain:
+      return bahrain(context);
+        case CountryResolverKey.bangladesh:
+      return bangladesh(context);
+        case CountryResolverKey.barbados:
+      return barbados(context);
+        case CountryResolverKey.belarus:
+      return belarus(context);
+        case CountryResolverKey.belgium:
+      return belgium(context);
+        case CountryResolverKey.belize:
+      return belize(context);
+        case CountryResolverKey.benin:
+      return benin(context);
+        case CountryResolverKey.bermuda:
+      return bermuda(context);
+        case CountryResolverKey.bhutan:
+      return bhutan(context);
+        case CountryResolverKey.boliviaPlurinationalStateof:
+      return boliviaPlurinationalStateof(context);
+        case CountryResolverKey.bosniaandHerzegovina:
+      return bosniaandHerzegovina(context);
+        case CountryResolverKey.botswana:
+      return botswana(context);
+        case CountryResolverKey.brazil:
+      return brazil(context);
+        case CountryResolverKey.britishIndianOceanTerritory:
+      return britishIndianOceanTerritory(context);
+        case CountryResolverKey.bruneiDarussalam:
+      return bruneiDarussalam(context);
+        case CountryResolverKey.bulgaria:
+      return bulgaria(context);
+        case CountryResolverKey.burkinaFaso:
+      return burkinaFaso(context);
+        case CountryResolverKey.burundi:
+      return burundi(context);
+        case CountryResolverKey.cambodia:
+      return cambodia(context);
+        case CountryResolverKey.cameroon:
+      return cameroon(context);
+        case CountryResolverKey.canada:
+      return canada(context);
+        case CountryResolverKey.capeVerde:
+      return capeVerde(context);
+        case CountryResolverKey.caymanIslands:
+      return caymanIslands(context);
+        case CountryResolverKey.centralAfricanRepublic:
+      return centralAfricanRepublic(context);
+        case CountryResolverKey.chad:
+      return chad(context);
+        case CountryResolverKey.chile:
+      return chile(context);
+        case CountryResolverKey.china:
+      return china(context);
+        case CountryResolverKey.christmasIsland:
+      return christmasIsland(context);
+        case CountryResolverKey.cocosKeelingIslands:
+      return cocosKeelingIslands(context);
+        case CountryResolverKey.colombia:
+      return colombia(context);
+        case CountryResolverKey.comoros:
+      return comoros(context);
+        case CountryResolverKey.congo:
+      return congo(context);
+        case CountryResolverKey.congoTheDemocraticRepublicoftheCongo:
+      return congoTheDemocraticRepublicoftheCongo(context);
+        case CountryResolverKey.cookIslands:
+      return cookIslands(context);
+        case CountryResolverKey.costaRica:
+      return costaRica(context);
+        case CountryResolverKey.cotedIvoire:
+      return cotedIvoire(context);
+        case CountryResolverKey.croatia:
+      return croatia(context);
+        case CountryResolverKey.cuba:
+      return cuba(context);
+        case CountryResolverKey.cyprus:
+      return cyprus(context);
+        case CountryResolverKey.czechRepublic:
+      return czechRepublic(context);
+        case CountryResolverKey.denmark:
+      return denmark(context);
+        case CountryResolverKey.djibouti:
+      return djibouti(context);
+        case CountryResolverKey.dominica:
+      return dominica(context);
+        case CountryResolverKey.dominicanRepublic:
+      return dominicanRepublic(context);
+        case CountryResolverKey.ecuador:
+      return ecuador(context);
+        case CountryResolverKey.egypt:
+      return egypt(context);
+        case CountryResolverKey.elSalvador:
+      return elSalvador(context);
+        case CountryResolverKey.equatorialGuinea:
+      return equatorialGuinea(context);
+        case CountryResolverKey.eritrea:
+      return eritrea(context);
+        case CountryResolverKey.estonia:
+      return estonia(context);
+        case CountryResolverKey.ethiopia:
+      return ethiopia(context);
+        case CountryResolverKey.falklandIslandsMalvinas:
+      return falklandIslandsMalvinas(context);
+        case CountryResolverKey.faroeIslands:
+      return faroeIslands(context);
+        case CountryResolverKey.fiji:
+      return fiji(context);
+        case CountryResolverKey.finland:
+      return finland(context);
+        case CountryResolverKey.france:
+      return france(context);
+        case CountryResolverKey.frenchGuiana:
+      return frenchGuiana(context);
+        case CountryResolverKey.frenchPolynesia:
+      return frenchPolynesia(context);
+        case CountryResolverKey.gabon:
+      return gabon(context);
+        case CountryResolverKey.gambia:
+      return gambia(context);
+        case CountryResolverKey.georgia:
+      return georgia(context);
+        case CountryResolverKey.germany:
+      return germany(context);
+        case CountryResolverKey.ghana:
+      return ghana(context);
+        case CountryResolverKey.gibraltar:
+      return gibraltar(context);
+        case CountryResolverKey.greece:
+      return greece(context);
+        case CountryResolverKey.greenland:
+      return greenland(context);
+        case CountryResolverKey.grenada:
+      return grenada(context);
+        case CountryResolverKey.guadeloupe:
+      return guadeloupe(context);
+        case CountryResolverKey.guam:
+      return guam(context);
+        case CountryResolverKey.guatemala:
+      return guatemala(context);
+        case CountryResolverKey.guernsey:
+      return guernsey(context);
+        case CountryResolverKey.guinea:
+      return guinea(context);
+        case CountryResolverKey.guineaBissau:
+      return guineaBissau(context);
+        case CountryResolverKey.guyana:
+      return guyana(context);
+        case CountryResolverKey.haiti:
+      return haiti(context);
+        case CountryResolverKey.holySeeVaticanCityState:
+      return holySeeVaticanCityState(context);
+        case CountryResolverKey.honduras:
+      return honduras(context);
+        case CountryResolverKey.hongKong:
+      return hongKong(context);
+        case CountryResolverKey.hungary:
+      return hungary(context);
+        case CountryResolverKey.iceland:
+      return iceland(context);
+        case CountryResolverKey.india:
+      return india(context);
+        case CountryResolverKey.indonesia:
+      return indonesia(context);
+        case CountryResolverKey.iranIslamicRepublicofPersianGulf:
+      return iranIslamicRepublicofPersianGulf(context);
+        case CountryResolverKey.iraq:
+      return iraq(context);
+        case CountryResolverKey.ireland:
+      return ireland(context);
+        case CountryResolverKey.isleofMan:
+      return isleofMan(context);
+        case CountryResolverKey.israel:
+      return israel(context);
+        case CountryResolverKey.italy:
+      return italy(context);
+        case CountryResolverKey.jamaica:
+      return jamaica(context);
+        case CountryResolverKey.japan:
+      return japan(context);
+        case CountryResolverKey.jersey:
+      return jersey(context);
+        case CountryResolverKey.jordan:
+      return jordan(context);
+        case CountryResolverKey.kazakhstan:
+      return kazakhstan(context);
+        case CountryResolverKey.kenya:
+      return kenya(context);
+        case CountryResolverKey.kiribati:
+      return kiribati(context);
+        case CountryResolverKey.koreaDemocraticPeoplesRepublicofKorea:
+      return koreaDemocraticPeoplesRepublicofKorea(context);
+        case CountryResolverKey.koreaRepublicofSouthKorea:
+      return koreaRepublicofSouthKorea(context);
+        case CountryResolverKey.kuwait:
+      return kuwait(context);
+        case CountryResolverKey.kyrgyzstan:
+      return kyrgyzstan(context);
+        case CountryResolverKey.laos:
+      return laos(context);
+        case CountryResolverKey.latvia:
+      return latvia(context);
+        case CountryResolverKey.lebanon:
+      return lebanon(context);
+        case CountryResolverKey.lesotho:
+      return lesotho(context);
+        case CountryResolverKey.liberia:
+      return liberia(context);
+        case CountryResolverKey.libyanArabJamahiriya:
+      return libyanArabJamahiriya(context);
+        case CountryResolverKey.liechtenstein:
+      return liechtenstein(context);
+        case CountryResolverKey.lithuania:
+      return lithuania(context);
+        case CountryResolverKey.luxembourg:
+      return luxembourg(context);
+        case CountryResolverKey.macao:
+      return macao(context);
+        case CountryResolverKey.macedonia:
+      return macedonia(context);
+        case CountryResolverKey.madagascar:
+      return madagascar(context);
+        case CountryResolverKey.malawi:
+      return malawi(context);
+        case CountryResolverKey.malaysia:
+      return malaysia(context);
+        case CountryResolverKey.maldives:
+      return maldives(context);
+        case CountryResolverKey.mali:
+      return mali(context);
+        case CountryResolverKey.malta:
+      return malta(context);
+        case CountryResolverKey.marshallIslands:
+      return marshallIslands(context);
+        case CountryResolverKey.martinique:
+      return martinique(context);
+        case CountryResolverKey.mauritania:
+      return mauritania(context);
+        case CountryResolverKey.mauritius:
+      return mauritius(context);
+        case CountryResolverKey.mayotte:
+      return mayotte(context);
+        case CountryResolverKey.mexico:
+      return mexico(context);
+        case CountryResolverKey.micronesiaFederatedStatesofMicronesia:
+      return micronesiaFederatedStatesofMicronesia(context);
+        case CountryResolverKey.moldova:
+      return moldova(context);
+        case CountryResolverKey.monaco:
+      return monaco(context);
+        case CountryResolverKey.mongolia:
+      return mongolia(context);
+        case CountryResolverKey.montenegro:
+      return montenegro(context);
+        case CountryResolverKey.montserrat:
+      return montserrat(context);
+        case CountryResolverKey.morocco:
+      return morocco(context);
+        case CountryResolverKey.mozambique:
+      return mozambique(context);
+        case CountryResolverKey.myanmar:
+      return myanmar(context);
+        case CountryResolverKey.namibia:
+      return namibia(context);
+        case CountryResolverKey.nauru:
+      return nauru(context);
+        case CountryResolverKey.nepal:
+      return nepal(context);
+        case CountryResolverKey.netherlands:
+      return netherlands(context);
+        case CountryResolverKey.netherlandsAntilles:
+      return netherlandsAntilles(context);
+        case CountryResolverKey.newCaledonia:
+      return newCaledonia(context);
+        case CountryResolverKey.newZealand:
+      return newZealand(context);
+        case CountryResolverKey.nicaragua:
+      return nicaragua(context);
+        case CountryResolverKey.niger:
+      return niger(context);
+        case CountryResolverKey.nigeria:
+      return nigeria(context);
+        case CountryResolverKey.niue:
+      return niue(context);
+        case CountryResolverKey.norfolkIsland:
+      return norfolkIsland(context);
+        case CountryResolverKey.northernMarianaIslands:
+      return northernMarianaIslands(context);
+        case CountryResolverKey.norway:
+      return norway(context);
+        case CountryResolverKey.oman:
+      return oman(context);
+        case CountryResolverKey.pakistan:
+      return pakistan(context);
+        case CountryResolverKey.palau:
+      return palau(context);
+        case CountryResolverKey.palestinianTerritoryOccupied:
+      return palestinianTerritoryOccupied(context);
+        case CountryResolverKey.panama:
+      return panama(context);
+        case CountryResolverKey.papuaNewGuinea:
+      return papuaNewGuinea(context);
+        case CountryResolverKey.paraguay:
+      return paraguay(context);
+        case CountryResolverKey.peru:
+      return peru(context);
+        case CountryResolverKey.philippines:
+      return philippines(context);
+        case CountryResolverKey.pitcairn:
+      return pitcairn(context);
+        case CountryResolverKey.poland:
+      return poland(context);
+        case CountryResolverKey.portugal:
+      return portugal(context);
+        case CountryResolverKey.puertoRico:
+      return puertoRico(context);
+        case CountryResolverKey.qatar:
+      return qatar(context);
+        case CountryResolverKey.romania:
+      return romania(context);
+        case CountryResolverKey.russia:
+      return russia(context);
+        case CountryResolverKey.rwanda:
+      return rwanda(context);
+        case CountryResolverKey.reunion:
+      return reunion(context);
+        case CountryResolverKey.saintBarthelemy:
+      return saintBarthelemy(context);
+        case CountryResolverKey.saintHelenaAscensionandTristanDaCunha:
+      return saintHelenaAscensionandTristanDaCunha(context);
+        case CountryResolverKey.saintKittsandNevis:
+      return saintKittsandNevis(context);
+        case CountryResolverKey.saintLucia:
+      return saintLucia(context);
+        case CountryResolverKey.saintMartin:
+      return saintMartin(context);
+        case CountryResolverKey.saintPierreandMiquelon:
+      return saintPierreandMiquelon(context);
+        case CountryResolverKey.saintVincentandtheGrenadines:
+      return saintVincentandtheGrenadines(context);
+        case CountryResolverKey.samoa:
+      return samoa(context);
+        case CountryResolverKey.sanMarino:
+      return sanMarino(context);
+        case CountryResolverKey.saoTomeandPrincipe:
+      return saoTomeandPrincipe(context);
+        case CountryResolverKey.saudiArabia:
+      return saudiArabia(context);
+        case CountryResolverKey.senegal:
+      return senegal(context);
+        case CountryResolverKey.serbia:
+      return serbia(context);
+        case CountryResolverKey.seychelles:
+      return seychelles(context);
+        case CountryResolverKey.sierraLeone:
+      return sierraLeone(context);
+        case CountryResolverKey.singapore:
+      return singapore(context);
+        case CountryResolverKey.slovakia:
+      return slovakia(context);
+        case CountryResolverKey.slovenia:
+      return slovenia(context);
+        case CountryResolverKey.solomonIslands:
+      return solomonIslands(context);
+        case CountryResolverKey.somalia:
+      return somalia(context);
+        case CountryResolverKey.southAfrica:
+      return southAfrica(context);
+        case CountryResolverKey.southSudan:
+      return southSudan(context);
+        case CountryResolverKey.southGeorgiaandtheSouthSandwichIslands:
+      return southGeorgiaandtheSouthSandwichIslands(context);
+        case CountryResolverKey.spain:
+      return spain(context);
+        case CountryResolverKey.sriLanka:
+      return sriLanka(context);
+        case CountryResolverKey.sudan:
+      return sudan(context);
+        case CountryResolverKey.suriname:
+      return suriname(context);
+        case CountryResolverKey.svalbardandJanMayen:
+      return svalbardandJanMayen(context);
+        case CountryResolverKey.swaziland:
+      return swaziland(context);
+        case CountryResolverKey.sweden:
+      return sweden(context);
+        case CountryResolverKey.switzerland:
+      return switzerland(context);
+        case CountryResolverKey.syrianArabRepublic:
+      return syrianArabRepublic(context);
+        case CountryResolverKey.taiwan:
+      return taiwan(context);
+        case CountryResolverKey.tajikistan:
+      return tajikistan(context);
+        case CountryResolverKey.tanzaniaUnitedRepublicofTanzania:
+      return tanzaniaUnitedRepublicofTanzania(context);
+        case CountryResolverKey.thailand:
+      return thailand(context);
+        case CountryResolverKey.timorLeste:
+      return timorLeste(context);
+        case CountryResolverKey.togo:
+      return togo(context);
+        case CountryResolverKey.tokelau:
+      return tokelau(context);
+        case CountryResolverKey.tonga:
+      return tonga(context);
+        case CountryResolverKey.trinidadandTobago:
+      return trinidadandTobago(context);
+        case CountryResolverKey.tunisia:
+      return tunisia(context);
+        case CountryResolverKey.turkey:
+      return turkey(context);
+        case CountryResolverKey.turkmenistan:
+      return turkmenistan(context);
+        case CountryResolverKey.turksandCaicosIslands:
+      return turksandCaicosIslands(context);
+        case CountryResolverKey.tuvalu:
+      return tuvalu(context);
+        case CountryResolverKey.uganda:
+      return uganda(context);
+        case CountryResolverKey.ukraine:
+      return ukraine(context);
+        case CountryResolverKey.unitedArabEmirates:
+      return unitedArabEmirates(context);
+        case CountryResolverKey.unitedKingdom:
+      return unitedKingdom(context);
+        case CountryResolverKey.unitedStates:
+      return unitedStates(context);
+        case CountryResolverKey.uruguay:
+      return uruguay(context);
+        case CountryResolverKey.uzbekistan:
+      return uzbekistan(context);
+        case CountryResolverKey.vanuatu:
+      return vanuatu(context);
+        case CountryResolverKey.venezuelaBolivarianRepublicofVenezuela:
+      return venezuelaBolivarianRepublicofVenezuela(context);
+        case CountryResolverKey.vietnam:
+      return vietnam(context);
+        case CountryResolverKey.virginIslandsBritish:
+      return virginIslandsBritish(context);
+        case CountryResolverKey.virginIslandsUS:
+      return virginIslandsUS(context);
+        case CountryResolverKey.wallisandFutuna:
+      return wallisandFutuna(context);
+        case CountryResolverKey.yemen:
+      return yemen(context);
+        case CountryResolverKey.zambia:
+      return zambia(context);
+        case CountryResolverKey.zimbabwe:
+      return zimbabwe(context);
+          }
     }
   }
-}
+    
