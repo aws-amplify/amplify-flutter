@@ -1,3 +1,9 @@
+## 0.2.8 (2021-11-12)
+
+### Fixes
+
+- fix(api): "Reply already submitted" crashes (#1058)
+
 ## 0.2.7 (2021-11-08)
 
 ### Chores
