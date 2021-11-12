@@ -68,10 +68,9 @@ void generateResolver(String dir, List<GenCountry> _countries) {
   StringBuffer output = StringBuffer('''
 
 $license
-import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/resolver.dart';
-
+import 'package:flutter/material.dart';
 
 enum CountryResolverKey {
   selectDialCode,
@@ -161,31 +160,31 @@ void generateArb(String dir, List<GenCountry> _countries) {
 
 void generateCountryList(String dir, List<GenCountry> _countries) {
   StringBuffer list = StringBuffer('''
-    $license
+$license
 
-    import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
+import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 
-    class Country {
-      final String countryCode;
+class Country {
+  final String countryCode;
 
-      final String value;
-      final CountryResolverKey key;
-      const Country(this.countryCode, this.value, this.key);
-    }
+  final String value;
+  final CountryResolverKey key;
+  const Country(this.countryCode, this.value, this.key);
+}
 
-    /// List of country information
-    const countryCodes = [
+/// List of country information
+const countryCodes = [\n
 ''');
 
   for (var element in _countries) {
     var comma = _countries.indexOf(element) != _countries.length - 1 ? ',' : '';
     list.write('''
-    Country('${element.code}', '${element.dialCode}', CountryResolverKey.${element.key}),
-    ''');
+  Country('${element.code}', '${element.dialCode}', CountryResolverKey.${element.key})$comma
+  ''');
   }
 
   list.write('''
-  ];
+];
   ''');
 
   File('$dir/../utils/country_code.dart').writeAsString(list.toString());
