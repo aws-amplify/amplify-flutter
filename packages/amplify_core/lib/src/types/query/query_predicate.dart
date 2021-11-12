@@ -55,7 +55,7 @@ class QueryPredicateOperation extends QueryPredicate {
 
   @override
   bool evaluate(Model model) {
-    var value = model.toJson()[field];
+    dynamic value = model.toJson()[field];
     return queryFieldOperator.evaluate(value);
   }
 

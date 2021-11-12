@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 import 'auth_rule.dart';
 import 'model_association.dart';
@@ -174,7 +174,7 @@ class ModelFieldDefinition {
             associatedType: associatedType));
   }
 
-  build() {
+  ModelField build() {
     return ModelField(
         name: name,
         type: type,

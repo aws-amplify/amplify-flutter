@@ -95,8 +95,7 @@ void main() {
     expect(req['options']['clientMetadata'][testMetadataKey],
         equals(testMetaDataAttribute));
     expect(req['options']['userAttributes'], isInstanceOf<Map>());
-    expect(req['options']['userAttributes'][testAttributeKey],
-        equals(testEmailValue));
+    expect(req['options']['userAttributes']['email'], equals(testEmailValue));
   });
 
   test('confirmSignIn thrown PlatFormException results in AuthException',

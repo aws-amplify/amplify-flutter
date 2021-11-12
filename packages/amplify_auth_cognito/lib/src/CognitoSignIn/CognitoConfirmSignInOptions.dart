@@ -31,9 +31,10 @@ class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
       pendingRequest["clientMetadata"] = clientMetadata;
     }
     if (this.userAttributes != null) {
-      pendingRequest["userAttributes"] =
-          userAttributes == null ? null : Map.of(userAttributes!)
-            ?..removeWhere((key, value) => key.readOnly);
+      pendingRequest["userAttributes"] = userAttributes == null
+          ? null
+          : (Map.of(userAttributes!)..removeWhere((key, value) => key.readOnly))
+              .map((attribute, value) => MapEntry(attribute.key, value));
     }
     return pendingRequest;
   }
