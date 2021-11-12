@@ -206,7 +206,7 @@ class AmplifyAuthService implements AuthService {
     );
   }
 
-  /// Returns a map of attribute keys and their verification status
+  /// Returns a list of verified and unverified attributes
   ///
   /// This is based off of `verifiedContact()` from amplify-js
   /// https://github.com/aws-amplify/amplify-js/blob/6de9a1d743deef8de5205590bf7cf8134a5fb5f4/packages/auth/src/Auth.ts#L1199-L1224
