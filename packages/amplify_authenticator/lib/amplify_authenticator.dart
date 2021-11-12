@@ -215,8 +215,6 @@ class _AuthenticatorState extends State<Authenticator> {
   late List<String> _missingConfigValues;
   bool _configInitialized = false;
 
-  bool _useAuthenticatorTheme = false;
-
   @override
   void initState() {
     super.initState();
@@ -241,7 +239,7 @@ class _AuthenticatorState extends State<Authenticator> {
           ..clearMaterialBanners()
           ..showMaterialBanner(createMaterialBanner(
             context,
-            useAuthenticatorTheme: _useAuthenticatorTheme,
+            useAuthenticatorTheme: widget.useAmplifyTheme,
             type: StatusType.error,
             content: Text(exception.message),
             margin: MediaQuery.of(context).viewPadding.top,
@@ -264,7 +262,7 @@ class _AuthenticatorState extends State<Authenticator> {
           ..clearMaterialBanners()
           ..showMaterialBanner(createMaterialBanner(
             context,
-            useAuthenticatorTheme: _useAuthenticatorTheme,
+            useAuthenticatorTheme: widget.useAmplifyTheme,
             type: StatusType.info,
             content: Text(resolver(context)),
             margin: MediaQuery.of(context).viewPadding.top,
@@ -327,7 +325,7 @@ class _AuthenticatorState extends State<Authenticator> {
         authBloc: _stateMachineBloc,
         child: InheritedConfig(
           amplifyConfig: _config,
-          useAmplifyTheme: _useAuthenticatorTheme,
+          useAmplifyTheme: widget.useAmplifyTheme,
           child: InheritedAuthViewModel(
             key: keyInheritedAuthViewModel,
             viewModel: _viewModel,
@@ -343,34 +341,7 @@ class _AuthenticatorState extends State<Authenticator> {
                 confirmSignInMFAForm: widget.confirmSignInMFAForm,
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),
-                child: Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    _AuthenticatorBody(
-                      child: widget.child,
-                    ),
-                    Material(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (_useAuthenticatorTheme)
-                            const Text('Amplify')
-                          else
-                            const Text('Material'),
-                          Switch(
-                            activeColor: Colors.red,
-                            value: _useAuthenticatorTheme,
-                            onChanged: (val) {
-                              setState(() {
-                                _useAuthenticatorTheme = val;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                child: _AuthenticatorBody(child: widget.child),
               ),
             ),
           ),

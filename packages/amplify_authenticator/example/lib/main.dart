@@ -1,7 +1,6 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -95,10 +94,7 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       title: 'Authenticator Demo',
-      theme: ThemeData(
-        brightness: debugBrightnessOverride,
-        primaryColor: Colors.blue,
-      ),
+      theme: ThemeData(primaryColor: Colors.blue),
       debugShowCheckedModeBanner: false,
 
       // These lines enable our custom localizations specified in the lib/l10n
@@ -113,35 +109,7 @@ class _MyAppState extends State<MyApp> {
       ],
 
       // The Authenticator component should be a descendant of your MaterialApp.
-      home: Stack(
-        children: [
-          authenticator,
-          Positioned(
-            bottom: 0,
-            left: 0,
-            child: Material(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (debugBrightnessOverride == Brightness.dark)
-                    const Text('Dark Mode')
-                  else
-                    const Text('Light Mode'),
-                  Switch(
-                    value: debugBrightnessOverride == Brightness.dark,
-                    onChanged: (darkMode) {
-                      setState(() {
-                        debugBrightnessOverride =
-                            darkMode ? Brightness.dark : Brightness.light;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+      home: authenticator,
     );
   }
 }

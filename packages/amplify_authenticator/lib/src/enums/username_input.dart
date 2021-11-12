@@ -13,12 +13,38 @@
  * permissions and limitations under the License.
  */
 
-enum UsernameType { username, email, phoneNumber }
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
+/// {@template amplify_authenticator.username_type}
+/// The type of username input field presented to the user. Depending on your
+/// Cognito configuration, users may choose to create their own username, use
+/// their email, or use their phone number as their login.
+/// {@endtemplate}
+enum UsernameType {
+  /// The user's chosen username.
+  username,
+
+  /// The user's email address, corresponding to their [CognitoUserAttributeKey.email]
+  /// attribute value.
+  email,
+
+  /// The user's email address, corresponding to their [CognitoUserAttributeKey.phoneNumber]
+  /// attribute value.
+  phoneNumber
+}
+
+/// {@template amplify_authenticator.username_input}
+/// A value emitted from username form fields when a user has updated their
+/// input.
+/// {@endtemplate}
 class UsernameInput {
+  /// {@macro amplify_authenticator.username_type}
   final UsernameType type;
+
+  /// The username value.
   final String username;
 
+  /// {@macro amplify_authenticator.username_input}
   const UsernameInput({
     required this.type,
     required this.username,
