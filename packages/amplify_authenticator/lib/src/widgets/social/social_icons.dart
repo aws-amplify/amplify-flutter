@@ -17,53 +17,62 @@ import 'package:flutter/material.dart';
 
 abstract class SocialIcons {
   static const _fontFamily = 'SocialIcons';
-  static const _fontPackage = 'amplify_authenticator';
+  static const _authenticatorPackage = 'amplify_authenticator';
 
   static const IconData apple = IconData(
     0xe903,
     fontFamily: _fontFamily,
-    fontPackage: _fontPackage,
+    fontPackage: _authenticatorPackage,
   );
 
   static const IconData amazon = IconData(
     0xe902,
     fontFamily: _fontFamily,
-    fontPackage: _fontPackage,
+    fontPackage: _authenticatorPackage,
   );
 
   static const IconData google = IconData(
     0xe901,
     fontFamily: _fontFamily,
-    fontPackage: _fontPackage,
+    fontPackage: _authenticatorPackage,
+  );
+
+  static final Image googleLogo = Image.asset(
+    'assets/social-buttons/google.png',
+    package: _authenticatorPackage,
   );
 
   static const IconData facebook = IconData(
     0xe900,
     fontFamily: _fontFamily,
-    fontPackage: _fontPackage,
+    fontPackage: _authenticatorPackage,
   );
 
   static const IconData apple1 = IconData(
     0xeabe,
     fontFamily: _fontFamily,
-    fontPackage: _fontPackage,
+    fontPackage: _authenticatorPackage,
   );
 
   static const IconData amazon1 = IconData(
     0xea87,
     fontFamily: _fontFamily,
-    fontPackage: _fontPackage,
+    fontPackage: _authenticatorPackage,
   );
+
+  static const Color amazonPrimary = Color(0xffff9900);
 
   static const IconData google1 = IconData(
     0xea88,
     fontFamily: _fontFamily,
-    fontPackage: _fontPackage,
+    fontPackage: _authenticatorPackage,
   );
 
   static const IconData facebook1 = IconData(
     0xea90,
     fontFamily: _fontFamily,
-    fontPackage: _fontPackage,
+    fontPackage: _authenticatorPackage,
   );
+
+  static const Color facebookPrimary = Color(0xff1877f2);
 }

@@ -57,9 +57,6 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
   ButtonResolverKey get labelKey => ButtonResolverKey.signInWith(provider);
 
   @override
-  Widget? get leading => Icon(provider.icon);
-
-  @override
   Widget? get loadingIndicator => null;
 
   @override
@@ -83,19 +80,16 @@ class _SocialSignInButtonState
     final isDark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
     switch (widget.provider) {
       case AuthProvider.google:
-        return Image.asset(
-          'assets/social-buttons/google/google.png',
-          package: 'amplify_authenticator',
-        );
+        return SocialIcons.googleLogo;
       case AuthProvider.facebook:
         return const Icon(
           SocialIcons.facebook1,
-          color: Color(0xff1877f2),
+          color: SocialIcons.facebookPrimary,
         );
       case AuthProvider.amazon:
         return const Icon(
           SocialIcons.amazon,
-          color: Color(0xffff9900),
+          color: SocialIcons.amazonPrimary,
         );
       case AuthProvider.apple:
         // This icons render slightly off-center without this padding.
@@ -155,19 +149,6 @@ class _SocialSignInButtonState
 }
 
 extension on AuthProvider {
-  IconData get icon {
-    switch (this) {
-      case AuthProvider.google:
-        return SocialIcons.google;
-      case AuthProvider.facebook:
-        return SocialIcons.facebook;
-      case AuthProvider.amazon:
-        return SocialIcons.amazon;
-      case AuthProvider.apple:
-        return SocialIcons.apple;
-    }
-  }
-
   EdgeInsets get padding {
     switch (this) {
       case AuthProvider.google:
