@@ -48,13 +48,23 @@ mixin AuthenticatorPhoneField<FieldType,
 
   @override
   Widget? get prefix => Padding(
-        padding: const EdgeInsets.only(right: 5.0),
+        padding: const EdgeInsets.all(8.0),
         child: InkWell(
-          child: Text(
-            '+${_selectedCountry.value}',
-            style: Theme.of(context).inputDecorationTheme.hintStyle ??
-                Theme.of(context).textTheme.subtitle1,
-            textAlign: TextAlign.center,
+          child: Row(
+            children: [
+              Text(
+                '+${_selectedCountry.value}',
+                style: Theme.of(context).inputDecorationTheme.hintStyle ??
+                    Theme.of(context).textTheme.subtitle1,
+                textAlign: TextAlign.center,
+              ),
+              const Expanded(
+                child: Icon(
+                  Icons.arrow_drop_down,
+                  size: 15.0,
+                ),
+              ),
+            ],
           ),
           onTap: showCountryDialog,
         ),
@@ -73,7 +83,7 @@ mixin AuthenticatorPhoneField<FieldType,
               child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0),
+                    padding: const EdgeInsets.all(24.0),
                     child: Text(
                       _countriesResolver.resolve(
                         context,
@@ -102,9 +112,7 @@ mixin AuthenticatorPhoneField<FieldType,
                       itemBuilder: (context, index) {
                         Country current = filteredCountries[index];
                         return SimpleDialogOption(
-                          onPressed: () {
-                            Navigator.of(context).pop(current);
-                          },
+                          onPressed: () => Navigator.of(context).pop(current),
                           child: Text(
                             '${_countriesResolver.resolve(context, current.key)} '
                             '(+${current.value})',
@@ -113,7 +121,8 @@ mixin AuthenticatorPhoneField<FieldType,
                       },
                       itemCount: filteredCountries.length,
                     ),
-                  )
+                  ),
+                  const SizedBox(height: 10),
                 ],
               ),
             );
