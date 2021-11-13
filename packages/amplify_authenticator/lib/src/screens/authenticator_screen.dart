@@ -100,7 +100,12 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
       margin: const EdgeInsets.all(AuthenticatorContainerConstants.padding) +
           EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
       color: AmplifyTheme.of(context).backgroundPrimary,
-      child: child,
+      child: Card(
+        shadowColor: AmplifyTheme.of(context).shadowPrimary,
+        elevation: 4.0,
+        shape: const Border(),
+        child: child,
+      ),
     );
   }
 
@@ -224,21 +229,16 @@ class _TabViewState extends AuthenticatorComponentState<_TabView>
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shadowColor: AmplifyTheme.of(context).shadowPrimary,
-      elevation: 4.0,
-      shape: const Border(),
-      child: Column(
-        children: [
-          TabBar(
-            controller: _controller,
-            tabs: _tabs,
-            labelColor: AmplifyTheme.of(context).tabLabelColor,
-            indicatorColor: AmplifyTheme.of(context).tabIndicatorColor,
-          ),
-          _FormWrapperView(screen: selectedTab),
-        ],
-      ),
+    return Column(
+      children: [
+        TabBar(
+          controller: _controller,
+          tabs: _tabs,
+          labelColor: AmplifyTheme.of(context).tabLabelColor,
+          indicatorColor: AmplifyTheme.of(context).tabIndicatorColor,
+        ),
+        _FormWrapperView(screen: selectedTab),
+      ],
     );
   }
 
