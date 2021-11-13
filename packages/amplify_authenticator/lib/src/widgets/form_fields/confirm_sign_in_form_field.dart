@@ -149,7 +149,7 @@ abstract class _ConfirmSignInFormFieldState<FieldValue>
   }
 
   @override
-  Widget? get suffixIcon {
+  Widget? get suffix {
     switch (widget.field) {
       case ConfirmSignInField.password:
       case ConfirmSignInField.newPassword:

@@ -69,11 +69,6 @@ abstract class _VerifyUserFormFieldState<FieldValue>
     extends AuthenticatorFormFieldState<VerifyAttributeField, FieldValue,
         VerifyUserFormField<FieldValue>> {
   @override
-  Widget? get suffixIcon {
-    return null;
-  }
-
-  @override
   int get errorMaxLines {
     return 1;
   }
@@ -162,17 +157,26 @@ class _VerifyUserRadioField
 class _VerifyAttributeFieldState
     extends _VerifyUserFormFieldState<CognitoUserAttributeKey>
     with AuthenticatorRadioField {
-  List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
+  final List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
       _inputSelections = [];
 
   @override
-  void didChangeDependencies() {
-    final _authState = InheritedAuthBloc.of(context).currentState;
-    _inputSelections = [];
-    if (_authState is VerifyUserFlow) {
-      final List<CognitoUserAttributeKey> _unverifiedKeys =
-          _authState.unverifiedAttributeKeys;
-      _inputSelections = [
+  late final CognitoUserAttributeKey initialValue;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final _authState =
+        InheritedAuthBloc.of(context, listen: false).currentState;
+    if (_authState is! VerifyUserFlow) {
+      throw StateError('Invalid verify attribute state: $_authState');
+    }
+    final List<CognitoUserAttributeKey> _unverifiedKeys =
+        _authState.unverifiedAttributeKeys;
+    _inputSelections
+      ..clear()
+      ..addAll([
         if (_unverifiedKeys.contains(CognitoUserAttributeKey.email))
           const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
             label: InputResolverKey.emailTitle,
@@ -183,10 +187,8 @@ class _VerifyAttributeFieldState
             label: InputResolverKey.phoneNumberTitle,
             value: CognitoUserAttributeKey.phoneNumber,
           )
-      ];
-      selectionValue = _inputSelections.first.value;
-    }
-    super.didChangeDependencies();
+      ]);
+    initialValue = _inputSelections.first.value;
   }
 
   @override
@@ -195,10 +197,6 @@ class _VerifyAttributeFieldState
   }
 
   @override
-  List<InputSelection> get selections {
-    return _inputSelections;
-  }
-
-  @override
-  CognitoUserAttributeKey? selectionValue;
+  List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
+      get selections => _inputSelections;
 }

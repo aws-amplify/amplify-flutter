@@ -13,14 +13,12 @@
  * permissions and limitations under the License.
 */
 
-import 'package:amplify_authenticator/amplify_authenticator.dart';
-
 /// Configuration for defining content of radio and switch types in [AuthenticatorFormField].
-abstract class SelectableConfig<T> {
-  final List<InputSelection> selections;
-  late T? selectionValue;
+abstract class SelectableConfig<Label, Value> {
+  const SelectableConfig();
 
-  SelectableConfig({required this.selections});
+  List<InputSelection<Label, Value>> get selections;
+  Value? get selectionValue;
 }
 
 /// Allows for configuration of fields with multiple selections, such as dropdowns, switches and radio buttons

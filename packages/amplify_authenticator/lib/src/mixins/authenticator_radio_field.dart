@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/src/l10n/input_resolver.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/foundation.dart';
@@ -7,7 +8,11 @@ import 'package:flutter/material.dart';
 mixin AuthenticatorRadioField<FieldType, FieldValue,
         T extends AuthenticatorFormField<FieldType, FieldValue, T>>
     on AuthenticatorFormFieldState<FieldType, FieldValue, T>
-    implements SelectableConfig<FieldValue> {
+    implements SelectableConfig<InputResolverKey, FieldValue> {
+  @override
+  FieldValue get selectionValue => _selectionValue;
+  late FieldValue _selectionValue = selections.first.value;
+
   @override
   Widget buildFormField(BuildContext context) {
     final inputResolver = stringResolver.inputs;
@@ -30,7 +35,7 @@ mixin AuthenticatorRadioField<FieldType, FieldValue,
               groupValue: selectionValue,
               onChanged: (FieldValue? value) {
                 setState(() {
-                  selectionValue = value;
+                  _selectionValue = value!;
                 });
                 if (selectionValue != null) onChanged(selectionValue!);
               },

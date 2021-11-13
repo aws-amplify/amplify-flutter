@@ -279,7 +279,7 @@ abstract class _SignUpFormFieldState<FieldValue>
   }
 
   @override
-  Widget? get suffixIcon {
+  Widget? get suffix {
     switch (widget.field) {
       case SignUpField.password:
       case SignUpField.passwordConfirmation:
@@ -530,7 +530,7 @@ class _SignUpPhoneField extends SignUpFormField<String> {
   _SignUpPhoneFieldState createState() => _SignUpPhoneFieldState();
 }
 
-class _SignUpPhoneFieldState extends _SignUpFormFieldState<String>
+class _SignUpPhoneFieldState extends _SignUpTextFieldState
     with AuthenticatorPhoneField {
   @override
   String? get initialValue {
@@ -552,17 +552,6 @@ class _SignUpPhoneFieldState extends _SignUpFormFieldState<String>
   @override
   FormFieldValidator<String> get validator {
     return validatePhoneNumber;
-  }
-
-  @override
-  String? selectionValue = countryCodes.first.value;
-
-  @override
-  List<InputSelection> get selections {
-    return countryCodes
-        .map((Country country) => InputSelection<CountryResolverKey, String>(
-            label: country.key, value: country.value))
-        .toList();
   }
 }
 
@@ -641,9 +630,7 @@ class _SignUpRadioFieldState
     extends _SignUpFormFieldState<CognitoUserAttributeKey>
     with AuthenticatorRadioField {
   @override
-  CognitoUserAttributeKey? get initialValue {
-    return CognitoUserAttributeKey.email;
-  }
+  CognitoUserAttributeKey get initialValue => CognitoUserAttributeKey.email;
 
   @override
   ValueChanged<CognitoUserAttributeKey> get onChanged {
@@ -651,19 +638,15 @@ class _SignUpRadioFieldState
   }
 
   @override
-  List<InputSelection> get selections {
-    return [
-      const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
-        label: InputResolverKey.emailTitle,
-        value: CognitoUserAttributeKey.email,
-      ),
-      const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
-        label: InputResolverKey.phoneNumberTitle,
-        value: CognitoUserAttributeKey.phoneNumber,
-      )
-    ];
-  }
-
-  @override
-  CognitoUserAttributeKey? selectionValue = CognitoUserAttributeKey.email;
+  List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
+      get selections => const [
+            InputSelection<InputResolverKey, CognitoUserAttributeKey>(
+              label: InputResolverKey.emailTitle,
+              value: CognitoUserAttributeKey.email,
+            ),
+            InputSelection<InputResolverKey, CognitoUserAttributeKey>(
+              label: InputResolverKey.phoneNumberTitle,
+              value: CognitoUserAttributeKey.phoneNumber,
+            )
+          ];
 }

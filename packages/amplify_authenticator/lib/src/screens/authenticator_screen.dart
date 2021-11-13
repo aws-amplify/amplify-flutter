@@ -233,7 +233,8 @@ class _TabViewState extends AuthenticatorComponentState<_TabView>
           TabBar(
             controller: _controller,
             tabs: _tabs,
-            labelColor: AmplifyTheme.of(context).tabColor,
+            labelColor: AmplifyTheme.of(context).tabLabelColor,
+            indicatorColor: AmplifyTheme.of(context).tabIndicatorColor,
           ),
           _FormWrapperView(screen: selectedTab),
         ],

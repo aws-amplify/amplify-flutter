@@ -236,7 +236,7 @@ mixin AuthenticatorUsernameField<FieldType,
         ));
       },
       decoration: InputDecoration(
-        suffixIcon: suffixIcon,
+        suffixIcon: suffix,
         errorMaxLines: errorMaxLines,
         hintText: hintText,
         isDense: true,

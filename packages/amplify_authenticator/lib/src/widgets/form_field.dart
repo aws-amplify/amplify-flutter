@@ -142,8 +142,11 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   /// Whether the form field accepts input.
   bool get enabled => true;
 
-  /// Widget to show at trailing end.
-  Widget? get suffixIcon => null;
+  /// Widget to show at leading end, typically an [Icon].
+  Widget? get prefix => null;
+
+  /// Widget to show at trailing end, typically an [Icon].
+  Widget? get suffix => null;
 
   /// Widget to show directly below this field.
   Widget? get companionWidget => null;
