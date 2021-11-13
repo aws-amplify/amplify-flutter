@@ -125,7 +125,7 @@ class _SocialSignInButtonState
             ? null
             : () => viewModel.signInWithProvider(widget.provider),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: widget.provider.padding,
@@ -135,12 +135,10 @@ class _SocialSignInButtonState
               ),
             ),
             const SizedBox(width: 15),
-            Expanded(
-              child: Text(resolver.resolve(
-                context,
-                ButtonResolverKey.signInWith(widget.provider),
-              )),
-            ),
+            Text(resolver.resolve(
+              context,
+              ButtonResolverKey.signInWith(widget.provider),
+            )),
           ],
         ),
       ),
