@@ -366,8 +366,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
       case SignUpField.address:
         return viewModel.setAddress;
       case SignUpField.email:
-        if (usernameAttributes.length == 1 &&
-            usernameAttributes.contains(CognitoUserAttributeKey.email)) {
+        if (selectedUsernameType == UsernameType.email) {
           return (email) {
             viewModel.setEmail(email);
             viewModel.setUsername(email);
@@ -532,17 +531,13 @@ class _SignUpPhoneField extends SignUpFormField<String> {
 
 class _SignUpPhoneFieldState extends _SignUpTextFieldState {
   @override
-  Widget get prefix => AuthenticatorPhoneField(onChanged: onChanged);
-
-  @override
   String? get initialValue {
     return viewModel.getAttribute(widget.field.toCognitoAttribute());
   }
 
   @override
   ValueChanged<String> get onChanged {
-    if (usernameAttributes.length == 1 &&
-        usernameAttributes.contains(CognitoUserAttributeKey.phoneNumber)) {
+    if (selectedUsernameType == UsernameType.phoneNumber) {
       return (phoneNumber) {
         viewModel.setPhoneNumber(phoneNumber);
         viewModel.setUsername(phoneNumber);

@@ -1,34 +1,12 @@
 import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
-import 'package:amplify_authenticator/src/mixins/authenticator_text_field.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
-import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
-import 'package:flutter/foundation.dart';
-
 import 'package:flutter/material.dart';
 
-class AuthenticatorPhoneField
-    extends AuthenticatorComponent<AuthenticatorPhoneField> {
-  const AuthenticatorPhoneField({Key? key, required this.onChanged})
-      : super(key: key);
-
-  final ValueChanged<String> onChanged;
-
-  @override
-  _AuthenticatorPhoneFieldState createState() =>
-      _AuthenticatorPhoneFieldState();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(
-        ObjectFlagProperty<ValueChanged<String>>.has('onChanged', onChanged));
-  }
-}
-
-class _AuthenticatorPhoneFieldState
-    extends AuthenticatorComponentState<AuthenticatorPhoneField>
+mixin AuthenticatorPhoneFieldMixin<FieldType,
+        T extends AuthenticatorFormField<FieldType, String, T>>
+    on AuthenticatorFormFieldState<FieldType, String, T>
     implements SelectableConfig<CountryResolverKey, Country> {
   late final CountryResolver _countriesResolver = stringResolver.countries;
 
@@ -56,39 +34,40 @@ class _AuthenticatorPhoneFieldState
       )
       .toList();
 
+  String formatPhoneNumber(String phoneNumber) {
+    return phoneNumber.ensureStartsWith('+${_selectedCountry.value}');
+  }
+
+  @override
   ValueChanged<String> get onChanged => (phoneNumber) {
-        phoneNumber = phoneNumber.ensureStartsWith(
-          '+${_selectedCountry.value}',
-        );
-        return widget.onChanged(phoneNumber);
+        phoneNumber = formatPhoneNumber(phoneNumber);
+        return super.onChanged(phoneNumber);
       };
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        child: Row(
-          children: [
-            Text(
-              '+${_selectedCountry.value}',
-              style: Theme.of(context).inputDecorationTheme.hintStyle ??
-                  Theme.of(context).textTheme.subtitle1,
-              textAlign: TextAlign.center,
-            ),
-            const Expanded(
-              child: Icon(
-                Icons.arrow_drop_down,
-                size: 15.0,
+  Widget get prefix => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: InkWell(
+          child: Row(
+            children: [
+              Text(
+                '+${_selectedCountry.value}',
+                style: Theme.of(context).inputDecorationTheme.hintStyle ??
+                    Theme.of(context).textTheme.subtitle1,
+                textAlign: TextAlign.center,
               ),
-            ),
-            const SizedBox(width: 5),
-          ],
+              const Expanded(
+                child: Icon(
+                  Icons.arrow_drop_down,
+                  size: 15.0,
+                ),
+              ),
+              const SizedBox(width: 5),
+            ],
+          ),
+          onTap: showCountryDialog,
         ),
-        onTap: showCountryDialog,
-      ),
-    );
-  }
+      );
 
   Future<void> showCountryDialog() async {
     // Reset search
@@ -157,23 +136,5 @@ class _AuthenticatorPhoneFieldState
         _selectedCountry = selectedCountry;
       });
     }
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-        .add(IterableProperty<Country>('filteredCountries', filteredCountries));
-    properties.add(
-        ObjectFlagProperty<ValueChanged<String>>.has('onChanged', onChanged));
-  }
-}
-
-extension StringPrefix on String {
-  String ensureStartsWith(String value) {
-    if (!startsWith(value)) {
-      return '$value$this';
-    }
-    return this;
   }
 }
