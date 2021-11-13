@@ -530,6 +530,7 @@ class AmplifyTheme {
       fontWeight: FontWeight.bold,
     ),
     labelPadding: EdgeInsets.zero,
+    indicator: const BoxDecoration(),
   );
 
   static final tabBarThemeDark = TabBarTheme(
@@ -734,7 +735,12 @@ class _AmplifyThemeWrapper {
     return fontInteractive!;
   }
 
-  Color? get fontPrimary => useAmplifyTheme ? AmplifyColors.fontPrimary : null;
+  Color? get fontPrimary {
+    if (!useAmplifyTheme) {
+      return null;
+    }
+    return _isDark ? AmplifyColors.fontInverse : AmplifyColors.fontPrimary;
+  }
 
   Color? get fontSecondary =>
       useAmplifyTheme ? AmplifyColors.fontSecondary : null;
