@@ -530,8 +530,10 @@ class _SignUpPhoneField extends SignUpFormField<String> {
   _SignUpPhoneFieldState createState() => _SignUpPhoneFieldState();
 }
 
-class _SignUpPhoneFieldState extends _SignUpTextFieldState
-    with AuthenticatorPhoneField {
+class _SignUpPhoneFieldState extends _SignUpTextFieldState {
+  @override
+  Widget get prefix => AuthenticatorPhoneField(onChanged: onChanged);
+
   @override
   String? get initialValue {
     return viewModel.getAttribute(widget.field.toCognitoAttribute());

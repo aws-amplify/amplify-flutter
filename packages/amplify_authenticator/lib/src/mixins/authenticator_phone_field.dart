@@ -1,16 +1,34 @@
 import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_text_field.dart';
-import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
+import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 
-mixin AuthenticatorPhoneField<FieldType,
-        T extends AuthenticatorFormField<FieldType, String, T>>
-    on AuthenticatorTextField<FieldType, T>
+class AuthenticatorPhoneField
+    extends AuthenticatorComponent<AuthenticatorPhoneField> {
+  const AuthenticatorPhoneField({Key? key, required this.onChanged})
+      : super(key: key);
+
+  final ValueChanged<String> onChanged;
+
+  @override
+  _AuthenticatorPhoneFieldState createState() =>
+      _AuthenticatorPhoneFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+        ObjectFlagProperty<ValueChanged<String>>.has('onChanged', onChanged));
+  }
+}
+
+class _AuthenticatorPhoneFieldState
+    extends AuthenticatorComponentState<AuthenticatorPhoneField>
     implements SelectableConfig<CountryResolverKey, Country> {
   late final CountryResolver _countriesResolver = stringResolver.countries;
 
@@ -38,37 +56,39 @@ mixin AuthenticatorPhoneField<FieldType,
       )
       .toList();
 
-  @override
   ValueChanged<String> get onChanged => (phoneNumber) {
         phoneNumber = phoneNumber.ensureStartsWith(
           '+${_selectedCountry.value}',
         );
-        return super.onChanged(phoneNumber);
+        return widget.onChanged(phoneNumber);
       };
 
   @override
-  Widget? get prefix => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: InkWell(
-          child: Row(
-            children: [
-              Text(
-                '+${_selectedCountry.value}',
-                style: Theme.of(context).inputDecorationTheme.hintStyle ??
-                    Theme.of(context).textTheme.subtitle1,
-                textAlign: TextAlign.center,
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: InkWell(
+        child: Row(
+          children: [
+            Text(
+              '+${_selectedCountry.value}',
+              style: Theme.of(context).inputDecorationTheme.hintStyle ??
+                  Theme.of(context).textTheme.subtitle1,
+              textAlign: TextAlign.center,
+            ),
+            const Expanded(
+              child: Icon(
+                Icons.arrow_drop_down,
+                size: 15.0,
               ),
-              const Expanded(
-                child: Icon(
-                  Icons.arrow_drop_down,
-                  size: 15.0,
-                ),
-              ),
-            ],
-          ),
-          onTap: showCountryDialog,
+            ),
+            const SizedBox(width: 5),
+          ],
         ),
-      );
+        onTap: showCountryDialog,
+      ),
+    );
+  }
 
   Future<void> showCountryDialog() async {
     // Reset search
@@ -98,6 +118,7 @@ mixin AuthenticatorPhoneField<FieldType,
                     child: TextField(
                       decoration: const InputDecoration(
                         suffixIcon: Icon(Icons.search),
+                        isDense: true,
                       ),
                       onChanged: (String searchVal) {
                         setState(() {
@@ -136,6 +157,15 @@ mixin AuthenticatorPhoneField<FieldType,
         _selectedCountry = selectedCountry;
       });
     }
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(IterableProperty<Country>('filteredCountries', filteredCountries));
+    properties.add(
+        ObjectFlagProperty<ValueChanged<String>>.has('onChanged', onChanged));
   }
 }
 

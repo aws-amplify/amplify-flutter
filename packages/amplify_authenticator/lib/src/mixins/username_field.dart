@@ -15,6 +15,7 @@
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/mixins/authenticator_phone_field.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
@@ -64,6 +65,19 @@ mixin AuthenticatorUsernameField<FieldType,
           return UsernameType.email;
         }
         return UsernameType.phoneNumber;
+    }
+  }
+
+  @override
+  Widget? get prefix {
+    if (usernameType == _UsernameType.phoneNumber ||
+        (usernameType == _UsernameType.emailOrPhoneNumber && !_useEmail)) {
+      return AuthenticatorPhoneField(onChanged: (phoneNumber) {
+        return onChanged(UsernameInput(
+          type: usernameInputType,
+          username: phoneNumber,
+        ));
+      });
     }
   }
 
@@ -150,7 +164,7 @@ mixin AuthenticatorUsernameField<FieldType,
     final inputResolver = stringResolver.inputs;
     final labelText = Text(inputResolver.resolve(context, titleKey));
 
-    // Mirrors internal impl. to create an "always-active" Switch theme.
+    // Mirrors internal impl. to create an "always active" Switch theme.
     final thumbColor = Theme.of(context).toggleableActiveColor;
     final trackColor = thumbColor.withOpacity(0.5);
 
@@ -160,30 +174,33 @@ mixin AuthenticatorUsernameField<FieldType,
       case _UsernameType.phoneNumber:
         return labelText;
       case _UsernameType.emailOrPhoneNumber:
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            labelText,
-            IconTheme.merge(
-              data: const IconThemeData(size: 16.0),
-              child: Row(
-                children: [
-                  const Icon(Icons.phone),
-                  Switch(
-                    thumbColor: MaterialStateProperty.all(thumbColor),
-                    trackColor: MaterialStateProperty.all(trackColor),
-                    value: _useEmail,
-                    onChanged: (val) {
-                      setState(() {
-                        _useEmail = val;
-                      });
-                    },
-                  ),
-                  const Icon(Icons.email),
-                ],
+        return SizedBox(
+          height: 20,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              labelText,
+              IconTheme.merge(
+                data: const IconThemeData(size: 16.0),
+                child: Row(
+                  children: [
+                    const Icon(Icons.phone),
+                    Switch(
+                      thumbColor: MaterialStateProperty.all(thumbColor),
+                      trackColor: MaterialStateProperty.all(trackColor),
+                      value: _useEmail,
+                      onChanged: (val) {
+                        setState(() {
+                          _useEmail = val;
+                        });
+                      },
+                    ),
+                    const Icon(Icons.email),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
     }
   }
@@ -236,6 +253,11 @@ mixin AuthenticatorUsernameField<FieldType,
         ));
       },
       decoration: InputDecoration(
+        prefixIcon: prefix,
+        prefixIconConstraints: const BoxConstraints(
+          minWidth: 40,
+          maxWidth: 65,
+        ),
         suffixIcon: suffix,
         errorMaxLines: errorMaxLines,
         hintText: hintText,

@@ -30,7 +30,7 @@ mixin AuthenticatorTextField<FieldType,
             prefixIcon: prefix,
             prefixIconConstraints: const BoxConstraints(
               minWidth: 40,
-              maxWidth: 60,
+              maxWidth: 65,
             ),
             suffixIcon: suffix,
             errorMaxLines: errorMaxLines,
@@ -39,6 +39,7 @@ mixin AuthenticatorTextField<FieldType,
           ),
           keyboardType: keyboardType,
           obscureText: obscureText,
+          textAlignVertical: TextAlignVertical.center,
         );
       },
     );
