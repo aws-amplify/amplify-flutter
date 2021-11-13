@@ -19,7 +19,6 @@ import 'package:amplify_authenticator/src/constants/authenticator_constants.dart
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
-import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
@@ -27,7 +26,7 @@ import 'package:amplify_authenticator/src/widgets/progress.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-extension on AuthenticatorButtonSize {
+extension AuthenticatorButtonSizes on AuthenticatorButtonSize {
   double get height {
     switch (this) {
       case AuthenticatorButtonSize.small:
@@ -117,18 +116,10 @@ abstract class AuthenticatorButtonState<T extends AuthenticatorButton<T>>
 abstract class AuthenticatorElevatedButton
     extends AuthenticatorButton<AuthenticatorElevatedButton> {
   /// {@macro authenticator.amplify_elevated_button}
-  const AuthenticatorElevatedButton({
-    Key? key,
-    this.primary = true,
-  }) : super(key: key);
-
-  /// Whether this button uses the primary button theme.
-  ///
-  /// Defaults to `true`.
-  final bool primary;
+  const AuthenticatorElevatedButton({Key? key}) : super(key: key);
 
   @override
-  Widget? get loadingIndicator => AmplifyProgressIndicator(primary: primary);
+  Widget? get loadingIndicator => const AmplifyProgressIndicator();
 
   @override
   _AmplifyElevatedButtonState createState() => _AmplifyElevatedButtonState();
@@ -137,7 +128,6 @@ abstract class AuthenticatorElevatedButton
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(EnumProperty('labelKey', labelKey));
-    properties.add(DiagnosticsProperty<bool>('primary', primary));
   }
 }
 
@@ -147,49 +137,36 @@ class _AmplifyElevatedButtonState
   Widget build(BuildContext context) {
     final buttonResolver = stringResolver.buttons;
     final loadingIndicator = widget.loadingIndicator;
-    var content = viewModel.isBusy && loadingIndicator != null
-        ? loadingIndicator
-        : Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (widget.leading != null) widget.leading!,
-              Flexible(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    buttonResolver.resolve(
-                      context,
-                      widget.labelKey,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              if (widget.trailing != null) widget.trailing!,
-            ].spacedBy(const SizedBox(width: 10)),
-          );
-    Widget button;
-    if (widget.primary) {
-      button = ElevatedButton(
-        focusNode: focusNode,
-        onPressed: viewModel.isBusy
-            ? null
-            : () => widget.onPressed(context, viewModel),
-        child: content,
-      );
-    } else {
-      button = OutlinedButton(
-        focusNode: focusNode,
-        onPressed: viewModel.isBusy
-            ? null
-            : () => widget.onPressed(context, viewModel),
-        child: content,
-      );
-    }
     return SizedBox(
       height: widget.size.height,
       width: double.infinity,
-      child: button,
+      child: ElevatedButton(
+        focusNode: focusNode,
+        onPressed: viewModel.isBusy
+            ? null
+            : () => widget.onPressed(context, viewModel),
+        child: viewModel.isBusy && loadingIndicator != null
+            ? loadingIndicator
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (widget.leading != null) widget.leading!,
+                  Flexible(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        buttonResolver.resolve(
+                          context,
+                          widget.labelKey,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  if (widget.trailing != null) widget.trailing!,
+                ].spacedBy(const SizedBox(width: 10)),
+              ),
+      ),
     );
   }
 }
