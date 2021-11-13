@@ -40,8 +40,9 @@ mixin AuthenticatorPhoneField<FieldType,
 
   @override
   ValueChanged<String> get onChanged => (phoneNumber) {
-        var selectedCountry = _selectedCountry;
-        phoneNumber = phoneNumber.ensureStartsWith('+${selectedCountry.value}');
+        phoneNumber = phoneNumber.ensureStartsWith(
+          '+${_selectedCountry.value}',
+        );
         return super.onChanged(phoneNumber);
       };
 
