@@ -157,8 +157,12 @@ class _VerifyUserRadioField
 class _VerifyAttributeFieldState
     extends _VerifyUserFormFieldState<CognitoUserAttributeKey>
     with AuthenticatorRadioField {
-  final List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
-      _inputSelections = [];
+  late final List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
+      _inputSelections;
+
+  @override
+  List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
+      get selections => _inputSelections;
 
   @override
   late final CognitoUserAttributeKey initialValue;
@@ -174,20 +178,18 @@ class _VerifyAttributeFieldState
     }
     final List<CognitoUserAttributeKey> _unverifiedKeys =
         _authState.unverifiedAttributeKeys;
-    _inputSelections
-      ..clear()
-      ..addAll([
-        if (_unverifiedKeys.contains(CognitoUserAttributeKey.email))
-          const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
-            label: InputResolverKey.emailTitle,
-            value: CognitoUserAttributeKey.email,
-          ),
-        if (_unverifiedKeys.contains(CognitoUserAttributeKey.phoneNumber))
-          const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
-            label: InputResolverKey.phoneNumberTitle,
-            value: CognitoUserAttributeKey.phoneNumber,
-          )
-      ]);
+    _inputSelections = [
+      if (_unverifiedKeys.contains(CognitoUserAttributeKey.email))
+        const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
+          label: InputResolverKey.emailTitle,
+          value: CognitoUserAttributeKey.email,
+        ),
+      if (_unverifiedKeys.contains(CognitoUserAttributeKey.phoneNumber))
+        const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
+          label: InputResolverKey.phoneNumberTitle,
+          value: CognitoUserAttributeKey.phoneNumber,
+        )
+    ];
     initialValue = _inputSelections.first.value;
   }
 
@@ -195,8 +197,4 @@ class _VerifyAttributeFieldState
   ValueChanged<CognitoUserAttributeKey> get onChanged {
     return viewModel.setAttributeKeyToVerify;
   }
-
-  @override
-  List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
-      get selections => _inputSelections;
 }
