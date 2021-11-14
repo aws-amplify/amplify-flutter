@@ -217,6 +217,10 @@ class StateMachineBloc {
     }
   }
 
+  void _notifyCodeSent(String? destination) {
+    _infoMessageController.add(MessageResolverKey.codeSent(destination));
+  }
+
   Stream<AuthState> _signIn(AuthSignInData data) async* {
     try {
       // Make sure no user is signed in before calling the sign in method
@@ -239,6 +243,7 @@ class StateMachineBloc {
 
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
+          _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);
           yield AuthFlow.confirmSigninMfa;
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
@@ -251,12 +256,8 @@ class StateMachineBloc {
           yield AuthFlow.resetPassword;
           break;
         case 'CONFIRM_SIGN_UP':
-          if (data is AuthUsernamePasswordSignInData) {
-            yield* _resendSignUpCode(data.username);
-          } else {
-            // TODO: Is this possible?
-            yield AuthFlow.confirmSignup;
-          }
+          _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);
+          yield AuthFlow.confirmSignup;
           break;
         case 'DONE':
           yield* _checkUserVerification();
@@ -269,11 +270,11 @@ class StateMachineBloc {
         e.message,
         showBanner: false,
       ));
+      yield AuthFlow.confirmSignup;
       if (data is AuthUsernamePasswordSignInData) {
         yield* _resendSignUpCode(data.username);
       } else {
         // TODO: Is this possible?
-        yield AuthFlow.confirmSignup;
       }
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(
@@ -399,14 +400,13 @@ class StateMachineBloc {
     try {
       ResendSignUpCodeResult result =
           await _authService.resendSignUpCode(username);
-      String? destination = result.codeDeliveryDetails.destination;
-      _infoMessageController.add(MessageResolverKey.codeSent(destination));
+      _notifyCodeSent(result.codeDeliveryDetails.destination);
+      yield currentState;
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
-    yield AuthFlow.confirmSignup;
   }
 
   Future<void> dispose() {

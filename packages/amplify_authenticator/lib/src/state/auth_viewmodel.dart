@@ -24,10 +24,8 @@ class AuthViewModel extends ChangeNotifier {
     // Listen to screen changes to know when to clear the form. Calling `clean`
     // from the forms' dispose method is unreliable since it may be called after
     // the transitioning form's first build is called.
-
-    /// When transitioning through widgets as part of authflow, maintain [ViewModel] state except for form key
-
-    /// When auth flow is complete, reset entirety of [ViewModel] state
+    //
+    // When auth flow is complete, reset entirety of the view model state.
     _authBloc.stream.distinct().listen((event) {
       resetFormKey();
       resetCode();
