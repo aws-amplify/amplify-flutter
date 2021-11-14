@@ -371,21 +371,16 @@ class InputResolver extends Resolver<InputResolverKey> {
       case InputField.phoneNumber:
         return AuthenticatorLocalizations.inputsOf(context).phoneNumber;
       // case InputField.picture:
-      //   // TODO: Handle this case.
       //   break;
       case InputField.preferredUsername:
         return AuthenticatorLocalizations.inputsOf(context).preferredUsername;
       // case InputField.profile:
-      //   // TODO: Handle this case.
       //   break;
       // case InputField.zoneinfo:
-      //   // TODO: Handle this case.
       //   break;
       // case InputField.updatedAt:
-      //   // TODO: Handle this case.
       //   break;
       // case InputField.website:
-      //   // TODO: Handle this case.
       //   break;
       case InputField.rememberDevice:
         return AuthenticatorLocalizations.inputsOf(context).rememberDevice;

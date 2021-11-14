@@ -367,7 +367,6 @@ class StateMachineBloc {
       yield AttributeVerificationSent(data.userAttributeKey);
     } on Exception catch (e) {
       if (e is AmplifyException) {
-        print(e);
         _exceptionController.add(AuthenticatorException(e.message));
       } else {
         _exceptionController.add(AuthenticatorException(e.toString()));
@@ -384,7 +383,6 @@ class StateMachineBloc {
       yield const Authenticated();
     } on Exception catch (e) {
       if (e is AmplifyException) {
-        print(e);
         _exceptionController.add(AuthenticatorException(e.message));
       } else {
         _exceptionController.add(AuthenticatorException(e.toString()));

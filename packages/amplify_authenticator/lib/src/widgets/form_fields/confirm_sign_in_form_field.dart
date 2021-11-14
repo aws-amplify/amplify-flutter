@@ -83,8 +83,6 @@ abstract class ConfirmSignInFormField<FieldValue>
       );
 
   /// Creates a custom attribute component.
-  ///
-  /// TODO: Document [attributeKey]
   static ConfirmSignInFormField custom({
     Key? key,
     required String title,

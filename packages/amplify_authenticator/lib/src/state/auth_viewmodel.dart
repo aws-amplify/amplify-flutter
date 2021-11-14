@@ -44,13 +44,9 @@ class AuthViewModel extends ChangeNotifier {
   bool _isBusy = false;
   bool get isBusy => _isBusy;
 
-  Key? _busyButton;
-  Key? get busyButton => _busyButton;
-
   //ignore:avoid_positional_boolean_parameters
-  void setBusy(bool busy, [Key? busyButton]) {
+  void setBusy(bool busy) {
     _isBusy = busy;
-    _busyButton = busy ? busyButton : null;
     notifyListeners();
   }
 
