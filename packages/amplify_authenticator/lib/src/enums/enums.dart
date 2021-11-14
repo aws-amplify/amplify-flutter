@@ -21,5 +21,4 @@ export 'gender.dart';
 export 'signin_types.dart';
 export 'signup_types.dart';
 export 'status_type.dart';
-export 'username_input.dart' show UsernameType, UsernameInput;
 export 'verify_attribute_field_types.dart';

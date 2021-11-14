@@ -18,6 +18,7 @@ library authenticator.form;
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
+import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
@@ -68,6 +69,22 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
   List<AuthenticatorComponent> runtimeActions(BuildContext context) => const [];
 
   final ValueNotifier<bool> obscureTextToggleValue = ValueNotifier(true);
+
+  @override
+  void initState() {
+    super.initState();
+    useEmail.addListener(_updateUseEmail);
+  }
+
+  @override
+  void dispose() {
+    useEmail.removeListener(_updateUseEmail);
+    super.dispose();
+  }
+
+  void _updateUseEmail() {
+    setState(() {});
+  }
 
   /// Controls optional visibilty of the field.
   Widget get obscureTextToggle {

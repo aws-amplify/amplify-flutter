@@ -14,8 +14,8 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_authenticator/src/enums/username_input.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
+import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
@@ -170,6 +170,8 @@ mixin AuthenticatorUsernameField<FieldType,
         validator: _validator,
         enabled: enabled,
         errorMaxLines: errorMaxLines,
+        initialValue:
+            viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber),
       );
     }
     return TextFormField(

@@ -18,8 +18,6 @@ part of authenticator.form_field;
 /// {@template authenticator.sign_up_form_field}
 /// A form field component on the Sign Up screen.
 /// {@endtemplate}
-///   /// Creates a extends component.
-
 abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     SignUpField, FieldValue, SignUpFormField<FieldValue>> {
   /// {@macro authenticator.sign_up_form_field}
@@ -529,10 +527,16 @@ class _SignUpPhoneField extends SignUpFormField<String> {
   _SignUpPhoneFieldState createState() => _SignUpPhoneFieldState();
 }
 
-class _SignUpPhoneFieldState extends _SignUpTextFieldState {
+class _SignUpPhoneFieldState extends _SignUpTextFieldState
+    with AuthenticatorPhoneFieldMixin {
   @override
   String? get initialValue {
-    return viewModel.getAttribute(widget.field.toCognitoAttribute());
+    var _initialValue =
+        viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber);
+    if (_initialValue != null) {
+      _initialValue = displayPhoneNumber(_initialValue);
+    }
+    return _initialValue;
   }
 
   @override

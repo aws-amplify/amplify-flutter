@@ -40,9 +40,15 @@ class AuthenticatorPhoneField<FieldType> extends AuthenticatorFormField<
 class _AuthenticatorPhoneFieldState<FieldType>
     extends AuthenticatorFormFieldState<FieldType, String,
         AuthenticatorPhoneField<FieldType>>
-    with AuthenticatorTextField, AuthenticatorPhoneFieldMixin {
+    with AuthenticatorPhoneFieldMixin, AuthenticatorTextField {
   @override
-  String? get initialValue => widget.initialValue ?? super.initialValue;
+  String? get initialValue {
+    var _initialValue = widget.initialValue ?? super.initialValue;
+    if (_initialValue != null) {
+      _initialValue = displayPhoneNumber(_initialValue);
+    }
+    return _initialValue;
+  }
 
   @override
   bool get enabled => widget.enabled ?? super.enabled;

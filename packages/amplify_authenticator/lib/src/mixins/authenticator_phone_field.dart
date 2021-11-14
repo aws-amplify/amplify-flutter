@@ -3,6 +3,7 @@ import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 mixin AuthenticatorPhoneFieldMixin<FieldType,
         T extends AuthenticatorFormField<FieldType, String, T>>
@@ -36,6 +37,14 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
 
   String formatPhoneNumber(String phoneNumber) {
     return phoneNumber.ensureStartsWith('+${_selectedCountry.value}');
+  }
+
+  String displayPhoneNumber(String phoneNumber) {
+    var prefix = '+${_selectedCountry.value}';
+    if (phoneNumber.startsWith(prefix)) {
+      phoneNumber = phoneNumber.substring(prefix.length);
+    }
+    return phoneNumber;
   }
 
   @override
