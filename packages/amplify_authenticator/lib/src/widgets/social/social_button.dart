@@ -83,16 +83,16 @@ class _SocialSignInButtonState
         return SocialIcons.googleLogo;
       case AuthProvider.facebook:
         return const Icon(
-          SocialIcons.facebook1,
-          color: SocialIcons.facebookPrimary,
+          SocialIcons.facebook,
+          color: SocialIcons.facebookPrimaryColor,
         );
       case AuthProvider.amazon:
         return const Icon(
           SocialIcons.amazon,
-          color: SocialIcons.amazonPrimary,
+          color: SocialIcons.amazonPrimaryColor,
         );
       case AuthProvider.apple:
-        // This icons render slightly off-center without this padding.
+        // This icon renders slightly off-center without this padding.
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
