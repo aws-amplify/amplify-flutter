@@ -107,22 +107,16 @@ abstract class AuthenticatorMessageLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
-  /// The message that is displayed after a new confirmation code is sent via email
+  /// The message that is displayed after a new confirmation code is sent via Email/SMS.
   ///
   /// In en, this message translates to:
-  /// **'A new confirmation code has been sent to the email associated with this account.'**
-  String get codeSentEmail;
-
-  /// The message that is displayed after a new confirmation code is sent via SMS
-  ///
-  /// In en, this message translates to:
-  /// **'A new confirmation code has been sent to the phone number associated with this account.'**
-  String get codeSentSMS;
+  /// **'A confirmation code has been sent to {destination}.'**
+  String codeSent(String destination);
 
   /// The message that is displayed after a new confirmation code is sent via an unknown delivery medium
   ///
   /// In en, this message translates to:
-  /// **'A new confirmation code has been sent.'**
+  /// **'A confirmation code has been sent.'**
   String get codeSentUnknown;
 }
 

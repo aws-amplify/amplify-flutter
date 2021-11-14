@@ -22,7 +22,7 @@ import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
-import 'package:amplify_authenticator/src/l10n/string_resolver.dart';
+import 'package:amplify_authenticator/src/l10n/message_resolver.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
@@ -49,6 +49,7 @@ export 'package:amplify_flutter/src/config/auth/password_protection_settings.dar
 export 'src/enums/enums.dart';
 export 'src/l10n/auth_strings_resolver.dart';
 export 'src/models/authenticator_exception.dart';
+export 'src/models/username_input.dart' show UsernameType, UsernameInput;
 export 'src/widgets/button.dart' show SignOutButton;
 export 'src/widgets/form.dart'
     show
@@ -210,7 +211,8 @@ class _AuthenticatorState extends State<Authenticator> {
   late final StateMachineBloc _stateMachineBloc;
   late final AuthViewModel _viewModel;
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
-  late final StreamSubscription<StringResolver> _infoSub;
+  late final StreamSubscription<MessageResolverKey> _infoSub;
+  late final StreamSubscription<AuthState> _successSub;
   AmplifyConfig? _config;
   late List<String> _missingConfigValues;
   bool _configInitialized = false;
@@ -218,13 +220,12 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   void initState() {
     super.initState();
-    _stateMachineBloc = StateMachineBloc(
-      authService: _authService,
-      authStringResolver: widget.stringResolver,
-    )..add(const AuthLoad());
+    _stateMachineBloc = StateMachineBloc(authService: _authService)
+      ..add(const AuthLoad());
     _viewModel = AuthViewModel(_stateMachineBloc);
     _subscribeToExceptions();
     _subscribeToInfoMessages();
+    _subscribeToSuccessEvents();
     _waitForConfiguration();
   }
 
@@ -256,7 +257,8 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 
   void _subscribeToInfoMessages() {
-    _infoSub = _stateMachineBloc.infoMessages.listen((resolver) {
+    final resolver = widget.stringResolver.messages;
+    _infoSub = _stateMachineBloc.infoMessages.listen((key) {
       if (mounted) {
         ScaffoldMessenger.of(context)
           ..clearMaterialBanners()
@@ -264,7 +266,7 @@ class _AuthenticatorState extends State<Authenticator> {
             context,
             useAuthenticatorTheme: widget.useAmplifyTheme,
             type: StatusType.info,
-            content: Text(resolver(context)),
+            content: Text(resolver.resolve(context, key)),
             margin: MediaQuery.of(context).viewPadding.top,
             actions: [
               IconButton(
@@ -278,10 +280,20 @@ class _AuthenticatorState extends State<Authenticator> {
     });
   }
 
+  // Clear exception and info banners on successful login.
+  void _subscribeToSuccessEvents() {
+    _successSub = _stateMachineBloc.stream.listen((state) {
+      if (state is Authenticated) {
+        ScaffoldMessenger.of(context).clearMaterialBanners();
+      }
+    });
+  }
+
   @override
   void dispose() {
     _exceptionSub.cancel();
     _infoSub.cancel();
+    _successSub.cancel();
     _stateMachineBloc.dispose();
     super.dispose();
   }
