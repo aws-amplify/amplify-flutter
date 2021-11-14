@@ -134,7 +134,7 @@ class _SocialSignInButtonState
                 child: icon,
               ),
             ),
-            const SizedBox(width: 15),
+            const SizedBox(width: 5),
             Text(resolver.resolve(
               context,
               ButtonResolverKey.signInWith(widget.provider),
