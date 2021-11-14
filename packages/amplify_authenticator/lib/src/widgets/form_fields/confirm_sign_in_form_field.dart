@@ -156,6 +156,16 @@ abstract class _ConfirmSignInFormFieldState<FieldValue>
         return null;
     }
   }
+
+  @override
+  int? get maxLength {
+    switch (widget.field) {
+      case ConfirmSignInField.code:
+        return 6;
+      default:
+        return null;
+    }
+  }
 }
 
 class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {

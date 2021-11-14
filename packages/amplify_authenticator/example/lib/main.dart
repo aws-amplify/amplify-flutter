@@ -76,6 +76,9 @@ class _MyAppState extends State<MyApp> {
     // provide as `child`.
     final authenticator = Authenticator(
       stringResolver: stringResolver,
+      onException: (exception) {
+        print('[ERROR]: $exception');
+      },
 
       // Next, we create a custom Sign Up form which uses our custom username
       // validator.

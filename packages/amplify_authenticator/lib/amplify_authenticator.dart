@@ -66,6 +66,12 @@ export 'src/widgets/form_field.dart'
         ConfirmSignInFormField,
         ConfirmSignUpFormField;
 
+/// {@template amplify_authenticator.exception_handler}
+/// A user-specified exception handler for errors originating within the
+/// [Authenticator].
+/// {@endtemplate}
+typedef ExceptionHandler = void Function(AuthenticatorException);
+
 /// {@template authenticator.authenticator}
 /// # Amplify Authenticator
 ///
@@ -103,6 +109,7 @@ class Authenticator extends StatefulWidget {
     this.stringResolver = const AuthStringResolver(),
     required this.child,
     this.useAmplifyTheme = false,
+    this.onException,
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
     this.signUpForm = signUpForm ?? SignUpForm();
@@ -188,7 +195,12 @@ class Authenticator extends StatefulWidget {
   /// ```
   late final SignUpForm signUpForm;
 
+  /// An optional, user-defined string resolver, used for localizing the
+  /// Authenticator or overriding default messages.
   final AuthStringResolver stringResolver;
+
+  /// {@macro amplify_authenticator.exception_handler}
+  final ExceptionHandler? onException;
 
   /// This widget will be displayed after a user has signed in.
   final Widget child;
@@ -203,6 +215,8 @@ class Authenticator extends StatefulWidget {
         'stringResolver', stringResolver));
     properties
         .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
+    properties.add(
+        ObjectFlagProperty<ExceptionHandler?>.has('onException', onException));
   }
 }
 
@@ -231,7 +245,10 @@ class _AuthenticatorState extends State<Authenticator> {
 
   void _subscribeToExceptions() {
     _exceptionSub = _stateMachineBloc.exceptions.listen((exception) {
-      if (!exception.showBanner) {
+      var onException = widget.onException;
+      if (onException != null) {
+        onException(exception);
+      } else {
         safePrint('[ERROR]: $exception');
         return;
       }
@@ -284,7 +301,7 @@ class _AuthenticatorState extends State<Authenticator> {
   void _subscribeToSuccessEvents() {
     _successSub = _stateMachineBloc.stream.listen((state) {
       if (state is Authenticated) {
-        ScaffoldMessenger.of(context).clearMaterialBanners();
+        ScaffoldMessenger.of(context).removeCurrentMaterialBanner();
       }
     });
   }

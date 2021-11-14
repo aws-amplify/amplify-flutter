@@ -314,7 +314,8 @@ class StateMachineBloc {
 
       switch (result.nextStep.signUpStep) {
         case 'CONFIRM_SIGN_UP_STEP':
-          yield* _resendSignUpCode(data.username);
+          _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
+          yield AuthFlow.confirmSignup;
           break;
         case 'DONE':
           var authSignInData = AuthUsernamePasswordSignInData(
