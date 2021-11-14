@@ -30,7 +30,7 @@ mixin AuthenticatorTextField<FieldType,
             prefixIcon: prefix,
             prefixIconConstraints: const BoxConstraints(
               minWidth: 40,
-              maxWidth: 65,
+              maxWidth: 70,
             ),
             suffixIcon: suffix,
             errorMaxLines: errorMaxLines,

@@ -3,7 +3,6 @@ import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 mixin AuthenticatorPhoneFieldMixin<FieldType,
         T extends AuthenticatorFormField<FieldType, String, T>>
@@ -58,6 +57,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 '+${_selectedCountry.value}',
@@ -65,7 +65,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
                     Theme.of(context).textTheme.subtitle1,
                 textAlign: TextAlign.center,
               ),
-              const Expanded(
+              const Flexible(
                 child: Icon(
                   Icons.arrow_drop_down,
                   size: 15.0,
