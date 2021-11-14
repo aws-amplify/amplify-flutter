@@ -158,6 +158,9 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   /// Maximum number of lines to use for error text.
   int get errorMaxLines => 1;
 
+  /// The maximum length of the input.
+  int? get maxLength => null;
+
   /// Title widget to use above form field.
   ///
   /// Defaults to a [Text] object with the form field's title.
@@ -219,5 +222,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         'selectedUsernameType', selectedUsernameType));
     properties
         .add(DiagnosticsProperty<ValueNotifier<bool>>('useEmail', useEmail));
+    properties.add(IntProperty('maxLength', maxLength));
   }
 }

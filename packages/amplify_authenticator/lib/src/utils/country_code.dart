@@ -25,6 +25,7 @@ class Country {
 
 /// List of country information
 const countryCodes = [
+  Country('US', '1', CountryResolverKey.us$),
   Country('AF', '93', CountryResolverKey.af$),
   Country('AX', '358', CountryResolverKey.ax$),
   Country('AL', '355', CountryResolverKey.al$),
@@ -255,7 +256,6 @@ const countryCodes = [
   Country('UA', '380', CountryResolverKey.ua$),
   Country('AE', '971', CountryResolverKey.ae$),
   Country('GB', '44', CountryResolverKey.gb$),
-  Country('US', '1', CountryResolverKey.us$),
   Country('UY', '598', CountryResolverKey.uy$),
   Country('UZ', '998', CountryResolverKey.uz$),
   Country('VU', '678', CountryResolverKey.vu$),

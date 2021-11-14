@@ -242,4 +242,17 @@ class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
         return validateCode;
     }
   }
+
+  @override
+  int? get maxLength {
+    switch (widget.field) {
+      case ConfirmSignUpField.username:
+      case ConfirmSignUpField.password:
+      case ConfirmSignUpField.email:
+      case ConfirmSignUpField.phoneNumber:
+        return null;
+      case ConfirmSignUpField.code:
+        return 6;
+    }
+  }
 }

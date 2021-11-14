@@ -2,6 +2,7 @@ import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 mixin AuthenticatorTextField<FieldType,
         T extends AuthenticatorFormField<FieldType, String, T>>
@@ -37,6 +38,8 @@ mixin AuthenticatorTextField<FieldType,
             hintText: hintText,
             isDense: true,
           ),
+          maxLength: maxLength,
+          maxLengthEnforcement: MaxLengthEnforcement.enforced,
           keyboardType: keyboardType,
           obscureText: obscureText,
           textAlignVertical: TextAlignVertical.center,

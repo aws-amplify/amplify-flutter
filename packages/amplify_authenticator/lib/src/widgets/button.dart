@@ -375,6 +375,8 @@ class GoToSignInButton extends StatelessAuthenticatorComponent {
 class LostCodeButton extends StatelessAuthenticatorComponent {
   const LostCodeButton({Key? key}) : super(key: key);
 
+  static const fontSize = 13.0;
+
   @override
   Widget builder(
     BuildContext context,
@@ -390,20 +392,15 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
           Expanded(
             child: Text(
               buttonResolver.lostCode(context),
-              style: const TextStyle(
-                color: AuthenticatorButtonConstants.textColor,
-                fontSize: 13,
-              ),
+              style: Theme.of(context).textTheme.caption?.copyWith(
+                    fontSize: fontSize,
+                  ),
             ),
           ),
           TextButton(
-            key: keyGoToSignInButton,
             child: Text(
               buttonResolver.sendCode(context),
-              style: TextStyle(
-                fontSize: AuthenticatorButtonConstants.textFontSize,
-                color: Theme.of(context).primaryColor,
-              ),
+              style: const TextStyle(fontSize: fontSize),
             ),
             onPressed: viewModel.resendSignUpCode,
           ),

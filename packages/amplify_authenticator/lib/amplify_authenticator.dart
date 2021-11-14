@@ -402,9 +402,11 @@ class _AuthenticatorBody extends StatelessWidget {
           return Scaffold(
             backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
             body: SizedBox.expand(
-              child: SingleChildScrollView(
-                child: screen,
-              ),
+              child: screen is AuthenticatorScreen
+                  ? SingleChildScrollView(
+                      child: screen,
+                    )
+                  : screen,
             ),
           );
         },
