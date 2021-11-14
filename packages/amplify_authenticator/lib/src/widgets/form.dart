@@ -393,7 +393,6 @@ class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
           key: key,
           fields: fields,
           actions: const [
-            RememberDeviceCheckbox(),
             ConfirmSignInMFAButton(),
             BackToSignInButton(),
           ],
