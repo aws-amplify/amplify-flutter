@@ -541,13 +541,10 @@ class _SignUpPhoneFieldState extends _SignUpTextFieldState
 
   @override
   ValueChanged<String> get onChanged {
-    if (selectedUsernameType == UsernameType.phoneNumber) {
-      return (phoneNumber) {
-        viewModel.setPhoneNumber(phoneNumber);
-        viewModel.setUsername(phoneNumber);
-      };
-    }
-    return viewModel.setPhoneNumber;
+    return (phoneNumber) {
+      phoneNumber = formatPhoneNumber(phoneNumber);
+      viewModel.setPhoneNumber(phoneNumber);
+    };
   }
 
   @override
@@ -602,52 +599,4 @@ class _SignUpDateFieldState extends _SignUpFormFieldState<String>
       ),
     );
   }
-}
-
-class _SignUpRadioField extends SignUpFormField<CognitoUserAttributeKey> {
-  const _SignUpRadioField({
-    Key? key,
-    required SignUpField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<CognitoUserAttributeKey>? validator,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
-        );
-
-  @override
-  _SignUpRadioFieldState createState() => _SignUpRadioFieldState();
-}
-
-class _SignUpRadioFieldState
-    extends _SignUpFormFieldState<CognitoUserAttributeKey>
-    with AuthenticatorRadioField {
-  @override
-  CognitoUserAttributeKey get initialValue => CognitoUserAttributeKey.email;
-
-  @override
-  ValueChanged<CognitoUserAttributeKey> get onChanged {
-    return viewModel.setSelectedUsername;
-  }
-
-  @override
-  List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
-      get selections => const [
-            InputSelection<InputResolverKey, CognitoUserAttributeKey>(
-              label: InputResolverKey.emailTitle,
-              value: CognitoUserAttributeKey.email,
-            ),
-            InputSelection<InputResolverKey, CognitoUserAttributeKey>(
-              label: InputResolverKey.phoneNumberTitle,
-              value: CognitoUserAttributeKey.phoneNumber,
-            )
-          ];
 }

@@ -103,9 +103,6 @@ class AuthViewModel extends ChangeNotifier {
   CognitoUserAttributeKey _attributeKeyToVerify = CognitoUserAttributeKey.email;
   CognitoUserAttributeKey get attributeKeyToVerify => _attributeKeyToVerify;
 
-  CognitoUserAttributeKey? _selectedUsername;
-  CognitoUserAttributeKey? get selectedUsername => _selectedUsername;
-
   void _setAttribute(CognitoUserAttributeKey attribute, String value) {
     _authAttributes[attribute] = value.trim();
   }
@@ -188,10 +185,6 @@ class AuthViewModel extends ChangeNotifier {
   // ignore: avoid_positional_boolean_parameters
   void setRememberDevice(bool value) {
     _rememberDevice = value;
-  }
-
-  void setSelectedUsername(CognitoUserAttributeKey value) {
-    _selectedUsername = value;
   }
 
   void setAttributeKeyToVerify(CognitoUserAttributeKey attributeKey) {
@@ -312,19 +305,8 @@ class AuthViewModel extends ChangeNotifier {
     }
     setBusy(true);
 
-    String username;
-    if (_selectedUsername == CognitoUserAttributeKey.email) {
-      username = _authAttributes[CognitoUserAttributeKey.email]!;
-    } else if (_selectedUsername == CognitoUserAttributeKey.phoneNumber) {
-      username = _authAttributes[CognitoUserAttributeKey.phoneNumber]!;
-    } else {
-      username = _username;
-    }
-
-    setUsername(username);
-
     final signUp = AuthSignUpData(
-      username: username.trim(),
+      username: _username.trim(),
       password: _password.trim(),
       attributes: _authAttributes,
     );
@@ -336,9 +318,7 @@ class AuthViewModel extends ChangeNotifier {
 
   Future<void> resendSignUpCode() async {
     authBloc.add(AuthResendSignUpCode(_username));
-    await _nextBlocEvent(
-      where: (state) => state is VerificationCodeSent,
-    );
+    await _nextBlocEvent();
   }
 
   Future<void> confirmVerifyUser(
@@ -407,7 +387,6 @@ class AuthViewModel extends ChangeNotifier {
     _passwordConfirmation = '';
     _confirmationCode = '';
     _newPassword = '';
-    _selectedUsername = null;
     _authAttributes.clear();
   }
 

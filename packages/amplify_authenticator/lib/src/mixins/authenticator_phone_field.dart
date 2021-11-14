@@ -47,12 +47,6 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
   }
 
   @override
-  ValueChanged<String> get onChanged => (phoneNumber) {
-        phoneNumber = formatPhoneNumber(phoneNumber);
-        return super.onChanged(phoneNumber);
-      };
-
-  @override
   Widget get prefix => Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
