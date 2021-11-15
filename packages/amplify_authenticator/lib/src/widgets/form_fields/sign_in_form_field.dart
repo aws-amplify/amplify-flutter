@@ -182,16 +182,6 @@ abstract class _SignInFormFieldState<FieldValue>
         return super.errorMaxLines;
     }
   }
-
-  @override
-  Widget? get companionWidget {
-    switch (widget.field) {
-      case SignInField.password:
-        return const ForgotPasswordButton();
-      default:
-        return null;
-    }
-  }
 }
 
 class _SignInTextField extends SignInFormField<String> {

@@ -419,21 +419,12 @@ class ForgotPasswordButton extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    final resolver = stringResolver.buttons;
-    return Padding(
-      padding: const EdgeInsets.only(top: 4.0),
-      child: SizedBox(
-        width: double.infinity,
-        child: TextButton(
-          key: keyForgotPasswordButton,
-          child: Text(
-            resolver.forgotPassword(context),
-            textAlign: TextAlign.center,
-            style: AmplifyTextTheme.button$.copyWith(fontSize: 12),
-          ),
-          onPressed: viewModel.goToReset,
-        ),
+    return TextButton(
+      key: keyForgotPasswordButton,
+      child: Text(
+        stringResolver.buttons.forgotPassword(context),
       ),
+      onPressed: viewModel.goToReset,
     );
   }
 }
