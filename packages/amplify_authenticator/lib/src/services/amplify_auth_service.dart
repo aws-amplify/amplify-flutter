@@ -176,12 +176,10 @@ class AmplifyAuthService implements AuthService {
       await Amplify.Auth.fetchAuthSession(
           options: CognitoSessionOptions(getAWSCredentials: true));
       return true;
-
-      /// Surface the SessionExpiredException to the caller so that a banner can be displayed.
-    } on SessionExpiredException {
-      rethrow;
-    } on Exception {
+    } on SignedOutException {
       return false;
+    } on Exception {
+      rethrow;
     }
   }
 

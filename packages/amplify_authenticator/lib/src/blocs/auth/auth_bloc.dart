@@ -148,17 +148,31 @@ class StateMachineBloc {
       bool isValidSession = await _authService.isValidSession();
       if (isValidSession) {
         yield const Authenticated();
+        _exceptionController.add(const AuthenticatorException(
+            'Your session has expired. Please sign in.',
+            showBanner: true));
       } else {
         yield AuthFlow.signin;
+        _exceptionController.add(const AuthenticatorException(
+            'Your session has expired. Please sign in.',
+            showBanner: true));
       }
 
-      /// The [isValidSession] method will only surface a SessonExpiredException,
-      /// as we want to display a banner to alert users. All other exceptions are swallowed.
+      /// The [isValidSession] method will surface all Exceptions except SignedOutException
     } on SessionExpiredException {
       /// On all Exceptions other than SignedOutException or SessionExpired,
       /// we provide a generic message to the user and surface the SignIn form.
       _exceptionController.add(const AuthenticatorException(
-          'Your session has expired. Please sign in.'));
+          'Your session has expired. Please sign in.',
+          showBanner: true));
+      yield AuthFlow.signin;
+    } on AmplifyException catch (e) {
+      _exceptionController
+          .add(AuthenticatorException(e.message, showBanner: false));
+    } on Exception catch (e) {
+      _exceptionController.add(const AuthenticatorException(
+          'An unknown exception has occurred when fetching the session',
+          showBanner: false));
       yield AuthFlow.signin;
     }
   }
