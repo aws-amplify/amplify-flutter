@@ -294,12 +294,12 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
   }
 
   @override
-  bool get markRequired {
+  bool get required {
     switch (field) {
+      case SignUpField.username:
       case SignUpField.password:
       case SignUpField.passwordConfirmation:
         return true;
-      case SignUpField.username:
       case SignUpField.address:
       case SignUpField.birthdate:
       case SignUpField.email:

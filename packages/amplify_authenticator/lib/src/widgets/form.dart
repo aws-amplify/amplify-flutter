@@ -109,7 +109,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
     );
   }
 
-  List<AuthenticatorFormField> get _allFields {
+  List<AuthenticatorFormField> get allFields {
     final fields = HashSet<AuthenticatorFormField>(
       equals: (a, b) {
         return a.runtimeType == b.runtimeType && a.field == b.field;
@@ -140,7 +140,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
       key: viewModel.formKey,
       child: Column(
         children: [
-          ..._allFields,
+          ...allFields,
           Column(
             children: [
               if (widget.actions.isNotEmpty) const SizedBox(height: 4),

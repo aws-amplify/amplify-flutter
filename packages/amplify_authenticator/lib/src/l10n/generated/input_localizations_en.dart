@@ -125,7 +125,7 @@ class AuthenticatorInputLocalizationsEn
       other: '$numCharacters $characterType characters',
     );
 
-    return 'at least $pluralString';
+    return 'at least ${pluralString}';
   }
 
   @override
@@ -133,4 +133,9 @@ class AuthenticatorInputLocalizationsEn
 
   @override
   String get usernameType => 'Select what you want to use as a username';
+
+  @override
+  String optional(String fieldTitle) {
+    return '$fieldTitle (optional)';
+  }
 }

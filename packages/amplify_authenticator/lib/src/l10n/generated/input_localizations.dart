@@ -13,9 +13,9 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'dart:async';
 
-import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
@@ -264,6 +264,12 @@ abstract class AuthenticatorInputLocalizations {
   /// In en, this message translates to:
   /// **'Select what you want to use as a username'**
   String get usernameType;
+
+  /// Indicator for a field which is not required to be filled
+  ///
+  /// In en, this message translates to:
+  /// **'{fieldTitle} (optional)'**
+  String optional(String fieldTitle);
 }
 
 class _AuthenticatorInputLocalizationsDelegate

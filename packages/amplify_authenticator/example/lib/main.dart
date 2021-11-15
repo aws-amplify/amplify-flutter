@@ -67,8 +67,9 @@ class _MyAppState extends State<MyApp> {
     // we only specify a custom button resolver, which automatically configures
     // the default for the others.
     const stringResolver = AuthStringResolver(
-        buttons: LocalizedButtonResolver(),
-        countries: LocalizedCountryResolver());
+      buttons: LocalizedButtonResolver(),
+      countries: LocalizedCountryResolver(),
+    );
 
     // We wrap our application in an Authenticator component. This component
     // handles all the screens and logic whenever the user is signed out. Once
@@ -89,6 +90,7 @@ class _MyAppState extends State<MyApp> {
           ),
           SignUpFormField.password(),
           SignUpFormField.passwordConfirmation(),
+          SignUpFormField.familyName(),
         ],
       ),
 

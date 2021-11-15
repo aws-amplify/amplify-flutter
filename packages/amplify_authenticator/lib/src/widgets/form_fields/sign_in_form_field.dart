@@ -75,10 +75,9 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
   }
 
   @override
-  bool get markRequired {
+  bool get required {
     switch (field) {
       case SignInField.username:
-        return false;
       case SignInField.password:
         return true;
     }

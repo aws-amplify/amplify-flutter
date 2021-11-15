@@ -98,13 +98,13 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
   /// Larger numbers take higher precedence.
   int get priority => 1;
 
-  /// User override of default [markRequired] value.
+  /// User override of default [required] value.
   final bool? requiredOverride;
 
-  /// Whether the mark the field as required in the form.
+  /// Whether the field is required in the form.
   ///
   /// Defaults to `false`.
-  bool get markRequired => false;
+  bool get required => false;
 
   /// The username attribute corresponding to this field, if any. This is used
   /// to properly address situations where custom fields are added which conflict
@@ -122,7 +122,7 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
     properties.add(ObjectFlagProperty<FormFieldValidator<FieldValue>?>.has(
         'validatorOverride', validatorOverride));
     properties.add(IntProperty('priority', priority));
-    properties.add(DiagnosticsProperty<bool>('required', markRequired));
+    properties.add(DiagnosticsProperty<bool>('required', required));
     properties
         .add(DiagnosticsProperty<bool?>('requiredOverride', requiredOverride));
     properties.add(EnumProperty<UsernameType?>('usernameType', usernameType));
@@ -192,6 +192,13 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
 
   Widget buildFormField(BuildContext context);
 
+  /// Whether the field is optional, i.e. does not require user input. This is
+  /// used to correctly label fields to the user.
+  bool get isOptional {
+    final isRequired = (widget.requiredOverride ?? false) || widget.required;
+    return !isRequired;
+  }
+
   @nonVirtual
   @override
   Widget build(BuildContext context) {
@@ -201,7 +208,11 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
       final titleString =
           widget.title ?? widget.titleKey?.resolve(context, inputResolver);
       if (titleString != null) {
-        title = Text(titleString);
+        title = Text(
+          isOptional
+              ? inputResolver.optional(context, titleString)
+              : titleString,
+        );
       }
     }
     final titleStyle = Theme.of(context).inputDecorationTheme.labelStyle ??
@@ -216,16 +227,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
           if (title != null)
             DefaultTextStyle(
               style: titleStyle,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Flexible(child: title),
-                  if (widget.requiredOverride ?? widget.markRequired) ...const [
-                    SizedBox(width: 5),
-                    Text('*'),
-                  ]
-                ],
-              ),
+              child: title,
             ),
           const SizedBox(height: FormFieldConstants.gap),
           buildFormField(context),
@@ -256,5 +258,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
     properties
         .add(DiagnosticsProperty<ValueNotifier<bool>>('useEmail', useEmail));
     properties.add(IntProperty('maxLength', maxLength));
+    properties.add(DiagnosticsProperty<bool>('isOptional', isOptional));
   }
 }

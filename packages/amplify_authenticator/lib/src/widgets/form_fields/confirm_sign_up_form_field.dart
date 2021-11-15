@@ -79,7 +79,7 @@ abstract class ConfirmSignUpFormField<FieldValue>
   }
 
   @override
-  bool get markRequired {
+  bool get required {
     switch (field) {
       case ConfirmSignUpField.username:
       case ConfirmSignUpField.code:

@@ -435,6 +435,10 @@ class InputResolver extends Resolver<InputResolverKey> {
     return sb.toString();
   }
 
+  String optional(BuildContext context, String title) {
+    return AuthenticatorLocalizations.inputsOf(context).optional(title);
+  }
+
   @override
   String resolve(BuildContext context, InputResolverKey key) {
     switch (key.type) {
