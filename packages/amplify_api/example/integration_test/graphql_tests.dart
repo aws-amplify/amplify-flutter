@@ -521,6 +521,20 @@ void main() {
         await Amplify.API.mutate(request: deleteReq).response;
         await Future<dynamic>.delayed(const Duration(seconds: 5));
       });
+
+      testWidgets(
+          'should emit event when onCreate subscription made with model helper for post (model with parent).',
+          (WidgetTester tester) async {
+        String title =
+            'Integration Test post - subscription create ${UUID.getUUID()}';
+        final subscriptionRequest = ModelSubscriptions.onCreate(Post.classType);
+
+        final eventResponse = await _establishSubscriptionAndMutate(
+            subscriptionRequest, () => addPostAndBlogWithModelHelper(title, 0));
+        Post? postFromEvent = eventResponse.data;
+
+        expect(postFromEvent?.title, equals(title));
+      });
     });
   });
 }
