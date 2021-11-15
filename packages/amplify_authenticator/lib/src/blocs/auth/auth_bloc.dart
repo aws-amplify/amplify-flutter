@@ -148,24 +148,21 @@ class StateMachineBloc {
       bool isValidSession = await _authService.isValidSession();
       if (isValidSession) {
         yield const Authenticated();
-        _exceptionController.add(const AuthenticatorException(
-            'Your session has expired. Please sign in.',
-            showBanner: true));
       } else {
+        /// [isValidSession] returns false if the native platform
+        /// returns a [SignedOutException] or if the native libraries return a valid object but
+        /// UserPool tokens are null (when unauthenticated access is enabled on Identity Pool).
         yield AuthFlow.signin;
-        _exceptionController.add(const AuthenticatorException(
-            'Your session has expired. Please sign in.',
-            showBanner: true));
       }
-
-      /// The [isValidSession] method will surface all Exceptions except SignedOutException
     } on SessionExpiredException {
-      /// On all Exceptions other than SignedOutException or SessionExpired,
-      /// we provide a generic message to the user and surface the SignIn form.
+      /// In this case, we want to give the end user an exception message and go to signin.
       _exceptionController.add(const AuthenticatorException(
           'Your session has expired. Please sign in.',
           showBanner: true));
       yield AuthFlow.signin;
+
+      /// On [AmplifyException] and [Exception], update exception controller, do not show banner
+      /// and go to sign in screen.
     } on AmplifyException catch (e) {
       _exceptionController
           .add(AuthenticatorException(e.message, showBanner: false));
