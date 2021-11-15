@@ -8,6 +8,8 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  amplify_core:
+    path: ../amplify_core
   flutter:
     sdk: flutter
 
