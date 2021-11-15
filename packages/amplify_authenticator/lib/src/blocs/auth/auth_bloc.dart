@@ -150,7 +150,7 @@ class StateMachineBloc {
         yield const Authenticated();
       } else {
         /// [isValidSession] returns false if the native platform
-        /// returns a [SignedOutException] or if the native libraries return a valid object but
+        /// returns a [SignedOutException] or if the native libraries return a session object but
         /// UserPool tokens are null (when unauthenticated access is enabled on Identity Pool).
         yield AuthFlow.signin;
       }
