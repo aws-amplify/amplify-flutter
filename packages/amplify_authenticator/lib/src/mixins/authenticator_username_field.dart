@@ -133,9 +133,15 @@ mixin AuthenticatorUsernameField<FieldType,
                           useEmail.value = val;
                         });
 
-                        // Clear current username value, but not the underlying
-                        // attribute values.
-                        viewModel.setUsername('');
+                        // Reset current username value to align with the current switch state.
+                        String newUsername = val
+                            ? viewModel.getAttribute(
+                                    CognitoUserAttributeKey.email) ??
+                                ''
+                            : viewModel.getAttribute(
+                                    CognitoUserAttributeKey.phoneNumber) ??
+                                '';
+                        viewModel.setUsername(newUsername);
                       },
                     ),
                     const Icon(Icons.email),
