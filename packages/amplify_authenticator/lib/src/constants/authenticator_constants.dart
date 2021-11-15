@@ -24,7 +24,7 @@ class AuthenticatorContainerConstants {
 
   static const double landScapeView = 672;
 
-  static const padding = 40.0;
+  static const padding = 32.0;
 
   static const gap = 24.0;
 

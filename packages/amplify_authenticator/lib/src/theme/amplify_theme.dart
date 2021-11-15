@@ -530,7 +530,6 @@ class AmplifyTheme {
       fontWeight: FontWeight.bold,
     ),
     labelPadding: EdgeInsets.zero,
-    indicator: const BoxDecoration(),
   );
 
   static final tabBarThemeDark = TabBarTheme(
@@ -543,7 +542,6 @@ class AmplifyTheme {
       fontWeight: FontWeight.bold,
     ),
     labelPadding: EdgeInsets.zero,
-    indicator: const BoxDecoration(),
   );
 
   static final radioTheme = RadioThemeData(

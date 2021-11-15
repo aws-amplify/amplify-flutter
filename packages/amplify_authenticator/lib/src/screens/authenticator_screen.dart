@@ -97,13 +97,8 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
 
     return Container(
       constraints: BoxConstraints(maxWidth: containerWidth),
-      margin: const EdgeInsets.all(AuthenticatorContainerConstants.padding) +
-          EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
       color: AmplifyTheme.of(context).backgroundPrimary,
-      child: Card(
-        shadowColor: AmplifyTheme.of(context).shadowPrimary,
-        elevation: 4.0,
-        shape: const Border(),
+      child: SafeArea(
         child: child,
       ),
     );
@@ -205,24 +200,13 @@ class _TabViewState extends AuthenticatorComponentState<_TabView>
     setState(() {});
   }
 
-  List<Tab> get _tabs {
-    final tabs = <Tab>[];
-    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
+  List<Widget> get _tabs {
+    final tabs = <Widget>[];
     for (var tab in widget.tabs) {
-      if (useAmplifyTheme) {
-        tabs.add(Tab(
-          key: ValueKey(tab),
-          child: _TabButtonView(
-            screen: tab,
-            selected: selectedTab == tab,
-          ),
-        ));
-      } else {
-        tabs.add(Tab(
-          key: ValueKey(tab),
-          text: stringResolver.buttons.resolve(context, tab.tabTitle),
-        ));
-      }
+      tabs.add(Tab(
+        key: ValueKey(tab),
+        text: stringResolver.buttons.resolve(context, tab.tabTitle),
+      ));
     }
     return tabs;
   }
@@ -246,61 +230,6 @@ class _TabViewState extends AuthenticatorComponentState<_TabView>
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(EnumProperty<AuthScreen>('selectedTab', selectedTab));
-  }
-}
-
-/// Custom tab component for Amplify theme.
-class _TabButtonView extends StatelessAuthenticatorComponent {
-  const _TabButtonView({
-    Key? key,
-    required this.screen,
-    required this.selected,
-  }) : super(key: key);
-
-  final AuthScreen screen;
-  final bool selected;
-
-  @override
-  Widget builder(
-    BuildContext context,
-    AuthViewModel viewModel,
-    AuthStringResolver stringResolver,
-  ) {
-    final resolver = stringResolver.buttons;
-    return SizedBox.expand(
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(
-              color: selected
-                  ? AmplifyTheme.of(context).primaryColor
-                  : AmplifyTheme.of(context).borderSecondary!,
-            ),
-          ),
-          color: selected
-              ? AmplifyTheme.of(context).backgroundPrimary
-              : AmplifyTheme.of(context).backgroundDisabled,
-        ),
-        child: Center(
-          child: Text(
-            resolver.resolve(context, screen.tabTitle),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: selected
-                  ? AmplifyTheme.of(context).fontInteractive
-                  : AmplifyTheme.of(context).fontDisabled,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(EnumProperty<AuthScreen>('screen', screen));
-    properties.add(DiagnosticsProperty<bool>('selected', selected));
   }
 }
 
