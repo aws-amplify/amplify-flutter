@@ -212,6 +212,7 @@ mixin AuthenticatorUsernameField<FieldType,
       enabled: enabled,
       validator: _validator,
       onChanged: _onChanged,
+      autocorrect: false,
       decoration: InputDecoration(
         prefixIcon: prefix,
         suffixIcon: suffix,
