@@ -96,7 +96,7 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
 
   /// The priority to show this field when ordering fields visually in a form.
   /// Larger numbers take higher precedence.
-  int get priority => 1;
+  int get displayPriority => 1;
 
   /// User override of default [required] value.
   final bool? requiredOverride;
@@ -121,7 +121,7 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
     properties.add(StringProperty('hintText', hintText));
     properties.add(ObjectFlagProperty<FormFieldValidator<FieldValue>?>.has(
         'validatorOverride', validatorOverride));
-    properties.add(IntProperty('priority', priority));
+    properties.add(IntProperty('priority', displayPriority));
     properties.add(DiagnosticsProperty<bool>('required', required));
     properties
         .add(DiagnosticsProperty<bool?>('requiredOverride', requiredOverride));

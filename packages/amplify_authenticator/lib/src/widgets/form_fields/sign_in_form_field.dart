@@ -65,7 +65,7 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
       );
 
   @override
-  int get priority {
+  int get displayPriority {
     switch (field) {
       case SignInField.username:
         return 2;

@@ -129,7 +129,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
     return fields.toList(growable: false)
       ..sort((a, b) {
         // Sort larger priorities first.
-        return -a.priority.compareTo(b.priority);
+        return -a.displayPriority.compareTo(b.displayPriority);
       });
   }
 

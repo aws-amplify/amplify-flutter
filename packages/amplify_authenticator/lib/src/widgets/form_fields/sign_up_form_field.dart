@@ -269,7 +269,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
   final CognitoUserAttributeKey? _customAttributeKey;
 
   @override
-  int get priority {
+  int get displayPriority {
     switch (field) {
       case SignUpField.username:
         return 1000;

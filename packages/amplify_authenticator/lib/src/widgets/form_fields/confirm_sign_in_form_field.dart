@@ -104,7 +104,7 @@ abstract class ConfirmSignInFormField<FieldValue>
   final CognitoUserAttributeKey? _customAttributeKey;
 
   @override
-  int get priority {
+  int get displayPriority {
     switch (field) {
       case ConfirmSignInField.password:
         return 1000;

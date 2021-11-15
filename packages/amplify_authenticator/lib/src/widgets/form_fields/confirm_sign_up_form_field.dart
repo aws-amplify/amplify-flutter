@@ -69,7 +69,7 @@ abstract class ConfirmSignUpFormField<FieldValue>
       );
 
   @override
-  int get priority {
+  int get displayPriority {
     switch (field) {
       case ConfirmSignUpField.username:
         return 2;
