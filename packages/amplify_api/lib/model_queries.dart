@@ -20,6 +20,8 @@ import 'package:amplify_core/amplify_core.dart';
 // This class provides static method calls to enable a simpler DX,
 // while preserving internal interfaces
 class ModelQueries {
+  ModelQueries._(); // only static methods here, prevent calling constructor
+
   static GraphQLRequest<T> get<T extends Model>(
       ModelType<T> modelType, String id) {
     return ModelQueriesFactory.instance.get<T>(modelType, id);

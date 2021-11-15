@@ -20,6 +20,8 @@ import 'package:amplify_core/amplify_core.dart';
 // This class provides static method calls to enable a simpler DX,
 // while preserving internal interfaces
 class ModelMutations {
+  ModelMutations._(); // only static methods here, prevent calling constructor
+
   static GraphQLRequest<T> create<T extends Model>(T model) {
     return ModelMutationsFactory.instance.create<T>(model);
   }

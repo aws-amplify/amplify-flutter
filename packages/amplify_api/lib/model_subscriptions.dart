@@ -18,6 +18,8 @@ import 'package:amplify_api/src/graphql/model_subscriptions_factory.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 class ModelSubscriptions {
+  ModelSubscriptions._(); // only static methods here, prevent calling constructor
+
   static GraphQLRequest<T> onCreate<T extends Model>(ModelType<T> modelType) {
     return ModelSubscriptionsFactory.instance.onCreate<T>(modelType);
   }
