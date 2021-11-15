@@ -213,19 +213,22 @@ class AmplifyAuthService implements AuthService {
   @override
   Future<GetAttributeVerificationStatusResult>
       getAttributeVerificationStatus() async {
-    const verifiableAttributes = [
-      CognitoUserAttributeKey.email,
-      CognitoUserAttributeKey.phoneNumber,
-    ];
-
     final List<AuthUserAttribute> userAttributes =
         await Amplify.Auth.fetchUserAttributes();
 
-    bool attributeIsVerified(CognitoUserAttributeKey key) {
+    var verifiableAttributes = userAttributes
+        .map((e) => e.userAttributeKey)
+        .cast<CognitoUserAttributeKey>()
+        .where((element) =>
+            element == CognitoUserAttributeKey.email ||
+            element == CognitoUserAttributeKey.phoneNumber)
+        .toList();
+
+    bool attributeIsVerified(CognitoUserAttributeKey userAttributeKey) {
       return userAttributes
-              .firstWhereOrNull(
-                (attr) => attr.userAttributeKey.key == '${key}_verified',
-              )
+              .firstWhereOrNull((attr) =>
+                  attr.userAttributeKey.key ==
+                  '${userAttributeKey.key}_verified')
               ?.value ==
           'true';
     }
