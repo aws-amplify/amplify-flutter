@@ -143,12 +143,13 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
           ..._allFields,
           Column(
             children: [
+              if (widget.actions.isNotEmpty) const SizedBox(height: 4),
               ...widget.actions,
               if (_runtimeActions.isNotEmpty) ...[
                 const Divider(),
                 ..._runtimeActions,
               ]
-            ].spacedBy(const SizedBox(height: 10)),
+            ].spacedBy(const SizedBox(height: 12)),
           ),
         ],
       ),
@@ -286,6 +287,7 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
           ],
           actions: const [
             SignInButton(),
+            ForgotPasswordButton(),
           ],
         );
 
@@ -468,8 +470,8 @@ class SendCodeForm extends AuthenticatorForm<SendCodeForm> {
             SignInFormField.username(),
           ],
           actions: const [
-            BackToSignInButton(),
             SendCodeButton(),
+            BackToSignInButton(),
           ],
         );
 

@@ -124,7 +124,7 @@ class StateMachineBloc {
     yield const AuthLoading();
     final config = await Amplify.asyncConfig;
     yield AuthLoaded(config);
-    yield* _getCurrentUser();
+    yield* _isValidSession();
   }
 
   Stream<AuthState> _getCurrentUser() async* {
@@ -140,6 +140,37 @@ class StateMachineBloc {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
+    }
+  }
+
+  Stream<AuthState> _isValidSession() async* {
+    try {
+      bool isValidSession = await _authService.isValidSession();
+      if (isValidSession) {
+        yield const Authenticated();
+      } else {
+        /// [isValidSession] returns false if the native platform
+        /// returns a [SignedOutException] or if the native libraries return a session object but
+        /// UserPool tokens are null (when unauthenticated access is enabled on Identity Pool).
+        yield AuthFlow.signin;
+      }
+    } on SessionExpiredException {
+      /// In this case, we want to give the end user an exception message and go to signin.
+      _exceptionController.add(const AuthenticatorException(
+          'Your session has expired. Please sign in.',
+          showBanner: true));
+      yield AuthFlow.signin;
+
+      /// On [AmplifyException] and [Exception], update exception controller, do not show banner
+      /// and go to sign in screen.
+    } on AmplifyException catch (e) {
+      _exceptionController
+          .add(AuthenticatorException(e.message, showBanner: false));
+      yield AuthFlow.signin;
+    } on Exception catch (e) {
+      _exceptionController
+          .add(AuthenticatorException(e.toString(), showBanner: false));
+      yield AuthFlow.signin;
     }
   }
 
@@ -365,9 +396,11 @@ class StateMachineBloc {
 
   Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
     try {
-      await _authService.resendUserAttributeConfirmationCode(
+      ResendUserAttributeConfirmationCodeResult result =
+          await _authService.resendUserAttributeConfirmationCode(
         userAttributeKey: data.userAttributeKey,
       );
+      _notifyCodeSent(result.codeDeliveryDetails.destination);
       yield AttributeVerificationSent(data.userAttributeKey);
     } on Exception catch (e) {
       if (e is AmplifyException) {
