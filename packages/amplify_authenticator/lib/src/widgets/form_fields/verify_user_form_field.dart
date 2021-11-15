@@ -124,7 +124,7 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
     return simpleValidator(
       stringResolver.inputs.resolve(
         context,
-        InputResolverKey.preferredUsernameEmpty,
+        InputResolverKey.verificationCodeEmpty,
       ),
     );
   }

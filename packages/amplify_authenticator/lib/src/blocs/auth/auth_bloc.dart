@@ -396,9 +396,11 @@ class StateMachineBloc {
 
   Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
     try {
-      await _authService.resendUserAttributeConfirmationCode(
+      ResendUserAttributeConfirmationCodeResult result =
+          await _authService.resendUserAttributeConfirmationCode(
         userAttributeKey: data.userAttributeKey,
       );
+      _notifyCodeSent(result.codeDeliveryDetails.destination);
       yield AttributeVerificationSent(data.userAttributeKey);
     } on Exception catch (e) {
       if (e is AmplifyException) {
