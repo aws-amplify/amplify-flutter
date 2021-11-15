@@ -167,10 +167,9 @@ class StateMachineBloc {
       _exceptionController
           .add(AuthenticatorException(e.message, showBanner: false));
       yield AuthFlow.signin;
-    } on Exception {
-      _exceptionController.add(const AuthenticatorException(
-          'An unknown exception has occurred when fetching the session',
-          showBanner: false));
+    } on Exception catch (e) {
+      _exceptionController
+          .add(AuthenticatorException(e.toString(), showBanner: false));
       yield AuthFlow.signin;
     }
   }
