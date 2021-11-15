@@ -200,24 +200,19 @@ class _TabViewState extends AuthenticatorComponentState<_TabView>
     setState(() {});
   }
 
-  List<Widget> get _tabs {
-    final tabs = <Widget>[];
-    for (var tab in widget.tabs) {
-      tabs.add(Tab(
-        key: ValueKey(tab),
-        text: stringResolver.buttons.resolve(context, tab.tabTitle),
-      ));
-    }
-    return tabs;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TabBar(
           controller: _controller,
-          tabs: _tabs,
+          tabs: [
+            for (var tab in widget.tabs)
+              Tab(
+                key: ValueKey(tab),
+                text: stringResolver.buttons.resolve(context, tab.tabTitle),
+              ),
+          ],
           labelColor: AmplifyTheme.of(context).tabLabelColor,
           indicatorColor: AmplifyTheme.of(context).tabIndicatorColor,
         ),
