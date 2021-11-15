@@ -1,153 +1,158 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+*/
+
 import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
-import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
-
 import 'package:flutter/material.dart';
 
-mixin AuthenticatorPhoneField<FieldType,
+mixin AuthenticatorPhoneFieldMixin<FieldType,
         T extends AuthenticatorFormField<FieldType, String, T>>
     on AuthenticatorFormFieldState<FieldType, String, T>
-    implements SelectableConfig<String> {
-  String _phoneText = '';
+    implements SelectableConfig<CountryResolverKey, Country> {
+  late final CountryResolver _countriesResolver = stringResolver.countries;
+
+  @override
+  Country get selectionValue => _selectedCountry;
+  late Country _selectedCountry = selections.first.value;
+
   String _searchVal = '';
 
-  void _setPhoneNumber() {
-    onChanged('+$selectionValue$_phoneText');
+  @override
+  late final List<InputSelection<CountryResolverKey, Country>> selections =
+      countryCodes
+          .map((Country country) => InputSelection(
+                label: country.key,
+                value: country,
+              ))
+          .toList();
+
+  List<Country> get filteredCountries => countryCodes
+      .where(
+        (country) => _countriesResolver
+            .resolve(context, country.key)
+            .toLowerCase()
+            .contains(_searchVal.toLowerCase()),
+      )
+      .toList();
+
+  String formatPhoneNumber(String phoneNumber) {
+    return phoneNumber.ensureStartsWith('+${_selectedCountry.value}');
   }
 
-  final ValueNotifier<List<Country>> _countries =
-      ValueNotifier<List<Country>>([]);
-
-  @override
-  void initState() {
-    super.initState();
-    _countries.value = countryCodes;
+  String displayPhoneNumber(String phoneNumber) {
+    var prefix = '+${_selectedCountry.value}';
+    if (phoneNumber.startsWith(prefix)) {
+      phoneNumber = phoneNumber.substring(prefix.length);
+    }
+    return phoneNumber;
   }
 
   @override
-  Widget buildFormField(BuildContext context) {
-    final inputResolver = stringResolver.inputs;
+  Widget get prefix => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: InkWell(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '+${_selectedCountry.value}',
+                style: Theme.of(context).inputDecorationTheme.hintStyle ??
+                    Theme.of(context).textTheme.subtitle1,
+                textAlign: TextAlign.center,
+              ),
+              const Flexible(
+                child: Icon(
+                  Icons.arrow_drop_down,
+                  size: 15.0,
+                ),
+              ),
+              const SizedBox(width: 5),
+            ],
+          ),
+          onTap: showCountryDialog,
+        ),
+      );
 
-    final hintText = widget.hintText == null
-        ? inputResolver.resolve(context, widget.hintTextKey!)
-        : widget.hintText!;
+  Future<void> showCountryDialog() async {
+    // Reset search
+    _searchVal = '';
 
-    final countryResolver = stringResolver.countries;
-
-    Future<void> showCountryDialog() async {
-      await showDialog<Country>(
-          context: context,
-          builder: (context) {
-            return SimpleDialog(
-              title: Text(countryResolver.resolve(
-                  context, CountryResolverKey.selectDialCode)),
-              children: <Widget>[
-                Container(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+    final selectedCountry = await showDialog<Country>(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Dialog(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Text(
+                      _countriesResolver.resolve(
+                        context,
+                        CountryResolverKey.selectDialCode,
+                      ),
+                      style: DialogTheme.of(context).titleTextStyle ??
+                          Theme.of(context).textTheme.headline6!,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
-                      decoration:
-                          const InputDecoration(suffixIcon: Icon(Icons.search)),
-                      onChanged: (String newValue) {
-                        /// Make sure we search on full list when search string gets shorter
-                        if (_searchVal.length > newValue.length) {
-                          setState(() {
-                            _countries.value = countryCodes;
-                          });
-                        }
+                      decoration: const InputDecoration(
+                        suffixIcon: Icon(Icons.search),
+                        isDense: true,
+                      ),
+                      onChanged: (String searchVal) {
                         setState(() {
-                          /// Filter the list of countries based on localized display values
-                          _searchVal = newValue;
-
-                          /// If search string is empty, display full list; otherwise, filter
-                          newValue.isEmpty
-                              ? _countries.value = countryCodes
-                              : _countries.value = _countries.value
-                                  .where((c) => countryResolver
-                                      .resolve(context, c.key)
-                                      .toLowerCase()
-                                      .contains(newValue.toLowerCase()))
-                                  .toList();
+                          _searchVal = searchVal;
                         });
                       },
-                    )),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: ValueListenableBuilder<List<Country>>(
-                      valueListenable: _countries,
-                      builder: (context, _countries, Widget? _) {
-                        return _countries.isNotEmpty
-                            ? ListView.builder(
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  Country current = _countries[index];
-                                  return SimpleDialogOption(
-                                      onPressed: () {
-                                        setState(() {
-                                          selectionValue = current.value;
-                                        });
-                                        _setPhoneNumber();
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text(
-                                          '${countryResolver.resolve(context, current.key)} (+${current.value})'));
-                                },
-                                itemCount: _countries.length,
-                              )
-                            : Container(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                                child: Text(countryResolver.resolve(
-                                    context,
-                                    CountryResolverKey
-                                        .noDialCodeSearchResults)));
-                      }),
-                )
-              ],
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        Country current = filteredCountries[index];
+                        return SimpleDialogOption(
+                          onPressed: () => Navigator.of(context).pop(current),
+                          child: Text(
+                            '${_countriesResolver.resolve(context, current.key)} '
+                            '(+${current.value})',
+                          ),
+                        );
+                      },
+                      itemCount: filteredCountries.length,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              ),
             );
-          });
+          },
+        );
+      },
+    );
 
-      /// Reset list after dialog closes, in case user reopens
+    if (selectedCountry != null) {
       setState(() {
-        _countries.value = countryCodes;
+        _selectedCountry = selectedCountry;
       });
     }
-
-    return TextFormField(
-      style: enabled
-          ? null
-          : TextStyle(
-              color: AmplifyTheme.of(context).fontDisabled,
-            ),
-      initialValue: initialValue,
-      enabled: enabled,
-      validator: widget.validatorOverride ?? validator,
-      onChanged: (String newVal) {
-        setState(() {
-          _phoneText = newVal;
-        });
-        _setPhoneNumber();
-      },
-      decoration: InputDecoration(
-        prefix: SizedBox(
-          width: 40,
-          child: InkWell(
-            child: Text(
-              '+$selectionValue',
-              style: TextStyle(
-                color: AmplifyTheme.of(context).fontDisabled,
-              ),
-            ),
-            onTap: showCountryDialog,
-          ),
-        ),
-        suffixIcon: suffixIcon,
-        errorMaxLines: errorMaxLines,
-        hintText: hintText,
-      ),
-      keyboardType: keyboardType,
-      obscureText: obscureText,
-    );
   }
 }

@@ -18,7 +18,7 @@ import 'dart:async';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
-import 'package:amplify_authenticator/src/l10n/string_resolver.dart';
+import 'package:amplify_authenticator/src/l10n/message_resolver.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
@@ -33,7 +33,6 @@ part 'auth_state.dart';
 /// {@endtemplate}
 class StateMachineBloc {
   final AuthService _authService;
-  final AuthStringResolver _authStringResolver;
 
   /// State controller.
   final StreamController<AuthState> _authStateController =
@@ -62,9 +61,7 @@ class StateMachineBloc {
   /// {@macro authenticator.state_machine_bloc}
   StateMachineBloc({
     required AuthService authService,
-    required AuthStringResolver authStringResolver,
-  })  : _authService = authService,
-        _authStringResolver = authStringResolver {
+  }) : _authService = authService {
     _subscription =
         _authEventStream.asyncExpand(_eventTransformer).listen((state) {
       _controllerSink.add(state);
@@ -85,11 +82,11 @@ class StateMachineBloc {
   Stream<AuthenticatorException> get exceptions => _exceptionController.stream;
 
   /// Manages info messages separate from the bloc's state.
-  final StreamController<StringResolver> _infoMessageController =
-      StreamController<StringResolver>.broadcast();
+  final StreamController<MessageResolverKey> _infoMessageController =
+      StreamController<MessageResolverKey>.broadcast();
 
   /// Info messages generated from the bloc.
-  Stream<StringResolver> get infoMessages => _infoMessageController.stream;
+  Stream<MessageResolverKey> get infoMessages => _infoMessageController.stream;
 
   Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
@@ -220,6 +217,10 @@ class StateMachineBloc {
     }
   }
 
+  void _notifyCodeSent(String? destination) {
+    _infoMessageController.add(MessageResolverKey.codeSent(destination));
+  }
+
   Stream<AuthState> _signIn(AuthSignInData data) async* {
     try {
       // Make sure no user is signed in before calling the sign in method
@@ -242,6 +243,7 @@ class StateMachineBloc {
 
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
+          _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);
           yield AuthFlow.confirmSigninMfa;
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
@@ -254,6 +256,7 @@ class StateMachineBloc {
           yield AuthFlow.resetPassword;
           break;
         case 'CONFIRM_SIGN_UP':
+          _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);
           yield AuthFlow.confirmSignup;
           break;
         case 'DONE':
@@ -268,6 +271,11 @@ class StateMachineBloc {
         showBanner: false,
       ));
       yield AuthFlow.confirmSignup;
+      if (data is AuthUsernamePasswordSignInData) {
+        yield* _resendSignUpCode(data.username);
+      } else {
+        // TODO: Is this possible?
+      }
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(
         e.message,
@@ -306,6 +314,7 @@ class StateMachineBloc {
 
       switch (result.nextStep.signUpStep) {
         case 'CONFIRM_SIGN_UP_STEP':
+          _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
           yield AuthFlow.confirmSignup;
           break;
         case 'DONE':
@@ -359,7 +368,6 @@ class StateMachineBloc {
       yield AttributeVerificationSent(data.userAttributeKey);
     } on Exception catch (e) {
       if (e is AmplifyException) {
-        print(e);
         _exceptionController.add(AuthenticatorException(e.message));
       } else {
         _exceptionController.add(AuthenticatorException(e.toString()));
@@ -376,7 +384,6 @@ class StateMachineBloc {
       yield const Authenticated();
     } on Exception catch (e) {
       if (e is AmplifyException) {
-        print(e);
         _exceptionController.add(AuthenticatorException(e.message));
       } else {
         _exceptionController.add(AuthenticatorException(e.toString()));
@@ -392,21 +399,8 @@ class StateMachineBloc {
     try {
       ResendSignUpCodeResult result =
           await _authService.resendSignUpCode(username);
-      String? deliveryMedium = result.codeDeliveryDetails.deliveryMedium;
-      switch (deliveryMedium) {
-        case 'EMAIL':
-          _infoMessageController
-              .add(_authStringResolver.messages.codeSentEmail);
-          break;
-        case 'SMS':
-          _infoMessageController.add(_authStringResolver.messages.codeSentSMS);
-          break;
-        default:
-          _infoMessageController.add(
-            _authStringResolver.messages.codeSentUnknown,
-          );
-      }
-      yield VerificationCodeSent((_currentState as AuthFlow).screen);
+      _notifyCodeSent(result.codeDeliveryDetails.destination);
+      yield currentState;
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {

@@ -79,8 +79,7 @@
             }
         }
     },
-    "@@context": "amplify_authenticator:countries",
-    "us": "United States (English)",
+    "us": "United States",
     "@us": {
         "description": "Label of the us"
     },

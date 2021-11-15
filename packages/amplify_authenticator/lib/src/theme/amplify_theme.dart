@@ -530,6 +530,7 @@ class AmplifyTheme {
       fontWeight: FontWeight.bold,
     ),
     labelPadding: EdgeInsets.zero,
+    indicator: const BoxDecoration(),
   );
 
   static final tabBarThemeDark = TabBarTheme(
@@ -715,16 +716,31 @@ class _AmplifyThemeWrapper {
         : AmplifyColors.brandPrimary;
   }
 
-  Color get tabColor {
+  Color get tabLabelColor {
     if (!useAmplifyTheme) {
+      final labelColor = Theme.of(context).tabBarTheme.labelColor;
       final bodyColor = Theme.of(context).primaryTextTheme.bodyText1?.color;
       final indicatorColor = Theme.of(context).indicatorColor;
-      return _isDark ? bodyColor ?? indicatorColor : indicatorColor;
+      return _isDark
+          ? labelColor ?? bodyColor ?? indicatorColor
+          : labelColor ?? indicatorColor;
     }
     return fontInteractive!;
   }
 
-  Color? get fontPrimary => useAmplifyTheme ? AmplifyColors.fontPrimary : null;
+  Color get tabIndicatorColor {
+    if (!useAmplifyTheme) {
+      return Theme.of(context).indicatorColor;
+    }
+    return fontInteractive!;
+  }
+
+  Color? get fontPrimary {
+    if (!useAmplifyTheme) {
+      return null;
+    }
+    return _isDark ? AmplifyColors.fontInverse : AmplifyColors.fontPrimary;
+  }
 
   Color? get fontSecondary =>
       useAmplifyTheme ? AmplifyColors.fontSecondary : null;
@@ -865,5 +881,6 @@ class _AmplifyThemeWrapper {
   Color? get transparent =>
       useAmplifyTheme ? AmplifyColors.transparent : Colors.transparent;
 
-  bool get _isDark => Theme.of(context).brightness == Brightness.dark;
+  bool get _isDark =>
+      MediaQuery.platformBrightnessOf(context) == Brightness.dark;
 }

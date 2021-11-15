@@ -162,7 +162,7 @@ abstract class _SignInFormFieldState<FieldValue>
   }
 
   @override
-  Widget? get suffixIcon {
+  Widget? get suffix {
     switch (widget.field) {
       case SignInField.password:
       case SignInField.newPassword:
@@ -234,6 +234,8 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
         return viewModel.confirmationCode;
       case SignInField.newPassword:
         return viewModel.newPassword;
+      case SignInField.passwordConfirmation:
+        return super.initialValue;
     }
   }
 

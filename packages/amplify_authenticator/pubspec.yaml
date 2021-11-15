@@ -27,10 +27,13 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/social-buttons/google.png
+
   fonts:
     - family: SocialIcons
       fonts:
-        - asset: assets/SocialIcons.ttf
+        - asset: assets/social-buttons/SocialIcons.ttf
     - family: Inter
       fonts:
         - asset: assets/Inter/Inter-Black.ttf

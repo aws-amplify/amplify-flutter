@@ -83,8 +83,6 @@ abstract class ConfirmSignInFormField<FieldValue>
       );
 
   /// Creates a custom attribute component.
-  ///
-  /// TODO: Document [attributeKey]
   static ConfirmSignInFormField custom({
     Key? key,
     required String title,
@@ -149,11 +147,21 @@ abstract class _ConfirmSignInFormFieldState<FieldValue>
   }
 
   @override
-  Widget? get suffixIcon {
+  Widget? get suffix {
     switch (widget.field) {
       case ConfirmSignInField.password:
       case ConfirmSignInField.newPassword:
         return visibilityToggle;
+      default:
+        return null;
+    }
+  }
+
+  @override
+  int? get maxLength {
+    switch (widget.field) {
+      case ConfirmSignInField.code:
+        return 6;
       default:
         return null;
     }

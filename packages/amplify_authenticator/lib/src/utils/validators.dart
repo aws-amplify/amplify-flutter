@@ -20,7 +20,7 @@ import 'package:amplify_flutter/src/config/auth/password_protection_settings.dar
 import 'package:flutter/material.dart';
 
 final emailRegex = RegExp(r'^\S+@\S+$');
-final phoneNumberRegex = RegExp(r'\d+');
+final phoneNumberRegex = RegExp(r'^\+\d+$');
 final _codeRegex = RegExp(r'^\d{6}$');
 final _uppercase = RegExp(r'[A-Z]');
 final _lowercase = RegExp(r'[a-z]');

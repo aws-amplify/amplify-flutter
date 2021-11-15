@@ -18,8 +18,6 @@ part of authenticator.form_field;
 /// {@template authenticator.sign_up_form_field}
 /// A form field component on the Sign Up screen.
 /// {@endtemplate}
-///   /// Creates a extends component.
-
 abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     SignUpField, FieldValue, SignUpFormField<FieldValue>> {
   /// {@macro authenticator.sign_up_form_field}
@@ -279,7 +277,7 @@ abstract class _SignUpFormFieldState<FieldValue>
   }
 
   @override
-  Widget? get suffixIcon {
+  Widget? get suffix {
     switch (widget.field) {
       case SignUpField.password:
       case SignUpField.passwordConfirmation:
@@ -366,8 +364,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
       case SignUpField.address:
         return viewModel.setAddress;
       case SignUpField.email:
-        if (usernameAttributes.length == 1 &&
-            usernameAttributes.contains(CognitoUserAttributeKey.email)) {
+        if (selectedUsernameType == UsernameType.email) {
           return (email) {
             viewModel.setEmail(email);
             viewModel.setUsername(email);
@@ -530,39 +527,29 @@ class _SignUpPhoneField extends SignUpFormField<String> {
   _SignUpPhoneFieldState createState() => _SignUpPhoneFieldState();
 }
 
-class _SignUpPhoneFieldState extends _SignUpFormFieldState<String>
-    with AuthenticatorPhoneField {
+class _SignUpPhoneFieldState extends _SignUpTextFieldState
+    with AuthenticatorPhoneFieldMixin {
   @override
   String? get initialValue {
-    return viewModel.getAttribute(widget.field.toCognitoAttribute());
+    var _initialValue =
+        viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber);
+    if (_initialValue != null) {
+      _initialValue = displayPhoneNumber(_initialValue);
+    }
+    return _initialValue;
   }
 
   @override
   ValueChanged<String> get onChanged {
-    if (usernameAttributes.length == 1 &&
-        usernameAttributes.contains(CognitoUserAttributeKey.phoneNumber)) {
-      return (phoneNumber) {
-        viewModel.setPhoneNumber(phoneNumber);
-        viewModel.setUsername(phoneNumber);
-      };
-    }
-    return viewModel.setPhoneNumber;
+    return (phoneNumber) {
+      phoneNumber = formatPhoneNumber(phoneNumber);
+      viewModel.setPhoneNumber(phoneNumber);
+    };
   }
 
   @override
   FormFieldValidator<String> get validator {
     return validatePhoneNumber;
-  }
-
-  @override
-  String? selectionValue = countryCodes.first.value;
-
-  @override
-  List<InputSelection> get selections {
-    return countryCodes
-        .map((Country country) => InputSelection<CountryResolverKey, String>(
-            label: country.key, value: country.value))
-        .toList();
   }
 }
 
@@ -612,58 +599,4 @@ class _SignUpDateFieldState extends _SignUpFormFieldState<String>
       ),
     );
   }
-}
-
-class _SignUpRadioField extends SignUpFormField<CognitoUserAttributeKey> {
-  const _SignUpRadioField({
-    Key? key,
-    required SignUpField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<CognitoUserAttributeKey>? validator,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
-        );
-
-  @override
-  _SignUpRadioFieldState createState() => _SignUpRadioFieldState();
-}
-
-class _SignUpRadioFieldState
-    extends _SignUpFormFieldState<CognitoUserAttributeKey>
-    with AuthenticatorRadioField {
-  @override
-  CognitoUserAttributeKey? get initialValue {
-    return CognitoUserAttributeKey.email;
-  }
-
-  @override
-  ValueChanged<CognitoUserAttributeKey> get onChanged {
-    return viewModel.setSelectedUsername;
-  }
-
-  @override
-  List<InputSelection> get selections {
-    return [
-      const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
-        label: InputResolverKey.emailTitle,
-        value: CognitoUserAttributeKey.email,
-      ),
-      const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
-        label: InputResolverKey.phoneNumberTitle,
-        value: CognitoUserAttributeKey.phoneNumber,
-      )
-    ];
-  }
-
-  @override
-  CognitoUserAttributeKey? selectionValue = CognitoUserAttributeKey.email;
 }

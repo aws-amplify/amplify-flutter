@@ -15,6 +15,13 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
+enum UsernameConfigType {
+  username,
+  email,
+  phoneNumber,
+  emailOrPhoneNumber,
+}
+
 /// {@template amplify_authenticator.username_type}
 /// The type of username input field presented to the user. Depending on your
 /// Cognito configuration, users may choose to create their own username, use

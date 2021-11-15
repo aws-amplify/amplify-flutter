@@ -24,10 +24,8 @@ class AuthViewModel extends ChangeNotifier {
     // Listen to screen changes to know when to clear the form. Calling `clean`
     // from the forms' dispose method is unreliable since it may be called after
     // the transitioning form's first build is called.
-
-    /// When transitioning through widgets as part of authflow, maintain [ViewModel] state except for form key
-
-    /// When auth flow is complete, reset entirety of [ViewModel] state
+    //
+    // When auth flow is complete, reset entirety of the view model state.
     _authBloc.stream.distinct().listen((event) {
       resetFormKey();
       resetCode();
@@ -46,13 +44,9 @@ class AuthViewModel extends ChangeNotifier {
   bool _isBusy = false;
   bool get isBusy => _isBusy;
 
-  Key? _busyButton;
-  Key? get busyButton => _busyButton;
-
   //ignore:avoid_positional_boolean_parameters
-  void setBusy(bool busy, [Key? busyButton]) {
+  void setBusy(bool busy) {
     _isBusy = busy;
-    _busyButton = busy ? busyButton : null;
     notifyListeners();
   }
 
@@ -102,9 +96,6 @@ class AuthViewModel extends ChangeNotifier {
 
   CognitoUserAttributeKey _attributeKeyToVerify = CognitoUserAttributeKey.email;
   CognitoUserAttributeKey get attributeKeyToVerify => _attributeKeyToVerify;
-
-  CognitoUserAttributeKey? _selectedUsername;
-  CognitoUserAttributeKey? get selectedUsername => _selectedUsername;
 
   void _setAttribute(CognitoUserAttributeKey attribute, String value) {
     _authAttributes[attribute] = value.trim();
@@ -188,10 +179,6 @@ class AuthViewModel extends ChangeNotifier {
   // ignore: avoid_positional_boolean_parameters
   void setRememberDevice(bool value) {
     _rememberDevice = value;
-  }
-
-  void setSelectedUsername(CognitoUserAttributeKey value) {
-    _selectedUsername = value;
   }
 
   void setAttributeKeyToVerify(CognitoUserAttributeKey attributeKey) {
@@ -312,19 +299,8 @@ class AuthViewModel extends ChangeNotifier {
     }
     setBusy(true);
 
-    String username;
-    if (_selectedUsername == CognitoUserAttributeKey.email) {
-      username = _authAttributes[CognitoUserAttributeKey.email]!;
-    } else if (_selectedUsername == CognitoUserAttributeKey.phoneNumber) {
-      username = _authAttributes[CognitoUserAttributeKey.phoneNumber]!;
-    } else {
-      username = _username;
-    }
-
-    setUsername(username);
-
     final signUp = AuthSignUpData(
-      username: username.trim(),
+      username: _username.trim(),
       password: _password.trim(),
       attributes: _authAttributes,
     );
@@ -336,9 +312,7 @@ class AuthViewModel extends ChangeNotifier {
 
   Future<void> resendSignUpCode() async {
     authBloc.add(AuthResendSignUpCode(_username));
-    await _nextBlocEvent(
-      where: (state) => state is VerificationCodeSent,
-    );
+    await _nextBlocEvent();
   }
 
   Future<void> confirmVerifyUser(
@@ -407,7 +381,6 @@ class AuthViewModel extends ChangeNotifier {
     _passwordConfirmation = '';
     _confirmationCode = '';
     _newPassword = '';
-    _selectedUsername = null;
     _authAttributes.clear();
   }
 

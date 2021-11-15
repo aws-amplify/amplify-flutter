@@ -17,13 +17,14 @@ library authenticator.form;
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
+import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
-import 'package:amplify_authenticator/src/widgets/checkbox.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
-import 'package:amplify_authenticator/src/widgets/oauth/social_button.dart';
+import 'package:amplify_authenticator/src/widgets/social/social_button.dart';
 import 'package:amplify_flutter/src/config/auth/aws_cognito_social_providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -54,19 +55,35 @@ abstract class AuthenticatorForm<T extends AuthenticatorForm<T>>
 
   /// Buttons and checkboxes to show below [fields].
   final List<Widget> actions;
+}
+
+class AuthenticatorFormState<T extends AuthenticatorForm<T>>
+    extends AuthenticatorComponentState<T> with UsernameAttributes<T> {
+  AuthenticatorFormState._();
 
   /// Additional fields defined at runtime.
   List<AuthenticatorFormField> runtimeFields(BuildContext context) => const [];
 
   /// Additional actions defined at runtime.
   List<AuthenticatorComponent> runtimeActions(BuildContext context) => const [];
-}
-
-class AuthenticatorFormState<T extends AuthenticatorForm<T>>
-    extends AuthenticatorComponentState<T> {
-  AuthenticatorFormState._();
 
   final ValueNotifier<bool> obscureTextToggleValue = ValueNotifier(true);
+
+  @override
+  void initState() {
+    super.initState();
+    useEmail.addListener(_updateUseEmail);
+  }
+
+  @override
+  void dispose() {
+    useEmail.removeListener(_updateUseEmail);
+    super.dispose();
+  }
+
+  void _updateUseEmail() {
+    setState(() {});
+  }
 
   /// Controls optional visibilty of the field.
   Widget get obscureTextToggle {
@@ -87,19 +104,19 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
 
   @override
   Widget build(BuildContext context) {
-    final runtimeActions = widget.runtimeActions(context);
+    final _runtimeActions = runtimeActions(context);
     return Form(
       key: viewModel.formKey,
       child: Column(
         children: [
           ...widget.fields,
-          ...widget.runtimeFields(context),
+          ...runtimeFields(context),
           Column(
             children: [
               ...widget.actions,
-              if (runtimeActions.isNotEmpty) ...[
+              if (_runtimeActions.isNotEmpty) ...[
                 const Divider(),
-                ...runtimeActions,
+                ..._runtimeActions,
               ]
             ].spacedBy(const SizedBox(height: 10)),
           ),
@@ -155,8 +172,22 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
   final bool includeRequiredAttributes;
 
   @override
+  _SignUpFormState createState() => _SignUpFormState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<bool>(
+        'includeRequiredAttributes', includeRequiredAttributes));
+  }
+}
+
+class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
+  _SignUpFormState() : super._();
+
+  @override
   List<SignUpFormField> runtimeFields(BuildContext context) {
-    if (fields.isNotEmpty && !includeRequiredAttributes) {
+    if (widget.fields.isNotEmpty && !widget.includeRequiredAttributes) {
       return const [];
     }
 
@@ -170,14 +201,6 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
       return const [];
     }
 
-    final usernameAttributes = InheritedConfig.of(context)
-            .amplifyConfig
-            ?.auth
-            ?.awsCognitoAuthPlugin
-            ?.auth?['Default']
-            ?.usernameAttributes ??
-        const [];
-
     return signUpAttributes
         .map((attr) {
           if (attr == CognitoUserAttributeKey.address) {
@@ -187,11 +210,10 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
             return SignUpFormField.birthdate();
           }
           if (attr == CognitoUserAttributeKey.email) {
-            if (!usernameAttributes.contains(CognitoUserAttributeKey.email)) {
-              return SignUpFormField.email();
-            } else {
+            if (selectedUsernameType == UsernameType.email) {
               return null;
             }
+            return SignUpFormField.email();
           }
           if (attr == CognitoUserAttributeKey.familyName) {
             return SignUpFormField.familyName();
@@ -212,25 +234,14 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
             return SignUpFormField.nickname();
           }
           if (attr == CognitoUserAttributeKey.phoneNumber) {
-            if (!usernameAttributes
-                .contains(CognitoUserAttributeKey.phoneNumber)) {
-              return SignUpFormField.phoneNumber();
+            if (selectedUsernameType == UsernameType.phoneNumber) {
+              return null;
             }
+            return SignUpFormField.phoneNumber();
           }
         })
         .whereType<SignUpFormField>()
         .toList();
-  }
-
-  @override
-  AuthenticatorFormState<SignUpForm> createState() =>
-      AuthenticatorFormState<SignUpForm>._();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<bool>(
-        'includeRequiredAttributes', includeRequiredAttributes));
   }
 }
 
@@ -270,8 +281,22 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
   final bool includeDefaultSocialProviders;
 
   @override
+  _SignInFormState createState() => _SignInFormState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<bool>(
+        'includeDefaultSocialProviders', includeDefaultSocialProviders));
+  }
+}
+
+class _SignInFormState extends AuthenticatorFormState<SignInForm> {
+  _SignInFormState() : super._();
+
+  @override
   List<AuthenticatorButton> runtimeActions(BuildContext context) {
-    if (!includeDefaultSocialProviders) {
+    if (!widget.includeDefaultSocialProviders) {
       return const [];
     }
 
@@ -286,8 +311,8 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
     }
 
     return socialProviders
-        .map((usernameAttributes) {
-          switch (usernameAttributes) {
+        .map((provider) {
+          switch (provider) {
             case SocialProviders.facebook:
               return const SocialSignInButton.facebook();
             case SocialProviders.google:
@@ -300,17 +325,6 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
         })
         .whereType<AuthenticatorButton>()
         .toList();
-  }
-
-  @override
-  AuthenticatorFormState<SignInForm> createState() =>
-      AuthenticatorFormState<SignInForm>._();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<bool>(
-        'includeDefaultSocialProviders', includeDefaultSocialProviders));
   }
 }
 
@@ -378,7 +392,6 @@ class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
           key: key,
           fields: fields,
           actions: const [
-            RememberDeviceCheckbox(),
             ConfirmSignInMFAButton(),
             BackToSignInButton(),
           ],
@@ -500,23 +513,19 @@ class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
 /// Cannot be customized.
 /// {@endtemplate}
 class VerifyUserForm extends AuthenticatorForm<VerifyUserForm> {
-//   /// {@macro authenticator.verify_user_form}
-
+  /// {@macro authenticator.verify_user_form}
   VerifyUserForm({
     Key? key,
   }) : super._(
           key: key,
-          fields: [],
+          fields: [
+            VerifyUserFormField.verifyAttribute(),
+          ],
           actions: const [
             VerifyUserButton(),
             SkipVerifyUserButton(),
           ],
         );
-
-  @override
-  List<AuthenticatorFormField> runtimeFields(BuildContext context) {
-    return [VerifyUserFormField.verifyAttribute()];
-  }
 
   @override
   AuthenticatorFormState<VerifyUserForm> createState() =>

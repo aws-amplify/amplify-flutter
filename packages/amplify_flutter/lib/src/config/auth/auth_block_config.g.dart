@@ -12,8 +12,7 @@ AuthBlockConfig _$AuthBlockConfigFromJson(Map<String, dynamic> json) {
     oAuth: json['OAuth'] == null
         ? null
         : OAuthConfig.fromJson(json['OAuth'] as Map<String, dynamic>),
-    usernameAttributes: ((json['usernameAttributes'] as List<dynamic>?)
-          ?..addAll(json['loginMechanism'] as List<dynamic>? ?? const []))
+    usernameAttributes: (json['usernameAttributes'] as List<dynamic>?)
         ?.cast<String>()
         ?.map((e) => CognitoUserAttributeKey.values
             .firstWhereOrNull((attr) => e.toLowerCase() == attr.key))

@@ -23,14 +23,13 @@ import 'package:amplify_authenticator/src/enums/confirm_signin_types.dart';
 import 'package:amplify_authenticator/src/enums/confirm_signup_types.dart';
 import 'package:amplify_authenticator/src/enums/signin_types.dart';
 import 'package:amplify_authenticator/src/enums/signup_types.dart';
-import 'package:amplify_authenticator/src/enums/verify_attribute_field_types.dart';
 import 'package:amplify_authenticator/src/keys.dart';
-import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_date_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_phone_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_radio_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_text_field.dart';
-import 'package:amplify_authenticator/src/mixins/username_field.dart';
+import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
+import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
@@ -45,6 +44,7 @@ import 'package:flutter/services.dart';
 
 part 'form_fields/confirm_sign_in_form_field.dart';
 part 'form_fields/confirm_sign_up_form_field.dart';
+part 'form_fields/phone_number_field.dart';
 part 'form_fields/sign_in_form_field.dart';
 part 'form_fields/sign_up_form_field.dart';
 part 'form_fields/verify_user_form_field.dart';
@@ -113,14 +113,18 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
       .findAncestorStateOfType<AuthenticatorFormState>()!
       .obscureTextToggle;
 
-  late final Set<CognitoUserAttributeKey> usernameAttributes = config
-          .amplifyConfig
-          ?.auth
-          ?.awsCognitoAuthPlugin
-          ?.auth?['Default']
-          ?.usernameAttributes
-          ?.toSet() ??
-      const <CognitoUserAttributeKey>{};
+  @nonVirtual
+  UsernameConfigType get usernameType =>
+      context.findAncestorStateOfType<AuthenticatorFormState>()!.usernameType;
+
+  @nonVirtual
+  UsernameType get selectedUsernameType => context
+      .findAncestorStateOfType<AuthenticatorFormState>()!
+      .selectedUsernameType;
+
+  @nonVirtual
+  ValueNotifier<bool> get useEmail =>
+      context.findAncestorStateOfType<AuthenticatorFormState>()!.useEmail;
 
   /// Callback for when `onChanged` is triggered on the [FormField].
   ValueChanged<FieldValue> get onChanged => (_) {};
@@ -142,14 +146,20 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   /// Whether the form field accepts input.
   bool get enabled => true;
 
-  /// Widget to show at trailing end.
-  Widget? get suffixIcon => null;
+  /// Widget to show at leading end, typically an [Icon].
+  Widget? get prefix => null;
+
+  /// Widget to show at trailing end, typically an [Icon].
+  Widget? get suffix => null;
 
   /// Widget to show directly below this field.
   Widget? get companionWidget => null;
 
   /// Maximum number of lines to use for error text.
   int get errorMaxLines => 1;
+
+  /// The maximum length of the input.
+  int? get maxLength => null;
 
   /// Title widget to use above form field.
   ///
@@ -175,7 +185,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         const TextStyle(fontSize: 16);
 
     return Container(
-      margin: FormFieldConstants.marginBottom,
+      margin: title == null ? EdgeInsets.zero : FormFieldConstants.marginBottom,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -206,7 +216,12 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         'validator', validator));
     properties
         .add(DiagnosticsProperty<FieldValue?>('initialValue', initialValue));
-    properties.add(IterableProperty<CognitoUserAttributeKey>(
-        'usernameAttributes', usernameAttributes));
+    properties
+        .add(EnumProperty<UsernameConfigType>('usernameType', usernameType));
+    properties.add(EnumProperty<UsernameType>(
+        'selectedUsernameType', selectedUsernameType));
+    properties
+        .add(DiagnosticsProperty<ValueNotifier<bool>>('useEmail', useEmail));
+    properties.add(IntProperty('maxLength', maxLength));
   }
 }

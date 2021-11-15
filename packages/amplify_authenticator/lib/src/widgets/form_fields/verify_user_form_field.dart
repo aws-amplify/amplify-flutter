@@ -69,11 +69,6 @@ abstract class _VerifyUserFormFieldState<FieldValue>
     extends AuthenticatorFormFieldState<VerifyAttributeField, FieldValue,
         VerifyUserFormField<FieldValue>> {
   @override
-  Widget? get suffixIcon {
-    return null;
-  }
-
-  @override
   int get errorMaxLines {
     return 1;
   }
@@ -162,43 +157,41 @@ class _VerifyUserRadioField
 class _VerifyAttributeFieldState
     extends _VerifyUserFormFieldState<CognitoUserAttributeKey>
     with AuthenticatorRadioField {
-  List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
-      _inputSelections = [];
+  @override
+  late final List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
+      selections;
 
   @override
-  void didChangeDependencies() {
-    final _authState = InheritedAuthBloc.of(context).currentState;
-    _inputSelections = [];
-    if (_authState is VerifyUserFlow) {
-      final List<CognitoUserAttributeKey> _unverifiedKeys =
-          _authState.unverifiedAttributeKeys;
-      _inputSelections = [
-        if (_unverifiedKeys.contains(CognitoUserAttributeKey.email))
-          const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
-            label: InputResolverKey.emailTitle,
-            value: CognitoUserAttributeKey.email,
-          ),
-        if (_unverifiedKeys.contains(CognitoUserAttributeKey.phoneNumber))
-          const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
-            label: InputResolverKey.phoneNumberTitle,
-            value: CognitoUserAttributeKey.phoneNumber,
-          )
-      ];
-      selectionValue = _inputSelections.first.value;
+  late final CognitoUserAttributeKey initialValue;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final _authState =
+        InheritedAuthBloc.of(context, listen: false).currentState;
+    if (_authState is! VerifyUserFlow) {
+      throw StateError('Invalid verify attribute state: $_authState');
     }
-    super.didChangeDependencies();
+    final List<CognitoUserAttributeKey> _unverifiedKeys =
+        _authState.unverifiedAttributeKeys;
+    selections = [
+      if (_unverifiedKeys.contains(CognitoUserAttributeKey.email))
+        const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
+          label: InputResolverKey.emailTitle,
+          value: CognitoUserAttributeKey.email,
+        ),
+      if (_unverifiedKeys.contains(CognitoUserAttributeKey.phoneNumber))
+        const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
+          label: InputResolverKey.phoneNumberTitle,
+          value: CognitoUserAttributeKey.phoneNumber,
+        )
+    ];
+    initialValue = selections.first.value;
   }
 
   @override
   ValueChanged<CognitoUserAttributeKey> get onChanged {
     return viewModel.setAttributeKeyToVerify;
   }
-
-  @override
-  List<InputSelection> get selections {
-    return _inputSelections;
-  }
-
-  @override
-  CognitoUserAttributeKey? selectionValue;
 }

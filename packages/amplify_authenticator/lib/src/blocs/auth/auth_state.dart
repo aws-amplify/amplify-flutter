@@ -61,10 +61,6 @@ class AuthFlow extends AuthState {
   int get hashCode => screen.hashCode;
 }
 
-class VerificationCodeSent extends AuthFlow {
-  const VerificationCodeSent(AuthScreen screen) : super(screen: screen);
-}
-
 class AttributeVerificationSent extends AuthFlow {
   const AttributeVerificationSent(this.userAttributeKey)
       : super(screen: AuthScreen.confirmVerifyUser);

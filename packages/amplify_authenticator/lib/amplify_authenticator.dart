@@ -22,7 +22,7 @@ import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
-import 'package:amplify_authenticator/src/l10n/string_resolver.dart';
+import 'package:amplify_authenticator/src/l10n/message_resolver.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
@@ -49,6 +49,7 @@ export 'package:amplify_flutter/src/config/auth/password_protection_settings.dar
 export 'src/enums/enums.dart';
 export 'src/l10n/auth_strings_resolver.dart';
 export 'src/models/authenticator_exception.dart';
+export 'src/models/username_input.dart' show UsernameType, UsernameInput;
 export 'src/widgets/button.dart' show SignOutButton;
 export 'src/widgets/form.dart'
     show
@@ -64,6 +65,12 @@ export 'src/widgets/form_field.dart'
         SignUpFormField,
         ConfirmSignInFormField,
         ConfirmSignUpFormField;
+
+/// {@template amplify_authenticator.exception_handler}
+/// A user-specified exception handler for errors originating within the
+/// [Authenticator].
+/// {@endtemplate}
+typedef ExceptionHandler = void Function(AuthenticatorException);
 
 /// {@template authenticator.authenticator}
 /// # Amplify Authenticator
@@ -102,6 +109,7 @@ class Authenticator extends StatefulWidget {
     this.stringResolver = const AuthStringResolver(),
     required this.child,
     this.useAmplifyTheme = false,
+    this.onException,
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
     this.signUpForm = signUpForm ?? SignUpForm();
@@ -187,7 +195,12 @@ class Authenticator extends StatefulWidget {
   /// ```
   late final SignUpForm signUpForm;
 
+  /// An optional, user-defined string resolver, used for localizing the
+  /// Authenticator or overriding default messages.
   final AuthStringResolver stringResolver;
+
+  /// {@macro amplify_authenticator.exception_handler}
+  final ExceptionHandler? onException;
 
   /// This widget will be displayed after a user has signed in.
   final Widget child;
@@ -202,6 +215,8 @@ class Authenticator extends StatefulWidget {
         'stringResolver', stringResolver));
     properties
         .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
+    properties.add(
+        ObjectFlagProperty<ExceptionHandler?>.has('onException', onException));
   }
 }
 
@@ -210,7 +225,8 @@ class _AuthenticatorState extends State<Authenticator> {
   late final StateMachineBloc _stateMachineBloc;
   late final AuthViewModel _viewModel;
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
-  late final StreamSubscription<StringResolver> _infoSub;
+  late final StreamSubscription<MessageResolverKey> _infoSub;
+  late final StreamSubscription<AuthState> _successSub;
   AmplifyConfig? _config;
   late List<String> _missingConfigValues;
   bool _configInitialized = false;
@@ -218,19 +234,21 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   void initState() {
     super.initState();
-    _stateMachineBloc = StateMachineBloc(
-      authService: _authService,
-      authStringResolver: widget.stringResolver,
-    )..add(const AuthLoad());
+    _stateMachineBloc = StateMachineBloc(authService: _authService)
+      ..add(const AuthLoad());
     _viewModel = AuthViewModel(_stateMachineBloc);
     _subscribeToExceptions();
     _subscribeToInfoMessages();
+    _subscribeToSuccessEvents();
     _waitForConfiguration();
   }
 
   void _subscribeToExceptions() {
     _exceptionSub = _stateMachineBloc.exceptions.listen((exception) {
-      if (!exception.showBanner) {
+      var onException = widget.onException;
+      if (onException != null) {
+        onException(exception);
+      } else {
         safePrint('[ERROR]: $exception');
         return;
       }
@@ -256,7 +274,8 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 
   void _subscribeToInfoMessages() {
-    _infoSub = _stateMachineBloc.infoMessages.listen((resolver) {
+    final resolver = widget.stringResolver.messages;
+    _infoSub = _stateMachineBloc.infoMessages.listen((key) {
       if (mounted) {
         ScaffoldMessenger.of(context)
           ..clearMaterialBanners()
@@ -264,7 +283,7 @@ class _AuthenticatorState extends State<Authenticator> {
             context,
             useAuthenticatorTheme: widget.useAmplifyTheme,
             type: StatusType.info,
-            content: Text(resolver(context)),
+            content: Text(resolver.resolve(context, key)),
             margin: MediaQuery.of(context).viewPadding.top,
             actions: [
               IconButton(
@@ -278,10 +297,20 @@ class _AuthenticatorState extends State<Authenticator> {
     });
   }
 
+  // Clear exception and info banners on successful login.
+  void _subscribeToSuccessEvents() {
+    _successSub = _stateMachineBloc.stream.listen((state) {
+      if (state is Authenticated) {
+        ScaffoldMessenger.of(context).removeCurrentMaterialBanner();
+      }
+    });
+  }
+
   @override
   void dispose() {
     _exceptionSub.cancel();
     _infoSub.cancel();
+    _successSub.cancel();
     _stateMachineBloc.dispose();
     super.dispose();
   }
@@ -390,9 +419,11 @@ class _AuthenticatorBody extends StatelessWidget {
           return Scaffold(
             backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
             body: SizedBox.expand(
-              child: SingleChildScrollView(
-                child: screen,
-              ),
+              child: screen is AuthenticatorScreen
+                  ? SingleChildScrollView(
+                      child: screen,
+                    )
+                  : screen,
             ),
           );
         },

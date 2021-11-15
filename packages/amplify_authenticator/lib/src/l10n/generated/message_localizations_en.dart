@@ -23,13 +23,10 @@ class AuthenticatorMessageLocalizationsEn
   AuthenticatorMessageLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get codeSentEmail =>
-      'A new confirmation code has been sent to the email associated with this account.';
+  String codeSent(String destination) {
+    return 'A confirmation code has been sent to $destination.';
+  }
 
   @override
-  String get codeSentSMS =>
-      'A new confirmation code has been sent to the phone number associated with this account.';
-
-  @override
-  String get codeSentUnknown => 'A new confirmation code has been sent.';
+  String get codeSentUnknown => 'A confirmation code has been sent.';
 }
