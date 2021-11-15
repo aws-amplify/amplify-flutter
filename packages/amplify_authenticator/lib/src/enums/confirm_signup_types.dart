@@ -13,4 +13,4 @@
  * permissions and limitations under the License.
  */
 
-enum ConfirmSignUpField { username, password, email, phoneNumber, code }
+enum ConfirmSignUpField { username, code }

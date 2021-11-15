@@ -100,7 +100,13 @@ mixin AuthenticatorUsernameField<FieldType,
   @override
   Widget get title {
     final inputResolver = stringResolver.inputs;
-    final labelText = Text(inputResolver.resolve(context, titleKey));
+    final labelText = Row(
+      children: [
+        Text(inputResolver.resolve(context, titleKey)),
+        const SizedBox(width: 5),
+        const Text('*'),
+      ],
+    );
 
     // Mirrors internal impl. to create an "always active" Switch theme.
     final thumbColor = Theme.of(context).toggleableActiveColor;

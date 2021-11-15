@@ -35,13 +35,14 @@ abstract class ConfirmSignInFormField<FieldValue>
     CognitoUserAttributeKey? customAttributeKey,
   })  : _customAttributeKey = customAttributeKey,
         super._(
-            key: key,
-            field: field,
-            titleKey: titleKey,
-            hintTextKey: hintTextKey,
-            title: title,
-            hintText: hintText,
-            validator: validator);
+          key: key,
+          field: field,
+          titleKey: titleKey,
+          hintTextKey: hintTextKey,
+          title: title,
+          hintText: hintText,
+          validator: validator,
+        );
 
   /// Creates a password component.
   static ConfirmSignInFormField password({
@@ -101,6 +102,31 @@ abstract class ConfirmSignInFormField<FieldValue>
 
   // Custom Cognito attribute key.
   final CognitoUserAttributeKey? _customAttributeKey;
+
+  @override
+  int get priority {
+    switch (field) {
+      case ConfirmSignInField.password:
+        return 1000;
+      case ConfirmSignInField.newPassword:
+        return 100;
+      case ConfirmSignInField.code:
+        return 10;
+      case ConfirmSignInField.address:
+      case ConfirmSignInField.birthdate:
+      case ConfirmSignInField.email:
+      case ConfirmSignInField.familyName:
+      case ConfirmSignInField.gender:
+      case ConfirmSignInField.givenName:
+      case ConfirmSignInField.middleName:
+      case ConfirmSignInField.name:
+      case ConfirmSignInField.nickname:
+      case ConfirmSignInField.phoneNumber:
+      case ConfirmSignInField.preferredUsername:
+      case ConfirmSignInField.custom:
+        return 1;
+    }
+  }
 }
 
 abstract class _ConfirmSignInFormFieldState<FieldValue>
