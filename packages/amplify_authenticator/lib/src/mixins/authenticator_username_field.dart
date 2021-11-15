@@ -132,6 +132,10 @@ mixin AuthenticatorUsernameField<FieldType,
                         setState(() {
                           useEmail.value = val;
                         });
+
+                        // Clear current username value, but not the underlying
+                        // attribute values.
+                        viewModel.setUsername('');
                       },
                     ),
                     const Icon(Icons.email),
