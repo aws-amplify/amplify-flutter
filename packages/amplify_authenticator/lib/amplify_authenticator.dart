@@ -18,6 +18,7 @@ library amplify_authenticator;
 import 'dart:async';
 
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
@@ -66,12 +67,6 @@ export 'src/widgets/form_field.dart'
         ConfirmSignInFormField,
         ConfirmSignUpFormField;
 
-/// {@template amplify_authenticator.exception_handler}
-/// A user-specified exception handler for errors originating within the
-/// [Authenticator].
-/// {@endtemplate}
-typedef ExceptionHandler = void Function(AuthenticatorException);
-
 /// {@template authenticator.authenticator}
 /// # Amplify Authenticator
 ///
@@ -110,6 +105,7 @@ class Authenticator extends StatefulWidget {
     required this.child,
     this.useAmplifyTheme = false,
     this.onException,
+    this.exceptionBannerLocation = ExceptionBannerLocation.auto,
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
     this.signUpForm = signUpForm ?? SignUpForm();
@@ -202,6 +198,9 @@ class Authenticator extends StatefulWidget {
   /// {@macro amplify_authenticator.exception_handler}
   final ExceptionHandler? onException;
 
+  /// {@macro amplify_authenticator.exception_banner_location}
+  final ExceptionBannerLocation exceptionBannerLocation;
+
   /// This widget will be displayed after a user has signed in.
   final Widget child;
 
@@ -217,6 +216,8 @@ class Authenticator extends StatefulWidget {
         .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
     properties.add(
         ObjectFlagProperty<ExceptionHandler?>.has('onException', onException));
+    properties.add(EnumProperty<ExceptionBannerLocation>(
+        'exceptionBannerLocation', exceptionBannerLocation));
   }
 }
 
@@ -248,27 +249,14 @@ class _AuthenticatorState extends State<Authenticator> {
       var onException = widget.onException;
       if (onException != null) {
         onException(exception);
-        return;
       } else {
         safePrint('[ERROR]: $exception');
       }
       if (mounted && exception.showBanner) {
-        ScaffoldMessenger.of(context)
-          ..clearMaterialBanners()
-          ..showMaterialBanner(createMaterialBanner(
-            context,
-            useAuthenticatorTheme: widget.useAmplifyTheme,
-            type: StatusType.error,
-            content: Text(exception.message),
-            margin: MediaQuery.of(context).viewPadding.top,
-            actions: [
-              IconButton(
-                onPressed: () =>
-                    ScaffoldMessenger.of(context).clearMaterialBanners(),
-                icon: const Icon(Icons.close),
-              ),
-            ],
-          ));
+        _showExceptionBanner(
+          type: StatusType.error,
+          content: Text(exception.message),
+        );
       }
     });
   }
@@ -277,24 +265,56 @@ class _AuthenticatorState extends State<Authenticator> {
     final resolver = widget.stringResolver.messages;
     _infoSub = _stateMachineBloc.infoMessages.listen((key) {
       if (mounted) {
-        ScaffoldMessenger.of(context)
-          ..clearMaterialBanners()
-          ..showMaterialBanner(createMaterialBanner(
-            context,
-            useAuthenticatorTheme: widget.useAmplifyTheme,
-            type: StatusType.info,
-            content: Text(resolver.resolve(context, key)),
-            margin: MediaQuery.of(context).viewPadding.top,
-            actions: [
-              IconButton(
-                onPressed: () =>
-                    ScaffoldMessenger.of(context).clearMaterialBanners(),
-                icon: const Icon(Icons.close),
-              ),
-            ],
-          ));
+        _showExceptionBanner(
+          type: StatusType.info,
+          content: Text(resolver.resolve(context, key)),
+        );
       }
     });
+  }
+
+  void _showExceptionBanner({
+    required StatusType type,
+    required Widget content,
+  }) {
+    var location = widget.exceptionBannerLocation;
+    if (location == ExceptionBannerLocation.none) {
+      return;
+    }
+    if (location == ExceptionBannerLocation.auto) {
+      final Size screenSize = MediaQuery.of(context).size;
+      final bool isDesktop =
+          screenSize.width > AuthenticatorContainerConstants.landScapeView;
+      location = isDesktop
+          ? ExceptionBannerLocation.top
+          : ExceptionBannerLocation.bottom;
+    }
+    if (location == ExceptionBannerLocation.top) {
+      ScaffoldMessenger.of(context)
+        ..clearMaterialBanners()
+        ..showMaterialBanner(createMaterialBanner(
+          context,
+          useAmplifyTheme: widget.useAmplifyTheme,
+          type: type,
+          content: content,
+          actions: [
+            IconButton(
+              onPressed: () =>
+                  ScaffoldMessenger.of(context).clearMaterialBanners(),
+              icon: const Icon(Icons.close),
+            ),
+          ],
+        ));
+    } else {
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(createSnackBar(
+          context,
+          type: type,
+          content: content,
+          useAmplifyTheme: widget.useAmplifyTheme,
+        ));
+    }
   }
 
   // Clear exception and info banners on successful login.
