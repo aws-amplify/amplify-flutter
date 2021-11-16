@@ -38,10 +38,12 @@ MaterialBanner createMaterialBanner(
             fontSize: 16,
             color: isDark ? AmplifyColors.white : AmplifyColors.black,
           )
-        : null,
+        : MaterialBannerTheme.of(context).contentTextStyle,
     leading: Icon(
       type.icon,
       size: useAmplifyTheme ? 16 : null,
+      color: MaterialBannerTheme.of(context).contentTextStyle?.color ??
+          (isDark ? AmplifyColors.white : AmplifyColors.black),
     ),
     padding: EdgeInsetsDirectional.only(
       start: 16.0,
@@ -61,11 +63,17 @@ SnackBar createSnackBar(
 }) {
   final bool isDark =
       MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+  var foregroundColor = Theme.of(context).snackBarTheme.contentTextStyle?.color;
+  if (useAmplifyTheme) {
+    foregroundColor ??= isDark ? AmplifyColors.white : AmplifyColors.black;
+  } else {
+    foregroundColor ??= isDark ? AmplifyColors.black : AmplifyColors.white;
+  }
   if (useAmplifyTheme) {
     content = DefaultTextStyle(
       style: TextStyle(
         fontSize: 16,
-        color: isDark ? AmplifyColors.white : AmplifyColors.black,
+        color: foregroundColor,
       ),
       child: content,
     );
@@ -79,6 +87,7 @@ SnackBar createSnackBar(
         Icon(
           type.icon,
           size: useAmplifyTheme ? 16 : null,
+          color: foregroundColor,
         ),
         const SizedBox(width: 16),
         content,
