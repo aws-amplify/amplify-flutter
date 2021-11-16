@@ -24,17 +24,16 @@ MaterialBanner createMaterialBanner(
   required StatusType type,
   required Widget content,
   required List<Widget> actions,
-  required bool useAuthenticatorTheme,
+  required bool useAmplifyTheme,
 }) {
   final bool isDark =
       MediaQuery.platformBrightnessOf(context) == Brightness.dark;
   final margin = MediaQuery.of(context).viewPadding.top;
 
   return MaterialBanner(
-    backgroundColor: useAuthenticatorTheme
-        ? type.backgroundColor(context, isDark: isDark)
-        : null,
-    contentTextStyle: useAuthenticatorTheme
+    backgroundColor:
+        useAmplifyTheme ? type.backgroundColor(context, isDark: isDark) : null,
+    contentTextStyle: useAmplifyTheme
         ? TextStyle(
             fontSize: 16,
             color: isDark ? AmplifyColors.white : AmplifyColors.black,
@@ -42,7 +41,7 @@ MaterialBanner createMaterialBanner(
         : null,
     leading: Icon(
       type.icon,
-      size: useAuthenticatorTheme ? 16 : null,
+      size: useAmplifyTheme ? 16 : null,
     ),
     padding: EdgeInsetsDirectional.only(
       start: 16.0,
@@ -75,7 +74,16 @@ SnackBar createSnackBar(
   return SnackBar(
     backgroundColor:
         useAmplifyTheme ? type.backgroundColor(context, isDark: isDark) : null,
-    content: content,
+    content: Row(
+      children: [
+        Icon(
+          type.icon,
+          size: useAmplifyTheme ? 16 : null,
+        ),
+        const SizedBox(width: 16),
+        content,
+      ],
+    ),
   );
 }
 

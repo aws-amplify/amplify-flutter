@@ -51,12 +51,21 @@ typedef ExceptionHandler = void Function(AuthenticatorException);
 /// {@template amplify_authenticator.exception_banner_location}
 /// The location on the screen to show error banners.
 ///
-/// - `top`: Show [MaterialBanner]s at the top of the screen.
-/// - `bottom`: Show [SnackBar]s at the bottom of the screen.
-/// - `auto` (default): Decide based off screen size which to show. Smaller devices
-/// including mobile phones will use [SnackBar]s, while larger devices such
-/// as tablets will use [MaterialBanner]s.
-/// - `none`: Do not show banners for exceptions. Exceptions can still be handled
-/// using a custom `onException` callback.
+/// Defaults to `auto`.
 /// {@endtemplate}
-enum ExceptionBannerLocation { auto, top, bottom, none }
+enum ExceptionBannerLocation {
+  /// Decide based off screen size which to show. Smaller devices including
+  /// mobile phones will use [SnackBar]s, while larger devices such
+  /// as tablets will use [MaterialBanner]s.
+  auto,
+
+  /// Show [MaterialBanner]s at the top of the screen.
+  top,
+
+  /// Show [SnackBar]s at the bottom of the screen.
+  bottom,
+
+  /// Do not show banners for exceptions. Exceptions can still be handled
+  /// using a custom `onException` callback.
+  none,
+}

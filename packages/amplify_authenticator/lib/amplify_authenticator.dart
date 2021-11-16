@@ -249,7 +249,6 @@ class _AuthenticatorState extends State<Authenticator> {
       var onException = widget.onException;
       if (onException != null) {
         onException(exception);
-        return;
       } else {
         safePrint('[ERROR]: $exception');
       }
@@ -295,7 +294,7 @@ class _AuthenticatorState extends State<Authenticator> {
         ..clearMaterialBanners()
         ..showMaterialBanner(createMaterialBanner(
           context,
-          useAuthenticatorTheme: widget.useAmplifyTheme,
+          useAmplifyTheme: widget.useAmplifyTheme,
           type: type,
           content: content,
           actions: [
