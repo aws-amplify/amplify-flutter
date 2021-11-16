@@ -313,7 +313,7 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
   FormFieldValidator<String> get validator {
     switch (widget.field) {
       case ConfirmSignInField.code:
-        return (code) => validateCode(code, isOptional: isOptional);
+        return validateCode;
       case ConfirmSignInField.password:
         return simpleValidator(
           stringResolver.inputs.resolve(
