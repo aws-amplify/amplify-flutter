@@ -56,6 +56,7 @@ mixin AuthenticatorDateField<FieldType,
         initialDate: now,
         firstDate: DateTime(DateTime.now().year - 110),
         lastDate: now,
+        initialEntryMode: DatePickerEntryMode.input,
       );
       if (date != null) {
         _controller.text = _convertToDateString(date);
@@ -71,14 +72,14 @@ mixin AuthenticatorDateField<FieldType,
             ),
       enabled: enabled,
       readOnly: true,
+      onTap: _pickTime,
       validator: validator,
       decoration: InputDecoration(
-        prefixIcon: IconButton(
+        suffixIcon: IconButton(
           icon: const Icon(Icons.calendar_today),
           tooltip: 'Select birthdate',
           onPressed: _pickTime,
         ),
-        suffixIcon: suffix,
         errorMaxLines: errorMaxLines,
         hintText: hintText,
       ),
