@@ -13,19 +13,12 @@
  * permissions and limitations under the License.
  */
 
-library amplify_core;
+import 'package:uuid/uuid.dart';
 
-/// Exceptions
-export 'src/types/exception/amplify_already_configured_exception.dart';
-export 'src/types/exception/amplify_exception.dart';
-export 'src/types/exception/amplify_exception_messages.dart';
+class UUID {
+  static final _internal = Uuid();
 
-/// Hub
-export 'src/types/hub/hub_channel.dart';
-export 'src/types/hub/hub_event.dart';
-export 'src/types/hub/hub_event_payload.dart';
-export 'src/types/plugin/amplify_plugin_interface.dart';
-
-// Util
-export 'src/util/print.dart';
-export 'src/util/uuid.dart';
+  static String getUUID() {
+    return _internal.v4();
+  }
+}

@@ -67,7 +67,7 @@ class AuthRule {
   }
 
   Map<String, dynamic> toMap() {
-    final map = {
+    Map<String, dynamic> map = {
       'authStrategy': describeEnum(authStrategy),
       'ownerField': ownerField,
       'identityClaim': identityClaim,
@@ -77,8 +77,7 @@ class AuthRule {
       'provider': provider != null ? describeEnum(provider!) : null,
       'operations': operations?.map((x) => describeEnum(x)).toList(),
     };
-    return Map<String, dynamic>.from(map)
-      ..removeWhere((k, dynamic v) => v == null);
+    return Map.from(map)..removeWhere((k, v) => v == null);
   }
 
   factory AuthRule.fromMap(Map<String, dynamic> map) {
@@ -91,7 +90,7 @@ class AuthRule {
         groupsField: map['groupsField'],
         provider: map['provider'],
         operations: List<ModelOperation>.from(
-            map['operations']?.map((dynamic x) => ModelOperation.values[x])));
+            map['operations']?.map((x) => ModelOperation.values[x])));
   }
 
   String toJson() => json.encode(toMap());
