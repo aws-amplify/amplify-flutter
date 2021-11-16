@@ -498,6 +498,9 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
 
   @override
   FormFieldValidator<String> get validator {
+    if (isOptional) {
+      return super.validator;
+    }
     switch (widget.field) {
       case SignUpField.username:
         return simpleValidator(

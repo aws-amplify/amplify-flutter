@@ -288,6 +288,9 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
 
   @override
   FormFieldValidator<String> get validator {
+    if (isOptional) {
+      return super.validator;
+    }
     switch (widget.field) {
       case ConfirmSignInField.code:
         return validateCode;

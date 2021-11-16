@@ -15,6 +15,7 @@
 
 import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
+import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,14 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
             .contains(_searchVal.toLowerCase()),
       )
       .toList();
+
+  @override
+  FormFieldValidator<String> get validator {
+    if (isOptional) {
+      return super.validator;
+    }
+    return validatePhoneNumber;
+  }
 
   String formatPhoneNumber(String phoneNumber) {
     return phoneNumber.ensureStartsWith('+${_selectedCountry.value}');

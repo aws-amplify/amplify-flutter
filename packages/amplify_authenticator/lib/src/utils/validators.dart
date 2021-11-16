@@ -117,6 +117,9 @@ String? validatePhoneNumber(String? phoneNumber) {
   if (phoneNumber == null || phoneNumber.isEmpty) {
     return 'Phone number cannot be empty';
   }
+  if (!phoneNumberRegex.hasMatch(phoneNumber)) {
+    return 'Invalid phone number format';
+  }
   return null;
 }
 
