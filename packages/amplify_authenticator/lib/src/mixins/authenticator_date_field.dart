@@ -71,14 +71,14 @@ mixin AuthenticatorDateField<FieldType,
             ),
       enabled: enabled,
       readOnly: true,
+      onTap: _pickTime,
       validator: validator,
       decoration: InputDecoration(
-        prefixIcon: IconButton(
+        suffixIcon: IconButton(
           icon: const Icon(Icons.calendar_today),
           tooltip: 'Select birthdate',
           onPressed: _pickTime,
         ),
-        suffixIcon: suffix,
         errorMaxLines: errorMaxLines,
         hintText: hintText,
       ),
