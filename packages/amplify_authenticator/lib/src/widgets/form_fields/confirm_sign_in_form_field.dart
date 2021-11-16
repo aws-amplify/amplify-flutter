@@ -127,6 +127,29 @@ abstract class ConfirmSignInFormField<FieldValue>
         return 1;
     }
   }
+
+  @override
+  bool get required {
+    switch (field) {
+      case ConfirmSignInField.code:
+      case ConfirmSignInField.password:
+      case ConfirmSignInField.newPassword:
+        return true;
+      case ConfirmSignInField.address:
+      case ConfirmSignInField.birthdate:
+      case ConfirmSignInField.email:
+      case ConfirmSignInField.familyName:
+      case ConfirmSignInField.gender:
+      case ConfirmSignInField.givenName:
+      case ConfirmSignInField.middleName:
+      case ConfirmSignInField.name:
+      case ConfirmSignInField.nickname:
+      case ConfirmSignInField.phoneNumber:
+      case ConfirmSignInField.preferredUsername:
+      case ConfirmSignInField.custom:
+        return false;
+    }
+  }
 }
 
 abstract class _ConfirmSignInFormFieldState<FieldValue>

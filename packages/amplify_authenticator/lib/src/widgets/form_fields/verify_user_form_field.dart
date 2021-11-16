@@ -63,6 +63,9 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
         field: VerifyAttributeField.confirmVerify,
         validator: validator,
       );
+
+  @override
+  bool get required => true;
 }
 
 abstract class _VerifyUserFormFieldState<FieldValue>
