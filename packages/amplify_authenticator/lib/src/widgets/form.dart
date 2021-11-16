@@ -110,27 +110,31 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
   }
 
   List<AuthenticatorFormField> get allFields {
-    final fields = HashSet<AuthenticatorFormField>(
+    final fields = LinkedHashSet<AuthenticatorFormField>(
       equals: (a, b) {
         return a.runtimeType == b.runtimeType && a.field == b.field;
       },
       hashCode: (field) => hashValues(field.runtimeType, field.field),
     );
 
-    fields.addAll(widget.requiredFields);
-    fields.addAll(runtimeFields(context));
-
-    // Add widget's fields last, since they will contain user's custom fields
-    // and will override the default fields included by runtimeFields.
+    // Add custom fields first, since they will contain the user's fields and
+    // should take precedence over the default fields.
     fields.addAll(widget.customFields.where(
       (el) => el.usernameType != selectedUsernameType,
     ));
 
-    return fields.toList(growable: false)
-      ..sort((a, b) {
+    // Add remaining fields based in order of their display priority. Duplicate
+    // fields will not be added again, and this ensures that custom fields
+    // remain the highest display priority.
+    fields.addAll([
+      ...widget.requiredFields,
+      ...runtimeFields(context),
+    ]..sort((a, b) {
         // Sort larger priorities first.
         return -a.displayPriority.compareTo(b.displayPriority);
-      });
+      }));
+
+    return fields.toList(growable: false);
   }
 
   @override
