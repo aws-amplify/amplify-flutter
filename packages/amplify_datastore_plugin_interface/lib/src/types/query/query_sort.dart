@@ -35,8 +35,8 @@ class QuerySortBy {
   const QuerySortBy({required this.order, required this.field});
 
   int compare<T extends Model>(T a, T b) {
-    dynamic valueA = a.toJson()[field];
-    dynamic valueB = b.toJson()[field];
+    var valueA = a.toJson()[field];
+    var valueB = b.toJson()[field];
     int orderMultiplier = order == QuerySortOrder.ascending ? 1 : -1;
     if (valueA == null || valueB == null) {
       return orderMultiplier * _compareNull(valueA, valueB);
@@ -45,7 +45,8 @@ class QuerySortBy {
     } else if (valueA is Comparable && valueB is Comparable) {
       return orderMultiplier * valueA.compareTo(valueB);
     }
-    throw AmplifyException('A non-comparable field was used as a QuerySortBy');
+    throw DataStoreException(
+        'A non-comparable field was used as a QuerySortBy');
   }
 
   int _compareBool(bool a, bool b) {

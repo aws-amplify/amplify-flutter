@@ -26,7 +26,7 @@ class ModelFieldType {
       {this.ofModelName, this.ofCustomTypeName});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'fieldType': describeEnum(fieldType),
       if (ofModelName != null) 'ofModelName': ofModelName,
       if (ofCustomTypeName != null) 'ofCustomTypeName': ofCustomTypeName,
