@@ -19,7 +19,6 @@ import 'package:amplify_authenticator/src/constants/authenticator_constants.dart
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
-import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/progress.dart';

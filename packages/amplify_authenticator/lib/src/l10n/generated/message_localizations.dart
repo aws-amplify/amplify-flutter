@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';

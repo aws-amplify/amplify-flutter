@@ -362,7 +362,7 @@ class _AuthenticatorState extends State<Authenticator> {
               resolver: widget.stringResolver,
               child: InheritedForms(
                 confirmSignInNewPasswordForm: ConfirmSignInNewPasswordForm(),
-                resetPasswordForm: ResetPasswordForm(),
+                resetPasswordForm: const ResetPasswordForm(),
                 sendCodeForm: SendCodeForm(),
                 signInForm: widget.signInForm,
                 signUpForm: widget.signUpForm,

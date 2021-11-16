@@ -2,7 +2,6 @@ include: package:amplify_lints/flutter_lib.yaml
 
 analyzer:
   exclude:
-    - lib/src/l10n/generated/*.dart
     - tool/*.dart
   errors:
     public_member_api_docs: ignore
