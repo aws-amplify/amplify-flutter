@@ -648,14 +648,9 @@ class _SignUpPhoneFieldState extends _SignUpTextFieldState
   @override
   ValueChanged<String> get onChanged {
     return (phoneNumber) {
-      phoneNumber = formatPhoneNumber(phoneNumber);
+      phoneNumber = formatPhoneNumber(phoneNumber)!;
       viewModel.setPhoneNumber(phoneNumber);
     };
-  }
-
-  @override
-  FormFieldValidator<String> get validator {
-    return validatePhoneNumber;
   }
 }
 

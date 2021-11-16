@@ -55,11 +55,14 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
     if (isOptional) {
       return super.validator;
     }
-    return validatePhoneNumber;
+    return (String? phoneNumber) {
+      phoneNumber = formatPhoneNumber(phoneNumber);
+      return validatePhoneNumber(phoneNumber);
+    };
   }
 
-  String formatPhoneNumber(String phoneNumber) {
-    return phoneNumber.ensureStartsWith('+${_selectedCountry.value}');
+  String? formatPhoneNumber(String? phoneNumber) {
+    return phoneNumber?.ensureStartsWith('+${_selectedCountry.value}');
   }
 
   String displayPhoneNumber(String phoneNumber) {
