@@ -52,12 +52,9 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
 
   @override
   FormFieldValidator<String> get validator {
-    if (isOptional) {
-      return super.validator;
-    }
     return (String? phoneNumber) {
       phoneNumber = formatPhoneNumber(phoneNumber);
-      return validatePhoneNumber(phoneNumber);
+      return validatePhoneNumber(phoneNumber, isOptional: isOptional);
     };
   }
 

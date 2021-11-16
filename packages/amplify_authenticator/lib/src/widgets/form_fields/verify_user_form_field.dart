@@ -129,6 +129,7 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
         context,
         InputResolverKey.verificationCodeEmpty,
       ),
+      isOptional: isOptional,
     );
   }
 }

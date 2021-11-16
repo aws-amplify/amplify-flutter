@@ -174,6 +174,7 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
             context,
             InputResolverKey.usernameEmpty,
           ),
+          isOptional: isOptional,
         );
       case SignInField.password:
         return simpleValidator(
@@ -181,6 +182,7 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
             context,
             InputResolverKey.passwordEmpty,
           ),
+          isOptional: isOptional,
         );
     }
   }

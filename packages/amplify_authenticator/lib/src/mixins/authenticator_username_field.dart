@@ -166,11 +166,18 @@ mixin AuthenticatorUsernameField<FieldType,
                 context,
                 InputResolverKey.usernameEmpty,
               ),
+              isOptional: isOptional,
             )(input?.username);
       case UsernameType.email:
-        return (input) => validateEmail(input?.username);
+        return (input) => validateEmail(
+              input?.username,
+              isOptional: isOptional,
+            );
       case UsernameType.phoneNumber:
-        return (input) => validatePhoneNumber(input?.username);
+        return (input) => validatePhoneNumber(
+              input?.username,
+              isOptional: isOptional,
+            );
     }
   }
 

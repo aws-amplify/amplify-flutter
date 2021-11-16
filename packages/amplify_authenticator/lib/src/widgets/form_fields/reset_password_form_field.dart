@@ -155,7 +155,7 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
       case ResetPasswordField.passwordConfirmation:
         return validatePasswordConfirmation(() => viewModel.newPassword);
       case ResetPasswordField.verificationCode:
-        return validateCode;
+        return (code) => validateCode(code, isOptional: isOptional);
     }
   }
 }
