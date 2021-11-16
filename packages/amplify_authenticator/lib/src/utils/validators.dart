@@ -151,14 +151,8 @@ String? validateEmail(
   return null;
 }
 
-String? validateCode(
-  String? code, {
-  required bool isOptional,
-}) {
+String? validateCode(String? code) {
   if (code == null || code.isEmpty) {
-    if (isOptional) {
-      return null;
-    }
     return 'Please enter the verification code';
   }
   if (!_codeRegex.hasMatch(code)) {
