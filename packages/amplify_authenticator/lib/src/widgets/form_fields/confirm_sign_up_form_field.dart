@@ -45,10 +45,10 @@ abstract class ConfirmSignUpFormField<FieldValue>
   /// Creates a username component.
   static ConfirmSignUpFormField username({
     Key? key,
-    FormFieldValidator<String>? validator,
+    FormFieldValidator<UsernameInput>? validator,
   }) =>
-      _ConfirmSignUpTextField(
-        key: key,
+      _ConfirmSignUpUsernameField(
+        key: key ?? keyUsernameConfirmSignUpFormfield,
         titleKey: InputResolverKey.usernameTitle,
         hintTextKey: InputResolverKey.usernameHint,
         field: ConfirmSignUpField.username,
@@ -178,6 +178,7 @@ class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
             context,
             InputResolverKey.usernameEmpty,
           ),
+          isOptional: isOptional,
         );
       case ConfirmSignUpField.code:
         return validateCode;
@@ -194,3 +195,34 @@ class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
     }
   }
 }
+
+class _ConfirmSignUpUsernameField
+    extends ConfirmSignUpFormField<UsernameInput> {
+  const _ConfirmSignUpUsernameField({
+    Key? key,
+    required ConfirmSignUpField field,
+    InputResolverKey? titleKey,
+    InputResolverKey? hintTextKey,
+    String? title,
+    String? hintText,
+    FormFieldValidator<UsernameInput>? validator,
+  }) : super._(
+          key: key,
+          field: field,
+          titleKey: titleKey,
+          hintTextKey: hintTextKey,
+          title: title,
+          hintText: hintText,
+          validator: validator,
+        );
+
+  @override
+  _ConfirmSignUpUsernameFieldState createState() =>
+      _ConfirmSignUpUsernameFieldState();
+}
+
+class _ConfirmSignUpUsernameFieldState
+    extends _ConfirmSignUpFormFieldState<UsernameInput>
+    with
+        AuthenticatorUsernameField<ConfirmSignUpField,
+            ConfirmSignUpFormField<UsernameInput>> {}

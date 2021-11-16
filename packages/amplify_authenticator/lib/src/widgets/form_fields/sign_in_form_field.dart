@@ -90,9 +90,10 @@ abstract class _SignInFormFieldState<FieldValue>
   @override
   bool get obscureText {
     switch (widget.field) {
-      case SignInField.password:
-      default:
+      case SignInField.username:
         return false;
+      case SignInField.password:
+        return true;
     }
   }
 
@@ -100,6 +101,7 @@ abstract class _SignInFormFieldState<FieldValue>
   TextInputType get keyboardType {
     switch (widget.field) {
       case SignInField.username:
+        return TextInputType.text;
       case SignInField.password:
         return TextInputType.visiblePassword;
     }
@@ -108,10 +110,10 @@ abstract class _SignInFormFieldState<FieldValue>
   @override
   Widget? get suffix {
     switch (widget.field) {
+      case SignInField.username:
+        return null;
       case SignInField.password:
         return visibilityToggle;
-      default:
-        return null;
     }
   }
 }
@@ -172,6 +174,7 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
             context,
             InputResolverKey.usernameEmpty,
           ),
+          isOptional: isOptional,
         );
       case SignInField.password:
         return simpleValidator(
@@ -179,6 +182,7 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
             context,
             InputResolverKey.passwordEmpty,
           ),
+          isOptional: isOptional,
         );
     }
   }

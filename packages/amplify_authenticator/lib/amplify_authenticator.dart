@@ -248,11 +248,11 @@ class _AuthenticatorState extends State<Authenticator> {
       var onException = widget.onException;
       if (onException != null) {
         onException(exception);
+        return;
       } else {
         safePrint('[ERROR]: $exception');
-        return;
       }
-      if (mounted) {
+      if (mounted && exception.showBanner) {
         ScaffoldMessenger.of(context)
           ..clearMaterialBanners()
           ..showMaterialBanner(createMaterialBanner(

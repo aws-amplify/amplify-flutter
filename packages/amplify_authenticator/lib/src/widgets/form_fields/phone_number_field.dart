@@ -73,7 +73,7 @@ class _AuthenticatorPhoneFieldState<FieldType>
 
   @override
   ValueChanged<String> get onChanged => (phoneNumber) {
-        phoneNumber = formatPhoneNumber(phoneNumber);
+        phoneNumber = formatPhoneNumber(phoneNumber)!;
         return (widget.onChanged ?? super.onChanged)(phoneNumber);
       };
 

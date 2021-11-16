@@ -505,6 +505,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
             context,
             InputResolverKey.usernameEmpty,
           ),
+          isOptional: isOptional,
         );
       case SignUpField.password:
         return validateNewPassword(
@@ -514,13 +515,14 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
       case SignUpField.passwordConfirmation:
         return validatePasswordConfirmation(() => viewModel.password);
       case SignUpField.email:
-        return validateEmail;
+        return (email) => validateEmail(email, isOptional: isOptional);
       case SignUpField.address:
         return simpleValidator(
           stringResolver.inputs.resolve(
             context,
             InputResolverKey.addressEmpty,
           ),
+          isOptional: isOptional,
         );
       case SignUpField.birthdate:
         return simpleValidator(
@@ -528,6 +530,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
             context,
             InputResolverKey.birthdateEmpty,
           ),
+          isOptional: isOptional,
         );
       case SignUpField.familyName:
         return simpleValidator(
@@ -535,6 +538,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
             context,
             InputResolverKey.familyNameEmpty,
           ),
+          isOptional: isOptional,
         );
       case SignUpField.gender:
         return simpleValidator(
@@ -542,6 +546,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
             context,
             InputResolverKey.genderEmpty,
           ),
+          isOptional: isOptional,
         );
       case SignUpField.givenName:
         return simpleValidator(
@@ -549,6 +554,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
             context,
             InputResolverKey.givenNameEmpty,
           ),
+          isOptional: isOptional,
         );
       case SignUpField.middleName:
         return simpleValidator(
@@ -556,6 +562,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
             context,
             InputResolverKey.middleNameEmpty,
           ),
+          isOptional: isOptional,
         );
       case SignUpField.name:
         return simpleValidator(
@@ -563,6 +570,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
             context,
             InputResolverKey.nameEmpty,
           ),
+          isOptional: isOptional,
         );
       case SignUpField.nickname:
         return simpleValidator(
@@ -570,6 +578,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
             context,
             InputResolverKey.nicknameEmpty,
           ),
+          isOptional: isOptional,
         );
       case SignUpField.preferredUsername:
         return simpleValidator(
@@ -577,6 +586,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
             context,
             InputResolverKey.preferredUsernameEmpty,
           ),
+          isOptional: isOptional,
         );
       default:
         return super.validator;
@@ -645,14 +655,9 @@ class _SignUpPhoneFieldState extends _SignUpTextFieldState
   @override
   ValueChanged<String> get onChanged {
     return (phoneNumber) {
-      phoneNumber = formatPhoneNumber(phoneNumber);
+      phoneNumber = formatPhoneNumber(phoneNumber)!;
       viewModel.setPhoneNumber(phoneNumber);
     };
-  }
-
-  @override
-  FormFieldValidator<String> get validator {
-    return validatePhoneNumber;
   }
 }
 
@@ -702,6 +707,7 @@ class _SignUpDateFieldState extends _SignUpFormFieldState<String>
         context,
         InputResolverKey.birthdateEmpty,
       ),
+      isOptional: isOptional,
     );
   }
 }

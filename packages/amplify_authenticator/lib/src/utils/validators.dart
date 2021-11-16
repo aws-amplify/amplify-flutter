@@ -27,9 +27,15 @@ final _lowercase = RegExp(r'[a-z]');
 final _numeric = RegExp(r'\d');
 final _symbols = RegExp(r'''[~/`!@#$%^&\"'*(),._?:;{}|<>\]\[\\]''');
 
-FormFieldValidator<String> simpleValidator(String message) {
+FormFieldValidator<String> simpleValidator(
+  String message, {
+  required bool isOptional,
+}) {
   return (String? input) {
     if (input == null || input.isEmpty) {
+      if (isOptional) {
+        return null;
+      }
       return message;
     }
     return null;
@@ -113,15 +119,30 @@ FormFieldValidator<String> validatePasswordConfirmation(
   };
 }
 
-String? validatePhoneNumber(String? phoneNumber) {
+String? validatePhoneNumber(
+  String? phoneNumber, {
+  required bool isOptional,
+}) {
   if (phoneNumber == null || phoneNumber.isEmpty) {
+    if (isOptional) {
+      return null;
+    }
     return 'Phone number cannot be empty';
+  }
+  if (!phoneNumberRegex.hasMatch(phoneNumber)) {
+    return 'Invalid phone number format';
   }
   return null;
 }
 
-String? validateEmail(String? email) {
+String? validateEmail(
+  String? email, {
+  required bool isOptional,
+}) {
   if (email == null || email.isEmpty) {
+    if (isOptional) {
+      return null;
+    }
     return 'Email cannot be empty';
   }
   if (!emailRegex.hasMatch(email)) {

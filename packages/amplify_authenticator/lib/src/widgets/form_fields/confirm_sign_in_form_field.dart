@@ -127,6 +127,29 @@ abstract class ConfirmSignInFormField<FieldValue>
         return 1;
     }
   }
+
+  @override
+  bool get required {
+    switch (field) {
+      case ConfirmSignInField.code:
+      case ConfirmSignInField.password:
+      case ConfirmSignInField.newPassword:
+        return true;
+      case ConfirmSignInField.address:
+      case ConfirmSignInField.birthdate:
+      case ConfirmSignInField.email:
+      case ConfirmSignInField.familyName:
+      case ConfirmSignInField.gender:
+      case ConfirmSignInField.givenName:
+      case ConfirmSignInField.middleName:
+      case ConfirmSignInField.name:
+      case ConfirmSignInField.nickname:
+      case ConfirmSignInField.phoneNumber:
+      case ConfirmSignInField.preferredUsername:
+      case ConfirmSignInField.custom:
+        return false;
+    }
+  }
 }
 
 abstract class _ConfirmSignInFormFieldState<FieldValue>
@@ -297,11 +320,18 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
             context,
             InputResolverKey.passwordEmpty,
           ),
+          isOptional: isOptional,
         );
       case ConfirmSignInField.email:
-        return validateEmail;
+        return (email) => validateEmail(
+              email,
+              isOptional: isOptional,
+            );
       case ConfirmSignInField.phoneNumber:
-        return validatePhoneNumber;
+        return (phoneNumber) => validatePhoneNumber(
+              phoneNumber,
+              isOptional: isOptional,
+            );
       default:
         return super.validator;
     }
