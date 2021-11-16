@@ -120,6 +120,18 @@ class _SocialSignInButtonState
             }
             return AmplifyTheme.of(context).fontPrimary;
           }),
+          side: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.disabled)) {
+              return BorderSide(
+                width: 0,
+                color: AmplifyTheme.of(context).fontDisabled,
+              );
+            }
+            return BorderSide(
+              width: 0,
+              color: AmplifyTheme.of(context).fontPrimary,
+            );
+          }),
         ),
         onPressed: viewModel.isBusy
             ? null

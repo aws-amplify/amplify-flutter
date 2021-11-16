@@ -733,9 +733,10 @@ class _AmplifyThemeWrapper {
     return fontInteractive!;
   }
 
-  Color? get fontPrimary {
+  Color get fontPrimary {
     if (!useAmplifyTheme) {
-      return null;
+      return Theme.of(context).textTheme.button?.color ??
+          (_isDark ? Colors.white : Colors.black);
     }
     return _isDark ? AmplifyColors.fontInverse : AmplifyColors.fontPrimary;
   }
@@ -746,7 +747,7 @@ class _AmplifyThemeWrapper {
   Color? get fontTertiary =>
       useAmplifyTheme ? AmplifyColors.fontTertiary : null;
 
-  Color? get fontDisabled {
+  Color get fontDisabled {
     if (!useAmplifyTheme) {
       return Theme.of(context).disabledColor;
     }
