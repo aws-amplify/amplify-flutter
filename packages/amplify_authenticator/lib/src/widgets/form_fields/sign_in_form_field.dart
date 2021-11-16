@@ -91,6 +91,7 @@ abstract class _SignInFormFieldState<FieldValue>
   bool get obscureText {
     switch (widget.field) {
       case SignInField.password:
+        return true;
       default:
         return false;
     }
