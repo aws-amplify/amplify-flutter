@@ -27,8 +27,7 @@ MaterialBanner createMaterialBanner(
   required bool useAuthenticatorTheme,
   double margin = 0,
 }) {
-  final bool isDark =
-      MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+  final bool isDark = AmplifyTheme.of(context).isDark;
   return MaterialBanner(
     backgroundColor: useAuthenticatorTheme
         ? type.backgroundColor(context, isDark: isDark)

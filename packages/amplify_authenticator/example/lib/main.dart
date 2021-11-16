@@ -100,7 +100,9 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       title: 'Authenticator Demo',
-      theme: ThemeData(primaryColor: Colors.blue),
+      theme: ThemeData(brightness: Brightness.light),
+      darkTheme: ThemeData(brightness: Brightness.dark),
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
 
       // These lines enable our custom localizations specified in the lib/l10n
