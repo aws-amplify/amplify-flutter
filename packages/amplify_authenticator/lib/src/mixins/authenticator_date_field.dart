@@ -56,6 +56,7 @@ mixin AuthenticatorDateField<FieldType,
         initialDate: now,
         firstDate: DateTime(DateTime.now().year - 110),
         lastDate: now,
+        initialEntryMode: DatePickerEntryMode.input,
       );
       if (date != null) {
         _controller.text = _convertToDateString(date);
