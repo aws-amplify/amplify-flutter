@@ -880,6 +880,7 @@ class _AmplifyThemeWrapper {
   Color? get transparent =>
       useAmplifyTheme ? AmplifyColors.transparent : Colors.transparent;
 
-  bool get _isDark =>
-      MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+  bool get _isDark => useAmplifyTheme
+      ? MediaQuery.platformBrightnessOf(context) == Brightness.dark
+      : Theme.of(context).brightness == Brightness.dark;
 }
