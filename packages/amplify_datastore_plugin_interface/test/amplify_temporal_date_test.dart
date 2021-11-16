@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_datastore_plugin_interface/src/types/temporal/temporal_date.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

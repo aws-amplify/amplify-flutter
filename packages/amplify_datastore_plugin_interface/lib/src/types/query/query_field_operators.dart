@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: implicit_dynamic_type
-
 part of 'query_field.dart';
 
 enum QueryFieldOperatorType {

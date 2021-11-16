@@ -48,14 +48,13 @@ class ModelSchema {
   }
 
   Map<String, dynamic> toMap() {
-    final map = {
+    Map<String, dynamic> map = {
       'name': name,
       'pluralName': pluralName,
       'authRules': authRules?.map((x) => x.toMap()).toList(),
       'fields': fields?.map((key, value) => MapEntry('$key', value.toMap())),
     };
-    return Map<String, dynamic>.from(map)
-      ..removeWhere((k, dynamic v) => v == null);
+    return Map.from(map)..removeWhere((k, v) => v == null);
   }
 
   factory ModelSchema.fromMap(Map<String, dynamic> map) {
@@ -63,7 +62,7 @@ class ModelSchema {
       name: map['name'],
       pluralName: map['pluralName'],
       authRules: List<AuthRule>.from(
-          map['authRules']?.map((dynamic x) => AuthRule.fromMap(x))),
+          map['authRules']?.map((x) => AuthRule.fromMap(x))),
       fields: Map<String, ModelField>.from(map['fields']),
     );
   }
