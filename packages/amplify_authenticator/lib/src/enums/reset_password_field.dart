@@ -13,18 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'message_localizations.dart';
-
-/// The translations for English (`en`).
-class AuthenticatorMessageLocalizationsEn
-    extends AuthenticatorMessageLocalizations {
-  AuthenticatorMessageLocalizationsEn([String locale = 'en']) : super(locale);
-
-  @override
-  String codeSent(String destination) {
-    return 'A confirmation code has been sent to $destination.';
-  }
-
-  @override
-  String get codeSentUnknown => 'A confirmation code has been sent.';
+enum ResetPasswordField {
+  verificationCode,
+  password,
+  passwordConfirmation,
 }

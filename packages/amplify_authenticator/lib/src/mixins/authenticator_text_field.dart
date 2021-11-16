@@ -42,6 +42,7 @@ mixin AuthenticatorTextField<FieldType,
           enabled: enabled,
           validator: widget.validatorOverride ?? validator,
           onChanged: onChanged,
+          autocorrect: false,
           decoration: InputDecoration(
             prefixIcon: prefix,
             prefixIconConstraints: const BoxConstraints(

@@ -133,4 +133,9 @@ class AuthenticatorInputLocalizationsEn
 
   @override
   String get usernameType => 'Select what you want to use as a username';
+
+  @override
+  String optional(String fieldTitle) {
+    return '$fieldTitle (optional)';
+  }
 }

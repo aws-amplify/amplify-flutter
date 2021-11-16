@@ -45,6 +45,7 @@ import 'package:flutter/services.dart';
 part 'form_fields/confirm_sign_in_form_field.dart';
 part 'form_fields/confirm_sign_up_form_field.dart';
 part 'form_fields/phone_number_field.dart';
+part 'form_fields/reset_password_form_field.dart';
 part 'form_fields/sign_in_form_field.dart';
 part 'form_fields/sign_up_form_field.dart';
 part 'form_fields/verify_user_form_field.dart';
@@ -71,6 +72,7 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
     this.title,
     this.hintText,
     FormFieldValidator<FieldValue>? validator,
+    this.requiredOverride,
   })  : validatorOverride = validator,
         super(key: key);
 
@@ -92,6 +94,23 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
   /// Override of default validator.
   final FormFieldValidator<FieldValue>? validatorOverride;
 
+  /// The priority to show this field when ordering fields visually in a form.
+  /// Larger numbers take higher precedence.
+  int get displayPriority => 1;
+
+  /// User override of default [required] value.
+  final bool? requiredOverride;
+
+  /// Whether the field is required in the form.
+  ///
+  /// Defaults to `false`.
+  bool get required => false;
+
+  /// The username attribute corresponding to this field, if any. This is used
+  /// to properly address situations where custom fields are added which conflict
+  /// with username fields.
+  UsernameType? get usernameType => null;
+
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
@@ -102,6 +121,11 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
     properties.add(StringProperty('hintText', hintText));
     properties.add(ObjectFlagProperty<FormFieldValidator<FieldValue>?>.has(
         'validatorOverride', validatorOverride));
+    properties.add(IntProperty('priority', displayPriority));
+    properties.add(DiagnosticsProperty<bool>('required', required));
+    properties
+        .add(DiagnosticsProperty<bool?>('requiredOverride', requiredOverride));
+    properties.add(EnumProperty<UsernameType?>('usernameType', usernameType));
   }
 }
 
@@ -168,6 +192,13 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
 
   Widget buildFormField(BuildContext context);
 
+  /// Whether the field is optional, i.e. does not require user input. This is
+  /// used to correctly label fields to the user.
+  bool get isOptional {
+    final isRequired = (widget.requiredOverride ?? false) || widget.required;
+    return !isRequired;
+  }
+
   @nonVirtual
   @override
   Widget build(BuildContext context) {
@@ -177,7 +208,11 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
       final titleString =
           widget.title ?? widget.titleKey?.resolve(context, inputResolver);
       if (titleString != null) {
-        title = Text(titleString);
+        title = Text(
+          isOptional
+              ? inputResolver.optional(context, titleString)
+              : titleString,
+        );
       }
     }
     final titleStyle = Theme.of(context).inputDecorationTheme.labelStyle ??
@@ -223,5 +258,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
     properties
         .add(DiagnosticsProperty<ValueNotifier<bool>>('useEmail', useEmail));
     properties.add(IntProperty('maxLength', maxLength));
+    properties.add(DiagnosticsProperty<bool>('isOptional', isOptional));
   }
 }

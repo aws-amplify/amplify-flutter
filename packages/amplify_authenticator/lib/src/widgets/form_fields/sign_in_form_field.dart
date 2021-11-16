@@ -64,70 +64,24 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
         validator: validator,
       );
 
-  /// Creates an email component.
-  static SignInFormField email({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) =>
-      _SignInTextField(
-        key: key ?? keyEmailSignInFormField,
-        titleKey: InputResolverKey.emailTitle,
-        hintTextKey: InputResolverKey.emailHint,
-        field: SignInField.email,
-        validator: validator,
-      );
+  @override
+  int get displayPriority {
+    switch (field) {
+      case SignInField.username:
+        return 2;
+      case SignInField.password:
+        return 1;
+    }
+  }
 
-  /// Creates a phoneNumber component.
-  static SignInFormField phoneNumber({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) =>
-      _SignInTextField(
-        key: key ?? keyPhoneNumberSignInFormField,
-        titleKey: InputResolverKey.phoneNumberTitle,
-        hintTextKey: InputResolverKey.phoneNumberHint,
-        field: SignInField.phoneNumber,
-        validator: validator,
-      );
-
-  /// Creates a newPassword component.
-  static SignInFormField newPassword({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) =>
-      _SignInTextField(
-        key: key ?? keyNewPasswordSignInFormField,
-        titleKey: InputResolverKey.passwordTitle,
-        hintTextKey: InputResolverKey.passwordTitle,
-        field: SignInField.newPassword,
-        validator: validator,
-      );
-
-  /// Creates a passwordConfirmation component.
-  static SignInFormField passwordConfirmation({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) =>
-      _SignInTextField(
-        key: key ?? keyPasswordConfirmationSignUpFormField,
-        titleKey: InputResolverKey.passwordConfirmationTitle,
-        hintTextKey: InputResolverKey.passwordConfirmationHint,
-        field: SignInField.passwordConfirmation,
-        validator: validator,
-      );
-
-  /// Creates a verificationCode component.
-  static SignInFormField verificationCode({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) =>
-      _SignInTextField(
-        key: key ?? keyVerificationCodeSignInFormField,
-        titleKey: InputResolverKey.verificationCodeTitle,
-        hintTextKey: InputResolverKey.verificationCodeHint,
-        field: SignInField.verificationCode,
-        validator: validator,
-      );
+  @override
+  bool get required {
+    switch (field) {
+      case SignInField.username:
+      case SignInField.password:
+        return true;
+    }
+  }
 }
 
 abstract class _SignInFormFieldState<FieldValue>
@@ -137,8 +91,6 @@ abstract class _SignInFormFieldState<FieldValue>
   bool get obscureText {
     switch (widget.field) {
       case SignInField.password:
-      case SignInField.newPassword:
-        return true;
       default:
         return false;
     }
@@ -149,15 +101,7 @@ abstract class _SignInFormFieldState<FieldValue>
     switch (widget.field) {
       case SignInField.username:
       case SignInField.password:
-      case SignInField.newPassword:
-      case SignInField.passwordConfirmation:
         return TextInputType.visiblePassword;
-      case SignInField.email:
-        return TextInputType.emailAddress;
-      case SignInField.phoneNumber:
-        return TextInputType.phone;
-      case SignInField.verificationCode:
-        return TextInputType.number;
     }
   }
 
@@ -165,21 +109,9 @@ abstract class _SignInFormFieldState<FieldValue>
   Widget? get suffix {
     switch (widget.field) {
       case SignInField.password:
-      case SignInField.newPassword:
-      case SignInField.passwordConfirmation:
         return visibilityToggle;
       default:
         return null;
-    }
-  }
-
-  @override
-  int get errorMaxLines {
-    switch (widget.field) {
-      case SignInField.newPassword:
-        return 6;
-      default:
-        return super.errorMaxLines;
     }
   }
 }
@@ -214,18 +146,8 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
     switch (widget.field) {
       case SignInField.username:
         return viewModel.username;
-      case SignInField.email:
-        return viewModel.getAttribute(CognitoUserAttributeKey.email);
-      case SignInField.phoneNumber:
-        return viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber);
       case SignInField.password:
         return viewModel.password;
-      case SignInField.verificationCode:
-        return viewModel.confirmationCode;
-      case SignInField.newPassword:
-        return viewModel.newPassword;
-      case SignInField.passwordConfirmation:
-        return super.initialValue;
     }
   }
 
@@ -236,14 +158,6 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
         return viewModel.setUsername;
       case SignInField.password:
         return viewModel.setPassword;
-      case SignInField.email:
-        return viewModel.setEmail;
-      case SignInField.phoneNumber:
-        return viewModel.setPhoneNumber;
-      case SignInField.verificationCode:
-        return viewModel.setConfirmationCode;
-      case SignInField.newPassword:
-        return viewModel.setNewPassword;
       default:
         return super.onChanged;
     }
@@ -266,19 +180,6 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
             InputResolverKey.passwordEmpty,
           ),
         );
-      case SignInField.passwordConfirmation:
-        return validatePasswordConfirmation(() => viewModel.newPassword);
-      case SignInField.newPassword:
-        return validateNewPassword(
-          amplifyConfig: config.amplifyConfig,
-          inputResolver: stringResolver.inputs,
-        )(context);
-      case SignInField.email:
-        return validateEmail;
-      case SignInField.phoneNumber:
-        return validatePhoneNumber;
-      case SignInField.verificationCode:
-        return validateCode;
     }
   }
 }

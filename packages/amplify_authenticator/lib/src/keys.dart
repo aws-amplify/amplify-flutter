@@ -18,13 +18,7 @@ import 'package:flutter/foundation.dart';
 //  Sign in form fields keys
 
 const keyUsernameSignInFormField = Key('usernameSignInFormField');
-const keyEmailSignInFormField = Key('emailSignInFormField');
-const keyPhoneNumberSignInFormField = Key('phoneNumberSignInFormField');
 const keyPasswordSignInFormField = Key('passwordSignInFormField');
-const keyVerificationCodeSignInFormField =
-    Key('verificationCodeSignInFormField');
-const keyNewPasswordSignInFormField = Key('newPasswordSignInFormField');
-const keyNewUsernameSignInFormField = Key('newUsernameSignInFormField');
 
 // Sign up form fields keys
 
@@ -95,6 +89,13 @@ const keyUpdatedAtConfirmSignInFormField =
     Key('updatedAtConfirmSignInFormField');
 const keyWebsiteConfirmSignInFormField = Key('websiteConfirmSignInFormField');
 const keyCustomConfirmSignInFormField = Key('customConfirmSignInFormField');
+
+// Reset Password form field keys
+const keyPasswordResetPasswordFormField = Key('passwordResetPasswordFormField');
+const keyPasswordConfirmationResetPasswordFormField =
+    Key('passwordConfirmationResetPasswordFormField');
+const keyVerificationCodeResetPasswordFormField =
+    Key('verificationCodeResetPasswordFormField');
 
 // Attribute Verification keys
 const keyUnverifiedAttributes = Key('unverifiedAttributeFormField');

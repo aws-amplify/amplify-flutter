@@ -33,7 +33,6 @@ enum SignUpField {
   phoneNumber,
   // picture,
   preferredUsername,
-  selectedUsername,
   // profile,
   // zoneinfo,
   // updatedAt,
@@ -48,7 +47,6 @@ extension SignUpFieldX on SignUpField {
       case SignUpField.password:
       case SignUpField.passwordConfirmation:
       case SignUpField.custom:
-      case SignUpField.selectedUsername:
         throw StateError('Can only be called on attribute types');
       default:
         final key =

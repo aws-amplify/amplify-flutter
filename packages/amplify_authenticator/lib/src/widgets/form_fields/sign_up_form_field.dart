@@ -32,6 +32,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     String? hintText,
     FormFieldValidator<FieldValue>? validator,
     CognitoUserAttributeKey? customAttributeKey,
+    bool? required,
   })  : _customAttributeKey = customAttributeKey,
         super._(
           key: key,
@@ -41,6 +42,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
           title: title,
           hintText: hintText,
           validator: validator,
+          requiredOverride: required,
         );
 
   /// Creates a username component.
@@ -83,6 +85,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
   static SignUpFormField address({
     Key? key,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
       _SignUpTextField(
         key: key ?? keyAddressSignUpFormField,
@@ -90,12 +93,14 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.addressHint,
         field: SignUpField.address,
         validator: validator,
+        required: required,
       );
 
   /// Creates a birthdate component.
   static SignUpFormField birthdate({
     Key? key,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
       _SignUpDateField(
         key: key ?? keyBirthdateSignUpFormField,
@@ -103,12 +108,14 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.birthdateHint,
         field: SignUpField.birthdate,
         validator: validator,
+        required: required,
       );
 
   /// Creates a nemail component.
   static SignUpFormField email({
     Key? key,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
       _SignUpTextField(
         key: key ?? keyEmailSignUpFormField,
@@ -116,12 +123,14 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.emailHint,
         field: SignUpField.email,
         validator: validator,
+        required: required,
       );
 
   /// Creates a familyName component.
   static SignUpFormField familyName({
     Key? key,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
       _SignUpTextField(
         key: key ?? keyFamilyNameSignUpFormField,
@@ -129,12 +138,14 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.familyNameHint,
         field: SignUpField.familyName,
         validator: validator,
+        required: required,
       );
 
   /// Creates a gender component.
   static SignUpFormField gender({
     Key? key,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
       _SignUpTextField(
         key: key ?? keyGenderSignUpFormField,
@@ -142,12 +153,14 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.genderHint,
         field: SignUpField.gender,
         validator: validator,
+        required: required,
       );
 
   /// Creates a givenName component.
   static SignUpFormField givenName({
     Key? key,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
       _SignUpTextField(
         key: key ?? keyGivenNameSignUpFormField,
@@ -155,12 +168,14 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.givenNameHint,
         field: SignUpField.givenName,
         validator: validator,
+        required: required,
       );
 
   /// Creates a middleName component.
   static SignUpFormField middleName({
     Key? key,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
       _SignUpTextField(
         key: key ?? keyMiddleNameSignUpFormField,
@@ -168,12 +183,14 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.middleNameHint,
         field: SignUpField.middleName,
         validator: validator,
+        required: required,
       );
 
   /// Creates a name component.
   static SignUpFormField name({
     Key? key,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
       _SignUpTextField(
         key: key ?? keyNameSignUpFormField,
@@ -181,12 +198,14 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.nameHint,
         field: SignUpField.name,
         validator: validator,
+        required: required,
       );
 
   /// Creates a nickname component.
   static SignUpFormField nickname({
     Key? key,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
       _SignUpTextField(
         key: key ?? keyNicknameSignUpFormField,
@@ -194,12 +213,14 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.nicknameHint,
         field: SignUpField.nickname,
         validator: validator,
+        required: required,
       );
 
   /// Creates a phoneNumber component.
   static SignUpFormField phoneNumber({
     Key? key,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
       _SignUpPhoneField(
         key: key ?? keyPhoneNumberSignUpFormField,
@@ -207,12 +228,14 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.phoneNumberHint,
         field: SignUpField.phoneNumber,
         validator: validator,
+        required: required,
       );
 
   /// Creates a preferredUsername component.
   static SignUpFormField preferredUsername({
     Key? key,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
       _SignUpTextField(
         key: key ?? keyPreferredUsernameSignUpFormField,
@@ -220,6 +243,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.preferredUsernameHint,
         field: SignUpField.preferredUsername,
         validator: validator,
+        required: required,
       );
 
   /// Creates a custom attribute component.
@@ -229,6 +253,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     required CognitoUserAttributeKey attributeKey,
     required String hintText,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
       _SignUpTextField(
         key: key,
@@ -237,10 +262,84 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         field: SignUpField.custom,
         validator: validator,
         attributeKey: attributeKey,
+        required: required,
       );
 
   /// Custom Cognito attribute key.
   final CognitoUserAttributeKey? _customAttributeKey;
+
+  @override
+  int get displayPriority {
+    switch (field) {
+      case SignUpField.username:
+        return 1000;
+      case SignUpField.password:
+        return 101;
+      case SignUpField.passwordConfirmation:
+        return 100;
+      case SignUpField.address:
+      case SignUpField.birthdate:
+      case SignUpField.email:
+      case SignUpField.familyName:
+      case SignUpField.gender:
+      case SignUpField.givenName:
+      case SignUpField.middleName:
+      case SignUpField.name:
+      case SignUpField.nickname:
+      case SignUpField.phoneNumber:
+      case SignUpField.preferredUsername:
+      case SignUpField.custom:
+        return 1;
+    }
+  }
+
+  @override
+  bool get required {
+    switch (field) {
+      case SignUpField.username:
+      case SignUpField.password:
+      case SignUpField.passwordConfirmation:
+        return true;
+      case SignUpField.address:
+      case SignUpField.birthdate:
+      case SignUpField.email:
+      case SignUpField.familyName:
+      case SignUpField.gender:
+      case SignUpField.givenName:
+      case SignUpField.middleName:
+      case SignUpField.name:
+      case SignUpField.nickname:
+      case SignUpField.phoneNumber:
+      case SignUpField.preferredUsername:
+      case SignUpField.custom:
+        return false;
+    }
+  }
+
+  @override
+  UsernameType? get usernameType {
+    switch (field) {
+      case SignUpField.email:
+        return UsernameType.email;
+      case SignUpField.phoneNumber:
+        return UsernameType.phoneNumber;
+      case SignUpField.preferredUsername:
+        return UsernameType.username;
+      case SignUpField.username:
+      case SignUpField.password:
+      case SignUpField.passwordConfirmation:
+      case SignUpField.address:
+      case SignUpField.birthdate:
+      case SignUpField.familyName:
+      case SignUpField.gender:
+      case SignUpField.givenName:
+      case SignUpField.middleName:
+      case SignUpField.name:
+      case SignUpField.nickname:
+      case SignUpField.custom:
+        return null;
+    }
+  }
 }
 
 abstract class _SignUpFormFieldState<FieldValue>
@@ -308,6 +407,7 @@ class _SignUpTextField extends SignUpFormField<String> {
     String? hintText,
     CognitoUserAttributeKey? attributeKey,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) : super._(
           key: key,
           field: field,
@@ -317,6 +417,7 @@ class _SignUpTextField extends SignUpFormField<String> {
           hintText: hintText,
           validator: validator,
           customAttributeKey: attributeKey,
+          required: required,
         );
 
   @override
@@ -512,6 +613,7 @@ class _SignUpPhoneField extends SignUpFormField<String> {
     String? hintText,
     CognitoUserAttributeKey? attributeKey,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) : super._(
           key: key,
           field: field,
@@ -521,6 +623,7 @@ class _SignUpPhoneField extends SignUpFormField<String> {
           hintText: hintText,
           validator: validator,
           customAttributeKey: attributeKey,
+          required: required,
         );
 
   @override
@@ -563,6 +666,7 @@ class _SignUpDateField extends SignUpFormField<String> {
     String? hintText,
     CognitoUserAttributeKey? attributeKey,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) : super._(
           key: key,
           field: field,
@@ -572,6 +676,7 @@ class _SignUpDateField extends SignUpFormField<String> {
           hintText: hintText,
           validator: validator,
           customAttributeKey: attributeKey,
+          required: required,
         );
 
   @override

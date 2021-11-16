@@ -264,6 +264,12 @@ abstract class AuthenticatorInputLocalizations {
   /// In en, this message translates to:
   /// **'Select what you want to use as a username'**
   String get usernameType;
+
+  /// Indicator for a field which is not required to be filled
+  ///
+  /// In en, this message translates to:
+  /// **'{fieldTitle} (optional)'**
+  String optional(String fieldTitle);
 }
 
 class _AuthenticatorInputLocalizationsDelegate
