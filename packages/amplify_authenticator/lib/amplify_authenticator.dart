@@ -101,7 +101,7 @@ class Authenticator extends StatefulWidget {
     Key? key,
     SignInForm? signInForm,
     SignUpForm? signUpForm,
-    ConfirmSignInMFAForm? confirmSignInMFAForm,
+    ConfirmSignInNewPasswordForm? confirmSignInNewPasswordForm,
     this.stringResolver = const AuthStringResolver(),
     required this.child,
     this.useAmplifyTheme = false,
@@ -111,7 +111,8 @@ class Authenticator extends StatefulWidget {
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
     this.signUpForm = signUpForm ?? SignUpForm();
-    this.confirmSignInMFAForm = confirmSignInMFAForm ?? ConfirmSignInMFAForm();
+    this.confirmSignInNewPasswordForm =
+        confirmSignInNewPasswordForm ?? ConfirmSignInNewPasswordForm();
   }
 
   /// Whether to use Amplify colors and styles in the Authenticator,
@@ -120,8 +121,8 @@ class Authenticator extends StatefulWidget {
   /// Defaults to `true`.
   final bool useAmplifyTheme;
 
-  /// The form to display when confirming a sign in with MFA.
-  late final ConfirmSignInMFAForm confirmSignInMFAForm;
+  /// The form to display when promted for a password change upon signing in
+  late final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
 
   /// This form will support the following form field types:
   ///    * username
@@ -390,13 +391,14 @@ class _AuthenticatorState extends State<Authenticator> {
             child: InheritedStrings(
               resolver: widget.stringResolver,
               child: InheritedForms(
-                confirmSignInNewPasswordForm: ConfirmSignInNewPasswordForm(),
+                confirmSignInNewPasswordForm:
+                    widget.confirmSignInNewPasswordForm,
                 resetPasswordForm: const ResetPasswordForm(),
                 sendCodeForm: SendCodeForm(),
                 signInForm: widget.signInForm,
                 signUpForm: widget.signUpForm,
                 confirmSignUpForm: ConfirmSignUpForm(),
-                confirmSignInMFAForm: widget.confirmSignInMFAForm,
+                confirmSignInMFAForm: ConfirmSignInMFAForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),
                 child: _AuthenticatorBody(child: widget.child),

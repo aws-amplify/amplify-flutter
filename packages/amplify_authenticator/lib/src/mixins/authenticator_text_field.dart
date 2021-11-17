@@ -26,7 +26,7 @@ mixin AuthenticatorTextField<FieldType,
   Widget buildFormField(BuildContext context) {
     final inputResolver = stringResolver.inputs;
     final hintText = widget.hintText == null
-        ? inputResolver.resolve(context, widget.hintTextKey!)
+        ? widget.hintTextKey?.resolve(context, inputResolver)
         : widget.hintText!;
     return ValueListenableBuilder<bool>(
       valueListenable: context
