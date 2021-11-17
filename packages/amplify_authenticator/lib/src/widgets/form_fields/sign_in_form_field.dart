@@ -31,6 +31,7 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
     String? title,
     String? hintText,
     FormFieldValidator<FieldValue>? validator,
+    bool? required,
   }) : super._(
           key: key,
           field: field,
@@ -39,6 +40,7 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
           title: title,
           hintText: hintText,
           validator: validator,
+          requiredOverride: required,
         );
 
   /// Creates a username component.
@@ -127,6 +129,7 @@ class _SignInTextField extends SignInFormField<String> {
     String? title,
     String? hintText,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) : super._(
           key: key,
           field: field,
@@ -135,6 +138,7 @@ class _SignInTextField extends SignInFormField<String> {
           title: title,
           hintText: hintText,
           validator: validator,
+          required: required,
         );
 
   @override

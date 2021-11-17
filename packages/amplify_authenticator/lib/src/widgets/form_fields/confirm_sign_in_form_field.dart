@@ -33,6 +33,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     String? hintText,
     FormFieldValidator<FieldValue>? validator,
     CognitoUserAttributeKey? customAttributeKey,
+    bool? required,
   })  : _customAttributeKey = customAttributeKey,
         super._(
           key: key,
@@ -42,6 +43,7 @@ abstract class ConfirmSignInFormField<FieldValue>
           title: title,
           hintText: hintText,
           validator: validator,
+          requiredOverride: required,
         );
 
   /// Creates a password component.
@@ -83,6 +85,36 @@ abstract class ConfirmSignInFormField<FieldValue>
         validator: validator,
       );
 
+  /// Creates an email component.
+  static ConfirmSignInFormField email({
+    Key? key,
+    FormFieldValidator<String>? validator,
+    bool? required,
+  }) =>
+      _ConfirmSignInTextField(
+        key: key ?? keyEmailConfirmSignInFormField,
+        titleKey: InputResolverKey.emailTitle,
+        hintTextKey: InputResolverKey.emailHint,
+        field: ConfirmSignInField.email,
+        validator: validator,
+        required: required,
+      );
+
+  /// Creates a phoneNumber component.
+  static ConfirmSignInFormField phoneNumber({
+    Key? key,
+    FormFieldValidator<String>? validator,
+    bool? required,
+  }) =>
+      _ConfirmSignInPhoneField(
+        key: key ?? keyPhoneNumberSignUpFormField,
+        titleKey: InputResolverKey.phoneNumberTitle,
+        hintTextKey: InputResolverKey.phoneNumberHint,
+        field: ConfirmSignInField.phoneNumber,
+        validator: validator,
+        required: required,
+      );
+
   /// Creates a custom attribute component.
   static ConfirmSignInFormField custom({
     Key? key,
@@ -90,6 +122,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     required CognitoUserAttributeKey attributeKey,
     String? hintText,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
       _ConfirmSignInTextField(
         key: key,
@@ -98,6 +131,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         field: ConfirmSignInField.custom,
         validator: validator,
         customAttributeKey: attributeKey,
+        required: required,
       );
 
   // Custom Cognito attribute key.
@@ -217,6 +251,55 @@ abstract class _ConfirmSignInFormFieldState<FieldValue>
   }
 }
 
+class _ConfirmSignInPhoneField extends ConfirmSignInFormField<String> {
+  const _ConfirmSignInPhoneField({
+    Key? key,
+    required ConfirmSignInField field,
+    InputResolverKey? titleKey,
+    InputResolverKey? hintTextKey,
+    String? title,
+    String? hintText,
+    CognitoUserAttributeKey? attributeKey,
+    FormFieldValidator<String>? validator,
+    bool? required,
+  }) : super._(
+          key: key,
+          field: field,
+          titleKey: titleKey,
+          hintTextKey: hintTextKey,
+          title: title,
+          hintText: hintText,
+          validator: validator,
+          customAttributeKey: attributeKey,
+          required: required,
+        );
+
+  @override
+  _ConfirmSignInPhoneFieldState createState() =>
+      _ConfirmSignInPhoneFieldState();
+}
+
+class _ConfirmSignInPhoneFieldState extends _ConfirmSignInTextFieldState
+    with AuthenticatorPhoneFieldMixin {
+  @override
+  String? get initialValue {
+    var _initialValue =
+        viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber);
+    if (_initialValue != null) {
+      _initialValue = displayPhoneNumber(_initialValue);
+    }
+    return _initialValue;
+  }
+
+  @override
+  ValueChanged<String> get onChanged {
+    return (phoneNumber) {
+      phoneNumber = formatPhoneNumber(phoneNumber)!;
+      viewModel.setPhoneNumber(phoneNumber);
+    };
+  }
+}
+
 class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {
   const _ConfirmSignInTextField({
     Key? key,
@@ -227,6 +310,7 @@ class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {
     String? hintText,
     CognitoUserAttributeKey? customAttributeKey,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) : super._(
           key: key,
           field: field,
@@ -236,6 +320,7 @@ class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {
           hintText: hintText,
           customAttributeKey: customAttributeKey,
           validator: validator,
+          required: required,
         );
 
   @override
