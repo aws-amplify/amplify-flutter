@@ -42,3 +42,11 @@ abstract class ModelMutationsInterface {
   GraphQLRequest<T> deleteById<T extends Model>(
       ModelType<T> modelType, String id);
 }
+
+abstract class ModelSubscriptionsInterface {
+  GraphQLRequest<T> onCreate<T extends Model>(ModelType<T> modelType);
+
+  GraphQLRequest<T> onUpdate<T extends Model>(ModelType<T> modelType);
+
+  GraphQLRequest<T> onDelete<T extends Model>(ModelType<T> modelType);
+}

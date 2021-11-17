@@ -14,25 +14,21 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/src/graphql/model_queries_factory.dart';
+import 'package:amplify_api/src/graphql/model_subscriptions_factory.dart';
 import 'package:amplify_core/amplify_core.dart';
 
-// This class provides static method calls to enable a simpler DX,
-// while preserving internal interfaces
-class ModelQueries {
-  ModelQueries._(); // only static methods here, prevent calling constructor
+class ModelSubscriptions {
+  ModelSubscriptions._(); // only static methods here, prevent calling constructor
 
-  static GraphQLRequest<T> get<T extends Model>(
-      ModelType<T> modelType, String id) {
-    return ModelQueriesFactory.instance.get<T>(modelType, id);
+  static GraphQLRequest<T> onCreate<T extends Model>(ModelType<T> modelType) {
+    return ModelSubscriptionsFactory.instance.onCreate<T>(modelType);
   }
 
-  static GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
-    ModelType<T> modelType, {
-    int? limit,
-    QueryPredicate? where,
-  }) {
-    return ModelQueriesFactory.instance
-        .list<T>(modelType, limit: limit, where: where);
+  static GraphQLRequest<T> onUpdate<T extends Model>(ModelType<T> modelType) {
+    return ModelSubscriptionsFactory.instance.onUpdate<T>(modelType);
+  }
+
+  static GraphQLRequest<T> onDelete<T extends Model>(ModelType<T> modelType) {
+    return ModelSubscriptionsFactory.instance.onDelete<T>(modelType);
   }
 }

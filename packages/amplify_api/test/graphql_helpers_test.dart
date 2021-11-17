@@ -493,6 +493,41 @@ void main() {
       });
     });
 
+    group('ModelSubScriptions', () {
+      test('ModelSubscriptions.onCreate() should build a valid request', () {
+        String expected =
+            r'subscription onCreateBlog { onCreateBlog { id name createdAt updatedAt } }';
+        GraphQLRequest<Blog> req =
+            ModelSubscriptions.onCreate<Blog>(Blog.classType);
+
+        expect(req.document, expected);
+        expect(req.modelType, Blog.classType);
+        expect(req.decodePath, 'onCreateBlog');
+      });
+
+      test('ModelSubscriptions.onUpdate() should build a valid request', () {
+        String expected =
+            r'subscription onUpdateBlog { onUpdateBlog { id name createdAt updatedAt } }';
+        GraphQLRequest<Blog> req =
+            ModelSubscriptions.onUpdate<Blog>(Blog.classType);
+
+        expect(req.document, expected);
+        expect(req.modelType, Blog.classType);
+        expect(req.decodePath, 'onUpdateBlog');
+      });
+
+      test('ModelSubscriptions.onDelete() should build a valid request', () {
+        String expected =
+            r'subscription onDeleteBlog { onDeleteBlog { id name createdAt updatedAt } }';
+        GraphQLRequest<Blog> req =
+            ModelSubscriptions.onDelete<Blog>(Blog.classType);
+
+        expect(req.document, expected);
+        expect(req.modelType, Blog.classType);
+        expect(req.decodePath, 'onDeleteBlog');
+      });
+    });
+
     group('transformAppSyncJsonToModelJson', () {
       test('should be no-op for flat JSON with no parents/children', () {
         final input = <String, dynamic>{'id': 'abc123', 'name': 'Lorem Ipsum'};
