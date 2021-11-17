@@ -50,14 +50,6 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
       )
       .toList();
 
-  @override
-  FormFieldValidator<String> get validator {
-    return (String? phoneNumber) {
-      phoneNumber = formatPhoneNumber(phoneNumber);
-      return validatePhoneNumber(phoneNumber, isOptional: isOptional);
-    };
-  }
-
   String? formatPhoneNumber(String? phoneNumber) {
     return phoneNumber?.ensureStartsWith('+${_selectedCountry.value}');
   }
@@ -68,6 +60,10 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
       phoneNumber = phoneNumber.substring(prefix.length);
     }
     return phoneNumber;
+  }
+
+  String get dialCode {
+    return _selectedCountry.value;
   }
 
   @override
@@ -139,7 +135,9 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
                       itemBuilder: (context, index) {
                         Country current = filteredCountries[index];
                         return SimpleDialogOption(
-                          onPressed: () => Navigator.of(context).pop(current),
+                          onPressed: () {
+                            Navigator.of(context).pop(current);
+                          },
                           child: Text(
                             '${_countriesResolver.resolve(context, current.key)} '
                             '(+${current.value})',

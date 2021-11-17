@@ -513,9 +513,13 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
           inputResolver: stringResolver.inputs,
         )(context);
       case SignUpField.passwordConfirmation:
-        return validatePasswordConfirmation(() => viewModel.password);
+        return validatePasswordConfirmation(() => viewModel.password,
+            inputResolver: stringResolver.inputs)(context);
       case SignUpField.email:
-        return (email) => validateEmail(email, isOptional: isOptional);
+        return (email) => validateEmail(
+              inputResolver: stringResolver.inputs,
+              isOptional: isOptional,
+            )(context)(email); {}
       case SignUpField.address:
         return simpleValidator(
           stringResolver.inputs.resolve(
@@ -658,6 +662,14 @@ class _SignUpPhoneFieldState extends _SignUpTextFieldState
       phoneNumber = formatPhoneNumber(phoneNumber)!;
       viewModel.setPhoneNumber(phoneNumber);
     };
+  }
+
+  @override
+  FormFieldValidator<String> get validator {
+    return (input) => validatePhoneNumber(
+          inputResolver: stringResolver.inputs,
+          isOptional: isOptional,
+        )(context)('+$dialCode$input');
   }
 }
 

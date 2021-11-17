@@ -170,14 +170,12 @@ mixin AuthenticatorUsernameField<FieldType,
             )(input?.username);
       case UsernameType.email:
         return (input) => validateEmail(
-              input?.username,
-              isOptional: isOptional,
-            );
+            isOptional: isOptional,
+            inputResolver: stringResolver.inputs)(context)(input?.username);
       case UsernameType.phoneNumber:
         return (input) => validatePhoneNumber(
-              input?.username,
-              isOptional: isOptional,
-            );
+            isOptional: isOptional,
+            inputResolver: stringResolver.inputs)(context)(input?.username);
     }
   }
 
@@ -205,7 +203,6 @@ mixin AuthenticatorUsernameField<FieldType,
       return AuthenticatorPhoneField<FieldType>(
         field: widget.field,
         onChanged: _onChanged,
-        validator: _validator,
         enabled: enabled,
         errorMaxLines: errorMaxLines,
         initialValue:

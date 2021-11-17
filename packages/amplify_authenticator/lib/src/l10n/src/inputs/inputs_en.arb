@@ -107,6 +107,17 @@
             }
         }
     },
+    "warnInvalidFormat": "Not a valid {attributeType} format.",
+    "@warnInvalidFormat": {
+        "description": "Warning for field that has failed format validation.",
+        "placeholders": {
+            "attributeType": {
+                "type": "String",
+                "example": "Phone Number",
+                "description": "The unmet formatting type."
+            }
+        }
+    },
     "promptFill": "Enter your {attribute}",
     "@promptFill": {
         "description": "Prompt to fill an optional or required input field, used as the placeholder for text fields.",
@@ -156,6 +167,10 @@
                 "description": "The character class or type."
             }
         }
+    },
+    "passwordsDoNotMatch": "Passwords do not match.",
+    "@passwordsDoNotMatch": {
+        "description": "Message for conflicting password and confirm password fields."
     },
     "rememberDevice": "Remember Device?",
     "@rememberDevice": {

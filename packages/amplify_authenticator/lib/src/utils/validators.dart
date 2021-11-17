@@ -106,60 +106,76 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
       };
 }
 
-FormFieldValidator<String> validatePasswordConfirmation(
-  String Function() getPassword,
-) {
-  return (String? passwordConfirmation) {
-    if (passwordConfirmation == null || passwordConfirmation.isEmpty) {
-      return 'Re-enter your password to confirm';
-    } else if (getPassword() != passwordConfirmation) {
-      return 'Passwords do not match';
-    }
-    return null;
-  };
+FormFieldValidator<String> Function(BuildContext context)
+    validatePasswordConfirmation(String Function() getPassword,
+        {required InputResolver inputResolver}) {
+  return (BuildContext context) => (String? passwordConfirmation) {
+        if (passwordConfirmation == null || passwordConfirmation.isEmpty) {
+          return inputResolver.resolve(
+            context,
+            InputResolverKey.passwordConfirmationEmpty,
+          );
+        } else if (getPassword() != passwordConfirmation) {
+          return inputResolver.resolve(
+              context, InputResolverKey.passwordsDoNotMatch);
+        }
+        return null;
+      };
 }
 
-String? validatePhoneNumber(
-  String? phoneNumber, {
-  required bool isOptional,
-}) {
-  if (phoneNumber == null || phoneNumber.isEmpty) {
-    if (isOptional) {
-      return null;
-    }
-    return 'Phone number cannot be empty';
-  }
-  if (!phoneNumberRegex.hasMatch(phoneNumber)) {
-    return 'Invalid phone number format';
-  }
-  return null;
+FormFieldValidator<String> Function(BuildContext buildContext)
+    validatePhoneNumber(
+        {required bool isOptional, required InputResolver inputResolver}) {
+  return (BuildContext context) => (String? phoneNumber) {
+        if (phoneNumber == null || phoneNumber.isEmpty) {
+          if (isOptional) {
+            return null;
+          }
+          return inputResolver.resolve(
+            context,
+            InputResolverKey.phoneNumberEmpty,
+          );
+        } else if (!phoneNumberRegex.hasMatch(phoneNumber)) {
+          return inputResolver.resolve(
+              context, InputResolverKey.phoneNumberFormat);
+        }
+        return null;
+      };
 }
 
-String? validateEmail(
-  String? email, {
-  required bool isOptional,
-}) {
-  if (email == null || email.isEmpty) {
-    if (isOptional) {
-      return null;
-    }
-    return 'Email cannot be empty';
-  }
-  if (!emailRegex.hasMatch(email)) {
-    return 'Invalid email format';
-  }
-  return null;
+FormFieldValidator<String> Function(BuildContext buildContext) validateEmail(
+    {required bool isOptional, required InputResolver inputResolver}) {
+  return (BuildContext context) => (String? email) {
+        if (email == null || email.isEmpty) {
+          if (isOptional) {
+            return null;
+          }
+          return inputResolver.resolve(
+            context,
+            InputResolverKey.emailEmpty,
+          );
+        } else if (!emailRegex.hasMatch(email)) {
+          return inputResolver.resolve(context, InputResolverKey.emailFormat);
+        }
+        return null;
+      };
 }
 
-String? validateCode(String? code) {
-  if (code == null || code.isEmpty) {
-    return 'Please enter the verification code';
-  }
-  if (!_codeRegex.hasMatch(code)) {
-    return 'Invalid code format';
-  }
+FormFieldValidator<String> Function(BuildContext buildContext) validateCode(
+    {required bool isOptional, required InputResolver inputResolver}) {
+  return (BuildContext context) => (String? code) {
+        if (code == null || code.isEmpty) {
+          return inputResolver.resolve(
+            context,
+            InputResolverKey.verificationCodeEmpty,
+          );
+        } else if (!_codeRegex.hasMatch(code)) {
+          return inputResolver.resolve(
+              context, InputResolverKey.verificationCodeFormat);
+        }
 
-  return null;
+        return null;
+      };
 }
 
 // ignore_for_file: implementation_imports
