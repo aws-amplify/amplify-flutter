@@ -17,6 +17,7 @@ library amplify_authenticator;
 
 import 'dart:async';
 
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/enums/enums.dart';
@@ -106,6 +107,7 @@ class Authenticator extends StatefulWidget {
     this.useAmplifyTheme = false,
     this.onException,
     this.exceptionBannerLocation = ExceptionBannerLocation.auto,
+    this.preferPrivateSession = false,
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
     this.signUpForm = signUpForm ?? SignUpForm();
@@ -201,6 +203,9 @@ class Authenticator extends StatefulWidget {
   /// {@macro amplify_authenticator.exception_banner_location}
   final ExceptionBannerLocation exceptionBannerLocation;
 
+  /// {@macro amplify_auth_plugin_interface.cognito_sign_in_with_web_ui_options}
+  final bool preferPrivateSession;
+
   /// This widget will be displayed after a user has signed in.
   final Widget child;
 
@@ -218,6 +223,8 @@ class Authenticator extends StatefulWidget {
         ObjectFlagProperty<ExceptionHandler?>.has('onException', onException));
     properties.add(EnumProperty<ExceptionBannerLocation>(
         'exceptionBannerLocation', exceptionBannerLocation));
+    properties.add(DiagnosticsProperty<bool>(
+        'preferPrivateSession', preferPrivateSession));
   }
 }
 
@@ -235,8 +242,10 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   void initState() {
     super.initState();
-    _stateMachineBloc = StateMachineBloc(authService: _authService)
-      ..add(const AuthLoad());
+    _stateMachineBloc = StateMachineBloc(
+      authService: _authService,
+      preferPrivateSession: widget.preferPrivateSession,
+    )..add(const AuthLoad());
     _viewModel = AuthViewModel(_stateMachineBloc);
     _subscribeToExceptions();
     _subscribeToInfoMessages();

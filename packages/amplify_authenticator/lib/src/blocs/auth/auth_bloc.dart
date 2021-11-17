@@ -33,6 +33,7 @@ part 'auth_state.dart';
 /// {@endtemplate}
 class StateMachineBloc {
   final AuthService _authService;
+  final bool preferPrivateSession;
 
   /// State controller.
   final StreamController<AuthState> _authStateController =
@@ -61,6 +62,7 @@ class StateMachineBloc {
   /// {@macro authenticator.state_machine_bloc}
   StateMachineBloc({
     required AuthService authService,
+    required this.preferPrivateSession,
   }) : _authService = authService {
     _subscription =
         _authEventStream.asyncExpand(_eventTransformer).listen((state) {
@@ -267,7 +269,10 @@ class StateMachineBloc {
           data.password,
         );
       } else if (data is AuthSocialSignInData) {
-        result = await _authService.signInWithProvider(data.provider);
+        result = await _authService.signInWithProvider(
+          data.provider,
+          preferPrivateSession: preferPrivateSession,
+        );
       } else {
         throw StateError('Bad sign in data: $data');
       }

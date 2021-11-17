@@ -24,7 +24,10 @@ import 'package:collection/src/iterable_extensions.dart';
 abstract class AuthService {
   Future<SignInResult> signIn(String username, String password);
 
-  Future<SignInResult> signInWithProvider(AuthProvider provider);
+  Future<SignInResult> signInWithProvider(
+    AuthProvider provider, {
+    required bool preferPrivateSession,
+  });
 
   Future<void> signOut();
 
@@ -87,7 +90,7 @@ class AmplifyAuthService implements AuthService {
   @override
   Future<SignInResult> signInWithProvider(
     AuthProvider provider, {
-    bool preferPrivateSession = false,
+    required bool preferPrivateSession,
   }) {
     return Amplify.Auth.signInWithWebUI(
       provider: provider,
