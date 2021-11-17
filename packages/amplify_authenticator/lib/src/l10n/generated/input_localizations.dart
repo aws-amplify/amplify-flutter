@@ -225,7 +225,7 @@ abstract class AuthenticatorInputLocalizations {
   /// Warning for field that has failed format validation.
   ///
   /// In en, this message translates to:
-  /// **'Not a valid {attributeType} format.'**
+  /// **'Invalid {attributeType} format.'**
   String warnInvalidFormat(String attributeType);
 
   /// Prompt to fill an optional or required input field, used as the placeholder for text fields.

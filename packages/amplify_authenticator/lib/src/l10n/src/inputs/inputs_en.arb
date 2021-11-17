@@ -107,7 +107,7 @@
             }
         }
     },
-    "warnInvalidFormat": "Not a valid {attributeType} format.",
+    "warnInvalidFormat": "Invalid {attributeType} format.",
     "@warnInvalidFormat": {
         "description": "Warning for field that has failed format validation.",
         "placeholders": {

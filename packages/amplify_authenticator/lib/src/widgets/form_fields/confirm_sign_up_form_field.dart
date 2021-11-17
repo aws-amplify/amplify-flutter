@@ -181,10 +181,11 @@ class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
           isOptional: isOptional,
         );
       case ConfirmSignUpField.code:
-        return (code) => validateCode(
-              isOptional: isOptional,
-              inputResolver: stringResolver.inputs,
-            )(context)(code);
+        return validateCode(
+          isOptional: isOptional,
+          context: context,
+          inputResolver: stringResolver.inputs,
+        );
     }
   }
 

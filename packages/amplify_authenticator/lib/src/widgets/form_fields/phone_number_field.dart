@@ -81,10 +81,18 @@ class _AuthenticatorPhoneFieldState<FieldType>
 
   @override
   FormFieldValidator<String> get validator {
-    return (input) => validatePhoneNumber(
-          inputResolver: stringResolver.inputs,
-          isOptional: isOptional,
-        )(context)('+$dialCode$input');
+    return (String? phoneNumber) {
+      phoneNumber = formatPhoneNumber(phoneNumber);
+      var validator = widget.validator;
+      if (validator != null) {
+        return validator(phoneNumber);
+      }
+      return validatePhoneNumber(
+        inputResolver: stringResolver.inputs,
+        context: context,
+        isOptional: isOptional,
+      )(phoneNumber);
+    };
   }
 
   @override

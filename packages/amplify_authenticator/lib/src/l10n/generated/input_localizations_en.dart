@@ -90,7 +90,7 @@ class AuthenticatorInputLocalizationsEn
 
   @override
   String warnInvalidFormat(String attributeType) {
-    return 'Not a valid $attributeType format.';
+    return 'Invalid $attributeType format.';
   }
 
   @override

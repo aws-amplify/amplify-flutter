@@ -170,12 +170,16 @@ mixin AuthenticatorUsernameField<FieldType,
             )(input?.username);
       case UsernameType.email:
         return (input) => validateEmail(
-            isOptional: isOptional,
-            inputResolver: stringResolver.inputs)(context)(input?.username);
+              isOptional: isOptional,
+              context: context,
+              inputResolver: stringResolver.inputs,
+            )(input?.username);
       case UsernameType.phoneNumber:
         return (input) => validatePhoneNumber(
-            isOptional: isOptional,
-            inputResolver: stringResolver.inputs)(context)(input?.username);
+              isOptional: isOptional,
+              context: context,
+              inputResolver: stringResolver.inputs,
+            )(input?.username);
     }
   }
 

@@ -153,13 +153,17 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
           inputResolver: stringResolver.inputs,
         )(context);
       case ResetPasswordField.passwordConfirmation:
-        return validatePasswordConfirmation(() => viewModel.newPassword,
-            inputResolver: stringResolver.inputs)(context);
+        return validatePasswordConfirmation(
+          () => viewModel.newPassword,
+          context: context,
+          inputResolver: stringResolver.inputs,
+        );
       case ResetPasswordField.verificationCode:
-        return (code) => validateCode(
-              isOptional: isOptional,
-              inputResolver: stringResolver.inputs,
-            )(context)(code);
+        return validateCode(
+          isOptional: isOptional,
+          context: context,
+          inputResolver: stringResolver.inputs,
+        );
     }
   }
 }

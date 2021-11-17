@@ -313,10 +313,11 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
   FormFieldValidator<String> get validator {
     switch (widget.field) {
       case ConfirmSignInField.code:
-        return (code) => validateCode(
-              isOptional: isOptional,
-              inputResolver: stringResolver.inputs,
-            )(context)(code);
+        return validateCode(
+          isOptional: isOptional,
+          context: context,
+          inputResolver: stringResolver.inputs,
+        );
       case ConfirmSignInField.password:
         return simpleValidator(
           stringResolver.inputs.resolve(
@@ -326,15 +327,17 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
           isOptional: isOptional,
         );
       case ConfirmSignInField.email:
-        return (email) => validateEmail(
-              isOptional: isOptional,
-              inputResolver: stringResolver.inputs,
-            )(context)(email);
+        return validateEmail(
+          isOptional: isOptional,
+          context: context,
+          inputResolver: stringResolver.inputs,
+        );
       case ConfirmSignInField.phoneNumber:
-        return (phoneNumber) => validatePhoneNumber(
-              inputResolver: stringResolver.inputs,
-              isOptional: isOptional,
-            )(context)(phoneNumber);
+        return validatePhoneNumber(
+          inputResolver: stringResolver.inputs,
+          context: context,
+          isOptional: isOptional,
+        );
       default:
         return super.validator;
     }
