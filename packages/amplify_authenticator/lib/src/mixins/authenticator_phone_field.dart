@@ -135,9 +135,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
                       itemBuilder: (context, index) {
                         Country current = filteredCountries[index];
                         return SimpleDialogOption(
-                          onPressed: () {
-                            Navigator.of(context).pop(current);
-                          },
+                          onPressed: () => Navigator.of(context).pop(current),
                           child: Text(
                             '${_countriesResolver.resolve(context, current.key)} '
                             '(+${current.value})',
