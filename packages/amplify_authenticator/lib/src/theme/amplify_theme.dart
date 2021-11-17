@@ -647,7 +647,7 @@ class _AmplifyThemeWrapper {
     if (!useAmplifyTheme) {
       return ElevatedButtonTheme.of(context);
     }
-    return _isDark
+    return isDark
         ? AmplifyTheme.elevatedButtonThemeDark
         : AmplifyTheme.elevatedButtonTheme;
   }
@@ -709,9 +709,7 @@ class _AmplifyThemeWrapper {
     if (!useAmplifyTheme) {
       return Theme.of(context).primaryColor;
     }
-    return _isDark
-        ? AmplifyColors.brandPrimaryDark
-        : AmplifyColors.brandPrimary;
+    return isDark ? AmplifyColors.brandPrimaryDark : AmplifyColors.brandPrimary;
   }
 
   Color get tabLabelColor {
@@ -719,7 +717,7 @@ class _AmplifyThemeWrapper {
       final labelColor = Theme.of(context).tabBarTheme.labelColor;
       final bodyColor = Theme.of(context).primaryTextTheme.bodyText1?.color;
       final indicatorColor = Theme.of(context).indicatorColor;
-      return _isDark
+      return isDark
           ? labelColor ?? bodyColor ?? indicatorColor
           : labelColor ?? indicatorColor;
     }
@@ -736,9 +734,9 @@ class _AmplifyThemeWrapper {
   Color get fontPrimary {
     if (!useAmplifyTheme) {
       return Theme.of(context).textTheme.button?.color ??
-          (_isDark ? Colors.white : Colors.black);
+          (isDark ? Colors.white : Colors.black);
     }
-    return _isDark ? AmplifyColors.fontInverse : AmplifyColors.fontPrimary;
+    return isDark ? AmplifyColors.fontInverse : AmplifyColors.fontPrimary;
   }
 
   Color? get fontSecondary =>
@@ -760,7 +758,7 @@ class _AmplifyThemeWrapper {
     if (!useAmplifyTheme) {
       return null;
     }
-    return _isDark
+    return isDark
         ? AmplifyColors.fontInteractiveDark
         : AmplifyColors.fontInteractive;
   }
@@ -769,14 +767,14 @@ class _AmplifyThemeWrapper {
     if (!useAmplifyTheme) {
       return null;
     }
-    return _isDark ? AmplifyColors.fontHoverDark : AmplifyColors.fontHover;
+    return isDark ? AmplifyColors.fontHoverDark : AmplifyColors.fontHover;
   }
 
   Color? get fontFocus {
     if (!useAmplifyTheme) {
       return null;
     }
-    return _isDark ? AmplifyColors.fontFocusDark : AmplifyColors.fontFocus;
+    return isDark ? AmplifyColors.fontFocusDark : AmplifyColors.fontFocus;
   }
 
   Color? get fontActive => useAmplifyTheme ? AmplifyColors.fontActive : null;
@@ -793,7 +791,7 @@ class _AmplifyThemeWrapper {
     if (!useAmplifyTheme) {
       return null;
     }
-    return _isDark
+    return isDark
         ? AmplifyColors.backgroundPrimaryDark
         : AmplifyColors.backgroundPrimary;
   }
@@ -808,7 +806,7 @@ class _AmplifyThemeWrapper {
     if (!useAmplifyTheme) {
       return null;
     }
-    return _isDark
+    return isDark
         ? AmplifyColors.backgroundDisabledDark
         : AmplifyColors.backgroundDisabled;
   }
@@ -844,7 +842,7 @@ class _AmplifyThemeWrapper {
     if (!useAmplifyTheme) {
       return null;
     }
-    return _isDark
+    return isDark
         ? AmplifyColors.borderSecondaryDark
         : AmplifyColors.borderSecondary;
   }
@@ -880,6 +878,5 @@ class _AmplifyThemeWrapper {
   Color? get transparent =>
       useAmplifyTheme ? AmplifyColors.transparent : Colors.transparent;
 
-  bool get _isDark =>
-      MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+  bool get isDark => Theme.of(context).brightness == Brightness.dark;
 }

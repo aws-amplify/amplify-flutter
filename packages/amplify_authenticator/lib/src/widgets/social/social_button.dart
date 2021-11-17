@@ -77,7 +77,7 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
 class _SocialSignInButtonState
     extends AuthenticatorButtonState<SocialSignInButton> {
   Widget get icon {
-    final isDark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+    final bool isDark = AmplifyTheme.of(context).isDark;
     switch (widget.provider) {
       case AuthProvider.google:
         return SocialIcons.googleLogo;

@@ -26,8 +26,7 @@ MaterialBanner createMaterialBanner(
   required List<Widget> actions,
   required bool useAmplifyTheme,
 }) {
-  final bool isDark =
-      MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+  final bool isDark = AmplifyTheme.of(context).isDark;
   final margin = MediaQuery.of(context).viewPadding.top;
 
   return MaterialBanner(
