@@ -33,6 +33,9 @@ void main() {
     apiChannel.setMockMethodCallHandler(null);
   });
 
+  const blogSelectionSet =
+      'id name file { bucket region key } createdAt updatedAt';
+
   test('Query advanced flow executes correctly in the happy case', () async {
     const queryResult = {
       'listBlogs': {
@@ -91,8 +94,8 @@ void main() {
 
   test('ModelQueries.get Model Helper executes correctly in the happy case',
       () async {
-    String expectedDoc =
-        r"query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt updatedAt } }";
+    const expectedDoc =
+        'query getBlog(\$id: ID!) { getBlog(id: \$id) { $blogSelectionSet } }';
     final String id = UUID.getUUID();
     var queryResult = '''{
       "getBlog": {
@@ -119,8 +122,8 @@ void main() {
 
   test('ModelQueries.list Model Helper executes correctly in the happy case',
       () async {
-    String expectedDoc =
-        r"query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt updatedAt } nextToken } }";
+    const expectedDoc =
+        'query listBlogs(\$filter: ModelBlogFilterInput, \$limit: Int, \$nextToken: String) { listBlogs(filter: \$filter, limit: \$limit, nextToken: \$nextToken) { items { $blogSelectionSet } nextToken } }';
     const queryResult = '''{
       "listBlogs": {
         "items": [

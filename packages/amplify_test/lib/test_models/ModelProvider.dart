@@ -23,24 +23,26 @@ import 'package:amplify_core/amplify_core.dart';
 import 'Blog.dart';
 import 'Comment.dart';
 import 'Post.dart';
+import 'S3Object.dart';
 
 export 'Blog.dart';
 export 'Comment.dart';
 export 'Post.dart';
+export 'S3Object.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "d1d1b26fa643bd34b6ad189f55f6cb32";
+  String version = "4364df78ad5b08b91c8e1495d6b1997f";
   @override
   List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, Post.schema];
   static final ModelProvider _instance = ModelProvider();
   @override
-  List<ModelSchema> customTypeSchemas = [];
+  List<ModelSchema> customTypeSchemas = [S3Object.schema];
 
   static ModelProvider get instance => _instance;
-
+  
   ModelType getModelTypeByModelName(String modelName) {
-    switch (modelName) {
+    switch(modelName) {
       case "Blog":
         return Blog.classType;
       case "Comment":
@@ -48,9 +50,7 @@ class ModelProvider implements ModelProviderInterface {
       case "Post":
         return Post.classType;
       default:
-        throw Exception(
-            "Failed to find model in model provider for model name: " +
-                modelName);
+        throw Exception("Failed to find model in model provider for model name: " + modelName);
     }
   }
 }

@@ -109,7 +109,8 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
 
   // transform parents/hasOne recursively
   for (var parentField in relatedFields.singleFields) {
-    final ofModelName = parentField.type.ofModelName;
+    final ofModelName =
+        parentField.type.ofModelName ?? parentField.type.ofCustomTypeName;
     dynamic inputValue = _input[parentField.name];
     if (inputValue is Map && ofModelName != null) {
       final parentSchema = getModelSchemaByModelName(ofModelName, null);

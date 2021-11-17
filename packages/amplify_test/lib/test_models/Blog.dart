@@ -30,6 +30,7 @@ class Blog extends Model {
   static const classType = const _BlogModelType();
   final String id;
   final String? _name;
+  final S3Object? _file;
   final TemporalDateTime? _createdAt;
   final List<Post>? _posts;
   final TemporalDateTime? _updatedAt;
@@ -55,6 +56,10 @@ class Blog extends Model {
     }
   }
 
+  S3Object? get file {
+    return _file;
+  }
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -68,8 +73,9 @@ class Blog extends Model {
   }
 
   const Blog._internal(
-      {required this.id, required name, createdAt, posts, updatedAt})
+      {required this.id, required name, file, createdAt, posts, updatedAt})
       : _name = name,
+        _file = file,
         _createdAt = createdAt,
         _posts = posts,
         _updatedAt = updatedAt;
@@ -77,11 +83,13 @@ class Blog extends Model {
   factory Blog(
       {String? id,
       required String name,
+      S3Object? file,
       TemporalDateTime? createdAt,
       List<Post>? posts}) {
     return Blog._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
+        file: file,
         createdAt: createdAt,
         posts: posts != null ? List<Post>.unmodifiable(posts) : posts);
   }
@@ -96,6 +104,7 @@ class Blog extends Model {
     return other is Blog &&
         id == other.id &&
         _name == other._name &&
+        _file == other._file &&
         _createdAt == other._createdAt &&
         DeepCollectionEquality().equals(_posts, other._posts);
   }
@@ -110,6 +119,7 @@ class Blog extends Model {
     buffer.write("Blog {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
+    buffer.write("file=" + (_file != null ? _file!.toString() : "null") + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -123,11 +133,13 @@ class Blog extends Model {
   Blog copyWith(
       {String? id,
       String? name,
+      S3Object? file,
       TemporalDateTime? createdAt,
       List<Post>? posts}) {
     return Blog._internal(
         id: id ?? this.id,
         name: name ?? this.name,
+        file: file ?? this.file,
         createdAt: createdAt ?? this.createdAt,
         posts: posts ?? this.posts);
   }
@@ -135,6 +147,10 @@ class Blog extends Model {
   Blog.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
+        _file = json['file']?['serializedData'] != null
+            ? S3Object.fromJson(
+                new Map<String, dynamic>.from(json['file']['serializedData']))
+            : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -152,6 +168,7 @@ class Blog extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
+        'file': _file?.toJson(),
         'createdAt': _createdAt?.format(),
         'posts': _posts?.map((Post? e) => e?.toJson()).toList(),
         'updatedAt': _updatedAt?.format()
@@ -159,6 +176,7 @@ class Blog extends Model {
 
   static final QueryField ID = QueryField(fieldName: "blog.id");
   static final QueryField NAME = QueryField(fieldName: "name");
+  static final QueryField FILE = QueryField(fieldName: "file");
   static final QueryField CREATEDAT = QueryField(fieldName: "createdAt");
   static final QueryField POSTS = QueryField(
       fieldName: "posts",
@@ -175,6 +193,12 @@ class Blog extends Model {
         key: Blog.NAME,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
+        fieldName: 'file',
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.embedded,
+            ofCustomTypeName: 'S3Object')));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Blog.CREATEDAT,

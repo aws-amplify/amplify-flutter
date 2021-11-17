@@ -24,12 +24,14 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('with ModelProvider', () {
     final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
+    const blogSelectionSet =
+        'id name file { bucket region key } createdAt updatedAt';
 
     group('ModelQueries', () {
       test('ModelQueries.get() should build a valid request', () {
         String id = UUID.getUUID();
-        String expected =
-            r'query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt updatedAt } }';
+        const expected =
+            'query getBlog(\$id: ID!) { getBlog(id: \$id) { $blogSelectionSet } }';
 
         GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
 
@@ -61,8 +63,8 @@ void main() {
         expect(response.data?.id, id);
       });
       test('ModelQueries.list() should build a valid request', () async {
-        String expected =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt updatedAt } nextToken } }';
+        const expected =
+            'query listBlogs(\$filter: ModelBlogFilterInput, \$limit: Int, \$nextToken: String) { listBlogs(filter: \$filter, limit: \$limit, nextToken: \$nextToken) { items { $blogSelectionSet } nextToken } }';
 
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType);
@@ -74,8 +76,8 @@ void main() {
 
       test('ModelQueries.list() should build a valid request with pagination',
           () async {
-        String expected =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt updatedAt } nextToken } }';
+        const expected =
+            'query listBlogs(\$filter: ModelBlogFilterInput, \$limit: Int, \$nextToken: String) { listBlogs(filter: \$filter, limit: \$limit, nextToken: \$nextToken) { items { $blogSelectionSet } nextToken } }';
 
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: 1);
@@ -178,8 +180,8 @@ void main() {
             GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
                 request: req, data: data, errors: errors);
         expect(response.data?.hasNextResult, true);
-        String expectedDocument =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt updatedAt } nextToken } }';
+        const expectedDocument =
+            'query listBlogs(\$filter: ModelBlogFilterInput, \$limit: Int, \$nextToken: String) { listBlogs(filter: \$filter, limit: \$limit, nextToken: \$nextToken) { items { $blogSelectionSet } nextToken } }';
         final resultRequest = response.data?.requestForNextResult!;
         expect(resultRequest?.document, expectedDocument);
         expect(resultRequest?.variables['nextToken'], response.data?.nextToken);
@@ -222,7 +224,7 @@ void main() {
           () async {
         const expectedTitle = 'Test Blog 1';
         const expectedDocument =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt updatedAt } nextToken } }';
+            'query listBlogs(\$filter: ModelBlogFilterInput, \$limit: Int, \$nextToken: String) { listBlogs(filter: \$filter, limit: \$limit, nextToken: \$nextToken) { items { $blogSelectionSet } nextToken } }';
         const expectedFilter = {
           'name': {'eq': expectedTitle}
         };
@@ -289,10 +291,10 @@ void main() {
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
         final expectedVars = {
-          'input': {'id': id, 'name': name, 'createdAt': time}
+          'input': {'id': id, 'name': name, 'createdAt': time, 'file': null}
         };
-        final expectedDoc =
-            r'mutation createBlog($input: CreateBlogInput!, $condition:  ModelBlogConditionInput) { createBlog(input: $input, condition: $condition) { id name createdAt updatedAt } }';
+        const expectedDoc =
+            'mutation createBlog(\$input: CreateBlogInput!, \$condition:  ModelBlogConditionInput) { createBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
         GraphQLRequest<Blog> req = ModelMutations.create<Blog>(blog);
 
@@ -327,7 +329,7 @@ void main() {
           }
         };
         const expectedDoc =
-            r'mutation createPost($input: CreatePostInput!, $condition:  ModelPostConditionInput) { createPost(input: $input, condition: $condition) { id title rating created createdAt updatedAt blog { id name createdAt updatedAt } } }';
+            'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating created createdAt updatedAt blog { $blogSelectionSet } } }';
         GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
 
         expect(req.document, expectedDoc);
@@ -349,8 +351,8 @@ void main() {
           'input': {'id': id},
           'condition': null
         };
-        final expectedDoc =
-            r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt updatedAt } }';
+        const expectedDoc =
+            'mutation deleteBlog(\$input: DeleteBlogInput!, \$condition:  ModelBlogConditionInput) { deleteBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
         GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog);
 
@@ -368,8 +370,8 @@ void main() {
           'input': {'id': id},
           'condition': null
         };
-        final expectedDoc =
-            r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt updatedAt } }';
+        const expectedDoc =
+            'mutation deleteBlog(\$input: DeleteBlogInput!, \$condition:  ModelBlogConditionInput) { deleteBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
         GraphQLRequest<Blog> req =
             ModelMutations.deleteById<Blog>(Blog.classType, id);
@@ -390,11 +392,11 @@ void main() {
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
         final expectedVars = {
-          'input': {'id': id, 'name': name, 'createdAt': time},
+          'input': {'id': id, 'name': name, 'createdAt': time, 'file': null},
           'condition': null
         };
-        final expectedDoc =
-            r'mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt updatedAt } }';
+        const expectedDoc =
+            'mutation updateBlog(\$input: UpdateBlogInput!, \$condition:  ModelBlogConditionInput) { updateBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
         GraphQLRequest<Blog> req = ModelMutations.update<Blog>(blog);
 
@@ -430,7 +432,7 @@ void main() {
           'condition': null
         };
         const expectedDoc =
-            r'mutation updatePost($input: UpdatePostInput!, $condition:  ModelPostConditionInput) { updatePost(input: $input, condition: $condition) { id title rating created createdAt updatedAt blog { id name createdAt updatedAt } } }';
+            'mutation updatePost(\$input: UpdatePostInput!, \$condition:  ModelPostConditionInput) { updatePost(input: \$input, condition: \$condition) { id title rating created createdAt updatedAt blog { $blogSelectionSet } } }';
         GraphQLRequest<Post> req = ModelMutations.update<Post>(post);
 
         expect(req.document, expectedDoc);
@@ -449,13 +451,13 @@ void main() {
         final createdAt = TemporalDateTime.fromString(time);
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
         final expectedVars = {
-          'input': {'id': id, 'name': name, 'createdAt': time},
+          'input': {'id': id, 'name': name, 'createdAt': time, 'file': null},
           'condition': {
             'createdAt': {'lt': time}
           }
         };
         const expectedDoc =
-            r'mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt updatedAt } }';
+            'mutation updateBlog(\$input: UpdateBlogInput!, \$condition:  ModelBlogConditionInput) { updateBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
         GraphQLRequest<Blog> req =
             ModelMutations.update(blog, where: Blog.CREATEDAT.lt(createdAt));
@@ -480,7 +482,7 @@ void main() {
           }
         };
         const expectedDoc =
-            r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt updatedAt } }';
+            'mutation deleteBlog(\$input: DeleteBlogInput!, \$condition:  ModelBlogConditionInput) { deleteBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
         GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog,
             where: Blog.CREATEDAT.lt(createdAt));
@@ -495,8 +497,8 @@ void main() {
 
     group('ModelSubScriptions', () {
       test('ModelSubscriptions.onCreate() should build a valid request', () {
-        String expected =
-            r'subscription onCreateBlog { onCreateBlog { id name createdAt updatedAt } }';
+        const expected =
+            'subscription onCreateBlog { onCreateBlog { $blogSelectionSet } }';
         GraphQLRequest<Blog> req =
             ModelSubscriptions.onCreate<Blog>(Blog.classType);
 
@@ -506,8 +508,8 @@ void main() {
       });
 
       test('ModelSubscriptions.onUpdate() should build a valid request', () {
-        String expected =
-            r'subscription onUpdateBlog { onUpdateBlog { id name createdAt updatedAt } }';
+        const expected =
+            'subscription onUpdateBlog { onUpdateBlog { $blogSelectionSet } }';
         GraphQLRequest<Blog> req =
             ModelSubscriptions.onUpdate<Blog>(Blog.classType);
 
@@ -517,8 +519,8 @@ void main() {
       });
 
       test('ModelSubscriptions.onDelete() should build a valid request', () {
-        String expected =
-            r'subscription onDeleteBlog { onDeleteBlog { id name createdAt updatedAt } }';
+        const expected =
+            'subscription onDeleteBlog { onDeleteBlog { $blogSelectionSet } }';
         GraphQLRequest<Blog> req =
             ModelSubscriptions.onDelete<Blog>(Blog.classType);
 
@@ -672,6 +674,23 @@ void main() {
         };
         final output = transformAppSyncJsonToModelJson(input, Comment.schema);
         expect(output, input);
+      });
+
+      test('should translate embedded model', () {
+        final input = <String, dynamic>{
+          'id': 'xyz456',
+          'name': 'Lorem Ipsum',
+          'file': {'bucket': 'abc123'}
+        };
+        final expectedOutput = <String, dynamic>{
+          'id': 'xyz456',
+          'name': 'Lorem Ipsum',
+          'file': {
+            'serializedData': {'bucket': 'abc123'}
+          }
+        };
+        final output = transformAppSyncJsonToModelJson(input, Blog.schema);
+        expect(output, expectedOutput);
       });
     });
   });
