@@ -198,7 +198,7 @@ class AuthViewModel extends ChangeNotifier {
     );
 
     authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
-    await _nextBlocEvent();
+    await nextBlocEvent();
     setBusy(false);
   }
 
@@ -213,7 +213,7 @@ class AuthViewModel extends ChangeNotifier {
     );
 
     authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
-    await _nextBlocEvent();
+    await nextBlocEvent();
     setBusy(false);
   }
 
@@ -230,7 +230,7 @@ class AuthViewModel extends ChangeNotifier {
     );
 
     authBloc.add(AuthConfirmSignUp(confirmation));
-    await _nextBlocEvent();
+    await nextBlocEvent();
     setBusy(false);
   }
 
@@ -244,7 +244,7 @@ class AuthViewModel extends ChangeNotifier {
       password: _password.trim(),
     );
     authBloc.add(AuthSignIn(signIn));
-    await _nextBlocEvent();
+    await nextBlocEvent();
     setBusy(false);
   }
 
@@ -252,14 +252,14 @@ class AuthViewModel extends ChangeNotifier {
     setBusy(true);
     final signInData = AuthSocialSignInData(provider: provider);
     authBloc.add(AuthSignIn(signInData));
-    await _nextBlocEvent();
+    await nextBlocEvent();
     setBusy(false);
   }
 
   Future<void> signOut() async {
     setBusy(true);
     authBloc.add(const AuthSignOut());
-    await _nextBlocEvent();
+    await nextBlocEvent();
     setBusy(false);
   }
 
@@ -270,7 +270,7 @@ class AuthViewModel extends ChangeNotifier {
     setBusy(true);
     final sendCode = AuthSendCodeData(username: _username.trim());
     authBloc.add(AuthSendCode(sendCode));
-    await _nextBlocEvent(
+    await nextBlocEvent(
       where: (state) => state is AuthFlow,
     );
     setBusy(false);
@@ -287,7 +287,7 @@ class AuthViewModel extends ChangeNotifier {
       newPassword: _newPassword.trim(),
     );
     authBloc.add(AuthConfirmPassword(confirmPassword));
-    await _nextBlocEvent(
+    await nextBlocEvent(
       where: (state) => state is AuthFlow,
     );
     setBusy(false);
@@ -306,13 +306,13 @@ class AuthViewModel extends ChangeNotifier {
     );
 
     authBloc.add(AuthSignUp(signUp));
-    await _nextBlocEvent();
+    await nextBlocEvent();
     setBusy(false);
   }
 
   Future<void> resendSignUpCode() async {
     authBloc.add(AuthResendSignUpCode(_username));
-    await _nextBlocEvent();
+    await nextBlocEvent();
   }
 
   Future<void> confirmVerifyUser(
@@ -327,7 +327,7 @@ class AuthViewModel extends ChangeNotifier {
       code: _confirmationCode,
     );
     _authBloc.add(AuthConfirmVerifyUser(authConfirmVerifyUserData));
-    await _nextBlocEvent(
+    await nextBlocEvent(
       where: (state) => state is AuthFlow || state is Authenticated,
     );
     setBusy(false);
@@ -343,7 +343,7 @@ class AuthViewModel extends ChangeNotifier {
     );
 
     _authBloc.add(AuthVerifyUser(authVerifyUserData));
-    await _nextBlocEvent(
+    await nextBlocEvent(
       where: (state) => state is AuthFlow || state is Authenticated,
     );
     setBusy(false);
@@ -353,7 +353,8 @@ class AuthViewModel extends ChangeNotifier {
     _authBloc.add(const AuthSkipVerifyUser());
   }
 
-  Future<void> _nextBlocEvent({bool Function(AuthState state)? where}) async {
+  @visibleForTesting
+  Future<void> nextBlocEvent({bool Function(AuthState state)? where}) async {
     await Future.any([
       _authBloc.exceptions.first,
 
