@@ -79,7 +79,9 @@ class GraphQLRequestFactory {
       if (entry.value.type.fieldType == ModelFieldTypeEnum.embedded) {
         final embeddedSchema =
             getModelSchemaByModelName(entry.value.type.ofCustomTypeName!, null);
-        return '${entry.key} { ${_getSelectionSetFromModelSchema(embeddedSchema, GraphQLRequestOperation.get)} }';
+        final embeddedSelectionSet = _getSelectionSetFromModelSchema(
+            embeddedSchema, GraphQLRequestOperation.get);
+        return '${entry.key} { $embeddedSelectionSet }';
       }
       return entry.key;
     }).toList(); // e.g. ["id", "name", "createdAt"]
