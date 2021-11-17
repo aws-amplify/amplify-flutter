@@ -128,7 +128,6 @@ void main() {
 
       // Then I see "Confirm Sign Up"
       await tester.nextBlocEvent();
-      await tester.pumpAndSettle();
 
       final currentScreen = tester.widget<AuthenticatorScreen>(
         find.byType(AuthenticatorScreen),
@@ -177,5 +176,6 @@ extension on WidgetTester {
     final inheritedViewModel =
         widget<InheritedAuthViewModel>(find.byKey(keyInheritedAuthViewModel));
     await inheritedViewModel.viewModel.nextBlocEvent().timeout(timeout);
+    await pumpAndSettle();
   }
 }
