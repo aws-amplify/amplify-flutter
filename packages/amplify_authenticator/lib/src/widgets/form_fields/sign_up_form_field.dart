@@ -519,7 +519,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
         return (email) => validateEmail(
               inputResolver: stringResolver.inputs,
               isOptional: isOptional,
-            )(context)(email); {}
+            )(context)(email);
       case SignUpField.address:
         return simpleValidator(
           stringResolver.inputs.resolve(

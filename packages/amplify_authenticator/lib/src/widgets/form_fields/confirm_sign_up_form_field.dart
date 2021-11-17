@@ -184,7 +184,7 @@ class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
         return (code) => validateCode(
               isOptional: isOptional,
               inputResolver: stringResolver.inputs,
-            )(context)(code); {}
+            )(context)(code);
     }
   }
 
