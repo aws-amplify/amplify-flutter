@@ -371,8 +371,10 @@ class InputResolver extends Resolver<InputResolverKey> {
       case InputField.newPassword:
         return AuthenticatorLocalizations.inputsOf(context).newPassword;
       case InputField.passwordConfirmation:
+        final fieldName =
+            AuthenticatorLocalizations.inputsOf(context).passwordConfirmation;
         return AuthenticatorLocalizations.inputsOf(context)
-            .passwordConfirmation;
+            .titleConfirmation(fieldName);
       case InputField.verificationCode:
         return AuthenticatorLocalizations.inputsOf(context).verificationCode;
       case InputField.address:
@@ -417,12 +419,15 @@ class InputResolver extends Resolver<InputResolverKey> {
   }
 
   String hint(BuildContext context, InputField field) {
-    final fieldName = title(context, field);
-    final lowercasedFieldName = fieldName.toLowerCase();
     if (field == InputField.passwordConfirmation) {
+      final fieldName =
+          AuthenticatorLocalizations.inputsOf(context).passwordConfirmation;
+      final lowercasedFieldName = fieldName.toLowerCase();
       return AuthenticatorLocalizations.inputsOf(context)
           .promptRefill(lowercasedFieldName);
     }
+    final fieldName = title(context, field);
+    final lowercasedFieldName = fieldName.toLowerCase();
     return AuthenticatorLocalizations.inputsOf(context)
         .promptFill(lowercasedFieldName);
   }

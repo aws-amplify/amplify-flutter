@@ -33,7 +33,7 @@ class AuthenticatorInputLocalizationsEn
   String get newPassword => 'New Password';
 
   @override
-  String get passwordConfirmation => 'Confirm Password';
+  String get passwordConfirmation => 'Password';
 
   @override
   String get email => 'Email';
@@ -101,6 +101,11 @@ class AuthenticatorInputLocalizationsEn
   @override
   String promptRefill(String attribute) {
     return 'Re-enter your $attribute';
+  }
+
+  @override
+  String titleConfirmation(String attribute) {
+    return 'Confirm $attribute';
   }
 
   @override
