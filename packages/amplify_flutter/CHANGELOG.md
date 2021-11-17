@@ -1,6 +1,6 @@
 ## 0.2.9 (2021-11-17)
 
-- chore: upgrade amplify-ios to 1.28.3-rc
+- chore: upgrade amplify-android to 1.28.3-rc
 
 ## 0.2.8 (2021-11-12)
 
