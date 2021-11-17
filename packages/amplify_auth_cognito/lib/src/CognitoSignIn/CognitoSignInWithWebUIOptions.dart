@@ -22,9 +22,9 @@ class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions {
   /// Note that this value internally sets `prefersEphemeralWebBrowserSession` in ASWebAuthenticationSession.
   /// As per Apple documentation, Whether the request is honored depends on the user’s default web browser.
   /// Safari always honors the request.
-  /// {@endtemplate}
   ///
   /// Defaults to `false`.
+  /// {@endtemplate}
   final bool isPreferPrivateSession;
   const CognitoSignInWithWebUIOptions({this.isPreferPrivateSession = false});
   @override

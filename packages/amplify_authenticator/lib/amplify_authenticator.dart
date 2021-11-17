@@ -107,7 +107,7 @@ class Authenticator extends StatefulWidget {
     this.useAmplifyTheme = false,
     this.onException,
     this.exceptionBannerLocation = ExceptionBannerLocation.auto,
-    this.preferPrivateSession = true,
+    this.preferPrivateSession = false,
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
     this.signUpForm = signUpForm ?? SignUpForm();
@@ -204,8 +204,6 @@ class Authenticator extends StatefulWidget {
   final ExceptionBannerLocation exceptionBannerLocation;
 
   /// {@macro amplify_auth_plugin_interface.cognito_sign_in_with_web_ui_options}
-  ///
-  /// Defaults to `true`.
   final bool preferPrivateSession;
 
   /// This widget will be displayed after a user has signed in.
