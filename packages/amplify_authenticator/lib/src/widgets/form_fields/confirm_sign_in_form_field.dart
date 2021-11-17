@@ -331,10 +331,10 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
               inputResolver: stringResolver.inputs,
             )(context)(email);
       case ConfirmSignInField.phoneNumber:
-        return (input) => validatePhoneNumber(
+        return (phoneNumber) => validatePhoneNumber(
               inputResolver: stringResolver.inputs,
               isOptional: isOptional,
-            )(context)(input);
+            )(context)(phoneNumber);
       default:
         return super.validator;
     }

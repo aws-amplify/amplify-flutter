@@ -203,6 +203,7 @@ mixin AuthenticatorUsernameField<FieldType,
       return AuthenticatorPhoneField<FieldType>(
         field: widget.field,
         onChanged: _onChanged,
+        validator: _validator,
         enabled: enabled,
         errorMaxLines: errorMaxLines,
         initialValue:
