@@ -17,8 +17,9 @@ import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/amplifyconfiguration.dart';
+import 'package:amplify_api_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_test/test_models/ModelProvider.dart';
+// import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -283,6 +284,23 @@ void main() {
 
         expect(data?.name, equals(blog.name));
         expect(data?.id, equals(blog.id));
+      });
+
+      testWidgets('should CREATE a blog with Model helper and embedded type',
+          (WidgetTester tester) async {
+        String name = 'Integration Test Blog - create';
+        String bucketName = 'Good bucket';
+        Blog blog = Blog(
+            name: name,
+            file:
+                S3Object(bucket: bucketName, region: 'us-west-2', key: 'foo'));
+
+        final req = ModelMutations.create(blog);
+        final res = await Amplify.API.mutate(request: req).response;
+        Blog? data = res.data;
+        if (data != null) blogCache.add(data);
+
+        expect(data?.file?.bucket, equals(bucketName));
       });
 
       testWidgets('should CREATE a post (model with parent) with Model helper',

@@ -73,11 +73,15 @@ class GraphQLRequestFactory {
     // Schema has been validated & schema.fields is non-nullable.
     // Get a list of field names to include in the request body.
     List<String> _fields = schema.fields!.entries
-        .where((entry) =>
-            // Ignore related fields.
-            entry.value.association == null)
-        .map((entry) => entry.key)
-        .toList(); // e.g. ["id", "name", "createdAt"]
+        .where((entry) => entry.value.association == null)
+        .map((entry) {
+      if (entry.value.type.fieldType == ModelFieldTypeEnum.embedded) {
+        final embeddedSchema =
+            getModelSchemaByModelName(entry.value.type.ofCustomTypeName!, null);
+        return '${entry.key} { ${_getSelectionSetFromModelSchema(embeddedSchema, GraphQLRequestOperation.get)} }';
+      }
+      return entry.key;
+    }).toList(); // e.g. ["id", "name", "createdAt"]
 
     // If belongsTo, also add selection set of parent.
     final belongsToAssociation = getBelongsToFieldFromModelSchema(schema);
