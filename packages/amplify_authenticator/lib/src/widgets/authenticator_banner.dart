@@ -89,7 +89,7 @@ SnackBar createSnackBar(
           color: foregroundColor,
         ),
         const SizedBox(width: 16),
-        content,
+        Expanded(child: content),
       ],
     ),
   );
