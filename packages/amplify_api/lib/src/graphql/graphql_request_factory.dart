@@ -73,7 +73,8 @@ class GraphQLRequestFactory {
     // Schema has been validated & schema.fields is non-nullable.
     // Get a list of field names to include in the request body.
     List<String> _fields = schema.fields!.entries
-        .where((entry) => entry.value.association == null)
+        .where((entry) =>
+            entry.value.association == null) // ignore related model fields
         .map((entry) {
       if (entry.value.type.fieldType == ModelFieldTypeEnum.embedded) {
         final embeddedSchema =
