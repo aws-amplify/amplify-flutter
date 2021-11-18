@@ -221,9 +221,9 @@
     "@cr": {
         "description": "Display name for Costa Rica"
     },
-    "ci": "Ivory Coast",
+    "ci": "Côte d'Ivoire",
     "@ci": {
-        "description": "Display name for Ivory Coast"
+        "description": "Display name for Côte d'Ivoire"
     },
     "hr": "Croatia",
     "@hr": {
@@ -465,9 +465,9 @@
     "@ki": {
         "description": "Display name for Kiribati"
     },
-    "kp": "Korea (Democratic Peoples Republic of)",
+    "kp": "Korea (Democratic People's Republic of)",
     "@kp": {
-        "description": "Display name for Korea (Democratic Peoples Republic of)"
+        "description": "Display name for Korea (Democratic People's Republic of)"
     },
     "kr": "Korea (Republic of)",
     "@kr": {

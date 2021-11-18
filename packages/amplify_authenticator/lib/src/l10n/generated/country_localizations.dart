@@ -437,10 +437,10 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Costa Rica'**
   String get cr;
 
-  /// Display name for Ivory Coast
+  /// Display name for Côte d'Ivoire
   ///
   /// In en, this message translates to:
-  /// **'Ivory Coast'**
+  /// **'Côte d\'Ivoire'**
   String get ci;
 
   /// Display name for Croatia
@@ -803,10 +803,10 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Kiribati'**
   String get ki;
 
-  /// Display name for Korea (Democratic Peoples Republic of)
+  /// Display name for Korea (Democratic People's Republic of)
   ///
   /// In en, this message translates to:
-  /// **'Korea (Democratic Peoples Republic of)'**
+  /// **'Korea (Democratic People\'s Republic of)'**
   String get kp;
 
   /// Display name for Korea (Republic of)

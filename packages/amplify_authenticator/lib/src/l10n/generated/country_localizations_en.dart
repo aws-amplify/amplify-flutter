@@ -188,7 +188,7 @@ class AuthenticatorCountryLocalizationsEn
   String get cr => 'Costa Rica';
 
   @override
-  String get ci => 'Ivory Coast';
+  String get ci => 'Côte d\'Ivoire';
 
   @override
   String get hr => 'Croatia';
@@ -371,7 +371,7 @@ class AuthenticatorCountryLocalizationsEn
   String get ki => 'Kiribati';
 
   @override
-  String get kp => 'Korea (Democratic Peoples Republic of)';
+  String get kp => 'Korea (Democratic People\'s Republic of)';
 
   @override
   String get kr => 'Korea (Republic of)';
