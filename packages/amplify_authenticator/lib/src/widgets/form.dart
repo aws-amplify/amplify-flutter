@@ -207,13 +207,16 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
 
   @override
   List<SignUpFormField> runtimeFields(BuildContext context) {
-    final signUpAttributes = InheritedConfig.of(context)
+    final authConfig = InheritedConfig.of(context)
         .amplifyConfig
         ?.auth
         ?.awsCognitoAuthPlugin
-        ?.auth?['Default']
-        ?.signupAttributes;
-    if (signUpAttributes == null) {
+        ?.auth?['Default'];
+    final signUpAttributes = [
+      ...?authConfig?.signupAttributes,
+      ...?authConfig?.verificationMechanisms,
+    ];
+    if (signUpAttributes.isEmpty) {
       return const [];
     }
 
@@ -254,6 +257,9 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
               return null;
             }
             return SignUpFormField.phoneNumber(required: true);
+          }
+          if (attr == CognitoUserAttributeKey.preferredUsername) {
+            return SignUpFormField.preferredUsername(required: true);
           }
         })
         .whereType<SignUpFormField>()

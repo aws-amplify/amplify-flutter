@@ -36,8 +36,12 @@ AuthBlockConfig _$AuthBlockConfigFromJson(Map<String, dynamic> json) {
     mfaTypes: (json['mfaTypes'] as List<dynamic>?)
         ?.map((e) => _$enumDecode(_$MfaTypesEnumMap, e))
         .toList(),
-    verificationMechanisms:
-        (json['verificationMechanisms'] as List<dynamic>?)?.cast<String>(),
+    verificationMechanisms: (json['verificationMechanisms'] as List<dynamic>?)
+        ?.cast<String>()
+        ?.map((e) => CognitoUserAttributeKey.values
+            .firstWhereOrNull((attr) => e.toLowerCase() == attr.key))
+        ?.whereNotNull()
+        .toList(),
   );
 }
 
