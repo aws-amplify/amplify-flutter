@@ -143,10 +143,10 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Algeria'**
   String get dz;
 
-  /// Display name for AmericanSamoa
+  /// Display name for American Samoa
   ///
   /// In en, this message translates to:
-  /// **'AmericanSamoa'**
+  /// **'American Samoa'**
   String get as1;
 
   /// Display name for Andorra
@@ -275,11 +275,17 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Bhutan'**
   String get bt;
 
-  /// Display name for Bolivia, Plurinational State of
+  /// Display name for Bolivia (Plurinational State of)
   ///
   /// In en, this message translates to:
-  /// **'Bolivia, Plurinational State of'**
+  /// **'Bolivia (Plurinational State of)'**
   String get bo;
+
+  /// Display name for Bonaire, Sint Eustatius and Saba
+  ///
+  /// In en, this message translates to:
+  /// **'Bonaire, Sint Eustatius and Saba'**
+  String get bq;
 
   /// Display name for Bosnia and Herzegovina
   ///
@@ -305,10 +311,10 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'British Indian Ocean Territory'**
   String get io;
 
-  /// Display name for Brunei Darussalam
+  /// Display name for Brunei
   ///
   /// In en, this message translates to:
-  /// **'Brunei Darussalam'**
+  /// **'Brunei'**
   String get bn;
 
   /// Display name for Bulgaria
@@ -407,16 +413,16 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Comoros'**
   String get km;
 
-  /// Display name for Congo
+  /// Display name for Congo (Republic of)
   ///
   /// In en, this message translates to:
-  /// **'Congo'**
+  /// **'Congo (Republic of)'**
   String get cg;
 
-  /// Display name for Congo The Democratic Republic of the Congo
+  /// Display name for Congo (Democratic Republic of)
   ///
   /// In en, this message translates to:
-  /// **'Congo The Democratic Republic of the Congo'**
+  /// **'Congo (Democratic Republic of)'**
   String get cd;
 
   /// Display name for Cook Islands
@@ -431,10 +437,10 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Costa Rica'**
   String get cr;
 
-  /// Display name for Cote dIvoire
+  /// Display name for Cote d'Ivoire
   ///
   /// In en, this message translates to:
-  /// **'Cote dIvoire'**
+  /// **'Cote d'Ivoire'**
   String get ci;
 
   /// Display name for Croatia
@@ -520,6 +526,12 @@ abstract class AuthenticatorCountryLocalizations {
   /// In en, this message translates to:
   /// **'Estonia'**
   String get ee;
+
+  /// Display name for Eswatini
+  ///
+  /// In en, this message translates to:
+  /// **'Eswatini'**
+  String get sz;
 
   /// Display name for Ethiopia
   ///
@@ -713,10 +725,10 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Indonesia'**
   String get id;
 
-  /// Display name for Iran, Islamic Republic of Persian Gulf
+  /// Display name for Iran (Islamic Republic of)
   ///
   /// In en, this message translates to:
-  /// **'Iran, Islamic Republic of Persian Gulf'**
+  /// **'Iran (Islamic Republic of)'**
   String get ir;
 
   /// Display name for Iraq
@@ -791,17 +803,23 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Kiribati'**
   String get ki;
 
-  /// Display name for Korea, Democratic Peoples Republic of Korea
+  /// Display name for Korea (Democratic Peoples Republic of)
   ///
   /// In en, this message translates to:
-  /// **'Korea, Democratic Peoples Republic of Korea'**
+  /// **'Korea (Democratic Peoples Republic of)'**
   String get kp;
 
-  /// Display name for Korea, Republic of South Korea
+  /// Display name for Korea (Republic of)
   ///
   /// In en, this message translates to:
-  /// **'Korea, Republic of South Korea'**
+  /// **'Korea (Republic of)'**
   String get kr;
+
+  /// Display name for Kosovo
+  ///
+  /// In en, this message translates to:
+  /// **'Kosovo'**
+  String get xk;
 
   /// Display name for Kuwait
   ///
@@ -845,10 +863,10 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Liberia'**
   String get lr;
 
-  /// Display name for Libyan Arab Jamahiriya
+  /// Display name for Libya
   ///
   /// In en, this message translates to:
-  /// **'Libyan Arab Jamahiriya'**
+  /// **'Libya'**
   String get ly;
 
   /// Display name for Liechtenstein
@@ -953,10 +971,10 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Mexico'**
   String get mx;
 
-  /// Display name for Micronesia, Federated States of Micronesia
+  /// Display name for Micronesia (Federated States of)
   ///
   /// In en, this message translates to:
-  /// **'Micronesia, Federated States of Micronesia'**
+  /// **'Micronesia (Federated States of)'**
   String get fm;
 
   /// Display name for Moldova
@@ -1031,12 +1049,6 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Netherlands'**
   String get nl;
 
-  /// Display name for Netherlands Antilles
-  ///
-  /// In en, this message translates to:
-  /// **'Netherlands Antilles'**
-  String get an;
-
   /// Display name for New Caledonia
   ///
   /// In en, this message translates to:
@@ -1109,10 +1121,10 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Palau'**
   String get pw;
 
-  /// Display name for Palestinian Territory, Occupied
+  /// Display name for Palestine (State of)
   ///
   /// In en, this message translates to:
-  /// **'Palestinian Territory, Occupied'**
+  /// **'Palestine (State of)'**
   String get ps;
 
   /// Display name for Panama
@@ -1175,6 +1187,12 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Qatar'**
   String get qa;
 
+  /// Display name for Reunion
+  ///
+  /// In en, this message translates to:
+  /// **'Reunion'**
+  String get re;
+
   /// Display name for Romania
   ///
   /// In en, this message translates to:
@@ -1192,12 +1210,6 @@ abstract class AuthenticatorCountryLocalizations {
   /// In en, this message translates to:
   /// **'Rwanda'**
   String get rw;
-
-  /// Display name for Reunion
-  ///
-  /// In en, this message translates to:
-  /// **'Reunion'**
-  String get re;
 
   /// Display name for Saint Barthelemy
   ///
@@ -1325,17 +1337,17 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'South Africa'**
   String get za;
 
-  /// Display name for South Sudan
-  ///
-  /// In en, this message translates to:
-  /// **'South Sudan'**
-  String get ss;
-
   /// Display name for South Georgia and the South Sandwich Islands
   ///
   /// In en, this message translates to:
   /// **'South Georgia and the South Sandwich Islands'**
   String get gs;
+
+  /// Display name for South Sudan
+  ///
+  /// In en, this message translates to:
+  /// **'South Sudan'**
+  String get ss;
 
   /// Display name for Spain
   ///
@@ -1367,12 +1379,6 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Svalbard and Jan Mayen'**
   String get sj;
 
-  /// Display name for Swaziland
-  ///
-  /// In en, this message translates to:
-  /// **'Swaziland'**
-  String get sz;
-
   /// Display name for Sweden
   ///
   /// In en, this message translates to:
@@ -1403,10 +1409,10 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Tajikistan'**
   String get tj;
 
-  /// Display name for Tanzania, United Republic of Tanzania
+  /// Display name for Tanzania (United Republic of)
   ///
   /// In en, this message translates to:
-  /// **'Tanzania, United Republic of Tanzania'**
+  /// **'Tanzania (United Republic of)'**
   String get tz;
 
   /// Display name for Thailand
@@ -1415,10 +1421,10 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Thailand'**
   String get th;
 
-  /// Display name for Timor-Leste
+  /// Display name for Timor-Leste (East Timor)
   ///
   /// In en, this message translates to:
-  /// **'Timor-Leste'**
+  /// **'Timor-Leste (East Timor)'**
   String get tl;
 
   /// Display name for Togo
@@ -1499,6 +1505,12 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'United Kingdom'**
   String get gb;
 
+  /// Display name for United States Minor Outlying Islands
+  ///
+  /// In en, this message translates to:
+  /// **'United States Minor Outlying Islands'**
+  String get um;
+
   /// Display name for United States
   ///
   /// In en, this message translates to:
@@ -1523,10 +1535,10 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Vanuatu'**
   String get vu;
 
-  /// Display name for Venezuela, Bolivarian Republic of Venezuela
+  /// Display name for Venezuela (Bolivarian Republic of)
   ///
   /// In en, this message translates to:
-  /// **'Venezuela, Bolivarian Republic of Venezuela'**
+  /// **'Venezuela (Bolivarian Republic of)'**
   String get ve;
 
   /// Display name for Vietnam
@@ -1535,16 +1547,16 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Vietnam'**
   String get vn;
 
-  /// Display name for Virgin IslandsBritish
+  /// Display name for Virgin Islands (British)
   ///
   /// In en, this message translates to:
-  /// **'Virgin IslandsBritish'**
+  /// **'Virgin Islands (British)'**
   String get vg;
 
-  /// Display name for Virgin IslandsUS
+  /// Display name for Virgin Islands (US)
   ///
   /// In en, this message translates to:
-  /// **'Virgin IslandsUS'**
+  /// **'Virgin Islands (US)'**
   String get vi;
 
   /// Display name for Wallis and Futuna
