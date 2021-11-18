@@ -42,7 +42,7 @@ class AuthBlockConfig {
 
   final MfaConfiguration? mfaConfiguration;
 
-  final List<String>? verificationMechanisms;
+  final List<CognitoUserAttributeKey>? verificationMechanisms;
 
   const AuthBlockConfig({
     required this.authenticationFlowType,
