@@ -43,8 +43,6 @@ class AmplifyTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
 
-    private val testDispatcher = TestCoroutineDispatcher()
-
     @Before
     fun setup() {
         plugin = Amplify(testDispatcher)
