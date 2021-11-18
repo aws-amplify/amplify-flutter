@@ -18,4 +18,3 @@ export 'authenticator_form_field_type.dart';
 export 'button_size.dart';
 export 'gender.dart';
 export 'status_type.dart';
-export 'verify_attribute_field_types.dart';
