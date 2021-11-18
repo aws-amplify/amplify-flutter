@@ -69,6 +69,18 @@ class ConfirmSignUpFormField extends AuthenticatorFormField {
       );
 
   @override
+  int get displayPriority {
+    switch (field) {
+      case AuthenticatorFormFieldType.username:
+        return 2;
+      case AuthenticatorFormFieldType.verificationCode:
+        return 1;
+      default:
+        throw StateError('$field is not supported as a confirm sign up field');
+    }
+  }
+
+  @override
   ConfirmSignUpFormFieldState createState() => ConfirmSignUpFormFieldState();
 }
 

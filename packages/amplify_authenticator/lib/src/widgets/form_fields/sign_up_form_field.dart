@@ -261,7 +261,7 @@ class SignUpFormField extends AuthenticatorFormField {
     String? hintText,
   }) =>
       SignUpFormField._(
-        field: AuthenticatorFormFieldType.preferredUsername,
+        field: AuthenticatorFormFieldType.custom,
         key: key,
         validator: validator,
         required: required,
@@ -270,6 +270,20 @@ class SignUpFormField extends AuthenticatorFormField {
         title: title,
         hintText: hintText,
       );
+
+  @override
+  int get displayPriority {
+    switch (field) {
+      case AuthenticatorFormFieldType.username:
+        return 1000;
+      case AuthenticatorFormFieldType.password:
+        return 101;
+      case AuthenticatorFormFieldType.passwordConfirmation:
+        return 100;
+      default:
+        return 1;
+    }
+  }
 
   @override
   SignUpFormFieldState createState() => SignUpFormFieldState();

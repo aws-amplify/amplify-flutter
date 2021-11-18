@@ -246,6 +246,20 @@ class ConfirmSignInFormField extends AuthenticatorFormField {
       );
 
   @override
+  int get displayPriority {
+    switch (field) {
+      case AuthenticatorFormFieldType.username:
+        return 1000;
+      case AuthenticatorFormFieldType.password:
+        return 101;
+      case AuthenticatorFormFieldType.passwordConfirmation:
+        return 100;
+      default:
+        return 1;
+    }
+  }
+
+  @override
   ConfirmSignInFormFieldState createState() => ConfirmSignInFormFieldState();
 }
 

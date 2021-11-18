@@ -69,6 +69,18 @@ class SignInFormField extends AuthenticatorFormField {
       );
 
   @override
+  int get displayPriority {
+    switch (field) {
+      case AuthenticatorFormFieldType.username:
+        return 2;
+      case AuthenticatorFormFieldType.password:
+        return 1;
+      default:
+        throw StateError('$field is not supported as a sign in field');
+    }
+  }
+
+  @override
   SignInFormFieldState createState() => SignInFormFieldState();
 }
 

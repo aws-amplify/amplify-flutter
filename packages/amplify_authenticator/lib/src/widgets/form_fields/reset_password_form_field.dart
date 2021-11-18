@@ -82,6 +82,20 @@ class ResetPasswordFormField extends AuthenticatorFormField {
       );
 
   @override
+  int get displayPriority {
+    switch (field) {
+      case AuthenticatorFormFieldType.verificationCode:
+        return 3;
+      case AuthenticatorFormFieldType.newPassword:
+        return 2;
+      case AuthenticatorFormFieldType.passwordConfirmation:
+        return 1;
+      default:
+        throw StateError('$field is not supported as a confirm sign up field');
+    }
+  }
+
+  @override
   ResetPasswordFormFieldState createState() => ResetPasswordFormFieldState();
 }
 
