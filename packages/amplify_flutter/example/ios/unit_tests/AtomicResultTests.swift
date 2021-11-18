@@ -36,8 +36,8 @@ class AtomicResultTests: XCTestCase {
             }
             XCTAssertEqual(strValue, expected)
         }
-        let atomicResult = AtomicResult(result, #function)
-        atomicResult(expected)
+        let aResult = atomicResult(result, #function)
+        aResult(expected)
         waitForExpectations(timeout: 1)
     }
     
@@ -52,8 +52,8 @@ class AtomicResultTests: XCTestCase {
             }
             XCTAssertEqual(errValue, expected)
         }
-        let atomicResult = AtomicResult(result, #function)
-        atomicResult(expected)
+        let aResult = atomicResult(result, #function)
+        aResult(expected)
         waitForExpectations(timeout: 0.1)
     }
 
@@ -61,9 +61,9 @@ class AtomicResultTests: XCTestCase {
         let result: FlutterResult = { _ in
             OSAtomicIncrement32(&self.counter)
         }
-        let atomicResult = AtomicResult(result, #function)
-        atomicResult(nil)
-        atomicResult(nil)
+        let aResult = atomicResult(result, #function)
+        aResult(nil)
+        aResult(nil)
         let exp = expectation(description: #function)
         DispatchQueue.main.async { [self] in
             XCTAssertEqual(counter, 1)
@@ -76,11 +76,11 @@ class AtomicResultTests: XCTestCase {
         let result: FlutterResult = { _ in
             OSAtomicIncrement32(&self.counter)
         }
-        let atomicResult = AtomicResult(result, #function)
+        let aResult = atomicResult(result, #function)
         
         DispatchQueue.global().sync {
             DispatchQueue.concurrentPerform(iterations: 1000) { i in
-                atomicResult(nil)
+                aResult(nil)
             }
         }
         

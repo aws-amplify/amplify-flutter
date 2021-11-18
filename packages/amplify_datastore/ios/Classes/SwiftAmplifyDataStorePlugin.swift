@@ -54,7 +54,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        let result = AtomicResult(result, call.method)
+        let result = atomicResult(result, call.method)
         var arguments: [String: Any] = [:]
         do {
             if(call.arguments != nil) {
