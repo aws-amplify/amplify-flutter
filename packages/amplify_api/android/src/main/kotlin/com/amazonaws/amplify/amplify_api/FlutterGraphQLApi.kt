@@ -243,6 +243,7 @@ class FlutterGraphQLApi(private val dispatcher: CoroutineDispatcher) {
             if (established) {
                 graphqlSubscriptionStreamHandler.sendError(
                     "ApiException",
+                    id,
                     ExceptionUtil.createSerializedError(it)
                 )
             } else {
