@@ -771,7 +771,12 @@ class AuthenticatorTextFormFieldState extends AuthenticatorFormFieldState {
       case AuthenticatorFormFieldType.address:
         return viewModel.setAddress;
       case AuthenticatorFormFieldType.email:
-        return viewModel.setEmail;
+        return (String input) {
+          if (selectedUsernameType == UsernameType.email) {
+            viewModel.setUsername(input);
+          }
+          viewModel.setEmail(input);
+        };
       case AuthenticatorFormFieldType.familyName:
         return viewModel.setFamilyName;
       case AuthenticatorFormFieldType.gender:
@@ -1204,8 +1209,14 @@ class AuthenticatorPhoneFormFieldState extends AuthenticatorTextFormFieldState
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case AuthenticatorFormFieldType.phoneNumber:
-        return (input) =>
-            viewModel.setPhoneNumber(formatPhoneNumber(input) ?? '');
+        return (input) {
+          String formattedNumber = formatPhoneNumber(input) ?? '';
+          if (selectedUsernameType == UsernameType.phoneNumber) {
+            viewModel.setUsername(formattedNumber);
+          }
+          viewModel.setPhoneNumber(formattedNumber);
+        };
+
       default:
         throw StateError(
             '${widget.field} is not supported as a AuthenticatorPhoneFormField}');
