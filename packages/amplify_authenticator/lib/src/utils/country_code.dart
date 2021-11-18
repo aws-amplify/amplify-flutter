@@ -67,7 +67,7 @@ const countryCodes = [
     Country('CM', '237', CountryResolverKey.cm$),
     Country('CA', '1', CountryResolverKey.ca$),
     Country('CV', '238', CountryResolverKey.cv$),
-    Country('KY', '1', CountryResolverKey.ky$),
+    Country('KY', '1345', CountryResolverKey.ky$),
     Country('CF', '236', CountryResolverKey.cf$),
     Country('TD', '235', CountryResolverKey.td$),
     Country('CL', '56', CountryResolverKey.cl$),

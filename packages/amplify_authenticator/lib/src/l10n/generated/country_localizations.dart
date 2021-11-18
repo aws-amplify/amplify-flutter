@@ -440,7 +440,7 @@ abstract class AuthenticatorCountryLocalizations {
   /// Display name for Cote d'Ivoire
   ///
   /// In en, this message translates to:
-  /// **'Cote d'Ivoire'**
+  /// **'Cote d\'Ivoire'**
   String get ci;
 
   /// Display name for Croatia

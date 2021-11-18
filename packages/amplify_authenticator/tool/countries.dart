@@ -47,7 +47,7 @@ var countries = [
   {'name': 'Cameroon', 'dial_code': '+237', 'code': 'CM'},
   {'name': 'Canada', 'dial_code': '+1', 'code': 'CA'},
   {'name': 'Cape Verde', 'dial_code': '+238', 'code': 'CV'},
-  {'name': 'Cayman Islands', 'dial_code': '+1', 'code': 'KY'},
+  {'name': 'Cayman Islands', 'dial_code': '+1345', 'code': 'KY'},
   {'name': 'Central African Republic', 'dial_code': '+236', 'code': 'CF'},
   {'name': 'Chad', 'dial_code': '+235', 'code': 'TD'},
   {'name': 'Chile', 'dial_code': '+56', 'code': 'CL'},
