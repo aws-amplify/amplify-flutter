@@ -19,6 +19,9 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:flutter/material.dart';
 
+@visibleForTesting
+typedef BlocEventPredicate = bool Function(AuthState state);
+
 class AuthViewModel extends ChangeNotifier {
   AuthViewModel(this._authBloc) {
     // Listen to screen changes to know when to clear the form. Calling `clean`
@@ -354,7 +357,7 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   @visibleForTesting
-  Future<void> nextBlocEvent({bool Function(AuthState state)? where}) async {
+  Future<void> nextBlocEvent({BlocEventPredicate? where}) async {
     await Future.any([
       _authBloc.exceptions.first,
 

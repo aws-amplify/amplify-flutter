@@ -19,6 +19,7 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
+import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -63,7 +64,11 @@ void main() {
     testWidgets(
         '"Preferred Username" is included from `aws_cognito_signup_attributes`',
         (tester) async {
-      // TODO: Clarify requirements
+      await tester.loadAuthenticator(authenticator);
+      await tester.navigateToSignUp();
+
+      // Then I see "Username" as an input field
+      expect(find.byKey(keyPreferredUsernameSignUpFormField), findsOneWidget);
     });
 
     // Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
@@ -121,14 +126,18 @@ void main() {
       );
 
       // And I type a new "preferred username"
-      // TODO: Clarify requirements
+      await tester.enterText(
+        find.byKey(keyPreferredUsernameSignUpFormField),
+        generateUsername(),
+      );
 
       // And I click the "Create Account" button
-      await tester.tap(find.byKey(keySignUpButton));
+      final signUpButton = find.byKey(keySignUpButton);
+      await tester.ensureVisible(signUpButton);
+      await tester.tap(signUpButton);
 
       // Then I see "Confirm Sign Up"
       await tester.nextBlocEvent();
-
       final currentScreen = tester.widget<AuthenticatorScreen>(
         find.byType(AuthenticatorScreen),
       );
@@ -170,12 +179,15 @@ extension on WidgetTester {
   }
 
   /// Waits for the next bloc event.
-  Future<void> nextBlocEvent([
+  Future<void> nextBlocEvent({
+    BlocEventPredicate? where,
     Duration timeout = const Duration(seconds: 5),
-  ]) async {
+  }) async {
     final inheritedViewModel =
         widget<InheritedAuthViewModel>(find.byKey(keyInheritedAuthViewModel));
-    await inheritedViewModel.viewModel.nextBlocEvent().timeout(timeout);
+    await inheritedViewModel.viewModel
+        .nextBlocEvent(where: where)
+        .timeout(timeout);
     await pumpAndSettle();
   }
 }
