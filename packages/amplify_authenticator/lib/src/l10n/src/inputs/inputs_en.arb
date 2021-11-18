@@ -13,10 +13,6 @@
     "@newPassword": {
         "description": "User's chosen new password."
     },
-    "passwordConfirmation": "Password",
-    "@passwordConfirmation": {
-        "description": "Confirmation of user's chosen password."
-    },
     "email": "Email",
     "@email": {
         "description": "User's preferred e-mail address.",
@@ -140,8 +136,8 @@
             }
         }
     },
-    "titleConfirmation": "Confirm {attribute}",
-    "@titleConfirmation": {
+    "confirmAttribute": "Confirm {attribute}",
+    "@confirmAttribute": {
         "description": "Title to re-enter an optional or required input field, used as the label for text fields.",
         "placeholders": {
             "attribute": {

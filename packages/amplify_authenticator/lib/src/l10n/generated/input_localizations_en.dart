@@ -33,9 +33,6 @@ class AuthenticatorInputLocalizationsEn
   String get newPassword => 'New Password';
 
   @override
-  String get passwordConfirmation => 'Password';
-
-  @override
   String get email => 'Email';
 
   @override
@@ -104,7 +101,7 @@ class AuthenticatorInputLocalizationsEn
   }
 
   @override
-  String titleConfirmation(String attribute) {
+  String confirmAttribute(String attribute) {
     return 'Confirm $attribute';
   }
 
