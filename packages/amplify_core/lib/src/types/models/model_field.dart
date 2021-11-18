@@ -72,7 +72,7 @@ class ModelField {
   }
 
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> map = {
+    final map = {
       'name': name,
       'type': type.toMap(),
       'isRequired': isRequired,
@@ -81,7 +81,8 @@ class ModelField {
       'association': association?.toMap(),
       'authRules': authRules?.map((x) => x.toMap()).toList(),
     };
-    return Map.from(map)..removeWhere((k, v) => v == null);
+    return Map<String, dynamic>.from(map)
+      ..removeWhere((k, dynamic v) => v == null);
   }
 
   factory ModelField.fromMap(Map<String, dynamic> map) {
@@ -95,7 +96,7 @@ class ModelField {
           map['association'] ?? ModelAssociation.fromMap(map['association']),
       authRules: map['authRules'] ??
           List<AuthRule>.from(
-              map['authRules']?.map((x) => AuthRule.fromMap(x))),
+              map['authRules']?.map((dynamic x) => AuthRule.fromMap(x))),
     );
   }
 
