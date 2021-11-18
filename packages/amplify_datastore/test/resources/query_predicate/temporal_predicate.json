@@ -1,0 +1,9 @@
+{
+  "queryPredicateOperation": {
+    "field": "created",
+    "fieldOperator": {
+      "operatorName": "equal",
+      "value": "2020-01-01T00:00:00Z"
+    }
+  }
+}

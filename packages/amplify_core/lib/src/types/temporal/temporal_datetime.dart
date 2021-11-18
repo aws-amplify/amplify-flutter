@@ -99,7 +99,7 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
     // Parse cannot take a YYYY-MM-DD as UTC!
     DateTime dateTime = DateTime.parse(match.group(1)!.split(".")[0]);
 
-    int totalNanoseconds = Temporal.getIntOr0(match.group(4));
+    int totalNanoseconds = Temporal.getIntOr0(match.group(4)?.padRight(9, "0"));
     int milliseconds = totalNanoseconds ~/ 1000000;
     int microseconds = (totalNanoseconds ~/ 1000) % 1000;
     _nanoseconds = totalNanoseconds % 1000;

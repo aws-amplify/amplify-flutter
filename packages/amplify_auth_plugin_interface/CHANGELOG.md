@@ -2,6 +2,16 @@
 
 ## 0.3.0-rc.1 (2021-09-24)
 
+## 0.2.9 (2021-11-17)
+
+## 0.2.8 (2021-11-12)
+
+### Fixes
+
+- fix(auth): (Android) Dropped exceptions in hosted UI cause `signInWithWebUI` to not return (#1015)
+
+## 0.2.7 (2021-11-08)
+
 ## 0.2.6 (2021-10-25)
 
 ## 0.2.5 (2021-10-14)
