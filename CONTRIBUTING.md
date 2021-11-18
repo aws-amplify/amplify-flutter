@@ -2,16 +2,19 @@
 
 Thank you for your interest in contributing to our project! <3 Whether it's a bug report, new feature, correction, or additional documentation, we greatly value feedback and contributions from our community. Please read through these guidelines carefully before submitting a PR or issue and let us know if it's not up-to-date (or even better, submit a PR with your corrections ;)).
 
+- [Contributing Guidelines](#contributing-guidelines)
 - [Our History and Ethos](#our-history-and-ethos)
 - [Our Design](#our-design)
 - [Development Process](#development-process)
   - [Setting up for local development](#setting-up-for-local-development)
+      - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
   - [Steps towards contributions](#steps-towards-contributions)
 - [Pull Requests](#pull-requests)
-- [Integration Tests](#integration-tests)
 - [Release](#release)
   - [Finding contributions to work on](#finding-contributions-to-work-on)
   - [Related Repositories](#related-repositories)
+  - [Integration Tests](#integration-tests)
+  - [Provision Resources For Integration Tests](#provision-resources-for-integration-tests)
   - [Code of Conduct](#code-of-conduct)
   - [Security issue notifications](#security-issue-notifications)
   - [Licensing](#licensing)
@@ -256,7 +259,7 @@ When prompted to edit the function now, choose "yes" and add the following code 
 created by the amplify CLI, from [documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html#aws-lambda-triggers-pre-registration-example-2).
 
 ```js
-exports.handler = (event, context, callback) => {
+exports.handler = async event => {
   // Confirm the user
   event.response.autoConfirmUser = true;
 
@@ -271,7 +274,7 @@ exports.handler = (event, context, callback) => {
   }
 
   // Return to Amazon Cognito
-  callback(null, event);
+  return event;
 };
 ```
 

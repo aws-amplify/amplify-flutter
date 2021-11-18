@@ -18,33 +18,33 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('AWSTime from DateTime success', () async {
-    DateTime now = DateTime.now();
+    DateTime dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
 
-    TemporalTime time = TemporalTime(now);
-    now = now.toUtc();
+    TemporalTime time = TemporalTime(dateTime);
+    dateTime = dateTime.toUtc();
 
     expect(time.getOffset(), null);
     expect(
         time.getDateTime(),
-        DateTime.utc(1970, 1, 1, now.hour, now.minute, now.second,
-            now.millisecond, now.microsecond));
-    expect(time.format(), now.toIso8601String().substring(11, 26) + "000");
+        DateTime.utc(1970, 1, 1, dateTime.hour, dateTime.minute,
+            dateTime.second, dateTime.millisecond, dateTime.microsecond));
+    expect(time.format(), dateTime.toIso8601String().substring(11, 26) + "000");
   });
 
   test('AWSTime from DateTime with offset success', () async {
-    DateTime now = DateTime.now();
+    DateTime dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
     Duration offset = Duration(hours: 3, minutes: 30);
 
-    TemporalTime time = TemporalTime.withOffset(now, offset);
-    now = now.toUtc();
+    TemporalTime time = TemporalTime.withOffset(dateTime, offset);
+    dateTime = dateTime.toUtc();
 
     expect(time.getOffset(), offset);
     expect(
         time.getDateTime(),
-        DateTime.utc(1970, 1, 1, now.hour, now.minute, now.second,
-            now.millisecond, now.microsecond));
+        DateTime.utc(1970, 1, 1, dateTime.hour, dateTime.minute,
+            dateTime.second, dateTime.millisecond, dateTime.microsecond));
     expect(time.format(),
-        now.toIso8601String().substring(11, 26) + "000" + "+03:30");
+        dateTime.toIso8601String().substring(11, 26) + "000" + "+03:30");
   });
 
   test('AWSDate from string hh:mm success', () async {

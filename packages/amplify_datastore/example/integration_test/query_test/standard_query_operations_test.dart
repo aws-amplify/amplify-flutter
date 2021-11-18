@@ -74,7 +74,7 @@ void main() {
       Post testPost = Post(
         title: 'test post',
         blog: testBlog,
-        created: TemporalDateTime(DateTime.now()),
+        created: TemporalDateTime.fromString("2021-11-09T18:53:12.183540Z"),
         rating: 10,
       );
       await Amplify.DataStore.save(testPost);

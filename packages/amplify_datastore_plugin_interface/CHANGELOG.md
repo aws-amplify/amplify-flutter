@@ -7,6 +7,21 @@
 
 ## 0.3.0-rc.1 (2021-09-24)
 
+## 0.2.9 (2021-11-17)
+
+## 0.2.8 (2021-11-12)
+
+### Fixes
+
+- fix(datastore): (Android) Fix DataStore release mode crash (#1064)
+
+## 0.2.7 (2021-11-08)
+
+### Fixes
+
+- fix(datastore): Temporal date/time query predicates
+- fix(datastore): Android TemporalTime Save Issue
+
 ## 0.2.6 (2021-10-25)
 
 ### Fixes

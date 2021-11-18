@@ -53,10 +53,7 @@ _onListen() {
           }
           break;
         default:
-          {
-            print(
-                'An Unrecognized Auth Hub event has been detected on the event channel.');
-          }
+          break;
       }
     });
   }

@@ -18,41 +18,29 @@ import Amplify
 import amplify_core
 
 struct FlutterListRequest {
-    var options: StorageListRequest.Options?
-    init(request: Dictionary<String, AnyObject>) {
-        self.options = setOptions(request: request)
+
+    let options: StorageListRequest.Options
+
+    init(request: [String: Any?]) {
+        self.options = FlutterListRequest.parseOptions(request: request)
     }
 
-    static func validate(request: Dictionary<String, AnyObject>) throws {
-        let validationErrorMessage = "List request malformed."
-        if !(request["path"] is String?) {
-            throw InvalidRequestError.storage(comment: validationErrorMessage,
-                                              suggestion: String(format: ErrorMessages.missingAttribute, "path"))
-        }
-    }
-    
-    private func setOptions(request: Dictionary<String, AnyObject>) -> StorageListRequest.Options? {
+    private static func parseOptions(request: [String: Any?]) -> StorageListRequest.Options {
+        var accessLevel = StorageAccessLevel.guest
+        var targetIdentityId: String? = nil
+        let path = request["path"] as? String
         
-        if(request["options"] != nil || request["path"] != nil) {
-            let requestOptions = request["options"] as! Dictionary<String, AnyObject>
-            //Default options
-            var accessLevel = StorageAccessLevel.guest
-            var targetIdentityId: String? = nil
-            let path: String? = request["path"] as! String?
-            
-            for(key,value) in requestOptions {
-                switch key {
-                case "accessLevel":
-                    accessLevel = StorageAccessLevel(rawValue: value as! String) ?? accessLevel
-                case "targetIdentityId":
-                    targetIdentityId = value as? String
-                default:
-                    print("Received unexpected option: \(key)")
-                }
+        if let options = request["options"] as? [String: Any?] {
+            if let accessValueLevel = options["accessLevel"] as? String,
+               let storageAccessLevel = StorageAccessLevel(rawValue: accessValueLevel) {
+                accessLevel = storageAccessLevel
             }
-            return StorageListRequest.Options(accessLevel: accessLevel, targetIdentityId: targetIdentityId, path: path)
+            targetIdentityId = options["targetIdentityId"] as? String
         }
-        return nil
+        
+        return StorageListRequest.Options(accessLevel: accessLevel,
+                                          targetIdentityId: targetIdentityId,
+                                          path: path)
     }
     
 }
