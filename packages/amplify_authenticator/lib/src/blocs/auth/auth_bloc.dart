@@ -263,6 +263,8 @@ class StateMachineBloc {
 
       final SignInResult result;
 
+      final bool isSocialSignIn = data is AuthSocialSignInData;
+
       if (data is AuthUsernamePasswordSignInData) {
         result = await _authService.signIn(
           data.username,
@@ -296,7 +298,11 @@ class StateMachineBloc {
           yield AuthFlow.confirmSignup;
           break;
         case 'DONE':
-          yield* _checkUserVerification();
+          if (isSocialSignIn) {
+            yield const Authenticated();
+          } else {
+            yield* _checkUserVerification();
+          }
           break;
         default:
           break;
