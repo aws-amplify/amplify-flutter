@@ -17,7 +17,7 @@ library amplify_api_plugin;
 
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import './method_channel_api.dart';
+import 'src/method_channel_api.dart';
 
 export 'package:amplify_api_plugin_interface/src/types.dart';
 
@@ -62,18 +62,11 @@ class AmplifyAPI extends APIPluginInterface {
   }
 
   @override
-  GraphQLSubscriptionOperation<T> subscribe<T>(
-      {required GraphQLRequest<T> request,
-      required Function(GraphQLResponse<T>) onData,
-      Function()? onEstablished,
-      Function(dynamic)? onError,
-      Function()? onDone}) {
-    return _instance.subscribe(
-        request: request,
-        onEstablished: onEstablished,
-        onData: onData,
-        onError: onError,
-        onDone: onDone);
+  Stream<GraphQLResponse<T>> subscribe<T>(
+    GraphQLRequest<T> request, {
+    void Function()? onEstablished,
+  }) {
+    return _instance.subscribe(request, onEstablished: onEstablished);
   }
 
   // ====== RestAPI ======

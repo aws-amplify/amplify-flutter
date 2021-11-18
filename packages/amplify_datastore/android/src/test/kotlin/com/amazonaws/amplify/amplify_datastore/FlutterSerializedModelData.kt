@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,59 +15,128 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
+import com.amplifyframework.core.model.SerializedCustomType
 import com.amplifyframework.core.model.SerializedModel
 
 val blogSerializedModel = SerializedModel.builder()
-        .serializedData(
-                mapOf(
-                        "id" to "999",
-                        "name" to "blog name"
-                )
-        ).modelSchema(
-                blogSchema
-        ).build()
+    .serializedData(
+        mapOf(
+            "id" to "999",
+            "name" to "blog name"
+        )
+    ).modelSchema(
+        blogSchema
+    ).build()
 
 var commentSerializedModel = SerializedModel.builder()
-        .serializedData(
-                mapOf(
-                        "id" to "999",
-                        "post" to mapOf(
-                                "id" to "555"
-                        ),
-                        "content" to "content"
-                )
-        ).modelSchema(
-                commentSchema
-        ).build()
+    .serializedData(
+        mapOf(
+            "id" to "999",
+            "post" to mapOf(
+                "id" to "555"
+            ),
+            "content" to "content"
+        )
+    ).modelSchema(
+        commentSchema
+    ).build()
 
 var postSerializedModel = SerializedModel.builder()
-        .serializedData(
-                mapOf(
-                        "id" to "999",
-                        "title" to "post title",
-                        "created" to "2020-11-25T01:28:49.000Z",
-                        "blog" to mapOf(
-                                "id" to "555"
-                        )
-                )
-        ).modelSchema(
-                postSchema
-        ).build()
+    .serializedData(
+        mapOf(
+            "id" to "999",
+            "title" to "post title",
+            "created" to "2020-11-25T01:28:49.000Z",
+            "blog" to mapOf(
+                "id" to "555"
+            )
+        )
+    ).modelSchema(
+        postSchema
+    ).build()
 
 var allTypeModelSerializedModel = SerializedModel.builder()
-        .serializedData(
-                mapOf(
-                        "id" to "999",
-                        "stringType" to "string value",
-                        "intType" to 10,
-                        "floatType" to 9.99,
-                        "boolType" to true,
-                        "dateType" to "2020-09-09",
-                        "dateTimeType" to "2020-11-25T01:28:49.000Z",
-                        "timeType" to "20:20:20:020",
-                        "timestampType" to 999,
-                        "enumType" to "maybe"
+    .serializedData(
+        mapOf(
+            "id" to "999",
+            "stringType" to "string value",
+            "intType" to 10,
+            "floatType" to 9.99,
+            "boolType" to true,
+            "dateType" to "2020-09-09",
+            "dateTimeType" to "2020-11-25T01:28:49.000Z",
+            "timeType" to "20:20:20:020",
+            "timestampType" to 999,
+            "enumType" to "maybe"
+        )
+    ).modelSchema(
+        allTypeModelSchema
+    ).build()
+
+val personSerializedModel = SerializedModel.builder()
+    .serializedData(
+        mapOf(
+            "id" to "123",
+            "name" to "Tester Testing",
+            "contact" to SerializedCustomType.builder()
+                .serializedData(
+                    mapOf(
+                        "email" to "test@testing.com",
+                        "phone" to SerializedCustomType.builder()
+                            .serializedData(
+                                mapOf(
+                                    "country" to "+1",
+                                    "area" to "415",
+                                    "number" to "6666666"
+                                )
+                            )
+                            .customTypeSchema(phoneSchema)
+                            .build(),
+                        "mailingAddresses" to listOf(
+                            SerializedCustomType.builder()
+                                .serializedData(
+                                    mapOf(
+                                        "line1" to "000 Somewhere far",
+                                        "line2" to "apt 4",
+                                        "city" to "San Francisco",
+                                        "state" to "CA",
+                                        "postalCode" to "94115"
+                                    )
+                                )
+                                .customTypeSchema(addressSchema)
+                                .build(),
+                            SerializedCustomType.builder()
+                                .serializedData(
+                                    mapOf(
+                                        "line1" to "111 Somewhere close",
+                                        "line2" to null,
+                                        "city" to "Seattle",
+                                        "state" to "WA",
+                                        "postalCode" to "98101"
+                                    )
+                                )
+                                .customTypeSchema(addressSchema)
+                                .build()
+                        )
+                    )
                 )
-        ).modelSchema(
-                allTypeModelSchema
-        ).build()
+                .customTypeSchema(contactSchema)
+                .build(),
+            "propertiesAddresses" to listOf(
+                SerializedCustomType.builder()
+                    .serializedData(
+                        mapOf(
+                            "line1" to "222 Somewhere in the middle",
+                            "line2" to null,
+                            "city" to "Portland",
+                            "state" to "OR",
+                            "postalCode" to "97035"
+                        )
+                    )
+                    .customTypeSchema(addressSchema)
+                    .build()
+            )
+        )
+    )
+    .modelSchema(personSchema)
+    .build()

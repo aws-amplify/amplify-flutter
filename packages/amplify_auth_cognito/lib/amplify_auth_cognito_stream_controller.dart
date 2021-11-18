@@ -22,12 +22,12 @@ EventChannel channel =
 StreamSubscription? eventStream;
 
 class AuthStreamController {
-  StreamController get authStreamController {
+  StreamController<AuthHubEvent> get authStreamController {
     return _authStreamController;
   }
 }
 
-StreamController _authStreamController =
+StreamController<AuthHubEvent> _authStreamController =
     StreamController<AuthHubEvent>.broadcast(
   onListen: _onListen,
   onCancel: _onCancel,

@@ -17,7 +17,7 @@ library amplify_analytics_plugin_interface;
 
 import 'dart:async';
 
-import 'package:amplify_core/types/index.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 import 'src/types.dart';

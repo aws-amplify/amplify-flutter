@@ -17,7 +17,7 @@ library amplify_api_plugin_interface;
 
 import 'dart:async';
 
-import 'package:amplify_core/types/index.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 import 'src/types.dart';
 export 'src/types.dart';
@@ -38,12 +38,16 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('mutate() has not been implemented.');
   }
 
-  GraphQLSubscriptionOperation<T> subscribe<T>(
-      {required GraphQLRequest<T> request,
-      required void Function(GraphQLResponse<T>) onData,
-      Function()? onEstablished,
-      Function(dynamic)? onError,
-      Function()? onDone}) {
+  /// Subscribes to the given [request] and returns the stream of response events.
+  /// An optional [onEstablished] callback can be used to be alerted when the
+  /// subscription has been successfully established with the server.
+  ///
+  /// Any exceptions encountered during the subscription are added as errors
+  /// to this stream.
+  Stream<GraphQLResponse<T>> subscribe<T>(
+    GraphQLRequest<T> request, {
+    void Function()? onEstablished,
+  }) {
     throw UnimplementedError('subscribe() has not been implemented.');
   }
 

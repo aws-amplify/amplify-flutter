@@ -13,21 +13,24 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/types/index.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final Map<String, String> serializedException = {
-    "message": "test Message",
-    "recoverySuggestion": "test Recovery",
-    "underlyingException": "test exception"
+    'message': 'test Message',
+    'recoverySuggestion': 'test Recovery',
+    'underlyingException': 'test exception'
   };
 
   test('amplify exception parsing from serialized map', () async {
     expect(
-        AmplifyException.fromMap(serializedException),
-        AmplifyException("test Message",
-            recoverySuggestion: "test Recovery",
-            underlyingException: "test exception"));
+      AmplifyException.fromMap(serializedException),
+      const AmplifyException(
+        'test Message',
+        recoverySuggestion: 'test Recovery',
+        underlyingException: 'test exception',
+      ),
+    );
   });
 }

@@ -111,7 +111,11 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
         }
     }
 
-    private func innerHandle(method: String, arguments: [String: Any], result: @escaping FlutterResult) throws {
+    private func innerHandle(
+        method: String,
+        arguments: [String: Any],
+        result: @escaping FlutterResult
+    ) throws {
         switch method {
         case "get": FlutterRestApi.get(flutterResult: result, arguments: arguments, bridge: bridge)
         case "post": FlutterRestApi.post(flutterResult: result, arguments: arguments, bridge: bridge)

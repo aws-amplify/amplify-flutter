@@ -1,10 +1,11 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
 // ignore_for_file: public_member_api_docs
 class ConfirmUserAttribute extends StatefulWidget {
-  final String userAttributeKey;
+  final UserAttributeKey userAttributeKey;
   ConfirmUserAttribute({required this.userAttributeKey});
 
   @override
@@ -65,7 +66,7 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
           children: [
             const SizedBox(height: 12),
             TextFormField(
-              initialValue: widget.userAttributeKey,
+              initialValue: widget.userAttributeKey.key,
               enabled: false,
               decoration: const InputDecoration(
                 labelText: 'Attribute Name',

@@ -22,10 +22,15 @@ import Amplify
 class AmplifySerializedModelUnitTests: XCTestCase {
     
     let serializedModelMaps: [String: Any] = try! readJsonMap(filePath: "serialized_model_maps")
-    let flutterModelRegistration = SchemaData.flutterModelRegistration
+    let modelSchemaRegistry = SchemaData.modelSchemaRegistry
+    let customTypeSchemasRegistry = SchemaData.customTypeSchemaRegistry
 
     func test_blog_hasMany_serialization() throws {
-        let ourMap = try FlutterSerializedModelData.BlogSerializedModel.toMap(flutterModelRegistration: flutterModelRegistration, modelName: SchemaData.BlogSchema.name)
+        let ourMap = try FlutterSerializedModelData.BlogSerializedModel.toMap(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemasRegistry,
+            modelName: SchemaData.BlogSchema.name
+        )
         let refMap = serializedModelMaps["BlogSerializedMap"] as! [String : Any]
         
         XCTAssertEqual(ourMap["id"] as! String , refMap["id"] as! String)
@@ -39,7 +44,11 @@ class AmplifySerializedModelUnitTests: XCTestCase {
     }
     
     func test_comment_belongs_serialization() throws {
-        let ourMap = try FlutterSerializedModelData.CommentSerializedModel.toMap(flutterModelRegistration: flutterModelRegistration, modelName: SchemaData.CommentSchema.name)
+        let ourMap = try FlutterSerializedModelData.CommentSerializedModel.toMap(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemasRegistry,
+            modelName: SchemaData.CommentSchema.name
+        )
         let refMap = serializedModelMaps["CommentSerializedMap"] as! [String : Any]
         
         XCTAssertEqual(ourMap["id"] as! String , refMap["id"] as! String)
@@ -58,7 +67,11 @@ class AmplifySerializedModelUnitTests: XCTestCase {
     }
     
     func test_post_with_datetime_int_hasMany_serialization() throws {
-        let ourMap = try FlutterSerializedModelData.PostSerializedModel.toMap(flutterModelRegistration: flutterModelRegistration, modelName: SchemaData.PostSchema.name)
+        let ourMap = try FlutterSerializedModelData.PostSerializedModel.toMap(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemasRegistry,
+            modelName: SchemaData.PostSchema.name
+        )
         let refMap = serializedModelMaps["PostSerializedMap"] as! [String : Any]
         
         XCTAssertEqual(ourMap["id"] as! String , refMap["id"] as! String)
@@ -78,7 +91,11 @@ class AmplifySerializedModelUnitTests: XCTestCase {
     }
 
     func test_post_with_nested_models_serialization() throws {
-        let serializedData = try (FlutterSerializedModelData.PostSerializedModel.toMap(flutterModelRegistration: flutterModelRegistration, modelName: SchemaData.PostSchema.name))["serializedData"] as! [String: Any]
+        let serializedData = try (FlutterSerializedModelData.PostSerializedModel.toMap(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemasRegistry,
+            modelName: SchemaData.PostSchema.name)
+        )["serializedData"] as! [String: Any]
         let expectedData = (serializedModelMaps["PostSerializedMap"] as! [String : Any])["serializedData"] as! [String: Any]
         let serializedBlog = (serializedData["blog"] as! [String: Any])["serializedData"] as! [String: String]
         let expectedBlog = (expectedData["blog"] as! [String: Any])["serializedData"] as! [String: String]
@@ -99,7 +116,11 @@ class AmplifySerializedModelUnitTests: XCTestCase {
     
     
     func test_allTypeModel_serialization() throws {
-        let ourMap = try FlutterSerializedModelData.AllTypeModelSerializedModel.toMap(flutterModelRegistration: flutterModelRegistration, modelName: SchemaData.AllTypeModelSchema.name)
+        let ourMap = try FlutterSerializedModelData.AllTypeModelSerializedModel.toMap(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemasRegistry,
+            modelName: SchemaData.AllTypeModelSchema.name
+        )
         let refMap = serializedModelMaps["AllTypeModelSerializedMap"] as! [String : Any]
         
         XCTAssertEqual(ourMap["id"] as! String , refMap["id"] as! String)
@@ -117,5 +138,77 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         XCTAssertEqual(ourSd["dateTimeType"] as! String , refSd["dateTimeType"] as! String)
         XCTAssertEqual(ourSd["timeType"] as! String , refSd["timeType"] as! String)
         XCTAssertEqual(ourSd["enumType"] as! String , refSd["enumType"] as! String)
+    }
+
+    func test_model_nested_custom_type_serialization() throws {
+        let actual = try FlutterSerializedModelData.PersonModelSerializedModel.toMap(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemasRegistry,
+            modelName: SchemaData.PersonSchema.name
+        )
+        let expected = serializedModelMaps["PersonModelSerializedMap"] as! [String: Any]
+
+        XCTAssertEqual(expected["id"] as! String , actual["id"] as! String)
+        XCTAssertEqual(expected["modelName"] as! String , actual["modelName"] as! String)
+
+        let actualSerializedData = actual["serializedData"] as! [String: Any]
+        let expectedSerializedData = actual["serializedData"] as! [String: Any]
+        XCTAssertEqual(expectedSerializedData["id"] as! String , actualSerializedData["id"] as! String)
+        XCTAssertEqual(expectedSerializedData["name"] as! String , actualSerializedData["name"] as! String)
+
+        let actualContact = actualSerializedData["contact"] as! [String: Any]
+        let expectedContact = expectedSerializedData["contact"] as! [String: Any]
+        XCTAssertEqual(expectedContact["customTypeName"] as! String, actualContact["customTypeName"] as! String);
+
+        let actualContactSerializedData = actualContact["serializedData"] as! [String: Any]
+        let expectedContactSerializedData = expectedContact["serializedData"] as! [String: Any]
+        XCTAssertEqual(expectedContactSerializedData["email"] as! String, actualContactSerializedData["email"] as! String)
+
+        let actualPhone = actualContactSerializedData["phone"] as! [String: Any]
+        let expectedPhone = expectedContactSerializedData["phone"] as! [String: Any]
+        XCTAssertEqual(expectedPhone["customTypeName"] as! String, actualPhone["customTypeName"] as! String)
+
+        let actualPhoneSerializedData = actualPhone["serializedData"] as! [String: String]
+        let expectedPhoneSerializedData = expectedPhone["serializedData"] as! [String: String]
+        XCTAssertEqual(expectedPhoneSerializedData["country"], actualPhoneSerializedData["country"])
+        XCTAssertEqual(expectedPhoneSerializedData["area"], actualPhoneSerializedData["area"])
+        XCTAssertEqual(expectedPhoneSerializedData["number"], actualPhoneSerializedData["number"])
+
+        let actualMailingAddresses = actualContactSerializedData["mailingAddresses"] as! [[String: Any]]
+        let expectedMailingAddresses = expectedContactSerializedData["mailingAddresses"] as! [[String: Any]]
+
+        // Test list of CustomType as a field of CustomType
+        for (index, actualElement) in actualMailingAddresses.enumerated() {
+            let expectedElement = expectedMailingAddresses[index]
+            XCTAssertEqual(actualElement["customTypeName"] as! String, expectedElement["customTypeName"] as! String)
+
+            let actualElementSerializedData = actualElement["serializedData"] as! [String: String]
+            let expectedElementSerializedData = expectedElement["serializedData"] as! [String: String]
+
+            XCTAssertEqual(expectedElementSerializedData["line1"], actualElementSerializedData["line1"])
+            XCTAssertEqual(expectedElementSerializedData["line2"], actualElementSerializedData["line2"])
+            XCTAssertEqual(expectedElementSerializedData["city"], actualElementSerializedData["city"])
+            XCTAssertEqual(expectedElementSerializedData["state"], actualElementSerializedData["state"])
+            XCTAssertEqual(expectedElementSerializedData["postalCode"], actualElementSerializedData["postalCode"])
+        }
+
+
+        let actualAddresses = actualSerializedData["propertiesAddresses"] as! [[String: Any]]
+        let expectedAddresses = expectedSerializedData["propertiesAddresses"] as! [[String: Any]]
+
+        // Test list of CustomType as a field of Model
+        for (index, actualElement) in actualAddresses.enumerated() {
+            let expectedElement = expectedAddresses[index]
+            XCTAssertEqual(actualElement["customTypeName"] as! String, expectedElement["customTypeName"] as! String)
+
+            let actualElementSerializedData = actualElement["serializedData"] as! [String: String]
+            let expectedElementSerializedData = expectedElement["serializedData"] as! [String: String]
+
+            XCTAssertEqual(expectedElementSerializedData["line1"], actualElementSerializedData["line1"])
+            XCTAssertEqual(expectedElementSerializedData["line2"], actualElementSerializedData["line2"])
+            XCTAssertEqual(expectedElementSerializedData["city"], actualElementSerializedData["city"])
+            XCTAssertEqual(expectedElementSerializedData["state"], actualElementSerializedData["state"])
+            XCTAssertEqual(expectedElementSerializedData["postalCode"], actualElementSerializedData["postalCode"])
+        }
     }
 }

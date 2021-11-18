@@ -15,6 +15,8 @@
 
 import Foundation
 
+// swiftlint:disable identifier_name type_name
+
 /// Thread-safe wrapper for [FlutterResult]. Prevents multiple replies and automically posts results to the main thread.
 public func AtomicResult(_ result: @escaping FlutterResult, _ methodName: String) -> FlutterResult {
     return atomicResult(result, methodName).send
@@ -33,7 +35,7 @@ private class atomicResult {
         self.result = result
         self.methodName = methodName
     }
-    
+
     func send(_ value: Any?) {
         DispatchQueue.main.async { [self] in
             guard !isSent else {

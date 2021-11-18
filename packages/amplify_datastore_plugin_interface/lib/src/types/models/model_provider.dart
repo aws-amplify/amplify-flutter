@@ -20,6 +20,7 @@ abstract class ModelProviderInterface {
   late String version;
 
   late List<ModelSchema> modelSchemas;
+  late List<ModelSchema> customTypeSchemas;
 
   ModelType getModelTypeByModelName(String modelName) {
     throw UnimplementedError(

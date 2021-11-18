@@ -1,5 +1,5 @@
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/method_channel_api.dart';
+import 'package:amplify_api/src/method_channel_api.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

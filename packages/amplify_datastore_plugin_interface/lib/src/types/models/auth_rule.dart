@@ -22,14 +22,17 @@ enum AuthStrategy { OWNER, GROUPS, PRIVATE, PUBLIC }
 
 enum ModelOperation { CREATE, UPDATE, DELETE, READ }
 
+enum AuthRuleProvider { APIKEY, OIDC, IAM, USERPOOLS, FUNCTION }
+
 class AuthRule {
   final AuthStrategy authStrategy;
-  final String? ownerField; //opt
-  final String? identityClaim; //opt
-  final String? groupClaim; //opt
-  final List<String>? groups; //opt
-  final String? groupsField; //opt
-  final List<ModelOperation>? operations; //opt
+  final String? ownerField;
+  final String? identityClaim;
+  final String? groupClaim;
+  final List<String>? groups;
+  final String? groupsField;
+  final AuthRuleProvider? provider;
+  final List<ModelOperation>? operations;
 
   const AuthRule(
       {required this.authStrategy,
@@ -38,6 +41,7 @@ class AuthRule {
       this.groupClaim,
       this.groups,
       this.groupsField,
+      this.provider,
       this.operations});
 
   AuthRule copyWith({
@@ -47,6 +51,7 @@ class AuthRule {
     String? groupClaim,
     List<String>? groups,
     String? groupsField,
+    AuthRuleProvider? provider,
     List<ModelOperation>? operations,
   }) {
     return AuthRule(
@@ -56,6 +61,7 @@ class AuthRule {
       groupClaim: groupClaim ?? this.groupClaim,
       groups: groups ?? this.groups,
       groupsField: groupsField ?? this.groupsField,
+      provider: provider ?? this.provider,
       operations: operations ?? this.operations,
     );
   }
@@ -68,7 +74,8 @@ class AuthRule {
       'groupClaim': groupClaim,
       'groups': groups,
       'groupsField': groupsField,
-      'operations': operations?.map((x) => describeEnum(x))?.toList(),
+      'provider': provider != null ? describeEnum(provider!) : null,
+      'operations': operations?.map((x) => describeEnum(x)).toList(),
     };
     return Map.from(map)..removeWhere((k, v) => v == null);
   }
@@ -81,6 +88,7 @@ class AuthRule {
         groupClaim: map['groupClaim'],
         groups: List<String>.from(map['groups']),
         groupsField: map['groupsField'],
+        provider: map['provider'],
         operations: List<ModelOperation>.from(
             map['operations']?.map((x) => ModelOperation.values[x])));
   }
@@ -92,7 +100,7 @@ class AuthRule {
 
   @override
   String toString() {
-    return 'AuthRule(authStrategy: $authStrategy, ownerField: $ownerField, identityClaim: $identityClaim, groupClaim: $groupClaim, groups: $groups, groupsField: $groupsField, operations: $operations)';
+    return 'AuthRule(authStrategy: $authStrategy, ownerField: $ownerField, identityClaim: $identityClaim, groupClaim: $groupClaim, groups: $groups, groupsField: $groupsField, provider: $provider, operations: $operations)';
   }
 
   @override
@@ -107,6 +115,7 @@ class AuthRule {
         o.groupClaim == groupClaim &&
         listEquals(o.groups, groups) &&
         o.groupsField == groupsField &&
+        o.provider == provider &&
         listEquals(o.operations, operations);
   }
 
@@ -118,6 +127,7 @@ class AuthRule {
         groupClaim.hashCode ^
         groups.hashCode ^
         groupsField.hashCode ^
+        provider.hashCode ^
         operations.hashCode;
   }
 }
