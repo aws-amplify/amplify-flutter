@@ -212,15 +212,15 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
         ?.auth
         ?.awsCognitoAuthPlugin
         ?.auth?['Default'];
-    final signUpAttributes = [
+    final runtimeAttributes = [
       ...?authConfig?.signupAttributes,
       ...?authConfig?.verificationMechanisms,
     ];
-    if (signUpAttributes.isEmpty) {
+    if (runtimeAttributes.isEmpty) {
       return const [];
     }
 
-    return signUpAttributes
+    return runtimeAttributes
         .map((attr) {
           if (attr == CognitoUserAttributeKey.address) {
             return SignUpFormField.address(required: true);
