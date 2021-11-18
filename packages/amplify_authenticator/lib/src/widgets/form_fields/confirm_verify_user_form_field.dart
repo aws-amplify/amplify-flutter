@@ -15,14 +15,14 @@
 
 part of authenticator.form_field;
 
-/// {@template authenticator.sign_in_form_field}
-/// A form field component on the Sign In screen.
+/// {@template authenticator.confirm_verify_user_form_field}
+/// A form field component on the Confirm Verify User screen.
 /// {@endtemplate}
-class SignInFormField extends AuthenticatorFormField {
-  /// {@macro authenticator.sign_in_form_field}
+class ConfirmVerifyUserFormField extends AuthenticatorFormField {
+  /// {@macro authenticator.confirm_verify_user_form_field}
   ///
   /// Either [titleKey] or [title] is required.
-  const SignInFormField._({
+  const ConfirmVerifyUserFormField._({
     Key? key,
     required AuthenticatorFormFieldType field,
     FormFieldValidator<String>? validator,
@@ -42,55 +42,37 @@ class SignInFormField extends AuthenticatorFormField {
           hintText: hintText,
         );
 
-  /// Creates a username component.
-  static SignInFormField username({
+  /// Creates a verification code component.
+  static ConfirmVerifyUserFormField verificationCode({
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
   }) =>
-      SignInFormField._(
-        field: AuthenticatorFormFieldType.username,
-        key: key,
-        validator: validator,
-        required: required,
-      );
-
-  /// Creates a password component.
-  static SignInFormField password({
-    Key? key,
-    FormFieldValidator<String>? validator,
-    bool? required,
-  }) =>
-      SignInFormField._(
-        field: AuthenticatorFormFieldType.password,
+      ConfirmVerifyUserFormField._(
+        field: AuthenticatorFormFieldType.verificationCode,
         key: key,
         validator: validator,
         required: required,
       );
 
   @override
-  SignInFormFieldState createState() => SignInFormFieldState();
+  ConfirmVerifyUserFormFieldState createState() =>
+      ConfirmVerifyUserFormFieldState();
 }
 
-class SignInFormFieldState extends AuthenticatorFormFieldState {
+class ConfirmVerifyUserFormFieldState extends AuthenticatorFormFieldState {
   @override
   Widget build(BuildContext context) {
     switch (widget.field) {
-      case AuthenticatorFormFieldType.username:
-        return AuthenticatorUsernameFormField.username(
+      case AuthenticatorFormFieldType.verificationCode:
+        return AuthenticatorTextFormField.verificationCode(
           required: widget.required,
           key: widget.key,
           validator: validator,
         );
-      case AuthenticatorFormFieldType.password:
-        return AuthenticatorTextFormField.password(
-          required: widget.required,
-          key: widget.key,
-          validator: validator,
-        );
-
       default:
-        throw StateError('${widget.field} is not supported as a sign in field');
+        throw StateError(
+            '${widget.field} is not supported as a confirm verify user field');
     }
   }
 }

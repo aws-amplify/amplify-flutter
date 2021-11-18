@@ -27,7 +27,7 @@ import 'package:flutter/material.dart';
 /// {@template authenticator.social_sign_in_button}
 /// A button for launching a social sign in UI.
 /// {@endtemplate}
-class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
+class SocialSignInButton extends AuthenticatorButton {
   /// {@macro authenticator.social_sign_in_button}
   const SocialSignInButton({
     Key? key,

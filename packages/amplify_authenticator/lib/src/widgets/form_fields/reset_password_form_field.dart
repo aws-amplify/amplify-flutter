@@ -18,144 +18,99 @@ part of authenticator.form_field;
 /// {@template authenticator.confirm_sign_up_form_field}
 /// A form field component on the Confirm Sign Up screen.
 /// {@endtemplate}
-class ResetPasswordFormField extends AuthenticatorFormField<ResetPasswordField,
-    String, ResetPasswordFormField> {
-  /// {@macro authenticator.sign_up_form_field}
+class ResetPasswordFormField extends AuthenticatorFormField {
+  /// {@macro authenticator.confirm_sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.
   const ResetPasswordFormField._({
     Key? key,
-    required ResetPasswordField field,
+    required AuthenticatorFormFieldType field,
+    FormFieldValidator<String>? validator,
+    bool? required,
     InputResolverKey? titleKey,
     InputResolverKey? hintTextKey,
-    FormFieldValidator<String>? validator,
+    String? title,
+    String? hintText,
   }) : super._(
           key: key,
           field: field,
+          validator: validator,
+          required: required,
           titleKey: titleKey,
           hintTextKey: hintTextKey,
-          validator: validator,
+          title: title,
+          hintText: hintText,
         );
 
-  const ResetPasswordFormField.verificationCode({
-    Key? key,
-  }) : this._(
-          key: key ?? keyVerificationCodeResetPasswordFormField,
-          field: ResetPasswordField.verificationCode,
-          titleKey: InputResolverKey.verificationCodeTitle,
-          hintTextKey: InputResolverKey.verificationCodeHint,
-        );
-
-  const ResetPasswordFormField.password({
+  /// Creates a password component.
+  static ResetPasswordFormField newPassword({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyPasswordResetPasswordFormField,
-          field: ResetPasswordField.password,
-          titleKey: InputResolverKey.passwordTitle,
-          hintTextKey: InputResolverKey.passwordHint,
+    bool? required,
+  }) =>
+      ResetPasswordFormField._(
+        field: AuthenticatorFormFieldType.newPassword,
+        key: key,
+        validator: validator,
+        required: required,
+      );
+
+  /// Creates a confirm password component.
+  static ResetPasswordFormField passwordConfirmation({
+    Key? key,
+    FormFieldValidator<String>? validator,
+    bool? required,
+  }) =>
+      ResetPasswordFormField._(
+        field: AuthenticatorFormFieldType.passwordConfirmation,
+        key: key,
+        validator: validator,
+        required: required,
+      );
+
+  /// Creates a verification code component.
+  static ResetPasswordFormField verificationCode({
+    Key? key,
+    FormFieldValidator<String>? validator,
+    bool? required,
+  }) =>
+      ResetPasswordFormField._(
+        field: AuthenticatorFormFieldType.verificationCode,
+        key: key,
+        validator: validator,
+        required: required,
+      );
+
+  @override
+  ResetPasswordFormFieldState createState() => ResetPasswordFormFieldState();
+}
+
+class ResetPasswordFormFieldState extends AuthenticatorFormFieldState {
+  @override
+  Widget build(BuildContext context) {
+    switch (widget.field) {
+      case AuthenticatorFormFieldType.newPassword:
+        return AuthenticatorTextFormField.newPassword(
+          required: widget.required,
+          key: widget.key,
+          validator: validator,
+        );
+      case AuthenticatorFormFieldType.passwordConfirmation:
+        return AuthenticatorTextFormField.passwordConfirmation(
+          required: widget.required,
+          key: widget.key,
+          validator: validator,
+        );
+      case AuthenticatorFormFieldType.verificationCode:
+        return AuthenticatorTextFormField.verificationCode(
+          required: widget.required,
+          key: widget.key,
           validator: validator,
         );
 
-  const ResetPasswordFormField.passwordConfirmation({
-    Key? key,
-  }) : this._(
-          key: key ?? keyPasswordConfirmationResetPasswordFormField,
-          field: ResetPasswordField.password,
-          titleKey: InputResolverKey.passwordConfirmationTitle,
-          hintTextKey: InputResolverKey.passwordConfirmationHint,
-        );
-
-  @override
-  bool get required => true;
-
-  @override
-  _ResetPasswordFormFieldState createState() => _ResetPasswordFormFieldState();
-}
-
-class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
-    ResetPasswordField,
-    String,
-    ResetPasswordFormField> with AuthenticatorTextField {
-  @override
-  bool get obscureText {
-    switch (widget.field) {
-      case ResetPasswordField.password:
-      case ResetPasswordField.passwordConfirmation:
-        return true;
-      case ResetPasswordField.verificationCode:
-        return false;
-    }
-  }
-
-  @override
-  TextInputType get keyboardType {
-    switch (widget.field) {
-      case ResetPasswordField.password:
-      case ResetPasswordField.passwordConfirmation:
-        return TextInputType.visiblePassword;
-      case ResetPasswordField.verificationCode:
-        return TextInputType.number;
-    }
-  }
-
-  @override
-  Widget? get suffix {
-    switch (widget.field) {
-      case ResetPasswordField.password:
-      case ResetPasswordField.passwordConfirmation:
-        return visibilityToggle;
       default:
-        return null;
-    }
-  }
-
-  @override
-  int get errorMaxLines {
-    switch (widget.field) {
-      case ResetPasswordField.password:
-        return 6;
-      default:
-        return super.errorMaxLines;
-    }
-  }
-
-  @override
-  String? get initialValue {
-    switch (widget.field) {
-      case ResetPasswordField.password:
-        return viewModel.password;
-      case ResetPasswordField.verificationCode:
-        return viewModel.confirmationCode;
-      case ResetPasswordField.passwordConfirmation:
-        return super.initialValue;
-    }
-  }
-
-  @override
-  ValueChanged<String> get onChanged {
-    switch (widget.field) {
-      case ResetPasswordField.password:
-        return viewModel.setPassword;
-      case ResetPasswordField.verificationCode:
-        return viewModel.setConfirmationCode;
-      case ResetPasswordField.passwordConfirmation:
-        return super.onChanged;
-    }
-  }
-
-  @override
-  FormFieldValidator<String> get validator {
-    switch (widget.field) {
-      case ResetPasswordField.password:
-        return validateNewPassword(
-          amplifyConfig: config.amplifyConfig,
-          inputResolver: stringResolver.inputs,
-        )(context);
-      case ResetPasswordField.passwordConfirmation:
-        return validatePasswordConfirmation(() => viewModel.newPassword);
-      case ResetPasswordField.verificationCode:
-        return validateCode;
+        throw StateError(
+            '${widget.field} is not supported as a confirm sign up field');
     }
   }
 }

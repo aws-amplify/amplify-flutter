@@ -41,8 +41,7 @@ extension AuthenticatorButtonSizes on AuthenticatorButtonSize {
 /// {@template authenticator.authenticator_button}
 /// Base class for Authenticator button components.
 /// {@endtemplate}
-abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
-    extends AuthenticatorComponent<T> {
+abstract class AuthenticatorButton extends AuthenticatorComponent {
   /// {@macro authenticator.authenticator_button}
   const AuthenticatorButton({
     Key? key,
@@ -68,7 +67,7 @@ abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
   Widget? get trailing => null;
 
   @override
-  AuthenticatorButtonState<T> createState();
+  AuthenticatorButtonState createState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -79,8 +78,8 @@ abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
   }
 }
 
-abstract class AuthenticatorButtonState<T extends AuthenticatorButton<T>>
-    extends AuthenticatorComponentState<T> with MaterialStateMixin<T> {
+abstract class AuthenticatorButtonState<T extends AuthenticatorButton>
+    extends AuthenticatorComponentState<T> with MaterialStateMixin {
   final focusNode = FocusNode();
 
   late final ValueChanged<bool> focusChanged =
@@ -112,8 +111,7 @@ abstract class AuthenticatorButtonState<T extends AuthenticatorButton<T>>
 /// {@template authenticator.amplify_elevated_button}
 /// An Amplify [ElevatedButton] component with default layout and styling.
 /// {@endtemplate}
-abstract class AuthenticatorElevatedButton
-    extends AuthenticatorButton<AuthenticatorElevatedButton> {
+abstract class AuthenticatorElevatedButton extends AuthenticatorButton {
   /// {@macro authenticator.amplify_elevated_button}
   const AuthenticatorElevatedButton({Key? key}) : super(key: key);
 

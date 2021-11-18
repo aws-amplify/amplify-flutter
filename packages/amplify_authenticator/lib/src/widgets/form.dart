@@ -19,7 +19,6 @@ import 'dart:collection';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
@@ -44,8 +43,7 @@ import 'package:flutter/rendering.dart';
 /// - [ResetPasswordForm]
 /// - [VerifyUserForm]
 /// - [ConfirmVerifyUserForm]
-abstract class AuthenticatorForm<T extends AuthenticatorForm<T>>
-    extends AuthenticatorComponent<T> {
+abstract class AuthenticatorForm extends AuthenticatorComponent {
   const AuthenticatorForm._({
     Key? key,
     required this.requiredFields,
@@ -64,9 +62,55 @@ abstract class AuthenticatorForm<T extends AuthenticatorForm<T>>
   final List<Widget> actions;
 }
 
-class AuthenticatorFormState<T extends AuthenticatorForm<T>>
-    extends AuthenticatorComponentState<T> with UsernameAttributes<T> {
+class AuthenticatorFormState<T extends AuthenticatorForm>
+    extends AuthenticatorComponentState<T> {
   AuthenticatorFormState._();
+
+  late final Set<CognitoUserAttributeKey> usernameAttributes = config
+          .amplifyConfig
+          ?.auth
+          ?.awsCognitoAuthPlugin
+          ?.auth?['Default']
+          ?.usernameAttributes
+          ?.toSet() ??
+      const <CognitoUserAttributeKey>{};
+
+  /// Toggle value for the email or phone number case.
+  final ValueNotifier<bool> useEmail = ValueNotifier(true);
+
+  UsernameConfigType get usernameType {
+    if (usernameAttributes.isEmpty) {
+      return UsernameConfigType.username;
+    }
+    if (usernameAttributes.length >= 2) {
+      return UsernameConfigType.emailOrPhoneNumber;
+    }
+    final usernameAttribute = usernameAttributes.single;
+    if (usernameAttribute == CognitoUserAttributeKey.email) {
+      return UsernameConfigType.email;
+    }
+    assert(
+      usernameAttribute == CognitoUserAttributeKey.phoneNumber,
+      'Unknown username attribute: $usernameAttribute',
+    );
+    return UsernameConfigType.phoneNumber;
+  }
+
+  UsernameType get selectedUsernameType {
+    switch (usernameType) {
+      case UsernameConfigType.username:
+        return UsernameType.username;
+      case UsernameConfigType.email:
+        return UsernameType.email;
+      case UsernameConfigType.phoneNumber:
+        return UsernameType.phoneNumber;
+      case UsernameConfigType.emailOrPhoneNumber:
+        if (useEmail.value) {
+          return UsernameType.email;
+        }
+        return UsernameType.phoneNumber;
+    }
+  }
 
   /// Additional fields defined at runtime.
   List<AuthenticatorFormField> runtimeFields(BuildContext context) => const [];
@@ -173,7 +217,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
 ///
 /// To customize, use [SignUpForm.custom].
 /// {@endtemplate}
-class SignUpForm extends AuthenticatorForm<SignUpForm> {
+class SignUpForm extends AuthenticatorForm {
   /// {@macro authenticator.sign_up_form}
   SignUpForm({Key? key})
       : this.custom(
@@ -266,7 +310,7 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
 ///
 /// To customize, use [SignInForm.custom].
 /// {@endtemplate}
-class SignInForm extends AuthenticatorForm<SignInForm> {
+class SignInForm extends AuthenticatorForm {
   /// {@macro authenticator.sign_in_form}
   SignInForm({
     Key? key,
@@ -351,7 +395,7 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
 ///
 /// To customize, use [ConfirmSignUpForm.custom].
 /// {@endtemplate}
-class ConfirmSignUpForm extends AuthenticatorForm<ConfirmSignUpForm> {
+class ConfirmSignUpForm extends AuthenticatorForm {
   /// {@macro authenticator.confirm_sign_up_form}
   ConfirmSignUpForm({
     Key? key,
@@ -393,7 +437,7 @@ class ConfirmSignUpForm extends AuthenticatorForm<ConfirmSignUpForm> {
 ///
 /// To customize, use [ConfirmSignInMFAForm.custom].
 /// {@endtemplate}
-class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
+class ConfirmSignInMFAForm extends AuthenticatorForm {
   /// {@macro authenticator.confirm_sign_in_mfa_form}
   ConfirmSignInMFAForm({Key? key})
       : super._(
@@ -418,8 +462,7 @@ class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
 ///
 /// To customize, use [ConfirmSignInNewPasswordForm.custom].
 /// {@endtemplate}
-class ConfirmSignInNewPasswordForm
-    extends AuthenticatorForm<ConfirmSignInNewPasswordForm> {
+class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
   /// {@macro authenticator.confirm_sign_in_new_password_form}
   ConfirmSignInNewPasswordForm({
     Key? key,
@@ -454,7 +497,7 @@ class ConfirmSignInNewPasswordForm
 ///
 /// To customize, use [SendCodeForm.custom].
 /// {@endtemplate}
-class SendCodeForm extends AuthenticatorForm<SendCodeForm> {
+class SendCodeForm extends AuthenticatorForm {
   /// {@macro authenticator.send_code_form}
   SendCodeForm({
     Key? key,
@@ -489,9 +532,9 @@ class SendCodeForm extends AuthenticatorForm<SendCodeForm> {
 ///
 /// To customize, use [ResetPasswordForm.custom].
 /// {@endtemplate}
-class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
+class ResetPasswordForm extends AuthenticatorForm {
   /// {@macro authenticator.reset_password_form}
-  const ResetPasswordForm({
+  ResetPasswordForm({
     Key? key,
   }) : this.custom(
           key: key,
@@ -499,15 +542,15 @@ class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
         );
 
   /// A custom Reset Password form.
-  const ResetPasswordForm.custom({
+  ResetPasswordForm.custom({
     Key? key,
     required List<SignInFormField> fields,
   }) : super._(
           key: key,
           customFields: fields,
-          requiredFields: const [
+          requiredFields: [
             ResetPasswordFormField.verificationCode(),
-            ResetPasswordFormField.password(),
+            ResetPasswordFormField.newPassword(),
             ResetPasswordFormField.passwordConfirmation()
           ],
           actions: const [
@@ -526,7 +569,7 @@ class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
 ///
 /// Cannot be customized.
 /// {@endtemplate}
-class VerifyUserForm extends AuthenticatorForm<VerifyUserForm> {
+class VerifyUserForm extends AuthenticatorForm {
   /// {@macro authenticator.verify_user_form}
   VerifyUserForm({
     Key? key,
@@ -552,14 +595,14 @@ class VerifyUserForm extends AuthenticatorForm<VerifyUserForm> {
 ///
 /// Cannot be customized.
 /// {@endtemplate}
-class ConfirmVerifyUserForm extends AuthenticatorForm<ConfirmVerifyUserForm> {
+class ConfirmVerifyUserForm extends AuthenticatorForm {
   /// {@macro authenticator.confirm_verify_user_form}
   ConfirmVerifyUserForm({
     Key? key,
   }) : super._(
           key: key,
           requiredFields: [
-            VerifyUserFormField.confirmVerifyAttribute(),
+            ConfirmVerifyUserFormField.verificationCode(),
           ],
           customFields: const [],
           actions: const [

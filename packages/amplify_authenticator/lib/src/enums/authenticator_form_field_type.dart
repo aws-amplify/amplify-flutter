@@ -16,10 +16,12 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/foundation.dart';
 
-enum ConfirmSignInField {
-  code,
+enum AuthenticatorFormFieldType {
+  username,
   password,
+  passwordConfirmation,
   newPassword,
+  verificationCode,
   address,
   birthdate,
   email,
@@ -38,14 +40,21 @@ enum ConfirmSignInField {
   // updatedAt,
   // website,
   custom,
+  verify,
+  confirmVerify
 }
 
-extension ConfirmSignInFieldX on ConfirmSignInField {
+extension AuthenticatorFormFieldTypeX on AuthenticatorFormFieldType {
   CognitoUserAttributeKey toCognitoAttribute() {
     switch (this) {
-      case ConfirmSignInField.code:
-      case ConfirmSignInField.password:
-      case ConfirmSignInField.custom:
+      case AuthenticatorFormFieldType.username:
+      case AuthenticatorFormFieldType.password:
+      case AuthenticatorFormFieldType.passwordConfirmation:
+      case AuthenticatorFormFieldType.newPassword:
+      case AuthenticatorFormFieldType.verificationCode:
+      case AuthenticatorFormFieldType.custom:
+      case AuthenticatorFormFieldType.verify:
+      case AuthenticatorFormFieldType.confirmVerify:
         throw StateError('Can only be called on attribute types');
       default:
         final key =

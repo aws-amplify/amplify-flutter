@@ -20,17 +20,16 @@ part of authenticator.form_field;
 ///
 /// Must be a descendant of a [VerifyUserFormFieldGroup] widget.
 /// {@endtemplate}
-abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
-    VerifyAttributeField, FieldValue, VerifyUserFormField<FieldValue>> {
+class VerifyUserFormField extends AuthenticatorFormField {
   /// {@macro authenticator.verify_user_form_field}
   const VerifyUserFormField._({
     Key? key,
-    required VerifyAttributeField field,
+    required AuthenticatorFormFieldType field,
     InputResolverKey? titleKey,
     InputResolverKey? hintTextKey,
     String? title,
     String? hintText,
-    FormFieldValidator<FieldValue>? validator,
+    FormFieldValidator<String>? validator,
   }) : super._(
           key: key,
           field: field,
@@ -43,159 +42,34 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
 
   static VerifyUserFormField verifyAttribute({
     Key? key,
-    FormFieldValidator<CognitoUserAttributeKey>? validator,
-  }) =>
-      _VerifyUserRadioField(
-        key: keyUnverifiedAttributes,
-        field: VerifyAttributeField.verify,
-        validator: validator,
-      );
-
-  /// Creates a password component.
-  static VerifyUserFormField confirmVerifyAttribute({
-    Key? key,
     FormFieldValidator<String>? validator,
   }) =>
-      _VerifyUserTextField(
-        key: keyAttributeToVerify,
-        titleKey: InputResolverKey.verificationCodeTitle,
-        hintTextKey: InputResolverKey.verificationCodeHint,
-        field: VerifyAttributeField.confirmVerify,
+      VerifyUserFormField._(
+        key: keyUnverifiedAttributes,
+        field: AuthenticatorFormFieldType.verify,
         validator: validator,
       );
 
   @override
   bool get required => true;
-}
 
-abstract class _VerifyUserFormFieldState<FieldValue>
-    extends AuthenticatorFormFieldState<VerifyAttributeField, FieldValue,
-        VerifyUserFormField<FieldValue>> {
   @override
-  int get errorMaxLines {
-    return 1;
-  }
+  VerifyUserFormFieldState createState() => VerifyUserFormFieldState();
 }
 
-class _VerifyUserTextField extends VerifyUserFormField<String> {
-  const _VerifyUserTextField({
-    Key? key,
-    required VerifyAttributeField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<String>? validator,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
+class VerifyUserFormFieldState extends AuthenticatorFormFieldState {
+  @override
+  Widget build(BuildContext context) {
+    switch (widget.field) {
+      case AuthenticatorFormFieldType.verify:
+        return AuthenticatorRadioFormField.verify(
+          required: widget.required,
+          key: widget.key,
           validator: validator,
         );
-
-  @override
-  _VerifyUserTextFieldState createState() => _VerifyUserTextFieldState();
-}
-
-class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
-    with AuthenticatorTextField {
-  @override
-  bool get obscureText {
-    return false;
-  }
-
-  @override
-  TextInputType get keyboardType {
-    return TextInputType.text;
-  }
-
-  @override
-  String? get initialValue {
-    return viewModel.confirmationCode;
-  }
-
-  @override
-  ValueChanged<String> get onChanged {
-    return viewModel.setConfirmationCode;
-  }
-
-  @override
-  FormFieldValidator<String> get validator {
-    return simpleValidator(
-      stringResolver.inputs.resolve(
-        context,
-        InputResolverKey.verificationCodeEmpty,
-      ),
-      isOptional: isOptional,
-    );
-  }
-}
-
-class _VerifyUserRadioField
-    extends VerifyUserFormField<CognitoUserAttributeKey> {
-  const _VerifyUserRadioField({
-    Key? key,
-    required VerifyAttributeField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<CognitoUserAttributeKey>? validator,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
-        );
-
-  @override
-  _VerifyAttributeFieldState createState() => _VerifyAttributeFieldState();
-}
-
-class _VerifyAttributeFieldState
-    extends _VerifyUserFormFieldState<CognitoUserAttributeKey>
-    with AuthenticatorRadioField {
-  @override
-  late final List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
-      selections;
-
-  @override
-  late final CognitoUserAttributeKey initialValue;
-
-  @override
-  void initState() {
-    super.initState();
-
-    final _authState =
-        InheritedAuthBloc.of(context, listen: false).currentState;
-    if (_authState is! VerifyUserFlow) {
-      throw StateError('Invalid verify attribute state: $_authState');
+      default:
+        throw StateError(
+            '${widget.field} is not supported as a verify user field');
     }
-    final List<CognitoUserAttributeKey> _unverifiedKeys =
-        _authState.unverifiedAttributeKeys;
-    selections = [
-      if (_unverifiedKeys.contains(CognitoUserAttributeKey.email))
-        const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
-          label: InputResolverKey.emailTitle,
-          value: CognitoUserAttributeKey.email,
-        ),
-      if (_unverifiedKeys.contains(CognitoUserAttributeKey.phoneNumber))
-        const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
-          label: InputResolverKey.phoneNumberTitle,
-          value: CognitoUserAttributeKey.phoneNumber,
-        )
-    ];
-    initialValue = selections.first.value;
-  }
-
-  @override
-  ValueChanged<CognitoUserAttributeKey> get onChanged {
-    return viewModel.setAttributeKeyToVerify;
   }
 }

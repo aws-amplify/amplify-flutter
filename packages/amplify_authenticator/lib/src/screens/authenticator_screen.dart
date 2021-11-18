@@ -151,7 +151,7 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
   }
 }
 
-class _TabView extends AuthenticatorComponent<_TabView> {
+class _TabView extends AuthenticatorComponent {
   const _TabView({
     Key? key,
     required this.tabs,

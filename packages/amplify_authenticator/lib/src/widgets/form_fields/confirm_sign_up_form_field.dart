@@ -18,211 +18,80 @@ part of authenticator.form_field;
 /// {@template authenticator.confirm_sign_up_form_field}
 /// A form field component on the Confirm Sign Up screen.
 /// {@endtemplate}
-abstract class ConfirmSignUpFormField<FieldValue>
-    extends AuthenticatorFormField<ConfirmSignUpField, FieldValue,
-        ConfirmSignUpFormField<FieldValue>> {
+class ConfirmSignUpFormField extends AuthenticatorFormField {
   /// {@macro authenticator.confirm_sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.
   const ConfirmSignUpFormField._({
     Key? key,
-    required ConfirmSignUpField field,
+    required AuthenticatorFormFieldType field,
+    FormFieldValidator<String>? validator,
+    bool? required,
     InputResolverKey? titleKey,
     InputResolverKey? hintTextKey,
     String? title,
     String? hintText,
-    FormFieldValidator<FieldValue>? validator,
   }) : super._(
           key: key,
           field: field,
+          validator: validator,
+          required: required,
           titleKey: titleKey,
           hintTextKey: hintTextKey,
           title: title,
           hintText: hintText,
-          validator: validator,
         );
 
   /// Creates a username component.
   static ConfirmSignUpFormField username({
     Key? key,
-    FormFieldValidator<UsernameInput>? validator,
+    FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
-      _ConfirmSignUpUsernameField(
-        key: key ?? keyUsernameConfirmSignUpFormfield,
-        titleKey: InputResolverKey.usernameTitle,
-        hintTextKey: InputResolverKey.usernameHint,
-        field: ConfirmSignUpField.username,
+      ConfirmSignUpFormField._(
+        field: AuthenticatorFormFieldType.username,
+        key: key,
         validator: validator,
+        required: required,
       );
 
-  /// Creates a verificationCode component.
+  /// Creates a verification code component.
   static ConfirmSignUpFormField verificationCode({
     Key? key,
     FormFieldValidator<String>? validator,
+    bool? required,
   }) =>
-      _ConfirmSignUpTextField(
-        key: key ?? keyCodeConfirmSignUpFormfield,
-        titleKey: InputResolverKey.verificationCodeTitle,
-        hintTextKey: InputResolverKey.verificationCodeHint,
-        field: ConfirmSignUpField.code,
+      ConfirmSignUpFormField._(
+        field: AuthenticatorFormFieldType.verificationCode,
+        key: key,
         validator: validator,
+        required: required,
       );
 
   @override
-  int get displayPriority {
-    switch (field) {
-      case ConfirmSignUpField.username:
-        return 2;
-      case ConfirmSignUpField.code:
-        return 1;
-    }
-  }
-
-  @override
-  bool get required {
-    switch (field) {
-      case ConfirmSignUpField.username:
-      case ConfirmSignUpField.code:
-        return true;
-    }
-  }
+  ConfirmSignUpFormFieldState createState() => ConfirmSignUpFormFieldState();
 }
 
-abstract class _ConfirmSignUpFormFieldState<FieldValue>
-    extends AuthenticatorFormFieldState<ConfirmSignUpField, FieldValue,
-        ConfirmSignUpFormField<FieldValue>> {
+class ConfirmSignUpFormFieldState extends AuthenticatorFormFieldState {
   @override
-  TextInputType get keyboardType {
+  Widget build(BuildContext context) {
     switch (widget.field) {
-      case ConfirmSignUpField.username:
-        return TextInputType.text;
-      case ConfirmSignUpField.code:
-        return TextInputType.number;
-    }
-  }
-
-  @override
-  bool get enabled {
-    switch (widget.field) {
-      case ConfirmSignUpField.code:
-        return true;
-      default:
-        return false;
-    }
-  }
-
-  @override
-  Widget? get companionWidget {
-    switch (widget.field) {
-      case ConfirmSignUpField.code:
-        var resendCodeButton =
-            InheritedForms.of(context).confirmSignUpForm.resendCodeButton;
-        return resendCodeButton ?? const LostCodeButton(key: keyLostCodeButton);
-      default:
-        return null;
-    }
-  }
-}
-
-class _ConfirmSignUpTextField extends ConfirmSignUpFormField<String> {
-  const _ConfirmSignUpTextField({
-    Key? key,
-    required ConfirmSignUpField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<String>? validator,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
+      case AuthenticatorFormFieldType.username:
+        return AuthenticatorUsernameFormField.username(
+          required: widget.required,
+          key: widget.key,
+          validator: validator,
+        );
+      case AuthenticatorFormFieldType.verificationCode:
+        return AuthenticatorTextFormField.verificationCode(
+          required: widget.required,
+          key: widget.key,
           validator: validator,
         );
 
-  @override
-  _ConfirmSignUpTextFieldState createState() => _ConfirmSignUpTextFieldState();
-}
-
-class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
-    with AuthenticatorTextField {
-  @override
-  String? get initialValue {
-    switch (widget.field) {
-      case ConfirmSignUpField.username:
-        return viewModel.username;
-      case ConfirmSignUpField.code:
-        return viewModel.confirmationCode;
-    }
-  }
-
-  @override
-  ValueChanged<String> get onChanged {
-    switch (widget.field) {
-      case ConfirmSignUpField.username:
-        return viewModel.setUsername;
-      case ConfirmSignUpField.code:
-        return viewModel.setConfirmationCode;
-    }
-  }
-
-  @override
-  FormFieldValidator<String> get validator {
-    switch (widget.field) {
-      case ConfirmSignUpField.username:
-        return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.usernameEmpty,
-          ),
-          isOptional: isOptional,
-        );
-      case ConfirmSignUpField.code:
-        return validateCode;
-    }
-  }
-
-  @override
-  int? get maxLength {
-    switch (widget.field) {
-      case ConfirmSignUpField.code:
-        return 6;
-      case ConfirmSignUpField.username:
-        return null;
+      default:
+        throw StateError(
+            '${widget.field} is not supported as a confirm sign up field');
     }
   }
 }
-
-class _ConfirmSignUpUsernameField
-    extends ConfirmSignUpFormField<UsernameInput> {
-  const _ConfirmSignUpUsernameField({
-    Key? key,
-    required ConfirmSignUpField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<UsernameInput>? validator,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
-        );
-
-  @override
-  _ConfirmSignUpUsernameFieldState createState() =>
-      _ConfirmSignUpUsernameFieldState();
-}
-
-class _ConfirmSignUpUsernameFieldState
-    extends _ConfirmSignUpFormFieldState<UsernameInput>
-    with
-        AuthenticatorUsernameField<ConfirmSignUpField,
-            ConfirmSignUpFormField<UsernameInput>> {}

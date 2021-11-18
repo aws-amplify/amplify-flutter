@@ -22,7 +22,7 @@ import 'package:flutter/material.dart';
 /// An Authenticator checkbox component with default layout and styling.
 /// {@endtemplate}
 class AuthenticatorCheckbox<T extends AuthenticatorCheckbox<T>>
-    extends AuthenticatorComponent<T> {
+    extends AuthenticatorComponent {
   /// {@macro authenticator.authenticator_button}
   const AuthenticatorCheckbox({Key? key, required this.labelKey})
       : super(key: key);
