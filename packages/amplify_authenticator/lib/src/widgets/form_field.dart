@@ -490,6 +490,21 @@ class AuthenticatorTextFormField extends AuthenticatorFormField {
         field: AuthenticatorFormFieldType.username,
       );
 
+  /// Creates a username component without a label
+  static AuthenticatorTextFormField _usernameNoLabel({
+    Key? key,
+    FormFieldValidator<String>? validator,
+    bool? required,
+  }) =>
+      AuthenticatorTextFormField._(
+        key: key,
+        validator: validator,
+        required: required,
+        titleKey: null,
+        hintTextKey: InputResolverKey.usernameHint,
+        field: AuthenticatorFormFieldType.username,
+      );
+
   /// Creates a email component
   static AuthenticatorTextFormField email({
     Key? key,
@@ -1062,39 +1077,23 @@ class AuthenticatorUsernameFormFieldState extends AuthenticatorFormFieldState {
   Widget buildFormField(BuildContext context) {
     switch (selectedUsernameType) {
       case UsernameType.username:
-        return AuthenticatorTextFormField.username(
+        return AuthenticatorTextFormField._usernameNoLabel(
           required: widget.required,
           key: widget.key,
           validator: widget.validatorOverride,
         );
       case UsernameType.email:
-        if (usernameType == UsernameConfigType.emailOrPhoneNumber) {
-          return AuthenticatorTextFormField._emailNoLabel(
-            required: widget.required,
-            key: widget.key,
-            validator: widget.validatorOverride,
-          );
-        } else {
-          return AuthenticatorTextFormField.email(
-            required: widget.required,
-            key: widget.key,
-            validator: widget.validatorOverride,
-          );
-        }
+        return AuthenticatorTextFormField._emailNoLabel(
+          required: widget.required,
+          key: widget.key,
+          validator: widget.validatorOverride,
+        );
       case UsernameType.phoneNumber:
-        if (usernameType == UsernameConfigType.emailOrPhoneNumber) {
-          return AuthenticatorPhoneFormField._phoneNumberNoLabel(
-            required: widget.required,
-            key: widget.key,
-            validator: widget.validatorOverride,
-          );
-        } else {
-          return AuthenticatorPhoneFormField.phoneNumber(
-            required: widget.required,
-            key: widget.key,
-            validator: widget.validatorOverride,
-          );
-        }
+        return AuthenticatorPhoneFormField._phoneNumberNoLabel(
+          required: widget.required,
+          key: widget.key,
+          validator: widget.validatorOverride,
+        );
     }
   }
 }
