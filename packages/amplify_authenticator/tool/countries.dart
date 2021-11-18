@@ -102,12 +102,6 @@ var countries = [
   {'name': 'Guinea-Bissau', 'dial_code': '+245', 'code': 'GW'},
   {'name': 'Guyana', 'dial_code': '+592', 'code': 'GY'},
   {'name': 'Haiti', 'dial_code': '+509', 'code': 'HT'},
-  // CURRENTLY UNINHABITED
-  // {
-  //   'name': 'Heard Island and McDonald Islands',
-  //   'dial_code': '+672',
-  //   'code': 'HM'
-  // },
   {'name': 'Holy See (Vatican City State)', 'dial_code': '+379', 'code': 'VA'},
   {'name': 'Honduras', 'dial_code': '+504', 'code': 'HN'},
   {'name': 'Hong Kong', 'dial_code': '+852', 'code': 'HK'},
