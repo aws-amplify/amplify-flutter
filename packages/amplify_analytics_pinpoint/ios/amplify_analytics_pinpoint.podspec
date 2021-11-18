@@ -17,8 +17,8 @@ This code is the iOS part of the Amplify Flutter Pinpoint Analytics Plugin.  The
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'Amplify', '~> 1.15.3'
-  s.dependency 'AmplifyPlugins/AWSPinpointAnalyticsPlugin', '~> 1.15.3'
+  s.dependency 'Amplify', '~> 1.15.5'
+  s.dependency 'AmplifyPlugins/AWSPinpointAnalyticsPlugin', '~> 1.15.5'
   s.dependency 'amplify_core'
   s.dependency 'SwiftLint'
   s.dependency 'SwiftFormat/CLI'

@@ -26,6 +26,9 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   dynamic _allModelsStreamFromMethodChannel = null;
 
+  List<DataStoreSyncExpression>? _syncExpressions;
+  Function(AmplifyException)? _errorHandler;
+
   ObserveQueryExecutor _observeQueryExecutor = ObserveQueryExecutor(
     dataStoreEventStream:
         AmplifyDataStore.streamWrapper.datastoreStreamController.stream,
@@ -34,34 +37,51 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   /// Internal use constructor
   AmplifyDataStoreMethodChannel() : super.tokenOnly();
 
+  // Receives calls from Native
+  Future<dynamic> _methodCallHandler(MethodCall call) async {
+    switch (call.method) {
+      case 'resolveQueryPredicate':
+        String? id = call.arguments;
+        if (id == null) {
+          throw ArgumentError(
+              'resolveQueryPredicate must be called with an id');
+        }
+        return _syncExpressions!
+            .firstWhere((syncExpression) => syncExpression.id == id)
+            .resolveQueryPredicate()
+            .serializeAsMap();
+
+      case 'errorHandler':
+        Map<String, dynamic> arguments =
+            Map<String, dynamic>.from(call.arguments);
+        _errorHandler!(_deserializeExceptionFromMap(arguments));
+        break;
+
+      case 'conflictHandler':
+        break;
+
+      default:
+        throw UnimplementedError('${call.method} has not been implemented.');
+    }
+  }
+
   /// This method instantiates the native DataStore plugins with plugin
   /// configurations. This needs to happen before Amplify.configure() can be
   /// called.
   @override
   Future<void> configureDataStore({
     ModelProviderInterface? modelProvider,
+    Function(AmplifyException)? errorHandler,
     List<DataStoreSyncExpression>? syncExpressions,
     int? syncInterval,
     int? syncMaxRecords,
     int? syncPageSize,
   }) async {
-    _channel.setMethodCallHandler((MethodCall call) async {
-      switch (call.method) {
-        case 'resolveQueryPredicate':
-          String? id = call.arguments;
-          if (id == null) {
-            throw ArgumentError(
-                'resolveQueryPredicate must be called with an id');
-          }
-          return syncExpressions!
-              .firstWhere((syncExpression) => syncExpression.id == id)
-              .resolveQueryPredicate()
-              .serializeAsMap();
-        default:
-          throw UnimplementedError('${call.method} has not been implemented.');
-      }
-    });
+    _channel.setMethodCallHandler(_methodCallHandler);
     try {
+      _syncExpressions = syncExpressions;
+      _errorHandler = errorHandler;
+
       return await _channel
           .invokeMethod('configureDataStore', <String, dynamic>{
         'modelSchemas': modelProvider?.modelSchemas
@@ -70,6 +90,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'customTypeSchemas': modelProvider?.customTypeSchemas
             .map((schema) => schema.toMap())
             .toList(),
+        'hasErrorHandler': errorHandler != null,
         'modelProviderVersion': modelProvider?.version,
         'syncExpressions': syncExpressions!
             .map((syncExpression) => syncExpression.toMap())
@@ -231,6 +252,23 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     Map<String, dynamic> serializedItem =
         Map<String, dynamic>.from(serializedEvent["item"]);
     return serializedItem["modelName"] as String;
+  }
+
+  AmplifyException _deserializeExceptionFromMap(Map<String, dynamic> e) {
+    if (e['errorCode'] == 'DataStoreException') {
+      return DataStoreException.fromMap(Map<String, String>.from(e['details']));
+    } else if (e['errorCode'] == 'AmplifyAlreadyConfiguredException') {
+      return AmplifyAlreadyConfiguredException.fromMap(
+          Map<String, String>.from(e['details']));
+    } else {
+      // This shouldn't happen. All exceptions coming from platform for
+      // amplify_datastore should have a known code. Throw an unknown error.
+      return DataStoreException(
+          AmplifyExceptionMessages.missingExceptionMessage,
+          recoverySuggestion:
+              AmplifyExceptionMessages.missingRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   AmplifyException _deserializeException(PlatformException e) {

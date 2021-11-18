@@ -257,7 +257,7 @@ class FlutterGraphQLApi(private val dispatcher: CoroutineDispatcher) {
         }
 
         val disconnectionCallback = Action {
-            if (id.isNotEmpty()) OperationsManager.removeOperation(id)
+            OperationsManager.removeOperation(id)
             LOG.debug("Subscription has been closed successfully")
             graphqlSubscriptionStreamHandler.sendEvent(
                 null,

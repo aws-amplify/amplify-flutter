@@ -1,13 +1,21 @@
-//
-//  AtomicResultTests.swift
-//  unit_tests
-//
-//  Created by Nys, Dillon on 7/30/21.
-//
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
 
 import XCTest
 import Flutter
-@testable import amplify_auth_cognito
+import amplify_core
 
 class AtomicResultTests: XCTestCase {
     
@@ -28,7 +36,7 @@ class AtomicResultTests: XCTestCase {
             }
             XCTAssertEqual(strValue, expected)
         }
-        let atomicResult = AtomicResult(result)
+        let atomicResult = AtomicResult(result, #function)
         atomicResult(expected)
         waitForExpectations(timeout: 1)
     }
@@ -44,7 +52,7 @@ class AtomicResultTests: XCTestCase {
             }
             XCTAssertEqual(errValue, expected)
         }
-        let atomicResult = AtomicResult(result)
+        let atomicResult = AtomicResult(result, #function)
         atomicResult(expected)
         waitForExpectations(timeout: 0.1)
     }
@@ -53,7 +61,7 @@ class AtomicResultTests: XCTestCase {
         let result: FlutterResult = { _ in
             OSAtomicIncrement32(&self.counter)
         }
-        let atomicResult = AtomicResult(result)
+        let atomicResult = AtomicResult(result, #function)
         atomicResult(nil)
         atomicResult(nil)
         let exp = expectation(description: #function)
@@ -68,7 +76,7 @@ class AtomicResultTests: XCTestCase {
         let result: FlutterResult = { _ in
             OSAtomicIncrement32(&self.counter)
         }
-        let atomicResult = AtomicResult(result)
+        let atomicResult = AtomicResult(result, #function)
         
         DispatchQueue.global().sync {
             DispatchQueue.concurrentPerform(iterations: 1000) { i in
