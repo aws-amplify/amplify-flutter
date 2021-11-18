@@ -188,7 +188,7 @@ class AuthenticatorCountryLocalizationsEn
   String get cr => 'Costa Rica';
 
   @override
-  String get ci => 'Cote d\'Ivoire';
+  String get ci => 'Ivory Coast';
 
   @override
   String get hr => 'Croatia';

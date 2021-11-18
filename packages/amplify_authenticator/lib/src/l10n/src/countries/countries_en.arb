@@ -221,9 +221,9 @@
     "@cr": {
         "description": "Display name for Costa Rica"
     },
-    "ci": "Cote d'Ivoire",
+    "ci": "Ivory Coast",
     "@ci": {
-        "description": "Display name for Cote d'Ivoire"
+        "description": "Display name for Ivory Coast"
     },
     "hr": "Croatia",
     "@hr": {

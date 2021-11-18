@@ -437,10 +437,10 @@ abstract class AuthenticatorCountryLocalizations {
   /// **'Costa Rica'**
   String get cr;
 
-  /// Display name for Cote d'Ivoire
+  /// Display name for Ivory Coast
   ///
   /// In en, this message translates to:
-  /// **'Cote d\'Ivoire'**
+  /// **'Ivory Coast'**
   String get ci;
 
   /// Display name for Croatia

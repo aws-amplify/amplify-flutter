@@ -60,7 +60,7 @@ var countries = [
   {'name': 'Congo (Democratic Republic of)', 'dial_code': '+243', 'code': 'CD'},
   {'name': 'Cook Islands', 'dial_code': '+682', 'code': 'CK'},
   {'name': 'Costa Rica', 'dial_code': '+506', 'code': 'CR'},
-  {'name': 'Cote d\'Ivoire', 'dial_code': '+225', 'code': 'CI'},
+  {'name': 'Ivory Coast', 'dial_code': '+225', 'code': 'CI'},
   {'name': 'Croatia', 'dial_code': '+385', 'code': 'HR'},
   {'name': 'Cuba', 'dial_code': '+53', 'code': 'CU'},
   {'name': 'Cyprus', 'dial_code': '+357', 'code': 'CY'},
@@ -123,7 +123,7 @@ var countries = [
   {'name': 'Kenya', 'dial_code': '+254', 'code': 'KE'},
   {'name': 'Kiribati', 'dial_code': '+686', 'code': 'KI'},
   {
-    'name': 'Korea (Democratic People\s Republic of)',
+    'name': 'Korea (Democratic Peoples Republic of)',
     'dial_code': '+850',
     'code': 'KP'
   },
