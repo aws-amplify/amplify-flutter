@@ -57,4 +57,3 @@ flutter format "${COUNTRY_OUTPUT_FILES[i]}"
 done
 
 dart fix --apply
-
