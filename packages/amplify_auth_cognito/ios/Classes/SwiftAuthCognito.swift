@@ -65,7 +65,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        let result = atomicResult(result, call.method)
+        let result = AtomicResult(result, call.method)
 
         if(call.method == "addPlugin"){
             do {
