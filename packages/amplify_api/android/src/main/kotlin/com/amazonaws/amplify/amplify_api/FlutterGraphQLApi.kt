@@ -239,11 +239,10 @@ class FlutterGraphQLApi(private val dispatcher: CoroutineDispatcher) {
         }
 
         val errorCallback = Consumer<ApiException> {
-            OperationsManager.removeOperation(id)
+            if (id.isNotEmpty()) OperationsManager.removeOperation(id)
             if (established) {
                 graphqlSubscriptionStreamHandler.sendError(
                     "ApiException",
-                    id,
                     ExceptionUtil.createSerializedError(it)
                 )
             } else {

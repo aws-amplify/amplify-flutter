@@ -6,6 +6,32 @@
 
 ## 0.3.0-rc.1 (2021-09-24)
 
+## 0.2.9 (2021-11-17)
+
+- chore: upgrade amplify-android to 1.28.3-rc
+
+## 0.2.8 (2021-11-12)
+
+### Fixes
+
+- fix(api): "Reply already submitted" crashes (#1058)
+- fix(auth): (Android) Dropped exceptions in hosted UI cause `signInWithWebUI` to not return (#1015)
+- fix(datastore): (Android) Fix DataStore release mode crash (#1064)
+- fix(storage): DateTime formatting and parsing (#1044, #1062)
+- fix(storage): Storage.list crash on null "options" (#1061)
+
+## 0.2.7 (2021-11-08)
+
+### Chores
+
+- chore: Bump Amplify iOS to 1.15.5
+
+### Fixes
+
+- fix(api): Fix OIDC/Lambda in REST/GraphQL on Android
+- fix(datastore): Temporal date/time query predicates
+- fix(datastore): Android TemporalTime Save Issue
+
 ## 0.2.6 (2021-10-25)
 
 ### Fixes

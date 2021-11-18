@@ -18,27 +18,30 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('AWSDate from DateTime success', () async {
-    DateTime now = DateTime.now();
+    DateTime dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
 
-    TemporalDate awsDate = TemporalDate(now);
-    now = now.toUtc();
+    TemporalDate awsDate = TemporalDate(dateTime);
+    dateTime = dateTime.toUtc();
 
     expect(awsDate.getOffset(), null);
-    expect(awsDate.getDateTime(), DateTime.utc(now.year, now.month, now.day));
-    expect(awsDate.format(), now.toIso8601String().substring(0, 10));
+    expect(awsDate.getDateTime(),
+        DateTime.utc(dateTime.year, dateTime.month, dateTime.day));
+    expect(awsDate.format(), dateTime.toIso8601String().substring(0, 10));
   });
 
   test('AWSDate from DateTime with offset success', () async {
-    DateTime now = DateTime.now();
+    DateTime dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
     Duration offset = Duration(hours: 3, minutes: 30);
 
-    TemporalDate awsDate = TemporalDate.withOffset(now, offset);
+    TemporalDate awsDate = TemporalDate.withOffset(dateTime, offset);
 
-    now = now.toUtc();
+    dateTime = dateTime.toUtc();
 
     expect(awsDate.getOffset(), offset);
-    expect(awsDate.getDateTime(), DateTime.utc(now.year, now.month, now.day));
-    expect(awsDate.format(), now.toIso8601String().substring(0, 10) + "+03:30");
+    expect(awsDate.getDateTime(),
+        DateTime.utc(dateTime.year, dateTime.month, dateTime.day));
+    expect(awsDate.format(),
+        dateTime.toIso8601String().substring(0, 10) + "+03:30");
   });
 
   test('AWSDate from string YYYY-MM-DD success', () async {
@@ -85,9 +88,9 @@ void main() {
   });
 
   test('AWSDate with day Duration fails', () async {
+    DateTime dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
     Duration duration = Duration(days: 10, hours: 3, minutes: 30, seconds: 30);
-    expect(() => TemporalDate.withOffset(DateTime.now(), duration),
-        throwsException);
+    expect(() => TemporalDate.withOffset(dateTime, duration), throwsException);
   });
 
   test('AWSDate from string YYYY-MM fails', () async {

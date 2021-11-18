@@ -158,7 +158,7 @@ class AmplifyStorageOperations {
         }
 
         private fun prepareListResponse(@NonNull flutterResult: MethodChannel.Result, result: StorageListResult) {
-            val spf = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+            val spf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             val storageItemList: ArrayList<Map<String, Any>> = arrayListOf()
             for (item in result.items) {
                 val storageItemMap: Map<String, Any> = mapOf(

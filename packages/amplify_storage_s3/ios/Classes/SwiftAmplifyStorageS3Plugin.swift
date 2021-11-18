@@ -33,7 +33,7 @@ public class SwiftAmplifyStorageS3Plugin: NSObject, FlutterPlugin {
     }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    print("In handle for method \(call.method)")
+    let result = AtomicResult(result, call.method)
 
     if(call.method == "addPlugin"){
         do {

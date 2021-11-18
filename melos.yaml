@@ -45,7 +45,7 @@ scripts:
       - Requires running Android and iOS simulators.
 
   test:integration:android:
-    run: melos exec -c 1 "flutter test --no-pub integration_test/main_test.dart -d sdk"
+    run: melos exec -c 1 "flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d sdk"
     description:
       Run integration tests for a single package on an Android emulator.
       - Run with `--no-select` to run for all applicable packages.
@@ -56,7 +56,7 @@ scripts:
       scope: "*example*"
 
   test:integration:ios:
-    run: melos exec -c 1 -- "$MELOS_ROOT_PATH/build-support/integ_test_ios.sh"
+    run: melos exec -c 1 "flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d iPhone"
     description: Run integration tests for a single package on an iOS simulator.
       - Run with `--no-select` to run for all applicable packages.
       - Requires launching an iOS simulator prior to execution.
@@ -128,7 +128,7 @@ scripts:
         - amplify_api_example
         - amplify_flutter_example
         - amplify_core_example
-  
+
   copy_dependencies:
     run: |
       melos exec -c 1 -- \
@@ -148,6 +148,18 @@ scripts:
   packages:fix: |
     melos exec -- \
       flutter analyze --no-fatal-infos --no-fatal-warnings &>/dev/null || true
+
+  pod:repo-update:
+    run: melos exec -c 8 --scope="*example*,sample_app" "(cd ios && pod repo update)"
+    description: runs "pod repo update" in all example apps
+
+  pod:update-amplify:
+    run: melos exec -c 8 --ignore="amplify_core_example" --file-exists="./ios/Podfile.lock" "(cd ios && pod update Amplify AWSPluginsCore AmplifyPlugins)"
+    description: Update amplify pods in projects with a Podfile.lock
+
+  pod:update:
+    run: melos run pod:repo-update && melos run pod:update-amplify
+    description: Run "pod repo update" and then updates amplify related pods. Intended for use after amplify iOS version has been updated.
 
   postbootstrap: |
     melos run copy_dummy_config && \
