@@ -24,13 +24,13 @@ public func AtomicResult(_ result: @escaping FlutterResult, _ methodName: String
 
 private class atomicResult {
     let result: FlutterResult
-    
+
     /// The method call which initiated this result.
     let methodName: String
-    
+
     /// Whether a reply has already been sent.
     var isSent = false
-    
+
     init(_ result: @escaping FlutterResult, _ methodName: String) {
         self.result = result
         self.methodName = methodName
