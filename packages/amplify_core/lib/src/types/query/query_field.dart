@@ -16,6 +16,7 @@
 library query_field;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../util/parsers.dart';
 import '../models/model_field_type.dart';

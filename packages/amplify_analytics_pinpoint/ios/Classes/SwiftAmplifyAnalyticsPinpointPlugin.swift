@@ -17,6 +17,7 @@ import Flutter
 import UIKit
 import Amplify
 import AmplifyPlugins
+import amplify_core
 
 public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
     private let bridge: AnalyticsBridge
@@ -36,6 +37,8 @@ public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        let result = AtomicResult(result, call.method)
+
         innerHandle(method: call.method, callArgs: call.arguments as Any?, result: result)
     }
 

@@ -16,6 +16,7 @@
 import 'dart:async';
 
 import 'package:amplify_datastore/types/DataStoreHubEvents/DataStoreHubEvent.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:meta/meta.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -40,6 +41,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
   /// [syncPageSize]: page size to sync
   AmplifyDataStore({
     required ModelProviderInterface modelProvider,
+    Function(AmplifyException)? errorHandler,
     List<DataStoreSyncExpression> syncExpressions = const [],
     int? syncInterval,
     int? syncMaxRecords,
@@ -47,6 +49,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }) : super(
           token: _token,
           modelProvider: modelProvider,
+          errorHandler: errorHandler,
           syncExpressions: syncExpressions,
           syncInterval: syncInterval,
           syncMaxRecords: syncMaxRecords,
@@ -72,6 +75,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
   @override
   Future<void> configureDataStore({
     ModelProviderInterface? modelProvider,
+    Function(AmplifyException)? errorHandler,
     List<DataStoreSyncExpression>? syncExpressions,
     int? syncInterval,
     int? syncMaxRecords,
@@ -86,6 +90,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
     streamWrapper.registerModelsForHub(provider);
     return _instance.configureDataStore(
       modelProvider: provider,
+      errorHandler: errorHandler ?? this.errorHandler,
       syncExpressions: this.syncExpressions,
       syncInterval: this.syncInterval,
       syncMaxRecords: this.syncMaxRecords,

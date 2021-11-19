@@ -57,11 +57,23 @@ abstract class QueryFieldOperator<T> {
 
   /// check the type of [value] and invoke corresponding serialize method
   dynamic serializeDynamicValue(dynamic value) {
+    // DateTime is deprecated and will be removed in the next major version
     if (value is DateTime) {
+      if (kDebugMode) {
+        print(
+          'WARNING: Using DateTime types in a QueryPredicate is deprecated. Use a Temporal Date/Time Type instead.',
+        );
+      }
       return value.toDateTimeIso8601String();
-    }
-
-    if (isEnum(value)) {
+    } else if (value is TemporalDate) {
+      return value.format();
+    } else if (value is TemporalDateTime) {
+      return value.format();
+    } else if (value is TemporalTime) {
+      return value.format();
+    } else if (value is TemporalTimestamp) {
+      return value.toSeconds();
+    } else if (isEnum(value)) {
       return enumToString(value);
     }
 
@@ -88,7 +100,8 @@ class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
 
   @override
   bool evaluate(T? other) {
-    return other == value;
+    dynamic serializedValue = serializeDynamicValue(value);
+    return other == serializedValue;
   }
 }
 
@@ -112,7 +125,8 @@ class LessOrEqualQueryOperator<T extends Comparable>
     if (other == null) {
       return false;
     }
-    return other.compareTo(value) <= 0;
+    dynamic serializedValue = serializeDynamicValue(value);
+    return other.compareTo(serializedValue) <= 0;
   }
 }
 
@@ -126,7 +140,8 @@ class LessThanQueryOperator<T extends Comparable>
     if (other == null) {
       return false;
     }
-    return other.compareTo(value) < 0;
+    dynamic serializedValue = serializeDynamicValue(value);
+    return other.compareTo(serializedValue) < 0;
   }
 }
 
@@ -140,7 +155,8 @@ class GreaterOrEqualQueryOperator<T extends Comparable>
     if (other == null) {
       return false;
     }
-    return other.compareTo(value) >= 0;
+    dynamic serializedValue = serializeDynamicValue(value);
+    return other.compareTo(serializedValue) >= 0;
   }
 }
 
@@ -154,7 +170,8 @@ class GreaterThanQueryOperator<T extends Comparable>
     if (other == null) {
       return false;
     }
-    return other.compareTo(value) > 0;
+    dynamic serializedValue = serializeDynamicValue(value);
+    return other.compareTo(serializedValue) > 0;
   }
 }
 
@@ -183,15 +200,18 @@ class BetweenQueryOperator<T extends Comparable> extends QueryFieldOperator<T> {
     if (other == null) {
       return false;
     }
-    return other.compareTo(start) >= 0 && other.compareTo(end) <= 0;
+    dynamic serializedStart = serializeDynamicValue(start);
+    dynamic serializedEnd = serializeDynamicValue(end);
+    return other.compareTo(serializedStart) >= 0 &&
+        other.compareTo(serializedEnd) <= 0;
   }
 
   @override
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{
       'operatorName': QueryFieldOperatorType.between.toShortString(),
-      'start': start,
-      'end': end
+      'start': serializeDynamicValue(start),
+      'end': serializeDynamicValue(end)
     };
   }
 }

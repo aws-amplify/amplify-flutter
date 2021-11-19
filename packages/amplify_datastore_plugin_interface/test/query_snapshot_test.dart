@@ -20,6 +20,8 @@ import 'testData/ModelProvider.dart';
 
 void main() {
   group('QuerySnapshot', () {
+    TemporalDateTime _temporalDateTime =
+        TemporalDateTime.fromString("2021-11-09T18:53:12.183540Z");
     group('withSubscriptionEvent()', () {
       group('with no query predicate or sort order', () {
         late List<Blog> blogs;
@@ -325,7 +327,7 @@ void main() {
             (index) => Post(
               title: 'post $index',
               rating: index * 10,
-              created: TemporalDateTime.now(),
+              created: _temporalDateTime,
             ),
           );
           snapshot = QuerySnapshot(
@@ -341,7 +343,7 @@ void main() {
             Post newPost = Post(
               title: 'new post',
               rating: 25,
-              created: TemporalDateTime.now(),
+              created: _temporalDateTime,
             );
 
             SubscriptionEvent<Post> subscriptionEvent = SubscriptionEvent(
@@ -401,7 +403,7 @@ void main() {
             Post updatedPost = Post(
               title: 'new post',
               rating: 25,
-              created: TemporalDateTime.now(),
+              created: _temporalDateTime,
             );
 
             SubscriptionEvent<Post> subscriptionEvent = SubscriptionEvent(
@@ -435,7 +437,7 @@ void main() {
             (index) => Post(
               title: 'post $index',
               rating: index * 10,
-              created: TemporalDateTime.now(),
+              created: _temporalDateTime,
             ),
           );
           snapshot = QuerySnapshot(
@@ -451,25 +453,25 @@ void main() {
             Post newPost1 = Post(
               title: 'new post a',
               rating: 25,
-              created: TemporalDateTime.now(),
+              created: _temporalDateTime,
             );
 
             Post newPost2 = Post(
               title: 'new post a',
               rating: 40,
-              created: TemporalDateTime.now(),
+              created: _temporalDateTime,
             );
 
             Post newPost3 = Post(
               title: 'new post b',
               rating: 25,
-              created: TemporalDateTime.now(),
+              created: _temporalDateTime,
             );
 
             Post newPost4 = Post(
               title: 'new post b',
               rating: 40,
-              created: TemporalDateTime.now(),
+              created: _temporalDateTime,
             );
 
             SubscriptionEvent<Post> subscriptionEvent1 = SubscriptionEvent(
