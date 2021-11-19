@@ -144,9 +144,9 @@ void main() {
     });
 
     group('List<AWSDate>', () {
-      var now = DateTime.now();
-      var list =
-          List.generate(3, (i) => TemporalDate(now.add(Duration(days: i))));
+      var dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
+      var list = List.generate(
+          3, (i) => TemporalDate(dateTime.add(Duration(days: i))));
       var models = List.generate(5, (_) => DateListTypeModel(value: list));
       testModelOperations(models: models);
     });
@@ -168,9 +168,7 @@ void main() {
         DateTime(2020, 01, 01, 00, 00, 00),
         DateTime(2020, 01, 01, 23, 59, 59),
         DateTime(2999, 12, 31, 23, 59, 59),
-        // TemporalDateTime values with milliseconds & microseconds are not parsed correctly on Android
-        // see: https://github.com/aws-amplify/amplify-flutter/issues/817
-        // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
+        DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
           .map((value) => DateTimeTypeModel(value: TemporalDateTime(value)))
@@ -188,9 +186,9 @@ void main() {
     });
 
     group('List<AWSDateTime>', () {
-      var now = DateTime.now();
-      var list =
-          List.generate(3, (i) => TemporalDateTime(now.add(Duration(days: i))));
+      var dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
+      var list = List.generate(
+          3, (i) => TemporalDateTime(dateTime.add(Duration(days: i))));
       var models = List.generate(5, (_) => DateTimeListTypeModel(value: list));
       testModelOperations(models: models);
     });
@@ -212,9 +210,7 @@ void main() {
         DateTime(2020, 01, 01, 00, 00, 00),
         DateTime(2020, 01, 01, 23, 59, 59),
         DateTime(2999, 12, 31, 23, 59, 59),
-        // TemporalTime values with milliseconds & microseconds are not parsed correctly on Android
-        // see: https://github.com/aws-amplify/amplify-flutter/issues/817
-        // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
+        DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
           .map((value) => TimeTypeModel(value: TemporalTime(value)))
@@ -228,9 +224,9 @@ void main() {
     });
 
     group('List<AWSTime>', () {
-      var now = DateTime.now();
-      var list =
-          List.generate(3, (i) => TemporalTime(now.add(Duration(days: i))));
+      var dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
+      var list = List.generate(
+          3, (i) => TemporalTime(dateTime.add(Duration(days: i))));
       var models = List.generate(5, (_) => TimeListTypeModel(value: list));
       testModelOperations(models: models);
     });

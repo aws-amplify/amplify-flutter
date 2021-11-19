@@ -89,6 +89,11 @@ class AuthenticatorInputLocalizationsEn
   }
 
   @override
+  String warnInvalidFormat(String attributeType) {
+    return 'Invalid $attributeType format.';
+  }
+
+  @override
   String promptFill(String attribute) {
     return 'Enter your $attribute';
   }
@@ -127,6 +132,9 @@ class AuthenticatorInputLocalizationsEn
 
     return 'at least $pluralString';
   }
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match.';
 
   @override
   String get rememberDevice => 'Remember Device?';

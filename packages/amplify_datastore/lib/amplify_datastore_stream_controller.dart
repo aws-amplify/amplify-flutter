@@ -103,10 +103,7 @@ _onListen() {
           }
           break;
         default:
-          {
-            print(
-                'An Unrecognized DataStore Hub event has been detected on the event channel.');
-          }
+          break;
       }
     });
   }

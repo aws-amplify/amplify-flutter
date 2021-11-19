@@ -17,6 +17,7 @@ library amplify_authenticator;
 
 import 'dart:async';
 
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/enums/enums.dart';
@@ -100,16 +101,18 @@ class Authenticator extends StatefulWidget {
     Key? key,
     SignInForm? signInForm,
     SignUpForm? signUpForm,
-    ConfirmSignInMFAForm? confirmSignInMFAForm,
+    ConfirmSignInNewPasswordForm? confirmSignInNewPasswordForm,
     this.stringResolver = const AuthStringResolver(),
     required this.child,
     this.useAmplifyTheme = false,
     this.onException,
     this.exceptionBannerLocation = ExceptionBannerLocation.auto,
+    this.preferPrivateSession = false,
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
     this.signUpForm = signUpForm ?? SignUpForm();
-    this.confirmSignInMFAForm = confirmSignInMFAForm ?? ConfirmSignInMFAForm();
+    this.confirmSignInNewPasswordForm =
+        confirmSignInNewPasswordForm ?? ConfirmSignInNewPasswordForm();
   }
 
   /// Whether to use Amplify colors and styles in the Authenticator,
@@ -118,8 +121,8 @@ class Authenticator extends StatefulWidget {
   /// Defaults to `true`.
   final bool useAmplifyTheme;
 
-  /// The form to display when confirming a sign in with MFA.
-  late final ConfirmSignInMFAForm confirmSignInMFAForm;
+  /// The form to display when promted for a password change upon signing in
+  late final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
 
   /// This form will support the following form field types:
   ///    * username
@@ -201,6 +204,9 @@ class Authenticator extends StatefulWidget {
   /// {@macro amplify_authenticator.exception_banner_location}
   final ExceptionBannerLocation exceptionBannerLocation;
 
+  /// {@macro amplify_auth_plugin_interface.cognito_sign_in_with_web_ui_options}
+  final bool preferPrivateSession;
+
   /// This widget will be displayed after a user has signed in.
   final Widget child;
 
@@ -218,6 +224,8 @@ class Authenticator extends StatefulWidget {
         ObjectFlagProperty<ExceptionHandler?>.has('onException', onException));
     properties.add(EnumProperty<ExceptionBannerLocation>(
         'exceptionBannerLocation', exceptionBannerLocation));
+    properties.add(DiagnosticsProperty<bool>(
+        'preferPrivateSession', preferPrivateSession));
   }
 }
 
@@ -235,8 +243,10 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   void initState() {
     super.initState();
-    _stateMachineBloc = StateMachineBloc(authService: _authService)
-      ..add(const AuthLoad());
+    _stateMachineBloc = StateMachineBloc(
+      authService: _authService,
+      preferPrivateSession: widget.preferPrivateSession,
+    )..add(const AuthLoad());
     _viewModel = AuthViewModel(_stateMachineBloc);
     _subscribeToExceptions();
     _subscribeToInfoMessages();
@@ -381,13 +391,14 @@ class _AuthenticatorState extends State<Authenticator> {
             child: InheritedStrings(
               resolver: widget.stringResolver,
               child: InheritedForms(
-                confirmSignInNewPasswordForm: ConfirmSignInNewPasswordForm(),
+                confirmSignInNewPasswordForm:
+                    widget.confirmSignInNewPasswordForm,
                 resetPasswordForm: const ResetPasswordForm(),
                 sendCodeForm: SendCodeForm(),
                 signInForm: widget.signInForm,
                 signUpForm: widget.signUpForm,
                 confirmSignUpForm: ConfirmSignUpForm(),
-                confirmSignInMFAForm: widget.confirmSignInMFAForm,
+                confirmSignInMFAForm: ConfirmSignInMFAForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),
                 child: _AuthenticatorBody(child: widget.child),

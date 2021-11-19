@@ -17,19 +17,38 @@ library amplify_datastore_plugin_interface;
 
 import 'dart:async';
 
+import 'package:amplify_datastore_plugin_interface/src/types/models/model_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+import 'src/types/models/model.dart';
 import 'src/types/models/observe_query_throttle_options.dart';
 import 'src/types/models/query_snapshot.dart';
 import 'src/types/models/subscription_event.dart';
 import 'src/types/sync/DataStoreSyncExpression.dart';
+import 'src/types/query/query_field.dart';
+
+export 'src/types/models/auth_rule.dart';
+export 'src/types/models/model.dart';
+export 'src/types/models/model_field.dart';
+export 'src/types/models/model_field_definition.dart';
+export 'src/types/models/model_field_type.dart';
+export 'src/types/models/model_provider.dart';
+export 'src/types/models/model_schema.dart';
+export 'src/types/models/model_schema_definition.dart';
+export 'src/types/models/uuid.dart';
+export 'src/types/query/query_field.dart';
+export 'src/types/temporal/datetime_parse.dart';
+export 'src/types/utils/parsers.dart';
 
 export 'src/publicTypes.dart';
 
 abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// modelProvider
   ModelProviderInterface? modelProvider;
+
+  // errorHandler
+  Function(AmplifyException)? errorHandler;
 
   /// list of sync expressions to filter datastore sync against
   List<DataStoreSyncExpression>? syncExpressions;
@@ -47,6 +66,7 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   DataStorePluginInterface({
     required Object token,
     required this.modelProvider,
+    this.errorHandler,
     this.syncExpressions,
     this.syncInterval,
     this.syncMaxRecords,
@@ -64,15 +84,18 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   }
 
   /// Configure AmplifyDataStore plugin with mandatory [modelProvider]
-  /// and optional datastore configuration properties including
+  /// and optional DataStore configuration properties including
   ///
-  /// [syncInterval]: datastore syncing interval (in seconds)
+  /// [errorHandler]: Custom error handler function that may receive an [AmplifyException] object when DataStore encounters an unhandled error during its background operations
   ///
-  /// [syncMaxRecords]: max number of records to sync
+  /// [syncInterval]: DataStore syncing interval (in seconds)
   ///
-  /// [syncPageSize]: page size to sync
+  /// [syncMaxRecords]: Max number of records to sync
+  ///
+  /// [syncPageSize]: Page size to sync
   Future<void> configureDataStore(
       {required ModelProviderInterface modelProvider,
+      Function(AmplifyException)? errorHandler,
       int? syncInterval,
       int? syncMaxRecords,
       int? syncPageSize}) {

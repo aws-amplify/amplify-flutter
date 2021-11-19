@@ -222,6 +222,12 @@ abstract class AuthenticatorInputLocalizations {
   /// **'{attribute} field must not be blank.'**
   String warnEmpty(String attribute);
 
+  /// Warning for field that has failed format validation.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid {attributeType} format.'**
+  String warnInvalidFormat(String attributeType);
+
   /// Prompt to fill an optional or required input field, used as the placeholder for text fields.
   ///
   /// In en, this message translates to:
@@ -252,6 +258,12 @@ abstract class AuthenticatorInputLocalizations {
   /// In en, this message translates to:
   /// **'at least {numCharacters, plural, =1{1 {characterType} character} other{{numCharacters} {characterType} characters}}'**
   String passwordRequirementsAtLeast(int numCharacters, String characterType);
+
+  /// Message for conflicting password and confirm password fields.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match.'**
+  String get passwordsDoNotMatch;
 
   /// Label for the checkbox to remember the user's device in Cognito.
   ///

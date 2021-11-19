@@ -46,7 +46,14 @@ enum InputField {
   usernameType
 }
 
-enum InputResolverKeyType { title, hint, empty, passwordRequirements }
+enum InputResolverKeyType {
+  title,
+  hint,
+  empty,
+  passwordRequirements,
+  format,
+  mistmatch
+}
 
 class InputResolverKey {
   const InputResolverKey._(
@@ -95,6 +102,14 @@ class InputResolverKey {
     InputResolverKeyType.hint,
     field: InputField.passwordConfirmation,
   );
+  static const passwordConfirmationEmpty = InputResolverKey._(
+    InputResolverKeyType.empty,
+    field: InputField.passwordConfirmation,
+  );
+  static const passwordsDoNotMatch = InputResolverKey._(
+    InputResolverKeyType.mistmatch,
+    field: InputField.passwordConfirmation,
+  );
   const InputResolverKey.passwordRequirementsUnmet(
     PasswordProtectionSettings requirements,
   ) : this._(
@@ -114,6 +129,10 @@ class InputResolverKey {
     InputResolverKeyType.empty,
     field: InputField.email,
   );
+  static const emailFormat = InputResolverKey._(
+    InputResolverKeyType.format,
+    field: InputField.email,
+  );
   static const phoneNumberTitle = InputResolverKey._(
     InputResolverKeyType.title,
     field: InputField.phoneNumber,
@@ -126,6 +145,10 @@ class InputResolverKey {
     InputResolverKeyType.empty,
     field: InputField.phoneNumber,
   );
+  static const phoneNumberFormat = InputResolverKey._(
+    InputResolverKeyType.format,
+    field: InputField.phoneNumber,
+  );
   static const verificationCodeTitle = InputResolverKey._(
     InputResolverKeyType.title,
     field: InputField.verificationCode,
@@ -136,6 +159,10 @@ class InputResolverKey {
   );
   static const verificationCodeEmpty = InputResolverKey._(
     InputResolverKeyType.empty,
+    field: InputField.verificationCode,
+  );
+  static const verificationCodeFormat = InputResolverKey._(
+    InputResolverKeyType.format,
     field: InputField.verificationCode,
   );
   static const addressTitle = InputResolverKey._(
@@ -405,6 +432,11 @@ class InputResolver extends Resolver<InputResolverKey> {
         .warnEmpty(title(context, field));
   }
 
+  String format(BuildContext context, InputField field) {
+    return AuthenticatorLocalizations.inputsOf(context)
+        .warnInvalidFormat(title(context, field).toLowerCase());
+  }
+
   String passwordRequires(
     BuildContext context,
     PasswordProtectionSettings requirements,
@@ -450,6 +482,10 @@ class InputResolver extends Resolver<InputResolverKey> {
         return empty(context, key.field);
       case InputResolverKeyType.passwordRequirements:
         return passwordRequires(context, key.unmetPasswordRequirements!);
+      case InputResolverKeyType.mistmatch:
+        return AuthenticatorLocalizations.inputsOf(context).passwordsDoNotMatch;
+      case InputResolverKeyType.format:
+        return format(context, key.field);
     }
   }
 }

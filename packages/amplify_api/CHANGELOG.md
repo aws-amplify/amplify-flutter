@@ -14,6 +14,26 @@
 
 - feat(api): GraphQL Subscription Stream (#905)
 
+## 0.2.9 (2021-11-17)
+
+- chore: upgrade amplify-android to 1.28.3-rc
+
+## 0.2.8 (2021-11-12)
+
+### Fixes
+
+- fix(api): "Reply already submitted" crashes (#1058)
+
+## 0.2.7 (2021-11-08)
+
+### Chores
+
+- chore: Bump Amplify iOS to 1.15.5
+
+### Fixes
+
+- fix(api): Fix OIDC/Lambda in REST/GraphQL on Android
+
 ## 0.2.6 (2021-10-25)
 
 ## 0.2.5 (2021-10-14)
