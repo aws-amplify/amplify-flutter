@@ -8,12 +8,7 @@ class SignUpPage {
 
   final WidgetTester tester;
 
-  // Match on the title of the username field since it is dependent on
-  // the username alias selected.
-  Finder get usernameField => find.descendant(
-        of: find.byKey(keyUsernameSignUpFormField),
-        matching: find.text('Username'),
-      );
+  Finder get usernameField => find.byKey(keyUsernameSignUpFormField);
 
   Finder get passwordField => find.byKey(keyPasswordSignUpFormField);
   Finder get confirmPasswordField =>
@@ -59,7 +54,14 @@ class SignUpPage {
 
   /// Then I see "Username" as an input field
   void expectUserNameIsPresent() {
+    // username field is present
     expect(usernameField, findsOneWidget);
+    // login type is "username"
+    Finder usernameFieldHint = find.descendant(
+      of: find.byKey(keyUsernameSignUpFormField),
+      matching: find.text('Username'),
+    );
+    expect(usernameFieldHint, findsOneWidget);
   }
 
   /// Then I see "Preferred Username" as an input field
