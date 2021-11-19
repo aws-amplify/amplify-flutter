@@ -148,7 +148,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                         "errorMesage" : ErrorMessages.defaultFallbackErrorMessage,
                         "details" : FlutterDataStoreErrorHandler.createSerializedError(error: error)
                     ]
-                    self.channel!.invokeMethod("errorHandler", arguments: args)
+                    self.channel!.invokeMethod("errorHandler", arguments: map)
                 }
             } else {
                 errorHandler = { error in
