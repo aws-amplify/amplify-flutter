@@ -1,3 +1,4 @@
 {
-  "dart.runPubGetOnPubspecChanges": false
+  "dart.runPubGetOnPubspecChanges": false,
+  "files.insertFinalNewline": true
 }

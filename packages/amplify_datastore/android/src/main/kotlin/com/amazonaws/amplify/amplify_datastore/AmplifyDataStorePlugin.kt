@@ -19,6 +19,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
+import com.amazonaws.amplify.amplify_core.AtomicResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
@@ -43,6 +44,7 @@ import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreConfiguration
+import com.amplifyframework.datastore.DataStoreErrorHandler
 import com.amplifyframework.datastore.DataStoreException
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
@@ -105,7 +107,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         LOG.info("Initiated DataStore plugin")
     }
 
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+    override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
+        val result = AtomicResult(_result, call.method)
         var data: Map<String, Any> = HashMap()
         try {
             if (call.arguments != null) {
@@ -181,6 +184,24 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 )
             }
         }
+
+        var errorHandler : DataStoreErrorHandler;
+        errorHandler = if( (request["hasErrorHandler"] as? Boolean? == true) ) {
+            DataStoreErrorHandler {
+                val args = hashMapOf(
+                        "errorCode" to "DataStoreException",
+                        "errorMessage" to ExceptionMessages.defaultFallbackExceptionMessage,
+                        "details" to createSerializedError(it)
+                )
+                channel.invokeMethod("errorHandler", args)
+            }
+        }
+        else {
+            DataStoreErrorHandler {
+                LOG.error(it.toString())
+            }
+        }
+        dataStoreConfigurationBuilder.errorHandler(errorHandler)
 
         val dataStorePlugin = AWSDataStorePlugin
             .builder()

@@ -54,6 +54,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        let result = AtomicResult(result, call.method)
         var arguments: [String: Any] = [:]
         do {
             if(call.arguments != nil) {
@@ -139,8 +140,27 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 customTypeSchemaRegistry: customTypeSchemaRegistry
             )
 
+            
+
+            var errorHandler: DataStoreErrorHandler
+            if((args["hasErrorHandler"] as? Bool) == true) {
+                errorHandler = { error in
+                    let map : [String:Any] = [
+                        "errorCode" : "DataStoreException",
+                        "errorMesage" : ErrorMessages.defaultFallbackErrorMessage,
+                        "details" : FlutterDataStoreErrorHandler.createSerializedError(error: error)
+                    ]
+                    self.channel!.invokeMethod("errorHandler", arguments: args)
+                }
+            } else {
+                errorHandler = { error in
+                    Amplify.Logging.error(error: error)
+                }
+            }
+            
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: modelSchemaRegistry,
                                                      configuration: .custom(
+                                                        errorHandler: errorHandler,
                                                         syncInterval: syncInterval,
                                                         syncMaxRecords: syncMaxRecords,
                                                         syncPageSize: syncPageSize,

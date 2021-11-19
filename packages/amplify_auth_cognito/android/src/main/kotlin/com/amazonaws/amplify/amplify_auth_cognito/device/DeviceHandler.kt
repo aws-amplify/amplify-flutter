@@ -15,7 +15,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito.device
 
 import com.amazonaws.amplify.amplify_auth_cognito.AuthErrorHandler
-import com.amazonaws.amplify.amplify_auth_cognito.base.AtomicResult
+import com.amazonaws.amplify.amplify_core.AtomicResult
 import com.amazonaws.mobile.client.AWSMobileClient
 import com.amazonaws.mobile.client.Callback
 import com.amazonaws.mobile.client.results.ListDevicesResult

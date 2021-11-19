@@ -39,20 +39,20 @@ part 'method_channel_amplify.dart';
 class AmplifyClass extends PlatformInterface {
   AmplifyConfig? _config = AmplifyConfig();
   // ignore: public_member_api_docs
-  AuthCategory Auth = const AuthCategory();
+  final AuthCategory Auth = const AuthCategory();
   // ignore: public_member_api_docs
-  AnalyticsCategory Analytics = const AnalyticsCategory();
+  final AnalyticsCategory Analytics = const AnalyticsCategory();
   // ignore: public_member_api_docs
-  StorageCategory Storage = const StorageCategory();
+  final StorageCategory Storage = const StorageCategory();
   // ignore: public_member_api_docs
-  DataStoreCategory DataStore = const DataStoreCategory();
+  final DataStoreCategory DataStore = const DataStoreCategory();
   // ignore: public_member_api_docs
-  APICategory API = const APICategory();
+  final APICategory API = const APICategory();
 
   bool _isConfigured = false;
 
   // ignore: public_member_api_docs
-  AmplifyHub Hub = AmplifyHub();
+  final AmplifyHub Hub = AmplifyHub();
 
   final _configCompleter = Completer<AmplifyConfig>();
 
@@ -63,54 +63,51 @@ class AmplifyClass extends PlatformInterface {
   /// Throws AmplifyAlreadyConfiguredException if
   /// this method is called after configure (e.g. during hot reload).
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
-    if (!isConfigured) {
-      try {
-        if (plugin is AuthPluginInterface) {
-          await Auth.addPlugin(plugin);
-          Hub.addChannel(HubChannel.Auth, plugin.streamController);
-        } else if (plugin is AnalyticsPluginInterface) {
-          await Analytics.addPlugin(plugin);
-        } else if (plugin is StoragePluginInterface) {
-          await Storage.addPlugin(plugin);
-        } else if (plugin is DataStorePluginInterface) {
-          try {
-            await DataStore.addPlugin(plugin);
-          } on AmplifyAlreadyConfiguredException {
-            // A new plugin is added in native libraries during `addPlugin`
-            // call for DataStore, which means during an app restart, this
-            // method will throw an exception in android. We will ignore this
-            // like other plugins and move on. Other exceptions fall through.
-          }
-          Hub.addChannel(HubChannel.DataStore, plugin.streamController);
-        } else if (plugin is APIPluginInterface) {
-          await API.addPlugin(plugin);
-        } else {
-          throw AmplifyException(
-              'The type of plugin ' +
-                  plugin.runtimeType.toString() +
-                  ' is not yet supported in Amplify.',
-              recoverySuggestion:
-                  AmplifyExceptionMessages.missingRecoverySuggestion);
-        }
-      } on Exception catch (e) {
-        safePrint('Amplify plugin was not added');
-        throw AmplifyException(
-          'Amplify plugin ' +
-              plugin.runtimeType.toString() +
-              ' was not added successfully.',
-          recoverySuggestion:
-              AmplifyExceptionMessages.missingRecoverySuggestion,
-          underlyingException: e.toString(),
-        );
-      }
-    } else {
+    if (_isConfigured) {
       throw const AmplifyAlreadyConfiguredException(
         'Amplify has already been configured and adding plugins after configure is not supported.',
         recoverySuggestion:
             'Check if Amplify is already configured using Amplify.isConfigured.',
       );
     }
-    return;
+    try {
+      if (plugin is AuthPluginInterface) {
+        await Auth.addPlugin(plugin);
+        Hub.addChannel(HubChannel.Auth, plugin.streamController);
+      } else if (plugin is AnalyticsPluginInterface) {
+        await Analytics.addPlugin(plugin);
+      } else if (plugin is StoragePluginInterface) {
+        await Storage.addPlugin(plugin);
+      } else if (plugin is DataStorePluginInterface) {
+        try {
+          await DataStore.addPlugin(plugin);
+        } on AmplifyAlreadyConfiguredException {
+          // A new plugin is added in native libraries during `addPlugin`
+          // call for DataStore, which means during an app restart, this
+          // method will throw an exception in android. We will ignore this
+          // like other plugins and move on. Other exceptions fall through.
+        }
+        Hub.addChannel(HubChannel.DataStore, plugin.streamController);
+      } else if (plugin is APIPluginInterface) {
+        await API.addPlugin(plugin);
+      } else {
+        throw AmplifyException(
+            'The type of plugin ' +
+                plugin.runtimeType.toString() +
+                ' is not yet supported in Amplify.',
+            recoverySuggestion:
+                AmplifyExceptionMessages.missingRecoverySuggestion);
+      }
+    } on Exception catch (e) {
+      safePrint('Amplify plugin was not added');
+      throw AmplifyException(
+        'Amplify plugin ' +
+            plugin.runtimeType.toString() +
+            ' was not added successfully.',
+        recoverySuggestion: AmplifyExceptionMessages.missingRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
+    }
   }
 
   /// Adds multiple plugins at the same time. Note: this method can only
@@ -130,7 +127,7 @@ class AmplifyClass extends PlatformInterface {
   }
 
   String _getVersion() {
-    return '0.2.4';
+    return '0.3.0-rc.2';
   }
 
   /// Configures Amplify with the provided configuration string.
@@ -143,7 +140,7 @@ class AmplifyClass extends PlatformInterface {
   /// this method is called again (e.g. during hot reload).
   Future<void> configure(String configuration) async {
     // Validation #1
-    if (isConfigured) {
+    if (_isConfigured) {
       throw const AmplifyAlreadyConfiguredException(
         'Amplify has already been configured and re-configuration is not supported.',
         recoverySuggestion:
@@ -215,5 +212,3 @@ class AmplifyClass extends PlatformInterface {
     _instance = instance;
   }
 }
-
-// ignore_for_file: non_constant_identifier_names

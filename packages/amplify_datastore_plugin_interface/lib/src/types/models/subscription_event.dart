@@ -15,8 +15,9 @@
 
 library model;
 
-import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
+
+import 'model.dart';
 
 /// {@template subscription_event}
 /// An event containing the details of mutations that have occurred on the backend
