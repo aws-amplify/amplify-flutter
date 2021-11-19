@@ -73,9 +73,9 @@ abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
+    properties.add(EnumProperty<AuthenticatorButtonSize>('size', size));
     properties
         .add(DiagnosticsProperty<ButtonResolverKey>('labelKey', labelKey));
-    properties.add(EnumProperty<AuthenticatorButtonSize>('size', size));
   }
 }
 
@@ -122,12 +122,6 @@ abstract class AuthenticatorElevatedButton
 
   @override
   _AmplifyElevatedButtonState createState() => _AmplifyElevatedButtonState();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(EnumProperty('labelKey', labelKey));
-  }
 }
 
 class _AmplifyElevatedButtonState

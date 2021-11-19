@@ -15,6 +15,7 @@
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/enums/enums.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'authenticator_localizations.dart';
@@ -73,6 +74,9 @@ class ButtonResolverKey {
   const ButtonResolverKey.backTo(AuthScreen previousScreen)
       : this._(ButtonResolverKeyType.backTo, previousScreen: previousScreen);
   static const skip = ButtonResolverKey._(ButtonResolverKeyType.skip);
+
+  @override
+  String toString() => describeEnum(type);
 }
 
 /// The resolver class for shared button Widgets
