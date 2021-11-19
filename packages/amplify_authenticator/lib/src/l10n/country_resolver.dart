@@ -20,7 +20,6 @@ import 'package:flutter/material.dart';
 enum CountryResolverKey {
   selectDialCode,
   noDialCodeSearchResults,
-
   af$,
   ax$,
   al$,
