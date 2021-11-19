@@ -17,15 +17,15 @@
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/keys.dart';
-import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
-import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'config.dart';
+import 'pages/authenticator_page.dart';
+import 'pages/confirm_sign_up_page.dart';
+import 'pages/sign_in_page.dart';
+import 'pages/sign_up_page.dart';
 import 'utils/mock_data.dart';
 
 void main() {
@@ -45,106 +45,70 @@ void main() {
 
     // Scenario: Login mechanism set to "username"
     testWidgets('Login mechanism set to "username"', (tester) async {
+      SignUpPage signUpPage = SignUpPage(tester: tester);
+      SignInPage signInPage = SignInPage(tester: tester);
       await tester.loadAuthenticator(authenticator);
-      await tester.navigateToSignUp();
-
-      // Then I see "Username" as an input field
-      expect(
-        // Match on the title of the username field since it is dependent on
-        // the username alias selected.
-        find.descendant(
-          of: find.byKey(keyUsernameSignUpFormField),
-          matching: find.text('Username'),
-        ),
-        findsOneWidget,
-      );
+      await signInPage.navigateToSignUp();
+      signUpPage.expectUserNameIsPresent();
     });
 
     // Scenario: "Preferred Username" is included from `aws_cognito_signup_attributes`
     testWidgets(
         '"Preferred Username" is included from `aws_cognito_signup_attributes`',
         (tester) async {
+      SignUpPage signUpPage = SignUpPage(tester: tester);
+      SignInPage signInPage = SignInPage(tester: tester);
       await tester.loadAuthenticator(authenticator);
-      await tester.navigateToSignUp();
-
-      // Then I see "Username" as an input field
-      expect(find.byKey(keyPreferredUsernameSignUpFormField), findsOneWidget);
+      await signInPage.navigateToSignUp();
+      signUpPage.expectPreferredUserNameIsPresent();
     });
 
     // Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
     testWidgets(
         '"Email" is included from `aws_cognito_verification_mechanisms`',
         (tester) async {
+      SignUpPage signUpPage = SignUpPage(tester: tester);
+      SignInPage signInPage = SignInPage(tester: tester);
       await tester.loadAuthenticator(authenticator);
-      await tester.navigateToSignUp();
-
-      // Then I see "Email" as an "email" field
-      expect(find.byKey(keyEmailSignUpFormField), findsOneWidget);
+      await signInPage.navigateToSignUp();
+      signUpPage.expectEmailIsPresent();
     });
 
     // Scenario: "Phone Number" is not included
     testWidgets('"Phone Number" is not included', (tester) async {
+      SignUpPage signUpPage = SignUpPage(tester: tester);
+      SignInPage signInPage = SignInPage(tester: tester);
       await tester.loadAuthenticator(authenticator);
-      await tester.navigateToSignUp();
-
-      // Then I don't see "Phone Number"
-      expect(find.byKey(keyPhoneNumberSignUpFormField), findsNothing);
+      await signInPage.navigateToSignUp();
+      signUpPage.expectPhoneIsNotPresent();
     });
 
     // Scenario: Sign up a new username & password
     testWidgets('Sign up a new username & password', (tester) async {
-      await tester.loadAuthenticator(authenticator);
-      await tester.navigateToSignUp();
+      SignUpPage signUpPage = SignUpPage(tester: tester);
+      SignInPage signInPage = SignInPage(tester: tester);
+      ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
+      await tester.loadAuthenticator(authenticator);
+      await signInPage.navigateToSignUp();
+
+      // TODO: Clarify requirements
       // Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }'
       // with fixture "sign-up-with-username"
-      // TODO: Clarify requirements
 
-      // When I type a new "username"
-      await tester.enterText(
-        find.byKey(keyUsernameSignUpFormField),
-        generateUsername(),
-      );
-
-      // And I type my password
+      final username = generateUsername();
       final password = generatePassword();
-      await tester.enterText(
-        find.byKey(keyPasswordSignUpFormField),
-        password,
-      );
+      final email = generateEmail();
 
-      // And I confirm my password
-      await tester.enterText(
-        find.byKey(keyPasswordConfirmationSignUpFormField),
-        password,
-      );
+      await signUpPage.enterUsername(username);
+      await signUpPage.enterPassword(password);
+      await signUpPage.enterPasswordConfirmation(password);
+      await signUpPage.enterEmail(email);
+      await signUpPage.enterPreferredUsername(username);
+      await signUpPage.submitSignUp();
 
-      // And I type my "email" with status "UNCONFIRMED"
-      await tester.enterText(
-        find.byKey(keyEmailSignUpFormField),
-        generateEmail(),
-      );
-
-      // And I type a new "preferred username"
-      await tester.enterText(
-        find.byKey(keyPreferredUsernameSignUpFormField),
-        generateUsername(),
-      );
-
-      // And I click the "Create Account" button
-      final signUpButton = find.byKey(keySignUpButton);
-      await tester.ensureVisible(signUpButton);
-      await tester.tap(signUpButton);
-
-      // Then I see "Confirm Sign Up"
-      await tester.nextBlocEvent();
-      final currentScreen = tester.widget<AuthenticatorScreen>(
-        find.byType(AuthenticatorScreen),
-      );
-      expect(currentScreen.screen, equals(AuthScreen.confirmSignup));
-
-      // And I see "Confirmation Code"
-      expect(find.byKey(keyCodeConfirmSignUpFormfield), findsOneWidget);
+      await confirmSignUpPage.expectConfirmSignUpIsPresent();
+      confirmSignUpPage.expectConfirmationCodeIsPresent();
     });
 
     // Scenario: Username field autocompletes username
@@ -158,36 +122,4 @@ void main() {
       // TODO: Clarify requirements
     });
   });
-}
-
-extension on WidgetTester {
-  /// Loads the given [authenticator] widget and waits for it to render.
-  Future<void> loadAuthenticator(Widget authenticator) async {
-    await pumpWidget(authenticator);
-    await pumpAndSettle();
-  }
-
-  /// Navigate to the "Sign Up" screen.
-  Future<void> navigateToSignUp() async {
-    await tap(
-      find.descendant(
-        of: find.byType(TabBar),
-        matching: find.byKey(const ValueKey(AuthScreen.signup)),
-      ),
-    );
-    await pumpAndSettle();
-  }
-
-  /// Waits for the next bloc event.
-  Future<void> nextBlocEvent({
-    BlocEventPredicate? where,
-    Duration timeout = const Duration(seconds: 5),
-  }) async {
-    final inheritedViewModel =
-        widget<InheritedAuthViewModel>(find.byKey(keyInheritedAuthViewModel));
-    await inheritedViewModel.viewModel
-        .nextBlocEvent(where: where)
-        .timeout(timeout);
-    await pumpAndSettle();
-  }
 }
