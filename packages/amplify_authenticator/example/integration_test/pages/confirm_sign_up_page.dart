@@ -4,7 +4,7 @@ import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'authenticator_page.dart';
+import 'test_utils.dart';
 
 /// Confirm Sign Up Page Object
 class ConfirmSignUpPage {
@@ -16,7 +16,7 @@ class ConfirmSignUpPage {
 
   /// Then I see "Confirm Sign Up"
   Future<void> expectConfirmSignUpIsPresent() async {
-    await tester.nextBlocEvent();
+    await nextBlocEvent(tester);
     final currentScreen = tester.widget<AuthenticatorScreen>(
       find.byType(AuthenticatorScreen),
     );

@@ -22,10 +22,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'config.dart';
-import 'pages/authenticator_page.dart';
 import 'pages/confirm_sign_up_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/sign_up_page.dart';
+import 'pages/test_utils.dart';
 import 'utils/mock_data.dart';
 
 void main() {
@@ -47,7 +47,7 @@ void main() {
     testWidgets('Login mechanism set to "username"', (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
-      await tester.loadAuthenticator(authenticator);
+      await loadAuthenticator(tester: tester, authenticator: authenticator);
       await signInPage.navigateToSignUp();
       signUpPage.expectUserNameIsPresent();
     });
@@ -58,7 +58,7 @@ void main() {
         (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
-      await tester.loadAuthenticator(authenticator);
+      await loadAuthenticator(tester: tester, authenticator: authenticator);
       await signInPage.navigateToSignUp();
       signUpPage.expectPreferredUserNameIsPresent();
     });
@@ -69,7 +69,7 @@ void main() {
         (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
-      await tester.loadAuthenticator(authenticator);
+      await loadAuthenticator(tester: tester, authenticator: authenticator);
       await signInPage.navigateToSignUp();
       signUpPage.expectEmailIsPresent();
     });
@@ -78,7 +78,7 @@ void main() {
     testWidgets('"Phone Number" is not included', (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
-      await tester.loadAuthenticator(authenticator);
+      await loadAuthenticator(tester: tester, authenticator: authenticator);
       await signInPage.navigateToSignUp();
       signUpPage.expectPhoneIsNotPresent();
     });
@@ -89,7 +89,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
-      await tester.loadAuthenticator(authenticator);
+      await loadAuthenticator(tester: tester, authenticator: authenticator);
       await signInPage.navigateToSignUp();
 
       // TODO: Clarify requirements
