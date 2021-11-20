@@ -285,7 +285,7 @@ void main() {
         expect(data?.id, equals(blog.id));
       });
 
-      testWidgets('should CREATE a blog with Model helper and embedded type',
+      testWidgets('should CREATE a blog with Model helper and custom type',
           (WidgetTester tester) async {
         String name = 'Integration Test Blog - create';
         String bucketName = 'Good bucket';

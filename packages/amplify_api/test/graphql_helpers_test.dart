@@ -676,7 +676,7 @@ void main() {
         expect(output, input);
       });
 
-      test('should translate embedded model', () {
+      test('should translate custom type model', () {
         final input = <String, dynamic>{
           'id': 'xyz456',
           'name': 'Lorem Ipsum',
