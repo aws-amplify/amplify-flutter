@@ -57,7 +57,7 @@ void main() {
 
     // Scenario: "Preferred Username" is included from `aws_cognito_signup_attributes`
     testWidgets(
-        '"Preferred Username" is included from `aws_cognito_signup_attributes`',
+        '"Preferred Username" is included from aws_cognito_signup_attributes',
         (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
@@ -67,8 +67,7 @@ void main() {
     });
 
     // Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
-    testWidgets(
-        '"Email" is included from `aws_cognito_verification_mechanisms`',
+    testWidgets('"Email" is included from aws_cognito_verification_mechanisms',
         (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
