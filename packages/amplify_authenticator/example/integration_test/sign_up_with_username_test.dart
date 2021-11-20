@@ -29,7 +29,10 @@ import 'pages/test_utils.dart';
 import 'utils/mock_data.dart';
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
+      as IntegrationTestWidgetsFlutterBinding;
+  // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
+  binding.deferFirstFrame();
 
   final authenticator = MaterialApp(
     home: Authenticator(child: Container()),
