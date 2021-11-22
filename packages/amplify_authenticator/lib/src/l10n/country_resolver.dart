@@ -20,7 +20,6 @@ import 'package:flutter/material.dart';
 enum CountryResolverKey {
   selectDialCode,
   noDialCodeSearchResults,
-
   af$,
   ax$,
   al$,
@@ -48,6 +47,7 @@ enum CountryResolverKey {
   bm$,
   bt$,
   bo$,
+  bq$,
   ba$,
   bw$,
   br$,
@@ -88,6 +88,7 @@ enum CountryResolverKey {
   gq$,
   er$,
   ee$,
+  sz$,
   et$,
   fk$,
   fo$,
@@ -135,6 +136,7 @@ enum CountryResolverKey {
   ki$,
   kp$,
   kr$,
+  xk$,
   kw$,
   kg$,
   la$,
@@ -173,7 +175,6 @@ enum CountryResolverKey {
   nr$,
   np$,
   nl$,
-  an$,
   nc$,
   nz$,
   ni$,
@@ -197,10 +198,10 @@ enum CountryResolverKey {
   pt$,
   pr$,
   qa$,
+  re$,
   ro$,
   ru$,
   rw$,
-  re$,
   bl$,
   sh$,
   kn$,
@@ -222,14 +223,13 @@ enum CountryResolverKey {
   sb$,
   so$,
   za$,
-  ss$,
   gs$,
+  ss$,
   es$,
   lk$,
   sd$,
   sr$,
   sj$,
-  sz$,
   se$,
   ch$,
   sy$,
@@ -251,6 +251,7 @@ enum CountryResolverKey {
   ua$,
   ae$,
   gb$,
+  um$,
   us$,
   uy$,
   uz$,
@@ -383,6 +384,10 @@ class CountryResolver extends Resolver<CountryResolverKey> {
 
   String bo(BuildContext context) {
     return AuthenticatorLocalizations.countriesOf(context).bo;
+  }
+
+  String bq(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).bq;
   }
 
   String ba(BuildContext context) {
@@ -543,6 +548,10 @@ class CountryResolver extends Resolver<CountryResolverKey> {
 
   String ee(BuildContext context) {
     return AuthenticatorLocalizations.countriesOf(context).ee;
+  }
+
+  String sz(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).sz;
   }
 
   String et(BuildContext context) {
@@ -733,6 +742,10 @@ class CountryResolver extends Resolver<CountryResolverKey> {
     return AuthenticatorLocalizations.countriesOf(context).kr;
   }
 
+  String xk(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).xk;
+  }
+
   String kw(BuildContext context) {
     return AuthenticatorLocalizations.countriesOf(context).kw;
   }
@@ -885,10 +898,6 @@ class CountryResolver extends Resolver<CountryResolverKey> {
     return AuthenticatorLocalizations.countriesOf(context).nl;
   }
 
-  String an(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).an;
-  }
-
   String nc(BuildContext context) {
     return AuthenticatorLocalizations.countriesOf(context).nc;
   }
@@ -981,6 +990,10 @@ class CountryResolver extends Resolver<CountryResolverKey> {
     return AuthenticatorLocalizations.countriesOf(context).qa;
   }
 
+  String re(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).re;
+  }
+
   String ro(BuildContext context) {
     return AuthenticatorLocalizations.countriesOf(context).ro;
   }
@@ -991,10 +1004,6 @@ class CountryResolver extends Resolver<CountryResolverKey> {
 
   String rw(BuildContext context) {
     return AuthenticatorLocalizations.countriesOf(context).rw;
-  }
-
-  String re(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).re;
   }
 
   String bl(BuildContext context) {
@@ -1081,12 +1090,12 @@ class CountryResolver extends Resolver<CountryResolverKey> {
     return AuthenticatorLocalizations.countriesOf(context).za;
   }
 
-  String ss(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).ss;
-  }
-
   String gs(BuildContext context) {
     return AuthenticatorLocalizations.countriesOf(context).gs;
+  }
+
+  String ss(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).ss;
   }
 
   String es(BuildContext context) {
@@ -1107,10 +1116,6 @@ class CountryResolver extends Resolver<CountryResolverKey> {
 
   String sj(BuildContext context) {
     return AuthenticatorLocalizations.countriesOf(context).sj;
-  }
-
-  String sz(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context).sz;
   }
 
   String se(BuildContext context) {
@@ -1195,6 +1200,10 @@ class CountryResolver extends Resolver<CountryResolverKey> {
 
   String gb(BuildContext context) {
     return AuthenticatorLocalizations.countriesOf(context).gb;
+  }
+
+  String um(BuildContext context) {
+    return AuthenticatorLocalizations.countriesOf(context).um;
   }
 
   String us(BuildContext context) {
@@ -1306,6 +1315,8 @@ class CountryResolver extends Resolver<CountryResolverKey> {
         return bt(context);
       case CountryResolverKey.bo$:
         return bo(context);
+      case CountryResolverKey.bq$:
+        return bq(context);
       case CountryResolverKey.ba$:
         return ba(context);
       case CountryResolverKey.bw$:
@@ -1386,6 +1397,8 @@ class CountryResolver extends Resolver<CountryResolverKey> {
         return er(context);
       case CountryResolverKey.ee$:
         return ee(context);
+      case CountryResolverKey.sz$:
+        return sz(context);
       case CountryResolverKey.et$:
         return et(context);
       case CountryResolverKey.fk$:
@@ -1480,6 +1493,8 @@ class CountryResolver extends Resolver<CountryResolverKey> {
         return kp(context);
       case CountryResolverKey.kr$:
         return kr(context);
+      case CountryResolverKey.xk$:
+        return xk(context);
       case CountryResolverKey.kw$:
         return kw(context);
       case CountryResolverKey.kg$:
@@ -1556,8 +1571,6 @@ class CountryResolver extends Resolver<CountryResolverKey> {
         return np(context);
       case CountryResolverKey.nl$:
         return nl(context);
-      case CountryResolverKey.an$:
-        return an(context);
       case CountryResolverKey.nc$:
         return nc(context);
       case CountryResolverKey.nz$:
@@ -1604,14 +1617,14 @@ class CountryResolver extends Resolver<CountryResolverKey> {
         return pr(context);
       case CountryResolverKey.qa$:
         return qa(context);
+      case CountryResolverKey.re$:
+        return re(context);
       case CountryResolverKey.ro$:
         return ro(context);
       case CountryResolverKey.ru$:
         return ru(context);
       case CountryResolverKey.rw$:
         return rw(context);
-      case CountryResolverKey.re$:
-        return re(context);
       case CountryResolverKey.bl$:
         return bl(context);
       case CountryResolverKey.sh$:
@@ -1654,10 +1667,10 @@ class CountryResolver extends Resolver<CountryResolverKey> {
         return so(context);
       case CountryResolverKey.za$:
         return za(context);
-      case CountryResolverKey.ss$:
-        return ss(context);
       case CountryResolverKey.gs$:
         return gs(context);
+      case CountryResolverKey.ss$:
+        return ss(context);
       case CountryResolverKey.es$:
         return es(context);
       case CountryResolverKey.lk$:
@@ -1668,8 +1681,6 @@ class CountryResolver extends Resolver<CountryResolverKey> {
         return sr(context);
       case CountryResolverKey.sj$:
         return sj(context);
-      case CountryResolverKey.sz$:
-        return sz(context);
       case CountryResolverKey.se$:
         return se(context);
       case CountryResolverKey.ch$:
@@ -1712,6 +1723,8 @@ class CountryResolver extends Resolver<CountryResolverKey> {
         return ae(context);
       case CountryResolverKey.gb$:
         return gb(context);
+      case CountryResolverKey.um$:
+        return um(context);
       case CountryResolverKey.us$:
         return us(context);
       case CountryResolverKey.uy$:
