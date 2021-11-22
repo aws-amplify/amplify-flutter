@@ -49,7 +49,7 @@ class DeviceHandler(private val errorHandler: AuthErrorHandler) :
     private val scope = CoroutineScope(Dispatchers.IO) + CoroutineName("DeviceHandler")
 
     @Suppress("UNCHECKED_CAST")
-    override fun onMethodCall(call: MethodCall, _result: MethodChannel.Result) {
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
             "fetchDevices" -> fetchDevices(result)
             "rememberDevice" -> rememberDevice(result)
