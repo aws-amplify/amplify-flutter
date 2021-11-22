@@ -36,17 +36,17 @@ class SignUpPage {
     await tester.enterText(confirmPasswordField, password);
   }
 
-  /// And I type my "email" with status "UNCONFIRMED"
+  /// When I type my "email" with status "UNCONFIRMED"
   Future<void> enterEmail(String email) async {
     await tester.enterText(emailField, email);
   }
 
-  /// And I type a new "preferred username"
+  /// When I type a new "preferred username"
   Future<void> enterPreferredUsername(String username) async {
     await tester.enterText(preferredUsernameField, username);
   }
 
-  /// And I click the "Create Account" button
+  /// When I click the "Create Account" button
   Future<void> submitSignUp() async {
     await tester.ensureVisible(signUpButton);
     await tester.tap(signUpButton);
