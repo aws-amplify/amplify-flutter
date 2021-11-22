@@ -1,7 +1,14 @@
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+}
+
 type Blog @model {
   id: ID!
   name: String!
   createdAt: AWSDateTime
+  file: S3Object
   posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
 }
 

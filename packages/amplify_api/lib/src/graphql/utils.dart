@@ -32,7 +32,8 @@ class _RelatedFields {
 _RelatedFields _getRelatedFieldsUncached(ModelSchema modelSchema) {
   final singleFields = modelSchema.fields!.values.where((field) =>
       field.association?.associationType == ModelAssociationEnum.HasOne ||
-      field.association?.associationType == ModelAssociationEnum.BelongsTo);
+      field.association?.associationType == ModelAssociationEnum.BelongsTo ||
+      field.type.fieldType == ModelFieldTypeEnum.embedded);
   final hasManyFields = modelSchema.fields!.values.where((field) =>
       field.association?.associationType == ModelAssociationEnum.HasMany);
 
@@ -65,7 +66,7 @@ ModelSchema getModelSchemaByModelName(
         recoverySuggestion:
             'Pass in a modelProvider instance while instantiating APIPlugin');
   }
-  final schema = provider.modelSchemas.firstWhere(
+  final schema = (provider.modelSchemas + provider.customTypeSchemas).firstWhere(
       (elem) => elem.name == modelName,
       orElse: () => throw ApiException(
           'No schema found for the ModelType provided: $modelName',
@@ -108,7 +109,8 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
 
   // transform parents/hasOne recursively
   for (var parentField in relatedFields.singleFields) {
-    final ofModelName = parentField.type.ofModelName;
+    final ofModelName =
+        parentField.type.ofModelName ?? parentField.type.ofCustomTypeName;
     dynamic inputValue = _input[parentField.name];
     if (inputValue is Map && ofModelName != null) {
       final parentSchema = getModelSchemaByModelName(ofModelName, null);
