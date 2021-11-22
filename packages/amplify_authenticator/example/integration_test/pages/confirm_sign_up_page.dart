@@ -23,7 +23,7 @@ class ConfirmSignUpPage {
     expect(currentScreen.screen, equals(AuthScreen.confirmSignup));
   }
 
-  /// And I see "Confirmation Code"
+  /// Then I see "Confirmation Code"
   void expectConfirmationCodeIsPresent() {
     expect(confirmationCodeField, findsOneWidget);
   }
