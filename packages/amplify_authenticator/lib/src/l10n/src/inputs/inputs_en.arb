@@ -13,10 +13,6 @@
     "@newPassword": {
         "description": "User's chosen new password."
     },
-    "passwordConfirmation": "Confirm Password",
-    "@passwordConfirmation": {
-        "description": "Confirmation of user's chosen password."
-    },
     "email": "Email",
     "@email": {
         "description": "User's preferred e-mail address.",
@@ -132,6 +128,17 @@
     "promptRefill": "Re-enter your {attribute}",
     "@promptRefill": {
         "description": "Prompt to refill an optional or required input field, used as the placeholder for text fields.",
+        "placeholders": {
+            "attribute": {
+                "type": "String",
+                "example": "username",
+                "description": "The field which can be filled."
+            }
+        }
+    },
+    "confirmAttribute": "Confirm {attribute}",
+    "@confirmAttribute": {
+        "description": "Title to re-enter an optional or required input field, used as the label for text fields.",
         "placeholders": {
             "attribute": {
                 "type": "String",

@@ -126,12 +126,6 @@ abstract class AuthenticatorInputLocalizations {
   /// **'New Password'**
   String get newPassword;
 
-  /// Confirmation of user's chosen password.
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm Password'**
-  String get passwordConfirmation;
-
   /// User's preferred e-mail address.
   ///
   /// In en, this message translates to:
@@ -239,6 +233,12 @@ abstract class AuthenticatorInputLocalizations {
   /// In en, this message translates to:
   /// **'Re-enter your {attribute}'**
   String promptRefill(String attribute);
+
+  /// Title to re-enter an optional or required input field, used as the label for text fields.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm {attribute}'**
+  String confirmAttribute(String attribute);
 
   /// Preamble to list of unment password requirements.
   ///

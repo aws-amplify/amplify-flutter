@@ -49,6 +49,7 @@ enum InputField {
 enum InputResolverKeyType {
   title,
   hint,
+  confirmHint,
   empty,
   passwordRequirements,
   format,
@@ -99,7 +100,7 @@ class InputResolverKey {
     field: InputField.passwordConfirmation,
   );
   static const passwordConfirmationHint = InputResolverKey._(
-    InputResolverKeyType.hint,
+    InputResolverKeyType.confirmHint,
     field: InputField.passwordConfirmation,
   );
   static const passwordConfirmationEmpty = InputResolverKey._(
@@ -371,8 +372,10 @@ class InputResolver extends Resolver<InputResolverKey> {
       case InputField.newPassword:
         return AuthenticatorLocalizations.inputsOf(context).newPassword;
       case InputField.passwordConfirmation:
+        final attributeName =
+            AuthenticatorLocalizations.inputsOf(context).password;
         return AuthenticatorLocalizations.inputsOf(context)
-            .passwordConfirmation;
+            .confirmAttribute(attributeName);
       case InputField.verificationCode:
         return AuthenticatorLocalizations.inputsOf(context).verificationCode;
       case InputField.address:
@@ -419,12 +422,15 @@ class InputResolver extends Resolver<InputResolverKey> {
   String hint(BuildContext context, InputField field) {
     final fieldName = title(context, field);
     final lowercasedFieldName = fieldName.toLowerCase();
-    if (field == InputField.passwordConfirmation) {
-      return AuthenticatorLocalizations.inputsOf(context)
-          .promptRefill(lowercasedFieldName);
-    }
     return AuthenticatorLocalizations.inputsOf(context)
         .promptFill(lowercasedFieldName);
+  }
+
+  String confirmHint(BuildContext context, InputField field) {
+    final fieldName = AuthenticatorLocalizations.inputsOf(context).password;
+    final lowercasedFieldName = fieldName.toLowerCase();
+    return AuthenticatorLocalizations.inputsOf(context)
+        .promptRefill(lowercasedFieldName);
   }
 
   String empty(BuildContext context, InputField field) {
@@ -478,6 +484,8 @@ class InputResolver extends Resolver<InputResolverKey> {
         return title(context, key.field);
       case InputResolverKeyType.hint:
         return hint(context, key.field);
+      case InputResolverKeyType.confirmHint:
+        return confirmHint(context, key.field);
       case InputResolverKeyType.empty:
         return empty(context, key.field);
       case InputResolverKeyType.passwordRequirements:
