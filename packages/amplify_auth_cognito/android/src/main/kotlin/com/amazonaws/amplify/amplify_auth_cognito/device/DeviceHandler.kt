@@ -50,7 +50,6 @@ class DeviceHandler(private val errorHandler: AuthErrorHandler) :
 
     @Suppress("UNCHECKED_CAST")
     override fun onMethodCall(call: MethodCall, _result: MethodChannel.Result) {
-        val result = AtomicResult(_result, call.method)
         when (call.method) {
             "fetchDevices" -> fetchDevices(result)
             "rememberDevice" -> rememberDevice(result)
