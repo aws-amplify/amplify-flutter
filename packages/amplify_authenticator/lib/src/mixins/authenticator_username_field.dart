@@ -16,6 +16,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
@@ -98,7 +99,7 @@ mixin AuthenticatorUsernameField<FieldType,
   }
 
   @override
-  Widget get title {
+  Widget get labelSuffix {
     final inputResolver = stringResolver.inputs;
     final titleString = inputResolver.resolve(context, titleKey);
     final labelText = Text(
@@ -118,40 +119,34 @@ mixin AuthenticatorUsernameField<FieldType,
       default:
         return SizedBox(
           height: 20,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              labelText,
-              IconTheme.merge(
-                data: const IconThemeData(size: 16.0),
-                child: Row(
-                  children: [
-                    const Icon(Icons.phone),
-                    Switch(
-                      thumbColor: MaterialStateProperty.all(thumbColor),
-                      trackColor: MaterialStateProperty.all(trackColor),
-                      value: useEmail.value,
-                      onChanged: (val) {
-                        setState(() {
-                          useEmail.value = val;
-                        });
+          child: IconTheme.merge(
+            data: const IconThemeData(size: 16.0),
+            child: Row(
+              children: [
+                const Icon(Icons.phone),
+                Switch(
+                  thumbColor: MaterialStateProperty.all(thumbColor),
+                  trackColor: MaterialStateProperty.all(trackColor),
+                  value: useEmail.value,
+                  onChanged: (val) {
+                    setState(() {
+                      useEmail.value = val;
+                    });
 
-                        // Reset current username value to align with the current switch state.
-                        String newUsername = val
-                            ? viewModel.getAttribute(
-                                    CognitoUserAttributeKey.email) ??
-                                ''
-                            : viewModel.getAttribute(
-                                    CognitoUserAttributeKey.phoneNumber) ??
-                                '';
-                        viewModel.setUsername(newUsername);
-                      },
-                    ),
-                    const Icon(Icons.email),
-                  ],
+                    // Reset current username value to align with the current switch state.
+                    String newUsername = val
+                        ? viewModel
+                                .getAttribute(CognitoUserAttributeKey.email) ??
+                            ''
+                        : viewModel.getAttribute(
+                                CognitoUserAttributeKey.phoneNumber) ??
+                            '';
+                    viewModel.setUsername(newUsername);
+                  },
                 ),
-              ),
-            ],
+                const Icon(Icons.email),
+              ],
+            ),
           ),
         );
     }
@@ -185,6 +180,7 @@ mixin AuthenticatorUsernameField<FieldType,
 
   @override
   Widget buildFormField(BuildContext context) {
+    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final inputResolver = stringResolver.inputs;
     final hintText = inputResolver.resolve(context, hintKey);
 
@@ -229,8 +225,11 @@ mixin AuthenticatorUsernameField<FieldType,
         prefixIcon: prefix,
         suffixIcon: suffix,
         errorMaxLines: errorMaxLines,
+        labelText: useAmplifyTheme
+            ? null
+            : widget.title ?? widget.titleKey?.resolve(context, inputResolver),
         hintText: hintText,
-        isDense: true,
+        isDense: useAmplifyTheme ? true : null,
       ),
       keyboardType: keyboardType,
       obscureText: false,

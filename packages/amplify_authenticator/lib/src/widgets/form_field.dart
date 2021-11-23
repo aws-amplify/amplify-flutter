@@ -31,6 +31,7 @@ import 'package:amplify_authenticator/src/mixins/authenticator_text_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
@@ -190,6 +191,8 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   /// Defaults to a [Text] object with the form field's title.
   Widget? get title => null;
 
+  Widget? get labelSuffix => null;
+
   Widget buildFormField(BuildContext context);
 
   /// Whether the field is optional, i.e. does not require user input. This is
@@ -202,8 +205,9 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   @nonVirtual
   @override
   Widget build(BuildContext context) {
+    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final inputResolver = stringResolver.inputs;
-    Widget? title = this.title;
+    Widget? title = useAmplifyTheme ? this.title : null;
     if (title == null) {
       final titleString =
           widget.title ?? widget.titleKey?.resolve(context, inputResolver);
@@ -221,17 +225,23 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
 
     return Container(
       margin: title == null ? EdgeInsets.zero : FormFieldConstants.marginBottom,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          if (title != null)
-            DefaultTextStyle(
-              style: titleStyle,
-              child: title,
-            ),
-          const SizedBox(height: FormFieldConstants.gap),
-          buildFormField(context),
-          if (companionWidget != null) companionWidget!,
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              if (useAmplifyTheme && title != null)
+                DefaultTextStyle(
+                  style: titleStyle,
+                  child: title,
+                ),
+              const SizedBox(height: FormFieldConstants.gap),
+              buildFormField(context),
+              if (companionWidget != null) companionWidget!,
+            ],
+          ),
+          if (labelSuffix != null)
+            Positioned(top: 0, right: 0, child: labelSuffix!),
         ],
       ),
     );
