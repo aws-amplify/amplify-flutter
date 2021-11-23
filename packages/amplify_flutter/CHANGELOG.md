@@ -1,3 +1,10 @@
+## 0.2.10 (2021-11-23)
+
+### Fixes
+
+- fix(auth): Fix coroutines crash (#1132)
+- fix(auth): Remove duplicate AtomicResult (#1133)
+
 ## 0.2.9 (2021-11-17)
 
 - chore: upgrade amplify-android to 1.28.3-rc
