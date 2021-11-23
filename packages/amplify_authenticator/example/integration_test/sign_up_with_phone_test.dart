@@ -26,7 +26,6 @@ import 'pages/sign_up_page.dart';
 import 'pages/test_utils.dart';
 import 'utils/data_utils.dart';
 import 'utils/mock_data.dart';
-import 'utils/types/get_phone_response.dart';
 
 // This test follows the Amplify UI feature "sign-up-with-phone"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-phone.feature
@@ -41,7 +40,7 @@ void main() {
     home: Authenticator(child: Container()),
   );
 
-  late String phone;
+  String phone = generatePhone();
   group('sign-up-with-phone', () {
     // Given I'm running the example "ui/components/authenticator/sign-up-with-username"
     setUpAll(() async {
@@ -49,12 +48,6 @@ void main() {
         'ui/components/authenticator/sign-up-with-phone',
         additionalConfigs: [AmplifyAPI()],
       );
-      GetPhoneResponse res = await getPhone();
-      if (res.error != null) {
-        throw Exception('Unable to get phone number for signup test');
-      } else {
-        phone = res.phone!;
-      }
     });
 
     // Scenario: Login mechanism set to "email"
@@ -91,6 +84,8 @@ void main() {
 
       final password = generatePassword();
       final email = generateEmail();
+
+      print(phone);
 
       await signUpPage.enterUsername(phone);
       await signUpPage.enterPassword(password);

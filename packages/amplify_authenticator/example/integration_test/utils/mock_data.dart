@@ -15,10 +15,7 @@
 
 import 'dart:math';
 
-import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_flutter/amplify.dart';
 import 'package:uuid/uuid.dart';
-import 'types/get_phone_response.dart';
 
 final random = Random();
 const uuid = Uuid();
@@ -38,14 +35,10 @@ String generatePassword() =>
     uppercaseLetters[random.nextInt(uppercaseLetters.length)] +
     symbols[random.nextInt(symbols.length)];
 
+String generatePhone() => '+155501${randomPhoneDigits()}';
+
 String generateUsername() => 'flutter-user-${randomNumber()}';
 
-Future<GetPhoneResponse> getPhone() async {
-  var res = await Amplify.API
-      .query(request: GraphQLRequest<String>(document: getPhoneQuery))
-      .response;
-
-  return GetPhoneResponse.fromJson(res.data);
-}
-
 int randomNumber() => random.nextInt(500);
+
+String randomPhoneDigits() => '${random.nextInt(9)}${random.nextInt(9)}';
