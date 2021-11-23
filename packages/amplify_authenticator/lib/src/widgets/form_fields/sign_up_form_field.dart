@@ -111,7 +111,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         required: required,
       );
 
-  /// Creates a nemail component.
+  /// Creates an email component.
   static SignUpFormField email({
     Key? key,
     FormFieldValidator<String>? validator,
@@ -251,7 +251,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     Key? key,
     required String title,
     required CognitoUserAttributeKey attributeKey,
-    required String hintText,
+    String? hintText,
     FormFieldValidator<String>? validator,
     bool? required,
   }) =>

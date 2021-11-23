@@ -144,7 +144,7 @@ void main() {
       expect(currentScreen.screen, equals(AuthScreen.confirmSignup));
 
       // And I see "Confirmation Code"
-      expect(find.byKey(keyCodeConfirmSignUpFormfield), findsOneWidget);
+      expect(find.byKey(keyCodeConfirmSignUpFormField), findsOneWidget);
     });
 
     // Scenario: Username field autocompletes username
