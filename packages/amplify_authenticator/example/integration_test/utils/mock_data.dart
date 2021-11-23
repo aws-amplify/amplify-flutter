@@ -27,7 +27,7 @@ const symbols = '~/`!@#\$%^&\\"\'*(),._?:;{}|<>';
 const String mockPhoneNumber = '+15555551234';
 const String mockCode = '12345';
 
-String generateEmail() => 'flutter-email-${randomNumber()}@example.com';
+String generateEmail() => 'flutter-email-${randomNumber()}@test.com';
 
 String generatePassword() =>
     uuid.v4() +
