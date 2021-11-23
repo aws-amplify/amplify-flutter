@@ -18,7 +18,6 @@ import 'package:flutter/foundation.dart';
 
 enum ConfirmSignInField {
   code,
-  password,
   newPassword,
   address,
   birthdate,
@@ -44,7 +43,7 @@ extension ConfirmSignInFieldX on ConfirmSignInField {
   CognitoUserAttributeKey toCognitoAttribute() {
     switch (this) {
       case ConfirmSignInField.code:
-      case ConfirmSignInField.password:
+      case ConfirmSignInField.newPassword:
       case ConfirmSignInField.custom:
         throw StateError('Can only be called on attribute types');
       default:

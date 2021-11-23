@@ -50,17 +50,17 @@ const keyCustomSignUpFormField = Key('customSignUpFormField');
 
 // Confirm sign up form fields keys
 
-const keyUsernameConfirmSignUpFormfield = Key('usernameConfirmSignUpFormField');
-const keyPasswordConfirmSignUpFormfield = Key('passwordConfirmSignUpFormField');
-const keyEmailConfirmSignUpFormfield = Key('emailConfirmSignUpFormField');
-const keyPhoneNumberConfirmSignUpFormfield =
+const keyUsernameConfirmSignUpFormField = Key('usernameConfirmSignUpFormField');
+const keyPasswordConfirmSignUpFormField = Key('passwordConfirmSignUpFormField');
+const keyEmailConfirmSignUpFormField = Key('emailConfirmSignUpFormField');
+const keyPhoneNumberConfirmSignUpFormField =
     Key('phoneNumberConfirmSignUpFormField');
-const keyCodeConfirmSignUpFormfield = Key('codeConfirmSignUpFormField');
+const keyCodeConfirmSignUpFormField = Key('codeConfirmSignUpFormField');
 
 //Confirm Sign In form field keys
 
-const keyCodeConfirmSignInFormfield = Key('codeConfirmSignUpFormField');
-const keyUsernameConfirmSignInFormfield = Key('usernameConfirmSignInFormField');
+const keyCodeConfirmSignInFormField = Key('codeConfirmSignUpFormField');
+const keyUsernameConfirmSignInFormField = Key('usernameConfirmSignInFormField');
 const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
 const keyNewPasswordConfirmSignInFormField =
     Key('newPasswordConfirmSignInFormField');

@@ -12,7 +12,7 @@ class ConfirmSignUpPage {
 
   final WidgetTester tester;
 
-  Finder get confirmationCodeField => find.byKey(keyCodeConfirmSignUpFormfield);
+  Finder get confirmationCodeField => find.byKey(keyCodeConfirmSignUpFormField);
 
   /// Then I see "Confirm Sign Up"
   Future<void> expectConfirmSignUpIsPresent() async {

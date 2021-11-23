@@ -48,7 +48,7 @@ abstract class ConfirmSignUpFormField<FieldValue>
     FormFieldValidator<UsernameInput>? validator,
   }) =>
       _ConfirmSignUpUsernameField(
-        key: key ?? keyUsernameConfirmSignUpFormfield,
+        key: key ?? keyUsernameConfirmSignUpFormField,
         titleKey: InputResolverKey.usernameTitle,
         hintTextKey: InputResolverKey.usernameHint,
         field: ConfirmSignUpField.username,
@@ -61,7 +61,7 @@ abstract class ConfirmSignUpFormField<FieldValue>
     FormFieldValidator<String>? validator,
   }) =>
       _ConfirmSignUpTextField(
-        key: key ?? keyCodeConfirmSignUpFormfield,
+        key: key ?? keyCodeConfirmSignUpFormField,
         titleKey: InputResolverKey.verificationCodeTitle,
         hintTextKey: InputResolverKey.verificationCodeHint,
         field: ConfirmSignUpField.code,
