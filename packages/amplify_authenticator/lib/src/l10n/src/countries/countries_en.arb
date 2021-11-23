@@ -25,9 +25,9 @@
     "@dz": {
         "description": "Display name for Algeria"
     },
-    "as1": "AmericanSamoa",
+    "as1": "American Samoa",
     "@as1": {
-        "description": "Display name for AmericanSamoa"
+        "description": "Display name for American Samoa"
     },
     "ad": "Andorra",
     "@ad": {
@@ -113,9 +113,13 @@
     "@bt": {
         "description": "Display name for Bhutan"
     },
-    "bo": "Bolivia, Plurinational State of",
+    "bo": "Bolivia (Plurinational State of)",
     "@bo": {
-        "description": "Display name for Bolivia, Plurinational State of"
+        "description": "Display name for Bolivia (Plurinational State of)"
+    },
+    "bq": "Bonaire, Sint Eustatius and Saba",
+    "@bq": {
+        "description": "Display name for Bonaire, Sint Eustatius and Saba"
     },
     "ba": "Bosnia and Herzegovina",
     "@ba": {
@@ -133,9 +137,9 @@
     "@io": {
         "description": "Display name for British Indian Ocean Territory"
     },
-    "bn": "Brunei Darussalam",
+    "bn": "Brunei",
     "@bn": {
-        "description": "Display name for Brunei Darussalam"
+        "description": "Display name for Brunei"
     },
     "bg": "Bulgaria",
     "@bg": {
@@ -201,13 +205,13 @@
     "@km": {
         "description": "Display name for Comoros"
     },
-    "cg": "Congo",
+    "cg": "Congo (Republic of)",
     "@cg": {
-        "description": "Display name for Congo"
+        "description": "Display name for Congo (Republic of)"
     },
-    "cd": "Congo The Democratic Republic of the Congo",
+    "cd": "Congo (Democratic Republic of)",
     "@cd": {
-        "description": "Display name for Congo The Democratic Republic of the Congo"
+        "description": "Display name for Congo (Democratic Republic of)"
     },
     "ck": "Cook Islands",
     "@ck": {
@@ -217,9 +221,9 @@
     "@cr": {
         "description": "Display name for Costa Rica"
     },
-    "ci": "Cote dIvoire",
+    "ci": "Côte d'Ivoire",
     "@ci": {
-        "description": "Display name for Cote dIvoire"
+        "description": "Display name for Côte d'Ivoire"
     },
     "hr": "Croatia",
     "@hr": {
@@ -276,6 +280,10 @@
     "ee": "Estonia",
     "@ee": {
         "description": "Display name for Estonia"
+    },
+    "sz": "Eswatini",
+    "@sz": {
+        "description": "Display name for Eswatini"
     },
     "et": "Ethiopia",
     "@et": {
@@ -405,9 +413,9 @@
     "@id": {
         "description": "Display name for Indonesia"
     },
-    "ir": "Iran, Islamic Republic of Persian Gulf",
+    "ir": "Iran (Islamic Republic of)",
     "@ir": {
-        "description": "Display name for Iran, Islamic Republic of Persian Gulf"
+        "description": "Display name for Iran (Islamic Republic of)"
     },
     "iq": "Iraq",
     "@iq": {
@@ -457,13 +465,17 @@
     "@ki": {
         "description": "Display name for Kiribati"
     },
-    "kp": "Korea, Democratic Peoples Republic of Korea",
+    "kp": "Korea (Democratic People's Republic of)",
     "@kp": {
-        "description": "Display name for Korea, Democratic Peoples Republic of Korea"
+        "description": "Display name for Korea (Democratic People's Republic of)"
     },
-    "kr": "Korea, Republic of South Korea",
+    "kr": "Korea (Republic of)",
     "@kr": {
-        "description": "Display name for Korea, Republic of South Korea"
+        "description": "Display name for Korea (Republic of)"
+    },
+    "xk": "Kosovo",
+    "@xk": {
+        "description": "Display name for Kosovo"
     },
     "kw": "Kuwait",
     "@kw": {
@@ -493,9 +505,9 @@
     "@lr": {
         "description": "Display name for Liberia"
     },
-    "ly": "Libyan Arab Jamahiriya",
+    "ly": "Libya",
     "@ly": {
-        "description": "Display name for Libyan Arab Jamahiriya"
+        "description": "Display name for Libya"
     },
     "li": "Liechtenstein",
     "@li": {
@@ -565,9 +577,9 @@
     "@mx": {
         "description": "Display name for Mexico"
     },
-    "fm": "Micronesia, Federated States of Micronesia",
+    "fm": "Micronesia (Federated States of)",
     "@fm": {
-        "description": "Display name for Micronesia, Federated States of Micronesia"
+        "description": "Display name for Micronesia (Federated States of)"
     },
     "md": "Moldova",
     "@md": {
@@ -617,10 +629,6 @@
     "@nl": {
         "description": "Display name for Netherlands"
     },
-    "an": "Netherlands Antilles",
-    "@an": {
-        "description": "Display name for Netherlands Antilles"
-    },
     "nc": "New Caledonia",
     "@nc": {
         "description": "Display name for New Caledonia"
@@ -669,9 +677,9 @@
     "@pw": {
         "description": "Display name for Palau"
     },
-    "ps": "Palestinian Territory, Occupied",
+    "ps": "Palestine (State of)",
     "@ps": {
-        "description": "Display name for Palestinian Territory, Occupied"
+        "description": "Display name for Palestine (State of)"
     },
     "pa": "Panama",
     "@pa": {
@@ -713,6 +721,10 @@
     "@qa": {
         "description": "Display name for Qatar"
     },
+    "re": "Reunion",
+    "@re": {
+        "description": "Display name for Reunion"
+    },
     "ro": "Romania",
     "@ro": {
         "description": "Display name for Romania"
@@ -724,10 +736,6 @@
     "rw": "Rwanda",
     "@rw": {
         "description": "Display name for Rwanda"
-    },
-    "re": "Reunion",
-    "@re": {
-        "description": "Display name for Reunion"
     },
     "bl": "Saint Barthelemy",
     "@bl": {
@@ -813,13 +821,13 @@
     "@za": {
         "description": "Display name for South Africa"
     },
-    "ss": "South Sudan",
-    "@ss": {
-        "description": "Display name for South Sudan"
-    },
     "gs": "South Georgia and the South Sandwich Islands",
     "@gs": {
         "description": "Display name for South Georgia and the South Sandwich Islands"
+    },
+    "ss": "South Sudan",
+    "@ss": {
+        "description": "Display name for South Sudan"
     },
     "es": "Spain",
     "@es": {
@@ -841,10 +849,6 @@
     "@sj": {
         "description": "Display name for Svalbard and Jan Mayen"
     },
-    "sz": "Swaziland",
-    "@sz": {
-        "description": "Display name for Swaziland"
-    },
     "se": "Sweden",
     "@se": {
         "description": "Display name for Sweden"
@@ -865,17 +869,17 @@
     "@tj": {
         "description": "Display name for Tajikistan"
     },
-    "tz": "Tanzania, United Republic of Tanzania",
+    "tz": "Tanzania (United Republic of)",
     "@tz": {
-        "description": "Display name for Tanzania, United Republic of Tanzania"
+        "description": "Display name for Tanzania (United Republic of)"
     },
     "th": "Thailand",
     "@th": {
         "description": "Display name for Thailand"
     },
-    "tl": "Timor-Leste",
+    "tl": "Timor-Leste (East Timor)",
     "@tl": {
-        "description": "Display name for Timor-Leste"
+        "description": "Display name for Timor-Leste (East Timor)"
     },
     "tg": "Togo",
     "@tg": {
@@ -929,6 +933,10 @@
     "@gb": {
         "description": "Display name for United Kingdom"
     },
+    "um": "United States Minor Outlying Islands",
+    "@um": {
+        "description": "Display name for United States Minor Outlying Islands"
+    },
     "us": "United States",
     "@us": {
         "description": "Display name for United States"
@@ -945,21 +953,21 @@
     "@vu": {
         "description": "Display name for Vanuatu"
     },
-    "ve": "Venezuela, Bolivarian Republic of Venezuela",
+    "ve": "Venezuela (Bolivarian Republic of)",
     "@ve": {
-        "description": "Display name for Venezuela, Bolivarian Republic of Venezuela"
+        "description": "Display name for Venezuela (Bolivarian Republic of)"
     },
     "vn": "Vietnam",
     "@vn": {
         "description": "Display name for Vietnam"
     },
-    "vg": "Virgin IslandsBritish",
+    "vg": "Virgin Islands (British)",
     "@vg": {
-        "description": "Display name for Virgin IslandsBritish"
+        "description": "Display name for Virgin Islands (British)"
     },
-    "vi": "Virgin IslandsUS",
+    "vi": "Virgin Islands (US)",
     "@vi": {
-        "description": "Display name for Virgin IslandsUS"
+        "description": "Display name for Virgin Islands (US)"
     },
     "wf": "Wallis and Futuna",
     "@wf": {

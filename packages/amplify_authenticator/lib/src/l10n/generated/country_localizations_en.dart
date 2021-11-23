@@ -41,7 +41,7 @@ class AuthenticatorCountryLocalizationsEn
   String get dz => 'Algeria';
 
   @override
-  String get as1 => 'AmericanSamoa';
+  String get as1 => 'American Samoa';
 
   @override
   String get ad => 'Andorra';
@@ -107,7 +107,10 @@ class AuthenticatorCountryLocalizationsEn
   String get bt => 'Bhutan';
 
   @override
-  String get bo => 'Bolivia, Plurinational State of';
+  String get bo => 'Bolivia (Plurinational State of)';
+
+  @override
+  String get bq => 'Bonaire, Sint Eustatius and Saba';
 
   @override
   String get ba => 'Bosnia and Herzegovina';
@@ -122,7 +125,7 @@ class AuthenticatorCountryLocalizationsEn
   String get io => 'British Indian Ocean Territory';
 
   @override
-  String get bn => 'Brunei Darussalam';
+  String get bn => 'Brunei';
 
   @override
   String get bg => 'Bulgaria';
@@ -173,10 +176,10 @@ class AuthenticatorCountryLocalizationsEn
   String get km => 'Comoros';
 
   @override
-  String get cg => 'Congo';
+  String get cg => 'Congo (Republic of)';
 
   @override
-  String get cd => 'Congo The Democratic Republic of the Congo';
+  String get cd => 'Congo (Democratic Republic of)';
 
   @override
   String get ck => 'Cook Islands';
@@ -185,7 +188,7 @@ class AuthenticatorCountryLocalizationsEn
   String get cr => 'Costa Rica';
 
   @override
-  String get ci => 'Cote dIvoire';
+  String get ci => 'Côte d\'Ivoire';
 
   @override
   String get hr => 'Croatia';
@@ -228,6 +231,9 @@ class AuthenticatorCountryLocalizationsEn
 
   @override
   String get ee => 'Estonia';
+
+  @override
+  String get sz => 'Eswatini';
 
   @override
   String get et => 'Ethiopia';
@@ -326,7 +332,7 @@ class AuthenticatorCountryLocalizationsEn
   String get id => 'Indonesia';
 
   @override
-  String get ir => 'Iran, Islamic Republic of Persian Gulf';
+  String get ir => 'Iran (Islamic Republic of)';
 
   @override
   String get iq => 'Iraq';
@@ -365,10 +371,13 @@ class AuthenticatorCountryLocalizationsEn
   String get ki => 'Kiribati';
 
   @override
-  String get kp => 'Korea, Democratic Peoples Republic of Korea';
+  String get kp => 'Korea (Democratic People\'s Republic of)';
 
   @override
-  String get kr => 'Korea, Republic of South Korea';
+  String get kr => 'Korea (Republic of)';
+
+  @override
+  String get xk => 'Kosovo';
 
   @override
   String get kw => 'Kuwait';
@@ -392,7 +401,7 @@ class AuthenticatorCountryLocalizationsEn
   String get lr => 'Liberia';
 
   @override
-  String get ly => 'Libyan Arab Jamahiriya';
+  String get ly => 'Libya';
 
   @override
   String get li => 'Liechtenstein';
@@ -446,7 +455,7 @@ class AuthenticatorCountryLocalizationsEn
   String get mx => 'Mexico';
 
   @override
-  String get fm => 'Micronesia, Federated States of Micronesia';
+  String get fm => 'Micronesia (Federated States of)';
 
   @override
   String get md => 'Moldova';
@@ -485,9 +494,6 @@ class AuthenticatorCountryLocalizationsEn
   String get nl => 'Netherlands';
 
   @override
-  String get an => 'Netherlands Antilles';
-
-  @override
   String get nc => 'New Caledonia';
 
   @override
@@ -524,7 +530,7 @@ class AuthenticatorCountryLocalizationsEn
   String get pw => 'Palau';
 
   @override
-  String get ps => 'Palestinian Territory, Occupied';
+  String get ps => 'Palestine (State of)';
 
   @override
   String get pa => 'Panama';
@@ -557,6 +563,9 @@ class AuthenticatorCountryLocalizationsEn
   String get qa => 'Qatar';
 
   @override
+  String get re => 'Reunion';
+
+  @override
   String get ro => 'Romania';
 
   @override
@@ -564,9 +573,6 @@ class AuthenticatorCountryLocalizationsEn
 
   @override
   String get rw => 'Rwanda';
-
-  @override
-  String get re => 'Reunion';
 
   @override
   String get bl => 'Saint Barthelemy';
@@ -632,10 +638,10 @@ class AuthenticatorCountryLocalizationsEn
   String get za => 'South Africa';
 
   @override
-  String get ss => 'South Sudan';
+  String get gs => 'South Georgia and the South Sandwich Islands';
 
   @override
-  String get gs => 'South Georgia and the South Sandwich Islands';
+  String get ss => 'South Sudan';
 
   @override
   String get es => 'Spain';
@@ -653,9 +659,6 @@ class AuthenticatorCountryLocalizationsEn
   String get sj => 'Svalbard and Jan Mayen';
 
   @override
-  String get sz => 'Swaziland';
-
-  @override
   String get se => 'Sweden';
 
   @override
@@ -671,13 +674,13 @@ class AuthenticatorCountryLocalizationsEn
   String get tj => 'Tajikistan';
 
   @override
-  String get tz => 'Tanzania, United Republic of Tanzania';
+  String get tz => 'Tanzania (United Republic of)';
 
   @override
   String get th => 'Thailand';
 
   @override
-  String get tl => 'Timor-Leste';
+  String get tl => 'Timor-Leste (East Timor)';
 
   @override
   String get tg => 'Togo';
@@ -719,6 +722,9 @@ class AuthenticatorCountryLocalizationsEn
   String get gb => 'United Kingdom';
 
   @override
+  String get um => 'United States Minor Outlying Islands';
+
+  @override
   String get us => 'United States';
 
   @override
@@ -731,16 +737,16 @@ class AuthenticatorCountryLocalizationsEn
   String get vu => 'Vanuatu';
 
   @override
-  String get ve => 'Venezuela, Bolivarian Republic of Venezuela';
+  String get ve => 'Venezuela (Bolivarian Republic of)';
 
   @override
   String get vn => 'Vietnam';
 
   @override
-  String get vg => 'Virgin IslandsBritish';
+  String get vg => 'Virgin Islands (British)';
 
   @override
-  String get vi => 'Virgin IslandsUS';
+  String get vi => 'Virgin Islands (US)';
 
   @override
   String get wf => 'Wallis and Futuna';

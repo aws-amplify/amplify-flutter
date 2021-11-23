@@ -45,7 +45,7 @@ class GenCountry {
 }
 
 void main() {
-  const dir = '../lib/src/l10n/';
+  const dir = './lib/src/l10n/';
   var _countries = countries.map((e) => GenCountry.fromJson(e)).toList();
   generateResolver(dir, _countries);
   generateArb(dir, _countries);
@@ -61,8 +61,6 @@ void generateResolver(String dir, List<GenCountry> _countries) {
       .replaceAll('[', '');
 
   StringBuffer output = StringBuffer('''
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names
-
 $license
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/resolver.dart';
@@ -171,6 +169,11 @@ class Country {
 /// List of country information
 const countryCodes = [\n
 ''');
+
+  _countries.insert(
+      0,
+      _countries
+          .removeAt(_countries.indexWhere((element) => element.code == 'US')));
 
   for (var element in _countries) {
     var comma = _countries.indexOf(element) != _countries.length - 1 ? ',' : '';
