@@ -60,6 +60,15 @@ void main() {
       signUpPage.expectPlainUsernameNotPresent();
 
       // And I don't see "Phone Number" as an input field
+      signUpPage.expectUserNameIsPresent(usernameLabel: 'Email');
+    });
+
+    // Scenario: "Phone Number" is not included
+    testWidgets('"Phone Number" is not included', (tester) async {
+      SignUpPage signUpPage = SignUpPage(tester: tester);
+      SignInPage signInPage = SignInPage(tester: tester);
+      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await signInPage.navigateToSignUp();
       signUpPage.expectPhoneIsNotPresent();
     });
 
