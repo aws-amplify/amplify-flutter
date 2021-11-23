@@ -13,10 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/types/hub/HubEvent.dart';
-import 'package:amplify_core/types/hub/HubEventPayload.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class DataStoreHubEvent extends HubEvent {
-  DataStoreHubEvent(String eventName, {HubEventPayload? payload})
-      : super(eventName, payload: payload);
+  DataStoreHubEvent(
+    String eventName, {
+    HubEventPayload? payload,
+  }) : super(eventName, payload: payload);
 }

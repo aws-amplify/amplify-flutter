@@ -40,13 +40,17 @@ public class FlutterDataStoreRequestUtils {
         return modelName
     }
     
-    static func getModelSchema(modelSchemas: [String: ModelSchema], modelName: String) throws ->  ModelSchema {
-        guard let modelSchema = modelSchemas[modelName] else {
+    static func getModelSchema(modelSchemaRegistry: FlutterSchemaRegistry, modelName: String) throws ->  ModelSchema {
+        guard let modelSchema = modelSchemaRegistry.modelSchemas[modelName] else {
             throw DataStoreError.decodingError(
-                "ModelSchema for Model \(modelName) is not registered",
-                "Ensure all the ModelSchemas are correctly registerd")
+                "Schema for \(modelName) is not registered",
+                "Ensure all schemas are correctly registered")
         }
         return modelSchema
+    }
+
+    static func getCustomTypeSchema(customTypeSchemaRegistry: FlutterSchemaRegistry, modelName: String) throws -> ModelSchema {
+        return try(getModelSchema(modelSchemaRegistry: customTypeSchemaRegistry, modelName: modelName))
     }
     
     static func getSerializedModelData(methodChannelArguments: [String: Any]) throws -> [String: Any] {

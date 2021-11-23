@@ -25,11 +25,12 @@ let testHubSchema: ModelSchema = ModelSchema.init(name: "Post")
 class DataStoreHubEventStreamHandlerTests: XCTestCase {
 
     var pluginUnderTest: SwiftAmplifyDataStorePlugin = SwiftAmplifyDataStorePlugin()
-    var flutterModelSchemaRegistration: FlutterModels = FlutterModels()
+    var modelSchemaRegistry = FlutterSchemaRegistry()
+    var customTypeSchemaRegistry = FlutterSchemaRegistry()
 
     override func setUpWithError() throws {
-        flutterModelSchemaRegistration.addModelSchema(modelName: "Post", modelSchema: testSchema)
-        flutterModelSchemaRegistration.registerModels(registry: ModelRegistry.self)
+        modelSchemaRegistry.addModelSchema(modelName: "Post", modelSchema: testSchema)
+        modelSchemaRegistry.registerModels(registry: ModelRegistry.self)
     }
     
     func test_hub_modelSyncedEvent_success() throws {
@@ -63,7 +64,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let hubHandler = MockDataStoreHubHandler()
         // passing the expectation we are awaiting into the enclosed class
         hubHandler.setExpectation(outerExpect: expect)
-        hubHandler.registerModelsForHub(flutterModelRegistration: flutterModelSchemaRegistration)
+        hubHandler.registerModelsForHub(modelSchemaRegistry: modelSchemaRegistry, customTypeSchemaRegistry: customTypeSchemaRegistry)
         hubHandler.setHubListener()
 
         let modelSyncedEventPayload = HubPayload(eventName: HubPayload.EventName.DataStore.modelSynced,
@@ -91,7 +92,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
 
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
-        hubHandler.registerModelsForHub(flutterModelRegistration: flutterModelSchemaRegistration)
+        hubHandler.registerModelsForHub(modelSchemaRegistry: modelSchemaRegistry, customTypeSchemaRegistry: customTypeSchemaRegistry)
         hubHandler.setHubListener()
        
         let readyEventPayload = HubPayload(eventName: HubPayload.EventName.DataStore.ready)
@@ -116,7 +117,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
 
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
-        hubHandler.registerModelsForHub(flutterModelRegistration: flutterModelSchemaRegistration)
+        hubHandler.registerModelsForHub(modelSchemaRegistry: modelSchemaRegistry, customTypeSchemaRegistry: customTypeSchemaRegistry)
         hubHandler.setHubListener()
 
         let subscriptionEstablishedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.subscriptionsEstablished)
@@ -140,7 +141,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
 
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
-        hubHandler.registerModelsForHub(flutterModelRegistration: flutterModelSchemaRegistration)
+        hubHandler.registerModelsForHub(modelSchemaRegistry: modelSchemaRegistry, customTypeSchemaRegistry: customTypeSchemaRegistry)
         hubHandler.setHubListener()
        
         let syncQueriesReadyPayload = HubPayload(eventName: HubPayload.EventName.DataStore.syncQueriesReady)
@@ -167,7 +168,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
 
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
-        hubHandler.registerModelsForHub(flutterModelRegistration: flutterModelSchemaRegistration)
+        hubHandler.registerModelsForHub(modelSchemaRegistry: modelSchemaRegistry, customTypeSchemaRegistry: customTypeSchemaRegistry)
         hubHandler.setHubListener()
        
         let networkStatusPayload = HubPayload(eventName: HubPayload.EventName.DataStore.networkStatus, data: networkStatusEvent)
@@ -194,7 +195,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
 
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
-        hubHandler.registerModelsForHub(flutterModelRegistration: flutterModelSchemaRegistration)
+        hubHandler.registerModelsForHub(modelSchemaRegistry: modelSchemaRegistry, customTypeSchemaRegistry: customTypeSchemaRegistry)
         hubHandler.setHubListener()
        
         let outboxStatusPayload = HubPayload(eventName: HubPayload.EventName.DataStore.outboxStatus, data: outboxStatusEvent)
@@ -220,7 +221,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let syncQueriesStartedEvent = SyncQueriesStartedEvent(models: ["Blog"])
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
-        hubHandler.registerModelsForHub(flutterModelRegistration: flutterModelSchemaRegistration)
+        hubHandler.registerModelsForHub(modelSchemaRegistry: modelSchemaRegistry, customTypeSchemaRegistry: customTypeSchemaRegistry)
         hubHandler.setHubListener()
        
         let syncQueriesStartedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.syncQueriesStarted, data: syncQueriesStartedEvent)
@@ -263,7 +264,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let outboxMutationEnqueuedEvent = OutboxMutationEvent.fromModelWithoutMetadata(modelName: "Post", model: serializedModel)
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
-        hubHandler.registerModelsForHub(flutterModelRegistration: flutterModelSchemaRegistration)
+        hubHandler.registerModelsForHub(modelSchemaRegistry: modelSchemaRegistry, customTypeSchemaRegistry: customTypeSchemaRegistry)
         hubHandler.setHubListener()
        
         let outboxMutationEnqueuedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.outboxMutationEnqueued, data: outboxMutationEnqueuedEvent)
@@ -317,7 +318,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
             let mutationSync = MutationSync(model: anyModel, syncMetadata: syncMetadata)
             let outboxMutationProcessedEvent = OutboxMutationEvent.fromModelWithMetadata(modelName: "Post", model: serializedModel, mutationSync: mutationSync)
             hubHandler.setExpectation(outerExpect: expect)
-            hubHandler.registerModelsForHub(flutterModelRegistration: flutterModelSchemaRegistration)
+            hubHandler.registerModelsForHub(modelSchemaRegistry: modelSchemaRegistry, customTypeSchemaRegistry: customTypeSchemaRegistry)
             hubHandler.setHubListener()
             let outboxMutationProcessedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.outboxMutationProcessed, data: outboxMutationProcessedEvent)
             Amplify.Hub.dispatch(to: .dataStore, payload: outboxMutationProcessedPayload)

@@ -40,8 +40,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
   void _signUp() async {
     var userAttributes = {
-      'email': emailController.text,
-      'phone_number': phoneController.text,
+      CognitoUserAttributeKey.email: emailController.text,
+      CognitoUserAttributeKey.phoneNumber: phoneController.text,
     };
     try {
       var res = await Amplify.Auth.signUp(

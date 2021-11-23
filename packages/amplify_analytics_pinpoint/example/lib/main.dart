@@ -13,11 +13,10 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:flutter/material.dart';
-
-import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify.dart';
+import 'package:flutter/material.dart';
 
 import 'amplifyconfiguration.dart';
 

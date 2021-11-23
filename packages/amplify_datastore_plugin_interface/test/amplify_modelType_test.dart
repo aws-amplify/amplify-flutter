@@ -36,15 +36,20 @@ void main() {
 
     expect(Comment.classType.fromSerializedMap(inputMap).toJson(), {
       "id": "2",
-      "content": "Comment content",
       "post": {
         "id": "1",
         "title": null,
         "rating": null,
         "created": null,
+        "likeCount": null,
         "blog": null,
-        "comments": null
-      }
+        "comments": null,
+        'createdAt': null,
+        'updatedAt': null
+      },
+      "content": "Comment content",
+      'createdAt': null,
+      'updatedAt': null
     });
   });
 

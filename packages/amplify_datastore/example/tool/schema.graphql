@@ -164,3 +164,41 @@ type MultiTypeModel @model {
   intValue: Int
   altIntValue: Int
 }
+
+type ModelNestedCustomType @model {
+  id: ID!
+  customTypeValue: AllScalarTypesCustomType!
+  listCustomTypeValue: [AllScalarTypesListCustomType]
+}
+
+type AllScalarTypesCustomType {
+  stringValue: String!
+  intValue: Int!
+  floatValue: Float!
+  boolValue: Boolean!
+  dateValue: AWSDate!
+  dateTimeValue: AWSDateTime!
+  timeValue: AWSTime!
+  timestampValue: AWSTimestamp!
+  jsonValue: AWSJSON!
+  enumValue: EnumModel!
+  customTypeValue: SimpleCustomType!
+}
+
+type AllScalarTypesListCustomType {
+  stringValues: [String]
+  intValues: [Int]
+  floatValues: [Float]
+  boolValues: [Boolean]
+  dateValues: [AWSDate]
+  dateTimeValues: [AWSDateTime]
+  timeValues: [AWSTime]
+  timestampValues: [AWSTimestamp]
+  jsonValues: [AWSJSON]
+  enumValues: [EnumModel]
+  customTypeValues: [SimpleCustomType]
+}
+
+type SimpleCustomType {
+  foo: String!
+}

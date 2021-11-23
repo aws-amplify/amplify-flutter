@@ -14,12 +14,13 @@
  */
 
 import 'dart:async';
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito_stream_controller.dart';
 import 'package:amplify_auth_cognito/src/CognitoHubEvents/AuthHubEvent.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_core/test_utils/get_json_from_file.dart';
+import 'package:amplify_test/amplify_test.dart';
 
 var log = [];
 
