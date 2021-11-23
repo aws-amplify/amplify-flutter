@@ -17,6 +17,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:flutter/material.dart';
 
 @visibleForTesting
@@ -52,6 +53,10 @@ class AuthViewModel extends ChangeNotifier {
     _isBusy = busy;
     notifyListeners();
   }
+
+  // Current device country for use by phone number and other geographically dependent widgets
+  final Country? _deviceLocation = findDeviceLocationFromList();
+  Country? get deviceLocation => _deviceLocation;
 
   // Form values
 

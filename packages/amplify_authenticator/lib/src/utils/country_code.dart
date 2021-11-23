@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
+import 'package:flutter/widgets.dart';
 
 class Country {
   final String countryCode;
@@ -270,3 +271,13 @@ const countryCodes = [
   Country('ZM', '260', CountryResolverKey.zm$),
   Country('ZW', '263', CountryResolverKey.zw$)
 ];
+
+Country? findDeviceLocationFromList() {
+  try {
+    return countryCodes.firstWhere((country) =>
+        country.countryCode ==
+        WidgetsBinding.instance?.window.locale.countryCode);
+  } on StateError {
+    return null;
+  }
+}
