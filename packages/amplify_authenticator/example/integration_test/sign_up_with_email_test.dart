@@ -55,15 +55,6 @@ void main() {
       signUpPage.expectUserNameIsPresent(usernameLabel: 'Email');
     });
 
-    // Scenario: "Phone Number" is not included
-    testWidgets('"Phone Number" is not included', (tester) async {
-      SignUpPage signUpPage = SignUpPage(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
-      await signInPage.navigateToSignUp();
-      signUpPage.expectPhoneIsNotPresent();
-    });
-
     // Scenario: Sign up a new email & password
     testWidgets('Sign up a new email & password', (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);
