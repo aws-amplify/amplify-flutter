@@ -215,6 +215,8 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
     final runtimeAttributes = [
       ...?authConfig?.signupAttributes,
       ...?authConfig?.verificationMechanisms,
+      ...?authConfig?.loginMechanism,
+      ...?authConfig?.loginMechanisms,
     ];
     if (runtimeAttributes.isEmpty) {
       return const [];

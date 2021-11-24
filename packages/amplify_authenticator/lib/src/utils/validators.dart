@@ -60,7 +60,7 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
   required InputResolver inputResolver,
 }) {
   final PasswordProtectionSettings? passwordProtectionSettings = amplifyConfig
-      ?.auth?.awsPlugin?.auth?['Default']?.passwordProtectionSettings;
+      ?.auth?.awsPlugin?.auth?.default$?.passwordProtectionSettings;
   return (BuildContext context) => (String? password) {
         if (password == null || password.isEmpty) {
           return inputResolver.resolve(
