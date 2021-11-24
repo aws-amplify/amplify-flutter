@@ -31,9 +31,9 @@ class CognitoPinpointAnalyticsConfig
   @override
   List<Object?> get props => [appId, region];
 
-  factory CognitoPinpointAnalyticsConfig.fromJson(Map<String, dynamic> json) =>
+  factory CognitoPinpointAnalyticsConfig.fromJson(Map<String, Object?> json) =>
       _$CognitoPinpointAnalyticsConfigFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _$CognitoPinpointAnalyticsConfigToJson(this);
+  Map<String, Object?> toJson() => _$CognitoPinpointAnalyticsConfigToJson(this);
 }

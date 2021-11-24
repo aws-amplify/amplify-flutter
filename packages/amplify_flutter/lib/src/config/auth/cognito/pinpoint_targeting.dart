@@ -29,9 +29,9 @@ class CognitoPinpointTargetingConfig
   @override
   List<Object?> get props => [region];
 
-  factory CognitoPinpointTargetingConfig.fromJson(Map<String, dynamic> json) =>
+  factory CognitoPinpointTargetingConfig.fromJson(Map<String, Object?> json) =>
       _$CognitoPinpointTargetingConfigFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _$CognitoPinpointTargetingConfigToJson(this);
+  Map<String, Object?> toJson() => _$CognitoPinpointTargetingConfigToJson(this);
 }
