@@ -189,7 +189,10 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   /// Title widget to use above form field.
   ///
   /// Defaults to a [Text] object with the form field's title.
-  Widget? get title => null;
+  Widget? get title {
+    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
+    return useAmplifyTheme && labelText != null ? Text(labelText!) : null;
+  }
 
   /// a widget to show after the label, right aligned.
   ///
@@ -198,11 +201,9 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
 
   /// Content for the form field's label
   String? get labelText {
-    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final inputResolver = stringResolver.inputs;
-    String? labelText = useAmplifyTheme
-        ? null
-        : widget.title ?? widget.titleKey?.resolve(context, inputResolver);
+    String? labelText =
+        widget.title ?? widget.titleKey?.resolve(context, inputResolver);
     if (labelText != null) {
       labelText =
           isOptional ? inputResolver.optional(context, labelText) : labelText;
@@ -223,19 +224,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   @override
   Widget build(BuildContext context) {
     final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
-    final inputResolver = stringResolver.inputs;
-    Widget? title = useAmplifyTheme ? this.title : null;
-    if (title == null && useAmplifyTheme) {
-      final titleString =
-          widget.title ?? widget.titleKey?.resolve(context, inputResolver);
-      if (titleString != null) {
-        title = Text(
-          isOptional
-              ? inputResolver.optional(context, titleString)
-              : titleString,
-        );
-      }
-    }
     final titleStyle = Theme.of(context).inputDecorationTheme.labelStyle ??
         Theme.of(context).textTheme.subtitle1 ??
         const TextStyle(fontSize: 16);
@@ -252,10 +240,10 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
                   children: [labelSuffix!],
                   mainAxisAlignment: MainAxisAlignment.end,
                 ),
-              if (title != null)
+              if (useAmplifyTheme && title != null)
                 DefaultTextStyle(
                   style: titleStyle,
-                  child: title,
+                  child: title!,
                 ),
               const SizedBox(height: FormFieldConstants.gap),
               buildFormField(context),

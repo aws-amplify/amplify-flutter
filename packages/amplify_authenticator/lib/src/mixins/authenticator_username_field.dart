@@ -184,11 +184,9 @@ mixin AuthenticatorUsernameField<FieldType,
 
   @override
   String? get labelText {
-    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final inputResolver = stringResolver.inputs;
-    String? labelText = useAmplifyTheme
-        ? null
-        : widget.title ?? titleKey.resolve(context, inputResolver);
+    String? labelText =
+        widget.title ?? titleKey.resolve(context, inputResolver);
     return labelText;
   }
 
@@ -241,7 +239,7 @@ mixin AuthenticatorUsernameField<FieldType,
         prefixIcon: prefix,
         suffixIcon: suffix,
         errorMaxLines: errorMaxLines,
-        labelText: labelText,
+        labelText: useAmplifyTheme ? null : labelText,
         hintText: hintText,
       ),
       keyboardType: keyboardType,
