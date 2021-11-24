@@ -186,20 +186,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   /// The maximum length of the input.
   int? get maxLength => null;
 
-  /// Title widget to use above form field.
-  ///
-  /// Defaults to a [Text] object with the form field's title.
-  Widget? get title {
-    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
-    return useAmplifyTheme && labelText != null ? Text(labelText!) : null;
-  }
-
-  /// a widget to show after the label, right aligned.
-  ///
-  /// Used to display a toggle between username selection
-  Widget? get labelSuffix => null;
-
-  /// Content for the form field's label
+  /// Text content for the form field's label
   String? get labelText {
     final inputResolver = stringResolver.inputs;
     String? labelText =
@@ -210,6 +197,20 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
     }
     return labelText;
   }
+
+  /// Label widget for the form field
+  ///
+  /// Defaults to a [Text] object with the form field's label text.
+  ///
+  /// Displayed above the form field for Amplify Theme, unused for Material Theme
+  Widget? get label => labelText != null ? Text(labelText!) : null;
+
+  /// Widget to show after the label
+  ///
+  /// The labelSuffix will be right aligned with the form field,
+  /// and will be veritcally aligned with the label for Amplify Theme,
+  /// or above the label for Material Theme
+  Widget? get labelSuffix => null;
 
   Widget buildFormField(BuildContext context);
 
@@ -240,10 +241,10 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
                   children: [labelSuffix!],
                   mainAxisAlignment: MainAxisAlignment.end,
                 ),
-              if (useAmplifyTheme && title != null)
+              if (useAmplifyTheme && label != null)
                 DefaultTextStyle(
                   style: titleStyle,
-                  child: title!,
+                  child: label!,
                 ),
               const SizedBox(height: FormFieldConstants.gap),
               buildFormField(context),

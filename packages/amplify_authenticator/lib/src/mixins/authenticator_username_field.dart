@@ -99,13 +99,13 @@ mixin AuthenticatorUsernameField<FieldType,
   }
 
   @override
-  Widget get title {
+  Widget get label {
     final inputResolver = stringResolver.inputs;
     final titleString = inputResolver.resolve(context, titleKey);
-    final title = Text(
+    final label = Text(
       isOptional ? inputResolver.optional(context, titleString) : titleString,
     );
-    return title;
+    return label;
   }
 
   @override
