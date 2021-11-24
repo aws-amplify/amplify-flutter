@@ -22,7 +22,6 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
-import 'package:amplify_flutter/src/utils/parse_json_config.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -37,7 +36,8 @@ part 'method_channel_amplify.dart';
 /// instantiate an object of this class. Please use top level
 /// `Amplify` singleton object for making calls to methods of this class.
 class AmplifyClass extends PlatformInterface {
-  AmplifyConfig? _config = AmplifyConfig();
+  AmplifyConfig? _config;
+
   // ignore: public_member_api_docs
   final AuthCategory Auth = const AuthCategory();
   // ignore: public_member_api_docs
@@ -181,8 +181,21 @@ class AmplifyClass extends PlatformInterface {
     await DataStore.configure(configuration);
 
     if (_isConfigured && !_configCompleter.isCompleted) {
-      _config = parseConfigJson(configuration);
+      _config = _parseConfigJson(configuration);
       _configCompleter.complete(_config);
+    }
+  }
+
+  /// Parses the [configuration] string into an [AmplifyConfig] object.
+  /// An empty [AmplifyConfig] is returned on exception.
+  AmplifyConfig _parseConfigJson(String configuration) {
+    try {
+      return AmplifyConfig.fromJson(jsonDecode(configuration));
+    } on Exception catch (e) {
+      safePrint(
+        'There was an unexpected problem parsing the amplifyconfiguration.dart file: $e',
+      );
+      return const AmplifyConfig();
     }
   }
 

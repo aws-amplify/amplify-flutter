@@ -241,12 +241,8 @@ mixin AuthenticatorUsernameField<FieldType,
 mixin UsernameAttributes<T extends AuthenticatorComponent<T>>
     on AuthenticatorComponentState<T> {
   late final Set<CognitoUserAttributeKey> usernameAttributes = config
-          .amplifyConfig
-          ?.auth
-          ?.awsCognitoAuthPlugin
-          ?.auth?['Default']
-          ?.usernameAttributes
-          ?.toSet() ??
+          .amplifyConfig?.auth?.awsPlugin?.auth?.default$?.usernameAttributes
+          .toSet() ??
       const <CognitoUserAttributeKey>{};
 
   /// Toggle value for the email or phone number case.

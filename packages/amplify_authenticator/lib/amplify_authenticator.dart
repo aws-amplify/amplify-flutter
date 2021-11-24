@@ -39,14 +39,13 @@ import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_banner.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_flutter/src/config/amplify_config.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
-export 'package:amplify_flutter/src/config/auth/password_policy_characters.dart';
-export 'package:amplify_flutter/src/config/auth/password_protection_settings.dart';
+export 'package:amplify_flutter/amplify.dart';
 
 export 'src/enums/enums.dart';
 export 'src/l10n/auth_strings_resolver.dart';
@@ -236,6 +235,7 @@ class _AuthenticatorState extends State<Authenticator> {
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
   late final StreamSubscription<MessageResolverKey> _infoSub;
   late final StreamSubscription<AuthState> _successSub;
+
   AmplifyConfig? _config;
   late List<String> _missingConfigValues;
   bool _configInitialized = false;
@@ -357,14 +357,17 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 
   List<String> missingConfigValues(AmplifyConfig? config) {
-    List<String> missingValues = [];
-    var cognitoPlugin = config?.auth?.awsCognitoAuthPlugin?.auth?['Default'];
-    cognitoPlugin ?? missingValues.add('auth.plugins.Auth.Default');
-    cognitoPlugin?.signupAttributes?.length ??
-        missingValues.add('auth.plugins.Auth.Default.signUpAttributes');
-    cognitoPlugin?.passwordProtectionSettings ??
-        missingValues
-            .add('auth.plugins.Auth.Default.passwordProtectionSettings');
+    final missingValues = <String>[];
+    var cognitoPlugin = config?.auth?.awsPlugin?.auth?.default$;
+    if (cognitoPlugin == null) {
+      return const ['auth.plugins.Auth.Default'];
+    }
+    if (cognitoPlugin.signupAttributes.isEmpty) {
+      missingValues.add('auth.plugins.Auth.Default.signUpAttributes');
+    }
+    if (cognitoPlugin.passwordProtectionSettings == null) {
+      missingValues.add('auth.plugins.Auth.Default.passwordProtectionSettings');
+    }
     return missingValues;
   }
 

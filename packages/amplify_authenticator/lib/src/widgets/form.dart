@@ -27,7 +27,6 @@ import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_button.dart';
-import 'package:amplify_flutter/src/config/auth/aws_cognito_social_providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -210,8 +209,9 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
     final authConfig = InheritedConfig.of(context)
         .amplifyConfig
         ?.auth
-        ?.awsCognitoAuthPlugin
-        ?.auth?['Default'];
+        ?.awsPlugin
+        ?.auth
+        ?.default$;
     final runtimeAttributes = [
       ...?authConfig?.signupAttributes,
       ...?authConfig?.verificationMechanisms,
@@ -327,8 +327,9 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
     final socialProviders = InheritedConfig.of(context)
         .amplifyConfig
         ?.auth
-        ?.awsCognitoAuthPlugin
-        ?.auth?['Default']
+        ?.awsPlugin
+        ?.auth
+        ?.default$
         ?.socialProviders;
     if (socialProviders == null || socialProviders.isEmpty) {
       return const [];
@@ -337,13 +338,13 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
     return socialProviders
         .map((provider) {
           switch (provider) {
-            case SocialProviders.facebook:
+            case SocialProvider.facebook:
               return const SocialSignInButton.facebook();
-            case SocialProviders.google:
+            case SocialProvider.google:
               return const SocialSignInButton.google();
-            case SocialProviders.amazon:
+            case SocialProvider.amazon:
               return const SocialSignInButton.amazon();
-            case SocialProviders.apple:
+            case SocialProvider.apple:
               return const SocialSignInButton.apple();
           }
         })

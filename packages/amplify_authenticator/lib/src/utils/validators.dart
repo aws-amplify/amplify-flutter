@@ -14,9 +14,6 @@
  */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_flutter/src/config/amplify_config.dart';
-import 'package:amplify_flutter/src/config/auth/password_policy_characters.dart';
-import 'package:amplify_flutter/src/config/auth/password_protection_settings.dart';
 import 'package:flutter/material.dart';
 
 final emailRegex = RegExp(r'^\S+@\S+$');
@@ -63,10 +60,7 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
   required InputResolver inputResolver,
 }) {
   final PasswordProtectionSettings? passwordProtectionSettings = amplifyConfig
-      ?.auth
-      ?.awsCognitoAuthPlugin
-      ?.auth?['Default']
-      ?.passwordProtectionSettings;
+      ?.auth?.awsPlugin?.auth?['Default']?.passwordProtectionSettings;
   return (BuildContext context) => (String? password) {
         if (password == null || password.isEmpty) {
           return inputResolver.resolve(
@@ -85,7 +79,7 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
             minLength == null || password.length >= minLength;
 
         final passwordPolicies =
-            passwordProtectionSettings.passwordPolicyCharacters ?? const [];
+            passwordProtectionSettings.passwordPolicyCharacters;
         for (var policy in passwordPolicies) {
           if (!policy.meetsRequirement(password)) {
             unmetReqs.add(policy);

@@ -1,33 +1,46 @@
-/*
- * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+//
+// Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+//  http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
 
-import 'package:amplify_flutter/src/config/auth/auth_plugin.dart';
+import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/src/config/amplify_plugin_config.dart';
+import 'package:amplify_flutter/src/config/amplify_plugin_registry.dart';
+import 'package:amplify_flutter/src/config/config_map.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+import 'cognito_config.dart';
+export 'cognito_config.dart' hide CognitoPluginConfigFactory;
 
 part 'auth_config.g.dart';
 
-class AuthConfig {
-  final Map<String, AuthPlugin> plugins;
+/// {@template amplify_common.config.auth_config}
+/// The Auth category configuration.
+/// {@endtemplate}
+@amplifySerializable
+class AuthConfig extends AmplifyPluginConfigMap {
+  /// {@macro amplify_common.config.auth_config}
+  const AuthConfig({required Map<String, AmplifyPluginConfig> plugins})
+      : super(plugins);
 
-  const AuthConfig(this.plugins);
-
-  AuthPlugin? get awsCognitoAuthPlugin {
-    return plugins['awsCognitoAuthPlugin'];
-  }
-
-  factory AuthConfig.fromJson(Map<String, dynamic> json) =>
+  factory AuthConfig.fromJson(Map<String, Object?> json) =>
       _$AuthConfigFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AuthConfigToJson(this);
+  /// The AWS Cognito plugin configuration, if available.
+  @override
+  CognitoPluginConfig? get awsPlugin =>
+      plugins[CognitoPluginConfig.pluginKey] as CognitoPluginConfig?;
+
+  @override
+  Map<String, Object?> toJson() => _$AuthConfigToJson(this);
 }
