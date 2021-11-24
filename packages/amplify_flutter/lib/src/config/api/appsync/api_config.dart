@@ -22,14 +22,14 @@ import 'endpoint_type.dart';
 part 'api_config.g.dart';
 
 @amplifySerializable
-class AwsApiConfig with AWSEquatable<AwsApiConfig>, AWSSerializable {
+class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
   final EndpointType endpointType;
   final String endpoint;
   final String region;
   final APIAuthorizationType authorizationType;
   final String? apiKey;
 
-  const AwsApiConfig({
+  const AWSApiConfig({
     required this.endpointType,
     required this.endpoint,
     required this.region,
@@ -46,9 +46,9 @@ class AwsApiConfig with AWSEquatable<AwsApiConfig>, AWSSerializable {
         apiKey,
       ];
 
-  factory AwsApiConfig.fromJson(Map<String, Object?> json) =>
-      _$AwsApiConfigFromJson(json);
+  factory AWSApiConfig.fromJson(Map<String, Object?> json) =>
+      _$AWSApiConfigFromJson(json);
 
   @override
-  Map<String, Object?> toJson() => _$AwsApiConfigToJson(this);
+  Map<String, Object?> toJson() => _$AWSApiConfigToJson(this);
 }

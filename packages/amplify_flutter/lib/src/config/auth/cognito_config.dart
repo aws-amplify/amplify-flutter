@@ -74,6 +74,8 @@ class CognitoPluginConfig
     this.pinpointTargeting,
     this.s3TransferUtility,
   });
+
+  /// The plugin's configuration key.
   static const pluginKey = 'awsCognitoAuthPlugin';
 
   @override
@@ -83,7 +85,7 @@ class CognitoPluginConfig
   final String version;
 
   final AWSConfigMap<CognitoIdentityManager>? identityManager;
-  final CredentialsProvider? credentialsProvider;
+  final CredentialsProviders? credentialsProvider;
   final AWSConfigMap<CognitoUserPoolConfig>? cognitoUserPool;
   final AWSConfigMap<CognitoAuthConfig>? auth;
   final AWSConfigMap<CognitoAppSyncConfig>? appSync;

@@ -13,6 +13,8 @@
 // permissions and limitations under the License.
 //
 
+import 'dart:collection';
+
 import 'package:amplify_flutter/src/config/config_map.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
@@ -49,4 +51,15 @@ mixin AWSSerializable on Object {
   String toString() {
     return prettyPrintJson(this);
   }
+}
+
+/// {@template amplify_flutter.serializable_map}
+/// A [Map] which conforms to [AWSSerializable].
+/// {@endtemplate}
+class SerializableMap<V> extends MapView<String, V> with AWSSerializable {
+  /// {@macro amplify_flutter.serializable_map}
+  const SerializableMap(Map<String, V> map) : super(map);
+
+  @override
+  Map<String, Object?> toJson() => this;
 }

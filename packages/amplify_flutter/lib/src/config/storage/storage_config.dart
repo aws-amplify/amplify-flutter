@@ -17,7 +17,6 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_plugin_config.dart';
 import 'package:amplify_flutter/src/config/amplify_plugin_registry.dart';
 import 'package:amplify_flutter/src/config/config_map.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 import 's3_config.dart';
 export 's3_config.dart' hide S3PluginConfigFactory;

@@ -30,19 +30,16 @@ CognitoAuthConfig _$CognitoAuthConfigFromJson(Map<String, dynamic> json) =>
           _$AuthenticationFlowTypeEnumMap, json['authenticationFlowType'],
           unknownValue: JsonKey.nullForUndefinedEnumValue),
       socialProviders: (json['socialProviders'] as List<dynamic>?)
-              ?.map((e) => $enumDecode(_$SocialProviderEnumMap, e))
-              .toList() ??
-          const [],
+          ?.map((e) => $enumDecode(_$SocialProviderEnumMap, e))
+          .toList(),
       usernameAttributes: (json['usernameAttributes'] as List<dynamic>?)
-              ?.map((e) => const CognitoUserAttributeKeyConverter()
-                  .fromJson(e as String))
-              .toList() ??
-          const [],
+          ?.map((e) =>
+              const CognitoUserAttributeKeyConverter().fromJson(e as String))
+          .toList(),
       signupAttributes: (json['signupAttributes'] as List<dynamic>?)
-              ?.map((e) => const CognitoUserAttributeKeyConverter()
-                  .fromJson(e as String))
-              .toList() ??
-          const [],
+          ?.map((e) =>
+              const CognitoUserAttributeKeyConverter().fromJson(e as String))
+          .toList(),
       passwordProtectionSettings: json['passwordProtectionSettings'] == null
           ? null
           : PasswordProtectionSettings.fromJson(
@@ -53,20 +50,17 @@ CognitoAuthConfig _$CognitoAuthConfigFromJson(Map<String, dynamic> json) =>
           ?.map((e) => $enumDecode(_$MfaTypeEnumMap, e))
           .toList(),
       verificationMechanisms: (json['verificationMechanisms'] as List<dynamic>?)
-              ?.map((e) => const CognitoUserAttributeKeyConverter()
-                  .fromJson(e as String))
-              .toList() ??
-          const [],
+          ?.map((e) =>
+              const CognitoUserAttributeKeyConverter().fromJson(e as String))
+          .toList(),
       loginMechanism: (json['loginMechanism'] as List<dynamic>?)
-              ?.map((e) => const CognitoUserAttributeKeyConverter()
-                  .fromJson(e as String))
-              .toList() ??
-          const [],
+          ?.map((e) =>
+              const CognitoUserAttributeKeyConverter().fromJson(e as String))
+          .toList(),
       loginMechanisms: (json['loginMechanisms'] as List<dynamic>?)
-              ?.map((e) => const CognitoUserAttributeKeyConverter()
-                  .fromJson(e as String))
-              .toList() ??
-          const [],
+          ?.map((e) =>
+              const CognitoUserAttributeKeyConverter().fromJson(e as String))
+          .toList(),
     );
 
 Map<String, dynamic> _$CognitoAuthConfigToJson(CognitoAuthConfig instance) {
@@ -81,29 +75,42 @@ Map<String, dynamic> _$CognitoAuthConfigToJson(CognitoAuthConfig instance) {
   writeNotNull('OAuth', instance.oAuth?.toJson());
   writeNotNull('authenticationFlowType',
       _$AuthenticationFlowTypeEnumMap[instance.authenticationFlowType]);
-  val['socialProviders'] =
-      instance.socialProviders.map((e) => _$SocialProviderEnumMap[e]).toList();
-  val['loginMechanism'] = instance.loginMechanism
-      .map(const CognitoUserAttributeKeyConverter().toJson)
-      .toList();
-  val['loginMechanisms'] = instance.loginMechanisms
-      .map(const CognitoUserAttributeKeyConverter().toJson)
-      .toList();
-  val['usernameAttributes'] = instance.usernameAttributes
-      .map(const CognitoUserAttributeKeyConverter().toJson)
-      .toList();
-  val['signupAttributes'] = instance.signupAttributes
-      .map(const CognitoUserAttributeKeyConverter().toJson)
-      .toList();
+  writeNotNull(
+      'socialProviders',
+      instance.socialProviders
+          ?.map((e) => _$SocialProviderEnumMap[e])
+          .toList());
+  writeNotNull(
+      'loginMechanism',
+      instance.loginMechanism
+          ?.map(const CognitoUserAttributeKeyConverter().toJson)
+          .toList());
+  writeNotNull(
+      'loginMechanisms',
+      instance.loginMechanisms
+          ?.map(const CognitoUserAttributeKeyConverter().toJson)
+          .toList());
+  writeNotNull(
+      'usernameAttributes',
+      instance.usernameAttributes
+          ?.map(const CognitoUserAttributeKeyConverter().toJson)
+          .toList());
+  writeNotNull(
+      'signupAttributes',
+      instance.signupAttributes
+          ?.map(const CognitoUserAttributeKeyConverter().toJson)
+          .toList());
   writeNotNull('passwordProtectionSettings',
       instance.passwordProtectionSettings?.toJson());
   writeNotNull(
       'mfaConfiguration', _$MfaConfigurationEnumMap[instance.mfaConfiguration]);
   writeNotNull(
       'mfaTypes', instance.mfaTypes?.map((e) => _$MfaTypeEnumMap[e]).toList());
-  val['verificationMechanisms'] = instance.verificationMechanisms
-      .map(const CognitoUserAttributeKeyConverter().toJson)
-      .toList();
+  writeNotNull(
+      'verificationMechanisms',
+      instance.verificationMechanisms
+          ?.map(const CognitoUserAttributeKeyConverter().toJson)
+          .toList());
   return val;
 }
 

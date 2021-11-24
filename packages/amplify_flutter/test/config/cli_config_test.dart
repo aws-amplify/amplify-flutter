@@ -35,6 +35,7 @@ void main() {
         final parsed = AmplifyConfig.fromJson(json.cast());
         final expectedConfig = expected[name]!;
         expect(parsed, equals(expectedConfig));
+        expect(expectedConfig.toJson(), equals(json));
       });
     }
   });
@@ -58,21 +59,21 @@ const expected = {
   'API': AmplifyConfig(
     api: ApiConfig(
       plugins: {
-        AwsApiPluginConfig.pluginKey: AwsApiPluginConfig({
-          'API_KEY': AwsApiConfig(
+        AWSApiPluginConfig.pluginKey: AWSApiPluginConfig({
+          'API_KEY': AWSApiConfig(
             endpointType: EndpointType.graphQL,
             endpoint: GRAPHQL_ENDPOINT,
             region: REGION,
             authorizationType: APIAuthorizationType.apiKey,
             apiKey: API_KEY,
           ),
-          'AWS_IAM': AwsApiConfig(
+          'AWS_IAM': AWSApiConfig(
             endpointType: EndpointType.graphQL,
             endpoint: GRAPHQL_ENDPOINT,
             region: REGION,
             authorizationType: APIAuthorizationType.iam,
           ),
-          'REST': AwsApiConfig(
+          'REST': AWSApiConfig(
             endpointType: EndpointType.rest,
             endpoint: REST_ENDPOINT,
             region: REGION,
@@ -141,11 +142,13 @@ const expected = {
               region: REGION,
             ),
           }),
-          credentialsProvider: CredentialsProvider({
-            'Default': CognitoIdentityCredentialsProvider(
-              poolId: IDPOOL_ID,
-              region: REGION,
-            ),
+          credentialsProvider: CredentialsProviders({
+            'CognitoIdentity': AWSConfigMap({
+              'Default': CognitoIdentityCredentialsProvider(
+                poolId: IDPOOL_ID,
+                region: REGION,
+              ),
+            }),
           }),
           appSync: AWSConfigMap({
             'Default': CognitoAppSyncConfig(

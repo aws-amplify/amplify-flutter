@@ -17,7 +17,6 @@ library amplify_authenticator;
 
 import 'dart:async';
 
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/enums/enums.dart';
@@ -362,7 +361,7 @@ class _AuthenticatorState extends State<Authenticator> {
     if (cognitoPlugin == null) {
       return const ['auth.plugins.Auth.Default'];
     }
-    if (cognitoPlugin.signupAttributes.isEmpty) {
+    if (cognitoPlugin.signupAttributes == null) {
       missingValues.add('auth.plugins.Auth.Default.signUpAttributes');
     }
     if (cognitoPlugin.passwordProtectionSettings == null) {

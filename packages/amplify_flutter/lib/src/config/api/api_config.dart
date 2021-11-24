@@ -19,7 +19,7 @@ import 'package:amplify_flutter/src/config/amplify_plugin_registry.dart';
 import 'package:amplify_flutter/src/config/config_map.dart';
 
 import 'aws_api_config.dart';
-export 'aws_api_config.dart' hide AwsApiPluginConfigFactory;
+export 'aws_api_config.dart' hide AWSApiPluginConfigFactory;
 
 part 'api_config.g.dart';
 
@@ -38,8 +38,8 @@ class ApiConfig extends AmplifyPluginConfigMap {
 
   /// The AWS API plugin configuration, if available.
   @override
-  AwsApiPluginConfig? get awsPlugin =>
-      plugins[AwsApiPluginConfig.pluginKey] as AwsApiPluginConfig?;
+  AWSApiPluginConfig? get awsPlugin =>
+      plugins[AWSApiPluginConfig.pluginKey] as AWSApiPluginConfig?;
 
   @override
   Map<String, Object?> toJson() => _$ApiConfigToJson(this);

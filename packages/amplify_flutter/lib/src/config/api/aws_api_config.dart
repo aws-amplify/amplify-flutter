@@ -28,40 +28,40 @@ export 'appsync/api_config.dart';
 export 'appsync/endpoint_type.dart';
 
 /// {@template amplify_flutter.aws_api_plugin_config_factory}
-/// Configuration factory for [AwsApiPluginConfig].
+/// Configuration factory for [AWSApiPluginConfig].
 /// {@endtemplate}
 @internal
-class AwsApiPluginConfigFactory
-    extends AmplifyPluginConfigFactory<AwsApiPluginConfig> {
+class AWSApiPluginConfigFactory
+    extends AmplifyPluginConfigFactory<AWSApiPluginConfig> {
   /// {@macro amplify_flutter.aws_api_plugin_config_factory}
-  const AwsApiPluginConfigFactory();
+  const AWSApiPluginConfigFactory();
 
   @override
-  AwsApiPluginConfig build(Map<String, Object?> json) {
-    return AwsApiPluginConfig.fromJson(json);
+  AWSApiPluginConfig build(Map<String, Object?> json) {
+    return AWSApiPluginConfig.fromJson(json);
   }
 
   @override
-  String get name => AwsApiPluginConfig.pluginKey;
+  String get name => AWSApiPluginConfig.pluginKey;
 }
 
 /// {@template amplify_flutter.aws_api_plugin_config}
 /// The AWS API plugin configuration.
 /// {@endtemplate}
-class AwsApiPluginConfig extends ConfigMap<AwsApiConfig>
+class AWSApiPluginConfig extends ConfigMap<AWSApiConfig>
     implements AmplifyPluginConfig {
   /// {@macro amplify_flutter.aws_api_plugin_config}
-  const AwsApiPluginConfig(this.endpoints);
+  const AWSApiPluginConfig(this.endpoints);
 
   /// All API endpoint configurations.
-  final Map<String, AwsApiConfig> endpoints;
+  final Map<String, AWSApiConfig> endpoints;
 
-  factory AwsApiPluginConfig.fromJson(Map<String, Object?> json) {
+  factory AWSApiPluginConfig.fromJson(Map<String, Object?> json) {
     final configMap = AWSConfigMap.fromJson(
       json,
-      (json) => AwsApiConfig.fromJson((json as Map).cast()),
+      (json) => AWSApiConfig.fromJson((json as Map).cast()),
     );
-    return AwsApiPluginConfig(configMap.configs);
+    return AWSApiPluginConfig(configMap.configs);
   }
 
   /// The plugin's configuration key.
@@ -72,7 +72,7 @@ class AwsApiPluginConfig extends ConfigMap<AwsApiConfig>
 
   /// The default API configuration.
   @override
-  AwsApiConfig? get default$ =>
+  AWSApiConfig? get default$ =>
       entries
           .firstWhereOrNull(
             (el) => el.value.authorizationType == APIAuthorizationType.apiKey,
@@ -81,5 +81,5 @@ class AwsApiPluginConfig extends ConfigMap<AwsApiConfig>
       entries.firstOrNull?.value;
 
   @override
-  Map<String, AwsApiConfig> get all => endpoints;
+  Map<String, AWSApiConfig> get all => endpoints;
 }

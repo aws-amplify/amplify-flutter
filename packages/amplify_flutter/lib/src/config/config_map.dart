@@ -27,7 +27,7 @@ part 'config_map.g.dart';
 /// {@endtemplate}
 @immutable
 abstract class ConfigMap<T extends AWSSerializable>
-    with MapMixin<String, T>, AWSSerializable, AWSEquatable<ConfigMap<T>> {
+    with MapMixin<String, T>, AWSEquatable<ConfigMap<T>>, AWSSerializable {
   /// {@macro amplify_flutter.config_map}
   const ConfigMap();
 
@@ -63,7 +63,6 @@ abstract class ConfigMap<T extends AWSSerializable>
 /// {@template amplify_flutter.aws_config_map}
 /// A map of AWS configuration names to their typed representations.
 /// {@endtemplate}
-@immutable
 @configMapSerializable
 class AWSConfigMap<T extends AWSSerializable> extends ConfigMap<T> {
   /// {@macro amplify_flutter.aws_config_map}
@@ -82,7 +81,6 @@ class AWSConfigMap<T extends AWSSerializable> extends ConfigMap<T> {
         fromJsonT,
       );
 
-  /// The default configuration.
   @override
   T? get default$ => this['Default'];
 
@@ -93,7 +91,6 @@ class AWSConfigMap<T extends AWSSerializable> extends ConfigMap<T> {
 /// {@template amplify_flutter.amplify_plugin_config_map}
 /// A map of Amplify Plugin names to their typed representations.
 /// {@endtemplate}
-@immutable
 abstract class AmplifyPluginConfigMap extends ConfigMap<AmplifyPluginConfig> {
   /// {@macro amplify_flutter.amplify_plugin_config_map}
   const AmplifyPluginConfigMap(this.plugins);
@@ -105,7 +102,6 @@ abstract class AmplifyPluginConfigMap extends ConfigMap<AmplifyPluginConfig> {
   )
   final Map<String, AmplifyPluginConfig> plugins;
 
-  /// The default configuration.
   @override
   AmplifyPluginConfig? get default$ =>
       awsPlugin ?? plugins.entries.firstOrNull?.value;

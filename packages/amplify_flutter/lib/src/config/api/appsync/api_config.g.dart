@@ -21,7 +21,7 @@ part of 'api_config.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AwsApiConfig _$AwsApiConfigFromJson(Map<String, dynamic> json) => AwsApiConfig(
+AWSApiConfig _$AWSApiConfigFromJson(Map<String, dynamic> json) => AWSApiConfig(
       endpointType: $enumDecode(_$EndpointTypeEnumMap, json['endpointType']),
       endpoint: json['endpoint'] as String,
       region: json['region'] as String,
@@ -30,7 +30,7 @@ AwsApiConfig _$AwsApiConfigFromJson(Map<String, dynamic> json) => AwsApiConfig(
       apiKey: json['apiKey'] as String?,
     );
 
-Map<String, dynamic> _$AwsApiConfigToJson(AwsApiConfig instance) {
+Map<String, dynamic> _$AWSApiConfigToJson(AWSApiConfig instance) {
   final val = <String, dynamic>{
     'endpointType': _$EndpointTypeEnumMap[instance.endpointType],
     'endpoint': instance.endpoint,

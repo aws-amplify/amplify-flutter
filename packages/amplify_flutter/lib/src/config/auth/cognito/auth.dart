@@ -30,17 +30,15 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
   const CognitoAuthConfig({
     this.oAuth,
     this.authenticationFlowType,
-    this.socialProviders = const [],
-    this.usernameAttributes = const [],
-    this.signupAttributes = const [],
+    this.socialProviders,
+    this.usernameAttributes,
+    this.signupAttributes,
     this.passwordProtectionSettings,
     this.mfaConfiguration,
     this.mfaTypes,
-    this.verificationMechanisms = const [],
-    @Deprecated('Use usernameAttributes instead')
-        this.loginMechanism = const [],
-    @Deprecated('Use usernameAttributes instead')
-        this.loginMechanisms = const [],
+    this.verificationMechanisms,
+    @Deprecated('Use usernameAttributes instead') this.loginMechanism,
+    @Deprecated('Use usernameAttributes instead') this.loginMechanisms,
   });
 
   @JsonKey(name: 'OAuth')
@@ -50,25 +48,25 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
     unknownEnumValue: JsonKey.nullForUndefinedEnumValue,
   )
   final AuthenticationFlowType? authenticationFlowType;
-  final List<SocialProvider> socialProviders;
-  final List<CognitoUserAttributeKey> loginMechanism;
-  final List<CognitoUserAttributeKey> loginMechanisms;
-  final List<CognitoUserAttributeKey> usernameAttributes;
-  final List<CognitoUserAttributeKey> signupAttributes;
+  final List<SocialProvider>? socialProviders;
+  final List<CognitoUserAttributeKey>? loginMechanism;
+  final List<CognitoUserAttributeKey>? loginMechanisms;
+  final List<CognitoUserAttributeKey>? usernameAttributes;
+  final List<CognitoUserAttributeKey>? signupAttributes;
   final PasswordProtectionSettings? passwordProtectionSettings;
   final MfaConfiguration? mfaConfiguration;
   final List<MfaType>? mfaTypes;
-  final List<CognitoUserAttributeKey> verificationMechanisms;
+  final List<CognitoUserAttributeKey>? verificationMechanisms;
 
   @override
   List<Object?> get props => [
         oAuth,
         authenticationFlowType,
-        socialProviders,
-        loginMechanism,
-        loginMechanisms,
-        usernameAttributes,
-        signupAttributes,
+        [...?socialProviders],
+        [...?loginMechanism],
+        [...?loginMechanisms],
+        [...?usernameAttributes],
+        [...?signupAttributes],
         passwordProtectionSettings,
         mfaConfiguration,
         mfaTypes,

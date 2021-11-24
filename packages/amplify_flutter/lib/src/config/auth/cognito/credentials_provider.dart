@@ -18,29 +18,37 @@ import 'package:amplify_flutter/src/config/config_map.dart';
 
 part 'credentials_provider.g.dart';
 
-class CredentialsProvider
-    extends AWSConfigMap<CognitoIdentityCredentialsProvider> {
-  const CredentialsProvider(
-      Map<String, CognitoIdentityCredentialsProvider> providers)
-      : super(providers);
+class CredentialsProviders extends AWSConfigMap {
+  const CredentialsProviders(
+    Map<String, AWSSerializable> providers,
+  ) : super(providers);
 
-  factory CredentialsProvider.fromJson(Map<String, Object?> json) {
-    final cognitoIdentityMap = json['CognitoIdentity'];
-    if (cognitoIdentityMap is! Map<String, Object?>) {
-      return const CredentialsProvider({});
-    }
-    final configMap = AWSConfigMap<CognitoIdentityCredentialsProvider>.fromJson(
-      cognitoIdentityMap,
-      (json) =>
-          CognitoIdentityCredentialsProvider.fromJson((json as Map).cast()),
-    );
-    return CredentialsProvider(configMap.all);
+  factory CredentialsProviders.fromJson(Map<String, Object?> json) {
+    final providers = json.map((key, value) {
+      if (value is! Map<String, Object?>) {
+        throw ArgumentError.value(
+          json,
+          key,
+          '${value.runtimeType} is not a Map',
+        );
+      }
+      if (key == 'CognitoIdentity') {
+        final configs = AWSConfigMap.fromJson(
+          value,
+          (json) =>
+              CognitoIdentityCredentialsProvider.fromJson((json as Map).cast()),
+        );
+        return MapEntry(key, configs);
+      }
+      return MapEntry(key, SerializableMap(value));
+    });
+    return CredentialsProviders(providers);
   }
 
   @override
-  Map<String, Object?> toJson() => {
-        'CredentialsProvider': super.toJson(),
-      };
+  CognitoIdentityCredentialsProvider? get default$ => (this['CognitoIdentity']
+          as AWSConfigMap<CognitoIdentityCredentialsProvider>?)
+      ?.default$;
 }
 
 @awsSerializable

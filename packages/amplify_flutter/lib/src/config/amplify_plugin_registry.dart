@@ -23,7 +23,7 @@ import 'storage/s3_config.dart';
 /// through the [AmplifyPluginRegistry] interface.
 const _defaultPlugins = <AmplifyPluginConfigFactory>[
   // API
-  AwsApiPluginConfigFactory(),
+  AWSApiPluginConfigFactory(),
 
   // Analytics
   PinpointPluginConfigFactory(),

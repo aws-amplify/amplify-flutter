@@ -33,7 +33,7 @@ CognitoPluginConfig _$CognitoPluginConfigFromJson(Map<String, dynamic> json) =>
                   value as Map<String, dynamic>)),
       credentialsProvider: json['CredentialsProvider'] == null
           ? null
-          : CredentialsProvider.fromJson(
+          : CredentialsProviders.fromJson(
               json['CredentialsProvider'] as Map<String, dynamic>),
       cognitoUserPool: json['CognitoUserPool'] == null
           ? null
