@@ -109,7 +109,7 @@ mixin AuthenticatorUsernameField<FieldType,
   }
 
   @override
-  Widget get labelSuffix {
+  Widget? get labelSuffix {
     // Mirrors internal impl. to create an "always active" Switch theme.
     final thumbColor = Theme.of(context).toggleableActiveColor;
     final trackColor = thumbColor.withOpacity(0.5);
@@ -118,7 +118,7 @@ mixin AuthenticatorUsernameField<FieldType,
       case UsernameConfigType.username:
       case UsernameConfigType.email:
       case UsernameConfigType.phoneNumber:
-        return title;
+        return null;
       case UsernameConfigType.emailOrPhoneNumber:
       default:
         return SizedBox(
