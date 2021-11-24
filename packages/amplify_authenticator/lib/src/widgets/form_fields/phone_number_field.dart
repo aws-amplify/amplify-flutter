@@ -20,6 +20,7 @@ class AuthenticatorPhoneField<FieldType> extends AuthenticatorFormField<
   const AuthenticatorPhoneField({
     Key? key,
     required FieldType field,
+    bool? requiredOverride,
     this.onChanged,
     this.validator,
     this.enabled,
@@ -31,6 +32,7 @@ class AuthenticatorPhoneField<FieldType> extends AuthenticatorFormField<
           field: field,
           titleKey: useAmplifyTheme ? null : InputResolverKey.phoneNumberTitle,
           hintTextKey: InputResolverKey.phoneNumberHint,
+          requiredOverride: requiredOverride,
         );
 
   final bool? enabled;

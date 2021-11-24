@@ -206,6 +206,7 @@ mixin AuthenticatorUsernameField<FieldType,
     if (selectedUsernameType == UsernameType.phoneNumber) {
       return AuthenticatorPhoneField<FieldType>(
         field: widget.field,
+        requiredOverride: true,
         onChanged: _onChanged,
         validator: _validator,
         enabled: enabled,
