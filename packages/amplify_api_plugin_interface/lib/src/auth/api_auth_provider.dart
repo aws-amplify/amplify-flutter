@@ -25,7 +25,7 @@ import 'package:amplify_api_plugin_interface/src/auth/api_authorization_type.dar
 /// [docs](https://docs.amplify.aws/cli/graphql-transformer/auth).
 abstract class APIAuthProvider {
   /// The authorization type of this provider.
-  final ApiAuthorizationType type;
+  final APIAuthorizationType type;
 
   const APIAuthProvider._(this.type);
 
@@ -41,7 +41,7 @@ abstract class APIAuthProvider {
 /// {@endtemplate}
 abstract class OIDCAuthProvider extends APIAuthProvider {
   /// {@macro oidc_auth_provider}
-  const OIDCAuthProvider() : super._(ApiAuthorizationType.oidc);
+  const OIDCAuthProvider() : super._(APIAuthorizationType.oidc);
 }
 
 /// {@template function_auth_provider}
@@ -49,9 +49,9 @@ abstract class OIDCAuthProvider extends APIAuthProvider {
 /// {@endtemplate}
 abstract class FunctionAuthProvider extends APIAuthProvider {
   /// {@macro function_auth_provider}
-  const FunctionAuthProvider() : super._(ApiAuthorizationType.function);
+  const FunctionAuthProvider() : super._(APIAuthorizationType.function);
 }
 
 /// Refreshes the token for a given type or all registered types if none is passed.
 typedef APIAuthProviderRefresher = Future<void> Function(
-    [ApiAuthorizationType?]);
+    [APIAuthorizationType?]);

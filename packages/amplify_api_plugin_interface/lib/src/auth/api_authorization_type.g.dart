@@ -22,10 +22,10 @@ part of 'api_authorization_type.dart';
 // **************************************************************************
 
 const _$APIAuthorizationTypeEnumMap = {
-  ApiAuthorizationType.none: 'NONE',
-  ApiAuthorizationType.apiKey: 'API_KEY',
-  ApiAuthorizationType.iam: 'AWS_IAM',
-  ApiAuthorizationType.oidc: 'OPENID_CONNECT',
-  ApiAuthorizationType.userPools: 'AMAZON_COGNITO_USER_POOLS',
-  ApiAuthorizationType.function: 'AWS_LAMBDA',
+  APIAuthorizationType.none: 'NONE',
+  APIAuthorizationType.apiKey: 'API_KEY',
+  APIAuthorizationType.iam: 'AWS_IAM',
+  APIAuthorizationType.oidc: 'OPENID_CONNECT',
+  APIAuthorizationType.userPools: 'AMAZON_COGNITO_USER_POOLS',
+  APIAuthorizationType.function: 'AWS_LAMBDA',
 };

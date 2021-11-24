@@ -26,7 +26,7 @@ class AwsApiConfig with AWSEquatable<AwsApiConfig>, AWSSerializable {
   final EndpointType endpointType;
   final String endpoint;
   final String region;
-  final ApiAuthorizationType authorizationType;
+  final APIAuthorizationType authorizationType;
   final String? apiKey;
 
   const AwsApiConfig({

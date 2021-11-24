@@ -28,9 +28,9 @@ class MockOIDCAuthProvider extends _i1.Mock implements _i2.OIDCAuthProvider {
   }
 
   @override
-  _i3.ApiAuthorizationType get type => (super.noSuchMethod(
+  _i3.APIAuthorizationType get type => (super.noSuchMethod(
       Invocation.getter(#type),
-      returnValue: _i3.ApiAuthorizationType.none) as _i3.ApiAuthorizationType);
+      returnValue: _i3.APIAuthorizationType.none) as _i3.APIAuthorizationType);
   @override
   _i4.Future<String?> getLatestAuthToken() =>
       (super.noSuchMethod(Invocation.method(#getLatestAuthToken, []),

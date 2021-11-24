@@ -23,7 +23,7 @@ import 'package:meta/meta.dart';
 import 'appsync/api_config.dart';
 
 export 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart'
-    show ApiAuthorizationType;
+    show APIAuthorizationType;
 export 'appsync/api_config.dart';
 export 'appsync/endpoint_type.dart';
 
@@ -75,7 +75,7 @@ class AwsApiPluginConfig extends ConfigMap<AwsApiConfig>
   AwsApiConfig? get default$ =>
       entries
           .firstWhereOrNull(
-            (el) => el.value.authorizationType == ApiAuthorizationType.apiKey,
+            (el) => el.value.authorizationType == APIAuthorizationType.apiKey,
           )
           ?.value ??
       entries.firstOrNull?.value;
