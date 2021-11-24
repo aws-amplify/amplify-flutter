@@ -45,18 +45,10 @@ mixin AuthenticatorDateField<FieldType,
 
   @override
   Widget buildFormField(BuildContext context) {
-    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final inputResolver = stringResolver.inputs;
     final hintText = widget.hintText == null
         ? inputResolver.resolve(context, widget.hintTextKey!)
         : widget.hintText!;
-    String? labelText = useAmplifyTheme
-        ? null
-        : widget.title ?? widget.titleKey?.resolve(context, inputResolver);
-    if (labelText != null) {
-      labelText =
-          isOptional ? inputResolver.optional(context, labelText) : labelText;
-    }
 
     DateTime now = DateTime.now();
     Future<void> _pickTime() async {

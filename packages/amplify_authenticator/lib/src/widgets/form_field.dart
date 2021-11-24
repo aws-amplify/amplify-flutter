@@ -191,7 +191,24 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   /// Defaults to a [Text] object with the form field's title.
   Widget? get title => null;
 
+  /// a widget to show after the label, right aligned.
+  ///
+  /// Used to display a toggle between username selection
   Widget? get labelSuffix => null;
+
+  /// Content for the form field's label
+  String? get labelText {
+    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
+    final inputResolver = stringResolver.inputs;
+    String? labelText = useAmplifyTheme
+        ? null
+        : widget.title ?? widget.titleKey?.resolve(context, inputResolver);
+    if (labelText != null) {
+      labelText =
+          isOptional ? inputResolver.optional(context, labelText) : labelText;
+    }
+    return labelText;
+  }
 
   Widget buildFormField(BuildContext context);
 
@@ -274,5 +291,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         .add(DiagnosticsProperty<ValueNotifier<bool>>('useEmail', useEmail));
     properties.add(IntProperty('maxLength', maxLength));
     properties.add(DiagnosticsProperty<bool>('isOptional', isOptional));
+    properties.add(StringProperty('labelText', labelText));
   }
 }

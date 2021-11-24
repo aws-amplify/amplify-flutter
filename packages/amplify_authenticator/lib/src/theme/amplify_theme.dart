@@ -505,6 +505,7 @@ class AmplifyTheme {
     ),
     focusedBorder: const OutlineInputBorder(),
     border: const OutlineInputBorder(),
+    isDense: true,
   );
 
   static final inputDecorationThemeDark = InputDecorationTheme(
@@ -518,6 +519,7 @@ class AmplifyTheme {
     border: const OutlineInputBorder(
       borderSide: BorderSide(color: AmplifyColors.neutral90),
     ),
+    isDense: true,
   );
 
   static final tabBarTheme = TabBarTheme(
