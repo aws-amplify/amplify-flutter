@@ -23,45 +23,45 @@ import 'package:meta/meta.dart';
 import 'appsync/api_config.dart';
 
 export 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart'
-    show APIAuthorizationType;
+    show ApiAuthorizationType;
 export 'appsync/api_config.dart';
 export 'appsync/endpoint_type.dart';
 
-/// {@template amplify_common.appsync_plugin_config_factory}
-/// Configuration factory for [AppSyncPluginConfig].
+/// {@template amplify_flutter.aws_api_plugin_config_factory}
+/// Configuration factory for [AwsApiPluginConfig].
 /// {@endtemplate}
 @internal
-class AppSyncPluginConfigFactory
-    extends AmplifyPluginConfigFactory<AppSyncPluginConfig> {
-  /// {@macro amplify_common.appsync_plugin_config_factory}
-  const AppSyncPluginConfigFactory();
+class AwsApiPluginConfigFactory
+    extends AmplifyPluginConfigFactory<AwsApiPluginConfig> {
+  /// {@macro amplify_flutter.aws_api_plugin_config_factory}
+  const AwsApiPluginConfigFactory();
 
   @override
-  AppSyncPluginConfig build(Map<String, Object?> json) {
-    return AppSyncPluginConfig.fromJson(json);
+  AwsApiPluginConfig build(Map<String, Object?> json) {
+    return AwsApiPluginConfig.fromJson(json);
   }
 
   @override
-  String get name => AppSyncPluginConfig.pluginKey;
+  String get name => AwsApiPluginConfig.pluginKey;
 }
 
-/// {@template amplify_common.config.appsync_plugin_config}
-/// The AWS AppSync plugin configuration.
+/// {@template amplify_flutter.aws_api_plugin_config}
+/// The AWS API plugin configuration.
 /// {@endtemplate}
-class AppSyncPluginConfig extends ConfigMap<AppSyncApiConfig>
+class AwsApiPluginConfig extends ConfigMap<AwsApiConfig>
     implements AmplifyPluginConfig {
-  /// {@macro amplify_common.config.appsync_plugin_config}
-  const AppSyncPluginConfig(this.endpoints);
+  /// {@macro amplify_flutter.aws_api_plugin_config}
+  const AwsApiPluginConfig(this.endpoints);
 
   /// All API endpoint configurations.
-  final Map<String, AppSyncApiConfig> endpoints;
+  final Map<String, AwsApiConfig> endpoints;
 
-  factory AppSyncPluginConfig.fromJson(Map<String, Object?> json) {
+  factory AwsApiPluginConfig.fromJson(Map<String, Object?> json) {
     final configMap = AWSConfigMap.fromJson(
       json,
-      (json) => AppSyncApiConfig.fromJson((json as Map).cast()),
+      (json) => AwsApiConfig.fromJson((json as Map).cast()),
     );
-    return AppSyncPluginConfig(configMap.configs);
+    return AwsApiPluginConfig(configMap.configs);
   }
 
   /// The plugin's configuration key.
@@ -72,14 +72,14 @@ class AppSyncPluginConfig extends ConfigMap<AppSyncApiConfig>
 
   /// The default API configuration.
   @override
-  AppSyncApiConfig? get default$ =>
+  AwsApiConfig? get default$ =>
       entries
           .firstWhereOrNull(
-            (el) => el.value.authorizationType == APIAuthorizationType.apiKey,
+            (el) => el.value.authorizationType == ApiAuthorizationType.apiKey,
           )
           ?.value ??
       entries.firstOrNull?.value;
 
   @override
-  Map<String, AppSyncApiConfig> get all => endpoints;
+  Map<String, AwsApiConfig> get all => endpoints;
 }

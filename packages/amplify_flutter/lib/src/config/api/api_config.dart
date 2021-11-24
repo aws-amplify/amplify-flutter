@@ -19,16 +19,16 @@ import 'package:amplify_flutter/src/config/amplify_plugin_registry.dart';
 import 'package:amplify_flutter/src/config/config_map.dart';
 
 import 'appsync_config.dart';
-export 'appsync_config.dart' hide AppSyncPluginConfigFactory;
+export 'appsync_config.dart' hide AwsApiPluginConfigFactory;
 
 part 'api_config.g.dart';
 
-/// {@template amplify_flutter.config.api_config}
+/// {@template amplify_flutter.api_config}
 /// The API category configuration.
 /// {@endtemplate}
 @amplifySerializable
 class ApiConfig extends AmplifyPluginConfigMap {
-  /// {@macro amplify_flutter.config.api_config}
+  /// {@macro amplify_flutter.api_config}
   const ApiConfig({
     required Map<String, AmplifyPluginConfig> plugins,
   }) : super(plugins);
@@ -36,10 +36,10 @@ class ApiConfig extends AmplifyPluginConfigMap {
   factory ApiConfig.fromJson(Map<String, Object?> json) =>
       _$ApiConfigFromJson(json);
 
-  /// The AWS AppSync plugin configuration, if available.
+  /// The AWS API plugin configuration, if available.
   @override
-  AppSyncPluginConfig? get awsPlugin =>
-      plugins[AppSyncPluginConfig.pluginKey] as AppSyncPluginConfig?;
+  AwsApiPluginConfig? get awsPlugin =>
+      plugins[AwsApiPluginConfig.pluginKey] as AwsApiPluginConfig?;
 
   @override
   Map<String, Object?> toJson() => _$ApiConfigToJson(this);

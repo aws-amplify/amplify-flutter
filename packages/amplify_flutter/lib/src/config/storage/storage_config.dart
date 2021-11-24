@@ -24,12 +24,12 @@ export 's3_config.dart' hide S3PluginConfigFactory;
 
 part 'storage_config.g.dart';
 
-/// {@template amplify_common.config.storage_config}
+/// {@template amplify_flutter.storage_config}
 /// The Storage category configuration.
 /// {@endtemplate}
 @amplifySerializable
 class StorageConfig extends AmplifyPluginConfigMap {
-  /// {@macro amplify_common.config.storage_config}
+  /// {@macro amplify_flutter.storage_config}
   const StorageConfig({
     required Map<String, AmplifyPluginConfig> plugins,
   }) : super(plugins);

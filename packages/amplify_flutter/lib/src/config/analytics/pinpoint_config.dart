@@ -16,15 +16,17 @@
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_plugin_config.dart';
 import 'package:amplify_flutter/src/config/amplify_plugin_registry.dart';
+import 'package:meta/meta.dart';
 
 part 'pinpoint_config.g.dart';
 
-/// {@template amplify_common.pinpoint_plugin_config_factory}
+/// {@template amplify_flutter.pinpoint_plugin_config_factory}
 /// Configuration factory for [PinpointPluginConfig].
 /// {@endtemplate}
+@internal
 class PinpointPluginConfigFactory
     extends AmplifyPluginConfigFactory<PinpointPluginConfig> {
-  /// {@macro amplify_common.pinpoint_plugin_config_factory}
+  /// {@macro amplify_flutter.pinpoint_plugin_config_factory}
   const PinpointPluginConfigFactory();
 
   @override
@@ -36,14 +38,14 @@ class PinpointPluginConfigFactory
   String get name => PinpointPluginConfig.pluginKey;
 }
 
-/// {@template amplify_common.config.pinpoint_plugin_config}
+/// {@template amplify_flutter.pinpoint_plugin_config}
 /// The AWS Pinpoint plugin configuration.
 /// {@endtemplate}
 @amplifySerializable
 class PinpointPluginConfig
     with AWSEquatable<PinpointPluginConfig>, AWSSerializable
     implements AmplifyPluginConfig {
-  /// {@macro amplify_common.config.pinpoint_plugin_config}
+  /// {@macro amplify_flutter.pinpoint_plugin_config}
   const PinpointPluginConfig({
     required this.pinpointAnalytics,
     required this.pinpointTargeting,

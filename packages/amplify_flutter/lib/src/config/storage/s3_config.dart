@@ -22,12 +22,12 @@ import 'package:meta/meta.dart';
 
 part 's3_config.g.dart';
 
-/// {@template amplify_common.s3_plugin_config_factory}
+/// {@template amplify_flutter.s3_plugin_config_factory}
 /// Configuration factory for [S3PluginConfig].
 /// {@endtemplate}
 @internal
 class S3PluginConfigFactory extends AmplifyPluginConfigFactory<S3PluginConfig> {
-  /// {@macro amplify_common.s3_plugin_config_factory}
+  /// {@macro amplify_flutter.s3_plugin_config_factory}
   const S3PluginConfigFactory();
 
   @override
@@ -39,14 +39,14 @@ class S3PluginConfigFactory extends AmplifyPluginConfigFactory<S3PluginConfig> {
   String get name => S3PluginConfig.pluginKey;
 }
 
-/// {@template amplify_common.config.s3_plugin_config}
+/// {@template amplify_flutter.s3_plugin_config}
 /// The AWS S3 plugin configuration.
 /// {@endtemplate}
 @amplifySerializable
 class S3PluginConfig
     with AWSEquatable<S3PluginConfig>, AWSSerializable
     implements AmplifyPluginConfig {
-  /// {@macro amplify_common.config.s3_plugin_config}
+  /// {@macro amplify_flutter.s3_plugin_config}
   const S3PluginConfig({
     required this.bucket,
     required this.region,

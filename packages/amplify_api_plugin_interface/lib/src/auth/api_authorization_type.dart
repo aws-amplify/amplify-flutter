@@ -24,7 +24,7 @@ part 'api_authorization_type.g.dart';
 /// See also:
 /// - [AppSync Security](https://docs.aws.amazon.com/appsync/latest/devguide/security.html)
 @JsonEnum(alwaysCreate: true)
-enum APIAuthorizationType {
+enum ApiAuthorizationType {
   /// For public APIs.
   @JsonValue('NONE')
   none,
@@ -67,11 +67,11 @@ enum APIAuthorizationType {
   function
 }
 
-/// Helper methods for [APIAuthorizationType].
-extension APIAuthorizationTypeX on APIAuthorizationType {
-  /// Returns the [APIAuthorizationType] value for [value].
-  static APIAuthorizationType? from(String? value) =>
-      APIAuthorizationType.values
+/// Helper methods for [ApiAuthorizationType].
+extension APIAuthorizationTypeX on ApiAuthorizationType {
+  /// Returns the [ApiAuthorizationType] value for [value].
+  static ApiAuthorizationType? from(String? value) =>
+      ApiAuthorizationType.values
           .firstWhereOrNull((el) => el.rawValue == value);
 
   /// Returns the underlying [String] backing [this].

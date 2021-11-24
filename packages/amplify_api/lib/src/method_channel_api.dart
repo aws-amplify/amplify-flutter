@@ -77,7 +77,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   final Map<String, Stream<GraphQLResponse>> _subscriptions = {};
 
   /// The registered [APIAuthProvider] instances.
-  final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
+  final Map<ApiAuthorizationType, APIAuthProvider> _authProviders = {};
 
   @override
   Future<void> addPlugin() async {

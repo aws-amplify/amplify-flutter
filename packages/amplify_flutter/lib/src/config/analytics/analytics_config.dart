@@ -23,12 +23,12 @@ export 'pinpoint_config.dart' hide PinpointPluginConfigFactory;
 
 part 'analytics_config.g.dart';
 
-/// {@template amplify_common.config.analytics_config}
+/// {@template amplify_flutter.analytics_config}
 /// The Analytics category configuration.
 /// {@endtemplate}
 @amplifySerializable
 class AnalyticsConfig extends AmplifyPluginConfigMap {
-  /// {@macro amplify_common.config.analytics_config}
+  /// {@macro amplify_flutter.analytics_config}
   const AnalyticsConfig({
     required Map<String, AmplifyPluginConfig> plugins,
   }) : super(plugins);

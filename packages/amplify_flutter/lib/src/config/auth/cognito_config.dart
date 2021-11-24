@@ -36,13 +36,13 @@ export 'cognito/user_pool.dart';
 
 part 'cognito_config.g.dart';
 
-/// {@template amplify_common.cognito_plugin_config_factory}
+/// {@template amplify_flutter.cognito_plugin_config_factory}
 /// Configuration factory for [CognitoPluginConfig].
 /// {@endtemplate}
 @internal
 class CognitoPluginConfigFactory
     extends AmplifyPluginConfigFactory<CognitoPluginConfig> {
-  /// {@macro amplify_common.cognito_plugin_config_factory}
+  /// {@macro amplify_flutter.cognito_plugin_config_factory}
   const CognitoPluginConfigFactory();
 
   @override
@@ -54,10 +54,26 @@ class CognitoPluginConfigFactory
   String get name => CognitoPluginConfig.pluginKey;
 }
 
+/// {@template amplify_flutter.cognito_plugin_config}
+/// The AWS Cognito plugin configuration.
+/// {@endtemplate}
 @awsSerializable
 class CognitoPluginConfig
     with AWSEquatable<CognitoPluginConfig>, AWSSerializable
     implements AmplifyPluginConfig {
+  /// {@macro amplify_flutter.cognito_plugin_config}
+  const CognitoPluginConfig({
+    this.userAgent = 'aws-amplify-cli/0.1.0',
+    this.version = '0.1.0',
+    this.identityManager,
+    this.credentialsProvider,
+    this.cognitoUserPool,
+    this.auth,
+    this.appSync,
+    this.pinpointAnalytics,
+    this.pinpointTargeting,
+    this.s3TransferUtility,
+  });
   static const pluginKey = 'awsCognitoAuthPlugin';
 
   @override
@@ -74,19 +90,6 @@ class CognitoPluginConfig
   final AWSConfigMap<CognitoPinpointAnalyticsConfig>? pinpointAnalytics;
   final AWSConfigMap<CognitoPinpointTargetingConfig>? pinpointTargeting;
   final AWSConfigMap<S3TransferUtility>? s3TransferUtility;
-
-  const CognitoPluginConfig({
-    this.userAgent = 'aws-amplify-cli/0.1.0',
-    this.version = '0.1.0',
-    this.identityManager,
-    this.credentialsProvider,
-    this.cognitoUserPool,
-    this.auth,
-    this.appSync,
-    this.pinpointAnalytics,
-    this.pinpointTargeting,
-    this.s3TransferUtility,
-  });
 
   @override
   List<Object?> get props => [

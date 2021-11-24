@@ -23,7 +23,7 @@ import 'storage/s3_config.dart';
 /// through the [AmplifyPluginRegistry] interface.
 const _defaultPlugins = <AmplifyPluginConfigFactory>[
   // API
-  AppSyncPluginConfigFactory(),
+  AwsApiPluginConfigFactory(),
 
   // Analytics
   PinpointPluginConfigFactory(),
@@ -35,11 +35,11 @@ const _defaultPlugins = <AmplifyPluginConfigFactory>[
   S3PluginConfigFactory(),
 ];
 
-/// {@template amplify_common.amplify_plugin_config_factory}
+/// {@template amplify_flutter.amplify_plugin_config_factory}
 /// A class for building plugins of type [T].
 /// {@endtemplate}
 abstract class AmplifyPluginConfigFactory<T extends AmplifyPluginConfig> {
-  /// {@macro amplify_common.amplify_plugin_config_factory}
+  /// {@macro amplify_flutter.amplify_plugin_config_factory}
   const AmplifyPluginConfigFactory();
 
   /// The name of the plugin, as registered in the "plugins" dictionary of

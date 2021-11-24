@@ -17,19 +17,18 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_plugin_config.dart';
 import 'package:amplify_flutter/src/config/amplify_plugin_registry.dart';
 import 'package:amplify_flutter/src/config/config_map.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 import 'cognito_config.dart';
 export 'cognito_config.dart' hide CognitoPluginConfigFactory;
 
 part 'auth_config.g.dart';
 
-/// {@template amplify_common.config.auth_config}
+/// {@template amplify_flutter.auth_config}
 /// The Auth category configuration.
 /// {@endtemplate}
 @amplifySerializable
 class AuthConfig extends AmplifyPluginConfigMap {
-  /// {@macro amplify_common.config.auth_config}
+  /// {@macro amplify_flutter.auth_config}
   const AuthConfig({required Map<String, AmplifyPluginConfig> plugins})
       : super(plugins);
 

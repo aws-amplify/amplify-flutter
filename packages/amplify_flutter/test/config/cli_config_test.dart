@@ -1,3 +1,18 @@
+//
+// Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+//  http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
+
 import 'dart:convert';
 
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
@@ -42,25 +57,25 @@ const expected = {
   'API': AmplifyConfig(
     api: ApiConfig(
       plugins: {
-        AppSyncPluginConfig.pluginKey: AppSyncPluginConfig({
-          'API_KEY': AppSyncApiConfig(
+        AwsApiPluginConfig.pluginKey: AwsApiPluginConfig({
+          'API_KEY': AwsApiConfig(
             endpointType: EndpointType.graphQL,
             endpoint: GRAPHQL_ENDPOINT,
             region: REGION,
-            authorizationType: APIAuthorizationType.apiKey,
+            authorizationType: ApiAuthorizationType.apiKey,
             apiKey: API_KEY,
           ),
-          'AWS_IAM': AppSyncApiConfig(
+          'AWS_IAM': AwsApiConfig(
             endpointType: EndpointType.graphQL,
             endpoint: GRAPHQL_ENDPOINT,
             region: REGION,
-            authorizationType: APIAuthorizationType.iam,
+            authorizationType: ApiAuthorizationType.iam,
           ),
-          'REST': AppSyncApiConfig(
+          'REST': AwsApiConfig(
             endpointType: EndpointType.rest,
             endpoint: REST_ENDPOINT,
             region: REGION,
-            authorizationType: APIAuthorizationType.userPools,
+            authorizationType: ApiAuthorizationType.userPools,
           ),
         }),
       },
@@ -135,7 +150,7 @@ const expected = {
             'Default': CognitoAppSyncConfig(
               apiUrl: GRAPHQL_ENDPOINT,
               region: REGION,
-              authMode: APIAuthorizationType.userPools,
+              authMode: ApiAuthorizationType.userPools,
               clientDatabasePrefix: DATABASE_PREFIX,
             ),
           }),

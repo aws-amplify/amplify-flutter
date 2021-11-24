@@ -18,7 +18,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'amplify_config.g.dart';
 
-/// {@template amplify_common.amplify_config}
+/// {@template amplify_flutter.amplify_config}
 /// The configuration for Amplify libraries.
 /// {@endtemplate}
 @amplifySerializable
@@ -41,7 +41,7 @@ class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
   /// The Storage category configuration, if available.
   final StorageConfig? storage;
 
-  /// {@macro amplify_common.amplify_config}
+  /// {@macro amplify_flutter.amplify_config}
   const AmplifyConfig({
     this.userAgent = 'aws-amplify-cli/2.0',
     this.version = '1.0',

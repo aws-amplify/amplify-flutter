@@ -17,7 +17,7 @@ void main() {
   const standardCodec = StandardMethodCodec();
   final methodCall = MethodCall(
     'getLatestAuthToken',
-    APIAuthorizationType.oidc.rawValue,
+    ApiAuthorizationType.oidc.rawValue,
   );
   final provider = MockOIDCAuthProvider();
 
@@ -40,7 +40,7 @@ void main() {
         amplifyAPI = AmplifyAPIMethodChannel();
         amplifyAPI.setupAuthProviders();
         reset(provider);
-        when(provider.type).thenReturn(APIAuthorizationType.oidc);
+        when(provider.type).thenReturn(ApiAuthorizationType.oidc);
         amplifyAPI.registerAuthProvider(provider);
       });
 

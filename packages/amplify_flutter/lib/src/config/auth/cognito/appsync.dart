@@ -31,7 +31,7 @@ class CognitoAppSyncConfig
 
   final String apiUrl;
   final String region;
-  final APIAuthorizationType authMode;
+  final ApiAuthorizationType authMode;
   final String? apiKey;
   final String clientDatabasePrefix;
 

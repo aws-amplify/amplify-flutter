@@ -31,13 +31,13 @@ abstract class AmplifyPluginConfig with AWSSerializable {
   Map<String, Object?> toJson();
 }
 
-/// {@template amplify_common.unknown_plugin_config_factory}
+/// {@template amplify_flutter.unknown_plugin_config_factory}
 /// A plugin factory for unknown plugin configs.
 /// @{endtemplate}
 @internal
 class UnknownPluginConfigFactory
     extends AmplifyPluginConfigFactory<UnknownPluginConfig> {
-  /// {@macro amplify_common.unknown_plugin_config_factory}
+  /// {@macro amplify_flutter.unknown_plugin_config_factory}
   const UnknownPluginConfigFactory(this.name);
 
   @override
@@ -49,13 +49,13 @@ class UnknownPluginConfigFactory
   }
 }
 
-/// {@template amplify_common.unknown_plugin_config}
+/// {@template amplify_flutter.unknown_plugin_config}
 /// A plugin configuration for unknown plugins. Delegates to a [Map].
 /// {@endtemplate}
 class UnknownPluginConfig extends DelegatingMap<String, Object?>
     with AWSSerializable, AWSEquatable<UnknownPluginConfig>
     implements AmplifyPluginConfig {
-  /// {@macro amplify_common.unknown_plugin_config}
+  /// {@macro amplify_flutter.unknown_plugin_config}
   const UnknownPluginConfig(this.name, Map<String, Object?> plugin)
       : super(plugin);
 
