@@ -30,6 +30,13 @@ mixin AuthenticatorTextField<FieldType,
     final hintText = widget.hintText == null
         ? widget.hintTextKey?.resolve(context, inputResolver)
         : widget.hintText!;
+    String? labelText = useAmplifyTheme
+        ? null
+        : widget.title ?? widget.titleKey?.resolve(context, inputResolver);
+    if (labelText != null) {
+      labelText =
+          isOptional ? inputResolver.optional(context, labelText) : labelText;
+    }
     return ValueListenableBuilder<bool>(
       valueListenable: context
           .findAncestorStateOfType<AuthenticatorFormState>()!
@@ -46,10 +53,7 @@ mixin AuthenticatorTextField<FieldType,
           onChanged: onChanged,
           autocorrect: false,
           decoration: InputDecoration(
-            labelText: useAmplifyTheme
-                ? null
-                : widget.title ??
-                    widget.titleKey?.resolve(context, inputResolver),
+            labelText: labelText,
             prefixIcon: prefix,
             prefixIconConstraints: const BoxConstraints(
               minWidth: 40,

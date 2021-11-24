@@ -99,13 +99,17 @@ mixin AuthenticatorUsernameField<FieldType,
   }
 
   @override
-  Widget get labelSuffix {
+  Widget get title {
     final inputResolver = stringResolver.inputs;
     final titleString = inputResolver.resolve(context, titleKey);
-    final labelText = Text(
+    final title = Text(
       isOptional ? inputResolver.optional(context, titleString) : titleString,
     );
+    return title;
+  }
 
+  @override
+  Widget get labelSuffix {
     // Mirrors internal impl. to create an "always active" Switch theme.
     final thumbColor = Theme.of(context).toggleableActiveColor;
     final trackColor = thumbColor.withOpacity(0.5);
@@ -114,7 +118,7 @@ mixin AuthenticatorUsernameField<FieldType,
       case UsernameConfigType.username:
       case UsernameConfigType.email:
       case UsernameConfigType.phoneNumber:
-        return labelText;
+        return title;
       case UsernameConfigType.emailOrPhoneNumber:
       default:
         return SizedBox(
@@ -208,6 +212,7 @@ mixin AuthenticatorUsernameField<FieldType,
         errorMaxLines: errorMaxLines,
         initialValue:
             viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber),
+        useAmplifyTheme: useAmplifyTheme,
       );
     }
     return TextFormField(
@@ -225,9 +230,8 @@ mixin AuthenticatorUsernameField<FieldType,
         prefixIcon: prefix,
         suffixIcon: suffix,
         errorMaxLines: errorMaxLines,
-        labelText: useAmplifyTheme
-            ? null
-            : widget.title ?? widget.titleKey?.resolve(context, inputResolver),
+        labelText:
+            useAmplifyTheme ? null : titleKey.resolve(context, inputResolver),
         hintText: hintText,
         isDense: useAmplifyTheme ? true : null,
       ),

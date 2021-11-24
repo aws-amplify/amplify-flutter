@@ -25,9 +25,11 @@ class AuthenticatorPhoneField<FieldType> extends AuthenticatorFormField<
     this.enabled,
     this.initialValue,
     this.errorMaxLines,
+    required bool useAmplifyTheme,
   }) : super._(
           key: key,
           field: field,
+          titleKey: useAmplifyTheme ? null : InputResolverKey.phoneNumberTitle,
           hintTextKey: InputResolverKey.phoneNumberHint,
         );
 

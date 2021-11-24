@@ -208,7 +208,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
     final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final inputResolver = stringResolver.inputs;
     Widget? title = useAmplifyTheme ? this.title : null;
-    if (title == null) {
+    if (title == null && useAmplifyTheme) {
       final titleString =
           widget.title ?? widget.titleKey?.resolve(context, inputResolver);
       if (titleString != null) {
@@ -224,13 +224,18 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         const TextStyle(fontSize: 16);
 
     return Container(
-      margin: title == null ? EdgeInsets.zero : FormFieldConstants.marginBottom,
+      margin: FormFieldConstants.marginBottom,
       child: Stack(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              if (useAmplifyTheme && title != null)
+              if (!useAmplifyTheme && labelSuffix != null)
+                Row(
+                  children: [labelSuffix!],
+                  mainAxisAlignment: MainAxisAlignment.end,
+                ),
+              if (title != null)
                 DefaultTextStyle(
                   style: titleStyle,
                   child: title,
@@ -240,7 +245,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
               if (companionWidget != null) companionWidget!,
             ],
           ),
-          if (labelSuffix != null)
+          if (useAmplifyTheme && labelSuffix != null)
             Positioned(top: 0, right: 0, child: labelSuffix!),
         ],
       ),
