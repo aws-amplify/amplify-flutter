@@ -83,6 +83,12 @@ class _AuthenticatorPhoneFieldState<FieldType>
   Widget? get suffix => widget.suffix;
 
   @override
+  EdgeInsetsGeometry? get marginBottom => null;
+
+  @override
+  double? get labelGap => null;
+
+  @override
   ValueChanged<String> get onChanged => (phoneNumber) {
         phoneNumber = formatPhoneNumber(phoneNumber)!;
         return (widget.onChanged ?? super.onChanged)(phoneNumber);
