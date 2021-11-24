@@ -205,13 +205,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   /// Displayed above the form field for Amplify Theme, unused for Material Theme
   Widget? get label => labelText != null ? Text(labelText!) : null;
 
-  /// Widget to show after the label
-  ///
-  /// The labelSuffix will be right aligned with the form field,
-  /// and will be veritcally aligned with the label for Amplify Theme,
-  /// or above the label for Material Theme
-  Widget? get labelSuffix => null;
-
   Widget buildFormField(BuildContext context);
 
   /// Whether the field is optional, i.e. does not require user input. This is
@@ -236,11 +229,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              if (!useAmplifyTheme && labelSuffix != null)
-                Row(
-                  children: [labelSuffix!],
-                  mainAxisAlignment: MainAxisAlignment.end,
-                ),
               if (useAmplifyTheme && label != null)
                 DefaultTextStyle(
                   style: titleStyle,
@@ -251,8 +239,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
               if (companionWidget != null) companionWidget!,
             ],
           ),
-          if (useAmplifyTheme && labelSuffix != null)
-            Positioned(top: 0, right: 0, child: labelSuffix!),
         ],
       ),
     );

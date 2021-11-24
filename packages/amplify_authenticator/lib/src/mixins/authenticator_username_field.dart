@@ -109,7 +109,7 @@ mixin AuthenticatorUsernameField<FieldType,
   }
 
   @override
-  Widget? get labelSuffix {
+  Widget? get suffix {
     // Mirrors internal impl. to create an "always active" Switch theme.
     final thumbColor = Theme.of(context).toggleableActiveColor;
     final trackColor = thumbColor.withOpacity(0.5);
@@ -123,6 +123,7 @@ mixin AuthenticatorUsernameField<FieldType,
       default:
         return SizedBox(
           height: 20,
+          width: 100,
           child: IconTheme.merge(
             data: const IconThemeData(size: 16.0),
             child: Row(
@@ -222,6 +223,7 @@ mixin AuthenticatorUsernameField<FieldType,
         initialValue:
             viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber),
         useAmplifyTheme: useAmplifyTheme,
+        suffix: suffix,
       );
     }
     return TextFormField(
