@@ -18,8 +18,8 @@ import 'package:amplify_flutter/src/config/amplify_plugin_config.dart';
 import 'package:amplify_flutter/src/config/amplify_plugin_registry.dart';
 import 'package:amplify_flutter/src/config/config_map.dart';
 
-import 'appsync_config.dart';
-export 'appsync_config.dart' hide AwsApiPluginConfigFactory;
+import 'aws_api_config.dart';
+export 'aws_api_config.dart' hide AwsApiPluginConfigFactory;
 
 part 'api_config.g.dart';
 

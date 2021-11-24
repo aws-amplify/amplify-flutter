@@ -60,7 +60,6 @@ const _auth = '''
       "awsCognitoAuthPlugin": {
         "UserAgent": "aws-amplify/cli",
         "Version": "0.1.0",
-        "Auth0FederationProviderName": "xxxxxxxx.auth0.com",
         "IdentityManager": {
           "Default": {}
         },
@@ -174,8 +173,7 @@ const _api = '''
           "endpointType": "GraphQL",
           "endpoint": "$GRAPHQL_ENDPOINT",
           "region": "$REGION",
-          "authorizationType": "AWS_IAM",
-          "apiKey": null
+          "authorizationType": "AWS_IAM"
         },
         "REST": {
           "endpointType": "REST",

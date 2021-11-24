@@ -15,7 +15,7 @@
 
 import 'amplify_plugin_config.dart';
 import 'analytics/pinpoint_config.dart';
-import 'api/appsync_config.dart';
+import 'api/aws_api_config.dart';
 import 'auth/cognito_config.dart';
 import 'storage/s3_config.dart';
 

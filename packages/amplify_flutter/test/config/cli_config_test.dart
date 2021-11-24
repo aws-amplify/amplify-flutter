@@ -31,9 +31,10 @@ void main() {
     for (var testData in allTests) {
       final name = testData.name;
       test(name, () {
-        final json = jsonDecode(testData.config) as Map;
+        final json = jsonDecode(testData.config) as Map<String, Object?>;
         final parsed = AmplifyConfig.fromJson(json.cast());
-        expect(parsed, equals(expected[name]!));
+        final expectedConfig = expected[name]!;
+        expect(parsed, equals(expectedConfig));
       });
     }
   });

@@ -47,8 +47,8 @@ class AwsApiConfig with AWSEquatable<AwsApiConfig>, AWSSerializable {
       ];
 
   factory AwsApiConfig.fromJson(Map<String, Object?> json) =>
-      _$AppSyncApiConfigFromJson(json);
+      _$AwsApiConfigFromJson(json);
 
   @override
-  Map<String, Object?> toJson() => _$AppSyncApiConfigToJson(this);
+  Map<String, Object?> toJson() => _$AwsApiConfigToJson(this);
 }

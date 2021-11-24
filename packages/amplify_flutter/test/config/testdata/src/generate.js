@@ -49,7 +49,7 @@ const makeAppSyncConfig = (authType) => {
                 }
             },
             GraphQLAPIEndpointOutput: GRAPHQL_ENDPOINT,
-            GraphQLAPIKeyOutput: authType === 'API_KEY' ? API_KEY : null,
+            GraphQLAPIKeyOutput: authType === 'API_KEY' ? API_KEY : undefined,
         }
     };
 };

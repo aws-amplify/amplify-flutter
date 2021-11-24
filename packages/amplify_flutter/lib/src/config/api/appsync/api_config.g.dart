@@ -21,23 +21,22 @@ part of 'api_config.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AppSyncApiConfig _$AppSyncApiConfigFromJson(Map<String, dynamic> json) =>
-    AppSyncApiConfig(
+AwsApiConfig _$AwsApiConfigFromJson(Map<String, dynamic> json) => AwsApiConfig(
       endpointType: $enumDecode(_$EndpointTypeEnumMap, json['endpointType']),
       endpoint: json['endpoint'] as String,
       region: json['region'] as String,
       authorizationType:
-          $enumDecode(_$APIAuthorizationTypeEnumMap, json['authorizationType']),
+          $enumDecode(_$ApiAuthorizationTypeEnumMap, json['authorizationType']),
       apiKey: json['apiKey'] as String?,
     );
 
-Map<String, dynamic> _$AppSyncApiConfigToJson(AppSyncApiConfig instance) {
+Map<String, dynamic> _$AwsApiConfigToJson(AwsApiConfig instance) {
   final val = <String, dynamic>{
     'endpointType': _$EndpointTypeEnumMap[instance.endpointType],
     'endpoint': instance.endpoint,
     'region': instance.region,
     'authorizationType':
-        _$APIAuthorizationTypeEnumMap[instance.authorizationType],
+        _$ApiAuthorizationTypeEnumMap[instance.authorizationType],
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -55,11 +54,11 @@ const _$EndpointTypeEnumMap = {
   EndpointType.graphQL: 'GraphQL',
 };
 
-const _$APIAuthorizationTypeEnumMap = {
-  APIAuthorizationType.none: 'NONE',
-  APIAuthorizationType.apiKey: 'API_KEY',
-  APIAuthorizationType.iam: 'AWS_IAM',
-  APIAuthorizationType.oidc: 'OPENID_CONNECT',
-  APIAuthorizationType.userPools: 'AMAZON_COGNITO_USER_POOLS',
-  APIAuthorizationType.function: 'AWS_LAMBDA',
+const _$ApiAuthorizationTypeEnumMap = {
+  ApiAuthorizationType.none: 'NONE',
+  ApiAuthorizationType.apiKey: 'API_KEY',
+  ApiAuthorizationType.iam: 'AWS_IAM',
+  ApiAuthorizationType.oidc: 'OPENID_CONNECT',
+  ApiAuthorizationType.userPools: 'AMAZON_COGNITO_USER_POOLS',
+  ApiAuthorizationType.function: 'AWS_LAMBDA',
 };
