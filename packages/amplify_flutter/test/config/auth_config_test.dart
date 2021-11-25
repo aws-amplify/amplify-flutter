@@ -39,6 +39,12 @@ void main() {
             final expectedConfig = expected[name]!;
             final cognitoConfig = config.auth!.awsPlugin!.auth!.default$!;
             expect(cognitoConfig, equals(expectedConfig));
+            expect(
+                expectedConfig.toJson(),
+                equals(
+                  (configJson['auth'] as Map)['plugins']['awsCognitoAuthPlugin']
+                      ['Auth']['Default'],
+                ));
           });
         }
       }
@@ -89,6 +95,8 @@ const expected = <String, CognitoAuthConfig>{
     verificationMechanisms: [
       CognitoUserAttributeKey.email,
     ],
+    socialProviders: [],
+    usernameAttributes: [],
   ),
   'auth_with_email': CognitoAuthConfig(
     authenticationFlowType: AuthenticationFlowType.userSrpAuth,
@@ -101,9 +109,9 @@ const expected = <String, CognitoAuthConfig>{
     passwordProtectionSettings: PasswordProtectionSettings(
       passwordPolicyMinLength: 8,
       passwordPolicyCharacters: [
-        PasswordPolicyCharacters.requiresSymbols,
         PasswordPolicyCharacters.requiresLowercase,
         PasswordPolicyCharacters.requiresNumbers,
+        PasswordPolicyCharacters.requiresSymbols,
         PasswordPolicyCharacters.requiresUppercase,
       ],
     ),
@@ -114,6 +122,7 @@ const expected = <String, CognitoAuthConfig>{
     verificationMechanisms: [
       CognitoUserAttributeKey.email,
     ],
+    socialProviders: [],
     usernameAttributes: [
       CognitoUserAttributeKey.email,
     ],
@@ -135,6 +144,8 @@ const expected = <String, CognitoAuthConfig>{
     mfaTypes: [
       MfaType.sms,
     ],
+    socialProviders: [],
+    usernameAttributes: [],
     verificationMechanisms: [
       CognitoUserAttributeKey.email,
     ],
@@ -157,9 +168,12 @@ const expected = <String, CognitoAuthConfig>{
     verificationMechanisms: [
       CognitoUserAttributeKey.email,
     ],
+    socialProviders: [],
+    usernameAttributes: [],
   ),
   'auth_with_email_or_phone': CognitoAuthConfig(
     authenticationFlowType: AuthenticationFlowType.userSrpAuth,
+    socialProviders: [],
     usernameAttributes: [
       CognitoUserAttributeKey.email,
       CognitoUserAttributeKey.phoneNumber,
@@ -195,9 +209,9 @@ const expected = <String, CognitoAuthConfig>{
     ),
     authenticationFlowType: AuthenticationFlowType.userSrpAuth,
     socialProviders: [
-      SocialProvider.amazon,
       SocialProvider.facebook,
       SocialProvider.google,
+      SocialProvider.amazon,
     ],
     usernameAttributes: [
       CognitoUserAttributeKey.email,
@@ -208,9 +222,9 @@ const expected = <String, CognitoAuthConfig>{
     passwordProtectionSettings: PasswordProtectionSettings(
       passwordPolicyMinLength: 8,
       passwordPolicyCharacters: [
-        PasswordPolicyCharacters.requiresSymbols,
         PasswordPolicyCharacters.requiresLowercase,
         PasswordPolicyCharacters.requiresNumbers,
+        PasswordPolicyCharacters.requiresSymbols,
         PasswordPolicyCharacters.requiresUppercase,
       ],
     ),
@@ -224,15 +238,17 @@ const expected = <String, CognitoAuthConfig>{
   ),
   'auth_with_username': CognitoAuthConfig(
     authenticationFlowType: AuthenticationFlowType.userSrpAuth,
+    socialProviders: [],
+    usernameAttributes: [],
     signupAttributes: [
       CognitoUserAttributeKey.preferredUsername,
     ],
     passwordProtectionSettings: PasswordProtectionSettings(
       passwordPolicyMinLength: 8,
       passwordPolicyCharacters: [
-        PasswordPolicyCharacters.requiresSymbols,
         PasswordPolicyCharacters.requiresLowercase,
         PasswordPolicyCharacters.requiresNumbers,
+        PasswordPolicyCharacters.requiresSymbols,
         PasswordPolicyCharacters.requiresUppercase,
       ],
     ),

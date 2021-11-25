@@ -29,6 +29,6 @@ class CognitoUserAttributeKeyConverter
 
   @override
   String toJson(CognitoUserAttributeKey object) {
-    return object.key;
+    return object.key.toUpperCase();
   }
 }

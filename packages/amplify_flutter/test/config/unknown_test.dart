@@ -44,6 +44,7 @@ void main() {
         }),
       );
       expect(config, equals(expected));
+      expect(expected.toJson(), equals(json));
     });
   });
 }
