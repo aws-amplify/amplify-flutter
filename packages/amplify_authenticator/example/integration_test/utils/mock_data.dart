@@ -15,7 +15,10 @@
 
 import 'dart:math';
 
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:uuid/uuid.dart';
+import 'types/get_phone_response.dart';
 
 final random = Random();
 const uuid = Uuid();
@@ -26,6 +29,7 @@ const digits = '1234567890';
 const symbols = '~/`!@#\$%^&\\"\'*(),._?:;{}|<>';
 const String mockPhoneNumber = '+15555551234';
 const String mockCode = '12345';
+const String getPhoneQuery = '''query GetPhone {getPhone {phone}}''';
 
 String generateEmail() => 'flutter-email-${randomNumber()}@test.com';
 
@@ -37,6 +41,14 @@ String generatePassword() =>
 String generatePhone() => '+155501${randomPhoneDigits()}';
 
 String generateUsername() => 'flutter-user-${randomNumber()}';
+
+Future<GetPhoneResponse> getPhone() async {
+  var res = await Amplify.API
+      .query(request: GraphQLRequest<String>(document: getPhoneQuery))
+      .response;
+
+  return GetPhoneResponse.fromJson(res.data);
+}
 
 int randomNumber() => random.nextInt(500);
 
