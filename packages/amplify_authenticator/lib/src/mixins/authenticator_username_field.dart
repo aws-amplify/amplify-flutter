@@ -16,6 +16,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
@@ -98,13 +99,17 @@ mixin AuthenticatorUsernameField<FieldType,
   }
 
   @override
-  Widget get title {
+  Widget get label {
     final inputResolver = stringResolver.inputs;
     final titleString = inputResolver.resolve(context, titleKey);
-    final labelText = Text(
+    final label = Text(
       isOptional ? inputResolver.optional(context, titleString) : titleString,
     );
+    return label;
+  }
 
+  @override
+  Widget? get suffix {
     // Mirrors internal impl. to create an "always active" Switch theme.
     final thumbColor = Theme.of(context).toggleableActiveColor;
     final trackColor = thumbColor.withOpacity(0.5);
@@ -113,45 +118,40 @@ mixin AuthenticatorUsernameField<FieldType,
       case UsernameConfigType.username:
       case UsernameConfigType.email:
       case UsernameConfigType.phoneNumber:
-        return labelText;
+        return null;
       case UsernameConfigType.emailOrPhoneNumber:
       default:
         return SizedBox(
           height: 20,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              labelText,
-              IconTheme.merge(
-                data: const IconThemeData(size: 16.0),
-                child: Row(
-                  children: [
-                    const Icon(Icons.phone),
-                    Switch(
-                      thumbColor: MaterialStateProperty.all(thumbColor),
-                      trackColor: MaterialStateProperty.all(trackColor),
-                      value: useEmail.value,
-                      onChanged: (val) {
-                        setState(() {
-                          useEmail.value = val;
-                        });
+          width: 100,
+          child: IconTheme.merge(
+            data: const IconThemeData(size: 16.0),
+            child: Row(
+              children: [
+                const Icon(Icons.phone),
+                Switch(
+                  thumbColor: MaterialStateProperty.all(thumbColor),
+                  trackColor: MaterialStateProperty.all(trackColor),
+                  value: useEmail.value,
+                  onChanged: (val) {
+                    setState(() {
+                      useEmail.value = val;
+                    });
 
-                        // Reset current username value to align with the current switch state.
-                        String newUsername = val
-                            ? viewModel.getAttribute(
-                                    CognitoUserAttributeKey.email) ??
-                                ''
-                            : viewModel.getAttribute(
-                                    CognitoUserAttributeKey.phoneNumber) ??
-                                '';
-                        viewModel.setUsername(newUsername);
-                      },
-                    ),
-                    const Icon(Icons.email),
-                  ],
+                    // Reset current username value to align with the current switch state.
+                    String newUsername = val
+                        ? viewModel
+                                .getAttribute(CognitoUserAttributeKey.email) ??
+                            ''
+                        : viewModel.getAttribute(
+                                CognitoUserAttributeKey.phoneNumber) ??
+                            '';
+                    viewModel.setUsername(newUsername);
+                  },
                 ),
-              ),
-            ],
+                const Icon(Icons.email),
+              ],
+            ),
           ),
         );
     }
@@ -184,7 +184,16 @@ mixin AuthenticatorUsernameField<FieldType,
   }
 
   @override
+  String? get labelText {
+    final inputResolver = stringResolver.inputs;
+    String? labelText =
+        widget.title ?? titleKey.resolve(context, inputResolver);
+    return labelText;
+  }
+
+  @override
   Widget buildFormField(BuildContext context) {
+    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final inputResolver = stringResolver.inputs;
     final hintText = inputResolver.resolve(context, hintKey);
 
@@ -206,12 +215,15 @@ mixin AuthenticatorUsernameField<FieldType,
     if (selectedUsernameType == UsernameType.phoneNumber) {
       return AuthenticatorPhoneField<FieldType>(
         field: widget.field,
+        requiredOverride: true,
         onChanged: _onChanged,
         validator: _validator,
         enabled: enabled,
         errorMaxLines: errorMaxLines,
         initialValue:
             viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber),
+        useAmplifyTheme: useAmplifyTheme,
+        suffix: suffix,
       );
     }
     return TextFormField(
@@ -229,8 +241,8 @@ mixin AuthenticatorUsernameField<FieldType,
         prefixIcon: prefix,
         suffixIcon: suffix,
         errorMaxLines: errorMaxLines,
+        labelText: useAmplifyTheme ? null : labelText,
         hintText: hintText,
-        isDense: true,
       ),
       keyboardType: keyboardType,
       obscureText: false,

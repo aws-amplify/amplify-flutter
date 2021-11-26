@@ -31,6 +31,7 @@ import 'package:amplify_authenticator/src/mixins/authenticator_text_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
@@ -185,10 +186,24 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   /// The maximum length of the input.
   int? get maxLength => null;
 
-  /// Title widget to use above form field.
+  /// Text content for the form field's label
+  String? get labelText {
+    final inputResolver = stringResolver.inputs;
+    String? labelText =
+        widget.title ?? widget.titleKey?.resolve(context, inputResolver);
+    if (labelText != null) {
+      labelText =
+          isOptional ? inputResolver.optional(context, labelText) : labelText;
+    }
+    return labelText;
+  }
+
+  /// Label widget for the form field
   ///
-  /// Defaults to a [Text] object with the form field's title.
-  Widget? get title => null;
+  /// Defaults to a [Text] object with the form field's label text.
+  ///
+  /// Displayed above the form field for Amplify Theme, unused for Material Theme
+  Widget? get label => labelText != null ? Text(labelText!) : null;
 
   Widget buildFormField(BuildContext context);
 
@@ -199,39 +214,37 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
     return !isRequired;
   }
 
+  /// Margin below the form field
+  EdgeInsetsGeometry? get marginBottom => FormFieldConstants.marginBottom;
+
+  /// Gap between the label and the form field
+  double? get labelGap => FormFieldConstants.gap;
+
   @nonVirtual
   @override
   Widget build(BuildContext context) {
-    final inputResolver = stringResolver.inputs;
-    Widget? title = this.title;
-    if (title == null) {
-      final titleString =
-          widget.title ?? widget.titleKey?.resolve(context, inputResolver);
-      if (titleString != null) {
-        title = Text(
-          isOptional
-              ? inputResolver.optional(context, titleString)
-              : titleString,
-        );
-      }
-    }
+    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final titleStyle = Theme.of(context).inputDecorationTheme.labelStyle ??
         Theme.of(context).textTheme.subtitle1 ??
         const TextStyle(fontSize: 16);
 
     return Container(
-      margin: title == null ? EdgeInsets.zero : FormFieldConstants.marginBottom,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          if (title != null)
-            DefaultTextStyle(
-              style: titleStyle,
-              child: title,
-            ),
-          const SizedBox(height: FormFieldConstants.gap),
-          buildFormField(context),
-          if (companionWidget != null) companionWidget!,
+      margin: marginBottom,
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              if (useAmplifyTheme && label != null)
+                DefaultTextStyle(
+                  style: titleStyle,
+                  child: label!,
+                ),
+              SizedBox(height: labelGap),
+              buildFormField(context),
+              if (companionWidget != null) companionWidget!,
+            ],
+          ),
         ],
       ),
     );
@@ -259,5 +272,9 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         .add(DiagnosticsProperty<ValueNotifier<bool>>('useEmail', useEmail));
     properties.add(IntProperty('maxLength', maxLength));
     properties.add(DiagnosticsProperty<bool>('isOptional', isOptional));
+    properties.add(StringProperty('labelText', labelText));
+    properties.add(
+        DiagnosticsProperty<EdgeInsetsGeometry?>('marginBottom', marginBottom));
+    properties.add(DoubleProperty('labelGap', labelGap));
   }
 }

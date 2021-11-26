@@ -20,15 +20,20 @@ class AuthenticatorPhoneField<FieldType> extends AuthenticatorFormField<
   const AuthenticatorPhoneField({
     Key? key,
     required FieldType field,
+    bool? requiredOverride,
     this.onChanged,
     this.validator,
     this.enabled,
     this.initialValue,
     this.errorMaxLines,
+    this.suffix,
+    required bool useAmplifyTheme,
   }) : super._(
           key: key,
           field: field,
+          titleKey: useAmplifyTheme ? null : InputResolverKey.phoneNumberTitle,
           hintTextKey: InputResolverKey.phoneNumberHint,
+          requiredOverride: requiredOverride,
         );
 
   final bool? enabled;
@@ -36,6 +41,7 @@ class AuthenticatorPhoneField<FieldType> extends AuthenticatorFormField<
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String?>? validator;
   final int? errorMaxLines;
+  final Widget? suffix;
 
   @override
   _AuthenticatorPhoneFieldState<FieldType> createState() =>
@@ -72,6 +78,15 @@ class _AuthenticatorPhoneFieldState<FieldType>
 
   @override
   int get errorMaxLines => widget.errorMaxLines ?? super.errorMaxLines;
+
+  @override
+  Widget? get suffix => widget.suffix;
+
+  @override
+  EdgeInsetsGeometry? get marginBottom => null;
+
+  @override
+  double? get labelGap => null;
 
   @override
   ValueChanged<String> get onChanged => (phoneNumber) {
