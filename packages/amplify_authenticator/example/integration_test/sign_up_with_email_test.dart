@@ -52,7 +52,15 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       await signInPage.navigateToSignUp();
+
+      // Then I see "Email" as an input field
       signUpPage.expectUserNameIsPresent(usernameLabel: 'Email');
+
+      // And I don't see "Username" as an input field
+      signUpPage.expectPlainUsernameNotPresent();
+
+      // And I don't see "Phone Number" as an input field
+      signUpPage.expectPhoneIsNotPresent();
     });
 
     // Scenario: Sign up a new email & password
@@ -64,18 +72,26 @@ void main() {
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       await signInPage.navigateToSignUp();
 
-      //   // TODO: Clarify requirements
-      //   // Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }'
-      //   // with fixture "sign-up-with-email"
+      // TODO: Clarify requirements
+      // Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }'
+      // with fixture "sign-up-with-email"
 
       final username = generateEmail();
       final password = generatePassword();
 
+      // When I type a new "email"
       await signUpPage.enterUsername(username);
+
+      // And I type my password
       await signUpPage.enterPassword(password);
+
+      // And I confirm my password
       await signUpPage.enterPasswordConfirmation(password);
+
+      // And I click the "Create Account" button
       await signUpPage.submitSignUp();
 
+      // Then I see "Confirmation Code"
       await confirmSignUpPage.expectConfirmSignUpIsPresent();
       confirmSignUpPage.expectConfirmationCodeIsPresent();
     });

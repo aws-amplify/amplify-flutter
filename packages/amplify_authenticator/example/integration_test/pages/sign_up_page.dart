@@ -78,4 +78,13 @@ class SignUpPage {
   void expectPhoneIsNotPresent() {
     expect(phoneField, findsNothing);
   }
+
+  /// Then I don't see "Username as an input field"
+  void expectPlainUsernameNotPresent() {
+    Finder usernameFieldHint = find.descendant(
+      of: find.byKey(keyUsernameSignUpFormField),
+      matching: find.text('Username'),
+    );
+    expect(usernameFieldHint, findsNothing);
+  }
 }
