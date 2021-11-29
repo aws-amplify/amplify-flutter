@@ -13,9 +13,6 @@
  * permissions and limitations under the License.
  */
 
-// This test follows the Amplify UI feature "sign-in-with-username"
-// https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
-
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -28,6 +25,9 @@ import 'pages/sign_up_page.dart';
 import 'pages/test_utils.dart';
 import 'utils/mock_data.dart';
 
+// This test follows the Amplify UI feature "sign-up-with-email"
+// https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-email.feature
+
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
       as IntegrationTestWidgetsFlutterBinding;
@@ -38,55 +38,33 @@ void main() {
     home: Authenticator(child: Container()),
   );
 
-  group('sign-in-with-username', () {
+  group('sign-up-with-email', () {
     // Given I'm running the example "ui/components/authenticator/sign-up-with-username"
     setUpAll(() async {
       await loadConfiguration(
-        'ui/components/authenticator/sign-up-with-username',
+        'ui/components/authenticator/sign-up-with-email',
       );
     });
 
-    // Scenario: Login mechanism set to "username"
-    testWidgets('Login mechanism set to "username"', (tester) async {
+    // Scenario: Login mechanism set to "email"
+    testWidgets('Login mechanism set to "email"', (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       await signInPage.navigateToSignUp();
-      signUpPage.expectUserNameIsPresent();
-    });
 
-    // Scenario: "Preferred Username" is included from `aws_cognito_signup_attributes`
-    testWidgets(
-        '"Preferred Username" is included from aws_cognito_signup_attributes',
-        (tester) async {
-      SignUpPage signUpPage = SignUpPage(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
-      await signInPage.navigateToSignUp();
-      signUpPage.expectPreferredUserNameIsPresent();
-    });
+      // Then I see "Email" as an input field
+      signUpPage.expectUserNameIsPresent(usernameLabel: 'Email');
 
-    // Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
-    testWidgets('"Email" is included from aws_cognito_verification_mechanisms',
-        (tester) async {
-      SignUpPage signUpPage = SignUpPage(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
-      await signInPage.navigateToSignUp();
-      signUpPage.expectEmailIsPresent();
-    });
+      // And I don't see "Username" as an input field
+      signUpPage.expectPlainUsernameNotPresent();
 
-    // Scenario: "Phone Number" is not included
-    testWidgets('"Phone Number" is not included', (tester) async {
-      SignUpPage signUpPage = SignUpPage(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
-      await signInPage.navigateToSignUp();
+      // And I don't see "Phone Number" as an input field
       signUpPage.expectPhoneIsNotPresent();
     });
 
-    // Scenario: Sign up a new username & password
-    testWidgets('Sign up a new username & password', (tester) async {
+    // Scenario: Sign up a new email & password
+    testWidgets('Sign up a new email & password', (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
@@ -96,26 +74,31 @@ void main() {
 
       // TODO: Clarify requirements
       // Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }'
-      // with fixture "sign-up-with-username"
+      // with fixture "sign-up-with-email"
 
-      final username = generateUsername();
+      final username = generateEmail();
       final password = generatePassword();
-      final email = generateEmail();
 
+      // When I type a new "email"
       await signUpPage.enterUsername(username);
+
+      // And I type my password
       await signUpPage.enterPassword(password);
+
+      // And I confirm my password
       await signUpPage.enterPasswordConfirmation(password);
-      await signUpPage.enterEmail(email);
-      await signUpPage.enterPreferredUsername(username);
+
+      // And I click the "Create Account" button
       await signUpPage.submitSignUp();
 
+      // Then I see "Confirmation Code"
       await confirmSignUpPage.expectConfirmSignUpIsPresent();
       confirmSignUpPage.expectConfirmationCodeIsPresent();
     });
 
     // Scenario: Username field autocompletes username
     // TODO: Clarify requirements
-    // testWidgets('Username field autocompletes username', (tester) async {});
+    // testWidgets('Email field autocompletes username', (tester) async {});
 
     // Scenario: Password fields autocomplete "new-password"
     // TODO: Clarify requirements

@@ -53,13 +53,13 @@ class SignUpPage {
   }
 
   /// Then I see "Username" as an input field
-  void expectUserNameIsPresent() {
+  void expectUserNameIsPresent({String usernameLabel = 'Username'}) {
     // username field is present
     expect(usernameField, findsOneWidget);
     // login type is "username"
     Finder usernameFieldHint = find.descendant(
       of: find.byKey(keyUsernameSignUpFormField),
-      matching: find.text('Username'),
+      matching: find.text(usernameLabel),
     );
     expect(usernameFieldHint, findsOneWidget);
   }
@@ -77,5 +77,14 @@ class SignUpPage {
   /// Then I don't see "Phone Number"
   void expectPhoneIsNotPresent() {
     expect(phoneField, findsNothing);
+  }
+
+  /// Then I don't see "Username as an input field"
+  void expectPlainUsernameNotPresent() {
+    Finder usernameFieldHint = find.descendant(
+      of: find.byKey(keyUsernameSignUpFormField),
+      matching: find.text('Username'),
+    );
+    expect(usernameFieldHint, findsNothing);
   }
 }

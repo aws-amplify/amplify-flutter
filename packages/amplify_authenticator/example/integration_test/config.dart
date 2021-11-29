@@ -16,14 +16,18 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 
+import 'envs/auth_with_email.dart' as auth_with_email;
 import 'envs/auth_with_username.dart' as auth_with_username;
 
+/// All envs modeled on:
+/// https://github.com/aws-amplify/amplify-ui/blob/main/examples/angular/src/pages/ui/components/authenticator/
 const environmentsByConfiguration = {
-  // From: https://github.com/aws-amplify/amplify-ui/blob/main/examples/angular/src/pages/ui/components/authenticator/sign-up-with-username/sign-up-with-username.component.ts
+  'ui/components/authenticator/sign-up-with-email': 'auth-with-email',
   'ui/components/authenticator/sign-up-with-username': 'auth-with-username',
 };
 
 const environments = {
+  'auth-with-email': auth_with_email.amplifyconfig,
   'auth-with-username': auth_with_username.amplifyconfig,
 };
 
