@@ -85,6 +85,8 @@ void main() {
       final password = generatePassword();
       final email = generateEmail();
 
+      print(phone);
+
       await signUpPage.enterUsername(phone);
       await signUpPage.enterPassword(password);
       await signUpPage.enterPasswordConfirmation(password);
