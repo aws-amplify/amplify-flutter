@@ -13,7 +13,7 @@
 // permissions and limitations under the License.
 //
 
-// GENERATED FILE. DO NOT MODIFY BY HAND.
+// GENERATED FILE. DO NOT MODIFY BY HAND. SEE `src/generate.js`.
 
 import 'test_values.dart';
 
