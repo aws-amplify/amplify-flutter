@@ -16,7 +16,8 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ^1.0.0
-  amplify_test: any
+  amplify_test:
+    path: ../amplify_test
   async: ^2.6.0
   build_runner: ^2.0.0
   flutter_test:

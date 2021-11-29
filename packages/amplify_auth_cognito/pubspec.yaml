@@ -16,7 +16,8 @@ dependencies:
   plugin_platform_interface: ^2.0.0
 
 dev_dependencies:
-  amplify_test: any
+  amplify_test:
+    path: ../amplify_test
   flutter_test:
     sdk: flutter
 
