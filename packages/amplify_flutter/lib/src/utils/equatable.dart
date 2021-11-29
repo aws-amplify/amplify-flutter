@@ -24,9 +24,8 @@ mixin AWSEquatable<T extends AWSEquatable<T>> on Object {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is T &&
-          const DeepCollectionEquality.unordered().equals(props, other.props);
+      other is T && const DeepCollectionEquality().equals(props, other.props);
 
   @override
-  int get hashCode => const DeepCollectionEquality.unordered().hash(props);
+  int get hashCode => const DeepCollectionEquality().hash(props);
 }
