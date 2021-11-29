@@ -1,6 +1,8 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
+import 'package:amplify_flutter/amplify.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -31,4 +33,14 @@ Future<void> nextBlocEvent(
       .nextBlocEvent(where: where)
       .timeout(timeout);
   await tester.pumpAndSettle();
+}
+
+Future<void> createConfirmedUser(String username, String password,
+    {Map<CognitoUserAttributeKey, String> userAttributes = const {}}) async {
+  await Amplify.Auth.signUp(
+      username: username,
+      password: password,
+      options: CognitoSignUpOptions(
+          clientMetadata: {'autoConfirmUser': 'true'},
+          userAttributes: userAttributes));
 }

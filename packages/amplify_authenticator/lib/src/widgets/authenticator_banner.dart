@@ -14,6 +14,7 @@
 */
 
 import 'package:amplify_authenticator/src/enums/status_type.dart';
+import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -30,6 +31,7 @@ MaterialBanner createMaterialBanner(
   final margin = MediaQuery.of(context).viewPadding.top;
 
   return MaterialBanner(
+    key: keyAuthenticatorBanner,
     backgroundColor:
         useAmplifyTheme ? type.backgroundColor(context, isDark: isDark) : null,
     contentTextStyle: useAmplifyTheme
@@ -79,6 +81,7 @@ SnackBar createSnackBar(
   }
 
   return SnackBar(
+    key: keyAuthenticatorBanner,
     backgroundColor:
         useAmplifyTheme ? type.backgroundColor(context, isDark: isDark) : null,
     content: Row(
