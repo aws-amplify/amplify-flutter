@@ -92,7 +92,7 @@ void main() {
       final password = generatePassword();
       final email = generateEmail();
 
-      // When I select my country code with status "+1" and phone with '55501xx'
+      // When I select my country code
       await signUpPage.selectCountryCode();
       await signUpPage.enterUsername(phone);
 
