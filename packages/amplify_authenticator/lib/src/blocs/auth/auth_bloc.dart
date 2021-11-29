@@ -241,7 +241,8 @@ class StateMachineBloc {
 
   Stream<AuthState> _sendCode(AuthSendCodeData data) async* {
     try {
-      await _authService.resetPassword(data.username);
+      var result = await _authService.resetPassword(data.username);
+      _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
       yield AuthFlow.resetPassword;
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));

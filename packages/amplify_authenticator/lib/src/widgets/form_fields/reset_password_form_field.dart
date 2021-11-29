@@ -52,8 +52,8 @@ class ResetPasswordFormField extends AuthenticatorFormField<ResetPasswordField,
   }) : this._(
           key: key ?? keyPasswordResetPasswordFormField,
           field: ResetPasswordField.password,
-          titleKey: InputResolverKey.passwordTitle,
-          hintTextKey: InputResolverKey.passwordHint,
+          titleKey: InputResolverKey.newPasswordTitle,
+          hintTextKey: InputResolverKey.newPasswordHint,
           validator: validator,
         );
 
@@ -61,7 +61,7 @@ class ResetPasswordFormField extends AuthenticatorFormField<ResetPasswordField,
     Key? key,
   }) : this._(
           key: key ?? keyPasswordConfirmationResetPasswordFormField,
-          field: ResetPasswordField.password,
+          field: ResetPasswordField.passwordConfirmation,
           titleKey: InputResolverKey.passwordConfirmationTitle,
           hintTextKey: InputResolverKey.passwordConfirmationHint,
         );
@@ -154,7 +154,7 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
         )(context);
       case ResetPasswordField.passwordConfirmation:
         return validatePasswordConfirmation(
-          () => viewModel.newPassword,
+          () => viewModel.password,
           context: context,
           inputResolver: stringResolver.inputs,
         );

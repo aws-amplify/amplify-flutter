@@ -287,7 +287,7 @@ class AuthViewModel extends ChangeNotifier {
     AuthConfirmPasswordData confirmPassword = AuthConfirmPasswordData(
       username: _username.trim(),
       confirmationCode: _confirmationCode.trim(),
-      newPassword: _newPassword.trim(),
+      newPassword: _password.trim(),
     );
     authBloc.add(AuthConfirmPassword(confirmPassword));
     await nextBlocEvent(

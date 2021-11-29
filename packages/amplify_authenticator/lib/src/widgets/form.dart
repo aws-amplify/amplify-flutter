@@ -507,7 +507,7 @@ class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
   /// A custom Reset Password form.
   const ResetPasswordForm.custom({
     Key? key,
-    required List<SignInFormField> fields,
+    required List<ResetPasswordFormField> fields,
   }) : super._(
           key: key,
           customFields: fields,
