@@ -69,7 +69,7 @@ void main() {
       signUpPage.expectEmailIsPresent();
     });
 
-    // Scenario: Sign up a new phone number & password
+    // Scenario: Sign up with valid phone number & password
     testWidgets('Sign up a new phone number & password', (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
@@ -85,13 +85,22 @@ void main() {
       final password = generatePassword();
       final email = generateEmail();
 
-      print(phone);
-
+      // When I select my country code with status "+1" and phone with '55501xx'
       await signUpPage.enterUsername(phone);
+
+      // And I type my password
       await signUpPage.enterPassword(password);
+
+      // And I confirm my password
       await signUpPage.enterPasswordConfirmation(password);
+
+      // And I type my "email" with a randomized email
       await signUpPage.enterEmail(email);
+
+      // And I click the "Create Account" button
       await signUpPage.submitSignUp();
+
+      // Then I see "Confirmation Code"
       await confirmSignUpPage.expectConfirmSignUpIsPresent();
       confirmSignUpPage.expectConfirmationCodeIsPresent();
       await deleteUser(phone);

@@ -60,7 +60,7 @@ void main() {
       signUpPage.expectPlainUsernameNotPresent();
 
       // And I don't see "Phone Number" as an input field
-      signUpPage.expectUserNameIsPresent(usernameLabel: 'Email');
+      signUpPage.expectPhoneIsNotPresent();
     });
 
     // Scenario: Sign up a new email & password
