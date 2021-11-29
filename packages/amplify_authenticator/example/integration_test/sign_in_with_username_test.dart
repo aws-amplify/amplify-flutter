@@ -16,6 +16,7 @@
 // This test follows the Amplify UI feature "sign-in-with-username"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
 
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 
@@ -24,8 +25,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'config.dart';
+import 'pages/confirm_sign_in_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
+import 'utils/data_utils.dart';
 import 'utils/mock_data.dart';
 
 void main() {
@@ -46,6 +49,7 @@ void main() {
     setUpAll(() async {
       await loadConfiguration(
         'ui/components/authenticator/sign-in-with-username',
+        additionalConfigs: [AmplifyAPI()],
       );
     });
 
@@ -94,7 +98,8 @@ void main() {
     });
 
     // Scenario: Sign in with confirmed credentials then sign out
-    testWidgets('Sign in with confirmed credentials', (tester) async {
+    testWidgets('Sign in with confirmed credentials then sign out',
+        (tester) async {
       final username = generateUsername();
       final password = generatePassword();
       await createConfirmedUser(username, password, userAttributes: {
@@ -123,62 +128,29 @@ void main() {
       signInPage.expectUserNameIsPresent();
     });
 
-    // Scenario: "Preferred Username" is included from `aws_cognito_signup_attributes`
-    // testWidgets(
-    //     '"Preferred Username" is included from aws_cognito_signup_attributes',
-    //     (tester) async {
-    //   SignUpPage signUpPage = SignUpPage(tester: tester);
-    //   SignInPage signInPage = SignInPage(tester: tester);
-    //   await loadAuthenticator(tester: tester, authenticator: authenticator);
-    //   await signInPage.navigateToSignUp();
-    //   signUpPage.expectPreferredUserNameIsPresent();
-    // });
+    // Scenario: Sign in with force change password credentials
+    testWidgets('Sign in with force change password credentials',
+        (tester) async {
+      final username = generateUsername();
+      final password = generatePassword();
+      await adminCreateUser(username, password);
+      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      SignInPage signInPage = SignInPage(tester: tester);
+      ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
+      signInPage.expectUserNameIsPresent();
 
-    // Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
-    // testWidgets('"Email" is included from aws_cognito_verification_mechanisms',
-    //     (tester) async {
-    //   SignUpPage signUpPage = SignUpPage(tester: tester);
-    //   SignInPage signInPage = SignInPage(tester: tester);
-    //   await loadAuthenticator(tester: tester, authenticator: authenticator);
-    //   await signInPage.navigateToSignUp();
-    //   signUpPage.expectEmailIsPresent();
-    // });
+      // When I type my "username"
+      await signInPage.enterUsername(username);
 
-    // // Scenario: "Phone Number" is not included
-    // testWidgets('"Phone Number" is not included', (tester) async {
-    //   SignUpPage signUpPage = SignUpPage(tester: tester);
-    //   SignInPage signInPage = SignInPage(tester: tester);
-    //   await loadAuthenticator(tester: tester, authenticator: authenticator);
-    //   await signInPage.navigateToSignUp();
-    //   signUpPage.expectPhoneIsNotPresent();
-    // });
+      // And I type my password
+      await signInPage.enterPassword(password);
 
-    // Scenario: Sign up a new username & password
-    // testWidgets('Sign up a new username & password', (tester) async {
-    //   SignUpPage signUpPage = SignUpPage(tester: tester);
-    //   SignInPage signInPage = SignInPage(tester: tester);
-    //   ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
+      // And I click the "Sign in" button
+      await signInPage.submitSignIn();
 
-    //   await loadAuthenticator(tester: tester, authenticator: authenticator);
-    //   await signInPage.navigateToSignUp();
-
-    // TODO: Clarify requirements
-    // Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }'
-    // with fixture "sign-up-with-username"
-
-    //   final username = generateUsername();
-    //   final password = generatePassword();
-    //   final email = generateEmail();
-
-    //   await signUpPage.enterUsername(username);
-    //   await signUpPage.enterPassword(password);
-    //   await signUpPage.enterPasswordConfirmation(password);
-    //   await signUpPage.enterEmail(email);
-    //   await signUpPage.enterPreferredUsername(username);
-    //   await signUpPage.submitSignUp();
-
-    //   await confirmSignUpPage.expectConfirmSignUpIsPresent();
-    //   confirmSignUpPage.expectConfirmationCodeIsPresent();
-    // });
+      /// Then I see "Change Password"
+      await confirmSignInPage.expectConfirmSignInNewPasswordIsPresent();
+      confirmSignInPage.expectNewPasswordIsPresent();
+    });
   });
 }

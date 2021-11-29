@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 /// Find specific widgets in the widget tree based on their keys
 final codeConfirmSignInFormFieldFinder =
-    find.byKey(keyCodeConfirmSignInFormField);
+    find.byKey(keyCodeConfirmSignInFormfield);
 
 final backToSignInButtonFinder = find.byKey(keyBackToSignInButton);
 

@@ -14,6 +14,7 @@ class SignInPage {
   Finder get passwordField => find.byKey(keyPasswordSignInFormField);
   Finder get bannerFinder => find.byKey(keyAuthenticatorBanner);
   Finder get signInButton => find.byKey(keySignInButton);
+
   Finder get signOutButton => find.byKey(const Key('keySignOutButton'));
   Finder get confirmSignInField => find.byKey(keyCodeConfirmSignInFormfield);
   Finder get signUpTabBar => find.descendant(

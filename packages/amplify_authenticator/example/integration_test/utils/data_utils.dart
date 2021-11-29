@@ -16,10 +16,19 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify.dart';
 
+import 'types/admin_create_user_response.dart';
 import 'types/delete_user_response.dart';
 
 const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
   deleteUser(Username: \$Username) {
+    error
+    success
+  }
+}''';
+
+const adminCreateUserDocument =
+    '''mutation DeleteUser(\$Username: String!, \$TempPassword: String!) {
+  adminCreateUser(Username: \$Username, TempPassword: \$TempPassword) {
     error
     success
   }
@@ -33,4 +42,18 @@ Future<DeleteUserResponse> deleteUser(String username) async {
               variables: <String, dynamic>{'Username': username}))
       .response;
   return DeleteUserResponse.fromJson(res.data);
+}
+
+Future<AdminCreateUserResponse> adminCreateUser(
+    String username, String tempPassword) async {
+  var res = await Amplify.API
+      .mutate(
+          request: GraphQLRequest<String>(
+              document: adminCreateUserDocument,
+              variables: <String, dynamic>{
+            'Username': username,
+            'TempPassword': tempPassword
+          }))
+      .response;
+  return AdminCreateUserResponse.fromJson(res.data);
 }
