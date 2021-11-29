@@ -50,13 +50,18 @@ void main() {
       );
     });
 
-    // Scenario: Login mechanism set to "email"
+    // Scenario: Login mechanism set to "phone"
     testWidgets('Login mechanism set to "phone"', (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       await signInPage.navigateToSignUp();
+
+      // Then I see "Phone Number" as an input field
       signUpPage.expectUserNameIsPresent(usernameLabel: 'Phone Number');
+
+      // And I don't see "Username" as an input field
+      signUpPage.expectPlainUsernameNotPresent();
     });
 
     // Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
@@ -66,6 +71,8 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       await signInPage.navigateToSignUp();
+
+      // Then I see "Email" as an "email" field
       signUpPage.expectEmailIsPresent();
     });
 
@@ -86,6 +93,7 @@ void main() {
       final email = generateEmail();
 
       // When I select my country code with status "+1" and phone with '55501xx'
+      await signUpPage.selectCountryCode();
       await signUpPage.enterUsername(phone);
 
       // And I type my password
