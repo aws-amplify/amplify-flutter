@@ -26,7 +26,6 @@ const digits = '1234567890';
 const symbols = '~/`!@#\$%^&\\"\'*(),._?:;{}|<>';
 const String mockPhoneNumber = '+15555551234';
 const String mockCode = '12345';
-const String getPhoneQuery = '''query GetPhone {getPhone {phone}}''';
 
 String generateEmail() => 'flutter-email-${randomNumber()}@test.com';
 
