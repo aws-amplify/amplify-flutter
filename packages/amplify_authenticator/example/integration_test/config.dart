@@ -27,6 +27,7 @@ const environmentsByConfiguration = {
   'ui/components/authenticator/sign-up-with-phone': 'auth-with-phone',
   'ui/components/authenticator/sign-up-with-username': 'auth-with-username',
   'ui/components/authenticator/sign-in-with-username': 'auth-with-username',
+  'ui/components/authenticator/sign-in-with-phone': 'auth-with-phone',
 };
 
 const environments = {

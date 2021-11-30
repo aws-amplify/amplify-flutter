@@ -1,20 +1,33 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// Sign In Page Object
-class SignInPage {
-  SignInPage({required this.tester});
+import 'authenticator_page.dart';
 
-  final WidgetTester tester;
+/// Sign In Page Object
+class SignInPage extends AuthenticatorPage {
+  SignInPage({required WidgetTester tester}) : super(tester: tester);
 
   Finder get usernameField => find.byKey(keyUsernameSignInFormField);
   Finder get passwordField => find.byKey(keyPasswordSignInFormField);
-  Finder get bannerFinder => find.byKey(keyAuthenticatorBanner);
   Finder get signInButton => find.byKey(keySignInButton);
-
   Finder get signOutButton => find.byKey(const Key('keySignOutButton'));
   Finder get confirmSignInField => find.byKey(keyCodeConfirmSignInFormfield);
   Finder get signUpTabBar => find.descendant(
@@ -33,13 +46,13 @@ class SignInPage {
   }
 
   /// Then I see "Username" as an input field
-  void expectUserNameIsPresent() {
+  void expectUserNameIsPresent({String usernameLabel = 'Username'}) {
     // username field is present
     expect(usernameField, findsOneWidget);
     // login type is "username"
     Finder usernameFieldHint = find.descendant(
       of: find.byKey(keyUsernameSignInFormField),
-      matching: find.text('Username'),
+      matching: find.text(usernameLabel),
     );
     expect(usernameFieldHint, findsOneWidget);
   }
@@ -64,15 +77,5 @@ class SignInPage {
   Future<void> submitSignOut() async {
     await tester.tap(signOutButton);
     await tester.pumpAndSettle();
-  }
-
-  /// Then I see User not found banner
-  Future<void> expectUserNotFound() async {
-    expect(bannerFinder, findsOneWidget);
-    Finder userNotFoundMessage = find.descendant(
-      of: find.byKey(keyAuthenticatorBanner),
-      matching: find.text('User does not exist.'),
-    );
-    expect(userNotFoundMessage, findsOneWidget);
   }
 }

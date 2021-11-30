@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
@@ -35,12 +50,14 @@ Future<void> nextBlocEvent(
   await tester.pumpAndSettle();
 }
 
-Future<void> createConfirmedUser(String username, String password,
-    {Map<CognitoUserAttributeKey, String> userAttributes = const {}}) async {
+Future<void> createUserWithDefinedConfirmation(String username, String password,
+    {Map<CognitoUserAttributeKey, String> userAttributes = const {},
+    bool autoConfirm = true}) async {
   await Amplify.Auth.signUp(
       username: username,
       password: password,
       options: CognitoSignUpOptions(
-          clientMetadata: {'autoConfirmUser': 'true'},
+          clientMetadata: {'autoConfirmUser': autoConfirm.toString()},
           userAttributes: userAttributes));
+  print({'autoConfirmUser': autoConfirm.toString()});
 }
