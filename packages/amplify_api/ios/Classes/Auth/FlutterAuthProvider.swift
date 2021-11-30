@@ -78,11 +78,23 @@ class FlutterAuthProviders: APIAuthProviderFactory {
         return token ?? unknownError
     }
 
+    private let authProviders: Set<AWSAuthorizationType>
+
+    init(_ authProviders: [AWSAuthorizationType]) {
+        self.authProviders = Set(authProviders)
+    }
+
     override func oidcAuthProvider() -> AmplifyOIDCAuthProvider? {
+        guard authProviders.contains(.openIDConnect) else {
+            return nil
+        }
         return FlutterAuthProvider(type: .openIDConnect)
     }
 
     override func functionAuthProvider() -> AmplifyFunctionAuthProvider? {
+        guard authProviders.contains(.function) else {
+            return nil
+        }
         return FlutterAuthProvider(type: .function)
     }
 }

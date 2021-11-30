@@ -30,7 +30,8 @@ data class FlutterAuthRule(val map: Map<String, Any>) {
     private val groupsField: String? = map["groupsField"] as String?
     private val operations: List<ModelOperation>? =
         (map["operations"] as List<String>?)?.map { stringToModelOperation(it) }
-    private val authProvider: AuthStrategy.Provider? = stringToAuthStrategyProvider(map["provider"] as String?)
+    private val authProvider: AuthStrategy.Provider =
+        stringToAuthStrategyProvider(map["provider"] as String?) ?: authStrategy.defaultAuthProvider
 
     private fun stringToAuthStrategy(string: String): AuthStrategy {
         return when (string) {
@@ -68,9 +69,7 @@ data class FlutterAuthRule(val map: Map<String, Any>) {
         val builder: AuthRule.Builder = AuthRule.builder()
             .authStrategy(authStrategy)
 
-        if (authProvider != null) {
-            builder.authProvider(authProvider)
-        }
+        builder.authProvider(authProvider)
 
         if (groups != null && groups.isNotEmpty()) {
             builder.groups(groups)

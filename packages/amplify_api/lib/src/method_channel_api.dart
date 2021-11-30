@@ -83,7 +83,10 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   Future<void> addPlugin() async {
     try {
       setupAuthProviders();
-      await _channel.invokeMethod<void>('addPlugin');
+      await _channel.invokeMethod<void>('addPlugin', {
+        'authProviders':
+            _authProviders.keys.map((key) => key.rawValue).toList(),
+      });
     } on PlatformException catch (e) {
       if (e.code == 'AmplifyAlreadyConfiguredException') {
         throw const AmplifyAlreadyConfiguredException(
