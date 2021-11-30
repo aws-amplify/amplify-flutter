@@ -232,7 +232,11 @@ class StateMachineBloc {
         data.confirmationCode,
         data.newPassword,
       );
-      yield AuthFlow.signin;
+      var authSignInData = AuthUsernamePasswordSignInData(
+        username: data.username,
+        password: data.newPassword,
+      );
+      yield* _signIn(authSignInData);
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
