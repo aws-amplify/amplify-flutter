@@ -422,8 +422,8 @@ class ForgotPasswordButton extends StatelessAuthenticatorComponent {
   }
 }
 
-class SendCodeButton extends AuthenticatorElevatedButton {
-  const SendCodeButton({Key? key})
+class ResetPasswordButton extends AuthenticatorElevatedButton {
+  const ResetPasswordButton({Key? key})
       : super(
           key: key ?? keySendCodeButton,
         );
@@ -436,8 +436,8 @@ class SendCodeButton extends AuthenticatorElevatedButton {
       viewModel.resetPassword();
 }
 
-class SubmitButton extends AuthenticatorElevatedButton {
-  const SubmitButton({Key? key})
+class ConfirmResetPasswordButton extends AuthenticatorElevatedButton {
+  const ConfirmResetPasswordButton({Key? key})
       : super(
           key: key ?? keySendCodeButton,
         );
