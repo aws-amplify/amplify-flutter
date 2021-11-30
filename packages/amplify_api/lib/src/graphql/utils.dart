@@ -113,7 +113,7 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
     final ofModelName =
         parentField.type.ofModelName ?? parentField.type.ofCustomTypeName;
     dynamic inputValue = _input[parentField.name];
-    if (inputValue != null && ofModelName != null) {
+    if ((inputValue is Map || inputValue is List) && ofModelName != null) {
       final parentSchema = getModelSchemaByModelName(ofModelName, null);
       _input.update(parentField.name, (dynamic parentData) {
         if (parentData is List) {
