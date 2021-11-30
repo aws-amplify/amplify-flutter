@@ -470,7 +470,7 @@ class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
           fields: const [],
         );
 
-  /// A custom Send Coded form.
+  /// A custom Reset Password form.
   ResetPasswordForm.custom({
     Key? key,
     required List<SignInFormField> fields,
@@ -506,7 +506,7 @@ class ConfirmResetPasswordForm
           fields: const [],
         );
 
-  /// A custom Reset Password form.
+  /// A custom Confirm Reset Password form.
   const ConfirmResetPasswordForm.custom({
     Key? key,
     required List<ResetPasswordFormField> fields,
@@ -515,7 +515,7 @@ class ConfirmResetPasswordForm
           customFields: fields,
           requiredFields: const [
             ResetPasswordFormField.verificationCode(),
-            ResetPasswordFormField.password(),
+            ResetPasswordFormField.newPassword(),
             ResetPasswordFormField.passwordConfirmation()
           ],
           actions: const [
