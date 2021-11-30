@@ -59,7 +59,7 @@ const keyCodeConfirmSignUpFormField = Key('codeConfirmSignUpFormField');
 
 //Confirm Sign In form field keys
 
-const keyCodeConfirmSignInFormfield = Key('codeConfirmSignInFormField');
+const keyCodeConfirmSignInFormField = Key('codeConfirmSignInFormField');
 const keyUsernameConfirmSignInFormfield = Key('usernameConfirmSignInFormField');
 const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
 const keyNewPasswordConfirmSignInFormField =
