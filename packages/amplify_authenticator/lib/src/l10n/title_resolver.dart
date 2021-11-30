@@ -54,9 +54,9 @@ class TitleResolver extends Resolver<AuthScreen> {
     return AuthenticatorLocalizations.titlesOf(context).resetPassword;
   }
 
-  /// The title for the send code Widget.
-  String sendCode(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context).sendCode;
+  /// The title for the confirm reset password Widget.
+  String confirmResetPassword(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).confirmResetPassword;
   }
 
   /// The title for the verify user Widget.
@@ -79,8 +79,8 @@ class TitleResolver extends Resolver<AuthScreen> {
         return confirmSigninNewPassword(context);
       case AuthScreen.resetPassword:
         return resetPassword(context);
-      case AuthScreen.sendCode:
-        return sendCode(context);
+      case AuthScreen.confirmResetPassword:
+        return confirmResetPassword(context);
       case AuthScreen.verifyUser:
       case AuthScreen.confirmVerifyUser:
         return verifyUser(context);

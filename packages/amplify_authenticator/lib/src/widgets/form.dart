@@ -39,8 +39,8 @@ import 'package:flutter/rendering.dart';
 /// - [ConfirmSignUpForm]
 /// - [ConfirmSignInMFAForm]
 /// - [ConfirmSignInNewPasswordForm]
-/// - [SendCodeForm]
 /// - [ResetPasswordForm]
+/// - [ConfirmResetPasswordForm]
 /// - [VerifyUserForm]
 /// - [ConfirmVerifyUserForm]
 abstract class AuthenticatorForm<T extends AuthenticatorForm<T>>
@@ -457,21 +457,21 @@ class ConfirmSignInNewPasswordForm
 }
 
 /// {@template authenticator.send_code_form}
-/// The Send Code screen form.
+/// The Reset Password screen form.
 ///
-/// To customize, use [SendCodeForm.custom].
+/// To customize, use [ResetPasswordForm.custom].
 /// {@endtemplate}
-class SendCodeForm extends AuthenticatorForm<SendCodeForm> {
+class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
   /// {@macro authenticator.send_code_form}
-  SendCodeForm({
+  ResetPasswordForm({
     Key? key,
   }) : this.custom(
           key: key,
           fields: const [],
         );
 
-  /// A custom Send Coded form.
-  SendCodeForm.custom({
+  /// A custom Reset Password form.
+  ResetPasswordForm.custom({
     Key? key,
     required List<SignInFormField> fields,
   }) : super._(
@@ -481,44 +481,7 @@ class SendCodeForm extends AuthenticatorForm<SendCodeForm> {
             SignInFormField.username(),
           ],
           actions: const [
-            SendCodeButton(),
-            BackToSignInButton(),
-          ],
-        );
-
-  @override
-  AuthenticatorFormState<SendCodeForm> createState() =>
-      AuthenticatorFormState<SendCodeForm>._();
-}
-
-/// {@template authenticator.reset_password_form}
-/// The Reset Password screen form.
-///
-/// To customize, use [ResetPasswordForm.custom].
-/// {@endtemplate}
-class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
-  /// {@macro authenticator.reset_password_form}
-  const ResetPasswordForm({
-    Key? key,
-  }) : this.custom(
-          key: key,
-          fields: const [],
-        );
-
-  /// A custom Reset Password form.
-  const ResetPasswordForm.custom({
-    Key? key,
-    required List<SignInFormField> fields,
-  }) : super._(
-          key: key,
-          customFields: fields,
-          requiredFields: const [
-            ResetPasswordFormField.verificationCode(),
-            ResetPasswordFormField.password(),
-            ResetPasswordFormField.passwordConfirmation()
-          ],
-          actions: const [
-            SubmitButton(),
+            ResetPasswordButton(),
             BackToSignInButton(),
           ],
         );
@@ -526,6 +489,44 @@ class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
   @override
   AuthenticatorFormState<ResetPasswordForm> createState() =>
       AuthenticatorFormState<ResetPasswordForm>._();
+}
+
+/// {@template authenticator.reset_password_form}
+/// The Confirm Reset Password screen form.
+///
+/// To customize, use [ConfirmResetPasswordForm.custom].
+/// {@endtemplate}
+class ConfirmResetPasswordForm
+    extends AuthenticatorForm<ConfirmResetPasswordForm> {
+  /// {@macro authenticator.reset_password_form}
+  const ConfirmResetPasswordForm({
+    Key? key,
+  }) : this.custom(
+          key: key,
+          fields: const [],
+        );
+
+  /// A custom Confirm Reset Password form.
+  const ConfirmResetPasswordForm.custom({
+    Key? key,
+    required List<ResetPasswordFormField> fields,
+  }) : super._(
+          key: key,
+          customFields: fields,
+          requiredFields: const [
+            ResetPasswordFormField.verificationCode(),
+            ResetPasswordFormField.newPassword(),
+            ResetPasswordFormField.passwordConfirmation()
+          ],
+          actions: const [
+            ConfirmResetPasswordButton(),
+            BackToSignInButton(),
+          ],
+        );
+
+  @override
+  AuthenticatorFormState<ConfirmResetPasswordForm> createState() =>
+      AuthenticatorFormState<ConfirmResetPasswordForm>._();
 }
 
 /// {@template authenticator.verify_user_form}

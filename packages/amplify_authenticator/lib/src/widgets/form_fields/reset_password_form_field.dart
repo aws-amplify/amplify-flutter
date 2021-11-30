@@ -46,14 +46,14 @@ class ResetPasswordFormField extends AuthenticatorFormField<ResetPasswordField,
           hintTextKey: InputResolverKey.verificationCodeHint,
         );
 
-  const ResetPasswordFormField.password({
+  const ResetPasswordFormField.newPassword({
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
           key: key ?? keyPasswordResetPasswordFormField,
-          field: ResetPasswordField.password,
-          titleKey: InputResolverKey.passwordTitle,
-          hintTextKey: InputResolverKey.passwordHint,
+          field: ResetPasswordField.newPassword,
+          titleKey: InputResolverKey.newPasswordTitle,
+          hintTextKey: InputResolverKey.newPasswordHint,
           validator: validator,
         );
 
@@ -61,7 +61,7 @@ class ResetPasswordFormField extends AuthenticatorFormField<ResetPasswordField,
     Key? key,
   }) : this._(
           key: key ?? keyPasswordConfirmationResetPasswordFormField,
-          field: ResetPasswordField.password,
+          field: ResetPasswordField.passwordConfirmation,
           titleKey: InputResolverKey.passwordConfirmationTitle,
           hintTextKey: InputResolverKey.passwordConfirmationHint,
         );
@@ -80,7 +80,7 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
   @override
   bool get obscureText {
     switch (widget.field) {
-      case ResetPasswordField.password:
+      case ResetPasswordField.newPassword:
       case ResetPasswordField.passwordConfirmation:
         return true;
       case ResetPasswordField.verificationCode:
@@ -91,7 +91,7 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
   @override
   TextInputType get keyboardType {
     switch (widget.field) {
-      case ResetPasswordField.password:
+      case ResetPasswordField.newPassword:
       case ResetPasswordField.passwordConfirmation:
         return TextInputType.visiblePassword;
       case ResetPasswordField.verificationCode:
@@ -102,7 +102,7 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
   @override
   Widget? get suffix {
     switch (widget.field) {
-      case ResetPasswordField.password:
+      case ResetPasswordField.newPassword:
       case ResetPasswordField.passwordConfirmation:
         return visibilityToggle;
       default:
@@ -113,7 +113,7 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
   @override
   int get errorMaxLines {
     switch (widget.field) {
-      case ResetPasswordField.password:
+      case ResetPasswordField.newPassword:
         return 6;
       default:
         return super.errorMaxLines;
@@ -123,8 +123,8 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
   @override
   String? get initialValue {
     switch (widget.field) {
-      case ResetPasswordField.password:
-        return viewModel.password;
+      case ResetPasswordField.newPassword:
+        return viewModel.newPassword;
       case ResetPasswordField.verificationCode:
         return viewModel.confirmationCode;
       case ResetPasswordField.passwordConfirmation:
@@ -135,8 +135,8 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
   @override
   ValueChanged<String> get onChanged {
     switch (widget.field) {
-      case ResetPasswordField.password:
-        return viewModel.setPassword;
+      case ResetPasswordField.newPassword:
+        return viewModel.setNewPassword;
       case ResetPasswordField.verificationCode:
         return viewModel.setConfirmationCode;
       case ResetPasswordField.passwordConfirmation:
@@ -147,7 +147,7 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
   @override
   FormFieldValidator<String> get validator {
     switch (widget.field) {
-      case ResetPasswordField.password:
+      case ResetPasswordField.newPassword:
         return validateNewPassword(
           amplifyConfig: config.amplifyConfig,
           inputResolver: stringResolver.inputs,

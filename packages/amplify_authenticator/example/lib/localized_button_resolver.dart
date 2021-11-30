@@ -78,8 +78,8 @@ class LocalizedButtonResolver extends ButtonResolver {
   }
 
   @override
-  String resetPassword(BuildContext context) {
-    return AppLocalizations.of(context).resetPassword;
+  String confirmResetPassword(BuildContext context) {
+    return AppLocalizations.of(context).confirmResetPassword;
   }
 
   @override

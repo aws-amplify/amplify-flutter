@@ -91,6 +91,10 @@ class InputResolverKey {
     InputResolverKeyType.empty,
     field: InputField.password,
   );
+  static const newPasswordTitle = InputResolverKey._(
+    InputResolverKeyType.title,
+    field: InputField.newPassword,
+  );
   static const newPasswordHint = InputResolverKey._(
     InputResolverKeyType.hint,
     field: InputField.newPassword,

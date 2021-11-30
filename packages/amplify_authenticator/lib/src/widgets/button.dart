@@ -417,13 +417,13 @@ class ForgotPasswordButton extends StatelessAuthenticatorComponent {
       child: Text(
         stringResolver.buttons.forgotPassword(context),
       ),
-      onPressed: viewModel.goToReset,
+      onPressed: viewModel.goToResetPassword,
     );
   }
 }
 
-class SendCodeButton extends AuthenticatorElevatedButton {
-  const SendCodeButton({Key? key})
+class ResetPasswordButton extends AuthenticatorElevatedButton {
+  const ResetPasswordButton({Key? key})
       : super(
           key: key ?? keySendCodeButton,
         );
@@ -433,11 +433,11 @@ class SendCodeButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.sendCode();
+      viewModel.resetPassword();
 }
 
-class SubmitButton extends AuthenticatorElevatedButton {
-  const SubmitButton({Key? key})
+class ConfirmResetPasswordButton extends AuthenticatorElevatedButton {
+  const ConfirmResetPasswordButton({Key? key})
       : super(
           key: key ?? keySendCodeButton,
         );
@@ -447,7 +447,7 @@ class SubmitButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.confirmPassword();
+      viewModel.confirmResetPassword();
 }
 
 class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {

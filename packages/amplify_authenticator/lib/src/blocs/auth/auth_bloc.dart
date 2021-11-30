@@ -104,10 +104,10 @@ class StateMachineBloc {
       yield* _changeScreen(event.screen);
     } else if (event is AuthSignOut) {
       yield* _signOut();
-    } else if (event is AuthSendCode) {
-      yield* _sendCode(event.data);
-    } else if (event is AuthConfirmPassword) {
-      yield* _confirmPassword(event.data);
+    } else if (event is AuthResetPassword) {
+      yield* _resetPassword(event.data);
+    } else if (event is AuthConfirmResetPassword) {
+      yield* _confirmResetPassword(event.data);
     } else if (event is AuthConfirmSignIn) {
       yield* _confirmSignIn(event.data, event.rememberDevice);
     } else if (event is AuthVerifyUser) {
@@ -196,7 +196,7 @@ class StateMachineBloc {
           yield AuthFlow.confirmSigninNewPassword;
           break;
         case 'RESET_PASSWORD':
-          yield AuthFlow.sendCode;
+          yield AuthFlow.resetPassword;
           break;
         case 'CONFIRM_SIGN_UP':
           yield AuthFlow.confirmSignup;
@@ -223,14 +223,20 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthState> _confirmPassword(AuthConfirmPasswordData data) async* {
+  Stream<AuthState> _confirmResetPassword(
+    AuthConfirmResetPasswordData data,
+  ) async* {
     try {
-      await _authService.confirmPassword(
+      await _authService.confirmResetPassword(
         data.username,
         data.confirmationCode,
         data.newPassword,
       );
-      yield AuthFlow.signin;
+      var authSignInData = AuthUsernamePasswordSignInData(
+        username: data.username,
+        password: data.newPassword,
+      );
+      yield* _signIn(authSignInData);
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
@@ -238,10 +244,11 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthState> _sendCode(AuthSendCodeData data) async* {
+  Stream<AuthState> _resetPassword(AuthResetPasswordData data) async* {
     try {
-      await _authService.resetPassword(data.username);
-      yield AuthFlow.resetPassword;
+      var result = await _authService.resetPassword(data.username);
+      _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
+      yield AuthFlow.confirmResetPassword;
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
@@ -290,7 +297,7 @@ class StateMachineBloc {
           yield AuthFlow.confirmSigninNewPassword;
           break;
         case 'RESET_PASSWORD':
-          yield AuthFlow.resetPassword;
+          yield AuthFlow.confirmResetPassword;
           break;
         case 'CONFIRM_SIGN_UP':
           _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);

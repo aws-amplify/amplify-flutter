@@ -44,11 +44,11 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
   const AuthenticatorScreen.confirmSignInNewPassword({Key? key})
       : this(key: key, screen: AuthScreen.confirmSigninNewPassword);
 
-  const AuthenticatorScreen.sendCode({Key? key})
-      : this(key: key, screen: AuthScreen.sendCode);
-
   const AuthenticatorScreen.resetPassword({Key? key})
       : this(key: key, screen: AuthScreen.resetPassword);
+
+  const AuthenticatorScreen.confirmResetPassword({Key? key})
+      : this(key: key, screen: AuthScreen.confirmResetPassword);
 
   const AuthenticatorScreen.verifyUser({Key? key})
       : this(key: key, screen: AuthScreen.verifyUser);
@@ -87,8 +87,8 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
       case AuthScreen.confirmSignup:
       case AuthScreen.confirmSigninMfa:
       case AuthScreen.confirmSigninNewPassword:
-      case AuthScreen.sendCode:
       case AuthScreen.resetPassword:
+      case AuthScreen.confirmResetPassword:
       case AuthScreen.verifyUser:
       case AuthScreen.confirmVerifyUser:
         child = _FormWrapperView(screen: screen);
@@ -237,8 +237,8 @@ extension on AuthScreen {
       case AuthScreen.confirmSignup:
       case AuthScreen.confirmSigninMfa:
       case AuthScreen.confirmSigninNewPassword:
-      case AuthScreen.sendCode:
       case AuthScreen.resetPassword:
+      case AuthScreen.confirmResetPassword:
       case AuthScreen.verifyUser:
       case AuthScreen.confirmVerifyUser:
         throw StateError('Invalid screen: $this');

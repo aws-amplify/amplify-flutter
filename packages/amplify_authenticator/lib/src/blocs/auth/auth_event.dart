@@ -59,16 +59,16 @@ class AuthExceptionEvent extends AuthEvent {
   const AuthExceptionEvent();
 }
 
-class AuthSendCode extends AuthEvent {
-  const AuthSendCode(this.data);
+class AuthResetPassword extends AuthEvent {
+  const AuthResetPassword(this.data);
 
-  final AuthSendCodeData data;
+  final AuthResetPasswordData data;
 }
 
-class AuthConfirmPassword extends AuthEvent {
-  const AuthConfirmPassword(this.data);
+class AuthConfirmResetPassword extends AuthEvent {
+  const AuthConfirmResetPassword(this.data);
 
-  final AuthConfirmPasswordData data;
+  final AuthConfirmResetPasswordData data;
 }
 
 class AuthUpdatePassword extends AuthEvent {

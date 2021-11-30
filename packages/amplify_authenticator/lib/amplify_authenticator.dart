@@ -395,8 +395,8 @@ class _AuthenticatorState extends State<Authenticator> {
               child: InheritedForms(
                 confirmSignInNewPasswordForm:
                     widget.confirmSignInNewPasswordForm,
-                resetPasswordForm: const ResetPasswordForm(),
-                sendCodeForm: SendCodeForm(),
+                resetPasswordForm: ResetPasswordForm(),
+                confirmResetPasswordForm: const ConfirmResetPasswordForm(),
                 signInForm: widget.signInForm,
                 signUpForm: widget.signUpForm,
                 confirmSignUpForm: ConfirmSignUpForm(),

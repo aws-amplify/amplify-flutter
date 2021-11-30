@@ -266,30 +266,31 @@ class AuthViewModel extends ChangeNotifier {
     setBusy(false);
   }
 
-  Future<void> sendCode() async {
+  Future<void> resetPassword() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
     setBusy(true);
-    final sendCode = AuthSendCodeData(username: _username.trim());
-    authBloc.add(AuthSendCode(sendCode));
+    final resetPasswordData = AuthResetPasswordData(username: _username.trim());
+    authBloc.add(AuthResetPassword(resetPasswordData));
     await nextBlocEvent(
       where: (state) => state is AuthFlow,
     );
     setBusy(false);
   }
 
-  Future<void> confirmPassword() async {
+  Future<void> confirmResetPassword() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
     setBusy(true);
-    AuthConfirmPasswordData confirmPassword = AuthConfirmPasswordData(
+    AuthConfirmResetPasswordData confirmResetPasswordData =
+        AuthConfirmResetPasswordData(
       username: _username.trim(),
       confirmationCode: _confirmationCode.trim(),
       newPassword: _newPassword.trim(),
     );
-    authBloc.add(AuthConfirmPassword(confirmPassword));
+    authBloc.add(AuthConfirmResetPassword(confirmResetPasswordData));
     await nextBlocEvent(
       where: (state) => state is AuthFlow,
     );
@@ -377,7 +378,7 @@ class AuthViewModel extends ChangeNotifier {
 
   void goToSignUp() => _navigateTo(AuthScreen.signup);
   void goToSignIn() => _navigateTo(AuthScreen.signin);
-  void goToReset() => _navigateTo(AuthScreen.sendCode);
+  void goToResetPassword() => _navigateTo(AuthScreen.resetPassword);
 
   void resetAttributes() {
     _username = '';

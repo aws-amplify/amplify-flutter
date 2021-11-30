@@ -15,6 +15,6 @@
 
 enum ResetPasswordField {
   verificationCode,
-  password,
+  newPassword,
   passwordConfirmation,
 }

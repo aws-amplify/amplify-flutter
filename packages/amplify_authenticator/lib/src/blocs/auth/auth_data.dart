@@ -66,16 +66,16 @@ class AuthConfirmSignUpData {
   });
 }
 
-class AuthSendCodeData {
-  const AuthSendCodeData({
+class AuthResetPasswordData {
+  const AuthResetPasswordData({
     required this.username,
   });
 
   final String username;
 }
 
-class AuthConfirmPasswordData {
-  const AuthConfirmPasswordData({
+class AuthConfirmResetPasswordData {
+  const AuthConfirmResetPasswordData({
     required this.username,
     required this.newPassword,
     required this.confirmationCode,
