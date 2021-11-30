@@ -279,17 +279,18 @@ class AuthViewModel extends ChangeNotifier {
     setBusy(false);
   }
 
-  Future<void> confirmPassword() async {
+  Future<void> confirmResetPassword() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
     setBusy(true);
-    AuthConfirmPasswordData confirmPassword = AuthConfirmPasswordData(
+    AuthConfirmResetPasswordData confirmResetPasswordData =
+        AuthConfirmResetPasswordData(
       username: _username.trim(),
       confirmationCode: _confirmationCode.trim(),
       newPassword: _password.trim(),
     );
-    authBloc.add(AuthConfirmPassword(confirmPassword));
+    authBloc.add(AuthConfirmResetPassword(confirmResetPasswordData));
     await nextBlocEvent(
       where: (state) => state is AuthFlow,
     );

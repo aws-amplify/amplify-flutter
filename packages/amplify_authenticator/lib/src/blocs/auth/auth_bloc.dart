@@ -106,8 +106,8 @@ class StateMachineBloc {
       yield* _signOut();
     } else if (event is AuthSendCode) {
       yield* _sendCode(event.data);
-    } else if (event is AuthConfirmPassword) {
-      yield* _confirmPassword(event.data);
+    } else if (event is AuthConfirmResetPassword) {
+      yield* _confirmResetPassword(event.data);
     } else if (event is AuthConfirmSignIn) {
       yield* _confirmSignIn(event.data, event.rememberDevice);
     } else if (event is AuthVerifyUser) {
@@ -223,9 +223,11 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthState> _confirmPassword(AuthConfirmPasswordData data) async* {
+  Stream<AuthState> _confirmResetPassword(
+    AuthConfirmResetPasswordData data,
+  ) async* {
     try {
-      await _authService.confirmPassword(
+      await _authService.confirmResetPassword(
         data.username,
         data.confirmationCode,
         data.newPassword,

@@ -447,7 +447,7 @@ class SubmitButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.confirmPassword();
+      viewModel.confirmResetPassword();
 }
 
 class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {

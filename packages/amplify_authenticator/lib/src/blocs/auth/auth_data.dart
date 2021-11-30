@@ -74,8 +74,8 @@ class AuthSendCodeData {
   final String username;
 }
 
-class AuthConfirmPasswordData {
-  const AuthConfirmPasswordData({
+class AuthConfirmResetPasswordData {
+  const AuthConfirmResetPasswordData({
     required this.username,
     required this.newPassword,
     required this.confirmationCode,
