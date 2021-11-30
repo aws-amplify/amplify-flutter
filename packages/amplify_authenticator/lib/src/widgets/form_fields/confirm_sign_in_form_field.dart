@@ -65,7 +65,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     FormFieldValidator<String>? validator,
   }) =>
       _ConfirmSignInTextField(
-        key: key ?? keyCodeConfirmSignUpFormField,
+        key: key ?? keyCodeConfirmSignInFormField,
         titleKey: InputResolverKey.verificationCodeTitle,
         hintTextKey: InputResolverKey.verificationCodeHint,
         field: ConfirmSignInField.code,
