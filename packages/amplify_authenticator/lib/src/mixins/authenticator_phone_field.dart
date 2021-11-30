@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
 */
 
+import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
@@ -70,6 +71,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
   Widget get prefix => Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
+          key: keySelectCountryCode,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -102,6 +104,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
         return StatefulBuilder(
           builder: (context, setState) {
             return Dialog(
+              key: keyCountryDialog,
               child: Column(
                 children: <Widget>[
                   Padding(
@@ -118,6 +121,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
+                      key: keyCountrySearchField,
                       decoration: const InputDecoration(
                         suffixIcon: Icon(Icons.search),
                         isDense: true,

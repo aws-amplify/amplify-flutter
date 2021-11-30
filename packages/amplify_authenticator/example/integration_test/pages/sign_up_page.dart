@@ -9,16 +9,16 @@ class SignUpPage {
   final WidgetTester tester;
 
   Finder get usernameField => find.byKey(keyUsernameSignUpFormField);
-
   Finder get passwordField => find.byKey(keyPasswordSignUpFormField);
   Finder get confirmPasswordField =>
       find.byKey(keyPasswordConfirmationSignUpFormField);
-
   Finder get emailField => find.byKey(keyEmailSignUpFormField);
   Finder get phoneField => find.byKey(keyPhoneNumberSignUpFormField);
+  Finder get countrySelectField => find.byKey(keySelectCountryCode);
+  Finder get countrySelectDialog => find.byKey(keyCountryDialog);
+  Finder get countrySearchField => find.byKey(keyCountrySearchField);
   Finder get preferredUsernameField =>
       find.byKey(keyPreferredUsernameSignUpFormField);
-
   Finder get signUpButton => find.byKey(keySignUpButton);
 
   /// When I type a new "username"
@@ -86,5 +86,19 @@ class SignUpPage {
       matching: find.text('Username'),
     );
     expect(usernameFieldHint, findsNothing);
+  }
+
+  Future<void> selectCountryCode() async {
+    expect(countrySelectField, findsOneWidget);
+    await tester.tap(countrySelectField);
+    await tester.pumpAndSettle();
+    expect(countrySelectDialog, findsOneWidget);
+    expect(countrySearchField, findsOneWidget);
+    await tester.enterText(countrySearchField, 'United States');
+    Finder unitedStatesOption = find.descendant(
+        of: find.byKey(keyCountryDialog),
+        matching: find.textContaining('(+1)'));
+    expect(unitedStatesOption, findsOneWidget);
+    await tester.tap(unitedStatesOption);
   }
 }

@@ -119,6 +119,12 @@ const keyForgotPasswordButton = Key('forgotPasswordButton');
 
 const keyRememberDeviceCheckbox = Key('rememberDeviceCheckbox');
 
+// Phone Keys
+
+const keySelectCountryCode = Key('selectCountryCode');
+const keyCountryDialog = Key('countryDialog');
+const keyCountrySearchField = Key('countrySearchField');
+
 // Inherited keys
 
 const keyInheritedAuthViewModel = Key('inheritedAuthViewModel');
