@@ -34,7 +34,7 @@ void main() {
   });
 
   const blogSelectionSet =
-      'id name file { bucket region key } createdAt updatedAt';
+      'id name createdAt file { bucket region key } files { bucket region key } updatedAt';
 
   test('Query advanced flow executes correctly in the happy case', () async {
     const queryResult = {

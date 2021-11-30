@@ -302,6 +302,22 @@ void main() {
         expect(data?.file?.bucket, equals(bucketName));
       });
 
+      testWidgets('should CREATE a blog with Model helper and custom type list',
+          (WidgetTester tester) async {
+        String name = 'Integration Test Blog - create';
+        String bucketName = 'Good bucket';
+        Blog blog = Blog(name: name, files: [
+          S3Object(bucket: bucketName, region: 'us-west-2', key: 'foo')
+        ]);
+
+        final req = ModelMutations.create(blog);
+        final res = await Amplify.API.mutate(request: req).response;
+        Blog? data = res.data;
+        if (data != null) blogCache.add(data);
+
+        expect(data?.files?[0].bucket, equals(bucketName));
+      });
+
       testWidgets('should CREATE a post (model with parent) with Model helper',
           (WidgetTester tester) async {
         final title = 'Lorem Ipsum Test Post: ${UUID.getUUID()}';

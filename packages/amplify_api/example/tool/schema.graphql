@@ -9,6 +9,7 @@ type Blog @model {
   name: String!
   createdAt: AWSDateTime
   file: S3Object
+  files: [S3Object]
   posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
 }
 

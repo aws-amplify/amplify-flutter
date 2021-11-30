@@ -33,7 +33,8 @@ _RelatedFields _getRelatedFieldsUncached(ModelSchema modelSchema) {
   final singleFields = modelSchema.fields!.values.where((field) =>
       field.association?.associationType == ModelAssociationEnum.HasOne ||
       field.association?.associationType == ModelAssociationEnum.BelongsTo ||
-      field.type.fieldType == ModelFieldTypeEnum.embedded);
+      field.type.fieldType == ModelFieldTypeEnum.embedded ||
+      field.type.fieldType == ModelFieldTypeEnum.embeddedCollection);
   final hasManyFields = modelSchema.fields!.values.where((field) =>
       field.association?.associationType == ModelAssociationEnum.HasMany);
 
@@ -112,14 +113,26 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
     final ofModelName =
         parentField.type.ofModelName ?? parentField.type.ofCustomTypeName;
     dynamic inputValue = _input[parentField.name];
-    if (inputValue is Map && ofModelName != null) {
+    if (inputValue != null && ofModelName != null) {
       final parentSchema = getModelSchemaByModelName(ofModelName, null);
-      _input.update(
-          parentField.name,
-          (dynamic parentMap) => <String, dynamic>{
-                _serializedData:
-                    transformAppSyncJsonToModelJson(parentMap, parentSchema)
-              });
+      if (inputValue is Map) {
+        _input.update(
+            parentField.name,
+            (dynamic parentData) => <String, dynamic>{
+                  _serializedData:
+                      transformAppSyncJsonToModelJson(parentData, parentSchema)
+                });
+      } else if (inputValue is List) {
+        // only used for embeddedCollection
+        _input.update(parentField.name, (dynamic parentData) {
+          return (parentData as List)
+              .map((dynamic e) => {
+                    _serializedData:
+                        transformAppSyncJsonToModelJson(e, parentSchema)
+                  })
+              .toList();
+        });
+      }
     }
   }
 

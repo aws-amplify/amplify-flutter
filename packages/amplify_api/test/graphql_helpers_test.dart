@@ -25,7 +25,7 @@ void main() {
   group('with ModelProvider', () {
     final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
     const blogSelectionSet =
-        'id name file { bucket region key } createdAt updatedAt';
+        'id name createdAt file { bucket region key } files { bucket region key } updatedAt';
 
     group('ModelQueries', () {
       test('ModelQueries.get() should build a valid request', () {
@@ -291,7 +291,13 @@ void main() {
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
         final expectedVars = {
-          'input': {'id': id, 'name': name, 'createdAt': time, 'file': null}
+          'input': {
+            'id': id,
+            'name': name,
+            'createdAt': time,
+            'file': null,
+            'files': null
+          }
         };
         const expectedDoc =
             'mutation createBlog(\$input: CreateBlogInput!, \$condition:  ModelBlogConditionInput) { createBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -392,7 +398,13 @@ void main() {
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
         final expectedVars = {
-          'input': {'id': id, 'name': name, 'createdAt': time, 'file': null},
+          'input': {
+            'id': id,
+            'name': name,
+            'createdAt': time,
+            'file': null,
+            'files': null
+          },
           'condition': null
         };
         const expectedDoc =
@@ -451,7 +463,13 @@ void main() {
         final createdAt = TemporalDateTime.fromString(time);
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
         final expectedVars = {
-          'input': {'id': id, 'name': name, 'createdAt': time, 'file': null},
+          'input': {
+            'id': id,
+            'name': name,
+            'createdAt': time,
+            'file': null,
+            'files': null
+          },
           'condition': {
             'createdAt': {'lt': time}
           }

@@ -76,7 +76,8 @@ class GraphQLRequestFactory {
         .where((entry) =>
             entry.value.association == null) // ignore related model fields
         .map((entry) {
-      if (entry.value.type.fieldType == ModelFieldTypeEnum.embedded) {
+      if (entry.value.type.fieldType == ModelFieldTypeEnum.embedded ||
+          entry.value.type.fieldType == ModelFieldTypeEnum.embeddedCollection) {
         final embeddedSchema =
             getModelSchemaByModelName(entry.value.type.ofCustomTypeName!, null);
         final embeddedSelectionSet = _getSelectionSetFromModelSchema(
