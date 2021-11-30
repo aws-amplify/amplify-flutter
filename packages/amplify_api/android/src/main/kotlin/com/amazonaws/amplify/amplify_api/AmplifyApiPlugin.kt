@@ -80,7 +80,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(call: MethodCall, _result: Result) {
         val methodName = call.method
         val result = AtomicResult(_result, call.method)
-        val arguments: Map<String, Any> = call.arguments as Map<String, Any>
+        val arguments: Map<String, Any> = (call.arguments as? Map<*, *>)?.cast() ?: mapOf()
 
         if (methodName == "cancel") {
             onCancel(result, (call.arguments as String))
