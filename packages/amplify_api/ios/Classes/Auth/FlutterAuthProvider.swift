@@ -77,9 +77,9 @@ class FlutterAuthProviders: APIAuthProviderFactory {
 
         return token ?? unknownError
     }
-    
+
     private let authProviders: Set<AWSAuthorizationType>
-    
+
     init(_ authProviders: [AWSAuthorizationType]) {
         self.authProviders = Set(authProviders)
     }

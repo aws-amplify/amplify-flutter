@@ -61,7 +61,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
             }
 
             let arguments = try FlutterApiRequest.getMap(args: callArgs)
-            
+
             if method == "addPlugin"{
                 let authProvidersList = arguments["authProviders"] as? [String] ?? []
                 let authProviders = authProvidersList.compactMap {
