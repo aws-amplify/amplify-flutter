@@ -266,13 +266,13 @@ class AuthViewModel extends ChangeNotifier {
     setBusy(false);
   }
 
-  Future<void> sendCode() async {
+  Future<void> resetPassword() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
     setBusy(true);
-    final sendCode = AuthSendCodeData(username: _username.trim());
-    authBloc.add(AuthSendCode(sendCode));
+    final resetPasswordData = AuthResetPasswordData(username: _username.trim());
+    authBloc.add(AuthResetPassword(resetPasswordData));
     await nextBlocEvent(
       where: (state) => state is AuthFlow,
     );

@@ -66,8 +66,8 @@ class AuthConfirmSignUpData {
   });
 }
 
-class AuthSendCodeData {
-  const AuthSendCodeData({
+class AuthResetPasswordData {
+  const AuthResetPasswordData({
     required this.username,
   });
 

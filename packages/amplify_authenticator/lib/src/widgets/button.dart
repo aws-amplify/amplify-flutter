@@ -433,7 +433,7 @@ class SendCodeButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.sendCode();
+      viewModel.resetPassword();
 }
 
 class SubmitButton extends AuthenticatorElevatedButton {

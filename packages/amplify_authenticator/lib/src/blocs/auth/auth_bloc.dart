@@ -104,8 +104,8 @@ class StateMachineBloc {
       yield* _changeScreen(event.screen);
     } else if (event is AuthSignOut) {
       yield* _signOut();
-    } else if (event is AuthSendCode) {
-      yield* _sendCode(event.data);
+    } else if (event is AuthResetPassword) {
+      yield* _resetPassword(event.data);
     } else if (event is AuthConfirmResetPassword) {
       yield* _confirmResetPassword(event.data);
     } else if (event is AuthConfirmSignIn) {
@@ -240,7 +240,7 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthState> _sendCode(AuthSendCodeData data) async* {
+  Stream<AuthState> _resetPassword(AuthResetPasswordData data) async* {
     try {
       var result = await _authService.resetPassword(data.username);
       _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
