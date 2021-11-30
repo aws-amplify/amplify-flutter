@@ -115,24 +115,21 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
     dynamic inputValue = _input[parentField.name];
     if (inputValue != null && ofModelName != null) {
       final parentSchema = getModelSchemaByModelName(ofModelName, null);
-      if (inputValue is Map) {
-        _input.update(
-            parentField.name,
-            (dynamic parentData) => <String, dynamic>{
-                  _serializedData:
-                      transformAppSyncJsonToModelJson(parentData, parentSchema)
-                });
-      } else if (inputValue is List) {
-        // only used for embeddedCollection
-        _input.update(parentField.name, (dynamic parentData) {
-          return (parentData as List)
+      _input.update(parentField.name, (dynamic parentData) {
+        if (parentData is List) {
+          // only used for embeddedCollection
+          return parentData
               .map((dynamic e) => {
                     _serializedData:
                         transformAppSyncJsonToModelJson(e, parentSchema)
                   })
               .toList();
-        });
-      }
+        }
+        return {
+          _serializedData:
+              transformAppSyncJsonToModelJson(parentData, parentSchema)
+        };
+      });
     }
   }
 
