@@ -43,7 +43,7 @@
     },
     "confirmResetPassword": "Reset Password",
     "@confirmResetPassword": {
-        "description": "Label of button to reset a user's password"
+        "description": "Label of button to confirm the reset of a user's password"
     },
     "verify": "Verify",
     "@verify": {
