@@ -47,8 +47,9 @@ class AuthFlow extends AuthState {
   static const confirmSigninMfa = AuthFlow(screen: AuthScreen.confirmSigninMfa);
   static const confirmSigninNewPassword =
       AuthFlow(screen: AuthScreen.confirmSigninNewPassword);
-  static const sendCode = AuthFlow(screen: AuthScreen.sendCode);
   static const resetPassword = AuthFlow(screen: AuthScreen.resetPassword);
+  static const confirmResetPassword =
+      AuthFlow(screen: AuthScreen.confirmResetPassword);
   static const verifyUser = AuthFlow(screen: AuthScreen.verifyUser);
 
   final AuthScreen screen;

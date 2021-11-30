@@ -417,7 +417,7 @@ class ForgotPasswordButton extends StatelessAuthenticatorComponent {
       child: Text(
         stringResolver.buttons.forgotPassword(context),
       ),
-      onPressed: viewModel.goToReset,
+      onPressed: viewModel.goToResetPassword,
     );
   }
 }

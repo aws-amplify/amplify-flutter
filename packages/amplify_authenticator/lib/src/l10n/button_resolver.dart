@@ -35,7 +35,7 @@ enum ButtonResolverKeyType {
   noAccount,
   haveAccount,
   forgotPassword,
-  resetPassword,
+  confirmResetPassword,
   backTo,
   skip,
 }
@@ -69,8 +69,8 @@ class ButtonResolverKey {
       ButtonResolverKey._(ButtonResolverKeyType.haveAccount);
   static const forgotPassword =
       ButtonResolverKey._(ButtonResolverKeyType.forgotPassword);
-  static const resetPassword =
-      ButtonResolverKey._(ButtonResolverKeyType.resetPassword);
+  static const confirmResetPassword =
+      ButtonResolverKey._(ButtonResolverKeyType.confirmResetPassword);
   const ButtonResolverKey.backTo(AuthScreen previousScreen)
       : this._(ButtonResolverKeyType.backTo, previousScreen: previousScreen);
   static const skip = ButtonResolverKey._(ButtonResolverKeyType.skip);
@@ -148,9 +148,9 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
     return AuthenticatorLocalizations.buttonsOf(context).forgotPassword;
   }
 
-  /// Label of button to reset a user's password
-  String resetPassword(BuildContext context) {
-    return AuthenticatorLocalizations.buttonsOf(context).resetPassword;
+  /// Label of button to confirm the reset of a user's password
+  String confirmResetPassword(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).confirmResetPassword;
   }
 
   /// Label of button to return to the Sign In screen.
@@ -192,8 +192,8 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
         return haveAccount(context);
       case ButtonResolverKeyType.forgotPassword:
         return forgotPassword(context);
-      case ButtonResolverKeyType.resetPassword:
-        return resetPassword(context);
+      case ButtonResolverKeyType.confirmResetPassword:
+        return confirmResetPassword(context);
       case ButtonResolverKeyType.backTo:
         return backTo(context, key.previousScreen!);
       case ButtonResolverKeyType.skip:

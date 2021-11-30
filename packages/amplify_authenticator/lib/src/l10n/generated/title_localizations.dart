@@ -140,14 +140,14 @@ abstract class AuthenticatorTitleLocalizations {
   /// Title of the Reset Password screen and form
   ///
   /// In en, this message translates to:
-  /// **'Reset your password'**
+  /// **'Send Code'**
   String get resetPassword;
 
-  /// Title of the Send Code screen and form
+  /// Title of the Confirm Reset Password screen and form
   ///
   /// In en, this message translates to:
-  /// **'Send Code'**
-  String get sendCode;
+  /// **'Reset your password'**
+  String get confirmResetPassword;
 
   /// Title of the Verify and Confirm Verify User s and forms
   ///

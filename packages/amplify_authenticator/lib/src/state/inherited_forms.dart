@@ -54,9 +54,9 @@ class InheritedForms extends InheritedWidget {
         return confirmSignInMFAForm;
       case AuthScreen.confirmSigninNewPassword:
         return confirmSignInNewPasswordForm;
-      case AuthScreen.sendCode:
-        return resetPasswordForm;
       case AuthScreen.resetPassword:
+        return resetPasswordForm;
+      case AuthScreen.confirmResetPassword:
         return confirmResetPasswordForm;
       case AuthScreen.verifyUser:
         return verifyUserForm;

@@ -378,7 +378,7 @@ class AuthViewModel extends ChangeNotifier {
 
   void goToSignUp() => _navigateTo(AuthScreen.signup);
   void goToSignIn() => _navigateTo(AuthScreen.signin);
-  void goToReset() => _navigateTo(AuthScreen.sendCode);
+  void goToResetPassword() => _navigateTo(AuthScreen.resetPassword);
 
   void resetAttributes() {
     _username = '';

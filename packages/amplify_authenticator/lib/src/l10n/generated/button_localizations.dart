@@ -168,11 +168,11 @@ abstract class AuthenticatorButtonLocalizations {
   /// **'Forgot your password?'**
   String get forgotPassword;
 
-  /// Label of button to reset a user's password
+  /// Label of button to confirm the reset of a user's password
   ///
   /// In en, this message translates to:
   /// **'Reset Password'**
-  String get resetPassword;
+  String get confirmResetPassword;
 
   /// Label of button to verify a user's attribute, such as their email or phone number
   ///

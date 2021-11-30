@@ -41,8 +41,8 @@
     "@forgotPassword": {
         "description": "Hint text for the 'Reset Password' button"
     },
-    "resetPassword": "Reset Password",
-    "@resetPassword": {
+    "confirmResetPassword": "Reset Password",
+    "@confirmResetPassword": {
         "description": "Label of button to reset a user's password"
     },
     "verify": "Verify",
@@ -88,4 +88,3 @@
         "description": "Label of the dial code selector modal"
     }
 }
-

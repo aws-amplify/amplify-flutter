@@ -38,10 +38,10 @@ class AuthenticatorTitleLocalizationsEn
   String get confirmSigninNewPassword => 'Change your password to sign in';
 
   @override
-  String get resetPassword => 'Reset your password';
+  String get resetPassword => 'Send Code';
 
   @override
-  String get sendCode => 'Send Code';
+  String get confirmResetPassword => 'Reset your password';
 
   @override
   String get verifyUser =>

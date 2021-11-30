@@ -196,7 +196,7 @@ class StateMachineBloc {
           yield AuthFlow.confirmSigninNewPassword;
           break;
         case 'RESET_PASSWORD':
-          yield AuthFlow.sendCode;
+          yield AuthFlow.resetPassword;
           break;
         case 'CONFIRM_SIGN_UP':
           yield AuthFlow.confirmSignup;
@@ -244,7 +244,7 @@ class StateMachineBloc {
     try {
       var result = await _authService.resetPassword(data.username);
       _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
-      yield AuthFlow.resetPassword;
+      yield AuthFlow.confirmResetPassword;
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
@@ -293,7 +293,7 @@ class StateMachineBloc {
           yield AuthFlow.confirmSigninNewPassword;
           break;
         case 'RESET_PASSWORD':
-          yield AuthFlow.resetPassword;
+          yield AuthFlow.confirmResetPassword;
           break;
         case 'CONFIRM_SIGN_UP':
           _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);

@@ -41,9 +41,9 @@
     "@forgotPassword": {
         "description": "Hint text for the 'Reset Password' button"
     },
-    "resetPassword": "Reset Password",
-    "@resetPassword": {
-        "description": "Label of button to reset a user's password"
+    "confirmResetPassword": "Reset Password",
+    "@confirmResetPassword": {
+        "description": "Label of button to confirm the reset of a user's password"
     },
     "verify": "Verify",
     "@verify": {

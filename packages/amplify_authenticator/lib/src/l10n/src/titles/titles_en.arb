@@ -21,13 +21,13 @@
     "@confirmSigninNewPassword": {
         "description": "Title of the Confirm Signin with New Password screen and form"
     },
-    "resetPassword": "Reset your password",
+    "resetPassword": "Send Code",
     "@resetPassword": {
         "description": "Title of the Reset Password screen and form"
     },
-    "sendCode": "Send Code",
-    "@sendCode": {
-        "description": "Title of the Send Code screen and form"
+    "confirmResetPassword": "Reset your password",
+    "@confirmResetPassword": {
+        "description": "Title of the Confirm Reset Password screen and form"
     },
     "verifyUser": "Account recovery requires verified contact information",
     "@verifyUser": {
