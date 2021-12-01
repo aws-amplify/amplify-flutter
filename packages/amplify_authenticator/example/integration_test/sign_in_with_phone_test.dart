@@ -54,7 +54,9 @@ void main() {
       );
     });
 
-    tearDownAll(Amplify.Auth.signOut);
+    tearDownAll(() async {
+      await Amplify.Auth.signOut();
+    });
 
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {

@@ -53,6 +53,10 @@ void main() {
       );
     });
 
+    tearDownAll(() async {
+      await Amplify.Auth.signOut();
+    });
+
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
       await loadAuthenticator(tester: tester, authenticator: authenticator);
@@ -92,9 +96,6 @@ void main() {
 
       /// Then I see "Sign out"
       signInPage.expectAuthenticated();
-
-      // Then I see "User does not exist"
-      await signInPage.submitSignOut();
     });
 
     // Scenario: Sign in with confirmed credentials then sign out
