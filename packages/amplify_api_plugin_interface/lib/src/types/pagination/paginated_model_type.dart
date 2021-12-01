@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,24 +13,16 @@
  * permissions and limitations under the License.
  */
 
-import '../types.dart';
+import 'package:amplify_api_plugin_interface/src/types.dart';
+import 'package:amplify_core/amplify_core.dart';
 
-class GraphQLResponse<T> {
-  final T? data;
-  final List<GraphQLResponseError> errors;
+abstract class PaginatedModelType<T extends Model>
+    extends ModelType<PaginatedResult<T>> {
+  final ModelType<T> modelType;
 
-  const GraphQLResponse({
-    this.data,
-    required this.errors,
-  });
+  const PaginatedModelType(this.modelType);
 
-  static GraphQLResponse<String?> raw({
-    required String? data,
-    List<GraphQLResponseError>? errors,
-  }) {
-    return GraphQLResponse(
-      data: data,
-      errors: errors ?? const [],
-    );
-  }
+  @override
+  PaginatedResult<T> fromJson(Map<String, dynamic> jsonData,
+      {Map<String, dynamic>? filter, int? limit});
 }
