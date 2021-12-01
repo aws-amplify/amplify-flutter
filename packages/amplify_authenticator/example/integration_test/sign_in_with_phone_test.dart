@@ -102,8 +102,6 @@ void main() {
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
 
-      await Future.delayed(const Duration(seconds: 2), () {});
-
       // Then I see "Confirmation Code"
       confirmSignUpPage.expectConfirmationCodeIsPresent();
 
