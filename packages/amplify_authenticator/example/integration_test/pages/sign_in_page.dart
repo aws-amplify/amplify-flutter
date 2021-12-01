@@ -15,7 +15,7 @@
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
-
+import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -34,6 +34,14 @@ class SignInPage extends AuthenticatorPage {
         of: find.byType(TabBar),
         matching: find.byKey(const ValueKey(AuthScreen.signup)),
       );
+
+  /// Then I see "SignIn"
+  Future<void> expectSignIn() async {
+    final currentScreen = tester.widget<AuthenticatorScreen>(
+      find.byType(AuthenticatorScreen),
+    );
+    expect(currentScreen.screen, equals(AuthScreen.signin));
+  }
 
   /// When I type a new "username"
   Future<void> enterUsername(String username) async {

@@ -36,6 +36,16 @@ class AuthenticatorPage {
     expect(userNotFoundMessage, findsOneWidget);
   }
 
+  /// Then I see Invalid code
+  Future<void> expectInvalidCode() async {
+    expect(bannerFinder, findsOneWidget);
+    Finder userNotFoundMessage = find.descendant(
+      of: find.byKey(keyAuthenticatorBanner),
+      matching: find.textContaining('Invalid code or auth state for the user'),
+    );
+    expect(userNotFoundMessage, findsOneWidget);
+  }
+
   Future<void> selectCountryCode() async {
     expect(countrySelectField, findsOneWidget);
     await tester.tap(countrySelectField);

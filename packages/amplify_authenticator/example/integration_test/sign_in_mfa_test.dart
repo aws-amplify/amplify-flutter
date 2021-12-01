@@ -15,6 +15,7 @@
 
 // This test follows the Amplify UI feature "sign-in-with-username"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
+import 'dart:async';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -53,18 +54,24 @@ void main() {
         additionalConfigs: [AmplifyAPI()],
       );
     });
-    // Scenario: Sign in with confirmed credentials then sign out
-    testWidgets('Sign in with confirmed credentials then sign out',
+
+    // Scenario: Sign in using a valid phone number and SMS MFA
+    testWidgets('Sign in using a valid phone number and SMS MFA',
         (tester) async {
       final phone = generatePhone();
       final password = generatePassword();
-      final email = generateEmail();
-      await adminCreateUser(phone, password, autoConfirm: true);
+      await adminCreateUser(phone, password,
+          autoConfirm: true, enableMfa: true, verifyAttributes: true);
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
+      ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
+
       signInPage.expectUserNameIsPresent(usernameLabel: 'Phone Number');
 
-      // When I type my "username" with status "UNKNOWN"
+      // When I select my country code
+      await signInPage.selectCountryCode();
+
+      // And I type my "phone number" with status "CONFIRMED"
       await signInPage.enterUsername(phone);
 
       // And I type my password
@@ -73,16 +80,101 @@ void main() {
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
 
-      /// Then I see "Sign out"
-      signInPage.expectAuthenticated();
-
-      // And I click the "Sign out" button
-      await signInPage.submitSignOut();
-
-      // Then I see "Sign in"
-      signInPage.expectUserNameIsPresent(usernameLabel: 'Phone Number');
+      // Then I will be redirected to the confirm sms mfa page
+      await confirmSignInPage.expectConfirmSignInMFAIsPresent();
 
       await deleteUser(phone);
+    });
+
+    // Scenario: Redirect to sign in page
+    testWidgets('Redirect to sign in page', (tester) async {
+      final phone = generatePhone();
+      final password = generatePassword();
+      await adminCreateUser(phone, password,
+          autoConfirm: true, enableMfa: true, verifyAttributes: true);
+      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      SignInPage signInPage = SignInPage(tester: tester);
+      ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
+
+      signInPage.expectUserNameIsPresent(usernameLabel: 'Phone Number');
+
+      // When I select my country code
+      await signInPage.selectCountryCode();
+
+      // And I type my "phone number" with status "CONFIRMED"
+      await signInPage.enterUsername(phone);
+
+      // And I type my password
+      await signInPage.enterPassword(password);
+
+      // And I click the "Sign in" button
+      await signInPage.submitSignIn();
+
+      // And I click the "Back to Sign In" button
+      await confirmSignInPage.navigateToSignIn();
+
+      // Then I see "Sign in"
+      await signInPage.expectSignIn();
+
+      await deleteUser(phone);
+    });
+
+    // Scenario: Incorrect SMS code
+    testWidgets('Incorrect SMS code', (tester) async {
+      final phone = generatePhone();
+      final password = generatePassword();
+      await adminCreateUser(phone, password,
+          autoConfirm: true, enableMfa: true, verifyAttributes: true);
+      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      SignInPage signInPage = SignInPage(tester: tester);
+      ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
+
+      signInPage.expectUserNameIsPresent(usernameLabel: 'Phone Number');
+
+      // When I select my country code
+      await signInPage.selectCountryCode();
+
+      // And I type my "phone number" with status "CONFIRMED"
+      await signInPage.enterUsername(phone);
+
+      // And I type my password
+      await signInPage.enterPassword(password);
+
+      // And I click the "Sign in" button
+      await signInPage.submitSignIn();
+
+      // And I type an invalid SMS code
+      await confirmSignInPage.enterVerificationCode('123456');
+
+      // And I click the "Confirm" button
+      await confirmSignInPage.submitConfirmSignIn();
+
+      // Then I see 'Invalid code or auth state for the user'.
+      await confirmSignInPage.expectInvalidCode();
+
+      await deleteUser(phone);
+    });
+
+    // Scenario: Sign in with unknown credentials
+    testWidgets('Sign in with unknown credentials', (tester) async {
+      final phone = generatePhone();
+      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      SignInPage signInPage = SignInPage(tester: tester);
+
+      // When I select my country code
+      await signInPage.selectCountryCode();
+
+      // And I type my "phone number" with status "UNKNOWN"
+      await signInPage.enterUsername(phone);
+
+      // And I type my password
+      await signInPage.enterPassword('UNKNOWN');
+
+      // And I click the "Sign in" button
+      await signInPage.submitSignIn();
+
+      // Then I see "User does not exist"
+      await signInPage.expectUserNotFound();
     });
   });
 }

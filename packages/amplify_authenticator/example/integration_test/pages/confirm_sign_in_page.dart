@@ -19,16 +19,17 @@ import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'test_utils.dart';
+import 'authenticator_page.dart';
 
 /// Confirm Sign In Page Object
-class ConfirmSignInPage {
-  ConfirmSignInPage({required this.tester});
-
-  final WidgetTester tester;
+class ConfirmSignInPage extends AuthenticatorPage {
+  ConfirmSignInPage({required WidgetTester tester}) : super(tester: tester);
 
   Finder get newPasswordField =>
       find.byKey(keyNewPasswordConfirmSignInFormField);
+  Finder get verificationField => find.byKey(keyCodeConfirmSignInFormField);
+  Finder get confirmSignInButton => find.byKey(keyConfirmSignInButton);
+  Finder get backToSignIn => find.byKey(keyBackToSignInButton);
 
   /// Then I see "Confirm Sign In - New Password"
   Future<void> expectConfirmSignInNewPasswordIsPresent() async {
@@ -38,8 +39,35 @@ class ConfirmSignInPage {
     expect(currentScreen.screen, equals(AuthScreen.confirmSigninNewPassword));
   }
 
+  /// Then I see "Confirm Sign In - MFA"
+  Future<void> expectConfirmSignInMFAIsPresent() async {
+    final currentScreen = tester.widget<AuthenticatorScreen>(
+      find.byType(AuthenticatorScreen),
+    );
+    expect(currentScreen.screen, equals(AuthScreen.confirmSigninMfa));
+  }
+
   /// Then I see "New Password"
   void expectNewPasswordIsPresent() {
     expect(newPasswordField, findsOneWidget);
+  }
+
+  /// I enter a verification code
+  Future<void> enterVerificationCode(String code) async {
+    await tester.tap(verificationField);
+    await tester.enterText(verificationField, code);
+  }
+
+  /// When I click the "Confirm Sign In" button
+  Future<void> submitConfirmSignIn() async {
+    await tester.ensureVisible(confirmSignInButton);
+    await tester.tap(confirmSignInButton);
+    await tester.pumpAndSettle();
+  }
+
+  /// When I navigate to the "Sign In" screen.
+  Future<void> navigateToSignIn() async {
+    await tester.tap(backToSignIn);
+    await tester.pumpAndSettle();
   }
 }
