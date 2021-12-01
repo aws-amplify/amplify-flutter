@@ -34,6 +34,7 @@ const adminCreateUserDocument =
   }
 }''';
 
+/// Deletes a Cognito user in backend infrastructure/
 Future<DeleteUserResponse?> deleteUser(String username) async {
   var res = await Amplify.API
       .mutate(
@@ -50,6 +51,18 @@ Future<DeleteUserResponse?> deleteUser(String username) async {
   }
 }
 
+/// Creates a Cognito user in backend infrastructure. This documention describes
+/// how each parameter is expected to be used in the backend .
+///
+/// Throws [GraphQLResponseErrors] if present in the response.
+///
+/// The [username] parameter can be plain text or a phone_number or email,
+/// depending on the backend configuration.
+/// The [password] is used as the temporary password if [autoconfirm] is true.
+/// The [autoconfirm] flag will mark the user as confirmed and give them a permanent password.
+/// The [enableMFA] flag will opt-in the user to using SMS MFA.
+/// The [verifyAttributes] flag will verify the email and phone, and should be used
+/// if tests need to bypass the verification screen.
 Future<AdminCreateUserResponse?> adminCreateUser(
     String username, String password,
     {bool autoConfirm = false,

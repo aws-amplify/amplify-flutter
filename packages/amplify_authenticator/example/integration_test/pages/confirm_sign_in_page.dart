@@ -16,9 +16,7 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
-
 import 'package:flutter_test/flutter_test.dart';
-
 import 'authenticator_page.dart';
 
 /// Confirm Sign In Page Object

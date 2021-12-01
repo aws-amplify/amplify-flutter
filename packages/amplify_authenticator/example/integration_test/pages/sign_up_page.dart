@@ -14,9 +14,7 @@
  */
 
 import 'package:amplify_authenticator/src/keys.dart';
-
 import 'package:flutter_test/flutter_test.dart';
-
 import 'authenticator_page.dart';
 
 /// Sign Up Page Object

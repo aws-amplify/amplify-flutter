@@ -18,7 +18,6 @@ import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'authenticator_page.dart';
 
 /// Sign In Page Object
@@ -65,6 +64,7 @@ class SignInPage extends AuthenticatorPage {
     expect(usernameFieldHint, findsOneWidget);
   }
 
+  // Then I am signed in
   void expectAuthenticated() {
     expect(signOutButton, findsOneWidget);
   }
@@ -82,6 +82,7 @@ class SignInPage extends AuthenticatorPage {
     await tester.pumpAndSettle();
   }
 
+  /// When I click "Sign out"
   Future<void> submitSignOut() async {
     await tester.tap(signOutButton);
     await tester.pumpAndSettle();
