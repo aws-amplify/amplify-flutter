@@ -95,7 +95,6 @@ void main() {
       /// Then I see "Sign out"
       signInPage.expectAuthenticated();
 
-      // Then I see "User does not exist"
       await signInPage.submitSignOut();
     });
 
