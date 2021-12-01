@@ -15,6 +15,7 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code, implicit_dynamic_parameter, implicit_dynamic_map_literal, implicit_dynamic_type
 
+import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
@@ -24,6 +25,7 @@ class S3Object {
   final String? _bucket;
   final String? _region;
   final String? _key;
+  final FileMeta? _meta;
 
   String get bucket {
     try {
@@ -64,14 +66,24 @@ class S3Object {
     }
   }
 
-  const S3Object._internal({required bucket, required region, required key})
+  FileMeta? get meta {
+    return _meta;
+  }
+
+  const S3Object._internal(
+      {required bucket, required region, required key, meta})
       : _bucket = bucket,
         _region = region,
-        _key = key;
+        _key = key,
+        _meta = meta;
 
   factory S3Object(
-      {required String bucket, required String region, required String key}) {
-    return S3Object._internal(bucket: bucket, region: region, key: key);
+      {required String bucket,
+      required String region,
+      required String key,
+      FileMeta? meta}) {
+    return S3Object._internal(
+        bucket: bucket, region: region, key: key, meta: meta);
   }
 
   bool equals(Object other) {
@@ -84,7 +96,8 @@ class S3Object {
     return other is S3Object &&
         _bucket == other._bucket &&
         _region == other._region &&
-        _key == other._key;
+        _key == other._key &&
+        _meta == other._meta;
   }
 
   @override
@@ -97,26 +110,37 @@ class S3Object {
     buffer.write("S3Object {");
     buffer.write("bucket=" + "$_bucket" + ", ");
     buffer.write("region=" + "$_region" + ", ");
-    buffer.write("key=" + "$_key");
+    buffer.write("key=" + "$_key" + ", ");
+    buffer.write("meta=" + (_meta != null ? _meta!.toString() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  S3Object copyWith({String? bucket, String? region, String? key}) {
+  S3Object copyWith(
+      {String? bucket, String? region, String? key, FileMeta? meta}) {
     return S3Object._internal(
         bucket: bucket ?? this.bucket,
         region: region ?? this.region,
-        key: key ?? this.key);
+        key: key ?? this.key,
+        meta: meta ?? this.meta);
   }
 
   S3Object.fromJson(Map<String, dynamic> json)
       : _bucket = json['bucket'],
         _region = json['region'],
-        _key = json['key'];
+        _key = json['key'],
+        _meta = json['meta']?['serializedData'] != null
+            ? FileMeta.fromJson(
+                new Map<String, dynamic>.from(json['meta']['serializedData']))
+            : null;
 
-  Map<String, dynamic> toJson() =>
-      {'bucket': _bucket, 'region': _region, 'key': _key};
+  Map<String, dynamic> toJson() => {
+        'bucket': _bucket,
+        'region': _region,
+        'key': _key,
+        'meta': _meta?.toJson()
+      };
 
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
@@ -137,5 +161,11 @@ class S3Object {
         fieldName: 'key',
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
+        fieldName: 'meta',
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.embedded,
+            ofCustomTypeName: 'FileMeta')));
   });
 }

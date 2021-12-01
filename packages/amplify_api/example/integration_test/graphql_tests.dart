@@ -287,7 +287,7 @@ void main() {
 
       testWidgets('should CREATE a blog with Model helper and custom type',
           (WidgetTester tester) async {
-        String name = 'Integration Test Blog - create';
+        String name = 'Integration Test Blog - create, custom type';
         String bucketName = 'Good bucket';
         Blog blog = Blog(
             name: name,
@@ -300,6 +300,27 @@ void main() {
         if (data != null) blogCache.add(data);
 
         expect(data?.file?.bucket, equals(bucketName));
+      });
+
+      testWidgets(
+          'should CREATE a blog with Model helper and nested custom type',
+          (WidgetTester tester) async {
+        String name = 'Integration Test Blog - create, nested custom type';
+        String metaName = 'alpha';
+        Blog blog = Blog(
+            name: name,
+            file: S3Object(
+                bucket: 'nested bucket',
+                region: 'us-west-2',
+                key: 'foo',
+                meta: FileMeta(name: metaName)));
+
+        final req = ModelMutations.create(blog);
+        final res = await Amplify.API.mutate(request: req).response;
+        Blog? data = res.data;
+        if (data != null) blogCache.add(data);
+
+        expect(data?.file?.meta?.name, equals(metaName));
       });
 
       testWidgets('should CREATE a blog with Model helper and custom type list',

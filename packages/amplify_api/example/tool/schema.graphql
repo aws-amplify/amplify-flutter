@@ -1,7 +1,12 @@
+type FileMeta {
+  name: String!
+}
+
 type S3Object {
   bucket: String!
   region: String!
   key: String!
+  meta: FileMeta
 }
 
 type Blog @model {
