@@ -13,16 +13,77 @@
  * permissions and limitations under the License.
 */
 
+import 'dart:math';
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
+import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
+import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+class SocialSignInButtons extends StatelessAuthenticatorComponent {
+  const SocialSignInButtons({
+    Key? key,
+    required this.providers,
+  }) : super(key: key);
+
+  final List<AuthProvider> providers;
+
+  @override
+  Widget builder(
+    BuildContext context,
+    AuthViewModel viewModel,
+    AuthStringResolver stringResolver,
+  ) {
+    return LayoutBuilder(builder: (context, constraints) {
+      // Perform a layout on each of the Text items to determine the maximum
+      // width, so that we can size all button labels to that width and align
+      // the logos in the column.
+      var maxWidth = 0.0;
+      for (var provider in providers) {
+        final text = stringResolver.buttons.resolve(
+          context,
+          ButtonResolverKey.signInWith(provider),
+        );
+        final style = Theme.of(context)
+                .outlinedButtonTheme
+                .style
+                ?.textStyle
+                ?.resolve({}) ??
+            Theme.of(context).textTheme.button;
+        final tp = TextPainter(
+          text: TextSpan(
+            text: text,
+            style: style,
+          ),
+          maxLines: 1,
+          textDirection: TextDirection.ltr,
+        )..layout(maxWidth: constraints.maxWidth);
+        maxWidth = max(maxWidth, tp.width);
+      }
+
+      return Column(
+        children: <Widget>[
+          for (var provider in providers)
+            SocialSignInButton(provider: provider, maxWidth: maxWidth),
+        ].spacedBy(const SizedBox(height: 12)),
+      );
+    });
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IterableProperty<AuthProvider>('providers', providers));
+  }
+}
 
 /// {@template authenticator.social_sign_in_button}
 /// A button for launching a social sign in UI.
@@ -32,6 +93,7 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
   const SocialSignInButton({
     Key? key,
     required this.provider,
+    this.maxWidth = double.infinity,
   }) : super(key: key);
 
   /// A social sign-in button for Facebook.
@@ -53,6 +115,9 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
   /// The Cognito social sign-in provider.
   final AuthProvider provider;
 
+  /// The maximum width of the button texts. Used to align logos properly.
+  final double maxWidth;
+
   @override
   ButtonResolverKey get labelKey => ButtonResolverKey.signInWith(provider);
 
@@ -71,11 +136,14 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(EnumProperty<AuthProvider>('provider', provider));
+    properties.add(DoubleProperty('maxWidth', maxWidth));
   }
 }
 
 class _SocialSignInButtonState
     extends AuthenticatorButtonState<SocialSignInButton> {
+  static const _spacing = 5.0;
+
   Widget get icon {
     final bool isDark = AmplifyTheme.of(context).isDark;
     switch (widget.provider) {
@@ -104,6 +172,15 @@ class _SocialSignInButtonState
           ],
         );
     }
+  }
+
+  double calculatePadding(BoxConstraints constraints) {
+    final logoWidth = constraints.maxHeight + _spacing;
+    final textWidth = widget.maxWidth;
+    return max(
+      0,
+      (constraints.maxWidth - logoWidth - textWidth) / 2,
+    );
   }
 
   @override
@@ -136,23 +213,31 @@ class _SocialSignInButtonState
         onPressed: viewModel.isBusy
             ? null
             : () => viewModel.signInWithProvider(widget.provider),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: widget.provider.padding,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: icon,
-              ),
+        child: LayoutBuilder(builder: (context, constraints) {
+          final padding = calculatePadding(constraints);
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: padding),
+            child: Row(
+              mainAxisAlignment: padding == 0
+                  ? MainAxisAlignment.center
+                  : MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: widget.provider.padding,
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: icon,
+                  ),
+                ),
+                const SizedBox(width: _spacing),
+                Text(resolver.resolve(
+                  context,
+                  ButtonResolverKey.signInWith(widget.provider),
+                )),
+              ],
             ),
-            const SizedBox(width: 5),
-            Text(resolver.resolve(
-              context,
-              ButtonResolverKey.signInWith(widget.provider),
-            )),
-          ],
-        ),
+          );
+        }),
       ),
     );
   }
