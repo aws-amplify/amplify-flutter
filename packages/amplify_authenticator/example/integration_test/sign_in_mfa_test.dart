@@ -46,11 +46,11 @@ void main() {
     )),
   );
 
-  group('sign-in-with-phone', () {
-    // Given I'm running the example "ui/components/authenticator/sign-in-with-phone.feature"
+  group('sign-in-sms-mfa', () {
+    // Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa.feature"
     setUpAll(() async {
       await loadConfiguration(
-        'ui/components/authenticator/sign-in-with-phone',
+        'ui/components/authenticator/sign-in-sms-mfa',
         additionalConfigs: [AmplifyAPI()],
       );
     });
