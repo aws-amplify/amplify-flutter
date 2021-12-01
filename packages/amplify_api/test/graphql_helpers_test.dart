@@ -25,7 +25,7 @@ void main() {
   group('with ModelProvider', () {
     final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
     const blogSelectionSet =
-        'id name createdAt file { bucket region key } files { bucket region key } updatedAt';
+        'id name createdAt file { bucket region key meta { name } } files { bucket region key meta { name } } updatedAt';
 
     group('ModelQueries', () {
       test('ModelQueries.get() should build a valid request', () {
