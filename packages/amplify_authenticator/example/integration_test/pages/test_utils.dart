@@ -49,15 +49,3 @@ Future<void> nextBlocEvent(
       .timeout(timeout);
   await tester.pumpAndSettle();
 }
-
-Future<void> createUserWithDefinedConfirmation(String username, String password,
-    {Map<CognitoUserAttributeKey, String> userAttributes = const {},
-    bool autoConfirm = true}) async {
-  await Amplify.Auth.signUp(
-      username: username,
-      password: password,
-      options: CognitoSignUpOptions(
-          clientMetadata: {'autoConfirmUser': autoConfirm.toString()},
-          userAttributes: userAttributes));
-  print({'autoConfirmUser': autoConfirm.toString()});
-}

@@ -75,10 +75,8 @@ void main() {
     testWidgets('Sign in with confirmed credentials', (tester) async {
       final username = generateUsername();
       final password = generatePassword();
-      await createUserWithDefinedConfirmation(username, password,
-          userAttributes: {
-            CognitoUserAttributeKey.preferredUsername: 'displayName'
-          });
+      await adminCreateUser(username, password,
+          autoConfirm: true, verifyAttributes: true);
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUserNameIsPresent();
@@ -104,10 +102,8 @@ void main() {
         (tester) async {
       final username = generateUsername();
       final password = generatePassword();
-      await createUserWithDefinedConfirmation(username, password,
-          userAttributes: {
-            CognitoUserAttributeKey.preferredUsername: 'displayName'
-          });
+      await adminCreateUser(username, password,
+          autoConfirm: true, verifyAttributes: true);
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUserNameIsPresent();

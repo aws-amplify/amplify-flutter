@@ -27,33 +27,51 @@ const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
 }''';
 
 const adminCreateUserDocument =
-    '''mutation DeleteUser(\$Username: String!, \$TempPassword: String!) {
-  adminCreateUser(Username: \$Username, TempPassword: \$TempPassword) {
+    '''mutation DeleteUser(\$Username: String!, \$Password: String!, \$AutoConfirm: Boolean!, \$EnableMFA: Boolean!, \$VerifyAttributes: Boolean!) {
+  adminCreateUser(Username: \$Username, Password: \$Password, AutoConfirm: \$AutoConfirm, EnableMFA: \$EnableMFA, VerifyAttributes: \$VerifyAttributes) {
     error
     success
   }
 }''';
 
-Future<DeleteUserResponse> deleteUser(String username) async {
+Future<DeleteUserResponse?> deleteUser(String username) async {
   var res = await Amplify.API
       .mutate(
           request: GraphQLRequest<String>(
               document: deleteDocument,
               variables: <String, dynamic>{'Username': username}))
       .response;
-  return DeleteUserResponse.fromJson(res.data);
+  if (res.errors.isNotEmpty) {
+    for (var error in res.errors) {
+      throw Exception(error.message);
+    }
+  } else {
+    return DeleteUserResponse.fromJson(res.data);
+  }
 }
 
-Future<AdminCreateUserResponse> adminCreateUser(
-    String username, String tempPassword) async {
+Future<AdminCreateUserResponse?> adminCreateUser(
+    String username, String password,
+    {bool autoConfirm = false,
+    bool enableMfa = false,
+    bool verifyAttributes = false}) async {
   var res = await Amplify.API
       .mutate(
           request: GraphQLRequest<String>(
               document: adminCreateUserDocument,
               variables: <String, dynamic>{
             'Username': username,
-            'TempPassword': tempPassword
+            'Password': password,
+            'AutoConfirm': autoConfirm,
+            'EnableMFA': enableMfa,
+            'VerifyAttributes': verifyAttributes,
           }))
       .response;
-  return AdminCreateUserResponse.fromJson(res.data);
+  if (res.errors.isNotEmpty) {
+    for (var error in res.errors) {
+      throw Exception(error.message);
+    }
+  } else {
+    return AdminCreateUserResponse.fromJson(res.data);
+  }
 }

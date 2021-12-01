@@ -54,6 +54,8 @@ void main() {
       );
     });
 
+    tearDownAll(Amplify.Auth.signOut);
+
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
       final phone = generatePhone();
@@ -76,14 +78,18 @@ void main() {
       await signInPage.expectUserNotFound();
     });
 
-    // // Scenario: Sign in with unconfirmed credentials
+    // Scenario: Sign in with unconfirmed credentials
     testWidgets('Sign in with unconfirmed credentials', (tester) async {
       final phone = generatePhone();
       final password = generatePassword();
       final email = generateEmail();
-      await createUserWithDefinedConfirmation(phone, password,
-          userAttributes: {CognitoUserAttributeKey.email: email},
-          autoConfirm: false);
+
+      // Use the standard Amplify API to create the user in the Unconfirmed state
+      await Amplify.Auth.signUp(
+          username: phone,
+          password: password,
+          options: CognitoSignUpOptions(
+              userAttributes: {CognitoUserAttributeKey.email: email}));
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
@@ -102,8 +108,6 @@ void main() {
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
 
-      await Future.delayed(const Duration(seconds: 2), () {});
-
       // Then I see "Confirmation Code"
       confirmSignUpPage.expectConfirmationCodeIsPresent();
 
@@ -115,9 +119,8 @@ void main() {
         (tester) async {
       final phone = generatePhone();
       final password = generatePassword();
-      final email = generateEmail();
-      await createUserWithDefinedConfirmation(phone, password,
-          userAttributes: {CognitoUserAttributeKey.email: email});
+      await adminCreateUser(phone, password,
+          autoConfirm: true, verifyAttributes: true);
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUserNameIsPresent(usernameLabel: 'Phone Number');
@@ -130,6 +133,8 @@ void main() {
 
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
+
+      await Future.delayed(const Duration(seconds: 4), () {});
 
       /// Then I see "Sign out"
       signInPage.expectAuthenticated();
