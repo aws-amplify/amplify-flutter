@@ -136,8 +136,6 @@ void main() {
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
 
-      await Future.delayed(const Duration(seconds: 4), () {});
-
       /// Then I see "Sign out"
       signInPage.expectAuthenticated();
 
