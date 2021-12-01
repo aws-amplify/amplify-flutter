@@ -71,7 +71,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
   List<AuthenticatorFormField> runtimeFields(BuildContext context) => const [];
 
   /// Additional actions defined at runtime.
-  List<AuthenticatorComponent> runtimeActions(BuildContext context) => const [];
+  List<Widget> runtimeActions(BuildContext context) => const [];
 
   final ValueNotifier<bool> obscureTextToggleValue = ValueNotifier(true);
 
@@ -319,7 +319,7 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
   _SignInFormState() : super._();
 
   @override
-  List<AuthenticatorButton> runtimeActions(BuildContext context) {
+  List<Widget> runtimeActions(BuildContext context) {
     if (!widget.includeDefaultSocialProviders) {
       return const [];
     }
@@ -335,21 +335,32 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
       return const [];
     }
 
-    return socialProviders
-        .map((provider) {
-          switch (provider) {
+    // Sort Apple first based off their app guidelines.
+    socialProviders.sort((a, b) {
+      if (a == SocialProvider.apple) {
+        return -1;
+      } else if (b == SocialProvider.apple) {
+        return 1;
+      }
+      return describeEnum(a).compareTo(describeEnum(b));
+    });
+
+    return [
+      SocialSignInButtons(
+        providers: socialProviders.map((e) {
+          switch (e) {
             case SocialProvider.facebook:
-              return const SocialSignInButton.facebook();
+              return AuthProvider.facebook;
             case SocialProvider.google:
-              return const SocialSignInButton.google();
+              return AuthProvider.google;
             case SocialProvider.amazon:
-              return const SocialSignInButton.amazon();
+              return AuthProvider.amazon;
             case SocialProvider.apple:
-              return const SocialSignInButton.apple();
+              return AuthProvider.apple;
           }
-        })
-        .whereType<AuthenticatorButton>()
-        .toList();
+        }).toList(),
+      ),
+    ];
   }
 }
 
