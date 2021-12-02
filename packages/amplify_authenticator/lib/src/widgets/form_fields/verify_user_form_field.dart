@@ -46,7 +46,7 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
     FormFieldValidator<CognitoUserAttributeKey>? validator,
   }) =>
       _VerifyUserRadioField(
-        key: keyUnverifiedAttributes,
+        key: keyVerifyUserRadioButtonFormField,
         field: VerifyAttributeField.verify,
         validator: validator,
       );
@@ -57,7 +57,7 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
     FormFieldValidator<String>? validator,
   }) =>
       _VerifyUserTextField(
-        key: keyAttributeToVerify,
+        key: keyVerifyUserConfirmationCode,
         titleKey: InputResolverKey.verificationCodeTitle,
         hintTextKey: InputResolverKey.verificationCodeHint,
         field: VerifyAttributeField.confirmVerify,
