@@ -15,10 +15,7 @@
 
 // This test follows the Amplify UI feature "sign-in-with-username"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
-import 'dart:async';
-
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 
 import 'package:flutter/material.dart';
@@ -27,7 +24,6 @@ import 'package:integration_test/integration_test.dart';
 
 import 'config.dart';
 import 'pages/confirm_sign_in_page.dart';
-import 'pages/confirm_sign_up_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
 import 'utils/data_utils.dart';
