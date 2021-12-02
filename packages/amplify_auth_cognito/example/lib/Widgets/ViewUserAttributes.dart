@@ -111,7 +111,7 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
                       atrribute.userAttributeKey as CognitoUserAttributeKey;
                   String value = atrribute.value;
                   return ListTile(
-                    title: Text(userAttributeKey.key),
+                    title: Text(userAttributeKey.toString()),
                     subtitle: Text(value),
                     trailing: userAttributeKey.readOnly
                         ? null
@@ -122,7 +122,7 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       UpdateUserAttributeWidget(
-                                    userAttributeKey: userAttributeKey.key,
+                                    userAttributeKey: userAttributeKey,
                                   ),
                                 ),
                               );
