@@ -59,7 +59,7 @@ const keyCodeConfirmSignUpFormField = Key('codeConfirmSignUpFormField');
 
 //Confirm Sign In form field keys
 
-const keyCodeConfirmSignInFormField = Key('codeConfirmSignUpFormField');
+const keyCodeConfirmSignInFormField = Key('codeConfirmSignInFormField');
 const keyUsernameConfirmSignInFormField = Key('usernameConfirmSignInFormField');
 const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
 const keyNewPasswordConfirmSignInFormField =
@@ -129,3 +129,7 @@ const keyCountrySearchField = Key('countrySearchField');
 
 const keyInheritedAuthViewModel = Key('inheritedAuthViewModel');
 const keyInheritedAuthBloc = Key('inheritedAuthBloc');
+
+// Banner Keys
+
+const keyAuthenticatorBanner = Key('authenticatorBanner');

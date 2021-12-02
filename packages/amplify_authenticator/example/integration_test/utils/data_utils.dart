@@ -16,6 +16,7 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify.dart';
 
+import 'types/admin_create_user_response.dart';
 import 'types/delete_user_response.dart';
 
 const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
@@ -25,12 +26,65 @@ const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
   }
 }''';
 
-Future<DeleteUserResponse> deleteUser(String username) async {
+const adminCreateUserDocument =
+    '''mutation CreateUser(\$Username: String!, \$Password: String!, \$AutoConfirm: Boolean!, \$EnableMFA: Boolean!, \$VerifyAttributes: Boolean!) {
+  adminCreateUser(Username: \$Username, Password: \$Password, AutoConfirm: \$AutoConfirm, EnableMFA: \$EnableMFA, VerifyAttributes: \$VerifyAttributes) {
+    error
+    success
+  }
+}''';
+
+/// Deletes a Cognito user in backend infrastructure/
+Future<DeleteUserResponse?> deleteUser(String username) async {
   var res = await Amplify.API
       .mutate(
           request: GraphQLRequest<String>(
               document: deleteDocument,
               variables: <String, dynamic>{'Username': username}))
       .response;
-  return DeleteUserResponse.fromJson(res.data);
+  if (res.errors.isNotEmpty) {
+    for (var error in res.errors) {
+      throw Exception(error.message);
+    }
+  } else {
+    return DeleteUserResponse.fromJson(res.data);
+  }
+}
+
+/// Creates a Cognito user in backend infrastructure. This documention describes
+/// how each parameter is expected to be used in the backend .
+///
+/// Throws [GraphQLResponseErrors] if present in the response.
+///
+/// The [username] parameter can be plain text or a phone_number or email,
+/// depending on the backend configuration.
+/// The [password] is used as the temporary password if [autoconfirm] is true.
+/// The [autoconfirm] flag will mark the user as confirmed and give them a permanent password.
+/// The [enableMFA] flag will opt-in the user to using SMS MFA.
+/// The [verifyAttributes] flag will verify the email and phone, and should be used
+/// if tests need to bypass the verification screen.
+Future<AdminCreateUserResponse?> adminCreateUser(
+    String username, String password,
+    {bool autoConfirm = false,
+    bool enableMfa = false,
+    bool verifyAttributes = false}) async {
+  var res = await Amplify.API
+      .mutate(
+          request: GraphQLRequest<String>(
+              document: adminCreateUserDocument,
+              variables: <String, dynamic>{
+            'Username': username,
+            'Password': password,
+            'AutoConfirm': autoConfirm,
+            'EnableMFA': enableMfa,
+            'VerifyAttributes': verifyAttributes,
+          }))
+      .response;
+  if (res.errors.isNotEmpty) {
+    for (var error in res.errors) {
+      throw Exception(error.message);
+    }
+  } else {
+    return AdminCreateUserResponse.fromJson(res.data);
+  }
 }

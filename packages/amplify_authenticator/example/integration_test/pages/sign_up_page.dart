@@ -1,12 +1,25 @@
-import 'package:amplify_authenticator/src/keys.dart';
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
 
+import 'package:amplify_authenticator/src/keys.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'authenticator_page.dart';
 
 /// Sign Up Page Object
-class SignUpPage {
-  SignUpPage({required this.tester});
-
-  final WidgetTester tester;
+class SignUpPage extends AuthenticatorPage {
+  SignUpPage({required WidgetTester tester}) : super(tester: tester);
 
   Finder get usernameField => find.byKey(keyUsernameSignUpFormField);
   Finder get passwordField => find.byKey(keyPasswordSignUpFormField);
@@ -14,9 +27,6 @@ class SignUpPage {
       find.byKey(keyPasswordConfirmationSignUpFormField);
   Finder get emailField => find.byKey(keyEmailSignUpFormField);
   Finder get phoneField => find.byKey(keyPhoneNumberSignUpFormField);
-  Finder get countrySelectField => find.byKey(keySelectCountryCode);
-  Finder get countrySelectDialog => find.byKey(keyCountryDialog);
-  Finder get countrySearchField => find.byKey(keyCountrySearchField);
   Finder get preferredUsernameField =>
       find.byKey(keyPreferredUsernameSignUpFormField);
   Finder get signUpButton => find.byKey(keySignUpButton);
@@ -86,19 +96,5 @@ class SignUpPage {
       matching: find.text('Username'),
     );
     expect(usernameFieldHint, findsNothing);
-  }
-
-  Future<void> selectCountryCode() async {
-    expect(countrySelectField, findsOneWidget);
-    await tester.tap(countrySelectField);
-    await tester.pumpAndSettle();
-    expect(countrySelectDialog, findsOneWidget);
-    expect(countrySearchField, findsOneWidget);
-    await tester.enterText(countrySearchField, 'United States');
-    Finder unitedStatesOption = find.descendant(
-        of: find.byKey(keyCountryDialog),
-        matching: find.textContaining('(+1)'));
-    expect(unitedStatesOption, findsOneWidget);
-    await tester.tap(unitedStatesOption);
   }
 }
