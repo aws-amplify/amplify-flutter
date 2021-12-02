@@ -64,6 +64,8 @@ const keyUsernameConfirmSignInFormField = Key('usernameConfirmSignInFormField');
 const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
 const keyNewPasswordConfirmSignInFormField =
     Key('newPasswordConfirmSignInFormField');
+const keyConfirmNewPasswordConfirmSignInFormField =
+    Key('confirmNewPasswordConfirmSignInFormField');
 const keyAddressConfirmSignInFormField = Key('addresslConfirmSignInFormField');
 const keyBirthdateConfirmSignInFormField =
     Key('birthdateConfirmSignInFormField');

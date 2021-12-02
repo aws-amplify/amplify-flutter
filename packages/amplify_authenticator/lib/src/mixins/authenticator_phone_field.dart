@@ -16,7 +16,6 @@
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
-import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +68,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
 
   @override
   Widget get prefix => Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: InkWell(
           key: keySelectCountryCode,
           child: Row(
