@@ -17,6 +17,8 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 
 import 'envs/auth_with_email.dart' as auth_with_email;
+import 'envs/auth_with_email_lambda_signup_trigger.dart'
+    as auth_with_email_lambda_signup_trigger;
 import 'envs/auth_with_phone.dart' as auth_with_phone;
 import 'envs/auth_with_username.dart' as auth_with_username;
 
@@ -29,12 +31,16 @@ const environmentsByConfiguration = {
   'ui/components/authenticator/sign-in-with-username': 'auth-with-username',
   'ui/components/authenticator/sign-in-with-phone': 'auth-with-phone',
   'ui/components/authenticator/sign-in-sms-mfa': 'auth-with-phone',
+  'ui/components/authenticator/sign-in-with-email-lambda':
+      'auth-with-email-lambda-signup-trigger',
 };
 
 const environments = {
   'auth-with-email': auth_with_email.amplifyconfig,
   'auth-with-phone': auth_with_phone.amplifyconfig,
   'auth-with-username': auth_with_username.amplifyconfig,
+  'auth-with-email-lambda-signup-trigger':
+      auth_with_email_lambda_signup_trigger.amplifyconfig,
 };
 
 Future<void> loadConfiguration(String configurationName,
