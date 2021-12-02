@@ -453,7 +453,7 @@ class InputResolver extends Resolver<InputResolverKey> {
   ) {
     var minLength = requirements.passwordPolicyMinLength;
     var characterReqs = requirements.passwordPolicyCharacters;
-    if (minLength == null && (characterReqs == null || characterReqs.isEmpty)) {
+    if (minLength == null && (characterReqs.isEmpty)) {
       return '';
     }
     var sb = StringBuffer();
@@ -465,14 +465,12 @@ class InputResolver extends Resolver<InputResolverKey> {
           .passwordRequirementsAtLeast(minLength, '');
       sb.writeln('* $atLeast');
     }
-    if (characterReqs != null) {
-      for (var characterReq in characterReqs) {
-        var characterType = AuthenticatorLocalizations.inputsOf(context)
-            .passwordRequirementsCharacterType(characterReq);
-        var atLeast = AuthenticatorLocalizations.inputsOf(context)
-            .passwordRequirementsAtLeast(1, characterType);
-        sb.writeln('* $atLeast');
-      }
+    for (var characterReq in characterReqs) {
+      var characterType = AuthenticatorLocalizations.inputsOf(context)
+          .passwordRequirementsCharacterType(characterReq);
+      var atLeast = AuthenticatorLocalizations.inputsOf(context)
+          .passwordRequirementsAtLeast(1, characterType);
+      sb.writeln('* $atLeast');
     }
     return sb.toString();
   }

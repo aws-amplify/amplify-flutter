@@ -111,7 +111,7 @@ class AuthenticatorInputLocalizationsEn
   @override
   String passwordRequirementsCharacterType(
       PasswordPolicyCharacters characterType) {
-    return intl.Intl.select(
+    final String selectString = intl.Intl.select(
         characterType,
         {
           'requiresUppercase': 'uppercase',
@@ -121,6 +121,8 @@ class AuthenticatorInputLocalizationsEn
           'other': ''
         },
         desc: 'Character(s) in a password.');
+
+    return ' $selectString';
   }
 
   @override
@@ -128,8 +130,8 @@ class AuthenticatorInputLocalizationsEn
     final String pluralString = intl.Intl.pluralLogic(
       numCharacters,
       locale: localeName,
-      one: '1 $characterType character',
-      other: '$numCharacters $characterType characters',
+      one: '1$characterType character',
+      other: '$numCharacters$characterType characters',
     );
 
     return 'at least $pluralString';

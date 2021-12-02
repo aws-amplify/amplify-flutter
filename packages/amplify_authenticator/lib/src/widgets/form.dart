@@ -455,6 +455,7 @@ class ConfirmSignInNewPasswordForm
           customFields: fields,
           requiredFields: [
             ConfirmSignInFormField.newPassword(),
+            ConfirmSignInFormField.confirmNewPassword(),
           ],
           actions: const [
             ConfirmSignInNewPasswordButton(),
