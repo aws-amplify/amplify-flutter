@@ -33,7 +33,6 @@ void main() {
         // "ui/components/authenticator/sign-up-with-email-lambda"
         await loadConfiguration(
           'ui/components/authenticator/sign-in-with-email-lambda',
-          additionalConfigs: [AmplifyAPI()],
         );
       });
 
