@@ -151,7 +151,7 @@
     "@passwordRequirementsPreamble": {
         "description": "Preamble to list of unment password requirements."
     },
-    "passwordRequirementsCharacterType": "{characterType, select, requiresUppercase{uppercase} requiresLowercase{lowercase} requiresNumbers{number} requiresSymbols{symbol} other{}}",
+    "passwordRequirementsCharacterType": " {characterType, select, requiresUppercase{uppercase} requiresLowercase{lowercase} requiresNumbers{number} requiresSymbols{symbol} other{}}",
     "@passwordRequirementsCharacterType": {
         "description": "Character(s) in a password.",
         "placeholders": {
@@ -161,7 +161,7 @@
             }
         }
     },
-    "passwordRequirementsAtLeast": "at least {numCharacters, plural, =1{1 {characterType} character} other{{numCharacters} {characterType} characters}}",
+    "passwordRequirementsAtLeast": "at least {numCharacters, plural, =1{1{characterType} character} other{{numCharacters}{characterType} characters}}",
     "@passwordRequirementsAtLeast": {
         "description": "Password uppercase character requirement, displayed as a bullet point in list of unmet requirements.",
         "placeholders": {

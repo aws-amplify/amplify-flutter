@@ -249,14 +249,14 @@ abstract class AuthenticatorInputLocalizations {
   /// Character(s) in a password.
   ///
   /// In en, this message translates to:
-  /// **'{characterType, select, requiresUppercase{uppercase} requiresLowercase{lowercase} requiresNumbers{number} requiresSymbols{symbol} other{}}'**
+  /// **' {characterType, select, requiresUppercase{uppercase} requiresLowercase{lowercase} requiresNumbers{number} requiresSymbols{symbol} other{}}'**
   String passwordRequirementsCharacterType(
       PasswordPolicyCharacters characterType);
 
   /// Password uppercase character requirement, displayed as a bullet point in list of unmet requirements.
   ///
   /// In en, this message translates to:
-  /// **'at least {numCharacters, plural, =1{1 {characterType} character} other{{numCharacters} {characterType} characters}}'**
+  /// **'at least {numCharacters, plural, =1{1{characterType} character} other{{numCharacters}{characterType} characters}}'**
   String passwordRequirementsAtLeast(int numCharacters, String characterType);
 
   /// Message for conflicting password and confirm password fields.
