@@ -12,6 +12,9 @@ import 'pages/test_utils.dart';
 import 'utils/data_utils.dart';
 import 'utils/mock_data.dart';
 
+// This test follows the Amplify UI feature "sign-in-force-new-password"
+// https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-in-force-new-password.feature
+
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
