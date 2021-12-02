@@ -27,7 +27,7 @@ const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
 }''';
 
 const adminCreateUserDocument =
-    '''mutation DeleteUser(\$Username: String!, \$Password: String!, \$AutoConfirm: Boolean!, \$EnableMFA: Boolean!, \$VerifyAttributes: Boolean!) {
+    '''mutation CreateUser(\$Username: String!, \$Password: String!, \$AutoConfirm: Boolean!, \$EnableMFA: Boolean!, \$VerifyAttributes: Boolean!) {
   adminCreateUser(Username: \$Username, Password: \$Password, AutoConfirm: \$AutoConfirm, EnableMFA: \$EnableMFA, VerifyAttributes: \$VerifyAttributes) {
     error
     success
