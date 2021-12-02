@@ -81,7 +81,7 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
           children: [
             const SizedBox(height: 12),
             TextFormField(
-              initialValue: widget.userAttributeKey.key,
+              initialValue: widget.userAttributeKey.toString(),
               enabled: false,
               decoration: const InputDecoration(
                 labelText: 'Attribute Name',

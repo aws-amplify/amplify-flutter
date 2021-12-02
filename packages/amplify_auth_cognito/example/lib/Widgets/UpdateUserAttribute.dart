@@ -22,7 +22,7 @@ import 'ConfirmUserAttribute.dart';
 
 // ignore_for_file: public_member_api_docs
 class UpdateUserAttributeWidget extends StatefulWidget {
-  final String? userAttributeKey;
+  final CognitoUserAttributeKey? userAttributeKey;
   UpdateUserAttributeWidget({this.userAttributeKey});
 
   @override
@@ -70,7 +70,9 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
   @override
   void initState() {
     isNewAttribute = widget.userAttributeKey == null;
-    _keyController = TextEditingController(text: widget.userAttributeKey);
+    _keyController = TextEditingController(
+      text: widget.userAttributeKey.toString(),
+    );
     super.initState();
   }
 
