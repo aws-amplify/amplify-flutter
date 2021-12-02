@@ -41,7 +41,7 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
         SnackBar(backgroundColor: Colors.red[900], content: Text(message)));
   }
 
-  Future _fetchAttributes({bool isRefresh = false}) {
+  Future<void> _fetchAttributes({bool isRefresh = false}) {
     return Amplify.Auth.fetchUserAttributes().then((attributes) {
       setState(() => _userAttributes = attributes
         ..sort((a, b) => a.userAttributeKey.compareTo(b.userAttributeKey)));
@@ -106,14 +106,14 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
               child: ListView.builder(
                 itemCount: _userAttributes.length,
                 itemBuilder: (context, index) {
-                  var key = _userAttributes[index].userAttributeKey
-                      as CognitoUserAttributeKey;
-                  var value = _userAttributes[index].value;
-                  var stringValue = value.toString();
+                  AuthUserAttribute atrribute = _userAttributes[index];
+                  CognitoUserAttributeKey userAttributeKey =
+                      atrribute.userAttributeKey as CognitoUserAttributeKey;
+                  String value = atrribute.value;
                   return ListTile(
-                    title: Text(key.key),
-                    subtitle: Text(stringValue),
-                    trailing: key.readOnly
+                    title: Text(userAttributeKey.key),
+                    subtitle: Text(value),
+                    trailing: userAttributeKey.readOnly
                         ? null
                         : IconButton(
                             icon: Icon(Icons.edit),
@@ -122,7 +122,7 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       UpdateUserAttributeWidget(
-                                    userAttributeKey: key.key,
+                                    userAttributeKey: userAttributeKey.key,
                                   ),
                                 ),
                               );
