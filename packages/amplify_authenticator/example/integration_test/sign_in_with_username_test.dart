@@ -60,7 +60,7 @@ void main() {
     testWidgets('Sign in with unknown credentials', (tester) async {
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
-      signInPage.expectUserNameIsPresent();
+      signInPage.expectUsername();
 
       // When I type my "username" with status "UNKNOWN"
       await signInPage.enterUsername('UNKNOWN');
@@ -82,7 +82,7 @@ void main() {
           autoConfirm: true, verifyAttributes: true);
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
-      signInPage.expectUserNameIsPresent();
+      signInPage.expectUsername();
 
       // When I type my "username" with status "UNKNOWN"
       await signInPage.enterUsername(username);
@@ -108,7 +108,7 @@ void main() {
           autoConfirm: true, verifyAttributes: true);
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
-      signInPage.expectUserNameIsPresent();
+      signInPage.expectUsername();
 
       // When I type my "username" with status "UNKNOWN"
       await signInPage.enterUsername(username);
@@ -126,7 +126,7 @@ void main() {
       await signInPage.submitSignOut();
 
       // Then I see "Sign in"
-      signInPage.expectUserNameIsPresent();
+      signInPage.expectUsername();
     });
 
     // Scenario: Sign in with force change password credentials
@@ -138,7 +138,7 @@ void main() {
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
-      signInPage.expectUserNameIsPresent();
+      signInPage.expectUsername();
 
       // When I type my "username"
       await signInPage.enterUsername(username);

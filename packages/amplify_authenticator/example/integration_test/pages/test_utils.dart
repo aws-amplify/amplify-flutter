@@ -13,11 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
-import 'package:amplify_flutter/amplify.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -49,3 +47,6 @@ Future<void> nextBlocEvent(
       .timeout(timeout);
   await tester.pumpAndSettle();
 }
+
+/// Do nothing.
+void noOp() {}

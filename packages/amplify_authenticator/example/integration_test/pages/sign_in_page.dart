@@ -24,10 +24,10 @@ import 'authenticator_page.dart';
 class SignInPage extends AuthenticatorPage {
   SignInPage({required WidgetTester tester}) : super(tester: tester);
 
+  @override
   Finder get usernameField => find.byKey(keyUsernameSignInFormField);
   Finder get passwordField => find.byKey(keyPasswordSignInFormField);
   Finder get signInButton => find.byKey(keySignInButton);
-  Finder get signOutButton => find.byKey(keySignOutButton);
   Finder get confirmSignInField => find.byKey(keyCodeConfirmSignInFormField);
   Finder get signUpTabBar => find.descendant(
         of: find.byType(TabBar),
@@ -52,23 +52,6 @@ class SignInPage extends AuthenticatorPage {
     await tester.enterText(passwordField, password);
   }
 
-  /// Then I see "Username" as an input field
-  void expectUserNameIsPresent({String usernameLabel = 'Username'}) {
-    // username field is present
-    expect(usernameField, findsOneWidget);
-    // login type is "username"
-    Finder usernameFieldHint = find.descendant(
-      of: find.byKey(keyUsernameSignInFormField),
-      matching: find.text(usernameLabel),
-    );
-    expect(usernameFieldHint, findsOneWidget);
-  }
-
-  // Then I am signed in
-  void expectAuthenticated() {
-    expect(signOutButton, findsOneWidget);
-  }
-
   /// When I click the "Sign In" button
   Future<void> submitSignIn() async {
     await tester.ensureVisible(signInButton);
@@ -79,12 +62,6 @@ class SignInPage extends AuthenticatorPage {
   /// When I navigate to the "Sign Up" screen.
   Future<void> navigateToSignUp() async {
     await tester.tap(signUpTabBar);
-    await tester.pumpAndSettle();
-  }
-
-  /// When I click "Sign out"
-  Future<void> submitSignOut() async {
-    await tester.tap(signOutButton);
     await tester.pumpAndSettle();
   }
 }

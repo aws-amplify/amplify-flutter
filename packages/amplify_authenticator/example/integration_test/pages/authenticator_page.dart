@@ -19,15 +19,32 @@ import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class AuthenticatorPage {
+abstract class AuthenticatorPage {
   AuthenticatorPage({required this.tester});
 
   final WidgetTester tester;
 
+  Finder get usernameField;
   Finder get bannerFinder => find.byKey(keyAuthenticatorBanner);
   Finder get countrySelectField => find.byKey(keySelectCountryCode);
   Finder get countrySelectDialog => find.byKey(keyCountryDialog);
   Finder get countrySearchField => find.byKey(keyCountrySearchField);
+  Finder get signOutButton => find.byKey(keySignOutButton);
+
+  /// Then I see "Username" as an input field
+  void expectUsername({
+    String label = 'Username',
+    bool isPresent = true,
+  }) {
+    // username field is present
+    expect(usernameField, findsOneWidget);
+    // login type is "username"
+    Finder usernameFieldHint = find.descendant(
+      of: usernameField,
+      matching: find.text(label),
+    );
+    expect(usernameFieldHint, isPresent ? findsOneWidget : findsNothing);
+  }
 
   /// Expects the current screen to be [screen].
   void expectScreen(AuthScreen screen) {
@@ -63,6 +80,11 @@ class AuthenticatorPage {
     );
   }
 
+  // Then I am signed in
+  void expectAuthenticated() {
+    expect(signOutButton, findsOneWidget);
+  }
+
   /// Then I see User not found banner
   Future<void> expectUserNotFound() async {
     expectError('User does not exist.');
@@ -85,5 +107,11 @@ class AuthenticatorPage {
         matching: find.textContaining('(+1)'));
     expect(unitedStatesOption, findsOneWidget);
     await tester.tap(unitedStatesOption);
+  }
+
+  /// When I click "Sign out"
+  Future<void> submitSignOut() async {
+    await tester.tap(signOutButton);
+    await tester.pumpAndSettle();
   }
 }
