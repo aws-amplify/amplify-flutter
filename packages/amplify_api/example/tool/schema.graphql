@@ -1,7 +1,12 @@
+type FileMeta {
+  name: String!
+}
+
 type S3Object {
   bucket: String!
   region: String!
   key: String!
+  meta: FileMeta
 }
 
 type Blog @model {
@@ -9,6 +14,7 @@ type Blog @model {
   name: String!
   createdAt: AWSDateTime
   file: S3Object
+  files: [S3Object]
   posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
 }
 

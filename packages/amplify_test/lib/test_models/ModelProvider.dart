@@ -23,21 +23,23 @@ import 'package:amplify_core/amplify_core.dart';
 import 'Blog.dart';
 import 'Comment.dart';
 import 'Post.dart';
+import 'FileMeta.dart';
 import 'S3Object.dart';
 
 export 'Blog.dart';
 export 'Comment.dart';
+export 'FileMeta.dart';
 export 'Post.dart';
 export 'S3Object.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "4364df78ad5b08b91c8e1495d6b1997f";
+  String version = "e22227993ad5df5e265b0d065245b740";
   @override
   List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, Post.schema];
   static final ModelProvider _instance = ModelProvider();
   @override
-  List<ModelSchema> customTypeSchemas = [S3Object.schema];
+  List<ModelSchema> customTypeSchemas = [FileMeta.schema, S3Object.schema];
 
   static ModelProvider get instance => _instance;
 
