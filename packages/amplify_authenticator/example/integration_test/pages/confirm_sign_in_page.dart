@@ -56,6 +56,22 @@ class ConfirmSignInPage extends AuthenticatorPage {
     await tester.enterText(verificationField, code);
   }
 
+  /// When I enter a new password
+  Future<void> enterNewPassword(String password) async {
+    await tester.enterText(
+      find.byKey(keyNewPasswordConfirmSignInFormField),
+      password,
+    );
+  }
+
+  /// When I confirm a new password
+  Future<void> enterPasswordConfirmation(String password) async {
+    await tester.enterText(
+      find.byKey(keyConfirmNewPasswordConfirmSignInFormField),
+      password,
+    );
+  }
+
   /// When I click the "Confirm Sign In" button
   Future<void> submitConfirmSignIn() async {
     await tester.ensureVisible(confirmSignInButton);

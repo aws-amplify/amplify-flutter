@@ -13,7 +13,10 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class AuthenticatorPage {
@@ -26,24 +29,48 @@ class AuthenticatorPage {
   Finder get countrySelectDialog => find.byKey(keyCountryDialog);
   Finder get countrySearchField => find.byKey(keyCountrySearchField);
 
+  /// Expects the current screen to be [screen].
+  void expectScreen(AuthScreen screen) {
+    final currentScreen = tester.widget<AuthenticatorScreen>(
+      find.byType(AuthenticatorScreen),
+    );
+    expect(currentScreen.screen, equals(screen));
+  }
+
+  /// Expects the input field [inputField] to show an error text containing
+  /// [errorText].
+  void expectInputError(Key inputField, String errorText) {
+    final finder = find.byKey(inputField);
+    expect(finder, findsOneWidget);
+    expect(
+      find.descendant(
+        of: finder,
+        matching: find.textContaining(errorText),
+      ),
+      findsOneWidget,
+    );
+  }
+
+  /// Expects an error banner containing [errorText].
+  void expectError(String errorText) {
+    expect(bannerFinder, findsOneWidget);
+    expect(
+      find.descendant(
+        of: bannerFinder,
+        matching: find.textContaining(errorText),
+      ),
+      findsOneWidget,
+    );
+  }
+
   /// Then I see User not found banner
   Future<void> expectUserNotFound() async {
-    expect(bannerFinder, findsOneWidget);
-    Finder userNotFoundMessage = find.descendant(
-      of: find.byKey(keyAuthenticatorBanner),
-      matching: find.text('User does not exist.'),
-    );
-    expect(userNotFoundMessage, findsOneWidget);
+    expectError('User does not exist.');
   }
 
   /// Then I see Invalid code
   Future<void> expectInvalidCode() async {
-    expect(bannerFinder, findsOneWidget);
-    Finder userNotFoundMessage = find.descendant(
-      of: find.byKey(keyAuthenticatorBanner),
-      matching: find.textContaining('Invalid code or auth state for the user'),
-    );
-    expect(userNotFoundMessage, findsOneWidget);
+    expectError('Invalid code or auth state for the user');
   }
 
   Future<void> selectCountryCode() async {
