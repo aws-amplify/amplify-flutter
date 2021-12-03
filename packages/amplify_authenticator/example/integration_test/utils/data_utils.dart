@@ -89,5 +89,12 @@ Future<AdminCreateUserResponse?> adminCreateUser(
     return AdminCreateUserResponse.fromJson(res.data);
   }
 
-  addTearDown(() => deleteUser(username));
+  addTearDown(() async {
+    try {
+      await deleteUser(username);
+      // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
+      print('Error deleting user: $e');
+    }
+  });
 }
