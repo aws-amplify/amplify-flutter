@@ -119,9 +119,10 @@ abstract class AuthenticatorPage {
   /// Then I see Invalid verification code
   Future<void> expectInvalidVerificationCode() async {
     if (Platform.isAndroid) {
-      expectError('Confirmation code entered is not correct.');
+      await expectError('Confirmation code entered is not correct.');
     } else if (Platform.isIOS) {
-      expectError('Invalid verification code provided, please try again.');
+      await expectError(
+          'Invalid verification code provided, please try again.');
     } else {
       throw Exception('Unsupprted platform');
     }

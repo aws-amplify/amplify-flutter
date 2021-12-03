@@ -92,7 +92,7 @@ void main() {
         await confirmSignUpPage.submitConfirmSignUp();
 
         // Then I see "Username/client id combination not found."
-        confirmSignUpPage.expectInvalidVerificationCode();
+        await confirmSignUpPage.expectInvalidVerificationCode();
       },
     );
 
@@ -108,6 +108,7 @@ void main() {
 
         var username = generateEmail();
         var password = generatePassword();
+        final code = getOtpCode(username);
 
         await signInPage.navigateToSignUp();
 
@@ -119,8 +120,6 @@ void main() {
 
         // And I confirm my password
         await signUpPage.enterPasswordConfirmation(password);
-
-        final code = getOtpCode(username);
 
         // And I click the "Create Account" button
         await signUpPage.submitSignUp();
@@ -135,7 +134,7 @@ void main() {
         await confirmSignUpPage.submitConfirmSignUp();
 
         // Then I see "Sign out"
-        signInPage.expectAuthenticated();
+        await signInPage.expectAuthenticated();
       },
     );
 
