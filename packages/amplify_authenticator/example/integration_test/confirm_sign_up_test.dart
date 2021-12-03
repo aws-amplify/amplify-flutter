@@ -120,25 +120,22 @@ void main() {
         // And I confirm my password
         await signUpPage.enterPasswordConfirmation(password);
 
-        await subscribeToOTPCode(
-          onSubscriptionEstablished: () async {
-            // And I click the "Create Account" button
-            await signUpPage.submitSignUp();
+        final code = getOtpCode(username);
 
-            // And I see "Confirmation Code"
-            confirmSignUpPage.expectConfirmationCodeIsPresent();
-          },
-          onCodeRecieved: (String code) async {
-            // And I type a valid confirmation code
-            await confirmSignUpPage.enterCode(code);
+        // And I click the "Create Account" button
+        await signUpPage.submitSignUp();
 
-            // And I click the "Confirm" button
-            await confirmSignUpPage.submitConfirmSignUp();
+        // And I see "Confirmation Code"
+        confirmSignUpPage.expectConfirmationCodeIsPresent();
 
-            // Then I see "Sign out"
-            signInPage.expectAuthenticated();
-          },
-        );
+        // And I type a valid confirmation code
+        await confirmSignUpPage.enterCode(await code);
+
+        // And I click the "Confirm" button
+        await confirmSignUpPage.submitConfirmSignUp();
+
+        // Then I see "Sign out"
+        signInPage.expectAuthenticated();
       },
     );
 

@@ -87,38 +87,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
-      const subscriptionDocument = '''subscription {
-          onCreateConfirmSignUpTestRun {
-            id
-            username
-            currentCode
-          }
-        }''';
-
-      final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
-        GraphQLRequest<String>(document: subscriptionDocument),
-      );
-
-      // Allow subscription to establish
-      await Future<void>.delayed(Duration.zero);
-
-      // Collect codes delivered via Lambda
-      final codesFuture = operation
-          .map((event) {
-            final json =
-                jsonDecode(event.data)['onCreateConfirmSignUpTestRun'] as Map;
-            return ConfirmSignUpResponse.fromJson(json.cast());
-          })
-          .where((event) => event.username == email)
-          .map((event) => event.currentCode)
-          // Cognito sends two codes within 1 second of each other for triggers:
-          // - CustomEmailSender_SignUp
-          // - CustomEmailSender_ResendCode
-          //
-          // We must use the second code, since the first will have been
-          // invalidated.
-          .take(2)
-          .toList();
+      final code = getOtpCode(email);
 
       // Use the standard Amplify API to create the user in the Unconfirmed state
       await Amplify.Auth.signUp(
@@ -144,8 +113,7 @@ void main() {
       confirmSignUpPage.expectConfirmationCodeIsPresent();
 
       /// And I type a valid confirmation code
-      final codes = await codesFuture;
-      await confirmSignUpPage.enterCode(codes.last);
+      await confirmSignUpPage.enterCode(await code);
 
       // And I click the "Confirm" button
       await confirmSignUpPage.submitConfirmSignUp();

@@ -19,9 +19,10 @@ import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 import 'types/admin_create_user_response.dart';
-import 'types/confirmation_code_response.dart';
+import 'types/confirm_sign_up_response.dart';
 import 'types/delete_user_response.dart';
 
 const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
@@ -103,61 +104,35 @@ Future<AdminCreateUserResponse?> adminCreateUser(
   });
 }
 
-Future<ConfirmationCodeTestRun> subscribeToOTPCode({
-  Future<void> Function()? onSubscriptionEstablished,
-  Future<void> Function(String code)? onCodeRecieved,
-}) async {
-  Completer<ConfirmationCodeTestRun> codeCompleter =
-      Completer<ConfirmationCodeTestRun>();
-  String subscriptionDocument = '''subscription MyMutation {
+/// Returns the OTP code for [username]. Must be called before the network call
+/// generating the OTP code.
+Future<String> getOtpCode(String username) async {
+  const subscriptionDocument = '''subscription {
           onCreateConfirmSignUpTestRun {
             id
+            username
+            currentCode
           }
         }''';
 
-  String queryDocument = '''query GetCode(\$id: ID!) {
-        getConfirmSignUpTestRun(id: \$id) {
-          id
-          currentCode
-        }
-      }''';
-
-  Completer<void> subscriptionCompleter = Completer<void>();
-
   final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
     GraphQLRequest<String>(document: subscriptionDocument),
-    onEstablished: () {
-      subscriptionCompleter.complete();
-    },
   );
 
-  // TODO: subscriptionCompleter is not working correctly. Future.delayed is a temp solution
-  // await subscriptionCompleter.future;
-  await Future.delayed(const Duration(seconds: 1), () {});
-
-  operation.listen((event) async {
-    Map<dynamic, dynamic> parsedMap = jsonDecode(event.data);
-    String codeId = parsedMap['onCreateConfirmSignUpTestRun']['id'];
-    var codeQuery = Amplify.API.query(
-        request: GraphQLRequest<String>(
-      document: queryDocument,
-      variables: <String, String>{'id': codeId},
-    ));
-
-    var response = await codeQuery.response;
-
-    ConfirmationCodeTestRun result =
-        ConfirmationCodeTestRun.fromJson(response.data);
-
-    if (onCodeRecieved != null) {
-      await onCodeRecieved(result.code!);
-    }
-
-    codeCompleter.complete(result);
-  });
-
-  if (onSubscriptionEstablished != null) {
-    await onSubscriptionEstablished();
-  }
-  return codeCompleter.future;
+  // Collect codes delivered via Lambda
+  return operation
+      .map((event) {
+        final json =
+            jsonDecode(event.data)['onCreateConfirmSignUpTestRun'] as Map;
+        return ConfirmSignUpResponse.fromJson(json.cast());
+      })
+      .where((event) => event.username == username)
+      .map((event) => event.currentCode)
+      // When multiple Cognito events happen in a test, we must use the newest
+      // code, since the others will have been invalidated.
+      //
+      // Instead of taking a fixed number here, we take the most recent code
+      // after 5 seconds, which is hopefully a more general solution.
+      .audit(const Duration(seconds: 5))
+      .first;
 }
