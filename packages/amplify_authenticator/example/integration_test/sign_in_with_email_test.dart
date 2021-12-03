@@ -14,7 +14,7 @@
  */
 
 // This test follows the Amplify UI feature "sign-in-with-username"
-// https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
+// https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-in-with-email.feature
 
 import 'dart:async';
 import 'dart:convert';
@@ -44,16 +44,17 @@ void main() {
 
   final authenticator = MaterialApp(
     home: Authenticator(
-        child: const SignOutButton(
-      key: Key('keySignOutButton'),
-    )),
+      child: const SignOutButton(),
+    ),
   );
 
   group('sign-in-with-email', () {
     // Given I'm running the example "ui/components/authenticator/sign-in-with-email.feature"
     setUpAll(() async {
-      await loadConfiguration('ui/components/authenticator/sign-in-with-email',
-          additionalConfigs: [AmplifyAPI()]);
+      await loadConfiguration(
+        'ui/components/authenticator/sign-in-with-email',
+        additionalConfigs: [AmplifyAPI()],
+      );
     });
 
     tearDownAll(() async {
@@ -118,8 +119,9 @@ void main() {
         String codeId = parsedMap['onCreateConfirmSignUpTestRun']['id'];
         var codeQuery = Amplify.API.query(
             request: GraphQLRequest<String>(
-                document: queryDocument,
-                variables: <String, String>{'id': codeId}));
+          document: queryDocument,
+          variables: <String, String>{'id': codeId},
+        ));
 
         var response = await codeQuery.response;
 
@@ -132,10 +134,11 @@ void main() {
 
       // Use the standard Amplify API to create the user in the Unconfirmed state
       await Amplify.Auth.signUp(
-          username: email,
-          password: password,
-          options: CognitoSignUpOptions(
-              userAttributes: {CognitoUserAttributeKey.email: email}));
+        username: email,
+        password: password,
+        options: CognitoSignUpOptions(
+            userAttributes: {CognitoUserAttributeKey.email: email}),
+      );
 
       signInPage.expectUserNameIsPresent(usernameLabel: 'Email');
 
@@ -167,8 +170,12 @@ void main() {
     testWidgets('Sign in with confirmed credentials', (tester) async {
       final username = generateEmail();
       final password = generatePassword();
-      await adminCreateUser(username, password,
-          autoConfirm: true, verifyAttributes: true);
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUserNameIsPresent(usernameLabel: 'Email');
@@ -193,8 +200,12 @@ void main() {
         (tester) async {
       final username = generateEmail();
       final password = generatePassword();
-      await adminCreateUser(username, password,
-          autoConfirm: true, verifyAttributes: true);
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUserNameIsPresent(usernameLabel: 'Email');

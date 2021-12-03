@@ -14,7 +14,7 @@
  */
 
 // This test follows the Amplify UI feature "sign-in-with-username"
-// https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
+// https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/reset-password.feature
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 
@@ -47,10 +47,6 @@ void main() {
     setUpAll(() async {
       await loadConfiguration('ui/components/authenticator/reset-password',
           additionalConfigs: [AmplifyAPI()]);
-    });
-
-    tearDownAll(() async {
-      await Amplify.Auth.signOut();
     });
 
     tearDownAll(() async {
