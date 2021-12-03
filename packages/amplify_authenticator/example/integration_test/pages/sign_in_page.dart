@@ -28,6 +28,7 @@ class SignInPage extends AuthenticatorPage {
   Finder get usernameField => find.byKey(keyUsernameSignInFormField);
   Finder get passwordField => find.byKey(keyPasswordSignInFormField);
   Finder get signInButton => find.byKey(keySignInButton);
+  Finder get forgotPasswordButton => find.byKey(keyForgotPasswordButton);
   Finder get confirmSignInField => find.byKey(keyCodeConfirmSignInFormField);
   Finder get signUpTabBar => find.descendant(
         of: find.byType(TabBar),
@@ -52,6 +53,18 @@ class SignInPage extends AuthenticatorPage {
     await tester.enterText(passwordField, password);
   }
 
+  /// Then I see "Username" as an input field
+  void expectUserNameIsPresent({String usernameLabel = 'Username'}) {
+    // username field is present
+    expect(usernameField, findsOneWidget);
+    // login type is "username"
+    Finder usernameFieldHint = find.descendant(
+      of: find.byKey(keyUsernameSignInFormField),
+      matching: find.text(usernameLabel),
+    );
+    expect(usernameFieldHint, findsOneWidget);
+  }
+
   /// When I click the "Sign In" button
   Future<void> submitSignIn() async {
     await tester.ensureVisible(signInButton);
@@ -62,6 +75,12 @@ class SignInPage extends AuthenticatorPage {
   /// When I navigate to the "Sign Up" screen.
   Future<void> navigateToSignUp() async {
     await tester.tap(signUpTabBar);
+    await tester.pumpAndSettle();
+  }
+
+  /// When I tap the "Forgot Password" button.
+  Future<void> submitForgotPassword() async {
+    await tester.tap(forgotPasswordButton);
     await tester.pumpAndSettle();
   }
 }

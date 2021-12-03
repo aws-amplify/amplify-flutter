@@ -24,7 +24,7 @@ abstract class AuthenticatorPage {
 
   final WidgetTester tester;
 
-  Finder get usernameField;
+  Finder? get usernameField;
   Finder get bannerFinder => find.byKey(keyAuthenticatorBanner);
   Finder get countrySelectField => find.byKey(keySelectCountryCode);
   Finder get countrySelectDialog => find.byKey(keyCountryDialog);
@@ -95,6 +95,16 @@ abstract class AuthenticatorPage {
     expectError('Invalid code or auth state for the user');
   }
 
+  /// Then I see Username/client id combination not found banner.
+  Future<void> expectCombinationNotFound() async {
+    expect(bannerFinder, findsOneWidget);
+    Finder expectCombinationNotFound = find.descendant(
+      of: find.byKey(keyAuthenticatorBanner),
+      matching: find.textContaining('found'),
+    );
+    expect(expectCombinationNotFound, findsOneWidget);
+  }
+
   Future<void> selectCountryCode() async {
     expect(countrySelectField, findsOneWidget);
     await tester.tap(countrySelectField);
@@ -113,5 +123,9 @@ abstract class AuthenticatorPage {
   Future<void> submitSignOut() async {
     await tester.tap(signOutButton);
     await tester.pumpAndSettle();
+    
+  // Then I am signed in
+  void expectAuthenticated() {
+    expect(signOutButton, findsOneWidget);
   }
 }

@@ -21,6 +21,10 @@ import 'authenticator_page.dart';
 class ConfirmVerifyUserPage extends AuthenticatorPage {
   ConfirmVerifyUserPage({required WidgetTester tester}) : super(tester: tester);
 
+  @override
+  Finder? get usernameField =>
+      throw UnimplementedError('Username does not exist on this page');
+
   Finder get confirmationCodeField => find.byKey(keyVerifyUserConfirmationCode);
 
   /// Then I see "Code"
