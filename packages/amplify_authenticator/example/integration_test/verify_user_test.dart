@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-// This test follows the Amplify UI feature "sign-in-with-username"
+// This test follows the Amplify UI feature "verify-user"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/verify-user.feature
 
 import 'package:amplify_api/amplify_api.dart';
@@ -45,12 +45,16 @@ void main() {
   );
 
   group('verify-user', () {
-    // Given I'm running the example "ui/components/authenticator/sign-up-with-email"
+    // Given I'm running the example "ui/components/authenticator/verify-user"
     setUpAll(() async {
       await loadConfiguration(
-        'ui/components/authenticator/sign-up-with-email',
+        'ui/components/authenticator/verify-user',
         additionalConfigs: [AmplifyAPI()],
       );
+    });
+
+    tearDown(() async {
+      await Amplify.Auth.signOut();
     });
 
     // Scenario: Redirect to "Verify" page

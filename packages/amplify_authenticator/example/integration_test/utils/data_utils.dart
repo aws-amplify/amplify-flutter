@@ -13,11 +13,15 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'types/admin_create_user_response.dart';
+import 'types/confirmation_code_response.dart';
 import 'types/delete_user_response.dart';
 
 const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
@@ -97,4 +101,63 @@ Future<AdminCreateUserResponse?> adminCreateUser(
       print('Error deleting user: $e');
     }
   });
+}
+
+Future<ConfirmationCodeTestRun> subscribeToOTPCode({
+  Future<void> Function()? onSubscriptionEstablished,
+  Future<void> Function(String code)? onCodeRecieved,
+}) async {
+  Completer<ConfirmationCodeTestRun> codeCompleter =
+      Completer<ConfirmationCodeTestRun>();
+  String subscriptionDocument = '''subscription MyMutation {
+          onCreateConfirmSignUpTestRun {
+            id
+          }
+        }''';
+
+  String queryDocument = '''query GetCode(\$id: ID!) {
+        getConfirmSignUpTestRun(id: \$id) {
+          id
+          currentCode
+        }
+      }''';
+
+  Completer<void> subscriptionCompleter = Completer<void>();
+
+  final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
+    GraphQLRequest<String>(document: subscriptionDocument),
+    onEstablished: () {
+      subscriptionCompleter.complete();
+    },
+  );
+
+  // TODO: subscriptionCompleter is not working correctly. Future.delayed is a temp solution
+  // await subscriptionCompleter.future;
+  await Future.delayed(const Duration(seconds: 1), () {});
+
+  operation.listen((event) async {
+    Map<dynamic, dynamic> parsedMap = jsonDecode(event.data);
+    String codeId = parsedMap['onCreateConfirmSignUpTestRun']['id'];
+    var codeQuery = Amplify.API.query(
+        request: GraphQLRequest<String>(
+      document: queryDocument,
+      variables: <String, String>{'id': codeId},
+    ));
+
+    var response = await codeQuery.response;
+
+    ConfirmationCodeTestRun result =
+        ConfirmationCodeTestRun.fromJson(response.data);
+
+    if (onCodeRecieved != null) {
+      await onCodeRecieved(result.code!);
+    }
+
+    codeCompleter.complete(result);
+  });
+
+  if (onSubscriptionEstablished != null) {
+    await onSubscriptionEstablished();
+  }
+  return codeCompleter.future;
 }
