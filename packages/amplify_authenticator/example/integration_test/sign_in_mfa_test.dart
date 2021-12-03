@@ -108,7 +108,7 @@ void main() {
       await confirmSignInPage.navigateToSignIn();
 
       // Then I see "Sign in"
-      await signInPage.expectSignIn();
+      signInPage.expectScreen(AuthScreen.signin);
     });
 
     // Scenario: Incorrect SMS code

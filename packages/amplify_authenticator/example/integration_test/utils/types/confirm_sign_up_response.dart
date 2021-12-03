@@ -13,12 +13,22 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
+class ConfirmSignUpResponse {
+  const ConfirmSignUpResponse({
+    required this.id,
+    required this.username,
+    required this.currentCode,
+  });
 
-class ConfirmationCodeTestRun {
-  String? code;
-  ConfirmationCodeTestRun.fromJson(String resolverData) {
-    Map<dynamic, dynamic> parsedMap = jsonDecode(resolverData);
-    code = parsedMap['getConfirmSignUpTestRun']['currentCode'];
+  final String id;
+  final String username;
+  final String currentCode;
+
+  factory ConfirmSignUpResponse.fromJson(Map<String, Object?> json) {
+    return ConfirmSignUpResponse(
+      id: json['id'] as String,
+      username: json['username'] as String,
+      currentCode: json['currentCode'] as String,
+    );
   }
 }

@@ -22,7 +22,6 @@ import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -34,7 +33,7 @@ import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
 import 'utils/data_utils.dart';
 import 'utils/mock_data.dart';
-import 'utils/types/confirmation_code_response.dart';
+import 'utils/types/confirm_sign_up_response.dart';
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
@@ -57,16 +56,14 @@ void main() {
       );
     });
 
-    tearDownAll(() async {
-      await Amplify.Auth.signOut();
-    });
+    tearDown(signOut);
 
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
       final username = generateEmail();
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
-      signInPage.expectUserNameIsPresent(usernameLabel: 'Email');
+      signInPage.expectUsername(label: 'Email');
 
       // When I type my "email" with status "UNKNOWN"
       await signInPage.enterUsername(username);
@@ -85,62 +82,54 @@ void main() {
     testWidgets('Sign in with unconfirmed credentials', (tester) async {
       final email = generateEmail();
       final password = generatePassword();
-      late String code = '';
-
-      Completer codeCompleter = Completer<ConfirmationCodeTestRun>();
 
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
-      String subscriptionDocument = '''subscription MyMutation {
+      const subscriptionDocument = '''subscription {
           onCreateConfirmSignUpTestRun {
             id
+            username
+            currentCode
           }
         }''';
 
-      String queryDocument = '''query GetCode(\$id: ID!) {
-        getConfirmSignUpTestRun(id: \$id) {
-          id
-          currentCode
-        }
-      }''';
-
       final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
         GraphQLRequest<String>(document: subscriptionDocument),
-        onEstablished: () {},
       );
 
-      // TODO: Relable way to wait for subscription
-      await Future.delayed(const Duration(seconds: 2), () {});
+      // Allow subscription to establish
+      await Future<void>.delayed(Duration.zero);
 
-      operation.listen((event) async {
-        Map<dynamic, dynamic> parsedMap = jsonDecode(event.data);
-        String codeId = parsedMap['onCreateConfirmSignUpTestRun']['id'];
-        var codeQuery = Amplify.API.query(
-            request: GraphQLRequest<String>(
-          document: queryDocument,
-          variables: <String, String>{'id': codeId},
-        ));
-
-        var response = await codeQuery.response;
-
-        ConfirmationCodeTestRun result =
-            ConfirmationCodeTestRun.fromJson(response.data);
-
-        code = result.code!;
-        codeCompleter.complete(result);
-      });
+      // Collect codes delivered via Lambda
+      final codesFuture = operation
+          .map((event) {
+            final json =
+                jsonDecode(event.data)['onCreateConfirmSignUpTestRun'] as Map;
+            return ConfirmSignUpResponse.fromJson(json.cast());
+          })
+          .where((event) => event.username == email)
+          .map((event) => event.currentCode)
+          // Cognito sends two codes within 1 second of each other for triggers:
+          // - CustomEmailSender_SignUp
+          // - CustomEmailSender_ResendCode
+          //
+          // We must use the second code, since the first will have been
+          // invalidated.
+          .take(2)
+          .toList();
 
       // Use the standard Amplify API to create the user in the Unconfirmed state
       await Amplify.Auth.signUp(
         username: email,
         password: password,
         options: CognitoSignUpOptions(
-            userAttributes: {CognitoUserAttributeKey.email: email}),
+          userAttributes: {CognitoUserAttributeKey.email: email},
+        ),
       );
 
-      signInPage.expectUserNameIsPresent(usernameLabel: 'Email');
+      signInPage.expectUsername(label: 'Email');
 
       // When I type my "username" with status "unconfirmed"
       await signInPage.enterUsername(email);
@@ -151,19 +140,18 @@ void main() {
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
 
-      await codeCompleter.future;
-
       // Then I see "Confirmation Code"
       confirmSignUpPage.expectConfirmationCodeIsPresent();
 
       /// And I type a valid confirmation code
-      await confirmSignUpPage.enterCode(code.trim());
+      final codes = await codesFuture;
+      await confirmSignUpPage.enterCode(codes.last);
 
       // And I click the "Confirm" button
       await confirmSignUpPage.submitConfirmSignUp();
 
       // Then I see "Sign out"
-      confirmSignUpPage.expectAuthenticated();
+      await confirmSignUpPage.expectAuthenticated();
     });
 
     // Scenario: Sign in with confirmed credentials
@@ -178,7 +166,7 @@ void main() {
       );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
-      signInPage.expectUserNameIsPresent(usernameLabel: 'Email');
+      signInPage.expectUsername(label: 'Email');
 
       // When I type my "email" with status "CONFIRMED"
       await signInPage.enterUsername(username);
@@ -190,7 +178,7 @@ void main() {
       await signInPage.submitSignIn();
 
       /// Then I see "Sign out"
-      signInPage.expectAuthenticated();
+      await signInPage.expectAuthenticated();
 
       await signInPage.submitSignOut();
     });
@@ -208,7 +196,7 @@ void main() {
       );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
-      signInPage.expectUserNameIsPresent(usernameLabel: 'Email');
+      signInPage.expectUsername(label: 'Email');
 
       // When I type my "email" with status "CONFIRMED"
       await signInPage.enterUsername(username);
@@ -220,13 +208,13 @@ void main() {
       await signInPage.submitSignIn();
 
       /// Then I see "Sign out"
-      signInPage.expectAuthenticated();
+      await signInPage.expectAuthenticated();
 
       // And I click the "Sign out" button
       await signInPage.submitSignOut();
 
       // Then I see "Sign in"
-      signInPage.expectUserNameIsPresent(usernameLabel: 'Email');
+      signInPage.expectScreen(AuthScreen.signin);
     });
 
     // Scenario: Sign in with force change password credentials
@@ -238,7 +226,7 @@ void main() {
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
-      signInPage.expectUserNameIsPresent(usernameLabel: 'Email');
+      signInPage.expectUsername(label: 'Email');
 
       // When I type my "username"
       await signInPage.enterUsername(username);

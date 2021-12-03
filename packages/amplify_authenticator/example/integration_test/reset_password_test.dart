@@ -63,7 +63,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ForgotPasswordPage forgotPasswordPage =
           ForgotPasswordPage(tester: tester);
-      signInPage.expectUserNameIsPresent();
+      signInPage.expectUsername();
 
       // When I type my "username" with status "CONFIRMED"
       await signInPage.enterUsername(username);
@@ -82,7 +82,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ForgotPasswordPage forgotPasswordPage =
           ForgotPasswordPage(tester: tester);
-      signInPage.expectUserNameIsPresent();
+      signInPage.expectUsername();
 
       // When I type my "username" with status "UNKNOWN"
       await signInPage.enterUsername(username);
@@ -94,7 +94,7 @@ void main() {
       await forgotPasswordPage.submitSendCode();
 
       // Then I see "Username/client id combination not found."
-      await forgotPasswordPage.expectCombinationNotFound();
+      forgotPasswordPage.expectCombinationNotFound();
     });
 
     // Scenario: Reset Password with valid placeholder

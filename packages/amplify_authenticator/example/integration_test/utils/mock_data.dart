@@ -38,6 +38,6 @@ String generatePhone() => '+155501${randomPhoneDigits()}';
 
 String generateUsername() => 'flutter-user-${randomNumber()}';
 
-int randomNumber() => random.nextInt(500);
+int randomNumber() => random.nextInt(2 << 30);
 
 String randomPhoneDigits() => '${random.nextInt(10)}${random.nextInt(10)}';

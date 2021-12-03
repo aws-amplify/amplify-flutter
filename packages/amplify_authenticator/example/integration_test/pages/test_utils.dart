@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
@@ -50,3 +51,11 @@ Future<void> nextBlocEvent(
 
 /// Do nothing.
 void noOp() {}
+
+/// Signs out the current user, if any. Safe to call anywhere.
+Future<void> signOut() async {
+  try {
+    await Amplify.Auth.signOut();
+    // ignore: avoid_catches_without_on_clauses
+  } catch (_) {}
+}
