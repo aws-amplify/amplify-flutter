@@ -60,9 +60,8 @@ void main() {
       String graphQLDocument = '''query MyQuery {
         $listBlogs {
           $items {
-          	id
-          	name
-            createdAt
+          \tid
+          \tname
           }
         }
       }''';
