@@ -16,7 +16,9 @@
 import 'dart:async';
 import 'dart:core';
 import 'package:amplify_auth_cognito/src/CognitoDevice/cognito_device.dart';
+import 'package:amplify_auth_cognito/src/CognitoHubEvents/AuthHubEvent.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -44,7 +46,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return _instance.addPlugin();
   }
 
-  StreamController get streamController {
+  StreamController<AuthHubEvent> get streamController {
     return streamWrapper.authStreamController;
   }
 
@@ -93,13 +95,6 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
-  @Deprecated('Use confirmResetPassword() instead')
-  Future<UpdatePasswordResult> confirmPassword(
-      {ConfirmPasswordRequest? request}) async {
-    final res = await _instance.confirmResetPassword(request: request);
-    return res;
-  }
-
   Future<UpdatePasswordResult> confirmResetPassword(
       {ConfirmResetPasswordRequest? request}) async {
     final res = await _instance.confirmResetPassword(request: request);
@@ -134,7 +129,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
-  Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes(
+  Future<Map<UserAttributeKey, UpdateUserAttributeResult>> updateUserAttributes(
       {required UpdateUserAttributesRequest request}) async {
     final res = await _instance.updateUserAttributes(request: request);
     return res;

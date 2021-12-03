@@ -34,10 +34,10 @@ public class GraphQLSubscriptionsStreamHandler: NSObject, FlutterStreamHandler {
         eventSink?(result)
     }
 
-    func sendError(errorCode: String, details: [String: Any]) {
+    func sendError(errorCode: String, id: String, details: [String: Any]) {
         let flutterError = FlutterError(
             code: errorCode,
-            message: ErrorMessages.defaultFallbackErrorMessage,
+            message: id,
             details: details)
         eventSink?(flutterError)
     }

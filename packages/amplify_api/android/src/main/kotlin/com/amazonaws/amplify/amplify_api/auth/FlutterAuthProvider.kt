@@ -28,7 +28,10 @@ import kotlinx.coroutines.*
 /**
  * Manages the shared state of all [FlutterAuthProvider] instances.
  */
-class FlutterAuthProviders(private val methodChannel: MethodChannel) {
+class FlutterAuthProviders(
+    private val authProviders: List<AuthorizationType>,
+    private val methodChannel: MethodChannel
+) {
 
     private companion object {
         /**
@@ -51,11 +54,15 @@ class FlutterAuthProviders(private val methodChannel: MethodChannel) {
      * A factory of [FlutterAuthProvider] instances.
      */
     val factory: ApiAuthProviders by lazy {
-        ApiAuthProviders
-            .Builder()
-            .functionAuthProvider(FlutterAuthProvider(this, AuthorizationType.AWS_LAMBDA))
-            .oidcAuthProvider(FlutterAuthProvider(this, AuthorizationType.OPENID_CONNECT))
-            .build()
+        val authProviders = this.authProviders.toSet()
+        val builder = ApiAuthProviders.Builder()
+        if (authProviders.contains(AuthorizationType.AWS_LAMBDA)) {
+            builder.functionAuthProvider(FlutterAuthProvider(this, AuthorizationType.AWS_LAMBDA))
+        }
+        if (authProviders.contains(AuthorizationType.OPENID_CONNECT)) {
+            builder.oidcAuthProvider(FlutterAuthProvider(this, AuthorizationType.OPENID_CONNECT))
+        }
+        builder.build()
     }
 
     /**

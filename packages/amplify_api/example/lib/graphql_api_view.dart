@@ -13,9 +13,9 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_api/amplify_api.dart';
 
 class GraphQLApiView extends StatefulWidget {
   final bool isAmplifyConfigured;
@@ -29,40 +29,29 @@ class GraphQLApiView extends StatefulWidget {
 
 class _GraphQLApiViewState extends State<GraphQLApiView> {
   String _result = '';
-  late Function _unsubscribe;
+  void Function()? _unsubscribe;
   late GraphQLOperation _lastOperation;
 
   Future<void> subscribe() async {
     String graphQLDocument = '''subscription MySubscription {
-        onCreateBlog {
-          id
-          name
-          createdAt
-        }
-      }''';
-    var operation = Amplify.API.subscribe(
-        request: GraphQLRequest<String>(document: graphQLDocument),
-        onData: (event) {
-          print('Subscription event data received: ${event.data}');
-        },
-        onEstablished: () {
-          print('Subscription established');
-        },
-        onError: (dynamic e) {
-          print('Error occurred');
-          print(e);
-        },
-        onDone: () {
-          print('Subscription has been closed successfully');
-        });
-
-    void unsubscribe() {
-      operation.cancel();
+    onCreateBlog {
+      id
+      name
+      createdAt
     }
+  }''';
+    final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
+      GraphQLRequest<String>(document: graphQLDocument),
+      onEstablished: () => print('Subscription established'),
+    );
 
-    setState(() {
-      _unsubscribe = unsubscribe;
-    });
+    try {
+      await for (var event in operation) {
+        print('Subscription event data received: ${event.data}');
+      }
+    } on Exception catch (e) {
+      print('Error in subscription stream: $e');
+    }
   }
 
   Future<void> query() async {
@@ -153,7 +142,10 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
         const Padding(padding: EdgeInsets.all(10.0)),
         Center(
           child: ElevatedButton(
-            onPressed: widget.isAmplifyConfigured ? () => _unsubscribe() : null,
+            onPressed: () => setState(() {
+              _unsubscribe?.call();
+              _unsubscribe = null;
+            }),
             child: const Text('Unsubscribe'),
           ),
         ),

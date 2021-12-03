@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/types/uuid.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 import './UploadFileOptions.dart';
 import 'dart:io';

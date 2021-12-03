@@ -41,10 +41,10 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
         SnackBar(backgroundColor: Colors.red[900], content: Text(message)));
   }
 
-  Future _fetchAttributes({bool isRefresh = false}) {
+  Future<void> _fetchAttributes({bool isRefresh = false}) {
     return Amplify.Auth.fetchUserAttributes().then((attributes) {
       setState(() => _userAttributes = attributes
-        ..sort((a, b) => b.userAttributeKey.compareTo(a.userAttributeKey)));
+        ..sort((a, b) => a.userAttributeKey.compareTo(b.userAttributeKey)));
       if (isRefresh) {
         _showSuccess('User Attributes Refreshed Successfully');
       }
@@ -106,25 +106,28 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
               child: ListView.builder(
                 itemCount: _userAttributes.length,
                 itemBuilder: (context, index) {
-                  var key = _userAttributes[index].userAttributeKey;
-                  var value = _userAttributes[index].value;
-                  var isInt = value is int;
-                  var stringValue = isInt ? value.toString() : value;
+                  AuthUserAttribute atrribute = _userAttributes[index];
+                  CognitoUserAttributeKey userAttributeKey =
+                      atrribute.userAttributeKey as CognitoUserAttributeKey;
+                  String value = atrribute.value;
                   return ListTile(
-                    title: Text(key),
-                    subtitle: Text(stringValue),
-                    trailing: IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => UpdateUserAttributeWidget(
-                              userAttributeKey: key,
-                            ),
+                    title: Text(userAttributeKey.toString()),
+                    subtitle: Text(value),
+                    trailing: userAttributeKey.readOnly
+                        ? null
+                        : IconButton(
+                            icon: Icon(Icons.edit),
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      UpdateUserAttributeWidget(
+                                    userAttributeKey: userAttributeKey,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
                   );
                 },
               ),

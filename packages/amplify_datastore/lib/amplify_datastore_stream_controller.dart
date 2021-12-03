@@ -19,7 +19,7 @@ import 'package:amplify_datastore/types/DataStoreHubEvents/ModelSyncedEvent.dart
 import 'package:amplify_datastore/types/DataStoreHubEvents/NetworkStatusEvent.dart';
 import 'package:amplify_datastore/types/DataStoreHubEvents/OutboxMutationEvent.dart';
 import 'package:amplify_datastore/types/DataStoreHubEvents/SyncQueriesStartedEvent.dart';
-import 'package:amplify_core/types/hub/HubEventPayload.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 import 'package:flutter/services.dart';
@@ -32,7 +32,7 @@ late ModelProviderInterface modelProvider;
 StreamSubscription? eventStream;
 
 class DataStoreStreamController {
-  StreamController get datastoreStreamController {
+  StreamController<DataStoreHubEvent> get datastoreStreamController {
     return _controller;
   }
 
@@ -41,7 +41,8 @@ class DataStoreStreamController {
   }
 }
 
-StreamController _controller = StreamController<DataStoreHubEvent>.broadcast(
+StreamController<DataStoreHubEvent> _controller =
+    StreamController<DataStoreHubEvent>.broadcast(
   onListen: _onListen,
   onCancel: _onCancel,
 );

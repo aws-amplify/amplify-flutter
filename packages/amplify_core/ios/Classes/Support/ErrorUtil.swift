@@ -21,20 +21,24 @@ public let invalidArgumentsError = FlutterError(
     message: "Invalid arguments passed to \(#function)",
     details: nil)
 
-public class ErrorUtil {
-    public static func postErrorToFlutterChannel(result: FlutterResult,
-                                          errorCode: String,
-                                          details: Dictionary<String, String>)  {
+public enum ErrorUtil {
+    public static func postErrorToFlutterChannel(
+        result: FlutterResult,
+        errorCode: String,
+        details: [String: String]
+    ) {
         result(FlutterError(code: errorCode,
                             message: ErrorMessages.defaultFallbackErrorMessage,
                             details: details))
     }
-    
-    public static func createSerializedError(message: String,
-                                       recoverySuggestion: String?,
-                                       underlyingError: String?,
-                                       httpStatusCode: String?) -> Dictionary<String, String> {
-        var serializedException: Dictionary<String, String> = [:]
+
+    public static func createSerializedError(
+        message: String,
+        recoverySuggestion: String?,
+        underlyingError: String?,
+        httpStatusCode: String?
+    ) -> [String: String] {
+        var serializedException: [String: String] = [:]
         serializedException["message"] = message
         serializedException["recoverySuggestion"] = recoverySuggestion
         serializedException["underlyingException"] = underlyingError
