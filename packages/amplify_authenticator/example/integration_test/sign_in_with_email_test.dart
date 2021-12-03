@@ -107,8 +107,11 @@ void main() {
 
       final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
         GraphQLRequest<String>(document: subscriptionDocument),
-        onEstablished: () => print('Subscription established'),
+        onEstablished: () {},
       );
+
+      // TODO: Relable way to wait for subscription
+      await Future.delayed(const Duration(seconds: 2), () {});
 
       operation.listen((event) async {
         Map<dynamic, dynamic> parsedMap = jsonDecode(event.data);
