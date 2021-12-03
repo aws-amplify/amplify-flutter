@@ -95,6 +95,16 @@ abstract class AuthenticatorPage {
     expectError('Invalid code or auth state for the user');
   }
 
+  /// Then I see Username/client id combination not found banner.
+  Future<void> expectCombinationNotFound() async {
+    expect(bannerFinder, findsOneWidget);
+    Finder expectCombinationNotFound = find.descendant(
+      of: find.byKey(keyAuthenticatorBanner),
+      matching: find.textContaining('Username/client id combination not found'),
+    );
+    expect(expectCombinationNotFound, findsOneWidget);
+  }
+
   Future<void> selectCountryCode() async {
     expect(countrySelectField, findsOneWidget);
     await tester.tap(countrySelectField);

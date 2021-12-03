@@ -84,7 +84,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername();
 
-      // When I type my "username" with status "UNKNOWN"
+      // When I type my "username" with status "UNCONFIRMED"
       await signInPage.enterUsername(username);
 
       // And I type my password

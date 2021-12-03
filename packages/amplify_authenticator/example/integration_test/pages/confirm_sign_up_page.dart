@@ -19,15 +19,17 @@ import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'authenticator_page.dart';
 import 'test_utils.dart';
 
 /// Confirm Sign Up Page Object
-class ConfirmSignUpPage {
-  ConfirmSignUpPage({required this.tester});
+class ConfirmSignUpPage extends AuthenticatorPage {
+  ConfirmSignUpPage({required WidgetTester tester}) : super(tester: tester);
 
-  final WidgetTester tester;
-
+  @override
+  Finder get usernameField => find.byKey(keyUsernameConfirmSignUpFormField);
   Finder get confirmationCodeField => find.byKey(keyCodeConfirmSignUpFormField);
+  Finder get confirmSignUpButton => find.byKey(keyConfirmSignUpButton);
 
   /// Then I see "Confirm Sign Up"
   Future<void> expectConfirmSignUpIsPresent() async {
@@ -41,5 +43,19 @@ class ConfirmSignUpPage {
   /// Then I see "Confirmation Code"
   void expectConfirmationCodeIsPresent() {
     expect(confirmationCodeField, findsOneWidget);
+  }
+
+  /// When I type my code
+  Future<void> enterCode(String code) async {
+    await tester.ensureVisible(confirmationCodeField);
+    await tester.tap(confirmationCodeField);
+    await tester.enterText(confirmationCodeField, code);
+  }
+
+  /// When I click the "Confirm" button
+  Future<void> submitConfirmSignUp() async {
+    await tester.ensureVisible(confirmSignUpButton);
+    await tester.tap(confirmSignUpButton);
+    await tester.pumpAndSettle();
   }
 }
