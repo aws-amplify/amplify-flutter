@@ -21,7 +21,6 @@ import com.amplifyframework.AmplifyException
 import com.amplifyframework.api.ApiCategory
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.GsonVariablesSerializer
-import com.amplifyframework.api.graphql.FlutterApiRequest
 import com.amplifyframework.api.graphql.GraphQLOperation
 import com.amplifyframework.api.graphql.GraphQLRequest
 import com.amplifyframework.api.graphql.GraphQLResponse
@@ -764,10 +763,10 @@ class GraphQLApiUnitTests {
                     createdAt
                 }
             }
-        }""";
+        }"""
         validRequest["document"] = validDocument
         val validResult = FlutterApiRequest.getGraphQLDocument(validRequest)
-        assertEquals(
+        Assert.assertEquals(
                 validResult,
                 validDocument
         )
@@ -782,7 +781,7 @@ class GraphQLApiUnitTests {
                 	name
                 }
             }
-        }""";
+        }"""
         val tabRemovedDocument = """query MyQuery {
             listBlogs {
                 items {
@@ -790,12 +789,27 @@ class GraphQLApiUnitTests {
                 name
                 }
             }
-        }""";
+        }"""
         tabbedRequest["document"] = tabbedDocument
         val tabRemovedResult = FlutterApiRequest.getGraphQLDocument(tabbedRequest)
-        assertEquals(
+        Assert.assertEquals(
                 tabRemovedResult,
                 tabRemovedDocument
+        )
+
+        // tab in hardcoded string is no-op
+        val tabQuoteRequest = HashMap<String, Any>()
+        val tabQuoteDocument = """"mutation MyMutation {
+            createBlog(input: {name: "tabbed 	name"}) {
+                id
+                name
+            }
+        }""""
+        tabQuoteRequest["document"] = tabQuoteDocument
+        val tabQuoteResult = FlutterApiRequest.getGraphQLDocument(tabQuoteRequest)
+        Assert.assertEquals(
+                tabQuoteResult,
+                tabQuoteDocument
         )
     }
 
