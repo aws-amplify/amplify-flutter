@@ -26,7 +26,7 @@ const phoneNumberAttributeKey = CognitoUserAttributeKey.phoneNumber;
 const givenNameAttributeKey = CognitoUserAttributeKey.givenName;
 const emailVerifiedAttributeKey = CognitoUserAttributeKey.emailVerified;
 
-dynamic getAttributeValueFromList(
+String getAttributeValueFromList(
   List<AuthUserAttribute> userAttributes,
   CognitoUserAttributeKey cognitoAttribute,
 ) {
