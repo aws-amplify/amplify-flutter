@@ -25,6 +25,7 @@ import 'envs/auth_with_username.dart' as auth_with_username;
 /// All envs modeled on:
 /// https://github.com/aws-amplify/amplify-ui/blob/main/examples/angular/src/pages/ui/components/authenticator/
 const environmentsByConfiguration = {
+  'ui/components/authenticator/confirm-sign-up': 'auth-with-email',
   'ui/components/authenticator/sign-up-with-email': 'auth-with-email',
   'ui/components/authenticator/sign-up-with-phone': 'auth-with-phone',
   'ui/components/authenticator/sign-up-with-username': 'auth-with-username',
@@ -35,6 +36,7 @@ const environmentsByConfiguration = {
   'ui/components/authenticator/sign-in-with-email-lambda':
       'auth-with-email-lambda-signup-trigger',
   'ui/components/authenticator/reset-password': 'auth-with-username',
+  'ui/components/authenticator/verify-user': 'auth-with-email',
 };
 
 const environments = {
