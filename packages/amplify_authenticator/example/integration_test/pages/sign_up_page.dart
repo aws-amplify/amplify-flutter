@@ -21,6 +21,7 @@ import 'authenticator_page.dart';
 class SignUpPage extends AuthenticatorPage {
   SignUpPage({required WidgetTester tester}) : super(tester: tester);
 
+  @override
   Finder get usernameField => find.byKey(keyUsernameSignUpFormField);
   Finder get passwordField => find.byKey(keyPasswordSignUpFormField);
   Finder get confirmPasswordField =>
@@ -60,6 +61,7 @@ class SignUpPage extends AuthenticatorPage {
   Future<void> submitSignUp() async {
     await tester.ensureVisible(signUpButton);
     await tester.tap(signUpButton);
+    await tester.pumpAndSettle();
   }
 
   /// Then I see "Username" as an input field

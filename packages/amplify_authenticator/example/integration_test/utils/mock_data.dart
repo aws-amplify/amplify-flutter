@@ -40,4 +40,4 @@ String generateUsername() => 'flutter-user-${randomNumber()}';
 
 int randomNumber() => random.nextInt(500);
 
-String randomPhoneDigits() => '${random.nextInt(9)}${random.nextInt(9)}';
+String randomPhoneDigits() => '${random.nextInt(10)}${random.nextInt(10)}';

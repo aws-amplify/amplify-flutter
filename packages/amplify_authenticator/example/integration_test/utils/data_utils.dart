@@ -15,6 +15,7 @@
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import 'types/admin_create_user_response.dart';
 import 'types/delete_user_response.dart';
@@ -87,4 +88,13 @@ Future<AdminCreateUserResponse?> adminCreateUser(
   } else {
     return AdminCreateUserResponse.fromJson(res.data);
   }
+
+  addTearDown(() async {
+    try {
+      await deleteUser(username);
+      // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
+      print('Error deleting user: $e');
+    }
+  });
 }

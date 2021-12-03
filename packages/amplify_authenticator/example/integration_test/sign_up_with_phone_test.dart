@@ -111,7 +111,6 @@ void main() {
       // Then I see "Confirmation Code"
       await confirmSignUpPage.expectConfirmSignUpIsPresent();
       confirmSignUpPage.expectConfirmationCodeIsPresent();
-      await deleteUser(phone);
     });
 
     // Scenario: Username field autocompletes username

@@ -42,10 +42,6 @@ void main() {
       await adminCreateUser(username, password);
     });
 
-    tearDownAll(() async {
-      await deleteUser(username);
-    });
-
     // Scenario: Sign in using a valid phone number and password and user is in
     // a FORCE_CHANGE_PASSWORD state
     testWidgets(

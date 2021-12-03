@@ -23,6 +23,9 @@ import 'authenticator_page.dart';
 class ConfirmSignInPage extends AuthenticatorPage {
   ConfirmSignInPage({required WidgetTester tester}) : super(tester: tester);
 
+  @override
+  Finder get usernameField => throw UnimplementedError();
+
   Finder get newPasswordField =>
       find.byKey(keyNewPasswordConfirmSignInFormField);
   Finder get verificationField => find.byKey(keyCodeConfirmSignInFormField);

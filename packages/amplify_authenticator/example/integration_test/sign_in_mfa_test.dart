@@ -62,7 +62,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-      signInPage.expectUserNameIsPresent(usernameLabel: 'Phone Number');
+      signInPage.expectUsername(label: 'Phone Number');
 
       // When I select my country code
       await signInPage.selectCountryCode();
@@ -78,8 +78,6 @@ void main() {
 
       // Then I will be redirected to the confirm sms mfa page
       await confirmSignInPage.expectConfirmSignInMFAIsPresent();
-
-      await deleteUser(phone);
     });
 
     // Scenario: Redirect to sign in page
@@ -92,7 +90,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-      signInPage.expectUserNameIsPresent(usernameLabel: 'Phone Number');
+      signInPage.expectUsername(label: 'Phone Number');
 
       // When I select my country code
       await signInPage.selectCountryCode();
@@ -111,8 +109,6 @@ void main() {
 
       // Then I see "Sign in"
       await signInPage.expectSignIn();
-
-      await deleteUser(phone);
     });
 
     // Scenario: Incorrect SMS code
@@ -125,7 +121,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-      signInPage.expectUserNameIsPresent(usernameLabel: 'Phone Number');
+      signInPage.expectUsername(label: 'Phone Number');
 
       // When I select my country code
       await signInPage.selectCountryCode();
@@ -147,8 +143,6 @@ void main() {
 
       // Then I see 'Invalid code or auth state for the user'.
       await confirmSignInPage.expectInvalidCode();
-
-      await deleteUser(phone);
     });
 
     // Scenario: Sign in with unknown credentials
