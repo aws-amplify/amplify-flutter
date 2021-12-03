@@ -100,8 +100,8 @@ const keyVerificationCodeResetPasswordFormField =
     Key('verificationCodeResetPasswordFormField');
 
 // Attribute Verification keys
-const keyUnverifiedAttributes = Key('unverifiedAttributeFormField');
-const keyAttributeToVerify = Key('attributeToVerifyFormField');
+const keyVerifyUserRadioButtonFormField = Key('verifyUserRadioButtonFormField');
+const keyVerifyUserConfirmationCode = Key('verifyUserConfirmationCode');
 
 // Buttons keys
 
@@ -116,6 +116,9 @@ const keyConfirmSignInButton = Key('confirmSignInButton');
 const keyLostCodeButton = Key('lostCodeButton');
 const keySendCodeButton = Key('sendCodeButton');
 const keyForgotPasswordButton = Key('forgotPasswordButton');
+const keySkipVerifyUserButton = Key('skipVerifyUserButton');
+const keySubmitVerifyUserButton = Key('submitVerifyUserButton');
+const keySubmitConfirmVerifyUserButton = Key('submitConfirmVerifyUserButton');
 
 // Checkboxes keys
 

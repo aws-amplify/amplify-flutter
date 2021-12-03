@@ -467,7 +467,7 @@ class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {
 class VerifyUserButton extends AuthenticatorElevatedButton {
   const VerifyUserButton({Key? key})
       : super(
-          key: key ?? keySendCodeButton,
+          key: key ?? keySubmitVerifyUserButton,
         );
 
   @override
@@ -482,7 +482,7 @@ class VerifyUserButton extends AuthenticatorElevatedButton {
 class ConfirmVerifyUserButton extends AuthenticatorElevatedButton {
   const ConfirmVerifyUserButton({Key? key})
       : super(
-          key: key ?? keySendCodeButton,
+          key: key ?? keySubmitConfirmVerifyUserButton,
         );
 
   @override
@@ -506,7 +506,7 @@ class SkipVerifyUserButton extends StatelessAuthenticatorComponent {
     AuthStringResolver stringResolver,
   ) {
     return TextButton(
-      key: keyBackToSignInButton,
+      key: keySkipVerifyUserButton,
       child: Text(
         stringResolver.buttons.skip(context),
         style: TextStyle(
