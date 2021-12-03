@@ -195,8 +195,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 )
                 channel.invokeMethod("errorHandler", args)
             }
-        }
-        else {
+        } else {
             DataStoreErrorHandler {
                 LOG.error(it.toString())
             }

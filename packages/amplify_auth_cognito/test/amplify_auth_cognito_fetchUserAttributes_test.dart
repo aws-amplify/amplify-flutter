@@ -68,7 +68,7 @@ void main() {
     expect(res[0].value, equals('person'));
     expect(
         res[1].userAttributeKey, equals(CognitoUserAttributeKey.custom('num')));
-    expect(res[1].value, equals(2));
+    expect(res[1].value, equals('2'));
     expect(
       res[2].userAttributeKey,
       equals(

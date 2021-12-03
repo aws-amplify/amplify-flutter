@@ -1,3 +1,18 @@
+//
+// Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+//  http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +41,7 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
         SnackBar(backgroundColor: Colors.red[900], content: Text(message)));
   }
 
-  Future _fetchAttributes({bool isRefresh = false}) {
+  Future<void> _fetchAttributes({bool isRefresh = false}) {
     return Amplify.Auth.fetchUserAttributes().then((attributes) {
       setState(() => _userAttributes = attributes
         ..sort((a, b) => a.userAttributeKey.compareTo(b.userAttributeKey)));
@@ -91,14 +106,14 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
               child: ListView.builder(
                 itemCount: _userAttributes.length,
                 itemBuilder: (context, index) {
-                  var key = _userAttributes[index].userAttributeKey
-                      as CognitoUserAttributeKey;
-                  var value = _userAttributes[index].value;
-                  var stringValue = value.toString();
+                  AuthUserAttribute atrribute = _userAttributes[index];
+                  CognitoUserAttributeKey userAttributeKey =
+                      atrribute.userAttributeKey as CognitoUserAttributeKey;
+                  String value = atrribute.value;
                   return ListTile(
-                    title: Text(key.key),
-                    subtitle: Text(stringValue),
-                    trailing: key.readOnly
+                    title: Text(userAttributeKey.toString()),
+                    subtitle: Text(value),
+                    trailing: userAttributeKey.readOnly
                         ? null
                         : IconButton(
                             icon: Icon(Icons.edit),
@@ -107,7 +122,7 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       UpdateUserAttributeWidget(
-                                    userAttributeKey: key.key,
+                                    userAttributeKey: userAttributeKey,
                                   ),
                                 ),
                               );
