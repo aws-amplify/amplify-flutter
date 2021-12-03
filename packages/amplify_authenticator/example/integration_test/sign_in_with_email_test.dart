@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-// This test follows the Amplify UI feature "sign-in-with-username"
+// This test follows the Amplify UI feature "sign-in-with-email"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-in-with-email.feature
 
 import 'dart:async';

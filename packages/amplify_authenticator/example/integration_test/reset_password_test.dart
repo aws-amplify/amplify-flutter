@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-// This test follows the Amplify UI feature "sign-in-with-username"
+// This test follows the Amplify UI feature "reset-password"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/reset-password.feature
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
