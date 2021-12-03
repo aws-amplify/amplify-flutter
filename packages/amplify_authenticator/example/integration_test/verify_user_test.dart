@@ -105,7 +105,7 @@ void main() {
       await verifyUserPage.tapSkipButton();
 
       // Then I see "Sign out"
-      signInPage.expectAuthenticated();
+      await signInPage.expectAuthenticated();
     });
 
     // Scenario: Redirect to "Confirm Verify" page

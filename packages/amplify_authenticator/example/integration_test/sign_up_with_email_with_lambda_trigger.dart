@@ -91,7 +91,7 @@ void main() {
           await po.submitSignUp();
 
           // Then I see "Sign out"
-          po.expectAuthenticated();
+          await po.expectAuthenticated();
         },
       );
     },

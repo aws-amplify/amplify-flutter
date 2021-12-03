@@ -135,7 +135,7 @@ void main() {
       await signInPage.submitSignIn();
 
       /// Then I see "Sign out"
-      signInPage.expectAuthenticated();
+      await signInPage.expectAuthenticated();
 
       // And I click the "Sign out" button
       await signInPage.submitSignOut();
