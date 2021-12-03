@@ -27,7 +27,7 @@ class ConfirmSignUpPage extends AuthenticatorPage {
   ConfirmSignUpPage({required WidgetTester tester}) : super(tester: tester);
 
   @override
-  Finder? get usernameField => find.byKey(keyUsernameConfirmSignUpFormField);
+  Finder get usernameField => find.byKey(keyUsernameConfirmSignUpFormField);
   Finder get confirmationCodeField => find.byKey(keyCodeConfirmSignUpFormField);
   Finder get confirmSignUpButton => find.byKey(keyConfirmSignUpButton);
 

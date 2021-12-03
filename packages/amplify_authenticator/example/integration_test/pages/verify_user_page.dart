@@ -22,7 +22,7 @@ class VerifyUserPage extends AuthenticatorPage {
   VerifyUserPage({required WidgetTester tester}) : super(tester: tester);
 
   @override
-  Finder? get usernameField =>
+  Finder get usernameField =>
       throw UnimplementedError('Username does not exist on this page');
   Finder get skipButton => find.byKey(keySkipVerifyUserButton);
   Finder get verifyButton => find.byKey(keySubmitVerifyUserButton);

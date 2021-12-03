@@ -24,7 +24,7 @@ abstract class AuthenticatorPage {
 
   final WidgetTester tester;
 
-  Finder? get usernameField;
+  Finder get usernameField;
   Finder get bannerFinder => find.byKey(keyAuthenticatorBanner);
   Finder get countrySelectField => find.byKey(keySelectCountryCode);
   Finder get countrySelectDialog => find.byKey(keyCountryDialog);
@@ -100,7 +100,7 @@ abstract class AuthenticatorPage {
     expect(bannerFinder, findsOneWidget);
     Finder expectCombinationNotFound = find.descendant(
       of: find.byKey(keyAuthenticatorBanner),
-      matching: find.textContaining('found'),
+      matching: find.textContaining('Username/client id combination not found'),
     );
     expect(expectCombinationNotFound, findsOneWidget);
   }
@@ -123,9 +123,5 @@ abstract class AuthenticatorPage {
   Future<void> submitSignOut() async {
     await tester.tap(signOutButton);
     await tester.pumpAndSettle();
-    
-  // Then I am signed in
-  void expectAuthenticated() {
-    expect(signOutButton, findsOneWidget);
   }
 }
