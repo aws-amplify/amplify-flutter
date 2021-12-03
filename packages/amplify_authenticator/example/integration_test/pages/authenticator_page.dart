@@ -98,7 +98,9 @@ abstract class AuthenticatorPage {
   }
 
   /// Then I see User not found banner
-  Future<void> expectUserNotFound() async => expectError('not found');
+  Future<void> expectUserNotFound() async => expectError(
+        Platform.isAndroid ? 'User not found' : 'User does not exist',
+      );
 
   /// Then I see Invalid code
   Future<void> expectInvalidCode() async =>
