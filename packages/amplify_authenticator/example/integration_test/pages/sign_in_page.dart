@@ -15,7 +15,6 @@
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
-import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'authenticator_page.dart';
@@ -35,14 +34,6 @@ class SignInPage extends AuthenticatorPage {
         matching: find.byKey(const ValueKey(AuthScreen.signup)),
       );
 
-  /// Then I see "SignIn"
-  Future<void> expectSignIn() async {
-    final currentScreen = tester.widget<AuthenticatorScreen>(
-      find.byType(AuthenticatorScreen),
-    );
-    expect(currentScreen.screen, equals(AuthScreen.signin));
-  }
-
   /// When I type a new "username"
   Future<void> enterUsername(String username) async {
     await tester.enterText(usernameField, username);
@@ -51,18 +42,6 @@ class SignInPage extends AuthenticatorPage {
   /// When I type my password
   Future<void> enterPassword(String password) async {
     await tester.enterText(passwordField, password);
-  }
-
-  /// Then I see "Username" as an input field
-  void expectUserNameIsPresent({String usernameLabel = 'Username'}) {
-    // username field is present
-    expect(usernameField, findsOneWidget);
-    // login type is "username"
-    Finder usernameFieldHint = find.descendant(
-      of: find.byKey(keyUsernameSignInFormField),
-      matching: find.text(usernameLabel),
-    );
-    expect(usernameFieldHint, findsOneWidget);
   }
 
   /// When I click the "Sign In" button

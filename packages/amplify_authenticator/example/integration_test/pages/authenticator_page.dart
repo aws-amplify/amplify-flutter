@@ -16,10 +16,14 @@
 import 'dart:io';
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'test_utils.dart';
 
 abstract class AuthenticatorPage {
   AuthenticatorPage({required this.tester});
@@ -71,7 +75,8 @@ abstract class AuthenticatorPage {
   }
 
   /// Expects an error banner containing [errorText].
-  void expectError(String errorText) {
+  Future<void> expectError(String errorText) async {
+    await tester.pumpAndSettle();
     expect(bannerFinder, findsOneWidget);
     expect(
       find.descendant(
@@ -83,22 +88,26 @@ abstract class AuthenticatorPage {
   }
 
   // Then I am signed in
-  void expectAuthenticated() {
-    expect(signOutButton, findsOneWidget);
+  Future<void> expectAuthenticated() async {
+    final inheritedBloc =
+        tester.widget<InheritedAuthBloc>(find.byKey(keyInheritedAuthBloc));
+    if (inheritedBloc.authBloc.currentState is! Authenticated) {
+      await nextBlocEvent(tester);
+    }
+    expect(inheritedBloc.authBloc.currentState, isA<Authenticated>());
   }
 
   /// Then I see User not found banner
-  Future<void> expectUserNotFound() async {
-    expectError('User does not exist.');
-  }
+  Future<void> expectUserNotFound() async => expectError(
+        Platform.isAndroid ? 'User not found' : 'User does not exist',
+      );
 
   /// Then I see Invalid code
-  Future<void> expectInvalidCode() async {
-    expectError('Invalid code or auth state for the user');
-  }
+  Future<void> expectInvalidCode() async =>
+      expectError('Invalid code or auth state for the user');
 
   /// Then I see Username/client id combination not found banner.
-  Future<void> expectCombinationNotFound() async {
+  void expectCombinationNotFound() {
     expect(bannerFinder, findsOneWidget);
     Finder expectCombinationNotFound = find.descendant(
       of: find.byKey(keyAuthenticatorBanner),
@@ -110,9 +119,10 @@ abstract class AuthenticatorPage {
   /// Then I see Invalid verification code
   Future<void> expectInvalidVerificationCode() async {
     if (Platform.isAndroid) {
-      expectError('Confirmation code entered is not correct.');
+      await expectError('Confirmation code entered is not correct.');
     } else if (Platform.isIOS) {
-      expectError('Invalid verification code provided, please try again.');
+      await expectError(
+          'Invalid verification code provided, please try again.');
     } else {
       throw Exception('Unsupprted platform');
     }

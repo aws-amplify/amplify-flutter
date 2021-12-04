@@ -92,7 +92,7 @@ void main() {
         await confirmSignUpPage.submitConfirmSignUp();
 
         // Then I see "Username/client id combination not found."
-        confirmSignUpPage.expectInvalidVerificationCode();
+        await confirmSignUpPage.expectInvalidVerificationCode();
       },
     );
 
@@ -108,6 +108,7 @@ void main() {
 
         var username = generateEmail();
         var password = generatePassword();
+        final code = getOtpCode(username);
 
         await signInPage.navigateToSignUp();
 
@@ -120,25 +121,20 @@ void main() {
         // And I confirm my password
         await signUpPage.enterPasswordConfirmation(password);
 
-        await subscribeToOTPCode(
-          onSubscriptionEstablished: () async {
-            // And I click the "Create Account" button
-            await signUpPage.submitSignUp();
+        // And I click the "Create Account" button
+        await signUpPage.submitSignUp();
 
-            // And I see "Confirmation Code"
-            confirmSignUpPage.expectConfirmationCodeIsPresent();
-          },
-          onCodeRecieved: (String code) async {
-            // And I type a valid confirmation code
-            await confirmSignUpPage.enterCode(code);
+        // And I see "Confirmation Code"
+        confirmSignUpPage.expectConfirmationCodeIsPresent();
 
-            // And I click the "Confirm" button
-            await confirmSignUpPage.submitConfirmSignUp();
+        // And I type a valid confirmation code
+        await confirmSignUpPage.enterCode(await code);
 
-            // Then I see "Sign out"
-            signInPage.expectAuthenticated();
-          },
-        );
+        // And I click the "Confirm" button
+        await confirmSignUpPage.submitConfirmSignUp();
+
+        // Then I see "Sign out"
+        await signInPage.expectAuthenticated();
       },
     );
 
