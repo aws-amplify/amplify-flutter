@@ -30,7 +30,9 @@ object FlutterApiRequest {
     private const val BODY_KEY = "body"
     private const val QUERY_PARAM_KEY = "queryParameters"
     private const val HEADERS_KEY = "headers"
-    private val TABS_OUTSIDE_QUOTES_PATTERN = Regex("\t(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*\$)")
+
+    // tab followed by even number of quotes (will be followed by odd if inside quotes)
+    private val TABS_OUTSIDE_QUOTES_PATTERN = Regex("""\t(?=([^"']*["'][^"']*["'])*[^'"]*$)""")
 
     // ====== Rest API ======
     fun getCancelToken(request: Map<String, Any>): String {
