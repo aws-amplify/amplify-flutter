@@ -39,12 +39,15 @@ void main() {
       }
     });
 
-    void _assertSuccessfulResponse(RestResponse response) {
+    void _assertSuccessfulResponse(RestResponse response,
+        {bool ignoreBody = false}) {
       expect(response.statusCode, equals(200));
-      expect(response.body, equals('"Hello from Lambda!"'));
+      if (!ignoreBody) {
+        expect(response.body, equals('"Hello from Lambda!"'));
+      }
     }
 
-    group('unauthenticated access', () {
+    group('unauthenticated endpoint', () {
       testWidgets('should send GET request and get 200 response',
           (WidgetTester tester) async {
         final response =
@@ -78,6 +81,13 @@ void main() {
         final response =
             await Amplify.API.delete(restOptions: restOptions).response;
         _assertSuccessfulResponse(response);
+      });
+
+      testWidgets('should send HEAD request and get 200 response',
+          (WidgetTester tester) async {
+        final response =
+            await Amplify.API.head(restOptions: restOptions).response;
+        _assertSuccessfulResponse(response, ignoreBody: true);
       });
     });
   });
