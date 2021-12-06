@@ -13,8 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_authenticator/src/enums/enums.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

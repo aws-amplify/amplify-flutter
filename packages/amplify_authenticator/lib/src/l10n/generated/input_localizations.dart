@@ -16,7 +16,6 @@
 import 'dart:async';
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
