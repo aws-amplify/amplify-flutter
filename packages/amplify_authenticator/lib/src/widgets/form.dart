@@ -409,8 +409,6 @@ class ConfirmSignUpForm extends AuthenticatorForm<ConfirmSignUpForm> {
 
 /// {@template authenticator.confirm_sign_in_mfa_form}
 /// The Confirm Sign In with MFA screen form.
-///
-/// To customize, use [ConfirmSignInMFAForm.custom].
 /// {@endtemplate}
 class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
   /// {@macro authenticator.confirm_sign_in_mfa_form}

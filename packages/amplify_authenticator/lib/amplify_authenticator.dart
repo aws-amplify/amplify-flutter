@@ -42,25 +42,15 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-export 'src/enums/enums.dart';
-export 'src/l10n/auth_strings_resolver.dart';
+export 'src/enums/enums.dart' show AuthScreen, Gender;
+export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
 export 'src/models/username_input.dart' show UsernameType, UsernameInput;
 export 'src/widgets/button.dart' show SignOutButton;
 export 'src/widgets/form.dart'
-    show
-        SignInForm,
-        SignUpForm,
-        ConfirmSignInMFAForm,
-        ConfirmSignInNewPasswordForm,
-        ConfirmSignUpForm,
-        ConfirmVerifyUserForm;
+    show SignInForm, SignUpForm, ConfirmSignInNewPasswordForm;
 export 'src/widgets/form_field.dart'
-    show
-        SignInFormField,
-        SignUpFormField,
-        ConfirmSignInFormField,
-        ConfirmSignUpFormField;
+    show SignInFormField, SignUpFormField, ConfirmSignInFormField;
 
 /// {@template authenticator.authenticator}
 /// # Amplify Authenticator
@@ -151,7 +141,7 @@ export 'src/widgets/form_field.dart'
 /// using a custom form component. For example, to collect your user's address
 /// information on the sign up form, use the [SignUpForm.custom] constructor:
 ///
-/// {@macro amplify_authenticator.custom_sign_in_form}
+/// {@macro amplify_authenticator.custom_sign_up_form}
 ///
 /// You can also override the validation of form fields if your app has custom
 /// requirements. The syntax for these follows Flutter's built-in
@@ -226,7 +216,7 @@ class Authenticator extends StatefulWidget {
 
   /// The form displayed during sign up.
   ///
-  /// {@template amplify_authenticator.custom_sign_in_form}
+  /// {@template amplify_authenticator.custom_sign_up_form}
   /// ```dart
   /// Authenticator(
   ///   signUpForm: SignUpForm.custom(fields: [
