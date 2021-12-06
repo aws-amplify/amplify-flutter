@@ -41,7 +41,7 @@ void main() {
 
     void _assertSuccessfulResponse(RestResponse response) {
       expect(response.statusCode, equals(200));
-      expect(response.body, isNotNull);
+      expect(response.body, equals('"Hello from Lambda!"'));
     }
 
     group('unauthenticated access', () {
