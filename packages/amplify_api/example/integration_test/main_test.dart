@@ -16,20 +16,23 @@
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/amplifyconfiguration.dart';
 
 import 'graph_ql_tests.dart' as graph_ql_tests;
+import 'rest_tests.dart' as rest_tests;
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('amplify_api', () {
     setUpAll(() async {
-      await Amplify.addPlugins([AmplifyAPI()]);
+      await Amplify.addPlugins([AmplifyAuthCognito(), AmplifyAPI()]);
       await Amplify.configure(amplifyconfig);
     });
 
     graph_ql_tests.main();
+    rest_tests.main();
   });
 }
