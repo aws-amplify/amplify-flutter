@@ -13,6 +13,9 @@
  * permissions and limitations under the License.
  */
 
+/// A prebuilt sign in/sign up experience for Amplify Auth.
+///
+/// See [Authenticator] for an overview on getting started.
 library amplify_authenticator;
 
 import 'dart:async';
