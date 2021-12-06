@@ -12,7 +12,9 @@ To get started, add the Authenticator to a project which has the [Auth category]
 
 ```yaml
 dependencies:
+    amplify_auth_cognito: ^0.3.0
     amplify_authenticator: ^0.1.0
+    amplify_flutter: ^0.3.0
 ```
 
 Then, wrap your app's logged in component with an `Authenticator` widget, and you're good to go. You can use the `SignOutButton` to sign out the user from anywhere in your app.
@@ -20,7 +22,9 @@ Then, wrap your app's logged in component with an `Authenticator` widget, and yo
 > Remember to call `Amplify.configure` with your configuration - the Authenticator will not load until you call this method.
 
 ```dart
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
 import 'amplifyconfiguration.dart';
