@@ -47,7 +47,8 @@ import 'package:flutter/material.dart';
 
 export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
-export 'package:amplify_flutter/amplify.dart' show PasswordProtectionSettings;
+export 'package:amplify_flutter/amplify.dart'
+    show PasswordProtectionSettings, PasswordPolicyCharacters;
 
 export 'src/enums/enums.dart' show AuthScreen, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
