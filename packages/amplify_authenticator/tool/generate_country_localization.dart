@@ -90,7 +90,7 @@ enum CountryResolverKey {
 
   for (var element in _countries) {
     output.write('''
-  /// The [String] displayed as a label for ${element.displayName}.
+  /// The label for ${element.displayName}.
   String ${element.code.toLowerCase()}(BuildContext context) {
     return AuthenticatorLocalizations.countriesOf(context).${element.code.toLowerCase()};
   }

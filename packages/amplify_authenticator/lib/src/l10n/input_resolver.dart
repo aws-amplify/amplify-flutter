@@ -53,7 +53,7 @@ enum InputResolverKeyType {
   empty,
   passwordRequirements,
   format,
-  mistmatch
+  mismatch
 }
 
 class InputResolverKey {
@@ -112,7 +112,7 @@ class InputResolverKey {
     field: InputField.passwordConfirmation,
   );
   static const passwordsDoNotMatch = InputResolverKey._(
-    InputResolverKeyType.mistmatch,
+    InputResolverKeyType.mismatch,
     field: InputField.passwordConfirmation,
   );
   const InputResolverKey.passwordRequirementsUnmet(
@@ -372,10 +372,10 @@ class InputResolverKey {
 class InputResolver extends Resolver<InputResolverKey> {
   const InputResolver();
 
-  /// Returns the [String] that is displayed as the input title.
+  /// Returns the label that is displayed as the input title.
   ///
   /// In addition to displaying the input title, this method is
-  /// used by the default implmentations of the [hint, empty and format] methods
+  /// used by the default implmentations of the [hint], [empty] and [format] methods
   /// to resolve the base name of the field.
   String title(BuildContext context, InputField field) {
     switch (field) {
@@ -433,7 +433,7 @@ class InputResolver extends Resolver<InputResolverKey> {
     }
   }
 
-  /// Returns the [String] displayed as the input hint.
+  /// Returns the label displayed as the input hint.
   String hint(BuildContext context, InputField field) {
     final fieldName = title(context, field);
     final lowercasedFieldName = fieldName.toLowerCase();
@@ -441,7 +441,8 @@ class InputResolver extends Resolver<InputResolverKey> {
         .promptFill(lowercasedFieldName);
   }
 
-  /// Returns the [String] used as the hint for the password confirmation field.
+  /// Returns the hint text used for confirmation fields where the
+  /// user is asked to re-enter information prior to form submission.
   String confirmHint(BuildContext context, InputField field) {
     final fieldName = AuthenticatorLocalizations.inputsOf(context).password;
     final lowercasedFieldName = fieldName.toLowerCase();
@@ -449,21 +450,21 @@ class InputResolver extends Resolver<InputResolverKey> {
         .promptRefill(lowercasedFieldName);
   }
 
-  /// Returns the [String] displayed when a required field is left empty.
+  /// Returns the text displayed when a required field is left empty.
   String empty(BuildContext context, InputField field) {
     return AuthenticatorLocalizations.inputsOf(context)
         .warnEmpty(title(context, field));
   }
 
-  /// Returns the [String] displayed when a field fails a format validation check,
+  /// Returns the text displayed when a field fails a format validation check,
   /// such as an invalid email format, an invalid confirmation code length, etc.
   String format(BuildContext context, InputField field) {
     return AuthenticatorLocalizations.inputsOf(context)
         .warnInvalidFormat(title(context, field).toLowerCase());
   }
 
-  /// Returns the [String] displayed when a password input does match the password requirements
-  /// defined in the amplifyconfiguration.dart file.
+  /// Returns the text displayed when a password input does match the password requirements
+  /// defined in the amplify configuration.
   String passwordRequires(
     BuildContext context,
     PasswordProtectionSettings requirements,
@@ -492,7 +493,7 @@ class InputResolver extends Resolver<InputResolverKey> {
     return sb.toString();
   }
 
-  /// Returns a [String] denoting a field as optional.
+  /// Returns text denoting a field as optional.
   String optional(BuildContext context, String title) {
     return AuthenticatorLocalizations.inputsOf(context).optional(title);
   }
@@ -510,7 +511,7 @@ class InputResolver extends Resolver<InputResolverKey> {
         return empty(context, key.field);
       case InputResolverKeyType.passwordRequirements:
         return passwordRequires(context, key.unmetPasswordRequirements!);
-      case InputResolverKeyType.mistmatch:
+      case InputResolverKeyType.mismatch:
         return AuthenticatorLocalizations.inputsOf(context).passwordsDoNotMatch;
       case InputResolverKeyType.format:
         return format(context, key.field);
