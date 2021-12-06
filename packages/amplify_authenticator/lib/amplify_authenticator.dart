@@ -55,7 +55,7 @@ export 'src/widgets/form.dart'
 export 'src/widgets/form_field.dart'
     show SignInFormField, SignUpFormField, ConfirmSignInFormField;
 
-/// {@template authenticator.authenticator}
+/// {@template amplify_authenticator.authenticator}
 /// # Amplify Authenticator
 ///
 /// A prebuilt sign in/sign up experience for Amplify Auth. Simply provide a
@@ -128,6 +128,7 @@ export 'src/widgets/form_field.dart'
 ///   }
 /// }
 /// ```
+/// {@endtemplate}
 ///
 /// ## Customization
 ///
@@ -203,8 +204,6 @@ export 'src/widgets/form_field.dart'
 ///   String signout(BuildContext context) => 'Exit App';
 /// }
 ///
-/// // ...
-///
 /// Authenticator(
 ///   stringResolver: const AuthStringResolver(
 ///     buttons: CustomButtonResolver(),
@@ -213,9 +212,8 @@ export 'src/widgets/form_field.dart'
 /// )
 /// ```
 /// {@endtemplate}
-/// {@endtemplate}
 class Authenticator extends StatefulWidget {
-  /// {@macro authenticator.authenticator}
+  /// {@macro amplify_authenticator.authenticator}
   Authenticator({
     Key? key,
     SignInForm? signInForm,
