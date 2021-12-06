@@ -27,6 +27,7 @@ import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_button.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -408,8 +409,6 @@ class ConfirmSignUpForm extends AuthenticatorForm<ConfirmSignUpForm> {
 
 /// {@template authenticator.confirm_sign_in_mfa_form}
 /// The Confirm Sign In with MFA screen form.
-///
-/// To customize, use [ConfirmSignInMFAForm.custom].
 /// {@endtemplate}
 class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
   /// {@macro authenticator.confirm_sign_in_mfa_form}

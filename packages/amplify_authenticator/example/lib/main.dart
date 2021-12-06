@@ -88,9 +88,9 @@ class _MyAppState extends State<MyApp> {
           SignUpFormField.username(
             validator: _validateUsername,
           ),
-          SignUpFormField.password(),
-          SignUpFormField.passwordConfirmation(),
-          SignUpFormField.familyName(),
+          SignUpFormField.address(
+            required: false,
+          ),
         ],
       ),
 
@@ -100,8 +100,8 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       title: 'Authenticator Demo',
-      theme: ThemeData(brightness: Brightness.light),
-      darkTheme: ThemeData(brightness: Brightness.dark),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
 
@@ -110,7 +110,6 @@ class _MyAppState extends State<MyApp> {
       // in the Authenticator component.
       localizationsDelegates: const [
         AppLocalizations.delegate,
-        // GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: const [
         Locale('en'), // English

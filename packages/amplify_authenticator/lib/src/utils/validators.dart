@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
 final emailRegex = RegExp(r'^\S+@\S+$');

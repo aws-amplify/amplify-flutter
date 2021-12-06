@@ -13,6 +13,9 @@
  * permissions and limitations under the License.
  */
 
+/// A prebuilt sign in/sign up experience for Amplify Auth.
+///
+/// See [Authenticator] for an overview on getting started.
 library amplify_authenticator;
 
 import 'dart:async';
@@ -42,59 +45,176 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
-    show AuthProvider;
-export 'package:amplify_flutter/amplify.dart';
-
-export 'src/enums/enums.dart';
-export 'src/l10n/auth_strings_resolver.dart';
+export 'src/enums/enums.dart' show AuthScreen, Gender;
+export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
 export 'src/models/username_input.dart' show UsernameType, UsernameInput;
 export 'src/widgets/button.dart' show SignOutButton;
 export 'src/widgets/form.dart'
-    show
-        SignInForm,
-        SignUpForm,
-        ConfirmSignInMFAForm,
-        ConfirmSignInNewPasswordForm,
-        ConfirmSignUpForm,
-        ConfirmVerifyUserForm;
+    show SignInForm, SignUpForm, ConfirmSignInNewPasswordForm;
 export 'src/widgets/form_field.dart'
-    show
-        SignInFormField,
-        SignUpFormField,
-        ConfirmSignInFormField,
-        ConfirmSignUpFormField;
+    show SignInFormField, SignUpFormField, ConfirmSignInFormField;
 
-/// {@template authenticator.authenticator}
+/// {@template amplify_authenticator.authenticator}
 /// # Amplify Authenticator
 ///
-/// A widget that allows customers to authenticate their apps.
+/// A prebuilt sign in/sign up experience for Amplify Auth. Simply provide a
+/// [child] widget which is your app's authenticated route, and the Authenticator
+/// will handle the logic behind managing user sessions and guiding users through
+/// the sign up and sign in process.
 ///
-/// The Authenticator widget requires one argument, a child widget,
-/// to define the initial authentication flow.
+/// ```dart
+/// import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+/// import 'package:amplify_authenticator/amplify_authenticator.dart';
+/// import 'package:amplify_flutter/amplify.dart';
+/// import 'package:flutter/material.dart';
 ///
-/// This authenticator accepts the following custom forms, sign in, sign up and confirm sign in.
+/// import 'amplifyconfiguration.dart';
 ///
-/// Note that working with custom forms is optional. Thus, if no additional arguments
-/// are passed, the authenticator will defined the following default forms with their
-/// respective form fields:
+/// void main() {
+///   runApp(const MyApp());
+/// }
 ///
-/// 1. Sign in:
-///     - Username (a traditional username, email or phone number)
-///     - Password
-/// 2. Sign Up:
-///     - Username
-///     - Password
-///     - Email
-///     - Phone Number
-/// 3. Confirm Sign in
-///     - define
-///     - define
-///     - define
+/// class MyApp extends StatefulWidget {
+///   const MyApp({Key? key}) : super(key: key);
+///
+///   @override
+///   _MyAppState createState() => _MyAppState();
+/// }
+///
+/// class _MyAppState extends State<MyApp> {
+///   @override
+///   void initState() {
+///     super.initState();
+///     _configureAmplify();
+///   }
+///
+///   Future<void> _configureAmplify() async {
+///     try {
+///       await Amplify.addPlugin(AmplifyAuthCognito());
+///       await Amplify.configure(amplifyconfig);
+///     } on Exception catch (e) {
+///       print('Could not configure Amplify: $e');
+///     }
+///   }
+///
+///   @override
+///   Widget build(BuildContext context) {
+///     return MaterialApp(
+///       theme: ThemeData.light(),
+///       darkTheme: ThemeData.dark(),
+///       home: Authenticator(
+///         child: const LoggedInScreen(),
+///       ),
+///     );
+///   }
+/// }
+///
+/// class LoggedInScreen extends StatelessWidget {
+///   const LoggedInScreen({Key? key}) : super(key: key);
+///
+///   @override
+///   Widget build(BuildContext context) {
+///     return Scaffold(
+///       body: Center(
+///         child: Column(
+///           children: const [
+///             Text('Logged In'),
+///             SignOutButton(),
+///           ],
+///         ),
+///       ),
+///     );
+///   }
+/// }
+/// ```
+/// {@endtemplate}
+///
+/// ## Customization
+///
+/// ### Themeing
+///
+/// By default, the Authenticator uses your app's Material theme for its styling.
+/// However, you can also use the a hand-crafted Amplify theme by setting
+/// [useAmplifyTheme] to `true`.
+///
+/// ### Forms
+///
+/// The Authenticator uses your app's Cognito configuration (as defined in your
+/// `amplifyconfiguration.dart` file) to determine which fields are required.
+/// However, you may optionally add on additional fields using a custom form
+/// component. For example, to collect your user's address information on the s
+/// ign up form, use the [SignUpForm.custom] constructor:
+///
+/// {@template amplify_authenticator.custom_sign_up_form}
+/// ```dart
+/// Authenticator(
+///   signUpForm: SignUpForm.custom(fields: [
+///     SignUpFormField.address(
+///       required: false,
+///     ),
+///   ]),
+///   child: const LoggedInScreen(),
+/// )
+/// ```
+/// {@endtemplate}
+///
+/// You can also override the validation of form fields if your app has custom
+/// requirements. The syntax for these follows Flutter's built-in
+/// [FormFieldValidator](https://api.flutter.dev/flutter/widgets/FormFieldValidator.html) class.
+///
+/// ```dart
+/// Authenticator(
+///   signUpForm: SignUpForm.custom(fields: [
+///     SignUpFormField.username(
+///       validator: (UsernameInput? input) {
+///         final username = input?.username;
+///         if (username == null || username.isEmpty) {
+///           return 'Username cannot be empty';
+///         }
+///
+///         bool containsAmplify = username.contains('amplify');
+///         if (!containsAmplify) {
+///           return 'Username needs to include amplify';
+///         }
+///
+///         return null;
+///       },
+///     ),
+///   ]),
+///   child: const LoggedInScreen(),
+/// )
+/// ```
+///
+/// ## Localization
+///
+/// The Authenticator also supports localization by integrating with Flutter's
+/// built-in localization system. See the Flutter [docs](https://docs.flutter.dev/development/accessibility-and-localization/internationalization)
+/// for an overview of how to get started, and check out a full [example](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_authenticator/example)
+/// on our Github repo.
+///
+/// You can also use the localization mechanism to simply override the default
+/// strings used for the form fields and other widgets.
+///
+/// {@template amplify_authenticator.custom_auth_string_resolver}
+/// ```dart
+/// class CustomButtonResolver extends ButtonResolver {
+///   const CustomButtonResolver();
+///
+///   @override
+///   String signout(BuildContext context) => 'Exit App';
+/// }
+///
+/// Authenticator(
+///   stringResolver: const AuthStringResolver(
+///     buttons: CustomButtonResolver(),
+///   ),
+///   child: const LoggedInScreen(),
+/// )
+/// ```
 /// {@endtemplate}
 class Authenticator extends StatefulWidget {
-  /// {@macro authenticator.authenticator}
+  /// {@macro amplify_authenticator.authenticator}
   Authenticator({
     Key? key,
     SignInForm? signInForm,
@@ -114,86 +234,26 @@ class Authenticator extends StatefulWidget {
   }
 
   /// Whether to use Amplify colors and styles in the Authenticator,
-  /// instead of those defined by your app's [Theme].
+  /// instead of those defined by the app's Material [Theme].
   ///
-  /// Defaults to `true`.
+  /// Defaults to `false`.
   final bool useAmplifyTheme;
 
-  /// The form to display when promted for a password change upon signing in
+  /// The form displayed when promted for a password change upon signing in.
   late final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
 
-  /// This form will support the following form field types:
-  ///    * username
-  ///    * password
-  ///    * email
-  ///    * phone_number
-  ///
-  /// ### Example
-  /// ```dart
-  ///     SignInForm( formFields:
-  ///                   FormFields(children: [
-  ///                     SignInFormField(
-  ///                       type: "username" ,
-  ///                       title: "Custom Username Form Field",
-  ///                       hintText: "Custom Hint Text",
-  ///              ),
-  ///           ])
-  ///
-  /// ```
+  /// The form displayed during sign in.
   late final SignInForm signInForm;
 
-  /// This form will support the following form field types:
-  /// * username
-  /// * password
-  /// * birthdate
-  /// * email
-  /// * family_name
-  /// * gender
-  /// * given_name
-  /// * locate
-  /// * middle_name
-  /// * name
-  /// * nickname
-  /// * phone_number
-  /// * picture
-  /// * preferred_username
-  /// * profile
-  /// * zoneinfo
-  /// * updated_at
-  /// * website
-  /// * custom
+  /// The form displayed during sign up.
   ///
-  /// ### Example
-  /// ```dart
-  ///     SignInForm( formFields:
-  ///                   FormFields(children: [
-  ///                     SignUpFormField(
-  ///                       type: "username" ,
-  ///                       title: "Custom username form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///                     SignUpFormField(
-  ///                       type: "password" ,
-  ///                       title: "Custom password form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///                     SignUpFormField(
-  ///                       type: "email" ,
-  ///                       title: "Custom email form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///                     SignUpFormField(
-  ///                       type: "website" ,
-  ///                       title: "Custom website form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///                     ])
-  ///
-  /// ```
+  /// {@macro amplify_authenticator.custom_sign_up_form}
   late final SignUpForm signUpForm;
 
   /// An optional, user-defined string resolver, used for localizing the
   /// Authenticator or overriding default messages.
+  ///
+  /// {@macro amplify_authenticator.custom_auth_string_resolver}
   final AuthStringResolver stringResolver;
 
   /// {@macro amplify_authenticator.exception_handler}

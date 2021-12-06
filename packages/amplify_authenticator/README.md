@@ -1,21 +1,88 @@
 # amplify_authenticator
 
-The Amplify Flutter Authenticator is meant to bring customers and end-users
-a seamless experience while using authentication in Flutter applications.
+The Amplify Flutter Authenticator simplifies the process of authenticating users by providing a fully-customizable flow which just works. Simply wrap your app's authenticated route in an Authenticator component and the process of authenticating users and managing login sessions is handled for you.
 
-The authenticator uses a native solution for state management to avoid conflicts
-between existing dependencies.
+## Example
 
-The overall architecture of the authenticator is composed by a View Model, that
-handles all the data coming from the client side, and by a BLoC pattern that
-separates all the business logic from the User Interface.
+See the [example](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_authenticator/example) which showcases many of the customizations available.
 
 ## Getting Started
 
-TODO:
+To get started, add the Authenticator to a project which has the [Auth category](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter/) configured.
 
-1. Refactor previous PoC into a library.
-2. Migrate authenticator to NULL SAFETY.
-3. SignUp & ConfirmSignUp screens implementation.
-4. SignIn, ConfirmSignIn and Password screens implementation.
-5. Integrate testing.
+```yaml
+dependencies:
+    amplify_auth_cognito: ^0.3.0
+    amplify_authenticator: ^0.1.0
+    amplify_flutter: ^0.3.0
+```
+
+Then, wrap your app's logged in component with an `Authenticator` widget, and you're good to go. You can use the `SignOutButton` to sign out the user from anywhere in your app.
+
+> Remember to call `Amplify.configure` with your configuration - the Authenticator will not load until you call this method.
+
+```dart
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_flutter/amplify.dart';
+import 'package:flutter/material.dart';
+
+import 'amplifyconfiguration.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    _configureAmplify();
+  }
+
+  Future<void> _configureAmplify() async {
+    try {
+      await Amplify.addPlugin(AmplifyAuthCognito());
+      await Amplify.configure(amplifyconfig);
+    } on Exception catch (e) {
+      print('Could not configure Amplify: $e');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      home: Authenticator(
+        child: const LoggedInScreen(),
+      ),
+    );
+  }
+}
+
+class LoggedInScreen extends StatelessWidget {
+  const LoggedInScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: const [
+            Text('Logged In'),
+            SignOutButton(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
