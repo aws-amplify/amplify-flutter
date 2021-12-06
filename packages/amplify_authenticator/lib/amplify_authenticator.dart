@@ -140,10 +140,11 @@ export 'src/widgets/form_field.dart'
 ///
 /// ### Forms
 ///
-/// The Authenticator uses your app's Cognito configuration to determine which
-/// fields are required. However, you may optionally add on additional fields
-/// using a custom form component. For example, to collect your user's address
-/// information on the sign up form, use the [SignUpForm.custom] constructor:
+/// The Authenticator uses your app's Cognito configuration (as defined in your
+/// `amplifyconfiguration.dart` file) to determine which fields are required.
+/// However, you may optionally add on additional fields using a custom form
+/// component. For example, to collect your user's address information on the s
+/// ign up form, use the [SignUpForm.custom] constructor:
 ///
 /// {@template amplify_authenticator.custom_sign_up_form}
 /// ```dart
