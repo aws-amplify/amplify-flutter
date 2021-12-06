@@ -4,7 +4,7 @@ The Amplify Flutter Authenticator simplifies the process of authenticating users
 
 ## Example
 
-See the [example](example/) which showcases many of the customizations available.
+See the [example](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_authenticator/example) which showcases many of the customizations available.
 
 ## Getting Started
 
