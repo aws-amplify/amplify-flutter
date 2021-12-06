@@ -364,9 +364,19 @@ class InputResolverKey {
       inputResolver.resolve(context, this);
 }
 
+/// The resolver class for input widgets.
+///
+/// This class is responsible for resolving text to display
+/// in input field titles, as well as hints, warnings and other
+/// guidance for the end-user.
 class InputResolver extends Resolver<InputResolverKey> {
   const InputResolver();
 
+  /// Returns the [String] that is displayed as the input title.
+  ///
+  /// In addition to displaying the input title, this method is
+  /// used by the default implmentations of the [hint, empty and format] methods
+  /// to resolve the base name of the field.
   String title(BuildContext context, InputField field) {
     switch (field) {
       case InputField.username:
@@ -423,6 +433,7 @@ class InputResolver extends Resolver<InputResolverKey> {
     }
   }
 
+  /// Returns the [String] displayed as the input hint.
   String hint(BuildContext context, InputField field) {
     final fieldName = title(context, field);
     final lowercasedFieldName = fieldName.toLowerCase();
@@ -430,6 +441,7 @@ class InputResolver extends Resolver<InputResolverKey> {
         .promptFill(lowercasedFieldName);
   }
 
+  /// Returns the [String] used as the hint for the password confirmation field.
   String confirmHint(BuildContext context, InputField field) {
     final fieldName = AuthenticatorLocalizations.inputsOf(context).password;
     final lowercasedFieldName = fieldName.toLowerCase();
@@ -437,16 +449,21 @@ class InputResolver extends Resolver<InputResolverKey> {
         .promptRefill(lowercasedFieldName);
   }
 
+  /// Returns the [String] displayed when a required field is left empty.
   String empty(BuildContext context, InputField field) {
     return AuthenticatorLocalizations.inputsOf(context)
         .warnEmpty(title(context, field));
   }
 
+  /// Returns the [String] displayed when a field fails a format validation check,
+  /// such as an invalid email format, an invalid confirmation code length, etc.
   String format(BuildContext context, InputField field) {
     return AuthenticatorLocalizations.inputsOf(context)
         .warnInvalidFormat(title(context, field).toLowerCase());
   }
 
+  /// Returns the [String] displayed when a password input does match the password requirements
+  /// defined in the amplifyconfiguration.dart file.
   String passwordRequires(
     BuildContext context,
     PasswordProtectionSettings requirements,
@@ -475,6 +492,7 @@ class InputResolver extends Resolver<InputResolverKey> {
     return sb.toString();
   }
 
+  /// Returns a [String] denoting a field as optional.
   String optional(BuildContext context, String title) {
     return AuthenticatorLocalizations.inputsOf(context).optional(title);
   }
