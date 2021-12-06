@@ -144,7 +144,18 @@ export 'src/widgets/form_field.dart'
 /// using a custom form component. For example, to collect your user's address
 /// information on the sign up form, use the [SignUpForm.custom] constructor:
 ///
-/// {@macro amplify_authenticator.custom_sign_up_form}
+/// {@template amplify_authenticator.custom_sign_up_form}
+/// ```dart
+/// Authenticator(
+///   signUpForm: SignUpForm.custom(fields: [
+///     SignUpFormField.address(
+///       required: false,
+///     ),
+///   ]),
+///   child: const LoggedInScreen(),
+/// )
+/// ```
+/// {@endtemplate}
 ///
 /// You can also override the validation of form fields if your app has custom
 /// requirements. The syntax for these follows Flutter's built-in
@@ -183,7 +194,25 @@ export 'src/widgets/form_field.dart'
 /// You can also use the localization mechanism to simply override the default
 /// strings used for the form fields and other widgets.
 ///
-/// {@macro amplify_authenticator.custom_auth_string_resolver}
+/// {@template amplify_authenticator.custom_auth_string_resolver}
+/// ```dart
+/// class CustomButtonResolver extends ButtonResolver {
+///   const CustomButtonResolver();
+///
+///   @override
+///   String signout(BuildContext context) => 'Exit App';
+/// }
+///
+/// // ...
+///
+/// Authenticator(
+///   stringResolver: const AuthStringResolver(
+///     buttons: CustomButtonResolver(),
+///   ),
+///   child: const LoggedInScreen(),
+/// )
+/// ```
+/// {@endtemplate}
 /// {@endtemplate}
 class Authenticator extends StatefulWidget {
   /// {@macro authenticator.authenticator}
@@ -219,42 +248,13 @@ class Authenticator extends StatefulWidget {
 
   /// The form displayed during sign up.
   ///
-  /// {@template amplify_authenticator.custom_sign_up_form}
-  /// ```dart
-  /// Authenticator(
-  ///   signUpForm: SignUpForm.custom(fields: [
-  ///     SignUpFormField.address(
-  ///       required: false,
-  ///     ),
-  ///   ]),
-  ///   child: const LoggedInScreen(),
-  /// )
-  /// ```
-  /// {@endtemplate}
+  /// {@macro amplify_authenticator.custom_sign_up_form}
   late final SignUpForm signUpForm;
 
   /// An optional, user-defined string resolver, used for localizing the
   /// Authenticator or overriding default messages.
   ///
-  /// {@template amplify_authenticator.custom_auth_string_resolver}
-  /// ```dart
-  /// class CustomButtonResolver extends ButtonResolver {
-  ///   const CustomButtonResolver();
-  ///
-  ///   @override
-  ///   String signout(BuildContext context) => 'Exit App';
-  /// }
-  ///
-  /// // ...
-  ///
-  /// Authenticator(
-  ///   stringResolver: const AuthStringResolver(
-  ///     buttons: CustomButtonResolver(),
-  ///   ),
-  ///   child: const LoggedInScreen(),
-  /// )
-  /// ```
-  /// {@endtemplate}
+  /// {@macro amplify_authenticator.custom_auth_string_resolver}
   final AuthStringResolver stringResolver;
 
   /// {@macro amplify_authenticator.exception_handler}
