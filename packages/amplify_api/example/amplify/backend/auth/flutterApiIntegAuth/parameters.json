@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "amplifyapiinteg71a814f0_identitypool_71a814f0",
+    "identityPoolName": "flutterapiintegtest01a5d6a5_identitypool_01a5d6a5",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "amplif71a814f0",
-    "userPoolName": "amplifyapiinteg71a814f0_userpool_71a814f0",
+    "resourceNameTruncated": "flutte01a5d6a5",
+    "userPoolName": "flutterapiintegtest01a5d6a5_userpool_01a5d6a5",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -29,10 +29,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "amplif71a814f0_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "flutte01a5d6a5_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "71a814f0",
-    "resourceName": "amplifyapiinteg71a814f071a814f0",
+    "sharedId": "01a5d6a5",
+    "resourceName": "flutterApiIntegAuth",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [

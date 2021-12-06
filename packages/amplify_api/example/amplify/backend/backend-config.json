@@ -15,13 +15,13 @@
         }
       }
     },
-    "api1fa2e00c": {
+    "flutterApiIntegREST": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "amplifyapiintegb9b31e7c",
+          "resourceName": "flutterapiintegtest17270866",
           "attributes": [
             "Name",
             "Arn"
@@ -31,7 +31,7 @@
     }
   },
   "auth": {
-    "amplifyapiinteg71a814f071a814f0": {
+    "flutterApiIntegAuth": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -58,7 +58,7 @@
     }
   },
   "function": {
-    "amplifyapiintegb9b31e7c": {
+    "flutterapiintegtest17270866": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
