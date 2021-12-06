@@ -21,5 +21,4 @@ amplify init \
 --amplify $AMPLIFY \
 --frontend $FRONTEND \
 --yes
-cat tool/add_api_request.json | jq -c | amplify add api --headless
 amplify push --yes
