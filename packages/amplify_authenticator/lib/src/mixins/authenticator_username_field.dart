@@ -109,7 +109,7 @@ mixin AuthenticatorUsernameField<FieldType,
   }
 
   @override
-  Widget? get suffix {
+  Widget? get surlabel {
     // Mirrors internal impl. to create an "always active" Switch theme.
     final thumbColor = Theme.of(context).toggleableActiveColor;
     final trackColor = thumbColor.withOpacity(0.5);
@@ -223,7 +223,6 @@ mixin AuthenticatorUsernameField<FieldType,
         initialValue:
             viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber),
         useAmplifyTheme: useAmplifyTheme,
-        suffix: suffix,
       );
     }
     return TextFormField(

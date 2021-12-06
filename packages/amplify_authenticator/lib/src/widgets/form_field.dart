@@ -221,6 +221,9 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   /// Gap between the label and the form field
   double? get labelGap => FormFieldConstants.gap;
 
+  /// Widget to show above the label.
+  Widget? get surlabel => null;
+
   @nonVirtual
   @override
   Widget build(BuildContext context) {
@@ -236,6 +239,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              if (surlabel != null) surlabel!,
               if (useAmplifyTheme && label != null)
                 DefaultTextStyle(
                   style: titleStyle,
