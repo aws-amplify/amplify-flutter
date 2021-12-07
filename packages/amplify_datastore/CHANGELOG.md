@@ -1,3 +1,9 @@
+## 0.3.0-rc.3 (2021-12-08)
+
+### Fixes
+
+- fix (amplify_datastore): fix error map from ios (#1126) 
+
 ## 0.3.0-rc.2 (2021-11-08)
 
 This release candidate requires a preview version of `@aws-amplify/cli`. To uninstall `@aws-amplify/cli` release version and install preview version by running following command.
