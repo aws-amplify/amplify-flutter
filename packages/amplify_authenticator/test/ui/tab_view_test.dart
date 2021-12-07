@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'utils.dart';
+
 void main() {
   const keyTabView = Key('tabView');
   final tabViewFinder = find.byKey(keyTabView);
@@ -139,9 +141,9 @@ void main() {
         await tester.pumpWidget(defaultMaterial);
         await tester.pumpAndSettle();
 
-        await expectLater(
+        await expectGoldenMatches(
           tabViewFinder,
-          matchesGoldenFile('tab_view_light_default.png'),
+          'tab_view_light_default.png',
         );
       });
 
@@ -150,9 +152,9 @@ void main() {
         await tester.pumpWidget(highContrast);
         await tester.pumpAndSettle();
 
-        await expectLater(
+        await expectGoldenMatches(
           tabViewFinder,
-          matchesGoldenFile('tab_view_light_high_contrast.png'),
+          'tab_view_light_high_contrast.png',
         );
       });
 
@@ -161,9 +163,9 @@ void main() {
         await tester.pumpWidget(customSwatch);
         await tester.pumpAndSettle();
 
-        await expectLater(
+        await expectGoldenMatches(
           tabViewFinder,
-          matchesGoldenFile('tab_view_light_swatch.png'),
+          'tab_view_light_swatch.png',
         );
       });
 
@@ -172,9 +174,9 @@ void main() {
         await tester.pumpWidget(override);
         await tester.pumpAndSettle();
 
-        await expectLater(
+        await expectGoldenMatches(
           tabViewFinder,
-          matchesGoldenFile('tab_view_light_override.png'),
+          'tab_view_light_override.png',
         );
       });
 
@@ -183,9 +185,9 @@ void main() {
         await tester.pumpWidget(amplify);
         await tester.pumpAndSettle();
 
-        await expectLater(
+        await expectGoldenMatches(
           tabViewFinder,
-          matchesGoldenFile('tab_view_light_amplify.png'),
+          'tab_view_light_amplify.png',
         );
       });
     });
@@ -200,9 +202,9 @@ void main() {
         await tester.pumpWidget(defaultMaterial);
         await tester.pumpAndSettle();
 
-        await expectLater(
+        await expectGoldenMatches(
           tabViewFinder,
-          matchesGoldenFile('tab_view_dark_default.png'),
+          'tab_view_dark_default.png',
         );
       });
 
@@ -211,9 +213,9 @@ void main() {
         await tester.pumpWidget(highContrast);
         await tester.pumpAndSettle();
 
-        await expectLater(
+        await expectGoldenMatches(
           tabViewFinder,
-          matchesGoldenFile('tab_view_dark_high_contrast.png'),
+          'tab_view_dark_high_contrast.png',
         );
       });
 
@@ -222,9 +224,9 @@ void main() {
         await tester.pumpWidget(customSwatch);
         await tester.pumpAndSettle();
 
-        await expectLater(
+        await expectGoldenMatches(
           tabViewFinder,
-          matchesGoldenFile('tab_view_dark_swatch.png'),
+          'tab_view_dark_swatch.png',
         );
       });
 
@@ -233,9 +235,9 @@ void main() {
         await tester.pumpWidget(override);
         await tester.pumpAndSettle();
 
-        await expectLater(
+        await expectGoldenMatches(
           tabViewFinder,
-          matchesGoldenFile('tab_view_dark_override.png'),
+          'tab_view_dark_override.png',
         );
       });
 
@@ -244,9 +246,9 @@ void main() {
         await tester.pumpWidget(amplify);
         await tester.pumpAndSettle();
 
-        await expectLater(
+        await expectGoldenMatches(
           tabViewFinder,
-          matchesGoldenFile('tab_view_dark_amplify.png'),
+          'tab_view_dark_amplify.png',
         );
       });
     });
