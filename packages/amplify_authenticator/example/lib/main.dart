@@ -88,6 +88,8 @@ class _MyAppState extends State<MyApp> {
           SignUpFormField.username(
             validator: _validateUsername,
           ),
+          SignUpFormField.password(),
+          SignUpFormField.passwordConfirmation(),
           SignUpFormField.address(
             required: false,
           ),
