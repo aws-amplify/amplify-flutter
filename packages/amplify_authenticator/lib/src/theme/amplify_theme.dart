@@ -726,6 +726,10 @@ class _AmplifyThemeWrapper {
 
   Color get tabIndicatorColor {
     if (!useAmplifyTheme) {
+      final labelColor = Theme.of(context).tabBarTheme.labelColor;
+      if (labelColor != null) {
+        return labelColor;
+      }
       return isDark
           ? Theme.of(context).indicatorColor
           : Theme.of(context).primaryColor;
