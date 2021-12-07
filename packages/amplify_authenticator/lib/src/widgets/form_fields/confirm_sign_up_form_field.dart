@@ -229,4 +229,7 @@ class _ConfirmSignUpUsernameFieldState
     extends _ConfirmSignUpFormFieldState<UsernameInput>
     with
         AuthenticatorUsernameField<ConfirmSignUpField,
-            ConfirmSignUpFormField<UsernameInput>> {}
+            ConfirmSignUpFormField<UsernameInput>> {
+  @override
+  Widget? get surlabel => null;
+}
