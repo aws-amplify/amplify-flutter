@@ -15,6 +15,7 @@
 
 export 'types/exception/DataStoreException.dart';
 export 'types/exception/DataStoreExceptionMessages.dart';
+export 'types/models/auth_mode_strategy.dart';
 export 'types/models/subscription_event.dart';
 export 'types/models/query_snapshot.dart';
 export 'types/models/observe_query_throttle_options.dart';

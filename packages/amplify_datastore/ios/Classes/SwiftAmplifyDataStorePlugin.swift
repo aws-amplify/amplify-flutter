@@ -17,6 +17,7 @@ import Flutter
 import UIKit
 import Amplify
 import AmplifyPlugins
+import AWSPluginsCore
 import AWSCore
 import Combine
 import amplify_core
@@ -88,6 +89,20 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
     
+    private func getAuthModeStrategy(for strategyType: String?) throws -> AuthModeStrategyType {
+        switch strategyType {
+        case "multiauth":
+            return .multiAuth
+        case "default":
+            return .default
+        default:
+            throw DataStoreError.configuration(
+                "Unknown auth mode strategy: \(strategyType ?? "")",
+                "Please use one of: \"default\", \"multiauth\"",
+                nil)
+        }
+    }
+    
     private func onConfigureDataStore(args: [String: Any], result: @escaping FlutterResult) {
 
         guard let serializedModelSchemas = args["modelSchemas"] as? [[String: Any]],
@@ -115,6 +130,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         let syncPageSize = args["syncPageSize"] as? UInt ?? DataStoreConfiguration.defaultSyncPageSize
         
         do {
+            let authModeStrategy = try getAuthModeStrategy(for: args["authModeStrategy"] as? String)
+            
             let customTypeSchemaDependenciesOrder = try getCustomTypeSchemasDependenciesOrder(
                 serializedCustomTypeSchemas: serializedCustomTypeSchemas
             )
@@ -162,7 +179,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                                         syncInterval: syncInterval,
                                                         syncMaxRecords: syncMaxRecords,
                                                         syncPageSize: syncPageSize,
-                                                        syncExpressions: syncExpressions))
+                                                        syncExpressions: syncExpressions,
+                                                        authModeStrategy: authModeStrategy))
             try Amplify.add(plugin: dataStorePlugin)
             
             Amplify.Logging.logLevel = .info
