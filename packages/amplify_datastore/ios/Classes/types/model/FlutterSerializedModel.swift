@@ -17,6 +17,12 @@ import Flutter
 import Foundation
 import Amplify
 
+/*
+    Helper class to assist with handling serialized data
+    Note: This class is used in amplify-ios serialized model integration tests.
+    Until this code can be properly shared between repositories, this class should be updated
+    in the ios integration tests as needed.
+*/
 struct FlutterSerializedModel: Model, JSONValueHolder {
     public let id: String
 
