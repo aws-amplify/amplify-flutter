@@ -119,6 +119,10 @@ mixin AuthenticatorUsernameField<FieldType,
       context,
       InputField.email,
     );
+    final String usernameTitle = inputResolver.title(
+      context,
+      InputField.usernameType,
+    );
     switch (usernameType) {
       case UsernameConfigType.emailOrPhoneNumber:
         return Column(
@@ -127,7 +131,7 @@ mixin AuthenticatorUsernameField<FieldType,
             Padding(
               padding: const EdgeInsets.only(top: 16, bottom: 16, right: 8),
               child: Text(
-                'Log in using:',
+                usernameTitle,
                 style: Theme.of(context).textTheme.subtitle1,
               ),
             ),

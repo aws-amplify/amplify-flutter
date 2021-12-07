@@ -144,7 +144,7 @@ class AuthenticatorInputLocalizationsEn
   String get rememberDevice => 'Remember Device?';
 
   @override
-  String get usernameType => 'Select what you want to use as a username';
+  String get usernameType => 'log in using:';
 
   @override
   String optional(String fieldTitle) {
