@@ -43,7 +43,7 @@ void main() {
         {bool ignoreBody = false}) {
       expect(response.statusCode, equals(200));
       if (!ignoreBody) {
-        expect(response.body, equals('"Hello from Lambda!"'));
+        expect(response.body, equals('Hello from Lambda!'));
       }
     }
 
@@ -88,6 +88,24 @@ void main() {
         final response =
             await Amplify.API.head(restOptions: restOptions).response;
         _assertSuccessfulResponse(response, ignoreBody: true);
+      });
+
+      testWidgets(
+          'should get unauthorized error for a path that does not exist in backend',
+          (WidgetTester tester) async {
+        try {
+          await Amplify.API
+              .get(
+                  // ignore: prefer_const_constructors
+                  restOptions: RestOptions(
+                path: '/doesnotexist',
+              ))
+              .response;
+        } on RestException catch (e) {
+          expect(e.response.statusCode, equals(403));
+          return;
+        }
+        fail('Expected an error from backend');
       });
     });
   });
