@@ -89,6 +89,8 @@ void main() {
         primarySwatch: Colors.red,
         backgroundColor: Colors.white,
       ),
+    ).copyWith(
+      indicatorColor: Colors.red,
     ),
     darkTheme: ThemeData.from(
       colorScheme: ColorScheme.fromSwatch(
@@ -104,13 +106,15 @@ void main() {
   final override = buildTabView(
     lightTheme: ThemeData.light().copyWith(
       tabBarTheme: const TabBarTheme(
-        labelColor: Colors.pink,
+        labelColor: Colors.amber,
       ),
+      indicatorColor: Colors.pink,
     ),
     darkTheme: ThemeData.dark().copyWith(
       tabBarTheme: const TabBarTheme(
-        labelColor: Colors.pink,
+        labelColor: Colors.amber,
       ),
+      indicatorColor: Colors.pink,
     ),
     useAmplifyTheme: false,
   );
