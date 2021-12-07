@@ -80,10 +80,10 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
     final Widget child;
     switch (screen) {
       case AuthScreen.signin:
-        child = const _TabView(tabs: signInUpTabs, initialIndex: 0);
+        child = const AuthenticatorTabView(tabs: signInUpTabs, initialIndex: 0);
         break;
       case AuthScreen.signup:
-        child = const _TabView(tabs: signInUpTabs, initialIndex: 1);
+        child = const AuthenticatorTabView(tabs: signInUpTabs, initialIndex: 1);
         break;
       case AuthScreen.confirmSignup:
       case AuthScreen.confirmSigninMfa:
@@ -152,8 +152,10 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
   }
 }
 
-class _TabView extends AuthenticatorComponent<_TabView> {
-  const _TabView({
+@visibleForTesting
+class AuthenticatorTabView
+    extends AuthenticatorComponent<AuthenticatorTabView> {
+  const AuthenticatorTabView({
     Key? key,
     required this.tabs,
     this.initialIndex = 0,
@@ -163,7 +165,7 @@ class _TabView extends AuthenticatorComponent<_TabView> {
   final int initialIndex;
 
   @override
-  _TabViewState createState() => _TabViewState();
+  _AuthenticatorTabViewState createState() => _AuthenticatorTabViewState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -173,7 +175,8 @@ class _TabView extends AuthenticatorComponent<_TabView> {
   }
 }
 
-class _TabViewState extends AuthenticatorComponentState<_TabView>
+class _AuthenticatorTabViewState
+    extends AuthenticatorComponentState<AuthenticatorTabView>
     with SingleTickerProviderStateMixin {
   late final TabController _controller;
 

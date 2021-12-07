@@ -717,11 +717,9 @@ class _AmplifyThemeWrapper {
   Color get tabLabelColor {
     if (!useAmplifyTheme) {
       final labelColor = Theme.of(context).tabBarTheme.labelColor;
-      final bodyColor = Theme.of(context).primaryTextTheme.bodyText1?.color;
-      final indicatorColor = Theme.of(context).indicatorColor;
-      return isDark
-          ? labelColor ?? bodyColor ?? indicatorColor
-          : labelColor ?? indicatorColor;
+      final textColor = Theme.of(context).textTheme.bodyText1?.color;
+      final fallbackColor = isDark ? Colors.white : Colors.black;
+      return labelColor ?? textColor ?? fallbackColor;
     }
     return fontInteractive!;
   }
