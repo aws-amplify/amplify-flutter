@@ -1,7 +1,7 @@
 name: amplify_authenticator
 description: A prebuilt sign in/sign up experience for Amplify Auth.
 version: 1.0.0-rc.0
-homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_authenticator/
+homepage: https://github.com/aws-amplify/amplify-flutter/tree/release-candidate/packages/amplify_authenticator/
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
