@@ -40,10 +40,13 @@ public class OperationsManager {
     }
 
     public static func removeOperation(cancelToken: String) {
-        guard let operation = operationsMap[cancelToken] else {
+        if operationsMap[cancelToken] == nil {
             return
         }
         queue.sync {
+            guard let operation = operationsMap[cancelToken] else {
+                return
+            }
             operationsMap.removeValue(forKey: cancelToken)
             if let restOperation = operation as? RESTOperation {
                 operationsResponseMap.removeValue(forKey: restOperation.id)
