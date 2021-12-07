@@ -1,6 +1,6 @@
 name: amplify_authenticator
 description: A prebuilt sign in/sign up experience for Amplify Auth.
-version: 0.1.0
+version: 1.0.0-rc.0
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_authenticator/
 
 environment:
@@ -9,8 +9,10 @@ environment:
 
 dependencies:
   amplify_auth_cognito: ^0.3.0-rc.3
+  amplify_auth_plugin_interface: ^0.3.0-rc.3
   amplify_core: ^0.3.0-rc.3
   amplify_flutter: ^0.3.0-rc.3
+  collection: ^0.15.0
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -22,6 +24,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^0.2.0
+  path: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
