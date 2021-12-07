@@ -2,7 +2,8 @@
 
 ### Features
 
-- [amplify_authenticator](https://pub.dev/amplify_authenticator) preview release!
+- [Amplify Authenticator](https://pub.dev/amplify_authenticator) preview release!
+- New `AmplifyConfig` type for fully-typed configurations
 
 ### Fixes
 

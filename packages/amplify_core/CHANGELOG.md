@@ -1,5 +1,10 @@
 ## 0.3.0-rc.3 (2021-12-08)
 
+### Features
+
+- [Amplify Authenticator](https://pub.dev/amplify_authenticator) preview release!
+- New `AmplifyConfig` type for fully-typed configurations
+
 ### Fixes
 
 - fix(amplify_auth_cognito): remove int.parse from AuthUserAttribute (#1169)
