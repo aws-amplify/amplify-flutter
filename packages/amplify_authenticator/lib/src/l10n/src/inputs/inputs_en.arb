@@ -1,0 +1,201 @@
+{
+    "@@locale": "en",
+    "@@context": "amplify_authenticator:inputs",
+    "username": "Username",
+    "@username": {
+        "description": "User's chosen username."
+    },
+    "password": "Password",
+    "@password": {
+        "description": "User's chosen password."
+    },
+    "newPassword": "New Password",
+    "@newPassword": {
+        "description": "User's chosen new password."
+    },
+    "email": "Email",
+    "@email": {
+        "description": "User's preferred e-mail address.",
+        "example": "john.doe@example.com"
+    },
+    "phoneNumber": "Phone Number",
+    "@phoneNumber": {
+        "description": "User's preferred telephone number.",
+        "example": "+1 (888) 555-1234"
+    },
+    "verificationCode": "Verification Code",
+    "@verificationCode": {
+        "description": "The code sent to the user's phone number or email address for verification.",
+        "example": "123456"
+    },
+    "address": "Address",
+    "@address": {
+        "description": "User's preferred postal address."
+    },
+    "birthdate": "Birthdate",
+    "@birthdate": {
+        "description": "User's birthday, represented as an ISO 8601:2004 [ISO8601‑2004] YYYY-MM-DD format.",
+        "example": "1990-01-01"
+    },
+    "familyName": "Family Name",
+    "@familyName": {
+        "description": "Surname(s) or last name(s) of the user."
+    },
+    "middleName": "Middle Name",
+    "@middleName": {
+        "description": "Middle name(s) of the user."
+    },
+    "gender": "Gender",
+    "@gender": {
+        "description": "User's gender.",
+        "example": "male"
+    },
+    "genders": "{gender, select, male{male}, female{female}, other{other}}",
+    "@genders": {
+        "placeholders": {
+            "gender": {
+                "description": "The user's gender.",
+                "type": "Gender",
+                "example": "male"
+            }
+        }
+    },
+    "givenName": "Given Name",
+    "@givenName": {
+        "description": "Given name(s) or first name(s) of the user."
+    },
+    "name": "Name",
+    "@name": {
+        "description": "User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the user's locale and preferences."
+    },
+    "nickname": "Nickname",
+    "@nickname": {
+        "description": "Casual name of the user that may or may not be the same as their given name."
+    },
+    "or": "{a} or {b}",
+    "@or": {
+        "description": "One or the other",
+        "placeholders": {
+            "a": {
+                "type": "String",
+                "example": "Email",
+                "description": "The first item."
+            },
+            "b": {
+                "type": "String",
+                "example": "Phone Number",
+                "description": "The second item."
+            }
+        }
+    },
+    "preferredUsername": "Preferred Username",
+    "@preferredUsername": {
+        "description": "Shorthand name by which the user wishes to be referred to."
+    },
+    "warnEmpty": "{attribute} field must not be blank.",
+    "@warnEmpty": {
+        "description": "Warning for a required field was left empty, displayed as an error to the user.",
+        "placeholders": {
+            "attribute": {
+                "type": "String",
+                "example": "Username",
+                "description": "The required field which was left empty."
+            }
+        }
+    },
+    "warnInvalidFormat": "Invalid {attributeType} format.",
+    "@warnInvalidFormat": {
+        "description": "Warning for field that has failed format validation.",
+        "placeholders": {
+            "attributeType": {
+                "type": "String",
+                "example": "Phone Number",
+                "description": "The unmet formatting type."
+            }
+        }
+    },
+    "promptFill": "Enter your {attribute}",
+    "@promptFill": {
+        "description": "Prompt to fill an optional or required input field, used as the placeholder for text fields.",
+        "placeholders": {
+            "attribute": {
+                "type": "String",
+                "example": "username",
+                "description": "The field which can be filled."
+            }
+        }
+    },
+    "promptRefill": "Re-enter your {attribute}",
+    "@promptRefill": {
+        "description": "Prompt to refill an optional or required input field, used as the placeholder for text fields.",
+        "placeholders": {
+            "attribute": {
+                "type": "String",
+                "example": "username",
+                "description": "The field which can be filled."
+            }
+        }
+    },
+    "confirmAttribute": "Confirm {attribute}",
+    "@confirmAttribute": {
+        "description": "Title to re-enter an optional or required input field, used as the label for text fields.",
+        "placeholders": {
+            "attribute": {
+                "type": "String",
+                "example": "username",
+                "description": "The field which can be filled."
+            }
+        }
+    },
+    "passwordRequirementsPreamble": "Password must include:",
+    "@passwordRequirementsPreamble": {
+        "description": "Preamble to list of unment password requirements."
+    },
+    "passwordRequirementsCharacterType": " {characterType, select, requiresUppercase{uppercase} requiresLowercase{lowercase} requiresNumbers{number} requiresSymbols{symbol} other{}}",
+    "@passwordRequirementsCharacterType": {
+        "description": "Character(s) in a password.",
+        "placeholders": {
+            "characterType": {
+                "type": "PasswordPolicyCharacters",
+                "description": "The character class or type."
+            }
+        }
+    },
+    "passwordRequirementsAtLeast": "at least {numCharacters, plural, =1{1{characterType} character} other{{numCharacters}{characterType} characters}}",
+    "@passwordRequirementsAtLeast": {
+        "description": "Password uppercase character requirement, displayed as a bullet point in list of unmet requirements.",
+        "placeholders": {
+            "numCharacters": {
+                "type": "int",
+                "description": "The number of required characters of the given character type."
+            },
+            "characterType": {
+                "type": "String",
+                "description": "The character class or type."
+            }
+        }
+    },
+    "passwordsDoNotMatch": "Passwords do not match.",
+    "@passwordsDoNotMatch": {
+        "description": "Message for conflicting password and confirm password fields."
+    },
+    "rememberDevice": "Remember Device?",
+    "@rememberDevice": {
+        "description": "Label for the checkbox to remember the user's device in Cognito."
+    },
+    "usernameType": "Select what you want to use as a username",
+    "@usernameType": {
+        "description": " Label for the radio button set to select email or phone number as username when both are available."
+    },
+    "optional": "{fieldTitle} (optional)",
+    "@optional": {
+        "description": "Indicator for a field which is not required to be filled",
+        "placeholders": {
+            "fieldTitle": {
+                "type": "String",
+                "description": "The title of the form field.",
+                "example": "Family Name"
+            }
+        }
+    }
+}

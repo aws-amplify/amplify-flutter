@@ -16,6 +16,7 @@
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
 class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions {
+  /// {@template amplify_auth_plugin_interface.cognito_sign_in_with_web_ui_options}
   /// iOS-only: Starts the webUI signin in a private browser session, if supported by the current browser.
   ///
   /// Note that this value internally sets `prefersEphemeralWebBrowserSession` in ASWebAuthenticationSession.
@@ -23,6 +24,7 @@ class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions {
   /// Safari always honors the request.
   ///
   /// Defaults to `false`.
+  /// {@endtemplate}
   final bool isPreferPrivateSession;
   const CognitoSignInWithWebUIOptions({this.isPreferPrivateSession = false});
   @override

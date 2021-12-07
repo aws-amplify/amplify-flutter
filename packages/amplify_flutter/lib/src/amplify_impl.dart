@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -6,6 +21,7 @@ import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -20,6 +36,8 @@ part 'method_channel_amplify.dart';
 /// instantiate an object of this class. Please use top level
 /// `Amplify` singleton object for making calls to methods of this class.
 class AmplifyClass extends PlatformInterface {
+  AmplifyConfig? _config;
+
   // ignore: public_member_api_docs
   final AuthCategory Auth = const AuthCategory();
   // ignore: public_member_api_docs
@@ -35,6 +53,8 @@ class AmplifyClass extends PlatformInterface {
 
   // ignore: public_member_api_docs
   final AmplifyHub Hub = AmplifyHub();
+
+  final _configCompleter = Completer<AmplifyConfig>();
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -101,6 +121,11 @@ class AmplifyClass extends PlatformInterface {
     return _isConfigured;
   }
 
+  /// A future when completes when Amplify has been successfully configured.
+  Future<AmplifyConfig> get asyncConfig {
+    return _configCompleter.future;
+  }
+
   String _getVersion() {
     return '0.3.0-rc.2';
   }
@@ -153,8 +178,25 @@ class AmplifyClass extends PlatformInterface {
             underlyingException: e.toString());
       }
     }
-
     await DataStore.configure(configuration);
+
+    if (_isConfigured && !_configCompleter.isCompleted) {
+      _config = _parseConfigJson(configuration);
+      _configCompleter.complete(_config);
+    }
+  }
+
+  /// Parses the [configuration] string into an [AmplifyConfig] object.
+  /// An empty [AmplifyConfig] is returned on exception.
+  AmplifyConfig _parseConfigJson(String configuration) {
+    try {
+      return AmplifyConfig.fromJson(jsonDecode(configuration));
+    } on Exception catch (e) {
+      safePrint(
+        'There was an unexpected problem parsing the amplifyconfiguration.dart file: $e',
+      );
+      return const AmplifyConfig();
+    }
   }
 
   /// Adds the configuration and return true if it was successful.
