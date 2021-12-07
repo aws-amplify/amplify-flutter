@@ -95,6 +95,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     int? syncInterval,
     int? syncMaxRecords,
     int? syncPageSize,
+    AuthModeStrategy authModeStrategy = AuthModeStrategy.default$,
   }) async {
     _channel.setMethodCallHandler(_methodCallHandler);
     try {
@@ -120,6 +121,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'syncInterval': syncInterval,
         'syncMaxRecords': syncMaxRecords,
         'syncPageSize': syncPageSize,
+        'authModeStrategy': authModeStrategy.rawValue,
       });
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
