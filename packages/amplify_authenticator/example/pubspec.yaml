@@ -21,10 +21,10 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  amplify_auth_cognito: ^0.2.0
+  amplify_auth_cognito: ^0.3.0-rc.3
   amplify_authenticator:
     path: ../
-  amplify_flutter: ^0.2.0
+  amplify_flutter: ^0.3.0-rc.3
 
   flutter:
     sdk: flutter
