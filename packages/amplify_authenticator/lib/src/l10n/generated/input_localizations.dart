@@ -274,7 +274,7 @@ abstract class AuthenticatorInputLocalizations {
   /// Label for the toggle buttons to select email or phone number as username when both are available.
   ///
   /// In en, this message translates to:
-  /// **'log in using:'**
+  /// **'Log in using:'**
   String get usernameType;
 
   /// Indicator for a field which is not required to be filled
