@@ -491,7 +491,7 @@ class _AuthenticatorBody extends StatelessWidget {
     final stateMachineBloc = InheritedAuthBloc.of(context);
     final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final userAppTheme = Theme.of(context);
-    final isDark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+    final bool isDark = AmplifyTheme.of(context).isDark;
     return Theme(
       data: useAmplifyTheme
           ? (isDark ? AmplifyTheme.dark : AmplifyTheme.light)
