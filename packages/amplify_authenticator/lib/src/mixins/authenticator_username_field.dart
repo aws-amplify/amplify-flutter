@@ -181,7 +181,7 @@ mixin AuthenticatorUsernameField<FieldType,
           ],
         );
       default:
-        null;
+        return null;
     }
   }
 
