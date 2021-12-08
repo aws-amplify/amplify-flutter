@@ -170,16 +170,13 @@ void main() {
         expect(observedChild, child);
       });
 
-      testWidgets('delete parent', (WidgetTester tester) async {
-        await Amplify.DataStore.delete(parent);
-        var parents = await Amplify.DataStore.query(BelongsToModel.classType);
-        expect(parents, isEmpty);
-      });
-
-      testWidgets('delete child', (WidgetTester tester) async {
+      testWidgets('delete child (cascade delete parent)',
+          (WidgetTester tester) async {
         await Amplify.DataStore.delete(child);
         var children = await Amplify.DataStore.query(ChildModel.classType);
         expect(children, isEmpty);
+        var parent = await Amplify.DataStore.query(BelongsToModel.classType);
+        expect(parent, isEmpty);
       });
     });
 
@@ -266,16 +263,11 @@ void main() {
         }
       });
 
-      testWidgets('delete parent', (WidgetTester tester) async {
+      testWidgets('delete parent (cascade delete children)',
+          (WidgetTester tester) async {
         await Amplify.DataStore.delete(parent);
         var parents = await Amplify.DataStore.query(HasManyModel.classType);
         expect(parents, isEmpty);
-      });
-
-      testWidgets('delete children', (WidgetTester tester) async {
-        for (var child in children) {
-          await Amplify.DataStore.delete(child);
-        }
         var queriedChildren =
             await Amplify.DataStore.query(HasManyChildModel.classType);
         expect(queriedChildren, isEmpty);
