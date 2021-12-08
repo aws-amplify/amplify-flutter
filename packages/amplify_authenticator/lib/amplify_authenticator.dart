@@ -60,6 +60,11 @@ export 'src/widgets/form.dart'
 export 'src/widgets/form_field.dart'
     show SignInFormField, SignUpFormField, ConfirmSignInFormField;
 
+export 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+export 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+export 'package:amplify_authenticator/src/widgets/form.dart';
+export 'package:amplify_authenticator/src/widgets/button.dart';
+
 /// {@template amplify_authenticator.authenticator}
 /// # Amplify Authenticator
 ///
@@ -225,6 +230,7 @@ class Authenticator extends StatefulWidget {
     SignInForm? signInForm,
     SignUpForm? signUpForm,
     ConfirmSignInNewPasswordForm? confirmSignInNewPasswordForm,
+    this.builder,
     this.stringResolver = const AuthStringResolver(),
     required this.child,
     this.useAmplifyTheme = false,
@@ -237,6 +243,8 @@ class Authenticator extends StatefulWidget {
     this.confirmSignInNewPasswordForm =
         confirmSignInNewPasswordForm ?? ConfirmSignInNewPasswordForm();
   }
+
+  final AuthBuilder? builder;
 
   /// Whether to use Amplify colors and styles in the Authenticator,
   /// instead of those defined by the app's Material [Theme].
@@ -468,7 +476,11 @@ class _AuthenticatorState extends State<Authenticator> {
                 confirmSignInMFAForm: ConfirmSignInMFAForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),
-                child: _AuthenticatorBody(child: widget.child),
+                child: _AuthenticatorBody(
+                  child: widget.child,
+                  builder: widget.builder,
+                  viewModel: _viewModel,
+                ),
               ),
             ),
           ),
@@ -482,9 +494,13 @@ class _AuthenticatorBody extends StatelessWidget {
   const _AuthenticatorBody({
     Key? key,
     required this.child,
+    required this.viewModel,
+    this.builder,
   }) : super(key: key);
 
   final Widget child;
+  final AuthBuilder? builder;
+  final AuthViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -498,8 +514,12 @@ class _AuthenticatorBody extends StatelessWidget {
           : userAppTheme,
       child: StreamBuilder(
         stream: stateMachineBloc.stream,
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot<AuthState> snapshot) {
           final state = snapshot.data ?? const AuthLoading();
+
+          if (builder != null) {
+            return builder!(context, state, viewModel);
+          }
 
           if (state is Authenticated) {
             return Theme(data: userAppTheme, child: child);
@@ -529,3 +549,5 @@ class _AuthenticatorBody extends StatelessWidget {
     );
   }
 }
+
+typedef AuthBuilder = Widget Function(BuildContext, AuthState, AuthViewModel);

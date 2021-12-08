@@ -238,9 +238,9 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   Future<void> signIn() async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
+    // if (!formKey.currentState!.validate()) {
+    //   return;
+    // }
     setBusy(true);
     AuthSignInData signIn = AuthUsernamePasswordSignInData(
       username: _username.trim(),

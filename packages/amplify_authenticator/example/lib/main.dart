@@ -76,6 +76,75 @@ class _MyAppState extends State<MyApp> {
     // the user is signed in, the Authenticator will show whichever Widget we
     // provide as `child`.
     final authenticator = Authenticator(
+      // custom UI, built with the builder method
+      builder: (context, state, viewModel) {
+        if (state is Authenticated) {
+          return const SignedInScreen();
+        } else if (state is AuthFlow) {
+          switch (state.screen) {
+            case AuthScreen.signup:
+            case AuthScreen.signin:
+              return Scaffold(
+                appBar: AppBar(
+                  title: const Text('Sign In'),
+                ),
+                body: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          decoration: const InputDecoration(
+                            label: Text('Username'),
+                          ),
+                          onChanged: viewModel.setUsername, // <-- set username
+                        ),
+                        TextFormField(
+                          decoration: const InputDecoration(
+                            label: Text('Password'),
+                          ),
+                          onChanged: viewModel.setPassword, // <-- set password
+                        ),
+                        const SizedBox(height: 12),
+                        const SignInButton(), // <-- prebuilt SignInButton
+                        const SizedBox(height: 12),
+                        TextButton(
+                          onPressed: () {
+                            viewModel.signIn(); // <-- custom Sign In Button
+                          },
+                          child: const Text('Sign In'),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+
+            case AuthScreen.confirmSignup:
+              // TODO: Handle this case.
+              break;
+            case AuthScreen.confirmSigninMfa:
+              // TODO: Handle this case.
+              break;
+            case AuthScreen.confirmSigninNewPassword:
+              // TODO: Handle this case.
+              break;
+            case AuthScreen.resetPassword:
+              // TODO: Handle this case.
+              break;
+            case AuthScreen.confirmResetPassword:
+              // TODO: Handle this case.
+              break;
+            case AuthScreen.verifyUser:
+              // TODO: Handle this case.
+              break;
+            case AuthScreen.confirmVerifyUser:
+              // TODO: Handle this case.
+              break;
+          }
+        }
+        return Container();
+      },
       stringResolver: stringResolver,
       onException: (exception) {
         print('[ERROR]: $exception');
