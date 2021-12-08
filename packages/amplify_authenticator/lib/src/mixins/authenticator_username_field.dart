@@ -128,13 +128,12 @@ mixin AuthenticatorUsernameField<FieldType,
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 16, bottom: 16, right: 8),
-              child: Text(
-                usernameTitle,
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
+            Text(
+              usernameTitle,
+              style: Theme.of(context).inputDecorationTheme.labelStyle ??
+                  const TextStyle(fontSize: 16),
             ),
+            SizedBox(height: labelGap),
             LayoutBuilder(builder: (context, constraints) {
               const int buttonCount = 2;
               // borders are not duplicated between buttons - 2 buttons means 3 total borders
@@ -185,7 +184,7 @@ mixin AuthenticatorUsernameField<FieldType,
                 },
               );
             }),
-            const SizedBox(height: 12)
+            SizedBox(height: marginBottom),
           ],
         );
       default:

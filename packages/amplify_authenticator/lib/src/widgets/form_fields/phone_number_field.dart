@@ -78,7 +78,7 @@ class _AuthenticatorPhoneFieldState<FieldType>
   int get errorMaxLines => widget.errorMaxLines ?? super.errorMaxLines;
 
   @override
-  EdgeInsetsGeometry? get marginBottom => null;
+  double? get marginBottom => null;
 
   @override
   double? get labelGap => null;

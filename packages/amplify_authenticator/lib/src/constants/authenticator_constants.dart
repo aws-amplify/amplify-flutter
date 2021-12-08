@@ -44,8 +44,7 @@ class AuthenticatorContainerConstants {
 class FormFieldConstants {
   const FormFieldConstants._();
 
-  static const marginBottom =
-      EdgeInsets.only(left: 0, top: 0, right: 0, bottom: 20);
+  static const marginBottom = 20.0;
 
   static const gap = 8.0;
 }
