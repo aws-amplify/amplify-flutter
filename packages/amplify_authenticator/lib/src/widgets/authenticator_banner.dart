@@ -27,7 +27,10 @@ MaterialBanner createMaterialBanner(
   required List<Widget> actions,
   required bool useAmplifyTheme,
 }) {
-  final bool isDark = AmplifyTheme.of(context).isDark;
+  final bool isDark = AmplifyTheme.of(
+    context,
+    useAmplifyTheme: useAmplifyTheme,
+  ).isDark;
   final margin = MediaQuery.of(context).viewPadding.top;
 
   return MaterialBanner(
@@ -62,8 +65,10 @@ SnackBar createSnackBar(
   required Widget content,
   required bool useAmplifyTheme,
 }) {
-  final bool isDark =
-      MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+  final bool isDark = AmplifyTheme.of(
+    context,
+    useAmplifyTheme: useAmplifyTheme,
+  ).isDark;
   var foregroundColor = Theme.of(context).snackBarTheme.contentTextStyle?.color;
   if (useAmplifyTheme) {
     foregroundColor ??= isDark ? AmplifyColors.white : AmplifyColors.black;
