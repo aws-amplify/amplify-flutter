@@ -178,7 +178,8 @@ class AmplifyDataStorePluginTest {
             "syncInterval" to mockSyncInterval,
             "syncMaxRecords" to mockSyncMaxRecords,
             "syncPageSize" to mockSyncPageSize,
-            "modelProviderVersion" to "1.0"
+            "modelProviderVersion" to "1.0",
+            "authModeStrategy" to "default"
         )
 
         mockStatic(DataStoreConfiguration::class.java).use { mockedDataStoreConfiguration ->
@@ -231,7 +232,8 @@ class AmplifyDataStorePluginTest {
         val mockRequestWithCustomConfig = mapOf(
             "modelSchemas" to mockModelSchemas,
             "syncExpressions" to mockSyncExpressions,
-            "modelProviderVersion" to "1.0"
+            "modelProviderVersion" to "1.0",
+            "authModeStrategy" to "default"
         )
 
         mockStatic(DataStoreConfiguration::class.java).use { mockedDataStoreConfiguration ->

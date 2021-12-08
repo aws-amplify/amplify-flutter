@@ -163,8 +163,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         val syncExpressions: List<Map<String, Any>> =
             request["syncExpressions"].safeCastToList() ?: emptyList()
         val defaultDataStoreConfiguration = DataStoreConfiguration.defaults()
-        val authModeStrategy = request["authModeStrategy"] as String
-        val authModeStrategyType = AuthModeStrategyType.valueOf(authModeStrategy.toUpperCase(Locale.ROOT))
+        val authModeStrategy = request["authModeStrategy"] as? String
+        val authModeStrategyType = if (authModeStrategy == null)
+            AuthModeStrategyType.DEFAULT
+        else
+            AuthModeStrategyType.valueOf(authModeStrategy.toUpperCase(Locale.ROOT))
         val syncInterval: Long =
             (request["syncInterval"] as? Int)?.toLong()
                 ?: defaultDataStoreConfiguration.syncIntervalInMinutes
