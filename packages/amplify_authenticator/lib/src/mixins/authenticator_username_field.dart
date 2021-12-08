@@ -139,33 +139,26 @@ mixin AuthenticatorUsernameField<FieldType,
               // borders are not duplicated between buttons - 2 buttons means 3 total borders
               const int borderCount = buttonCount + 1;
               const double bordersPerButton = borderCount / buttonCount;
-              final ThemeData _themeData = Theme.of(context);
+              final ToggleButtonsThemeData toggleButtonsTheme =
+                  Theme.of(context).toggleButtonsTheme;
               final double buttonBorderWidth =
-                  _themeData.toggleButtonsTheme.borderWidth ?? 1.0;
+                  toggleButtonsTheme.borderWidth ?? 1.0;
               // half of the total width, minus the with of the borders
               final double buttonWidth = (constraints.maxWidth / buttonCount) -
                   (buttonBorderWidth * bordersPerButton);
-              final double buttonHeight =
-                  _themeData.toggleButtonsTheme.constraints?.minHeight ??
-                      _themeData.buttonTheme.constraints.minHeight;
-              final BoxConstraints buttonConstraints = BoxConstraints.expand(
-                width: buttonWidth,
-                height: buttonHeight,
+              final double buttonMinHeight =
+                  toggleButtonsTheme.constraints?.minHeight ?? 36.0;
+              final BoxConstraints buttonConstraints = BoxConstraints(
+                minWidth: buttonWidth,
+                maxWidth: buttonWidth,
+                minHeight: buttonMinHeight,
               );
-              final EdgeInsetsGeometry buttonPadding =
-                  _themeData.buttonTheme.padding;
               return ToggleButtons(
                 borderWidth: buttonBorderWidth,
                 constraints: buttonConstraints,
                 children: [
-                  Padding(
-                    padding: buttonPadding,
-                    child: Text(emailTitle),
-                  ),
-                  Padding(
-                    padding: buttonPadding,
-                    child: Text(phoneNumberTitle),
-                  )
+                  Text(emailTitle),
+                  Text(phoneNumberTitle),
                 ],
                 isSelected: [useEmail.value, !useEmail.value],
                 onPressed: (int index) {
