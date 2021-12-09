@@ -15,11 +15,7 @@
 
 import 'dart:convert';
 
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
-import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_flutter/src/config/auth/cognito/appsync.dart';
-import 'package:amplify_flutter/src/config/auth/cognito/pinpoint_analytics.dart';
-import 'package:amplify_flutter/src/config/auth/cognito/pinpoint_targeting.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/config/config_map.dart';
 import 'package:test/test.dart';
 

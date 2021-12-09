@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_app/Views/ErrorView.dart';
 
@@ -48,7 +48,7 @@ class _SignUpViewState extends State<SignUpView> {
       CognitoUserAttributeKey.phoneNumber: phoneController.text,
     };
     try {
-      SignUpResult res = await Amplify.Auth.signUp(
+      await Amplify.Auth.signUp(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
           options: CognitoSignUpOptions(userAttributes: userAttributes));
@@ -67,7 +67,7 @@ class _SignUpViewState extends State<SignUpView> {
     });
 
     try {
-      SignUpResult res = await Amplify.Auth.confirmSignUp(
+      await Amplify.Auth.confirmSignUp(
           username: usernameController.text.trim(),
           confirmationCode: confirmationCodeController.text.trim());
       Navigator.pop(context, true);

@@ -13,10 +13,7 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_flutter/src/config/amplify_plugin_config.dart';
-import 'package:amplify_flutter/src/config/amplify_plugin_registry.dart';
-import 'package:amplify_flutter/src/config/auth/cognito/appsync.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/config/config_map.dart';
 import 'package:meta/meta.dart';
 

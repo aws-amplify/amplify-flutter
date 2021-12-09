@@ -14,8 +14,7 @@
 //
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 // ignore_for_file: public_member_api_docs
@@ -28,7 +27,6 @@ class SignInWidget extends StatefulWidget {
   final VoidCallback getCurrentUser;
   final Function setError;
 
-  // ignore: public_member_api_docs
   SignInWidget(this.showResult, this.changeDisplay, this.showCreateUser,
       this.signOut, this.fetchSession, this.getCurrentUser, this.setError);
 

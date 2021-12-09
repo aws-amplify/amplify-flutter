@@ -18,7 +18,6 @@ import 'dart:typed_data';
 
 import 'package:amplify_api/src/graphql/graphql_subscription_event.dart';
 import 'package:amplify_api/src/graphql/graphql_subscription_transformer.dart';
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';

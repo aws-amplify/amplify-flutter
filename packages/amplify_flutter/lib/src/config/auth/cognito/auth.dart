@@ -14,12 +14,9 @@
 //
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'authentication_flow_type.dart';
-import 'oauth.dart';
-import 'password_protection_settings.dart';
 import 'user_attribute_key.dart';
 
 part 'auth.g.dart';

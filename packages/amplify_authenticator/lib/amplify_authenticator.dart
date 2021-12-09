@@ -40,14 +40,13 @@ import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_banner.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
-import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
-export 'package:amplify_flutter/amplify.dart'
+export 'package:amplify_flutter/amplify_flutter.dart'
     show PasswordProtectionSettings, PasswordPolicyCharacters;
 
 export 'src/enums/enums.dart' show AuthScreen, Gender;
@@ -71,7 +70,7 @@ export 'src/widgets/form_field.dart'
 /// ```dart
 /// import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 /// import 'package:amplify_authenticator/amplify_authenticator.dart';
-/// import 'package:amplify_flutter/amplify.dart';
+/// import 'package:amplify_flutter/amplify_flutter.dart';
 /// import 'package:flutter/material.dart';
 ///
 /// import 'amplifyconfiguration.dart';

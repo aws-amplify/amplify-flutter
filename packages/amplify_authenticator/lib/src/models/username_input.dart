@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 enum UsernameConfigType {
   username,

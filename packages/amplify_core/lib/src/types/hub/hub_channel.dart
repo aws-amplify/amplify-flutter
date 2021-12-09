@@ -14,3 +14,5 @@
  */
 
 enum HubChannel { Auth, DataStore }
+
+// ignore_for_file: constant_identifier_names

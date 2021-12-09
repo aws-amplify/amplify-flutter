@@ -16,6 +16,7 @@ linter:
     - avoid_void_async                                 # To provide context via the type system and allow the ability to await when necessary.
     - cancel_subscriptions                             # To avoid memory leaks and to prevent code from firing after a subscription is no longer being used.
     - close_sinks                                      # To avoid memory leaks.
+    - depend_on_referenced_packages                    # To prevent issues publishing.
     - directives_ordering                              # To maintain visual separation of a file’s imports.
     - missing_whitespace_between_adjacent_strings      # To prevent sentences which are smashedtogether.
     - only_throw_errors                                # To ensure downstream exception handling always works.

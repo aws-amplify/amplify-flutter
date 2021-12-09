@@ -38,15 +38,19 @@ part 'method_channel_amplify.dart';
 class AmplifyClass extends PlatformInterface {
   AmplifyConfig? _config;
 
-  // ignore: public_member_api_docs
+  /// The Auth category.
   final AuthCategory Auth = const AuthCategory();
-  // ignore: public_member_api_docs
+
+  /// The Analytics category.
   final AnalyticsCategory Analytics = const AnalyticsCategory();
-  // ignore: public_member_api_docs
+
+  /// The Storage category.
   final StorageCategory Storage = const StorageCategory();
-  // ignore: public_member_api_docs
+
+  /// The DataStore category.
   final DataStoreCategory DataStore = const DataStoreCategory();
-  // ignore: public_member_api_docs
+
+  /// The API category.
   final APICategory API = const APICategory();
 
   bool _isConfigured = false;
@@ -225,3 +229,5 @@ class AmplifyClass extends PlatformInterface {
     _instance = instance;
   }
 }
+
+// ignore_for_file: non_constant_identifier_names

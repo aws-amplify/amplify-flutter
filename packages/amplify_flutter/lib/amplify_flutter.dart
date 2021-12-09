@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-library amplify;
+library amplify_flutter;
 
 import 'src/amplify_impl.dart';
 

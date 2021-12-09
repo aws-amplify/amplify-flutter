@@ -17,7 +17,7 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 
-import '../amplify.dart';
+import '../amplify_flutter.dart';
 
 typedef Listener = void Function(HubEvent event);
 
@@ -37,6 +37,7 @@ class AmplifyHub {
       }
     }
 
+    // ignore: close_sinks
     late final StreamController<HubEvent> controller;
     controller = StreamController<HubEvent>.broadcast(
       onListen: () {

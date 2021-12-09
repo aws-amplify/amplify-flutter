@@ -15,8 +15,6 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-import 'ResendUserAttributeConfirmationCodeOptions.dart';
-
 /// Encapsulates parameters for a request to resend a user attribute confirmation code
 class ResendUserAttributeConfirmationCodeRequest {
   /// The key of the user attribute to resend the confirmation code for

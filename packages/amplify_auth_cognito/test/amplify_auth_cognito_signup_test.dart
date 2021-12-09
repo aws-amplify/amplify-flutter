@@ -85,7 +85,6 @@ void main() {
 
   test('signUp thrown PlatFormException results in AuthError', () async {
     testCode = 2;
-    late AuthException err;
     try {
       await auth.signUp(
           request: SignUpRequest(

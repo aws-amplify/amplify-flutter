@@ -1,4 +1,4 @@
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:test/test.dart';
 
 class Equated with AWSEquatable<Equated> {

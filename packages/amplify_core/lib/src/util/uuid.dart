@@ -16,9 +16,11 @@
 import 'package:uuid/uuid.dart';
 
 class UUID {
-  static final _internal = Uuid();
+  static const _internal = Uuid();
 
   static String getUUID() {
     return _internal.v4();
   }
 }
+
+// ignore_for_file: avoid_classes_with_only_static_members

@@ -13,9 +13,7 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_flutter/amplify.dart';
-
-import 'oauth.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 
 part 'user_pool.g.dart';
 

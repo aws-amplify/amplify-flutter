@@ -16,13 +16,10 @@
 // This test follows the Amplify UI feature "sign-in-with-email"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-in-with-email.feature
 
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -34,7 +31,6 @@ import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
 import 'utils/data_utils.dart';
 import 'utils/mock_data.dart';
-import 'utils/types/confirm_sign_up_response.dart';
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
