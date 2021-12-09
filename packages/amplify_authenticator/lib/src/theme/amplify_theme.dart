@@ -522,6 +522,16 @@ class AmplifyTheme {
     isDense: true,
   );
 
+  static const toggleButtonsTheme = ToggleButtonsThemeData(
+    borderColor: AmplifyColors.borderPrimary,
+    selectedBorderColor: AmplifyColors.borderPrimary,
+  );
+
+  static const toggleButtonsThemeDark = ToggleButtonsThemeData(
+    borderColor: AmplifyColors.neutral90,
+    selectedBorderColor: AmplifyColors.neutral90,
+  );
+
   static final tabBarTheme = TabBarTheme(
     labelColor: AmplifyColors.fontInteractive,
     labelStyle: AmplifyTextTheme.button$.copyWith(
@@ -605,6 +615,7 @@ class AmplifyTheme {
     tabBarTheme: tabBarTheme,
     iconTheme: iconTheme,
     outlinedButtonTheme: outlinedButtonTheme,
+    toggleButtonsTheme: toggleButtonsTheme,
   );
 
   static late final ThemeData dark = ThemeData.from(
@@ -633,6 +644,7 @@ class AmplifyTheme {
     tabBarTheme: tabBarThemeDark,
     iconTheme: iconThemeDark,
     outlinedButtonTheme: outlinedButtonThemeDark,
+    toggleButtonsTheme: toggleButtonsTheme,
   );
 }
 

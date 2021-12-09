@@ -183,9 +183,9 @@
     "@rememberDevice": {
         "description": "Label for the checkbox to remember the user's device in Cognito."
     },
-    "usernameType": "Select what you want to use as a username",
+    "usernameType": "Log in using:",
     "@usernameType": {
-        "description": " Label for the radio button set to select email or phone number as username when both are available."
+        "description": "Label for the toggle buttons to select email or phone number as username when both are available."
     },
     "optional": "{fieldTitle} (optional)",
     "@optional": {

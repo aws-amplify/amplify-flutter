@@ -216,10 +216,13 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   }
 
   /// Margin below the form field
-  EdgeInsetsGeometry? get marginBottom => FormFieldConstants.marginBottom;
+  double? get marginBottom => FormFieldConstants.marginBottom;
 
   /// Gap between the label and the form field
   double? get labelGap => FormFieldConstants.gap;
+
+  /// Widget to show above the label.
+  Widget? get surlabel => null;
 
   @nonVirtual
   @override
@@ -230,12 +233,13 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         const TextStyle(fontSize: 16);
 
     return Container(
-      margin: marginBottom,
+      margin: EdgeInsets.only(bottom: marginBottom ?? 0),
       child: Stack(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              if (surlabel != null) surlabel!,
               if (useAmplifyTheme && label != null)
                 DefaultTextStyle(
                   style: titleStyle,
@@ -274,8 +278,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
     properties.add(IntProperty('maxLength', maxLength));
     properties.add(DiagnosticsProperty<bool>('isOptional', isOptional));
     properties.add(StringProperty('labelText', labelText));
-    properties.add(
-        DiagnosticsProperty<EdgeInsetsGeometry?>('marginBottom', marginBottom));
+    properties.add(DiagnosticsProperty<double?>('marginBottom', marginBottom));
     properties.add(DoubleProperty('labelGap', labelGap));
   }
 }

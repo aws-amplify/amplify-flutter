@@ -271,10 +271,10 @@ abstract class AuthenticatorInputLocalizations {
   /// **'Remember Device?'**
   String get rememberDevice;
 
-  ///  Label for the radio button set to select email or phone number as username when both are available.
+  /// Label for the toggle buttons to select email or phone number as username when both are available.
   ///
   /// In en, this message translates to:
-  /// **'Select what you want to use as a username'**
+  /// **'Log in using:'**
   String get usernameType;
 
   /// Indicator for a field which is not required to be filled

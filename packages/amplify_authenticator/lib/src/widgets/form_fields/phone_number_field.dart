@@ -26,7 +26,6 @@ class AuthenticatorPhoneField<FieldType> extends AuthenticatorFormField<
     this.enabled,
     this.initialValue,
     this.errorMaxLines,
-    this.suffix,
     required bool useAmplifyTheme,
   }) : super._(
           key: key,
@@ -41,7 +40,6 @@ class AuthenticatorPhoneField<FieldType> extends AuthenticatorFormField<
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String?>? validator;
   final int? errorMaxLines;
-  final Widget? suffix;
 
   @override
   _AuthenticatorPhoneFieldState<FieldType> createState() =>
@@ -80,10 +78,7 @@ class _AuthenticatorPhoneFieldState<FieldType>
   int get errorMaxLines => widget.errorMaxLines ?? super.errorMaxLines;
 
   @override
-  Widget? get suffix => widget.suffix;
-
-  @override
-  EdgeInsetsGeometry? get marginBottom => null;
+  double? get marginBottom => null;
 
   @override
   double? get labelGap => null;

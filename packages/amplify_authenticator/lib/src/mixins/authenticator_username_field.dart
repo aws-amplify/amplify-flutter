@@ -109,51 +109,79 @@ mixin AuthenticatorUsernameField<FieldType,
   }
 
   @override
-  Widget? get suffix {
-    // Mirrors internal impl. to create an "always active" Switch theme.
-    final thumbColor = Theme.of(context).toggleableActiveColor;
-    final trackColor = thumbColor.withOpacity(0.5);
-
+  Widget? get surlabel {
+    final InputResolver inputResolver = stringResolver.inputs;
+    final String phoneNumberTitle = inputResolver.title(
+      context,
+      InputField.phoneNumber,
+    );
+    final String emailTitle = inputResolver.title(
+      context,
+      InputField.email,
+    );
+    final String usernameTitle = inputResolver.title(
+      context,
+      InputField.usernameType,
+    );
     switch (usernameType) {
-      case UsernameConfigType.username:
-      case UsernameConfigType.email:
-      case UsernameConfigType.phoneNumber:
-        return null;
       case UsernameConfigType.emailOrPhoneNumber:
-      default:
-        return SizedBox(
-          height: 20,
-          width: 100,
-          child: IconTheme.merge(
-            data: const IconThemeData(size: 16.0),
-            child: Row(
-              children: [
-                const Icon(Icons.phone),
-                Switch(
-                  thumbColor: MaterialStateProperty.all(thumbColor),
-                  trackColor: MaterialStateProperty.all(trackColor),
-                  value: useEmail.value,
-                  onChanged: (val) {
-                    setState(() {
-                      useEmail.value = val;
-                    });
-
-                    // Reset current username value to align with the current switch state.
-                    String newUsername = val
-                        ? viewModel
-                                .getAttribute(CognitoUserAttributeKey.email) ??
-                            ''
-                        : viewModel.getAttribute(
-                                CognitoUserAttributeKey.phoneNumber) ??
-                            '';
-                    viewModel.setUsername(newUsername);
-                  },
-                ),
-                const Icon(Icons.email),
-              ],
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              usernameTitle,
+              style: Theme.of(context).inputDecorationTheme.labelStyle ??
+                  const TextStyle(fontSize: 16),
             ),
-          ),
+            SizedBox(height: labelGap),
+            LayoutBuilder(builder: (context, constraints) {
+              const int buttonCount = 2;
+              // borders are not duplicated between buttons - 2 buttons means 3 total borders
+              const int borderCount = buttonCount + 1;
+              const double bordersPerButton = borderCount / buttonCount;
+              final ToggleButtonsThemeData toggleButtonsTheme =
+                  Theme.of(context).toggleButtonsTheme;
+              final double buttonBorderWidth =
+                  toggleButtonsTheme.borderWidth ?? 1.0;
+              // half of the total width, minus the with of the borders
+              final double buttonWidth = (constraints.maxWidth / buttonCount) -
+                  (buttonBorderWidth * bordersPerButton);
+              final double buttonMinHeight =
+                  toggleButtonsTheme.constraints?.minHeight ?? 36.0;
+              final BoxConstraints buttonConstraints = BoxConstraints(
+                minWidth: buttonWidth,
+                maxWidth: buttonWidth,
+                minHeight: buttonMinHeight,
+              );
+              return ToggleButtons(
+                borderWidth: buttonBorderWidth,
+                constraints: buttonConstraints,
+                children: [
+                  Text(emailTitle),
+                  Text(phoneNumberTitle),
+                ],
+                isSelected: [useEmail.value, !useEmail.value],
+                onPressed: (int index) {
+                  bool _useEmail = index == 0;
+                  setState(() {
+                    useEmail.value = _useEmail;
+                  });
+                  // Reset current username value to align with the current switch state.
+                  String newUsername = _useEmail
+                      ? viewModel.getAttribute(CognitoUserAttributeKey.email) ??
+                          ''
+                      : viewModel.getAttribute(
+                              CognitoUserAttributeKey.phoneNumber) ??
+                          '';
+                  viewModel.setUsername(newUsername);
+                },
+              );
+            }),
+            SizedBox(height: marginBottom),
+          ],
         );
+      default:
+        return null;
     }
   }
 
@@ -223,7 +251,6 @@ mixin AuthenticatorUsernameField<FieldType,
         initialValue:
             viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber),
         useAmplifyTheme: useAmplifyTheme,
-        suffix: suffix,
       );
     }
     return TextFormField(
