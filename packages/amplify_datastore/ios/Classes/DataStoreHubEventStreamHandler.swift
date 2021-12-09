@@ -58,9 +58,7 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
             eventGuard.lock()
             defer { eventGuard.unlock() }
             for payload in eventHistory {
-                if replayableEvents.contains(payload.eventName) {
-                    sendPayload(payload)
-                }
+                sendPayload(payload)
             }
         }
         #endif
