@@ -118,4 +118,37 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         XCTAssertEqual(ourSd["timeType"] as! String , refSd["timeType"] as! String)
         XCTAssertEqual(ourSd["enumType"] as! String , refSd["enumType"] as! String)
     }
+
+    func test_model_registy_decoder_decodes_object() throws {
+        let modelName = "Comment"
+        let testModelId = "123"
+        let testModelContent = "a comment"
+        let jsonString = "{\"id\":\"\(testModelId)\",\"content\":\"\(testModelContent)\"}"
+        let decodedModel = try ModelRegistry.decode(modelName: modelName, from: jsonString)
+        XCTAssertEqual(decodedModel.id, testModelId);
+        let values = (decodedModel as! FlutterSerializedModel).values
+        XCTAssertEqual(values["content"], JSONValue.string(testModelContent))
+    }
+
+    func test_model_registy_decoder_decodes_array_of_object() throws {
+        let modelName = "Comment"
+        let testModelId = "123"
+        let testModelContent = "a comment"
+        let jsonString = "[{\"id\":\"\(testModelId)\",\"content\":\"\(testModelContent)\"}]"
+        let decodedModel = try ModelRegistry.decode(modelName: modelName, from: jsonString)
+        XCTAssertEqual(decodedModel.id, testModelId);
+        let values = (decodedModel as! FlutterSerializedModel).values
+        XCTAssertEqual(values["content"], JSONValue.string(testModelContent))
+    }
+
+    func test_model_registy_decoder_throws_on_invalid_json_input() throws {
+        let modelName = "Comment"
+        let jsonString = "invalid_json_string"
+
+        XCTAssertThrowsError(
+            try ModelRegistry.decode(modelName: modelName, from: jsonString)
+        ) { error in
+            XCTAssertEqual(error is DecodingError, true)
+        }
+    }
 }

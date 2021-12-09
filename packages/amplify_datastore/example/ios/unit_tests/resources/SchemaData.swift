@@ -131,6 +131,8 @@ struct SchemaData {
             flutterModelRegistration.addModelSchema(modelName: key, modelSchema: value)
         }
 
+        flutterModelRegistration.registerModels(registry: ModelRegistry.self)
+
         return flutterModelRegistration
     }
 }
