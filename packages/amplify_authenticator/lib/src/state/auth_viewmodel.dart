@@ -221,9 +221,9 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   Future<void> confirm() async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
+    // if (!formKey.currentState!.validate()) {
+    //   return;
+    // }
 
     setBusy(true);
     final confirmation = AuthConfirmSignUpData(
@@ -298,9 +298,9 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   Future<void> signUp() async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
+    // if (!formKey.currentState!.validate()) {
+    //   return;
+    // }
     setBusy(true);
 
     final signUp = AuthSignUpData(

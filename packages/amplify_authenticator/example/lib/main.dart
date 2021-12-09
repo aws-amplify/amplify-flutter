@@ -84,45 +84,8 @@ class _MyAppState extends State<MyApp> {
           switch (state.screen) {
             case AuthScreen.signup:
             case AuthScreen.signin:
-              return Scaffold(
-                appBar: AppBar(
-                  title: const Text('Sign In'),
-                ),
-                body: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            label: Text('Username'),
-                          ),
-                          onChanged: viewModel.setUsername, // <-- set username
-                        ),
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            label: Text('Password'),
-                          ),
-                          onChanged: viewModel.setPassword, // <-- set password
-                        ),
-                        const SizedBox(height: 12),
-                        const SignInButton(), // <-- prebuilt SignInButton
-                        const SizedBox(height: 12),
-                        TextButton(
-                          onPressed: () {
-                            viewModel.signIn(); // <-- custom Sign In Button
-                          },
-                          child: const Text('Sign In'),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              );
-
             case AuthScreen.confirmSignup:
-              // TODO: Handle this case.
-              break;
+              return SignInView(state: state, viewModel: viewModel);
             case AuthScreen.confirmSigninMfa:
               // TODO: Handle this case.
               break;
@@ -207,6 +170,228 @@ class SignedInScreen extends StatelessWidget {
         title: const Text('Signed In'),
       ),
       body: const Center(child: SignOutButton()),
+    );
+  }
+}
+
+// custom sign up and sign in flow, inspired by lyft
+class SignInView extends StatefulWidget {
+  const SignInView({
+    Key? key,
+    required this.state,
+    required this.viewModel,
+  }) : super(key: key);
+
+  final AuthState state;
+  final AuthViewModel viewModel;
+
+  @override
+  _SignInViewState createState() => _SignInViewState();
+}
+
+class _SignInViewState extends State<SignInView> {
+  PageController controller = PageController(initialPage: 0);
+
+  // hacky way to figure out if user exists, just for demo purposes
+  Future<bool> userExists(String username) async {
+    try {
+      await Amplify.Auth.signIn(username: username, password: 'password123');
+      Amplify.Auth.signOut();
+      return true;
+    } on UserNotFoundException {
+      return false;
+    } on Exception {
+      return true;
+    }
+  }
+
+  void animateTo(int i) {
+    controller.animateToPage(
+      i,
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeIn,
+    );
+  }
+
+  void goToUsernameScreen() => animateTo(0);
+  void goToSignIn() => animateTo(1);
+  void goToSignUp() => animateTo(2);
+  void goToConfirmSignUp() => animateTo(3);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: PageView(
+              controller: controller,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Let\'s start with your phone number.',
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        label: Text('Phone Number'),
+                      ),
+                      onChanged:
+                          widget.viewModel.setUsername, // <-- set username
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          color: Colors.blue,
+                          iconSize: 44,
+                          onPressed: () async {
+                            // see if username exists and direct to sign up or sign in
+                            if (await userExists(widget.viewModel.username)) {
+                              goToSignIn();
+                            } else {
+                              goToSignUp();
+                            }
+                          },
+                          icon: const Icon(Icons.arrow_forward),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Welcome back!',
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Enter your password below to log back in',
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        label: Text('Password'),
+                      ),
+                      obscureText: true,
+                      onChanged:
+                          widget.viewModel.setPassword, // <-- set password
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          color: Colors.blue,
+                          iconSize: 44,
+                          onPressed: () async {
+                            await widget.viewModel.signIn(); // <-- sign in
+                          },
+                          icon: const Icon(Icons.arrow_forward),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Let\'s create your account.',
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Enter and confirm your password to create your account.',
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        label: Text('Password'),
+                      ),
+                      obscureText: true,
+                      onChanged:
+                          widget.viewModel.setPassword, // <-- set password
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        label: Text('Confirm Password'),
+                      ),
+                      obscureText: true,
+                      onChanged: widget.viewModel
+                          .setPasswordConfirmation, // <-- set password confirmation
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          color: Colors.blue,
+                          iconSize: 44,
+                          onPressed: () async {
+                            await widget.viewModel.signUp(); // <-- sign up
+                            goToConfirmSignUp();
+                          },
+                          icon: const Icon(Icons.arrow_forward),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Enter your confirmation code.',
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Enter the code that was sent to your phone number.',
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        label: Text('Confirmation code'),
+                      ),
+                      obscureText: true,
+                      onChanged: widget.viewModel
+                          .setConfirmationCode, // <-- set confirmation code
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          color: Colors.blue,
+                          iconSize: 44,
+                          onPressed: () async {
+                            await widget.viewModel
+                                .confirm(); // <-- confirm sign up
+                          },
+                          icon: const Icon(Icons.arrow_forward),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
