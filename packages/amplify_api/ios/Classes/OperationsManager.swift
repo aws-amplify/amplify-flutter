@@ -40,9 +40,6 @@ public class OperationsManager {
     }
 
     public static func removeOperation(cancelToken: String) {
-        if operationsMap[cancelToken] == nil {
-            return
-        }
         queue.sync {
             guard let operation = operationsMap[cancelToken] else {
                 return
@@ -55,19 +52,19 @@ public class OperationsManager {
     }
 
     public static func setTaskId(for cancelToken: String, taskId: Int) {
-        guard let operation = operationsMap[cancelToken] as? RESTOperation else {
-            return
-        }
         queue.sync {
+            guard let operation = operationsMap[cancelToken] as? RESTOperation else {
+                return
+            }
             operationIdsByTaskId[taskId] = operation.id
         }
     }
 
     public static func updateProgress(for taskId: Int, urlResponse: HTTPURLResponse) {
-        guard let operationId = operationIdsByTaskId[taskId] else {
-            return
-        }
         queue.sync {
+            guard let operationId = operationIdsByTaskId[taskId] else {
+                return
+            }
             operationsResponseMap[operationId] = urlResponse
         }
     }
