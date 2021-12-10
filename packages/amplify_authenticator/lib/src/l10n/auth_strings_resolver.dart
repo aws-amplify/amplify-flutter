@@ -25,6 +25,7 @@ import 'title_resolver.dart';
 export 'button_resolver.dart';
 export 'country_resolver.dart';
 export 'input_resolver.dart';
+export 'message_resolver.dart';
 export 'title_resolver.dart';
 
 /// {@template authenticator.auth_string_resolver}
