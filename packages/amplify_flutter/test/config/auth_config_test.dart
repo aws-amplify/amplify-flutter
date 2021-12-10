@@ -19,7 +19,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:path/path.dart' as path;
 import 'package:test/test.dart';
 

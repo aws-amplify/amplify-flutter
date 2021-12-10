@@ -28,7 +28,6 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_datastore/amplify_datastore.dart';
 import 'test_models/ModelProvider.dart';
 
 void main() {
@@ -37,8 +36,6 @@ void main() {
   const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
   const String channelName = "com.amazonaws.amplify/datastore_hub_events";
 
-  AmplifyDataStore datastore =
-      AmplifyDataStore(modelProvider: ModelProvider.instance);
   DataStoreStreamController controller = DataStoreStreamController();
   controller.registerModelsForHub(ModelProvider.instance);
   StreamController dataStoreStreamController =

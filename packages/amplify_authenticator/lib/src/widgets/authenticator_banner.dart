@@ -17,7 +17,6 @@ import 'package:amplify_authenticator/src/enums/status_type.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 /// Creates an Authenticator-themed Material banner.
 MaterialBanner createMaterialBanner(

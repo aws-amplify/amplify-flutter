@@ -13,12 +13,9 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_flutter/src/config/amplify_plugin_config.dart';
-import 'package:amplify_flutter/src/config/amplify_plugin_registry.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/config/config_map.dart';
 
-import 'cognito_config.dart';
 export 'cognito_config.dart' hide CognitoPluginConfigFactory;
 
 part 'auth_config.g.dart';

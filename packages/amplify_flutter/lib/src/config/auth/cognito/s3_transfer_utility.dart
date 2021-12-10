@@ -13,7 +13,7 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 
 part 's3_transfer_utility.g.dart';
 

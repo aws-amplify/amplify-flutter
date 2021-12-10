@@ -13,7 +13,7 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/config/config_map.dart';
 
 part 'credentials_provider.g.dart';

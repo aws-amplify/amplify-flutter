@@ -13,14 +13,10 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_flutter/src/config/amplify_plugin_config.dart';
-import 'package:amplify_flutter/src/config/amplify_plugin_registry.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/config/config_map.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
-
-import 'appsync/api_config.dart';
 
 export 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart'
     show APIAuthorizationType;

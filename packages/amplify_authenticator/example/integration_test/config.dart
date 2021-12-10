@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 
 import 'envs/auth_with_email.dart' as auth_with_email;
 import 'envs/auth_with_email_lambda_signup_trigger.dart'

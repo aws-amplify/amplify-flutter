@@ -46,3 +46,5 @@ const DATABASE_PREFIX = 'testconfig_AMAZON_COGNITO_USER_POOLS';
 /// Storage values
 const BUCKET = 'mybucket';
 const ACCESS = 'guest';
+
+// ignore_for_file: constant_identifier_names

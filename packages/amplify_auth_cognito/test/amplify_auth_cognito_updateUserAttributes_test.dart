@@ -111,7 +111,6 @@ void main() {
   test('updateUserAttributes thrown PlatFormException results in AuthError',
       () async {
     testCode = 2;
-    AuthException err;
     try {
       await auth.updateUserAttributes(
         request: UpdateUserAttributesRequest(attributes: [

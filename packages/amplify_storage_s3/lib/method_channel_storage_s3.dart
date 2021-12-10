@@ -17,7 +17,6 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
-import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'dart:io';
 
 import 'amplify_storage_s3.dart';

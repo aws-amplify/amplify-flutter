@@ -14,7 +14,6 @@
 */
 
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// {@template authenticator.adaptive_flex}

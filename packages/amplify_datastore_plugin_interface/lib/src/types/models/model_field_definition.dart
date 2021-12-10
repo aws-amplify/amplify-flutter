@@ -15,9 +15,7 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import 'auth_rule.dart';
 import 'model_association.dart';
-import 'model_field_type.dart';
 
 class ModelFieldDefinition {
   final String name;

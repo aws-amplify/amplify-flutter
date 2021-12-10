@@ -16,7 +16,6 @@
 import 'package:amplify_authenticator/src/l10n/input_resolver.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 
