@@ -55,6 +55,10 @@ class AuthSignOut extends AuthEvent {
   const AuthSignOut();
 }
 
+class AuthNavigateToSignIn extends AuthEvent {
+  const AuthNavigateToSignIn();
+}
+
 class AuthExceptionEvent extends AuthEvent {
   const AuthExceptionEvent();
 }

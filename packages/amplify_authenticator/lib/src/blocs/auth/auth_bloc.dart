@@ -55,8 +55,30 @@ class StateMachineBloc {
   late final Stream<AuthEvent> _authEventStream = _authEventController.stream;
   late final StreamSubscription<AuthState> _subscription;
 
+  /// auth hub subscription
+  StreamSubscription? _hubSubscription;
+
   AuthState _currentState = const AuthLoading();
   AuthState get currentState => _currentState;
+
+  Future<void> setUpHubSubscription() async {
+    // the stream does not exist until configuration is complete
+    await Amplify.asyncConfig;
+    _hubSubscription = Amplify.Hub.listen([HubChannel.Auth], (event) {
+      switch (event.eventName) {
+        case 'SIGNED_OUT':
+        case 'SESSION_EXPIRED':
+          add(const AuthNavigateToSignIn());
+          break;
+      }
+    });
+  }
+
+  Future<void> cancelHubSubscription() async {
+    if (_hubSubscription != null) {
+      return _hubSubscription?.cancel();
+    }
+  }
 
   /// {@macro authenticator.state_machine_bloc}
   StateMachineBloc({
@@ -68,6 +90,7 @@ class StateMachineBloc {
       _controllerSink.add(state);
       _currentState = state;
     });
+    setUpHubSubscription();
   }
 
   /// Adds an event to the Bloc.
@@ -104,6 +127,8 @@ class StateMachineBloc {
       yield* _changeScreen(event.screen);
     } else if (event is AuthSignOut) {
       yield* _signOut();
+    } else if (event is AuthNavigateToSignIn) {
+      yield* _navigateToSignIn();
     } else if (event is AuthResetPassword) {
       yield* _resetPassword(event.data);
     } else if (event is AuthConfirmResetPassword) {
@@ -411,6 +436,10 @@ class StateMachineBloc {
     }
   }
 
+  Stream<AuthState> _navigateToSignIn() async* {
+    yield AuthFlow.signin;
+  }
+
   Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
     try {
       ResendUserAttributeConfirmationCodeResult result =
@@ -467,6 +496,7 @@ class StateMachineBloc {
       _authStateController.close(),
       _authEventController.close(),
       _exceptionController.close(),
+      cancelHubSubscription(),
     ]);
   }
 }
