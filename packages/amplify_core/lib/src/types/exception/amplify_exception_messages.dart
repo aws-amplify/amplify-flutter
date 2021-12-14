@@ -37,4 +37,14 @@ class AmplifyExceptionMessages {
 
   static const nullReturnedFromMethodChannel =
       'The value returned from the MethodChannel is null';
+
+  static const codeGenRequiredFieldForceCastExceptionMessage =
+      // ignore: missing_whitespace_between_adjacent_strings
+      'The field you are accessing is not nullable but has a null value.'
+      'It was marked as required (!) in your schema.graphql but the containing model class was initialized without setting its value.';
+
+  static const codeGenRequiredFieldForceCastRecoverySuggestion =
+      // ignore: missing_whitespace_between_adjacent_strings
+      'Please validate that the containing model class was initialized properly with all requried fields being initialized.'
+      'This can happen when a nested model is returned but only its id field has been set';
 }
