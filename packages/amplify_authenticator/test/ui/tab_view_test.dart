@@ -302,4 +302,10 @@ class MockBloc implements StateMachineBloc {
 
   @override
   Stream<AuthState> get stream => Stream.value(AuthFlow.signin);
+
+  @override
+  Future<void> cancelHubSubscription() async {}
+
+  @override
+  Future<void> setUpHubSubscription() async {}
 }
