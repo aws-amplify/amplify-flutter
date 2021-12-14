@@ -110,8 +110,9 @@ void main() {
     });
 
     group('BelongsTo', () {
-      var child = ChildModel(name: 'child');
-      var parent = BelongsToModel(name: 'HasOne', child: child);
+      var relationshipParent = ChildModel(name: 'child');
+      var relationshipChild =
+          BelongsToModel(name: 'BelongsTo', child: relationshipParent);
       late Future<SubscriptionEvent<ChildModel>> belongsToEvent;
       late Future<SubscriptionEvent<BelongsToModel>> hasOneEvent;
 
@@ -132,54 +133,52 @@ void main() {
         expect(queriedParents, isEmpty);
       });
 
-      testWidgets('save child', (WidgetTester tester) async {
-        await Amplify.DataStore.save(child);
+      testWidgets('save relationshipParent', (WidgetTester tester) async {
+        await Amplify.DataStore.save(relationshipParent);
         var children = await Amplify.DataStore.query(ChildModel.classType);
         expect(children, isNotEmpty);
       });
 
-      testWidgets('save parent', (WidgetTester tester) async {
-        await Amplify.DataStore.save(parent);
+      testWidgets('save relationshipChild', (WidgetTester tester) async {
+        await Amplify.DataStore.save(relationshipChild);
         var parents = await Amplify.DataStore.query(BelongsToModel.classType);
         expect(parents, isNotEmpty);
       });
 
-      testWidgets('query parent', (WidgetTester tester) async {
+      testWidgets('query relationshipChild', (WidgetTester tester) async {
         var parents = await Amplify.DataStore.query(BelongsToModel.classType);
         var queriedParent = parents.single;
-        expect(queriedParent, parent);
-        expect(queriedParent.child, child);
+        expect(queriedParent, relationshipChild);
+        expect(queriedParent.child, relationshipParent);
       });
 
-      testWidgets('query child', (WidgetTester tester) async {
+      testWidgets('query relationshipParent', (WidgetTester tester) async {
         var children = await Amplify.DataStore.query(ChildModel.classType);
         var queriedChild = children.single;
-        expect(queriedChild, child);
+        expect(queriedChild, relationshipParent);
       });
 
-      testWidgets('observe parent', (WidgetTester tester) async {
+      testWidgets('observe relationshipChild', (WidgetTester tester) async {
         var event = await hasOneEvent;
         var observedParent = event.item;
-        expect(observedParent, parent);
-        expect(observedParent.child, child);
+        expect(observedParent, relationshipChild);
+        expect(observedParent.child, relationshipParent);
       });
 
-      testWidgets('observe child', (WidgetTester tester) async {
+      testWidgets('observe relationshipParent', (WidgetTester tester) async {
         var event = await belongsToEvent;
         var observedChild = event.item;
-        expect(observedChild, child);
+        expect(observedChild, relationshipParent);
       });
 
-      testWidgets('delete parent', (WidgetTester tester) async {
-        await Amplify.DataStore.delete(parent);
-        var parents = await Amplify.DataStore.query(BelongsToModel.classType);
-        expect(parents, isEmpty);
-      });
-
-      testWidgets('delete child', (WidgetTester tester) async {
-        await Amplify.DataStore.delete(child);
+      testWidgets(
+          'delete relationshipParent (cascade delete relationshipChild)',
+          (WidgetTester tester) async {
+        await Amplify.DataStore.delete(relationshipParent);
         var children = await Amplify.DataStore.query(ChildModel.classType);
         expect(children, isEmpty);
+        var parent = await Amplify.DataStore.query(BelongsToModel.classType);
+        expect(parent, isEmpty);
       });
     });
 
@@ -266,16 +265,11 @@ void main() {
         }
       });
 
-      testWidgets('delete parent', (WidgetTester tester) async {
+      testWidgets('delete parent (cascade delete children)',
+          (WidgetTester tester) async {
         await Amplify.DataStore.delete(parent);
         var parents = await Amplify.DataStore.query(HasManyModel.classType);
         expect(parents, isEmpty);
-      });
-
-      testWidgets('delete children', (WidgetTester tester) async {
-        for (var child in children) {
-          await Amplify.DataStore.delete(child);
-        }
         var queriedChildren =
             await Amplify.DataStore.query(HasManyChildModel.classType);
         expect(queriedChildren, isEmpty);

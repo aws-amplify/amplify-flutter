@@ -39,8 +39,17 @@ final public class FlutterModels: AmplifyModelRegistration {
                 // Convert jsonstring to object
                 let data = jsonString.data(using: .utf8)!
                 let jsonValue = try resolvedDecoder.decode(JSONValue.self, from: data)
+
+                var jsonObj: [String: JSONValue]?
+                // the json string presents an array of objects
                 if case .array(let jsonArray) = jsonValue,
-                   case .object(let jsonObj) = jsonArray[0],
+                   case .object(let obj) = jsonArray[0] {
+                    jsonObj = obj
+                } else if case .object(let obj) = jsonValue {
+                    jsonObj = obj
+                }
+                // the json string presents an object
+                if let jsonObj = jsonObj,
                    case .string(let id) = jsonObj["id"] {
                     let model = FlutterSerializedModel(id: id, map: jsonObj)
                     return model
