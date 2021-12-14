@@ -1,3 +1,9 @@
+## 0.3.0-rc.3 (2021-12-08)
+
+### Fixes
+
+- fix (amplify_datastore): fix error map from ios (#1126) 
+
 ## 0.3.0-rc.2 (2021-11-08)
 
 ### Features
@@ -6,6 +12,8 @@
 - feat: Add ModelField ReadOnly support (#599)
 
 ## 0.3.0-rc.1 (2021-09-24)
+
+## 0.2.10 (2021-11-23)
 
 ## 0.2.9 (2021-11-17)
 

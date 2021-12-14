@@ -19,7 +19,6 @@ import 'dart:typed_data';
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/graphql_subscription_event.dart';
 import 'package:amplify_api/src/graphql/graphql_subscription_transformer.dart';
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 import 'package:flutter/foundation.dart';
@@ -87,7 +86,10 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   Future<void> addPlugin() async {
     try {
       setupAuthProviders();
-      await _channel.invokeMethod<void>('addPlugin');
+      await _channel.invokeMethod<void>('addPlugin', {
+        'authProviders':
+            _authProviders.keys.map((key) => key.rawValue).toList(),
+      });
     } on PlatformException catch (e) {
       if (e.code == 'AmplifyAlreadyConfiguredException') {
         throw const AmplifyAlreadyConfiguredException(

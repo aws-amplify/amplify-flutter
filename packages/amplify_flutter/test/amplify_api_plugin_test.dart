@@ -14,9 +14,7 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_flutter/src/amplify_impl.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/categories/amplify_categories.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -28,9 +26,6 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   bool platformError = false;
-
-  // Class under test
-  AmplifyClass amplify;
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -47,9 +42,6 @@ void main() {
         return true;
       }
     });
-    // We want to instantiate a new instance for each test so we start
-    // with a fresh state as `Amplify` singleton holds a state.
-    amplify = AmplifyClass.protected();
 
     // Clear out plugins before each test for a fresh state.
     APICategory.plugins.clear();
@@ -66,7 +58,7 @@ void main() {
     platformError = true;
     try {
       await Amplify.addPlugin(AmplifyAPI());
-    } catch (e) {
+    } on Exception {
       fail('exception was thrown');
     }
   });
@@ -87,7 +79,7 @@ void main() {
     } on AmplifyException catch (e) {
       expect(
           e.message, 'Amplify plugin AmplifyAPI was not added successfully.');
-    } catch (e) {
+    } on Exception catch (e) {
       expect(e, isA<AmplifyException>());
     }
   });

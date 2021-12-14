@@ -1,0 +1,82 @@
+{
+    "@@locale": "en",
+    "@@context": "amplify_authenticator:buttons",
+    "signin": "Sign In",
+    "@signin": {
+        "description": "Label of the button to sign in the user."
+    },
+    "signup": "Create Account",
+    "@signup": {
+        "description": "Label of the button to sign up the user."
+    },
+    "confirm": "Confirm",
+    "@confirm": {
+        "description": "Label of button to confirm an action"
+    },
+    "submit": "Submit",
+    "@submit": {
+        "description": "Label of button to submit a form"
+    },
+    "changePassword": "Change Password",
+    "@changePassword": {
+        "description": "Label of button to change a password"
+    },
+    "sendCode": "Send Code",
+    "@sendCode": {
+        "description": "Label of button to send a verification code to the user's device"
+    },
+    "lostCode": "Lost your code?",
+    "@lostCode": {
+        "description": "Label of button prompting user if they've not received or have misplaced a verification code we sent"
+    },
+    "noAccount": "No account?",
+    "@noAccount": {
+        "description": "Hint text for the 'Go to Sign Up' button"
+    },
+    "haveAccount": "Have an account?",
+    "@haveAccount": {
+        "description": "Hint text for the 'Go to Sign In' button"
+    },
+    "forgotPassword": "Forgot your password?",
+    "@forgotPassword": {
+        "description": "Hint text for the 'Reset Password' button"
+    },
+    "confirmResetPassword": "Reset Password",
+    "@confirmResetPassword": {
+        "description": "Label of button to confirm the reset of a user's password"
+    },
+    "verify": "Verify",
+    "@verify": {
+        "description": "Label of button to verify a user's attribute, such as their email or phone number"
+    },
+    "skip": "Skip",
+    "@skip": {
+        "description": "Label of button to skip the current screen or action."
+    },
+    "signout": "Sign Out",
+    "@signout": {
+        "description": "Label of button to sign out the user"
+    },
+    "backTo": "Back to {previousScreen, select, signup{Sign Up}, signin{Sign In}, confirmSignup{Confirm Sign-up}, confirmSigninMfa{Confirm Sign-in} confirmSigninNewPassword{Confirm Sign-in} sendCode{Send Code} resetPassword{Reset Password} verifyUser{Verify User} confirmVerifyUser{Confirm Verify User}}",
+    "@backTo": {
+        "description": "Label of button to return to the previous screen",
+        "placeholders": {
+            "previousScreen": {
+                "type": "AuthScreen",
+                "example": "signIn",
+                "description": "The title of the previous screen."
+            }
+        }
+    },
+    "signInWith": "Sign In with {provider, select, google{Google} facebook{Facebook} amazon{Amazon} apple{Apple}}",
+    "@signInWith": {
+        "description": "Label of button to sign in with a social provider",
+        "placeholders": {
+            "provider": {
+                "type": "AuthProvider",
+                "example": "Google",
+                "description": "The social sign-in provider"
+            }
+        }
+    }
+}

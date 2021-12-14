@@ -14,9 +14,6 @@
  */
 
 import 'dart:collection';
-import 'dart:io' show Platform;
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
-import 'package:flutter/material.dart';
 
 class AWSCognitoUserPoolTokens {
   String accessToken;

@@ -52,28 +52,4 @@ void main() {
       'updatedAt': null
     });
   });
-
-  test('Test that nested serializedData generates proper json', () async {
-    Map<String, dynamic> inputMap = {
-      "id": "1",
-      "modelName": "Parent",
-      "serializedData": {
-        "id": "1",
-        "name": "My name is Parent",
-        "child": {
-          "id": "2",
-          "modelName": "Child",
-          "serializedData": {
-            "id": "2",
-            "name": "My name is Child",
-            "innerChild": {
-              "id": "3",
-              "modelName": "InnerChild",
-              "serializedData": {"id": "3", "name": "My name is InnerChild"}
-            }
-          }
-        }
-      }
-    };
-  });
 }

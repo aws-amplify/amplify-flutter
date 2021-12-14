@@ -23,10 +23,12 @@ import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_api.auth.FlutterAuthProviders
 import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
 import com.amazonaws.amplify.amplify_core.AtomicResult
+import com.amazonaws.amplify.amplify_core.cast
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 import com.amplifyframework.api.aws.AWSApiPlugin
+import com.amplifyframework.api.aws.AuthorizationType
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
@@ -78,16 +80,20 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(call: MethodCall, _result: Result) {
         val methodName = call.method
         val result = AtomicResult(_result, call.method)
+        val arguments: Map<String, Any> = (call.arguments as? Map<*, *>)?.cast() ?: mapOf()
 
         if (methodName == "cancel") {
             onCancel(result, (call.arguments as String))
             return
         } else if (methodName == "addPlugin") {
             try {
+                val authProvidersList: List<String> =
+                    (arguments["authProviders"] as List<*>?)?.cast() ?: listOf()
+                val authProviders = authProvidersList.map { AuthorizationType.valueOf(it) }
                 Amplify.addPlugin(
                     AWSApiPlugin
                         .builder()
-                        .apiAuthProviders(FlutterAuthProviders(channel).factory)
+                        .apiAuthProviders(FlutterAuthProviders(authProviders, channel).factory)
                         .build()
                 )
                 logger.info("Added API plugin")
@@ -99,7 +105,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         }
 
         try {
-            val arguments: Map<String, Any> = call.arguments as Map<String, Any>
+
 
             when (call.method) {
                 "get" -> FlutterRestApi.get(result, arguments)

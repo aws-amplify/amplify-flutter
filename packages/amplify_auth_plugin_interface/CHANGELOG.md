@@ -1,6 +1,19 @@
+## 0.3.0-rc.3 (2021-12-08)
+
+### Fixes
+
+- fix(amplify_auth_cognito): remove int.parse from AuthUserAttribute (#1169)
+
 ## 0.3.0-rc.2 (2021-11-08)
 
 ## 0.3.0-rc.1 (2021-09-24)
+
+## 0.2.10 (2021-11-23)
+
+### Fixes
+
+- fix(auth): Fix coroutines crash (#1132)
+- fix(auth): Remove duplicate AtomicResult (#1133)
 
 ## 0.2.9 (2021-11-17)
 

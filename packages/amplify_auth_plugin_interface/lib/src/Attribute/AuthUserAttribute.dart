@@ -17,19 +17,13 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 
 class AuthUserAttribute {
   final UserAttributeKey userAttributeKey;
-  late final Object value;
+  final String value;
 
   /// Creates an object that holds the key and value for a user attribute.
-  AuthUserAttribute({
+  const AuthUserAttribute({
     required this.userAttributeKey,
-    required String value,
-  }) {
-    Object? _value;
-    if (userAttributeKey.key != 'phone_number') {
-      _value = int.tryParse(value);
-    }
-    this.value = _value ?? value;
-  }
+    required this.value,
+  });
 
   // ignore: public_member_api_docs
   Map<String, dynamic> serializeAsMap() {

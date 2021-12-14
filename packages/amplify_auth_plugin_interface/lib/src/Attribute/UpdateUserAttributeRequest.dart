@@ -15,9 +15,6 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-import 'AuthUserAttribute.dart';
-import 'UpdateUserAttributeOptions.dart';
-
 /// Encapsulates parameters for a update user attribute operation
 class UpdateUserAttributeRequest {
   /// The user attribute to update

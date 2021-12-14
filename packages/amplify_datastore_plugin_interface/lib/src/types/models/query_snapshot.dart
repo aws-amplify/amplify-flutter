@@ -15,9 +15,11 @@
 
 library model;
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_datastore_plugin_interface/src/types/models/sorted_list.dart';
+import 'package:amplify_datastore_plugin_interface/src/types/query/query_field.dart';
 
-import 'sorted_list.dart';
+import 'model.dart';
+
 import 'subscription_event.dart';
 
 /// {@template query_snapshot}
