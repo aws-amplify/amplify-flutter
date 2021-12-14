@@ -13,11 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:async';
-
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_auth_cognito/src/CognitoHubEvents/AuthHubEvent.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
