@@ -1,3 +1,7 @@
+input AMPLIFY {
+  globalAuthRule: AuthRule = { allow: public }
+}
+
 type FileMeta {
   name: String!
 }
@@ -15,22 +19,22 @@ type Blog @model {
   createdAt: AWSDateTime
   file: S3Object
   files: [S3Object]
-  posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
+  posts: [Post] @hasMany(indexName: "byBlog", fields: ["id"])
 }
 
-type Post @model @key(name: "byBlog", fields: ["blogID"]) {
+type Post @model {
   id: ID!
   title: String!
   rating: Int!
   created: AWSDateTime
-  blogID: ID!
-  blog: Blog @connection(fields: ["blogID"])
-  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+  blogID: ID! @index(name: "byBlog")
+  blog: Blog @belongsTo(fields: ["blogID"])
+  comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
 }
 
-type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
+type Comment @model {
   id: ID!
-  postID: ID!
-  post: Post @connection(fields: ["postID"])
+  postID: ID! @index(name: "byPost")
+  post: Post @belongsTo(fields: ["postID"])
   content: String!
 }
