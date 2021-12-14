@@ -55,30 +55,8 @@ class StateMachineBloc {
   late final Stream<AuthEvent> _authEventStream = _authEventController.stream;
   late final StreamSubscription<AuthState> _subscription;
 
-  /// auth hub subscription
-  StreamSubscription? _hubSubscription;
-
   AuthState _currentState = const AuthLoading();
   AuthState get currentState => _currentState;
-
-  Future<void> setUpHubSubscription() async {
-    // the stream does not exist until configuration is complete
-    await Amplify.asyncConfig;
-    _hubSubscription = Amplify.Hub.listen([HubChannel.Auth], (event) {
-      switch (event.eventName) {
-        case 'SIGNED_OUT':
-        case 'SESSION_EXPIRED':
-          add(const AuthNavigateToSignIn());
-          break;
-      }
-    });
-  }
-
-  Future<void> cancelHubSubscription() async {
-    if (_hubSubscription != null) {
-      return _hubSubscription?.cancel();
-    }
-  }
 
   /// {@macro authenticator.state_machine_bloc}
   StateMachineBloc({
@@ -90,7 +68,6 @@ class StateMachineBloc {
       _controllerSink.add(state);
       _currentState = state;
     });
-    setUpHubSubscription();
   }
 
   /// Adds an event to the Bloc.
@@ -496,7 +473,6 @@ class StateMachineBloc {
       _authStateController.close(),
       _authEventController.close(),
       _exceptionController.close(),
-      cancelHubSubscription(),
     ]);
   }
 }
