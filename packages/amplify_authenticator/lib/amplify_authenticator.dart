@@ -425,11 +425,14 @@ class _AuthenticatorState extends State<Authenticator> {
     if (cognitoPlugin == null) {
       return const ['auth.plugins.Auth.Default'];
     }
+    if (cognitoPlugin.usernameAttributes == null) {
+      missingValues.add('\n - usernameAttributes');
+    }
     if (cognitoPlugin.signupAttributes == null) {
-      missingValues.add('auth.plugins.Auth.Default.signUpAttributes');
+      missingValues.add('\n - signUpAttributes');
     }
     if (cognitoPlugin.passwordProtectionSettings == null) {
-      missingValues.add('auth.plugins.Auth.Default.passwordProtectionSettings');
+      missingValues.add('\n - passwordProtectionSettings');
     }
     return missingValues;
   }
@@ -437,9 +440,18 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   Widget build(BuildContext context) {
     if (_configInitialized && _missingConfigValues.isNotEmpty) {
-      throw StateError('''Encountered problem(s) building the Authenticator.
-          Your amplifyconfiguration.dart file is missing required values: ${_missingConfigValues.join('\n')}). 
-          You should correct your amplifyconfiguration.dart file and restart your app.''');
+      throw StateError(
+        'Encountered problem(s) building the Authenticator.'
+        '\n\n'
+        'Your amplifyconfiguration.dart file is missing the following required attributes: ${_missingConfigValues.join()}'
+        '\n\n'
+        'This can occur if the project was generated with the Amplify CLI prior to version X.Y.Z.' // TODO: Update version
+        '\n\n'
+        'Please refer to the amplify flutter documentation for more info on how to address this.'
+        '\n\n'
+        'Once you have added the missing values to your amplifyconfiguration.dart file, you will need to restart your app.'
+        '\n',
+      );
     }
 
     return Localizations.override(
