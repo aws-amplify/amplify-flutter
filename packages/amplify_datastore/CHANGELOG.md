@@ -9,7 +9,7 @@
 This release candidate requires a preview version of `@aws-amplify/cli`. To uninstall `@aws-amplify/cli` release version and install preview version by running following command.
 
 ```
-npm uninstall -g @aws-amplify/cli && npm install -g @aws-amplify/cli@6.2.0-custom-type-preview.0
+npm uninstall -g @aws-amplify/cli && npm install -g @aws-amplify/cli@7.7.0-flutter-preview.1
 ```
 and to regenerate models by running following command.
 
