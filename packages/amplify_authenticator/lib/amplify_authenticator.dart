@@ -445,7 +445,7 @@ class _AuthenticatorState extends State<Authenticator> {
         '\n\n'
         'Your amplifyconfiguration.dart file is missing the following required attributes: ${_missingConfigValues.join()}'
         '\n\n'
-        'This can occur if the project was generated with the Amplify CLI prior to version X.Y.Z.' // TODO: Update version
+        'This can occur if you are not using the Amplify CLI, or if the project was generated with the Amplify CLI prior to version X.Y.Z.' // TODO: Update version
         '\n\n'
         'Please refer to the amplify flutter documentation for more info on how to address this.'
         '\n\n'
