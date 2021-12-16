@@ -450,7 +450,7 @@ class _AuthenticatorState extends State<Authenticator> {
         ),
         ErrorDescription(
           '\nThis can occur if your project was not generated with the Amplify CLI, '
-          'or if the project was generated with the Amplify CLI prior to version 6.5.0.', // TODO: Confirm 6.5.0
+          'or if the project was generated with the Amplify CLI prior to version 6.4.0.',
         ),
         ErrorDescription(
           '\nPlease refer to the amplify flutter documentation for more info on how to resolve this and the full list of required attributes.',
