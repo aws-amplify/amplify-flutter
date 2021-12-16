@@ -442,13 +442,15 @@ class _AuthenticatorState extends State<Authenticator> {
     if (_configInitialized && _missingConfigValues.isNotEmpty) {
       throw FlutterError.fromParts([
         ErrorSummary(
-            'Encountered problem(s) building the Authenticator due to an invalid config. See below for more info.'),
+          'Encountered problem(s) building the Authenticator due to an invalid config. See below for more info.',
+        ),
         ErrorDescription(
           '\nYour amplifyconfiguration.dart file is missing the following required attributes:'
           '\n - ${_missingConfigValues.join('\n - ')}',
         ),
         ErrorDescription(
-          '\nThis can occur if your project was not generated with the Amplify CLI, or if the project was generated with the Amplify CLI prior to version 6.5.0.', // TODO: Confirm 6.5.0
+          '\nThis can occur if your project was not generated with the Amplify CLI, '
+          'or if the project was generated with the Amplify CLI prior to version 6.5.0.', // TODO: Confirm 6.5.0
         ),
         ErrorDescription(
           '\nPlease refer to the amplify flutter documentation for more info on how to resolve this and the full list of required attributes.',
