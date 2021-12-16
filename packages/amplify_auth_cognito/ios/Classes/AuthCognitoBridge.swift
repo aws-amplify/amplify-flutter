@@ -270,4 +270,16 @@ class AuthCognitoBridge {
             }
         }
     }
+    
+    func onDeleteUser(flutterResult: @escaping FlutterResult) {
+        Amplify.Auth.deleteUser() { response in
+            switch resonse {
+            case .success:
+                let emptyMap: Dictionary<String, Any> = [:]
+                flutterResult(emptyMap)
+            case .failure(let error):
+                self.errorHandler.handleAuthError(authError: error, flutterResult: flutterResult)
+            }
+        }
+    }
 }

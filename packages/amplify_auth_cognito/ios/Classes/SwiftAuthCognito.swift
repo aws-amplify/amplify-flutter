@@ -241,6 +241,13 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             } catch {
                 self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
+        case "deleteUser": {
+            do {
+                cognito.onDeleteUser(flutterResult: result)
+            } catch {
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
+            }
+        }
         default:
             result(FlutterMethodNotImplemented)
         }
