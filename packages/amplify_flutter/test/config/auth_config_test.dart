@@ -39,6 +39,12 @@ void main() {
             final expectedConfig = expected[name]!;
             final cognitoConfig = config.auth!.awsPlugin!.auth!.default$!;
             expect(cognitoConfig, equals(expectedConfig));
+            expect(
+                expectedConfig.toJson(),
+                equals(
+                  (configJson['auth'] as Map)['plugins']['awsCognitoAuthPlugin']
+                      ['Auth']['Default'],
+                ));
           });
         }
       }
@@ -57,6 +63,9 @@ void main() {
 const expected = <String, CognitoAuthConfig>{
   'auth_with_all_attributes': CognitoAuthConfig(
     authenticationFlowType: AuthenticationFlowType.userSrpAuth,
+    loginMechanisms: [
+      CognitoUserAttributeKey.preferredUsername,
+    ],
     signupAttributes: [
       CognitoUserAttributeKey.address,
       CognitoUserAttributeKey.birthdate,
@@ -91,6 +100,9 @@ const expected = <String, CognitoAuthConfig>{
   ),
   'auth_with_email': CognitoAuthConfig(
     authenticationFlowType: AuthenticationFlowType.userSrpAuth,
+    loginMechanisms: [
+      CognitoUserAttributeKey.email,
+    ],
     signupAttributes: [
       CognitoUserAttributeKey.email,
     ],
@@ -117,6 +129,10 @@ const expected = <String, CognitoAuthConfig>{
   ),
   'auth_with_multi_alias': CognitoAuthConfig(
     authenticationFlowType: AuthenticationFlowType.userSrpAuth,
+    loginMechanism: [
+      CognitoUserAttributeKey.email,
+      CognitoUserAttributeKey.phoneNumber,
+    ],
     signupAttributes: [
       CognitoUserAttributeKey.email,
       CognitoUserAttributeKey.phoneNumber,
@@ -136,6 +152,9 @@ const expected = <String, CognitoAuthConfig>{
   ),
   'auth_with_username_no_attributes': CognitoAuthConfig(
     authenticationFlowType: AuthenticationFlowType.userSrpAuth,
+    loginMechanisms: [
+      CognitoUserAttributeKey.preferredUsername,
+    ],
     signupAttributes: [
       CognitoUserAttributeKey.email,
     ],
