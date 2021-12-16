@@ -426,13 +426,13 @@ class _AuthenticatorState extends State<Authenticator> {
       return const ['auth.plugins.Auth.Default'];
     }
     if (cognitoPlugin.usernameAttributes == null) {
-      missingValues.add('\n - usernameAttributes');
+      missingValues.add('usernameAttributes');
     }
     if (cognitoPlugin.signupAttributes == null) {
-      missingValues.add('\n - signUpAttributes');
+      missingValues.add('signUpAttributes');
     }
     if (cognitoPlugin.passwordProtectionSettings == null) {
-      missingValues.add('\n - passwordProtectionSettings');
+      missingValues.add('passwordProtectionSettings');
     }
     return missingValues;
   }
@@ -440,18 +440,23 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   Widget build(BuildContext context) {
     if (_configInitialized && _missingConfigValues.isNotEmpty) {
-      throw StateError(
-        'Encountered problem(s) building the Authenticator.'
-        '\n\n'
-        'Your amplifyconfiguration.dart file is missing the following required attributes: ${_missingConfigValues.join()}'
-        '\n\n'
-        'This can occur if you are not using the Amplify CLI, or if the project was generated with the Amplify CLI prior to version X.Y.Z.' // TODO: Update version
-        '\n\n'
-        'Please refer to the amplify flutter documentation for more info on how to address this.'
-        '\n\n'
-        'Once you have added the missing values to your amplifyconfiguration.dart file, you will need to restart your app.'
-        '\n',
-      );
+      throw FlutterError.fromParts([
+        ErrorSummary(
+            'Encountered problem(s) building the Authenticator due to an invalid config. See below for more info.'),
+        ErrorDescription(
+          '\nYour amplifyconfiguration.dart file is missing the following required attributes:'
+          '\n - ${_missingConfigValues.join('\n - ')}',
+        ),
+        ErrorDescription(
+          '\nThis can occur if your project was not generated with the Amplify CLI, or if the project was generated with the Amplify CLI prior to version 6.5.0.', // TODO: Confirm 6.5.0
+        ),
+        ErrorDescription(
+          '\nPlease refer to the amplify flutter documentation for more info on how to resolve this and the full list of required attributes.',
+        ),
+        ErrorDescription(
+          '\nOnce you have added the missing values to your amplifyconfiguration.dart file, you will need to restart your app.',
+        ),
+      ]);
     }
 
     return Localizations.override(
