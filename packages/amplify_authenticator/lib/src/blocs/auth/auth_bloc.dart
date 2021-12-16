@@ -104,8 +104,6 @@ class StateMachineBloc {
       yield* _changeScreen(event.screen);
     } else if (event is AuthSignOut) {
       yield* _signOut();
-    } else if (event is AuthNavigateToSignIn) {
-      yield* _navigateToSignIn();
     } else if (event is AuthResetPassword) {
       yield* _resetPassword(event.data);
     } else if (event is AuthConfirmResetPassword) {
@@ -411,10 +409,6 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
-  }
-
-  Stream<AuthState> _navigateToSignIn() async* {
-    yield AuthFlow.signin;
   }
 
   Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
