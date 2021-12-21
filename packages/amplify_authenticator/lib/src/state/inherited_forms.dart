@@ -44,6 +44,7 @@ class InheritedForms extends InheritedWidget {
 
   AuthenticatorForm operator [](AuthScreen screen) {
     switch (screen) {
+      case AuthScreen.initial:
       case AuthScreen.signup:
         return signUpForm;
       case AuthScreen.signin:

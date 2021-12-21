@@ -27,14 +27,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 extension AuthenticatorButtonSizes on AuthenticatorButtonSize {
-  double get height {
+  double? get height {
     switch (this) {
       case AuthenticatorButtonSize.small:
-        return 32;
+        return null; // use default
       case AuthenticatorButtonSize.medium:
         return 40;
       case AuthenticatorButtonSize.large:
-        return 48;
+        return null; // use default
     }
   }
 }

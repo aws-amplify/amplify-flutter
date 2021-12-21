@@ -14,6 +14,7 @@
  */
 
 enum AuthScreen {
+  initial,
   signup,
   signin,
   confirmSignup,

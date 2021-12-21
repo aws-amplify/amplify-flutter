@@ -67,6 +67,7 @@ class TitleResolver extends Resolver<AuthScreen> {
   @override
   String resolve(BuildContext context, AuthScreen key) {
     switch (key) {
+      case AuthScreen.initial:
       case AuthScreen.signin:
         return signin(context);
       case AuthScreen.signup:

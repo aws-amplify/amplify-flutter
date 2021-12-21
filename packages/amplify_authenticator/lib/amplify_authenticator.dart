@@ -58,7 +58,11 @@ export 'src/widgets/button.dart' show SignOutButton;
 export 'src/widgets/form.dart'
     show SignInForm, SignUpForm, ConfirmSignInNewPasswordForm;
 export 'src/widgets/form_field.dart'
-    show SignInFormField, SignUpFormField, ConfirmSignInFormField;
+    show
+        SignInFormField,
+        SignUpFormField,
+        ConfirmSignInFormField,
+        ConfirmSignUpFormField;
 
 export 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 export 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
@@ -237,9 +241,10 @@ class Authenticator extends StatefulWidget {
     this.onException,
     this.exceptionBannerLocation = ExceptionBannerLocation.auto,
     this.preferPrivateSession = false,
+    this.initialScreen = AuthScreen.signin,
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
-    this.signUpForm = signUpForm ?? SignUpForm();
+    this.signUpForm = signUpForm ?? SignUpForm.custom(fields: const []);
     this.confirmSignInNewPasswordForm =
         confirmSignInNewPasswordForm ?? ConfirmSignInNewPasswordForm();
   }
@@ -281,6 +286,10 @@ class Authenticator extends StatefulWidget {
   /// This widget will be displayed after a user has signed in.
   final Widget child;
 
+  /// The initial screen that the authenticator will display if the user is not
+  /// already authenticated
+  final AuthScreen initialScreen;
+
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
 
@@ -297,6 +306,7 @@ class Authenticator extends StatefulWidget {
         'exceptionBannerLocation', exceptionBannerLocation));
     properties.add(DiagnosticsProperty<bool>(
         'preferPrivateSession', preferPrivateSession));
+    properties.add(EnumProperty<AuthScreen>('initialScreen', initialScreen));
   }
 }
 
@@ -318,6 +328,7 @@ class _AuthenticatorState extends State<Authenticator> {
     _stateMachineBloc = StateMachineBloc(
       authService: _authService,
       preferPrivateSession: widget.preferPrivateSession,
+      initialScreen: widget.initialScreen,
     )..add(const AuthLoad());
     _viewModel = AuthViewModel(_stateMachineBloc);
     _subscribeToExceptions();
@@ -517,12 +528,22 @@ class _AuthenticatorBody extends StatelessWidget {
         builder: (context, AsyncSnapshot<AuthState> snapshot) {
           final state = snapshot.data ?? const AuthLoading();
 
-          if (builder != null) {
-            return builder!(context, state, viewModel);
-          }
-
           if (state is Authenticated) {
             return Theme(data: userAppTheme, child: child);
+          }
+
+          if (builder != null) {
+            final AuthViewModel _viewModel = InheritedAuthViewModel.of(
+              context,
+              listen: true,
+            );
+            return Material(
+              child: builder!(
+                context,
+                state,
+                _viewModel,
+              ),
+            );
           }
 
           final Widget screen;
