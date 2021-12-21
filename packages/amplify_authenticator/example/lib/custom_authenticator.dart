@@ -238,7 +238,7 @@ class CheckUsernameButton extends StatelessWidget {
       );
       await Amplify.Auth.signOut();
       viewModel.navigateTo(
-        AuthScreen.signup,
+        AuthScreen.signin,
         resetAttributes: false,
       );
     } on UserNotFoundException {

@@ -490,7 +490,6 @@ class _AuthenticatorState extends State<Authenticator> {
                 child: _AuthenticatorBody(
                   child: widget.child,
                   builder: widget.builder,
-                  viewModel: _viewModel,
                 ),
               ),
             ),
@@ -505,13 +504,11 @@ class _AuthenticatorBody extends StatelessWidget {
   const _AuthenticatorBody({
     Key? key,
     required this.child,
-    required this.viewModel,
     this.builder,
   }) : super(key: key);
 
   final Widget child;
   final AuthBuilder? builder;
-  final AuthViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -568,6 +565,12 @@ class _AuthenticatorBody extends StatelessWidget {
         },
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(ObjectFlagProperty<AuthBuilder?>.has('builder', builder));
   }
 }
 
