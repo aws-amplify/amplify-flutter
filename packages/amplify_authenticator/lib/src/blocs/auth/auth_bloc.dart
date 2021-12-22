@@ -89,6 +89,9 @@ class StateMachineBloc {
   /// Info messages generated from the bloc.
   Stream<MessageResolverKey> get infoMessages => _infoMessageController.stream;
 
+  /// Listens for 'SignedOut' [Hub] event
+  StreamSubscription? _signOutListener;
+
   Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
       yield* _authLoad();
@@ -115,7 +118,7 @@ class StateMachineBloc {
     } else if (event is AuthConfirmVerifyUser) {
       yield* _confirmVerifyUser(event.data);
     } else if (event is AuthSkipVerifyUser) {
-      yield const Authenticated();
+      yield _registerAuthentication();
     } else if (event is AuthResendSignUpCode) {
       yield* _resendSignUpCode(event.username);
     }
@@ -133,7 +136,7 @@ class StateMachineBloc {
       final AuthUser? currentUser = await _authService.currentUser;
 
       if (currentUser != null) {
-        yield const Authenticated();
+        yield _registerAuthentication();
       } else {
         yield AuthFlow.signin;
       }
@@ -148,7 +151,7 @@ class StateMachineBloc {
     try {
       bool isValidSession = await _authService.isValidSession();
       if (isValidSession) {
-        yield const Authenticated();
+        yield _registerAuthentication();
       } else {
         /// [isValidSession] returns false if the native platform
         /// returns a [SignedOutException] or if the native libraries return a session object but
@@ -305,7 +308,7 @@ class StateMachineBloc {
           break;
         case 'DONE':
           if (isSocialSignIn) {
-            yield const Authenticated();
+            yield _registerAuthentication();
           } else {
             yield* _checkUserVerification();
           }
@@ -345,13 +348,13 @@ class StateMachineBloc {
       if (verifiedAttributes.isEmpty && unverifiedAttributes.isNotEmpty) {
         yield VerifyUserFlow(unverifiedAttributeKeys: unverifiedAttributes);
       } else {
-        yield const Authenticated();
+        yield _registerAuthentication();
       }
     } on Exception catch (e) {
       _exceptionController.add(
         AuthenticatorException(e.toString(), showBanner: false),
       );
-      yield const Authenticated();
+      yield _registerAuthentication();
     }
   }
 
@@ -403,6 +406,8 @@ class StateMachineBloc {
   Stream<AuthState> _signOut() async* {
     try {
       await _authService.signOut();
+      _signOutListener?.cancel();
+      _signOutListener = null;
       yield AuthFlow.signin;
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
@@ -434,7 +439,7 @@ class StateMachineBloc {
         userAttributeKey: data.userAttributeKey,
         confirmationCode: data.code,
       );
-      yield const Authenticated();
+      yield _registerAuthentication();
     } on Exception catch (e) {
       if (e is AmplifyException) {
         _exceptionController.add(AuthenticatorException(e.message));
@@ -468,5 +473,18 @@ class StateMachineBloc {
       _authEventController.close(),
       _exceptionController.close(),
     ]);
+  }
+
+  Authenticated _registerAuthentication() {
+    _signOutListener = _authService.hubListener((HubEvent hubEvent) {
+      switch (hubEvent.eventName) {
+        case 'SIGNED_OUT':
+          {
+            add(const AuthSignOut());
+          }
+          break;
+      }
+    });
+    return const Authenticated();
   }
 }

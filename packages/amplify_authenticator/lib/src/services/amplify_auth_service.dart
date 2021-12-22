@@ -30,6 +30,8 @@ abstract class AuthService {
 
   Future<void> signOut();
 
+  StreamSubscription? hubListener(void Function(HubEvent event) listener);
+
   Future<SignUpResult> signUp(
     String username,
     String password,
@@ -146,6 +148,11 @@ class AmplifyAuthService implements AuthService {
   @override
   Future<void> signOut() {
     return Amplify.Auth.signOut();
+  }
+
+  @override
+  StreamSubscription? hubListener(void Function(HubEvent event) listener) {
+    return Amplify.Hub.listen([HubChannel.Auth], listener);
   }
 
   @override
