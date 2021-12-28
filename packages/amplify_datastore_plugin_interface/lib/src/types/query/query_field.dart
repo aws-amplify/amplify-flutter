@@ -70,8 +70,11 @@ class QueryField<T> {
   QueryPredicateOperation operator >(Comparable<T> value) => gt(value);
 
   // Contains operation. No operator overloading for this one
-  QueryPredicateOperation contains(String value) => new QueryPredicateOperation(
-      this.fieldName, new ContainsQueryOperator(value));
+  // `value` is dynamic to support T being a List
+  QueryPredicateOperation contains(dynamic value) => QueryPredicateOperation(
+        this.fieldName,
+        ContainsQueryOperator(value),
+      );
 
   // Between operation. No operator overloading for this one
   QueryPredicateOperation between(Comparable<T> start, Comparable<T> end) =>
