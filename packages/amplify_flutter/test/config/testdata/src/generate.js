@@ -13,7 +13,12 @@
  * permissions and limitations under the License.
  */
 
-const generateConfig = require('amplify-frontend-flutter/lib/amplify-config-helper').generateConfig;
+const versions = {
+    4: require('cli-4/lib/amplify-config-helper').generateConfig,
+    5: require('cli-5/lib/amplify-config-helper').generateConfig,
+    6: require('cli-6/lib/amplify-config-helper').generateConfig,
+    7: require('cli-7/lib/amplify-config-helper').generateConfig,
+};
 const fs = require('fs');
 const child_process = require('child_process');
 
@@ -127,7 +132,7 @@ const testVectors = [
     }
 ];
 
-let out = 
+let out =
     `//
     // Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     //
@@ -153,24 +158,42 @@ let out =
         final String name;
         final String config;
     }
+
+    class TestSuite {
+        const TestSuite(this.version, this.tests);
+
+        final String version;
+        final List<TestData> tests;
+    }
     `;
 
-for (const vector of testVectors) {
-    const context = {
-        amplify: {
-            getProjectMeta: () => {
-                return vector.metadata;
+for (const entry of Object.entries(versions)) {
+    const version = entry[0];
+    const generateConfig = entry[1];
+
+    for (const vector of testVectors) {
+        const context = {
+            amplify: {
+                getProjectMeta: () => {
+                    return vector.metadata;
+                }
             }
-        }
-    };
-    const config = generateConfig(context, null, vector.awsConfig);
-    const configJSON = JSON.stringify(config, null, '  ');
-    out += `const _${vector.name.toLowerCase()} = '''\n${configJSON}\n''';\n\n`;
+        };
+        const config = generateConfig(context, null, vector.awsConfig);
+        const configJSON = JSON.stringify(config, null, '  ');
+        out += `const _v${version}${vector.name.toLowerCase()} = '''\n${configJSON}\n'''; \n\n`;
+    }
+
+    out += `const v${version}Tests = [`;
+    for (const vector of testVectors) {
+        out += `TestData('${vector.name}', _v${version}${vector.name.toLowerCase()}), \n`;
+    }
+    out += '];\n\n';
 }
 
 out += 'const allTests = [';
-for (const vector of testVectors) {
-    out += `TestData('${vector.name}', _${vector.name.toLowerCase()}),\n`;
+for (const version in versions) {
+    out += `TestSuite('${version}', v${version}Tests),\n`;
 }
 out += '];';
 

@@ -24,14 +24,18 @@ import 'testdata/test_values.dart';
 
 void main() {
   group('Config', () {
-    for (var testData in allTests) {
-      final name = testData.name;
-      test(name, () {
-        final json = jsonDecode(testData.config) as Map<String, Object?>;
-        final parsed = AmplifyConfig.fromJson(json.cast());
-        final expectedConfig = expected[name]!;
-        expect(parsed, equals(expectedConfig));
-        expect(expectedConfig.toJson(), equals(json));
+    for (var testSuite in allTests) {
+      group('v${testSuite.version}', () {
+        for (var testData in testSuite.tests) {
+          final name = testData.name;
+          test(name, () {
+            final json = jsonDecode(testData.config) as Map<String, Object?>;
+            final parsed = AmplifyConfig.fromJson(json.cast());
+            final expectedConfig = expected[name]!;
+            expect(parsed, equals(expectedConfig));
+            expect(expectedConfig.toJson(), equals(json));
+          });
+        }
       });
     }
   });
