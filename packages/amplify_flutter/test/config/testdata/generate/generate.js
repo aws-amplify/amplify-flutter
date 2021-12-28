@@ -14,10 +14,10 @@
  */
 
 const versions = {
-    4: require('cli-4/lib/amplify-config-helper').generateConfig,
-    5: require('cli-5/lib/amplify-config-helper').generateConfig,
-    6: require('cli-6/lib/amplify-config-helper').generateConfig,
-    7: require('cli-7/lib/amplify-config-helper').generateConfig,
+    4: require('cli-4/lib/amplify-config-helper').generateConfig, // 4.52.0
+    5: require('cli-5/lib/amplify-config-helper').generateConfig, // 5.6.0
+    6: require('cli-6/lib/amplify-config-helper').generateConfig, // 6.4.0
+    7: require('cli-7/lib/amplify-config-helper').generateConfig, // 7.6.5 (latest)
 };
 const fs = require('fs');
 const child_process = require('child_process');

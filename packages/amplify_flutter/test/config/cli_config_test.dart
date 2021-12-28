@@ -16,7 +16,6 @@
 import 'dart:convert';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_flutter/src/config/config_map.dart';
 import 'package:test/test.dart';
 
 import 'testdata/cli_generated.dart';
@@ -25,7 +24,7 @@ import 'testdata/test_values.dart';
 void main() {
   group('Config', () {
     for (var testSuite in allTests) {
-      group('v${testSuite.version}', () {
+      group('Generated v${testSuite.version}', () {
         for (var testData in testSuite.tests) {
           final name = testData.name;
           test(name, () {
