@@ -11,18 +11,20 @@ CLI versions 4-7 (latest) are supported. We employ three suites of tests to veri
 
 ## Auth Tests
 
-Test data from the CLI is gathered for different Auth use cases, both from after the "Zero Config" switch (v6.4.0) and from projects created before that (`old`). These are created by running amplify pull in the different Amplify UI [environments](https://github.com/aws-amplify/amplify-ui/tree/main/environments).
+Test data from the CLI is gathered for different Auth use cases, both from after the "Zero Config" switch (v6.4.0) and from before (`old`). These configurations are created by running amplify pull in the different Amplify UI [environments](https://github.com/aws-amplify/amplify-ui/tree/main/environments).
+
+These tests ensure that we handle the various changes to login mechanisms and username attributes introduced in the Zero Config changes.
 
 ## CLI `generateConfig`
 
-The CLI internally uses a function `generateConfig` to output the Flutter `amplifyconfiguration.dart` file. This is used in [`src/`](src/) to generate various configs for the different categories and for the different CLI versions. To regenerate:
+Internally, the CLI uses a function called `generateConfig` to output the Flutter `amplifyconfiguration.dart` file. This is used in [`generate/`](generate/) to generate various configs for the different categories and for the different CLI versions. To regenerate [`cli_generated.dart`](cli_generated.dart):
 
 ```sh
 $ cd generate
 $ yarn && yarn generate
 ```
 
-This will output [`cli_generated.dart`](cli_generated.dart).
+These tests ensure compatibility with any major changes to the different category config shapes.
 
 ## E2E CLI Tests
 
