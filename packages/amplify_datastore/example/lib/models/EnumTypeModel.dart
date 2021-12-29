@@ -80,8 +80,9 @@ class EnumTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'value': enumToString(_value)};
 
-  static final QueryField ID = QueryField(fieldName: "enumTypeModel.id");
-  static final QueryField VALUE = QueryField(fieldName: "value");
+  static final QueryField<String> ID =
+      QueryField(fieldName: "enumTypeModel.id");
+  static final QueryField<EnumModel?> VALUE = QueryField(fieldName: "value");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "EnumTypeModel";

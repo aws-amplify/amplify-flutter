@@ -24,9 +24,41 @@ import 'setup_utils.dart';
 
 /// test ascending and descending sort operations given a [queryField]
 /// to sort on and a [sort] method to test against
-testSortOperations<T extends Model>({
+testSortOperations<T extends Model, V extends Comparable<V>>({
   required List<T> models,
-  required QueryField queryField,
+  required QueryField<V?> queryField,
+  required int sort(T a, T b),
+}) {
+  var classType = getModelType<T>();
+  var ascendingSortedModels = models..sort(sort);
+  var descendingSortedModels = ascendingSortedModels.reversed.toList();
+
+  setUp(() async {
+    await configureDataStore();
+    await clearDataStore();
+    for (var model in models) {
+      await Amplify.DataStore.save(model);
+    }
+  });
+
+  testWidgets('ascending()', (WidgetTester tester) async {
+    var actualModels = await Amplify.DataStore.query(classType,
+        sortBy: [queryField.ascending()]);
+    expect(actualModels, orderedEquals(ascendingSortedModels));
+  });
+
+  testWidgets('descending()', (WidgetTester tester) async {
+    var actualModels = await Amplify.DataStore.query(classType,
+        sortBy: [queryField.descending()]);
+    expect(actualModels, orderedEquals(descendingSortedModels));
+  });
+}
+
+/// test ascending and descending sort operations given a [queryField]
+/// to sort on and a [sort] method to test against
+testBoolSortOperations<T extends Model>({
+  required List<T> models,
+  required QueryField<bool?> queryField,
   required int sort(T a, T b),
 }) {
   var classType = getModelType<T>();

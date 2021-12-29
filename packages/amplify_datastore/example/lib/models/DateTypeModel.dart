@@ -81,8 +81,9 @@ class DateTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value?.format()};
 
-  static final QueryField ID = QueryField(fieldName: "dateTypeModel.id");
-  static final QueryField VALUE = QueryField(fieldName: "value");
+  static final QueryField<String> ID =
+      QueryField(fieldName: "dateTypeModel.id");
+  static final QueryField<TemporalDate?> VALUE = QueryField(fieldName: "value");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "DateTypeModel";

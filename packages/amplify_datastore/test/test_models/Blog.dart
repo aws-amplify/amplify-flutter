@@ -118,9 +118,9 @@ class Blog extends Model {
         'posts': _posts?.map((Post? e) => e?.toJson()).toList()
       };
 
-  static final QueryField ID = QueryField(fieldName: "blog.id");
-  static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField POSTS = QueryField(
+  static final QueryField<String> ID = QueryField(fieldName: "blog.id");
+  static final QueryField<String> NAME = QueryField(fieldName: "name");
+  static final QueryField<List<Post>?> POSTS = QueryField(
       fieldName: "posts",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Post).toString()));

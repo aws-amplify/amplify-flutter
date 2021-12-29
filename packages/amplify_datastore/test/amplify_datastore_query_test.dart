@@ -116,9 +116,17 @@ void main() {
       }
     });
     List<Post> posts = await dataStore.query(Post.classType,
-        where: Post.ID.eq("123").or(Post.RATING
-            .ge(4)
-            .and(not(Post.CREATED.eq("2020-02-20T20:20:20-08:00")))),
+        where: Post.ID.eq("123").or(
+              Post.RATING.ge(4).and(
+                    not(
+                      Post.CREATED.eq(
+                        TemporalDateTime.fromString(
+                          "2020-02-20T20:20:20-08:00",
+                        ),
+                      ),
+                    ),
+                  ),
+            ),
         sortBy: [Post.ID.ascending(), Post.CREATED.descending()],
         pagination: QueryPagination(page: 2, limit: 8));
     expect(posts.length, 0);

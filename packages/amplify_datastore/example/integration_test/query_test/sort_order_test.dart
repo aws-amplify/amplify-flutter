@@ -42,7 +42,7 @@ void main() {
         StringTypeModel(value: '\u{1F601}'),
         StringTypeModel(),
       ];
-      testSortOperations<StringTypeModel>(
+      testSortOperations<StringTypeModel, String>(
         models: models,
         queryField: StringTypeModel.VALUE,
         sort: sortStringTypeModel,
@@ -50,7 +50,7 @@ void main() {
     });
 
     group('for type int', () {
-      testSortOperations<IntTypeModel>(
+      testSortOperations<IntTypeModel, num>(
         models: [
           IntTypeModel(value: dataStoreMaxInt),
           IntTypeModel(value: dataStoreMinInt),
@@ -68,7 +68,7 @@ void main() {
     group(
       'for type double',
       () {
-        testSortOperations<DoubleTypeModel>(
+        testSortOperations<DoubleTypeModel, num>(
           models: [
             DoubleTypeModel(value: double.maxFinite),
             DoubleTypeModel(value: double.minPositive),
@@ -90,7 +90,7 @@ void main() {
     );
 
     group('for type bool', () {
-      testSortOperations<BoolTypeModel>(
+      testBoolSortOperations<BoolTypeModel>(
         models: [
           BoolTypeModel(value: false),
           BoolTypeModel(value: true),
@@ -112,7 +112,7 @@ void main() {
       var models = values
           .map((value) => DateTypeModel(value: TemporalDate(value)))
           .toList();
-      testSortOperations<DateTypeModel>(
+      testSortOperations<DateTypeModel, TemporalDate>(
         models: models,
         queryField: DateTypeModel.VALUE,
         sort: sortDateTypeModel,
@@ -133,7 +133,7 @@ void main() {
       var models = values
           .map((value) => DateTimeTypeModel(value: TemporalDateTime(value)))
           .toList();
-      testSortOperations<DateTimeTypeModel>(
+      testSortOperations<DateTimeTypeModel, TemporalDateTime>(
         models: models,
         queryField: DateTimeTypeModel.VALUE,
         sort: sortDateTimeTypeModel,
@@ -155,7 +155,7 @@ void main() {
       var models = values
           .map((value) => TimeTypeModel(value: TemporalTime(value)))
           .toList();
-      testSortOperations<TimeTypeModel>(
+      testSortOperations<TimeTypeModel, TemporalTime>(
         models: models,
         queryField: TimeTypeModel.VALUE,
         sort: sortTimeTypeModel,
@@ -173,7 +173,7 @@ void main() {
       var models = values
           .map((value) => TimestampTypeModel(value: TemporalTimestamp(value)))
           .toList();
-      testSortOperations<TimestampTypeModel>(
+      testSortOperations<TimestampTypeModel, TemporalTimestamp>(
         models: models,
         queryField: TimestampTypeModel.VALUE,
         sort: sortTimestampTypeModel,

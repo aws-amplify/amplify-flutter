@@ -135,10 +135,10 @@ class HasOneModel extends Model {
   Map<String, dynamic> toJson() =>
       {'id': id, 'name': _name, 'childID': _childID, 'child': _child?.toJson()};
 
-  static final QueryField ID = QueryField(fieldName: "hasOneModel.id");
-  static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField CHILDID = QueryField(fieldName: "childID");
-  static final QueryField CHILD = QueryField(
+  static final QueryField<String> ID = QueryField(fieldName: "hasOneModel.id");
+  static final QueryField<String> NAME = QueryField(fieldName: "name");
+  static final QueryField<String> CHILDID = QueryField(fieldName: "childID");
+  static final QueryField<ChildModel?> CHILD = QueryField(
       fieldName: "child",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (ChildModel).toString()));

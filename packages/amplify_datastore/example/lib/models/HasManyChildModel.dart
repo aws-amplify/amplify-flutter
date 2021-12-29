@@ -109,9 +109,10 @@ class HasManyChildModel extends Model {
   Map<String, dynamic> toJson() =>
       {'id': id, 'name': _name, 'parent': _parent?.toJson()};
 
-  static final QueryField ID = QueryField(fieldName: "hasManyChildModel.id");
-  static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField PARENT = QueryField(
+  static final QueryField<String> ID =
+      QueryField(fieldName: "hasManyChildModel.id");
+  static final QueryField<String> NAME = QueryField(fieldName: "name");
+  static final QueryField<HasManyModel?> PARENT = QueryField(
       fieldName: "parent",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (HasManyModel).toString()));

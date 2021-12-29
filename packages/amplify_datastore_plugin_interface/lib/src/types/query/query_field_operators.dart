@@ -81,7 +81,7 @@ abstract class QueryFieldOperator<T> {
 }
 
 class EqualQueryOperator<T> extends QueryFieldOperator<T> {
-  final T value;
+  final T? value;
 
   const EqualQueryOperator(this.value) : super(QueryFieldOperatorType.equal);
 
@@ -99,7 +99,7 @@ class EqualQueryOperator<T> extends QueryFieldOperator<T> {
 }
 
 class NotEqualQueryOperator<T> extends QueryFieldOperator<T> {
-  final T value;
+  final T? value;
 
   const NotEqualQueryOperator(this.value)
       : super(QueryFieldOperatorType.not_equal);
@@ -117,7 +117,7 @@ class NotEqualQueryOperator<T> extends QueryFieldOperator<T> {
   }
 }
 
-class LessOrEqualQueryOperator<T extends Comparable>
+class LessOrEqualQueryOperator<T extends Comparable<T>>
     extends QueryFieldOperator<T> {
   final T value;
 
@@ -140,7 +140,7 @@ class LessOrEqualQueryOperator<T extends Comparable>
   }
 }
 
-class LessThanQueryOperator<T extends Comparable>
+class LessThanQueryOperator<T extends Comparable<T>>
     extends QueryFieldOperator<T> {
   final T value;
 
@@ -163,7 +163,7 @@ class LessThanQueryOperator<T extends Comparable>
   }
 }
 
-class GreaterOrEqualQueryOperator<T extends Comparable>
+class GreaterOrEqualQueryOperator<T extends Comparable<T>>
     extends QueryFieldOperator<T> {
   final T value;
 
@@ -186,7 +186,7 @@ class GreaterOrEqualQueryOperator<T extends Comparable>
   }
 }
 
-class GreaterThanQueryOperator<T extends Comparable>
+class GreaterThanQueryOperator<T extends Comparable<T>>
     extends QueryFieldOperator<T> {
   final T value;
 
@@ -230,7 +230,8 @@ class ContainsQueryOperator extends QueryFieldOperator<String> {
   }
 }
 
-class BetweenQueryOperator<T extends Comparable> extends QueryFieldOperator<T> {
+class BetweenQueryOperator<T extends Comparable<T>>
+    extends QueryFieldOperator<T> {
   final T start;
   final T end;
 

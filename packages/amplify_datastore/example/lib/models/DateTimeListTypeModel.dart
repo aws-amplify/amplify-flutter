@@ -88,9 +88,10 @@ class DateTimeListTypeModel extends Model {
   Map<String, dynamic> toJson() =>
       {'id': id, 'value': _value?.map((e) => e.format()).toList()};
 
-  static final QueryField ID =
+  static final QueryField<String> ID =
       QueryField(fieldName: "dateTimeListTypeModel.id");
-  static final QueryField VALUE = QueryField(fieldName: "value");
+  static final QueryField<List<TemporalDateTime>?> VALUE =
+      QueryField(fieldName: "value");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "DateTimeListTypeModel";

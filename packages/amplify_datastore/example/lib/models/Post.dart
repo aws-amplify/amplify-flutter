@@ -187,15 +187,16 @@ class Post extends Model {
         'comments': _comments?.map((e) => e?.toJson())?.toList()
       };
 
-  static final QueryField ID = QueryField(fieldName: "post.id");
-  static final QueryField TITLE = QueryField(fieldName: "title");
-  static final QueryField RATING = QueryField(fieldName: "rating");
-  static final QueryField CREATED = QueryField(fieldName: "created");
-  static final QueryField BLOG = QueryField(
+  static final QueryField<String> ID = QueryField(fieldName: "post.id");
+  static final QueryField<String> TITLE = QueryField(fieldName: "title");
+  static final QueryField<int> RATING = QueryField(fieldName: "rating");
+  static final QueryField<TemporalDateTime?> CREATED =
+      QueryField(fieldName: "created");
+  static final QueryField<Blog?> BLOG = QueryField(
       fieldName: "blog",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Blog).toString()));
-  static final QueryField COMMENTS = QueryField(
+  static final QueryField<List<Comment>?> COMMENTS = QueryField(
       fieldName: "comments",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Comment).toString()));

@@ -94,9 +94,10 @@ class PostAuthComplex extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'title': _title, 'owner': _owner};
 
-  static final QueryField ID = QueryField(fieldName: "postAuthComplex.id");
-  static final QueryField TITLE = QueryField(fieldName: "title");
-  static final QueryField OWNER = QueryField(fieldName: "owner");
+  static final QueryField<String> ID =
+      QueryField(fieldName: "postAuthComplex.id");
+  static final QueryField<String> TITLE = QueryField(fieldName: "title");
+  static final QueryField<String?> OWNER = QueryField(fieldName: "owner");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "PostAuthComplex";

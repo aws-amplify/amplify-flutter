@@ -112,12 +112,12 @@ class Comment extends Model {
   Map<String, dynamic> toJson() =>
       {'id': id, 'post': _post?.toJson(), 'content': _content};
 
-  static final QueryField ID = QueryField(fieldName: "comment.id");
-  static final QueryField POST = QueryField(
+  static final QueryField<String> ID = QueryField(fieldName: "comment.id");
+  static final QueryField<Post?> POST = QueryField(
       fieldName: "post",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Post).toString()));
-  static final QueryField CONTENT = QueryField(fieldName: "content");
+  static final QueryField<String> CONTENT = QueryField(fieldName: "content");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Comment";

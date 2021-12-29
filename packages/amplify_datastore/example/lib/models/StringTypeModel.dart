@@ -79,8 +79,9 @@ class StringTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value};
 
-  static final QueryField ID = QueryField(fieldName: "stringTypeModel.id");
-  static final QueryField VALUE = QueryField(fieldName: "value");
+  static final QueryField<String> ID =
+      QueryField(fieldName: "stringTypeModel.id");
+  static final QueryField<String?> VALUE = QueryField(fieldName: "value");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "StringTypeModel";

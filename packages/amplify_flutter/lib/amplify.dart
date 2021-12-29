@@ -35,6 +35,9 @@ import 'categories/amplify_categories.dart';
 export 'package:amplify_core/types/hub/HubChannel.dart';
 export 'package:amplify_core/types/index.dart';
 
+// required to support use of QueryField extensions without importing amplify_datastore directly
+export 'package:amplify_datastore_plugin_interface/src/types/query/query_field.dart';
+
 part 'method_channel_amplify.dart';
 
 /// Top level singleton Amplify object.
