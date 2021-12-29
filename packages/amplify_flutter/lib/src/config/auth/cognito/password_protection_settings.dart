@@ -46,7 +46,7 @@ class PasswordProtectionSettings
       passwordPolicyMinLength:
           passwordPolicyMinLength ?? this.passwordPolicyMinLength,
       passwordPolicyCharacters:
-          passwordPolicyCharacters ?? this.passwordPolicyCharacters,
+          passwordPolicyCharacters ?? List.of(this.passwordPolicyCharacters),
     );
   }
 

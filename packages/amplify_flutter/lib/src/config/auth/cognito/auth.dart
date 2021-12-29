@@ -92,17 +92,33 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
       oAuth: oAuth ?? this.oAuth,
       authenticationFlowType:
           authenticationFlowType ?? this.authenticationFlowType,
-      socialProviders: socialProviders ?? this.socialProviders,
-      loginMechanism: loginMechanism ?? this.loginMechanism,
-      loginMechanisms: loginMechanisms ?? this.loginMechanisms,
-      usernameAttributes: usernameAttributes ?? this.usernameAttributes,
-      signupAttributes: signupAttributes ?? this.signupAttributes,
+      socialProviders: socialProviders ??
+          (this.socialProviders == null
+              ? null
+              : List.of(this.socialProviders!)),
+      loginMechanism: loginMechanism ??
+          (this.loginMechanism == null ? null : List.of(this.loginMechanism!)),
+      loginMechanisms: loginMechanisms ??
+          (this.loginMechanisms == null
+              ? null
+              : List.of(this.loginMechanisms!)),
+      usernameAttributes: usernameAttributes ??
+          (this.usernameAttributes == null
+              ? null
+              : List.of(this.usernameAttributes!)),
+      signupAttributes: signupAttributes ??
+          (this.signupAttributes == null
+              ? null
+              : List.of(this.signupAttributes!)),
       passwordProtectionSettings:
           passwordProtectionSettings ?? this.passwordProtectionSettings,
       mfaConfiguration: mfaConfiguration ?? this.mfaConfiguration,
-      mfaTypes: mfaTypes ?? this.mfaTypes,
-      verificationMechanisms:
-          verificationMechanisms ?? this.verificationMechanisms,
+      mfaTypes:
+          mfaTypes ?? (this.mfaTypes == null ? null : List.of(this.mfaTypes!)),
+      verificationMechanisms: verificationMechanisms ??
+          (this.verificationMechanisms == null
+              ? null
+              : List.of(this.verificationMechanisms!)),
     );
   }
 

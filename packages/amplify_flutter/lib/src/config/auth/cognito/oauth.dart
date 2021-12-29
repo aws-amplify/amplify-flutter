@@ -114,16 +114,22 @@ class CognitoOAuthConfig
       appClientSecret: appClientSecret ?? this.appClientSecret,
       signInRedirectUri: signInRedirectUri ?? this.signInRedirectUri,
       signInUri: signInUri ?? this.signInUri,
-      signInUriQueryParameters:
-          signInUriQueryParameters ?? this.signInUriQueryParameters,
+      signInUriQueryParameters: signInUriQueryParameters ??
+          (this.signInUriQueryParameters == null
+              ? null
+              : Map.of(this.signInUriQueryParameters!)),
       signOutRedirectUri: signOutRedirectUri ?? this.signOutRedirectUri,
       signOutUri: signOutUri ?? this.signOutUri,
-      signOutUriQueryParameters:
-          signOutUriQueryParameters ?? this.signOutUriQueryParameters,
+      signOutUriQueryParameters: signOutUriQueryParameters ??
+          (this.signOutUriQueryParameters == null
+              ? null
+              : Map.of(this.signOutUriQueryParameters!)),
       tokenUri: tokenUri ?? this.tokenUri,
-      tokenUriQueryParameters:
-          tokenUriQueryParameters ?? this.tokenUriQueryParameters,
-      scopes: scopes ?? this.scopes,
+      tokenUriQueryParameters: tokenUriQueryParameters ??
+          (this.tokenUriQueryParameters == null
+              ? null
+              : Map.of(this.tokenUriQueryParameters!)),
+      scopes: scopes ?? List.of(this.scopes),
     );
   }
 
