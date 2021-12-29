@@ -1,3 +1,4 @@
+/// **Note**: The values in these configs do not represent live services.
 const amplifyconfig = ''' {
     "UserAgent": "aws-amplify-cli/2.0",
     "Version": "1.0",

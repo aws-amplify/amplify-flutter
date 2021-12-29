@@ -29,3 +29,5 @@ These tests ensure compatibility with any major changes to the different categor
 ## E2E CLI Tests
 
 The same simple project with a GraphQL API and Cognito Userpool is generated for each CLI version and stored in respective directories (`v4/`, `v5/`, etc). Each of these configurations is tested to ensure that `fromJson`/`toJson` produce symmetric results.
+
+**Note**: The values in these configs do not represent live services.
