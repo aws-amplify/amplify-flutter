@@ -71,6 +71,18 @@ class S3PluginConfig
   factory S3PluginConfig.fromJson(Map<String, Object?> json) =>
       _$S3PluginConfigFromJson(json);
 
+  S3PluginConfig copyWith({
+    String? bucket,
+    String? region,
+    StorageAccessLevel? defaultAccessLevel,
+  }) {
+    return S3PluginConfig(
+      bucket: bucket ?? this.bucket,
+      region: region ?? this.region,
+      defaultAccessLevel: defaultAccessLevel ?? this.defaultAccessLevel,
+    );
+  }
+
   @override
   Map<String, Object?> toJson() => _$S3PluginConfigToJson(this);
 }

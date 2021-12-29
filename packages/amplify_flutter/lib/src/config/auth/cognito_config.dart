@@ -107,6 +107,33 @@ class CognitoPluginConfig
   factory CognitoPluginConfig.fromJson(Map<String, Object?> json) =>
       _$CognitoPluginConfigFromJson(json);
 
+  CognitoPluginConfig copyWith({
+    String? userAgent,
+    String? version,
+    AWSConfigMap<CognitoIdentityManager>? identityManager,
+    CredentialsProviders? credentialsProvider,
+    AWSConfigMap<CognitoUserPoolConfig>? cognitoUserPool,
+    AWSConfigMap<CognitoAuthConfig>? auth,
+    AWSConfigMap<CognitoAppSyncConfig>? appSync,
+    AWSConfigMap<CognitoPinpointAnalyticsConfig>? pinpointAnalytics,
+    AWSConfigMap<CognitoPinpointTargetingConfig>? pinpointTargeting,
+    AWSConfigMap<S3TransferUtility>? s3TransferUtility,
+  }) {
+    return CognitoPluginConfig(
+      userAgent: userAgent ?? this.userAgent,
+      version: version ?? this.version,
+      identityManager: identityManager ?? this.identityManager?.copy(),
+      credentialsProvider:
+          credentialsProvider ?? this.credentialsProvider?.copy(),
+      cognitoUserPool: cognitoUserPool ?? this.cognitoUserPool?.copy(),
+      auth: auth ?? this.auth?.copy(),
+      appSync: appSync ?? this.appSync?.copy(),
+      pinpointAnalytics: pinpointAnalytics ?? this.pinpointAnalytics?.copy(),
+      pinpointTargeting: pinpointTargeting ?? this.pinpointTargeting?.copy(),
+      s3TransferUtility: s3TransferUtility ?? this.s3TransferUtility?.copy(),
+    );
+  }
+
   @override
   Map<String, Object?> toJson() => _$CognitoPluginConfigToJson(this);
 }

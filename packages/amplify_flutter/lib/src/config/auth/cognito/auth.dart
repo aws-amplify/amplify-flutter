@@ -13,6 +13,8 @@
 // permissions and limitations under the License.
 //
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -72,6 +74,37 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
 
   factory CognitoAuthConfig.fromJson(Map<String, Object?> json) =>
       _$CognitoAuthConfigFromJson(json);
+
+  CognitoAuthConfig copyWith({
+    CognitoOAuthConfig? oAuth,
+    AuthenticationFlowType? authenticationFlowType,
+    List<SocialProvider>? socialProviders,
+    List<CognitoUserAttributeKey>? loginMechanism,
+    List<CognitoUserAttributeKey>? loginMechanisms,
+    List<CognitoUserAttributeKey>? usernameAttributes,
+    List<CognitoUserAttributeKey>? signupAttributes,
+    PasswordProtectionSettings? passwordProtectionSettings,
+    MfaConfiguration? mfaConfiguration,
+    List<MfaType>? mfaTypes,
+    List<CognitoUserAttributeKey>? verificationMechanisms,
+  }) {
+    return CognitoAuthConfig(
+      oAuth: oAuth ?? this.oAuth,
+      authenticationFlowType:
+          authenticationFlowType ?? this.authenticationFlowType,
+      socialProviders: socialProviders ?? this.socialProviders,
+      loginMechanism: loginMechanism ?? this.loginMechanism,
+      loginMechanisms: loginMechanisms ?? this.loginMechanisms,
+      usernameAttributes: usernameAttributes ?? this.usernameAttributes,
+      signupAttributes: signupAttributes ?? this.signupAttributes,
+      passwordProtectionSettings:
+          passwordProtectionSettings ?? this.passwordProtectionSettings,
+      mfaConfiguration: mfaConfiguration ?? this.mfaConfiguration,
+      mfaTypes: mfaTypes ?? this.mfaTypes,
+      verificationMechanisms:
+          verificationMechanisms ?? this.verificationMechanisms,
+    );
+  }
 
   @override
   Map<String, Object?> toJson() => _$CognitoAuthConfigToJson(this);

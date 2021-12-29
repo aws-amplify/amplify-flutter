@@ -61,6 +61,16 @@ class PinpointPluginConfig
   factory PinpointPluginConfig.fromJson(Map<String, Object?> json) =>
       _$PinpointPluginConfigFromJson(json);
 
+  PinpointPluginConfig copyWith({
+    PinpointAnalytics? pinpointAnalytics,
+    PinpointTargeting? pinpointTargeting,
+  }) {
+    return PinpointPluginConfig(
+      pinpointAnalytics: pinpointAnalytics ?? this.pinpointAnalytics,
+      pinpointTargeting: pinpointTargeting ?? this.pinpointTargeting,
+    );
+  }
+
   @override
   Map<String, Object?> toJson() => _$PinpointPluginConfigToJson(this);
 
@@ -84,6 +94,16 @@ class PinpointAnalytics with AWSEquatable<PinpointAnalytics>, AWSSerializable {
   factory PinpointAnalytics.fromJson(Map<String, Object?> json) =>
       _$PinpointAnalyticsFromJson(json);
 
+  PinpointAnalytics copyWith({
+    String? appId,
+    String? region,
+  }) {
+    return PinpointAnalytics(
+      appId: appId ?? this.appId,
+      region: region ?? this.region,
+    );
+  }
+
   @override
   Map<String, Object?> toJson() => _$PinpointAnalyticsToJson(this);
 }
@@ -101,6 +121,12 @@ class PinpointTargeting with AWSEquatable<PinpointTargeting>, AWSSerializable {
 
   factory PinpointTargeting.fromJson(Map<String, Object?> json) =>
       _$PinpointTargetingFromJson(json);
+
+  PinpointTargeting copyWith({
+    String? region,
+  }) {
+    return PinpointTargeting(region: region ?? this.region);
+  }
 
   @override
   Map<String, Object?> toJson() => _$PinpointTargetingToJson(this);

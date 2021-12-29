@@ -73,7 +73,7 @@ class CognitoOAuthConfig
   @JsonKey(name: 'TokenURIQueryParameters')
   final Map<String, String>? tokenUriQueryParameters;
 
-  final Set<String> scopes;
+  final List<String> scopes;
 
   @override
   List<Object?> get props => [
@@ -93,6 +93,39 @@ class CognitoOAuthConfig
 
   factory CognitoOAuthConfig.fromJson(Map<String, Object?> json) =>
       _$CognitoOAuthConfigFromJson(json);
+
+  CognitoOAuthConfig copyWith({
+    String? webDomain,
+    String? appClientId,
+    String? appClientSecret,
+    String? signInRedirectUri,
+    String? signInUri,
+    Map<String, String>? signInUriQueryParameters,
+    String? signOutRedirectUri,
+    String? signOutUri,
+    Map<String, String>? signOutUriQueryParameters,
+    String? tokenUri,
+    Map<String, String>? tokenUriQueryParameters,
+    List<String>? scopes,
+  }) {
+    return CognitoOAuthConfig(
+      webDomain: webDomain ?? this.webDomain,
+      appClientId: appClientId ?? this.appClientId,
+      appClientSecret: appClientSecret ?? this.appClientSecret,
+      signInRedirectUri: signInRedirectUri ?? this.signInRedirectUri,
+      signInUri: signInUri ?? this.signInUri,
+      signInUriQueryParameters:
+          signInUriQueryParameters ?? this.signInUriQueryParameters,
+      signOutRedirectUri: signOutRedirectUri ?? this.signOutRedirectUri,
+      signOutUri: signOutUri ?? this.signOutUri,
+      signOutUriQueryParameters:
+          signOutUriQueryParameters ?? this.signOutUriQueryParameters,
+      tokenUri: tokenUri ?? this.tokenUri,
+      tokenUriQueryParameters:
+          tokenUriQueryParameters ?? this.tokenUriQueryParameters,
+      scopes: scopes ?? this.scopes,
+    );
+  }
 
   @override
   Map<String, Object?> toJson() => _$CognitoOAuthConfigToJson(this);
