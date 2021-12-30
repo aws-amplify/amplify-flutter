@@ -39,5 +39,8 @@ class StorageConfig extends AmplifyPluginConfigMap {
       plugins[S3PluginConfig.pluginKey] as S3PluginConfig?;
 
   @override
+  StorageConfig copy() => StorageConfig(plugins: Map.of(plugins));
+
+  @override
   Map<String, Object?> toJson() => _$StorageConfigToJson(this);
 }

@@ -46,6 +46,22 @@ class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
   factory AWSApiConfig.fromJson(Map<String, Object?> json) =>
       _$AWSApiConfigFromJson(json);
 
+  AWSApiConfig copyWith({
+    EndpointType? endpointType,
+    String? endpoint,
+    String? region,
+    APIAuthorizationType? authorizationType,
+    String? apiKey,
+  }) {
+    return AWSApiConfig(
+      endpointType: endpointType ?? this.endpointType,
+      endpoint: endpoint ?? this.endpoint,
+      region: region ?? this.region,
+      authorizationType: authorizationType ?? this.authorizationType,
+      apiKey: apiKey ?? this.apiKey,
+    );
+  }
+
   @override
   Map<String, Object?> toJson() => _$AWSApiConfigToJson(this);
 }

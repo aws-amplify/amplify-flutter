@@ -25,7 +25,8 @@ CognitoOAuthConfig _$CognitoOAuthConfigFromJson(Map<String, dynamic> json) =>
     CognitoOAuthConfig(
       appClientId: json['AppClientId'] as String,
       appClientSecret: json['AppClientSecret'] as String?,
-      scopes: (json['Scopes'] as List<dynamic>).map((e) => e as String).toSet(),
+      scopes:
+          (json['Scopes'] as List<dynamic>).map((e) => e as String).toList(),
       signInRedirectUri: json['SignInRedirectURI'] as String,
       signOutRedirectUri: json['SignOutRedirectURI'] as String,
       webDomain: json['WebDomain'] as String,
@@ -67,6 +68,6 @@ Map<String, dynamic> _$CognitoOAuthConfigToJson(CognitoOAuthConfig instance) {
   writeNotNull('SignOutURIQueryParameters', instance.signOutUriQueryParameters);
   writeNotNull('TokenURI', instance.tokenUri);
   writeNotNull('TokenURIQueryParameters', instance.tokenUriQueryParameters);
-  val['Scopes'] = instance.scopes.toList();
+  val['Scopes'] = instance.scopes;
   return val;
 }

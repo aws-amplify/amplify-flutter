@@ -56,6 +56,9 @@ abstract class ConfigMap<T extends AWSSerializable>
   /// The default configuration.
   T? get default$;
 
+  /// Creates a copy of this map.
+  ConfigMap copy();
+
   @override
   Map<String, Object?> toJson() => map((k, v) => MapEntry(k, v.toJson()));
 }
@@ -83,6 +86,9 @@ class AWSConfigMap<T extends AWSSerializable> extends ConfigMap<T> {
 
   @override
   T? get default$ => this['Default'];
+
+  @override
+  AWSConfigMap<T> copy() => AWSConfigMap(Map.of(configs));
 
   @override
   Map<String, T> get all => configs;

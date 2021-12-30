@@ -46,6 +46,9 @@ class CredentialsProviders extends AWSConfigMap {
   }
 
   @override
+  CredentialsProviders copy() => CredentialsProviders(configs);
+
+  @override
   CognitoIdentityCredentialsProvider? get default$ => (this['CognitoIdentity']
           as AWSConfigMap<CognitoIdentityCredentialsProvider>?)
       ?.default$;
@@ -69,6 +72,16 @@ class CognitoIdentityCredentialsProvider
     Map<String, Object?> json,
   ) =>
       _$CognitoIdentityCredentialsProviderFromJson(json);
+
+  CognitoIdentityCredentialsProvider copyWith({
+    String? poolId,
+    String? region,
+  }) {
+    return CognitoIdentityCredentialsProvider(
+      poolId: poolId ?? this.poolId,
+      region: region ?? this.region,
+    );
+  }
 
   @override
   Map<String, Object?> toJson() =>
