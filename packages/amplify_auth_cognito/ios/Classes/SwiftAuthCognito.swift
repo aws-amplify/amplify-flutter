@@ -26,6 +26,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     private var token: UnsubscribeToken?
     private let cognito: AuthCognitoBridge
     private let authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler?
+    private let nullaryMethods = ["deleteUser"]
     var errorHandler = AuthErrorHandler()
     
     /// Handles calls to the Devices API.
@@ -112,15 +113,19 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             deviceHandler.handle(call, result: result)
             return
         }
-
+        
         var arguments: Dictionary<String, AnyObject> = [:]
         var data: NSMutableDictionary = [:]
-        do {
-            try arguments = checkArguments(args: call.arguments as Any)
-            try data = checkData(args: arguments)
-        } catch {
-            self.errorHandler.prepareGenericException(flutterResult: result, error: error)
+    
+        if (!nullaryMethods.contains(call.method)) {
+            do {
+                try arguments = checkArguments(args: call.arguments as Any)
+                try data = checkData(args: arguments)
+            } catch {
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
+            }
         }
+
         switch call.method {
         case "signUp":
             do {
@@ -241,13 +246,8 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             } catch {
                 self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
-        case "deleteUser": {
-            do {
-                cognito.onDeleteUser(flutterResult: result)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        }
+        case "deleteUser":
+            cognito.onDeleteUser(flutterResult: result)
         default:
             result(FlutterMethodNotImplemented)
         }

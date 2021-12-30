@@ -10,6 +10,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  amplify_api:
+    path: ../amplify_api
+  amplify_flutter:
+    path: ../amplify_flutter
+  stream_transform: ^2.0.0
 
 dev_dependencies:
   amplify_lints: ^1.0.0
+  integration_test:
+    sdk: flutter

@@ -86,32 +86,10 @@ class _MyAppState extends State<MyApp> {
     var isSignedIn = false;
 
     subscription = Amplify.Hub.listen([HubChannel.Auth], (hubEvent) {
-      switch (hubEvent.eventName) {
-        case 'SIGNED_IN':
-          {
-            setState(() {
-              lastHubEvent = 'SIGNED_IN';
-            });
-            print('HUB: USER IS SIGNED IN');
-          }
-          break;
-        case 'SIGNED_OUT':
-          {
-            setState(() {
-              lastHubEvent = 'SIGNED_OUT';
-            });
-            print('HUB: USER IS SIGNED OUT');
-          }
-          break;
-        case 'SESSION_EXPIRED':
-          {
-            setState(() {
-              lastHubEvent = 'SESSION_EXPIRED';
-            });
-            print('HUB: USER SESSION HAS EXPIRED');
-          }
-          break;
-      }
+      setState(() {
+        lastHubEvent = hubEvent.eventName;
+      });
+      print('HUB: $lastHubEvent');
     });
     try {
       await Amplify.configure(amplifyconfig);
@@ -135,6 +113,20 @@ class _MyAppState extends State<MyApp> {
   Future<bool> _isSignedIn() async {
     final session = await Amplify.Auth.fetchAuthSession();
     return session.isSignedIn;
+  }
+
+  Future<void> _deleteUser() async {
+    try {
+      await Amplify.Auth.deleteUser();
+      changeDisplay('SHOW_SIGN_IN');
+    } on AmplifyException catch (e) {
+      setState(() {
+        _error = e;
+      });
+      print(e);
+    } on UnimplementedError catch (e) {
+      print(e.message);
+    }
   }
 
   void _signOut() async {
@@ -276,6 +268,9 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                   onPressed: _viewUserAttributes,
                   child: const Text('View/Edit User Attributes')),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              ElevatedButton(
+                  onPressed: _deleteUser, child: const Text('Delete User')),
             ],
           ),
         ),
@@ -327,10 +322,9 @@ class _MyAppState extends State<MyApp> {
                       if (displayState == 'SHOW_UPDATE_PASSWORD')
                         UpdatePasswordWidget(showResult, changeDisplay,
                             setError, _backToSignIn, _backToApp),
-                      if (displayState == 'SHOW_UPDATE_PASSWORD')
-                        if (displayState == 'SHOW_CONFIRM_RESET')
-                          ConfirmResetWidget(showResult, changeDisplay,
-                              setError, _backToSignIn),
+                      if (displayState == 'SHOW_CONFIRM_RESET')
+                        ConfirmResetWidget(
+                            showResult, changeDisplay, setError, _backToSignIn),
                       if (this.displayState == "SIGNED_IN") showApp(),
                       ElevatedButton(
                         key: Key('configure-button'),

@@ -15,15 +15,15 @@
 
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
+
 import 'package:stream_transform/stream_transform.dart';
 
-import 'types/admin_create_user_response.dart';
-import 'types/confirm_sign_up_response.dart';
-import 'types/delete_user_response.dart';
+import './types/admin_create_user_response.dart';
+import './types/confirm_sign_up_response.dart';
+import './types/delete_user_response.dart';
 
 const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
   deleteUser(Username: \$Username) {
@@ -34,11 +34,11 @@ const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
 
 const adminCreateUserDocument =
     '''mutation CreateUser(\$Username: String!, \$Password: String!, \$AutoConfirm: Boolean!, \$EnableMFA: Boolean!, \$VerifyAttributes: Boolean!) {
-  adminCreateUser(Username: \$Username, Password: \$Password, AutoConfirm: \$AutoConfirm, EnableMFA: \$EnableMFA, VerifyAttributes: \$VerifyAttributes) {
-    error
-    success
-  }
-}''';
+    adminCreateUser(Username: \$Username, Password: \$Password, AutoConfirm: \$AutoConfirm, EnableMFA: \$EnableMFA, VerifyAttributes: \$VerifyAttributes) {
+      error
+      success
+    }
+  }''';
 
 /// Deletes a Cognito user in backend infrastructure/
 Future<DeleteUserResponse?> deleteUser(String username) async {
