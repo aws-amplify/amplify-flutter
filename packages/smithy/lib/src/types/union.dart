@@ -1,3 +1,4 @@
+import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart';
 
 /// An union representation in Smithy, i.e. a value which is one of a fixed set
@@ -58,5 +59,41 @@ abstract class SmithyUnion<U extends SmithyUnion<U>>
   String toString() => value.toString();
 
   @override
-  Object toJson();
+  Map<String, Object> toJson();
+}
+
+/// A protocol-agnostic serializer for [SmithyUnion] types, for use with
+/// `built_value`.
+class SmithyUnionSerializer<U extends SmithyUnion<U>>
+    implements StructuredSerializer<U?> {
+  const SmithyUnionSerializer(
+    this.wireName,
+    this.ctor,
+  );
+
+  final JsonConstructor<U?> ctor;
+
+  @override
+  final String wireName;
+
+  @override
+  U? deserialize(Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    return ctor({
+      serialized.first as String: serialized.elementAt(1),
+    });
+  }
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, U? object,
+      {FullType specifiedType = FullType.unspecified}) {
+    if (object == null) {
+      return const Iterable.empty();
+    }
+    final json = object.toJson().entries.first;
+    return [json.key, json.value];
+  }
+
+  @override
+  Iterable<Type> get types => [U];
 }

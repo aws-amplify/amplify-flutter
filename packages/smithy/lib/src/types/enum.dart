@@ -62,17 +62,21 @@ abstract class SmithyEnum<T extends SmithyEnum<T>>
 }
 
 class SmithyEnumSerializer<T extends SmithyEnum<T>>
-    extends PrimitiveSerializer<T> {
-  SmithyEnumSerializer(
-    this.values, {
+    implements PrimitiveSerializer<T> {
+  const SmithyEnumSerializer(
+    this.wireName, {
+    required this.values,
     required this.sdkUnknown,
   });
 
   /// All enum values.
   final List<T> values;
 
-  /// The sdkUnknown value constructor.
-  final T Function(String) sdkUnknown;
+  @override
+  final String wireName;
+
+  /// The unknown value constructor.
+  final Constructor<String, T> sdkUnknown;
 
   @override
   T deserialize(
@@ -95,7 +99,4 @@ class SmithyEnumSerializer<T extends SmithyEnum<T>>
 
   @override
   Iterable<Type> get types => [T];
-
-  @override
-  String get wireName => 'enum';
 }

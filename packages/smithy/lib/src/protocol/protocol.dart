@@ -1,8 +1,4 @@
-import 'dart:async';
-
-import 'package:http/http.dart' as http;
 import 'package:smithy/smithy.dart';
-import 'package:smithy/src/http/protocol.dart';
 
 /// Metadata related to an [Operation] regarding its serialization format,
 /// authentication schemes, etc.
