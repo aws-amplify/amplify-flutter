@@ -22,18 +22,18 @@ QueryPredicateGroup not(QueryPredicate predicate) {
 
 /// Represents individual conditions or groups of conditions
 /// that are used to query data
-abstract class QueryPredicate<T extends Model> {
+abstract class QueryPredicate<M extends Model> {
   const QueryPredicate();
 
   Map<String, dynamic> serializeAsMap();
 
-  bool evaluate(T model);
+  bool evaluate(M model);
 }
 
 // Represents rating > 4
-class QueryPredicateOperation extends QueryPredicate {
+class QueryPredicateOperation<M extends Model, V> extends QueryPredicate<M> {
   final String field;
-  final QueryFieldOperator queryFieldOperator;
+  final QueryFieldOperator<M, V> queryFieldOperator;
 
   const QueryPredicateOperation(this.field, this.queryFieldOperator) : super();
 
@@ -54,8 +54,8 @@ class QueryPredicateOperation extends QueryPredicate {
   QueryPredicateGroup operator |(QueryPredicate predicate) => or(predicate);
 
   @override
-  bool evaluate(Model model) {
-    var value = model.toJson()[field];
+  bool evaluate(M model) {
+    var value = queryFieldOperator.getValue(model);
     return queryFieldOperator.evaluate(value);
   }
 

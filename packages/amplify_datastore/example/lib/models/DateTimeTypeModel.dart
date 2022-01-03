@@ -83,10 +83,15 @@ class DateTimeTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value?.format()};
 
-  static final QueryField<String> ID =
-      QueryField(fieldName: "dateTimeTypeModel.id");
-  static final QueryField<TemporalDateTime?> VALUE =
-      QueryField(fieldName: "value");
+  static final QueryField<DateTimeTypeModel, String> ID = QueryField(
+    fieldName: "dateTimeTypeModel.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<DateTimeTypeModel, TemporalDateTime?> VALUE =
+      QueryField(
+    fieldName: "value",
+    getValue: (model) => model.value,
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "DateTimeTypeModel";

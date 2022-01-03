@@ -150,7 +150,7 @@ int Function(T a, T b)? _createCompareFromSortBy<T extends Model>(
   return (T a, T b) {
     int sortOrder = 0;
     for (var nextSortBy in sortBy) {
-      sortOrder = nextSortBy.compare<T>(a, b);
+      sortOrder = nextSortBy.compare(a, b);
       if (sortOrder != 0) return sortOrder;
     }
     return sortOrder;

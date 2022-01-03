@@ -79,9 +79,14 @@ class JSONTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value};
 
-  static final QueryField<String> ID =
-      QueryField(fieldName: "jSONTypeModel.id");
-  static final QueryField<String?> VALUE = QueryField(fieldName: "value");
+  static final QueryField<JSONTypeModel, String> ID = QueryField(
+    fieldName: "jSONTypeModel.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<JSONTypeModel, String?> VALUE = QueryField(
+    fieldName: "value",
+    getValue: (model) => model.value,
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "JSONTypeModel";

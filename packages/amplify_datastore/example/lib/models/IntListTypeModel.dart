@@ -85,9 +85,14 @@ class IntListTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value};
 
-  static final QueryField<String> ID =
-      QueryField(fieldName: "intListTypeModel.id");
-  static final QueryField<List<int>?> VALUE = QueryField(fieldName: "value");
+  static final QueryField<IntListTypeModel, String> ID = QueryField(
+    fieldName: "intListTypeModel.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<IntListTypeModel, List<int>?> VALUE = QueryField(
+    fieldName: "value",
+    getValue: (model) => model.value,
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "IntListTypeModel";

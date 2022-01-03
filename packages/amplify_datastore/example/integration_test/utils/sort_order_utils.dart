@@ -22,14 +22,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'model_utils.dart';
 import 'setup_utils.dart';
 
-/// test ascending and descending sort operations given a [queryField]
-/// to sort on and a [sort] method to test against
-testSortOperations<T extends Model, V extends Comparable<V>>({
-  required List<T> models,
-  required QueryField<V?> queryField,
-  required int sort(T a, T b),
+/// test ascending and descending sort operations for Comparable fields,
+/// given a [queryField] to sort on and a [sort] method to test against
+testSortOperations<M extends Model, V extends Comparable<V>>({
+  required List<M> models,
+  required QueryField<M, V?> queryField,
+  required int sort(M a, M b),
 }) {
-  var classType = getModelType<T>();
+  var classType = getModelType<M>();
   var ascendingSortedModels = models..sort(sort);
   var descendingSortedModels = ascendingSortedModels.reversed.toList();
 
@@ -54,14 +54,14 @@ testSortOperations<T extends Model, V extends Comparable<V>>({
   });
 }
 
-/// test ascending and descending sort operations given a [queryField]
-/// to sort on and a [sort] method to test against
-testBoolSortOperations<T extends Model>({
-  required List<T> models,
-  required QueryField<bool?> queryField,
-  required int sort(T a, T b),
+/// test ascending and descending sort operations for boolean fields,
+/// given a [queryField] to sort on and a [sort] method to test against
+testBoolSortOperations<M extends Model>({
+  required List<M> models,
+  required QueryField<M, bool?> queryField,
+  required int sort(M a, M b),
 }) {
-  var classType = getModelType<T>();
+  var classType = getModelType<M>();
   var ascendingSortedModels = models..sort(sort);
   var descendingSortedModels = ascendingSortedModels.reversed.toList();
 

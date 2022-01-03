@@ -79,9 +79,14 @@ class BoolTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value};
 
-  static final QueryField<String> ID =
-      QueryField(fieldName: "boolTypeModel.id");
-  static final QueryField<bool?> VALUE = QueryField(fieldName: "value");
+  static final QueryField<BoolTypeModel, String> ID = QueryField(
+    fieldName: "boolTypeModel.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<BoolTypeModel, bool?> VALUE = QueryField(
+    fieldName: "value",
+    getValue: (model) => model.value,
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "BoolTypeModel";

@@ -117,13 +117,22 @@ class BelongsToModel extends Model {
   Map<String, dynamic> toJson() =>
       {'id': id, 'name': _name, 'child': _child?.toJson()};
 
-  static final QueryField<String> ID =
-      QueryField(fieldName: "belongsToModel.id");
-  static final QueryField<String> NAME = QueryField(fieldName: "name");
-  static final QueryField<ChildModel> CHILD = QueryField(
-      fieldName: "child",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (ChildModel).toString()));
+  static final QueryField<BelongsToModel, String> ID = QueryField(
+    fieldName: "belongsToModel.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<BelongsToModel, String> NAME = QueryField(
+    fieldName: "name",
+    getValue: (model) => model.name,
+  );
+  static final QueryField<BelongsToModel, ChildModel> CHILD = QueryField(
+    fieldName: "child",
+    getValue: (model) => model.child,
+    fieldType: ModelFieldType(
+      ModelFieldTypeEnum.model,
+      ofModelName: (ChildModel).toString(),
+    ),
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "BelongsToModel";

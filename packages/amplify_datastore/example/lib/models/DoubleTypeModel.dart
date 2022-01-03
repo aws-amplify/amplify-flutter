@@ -79,9 +79,14 @@ class DoubleTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value};
 
-  static final QueryField<String> ID =
-      QueryField(fieldName: "doubleTypeModel.id");
-  static final QueryField<double?> VALUE = QueryField(fieldName: "value");
+  static final QueryField<DoubleTypeModel, String> ID = QueryField(
+    fieldName: "doubleTypeModel.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<DoubleTypeModel, num?> VALUE = QueryField(
+    fieldName: "value",
+    getValue: (model) => model.value,
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "DoubleTypeModel";

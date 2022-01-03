@@ -81,9 +81,14 @@ class TimeTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value?.format()};
 
-  static final QueryField<String> ID =
-      QueryField(fieldName: "timeTypeModel.id");
-  static final QueryField<TemporalTime?> VALUE = QueryField(fieldName: "value");
+  static final QueryField<TimeTypeModel, String> ID = QueryField(
+    fieldName: "timeTypeModel.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<TimeTypeModel, TemporalTime?> VALUE = QueryField(
+    fieldName: "value",
+    getValue: (model) => model.value,
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "TimeTypeModel";

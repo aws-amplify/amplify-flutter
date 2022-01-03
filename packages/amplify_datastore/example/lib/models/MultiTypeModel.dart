@@ -138,15 +138,26 @@ class MultiTypeModel extends Model {
         'altIntValue': _altIntValue
       };
 
-  static final QueryField<String> ID =
-      QueryField(fieldName: "multiTypeModel.id");
-  static final QueryField<String?> STRINGVALUE =
-      QueryField(fieldName: "stringValue");
-  static final QueryField<String?> ALTSTRINGVALUE =
-      QueryField(fieldName: "altStringValue");
-  static final QueryField<int?> INTVALUE = QueryField(fieldName: "intValue");
-  static final QueryField<int?> ALTINTVALUE =
-      QueryField(fieldName: "altIntValue");
+  static final QueryField<MultiTypeModel, String> ID = QueryField(
+    fieldName: "multiTypeModel.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<MultiTypeModel, String?> STRINGVALUE = QueryField(
+    fieldName: "stringValue",
+    getValue: (model) => model.stringValue,
+  );
+  static final QueryField<MultiTypeModel, String?> ALTSTRINGVALUE = QueryField(
+    fieldName: "altStringValue",
+    getValue: (model) => model.altStringValue,
+  );
+  static final QueryField<MultiTypeModel, num?> INTVALUE = QueryField(
+    fieldName: "intValue",
+    getValue: (model) => model.intValue,
+  );
+  static final QueryField<MultiTypeModel, num?> ALTINTVALUE = QueryField(
+    fieldName: "altIntValue",
+    getValue: (model) => model.altIntValue,
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "MultiTypeModel";

@@ -23,44 +23,64 @@ part 'query_pagination.dart';
 part 'query_predicate.dart';
 part 'query_sort.dart';
 
-class QueryField<T> {
+/// Represents a field on a model that can be used to form a query predicate
+///
+/// M is the type of Model the query field is applicable to (i.e. Post)
+/// V is the field type (i.e. String for Post.NAME)
+
+class QueryField<M extends Model, V> {
   final String fieldName;
   final ModelFieldType? fieldType;
+  final V Function(M) getValue;
 
-  const QueryField({required this.fieldName, this.fieldType});
+  const QueryField({
+    required this.fieldName,
+    required this.getValue,
+    this.fieldType,
+  });
 
   /// Equal to operation.
   ///
   /// Returns true if the attribute being compared is equal to the provided value.
-  QueryPredicateOperation eq(T? value) {
-    return QueryPredicateOperation(
+  QueryPredicateOperation<M, V> eq(V? value) {
+    return QueryPredicateOperation<M, V>(
       this.fieldName,
-      EqualQueryOperator<T>(value),
+      EqualQueryOperator<M, V>(
+        value: value,
+        getValue: this.getValue,
+      ),
     );
   }
 
   /// Not equal to operation.
   ///
   /// Returns true if the attribute being compared is equal to the provided value.
-  QueryPredicateOperation ne(T? value) {
-    return QueryPredicateOperation(
+  QueryPredicateOperation<M, V> ne(V? value) {
+    return QueryPredicateOperation<M, V>(
       this.fieldName,
-      NotEqualQueryOperator<T>(value),
+      NotEqualQueryOperator<M, V>(
+        value: value,
+        getValue: this.getValue,
+      ),
     );
   }
 }
 
-extension ComparableQueryField<T extends Comparable<T>>
-    on QueryField<Comparable<T>?> {
+/// QueryField extension for Comparable types
+extension ComparableQueryField<M extends Model, V extends Comparable<V>?>
+    on QueryField<M, V> {
   /// {@template query_field_le}
   /// Less than or equal to operation.
   ///
   /// Returns true if the attribute being compared is less than or equal to the provided value.
   /// {@endtemplate}
-  QueryPredicateOperation le(T value) {
-    return QueryPredicateOperation(
+  QueryPredicateOperation<M, V> le(V value) {
+    return QueryPredicateOperation<M, V>(
       this.fieldName,
-      LessOrEqualQueryOperator<T>(value),
+      LessOrEqualQueryOperator<M, V>(
+        value: value,
+        getValue: this.getValue,
+      ),
     );
   }
 
@@ -69,10 +89,13 @@ extension ComparableQueryField<T extends Comparable<T>>
   ///
   /// Returns true if the attribute being compared is less than the provided value.
   /// {@endtemplate}
-  QueryPredicateOperation lt(T value) {
-    return QueryPredicateOperation(
+  QueryPredicateOperation<M, V> lt(V value) {
+    return QueryPredicateOperation<M, V>(
       this.fieldName,
-      LessThanQueryOperator<T>(value),
+      LessThanQueryOperator<M, V>(
+        value: value,
+        getValue: this.getValue,
+      ),
     );
   }
 
@@ -81,10 +104,13 @@ extension ComparableQueryField<T extends Comparable<T>>
   ///
   /// Returns true if the attribute being compared is greater than or equal to the provided value.
   /// {@endtemplate}
-  QueryPredicateOperation ge(T value) {
-    return QueryPredicateOperation(
+  QueryPredicateOperation<M, V> ge(V value) {
+    return QueryPredicateOperation<M, V>(
       this.fieldName,
-      GreaterOrEqualQueryOperator<T>(value),
+      GreaterOrEqualQueryOperator<M, V>(
+        value: value,
+        getValue: this.getValue,
+      ),
     );
   }
 
@@ -93,56 +119,67 @@ extension ComparableQueryField<T extends Comparable<T>>
   ///
   /// Returns true if the attribute being compared is greater than the provided value.
   /// {@endtemplate}
-  QueryPredicateOperation gt(T value) {
-    return QueryPredicateOperation(
+  QueryPredicateOperation<M, V> gt(V value) {
+    return QueryPredicateOperation<M, V>(
       this.fieldName,
-      GreaterThanQueryOperator<T>(value),
+      GreaterThanQueryOperator<M, V>(
+        value: value,
+        getValue: this.getValue,
+      ),
     );
   }
 
   /// Between operation.
   ///
   /// Returns true if the attribute being compared is between the provided values.
-  QueryPredicateOperation between(T start, T end) {
-    return QueryPredicateOperation(
+  QueryPredicateOperation<M, V> between(V start, V end) {
+    return QueryPredicateOperation<M, V>(
       this.fieldName,
-      BetweenQueryOperator<T>(start, end),
+      BetweenQueryOperator<M, V>(start: start, end: end, getValue: getValue),
     );
   }
+
+  // TODO: Should contains and beginsWith be supported for Comparable types?
+  // They currently do work for num types.
+  // It is not clear if that is intentional, or if it just happens to work.
 
   /// {@template query_field_contains}
   /// Contains operation.
   ///
   /// Returns true if the attribute being compared contains the provided value.
   /// {@endtemplate}
-  @Deprecated('contains is deprecated for non String or List types')
-  QueryPredicateOperation contains(String value) {
-    return QueryPredicateOperation(
-      this.fieldName,
-      ContainsQueryOperator(value),
-    );
-  }
+  // @Deprecated('contains is deprecated for non String or List types')
+  // QueryPredicateOperation contains(String value) {
+  //   return QueryPredicateOperation(
+  //     this.fieldName,
+  //     ContainsQueryOperator<M>(value: value, getValue: getValue),
+  //   );
+  // }
 
   /// {@template query_field_beginsWith}
   /// Begins with operation.
   ///
   /// Returns true if the attribute being compared begins with the provided value.
   /// {@endtemplate}
-  @Deprecated('beginsWith is deprecated for non String types')
-  QueryPredicateOperation beginsWith(String value) {
-    return QueryPredicateOperation(
-      this.fieldName,
-      BeginsWithQueryOperator(value),
-    );
-  }
+  // @Deprecated('beginsWith is deprecated for non String types')
+  // QueryPredicateOperation beginsWith(String value) {
+  //   return QueryPredicateOperation<M, String>(
+  //     this.fieldName,
+  //     BeginsWithQueryOperator<M>(value: value, getValue: getValue),
+  //   );
+  // }
 
   /// {@template query_field_ascending}
   /// Ascending sort operation.
   ///
   /// Sorts the models in ascending order by the given field.
   /// {@endtemplate}
-  QuerySortBy ascending() {
-    return QuerySortBy(field: fieldName, order: QuerySortOrder.ascending);
+  QuerySortBy<M, V> ascending() {
+    return QuerySortBy<M, V>(
+      field: fieldName,
+      order: QuerySortOrder.ascending,
+      getValue: getValue,
+    );
   }
 
   /// {@template query_field_descending}
@@ -150,59 +187,80 @@ extension ComparableQueryField<T extends Comparable<T>>
   ///
   /// Sorts the models in descending order by the given field.
   /// {@endtemplate}
-  QuerySortBy descending() {
-    return QuerySortBy(field: fieldName, order: QuerySortOrder.descending);
+  QuerySortBy<M, V> descending() {
+    return QuerySortBy<M, V>(
+      field: fieldName,
+      order: QuerySortOrder.descending,
+      getValue: getValue,
+    );
   }
 
   /// {@macro query_field_le}
-  QueryPredicateOperation operator <=(T value) => le(value);
+  QueryPredicateOperation operator <=(V value) => le(value);
 
   /// {@macro query_field_lt}
-  QueryPredicateOperation operator <(T value) => lt(value);
+  QueryPredicateOperation operator <(V value) => lt(value);
 
   /// {@macro query_field_ge}
-  QueryPredicateOperation operator >=(T value) => ge(value);
+  QueryPredicateOperation operator >=(V value) => ge(value);
 
   /// {@macro query_field_gt}
-  QueryPredicateOperation operator >(T value) => gt(value);
+  QueryPredicateOperation operator >(V value) => gt(value);
 }
 
-extension StringQueryField on QueryField<String?> {
+/// QueryField extension for String types
+extension StringQueryField<M extends Model> on QueryField<M, String?> {
   /// {@macro query_field_contains}
-  QueryPredicateOperation contains(String value) {
-    return QueryPredicateOperation(
+  QueryPredicateOperation<M, String?> contains(String value) {
+    return QueryPredicateOperation<M, String?>(
       this.fieldName,
-      ContainsQueryOperator(value),
+      ContainsQueryOperator<M>(value: value, getValue: getValue),
     );
   }
 
   /// {@macro query_field_beginsWith}
-  QueryPredicateOperation beginsWith(String value) {
-    return QueryPredicateOperation(
+  QueryPredicateOperation<M, String?> beginsWith(String value) {
+    return QueryPredicateOperation<M, String?>(
       this.fieldName,
-      BeginsWithQueryOperator(value),
+      BeginsWithQueryOperator<M>(value: value, getValue: getValue),
     );
   }
 }
 
-extension BoolQueryField on QueryField<bool?> {
+/// QueryField extension for bool types
+///
+/// bool types can be sorted even though they are not Comparable
+
+extension BoolQueryField<M extends Model> on QueryField<M, bool?> {
   /// {@macro query_field_ascending}
-  QuerySortBy ascending() {
-    return QuerySortBy(field: fieldName, order: QuerySortOrder.ascending);
+  QuerySortBy<M, bool?> ascending() {
+    return QuerySortBy<M, bool?>(
+      field: fieldName,
+      order: QuerySortOrder.ascending,
+      getValue: getValue,
+    );
   }
 
   /// {@macro query_field_descending}
-  QuerySortBy descending() {
-    return QuerySortBy(field: fieldName, order: QuerySortOrder.descending);
+  QuerySortBy<M, bool?> descending() {
+    return QuerySortBy<M, bool?>(
+      field: fieldName,
+      order: QuerySortOrder.descending,
+      getValue: getValue,
+    );
   }
 }
 
-extension ListQueryField<T> on QueryField<List<T>?> {
+/// QueryField extension for List types
+///
+/// V is the type data in the list (i.e. List<V>)
+/// M is the type of Model the query field is applicable to (i.e. Post)
+extension ListQueryField<M extends Model, V> on QueryField<M, List<V>?> {
   /// {@macro query_field_contains}
-  QueryPredicateOperation contains(String value) {
-    return QueryPredicateOperation(
+  QueryPredicateOperation<M, List<V>?> contains(V value) {
+    return QueryPredicateOperation<M, List<V>?>(
       this.fieldName,
-      ContainsQueryOperator(value),
+      ListContainsQueryOperator<M, V>(value: value, getValue: getValue),
     );
   }
 }

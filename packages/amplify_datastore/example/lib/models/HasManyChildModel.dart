@@ -109,13 +109,22 @@ class HasManyChildModel extends Model {
   Map<String, dynamic> toJson() =>
       {'id': id, 'name': _name, 'parent': _parent?.toJson()};
 
-  static final QueryField<String> ID =
-      QueryField(fieldName: "hasManyChildModel.id");
-  static final QueryField<String> NAME = QueryField(fieldName: "name");
-  static final QueryField<HasManyModel?> PARENT = QueryField(
-      fieldName: "parent",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (HasManyModel).toString()));
+  static final QueryField<HasManyChildModel, String> ID = QueryField(
+    fieldName: "hasManyChildModel.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<HasManyChildModel, String> NAME = QueryField(
+    fieldName: "name",
+    getValue: (model) => model.name,
+  );
+  static final QueryField<HasManyChildModel, HasManyModel?> PARENT = QueryField(
+    fieldName: "parent",
+    getValue: (model) => model.parent,
+    fieldType: ModelFieldType(
+      ModelFieldTypeEnum.model,
+      ofModelName: (HasManyModel).toString(),
+    ),
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasManyChildModel";

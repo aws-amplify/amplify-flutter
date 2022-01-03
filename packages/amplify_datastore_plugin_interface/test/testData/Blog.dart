@@ -104,12 +104,22 @@ class Blog extends Model {
         'posts': _posts?.map((e) => e?.toJson())?.toList()
       };
 
-  static final QueryField<String> ID = QueryField(fieldName: "blog.id");
-  static final QueryField<String> NAME = QueryField(fieldName: "name");
-  static final QueryField<List<Post>?> POSTS = QueryField(
-      fieldName: "posts",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Post).toString()));
+  static final QueryField<Blog, String> ID = QueryField(
+    fieldName: "blog.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<Blog, String> NAME = QueryField(
+    fieldName: "name",
+    getValue: (model) => model.name,
+  );
+  static final QueryField<Blog, List<Post>?> POSTS = QueryField(
+    fieldName: "posts",
+    getValue: (model) => model.posts,
+    fieldType: ModelFieldType(
+      ModelFieldTypeEnum.model,
+      ofModelName: (Post).toString(),
+    ),
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Blog";

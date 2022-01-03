@@ -36,12 +36,16 @@ extension QueryFieldOperatorTypeExtension on QueryFieldOperatorType {
   }
 }
 
-abstract class QueryFieldOperator<T> {
+abstract class QueryFieldOperator<M extends Model, V> {
   final QueryFieldOperatorType type;
+  final V Function(M) getValue;
 
-  const QueryFieldOperator(this.type);
+  const QueryFieldOperator({
+    required this.type,
+    required this.getValue,
+  });
 
-  bool evaluate(T? other);
+  bool evaluate(V other);
 
   Map<String, dynamic> serializeAsMap();
 
@@ -80,13 +84,16 @@ abstract class QueryFieldOperator<T> {
   }
 }
 
-class EqualQueryOperator<T> extends QueryFieldOperator<T> {
-  final T? value;
+class EqualQueryOperator<M extends Model, V> extends QueryFieldOperator<M, V> {
+  final V? value;
 
-  const EqualQueryOperator(this.value) : super(QueryFieldOperatorType.equal);
+  const EqualQueryOperator({
+    required this.value,
+    required V Function(M) getValue,
+  }) : super(type: QueryFieldOperatorType.equal, getValue: getValue);
 
   @override
-  bool evaluate(T? other) {
+  bool evaluate(V? other) {
     var serializedValue = serializeDynamicValue(value);
     return other == serializedValue;
   }
@@ -98,14 +105,17 @@ class EqualQueryOperator<T> extends QueryFieldOperator<T> {
   }
 }
 
-class NotEqualQueryOperator<T> extends QueryFieldOperator<T> {
-  final T? value;
+class NotEqualQueryOperator<M extends Model, V>
+    extends QueryFieldOperator<M, V> {
+  final V? value;
 
-  const NotEqualQueryOperator(this.value)
-      : super(QueryFieldOperatorType.not_equal);
+  const NotEqualQueryOperator({
+    required this.value,
+    required V Function(M) getValue,
+  }) : super(type: QueryFieldOperatorType.not_equal, getValue: getValue);
 
   @override
-  bool evaluate(T? other) {
+  bool evaluate(V? other) {
     var serializedValue = serializeDynamicValue(value);
     return other != serializedValue;
   }
@@ -117,15 +127,17 @@ class NotEqualQueryOperator<T> extends QueryFieldOperator<T> {
   }
 }
 
-class LessOrEqualQueryOperator<T extends Comparable<T>>
-    extends QueryFieldOperator<T> {
-  final T value;
+class LessOrEqualQueryOperator<M extends Model, V extends Comparable<V>?>
+    extends QueryFieldOperator<M, V> {
+  final V value;
 
-  const LessOrEqualQueryOperator(this.value)
-      : super(QueryFieldOperatorType.less_or_equal);
+  const LessOrEqualQueryOperator({
+    required this.value,
+    required V Function(M) getValue,
+  }) : super(type: QueryFieldOperatorType.less_or_equal, getValue: getValue);
 
   @override
-  bool evaluate(T? other) {
+  bool evaluate(V? other) {
     if (other == null) {
       return false;
     }
@@ -140,15 +152,17 @@ class LessOrEqualQueryOperator<T extends Comparable<T>>
   }
 }
 
-class LessThanQueryOperator<T extends Comparable<T>>
-    extends QueryFieldOperator<T> {
-  final T value;
+class LessThanQueryOperator<M extends Model, V extends Comparable<V>?>
+    extends QueryFieldOperator<M, V> {
+  final V value;
 
-  const LessThanQueryOperator(this.value)
-      : super(QueryFieldOperatorType.less_than);
+  const LessThanQueryOperator({
+    required this.value,
+    required V Function(M) getValue,
+  }) : super(type: QueryFieldOperatorType.less_than, getValue: getValue);
 
   @override
-  bool evaluate(T? other) {
+  bool evaluate(V? other) {
     if (other == null) {
       return false;
     }
@@ -163,15 +177,17 @@ class LessThanQueryOperator<T extends Comparable<T>>
   }
 }
 
-class GreaterOrEqualQueryOperator<T extends Comparable<T>>
-    extends QueryFieldOperator<T> {
-  final T value;
+class GreaterOrEqualQueryOperator<M extends Model, V extends Comparable<V>?>
+    extends QueryFieldOperator<M, V> {
+  final V value;
 
-  const GreaterOrEqualQueryOperator(this.value)
-      : super(QueryFieldOperatorType.greater_or_equal);
+  const GreaterOrEqualQueryOperator({
+    required this.value,
+    required V Function(M) getValue,
+  }) : super(type: QueryFieldOperatorType.greater_or_equal, getValue: getValue);
 
   @override
-  bool evaluate(T? other) {
+  bool evaluate(V? other) {
     if (other == null) {
       return false;
     }
@@ -186,15 +202,17 @@ class GreaterOrEqualQueryOperator<T extends Comparable<T>>
   }
 }
 
-class GreaterThanQueryOperator<T extends Comparable<T>>
-    extends QueryFieldOperator<T> {
-  final T value;
+class GreaterThanQueryOperator<M extends Model, V extends Comparable<V>?>
+    extends QueryFieldOperator<M, V> {
+  final V value;
 
-  const GreaterThanQueryOperator(this.value)
-      : super(QueryFieldOperatorType.greater_than);
+  const GreaterThanQueryOperator({
+    required this.value,
+    required V Function(M) getValue,
+  }) : super(type: QueryFieldOperatorType.greater_than, getValue: getValue);
 
   @override
-  bool evaluate(T? other) {
+  bool evaluate(V? other) {
     if (other == null) {
       return false;
     }
@@ -209,37 +227,19 @@ class GreaterThanQueryOperator<T extends Comparable<T>>
   }
 }
 
-class ContainsQueryOperator extends QueryFieldOperator<String> {
-  final String value;
+class BetweenQueryOperator<M extends Model, V extends Comparable<V>?>
+    extends QueryFieldOperator<M, V> {
+  final V start;
+  final V end;
 
-  const ContainsQueryOperator(this.value)
-      : super(QueryFieldOperatorType.contains);
-
-  @override
-  bool evaluate(String? other) {
-    if (other == null) {
-      return false;
-    }
-    return other.contains(value);
-  }
+  const BetweenQueryOperator({
+    required this.start,
+    required this.end,
+    required V Function(M) getValue,
+  }) : super(type: QueryFieldOperatorType.between, getValue: getValue);
 
   @override
-  Map<String, dynamic> serializeAsMap() {
-    return serializeAsMapWithOperator(
-        QueryFieldOperatorType.contains.toShortString(), value);
-  }
-}
-
-class BetweenQueryOperator<T extends Comparable<T>>
-    extends QueryFieldOperator<T> {
-  final T start;
-  final T end;
-
-  const BetweenQueryOperator(this.start, this.end)
-      : super(QueryFieldOperatorType.between);
-
-  @override
-  bool evaluate(T? other) {
+  bool evaluate(V? other) {
     if (other == null) {
       return false;
     }
@@ -259,11 +259,14 @@ class BetweenQueryOperator<T extends Comparable<T>>
   }
 }
 
-class BeginsWithQueryOperator extends QueryFieldOperator<String> {
+class BeginsWithQueryOperator<M extends Model>
+    extends QueryFieldOperator<M, String?> {
   final String value;
 
-  const BeginsWithQueryOperator(this.value)
-      : super(QueryFieldOperatorType.begins_with);
+  const BeginsWithQueryOperator({
+    required this.value,
+    required String? Function(M) getValue,
+  }) : super(type: QueryFieldOperatorType.begins_with, getValue: getValue);
 
   @override
   bool evaluate(String? other) {
@@ -277,5 +280,53 @@ class BeginsWithQueryOperator extends QueryFieldOperator<String> {
   Map<String, dynamic> serializeAsMap() {
     return serializeAsMapWithOperator(
         QueryFieldOperatorType.begins_with.toShortString(), value);
+  }
+}
+
+class ContainsQueryOperator<M extends Model>
+    extends QueryFieldOperator<M, String?> {
+  final String value;
+
+  const ContainsQueryOperator({
+    required this.value,
+    required String? Function(M) getValue,
+  }) : super(type: QueryFieldOperatorType.contains, getValue: getValue);
+
+  @override
+  bool evaluate(String? other) {
+    if (other == null) {
+      return false;
+    }
+    return other.contains(value);
+  }
+
+  @override
+  Map<String, dynamic> serializeAsMap() {
+    return serializeAsMapWithOperator(
+        QueryFieldOperatorType.contains.toShortString(), value);
+  }
+}
+
+class ListContainsQueryOperator<M extends Model, V>
+    extends QueryFieldOperator<M, List<V>?> {
+  final V value;
+
+  const ListContainsQueryOperator({
+    required this.value,
+    required List<V>? Function(M) getValue,
+  }) : super(type: QueryFieldOperatorType.contains, getValue: getValue);
+
+  @override
+  bool evaluate(List<V>? other) {
+    if (other == null) {
+      return false;
+    }
+    return other.contains(value);
+  }
+
+  @override
+  Map<String, dynamic> serializeAsMap() {
+    return serializeAsMapWithOperator(
+        QueryFieldOperatorType.contains.toShortString(), value);
   }
 }

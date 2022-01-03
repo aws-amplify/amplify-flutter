@@ -79,9 +79,14 @@ class IntTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value};
 
-  static final QueryField<String> ID =
-      QueryField<String>(fieldName: "intTypeModel.id");
-  static final QueryField<int> VALUE = QueryField<int>(fieldName: "value");
+  static final QueryField<IntTypeModel, String> ID = QueryField(
+    fieldName: "intTypeModel.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<IntTypeModel, num?> VALUE = QueryField(
+    fieldName: "value",
+    getValue: (model) => model.value,
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "IntTypeModel";

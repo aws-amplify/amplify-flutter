@@ -83,9 +83,14 @@ class BoolListTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value};
 
-  static final QueryField<String> ID =
-      QueryField(fieldName: "boolListTypeModel.id");
-  static final QueryField<List<bool>?> VALUE = QueryField(fieldName: "value");
+  static final QueryField<BoolListTypeModel, String> ID = QueryField(
+    fieldName: "boolListTypeModel.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<BoolListTypeModel, List<bool>?> VALUE = QueryField(
+    fieldName: "value",
+    getValue: (model) => model.value,
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "BoolListTypeModel";

@@ -187,19 +187,38 @@ class Post extends Model {
         'comments': _comments?.map((e) => e?.toJson())?.toList()
       };
 
-  static final QueryField<String> ID = QueryField(fieldName: "post.id");
-  static final QueryField<String> TITLE = QueryField(fieldName: "title");
-  static final QueryField<int> RATING = QueryField(fieldName: "rating");
-  static final QueryField<TemporalDateTime?> CREATED =
-      QueryField(fieldName: "created");
-  static final QueryField<Blog?> BLOG = QueryField(
-      fieldName: "blog",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Blog).toString()));
-  static final QueryField<List<Comment>?> COMMENTS = QueryField(
-      fieldName: "comments",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Comment).toString()));
+  static final QueryField<Post, String> ID = QueryField(
+    fieldName: "post.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<Post, String> TITLE = QueryField(
+    fieldName: "title",
+    getValue: (model) => model.title,
+  );
+  static final QueryField<Post, int> RATING = QueryField(
+    fieldName: "rating",
+    getValue: (model) => model.rating,
+  );
+  static final QueryField<Post, TemporalDateTime?> CREATED = QueryField(
+    fieldName: "created",
+    getValue: (model) => model.created,
+  );
+  static final QueryField<Post, Blog?> BLOG = QueryField(
+    fieldName: "blog",
+    getValue: (model) => model.blog,
+    fieldType: ModelFieldType(
+      ModelFieldTypeEnum.model,
+      ofModelName: (Blog).toString(),
+    ),
+  );
+  static final QueryField<Post, List<Comment>?> COMMENTS = QueryField(
+    fieldName: "comments",
+    getValue: (model) => model.comments,
+    fieldType: ModelFieldType(
+      ModelFieldTypeEnum.model,
+      ofModelName: (Comment).toString(),
+    ),
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Post";

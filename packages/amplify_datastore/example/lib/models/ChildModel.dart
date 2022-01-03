@@ -88,8 +88,14 @@ class ChildModel extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'name': _name};
 
-  static final QueryField<String> ID = QueryField(fieldName: "childModel.id");
-  static final QueryField<String> NAME = QueryField(fieldName: "name");
+  static final QueryField<ChildModel, String> ID = QueryField(
+    fieldName: "childModel.id",
+    getValue: (model) => model.id,
+  );
+  static final QueryField<ChildModel, String> NAME = QueryField(
+    fieldName: "name",
+    getValue: (model) => model.name,
+  );
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "ChildModel";

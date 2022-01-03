@@ -196,66 +196,68 @@ void main() {
       skip: true,
     );
 
-    testWidgets('beginsWith()', (WidgetTester tester) async {
-      // test with exact match
-      var exactMatchPattern = '1000.0';
-      var exactMatchModels = nonNullModels
-          .where(
-              (model) => model.value!.toString().startsWith(exactMatchPattern))
-          .toList();
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.beginsWith(exactMatchPattern),
-        expectedModels: exactMatchModels,
-      );
+    // TODO: Should this use can be supported? It would be a breaking change to remove this support
 
-      // test with partial match
-      var partialMatchPattern = '10';
-      var partialMatchModels = nonNullModels
-          .where((model) =>
-              model.value!.toString().startsWith(partialMatchPattern))
-          .toList();
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.beginsWith(partialMatchPattern),
-        expectedModels: partialMatchModels,
-      );
+    // testWidgets('beginsWith()', (WidgetTester tester) async {
+    //   // test with exact match
+    //   var exactMatchPattern = '1000.0';
+    //   var exactMatchModels = nonNullModels
+    //       .where(
+    //           (model) => model.value!.toString().startsWith(exactMatchPattern))
+    //       .toList();
+    //   await testQueryPredicate<DoubleTypeModel>(
+    //     queryPredicate: DoubleTypeModel.VALUE.beginsWith(exactMatchPattern),
+    //     expectedModels: exactMatchModels,
+    //   );
 
-      // test with no match
-      var noMatchPattern = '123.123';
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.beginsWith(noMatchPattern),
-        expectedModels: [],
-      );
-    });
+    //   // test with partial match
+    //   var partialMatchPattern = '10';
+    //   var partialMatchModels = nonNullModels
+    //       .where((model) =>
+    //           model.value!.toString().startsWith(partialMatchPattern))
+    //       .toList();
+    //   await testQueryPredicate<DoubleTypeModel>(
+    //     queryPredicate: DoubleTypeModel.VALUE.beginsWith(partialMatchPattern),
+    //     expectedModels: partialMatchModels,
+    //   );
 
-    testWidgets('contains()', (WidgetTester tester) async {
-      // test with exact match
-      var exactMatchPattern = '1000.0';
-      var exactMatchModels = nonNullModels
-          .where((model) => model.value!.toString().contains(exactMatchPattern))
-          .toList();
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.contains(exactMatchPattern),
-        expectedModels: exactMatchModels,
-      );
+    //   // test with no match
+    //   var noMatchPattern = '123.123';
+    //   await testQueryPredicate<DoubleTypeModel>(
+    //     queryPredicate: DoubleTypeModel.VALUE.beginsWith(noMatchPattern),
+    //     expectedModels: [],
+    //   );
+    // });
 
-      // test with partial match
-      var partialMatchPattern = '10';
-      var partialMatchModels = nonNullModels
-          .where(
-              (model) => model.value!.toString().contains(partialMatchPattern))
-          .toList();
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.contains(partialMatchPattern),
-        expectedModels: partialMatchModels,
-      );
+    // testWidgets('contains()', (WidgetTester tester) async {
+    //   // test with exact match
+    //   var exactMatchPattern = '1000.0';
+    //   var exactMatchModels = nonNullModels
+    //       .where((model) => model.value!.toString().contains(exactMatchPattern))
+    //       .toList();
+    //   await testQueryPredicate<DoubleTypeModel>(
+    //     queryPredicate: DoubleTypeModel.VALUE.contains(exactMatchPattern),
+    //     expectedModels: exactMatchModels,
+    //   );
 
-      // test with no match
-      var noMatchPattern = '123.123';
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.contains(noMatchPattern),
-        expectedModels: [],
-      );
-    });
+    //   // test with partial match
+    //   var partialMatchPattern = '10';
+    //   var partialMatchModels = nonNullModels
+    //       .where(
+    //           (model) => model.value!.toString().contains(partialMatchPattern))
+    //       .toList();
+    //   await testQueryPredicate<DoubleTypeModel>(
+    //     queryPredicate: DoubleTypeModel.VALUE.contains(partialMatchPattern),
+    //     expectedModels: partialMatchModels,
+    //   );
+
+    //   // test with no match
+    //   var noMatchPattern = '123.123';
+    //   await testQueryPredicate<DoubleTypeModel>(
+    //     queryPredicate: DoubleTypeModel.VALUE.contains(noMatchPattern),
+    //     expectedModels: [],
+    //   );
+    // });
 
     testWidgets(
       'bewtween()',
