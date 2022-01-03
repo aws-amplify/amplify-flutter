@@ -71,11 +71,11 @@ class _MyAppState extends State<MyApp> {
       countries: LocalizedCountryResolver(),
     );
 
-    // We wrap our application in an Authenticator component. This component
+    // We wrap our MaterialApp in an Authenticator component. This component
     // handles all the screens and logic whenever the user is signed out. Once
-    // the user is signed in, the Authenticator will show whichever Widget we
-    // provide as `child`.
-    final authenticator = Authenticator(
+    // the user is signed in, the Authenticator will use our MaterialApp's
+    // navigator to show the correct screen.
+    return Authenticator(
       stringResolver: stringResolver,
       onException: (exception) {
         print('[ERROR]: $exception');
@@ -97,29 +97,36 @@ class _MyAppState extends State<MyApp> {
       ),
 
       // Finally, we specify the widget to use once the user is signed in.
-      child: const SignedInScreen(),
-    );
+      child: MaterialApp(
+        title: 'Authenticator Demo',
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        themeMode: ThemeMode.system,
+        debugShowCheckedModeBanner: false,
 
-    return MaterialApp(
-      title: 'Authenticator Demo',
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.system,
-      debugShowCheckedModeBanner: false,
+        // These lines enable our custom localizations specified in the lib/l10n
+        // directory, which will be used later to customize the values displayed
+        // in the Authenticator component.
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en'), // English
+          Locale('es'), // Spanish
+        ],
 
-      // These lines enable our custom localizations specified in the lib/l10n
-      // directory, which will be used later to customize the values displayed
-      // in the Authenticator component.
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en'), // English
-        Locale('es'), // Spanish
-      ],
+        // The Authenticator component must wrap your Navigator component which
+        // can be done so using the `builder` method.
+        builder: (context, child) {
+          return AuthenticatorBody(child: child!);
+        },
 
-      // The Authenticator component should be a descendant of your MaterialApp.
-      home: authenticator,
+        initialRoute: '/routeA',
+        routes: {
+          '/routeA': (BuildContext context) => const RouteA(),
+          '/routeB': (BuildContext context) => const RouteB(),
+        },
+      ),
     );
   }
 }
@@ -128,16 +135,54 @@ class _MyAppState extends State<MyApp> {
 /// from the Authenticator library anywhere in our app to provide a pre-configured
 /// sign out experience. Alternatively, we can call [Amplify.Auth.signOut] which
 /// will also notify the Authenticator.
-class SignedInScreen extends StatelessWidget {
-  const SignedInScreen({Key? key}) : super(key: key);
+class RouteA extends StatelessWidget {
+  const RouteA({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Signed In'),
+        title: const Text('Route A'),
       ),
-      body: const Center(child: SignOutButton()),
+      body: Center(
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () =>
+                  Navigator.of(context).pushReplacementNamed('/routeB'),
+              child: const Text('Goto Route B'),
+            ),
+            const SizedBox(height: 20),
+            const SignOutButton(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RouteB extends StatelessWidget {
+  const RouteB({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Route B'),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () =>
+                  Navigator.of(context).pushReplacementNamed('/routeA'),
+              child: const Text('Goto Route A'),
+            ),
+            const SizedBox(height: 20),
+            const SignOutButton(),
+          ],
+        ),
+      ),
     );
   }
 }

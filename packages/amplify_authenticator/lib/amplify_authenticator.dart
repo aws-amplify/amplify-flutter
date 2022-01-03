@@ -292,6 +292,8 @@ class Authenticator extends StatefulWidget {
 }
 
 class _AuthenticatorState extends State<Authenticator> {
+  static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
   final AuthService _authService = AmplifyAuthService();
   late final StateMachineBloc _stateMachineBloc;
   late final AuthViewModel _viewModel;
@@ -352,12 +354,17 @@ class _AuthenticatorState extends State<Authenticator> {
     required StatusType type,
     required Widget content,
   }) {
+    final scaffoldMessengerState = scaffoldMessengerKey.currentState;
+    final scaffoldMessengerContext = scaffoldMessengerKey.currentContext;
+    if (scaffoldMessengerState == null || scaffoldMessengerContext == null) {
+      return;
+    }
     var location = widget.exceptionBannerLocation;
     if (location == ExceptionBannerLocation.none) {
       return;
     }
     if (location == ExceptionBannerLocation.auto) {
-      final Size screenSize = MediaQuery.of(context).size;
+      final Size screenSize = MediaQuery.of(scaffoldMessengerContext).size;
       final bool isDesktop =
           screenSize.width > AuthenticatorContainerConstants.landScapeView;
       location = isDesktop
@@ -365,26 +372,25 @@ class _AuthenticatorState extends State<Authenticator> {
           : ExceptionBannerLocation.bottom;
     }
     if (location == ExceptionBannerLocation.top) {
-      ScaffoldMessenger.of(context)
+      scaffoldMessengerState
         ..clearMaterialBanners()
         ..showMaterialBanner(createMaterialBanner(
-          context,
+          scaffoldMessengerContext,
           useAmplifyTheme: widget.useAmplifyTheme,
           type: type,
           content: content,
           actions: [
             IconButton(
-              onPressed: () =>
-                  ScaffoldMessenger.of(context).clearMaterialBanners(),
+              onPressed: scaffoldMessengerState.clearMaterialBanners,
               icon: const Icon(Icons.close),
             ),
           ],
         ));
     } else {
-      ScaffoldMessenger.of(context)
+      scaffoldMessengerState
         ..clearSnackBars()
         ..showSnackBar(createSnackBar(
-          context,
+          scaffoldMessengerContext,
           type: type,
           content: content,
           useAmplifyTheme: widget.useAmplifyTheme,
@@ -396,7 +402,7 @@ class _AuthenticatorState extends State<Authenticator> {
   void _subscribeToSuccessEvents() {
     _successSub = _stateMachineBloc.stream.listen((state) {
       if (state is Authenticated) {
-        ScaffoldMessenger.of(context).removeCurrentMaterialBanner();
+        scaffoldMessengerKey.currentState?.removeCurrentMaterialBanner();
       }
     });
   }
@@ -476,33 +482,28 @@ class _AuthenticatorState extends State<Authenticator> {
       ]);
     }
 
-    return Localizations.override(
-      context: context,
-      delegates: AuthenticatorLocalizations.localizationsDelegates,
-      child: InheritedAuthBloc(
-        key: keyInheritedAuthBloc,
-        authBloc: _stateMachineBloc,
-        child: InheritedConfig(
-          amplifyConfig: _config,
-          useAmplifyTheme: widget.useAmplifyTheme,
-          child: InheritedAuthViewModel(
-            key: keyInheritedAuthViewModel,
-            viewModel: _viewModel,
-            child: InheritedStrings(
-              resolver: widget.stringResolver,
-              child: InheritedForms(
-                confirmSignInNewPasswordForm:
-                    widget.confirmSignInNewPasswordForm,
-                resetPasswordForm: ResetPasswordForm(),
-                confirmResetPasswordForm: const ConfirmResetPasswordForm(),
-                signInForm: widget.signInForm,
-                signUpForm: widget.signUpForm,
-                confirmSignUpForm: ConfirmSignUpForm(),
-                confirmSignInMFAForm: ConfirmSignInMFAForm(),
-                verifyUserForm: VerifyUserForm(),
-                confirmVerifyUserForm: ConfirmVerifyUserForm(),
-                child: _AuthenticatorBody(child: widget.child),
-              ),
+    return InheritedAuthBloc(
+      key: keyInheritedAuthBloc,
+      authBloc: _stateMachineBloc,
+      child: InheritedConfig(
+        amplifyConfig: _config,
+        useAmplifyTheme: widget.useAmplifyTheme,
+        child: InheritedAuthViewModel(
+          key: keyInheritedAuthViewModel,
+          viewModel: _viewModel,
+          child: InheritedStrings(
+            resolver: widget.stringResolver,
+            child: InheritedForms(
+              confirmSignInNewPasswordForm: widget.confirmSignInNewPasswordForm,
+              resetPasswordForm: ResetPasswordForm(),
+              confirmResetPasswordForm: const ConfirmResetPasswordForm(),
+              signInForm: widget.signInForm,
+              signUpForm: widget.signUpForm,
+              confirmSignUpForm: ConfirmSignUpForm(),
+              confirmSignInMFAForm: ConfirmSignInMFAForm(),
+              verifyUserForm: VerifyUserForm(),
+              confirmVerifyUserForm: ConfirmVerifyUserForm(),
+              child: widget.child,
             ),
           ),
         ),
@@ -511,8 +512,8 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 }
 
-class _AuthenticatorBody extends StatelessWidget {
-  const _AuthenticatorBody({
+class AuthenticatorBody extends StatelessWidget {
+  const AuthenticatorBody({
     Key? key,
     required this.child,
   }) : super(key: key);
@@ -547,14 +548,27 @@ class _AuthenticatorBody extends StatelessWidget {
             screen = const AuthenticatorScreen.signin();
           }
 
-          return Scaffold(
-            backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
-            body: SizedBox.expand(
-              child: screen is AuthenticatorScreen
-                  ? SingleChildScrollView(
-                      child: screen,
-                    )
-                  : screen,
+          return ScaffoldMessenger(
+            key: _AuthenticatorState.scaffoldMessengerKey,
+            child: Localizations.override(
+              context: context,
+              delegates: AuthenticatorLocalizations.localizationsDelegates,
+              child: Navigator(
+                onPopPage: (_, dynamic __) => false,
+                pages: [
+                  MaterialPage<void>(
+                    child: Scaffold(
+                      backgroundColor:
+                          AmplifyTheme.of(context).backgroundPrimary,
+                      body: SizedBox.expand(
+                        child: screen is AuthenticatorScreen
+                            ? SingleChildScrollView(child: screen)
+                            : screen,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },
