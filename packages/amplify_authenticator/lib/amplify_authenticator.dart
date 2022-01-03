@@ -574,19 +574,19 @@ class _AuthenticatorBody extends StatelessWidget {
           return Localizations.override(
             context: context,
             delegates: AuthenticatorLocalizations.localizationsDelegates,
-            child: ScaffoldMessenger(
-              key: _AuthenticatorState.scaffoldMessengerKey,
-              child: Navigator(
-                onPopPage: (_, dynamic __) => true,
-                pages: [
-                  MaterialPage<void>(
-                    child: Theme(
-                      data: userAppTheme,
-                      child: child,
-                    ),
+            child: Navigator(
+              onPopPage: (_, dynamic __) => true,
+              pages: [
+                MaterialPage<void>(
+                  child: Theme(
+                    data: userAppTheme,
+                    child: child,
                   ),
-                  if (authenticatorScreen != null)
-                    MaterialPage<void>(
+                ),
+                if (authenticatorScreen != null)
+                  MaterialPage<void>(
+                    child: ScaffoldMessenger(
+                      key: _AuthenticatorState.scaffoldMessengerKey,
                       child: Scaffold(
                         backgroundColor:
                             AmplifyTheme.of(context).backgroundPrimary,
@@ -598,8 +598,8 @@ class _AuthenticatorBody extends StatelessWidget {
                         ),
                       ),
                     ),
-                ],
-              ),
+                  ),
+              ],
             ),
           );
         },
