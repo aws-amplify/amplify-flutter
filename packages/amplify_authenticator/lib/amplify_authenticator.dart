@@ -26,7 +26,6 @@ import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
-import 'package:amplify_authenticator/src/l10n/message_resolver.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
@@ -536,15 +535,15 @@ class AuthenticatorBody extends StatelessWidget {
         builder: (context, snapshot) {
           final state = snapshot.data ?? const AuthLoading();
 
-          final Widget? screen;
+          final Widget? authenticatorScreen;
           if (state is Authenticated) {
-            screen = null;
+            authenticatorScreen = null;
           } else if (state is AuthLoading || state is AuthLoaded) {
-            screen = const LoadingScreen();
+            authenticatorScreen = const LoadingScreen();
           } else if (state is AuthFlow) {
-            screen = AuthenticatorScreen(screen: state.screen);
+            authenticatorScreen = AuthenticatorScreen(screen: state.screen);
           } else {
-            screen = const AuthenticatorScreen.signin();
+            authenticatorScreen = const AuthenticatorScreen.signin();
           }
 
           return Localizations.override(
@@ -558,15 +557,16 @@ class AuthenticatorBody extends StatelessWidget {
                   MaterialPage<void>(
                     child: Theme(data: userAppTheme, child: child),
                   ),
-                  if (screen != null)
+                  if (authenticatorScreen != null)
                     MaterialPage<void>(
                       child: Scaffold(
                         backgroundColor:
                             AmplifyTheme.of(context).backgroundPrimary,
                         body: SizedBox.expand(
-                          child: screen is AuthenticatorScreen
-                              ? SingleChildScrollView(child: screen)
-                              : screen,
+                          child: authenticatorScreen is AuthenticatorScreen
+                              ? SingleChildScrollView(
+                                  child: authenticatorScreen)
+                              : authenticatorScreen,
                         ),
                       ),
                     ),
