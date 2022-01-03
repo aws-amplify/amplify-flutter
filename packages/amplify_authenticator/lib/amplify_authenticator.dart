@@ -248,7 +248,17 @@ class Authenticator extends StatefulWidget {
   /// );
   /// ```
   static TransitionBuilder builder() => (BuildContext context, Widget? child) {
-        return _AuthenticatorBody(child: child!);
+        if (child == null) {
+          throw FlutterError.fromParts([
+            ErrorSummary('No Navigator or Router provided.'),
+            ErrorSpacer(),
+            ErrorDescription(
+              'Did you include a home Widget or provide routes to your MaterialApp?',
+            ),
+            ErrorSpacer(),
+          ]);
+        }
+        return _AuthenticatorBody(child: child);
       };
 
   /// Whether to use Amplify colors and styles in the Authenticator,
@@ -533,7 +543,7 @@ class _AuthenticatorBody extends StatelessWidget {
     required this.child,
   }) : super(key: key);
 
-  final Widget? child;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -572,7 +582,7 @@ class _AuthenticatorBody extends StatelessWidget {
                   MaterialPage<void>(
                     child: Theme(
                       data: userAppTheme,
-                      child: child ?? const SizedBox.shrink(),
+                      child: child,
                     ),
                   ),
                   if (authenticatorScreen != null)
