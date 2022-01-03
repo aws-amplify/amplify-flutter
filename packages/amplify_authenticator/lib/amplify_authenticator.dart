@@ -242,7 +242,7 @@ class Authenticator extends StatefulWidget {
   /// ```dart
   /// return Authenticator(
   ///   child: MaterialApp(
-  ///     builder: Authenticator.builder,
+  ///     builder: Authenticator.builder(),
   ///     home: const LoggedInScreen(),
   ///   ),
   /// );
