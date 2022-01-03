@@ -35,8 +35,12 @@ void main() {
         AmplifyAPI(),
       ]);
 
-      await adminCreateUser(username, password,
-          autoConfirm: true, verifyAttributes: true);
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
 
       await signOutUser();
     });
@@ -55,7 +59,10 @@ void main() {
         nextEvent = authEventStream.first;
         await Amplify.Auth.signIn(username: username, password: password);
         event = await nextEvent;
-        expect(event.eventName, 'SIGNED_IN');
+        expect(
+          event.eventName,
+          'SIGNED_IN',
+        );
 
         // assert sign out event is broadcast
         nextEvent = authEventStream.first;
@@ -65,7 +72,10 @@ void main() {
 
         // assert a second sign in event is broadcast
         nextEvent = authEventStream.first;
-        await Amplify.Auth.signIn(username: username, password: password);
+        await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
         event = await nextEvent;
         expect(event.eventName, 'SIGNED_IN');
 
@@ -93,7 +103,10 @@ void main() {
 
           // assert sign in event is broadcast
           nextEvent = authEventStream.first;
-          await Amplify.Auth.signIn(username: username, password: password);
+          await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
           event = await nextEvent;
           expect(event.eventName, 'SIGNED_IN');
 

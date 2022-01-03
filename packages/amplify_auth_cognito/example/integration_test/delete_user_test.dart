@@ -41,12 +41,18 @@ void main() {
         final password = generatePassword();
 
         // Create a confirmed user
-        await adminCreateUser(username, password,
-            autoConfirm: true, verifyAttributes: true);
+        await adminCreateUser(
+          username,
+          password,
+          autoConfirm: true,
+          verifyAttributes: true,
+        );
 
         // Sign the user in
-        SignInResult preDeleteSignIn =
-            await Amplify.Auth.signIn(username: username, password: password);
+        SignInResult preDeleteSignIn = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
         expect(preDeleteSignIn.isSignedIn, true);
 
         // Delete the user
@@ -54,7 +60,10 @@ void main() {
 
         // Expect subsequent sign in to fail
         try {
-          await Amplify.Auth.signIn(username: username, password: password);
+          await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
         } catch (e) {
           expect(e, TypeMatcher<UserNotFoundException>());
           return;
