@@ -341,7 +341,8 @@ class _AuthenticatorState extends State<Authenticator> {
   void _subscribeToInfoMessages() {
     final resolver = widget.stringResolver.messages;
     _infoSub = _stateMachineBloc.infoMessages.listen((key) {
-      if (mounted) {
+      final context = scaffoldMessengerKey.currentContext;
+      if (mounted && context != null) {
         _showExceptionBanner(
           type: StatusType.info,
           content: Text(resolver.resolve(context, key)),
@@ -548,13 +549,13 @@ class AuthenticatorBody extends StatelessWidget {
             screen = const AuthenticatorScreen.signin();
           }
 
-          return ScaffoldMessenger(
-            key: _AuthenticatorState.scaffoldMessengerKey,
-            child: Localizations.override(
-              context: context,
-              delegates: AuthenticatorLocalizations.localizationsDelegates,
+          return Localizations.override(
+            context: context,
+            delegates: AuthenticatorLocalizations.localizationsDelegates,
+            child: ScaffoldMessenger(
+              key: _AuthenticatorState.scaffoldMessengerKey,
               child: Navigator(
-                onPopPage: (_, dynamic __) => false,
+                onPopPage: (_, dynamic __) => true,
                 pages: [
                   MaterialPage<void>(
                     child: Scaffold(
