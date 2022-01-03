@@ -536,12 +536,10 @@ class AuthenticatorBody extends StatelessWidget {
         builder: (context, snapshot) {
           final state = snapshot.data ?? const AuthLoading();
 
+          final Widget? screen;
           if (state is Authenticated) {
-            return Theme(data: userAppTheme, child: child);
-          }
-
-          final Widget screen;
-          if (state is AuthLoading || state is AuthLoaded) {
+            screen = null;
+          } else if (state is AuthLoading || state is AuthLoaded) {
             screen = const LoadingScreen();
           } else if (state is AuthFlow) {
             screen = AuthenticatorScreen(screen: state.screen);
@@ -558,16 +556,20 @@ class AuthenticatorBody extends StatelessWidget {
                 onPopPage: (_, dynamic __) => true,
                 pages: [
                   MaterialPage<void>(
-                    child: Scaffold(
-                      backgroundColor:
-                          AmplifyTheme.of(context).backgroundPrimary,
-                      body: SizedBox.expand(
-                        child: screen is AuthenticatorScreen
-                            ? SingleChildScrollView(child: screen)
-                            : screen,
+                    child: Theme(data: userAppTheme, child: child),
+                  ),
+                  if (screen != null)
+                    MaterialPage<void>(
+                      child: Scaffold(
+                        backgroundColor:
+                            AmplifyTheme.of(context).backgroundPrimary,
+                        body: SizedBox.expand(
+                          child: screen is AuthenticatorScreen
+                              ? SingleChildScrollView(child: screen)
+                              : screen,
+                        ),
                       ),
                     ),
-                  ),
                 ],
               ),
             ),
