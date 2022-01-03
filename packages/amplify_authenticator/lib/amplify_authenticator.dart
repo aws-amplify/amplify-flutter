@@ -518,7 +518,7 @@ class AuthenticatorBody extends StatelessWidget {
     required this.child,
   }) : super(key: key);
 
-  final Widget child;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -555,7 +555,10 @@ class AuthenticatorBody extends StatelessWidget {
                 onPopPage: (_, dynamic __) => true,
                 pages: [
                   MaterialPage<void>(
-                    child: Theme(data: userAppTheme, child: child),
+                    child: Theme(
+                      data: userAppTheme,
+                      child: child ?? const SizedBox.shrink(),
+                    ),
                   ),
                   if (authenticatorScreen != null)
                     MaterialPage<void>(

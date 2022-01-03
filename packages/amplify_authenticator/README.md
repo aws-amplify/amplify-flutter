@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
         builder: (context, child) {
-          return AuthenticatorBody(child: child!);
+          return AuthenticatorBody(child: child);
         },
         home: const LoggedInScreen(),
       ),
