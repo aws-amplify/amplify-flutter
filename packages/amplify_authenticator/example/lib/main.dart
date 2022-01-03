@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
 
     // We wrap our MaterialApp in an Authenticator component. This component
     // handles all the screens and logic whenever the user is signed out. Once
-    // the user is signed in, the Authenticator will use our MaterialApp's
+    // the user is signed in, the Authenticator will use your MaterialApp's
     // navigator to show the correct screen.
     return Authenticator(
       stringResolver: stringResolver,
@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
         ],
       ),
 
-      // Finally, we specify the widget to use once the user is signed in.
+      // Your MaterialApp should be the child of the Authenticator.
       child: MaterialApp(
         title: 'Authenticator Demo',
         theme: ThemeData.light(),
@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
         ],
 
         // The Authenticator component must wrap your Navigator component which
-        // can be done so using the `builder` method.
+        // can be done using the `builder` method.
         builder: (context, child) {
           return AuthenticatorBody(child: child!);
         },
