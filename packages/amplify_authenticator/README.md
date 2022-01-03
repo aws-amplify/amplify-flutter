@@ -62,9 +62,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
-        builder: (context, child) {
-          return AuthenticatorBody(child: child);
-        },
+        builder: Authenticator.builder(),
         home: const LoggedInScreen(),
       ),
     );

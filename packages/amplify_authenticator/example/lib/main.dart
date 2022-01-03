@@ -117,10 +117,7 @@ class _MyAppState extends State<MyApp> {
 
         // The Authenticator component must wrap your Navigator component which
         // can be done using the `builder` method.
-        builder: (context, child) {
-          return AuthenticatorBody(child: child);
-        },
-
+        builder: Authenticator.builder(),
         initialRoute: '/routeA',
         routes: {
           '/routeA': (BuildContext context) => const RouteA(),

@@ -236,6 +236,21 @@ class Authenticator extends StatefulWidget {
         confirmSignInNewPasswordForm ?? ConfirmSignInNewPasswordForm();
   }
 
+  /// Wraps user-defined navigators for integration with [MaterialApp] and
+  /// [Navigator].
+  ///
+  /// ```dart
+  /// return Authenticator(
+  ///   child: MaterialApp(
+  ///     builder: Authenticator.builder,
+  ///     home: const LoggedInScreen(),
+  ///   ),
+  /// );
+  /// ```
+  static TransitionBuilder builder() => (BuildContext context, Widget? child) {
+        return _AuthenticatorBody(child: child!);
+      };
+
   /// Whether to use Amplify colors and styles in the Authenticator,
   /// instead of those defined by the app's Material [Theme].
   ///
@@ -512,8 +527,8 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 }
 
-class AuthenticatorBody extends StatelessWidget {
-  const AuthenticatorBody({
+class _AuthenticatorBody extends StatelessWidget {
+  const _AuthenticatorBody({
     Key? key,
     required this.child,
   }) : super(key: key);
