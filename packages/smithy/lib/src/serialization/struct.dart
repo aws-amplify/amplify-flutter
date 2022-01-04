@@ -1,4 +1,5 @@
 import 'package:built_value/serializer.dart';
+import 'package:smithy_ast/smithy_ast.dart';
 
 abstract class SmithySerializer<T> implements StructuredSerializer<T> {
   const SmithySerializer(this.wireName);
@@ -7,7 +8,7 @@ abstract class SmithySerializer<T> implements StructuredSerializer<T> {
   ///
   /// By default, this returns an empty array, which indicates it is
   /// valid for all protocols.
-  Iterable<String> get supportedProtocols => const [];
+  Iterable<ShapeId> get supportedProtocols => const [];
 
   @override
   final String wireName;

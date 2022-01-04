@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
@@ -27,30 +29,31 @@ abstract class HttpTrait<Input, Output> {
 }
 
 /// A protocol for sending requests over HTTP.
-abstract class HttpProtocol<Request extends Object?, Response extends Object?,
-        Input extends Payload<Request>, Output>
+abstract class HttpProtocol<Payload extends Object?,
+        Input extends HasPayload<Payload>, Output>
     implements
         Protocol<Input, Output, Stream<List<int>>>,
         HttpTrait<Input, Output> {
   const HttpProtocol();
 
   /// The content type of the request payload, added to the `Content-Type` header.
-  String get contentType;
+  String contentType<RequestPayload extends Object?>();
 
-  /// The serializer/deserializer for request and response wire payloads.
-  FullSerializer<Request, Response, List<int>> get serializer;
+  /// The serializer for input payloads and deserializer for response objects
+  /// from `List<int>`.
+  FullSerializer<Payload, Output, List<int>> get serializer;
 
   /// Regex for path inputs.
   static final _pathRegex = RegExp(r'{(\w+)}');
 
   @override
-  Client getClient(List<String> protocols) {
+  Client getClient(List<AlpnProtocol> protocols) {
     // TODO: Add h2
     return HttpClient();
   }
 
   @override
-  Client getStreamingClient(List<String> protocols) {
+  Client getStreamingClient(List<AlpnProtocol> protocols) {
     // TODO: Add h2 + websockets client
     return HttpClient();
   }
@@ -62,7 +65,7 @@ abstract class HttpProtocol<Request extends Object?, Response extends Object?,
   @override
   @mustCallSuper
   void addHeaders(Input input, Map<String, String> headers) {
-    headers['Content-Type'] = contentType;
+    headers['Content-Type'] = contentType<Payload>();
   }
 
   @override
@@ -82,41 +85,38 @@ abstract class HttpProtocol<Request extends Object?, Response extends Object?,
     var payload = input.getPayload();
     if (payload == null) {
       return const Stream.empty();
-    } else if (payload is String || payload is List<int>) {
-      return Stream.fromFuture(() async {
-        return await serializer.serialize(payload);
-      }());
+    } else if (payload is String) {
+      return Stream.value(utf8.encode(payload));
+    } else if (payload is List<int>) {
+      return Stream.value(payload);
     } else if (payload is Stream<List<int>>) {
       return payload;
     } else {
-      throw ArgumentError(
-        'Invalid input payload type: ${payload.runtimeType}. '
-            'Only String, List<int>, and Stream<List<int>> are supported.',
-        'input',
-      );
+      return Stream.fromFuture(() async {
+        return await serializer.serialize(payload);
+      }());
     }
   }
 
   @override
   Future<Output> deserialize(Stream<List<int>> response) async {
     final body = await http.ByteStream(response).toBytes();
-    final deserialized = await serializer.deserialize(body);
-    return responseConstructor(deserialized);
+    return await serializer.deserialize(body);
   }
-
-  Constructor<Response, Output> get responseConstructor;
 }
 
 /// A utility for operations to access the payload of the request without
 /// knowing the shape of the request or making any assumptions.
-abstract class Payload<T extends Object?> {
+abstract class HasPayload<T extends Object?> {
   T getPayload();
 }
 
-typedef JsonPayload = Payload<Map<String, Object?>>;
+mixin JsonPayload implements HasPayload<Map<String, Object?>> {
+  Map<String, Object?> toJson();
+}
 
 /// An empty JSON object.
-class EmptyJson implements Payload<Map<String, Object?>> {
+class EmptyJson implements HasPayload<Map<String, Object?>> {
   const EmptyJson();
 
   @override

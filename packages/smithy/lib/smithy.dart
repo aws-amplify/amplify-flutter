@@ -6,6 +6,9 @@ export 'package:aws_common/aws_common.dart';
 export 'package:collection/src/iterable_extensions.dart';
 export 'package:fixnum/fixnum.dart';
 
+// AST types
+export 'package:smithy_ast/smithy_ast.dart' show AlpnProtocol, ShapeId;
+
 // Operation
 export 'src/client.dart';
 export 'src/operation.dart';
@@ -24,6 +27,8 @@ export 'src/serialization/json/blob.dart';
 export 'src/serialization/json/int64.dart';
 export 'src/serialization/serializer.dart';
 export 'src/serialization/struct.dart';
+export 'src/serialization/serializers/big_int_serializer.dart';
+export 'src/serialization/serializers/timestamp_serializer.dart';
 export 'src/serialization/xml/xml_plugin.dart';
 
 // Types

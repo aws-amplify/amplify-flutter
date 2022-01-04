@@ -7,10 +7,12 @@ import 'package:smithy/smithy.dart';
 /// Defines an operation which uses HTTP.
 ///
 /// See: https://awslabs.github.io/smithy/1.0/spec/core/http-traits.html
-abstract class HttpOperation<Request extends Object?, Response extends Object?,
-    Input extends Payload<Request>, Output> extends Operation<Input, Output> {
+abstract class HttpOperation<
+    Payload extends Object?,
+    Input extends HasPayload<Payload>,
+    Output> extends Operation<Input, Output> {
   @override
-  HttpProtocol<Request, Response, Input, Output> get protocol;
+  HttpProtocol<Payload, Input, Output> get protocol;
 
   /// The URI to which the request is relative.
   Uri get baseUri;

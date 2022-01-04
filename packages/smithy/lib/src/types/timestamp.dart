@@ -5,11 +5,8 @@
 // string with no UTC offset and optional fractional precision
 // (for example, 1985-04-12T23:20:50.52Z).
 
-import 'dart:convert';
-
-import 'package:collection/collection.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:smithy/src/serialization/json/timestamp.dart';
+import 'package:smithy_ast/smithy_ast.dart';
 
 /// {@template aws.smithy.timestamp}
 ///
@@ -17,31 +14,39 @@ import 'package:smithy/src/serialization/json/timestamp.dart';
 class Timestamp {
   /// {@macro aws.smithy.timestamp}
   Timestamp(DateTime timestamp)
-      : _timestamp = timestamp.copyWith(microsecond: 0).toUtc();
+      : _timestamp = timestamp.stripMicroseconds().toUtc();
 
   /// {@macro aws.smithy.timestamp}
   Timestamp.now() : this(DateTime.now());
 
   /// {@macro aws.smithy.timestamp}
   factory Timestamp.parse(
-    String timestamp, {
-    TimestampSerializationFormat format = TimestampSerializationFormat.dateTime,
+    Object timestamp, {
+    TimestampFormat format = TimestampFormat.unknown,
   }) {
+    if (format == TimestampFormat.unknown) {
+      format = timestamp is String
+          ? TimestampFormat.dateTime
+          : TimestampFormat.epochSeconds;
+    }
     switch (format) {
-      case TimestampSerializationFormat.dateTime:
-        final dt = DateTime.parse(timestamp);
+      case TimestampFormat.dateTime:
+        final dt = DateTime.parse(timestamp as String);
         return Timestamp(dt);
-      case TimestampSerializationFormat.httpDate:
-        final dt = parseHttpDate(timestamp);
+      case TimestampFormat.httpDate:
+        final dt = parseHttpDate(timestamp as String);
         return Timestamp(dt);
-      case TimestampSerializationFormat.epochSeconds:
-        final secs = double.parse(timestamp);
+      case TimestampFormat.epochSeconds:
+        final secs = timestamp as num;
         final millisecs = (secs * 1000).truncate();
         return Timestamp(DateTime.fromMillisecondsSinceEpoch(
           millisecs,
           isUtc: true,
         ));
+      default:
+        break;
     }
+    throw ArgumentError('Invalid timestamp: $timestamp (format=$format)');
   }
 
   DateTime _timestamp;
@@ -51,36 +56,21 @@ class Timestamp {
   @override
   String toString() => _timestamp.toIso8601String();
 
-  String toJson(TimestampSerializationFormat format) {
+  Object format([TimestampFormat format = TimestampFormat.dateTime]) {
     switch (format) {
-      case TimestampSerializationFormat.dateTime:
+      case TimestampFormat.dateTime:
+      case TimestampFormat.unknown:
         return toString();
-      case TimestampSerializationFormat.httpDate:
+      case TimestampFormat.httpDate:
         return formatHttpDate(_timestamp);
-      case TimestampSerializationFormat.epochSeconds:
-        return '${_timestamp.millisecondsSinceEpoch / 1000}';
+      case TimestampFormat.epochSeconds:
+        return _timestamp.millisecondsSinceEpoch / 1000;
     }
-  }
-}
-
-class TimestampList<T extends Timestamp?> extends DelegatingList<T> {
-  const TimestampList(List<T> timestamps) : super(timestamps);
-
-  static TimestampList? dateTimeFromJson(String? json) {
-    if (json == null) {
-      return null;
-    }
-    final decoded = jsonDecode(json) as List;
-    final list = decoded
-        .cast<String?>()
-        .map(TimestampSerializer.dateTime.deserialize)
-        .toList();
-    return TimestampList(list);
   }
 }
 
 extension on DateTime {
-  DateTime copyWith({
+  DateTime stripMicroseconds({
     int? day,
     int? month,
     int? year,
@@ -88,7 +78,6 @@ extension on DateTime {
     int? minute,
     int? second,
     int? millisecond,
-    int? microsecond,
   }) {
     return DateTime(
       year ?? this.year,
@@ -98,33 +87,6 @@ extension on DateTime {
       minute ?? this.minute,
       second ?? this.second,
       millisecond ?? this.millisecond,
-      microsecond ?? this.microsecond,
     );
   }
-}
-
-/// The format to use for serializing/deserializing a [Timestamp] as defined
-/// by the [timestampFormat](https://awslabs.github.io/smithy/1.0/spec/core/protocol-traits.html?highlight=timestampformat#timestampformat-trait) trait.
-enum TimestampSerializationFormat {
-  /// {@template smithy.timestamp_format_datetime}
-  /// Date time as defined by the date-time production in RFC3339 section 5.6
-  /// with no UTC offset and optional fractional precision
-  /// (for example, 1985-04-12T23:20:50.52Z).
-  /// {@endtemplate}
-  dateTime,
-
-  /// {@template smithy.timestamp_format_httpdate}
-  /// An HTTP date as defined by the IMF-fixdate production in RFC 7231#section-7.1.1.1
-  /// (for example, Tue, 29 Apr 2014 18:30:38 GMT). Note that in addition to
-  /// the IMF-fixdate format specified in the RFC, implementations MUST also
-  /// support optional fractional seconds (for example, Sun, 02 Jan 2000 20:34:56.000 GMT).
-  /// {@endtemplate}
-  httpDate,
-
-  /// {@template smithy.timestamp_format_epochseconds}
-  /// Also known as Unix time, the number of seconds that have elapsed since
-  /// 00:00:00 Coordinated Universal Time (UTC), Thursday, 1 January 1970,
-  /// with optional fractional precision (for example, 1515531081.1234).
-  /// {@endtemplate}
-  epochSeconds,
 }
