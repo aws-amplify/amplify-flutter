@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:smithy/smithy.dart';
 
-class JsonSerializer<RequestPayload extends AWSJsonSerializable,
-        ResponsePayload>
+class JsonSerializer<RequestPayload, ResponsePayload>
     implements FullSerializer<RequestPayload, ResponsePayload, List<int>> {
   const JsonSerializer();
 
