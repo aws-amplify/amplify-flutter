@@ -20,15 +20,15 @@
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the IntListTypeModel type in your schema. */
+/// This is an auto generated class representing the HasManyChildExplicit type in your schema.
 @immutable
-class IntListTypeModel extends Model {
-  static const classType = const _IntListTypeModelModelType();
+class HasManyChildExplicit extends Model {
+  static const classType = _HasManyChildExplicitModelType();
   final String id;
-  final List<int>? _value;
+  final String? _name;
+  final String? _hasManyParentID;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -40,8 +40,21 @@ class IntListTypeModel extends Model {
     return id;
   }
 
-  List<int>? get value {
-    return _value;
+  String? get name {
+    return _name;
+  }
+
+  String get hasManyParentID {
+    try {
+      return _hasManyParentID!;
+    } catch (e) {
+      throw DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   TemporalDateTime? get createdAt {
@@ -52,16 +65,19 @@ class IntListTypeModel extends Model {
     return _updatedAt;
   }
 
-  const IntListTypeModel._internal(
-      {required this.id, value, createdAt, updatedAt})
-      : _value = value,
+  const HasManyChildExplicit._internal(
+      {required this.id, name, required hasManyParentID, createdAt, updatedAt})
+      : _name = name,
+        _hasManyParentID = hasManyParentID,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory IntListTypeModel({String? id, List<int>? value}) {
-    return IntListTypeModel._internal(
+  factory HasManyChildExplicit(
+      {String? id, String? name, required String hasManyParentID}) {
+    return HasManyChildExplicit._internal(
         id: id == null ? UUID.getUUID() : id,
-        value: value != null ? List<int>.unmodifiable(value) : value);
+        name: name,
+        hasManyParentID: hasManyParentID);
   }
 
   bool equals(Object other) {
@@ -71,9 +87,10 @@ class IntListTypeModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is IntListTypeModel &&
+    return other is HasManyChildExplicit &&
         id == other.id &&
-        DeepCollectionEquality().equals(_value, other._value);
+        _name == other._name &&
+        _hasManyParentID == other._hasManyParentID;
   }
 
   @override
@@ -81,12 +98,12 @@ class IntListTypeModel extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("IntListTypeModel {");
+    buffer.write("HasManyChildExplicit {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write(
-        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("hasManyParentID=" + "$_hasManyParentID" + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -97,15 +114,18 @@ class IntListTypeModel extends Model {
     return buffer.toString();
   }
 
-  IntListTypeModel copyWith({String? id, List<int>? value}) {
-    return IntListTypeModel._internal(
-        id: id ?? this.id, value: value ?? this.value);
+  HasManyChildExplicit copyWith(
+      {String? id, String? name, String? hasManyParentID}) {
+    return HasManyChildExplicit._internal(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        hasManyParentID: hasManyParentID ?? this.hasManyParentID);
   }
 
-  IntListTypeModel.fromJson(Map<String, dynamic> json)
+  HasManyChildExplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value =
-            (json['value'] as List?)?.map((e) => (e as num).toInt()).toList(),
+        _name = json['name'],
+        _hasManyParentID = json['hasManyParentID'],
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -115,26 +135,32 @@ class IntListTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'value': _value,
+        'name': _name,
+        'hasManyParentID': _hasManyParentID,
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "intListTypeModel.id");
-  static final QueryField VALUE = QueryField(fieldName: "value");
+  static final QueryField ID = QueryField(fieldName: "hasManyChildExplicit.id");
+  static final QueryField NAME = QueryField(fieldName: "name");
+  static final QueryField HASMANYPARENTID =
+      QueryField(fieldName: "hasManyParentID");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "IntListTypeModel";
-    modelSchemaDefinition.pluralName = "IntListTypeModels";
+    modelSchemaDefinition.name = "HasManyChildExplicit";
+    modelSchemaDefinition.pluralName = "HasManyChildExplicits";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: IntListTypeModel.VALUE,
+        key: HasManyChildExplicit.NAME,
         isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.int))));
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: HasManyChildExplicit.HASMANYPARENTID,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -150,11 +176,11 @@ class IntListTypeModel extends Model {
   });
 }
 
-class _IntListTypeModelModelType extends ModelType<IntListTypeModel> {
-  const _IntListTypeModelModelType();
+class _HasManyChildExplicitModelType extends ModelType<HasManyChildExplicit> {
+  const _HasManyChildExplicitModelType();
 
   @override
-  IntListTypeModel fromJson(Map<String, dynamic> jsonData) {
-    return IntListTypeModel.fromJson(jsonData);
+  HasManyChildExplicit fromJson(Map<String, dynamic> jsonData) {
+    return HasManyChildExplicit.fromJson(jsonData);
   }
 }

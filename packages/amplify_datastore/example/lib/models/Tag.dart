@@ -19,15 +19,18 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the BoolTypeModel type in your schema. */
+/// This is an auto generated class representing the Tag type in your schema.
 @immutable
-class BoolTypeModel extends Model {
-  static const classType = const _BoolTypeModelModelType();
+class Tag extends Model {
+  static const classType = _TagModelType();
   final String id;
-  final bool? _value;
+  final String? _label;
+  final List<PostTags>? _posts;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -39,8 +42,21 @@ class BoolTypeModel extends Model {
     return id;
   }
 
-  bool? get value {
-    return _value;
+  String get label {
+    try {
+      return _label!;
+    } catch (e) {
+      throw DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  List<PostTags>? get posts {
+    return _posts;
   }
 
   TemporalDateTime? get createdAt {
@@ -51,14 +67,18 @@ class BoolTypeModel extends Model {
     return _updatedAt;
   }
 
-  const BoolTypeModel._internal({required this.id, value, createdAt, updatedAt})
-      : _value = value,
+  const Tag._internal(
+      {required this.id, required label, posts, createdAt, updatedAt})
+      : _label = label,
+        _posts = posts,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory BoolTypeModel({String? id, bool? value}) {
-    return BoolTypeModel._internal(
-        id: id == null ? UUID.getUUID() : id, value: value);
+  factory Tag({String? id, required String label, List<PostTags>? posts}) {
+    return Tag._internal(
+        id: id == null ? UUID.getUUID() : id,
+        label: label,
+        posts: posts != null ? List<PostTags>.unmodifiable(posts) : posts);
   }
 
   bool equals(Object other) {
@@ -68,7 +88,10 @@ class BoolTypeModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is BoolTypeModel && id == other.id && _value == other._value;
+    return other is Tag &&
+        id == other.id &&
+        _label == other._label &&
+        DeepCollectionEquality().equals(_posts, other._posts);
   }
 
   @override
@@ -76,12 +99,11 @@ class BoolTypeModel extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("BoolTypeModel {");
+    buffer.write("Tag {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write(
-        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
+    buffer.write("label=" + "$_label" + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -92,14 +114,23 @@ class BoolTypeModel extends Model {
     return buffer.toString();
   }
 
-  BoolTypeModel copyWith({String? id, bool? value}) {
-    return BoolTypeModel._internal(
-        id: id ?? this.id, value: value ?? this.value);
+  Tag copyWith({String? id, String? label, List<PostTags>? posts}) {
+    return Tag._internal(
+        id: id ?? this.id,
+        label: label ?? this.label,
+        posts: posts ?? this.posts);
   }
 
-  BoolTypeModel.fromJson(Map<String, dynamic> json)
+  Tag.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value'],
+        _label = json['label'],
+        _posts = json['posts'] is List
+            ? (json['posts'] as List)
+                .where((e) => e?['serializedData'] != null)
+                .map((e) => PostTags.fromJson(
+                    Map<String, dynamic>.from(e['serializedData'])))
+                .toList()
+            : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -109,24 +140,35 @@ class BoolTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'value': _value,
+        'label': _label,
+        'posts': _posts?.map((PostTags? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "boolTypeModel.id");
-  static final QueryField VALUE = QueryField(fieldName: "value");
+  static final QueryField ID = QueryField(fieldName: "tag.id");
+  static final QueryField LABEL = QueryField(fieldName: "label");
+  static final QueryField POSTS = QueryField(
+      fieldName: "posts",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (PostTags).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "BoolTypeModel";
-    modelSchemaDefinition.pluralName = "BoolTypeModels";
+    modelSchemaDefinition.name = "Tag";
+    modelSchemaDefinition.pluralName = "Tags";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: BoolTypeModel.VALUE,
+        key: Tag.LABEL,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+        key: Tag.POSTS,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.bool)));
+        ofModelName: (PostTags).toString(),
+        associatedKey: PostTags.TAG));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -142,11 +184,11 @@ class BoolTypeModel extends Model {
   });
 }
 
-class _BoolTypeModelModelType extends ModelType<BoolTypeModel> {
-  const _BoolTypeModelModelType();
+class _TagModelType extends ModelType<Tag> {
+  const _TagModelType();
 
   @override
-  BoolTypeModel fromJson(Map<String, dynamic> jsonData) {
-    return BoolTypeModel.fromJson(jsonData);
+  Tag fromJson(Map<String, dynamic> jsonData) {
+    return Tag.fromJson(jsonData);
   }
 }

@@ -21,15 +21,16 @@
 
 import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the HasManyChildModel type in your schema. */
+/// This is an auto generated class representing the HasManyParentBiDirectionalImplicit type in your schema.
 @immutable
-class HasManyChildModel extends Model {
-  static const classType = const _HasManyChildModelModelType();
+class HasManyParentBiDirectionalImplicit extends Model {
+  static const classType = _HasManyParentBiDirectionalImplicitModelType();
   final String id;
   final String? _name;
-  final HasManyModel? _parent;
+  final List<HasManyChildBiDirectionalImplicit>? _biDirectionalImplicitChildren;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -41,21 +42,12 @@ class HasManyChildModel extends Model {
     return id;
   }
 
-  String get name {
-    try {
-      return _name!;
-    } catch (e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+  String? get name {
+    return _name;
   }
 
-  HasManyModel? get parent {
-    return _parent;
+  List<HasManyChildBiDirectionalImplicit>? get biDirectionalImplicitChildren {
+    return _biDirectionalImplicitChildren;
   }
 
   TemporalDateTime? get createdAt {
@@ -66,17 +58,28 @@ class HasManyChildModel extends Model {
     return _updatedAt;
   }
 
-  const HasManyChildModel._internal(
-      {required this.id, required name, parent, createdAt, updatedAt})
+  const HasManyParentBiDirectionalImplicit._internal(
+      {required this.id,
+      name,
+      biDirectionalImplicitChildren,
+      createdAt,
+      updatedAt})
       : _name = name,
-        _parent = parent,
+        _biDirectionalImplicitChildren = biDirectionalImplicitChildren,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory HasManyChildModel(
-      {String? id, required String name, HasManyModel? parent}) {
-    return HasManyChildModel._internal(
-        id: id == null ? UUID.getUUID() : id, name: name, parent: parent);
+  factory HasManyParentBiDirectionalImplicit(
+      {String? id,
+      String? name,
+      List<HasManyChildBiDirectionalImplicit>? biDirectionalImplicitChildren}) {
+    return HasManyParentBiDirectionalImplicit._internal(
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        biDirectionalImplicitChildren: biDirectionalImplicitChildren != null
+            ? List<HasManyChildBiDirectionalImplicit>.unmodifiable(
+                biDirectionalImplicitChildren)
+            : biDirectionalImplicitChildren);
   }
 
   bool equals(Object other) {
@@ -86,10 +89,11 @@ class HasManyChildModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is HasManyChildModel &&
+    return other is HasManyParentBiDirectionalImplicit &&
         id == other.id &&
         _name == other._name &&
-        _parent == other._parent;
+        DeepCollectionEquality().equals(_biDirectionalImplicitChildren,
+            other._biDirectionalImplicitChildren);
   }
 
   @override
@@ -97,13 +101,11 @@ class HasManyChildModel extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("HasManyChildModel {");
+    buffer.write("HasManyParentBiDirectionalImplicit {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write(
-        "parent=" + (_parent != null ? _parent!.toString() : "null") + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -114,20 +116,28 @@ class HasManyChildModel extends Model {
     return buffer.toString();
   }
 
-  HasManyChildModel copyWith({String? id, String? name, HasManyModel? parent}) {
-    return HasManyChildModel._internal(
+  HasManyParentBiDirectionalImplicit copyWith(
+      {String? id,
+      String? name,
+      List<HasManyChildBiDirectionalImplicit>? biDirectionalImplicitChildren}) {
+    return HasManyParentBiDirectionalImplicit._internal(
         id: id ?? this.id,
         name: name ?? this.name,
-        parent: parent ?? this.parent);
+        biDirectionalImplicitChildren: biDirectionalImplicitChildren ??
+            this.biDirectionalImplicitChildren);
   }
 
-  HasManyChildModel.fromJson(Map<String, dynamic> json)
+  HasManyParentBiDirectionalImplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _parent = json['parent']?['serializedData'] != null
-            ? HasManyModel.fromJson(
-                new Map<String, dynamic>.from(json['parent']['serializedData']))
-            : null,
+        _biDirectionalImplicitChildren =
+            json['biDirectionalImplicitChildren'] is List
+                ? (json['biDirectionalImplicitChildren'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => HasManyChildBiDirectionalImplicit.fromJson(
+                        Map<String, dynamic>.from(e['serializedData'])))
+                    .toList()
+                : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -138,34 +148,37 @@ class HasManyChildModel extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
-        'parent': _parent?.toJson(),
+        'biDirectionalImplicitChildren': _biDirectionalImplicitChildren
+            ?.map((HasManyChildBiDirectionalImplicit? e) => e?.toJson())
+            .toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "hasManyChildModel.id");
+  static final QueryField ID =
+      QueryField(fieldName: "hasManyParentBiDirectionalImplicit.id");
   static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField PARENT = QueryField(
-      fieldName: "parent",
+  static final QueryField BIDIRECTIONALIMPLICITCHILDREN = QueryField(
+      fieldName: "biDirectionalImplicitChildren",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (HasManyModel).toString()));
+          ofModelName: (HasManyChildBiDirectionalImplicit).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "HasManyChildModel";
-    modelSchemaDefinition.pluralName = "HasManyChildModels";
+    modelSchemaDefinition.name = "HasManyParentBiDirectionalImplicit";
+    modelSchemaDefinition.pluralName = "HasManyParentBiDirectionalImplicits";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: HasManyChildModel.NAME,
-        isRequired: true,
+        key: HasManyParentBiDirectionalImplicit.NAME,
+        isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: HasManyChildModel.PARENT,
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+        key: HasManyParentBiDirectionalImplicit.BIDIRECTIONALIMPLICITCHILDREN,
         isRequired: false,
-        targetName: "parentID",
-        ofModelName: (HasManyModel).toString()));
+        ofModelName: (HasManyChildBiDirectionalImplicit).toString(),
+        associatedKey: HasManyChildBiDirectionalImplicit.HASMANYPARENT));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -181,11 +194,12 @@ class HasManyChildModel extends Model {
   });
 }
 
-class _HasManyChildModelModelType extends ModelType<HasManyChildModel> {
-  const _HasManyChildModelModelType();
+class _HasManyParentBiDirectionalImplicitModelType
+    extends ModelType<HasManyParentBiDirectionalImplicit> {
+  const _HasManyParentBiDirectionalImplicitModelType();
 
   @override
-  HasManyChildModel fromJson(Map<String, dynamic> jsonData) {
-    return HasManyChildModel.fromJson(jsonData);
+  HasManyParentBiDirectionalImplicit fromJson(Map<String, dynamic> jsonData) {
+    return HasManyParentBiDirectionalImplicit.fromJson(jsonData);
   }
 }

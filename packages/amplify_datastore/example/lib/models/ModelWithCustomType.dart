@@ -24,13 +24,13 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the ModelNestedCustomType type in your schema. */
+/// This is an auto generated class representing the ModelWithCustomType type in your schema.
 @immutable
-class ModelNestedCustomType extends Model {
-  static const classType = const _ModelNestedCustomTypeModelType();
+class ModelWithCustomType extends Model {
+  static const classType = _ModelWithCustomTypeModelType();
   final String id;
-  final AllScalarTypesCustomType? _customTypeValue;
-  final List<AllScalarTypesListCustomType>? _listCustomTypeValue;
+  final CustomTypeWithAppsyncScalarTypes? _customTypeValue;
+  final List<CustomTypeWithAppsyncScalarTypes>? _listOfCustomTypeValue;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -42,21 +42,12 @@ class ModelNestedCustomType extends Model {
     return id;
   }
 
-  AllScalarTypesCustomType get customTypeValue {
-    try {
-      return _customTypeValue!;
-    } catch (e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+  CustomTypeWithAppsyncScalarTypes? get customTypeValue {
+    return _customTypeValue;
   }
 
-  List<AllScalarTypesListCustomType>? get listCustomTypeValue {
-    return _listCustomTypeValue;
+  List<CustomTypeWithAppsyncScalarTypes>? get listOfCustomTypeValue {
+    return _listOfCustomTypeValue;
   }
 
   TemporalDateTime? get createdAt {
@@ -67,28 +58,28 @@ class ModelNestedCustomType extends Model {
     return _updatedAt;
   }
 
-  const ModelNestedCustomType._internal(
+  const ModelWithCustomType._internal(
       {required this.id,
-      required customTypeValue,
-      listCustomTypeValue,
+      customTypeValue,
+      listOfCustomTypeValue,
       createdAt,
       updatedAt})
       : _customTypeValue = customTypeValue,
-        _listCustomTypeValue = listCustomTypeValue,
+        _listOfCustomTypeValue = listOfCustomTypeValue,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory ModelNestedCustomType(
+  factory ModelWithCustomType(
       {String? id,
-      required AllScalarTypesCustomType customTypeValue,
-      List<AllScalarTypesListCustomType>? listCustomTypeValue}) {
-    return ModelNestedCustomType._internal(
+      CustomTypeWithAppsyncScalarTypes? customTypeValue,
+      List<CustomTypeWithAppsyncScalarTypes>? listOfCustomTypeValue}) {
+    return ModelWithCustomType._internal(
         id: id == null ? UUID.getUUID() : id,
         customTypeValue: customTypeValue,
-        listCustomTypeValue: listCustomTypeValue != null
-            ? List<AllScalarTypesListCustomType>.unmodifiable(
-                listCustomTypeValue)
-            : listCustomTypeValue);
+        listOfCustomTypeValue: listOfCustomTypeValue != null
+            ? List<CustomTypeWithAppsyncScalarTypes>.unmodifiable(
+                listOfCustomTypeValue)
+            : listOfCustomTypeValue);
   }
 
   bool equals(Object other) {
@@ -98,11 +89,11 @@ class ModelNestedCustomType extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is ModelNestedCustomType &&
+    return other is ModelWithCustomType &&
         id == other.id &&
         _customTypeValue == other._customTypeValue &&
         DeepCollectionEquality()
-            .equals(_listCustomTypeValue, other._listCustomTypeValue);
+            .equals(_listOfCustomTypeValue, other._listOfCustomTypeValue);
   }
 
   @override
@@ -110,16 +101,16 @@ class ModelNestedCustomType extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("ModelNestedCustomType {");
+    buffer.write("ModelWithCustomType {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("customTypeValue=" +
         (_customTypeValue != null ? _customTypeValue!.toString() : "null") +
         ", ");
-    buffer.write("listCustomTypeValue=" +
-        (_listCustomTypeValue != null
-            ? _listCustomTypeValue!.toString()
+    buffer.write("listOfCustomTypeValue=" +
+        (_listOfCustomTypeValue != null
+            ? _listOfCustomTypeValue!.toString()
             : "null") +
         ", ");
     buffer.write("createdAt=" +
@@ -132,27 +123,29 @@ class ModelNestedCustomType extends Model {
     return buffer.toString();
   }
 
-  ModelNestedCustomType copyWith(
+  ModelWithCustomType copyWith(
       {String? id,
-      AllScalarTypesCustomType? customTypeValue,
-      List<AllScalarTypesListCustomType>? listCustomTypeValue}) {
-    return ModelNestedCustomType._internal(
+      CustomTypeWithAppsyncScalarTypes? customTypeValue,
+      List<CustomTypeWithAppsyncScalarTypes>? listOfCustomTypeValue}) {
+    return ModelWithCustomType._internal(
         id: id ?? this.id,
         customTypeValue: customTypeValue ?? this.customTypeValue,
-        listCustomTypeValue: listCustomTypeValue ?? this.listCustomTypeValue);
+        listOfCustomTypeValue:
+            listOfCustomTypeValue ?? this.listOfCustomTypeValue);
   }
 
-  ModelNestedCustomType.fromJson(Map<String, dynamic> json)
+  ModelWithCustomType.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _customTypeValue = json['customTypeValue']?['serializedData'] != null
-            ? AllScalarTypesCustomType.fromJson(new Map<String, dynamic>.from(
-                json['customTypeValue']['serializedData']))
+            ? CustomTypeWithAppsyncScalarTypes.fromJson(
+                Map<String, dynamic>.from(
+                    json['customTypeValue']['serializedData']))
             : null,
-        _listCustomTypeValue = json['listCustomTypeValue'] is List
-            ? (json['listCustomTypeValue'] as List)
+        _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
+            ? (json['listOfCustomTypeValue'] as List)
                 .where((e) => e != null)
-                .map((e) => AllScalarTypesListCustomType.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                .map((e) => CustomTypeWithAppsyncScalarTypes.fromJson(
+                    Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -165,38 +158,37 @@ class ModelNestedCustomType extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'customTypeValue': _customTypeValue?.toJson(),
-        'listCustomTypeValue': _listCustomTypeValue
-            ?.map((AllScalarTypesListCustomType? e) => e?.toJson())
+        'listOfCustomTypeValue': _listOfCustomTypeValue
+            ?.map((CustomTypeWithAppsyncScalarTypes? e) => e?.toJson())
             .toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID =
-      QueryField(fieldName: "modelNestedCustomType.id");
+  static final QueryField ID = QueryField(fieldName: "modelWithCustomType.id");
   static final QueryField CUSTOMTYPEVALUE =
       QueryField(fieldName: "customTypeValue");
-  static final QueryField LISTCUSTOMTYPEVALUE =
-      QueryField(fieldName: "listCustomTypeValue");
+  static final QueryField LISTOFCUSTOMTYPEVALUE =
+      QueryField(fieldName: "listOfCustomTypeValue");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "ModelNestedCustomType";
-    modelSchemaDefinition.pluralName = "ModelNestedCustomTypes";
+    modelSchemaDefinition.name = "ModelWithCustomType";
+    modelSchemaDefinition.pluralName = "ModelWithCustomTypes";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
         fieldName: 'customTypeValue',
-        isRequired: true,
+        isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.embedded,
-            ofCustomTypeName: 'AllScalarTypesCustomType')));
+            ofCustomTypeName: 'CustomTypeWithAppsyncScalarTypes')));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
-        fieldName: 'listCustomTypeValue',
+        fieldName: 'listOfCustomTypeValue',
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.embeddedCollection,
-            ofCustomTypeName: 'AllScalarTypesListCustomType')));
+            ofCustomTypeName: 'CustomTypeWithAppsyncScalarTypes')));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -212,11 +204,11 @@ class ModelNestedCustomType extends Model {
   });
 }
 
-class _ModelNestedCustomTypeModelType extends ModelType<ModelNestedCustomType> {
-  const _ModelNestedCustomTypeModelType();
+class _ModelWithCustomTypeModelType extends ModelType<ModelWithCustomType> {
+  const _ModelWithCustomTypeModelType();
 
   @override
-  ModelNestedCustomType fromJson(Map<String, dynamic> jsonData) {
-    return ModelNestedCustomType.fromJson(jsonData);
+  ModelWithCustomType fromJson(Map<String, dynamic> jsonData) {
+    return ModelWithCustomType.fromJson(jsonData);
   }
 }

@@ -23,13 +23,13 @@ import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the BelongsToModel type in your schema. */
+/// This is an auto generated class representing the MultiRelatedRegistration type in your schema.
 @immutable
-class BelongsToModel extends Model {
-  static const classType = const _BelongsToModelModelType();
+class MultiRelatedRegistration extends Model {
+  static const classType = _MultiRelatedRegistrationModelType();
   final String id;
-  final String? _name;
-  final ChildModel? _child;
+  final MultiRelatedMeeting? _meeting;
+  final MultiRelatedAttendee? _attendee;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -41,11 +41,11 @@ class BelongsToModel extends Model {
     return id;
   }
 
-  String get name {
+  MultiRelatedMeeting get meeting {
     try {
-      return _name!;
+      return _meeting!;
     } catch (e) {
-      throw new DataStoreException(
+      throw DataStoreException(
           DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: DataStoreExceptionMessages
@@ -54,11 +54,11 @@ class BelongsToModel extends Model {
     }
   }
 
-  ChildModel get child {
+  MultiRelatedAttendee get attendee {
     try {
-      return _child!;
+      return _attendee!;
     } catch (e) {
-      throw new DataStoreException(
+      throw DataStoreException(
           DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: DataStoreExceptionMessages
@@ -75,17 +75,25 @@ class BelongsToModel extends Model {
     return _updatedAt;
   }
 
-  const BelongsToModel._internal(
-      {required this.id, required name, required child, createdAt, updatedAt})
-      : _name = name,
-        _child = child,
+  const MultiRelatedRegistration._internal(
+      {required this.id,
+      required meeting,
+      required attendee,
+      createdAt,
+      updatedAt})
+      : _meeting = meeting,
+        _attendee = attendee,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory BelongsToModel(
-      {String? id, required String name, required ChildModel child}) {
-    return BelongsToModel._internal(
-        id: id == null ? UUID.getUUID() : id, name: name, child: child);
+  factory MultiRelatedRegistration(
+      {String? id,
+      required MultiRelatedMeeting meeting,
+      required MultiRelatedAttendee attendee}) {
+    return MultiRelatedRegistration._internal(
+        id: id == null ? UUID.getUUID() : id,
+        meeting: meeting,
+        attendee: attendee);
   }
 
   bool equals(Object other) {
@@ -95,10 +103,10 @@ class BelongsToModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is BelongsToModel &&
+    return other is MultiRelatedRegistration &&
         id == other.id &&
-        _name == other._name &&
-        _child == other._child;
+        _meeting == other._meeting &&
+        _attendee == other._attendee;
   }
 
   @override
@@ -106,13 +114,15 @@ class BelongsToModel extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("BelongsToModel {");
+    buffer.write("MultiRelatedRegistration {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("name=" + "$_name" + ", ");
     buffer.write(
-        "child=" + (_child != null ? _child!.toString() : "null") + ", ");
+        "meeting=" + (_meeting != null ? _meeting!.toString() : "null") + ", ");
+    buffer.write("attendee=" +
+        (_attendee != null ? _attendee!.toString() : "null") +
+        ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -123,17 +133,25 @@ class BelongsToModel extends Model {
     return buffer.toString();
   }
 
-  BelongsToModel copyWith({String? id, String? name, ChildModel? child}) {
-    return BelongsToModel._internal(
-        id: id ?? this.id, name: name ?? this.name, child: child ?? this.child);
+  MultiRelatedRegistration copyWith(
+      {String? id,
+      MultiRelatedMeeting? meeting,
+      MultiRelatedAttendee? attendee}) {
+    return MultiRelatedRegistration._internal(
+        id: id ?? this.id,
+        meeting: meeting ?? this.meeting,
+        attendee: attendee ?? this.attendee);
   }
 
-  BelongsToModel.fromJson(Map<String, dynamic> json)
+  MultiRelatedRegistration.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _name = json['name'],
-        _child = json['child']?['serializedData'] != null
-            ? ChildModel.fromJson(
-                new Map<String, dynamic>.from(json['child']['serializedData']))
+        _meeting = json['meeting']?['serializedData'] != null
+            ? MultiRelatedMeeting.fromJson(
+                Map<String, dynamic>.from(json['meeting']['serializedData']))
+            : null,
+        _attendee = json['attendee']?['serializedData'] != null
+            ? MultiRelatedAttendee.fromJson(
+                Map<String, dynamic>.from(json['attendee']['serializedData']))
             : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
@@ -144,35 +162,40 @@ class BelongsToModel extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'name': _name,
-        'child': _child?.toJson(),
+        'meeting': _meeting?.toJson(),
+        'attendee': _attendee?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "belongsToModel.id");
-  static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField CHILD = QueryField(
-      fieldName: "child",
+  static final QueryField ID =
+      QueryField(fieldName: "multiRelatedRegistration.id");
+  static final QueryField MEETING = QueryField(
+      fieldName: "meeting",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (ChildModel).toString()));
+          ofModelName: (MultiRelatedMeeting).toString()));
+  static final QueryField ATTENDEE = QueryField(
+      fieldName: "attendee",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (MultiRelatedAttendee).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "BelongsToModel";
-    modelSchemaDefinition.pluralName = "BelongsToModels";
+    modelSchemaDefinition.name = "MultiRelatedRegistration";
+    modelSchemaDefinition.pluralName = "MultiRelatedRegistrations";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: BelongsToModel.NAME,
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: MultiRelatedRegistration.MEETING,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        targetName: "meetingId",
+        ofModelName: (MultiRelatedMeeting).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: BelongsToModel.CHILD,
+        key: MultiRelatedRegistration.ATTENDEE,
         isRequired: true,
-        targetName: "belongsToModelChildId",
-        ofModelName: (ChildModel).toString()));
+        targetName: "attendeeId",
+        ofModelName: (MultiRelatedAttendee).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -188,11 +211,12 @@ class BelongsToModel extends Model {
   });
 }
 
-class _BelongsToModelModelType extends ModelType<BelongsToModel> {
-  const _BelongsToModelModelType();
+class _MultiRelatedRegistrationModelType
+    extends ModelType<MultiRelatedRegistration> {
+  const _MultiRelatedRegistrationModelType();
 
   @override
-  BelongsToModel fromJson(Map<String, dynamic> jsonData) {
-    return BelongsToModel.fromJson(jsonData);
+  MultiRelatedRegistration fromJson(Map<String, dynamic> jsonData) {
+    return MultiRelatedRegistration.fromJson(jsonData);
   }
 }

@@ -18,10 +18,14 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'string_query_predicate_test.dart' as string_query_predicate_tests;
 import 'int_query_predicate_test.dart' as int_query_predicate_tests;
-import 'double_query_predicate_test.dart' as double_query_predicate_tests;
-import 'bool_query_predicate_test.dart' as bool_query_predicate_tests;
+import 'float_query_predicate_test.dart' as float_query_predicate_tests;
+import 'boolean_query_predicate_test.dart' as boolean_query_predicate_tests;
 import 'enum_query_predicate_test.dart' as enum_query_predicate_tests;
 import 'compound_query_predicate_test.dart' as compound_query_predicate_tests;
+import 'aws_date_query_predicate_test.dart' as aws_date_query_predicate_test;
+import 'aws_time_query_predicate_test.dart' as aws_time_query_predicate_test;
+import 'aws_timestamp_query_predicate_test.dart'
+    as aws_timestamp_query_predicate_tests;
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -29,9 +33,15 @@ void main() async {
   group('QueryPredicate', () {
     string_query_predicate_tests.main();
     int_query_predicate_tests.main();
-    double_query_predicate_tests.main();
-    bool_query_predicate_tests.main();
+    float_query_predicate_tests.main();
+    boolean_query_predicate_tests.main();
     enum_query_predicate_tests.main();
     compound_query_predicate_tests.main();
+    aws_date_query_predicate_test.main();
+    // TODO: enable AWSDataTime test suite when this issue gets reolved:
+    //  https://github.com/aws-amplify/amplify-flutter/issues/1245
+    // aws_date_time_query_predicate_test.main();
+    aws_time_query_predicate_test.main();
+    aws_timestamp_query_predicate_tests.main();
   });
 }

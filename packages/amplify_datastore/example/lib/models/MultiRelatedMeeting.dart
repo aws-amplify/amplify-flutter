@@ -19,16 +19,18 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the DateTimeListTypeModel type in your schema. */
+/// This is an auto generated class representing the MultiRelatedMeeting type in your schema.
 @immutable
-class DateTimeListTypeModel extends Model {
-  static const classType = const _DateTimeListTypeModelModelType();
+class MultiRelatedMeeting extends Model {
+  static const classType = _MultiRelatedMeetingModelType();
   final String id;
-  final List<TemporalDateTime>? _value;
+  final String? _title;
+  final List<MultiRelatedRegistration>? _attendees;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -40,8 +42,21 @@ class DateTimeListTypeModel extends Model {
     return id;
   }
 
-  List<TemporalDateTime>? get value {
-    return _value;
+  String get title {
+    try {
+      return _title!;
+    } catch (e) {
+      throw DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  List<MultiRelatedRegistration>? get attendees {
+    return _attendees;
   }
 
   TemporalDateTime? get createdAt {
@@ -52,17 +67,23 @@ class DateTimeListTypeModel extends Model {
     return _updatedAt;
   }
 
-  const DateTimeListTypeModel._internal(
-      {required this.id, value, createdAt, updatedAt})
-      : _value = value,
+  const MultiRelatedMeeting._internal(
+      {required this.id, required title, attendees, createdAt, updatedAt})
+      : _title = title,
+        _attendees = attendees,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory DateTimeListTypeModel({String? id, List<TemporalDateTime>? value}) {
-    return DateTimeListTypeModel._internal(
+  factory MultiRelatedMeeting(
+      {String? id,
+      required String title,
+      List<MultiRelatedRegistration>? attendees}) {
+    return MultiRelatedMeeting._internal(
         id: id == null ? UUID.getUUID() : id,
-        value:
-            value != null ? List<TemporalDateTime>.unmodifiable(value) : value);
+        title: title,
+        attendees: attendees != null
+            ? List<MultiRelatedRegistration>.unmodifiable(attendees)
+            : attendees);
   }
 
   bool equals(Object other) {
@@ -72,9 +93,10 @@ class DateTimeListTypeModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is DateTimeListTypeModel &&
+    return other is MultiRelatedMeeting &&
         id == other.id &&
-        DeepCollectionEquality().equals(_value, other._value);
+        _title == other._title &&
+        DeepCollectionEquality().equals(_attendees, other._attendees);
   }
 
   @override
@@ -82,12 +104,11 @@ class DateTimeListTypeModel extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("DateTimeListTypeModel {");
+    buffer.write("MultiRelatedMeeting {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write(
-        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
+    buffer.write("title=" + "$_title" + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -98,16 +119,24 @@ class DateTimeListTypeModel extends Model {
     return buffer.toString();
   }
 
-  DateTimeListTypeModel copyWith({String? id, List<TemporalDateTime>? value}) {
-    return DateTimeListTypeModel._internal(
-        id: id ?? this.id, value: value ?? this.value);
+  MultiRelatedMeeting copyWith(
+      {String? id, String? title, List<MultiRelatedRegistration>? attendees}) {
+    return MultiRelatedMeeting._internal(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        attendees: attendees ?? this.attendees);
   }
 
-  DateTimeListTypeModel.fromJson(Map<String, dynamic> json)
+  MultiRelatedMeeting.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = (json['value'] as List?)
-            ?.map((e) => TemporalDateTime.fromString(e))
-            .toList(),
+        _title = json['title'],
+        _attendees = json['attendees'] is List
+            ? (json['attendees'] as List)
+                .where((e) => e?['serializedData'] != null)
+                .map((e) => MultiRelatedRegistration.fromJson(
+                    Map<String, dynamic>.from(e['serializedData'])))
+                .toList()
+            : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -117,27 +146,37 @@ class DateTimeListTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'value': _value?.map((e) => e.format()).toList(),
+        'title': _title,
+        'attendees': _attendees
+            ?.map((MultiRelatedRegistration? e) => e?.toJson())
+            .toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID =
-      QueryField(fieldName: "dateTimeListTypeModel.id");
-  static final QueryField VALUE = QueryField(fieldName: "value");
+  static final QueryField ID = QueryField(fieldName: "multiRelatedMeeting.id");
+  static final QueryField TITLE = QueryField(fieldName: "title");
+  static final QueryField ATTENDEES = QueryField(
+      fieldName: "attendees",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (MultiRelatedRegistration).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "DateTimeListTypeModel";
-    modelSchemaDefinition.pluralName = "DateTimeListTypeModels";
+    modelSchemaDefinition.name = "MultiRelatedMeeting";
+    modelSchemaDefinition.pluralName = "MultiRelatedMeetings";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: DateTimeListTypeModel.VALUE,
+        key: MultiRelatedMeeting.TITLE,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+        key: MultiRelatedMeeting.ATTENDEES,
         isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.dateTime))));
+        ofModelName: (MultiRelatedRegistration).toString(),
+        associatedKey: MultiRelatedRegistration.MEETING));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -153,11 +192,11 @@ class DateTimeListTypeModel extends Model {
   });
 }
 
-class _DateTimeListTypeModelModelType extends ModelType<DateTimeListTypeModel> {
-  const _DateTimeListTypeModelModelType();
+class _MultiRelatedMeetingModelType extends ModelType<MultiRelatedMeeting> {
+  const _MultiRelatedMeetingModelType();
 
   @override
-  DateTimeListTypeModel fromJson(Map<String, dynamic> jsonData) {
-    return DateTimeListTypeModel.fromJson(jsonData);
+  MultiRelatedMeeting fromJson(Map<String, dynamic> jsonData) {
+    return MultiRelatedMeeting.fromJson(jsonData);
   }
 }
