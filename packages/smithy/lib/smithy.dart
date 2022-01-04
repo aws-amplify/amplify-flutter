@@ -23,6 +23,7 @@ export 'src/protocol/json.dart';
 export 'src/serialization/json/blob.dart';
 export 'src/serialization/json/int64.dart';
 export 'src/serialization/serializer.dart';
+export 'src/serialization/struct.dart';
 export 'src/serialization/xml/xml_plugin.dart';
 
 // Types
