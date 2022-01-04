@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
+import 'package:smithy/src/http/client.dart';
 
 abstract class HttpTrait<Input, Output> {
   /// Returns the label for the given [key] and [input].
@@ -47,15 +48,12 @@ abstract class HttpProtocol<Payload extends Object?,
   static final _pathRegex = RegExp(r'{(\w+)}');
 
   @override
-  Client getClient(List<AlpnProtocol> protocols) {
+  HttpClient getClient(Input input) {
+    if (input.isStreaming) {
+      return Http1_1Client();
+    }
     // TODO: Add h2
-    return HttpClient();
-  }
-
-  @override
-  Client getStreamingClient(List<AlpnProtocol> protocols) {
-    // TODO: Add h2 + websockets client
-    return HttpClient();
+    return Http1_1Client();
   }
 
   @override
@@ -108,17 +106,9 @@ abstract class HttpProtocol<Payload extends Object?,
 /// A utility for operations to access the payload of the request without
 /// knowing the shape of the request or making any assumptions.
 abstract class HasPayload<T extends Object?> {
+  /// Whether the input payload is a streaming payload.
+  bool get isStreaming;
+
+  /// Returns the value of the payload prior to serialization.
   T getPayload();
-}
-
-mixin JsonPayload implements HasPayload<Map<String, Object?>> {
-  Map<String, Object?> toJson();
-}
-
-/// An empty JSON object.
-class EmptyJson implements HasPayload<Map<String, Object?>> {
-  const EmptyJson();
-
-  @override
-  Map<String, Object?> getPayload() => const {};
 }

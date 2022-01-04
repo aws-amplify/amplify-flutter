@@ -29,12 +29,14 @@ export 'src/serialization/serializer.dart';
 export 'src/serialization/struct.dart';
 export 'src/serialization/serializers/big_int_serializer.dart';
 export 'src/serialization/serializers/timestamp_serializer.dart';
+export 'src/serialization/serializers/unit_serializer.dart';
 export 'src/serialization/xml/xml_plugin.dart';
 
 // Types
 export 'src/types/enum.dart';
 export 'src/types/timestamp.dart';
 export 'src/types/union.dart';
+export 'src/types/unit.dart';
 
 // Exceptions
 export 'src/exceptions/exceptions.dart';

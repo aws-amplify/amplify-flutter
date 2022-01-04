@@ -11,7 +11,11 @@ abstract class Operation<Input, Output> {
   /// of wire formats.
   Protocol get protocol;
 
-  Future<Output> run(covariant Client client, Input input);
+  /// Runs the operation.
+  ///
+  /// The protocol used will be selected at runtime from [protocols] based on
+  /// the client passed in, i.e. using [Client.protocol].
+  Future<Output> run(Input input, [covariant Client? client]);
 }
 
 /// A constructor of [Output] from [T].

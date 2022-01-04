@@ -6,8 +6,7 @@ abstract class Protocol<Input, Output, WireType>
     implements FullSerializer<Input, Output, WireType> {
   const Protocol._();
 
-  Client getClient(List<AlpnProtocol> protocols);
-  Client getStreamingClient(List<AlpnProtocol> protocols);
+  Client getClient(Input input);
 }
 
 abstract class FullSerializer<Input, Output, WireType>
