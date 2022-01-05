@@ -275,8 +275,7 @@ class AuthCognitoBridge {
         Amplify.Auth.deleteUser() { response in
             switch response {
             case .success:
-                let emptyMap: Dictionary<String, Any> = [:]
-                flutterResult(emptyMap)
+                flutterResult(nil)
             case .failure(let error):
                 self.errorHandler.handleAuthError(authError: error, flutterResult: flutterResult)
             }

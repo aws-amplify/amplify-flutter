@@ -38,24 +38,16 @@ _onListen() {
     eventStream = channel.receiveBroadcastStream(1).listen((event) {
       switch (event["eventName"]) {
         case "SIGNED_IN":
-          {
-            _authStreamController.add(AuthHubEvent(event["eventName"]));
-          }
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
           break;
         case "SIGNED_OUT":
-          {
-            _authStreamController.add(AuthHubEvent(event["eventName"]));
-          }
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
           break;
         case "SESSION_EXPIRED":
-          {
-            _authStreamController.add(AuthHubEvent(event["eventName"]));
-          }
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
           break;
         case "USER_DELETED":
-          {
-            _authStreamController.add(AuthHubEvent(event["eventName"]));
-          }
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
           break;
         default:
           break;

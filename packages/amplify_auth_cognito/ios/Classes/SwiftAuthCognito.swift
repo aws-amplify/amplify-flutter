@@ -26,7 +26,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     private var token: UnsubscribeToken?
     private let cognito: AuthCognitoBridge
     private let authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler?
-    private let nullaryMethods = ["deleteUser"]
+    private let nullaryMethods: Set<String> = ["deleteUser"]
     var errorHandler = AuthErrorHandler()
     
     /// Handles calls to the Devices API.

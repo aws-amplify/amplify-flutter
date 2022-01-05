@@ -26,7 +26,7 @@ import 'utils/setup_utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('deleteUser', () {
+  group('deleteUser (iOS)', () {
     setUpAll(() async {
       await configureAuth(additionalConfigs: [
         AmplifyAPI(),
@@ -34,55 +34,88 @@ void main() {
       await signOutUser();
     });
 
-    if (Platform.isIOS) {
-      testWidgets('should delete a confirmed user on iOS',
-          (WidgetTester tester) async {
-        final username = generateUsername();
-        final password = generatePassword();
+    testWidgets('should delete a confirmed user on iOS',
+        (WidgetTester tester) async {
+      final username = generateUsername();
+      final password = generatePassword();
 
-        // Create a confirmed user
-        await adminCreateUser(
-          username,
-          password,
-          autoConfirm: true,
-          verifyAttributes: true,
-        );
+      // Create a confirmed user
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
 
-        // Sign the user in
-        SignInResult preDeleteSignIn = await Amplify.Auth.signIn(
+      // Sign the user in
+      SignInResult preDeleteSignIn = await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
+      expect(preDeleteSignIn.isSignedIn, true);
+
+      // Delete the user
+      await Amplify.Auth.deleteUser();
+
+      // Expect subsequent sign in to fail
+      try {
+        await Amplify.Auth.signIn(
           username: username,
           password: password,
         );
-        expect(preDeleteSignIn.isSignedIn, true);
+      } catch (e) {
+        expect(e, TypeMatcher<UserNotFoundException>());
+        return;
+      }
+      fail('Expected UserNotFoundException');
+    });
 
-        // Delete the user
+    testWidgets(
+        'fetchAuthSession should throw SignedOutException after user deletion',
+        (WidgetTester tester) async {
+      final username = generateUsername();
+      final password = generatePassword();
+
+      // Create a confirmed user
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
+
+      // Sign the user in
+      SignInResult preDeleteSignIn = await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
+      expect(preDeleteSignIn.isSignedIn, true);
+
+      // Delete the user
+      await Amplify.Auth.deleteUser();
+
+      // Expect fetchAuthSession to throw a SignedOutException (the tokens have been cleared)
+      try {
+        await Amplify.Auth.fetchAuthSession(
+            options: CognitoSessionOptions(getAWSCredentials: true));
+      } catch (e) {
+        expect(e, TypeMatcher<SignedOutException>());
+        return;
+      }
+      fail('Expected SignedOutException');
+    });
+  }, skip: !Platform.isIOS);
+
+  group('deleteUser (Android)', () {
+    testWidgets('should throw an UnimplementedError on Android',
+        (WidgetTester tester) async {
+      try {
         await Amplify.Auth.deleteUser();
-
-        // Expect subsequent sign in to fail
-        try {
-          await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-          );
-        } catch (e) {
-          expect(e, TypeMatcher<UserNotFoundException>());
-          return;
-        }
-        fail('Expected UserNotFoundException');
-      });
-    }
-
-    if (Platform.isAndroid) {
-      testWidgets('should throw an UnimplementedError on Android',
-          (WidgetTester tester) async {
-        try {
-          await Amplify.Auth.deleteUser();
-        } catch (e) {
-          expect(e, TypeMatcher<UnimplementedError>());
-          return;
-        }
-        fail('Expected UnimplementedError');
-      });
-    }
-  });
+      } catch (e) {
+        expect(e, TypeMatcher<UnimplementedError>());
+        return;
+      }
+      fail('Expected UnimplementedError');
+    });
+  }, skip: !Platform.isAndroid);
 }

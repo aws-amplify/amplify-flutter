@@ -14,6 +14,7 @@
  */
 
 import 'dart:async';
+import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -89,6 +90,9 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         lastHubEvent = hubEvent.eventName;
       });
+      if (lastHubEvent != 'SIGNED_IN') {
+        changeDisplay('SHOW_SIGN_IN');
+      }
       print('HUB: $lastHubEvent');
     });
     try {
@@ -116,17 +120,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _deleteUser() async {
-    try {
-      await Amplify.Auth.deleteUser();
-      changeDisplay('SHOW_SIGN_IN');
-    } on AmplifyException catch (e) {
-      setState(() {
-        _error = e;
-      });
-      print(e);
-    } on UnimplementedError catch (e) {
-      print(e.message);
-    }
+    await Amplify.Auth.deleteUser();
   }
 
   void _signOut() async {
@@ -269,8 +263,9 @@ class _MyAppState extends State<MyApp> {
                   onPressed: _viewUserAttributes,
                   child: const Text('View/Edit User Attributes')),
               const Padding(padding: EdgeInsets.all(10.0)),
-              ElevatedButton(
-                  onPressed: _deleteUser, child: const Text('Delete User')),
+              if (Platform.isIOS)
+                ElevatedButton(
+                    onPressed: _deleteUser, child: const Text('Delete User')),
             ],
           ),
         ),

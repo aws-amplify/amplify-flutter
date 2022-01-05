@@ -558,12 +558,11 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       throw UnimplementedError(
         'The deleteUser API is currently available on the iOS platform only.',
       );
-    } else {
-      try {
-        await _channel.invokeMethod('deleteUser');
-      } on PlatformException catch (e) {
-        throw castAndReturnPlatformException(e);
-      }
+    }
+    try {
+      await _channel.invokeMethod('deleteUser');
+    } on PlatformException catch (e) {
+      throw castAndReturnPlatformException(e);
     }
   }
 }
