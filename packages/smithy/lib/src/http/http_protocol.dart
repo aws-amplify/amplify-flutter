@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
-import 'package:smithy/src/http/http_client.dart';
 
 abstract class HttpTrait<Input, Output> {
   /// Returns the label for the given [key] and [input].

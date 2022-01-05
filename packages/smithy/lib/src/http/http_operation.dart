@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:smithy/smithy.dart';
-import 'package:smithy/src/http/http_client.dart';
-import 'package:smithy/src/http/http_request.dart';
 
 /// Defines an operation which uses HTTP.
 ///
