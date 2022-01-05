@@ -14,11 +14,8 @@
 //
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-
-// ignore_for_file: public_member_api_docs
 
 class _UserAttributeController {
   late TextEditingController keyController;
@@ -67,7 +64,8 @@ class _UpdateUserAttributesWidgetState
         var attributes = _userAttributeControllers
             .map(
               (controller) => AuthUserAttribute(
-                userAttributeKey: controller.keyController.text,
+                userAttributeKey: CognitoUserAttributeKey.parse(
+                    controller.keyController.text),
                 value: controller.valueController.text,
               ),
             )

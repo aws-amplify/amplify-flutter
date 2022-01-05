@@ -24,9 +24,9 @@ public struct FlutterSerializedRestResponse {
     init(statusCode: Int, headers: [AnyHashable: Any], data: Data?) {
         let stringHeaders = headers
             .filter { $0.key is String }
-            .compactMapValues { $0 as? String } as? [String: String]
+            .compactMapValues { $0 as? String }
         self.statusCode = statusCode
-        self.headers = stringHeaders ?? [:]
+        self.headers = stringHeaders as? [String: String] ?? [:]
         self.data = data
     }
 

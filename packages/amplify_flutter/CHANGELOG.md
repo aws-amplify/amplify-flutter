@@ -1,3 +1,23 @@
+## 0.3.0-rc.3 (2021-12-08)
+
+### Features
+
+- [Amplify Authenticator](https://pub.dev/packages/amplify_authenticator) preview release!
+- New `AmplifyConfig` type for fully-typed configurations
+
+### Fixes
+
+- fix(amplify_auth_cognito): remove int.parse from AuthUserAttribute (#1169)
+- fix(amplify_datastore): fix error map from ios (#1126) 
+
+## 0.3.0-rc.2 (2021-11-08)
+
+### Fixes
+
+- fix(api): OIDC Fixes for REST/GraphQL
+
+## 0.3.0-rc.1 (2021-09-24)
+
 ## 0.2.10 (2021-11-23)
 
 ### Fixes

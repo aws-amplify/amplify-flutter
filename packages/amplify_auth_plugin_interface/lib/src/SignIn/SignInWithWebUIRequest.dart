@@ -16,8 +16,6 @@
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-import './AuthProvider.dart';
-
 class SignInWithWebUIRequest {
   AuthProvider? provider;
   SignInWithWebUIOptions? options;

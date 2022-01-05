@@ -13,22 +13,19 @@
 // permissions and limitations under the License.
 //
 
-import 'dart:async';
+library amplify_core;
 
-import 'package:amplify_core/types/exception/AmplifyException.dart';
-import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
-import 'package:flutter/services.dart';
-export './types/index.dart';
+/// Exceptions
+export 'src/types/exception/amplify_already_configured_exception.dart';
+export 'src/types/exception/amplify_exception.dart';
+export 'src/types/exception/amplify_exception_messages.dart';
 
-class AmplifyCore {
-  static const MethodChannel _channel = const MethodChannel('amplify_core');
+/// Hub
+export 'src/types/hub/hub_channel.dart';
+export 'src/types/hub/hub_event.dart';
+export 'src/types/hub/hub_event_payload.dart';
+export 'src/types/plugin/amplify_plugin_interface.dart';
 
-  static Future<String> get platformVersion async {
-    final String? version =
-        await (_channel.invokeMethod<String>('getPlatformVersion'));
-    if (version == null)
-      throw new AmplifyException(
-          AmplifyExceptionMessages.nullReturnedFromMethodChannel);
-    return version;
-  }
-}
+// Util
+export 'src/util/print.dart';
+export 'src/util/uuid.dart';

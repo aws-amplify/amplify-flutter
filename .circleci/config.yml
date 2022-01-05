@@ -85,12 +85,16 @@ jobs:
           name: Save test results
           command: |
             mkdir -p ~/test-results/junit/
+            mkdir -p ~/test-results/failures/
             find . -type f -regex "\./packages/.*/test-results/.*-flutter-test\.xml" -exec cp {} ~/test-results/junit/ \;
+            find . -type f -regex "\./packages/.*/failures/.*\.png" -exec cp {} ~/test-results/failures/ \;
           when: always
       - store_test_results:
           path: ~/test-results
       - store_artifacts:
           path: ~/test-results/junit
+      - store_artifacts:
+          path: ~/test-results/failures
 
   unit_test_ios:
     executor: macos-executor

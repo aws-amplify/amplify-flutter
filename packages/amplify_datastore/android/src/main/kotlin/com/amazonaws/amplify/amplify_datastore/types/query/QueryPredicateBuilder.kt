@@ -74,9 +74,7 @@ class QueryPredicateBuilder {
                     serializedMap["queryPredicateGroup"].safeCastToMap()!!
                 var predicates: List<QueryPredicate> =
                     queryPredicateGroupMap["predicates"].safeCastToList<Map<String, Any>>()
-                        ?.map { queryPredicate ->
-                            fromSerializedMap(queryPredicate, modelSchema)!!
-                        }!!
+                        ?.map { fromSerializedMap(it, modelSchema)!! }!!
                 var resultQueryPredicate: QueryPredicateGroup? = null
                 // The first predicate in the list is either predicateOperation or predicateGroup. We need
                 // to know which one so that we can cast it appropriately and call the `and` or `not` method
@@ -104,13 +102,13 @@ class QueryPredicateBuilder {
 
                 when (queryPredicateGroupMap["type"]) {
                     "and" -> {
-                        predicates.forEach { predicate ->
-                            resultQueryPredicate = resultQueryPredicate!!.and(predicate)
+                        predicates.forEach {
+                            resultQueryPredicate = resultQueryPredicate!!.and(it)
                         }
                     }
                     "or" -> {
-                        predicates.forEach { predicate ->
-                            resultQueryPredicate = resultQueryPredicate!!.or(predicate)
+                        predicates.forEach {
+                            resultQueryPredicate = resultQueryPredicate!!.or(it)
                         }
                     }
                     "not" -> {

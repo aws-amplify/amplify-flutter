@@ -590,6 +590,7 @@ class GraphQLApiUnitTests {
         verify(mockStreamHandler, times(1))
             .sendError(
                 "ApiException",
+                id,
                 ExceptionUtil.createSerializedError(apiException)
             )
     }

@@ -13,7 +13,11 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
@@ -26,6 +30,8 @@ class BelongsToModel extends Model {
   final String id;
   final String? _name;
   final ChildModel? _child;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -61,10 +67,20 @@ class BelongsToModel extends Model {
     }
   }
 
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
   const BelongsToModel._internal(
-      {required this.id, required name, required child})
+      {required this.id, required name, required child, createdAt, updatedAt})
       : _name = name,
-        _child = child;
+        _child = child,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory BelongsToModel(
       {String? id, required String name, required ChildModel child}) {
@@ -95,14 +111,20 @@ class BelongsToModel extends Model {
     buffer.write("BelongsToModel {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("child=" + (_child != null ? _child!.toString() : "null"));
+    buffer.write(
+        "child=" + (_child != null ? _child!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   BelongsToModel copyWith({String? id, String? name, ChildModel? child}) {
-    return BelongsToModel(
+    return BelongsToModel._internal(
         id: id ?? this.id, name: name ?? this.name, child: child ?? this.child);
   }
 
@@ -112,10 +134,21 @@ class BelongsToModel extends Model {
         _child = json['child']?['serializedData'] != null
             ? ChildModel.fromJson(
                 new Map<String, dynamic>.from(json['child']['serializedData']))
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
-  Map<String, dynamic> toJson() =>
-      {'id': id, 'name': _name, 'child': _child?.toJson()};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': _name,
+        'child': _child?.toJson(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "belongsToModel.id");
   static final QueryField NAME = QueryField(fieldName: "name");
@@ -140,6 +173,18 @@ class BelongsToModel extends Model {
         isRequired: true,
         targetName: "belongsToModelChildId",
         ofModelName: (ChildModel).toString()));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

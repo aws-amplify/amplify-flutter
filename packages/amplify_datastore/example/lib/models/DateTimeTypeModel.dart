@@ -13,7 +13,11 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
@@ -24,6 +28,8 @@ class DateTimeTypeModel extends Model {
   static const classType = const _DateTimeTypeModelModelType();
   final String id;
   final TemporalDateTime? _value;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -37,7 +43,19 @@ class DateTimeTypeModel extends Model {
     return _value;
   }
 
-  const DateTimeTypeModel._internal({required this.id, value}) : _value = value;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const DateTimeTypeModel._internal(
+      {required this.id, value, createdAt, updatedAt})
+      : _value = value,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory DateTimeTypeModel({String? id, TemporalDateTime? value}) {
     return DateTimeTypeModel._internal(
@@ -65,23 +83,41 @@ class DateTimeTypeModel extends Model {
 
     buffer.write("DateTimeTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("value=" + (_value != null ? _value!.format() : "null"));
+    buffer
+        .write("value=" + (_value != null ? _value!.format() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   DateTimeTypeModel copyWith({String? id, TemporalDateTime? value}) {
-    return DateTimeTypeModel(id: id ?? this.id, value: value ?? this.value);
+    return DateTimeTypeModel._internal(
+        id: id ?? this.id, value: value ?? this.value);
   }
 
   DateTimeTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _value = json['value'] != null
             ? TemporalDateTime.fromString(json['value'])
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
-  Map<String, dynamic> toJson() => {'id': id, 'value': _value?.format()};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'value': _value?.format(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "dateTimeTypeModel.id");
   static final QueryField VALUE = QueryField(fieldName: "value");
@@ -95,6 +131,18 @@ class DateTimeTypeModel extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: DateTimeTypeModel.VALUE,
         isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }

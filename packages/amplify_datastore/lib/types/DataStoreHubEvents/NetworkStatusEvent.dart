@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/types/hub/HubEventPayload.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class NetworkStatusEvent extends HubEventPayload {
   late bool active;

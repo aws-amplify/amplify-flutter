@@ -239,10 +239,11 @@ class FlutterGraphQLApi(private val dispatcher: CoroutineDispatcher) {
         }
 
         val errorCallback = Consumer<ApiException> {
-            if (id.isNotEmpty()) OperationsManager.removeOperation(id)
+            OperationsManager.removeOperation(id)
             if (established) {
                 graphqlSubscriptionStreamHandler.sendError(
                     "ApiException",
+                    id,
                     ExceptionUtil.createSerializedError(it)
                 )
             } else {
@@ -256,7 +257,7 @@ class FlutterGraphQLApi(private val dispatcher: CoroutineDispatcher) {
         }
 
         val disconnectionCallback = Action {
-            if (id.isNotEmpty()) OperationsManager.removeOperation(id)
+            OperationsManager.removeOperation(id)
             LOG.debug("Subscription has been closed successfully")
             graphqlSubscriptionStreamHandler.sendEvent(
                 null,
