@@ -126,8 +126,7 @@ void main() {
       });
     });
 
-    group('HasOne (parent refers to child with explicit connection field)',
-        () {
+    group('HasOne (parent refers to child with explicit connection field)', () {
       // schema
       // type HasOneParent @model {
       //   id: ID!

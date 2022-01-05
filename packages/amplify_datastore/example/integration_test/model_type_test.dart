@@ -63,7 +63,7 @@ void main() {
     });
 
     group('Int (with null value)', () {
-      var models = List.generate(5, (i) => ModelWithAppsyncScalarTypes());
+      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
       testModelOperations(models: models);
     });
 
@@ -93,7 +93,7 @@ void main() {
     });
 
     group('Float (with null value)', () {
-      var models = List.generate(5, (i) => ModelWithAppsyncScalarTypes());
+      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
       testModelOperations(models: models);
     });
 
@@ -118,7 +118,7 @@ void main() {
     });
 
     group('Boolean (with null value)', () {
-      var models = List.generate(5, (i) => ModelWithAppsyncScalarTypes());
+      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
       testModelOperations(models: models);
     });
 
@@ -150,7 +150,7 @@ void main() {
     });
 
     group('AWSDate (with null value)', () {
-      var models = List.generate(5, (i) => ModelWithAppsyncScalarTypes());
+      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
       testModelOperations(models: models);
     });
 
@@ -194,7 +194,7 @@ void main() {
     });
 
     group('AWSDateTime (with null value)', () {
-      var models = List.generate(5, (i) => ModelWithAppsyncScalarTypes());
+      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
       testModelOperations(models: models);
     });
 
@@ -234,7 +234,7 @@ void main() {
     });
 
     group('AWSTime (with null value)', () {
-      var models = List.generate(5, (i) => ModelWithAppsyncScalarTypes());
+      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
       testModelOperations(models: models);
     });
 
@@ -273,7 +273,7 @@ void main() {
     });
 
     group('AWSTimestamp (with null value)', () {
-      var models = List.generate(5, (i) => ModelWithAppsyncScalarTypes());
+      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
       testModelOperations(models: models);
     });
 
@@ -304,12 +304,12 @@ void main() {
         'double': 1.0,
       });
       var models = List.generate(
-          5, (i) => ModelWithAppsyncScalarTypes(awsJsonValue: json));
+          5, (_) => ModelWithAppsyncScalarTypes(awsJsonValue: json));
       testModelOperations(models: models);
     });
 
     group('AWSJSON (with null value)', () {
-      var models = List.generate(5, (i) => ModelWithAppsyncScalarTypes());
+      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
       testModelOperations(models: models);
     });
 
@@ -340,7 +340,7 @@ void main() {
     });
 
     group('enum (with null value)', () {
-      var models = List.generate(5, (i) => ModelWithEnum());
+      var models = List.generate(5, (_) => ModelWithEnum());
       testModelOperations(models: models);
     });
 
