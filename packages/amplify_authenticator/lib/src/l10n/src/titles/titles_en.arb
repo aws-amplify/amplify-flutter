@@ -1,0 +1,36 @@
+{
+    "@@locale": "en",
+    "@@context": "amplify_authenticator:titles",
+    "signin": "Sign in to your account",
+    "@signin": {
+        "description": "Title of the Signin screen and form"
+    },
+    "signup": "Create your account",
+    "@signup": {
+        "description": "Title of the Signup screen and form"
+    },
+    "confirmSignup": "Enter your confirmation code",
+    "@confirmSignup": {
+        "description": "Title of the Confirm Signup screen and form"
+    },
+    "confirmSigninMfa": "Enter your sign in code",
+    "@confirmSigninMfa": {
+        "description": "Title of the Confirm Signin with MFA screen and form"
+    },
+    "confirmSigninNewPassword": "Change your password to sign in",
+    "@confirmSigninNewPassword": {
+        "description": "Title of the Confirm Signin with New Password screen and form"
+    },
+    "resetPassword": "Send Code",
+    "@resetPassword": {
+        "description": "Title of the Reset Password screen and form"
+    },
+    "confirmResetPassword": "Reset your password",
+    "@confirmResetPassword": {
+        "description": "Title of the Confirm Reset Password screen and form"
+    },
+    "verifyUser": "Account recovery requires verified contact information",
+    "@verifyUser": {
+        "description": "Title of the Verify and Confirm Verify User s and forms"
+    }
+}

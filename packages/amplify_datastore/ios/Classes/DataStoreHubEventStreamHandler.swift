@@ -21,7 +21,8 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
 
     private var eventSink: FlutterEventSink?
     private var token: UnsubscribeToken?
-    private var flutterModelRegistration: FlutterModels?
+    private var modelSchemaRegistry: FlutterSchemaRegistry?
+    private var customTypeSchemaRegistry: FlutterSchemaRegistry?
     
     /// Protects `eventHistory` from mutual access.
     private let eventGuard = NSRecursiveLock()
@@ -39,14 +40,29 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
         HubPayload.EventName.DataStore.modelSynced,
     ]
     
-    public func registerModelsForHub(flutterModelRegistration: FlutterModels) {
-        self.flutterModelRegistration = flutterModelRegistration
+    public func registerModelsForHub(modelSchemaRegistry: FlutterSchemaRegistry, customTypeSchemaRegistry: FlutterSchemaRegistry) {
+        self.modelSchemaRegistry = modelSchemaRegistry
+        self.customTypeSchemaRegistry = customTypeSchemaRegistry
     }
 
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         self.eventSink = events
         setHubListener()
         return nil
+    }
+
+    func ensureSchemaRegistries() throws -> (
+        modelSchemaRegistry: FlutterSchemaRegistry, customTypeSchemaRegistry: FlutterSchemaRegistry
+    ) {
+        guard let modelSchemaRegistry = self.modelSchemaRegistry else {
+            throw FlutterDataStoreError.acquireSchemaForHub
+        }
+
+        guard let customTypeSchemaRegistry = self.customTypeSchemaRegistry else {
+            throw FlutterDataStoreError.acquireSchemaForHub
+        }
+
+        return (modelSchemaRegistry, customTypeSchemaRegistry)
     }
     
     func setHubListener() {
@@ -127,10 +143,13 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                 guard let outboxMutationEnqueued = payload.data as? OutboxMutationEvent else {
                     throw FlutterDataStoreError.hubEventCast
                 }
+                let schemaRegistries = try self.ensureSchemaRegistries()
                 let flutterOutboxMutationEnqueued = try FlutterOutboxMutationEnqueuedEvent(
                     outboxMutationEnqueued: outboxMutationEnqueued,
                     eventName: payload.eventName,
-                    flutterModelRegistration: self.flutterModelRegistration!)
+                    modelSchemaRegistry: schemaRegistries.modelSchemaRegistry,
+                    customTypeSchemaRegistry: schemaRegistries.customTypeSchemaRegistry
+                )
                 flutterEvent = flutterOutboxMutationEnqueued.toValueMap()
             } catch {
                 print("Failed to parse and send outboxMutationEnqueued event:  \(error)")
@@ -140,10 +159,13 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                 guard let outboxMutationProcessed = payload.data as? OutboxMutationEvent else {
                     throw FlutterDataStoreError.hubEventCast
                 }
+                let schemaRegistries = try self.ensureSchemaRegistries()
                 let flutterOutboxMutationProcessed = try FlutterOutboxMutationProcessedEvent(
                     outboxMutationProcessed: outboxMutationProcessed,
                     eventName: payload.eventName,
-                    flutterModelRegistration: self.flutterModelRegistration!)
+                    modelSchemaRegistry: schemaRegistries.modelSchemaRegistry,
+                    customTypeSchemaRegistry: schemaRegistries.customTypeSchemaRegistry
+                )
                 flutterEvent = flutterOutboxMutationProcessed.toValueMap()
             } catch {
                 print("Failed to parse and send outboxMutationProcessed event:  \(error)")

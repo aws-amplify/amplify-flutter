@@ -1,3 +1,21 @@
+## 0.3.0-rc.3 (2021-12-08)
+
+## 0.3.0-rc.2 (2021-11-08)
+
+### Fixes
+
+- fix(api): OIDC Fixes for REST/GraphQL
+
+## 0.3.0-rc.1 (2021-09-24)
+
+### Breaking Changes
+
+- This version changes GraphQL subscription interface to use Stream
+
+### Features
+
+- feat(api): GraphQL Subscription Stream (#905)
+
 ## 0.2.10 (2021-11-23)
 
 ## 0.2.9 (2021-11-17)

@@ -14,6 +14,7 @@ Podfile.lock
 **/test-results/
 .test_coverage.dart
 .last_build_id
+**/integration_test/envs/
 
 # IDEs
 .idea/

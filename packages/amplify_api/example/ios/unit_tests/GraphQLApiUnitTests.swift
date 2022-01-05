@@ -315,7 +315,7 @@ class GraphQLApiUnitTests: XCTestCase {
                 XCTFail()
             }
 
-            override func sendError(errorCode: String, details: [String: Any]) {
+            override func sendError(errorCode: String, id: String, details: [String: Any]) {
                 XCTFail()
             }
         }
@@ -355,7 +355,7 @@ class GraphQLApiUnitTests: XCTestCase {
                 XCTFail()
             }
 
-            override func sendError(errorCode: String, details: [String: Any]) {
+            override func sendError(errorCode: String, id: String, details: [String: Any]) {
                 XCTFail()
             }
         }
@@ -437,7 +437,7 @@ class GraphQLApiUnitTests: XCTestCase {
         }
 
         class MockStreamHandler: GraphQLSubscriptionsStreamHandler {
-            override func sendError(errorCode: String, details: [String: Any]) {
+            override func sendError(errorCode: String, id: String, details: [String: Any]) {
                             eventSentExp?.fulfill()
                             XCTAssertEqual("ApiException", errorCode)
                             XCTAssertEqual("test error", details["message"] as! String)
@@ -480,7 +480,7 @@ class GraphQLApiUnitTests: XCTestCase {
                 XCTFail()
             }
             
-            override func sendError(errorCode: String, details: [String: Any]) {
+            override func sendError(errorCode: String, id: String, details: [String: Any]) {
                 XCTFail()
             }
         }
@@ -524,7 +524,7 @@ class GraphQLApiUnitTests: XCTestCase {
                 XCTFail()
             }
             
-            override func sendError(errorCode: String, details: [String: Any]) {
+            override func sendError(errorCode: String, id: String, details: [String: Any]) {
                 XCTFail()
             }
         }

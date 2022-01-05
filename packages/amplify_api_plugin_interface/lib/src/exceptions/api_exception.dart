@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/types/exception/AmplifyException.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// {@template api_exception}
 /// Exception thrown from the API Category.

@@ -21,11 +21,13 @@ import Amplify
 import AmplifyPlugins
 import AWSCore
 
-public class FlutterRestApi {
+public enum FlutterRestApi {
     private static func restFunctionHelper(
         methodName: String,
         flutterResult: @escaping FlutterResult,
-        request: [String: Any], function: (RESTRequest, RESTOperation.ResultListener?) -> RESTOperation ) {
+        request: [String: Any],
+        function: (RESTRequest, RESTOperation.ResultListener?) -> RESTOperation
+    ) {
         do {
             let cancelToken = try FlutterApiRequest.getCancelToken(methodChannelRequest: request)
             let restRequest = try FlutterApiRequest.getRestRequest(methodChannelRequest: request,

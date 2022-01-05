@@ -13,7 +13,11 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
@@ -26,6 +30,8 @@ class HasManyChildModel extends Model {
   final String id;
   final String? _name;
   final HasManyModel? _parent;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -52,9 +58,20 @@ class HasManyChildModel extends Model {
     return _parent;
   }
 
-  const HasManyChildModel._internal({required this.id, required name, parent})
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const HasManyChildModel._internal(
+      {required this.id, required name, parent, createdAt, updatedAt})
       : _name = name,
-        _parent = parent;
+        _parent = parent,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory HasManyChildModel(
       {String? id, required String name, HasManyModel? parent}) {
@@ -85,14 +102,20 @@ class HasManyChildModel extends Model {
     buffer.write("HasManyChildModel {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("parent=" + (_parent != null ? _parent!.toString() : "null"));
+    buffer.write(
+        "parent=" + (_parent != null ? _parent!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   HasManyChildModel copyWith({String? id, String? name, HasManyModel? parent}) {
-    return HasManyChildModel(
+    return HasManyChildModel._internal(
         id: id ?? this.id,
         name: name ?? this.name,
         parent: parent ?? this.parent);
@@ -104,10 +127,21 @@ class HasManyChildModel extends Model {
         _parent = json['parent']?['serializedData'] != null
             ? HasManyModel.fromJson(
                 new Map<String, dynamic>.from(json['parent']['serializedData']))
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
-  Map<String, dynamic> toJson() =>
-      {'id': id, 'name': _name, 'parent': _parent?.toJson()};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': _name,
+        'parent': _parent?.toJson(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "hasManyChildModel.id");
   static final QueryField NAME = QueryField(fieldName: "name");
@@ -132,6 +166,18 @@ class HasManyChildModel extends Model {
         isRequired: false,
         targetName: "parentID",
         ofModelName: (HasManyModel).toString()));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

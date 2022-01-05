@@ -14,11 +14,9 @@
 //
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-// ignore_for_file: public_member_api_docs
 class SignUpWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
@@ -40,8 +38,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
   void _signUp() async {
     var userAttributes = {
-      'email': emailController.text,
-      'phone_number': phoneController.text,
+      CognitoUserAttributeKey.email: emailController.text,
+      CognitoUserAttributeKey.phoneNumber: phoneController.text,
     };
     try {
       var res = await Amplify.Auth.signUp(

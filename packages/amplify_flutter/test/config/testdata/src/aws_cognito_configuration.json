@@ -1,0 +1,93 @@
+{
+    "UserAgent": "aws-amplify/cli",
+    "Version": "0.1.0",
+    "IdentityManager": {
+        "Default": {}
+    },
+    "Auth": {
+        "Default": {
+            "OAuth": {
+                "WebDomain": "$OAUTH_DOMAIN",
+                "AppClientId": "$APPCLIENT_ID",
+                "SignInRedirectURI": "$OAUTH_SIGNIN",
+                "SignOutRedirectURI": "$OAUTH_SIGNOUT",
+                "Scopes": [
+                    "phone",
+                    "email",
+                    "openid",
+                    "profile",
+                    "aws.cognito.signin.user.admin"
+                ]
+            },
+            "authenticationFlowType": "$AUTHFLOW_SRP"
+        },
+        "DefaultCustomAuth": {
+            "authenticationFlowType": "CUSTOM_AUTH"
+        }
+    },
+    "CognitoUserPool": {
+        "CustomEndpoint": {
+            "AppClientId": "$APPCLIENT_ID",
+            "AppClientSecret": "$APPCLIENT_SECERT",
+            "Endpoint": "$OAUTH_DOMAIN",
+            "PoolId": "$USERPOOL_ID",
+            "Region": "$REGION"
+        },
+        "Default": {
+            "AppClientId": "$APPCLIENT_ID",
+            "AppClientSecret": "$APPCLIENT_SECERT",
+            "Region": "$REGION",
+            "HostedUI": {
+                "AppClientId": "$APPCLIENT_ID",
+                "AppClientSecret": "$APPCLIENT_SECERT",
+                "Scopes": [
+                    "openid",
+                    "email"
+                ],
+                "SignInRedirectURI": "$OAUTH_SIGNIN",
+                "SignOutRedirectURI": "$OAUTH_SIGNOUT",
+                "WebDomain": "$OAUTH_DOMAIN"
+            },
+            "PoolId": "$USERPOOL_ID"
+        },
+        "DefaultCustomAuth": {
+            "AppClientId": "$APPCLIENT_ID",
+            "AppClientSecret": "$APPCLIENT_SECERT",
+            "Region": "$REGION",
+            "PoolId": "$USERPOOL_ID"
+        }
+    },
+    "CredentialsProvider": {
+        "CognitoIdentity": {
+            "Default": {
+                "PoolId": "$IDPOOL_ID",
+                "Region": "$REGION"
+            }
+        }
+    },
+    "AppSync": {
+        "Default": {
+            "ApiUrl": "$GRAPHQL_ENDPOINT",
+            "Region": "$REGION",
+            "AuthMode": "$COGNITO_AUTH_TYPE",
+            "ClientDatabasePrefix": "$DATABASE_PREFIX"
+        }
+    },
+    "PinpointAnalytics": {
+        "Default": {
+            "AppId": "$ANALYTICS_APP_ID",
+            "Region": "$REGION"
+        }
+    },
+    "PinpointTargeting": {
+        "Default": {
+            "Region": "$REGION"
+        }
+    },
+    "S3TransferUtility": {
+        "Default": {
+            "Bucket": "$BUCKET",
+            "Region": "$REGION"
+        }
+    }
+}

@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_app/Pages/LandingPage.dart';
 
@@ -31,7 +31,7 @@ class _UserProfileState extends State<UserView> {
 
   void _signOut() async {
     try {
-      SignOutResult res = await Amplify.Auth.signOut();
+      await Amplify.Auth.signOut();
 
       Navigator.pushAndRemoveUntil(
           context,

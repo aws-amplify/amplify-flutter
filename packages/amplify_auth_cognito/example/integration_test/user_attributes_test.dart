@@ -15,23 +15,23 @@
 
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
 
-const emailAttributeKey = 'email';
-const nameAttributeKey = 'name';
-const phoneNumberAttributeKey = 'phone_number';
-const givenNameAttributeKey = 'given_name';
-const emailVerifiedAttributeKey = 'email_verified';
+const emailAttributeKey = CognitoUserAttributeKey.email;
+const nameAttributeKey = CognitoUserAttributeKey.name;
+const phoneNumberAttributeKey = CognitoUserAttributeKey.phoneNumber;
+const givenNameAttributeKey = CognitoUserAttributeKey.givenName;
+const emailVerifiedAttributeKey = CognitoUserAttributeKey.emailVerified;
 
-dynamic getAttributeValueFromList(
+String getAttributeValueFromList(
   List<AuthUserAttribute> userAttributes,
-  String keyName,
+  CognitoUserAttributeKey cognitoAttribute,
 ) {
   return userAttributes
-      .firstWhere((attribute) => attribute.userAttributeKey == keyName)
+      .firstWhere((attribute) => attribute.userAttributeKey == cognitoAttribute)
       .value;
 }
 
@@ -109,7 +109,7 @@ void main() {
           (WidgetTester tester) async {
         try {
           await Amplify.Auth.updateUserAttribute(
-            userAttributeKey: 'fake-key-name',
+            userAttributeKey: CognitoUserAttributeKey.parse('fake-key-name'),
             value: 'mock-value',
           );
         } catch (e) {
@@ -187,7 +187,7 @@ void main() {
               value: updatedName,
             ),
             AuthUserAttribute(
-              userAttributeKey: 'fake-key-name',
+              userAttributeKey: CognitoUserAttributeKey.parse('fake-key-name'),
               value: 'mock-value',
             ),
           ]);

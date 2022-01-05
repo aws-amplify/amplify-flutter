@@ -194,4 +194,75 @@ void main() {
           ])
     ]);
   });
+
+  test(
+      'Generated dart class Person should provide correct schema with nested CustomType',
+      () {
+    /*
+      type Person @model {
+        id: ID!
+        name: String!
+        propertiesAddresses: [Address]
+        contact: Contact!
+      }
+      type Address {
+        line1: String!
+        line2: String
+        city: String!
+        state: String!
+        postalCode: String!
+      }
+      type Contact {
+        email: String!
+        phone: Phone!
+        mailingAddresses: [Address]
+      }
+    */
+    final expectedPersonFields = {
+      'id': ModelField(
+          name: "id",
+          type: const ModelFieldType(ModelFieldTypeEnum.string),
+          isRequired: true,
+          isArray: false),
+      'name': ModelField(
+          name: "name",
+          type: const ModelFieldType(ModelFieldTypeEnum.string),
+          isRequired: true,
+          isArray: false),
+      'contact': ModelField(
+          name: 'contact',
+          isRequired: true,
+          type: ModelFieldType(ModelFieldTypeEnum.embedded,
+              ofCustomTypeName: 'Contact')),
+      'propertiesAddresses': ModelField(
+          name: 'propertiesAddresses',
+          isRequired: false,
+          isArray: true,
+          type: ModelFieldType(ModelFieldTypeEnum.embeddedCollection,
+              ofCustomTypeName: 'Address')),
+      'createdAt': ModelField(
+          name: 'createdAt',
+          isRequired: false,
+          isArray: false,
+          isReadOnly: true,
+          type: ModelFieldType(ModelFieldTypeEnum.dateTime)),
+      'updatedAt': ModelField(
+          name: 'updatedAt',
+          isRequired: false,
+          isArray: false,
+          isReadOnly: true,
+          type: ModelFieldType(ModelFieldTypeEnum.dateTime))
+    };
+    final personSchema = Person.schema;
+    expect(personSchema.name, 'Person');
+    expect(personSchema.pluralName, 'People');
+    expect(personSchema.authRules, null);
+    expect(personSchema.fields is Map, true);
+
+    final fields = personSchema.fields!;
+
+    fields.forEach((fieldName, field) {
+      expect(field, expectedPersonFields[fieldName]);
+    });
+  });
 }
