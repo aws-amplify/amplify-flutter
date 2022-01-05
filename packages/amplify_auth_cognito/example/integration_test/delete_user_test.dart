@@ -31,11 +31,15 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   group('deleteUser (iOS)', () {
     setUpAll(() async {
       await configureAuth(additionalPlugins: [
 =======
   group('deleteUser', () {
+=======
+  group('deleteUser (iOS)', () {
+>>>>>>> PR suggestions + integ test to verify signout
     setUpAll(() async {
       await configureAuth(additionalConfigs: [
 >>>>>>> handles android; hub; integ tests
@@ -45,10 +49,14 @@ void main() {
     });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> PR suggestions + integ test to verify signout
     testWidgets('should delete a confirmed user on iOS',
         (WidgetTester tester) async {
       final username = generateUsername();
       final password = generatePassword();
+<<<<<<< HEAD
 
       // Create a confirmed user
       await adminCreateUser(
@@ -135,39 +143,62 @@ void main() {
           (WidgetTester tester) async {
         final username = generateUsername();
         final password = generatePassword();
+=======
+>>>>>>> PR suggestions + integ test to verify signout
 
-        // Create a confirmed user
-        await adminCreateUser(
-          username,
-          password,
-          autoConfirm: true,
-          verifyAttributes: true,
-        );
+      // Create a confirmed user
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
 
-        // Sign the user in
-        SignInResult preDeleteSignIn = await Amplify.Auth.signIn(
+      // Sign the user in
+      SignInResult preDeleteSignIn = await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
+      expect(preDeleteSignIn.isSignedIn, true);
+
+      // Delete the user
+      await Amplify.Auth.deleteUser();
+
+      // Expect subsequent sign in to fail
+      try {
+        await Amplify.Auth.signIn(
           username: username,
           password: password,
         );
-        expect(preDeleteSignIn.isSignedIn, true);
+      } catch (e) {
+        expect(e, TypeMatcher<UserNotFoundException>());
+        return;
+      }
+      fail('Expected UserNotFoundException');
+    });
 
-        // Delete the user
-        await Amplify.Auth.deleteUser();
+    testWidgets(
+        'fetchAuthSession should throw SignedOutException after user deletion',
+        (WidgetTester tester) async {
+      final username = generateUsername();
+      final password = generatePassword();
 
-        // Expect subsequent sign in to fail
-        try {
-          await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-          );
-        } catch (e) {
-          expect(e, TypeMatcher<UserNotFoundException>());
-          return;
-        }
-        fail('Expected UserNotFoundException');
-      });
-    }
+      // Create a confirmed user
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
 
+      // Sign the user in
+      SignInResult preDeleteSignIn = await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
+      expect(preDeleteSignIn.isSignedIn, true);
+
+<<<<<<< HEAD
     if (Platform.isAndroid) {
       testWidgets('should throw an UnimplementedError on Android',
           (WidgetTester tester) async {
@@ -182,4 +213,33 @@ void main() {
     }
   });
 >>>>>>> handles android; hub; integ tests
+=======
+      // Delete the user
+      await Amplify.Auth.deleteUser();
+
+      // Expect fetchAuthSession to throw a SignedOutException (the tokens have been cleared)
+      try {
+        await Amplify.Auth.fetchAuthSession(
+            options: CognitoSessionOptions(getAWSCredentials: true));
+      } catch (e) {
+        expect(e, TypeMatcher<SignedOutException>());
+        return;
+      }
+      fail('Expected SignedOutException');
+    });
+  }, skip: !Platform.isIOS);
+
+  group('deleteUser (Android)', () {
+    testWidgets('should throw an UnimplementedError on Android',
+        (WidgetTester tester) async {
+      try {
+        await Amplify.Auth.deleteUser();
+      } catch (e) {
+        expect(e, TypeMatcher<UnimplementedError>());
+        return;
+      }
+      fail('Expected UnimplementedError');
+    });
+  }, skip: !Platform.isAndroid);
+>>>>>>> PR suggestions + integ test to verify signout
 }
