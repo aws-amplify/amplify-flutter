@@ -37,7 +37,9 @@ void main() {
       testModelOperations(models: models);
     });
 
-    group('String (with null value)', () {
+    group(
+        'Schalar type value is null or a list of scalar types where the list is null',
+        () {
       var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
       testModelOperations(models: models);
     });
@@ -49,21 +51,11 @@ void main() {
       testModelOperations(models: models);
     });
 
-    group('List<String> (with null value)', () {
-      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-      testModelOperations(models: models);
-    });
-
     group('Int', () {
       var values = [dataStoreMinInt, dataStoreMaxInt, 0, -1, 1];
       var models = values
           .map((value) => ModelWithAppsyncScalarTypes(intValue: value))
           .toList();
-      testModelOperations(models: models);
-    });
-
-    group('Int (with null value)', () {
-      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
       testModelOperations(models: models);
     });
 
@@ -74,16 +66,6 @@ void main() {
       testModelOperations(models: models);
     });
 
-    group(
-      'List<Int> (with null value)',
-      () {
-        var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-        testModelOperations(models: models);
-      },
-      // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
-      skip: true,
-    );
-
     group('Float', () {
       var values = [double.maxFinite, double.minPositive, pi, 0.0, 0.1];
       var models = values
@@ -92,20 +74,10 @@ void main() {
       testModelOperations(models: models);
     });
 
-    group('Float (with null value)', () {
-      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-      testModelOperations(models: models);
-    });
-
     group('List<Float>', () {
       var list = List.generate(3, (i) => i.toDouble());
       var models = List.generate(
           5, (_) => ModelWithAppsyncScalarTypes(listOfFloatValue: list));
-      testModelOperations(models: models);
-    });
-
-    group('List<Float> (with null value)', () {
-      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
       testModelOperations(models: models);
     });
 
@@ -117,20 +89,10 @@ void main() {
       testModelOperations(models: models);
     });
 
-    group('Boolean (with null value)', () {
-      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-      testModelOperations(models: models);
-    });
-
     group('List<Boolean>', () {
       var list = List.generate(3, (i) => i == 0 ? false : true);
       var models = List.generate(
           5, (_) => ModelWithAppsyncScalarTypes(listOfBooleanValue: list));
-      testModelOperations(models: models);
-    });
-
-    group('List<bool> (with null value)', () {
-      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
       testModelOperations(models: models);
     });
 
@@ -149,11 +111,6 @@ void main() {
       testModelOperations(models: models);
     });
 
-    group('AWSDate (with null value)', () {
-      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-      testModelOperations(models: models);
-    });
-
     group('List<AWSDate>', () {
       var dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
       var list = List.generate(
@@ -162,16 +119,6 @@ void main() {
           5, (_) => ModelWithAppsyncScalarTypes(listOfAWSDataValue: list));
       testModelOperations(models: models);
     });
-
-    group(
-      'List<AWSDate> (with null value)',
-      () {
-        var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-        testModelOperations(models: models);
-      },
-      // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
-      skip: true,
-    );
 
     group('AWSDateTime', () {
       var values = [
@@ -193,11 +140,6 @@ void main() {
       );
     });
 
-    group('AWSDateTime (with null value)', () {
-      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-      testModelOperations(models: models);
-    });
-
     group('List<AWSDateTime>', () {
       var dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
       var list = List.generate(
@@ -206,16 +148,6 @@ void main() {
           5, (_) => ModelWithAppsyncScalarTypes(listOfAWSDateTimeValue: list));
       testModelOperations(models: models);
     });
-
-    group(
-      'List<AWSDateTime> (with null value)',
-      () {
-        var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-        testModelOperations(models: models);
-      },
-      // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
-      skip: true,
-    );
 
     group('AWSTime', () {
       var values = [
@@ -233,11 +165,6 @@ void main() {
       testModelOperations(models: models);
     });
 
-    group('AWSTime (with null value)', () {
-      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-      testModelOperations(models: models);
-    });
-
     group('List<AWSTime>', () {
       var dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
       var list = List.generate(
@@ -246,16 +173,6 @@ void main() {
           5, (_) => ModelWithAppsyncScalarTypes(listOfAWSTimeValue: list));
       testModelOperations(models: models);
     });
-
-    group(
-      'List<AWSTime> (with null value)',
-      () {
-        var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-        testModelOperations(models: models);
-      },
-      // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
-      skip: true,
-    );
 
     group('AWSTimestamp', () {
       var values = [
@@ -272,11 +189,6 @@ void main() {
       testModelOperations(models: models);
     });
 
-    group('AWSTimestamp (with null value)', () {
-      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-      testModelOperations(models: models);
-    });
-
     group('List<AWSTimestamp>', () {
       var now = DateTime.now();
       var list = List.generate(
@@ -285,16 +197,6 @@ void main() {
           5, (_) => ModelWithAppsyncScalarTypes(listOfAWSTimestampValue: list));
       testModelOperations(models: models);
     });
-
-    group(
-      'List<AWSTimestamp> (with null value)',
-      () {
-        var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-        testModelOperations(models: models);
-      },
-      // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
-      skip: true,
-    );
 
     group('AWSJSON', () {
       String json = jsonEncode({
@@ -308,11 +210,6 @@ void main() {
       testModelOperations(models: models);
     });
 
-    group('AWSJSON (with null value)', () {
-      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
-      testModelOperations(models: models);
-    });
-
     group('List<AWSJSON>', () {
       String generateJson(int value) => jsonEncode(Map.from({
             'string': 'foo',
@@ -323,11 +220,6 @@ void main() {
       var list = List.generate(3, (i) => generateJson(i));
       var models = List.generate(
           5, (_) => ModelWithAppsyncScalarTypes(listOfAWSJsonValue: list));
-      testModelOperations(models: models);
-    });
-
-    group('List<AWSJSON> (with null value)', () {
-      var models = List.generate(5, (_) => ModelWithAppsyncScalarTypes());
       testModelOperations(models: models);
     });
 
@@ -348,11 +240,6 @@ void main() {
       var list = List.generate(3, (i) => i == 0 ? EnumField.no : EnumField.yes);
       var models =
           List.generate(5, (_) => ModelWithEnum(listOfEnumField: list));
-      testModelOperations(models: models);
-    });
-
-    group('List<enum> (with null value)', () {
-      var models = List.generate(5, (_) => ModelWithEnum());
       testModelOperations(models: models);
     });
 
