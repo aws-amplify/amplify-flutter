@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
-import 'package:smithy/src/http/client.dart';
+import 'package:smithy/src/http/http_client.dart';
 
 abstract class HttpTrait<Input, Output> {
   /// Returns the label for the given [key] and [input].
@@ -38,7 +38,7 @@ abstract class HttpProtocol<Payload extends Object?,
   const HttpProtocol();
 
   /// The content type of the request payload, added to the `Content-Type` header.
-  String contentType<RequestPayload extends Object?>();
+  String get contentType;
 
   /// The serializer for input payloads and deserializer for response objects
   /// from `List<int>`.
@@ -63,7 +63,7 @@ abstract class HttpProtocol<Payload extends Object?,
   @override
   @mustCallSuper
   void addHeaders(Input input, Map<String, String> headers) {
-    headers['Content-Type'] = contentType<Payload>();
+    headers['Content-Type'] = contentType;
   }
 
   @override

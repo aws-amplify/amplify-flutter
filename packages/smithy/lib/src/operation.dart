@@ -7,15 +7,19 @@ import 'package:smithy/smithy.dart';
 abstract class Operation<Input, Output> {
   const Operation();
 
-  /// The protocol used by this operation for all serialization/deserialization
+  /// The protocols used by this operation for all serialization/deserialization
   /// of wire formats.
-  Protocol get protocol;
+  List<Protocol> get protocols;
 
-  /// Runs the operation.
+  /// Runs the operation for [input].
   ///
-  /// The protocol used will be selected at runtime from [protocols] based on
-  /// the client passed in, i.e. using [Client.protocol].
-  Future<Output> run(Input input, [covariant Client? client]);
+  /// Specifying [client] or [useProtocol] overrides the defaults for the
+  /// operation.
+  Future<Output> run(
+    Input input, {
+    covariant Client? client,
+    ShapeId? useProtocol,
+  });
 }
 
 /// A constructor of [Output] from [T].

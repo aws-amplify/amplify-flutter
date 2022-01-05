@@ -15,19 +15,29 @@ export 'src/operation.dart';
 
 // HTTP
 export 'src/http/exceptions.dart';
+export 'src/http/http_client.dart';
+export 'src/http/http_operation.dart';
+export 'src/http/http_protocol.dart';
+export 'src/http/http_request.dart';
+export 'src/http/interceptors/interceptor.dart';
+export 'src/http/interceptors/checksum.dart';
+export 'src/http/interceptors/auth/api_key_auth.dart';
+export 'src/http/interceptors/auth/basic_auth.dart';
+export 'src/http/interceptors/auth/bearer_auth.dart';
+export 'src/http/interceptors/auth/digest_auth.dart';
 
 // Protocol
 export 'src/protocol/protocol.dart';
-export 'src/http/protocol.dart';
+export 'src/http/http_protocol.dart';
 export 'src/protocol/interceptor.dart';
-export 'src/protocol/json.dart';
+export 'src/protocol/json_serializer.dart';
 
 // Serialization
-export 'src/serialization/json/blob.dart';
 export 'src/serialization/json/int64.dart';
 export 'src/serialization/serializer.dart';
 export 'src/serialization/struct.dart';
 export 'src/serialization/serializers/big_int_serializer.dart';
+export 'src/serialization/serializers/blob_serializer.dart';
 export 'src/serialization/serializers/timestamp_serializer.dart';
 export 'src/serialization/serializers/unit_serializer.dart';
 export 'src/serialization/xml/xml_plugin.dart';

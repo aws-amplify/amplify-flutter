@@ -6,6 +6,10 @@ abstract class Protocol<Input, Output, WireType>
     implements FullSerializer<Input, Output, WireType> {
   const Protocol._();
 
+  /// The shape ID of the protocol trait this class implements.
+  ShapeId get protocolId;
+
+  /// Creates a client for the given [input].
   Client getClient(Input input);
 }
 
