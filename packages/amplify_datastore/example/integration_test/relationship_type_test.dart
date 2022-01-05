@@ -126,7 +126,7 @@ void main() {
       });
     });
 
-    group('HasOne (parent refers to child with explicity connection field)',
+    group('HasOne (parent refers to child with explicit connection field)',
         () {
       // schema
       // type HasOneParent @model {
@@ -143,7 +143,7 @@ void main() {
       // Curretly with @hasOne, parent -> child relationship is created
       // by assign child.id to the connection field of the parent
       var parent =
-          HasOneParent(name: 'HasOne (explicity)', explicitChildID: child.id);
+          HasOneParent(name: 'HasOne (explicit)', explicitChildID: child.id);
       late Future<SubscriptionEvent<HasOneChild>> childEvent;
       late Future<SubscriptionEvent<HasOneParent>> parentEvent;
 
@@ -226,7 +226,7 @@ void main() {
       });
     });
 
-    group('BelongsTo (child refers to parent with implicity connection field)',
+    group('BelongsTo (child refers to parent with implicit connection field)',
         () {
       // schema
       // type BelongsToParent @model {
@@ -240,7 +240,7 @@ void main() {
       // }
       var parent = BelongsToParent(name: 'belongs to parent');
       var child = BelongsToChildImplicit(
-          name: 'belongs to child (implicity)', belongsToParent: parent);
+          name: 'belongs to child (implicit)', belongsToParent: parent);
       late Future<SubscriptionEvent<BelongsToParent>> parentEvent;
       late Future<SubscriptionEvent<BelongsToChildImplicit>> childEvent;
 
@@ -315,7 +315,7 @@ void main() {
       });
     });
 
-    group('BelongsTo (child refers to parent with explicity connection field)',
+    group('BelongsTo (child refers to parent with explicit connection field)',
         () {
       // schema
       // type BelongsToParent @model {
@@ -330,7 +330,7 @@ void main() {
       // }
       var parent = BelongsToParent(name: 'belongs to parent');
       var child = BelongsToChildExplicit(
-          name: 'belongs to child (explicity)', belongsToParent: parent);
+          name: 'belongs to child (explicit)', belongsToParent: parent);
       late Future<SubscriptionEvent<BelongsToParent>> parentEvent;
       late Future<SubscriptionEvent<BelongsToChildExplicit>> childEvent;
 
@@ -405,7 +405,7 @@ void main() {
       });
     });
 
-    group('HasMany (parent refers to children with implicity connection field)',
+    group('HasMany (parent refers to children with implicit connection field)',
         () {
       // schema
       // type HasManyParent @model {
@@ -529,7 +529,7 @@ void main() {
     });
 
     group(
-        'HasMany (parent refers to children with explicity connection field and indexName)',
+        'HasMany (parent refers to children with explicit connection field and indexName)',
         () {
       // schema
       // type HasManyParent @model {
@@ -652,7 +652,7 @@ void main() {
       });
     });
 
-    group('HasMany (bi-direactional with implicit connection field)', () {
+    group('HasMany (bi-directional with implicit connection field)', () {
       // schema
       // type HasManyParentBiDirectionalImplicit @model {
       //   id: ID!
@@ -770,7 +770,7 @@ void main() {
       });
     });
 
-    group('HasMany (bi-direactional with explicit connection field)', () {
+    group('HasMany (bi-directional with explicit connection field)', () {
       // schema
       // type HasManyParentBiDirectionalExplicit @model {
       //   id: ID!
@@ -1030,7 +1030,7 @@ void main() {
         }
       });
 
-      testWidgets('delete post (cascade delete assoicated postTag)',
+      testWidgets('delete post (cascade delete associated postTag)',
           (WidgetTester tester) async {
         var deletedPost = posts[0];
         await Amplify.DataStore.delete(deletedPost);
@@ -1045,7 +1045,7 @@ void main() {
             -1);
       });
 
-      testWidgets('delete tag (cascade delete assoicated postTag)',
+      testWidgets('delete tag (cascade delete associated postTag)',
           (WidgetTester tester) async {
         var deletedTag = tags[0];
         await Amplify.DataStore.delete(deletedTag);
@@ -1242,7 +1242,7 @@ void main() {
         }
       });
 
-      testWidgets('delete meeting (cascade delete assoicated registration)',
+      testWidgets('delete meeting (cascade delete associated registration)',
           (WidgetTester tester) async {
         var deletedMeeting = meetings[0];
         await Amplify.DataStore.delete(deletedMeeting);
@@ -1259,7 +1259,7 @@ void main() {
             -1);
       });
 
-      testWidgets('delete attendee (cascade delete assoicated registration)',
+      testWidgets('delete attendee (cascade delete associated registration)',
           (WidgetTester tester) async {
         var deletedAttendee = attendees[0];
         await Amplify.DataStore.delete(deletedAttendee);

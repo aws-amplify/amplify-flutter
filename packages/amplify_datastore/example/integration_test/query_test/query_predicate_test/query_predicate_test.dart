@@ -38,7 +38,7 @@ void main() async {
     enum_query_predicate_tests.main();
     compound_query_predicate_tests.main();
     aws_date_query_predicate_test.main();
-    // TODO: enable AWSDataTime test suite when this issue gets reolved:
+    // TODO: enable AWSDateTime test suite when this issue gets resolved:
     //  https://github.com/aws-amplify/amplify-flutter/issues/1245
     // aws_date_time_query_predicate_test.main();
     aws_time_query_predicate_test.main();
