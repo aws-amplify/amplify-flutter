@@ -61,13 +61,21 @@ abstract class HttpProtocol<Payload extends Object?,
 
   @override
   @mustCallSuper
-  void addHeaders(Input input, Map<String, String> headers) {
-    headers['Content-Type'] = contentType;
+  Map<String, String> addHeaders(Input input, Map<String, String> headers) {
+    return {
+      ...headers,
+      'Content-Type': contentType,
+    };
   }
 
   @override
   @mustCallSuper
-  void addQueryParameters(Input input, Map<String, String> queryParameters) {}
+  Map<String, String> addQueryParameters(
+    Input input,
+    Map<String, String> queryParameters,
+  ) {
+    return {...queryParameters};
+  }
 
   @override
   String path(Input input, String path) {

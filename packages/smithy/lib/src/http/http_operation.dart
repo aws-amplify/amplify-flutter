@@ -9,6 +9,8 @@ abstract class HttpOperation<
     Payload extends Object?,
     Input extends HasPayload<Payload>,
     Output> extends Operation<Input, Output> with HttpRequest {
+  const HttpOperation();
+
   @override
   List<HttpProtocol<Payload, Input, Output>> get protocols;
 

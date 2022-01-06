@@ -12,8 +12,8 @@ abstract class HttpRequest {
   String? get hostPrefix => null;
 
   /// The HTTP headers.
-  final Map<String, String> headers = {};
+  Map<String, String> get headers => const {};
 
   /// The HTTP query parameters.
-  final Map<String, String> queryParameters = {};
+  Map<String, String> get queryParameters => const {};
 }
