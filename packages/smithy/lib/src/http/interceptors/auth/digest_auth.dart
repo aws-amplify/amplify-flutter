@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'package:smithy/src/http/interceptors/interceptor.dart';
+import 'package:smithy/smithy.dart';
 
 /// Intercepts HTTP requests to provide a Basic credentials header.
 ///
@@ -8,7 +8,7 @@ class DigestAuthInterceptor extends HttpInterceptor {
   const DigestAuthInterceptor();
 
   @override
-  void intercept(http.BaseRequest request) {
+  void intercept(AWSBaseHttpRequest request) {
     // TODO
   }
 }

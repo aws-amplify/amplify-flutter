@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
-import 'package:smithy/src/http/interceptors/interceptor.dart';
+import 'package:smithy/smithy.dart';
+import 'package:smithy/src/http/interceptors/auth/credentials_provider.dart';
 
 /// Intercepts HTTP requests to provide a Basic credentials header.
 ///
@@ -9,21 +9,22 @@ import 'package:smithy/src/http/interceptors/interceptor.dart';
 abstract class BasicAuthInterceptor extends HttpInterceptor {
   /// Uses [username] and [password] for authorization.
   const factory BasicAuthInterceptor(
-    String username,
-    String password,
+    CredentialsProvider username,
+    CredentialsProvider password,
   ) = _BasicAuthUserPassInterceptor;
 
   /// Uses [credentials] for authorization.
-  const factory BasicAuthInterceptor.credentials(String credentials) =
-      _BasicAuthCredentialsInterceptor;
+  const factory BasicAuthInterceptor.credentials(
+      CredentialsProvider credentials) = _BasicAuthCredentialsInterceptor;
 
   const BasicAuthInterceptor._();
 
-  String get credentials;
+  CredentialsProvider get credentials;
 
   @override
-  void intercept(http.BaseRequest request) {
-    request.headers['Authorization'] = 'Basic $credentials';
+  Future<void> intercept(AWSBaseHttpRequest request) async {
+    final _credentials = await credentials();
+    request.headers['Authorization'] = 'Basic $_credentials';
   }
 }
 
@@ -31,7 +32,7 @@ class _BasicAuthCredentialsInterceptor extends BasicAuthInterceptor {
   const _BasicAuthCredentialsInterceptor(this.credentials) : super._();
 
   @override
-  final String credentials;
+  final CredentialsProvider credentials;
 }
 
 class _BasicAuthUserPassInterceptor extends BasicAuthInterceptor {
@@ -40,9 +41,13 @@ class _BasicAuthUserPassInterceptor extends BasicAuthInterceptor {
     this.password,
   ) : super._();
 
-  final String username;
-  final String password;
+  final CredentialsProvider username;
+  final CredentialsProvider password;
 
   @override
-  String get credentials => base64Encode('$username:$password'.codeUnits);
+  CredentialsProvider get credentials => () async {
+        final _username = await username();
+        final _password = await password();
+        return base64Encode('$_username:$_password'.codeUnits);
+      };
 }

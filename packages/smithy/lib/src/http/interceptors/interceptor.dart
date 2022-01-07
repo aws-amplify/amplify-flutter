@@ -1,13 +1,11 @@
 import 'dart:async';
 
-import 'package:http/http.dart' as http;
-import 'package:smithy/src/protocol/interceptor.dart';
+import 'package:smithy/smithy.dart';
 
 /// Intercepts HTTP requests to provide additional headers.
-abstract class HttpInterceptor<T extends http.BaseRequest>
-    extends Interceptor<T> {
+abstract class HttpInterceptor extends Interceptor<AWSBaseHttpRequest> {
   const HttpInterceptor();
 
   @override
-  FutureOr<void> intercept(T request);
+  FutureOr<void> intercept(AWSBaseHttpRequest request);
 }

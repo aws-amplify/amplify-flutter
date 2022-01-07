@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   aws_common:
-    path: ../../../pocs/aws_common
+    path: ../../../aws-sdk-dart/packages/aws_common
   built_collection: ^5.0.0
   built_value: ^8.0.0
   collection: ^1.15.0

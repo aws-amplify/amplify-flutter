@@ -1,6 +1,15 @@
-abstract class HttpRequest {
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
+
+part 'http_request.g.dart';
+
+abstract class HttpRequest implements Built<HttpRequest, HttpRequestBuilder> {
+  factory HttpRequest([void Function(HttpRequestBuilder) updates]) =
+      _$HttpRequest;
+  HttpRequest._();
+
   /// The URI to which the request is relative.
-  Uri get baseUri;
+  String get host;
 
   /// The HTTP method.
   String get method;
@@ -9,11 +18,11 @@ abstract class HttpRequest {
   String get path;
 
   /// The host prefix.
-  String? get hostPrefix => null;
+  String? get hostPrefix;
 
   /// The HTTP headers.
-  Map<String, String> get headers => const {};
+  BuiltMap<String, String> get headers;
 
   /// The HTTP query parameters.
-  Map<String, String> get queryParameters => const {};
+  BuiltListMultimap<String, String> get queryParameters;
 }

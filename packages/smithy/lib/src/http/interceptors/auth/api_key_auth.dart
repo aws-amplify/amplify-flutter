@@ -1,5 +1,5 @@
-import 'package:http/http.dart' as http;
-import 'package:smithy/src/http/interceptors/interceptor.dart';
+import 'package:smithy/smithy.dart';
+import 'package:smithy/src/http/interceptors/auth/credentials_provider.dart';
 
 enum ApiKeyLocation { header, query }
 
@@ -15,20 +15,20 @@ class ApiKeyAuthInterceptor extends HttpInterceptor {
   });
 
   final String name;
-  final String apiKey;
+  final CredentialsProvider apiKey;
   final ApiKeyLocation location;
   final String? scheme;
 
   @override
-  http.BaseRequest intercept(http.BaseRequest request) {
+  Future<void> intercept(AWSBaseHttpRequest request) async {
+    final _apiKey = await apiKey();
     if (location == ApiKeyLocation.header) {
       if (scheme != null) {
         request.headers['Authorization'] = scheme!;
       }
-      request.headers[name] = apiKey;
+      request.headers[name] = _apiKey;
     } else {
-      request.url.queryParameters[name] = apiKey;
+      request.queryParameters[name] = _apiKey;
     }
-    return request;
   }
 }

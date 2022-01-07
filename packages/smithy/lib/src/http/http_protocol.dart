@@ -1,88 +1,42 @@
 import 'dart:convert';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
-abstract class HttpTrait<Input, Output> {
-  /// Returns the label for the given [key] and [input].
-  ///
-  /// See: https://awslabs.github.io/smithy/1.0/spec/core/http-traits.html#httplabel-trait
-  String? label(Input input, String key);
-
-  /// Returns the headers for [input].
-  ///
-  /// See: https://awslabs.github.io/smithy/1.0/spec/core/http-traits.html#httpheader-trait
-  void addHeaders(Input input, Map<String, String> headers);
-
-  /// Returns the query paramters for [input].
-  ///
-  /// See:
-  /// - https://awslabs.github.io/smithy/1.0/spec/core/http-traits.html#httpquery-trait
-  /// - https://awslabs.github.io/smithy/1.0/spec/core/http-traits.html#httpqueryparams-trait
-  void addQueryParameters(Input input, Map<String, String> queryParameters);
-
-  /// Returns the path of the operation, with all labels replaced with values.
-  ///
-  /// See: https://awslabs.github.io/smithy/1.0/spec/core/http-traits.html#httplabel-trait
-  String path(Input input, String path);
-}
+/// Maps path templates to paths using inputs.
+typedef PathMapper<Input> = String Function(String, Input);
 
 /// A protocol for sending requests over HTTP.
-abstract class HttpProtocol<Payload extends Object?,
-        Input extends HasPayload<Payload>, Output>
-    implements
-        Protocol<Input, Output, Stream<List<int>>>,
-        HttpTrait<Input, Output> {
+abstract class HttpProtocol<
+    Payload extends Object?,
+    Input extends HasPayload<Payload>,
+    Output> implements Protocol<Input, Output, Stream<List<int>>> {
   const HttpProtocol();
 
-  /// The content type of the request payload, added to the `Content-Type` header.
+  /// The content type of the request payload, added to the `Content-Type`
+  /// header.
   String get contentType;
 
   /// The serializer for input payloads and deserializer for response objects
   /// from `List<int>`.
   FullSerializer<Payload, Output, List<int>> get serializer;
 
-  /// Regex for path inputs.
-  static final _pathRegex = RegExp(r'{(\w+)}');
+  /// Interceptors for the protocol.
+  List<HttpInterceptor> get interceptors;
 
   @override
   HttpClient getClient(Input input) {
-    if (input.isStreaming) {
-      return Http1_1Client();
-    }
-    // TODO: Add h2
-    return Http1_1Client();
+    return HttpClient.v1();
   }
 
-  @override
-  String label(Input input, String key) =>
-      throw MissingLabelException(input, key);
-
-  @override
+  /// Adds the headers for [input].
+  ///
+  /// See: https://awslabs.github.io/smithy/1.0/spec/core/http-traits.html#httpheader-trait
   @mustCallSuper
-  Map<String, String> addHeaders(Input input, Map<String, String> headers) {
-    return {
-      ...headers,
-      'Content-Type': contentType,
-    };
-  }
-
-  @override
-  @mustCallSuper
-  Map<String, String> addQueryParameters(
-    Input input,
-    Map<String, String> queryParameters,
-  ) {
-    return {...queryParameters};
-  }
-
-  @override
-  String path(Input input, String path) {
-    return path.replaceAllMapped(_pathRegex, (match) {
-      final key = match.group(0)!;
-      return label(input, key);
-    });
+  void addHeaders(MapBuilder<String, String> headers, Input input) {
+    headers['Content-Type'] = contentType;
   }
 
   @override
@@ -108,6 +62,18 @@ abstract class HttpProtocol<Payload extends Object?,
     final body = await http.ByteStream(response).toBytes();
     return await serializer.deserialize(body);
   }
+}
+
+/// A type which implements the traits needed for use in an HTTP operation.
+mixin HttpRequestable<T extends Object?> implements HasLabel, HasPayload<T> {
+  @override
+  String labelFor(String key) => throw MissingLabelException(this, key);
+}
+
+/// A type which maps properties to path labels.
+abstract class HasLabel {
+  /// Returns the label for requested keys.
+  String labelFor(String key);
 }
 
 /// A utility for operations to access the payload of the request without
