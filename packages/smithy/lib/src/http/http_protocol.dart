@@ -1,17 +1,13 @@
 import 'dart:convert';
 
-import 'package:built_collection/built_collection.dart';
+import 'package:built_value/serializer.dart';
 import 'package:http/http.dart' as http;
-import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
-
-/// Maps path templates to paths using inputs.
-typedef PathMapper<Input> = String Function(String, Input);
 
 /// A protocol for sending requests over HTTP.
 abstract class HttpProtocol<
     Payload extends Object?,
-    Input extends HasPayload<Payload>,
+    Input extends HttpInput<Payload>,
     Output> implements Protocol<Input, Output, Stream<List<int>>> {
   const HttpProtocol();
 
@@ -19,24 +15,23 @@ abstract class HttpProtocol<
   /// header.
   String get contentType;
 
+  /// Protocol headers
+  Map<String, String> get headers => {
+        'Content-Type': contentType,
+      };
+
+  Serializers get serializers;
+
   /// The serializer for input payloads and deserializer for response objects
   /// from `List<int>`.
-  FullSerializer<Payload, Output, List<int>> get serializer;
+  FullSerializer<Payload, Output, List<int>> get wireSerializer;
 
   /// Interceptors for the protocol.
   List<HttpInterceptor> get interceptors;
 
   @override
-  HttpClient getClient(Input input) {
-    return HttpClient.v1();
-  }
-
-  /// Adds the headers for [input].
-  ///
-  /// See: https://awslabs.github.io/smithy/1.0/spec/core/http-traits.html#httpheader-trait
-  @mustCallSuper
-  void addHeaders(MapBuilder<String, String> headers, Input input) {
-    headers['Content-Type'] = contentType;
+  HttpClient getClient(Uri baseUri, Input input) {
+    return HttpClient.v1(baseUri);
   }
 
   @override
@@ -52,7 +47,7 @@ abstract class HttpProtocol<
       return payload;
     } else {
       return Stream.fromFuture(() async {
-        return await serializer.serialize(payload);
+        return await wireSerializer.serialize(payload);
       }());
     }
   }
@@ -60,12 +55,16 @@ abstract class HttpProtocol<
   @override
   Future<Output> deserialize(Stream<List<int>> response) async {
     final body = await http.ByteStream(response).toBytes();
-    return await serializer.deserialize(body);
+    return await wireSerializer.deserialize(body);
   }
 }
 
 /// A type which implements the traits needed for use in an HTTP operation.
-mixin HttpRequestable<T extends Object?> implements HasLabel, HasPayload<T> {
+mixin HttpInput<Payload extends Object?>
+    implements HasLabel, HasHeaders, HasPayload<Payload> {
+  @override
+  Map<String, String> getInputHeaders() => const {};
+
   @override
   String labelFor(String key) => throw MissingLabelException(this, key);
 }
@@ -74,6 +73,12 @@ mixin HttpRequestable<T extends Object?> implements HasLabel, HasPayload<T> {
 abstract class HasLabel {
   /// Returns the label for requested keys.
   String labelFor(String key);
+}
+
+/// A type which maps properties to path labels.
+abstract class HasHeaders {
+  /// Returns the headers for an input.
+  Map<String, String> getInputHeaders();
 }
 
 /// A utility for operations to access the payload of the request without

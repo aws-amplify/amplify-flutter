@@ -8,13 +8,11 @@ part of 'http_request.dart';
 
 class _$HttpRequest extends HttpRequest {
   @override
-  final String host;
+  final String? hostPrefix;
   @override
   final String method;
   @override
   final String path;
-  @override
-  final String? hostPrefix;
   @override
   final BuiltMap<String, String> headers;
   @override
@@ -24,14 +22,12 @@ class _$HttpRequest extends HttpRequest {
       (new HttpRequestBuilder()..update(updates)).build();
 
   _$HttpRequest._(
-      {required this.host,
+      {this.hostPrefix,
       required this.method,
       required this.path,
-      this.hostPrefix,
       required this.headers,
       required this.queryParameters})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(host, 'HttpRequest', 'host');
     BuiltValueNullFieldError.checkNotNull(method, 'HttpRequest', 'method');
     BuiltValueNullFieldError.checkNotNull(path, 'HttpRequest', 'path');
     BuiltValueNullFieldError.checkNotNull(headers, 'HttpRequest', 'headers');
@@ -50,10 +46,9 @@ class _$HttpRequest extends HttpRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is HttpRequest &&
-        host == other.host &&
+        hostPrefix == other.hostPrefix &&
         method == other.method &&
         path == other.path &&
-        hostPrefix == other.hostPrefix &&
         headers == other.headers &&
         queryParameters == other.queryParameters;
   }
@@ -62,8 +57,8 @@ class _$HttpRequest extends HttpRequest {
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc($jc(0, host.hashCode), method.hashCode), path.hashCode),
-                hostPrefix.hashCode),
+            $jc($jc($jc(0, hostPrefix.hashCode), method.hashCode),
+                path.hashCode),
             headers.hashCode),
         queryParameters.hashCode));
   }
@@ -71,10 +66,9 @@ class _$HttpRequest extends HttpRequest {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('HttpRequest')
-          ..add('host', host)
+          ..add('hostPrefix', hostPrefix)
           ..add('method', method)
           ..add('path', path)
-          ..add('hostPrefix', hostPrefix)
           ..add('headers', headers)
           ..add('queryParameters', queryParameters))
         .toString();
@@ -84,9 +78,9 @@ class _$HttpRequest extends HttpRequest {
 class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
   _$HttpRequest? _$v;
 
-  String? _host;
-  String? get host => _$this._host;
-  set host(String? host) => _$this._host = host;
+  String? _hostPrefix;
+  String? get hostPrefix => _$this._hostPrefix;
+  set hostPrefix(String? hostPrefix) => _$this._hostPrefix = hostPrefix;
 
   String? _method;
   String? get method => _$this._method;
@@ -95,10 +89,6 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
   String? _path;
   String? get path => _$this._path;
   set path(String? path) => _$this._path = path;
-
-  String? _hostPrefix;
-  String? get hostPrefix => _$this._hostPrefix;
-  set hostPrefix(String? hostPrefix) => _$this._hostPrefix = hostPrefix;
 
   MapBuilder<String, String>? _headers;
   MapBuilder<String, String> get headers =>
@@ -116,10 +106,9 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
   HttpRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _host = $v.host;
+      _hostPrefix = $v.hostPrefix;
       _method = $v.method;
       _path = $v.path;
-      _hostPrefix = $v.hostPrefix;
       _headers = $v.headers.toBuilder();
       _queryParameters = $v.queryParameters.toBuilder();
       _$v = null;
@@ -144,13 +133,11 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
     try {
       _$result = _$v ??
           new _$HttpRequest._(
-              host: BuiltValueNullFieldError.checkNotNull(
-                  host, 'HttpRequest', 'host'),
+              hostPrefix: hostPrefix,
               method: BuiltValueNullFieldError.checkNotNull(
                   method, 'HttpRequest', 'method'),
               path: BuiltValueNullFieldError.checkNotNull(
                   path, 'HttpRequest', 'path'),
-              hostPrefix: hostPrefix,
               headers: headers.build(),
               queryParameters: queryParameters.build());
     } catch (_) {

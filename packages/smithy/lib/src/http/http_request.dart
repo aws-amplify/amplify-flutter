@@ -8,17 +8,14 @@ abstract class HttpRequest implements Built<HttpRequest, HttpRequestBuilder> {
       _$HttpRequest;
   HttpRequest._();
 
-  /// The URI to which the request is relative.
-  String get host;
+  /// The host prefix.
+  String? get hostPrefix;
 
   /// The HTTP method.
   String get method;
 
   /// The path of the operation.
   String get path;
-
-  /// The host prefix.
-  String? get hostPrefix;
 
   /// The HTTP headers.
   BuiltMap<String, String> get headers;

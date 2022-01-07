@@ -1,7 +1,7 @@
 import 'dart:async';
 
-abstract class Interceptor<T> {
+abstract class Interceptor<R> {
   const Interceptor();
 
-  FutureOr<void> intercept(T request);
+  FutureOr<void> intercept(R request);
 }

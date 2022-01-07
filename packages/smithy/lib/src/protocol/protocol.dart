@@ -9,8 +9,8 @@ abstract class Protocol<Input, Output, WireType>
   /// The shape ID of the protocol trait this class implements.
   ShapeId get protocolId;
 
-  /// Creates a client for the given [input].
-  Client getClient(Input input);
+  /// Creates a client for the given [baseUri] and [input].
+  Client getClient(Uri baseUri, Input input);
 }
 
 abstract class FullSerializer<Input, Output, WireType>

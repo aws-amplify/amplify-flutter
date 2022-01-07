@@ -1,1 +1,1 @@
-
+abstract class SmithyLogger {}
