@@ -1,0 +1,12 @@
+{
+    "@@locale": "zh",
+    "@@context": "amplify_authenticator:titles",
+    "signin": "登陆你的账户",
+    "signup": "创建一个账户",
+    "confirmSignup": "输入确认码",
+    "confirmSigninMfa": "输入登陆验证码",
+    "confirmSigninNewPassword": "更改登陆密码",
+    "resetPassword": "发送验证码",
+    "confirmResetPassword": "重置密码",
+    "verifyUser": "帐户恢复需要验证联系信息"
+}

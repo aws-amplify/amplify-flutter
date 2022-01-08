@@ -1,0 +1,22 @@
+{
+    "@@locale": "zh",
+    "@@context": "amplify_authenticator:buttons",
+    "signin": "登录",
+    "signup": "创建新用户",
+    "confirm": "确认",
+    "submit": "提交",
+    "changePassword": "修改密码",
+    "sendCode": "发送验证码",
+    "lostCode": "没有收到验证码？",
+    "noAccount": "注册一个账号？",
+    "haveAccount": "已经有账户了？",
+    "forgotPassword": "忘记密码?",
+    "confirmResetPassword": "重置密码",
+    "verify": "验证",
+    "skip": "跳过",
+    "signout": "登出",
+    "backTo": "返回{previousScreen, select, signup{注册页}, signin{登录页}, confirmSignup{确认注册页}, confirmSigninMfa{确认登录页} confirmSigninNewPassword{确认登录页} sendCode{发送验证码页} resetPassword{重置密码页} verifyUser{验证用户页} confirmVerifyUser{确认验证用户页}}",
+    "signInWith": "使用 {provider, select, google{Google} facebook{Meta} amazon{Amazon} apple{Apple}} 登陆",
+    "cn": "中华人民共和国",
+    "selectDialCode": "选择国家"
+}

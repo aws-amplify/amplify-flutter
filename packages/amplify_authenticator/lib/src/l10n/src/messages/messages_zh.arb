@@ -1,0 +1,6 @@
+{
+    "@@locale": "zh",
+    "@@context": "amplify_authenticator:messages",
+    "codeSent": "已发送确认码到{destination}",
+    "codeSentUnknown": "已发送验证码"
+}
