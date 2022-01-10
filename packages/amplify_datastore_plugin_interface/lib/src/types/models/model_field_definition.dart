@@ -15,15 +15,14 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import 'auth_rule.dart';
 import 'model_association.dart';
-import 'model_field_type.dart';
 
 class ModelFieldDefinition {
   final String name;
   final ModelFieldType type;
   final bool isRequired;
   final bool isArray;
+  final bool isReadOnly;
   final ModelAssociation? association;
   final List<AuthRule>? authRules;
 
@@ -32,14 +31,34 @@ class ModelFieldDefinition {
     required this.type,
     required this.isRequired,
     this.isArray = false,
+    this.isReadOnly = false,
     this.association,
     this.authRules,
   });
+
+  static ModelFieldDefinition nonQueryField(
+      {required String fieldName,
+      bool isRequired = true,
+      bool isArray = false,
+      bool isReadOnly = false,
+      ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
+      ModelAssociation? association,
+      List<AuthRule>? authRules}) {
+    return ModelFieldDefinition(
+        name: fieldName,
+        type: ofType,
+        isRequired: isRequired,
+        isArray: isArray,
+        isReadOnly: isReadOnly,
+        association: association,
+        authRules: authRules);
+  }
 
   static ModelFieldDefinition field(
       {required QueryField key,
       bool isRequired = true,
       bool isArray = false,
+      bool isReadOnly = false,
       ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
       ModelAssociation? association,
       List<AuthRule>? authRules}) {
@@ -48,8 +67,37 @@ class ModelFieldDefinition {
         type: ofType,
         isRequired: isRequired,
         isArray: isArray,
+        isReadOnly: isReadOnly,
         association: association,
         authRules: authRules);
+  }
+
+  static ModelFieldDefinition embedded({
+    required String fieldName,
+    bool isRequired = true,
+    bool isArray = false,
+    ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
+  }) {
+    return ModelFieldDefinition(
+      name: fieldName,
+      type: ofType,
+      isRequired: isRequired,
+      isArray: isArray,
+    );
+  }
+
+  static ModelFieldDefinition customTypeField({
+    required String fieldName,
+    bool isRequired = true,
+    bool isArray = false,
+    ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
+  }) {
+    return ModelFieldDefinition(
+      name: fieldName,
+      type: ofType,
+      isRequired: isRequired,
+      isArray: isArray,
+    );
   }
 
   static ModelFieldDefinition idKey(QueryField key) {
@@ -130,6 +178,7 @@ class ModelFieldDefinition {
         type: type,
         isRequired: isRequired,
         isArray: isArray,
+        isReadOnly: isReadOnly,
         association: association,
         authRules: authRules);
   }

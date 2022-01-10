@@ -58,12 +58,18 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                 let cancelToken = try FlutterApiRequest.getCancelToken(args: callArgs)
                 onCancel(flutterResult: result, cancelToken: cancelToken)
                 return
-            } else if method == "addPlugin"{
-                addPlugin(result: result)
-                return
             }
 
             let arguments = try FlutterApiRequest.getMap(args: callArgs)
+
+            if method == "addPlugin"{
+                let authProvidersList = arguments["authProviders"] as? [String] ?? []
+                let authProviders = authProvidersList.compactMap {
+                    AWSAuthorizationType(rawValue: $0)
+                }
+                addPlugin(authProviders: authProviders, result: result)
+                return
+            }
 
             try innerHandle(method: method, arguments: arguments, result: result)
         } catch {
@@ -72,12 +78,12 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
         }
     }
 
-    private func addPlugin(result: FlutterResult) {
+    private func addPlugin(authProviders: [AWSAuthorizationType], result: FlutterResult) {
         do {
             try Amplify.add(
                 plugin: AWSAPIPlugin(
                     sessionFactory: FlutterURLSessionBehaviorFactory(),
-                    apiAuthProviderFactory: FlutterAuthProviders()))
+                    apiAuthProviderFactory: FlutterAuthProviders(authProviders)))
             result(true)
         } catch let apiError as APIError {
             ErrorUtil.postErrorToFlutterChannel(
@@ -111,7 +117,11 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
         }
     }
 
-    private func innerHandle(method: String, arguments: [String: Any], result: @escaping FlutterResult) throws {
+    private func innerHandle(
+        method: String,
+        arguments: [String: Any],
+        result: @escaping FlutterResult
+    ) throws {
         switch method {
         case "get": FlutterRestApi.get(flutterResult: result, arguments: arguments, bridge: bridge)
         case "post": FlutterRestApi.post(flutterResult: result, arguments: arguments, bridge: bridge)

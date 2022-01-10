@@ -55,9 +55,7 @@ void main() {
 
   test('fetchSession thrown PlatFormException results in AuthError', () async {
     testCode = 2;
-    late AuthException err;
     try {
-      AuthSessionRequest req = AuthSessionRequest();
       expect(await auth.fetchAuthSession(), isInstanceOf<SignInResult>());
     } on AuthException catch (e) {
       expect(e.message, "I am an exception");

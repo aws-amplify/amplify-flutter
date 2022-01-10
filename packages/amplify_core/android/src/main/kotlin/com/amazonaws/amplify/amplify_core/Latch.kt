@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit
  * This is done frequently enough in the test code that its best
  * to centralize a single pattern for it.
  */
-public object Latch {
+object Latch {
     private val REASONABLE_WAIT_TIME_MS = TimeUnit.SECONDS.toMillis(5)
 
     /**
@@ -37,7 +37,10 @@ public object Latch {
         didCountDown = try {
             latch.await(waitTimeMs, TimeUnit.MILLISECONDS)
         } catch (interruptedException: InterruptedException) {
-            throw RuntimeException("Thread interrupted while wait for latch count down.", interruptedException)
+            throw RuntimeException(
+                "Thread interrupted while wait for latch count down.",
+                interruptedException
+            )
         }
         if (!didCountDown || latch.count != 0L) {
             throw RuntimeException("Failed to count down latch within " + waitTimeMs + "ms.")

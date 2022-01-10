@@ -16,7 +16,7 @@
 import Foundation
 import Amplify
 
-public class OperationsManager {
+public enum OperationsManager {
     /// Prevents concurrent access to arrays.
     private static let queue = DispatchQueue(label: "com.amazonaws.flutter.OperationsManager.concurrency")
 

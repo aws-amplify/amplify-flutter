@@ -32,24 +32,41 @@ void main() {
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
+          'isReadOnly': false,
         },
         'name': {
           'name': "name",
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
+          'isReadOnly': false,
         },
         'posts': {
           'name': "posts",
           'type': {'fieldType': 'collection', 'ofModelName': "Post"},
           'isRequired': false,
           'isArray': true,
+          'isReadOnly': false,
           'association': const {
             'associationType': 'HasMany',
             'associatedName': "blog",
             'associatedType': "Post"
           }
         },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'fieldType': 'dateTime'},
+          'isRequired': false,
+          'isArray': false,
+          'isReadOnly': true
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'fieldType': 'dateTime'},
+          'isRequired': false,
+          'isArray': false,
+          'isReadOnly': true
+        }
       }
     });
   });
@@ -68,12 +85,14 @@ void main() {
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
+          'isReadOnly': false,
         },
         'post': {
           'name': 'post',
           'type': {'fieldType': 'model', 'ofModelName': 'Post'},
           'isRequired': false,
           'isArray': false,
+          'isReadOnly': false,
           'association': {
             'associationType': 'BelongsTo',
             'targetName': 'postID',
@@ -85,6 +104,21 @@ void main() {
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
+          'isReadOnly': false,
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'fieldType': 'dateTime'},
+          'isRequired': false,
+          'isArray': false,
+          'isReadOnly': true
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'fieldType': 'dateTime'},
+          'isRequired': false,
+          'isArray': false,
+          'isReadOnly': true
         }
       }
     });
@@ -103,46 +137,73 @@ void main() {
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
+          'isReadOnly': false
         },
         'title': {
           'name': 'title',
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
+          'isReadOnly': false
         },
         'rating': {
           'name': 'rating',
           'type': {'fieldType': 'int'},
           'isRequired': true,
           'isArray': false,
+          'isReadOnly': false
         },
         'created': {
           'name': 'created',
           'type': {'fieldType': 'dateTime'},
-          'isRequired': true,
+          'isRequired': false,
           'isArray': false,
+          'isReadOnly': false
+        },
+        'likeCount': {
+          'name': 'likeCount',
+          'type': {'fieldType': 'int'},
+          'isRequired': false,
+          'isArray': false,
+          'isReadOnly': false
         },
         'blog': {
           'name': 'blog',
           'type': {'fieldType': 'model', 'ofModelName': 'Blog'},
           'isRequired': false,
           'isArray': false,
+          'isReadOnly': false,
           'association': {
             'associationType': 'BelongsTo',
             'targetName': 'blogID',
             'associatedType': 'Blog'
-          },
+          }
         },
         'comments': {
           'name': 'comments',
           'type': {'fieldType': 'collection', 'ofModelName': 'Comment'},
           'isRequired': false,
           'isArray': true,
+          'isReadOnly': false,
           'association': {
             'associationType': 'HasMany',
             'associatedName': 'post',
             'associatedType': 'Comment'
-          },
+          }
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'fieldType': 'dateTime'},
+          'isRequired': false,
+          'isArray': false,
+          'isReadOnly': true
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'fieldType': 'dateTime'},
+          'isRequired': false,
+          'isArray': false,
+          'isReadOnly': true
         }
       }
     });
@@ -170,18 +231,35 @@ void main() {
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
+          'isReadOnly': false,
         },
         'title': {
           'name': 'title',
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
+          'isReadOnly': false,
         },
         'owner': {
           'name': 'owner',
           'type': {'fieldType': 'string'},
           'isRequired': false,
           'isArray': false,
+          'isReadOnly': false,
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'fieldType': 'dateTime'},
+          'isRequired': false,
+          'isArray': false,
+          'isReadOnly': true
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'fieldType': 'dateTime'},
+          'isRequired': false,
+          'isArray': false,
+          'isReadOnly': true
         }
       }
     });

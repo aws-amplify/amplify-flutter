@@ -21,6 +21,7 @@ import amplify_core
 public struct FlutterModelFieldType {
     public let fieldType : String
     public let ofModelName : String?
+    public let ofCustomTypeName: String?
     
     
     init(serializedData: [String: Any]) throws {
@@ -35,10 +36,10 @@ public struct FlutterModelFieldType {
         self.fieldType = fieldType
         
         self.ofModelName = serializedData["ofModelName"] as? String
-        
+        self.ofCustomTypeName = serializedData["ofCustomTypeName"] as? String
     }
     
-    public func convertToNativeModelField() throws -> ModelFieldType {
+    public func convertToNativeModelField(customTypeSchemaRegistry: FlutterSchemaRegistry) throws -> ModelFieldType {
         
         switch fieldType {
             case "string":
@@ -82,6 +83,32 @@ public struct FlutterModelFieldType {
                 } catch {
                     return ModelFieldType.collection(of: ofModelName)
                 }
+            case "embedded":
+                guard let customTypeName = self.ofCustomTypeName else {
+                    throw FlutterDataStoreError.acquireSchemaForHub
+                }
+                // For embedded CustomType, link its schema to the FieldType
+                return ModelFieldType.embedded(
+                    type: JSONValue.self,
+                    schema: try FlutterDataStoreRequestUtils.getCustomTypeSchema(
+                        customTypeSchemaRegistry: customTypeSchemaRegistry,
+                        modelName: customTypeName
+                    )
+                )
+            case "embeddedCollection":
+                guard let customTypeName = self.ofCustomTypeName else {
+                    throw FlutterDataStoreError.acquireSchemaForHub
+                }
+                // For embedded CustomType, link its schema to the FieldType
+                // embeddedCollection may also present a list of primitive type e.g. [String]
+                // there won't be a schema to be linked for primitive types
+                return ModelFieldType.embeddedCollection(
+                    of: JSONValue.self,
+                    schema: try FlutterDataStoreRequestUtils.getCustomTypeSchema(
+                        customTypeSchemaRegistry: customTypeSchemaRegistry,
+                        modelName: customTypeName
+                    )
+                )
             default:
                 preconditionFailure("Could not create a ModelFieldType from \(fieldType)")
         }

@@ -16,7 +16,7 @@
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_example/amplifyconfiguration.dart';
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 
 Future<void> configureDataStore() async {
   if (!Amplify.isConfigured) {

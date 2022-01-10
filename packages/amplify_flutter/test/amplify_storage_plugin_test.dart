@@ -13,14 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
-
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/src/categories/amplify_categories.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:amplify_flutter/categories/amplify_categories.dart';
-import 'package:amplify_core/types/index.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
@@ -31,27 +28,21 @@ void main() {
 
   bool platformError = false;
 
-  // Class under test
-  AmplifyClass amplify;
-
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
     });
     storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "addPlugin") {
+      if (methodCall.method == 'addPlugin') {
         if (!platformError) {
           return true;
         } else {
-          throw PlatformException(code: "AmplifyAlreadyConfiguredException");
+          throw PlatformException(code: 'AmplifyAlreadyConfiguredException');
         }
       } else {
         return true;
       }
     });
-    // We want to instantiate a new instance for each test so we start
-    // with a fresh state as `Amplify` singleton holds a state.
-    amplify = new AmplifyClass.protected();
 
     // Clear out plugins before each test for a fresh state.
     StorageCategory.plugins.clear();
@@ -68,8 +59,8 @@ void main() {
     platformError = true;
     try {
       await Amplify.addPlugin(AmplifyStorageS3());
-    } catch (e) {
-      fail("exception was thrown");
+    } on Exception {
+      fail('exception was thrown');
     }
   });
 
@@ -85,11 +76,11 @@ void main() {
     try {
       await Amplify.addPlugin(AmplifyStorageS3());
       await Amplify.addPlugin(AmplifyStorageS3());
-      fail("exception not thrown");
+      fail('exception not thrown');
     } on AmplifyException catch (e) {
       expect(e.message,
           'Amplify plugin AmplifyStorageS3 was not added successfully.');
-    } catch (e) {
+    } on Exception catch (e) {
       expect(e, isA<AmplifyException>());
     }
   });

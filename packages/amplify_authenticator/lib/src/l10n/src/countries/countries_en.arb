@@ -1,0 +1,989 @@
+{
+    "@@locale": "en",
+    "@@context": "amplify_authenticator:countries",
+    "selectDialCode": "Select your country dial code",
+    "@selectDialCode": {
+        "description": "Title of select dial code modal"
+    },
+    "noDialCodeSearchResults": "No search results match your criteria",
+    "@noDialCodeSearchResults": {
+        "description": "Text displayed when dial code lookup has no search results"
+    },
+"af": "Afghanistan",
+    "@af": {
+        "description": "Display name for Afghanistan"
+    },
+    "ax": "Aland Islands",
+    "@ax": {
+        "description": "Display name for Aland Islands"
+    },
+    "al": "Albania",
+    "@al": {
+        "description": "Display name for Albania"
+    },
+    "dz": "Algeria",
+    "@dz": {
+        "description": "Display name for Algeria"
+    },
+    "as1": "American Samoa",
+    "@as1": {
+        "description": "Display name for American Samoa"
+    },
+    "ad": "Andorra",
+    "@ad": {
+        "description": "Display name for Andorra"
+    },
+    "ao": "Angola",
+    "@ao": {
+        "description": "Display name for Angola"
+    },
+    "ai": "Anguilla",
+    "@ai": {
+        "description": "Display name for Anguilla"
+    },
+    "aq": "Antarctica",
+    "@aq": {
+        "description": "Display name for Antarctica"
+    },
+    "ag": "Antigua and Barbuda",
+    "@ag": {
+        "description": "Display name for Antigua and Barbuda"
+    },
+    "ar": "Argentina",
+    "@ar": {
+        "description": "Display name for Argentina"
+    },
+    "am": "Armenia",
+    "@am": {
+        "description": "Display name for Armenia"
+    },
+    "aw": "Aruba",
+    "@aw": {
+        "description": "Display name for Aruba"
+    },
+    "au": "Australia",
+    "@au": {
+        "description": "Display name for Australia"
+    },
+    "at": "Austria",
+    "@at": {
+        "description": "Display name for Austria"
+    },
+    "az": "Azerbaijan",
+    "@az": {
+        "description": "Display name for Azerbaijan"
+    },
+    "bs": "Bahamas",
+    "@bs": {
+        "description": "Display name for Bahamas"
+    },
+    "bh": "Bahrain",
+    "@bh": {
+        "description": "Display name for Bahrain"
+    },
+    "bd": "Bangladesh",
+    "@bd": {
+        "description": "Display name for Bangladesh"
+    },
+    "bb": "Barbados",
+    "@bb": {
+        "description": "Display name for Barbados"
+    },
+    "by": "Belarus",
+    "@by": {
+        "description": "Display name for Belarus"
+    },
+    "be": "Belgium",
+    "@be": {
+        "description": "Display name for Belgium"
+    },
+    "bz": "Belize",
+    "@bz": {
+        "description": "Display name for Belize"
+    },
+    "bj": "Benin",
+    "@bj": {
+        "description": "Display name for Benin"
+    },
+    "bm": "Bermuda",
+    "@bm": {
+        "description": "Display name for Bermuda"
+    },
+    "bt": "Bhutan",
+    "@bt": {
+        "description": "Display name for Bhutan"
+    },
+    "bo": "Bolivia (Plurinational State of)",
+    "@bo": {
+        "description": "Display name for Bolivia (Plurinational State of)"
+    },
+    "bq": "Bonaire, Sint Eustatius and Saba",
+    "@bq": {
+        "description": "Display name for Bonaire, Sint Eustatius and Saba"
+    },
+    "ba": "Bosnia and Herzegovina",
+    "@ba": {
+        "description": "Display name for Bosnia and Herzegovina"
+    },
+    "bw": "Botswana",
+    "@bw": {
+        "description": "Display name for Botswana"
+    },
+    "br": "Brazil",
+    "@br": {
+        "description": "Display name for Brazil"
+    },
+    "io": "British Indian Ocean Territory",
+    "@io": {
+        "description": "Display name for British Indian Ocean Territory"
+    },
+    "bn": "Brunei",
+    "@bn": {
+        "description": "Display name for Brunei"
+    },
+    "bg": "Bulgaria",
+    "@bg": {
+        "description": "Display name for Bulgaria"
+    },
+    "bf": "Burkina Faso",
+    "@bf": {
+        "description": "Display name for Burkina Faso"
+    },
+    "bi": "Burundi",
+    "@bi": {
+        "description": "Display name for Burundi"
+    },
+    "kh": "Cambodia",
+    "@kh": {
+        "description": "Display name for Cambodia"
+    },
+    "cm": "Cameroon",
+    "@cm": {
+        "description": "Display name for Cameroon"
+    },
+    "ca": "Canada",
+    "@ca": {
+        "description": "Display name for Canada"
+    },
+    "cv": "Cape Verde",
+    "@cv": {
+        "description": "Display name for Cape Verde"
+    },
+    "ky": "Cayman Islands",
+    "@ky": {
+        "description": "Display name for Cayman Islands"
+    },
+    "cf": "Central African Republic",
+    "@cf": {
+        "description": "Display name for Central African Republic"
+    },
+    "td": "Chad",
+    "@td": {
+        "description": "Display name for Chad"
+    },
+    "cl": "Chile",
+    "@cl": {
+        "description": "Display name for Chile"
+    },
+    "cn": "China",
+    "@cn": {
+        "description": "Display name for China"
+    },
+    "cx": "Christmas Island",
+    "@cx": {
+        "description": "Display name for Christmas Island"
+    },
+    "cc": "Cocos (Keeling) Islands",
+    "@cc": {
+        "description": "Display name for Cocos (Keeling) Islands"
+    },
+    "co": "Colombia",
+    "@co": {
+        "description": "Display name for Colombia"
+    },
+    "km": "Comoros",
+    "@km": {
+        "description": "Display name for Comoros"
+    },
+    "cg": "Congo (Republic of)",
+    "@cg": {
+        "description": "Display name for Congo (Republic of)"
+    },
+    "cd": "Congo (Democratic Republic of)",
+    "@cd": {
+        "description": "Display name for Congo (Democratic Republic of)"
+    },
+    "ck": "Cook Islands",
+    "@ck": {
+        "description": "Display name for Cook Islands"
+    },
+    "cr": "Costa Rica",
+    "@cr": {
+        "description": "Display name for Costa Rica"
+    },
+    "ci": "Côte d'Ivoire",
+    "@ci": {
+        "description": "Display name for Côte d'Ivoire"
+    },
+    "hr": "Croatia",
+    "@hr": {
+        "description": "Display name for Croatia"
+    },
+    "cu": "Cuba",
+    "@cu": {
+        "description": "Display name for Cuba"
+    },
+    "cy": "Cyprus",
+    "@cy": {
+        "description": "Display name for Cyprus"
+    },
+    "cz": "Czech Republic",
+    "@cz": {
+        "description": "Display name for Czech Republic"
+    },
+    "dk": "Denmark",
+    "@dk": {
+        "description": "Display name for Denmark"
+    },
+    "dj": "Djibouti",
+    "@dj": {
+        "description": "Display name for Djibouti"
+    },
+    "dm": "Dominica",
+    "@dm": {
+        "description": "Display name for Dominica"
+    },
+    "do1": "Dominican Republic",
+    "@do1": {
+        "description": "Display name for Dominican Republic"
+    },
+    "ec": "Ecuador",
+    "@ec": {
+        "description": "Display name for Ecuador"
+    },
+    "eg": "Egypt",
+    "@eg": {
+        "description": "Display name for Egypt"
+    },
+    "sv": "El Salvador",
+    "@sv": {
+        "description": "Display name for El Salvador"
+    },
+    "gq": "Equatorial Guinea",
+    "@gq": {
+        "description": "Display name for Equatorial Guinea"
+    },
+    "er": "Eritrea",
+    "@er": {
+        "description": "Display name for Eritrea"
+    },
+    "ee": "Estonia",
+    "@ee": {
+        "description": "Display name for Estonia"
+    },
+    "sz": "Eswatini",
+    "@sz": {
+        "description": "Display name for Eswatini"
+    },
+    "et": "Ethiopia",
+    "@et": {
+        "description": "Display name for Ethiopia"
+    },
+    "fk": "Falkland Islands (Malvinas)",
+    "@fk": {
+        "description": "Display name for Falkland Islands (Malvinas)"
+    },
+    "fo": "Faroe Islands",
+    "@fo": {
+        "description": "Display name for Faroe Islands"
+    },
+    "fj": "Fiji",
+    "@fj": {
+        "description": "Display name for Fiji"
+    },
+    "fi": "Finland",
+    "@fi": {
+        "description": "Display name for Finland"
+    },
+    "fr": "France",
+    "@fr": {
+        "description": "Display name for France"
+    },
+    "gf": "French Guiana",
+    "@gf": {
+        "description": "Display name for French Guiana"
+    },
+    "pf": "French Polynesia",
+    "@pf": {
+        "description": "Display name for French Polynesia"
+    },
+    "ga": "Gabon",
+    "@ga": {
+        "description": "Display name for Gabon"
+    },
+    "gm": "Gambia",
+    "@gm": {
+        "description": "Display name for Gambia"
+    },
+    "ge": "Georgia",
+    "@ge": {
+        "description": "Display name for Georgia"
+    },
+    "de": "Germany",
+    "@de": {
+        "description": "Display name for Germany"
+    },
+    "gh": "Ghana",
+    "@gh": {
+        "description": "Display name for Ghana"
+    },
+    "gi": "Gibraltar",
+    "@gi": {
+        "description": "Display name for Gibraltar"
+    },
+    "gr": "Greece",
+    "@gr": {
+        "description": "Display name for Greece"
+    },
+    "gl": "Greenland",
+    "@gl": {
+        "description": "Display name for Greenland"
+    },
+    "gd": "Grenada",
+    "@gd": {
+        "description": "Display name for Grenada"
+    },
+    "gp": "Guadeloupe",
+    "@gp": {
+        "description": "Display name for Guadeloupe"
+    },
+    "gu": "Guam",
+    "@gu": {
+        "description": "Display name for Guam"
+    },
+    "gt": "Guatemala",
+    "@gt": {
+        "description": "Display name for Guatemala"
+    },
+    "gg": "Guernsey",
+    "@gg": {
+        "description": "Display name for Guernsey"
+    },
+    "gn": "Guinea",
+    "@gn": {
+        "description": "Display name for Guinea"
+    },
+    "gw": "Guinea-Bissau",
+    "@gw": {
+        "description": "Display name for Guinea-Bissau"
+    },
+    "gy": "Guyana",
+    "@gy": {
+        "description": "Display name for Guyana"
+    },
+    "ht": "Haiti",
+    "@ht": {
+        "description": "Display name for Haiti"
+    },
+    "va": "Holy See (Vatican City State)",
+    "@va": {
+        "description": "Display name for Holy See (Vatican City State)"
+    },
+    "hn": "Honduras",
+    "@hn": {
+        "description": "Display name for Honduras"
+    },
+    "hk": "Hong Kong",
+    "@hk": {
+        "description": "Display name for Hong Kong"
+    },
+    "hu": "Hungary",
+    "@hu": {
+        "description": "Display name for Hungary"
+    },
+    "is1": "Iceland",
+    "@is1": {
+        "description": "Display name for Iceland"
+    },
+    "in1": "India",
+    "@in1": {
+        "description": "Display name for India"
+    },
+    "id": "Indonesia",
+    "@id": {
+        "description": "Display name for Indonesia"
+    },
+    "ir": "Iran (Islamic Republic of)",
+    "@ir": {
+        "description": "Display name for Iran (Islamic Republic of)"
+    },
+    "iq": "Iraq",
+    "@iq": {
+        "description": "Display name for Iraq"
+    },
+    "ie": "Ireland",
+    "@ie": {
+        "description": "Display name for Ireland"
+    },
+    "im": "Isle of Man",
+    "@im": {
+        "description": "Display name for Isle of Man"
+    },
+    "il": "Israel",
+    "@il": {
+        "description": "Display name for Israel"
+    },
+    "it": "Italy",
+    "@it": {
+        "description": "Display name for Italy"
+    },
+    "jm": "Jamaica",
+    "@jm": {
+        "description": "Display name for Jamaica"
+    },
+    "jp": "Japan",
+    "@jp": {
+        "description": "Display name for Japan"
+    },
+    "je": "Jersey",
+    "@je": {
+        "description": "Display name for Jersey"
+    },
+    "jo": "Jordan",
+    "@jo": {
+        "description": "Display name for Jordan"
+    },
+    "kz": "Kazakhstan",
+    "@kz": {
+        "description": "Display name for Kazakhstan"
+    },
+    "ke": "Kenya",
+    "@ke": {
+        "description": "Display name for Kenya"
+    },
+    "ki": "Kiribati",
+    "@ki": {
+        "description": "Display name for Kiribati"
+    },
+    "kp": "Korea (Democratic People's Republic of)",
+    "@kp": {
+        "description": "Display name for Korea (Democratic People's Republic of)"
+    },
+    "kr": "Korea (Republic of)",
+    "@kr": {
+        "description": "Display name for Korea (Republic of)"
+    },
+    "xk": "Kosovo",
+    "@xk": {
+        "description": "Display name for Kosovo"
+    },
+    "kw": "Kuwait",
+    "@kw": {
+        "description": "Display name for Kuwait"
+    },
+    "kg": "Kyrgyzstan",
+    "@kg": {
+        "description": "Display name for Kyrgyzstan"
+    },
+    "la": "Laos",
+    "@la": {
+        "description": "Display name for Laos"
+    },
+    "lv": "Latvia",
+    "@lv": {
+        "description": "Display name for Latvia"
+    },
+    "lb": "Lebanon",
+    "@lb": {
+        "description": "Display name for Lebanon"
+    },
+    "ls": "Lesotho",
+    "@ls": {
+        "description": "Display name for Lesotho"
+    },
+    "lr": "Liberia",
+    "@lr": {
+        "description": "Display name for Liberia"
+    },
+    "ly": "Libya",
+    "@ly": {
+        "description": "Display name for Libya"
+    },
+    "li": "Liechtenstein",
+    "@li": {
+        "description": "Display name for Liechtenstein"
+    },
+    "lt": "Lithuania",
+    "@lt": {
+        "description": "Display name for Lithuania"
+    },
+    "lu": "Luxembourg",
+    "@lu": {
+        "description": "Display name for Luxembourg"
+    },
+    "mo": "Macao",
+    "@mo": {
+        "description": "Display name for Macao"
+    },
+    "mk": "Macedonia",
+    "@mk": {
+        "description": "Display name for Macedonia"
+    },
+    "mg": "Madagascar",
+    "@mg": {
+        "description": "Display name for Madagascar"
+    },
+    "mw": "Malawi",
+    "@mw": {
+        "description": "Display name for Malawi"
+    },
+    "my": "Malaysia",
+    "@my": {
+        "description": "Display name for Malaysia"
+    },
+    "mv": "Maldives",
+    "@mv": {
+        "description": "Display name for Maldives"
+    },
+    "ml": "Mali",
+    "@ml": {
+        "description": "Display name for Mali"
+    },
+    "mt": "Malta",
+    "@mt": {
+        "description": "Display name for Malta"
+    },
+    "mh": "Marshall Islands",
+    "@mh": {
+        "description": "Display name for Marshall Islands"
+    },
+    "mq": "Martinique",
+    "@mq": {
+        "description": "Display name for Martinique"
+    },
+    "mr": "Mauritania",
+    "@mr": {
+        "description": "Display name for Mauritania"
+    },
+    "mu": "Mauritius",
+    "@mu": {
+        "description": "Display name for Mauritius"
+    },
+    "yt": "Mayotte",
+    "@yt": {
+        "description": "Display name for Mayotte"
+    },
+    "mx": "Mexico",
+    "@mx": {
+        "description": "Display name for Mexico"
+    },
+    "fm": "Micronesia (Federated States of)",
+    "@fm": {
+        "description": "Display name for Micronesia (Federated States of)"
+    },
+    "md": "Moldova",
+    "@md": {
+        "description": "Display name for Moldova"
+    },
+    "mc": "Monaco",
+    "@mc": {
+        "description": "Display name for Monaco"
+    },
+    "mn": "Mongolia",
+    "@mn": {
+        "description": "Display name for Mongolia"
+    },
+    "me": "Montenegro",
+    "@me": {
+        "description": "Display name for Montenegro"
+    },
+    "ms": "Montserrat",
+    "@ms": {
+        "description": "Display name for Montserrat"
+    },
+    "ma": "Morocco",
+    "@ma": {
+        "description": "Display name for Morocco"
+    },
+    "mz": "Mozambique",
+    "@mz": {
+        "description": "Display name for Mozambique"
+    },
+    "mm": "Myanmar",
+    "@mm": {
+        "description": "Display name for Myanmar"
+    },
+    "na": "Namibia",
+    "@na": {
+        "description": "Display name for Namibia"
+    },
+    "nr": "Nauru",
+    "@nr": {
+        "description": "Display name for Nauru"
+    },
+    "np": "Nepal",
+    "@np": {
+        "description": "Display name for Nepal"
+    },
+    "nl": "Netherlands",
+    "@nl": {
+        "description": "Display name for Netherlands"
+    },
+    "nc": "New Caledonia",
+    "@nc": {
+        "description": "Display name for New Caledonia"
+    },
+    "nz": "New Zealand",
+    "@nz": {
+        "description": "Display name for New Zealand"
+    },
+    "ni": "Nicaragua",
+    "@ni": {
+        "description": "Display name for Nicaragua"
+    },
+    "ne": "Niger",
+    "@ne": {
+        "description": "Display name for Niger"
+    },
+    "ng": "Nigeria",
+    "@ng": {
+        "description": "Display name for Nigeria"
+    },
+    "nu": "Niue",
+    "@nu": {
+        "description": "Display name for Niue"
+    },
+    "nf": "Norfolk Island",
+    "@nf": {
+        "description": "Display name for Norfolk Island"
+    },
+    "mp": "Northern Mariana Islands",
+    "@mp": {
+        "description": "Display name for Northern Mariana Islands"
+    },
+    "no": "Norway",
+    "@no": {
+        "description": "Display name for Norway"
+    },
+    "om": "Oman",
+    "@om": {
+        "description": "Display name for Oman"
+    },
+    "pk": "Pakistan",
+    "@pk": {
+        "description": "Display name for Pakistan"
+    },
+    "pw": "Palau",
+    "@pw": {
+        "description": "Display name for Palau"
+    },
+    "ps": "Palestine (State of)",
+    "@ps": {
+        "description": "Display name for Palestine (State of)"
+    },
+    "pa": "Panama",
+    "@pa": {
+        "description": "Display name for Panama"
+    },
+    "pg": "Papua New Guinea",
+    "@pg": {
+        "description": "Display name for Papua New Guinea"
+    },
+    "py": "Paraguay",
+    "@py": {
+        "description": "Display name for Paraguay"
+    },
+    "pe": "Peru",
+    "@pe": {
+        "description": "Display name for Peru"
+    },
+    "ph": "Philippines",
+    "@ph": {
+        "description": "Display name for Philippines"
+    },
+    "pn": "Pitcairn",
+    "@pn": {
+        "description": "Display name for Pitcairn"
+    },
+    "pl": "Poland",
+    "@pl": {
+        "description": "Display name for Poland"
+    },
+    "pt": "Portugal",
+    "@pt": {
+        "description": "Display name for Portugal"
+    },
+    "pr": "Puerto Rico",
+    "@pr": {
+        "description": "Display name for Puerto Rico"
+    },
+    "qa": "Qatar",
+    "@qa": {
+        "description": "Display name for Qatar"
+    },
+    "re": "Reunion",
+    "@re": {
+        "description": "Display name for Reunion"
+    },
+    "ro": "Romania",
+    "@ro": {
+        "description": "Display name for Romania"
+    },
+    "ru": "Russia",
+    "@ru": {
+        "description": "Display name for Russia"
+    },
+    "rw": "Rwanda",
+    "@rw": {
+        "description": "Display name for Rwanda"
+    },
+    "bl": "Saint Barthelemy",
+    "@bl": {
+        "description": "Display name for Saint Barthelemy"
+    },
+    "sh": "Saint Helena, Ascension and Tristan Da Cunha",
+    "@sh": {
+        "description": "Display name for Saint Helena, Ascension and Tristan Da Cunha"
+    },
+    "kn": "Saint Kitts and Nevis",
+    "@kn": {
+        "description": "Display name for Saint Kitts and Nevis"
+    },
+    "lc": "Saint Lucia",
+    "@lc": {
+        "description": "Display name for Saint Lucia"
+    },
+    "mf": "Saint Martin",
+    "@mf": {
+        "description": "Display name for Saint Martin"
+    },
+    "pm": "Saint Pierre and Miquelon",
+    "@pm": {
+        "description": "Display name for Saint Pierre and Miquelon"
+    },
+    "vc": "Saint Vincent and the Grenadines",
+    "@vc": {
+        "description": "Display name for Saint Vincent and the Grenadines"
+    },
+    "ws": "Samoa",
+    "@ws": {
+        "description": "Display name for Samoa"
+    },
+    "sm": "San Marino",
+    "@sm": {
+        "description": "Display name for San Marino"
+    },
+    "st": "Sao Tome and Principe",
+    "@st": {
+        "description": "Display name for Sao Tome and Principe"
+    },
+    "sa": "Saudi Arabia",
+    "@sa": {
+        "description": "Display name for Saudi Arabia"
+    },
+    "sn": "Senegal",
+    "@sn": {
+        "description": "Display name for Senegal"
+    },
+    "rs": "Serbia",
+    "@rs": {
+        "description": "Display name for Serbia"
+    },
+    "sc": "Seychelles",
+    "@sc": {
+        "description": "Display name for Seychelles"
+    },
+    "sl": "Sierra Leone",
+    "@sl": {
+        "description": "Display name for Sierra Leone"
+    },
+    "sg": "Singapore",
+    "@sg": {
+        "description": "Display name for Singapore"
+    },
+    "sk": "Slovakia",
+    "@sk": {
+        "description": "Display name for Slovakia"
+    },
+    "si": "Slovenia",
+    "@si": {
+        "description": "Display name for Slovenia"
+    },
+    "sb": "Solomon Islands",
+    "@sb": {
+        "description": "Display name for Solomon Islands"
+    },
+    "so": "Somalia",
+    "@so": {
+        "description": "Display name for Somalia"
+    },
+    "za": "South Africa",
+    "@za": {
+        "description": "Display name for South Africa"
+    },
+    "gs": "South Georgia and the South Sandwich Islands",
+    "@gs": {
+        "description": "Display name for South Georgia and the South Sandwich Islands"
+    },
+    "ss": "South Sudan",
+    "@ss": {
+        "description": "Display name for South Sudan"
+    },
+    "es": "Spain",
+    "@es": {
+        "description": "Display name for Spain"
+    },
+    "lk": "Sri Lanka",
+    "@lk": {
+        "description": "Display name for Sri Lanka"
+    },
+    "sd": "Sudan",
+    "@sd": {
+        "description": "Display name for Sudan"
+    },
+    "sr": "Suriname",
+    "@sr": {
+        "description": "Display name for Suriname"
+    },
+    "sj": "Svalbard and Jan Mayen",
+    "@sj": {
+        "description": "Display name for Svalbard and Jan Mayen"
+    },
+    "se": "Sweden",
+    "@se": {
+        "description": "Display name for Sweden"
+    },
+    "ch": "Switzerland",
+    "@ch": {
+        "description": "Display name for Switzerland"
+    },
+    "sy": "Syrian Arab Republic",
+    "@sy": {
+        "description": "Display name for Syrian Arab Republic"
+    },
+    "tw": "Taiwan",
+    "@tw": {
+        "description": "Display name for Taiwan"
+    },
+    "tj": "Tajikistan",
+    "@tj": {
+        "description": "Display name for Tajikistan"
+    },
+    "tz": "Tanzania (United Republic of)",
+    "@tz": {
+        "description": "Display name for Tanzania (United Republic of)"
+    },
+    "th": "Thailand",
+    "@th": {
+        "description": "Display name for Thailand"
+    },
+    "tl": "Timor-Leste (East Timor)",
+    "@tl": {
+        "description": "Display name for Timor-Leste (East Timor)"
+    },
+    "tg": "Togo",
+    "@tg": {
+        "description": "Display name for Togo"
+    },
+    "tk": "Tokelau",
+    "@tk": {
+        "description": "Display name for Tokelau"
+    },
+    "to": "Tonga",
+    "@to": {
+        "description": "Display name for Tonga"
+    },
+    "tt": "Trinidad and Tobago",
+    "@tt": {
+        "description": "Display name for Trinidad and Tobago"
+    },
+    "tn": "Tunisia",
+    "@tn": {
+        "description": "Display name for Tunisia"
+    },
+    "tr": "Turkey",
+    "@tr": {
+        "description": "Display name for Turkey"
+    },
+    "tm": "Turkmenistan",
+    "@tm": {
+        "description": "Display name for Turkmenistan"
+    },
+    "tc": "Turks and Caicos Islands",
+    "@tc": {
+        "description": "Display name for Turks and Caicos Islands"
+    },
+    "tv": "Tuvalu",
+    "@tv": {
+        "description": "Display name for Tuvalu"
+    },
+    "ug": "Uganda",
+    "@ug": {
+        "description": "Display name for Uganda"
+    },
+    "ua": "Ukraine",
+    "@ua": {
+        "description": "Display name for Ukraine"
+    },
+    "ae": "United Arab Emirates",
+    "@ae": {
+        "description": "Display name for United Arab Emirates"
+    },
+    "gb": "United Kingdom",
+    "@gb": {
+        "description": "Display name for United Kingdom"
+    },
+    "um": "United States Minor Outlying Islands",
+    "@um": {
+        "description": "Display name for United States Minor Outlying Islands"
+    },
+    "us": "United States",
+    "@us": {
+        "description": "Display name for United States"
+    },
+    "uy": "Uruguay",
+    "@uy": {
+        "description": "Display name for Uruguay"
+    },
+    "uz": "Uzbekistan",
+    "@uz": {
+        "description": "Display name for Uzbekistan"
+    },
+    "vu": "Vanuatu",
+    "@vu": {
+        "description": "Display name for Vanuatu"
+    },
+    "ve": "Venezuela (Bolivarian Republic of)",
+    "@ve": {
+        "description": "Display name for Venezuela (Bolivarian Republic of)"
+    },
+    "vn": "Vietnam",
+    "@vn": {
+        "description": "Display name for Vietnam"
+    },
+    "vg": "Virgin Islands (British)",
+    "@vg": {
+        "description": "Display name for Virgin Islands (British)"
+    },
+    "vi": "Virgin Islands (US)",
+    "@vi": {
+        "description": "Display name for Virgin Islands (US)"
+    },
+    "wf": "Wallis and Futuna",
+    "@wf": {
+        "description": "Display name for Wallis and Futuna"
+    },
+    "ye": "Yemen",
+    "@ye": {
+        "description": "Display name for Yemen"
+    },
+    "zm": "Zambia",
+    "@zm": {
+        "description": "Display name for Zambia"
+    },
+    "zw": "Zimbabwe",
+    "@zw": {
+        "description": "Display name for Zimbabwe"
+    }
+      }
+  

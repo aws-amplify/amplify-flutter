@@ -25,7 +25,7 @@ class QuerySortBuilder {
             if (serializedList == null || serializedList.isEmpty()) {
                 return null
             }
-            return serializedList.map { querySortInput -> fromSerializedMap(querySortInput) }
+            return serializedList.map { fromSerializedMap(it) }
         }
 
         private fun fromSerializedMap(serializedMap: Map<String, Any>): QuerySortBy {

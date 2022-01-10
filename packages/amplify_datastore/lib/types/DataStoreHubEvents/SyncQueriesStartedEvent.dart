@@ -14,7 +14,7 @@
  */
 
 import 'dart:convert';
-import 'package:amplify_core/types/hub/HubEventPayload.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class SyncQueriesStartedEvent extends HubEventPayload {
   final List<String> models;

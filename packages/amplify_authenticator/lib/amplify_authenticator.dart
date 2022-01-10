@@ -1,0 +1,609 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
+/// A prebuilt sign in/sign up experience for Amplify Auth.
+///
+/// See [Authenticator] for an overview on getting started.
+library amplify_authenticator;
+
+import 'dart:async';
+
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
+import 'package:amplify_authenticator/src/enums/enums.dart';
+import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
+import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
+import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
+import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
+import 'package:amplify_authenticator/src/screens/loading_screen.dart';
+import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
+import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
+import 'package:amplify_authenticator/src/state/inherited_forms.dart';
+import 'package:amplify_authenticator/src/state/inherited_strings.dart';
+import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
+import 'package:amplify_authenticator/src/widgets/authenticator_banner.dart';
+import 'package:amplify_authenticator/src/widgets/form.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
+    show AuthProvider;
+export 'package:amplify_flutter/amplify_flutter.dart'
+    show PasswordProtectionSettings, PasswordPolicyCharacters;
+
+export 'src/enums/enums.dart' show AuthScreen, Gender;
+export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
+export 'src/models/authenticator_exception.dart';
+export 'src/models/username_input.dart' show UsernameType, UsernameInput;
+export 'src/widgets/button.dart' show SignOutButton;
+export 'src/widgets/form.dart'
+    show SignInForm, SignUpForm, ConfirmSignInNewPasswordForm;
+export 'src/widgets/form_field.dart'
+    show SignInFormField, SignUpFormField, ConfirmSignInFormField;
+
+/// {@template amplify_authenticator.authenticator}
+/// # Amplify Authenticator
+///
+/// A prebuilt sign in/sign up experience for Amplify Auth. Simply provide a
+/// [child] widget which is your app's authenticated route, and the Authenticator
+/// will handle the logic behind managing user sessions and guiding users through
+/// the sign up and sign in process.
+///
+/// ```dart
+/// import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+/// import 'package:amplify_authenticator/amplify_authenticator.dart';
+/// import 'package:amplify_flutter/amplify_flutter.dart';
+/// import 'package:flutter/material.dart';
+///
+/// import 'amplifyconfiguration.dart';
+///
+/// void main() {
+///   runApp(const MyApp());
+/// }
+///
+/// class MyApp extends StatefulWidget {
+///   const MyApp({Key? key}) : super(key: key);
+///
+///   @override
+///   _MyAppState createState() => _MyAppState();
+/// }
+///
+/// class _MyAppState extends State<MyApp> {
+///   @override
+///   void initState() {
+///     super.initState();
+///     _configureAmplify();
+///   }
+///
+///   Future<void> _configureAmplify() async {
+///     try {
+///       await Amplify.addPlugin(AmplifyAuthCognito());
+///       await Amplify.configure(amplifyconfig);
+///     } on Exception catch (e) {
+///       print('Could not configure Amplify: $e');
+///     }
+///   }
+///
+///   @override
+///   Widget build(BuildContext context) {
+///     return MaterialApp(
+///       theme: ThemeData.light(),
+///       darkTheme: ThemeData.dark(),
+///       home: Authenticator(
+///         child: const LoggedInScreen(),
+///       ),
+///     );
+///   }
+/// }
+///
+/// class LoggedInScreen extends StatelessWidget {
+///   const LoggedInScreen({Key? key}) : super(key: key);
+///
+///   @override
+///   Widget build(BuildContext context) {
+///     return Scaffold(
+///       body: Center(
+///         child: Column(
+///           children: const [
+///             Text('Logged In'),
+///             SignOutButton(),
+///           ],
+///         ),
+///       ),
+///     );
+///   }
+/// }
+/// ```
+/// {@endtemplate}
+///
+/// ## Customization
+///
+/// ### Themeing
+///
+/// By default, the Authenticator uses your app's Material theme for its styling.
+/// However, you can also use the a hand-crafted Amplify theme by setting
+/// [useAmplifyTheme] to `true`.
+///
+/// ### Forms
+///
+/// The Authenticator uses your app's Cognito configuration (as defined in your
+/// `amplifyconfiguration.dart` file) to determine which fields are required.
+/// However, you may optionally add on additional fields using a custom form
+/// component. For example, to collect your user's address information on the s
+/// ign up form, use the [SignUpForm.custom] constructor:
+///
+/// {@template amplify_authenticator.custom_sign_up_form}
+/// ```dart
+/// Authenticator(
+///   signUpForm: SignUpForm.custom(fields: [
+///     SignUpFormField.address(
+///       required: false,
+///     ),
+///   ]),
+///   child: const LoggedInScreen(),
+/// )
+/// ```
+/// {@endtemplate}
+///
+/// You can also override the validation of form fields if your app has custom
+/// requirements. The syntax for these follows Flutter's built-in
+/// [FormFieldValidator](https://api.flutter.dev/flutter/widgets/FormFieldValidator.html) class.
+///
+/// ```dart
+/// Authenticator(
+///   signUpForm: SignUpForm.custom(fields: [
+///     SignUpFormField.username(
+///       validator: (UsernameInput? input) {
+///         final username = input?.username;
+///         if (username == null || username.isEmpty) {
+///           return 'Username cannot be empty';
+///         }
+///
+///         bool containsAmplify = username.contains('amplify');
+///         if (!containsAmplify) {
+///           return 'Username needs to include amplify';
+///         }
+///
+///         return null;
+///       },
+///     ),
+///   ]),
+///   child: const LoggedInScreen(),
+/// )
+/// ```
+///
+/// ## Localization
+///
+/// The Authenticator also supports localization by integrating with Flutter's
+/// built-in localization system. See the Flutter [docs](https://docs.flutter.dev/development/accessibility-and-localization/internationalization)
+/// for an overview of how to get started, and check out a full [example](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_authenticator/example)
+/// on our Github repo.
+///
+/// You can also use the localization mechanism to simply override the default
+/// strings used for the form fields and other widgets.
+///
+/// {@template amplify_authenticator.custom_auth_string_resolver}
+/// ```dart
+/// class CustomButtonResolver extends ButtonResolver {
+///   const CustomButtonResolver();
+///
+///   @override
+///   String signout(BuildContext context) => 'Exit App';
+/// }
+///
+/// Authenticator(
+///   stringResolver: const AuthStringResolver(
+///     buttons: CustomButtonResolver(),
+///   ),
+///   child: const LoggedInScreen(),
+/// )
+/// ```
+/// {@endtemplate}
+class Authenticator extends StatefulWidget {
+  /// {@macro amplify_authenticator.authenticator}
+  Authenticator({
+    Key? key,
+    SignInForm? signInForm,
+    SignUpForm? signUpForm,
+    ConfirmSignInNewPasswordForm? confirmSignInNewPasswordForm,
+    this.stringResolver = const AuthStringResolver(),
+    required this.child,
+    this.useAmplifyTheme = false,
+    this.onException,
+    this.exceptionBannerLocation = ExceptionBannerLocation.auto,
+    this.preferPrivateSession = false,
+  }) : super(key: key) {
+    this.signInForm = signInForm ?? SignInForm();
+    this.signUpForm = signUpForm ?? SignUpForm();
+    this.confirmSignInNewPasswordForm =
+        confirmSignInNewPasswordForm ?? ConfirmSignInNewPasswordForm();
+  }
+
+  /// Wraps user-defined navigators for integration with [MaterialApp] and
+  /// [Navigator].
+  ///
+  /// ```dart
+  /// return Authenticator(
+  ///   child: MaterialApp(
+  ///     builder: Authenticator.builder(),
+  ///     home: const LoggedInScreen(),
+  ///   ),
+  /// );
+  /// ```
+  static TransitionBuilder builder() => (BuildContext context, Widget? child) {
+        if (child == null) {
+          throw FlutterError.fromParts([
+            ErrorSummary('No Navigator or Router provided.'),
+            ErrorSpacer(),
+            ErrorDescription(
+              'Did you include a home Widget or provide routes to your MaterialApp?',
+            ),
+            ErrorSpacer(),
+          ]);
+        }
+        return _AuthenticatorBody(child: child);
+      };
+
+  /// Whether to use Amplify colors and styles in the Authenticator,
+  /// instead of those defined by the app's Material [Theme].
+  ///
+  /// Defaults to `false`.
+  final bool useAmplifyTheme;
+
+  /// The form displayed when promted for a password change upon signing in.
+  late final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
+
+  /// The form displayed during sign in.
+  late final SignInForm signInForm;
+
+  /// The form displayed during sign up.
+  ///
+  /// {@macro amplify_authenticator.custom_sign_up_form}
+  late final SignUpForm signUpForm;
+
+  /// An optional, user-defined string resolver, used for localizing the
+  /// Authenticator or overriding default messages.
+  ///
+  /// {@macro amplify_authenticator.custom_auth_string_resolver}
+  final AuthStringResolver stringResolver;
+
+  /// {@macro amplify_authenticator.exception_handler}
+  final ExceptionHandler? onException;
+
+  /// {@macro amplify_authenticator.exception_banner_location}
+  final ExceptionBannerLocation exceptionBannerLocation;
+
+  /// {@macro amplify_auth_plugin_interface.cognito_sign_in_with_web_ui_options}
+  final bool preferPrivateSession;
+
+  /// This widget will be displayed after a user has signed in.
+  final Widget child;
+
+  @override
+  _AuthenticatorState createState() => _AuthenticatorState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<AuthStringResolver>(
+        'stringResolver', stringResolver));
+    properties
+        .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
+    properties.add(
+        ObjectFlagProperty<ExceptionHandler?>.has('onException', onException));
+    properties.add(EnumProperty<ExceptionBannerLocation>(
+        'exceptionBannerLocation', exceptionBannerLocation));
+    properties.add(DiagnosticsProperty<bool>(
+        'preferPrivateSession', preferPrivateSession));
+  }
+}
+
+class _AuthenticatorState extends State<Authenticator> {
+  static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
+  final AuthService _authService = AmplifyAuthService();
+  late final StateMachineBloc _stateMachineBloc;
+  late final AuthViewModel _viewModel;
+  late final StreamSubscription<AuthenticatorException> _exceptionSub;
+  late final StreamSubscription<MessageResolverKey> _infoSub;
+  late final StreamSubscription<AuthState> _successSub;
+  StreamSubscription? _hubSubscription;
+
+  AmplifyConfig? _config;
+  late List<String> _missingConfigValues;
+  bool _configInitialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _stateMachineBloc = StateMachineBloc(
+      authService: _authService,
+      preferPrivateSession: widget.preferPrivateSession,
+    )..add(const AuthLoad());
+    _viewModel = AuthViewModel(_stateMachineBloc);
+    _subscribeToExceptions();
+    _subscribeToInfoMessages();
+    _subscribeToSuccessEvents();
+    _waitForConfiguration();
+    _setUpHubSubscription();
+  }
+
+  void _subscribeToExceptions() {
+    _exceptionSub = _stateMachineBloc.exceptions.listen((exception) {
+      var onException = widget.onException;
+      if (onException != null) {
+        onException(exception);
+      } else {
+        safePrint('[ERROR]: $exception');
+      }
+      if (mounted && exception.showBanner) {
+        _showExceptionBanner(
+          type: StatusType.error,
+          content: Text(exception.message),
+        );
+      }
+    });
+  }
+
+  void _subscribeToInfoMessages() {
+    final resolver = widget.stringResolver.messages;
+    _infoSub = _stateMachineBloc.infoMessages.listen((key) {
+      final context = scaffoldMessengerKey.currentContext;
+      if (mounted && context != null) {
+        _showExceptionBanner(
+          type: StatusType.info,
+          content: Text(resolver.resolve(context, key)),
+        );
+      }
+    });
+  }
+
+  void _showExceptionBanner({
+    required StatusType type,
+    required Widget content,
+  }) {
+    final scaffoldMessengerState = scaffoldMessengerKey.currentState;
+    final scaffoldMessengerContext = scaffoldMessengerKey.currentContext;
+    if (scaffoldMessengerState == null || scaffoldMessengerContext == null) {
+      return;
+    }
+    var location = widget.exceptionBannerLocation;
+    if (location == ExceptionBannerLocation.none) {
+      return;
+    }
+    if (location == ExceptionBannerLocation.auto) {
+      final Size screenSize = MediaQuery.of(scaffoldMessengerContext).size;
+      final bool isDesktop =
+          screenSize.width > AuthenticatorContainerConstants.landScapeView;
+      location = isDesktop
+          ? ExceptionBannerLocation.top
+          : ExceptionBannerLocation.bottom;
+    }
+    if (location == ExceptionBannerLocation.top) {
+      scaffoldMessengerState
+        ..clearMaterialBanners()
+        ..showMaterialBanner(createMaterialBanner(
+          scaffoldMessengerContext,
+          useAmplifyTheme: widget.useAmplifyTheme,
+          type: type,
+          content: content,
+          actions: [
+            IconButton(
+              onPressed: scaffoldMessengerState.clearMaterialBanners,
+              icon: const Icon(Icons.close),
+            ),
+          ],
+        ));
+    } else {
+      scaffoldMessengerState
+        ..clearSnackBars()
+        ..showSnackBar(createSnackBar(
+          scaffoldMessengerContext,
+          type: type,
+          content: content,
+          useAmplifyTheme: widget.useAmplifyTheme,
+        ));
+    }
+  }
+
+  // Clear exception and info banners on successful login.
+  void _subscribeToSuccessEvents() {
+    _successSub = _stateMachineBloc.stream.listen((state) {
+      if (state is Authenticated) {
+        scaffoldMessengerKey.currentState?.removeCurrentMaterialBanner();
+      }
+    });
+  }
+
+  Future<void> _setUpHubSubscription() async {
+    // the stream does not exist until configuration is complete
+    await Amplify.asyncConfig;
+    _hubSubscription = Amplify.Hub.listen([HubChannel.Auth], (event) {
+      switch (event.eventName) {
+        case 'SIGNED_OUT':
+          _stateMachineBloc.add(const AuthChangeScreen(AuthScreen.signin));
+          break;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _exceptionSub.cancel();
+    _infoSub.cancel();
+    _successSub.cancel();
+    _stateMachineBloc.dispose();
+    _hubSubscription?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _waitForConfiguration() async {
+    final authLoaded = await _stateMachineBloc.stream
+        .firstWhere((el) => el is AuthLoaded) as AuthLoaded;
+    var config = authLoaded.config;
+    setState(() {
+      _config = config;
+      _configInitialized = true;
+      _missingConfigValues = missingConfigValues(config);
+    });
+  }
+
+  List<String> missingConfigValues(AmplifyConfig? config) {
+    final missingValues = <String>[];
+    var cognitoPlugin = config?.auth?.awsPlugin?.auth?.default$;
+    if (cognitoPlugin == null) {
+      return const ['auth.plugins.Auth.Default'];
+    }
+    if (cognitoPlugin.usernameAttributes == null) {
+      missingValues.add('usernameAttributes');
+    }
+    if (cognitoPlugin.signupAttributes == null) {
+      missingValues.add('signUpAttributes');
+    }
+    if (cognitoPlugin.passwordProtectionSettings == null) {
+      missingValues.add('passwordProtectionSettings');
+    }
+    return missingValues;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_configInitialized && _missingConfigValues.isNotEmpty) {
+      throw FlutterError.fromParts([
+        ErrorSummary(
+          'Encountered problem(s) building the Authenticator due to an invalid config. See below for more info.',
+        ),
+        ErrorDescription(
+          '\nYour amplifyconfiguration.dart file is missing the following required attributes:'
+          '\n - ${_missingConfigValues.join('\n - ')}',
+        ),
+        ErrorDescription(
+          '\nThis can occur if your project was not generated with the Amplify CLI, '
+          'or if the project was generated with the Amplify CLI prior to version 6.4.0.',
+        ),
+        ErrorDescription(
+          '\nPlease refer to the amplify flutter documentation for more info on how to resolve this and the full list of required attributes.',
+        ),
+        ErrorDescription(
+          '\nOnce you have added the missing values to your amplifyconfiguration.dart file, you will need to restart your app.',
+        ),
+      ]);
+    }
+
+    return InheritedAuthBloc(
+      key: keyInheritedAuthBloc,
+      authBloc: _stateMachineBloc,
+      child: InheritedConfig(
+        amplifyConfig: _config,
+        useAmplifyTheme: widget.useAmplifyTheme,
+        child: InheritedAuthViewModel(
+          key: keyInheritedAuthViewModel,
+          viewModel: _viewModel,
+          child: InheritedStrings(
+            resolver: widget.stringResolver,
+            child: InheritedForms(
+              confirmSignInNewPasswordForm: widget.confirmSignInNewPasswordForm,
+              resetPasswordForm: ResetPasswordForm(),
+              confirmResetPasswordForm: const ConfirmResetPasswordForm(),
+              signInForm: widget.signInForm,
+              signUpForm: widget.signUpForm,
+              confirmSignUpForm: ConfirmSignUpForm(),
+              confirmSignInMFAForm: ConfirmSignInMFAForm(),
+              verifyUserForm: VerifyUserForm(),
+              confirmVerifyUserForm: ConfirmVerifyUserForm(),
+              child: widget.child,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AuthenticatorBody extends StatelessWidget {
+  const _AuthenticatorBody({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final stateMachineBloc = InheritedAuthBloc.of(context);
+    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
+    final userAppTheme = Theme.of(context);
+    final bool isDark = AmplifyTheme.of(context).isDark;
+    return Theme(
+      data: useAmplifyTheme
+          ? (isDark ? AmplifyTheme.dark : AmplifyTheme.light)
+          : userAppTheme,
+      child: StreamBuilder(
+        stream: stateMachineBloc.stream,
+        builder: (context, snapshot) {
+          final state = snapshot.data ?? const AuthLoading();
+
+          final Widget? authenticatorScreen;
+          if (state is Authenticated) {
+            authenticatorScreen = null;
+          } else if (state is AuthLoading || state is AuthLoaded) {
+            authenticatorScreen = const LoadingScreen();
+          } else if (state is AuthFlow) {
+            authenticatorScreen = AuthenticatorScreen(screen: state.screen);
+          } else {
+            authenticatorScreen = const AuthenticatorScreen.signin();
+          }
+
+          return Localizations.override(
+            context: context,
+            delegates: AuthenticatorLocalizations.localizationsDelegates,
+            child: Navigator(
+              onPopPage: (_, dynamic __) => true,
+              pages: [
+                MaterialPage<void>(
+                  child: Theme(
+                    data: userAppTheme,
+                    child: child,
+                  ),
+                ),
+                if (authenticatorScreen != null)
+                  MaterialPage<void>(
+                    child: ScaffoldMessenger(
+                      key: _AuthenticatorState.scaffoldMessengerKey,
+                      child: Scaffold(
+                        backgroundColor:
+                            AmplifyTheme.of(context).backgroundPrimary,
+                        body: SizedBox.expand(
+                          child: authenticatorScreen is AuthenticatorScreen
+                              ? SingleChildScrollView(
+                                  child: authenticatorScreen)
+                              : authenticatorScreen,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
