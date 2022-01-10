@@ -8,7 +8,7 @@ import 'package:smithy/smithy.dart';
 abstract class HttpProtocol<
     Payload extends Object?,
     Input extends HttpInput<Payload>,
-    Output> implements Protocol<Input, Output, Stream<List<int>>> {
+    Output> implements Protocol<Input, Object?, Stream<List<int>>> {
   const HttpProtocol();
 
   /// The content type of the request payload, added to the `Content-Type`
@@ -24,7 +24,7 @@ abstract class HttpProtocol<
 
   /// The serializer for input payloads and deserializer for response objects
   /// from `List<int>`.
-  FullSerializer<Payload, Output, List<int>> get wireSerializer;
+  FullSerializer<List<int>> get wireSerializer;
 
   /// Interceptors for the protocol.
   List<HttpInterceptor> get interceptors;
@@ -35,7 +35,8 @@ abstract class HttpProtocol<
   }
 
   @override
-  Stream<List<int>> serialize(Input input) {
+  Stream<List<int>> serialize(Object? input, {FullType? specifiedType}) {
+    input as Input;
     var payload = input.getPayload();
     if (payload == null) {
       return const Stream.empty();
@@ -53,13 +54,16 @@ abstract class HttpProtocol<
   }
 
   @override
-  Future<Output> deserialize(Stream<List<int>> response) async {
+  Future<Object?> deserialize(Stream<List<int>> response,
+      {FullType? specifiedType}) async {
+    specifiedType ??= FullType(Output);
     final body = await http.ByteStream(response).toBytes();
     return await wireSerializer.deserialize(body);
   }
 }
 
-/// A type which implements the traits needed for use in an HTTP operation.
+/// A structure which implements the traits needed for use as input to an HTTP
+/// operation.
 mixin HttpInput<Payload extends Object?>
     implements HasLabel, HasPayload<Payload> {
   @override

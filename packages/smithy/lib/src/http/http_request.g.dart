@@ -174,4 +174,124 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
   }
 }
 
+class _$HttpResponse extends HttpResponse {
+  @override
+  final int statusCode;
+  @override
+  final Stream<List<int>> body;
+  @override
+  final BuiltMap<String, String> headers;
+
+  factory _$HttpResponse([void Function(HttpResponseBuilder)? updates]) =>
+      (new HttpResponseBuilder()..update(updates)).build();
+
+  _$HttpResponse._(
+      {required this.statusCode, required this.body, required this.headers})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        statusCode, 'HttpResponse', 'statusCode');
+    BuiltValueNullFieldError.checkNotNull(body, 'HttpResponse', 'body');
+    BuiltValueNullFieldError.checkNotNull(headers, 'HttpResponse', 'headers');
+  }
+
+  @override
+  HttpResponse rebuild(void Function(HttpResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  HttpResponseBuilder toBuilder() => new HttpResponseBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is HttpResponse &&
+        statusCode == other.statusCode &&
+        body == other.body &&
+        headers == other.headers;
+  }
+
+  @override
+  int get hashCode {
+    return $jf(
+        $jc($jc($jc(0, statusCode.hashCode), body.hashCode), headers.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('HttpResponse')
+          ..add('statusCode', statusCode)
+          ..add('body', body)
+          ..add('headers', headers))
+        .toString();
+  }
+}
+
+class HttpResponseBuilder
+    implements Builder<HttpResponse, HttpResponseBuilder> {
+  _$HttpResponse? _$v;
+
+  int? _statusCode;
+  int? get statusCode => _$this._statusCode;
+  set statusCode(int? statusCode) => _$this._statusCode = statusCode;
+
+  Stream<List<int>>? _body;
+  Stream<List<int>>? get body => _$this._body;
+  set body(Stream<List<int>>? body) => _$this._body = body;
+
+  MapBuilder<String, String>? _headers;
+  MapBuilder<String, String> get headers =>
+      _$this._headers ??= new MapBuilder<String, String>();
+  set headers(MapBuilder<String, String>? headers) => _$this._headers = headers;
+
+  HttpResponseBuilder();
+
+  HttpResponseBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _statusCode = $v.statusCode;
+      _body = $v.body;
+      _headers = $v.headers.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(HttpResponse other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$HttpResponse;
+  }
+
+  @override
+  void update(void Function(HttpResponseBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$HttpResponse build() {
+    _$HttpResponse _$result;
+    try {
+      _$result = _$v ??
+          new _$HttpResponse._(
+              statusCode: BuiltValueNullFieldError.checkNotNull(
+                  statusCode, 'HttpResponse', 'statusCode'),
+              body: BuiltValueNullFieldError.checkNotNull(
+                  body, 'HttpResponse', 'body'),
+              headers: headers.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'headers';
+        headers.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'HttpResponse', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

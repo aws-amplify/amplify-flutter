@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
@@ -30,8 +31,8 @@ abstract class HttpOperation<Payload extends Object?,
   @override
   Iterable<HttpProtocol<Payload, Input, Output>> get protocols;
 
-  /// The error types by status code.
-  Map<int, Type> get errorTypes;
+  /// The error types for this operation.
+  List<HttpError> get errorTypes => const [];
 
   @visibleForTesting
   HttpProtocol<Payload, Input, Output> resolveProtocol({
@@ -54,11 +55,11 @@ abstract class HttpOperation<Payload extends Object?,
 
   @visibleForTesting
   Future<AWSStreamedHttpRequest> createRequest(
+    HttpRequest request,
     Uri baseUri,
     HttpProtocol<Payload, Input, Output> protocol,
     Input input,
   ) async {
-    final request = buildRequest(input);
     final path = expandLabels(request.path, input);
     final headers = {
       ...request.headers.asMap(),
@@ -102,8 +103,31 @@ abstract class HttpOperation<Payload extends Object?,
     }
     final protocol = resolveProtocol(useProtocol: useProtocol);
     client ??= protocol.getClient(baseUri!, input);
-    final baseRequest = await createRequest(client.baseUri, protocol, input);
-    final response = await client.send(baseRequest);
-    return protocol.deserialize(response);
+    final request = buildRequest(input);
+    final httpRequest = await createRequest(
+      request,
+      client.baseUri,
+      protocol,
+      input,
+    );
+    final response = await client.send(httpRequest);
+    if (response.statusCode != request.successCode) {
+      final ErrorKind kind;
+      if (response.statusCode >= 400 && response.statusCode <= 499) {
+        kind = ErrorKind.client;
+      } else {
+        kind = ErrorKind.server;
+      }
+      final errorType = errorTypes
+              .firstWhereOrNull((el) =>
+                  el.statusCode == response.statusCode || el.kind == kind)
+              ?.type ??
+          SmithyException;
+      throw protocol.deserialize(
+        response.body,
+        specifiedType: FullType(errorType),
+      ) as SmithyException;
+    }
+    return protocol.deserialize(response.body) as Output;
   }
 }

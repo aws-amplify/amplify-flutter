@@ -8,7 +8,7 @@ export 'package:fixnum/fixnum.dart';
 
 // AST types
 export 'package:smithy_ast/smithy_ast.dart'
-    show AlpnProtocol, ShapeId, TimestampFormat;
+    show AlpnProtocol, ErrorKind, ErrorTypeStatusCode, ShapeId, TimestampFormat;
 
 // Operation
 export 'src/client.dart';

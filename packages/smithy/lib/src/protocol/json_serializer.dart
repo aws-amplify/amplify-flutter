@@ -3,23 +3,26 @@ import 'dart:convert';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' hide Serializer;
 
-class JsonSerializer<RequestPayload, Response>
-    implements FullSerializer<RequestPayload, Response, List<int>> {
+class JsonSerializer implements FullSerializer<List<int>> {
   const JsonSerializer(this._serializers);
 
   final Serializers _serializers;
 
   @override
-  Response deserialize(List<int> data) {
+  Object? deserialize(List<int> data, {FullType? specifiedType}) {
     final decoded = jsonDecode(utf8.decode(data)) as Object?;
-    return _serializers.deserialize(decoded, specifiedType: FullType(Response))
-        as Response;
+    return _serializers.deserialize(
+      decoded,
+      specifiedType: specifiedType ?? FullType.unspecified,
+    );
   }
 
   @override
-  List<int> serialize(RequestPayload input) {
-    final serialized =
-        _serializers.serialize(input, specifiedType: FullType(RequestPayload));
+  List<int> serialize(Object? input, {FullType? specifiedType}) {
+    final serialized = _serializers.serialize(
+      input,
+      specifiedType: specifiedType ?? FullType.unspecified,
+    );
     return jsonEncode(serialized).codeUnits;
   }
 }
