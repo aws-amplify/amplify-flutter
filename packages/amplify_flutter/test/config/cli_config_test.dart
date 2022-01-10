@@ -92,13 +92,13 @@ const expected = {
             'Default': CognitoAuthConfig(
               oAuth: CognitoOAuthConfig(
                 appClientId: APPCLIENT_ID,
-                scopes: {
+                scopes: [
                   'phone',
                   'email',
                   'openid',
                   'profile',
                   'aws.cognito.signin.user.admin',
-                },
+                ],
                 signInRedirectUri: OAUTH_SIGNIN,
                 signOutRedirectUri: OAUTH_SIGNOUT,
                 webDomain: OAUTH_DOMAIN,
@@ -125,7 +125,7 @@ const expected = {
               hostedUI: CognitoOAuthConfig(
                 appClientId: APPCLIENT_ID,
                 appClientSecret: APPCLIENT_SECERT,
-                scopes: {'openid', 'email'},
+                scopes: ['openid', 'email'],
                 signInRedirectUri: OAUTH_SIGNIN,
                 signOutRedirectUri: OAUTH_SIGNOUT,
                 webDomain: OAUTH_DOMAIN,

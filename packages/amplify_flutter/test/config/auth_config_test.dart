@@ -196,13 +196,13 @@ const expected = <String, CognitoAuthConfig>{
   'auth_with_federated': CognitoAuthConfig(
     oAuth: CognitoOAuthConfig(
       appClientId: APPCLIENT_ID,
-      scopes: {
+      scopes: [
         'phone',
         'email',
         'openid',
         'profile',
         'aws.cognito.signin.user.admin'
-      },
+      ],
       signInRedirectUri: OAUTH_SIGNIN,
       signOutRedirectUri: OAUTH_SIGNOUT,
       webDomain: OAUTH_DOMAIN,

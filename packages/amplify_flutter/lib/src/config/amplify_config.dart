@@ -64,6 +64,22 @@ class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
   factory AmplifyConfig.fromJson(Map<String, Object?> json) =>
       _$AmplifyConfigFromJson(json);
 
+  AmplifyConfig copyWith({
+    ApiConfig? api,
+    AnalyticsConfig? analytics,
+    AuthConfig? auth,
+    StorageConfig? storage,
+  }) {
+    return AmplifyConfig(
+      userAgent: userAgent,
+      version: version,
+      api: api ?? this.api,
+      analytics: analytics ?? this.analytics,
+      auth: auth ?? this.auth,
+      storage: storage ?? this.storage,
+    );
+  }
+
   @override
   Map<String, Object?> toJson() => _$AmplifyConfigToJson(this);
 }

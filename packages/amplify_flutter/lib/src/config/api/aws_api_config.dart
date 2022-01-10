@@ -60,6 +60,9 @@ class AWSApiPluginConfig extends ConfigMap<AWSApiConfig>
     return AWSApiPluginConfig(configMap.configs);
   }
 
+  @override
+  AWSApiPluginConfig copy() => AWSApiPluginConfig(Map.of(endpoints));
+
   /// The plugin's configuration key.
   static const pluginKey = 'awsAPIPlugin';
 

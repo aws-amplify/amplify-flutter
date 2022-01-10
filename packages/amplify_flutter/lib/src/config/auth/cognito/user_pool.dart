@@ -49,6 +49,24 @@ class CognitoUserPoolConfig
   factory CognitoUserPoolConfig.fromJson(Map<String, Object?> json) =>
       _$CognitoUserPoolConfigFromJson(json);
 
+  CognitoUserPoolConfig copyWith({
+    String? poolId,
+    String? appClientId,
+    String? appClientSecret,
+    String? region,
+    CognitoOAuthConfig? hostedUI,
+    String? endpoint,
+  }) {
+    return CognitoUserPoolConfig(
+      poolId: poolId ?? this.poolId,
+      appClientId: appClientId ?? this.appClientId,
+      appClientSecret: appClientSecret ?? this.appClientSecret,
+      region: region ?? this.region,
+      hostedUI: hostedUI ?? this.hostedUI,
+      endpoint: endpoint ?? this.endpoint,
+    );
+  }
+
   @override
   Map<String, Object?> toJson() => _$CognitoUserPoolConfigToJson(this);
 }

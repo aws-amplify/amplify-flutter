@@ -47,6 +47,22 @@ class CognitoAppSyncConfig
   factory CognitoAppSyncConfig.fromJson(Map<String, Object?> json) =>
       _$CognitoAppSyncConfigFromJson(json);
 
+  CognitoAppSyncConfig copyWith({
+    String? apiUrl,
+    String? region,
+    APIAuthorizationType? authMode,
+    String? apiKey,
+    String? clientDatabasePrefix,
+  }) {
+    return CognitoAppSyncConfig(
+      apiUrl: apiUrl ?? this.apiUrl,
+      region: region ?? this.region,
+      authMode: authMode ?? this.authMode,
+      apiKey: apiKey ?? this.apiKey,
+      clientDatabasePrefix: clientDatabasePrefix ?? this.clientDatabasePrefix,
+    );
+  }
+
   @override
   Map<String, Object?> toJson() => _$CognitoAppSyncConfigToJson(this);
 }

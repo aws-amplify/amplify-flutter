@@ -39,5 +39,8 @@ class AnalyticsConfig extends AmplifyPluginConfigMap {
       plugins[PinpointPluginConfig.pluginKey] as PinpointPluginConfig?;
 
   @override
+  AnalyticsConfig copy() => AnalyticsConfig(plugins: Map.of(plugins));
+
+  @override
   Map<String, Object?> toJson() => _$AnalyticsConfigToJson(this);
 }

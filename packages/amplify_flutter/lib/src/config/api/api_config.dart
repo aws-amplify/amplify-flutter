@@ -39,5 +39,8 @@ class ApiConfig extends AmplifyPluginConfigMap {
       plugins[AWSApiPluginConfig.pluginKey] as AWSApiPluginConfig?;
 
   @override
+  ApiConfig copy() => ApiConfig(plugins: Map.of(plugins));
+
+  @override
   Map<String, Object?> toJson() => _$ApiConfigToJson(this);
 }

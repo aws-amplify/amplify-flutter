@@ -38,6 +38,18 @@ class PasswordProtectionSettings
   factory PasswordProtectionSettings.fromJson(Map<String, Object?> json) =>
       _$PasswordProtectionSettingsFromJson(json);
 
+  PasswordProtectionSettings copyWith({
+    int? passwordPolicyMinLength,
+    List<PasswordPolicyCharacters>? passwordPolicyCharacters,
+  }) {
+    return PasswordProtectionSettings(
+      passwordPolicyMinLength:
+          passwordPolicyMinLength ?? this.passwordPolicyMinLength,
+      passwordPolicyCharacters:
+          passwordPolicyCharacters ?? List.of(this.passwordPolicyCharacters),
+    );
+  }
+
   @override
   Map<String, Object?> toJson() => _$PasswordProtectionSettingsToJson(this);
 }

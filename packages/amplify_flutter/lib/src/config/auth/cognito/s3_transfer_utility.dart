@@ -36,6 +36,16 @@ class S3TransferUtility with AWSEquatable<S3TransferUtility>, AWSSerializable {
   factory S3TransferUtility.fromJson(Map<String, Object?> json) =>
       _$S3TransferUtilityFromJson(json);
 
+  S3TransferUtility copyWith({
+    String? bucket,
+    String? region,
+  }) {
+    return S3TransferUtility(
+      bucket: bucket ?? this.bucket,
+      region: region ?? this.region,
+    );
+  }
+
   @override
   Map<String, Object?> toJson() => _$S3TransferUtilityToJson(this);
 }

@@ -38,5 +38,8 @@ class AuthConfig extends AmplifyPluginConfigMap {
       plugins[CognitoPluginConfig.pluginKey] as CognitoPluginConfig?;
 
   @override
+  AuthConfig copy() => AuthConfig(plugins: Map.of(plugins));
+
+  @override
   Map<String, Object?> toJson() => _$AuthConfigToJson(this);
 }

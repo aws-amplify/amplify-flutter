@@ -298,6 +298,7 @@ class _AuthenticatorState extends State<Authenticator> {
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
   late final StreamSubscription<MessageResolverKey> _infoSub;
   late final StreamSubscription<AuthState> _successSub;
+  StreamSubscription? _hubSubscription;
 
   AmplifyConfig? _config;
   late List<String> _missingConfigValues;
@@ -315,6 +316,7 @@ class _AuthenticatorState extends State<Authenticator> {
     _subscribeToInfoMessages();
     _subscribeToSuccessEvents();
     _waitForConfiguration();
+    _setUpHubSubscription();
   }
 
   void _subscribeToExceptions() {
@@ -399,12 +401,25 @@ class _AuthenticatorState extends State<Authenticator> {
     });
   }
 
+  Future<void> _setUpHubSubscription() async {
+    // the stream does not exist until configuration is complete
+    await Amplify.asyncConfig;
+    _hubSubscription = Amplify.Hub.listen([HubChannel.Auth], (event) {
+      switch (event.eventName) {
+        case 'SIGNED_OUT':
+          _stateMachineBloc.add(const AuthChangeScreen(AuthScreen.signin));
+          break;
+      }
+    });
+  }
+
   @override
   void dispose() {
     _exceptionSub.cancel();
     _infoSub.cancel();
     _successSub.cancel();
     _stateMachineBloc.dispose();
+    _hubSubscription?.cancel();
     super.dispose();
   }
 
@@ -425,11 +440,14 @@ class _AuthenticatorState extends State<Authenticator> {
     if (cognitoPlugin == null) {
       return const ['auth.plugins.Auth.Default'];
     }
+    if (cognitoPlugin.usernameAttributes == null) {
+      missingValues.add('usernameAttributes');
+    }
     if (cognitoPlugin.signupAttributes == null) {
-      missingValues.add('auth.plugins.Auth.Default.signUpAttributes');
+      missingValues.add('signUpAttributes');
     }
     if (cognitoPlugin.passwordProtectionSettings == null) {
-      missingValues.add('auth.plugins.Auth.Default.passwordProtectionSettings');
+      missingValues.add('passwordProtectionSettings');
     }
     return missingValues;
   }
@@ -437,9 +455,25 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   Widget build(BuildContext context) {
     if (_configInitialized && _missingConfigValues.isNotEmpty) {
-      throw StateError('''Encountered problem(s) building the Authenticator.
-          Your amplifyconfiguration.dart file is missing required values: ${_missingConfigValues.join('\n')}). 
-          You should correct your amplifyconfiguration.dart file and restart your app.''');
+      throw FlutterError.fromParts([
+        ErrorSummary(
+          'Encountered problem(s) building the Authenticator due to an invalid config. See below for more info.',
+        ),
+        ErrorDescription(
+          '\nYour amplifyconfiguration.dart file is missing the following required attributes:'
+          '\n - ${_missingConfigValues.join('\n - ')}',
+        ),
+        ErrorDescription(
+          '\nThis can occur if your project was not generated with the Amplify CLI, '
+          'or if the project was generated with the Amplify CLI prior to version 6.4.0.',
+        ),
+        ErrorDescription(
+          '\nPlease refer to the amplify flutter documentation for more info on how to resolve this and the full list of required attributes.',
+        ),
+        ErrorDescription(
+          '\nOnce you have added the missing values to your amplifyconfiguration.dart file, you will need to restart your app.',
+        ),
+      ]);
     }
 
     return Localizations.override(

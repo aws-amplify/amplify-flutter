@@ -34,6 +34,16 @@ class CognitoPinpointAnalyticsConfig
   factory CognitoPinpointAnalyticsConfig.fromJson(Map<String, Object?> json) =>
       _$CognitoPinpointAnalyticsConfigFromJson(json);
 
+  CognitoPinpointAnalyticsConfig copyWith({
+    String? appId,
+    String? region,
+  }) {
+    return CognitoPinpointAnalyticsConfig(
+      appId: appId ?? this.appId,
+      region: region ?? this.region,
+    );
+  }
+
   @override
   Map<String, Object?> toJson() => _$CognitoPinpointAnalyticsConfigToJson(this);
 }

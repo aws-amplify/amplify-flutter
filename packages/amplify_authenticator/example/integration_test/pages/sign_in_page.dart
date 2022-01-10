@@ -34,6 +34,16 @@ class SignInPage extends AuthenticatorPage {
         matching: find.byKey(const ValueKey(AuthScreen.signup)),
       );
 
+  /// When I sign in with "username" and "password"
+  Future<void> signIn({
+    required String username,
+    required String password,
+  }) async {
+    await enterUsername(username);
+    await enterPassword(password);
+    await submitSignIn();
+  }
+
   /// When I type a new "username"
   Future<void> enterUsername(String username) async {
     await tester.enterText(usernameField, username);

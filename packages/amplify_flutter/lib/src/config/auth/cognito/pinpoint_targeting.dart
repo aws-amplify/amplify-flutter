@@ -32,6 +32,12 @@ class CognitoPinpointTargetingConfig
   factory CognitoPinpointTargetingConfig.fromJson(Map<String, Object?> json) =>
       _$CognitoPinpointTargetingConfigFromJson(json);
 
+  CognitoPinpointTargetingConfig copyWith({
+    String? region,
+  }) {
+    return CognitoPinpointTargetingConfig(region: region ?? this.region);
+  }
+
   @override
   Map<String, Object?> toJson() => _$CognitoPinpointTargetingConfigToJson(this);
 }
