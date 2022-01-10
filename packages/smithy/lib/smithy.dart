@@ -7,7 +7,8 @@ export 'package:collection/src/iterable_extensions.dart';
 export 'package:fixnum/fixnum.dart';
 
 // AST types
-export 'package:smithy_ast/smithy_ast.dart' show AlpnProtocol, ShapeId;
+export 'package:smithy_ast/smithy_ast.dart'
+    show AlpnProtocol, ShapeId, TimestampFormat;
 
 // Operation
 export 'src/client.dart';

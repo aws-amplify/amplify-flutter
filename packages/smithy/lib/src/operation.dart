@@ -9,7 +9,7 @@ abstract class Operation<Input, Output> {
 
   /// The protocols used by this operation for all serialization/deserialization
   /// of wire formats.
-  List<Protocol> get protocols;
+  Iterable<Protocol> get protocols;
 
   /// Runs the operation for [input].
   ///

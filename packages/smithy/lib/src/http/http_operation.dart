@@ -20,15 +20,18 @@ abstract class HttpOperation<Payload extends Object?,
   ) {
     return template.replaceAllMapped(_labelRegex, (match) {
       final key = match.group(0)!;
-      return input.labelFor(key);
+      return Uri.encodeComponent(input.labelFor(key));
     });
   }
 
-  /// The description of the HTTP request.
-  HttpRequest get request;
+  /// Builds the HTTP request for the given [input].
+  HttpRequest buildRequest(Input input);
 
   @override
-  List<HttpProtocol<Payload, Input, Output>> get protocols;
+  Iterable<HttpProtocol<Payload, Input, Output>> get protocols;
+
+  /// The error types by status code.
+  Map<int, Type> get errorTypes;
 
   @visibleForTesting
   HttpProtocol<Payload, Input, Output> resolveProtocol({
@@ -55,10 +58,15 @@ abstract class HttpOperation<Payload extends Object?,
     HttpProtocol<Payload, Input, Output> protocol,
     Input input,
   ) async {
-    final request = this.request;
+    final request = buildRequest(input);
     final path = expandLabels(request.path, input);
-    final headers = request.headers.toMap()..addAll(protocol.headers);
-    final queryParameters = request.queryParameters.toMap();
+    final headers = {
+      ...request.headers.asMap(),
+      ...protocol.headers,
+    };
+    final queryParameters = {
+      ...request.queryParameters.asMap(),
+    };
     final body = protocol.serialize(input);
     var host = baseUri.host;
     if (request.hostPrefix != null) {

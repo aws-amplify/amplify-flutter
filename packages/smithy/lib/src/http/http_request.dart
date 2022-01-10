@@ -17,6 +17,9 @@ abstract class HttpRequest implements Built<HttpRequest, HttpRequestBuilder> {
   /// The path of the operation.
   String get path;
 
+  /// The success code for the operation.
+  int get successCode;
+
   /// The HTTP headers.
   BuiltMap<String, String> get headers;
 

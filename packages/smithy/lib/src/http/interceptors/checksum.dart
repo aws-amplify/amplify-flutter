@@ -12,8 +12,8 @@ class ChecksumInterceptor extends HttpInterceptor {
   const ChecksumInterceptor();
 
   @override
-  Future<void> intercept(AWSBaseHttpRequest request) async {
-    final bytes = await ByteStream(request.body).toBytes();
+  Future<void> intercept(AWSStreamedHttpRequest request) async {
+    final bytes = await ByteStream(request.split()).toBytes();
     request.headers['Content-MD5'] = hex.encode(md5.convert(bytes).bytes);
   }
 }

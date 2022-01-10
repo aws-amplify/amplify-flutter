@@ -14,6 +14,8 @@ class _$HttpRequest extends HttpRequest {
   @override
   final String path;
   @override
+  final int successCode;
+  @override
   final BuiltMap<String, String> headers;
   @override
   final BuiltListMultimap<String, String> queryParameters;
@@ -25,11 +27,14 @@ class _$HttpRequest extends HttpRequest {
       {this.hostPrefix,
       required this.method,
       required this.path,
+      required this.successCode,
       required this.headers,
       required this.queryParameters})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(method, 'HttpRequest', 'method');
     BuiltValueNullFieldError.checkNotNull(path, 'HttpRequest', 'path');
+    BuiltValueNullFieldError.checkNotNull(
+        successCode, 'HttpRequest', 'successCode');
     BuiltValueNullFieldError.checkNotNull(headers, 'HttpRequest', 'headers');
     BuiltValueNullFieldError.checkNotNull(
         queryParameters, 'HttpRequest', 'queryParameters');
@@ -49,6 +54,7 @@ class _$HttpRequest extends HttpRequest {
         hostPrefix == other.hostPrefix &&
         method == other.method &&
         path == other.path &&
+        successCode == other.successCode &&
         headers == other.headers &&
         queryParameters == other.queryParameters;
   }
@@ -57,8 +63,10 @@ class _$HttpRequest extends HttpRequest {
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, hostPrefix.hashCode), method.hashCode),
-                path.hashCode),
+            $jc(
+                $jc($jc($jc(0, hostPrefix.hashCode), method.hashCode),
+                    path.hashCode),
+                successCode.hashCode),
             headers.hashCode),
         queryParameters.hashCode));
   }
@@ -69,6 +77,7 @@ class _$HttpRequest extends HttpRequest {
           ..add('hostPrefix', hostPrefix)
           ..add('method', method)
           ..add('path', path)
+          ..add('successCode', successCode)
           ..add('headers', headers)
           ..add('queryParameters', queryParameters))
         .toString();
@@ -90,6 +99,10 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
   String? get path => _$this._path;
   set path(String? path) => _$this._path = path;
 
+  int? _successCode;
+  int? get successCode => _$this._successCode;
+  set successCode(int? successCode) => _$this._successCode = successCode;
+
   MapBuilder<String, String>? _headers;
   MapBuilder<String, String> get headers =>
       _$this._headers ??= new MapBuilder<String, String>();
@@ -109,6 +122,7 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
       _hostPrefix = $v.hostPrefix;
       _method = $v.method;
       _path = $v.path;
+      _successCode = $v.successCode;
       _headers = $v.headers.toBuilder();
       _queryParameters = $v.queryParameters.toBuilder();
       _$v = null;
@@ -138,6 +152,8 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
                   method, 'HttpRequest', 'method'),
               path: BuiltValueNullFieldError.checkNotNull(
                   path, 'HttpRequest', 'path'),
+              successCode: BuiltValueNullFieldError.checkNotNull(
+                  successCode, 'HttpRequest', 'successCode'),
               headers: headers.build(),
               queryParameters: queryParameters.build());
     } catch (_) {

@@ -61,10 +61,7 @@ abstract class HttpProtocol<
 
 /// A type which implements the traits needed for use in an HTTP operation.
 mixin HttpInput<Payload extends Object?>
-    implements HasLabel, HasHeaders, HasPayload<Payload> {
-  @override
-  Map<String, String> getInputHeaders() => const {};
-
+    implements HasLabel, HasPayload<Payload> {
   @override
   String labelFor(String key) => throw MissingLabelException(this, key);
 }
@@ -73,12 +70,6 @@ mixin HttpInput<Payload extends Object?>
 abstract class HasLabel {
   /// Returns the label for requested keys.
   String labelFor(String key);
-}
-
-/// A type which maps properties to path labels.
-abstract class HasHeaders {
-  /// Returns the headers for an input.
-  Map<String, String> getInputHeaders();
 }
 
 /// A utility for operations to access the payload of the request without
