@@ -15,12 +15,11 @@
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:flutter/material.dart';
 
 @visibleForTesting
-typedef BlocEventPredicate = bool Function(AuthState state);
+typedef BlocEventPredicate = bool Function(AuthenticatorState state);
 
 class AuthViewModel extends ChangeNotifier {
   AuthViewModel(this._authBloc) {
@@ -32,7 +31,7 @@ class AuthViewModel extends ChangeNotifier {
     _authBloc.stream.distinct().listen((event) {
       resetFormKey();
       resetCode();
-      if (event is Authenticated) {
+      if (event is AuthenticatedState) {
         _resetAttributes();
       }
     });
@@ -282,7 +281,7 @@ class AuthViewModel extends ChangeNotifier {
     final resetPasswordData = AuthResetPasswordData(username: _username.trim());
     authBloc.add(AuthResetPassword(resetPasswordData));
     await nextBlocEvent(
-      where: (state) => state is AuthFlow,
+      where: (state) => state is UnauthenticatedState,
     );
     setBusy(false);
   }
@@ -300,7 +299,7 @@ class AuthViewModel extends ChangeNotifier {
     );
     authBloc.add(AuthConfirmResetPassword(confirmResetPasswordData));
     await nextBlocEvent(
-      where: (state) => state is AuthFlow,
+      where: (state) => state is UnauthenticatedState,
     );
     setBusy(false);
   }
@@ -340,7 +339,8 @@ class AuthViewModel extends ChangeNotifier {
     );
     _authBloc.add(AuthConfirmVerifyUser(authConfirmVerifyUserData));
     await nextBlocEvent(
-      where: (state) => state is AuthFlow || state is Authenticated,
+      where: (state) =>
+          state is UnauthenticatedState || state is AuthenticatedState,
     );
     setBusy(false);
   }
@@ -356,7 +356,8 @@ class AuthViewModel extends ChangeNotifier {
 
     _authBloc.add(AuthVerifyUser(authVerifyUserData));
     await nextBlocEvent(
-      where: (state) => state is AuthFlow || state is Authenticated,
+      where: (state) =>
+          state is UnauthenticatedState || state is AuthenticatedState,
     );
     setBusy(false);
   }

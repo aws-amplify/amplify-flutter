@@ -31,6 +31,7 @@ import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
@@ -45,6 +46,10 @@ import 'package:flutter/material.dart';
 
 export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
+export 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+export 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+export 'package:amplify_authenticator/src/widgets/button.dart';
+export 'package:amplify_authenticator/src/widgets/form.dart';
 export 'package:amplify_flutter/amplify_flutter.dart'
     show PasswordProtectionSettings, PasswordPolicyCharacters;
 
@@ -52,6 +57,7 @@ export 'src/enums/enums.dart' show AuthScreen, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
 export 'src/models/username_input.dart' show UsernameType, UsernameInput;
+export 'src/state/authenticator_state.dart';
 export 'src/widgets/button.dart' show SignOutButton;
 export 'src/widgets/form.dart'
     show SignInForm, SignUpForm, ConfirmSignInNewPasswordForm;
@@ -61,11 +67,6 @@ export 'src/widgets/form_field.dart'
         SignUpFormField,
         ConfirmSignInFormField,
         ConfirmSignUpFormField;
-
-export 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-export 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
-export 'package:amplify_authenticator/src/widgets/form.dart';
-export 'package:amplify_authenticator/src/widgets/button.dart';
 
 /// {@template amplify_authenticator.authenticator}
 /// # Amplify Authenticator
@@ -339,7 +340,7 @@ class _AuthenticatorState extends State<Authenticator> {
   late final AuthViewModel _viewModel;
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
   late final StreamSubscription<MessageResolverKey> _infoSub;
-  late final StreamSubscription<AuthState> _successSub;
+  late final StreamSubscription<AuthenticatorState> _successSub;
   StreamSubscription? _hubSubscription;
 
   AmplifyConfig? _config;
@@ -443,7 +444,7 @@ class _AuthenticatorState extends State<Authenticator> {
   // Clear exception and info banners on successful login.
   void _subscribeToSuccessEvents() {
     _successSub = _stateMachineBloc.stream.listen((state) {
-      if (state is Authenticated) {
+      if (state is AuthenticatedState) {
         scaffoldMessengerKey.currentState?.removeCurrentMaterialBanner();
       }
     });
@@ -472,9 +473,7 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 
   Future<void> _waitForConfiguration() async {
-    final authLoaded = await _stateMachineBloc.stream
-        .firstWhere((el) => el is AuthLoaded) as AuthLoaded;
-    var config = authLoaded.config;
+    var config = await Amplify.asyncConfig;
     setState(() {
       _config = config;
       _configInitialized = true;
@@ -576,11 +575,11 @@ class _AuthenticatorBody extends StatelessWidget {
           : userAppTheme,
       child: StreamBuilder(
         stream: stateMachineBloc.stream,
-        builder: (context, AsyncSnapshot<AuthState> snapshot) {
-          final state = snapshot.data ?? const AuthLoading();
+        builder: (context, AsyncSnapshot<AuthenticatorState> snapshot) {
+          final state = snapshot.data ?? const LoadingState();
 
           final Widget? authenticatorScreen;
-          if (state is Authenticated) {
+          if (state is AuthenticatedState) {
             authenticatorScreen = null;
           } else if (builder != null) {
             final AuthViewModel _viewModel = InheritedAuthViewModel.of(
@@ -594,9 +593,9 @@ class _AuthenticatorBody extends StatelessWidget {
                 _viewModel,
               ),
             );
-          } else if (state is AuthLoading || state is AuthLoaded) {
+          } else if (state is LoadingState) {
             authenticatorScreen = const LoadingScreen();
-          } else if (state is AuthFlow) {
+          } else if (state is UnauthenticatedState) {
             authenticatorScreen = AuthenticatorScreen(screen: state.screen);
           } else {
             authenticatorScreen = const AuthenticatorScreen.signin();
@@ -645,4 +644,5 @@ class _AuthenticatorBody extends StatelessWidget {
   }
 }
 
-typedef AuthBuilder = Widget Function(BuildContext, AuthState, AuthViewModel);
+typedef AuthBuilder = Widget Function(
+    BuildContext, AuthenticatorState, AuthViewModel);

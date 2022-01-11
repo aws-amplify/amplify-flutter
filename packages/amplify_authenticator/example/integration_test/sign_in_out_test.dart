@@ -13,8 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator_example/main.dart' as app;
 import 'package:flutter_test/flutter_test.dart';
@@ -48,7 +47,7 @@ void main() {
       final subscription = authBloc.authBloc.stream;
       final stateAuthenticated = await subscription.first;
 
-      expect(stateAuthenticated, isA<Authenticated>());
+      expect(stateAuthenticated, isA<AuthenticatedState>());
 
       await tester.pumpAndSettle();
 
@@ -57,7 +56,7 @@ void main() {
       await tester.tap(signOutButtonFinder);
       final stateAuthFlow = await subscription.first;
 
-      expect(stateAuthFlow, isA<AuthFlow>());
+      expect(stateAuthFlow, isA<UnauthenticatedState>());
       await tester.pumpAndSettle();
     });
 

@@ -4,41 +4,36 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 // A builder method to build a custom authenticator based off
-// of the current AuthState and AuthViewModel
+// of the current AuthenticatorState and AuthViewModel
 //
 // This builder uses a combination of custom widgets and
 // prebuilt widgets such as SignUpFormField.username(),
 // SignInButton(), and ConfirmSignUpFormField.verificationCode().
 Widget customAuthenticatorBuilder(
   BuildContext context,
-  AuthState state,
+  AuthenticatorState authenticatorState,
   AuthViewModel viewModel,
 ) {
-  switch (state.runtimeType) {
-    case AuthLoad:
-    case AuthLoading:
-    case AuthLoaded:
-      return const Material(
-        child: Center(child: CircularProgressIndicator()),
-      );
-    case AuthFlow:
-      AuthScreen screen = (state as AuthFlow).screen;
-      switch (screen) {
-        case AuthScreen.initial:
-          return UsernameView(viewModel: viewModel);
-        case AuthScreen.signin:
-          return SignInView(viewModel: viewModel);
-        case AuthScreen.signup:
-          return SignUpView(viewModel: viewModel);
-        case AuthScreen.confirmSignup:
-          return const ConfirmSignUpView();
-        default:
-          throw StateError(
-            'Screen: $screen is not handled for this demo.',
-          );
-      }
-    default:
-      throw StateError('State: $state is not handled for this demo.');
+  if (authenticatorState.isLoading) {
+    return const Material(child: Center(child: CircularProgressIndicator()));
+  } else if (authenticatorState is UnauthenticatedState) {
+    AuthScreen screen = authenticatorState.screen;
+    switch (screen) {
+      case AuthScreen.initial:
+        return UsernameView(viewModel: viewModel);
+      case AuthScreen.signin:
+        return SignInView(viewModel: viewModel);
+      case AuthScreen.signup:
+        return SignUpView(viewModel: viewModel);
+      case AuthScreen.confirmSignup:
+        return const ConfirmSignUpView();
+      default:
+        throw StateError('Screen: $screen is not handled for this demo.');
+    }
+  } else {
+    throw StateError(
+      'State: $authenticatorState is not handled for this demo.',
+    );
   }
 }
 

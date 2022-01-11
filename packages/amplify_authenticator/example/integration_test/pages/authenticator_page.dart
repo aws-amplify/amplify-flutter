@@ -16,7 +16,6 @@
 import 'dart:io';
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
@@ -91,10 +90,10 @@ abstract class AuthenticatorPage {
   Future<void> expectAuthenticated() async {
     final inheritedBloc =
         tester.widget<InheritedAuthBloc>(find.byKey(keyInheritedAuthBloc));
-    if (inheritedBloc.authBloc.currentState is! Authenticated) {
+    if (inheritedBloc.authBloc.currentState is! AuthenticatedState) {
       await nextBlocEvent(tester);
     }
-    expect(inheritedBloc.authBloc.currentState, isA<Authenticated>());
+    expect(inheritedBloc.authBloc.currentState, isA<AuthenticatedState>());
   }
 
   /// Then I see User not found banner

@@ -13,8 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator_example/main.dart' as app;
 import 'package:flutter_test/flutter_test.dart';
@@ -45,7 +44,7 @@ void main() {
 
       final stateAuthFlowSignUp = await subscription.first;
 
-      expect(stateAuthFlowSignUp, isA<AuthFlow>());
+      expect(stateAuthFlowSignUp, isA<UnauthenticatedState>());
       await tester.pumpAndSettle();
 
       //Creating account
@@ -63,7 +62,7 @@ void main() {
 
       final stateAuthFlowConfirm = await subscription.first;
 
-      expect(stateAuthFlowConfirm, isA<AuthFlow>());
+      expect(stateAuthFlowConfirm, isA<UnauthenticatedState>());
 
       await tester.pumpAndSettle();
 
@@ -82,7 +81,7 @@ void main() {
 
       final stateAuthFlowSignIn = await subscription.first;
 
-      expect(stateAuthFlowSignIn, isA<AuthFlow>());
+      expect(stateAuthFlowSignIn, isA<UnauthenticatedState>());
       await tester.pumpAndSettle();
     });
 
@@ -100,7 +99,7 @@ void main() {
 
       final stateAuthFlowSignUp = await subscriptionStream.first;
 
-      expect(stateAuthFlowSignUp, isA<AuthFlow>());
+      expect(stateAuthFlowSignUp, isA<UnauthenticatedState>());
 
       await tester.pumpAndSettle();
 

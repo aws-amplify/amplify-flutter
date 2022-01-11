@@ -285,7 +285,7 @@ class MockBloc implements StateMachineBloc {
   void add(AuthEvent event) {}
 
   @override
-  AuthState get currentState => AuthFlow.signin;
+  AuthenticatorState get currentState => UnauthenticatedState.signin;
 
   @override
   Future<void> dispose() async {}
@@ -300,5 +300,9 @@ class MockBloc implements StateMachineBloc {
   bool get preferPrivateSession => false;
 
   @override
-  Stream<AuthState> get stream => Stream.value(AuthFlow.signin);
+  Stream<AuthenticatorState> get stream =>
+      Stream.value(UnauthenticatedState.signin);
+
+  @override
+  AuthScreen get initialScreen => AuthScreen.initial;
 }
