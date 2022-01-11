@@ -1,5 +1,6 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator_example/custom_authenticator.dart';
 import 'package:amplify_authenticator_example/localized_country_resolver.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +118,14 @@ class _MyAppState extends State<MyApp> {
 
         // The Authenticator component must wrap your Navigator component which
         // can be done using the `builder` method.
-        builder: Authenticator.builder(),
+        // builder: Authenticator.builder(),
+
+        // Providing a `builder` argument to Authenticator.builder, allows you to
+        // build a completely custom UI for the authenticator composed of a mix of
+        // prebuilt widgets from the Authenticator lib, and widgets you build yourself
+        // uncomment the line below to test out a custom UI
+        builder: Authenticator.builder(builder: customAuthenticatorBuilder),
+
         initialRoute: '/routeA',
         routes: {
           '/routeA': (BuildContext context) => const RouteA(),

@@ -30,9 +30,18 @@ class InheritedAuthViewModel extends InheritedNotifier {
 
   final AuthViewModel viewModel;
 
-  static AuthViewModel of(BuildContext context) {
-    final inheritedViewModel =
-        context.dependOnInheritedWidgetOfExactType<InheritedAuthViewModel>();
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
+
+  static AuthViewModel of(BuildContext context, {bool listen = true}) {
+    InheritedAuthViewModel? inheritedViewModel;
+    if (listen) {
+      inheritedViewModel =
+          context.dependOnInheritedWidgetOfExactType<InheritedAuthViewModel>();
+    } else {
+      inheritedViewModel =
+          context.findAncestorWidgetOfExactType<InheritedAuthViewModel>();
+    }
     assert(() {
       if (inheritedViewModel == null) {
         throw FlutterError.fromParts([

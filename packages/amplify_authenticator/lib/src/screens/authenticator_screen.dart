@@ -77,6 +77,7 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
     const signInUpTabs = [AuthScreen.signin, AuthScreen.signup];
     final Widget child;
     switch (screen) {
+      case AuthScreen.initial:
       case AuthScreen.signin:
         child = const AuthenticatorTabView(tabs: signInUpTabs, initialIndex: 0);
         break;
@@ -232,6 +233,7 @@ class _AuthenticatorTabViewState
 extension on AuthScreen {
   ButtonResolverKey get tabTitle {
     switch (this) {
+      case AuthScreen.initial:
       case AuthScreen.signup:
         return ButtonResolverKey.signup;
       case AuthScreen.signin:

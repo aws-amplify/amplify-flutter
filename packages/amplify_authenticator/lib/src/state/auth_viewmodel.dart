@@ -33,7 +33,7 @@ class AuthViewModel extends ChangeNotifier {
       resetFormKey();
       resetCode();
       if (event is Authenticated) {
-        resetAttributes();
+        _resetAttributes();
       }
     });
   }
@@ -76,22 +76,27 @@ class AuthViewModel extends ChangeNotifier {
 
   void setUsername(String value) {
     _username = value;
+    notifyListeners();
   }
 
   void setPassword(String value) {
     _password = value;
+    notifyListeners();
   }
 
   void setPasswordConfirmation(String passwordConfirmation) {
     _passwordConfirmation = passwordConfirmation;
+    notifyListeners();
   }
 
   void setConfirmationCode(String value) {
     _confirmationCode = value;
+    notifyListeners();
   }
 
   void setNewPassword(String newPassword) {
     _newPassword = newPassword;
+    notifyListeners();
   }
 
   bool _rememberDevice = false;
@@ -102,6 +107,7 @@ class AuthViewModel extends ChangeNotifier {
 
   void _setAttribute(CognitoUserAttributeKey attribute, String value) {
     _authAttributes[attribute] = value.trim();
+    notifyListeners();
   }
 
   void setAddress(String address) {
@@ -182,10 +188,12 @@ class AuthViewModel extends ChangeNotifier {
   // ignore: avoid_positional_boolean_parameters
   void setRememberDevice(bool value) {
     _rememberDevice = value;
+    notifyListeners();
   }
 
   void setAttributeKeyToVerify(CognitoUserAttributeKey attributeKey) {
     _attributeKeyToVerify = attributeKey;
+    notifyListeners();
   }
 
   // Auth calls
@@ -221,9 +229,9 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   Future<void> confirm() async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
+    // if (!formKey.currentState!.validate()) {
+    //   return;
+    // }
 
     setBusy(true);
     final confirmation = AuthConfirmSignUpData(
@@ -238,9 +246,9 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   Future<void> signIn() async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
+    // if (!formKey.currentState!.validate()) {
+    //   return;
+    // }
     setBusy(true);
     AuthSignInData signIn = AuthUsernamePasswordSignInData(
       username: _username.trim(),
@@ -298,9 +306,9 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   Future<void> signUp() async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
+    // if (!formKey.currentState!.validate()) {
+    //   return;
+    // }
     setBusy(true);
 
     final signUp = AuthSignUpData(
@@ -369,18 +377,18 @@ class AuthViewModel extends ChangeNotifier {
     ]);
   }
 
-  void _navigateTo(AuthScreen authScreen) {
+  void navigateTo(AuthScreen authScreen, {bool resetAttributes = true}) {
     authBloc.add(AuthChangeScreen(authScreen));
 
     /// Clean [ViewModel] when user manually navigates widgets
-    resetAttributes();
+    if (resetAttributes) _resetAttributes();
   }
 
-  void goToSignUp() => _navigateTo(AuthScreen.signup);
-  void goToSignIn() => _navigateTo(AuthScreen.signin);
-  void goToResetPassword() => _navigateTo(AuthScreen.resetPassword);
+  void goToSignUp() => navigateTo(AuthScreen.signup);
+  void goToSignIn() => navigateTo(AuthScreen.signin);
+  void goToResetPassword() => navigateTo(AuthScreen.resetPassword);
 
-  void resetAttributes() {
+  void _resetAttributes() {
     _username = '';
     _password = '';
     _passwordConfirmation = '';

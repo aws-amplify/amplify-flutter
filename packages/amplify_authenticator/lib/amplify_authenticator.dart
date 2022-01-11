@@ -56,7 +56,16 @@ export 'src/widgets/button.dart' show SignOutButton;
 export 'src/widgets/form.dart'
     show SignInForm, SignUpForm, ConfirmSignInNewPasswordForm;
 export 'src/widgets/form_field.dart'
-    show SignInFormField, SignUpFormField, ConfirmSignInFormField;
+    show
+        SignInFormField,
+        SignUpFormField,
+        ConfirmSignInFormField,
+        ConfirmSignUpFormField;
+
+export 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+export 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+export 'package:amplify_authenticator/src/widgets/form.dart';
+export 'package:amplify_authenticator/src/widgets/button.dart';
 
 /// {@template amplify_authenticator.authenticator}
 /// # Amplify Authenticator
@@ -229,9 +238,10 @@ class Authenticator extends StatefulWidget {
     this.onException,
     this.exceptionBannerLocation = ExceptionBannerLocation.auto,
     this.preferPrivateSession = false,
+    this.initialScreen = AuthScreen.initial,
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
-    this.signUpForm = signUpForm ?? SignUpForm();
+    this.signUpForm = signUpForm ?? SignUpForm.custom(fields: const []);
     this.confirmSignInNewPasswordForm =
         confirmSignInNewPasswordForm ?? ConfirmSignInNewPasswordForm();
   }
@@ -247,7 +257,8 @@ class Authenticator extends StatefulWidget {
   ///   ),
   /// );
   /// ```
-  static TransitionBuilder builder() => (BuildContext context, Widget? child) {
+  static TransitionBuilder builder({AuthBuilder? builder}) =>
+      (BuildContext context, Widget? child) {
         if (child == null) {
           throw FlutterError.fromParts([
             ErrorSummary('No Navigator or Router provided.'),
@@ -258,7 +269,7 @@ class Authenticator extends StatefulWidget {
             ErrorSpacer(),
           ]);
         }
-        return _AuthenticatorBody(child: child);
+        return _AuthenticatorBody(child: child, builder: builder);
       };
 
   /// Whether to use Amplify colors and styles in the Authenticator,
@@ -296,6 +307,10 @@ class Authenticator extends StatefulWidget {
   /// This widget will be displayed after a user has signed in.
   final Widget child;
 
+  /// The initial screen that the authenticator will display if the user is not
+  /// already authenticated
+  final AuthScreen initialScreen;
+
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
 
@@ -312,6 +327,7 @@ class Authenticator extends StatefulWidget {
         'exceptionBannerLocation', exceptionBannerLocation));
     properties.add(DiagnosticsProperty<bool>(
         'preferPrivateSession', preferPrivateSession));
+    properties.add(EnumProperty<AuthScreen>('initialScreen', initialScreen));
   }
 }
 
@@ -336,6 +352,7 @@ class _AuthenticatorState extends State<Authenticator> {
     _stateMachineBloc = StateMachineBloc(
       authService: _authService,
       preferPrivateSession: widget.preferPrivateSession,
+      initialScreen: widget.initialScreen,
     )..add(const AuthLoad());
     _viewModel = AuthViewModel(_stateMachineBloc);
     _subscribeToExceptions();
@@ -438,7 +455,7 @@ class _AuthenticatorState extends State<Authenticator> {
     _hubSubscription = Amplify.Hub.listen([HubChannel.Auth], (event) {
       switch (event.eventName) {
         case 'SIGNED_OUT':
-          _stateMachineBloc.add(const AuthChangeScreen(AuthScreen.signin));
+          _stateMachineBloc.add(AuthChangeScreen(widget.initialScreen));
           break;
       }
     });
@@ -541,9 +558,11 @@ class _AuthenticatorBody extends StatelessWidget {
   const _AuthenticatorBody({
     Key? key,
     required this.child,
+    this.builder,
   }) : super(key: key);
 
   final Widget child;
+  final AuthBuilder? builder;
 
   @override
   Widget build(BuildContext context) {
@@ -557,12 +576,24 @@ class _AuthenticatorBody extends StatelessWidget {
           : userAppTheme,
       child: StreamBuilder(
         stream: stateMachineBloc.stream,
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot<AuthState> snapshot) {
           final state = snapshot.data ?? const AuthLoading();
 
           final Widget? authenticatorScreen;
           if (state is Authenticated) {
             authenticatorScreen = null;
+          } else if (builder != null) {
+            final AuthViewModel _viewModel = InheritedAuthViewModel.of(
+              context,
+              listen: true,
+            );
+            authenticatorScreen = Material(
+              child: builder!(
+                context,
+                state,
+                _viewModel,
+              ),
+            );
           } else if (state is AuthLoading || state is AuthLoaded) {
             authenticatorScreen = const LoadingScreen();
           } else if (state is AuthFlow) {
@@ -606,4 +637,12 @@ class _AuthenticatorBody extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(ObjectFlagProperty<AuthBuilder?>.has('builder', builder));
+  }
 }
+
+typedef AuthBuilder = Widget Function(BuildContext, AuthState, AuthViewModel);

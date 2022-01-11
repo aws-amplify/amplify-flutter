@@ -33,6 +33,7 @@ part 'auth_state.dart';
 class StateMachineBloc {
   final AuthService _authService;
   final bool preferPrivateSession;
+  final AuthScreen initialScreen;
 
   /// State controller.
   final StreamController<AuthState> _authStateController =
@@ -62,6 +63,7 @@ class StateMachineBloc {
   StateMachineBloc({
     required AuthService authService,
     required this.preferPrivateSession,
+    this.initialScreen = AuthScreen.initial,
   }) : _authService = authService {
     _subscription =
         _authEventStream.asyncExpand(_eventTransformer).listen((state) {
@@ -92,8 +94,6 @@ class StateMachineBloc {
   Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
       yield* _authLoad();
-    } else if (event is GetCurrentUser) {
-      yield* _getCurrentUser();
     } else if (event is AuthSignIn) {
       yield* _signIn(event.data);
     } else if (event is AuthSignUp) {
@@ -128,22 +128,6 @@ class StateMachineBloc {
     yield* _isValidSession();
   }
 
-  Stream<AuthState> _getCurrentUser() async* {
-    try {
-      final AuthUser? currentUser = await _authService.currentUser;
-
-      if (currentUser != null) {
-        yield const Authenticated();
-      } else {
-        yield AuthFlow.signin;
-      }
-    } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
-    } on Exception catch (e) {
-      _exceptionController.add(AuthenticatorException(e.toString()));
-    }
-  }
-
   Stream<AuthState> _isValidSession() async* {
     try {
       bool isValidSession = await _authService.isValidSession();
@@ -153,25 +137,25 @@ class StateMachineBloc {
         /// [isValidSession] returns false if the native platform
         /// returns a [SignedOutException] or if the native libraries return a session object but
         /// UserPool tokens are null (when unauthenticated access is enabled on Identity Pool).
-        yield AuthFlow.signin;
+        yield* _changeScreen(initialScreen);
       }
     } on SessionExpiredException {
       /// In this case, we want to give the end user an exception message and go to signin.
       _exceptionController.add(const AuthenticatorException(
           'Your session has expired. Please sign in.',
           showBanner: true));
-      yield AuthFlow.signin;
+      yield* _changeScreen(initialScreen);
 
       /// On [AmplifyException] and [Exception], update exception controller, do not show banner
       /// and go to sign in screen.
     } on AmplifyException catch (e) {
       _exceptionController
           .add(AuthenticatorException(e.message, showBanner: false));
-      yield AuthFlow.signin;
+      yield* _changeScreen(initialScreen);
     } on Exception catch (e) {
       _exceptionController
           .add(AuthenticatorException(e.toString(), showBanner: false));
-      yield AuthFlow.signin;
+      yield* _changeScreen(initialScreen);
     }
   }
 
@@ -403,7 +387,7 @@ class StateMachineBloc {
   Stream<AuthState> _signOut() async* {
     try {
       await _authService.signOut();
-      yield AuthFlow.signin;
+      yield* _changeScreen(initialScreen);
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
