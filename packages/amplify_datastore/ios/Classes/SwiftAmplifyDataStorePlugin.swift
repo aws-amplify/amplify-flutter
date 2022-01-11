@@ -139,70 +139,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 modelSchemaRegistry: modelSchemaRegistry,
                 customTypeSchemaRegistry: customTypeSchemaRegistry
             )
-
-            var errorHandler: DataStoreErrorHandler
-            if((args["hasErrorHandler"] as? Bool) == true) {
-                errorHandler = { error in
-                    let map : [String:Any] = [
-                        "errorCode" : "DataStoreException",
-                        "errorMesage" : ErrorMessages.defaultFallbackErrorMessage,
-                        "details" : FlutterDataStoreErrorHandler.createSerializedError(error: error)
-                    ]
-                    self.channel!.invokeMethod("errorHandler", arguments: map)
-                }
-            } else {
-                errorHandler = { error in
-                    Amplify.Logging.error(error: error)
-                }
-            }
             
-
-            var conflictHandler:DataStoreConflictHandler
-            if((args["hasConflictHandler"] as? Bool) == true) {
-                conflictHandler = { conflictData, onDecision in
-                    do {
-                        let modelName = conflictData.remote["__typename"] as! String
-                        let local = conflictData.local as! FlutterSerializedModel
-                        let remote = conflictData.remote as! FlutterSerializedModel
-
-                        let map : [String:Any] = [
-                            "modelName" : modelName,
-                            "local" : try local.toMap(flutterModelRegistration: self.flutterModelRegistration, modelName: modelName),
-                            "remote" : try remote.toMap(flutterModelRegistration: self.flutterModelRegistration, modelName: modelName)
-                        ]
-
-                        self.channel!.invokeMethod("conflictHandler", arguments: map){ result in
-                            do {
-                                let resultMap : [String: Any] = result as! [String: Any]
-                                switch(resultMap["resolutionStrategy"] as! String){
-                                    case "APPLY_REMOTE": onDecision(.applyRemote)
-                                    case "RETRY_LOCAL": onDecision(.retryLocal)
-                                    case "RETRY":
-                                        let modelMap : [String: Any] = resultMap["customModel"] as! [String : Any]
-                                        let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: modelMap)
-                                        let serializedModel = try FlutterSerializedModel(id: modelID, map:  FlutterDataStoreRequestUtils.getJSONValue(modelMap))
-                                        onDecision(.retry(serializedModel))
-                                    default:
-                                        print("Unrecognized resolutionStrategy to resolve conflict. Applying default conflict resolution, applyRemote.")
-                                        onDecision(.applyRemote)
-                                }
-                            }
-                            catch let error {
-                                print("Error in conflict handler: \(error) Applying default conflict resolution, applyRemote.")
-                                onDecision(.applyRemote)
-                            }
-                        }
-                    } catch let error {
-                        print("Error in conflict handler: \(error) Applying default conflict resolution, applyRemote.")
-                        onDecision(.applyRemote)
-                    }
-                }
-            } else {
-                conflictHandler = { _, resolve  in
-                    resolve(.applyRemote)
-                }
-            }
-
+            var errorHandler:DataStoreErrorHandler = createErrorHandler(args: args)
+            var conflictHandler:DataStoreConflictHandler = createConflictHandler(args: args)
 
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: modelSchemaRegistry,
                                                      configuration: .custom(
@@ -675,5 +614,73 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     // TODO: Remove once all configure is moved to the bridge
     func getPlugin() throws -> AWSDataStorePlugin {
         return try Amplify.DataStore.getPlugin(for: "awsDataStorePlugin") as! AWSDataStorePlugin
+    }
+    
+    func createErrorHandler(args: [String: Any])  -> DataStoreErrorHandler {
+        var errorHandler: DataStoreErrorHandler
+        if((args["hasErrorHandler"] as? Bool) == true) {
+            errorHandler = { error in
+                let map : [String:Any] = [
+                    "errorCode" : "DataStoreException",
+                    "errorMesage" : ErrorMessages.defaultFallbackErrorMessage,
+                    "details" : FlutterDataStoreErrorHandler.createSerializedError(error: error)
+                ]
+                self.channel!.invokeMethod("errorHandler", arguments: map)
+            }
+        } else {
+            errorHandler = { error in
+                Amplify.Logging.error(error: error)
+            }
+        }
+        return errorHandler
+    }
+    
+    func createConflictHandler(args: [String: Any])  -> DataStoreConflictHandler {
+        var conflictHandler:DataStoreConflictHandler
+        if((args["hasConflictHandler"] as? Bool) == true) {
+            conflictHandler = { conflictData, onDecision in
+                do {
+                    let modelName = conflictData.remote["__typename"] as! String
+                    let local = conflictData.local as! FlutterSerializedModel
+                    let remote = conflictData.remote as! FlutterSerializedModel
+
+                    let map : [String:Any] = [
+                        "modelName" : modelName,
+                        "local" : try local.toMap(flutterModelRegistration: self.modelSchemaRegistry, modelName: modelName),
+                        "remote" : try remote.toMap(flutterModelRegistration: self.modelSchemaRegistry, modelName: modelName)
+                    ]
+
+                    self.channel!.invokeMethod("conflictHandler", arguments: map){ result in
+                        do {
+                            let resultMap : [String: Any] = result as! [String: Any]
+                            switch(resultMap["resolutionStrategy"] as! String){
+                                case "APPLY_REMOTE": onDecision(.applyRemote)
+                                case "RETRY_LOCAL": onDecision(.retryLocal)
+                                case "RETRY":
+                                    let modelMap : [String: Any] = resultMap["customModel"] as! [String : Any]
+                                    let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: modelMap)
+                                    let serializedModel = try FlutterSerializedModel(id: modelID, map:  FlutterDataStoreRequestUtils.getJSONValue(modelMap))
+                                        onDecision(.retry(serializedModel))
+                                default:
+                                    print("Unrecognized resolutionStrategy to resolve conflict. Applying default conflict resolution, applyRemote.")
+                                    onDecision(.applyRemote)
+                            }
+                        }
+                        catch let error {
+                            print("Error in conflict handler: \(error) Applying default conflict resolution, applyRemote.")
+                            onDecision(.applyRemote)
+                        }
+                    }
+                } catch let error {
+                    print("Error in conflict handler: \(error) Applying default conflict resolution, applyRemote.")
+                    onDecision(.applyRemote)
+                }
+            }
+        } else {
+            conflictHandler = { _, resolve  in
+                resolve(.applyRemote)
+            }
+        }
+        return conflictHandler
     }
 }

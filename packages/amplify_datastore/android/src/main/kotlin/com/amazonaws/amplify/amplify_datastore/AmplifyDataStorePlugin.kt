@@ -185,75 +185,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             }
         }
 
-        var errorHandler : DataStoreErrorHandler;
-        errorHandler = if( (request["hasErrorHandler"] as? Boolean? == true) ) {
-            DataStoreErrorHandler {
-                val args = hashMapOf(
-                        "errorCode" to "DataStoreException",
-                        "errorMessage" to ExceptionMessages.defaultFallbackExceptionMessage,
-                        "details" to createSerializedError(it)
-                )
-                channel.invokeMethod("errorHandler", args)
-            }
-        } else {
-            DataStoreErrorHandler {
-                LOG.error(it.toString())
-            }
-        }
-        dataStoreConfigurationBuilder.errorHandler(errorHandler)
-
-        var conflictHandler: DataStoreConflictHandler
-        conflictHandler = if ((request["hasConflictHandler"] as? Boolean? == true)) {
-            DataStoreConflictHandler { conflictData,
-                                       onDecision ->
-
-                val modelName = conflictData.local.modelName
-                val args = hashMapOf(
-                        "modelName" to modelName,
-                        "local" to FlutterSerializedModel(conflictData.local as SerializedModel).toMap(),
-                        "remote" to FlutterSerializedModel(conflictData.remote as SerializedModel).toMap()
-                )
-
-                uiThreadHandler.post {
-                    channel.invokeMethod("conflictHandler", args, object : Result {
-                        override fun success(result: Any?) {
-                            val resultMap: Map<String, Any>? = result.safeCastToMap()
-                            when (resultMap?.get("resolutionStrategy") as String) {
-                                "APPLY_REMOTE" -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
-                                "RETRY_LOCAL" -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retryLocal())
-                                "RETRY" -> {
-                                    val serializedModel = SerializedModel.builder()
-                                            .serializedData(resultMap["customModel"] as HashMap<String, Any>)
-                                            .modelSchema(modelProvider.modelSchemas().getValue(modelName))
-                                            .build()
-                                    onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retry(serializedModel))
-                                }
-                                else -> {
-                                    LOG.error("Unrecognized resolutionStrategy to resolve conflict. Applying default conflict resolution, applyRemote.")
-                                    onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
-                                }
-                            }
-                        }
-
-                        override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
-                            LOG.error("Error in conflict handler: $errorCode $errorMessage Applying default conflict resolution, applyRemote.")
-                            onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
-                        }
-
-                        override fun notImplemented() {
-                            LOG.error("Conflict handler not implemented.  Applying default conflict resolution, applyRemote.")
-                            onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
-                        }
-                    })
-                }
-            }
-        } else {
-            DataStoreConflictHandler { _,
-                                       onDecision ->
-                onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
-            }
-        }
-        dataStoreConfigurationBuilder.conflictHandler(conflictHandler)
+        dataStoreConfigurationBuilder.errorHandler(createErrorHandler(request))
+        dataStoreConfigurationBuilder.conflictHandler(createConflictHandler(request))
 
         val dataStorePlugin = AWSDataStorePlugin
             .builder()
@@ -741,5 +674,79 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 )
             }
         }
+    }
+
+    private fun createErrorHandler(request: Map<String, Any>) : DataStoreErrorHandler{
+        var errorHandler : DataStoreErrorHandler
+        errorHandler = if( (request["hasErrorHandler"] as? Boolean? == true) ) {
+            DataStoreErrorHandler {
+                val args = hashMapOf(
+                        "errorCode" to "DataStoreException",
+                        "errorMessage" to ExceptionMessages.defaultFallbackExceptionMessage,
+                        "details" to createSerializedError(it)
+                )
+                channel.invokeMethod("errorHandler", args)
+            }
+        } else {
+            DataStoreErrorHandler {
+                LOG.error(it.toString())
+            }
+        }
+        return errorHandler
+    }
+
+    private fun createConflictHandler(request: Map<String, Any>) : DataStoreConflictHandler{
+        var conflictHandler: DataStoreConflictHandler
+        conflictHandler = if ((request["hasConflictHandler"] as? Boolean? == true)) {
+            DataStoreConflictHandler { conflictData,
+                                       onDecision ->
+
+                val modelName = conflictData.local.modelName
+                val args = hashMapOf(
+                        "modelName" to modelName,
+                        "local" to FlutterSerializedModel(conflictData.local as SerializedModel).toMap(),
+                        "remote" to FlutterSerializedModel(conflictData.remote as SerializedModel).toMap()
+                )
+
+                uiThreadHandler.post {
+                    channel.invokeMethod("conflictHandler", args, object : Result {
+                        override fun success(result: Any?) {
+                            val resultMap: Map<String, Any>? = result.safeCastToMap()
+                            when (resultMap?.get("resolutionStrategy") as String) {
+                                "APPLY_REMOTE" -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
+                                "RETRY_LOCAL" -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retryLocal())
+                                "RETRY" -> {
+                                    val serializedModel = SerializedModel.builder()
+                                            .serializedData(resultMap["customModel"] as HashMap<String, Any>)
+                                            .modelSchema(modelProvider.modelSchemas().getValue(modelName))
+                                            .build()
+                                    onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retry(serializedModel))
+                                }
+                                else -> {
+                                    LOG.error("Unrecognized resolutionStrategy to resolve conflict. Applying default conflict resolution, applyRemote.")
+                                    onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
+                                }
+                            }
+                        }
+
+                        override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
+                            LOG.error("Error in conflict handler: $errorCode $errorMessage Applying default conflict resolution, applyRemote.")
+                            onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
+                        }
+
+                        override fun notImplemented() {
+                            LOG.error("Conflict handler not implemented.  Applying default conflict resolution, applyRemote.")
+                            onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
+                        }
+                    })
+                }
+            }
+        } else {
+            DataStoreConflictHandler { _,
+                                       onDecision ->
+                onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
+            }
+        }
+        return conflictHandler
     }
 }
