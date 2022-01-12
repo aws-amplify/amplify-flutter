@@ -433,7 +433,7 @@ class _ConfirmSignInPhoneFieldState extends _ConfirmSignInTextFieldState
   ValueChanged<String> get onChanged {
     return (phoneNumber) {
       phoneNumber = formatPhoneNumber(phoneNumber)!;
-      viewModel.setPhoneNumber(phoneNumber);
+      viewModel.phoneNumber = phoneNumber;
     };
   }
 
@@ -509,31 +509,31 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case ConfirmSignInField.code:
-        return viewModel.setConfirmationCode;
+        return (v) => viewModel.confirmationCode = v;
       case ConfirmSignInField.newPassword:
-        return viewModel.setNewPassword;
+        return (v) => viewModel.newPassword = v;
       case ConfirmSignInField.confirmNewPassword:
-        return viewModel.setPasswordConfirmation;
+        return (v) => viewModel.passwordConfirmation = v;
       case ConfirmSignInField.address:
-        return viewModel.setAddress;
+        return (v) => viewModel.address = v;
       case ConfirmSignInField.email:
-        return viewModel.setEmail;
+        return (v) => viewModel.email = v;
       case ConfirmSignInField.familyName:
-        return viewModel.setFamilyName;
+        return (v) => viewModel.familyName = v;
       case ConfirmSignInField.gender:
-        return viewModel.setGender;
+        return (v) => viewModel.gender = v;
       case ConfirmSignInField.givenName:
-        return viewModel.setGivenName;
+        return (v) => viewModel.givenName = v;
       case ConfirmSignInField.middleName:
-        return viewModel.setMiddleName;
+        return (v) => viewModel.middleName = v;
       case ConfirmSignInField.name:
-        return viewModel.setName;
+        return (v) => viewModel.name = v;
       case ConfirmSignInField.nickname:
-        return viewModel.setNickname;
+        return (v) => viewModel.nickname = v;
       case ConfirmSignInField.preferredUsername:
-        return viewModel.setPreferredUsername;
+        return (v) => viewModel.preferredUsername = v;
       case ConfirmSignInField.custom:
-        return (String value) => viewModel.setCustom(
+        return (String value) => viewModel.setCustomAttribute(
               widget._customAttributeKey!,
               value,
             );
@@ -682,7 +682,7 @@ class _ConfirmSignInDateFieldState extends _ConfirmSignInFormFieldState<String>
 
   @override
   ValueChanged<String> get onChanged {
-    return viewModel.setBirthdate;
+    return (v) => viewModel.birthdate = v;
   }
 
   @override

@@ -46,8 +46,7 @@ class AuthViewModel extends ChangeNotifier {
   bool _isBusy = false;
   bool get isBusy => _isBusy;
 
-  //ignore:avoid_positional_boolean_parameters
-  void setBusy(bool busy) {
+  void _setIsBusy(bool busy) {
     _isBusy = busy;
     notifyListeners();
   }
@@ -57,140 +56,138 @@ class AuthViewModel extends ChangeNotifier {
   String _username = '';
   String get username => _username;
 
-  String _password = '';
-  String get password => _password;
-
-  String _passwordConfirmation = '';
-  String get passwordConfirmation => _passwordConfirmation;
-
-  String _confirmationCode = '';
-  String get confirmationCode => _confirmationCode;
-
-  String _newPassword = '';
-  String get newPassword => _newPassword;
-
-  final Map<CognitoUserAttributeKey, String> _authAttributes = {};
-
-  String? getAttribute(CognitoUserAttributeKey key) => _authAttributes[key];
-
-  void setUsername(String value) {
+  set username(String value) {
     _username = value;
     notifyListeners();
   }
 
-  void setPassword(String value) {
+  String _password = '';
+  String get password => _password;
+
+  set password(String value) {
     _password = value;
     notifyListeners();
   }
 
-  void setPasswordConfirmation(String passwordConfirmation) {
-    _passwordConfirmation = passwordConfirmation;
+  String _passwordConfirmation = '';
+  String get passwordConfirmation => _passwordConfirmation;
+
+  set passwordConfirmation(String value) {
+    _passwordConfirmation = value;
     notifyListeners();
   }
 
-  void setConfirmationCode(String value) {
+  String _confirmationCode = '';
+  String get confirmationCode => _confirmationCode;
+
+  set confirmationCode(String value) {
     _confirmationCode = value;
     notifyListeners();
   }
 
-  void setNewPassword(String newPassword) {
-    _newPassword = newPassword;
+  String _newPassword = '';
+  String get newPassword => _newPassword;
+
+  set newPassword(String value) {
+    _newPassword = value;
     notifyListeners();
   }
 
-  bool _rememberDevice = false;
-  bool get rememberDevice => _rememberDevice;
+  final Map<CognitoUserAttributeKey, String> _authAttributes = {};
 
-  CognitoUserAttributeKey _attributeKeyToVerify = CognitoUserAttributeKey.email;
-  CognitoUserAttributeKey get attributeKeyToVerify => _attributeKeyToVerify;
+  String? getAttribute(CognitoUserAttributeKey key) => _authAttributes[key];
 
   void _setAttribute(CognitoUserAttributeKey attribute, String value) {
     _authAttributes[attribute] = value.trim();
     notifyListeners();
   }
 
-  void setAddress(String address) {
+  set address(String address) {
     _setAttribute(CognitoUserAttributeKey.address, address);
   }
 
-  void setBirthdate(String birthdate) {
+  set birthdate(String birthdate) {
     _setAttribute(CognitoUserAttributeKey.birthdate, birthdate);
   }
 
-  void setEmail(String email) {
+  set email(String email) {
     _setAttribute(CognitoUserAttributeKey.email, email);
   }
 
-  void setFamilyName(String familyName) {
+  set familyName(String familyName) {
     _setAttribute(CognitoUserAttributeKey.familyName, familyName);
   }
 
-  void setGender(String gender) {
+  set gender(String gender) {
     _setAttribute(CognitoUserAttributeKey.gender, gender);
   }
 
-  void setGivenName(String givenName) {
+  set givenName(String givenName) {
     _setAttribute(CognitoUserAttributeKey.givenName, givenName);
   }
 
-  void setLocale(String locale) {
+  set locale(String locale) {
     _setAttribute(CognitoUserAttributeKey.locale, locale);
   }
 
-  void setMiddleName(String middleName) {
+  set middleName(String middleName) {
     _setAttribute(CognitoUserAttributeKey.middleName, middleName);
   }
 
-  void setName(String name) {
+  set name(String name) {
     _setAttribute(CognitoUserAttributeKey.name, name);
   }
 
-  void setNickname(String nickname) {
+  set nickname(String nickname) {
     _setAttribute(CognitoUserAttributeKey.nickname, nickname);
   }
 
-  void setPhoneNumber(String phoneNumber) {
+  set phoneNumber(String phoneNumber) {
     _setAttribute(CognitoUserAttributeKey.phoneNumber, phoneNumber);
   }
 
-  void setPicture(String picture) {
+  set picture(String picture) {
     _setAttribute(CognitoUserAttributeKey.picture, picture);
   }
 
-  void setPreferredUsername(String preferredUsername) {
+  set preferredUsername(String preferredUsername) {
     _setAttribute(
       CognitoUserAttributeKey.preferredUsername,
       preferredUsername,
     );
   }
 
-  void setProfile(String profile) {
+  set profile(String profile) {
     _setAttribute(CognitoUserAttributeKey.profile, profile);
   }
 
-  void setZoneInfo(String zoneInfo) {
+  set zoneInfo(String zoneInfo) {
     _setAttribute(CognitoUserAttributeKey.zoneinfo, zoneInfo);
   }
 
-  void setUpdatedAt(String updatedAt) {
+  set updatedAt(String updatedAt) {
     _setAttribute(CognitoUserAttributeKey.updatedAt, updatedAt);
   }
 
-  void setWebsite(String website) {
+  set website(String website) {
     _setAttribute(CognitoUserAttributeKey.website, website);
   }
 
-  void setCustom(CognitoUserAttributeKey key, String value) {
+  void setCustomAttribute(CognitoUserAttributeKey key, String value) {
     _setAttribute(key, value);
   }
 
-  // ignore: avoid_positional_boolean_parameters
-  void setRememberDevice(bool value) {
+  bool _rememberDevice = false;
+  bool get rememberDevice => _rememberDevice;
+  set rememberDevice(bool value) {
     _rememberDevice = value;
     notifyListeners();
   }
 
-  void setAttributeKeyToVerify(CognitoUserAttributeKey attributeKey) {
+  CognitoUserAttributeKey _attributeKeyToVerify = CognitoUserAttributeKey.email;
+  CognitoUserAttributeKey get attributeKeyToVerify => _attributeKeyToVerify;
+
+  set attributeKeyToVerify(CognitoUserAttributeKey attributeKey) {
     _attributeKeyToVerify = attributeKey;
     notifyListeners();
   }
@@ -201,7 +198,7 @@ class AuthViewModel extends ChangeNotifier {
     if (!formKey.currentState!.validate()) {
       return;
     }
-    setBusy(true);
+    _setIsBusy(true);
     var confirm = AuthConfirmSignInData(
       confirmationValue: _confirmationCode.trim(),
       attributes: _authAttributes,
@@ -209,14 +206,14 @@ class AuthViewModel extends ChangeNotifier {
 
     authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
     await nextBlocEvent();
-    setBusy(false);
+    _setIsBusy(false);
   }
 
   Future<void> confirmSignInNewPassword() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
-    setBusy(true);
+    _setIsBusy(true);
     var confirm = AuthConfirmSignInData(
       confirmationValue: _newPassword.trim(),
       attributes: _authAttributes,
@@ -224,7 +221,7 @@ class AuthViewModel extends ChangeNotifier {
 
     authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
     await nextBlocEvent();
-    setBusy(false);
+    _setIsBusy(false);
   }
 
   Future<void> confirm() async {
@@ -232,7 +229,7 @@ class AuthViewModel extends ChangeNotifier {
     //   return;
     // }
 
-    setBusy(true);
+    _setIsBusy(true);
     final confirmation = AuthConfirmSignUpData(
       code: _confirmationCode.trim(),
       username: _username.trim(),
@@ -241,56 +238,56 @@ class AuthViewModel extends ChangeNotifier {
 
     authBloc.add(AuthConfirmSignUp(confirmation));
     await nextBlocEvent();
-    setBusy(false);
+    _setIsBusy(false);
   }
 
   Future<void> signIn() async {
     // if (!formKey.currentState!.validate()) {
     //   return;
     // }
-    setBusy(true);
+    _setIsBusy(true);
     AuthSignInData signIn = AuthUsernamePasswordSignInData(
       username: _username.trim(),
       password: _password.trim(),
     );
     authBloc.add(AuthSignIn(signIn));
     await nextBlocEvent();
-    setBusy(false);
+    _setIsBusy(false);
   }
 
   Future<void> signInWithProvider(AuthProvider provider) async {
-    setBusy(true);
+    _setIsBusy(true);
     final signInData = AuthSocialSignInData(provider: provider);
     authBloc.add(AuthSignIn(signInData));
     await nextBlocEvent();
-    setBusy(false);
+    _setIsBusy(false);
   }
 
   Future<void> signOut() async {
-    setBusy(true);
+    _setIsBusy(true);
     authBloc.add(const AuthSignOut());
     await nextBlocEvent();
-    setBusy(false);
+    _setIsBusy(false);
   }
 
   Future<void> resetPassword() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
-    setBusy(true);
+    _setIsBusy(true);
     final resetPasswordData = AuthResetPasswordData(username: _username.trim());
     authBloc.add(AuthResetPassword(resetPasswordData));
     await nextBlocEvent(
       where: (state) => state is UnauthenticatedState,
     );
-    setBusy(false);
+    _setIsBusy(false);
   }
 
   Future<void> confirmResetPassword() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
-    setBusy(true);
+    _setIsBusy(true);
     AuthConfirmResetPasswordData confirmResetPasswordData =
         AuthConfirmResetPasswordData(
       username: _username.trim(),
@@ -301,14 +298,14 @@ class AuthViewModel extends ChangeNotifier {
     await nextBlocEvent(
       where: (state) => state is UnauthenticatedState,
     );
-    setBusy(false);
+    _setIsBusy(false);
   }
 
   Future<void> signUp() async {
     // if (!formKey.currentState!.validate()) {
     //   return;
     // }
-    setBusy(true);
+    _setIsBusy(true);
 
     final signUp = AuthSignUpData(
       username: _username.trim(),
@@ -318,7 +315,7 @@ class AuthViewModel extends ChangeNotifier {
 
     authBloc.add(AuthSignUp(signUp));
     await nextBlocEvent();
-    setBusy(false);
+    _setIsBusy(false);
   }
 
   Future<void> resendSignUpCode() async {
@@ -331,7 +328,7 @@ class AuthViewModel extends ChangeNotifier {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-    setBusy(true);
+    _setIsBusy(true);
     AuthConfirmVerifyUserData authConfirmVerifyUserData =
         AuthConfirmVerifyUserData(
       userAttributeKey: userAttributeKey,
@@ -342,24 +339,23 @@ class AuthViewModel extends ChangeNotifier {
       where: (state) =>
           state is UnauthenticatedState || state is AuthenticatedState,
     );
-    setBusy(false);
+    _setIsBusy(false);
   }
 
   Future<void> verifyUser() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-    setBusy(true);
+    _setIsBusy(true);
     AuthVerifyUserData authVerifyUserData = AuthVerifyUserData(
       userAttributeKey: attributeKeyToVerify,
     );
 
     _authBloc.add(AuthVerifyUser(authVerifyUserData));
     await nextBlocEvent(
-      where: (state) =>
-          state is UnauthenticatedState || state is AuthenticatedState,
+      where: (state) => !state.isLoading,
     );
-    setBusy(false);
+    _setIsBusy(false);
   }
 
   void skipVerifyUser() {

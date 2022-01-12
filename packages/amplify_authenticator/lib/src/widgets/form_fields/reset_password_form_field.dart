@@ -136,9 +136,9 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case ResetPasswordField.newPassword:
-        return viewModel.setNewPassword;
+        return (v) => viewModel.newPassword = v;
       case ResetPasswordField.verificationCode:
-        return viewModel.setConfirmationCode;
+        return (v) => viewModel.confirmationCode = v;
       case ResetPasswordField.passwordConfirmation:
         return super.onChanged;
     }

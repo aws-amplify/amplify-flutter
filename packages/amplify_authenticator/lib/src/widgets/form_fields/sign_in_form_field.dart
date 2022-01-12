@@ -161,9 +161,9 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case SignInField.username:
-        return viewModel.setUsername;
+        return (v) => viewModel.username = v;
       case SignInField.password:
-        return viewModel.setPassword;
+        return (v) => viewModel.password = v;
       default:
         return super.onChanged;
     }

@@ -457,37 +457,37 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case SignUpField.username:
-        return viewModel.setUsername;
+        return (v) => viewModel.username = v;
       case SignUpField.password:
-        return viewModel.setPassword;
+        return (v) => viewModel.password = v;
       case SignUpField.passwordConfirmation:
-        return viewModel.setPasswordConfirmation;
+        return (v) => viewModel.passwordConfirmation = v;
       case SignUpField.address:
-        return viewModel.setAddress;
+        return (v) => viewModel.address = v;
       case SignUpField.email:
         if (selectedUsernameType == UsernameType.email) {
           return (email) {
-            viewModel.setEmail(email);
-            viewModel.setUsername(email);
+            viewModel.email = email;
+            viewModel.username = email;
           };
         }
-        return viewModel.setEmail;
+        return (v) => viewModel.email = v;
       case SignUpField.familyName:
-        return viewModel.setFamilyName;
+        return (v) => viewModel.familyName = v;
       case SignUpField.gender:
-        return viewModel.setGender;
+        return (v) => viewModel.gender = v;
       case SignUpField.givenName:
-        return viewModel.setGivenName;
+        return (v) => viewModel.givenName = v;
       case SignUpField.middleName:
-        return viewModel.setMiddleName;
+        return (v) => viewModel.middleName = v;
       case SignUpField.name:
-        return viewModel.setName;
+        return (v) => viewModel.name = v;
       case SignUpField.nickname:
-        return viewModel.setNickname;
+        return (v) => viewModel.nickname = v;
       case SignUpField.preferredUsername:
-        return viewModel.setPreferredUsername;
+        return (v) => viewModel.preferredUsername = v;
       case SignUpField.custom:
-        return (String value) => viewModel.setCustom(
+        return (String value) => viewModel.setCustomAttribute(
               widget._customAttributeKey!,
               value,
             );
@@ -664,7 +664,7 @@ class _SignUpPhoneFieldState extends _SignUpTextFieldState
   ValueChanged<String> get onChanged {
     return (phoneNumber) {
       phoneNumber = formatPhoneNumber(phoneNumber)!;
-      viewModel.setPhoneNumber(phoneNumber);
+      viewModel.phoneNumber = phoneNumber;
     };
   }
 
@@ -717,7 +717,7 @@ class _SignUpDateFieldState extends _SignUpFormFieldState<String>
 
   @override
   ValueChanged<String> get onChanged {
-    return viewModel.setBirthdate;
+    return (v) => viewModel.birthdate = v;
   }
 
   @override

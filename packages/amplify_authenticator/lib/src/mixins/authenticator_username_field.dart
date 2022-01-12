@@ -49,17 +49,17 @@ mixin AuthenticatorUsernameField<FieldType,
     switch (selectedUsernameType) {
       case UsernameType.username:
         return (input) {
-          viewModel.setUsername(input.username);
+          viewModel.username = input.username;
         };
       case UsernameType.email:
         return (input) {
-          viewModel.setEmail(input.username);
-          viewModel.setUsername(input.username);
+          viewModel.email = input.username;
+          viewModel.username = input.username;
         };
       case UsernameType.phoneNumber:
         return (input) {
-          viewModel.setPhoneNumber(input.username);
-          viewModel.setUsername(input.username);
+          viewModel.phoneNumber = input.username;
+          viewModel.username = input.username;
         };
     }
   }
@@ -173,7 +173,7 @@ mixin AuthenticatorUsernameField<FieldType,
                       : viewModel.getAttribute(
                               CognitoUserAttributeKey.phoneNumber) ??
                           '';
-                  viewModel.setUsername(newUsername);
+                  viewModel.username = newUsername;
                 },
               );
             }),

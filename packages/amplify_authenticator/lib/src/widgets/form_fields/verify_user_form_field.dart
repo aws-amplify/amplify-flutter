@@ -119,7 +119,7 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
 
   @override
   ValueChanged<String> get onChanged {
-    return viewModel.setConfirmationCode;
+    return (v) => viewModel.confirmationCode = v;
   }
 
   @override
@@ -196,6 +196,7 @@ class _VerifyAttributeFieldState
 
   @override
   ValueChanged<CognitoUserAttributeKey> get onChanged {
-    return viewModel.setAttributeKeyToVerify;
+    return (CognitoUserAttributeKey key) =>
+        viewModel.attributeKeyToVerify = key;
   }
 }
