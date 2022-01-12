@@ -39,14 +39,10 @@ void main() {
     dataStoreChannel.setMockMethodCallHandler(null);
   });
 
-  test('configure sets up the observe event channel', () async {
+  test('observe a valid model type and receive an item ', () async {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       expect("setUpObserve", methodCall.method);
     });
-    dataStore.configure(configuration: '');
-  });
-
-  test('observe a valid model type and receive an item ', () async {
     var json =
         await getJsonFromFile('observe_api/post_type_success_event.json');
     eventChannel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -69,6 +65,9 @@ void main() {
   });
 
   test('observe a model type, but event is for different model type', () async {
+    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      expect("setUpObserve", methodCall.method);
+    });
     var json =
         await getJsonFromFile('observe_api/blog_type_success_event.json');
     eventChannel.setMockMethodCallHandler((MethodCall methodCall) async {
