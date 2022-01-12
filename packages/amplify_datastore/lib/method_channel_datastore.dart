@@ -112,13 +112,9 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   /// This method performs the steps necessary to configure this plugin.
-  /// Currently, it only sets up an event channel to carry datastore observe
-  /// and is invoked as the last step of Amplify.configure(). This must be
-  /// called before any observe() method is called.
+  /// Currently, [configure] doesn't do anything specific.
   @override
-  Future<void> configure({String? configuration}) async {
-    return _channel.invokeMethod('setUpObserve', {});
-  }
+  Future<void> configure({String? configuration}) async {}
 
   @override
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
@@ -126,6 +122,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       QueryPagination? pagination,
       List<QuerySortBy>? sortBy}) async {
     try {
+      await _setUpObserveIfNeeded();
       final List<Map<dynamic, dynamic>>? serializedResults =
           await (_channel.invokeListMethod('query', <String, dynamic>{
         'modelName': modelType.modelName(),
@@ -156,6 +153,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   @override
   Future<void> delete<T extends Model>(T model) async {
     try {
+      await _setUpObserveIfNeeded();
       await _channel.invokeMethod('delete', <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
         'serializedModel': model.toJson(),
@@ -168,6 +166,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   @override
   Future<void> save<T extends Model>(T model) async {
     try {
+      await _setUpObserveIfNeeded();
       var methodChannelSaveInput = <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
         'serializedModel': model.toJson(),
@@ -180,7 +179,9 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
 
   @override
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
-      ModelType<T> modelType) {
+      ModelType<T> modelType) async* {
+    await _setUpObserveIfNeeded();
+
     // Step #1. Open the event channel if it's not already open. Note
     // that there is only one event channel for all observe calls for all models
     const _eventChannel =
@@ -197,7 +198,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     });
 
     // Step #3. Deserialize events and return new broadcast stream
-    return filteredStream
+    yield* filteredStream
         .map((event) => SubscriptionEvent.fromMap(event, modelType))
         .asBroadcastStream()
         .cast<SubscriptionEvent<T>>();
@@ -286,5 +287,13 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
               AmplifyExceptionMessages.missingRecoverySuggestion,
           underlyingException: e.toString());
     }
+  }
+
+  /// Ensure the event channel is properly set up on the native side.
+  /// If not, it ensures event channel can receive event from native
+  /// `observe` APIs. If already set up, this channel call resolves
+  /// immediately.
+  Future<void> _setUpObserveIfNeeded() {
+    return _channel.invokeMethod('setUpObserve', {});
   }
 }
