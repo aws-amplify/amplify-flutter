@@ -198,9 +198,8 @@ class SignUpForm extends AuthenticatorForm {
   /// {@macro authenticator.sign_up_form}
   SignUpForm({
     Key? key,
-    required Widget child,
-  }) : this.empty(
-          child: child,
+  }) : this.custom(
+          fields: [],
           key: key,
         );
 
@@ -220,12 +219,6 @@ class SignUpForm extends AuthenticatorForm {
             SignUpButton(),
           ],
         );
-
-  /// An empty Sign Up form.
-  SignUpForm.empty({
-    Key? key,
-    required Widget child,
-  }) : super(key: key, child: child);
 
   @override
   _SignUpFormState createState() => _SignUpFormState();
