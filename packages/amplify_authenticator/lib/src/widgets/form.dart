@@ -21,8 +21,8 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
+import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
-import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_button.dart';
@@ -159,10 +159,17 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.child != null) return widget.child!;
+    final forms = InheritedForms.of(context);
+    if (widget.child != null) {
+      return Form(
+        key: forms.formKey,
+        child: widget.child!,
+      );
+    }
+
     final _runtimeActions = runtimeActions(context);
     return Form(
-      key: viewModel.formKey,
+      key: forms.formKey,
       child: Column(
         children: [
           ...allFields,

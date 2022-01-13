@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/widgets/form.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class InheritedForms extends InheritedWidget {
@@ -29,6 +29,7 @@ class InheritedForms extends InheritedWidget {
     required this.confirmSignInNewPasswordForm,
     required this.verifyUserForm,
     required this.confirmVerifyUserForm,
+    required this.formKey,
     required Widget child,
   }) : super(key: key, child: child);
 
@@ -41,6 +42,8 @@ class InheritedForms extends InheritedWidget {
   final ConfirmResetPasswordForm confirmResetPasswordForm;
   final VerifyUserForm verifyUserForm;
   final ConfirmVerifyUserForm confirmVerifyUserForm;
+
+  final GlobalKey<FormState> formKey;
 
   AuthenticatorForm operator [](AuthScreen screen) {
     switch (screen) {
@@ -94,6 +97,13 @@ class InheritedForms extends InheritedWidget {
             confirmSignInNewPasswordForm ||
         oldWidget.verifyUserForm != verifyUserForm ||
         oldWidget.confirmVerifyUserForm != confirmVerifyUserForm;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty<GlobalKey<FormState>>('formKey', formKey));
   }
 }
 

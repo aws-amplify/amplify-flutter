@@ -1,17 +1,13 @@
 import 'dart:convert';
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
-import 'package:amplify_authenticator/src/l10n/message_resolver.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
-import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -32,6 +28,7 @@ void main() {
 
   final binding = TestWidgetsFlutterBinding.ensureInitialized()
       as TestWidgetsFlutterBinding;
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
   Widget buildTabView({
     ThemeData? lightTheme,
@@ -51,7 +48,7 @@ void main() {
               : AmplifyConfig.fromJson(jsonDecode(amplifyConfig)),
           useAmplifyTheme: useAmplifyTheme,
           child: InheritedAuthViewModel(
-            viewModel: AuthViewModel(MockBloc()),
+            viewModel: AuthViewModel(MockBloc(), _formKey),
             child: InheritedStrings(
               resolver: const AuthStringResolver(),
               child: InheritedForms(
@@ -64,6 +61,7 @@ void main() {
                 confirmResetPasswordForm: const ConfirmResetPasswordForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),
+                formKey: _formKey,
                 child: const RepaintBoundary(
                   child: AuthenticatorTabView(
                     key: keyTabView,

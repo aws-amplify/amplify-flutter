@@ -202,7 +202,7 @@ class ConfirmSignUpButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.confirm();
+      viewModel.confirmSignUp();
 }
 
 class ConfirmSignInMFAButton extends AuthenticatorElevatedButton {

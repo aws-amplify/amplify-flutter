@@ -21,8 +21,14 @@ import 'package:flutter/material.dart';
 @visibleForTesting
 typedef BlocEventPredicate = bool Function(AuthenticatorState state);
 
+/// A View Model for the Amplify Authenticator.
+///
+/// Contains the form data for the Authenticator (username, password, etc.) as
+/// well as methods to sign the user in or trasistion to a new Authentication State.
+///
+/// Intended to be used within custom UIs for the Amplify Authenticator.
 class AuthViewModel extends ChangeNotifier {
-  AuthViewModel(this._authBloc) {
+  AuthViewModel(this._authBloc, this._formKey) {
     // Listen to screen changes to know when to clear the form. Calling `clean`
     // from the forms' dispose method is unreliable since it may be called after
     // the transitioning form's first build is called.
@@ -38,22 +44,25 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   final StateMachineBloc _authBloc;
-  StateMachineBloc get authBloc => _authBloc;
 
-  GlobalKey<FormState> _formKey = GlobalKey();
-  GlobalKey<FormState> get formKey => _formKey;
+  final GlobalKey<FormState> _formKey;
 
   bool _isBusy = false;
-  bool get isBusy => _isBusy;
-
   void _setIsBusy(bool busy) {
     _isBusy = busy;
     notifyListeners();
   }
 
-  // Form values
+  /// Indicates if the form is currently in a loading state
+  ///
+  /// Will be set to true when an asynchrounous action (such as login) in
+  /// initiated, and will be set to false when that asynchrounous action completes
+  bool get isBusy => _isBusy;
 
-  String _username = '';
+  /// The value for the username form field
+  ///
+  /// This value will be used during sign up, sign in, or other actions
+  /// that required the username
   String get username => _username;
 
   set username(String value) {
@@ -61,7 +70,12 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _password = '';
+  String _username = '';
+
+  /// The value for the password form field
+  ///
+  /// This value will be used during sign up, sign in, or other actions
+  /// that required the password
   String get password => _password;
 
   set password(String value) {
@@ -69,7 +83,12 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _passwordConfirmation = '';
+  String _password = '';
+
+  /// The value for the password confirmation form field
+  ///
+  /// This value will be used during sign up, or other actions
+  /// that required the password confirmation
   String get passwordConfirmation => _passwordConfirmation;
 
   set passwordConfirmation(String value) {
@@ -77,15 +96,25 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _confirmationCode = '';
+  String _passwordConfirmation = '';
+
   String get confirmationCode => _confirmationCode;
 
+  /// The value for the confirmation code form field
+  ///
+  /// This value will be used during confirm sign up, or other actions
+  /// that required the confirmation code
   set confirmationCode(String value) {
     _confirmationCode = value;
     notifyListeners();
   }
 
-  String _newPassword = '';
+  String _confirmationCode = '';
+
+  /// The value for the new assword form field
+  ///
+  /// This value will be used during reset password, or other actions
+  /// that required the password
   String get newPassword => _newPassword;
 
   set newPassword(String value) {
@@ -93,8 +122,11 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String _newPassword = '';
+
   final Map<CognitoUserAttributeKey, String> _authAttributes = {};
 
+  // Returns the form field value for a User Attribute
   String? getAttribute(CognitoUserAttributeKey key) => _authAttributes[key];
 
   void _setAttribute(CognitoUserAttributeKey attribute, String value) {
@@ -192,10 +224,10 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Auth calls
-
+  /// Complete MFA using the values for [confirmationCode],
+  /// [rememberDevice], and any user attributes.
   Future<void> confirmSignInMFA() async {
-    if (!formKey.currentState!.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
     _setIsBusy(true);
@@ -204,13 +236,14 @@ class AuthViewModel extends ChangeNotifier {
       attributes: _authAttributes,
     );
 
-    authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
+    _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
     await nextBlocEvent();
     _setIsBusy(false);
   }
 
+  /// Complete the force password change with [newPassword]
   Future<void> confirmSignInNewPassword() async {
-    if (!formKey.currentState!.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
     _setIsBusy(true);
@@ -219,16 +252,16 @@ class AuthViewModel extends ChangeNotifier {
       attributes: _authAttributes,
     );
 
-    authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
+    _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
     await nextBlocEvent();
     _setIsBusy(false);
   }
 
-  Future<void> confirm() async {
-    // if (!formKey.currentState!.validate()) {
-    //   return;
-    // }
-
+  /// Confirm sign up with [confirmationCode], [username], and [password]
+  Future<void> confirmSignUp() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
     _setIsBusy(true);
     final confirmation = AuthConfirmSignUpData(
       code: _confirmationCode.trim(),
@@ -236,55 +269,61 @@ class AuthViewModel extends ChangeNotifier {
       password: _password.trim(),
     );
 
-    authBloc.add(AuthConfirmSignUp(confirmation));
+    _authBloc.add(AuthConfirmSignUp(confirmation));
     await nextBlocEvent();
     _setIsBusy(false);
   }
 
+  /// Sign in with [username], and [password]
   Future<void> signIn() async {
-    // if (!formKey.currentState!.validate()) {
-    //   return;
-    // }
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
     _setIsBusy(true);
     AuthSignInData signIn = AuthUsernamePasswordSignInData(
       username: _username.trim(),
       password: _password.trim(),
     );
-    authBloc.add(AuthSignIn(signIn));
+    _authBloc.add(AuthSignIn(signIn));
     await nextBlocEvent();
     _setIsBusy(false);
   }
 
+  /// Perform sicial sign in with the given provider
   Future<void> signInWithProvider(AuthProvider provider) async {
     _setIsBusy(true);
     final signInData = AuthSocialSignInData(provider: provider);
-    authBloc.add(AuthSignIn(signInData));
+    _authBloc.add(AuthSignIn(signInData));
     await nextBlocEvent();
     _setIsBusy(false);
   }
 
+  /// Sign out the currecnt user
   Future<void> signOut() async {
     _setIsBusy(true);
-    authBloc.add(const AuthSignOut());
+    _authBloc.add(const AuthSignOut());
     await nextBlocEvent();
     _setIsBusy(false);
   }
 
+  /// Initiates the reset password process for the user with the given [username]
   Future<void> resetPassword() async {
-    if (!formKey.currentState!.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
     _setIsBusy(true);
     final resetPasswordData = AuthResetPasswordData(username: _username.trim());
-    authBloc.add(AuthResetPassword(resetPasswordData));
+    _authBloc.add(AuthResetPassword(resetPasswordData));
     await nextBlocEvent(
       where: (state) => state is UnauthenticatedState,
     );
     _setIsBusy(false);
   }
 
+  /// Completes the reset password process with [confirmationCode],
+  /// [username], and [newPassword]
   Future<void> confirmResetPassword() async {
-    if (!formKey.currentState!.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
     _setIsBusy(true);
@@ -294,17 +333,18 @@ class AuthViewModel extends ChangeNotifier {
       confirmationCode: _confirmationCode.trim(),
       newPassword: _newPassword.trim(),
     );
-    authBloc.add(AuthConfirmResetPassword(confirmResetPasswordData));
+    _authBloc.add(AuthConfirmResetPassword(confirmResetPasswordData));
     await nextBlocEvent(
       where: (state) => state is UnauthenticatedState,
     );
     _setIsBusy(false);
   }
 
+  /// Sign up with [username], [password] and any user attributes
   Future<void> signUp() async {
-    // if (!formKey.currentState!.validate()) {
-    //   return;
-    // }
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
     _setIsBusy(true);
 
     final signUp = AuthSignUpData(
@@ -313,13 +353,14 @@ class AuthViewModel extends ChangeNotifier {
       attributes: _authAttributes,
     );
 
-    authBloc.add(AuthSignUp(signUp));
+    _authBloc.add(AuthSignUp(signUp));
     await nextBlocEvent();
     _setIsBusy(false);
   }
 
+  /// Resend sign up code for the user with the given [username]
   Future<void> resendSignUpCode() async {
-    authBloc.add(AuthResendSignUpCode(_username));
+    _authBloc.add(AuthResendSignUpCode(_username));
     await nextBlocEvent();
   }
 
@@ -374,8 +415,9 @@ class AuthViewModel extends ChangeNotifier {
     ]);
   }
 
+  /// Navigates to a new step in the authentication flow
   void navigateTo(AuthScreen authScreen, {bool resetAttributes = true}) {
-    authBloc.add(AuthChangeScreen(authScreen));
+    _authBloc.add(AuthChangeScreen(authScreen));
 
     /// Clean [ViewModel] when user manually navigates widgets
     if (resetAttributes) _resetAttributes();
@@ -395,7 +437,9 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   void resetFormKey() {
-    _formKey = GlobalKey<FormState>();
+    _formKey.currentState?.reset();
+    // TODO: determine if key actually needs to be set to a new value
+    // _formKey = GlobalKey<FormState>();
   }
 
   void resetCode() {

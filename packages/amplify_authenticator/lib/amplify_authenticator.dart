@@ -347,6 +347,8 @@ class _AuthenticatorState extends State<Authenticator> {
   late List<String> _missingConfigValues;
   bool _configInitialized = false;
 
+  final GlobalKey<FormState> _formKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -355,7 +357,7 @@ class _AuthenticatorState extends State<Authenticator> {
       preferPrivateSession: widget.preferPrivateSession,
       initialScreen: widget.initialScreen,
     )..add(const AuthLoad());
-    _viewModel = AuthViewModel(_stateMachineBloc);
+    _viewModel = AuthViewModel(_stateMachineBloc, _formKey);
     _subscribeToExceptions();
     _subscribeToInfoMessages();
     _subscribeToSuccessEvents();
@@ -544,6 +546,7 @@ class _AuthenticatorState extends State<Authenticator> {
               confirmSignInMFAForm: ConfirmSignInMFAForm(),
               verifyUserForm: VerifyUserForm(),
               confirmVerifyUserForm: ConfirmVerifyUserForm(),
+              formKey: _formKey,
               child: widget.child,
             ),
           ),
