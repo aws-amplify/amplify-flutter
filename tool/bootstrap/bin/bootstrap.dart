@@ -6,6 +6,7 @@ import 'package:yaml/yaml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
 const skipPackages = ['amplify_lints'];
+const keepLocalPackage = ['amplify_test'];
 const urlArg = 'url';
 late String url;
 
@@ -59,7 +60,8 @@ void updatePackage(String packagePath, String packageName) {
 void updateDependencies(YamlEditor pubspecYaml, String dependencyKey) {
   final dependencies = pubspecYaml.parseAt([dependencyKey]).value as YamlMap;
   for (final dependencyName in dependencies.keys.cast<String>()) {
-    if (!dependencyName.startsWith('amplify_')) {
+    if (!dependencyName.startsWith('amplify_') ||
+        keepLocalPackage.contains(dependencyName)) {
       continue;
     }
     pubspecYaml.update(
