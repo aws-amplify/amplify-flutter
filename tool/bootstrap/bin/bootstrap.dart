@@ -39,6 +39,9 @@ void main(List<String> arguments) {
       updatePackage(examplePath, '${packageName}_example');
     }
   }
+
+  // Update example
+  updatePackage(path.join(cwd, 'example'), 'sample_app');
 }
 
 /// Updates the package at the given [packagePath] by editing the pubspec.yaml
