@@ -18,6 +18,7 @@ mkdir -p bin
 # Install unpub
 echo "Installing unpub..."
 curl -s -L https://github.com/dnys1/unpub/releases/download/${UNPUB_VERSION}/${UNPUB_BINARY}.tar.gz | tar xz
+shasum -a 256 -c unpub.sum
 mv ${UNPUB_BINARY} bin/unpub
 chmod +x bin/unpub
 
