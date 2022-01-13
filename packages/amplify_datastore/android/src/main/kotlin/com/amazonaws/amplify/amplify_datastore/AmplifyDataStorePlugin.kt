@@ -395,6 +395,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     fun onSetUpObserve(flutterResult: Result) {
+        if (this::observeCancelable.isInitialized) {
+            flutterResult.success(true)
+            return
+        }
+
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
         plugin.observe(
