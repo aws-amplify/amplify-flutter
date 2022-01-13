@@ -64,7 +64,7 @@ void updateDependencies(YamlEditor pubspecYaml, String dependencyKey) {
     }
     pubspecYaml.update(
       [dependencyKey, dependencyName],
-      YamlMap.wrap({
+      YamlMap.wrap(<String, Object?>{
         'hosted': {
           'url': url,
           'name': dependencyName,
