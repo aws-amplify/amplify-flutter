@@ -51,12 +51,12 @@ abstract class AuthenticatorPage {
     expect(usernameFieldHint, isPresent ? findsOneWidget : findsNothing);
   }
 
-  /// Expects the current screen to be [screen].
-  void expectScreen(AuthScreen screen) {
+  /// Expects the current step to be [step].
+  void expectStep(AuthenticatorStep step) {
     final currentScreen = tester.widget<AuthenticatorScreen>(
       find.byType(AuthenticatorScreen),
     );
-    expect(currentScreen.screen, equals(screen));
+    expect(currentScreen.step, equals(step));
   }
 
   /// Expects the input field [inputField] to show an error text containing

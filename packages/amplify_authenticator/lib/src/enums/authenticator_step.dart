@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-enum AuthScreen {
+enum AuthenticatorStep {
   initial,
   signup,
   signin,

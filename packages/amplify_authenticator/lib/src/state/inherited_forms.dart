@@ -45,26 +45,26 @@ class InheritedForms extends InheritedWidget {
 
   final GlobalKey<FormState> formKey;
 
-  AuthenticatorForm operator [](AuthScreen screen) {
-    switch (screen) {
-      case AuthScreen.initial:
-      case AuthScreen.signup:
+  AuthenticatorForm operator [](AuthenticatorStep step) {
+    switch (step) {
+      case AuthenticatorStep.initial:
+      case AuthenticatorStep.signup:
         return signUpForm;
-      case AuthScreen.signin:
+      case AuthenticatorStep.signin:
         return signInForm;
-      case AuthScreen.confirmSignup:
+      case AuthenticatorStep.confirmSignup:
         return confirmSignUpForm;
-      case AuthScreen.confirmSigninMfa:
+      case AuthenticatorStep.confirmSigninMfa:
         return confirmSignInMFAForm;
-      case AuthScreen.confirmSigninNewPassword:
+      case AuthenticatorStep.confirmSigninNewPassword:
         return confirmSignInNewPasswordForm;
-      case AuthScreen.resetPassword:
+      case AuthenticatorStep.resetPassword:
         return resetPasswordForm;
-      case AuthScreen.confirmResetPassword:
+      case AuthenticatorStep.confirmResetPassword:
         return confirmResetPasswordForm;
-      case AuthScreen.verifyUser:
+      case AuthenticatorStep.verifyUser:
         return verifyUserForm;
-      case AuthScreen.confirmVerifyUser:
+      case AuthenticatorStep.confirmVerifyUser:
         return confirmVerifyUserForm;
     }
   }

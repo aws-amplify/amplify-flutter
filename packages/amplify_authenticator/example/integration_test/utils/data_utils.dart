@@ -68,7 +68,7 @@ Future<DeleteUserResponse?> deleteUser(String username) async {
 /// The [autoconfirm] flag will mark the user as confirmed and give them a permanent password.
 /// The [enableMFA] flag will opt-in the user to using SMS MFA.
 /// The [verifyAttributes] flag will verify the email and phone, and should be used
-/// if tests need to bypass the verification screen.
+/// if tests need to bypass the verification step.
 Future<AdminCreateUserResponse?> adminCreateUser(
     String username, String password,
     {bool autoConfirm = false,

@@ -19,8 +19,8 @@ import 'package:flutter/material.dart';
 import 'authenticator_localizations.dart';
 import 'resolver.dart';
 
-/// The resolver class for screen titles
-class TitleResolver extends Resolver<AuthScreen> {
+/// The resolver class for step titles
+class TitleResolver extends Resolver<AuthenticatorStep> {
   const TitleResolver();
 
   /// The title for the sign in Widget.
@@ -65,25 +65,25 @@ class TitleResolver extends Resolver<AuthScreen> {
   }
 
   @override
-  String resolve(BuildContext context, AuthScreen key) {
+  String resolve(BuildContext context, AuthenticatorStep key) {
     switch (key) {
-      case AuthScreen.initial:
-      case AuthScreen.signin:
+      case AuthenticatorStep.initial:
+      case AuthenticatorStep.signin:
         return signin(context);
-      case AuthScreen.signup:
+      case AuthenticatorStep.signup:
         return signup(context);
-      case AuthScreen.confirmSignup:
+      case AuthenticatorStep.confirmSignup:
         return confirmSignup(context);
-      case AuthScreen.confirmSigninMfa:
+      case AuthenticatorStep.confirmSigninMfa:
         return confirmSigninMfa(context);
-      case AuthScreen.confirmSigninNewPassword:
+      case AuthenticatorStep.confirmSigninNewPassword:
         return confirmSigninNewPassword(context);
-      case AuthScreen.resetPassword:
+      case AuthenticatorStep.resetPassword:
         return resetPassword(context);
-      case AuthScreen.confirmResetPassword:
+      case AuthenticatorStep.confirmResetPassword:
         return confirmResetPassword(context);
-      case AuthScreen.verifyUser:
-      case AuthScreen.confirmVerifyUser:
+      case AuthenticatorStep.verifyUser:
+      case AuthenticatorStep.confirmVerifyUser:
         return verifyUser(context);
     }
   }

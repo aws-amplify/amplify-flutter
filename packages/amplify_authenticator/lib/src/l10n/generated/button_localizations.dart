@@ -180,7 +180,7 @@ abstract class AuthenticatorButtonLocalizations {
   /// **'Verify'**
   String get verify;
 
-  /// Label of button to skip the current screen or action.
+  /// Label of button to skip the current step or action.
   ///
   /// In en, this message translates to:
   /// **'Skip'**
@@ -192,11 +192,11 @@ abstract class AuthenticatorButtonLocalizations {
   /// **'Sign Out'**
   String get signout;
 
-  /// Label of button to return to the previous screen
+  /// Label of button to return to the previous step
   ///
   /// In en, this message translates to:
   /// **'Back to {previousScreen, select, signup{Sign Up}, signin{Sign In}, confirmSignup{Confirm Sign-up}, confirmSigninMfa{Confirm Sign-in} confirmSigninNewPassword{Confirm Sign-in} sendCode{Send Code} resetPassword{Reset Password} verifyUser{Verify User} confirmVerifyUser{Confirm Verify User}}'**
-  String backTo(AuthScreen previousScreen);
+  String backTo(AuthenticatorStep previousScreen);
 
   /// Label of button to sign in with a social provider
   ///

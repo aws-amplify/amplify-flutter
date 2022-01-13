@@ -53,7 +53,7 @@ export 'package:amplify_authenticator/src/widgets/form.dart';
 export 'package:amplify_flutter/amplify_flutter.dart'
     show PasswordProtectionSettings, PasswordPolicyCharacters;
 
-export 'src/enums/enums.dart' show AuthScreen, Gender;
+export 'src/enums/enums.dart' show AuthenticatorStep, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
 export 'src/models/username_input.dart' show UsernameType, UsernameInput;
@@ -239,7 +239,7 @@ class Authenticator extends StatefulWidget {
     this.onException,
     this.exceptionBannerLocation = ExceptionBannerLocation.auto,
     this.preferPrivateSession = false,
-    this.initialScreen = AuthScreen.initial,
+    this.initialScreen = AuthenticatorStep.initial,
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
     this.signUpForm = signUpForm ?? SignUpForm.custom(fields: const []);
@@ -308,9 +308,9 @@ class Authenticator extends StatefulWidget {
   /// This widget will be displayed after a user has signed in.
   final Widget child;
 
-  /// The initial screen that the authenticator will display if the user is not
+  /// The initial step that the authenticator will display if the user is not
   /// already authenticated
-  final AuthScreen initialScreen;
+  final AuthenticatorStep initialScreen;
 
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
@@ -328,7 +328,8 @@ class Authenticator extends StatefulWidget {
         'exceptionBannerLocation', exceptionBannerLocation));
     properties.add(DiagnosticsProperty<bool>(
         'preferPrivateSession', preferPrivateSession));
-    properties.add(EnumProperty<AuthScreen>('initialScreen', initialScreen));
+    properties
+        .add(EnumProperty<AuthenticatorStep>('initialScreen', initialScreen));
   }
 }
 
@@ -599,7 +600,7 @@ class _AuthenticatorBody extends StatelessWidget {
           } else if (state is LoadingState) {
             authenticatorScreen = const LoadingScreen();
           } else if (state is UnauthenticatedState) {
-            authenticatorScreen = AuthenticatorScreen(screen: state.screen);
+            authenticatorScreen = AuthenticatorScreen(step: state.step);
           } else {
             authenticatorScreen = const AuthenticatorScreen.signin();
           }

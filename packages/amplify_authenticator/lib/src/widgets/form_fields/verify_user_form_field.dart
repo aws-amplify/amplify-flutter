@@ -16,7 +16,7 @@
 part of authenticator.form_field;
 
 /// {@template authenticator.verify_user_form_field}
-/// A [Radio] form field component on the Verify User screen.
+/// A [Radio] form field component on the Verify User step.
 ///
 /// Must be a descendant of a [VerifyUserFormFieldGroup] widget.
 /// {@endtemplate}

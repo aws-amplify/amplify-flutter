@@ -57,7 +57,7 @@ class LocalizedButtonResolver extends ButtonResolver {
   }
 
   @override
-  String backTo(BuildContext context, AuthScreen previousScreen) {
+  String backTo(BuildContext context, AuthenticatorStep previousScreen) {
     return AppLocalizations.of(context).backTo(previousScreen);
   }
 

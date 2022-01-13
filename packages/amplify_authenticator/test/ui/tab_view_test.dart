@@ -65,7 +65,7 @@ void main() {
                 child: const RepaintBoundary(
                   child: AuthenticatorTabView(
                     key: keyTabView,
-                    tabs: [AuthScreen.signin, AuthScreen.signup],
+                    tabs: [AuthenticatorStep.signin, AuthenticatorStep.signup],
                   ),
                 ),
               ),
@@ -302,5 +302,5 @@ class MockBloc implements StateMachineBloc {
       Stream.value(UnauthenticatedState.signin);
 
   @override
-  AuthScreen get initialScreen => AuthScreen.initial;
+  AuthenticatorStep get initialScreen => AuthenticatorStep.initial;
 }

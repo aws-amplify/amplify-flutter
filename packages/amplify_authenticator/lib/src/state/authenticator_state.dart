@@ -14,13 +14,13 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_authenticator/src/enums/auth_screen.dart';
+import 'package:amplify_authenticator/src/enums/authenticator_step.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class AuthenticatorState {
   const AuthenticatorState();
 
-  AuthScreen? get screen => null;
+  AuthenticatorStep? get step => null;
   bool get isLoading => false;
   bool get isAuthenticated => false;
 }
@@ -41,41 +41,43 @@ class AuthenticatedState extends AuthenticatorState {
 
 @immutable
 class UnauthenticatedState extends AuthenticatorState {
-  final AuthScreen _screen;
-  const UnauthenticatedState({required AuthScreen screen}) : _screen = screen;
+  final AuthenticatorStep _screen;
+  const UnauthenticatedState({required AuthenticatorStep step})
+      : _screen = step;
 
   @override
   bool get isAuthenticated => false;
 
   @override
-  AuthScreen get screen => _screen;
+  AuthenticatorStep get step => _screen;
 
-  static const signup = UnauthenticatedState(screen: AuthScreen.signup);
-  static const signin = UnauthenticatedState(screen: AuthScreen.signin);
+  static const signup = UnauthenticatedState(step: AuthenticatorStep.signup);
+  static const signin = UnauthenticatedState(step: AuthenticatorStep.signin);
   static const confirmSignup =
-      UnauthenticatedState(screen: AuthScreen.confirmSignup);
+      UnauthenticatedState(step: AuthenticatorStep.confirmSignup);
   static const confirmSigninMfa =
-      UnauthenticatedState(screen: AuthScreen.confirmSigninMfa);
+      UnauthenticatedState(step: AuthenticatorStep.confirmSigninMfa);
   static const confirmSigninNewPassword =
-      UnauthenticatedState(screen: AuthScreen.confirmSigninNewPassword);
+      UnauthenticatedState(step: AuthenticatorStep.confirmSigninNewPassword);
   static const resetPassword =
-      UnauthenticatedState(screen: AuthScreen.resetPassword);
+      UnauthenticatedState(step: AuthenticatorStep.resetPassword);
   static const confirmResetPassword =
-      UnauthenticatedState(screen: AuthScreen.confirmResetPassword);
-  static const verifyUser = UnauthenticatedState(screen: AuthScreen.verifyUser);
+      UnauthenticatedState(step: AuthenticatorStep.confirmResetPassword);
+  static const verifyUser =
+      UnauthenticatedState(step: AuthenticatorStep.verifyUser);
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UnauthenticatedState && other.screen == screen;
+      other is UnauthenticatedState && other.step == step;
 
   @override
-  int get hashCode => screen.hashCode;
+  int get hashCode => step.hashCode;
 }
 
 class AttributeVerificationSent extends UnauthenticatedState {
   const AttributeVerificationSent(this.userAttributeKey)
-      : super(screen: AuthScreen.confirmVerifyUser);
+      : super(step: AuthenticatorStep.confirmVerifyUser);
 
   final CognitoUserAttributeKey userAttributeKey;
 }
@@ -84,5 +86,5 @@ class VerifyUserFlow extends UnauthenticatedState {
   final List<CognitoUserAttributeKey> unverifiedAttributeKeys;
 
   const VerifyUserFlow({required this.unverifiedAttributeKeys})
-      : super(screen: AuthScreen.verifyUser);
+      : super(step: AuthenticatorStep.verifyUser);
 }

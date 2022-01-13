@@ -30,7 +30,7 @@ part 'auth_event.dart';
 class StateMachineBloc {
   final AuthService _authService;
   final bool preferPrivateSession;
-  final AuthScreen initialScreen;
+  final AuthenticatorStep initialScreen;
 
   /// State controller.
   final StreamController<AuthenticatorState> _authStateController =
@@ -61,7 +61,7 @@ class StateMachineBloc {
   StateMachineBloc({
     required AuthService authService,
     required this.preferPrivateSession,
-    this.initialScreen = AuthScreen.initial,
+    this.initialScreen = AuthenticatorStep.initial,
   }) : _authService = authService {
     _subscription =
         _authEventStream.asyncExpand(_eventTransformer).listen((state) {
@@ -99,7 +99,7 @@ class StateMachineBloc {
     } else if (event is AuthConfirmSignUp) {
       yield* _confirmSignUp(event.data);
     } else if (event is AuthChangeScreen) {
-      yield* _changeScreen(event.screen);
+      yield* _changeScreen(event.step);
     } else if (event is AuthSignOut) {
       yield* _signOut();
     } else if (event is AuthResetPassword) {
@@ -144,7 +144,7 @@ class StateMachineBloc {
       yield* _changeScreen(initialScreen);
 
       /// On [AmplifyException] and [Exception], update exception controller, do not show banner
-      /// and go to sign in screen.
+      /// and go to sign in step.
     } on AmplifyException catch (e) {
       _exceptionController
           .add(AuthenticatorException(e.message, showBanner: false));
@@ -426,8 +426,8 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthenticatorState> _changeScreen(AuthScreen screen) async* {
-    yield UnauthenticatedState(screen: screen);
+  Stream<AuthenticatorState> _changeScreen(AuthenticatorStep step) async* {
+    yield UnauthenticatedState(step: step);
   }
 
   Stream<AuthenticatorState> _resendSignUpCode(String username) async* {

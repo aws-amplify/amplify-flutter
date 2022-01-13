@@ -17,18 +17,18 @@ Widget customAuthenticatorBuilder(
   if (authenticatorState.isLoading) {
     return const Material(child: Center(child: CircularProgressIndicator()));
   } else if (authenticatorState is UnauthenticatedState) {
-    AuthScreen screen = authenticatorState.screen;
-    switch (screen) {
-      case AuthScreen.initial:
+    AuthenticatorStep step = authenticatorState.step;
+    switch (step) {
+      case AuthenticatorStep.initial:
         return UsernameView(viewModel: viewModel);
-      case AuthScreen.signin:
+      case AuthenticatorStep.signin:
         return SignInView(viewModel: viewModel);
-      case AuthScreen.signup:
+      case AuthenticatorStep.signup:
         return SignUpView(viewModel: viewModel);
-      case AuthScreen.confirmSignup:
+      case AuthenticatorStep.confirmSignup:
         return const ConfirmSignUpView();
       default:
-        throw StateError('Screen: $screen is not handled for this demo.');
+        throw StateError('Step: $step is not handled for this demo.');
     }
   } else {
     throw StateError(
@@ -200,7 +200,7 @@ class BackToUsernameViewButton extends StatelessWidget {
       width: double.infinity,
       child: TextButton(
         child: const Text('Back'),
-        onPressed: () => viewModel.navigateTo(AuthScreen.initial),
+        onPressed: () => viewModel.navigateTo(AuthenticatorStep.initial),
       ),
     );
   }
@@ -224,17 +224,17 @@ class CheckUsernameButton extends StatelessWidget {
       );
       await Amplify.Auth.signOut();
       viewModel.navigateTo(
-        AuthScreen.signin,
+        AuthenticatorStep.signin,
         resetAttributes: false,
       );
     } on UserNotFoundException {
       viewModel.navigateTo(
-        AuthScreen.signup,
+        AuthenticatorStep.signup,
         resetAttributes: false,
       );
     } on Exception {
       viewModel.navigateTo(
-        AuthScreen.signin,
+        AuthenticatorStep.signin,
         resetAttributes: false,
       );
     }

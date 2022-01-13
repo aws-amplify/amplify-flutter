@@ -37,7 +37,10 @@ class ConfirmSignInPage extends AuthenticatorPage {
     final currentScreen = tester.widget<AuthenticatorScreen>(
       find.byType(AuthenticatorScreen),
     );
-    expect(currentScreen.screen, equals(AuthScreen.confirmSigninNewPassword));
+    expect(
+      currentScreen.step,
+      equals(AuthenticatorStep.confirmSigninNewPassword),
+    );
   }
 
   /// Then I see "Confirm Sign In - MFA"
@@ -45,7 +48,7 @@ class ConfirmSignInPage extends AuthenticatorPage {
     final currentScreen = tester.widget<AuthenticatorScreen>(
       find.byType(AuthenticatorScreen),
     );
-    expect(currentScreen.screen, equals(AuthScreen.confirmSigninMfa));
+    expect(currentScreen.step, equals(AuthenticatorStep.confirmSigninMfa));
   }
 
   /// Then I see "New Password"
@@ -82,7 +85,7 @@ class ConfirmSignInPage extends AuthenticatorPage {
     await tester.pumpAndSettle();
   }
 
-  /// When I navigate to the "Sign In" screen.
+  /// When I navigate to the "Sign In" step.
   Future<void> navigateToSignIn() async {
     await tester.tap(backToSignIn);
     await tester.pumpAndSettle();

@@ -197,7 +197,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
 }
 
 /// {@template authenticator.sign_up_form}
-/// The Sign Up screen form.
+/// The Sign Up step form.
 ///
 /// To customize, use [SignUpForm.custom].
 /// {@endtemplate}
@@ -298,7 +298,7 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
 }
 
 /// {@template authenticator.sign_in_form}
-/// The Sign In screen form.
+/// The Sign In step form.
 ///
 /// To customize, use [SignInForm.custom].
 /// {@endtemplate}
@@ -386,7 +386,7 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
 }
 
 /// {@template authenticator.confirm_sign_up_form}
-/// The Confirm Sign Up screen form.
+/// The Confirm Sign Up step form.
 ///
 /// To customize, use [ConfirmSignUpForm.custom].
 /// {@endtemplate}
@@ -428,7 +428,7 @@ class ConfirmSignUpForm extends AuthenticatorForm {
 }
 
 /// {@template authenticator.confirm_sign_in_mfa_form}
-/// The Confirm Sign In with MFA screen form.
+/// The Confirm Sign In with MFA step form.
 /// {@endtemplate}
 class ConfirmSignInMFAForm extends AuthenticatorForm {
   /// {@macro authenticator.confirm_sign_in_mfa_form}
@@ -451,7 +451,7 @@ class ConfirmSignInMFAForm extends AuthenticatorForm {
 }
 
 /// {@template authenticator.confirm_sign_in_new_password_form}
-/// The Confirm Sign In with New Password screen form.
+/// The Confirm Sign In with New Password step form.
 ///
 /// To customize, use [ConfirmSignInNewPasswordForm.custom].
 /// {@endtemplate}
@@ -487,7 +487,7 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
 }
 
 /// {@template authenticator.send_code_form}
-/// The Reset Password screen form.
+/// The Reset Password step form.
 ///
 /// To customize, use [ResetPasswordForm.custom].
 /// {@endtemplate}
@@ -522,7 +522,7 @@ class ResetPasswordForm extends AuthenticatorForm {
 }
 
 /// {@template authenticator.reset_password_form}
-/// The Confirm Reset Password screen form.
+/// The Confirm Reset Password step form.
 ///
 /// To customize, use [ConfirmResetPasswordForm.custom].
 /// {@endtemplate}
@@ -559,7 +559,7 @@ class ConfirmResetPasswordForm extends AuthenticatorForm {
 }
 
 /// {@template authenticator.verify_user_form}
-/// The Verify User screen form.
+/// The Verify User step form.
 ///
 /// Cannot be customized.
 /// {@endtemplate}
@@ -585,7 +585,7 @@ class VerifyUserForm extends AuthenticatorForm {
 }
 
 /// {@template authenticator.confirm_verify_user_form}
-/// The Confirm Verify User screen form.
+/// The Confirm Verify User step form.
 ///
 /// Cannot be customized.
 /// {@endtemplate}

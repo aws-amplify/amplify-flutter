@@ -66,7 +66,7 @@ class AuthenticatorButtonLocalizationsEn
   String get signout => 'Sign Out';
 
   @override
-  String backTo(AuthScreen previousScreen) {
+  String backTo(AuthenticatorStep previousScreen) {
     final String selectString = intl.Intl.select(
         previousScreen,
         {
@@ -80,7 +80,7 @@ class AuthenticatorButtonLocalizationsEn
           'verifyUser': 'Verify User',
           'confirmVerifyUser': 'Confirm Verify User'
         },
-        desc: 'Label of button to return to the previous screen');
+        desc: 'Label of button to return to the previous step');
 
     return 'Back to $selectString';
   }

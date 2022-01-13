@@ -29,7 +29,7 @@ typedef BlocEventPredicate = bool Function(AuthenticatorState state);
 /// Intended to be used within custom UIs for the Amplify Authenticator.
 class AuthViewModel extends ChangeNotifier {
   AuthViewModel(this._authBloc, this._formKey) {
-    // Listen to screen changes to know when to clear the form. Calling `clean`
+    // Listen to step changes to know when to clear the form. Calling `clean`
     // from the forms' dispose method is unreliable since it may be called after
     // the transitioning form's first build is called.
     //
@@ -416,16 +416,16 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   /// Navigates to a new step in the authentication flow
-  void navigateTo(AuthScreen authScreen, {bool resetAttributes = true}) {
+  void navigateTo(AuthenticatorStep authScreen, {bool resetAttributes = true}) {
     _authBloc.add(AuthChangeScreen(authScreen));
 
     /// Clean [ViewModel] when user manually navigates widgets
     if (resetAttributes) _resetAttributes();
   }
 
-  void goToSignUp() => navigateTo(AuthScreen.signup);
-  void goToSignIn() => navigateTo(AuthScreen.signin);
-  void goToResetPassword() => navigateTo(AuthScreen.resetPassword);
+  void goToSignUp() => navigateTo(AuthenticatorStep.signup);
+  void goToSignIn() => navigateTo(AuthenticatorStep.signin);
+  void goToResetPassword() => navigateTo(AuthenticatorStep.resetPassword);
 
   void _resetAttributes() {
     _username = '';

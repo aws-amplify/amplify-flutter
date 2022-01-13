@@ -257,7 +257,7 @@ class BackToSignInButton extends StatelessAuthenticatorComponent {
     return TextButton(
       key: keyBackToSignInButton,
       child: Text(
-        stringResolver.buttons.backTo(context, AuthScreen.signin),
+        stringResolver.buttons.backTo(context, AuthenticatorStep.signin),
       ),
       onPressed: viewModel.goToSignIn,
     );

@@ -17,7 +17,7 @@ import 'package:amplify_authenticator/src/constants/authenticator_constants.dart
 import 'package:flutter/material.dart';
 
 /// {@template authenticator.adaptive_flex}
-/// Creates a [Flex] which changes direction based on the screen size.
+/// Creates a [Flex] which changes direction based on the step size.
 /// {@endtemplate}
 class AdaptiveFlex extends StatelessWidget {
   /// {@macro authenticator.adaptive_flex}}

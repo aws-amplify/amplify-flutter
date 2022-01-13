@@ -38,7 +38,7 @@ void main() {
       final InheritedAuthBloc authBloc = tester.widget(inheritedAuthBlocFinder);
       final subscription = authBloc.authBloc.stream;
 
-      //Going to sign up screen
+      //Going to sign up step
       await Future<void>.delayed(const Duration(seconds: 2));
       await tester.tap(gotToSignUpButtonFinder);
 
@@ -74,7 +74,7 @@ void main() {
       await tester.enterText(codeConfirmSignUpFormFieldFinder, mockCode);
       await Future<void>.delayed(const Duration(seconds: 2));
 
-      //For now, this screen uses a mocked code and doesn't call the
+      //For now, this step uses a mocked code and doesn't call the
       // confirmSignUp method.
 
       await tester.tap(backToSignInButtonFinder);
@@ -93,7 +93,7 @@ void main() {
       final InheritedAuthBloc authBloc = tester.widget(inheritedAuthBlocFinder);
       final subscriptionStream = authBloc.authBloc.stream;
 
-      //Going to sign up screen
+      //Going to sign up step
       await Future<void>.delayed(const Duration(seconds: 2));
       await tester.tap(gotToSignUpButtonFinder);
 

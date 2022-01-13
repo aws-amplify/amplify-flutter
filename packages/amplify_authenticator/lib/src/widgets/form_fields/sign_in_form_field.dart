@@ -16,7 +16,7 @@
 part of authenticator.form_field;
 
 /// {@template authenticator.sign_in_form_field}
-/// A form field component on the Sign In screen.
+/// A form field component on the Sign In step.
 /// {@endtemplate}
 abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
     SignInField, FieldValue, SignInFormField<FieldValue>> {

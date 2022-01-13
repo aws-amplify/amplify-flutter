@@ -25,37 +25,37 @@ import 'package:flutter/material.dart';
 class AuthenticatorScreen extends StatelessAuthenticatorComponent {
   const AuthenticatorScreen({
     Key? key,
-    required this.screen,
+    required this.step,
   }) : super(key: key);
 
   const AuthenticatorScreen.signup({Key? key})
-      : this(key: key, screen: AuthScreen.signup);
+      : this(key: key, step: AuthenticatorStep.signup);
 
   const AuthenticatorScreen.signin({Key? key})
-      : this(key: key, screen: AuthScreen.signin);
+      : this(key: key, step: AuthenticatorStep.signin);
 
   const AuthenticatorScreen.confirmSignup({Key? key})
-      : this(key: key, screen: AuthScreen.confirmSignup);
+      : this(key: key, step: AuthenticatorStep.confirmSignup);
 
   const AuthenticatorScreen.confirmSignInMfa({Key? key})
-      : this(key: key, screen: AuthScreen.confirmSigninMfa);
+      : this(key: key, step: AuthenticatorStep.confirmSigninMfa);
 
   const AuthenticatorScreen.confirmSignInNewPassword({Key? key})
-      : this(key: key, screen: AuthScreen.confirmSigninNewPassword);
+      : this(key: key, step: AuthenticatorStep.confirmSigninNewPassword);
 
   const AuthenticatorScreen.resetPassword({Key? key})
-      : this(key: key, screen: AuthScreen.resetPassword);
+      : this(key: key, step: AuthenticatorStep.resetPassword);
 
   const AuthenticatorScreen.confirmResetPassword({Key? key})
-      : this(key: key, screen: AuthScreen.confirmResetPassword);
+      : this(key: key, step: AuthenticatorStep.confirmResetPassword);
 
   const AuthenticatorScreen.verifyUser({Key? key})
-      : this(key: key, screen: AuthScreen.verifyUser);
+      : this(key: key, step: AuthenticatorStep.verifyUser);
 
   const AuthenticatorScreen.confirmVerifyUser({Key? key})
-      : this(key: key, screen: AuthScreen.confirmVerifyUser);
+      : this(key: key, step: AuthenticatorStep.confirmVerifyUser);
 
-  final AuthScreen screen;
+  final AuthenticatorStep step;
 
   @override
   Widget builder(
@@ -74,24 +74,24 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
       containerWidth = AuthenticatorContainerConstants.smallWidth;
     }
 
-    const signInUpTabs = [AuthScreen.signin, AuthScreen.signup];
+    const signInUpTabs = [AuthenticatorStep.signin, AuthenticatorStep.signup];
     final Widget child;
-    switch (screen) {
-      case AuthScreen.initial:
-      case AuthScreen.signin:
+    switch (step) {
+      case AuthenticatorStep.initial:
+      case AuthenticatorStep.signin:
         child = const AuthenticatorTabView(tabs: signInUpTabs, initialIndex: 0);
         break;
-      case AuthScreen.signup:
+      case AuthenticatorStep.signup:
         child = const AuthenticatorTabView(tabs: signInUpTabs, initialIndex: 1);
         break;
-      case AuthScreen.confirmSignup:
-      case AuthScreen.confirmSigninMfa:
-      case AuthScreen.confirmSigninNewPassword:
-      case AuthScreen.resetPassword:
-      case AuthScreen.confirmResetPassword:
-      case AuthScreen.verifyUser:
-      case AuthScreen.confirmVerifyUser:
-        child = _FormWrapperView(screen: screen);
+      case AuthenticatorStep.confirmSignup:
+      case AuthenticatorStep.confirmSigninMfa:
+      case AuthenticatorStep.confirmSigninNewPassword:
+      case AuthenticatorStep.resetPassword:
+      case AuthenticatorStep.confirmResetPassword:
+      case AuthenticatorStep.verifyUser:
+      case AuthenticatorStep.confirmVerifyUser:
+        child = _FormWrapperView(step: step);
     }
 
     return Container(
@@ -106,17 +106,17 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(EnumProperty<AuthScreen>('screen', screen));
+    properties.add(EnumProperty<AuthenticatorStep>('step', step));
   }
 }
 
 class _FormWrapperView extends StatelessAuthenticatorComponent {
   const _FormWrapperView({
     Key? key,
-    required this.screen,
+    required this.step,
   }) : super(key: key);
 
-  final AuthScreen screen;
+  final AuthenticatorStep step;
 
   @override
   Widget builder(
@@ -125,14 +125,14 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
     AuthStringResolver stringResolver,
   ) {
     final titleResolver = stringResolver.titles;
-    final form = InheritedForms.of(context)[screen];
+    final form = InheritedForms.of(context)[step];
 
     return Padding(
       padding: const EdgeInsets.all(AuthenticatorContainerConstants.padding),
       child: Column(
         children: <Widget>[
           Text(
-            titleResolver.resolve(context, screen),
+            titleResolver.resolve(context, step),
             style: Theme.of(context).textTheme.headline6,
           ),
           const SizedBox(
@@ -147,7 +147,7 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(EnumProperty<AuthScreen>('screen', screen));
+    properties.add(EnumProperty<AuthenticatorStep>('step', step));
   }
 }
 
@@ -160,7 +160,7 @@ class AuthenticatorTabView
     this.initialIndex = 0,
   }) : super(key: key);
 
-  final List<AuthScreen> tabs;
+  final List<AuthenticatorStep> tabs;
   final int initialIndex;
 
   @override
@@ -169,7 +169,7 @@ class AuthenticatorTabView
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(IterableProperty<AuthScreen>('tabs', tabs));
+    properties.add(IterableProperty<AuthenticatorStep>('tabs', tabs));
     properties.add(IntProperty('initialIndex', initialIndex));
   }
 }
@@ -179,7 +179,7 @@ class _AuthenticatorTabViewState
     with SingleTickerProviderStateMixin {
   late final TabController _controller;
 
-  AuthScreen get selectedTab => widget.tabs[_controller.index];
+  AuthenticatorStep get selectedTab => widget.tabs[_controller.index];
 
   @override
   void initState() {
@@ -218,7 +218,7 @@ class _AuthenticatorTabViewState
           labelColor: AmplifyTheme.of(context).tabLabelColor,
           indicatorColor: AmplifyTheme.of(context).tabIndicatorColor,
         ),
-        _FormWrapperView(screen: selectedTab),
+        _FormWrapperView(step: selectedTab),
       ],
     );
   }
@@ -226,26 +226,26 @@ class _AuthenticatorTabViewState
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(EnumProperty<AuthScreen>('selectedTab', selectedTab));
+    properties.add(EnumProperty<AuthenticatorStep>('selectedTab', selectedTab));
   }
 }
 
-extension on AuthScreen {
+extension on AuthenticatorStep {
   ButtonResolverKey get tabTitle {
     switch (this) {
-      case AuthScreen.initial:
-      case AuthScreen.signup:
+      case AuthenticatorStep.initial:
+      case AuthenticatorStep.signup:
         return ButtonResolverKey.signup;
-      case AuthScreen.signin:
+      case AuthenticatorStep.signin:
         return ButtonResolverKey.signin;
-      case AuthScreen.confirmSignup:
-      case AuthScreen.confirmSigninMfa:
-      case AuthScreen.confirmSigninNewPassword:
-      case AuthScreen.resetPassword:
-      case AuthScreen.confirmResetPassword:
-      case AuthScreen.verifyUser:
-      case AuthScreen.confirmVerifyUser:
-        throw StateError('Invalid screen: $this');
+      case AuthenticatorStep.confirmSignup:
+      case AuthenticatorStep.confirmSigninMfa:
+      case AuthenticatorStep.confirmSigninNewPassword:
+      case AuthenticatorStep.resetPassword:
+      case AuthenticatorStep.confirmResetPassword:
+      case AuthenticatorStep.verifyUser:
+      case AuthenticatorStep.confirmVerifyUser:
+        throw StateError('Invalid step: $this');
     }
   }
 }

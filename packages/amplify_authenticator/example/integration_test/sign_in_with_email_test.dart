@@ -179,7 +179,7 @@ void main() {
       await signInPage.submitSignOut();
 
       // Then I see "Sign in"
-      signInPage.expectScreen(AuthScreen.signin);
+      signInPage.expectStep(AuthenticatorStep.signin);
     });
 
     // Scenario: Sign in with force change password credentials
