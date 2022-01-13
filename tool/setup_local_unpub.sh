@@ -34,6 +34,7 @@ if ! command -v unpub &>/dev/null; then
 fi
 
 echo "Fixing package dependencies..."
+( cd tool/bootstrap && dart pub get )
 dart run tool/bootstrap/bin/bootstrap.dart --url=http://${UNPUB_HOST}:${UNPUB_PORT}
 
 # Launch server and seed with local packages
