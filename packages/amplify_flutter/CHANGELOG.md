@@ -1,5 +1,17 @@
 ## 0.3.0-rc.4 (2022-01-12)
 
+### Breaking Changes
+
+- chore: Linting & clean up (#1202)
+
+  **How to Migrate**
+
+  - Update all imports of `import 'package:amplify_flutter/amplify.dart';` to import `'package:amplify_flutter/amplify_flutter.dart';`
+
+### Chores
+
+- chore(config): Add copyWith helpers (#1235)
+
 ## 0.3.0-rc.3 (2021-12-08)
 
 ### Features
@@ -10,7 +22,7 @@
 ### Fixes
 
 - fix(amplify_auth_cognito): remove int.parse from AuthUserAttribute (#1169)
-- fix(amplify_datastore): fix error map from ios (#1126) 
+- fix(amplify_datastore): fix error map from ios (#1126)
 
 ## 0.3.0-rc.2 (2021-11-08)
 
@@ -67,6 +79,7 @@
 ## 0.2.5 (2021-10-14)
 
 ### Fixes
+
 - fix(datastore): Sync issues with owner-based auth
 - fix(datastore): Ensure attaching nested model schema
 - fix(datastore): Timeout period not increasing

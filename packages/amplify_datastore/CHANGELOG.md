@@ -1,10 +1,14 @@
 ## 0.3.0-rc.4 (2022-01-12)
 
+### Fixes
+
+- fix(datastore): configure function triggers initial sync unexpectedly (#986)
+
 ## 0.3.0-rc.3 (2021-12-08)
 
 ### Fixes
 
-- fix (amplify_datastore): fix error map from ios (#1126) 
+- fix (amplify_datastore): fix error map from ios (#1126)
 
 ## 0.3.0-rc.2 (2021-11-08)
 
@@ -13,6 +17,7 @@ This release candidate requires a preview version of `@aws-amplify/cli`. To unin
 ```
 npm uninstall -g @aws-amplify/cli && npm install -g @aws-amplify/cli@7.7.0-flutter-preview.1
 ```
+
 and to regenerate models by running following command.
 
 ```
@@ -24,6 +29,7 @@ amplify codegen models
 - `ModelProvider` and `ModelField` Interface Changes
 
   **How to migrate?**
+
   - Install the required version of `@aws-amplify/cli` for this release candidate described at the beginning of this section
   - Run `amplify codegen models` to regenerate models
 
@@ -87,6 +93,7 @@ amplify codegen models
 ## 0.2.5 (2021-10-14)
 
 ### Fixes
+
 - fix(datastore): Sync issues with owner-based auth
 - fix(datastore): Ensure attaching nested model schema
 - fix(datastore): Timeout period not increasing

@@ -1,5 +1,9 @@
 ## 0.3.0-rc.4 (2022-01-12)
 
+### Fixes
+
+- fix(amplify_api): remove tabs from graphql document strings in android (#1178)
+
 ## 0.3.0-rc.3 (2021-12-08)
 
 ## 0.3.0-rc.2 (2021-11-08)
@@ -45,6 +49,7 @@
 ## 0.2.5 (2021-10-14)
 
 ### Fixes
+
 - fix(api): OIDC/Lambda changes for DataStore
 
 ## 0.2.4 (2021-09-10)

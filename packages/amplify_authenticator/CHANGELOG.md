@@ -1,5 +1,9 @@
 ## 0.1.0-rc.3 (2022-01-12)
 
+### Fixes
+
+- Update dependency on amplify_flutter to ^0.3.0-rc.4
+
 ## 0.1.0-rc.2 (2022-01-06)
 
 - Improved support for navigation (#1241)
