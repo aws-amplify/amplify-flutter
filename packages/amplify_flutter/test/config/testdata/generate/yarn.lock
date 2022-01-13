@@ -2,17 +2,6 @@
 # yarn lockfile v1
 
 
-amplify-frontend-flutter@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/amplify-frontend-flutter/-/amplify-frontend-flutter-1.3.0.tgz#8cd37ac60621f1ec2513c7ecc6a56286476d7925"
-  integrity sha512-/VQrqTBL4QEpEgPrcRrGDDDTmK/KxolPvq8Ee6WMG8VqApycq4a7XhQTdPxcvCSa0/ZuPibmeq8cQFMHnXXzPw==
-  dependencies:
-    chalk "^4.1.1"
-    fs-extra "^8.1.0"
-    graphql-config "^2.2.1"
-    inquirer "^7.3.3"
-    promise-sequential "^1.1.1"
-
 ansi-escapes@^4.2.1:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-4.3.2.tgz#6b2291d1db7d98b6521d5f1efa42d0f3a9feb65e"
@@ -52,6 +41,14 @@ brace-expansion@^1.1.7:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
 
+chalk@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-3.0.0.tgz#3f73c2bf526591f574cc492c51e2456349f844e4"
+  integrity sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
 chalk@^4.1.0, chalk@^4.1.1:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
@@ -64,6 +61,39 @@ chardet@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
+
+"cli-4@npm:amplify-frontend-flutter@0.4.3":
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/amplify-frontend-flutter/-/amplify-frontend-flutter-0.4.3.tgz#36070c45049e199e01032ddb2397b068d76cb88b"
+  integrity sha512-iGRNsiBr80CSnBSkozn0cRwiRr32yvdw+hd9K9G7WNtEo513XP3wQuT5f0nvldDN/KR7mMNEiiUTjVNrLGyamg==
+  dependencies:
+    chalk "^3.0.0"
+    fs-extra "^8.1.0"
+    graphql-config "^2.2.1"
+    inquirer "^7.3.3"
+    promise-sequential "^1.1.1"
+
+"cli-5@npm:amplify-frontend-flutter@0.4.4", "cli-6@npm:amplify-frontend-flutter@0.4.4":
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/amplify-frontend-flutter/-/amplify-frontend-flutter-0.4.4.tgz#e323139fdaabfd705720ac8d79d5b0d3a0bbbca2"
+  integrity sha512-SHvJYRVoOVdh66Itp7gWbDfw0YgBzkb/FBmnhoy5ftWFN3Q3bOu0uJWf9VrYXGwwibhOmivaD83UGASKElm6Qw==
+  dependencies:
+    chalk "^4.1.1"
+    fs-extra "^8.1.0"
+    graphql-config "^2.2.1"
+    inquirer "^7.3.3"
+    promise-sequential "^1.1.1"
+
+"cli-7@npm:amplify-frontend-flutter@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/amplify-frontend-flutter/-/amplify-frontend-flutter-1.3.0.tgz#8cd37ac60621f1ec2513c7ecc6a56286476d7925"
+  integrity sha512-/VQrqTBL4QEpEgPrcRrGDDDTmK/KxolPvq8Ee6WMG8VqApycq4a7XhQTdPxcvCSa0/ZuPibmeq8cQFMHnXXzPw==
+  dependencies:
+    chalk "^4.1.1"
+    fs-extra "^8.1.0"
+    graphql-config "^2.2.1"
+    inquirer "^7.3.3"
+    promise-sequential "^1.1.1"
 
 cli-cursor@^3.1.0:
   version "3.1.0"
