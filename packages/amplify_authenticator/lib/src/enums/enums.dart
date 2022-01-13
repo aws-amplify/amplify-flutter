@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-export 'auth_screen.dart';
+export 'authenticator_step.dart';
 export 'button_size.dart';
 export 'confirm_signin_types.dart';
 export 'confirm_signup_types.dart';
