@@ -1,0 +1,1 @@
+An alternative to melos bootstrap for use in CI pipelines.
