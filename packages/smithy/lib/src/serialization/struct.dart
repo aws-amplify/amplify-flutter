@@ -22,5 +22,5 @@ abstract class SmithySerializer<T> implements StructuredSerializer<T> {
       {FullType specifiedType = FullType.unspecified});
 
   @override
-  Iterable<Type> get types => [T];
+  Iterable<Type> get types;
 }
