@@ -17,8 +17,8 @@ class RetryConfig with AWSEquatable<RetryConfig> {
 }
 
 @immutable
-class HttpError with AWSEquatable<HttpError> {
-  const HttpError(
+class SmithyError with AWSEquatable<SmithyError> {
+  const SmithyError(
     this.kind,
     this.type, {
     this.retryConfig,
