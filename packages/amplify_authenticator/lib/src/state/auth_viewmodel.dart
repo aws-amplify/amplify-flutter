@@ -416,8 +416,8 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   /// Navigates to a new step in the authentication flow
-  void navigateTo(AuthenticatorStep authScreen, {bool resetAttributes = true}) {
-    _authBloc.add(AuthChangeScreen(authScreen));
+  void navigateTo(AuthenticatorStep step, {bool resetAttributes = true}) {
+    _authBloc.add(AuthChangeScreen(step));
 
     /// Clean [ViewModel] when user manually navigates widgets
     if (resetAttributes) _resetAttributes();

@@ -81,6 +81,12 @@ class AuthenticatorForm extends AuthenticatorComponent<AuthenticatorForm> {
   @override
   AuthenticatorFormState<AuthenticatorForm> createState() =>
       AuthenticatorFormState<AuthenticatorForm>();
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<bool>(
+        'includeDefaultSocialProviders', includeDefaultSocialProviders));
+  }
 }
 
 class AuthenticatorFormState<T extends AuthenticatorForm>

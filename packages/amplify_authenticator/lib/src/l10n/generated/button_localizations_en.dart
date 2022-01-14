@@ -66,9 +66,9 @@ class AuthenticatorButtonLocalizationsEn
   String get signout => 'Sign Out';
 
   @override
-  String backTo(AuthenticatorStep previousScreen) {
+  String backTo(AuthenticatorStep previousStep) {
     final String selectString = intl.Intl.select(
-        previousScreen,
+        previousStep,
         {
           'signup': 'Sign Up',
           'signin': 'Sign In',

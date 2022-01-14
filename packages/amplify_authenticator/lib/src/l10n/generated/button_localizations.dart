@@ -195,8 +195,8 @@ abstract class AuthenticatorButtonLocalizations {
   /// Label of button to return to the previous step
   ///
   /// In en, this message translates to:
-  /// **'Back to {previousScreen, select, signup{Sign Up}, signin{Sign In}, confirmSignup{Confirm Sign-up}, confirmSigninMfa{Confirm Sign-in} confirmSigninNewPassword{Confirm Sign-in} sendCode{Send Code} resetPassword{Reset Password} verifyUser{Verify User} confirmVerifyUser{Confirm Verify User}}'**
-  String backTo(AuthenticatorStep previousScreen);
+  /// **'Back to {previousStep, select, signup{Sign Up}, signin{Sign In}, confirmSignup{Confirm Sign-up}, confirmSigninMfa{Confirm Sign-in} confirmSigninNewPassword{Confirm Sign-in} sendCode{Send Code} resetPassword{Reset Password} verifyUser{Verify User} confirmVerifyUser{Confirm Verify User}}'**
+  String backTo(AuthenticatorStep previousStep);
 
   /// Label of button to sign in with a social provider
   ///
