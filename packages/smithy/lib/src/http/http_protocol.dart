@@ -78,10 +78,10 @@ abstract class HasLabel {
 
 /// A utility for operations to access the payload of the request without
 /// knowing the shape of the request or making any assumptions.
-abstract class HasPayload<T extends Object?> {
+abstract class HasPayload<Payload extends Object?> {
   /// Whether the input payload is a streaming payload.
   bool get isStreaming;
 
   /// Returns the value of the payload prior to serialization.
-  T getPayload();
+  Payload getPayload();
 }

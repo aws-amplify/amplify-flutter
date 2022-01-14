@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart';
+import 'package:retry/retry.dart';
 import 'package:smithy/smithy.dart';
 
 /// Defines an operation which uses HTTP.
@@ -75,7 +76,7 @@ abstract class HttpOperation<Payload extends Object?,
       host = '$prefix$host';
     }
     final baseRequest = AWSStreamedHttpRequest(
-      method: HttpMethodX.fromString(request.method),
+      method: HttpMethod.values.byName(request.method.toLowerCase()),
       host: host,
       path: path,
       body: body,
@@ -89,6 +90,34 @@ abstract class HttpOperation<Payload extends Object?,
       }
     }
     return baseRequest;
+  }
+
+  /// Sends the request using [fn].
+  Future<HttpResponse> _send(
+    Future<HttpResponse> Function() fn, {
+    required HttpRequest request,
+    required HttpProtocol protocol,
+  }) async {
+    final response = await fn();
+    if (response.statusCode != request.successCode) {
+      final ErrorKind kind;
+      if (response.statusCode >= 400 && response.statusCode <= 499) {
+        kind = ErrorKind.client;
+      } else {
+        kind = ErrorKind.server;
+      }
+      final errorCfg = errorTypes.firstWhereOrNull(
+            (el) => el.statusCode == response.statusCode,
+          ) ??
+          errorTypes.firstWhereOrNull(
+              (el) => el.kind == kind && el.statusCode == null);
+      final errorType = errorCfg?.type ?? SmithyException;
+      throw protocol.deserialize(
+        response.body,
+        specifiedType: FullType(errorType),
+      ) as SmithyException;
+    }
+    return response;
   }
 
   @override
@@ -110,24 +139,20 @@ abstract class HttpOperation<Payload extends Object?,
       protocol,
       input,
     );
-    final response = await client.send(httpRequest);
-    if (response.statusCode != request.successCode) {
-      final ErrorKind kind;
-      if (response.statusCode >= 400 && response.statusCode <= 499) {
-        kind = ErrorKind.client;
-      } else {
-        kind = ErrorKind.server;
-      }
-      final errorType = errorTypes
-              .firstWhereOrNull((el) =>
-                  el.statusCode == response.statusCode || el.kind == kind)
-              ?.type ??
-          SmithyException;
-      throw protocol.deserialize(
-        response.body,
-        specifiedType: FullType(errorType),
-      ) as SmithyException;
-    }
+    const r = RetryOptions();
+    final response = await r.retry(
+      () => _send(
+        () => client!.send(httpRequest),
+        request: request,
+        protocol: protocol,
+      ),
+      retryIf: (e) {
+        return e is SmithyException && e.isRetryable;
+      },
+      onRetry: (e) {
+        print('Retrying $e');
+      },
+    );
     return protocol.deserialize(response.body) as Output;
   }
 }

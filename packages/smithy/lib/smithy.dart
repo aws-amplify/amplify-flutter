@@ -8,7 +8,13 @@ export 'package:fixnum/fixnum.dart';
 
 // AST types
 export 'package:smithy_ast/smithy_ast.dart'
-    show AlpnProtocol, ErrorKind, ErrorTypeStatusCode, ShapeId, TimestampFormat;
+    show
+        AlpnProtocol,
+        ChecksumAlgorithm,
+        ErrorKind,
+        ErrorTypeStatusCode,
+        ShapeId,
+        TimestampFormat;
 
 // Operation
 export 'src/client.dart';
@@ -35,6 +41,7 @@ export 'src/protocol/json_serializer.dart';
 
 // Serialization
 export 'src/serialization/json/int64.dart';
+export 'src/serialization/json/smithy_json_plugin.dart';
 export 'src/serialization/serializer.dart';
 export 'src/serialization/struct.dart';
 export 'src/serialization/serializers/big_int_serializer.dart';
