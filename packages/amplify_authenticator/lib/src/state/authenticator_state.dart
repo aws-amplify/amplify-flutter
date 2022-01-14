@@ -41,15 +41,14 @@ class AuthenticatedState extends AuthenticatorState {
 
 @immutable
 class UnauthenticatedState extends AuthenticatorState {
-  final AuthenticatorStep _screen;
-  const UnauthenticatedState({required AuthenticatorStep step})
-      : _screen = step;
+  final AuthenticatorStep _step;
+  const UnauthenticatedState({required AuthenticatorStep step}) : _step = step;
 
   @override
   bool get isAuthenticated => false;
 
   @override
-  AuthenticatorStep get step => _screen;
+  AuthenticatorStep get step => _step;
 
   static const signup = UnauthenticatedState(step: AuthenticatorStep.signup);
   static const signin = UnauthenticatedState(step: AuthenticatorStep.signin);
