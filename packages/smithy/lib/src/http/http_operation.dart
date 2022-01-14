@@ -32,8 +32,8 @@ abstract class HttpOperation<Payload extends Object?,
   @override
   Iterable<HttpProtocol<Payload, Input, Output>> get protocols;
 
-  /// The error types for this operation.
-  List<SmithyError> get errorTypes => const [];
+  @override
+  List<SmithyError> get errorTypes;
 
   @visibleForTesting
   HttpProtocol<Payload, Input, Output> resolveProtocol({

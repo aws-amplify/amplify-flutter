@@ -21,6 +21,9 @@ abstract class Operation<Input, Output> {
     covariant Client? client,
     ShapeId? useProtocol,
   });
+
+  /// The error types of the operation.
+  List<SmithyError> get errorTypes;
 }
 
 /// A constructor of [Output] from [T].
