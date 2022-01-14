@@ -30,8 +30,8 @@ import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/authenticator_state.dart';
+import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
@@ -47,7 +47,7 @@ import 'package:flutter/material.dart';
 export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
 export 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-export 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+export 'package:amplify_authenticator/src/state/authenticator_state.dart';
 export 'package:amplify_authenticator/src/widgets/button.dart';
 export 'package:amplify_authenticator/src/widgets/form.dart';
 export 'package:amplify_flutter/amplify_flutter.dart'
@@ -57,7 +57,7 @@ export 'src/enums/enums.dart' show AuthenticatorStep, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
 export 'src/models/username_input.dart' show UsernameType, UsernameInput;
-export 'src/state/authenticator_state.dart';
+export 'src/state/auth_state.dart';
 export 'src/widgets/button.dart' show SignOutButton;
 export 'src/widgets/form.dart'
     show SignInForm, SignUpForm, ConfirmSignInNewPasswordForm;
@@ -338,10 +338,10 @@ class _AuthenticatorState extends State<Authenticator> {
 
   final AuthService _authService = AmplifyAuthService();
   late final StateMachineBloc _stateMachineBloc;
-  late final AuthViewModel _viewModel;
+  late final AuthenticatorState _viewModel;
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
   late final StreamSubscription<MessageResolverKey> _infoSub;
-  late final StreamSubscription<AuthenticatorState> _successSub;
+  late final StreamSubscription<AuthState> _successSub;
   StreamSubscription? _hubSubscription;
 
   AmplifyConfig? _config;
@@ -358,7 +358,7 @@ class _AuthenticatorState extends State<Authenticator> {
       preferPrivateSession: widget.preferPrivateSession,
       initialScreen: widget.initialScreen,
     )..add(const AuthLoad());
-    _viewModel = AuthViewModel(_stateMachineBloc, _formKey);
+    _viewModel = AuthenticatorState(_stateMachineBloc, _formKey);
     _subscribeToExceptions();
     _subscribeToInfoMessages();
     _subscribeToSuccessEvents();
@@ -532,9 +532,9 @@ class _AuthenticatorState extends State<Authenticator> {
       child: InheritedConfig(
         amplifyConfig: _config,
         useAmplifyTheme: widget.useAmplifyTheme,
-        child: InheritedAuthViewModel(
+        child: InheritedAuthenticatorState(
           key: keyInheritedAuthViewModel,
-          viewModel: _viewModel,
+          state: _viewModel,
           child: InheritedStrings(
             resolver: widget.stringResolver,
             child: InheritedForms(
@@ -579,23 +579,20 @@ class _AuthenticatorBody extends StatelessWidget {
           : userAppTheme,
       child: StreamBuilder(
         stream: stateMachineBloc.stream,
-        builder: (context, AsyncSnapshot<AuthenticatorState> snapshot) {
+        builder: (context, AsyncSnapshot<AuthState> snapshot) {
           final state = snapshot.data ?? const LoadingState();
 
           final Widget? authenticatorScreen;
           if (state is AuthenticatedState) {
             authenticatorScreen = null;
           } else if (builder != null) {
-            final AuthViewModel _viewModel = InheritedAuthViewModel.of(
+            final AuthenticatorState _viewModel =
+                InheritedAuthenticatorState.of(
               context,
               listen: true,
             );
             authenticatorScreen = Material(
-              child: builder!(
-                context,
-                state,
-                _viewModel,
-              ),
+              child: builder!(context, _viewModel),
             );
           } else if (state is LoadingState) {
             authenticatorScreen = const LoadingScreen();
@@ -648,5 +645,4 @@ class _AuthenticatorBody extends StatelessWidget {
   }
 }
 
-typedef AuthBuilder = Widget Function(
-    BuildContext, AuthenticatorState, AuthViewModel);
+typedef AuthBuilder = Widget Function(BuildContext, AuthenticatorState);

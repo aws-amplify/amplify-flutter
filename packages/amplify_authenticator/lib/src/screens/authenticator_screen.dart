@@ -15,7 +15,7 @@
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
@@ -60,7 +60,7 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
   @override
   Widget builder(
     BuildContext context,
-    AuthViewModel viewModel,
+    AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
     final Size screenSize = MediaQuery.of(context).size;
@@ -92,6 +92,10 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
       case AuthenticatorStep.verifyUser:
       case AuthenticatorStep.confirmVerifyUser:
         child = _FormWrapperView(step: step);
+        break;
+      case AuthenticatorStep.loading:
+      case AuthenticatorStep.authenticated:
+        throw StateError('Invalid step: $this');
     }
 
     return Container(
@@ -121,7 +125,7 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
   @override
   Widget builder(
     BuildContext context,
-    AuthViewModel viewModel,
+    AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
     final titleResolver = stringResolver.titles;
@@ -245,6 +249,8 @@ extension on AuthenticatorStep {
       case AuthenticatorStep.confirmResetPassword:
       case AuthenticatorStep.verifyUser:
       case AuthenticatorStep.confirmVerifyUser:
+      case AuthenticatorStep.loading:
+      case AuthenticatorStep.authenticated:
         throw StateError('Invalid step: $this');
     }
   }

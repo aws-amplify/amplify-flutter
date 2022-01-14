@@ -118,13 +118,13 @@ class _MyAppState extends State<MyApp> {
 
         // The Authenticator component must wrap your Navigator component which
         // can be done using the `builder` method.
-        // builder: Authenticator.builder(),
+        builder: Authenticator.builder(),
 
         // Providing a `builder` argument to Authenticator.builder, allows you to
         // build a completely custom UI for the authenticator composed of a mix of
         // prebuilt widgets from the Authenticator lib, and widgets you build yourself
         // uncomment the line below to test out a custom UI
-        builder: Authenticator.builder(builder: customAuthenticatorBuilder),
+        // builder: Authenticator.builder(builder: customAuthenticatorBuilder),
 
         initialRoute: '/routeA',
         routes: {

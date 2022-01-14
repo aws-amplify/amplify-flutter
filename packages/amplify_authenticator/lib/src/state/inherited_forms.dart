@@ -48,6 +48,8 @@ class InheritedForms extends InheritedWidget {
   AuthenticatorForm operator [](AuthenticatorStep step) {
     switch (step) {
       case AuthenticatorStep.initial:
+      case AuthenticatorStep.loading:
+      case AuthenticatorStep.authenticated:
       case AuthenticatorStep.signup:
         return signUpForm;
       case AuthenticatorStep.signin:

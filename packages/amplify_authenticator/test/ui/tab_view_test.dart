@@ -47,8 +47,8 @@ void main() {
               ? null
               : AmplifyConfig.fromJson(jsonDecode(amplifyConfig)),
           useAmplifyTheme: useAmplifyTheme,
-          child: InheritedAuthViewModel(
-            viewModel: AuthViewModel(MockBloc(), _formKey),
+          child: InheritedAuthenticatorState(
+            state: AuthenticatorState(MockBloc(), _formKey),
             child: InheritedStrings(
               resolver: const AuthStringResolver(),
               child: InheritedForms(
@@ -276,14 +276,14 @@ void main() {
   });
 }
 
-class MockAuthViewModel extends Mock implements AuthViewModel {}
+class MockAuthViewModel extends Mock implements AuthenticatorState {}
 
 class MockBloc implements StateMachineBloc {
   @override
   void add(AuthEvent event) {}
 
   @override
-  AuthenticatorState get currentState => UnauthenticatedState.signin;
+  AuthState get currentState => UnauthenticatedState.signin;
 
   @override
   Future<void> dispose() async {}
@@ -298,8 +298,7 @@ class MockBloc implements StateMachineBloc {
   bool get preferPrivateSession => false;
 
   @override
-  Stream<AuthenticatorState> get stream =>
-      Stream.value(UnauthenticatedState.signin);
+  Stream<AuthState> get stream => Stream.value(UnauthenticatedState.signin);
 
   @override
   AuthenticatorStep get initialScreen => AuthenticatorStep.initial;

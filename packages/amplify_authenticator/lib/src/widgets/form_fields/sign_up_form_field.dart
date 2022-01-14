@@ -430,11 +430,11 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
   String? get initialValue {
     switch (widget.field) {
       case SignUpField.username:
-        return viewModel.username;
+        return state.username;
       case SignUpField.password:
-        return viewModel.password;
+        return state.password;
       case SignUpField.passwordConfirmation:
-        return viewModel.passwordConfirmation;
+        return state.passwordConfirmation;
       case SignUpField.address:
       case SignUpField.birthdate:
       case SignUpField.email:
@@ -445,9 +445,9 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
       case SignUpField.name:
       case SignUpField.nickname:
       case SignUpField.preferredUsername:
-        return viewModel.getAttribute(widget.field.toCognitoAttribute());
+        return state.getAttribute(widget.field.toCognitoAttribute());
       case SignUpField.custom:
-        return viewModel.getAttribute(widget._customAttributeKey!);
+        return state.getAttribute(widget._customAttributeKey!);
       default:
         return null;
     }
@@ -457,37 +457,37 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case SignUpField.username:
-        return (v) => viewModel.username = v;
+        return (v) => state.username = v;
       case SignUpField.password:
-        return (v) => viewModel.password = v;
+        return (v) => state.password = v;
       case SignUpField.passwordConfirmation:
-        return (v) => viewModel.passwordConfirmation = v;
+        return (v) => state.passwordConfirmation = v;
       case SignUpField.address:
-        return (v) => viewModel.address = v;
+        return (v) => state.address = v;
       case SignUpField.email:
         if (selectedUsernameType == UsernameType.email) {
           return (email) {
-            viewModel.email = email;
-            viewModel.username = email;
+            state.email = email;
+            state.username = email;
           };
         }
-        return (v) => viewModel.email = v;
+        return (v) => state.email = v;
       case SignUpField.familyName:
-        return (v) => viewModel.familyName = v;
+        return (v) => state.familyName = v;
       case SignUpField.gender:
-        return (v) => viewModel.gender = v;
+        return (v) => state.gender = v;
       case SignUpField.givenName:
-        return (v) => viewModel.givenName = v;
+        return (v) => state.givenName = v;
       case SignUpField.middleName:
-        return (v) => viewModel.middleName = v;
+        return (v) => state.middleName = v;
       case SignUpField.name:
-        return (v) => viewModel.name = v;
+        return (v) => state.name = v;
       case SignUpField.nickname:
-        return (v) => viewModel.nickname = v;
+        return (v) => state.nickname = v;
       case SignUpField.preferredUsername:
-        return (v) => viewModel.preferredUsername = v;
+        return (v) => state.preferredUsername = v;
       case SignUpField.custom:
-        return (String value) => viewModel.setCustomAttribute(
+        return (String value) => state.setCustomAttribute(
               widget._customAttributeKey!,
               value,
             );
@@ -514,7 +514,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
         )(context);
       case SignUpField.passwordConfirmation:
         return validatePasswordConfirmation(
-          () => viewModel.password,
+          () => state.password,
           context: context,
           inputResolver: stringResolver.inputs,
         );
@@ -652,8 +652,7 @@ class _SignUpPhoneFieldState extends _SignUpTextFieldState
     with AuthenticatorPhoneFieldMixin {
   @override
   String? get initialValue {
-    var _initialValue =
-        viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber);
+    var _initialValue = state.getAttribute(CognitoUserAttributeKey.phoneNumber);
     if (_initialValue != null) {
       _initialValue = displayPhoneNumber(_initialValue);
     }
@@ -664,7 +663,7 @@ class _SignUpPhoneFieldState extends _SignUpTextFieldState
   ValueChanged<String> get onChanged {
     return (phoneNumber) {
       phoneNumber = formatPhoneNumber(phoneNumber)!;
-      viewModel.phoneNumber = phoneNumber;
+      state.phoneNumber = phoneNumber;
     };
   }
 
@@ -712,12 +711,12 @@ class _SignUpDateFieldState extends _SignUpFormFieldState<String>
     with AuthenticatorDateField {
   @override
   String? get initialValue {
-    return viewModel.getAttribute(widget.field.toCognitoAttribute());
+    return state.getAttribute(widget.field.toCognitoAttribute());
   }
 
   @override
   ValueChanged<String> get onChanged {
-    return (v) => viewModel.birthdate = v;
+    return (v) => state.birthdate = v;
   }
 
   @override

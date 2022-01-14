@@ -33,15 +33,14 @@ class StateMachineBloc {
   final AuthenticatorStep initialScreen;
 
   /// State controller.
-  final StreamController<AuthenticatorState> _authStateController =
-      StreamController<AuthenticatorState>.broadcast();
+  final StreamController<AuthState> _authStateController =
+      StreamController<AuthState>.broadcast();
 
   /// Assigns state to the authStateController.
-  StreamSink<AuthenticatorState> get _controllerSink =>
-      _authStateController.sink;
+  StreamSink<AuthState> get _controllerSink => _authStateController.sink;
 
   /// Outputs states, which allow to render auth screens.
-  Stream<AuthenticatorState> get stream async* {
+  Stream<AuthState> get stream async* {
     yield _currentState;
     yield* _authStateController.stream;
   }
@@ -52,10 +51,10 @@ class StateMachineBloc {
 
   /// Outputs events into the event transformer.
   late final Stream<AuthEvent> _authEventStream = _authEventController.stream;
-  late final StreamSubscription<AuthenticatorState> _subscription;
+  late final StreamSubscription<AuthState> _subscription;
 
-  AuthenticatorState _currentState = const LoadingState();
-  AuthenticatorState get currentState => _currentState;
+  AuthState _currentState = const LoadingState();
+  AuthState get currentState => _currentState;
 
   /// {@macro authenticator.state_machine_bloc}
   StateMachineBloc({
@@ -89,7 +88,7 @@ class StateMachineBloc {
   /// Info messages generated from the bloc.
   Stream<MessageResolverKey> get infoMessages => _infoMessageController.stream;
 
-  Stream<AuthenticatorState> _eventTransformer(AuthEvent event) async* {
+  Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
       yield* _authLoad();
     } else if (event is AuthSignIn) {
@@ -119,13 +118,13 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthenticatorState> _authLoad() async* {
+  Stream<AuthState> _authLoad() async* {
     yield const LoadingState();
     await Amplify.asyncConfig;
     yield* _isValidSession();
   }
 
-  Stream<AuthenticatorState> _isValidSession() async* {
+  Stream<AuthState> _isValidSession() async* {
     try {
       bool isValidSession = await _authService.isValidSession();
       if (isValidSession) {
@@ -156,7 +155,7 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthenticatorState> _confirmSignIn(
+  Stream<AuthState> _confirmSignIn(
     AuthConfirmSignInData data,
     bool rememberDevice,
   ) async* {
@@ -204,7 +203,7 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthenticatorState> _confirmResetPassword(
+  Stream<AuthState> _confirmResetPassword(
     AuthConfirmResetPasswordData data,
   ) async* {
     try {
@@ -225,7 +224,7 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthenticatorState> _resetPassword(AuthResetPasswordData data) async* {
+  Stream<AuthState> _resetPassword(AuthResetPasswordData data) async* {
     try {
       var result = await _authService.resetPassword(data.username);
       _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
@@ -241,7 +240,7 @@ class StateMachineBloc {
     _infoMessageController.add(MessageResolverKey.codeSent(destination));
   }
 
-  Stream<AuthenticatorState> _signIn(AuthSignInData data) async* {
+  Stream<AuthState> _signIn(AuthSignInData data) async* {
     try {
       // Make sure no user is signed in before calling the sign in method
       if (await _authService.isLoggedIn) {
@@ -315,7 +314,7 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthenticatorState> _checkUserVerification() async* {
+  Stream<AuthState> _checkUserVerification() async* {
     try {
       var attributeVerificationStatus =
           await _authService.getAttributeVerificationStatus();
@@ -336,7 +335,7 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthenticatorState> _signUp(AuthSignUpData data) async* {
+  Stream<AuthState> _signUp(AuthSignUpData data) async* {
     try {
       var result = await _authService.signUp(
         data.username,
@@ -365,7 +364,7 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthenticatorState> _confirmSignUp(AuthConfirmSignUpData data) async* {
+  Stream<AuthState> _confirmSignUp(AuthConfirmSignUpData data) async* {
     try {
       await _authService.confirmSignUp(data.username, data.code);
       var authSignInData = AuthUsernamePasswordSignInData(
@@ -381,7 +380,7 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthenticatorState> _signOut() async* {
+  Stream<AuthState> _signOut() async* {
     try {
       await _authService.signOut();
       yield* _changeScreen(initialScreen);
@@ -392,7 +391,7 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthenticatorState> _verifyUser(AuthVerifyUserData data) async* {
+  Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
     try {
       ResendUserAttributeConfirmationCodeResult result =
           await _authService.resendUserAttributeConfirmationCode(
@@ -409,8 +408,7 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthenticatorState> _confirmVerifyUser(
-      AuthConfirmVerifyUserData data) async* {
+  Stream<AuthState> _confirmVerifyUser(AuthConfirmVerifyUserData data) async* {
     try {
       await _authService.confirmUserAttribute(
         userAttributeKey: data.userAttributeKey,
@@ -426,11 +424,11 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthenticatorState> _changeScreen(AuthenticatorStep step) async* {
+  Stream<AuthState> _changeScreen(AuthenticatorStep step) async* {
     yield UnauthenticatedState(step: step);
   }
 
-  Stream<AuthenticatorState> _resendSignUpCode(String username) async* {
+  Stream<AuthState> _resendSignUpCode(String username) async* {
     try {
       ResendSignUpCodeResult result =
           await _authService.resendSignUpCode(username);

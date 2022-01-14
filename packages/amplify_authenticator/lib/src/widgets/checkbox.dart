@@ -89,6 +89,6 @@ class _RememberDeviceCheckboxState<T extends AuthenticatorCheckbox<T>>
     extends _AuthenticatorCheckBoxState<T> {
   @override
   ValueChanged<bool> get onChanged {
-    return (v) => viewModel.rememberDevice = v;
+    return (v) => state.rememberDevice = v;
   }
 }

@@ -14,6 +14,8 @@
  */
 
 enum AuthenticatorStep {
+  loading,
+  authenticated,
   initial,
   signup,
   signin,

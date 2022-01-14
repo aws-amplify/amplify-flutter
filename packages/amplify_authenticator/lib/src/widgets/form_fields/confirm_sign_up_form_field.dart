@@ -153,9 +153,9 @@ class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
   String? get initialValue {
     switch (widget.field) {
       case ConfirmSignUpField.username:
-        return viewModel.username;
+        return state.username;
       case ConfirmSignUpField.code:
-        return viewModel.confirmationCode;
+        return state.confirmationCode;
     }
   }
 
@@ -163,9 +163,9 @@ class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case ConfirmSignUpField.username:
-        return (v) => viewModel.username = v;
+        return (v) => state.username = v;
       case ConfirmSignUpField.code:
-        return (v) => viewModel.confirmationCode = v;
+        return (v) => state.confirmationCode = v;
     }
   }
 

@@ -52,7 +52,7 @@ abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
   final AuthenticatorButtonSize size;
 
   /// The button's `onPressed` callback.
-  void onPressed(BuildContext context, AuthViewModel viewModel);
+  void onPressed(BuildContext context, AuthenticatorState state);
 
   /// The button's label key.
   ButtonResolverKey get labelKey;
@@ -134,10 +134,8 @@ class _AmplifyElevatedButtonState
       width: double.infinity,
       child: ElevatedButton(
         focusNode: focusNode,
-        onPressed: viewModel.isBusy
-            ? null
-            : () => widget.onPressed(context, viewModel),
-        child: viewModel.isBusy && loadingIndicator != null
+        onPressed: state.isBusy ? null : () => widget.onPressed(context, state),
+        child: state.isBusy && loadingIndicator != null
             ? loadingIndicator
             : Row(
                 mainAxisSize: MainAxisSize.min,
@@ -173,8 +171,8 @@ class SignUpButton extends AuthenticatorElevatedButton {
   ButtonResolverKey get labelKey => ButtonResolverKey.signup;
 
   @override
-  void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.signUp();
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.signUp();
 }
 
 class SignInButton extends AuthenticatorElevatedButton {
@@ -187,8 +185,8 @@ class SignInButton extends AuthenticatorElevatedButton {
   ButtonResolverKey get labelKey => ButtonResolverKey.signin;
 
   @override
-  void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.signIn();
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.signIn();
 }
 
 class ConfirmSignUpButton extends AuthenticatorElevatedButton {
@@ -201,8 +199,8 @@ class ConfirmSignUpButton extends AuthenticatorElevatedButton {
   ButtonResolverKey get labelKey => ButtonResolverKey.confirm;
 
   @override
-  void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.confirmSignUp();
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.confirmSignUp();
 }
 
 class ConfirmSignInMFAButton extends AuthenticatorElevatedButton {
@@ -215,8 +213,8 @@ class ConfirmSignInMFAButton extends AuthenticatorElevatedButton {
   ButtonResolverKey get labelKey => ButtonResolverKey.confirm;
 
   @override
-  void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.confirmSignInMFA();
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.confirmSignInMFA();
 }
 
 // SignOutButton should not inherit from AuthenticatorButton, since we override
@@ -230,13 +228,13 @@ class SignOutButton extends StatelessAuthenticatorComponent {
   @override
   Widget builder(
     BuildContext context,
-    AuthViewModel viewModel,
+    AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
     final buttonResolver = stringResolver.buttons;
     return ElevatedButton(
       key: keySignOutButton,
-      onPressed: viewModel.signOut,
+      onPressed: state.signOut,
       child: Text(buttonResolver.resolve(
         context,
         ButtonResolverKey.signout,
@@ -251,7 +249,7 @@ class BackToSignInButton extends StatelessAuthenticatorComponent {
   @override
   Widget builder(
     BuildContext context,
-    AuthViewModel viewModel,
+    AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
     return TextButton(
@@ -259,7 +257,7 @@ class BackToSignInButton extends StatelessAuthenticatorComponent {
       child: Text(
         stringResolver.buttons.backTo(context, AuthenticatorStep.signin),
       ),
-      onPressed: viewModel.goToSignIn,
+      onPressed: state.goToSignIn,
     );
   }
 }
@@ -270,7 +268,7 @@ class GoToSignUpButton extends StatelessAuthenticatorComponent {
   @override
   Widget builder(
     BuildContext context,
-    AuthViewModel viewModel,
+    AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
     final resolver = stringResolver.buttons;
@@ -299,7 +297,7 @@ class GoToSignUpButton extends StatelessAuthenticatorComponent {
           ),
           TextButton(
             key: keyGoToSignUpButton,
-            onPressed: viewModel.goToSignUp,
+            onPressed: state.goToSignUp,
             child: Text(
               resolver.signup(context),
               style: TextStyle(
@@ -320,7 +318,7 @@ class GoToSignInButton extends StatelessAuthenticatorComponent {
   @override
   Widget builder(
     BuildContext context,
-    AuthViewModel viewModel,
+    AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
     final resolver = stringResolver.buttons;
@@ -356,7 +354,7 @@ class GoToSignInButton extends StatelessAuthenticatorComponent {
                 color: Theme.of(context).primaryColor,
               ),
             ),
-            onPressed: viewModel.goToSignIn,
+            onPressed: state.goToSignIn,
           ),
         ],
       ),
@@ -372,7 +370,7 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
   @override
   Widget builder(
     BuildContext context,
-    AuthViewModel viewModel,
+    AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
     final ButtonResolver buttonResolver = stringResolver.buttons;
@@ -394,7 +392,7 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
               buttonResolver.sendCode(context),
               style: const TextStyle(fontSize: fontSize),
             ),
-            onPressed: viewModel.resendSignUpCode,
+            onPressed: state.resendSignUpCode,
           ),
         ],
       ),
@@ -408,7 +406,7 @@ class ForgotPasswordButton extends StatelessAuthenticatorComponent {
   @override
   Widget builder(
     BuildContext context,
-    AuthViewModel viewModel,
+    AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
     return TextButton(
@@ -416,7 +414,7 @@ class ForgotPasswordButton extends StatelessAuthenticatorComponent {
       child: Text(
         stringResolver.buttons.forgotPassword(context),
       ),
-      onPressed: viewModel.goToResetPassword,
+      onPressed: state.goToResetPassword,
     );
   }
 }
@@ -431,8 +429,8 @@ class ResetPasswordButton extends AuthenticatorElevatedButton {
   ButtonResolverKey get labelKey => ButtonResolverKey.submit;
 
   @override
-  void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.resetPassword();
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.resetPassword();
 }
 
 class ConfirmResetPasswordButton extends AuthenticatorElevatedButton {
@@ -445,8 +443,8 @@ class ConfirmResetPasswordButton extends AuthenticatorElevatedButton {
   ButtonResolverKey get labelKey => ButtonResolverKey.submit;
 
   @override
-  void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.confirmResetPassword();
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.confirmResetPassword();
 }
 
 class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {
@@ -459,8 +457,8 @@ class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {
   ButtonResolverKey get labelKey => ButtonResolverKey.changePassword;
 
   @override
-  void onPressed(BuildContext context, AuthViewModel viewModel) =>
-      viewModel.confirmSignInNewPassword();
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.confirmSignInNewPassword();
 }
 
 class VerifyUserButton extends AuthenticatorElevatedButton {
@@ -473,8 +471,8 @@ class VerifyUserButton extends AuthenticatorElevatedButton {
   ButtonResolverKey get labelKey => ButtonResolverKey.verify;
 
   @override
-  void onPressed(BuildContext context, AuthViewModel viewModel) {
-    viewModel.verifyUser();
+  void onPressed(BuildContext context, AuthenticatorState state) {
+    state.verifyUser();
   }
 }
 
@@ -488,10 +486,10 @@ class ConfirmVerifyUserButton extends AuthenticatorElevatedButton {
   ButtonResolverKey get labelKey => ButtonResolverKey.submit;
 
   @override
-  void onPressed(BuildContext context, AuthViewModel viewModel) {
+  void onPressed(BuildContext context, AuthenticatorState state) {
     final authState =
         InheritedAuthBloc.of(context).currentState as AttributeVerificationSent;
-    viewModel.confirmVerifyUser(authState.userAttributeKey);
+    state.confirmVerifyUser(authState.userAttributeKey);
   }
 }
 
@@ -501,7 +499,7 @@ class SkipVerifyUserButton extends StatelessAuthenticatorComponent {
   @override
   Widget builder(
     BuildContext context,
-    AuthViewModel viewModel,
+    AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
     return TextButton(
@@ -513,7 +511,7 @@ class SkipVerifyUserButton extends StatelessAuthenticatorComponent {
           color: Theme.of(context).primaryColor,
         ),
       ),
-      onPressed: viewModel.skipVerifyUser,
+      onPressed: state.skipVerifyUser,
     );
   }
 }

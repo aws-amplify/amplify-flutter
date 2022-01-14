@@ -4,46 +4,40 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 // A builder method to build a custom authenticator based off
-// of the current AuthenticatorState and AuthViewModel
+// of the current AuthState and AuthenticatorState
 //
 // This builder uses a combination of custom widgets and
 // prebuilt widgets such as SignUpFormField.username(),
 // SignInButton(), and ConfirmSignUpFormField.verificationCode().
 Widget customAuthenticatorBuilder(
   BuildContext context,
-  AuthenticatorState authenticatorState,
-  AuthViewModel viewModel,
+  AuthenticatorState state,
 ) {
-  if (authenticatorState.isLoading) {
-    return const Material(child: Center(child: CircularProgressIndicator()));
-  } else if (authenticatorState is UnauthenticatedState) {
-    AuthenticatorStep step = authenticatorState.step;
-    switch (step) {
-      case AuthenticatorStep.initial:
-        return UsernameView(viewModel: viewModel);
-      case AuthenticatorStep.signin:
-        return SignInView(viewModel: viewModel);
-      case AuthenticatorStep.signup:
-        return SignUpView(viewModel: viewModel);
-      case AuthenticatorStep.confirmSignup:
-        return const ConfirmSignUpView();
-      default:
-        throw StateError('Step: $step is not handled for this demo.');
-    }
-  } else {
-    throw StateError(
-      'State: $authenticatorState is not handled for this demo.',
-    );
+  switch (state.currentStep) {
+    case AuthenticatorStep.loading:
+      return const Material(child: Center(child: CircularProgressIndicator()));
+    case AuthenticatorStep.initial:
+      return UsernameView(state: state);
+    case AuthenticatorStep.signin:
+      return SignInView(state: state);
+    case AuthenticatorStep.signup:
+      return SignUpView(state: state);
+    case AuthenticatorStep.confirmSignup:
+      return const ConfirmSignUpView();
+    default:
+      throw StateError(
+        'Step: ${state.currentStep} is not handled for this demo.',
+      );
   }
 }
 
 class UsernameView extends StatelessWidget {
   const UsernameView({
     Key? key,
-    required this.viewModel,
+    required this.state,
   }) : super(key: key);
 
-  final AuthViewModel viewModel;
+  final AuthenticatorState state;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +55,7 @@ class UsernameView extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               SignUpFormField.username(),
-              CheckUsernameButton(viewModel: viewModel),
+              CheckUsernameButton(state: state),
             ],
           ),
         ),
@@ -73,10 +67,10 @@ class UsernameView extends StatelessWidget {
 class SignInView extends StatelessWidget {
   const SignInView({
     Key? key,
-    required this.viewModel,
+    required this.state,
   }) : super(key: key);
 
-  final AuthViewModel viewModel;
+  final AuthenticatorState state;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +94,7 @@ class SignInView extends StatelessWidget {
               const SizedBox(height: 16),
               SignInFormField.password(),
               const SignInButton(),
-              BackToUsernameViewButton(viewModel: viewModel),
+              BackToUsernameViewButton(state: state),
             ],
           ),
         ),
@@ -112,10 +106,10 @@ class SignInView extends StatelessWidget {
 class SignUpView extends StatelessWidget {
   const SignUpView({
     Key? key,
-    required this.viewModel,
+    required this.state,
   }) : super(key: key);
 
-  final AuthViewModel viewModel;
+  final AuthenticatorState state;
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +135,7 @@ class SignUpView extends StatelessWidget {
               SignUpFormField.passwordConfirmation(),
               const SizedBox(height: 16),
               const SignUpButton(),
-              BackToUsernameViewButton(viewModel: viewModel),
+              BackToUsernameViewButton(state: state),
             ],
           ),
         ),
@@ -187,10 +181,10 @@ class ConfirmSignUpView extends StatelessWidget {
 class BackToUsernameViewButton extends StatelessWidget {
   const BackToUsernameViewButton({
     Key? key,
-    required this.viewModel,
+    required this.state,
   }) : super(key: key);
 
-  final AuthViewModel viewModel;
+  final AuthenticatorState state;
 
   @override
   Widget build(
@@ -200,7 +194,7 @@ class BackToUsernameViewButton extends StatelessWidget {
       width: double.infinity,
       child: TextButton(
         child: const Text('Back'),
-        onPressed: () => viewModel.navigateTo(AuthenticatorStep.initial),
+        onPressed: () => state.navigateTo(AuthenticatorStep.initial),
       ),
     );
   }
@@ -209,31 +203,31 @@ class BackToUsernameViewButton extends StatelessWidget {
 class CheckUsernameButton extends StatelessWidget {
   const CheckUsernameButton({
     Key? key,
-    required this.viewModel,
+    required this.state,
   }) : super(key: key);
 
-  final AuthViewModel viewModel;
+  final AuthenticatorState state;
 
   // hacky way to figure out if user exists, just for demo purposes
   // redirects to sign in if user exists, otherwise redirects to sign up
   Future<void> checkUsername() async {
     try {
       await Amplify.Auth.signIn(
-        username: viewModel.username,
+        username: state.username,
         password: 'password1234567890password1234567890',
       );
       await Amplify.Auth.signOut();
-      viewModel.navigateTo(
+      state.navigateTo(
         AuthenticatorStep.signin,
         resetAttributes: false,
       );
     } on UserNotFoundException {
-      viewModel.navigateTo(
+      state.navigateTo(
         AuthenticatorStep.signup,
         resetAttributes: false,
       );
     } on Exception {
-      viewModel.navigateTo(
+      state.navigateTo(
         AuthenticatorStep.signin,
         resetAttributes: false,
       );
@@ -248,7 +242,7 @@ class CheckUsernameButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         child: const Text('Next'),
-        onPressed: viewModel.username == '' ? null : checkUsername,
+        onPressed: state.username == '' ? null : checkUsername,
       ),
     );
   }

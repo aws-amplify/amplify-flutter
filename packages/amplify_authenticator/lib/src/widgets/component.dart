@@ -14,7 +14,7 @@
 */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
@@ -35,16 +35,16 @@ abstract class StatelessAuthenticatorComponent extends StatelessWidget {
   /// components.
   Widget builder(
     BuildContext context,
-    AuthViewModel viewModel,
+    AuthenticatorState state,
     AuthStringResolver stringResolver,
   );
 
   @override
   @nonVirtual
   Widget build(BuildContext context) {
-    final viewModel = InheritedAuthViewModel.of(context);
+    final state = InheritedAuthenticatorState.of(context);
     final strings = InheritedStrings.of(context);
-    return builder(context, viewModel, strings);
+    return builder(context, state, strings);
   }
 }
 
@@ -67,7 +67,7 @@ abstract class AuthenticatorComponent<T extends AuthenticatorComponent<T>>
 abstract class AuthenticatorComponentState<T extends AuthenticatorComponent<T>>
     extends State<T> {
   /// The root Autheticator view model.
-  late AuthViewModel viewModel;
+  late AuthenticatorState state;
 
   /// The root Authenticator string resolver.
   late AuthStringResolver stringResolver;
@@ -78,7 +78,7 @@ abstract class AuthenticatorComponentState<T extends AuthenticatorComponent<T>>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    viewModel = InheritedAuthViewModel.of(context);
+    state = InheritedAuthenticatorState.of(context);
     stringResolver = InheritedStrings.of(context);
     config = InheritedConfig.of(context);
   }
@@ -86,7 +86,7 @@ abstract class AuthenticatorComponentState<T extends AuthenticatorComponent<T>>
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<AuthViewModel>('viewModel', viewModel));
+    properties.add(DiagnosticsProperty<AuthenticatorState>('state', state));
     properties.add(DiagnosticsProperty<AuthStringResolver>(
         'stringResolver', stringResolver));
     properties.add(
