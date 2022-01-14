@@ -19,15 +19,17 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the StringTypeModel type in your schema. */
+/// This is an auto generated class representing the MultiRelatedAttendee type in your schema.
 @immutable
-class StringTypeModel extends Model {
-  static const classType = const _StringTypeModelModelType();
+class MultiRelatedAttendee extends Model {
+  static const classType = _MultiRelatedAttendeeModelType();
   final String id;
-  final String? _value;
+  final List<MultiRelatedRegistration>? _meetings;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -39,8 +41,8 @@ class StringTypeModel extends Model {
     return id;
   }
 
-  String? get value {
-    return _value;
+  List<MultiRelatedRegistration>? get meetings {
+    return _meetings;
   }
 
   TemporalDateTime? get createdAt {
@@ -51,15 +53,19 @@ class StringTypeModel extends Model {
     return _updatedAt;
   }
 
-  const StringTypeModel._internal(
-      {required this.id, value, createdAt, updatedAt})
-      : _value = value,
+  const MultiRelatedAttendee._internal(
+      {required this.id, meetings, createdAt, updatedAt})
+      : _meetings = meetings,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory StringTypeModel({String? id, String? value}) {
-    return StringTypeModel._internal(
-        id: id == null ? UUID.getUUID() : id, value: value);
+  factory MultiRelatedAttendee(
+      {String? id, List<MultiRelatedRegistration>? meetings}) {
+    return MultiRelatedAttendee._internal(
+        id: id == null ? UUID.getUUID() : id,
+        meetings: meetings != null
+            ? List<MultiRelatedRegistration>.unmodifiable(meetings)
+            : meetings);
   }
 
   bool equals(Object other) {
@@ -69,7 +75,9 @@ class StringTypeModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is StringTypeModel && id == other.id && _value == other._value;
+    return other is MultiRelatedAttendee &&
+        id == other.id &&
+        DeepCollectionEquality().equals(_meetings, other._meetings);
   }
 
   @override
@@ -77,11 +85,10 @@ class StringTypeModel extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("StringTypeModel {");
+    buffer.write("MultiRelatedAttendee {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("value=" + "$_value" + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -92,14 +99,21 @@ class StringTypeModel extends Model {
     return buffer.toString();
   }
 
-  StringTypeModel copyWith({String? id, String? value}) {
-    return StringTypeModel._internal(
-        id: id ?? this.id, value: value ?? this.value);
+  MultiRelatedAttendee copyWith(
+      {String? id, List<MultiRelatedRegistration>? meetings}) {
+    return MultiRelatedAttendee._internal(
+        id: id ?? this.id, meetings: meetings ?? this.meetings);
   }
 
-  StringTypeModel.fromJson(Map<String, dynamic> json)
+  MultiRelatedAttendee.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value'],
+        _meetings = json['meetings'] is List
+            ? (json['meetings'] as List)
+                .where((e) => e?['serializedData'] != null)
+                .map((e) => MultiRelatedRegistration.fromJson(
+                    Map<String, dynamic>.from(e['serializedData'])))
+                .toList()
+            : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -109,24 +123,30 @@ class StringTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'value': _value,
+        'meetings': _meetings
+            ?.map((MultiRelatedRegistration? e) => e?.toJson())
+            .toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "stringTypeModel.id");
-  static final QueryField VALUE = QueryField(fieldName: "value");
+  static final QueryField ID = QueryField(fieldName: "multiRelatedAttendee.id");
+  static final QueryField MEETINGS = QueryField(
+      fieldName: "meetings",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (MultiRelatedRegistration).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "StringTypeModel";
-    modelSchemaDefinition.pluralName = "StringTypeModels";
+    modelSchemaDefinition.name = "MultiRelatedAttendee";
+    modelSchemaDefinition.pluralName = "MultiRelatedAttendees";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: StringTypeModel.VALUE,
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+        key: MultiRelatedAttendee.MEETINGS,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofModelName: (MultiRelatedRegistration).toString(),
+        associatedKey: MultiRelatedRegistration.ATTENDEE));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -142,11 +162,11 @@ class StringTypeModel extends Model {
   });
 }
 
-class _StringTypeModelModelType extends ModelType<StringTypeModel> {
-  const _StringTypeModelModelType();
+class _MultiRelatedAttendeeModelType extends ModelType<MultiRelatedAttendee> {
+  const _MultiRelatedAttendeeModelType();
 
   @override
-  StringTypeModel fromJson(Map<String, dynamic> jsonData) {
-    return StringTypeModel.fromJson(jsonData);
+  MultiRelatedAttendee fromJson(Map<String, dynamic> jsonData) {
+    return MultiRelatedAttendee.fromJson(jsonData);
   }
 }

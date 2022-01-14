@@ -24,13 +24,14 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/// This is an auto generated class representing the Blog type in your schema.
+/// This is an auto generated class representing the HasManyParent type in your schema.
 @immutable
-class Blog extends Model {
-  static const classType = _BlogModelType();
+class HasManyParent extends Model {
+  static const classType = _HasManyParentModelType();
   final String id;
   final String? _name;
-  final List<Post>? _posts;
+  final List<HasManyChildImplicit>? _implicitChildren;
+  final List<HasManyChildExplicit>? _explicitChildren;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -42,21 +43,16 @@ class Blog extends Model {
     return id;
   }
 
-  String get name {
-    try {
-      return _name!;
-    } catch (e) {
-      throw DataStoreException(
-          DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+  String? get name {
+    return _name;
   }
 
-  List<Post>? get posts {
-    return _posts;
+  List<HasManyChildImplicit>? get implicitChildren {
+    return _implicitChildren;
+  }
+
+  List<HasManyChildExplicit>? get explicitChildren {
+    return _explicitChildren;
   }
 
   TemporalDateTime? get createdAt {
@@ -67,18 +63,33 @@ class Blog extends Model {
     return _updatedAt;
   }
 
-  const Blog._internal(
-      {required this.id, required name, posts, createdAt, updatedAt})
+  const HasManyParent._internal(
+      {required this.id,
+      name,
+      implicitChildren,
+      explicitChildren,
+      createdAt,
+      updatedAt})
       : _name = name,
-        _posts = posts,
+        _implicitChildren = implicitChildren,
+        _explicitChildren = explicitChildren,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Blog({String? id, required String name, List<Post>? posts}) {
-    return Blog._internal(
+  factory HasManyParent(
+      {String? id,
+      String? name,
+      List<HasManyChildImplicit>? implicitChildren,
+      List<HasManyChildExplicit>? explicitChildren}) {
+    return HasManyParent._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
-        posts: posts != null ? List<Post>.unmodifiable(posts) : posts);
+        implicitChildren: implicitChildren != null
+            ? List<HasManyChildImplicit>.unmodifiable(implicitChildren)
+            : implicitChildren,
+        explicitChildren: explicitChildren != null
+            ? List<HasManyChildExplicit>.unmodifiable(explicitChildren)
+            : explicitChildren);
   }
 
   bool equals(Object other) {
@@ -88,10 +99,13 @@ class Blog extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Blog &&
+    return other is HasManyParent &&
         id == other.id &&
         _name == other._name &&
-        DeepCollectionEquality().equals(_posts, other._posts);
+        DeepCollectionEquality()
+            .equals(_implicitChildren, other._implicitChildren) &&
+        DeepCollectionEquality()
+            .equals(_explicitChildren, other._explicitChildren);
   }
 
   @override
@@ -101,7 +115,7 @@ class Blog extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Blog {");
+    buffer.write("HasManyParent {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" +
@@ -114,18 +128,32 @@ class Blog extends Model {
     return buffer.toString();
   }
 
-  Blog copyWith({String? id, String? name, List<Post>? posts}) {
-    return Blog._internal(
-        id: id ?? this.id, name: name ?? this.name, posts: posts ?? this.posts);
+  HasManyParent copyWith(
+      {String? id,
+      String? name,
+      List<HasManyChildImplicit>? implicitChildren,
+      List<HasManyChildExplicit>? explicitChildren}) {
+    return HasManyParent._internal(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        implicitChildren: implicitChildren ?? this.implicitChildren,
+        explicitChildren: explicitChildren ?? this.explicitChildren);
   }
 
-  Blog.fromJson(Map<String, dynamic> json)
+  HasManyParent.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _posts = json['posts'] is List
-            ? (json['posts'] as List)
+        _implicitChildren = json['implicitChildren'] is List
+            ? (json['implicitChildren'] as List)
                 .where((e) => e?['serializedData'] != null)
-                .map((e) => Post.fromJson(
+                .map((e) => HasManyChildImplicit.fromJson(
+                    Map<String, dynamic>.from(e['serializedData'])))
+                .toList()
+            : null,
+        _explicitChildren = json['explicitChildren'] is List
+            ? (json['explicitChildren'] as List)
+                .where((e) => e?['serializedData'] != null)
+                .map((e) => HasManyChildExplicit.fromJson(
                     Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
@@ -139,34 +167,49 @@ class Blog extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
-        'posts': _posts?.map((Post? e) => e?.toJson()).toList(),
+        'implicitChildren': _implicitChildren
+            ?.map((HasManyChildImplicit? e) => e?.toJson())
+            .toList(),
+        'explicitChildren': _explicitChildren
+            ?.map((HasManyChildExplicit? e) => e?.toJson())
+            .toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "blog.id");
+  static final QueryField ID = QueryField(fieldName: "hasManyParent.id");
   static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField POSTS = QueryField(
-      fieldName: "posts",
+  static final QueryField IMPLICITCHILDREN = QueryField(
+      fieldName: "implicitChildren",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Post).toString()));
+          ofModelName: (HasManyChildImplicit).toString()));
+  static final QueryField EXPLICITCHILDREN = QueryField(
+      fieldName: "explicitChildren",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (HasManyChildExplicit).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Blog";
-    modelSchemaDefinition.pluralName = "Blogs";
+    modelSchemaDefinition.name = "HasManyParent";
+    modelSchemaDefinition.pluralName = "HasManyParents";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Blog.NAME,
-        isRequired: true,
+        key: HasManyParent.NAME,
+        isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-        key: Blog.POSTS,
+        key: HasManyParent.IMPLICITCHILDREN,
         isRequired: false,
-        ofModelName: (Post).toString(),
-        associatedKey: Post.BLOG));
+        ofModelName: (HasManyChildImplicit).toString(),
+        associatedKey: HasManyChildImplicit.HASMANYPARENTIMPLICITCHILDRENID));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+        key: HasManyParent.EXPLICITCHILDREN,
+        isRequired: false,
+        ofModelName: (HasManyChildExplicit).toString(),
+        associatedKey: HasManyChildExplicit.HASMANYPARENTID));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -182,11 +225,11 @@ class Blog extends Model {
   });
 }
 
-class _BlogModelType extends ModelType<Blog> {
-  const _BlogModelType();
+class _HasManyParentModelType extends ModelType<HasManyParent> {
+  const _HasManyParentModelType();
 
   @override
-  Blog fromJson(Map<String, dynamic> jsonData) {
-    return Blog.fromJson(jsonData);
+  HasManyParent fromJson(Map<String, dynamic> jsonData) {
+    return HasManyParent.fromJson(jsonData);
   }
 }

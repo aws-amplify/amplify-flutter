@@ -19,20 +19,18 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
-import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the HasManyModel type in your schema. */
+/// This is an auto generated class representing the HasManyChildImplicit type in your schema.
 @immutable
-class HasManyModel extends Model {
-  static const classType = const _HasManyModelModelType();
+class HasManyChildImplicit extends Model {
+  static const classType = _HasManyChildImplicitModelType();
   final String id;
   final String? _name;
-  final List<HasManyChildModel>? _children;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
+  final String? _hasManyParentImplicitChildrenId;
 
   @override
   getInstanceType() => classType;
@@ -42,21 +40,8 @@ class HasManyModel extends Model {
     return id;
   }
 
-  String get name {
-    try {
-      return _name!;
-    } catch (e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
-  }
-
-  List<HasManyChildModel>? get children {
-    return _children;
+  String? get name {
+    return _name;
   }
 
   TemporalDateTime? get createdAt {
@@ -67,21 +52,27 @@ class HasManyModel extends Model {
     return _updatedAt;
   }
 
-  const HasManyModel._internal(
-      {required this.id, required name, children, createdAt, updatedAt})
-      : _name = name,
-        _children = children,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  String? get hasManyParentImplicitChildrenId {
+    return _hasManyParentImplicitChildrenId;
+  }
 
-  factory HasManyModel(
-      {String? id, required String name, List<HasManyChildModel>? children}) {
-    return HasManyModel._internal(
+  const HasManyChildImplicit._internal(
+      {required this.id,
+      name,
+      createdAt,
+      updatedAt,
+      hasManyParentImplicitChildrenId})
+      : _name = name,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt,
+        _hasManyParentImplicitChildrenId = hasManyParentImplicitChildrenId;
+
+  factory HasManyChildImplicit(
+      {String? id, String? name, String? hasManyParentImplicitChildrenId}) {
+    return HasManyChildImplicit._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
-        children: children != null
-            ? List<HasManyChildModel>.unmodifiable(children)
-            : children);
+        hasManyParentImplicitChildrenId: hasManyParentImplicitChildrenId);
   }
 
   bool equals(Object other) {
@@ -91,10 +82,11 @@ class HasManyModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is HasManyModel &&
+    return other is HasManyChildImplicit &&
         id == other.id &&
         _name == other._name &&
-        DeepCollectionEquality().equals(_children, other._children);
+        _hasManyParentImplicitChildrenId ==
+            other._hasManyParentImplicitChildrenId;
   }
 
   @override
@@ -102,78 +94,68 @@ class HasManyModel extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("HasManyModel {");
+    buffer.write("HasManyChildImplicit {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("updatedAt=" +
+        (_updatedAt != null ? _updatedAt!.format() : "null") +
+        ", ");
+    buffer.write("hasManyParentImplicitChildrenId=" +
+        "$_hasManyParentImplicitChildrenId");
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  HasManyModel copyWith(
-      {String? id, String? name, List<HasManyChildModel>? children}) {
-    return HasManyModel._internal(
+  HasManyChildImplicit copyWith(
+      {String? id, String? name, String? hasManyParentImplicitChildrenId}) {
+    return HasManyChildImplicit._internal(
         id: id ?? this.id,
         name: name ?? this.name,
-        children: children ?? this.children);
+        hasManyParentImplicitChildrenId: hasManyParentImplicitChildrenId ??
+            this.hasManyParentImplicitChildrenId);
   }
 
-  HasManyModel.fromJson(Map<String, dynamic> json)
+  HasManyChildImplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _children = json['children'] is List
-            ? (json['children'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => HasManyChildModel.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
-            : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
         _updatedAt = json['updatedAt'] != null
             ? TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+            : null,
+        _hasManyParentImplicitChildrenId =
+            json['hasManyParentImplicitChildrenId'];
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
-        'children':
-            _children?.map((HasManyChildModel? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
+        'updatedAt': _updatedAt?.format(),
+        'hasManyParentImplicitChildrenId': _hasManyParentImplicitChildrenId
       };
 
-  static final QueryField ID = QueryField(fieldName: "hasManyModel.id");
+  static final QueryField ID = QueryField(fieldName: "hasManyChildImplicit.id");
   static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField CHILDREN = QueryField(
-      fieldName: "children",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (HasManyChildModel).toString()));
+  static final QueryField HASMANYPARENTIMPLICITCHILDRENID =
+      QueryField(fieldName: "hasManyParentImplicitChildrenId");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "HasManyModel";
-    modelSchemaDefinition.pluralName = "HasManyModels";
+    modelSchemaDefinition.name = "HasManyChildImplicit";
+    modelSchemaDefinition.pluralName = "HasManyChildImplicits";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: HasManyModel.NAME,
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-        key: HasManyModel.CHILDREN,
+        key: HasManyChildImplicit.NAME,
         isRequired: false,
-        ofModelName: (HasManyChildModel).toString(),
-        associatedKey: HasManyChildModel.PARENT));
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -186,14 +168,19 @@ class HasManyModel extends Model {
         isRequired: false,
         isReadOnly: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: HasManyChildImplicit.HASMANYPARENTIMPLICITCHILDRENID,
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
   });
 }
 
-class _HasManyModelModelType extends ModelType<HasManyModel> {
-  const _HasManyModelModelType();
+class _HasManyChildImplicitModelType extends ModelType<HasManyChildImplicit> {
+  const _HasManyChildImplicitModelType();
 
   @override
-  HasManyModel fromJson(Map<String, dynamic> jsonData) {
-    return HasManyModel.fromJson(jsonData);
+  HasManyChildImplicit fromJson(Map<String, dynamic> jsonData) {
+    return HasManyChildImplicit.fromJson(jsonData);
   }
 }

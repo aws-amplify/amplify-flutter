@@ -23,10 +23,10 @@ import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the Comment type in your schema. */
+/// This is an auto generated class representing the Comment type in your schema.
 @immutable
 class Comment extends Model {
-  static const classType = const _CommentModelType();
+  static const classType = _CommentModelType();
   final String id;
   final Post? _post;
   final String? _content;
@@ -49,7 +49,7 @@ class Comment extends Model {
     try {
       return _content!;
     } catch (e) {
-      throw new DataStoreException(
+      throw DataStoreException(
           DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: DataStoreExceptionMessages
@@ -96,7 +96,7 @@ class Comment extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Comment {");
     buffer.write("id=" + "$id" + ", ");
@@ -123,7 +123,7 @@ class Comment extends Model {
       : id = json['id'],
         _post = json['post']?['serializedData'] != null
             ? Post.fromJson(
-                new Map<String, dynamic>.from(json['post']['serializedData']))
+                Map<String, dynamic>.from(json['post']['serializedData']))
             : null,
         _content = json['content'],
         _createdAt = json['createdAt'] != null

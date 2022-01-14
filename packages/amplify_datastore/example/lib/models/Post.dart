@@ -24,16 +24,17 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the Post type in your schema. */
+/// This is an auto generated class representing the Post type in your schema.
 @immutable
 class Post extends Model {
-  static const classType = const _PostModelType();
+  static const classType = _PostModelType();
   final String id;
   final String? _title;
   final int? _rating;
   final TemporalDateTime? _created;
   final Blog? _blog;
   final List<Comment>? _comments;
+  final List<PostTags>? _tags;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -49,7 +50,7 @@ class Post extends Model {
     try {
       return _title!;
     } catch (e) {
-      throw new DataStoreException(
+      throw DataStoreException(
           DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: DataStoreExceptionMessages
@@ -62,7 +63,7 @@ class Post extends Model {
     try {
       return _rating!;
     } catch (e) {
-      throw new DataStoreException(
+      throw DataStoreException(
           DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: DataStoreExceptionMessages
@@ -83,6 +84,10 @@ class Post extends Model {
     return _comments;
   }
 
+  List<PostTags>? get tags {
+    return _tags;
+  }
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -98,6 +103,7 @@ class Post extends Model {
       created,
       blog,
       comments,
+      tags,
       createdAt,
       updatedAt})
       : _title = title,
@@ -105,6 +111,7 @@ class Post extends Model {
         _created = created,
         _blog = blog,
         _comments = comments,
+        _tags = tags,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
@@ -114,7 +121,8 @@ class Post extends Model {
       required int rating,
       TemporalDateTime? created,
       Blog? blog,
-      List<Comment>? comments}) {
+      List<Comment>? comments,
+      List<PostTags>? tags}) {
     return Post._internal(
         id: id == null ? UUID.getUUID() : id,
         title: title,
@@ -122,7 +130,8 @@ class Post extends Model {
         created: created,
         blog: blog,
         comments:
-            comments != null ? List<Comment>.unmodifiable(comments) : comments);
+            comments != null ? List<Comment>.unmodifiable(comments) : comments,
+        tags: tags != null ? List<PostTags>.unmodifiable(tags) : tags);
   }
 
   bool equals(Object other) {
@@ -138,7 +147,8 @@ class Post extends Model {
         _rating == other._rating &&
         _created == other._created &&
         _blog == other._blog &&
-        DeepCollectionEquality().equals(_comments, other._comments);
+        DeepCollectionEquality().equals(_comments, other._comments) &&
+        DeepCollectionEquality().equals(_tags, other._tags);
   }
 
   @override
@@ -146,7 +156,7 @@ class Post extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Post {");
     buffer.write("id=" + "$id" + ", ");
@@ -172,14 +182,16 @@ class Post extends Model {
       int? rating,
       TemporalDateTime? created,
       Blog? blog,
-      List<Comment>? comments}) {
+      List<Comment>? comments,
+      List<PostTags>? tags}) {
     return Post._internal(
         id: id ?? this.id,
         title: title ?? this.title,
         rating: rating ?? this.rating,
         created: created ?? this.created,
         blog: blog ?? this.blog,
-        comments: comments ?? this.comments);
+        comments: comments ?? this.comments,
+        tags: tags ?? this.tags);
   }
 
   Post.fromJson(Map<String, dynamic> json)
@@ -191,13 +203,20 @@ class Post extends Model {
             : null,
         _blog = json['blog']?['serializedData'] != null
             ? Blog.fromJson(
-                new Map<String, dynamic>.from(json['blog']['serializedData']))
+                Map<String, dynamic>.from(json['blog']['serializedData']))
             : null,
         _comments = json['comments'] is List
             ? (json['comments'] as List)
                 .where((e) => e?['serializedData'] != null)
                 .map((e) => Comment.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    Map<String, dynamic>.from(e['serializedData'])))
+                .toList()
+            : null,
+        _tags = json['tags'] is List
+            ? (json['tags'] as List)
+                .where((e) => e?['serializedData'] != null)
+                .map((e) => PostTags.fromJson(
+                    Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -214,6 +233,7 @@ class Post extends Model {
         'created': _created?.format(),
         'blog': _blog?.toJson(),
         'comments': _comments?.map((Comment? e) => e?.toJson()).toList(),
+        'tags': _tags?.map((PostTags? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
@@ -230,6 +250,10 @@ class Post extends Model {
       fieldName: "comments",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Comment).toString()));
+  static final QueryField TAGS = QueryField(
+      fieldName: "tags",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (PostTags).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Post";
@@ -263,6 +287,12 @@ class Post extends Model {
         isRequired: false,
         ofModelName: (Comment).toString(),
         associatedKey: Comment.POST));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+        key: Post.TAGS,
+        isRequired: false,
+        ofModelName: (PostTags).toString(),
+        associatedKey: PostTags.POST));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',

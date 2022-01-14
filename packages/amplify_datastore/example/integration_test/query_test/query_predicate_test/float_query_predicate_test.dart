@@ -29,16 +29,16 @@ void main() {
   group('type double', () {
     // models used for all tests
     var models = [
-      DoubleTypeModel(value: -10.0),
-      DoubleTypeModel(value: -1.0),
-      DoubleTypeModel(value: 0.0),
-      DoubleTypeModel(value: 0.1),
-      DoubleTypeModel(value: 2.1),
-      DoubleTypeModel(value: 1000.0),
-      DoubleTypeModel(value: double.maxFinite),
-      DoubleTypeModel(value: double.minPositive),
-      DoubleTypeModel(value: pi),
-      DoubleTypeModel(),
+      ModelWithAppsyncScalarTypes(floatValue: -10.0),
+      ModelWithAppsyncScalarTypes(floatValue: -1.0),
+      ModelWithAppsyncScalarTypes(floatValue: 0.0),
+      ModelWithAppsyncScalarTypes(floatValue: 0.1),
+      ModelWithAppsyncScalarTypes(floatValue: 2.1),
+      ModelWithAppsyncScalarTypes(floatValue: 1000.0),
+      ModelWithAppsyncScalarTypes(floatValue: double.maxFinite),
+      ModelWithAppsyncScalarTypes(floatValue: double.minPositive),
+      ModelWithAppsyncScalarTypes(floatValue: pi),
+      ModelWithAppsyncScalarTypes(),
     ];
 
     // a value that will return 1 or 0 when compared to each test value
@@ -48,10 +48,10 @@ void main() {
     var minDoubleValue = double.minPositive;
 
     // non-null models used for all tests
-    var nonNullModels = models.where((e) => e.value != null).toList();
+    var nonNullModels = models.where((e) => e.floatValue != null).toList();
 
     // distinct list of values in the test models
-    var values = models.map((e) => e.value).toSet().toList();
+    var values = models.map((e) => e.floatValue).toSet().toList();
 
     // distinct list of non-null values in the test models
     var nonNullValues = values.whereType<double>().toList();
@@ -68,16 +68,16 @@ void main() {
       // test against all values
       for (var value in nonNullValues) {
         var expectedModels =
-            models.where((model) => model.value == value).toList();
-        await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.eq(value),
+            models.where((model) => model.floatValue == value).toList();
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.eq(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with no match
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.eq(123.123),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.eq(123.123),
         expectedModels: [],
       );
     });
@@ -88,16 +88,16 @@ void main() {
         // update `nonNullModels` to `models` when #823 is fixed
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
         var expectedModels =
-            nonNullModels.where((model) => model.value != value).toList();
-        await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.ne(value),
+            nonNullModels.where((model) => model.floatValue != value).toList();
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.ne(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with match all models
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.ne(123.123),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.ne(123.123),
         // update `nonNullModels` to `models` when #823 is fixed
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
         expectedModels: nonNullModels,
@@ -109,17 +109,19 @@ void main() {
       (WidgetTester tester) async {
         // test against all (non-null) values
         for (var value in nonNullValues) {
-          var expectedModels =
-              nonNullModels.where((model) => model.value! < value).toList();
-          await testQueryPredicate<DoubleTypeModel>(
-            queryPredicate: DoubleTypeModel.VALUE.lt(value),
+          var expectedModels = nonNullModels
+              .where((model) => model.floatValue! < value)
+              .toList();
+          await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+            queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.lt(value),
             expectedModels: expectedModels,
           );
         }
 
         // test with no matches
-        await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.lt(minDoubleValue),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate:
+              ModelWithAppsyncScalarTypes.FLOATVALUE.lt(minDoubleValue),
           expectedModels: [],
         );
       },
@@ -132,17 +134,19 @@ void main() {
       (WidgetTester tester) async {
         // test against all (non-null) values
         for (var value in nonNullValues) {
-          var expectedModels =
-              nonNullModels.where((model) => model.value! <= value).toList();
-          await testQueryPredicate<DoubleTypeModel>(
-            queryPredicate: DoubleTypeModel.VALUE.le(value),
+          var expectedModels = nonNullModels
+              .where((model) => model.floatValue! <= value)
+              .toList();
+          await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+            queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.le(value),
             expectedModels: expectedModels,
           );
         }
 
         // test with match all models
-        await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.le(maxDoubleValue),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate:
+              ModelWithAppsyncScalarTypes.FLOATVALUE.le(maxDoubleValue),
           expectedModels: nonNullModels,
         );
       },
@@ -155,17 +159,19 @@ void main() {
       (WidgetTester tester) async {
         // test against all (non-null) values
         for (var value in nonNullValues) {
-          var expectedModels =
-              nonNullModels.where((model) => model.value! > value).toList();
-          await testQueryPredicate<DoubleTypeModel>(
-            queryPredicate: DoubleTypeModel.VALUE.gt(value),
+          var expectedModels = nonNullModels
+              .where((model) => model.floatValue! > value)
+              .toList();
+          await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+            queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.gt(value),
             expectedModels: expectedModels,
           );
         }
 
         // test with match all models
-        await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.gt(maxDoubleValue),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate:
+              ModelWithAppsyncScalarTypes.FLOATVALUE.gt(maxDoubleValue),
           expectedModels: [],
         );
       },
@@ -178,17 +184,19 @@ void main() {
       (WidgetTester tester) async {
         // test against all (non-null) values
         for (var value in nonNullValues) {
-          var expectedModels =
-              nonNullModels.where((model) => model.value! >= value).toList();
-          await testQueryPredicate<DoubleTypeModel>(
-            queryPredicate: DoubleTypeModel.VALUE.ge(value),
+          var expectedModels = nonNullModels
+              .where((model) => model.floatValue! >= value)
+              .toList();
+          await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+            queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE.ge(value),
             expectedModels: expectedModels,
           );
         }
 
         // test with match all models
-        await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.ge(minDoubleValue),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate:
+              ModelWithAppsyncScalarTypes.FLOATVALUE.ge(minDoubleValue),
           expectedModels: nonNullModels,
         );
       },
@@ -200,11 +208,12 @@ void main() {
       // test with exact match
       var exactMatchPattern = '1000.0';
       var exactMatchModels = nonNullModels
-          .where(
-              (model) => model.value!.toString().startsWith(exactMatchPattern))
+          .where((model) =>
+              model.floatValue!.toString().startsWith(exactMatchPattern))
           .toList();
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.beginsWith(exactMatchPattern),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE
+            .beginsWith(exactMatchPattern),
         expectedModels: exactMatchModels,
       );
 
@@ -212,17 +221,19 @@ void main() {
       var partialMatchPattern = '10';
       var partialMatchModels = nonNullModels
           .where((model) =>
-              model.value!.toString().startsWith(partialMatchPattern))
+              model.floatValue!.toString().startsWith(partialMatchPattern))
           .toList();
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.beginsWith(partialMatchPattern),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE
+            .beginsWith(partialMatchPattern),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = '123.123';
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.beginsWith(noMatchPattern),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate:
+            ModelWithAppsyncScalarTypes.FLOATVALUE.beginsWith(noMatchPattern),
         expectedModels: [],
       );
     });
@@ -231,28 +242,32 @@ void main() {
       // test with exact match
       var exactMatchPattern = '1000.0';
       var exactMatchModels = nonNullModels
-          .where((model) => model.value!.toString().contains(exactMatchPattern))
+          .where((model) =>
+              model.floatValue!.toString().contains(exactMatchPattern))
           .toList();
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.contains(exactMatchPattern),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate:
+            ModelWithAppsyncScalarTypes.FLOATVALUE.contains(exactMatchPattern),
         expectedModels: exactMatchModels,
       );
 
       // test with partial match
       var partialMatchPattern = '10';
       var partialMatchModels = nonNullModels
-          .where(
-              (model) => model.value!.toString().contains(partialMatchPattern))
+          .where((model) =>
+              model.floatValue!.toString().contains(partialMatchPattern))
           .toList();
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.contains(partialMatchPattern),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE
+            .contains(partialMatchPattern),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = '123.123';
-      await testQueryPredicate<DoubleTypeModel>(
-        queryPredicate: DoubleTypeModel.VALUE.contains(noMatchPattern),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate:
+            ModelWithAppsyncScalarTypes.FLOATVALUE.contains(noMatchPattern),
         expectedModels: [],
       );
     });
@@ -262,10 +277,11 @@ void main() {
       (WidgetTester tester) async {
         // test with exact match
         var exactMatchPattern = 1000.0;
-        var exactMatchModels =
-            models.where((model) => model.value == exactMatchPattern).toList();
-        await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE
+        var exactMatchModels = models
+            .where((model) => model.floatValue == exactMatchPattern)
+            .toList();
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE
               .between(exactMatchPattern, exactMatchPattern),
           expectedModels: exactMatchModels,
         );
@@ -274,21 +290,21 @@ void main() {
         var partialMatchStart = -1.0;
         var partialMatchEnd = 1.0;
         var rangeMatchModels = nonNullModels
-            .where((model) => model.value! >= partialMatchStart)
-            .where((model) => model.value! <= partialMatchEnd)
+            .where((model) => model.floatValue! >= partialMatchStart)
+            .where((model) => model.floatValue! <= partialMatchEnd)
             .toList();
-        await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate:
-              DoubleTypeModel.VALUE.between(partialMatchStart, partialMatchEnd),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE
+              .between(partialMatchStart, partialMatchEnd),
           expectedModels: rangeMatchModels,
         );
 
         // test with no match
         var noMatchStart = 1000000.0;
         var noMatchEnd = 1000000.1;
-        await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate:
-              DoubleTypeModel.VALUE.between(noMatchStart, noMatchEnd),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.FLOATVALUE
+              .between(noMatchStart, noMatchEnd),
           expectedModels: [],
         );
       },
