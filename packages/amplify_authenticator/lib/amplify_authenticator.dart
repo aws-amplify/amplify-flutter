@@ -577,12 +577,13 @@ class _AuthenticatorBody extends StatelessWidget {
             child: Navigator(
               onPopPage: (_, dynamic __) => true,
               pages: [
-                MaterialPage<void>(
-                  child: Theme(
-                    data: userAppTheme,
-                    child: child,
+                if (authenticatorScreen == null)
+                  MaterialPage<void>(
+                    child: Theme(
+                      data: userAppTheme,
+                      child: child,
+                    ),
                   ),
-                ),
                 if (authenticatorScreen != null)
                   MaterialPage<void>(
                     child: ScaffoldMessenger(
