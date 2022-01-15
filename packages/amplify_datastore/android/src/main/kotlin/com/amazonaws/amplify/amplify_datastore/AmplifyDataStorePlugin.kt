@@ -56,6 +56,8 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.collections.HashMap
 
+typealias ResolutionStrategy = DataStoreConflictHandler.ResolutionStrategy
+
 /** AmplifyDataStorePlugin */
 class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
@@ -677,10 +679,9 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     private fun createErrorHandler(request: Map<String, Any>) : DataStoreErrorHandler{
-        var errorHandler : DataStoreErrorHandler
-        errorHandler = if( (request["hasErrorHandler"] as? Boolean? == true) ) {
+        return if(request["hasErrorHandler"] as? Boolean? == true ) {
             DataStoreErrorHandler {
-                val args = hashMapOf(
+                val args = mapOf(
                         "errorCode" to "DataStoreException",
                         "errorMessage" to ExceptionMessages.defaultFallbackExceptionMessage,
                         "details" to createSerializedError(it)
@@ -692,17 +693,15 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 LOG.error(it.toString())
             }
         }
-        return errorHandler
     }
 
-    private fun createConflictHandler(request: Map<String, Any>) : DataStoreConflictHandler{
-        var conflictHandler: DataStoreConflictHandler
-        conflictHandler = if ((request["hasConflictHandler"] as? Boolean? == true)) {
+    private fun createConflictHandler(request: Map<String, Any>) : DataStoreConflictHandler {
+        return if (request["hasConflictHandler"] as? Boolean? == true) {
             DataStoreConflictHandler { conflictData,
                                        onDecision ->
 
                 val modelName = conflictData.local.modelName
-                val args = hashMapOf(
+                val args = mapOf(
                         "modelName" to modelName,
                         "local" to FlutterSerializedModel(conflictData.local as SerializedModel).toMap(),
                         "remote" to FlutterSerializedModel(conflictData.remote as SerializedModel).toMap()
@@ -712,20 +711,23 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     channel.invokeMethod("conflictHandler", args, object : Result {
                         override fun success(result: Any?) {
                             val resultMap: Map<String, Any>? = result.safeCastToMap()
-                            when (resultMap?.get("resolutionStrategy") as String) {
-                                "APPLY_REMOTE" -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
-                                "RETRY_LOCAL" -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retryLocal())
-                                "RETRY" -> {
-                                    val serializedModel = SerializedModel.builder()
-                                            .serializedData(resultMap["customModel"] as HashMap<String, Any>)
-                                            .modelSchema(modelProvider.modelSchemas().getValue(modelName))
-                                            .build()
-                                    onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retry(serializedModel))
+                            try {
+                                val resolutionStrategy: ResolutionStrategy =
+                                        ResolutionStrategy.valueOf(resultMap?.get("resolutionStrategy") as String)
+                                when (resolutionStrategy) {
+                                    ResolutionStrategy.APPLY_REMOTE -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
+                                    ResolutionStrategy.RETRY_LOCAL -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retryLocal())
+                                    ResolutionStrategy.RETRY -> {
+                                        val serializedModel = SerializedModel.builder()
+                                                .serializedData(resultMap["customModel"] as HashMap<String, Any>)
+                                                .modelSchema(modelProvider.modelSchemas().getValue(modelName))
+                                                .build()
+                                        onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retry(serializedModel))
+                                    }
                                 }
-                                else -> {
-                                    LOG.error("Unrecognized resolutionStrategy to resolve conflict. Applying default conflict resolution, applyRemote.")
-                                    onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
-                                }
+                            } catch (e : Exception){
+                                LOG.error("Unrecognized resolutionStrategy to resolve conflict. Applying default conflict resolution, applyRemote.")
+                                onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
                             }
                         }
 
@@ -747,6 +749,5 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
             }
         }
-        return conflictHandler
     }
 }

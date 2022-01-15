@@ -646,8 +646,14 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
                     let map : [String:Any] = [
                         "modelName" : modelName,
-                        "local" : try local.toMap(flutterModelRegistration: self.modelSchemaRegistry, modelName: modelName),
-                        "remote" : try remote.toMap(flutterModelRegistration: self.modelSchemaRegistry, modelName: modelName)
+                        "local" : try local.toMap(
+                            modelSchemaRegistry: self.modelSchemaRegistry,
+                            customTypeSchemaRegistry: self.customTypeSchemaRegistry,
+                            modelName: modelName),
+                        "remote" : try remote.toMap(
+                            modelSchemaRegistry: self.modelSchemaRegistry,
+                            customTypeSchemaRegistry: self.customTypeSchemaRegistry,
+                            modelName: modelName)
                     ]
 
                     self.channel!.invokeMethod("conflictHandler", arguments: map){ result in
