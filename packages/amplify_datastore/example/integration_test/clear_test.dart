@@ -25,7 +25,7 @@ void main() {
 
   group('clear', () {
     setUp(() async {
-      await configureDataStore();
+      await configureDataStore('datastore-basic');
       await clearDataStore();
     });
 

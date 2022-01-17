@@ -25,7 +25,7 @@ void main() {
 
   group('save', () {
     setUp(() async {
-      await configureDataStore();
+      await configureDataStore('datastore-basic');
       // clear data before each test
       await clearDataStore();
     });

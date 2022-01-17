@@ -49,7 +49,7 @@ void main() {
     var values = models.map((e) => e.awsTimeValue!).toSet().toList();
 
     setUpAll(() async {
-      await configureDataStore();
+      await configureDataStore('datastore-basic');
       await clearDataStore();
       for (var model in models) {
         await Amplify.DataStore.save(model);

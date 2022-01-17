@@ -55,7 +55,7 @@ void main() {
     var nonNullValues = values.whereType<int>().toList();
 
     setUpAll(() async {
-      await configureDataStore();
+      await configureDataStore('datastore-basic');
       await clearDataStore();
       for (var model in models) {
         await Amplify.DataStore.save(model);

@@ -41,3 +41,5 @@ String generateUsername() => 'flutter-user-${randomNumber()}';
 int randomNumber() => random.nextInt(1 << 30);
 
 String randomPhoneDigits() => '${random.nextInt(10)}${random.nextInt(10)}';
+
+String generateNameAttribute() => 'FAKE-NAME-${uuid.v4()}';

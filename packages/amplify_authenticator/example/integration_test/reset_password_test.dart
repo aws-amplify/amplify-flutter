@@ -28,7 +28,6 @@ import 'config.dart';
 import 'pages/forgot_password_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
-import 'utils/mock_data.dart';
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()

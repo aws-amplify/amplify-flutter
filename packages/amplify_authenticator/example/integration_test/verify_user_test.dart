@@ -29,7 +29,6 @@ import 'pages/confirm_verify_user_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
 import 'pages/verify_user_page.dart';
-import 'utils/mock_data.dart';
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()

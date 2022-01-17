@@ -26,7 +26,7 @@ void main() {
 
   group('observe', () {
     setUp(() async {
-      await configureDataStore();
+      await configureDataStore('datastore-basic');
       await clearDataStore();
     });
 

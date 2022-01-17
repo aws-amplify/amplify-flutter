@@ -14,6 +14,7 @@
 //
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -38,7 +39,7 @@ void testModelOperations<T extends Model>({
   late Future<List<SubscriptionEvent<T>>> eventsFuture;
 
   setUpAll(() async {
-    await configureDataStore();
+    await configureDataStore('datastore-basic');
     await clearDataStore();
     eventsFuture =
         Amplify.DataStore.observe(classType).take(models.length).toList();

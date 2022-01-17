@@ -24,7 +24,6 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_test/amplify_test.dart';
 
-import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
 
 void main() {

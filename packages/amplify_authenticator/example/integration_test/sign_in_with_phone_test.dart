@@ -31,7 +31,6 @@ import 'pages/confirm_sign_in_page.dart';
 import 'pages/confirm_sign_up_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
-import 'utils/mock_data.dart';
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()

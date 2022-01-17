@@ -29,7 +29,7 @@ void main() {
     var models = List.generate(1000, (i) => Blog(name: 'blog $i'));
     var sortedModels = models..sort((a, b) => a.name.compareTo(b.name));
     setUpAll(() async {
-      await configureDataStore();
+      await configureDataStore('datastore-basic');
       await clearDataStore();
       for (var model in models) {
         await Amplify.DataStore.save(model);

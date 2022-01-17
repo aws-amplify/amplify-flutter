@@ -24,7 +24,6 @@ import 'package:integration_test/integration_test.dart';
 import 'config.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
-import 'utils/mock_data.dart';
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()

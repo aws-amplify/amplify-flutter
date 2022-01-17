@@ -33,7 +33,7 @@ testSortOperations<T extends Model>({
   var descendingSortedModels = ascendingSortedModels.reversed.toList();
 
   setUp(() async {
-    await configureDataStore();
+    await configureDataStore('datastore-basic');
     await clearDataStore();
     for (var model in models) {
       await Amplify.DataStore.save(model);

@@ -25,7 +25,6 @@ import 'pages/confirm_sign_up_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/sign_up_page.dart';
 import 'pages/test_utils.dart';
-import 'utils/mock_data.dart';
 
 // This test follows the Amplify UI feature "confirm-sign-up"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/confirm-sign-up.feature

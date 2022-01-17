@@ -72,7 +72,7 @@ void main() {
         ];
 
         setUpAll(() async {
-          await configureDataStore();
+          await configureDataStore('datastore-basic');
           await clearDataStore();
           for (var model in models) {
             await Amplify.DataStore.save(model);
@@ -194,7 +194,7 @@ void main() {
         ];
 
         setUpAll(() async {
-          await configureDataStore();
+          await configureDataStore('datastore-basic');
           await clearDataStore();
           for (var model in models) {
             await Amplify.DataStore.save(model);
@@ -290,7 +290,7 @@ void main() {
         );
 
         setUpAll(() async {
-          await configureDataStore();
+          await configureDataStore('datastore-basic');
           await clearDataStore();
           for (var model in models) {
             await Amplify.DataStore.save(model);

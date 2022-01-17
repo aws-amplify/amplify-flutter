@@ -17,13 +17,13 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator_example/main.dart' as app;
+import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'finders/confirm_signup_finder.dart';
 import 'finders/signup_finder.dart';
 import 'finders/widgets_finder.dart';
-import 'utils/mock_data.dart';
 
 //This tests asumes a default amplify configuration where
 //username is neither a email or phone number but username.

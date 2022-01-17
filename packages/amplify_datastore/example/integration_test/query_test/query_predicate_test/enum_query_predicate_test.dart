@@ -28,7 +28,7 @@ void main() {
     'type enum',
     () {
       setUp(() async {
-        await configureDataStore();
+        await configureDataStore('datastore-basic');
         await clearDataStore();
       });
 

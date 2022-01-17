@@ -48,7 +48,7 @@ void main() {
       late Future<SubscriptionEvent<HasOneParent>> parentEvent;
 
       setUpAll(() async {
-        await configureDataStore();
+        await configureDataStore('datastore-basic');
         await clearDataStore();
 
         childEvent = Amplify.DataStore.observe(HasOneChild.classType).first;
@@ -147,7 +147,7 @@ void main() {
       late Future<SubscriptionEvent<HasOneParent>> parentEvent;
 
       setUpAll(() async {
-        await configureDataStore();
+        await configureDataStore('datastore-basic');
         await clearDataStore();
 
         childEvent = Amplify.DataStore.observe(HasOneChild.classType).first;
@@ -244,7 +244,7 @@ void main() {
       late Future<SubscriptionEvent<BelongsToChildImplicit>> childEvent;
 
       setUpAll(() async {
-        await configureDataStore();
+        await configureDataStore('datastore-basic');
         await clearDataStore();
 
         parentEvent =
@@ -334,7 +334,7 @@ void main() {
       late Future<SubscriptionEvent<BelongsToChildExplicit>> childEvent;
 
       setUpAll(() async {
-        await configureDataStore();
+        await configureDataStore('datastore-basic');
         await clearDataStore();
 
         parentEvent =
@@ -426,7 +426,7 @@ void main() {
       late Future<SubscriptionEvent<HasManyParent>> parentEvent;
 
       setUpAll(() async {
-        await configureDataStore();
+        await configureDataStore('datastore-basic');
         await clearDataStore();
 
         childEvents = Amplify.DataStore.observe(HasManyChildImplicit.classType)
@@ -552,7 +552,7 @@ void main() {
       late Future<SubscriptionEvent<HasManyParent>> parentEvent;
 
       setUpAll(() async {
-        await configureDataStore();
+        await configureDataStore('datastore-basic');
         await clearDataStore();
 
         childEvents = Amplify.DataStore.observe(HasManyChildExplicit.classType)
@@ -676,7 +676,7 @@ void main() {
           parentEvent;
 
       setUpAll(() async {
-        await configureDataStore();
+        await configureDataStore('datastore-basic');
         await clearDataStore();
 
         childEvents = Amplify.DataStore.observe(
@@ -797,7 +797,7 @@ void main() {
           parentEvent;
 
       setUpAll(() async {
-        await configureDataStore();
+        await configureDataStore('datastore-basic');
         await clearDataStore();
 
         childEvents = Amplify.DataStore.observe(
@@ -922,7 +922,7 @@ void main() {
       late Future<List<SubscriptionEvent<PostTags>>> postTagsEvents;
 
       setUpAll(() async {
-        await configureDataStore();
+        await configureDataStore('datastore-basic');
         await clearDataStore();
 
         postEvents = Amplify.DataStore.observe(Post.classType)
@@ -1121,7 +1121,7 @@ void main() {
           registrationEvents;
 
       setUpAll(() async {
-        await configureDataStore();
+        await configureDataStore('datastore-basic');
         await clearDataStore();
 
         meetingEvents = Amplify.DataStore.observe(MultiRelatedMeeting.classType)
