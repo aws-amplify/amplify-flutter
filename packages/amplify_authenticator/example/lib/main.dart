@@ -135,6 +135,34 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  // Some routes in your application may not require authentication.
+  // To handle this use case, instead of providing Authenticator.builder(),
+  // simply wrap the routes that require authentication in an
+  // AuthenticatedView widget.
+  //
+  // uncomment the build method below to try this out
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Authenticator(
+  //     child: MaterialApp(
+  //       theme: ThemeData.light(),
+  //       darkTheme: ThemeData.dark(),
+  //       themeMode: ThemeMode.system,
+  //       debugShowCheckedModeBanner: false,
+  //       initialRoute: '/routeA',
+  //       routes: {
+  //         '/routeA': (BuildContext context) => const RouteA(),
+  //         '/routeB': (BuildContext context) {
+  //           return const AuthenticatedView(
+  //             child: RouteB(),
+  //           );
+  //         },
+  //       },
+  //     ),
+  //   );
+  // }
+
   // Providing a `builder` argument to Authenticator.builder, allows you to
   // build a custom UI for the authenticator composed of a mix of
   // prebuilt widgets from the amplify_authenticator package, and widgets
@@ -157,7 +185,6 @@ class _MyAppState extends State<MyApp> {
   // Widget build(BuildContext context) {
   //   return const AuthenticatorWithCustomForms();
   // }
-
 }
 
 /// The screen which is shown once the user is logged in. We can use [SignOutButton]

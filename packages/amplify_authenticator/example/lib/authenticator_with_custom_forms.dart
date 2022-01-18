@@ -21,36 +21,37 @@ class AuthenticatorWithCustomForms extends StatelessWidget {
       // sets the initial step to "landingPage" opposed to the default
       // of Sign In
       initialStep: AuthenticatorStep.landingPage,
+
+      // If a builder method is provided the authenticator will
+      // use this to build the authenticator based on the current state.
+      //
+      // This example shows a fairly customized example.
+      // See /authenticator_with_custom_layout.dart for a simpler example
+      builder: (context, state, child) {
+        switch (state.currentStep) {
+          case AuthenticatorStep.loading:
+            return const Center(child: CircularProgressIndicator());
+          case AuthenticatorStep.landingPage:
+            return UsernameView(state: state);
+          case AuthenticatorStep.signIn:
+            return SignInView(state: state);
+          case AuthenticatorStep.signUp:
+            return SignUpView(state: state);
+          case AuthenticatorStep.confirmSignUp:
+            return const ConfirmSignUpView();
+          default:
+            throw StateError(
+              'Step: ${state.currentStep} is not handled for this example.',
+            );
+        }
+      },
       child: MaterialApp(
         title: 'Authenticator Demo',
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
-        // If an argument is provided to Authenticator.builder,
-        // the authenticator will use this to build the authenticator based
-        // on the current state.
-        //
-        // This example shows a fairly customized example.
-        // See /authenticator_with_custom_layout.dart for a simpler example
-        builder: Authenticator.builder((context, state, child) {
-          switch (state.currentStep) {
-            case AuthenticatorStep.loading:
-              return child;
-            case AuthenticatorStep.landingPage:
-              return UsernameView(state: state);
-            case AuthenticatorStep.signIn:
-              return SignInView(state: state);
-            case AuthenticatorStep.signUp:
-              return SignUpView(state: state);
-            case AuthenticatorStep.confirmSignUp:
-              return const ConfirmSignUpView();
-            default:
-              throw StateError(
-                'Step: ${state.currentStep} is not handled for this example.',
-              );
-          }
-        }),
+        builder: Authenticator.builder(),
         initialRoute: '/routeA',
         routes: {
           '/routeA': (BuildContext context) => const RouteA(),

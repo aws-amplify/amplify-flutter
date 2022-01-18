@@ -23,33 +23,34 @@ class AuthenticatorWithCustomLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Authenticator(
+      // If a builder method is provided the authenticator will
+      // use this to build the authenticator based on the current state.
+      //
+      // state is the current state of the authenticator. It contains the
+      // current auth step (sign in, sign out, etc.), the form data, and
+      // methods for updating this state.
+      //
+      // child is widget that would be displayed without the use of a custom
+      // builder. If currentStep is AuthenticatorStep.authenticated, this will
+      // be the material app. Otherwise this will be a prebuilt widget from
+      // amplify_authenticator to handle the current AuthenticatorStep
+      builder: (context, state, child) {
+        switch (state.currentStep) {
+          case AuthenticatorStep.signIn:
+            return SignInView(state: state);
+          case AuthenticatorStep.signUp:
+            return SignUpView(state: state);
+          default:
+            // return the prebuilt authenticator step for all other steps
+            return child;
+        }
+      },
       child: MaterialApp(
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
-        // if an argument is provided to Authenticator.builder,
-        // the authenticator will use this to build the authenticator based
-        // on the current state.
-        //
-        // state is the current state of the authenticator. It contains the
-        // current auth step (sign in, sign out, etc.), the form data, and
-        // methods for updating this state.
-        //
-        // child is the authenticator screen that would be rendered by default
-        // for the given state. This can be used to customize some states, and
-        // render the prebuilt authenticator screen for other states.
-        builder: Authenticator.builder((context, state, child) {
-          switch (state.currentStep) {
-            case AuthenticatorStep.signIn:
-              return SignInView(state: state);
-            case AuthenticatorStep.signUp:
-              return SignUpView(state: state);
-            default:
-              // return the prebuilt authenticator child for all other steps
-              return child;
-          }
-        }),
+        builder: Authenticator.builder(),
         initialRoute: '/routeA',
         routes: {
           '/routeA': (BuildContext context) => const RouteA(),

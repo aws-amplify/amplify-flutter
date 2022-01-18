@@ -26,6 +26,7 @@ import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
+import 'package:amplify_authenticator/src/models/authenticator_builder.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
@@ -33,6 +34,7 @@ import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator/src/state/authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator/src/state/inherited_authenticator_builder.dart';
 import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
@@ -240,11 +242,13 @@ class Authenticator extends StatefulWidget {
     this.exceptionBannerLocation = ExceptionBannerLocation.auto,
     this.preferPrivateSession = false,
     this.initialStep = AuthenticatorStep.signIn,
+    AuthenticatorBuilder? builder,
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
     this.signUpForm = signUpForm ?? SignUpForm.custom(fields: const []);
     this.confirmSignInNewPasswordForm =
         confirmSignInNewPasswordForm ?? ConfirmSignInNewPasswordForm();
+    _authenticatorBuilder = builder;
   }
 
   /// Wraps user-defined navigators for integration with [MaterialApp] and
@@ -258,8 +262,7 @@ class Authenticator extends StatefulWidget {
   ///   ),
   /// );
   /// ```
-  static TransitionBuilder builder([AuthBuilder? builder]) =>
-      (BuildContext context, Widget? child) {
+  static TransitionBuilder builder() => (BuildContext context, Widget? child) {
         if (child == null) {
           throw FlutterError.fromParts([
             ErrorSummary('No Navigator or Router provided.'),
@@ -270,7 +273,7 @@ class Authenticator extends StatefulWidget {
             ErrorSpacer(),
           ]);
         }
-        return _AuthenticatorBody(child: child, builder: builder);
+        return _AuthenticatorBody(child: child);
       };
 
   /// Whether to use Amplify colors and styles in the Authenticator,
@@ -278,6 +281,8 @@ class Authenticator extends StatefulWidget {
   ///
   /// Defaults to `false`.
   final bool useAmplifyTheme;
+
+  late final AuthenticatorBuilder? _authenticatorBuilder;
 
   /// The form displayed when promted for a password change upon signing in.
   late final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
@@ -534,20 +539,24 @@ class _AuthenticatorState extends State<Authenticator> {
         child: InheritedAuthenticatorState(
           key: keyInheritedAuthViewModel,
           state: _viewModel,
-          child: InheritedStrings(
-            resolver: widget.stringResolver,
-            child: InheritedForms(
-              confirmSignInNewPasswordForm: widget.confirmSignInNewPasswordForm,
-              resetPasswordForm: ResetPasswordForm(),
-              confirmResetPasswordForm: const ConfirmResetPasswordForm(),
-              signInForm: widget.signInForm,
-              signUpForm: widget.signUpForm,
-              confirmSignUpForm: ConfirmSignUpForm(),
-              confirmSignInMFAForm: ConfirmSignInMFAForm(),
-              verifyUserForm: VerifyUserForm(),
-              confirmVerifyUserForm: ConfirmVerifyUserForm(),
-              formKey: _formKey,
-              child: widget.child,
+          child: InheritedAuthenticatorBuilder(
+            authenticatorBuilder: widget._authenticatorBuilder,
+            child: InheritedStrings(
+              resolver: widget.stringResolver,
+              child: InheritedForms(
+                confirmSignInNewPasswordForm:
+                    widget.confirmSignInNewPasswordForm,
+                resetPasswordForm: ResetPasswordForm(),
+                confirmResetPasswordForm: const ConfirmResetPasswordForm(),
+                signInForm: widget.signInForm,
+                signUpForm: widget.signUpForm,
+                confirmSignUpForm: ConfirmSignUpForm(),
+                confirmSignInMFAForm: ConfirmSignInMFAForm(),
+                verifyUserForm: VerifyUserForm(),
+                confirmVerifyUserForm: ConfirmVerifyUserForm(),
+                formKey: _formKey,
+                child: widget.child,
+              ),
             ),
           ),
         ),
@@ -556,18 +565,21 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 }
 
-class _AuthenticatorBody extends StatelessWidget {
-  const _AuthenticatorBody({
+// A widget that listens for changes in multiple inherited widgets
+// and rebuild based on the provided builder.
+class _InheritedAuthenticatorBuilder extends StatelessWidget {
+  const _InheritedAuthenticatorBuilder({
     Key? key,
     required this.child,
-    this.builder,
+    required this.builder,
   }) : super(key: key);
 
   final Widget child;
-  final AuthBuilder? builder;
+  final Widget Function(AuthState, ThemeData, Widget) builder;
 
   @override
   Widget build(BuildContext context) {
+    final authenticatorBuilder = InheritedAuthenticatorBuilder.of(context);
     final stateMachineBloc = InheritedAuthBloc.of(context);
     final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final userAppTheme = Theme.of(context);
@@ -582,40 +594,15 @@ class _AuthenticatorBody extends StatelessWidget {
           final state = snapshot.data ?? const LoadingState();
 
           final Widget authenticatorChild = _AuthenticatorChild(
-            builder: builder,
+            child: child,
+            authenticatorBuilder: authenticatorBuilder,
             state: state,
           );
 
           return Localizations.override(
             context: context,
             delegates: AuthenticatorLocalizations.localizationsDelegates,
-            child: Navigator(
-              onPopPage: (_, dynamic __) => true,
-              pages: [
-                if (state is AuthenticatedState)
-                  MaterialPage<void>(
-                    child: Theme(
-                      data: userAppTheme,
-                      child: child,
-                    ),
-                  ),
-                if (state is! AuthenticatedState)
-                  MaterialPage<void>(
-                    child: ScaffoldMessenger(
-                      key: _AuthenticatorState.scaffoldMessengerKey,
-                      child: Scaffold(
-                        backgroundColor:
-                            AmplifyTheme.of(context).backgroundPrimary,
-                        body: SizedBox.expand(
-                          child: authenticatorChild is AuthenticatorScreen
-                              ? SingleChildScrollView(child: authenticatorChild)
-                              : authenticatorChild,
-                        ),
-                      ),
-                    ),
-                  ),
-              ],
-            ),
+            child: builder(state, userAppTheme, authenticatorChild),
           );
         },
       ),
@@ -625,48 +612,130 @@ class _AuthenticatorBody extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(ObjectFlagProperty<AuthBuilder?>.has('builder', builder));
+    properties.add(ObjectFlagProperty<
+        Widget Function(AuthState state, ThemeData theme,
+            Widget child)>.has('builder', builder));
   }
 }
 
-class _AuthenticatorChild extends StatelessWidget {
-  const _AuthenticatorChild({
+// The body of the authenticator
+class _AuthenticatorBody extends StatelessWidget {
+  const _AuthenticatorBody({
     Key? key,
-    required this.builder,
-    required this.state,
+    required this.child,
   }) : super(key: key);
-  final AuthBuilder? builder;
-  final AuthState state;
+
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    final Widget prebuiltScreen;
+    return _InheritedAuthenticatorBuilder(
+      child: child,
+      builder: (state, theme, child) {
+        return Navigator(
+          onPopPage: (_, dynamic __) => true,
+          pages: [
+            if (state is AuthenticatedState)
+              MaterialPage<void>(
+                child: Theme(
+                  data: theme,
+                  child: child,
+                ),
+              ),
+            if (state is! AuthenticatedState)
+              MaterialPage<void>(
+                child: ScaffoldMessenger(
+                  key: _AuthenticatorState.scaffoldMessengerKey,
+                  child: Scaffold(
+                    backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
+                    body: SizedBox.expand(
+                      child: child is AuthenticatorScreen
+                          ? SingleChildScrollView(child: child)
+                          : child,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+/// A widget for wrapping portions of the application (typically routes)
+/// that are intended to be protected by authentication.
+class AuthenticatedView extends StatelessWidget {
+  const AuthenticatedView({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return _InheritedAuthenticatorBuilder(
+      child: child,
+      builder: (state, theme, child) {
+        if (state is AuthenticatedState) {
+          return Theme(data: theme, child: child);
+        }
+        return Scaffold(
+          backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
+          body: SizedBox.expand(
+            child: child is AuthenticatorScreen
+                ? SingleChildScrollView(child: child)
+                : child,
+          ),
+        );
+      },
+    );
+  }
+}
+
+// A widget that takes in the current AuthState, the child widget that
+// the authenticator wraps, and the custom authenticatorBuilder, and
+// returns the appropriate view
+class _AuthenticatorChild extends StatelessWidget {
+  const _AuthenticatorChild({
+    Key? key,
+    required this.state,
+    required this.child,
+    required this.authenticatorBuilder,
+  }) : super(key: key);
+
+  final AuthState state;
+  final Widget child;
+  final AuthenticatorBuilder? authenticatorBuilder;
+
+  @override
+  Widget build(BuildContext context) {
+    final Widget authenticatorScreen;
     if (state is AuthenticatedState) {
-      prebuiltScreen = Container();
+      authenticatorScreen = child;
     } else if (state is LoadingState) {
-      prebuiltScreen = const LoadingScreen();
-    } else if (state is UnauthenticatedState) {
-      prebuiltScreen = AuthenticatorScreen(step: state.step);
+      authenticatorScreen = const LoadingScreen();
     } else {
-      prebuiltScreen = const AuthenticatorScreen.signIn();
+      authenticatorScreen = AuthenticatorScreen(step: state.step);
     }
-    if (builder != null) {
+
+    if (authenticatorBuilder != null) {
       final AuthenticatorState _viewModel = InheritedAuthenticatorState.of(
         context,
         listen: true,
       );
-      return builder!(context, _viewModel, prebuiltScreen);
-    } else {
-      return prebuiltScreen;
+      return authenticatorBuilder!(context, _viewModel, authenticatorScreen);
     }
+
+    return authenticatorScreen;
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(ObjectFlagProperty<AuthBuilder?>.has('builder', builder));
+    properties.add(ObjectFlagProperty<AuthenticatorBuilder?>.has(
+        'authenticatorBuilder', authenticatorBuilder));
     properties.add(DiagnosticsProperty<AuthState>('state', state));
   }
 }
-
-typedef AuthBuilder = Widget Function(BuildContext, AuthenticatorState, Widget);
