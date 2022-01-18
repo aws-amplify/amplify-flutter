@@ -6,9 +6,10 @@ import 'package:smithy/smithy.dart';
 
 /// A protocol for sending requests over HTTP.
 abstract class HttpProtocol<
-    Payload extends Object?,
-    Input extends HttpInput<Payload>,
-    Output> implements Protocol<Input, Object?, Stream<List<int>>> {
+    InputPayload extends Object?,
+    Input extends HttpInput<InputPayload>,
+    OutputPayload,
+    Output> implements Protocol<Input, Output, Stream<List<int>>> {
   const HttpProtocol();
 
   /// The content type of the request payload, added to the `Content-Type`
@@ -61,8 +62,17 @@ abstract class HttpProtocol<
     Stream<List<int>> response, {
     FullType? specifiedType,
   }) async {
-    specifiedType ??= FullType(Output);
+    specifiedType ??= FullType(OutputPayload);
+    if (OutputPayload == Stream<List<int>>) {
+      return response;
+    }
+
     final body = await http.ByteStream(response).toBytes();
+    if (OutputPayload == List<int>) {
+      return body;
+    } else if (OutputPayload == String) {
+      return utf8.decode(body);
+    }
     return await wireSerializer.deserialize(body, specifiedType: specifiedType);
   }
 }
@@ -84,9 +94,13 @@ abstract class HasLabel {
 /// A utility for operations to access the payload of the request without
 /// knowing the shape of the request or making any assumptions.
 abstract class HasPayload<Payload extends Object?> {
-  /// Whether the input payload is a streaming payload.
-  bool get isStreaming;
-
   /// Returns the value of the payload prior to serialization.
   Payload getPayload();
+}
+
+abstract class HasStreamingPayload<Payload extends Object?>
+    extends HasPayload<Stream<Payload>> {
+  /// Returns the payload stream prior to serialization.
+  @override
+  Stream<Payload> getPayload();
 }

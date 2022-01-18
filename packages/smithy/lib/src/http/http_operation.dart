@@ -8,10 +8,11 @@ import 'package:smithy/smithy.dart';
 /// Defines an operation which uses HTTP.
 ///
 /// See: https://awslabs.github.io/smithy/1.0/spec/core/http-traits.html
-abstract class HttpOperation<Payload extends Object?,
-    Input extends HttpInput<Payload>, Output> extends Operation<Input, Output> {
-  const HttpOperation();
-
+abstract class HttpOperation<
+    InputPayload extends Object?,
+    Input extends HttpInput<InputPayload>,
+    OutputPayload,
+    Output> extends Operation<Input, Output> {
   /// Regex for label placeholders.
   static final _labelRegex = RegExp(r'{(\w+)}');
 
@@ -29,14 +30,23 @@ abstract class HttpOperation<Payload extends Object?,
   /// Builds the HTTP request for the given [input].
   HttpRequest buildRequest(Input input);
 
+  /// Builds the output from the [payload] and metadata from the HTTP
+  /// [response].
+  Output buildOutput(OutputPayload payload, HttpResponse response);
+
   @override
-  Iterable<HttpProtocol<Payload, Input, Output>> get protocols;
+  Iterable<HttpProtocol<InputPayload, Input, OutputPayload, Output>>
+      get protocols;
 
   @override
   List<SmithyError> get errorTypes;
 
+  /// The number of times the operation has been retried.
   @visibleForTesting
-  HttpProtocol<Payload, Input, Output> resolveProtocol({
+  int debugNumRetries = 0;
+
+  @visibleForTesting
+  HttpProtocol<InputPayload, Input, OutputPayload, Output> resolveProtocol({
     ShapeId? useProtocol,
   }) {
     return useProtocol == null
@@ -58,7 +68,7 @@ abstract class HttpOperation<Payload extends Object?,
   Future<AWSStreamedHttpRequest> createRequest(
     HttpRequest request,
     Uri baseUri,
-    HttpProtocol<Payload, Input, Output> protocol,
+    HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
     Input input,
   ) async {
     final path = expandLabels(request.path, input);
@@ -151,9 +161,12 @@ abstract class HttpOperation<Payload extends Object?,
         return e is SmithyException && e.isRetryable;
       },
       onRetry: (e) {
-        print('Retrying $e');
+        debugNumRetries++;
+        print('Retrying $e ($debugNumRetries)');
       },
     );
-    return protocol.deserialize(response.body) as Output;
+    final output = protocol.deserialize(response.body,
+        specifiedType: FullType(OutputPayload)) as OutputPayload;
+    return buildOutput(output, response);
   }
 }
