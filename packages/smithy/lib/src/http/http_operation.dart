@@ -21,7 +21,7 @@ abstract class HttpOperation<Payload extends Object?,
     Input input,
   ) {
     return template.replaceAllMapped(_labelRegex, (match) {
-      final key = match.group(0)!;
+      final key = match.group(1)!;
       return Uri.encodeComponent(input.labelFor(key));
     });
   }
@@ -69,12 +69,13 @@ abstract class HttpOperation<Payload extends Object?,
     final queryParameters = {
       ...request.queryParameters.asMap(),
     };
-    final body = protocol.serialize(input);
+    final body = protocol.serialize(input, specifiedType: FullType(Input));
     var host = baseUri.host;
     if (request.hostPrefix != null) {
       final prefix = expandLabels(request.hostPrefix!, input);
       host = '$prefix$host';
     }
+    headers.putIfAbsent('Host', () => host);
     final baseRequest = AWSStreamedHttpRequest(
       method: HttpMethod.values.byName(request.method.toLowerCase()),
       host: host,

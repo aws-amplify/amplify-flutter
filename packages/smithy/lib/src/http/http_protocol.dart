@@ -48,17 +48,22 @@ abstract class HttpProtocol<
       return payload;
     } else {
       return Stream.fromFuture(() async {
-        return await wireSerializer.serialize(payload);
+        return await wireSerializer.serialize(
+          payload,
+          specifiedType: specifiedType,
+        );
       }());
     }
   }
 
   @override
-  Future<Object?> deserialize(Stream<List<int>> response,
-      {FullType? specifiedType}) async {
+  Future<Object?> deserialize(
+    Stream<List<int>> response, {
+    FullType? specifiedType,
+  }) async {
     specifiedType ??= FullType(Output);
     final body = await http.ByteStream(response).toBytes();
-    return await wireSerializer.deserialize(body);
+    return await wireSerializer.deserialize(body, specifiedType: specifiedType);
   }
 }
 
