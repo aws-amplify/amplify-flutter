@@ -425,8 +425,8 @@ class AuthenticatorState extends ChangeNotifier {
     if (resetAttributes) _resetAttributes();
   }
 
-  void goToSignUp() => navigateTo(AuthenticatorStep.signup);
-  void goToSignIn() => navigateTo(AuthenticatorStep.signin);
+  void goToSignUp() => navigateTo(AuthenticatorStep.signUp);
+  void goToSignIn() => navigateTo(AuthenticatorStep.signIn);
   void goToResetPassword() => navigateTo(AuthenticatorStep.resetPassword);
 
   void _resetAttributes() {

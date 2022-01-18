@@ -31,7 +31,7 @@ class SignInPage extends AuthenticatorPage {
   Finder get confirmSignInField => find.byKey(keyCodeConfirmSignInFormField);
   Finder get signUpTabBar => find.descendant(
         of: find.byType(TabBar),
-        matching: find.byKey(const ValueKey(AuthenticatorStep.signup)),
+        matching: find.byKey(const ValueKey(AuthenticatorStep.signUp)),
       );
 
   /// When I sign in with "username" and "password"

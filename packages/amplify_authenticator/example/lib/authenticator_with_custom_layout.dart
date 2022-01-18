@@ -41,10 +41,9 @@ class AuthenticatorWithCustomLayout extends StatelessWidget {
         // render the prebuilt authenticator screen for other states.
         builder: Authenticator.builder((context, state, child) {
           switch (state.currentStep) {
-            case AuthenticatorStep.initial:
-            case AuthenticatorStep.signin:
+            case AuthenticatorStep.signIn:
               return SignInView(state: state);
-            case AuthenticatorStep.signup:
+            case AuthenticatorStep.signUp:
               return SignUpView(state: state);
             default:
               // return the prebuilt authenticator child for all other steps
@@ -61,7 +60,7 @@ class AuthenticatorWithCustomLayout extends StatelessWidget {
   }
 }
 
-// The widget a user will see when the current step is AuthenticatorStep.signin
+// The widget a user will see when the current step is AuthenticatorStep.signIn
 class SignInView extends StatelessWidget {
   const SignInView({
     Key? key,

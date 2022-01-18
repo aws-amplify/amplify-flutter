@@ -37,7 +37,7 @@ class ConfirmSignUpPage extends AuthenticatorPage {
     final currentScreen = tester.widget<AuthenticatorScreen>(
       find.byType(AuthenticatorScreen),
     );
-    expect(currentScreen.step, equals(AuthenticatorStep.confirmSignup));
+    expect(currentScreen.step, equals(AuthenticatorStep.confirmSignUp));
   }
 
   /// Then I see "Confirmation Code"

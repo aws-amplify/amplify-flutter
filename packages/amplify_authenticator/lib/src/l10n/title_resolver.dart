@@ -24,29 +24,29 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
   const TitleResolver();
 
   /// The title for the sign in Widget.
-  String signin(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context).signin;
+  String signIn(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).signIn;
   }
 
   /// The title for the sign up Widget.
-  String signup(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context).signup;
+  String signUp(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).signUp;
   }
 
   /// The title for the confirm sign up Widget.
-  String confirmSignup(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context).confirmSignup;
+  String confirmSignUp(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).confirmSignUp;
   }
 
   /// The title for the confirm sign in (MFA) Widget.
-  String confirmSigninMfa(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context).confirmSigninMfa;
+  String confirmSignInMfa(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).confirmSignInMfa;
   }
 
   /// The title for the confirm sign in (new passwrod) Widget.
-  String confirmSigninNewPassword(BuildContext context) {
+  String confirmSignInNewPassword(BuildContext context) {
     return AuthenticatorLocalizations.titlesOf(context)
-        .confirmSigninNewPassword;
+        .confirmSignInNewPassword;
   }
 
   /// The title for the reset password Widget.
@@ -67,17 +67,17 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
   @override
   String resolve(BuildContext context, AuthenticatorStep key) {
     switch (key) {
-      case AuthenticatorStep.initial:
-      case AuthenticatorStep.signin:
-        return signin(context);
-      case AuthenticatorStep.signup:
-        return signup(context);
-      case AuthenticatorStep.confirmSignup:
-        return confirmSignup(context);
-      case AuthenticatorStep.confirmSigninMfa:
-        return confirmSigninMfa(context);
-      case AuthenticatorStep.confirmSigninNewPassword:
-        return confirmSigninNewPassword(context);
+      case AuthenticatorStep.landingPage:
+      case AuthenticatorStep.signIn:
+        return signIn(context);
+      case AuthenticatorStep.signUp:
+        return signUp(context);
+      case AuthenticatorStep.confirmSignUp:
+        return confirmSignUp(context);
+      case AuthenticatorStep.confirmSignInMfa:
+        return confirmSignInMfa(context);
+      case AuthenticatorStep.confirmSignInNewPassword:
+        return confirmSignInNewPassword(context);
       case AuthenticatorStep.resetPassword:
         return resetPassword(context);
       case AuthenticatorStep.confirmResetPassword:

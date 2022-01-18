@@ -45,14 +45,14 @@ class UnauthenticatedState extends AuthState {
   @override
   AuthenticatorStep get step => _step;
 
-  static const signup = UnauthenticatedState(step: AuthenticatorStep.signup);
-  static const signin = UnauthenticatedState(step: AuthenticatorStep.signin);
-  static const confirmSignup =
-      UnauthenticatedState(step: AuthenticatorStep.confirmSignup);
-  static const confirmSigninMfa =
-      UnauthenticatedState(step: AuthenticatorStep.confirmSigninMfa);
-  static const confirmSigninNewPassword =
-      UnauthenticatedState(step: AuthenticatorStep.confirmSigninNewPassword);
+  static const signUp = UnauthenticatedState(step: AuthenticatorStep.signUp);
+  static const signIn = UnauthenticatedState(step: AuthenticatorStep.signIn);
+  static const confirmSignUp =
+      UnauthenticatedState(step: AuthenticatorStep.confirmSignUp);
+  static const confirmSignInMfa =
+      UnauthenticatedState(step: AuthenticatorStep.confirmSignInMfa);
+  static const confirmSignInNewPassword =
+      UnauthenticatedState(step: AuthenticatorStep.confirmSignInNewPassword);
   static const resetPassword =
       UnauthenticatedState(step: AuthenticatorStep.resetPassword);
   static const confirmResetPassword =

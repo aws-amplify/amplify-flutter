@@ -28,20 +28,20 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
     required this.step,
   }) : super(key: key);
 
-  const AuthenticatorScreen.signup({Key? key})
-      : this(key: key, step: AuthenticatorStep.signup);
+  const AuthenticatorScreen.signUp({Key? key})
+      : this(key: key, step: AuthenticatorStep.signUp);
 
-  const AuthenticatorScreen.signin({Key? key})
-      : this(key: key, step: AuthenticatorStep.signin);
+  const AuthenticatorScreen.signIn({Key? key})
+      : this(key: key, step: AuthenticatorStep.signIn);
 
-  const AuthenticatorScreen.confirmSignup({Key? key})
-      : this(key: key, step: AuthenticatorStep.confirmSignup);
+  const AuthenticatorScreen.confirmSignUp({Key? key})
+      : this(key: key, step: AuthenticatorStep.confirmSignUp);
 
   const AuthenticatorScreen.confirmSignInMfa({Key? key})
-      : this(key: key, step: AuthenticatorStep.confirmSigninMfa);
+      : this(key: key, step: AuthenticatorStep.confirmSignInMfa);
 
   const AuthenticatorScreen.confirmSignInNewPassword({Key? key})
-      : this(key: key, step: AuthenticatorStep.confirmSigninNewPassword);
+      : this(key: key, step: AuthenticatorStep.confirmSignInNewPassword);
 
   const AuthenticatorScreen.resetPassword({Key? key})
       : this(key: key, step: AuthenticatorStep.resetPassword);
@@ -74,19 +74,19 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
       containerWidth = AuthenticatorContainerConstants.smallWidth;
     }
 
-    const signInUpTabs = [AuthenticatorStep.signin, AuthenticatorStep.signup];
+    const signInUpTabs = [AuthenticatorStep.signIn, AuthenticatorStep.signUp];
     final Widget child;
     switch (step) {
-      case AuthenticatorStep.initial:
-      case AuthenticatorStep.signin:
+      case AuthenticatorStep.landingPage:
+      case AuthenticatorStep.signIn:
         child = const AuthenticatorTabView(tabs: signInUpTabs, initialIndex: 0);
         break;
-      case AuthenticatorStep.signup:
+      case AuthenticatorStep.signUp:
         child = const AuthenticatorTabView(tabs: signInUpTabs, initialIndex: 1);
         break;
-      case AuthenticatorStep.confirmSignup:
-      case AuthenticatorStep.confirmSigninMfa:
-      case AuthenticatorStep.confirmSigninNewPassword:
+      case AuthenticatorStep.confirmSignUp:
+      case AuthenticatorStep.confirmSignInMfa:
+      case AuthenticatorStep.confirmSignInNewPassword:
       case AuthenticatorStep.resetPassword:
       case AuthenticatorStep.confirmResetPassword:
       case AuthenticatorStep.verifyUser:
@@ -237,14 +237,14 @@ class _AuthenticatorTabViewState
 extension on AuthenticatorStep {
   ButtonResolverKey get tabTitle {
     switch (this) {
-      case AuthenticatorStep.initial:
-      case AuthenticatorStep.signup:
-        return ButtonResolverKey.signup;
-      case AuthenticatorStep.signin:
-        return ButtonResolverKey.signin;
-      case AuthenticatorStep.confirmSignup:
-      case AuthenticatorStep.confirmSigninMfa:
-      case AuthenticatorStep.confirmSigninNewPassword:
+      case AuthenticatorStep.landingPage:
+      case AuthenticatorStep.signUp:
+        return ButtonResolverKey.signUp;
+      case AuthenticatorStep.signIn:
+        return ButtonResolverKey.signIn;
+      case AuthenticatorStep.confirmSignUp:
+      case AuthenticatorStep.confirmSignInMfa:
+      case AuthenticatorStep.confirmSignInNewPassword:
       case AuthenticatorStep.resetPassword:
       case AuthenticatorStep.confirmResetPassword:
       case AuthenticatorStep.verifyUser:

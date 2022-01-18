@@ -18,7 +18,9 @@ class AuthenticatorWithCustomForms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Authenticator(
-      initialScreen: AuthenticatorStep.initial,
+      // sets the initial step to "landingPage" opposed to the default
+      // of Sign In
+      initialStep: AuthenticatorStep.landingPage,
       child: MaterialApp(
         title: 'Authenticator Demo',
         theme: ThemeData.light(),
@@ -35,13 +37,13 @@ class AuthenticatorWithCustomForms extends StatelessWidget {
           switch (state.currentStep) {
             case AuthenticatorStep.loading:
               return child;
-            case AuthenticatorStep.initial:
+            case AuthenticatorStep.landingPage:
               return UsernameView(state: state);
-            case AuthenticatorStep.signin:
+            case AuthenticatorStep.signIn:
               return SignInView(state: state);
-            case AuthenticatorStep.signup:
+            case AuthenticatorStep.signUp:
               return SignUpView(state: state);
-            case AuthenticatorStep.confirmSignup:
+            case AuthenticatorStep.confirmSignUp:
               return const ConfirmSignUpView();
             default:
               throw StateError(
@@ -110,7 +112,7 @@ class UsernameView extends StatelessWidget {
   }
 }
 
-// The widget a user will see when the current step is AuthenticatorStep.signin
+// The widget a user will see when the current step is AuthenticatorStep.signIn
 class SignInView extends StatelessWidget {
   const SignInView({
     Key? key,
@@ -161,7 +163,7 @@ class SignInView extends StatelessWidget {
   }
 }
 
-// The widget a user will see when the current step is AuthenticatorStep.signup
+// The widget a user will see when the current step is AuthenticatorStep.signUp
 class SignUpView extends StatelessWidget {
   const SignUpView({
     Key? key,
@@ -225,7 +227,7 @@ class SignUpView extends StatelessWidget {
   }
 }
 
-// The widget a user will see when the current step is AuthenticatorStep.confirmSignup
+// The widget a user will see when the current step is AuthenticatorStep.confirmSignUp
 class ConfirmSignUpView extends StatelessWidget {
   const ConfirmSignUpView({
     Key? key,
@@ -286,14 +288,14 @@ class BackToUsernameViewButton extends StatelessWidget {
       width: double.infinity,
       child: TextButton(
         child: const Text('Back'),
-        onPressed: () => state.navigateTo(AuthenticatorStep.initial),
+        onPressed: () => state.navigateTo(AuthenticatorStep.landingPage),
       ),
     );
   }
 }
 
 // A custom buttom that checks to see if a username is taken,
-// and directs the user to either signup or signin based on the result
+// and directs the user to either sign up or sign in based on the result
 class CheckUsernameButton extends StatelessWidget {
   const CheckUsernameButton({
     Key? key,
@@ -312,17 +314,17 @@ class CheckUsernameButton extends StatelessWidget {
       );
       await Amplify.Auth.signOut();
       state.navigateTo(
-        AuthenticatorStep.signin,
+        AuthenticatorStep.signIn,
         resetAttributes: false,
       );
     } on UserNotFoundException {
       state.navigateTo(
-        AuthenticatorStep.signup,
+        AuthenticatorStep.signUp,
         resetAttributes: false,
       );
     } on Exception {
       state.navigateTo(
-        AuthenticatorStep.signin,
+        AuthenticatorStep.signIn,
         resetAttributes: false,
       );
     }

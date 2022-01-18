@@ -168,7 +168,7 @@ class SignUpButton extends AuthenticatorElevatedButton {
         );
 
   @override
-  ButtonResolverKey get labelKey => ButtonResolverKey.signup;
+  ButtonResolverKey get labelKey => ButtonResolverKey.signUp;
 
   @override
   void onPressed(BuildContext context, AuthenticatorState state) =>
@@ -182,7 +182,7 @@ class SignInButton extends AuthenticatorElevatedButton {
         );
 
   @override
-  ButtonResolverKey get labelKey => ButtonResolverKey.signin;
+  ButtonResolverKey get labelKey => ButtonResolverKey.signIn;
 
   @override
   void onPressed(BuildContext context, AuthenticatorState state) =>
@@ -255,7 +255,7 @@ class BackToSignInButton extends StatelessAuthenticatorComponent {
     return TextButton(
       key: keyBackToSignInButton,
       child: Text(
-        stringResolver.buttons.backTo(context, AuthenticatorStep.signin),
+        stringResolver.buttons.backTo(context, AuthenticatorStep.signIn),
       ),
       onPressed: state.goToSignIn,
     );
@@ -299,7 +299,7 @@ class GoToSignUpButton extends StatelessAuthenticatorComponent {
             key: keyGoToSignUpButton,
             onPressed: state.goToSignUp,
             child: Text(
-              resolver.signup(context),
+              resolver.signUp(context),
               style: TextStyle(
                 fontSize: AuthenticatorButtonConstants.fontSize,
                 color: Theme.of(context).primaryColor,
@@ -348,7 +348,7 @@ class GoToSignInButton extends StatelessAuthenticatorComponent {
           TextButton(
             key: keyGoToSignInButton,
             child: Text(
-              resolver.signin(context),
+              resolver.signIn(context),
               style: TextStyle(
                 fontSize: AuthenticatorButtonConstants.fontSize,
                 color: Theme.of(context).primaryColor,

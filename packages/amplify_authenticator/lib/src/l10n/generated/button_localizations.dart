@@ -112,13 +112,13 @@ abstract class AuthenticatorButtonLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Sign In'**
-  String get signin;
+  String get signIn;
 
   /// Label of the button to sign up the user.
   ///
   /// In en, this message translates to:
   /// **'Create Account'**
-  String get signup;
+  String get signUp;
 
   /// Label of button to confirm an action
   ///
@@ -190,12 +190,12 @@ abstract class AuthenticatorButtonLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Sign Out'**
-  String get signout;
+  String get signOut;
 
   /// Label of button to return to the previous step
   ///
   /// In en, this message translates to:
-  /// **'Back to {previousStep, select, signup{Sign Up}, signin{Sign In}, confirmSignup{Confirm Sign-up}, confirmSigninMfa{Confirm Sign-in} confirmSigninNewPassword{Confirm Sign-in} sendCode{Send Code} resetPassword{Reset Password} verifyUser{Verify User} confirmVerifyUser{Confirm Verify User}}'**
+  /// **'Back to {previousStep, select, signUp{Sign Up}, signIn{Sign In}, confirmSignUp{Confirm Sign-up}, confirmSignInMfa{Confirm Sign-in} confirmSignInNewPassword{Confirm Sign-in} sendCode{Send Code} resetPassword{Reset Password} verifyUser{Verify User} confirmVerifyUser{Confirm Verify User}}'**
   String backTo(AuthenticatorStep previousStep);
 
   /// Label of button to sign in with a social provider

@@ -30,8 +30,8 @@ import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
-import 'package:amplify_authenticator/src/state/authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
+import 'package:amplify_authenticator/src/state/authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
@@ -239,7 +239,7 @@ class Authenticator extends StatefulWidget {
     this.onException,
     this.exceptionBannerLocation = ExceptionBannerLocation.auto,
     this.preferPrivateSession = false,
-    this.initialScreen = AuthenticatorStep.initial,
+    this.initialStep = AuthenticatorStep.signIn,
   }) : super(key: key) {
     this.signInForm = signInForm ?? SignInForm();
     this.signUpForm = signUpForm ?? SignUpForm.custom(fields: const []);
@@ -309,8 +309,8 @@ class Authenticator extends StatefulWidget {
   final Widget child;
 
   /// The initial step that the authenticator will display if the user is not
-  /// already authenticated
-  final AuthenticatorStep initialScreen;
+  /// already authenticated. Defauls to AuthenticatorStep.signIn
+  final AuthenticatorStep initialStep;
 
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
@@ -328,8 +328,7 @@ class Authenticator extends StatefulWidget {
         'exceptionBannerLocation', exceptionBannerLocation));
     properties.add(DiagnosticsProperty<bool>(
         'preferPrivateSession', preferPrivateSession));
-    properties
-        .add(EnumProperty<AuthenticatorStep>('initialScreen', initialScreen));
+    properties.add(EnumProperty<AuthenticatorStep>('initialStep', initialStep));
   }
 }
 
@@ -356,7 +355,7 @@ class _AuthenticatorState extends State<Authenticator> {
     _stateMachineBloc = StateMachineBloc(
       authService: _authService,
       preferPrivateSession: widget.preferPrivateSession,
-      initialScreen: widget.initialScreen,
+      initialStep: widget.initialStep,
     )..add(const AuthLoad());
     _viewModel = AuthenticatorState(_stateMachineBloc, _formKey);
     _subscribeToExceptions();
@@ -459,7 +458,7 @@ class _AuthenticatorState extends State<Authenticator> {
     _hubSubscription = Amplify.Hub.listen([HubChannel.Auth], (event) {
       switch (event.eventName) {
         case 'SIGNED_OUT':
-          _stateMachineBloc.add(AuthChangeScreen(widget.initialScreen));
+          _stateMachineBloc.add(AuthChangeScreen(widget.initialStep));
           break;
       }
     });
@@ -649,7 +648,7 @@ class _AuthenticatorChild extends StatelessWidget {
     } else if (state is UnauthenticatedState) {
       prebuiltScreen = AuthenticatorScreen(step: state.step);
     } else {
-      prebuiltScreen = const AuthenticatorScreen.signin();
+      prebuiltScreen = const AuthenticatorScreen.signIn();
     }
     if (builder != null) {
       final AuthenticatorState _viewModel = InheritedAuthenticatorState.of(

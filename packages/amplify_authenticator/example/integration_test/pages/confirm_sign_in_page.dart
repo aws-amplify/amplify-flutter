@@ -39,7 +39,7 @@ class ConfirmSignInPage extends AuthenticatorPage {
     );
     expect(
       currentScreen.step,
-      equals(AuthenticatorStep.confirmSigninNewPassword),
+      equals(AuthenticatorStep.confirmSignInNewPassword),
     );
   }
 
@@ -48,7 +48,7 @@ class ConfirmSignInPage extends AuthenticatorPage {
     final currentScreen = tester.widget<AuthenticatorScreen>(
       find.byType(AuthenticatorScreen),
     );
-    expect(currentScreen.step, equals(AuthenticatorStep.confirmSigninMfa));
+    expect(currentScreen.step, equals(AuthenticatorStep.confirmSignInMfa));
   }
 
   /// Then I see "New Password"
