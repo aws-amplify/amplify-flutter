@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
-import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';

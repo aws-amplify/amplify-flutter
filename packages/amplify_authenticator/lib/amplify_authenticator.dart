@@ -33,7 +33,7 @@ import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator/src/state/authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
-import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
