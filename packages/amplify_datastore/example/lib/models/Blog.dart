@@ -24,10 +24,10 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the Blog type in your schema. */
+/// This is an auto generated class representing the Blog type in your schema.
 @immutable
 class Blog extends Model {
-  static const classType = const _BlogModelType();
+  static const classType = _BlogModelType();
   final String id;
   final String? _name;
   final List<Post>? _posts;
@@ -46,7 +46,7 @@ class Blog extends Model {
     try {
       return _name!;
     } catch (e) {
-      throw new DataStoreException(
+      throw DataStoreException(
           DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: DataStoreExceptionMessages
@@ -99,7 +99,7 @@ class Blog extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Blog {");
     buffer.write("id=" + "$id" + ", ");
@@ -126,7 +126,7 @@ class Blog extends Model {
             ? (json['posts'] as List)
                 .where((e) => e?['serializedData'] != null)
                 .map((e) => Post.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null

@@ -29,74 +29,74 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('sort order', () {
-    group('for type string', () {
+    group('for type String', () {
       var models = [
-        StringTypeModel(value: 'nnn'),
-        StringTypeModel(value: 'abc'),
-        StringTypeModel(value: 'aaa'),
-        StringTypeModel(value: 'xyz'),
-        StringTypeModel(value: 'zzz'),
-        StringTypeModel(value: ''),
-        StringTypeModel(value: '!@#^&*()'),
-        StringTypeModel(value: '\u{1F601}'),
-        StringTypeModel(),
+        ModelWithAppsyncScalarTypes(stringValue: 'nnn'),
+        ModelWithAppsyncScalarTypes(stringValue: 'abc'),
+        ModelWithAppsyncScalarTypes(stringValue: 'aaa'),
+        ModelWithAppsyncScalarTypes(stringValue: 'xyz'),
+        ModelWithAppsyncScalarTypes(stringValue: 'zzz'),
+        ModelWithAppsyncScalarTypes(stringValue: ''),
+        ModelWithAppsyncScalarTypes(stringValue: '!@#^&*()'),
+        ModelWithAppsyncScalarTypes(stringValue: '\u{1F601}'),
+        ModelWithAppsyncScalarTypes(),
       ];
-      testSortOperations<StringTypeModel>(
+      testSortOperations<ModelWithAppsyncScalarTypes>(
         models: models,
-        queryField: StringTypeModel.VALUE,
+        queryField: ModelWithAppsyncScalarTypes.STRINGVALUE,
         sort: sortStringTypeModel,
       );
     });
 
-    group('for type int', () {
-      testSortOperations<IntTypeModel>(
+    group('for type Int', () {
+      testSortOperations<ModelWithAppsyncScalarTypes>(
         models: [
-          IntTypeModel(value: dataStoreMaxInt),
-          IntTypeModel(value: dataStoreMinInt),
-          IntTypeModel(value: 0),
-          IntTypeModel(value: 1),
-          IntTypeModel(value: -1),
-          IntTypeModel(value: 10),
-          IntTypeModel(),
+          ModelWithAppsyncScalarTypes(intValue: dataStoreMaxInt),
+          ModelWithAppsyncScalarTypes(intValue: dataStoreMinInt),
+          ModelWithAppsyncScalarTypes(intValue: 0),
+          ModelWithAppsyncScalarTypes(intValue: 1),
+          ModelWithAppsyncScalarTypes(intValue: -1),
+          ModelWithAppsyncScalarTypes(intValue: 10),
+          ModelWithAppsyncScalarTypes(),
         ],
-        queryField: IntTypeModel.VALUE,
+        queryField: ModelWithAppsyncScalarTypes.INTVALUE,
         sort: sortIntTypeModel,
       );
     });
 
     group(
-      'for type double',
+      'for type Float',
       () {
-        testSortOperations<DoubleTypeModel>(
+        testSortOperations<ModelWithAppsyncScalarTypes>(
           models: [
-            DoubleTypeModel(value: double.maxFinite),
-            DoubleTypeModel(value: double.minPositive),
-            DoubleTypeModel(value: pi),
-            DoubleTypeModel(value: 0.0),
-            DoubleTypeModel(value: 1.0),
-            DoubleTypeModel(value: 1.1),
-            DoubleTypeModel(value: 0.9),
-            DoubleTypeModel(value: -1.1),
-            DoubleTypeModel(value: 10.0),
-            DoubleTypeModel(),
+            ModelWithAppsyncScalarTypes(floatValue: double.maxFinite),
+            ModelWithAppsyncScalarTypes(floatValue: double.minPositive),
+            ModelWithAppsyncScalarTypes(floatValue: pi),
+            ModelWithAppsyncScalarTypes(floatValue: 0.0),
+            ModelWithAppsyncScalarTypes(floatValue: 1.0),
+            ModelWithAppsyncScalarTypes(floatValue: 1.1),
+            ModelWithAppsyncScalarTypes(floatValue: 0.9),
+            ModelWithAppsyncScalarTypes(floatValue: -1.1),
+            ModelWithAppsyncScalarTypes(floatValue: 10.0),
+            ModelWithAppsyncScalarTypes(),
           ],
-          queryField: DoubleTypeModel.VALUE,
-          sort: sortDoubleTypeModel,
+          queryField: ModelWithAppsyncScalarTypes.FLOATVALUE,
+          sort: sortFloatTypeModel,
         );
       },
       // see; https://github.com/aws-amplify/amplify-flutter/issues/856
       skip: true,
     );
 
-    group('for type bool', () {
-      testSortOperations<BoolTypeModel>(
+    group('for type Boolean', () {
+      testSortOperations<ModelWithAppsyncScalarTypes>(
         models: [
-          BoolTypeModel(value: false),
-          BoolTypeModel(value: true),
-          BoolTypeModel(),
+          ModelWithAppsyncScalarTypes(booleanValue: false),
+          ModelWithAppsyncScalarTypes(booleanValue: true),
+          ModelWithAppsyncScalarTypes(),
         ],
-        queryField: BoolTypeModel.VALUE,
-        sort: sortBoolTypeModel,
+        queryField: ModelWithAppsyncScalarTypes.BOOLEANVALUE,
+        sort: sortBooleanTypeModel,
       );
     });
 
@@ -109,12 +109,13 @@ void main() {
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
-          .map((value) => DateTypeModel(value: TemporalDate(value)))
+          .map((value) =>
+              ModelWithAppsyncScalarTypes(awsDateValue: TemporalDate(value)))
           .toList();
-      testSortOperations<DateTypeModel>(
+      testSortOperations<ModelWithAppsyncScalarTypes>(
         models: models,
-        queryField: DateTypeModel.VALUE,
-        sort: sortDateTypeModel,
+        queryField: ModelWithAppsyncScalarTypes.AWSDATEVALUE,
+        sort: sortAWSDateTypeModel,
       );
     });
 
@@ -130,12 +131,13 @@ void main() {
         // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
-          .map((value) => DateTimeTypeModel(value: TemporalDateTime(value)))
+          .map((value) => ModelWithAppsyncScalarTypes(
+              awsDateTimeValue: TemporalDateTime(value)))
           .toList();
-      testSortOperations<DateTimeTypeModel>(
+      testSortOperations<ModelWithAppsyncScalarTypes>(
         models: models,
-        queryField: DateTimeTypeModel.VALUE,
-        sort: sortDateTimeTypeModel,
+        queryField: ModelWithAppsyncScalarTypes.AWSDATETIMEVALUE,
+        sort: sortAWSDateTimeTypeModel,
       );
     });
 
@@ -152,12 +154,13 @@ void main() {
         // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
-          .map((value) => TimeTypeModel(value: TemporalTime(value)))
+          .map((value) =>
+              ModelWithAppsyncScalarTypes(awsTimeValue: TemporalTime(value)))
           .toList();
-      testSortOperations<TimeTypeModel>(
+      testSortOperations<ModelWithAppsyncScalarTypes>(
         models: models,
-        queryField: TimeTypeModel.VALUE,
-        sort: sortTimeTypeModel,
+        queryField: ModelWithAppsyncScalarTypes.AWSTIMEVALUE,
+        sort: sortAWSTimeTypeModel,
       );
     });
 
@@ -170,26 +173,27 @@ void main() {
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
-          .map((value) => TimestampTypeModel(value: TemporalTimestamp(value)))
+          .map((value) => ModelWithAppsyncScalarTypes(
+              awsTimestampValue: TemporalTimestamp(value)))
           .toList();
-      testSortOperations<TimestampTypeModel>(
+      testSortOperations<ModelWithAppsyncScalarTypes>(
         models: models,
-        queryField: TimestampTypeModel.VALUE,
-        sort: sortTimestampTypeModel,
+        queryField: ModelWithAppsyncScalarTypes.AWSTIMESTAMPVALUE,
+        sort: sortAWSTimestampTypeModel,
       );
     });
 
     group('multi field sort', () {
       var models = [
-        MultiTypeModel(intValue: 0, stringValue: 'abc'),
-        MultiTypeModel(intValue: 1, stringValue: 'abc'),
-        MultiTypeModel(intValue: 2, stringValue: 'abc'),
-        MultiTypeModel(intValue: 0, stringValue: ''),
-        MultiTypeModel(intValue: 1, stringValue: ''),
-        MultiTypeModel(intValue: 2, stringValue: ''),
-        MultiTypeModel(intValue: 0, stringValue: 'xyz'),
-        MultiTypeModel(intValue: 1, stringValue: 'xyz'),
-        MultiTypeModel(intValue: 2, stringValue: 'xyz'),
+        ModelWithAppsyncScalarTypes(intValue: 0, stringValue: 'abc'),
+        ModelWithAppsyncScalarTypes(intValue: 1, stringValue: 'abc'),
+        ModelWithAppsyncScalarTypes(intValue: 2, stringValue: 'abc'),
+        ModelWithAppsyncScalarTypes(intValue: 0, stringValue: ''),
+        ModelWithAppsyncScalarTypes(intValue: 1, stringValue: ''),
+        ModelWithAppsyncScalarTypes(intValue: 2, stringValue: ''),
+        ModelWithAppsyncScalarTypes(intValue: 0, stringValue: 'xyz'),
+        ModelWithAppsyncScalarTypes(intValue: 1, stringValue: 'xyz'),
+        ModelWithAppsyncScalarTypes(intValue: 2, stringValue: 'xyz'),
       ];
 
       setUp(() async {
@@ -202,16 +206,17 @@ void main() {
 
       testWidgets('ascending() & ascending()', (WidgetTester tester) async {
         var expectedModels = models
-          ..sort((MultiTypeModel a, MultiTypeModel b) {
+          ..sort(
+              (ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
             return a.intValue != b.intValue
                 ? a.intValue!.compareTo(b.intValue!)
                 : a.stringValue!.compareTo(b.stringValue!);
           });
         var actualModels = await Amplify.DataStore.query(
-          MultiTypeModel.classType,
+          ModelWithAppsyncScalarTypes.classType,
           sortBy: [
-            MultiTypeModel.INTVALUE.ascending(),
-            MultiTypeModel.STRINGVALUE.ascending(),
+            ModelWithAppsyncScalarTypes.INTVALUE.ascending(),
+            ModelWithAppsyncScalarTypes.STRINGVALUE.ascending(),
           ],
         );
         expect(actualModels, orderedEquals(expectedModels));
@@ -219,16 +224,17 @@ void main() {
 
       testWidgets('ascending() & descending()', (WidgetTester tester) async {
         var expectedModels = models
-          ..sort((MultiTypeModel a, MultiTypeModel b) {
+          ..sort(
+              (ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
             return a.intValue != b.intValue
                 ? a.intValue!.compareTo(b.intValue!)
                 : b.stringValue!.compareTo(a.stringValue!);
           });
         var actualModels = await Amplify.DataStore.query(
-          MultiTypeModel.classType,
+          ModelWithAppsyncScalarTypes.classType,
           sortBy: [
-            MultiTypeModel.INTVALUE.ascending(),
-            MultiTypeModel.STRINGVALUE.descending(),
+            ModelWithAppsyncScalarTypes.INTVALUE.ascending(),
+            ModelWithAppsyncScalarTypes.STRINGVALUE.descending(),
           ],
         );
         expect(actualModels, orderedEquals(expectedModels));
@@ -236,16 +242,17 @@ void main() {
 
       testWidgets('descending() & descending()', (WidgetTester tester) async {
         var expectedModels = models
-          ..sort((MultiTypeModel a, MultiTypeModel b) {
+          ..sort(
+              (ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
             return a.intValue != b.intValue
                 ? b.intValue!.compareTo(a.intValue!)
                 : b.stringValue!.compareTo(a.stringValue!);
           });
         var actualModels = await Amplify.DataStore.query(
-          MultiTypeModel.classType,
+          ModelWithAppsyncScalarTypes.classType,
           sortBy: [
-            MultiTypeModel.INTVALUE.descending(),
-            MultiTypeModel.STRINGVALUE.descending(),
+            ModelWithAppsyncScalarTypes.INTVALUE.descending(),
+            ModelWithAppsyncScalarTypes.STRINGVALUE.descending(),
           ],
         );
         expect(actualModels, orderedEquals(expectedModels));

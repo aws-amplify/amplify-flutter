@@ -24,14 +24,21 @@ class TestData {
   final String config;
 }
 
-const _empty = '''
+class TestSuite {
+  const TestSuite(this.version, this.tests);
+
+  final String version;
+  final List<TestData> tests;
+}
+
+const _v4empty = '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0"
 }
 ''';
 
-const _analytics = '''
+const _v4analytics = '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -51,7 +58,7 @@ const _analytics = '''
 }
 ''';
 
-const _auth = '''
+const _v4auth = '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -155,7 +162,7 @@ const _auth = '''
 }
 ''';
 
-const _api = '''
+const _v4api = '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -187,7 +194,7 @@ const _api = '''
 }
 ''';
 
-const _storage = '''
+const _v4storage = '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -203,10 +210,578 @@ const _storage = '''
 }
 ''';
 
+const v4Tests = [
+  TestData('Empty', _v4empty),
+  TestData('Analytics', _v4analytics),
+  TestData('Auth', _v4auth),
+  TestData('API', _v4api),
+  TestData('Storage', _v4storage),
+];
+
+const _v5empty = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0"
+}
+''';
+
+const _v5analytics = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "analytics": {
+    "plugins": {
+      "awsPinpointAnalyticsPlugin": {
+        "pinpointAnalytics": {
+          "appId": "$ANALYTICS_APP_ID",
+          "region": "$REGION"
+        },
+        "pinpointTargeting": {
+          "region": "$REGION"
+        }
+      }
+    }
+  }
+}
+''';
+
+const _v5auth = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "auth": {
+    "plugins": {
+      "awsCognitoAuthPlugin": {
+        "UserAgent": "aws-amplify/cli",
+        "Version": "0.1.0",
+        "IdentityManager": {
+          "Default": {}
+        },
+        "Auth": {
+          "Default": {
+            "OAuth": {
+              "WebDomain": "$OAUTH_DOMAIN",
+              "AppClientId": "$APPCLIENT_ID",
+              "SignInRedirectURI": "$OAUTH_SIGNIN",
+              "SignOutRedirectURI": "$OAUTH_SIGNOUT",
+              "Scopes": [
+                "phone",
+                "email",
+                "openid",
+                "profile",
+                "aws.cognito.signin.user.admin"
+              ]
+            },
+            "authenticationFlowType": "$AUTHFLOW_SRP"
+          },
+          "DefaultCustomAuth": {
+            "authenticationFlowType": "CUSTOM_AUTH"
+          }
+        },
+        "CognitoUserPool": {
+          "CustomEndpoint": {
+            "AppClientId": "$APPCLIENT_ID",
+            "AppClientSecret": "$APPCLIENT_SECERT",
+            "Endpoint": "$OAUTH_DOMAIN",
+            "PoolId": "$USERPOOL_ID",
+            "Region": "$REGION"
+          },
+          "Default": {
+            "AppClientId": "$APPCLIENT_ID",
+            "AppClientSecret": "$APPCLIENT_SECERT",
+            "Region": "$REGION",
+            "HostedUI": {
+              "AppClientId": "$APPCLIENT_ID",
+              "AppClientSecret": "$APPCLIENT_SECERT",
+              "Scopes": [
+                "openid",
+                "email"
+              ],
+              "SignInRedirectURI": "$OAUTH_SIGNIN",
+              "SignOutRedirectURI": "$OAUTH_SIGNOUT",
+              "WebDomain": "$OAUTH_DOMAIN"
+            },
+            "PoolId": "$USERPOOL_ID"
+          },
+          "DefaultCustomAuth": {
+            "AppClientId": "$APPCLIENT_ID",
+            "AppClientSecret": "$APPCLIENT_SECERT",
+            "Region": "$REGION",
+            "PoolId": "$USERPOOL_ID"
+          }
+        },
+        "CredentialsProvider": {
+          "CognitoIdentity": {
+            "Default": {
+              "PoolId": "$IDPOOL_ID",
+              "Region": "$REGION"
+            }
+          }
+        },
+        "AppSync": {
+          "Default": {
+            "ApiUrl": "$GRAPHQL_ENDPOINT",
+            "Region": "$REGION",
+            "AuthMode": "$COGNITO_AUTH_TYPE",
+            "ClientDatabasePrefix": "$DATABASE_PREFIX"
+          }
+        },
+        "PinpointAnalytics": {
+          "Default": {
+            "AppId": "$ANALYTICS_APP_ID",
+            "Region": "$REGION"
+          }
+        },
+        "PinpointTargeting": {
+          "Default": {
+            "Region": "$REGION"
+          }
+        },
+        "S3TransferUtility": {
+          "Default": {
+            "Bucket": "$BUCKET",
+            "Region": "$REGION"
+          }
+        }
+      }
+    }
+  }
+}
+''';
+
+const _v5api = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "api": {
+    "plugins": {
+      "awsAPIPlugin": {
+        "API_KEY": {
+          "endpointType": "GraphQL",
+          "endpoint": "$GRAPHQL_ENDPOINT",
+          "region": "$REGION",
+          "authorizationType": "API_KEY",
+          "apiKey": "$API_KEY"
+        },
+        "AWS_IAM": {
+          "endpointType": "GraphQL",
+          "endpoint": "$GRAPHQL_ENDPOINT",
+          "region": "$REGION",
+          "authorizationType": "AWS_IAM"
+        },
+        "REST": {
+          "endpointType": "REST",
+          "endpoint": "$REST_ENDPOINT",
+          "region": "$REGION",
+          "authorizationType": "AMAZON_COGNITO_USER_POOLS"
+        }
+      }
+    }
+  }
+}
+''';
+
+const _v5storage = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "storage": {
+    "plugins": {
+      "awsS3StoragePlugin": {
+        "bucket": "$BUCKET",
+        "region": "$REGION",
+        "defaultAccessLevel": "guest"
+      }
+    }
+  }
+}
+''';
+
+const v5Tests = [
+  TestData('Empty', _v5empty),
+  TestData('Analytics', _v5analytics),
+  TestData('Auth', _v5auth),
+  TestData('API', _v5api),
+  TestData('Storage', _v5storage),
+];
+
+const _v6empty = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0"
+}
+''';
+
+const _v6analytics = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "analytics": {
+    "plugins": {
+      "awsPinpointAnalyticsPlugin": {
+        "pinpointAnalytics": {
+          "appId": "$ANALYTICS_APP_ID",
+          "region": "$REGION"
+        },
+        "pinpointTargeting": {
+          "region": "$REGION"
+        }
+      }
+    }
+  }
+}
+''';
+
+const _v6auth = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "auth": {
+    "plugins": {
+      "awsCognitoAuthPlugin": {
+        "UserAgent": "aws-amplify/cli",
+        "Version": "0.1.0",
+        "IdentityManager": {
+          "Default": {}
+        },
+        "Auth": {
+          "Default": {
+            "OAuth": {
+              "WebDomain": "$OAUTH_DOMAIN",
+              "AppClientId": "$APPCLIENT_ID",
+              "SignInRedirectURI": "$OAUTH_SIGNIN",
+              "SignOutRedirectURI": "$OAUTH_SIGNOUT",
+              "Scopes": [
+                "phone",
+                "email",
+                "openid",
+                "profile",
+                "aws.cognito.signin.user.admin"
+              ]
+            },
+            "authenticationFlowType": "$AUTHFLOW_SRP"
+          },
+          "DefaultCustomAuth": {
+            "authenticationFlowType": "CUSTOM_AUTH"
+          }
+        },
+        "CognitoUserPool": {
+          "CustomEndpoint": {
+            "AppClientId": "$APPCLIENT_ID",
+            "AppClientSecret": "$APPCLIENT_SECERT",
+            "Endpoint": "$OAUTH_DOMAIN",
+            "PoolId": "$USERPOOL_ID",
+            "Region": "$REGION"
+          },
+          "Default": {
+            "AppClientId": "$APPCLIENT_ID",
+            "AppClientSecret": "$APPCLIENT_SECERT",
+            "Region": "$REGION",
+            "HostedUI": {
+              "AppClientId": "$APPCLIENT_ID",
+              "AppClientSecret": "$APPCLIENT_SECERT",
+              "Scopes": [
+                "openid",
+                "email"
+              ],
+              "SignInRedirectURI": "$OAUTH_SIGNIN",
+              "SignOutRedirectURI": "$OAUTH_SIGNOUT",
+              "WebDomain": "$OAUTH_DOMAIN"
+            },
+            "PoolId": "$USERPOOL_ID"
+          },
+          "DefaultCustomAuth": {
+            "AppClientId": "$APPCLIENT_ID",
+            "AppClientSecret": "$APPCLIENT_SECERT",
+            "Region": "$REGION",
+            "PoolId": "$USERPOOL_ID"
+          }
+        },
+        "CredentialsProvider": {
+          "CognitoIdentity": {
+            "Default": {
+              "PoolId": "$IDPOOL_ID",
+              "Region": "$REGION"
+            }
+          }
+        },
+        "AppSync": {
+          "Default": {
+            "ApiUrl": "$GRAPHQL_ENDPOINT",
+            "Region": "$REGION",
+            "AuthMode": "$COGNITO_AUTH_TYPE",
+            "ClientDatabasePrefix": "$DATABASE_PREFIX"
+          }
+        },
+        "PinpointAnalytics": {
+          "Default": {
+            "AppId": "$ANALYTICS_APP_ID",
+            "Region": "$REGION"
+          }
+        },
+        "PinpointTargeting": {
+          "Default": {
+            "Region": "$REGION"
+          }
+        },
+        "S3TransferUtility": {
+          "Default": {
+            "Bucket": "$BUCKET",
+            "Region": "$REGION"
+          }
+        }
+      }
+    }
+  }
+}
+''';
+
+const _v6api = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "api": {
+    "plugins": {
+      "awsAPIPlugin": {
+        "API_KEY": {
+          "endpointType": "GraphQL",
+          "endpoint": "$GRAPHQL_ENDPOINT",
+          "region": "$REGION",
+          "authorizationType": "API_KEY",
+          "apiKey": "$API_KEY"
+        },
+        "AWS_IAM": {
+          "endpointType": "GraphQL",
+          "endpoint": "$GRAPHQL_ENDPOINT",
+          "region": "$REGION",
+          "authorizationType": "AWS_IAM"
+        },
+        "REST": {
+          "endpointType": "REST",
+          "endpoint": "$REST_ENDPOINT",
+          "region": "$REGION",
+          "authorizationType": "AMAZON_COGNITO_USER_POOLS"
+        }
+      }
+    }
+  }
+}
+''';
+
+const _v6storage = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "storage": {
+    "plugins": {
+      "awsS3StoragePlugin": {
+        "bucket": "$BUCKET",
+        "region": "$REGION",
+        "defaultAccessLevel": "guest"
+      }
+    }
+  }
+}
+''';
+
+const v6Tests = [
+  TestData('Empty', _v6empty),
+  TestData('Analytics', _v6analytics),
+  TestData('Auth', _v6auth),
+  TestData('API', _v6api),
+  TestData('Storage', _v6storage),
+];
+
+const _v7empty = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0"
+}
+''';
+
+const _v7analytics = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "analytics": {
+    "plugins": {
+      "awsPinpointAnalyticsPlugin": {
+        "pinpointAnalytics": {
+          "appId": "$ANALYTICS_APP_ID",
+          "region": "$REGION"
+        },
+        "pinpointTargeting": {
+          "region": "$REGION"
+        }
+      }
+    }
+  }
+}
+''';
+
+const _v7auth = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "auth": {
+    "plugins": {
+      "awsCognitoAuthPlugin": {
+        "UserAgent": "aws-amplify/cli",
+        "Version": "0.1.0",
+        "IdentityManager": {
+          "Default": {}
+        },
+        "Auth": {
+          "Default": {
+            "OAuth": {
+              "WebDomain": "$OAUTH_DOMAIN",
+              "AppClientId": "$APPCLIENT_ID",
+              "SignInRedirectURI": "$OAUTH_SIGNIN",
+              "SignOutRedirectURI": "$OAUTH_SIGNOUT",
+              "Scopes": [
+                "phone",
+                "email",
+                "openid",
+                "profile",
+                "aws.cognito.signin.user.admin"
+              ]
+            },
+            "authenticationFlowType": "$AUTHFLOW_SRP"
+          },
+          "DefaultCustomAuth": {
+            "authenticationFlowType": "CUSTOM_AUTH"
+          }
+        },
+        "CognitoUserPool": {
+          "CustomEndpoint": {
+            "AppClientId": "$APPCLIENT_ID",
+            "AppClientSecret": "$APPCLIENT_SECERT",
+            "Endpoint": "$OAUTH_DOMAIN",
+            "PoolId": "$USERPOOL_ID",
+            "Region": "$REGION"
+          },
+          "Default": {
+            "AppClientId": "$APPCLIENT_ID",
+            "AppClientSecret": "$APPCLIENT_SECERT",
+            "Region": "$REGION",
+            "HostedUI": {
+              "AppClientId": "$APPCLIENT_ID",
+              "AppClientSecret": "$APPCLIENT_SECERT",
+              "Scopes": [
+                "openid",
+                "email"
+              ],
+              "SignInRedirectURI": "$OAUTH_SIGNIN",
+              "SignOutRedirectURI": "$OAUTH_SIGNOUT",
+              "WebDomain": "$OAUTH_DOMAIN"
+            },
+            "PoolId": "$USERPOOL_ID"
+          },
+          "DefaultCustomAuth": {
+            "AppClientId": "$APPCLIENT_ID",
+            "AppClientSecret": "$APPCLIENT_SECERT",
+            "Region": "$REGION",
+            "PoolId": "$USERPOOL_ID"
+          }
+        },
+        "CredentialsProvider": {
+          "CognitoIdentity": {
+            "Default": {
+              "PoolId": "$IDPOOL_ID",
+              "Region": "$REGION"
+            }
+          }
+        },
+        "AppSync": {
+          "Default": {
+            "ApiUrl": "$GRAPHQL_ENDPOINT",
+            "Region": "$REGION",
+            "AuthMode": "$COGNITO_AUTH_TYPE",
+            "ClientDatabasePrefix": "$DATABASE_PREFIX"
+          }
+        },
+        "PinpointAnalytics": {
+          "Default": {
+            "AppId": "$ANALYTICS_APP_ID",
+            "Region": "$REGION"
+          }
+        },
+        "PinpointTargeting": {
+          "Default": {
+            "Region": "$REGION"
+          }
+        },
+        "S3TransferUtility": {
+          "Default": {
+            "Bucket": "$BUCKET",
+            "Region": "$REGION"
+          }
+        }
+      }
+    }
+  }
+}
+''';
+
+const _v7api = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "api": {
+    "plugins": {
+      "awsAPIPlugin": {
+        "API_KEY": {
+          "endpointType": "GraphQL",
+          "endpoint": "$GRAPHQL_ENDPOINT",
+          "region": "$REGION",
+          "authorizationType": "API_KEY",
+          "apiKey": "$API_KEY"
+        },
+        "AWS_IAM": {
+          "endpointType": "GraphQL",
+          "endpoint": "$GRAPHQL_ENDPOINT",
+          "region": "$REGION",
+          "authorizationType": "AWS_IAM"
+        },
+        "REST": {
+          "endpointType": "REST",
+          "endpoint": "$REST_ENDPOINT",
+          "region": "$REGION",
+          "authorizationType": "AMAZON_COGNITO_USER_POOLS"
+        }
+      }
+    }
+  }
+}
+''';
+
+const _v7storage = '''
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "storage": {
+    "plugins": {
+      "awsS3StoragePlugin": {
+        "bucket": "$BUCKET",
+        "region": "$REGION",
+        "defaultAccessLevel": "guest"
+      }
+    }
+  }
+}
+''';
+
+const v7Tests = [
+  TestData('Empty', _v7empty),
+  TestData('Analytics', _v7analytics),
+  TestData('Auth', _v7auth),
+  TestData('API', _v7api),
+  TestData('Storage', _v7storage),
+];
+
 const allTests = [
-  TestData('Empty', _empty),
-  TestData('Analytics', _analytics),
-  TestData('Auth', _auth),
-  TestData('API', _api),
-  TestData('Storage', _storage),
+  TestSuite('4', v4Tests),
+  TestSuite('5', v5Tests),
+  TestSuite('6', v6Tests),
+  TestSuite('7', v7Tests),
 ];
