@@ -1,6 +1,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator_example/custom_authenticator.dart';
+import 'package:amplify_authenticator_example/authenticator_with_custom_forms.dart';
+import 'package:amplify_authenticator_example/authenticator_with_custom_layout.dart';
 import 'package:amplify_authenticator_example/localized_country_resolver.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +85,11 @@ class _MyAppState extends State<MyApp> {
 
       // Next, we create a custom Sign Up form which uses our custom username
       // validator.
+      //
+      // Providing a custom SignUpForm allows for simple customizations such as
+      // adding a sign up attribute or adding a custom validator. More complex
+      // customizations can be acheived by providing a custom builder method to
+      // Authenticator.builder()
       signUpForm: SignUpForm.custom(
         fields: [
           SignUpFormField.username(
@@ -120,12 +126,6 @@ class _MyAppState extends State<MyApp> {
         // can be done using the `builder` method.
         builder: Authenticator.builder(),
 
-        // Providing a `builder` argument to Authenticator.builder, allows you to
-        // build a completely custom UI for the authenticator composed of a mix of
-        // prebuilt widgets from the Authenticator lib, and widgets you build yourself
-        // uncomment the line below to test out a custom UI
-        // builder: Authenticator.builder(builder: customAuthenticatorBuilder),
-
         initialRoute: '/routeA',
         routes: {
           '/routeA': (BuildContext context) => const RouteA(),
@@ -134,6 +134,30 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+
+  // Providing a `builder` argument to Authenticator.builder, allows you to
+  // build a custom UI for the authenticator composed of a mix of
+  // prebuilt widgets from the amplify_authenticator package, and widgets
+  // you build yourself.
+  //
+  // See authenticator_with_custom_layout.dart for more info
+  //
+  // Uncomment the build method below (and comment out the one above) to
+  // see a simple example of this
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return const AuthenticatorWithCustomLayout();
+  // }
+
+  // Below is another example of a custom authenticator, with a more
+  // customization, including custom forms.
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return const AuthenticatorWithCustomForms();
+  // }
+
 }
 
 /// The screen which is shown once the user is logged in. We can use [SignOutButton]

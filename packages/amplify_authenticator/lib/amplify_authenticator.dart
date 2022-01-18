@@ -258,7 +258,7 @@ class Authenticator extends StatefulWidget {
   ///   ),
   /// );
   /// ```
-  static TransitionBuilder builder({AuthBuilder? builder}) =>
+  static TransitionBuilder builder([AuthBuilder? builder]) =>
       (BuildContext context, Widget? child) {
         if (child == null) {
           throw FlutterError.fromParts([
@@ -582,25 +582,10 @@ class _AuthenticatorBody extends StatelessWidget {
         builder: (context, AsyncSnapshot<AuthState> snapshot) {
           final state = snapshot.data ?? const LoadingState();
 
-          final Widget? authenticatorScreen;
-          if (state is AuthenticatedState) {
-            authenticatorScreen = null;
-          } else if (builder != null) {
-            final AuthenticatorState _viewModel =
-                InheritedAuthenticatorState.of(
-              context,
-              listen: true,
-            );
-            authenticatorScreen = Material(
-              child: builder!(context, _viewModel),
-            );
-          } else if (state is LoadingState) {
-            authenticatorScreen = const LoadingScreen();
-          } else if (state is UnauthenticatedState) {
-            authenticatorScreen = AuthenticatorScreen(step: state.step);
-          } else {
-            authenticatorScreen = const AuthenticatorScreen.signin();
-          }
+          final Widget authenticatorChild = _AuthenticatorChild(
+            builder: builder,
+            state: state,
+          );
 
           return Localizations.override(
             context: context,
@@ -608,13 +593,14 @@ class _AuthenticatorBody extends StatelessWidget {
             child: Navigator(
               onPopPage: (_, dynamic __) => true,
               pages: [
-                MaterialPage<void>(
-                  child: Theme(
-                    data: userAppTheme,
-                    child: child,
+                if (state is AuthenticatedState)
+                  MaterialPage<void>(
+                    child: Theme(
+                      data: userAppTheme,
+                      child: child,
+                    ),
                   ),
-                ),
-                if (authenticatorScreen != null)
+                if (state is! AuthenticatedState)
                   MaterialPage<void>(
                     child: ScaffoldMessenger(
                       key: _AuthenticatorState.scaffoldMessengerKey,
@@ -622,10 +608,9 @@ class _AuthenticatorBody extends StatelessWidget {
                         backgroundColor:
                             AmplifyTheme.of(context).backgroundPrimary,
                         body: SizedBox.expand(
-                          child: authenticatorScreen is AuthenticatorScreen
-                              ? SingleChildScrollView(
-                                  child: authenticatorScreen)
-                              : authenticatorScreen,
+                          child: authenticatorChild is AuthenticatorScreen
+                              ? SingleChildScrollView(child: authenticatorChild)
+                              : authenticatorChild,
                         ),
                       ),
                     ),
@@ -645,4 +630,44 @@ class _AuthenticatorBody extends StatelessWidget {
   }
 }
 
-typedef AuthBuilder = Widget Function(BuildContext, AuthenticatorState);
+class _AuthenticatorChild extends StatelessWidget {
+  const _AuthenticatorChild({
+    Key? key,
+    required this.builder,
+    required this.state,
+  }) : super(key: key);
+  final AuthBuilder? builder;
+  final AuthState state;
+
+  @override
+  Widget build(BuildContext context) {
+    final Widget prebuiltScreen;
+    if (state is AuthenticatedState) {
+      prebuiltScreen = Container();
+    } else if (state is LoadingState) {
+      prebuiltScreen = const LoadingScreen();
+    } else if (state is UnauthenticatedState) {
+      prebuiltScreen = AuthenticatorScreen(step: state.step);
+    } else {
+      prebuiltScreen = const AuthenticatorScreen.signin();
+    }
+    if (builder != null) {
+      final AuthenticatorState _viewModel = InheritedAuthenticatorState.of(
+        context,
+        listen: true,
+      );
+      return builder!(context, _viewModel, prebuiltScreen);
+    } else {
+      return prebuiltScreen;
+    }
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(ObjectFlagProperty<AuthBuilder?>.has('builder', builder));
+    properties.add(DiagnosticsProperty<AuthState>('state', state));
+  }
+}
+
+typedef AuthBuilder = Widget Function(BuildContext, AuthenticatorState, Widget);
