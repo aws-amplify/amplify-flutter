@@ -577,6 +577,31 @@ class _InheritedAuthenticatorBuilder extends StatelessWidget {
   final Widget child;
   final Widget Function(AuthState, ThemeData, Widget) builder;
 
+  Widget getAuthenticatorScreen({
+    required BuildContext context,
+    required AuthState state,
+    AuthenticatorBuilder? authenticatorBuilder,
+  }) {
+    final Widget authenticatorScreen;
+    if (state is AuthenticatedState) {
+      authenticatorScreen = child;
+    } else if (state is LoadingState) {
+      authenticatorScreen = const LoadingScreen();
+    } else {
+      authenticatorScreen = AuthenticatorScreen(step: state.step);
+    }
+
+    if (authenticatorBuilder != null) {
+      final AuthenticatorState _viewModel = InheritedAuthenticatorState.of(
+        context,
+        listen: true,
+      );
+      return authenticatorBuilder(context, _viewModel, authenticatorScreen);
+    }
+
+    return authenticatorScreen;
+  }
+
   @override
   Widget build(BuildContext context) {
     final authenticatorBuilder = InheritedAuthenticatorBuilder.of(context);
@@ -593,8 +618,8 @@ class _InheritedAuthenticatorBuilder extends StatelessWidget {
         builder: (context, AsyncSnapshot<AuthState> snapshot) {
           final state = snapshot.data ?? const LoadingState();
 
-          final Widget authenticatorChild = _AuthenticatorChild(
-            child: child,
+          final Widget authenticatorScreen = getAuthenticatorScreen(
+            context: context,
             authenticatorBuilder: authenticatorBuilder,
             state: state,
           );
@@ -602,7 +627,7 @@ class _InheritedAuthenticatorBuilder extends StatelessWidget {
           return Localizations.override(
             context: context,
             delegates: AuthenticatorLocalizations.localizationsDelegates,
-            child: builder(state, userAppTheme, authenticatorChild),
+            child: builder(state, userAppTheme, authenticatorScreen),
           );
         },
       ),
@@ -691,51 +716,5 @@ class AuthenticatedView extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-// A widget that takes in the current AuthState, the child widget that
-// the authenticator wraps, and the custom authenticatorBuilder, and
-// returns the appropriate view
-class _AuthenticatorChild extends StatelessWidget {
-  const _AuthenticatorChild({
-    Key? key,
-    required this.state,
-    required this.child,
-    required this.authenticatorBuilder,
-  }) : super(key: key);
-
-  final AuthState state;
-  final Widget child;
-  final AuthenticatorBuilder? authenticatorBuilder;
-
-  @override
-  Widget build(BuildContext context) {
-    final Widget authenticatorScreen;
-    if (state is AuthenticatedState) {
-      authenticatorScreen = child;
-    } else if (state is LoadingState) {
-      authenticatorScreen = const LoadingScreen();
-    } else {
-      authenticatorScreen = AuthenticatorScreen(step: state.step);
-    }
-
-    if (authenticatorBuilder != null) {
-      final AuthenticatorState _viewModel = InheritedAuthenticatorState.of(
-        context,
-        listen: true,
-      );
-      return authenticatorBuilder!(context, _viewModel, authenticatorScreen);
-    }
-
-    return authenticatorScreen;
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(ObjectFlagProperty<AuthenticatorBuilder?>.has(
-        'authenticatorBuilder', authenticatorBuilder));
-    properties.add(DiagnosticsProperty<AuthState>('state', state));
   }
 }
