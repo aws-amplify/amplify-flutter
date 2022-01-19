@@ -127,22 +127,20 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         T extends AuthenticatorFormField<FieldType, FieldValue, T>>
     extends AuthenticatorComponentState<T> {
   @nonVirtual
-  Widget get visibilityToggle => context
-      .findAncestorStateOfType<AuthenticatorFormState>()!
-      .obscureTextToggle;
+  Widget get visibilityToggle =>
+      AuthenticatorFormState.of(context).obscureTextToggle;
 
   @nonVirtual
   UsernameConfigType get usernameType =>
-      context.findAncestorStateOfType<AuthenticatorFormState>()!.usernameType;
+      AuthenticatorFormState.of(context).usernameType;
 
   @nonVirtual
-  UsernameType get selectedUsernameType => context
-      .findAncestorStateOfType<AuthenticatorFormState>()!
-      .selectedUsernameType;
+  UsernameType get selectedUsernameType =>
+      AuthenticatorFormState.of(context).selectedUsernameType;
 
   @nonVirtual
   ValueNotifier<bool> get useEmail =>
-      context.findAncestorStateOfType<AuthenticatorFormState>()!.useEmail;
+      AuthenticatorFormState.of(context).useEmail;
 
   /// Callback for when `onChanged` is triggered on the [FormField].
   ValueChanged<FieldValue> get onChanged => (_) {};

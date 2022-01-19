@@ -94,6 +94,28 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
     with UsernameAttributes<AuthenticatorForm> {
   AuthenticatorFormState();
 
+  static AuthenticatorFormState of(BuildContext context) {
+    AuthenticatorFormState? state =
+        context.findAncestorStateOfType<AuthenticatorFormState>();
+    // ignore: prefer_asserts_with_message
+    assert(() {
+      if (state == null) {
+        throw FlutterError.fromParts([
+          ErrorSummary('No AuthenticatorForm widget found.'),
+          ErrorDescription(
+            'All Form Field widgets from amplify_authenticator must be a descendant of a AuthenticatorForm widget.',
+          ),
+          ErrorDescription(
+            'If you are using prebuilt Form Field widgets to create a custom Authenticator UI, '
+            'ensure that they are a descendant of a AuthenticatorForm widget.',
+          )
+        ]);
+      }
+      return true;
+    }());
+    return state!;
+  }
+
   /// Additional fields defined at runtime.
   List<AuthenticatorFormField> runtimeFields(BuildContext context) => const [];
 

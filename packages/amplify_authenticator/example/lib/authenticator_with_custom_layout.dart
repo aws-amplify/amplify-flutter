@@ -107,19 +107,32 @@ class SignUpView extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            // app logo (flutter logo used for example)
-            const Center(child: FlutterLogo(size: 100)),
+        child: AuthenticatorForm(
+          child: Column(
+            children: [
+              // app logo (flutter logo used for example)
+              const Center(child: FlutterLogo(size: 100)),
 
-            // prebuilt sign up form from amplify_authenticator package
-            SignUpForm(),
+              // prebuilt fields for username, email, and password from
+              // amplify_authenticator package
+              SignUpFormField.username(),
+              SignUpFormField.email(required: true),
+              SignUpFormField.password(),
+              SignUpFormField.passwordConfirmation(),
 
-            Expanded(child: Container()),
+              // custom field for a temrs and conditions checkbox which included
+              // form validation
+              TermsAndConditionsCheckBox(),
 
-            // custom button to take the user to sign in
-            NavigateToSignInButton(state: state),
-          ],
+              // prebuilt sign up button from amplify_authenticator package
+              const SignUpButton(),
+
+              Expanded(child: Container()),
+
+              // custom button to take the user to sign in
+              NavigateToSignInButton(state: state),
+            ],
+          ),
         ),
       ),
     );
@@ -170,4 +183,35 @@ class NavigateToSignInButton extends StatelessWidget {
       ],
     );
   }
+}
+
+class TermsAndConditionsCheckBox extends FormField<bool> {
+  TermsAndConditionsCheckBox({
+    Key? key,
+  }) : super(
+          key: key,
+          validator: (value) {
+            if (value != true) {
+              return 'You must agree to the terms and conditions';
+            }
+          },
+          initialValue: false,
+          builder: (FormFieldState<bool> state) {
+            return CheckboxListTile(
+              dense: true,
+              title: const Text('I agree to the terms and conditions'),
+              value: state.value,
+              onChanged: state.didChange,
+              subtitle: state.hasError
+                  ? Builder(
+                      builder: (BuildContext context) => Text(
+                        state.errorText!,
+                        style: TextStyle(color: Theme.of(context).errorColor),
+                      ),
+                    )
+                  : null,
+              controlAffinity: ListTileControlAffinity.leading,
+            );
+          },
+        );
 }
