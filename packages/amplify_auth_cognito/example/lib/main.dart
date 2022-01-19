@@ -265,7 +265,9 @@ class _MyAppState extends State<MyApp> {
               const Padding(padding: EdgeInsets.all(10.0)),
               if (Platform.isIOS)
                 ElevatedButton(
-                    onPressed: _deleteUser, child: const Text('Delete User')),
+                  onPressed: _deleteUser,
+                  child: const Text('Delete User'),
+                ),
             ],
           ),
         ),

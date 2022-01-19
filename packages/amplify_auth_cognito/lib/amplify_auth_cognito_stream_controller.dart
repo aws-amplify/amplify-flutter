@@ -49,6 +49,11 @@ _onListen() {
         case "USER_DELETED":
           _authStreamController.add(AuthHubEvent(event["eventName"]));
           break;
+        case "USER_DELETED":
+          {
+            _authStreamController.add(AuthHubEvent(event["eventName"]));
+          }
+          break;
         default:
           break;
       }
