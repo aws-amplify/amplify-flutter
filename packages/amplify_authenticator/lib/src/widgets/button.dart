@@ -15,7 +15,6 @@
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
-import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
@@ -23,19 +22,6 @@ import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/progress.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-extension AuthenticatorButtonSizes on AuthenticatorButtonSize {
-  double? get height {
-    switch (this) {
-      case AuthenticatorButtonSize.small:
-        return null; // use default
-      case AuthenticatorButtonSize.medium:
-        return 40;
-      case AuthenticatorButtonSize.large:
-        return null; // use default
-    }
-  }
-}
 
 /// {@template authenticator.authenticator_button}
 /// Base class for Authenticator button components.
@@ -45,11 +31,7 @@ abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
   /// {@macro authenticator.authenticator_button}
   const AuthenticatorButton({
     Key? key,
-    this.size = AuthenticatorButtonSize.large,
   }) : super(key: key);
-
-  /// The size of the button.
-  final AuthenticatorButtonSize size;
 
   /// The button's `onPressed` callback.
   void onPressed(BuildContext context, AuthenticatorState state);
@@ -72,7 +54,6 @@ abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(EnumProperty<AuthenticatorButtonSize>('size', size));
     properties
         .add(DiagnosticsProperty<ButtonResolverKey>('labelKey', labelKey));
   }
@@ -130,7 +111,6 @@ class _AmplifyElevatedButtonState
     final buttonResolver = stringResolver.buttons;
     final loadingIndicator = widget.loadingIndicator;
     return SizedBox(
-      height: widget.size.height,
       width: double.infinity,
       child: ElevatedButton(
         focusNode: focusNode,

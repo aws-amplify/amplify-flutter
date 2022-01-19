@@ -16,8 +16,6 @@
 import 'dart:math';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/state/authenticator_state.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
@@ -25,7 +23,6 @@ import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -188,7 +185,7 @@ class _SocialSignInButtonState
   Widget build(BuildContext context) {
     final resolver = stringResolver.buttons;
     return SizedBox(
-      height: AuthenticatorButtonSize.medium.height,
+      height: 40,
       child: OutlinedButton(
         focusNode: focusNode,
         style: ButtonStyle(

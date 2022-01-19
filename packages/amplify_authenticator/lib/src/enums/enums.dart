@@ -14,7 +14,6 @@
  */
 
 export 'authenticator_step.dart';
-export 'button_size.dart';
 export 'confirm_signin_types.dart';
 export 'confirm_signup_types.dart';
 export 'gender.dart';
