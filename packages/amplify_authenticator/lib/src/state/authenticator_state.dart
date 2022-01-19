@@ -45,7 +45,16 @@ class AuthenticatorState extends ChangeNotifier {
 
   final StateMachineBloc _authBloc;
 
-  AuthenticatorStep get currentStep => _authBloc.currentState.step;
+  AuthenticatorStep get currentStep {
+    AuthState state = _authBloc.currentState;
+    if (state is LoadingState) {
+      return AuthenticatorStep.loading;
+    } else if (state is UnauthenticatedState) {
+      return state.step;
+    } else {
+      return AuthenticatorStep.signIn;
+    }
+  }
 
   final GlobalKey<FormState> _formKey;
 
@@ -396,7 +405,7 @@ class AuthenticatorState extends ChangeNotifier {
 
     _authBloc.add(AuthVerifyUser(authVerifyUserData));
     await nextBlocEvent(
-      where: (state) => state.step != AuthenticatorStep.loading,
+      where: (state) => state is! LoadingState,
     );
     _setIsBusy(false);
   }

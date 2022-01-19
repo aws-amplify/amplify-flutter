@@ -21,9 +21,6 @@ enum AuthenticatorStep {
   /// is pending.
   loading,
 
-  /// The user is authenticated.
-  authenticated,
-
   /// The user is on the Landing Page step.
   ///
   /// This step can be used to create and initial landing page

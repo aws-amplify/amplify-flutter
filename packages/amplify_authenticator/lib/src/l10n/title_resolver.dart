@@ -86,7 +86,6 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
       case AuthenticatorStep.confirmVerifyUser:
         return verifyUser(context);
       case AuthenticatorStep.loading:
-      case AuthenticatorStep.authenticated:
         throw StateError('Invalid step: $this');
     }
   }

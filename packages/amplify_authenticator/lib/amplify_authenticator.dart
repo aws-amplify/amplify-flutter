@@ -583,12 +583,12 @@ class _InheritedAuthenticatorBuilder extends StatelessWidget {
     AuthenticatorBuilder? authenticatorBuilder,
   }) {
     final Widget authenticatorScreen;
-    if (state is AuthenticatedState) {
-      authenticatorScreen = child;
+    if (state is UnauthenticatedState) {
+      authenticatorScreen = AuthenticatorScreen(step: state.step);
     } else if (state is LoadingState) {
       authenticatorScreen = const LoadingScreen();
     } else {
-      authenticatorScreen = AuthenticatorScreen(step: state.step);
+      authenticatorScreen = child;
     }
 
     if (authenticatorBuilder != null) {

@@ -19,22 +19,16 @@ import 'package:flutter/foundation.dart';
 
 abstract class AuthState {
   const AuthState();
-
-  AuthenticatorStep get step;
 }
 
 class LoadingState extends AuthState {
   const LoadingState();
 
-  @override
   AuthenticatorStep get step => AuthenticatorStep.loading;
 }
 
 class AuthenticatedState extends AuthState {
   const AuthenticatedState();
-
-  @override
-  AuthenticatorStep get step => AuthenticatorStep.authenticated;
 }
 
 @immutable
@@ -42,7 +36,6 @@ class UnauthenticatedState extends AuthState {
   final AuthenticatorStep _step;
   const UnauthenticatedState({required AuthenticatorStep step}) : _step = step;
 
-  @override
   AuthenticatorStep get step => _step;
 
   static const signUp = UnauthenticatedState(step: AuthenticatorStep.signUp);

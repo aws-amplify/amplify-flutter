@@ -94,7 +94,6 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
         child = _FormWrapperView(step: step);
         break;
       case AuthenticatorStep.loading:
-      case AuthenticatorStep.authenticated:
         throw StateError('Invalid step: $this');
     }
 
@@ -250,7 +249,6 @@ extension on AuthenticatorStep {
       case AuthenticatorStep.verifyUser:
       case AuthenticatorStep.confirmVerifyUser:
       case AuthenticatorStep.loading:
-      case AuthenticatorStep.authenticated:
         throw StateError('Invalid step: $this');
     }
   }
