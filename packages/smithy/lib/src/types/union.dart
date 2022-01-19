@@ -42,8 +42,11 @@ import 'package:smithy/smithy.dart';
 /// }
 /// ```
 abstract class SmithyUnion<U extends SmithyUnion<U>>
-    with AWSEquatable<SmithyUnion<U>>, AWSSerializable {
+    with AWSEquatable<SmithyUnion<U>> {
   const SmithyUnion();
+
+  /// The key or property name of [value].
+  String get name;
 
   // Exactly one member of a union MUST be set to a non-null value.
   /// The union's value.
@@ -57,9 +60,6 @@ abstract class SmithyUnion<U extends SmithyUnion<U>>
 
   @override
   String toString() => value.toString();
-
-  @override
-  Map<String, Object> toJson();
 }
 
 /// A protocol-agnostic serializer for [SmithyUnion] types, for use with
@@ -90,8 +90,7 @@ class SmithyUnionSerializer<U extends SmithyUnion<U>>
     if (object == null) {
       return const Iterable.empty();
     }
-    final json = object.toJson().entries.first;
-    return [json.key, json.value];
+    return [object.name, object.value];
   }
 
   @override
