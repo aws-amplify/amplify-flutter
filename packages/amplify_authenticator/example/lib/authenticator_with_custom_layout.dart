@@ -72,8 +72,8 @@ class SignInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return SafeArea(
+      child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
@@ -104,8 +104,8 @@ class SignUpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return SafeArea(
+      child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
@@ -136,18 +136,15 @@ class NavigateToSignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('Don\'t have an account?'),
-          TextButton(
-            onPressed: state.goToSignUp,
-            child: const Text('Sign Up'),
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text('Don\'t have an account?'),
+        TextButton(
+          onPressed: state.goToSignUp,
+          child: const Text('Sign Up'),
+        ),
+      ],
     );
   }
 }
@@ -162,18 +159,15 @@ class NavigateToSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('Already have an account?'),
-          TextButton(
-            onPressed: state.goToSignIn,
-            child: const Text('Sign In'),
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text('Already have an account?'),
+        TextButton(
+          onPressed: state.goToSignIn,
+          child: const Text('Sign In'),
+        ),
+      ],
     );
   }
 }
