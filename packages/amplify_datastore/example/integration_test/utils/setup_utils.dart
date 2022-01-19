@@ -13,18 +13,32 @@
 // permissions and limitations under the License.
 //
 
+import 'dart:async';
+
 import 'package:amplify_datastore/amplify_datastore.dart';
-// import 'package:amplify_datastore_example/models/ModelProvider.dart';
-import 'package:amplify_datastore_example/auth_models/owner_blog_allow_all/ModelProvider.dart';
+
+/// Uncomment for environments[datastore_basic]
+/// import 'package:amplify_datastore_example/models/ModelProvider.dart';
+
+/// Uncomment for environments[owner_blog_allow_all]
+/// import 'package:amplify_datastore_example/auth_models/owner_blog_allow_all/ModelProvider.dart';
+
+/// Uncomment for environments[private_blog_allow_read]
+import 'package:amplify_datastore_example/auth_models/private_blog_allow_read/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
 import '../envs/datastore_basic_config.dart' as datastore_basic;
 import '../envs/owner_blog_allow_all_config.dart' as owner_blog_allow_all;
+import '../envs/private_blog_allow_read.config.dart' as private_blog_allow_read;
 
 const environments = {
   'datastore-basic': datastore_basic.amplifyconfig,
   'datastore-owner-blog-allow-all': owner_blog_allow_all.amplifyconfig,
+  'datastore-private-blog-allow-read': private_blog_allow_read.amplifyconfig,
 };
+
+late StreamSubscription _hubSubscription;
+late Completer _datastoreReady;
 
 Future<void> configureDataStore(String envName,
     {List<AmplifyPluginInterface>? additionalConfigs}) async {
@@ -36,6 +50,13 @@ Future<void> configureDataStore(String envName,
       });
   await Amplify.addPlugins([dataStorePlugin, ...?additionalConfigs]);
   await Amplify.configure(envConfig);
+
+  // Complete the datastoreReady completer once a ready event is fired
+  _hubSubscription = Amplify.Hub.listen([HubChannel.DataStore], (hubEvent) {
+    if (hubEvent.eventName == 'ready') {
+      _datastoreReady.complete();
+    }
+  });
 }
 
 /// Clears DataStore after a delay to resolve an issue in amplify-android
@@ -47,10 +68,14 @@ Future<void> configureDataStore(String envName,
 Future<void> clearDataStore() async {
   await Future.delayed(Duration(milliseconds: 100));
   await Amplify.DataStore.clear();
+
+  // Reset the datastoreReady completer whenever we clear the store.
+  // It will need to be re-completed by the hub subscription
+  _datastoreReady = Completer();
 }
 
-/// Starts DataStore and returns after a delay
+/// Starts DataStore and after the [Hubevent.ready] event is fired.
 Future<void> startDatastore() async {
-  await Amplify.DataStore.start();
-  await Future.delayed(Duration(seconds: 2));
+  Amplify.DataStore.start();
+  await _datastoreReady.future;
 }

@@ -13,6 +13,7 @@
 ///   @auth(
 ///     rules: [
 ///       { allow: owner, operations: [create, read, update, delete] }
+///       { allow: private, operations: [read] }
 ///     ]
 ///   ) {
 ///   id: ID!
@@ -24,6 +25,7 @@
 ///   @auth(
 ///     rules: [
 ///       { allow: owner, operations: [create, read, update, delete] }
+///       { allow: private, operations: [read] }
 ///     ]
 ///   ) {
 ///   id: ID!
