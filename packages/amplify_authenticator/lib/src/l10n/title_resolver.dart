@@ -67,7 +67,7 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
   @override
   String resolve(BuildContext context, AuthenticatorStep key) {
     switch (key) {
-      case AuthenticatorStep.landingPage:
+      case AuthenticatorStep.onboarding:
       case AuthenticatorStep.signIn:
         return signIn(context);
       case AuthenticatorStep.signUp:

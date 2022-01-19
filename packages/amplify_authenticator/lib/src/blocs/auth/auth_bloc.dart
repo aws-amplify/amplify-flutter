@@ -383,7 +383,7 @@ class StateMachineBloc {
   Stream<AuthState> _signOut() async* {
     try {
       await _authService.signOut();
-      yield* _changeScreen(initialStep);
+      yield* _changeScreen(AuthenticatorStep.signIn);
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {

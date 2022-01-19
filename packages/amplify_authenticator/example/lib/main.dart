@@ -1,7 +1,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator_example/authenticator_with_custom_forms.dart';
 import 'package:amplify_authenticator_example/authenticator_with_custom_layout.dart';
+import 'package:amplify_authenticator_example/authenticator_with_onboarding.dart';
 import 'package:amplify_authenticator_example/localized_country_resolver.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
@@ -183,7 +183,7 @@ class _MyAppState extends State<MyApp> {
 
   // @override
   // Widget build(BuildContext context) {
-  //   return const AuthenticatorWithCustomForms();
+  //   return const AuthenticatorWithOnboarding();
   // }
 }
 

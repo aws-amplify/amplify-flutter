@@ -21,14 +21,19 @@ enum AuthenticatorStep {
   /// is pending.
   loading,
 
-  /// The user is on the Landing Page step.
+  /// The user is on the Onboarding step.
   ///
-  /// This step can be used to create and initial landing page
-  /// that will be displayed to users prior to showing sign in / sign up.
+  /// This step can be used to create an onboarding view that will be
+  /// displayed to users prior to showing sign in / sign up.
   ///
-  /// This step is only relevant for custom authenticator UIs.
-  /// The prebuilt authenticator uses the sign in view as the landing page.
-  landingPage,
+  /// See Onboarding guidelines from Material and Human Interface Guidelines
+  /// - Material: https://material.io/design/communication/onboarding.html
+  /// - Human Interface Guidelines: https://developer.apple.com/design/human-interface-guidelines/ios/app-architecture/onboarding/
+  ///
+  /// This step is only relevant if a custom builder is provided to the
+  /// Authenticator. The prebuilt authenticator takes users directly to
+  /// sign in by default.
+  onboarding,
 
   /// The user is on the Sign Up step.
   signUp,

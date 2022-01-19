@@ -463,7 +463,9 @@ class _AuthenticatorState extends State<Authenticator> {
     _hubSubscription = Amplify.Hub.listen([HubChannel.Auth], (event) {
       switch (event.eventName) {
         case 'SIGNED_OUT':
-          _stateMachineBloc.add(AuthChangeScreen(widget.initialStep));
+          _stateMachineBloc.add(
+            const AuthChangeScreen(AuthenticatorStep.signIn),
+          );
           break;
       }
     });
