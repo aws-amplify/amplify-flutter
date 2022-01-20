@@ -80,3 +80,10 @@ enum AuthenticatorStep {
   /// (email, phone), and needs to provide a verification code.
   confirmVerifyUser,
 }
+
+const validInitialAuthenticatorSteps = [
+  AuthenticatorStep.onboarding,
+  AuthenticatorStep.signIn,
+  AuthenticatorStep.signUp,
+  AuthenticatorStep.resetPassword,
+];

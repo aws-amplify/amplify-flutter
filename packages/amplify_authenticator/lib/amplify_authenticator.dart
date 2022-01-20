@@ -244,6 +244,18 @@ class Authenticator extends StatefulWidget {
     this.initialStep = AuthenticatorStep.signIn,
     AuthenticatorBuilder? builder,
   }) : super(key: key) {
+    // ignore: prefer_asserts_with_message
+    assert(() {
+      if (!validInitialAuthenticatorSteps.contains(initialStep)) {
+        throw FlutterError.fromParts([
+          ErrorSummary('Invalid initialStep'),
+          ErrorDescription(
+            'initialStep must be one of the following values: \n - ${validInitialAuthenticatorSteps.join('\n -')}',
+          )
+        ]);
+      }
+      return true;
+    }());
     this.signInForm = signInForm ?? SignInForm();
     this.signUpForm = signUpForm ?? SignUpForm.custom(fields: const []);
     this.confirmSignInNewPasswordForm =
@@ -314,7 +326,14 @@ class Authenticator extends StatefulWidget {
   final Widget child;
 
   /// The initial step that the authenticator will display if the user is not
-  /// already authenticated. Defauls to AuthenticatorStep.signIn
+  /// already authenticated.
+  ///
+  /// Defauls to AuthenticatorStep.signIn. Other acceptable values are:
+  /// AuthenticatorStep.signUp, AuthenticatorStep.resetPassword, and
+  /// AuthenticatorStep.onboarding.
+  ///
+  /// AuthenticatorStep.onboarding should only be used with a custom builder
+  /// method.
   final AuthenticatorStep initialStep;
 
   @override
