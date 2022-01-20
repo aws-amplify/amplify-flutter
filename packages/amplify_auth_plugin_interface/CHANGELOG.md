@@ -1,14 +1,8 @@
-## 0.3.0-rc.4 (2022-01-12)
-
-## 0.3.0-rc.3 (2021-12-08)
+## 0.3.0 (2022-01-20)
 
 ### Fixes
 
 - fix(amplify_auth_cognito): remove int.parse from AuthUserAttribute (#1169)
-
-## 0.3.0-rc.2 (2021-11-08)
-
-## 0.3.0-rc.1 (2021-09-24)
 
 ## 0.2.10 (2021-11-23)
 
@@ -32,6 +26,7 @@
 ## 0.2.5 (2021-10-14)
 
 ### Fixes
+
 - fix(auth): Add global sign out
 - fix(auth): Support `preferPrivateSession` flag
 

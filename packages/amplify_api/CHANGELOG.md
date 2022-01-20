@@ -1,18 +1,4 @@
-## 0.3.0-rc.4 (2022-01-12)
-
-### Fixes
-
-- fix(amplify_api): remove tabs from graphql document strings in android (#1178)
-
-## 0.3.0-rc.3 (2021-12-08)
-
-## 0.3.0-rc.2 (2021-11-08)
-
-### Fixes
-
-- fix(api): OIDC Fixes for REST/GraphQL
-
-## 0.3.0-rc.1 (2021-09-24)
+## 0.3.0 (2022-01-20)
 
 ### Breaking Changes
 
@@ -21,6 +7,11 @@
 ### Features
 
 - feat(api): GraphQL Subscription Stream (#905)
+
+### Fixes
+
+- fix(api): remove tabs from graphql document strings in android (#1178)
+- fix(api): OIDC Fixes for REST/GraphQL
 
 ## 0.2.10 (2021-11-23)
 
