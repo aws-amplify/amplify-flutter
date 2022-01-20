@@ -8,11 +8,8 @@ import 'package:smithy/smithy.dart';
 /// Defines an operation which uses HTTP.
 ///
 /// See: https://awslabs.github.io/smithy/1.0/spec/core/http-traits.html
-abstract class HttpOperation<
-    InputPayload extends Object?,
-    Input extends HttpInput<InputPayload>,
-    OutputPayload,
-    Output> extends Operation<Input, Output> {
+abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
+    extends Operation<Input, Output> {
   /// Regex for label placeholders.
   static final _labelRegex = RegExp(r'{(\w+)}');
 
@@ -71,7 +68,9 @@ abstract class HttpOperation<
     HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
     Input input,
   ) async {
-    final path = expandLabels(request.path, input);
+    final String path = input is HasLabel
+        ? expandLabels(request.path, input as HasLabel)
+        : request.path;
     final headers = {
       ...request.headers.asMap(),
       ...protocol.headers,
@@ -82,7 +81,9 @@ abstract class HttpOperation<
     final body = protocol.serialize(input, specifiedType: FullType(Input));
     var host = baseUri.host;
     if (request.hostPrefix != null) {
-      final prefix = expandLabels(request.hostPrefix!, input);
+      final String prefix = input is HasLabel
+          ? expandLabels(request.hostPrefix!, input as HasLabel)
+          : request.hostPrefix!;
       host = '$prefix$host';
     }
     headers.putIfAbsent('Host', () => host);
@@ -166,7 +167,11 @@ abstract class HttpOperation<
       },
     );
     final output = protocol.deserialize(response.body,
-        specifiedType: FullType(OutputPayload)) as OutputPayload;
-    return buildOutput(output, response);
+        specifiedType: FullType(OutputPayload));
+    if (output is Output) {
+      return output as Output;
+    } else {
+      return buildOutput(output as OutputPayload, response);
+    }
   }
 }

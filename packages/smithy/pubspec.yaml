@@ -10,7 +10,7 @@ dependencies:
   aws_common:
     git:
       url: https://github.com/dnys1/aws-sdk-dart.git
-      ref: main
+      ref: smithy
       path: packages/aws_common
   built_collection: ^5.0.0
   built_value: ^8.0.0

@@ -5,11 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:smithy/smithy.dart';
 
 /// A protocol for sending requests over HTTP.
-abstract class HttpProtocol<
-    InputPayload extends Object?,
-    Input extends HttpInput<InputPayload>,
-    OutputPayload,
-    Output> implements Protocol<Input, Output, Stream<List<int>>> {
+abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
+    implements Protocol<Input, Output, Stream<List<int>>> {
   const HttpProtocol();
 
   /// The content type of the request payload, added to the `Content-Type`
@@ -38,7 +35,7 @@ abstract class HttpProtocol<
   @override
   Stream<List<int>> serialize(Object? input, {FullType? specifiedType}) {
     input as Input;
-    var payload = input.getPayload();
+    final payload = (input is HasPayload) ? input.getPayload() : input;
     if (payload == null) {
       return const Stream.empty();
     } else if (payload is String) {
