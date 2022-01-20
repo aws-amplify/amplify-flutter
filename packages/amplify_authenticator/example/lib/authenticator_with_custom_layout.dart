@@ -171,7 +171,9 @@ class NavigateToSignUpButton extends StatelessWidget {
       children: [
         const Text('Don\'t have an account?'),
         TextButton(
-          onPressed: state.goToSignUp,
+          onPressed: () => state.changeStep(
+            AuthenticatorStep.signUp,
+          ),
           child: const Text('Sign Up'),
         ),
       ],
@@ -194,7 +196,9 @@ class NavigateToSignInButton extends StatelessWidget {
       children: [
         const Text('Already have an account?'),
         TextButton(
-          onPressed: state.goToSignIn,
+          onPressed: () => state.changeStep(
+            AuthenticatorStep.signIn,
+          ),
           child: const Text('Sign In'),
         ),
       ],

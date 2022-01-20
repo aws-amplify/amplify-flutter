@@ -430,17 +430,13 @@ class AuthenticatorState extends ChangeNotifier {
     ]);
   }
 
-  /// Navigates to a new step in the authentication flow
-  void navigateTo(AuthenticatorStep step, {bool resetAttributes = true}) {
+  /// Change to a new step in the authentication flow
+  void changeStep(AuthenticatorStep step, {bool resetAttributes = true}) {
     _authBloc.add(AuthChangeScreen(step));
 
     /// Clean [ViewModel] when user manually navigates widgets
     if (resetAttributes) _resetAttributes();
   }
-
-  void goToSignUp() => navigateTo(AuthenticatorStep.signUp);
-  void goToSignIn() => navigateTo(AuthenticatorStep.signIn);
-  void goToResetPassword() => navigateTo(AuthenticatorStep.resetPassword);
 
   void _resetAttributes() {
     _username = '';

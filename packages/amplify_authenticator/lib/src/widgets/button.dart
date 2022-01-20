@@ -237,7 +237,9 @@ class BackToSignInButton extends StatelessAuthenticatorComponent {
       child: Text(
         stringResolver.buttons.backTo(context, AuthenticatorStep.signIn),
       ),
-      onPressed: state.goToSignIn,
+      onPressed: () => state.changeStep(
+        AuthenticatorStep.signIn,
+      ),
     );
   }
 }
@@ -277,7 +279,9 @@ class GoToSignUpButton extends StatelessAuthenticatorComponent {
           ),
           TextButton(
             key: keyGoToSignUpButton,
-            onPressed: state.goToSignUp,
+            onPressed: () => state.changeStep(
+              AuthenticatorStep.signUp,
+            ),
             child: Text(
               resolver.signUp(context),
               style: TextStyle(
@@ -334,7 +338,9 @@ class GoToSignInButton extends StatelessAuthenticatorComponent {
                 color: Theme.of(context).primaryColor,
               ),
             ),
-            onPressed: state.goToSignIn,
+            onPressed: () => state.changeStep(
+              AuthenticatorStep.signIn,
+            ),
           ),
         ],
       ),
@@ -394,7 +400,9 @@ class ForgotPasswordButton extends StatelessAuthenticatorComponent {
       child: Text(
         stringResolver.buttons.forgotPassword(context),
       ),
-      onPressed: state.goToResetPassword,
+      onPressed: () => state.changeStep(
+        AuthenticatorStep.resetPassword,
+      ),
     );
   }
 }

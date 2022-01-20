@@ -22,8 +22,12 @@ class AuthenticatorWithOnboarding extends StatelessWidget {
         switch (state.currentStep) {
           case AuthenticatorStep.onboarding:
             return OnboardingView(
-              goToSignIn: state.goToSignIn,
-              goToSignUp: state.goToSignUp,
+              navigateToSignIn: () => state.changeStep(
+                AuthenticatorStep.signIn,
+              ),
+              navigateToSignUp: () => state.changeStep(
+                AuthenticatorStep.signUp,
+              ),
             );
           default:
             // returning null will default to the prebuilt authenticator for
@@ -51,12 +55,12 @@ class AuthenticatorWithOnboarding extends StatelessWidget {
 class OnboardingView extends StatelessWidget {
   const OnboardingView({
     Key? key,
-    required this.goToSignIn,
-    required this.goToSignUp,
+    required this.navigateToSignIn,
+    required this.navigateToSignUp,
   }) : super(key: key);
 
-  final void Function() goToSignIn;
-  final void Function() goToSignUp;
+  final void Function() navigateToSignIn;
+  final void Function() navigateToSignUp;
 
   @override
   Widget build(BuildContext context) {
@@ -76,14 +80,14 @@ class OnboardingView extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: goToSignUp,
+                onPressed: navigateToSignUp,
                 child: const Text('Get Started'),
               ),
             ),
             SizedBox(
               width: double.infinity,
               child: OutlinedButton(
-                onPressed: goToSignIn,
+                onPressed: navigateToSignIn,
                 child: const Text('Sign In'),
               ),
             ),
