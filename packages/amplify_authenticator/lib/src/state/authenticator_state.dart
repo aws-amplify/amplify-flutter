@@ -21,21 +21,21 @@ import 'package:flutter/material.dart';
 @visibleForTesting
 typedef BlocEventPredicate = bool Function(AuthState state);
 
-/// A View Model for the Amplify Authenticator.
+/// State of the Amplify Authenticator.
 ///
 /// Contains the form data for the Authenticator (username, password, etc.) as
 /// well as methods to sign the user in or trasistion to a new Authentication State.
 ///
 /// Intended to be used within custom UIs for the Amplify Authenticator.
 class AuthenticatorState extends ChangeNotifier {
-  AuthenticatorState(this._authBloc, this._formKey) {
+  AuthenticatorState(this._authBloc) {
     // Listen to step changes to know when to clear the form. Calling `clean`
     // from the forms' dispose method is unreliable since it may be called after
     // the transitioning form's first build is called.
     //
     // When auth flow is complete, reset entirety of the view model state.
     _authBloc.stream.distinct().listen((event) {
-      resetFormKey();
+      _resetFormKey();
       resetCode();
       if (event is AuthenticatedState) {
         _resetAttributes();
@@ -43,8 +43,14 @@ class AuthenticatorState extends ChangeNotifier {
     });
   }
 
+  GlobalKey<FormState> _formKey = GlobalKey();
+
+  /// The key used for all Authenticator forms
+  GlobalKey<FormState> get formKey => _formKey;
+
   final StateMachineBloc _authBloc;
 
+  /// The current step of the authentication flow (signIn, signUp, confirmSignUp, etc.)
   AuthenticatorStep get currentStep {
     AuthState state = _authBloc.currentState;
     if (state is LoadingState) {
@@ -56,19 +62,17 @@ class AuthenticatorState extends ChangeNotifier {
     }
   }
 
-  final GlobalKey<FormState> _formKey;
+  /// Indicates if the form is currently in a loading state
+  ///
+  /// Will be set to true when an asynchrounous action (such as login) in
+  /// initiated, and will be set to false when that asynchrounous action completes
+  bool get isBusy => _isBusy;
 
   bool _isBusy = false;
   void _setIsBusy(bool busy) {
     _isBusy = busy;
     notifyListeners();
   }
-
-  /// Indicates if the form is currently in a loading state
-  ///
-  /// Will be set to true when an asynchrounous action (such as login) in
-  /// initiated, and will be set to false when that asynchrounous action completes
-  bool get isBusy => _isBusy;
 
   /// The value for the username form field
   ///
@@ -447,10 +451,8 @@ class AuthenticatorState extends ChangeNotifier {
     _authAttributes.clear();
   }
 
-  void resetFormKey() {
-    _formKey.currentState?.reset();
-    // TODO: determine if key actually needs to be set to a new value
-    // _formKey = GlobalKey<FormState>();
+  void _resetFormKey() {
+    _formKey = GlobalKey<FormState>();
   }
 
   void resetCode() {

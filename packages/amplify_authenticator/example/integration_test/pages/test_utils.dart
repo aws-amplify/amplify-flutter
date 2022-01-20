@@ -42,7 +42,7 @@ Future<void> nextBlocEvent(
   Duration timeout = const Duration(seconds: 5),
 }) async {
   final inheritedViewModel = tester.widget<InheritedAuthenticatorState>(
-    find.byKey(keyInheritedAuthViewModel),
+    find.byKey(keyInheritedAuthenticatorState),
   );
   await inheritedViewModel.state.nextBlocEvent(where: where).timeout(timeout);
   await tester.pumpAndSettle();

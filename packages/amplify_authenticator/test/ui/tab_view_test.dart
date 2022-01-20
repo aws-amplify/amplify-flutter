@@ -28,7 +28,6 @@ void main() {
 
   final binding = TestWidgetsFlutterBinding.ensureInitialized()
       as TestWidgetsFlutterBinding;
-  final GlobalKey<FormState> _formKey = GlobalKey();
 
   Widget buildTabView({
     ThemeData? lightTheme,
@@ -48,7 +47,7 @@ void main() {
               : AmplifyConfig.fromJson(jsonDecode(amplifyConfig)),
           useAmplifyTheme: useAmplifyTheme,
           child: InheritedAuthenticatorState(
-            state: AuthenticatorState(MockBloc(), _formKey),
+            state: AuthenticatorState(MockBloc()),
             child: InheritedStrings(
               resolver: const AuthStringResolver(),
               child: InheritedForms(
@@ -61,7 +60,6 @@ void main() {
                 confirmResetPasswordForm: const ConfirmResetPasswordForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),
-                formKey: _formKey,
                 child: const RepaintBoundary(
                   child: AuthenticatorTabView(
                     key: keyTabView,

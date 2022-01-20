@@ -132,7 +132,7 @@ const keyCountrySearchField = Key('countrySearchField');
 
 // Inherited keys
 
-const keyInheritedAuthViewModel = Key('inheritedAuthenticatorState');
+const keyInheritedAuthenticatorState = Key('inheritedAuthenticatorState');
 const keyInheritedAuthBloc = Key('inheritedAuthBloc');
 
 // Banner Keys
