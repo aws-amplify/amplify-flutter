@@ -49,20 +49,20 @@ class AuthenticatorException implements Exception {
 typedef ExceptionHandler = void Function(AuthenticatorException);
 
 /// {@template amplify_authenticator.exception_banner_location}
-/// The location on the step to show error banners.
+/// The location on the screen to show error banners.
 ///
 /// Defaults to `auto`.
 /// {@endtemplate}
 enum ExceptionBannerLocation {
-  /// Decide based off step size which to show. Smaller devices including
+  /// Decide based off screen size which to show. Smaller devices including
   /// mobile phones will use [SnackBar]s, while larger devices such
   /// as tablets will use [MaterialBanner]s.
   auto,
 
-  /// Show [MaterialBanner]s at the top of the step.
+  /// Show [MaterialBanner]s at the top of the screen.
   top,
 
-  /// Show [SnackBar]s at the bottom of the step.
+  /// Show [SnackBar]s at the bottom of the screen.
   bottom,
 
   /// Do not show banners for exceptions. Exceptions can still be handled
