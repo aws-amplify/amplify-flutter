@@ -31,7 +31,34 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-/// Base class for Authenticator forms.
+/// Base class for Authenticator forms and ancestor of all Authenticator
+/// form fields.
+///
+/// {@template amplify_authenticator.authenticator_form_builder}
+/// When building custom authenticator forms composed of prebuilt
+/// form field widgets, AuthenticatorForm should be an ancestor of
+/// all field widgets.
+///
+/// ```dart
+/// AuthenticatorForm(
+///   child: Column(
+///     children: [
+///       // prebuilt form field widget
+///       SignUpFormField.username(),
+///       SignUpFormField.email(required: true),
+///       SignUpFormField.password(),
+///       SignUpFormField.passwordConfirmation(),
+///
+///       // custom field for a terms and conditions checkbox
+///       TermsAndConditionsCheckBox(),
+///
+///       // prebuilt sign up button from amplify_authenticator package
+///       const SignUpButton(),
+///     ],
+///   ),
+/// ),
+/// ```
+/// {@endtemplate}
 ///
 /// See also:
 /// - [SignUpForm]
@@ -44,6 +71,7 @@ import 'package:flutter/rendering.dart';
 /// - [VerifyUserForm]
 /// - [ConfirmVerifyUserForm]
 class AuthenticatorForm extends AuthenticatorComponent<AuthenticatorForm> {
+  /// {@macro amplify_authenticator.authenticator_form_builder}
   const AuthenticatorForm({
     Key? key,
     required this.child,
