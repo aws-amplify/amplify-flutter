@@ -228,13 +228,62 @@ export 'src/widgets/form_field.dart'
 /// )
 /// ```
 /// {@endtemplate}
+///
+/// ## Custom UI
+///
+/// {@template amplify_authenticator.custom_builder}
+/// The authenticator provides prebuilt widgets for each step
+/// of the authentication flow based on the amplify config for
+/// your app. Some customizations can be acheived by providing
+/// custom forms (see [signInForm] and [signUpForm]) or through
+/// theming. To fully customize the authenticator UI,
+/// you can provide a custom builder method.
+///
+/// This can be used to change the layout of the authenticator,
+/// add your app's logo to certain views, add completely custom
+/// form fields (such as a terms and conditions field), and much
+/// more.
+///
+/// The example below shows a custom sign up view with an app
+/// bar and a flutter logo.
+///
+/// ```dart
+/// return Authenticator(
+///   authenticatorBuilder: (context, state) {
+///     switch (state.currentStep) {
+///       case AuthenticatorStep.signIn:
+///         return Scaffold(
+///           appBar: AppBar(title: const Text('My App')),
+///           body: Padding(
+///             padding: const EdgeInsets.all(16),
+///             child: Column(
+///               children: [
+///                 // flutter logo
+///                 const Center(child: FlutterLogo(size: 100)),
+///                 // prebuilt sign in form from amplify_authenticator package
+///                 SignInForm(),
+///               ],
+///             ),
+///           ),
+///         );
+///       default:
+///         return null;
+///     }
+///   },
+///   child: MaterialApp(
+///     builder: Authenticator.builder(),
+///     home: const RouteA(),
+///   ),
+/// );
+/// ```
+/// {@endtemplate}
 class Authenticator extends StatefulWidget {
   /// {@macro amplify_authenticator.authenticator}
   Authenticator({
     Key? key,
-    SignInForm? signInForm,
-    SignUpForm? signUpForm,
-    ConfirmSignInNewPasswordForm? confirmSignInNewPasswordForm,
+    this.signInForm,
+    this.signUpForm,
+    this.confirmSignInNewPasswordForm,
     this.stringResolver = const AuthStringResolver(),
     required this.child,
     this.useAmplifyTheme = false,
@@ -242,7 +291,7 @@ class Authenticator extends StatefulWidget {
     this.exceptionBannerLocation = ExceptionBannerLocation.auto,
     this.preferPrivateSession = false,
     this.initialStep = AuthenticatorStep.signIn,
-    AuthenticatorBuilder? builder,
+    this.authenticatorBuilder,
   }) : super(key: key) {
     // ignore: prefer_asserts_with_message
     assert(() {
@@ -256,11 +305,6 @@ class Authenticator extends StatefulWidget {
       }
       return true;
     }());
-    this.signInForm = signInForm ?? SignInForm();
-    this.signUpForm = signUpForm ?? SignUpForm();
-    this.confirmSignInNewPasswordForm =
-        confirmSignInNewPasswordForm ?? ConfirmSignInNewPasswordForm();
-    _authenticatorBuilder = builder;
   }
 
   /// Wraps user-defined navigators for integration with [MaterialApp] and
@@ -294,18 +338,50 @@ class Authenticator extends StatefulWidget {
   /// Defaults to `false`.
   final bool useAmplifyTheme;
 
-  late final AuthenticatorBuilder? _authenticatorBuilder;
-
-  /// The form displayed when promted for a password change upon signing in.
-  late final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
+  /// A method to build a custom UI for the autenticator
+  ///
+  /// {@macro amplify_authenticator.custom_builder}
+  final AuthenticatorBuilder? authenticatorBuilder;
 
   /// The form displayed during sign in.
-  late final SignInForm signInForm;
+  ///
+  /// By default, the authenticator will use the amplify config
+  /// to build this view with the required attributes and validation.
+  ///
+  /// To customize which fields are displayed, the order they are
+  /// displayed in, or the field validation, provide a custom
+  /// sign in form via SignInForm.custom().
+  ///
+  /// To fully customize the UI, see authenticatorBuilder
+  final SignInForm? signInForm;
 
   /// The form displayed during sign up.
   ///
+  /// By default, the authenticator will use the amplify config
+  /// to build this view with the required sign up attributes.
+  ///
+  /// To customize which fields are displayed, the order they are
+  /// displayed in, or the field validation, provide a custom
+  /// sign up form via SignUpForm.custom().
+  ///
   /// {@macro amplify_authenticator.custom_sign_up_form}
-  late final SignUpForm signUpForm;
+  ///
+  /// To fully customize the UI, see authenticatorBuilder
+  final SignUpForm? signUpForm;
+
+  /// The form displayed when promted for a password change upon signing in.
+  ///
+  /// This will be shown to users that are in the state `FORCE_CHANGE_PASSWORD`.
+  /// By default, the form will require the user to enter and confirm a new password.
+  ///
+  /// Users that have been created via the admin console will be asked to change their
+  /// password upon first login. However, they may not have been created with all
+  /// the required attributes (such as an email address, for example). This form
+  /// can be customized to include any required attributes.
+  ///
+  /// To customize which fields are displayed, provide a custom
+  /// form via ConfirmSignInNewPasswordForm.custom().
+  final ConfirmSignInNewPasswordForm? confirmSignInNewPasswordForm;
 
   /// An optional, user-defined string resolver, used for localizing the
   /// Authenticator or overriding default messages.
@@ -353,6 +429,8 @@ class Authenticator extends StatefulWidget {
     properties.add(DiagnosticsProperty<bool>(
         'preferPrivateSession', preferPrivateSession));
     properties.add(EnumProperty<AuthenticatorStep>('initialStep', initialStep));
+    properties.add(ObjectFlagProperty<AuthenticatorBuilder?>.has(
+        'authenticatorBuilder', authenticatorBuilder));
   }
 }
 
@@ -561,16 +639,17 @@ class _AuthenticatorState extends State<Authenticator> {
           key: keyInheritedAuthViewModel,
           state: _authenticatorState,
           child: InheritedAuthenticatorBuilder(
-            authenticatorBuilder: widget._authenticatorBuilder,
+            authenticatorBuilder: widget.authenticatorBuilder,
             child: InheritedStrings(
               resolver: widget.stringResolver,
               child: InheritedForms(
                 confirmSignInNewPasswordForm:
-                    widget.confirmSignInNewPasswordForm,
+                    widget.confirmSignInNewPasswordForm ??
+                        ConfirmSignInNewPasswordForm(),
                 resetPasswordForm: ResetPasswordForm(),
                 confirmResetPasswordForm: const ConfirmResetPasswordForm(),
-                signInForm: widget.signInForm,
-                signUpForm: widget.signUpForm,
+                signInForm: widget.signInForm ?? SignInForm(),
+                signUpForm: widget.signUpForm ?? SignUpForm(),
                 confirmSignUpForm: ConfirmSignUpForm(),
                 confirmSignInMFAForm: ConfirmSignInMFAForm(),
                 verifyUserForm: VerifyUserForm(),
