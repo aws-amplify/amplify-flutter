@@ -27,6 +27,10 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
   /// Interceptors for the protocol.
   List<HttpInterceptor> get interceptors;
 
+  /// Resolves the error type to use based off the operation's supported types
+  /// and the response from the server.
+  Future<String?> resolveErrorType(AWSStreamedHttpResponse response);
+
   @override
   HttpClient getClient(Uri baseUri, Input input) {
     return HttpClient.v1(baseUri);
@@ -66,7 +70,7 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
     if (OutputPayload == List<int>) {
       return body;
     } else if (OutputPayload == String) {
-      return utf8.decode(body);
+      return body.isEmpty ? '' : utf8.decode(body);
     }
     return await wireSerializer.deserialize(body, specifiedType: specifiedType);
   }

@@ -29,7 +29,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
 
   /// Builds the output from the [payload] and metadata from the HTTP
   /// [response].
-  Output buildOutput(OutputPayload payload, HttpResponse response);
+  Output buildOutput(OutputPayload payload, AWSStreamedHttpResponse response);
 
   @override
   Iterable<HttpProtocol<InputPayload, Input, OutputPayload, Output>>
@@ -104,32 +104,62 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     return baseRequest;
   }
 
-  /// Sends the request using [fn].
-  Future<HttpResponse> _send(
-    Future<HttpResponse> Function() fn, {
-    required HttpRequest request,
+  @visibleForTesting
+  Future<Output> innerSend({
+    required HttpClient client,
+    required AWSStreamedHttpRequest httpRequest,
+    required int successCode,
     required HttpProtocol protocol,
+  }) {
+    const r = RetryOptions();
+    return r.retry(
+      () async {
+        final response = await client.send(httpRequest);
+        return deserializeOutput(
+          protocol: protocol,
+          response: response,
+          successCode: successCode,
+        );
+      },
+      retryIf: (e) {
+        return e is SmithyException && e.isRetryable;
+      },
+      onRetry: (e) {
+        debugNumRetries++;
+        print('Retrying $e ($debugNumRetries)');
+      },
+    );
+  }
+
+  @visibleForTesting
+  Future<Output> deserializeOutput({
+    required HttpProtocol protocol,
+    required AWSStreamedHttpResponse response,
+    required int successCode,
   }) async {
-    final response = await fn();
-    if (response.statusCode != request.successCode) {
-      final ErrorKind kind;
-      if (response.statusCode >= 400 && response.statusCode <= 499) {
-        kind = ErrorKind.client;
-      } else {
-        kind = ErrorKind.server;
+    if (response.statusCode != successCode) {
+      Type? errorType;
+      final resolvedType = await protocol.resolveErrorType(response);
+      if (resolvedType != null) {
+        errorType =
+            errorTypes.firstWhere((t) => t.shapeId.shape == resolvedType).type;
       }
-      final errorCfg = errorTypes.firstWhereOrNull(
-            (el) => el.statusCode == response.statusCode,
-          ) ??
-          errorTypes.firstWhereOrNull(
-              (el) => el.kind == kind && el.statusCode == null);
-      final errorType = errorCfg?.type ?? SmithyException;
-      throw protocol.deserialize(
+      errorType ??= errorTypes
+          .singleWhereOrNull((t) => t.statusCode == response.statusCode)
+          ?.type;
+      errorType ??= SmithyException;
+      throw await protocol.deserialize(
         response.body,
         specifiedType: FullType(errorType),
       ) as SmithyException;
     }
-    return response;
+    final output = await protocol.deserialize(response.body,
+        specifiedType: FullType(OutputPayload));
+    if (output is Output) {
+      return output;
+    } else {
+      return buildOutput(output as OutputPayload, response);
+    }
   }
 
   @override
@@ -151,27 +181,11 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       protocol,
       input,
     );
-    const r = RetryOptions();
-    final response = await r.retry(
-      () => _send(
-        () => client!.send(httpRequest),
-        request: request,
-        protocol: protocol,
-      ),
-      retryIf: (e) {
-        return e is SmithyException && e.isRetryable;
-      },
-      onRetry: (e) {
-        debugNumRetries++;
-        print('Retrying $e ($debugNumRetries)');
-      },
+    return innerSend(
+      client: client,
+      protocol: protocol,
+      httpRequest: httpRequest,
+      successCode: request.successCode,
     );
-    final output = protocol.deserialize(response.body,
-        specifiedType: FullType(OutputPayload));
-    if (output is Output) {
-      return output as Output;
-    } else {
-      return buildOutput(output as OutputPayload, response);
-    }
   }
 }

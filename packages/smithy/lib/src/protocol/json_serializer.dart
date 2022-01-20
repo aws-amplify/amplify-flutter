@@ -10,7 +10,9 @@ class JsonSerializer implements FullSerializer<List<int>> {
 
   @override
   Object? deserialize(List<int> data, {FullType? specifiedType}) {
-    final decoded = jsonDecode(utf8.decode(data)) as Object?;
+    final decoded = data.isEmpty
+        ? const <Object?, Object?>{}
+        : jsonDecode(utf8.decode(data)) as Object?;
     return _serializers.deserialize(
       decoded,
       specifiedType: specifiedType ?? FullType.unspecified,

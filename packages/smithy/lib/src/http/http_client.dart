@@ -8,7 +8,7 @@ abstract class HttpClient implements Client {
   factory HttpClient.v1(Uri baseUri, {http.Client? baseClient}) =
       _Http1_1Client;
 
-  Future<HttpResponse> send(AWSStreamedHttpRequest request);
+  Future<AWSStreamedHttpResponse> send(AWSStreamedHttpRequest request);
 
   /// The base URI or host for this client to use in requests.
   Uri get baseUri;
@@ -29,12 +29,13 @@ class _Http1_1Client implements HttpClient {
   final Uri baseUri;
 
   @override
-  Future<HttpResponse> send(AWSStreamedHttpRequest request) async {
+  Future<AWSStreamedHttpResponse> send(AWSStreamedHttpRequest request) async {
     final response = await request.send(baseClient);
-    return HttpResponse((b) => b
-      ..statusCode = response.statusCode
-      ..body = response.stream
-      ..headers.addAll(response.headers));
+    return AWSStreamedHttpResponse(
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: response.stream,
+    );
   }
 
   @override

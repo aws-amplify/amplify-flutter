@@ -19,19 +19,23 @@ class RetryConfig with AWSEquatable<RetryConfig> {
 @immutable
 class SmithyError with AWSEquatable<SmithyError> {
   const SmithyError(
+    this.shapeId,
     this.kind,
     this.type, {
     this.retryConfig,
-    this.statusCode,
-  });
+    int? statusCode,
+  }) : _statusCode = statusCode;
 
+  final ShapeId shapeId;
   final ErrorKind kind;
   final Type type;
   final RetryConfig? retryConfig;
-  final int? statusCode;
+
+  final int? _statusCode;
+  int get statusCode => _statusCode ?? (kind == ErrorKind.client ? 400 : 500);
 
   @override
-  List<Object?> get props => [kind, type, retryConfig, statusCode];
+  List<Object?> get props => [shapeId, kind, type, retryConfig, statusCode];
 }
 
 abstract class HttpRequest implements Built<HttpRequest, HttpRequestBuilder> {
