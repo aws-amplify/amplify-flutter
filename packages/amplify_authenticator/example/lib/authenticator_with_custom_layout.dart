@@ -1,3 +1,4 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
 
@@ -11,14 +12,7 @@ import 'main.dart';
 // The custom views for sign up & sign in add an app logo and change the
 // navigation from a TabBar to buttons at the bottom of the screen
 class AuthenticatorWithCustomLayout extends StatelessWidget {
-  const AuthenticatorWithCustomLayout({
-    Key? key,
-    // required this.state,
-    // required this.child,
-  }) : super(key: key);
-
-  // final AuthenticatorState state;
-  // final Widget child;
+  const AuthenticatorWithCustomLayout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +40,20 @@ class AuthenticatorWithCustomLayout extends StatelessWidget {
         }
       },
       child: MaterialApp(
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
+        theme: ThemeData.from(
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.deepPurple,
+            backgroundColor: Colors.white,
+            brightness: Brightness.light,
+          ),
+        ),
+        darkTheme: ThemeData.from(
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.deepPurple,
+            backgroundColor: Colors.black,
+            brightness: Brightness.dark,
+          ),
+        ),
         themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
         builder: Authenticator.builder(),
@@ -120,9 +126,19 @@ class SignUpView extends StatelessWidget {
               SignUpFormField.password(),
               SignUpFormField.passwordConfirmation(),
 
-              // custom field for a temrs and conditions checkbox which included
-              // form validation
-              TermsAndConditionsCheckBox(),
+              // custom field for a terms and conditions checkbox
+              //
+              // this will set a custom user attribute named `custom:terms-and-conditions`
+              // to "true" if the checkbox has been checked
+              //
+              // custom form validation will prevent sign up if the checkbox is not
+              // checked, and a custom error message will be displayed.
+              TermsAndConditionsCheckBox(
+                onChanged: (value) => state.setCustomAttribute(
+                  const CognitoUserAttributeKey.custom('terms-and-conditions'),
+                  value.toString(),
+                ),
+              ),
 
               // prebuilt sign up button from amplify_authenticator package
               const SignUpButton(),
@@ -186,8 +202,10 @@ class NavigateToSignInButton extends StatelessWidget {
 }
 
 class TermsAndConditionsCheckBox extends FormField<bool> {
+  final void Function(bool?) onChanged;
   TermsAndConditionsCheckBox({
     Key? key,
+    required this.onChanged,
   }) : super(
           key: key,
           validator: (value) {
@@ -199,9 +217,30 @@ class TermsAndConditionsCheckBox extends FormField<bool> {
           builder: (FormFieldState<bool> state) {
             return CheckboxListTile(
               dense: true,
-              title: const Text('I agree to the terms and conditions'),
+              title: Row(
+                children: [
+                  const Text('I agree to the'),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                    ),
+                    onPressed: () {
+                      Navigator.of(state.context).push(
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const TermsAndConditionsView(),
+                        ),
+                      );
+                    },
+                    child: const Text('terms and conditions'),
+                  )
+                ],
+              ),
               value: state.value,
-              onChanged: state.didChange,
+              onChanged: (value) {
+                onChanged(value);
+                state.didChange(value);
+              },
               subtitle: state.hasError
                   ? Builder(
                       builder: (BuildContext context) => Text(
@@ -214,4 +253,32 @@ class TermsAndConditionsCheckBox extends FormField<bool> {
             );
           },
         );
+}
+
+class TermsAndConditionsView extends StatelessWidget {
+  const TermsAndConditionsView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Terms and Conditions'),
+      ),
+      body: const SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Text(
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+            'Nullam velit elit, porttitor luctus scelerisque non, venenatis ut nunc. '
+            'Cras mollis tellus tellus, ac convallis leo consectetur vitae. '
+            'Phasellus mollis magna massa, pretium dapibus nisi suscipit eget. '
+            'Nulla a blandit felis. Nulla convallis elementum mollis. Aliquam viverra velit vel hendrerit lacinia. '
+            'Nulla accumsan molestie nibh sit amet consectetur. Phasellus eros massa, facilisis sit amet nunc id, tempus finibus arcu.',
+          ),
+        ),
+      ),
+    );
+  }
 }
