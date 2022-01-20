@@ -599,11 +599,13 @@ class _InheritedAuthenticatorBuilder extends StatelessWidget {
         context,
         listen: true,
       );
-      return authenticatorBuilder(
+      final customAuthenticator = authenticatorBuilder(
         context,
         authenticatorState,
-        authenticatorScreen,
       );
+      if (customAuthenticator != null) {
+        return customAuthenticator;
+      }
     }
 
     return authenticatorScreen;

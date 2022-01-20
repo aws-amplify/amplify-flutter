@@ -18,7 +18,7 @@ class AuthenticatorWithOnboarding extends StatelessWidget {
       //
       // This example only customizes the onboarding step. All other steps
       // will fallback to the prebuilt authenticator
-      builder: (context, state, child) {
+      builder: (context, state) {
         switch (state.currentStep) {
           case AuthenticatorStep.onboarding:
             return OnboardingView(
@@ -26,7 +26,9 @@ class AuthenticatorWithOnboarding extends StatelessWidget {
               goToSignUp: state.goToSignUp,
             );
           default:
-            return child;
+            // returning null will default to the prebuilt authenticator for
+            // all steps other than onboarding
+            return null;
         }
       },
       child: MaterialApp(

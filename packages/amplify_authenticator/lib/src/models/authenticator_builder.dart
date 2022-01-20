@@ -19,8 +19,7 @@ import 'package:flutter/widgets.dart';
 /// A method that builds a custom authenticator widget
 /// bases on the current AuthenticatorState and the prebuilt
 /// authenticator screen
-typedef AuthenticatorBuilder = Widget Function(
+typedef AuthenticatorBuilder = Widget? Function(
   BuildContext,
   AuthenticatorState,
-  Widget,
 );

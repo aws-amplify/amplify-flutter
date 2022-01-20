@@ -28,15 +28,16 @@ class AuthenticatorWithCustomLayout extends StatelessWidget {
       // builder. If currentStep is AuthenticatorStep.authenticated, this will
       // be the material app. Otherwise this will be a prebuilt widget from
       // amplify_authenticator to handle the current AuthenticatorStep
-      builder: (context, state, child) {
+      builder: (context, state) {
         switch (state.currentStep) {
           case AuthenticatorStep.signIn:
             return SignInView(state: state);
           case AuthenticatorStep.signUp:
             return SignUpView(state: state);
           default:
-            // return the prebuilt authenticator step for all other steps
-            return child;
+            // returning null will default to the prebuilt authenticator for
+            // all steps other than signIn and signUp
+            return null;
         }
       },
       child: MaterialApp(
