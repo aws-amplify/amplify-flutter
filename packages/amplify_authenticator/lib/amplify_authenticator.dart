@@ -257,7 +257,7 @@ class Authenticator extends StatefulWidget {
       return true;
     }());
     this.signInForm = signInForm ?? SignInForm();
-    this.signUpForm = signUpForm ?? SignUpForm.custom(fields: const []);
+    this.signUpForm = signUpForm ?? SignUpForm();
     this.confirmSignInNewPasswordForm =
         confirmSignInNewPasswordForm ?? ConfirmSignInNewPasswordForm();
     _authenticatorBuilder = builder;
@@ -361,7 +361,7 @@ class _AuthenticatorState extends State<Authenticator> {
 
   final AuthService _authService = AmplifyAuthService();
   late final StateMachineBloc _stateMachineBloc;
-  late final AuthenticatorState _viewModel;
+  late final AuthenticatorState _authenticatorState;
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
   late final StreamSubscription<MessageResolverKey> _infoSub;
   late final StreamSubscription<AuthState> _successSub;
@@ -381,7 +381,7 @@ class _AuthenticatorState extends State<Authenticator> {
       preferPrivateSession: widget.preferPrivateSession,
       initialStep: widget.initialStep,
     )..add(const AuthLoad());
-    _viewModel = AuthenticatorState(_stateMachineBloc, _formKey);
+    _authenticatorState = AuthenticatorState(_stateMachineBloc, _formKey);
     _subscribeToExceptions();
     _subscribeToInfoMessages();
     _subscribeToSuccessEvents();
@@ -559,7 +559,7 @@ class _AuthenticatorState extends State<Authenticator> {
         useAmplifyTheme: widget.useAmplifyTheme,
         child: InheritedAuthenticatorState(
           key: keyInheritedAuthViewModel,
-          state: _viewModel,
+          state: _authenticatorState,
           child: InheritedAuthenticatorBuilder(
             authenticatorBuilder: widget._authenticatorBuilder,
             child: InheritedStrings(
