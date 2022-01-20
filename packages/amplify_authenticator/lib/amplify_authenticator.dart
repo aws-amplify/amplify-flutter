@@ -581,24 +581,29 @@ class _InheritedAuthenticatorBuilder extends StatelessWidget {
 
   Widget getAuthenticatorScreen({
     required BuildContext context,
-    required AuthState state,
+    required AuthState authState,
     AuthenticatorBuilder? authenticatorBuilder,
   }) {
     final Widget authenticatorScreen;
-    if (state is UnauthenticatedState) {
-      authenticatorScreen = AuthenticatorScreen(step: state.step);
-    } else if (state is LoadingState) {
+    if (authState is UnauthenticatedState) {
+      authenticatorScreen = AuthenticatorScreen(step: authState.step);
+    } else if (authState is LoadingState) {
       authenticatorScreen = const LoadingScreen();
     } else {
       authenticatorScreen = child;
     }
 
-    if (authenticatorBuilder != null) {
-      final AuthenticatorState _viewModel = InheritedAuthenticatorState.of(
+    if (authState is! AuthenticatedState && authenticatorBuilder != null) {
+      final AuthenticatorState authenticatorState =
+          InheritedAuthenticatorState.of(
         context,
         listen: true,
       );
-      return authenticatorBuilder(context, _viewModel, authenticatorScreen);
+      return authenticatorBuilder(
+        context,
+        authenticatorState,
+        authenticatorScreen,
+      );
     }
 
     return authenticatorScreen;
@@ -618,18 +623,18 @@ class _InheritedAuthenticatorBuilder extends StatelessWidget {
       child: StreamBuilder(
         stream: stateMachineBloc.stream,
         builder: (context, AsyncSnapshot<AuthState> snapshot) {
-          final state = snapshot.data ?? const LoadingState();
+          final authState = snapshot.data ?? const LoadingState();
 
           final Widget authenticatorScreen = getAuthenticatorScreen(
             context: context,
             authenticatorBuilder: authenticatorBuilder,
-            state: state,
+            authState: authState,
           );
 
           return Localizations.override(
             context: context,
             delegates: AuthenticatorLocalizations.localizationsDelegates,
-            child: builder(state, userAppTheme, authenticatorScreen),
+            child: builder(authState, userAppTheme, authenticatorScreen),
           );
         },
       ),
