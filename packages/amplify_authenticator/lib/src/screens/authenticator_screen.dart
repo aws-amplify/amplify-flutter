@@ -15,7 +15,7 @@
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
-import 'package:amplify_authenticator/src/state/authenticator_state.dart';
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
@@ -129,9 +129,10 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
   ) {
     final titleResolver = stringResolver.titles;
     final form = InheritedForms.of(context)[step];
+    final padding = InheritedConfig.of(context).padding;
 
     return Padding(
-      padding: const EdgeInsets.all(AuthenticatorContainerConstants.padding),
+      padding: padding,
       child: Column(
         children: <Widget>[
           Text(

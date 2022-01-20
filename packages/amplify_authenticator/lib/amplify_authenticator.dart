@@ -292,6 +292,7 @@ class Authenticator extends StatefulWidget {
     this.preferPrivateSession = false,
     this.initialStep = AuthenticatorStep.signIn,
     this.authenticatorBuilder,
+    this.padding = const EdgeInsets.all(32),
   }) : super(key: key) {
     // ignore: prefer_asserts_with_message
     assert(() {
@@ -337,6 +338,9 @@ class Authenticator extends StatefulWidget {
   ///
   /// Defaults to `false`.
   final bool useAmplifyTheme;
+
+  // Padding around each authenticator view
+  final EdgeInsets padding;
 
   /// A method to build a custom UI for the autenticator
   ///
@@ -431,6 +435,7 @@ class Authenticator extends StatefulWidget {
     properties.add(EnumProperty<AuthenticatorStep>('initialStep', initialStep));
     properties.add(ObjectFlagProperty<AuthenticatorBuilder?>.has(
         'authenticatorBuilder', authenticatorBuilder));
+    properties.add(DiagnosticsProperty<EdgeInsets>('padding', padding));
   }
 }
 
@@ -633,6 +638,7 @@ class _AuthenticatorState extends State<Authenticator> {
       child: InheritedConfig(
         amplifyConfig: _config,
         useAmplifyTheme: widget.useAmplifyTheme,
+        padding: widget.padding,
         child: InheritedAuthenticatorState(
           key: keyInheritedAuthenticatorState,
           state: _authenticatorState,

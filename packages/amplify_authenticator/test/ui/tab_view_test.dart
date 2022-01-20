@@ -46,6 +46,7 @@ void main() {
               ? null
               : AmplifyConfig.fromJson(jsonDecode(amplifyConfig)),
           useAmplifyTheme: useAmplifyTheme,
+          padding: const EdgeInsets.all(32),
           child: InheritedAuthenticatorState(
             state: AuthenticatorState(MockBloc()),
             child: InheritedStrings(
