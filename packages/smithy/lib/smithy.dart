@@ -46,6 +46,7 @@ export 'src/serialization/serializer.dart';
 export 'src/serialization/struct.dart';
 export 'src/serialization/serializers/big_int_serializer.dart';
 export 'src/serialization/serializers/blob_serializer.dart';
+export 'src/serialization/serializers/double_serializer.dart';
 export 'src/serialization/serializers/timestamp_serializer.dart';
 export 'src/serialization/serializers/unit_serializer.dart';
 export 'src/serialization/xml/xml_plugin.dart';

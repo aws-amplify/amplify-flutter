@@ -1,6 +1,5 @@
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart';
-import 'package:smithy_ast/smithy_ast.dart';
 
 /// A class which handles serialization/deserialization of [Timestamp] objects
 /// using the predefined formats specified by [TimestampFormat].
@@ -36,7 +35,7 @@ class TimestampSerializer implements PrimitiveSerializer<DateTime> {
   }
 
   @override
-  Iterable<Type> get types => [Timestamp, DateTime];
+  Iterable<Type> get types => [Timestamp];
 
   @override
   String get wireName => 'Timestamp';
