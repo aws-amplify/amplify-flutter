@@ -178,8 +178,8 @@ class _MyAppState extends State<MyApp> {
   //   return const AuthenticatorWithCustomLayout();
   // }
 
-  // Below is another example of a custom authenticator, with more
-  // customization, including custom forms.
+  // Below is another example of a custom authenticator, with a custom
+  // onboarding widget
 
   // @override
   // Widget build(BuildContext context) {

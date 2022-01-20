@@ -144,7 +144,7 @@ class SignUpView extends StatelessWidget {
               // prebuilt sign up button from amplify_authenticator package
               const SignUpButton(),
 
-              Expanded(child: Container()),
+              const Spacer(),
 
               // custom button to take the user to sign in
               NavigateToSignInButton(state: state),
