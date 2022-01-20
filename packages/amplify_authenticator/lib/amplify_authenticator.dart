@@ -808,12 +808,15 @@ class AuthenticatedView extends StatelessWidget {
         if (state is AuthenticatedState) {
           return child;
         }
-        return Scaffold(
-          backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
-          body: SizedBox.expand(
-            child: child is AuthenticatorScreen
-                ? SingleChildScrollView(child: child)
-                : child,
+        return ScaffoldMessenger(
+          key: _AuthenticatorState.scaffoldMessengerKey,
+          child: Scaffold(
+            backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
+            body: SizedBox.expand(
+              child: child is AuthenticatorScreen
+                  ? SingleChildScrollView(child: child)
+                  : child,
+            ),
           ),
         );
       },
