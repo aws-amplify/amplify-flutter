@@ -1,19 +1,13 @@
-## 0.3.0-rc.4 (2022-01-12)
-
-## 0.3.0-rc.3 (2021-12-08)
+## 0.3.0 (2022-01-20)
 
 ### Fixes
 
-- fix (amplify_datastore): fix error map from ios (#1126) 
-
-## 0.3.0-rc.2 (2021-11-08)
+- fix(datastore): fix error map from ios (#1126)
 
 ### Features
 
 - feat: Add CustomType functionality (#847)
 - feat: Add ModelField ReadOnly support (#599)
-
-## 0.3.0-rc.1 (2021-09-24)
 
 ## 0.2.10 (2021-11-23)
 
@@ -45,6 +39,7 @@
 ## 0.2.5 (2021-10-14)
 
 ### Fixes
+
 - fix(datastore): Sync issues with owner-based auth
 - fix(datastore): Ensure attaching nested model schema
 - fix(datastore): Timeout period not increasing
