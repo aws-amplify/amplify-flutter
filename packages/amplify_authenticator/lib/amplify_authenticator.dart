@@ -666,16 +666,17 @@ class _AuthenticatorState extends State<Authenticator> {
 }
 
 // A widget that listens for changes in multiple inherited widgets
-// and rebuild based on the provided builder.
-class _InheritedAuthenticatorBuilder extends StatelessWidget {
-  const _InheritedAuthenticatorBuilder({
+// and rebuilds based on the provided builder, which accepts the current
+// AuthState.
+class _AuthStateBuilder extends StatelessWidget {
+  const _AuthStateBuilder({
     Key? key,
     required this.child,
     required this.builder,
   }) : super(key: key);
 
   final Widget child;
-  final Widget Function(AuthState, ThemeData, Widget) builder;
+  final Widget Function(AuthState, Widget) builder;
 
   Widget getAuthenticatorScreen({
     required BuildContext context,
@@ -734,7 +735,7 @@ class _InheritedAuthenticatorBuilder extends StatelessWidget {
           return Localizations.override(
             context: context,
             delegates: AuthenticatorLocalizations.localizationsDelegates,
-            child: builder(authState, userAppTheme, authenticatorScreen),
+            child: builder(authState, authenticatorScreen),
           );
         },
       ),
@@ -744,9 +745,9 @@ class _InheritedAuthenticatorBuilder extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(ObjectFlagProperty<
-        Widget Function(AuthState state, ThemeData theme,
-            Widget child)>.has('builder', builder));
+    properties.add(
+        ObjectFlagProperty<Widget Function(AuthState state, Widget child)>.has(
+            'builder', builder));
   }
 }
 
@@ -761,19 +762,13 @@ class _AuthenticatorBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _InheritedAuthenticatorBuilder(
+    return _AuthStateBuilder(
       child: child,
-      builder: (state, theme, child) {
+      builder: (state, child) {
         return Navigator(
           onPopPage: (_, dynamic __) => true,
           pages: [
-            if (state is AuthenticatedState)
-              MaterialPage<void>(
-                child: Theme(
-                  data: theme,
-                  child: child,
-                ),
-              ),
+            if (state is AuthenticatedState) MaterialPage<void>(child: child),
             if (state is! AuthenticatedState)
               MaterialPage<void>(
                 child: ScaffoldMessenger(
@@ -807,11 +802,11 @@ class AuthenticatedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _InheritedAuthenticatorBuilder(
+    return _AuthStateBuilder(
       child: child,
-      builder: (state, theme, child) {
+      builder: (state, child) {
         if (state is AuthenticatedState) {
-          return Theme(data: theme, child: child);
+          return child;
         }
         return Scaffold(
           backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
