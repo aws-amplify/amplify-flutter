@@ -34,20 +34,18 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
 
   @override
   Stream<List<int>> serialize(Object? input, {FullType? specifiedType}) {
-    input as Input;
-    final payload = (input is HasPayload) ? input.getPayload() : input;
-    if (payload == null) {
+    if (input == null) {
       return const Stream.empty();
-    } else if (payload is String) {
-      return Stream.value(utf8.encode(payload));
-    } else if (payload is List<int>) {
-      return Stream.value(payload);
-    } else if (payload is Stream<List<int>>) {
-      return payload;
+    } else if (input is String) {
+      return Stream.value(utf8.encode(input));
+    } else if (input is List<int>) {
+      return Stream.value(input);
+    } else if (input is Stream<List<int>>) {
+      return input;
     } else {
       return Stream.fromFuture(() async {
         return await wireSerializer.serialize(
-          payload,
+          input,
           specifiedType: specifiedType,
         );
       }());

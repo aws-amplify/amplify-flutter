@@ -90,7 +90,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     final baseRequest = AWSStreamedHttpRequest(
       method: HttpMethod.values.byName(request.method.toLowerCase()),
       host: host,
-      path: path,
+      path: baseUri.resolve(path).path,
       body: body,
       queryParameters: queryParameters,
       headers: headers,
