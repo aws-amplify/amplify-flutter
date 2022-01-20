@@ -163,7 +163,7 @@ class _MyAppState extends State<MyApp> {
   //   );
   // }
 
-  // Providing a `builder` argument to Authenticator.builder, allows you to
+  // Providing a `builder` argument to Authenticator.builder allows you to
   // build a custom UI for the authenticator composed of a mix of
   // prebuilt widgets from the amplify_authenticator package, and widgets
   // you build yourself.
@@ -178,7 +178,7 @@ class _MyAppState extends State<MyApp> {
   //   return const AuthenticatorWithCustomLayout();
   // }
 
-  // Below is another example of a custom authenticator, with a more
+  // Below is another example of a custom authenticator, with more
   // customization, including custom forms.
 
   // @override
