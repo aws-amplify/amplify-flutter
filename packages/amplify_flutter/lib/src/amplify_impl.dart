@@ -15,6 +15,9 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io' show Platform;
+
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
@@ -37,6 +40,10 @@ part 'method_channel_amplify.dart';
 /// `Amplify` singleton object for making calls to methods of this class.
 class AmplifyClass extends PlatformInterface {
   AmplifyConfig? _config;
+
+  static void registerWith(Registrar registrar) {
+    throw UnimplementedError('registerWith is not implemented.');
+  }
 
   /// The Auth category.
   final AuthCategory Auth = const AuthCategory();

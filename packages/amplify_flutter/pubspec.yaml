@@ -17,6 +17,8 @@ dependencies:
   collection: ^1.15.0
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
   json_annotation: ^4.3.0
   meta: ^1.7.0
   plugin_platform_interface: ^2.0.0
@@ -70,3 +72,6 @@ flutter:
         pluginClass: Amplify
       ios:
         pluginClass: Amplify
+      web:
+        pluginClass: AmplifyRegistrar
+        fileName: amplify_flutter_registrant.dart
