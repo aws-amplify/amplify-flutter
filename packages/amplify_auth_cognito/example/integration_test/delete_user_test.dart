@@ -28,7 +28,7 @@ void main() {
 
   group('deleteUser (iOS)', () {
     setUpAll(() async {
-      await configureAuth(additionalConfigs: [
+      await configureAuth(additionalPlugins: [
         AmplifyAPI(),
       ]);
       await signOutUser();

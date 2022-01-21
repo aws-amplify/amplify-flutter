@@ -31,7 +31,7 @@ void main() {
 
   group('auth hub', () {
     setUpAll(() async {
-      await configureAuth(additionalConfigs: [
+      await configureAuth(additionalPlugins: [
         AmplifyAPI(),
       ]);
 

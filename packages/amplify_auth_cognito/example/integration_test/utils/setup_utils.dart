@@ -18,11 +18,11 @@ import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
 Future<void> configureAuth({
-  List<AmplifyPluginInterface> additionalConfigs = const [],
+  List<AmplifyPluginInterface> additionalPlugins = const [],
 }) async {
   if (!Amplify.isConfigured) {
     final authPlugin = AmplifyAuthCognito();
-    await Amplify.addPlugins([authPlugin, ...additionalConfigs]);
+    await Amplify.addPlugins([authPlugin, ...additionalPlugins]);
     await Amplify.configure(amplifyconfig);
   }
 }
