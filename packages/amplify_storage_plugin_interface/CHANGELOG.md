@@ -1,7 +1,7 @@
 ## 0.3.1 (2022-01-20)
 
 - chore: bump amplify-ios to 1.18.3
-- chore: bump amplify-android to 1.31.1
+- chore: bump amplify-android to 1.31.2
 
 ## 0.3.0 (2022-01-20)
 
