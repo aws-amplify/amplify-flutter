@@ -10,8 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_api: 0.3.0-rc.3
-  amplify_flutter: 0.3.0-rc.3
+  amplify_api: 0.3.1
+  amplify_flutter: 0.3.1
   stream_transform: ^2.0.0
 
 dev_dependencies:
