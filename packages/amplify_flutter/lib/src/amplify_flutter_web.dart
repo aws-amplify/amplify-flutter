@@ -13,9 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:html' as html;
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:amplify_flutter/src/amplify_impl.dart';
 
 /// An implementation of [Core] that uses method channels.
 class AmplifyFlutterWeb extends AmplifyClass {

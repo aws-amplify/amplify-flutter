@@ -17,8 +17,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io' show Platform;
 
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-
 import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
@@ -32,6 +30,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'amplify_hub.dart';
 import 'categories/amplify_categories.dart';
+import 'amplify_flutter_web.dart';
 
 part 'method_channel_amplify.dart';
 
@@ -40,10 +39,6 @@ part 'method_channel_amplify.dart';
 /// `Amplify` singleton object for making calls to methods of this class.
 class AmplifyClass extends PlatformInterface {
   AmplifyConfig? _config;
-
-  static void registerWith(Registrar registrar) {
-    throw UnimplementedError('registerWith is not implemented.');
-  }
 
   /// The Auth category.
   final AuthCategory Auth = const AuthCategory();
@@ -215,6 +210,13 @@ class AmplifyClass extends PlatformInterface {
     throw UnimplementedError('_configurePlatforms() has not been implemented.');
   }
 
+  static AmplifyClass getImplementation() {
+    if (kIsWeb) {
+      return AmplifyFlutterWeb();
+    }
+    return MethodChannelAmplify();
+  }
+
   /// Constructs a Core platform.
   /// Internal Use Only
   @protected
@@ -222,7 +224,11 @@ class AmplifyClass extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static AmplifyClass _instance = MethodChannelAmplify();
+  static AmplifyClass _instance = getImplementation();
+
+  static void registerWith(Registrar registrar) {
+    _instance = AmplifyFlutterWeb();
+  }
 
   /// The default instance of [AmplifyPlatform] to use.
   ///
