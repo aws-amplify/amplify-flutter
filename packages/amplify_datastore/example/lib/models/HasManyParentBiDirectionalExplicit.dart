@@ -21,16 +21,16 @@
 
 import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the HasOneModel type in your schema. */
+/// This is an auto generated class representing the HasManyParentBiDirectionalExplicit type in your schema.
 @immutable
-class HasOneModel extends Model {
-  static const classType = const _HasOneModelModelType();
+class HasManyParentBiDirectionalExplicit extends Model {
+  static const classType = _HasManyParentBiDirectionalExplicitModelType();
   final String id;
   final String? _name;
-  final String? _childID;
-  final ChildModel? _child;
+  final List<HasManyChildBiDirectionalExplicit>? _biDirectionalExplicitChildren;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -42,34 +42,12 @@ class HasOneModel extends Model {
     return id;
   }
 
-  String get name {
-    try {
-      return _name!;
-    } catch (e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+  String? get name {
+    return _name;
   }
 
-  String get childID {
-    try {
-      return _childID!;
-    } catch (e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
-  }
-
-  ChildModel? get child {
-    return _child;
+  List<HasManyChildBiDirectionalExplicit>? get biDirectionalExplicitChildren {
+    return _biDirectionalExplicitChildren;
   }
 
   TemporalDateTime? get createdAt {
@@ -80,29 +58,28 @@ class HasOneModel extends Model {
     return _updatedAt;
   }
 
-  const HasOneModel._internal(
+  const HasManyParentBiDirectionalExplicit._internal(
       {required this.id,
-      required name,
-      required childID,
-      child,
+      name,
+      biDirectionalExplicitChildren,
       createdAt,
       updatedAt})
       : _name = name,
-        _childID = childID,
-        _child = child,
+        _biDirectionalExplicitChildren = biDirectionalExplicitChildren,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory HasOneModel(
+  factory HasManyParentBiDirectionalExplicit(
       {String? id,
-      required String name,
-      required String childID,
-      ChildModel? child}) {
-    return HasOneModel._internal(
+      String? name,
+      List<HasManyChildBiDirectionalExplicit>? biDirectionalExplicitChildren}) {
+    return HasManyParentBiDirectionalExplicit._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
-        childID: childID,
-        child: child);
+        biDirectionalExplicitChildren: biDirectionalExplicitChildren != null
+            ? List<HasManyChildBiDirectionalExplicit>.unmodifiable(
+                biDirectionalExplicitChildren)
+            : biDirectionalExplicitChildren);
   }
 
   bool equals(Object other) {
@@ -112,11 +89,11 @@ class HasOneModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is HasOneModel &&
+    return other is HasManyParentBiDirectionalExplicit &&
         id == other.id &&
         _name == other._name &&
-        _childID == other._childID &&
-        _child == other._child;
+        DeepCollectionEquality().equals(_biDirectionalExplicitChildren,
+            other._biDirectionalExplicitChildren);
   }
 
   @override
@@ -124,12 +101,11 @@ class HasOneModel extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("HasOneModel {");
+    buffer.write("HasManyParentBiDirectionalExplicit {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("childID=" + "$_childID" + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -140,23 +116,28 @@ class HasOneModel extends Model {
     return buffer.toString();
   }
 
-  HasOneModel copyWith(
-      {String? id, String? name, String? childID, ChildModel? child}) {
-    return HasOneModel._internal(
+  HasManyParentBiDirectionalExplicit copyWith(
+      {String? id,
+      String? name,
+      List<HasManyChildBiDirectionalExplicit>? biDirectionalExplicitChildren}) {
+    return HasManyParentBiDirectionalExplicit._internal(
         id: id ?? this.id,
         name: name ?? this.name,
-        childID: childID ?? this.childID,
-        child: child ?? this.child);
+        biDirectionalExplicitChildren: biDirectionalExplicitChildren ??
+            this.biDirectionalExplicitChildren);
   }
 
-  HasOneModel.fromJson(Map<String, dynamic> json)
+  HasManyParentBiDirectionalExplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _childID = json['childID'],
-        _child = json['child']?['serializedData'] != null
-            ? ChildModel.fromJson(
-                new Map<String, dynamic>.from(json['child']['serializedData']))
-            : null,
+        _biDirectionalExplicitChildren =
+            json['biDirectionalExplicitChildren'] is List
+                ? (json['biDirectionalExplicitChildren'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => HasManyChildBiDirectionalExplicit.fromJson(
+                        Map<String, dynamic>.from(e['serializedData'])))
+                    .toList()
+                : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -167,41 +148,37 @@ class HasOneModel extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
-        'childID': _childID,
-        'child': _child?.toJson(),
+        'biDirectionalExplicitChildren': _biDirectionalExplicitChildren
+            ?.map((HasManyChildBiDirectionalExplicit? e) => e?.toJson())
+            .toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "hasOneModel.id");
+  static final QueryField ID =
+      QueryField(fieldName: "hasManyParentBiDirectionalExplicit.id");
   static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField CHILDID = QueryField(fieldName: "childID");
-  static final QueryField CHILD = QueryField(
-      fieldName: "child",
+  static final QueryField BIDIRECTIONALEXPLICITCHILDREN = QueryField(
+      fieldName: "biDirectionalExplicitChildren",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (ChildModel).toString()));
+          ofModelName: (HasManyChildBiDirectionalExplicit).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "HasOneModel";
-    modelSchemaDefinition.pluralName = "HasOneModels";
+    modelSchemaDefinition.name = "HasManyParentBiDirectionalExplicit";
+    modelSchemaDefinition.pluralName = "HasManyParentBiDirectionalExplicits";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: HasOneModel.NAME,
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: HasOneModel.CHILDID,
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasOne(
-        key: HasOneModel.CHILD,
+        key: HasManyParentBiDirectionalExplicit.NAME,
         isRequired: false,
-        ofModelName: (ChildModel).toString(),
-        associatedKey: ChildModel.ID));
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+        key: HasManyParentBiDirectionalExplicit.BIDIRECTIONALEXPLICITCHILDREN,
+        isRequired: false,
+        ofModelName: (HasManyChildBiDirectionalExplicit).toString(),
+        associatedKey: HasManyChildBiDirectionalExplicit.HASMANYPARENT));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -217,11 +194,12 @@ class HasOneModel extends Model {
   });
 }
 
-class _HasOneModelModelType extends ModelType<HasOneModel> {
-  const _HasOneModelModelType();
+class _HasManyParentBiDirectionalExplicitModelType
+    extends ModelType<HasManyParentBiDirectionalExplicit> {
+  const _HasManyParentBiDirectionalExplicitModelType();
 
   @override
-  HasOneModel fromJson(Map<String, dynamic> jsonData) {
-    return HasOneModel.fromJson(jsonData);
+  HasManyParentBiDirectionalExplicit fromJson(Map<String, dynamic> jsonData) {
+    return HasManyParentBiDirectionalExplicit.fromJson(jsonData);
   }
 }

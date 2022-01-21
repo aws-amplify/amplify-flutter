@@ -34,9 +34,9 @@ void main() {
 
       testWidgets('eq()', (WidgetTester tester) async {
         var models = [
-          BoolTypeModel(value: true),
-          BoolTypeModel(value: true),
-          BoolTypeModel(value: true),
+          ModelWithAppsyncScalarTypes(booleanValue: true),
+          ModelWithAppsyncScalarTypes(booleanValue: true),
+          ModelWithAppsyncScalarTypes(booleanValue: true),
         ];
 
         for (var model in models) {
@@ -44,23 +44,23 @@ void main() {
         }
 
         // test with all matches
-        await testQueryPredicate<BoolTypeModel>(
-          queryPredicate: BoolTypeModel.VALUE.eq(true),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.BOOLEANVALUE.eq(true),
           expectedModels: models,
         );
 
         // test with no matches
-        await testQueryPredicate<BoolTypeModel>(
-          queryPredicate: BoolTypeModel.VALUE.eq(false),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.BOOLEANVALUE.eq(false),
           expectedModels: [],
         );
       });
 
       testWidgets('eq() (with partial matches)', (WidgetTester tester) async {
         var models = [
-          BoolTypeModel(value: false),
-          BoolTypeModel(value: true),
-          BoolTypeModel(value: false),
+          ModelWithAppsyncScalarTypes(booleanValue: false),
+          ModelWithAppsyncScalarTypes(booleanValue: true),
+          ModelWithAppsyncScalarTypes(booleanValue: false),
         ];
 
         for (var model in models) {
@@ -68,23 +68,25 @@ void main() {
         }
 
         // test with partial matches for true
-        await testQueryPredicate<BoolTypeModel>(
-          queryPredicate: BoolTypeModel.VALUE.eq(true),
-          expectedModels: models.where((element) => element.value!).toList(),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.BOOLEANVALUE.eq(true),
+          expectedModels:
+              models.where((element) => element.booleanValue!).toList(),
         );
 
         // test with no matches for false
-        await testQueryPredicate<BoolTypeModel>(
-          queryPredicate: BoolTypeModel.VALUE.eq(false),
-          expectedModels: models.where((element) => !element.value!).toList(),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.BOOLEANVALUE.eq(false),
+          expectedModels:
+              models.where((element) => !element.booleanValue!).toList(),
         );
       });
 
       testWidgets('ne()', (WidgetTester tester) async {
         var models = [
-          BoolTypeModel(value: true),
-          BoolTypeModel(value: true),
-          BoolTypeModel(value: true),
+          ModelWithAppsyncScalarTypes(booleanValue: true),
+          ModelWithAppsyncScalarTypes(booleanValue: true),
+          ModelWithAppsyncScalarTypes(booleanValue: true),
         ];
 
         for (var model in models) {
@@ -92,23 +94,23 @@ void main() {
         }
 
         // test with all matches
-        await testQueryPredicate<BoolTypeModel>(
-          queryPredicate: BoolTypeModel.VALUE.ne(false),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.BOOLEANVALUE.ne(false),
           expectedModels: models,
         );
 
         // test with no matches
-        await testQueryPredicate<BoolTypeModel>(
-          queryPredicate: BoolTypeModel.VALUE.ne(true),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.BOOLEANVALUE.ne(true),
           expectedModels: [],
         );
       });
 
       testWidgets('ne() (with partial matches)', (WidgetTester tester) async {
         var models = [
-          BoolTypeModel(value: false),
-          BoolTypeModel(value: true),
-          BoolTypeModel(value: false),
+          ModelWithAppsyncScalarTypes(booleanValue: false),
+          ModelWithAppsyncScalarTypes(booleanValue: true),
+          ModelWithAppsyncScalarTypes(booleanValue: false),
         ];
 
         for (var model in models) {
@@ -116,15 +118,17 @@ void main() {
         }
 
         // test with partial matches for true
-        await testQueryPredicate<BoolTypeModel>(
-          queryPredicate: BoolTypeModel.VALUE.ne(true),
-          expectedModels: models.where((element) => !element.value!).toList(),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.BOOLEANVALUE.ne(true),
+          expectedModels:
+              models.where((element) => !element.booleanValue!).toList(),
         );
 
         // test with partial matches for false
-        await testQueryPredicate<BoolTypeModel>(
-          queryPredicate: BoolTypeModel.VALUE.ne(false),
-          expectedModels: models.where((element) => element.value!).toList(),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.BOOLEANVALUE.ne(false),
+          expectedModels:
+              models.where((element) => element.booleanValue!).toList(),
         );
       });
     },

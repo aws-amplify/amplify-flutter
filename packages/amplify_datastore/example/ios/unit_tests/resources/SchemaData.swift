@@ -265,6 +265,8 @@ struct SchemaData {
             modelSchemaRegistry.addModelSchema(modelName: key, modelSchema: value)
         }
         
+        modelSchemaRegistry.registerModels(registry: ModelRegistry.self)
+        
         return modelSchemaRegistry
     }
     

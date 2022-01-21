@@ -25,7 +25,7 @@ import '../../utils/setup_utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('type AWS DateTime', () {
+  group('type AWSDateTime', () {
     // dates users for all tests
     var dates = [
       DateTime.fromMillisecondsSinceEpoch(0),
@@ -44,11 +44,12 @@ void main() {
 
     // models used for all tests
     var models = dates
-        .map((date) => DateTimeTypeModel(value: TemporalDateTime(date)))
+        .map((date) => ModelWithAppsyncScalarTypes(
+            awsDateTimeValue: TemporalDateTime(date)))
         .toList();
 
     // distinct list of values in the test models
-    var values = models.map((e) => e.value!).toSet().toList();
+    var values = models.map((e) => e.awsDateTimeValue!).toSet().toList();
 
     setUpAll(() async {
       await configureDataStore();
@@ -57,13 +58,15 @@ void main() {
         await Amplify.DataStore.save(model);
       }
     });
+
     testWidgets('eq()', (WidgetTester tester) async {
       // test against all values
       for (var value in values) {
         var expectedModels =
-            models.where((model) => model.value == value).toList();
-        await testQueryPredicate<DateTimeTypeModel>(
-          queryPredicate: DateTimeTypeModel.VALUE.eq(value),
+            models.where((model) => model.awsDateTimeValue == value).toList();
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate:
+              ModelWithAppsyncScalarTypes.AWSDATETIMEVALUE.eq(value),
           expectedModels: expectedModels,
         );
       }
@@ -73,9 +76,10 @@ void main() {
       // test against all values
       for (var value in values) {
         var expectedModels =
-            models.where((model) => model.value != value).toList();
-        await testQueryPredicate<DateTimeTypeModel>(
-          queryPredicate: DateTimeTypeModel.VALUE.ne(value),
+            models.where((model) => model.awsDateTimeValue != value).toList();
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate:
+              ModelWithAppsyncScalarTypes.AWSDATETIMEVALUE.ne(value),
           expectedModels: expectedModels,
         );
       }
@@ -84,10 +88,12 @@ void main() {
     testWidgets('lt()', (WidgetTester tester) async {
       // test against all values
       for (var value in values) {
-        var expectedModels =
-            models.where((model) => model.value!.compareTo(value) < 0).toList();
-        await testQueryPredicate<DateTimeTypeModel>(
-          queryPredicate: DateTimeTypeModel.VALUE.lt(value),
+        var expectedModels = models
+            .where((model) => model.awsDateTimeValue!.compareTo(value) < 0)
+            .toList();
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate:
+              ModelWithAppsyncScalarTypes.AWSDATETIMEVALUE.lt(value),
           expectedModels: expectedModels,
         );
       }
@@ -97,10 +103,11 @@ void main() {
       // test against all values
       for (var value in values) {
         var expectedModels = models
-            .where((model) => model.value!.compareTo(value) <= 0)
+            .where((model) => model.awsDateTimeValue!.compareTo(value) <= 0)
             .toList();
-        await testQueryPredicate<DateTimeTypeModel>(
-          queryPredicate: DateTimeTypeModel.VALUE.le(value),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate:
+              ModelWithAppsyncScalarTypes.AWSDATETIMEVALUE.le(value),
           expectedModels: expectedModels,
         );
       }
@@ -109,10 +116,12 @@ void main() {
     testWidgets('gt()', (WidgetTester tester) async {
       // test against all values
       for (var value in values) {
-        var expectedModels =
-            models.where((model) => model.value!.compareTo(value) > 0).toList();
-        await testQueryPredicate<DateTimeTypeModel>(
-          queryPredicate: DateTimeTypeModel.VALUE.gt(value),
+        var expectedModels = models
+            .where((model) => model.awsDateTimeValue!.compareTo(value) > 0)
+            .toList();
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate:
+              ModelWithAppsyncScalarTypes.AWSDATETIMEVALUE.gt(value),
           expectedModels: expectedModels,
         );
       }
@@ -122,10 +131,11 @@ void main() {
       // test against all values
       for (var value in values) {
         var expectedModels = models
-            .where((model) => model.value!.compareTo(value) >= 0)
+            .where((model) => model.awsDateTimeValue!.compareTo(value) >= 0)
             .toList();
-        await testQueryPredicate<DateTimeTypeModel>(
-          queryPredicate: DateTimeTypeModel.VALUE.ge(value),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate:
+              ModelWithAppsyncScalarTypes.AWSDATETIMEVALUE.ge(value),
           expectedModels: expectedModels,
         );
       }
@@ -133,17 +143,19 @@ void main() {
 
     testWidgets('between()', (WidgetTester tester) async {
       // test with partial match
-      var partialMatchStart = models[1].value!;
-      var partialMatchEnd = models[3].value!;
+      var partialMatchStart = models[1].awsDateTimeValue!;
+      var partialMatchEnd = models[3].awsDateTimeValue!;
       var rangeMatchModels = models
-          .where((model) => model.value!.compareTo(partialMatchStart) >= 0)
-          .where((model) => model.value!.compareTo(partialMatchEnd) <= 0)
+          .where((model) =>
+              model.awsDateTimeValue!.compareTo(partialMatchStart) >= 0)
+          .where((model) =>
+              model.awsDateTimeValue!.compareTo(partialMatchEnd) <= 0)
           .toList();
 
       // verify that the test is testing a partial match
       expect(rangeMatchModels.length, greaterThanOrEqualTo(1));
-      await testQueryPredicate<DateTimeTypeModel>(
-        queryPredicate: DateTimeTypeModel.VALUE.between(
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.AWSDATETIMEVALUE.between(
           partialMatchStart,
           partialMatchEnd,
         ),

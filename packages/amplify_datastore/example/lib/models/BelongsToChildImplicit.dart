@@ -19,16 +19,17 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the StringListTypeModel type in your schema. */
+/// This is an auto generated class representing the BelongsToChildImplicit type in your schema.
 @immutable
-class StringListTypeModel extends Model {
-  static const classType = const _StringListTypeModelModelType();
+class BelongsToChildImplicit extends Model {
+  static const classType = _BelongsToChildImplicitModelType();
   final String id;
-  final List<String>? _value;
+  final String? _name;
+  final BelongsToParent? _belongsToParent;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -40,8 +41,12 @@ class StringListTypeModel extends Model {
     return id;
   }
 
-  List<String>? get value {
-    return _value;
+  String? get name {
+    return _name;
+  }
+
+  BelongsToParent? get belongsToParent {
+    return _belongsToParent;
   }
 
   TemporalDateTime? get createdAt {
@@ -52,16 +57,19 @@ class StringListTypeModel extends Model {
     return _updatedAt;
   }
 
-  const StringListTypeModel._internal(
-      {required this.id, value, createdAt, updatedAt})
-      : _value = value,
+  const BelongsToChildImplicit._internal(
+      {required this.id, name, belongsToParent, createdAt, updatedAt})
+      : _name = name,
+        _belongsToParent = belongsToParent,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory StringListTypeModel({String? id, List<String>? value}) {
-    return StringListTypeModel._internal(
+  factory BelongsToChildImplicit(
+      {String? id, String? name, BelongsToParent? belongsToParent}) {
+    return BelongsToChildImplicit._internal(
         id: id == null ? UUID.getUUID() : id,
-        value: value != null ? List<String>.unmodifiable(value) : value);
+        name: name,
+        belongsToParent: belongsToParent);
   }
 
   bool equals(Object other) {
@@ -71,9 +79,10 @@ class StringListTypeModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is StringListTypeModel &&
+    return other is BelongsToChildImplicit &&
         id == other.id &&
-        DeepCollectionEquality().equals(_value, other._value);
+        _name == other._name &&
+        _belongsToParent == other._belongsToParent;
   }
 
   @override
@@ -81,12 +90,14 @@ class StringListTypeModel extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("StringListTypeModel {");
+    buffer.write("BelongsToChildImplicit {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write(
-        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("belongsToParent=" +
+        (_belongsToParent != null ? _belongsToParent!.toString() : "null") +
+        ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -97,14 +108,21 @@ class StringListTypeModel extends Model {
     return buffer.toString();
   }
 
-  StringListTypeModel copyWith({String? id, List<String>? value}) {
-    return StringListTypeModel._internal(
-        id: id ?? this.id, value: value ?? this.value);
+  BelongsToChildImplicit copyWith(
+      {String? id, String? name, BelongsToParent? belongsToParent}) {
+    return BelongsToChildImplicit._internal(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        belongsToParent: belongsToParent ?? this.belongsToParent);
   }
 
-  StringListTypeModel.fromJson(Map<String, dynamic> json)
+  BelongsToChildImplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value']?.cast<String>(),
+        _name = json['name'],
+        _belongsToParent = json['belongsToParent']?['serializedData'] != null
+            ? BelongsToParent.fromJson(Map<String, dynamic>.from(
+                json['belongsToParent']['serializedData']))
+            : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -114,26 +132,36 @@ class StringListTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'value': _value,
+        'name': _name,
+        'belongsToParent': _belongsToParent?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "stringListTypeModel.id");
-  static final QueryField VALUE = QueryField(fieldName: "value");
+  static final QueryField ID =
+      QueryField(fieldName: "belongsToChildImplicit.id");
+  static final QueryField NAME = QueryField(fieldName: "name");
+  static final QueryField BELONGSTOPARENT = QueryField(
+      fieldName: "belongsToParent",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (BelongsToParent).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "StringListTypeModel";
-    modelSchemaDefinition.pluralName = "StringListTypeModels";
+    modelSchemaDefinition.name = "BelongsToChildImplicit";
+    modelSchemaDefinition.pluralName = "BelongsToChildImplicits";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: StringListTypeModel.VALUE,
+        key: BelongsToChildImplicit.NAME,
         isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: BelongsToChildImplicit.BELONGSTOPARENT,
+        isRequired: false,
+        targetName: "belongsToChildImplicitBelongsToParentId",
+        ofModelName: (BelongsToParent).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -149,11 +177,12 @@ class StringListTypeModel extends Model {
   });
 }
 
-class _StringListTypeModelModelType extends ModelType<StringListTypeModel> {
-  const _StringListTypeModelModelType();
+class _BelongsToChildImplicitModelType
+    extends ModelType<BelongsToChildImplicit> {
+  const _BelongsToChildImplicitModelType();
 
   @override
-  StringListTypeModel fromJson(Map<String, dynamic> jsonData) {
-    return StringListTypeModel.fromJson(jsonData);
+  BelongsToChildImplicit fromJson(Map<String, dynamic> jsonData) {
+    return BelongsToChildImplicit.fromJson(jsonData);
   }
 }

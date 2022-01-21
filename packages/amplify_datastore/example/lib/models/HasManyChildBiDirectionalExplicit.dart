@@ -19,15 +19,17 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the IntTypeModel type in your schema. */
+/// This is an auto generated class representing the HasManyChildBiDirectionalExplicit type in your schema.
 @immutable
-class IntTypeModel extends Model {
-  static const classType = const _IntTypeModelModelType();
+class HasManyChildBiDirectionalExplicit extends Model {
+  static const classType = _HasManyChildBiDirectionalExplicitModelType();
   final String id;
-  final int? _value;
+  final String? _name;
+  final HasManyParentBiDirectionalExplicit? _hasManyParent;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -39,8 +41,12 @@ class IntTypeModel extends Model {
     return id;
   }
 
-  int? get value {
-    return _value;
+  String? get name {
+    return _name;
+  }
+
+  HasManyParentBiDirectionalExplicit? get hasManyParent {
+    return _hasManyParent;
   }
 
   TemporalDateTime? get createdAt {
@@ -51,14 +57,21 @@ class IntTypeModel extends Model {
     return _updatedAt;
   }
 
-  const IntTypeModel._internal({required this.id, value, createdAt, updatedAt})
-      : _value = value,
+  const HasManyChildBiDirectionalExplicit._internal(
+      {required this.id, name, hasManyParent, createdAt, updatedAt})
+      : _name = name,
+        _hasManyParent = hasManyParent,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory IntTypeModel({String? id, int? value}) {
-    return IntTypeModel._internal(
-        id: id == null ? UUID.getUUID() : id, value: value);
+  factory HasManyChildBiDirectionalExplicit(
+      {String? id,
+      String? name,
+      HasManyParentBiDirectionalExplicit? hasManyParent}) {
+    return HasManyChildBiDirectionalExplicit._internal(
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        hasManyParent: hasManyParent);
   }
 
   bool equals(Object other) {
@@ -68,7 +81,10 @@ class IntTypeModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is IntTypeModel && id == other.id && _value == other._value;
+    return other is HasManyChildBiDirectionalExplicit &&
+        id == other.id &&
+        _name == other._name &&
+        _hasManyParent == other._hasManyParent;
   }
 
   @override
@@ -76,12 +92,14 @@ class IntTypeModel extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("IntTypeModel {");
+    buffer.write("HasManyChildBiDirectionalExplicit {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write(
-        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("hasManyParent=" +
+        (_hasManyParent != null ? _hasManyParent!.toString() : "null") +
+        ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -92,14 +110,24 @@ class IntTypeModel extends Model {
     return buffer.toString();
   }
 
-  IntTypeModel copyWith({String? id, int? value}) {
-    return IntTypeModel._internal(
-        id: id ?? this.id, value: value ?? this.value);
+  HasManyChildBiDirectionalExplicit copyWith(
+      {String? id,
+      String? name,
+      HasManyParentBiDirectionalExplicit? hasManyParent}) {
+    return HasManyChildBiDirectionalExplicit._internal(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        hasManyParent: hasManyParent ?? this.hasManyParent);
   }
 
-  IntTypeModel.fromJson(Map<String, dynamic> json)
+  HasManyChildBiDirectionalExplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = (json['value'] as num?)?.toInt(),
+        _name = json['name'],
+        _hasManyParent = json['hasManyParent']?['serializedData'] != null
+            ? HasManyParentBiDirectionalExplicit.fromJson(
+                Map<String, dynamic>.from(
+                    json['hasManyParent']['serializedData']))
+            : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -109,24 +137,36 @@ class IntTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'value': _value,
+        'name': _name,
+        'hasManyParent': _hasManyParent?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "intTypeModel.id");
-  static final QueryField VALUE = QueryField(fieldName: "value");
+  static final QueryField ID =
+      QueryField(fieldName: "hasManyChildBiDirectionalExplicit.id");
+  static final QueryField NAME = QueryField(fieldName: "name");
+  static final QueryField HASMANYPARENT = QueryField(
+      fieldName: "hasManyParent",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (HasManyParentBiDirectionalExplicit).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "IntTypeModel";
-    modelSchemaDefinition.pluralName = "IntTypeModels";
+    modelSchemaDefinition.name = "HasManyChildBiDirectionalExplicit";
+    modelSchemaDefinition.pluralName = "HasManyChildBiDirectionalExplicits";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: IntTypeModel.VALUE,
+        key: HasManyChildBiDirectionalExplicit.NAME,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.int)));
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: HasManyChildBiDirectionalExplicit.HASMANYPARENT,
+        isRequired: false,
+        targetName: "hasManyParentId",
+        ofModelName: (HasManyParentBiDirectionalExplicit).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -142,11 +182,12 @@ class IntTypeModel extends Model {
   });
 }
 
-class _IntTypeModelModelType extends ModelType<IntTypeModel> {
-  const _IntTypeModelModelType();
+class _HasManyChildBiDirectionalExplicitModelType
+    extends ModelType<HasManyChildBiDirectionalExplicit> {
+  const _HasManyChildBiDirectionalExplicitModelType();
 
   @override
-  IntTypeModel fromJson(Map<String, dynamic> jsonData) {
-    return IntTypeModel.fromJson(jsonData);
+  HasManyChildBiDirectionalExplicit fromJson(Map<String, dynamic> jsonData) {
+    return HasManyChildBiDirectionalExplicit.fromJson(jsonData);
   }
 }

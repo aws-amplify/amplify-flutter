@@ -19,15 +19,17 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the TimestampTypeModel type in your schema. */
+/// This is an auto generated class representing the PostTags type in your schema.
 @immutable
-class TimestampTypeModel extends Model {
-  static const classType = const _TimestampTypeModelModelType();
+class PostTags extends Model {
+  static const classType = _PostTagsModelType();
   final String id;
-  final TemporalTimestamp? _value;
+  final Post? _post;
+  final Tag? _tag;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -39,8 +41,30 @@ class TimestampTypeModel extends Model {
     return id;
   }
 
-  TemporalTimestamp? get value {
-    return _value;
+  Post get post {
+    try {
+      return _post!;
+    } catch (e) {
+      throw DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  Tag get tag {
+    try {
+      return _tag!;
+    } catch (e) {
+      throw DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   TemporalDateTime? get createdAt {
@@ -51,15 +75,16 @@ class TimestampTypeModel extends Model {
     return _updatedAt;
   }
 
-  const TimestampTypeModel._internal(
-      {required this.id, value, createdAt, updatedAt})
-      : _value = value,
+  const PostTags._internal(
+      {required this.id, required post, required tag, createdAt, updatedAt})
+      : _post = post,
+        _tag = tag,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory TimestampTypeModel({String? id, TemporalTimestamp? value}) {
-    return TimestampTypeModel._internal(
-        id: id == null ? UUID.getUUID() : id, value: value);
+  factory PostTags({String? id, required Post post, required Tag tag}) {
+    return PostTags._internal(
+        id: id == null ? UUID.getUUID() : id, post: post, tag: tag);
   }
 
   bool equals(Object other) {
@@ -69,9 +94,10 @@ class TimestampTypeModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is TimestampTypeModel &&
+    return other is PostTags &&
         id == other.id &&
-        _value == other._value;
+        _post == other._post &&
+        _tag == other._tag;
   }
 
   @override
@@ -79,12 +105,12 @@ class TimestampTypeModel extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("TimestampTypeModel {");
+    buffer.write("PostTags {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write(
-        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
+    buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
+    buffer.write("tag=" + (_tag != null ? _tag!.toString() : "null") + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -95,15 +121,20 @@ class TimestampTypeModel extends Model {
     return buffer.toString();
   }
 
-  TimestampTypeModel copyWith({String? id, TemporalTimestamp? value}) {
-    return TimestampTypeModel._internal(
-        id: id ?? this.id, value: value ?? this.value);
+  PostTags copyWith({String? id, Post? post, Tag? tag}) {
+    return PostTags._internal(
+        id: id ?? this.id, post: post ?? this.post, tag: tag ?? this.tag);
   }
 
-  TimestampTypeModel.fromJson(Map<String, dynamic> json)
+  PostTags.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value'] != null
-            ? TemporalTimestamp.fromSeconds(json['value'])
+        _post = json['post']?['serializedData'] != null
+            ? Post.fromJson(
+                Map<String, dynamic>.from(json['post']['serializedData']))
+            : null,
+        _tag = json['tag']?['serializedData'] != null
+            ? Tag.fromJson(
+                Map<String, dynamic>.from(json['tag']['serializedData']))
             : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
@@ -114,24 +145,39 @@ class TimestampTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'value': _value?.toSeconds(),
+        'post': _post?.toJson(),
+        'tag': _tag?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "timestampTypeModel.id");
-  static final QueryField VALUE = QueryField(fieldName: "value");
+  static final QueryField ID = QueryField(fieldName: "postTags.id");
+  static final QueryField POST = QueryField(
+      fieldName: "post",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (Post).toString()));
+  static final QueryField TAG = QueryField(
+      fieldName: "tag",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (Tag).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "TimestampTypeModel";
-    modelSchemaDefinition.pluralName = "TimestampTypeModels";
+    modelSchemaDefinition.name = "PostTags";
+    modelSchemaDefinition.pluralName = "PostTags";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: TimestampTypeModel.VALUE,
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.timestamp)));
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: PostTags.POST,
+        isRequired: true,
+        targetName: "postID",
+        ofModelName: (Post).toString()));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: PostTags.TAG,
+        isRequired: true,
+        targetName: "tagID",
+        ofModelName: (Tag).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -147,11 +193,11 @@ class TimestampTypeModel extends Model {
   });
 }
 
-class _TimestampTypeModelModelType extends ModelType<TimestampTypeModel> {
-  const _TimestampTypeModelModelType();
+class _PostTagsModelType extends ModelType<PostTags> {
+  const _PostTagsModelType();
 
   @override
-  TimestampTypeModel fromJson(Map<String, dynamic> jsonData) {
-    return TimestampTypeModel.fromJson(jsonData);
+  PostTags fromJson(Map<String, dynamic> jsonData) {
+    return PostTags.fromJson(jsonData);
   }
 }

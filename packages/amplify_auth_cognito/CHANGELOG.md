@@ -1,12 +1,8 @@
-## 0.3.0-rc.3 (2021-12-08)
+## 0.3.1 (2022-01-20)
 
-### Fixes
+- chore: bump amplify-ios to 1.18.3
 
-- fix(amplify_auth_cognito): remove int.parse from AuthUserAttribute (#1169)
-
-## 0.3.0-rc.2 (2021-11-08)
-
-## 0.3.0-rc.1 (2021-09-24)
+## 0.3.0 (2022-01-20)
 
 ### Breaking Changes
 
@@ -15,8 +11,9 @@
 
 ### Fixes
 
-- break(amplify_auth_cognito): throw SignedOutException (#893)
-- break(amplify_auth_cognito): fixes getCurrentUser disparity (#894)
+- fix(amplify_auth_cognito): throw SignedOutException (#893)
+- fix(amplify_auth_cognito): fixes getCurrentUser disparity (#894)
+- fix(amplify_auth_cognito): remove int.parse from AuthUserAttribute (#1169)
 
 ## 0.2.10 (2021-11-23)
 
@@ -46,6 +43,7 @@
 ## 0.2.5 (2021-10-14)
 
 ### Fixes
+
 - fix(auth): Add global sign out
 - fix(auth): Support `preferPrivateSession` flag
 

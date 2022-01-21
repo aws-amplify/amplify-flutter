@@ -58,11 +58,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      home: Authenticator(
-        child: const LoggedInScreen(),
+    return Authenticator(
+      child: MaterialApp(
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        builder: Authenticator.builder(),
+        home: const LoggedInScreen(),
       ),
     );
   }

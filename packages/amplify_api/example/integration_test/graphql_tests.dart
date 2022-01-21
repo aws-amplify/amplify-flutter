@@ -135,6 +135,27 @@ void main() {
         expect(data[listBlogs][items], hasLength(greaterThanOrEqualTo(0)));
       });
 
+      testWidgets('should fetch when document string contains tabs',
+          (WidgetTester tester) async {
+        const listBlogs = 'listBlogs';
+        const items = 'items';
+        // tab before id and name
+        String graphQLDocument = '''query MyQuery {
+        $listBlogs {
+          $items {
+          \tid
+          \tname
+          }
+        }
+      }''';
+
+        var _r = Amplify.API
+            .query<String>(request: GraphQLRequest(document: graphQLDocument));
+        var response = await _r.response;
+        Map data = jsonDecode(response.data!);
+        expect(data[listBlogs][items], hasLength(greaterThanOrEqualTo(0)));
+      });
+
       // Queries
       testWidgets('should GET a blog with Model helper',
           (WidgetTester tester) async {

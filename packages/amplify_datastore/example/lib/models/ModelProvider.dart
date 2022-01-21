@@ -20,116 +20,92 @@
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'BelongsToModel.dart';
+import 'BelongsToChildExplicit.dart';
+import 'BelongsToChildImplicit.dart';
+import 'BelongsToParent.dart';
 import 'Blog.dart';
-import 'BoolListTypeModel.dart';
-import 'BoolTypeModel.dart';
-import 'ChildModel.dart';
 import 'Comment.dart';
-import 'DateListTypeModel.dart';
-import 'DateTimeListTypeModel.dart';
-import 'DateTimeTypeModel.dart';
-import 'DateTypeModel.dart';
-import 'DoubleListTypeModel.dart';
-import 'DoubleTypeModel.dart';
-import 'EnumListTypeModel.dart';
-import 'EnumTypeModel.dart';
-import 'HasManyChildModel.dart';
-import 'HasManyModel.dart';
-import 'HasOneModel.dart';
-import 'IntListTypeModel.dart';
-import 'IntTypeModel.dart';
-import 'JSONListTypeModel.dart';
-import 'JSONTypeModel.dart';
-import 'ModelNestedCustomType.dart';
-import 'MultiTypeModel.dart';
+import 'HasManyChildBiDirectionalExplicit.dart';
+import 'HasManyChildBiDirectionalImplicit.dart';
+import 'HasManyChildExplicit.dart';
+import 'HasManyChildImplicit.dart';
+import 'HasManyParent.dart';
+import 'HasManyParentBiDirectionalExplicit.dart';
+import 'HasManyParentBiDirectionalImplicit.dart';
+import 'HasOneChild.dart';
+import 'HasOneParent.dart';
+import 'ModelWithAppsyncScalarTypes.dart';
+import 'ModelWithCustomType.dart';
+import 'ModelWithEnum.dart';
+import 'MultiRelatedAttendee.dart';
+import 'MultiRelatedMeeting.dart';
+import 'MultiRelatedRegistration.dart';
 import 'Post.dart';
-import 'StringListTypeModel.dart';
-import 'StringTypeModel.dart';
-import 'TimeListTypeModel.dart';
-import 'TimeTypeModel.dart';
-import 'TimestampListTypeModel.dart';
-import 'TimestampTypeModel.dart';
-import 'AllScalarTypesCustomType.dart';
-import 'AllScalarTypesListCustomType.dart';
+import 'PostTags.dart';
+import 'Tag.dart';
+import 'CustomTypeWithAppsyncScalarTypes.dart';
 import 'SimpleCustomType.dart';
 
-export 'AllScalarTypesCustomType.dart';
-export 'AllScalarTypesListCustomType.dart';
-export 'BelongsToModel.dart';
+export 'BelongsToChildExplicit.dart';
+export 'BelongsToChildImplicit.dart';
+export 'BelongsToParent.dart';
 export 'Blog.dart';
-export 'BoolListTypeModel.dart';
-export 'BoolTypeModel.dart';
-export 'ChildModel.dart';
 export 'Comment.dart';
-export 'DateListTypeModel.dart';
-export 'DateTimeListTypeModel.dart';
-export 'DateTimeTypeModel.dart';
-export 'DateTypeModel.dart';
-export 'DoubleListTypeModel.dart';
-export 'DoubleTypeModel.dart';
-export 'EnumListTypeModel.dart';
-export 'EnumModel.dart';
-export 'EnumTypeModel.dart';
-export 'HasManyChildModel.dart';
-export 'HasManyModel.dart';
-export 'HasOneModel.dart';
-export 'IntListTypeModel.dart';
-export 'IntTypeModel.dart';
-export 'JSONListTypeModel.dart';
-export 'JSONTypeModel.dart';
-export 'ModelNestedCustomType.dart';
-export 'MultiTypeModel.dart';
+export 'CustomTypeWithAppsyncScalarTypes.dart';
+export 'EnumField.dart';
+export 'HasManyChildBiDirectionalExplicit.dart';
+export 'HasManyChildBiDirectionalImplicit.dart';
+export 'HasManyChildExplicit.dart';
+export 'HasManyChildImplicit.dart';
+export 'HasManyParent.dart';
+export 'HasManyParentBiDirectionalExplicit.dart';
+export 'HasManyParentBiDirectionalImplicit.dart';
+export 'HasOneChild.dart';
+export 'HasOneParent.dart';
+export 'ModelWithAppsyncScalarTypes.dart';
+export 'ModelWithCustomType.dart';
+export 'ModelWithEnum.dart';
+export 'MultiRelatedAttendee.dart';
+export 'MultiRelatedMeeting.dart';
+export 'MultiRelatedRegistration.dart';
 export 'Post.dart';
+export 'PostTags.dart';
 export 'SimpleCustomType.dart';
-export 'StringListTypeModel.dart';
-export 'StringTypeModel.dart';
-export 'TimeListTypeModel.dart';
-export 'TimeTypeModel.dart';
-export 'TimestampListTypeModel.dart';
-export 'TimestampTypeModel.dart';
+export 'Tag.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "6a66203ff64c1b6230fe0f830046a855";
+  String version = "c4d29b43024b973d2fd3ba65fe7f0a5b";
   @override
   List<ModelSchema> modelSchemas = [
-    BelongsToModel.schema,
+    BelongsToChildExplicit.schema,
+    BelongsToChildImplicit.schema,
+    BelongsToParent.schema,
     Blog.schema,
-    BoolListTypeModel.schema,
-    BoolTypeModel.schema,
-    ChildModel.schema,
     Comment.schema,
-    DateListTypeModel.schema,
-    DateTimeListTypeModel.schema,
-    DateTimeTypeModel.schema,
-    DateTypeModel.schema,
-    DoubleListTypeModel.schema,
-    DoubleTypeModel.schema,
-    EnumListTypeModel.schema,
-    EnumTypeModel.schema,
-    HasManyChildModel.schema,
-    HasManyModel.schema,
-    HasOneModel.schema,
-    IntListTypeModel.schema,
-    IntTypeModel.schema,
-    JSONListTypeModel.schema,
-    JSONTypeModel.schema,
-    ModelNestedCustomType.schema,
-    MultiTypeModel.schema,
+    HasManyChildBiDirectionalExplicit.schema,
+    HasManyChildBiDirectionalImplicit.schema,
+    HasManyChildExplicit.schema,
+    HasManyChildImplicit.schema,
+    HasManyParent.schema,
+    HasManyParentBiDirectionalExplicit.schema,
+    HasManyParentBiDirectionalImplicit.schema,
+    HasOneChild.schema,
+    HasOneParent.schema,
+    ModelWithAppsyncScalarTypes.schema,
+    ModelWithCustomType.schema,
+    ModelWithEnum.schema,
+    MultiRelatedAttendee.schema,
+    MultiRelatedMeeting.schema,
+    MultiRelatedRegistration.schema,
     Post.schema,
-    StringListTypeModel.schema,
-    StringTypeModel.schema,
-    TimeListTypeModel.schema,
-    TimeTypeModel.schema,
-    TimestampListTypeModel.schema,
-    TimestampTypeModel.schema
+    PostTags.schema,
+    Tag.schema
   ];
   static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [
-    AllScalarTypesCustomType.schema,
-    AllScalarTypesListCustomType.schema,
+    CustomTypeWithAppsyncScalarTypes.schema,
     SimpleCustomType.schema
   ];
 
@@ -137,66 +113,52 @@ class ModelProvider implements ModelProviderInterface {
 
   ModelType getModelTypeByModelName(String modelName) {
     switch (modelName) {
-      case "BelongsToModel":
-        return BelongsToModel.classType;
+      case "BelongsToChildExplicit":
+        return BelongsToChildExplicit.classType;
+      case "BelongsToChildImplicit":
+        return BelongsToChildImplicit.classType;
+      case "BelongsToParent":
+        return BelongsToParent.classType;
       case "Blog":
         return Blog.classType;
-      case "BoolListTypeModel":
-        return BoolListTypeModel.classType;
-      case "BoolTypeModel":
-        return BoolTypeModel.classType;
-      case "ChildModel":
-        return ChildModel.classType;
       case "Comment":
         return Comment.classType;
-      case "DateListTypeModel":
-        return DateListTypeModel.classType;
-      case "DateTimeListTypeModel":
-        return DateTimeListTypeModel.classType;
-      case "DateTimeTypeModel":
-        return DateTimeTypeModel.classType;
-      case "DateTypeModel":
-        return DateTypeModel.classType;
-      case "DoubleListTypeModel":
-        return DoubleListTypeModel.classType;
-      case "DoubleTypeModel":
-        return DoubleTypeModel.classType;
-      case "EnumListTypeModel":
-        return EnumListTypeModel.classType;
-      case "EnumTypeModel":
-        return EnumTypeModel.classType;
-      case "HasManyChildModel":
-        return HasManyChildModel.classType;
-      case "HasManyModel":
-        return HasManyModel.classType;
-      case "HasOneModel":
-        return HasOneModel.classType;
-      case "IntListTypeModel":
-        return IntListTypeModel.classType;
-      case "IntTypeModel":
-        return IntTypeModel.classType;
-      case "JSONListTypeModel":
-        return JSONListTypeModel.classType;
-      case "JSONTypeModel":
-        return JSONTypeModel.classType;
-      case "ModelNestedCustomType":
-        return ModelNestedCustomType.classType;
-      case "MultiTypeModel":
-        return MultiTypeModel.classType;
+      case "HasManyChildBiDirectionalExplicit":
+        return HasManyChildBiDirectionalExplicit.classType;
+      case "HasManyChildBiDirectionalImplicit":
+        return HasManyChildBiDirectionalImplicit.classType;
+      case "HasManyChildExplicit":
+        return HasManyChildExplicit.classType;
+      case "HasManyChildImplicit":
+        return HasManyChildImplicit.classType;
+      case "HasManyParent":
+        return HasManyParent.classType;
+      case "HasManyParentBiDirectionalExplicit":
+        return HasManyParentBiDirectionalExplicit.classType;
+      case "HasManyParentBiDirectionalImplicit":
+        return HasManyParentBiDirectionalImplicit.classType;
+      case "HasOneChild":
+        return HasOneChild.classType;
+      case "HasOneParent":
+        return HasOneParent.classType;
+      case "ModelWithAppsyncScalarTypes":
+        return ModelWithAppsyncScalarTypes.classType;
+      case "ModelWithCustomType":
+        return ModelWithCustomType.classType;
+      case "ModelWithEnum":
+        return ModelWithEnum.classType;
+      case "MultiRelatedAttendee":
+        return MultiRelatedAttendee.classType;
+      case "MultiRelatedMeeting":
+        return MultiRelatedMeeting.classType;
+      case "MultiRelatedRegistration":
+        return MultiRelatedRegistration.classType;
       case "Post":
         return Post.classType;
-      case "StringListTypeModel":
-        return StringListTypeModel.classType;
-      case "StringTypeModel":
-        return StringTypeModel.classType;
-      case "TimeListTypeModel":
-        return TimeListTypeModel.classType;
-      case "TimeTypeModel":
-        return TimeTypeModel.classType;
-      case "TimestampListTypeModel":
-        return TimestampListTypeModel.classType;
-      case "TimestampTypeModel":
-        return TimestampTypeModel.classType;
+      case "PostTags":
+        return PostTags.classType;
+      case "Tag":
+        return Tag.classType;
       default:
         throw Exception(
             "Failed to find model in model provider for model name: " +

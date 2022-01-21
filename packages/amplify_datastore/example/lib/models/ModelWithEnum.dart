@@ -19,15 +19,18 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the DateTypeModel type in your schema. */
+/// This is an auto generated class representing the ModelWithEnum type in your schema.
 @immutable
-class DateTypeModel extends Model {
-  static const classType = const _DateTypeModelModelType();
+class ModelWithEnum extends Model {
+  static const classType = _ModelWithEnumModelType();
   final String id;
-  final TemporalDate? _value;
+  final EnumField? _enumField;
+  final List<EnumField>? _listOfEnumField;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -39,8 +42,12 @@ class DateTypeModel extends Model {
     return id;
   }
 
-  TemporalDate? get value {
-    return _value;
+  EnumField? get enumField {
+    return _enumField;
+  }
+
+  List<EnumField>? get listOfEnumField {
+    return _listOfEnumField;
   }
 
   TemporalDateTime? get createdAt {
@@ -51,14 +58,21 @@ class DateTypeModel extends Model {
     return _updatedAt;
   }
 
-  const DateTypeModel._internal({required this.id, value, createdAt, updatedAt})
-      : _value = value,
+  const ModelWithEnum._internal(
+      {required this.id, enumField, listOfEnumField, createdAt, updatedAt})
+      : _enumField = enumField,
+        _listOfEnumField = listOfEnumField,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory DateTypeModel({String? id, TemporalDate? value}) {
-    return DateTypeModel._internal(
-        id: id == null ? UUID.getUUID() : id, value: value);
+  factory ModelWithEnum(
+      {String? id, EnumField? enumField, List<EnumField>? listOfEnumField}) {
+    return ModelWithEnum._internal(
+        id: id == null ? UUID.getUUID() : id,
+        enumField: enumField,
+        listOfEnumField: listOfEnumField != null
+            ? List<EnumField>.unmodifiable(listOfEnumField)
+            : listOfEnumField);
   }
 
   bool equals(Object other) {
@@ -68,7 +82,11 @@ class DateTypeModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is DateTypeModel && id == other.id && _value == other._value;
+    return other is ModelWithEnum &&
+        id == other.id &&
+        _enumField == other._enumField &&
+        DeepCollectionEquality()
+            .equals(_listOfEnumField, other._listOfEnumField);
   }
 
   @override
@@ -76,12 +94,18 @@ class DateTypeModel extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("DateTypeModel {");
+    buffer.write("ModelWithEnum {");
     buffer.write("id=" + "$id" + ", ");
-    buffer
-        .write("value=" + (_value != null ? _value!.format() : "null") + ", ");
+    buffer.write("enumField=" +
+        (_enumField != null ? enumToString(_enumField)! : "null") +
+        ", ");
+    buffer.write("listOfEnumField=" +
+        (_listOfEnumField != null
+            ? _listOfEnumField!.map((e) => enumToString(e)).toString()
+            : "null") +
+        ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -92,15 +116,22 @@ class DateTypeModel extends Model {
     return buffer.toString();
   }
 
-  DateTypeModel copyWith({String? id, TemporalDate? value}) {
-    return DateTypeModel._internal(
-        id: id ?? this.id, value: value ?? this.value);
+  ModelWithEnum copyWith(
+      {String? id, EnumField? enumField, List<EnumField>? listOfEnumField}) {
+    return ModelWithEnum._internal(
+        id: id ?? this.id,
+        enumField: enumField ?? this.enumField,
+        listOfEnumField: listOfEnumField ?? this.listOfEnumField);
   }
 
-  DateTypeModel.fromJson(Map<String, dynamic> json)
+  ModelWithEnum.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value'] != null
-            ? TemporalDate.fromString(json['value'])
+        _enumField =
+            enumFromString<EnumField>(json['enumField'], EnumField.values),
+        _listOfEnumField = json['listOfEnumField'] is List
+            ? (json['listOfEnumField'] as List)
+                .map((e) => enumFromString<EnumField>(e, EnumField.values)!)
+                .toList()
             : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
@@ -111,24 +142,35 @@ class DateTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'value': _value?.format(),
+        'enumField': enumToString(_enumField),
+        'listOfEnumField':
+            _listOfEnumField?.map((e) => enumToString(e)).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "dateTypeModel.id");
-  static final QueryField VALUE = QueryField(fieldName: "value");
+  static final QueryField ID = QueryField(fieldName: "modelWithEnum.id");
+  static final QueryField ENUMFIELD = QueryField(fieldName: "enumField");
+  static final QueryField LISTOFENUMFIELD =
+      QueryField(fieldName: "listOfEnumField");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "DateTypeModel";
-    modelSchemaDefinition.pluralName = "DateTypeModels";
+    modelSchemaDefinition.name = "ModelWithEnum";
+    modelSchemaDefinition.pluralName = "ModelWithEnums";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: DateTypeModel.VALUE,
+        key: ModelWithEnum.ENUMFIELD,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.date)));
+        ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: ModelWithEnum.LISTOFENUMFIELD,
+        isRequired: false,
+        isArray: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
+            ofModelName: describeEnum(ModelFieldTypeEnum.enumeration))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -144,11 +186,11 @@ class DateTypeModel extends Model {
   });
 }
 
-class _DateTypeModelModelType extends ModelType<DateTypeModel> {
-  const _DateTypeModelModelType();
+class _ModelWithEnumModelType extends ModelType<ModelWithEnum> {
+  const _ModelWithEnumModelType();
 
   @override
-  DateTypeModel fromJson(Map<String, dynamic> jsonData) {
-    return DateTypeModel.fromJson(jsonData);
+  ModelWithEnum fromJson(Map<String, dynamic> jsonData) {
+    return ModelWithEnum.fromJson(jsonData);
   }
 }
