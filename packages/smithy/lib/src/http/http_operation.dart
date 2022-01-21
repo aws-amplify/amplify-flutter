@@ -87,12 +87,16 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       host = '$prefix$host';
     }
     headers.putIfAbsent('Host', () => host);
+    baseUri = baseUri.resolve(path);
     final baseRequest = AWSStreamedHttpRequest(
       method: HttpMethod.values.byName(request.method.toLowerCase()),
       host: host,
-      path: baseUri.resolve(path).path,
+      path: baseUri.path,
       body: body,
-      queryParameters: queryParameters,
+      queryParameters: {
+        ...queryParameters,
+        ...baseUri.queryParametersAll,
+      },
       headers: headers,
     );
     for (var interceptor in protocol.interceptors) {

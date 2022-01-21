@@ -3,10 +3,15 @@ import 'dart:convert';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' hide Serializer;
 
+enum EmptyPayloadType { empty, object }
+
 class JsonSerializer implements FullSerializer<List<int>> {
-  const JsonSerializer(this._serializers);
+  const JsonSerializer(this._serializers, this.emptyPayloadType);
 
   final Serializers _serializers;
+
+  /// Payload type to send when the input is empty (Unit/void).
+  final EmptyPayloadType emptyPayloadType;
 
   @override
   Object? deserialize(List<int> data, {FullType? specifiedType}) {
@@ -25,6 +30,10 @@ class JsonSerializer implements FullSerializer<List<int>> {
       input,
       specifiedType: specifiedType ?? FullType.unspecified,
     );
+    if (emptyPayloadType == EmptyPayloadType.empty &&
+        (serialized == null || (serialized is Map && serialized.isEmpty))) {
+      return const [];
+    }
     return jsonEncode(serialized).codeUnits;
   }
 }

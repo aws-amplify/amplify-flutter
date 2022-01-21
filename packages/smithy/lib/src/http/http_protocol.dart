@@ -94,12 +94,12 @@ abstract class HasLabel {
 /// knowing the shape of the request or making any assumptions.
 abstract class HasPayload<Payload extends Object?> {
   /// Returns the value of the payload prior to serialization.
-  Payload getPayload();
+  Payload? getPayload();
 }
 
 abstract class HasStreamingPayload<Payload extends Object?>
     extends HasPayload<Stream<Payload>> {
   /// Returns the payload stream prior to serialization.
   @override
-  Stream<Payload> getPayload();
+  Stream<Payload>? getPayload();
 }
