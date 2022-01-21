@@ -90,36 +90,40 @@ void main() {
       },
     );
 
-    if (Platform.isIOS) {
-      testWidgets(
-        'should broadcast events for deleteUser',
-        (WidgetTester tester) async {
-          // setup
-          var nextEvent;
-          var event;
-          var eventCount = 0;
-          var authEventStream = Amplify.Hub.availableStreams[HubChannel.Auth]!;
-          authEventStream.listen((event) => eventCount++);
+    testWidgets(
+      'should broadcast events for deleteUser',
+      (WidgetTester tester) async {
+        // setup
+        var nextEvent;
+        var event;
+        var eventCount = 0;
+        var authEventStream = Amplify.Hub.availableStreams[HubChannel.Auth]!;
+        authEventStream.listen((event) => eventCount++);
 
-          // assert sign in event is broadcast
-          nextEvent = authEventStream.first;
-          await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-          );
-          event = await nextEvent;
-          expect(event.eventName, 'SIGNED_IN');
+        // assert sign in event is broadcast
+        nextEvent = authEventStream.first;
+        await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        event = await nextEvent;
+        expect(event.eventName, 'SIGNED_IN');
 
-          // assert delete user event is broadcast
-          nextEvent = authEventStream.first;
-          await Amplify.Auth.deleteUser();
-          event = await nextEvent;
-          expect(event.eventName, 'USER_DELETED');
+        // assert signed out event is broadcast
+        nextEvent = authEventStream.first;
+        await Amplify.Auth.deleteUser();
+        event = await nextEvent;
+        expect(event.eventName, 'SIGNED_OUT');
 
-          // assert that no other events are broadcast
-          expect(eventCount, 2);
-        },
-      );
-    }
+        // assert delete user event is broadcast
+        nextEvent = authEventStream.first;
+        event = await nextEvent;
+        expect(event.eventName, 'USER_DELETED');
+
+        // assert 3 total events are broadcast
+        expect(eventCount, 3);
+      },
+      skip: !Platform.isIOS,
+    );
   });
 }
