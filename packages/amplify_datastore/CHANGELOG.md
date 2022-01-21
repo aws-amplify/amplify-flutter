@@ -1,3 +1,7 @@
+## 0.3.1 (2022-01-20)
+
+- chore: bump amplify-ios to 1.18.3
+
 ## 0.3.0 (2022-01-20)
 
 This version requires version `>=7.6.10` of `@aws-amplify/cli`. You can install the latest version by running the command:
