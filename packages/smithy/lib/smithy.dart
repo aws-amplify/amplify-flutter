@@ -40,13 +40,14 @@ export 'src/protocol/interceptor.dart';
 export 'src/protocol/json_serializer.dart';
 
 // Serialization
-export 'src/serialization/json/int64.dart';
 export 'src/serialization/json/smithy_json_plugin.dart';
 export 'src/serialization/serializer.dart';
 export 'src/serialization/struct.dart';
 export 'src/serialization/serializers/big_int_serializer.dart';
 export 'src/serialization/serializers/blob_serializer.dart';
 export 'src/serialization/serializers/double_serializer.dart';
+export 'src/serialization/serializers/int64_serializer.dart';
+export 'src/serialization/serializers/encoded_json_object_serializer.dart';
 export 'src/serialization/serializers/timestamp_serializer.dart';
 export 'src/serialization/serializers/unit_serializer.dart';
 export 'src/serialization/xml/xml_plugin.dart';

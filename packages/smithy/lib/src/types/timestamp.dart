@@ -6,6 +6,7 @@
 // (for example, 1985-04-12T23:20:50.52Z).
 
 import 'package:http_parser/http_parser.dart';
+import 'package:intl/intl.dart';
 import 'package:smithy_ast/smithy_ast.dart';
 
 /// {@template aws.smithy.timestamp}
@@ -13,8 +14,7 @@ import 'package:smithy_ast/smithy_ast.dart';
 /// @{endtemplate}
 class Timestamp {
   /// {@macro aws.smithy.timestamp}
-  Timestamp(DateTime timestamp)
-      : _timestamp = timestamp.stripMicroseconds().toUtc();
+  Timestamp(DateTime timestamp) : _timestamp = timestamp.stripMicroseconds();
 
   /// {@macro aws.smithy.timestamp}
   Timestamp.now() : this(DateTime.now());
@@ -34,7 +34,15 @@ class Timestamp {
         final dt = DateTime.parse(timestamp as String);
         return Timestamp(dt);
       case TimestampFormat.httpDate:
-        final dt = parseHttpDate(timestamp as String);
+        DateTime dt;
+        try {
+          dt = parseHttpDate(timestamp as String);
+        } on FormatException {
+          // Note that in addition to the IMF-fixdate format specified in the
+          // RFC, implementations MUST also support optional fractional seconds
+          // (for example, Sun, 02 Jan 2000 20:34:56.000 GMT).
+          dt = _httpFormat.parse(timestamp as String, true);
+        }
         return Timestamp(dt);
       case TimestampFormat.epochSeconds:
         final secs = timestamp as num;
@@ -53,8 +61,11 @@ class Timestamp {
 
   DateTime get asDateTime => _timestamp;
 
+  static final _isoFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+  static final _httpFormat = DateFormat("EEE, dd MMM yyyy HH:mm:ss.SSS 'GMT'");
+
   @override
-  String toString() => _timestamp.toIso8601String();
+  String toString() => _isoFormat.format(_timestamp);
 
   Object format([TimestampFormat format = TimestampFormat.dateTime]) {
     switch (format) {
@@ -64,29 +75,22 @@ class Timestamp {
       case TimestampFormat.httpDate:
         return formatHttpDate(_timestamp);
       case TimestampFormat.epochSeconds:
-        return _timestamp.millisecondsSinceEpoch / 1000;
+        return _timestamp.millisecondsSinceEpoch ~/ 1000;
     }
   }
 }
 
 extension on DateTime {
-  DateTime stripMicroseconds({
-    int? day,
-    int? month,
-    int? year,
-    int? hour,
-    int? minute,
-    int? second,
-    int? millisecond,
-  }) {
-    return DateTime(
-      year ?? this.year,
-      month ?? this.month,
-      day ?? this.day,
-      hour ?? this.hour,
-      minute ?? this.minute,
-      second ?? this.second,
-      millisecond ?? this.millisecond,
+  DateTime stripMicroseconds() {
+    final dt = toUtc();
+    return DateTime.utc(
+      dt.year,
+      dt.month,
+      dt.day,
+      dt.hour,
+      dt.minute,
+      dt.second,
+      dt.millisecond,
     );
   }
 }

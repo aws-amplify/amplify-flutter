@@ -20,6 +20,7 @@ dependencies:
   fixnum: ^1.0.0
   http: ^0.13.0
   http_parser: ^4.0.0
+  intl: ^0.17.0
   json_annotation: ">=4.4.0 <4.5.0"
   logging: ^1.0.2
   meta: ^1.7.0

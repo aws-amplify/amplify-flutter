@@ -35,7 +35,7 @@ class TimestampSerializer implements PrimitiveSerializer<DateTime> {
   }
 
   @override
-  Iterable<Type> get types => [Timestamp];
+  Iterable<Type> get types => [Timestamp, DateTime];
 
   @override
   String get wireName => 'Timestamp';
