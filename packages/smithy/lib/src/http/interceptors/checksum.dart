@@ -8,8 +8,8 @@ import 'package:smithy/smithy.dart';
 /// Intercepts HTTP operations to include an MD5 content hash in the header.
 ///
 /// See: https://awslabs.github.io/smithy/1.0/spec/core/behavior-traits.html#httpchecksumrequired-trait
-class ChecksumInterceptor extends HttpInterceptor {
-  const ChecksumInterceptor();
+class WithChecksum extends HttpInterceptor {
+  const WithChecksum();
 
   @override
   Future<void> intercept(AWSStreamedHttpRequest request) async {

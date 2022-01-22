@@ -5,6 +5,8 @@ import 'package:smithy/smithy.dart' hide Serializer;
 
 enum EmptyPayloadType { empty, object }
 
+final _jsonStart = '{'.codeUnitAt(0);
+
 class JsonSerializer implements FullSerializer<List<int>> {
   const JsonSerializer(this._serializers, this.emptyPayloadType);
 
@@ -15,9 +17,14 @@ class JsonSerializer implements FullSerializer<List<int>> {
 
   @override
   Object? deserialize(List<int> data, {FullType? specifiedType}) {
-    final decoded = data.isEmpty
-        ? const <Object?, Object?>{}
-        : jsonDecode(utf8.decode(data)) as Object?;
+    Object? decoded;
+    if (data.isEmpty) {
+      decoded = const <Object?, Object?>{};
+    } else if (data.first != _jsonStart) {
+      decoded = utf8.decode(data);
+    } else {
+      decoded = jsonDecode(utf8.decode(data));
+    }
     return _serializers.deserialize(
       decoded,
       specifiedType: specifiedType ?? FullType.unspecified,
@@ -34,6 +41,9 @@ class JsonSerializer implements FullSerializer<List<int>> {
         (serialized == null || (serialized is Map && serialized.isEmpty))) {
       return const [];
     }
-    return jsonEncode(serialized).codeUnits;
+    if (serialized is String) {
+      return utf8.encode(serialized);
+    }
+    return utf8.encode(jsonEncode(serialized));
   }
 }

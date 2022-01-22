@@ -78,8 +78,7 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
 
 /// A structure which implements the traits needed for use as input to an HTTP
 /// operation.
-mixin HttpInput<Payload extends Object?>
-    implements HasLabel, HasPayload<Payload> {
+mixin HttpInput<Payload extends Object?> implements HasLabel {
   @override
   String labelFor(String key) => throw MissingLabelException(this, key);
 }
@@ -88,18 +87,4 @@ mixin HttpInput<Payload extends Object?>
 abstract class HasLabel {
   /// Returns the label for requested keys.
   String labelFor(String key);
-}
-
-/// A utility for operations to access the payload of the request without
-/// knowing the shape of the request or making any assumptions.
-abstract class HasPayload<Payload extends Object?> {
-  /// Returns the value of the payload prior to serialization.
-  Payload? getPayload();
-}
-
-abstract class HasStreamingPayload<Payload extends Object?>
-    extends HasPayload<Stream<Payload>> {
-  /// Returns the payload stream prior to serialization.
-  @override
-  Stream<Payload>? getPayload();
 }

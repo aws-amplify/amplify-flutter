@@ -20,7 +20,8 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   ) {
     return template.replaceAllMapped(_labelRegex, (match) {
       final key = match.group(1)!;
-      return Uri.encodeComponent(input.labelFor(key));
+      return Uri.encodeQueryComponent(input.labelFor(key))
+          .replaceAll('+', '%20');
     });
   }
 
