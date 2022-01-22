@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart';
 import 'package:smithy/smithy.dart';
@@ -14,6 +14,6 @@ class WithChecksum extends HttpInterceptor {
   @override
   Future<void> intercept(AWSStreamedHttpRequest request) async {
     final bytes = await ByteStream(request.split()).toBytes();
-    request.headers['Content-MD5'] = hex.encode(md5.convert(bytes).bytes);
+    request.headers['Content-MD5'] = base64Encode(md5.convert(bytes).bytes);
   }
 }

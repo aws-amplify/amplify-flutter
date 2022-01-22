@@ -31,7 +31,13 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
 
   /// Builds the output from the [payload] and metadata from the HTTP
   /// [response].
-  Output buildOutput(OutputPayload payload, AWSStreamedHttpResponse response);
+  Output buildOutput(
+    // This is (kind of) a hack to allow `OutputPayload` to always be non-null
+    // even if the payload type is nullable. We need the non-null version to
+    // interop with built_value correctly.
+    covariant Object? payload,
+    AWSStreamedHttpResponse response,
+  );
 
   @override
   Iterable<HttpProtocol<InputPayload, Input, OutputPayload, Output>>
@@ -176,9 +182,11 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     if (output is Output) {
       return output;
     } else {
-      return buildOutput(output as OutputPayload, response);
+      return buildOutput(output, response);
     }
   }
+
+  Type typeOf<T>(T? obj) => T;
 
   @override
   Future<Output> run(

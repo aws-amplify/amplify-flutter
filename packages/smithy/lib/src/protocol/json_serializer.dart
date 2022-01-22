@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' hide Serializer;
@@ -18,6 +19,8 @@ class JsonSerializer implements FullSerializer<List<int>> {
     Object? decoded;
     if (data.isEmpty) {
       decoded = const <Object?, Object?>{};
+    } else if (specifiedType?.root == Uint8List) {
+      decoded = data;
     } else {
       decoded = jsonDecode(utf8.decode(data));
     }
@@ -36,6 +39,9 @@ class JsonSerializer implements FullSerializer<List<int>> {
     if (emptyPayloadType == EmptyPayloadType.empty &&
         (serialized == null || input is EmptyPayload)) {
       return const [];
+    }
+    if (serialized is List<int>) {
+      return serialized;
     }
     return utf8.encode(jsonEncode(serialized));
   }
