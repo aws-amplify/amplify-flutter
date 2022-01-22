@@ -53,6 +53,7 @@ export 'src/serialization/serializers/unit_serializer.dart';
 export 'src/serialization/xml/xml_plugin.dart';
 
 // Types
+export 'src/types/empty.dart';
 export 'src/types/enum.dart';
 export 'src/types/timestamp.dart';
 export 'src/types/union.dart';

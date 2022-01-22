@@ -1,9 +1,6 @@
 import 'package:smithy/smithy.dart';
 
 /// Type representing `void` or empty structure.
-class Unit with HttpInput<Unit> {
+class Unit implements EmptyPayload {
   const Unit();
-
-  @override
-  Unit getPayload() => this;
 }

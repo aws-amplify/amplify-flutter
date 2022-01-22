@@ -33,8 +33,10 @@ class EncodedJsonObjectSerializer implements PrimitiveSerializer<JsonObject> {
   JsonObject deserialize(Serializers serializers, Object? serialized,
       {FullType specifiedType = FullType.unspecified}) {
     serialized as String?;
-    final decoded =
-        serialized == null ? null : jsonDecode(serialized) as Object?;
+    Object? decoded;
+    if (serialized != null) {
+      decoded = jsonDecode(serialized);
+    }
     return JsonObject(decoded);
   }
 }

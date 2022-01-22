@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart';
+import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 import 'package:smithy/smithy.dart';
 
@@ -69,9 +70,13 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
     Input input,
   ) async {
-    final String path = input is HasLabel
+    var path = input is HasLabel
         ? expandLabels(request.path, input as HasLabel)
         : request.path;
+    var needsTrailingSlash = path.endsWith('/');
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
     final headers = {
       ...request.headers.asMap(),
       ...protocol.headers,
@@ -88,7 +93,15 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       host = '$prefix$host';
     }
     headers.putIfAbsent('Host', () => host);
-    baseUri = baseUri.resolve(path);
+    var basePath = baseUri.path;
+    if (basePath.startsWith('/')) {
+      basePath = basePath.substring(1);
+    }
+    path = p.join(basePath, path);
+    if (needsTrailingSlash && !path.endsWith('/')) {
+      path += '/';
+    }
+    baseUri = baseUri.replace(host: host).resolve(path);
     final baseRequest = AWSStreamedHttpRequest(
       method: HttpMethod.values.byName(request.method.toLowerCase()),
       host: host,
