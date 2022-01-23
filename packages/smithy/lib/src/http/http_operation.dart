@@ -150,7 +150,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
         );
       },
       retryIf: (e) {
-        return e is SmithyException && e.isRetryable;
+        return e is SmithyException && e.retryConfig != null;
       },
       onRetry: (e) {
         debugNumRetries++;
