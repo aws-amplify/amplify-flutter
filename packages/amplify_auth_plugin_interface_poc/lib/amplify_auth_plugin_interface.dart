@@ -21,7 +21,7 @@ import 'src/types.dart';
 export 'src/types.dart';
 
 // ignore_for_file: public_member_api_docs
-abstract class AuthPluginInterfacePOC {
+abstract class AuthPluginInterfacePOC extends AmplifyPluginInterfacePOC {
   /// Constructs a AmplifyPlatform.
   AuthPluginInterface();
 

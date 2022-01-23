@@ -13,14 +13,22 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+part of amplify_flutter_platform_interface;
+
+const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/amplify');
 
 /// An implementation of [Core] that uses method channels.
-class AmplifyFlutterWeb extends AmplifyClass {
-  AmplifyFlutterWeb() : super.protected();
+class MethodChannelAmplify extends AmplifyClass {
+  MethodChannelAmplify() : super.protected();
 
   @override
   Future<void> _configurePlatforms(String version, String configuration) async {
-    print(configuration);
+    await _channel.invokeMethod<void>(
+      'configure',
+      <String, Object>{
+        'version': version,
+        'configuration': configuration,
+      },
+    );
   }
 }

@@ -20,3 +20,5 @@ abstract class AmplifyPluginInterface extends PlatformInterface {
   /// Constructs a plugin
   AmplifyPluginInterface({required Object token}) : super(token: token);
 }
+
+abstract class AmplifyPluginInterfacePOC {}

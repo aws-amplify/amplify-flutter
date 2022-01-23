@@ -1,9 +1,9 @@
-name: amplify_auth_cognito_example
-description: Demonstrates how to use the amplify_auth_cognito plugin.
+name: amplify_flutter_poc_example
+description: Demonstrates how to use the amplify_flutter_poc plugin.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -17,11 +17,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   amplify_flutter_poc:
-    path: ../../../amplify_flutter_poc/amplify_flutter_poc
-  amplify_auth_cognito_poc:
     # When depending on this package from a real application you should use:
-    #   amplify_auth_cognito: ^x.y.z
+    #   amplify_flutter_poc: ^x.y.z
     # See https://dart.dev/tools/pub/dependencies#version-constraints
     # The example app is bundled with the plugin so we use a path dependency on
     # the parent directory to use the current plugin's version.
@@ -47,6 +46,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

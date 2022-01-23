@@ -1,54 +1,33 @@
-/*
- * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+library amplify_flutter_platform_interface;
 
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+import 'package:amplify_auth_plugin_interface_poc/amplify_auth_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:amplify_flutter/src/config/amplify_config.dart';
+import 'package:amplify_flutter_platform_interface/src/amplify_hub.dart';
+import 'package:amplify_flutter_platform_interface/src/categories/amplify_categories.dart';
+import 'package:amplify_flutter_platform_interface/src/config/amplify_config.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-
-import 'amplify_hub.dart';
-import 'categories/amplify_categories.dart';
+import 'package:flutter/services.dart';
 
 part 'method_channel_amplify.dart';
 
-/// This is a private class and customers are not expected to
-/// instantiate an object of this class. Please use top level
-/// `Amplify` singleton object for making calls to methods of this class.
 class AmplifyClass extends PlatformInterface {
   AmplifyConfig? _config;
 
   /// The Auth category.
   final AuthCategory Auth = const AuthCategory();
 
-  /// The Analytics category.
-  final AnalyticsCategory Analytics = const AnalyticsCategory();
-
   /// The Storage category.
   final StorageCategory Storage = const StorageCategory();
 
   /// The DataStore category.
-  final DataStoreCategory DataStore = const DataStoreCategory();
+  // final DataStoreCategory DataStore = const DataStoreCategory();
 
   /// The API category.
   final APICategory API = const APICategory();
@@ -66,7 +45,7 @@ class AmplifyClass extends PlatformInterface {
   ///
   /// Throws AmplifyAlreadyConfiguredException if
   /// this method is called after configure (e.g. during hot reload).
-  Future<void> addPlugin(AmplifyPluginInterface plugin) async {
+  Future<void> addPlugin(AmplifyPluginInterfacePOC plugin) async {
     if (_isConfigured) {
       throw const AmplifyAlreadyConfiguredException(
         'Amplify has already been configured and adding plugins after configure is not supported.',
@@ -75,25 +54,23 @@ class AmplifyClass extends PlatformInterface {
       );
     }
     try {
-      if (plugin is AuthPluginInterface) {
+      if (plugin is AuthPluginInterfacePOC) {
         await Auth.addPlugin(plugin);
         Hub.addChannel(HubChannel.Auth, plugin.streamController);
-      } else if (plugin is AnalyticsPluginInterface) {
-        await Analytics.addPlugin(plugin);
-      } else if (plugin is StoragePluginInterface) {
-        await Storage.addPlugin(plugin);
-      } else if (plugin is DataStorePluginInterface) {
-        try {
-          await DataStore.addPlugin(plugin);
-        } on AmplifyAlreadyConfiguredException {
-          // A new plugin is added in native libraries during `addPlugin`
-          // call for DataStore, which means during an app restart, this
-          // method will throw an exception in android. We will ignore this
-          // like other plugins and move on. Other exceptions fall through.
-        }
-        Hub.addChannel(HubChannel.DataStore, plugin.streamController);
-      } else if (plugin is APIPluginInterface) {
-        await API.addPlugin(plugin);
+        // } else if (plugin is StoragePluginInterface) {
+        //   await Storage.addPlugin(plugin);
+        // } else if (plugin is DataStorePluginInterface) {
+        //   try {
+        //     await DataStore.addPlugin(plugin);
+        //   } on AmplifyAlreadyConfiguredException {
+        //     // A new plugin is added in native libraries during `addPlugin`
+        //     // call for DataStore, which means during an app restart, this
+        //     // method will throw an exception in android. We will ignore this
+        //     // like other plugins and move on. Other exceptions fall through.
+        //   }
+        //   Hub.addChannel(HubChannel.DataStore, plugin.streamController);
+        // } else if (plugin is APIPluginInterface) {
+        //   await API.addPlugin(plugin);
       } else {
         throw AmplifyException(
             'The type of plugin ' +
@@ -117,7 +94,7 @@ class AmplifyClass extends PlatformInterface {
   /// Adds multiple plugins at the same time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
   /// to check the configuration state by calling `Amplify.isConfigured`
-  Future<void> addPlugins(List<AmplifyPluginInterface> plugins) =>
+  Future<void> addPlugins(List<AmplifyPluginInterfacePOC> plugins) =>
       Future.wait(plugins.map(addPlugin));
 
   /// Returns whether Amplify has been configured or not.
@@ -131,7 +108,7 @@ class AmplifyClass extends PlatformInterface {
   }
 
   String _getVersion() {
-    return '0.3.1';
+    return '0.3.0';
   }
 
   /// Configures Amplify with the provided configuration string.
@@ -182,7 +159,7 @@ class AmplifyClass extends PlatformInterface {
             underlyingException: e.toString());
       }
     }
-    await DataStore.configure(configuration);
+    // await DataStore.configure(configuration);
 
     if (_isConfigured && !_configCompleter.isCompleted) {
       _config = _parseConfigJson(configuration);
@@ -229,5 +206,3 @@ class AmplifyClass extends PlatformInterface {
     _instance = instance;
   }
 }
-
-// ignore_for_file: non_constant_identifier_names

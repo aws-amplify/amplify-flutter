@@ -1,4 +1,4 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter_poc/amplify_flutter_poc.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
