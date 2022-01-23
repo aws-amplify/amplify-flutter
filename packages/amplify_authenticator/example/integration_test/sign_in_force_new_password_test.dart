@@ -1,6 +1,7 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -9,7 +10,6 @@ import 'config.dart';
 import 'pages/confirm_sign_in_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
-import 'utils/data_utils.dart';
 import 'utils/mock_data.dart';
 
 // This test follows the Amplify UI feature "sign-in-force-new-password"
