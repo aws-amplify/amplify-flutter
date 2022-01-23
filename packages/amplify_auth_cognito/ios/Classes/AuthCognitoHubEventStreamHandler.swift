@@ -37,6 +37,8 @@ public class AuthCognitoHubEventStreamHandler: NSObject, FlutterStreamHandler {
                 self.sendEvent(eventName: "SESSION_EXPIRED")
             case HubPayload.EventName.Auth.signedOut:
                 self.sendEvent(eventName: "SIGNED_OUT")
+            case HubPayload.EventName.Auth.userDeleted:
+                self.sendEvent(eventName: "USER_DELETED")
             case HubPayload.EventName.Amplify.configured:
                 print("AuthPlugin successfully initialized")
             default:

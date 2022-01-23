@@ -10,6 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  amplify_api: 0.3.1
+  amplify_flutter: 0.3.1
+  stream_transform: ^2.0.0
 
 dev_dependencies:
   amplify_lints: ^1.0.0
+  integration_test:
+    sdk: flutter
