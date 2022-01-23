@@ -17,3 +17,15 @@ class WithHeader extends HttpInterceptor {
     }
   }
 }
+
+/// Removes a header from the request.
+class WithNoHeader extends HttpInterceptor {
+  const WithNoHeader(this.key);
+
+  final String key;
+
+  @override
+  void intercept(AWSStreamedHttpRequest request) {
+    request.headers.remove(key);
+  }
+}

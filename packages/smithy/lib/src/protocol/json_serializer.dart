@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' hide Serializer;
 
@@ -17,12 +18,15 @@ class JsonSerializer implements FullSerializer<List<int>> {
   @override
   Object? deserialize(List<int> data, {FullType? specifiedType}) {
     Object? decoded;
-    if (data.isEmpty) {
-      decoded = const <Object?, Object?>{};
-    } else if (specifiedType?.root == Uint8List) {
+    if (specifiedType?.root == Uint8List) {
       decoded = data;
+    } else if (data.isEmpty) {
+      decoded = const <Object?, Object?>{};
     } else {
-      decoded = jsonDecode(utf8.decode(data));
+      decoded = utf8.decode(data);
+      try {
+        decoded = decoded = jsonDecode(decoded as String);
+      } on FormatException {}
     }
     return _serializers.deserialize(
       decoded,
@@ -32,16 +36,28 @@ class JsonSerializer implements FullSerializer<List<int>> {
 
   @override
   List<int> serialize(Object? input, {FullType? specifiedType}) {
-    final serialized = _serializers.serialize(
-      input,
-      specifiedType: specifiedType ?? FullType.unspecified,
-    );
-    if (emptyPayloadType == EmptyPayloadType.empty &&
-        (serialized == null || input is EmptyPayload)) {
-      return const [];
+    Object? serialized;
+    if (input is HasPayload && input.getPayload() == null) {
+      serialized = null;
+    } else {
+      serialized = _serializers.serialize(
+        input,
+        specifiedType: specifiedType ?? FullType.unspecified,
+      );
+    }
+    if (serialized == null || input is EmptyPayload) {
+      switch (emptyPayloadType) {
+        case EmptyPayloadType.empty:
+          return const [];
+        case EmptyPayloadType.object:
+          serialized = const <Object, Object>{};
+      }
     }
     if (serialized is List<int>) {
       return serialized;
+    }
+    if (serialized is String && specifiedType?.root != JsonObject) {
+      return utf8.encode(serialized);
     }
     return utf8.encode(jsonEncode(serialized));
   }

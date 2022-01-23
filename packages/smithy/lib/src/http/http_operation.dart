@@ -46,6 +46,12 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   @override
   List<SmithyError> get errorTypes;
 
+  /// The success code for the operation.
+  ///
+  /// Accepts the operation output since some output types embed the success
+  /// code to allow for dynamic success codes.
+  int successCode([Output? output]);
+
   /// The number of times the operation has been retried.
   @visibleForTesting
   int debugNumRetries = 0;
@@ -84,8 +90,8 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       path = path.substring(1);
     }
     final headers = {
-      ...request.headers.asMap(),
       ...protocol.headers,
+      ...request.headers.asMap(),
     };
     final queryParameters = {
       ...request.queryParameters.asMap(),
@@ -132,7 +138,6 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   Future<Output> innerSend({
     required HttpClient client,
     required AWSStreamedHttpRequest httpRequest,
-    required int successCode,
     required HttpProtocol protocol,
   }) {
     const r = RetryOptions();
@@ -142,7 +147,6 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
         return deserializeOutput(
           protocol: protocol,
           response: response,
-          successCode: successCode,
         );
       },
       retryIf: (e) {
@@ -159,34 +163,48 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   Future<Output> deserializeOutput({
     required HttpProtocol protocol,
     required AWSStreamedHttpResponse response,
-    required int successCode,
   }) async {
-    if (response.statusCode != successCode) {
-      Type? errorType;
-      final resolvedType = await protocol.resolveErrorType(response);
-      if (resolvedType != null) {
-        errorType =
-            errorTypes.firstWhere((t) => t.shapeId.shape == resolvedType).type;
+    Output? output;
+    Exception? exception;
+    var successCode = this.successCode();
+    try {
+      final payload = await protocol.deserialize(response.split(),
+          specifiedType: FullType(OutputPayload));
+      if (payload is Output) {
+        output = payload;
+      } else {
+        output = buildOutput(payload, response);
       }
-      errorType ??= errorTypes
-          .singleWhereOrNull((t) => t.statusCode == response.statusCode)
-          ?.type;
-      errorType ??= SmithyException;
-      throw await protocol.deserialize(
-        response.body,
-        specifiedType: FullType(errorType),
-      ) as SmithyException;
+      successCode = this.successCode(output);
+    } on Exception catch (e) {
+      exception = e;
     }
-    final output = await protocol.deserialize(response.body,
-        specifiedType: FullType(OutputPayload));
-    if (output is Output) {
-      return output;
-    } else {
-      return buildOutput(output, response);
+    if (response.statusCode == successCode) {
+      if (output != null) {
+        return output;
+      }
+      throw exception!;
     }
-  }
 
-  Type typeOf<T>(T? obj) => T;
+    SmithyError? smithyError;
+    final resolvedType = await protocol.resolveErrorType(response);
+    if (resolvedType != null) {
+      smithyError =
+          errorTypes.firstWhere((t) => t.shapeId.shape == resolvedType);
+    }
+    smithyError ??= errorTypes
+        .singleWhereOrNull((t) => t.statusCode == response.statusCode);
+    final errorType = smithyError?.type ?? SmithyException;
+    final errorPayload = await protocol.deserialize(
+      response.body,
+      specifiedType: FullType(errorType),
+    );
+    final builder = smithyError?.builder;
+    if (builder != null) {
+      throw builder(errorPayload, response);
+    }
+    throw errorPayload as SmithyException;
+  }
 
   @override
   Future<Output> run(
@@ -211,7 +229,6 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       client: client,
       protocol: protocol,
       httpRequest: httpRequest,
-      successCode: request.successCode,
     );
   }
 }

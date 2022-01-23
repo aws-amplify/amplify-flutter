@@ -24,12 +24,14 @@ class SmithyError with AWSEquatable<SmithyError> {
     this.type, {
     this.retryConfig,
     int? statusCode,
+    required this.builder,
   }) : _statusCode = statusCode;
 
   final ShapeId shapeId;
   final ErrorKind kind;
   final Type type;
   final RetryConfig? retryConfig;
+  final Function builder;
 
   final int? _statusCode;
   int get statusCode => _statusCode ?? (kind == ErrorKind.client ? 400 : 500);
@@ -52,28 +54,9 @@ abstract class HttpRequest implements Built<HttpRequest, HttpRequestBuilder> {
   /// The path of the operation.
   String get path;
 
-  /// The success code for the operation.
-  int get successCode;
-
   /// The HTTP headers.
   BuiltMap<String, String> get headers;
 
   /// The HTTP query parameters.
   BuiltListMultimap<String, String> get queryParameters;
-}
-
-abstract class HttpResponse
-    implements Built<HttpResponse, HttpResponseBuilder> {
-  factory HttpResponse([void Function(HttpResponseBuilder) updates]) =
-      _$HttpResponse;
-  HttpResponse._();
-
-  /// The response status code.
-  int get statusCode;
-
-  /// The response body.
-  Stream<List<int>> get body;
-
-  /// The HTTP headers.
-  BuiltMap<String, String> get headers;
 }

@@ -38,19 +38,18 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
 
   @override
   Stream<List<int>> serialize(Object? input, {FullType? specifiedType}) {
-    if (input == null) {
-      return const Stream.empty();
-    } else if (input is String) {
-      return Stream.value(utf8.encode(input));
-    } else if (input is List<int>) {
-      return Stream.value(input);
-    } else if (input is Stream<List<int>>) {
-      return input;
+    final Object? payload = input is HasPayload ? input.getPayload() : input;
+    if (payload is String) {
+      return Stream.value(utf8.encode(payload));
+    } else if (payload is List<int>) {
+      return Stream.value(payload);
+    } else if (payload is Stream<List<int>>) {
+      return payload;
     } else {
       return Stream.fromFuture(() async {
         return await wireSerializer.serialize(
           input,
-          specifiedType: specifiedType,
+          specifiedType: FullType(Input, [FullType(InputPayload)]),
         );
       }());
     }
@@ -78,7 +77,8 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
 
 /// A structure which implements the traits needed for use as input to an HTTP
 /// operation.
-mixin HttpInput<Payload extends Object?> implements HasLabel {
+mixin HttpInput<Payload extends Object?>
+    implements HasLabel, HasPayload<Payload> {
   @override
   String labelFor(String key) => throw MissingLabelException(this, key);
 }
@@ -87,4 +87,36 @@ mixin HttpInput<Payload extends Object?> implements HasLabel {
 abstract class HasLabel {
   /// Returns the label for requested keys.
   String labelFor(String key);
+}
+
+abstract class HasPayload<Payload> {
+  Payload? getPayload();
+}
+
+/// Sanitizes header values for using in a list of headers.
+String sanitizeHeader(String headerValue) {
+  if (headerValue.contains(',') ||
+      headerValue.contains('\'') ||
+      headerValue.contains('"')) {
+    return '"$headerValue"';
+  }
+  return headerValue;
+}
+
+/// Parses a list of headers separated by commas.
+List<String> parseHeader(String headerValue) {
+  final tokens = <String>[];
+  int start = 0;
+  int index = 0;
+  while (index < headerValue.length) {
+    if (headerValue[index] == ',') {
+      tokens.add(headerValue.substring(start, index));
+      start = index + 1;
+    } else if (headerValue[index] == ' ' || headerValue[index] == '\t') {
+      start++;
+    }
+    index++;
+  }
+  tokens.add(headerValue.substring(start, index));
+  return tokens;
 }
