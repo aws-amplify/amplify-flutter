@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 import 'package:smithy/smithy.dart';
+import 'package:smithy/src/behavior/paginated_result.dart';
 
 /// Defines an operation which uses HTTP.
 ///
@@ -230,5 +231,71 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       protocol: protocol,
       httpRequest: httpRequest,
     );
+  }
+}
+
+/// A version of [HttpOperation] which provides a convenient API for retrieving
+/// pages of results.
+abstract class PaginatedHttpOperation<
+    InputPayload,
+    Input,
+    OutputPayload,
+    Output,
+    Token,
+    PageSize,
+    Items> extends HttpOperation<InputPayload, Input, OutputPayload, Output> {
+  /// Retrieves the token from the operation output.
+  Token? getToken(Output output);
+
+  /// Retrieves the items from the operation output.
+  Items getItems(Output output);
+
+  /// Creates a new input with [token] and [pageSize].
+  Input rebuildInput(Input input, Token token, PageSize? pageSize);
+
+  /// Runs the operation returning a [PaginatedResult] which can be paged.
+  Future<PaginatedResult<Items, PageSize>> runPaginated(
+    Input input, {
+    Uri? baseUri,
+    HttpClient? client,
+    ShapeId? useProtocol,
+  }) async {
+    final output = await run(
+      input,
+      baseUri: baseUri,
+      client: client,
+      useProtocol: useProtocol,
+    );
+    final token = getToken(output);
+
+    // If the received response does not contain a continuation token in the
+    // referenced outputToken member, then there are no more results to retrieve
+    // and the process is complete.
+    final hasNext = token != null;
+
+    final items = getItems(output);
+    late PaginatedResult<Items, PageSize> result;
+    result = PaginatedResult(
+      items,
+      hasNext: hasNext,
+
+      // If there is a continuation token in the referenced outputToken member
+      // of the response, then the client sends a subsequent request using the
+      // same input parameters as the original call, but including the last
+      // received continuation token. Clients are free to change the designated
+      // pageSize input parameter at this step as needed.
+      next: ([PageSize? pageSize]) async {
+        if (token == null) {
+          return result;
+        }
+        return runPaginated(
+          rebuildInput(input, token, pageSize),
+          baseUri: baseUri,
+          client: client,
+          useProtocol: useProtocol,
+        );
+      },
+    );
+    return result;
   }
 }

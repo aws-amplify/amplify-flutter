@@ -94,29 +94,53 @@ abstract class HasPayload<Payload> {
 }
 
 /// Sanitizes header values for using in a list of headers.
-String sanitizeHeader(String headerValue) {
-  if (headerValue.contains(',') ||
-      headerValue.contains('\'') ||
-      headerValue.contains('"')) {
-    return '"$headerValue"';
+String sanitizeHeader(String headerValue, {bool isTimestampList = false}) {
+  if ((headerValue.contains(',') ||
+          headerValue.contains('\'') ||
+          headerValue.contains('"')) &&
+
+      // Timestamp lists do not get escaped for some reason.
+      !isTimestampList) {
+    return '"${headerValue.replaceAll('"', '\\"')}"';
   }
   return headerValue;
 }
 
+final _gmt = RegExp(r'GMT$');
+
 /// Parses a list of headers separated by commas.
-List<String> parseHeader(String headerValue) {
+List<String> parseHeader(String headerValue, {bool isTimestampList = false}) {
   final tokens = <String>[];
   int start = 0;
   int index = 0;
+  bool escaped = false;
   while (index < headerValue.length) {
-    if (headerValue[index] == ',') {
-      tokens.add(headerValue.substring(start, index));
+    if (!escaped && headerValue[index] == ',') {
+      final token = headerValue.substring(start, index);
+
+      // Timestamp lists do not get escaped for some reason.
+      if (isTimestampList && !_gmt.hasMatch(token)) {
+        index++;
+        continue;
+      }
+      tokens.add(token);
       start = index + 1;
-    } else if (headerValue[index] == ' ' || headerValue[index] == '\t') {
+    } else if (!isTimestampList &&
+        (headerValue[index] == ' ' || headerValue[index] == '\t')) {
       start++;
+    } else if (headerValue[index] == '\\') {
+      index++;
+    } else if (headerValue[index] == '"') {
+      escaped = !escaped;
     }
     index++;
   }
   tokens.add(headerValue.substring(start, index));
-  return tokens;
+  return tokens.map((headerValue) {
+    // Unescape headers which were previously escaped.
+    if (headerValue.startsWith('"') && headerValue.endsWith('"')) {
+      headerValue = headerValue.substring(1, headerValue.length - 1);
+    }
+    return headerValue.trim().replaceAll('\\"', '"');
+  }).toList();
 }

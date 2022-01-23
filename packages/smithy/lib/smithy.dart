@@ -16,6 +16,9 @@ export 'package:smithy_ast/smithy_ast.dart'
         ShapeId,
         TimestampFormat;
 
+// Behavior
+export 'src/behavior/paginated_result.dart';
+
 // Operation
 export 'src/client.dart';
 export 'src/operation.dart';
