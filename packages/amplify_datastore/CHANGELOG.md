@@ -1,24 +1,20 @@
-## 0.3.0-rc.4 (2022-01-12)
+## 0.3.2 (2022-01-21)
 
-### Fixes
+- chore: bump amplify-android to 1.31.2
 
-- fix(datastore): configure function triggers initial sync unexpectedly (#986)
+## 0.3.1 (2022-01-20)
 
-## 0.3.0-rc.3 (2021-12-08)
+- chore: bump amplify-ios to 1.18.3
 
-### Fixes
+## 0.3.0 (2022-01-20)
 
-- fix (amplify_datastore): fix error map from ios (#1126)
-
-## 0.3.0-rc.2 (2021-11-08)
-
-This release candidate requires a preview version of `@aws-amplify/cli`. To uninstall `@aws-amplify/cli` release version and install preview version by running following command.
+This version requires version `>=7.6.10` of `@aws-amplify/cli`. You can install the latest version by running the command:
 
 ```
-npm uninstall -g @aws-amplify/cli && npm install -g @aws-amplify/cli@7.7.0-flutter-preview.1
+npm install -g @aws-amplify/cli
 ```
 
-and to regenerate models by running following command.
+and to regenerate models, run the following command:
 
 ```
 amplify codegen models
@@ -26,35 +22,30 @@ amplify codegen models
 
 ### Breaking Changes
 
-- `ModelProvider` and `ModelField` Interface Changes
+- `ModelProvider` and `ModelField` interface changes
 
-  **How to migrate?**
+  **How to Migrate:**
 
-  - Install the required version of `@aws-amplify/cli` for this release candidate described at the beginning of this section
+  - Install the required version of `@aws-amplify/cli` described at the beginning of this section
   - Run `amplify codegen models` to regenerate models
-
-### Features
-
-- feat: Add CustomType functionality (#847)
-- feat: Add ModelField ReadOnly support (#599)
-
-## 0.3.0-rc.1 (2021-09-24)
-
-### Breaking Changes
 
 - This version introduces a breaking change to Android Apps as an existing bug writes `Double` and `Boolean` values as `TEXT` in local SQLite database. The fix corrects this behavior. Hence, directly applying this fix may raise SQL error while reading from and writing to local database.
 
-  **How to migrate?**
-  Invoke [`Amplify.DataStore.clear()`](https://docs.amplify.aws/lib/datastore/sync/q/platform/flutter/#clear-local-data) on App start after upgrading to the latest version of amplify-flutter. This API clears and recreates local database table with correct schema.
+  **How to Migrate:**
+
+  Invoke [`Amplify.DataStore.clear()`](https://docs.amplify.aws/lib/datastore/sync/q/platform/flutter/#clear-local-data) on App start after upgrading to the latest version of Amplify Flutter. This API clears and recreates local database table with correct schema.
 
   NOTE: Data stored in local database and not synced to cloud will be lost, as [local migration is not supported](https://docs.amplify.aws/lib/datastore/schema-updates/q/platform/flutter/#local-migrations).
 
 ### Features
 
-- feat: Add CustomType functionality (#920)
+- feat(datastore): Add CustomType functionality (#847)
+- feat(datastore): Add ModelField ReadOnly support (#599)
 
 ### Fixes
 
+- fix(datastore): configure function triggers initial sync unexpectedly (#986)
+- fix(datastore): fix error map from ios (#1126)
 - break(datastore): cannot saving boolean as integer in SQLite (#895)
 
 ## 0.2.10 (2021-11-23)
