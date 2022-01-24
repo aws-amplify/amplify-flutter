@@ -114,7 +114,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     } else {
       path = expandLabels(path, input.labelFor);
     }
-    var needsTrailingSlash = path.endsWith('/');
+    var needsTrailingSlash = request.path.endsWith('/');
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
