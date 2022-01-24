@@ -32,12 +32,6 @@ void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('amplify_auth_cognito', () {
-    setUpAll(() async {
-      final authPlugin = AmplifyAuthCognito();
-      await Amplify.addPlugins([authPlugin]);
-      await Amplify.configure(amplifyconfig);
-    });
-
     sign_in_sign_out_tests.main();
     sign_up_tests.main();
     user_attributes_tests.main();
