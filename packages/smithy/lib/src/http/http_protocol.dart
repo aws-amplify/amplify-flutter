@@ -32,8 +32,8 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
   Future<String?> resolveErrorType(AWSStreamedHttpResponse response);
 
   @override
-  HttpClient getClient(Uri baseUri, Input input) {
-    return HttpClient.v1(baseUri);
+  HttpClient getClient(Input input) {
+    return HttpClient.v1();
   }
 
   @override

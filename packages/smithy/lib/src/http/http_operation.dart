@@ -79,6 +79,15 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   @visibleForTesting
   int debugNumRetries = 0;
 
+  /// The base URI for the operation.
+  Uri get baseUri;
+
+  /// The endpoint for the operation.
+  Endpoint get endpoint => Endpoint(uri: baseUri);
+
+  /// The request's context builder.
+  final HttpRequestContextBuilder context = HttpRequestContextBuilder();
+
   @visibleForTesting
   HttpProtocol<InputPayload, Input, OutputPayload, Output> resolveProtocol({
     ShapeId? useProtocol,
@@ -101,10 +110,10 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   @visibleForTesting
   Future<AWSStreamedHttpRequest> createRequest(
     HttpRequest request,
-    Uri baseUri,
     HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
     Input input,
   ) async {
+    var uri = baseUri;
     var path = request.path;
     final pattern = UriPattern.parse(path);
     if (input is! HasLabel) {
@@ -128,8 +137,8 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       ...request.queryParameters.asMap(),
     };
     final body = protocol.serialize(input, specifiedType: FullType(Input));
-    var host = baseUri.host;
-    if (request.hostPrefix != null) {
+    var host = uri.host;
+    if (!endpoint.isHostnameImmutable && request.hostPrefix != null) {
       var prefix = request.hostPrefix!;
       if (input is HasLabel) {
         prefix = expandHostLabel(prefix, input.labelFor);
@@ -137,7 +146,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       host = '$prefix$host';
     }
     headers.putIfAbsent('Host', () => host);
-    var basePath = baseUri.path;
+    var basePath = uri.path;
     if (basePath.startsWith('/')) {
       basePath = basePath.substring(1);
     }
@@ -145,19 +154,18 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     if (needsTrailingSlash && !path.endsWith('/')) {
       path += '/';
     }
-    baseUri = baseUri.replace(host: host).resolve(path);
+    uri = uri.replace(host: host).resolve(path);
     var awsRequest = AWSStreamedHttpRequest(
       method: HttpMethod.values.byName(request.method.toLowerCase()),
       host: host,
-      path: baseUri.path,
+      path: uri.path,
       body: body,
       queryParameters: {
         ...queryParameters,
-        ...baseUri.queryParametersAll,
+        ...uri.queryParametersAll,
       },
       headers: headers,
     );
-    final context = HttpRequestContextBuilder();
     final interceptors = [
       ...protocol.interceptors,
     ]..sort((a, b) => a.order.compareTo(b.order));
@@ -251,15 +259,11 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     HttpClient? client,
     ShapeId? useProtocol,
   }) async {
-    if (baseUri == null && client == null) {
-      throw ArgumentError('Must specify either baseUri or client');
-    }
     final protocol = resolveProtocol(useProtocol: useProtocol);
-    client ??= protocol.getClient(baseUri!, input);
+    client ??= protocol.getClient(input);
     final request = buildRequest(input);
     final httpRequest = await createRequest(
       request,
-      client.baseUri,
       protocol,
       input,
     );
@@ -293,13 +297,11 @@ abstract class PaginatedHttpOperation<
   /// Runs the operation returning a [PaginatedResult] which can be paged.
   Future<PaginatedResult<Items, PageSize>> runPaginated(
     Input input, {
-    Uri? baseUri,
     HttpClient? client,
     ShapeId? useProtocol,
   }) async {
     final output = await run(
       input,
-      baseUri: baseUri,
       client: client,
       useProtocol: useProtocol,
     );
@@ -327,7 +329,6 @@ abstract class PaginatedHttpOperation<
         }
         return runPaginated(
           rebuildInput(input, token, pageSize),
-          baseUri: baseUri,
           client: client,
           useProtocol: useProtocol,
         );

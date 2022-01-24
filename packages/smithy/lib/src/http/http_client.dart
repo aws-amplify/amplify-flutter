@@ -3,30 +3,20 @@ import 'package:smithy/smithy.dart';
 
 abstract class HttpClient implements Client {
   /// Creates an HTTP/1.1 client.
-  ///
-  /// All requests are made relative to [baseUri].
-  factory HttpClient.v1(Uri baseUri, {http.Client? baseClient}) =
-      _Http1_1Client;
+  factory HttpClient.v1({http.Client? baseClient}) = _Http1_1Client;
 
   Future<AWSStreamedHttpResponse> send(AWSStreamedHttpRequest request);
-
-  /// The base URI or host for this client to use in requests.
-  Uri get baseUri;
 
   /// The ALPN protocol for this client.
   AlpnProtocol get protocol;
 }
 
 class _Http1_1Client implements HttpClient {
-  _Http1_1Client(
-    this.baseUri, {
+  _Http1_1Client({
     http.Client? baseClient,
   }) : baseClient = baseClient ?? http.Client();
 
   final http.Client baseClient;
-
-  @override
-  final Uri baseUri;
 
   @override
   Future<AWSStreamedHttpResponse> send(AWSStreamedHttpRequest request) async {

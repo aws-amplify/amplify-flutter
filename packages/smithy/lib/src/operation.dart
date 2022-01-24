@@ -13,11 +13,10 @@ abstract class Operation<Input, Output> {
 
   /// Runs the operation for [input].
   ///
-  /// Either [baseUri] or [client] must be specified. Specifying [useProtocol]
-  /// overrides the default for the operation.
+  /// Specifying [client] or [useProtocol] overrides the default for the
+  /// operation.
   Future<Output> run(
     Input input, {
-    Uri? baseUri,
     covariant Client? client,
     ShapeId? useProtocol,
   });

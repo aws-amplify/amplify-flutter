@@ -19,6 +19,8 @@ export 'package:smithy_ast/smithy_ast.dart'
 // Behavior
 export 'src/behavior/paginated_result.dart';
 
+export 'src/endpoint.dart';
+
 // Operation
 export 'src/client.dart';
 export 'src/operation.dart';
