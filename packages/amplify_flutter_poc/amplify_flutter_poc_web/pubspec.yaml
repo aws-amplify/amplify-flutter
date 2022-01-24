@@ -1,15 +1,19 @@
 name: amplify_flutter_poc_web
-description: A new Flutter package project.
+description: A new flutter plugin project.
 version: 0.0.1
 homepage:
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.17.0"
+  flutter: ">=1.20.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  amplify_flutter_dart: 0.0.1
+  amplify_flutter_platform_interface: 0.0.1
 
 dev_dependencies:
   flutter_test:
@@ -21,8 +25,17 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  # This section identifies this Flutter project as a plugin project.
+  # The 'pluginClass' and Android 'package' identifiers should not ordinarily
+  # be modified. They are used by the tooling to maintain consistency when
+  # adding or updating assets for this project.
+  plugin:
+    platforms:
+      web:
+        pluginClass: AmplifyFlutterWeb
+        fileName: amplify_flutter_poc_web.dart
 
-  # To add assets to your package, add an assets section, like this:
+  # To add assets to your plugin package, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
@@ -33,7 +46,7 @@ flutter:
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
-  # To add custom fonts to your package, add a fonts section here,
+  # To add custom fonts to your plugin package, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For

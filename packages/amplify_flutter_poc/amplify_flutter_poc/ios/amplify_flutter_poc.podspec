@@ -15,9 +15,9 @@ A new flutter plugin project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'Amplify', '1.15.6'
-  s.dependency 'AWSPluginsCore', '1.15.6'
-  s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin', '1.15.6'
+  s.dependency 'Amplify', '1.19.0'
+  s.dependency 'AWSPluginsCore', '1.19.0'
+  s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin', '1.19.0'
   s.dependency 'amplify_core'
   s.dependency 'SwiftLint'
   s.dependency 'SwiftFormat/CLI'

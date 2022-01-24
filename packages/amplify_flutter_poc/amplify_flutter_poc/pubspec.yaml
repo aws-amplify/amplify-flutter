@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   amplify_flutter_platform_interface: 0.0.1
+  amplify_flutter_poc_web: 0.0.1
 
 dev_dependencies:
   flutter_test:
@@ -35,6 +36,10 @@ flutter:
       # -------------------
       ios:
         pluginClass: Amplify
+      web:
+        default_package: amplify_flutter_poc_web
+      macos:
+        default_package: amplify_flutter_poc_desktop
     # -------------------
 
   # To add assets to your plugin package, add an assets section, like this:
