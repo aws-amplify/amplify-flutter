@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 import 'package:smithy/smithy.dart';
-import 'package:smithy/src/behavior/paginated_result.dart';
+import 'package:smithy_ast/smithy_ast.dart';
 
 /// Defines an operation which uses HTTP.
 ///
@@ -15,15 +15,37 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   /// Regex for label placeholders.
   static final _labelRegex = RegExp(r'{(\w+)}');
 
-  /// Expands labels in [template] using [input].
-  static String expandLabels<Input extends HasLabel>(
+  static String _escapeLabel(String label) =>
+      Uri.encodeQueryComponent(label).replaceAll('+', '%20');
+
+  /// Expands labels in [template] using [labelFor].
+  static String expandLabels(
     String template,
-    Input input,
+    String Function(String) labelFor,
+  ) {
+    final pattern = UriPattern.parse(template);
+    return pattern.segments.map((segment) {
+      switch (segment.type) {
+        case SegmentType.literal:
+          return segment.content;
+        case SegmentType.label:
+          return _escapeLabel(labelFor(segment.content));
+        case SegmentType.greedyLabel:
+          return labelFor(segment.content)
+              .split('/')
+              .map(_escapeLabel)
+              .join('/');
+      }
+    }).join('/');
+  }
+
+  static String expandHostLabel(
+    String template,
+    String Function(String) labelFor,
   ) {
     return template.replaceAllMapped(_labelRegex, (match) {
       final key = match.group(1)!;
-      return Uri.encodeQueryComponent(input.labelFor(key))
-          .replaceAll('+', '%20');
+      return Uri.encodeQueryComponent(labelFor(key)).replaceAll('+', '%20');
     });
   }
 
@@ -83,9 +105,15 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
     Input input,
   ) async {
-    var path = input is HasLabel
-        ? expandLabels(request.path, input as HasLabel)
-        : request.path;
+    var path = request.path;
+    final pattern = UriPattern.parse(path);
+    if (input is! HasLabel) {
+      if (pattern.labels.isNotEmpty) {
+        throw MissingLabelException(input, pattern.labels.first.toString());
+      }
+    } else {
+      path = expandLabels(path, input.labelFor);
+    }
     var needsTrailingSlash = path.endsWith('/');
     if (path.startsWith('/')) {
       path = path.substring(1);
@@ -94,15 +122,18 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       ...protocol.headers,
       ...request.headers.asMap(),
     };
-    final queryParameters = {
+    final Map<String, Iterable<String>> queryParameters = {
+      for (final literal in pattern.queryLiterals.entries)
+        literal.key: [literal.value],
       ...request.queryParameters.asMap(),
     };
     final body = protocol.serialize(input, specifiedType: FullType(Input));
     var host = baseUri.host;
     if (request.hostPrefix != null) {
-      final String prefix = input is HasLabel
-          ? expandLabels(request.hostPrefix!, input as HasLabel)
-          : request.hostPrefix!;
+      var prefix = request.hostPrefix!;
+      if (input is HasLabel) {
+        prefix = expandHostLabel(prefix, input.labelFor);
+      }
       host = '$prefix$host';
     }
     headers.putIfAbsent('Host', () => host);
@@ -115,7 +146,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       path += '/';
     }
     baseUri = baseUri.replace(host: host).resolve(path);
-    final baseRequest = AWSStreamedHttpRequest(
+    var awsRequest = AWSStreamedHttpRequest(
       method: HttpMethod.values.byName(request.method.toLowerCase()),
       host: host,
       path: baseUri.path,
@@ -126,13 +157,19 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       },
       headers: headers,
     );
-    for (var interceptor in protocol.interceptors) {
-      final interception = interceptor.intercept(baseRequest);
+    final context = HttpRequestContextBuilder();
+    final interceptors = [
+      ...protocol.interceptors,
+    ]..sort((a, b) => a.order.compareTo(b.order));
+    for (final interceptor in interceptors) {
+      final interception = interceptor.intercept(awsRequest, context);
       if (interception is Future) {
-        await interception;
+        awsRequest = await interception;
+      } else {
+        awsRequest = interception;
       }
     }
-    return baseRequest;
+    return awsRequest;
   }
 
   @visibleForTesting

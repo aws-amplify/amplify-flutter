@@ -9,12 +9,16 @@ class WithHeader extends HttpInterceptor {
   final bool replace;
 
   @override
-  void intercept(AWSStreamedHttpRequest request) {
+  AWSStreamedHttpRequest intercept(
+    AWSStreamedHttpRequest request,
+    HttpRequestContextBuilder context,
+  ) {
     if (replace) {
       request.headers[key] = value;
     } else {
       request.headers.putIfAbsent(key, () => value);
     }
+    return request;
   }
 }
 
@@ -24,8 +28,16 @@ class WithNoHeader extends HttpInterceptor {
 
   final String key;
 
+  /// Do before signing, but after [WithHeader].
   @override
-  void intercept(AWSStreamedHttpRequest request) {
+  int get order => 10;
+
+  @override
+  AWSStreamedHttpRequest intercept(
+    AWSStreamedHttpRequest request,
+    HttpRequestContextBuilder context,
+  ) {
     request.headers.remove(key);
+    return request;
   }
 }

@@ -158,4 +158,97 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
   }
 }
 
+class _$HttpRequestContext extends HttpRequestContext {
+  @override
+  final String? awsSigningService;
+  @override
+  final String? awsSigningRegion;
+
+  factory _$HttpRequestContext(
+          [void Function(HttpRequestContextBuilder)? updates]) =>
+      (new HttpRequestContextBuilder()..update(updates)).build();
+
+  _$HttpRequestContext._({this.awsSigningService, this.awsSigningRegion})
+      : super._();
+
+  @override
+  HttpRequestContext rebuild(
+          void Function(HttpRequestContextBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  HttpRequestContextBuilder toBuilder() =>
+      new HttpRequestContextBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is HttpRequestContext &&
+        awsSigningService == other.awsSigningService &&
+        awsSigningRegion == other.awsSigningRegion;
+  }
+
+  @override
+  int get hashCode {
+    return $jf(
+        $jc($jc(0, awsSigningService.hashCode), awsSigningRegion.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('HttpRequestContext')
+          ..add('awsSigningService', awsSigningService)
+          ..add('awsSigningRegion', awsSigningRegion))
+        .toString();
+  }
+}
+
+class HttpRequestContextBuilder
+    implements Builder<HttpRequestContext, HttpRequestContextBuilder> {
+  _$HttpRequestContext? _$v;
+
+  String? _awsSigningService;
+  String? get awsSigningService => _$this._awsSigningService;
+  set awsSigningService(String? awsSigningService) =>
+      _$this._awsSigningService = awsSigningService;
+
+  String? _awsSigningRegion;
+  String? get awsSigningRegion => _$this._awsSigningRegion;
+  set awsSigningRegion(String? awsSigningRegion) =>
+      _$this._awsSigningRegion = awsSigningRegion;
+
+  HttpRequestContextBuilder();
+
+  HttpRequestContextBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _awsSigningService = $v.awsSigningService;
+      _awsSigningRegion = $v.awsSigningRegion;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(HttpRequestContext other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$HttpRequestContext;
+  }
+
+  @override
+  void update(void Function(HttpRequestContextBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$HttpRequestContext build() {
+    final _$result = _$v ??
+        new _$HttpRequestContext._(
+            awsSigningService: awsSigningService,
+            awsSigningRegion: awsSigningRegion);
+    replace(_$result);
+    return _$result;
+  }
+}
+
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

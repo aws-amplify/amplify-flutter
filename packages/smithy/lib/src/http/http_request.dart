@@ -60,3 +60,20 @@ abstract class HttpRequest implements Built<HttpRequest, HttpRequestBuilder> {
   /// The HTTP query parameters.
   BuiltListMultimap<String, String> get queryParameters;
 }
+
+/// Context for interceptors when building an HTTP request. Values can be
+/// updated by interceptors and used to communicate information to downstream
+/// interceptors, without storing all of this on the request itself.
+abstract class HttpRequestContext
+    implements Built<HttpRequestContext, HttpRequestContextBuilder> {
+  factory HttpRequestContext(
+          [void Function(HttpRequestContextBuilder) updates]) =
+      _$HttpRequestContext;
+  HttpRequestContext._();
+
+  /// The service name to use when signing the request.
+  String? get awsSigningService;
+
+  /// The region to use when signing the request.
+  String? get awsSigningRegion;
+}

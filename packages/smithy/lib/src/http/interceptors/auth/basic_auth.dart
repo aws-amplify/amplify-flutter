@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:smithy/smithy.dart';
-import 'package:smithy/src/http/interceptors/auth/credentials_provider.dart';
 
 /// Intercepts HTTP requests to provide a Basic credentials header.
 ///
@@ -22,9 +21,13 @@ abstract class BasicAuthInterceptor extends HttpInterceptor {
   CredentialsProvider get credentials;
 
   @override
-  Future<void> intercept(AWSBaseHttpRequest request) async {
+  Future<AWSStreamedHttpRequest> intercept(
+    AWSStreamedHttpRequest request,
+    HttpRequestContextBuilder context,
+  ) async {
     final _credentials = await credentials();
     request.headers['Authorization'] = 'Basic $_credentials';
+    return request;
   }
 }
 

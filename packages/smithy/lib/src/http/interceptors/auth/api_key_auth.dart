@@ -1,5 +1,4 @@
 import 'package:smithy/smithy.dart';
-import 'package:smithy/src/http/interceptors/auth/credentials_provider.dart';
 
 enum ApiKeyLocation { header, query }
 
@@ -20,7 +19,10 @@ class ApiKeyAuthInterceptor extends HttpInterceptor {
   final String? scheme;
 
   @override
-  Future<void> intercept(AWSBaseHttpRequest request) async {
+  Future<AWSStreamedHttpRequest> intercept(
+    AWSStreamedHttpRequest request,
+    HttpRequestContextBuilder context,
+  ) async {
     final _apiKey = await apiKey();
     if (location == ApiKeyLocation.header) {
       if (scheme != null) {
@@ -30,5 +32,6 @@ class ApiKeyAuthInterceptor extends HttpInterceptor {
     } else {
       request.queryParameters[name] = _apiKey;
     }
+    return request;
   }
 }
