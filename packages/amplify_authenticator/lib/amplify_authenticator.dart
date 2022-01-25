@@ -754,7 +754,10 @@ class _AuthStateBuilder extends StatelessWidget {
   }
 }
 
-// The body of the authenticator
+/// First child of the [MaterialApp] when using [Authenticator.builder].
+///
+/// All routes are wrapped with a Navigator which allows for separation between the
+/// the user's navigation and the Authenticator's.
 class _AuthenticatorBody extends StatelessWidget {
   const _AuthenticatorBody({
     Key? key,
@@ -793,9 +796,13 @@ class _AuthenticatorBody extends StatelessWidget {
   }
 }
 
+/// {@template amplify_authenticator.authenticated_view}
 /// A widget for wrapping portions of the application (typically routes)
 /// that are intended to be protected by authentication.
+/// {@endtemplate}
+
 class AuthenticatedView extends StatelessWidget {
+  /// {@macro amplify_authenticator.authenticated_view}
   const AuthenticatedView({
     Key? key,
     required this.child,
