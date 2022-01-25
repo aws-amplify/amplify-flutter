@@ -16,16 +16,13 @@
 import 'dart:math';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/authenticator_state.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +37,7 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
   @override
   Widget builder(
     BuildContext context,
-    AuthViewModel viewModel,
+    AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
     return LayoutBuilder(builder: (context, constraints) {
@@ -126,8 +123,8 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
   Widget? get loadingIndicator => null;
 
   @override
-  void onPressed(BuildContext context, AuthViewModel viewModel) {
-    viewModel.signInWithProvider(provider);
+  void onPressed(BuildContext context, AuthenticatorState state) {
+    state.signInWithProvider(provider);
   }
 
   @override
@@ -188,7 +185,7 @@ class _SocialSignInButtonState
   Widget build(BuildContext context) {
     final resolver = stringResolver.buttons;
     return SizedBox(
-      height: AuthenticatorButtonSize.medium.height,
+      height: 40,
       child: OutlinedButton(
         focusNode: focusNode,
         style: ButtonStyle(
@@ -211,9 +208,9 @@ class _SocialSignInButtonState
             );
           }),
         ),
-        onPressed: viewModel.isBusy
+        onPressed: state.isBusy
             ? null
-            : () => viewModel.signInWithProvider(widget.provider),
+            : () => state.signInWithProvider(widget.provider),
         child: LayoutBuilder(builder: (context, constraints) {
           final padding = calculatePadding(constraints);
           return Padding(

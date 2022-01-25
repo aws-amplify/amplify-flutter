@@ -16,7 +16,7 @@
 part of authenticator.form_field;
 
 /// {@template authenticator.verify_user_form_field}
-/// A [Radio] form field component on the Verify User screen.
+/// A [Radio] form field component on the Verify User step.
 ///
 /// Must be a descendant of a [VerifyUserFormFieldGroup] widget.
 /// {@endtemplate}
@@ -114,12 +114,12 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
 
   @override
   String? get initialValue {
-    return viewModel.confirmationCode;
+    return state.confirmationCode;
   }
 
   @override
   ValueChanged<String> get onChanged {
-    return viewModel.setConfirmationCode;
+    return (v) => state.confirmationCode = v;
   }
 
   @override
@@ -196,6 +196,6 @@ class _VerifyAttributeFieldState
 
   @override
   ValueChanged<CognitoUserAttributeKey> get onChanged {
-    return viewModel.setAttributeKeyToVerify;
+    return (CognitoUserAttributeKey key) => state.attributeKeyToVerify = key;
   }
 }

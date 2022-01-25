@@ -37,10 +37,13 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
-  final authenticator = MaterialApp(
-    home: Authenticator(
-      child: const Scaffold(
-        body: Center(child: SignOutButton()),
+  final authenticator = Authenticator(
+    child: MaterialApp(
+      builder: Authenticator.builder(),
+      home: const Scaffold(
+        body: Center(
+          child: SignOutButton(),
+        ),
       ),
     ),
   );

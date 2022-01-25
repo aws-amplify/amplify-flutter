@@ -31,9 +31,8 @@ mixin AuthenticatorTextField<FieldType,
         ? widget.hintTextKey?.resolve(context, inputResolver)
         : widget.hintText!;
     return ValueListenableBuilder<bool>(
-      valueListenable: context
-          .findAncestorStateOfType<AuthenticatorFormState>()!
-          .obscureTextToggleValue,
+      valueListenable:
+          AuthenticatorFormState.of(context).obscureTextToggleValue,
       builder: (BuildContext context, bool toggleObscureText, Widget? _) {
         var obscureText = this.obscureText && toggleObscureText;
         return TextFormField(

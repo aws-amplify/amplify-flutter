@@ -35,11 +35,15 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
-  final authenticator = MaterialApp(
-    home: Authenticator(
-        child: const SignOutButton(
-      key: Key('keySignOutButton'),
-    )),
+  final authenticator = Authenticator(
+    child: MaterialApp(
+      builder: Authenticator.builder(),
+      home: const Scaffold(
+        body: Center(
+          child: SignOutButton(),
+        ),
+      ),
+    ),
   );
 
   group('sign-in-sms-mfa', () {
@@ -108,7 +112,7 @@ void main() {
       await confirmSignInPage.navigateToSignIn();
 
       // Then I see "Sign in"
-      signInPage.expectScreen(AuthScreen.signin);
+      signInPage.expectStep(AuthenticatorStep.signIn);
     });
 
     // Scenario: Incorrect SMS code

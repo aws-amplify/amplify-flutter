@@ -1,17 +1,13 @@
 import 'dart:convert';
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
-import 'package:amplify_authenticator/src/l10n/message_resolver.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
-import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
-import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -50,8 +46,9 @@ void main() {
               ? null
               : AmplifyConfig.fromJson(jsonDecode(amplifyConfig)),
           useAmplifyTheme: useAmplifyTheme,
-          child: InheritedAuthViewModel(
-            viewModel: AuthViewModel(MockBloc()),
+          padding: const EdgeInsets.all(32),
+          child: InheritedAuthenticatorState(
+            state: AuthenticatorState(MockBloc()),
             child: InheritedStrings(
               resolver: const AuthStringResolver(),
               child: InheritedForms(
@@ -67,7 +64,7 @@ void main() {
                 child: const RepaintBoundary(
                   child: AuthenticatorTabView(
                     key: keyTabView,
-                    tabs: [AuthScreen.signin, AuthScreen.signup],
+                    tabs: [AuthenticatorStep.signIn, AuthenticatorStep.signUp],
                   ),
                 ),
               ),
@@ -278,14 +275,14 @@ void main() {
   });
 }
 
-class MockAuthViewModel extends Mock implements AuthViewModel {}
+class MockAuthViewModel extends Mock implements AuthenticatorState {}
 
 class MockBloc implements StateMachineBloc {
   @override
   void add(AuthEvent event) {}
 
   @override
-  AuthState get currentState => AuthFlow.signin;
+  AuthState get currentState => UnauthenticatedState.signIn;
 
   @override
   Future<void> dispose() async {}
@@ -300,5 +297,8 @@ class MockBloc implements StateMachineBloc {
   bool get preferPrivateSession => false;
 
   @override
-  Stream<AuthState> get stream => Stream.value(AuthFlow.signin);
+  Stream<AuthState> get stream => Stream.value(UnauthenticatedState.signIn);
+
+  @override
+  AuthenticatorStep get initialStep => AuthenticatorStep.signIn;
 }

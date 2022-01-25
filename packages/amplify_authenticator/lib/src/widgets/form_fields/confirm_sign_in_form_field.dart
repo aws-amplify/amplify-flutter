@@ -421,8 +421,7 @@ class _ConfirmSignInPhoneFieldState extends _ConfirmSignInTextFieldState
     with AuthenticatorPhoneFieldMixin {
   @override
   String? get initialValue {
-    var _initialValue =
-        viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber);
+    var _initialValue = state.getAttribute(CognitoUserAttributeKey.phoneNumber);
     if (_initialValue != null) {
       _initialValue = displayPhoneNumber(_initialValue);
     }
@@ -433,7 +432,7 @@ class _ConfirmSignInPhoneFieldState extends _ConfirmSignInTextFieldState
   ValueChanged<String> get onChanged {
     return (phoneNumber) {
       phoneNumber = formatPhoneNumber(phoneNumber)!;
-      viewModel.setPhoneNumber(phoneNumber);
+      state.phoneNumber = phoneNumber;
     };
   }
 
@@ -483,9 +482,9 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
   String? get initialValue {
     switch (widget.field) {
       case ConfirmSignInField.code:
-        return viewModel.confirmationCode;
+        return state.confirmationCode;
       case ConfirmSignInField.newPassword:
-        return viewModel.newPassword;
+        return state.newPassword;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
       case ConfirmSignInField.email:
@@ -497,9 +496,9 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
       case ConfirmSignInField.nickname:
       case ConfirmSignInField.phoneNumber:
       case ConfirmSignInField.preferredUsername:
-        return viewModel.getAttribute(widget.field.toCognitoAttribute());
+        return state.getAttribute(widget.field.toCognitoAttribute());
       case ConfirmSignInField.custom:
-        return viewModel.getAttribute(widget._customAttributeKey!);
+        return state.getAttribute(widget._customAttributeKey!);
       default:
         return null;
     }
@@ -509,31 +508,31 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case ConfirmSignInField.code:
-        return viewModel.setConfirmationCode;
+        return (v) => state.confirmationCode = v;
       case ConfirmSignInField.newPassword:
-        return viewModel.setNewPassword;
+        return (v) => state.newPassword = v;
       case ConfirmSignInField.confirmNewPassword:
-        return viewModel.setPasswordConfirmation;
+        return (v) => state.passwordConfirmation = v;
       case ConfirmSignInField.address:
-        return viewModel.setAddress;
+        return (v) => state.address = v;
       case ConfirmSignInField.email:
-        return viewModel.setEmail;
+        return (v) => state.email = v;
       case ConfirmSignInField.familyName:
-        return viewModel.setFamilyName;
+        return (v) => state.familyName = v;
       case ConfirmSignInField.gender:
-        return viewModel.setGender;
+        return (v) => state.gender = v;
       case ConfirmSignInField.givenName:
-        return viewModel.setGivenName;
+        return (v) => state.givenName = v;
       case ConfirmSignInField.middleName:
-        return viewModel.setMiddleName;
+        return (v) => state.middleName = v;
       case ConfirmSignInField.name:
-        return viewModel.setName;
+        return (v) => state.name = v;
       case ConfirmSignInField.nickname:
-        return viewModel.setNickname;
+        return (v) => state.nickname = v;
       case ConfirmSignInField.preferredUsername:
-        return viewModel.setPreferredUsername;
+        return (v) => state.preferredUsername = v;
       case ConfirmSignInField.custom:
-        return (String value) => viewModel.setCustom(
+        return (String value) => state.setCustomAttribute(
               widget._customAttributeKey!,
               value,
             );
@@ -558,7 +557,7 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
         )(context);
       case ConfirmSignInField.confirmNewPassword:
         return validatePasswordConfirmation(
-          () => viewModel.password,
+          () => state.password,
           context: context,
           inputResolver: stringResolver.inputs,
         );
@@ -677,12 +676,12 @@ class _ConfirmSignInDateFieldState extends _ConfirmSignInFormFieldState<String>
     with AuthenticatorDateField {
   @override
   String? get initialValue {
-    return viewModel.getAttribute(widget.field.toCognitoAttribute());
+    return state.getAttribute(widget.field.toCognitoAttribute());
   }
 
   @override
   ValueChanged<String> get onChanged {
-    return viewModel.setBirthdate;
+    return (v) => state.birthdate = v;
   }
 
   @override

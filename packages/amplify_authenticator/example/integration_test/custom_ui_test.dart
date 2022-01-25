@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,8 +15,6 @@
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -24,6 +22,7 @@ import 'package:integration_test/integration_test.dart';
 import 'config.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
+import 'utils/data_utils.dart';
 import 'utils/mock_data.dart';
 
 void main() {
@@ -33,6 +32,31 @@ void main() {
   binding.deferFirstFrame();
 
   final authenticator = Authenticator(
+    authenticatorBuilder: (context, state) {
+      switch (state.currentStep) {
+        case AuthenticatorStep.signIn:
+          return SafeArea(
+            child: AuthenticatorForm(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    // app logo
+                    const Center(child: FlutterLogo(size: 100)),
+                    // prebuilt form fields
+                    SignInFormField.username(),
+                    SignInFormField.password(),
+                    // prebuilt button
+                    const SignInButton(),
+                  ],
+                ),
+              ),
+            ),
+          );
+        default:
+          return null;
+      }
+    },
     child: MaterialApp(
       builder: Authenticator.builder(),
       home: const Scaffold(
@@ -43,7 +67,8 @@ void main() {
     ),
   );
 
-  group('sign out', () {
+  group('custom ui', () {
+    // Given I'm running the example "ui/components/authenticator/sign-in-with-email.feature"
     setUpAll(() async {
       await loadConfiguration(
         'ui/components/authenticator/sign-in-with-email',
@@ -53,8 +78,8 @@ void main() {
 
     tearDown(signOut);
 
-    // Scenario: Sign out with Auth.signOut()
-    testWidgets('Sign out with Auth.signOut()', (tester) async {
+    // Scenario: Sign in then sign out
+    testWidgets('Sign in then sign out', (tester) async {
       final username = generateEmail();
       final password = generatePassword();
       await adminCreateUser(
@@ -65,19 +90,25 @@ void main() {
       );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
+      signInPage.expectUsername(label: 'Email');
 
-      // When I sign in with "username" and "password"
-      await signInPage.signIn(username: username, password: password);
+      // When I type my "email" with status "CONFIRMED"
+      await signInPage.enterUsername(username);
 
-      /// Then I see the authenticated app
+      // And I type my password
+      await signInPage.enterPassword(password);
+
+      // And I click the "Sign in" button
+      await signInPage.submitSignIn();
+
+      /// Then I see "Sign out"
       await signInPage.expectAuthenticated();
 
-      // When I sign out using Auth.signOut()
-      await Amplify.Auth.signOut();
-      await tester.pumpAndSettle();
+      // And I click the "Sign out" button
+      await signInPage.submitSignOut();
 
       // Then I see "Sign in"
-      signInPage.expectStep(AuthenticatorStep.signIn);
+      signInPage.expectUsername(label: 'Email');
     });
   });
 }

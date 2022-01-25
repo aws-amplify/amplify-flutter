@@ -26,13 +26,16 @@ import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
+import 'package:amplify_authenticator/src/models/authenticator_builder.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/auth_state.dart';
+import 'package:amplify_authenticator/src/state/authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
-import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_authenticator_builder.dart';
+import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
@@ -45,18 +48,27 @@ import 'package:flutter/material.dart';
 
 export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
+export 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+export 'package:amplify_authenticator/src/state/authenticator_state.dart';
+export 'package:amplify_authenticator/src/widgets/button.dart';
+export 'package:amplify_authenticator/src/widgets/form.dart';
 export 'package:amplify_flutter/amplify_flutter.dart'
     show PasswordProtectionSettings, PasswordPolicyCharacters;
 
-export 'src/enums/enums.dart' show AuthScreen, Gender;
+export 'src/enums/enums.dart' show AuthenticatorStep, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
 export 'src/models/username_input.dart' show UsernameType, UsernameInput;
+export 'src/state/auth_state.dart';
 export 'src/widgets/button.dart' show SignOutButton;
 export 'src/widgets/form.dart'
     show SignInForm, SignUpForm, ConfirmSignInNewPasswordForm;
 export 'src/widgets/form_field.dart'
-    show SignInFormField, SignUpFormField, ConfirmSignInFormField;
+    show
+        SignInFormField,
+        SignUpFormField,
+        ConfirmSignInFormField,
+        ConfirmSignUpFormField;
 
 /// {@template amplify_authenticator.authenticator}
 /// # Amplify Authenticator
@@ -216,24 +228,84 @@ export 'src/widgets/form_field.dart'
 /// )
 /// ```
 /// {@endtemplate}
+///
+/// ## Custom UI
+///
+/// {@template amplify_authenticator.custom_builder}
+/// The authenticator provides prebuilt widgets for each step
+/// of the authentication flow based on the amplify config for
+/// your app. Some customizations can be acheived by providing
+/// custom forms (see [signInForm] and [signUpForm]) or through
+/// theming. To fully customize the authenticator UI,
+/// you can provide a custom builder method.
+///
+/// This can be used to change the layout of the authenticator,
+/// add your app's logo to certain views, add completely custom
+/// form fields (such as a terms and conditions field), and much
+/// more.
+///
+/// The example below shows a custom sign up view with an app
+/// bar and a flutter logo.
+///
+/// ```dart
+/// return Authenticator(
+///   authenticatorBuilder: (context, state) {
+///     switch (state.currentStep) {
+///       case AuthenticatorStep.signIn:
+///         return Scaffold(
+///           appBar: AppBar(title: const Text('My App')),
+///           body: Padding(
+///             padding: const EdgeInsets.all(16),
+///             child: Column(
+///               children: [
+///                 // flutter logo
+///                 const Center(child: FlutterLogo(size: 100)),
+///                 // prebuilt sign in form from amplify_authenticator package
+///                 SignInForm(),
+///               ],
+///             ),
+///           ),
+///         );
+///       default:
+///         return null;
+///     }
+///   },
+///   child: MaterialApp(
+///     builder: Authenticator.builder(),
+///     home: const RouteA(),
+///   ),
+/// );
+/// ```
+/// {@endtemplate}
 class Authenticator extends StatefulWidget {
   /// {@macro amplify_authenticator.authenticator}
   Authenticator({
     Key? key,
-    SignInForm? signInForm,
-    SignUpForm? signUpForm,
-    ConfirmSignInNewPasswordForm? confirmSignInNewPasswordForm,
+    this.signInForm,
+    this.signUpForm,
+    this.confirmSignInNewPasswordForm,
     this.stringResolver = const AuthStringResolver(),
     required this.child,
     this.useAmplifyTheme = false,
     this.onException,
     this.exceptionBannerLocation = ExceptionBannerLocation.auto,
     this.preferPrivateSession = false,
+    this.initialStep = AuthenticatorStep.signIn,
+    this.authenticatorBuilder,
+    this.padding = const EdgeInsets.all(32),
   }) : super(key: key) {
-    this.signInForm = signInForm ?? SignInForm();
-    this.signUpForm = signUpForm ?? SignUpForm();
-    this.confirmSignInNewPasswordForm =
-        confirmSignInNewPasswordForm ?? ConfirmSignInNewPasswordForm();
+    // ignore: prefer_asserts_with_message
+    assert(() {
+      if (!validInitialAuthenticatorSteps.contains(initialStep)) {
+        throw FlutterError.fromParts([
+          ErrorSummary('Invalid initialStep'),
+          ErrorDescription(
+            'initialStep must be one of the following values: \n - ${validInitialAuthenticatorSteps.join('\n -')}',
+          )
+        ]);
+      }
+      return true;
+    }());
   }
 
   /// Wraps user-defined navigators for integration with [MaterialApp] and
@@ -267,16 +339,53 @@ class Authenticator extends StatefulWidget {
   /// Defaults to `false`.
   final bool useAmplifyTheme;
 
-  /// The form displayed when promted for a password change upon signing in.
-  late final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
+  // Padding around each authenticator view
+  final EdgeInsets padding;
+
+  /// A method to build a custom UI for the autenticator
+  ///
+  /// {@macro amplify_authenticator.custom_builder}
+  final AuthenticatorBuilder? authenticatorBuilder;
 
   /// The form displayed during sign in.
-  late final SignInForm signInForm;
+  ///
+  /// By default, the authenticator will use the amplify config
+  /// to build this view with the required attributes and validation.
+  ///
+  /// To customize which fields are displayed, the order they are
+  /// displayed in, or the field validation, provide a custom
+  /// sign in form via SignInForm.custom().
+  ///
+  /// To fully customize the UI, see authenticatorBuilder
+  final SignInForm? signInForm;
 
   /// The form displayed during sign up.
   ///
+  /// By default, the authenticator will use the amplify config
+  /// to build this view with the required sign up attributes.
+  ///
+  /// To customize which fields are displayed, the order they are
+  /// displayed in, or the field validation, provide a custom
+  /// sign up form via SignUpForm.custom().
+  ///
   /// {@macro amplify_authenticator.custom_sign_up_form}
-  late final SignUpForm signUpForm;
+  ///
+  /// To fully customize the UI, see authenticatorBuilder
+  final SignUpForm? signUpForm;
+
+  /// The form displayed when promted for a password change upon signing in.
+  ///
+  /// This will be shown to users that are in the state `FORCE_CHANGE_PASSWORD`.
+  /// By default, the form will require the user to enter and confirm a new password.
+  ///
+  /// Users that have been created via the admin console will be asked to change their
+  /// password upon first login. However, they may not have been created with all
+  /// the required attributes (such as an email address, for example). This form
+  /// can be customized to include any required attributes.
+  ///
+  /// To customize which fields are displayed, provide a custom
+  /// form via ConfirmSignInNewPasswordForm.custom().
+  final ConfirmSignInNewPasswordForm? confirmSignInNewPasswordForm;
 
   /// An optional, user-defined string resolver, used for localizing the
   /// Authenticator or overriding default messages.
@@ -296,6 +405,17 @@ class Authenticator extends StatefulWidget {
   /// This widget will be displayed after a user has signed in.
   final Widget child;
 
+  /// The initial step that the authenticator will display if the user is not
+  /// already authenticated.
+  ///
+  /// Defauls to AuthenticatorStep.signIn. Other acceptable values are:
+  /// AuthenticatorStep.signUp, AuthenticatorStep.resetPassword, and
+  /// AuthenticatorStep.onboarding.
+  ///
+  /// AuthenticatorStep.onboarding should only be used with a custom builder
+  /// method.
+  final AuthenticatorStep initialStep;
+
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
 
@@ -312,6 +432,10 @@ class Authenticator extends StatefulWidget {
         'exceptionBannerLocation', exceptionBannerLocation));
     properties.add(DiagnosticsProperty<bool>(
         'preferPrivateSession', preferPrivateSession));
+    properties.add(EnumProperty<AuthenticatorStep>('initialStep', initialStep));
+    properties.add(ObjectFlagProperty<AuthenticatorBuilder?>.has(
+        'authenticatorBuilder', authenticatorBuilder));
+    properties.add(DiagnosticsProperty<EdgeInsets>('padding', padding));
   }
 }
 
@@ -320,7 +444,7 @@ class _AuthenticatorState extends State<Authenticator> {
 
   final AuthService _authService = AmplifyAuthService();
   late final StateMachineBloc _stateMachineBloc;
-  late final AuthViewModel _viewModel;
+  late final AuthenticatorState _authenticatorState;
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
   late final StreamSubscription<MessageResolverKey> _infoSub;
   late final StreamSubscription<AuthState> _successSub;
@@ -336,8 +460,9 @@ class _AuthenticatorState extends State<Authenticator> {
     _stateMachineBloc = StateMachineBloc(
       authService: _authService,
       preferPrivateSession: widget.preferPrivateSession,
+      initialStep: widget.initialStep,
     )..add(const AuthLoad());
-    _viewModel = AuthViewModel(_stateMachineBloc);
+    _authenticatorState = AuthenticatorState(_stateMachineBloc);
     _subscribeToExceptions();
     _subscribeToInfoMessages();
     _subscribeToSuccessEvents();
@@ -426,7 +551,7 @@ class _AuthenticatorState extends State<Authenticator> {
   // Clear exception and info banners on successful login.
   void _subscribeToSuccessEvents() {
     _successSub = _stateMachineBloc.stream.listen((state) {
-      if (state is Authenticated) {
+      if (state is AuthenticatedState) {
         scaffoldMessengerKey.currentState?.removeCurrentMaterialBanner();
       }
     });
@@ -438,7 +563,9 @@ class _AuthenticatorState extends State<Authenticator> {
     _hubSubscription = Amplify.Hub.listen([HubChannel.Auth], (event) {
       switch (event.eventName) {
         case 'SIGNED_OUT':
-          _stateMachineBloc.add(const AuthChangeScreen(AuthScreen.signin));
+          _stateMachineBloc.add(
+            const AuthChangeScreen(AuthenticatorStep.signIn),
+          );
           break;
       }
     });
@@ -455,9 +582,7 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 
   Future<void> _waitForConfiguration() async {
-    final authLoaded = await _stateMachineBloc.stream
-        .firstWhere((el) => el is AuthLoaded) as AuthLoaded;
-    var config = authLoaded.config;
+    var config = await Amplify.asyncConfig;
     setState(() {
       _config = config;
       _configInitialized = true;
@@ -513,22 +638,28 @@ class _AuthenticatorState extends State<Authenticator> {
       child: InheritedConfig(
         amplifyConfig: _config,
         useAmplifyTheme: widget.useAmplifyTheme,
-        child: InheritedAuthViewModel(
-          key: keyInheritedAuthViewModel,
-          viewModel: _viewModel,
-          child: InheritedStrings(
-            resolver: widget.stringResolver,
-            child: InheritedForms(
-              confirmSignInNewPasswordForm: widget.confirmSignInNewPasswordForm,
-              resetPasswordForm: ResetPasswordForm(),
-              confirmResetPasswordForm: const ConfirmResetPasswordForm(),
-              signInForm: widget.signInForm,
-              signUpForm: widget.signUpForm,
-              confirmSignUpForm: ConfirmSignUpForm(),
-              confirmSignInMFAForm: ConfirmSignInMFAForm(),
-              verifyUserForm: VerifyUserForm(),
-              confirmVerifyUserForm: ConfirmVerifyUserForm(),
-              child: widget.child,
+        padding: widget.padding,
+        child: InheritedAuthenticatorState(
+          key: keyInheritedAuthenticatorState,
+          state: _authenticatorState,
+          child: InheritedAuthenticatorBuilder(
+            authenticatorBuilder: widget.authenticatorBuilder,
+            child: InheritedStrings(
+              resolver: widget.stringResolver,
+              child: InheritedForms(
+                confirmSignInNewPasswordForm:
+                    widget.confirmSignInNewPasswordForm ??
+                        ConfirmSignInNewPasswordForm(),
+                resetPasswordForm: ResetPasswordForm(),
+                confirmResetPasswordForm: const ConfirmResetPasswordForm(),
+                signInForm: widget.signInForm ?? SignInForm(),
+                signUpForm: widget.signUpForm ?? SignUpForm(),
+                confirmSignUpForm: ConfirmSignUpForm(),
+                confirmSignInMFAForm: ConfirmSignInMFAForm(),
+                verifyUserForm: VerifyUserForm(),
+                confirmVerifyUserForm: ConfirmVerifyUserForm(),
+                child: widget.child,
+              ),
             ),
           ),
         ),
@@ -537,16 +668,54 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 }
 
-class _AuthenticatorBody extends StatelessWidget {
-  const _AuthenticatorBody({
+// A widget that listens for changes in multiple inherited widgets
+// and rebuilds based on the provided builder, which accepts the current
+// AuthState.
+class _AuthStateBuilder extends StatelessWidget {
+  const _AuthStateBuilder({
     Key? key,
     required this.child,
+    required this.builder,
   }) : super(key: key);
 
   final Widget child;
+  final Widget Function(AuthState, Widget) builder;
+
+  Widget getAuthenticatorScreen({
+    required BuildContext context,
+    required AuthState authState,
+    AuthenticatorBuilder? authenticatorBuilder,
+  }) {
+    final Widget authenticatorScreen;
+    if (authState is UnauthenticatedState) {
+      authenticatorScreen = AuthenticatorScreen(step: authState.step);
+    } else if (authState is LoadingState) {
+      authenticatorScreen = const LoadingScreen();
+    } else {
+      authenticatorScreen = child;
+    }
+
+    if (authState is! AuthenticatedState && authenticatorBuilder != null) {
+      final AuthenticatorState authenticatorState =
+          InheritedAuthenticatorState.of(
+        context,
+        listen: true,
+      );
+      final customAuthenticator = authenticatorBuilder(
+        context,
+        authenticatorState,
+      );
+      if (customAuthenticator != null) {
+        return customAuthenticator;
+      }
+    }
+
+    return authenticatorScreen;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final authenticatorBuilder = InheritedAuthenticatorBuilder.of(context);
     final stateMachineBloc = InheritedAuthBloc.of(context);
     final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final userAppTheme = Theme.of(context);
@@ -557,54 +726,110 @@ class _AuthenticatorBody extends StatelessWidget {
           : userAppTheme,
       child: StreamBuilder(
         stream: stateMachineBloc.stream,
-        builder: (context, snapshot) {
-          final state = snapshot.data ?? const AuthLoading();
+        builder: (context, AsyncSnapshot<AuthState> snapshot) {
+          final authState = snapshot.data ?? const LoadingState();
 
-          final Widget? authenticatorScreen;
-          if (state is Authenticated) {
-            authenticatorScreen = null;
-          } else if (state is AuthLoading || state is AuthLoaded) {
-            authenticatorScreen = const LoadingScreen();
-          } else if (state is AuthFlow) {
-            authenticatorScreen = AuthenticatorScreen(screen: state.screen);
-          } else {
-            authenticatorScreen = const AuthenticatorScreen.signin();
-          }
+          final Widget authenticatorScreen = getAuthenticatorScreen(
+            context: context,
+            authenticatorBuilder: authenticatorBuilder,
+            authState: authState,
+          );
 
           return Localizations.override(
             context: context,
             delegates: AuthenticatorLocalizations.localizationsDelegates,
-            child: Navigator(
-              onPopPage: (_, dynamic __) => true,
-              pages: [
-                if (authenticatorScreen == null)
-                  MaterialPage<void>(
-                    child: Theme(
-                      data: userAppTheme,
-                      child: child,
-                    ),
-                  ),
-                if (authenticatorScreen != null)
-                  MaterialPage<void>(
-                    child: ScaffoldMessenger(
-                      key: _AuthenticatorState.scaffoldMessengerKey,
-                      child: Scaffold(
-                        backgroundColor:
-                            AmplifyTheme.of(context).backgroundPrimary,
-                        body: SizedBox.expand(
-                          child: authenticatorScreen is AuthenticatorScreen
-                              ? SingleChildScrollView(
-                                  child: authenticatorScreen)
-                              : authenticatorScreen,
-                        ),
-                      ),
-                    ),
-                  ),
-              ],
-            ),
+            child: builder(authState, authenticatorScreen),
           );
         },
       ),
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+        ObjectFlagProperty<Widget Function(AuthState state, Widget child)>.has(
+            'builder', builder));
+  }
+}
+
+/// First child of the [MaterialApp] when using [Authenticator.builder].
+///
+/// All routes are wrapped with a Navigator which allows for separation between the
+/// the user's navigation and the Authenticator's.
+class _AuthenticatorBody extends StatelessWidget {
+  const _AuthenticatorBody({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return _AuthStateBuilder(
+      child: child,
+      builder: (state, child) {
+        return Navigator(
+          onPopPage: (_, dynamic __) => true,
+          pages: [
+            if (state is AuthenticatedState) MaterialPage<void>(child: child),
+            if (state is! AuthenticatedState)
+              MaterialPage<void>(
+                child: ScaffoldMessenger(
+                  key: _AuthenticatorState.scaffoldMessengerKey,
+                  child: Scaffold(
+                    backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
+                    body: SizedBox.expand(
+                      child: child is AuthenticatorScreen
+                          ? SingleChildScrollView(child: child)
+                          : child,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+/// {@template amplify_authenticator.authenticated_view}
+/// A widget for wrapping portions of the application (typically routes)
+/// that are intended to be protected by authentication.
+/// {@endtemplate}
+
+class AuthenticatedView extends StatelessWidget {
+  /// {@macro amplify_authenticator.authenticated_view}
+  const AuthenticatedView({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return _AuthStateBuilder(
+      child: child,
+      builder: (state, child) {
+        if (state is AuthenticatedState) {
+          return child;
+        }
+        return ScaffoldMessenger(
+          key: _AuthenticatorState.scaffoldMessengerKey,
+          child: Scaffold(
+            backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
+            body: SizedBox.expand(
+              child: child is AuthenticatorScreen
+                  ? SingleChildScrollView(child: child)
+                  : child,
+            ),
+          ),
+        );
+      },
     );
   }
 }

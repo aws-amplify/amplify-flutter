@@ -13,8 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator_example/main.dart' as app;
 import 'package:flutter_test/flutter_test.dart';
@@ -39,13 +38,13 @@ void main() {
       final InheritedAuthBloc authBloc = tester.widget(inheritedAuthBlocFinder);
       final subscription = authBloc.authBloc.stream;
 
-      //Going to sign up screen
+      //Going to sign up step
       await Future<void>.delayed(const Duration(seconds: 2));
       await tester.tap(gotToSignUpButtonFinder);
 
       final stateAuthFlowSignUp = await subscription.first;
 
-      expect(stateAuthFlowSignUp, isA<AuthFlow>());
+      expect(stateAuthFlowSignUp, isA<UnauthenticatedState>());
       await tester.pumpAndSettle();
 
       //Creating account
@@ -63,7 +62,7 @@ void main() {
 
       final stateAuthFlowConfirm = await subscription.first;
 
-      expect(stateAuthFlowConfirm, isA<AuthFlow>());
+      expect(stateAuthFlowConfirm, isA<UnauthenticatedState>());
 
       await tester.pumpAndSettle();
 
@@ -75,14 +74,14 @@ void main() {
       await tester.enterText(codeConfirmSignUpFormFieldFinder, mockCode);
       await Future<void>.delayed(const Duration(seconds: 2));
 
-      //For now, this screen uses a mocked code and doesn't call the
+      //For now, this step uses a mocked code and doesn't call the
       // confirmSignUp method.
 
       await tester.tap(backToSignInButtonFinder);
 
       final stateAuthFlowSignIn = await subscription.first;
 
-      expect(stateAuthFlowSignIn, isA<AuthFlow>());
+      expect(stateAuthFlowSignIn, isA<UnauthenticatedState>());
       await tester.pumpAndSettle();
     });
 
@@ -94,13 +93,13 @@ void main() {
       final InheritedAuthBloc authBloc = tester.widget(inheritedAuthBlocFinder);
       final subscriptionStream = authBloc.authBloc.stream;
 
-      //Going to sign up screen
+      //Going to sign up step
       await Future<void>.delayed(const Duration(seconds: 2));
       await tester.tap(gotToSignUpButtonFinder);
 
       final stateAuthFlowSignUp = await subscriptionStream.first;
 
-      expect(stateAuthFlowSignUp, isA<AuthFlow>());
+      expect(stateAuthFlowSignUp, isA<UnauthenticatedState>());
 
       await tester.pumpAndSettle();
 

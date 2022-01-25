@@ -16,7 +16,7 @@
 part of authenticator.form_field;
 
 /// {@template authenticator.confirm_sign_up_form_field}
-/// A form field component on the Confirm Sign Up screen.
+/// A form field component on the Confirm Sign Up step.
 /// {@endtemplate}
 class ResetPasswordFormField extends AuthenticatorFormField<ResetPasswordField,
     String, ResetPasswordFormField> {
@@ -124,9 +124,9 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
   String? get initialValue {
     switch (widget.field) {
       case ResetPasswordField.newPassword:
-        return viewModel.newPassword;
+        return state.newPassword;
       case ResetPasswordField.verificationCode:
-        return viewModel.confirmationCode;
+        return state.confirmationCode;
       case ResetPasswordField.passwordConfirmation:
         return super.initialValue;
     }
@@ -136,9 +136,9 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case ResetPasswordField.newPassword:
-        return viewModel.setNewPassword;
+        return (v) => state.newPassword = v;
       case ResetPasswordField.verificationCode:
-        return viewModel.setConfirmationCode;
+        return (v) => state.confirmationCode = v;
       case ResetPasswordField.passwordConfirmation:
         return super.onChanged;
     }
@@ -154,7 +154,7 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
         )(context);
       case ResetPasswordField.passwordConfirmation:
         return validatePasswordConfirmation(
-          () => viewModel.newPassword,
+          () => state.newPassword,
           context: context,
           inputResolver: stringResolver.inputs,
         );

@@ -16,7 +16,7 @@
 part of authenticator.form_field;
 
 /// {@template authenticator.sign_in_form_field}
-/// A form field component on the Sign In screen.
+/// A form field component on the Sign In step.
 /// {@endtemplate}
 abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
     SignInField, FieldValue, SignInFormField<FieldValue>> {
@@ -151,9 +151,9 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
   String? get initialValue {
     switch (widget.field) {
       case SignInField.username:
-        return viewModel.username;
+        return state.username;
       case SignInField.password:
-        return viewModel.password;
+        return state.password;
     }
   }
 
@@ -161,9 +161,9 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case SignInField.username:
-        return viewModel.setUsername;
+        return (v) => state.username = v;
       case SignInField.password:
-        return viewModel.setPassword;
+        return (v) => state.password = v;
       default:
         return super.onChanged;
     }

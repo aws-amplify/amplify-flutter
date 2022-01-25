@@ -16,7 +16,6 @@
 import 'dart:io';
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
@@ -52,12 +51,12 @@ abstract class AuthenticatorPage {
     expect(usernameFieldHint, isPresent ? findsOneWidget : findsNothing);
   }
 
-  /// Expects the current screen to be [screen].
-  void expectScreen(AuthScreen screen) {
+  /// Expects the current step to be [step].
+  void expectStep(AuthenticatorStep step) {
     final currentScreen = tester.widget<AuthenticatorScreen>(
       find.byType(AuthenticatorScreen),
     );
-    expect(currentScreen.screen, equals(screen));
+    expect(currentScreen.step, equals(step));
   }
 
   /// Expects the input field [inputField] to show an error text containing
@@ -91,10 +90,10 @@ abstract class AuthenticatorPage {
   Future<void> expectAuthenticated() async {
     final inheritedBloc =
         tester.widget<InheritedAuthBloc>(find.byKey(keyInheritedAuthBloc));
-    if (inheritedBloc.authBloc.currentState is! Authenticated) {
+    if (inheritedBloc.authBloc.currentState is! AuthenticatedState) {
       await nextBlocEvent(tester);
     }
-    expect(inheritedBloc.authBloc.currentState, isA<Authenticated>());
+    expect(inheritedBloc.authBloc.currentState, isA<AuthenticatedState>());
   }
 
   /// Then I see User not found banner

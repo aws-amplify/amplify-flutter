@@ -19,34 +19,34 @@ import 'package:flutter/material.dart';
 import 'authenticator_localizations.dart';
 import 'resolver.dart';
 
-/// The resolver class for screen titles
-class TitleResolver extends Resolver<AuthScreen> {
+/// The resolver class for step titles
+class TitleResolver extends Resolver<AuthenticatorStep> {
   const TitleResolver();
 
   /// The title for the sign in Widget.
-  String signin(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context).signin;
+  String signIn(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).signIn;
   }
 
   /// The title for the sign up Widget.
-  String signup(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context).signup;
+  String signUp(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).signUp;
   }
 
   /// The title for the confirm sign up Widget.
-  String confirmSignup(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context).confirmSignup;
+  String confirmSignUp(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).confirmSignUp;
   }
 
   /// The title for the confirm sign in (MFA) Widget.
-  String confirmSigninMfa(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context).confirmSigninMfa;
+  String confirmSignInMfa(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).confirmSignInMfa;
   }
 
   /// The title for the confirm sign in (new passwrod) Widget.
-  String confirmSigninNewPassword(BuildContext context) {
+  String confirmSignInNewPassword(BuildContext context) {
     return AuthenticatorLocalizations.titlesOf(context)
-        .confirmSigninNewPassword;
+        .confirmSignInNewPassword;
   }
 
   /// The title for the reset password Widget.
@@ -65,25 +65,28 @@ class TitleResolver extends Resolver<AuthScreen> {
   }
 
   @override
-  String resolve(BuildContext context, AuthScreen key) {
+  String resolve(BuildContext context, AuthenticatorStep key) {
     switch (key) {
-      case AuthScreen.signin:
-        return signin(context);
-      case AuthScreen.signup:
-        return signup(context);
-      case AuthScreen.confirmSignup:
-        return confirmSignup(context);
-      case AuthScreen.confirmSigninMfa:
-        return confirmSigninMfa(context);
-      case AuthScreen.confirmSigninNewPassword:
-        return confirmSigninNewPassword(context);
-      case AuthScreen.resetPassword:
+      case AuthenticatorStep.onboarding:
+      case AuthenticatorStep.signIn:
+        return signIn(context);
+      case AuthenticatorStep.signUp:
+        return signUp(context);
+      case AuthenticatorStep.confirmSignUp:
+        return confirmSignUp(context);
+      case AuthenticatorStep.confirmSignInMfa:
+        return confirmSignInMfa(context);
+      case AuthenticatorStep.confirmSignInNewPassword:
+        return confirmSignInNewPassword(context);
+      case AuthenticatorStep.resetPassword:
         return resetPassword(context);
-      case AuthScreen.confirmResetPassword:
+      case AuthenticatorStep.confirmResetPassword:
         return confirmResetPassword(context);
-      case AuthScreen.verifyUser:
-      case AuthScreen.confirmVerifyUser:
+      case AuthenticatorStep.verifyUser:
+      case AuthenticatorStep.confirmVerifyUser:
         return verifyUser(context);
+      case AuthenticatorStep.loading:
+        throw StateError('Invalid step: $this');
     }
   }
 }
