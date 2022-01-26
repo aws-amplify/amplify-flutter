@@ -28,7 +28,16 @@ abstract class QueryPredicate<T extends Model> {
 
   const QueryPredicate();
 
-  /// A static instance of [QueryPredicate] that matches any object
+  /// A static instance of [QueryPredicate] that matches any object.
+  ///
+  /// You can use [QueryPredicate.all] with [DataStoreSyncExpression] like this:
+  /// ```dart
+  /// // A sync expression matches any object of Post
+  /// var syncExpression = DataStoreSyncExpresion(
+  ///   Post.classType,
+  ///   () => QueryPredicate.all,
+  /// )
+  /// ```
   static QueryPredicate get all => _QueryPredicateAll;
 
   Map<String, dynamic> serializeAsMap();
