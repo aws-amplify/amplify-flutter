@@ -132,3 +132,36 @@ class QueryPredicateGroup extends QueryPredicate {
     };
   }
 }
+
+enum QueryPredicateConstantType { none, all }
+
+extension QueryPredicateConstantTypeExtension on QueryPredicateConstantType {
+  String toShortString() {
+    return this.toString().split('.').last;
+  }
+}
+
+class _QueryPredicateConstant extends QueryPredicate {
+  final QueryPredicateConstantType _type;
+
+  const _QueryPredicateConstant(this._type) : super();
+
+  @override
+  bool evaluate(Model model) => _type == QueryPredicateConstantType.all;
+
+  @override
+  Map<String, dynamic> serializeAsMap() {
+    return <String, dynamic>{
+      'queryPredicateConstant': <String, dynamic>{
+        'type': _type.toShortString()
+      },
+    };
+  }
+}
+
+class QueryPredicateConstant {
+  static final _QueryPredicateAll =
+      _QueryPredicateConstant(QueryPredicateConstantType.all);
+
+  static QueryPredicate get all => _QueryPredicateAll;
+}

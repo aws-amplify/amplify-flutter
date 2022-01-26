@@ -20,6 +20,7 @@ import com.amazonaws.amplify.amplify_datastore.readMapFromFile
 import com.amplifyframework.core.model.query.predicate.QueryField
 import com.amplifyframework.core.model.query.predicate.QueryPredicateGroup
 import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.not
+import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import org.junit.Assert
 import org.junit.Test
 
@@ -143,6 +144,20 @@ class QueryPredicateBuilderTest {
                     HashMap::class.java
                 ) as HashMap<String, Any>,
                 postSchema
+            )
+        )
+    }
+
+    @Test
+    fun test_when_predicate_constant_all_used() {
+        Assert.assertEquals(
+            QueryPredicates.all(),
+            QueryPredicateBuilder.fromSerializedMap(
+                readMapFromFile(
+                    "query_predicate",
+                    "query_predicate_constant_all.json",
+                    HashMap::class.java
+                ) as HashMap<String, Any>
             )
         )
     }
