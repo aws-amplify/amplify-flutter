@@ -16,11 +16,11 @@
 import '../types.dart';
 
 class GraphQLResponse<T> {
-  final T data;
+  final T? data;
   final List<GraphQLResponseError> errors;
 
   const GraphQLResponse({
-    required this.data,
+    this.data,
     required this.errors,
   });
 

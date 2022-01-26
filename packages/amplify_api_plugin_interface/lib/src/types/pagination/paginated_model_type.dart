@@ -13,12 +13,16 @@
  * permissions and limitations under the License.
  */
 
-import 'package:uuid/uuid.dart';
+import 'package:amplify_api_plugin_interface/src/types.dart';
+import 'package:amplify_core/amplify_core.dart';
 
-class UUID {
-  static final _internal = Uuid();
+abstract class PaginatedModelType<T extends Model>
+    extends ModelType<PaginatedResult<T>> {
+  final ModelType<T> modelType;
 
-  static String getUUID() {
-    return _internal.v4();
-  }
+  const PaginatedModelType(this.modelType);
+
+  @override
+  PaginatedResult<T> fromJson(Map<String, dynamic> jsonData,
+      {Map<String, dynamic>? filter, int? limit});
 }
