@@ -32,7 +32,7 @@ abstract class QueryPredicate<T extends Model> {
   ///
   /// You can use [QueryPredicate.all] with [DataStoreSyncExpression] like this:
   /// ```dart
-  /// // A sync expression matches any object of Post
+  /// // A sync expression matching any object of Post
   /// var syncExpression = DataStoreSyncExpresion(
   ///   Post.classType,
   ///   () => QueryPredicate.all,
