@@ -88,12 +88,6 @@ class QueryPredicateOperation extends QueryPredicate {
 
 enum QueryPredicateGroupType { and, or, not }
 
-extension QueryPredicateGroupTypeExtension on QueryPredicateGroupType {
-  String toShortString() {
-    return this.toString().split('.').last;
-  }
-}
-
 // Represents rating > 4 & blogName.contains("awesome")
 class QueryPredicateGroup extends QueryPredicate {
   final QueryPredicateGroupType type;
@@ -141,7 +135,7 @@ class QueryPredicateGroup extends QueryPredicate {
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{
       'queryPredicateGroup': <String, dynamic>{
-        'type': type.toShortString(),
+        'type': describeEnum(type),
         'predicates':
             predicates.map((predicate) => predicate.serializeAsMap()).toList()
       },
@@ -150,12 +144,6 @@ class QueryPredicateGroup extends QueryPredicate {
 }
 
 enum QueryPredicateConstantType { none, all }
-
-extension QueryPredicateConstantTypeExtension on QueryPredicateConstantType {
-  String toShortString() {
-    return this.toString().split('.').last;
-  }
-}
 
 class _QueryPredicateConstant extends QueryPredicate {
   final QueryPredicateConstantType _type;
@@ -168,9 +156,7 @@ class _QueryPredicateConstant extends QueryPredicate {
   @override
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{
-      'queryPredicateConstant': <String, dynamic>{
-        'type': _type.toShortString()
-      },
+      'queryPredicateConstant': <String, dynamic>{'type': describeEnum(_type)},
     };
   }
 }
