@@ -143,8 +143,18 @@ class AuthenticatorState extends ChangeNotifier {
   /// The value for the country code portion of the phone number field
   Country get country => _country;
 
-  set country(Country value) {
-    _country = value;
+  set country(Country newCountry) {
+    final oldCountry = _country;
+    final currentPhoneNumber =
+        _authAttributes[CognitoUserAttributeKey.phoneNumber];
+    if (currentPhoneNumber != null) {
+      _authAttributes[CognitoUserAttributeKey.phoneNumber] =
+          currentPhoneNumber.replaceFirst(
+        oldCountry.value,
+        newCountry.value,
+      );
+    }
+    _country = newCountry;
     notifyListeners();
   }
 
