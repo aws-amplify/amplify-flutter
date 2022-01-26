@@ -127,18 +127,23 @@ abstract class AuthenticatorPage {
     }
   }
 
-  Future<void> selectCountryCode() async {
+  Future<void> selectCountryCode({
+    String countryName = 'United States',
+    String countryCode = '+1',
+  }) async {
     expect(countrySelectField, findsOneWidget);
     await tester.tap(countrySelectField);
     await tester.pumpAndSettle();
     expect(countrySelectDialog, findsOneWidget);
     expect(countrySearchField, findsOneWidget);
-    await tester.enterText(countrySearchField, 'United States');
-    Finder unitedStatesOption = find.descendant(
-        of: find.byKey(keyCountryDialog),
-        matching: find.textContaining('(+1)'));
-    expect(unitedStatesOption, findsOneWidget);
-    await tester.tap(unitedStatesOption);
+    await tester.enterText(countrySearchField, countryName);
+    await tester.pumpAndSettle();
+    Finder dialCode = find.descendant(
+      of: find.byKey(keyCountryDialog),
+      matching: find.textContaining('($countryCode)'),
+    );
+    expect(dialCode, findsOneWidget);
+    await tester.tap(dialCode);
   }
 
   /// When I click "Sign out"
