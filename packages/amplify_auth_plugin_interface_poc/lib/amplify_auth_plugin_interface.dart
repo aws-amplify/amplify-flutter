@@ -23,7 +23,7 @@ export 'src/types.dart';
 // ignore_for_file: public_member_api_docs
 abstract class AuthPluginInterfacePOC extends AmplifyPluginInterfacePOC {
   /// Constructs a AmplifyPlatform.
-  AuthPluginInterface();
+  AuthPluginInterfacePOC();
 
   StreamController<HubEvent> get streamController {
     throw UnimplementedError(

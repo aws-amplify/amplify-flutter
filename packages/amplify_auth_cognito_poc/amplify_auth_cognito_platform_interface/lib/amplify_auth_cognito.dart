@@ -25,7 +25,8 @@ import './amplify_auth_cognito_stream_controller.dart';
 export './src/types.dart';
 export 'package:amplify_auth_plugin_interface_poc/src/types.dart';
 
-class AmplifyAuthCognitoPlatform extends PlatformInterface {
+class AmplifyAuthCognitoPlatform extends PlatformInterface
+    implements AuthPluginInterfacePOC {
   static final Object _token = Object();
 
   /// Constructs a AmplifyAuthCognito plugin

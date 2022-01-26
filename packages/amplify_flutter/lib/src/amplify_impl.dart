@@ -164,7 +164,7 @@ class AmplifyClass extends PlatformInterface {
     }
     try {
       await AmplifyClass.instance
-          ._configurePlatforms(_getVersion(), configuration);
+          .configurePlatforms(_getVersion(), configuration);
       _isConfigured = true;
     } on PlatformException catch (e) {
       if (e.code == 'AnalyticsException') {
@@ -204,8 +204,8 @@ class AmplifyClass extends PlatformInterface {
   }
 
   /// Adds the configuration and return true if it was successful.
-  Future<void> _configurePlatforms(String version, String configuration) {
-    throw UnimplementedError('_configurePlatforms() has not been implemented.');
+  Future<void> configurePlatforms(String version, String configuration) {
+    throw UnimplementedError('configurePlatforms() has not been implemented.');
   }
 
   /// Constructs a Core platform.

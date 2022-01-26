@@ -2,10 +2,11 @@ name: amplify_flutter_repository
 
 packages:
   - packages/**
-  - packages/amplify_auth_cognito_poc/*
-  - packages/amplify_auth_cognito_poc/example/*
-  - packages/amplify_flutter_poc/*
-  - packages/amplify_flutter_poc/example/*
+
+  # - packages/amplify_auth_cognito_poc/*
+  # - packages/amplify_auth_cognito_poc/example/*
+  # - packages/amplify_flutter_poc/*
+  # - packages/amplify_flutter_poc/example/*
   - example/*
   - packages/**/example/*
 

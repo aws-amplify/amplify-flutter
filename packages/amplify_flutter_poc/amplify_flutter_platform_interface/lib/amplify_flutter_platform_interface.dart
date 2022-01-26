@@ -15,6 +15,8 @@ import 'package:flutter/foundation.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:flutter/services.dart';
 
+export 'src/categories/amplify_categories.dart';
+
 part 'method_channel_amplify.dart';
 
 class AmplifyClass extends PlatformInterface {
@@ -24,13 +26,13 @@ class AmplifyClass extends PlatformInterface {
   final AuthCategory Auth = const AuthCategory();
 
   /// The Storage category.
-  final StorageCategory Storage = const StorageCategory();
+  final StorageCategory? Storage = const StorageCategory();
 
   /// The DataStore category.
-  // final DataStoreCategory DataStore = const DataStoreCategory();
+  final DataStoreCategory? DataStore = const DataStoreCategory();
 
   /// The API category.
-  final APICategory API = const APICategory();
+  final APICategory? API = const APICategory();
 
   bool _isConfigured = false;
 
@@ -141,7 +143,7 @@ class AmplifyClass extends PlatformInterface {
     }
     try {
       await AmplifyClass.instance
-          ._configurePlatforms(_getVersion(), configuration);
+          .configurePlatforms(_getVersion(), configuration);
       _isConfigured = true;
     } on PlatformException catch (e) {
       if (e.code == 'AnalyticsException') {
@@ -181,8 +183,8 @@ class AmplifyClass extends PlatformInterface {
   }
 
   /// Adds the configuration and return true if it was successful.
-  Future<void> _configurePlatforms(String version, String configuration) {
-    throw UnimplementedError('_configurePlatforms() has not been implemented.');
+  Future<void> configurePlatforms(String version, String configuration) {
+    throw UnimplementedError('configurePlatforms() has not been implemented.');
   }
 
   /// Constructs a Core platform.

@@ -21,14 +21,14 @@ import 'dart:io';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_auth_plugin_interface_poc/amplify_auth_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
-// import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:flutter/services.dart';
 
 /// category parts
 part 'amplify_api_category.dart';
 part 'amplify_auth_category.dart';
-// part 'amplify_datastore_category.dart';
+part 'amplify_datastore_category.dart';
 part 'amplify_storage_category.dart';
 
 String _errorMsgPluginNotAdded(String pluginName) =>

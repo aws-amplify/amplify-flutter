@@ -22,7 +22,7 @@ class MethodChannelAmplify extends AmplifyClass {
   MethodChannelAmplify() : super.protected();
 
   @override
-  Future<void> _configurePlatforms(String version, String configuration) async {
+  Future<void> configurePlatforms(String version, String configuration) async {
     await _channel.invokeMethod<void>(
       'configure',
       <String, Object>{

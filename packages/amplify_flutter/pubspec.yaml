@@ -72,6 +72,3 @@ flutter:
         pluginClass: Amplify
       ios:
         pluginClass: Amplify
-      web:
-        pluginClass: AmplifyFlutterRegistrar
-        fileName: amplify_flutter_registrar.dart
