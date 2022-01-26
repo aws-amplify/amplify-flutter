@@ -18,6 +18,24 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 /// Sync expression to configure DataStore plugin with. These expressions
 /// include query predicates which specify filters for selectively persisting a
 /// subset of data to the local device
+///
+/// You can use [DataStoreSyncExpression] like this:
+///
+/// ```dart
+/// // Sync Post with rating value > 10
+/// var syncExpression = DataStoreSyncExpresion(
+///   Post.classType,
+///   () => Post.RATING.gt(10),
+/// )
+/// ```
+/// You can also use [QueryPredicate.all] to match all object:
+/// ```
+/// // Sync all Post
+/// var syncExpression = DataStoreSyncExpresion(
+///   Post.classType,
+///   () => QueryPredicate.all,
+/// )
+/// ```
 class DataStoreSyncExpression {
   /// A unique id for this sync expression
   final String id;

@@ -23,10 +23,17 @@ QueryPredicateGroup not(QueryPredicate predicate) {
 /// Represents individual conditions or groups of conditions
 /// that are used to query data
 abstract class QueryPredicate<T extends Model> {
+  static final _QueryPredicateAll =
+      _QueryPredicateConstant(QueryPredicateConstantType.all);
+
   const QueryPredicate();
+
+  /// A static instance of [QueryPredicate] that matches any object
+  static QueryPredicate get all => _QueryPredicateAll;
 
   Map<String, dynamic> serializeAsMap();
 
+  /// Evaluate this predicate
   bool evaluate(T model);
 }
 
@@ -157,11 +164,4 @@ class _QueryPredicateConstant extends QueryPredicate {
       },
     };
   }
-}
-
-class QueryPredicateConstant {
-  static final _QueryPredicateAll =
-      _QueryPredicateConstant(QueryPredicateConstantType.all);
-
-  static QueryPredicate get all => _QueryPredicateAll;
 }
