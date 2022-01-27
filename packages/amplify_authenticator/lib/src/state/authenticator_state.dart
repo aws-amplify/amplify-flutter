@@ -16,6 +16,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:flutter/material.dart';
 
 @visibleForTesting
@@ -138,6 +139,26 @@ class AuthenticatorState extends ChangeNotifier {
   }
 
   String _newPassword = '';
+
+  /// The value for the country code portion of the phone number field
+  Country get country => _country;
+
+  set country(Country newCountry) {
+    final oldCountry = _country;
+    final currentPhoneNumber =
+        _authAttributes[CognitoUserAttributeKey.phoneNumber];
+    if (currentPhoneNumber != null) {
+      _authAttributes[CognitoUserAttributeKey.phoneNumber] =
+          currentPhoneNumber.replaceFirst(
+        oldCountry.value,
+        newCountry.value,
+      );
+    }
+    _country = newCountry;
+    notifyListeners();
+  }
+
+  Country _country = countryCodes.first;
 
   final Map<CognitoUserAttributeKey, String> _authAttributes = {};
 

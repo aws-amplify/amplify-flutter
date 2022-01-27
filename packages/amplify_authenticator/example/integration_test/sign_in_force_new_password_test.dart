@@ -32,8 +32,7 @@ void main() {
   );
 
   group('Sign In with Force New Password flow', () {
-    final username = generatePhone();
-    final phoneNumber = username.substring(2); // without '+1'
+    final phoneNumber = generateUSPhoneNumber();
     final password = generatePassword();
 
     // Background
@@ -44,7 +43,7 @@ void main() {
         'ui/components/authenticator/sign-in-with-phone',
         additionalConfigs: [AmplifyAPI()],
       );
-      await adminCreateUser(username, password);
+      await adminCreateUser(phoneNumber.toE164(), password);
     });
 
     // Scenario: Sign in using a valid phone number and password and user is in
@@ -60,7 +59,7 @@ void main() {
         await po.selectCountryCode();
 
         // And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
-        await po.enterUsername(phoneNumber);
+        await po.enterUsername(phoneNumber.withOutCountryCode());
 
         // And I type my password
         await po.enterPassword(password);
@@ -86,7 +85,7 @@ void main() {
         await po.selectCountryCode();
 
         // And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
-        await po.enterUsername(phoneNumber);
+        await po.enterUsername(phoneNumber.withOutCountryCode());
 
         // And I type my password
         await po.enterPassword(password);

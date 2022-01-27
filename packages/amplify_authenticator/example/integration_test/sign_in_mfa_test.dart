@@ -58,10 +58,15 @@ void main() {
     // Scenario: Sign in using a valid phone number and SMS MFA
     testWidgets('Sign in using a valid phone number and SMS MFA',
         (tester) async {
-      final phone = generatePhone();
+      final phoneNumber = generateUSPhoneNumber();
       final password = generatePassword();
-      await adminCreateUser(phone, password,
-          autoConfirm: true, enableMfa: true, verifyAttributes: true);
+      await adminCreateUser(
+        phoneNumber.toE164(),
+        password,
+        autoConfirm: true,
+        enableMfa: true,
+        verifyAttributes: true,
+      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
@@ -72,7 +77,7 @@ void main() {
       await signInPage.selectCountryCode();
 
       // And I type my "phone number" with status "CONFIRMED"
-      await signInPage.enterUsername(phone);
+      await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
       await signInPage.enterPassword(password);
@@ -86,10 +91,15 @@ void main() {
 
     // Scenario: Redirect to sign in page
     testWidgets('Redirect to sign in page', (tester) async {
-      final phone = generatePhone();
+      final phoneNumber = generateUSPhoneNumber();
       final password = generatePassword();
-      await adminCreateUser(phone, password,
-          autoConfirm: true, enableMfa: true, verifyAttributes: true);
+      await adminCreateUser(
+        phoneNumber.toE164(),
+        password,
+        autoConfirm: true,
+        enableMfa: true,
+        verifyAttributes: true,
+      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
@@ -100,7 +110,7 @@ void main() {
       await signInPage.selectCountryCode();
 
       // And I type my "phone number" with status "CONFIRMED"
-      await signInPage.enterUsername(phone);
+      await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
       await signInPage.enterPassword(password);
@@ -117,10 +127,15 @@ void main() {
 
     // Scenario: Incorrect SMS code
     testWidgets('Incorrect SMS code', (tester) async {
-      final phone = generatePhone();
+      final phoneNumber = generateUSPhoneNumber();
       final password = generatePassword();
-      await adminCreateUser(phone, password,
-          autoConfirm: true, enableMfa: true, verifyAttributes: true);
+      await adminCreateUser(
+        phoneNumber.toE164(),
+        password,
+        autoConfirm: true,
+        enableMfa: true,
+        verifyAttributes: true,
+      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
@@ -131,7 +146,7 @@ void main() {
       await signInPage.selectCountryCode();
 
       // And I type my "phone number" with status "CONFIRMED"
-      await signInPage.enterUsername(phone);
+      await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
       await signInPage.enterPassword(password);
@@ -151,7 +166,7 @@ void main() {
 
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
-      final phone = generatePhone();
+      final phoneNumber = generateUSPhoneNumber();
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
 
@@ -159,7 +174,7 @@ void main() {
       await signInPage.selectCountryCode();
 
       // And I type my "phone number" with status "UNKNOWN"
-      await signInPage.enterUsername(phone);
+      await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
       await signInPage.enterPassword('UNKNOWN');
