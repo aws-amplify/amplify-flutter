@@ -5,6 +5,8 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' hide Serializer;
 
+/// What to send when the payload is empty. Some protocols require an empty
+/// JSON object, while others require an empty string.
 enum EmptyPayloadType { empty, object }
 
 class JsonSerializer implements FullSerializer<List<int>> {
@@ -25,8 +27,10 @@ class JsonSerializer implements FullSerializer<List<int>> {
     } else {
       decoded = utf8.decode(data);
       try {
-        decoded = decoded = jsonDecode(decoded as String);
-      } on FormatException {}
+        decoded = jsonDecode(decoded as String);
+      } on FormatException {
+        // Decode failed. Use raw body.
+      }
     }
     return _serializers.deserialize(
       decoded,
