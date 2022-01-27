@@ -1,3 +1,18 @@
+## 0.1.0-rc.4 (2022-01-27)
+
+### Features
+
+- Ability to create a custom UI (#1281)
+- Ability to protect only a subset of routes (#1281)
+
+### Fixes
+
+- Fix bug preventing country code from updating (#1312)
+
+### Chores
+
+- Update dependency on amplify_flutter to ^0.3.0
+
 ## 0.1.0-rc.3 (2022-01-12)
 
 ### Fixes
