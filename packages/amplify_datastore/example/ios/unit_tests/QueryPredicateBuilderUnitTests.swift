@@ -92,4 +92,12 @@ class QueryPredicateBuilderUnitTests: XCTestCase {
         )
     }
 
+    func test_when_query_predicate_all_used() throws {
+        XCTAssertEqual(
+            QueryPredicateConstant.all,
+            try QueryPredicateBuilder.fromSerializedMap(
+                readJsonMap(filePath: "query_predicate_constant_all")
+            ) as! QueryPredicateConstant
+        )
+    }
 }

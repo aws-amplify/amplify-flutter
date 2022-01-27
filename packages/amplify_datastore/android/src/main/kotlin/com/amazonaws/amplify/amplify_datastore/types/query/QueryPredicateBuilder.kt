@@ -24,6 +24,7 @@ import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicateGroup
 import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation
 import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.not
+import com.amplifyframework.core.model.query.predicate.QueryPredicates
 
 class QueryPredicateBuilder {
     companion object {
@@ -125,6 +126,15 @@ class QueryPredicateBuilder {
                 }
 
                 return resultQueryPredicate
+            }
+
+            if (serializedMap.containsKey("queryPredicateConstant")) {
+                val queryPredicateConstant: Map<String, Any> =
+                    serializedMap["queryPredicateConstant"].safeCastToMap()!!
+
+                when (queryPredicateConstant["type"]) {
+                    "all" -> return QueryPredicates.all()
+                }
             }
 
             return null
