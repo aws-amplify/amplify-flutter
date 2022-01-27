@@ -29,3 +29,14 @@ export 'src/types/plugin/amplify_plugin_interface.dart';
 // Util
 export 'src/util/print.dart';
 export 'src/util/uuid.dart';
+
+// Config
+export 'src/config/amplify_config.dart';
+
+// Category Interface
+export 'src/categories/amplify_category_interface.dart';
+
+// Auth Category
+export 'src/categories/amplify_categories.dart';
+export 'src/categories/auth/auth_category_interface.dart';
+export 'src/categories/auth/types.dart';

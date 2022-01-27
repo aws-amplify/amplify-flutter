@@ -22,8 +22,7 @@ dependencies:
   # Uncomment the below lines to enable online sync
   # amplify_api:
   #   path: ../../amplify_api
-  amplify_flutter:
-    path: ../../amplify_flutter
+  amplify_flutter: 0.3.1
   flutter_driver:
     sdk: flutter
   integration_test:

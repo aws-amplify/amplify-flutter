@@ -2,12 +2,7 @@ name: amplify_flutter_repository
 
 packages:
   - packages/**
-
-  # - packages/amplify_auth_cognito_poc/*
-  # - packages/amplify_auth_cognito_poc/example/*
-  # - packages/amplify_flutter_poc/*
-  # - packages/amplify_flutter_poc/example/*
-  - example/*
+  # - example/*
   - packages/**/example/*
 
 # Generated output of flutter_localizations
@@ -107,7 +102,7 @@ scripts:
       scope:
         - amplify_analytics_*
         - amplify_api*
-        - amplify_flutter*
+        # - amplify_flutter*
         - amplify_core*
 
   lint:ios:
@@ -122,7 +117,7 @@ scripts:
       scope:
         - amplify_analytics_pinpoint_example
         - amplify_api_example
-        - amplify_flutter_example
+        # - amplify_flutter_example
         - amplify_core_example
 
   lint:android:
