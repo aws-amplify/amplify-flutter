@@ -25,6 +25,10 @@ abstract class AuthCategoryInterface extends AmplifyCategoryInterface {
         'streamController getter has not been implemented.');
   }
 
+  Future<void> addPlugin() {
+    throw UnimplementedError('signUp() has not been implemented.');
+  }
+
   Future<SignUpResult> signUp({required SignUpRequest request}) {
     throw UnimplementedError('signUp() has not been implemented.');
   }

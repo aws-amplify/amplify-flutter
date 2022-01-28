@@ -16,6 +16,7 @@
 import 'dart:async';
 import 'dart:core';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_mixin.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_auth_cognito.dart';
@@ -24,7 +25,7 @@ import './amplify_auth_cognito_stream_controller.dart';
 export 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 
 class AmplifyAuthCognitoInterface extends PlatformInterface
-    implements AmplifyAuthCognitoDart {
+    with AmplifyAuthCognitoDartMixin {
   static final Object _token = Object();
   static const String UnimplementedMessage =
       'has not been implmented for the Cognito plugin';
@@ -43,10 +44,10 @@ class AmplifyAuthCognitoInterface extends PlatformInterface
     _instance = instance;
   }
 
-  @override
-  Future<void> addPlugin() {
-    throw UnimplementedError('addPlugin() $UnimplementedMessage');
-  }
+  // @override
+  // Future<void> addPlugin() async {
+  //   await _instance.addPlugin();
+  // }
 
   @override
   StreamController<AuthHubEvent> get streamController {

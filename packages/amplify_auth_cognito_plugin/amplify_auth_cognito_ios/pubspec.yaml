@@ -1,6 +1,6 @@
-name: amplify_auth_cognito
+name: amplify_auth_cognito_ios
 description: A new flutter plugin project.
-version: 0.3.1
+version: 0.0.1
 homepage:
 
 environment:
@@ -10,10 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_core: 0.3.1
+  amplify_auth_cognito: 0.0.1
   amplify_auth_cognito_platform_interface: 0.0.1
-  amplify_auth_cognito_web: 0.0.1
-  amplify_auth_cognito_ios: 0.0.1
 
 dev_dependencies:
   flutter_test:
@@ -30,17 +28,10 @@ flutter:
   # be modified. They are used by the tooling to maintain consistency when
   # adding or updating assets for this project.
   plugin:
+    implements: amplify_auth_cognito
     platforms:
-      # This plugin project was generated without specifying any
-      # platforms with the `--platform` argument. If you see the `some_platform` map below, remove it and
-      # then add platforms following the instruction here:
-      # https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms
-      # -------------------
-      web:
-        default_package: amplify_auth_cognito_web
       ios:
-        default_package: amplify_auth_cognito_ios
-    # -------------------
+        pluginClass: AuthCognito
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

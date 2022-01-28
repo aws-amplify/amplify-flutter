@@ -18,16 +18,7 @@ class AmplifyClass extends PlatformInterface implements AmplifyFlutterDart {
   AmplifyConfig? _config;
 
   /// The Auth category.
-  final AuthCategory Auth = const AuthCategory();
-
-  /// The Storage category.
-  // final StorageCategory? Storage = const StorageCategory();
-
-  /// The DataStore category.
-  // final DataStoreCategory? DataStore = const DataStoreCategory();
-
-  /// The API category.
-  // final APICategory? API = const APICategory();
+  final AuthCategory Auth = AuthCategory();
 
   bool _isConfigured = false;
 
@@ -42,7 +33,6 @@ class AmplifyClass extends PlatformInterface implements AmplifyFlutterDart {
   ///
   /// Throws AmplifyAlreadyConfiguredException if
   /// this method is called after configure (e.g. during hot reload).
-  @override
   Future<void> addPlugin(AmplifyCategoryInterface plugin) async {
     if (_isConfigured) {
       throw const AmplifyAlreadyConfiguredException(
@@ -53,22 +43,8 @@ class AmplifyClass extends PlatformInterface implements AmplifyFlutterDart {
     }
     try {
       if (plugin is AuthCategoryInterface) {
-        await AmplifyClass.instance.Auth.addPlugin(plugin);
-        Hub.addChannel(HubChannel.Auth, plugin.streamController);
-        // } else if (plugin is StoragePluginInterface) {
-        //   await Storage.addPlugin(plugin);
-        // } else if (plugin is DataStorePluginInterface) {
-        //   try {
-        //     await DataStore.addPlugin(plugin);
-        //   } on AmplifyAlreadyConfiguredException {
-        //     // A new plugin is added in native libraries during `addPlugin`
-        //     // call for DataStore, which means during an app restart, this
-        //     // method will throw an exception in android. We will ignore this
-        //     // like other plugins and move on. Other exceptions fall through.
-        //   }
-        //   Hub.addChannel(HubChannel.DataStore, plugin.streamController);
-        // } else if (plugin is APIPluginInterface) {
-        //   await API.addPlugin(plugin);
+        await Auth.addPlugin(plugin);
+        // Hub.addChannel(HubChannel.Auth, plugin.streamController);
       } else {
         throw AmplifyException(
             'The type of plugin ' +
@@ -203,7 +179,4 @@ class AmplifyClass extends PlatformInterface implements AmplifyFlutterDart {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
-
-  @override
-  Set<AmplifyCategoryInterface> plugins = {};
 }

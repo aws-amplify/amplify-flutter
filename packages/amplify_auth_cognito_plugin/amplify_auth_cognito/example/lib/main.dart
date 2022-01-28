@@ -34,16 +34,18 @@ class _MyAppState extends State<MyApp> {
       print(
           'Amplify was already configured. Looks like app restarted on android.');
     }
-
-    Amplify.Auth.signUp(
-      username: '',
-      password: '',
-    );
   }
 
   // Platform messages are asynchronous, so we initializ in an async method.
   Future<void> initPlatformState() async {
     await _configureAmplify();
+  }
+
+  Future<void> _dummySignup() async {
+    await Amplify.Auth.signUp(
+      username: '',
+      password: '',
+    );
   }
 
   @override
@@ -54,8 +56,8 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+            child: ElevatedButton(
+                onPressed: _dummySignup, child: const Text('Sign up'))),
       ),
     );
   }

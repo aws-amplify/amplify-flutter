@@ -43,7 +43,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognitoInterface {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
-        throw AmplifyAlreadyConfiguredException(
+        throw const AmplifyAlreadyConfiguredException(
             AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
             recoverySuggestion:
                 AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
