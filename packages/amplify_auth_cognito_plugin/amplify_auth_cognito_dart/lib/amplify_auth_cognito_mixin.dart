@@ -12,7 +12,7 @@ mixin AmplifyAuthCognitoDartMixin implements AuthCategoryInterface {
   @override
   Future<CognitoSignUpResult> signUp({required SignUpRequest request}) async {
     return CognitoSignUpResult(
-        nextStep: AuthNextSignInStep(signInStep: 'DONE'),
+        nextStep: AuthNextSignUpStep(signUpStep: 'DONE'),
         isSignUpComplete: true);
   }
 
