@@ -18,8 +18,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
   @override
   void initState() {
     super.initState();
@@ -36,11 +34,12 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  // Platform messages are asynchronous, so we initializ in an async method.
   Future<void> initPlatformState() async {
     await _configureAmplify();
   }
 
+  /// Signup has not been properly implemented.
+  /// This purpose of this method is to test that the API is being called on all platforms.
   Future<void> _dummySignup() async {
     await Amplify.Auth.signUp(
       username: '',
