@@ -69,19 +69,23 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
         // Replay events. On hot restart, `onListen` is called again with a new listener. However,
         // DataStore will not re-emit events such as ready and modelSynced. As a result, this info
         // is lost on the Flutter side unless we replay the history prior to the hot restart.
+        #if DEBUG
         if !eventHistory.isEmpty {
             eventGuard.lock()
             defer { eventGuard.unlock() }
             for payload in eventHistory {
-                if replayableEvents.contains(payload.eventName) {
-                    sendPayload(payload)
-                }
+                sendPayload(payload)
             }
         }
+        #endif
         token = Amplify.Hub.listen(to: .dataStore) { [unowned self] (payload) in
+            #if DEBUG
             eventGuard.lock()
             defer { eventGuard.unlock() }
-            eventHistory.append(payload)
+            if replayableEvents.contains(payload.eventName) {
+                eventHistory.append(payload)
+            }
+            #endif
             sendPayload(payload)
         }
     }
