@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
+import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter_dart/amplify_flutter_dart.dart';
 import 'package:amplify_flutter_dart/amplify_hub.dart';

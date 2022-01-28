@@ -25,7 +25,6 @@ import 'package:flutter/services.dart';
 
 /// category parts
 part 'auth/amplify_auth_category.dart';
-// part 'datastore/amplify_datastore_category.dart';
 
 String _errorMsgPluginNotAdded(String pluginName) =>
     '$pluginName plugin has not been added to Amplify';
