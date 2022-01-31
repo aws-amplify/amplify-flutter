@@ -12,7 +12,6 @@
 // express or implied. See the License for the specific language governing
 // permissions and limitations under the License.
 //
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'password_protection_settings.dart';
@@ -24,7 +23,8 @@ part of 'password_protection_settings.dart';
 PasswordProtectionSettings _$PasswordProtectionSettingsFromJson(
         Map<String, dynamic> json) =>
     PasswordProtectionSettings(
-      passwordPolicyMinLength: json['passwordPolicyMinLength'] as int?,
+      passwordPolicyMinLength: const _PasswordPolicyMinLengthConverter()
+          .fromJson(json['passwordPolicyMinLength']),
       passwordPolicyCharacters: (json['passwordPolicyCharacters']
                   as List<dynamic>?)
               ?.map((e) => $enumDecode(_$PasswordPolicyCharactersEnumMap, e))
@@ -42,7 +42,10 @@ Map<String, dynamic> _$PasswordProtectionSettingsToJson(
     }
   }
 
-  writeNotNull('passwordPolicyMinLength', instance.passwordPolicyMinLength);
+  writeNotNull(
+      'passwordPolicyMinLength',
+      const _PasswordPolicyMinLengthConverter()
+          .toJson(instance.passwordPolicyMinLength));
   val['passwordPolicyCharacters'] = instance.passwordPolicyCharacters
       .map((e) => _$PasswordPolicyCharactersEnumMap[e])
       .toList();
