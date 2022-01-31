@@ -9,10 +9,9 @@ class WithHeader extends HttpInterceptor {
   final bool replace;
 
   @override
-  AWSStreamedHttpRequest intercept(
+  Future<AWSStreamedHttpRequest> intercept(
     AWSStreamedHttpRequest request,
-    HttpRequestContextBuilder context,
-  ) {
+  ) async {
     if (replace) {
       request.headers[key] = value;
     } else {
@@ -35,7 +34,7 @@ class WithNoHeader extends HttpInterceptor {
   @override
   AWSStreamedHttpRequest intercept(
     AWSStreamedHttpRequest request,
-    HttpRequestContextBuilder context,
+    
   ) {
     request.headers.remove(key);
     return request;

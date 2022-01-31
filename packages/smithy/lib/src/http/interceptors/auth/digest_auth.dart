@@ -9,7 +9,7 @@ class DigestAuthInterceptor extends HttpInterceptor {
   @override
   Future<AWSStreamedHttpRequest> intercept(
     AWSStreamedHttpRequest request,
-    HttpRequestContextBuilder context,
+    
   ) async {
     // TODO
     throw UnimplementedError();

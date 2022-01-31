@@ -10,7 +10,6 @@ class WithContentLength extends HttpInterceptor {
   @override
   Future<AWSStreamedHttpRequest> intercept(
     AWSStreamedHttpRequest request,
-    HttpRequestContextBuilder context,
   ) async {
     if (!request.headers.containsKey(_key)) {
       request.headers[_key] = (await request.contentLength).toString();

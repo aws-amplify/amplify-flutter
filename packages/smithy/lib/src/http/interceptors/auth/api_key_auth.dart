@@ -21,7 +21,6 @@ class ApiKeyAuthInterceptor extends HttpInterceptor {
   @override
   Future<AWSStreamedHttpRequest> intercept(
     AWSStreamedHttpRequest request,
-    HttpRequestContextBuilder context,
   ) async {
     final _apiKey = await apiKey();
     if (location == ApiKeyLocation.header) {

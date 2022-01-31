@@ -19,8 +19,8 @@ class BlobSerializer extends PrimitiveSmithySerializer<Uint8List> {
       {FullType specifiedType = FullType.unspecified}) {
     if (serialized is Uint8List) {
       return serialized;
-    } else if (serialized is List<int>) {
-      return Uint8List.fromList(serialized);
+    } else if (serialized is List) {
+      return Uint8List.fromList(serialized.cast());
     }
     serialized as String;
     switch (mediaType) {

@@ -23,7 +23,6 @@ abstract class BasicAuthInterceptor extends HttpInterceptor {
   @override
   Future<AWSStreamedHttpRequest> intercept(
     AWSStreamedHttpRequest request,
-    HttpRequestContextBuilder context,
   ) async {
     final _credentials = await credentials();
     request.headers['Authorization'] = 'Basic $_credentials';

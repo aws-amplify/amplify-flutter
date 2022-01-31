@@ -85,9 +85,6 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   /// The endpoint for the operation.
   Endpoint get endpoint => Endpoint(uri: baseUri);
 
-  /// The request's context builder.
-  final HttpRequestContextBuilder context = HttpRequestContextBuilder();
-
   @visibleForTesting
   HttpProtocol<InputPayload, Input, OutputPayload, Output> resolveProtocol({
     ShapeId? useProtocol,
@@ -123,7 +120,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     } else {
       path = expandLabels(path, input.labelFor);
     }
-    var needsTrailingSlash = request.path.endsWith('/');
+    var needsTrailingSlash = request.path.split('?').first.endsWith('/');
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
@@ -170,7 +167,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       ...protocol.interceptors,
     ]..sort((a, b) => a.order.compareTo(b.order));
     for (final interceptor in interceptors) {
-      final interception = interceptor.intercept(awsRequest, context);
+      final interception = interceptor.intercept(awsRequest);
       if (interception is Future) {
         awsRequest = await interception;
       } else {

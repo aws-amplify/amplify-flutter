@@ -21,8 +21,5 @@ abstract class HttpInterceptor {
   int get order => 1;
 
   @useResult
-  FutureOr<AWSStreamedHttpRequest> intercept(
-    AWSStreamedHttpRequest request,
-    HttpRequestContextBuilder context,
-  );
+  FutureOr<AWSStreamedHttpRequest> intercept(AWSStreamedHttpRequest request);
 }

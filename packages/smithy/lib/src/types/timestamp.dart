@@ -45,7 +45,8 @@ class Timestamp {
         }
         return Timestamp(dt);
       case TimestampFormat.epochSeconds:
-        final secs = timestamp as num;
+        final secs =
+            timestamp is String ? double.parse(timestamp) : timestamp as num;
         final millisecs = (secs * 1000).truncate();
         return Timestamp(DateTime.fromMillisecondsSinceEpoch(
           millisecs,

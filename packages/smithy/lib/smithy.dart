@@ -42,19 +42,27 @@ export 'src/http/interceptors/auth/digest_auth.dart';
 export 'src/protocol/protocol.dart';
 export 'src/http/http_protocol.dart';
 export 'src/protocol/json_serializer.dart';
+export 'src/protocol/xml_serializer.dart';
 
 // Serialization
 export 'src/serialization/json/smithy_json_plugin.dart';
 export 'src/serialization/serializer.dart';
 export 'src/serialization/struct.dart';
-export 'src/serialization/serializers/big_int_serializer.dart';
-export 'src/serialization/serializers/blob_serializer.dart';
-export 'src/serialization/serializers/double_serializer.dart';
-export 'src/serialization/serializers/int64_serializer.dart';
-export 'src/serialization/serializers/encoded_json_object_serializer.dart';
-export 'src/serialization/serializers/timestamp_serializer.dart';
-export 'src/serialization/serializers/unit_serializer.dart';
-export 'src/serialization/xml/xml_plugin.dart';
+export 'src/serialization/json/big_int_serializer.dart';
+export 'src/serialization/json/blob_serializer.dart';
+export 'src/serialization/json/double_serializer.dart';
+export 'src/serialization/json/int64_serializer.dart';
+export 'src/serialization/json/encoded_json_object_serializer.dart';
+export 'src/serialization/json/timestamp_serializer.dart';
+export 'src/serialization/json/unit_serializer.dart';
+export 'src/serialization/xml/xml_bool_serializer.dart';
+export 'src/serialization/xml/xml_num_serializer.dart';
+export 'src/serialization/xml/xml_string_serializer.dart';
+export 'src/serialization/xml/xml_namespace.dart';
+export 'src/serialization/xml/xml_built_list_serializer.dart';
+export 'src/serialization/xml/xml_built_map_serializer.dart';
+export 'src/serialization/xml/xml_built_set_serializer.dart';
+export 'src/serialization/xml/smithy_xml_plugin.dart';
 
 // Types
 export 'src/types/empty.dart';

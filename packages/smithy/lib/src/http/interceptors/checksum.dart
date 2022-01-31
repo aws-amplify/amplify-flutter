@@ -14,7 +14,6 @@ class WithChecksum extends HttpInterceptor {
   @override
   Future<AWSStreamedHttpRequest> intercept(
     AWSStreamedHttpRequest request,
-    HttpRequestContextBuilder context,
   ) async {
     final bytes = await ByteStream(request.split()).toBytes();
     request.headers['Content-MD5'] = base64Encode(md5.convert(bytes).bytes);
