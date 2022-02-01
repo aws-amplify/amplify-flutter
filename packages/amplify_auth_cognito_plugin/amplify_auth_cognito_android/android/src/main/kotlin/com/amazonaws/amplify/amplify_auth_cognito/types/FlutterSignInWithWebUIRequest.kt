@@ -15,7 +15,7 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
+import com.amazonaws.amplify.amplify_shared_native.exception.InvalidRequestException
 import com.amplifyframework.auth.AuthProvider
 
 data class FlutterSignInWithWebUIRequest(val map: HashMap<String, *>) {

@@ -1,6 +1,7 @@
-/// Credit to original Flutter team
-///
-/// https://api.flutter.dev/flutter/foundation/listEquals.html
+// Credit to original Flutter team
+//
+// https://api.flutter.dev/flutter/foundation/listEquals.html
+
 ///
 /// Compares equality of two lists
 bool listEquals<T>(List<T>? a, List<T>? b) {

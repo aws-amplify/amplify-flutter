@@ -25,7 +25,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply from: './coverage.gradle'
 
-def amplifyCore = findProject(':amplify_core')
+def amplifySharedNative = findProject(':amplify_flutter_android')
 
 android {
     compileSdkVersion 28
@@ -62,8 +62,7 @@ android {
 }
 
 dependencies {
-    api amplifyCore
-
+    api amplifySharedNative
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.amplifyframework:aws-api:1.29.1"
     implementation "com.amplifyframework:aws-api-appsync:1.29.1"

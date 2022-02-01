@@ -20,8 +20,8 @@ import android.os.Looper
 import androidx.annotation.NonNull
 import com.amazonaws.AmazonClientException
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterInvalidStateException
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
-import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amazonaws.amplify.amplify_shared_native.exception.ExceptionUtil
+import com.amazonaws.amplify.amplify_shared_native.exception.ExceptionMessages
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.*
 

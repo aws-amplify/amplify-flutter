@@ -51,10 +51,10 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmUserAttrib
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignOutRequest
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
+import com.amazonaws.amplify.amplify_shared_native.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_auth_cognito.utils.isRedirectActivityDeclared
 import com.amazonaws.mobile.client.AWSMobileClient
-import com.amazonaws.amplify.amplify_core.AtomicResult
+import com.amazonaws.amplify.amplify_shared_native.AtomicResult
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.auth.AuthSession

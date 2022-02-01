@@ -24,7 +24,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
-def amplifyCore = findProject(':amplify_core')
+def amplifySharedNative = findProject(':amplify_flutter_android')
 
 android {
     compileSdkVersion 30
@@ -48,7 +48,7 @@ android {
 }
 
 dependencies {
-    api amplifyCore
+   api amplifySharedNative
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.amplifyframework:aws-auth-cognito:1.31.2'
     testImplementation 'junit:junit:4.13.2'

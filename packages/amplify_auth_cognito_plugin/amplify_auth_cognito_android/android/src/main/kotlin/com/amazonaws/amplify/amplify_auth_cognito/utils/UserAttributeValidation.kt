@@ -15,8 +15,8 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.utils
 
-import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
-import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
+import com.amazonaws.amplify.amplify_shared_native.exception.ExceptionMessages
+import com.amazonaws.amplify.amplify_shared_native.exception.InvalidRequestException
 
 fun validateUserAttribute(attribute: HashMap<*, *>, validationErrorMessage: String) {
     if (!attribute.containsKey("value")) {
