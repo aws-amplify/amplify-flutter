@@ -102,7 +102,7 @@ scripts:
       scope:
         - amplify_analytics_*
         - amplify_api*
-        # - amplify_flutter*
+        - amplify_flutter*
         - amplify_core*
 
   lint:ios:
