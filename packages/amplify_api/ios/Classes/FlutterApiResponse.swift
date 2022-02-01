@@ -17,7 +17,7 @@ import Foundation
 import Amplify
 import AmplifyPlugins
 
-import amplify_core
+import amplify_flutter_ios
 
 extension GraphQLError.Location: Encodable {
     enum CodingKeys: String, CodingKey {

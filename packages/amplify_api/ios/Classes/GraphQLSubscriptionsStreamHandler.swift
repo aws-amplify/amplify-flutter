@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import amplify_core
+import amplify_flutter_ios
 
 public class GraphQLSubscriptionsStreamHandler: NSObject, FlutterStreamHandler {
     private var eventSink: FlutterEventSink?

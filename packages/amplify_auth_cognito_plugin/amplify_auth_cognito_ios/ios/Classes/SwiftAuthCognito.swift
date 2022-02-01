@@ -18,7 +18,7 @@ import UIKit
 import Amplify
 import AmplifyPlugins
 import AWSCore
-import amplify_core
+import amplify_flutter_ios
 
 public class SwiftAuthCognito: NSObject, FlutterPlugin {
     

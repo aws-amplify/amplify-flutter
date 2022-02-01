@@ -17,7 +17,7 @@ import Foundation
 import Flutter
 import Amplify
 import AmplifyPlugins
-import amplify_core
+import amplify_flutter_ios
 
 /// Handles calls to the Devices API.
 struct DeviceHandler {

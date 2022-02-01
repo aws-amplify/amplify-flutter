@@ -18,7 +18,6 @@ A new flutter plugin project.
   s.dependency 'Amplify', '1.19.0'
   s.dependency 'AWSPluginsCore', '1.19.0'
   s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin', '1.19.0'
-  s.dependency 'amplify_core'
   s.platform = :ios, '11.0'
 
   # Flutter.framework does not contain a i386 slice.

@@ -15,7 +15,7 @@
 
 import Foundation
 import Amplify
-import amplify_core
+import amplify_flutter_ios
 
 func validateUserAttribute(attribute: Dictionary<String, Any>, validationErrorMessage: String) throws {
     if (attribute["userAttributeKey"] == nil) {

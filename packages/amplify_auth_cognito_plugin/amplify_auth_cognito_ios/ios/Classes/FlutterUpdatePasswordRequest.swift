@@ -14,7 +14,7 @@
  */
 
 import Foundation
-import amplify_core
+import amplify_flutter_ios
 
 struct FlutterUpdatePasswordRequest {
   var oldPassword: String

@@ -17,7 +17,7 @@ import Flutter
 import UIKit
 import Amplify
 import AmplifyPlugins
-import amplify_core
+import amplify_flutter_ios
 import AWSPluginsCore
 
 public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
