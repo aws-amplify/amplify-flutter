@@ -10,13 +10,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_analytics_plugin_interface: 0.3.0
-  amplify_api_plugin_interface: 0.3.0
+  # amplify_analytics_plugin_interface: 0.3.0
+  # amplify_api_plugin_interface: 0.3.0
   amplify_auth_cognito_platform_interface: 0.0.1
   amplify_core: 0.3.1
   amplify_flutter_dart: 0.0.1
-  amplify_datastore_plugin_interface: 0.3.0
-  amplify_storage_plugin_interface: 0.3.0
+  # amplify_datastore_plugin_interface: 0.3.0
+  # amplify_storage_plugin_interface: 0.3.0
   plugin_platform_interface: ^2.1.0
 
 dev_dependencies:
