@@ -1,0 +1,17 @@
+sdk:
+  - stable
+  - dev
+
+stages:
+  - analyze_and_format:
+      - group:
+          - format
+          - analyze: --fatal-infos .
+  - unit_test:
+      - test:
+        os:
+          - windows
+          - macos
+      - group:
+          - test:
+          - test: -p chrome

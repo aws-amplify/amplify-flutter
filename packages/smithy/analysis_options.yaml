@@ -2,6 +2,10 @@ include: package:amplify_lints/dart.yaml
 
 analyzer:
   errors:
+    # TODO: Remove before publishing
     public_member_api_docs: ignore
+
+    # TODO: Remove when logging is complete
+    avoid_print: ignore
   exclude:
     - "**/*.g.dart"

@@ -1,7 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart';
-import 'package:xml/xml.dart';
 
 class XmlBuiltMapSerializer implements StructuredSerializer<BuiltMap> {
   const XmlBuiltMapSerializer({
