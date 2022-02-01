@@ -13,6 +13,7 @@
 // permissions and limitations under the License.
 //
 
+import 'package:amplify_core/src/categories/api/auth/api_authorization_type.dart';
 import 'package:amplify_core/src/config/api/api_config.dart';
 import 'package:amplify_core/src/util/equatable.dart';
 import 'package:amplify_core/src/util/serializable.dart';

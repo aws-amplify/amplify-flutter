@@ -16,12 +16,10 @@
 library amplify_interface;
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/categories/auth/auth_category_interface.dart';
 import 'package:amplify_core/src/categories/auth/types.dart';
-import 'package:flutter/services.dart';
 
 /// category parts
 part 'auth/amplify_auth_category.dart';

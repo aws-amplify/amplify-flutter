@@ -1,5 +1,5 @@
 import 'package:amplify_core/src/categories/auth/types.dart';
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 
 /// User attributes available for configuring via `Amplify.Auth.signUp`,
 /// or updating via `Amplify.Auth.updateUserAttribute` and

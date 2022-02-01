@@ -18,8 +18,8 @@ library amplify_storage_plugin_interface;
 import 'dart:async';
 import 'package:amplify_core/amplify_core.dart';
 
-import 'src/types.dart';
-export 'src/types.dart';
+import '../../amplify_core/lib/src/categories/storage/types.dart';
+export '../../amplify_core/lib/src/categories/storage/types.dart';
 
 abstract class StoragePluginInterface extends AmplifyPluginInterface {
   StoragePluginInterface({required Object token}) : super(token: token);

@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_core/src/categories/auth/types.dart';
-import 'package:flutter/foundation.dart';
+import 'package:amplify_core/src/util/describe_enum.dart';
 
 class SignInWithWebUIRequest {
   AuthProvider? provider;

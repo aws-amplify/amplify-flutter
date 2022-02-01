@@ -13,11 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
+import 'package:amplify_core/src/util/is_debug_mode.dart';
 
 /// Prints messages only when in debug mode.
 void safePrint(Object? msg) {
-  if (kDebugMode) {
+  if (isDebugMode) {
     //ignore:avoid_print
     print(msg);
   }

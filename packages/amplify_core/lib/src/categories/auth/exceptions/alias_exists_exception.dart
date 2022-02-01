@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/src/categories/auth/Exceptions/auth_exception.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// Thrown when Amplify could not perform the action because
 /// alias (an account with certain email or phone) already exists in the system .

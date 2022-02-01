@@ -13,13 +13,13 @@
 // permissions and limitations under the License.
 //
 
+import 'package:amplify_core/src/categories/storage/types.dart';
 import 'package:amplify_core/src/config/amplify_plugin_config.dart';
 import 'package:amplify_core/src/config/amplify_plugin_registry.dart';
 import 'package:amplify_core/src/util/equatable.dart';
 import 'package:amplify_core/src/util/serializable.dart';
-import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 's3_config.g.dart';
 

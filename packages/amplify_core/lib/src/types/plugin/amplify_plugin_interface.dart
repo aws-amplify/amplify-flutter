@@ -13,12 +13,5 @@
  * permissions and limitations under the License.
  */
 
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-
 /// Interface for all amplify plugins
-abstract class AmplifyPluginInterface extends PlatformInterface {
-  /// Constructs a plugin
-  AmplifyPluginInterface({required Object token}) : super(token: token);
-}
-
-abstract class AmplifyPluginInterfacePOC {}
+abstract class AmplifyPluginInterface {}

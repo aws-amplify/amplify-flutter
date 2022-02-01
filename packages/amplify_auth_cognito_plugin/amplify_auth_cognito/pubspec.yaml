@@ -16,6 +16,7 @@ dependencies:
   amplify_auth_cognito_ios: 0.0.1
   amplify_auth_cognito_macos: 0.0.1
   amplify_auth_cognito_android: 0.0.1
+  amplify_test: 0.0.1
 
 dev_dependencies:
   flutter_test:

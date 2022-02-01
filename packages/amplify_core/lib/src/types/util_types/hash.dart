@@ -1,0 +1,3 @@
+class HashEnd {
+  const HashEnd();
+}

@@ -13,6 +13,7 @@
 // permissions and limitations under the License.
 //
 
+import 'package:amplify_core/src/categories/api/auth/api_authorization_type.dart';
 import 'package:amplify_core/src/config/amplify_plugin_config.dart';
 import 'package:amplify_core/src/config/amplify_plugin_registry.dart';
 import 'package:amplify_core/src/config/api/api_config.dart';
@@ -20,8 +21,6 @@ import 'package:amplify_core/src/config/config_map.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
-export 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart'
-    show APIAuthorizationType;
 export 'appsync/api_config.dart';
 export 'appsync/endpoint_type.dart';
 
