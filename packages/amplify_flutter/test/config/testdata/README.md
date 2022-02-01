@@ -37,12 +37,14 @@ To generate:
 2. Run `amplify add api` and select the Todo schema with all other defaults.
 3. Run `amplify add auth` and select all defaults.
 4. Run `amplify push`.
-5. Update the `.gitignore` to the following:
+5. Update the `.gitignore` to the following, and add the files to tracking.
 
 ```
 amplify/
 .vscode/
 !amplifyconfiguration.dart
 ```
+
+6. Run `amplify delete` and restore the `amplifyconfiguration.dart` file if deleted.
 
 **Note**: The values in these configs do not represent live services.
