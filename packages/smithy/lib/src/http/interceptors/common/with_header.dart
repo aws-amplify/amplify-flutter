@@ -34,7 +34,6 @@ class WithNoHeader extends HttpInterceptor {
   @override
   AWSStreamedHttpRequest intercept(
     AWSStreamedHttpRequest request,
-    
   ) {
     request.headers.remove(key);
     return request;

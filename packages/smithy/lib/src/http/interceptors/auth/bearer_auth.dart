@@ -11,7 +11,6 @@ abstract class BearerAuthInterceptor extends HttpInterceptor {
   @override
   Future<AWSStreamedHttpRequest> intercept(
     AWSStreamedHttpRequest request,
-    
   ) async {
     final _token = await token();
     request.headers['Authorization'] = 'Bearer $_token';
