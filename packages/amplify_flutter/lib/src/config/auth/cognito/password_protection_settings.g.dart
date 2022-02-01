@@ -12,6 +12,7 @@
 // express or implied. See the License for the specific language governing
 // permissions and limitations under the License.
 //
+
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'password_protection_settings.dart';

@@ -2,12 +2,13 @@
 
 CLI versions 4-7 (latest) are supported. We employ three suites of tests to verify compatibility with those versions.
 
-| Major | Version Tested |
-| ----- | -------------- |
-| v4 | v4.52.0 |
-| v5 | v5.6.0 |
-| v6 | v6.4.0 |
-| v7 | v7.6.5 (latest) |
+| Major  | Version Tested |
+| ------ | -------------- |
+| v4     | v4.52.0        |
+| v5     | v5.6.0         |
+| v6     | v6.4.0         |
+| v7     | v7.6.5         |
+| Latest | -              |
 
 ## Auth Tests
 
@@ -29,5 +30,19 @@ These tests ensure compatibility with any major changes to the different categor
 ## E2E CLI Tests
 
 The same simple project with a GraphQL API and Cognito Userpool is generated for each CLI version and stored in respective directories (`v4/`, `v5/`, etc). Each of these configurations is tested to ensure that `fromJson`/`toJson` produce symmetric results.
+
+To generate:
+
+1. Run `amplify init` and choose Flutter as the project type. Set the config directory to cwd (`.`).
+2. Run `amplify add api` and select the Todo schema with all other defaults.
+3. Run `amplify add auth` and select all defaults.
+4. Run `amplify push`.
+5. Update the `.gitignore` to the following:
+
+```
+amplify/
+.vscode/
+!amplifyconfiguration.dart
+```
 
 **Note**: The values in these configs do not represent live services.
