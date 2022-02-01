@@ -3,8 +3,6 @@ library amplify_flutter_platform_interface;
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter_dart/amplify_flutter_dart.dart';
 import 'package:amplify_flutter_dart/amplify_hub.dart';
@@ -121,7 +119,7 @@ class AmplifyClass extends PlatformInterface implements AmplifyFlutterDart {
       _isConfigured = true;
     } on PlatformException catch (e) {
       if (e.code == 'AnalyticsException') {
-        throw AnalyticsException.fromMap(Map<String, String>.from(e.details));
+        // throw AnalyticsException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyException') {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyAlreadyConfiguredException') {
