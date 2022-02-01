@@ -1,3 +1,9 @@
+// Credit to original Flutter team
+//
+//  https://api.flutter.dev/flutter/foundation/describeEnum.html
+
+///
+/// Compares equality of two lists
 String describeEnum(Object enumEntry) {
   final String description = enumEntry.toString();
   final int indexOfDot = description.indexOf('.');
