@@ -83,6 +83,7 @@ void main() {
     // We want to instantiate a new instance for each test so we start
     // with a fresh state as `Amplify` singleton holds a state.
     amplify = AmplifyClass.protected();
+    AmplifyClass.instance = MethodChannelAmplify();
 
     // We only use Auth and Analytics category for testing this class.
     // Clear out their plugins before each test for a fresh state.
