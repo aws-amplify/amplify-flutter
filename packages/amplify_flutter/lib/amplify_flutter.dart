@@ -37,6 +37,10 @@ export 'src/utils/json.dart';
 export 'src/utils/serializable.dart';
 
 /// Top level singleton Amplify object.
-final AmplifyClass Amplify = AmplifyClass.protected();
+AmplifyClass get Amplify => AmplifyClass.instance;
+
+set Amplify(AmplifyClass amplifyClass) {
+  AmplifyClass.instance = amplifyClass;
+}
 
 // ignore_for_file: non_constant_identifier_names
