@@ -60,7 +60,7 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
         dateTime.microsecond);
 
     if (offset.inDays > 0) {
-      throw new Exception("Cannot have an offset in days (hh:mm:ss)");
+      throw Exception("Cannot have an offset in days (hh:mm:ss)");
     }
 
     _offset = offset;
@@ -75,7 +75,7 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
   ///     +hh:mm
   ///     +hh:mm:ss
   TemporalDateTime.fromString(String iso8601String) {
-    RegExp regExp = new RegExp(
+    RegExp regExp = RegExp(
         r'^([0-9]{4}-[0-1][0-9]-[0-3][0-9]T[0-2][0-9]:[0-5][0-9](:[0-5][0-9](\.([0-9]{1,9}))?)?)((z|Z)|((\+|-)[0-2][0-9]:[0-5][0-9](:[0-5][0-9])?))',
         caseSensitive: false,
         multiLine: false);
@@ -90,7 +90,7 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
     }
 
     if (regexString != iso8601String) {
-      throw new Exception("invalid string input");
+      throw Exception("invalid string input");
     }
 
     // Extract Time
@@ -141,9 +141,9 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
     buffer.write(isoString.substring(0, isoString.length - 4));
 
     int totalMicroseconds = _nanoseconds + Temporal.getNanoseconds(_dateTime);
-    if (totalMicroseconds > 0) {
-      buffer.write("." + totalMicroseconds.toString().padLeft(9, "0"));
-    }
+    // ensure DateTime strings stored in SQLite are in the same format
+    // which ensures string comparison based DataTime comparison accurate
+    buffer.write("." + totalMicroseconds.toString().padLeft(9, "0"));
 
     if (_offset != null) {
       if (_offset!.inSeconds == 0) {
