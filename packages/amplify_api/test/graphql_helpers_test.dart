@@ -345,6 +345,17 @@ void main() {
         expect(req.decodePath, 'createPost');
       });
 
+      test(
+          'ModelMutations.create() should not include parent ID in variables if not in model',
+          () {
+        final postId = UUID.getUUID();
+        const title = 'Lorem Ipsum';
+        const rating = 1;
+        Post post = Post(id: postId, title: title, rating: rating);
+        GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
+        expect(req.variables['input'].containsKey('blogID'), isFalse);
+      });
+
       test('ModelMutations.delete() should build a valid request', () {
         final id = UUID.getUUID();
         final name = 'Test Blog';
