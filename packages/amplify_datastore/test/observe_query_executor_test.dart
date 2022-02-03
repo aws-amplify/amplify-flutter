@@ -17,9 +17,6 @@ import 'dart:async';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fake_async/fake_async.dart';
-import '../lib/types/DataStoreHubEvents/ModelSyncedEvent.dart';
-import '../lib/types/DataStoreHubEvents/DataStoreHubEvent.dart';
-import '../lib/types/DataStoreHubEvents/SyncQueriesStartedEvent.dart';
 import '../lib/types/observe_query_executor.dart';
 import './test_models/Blog.dart';
 
