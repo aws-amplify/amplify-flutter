@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart';
-import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 import 'package:smithy/smithy.dart';
 import 'package:smithy_ast/smithy_ast.dart';
@@ -147,7 +146,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     if (basePath.startsWith('/')) {
       basePath = basePath.substring(1);
     }
-    path = p.join(basePath, path);
+    path = '$basePath/$path';
     if (needsTrailingSlash && !path.endsWith('/')) {
       path += '/';
     }
