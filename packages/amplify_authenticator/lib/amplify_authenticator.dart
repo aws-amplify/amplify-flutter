@@ -440,7 +440,8 @@ class Authenticator extends StatefulWidget {
 }
 
 class _AuthenticatorState extends State<Authenticator> {
-  static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+  GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
 
   final AuthService _authService = AmplifyAuthService();
   late final StateMachineBloc _stateMachineBloc;
@@ -639,6 +640,7 @@ class _AuthenticatorState extends State<Authenticator> {
         amplifyConfig: _config,
         useAmplifyTheme: widget.useAmplifyTheme,
         padding: widget.padding,
+        scaffoldMessengerKey: scaffoldMessengerKey,
         child: InheritedAuthenticatorState(
           key: keyInheritedAuthenticatorState,
           state: _authenticatorState,
@@ -666,6 +668,13 @@ class _AuthenticatorState extends State<Authenticator> {
       ),
     );
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldMessengerState>>(
+        'scaffoldMessengerKey', scaffoldMessengerKey));
+  }
 }
 
 // A widget that listens for changes in multiple inherited widgets
@@ -679,7 +688,8 @@ class _AuthStateBuilder extends StatelessWidget {
   }) : super(key: key);
 
   final Widget child;
-  final Widget Function(AuthState, Widget) builder;
+  final Widget Function(AuthState, GlobalKey<ScaffoldMessengerState>, Widget)
+      builder;
 
   Widget getAuthenticatorScreen({
     required BuildContext context,
@@ -718,6 +728,8 @@ class _AuthStateBuilder extends StatelessWidget {
     final authenticatorBuilder = InheritedAuthenticatorBuilder.of(context);
     final stateMachineBloc = InheritedAuthBloc.of(context);
     final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
+    final scaffoldMessengerKey =
+        InheritedConfig.of(context).scaffoldMessengerKey;
     final userAppTheme = Theme.of(context);
     final bool isDark = AmplifyTheme.of(context).isDark;
     return Theme(
@@ -738,7 +750,11 @@ class _AuthStateBuilder extends StatelessWidget {
           return Localizations.override(
             context: context,
             delegates: AuthenticatorLocalizations.localizationsDelegates,
-            child: builder(authState, authenticatorScreen),
+            child: builder(
+              authState,
+              scaffoldMessengerKey,
+              authenticatorScreen,
+            ),
           );
         },
       ),
@@ -748,9 +764,12 @@ class _AuthStateBuilder extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-        ObjectFlagProperty<Widget Function(AuthState state, Widget child)>.has(
-            'builder', builder));
+    properties.add(ObjectFlagProperty<
+        Widget Function(
+      AuthState state,
+      GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey,
+      Widget child,
+    )>.has('builder', builder));
   }
 }
 
@@ -770,7 +789,7 @@ class _AuthenticatorBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return _AuthStateBuilder(
       child: child,
-      builder: (state, child) {
+      builder: (state, scaffoldMessengerKey, child) {
         return Navigator(
           onPopPage: (_, dynamic __) => true,
           pages: [
@@ -778,7 +797,7 @@ class _AuthenticatorBody extends StatelessWidget {
             if (state is! AuthenticatedState)
               MaterialPage<void>(
                 child: ScaffoldMessenger(
-                  key: _AuthenticatorState.scaffoldMessengerKey,
+                  key: scaffoldMessengerKey,
                   child: Scaffold(
                     backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
                     body: SizedBox.expand(
@@ -814,12 +833,12 @@ class AuthenticatedView extends StatelessWidget {
   Widget build(BuildContext context) {
     return _AuthStateBuilder(
       child: child,
-      builder: (state, child) {
+      builder: (state, scaffoldMessengerKey, child) {
         if (state is AuthenticatedState) {
           return child;
         }
         return ScaffoldMessenger(
-          key: _AuthenticatorState.scaffoldMessengerKey,
+          key: scaffoldMessengerKey,
           child: Scaffold(
             backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
             body: SizedBox.expand(

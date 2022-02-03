@@ -47,6 +47,7 @@ void main() {
               : AmplifyConfig.fromJson(jsonDecode(amplifyConfig)),
           useAmplifyTheme: useAmplifyTheme,
           padding: const EdgeInsets.all(32),
+          scaffoldMessengerKey: GlobalKey<ScaffoldMessengerState>(),
           child: InheritedAuthenticatorState(
             state: AuthenticatorState(MockBloc()),
             child: InheritedStrings(

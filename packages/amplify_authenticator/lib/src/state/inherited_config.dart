@@ -23,12 +23,14 @@ class InheritedConfig extends InheritedWidget {
     required this.amplifyConfig,
     required this.useAmplifyTheme,
     required this.padding,
+    required this.scaffoldMessengerKey,
     required Widget child,
   }) : super(key: key, child: child);
 
   final AmplifyConfig? amplifyConfig;
   final bool useAmplifyTheme;
   final EdgeInsets padding;
+  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey;
 
   static InheritedConfig of(BuildContext context) {
     final inheritedConfig =
@@ -76,6 +78,8 @@ class InheritedConfig extends InheritedWidget {
     properties
         .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
     properties.add(DiagnosticsProperty<EdgeInsets>('padding', padding));
+    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldMessengerState>>(
+        'scaffoldMessengerKey', scaffoldMessengerKey));
   }
 }
 
