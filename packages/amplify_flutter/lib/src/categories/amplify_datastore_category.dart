@@ -92,10 +92,10 @@ class DataStoreCategory {
   }
 
   /// Observe changes on the specified [modelType].
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(
-      ModelType<T> modelType) {
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
+      {QueryPredicate? where}) {
     return plugins.length == 1
-        ? plugins[0].observe(modelType)
+        ? plugins[0].observe(modelType, where: where)
         : throw _pluginNotAddedException('DataStore');
   }
 

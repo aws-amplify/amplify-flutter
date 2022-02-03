@@ -122,9 +122,9 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(
-      ModelType<T> modelType) {
-    return _instance.observe(modelType);
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
+      {QueryPredicate? where}) {
+    return _instance.observe(modelType, where: where);
   }
 
   @override
