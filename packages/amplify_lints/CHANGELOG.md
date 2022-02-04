@@ -1,3 +1,7 @@
+## 0.3.3 (2022-02-04)
+
+- fix: updates for latest flutter and dart versions (#1333)
+
 ## 1.1.0
 
 ### Chores
