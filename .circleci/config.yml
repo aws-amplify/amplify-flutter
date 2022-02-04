@@ -37,7 +37,7 @@ commands:
       - run:
           name: Install and set up melos
           command: |
-            flutter pub global activate melos 1.2.1
+            flutter pub global activate melos 0.4.5
             melos bootstrap
 
   install_tuneup:
