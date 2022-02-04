@@ -78,16 +78,16 @@ class DataStoreCategory {
   }
 
   /// Delete [model] from the DataStore.
-  Future<void> delete<T extends Model>(T model) {
+  Future<void> delete<T extends Model>(T model, {QueryPredicate? where}) {
     return plugins.length == 1
-        ? plugins[0].delete(model)
+        ? plugins[0].delete(model, where: where)
         : throw _pluginNotAddedException('DataStore');
   }
 
   /// Save [model] into the DataStore.
-  Future<void> save<T extends Model>(T model) {
+  Future<void> save<T extends Model>(T model, {QueryPredicate? where}) {
     return plugins.length == 1
-        ? plugins[0].save(model)
+        ? plugins[0].save(model, where: where)
         : throw _pluginNotAddedException('DataStore');
   }
 

@@ -151,11 +151,12 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
-  Future<void> delete<T extends Model>(T model) async {
+  Future<void> delete<T extends Model>(T model, {QueryPredicate? where}) async {
     try {
       await _setUpObserveIfNeeded();
       await _channel.invokeMethod('delete', <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
+        'queryPredicate': where?.serializeAsMap(),
         'serializedModel': model.toJson(),
       });
     } on PlatformException catch (e) {
@@ -164,11 +165,12 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
-  Future<void> save<T extends Model>(T model) async {
+  Future<void> save<T extends Model>(T model, {QueryPredicate? where}) async {
     try {
       await _setUpObserveIfNeeded();
       var methodChannelSaveInput = <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
+        'queryPredicate': where?.serializeAsMap(),
         'serializedModel': model.toJson(),
       };
       await _channel.invokeMethod('save', methodChannelSaveInput);

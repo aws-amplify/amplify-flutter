@@ -259,6 +259,17 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
     
+    // Initial Save fails for QueryPredicate.all, so we must pass nil instead
+    func filterQueryPredicateAll(queryPredicates: QueryPredicate) -> QueryPredicate? {
+        if let queryPredicateConstant = queryPredicates as? QueryPredicateConstant {
+            switch queryPredicateConstant {
+            case .all:
+                return nil
+            }
+        }
+        return queryPredicates
+    }
+    
     func onSave(args: [String: Any], flutterResult: @escaping FlutterResult) {
         
         do {
@@ -267,6 +278,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 modelSchemaRegistry: modelSchemaRegistry,
                 modelName: modelName
             )
+            let queryPredicates = filterQueryPredicateAll(queryPredicates: try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String : Any]))
+            
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
             
@@ -274,7 +287,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             
             try bridge.onSave(
                 serializedModel: serializedModel,
-                modelSchema: modelSchema
+                modelSchema: modelSchema,
+                where: queryPredicates
             ) { (result) in
                 switch result {
                 case .failure(let error):
@@ -308,6 +322,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 modelSchemaRegistry: modelSchemaRegistry,
                 modelName: modelName
             )
+            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String : Any])
+            
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
             
@@ -315,7 +331,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             
             try bridge.onDelete(
                 serializedModel: serializedModel,
-                modelSchema: modelSchema) { (result) in
+                modelSchema: modelSchema,
+                where: queryPredicates) { (result) in
                 switch result {
                 case .failure(let error):
                     print("Delete API failed. Error = \(error)")
