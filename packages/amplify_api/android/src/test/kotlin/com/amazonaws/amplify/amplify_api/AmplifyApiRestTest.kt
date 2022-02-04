@@ -351,7 +351,7 @@ class AmplifyApiRestTest {
             mapOf(
                 "message" to ExceptionMessages.missingExceptionMessage,
                 "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                "underlyingException" to "AmplifyException{message=The cancelToken request argument was not passed as a String, cause=kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String, recoverySuggestion=The request should include the cancelToken as a String}"
+                "underlyingException" to "AmplifyException{message=The cancelToken request argument was not passed as a String, cause=java.lang.NullPointerException: null cannot be cast to non-null type kotlin.String, recoverySuggestion=The request should include the cancelToken as a String}"
             )
         )
     }
