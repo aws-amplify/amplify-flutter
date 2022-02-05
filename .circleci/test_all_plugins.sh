@@ -42,13 +42,14 @@ for plugin_dir in */; do
 
                 if ./gradlew :"$plugin":testDebugUnitTest; then
                     echo "PASSED: Android unit tests for $plugin passed."
-                    if ./gradlew :"$plugin":testDebugUnitTestCoverage; then
-                        echo "PASSED: Generating android unit tests coverage for $plugin passed."
-                        passed_plugins+=("$plugin")
-                    else
-                        echo "FAILED: Generating android unit tests coverage for $plugin failed."
-                        failed_plugins+=("$plugin")
-                    fi
+                    passed_plugins+=("$plugin")
+                    # if ./gradlew :"$plugin":testDebugUnitTestCoverage; then
+                    #     echo "PASSED: Generating android unit tests coverage for $plugin passed."
+                    #     passed_plugins+=("$plugin")
+                    # else
+                    #     echo "FAILED: Generating android unit tests coverage for $plugin failed."
+                    #     failed_plugins+=("$plugin")
+                    # fi
                 else
                     echo "FAILED: Android unit tests for $plugin failed."
                     failed_plugins+=("$plugin")
