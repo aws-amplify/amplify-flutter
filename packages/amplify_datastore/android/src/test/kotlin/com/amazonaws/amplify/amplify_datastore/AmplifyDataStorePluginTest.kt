@@ -76,6 +76,7 @@ class AmplifyDataStorePluginTest {
         mock(DataStoreHubEventStreamHandler::class.java)
     private val dataStoreException =
         DataStoreException("Some useful exception message", "Some useful recovery message")
+    private val dataStoreObserveStartFailure = DataStoreException("Failed to start DataStore.", "Retry")
     private val mockModelSchemas = mutableListOf(
         mapOf(
             "name" to "Post",
@@ -579,6 +580,54 @@ class AmplifyDataStorePluginTest {
     }
 
     @Test
+    fun test_observe_set_up_success() {
+        flutterPlugin = AmplifyDataStorePlugin(
+            eventHandler = mockStreamHandler,
+            hubEventHandler = mockHubHandler
+        )
+
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[0] as Consumer<Cancelable>).accept(
+                Cancelable {  }
+            )
+            null
+        }.`when`(mockAmplifyDataStorePlugin).observe(
+            any<Consumer<Cancelable>>(),
+            any<Consumer<DataStoreItemChange<out Model>>>(),
+            any<Consumer<DataStoreException>>(),
+            any<Action>()
+        )
+
+        flutterPlugin.onSetUpObserve(mockResult)
+
+        verify(mockResult, times(1)).success(true)
+    }
+
+    @Test
+    fun test_observe_set_up_failure() {
+        flutterPlugin = AmplifyDataStorePlugin(
+            eventHandler = mockStreamHandler,
+            hubEventHandler = mockHubHandler
+        )
+
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[2] as Consumer<DataStoreException>).accept(
+                dataStoreObserveStartFailure
+            )
+            null
+        }.`when`(mockAmplifyDataStorePlugin).observe(
+            any<Consumer<Cancelable>>(),
+            any<Consumer<DataStoreItemChange<out Model>>>(),
+            any<Consumer<DataStoreException>>(),
+            any<Action>()
+        )
+
+        flutterPlugin.onSetUpObserve(mockResult)
+
+        verify(mockResult, times(1)).success(false)
+    }
+
+    @Test
     fun test_observe_success_event() {
         flutterPlugin = AmplifyDataStorePlugin(
             eventHandler = mockStreamHandler,
@@ -621,12 +670,11 @@ class AmplifyDataStorePluginTest {
 
         flutterPlugin.onSetUpObserve(mockResult)
 
-        verify(mockResult, times(1)).success(true)
         verify(mockStreamHandler, times(1)).sendEvent(eventData)
     }
 
     @Test
-    fun test_observe_error_event() {
+    fun test_observe_receive_error_event() {
         flutterPlugin = AmplifyDataStorePlugin(
             eventHandler = mockStreamHandler,
             hubEventHandler = mockHubHandler
@@ -646,7 +694,6 @@ class AmplifyDataStorePluginTest {
 
         flutterPlugin.onSetUpObserve(mockResult)
 
-        verify(mockResult, times(1)).success(true)
         verify(mockStreamHandler, times(1)).error(
             "DataStoreException",
             mapOf(
