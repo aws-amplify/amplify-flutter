@@ -262,22 +262,22 @@ class AmplifyColors {
 class AmplifyTextTheme extends TextTheme {
   const AmplifyTextTheme()
       : super(
-          headline1: h1,
-          headline2: h2,
-          headline3: h3,
-          headline4: h4,
-          headline5: h5,
-          headline6: h6,
-          subtitle1: bodyLarge,
-          bodyText2: body,
-          caption: bodySmall,
-          button: button$,
+          headline1: _h1,
+          headline2: _h2,
+          headline3: _h3,
+          headline4: _h4,
+          headline5: _h5,
+          headline6: _h6,
+          subtitle1: _bodyLarge,
+          bodyText2: _body,
+          caption: _bodySmall,
+          button: _button$,
         );
 
   static const fontPackage = 'amplify_authenticator';
   static const fontFamily = 'Inter';
 
-  static const h1 = TextStyle(
+  static const _h1 = TextStyle(
     fontFamily: fontFamily,
     package: fontPackage,
     fontWeight: FontWeight.bold,
@@ -285,7 +285,7 @@ class AmplifyTextTheme extends TextTheme {
     height: 72 / 64,
   );
 
-  static const h2 = TextStyle(
+  static const _h2 = TextStyle(
     fontFamily: fontFamily,
     package: fontPackage,
     fontWeight: FontWeight.bold,
@@ -293,7 +293,7 @@ class AmplifyTextTheme extends TextTheme {
     height: 64 / 56,
   );
 
-  static const h3 = TextStyle(
+  static const _h3 = TextStyle(
     fontFamily: fontFamily,
     package: fontPackage,
     fontWeight: FontWeight.bold,
@@ -301,7 +301,7 @@ class AmplifyTextTheme extends TextTheme {
     height: 56 / 48,
   );
 
-  static const h4 = TextStyle(
+  static const _h4 = TextStyle(
     fontFamily: fontFamily,
     package: fontPackage,
     fontWeight: FontWeight.bold,
@@ -309,7 +309,7 @@ class AmplifyTextTheme extends TextTheme {
     height: 48 / 40,
   );
 
-  static const h5 = TextStyle(
+  static const _h5 = TextStyle(
     fontFamily: fontFamily,
     package: fontPackage,
     fontWeight: FontWeight.bold,
@@ -317,7 +317,7 @@ class AmplifyTextTheme extends TextTheme {
     height: 40 / 32,
   );
 
-  static const h6 = TextStyle(
+  static const _h6 = TextStyle(
     fontFamily: fontFamily,
     package: fontPackage,
     fontWeight: FontWeight.bold,
@@ -325,7 +325,7 @@ class AmplifyTextTheme extends TextTheme {
     height: 32 / 24,
   );
 
-  static const bodyLarge = TextStyle(
+  static const _bodyLarge = TextStyle(
     fontFamily: fontFamily,
     package: fontPackage,
     fontWeight: FontWeight.normal,
@@ -333,16 +333,7 @@ class AmplifyTextTheme extends TextTheme {
     height: 24 / 16,
   );
 
-  static const bodyLargeLink = TextStyle(
-    fontFamily: fontFamily,
-    package: fontPackage,
-    fontWeight: FontWeight.normal,
-    fontSize: 14,
-    height: 22 / 14,
-    decoration: TextDecoration.underline,
-  );
-
-  static const body = TextStyle(
+  static const _body = TextStyle(
     fontFamily: fontFamily,
     package: fontPackage,
     fontWeight: FontWeight.normal,
@@ -350,7 +341,7 @@ class AmplifyTextTheme extends TextTheme {
     height: 22 / 14,
   );
 
-  static const bodySmall = TextStyle(
+  static const _bodySmall = TextStyle(
     fontFamily: fontFamily,
     package: fontPackage,
     fontWeight: FontWeight.normal,
@@ -358,7 +349,7 @@ class AmplifyTextTheme extends TextTheme {
     height: 20 / 12,
   );
 
-  static const button$ = TextStyle(
+  static const _button$ = TextStyle(
     fontFamily: fontFamily,
     package: fontPackage,
     fontWeight: FontWeight.w500,
@@ -499,7 +490,7 @@ class AmplifyTheme {
   );
 
   static final inputDecorationTheme = InputDecorationTheme(
-    labelStyle: AmplifyTextTheme.bodyLarge.copyWith(
+    labelStyle: AmplifyTextTheme._bodyLarge.copyWith(
       color: AmplifyColors.neutral80,
       fontWeight: FontWeight.w500,
     ),
@@ -509,7 +500,7 @@ class AmplifyTheme {
   );
 
   static final inputDecorationThemeDark = InputDecorationTheme(
-    labelStyle: AmplifyTextTheme.bodyLarge.copyWith(
+    labelStyle: AmplifyTextTheme._bodyLarge.copyWith(
       color: AmplifyColors.neutral40,
       fontWeight: FontWeight.w500,
     ),
@@ -534,11 +525,11 @@ class AmplifyTheme {
 
   static final tabBarTheme = TabBarTheme(
     labelColor: AmplifyColors.fontInteractive,
-    labelStyle: AmplifyTextTheme.button$.copyWith(
+    labelStyle: AmplifyTextTheme._button$.copyWith(
       fontWeight: FontWeight.bold,
     ),
     unselectedLabelColor: AmplifyColors.fontSecondary,
-    unselectedLabelStyle: AmplifyTextTheme.button$.copyWith(
+    unselectedLabelStyle: AmplifyTextTheme._button$.copyWith(
       fontWeight: FontWeight.bold,
     ),
     labelPadding: EdgeInsets.zero,
@@ -546,11 +537,11 @@ class AmplifyTheme {
 
   static final tabBarThemeDark = TabBarTheme(
     labelColor: AmplifyColors.fontInteractiveDark,
-    labelStyle: AmplifyTextTheme.button$.copyWith(
+    labelStyle: AmplifyTextTheme._button$.copyWith(
       fontWeight: FontWeight.bold,
     ),
     unselectedLabelColor: AmplifyColors.fontSecondaryDark,
-    unselectedLabelStyle: AmplifyTextTheme.button$.copyWith(
+    unselectedLabelStyle: AmplifyTextTheme._button$.copyWith(
       fontWeight: FontWeight.bold,
     ),
     labelPadding: EdgeInsets.zero,

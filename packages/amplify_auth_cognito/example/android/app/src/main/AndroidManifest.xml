@@ -17,7 +17,7 @@
       </intent>
     </queries>
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name="${applicationName}"
         android:label="amplify_auth_cognito_example"
         android:icon="@mipmap/ic_launcher">
         <activity
