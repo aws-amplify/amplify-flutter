@@ -108,7 +108,7 @@ jobs:
       - run:
           name: Pre-start iOS simulator
           # xcrun instruments returns non zero, but successfully starts the simulator
-          command: xcrun instruments -w "iPhone 11 (14.4) [" || true
+          command: xcrun instruments -w "iPhone 11 (14.5) [" || true
       - run:
           name: Build example iOS apps
           command: |
