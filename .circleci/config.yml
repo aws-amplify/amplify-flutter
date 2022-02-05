@@ -8,7 +8,7 @@ executors:
 
   macos-executor:
     macos:
-      xcode: 12.2.0
+      xcode: 12.5.1
     working_directory: ~/amplify-flutter
 
 commands:
@@ -108,7 +108,7 @@ jobs:
       - run:
           name: Pre-start iOS simulator
           # xcrun instruments returns non zero, but successfully starts the simulator
-          command: xcrun instruments -w "iPhone 11 (14.2) [" || true
+          command: xcrun instruments -w "iPhone 11 (14.5) [" || true
       - run:
           name: Build example iOS apps
           command: |
@@ -144,7 +144,7 @@ jobs:
           command: |
             melos run build:examples:android
           no_output_timeout: 20m
-      - run: 
+      - run:
           name: Run lint checks
           command: melos run lint:android --no-select
       - run:

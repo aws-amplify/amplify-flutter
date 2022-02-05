@@ -42,13 +42,14 @@ for plugin_dir in */; do
 
                 if ./gradlew :"$plugin":testDebugUnitTest; then
                     echo "PASSED: Android unit tests for $plugin passed."
-                    if ./gradlew :"$plugin":testDebugUnitTestCoverage; then
-                        echo "PASSED: Generating android unit tests coverage for $plugin passed."
-                        passed_plugins+=("$plugin")
-                    else
-                        echo "FAILED: Generating android unit tests coverage for $plugin failed."
-                        failed_plugins+=("$plugin")
-                    fi
+                    passed_plugins+=("$plugin")
+                    # if ./gradlew :"$plugin":testDebugUnitTestCoverage; then
+                    #     echo "PASSED: Generating android unit tests coverage for $plugin passed."
+                    #     passed_plugins+=("$plugin")
+                    # else
+                    #     echo "FAILED: Generating android unit tests coverage for $plugin failed."
+                    #     failed_plugins+=("$plugin")
+                    # fi
                 else
                     echo "FAILED: Android unit tests for $plugin failed."
                     failed_plugins+=("$plugin")
@@ -62,7 +63,7 @@ for plugin_dir in */; do
         ios-test)
             echo "=== Running iOS unit tests for $plugin ==="
             if [ -d "example/ios/unit_tests" ]; then
-                XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 11,OS=14.2"
+                XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 12"
                 cp ../../.circleci/dummy_amplifyconfiguration.dart example/lib/amplifyconfiguration.dart
                 cd example/ios
                 if xcodebuild test \
