@@ -40,8 +40,7 @@ import 'package:smithy/smithy.dart';
 ///   }
 /// }
 /// ```
-abstract class SmithyEnum<T extends SmithyEnum<T>>
-    with AWSEquatable<SmithyEnum<T>>, AWSSerializable {
+abstract class SmithyEnum<T extends SmithyEnum<T>> with AWSSerializable {
   const SmithyEnum(this.index, this.name, this.value);
   const SmithyEnum.sdkUnknown(this.value)
       : index = -1,
@@ -50,9 +49,6 @@ abstract class SmithyEnum<T extends SmithyEnum<T>>
   final int index;
   final String name;
   final String value;
-
-  @override
-  List<Object> get props => [T, index, name, value];
 
   @override
   String toJson() => value;
