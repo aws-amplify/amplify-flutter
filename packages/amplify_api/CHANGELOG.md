@@ -1,3 +1,11 @@
+## 0.4.0-rc.1 (2022-02-08)
+
+- feat(amplify_api): model-based Graphql helpers (#1211)
+
+### Breaking Changes
+
+- The `data` field is now nullable in `GraphQLResponse`.
+
 ## 0.3.2 (2022-01-21)
 
 - chore: bump amplify-android to 1.31.2

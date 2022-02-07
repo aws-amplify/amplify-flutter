@@ -1,3 +1,5 @@
+## 0.4.0-rc.1 (2022-02-08)
+
 ## 0.3.2 (2022-01-21)
 
 - feat: add deleteUser API for iOS

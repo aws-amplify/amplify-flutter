@@ -1,3 +1,10 @@
+## 0.4.0-rc.1 (2022-02-08)
+
+- chore(datastore): Export hub event types #1330
+- fix(datastore): Hub memory usage (#1201) 
+- feat(datastore): Add QueryPredicate.all (#1310)
+- chore(datastore): update integration tests schema (#1308)
+
 ## 0.3.2 (2022-01-21)
 
 - chore: bump amplify-android to 1.31.2
