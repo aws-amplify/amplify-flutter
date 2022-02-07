@@ -1,9 +1,3 @@
-## 0.3.3 (2022-02-04)
-
-- fix: Hub memory usage (#1201)
-- chore: Export hub event types (#1330)
-- fix: updates for latest flutter and dart versions (#1333)
-
 ## 0.3.2 (2022-01-21)
 
 - chore: bump amplify-android to 1.31.2

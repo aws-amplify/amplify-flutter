@@ -1,19 +1,3 @@
-## 0.3.3 (2022-02-04)
-
-### Fixes
-
-- fix(amplify_flutter): Password settings parsing (#1323)
-- fix(amplify_datastore): Hub memory usage (#1201)
-- fix(amplify_flutter): updates for latest flutter and dart versions #1333
-
-### Features
-
-- feat(amplify_flutter): allow customers to override AmplifyClass methods (#1325)
-
-### Chores
-
-- chore(amplify_datastore): Export hub event types (#1330)
-
 ## 0.3.2 (2022-01-21)
 
 - chore: bump amplify-android to 1.31.2
