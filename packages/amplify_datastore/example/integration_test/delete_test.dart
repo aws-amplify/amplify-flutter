@@ -42,5 +42,17 @@ void main() {
       expect(blogs.length, 1);
       expect(blogs[0].name, originalBlogName);
     });
+
+    testWidgets('predicate should not prevent delete for matching model',
+        (WidgetTester tester) async {
+      const originalBlogName = 'matching blog';
+      Blog testBlog = Blog(name: originalBlogName);
+      await Amplify.DataStore.save(testBlog);
+
+      await Amplify.DataStore.delete(testBlog,
+          where: Blog.NAME.contains("matching"));
+      var blogs = await Amplify.DataStore.query(Blog.classType);
+      expect(blogs.length, 0);
+    });
   });
 }

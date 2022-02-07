@@ -78,5 +78,22 @@ void main() {
       expect(blogs.length, 1);
       expect(blogs[0].name, originalBlogName);
     });
+
+    testWidgets('predicate should not prevent save for matching model',
+        (WidgetTester tester) async {
+      // Note that predicate for save can only be applied to updates (not initial save)
+      const originalBlogName = 'original blog';
+      Blog testBlog = Blog(name: originalBlogName);
+      await Amplify.DataStore.save(testBlog);
+
+      const matchingBlogName = 'matching blog name';
+      var updatedBlog = testBlog.copyWith(name: matchingBlogName);
+      await Amplify.DataStore.save(updatedBlog,
+          where: Blog.NAME.contains("matching"));
+
+      var blogs = await Amplify.DataStore.query(Blog.classType);
+      expect(blogs.length, 1);
+      expect(blogs[0].name, matchingBlogName);
+    });
   });
 }
