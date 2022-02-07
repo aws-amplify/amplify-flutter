@@ -58,7 +58,7 @@ Future<DeleteUserResponse?> deleteUser(String username) async {
       throw Exception(error.message);
     }
   } else {
-    return DeleteUserResponse.fromJson(res.data);
+    return DeleteUserResponse.fromJson(res.data!);
   }
 }
 
@@ -96,7 +96,7 @@ Future<AdminCreateUserResponse?> adminCreateUser(
       throw Exception(error.message);
     }
   } else {
-    return AdminCreateUserResponse.fromJson(res.data);
+    return AdminCreateUserResponse.fromJson(res.data!);
   }
 
   addTearDown(() async {
@@ -128,7 +128,7 @@ Future<String> getOtpCode(String username) async {
   return operation
       .map((event) {
         final json =
-            jsonDecode(event.data)['onCreateConfirmSignUpTestRun'] as Map;
+            jsonDecode(event.data!)['onCreateConfirmSignUpTestRun'] as Map;
         return ConfirmSignUpResponse.fromJson(json.cast());
       })
       .where((event) => event.username == username)
