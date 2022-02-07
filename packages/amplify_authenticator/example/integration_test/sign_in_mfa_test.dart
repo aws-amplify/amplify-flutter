@@ -17,6 +17,7 @@
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_test/amplify_test.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -26,7 +27,6 @@ import 'config.dart';
 import 'pages/confirm_sign_in_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
-import 'utils/data_utils.dart';
 import 'utils/mock_data.dart';
 
 void main() {
@@ -35,11 +35,15 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
-  final authenticator = MaterialApp(
-    home: Authenticator(
-        child: const SignOutButton(
-      key: Key('keySignOutButton'),
-    )),
+  final authenticator = Authenticator(
+    child: MaterialApp(
+      builder: Authenticator.builder(),
+      home: const Scaffold(
+        body: Center(
+          child: SignOutButton(),
+        ),
+      ),
+    ),
   );
 
   group('sign-in-sms-mfa', () {
@@ -54,10 +58,15 @@ void main() {
     // Scenario: Sign in using a valid phone number and SMS MFA
     testWidgets('Sign in using a valid phone number and SMS MFA',
         (tester) async {
-      final phone = generatePhone();
+      final phoneNumber = generateUSPhoneNumber();
       final password = generatePassword();
-      await adminCreateUser(phone, password,
-          autoConfirm: true, enableMfa: true, verifyAttributes: true);
+      await adminCreateUser(
+        phoneNumber.toE164(),
+        password,
+        autoConfirm: true,
+        enableMfa: true,
+        verifyAttributes: true,
+      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
@@ -68,7 +77,7 @@ void main() {
       await signInPage.selectCountryCode();
 
       // And I type my "phone number" with status "CONFIRMED"
-      await signInPage.enterUsername(phone);
+      await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
       await signInPage.enterPassword(password);
@@ -82,10 +91,15 @@ void main() {
 
     // Scenario: Redirect to sign in page
     testWidgets('Redirect to sign in page', (tester) async {
-      final phone = generatePhone();
+      final phoneNumber = generateUSPhoneNumber();
       final password = generatePassword();
-      await adminCreateUser(phone, password,
-          autoConfirm: true, enableMfa: true, verifyAttributes: true);
+      await adminCreateUser(
+        phoneNumber.toE164(),
+        password,
+        autoConfirm: true,
+        enableMfa: true,
+        verifyAttributes: true,
+      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
@@ -96,7 +110,7 @@ void main() {
       await signInPage.selectCountryCode();
 
       // And I type my "phone number" with status "CONFIRMED"
-      await signInPage.enterUsername(phone);
+      await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
       await signInPage.enterPassword(password);
@@ -108,15 +122,20 @@ void main() {
       await confirmSignInPage.navigateToSignIn();
 
       // Then I see "Sign in"
-      signInPage.expectScreen(AuthScreen.signin);
+      signInPage.expectStep(AuthenticatorStep.signIn);
     });
 
     // Scenario: Incorrect SMS code
     testWidgets('Incorrect SMS code', (tester) async {
-      final phone = generatePhone();
+      final phoneNumber = generateUSPhoneNumber();
       final password = generatePassword();
-      await adminCreateUser(phone, password,
-          autoConfirm: true, enableMfa: true, verifyAttributes: true);
+      await adminCreateUser(
+        phoneNumber.toE164(),
+        password,
+        autoConfirm: true,
+        enableMfa: true,
+        verifyAttributes: true,
+      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
@@ -127,7 +146,7 @@ void main() {
       await signInPage.selectCountryCode();
 
       // And I type my "phone number" with status "CONFIRMED"
-      await signInPage.enterUsername(phone);
+      await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
       await signInPage.enterPassword(password);
@@ -147,7 +166,7 @@ void main() {
 
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
-      final phone = generatePhone();
+      final phoneNumber = generateUSPhoneNumber();
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
 
@@ -155,7 +174,7 @@ void main() {
       await signInPage.selectCountryCode();
 
       // And I type my "phone number" with status "UNKNOWN"
-      await signInPage.enterUsername(phone);
+      await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
       await signInPage.enterPassword('UNKNOWN');

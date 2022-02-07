@@ -27,18 +27,18 @@ class LocalizedButtonResolver extends ButtonResolver {
   }
 
   @override
-  String signin(BuildContext context) {
-    return AppLocalizations.of(context).signin;
+  String signIn(BuildContext context) {
+    return AppLocalizations.of(context).signIn;
   }
 
   @override
-  String signout(BuildContext context) {
-    return AppLocalizations.of(context).signout;
+  String signOut(BuildContext context) {
+    return AppLocalizations.of(context).signOut;
   }
 
   @override
-  String signup(BuildContext context) {
-    return AppLocalizations.of(context).signup;
+  String signUp(BuildContext context) {
+    return AppLocalizations.of(context).signUp;
   }
 
   @override
@@ -57,8 +57,8 @@ class LocalizedButtonResolver extends ButtonResolver {
   }
 
   @override
-  String backTo(BuildContext context, AuthScreen previousScreen) {
-    return AppLocalizations.of(context).backTo(previousScreen);
+  String backTo(BuildContext context, AuthenticatorStep previousStep) {
+    return AppLocalizations.of(context).backTo(previousStep);
   }
 
   @override

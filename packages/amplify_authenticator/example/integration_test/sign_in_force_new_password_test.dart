@@ -1,6 +1,7 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -9,7 +10,6 @@ import 'config.dart';
 import 'pages/confirm_sign_in_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
-import 'utils/data_utils.dart';
 import 'utils/mock_data.dart';
 
 // This test follows the Amplify UI feature "sign-in-force-new-password"
@@ -20,15 +20,19 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
-  final authenticator = MaterialApp(
-    home: Authenticator(
-      child: const SizedBox.shrink(),
+  final authenticator = Authenticator(
+    child: MaterialApp(
+      builder: Authenticator.builder(),
+      home: const Scaffold(
+        body: Center(
+          child: SignOutButton(),
+        ),
+      ),
     ),
   );
 
   group('Sign In with Force New Password flow', () {
-    final username = generatePhone();
-    final phoneNumber = username.substring(2); // without '+1'
+    final phoneNumber = generateUSPhoneNumber();
     final password = generatePassword();
 
     // Background
@@ -39,7 +43,7 @@ void main() {
         'ui/components/authenticator/sign-in-with-phone',
         additionalConfigs: [AmplifyAPI()],
       );
-      await adminCreateUser(username, password);
+      await adminCreateUser(phoneNumber.toE164(), password);
     });
 
     // Scenario: Sign in using a valid phone number and password and user is in
@@ -55,7 +59,7 @@ void main() {
         await po.selectCountryCode();
 
         // And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
-        await po.enterUsername(phoneNumber);
+        await po.enterUsername(phoneNumber.withOutCountryCode());
 
         // And I type my password
         await po.enterPassword(password);
@@ -63,8 +67,8 @@ void main() {
         // And I click the "Sign in" button
         await po.submitSignIn();
 
-        // Then I should see the Force Change Password screen
-        po.expectScreen(AuthScreen.confirmSigninNewPassword);
+        // Then I should see the Force Change Password step
+        po.expectStep(AuthenticatorStep.confirmSignInNewPassword);
       },
     );
 
@@ -81,7 +85,7 @@ void main() {
         await po.selectCountryCode();
 
         // And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
-        await po.enterUsername(phoneNumber);
+        await po.enterUsername(phoneNumber.withOutCountryCode());
 
         // And I type my password
         await po.enterPassword(password);
@@ -89,7 +93,7 @@ void main() {
         // And I click the "Sign in" button
         await po.submitSignIn();
 
-        po.expectScreen(AuthScreen.confirmSigninNewPassword);
+        po.expectStep(AuthenticatorStep.confirmSignInNewPassword);
         final cpo = ConfirmSignInPage(tester: tester);
 
         // And I type an invalid password

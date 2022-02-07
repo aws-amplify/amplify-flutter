@@ -1,12 +1,12 @@
 {
     "@@locale": "en",
     "@@context": "amplify_authenticator:buttons",
-    "signin": "Sign In",
-    "@signin": {
+    "signIn": "Sign In",
+    "@signIn": {
         "description": "Label of the button to sign in the user."
     },
-    "signup": "Create Account",
-    "@signup": {
+    "signUp": "Create Account",
+    "@signUp": {
         "description": "Label of the button to sign up the user."
     },
     "confirm": "Confirm",
@@ -51,20 +51,20 @@
     },
     "skip": "Skip",
     "@skip": {
-        "description": "Label of button to skip the current screen or action."
+        "description": "Label of button to skip the current step or action."
     },
-    "signout": "Sign Out",
-    "@signout": {
+    "signOut": "Sign Out",
+    "@signOut": {
         "description": "Label of button to sign out the user"
     },
-    "backTo": "Back to {previousScreen, select, signup{Sign Up}, signin{Sign In}, confirmSignup{Confirm Sign-up}, confirmSigninMfa{Confirm Sign-in} confirmSigninNewPassword{Confirm Sign-in} sendCode{Send Code} resetPassword{Reset Password} verifyUser{Verify User} confirmVerifyUser{Confirm Verify User}}",
+    "backTo": "Back to {previousStep, select, signUp{Sign Up}, signIn{Sign In}, confirmSignUp{Confirm Sign-up}, confirmSignInMfa{Confirm Sign-in} confirmSignInNewPassword{Confirm Sign-in} sendCode{Send Code} resetPassword{Reset Password} verifyUser{Verify User} confirmVerifyUser{Confirm Verify User}}",
     "@backTo": {
-        "description": "Label of button to return to the previous screen",
+        "description": "Label of button to return to the previous step",
         "placeholders": {
-            "previousScreen": {
-                "type": "AuthScreen",
+            "previousStep": {
+                "type": "AuthenticatorStep",
                 "example": "signIn",
-                "description": "The title of the previous screen."
+                "description": "The title of the previous step."
             }
         }
     },

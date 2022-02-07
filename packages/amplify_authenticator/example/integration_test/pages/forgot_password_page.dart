@@ -32,7 +32,7 @@ class ForgotPasswordPage extends AuthenticatorPage {
     final currentScreen = tester.widget<AuthenticatorScreen>(
       find.byType(AuthenticatorScreen),
     );
-    expect(currentScreen.screen, equals(AuthScreen.resetPassword));
+    expect(currentScreen.step, equals(AuthenticatorStep.resetPassword));
   }
 
   /// When I type a new "username"

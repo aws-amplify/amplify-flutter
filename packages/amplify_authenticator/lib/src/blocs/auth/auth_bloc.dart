@@ -18,13 +18,10 @@ import 'dart:async';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
-import 'package:amplify_authenticator/src/l10n/message_resolver.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter/foundation.dart';
 
 part 'auth_event.dart';
-part 'auth_state.dart';
 
 /// {@template authenticator.state_machine_bloc}
 /// Internal state machine for the authenticator. Listens to authentication events
@@ -33,6 +30,7 @@ part 'auth_state.dart';
 class StateMachineBloc {
   final AuthService _authService;
   final bool preferPrivateSession;
+  final AuthenticatorStep initialStep;
 
   /// State controller.
   final StreamController<AuthState> _authStateController =
@@ -55,13 +53,14 @@ class StateMachineBloc {
   late final Stream<AuthEvent> _authEventStream = _authEventController.stream;
   late final StreamSubscription<AuthState> _subscription;
 
-  AuthState _currentState = const AuthLoading();
+  AuthState _currentState = const LoadingState();
   AuthState get currentState => _currentState;
 
   /// {@macro authenticator.state_machine_bloc}
   StateMachineBloc({
     required AuthService authService,
     required this.preferPrivateSession,
+    this.initialStep = AuthenticatorStep.signIn,
   }) : _authService = authService {
     _subscription =
         _authEventStream.asyncExpand(_eventTransformer).listen((state) {
@@ -92,8 +91,6 @@ class StateMachineBloc {
   Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
       yield* _authLoad();
-    } else if (event is GetCurrentUser) {
-      yield* _getCurrentUser();
     } else if (event is AuthSignIn) {
       yield* _signIn(event.data);
     } else if (event is AuthSignUp) {
@@ -101,7 +98,7 @@ class StateMachineBloc {
     } else if (event is AuthConfirmSignUp) {
       yield* _confirmSignUp(event.data);
     } else if (event is AuthChangeScreen) {
-      yield* _changeScreen(event.screen);
+      yield* _changeScreen(event.step);
     } else if (event is AuthSignOut) {
       yield* _signOut();
     } else if (event is AuthResetPassword) {
@@ -115,63 +112,46 @@ class StateMachineBloc {
     } else if (event is AuthConfirmVerifyUser) {
       yield* _confirmVerifyUser(event.data);
     } else if (event is AuthSkipVerifyUser) {
-      yield const Authenticated();
+      yield const AuthenticatedState();
     } else if (event is AuthResendSignUpCode) {
       yield* _resendSignUpCode(event.username);
     }
   }
 
   Stream<AuthState> _authLoad() async* {
-    yield const AuthLoading();
-    final config = await Amplify.asyncConfig;
-    yield AuthLoaded(config);
+    yield const LoadingState();
+    await Amplify.asyncConfig;
     yield* _isValidSession();
-  }
-
-  Stream<AuthState> _getCurrentUser() async* {
-    try {
-      final AuthUser? currentUser = await _authService.currentUser;
-
-      if (currentUser != null) {
-        yield const Authenticated();
-      } else {
-        yield AuthFlow.signin;
-      }
-    } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
-    } on Exception catch (e) {
-      _exceptionController.add(AuthenticatorException(e.toString()));
-    }
   }
 
   Stream<AuthState> _isValidSession() async* {
     try {
       bool isValidSession = await _authService.isValidSession();
       if (isValidSession) {
-        yield const Authenticated();
+        yield const AuthenticatedState();
       } else {
         /// [isValidSession] returns false if the native platform
         /// returns a [SignedOutException] or if the native libraries return a session object but
         /// UserPool tokens are null (when unauthenticated access is enabled on Identity Pool).
-        yield AuthFlow.signin;
+        yield* _changeScreen(initialStep);
       }
     } on SessionExpiredException {
-      /// In this case, we want to give the end user an exception message and go to signin.
+      /// In this case, we want to give the end user an exception message and go to sign in.
       _exceptionController.add(const AuthenticatorException(
           'Your session has expired. Please sign in.',
           showBanner: true));
-      yield AuthFlow.signin;
+      yield* _changeScreen(initialStep);
 
       /// On [AmplifyException] and [Exception], update exception controller, do not show banner
-      /// and go to sign in screen.
+      /// and go to sign in step.
     } on AmplifyException catch (e) {
       _exceptionController
           .add(AuthenticatorException(e.message, showBanner: false));
-      yield AuthFlow.signin;
+      yield* _changeScreen(initialStep);
     } on Exception catch (e) {
       _exceptionController
           .add(AuthenticatorException(e.toString(), showBanner: false));
-      yield AuthFlow.signin;
+      yield* _changeScreen(initialStep);
     }
   }
 
@@ -187,19 +167,19 @@ class StateMachineBloc {
 
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
-          yield AuthFlow.confirmSigninMfa;
+          yield UnauthenticatedState.confirmSignInMfa;
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
           _exceptionController.add(const AuthenticatorException.customAuth());
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
-          yield AuthFlow.confirmSigninNewPassword;
+          yield UnauthenticatedState.confirmSignInNewPassword;
           break;
         case 'RESET_PASSWORD':
-          yield AuthFlow.resetPassword;
+          yield UnauthenticatedState.resetPassword;
           break;
         case 'CONFIRM_SIGN_UP':
-          yield AuthFlow.confirmSignup;
+          yield UnauthenticatedState.confirmSignUp;
           break;
         case 'DONE':
           if (rememberDevice) {
@@ -248,7 +228,7 @@ class StateMachineBloc {
     try {
       var result = await _authService.resetPassword(data.username);
       _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
-      yield AuthFlow.confirmResetPassword;
+      yield UnauthenticatedState.confirmResetPassword;
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
@@ -288,24 +268,24 @@ class StateMachineBloc {
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
           _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);
-          yield AuthFlow.confirmSigninMfa;
+          yield UnauthenticatedState.confirmSignInMfa;
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
           _exceptionController.add(const AuthenticatorException.customAuth());
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
-          yield AuthFlow.confirmSigninNewPassword;
+          yield UnauthenticatedState.confirmSignInNewPassword;
           break;
         case 'RESET_PASSWORD':
-          yield AuthFlow.confirmResetPassword;
+          yield UnauthenticatedState.confirmResetPassword;
           break;
         case 'CONFIRM_SIGN_UP':
           _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);
-          yield AuthFlow.confirmSignup;
+          yield UnauthenticatedState.confirmSignUp;
           break;
         case 'DONE':
           if (isSocialSignIn) {
-            yield const Authenticated();
+            yield const AuthenticatedState();
           } else {
             yield* _checkUserVerification();
           }
@@ -318,7 +298,7 @@ class StateMachineBloc {
         e.message,
         showBanner: false,
       ));
-      yield AuthFlow.confirmSignup;
+      yield UnauthenticatedState.confirmSignUp;
       if (data is AuthUsernamePasswordSignInData) {
         yield* _resendSignUpCode(data.username);
       } else {
@@ -345,13 +325,13 @@ class StateMachineBloc {
       if (verifiedAttributes.isEmpty && unverifiedAttributes.isNotEmpty) {
         yield VerifyUserFlow(unverifiedAttributeKeys: unverifiedAttributes);
       } else {
-        yield const Authenticated();
+        yield const AuthenticatedState();
       }
     } on Exception catch (e) {
       _exceptionController.add(
         AuthenticatorException(e.toString(), showBanner: false),
       );
-      yield const Authenticated();
+      yield const AuthenticatedState();
     }
   }
 
@@ -366,7 +346,7 @@ class StateMachineBloc {
       switch (result.nextStep.signUpStep) {
         case 'CONFIRM_SIGN_UP_STEP':
           _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
-          yield AuthFlow.confirmSignup;
+          yield UnauthenticatedState.confirmSignUp;
           break;
         case 'DONE':
           var authSignInData = AuthUsernamePasswordSignInData(
@@ -403,7 +383,7 @@ class StateMachineBloc {
   Stream<AuthState> _signOut() async* {
     try {
       await _authService.signOut();
-      yield AuthFlow.signin;
+      yield* _changeScreen(AuthenticatorStep.signIn);
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
@@ -434,7 +414,7 @@ class StateMachineBloc {
         userAttributeKey: data.userAttributeKey,
         confirmationCode: data.code,
       );
-      yield const Authenticated();
+      yield const AuthenticatedState();
     } on Exception catch (e) {
       if (e is AmplifyException) {
         _exceptionController.add(AuthenticatorException(e.message));
@@ -444,8 +424,8 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthState> _changeScreen(AuthScreen screen) async* {
-    yield AuthFlow(screen: screen);
+  Stream<AuthState> _changeScreen(AuthenticatorStep step) async* {
+    yield UnauthenticatedState(step: step);
   }
 
   Stream<AuthState> _resendSignUpCode(String username) async* {

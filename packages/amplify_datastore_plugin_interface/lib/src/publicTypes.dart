@@ -32,6 +32,15 @@ export 'package:amplify_core/src/util/uuid.dart';
 
 export 'types/exception/DataStoreException.dart';
 export 'types/exception/DataStoreExceptionMessages.dart';
+export 'types/hub/DataStoreHubEvent.dart';
+export 'types/hub/HubEventElement.dart';
+export 'types/hub/ModelSyncedEvent.dart';
+export 'types/hub/NetworkStatusEvent.dart';
+export 'types/hub/OutboxMutationEvent.dart';
+export 'types/hub/OutboxStatusEvent.dart';
+export 'types/hub/SyncQueriesStartedEvent.dart';
+export 'types/models/subscription_event.dart';
+export 'types/models/query_snapshot.dart';
 export 'types/models/observe_query_throttle_options.dart';
 export 'types/models/query_snapshot.dart';
 export 'types/models/subscription_event.dart';

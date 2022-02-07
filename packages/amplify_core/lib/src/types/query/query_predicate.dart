@@ -23,10 +23,26 @@ QueryPredicateGroup not(QueryPredicate predicate) {
 /// Represents individual conditions or groups of conditions
 /// that are used to query data
 abstract class QueryPredicate<T extends Model> {
+  static final _QueryPredicateAll =
+      _QueryPredicateConstant(QueryPredicateConstantType.all);
+
   const QueryPredicate();
+
+  /// A static instance of [QueryPredicate] that matches any object.
+  ///
+  /// You can use [QueryPredicate.all] with [DataStoreSyncExpression] like this:
+  /// ```dart
+  /// // A sync expression matching any object of Post
+  /// var syncExpression = DataStoreSyncExpresion(
+  ///   Post.classType,
+  ///   () => QueryPredicate.all,
+  /// )
+  /// ```
+  static QueryPredicate get all => _QueryPredicateAll;
 
   Map<String, dynamic> serializeAsMap();
 
+  /// Evaluate this predicate
   bool evaluate(T model);
 }
 
@@ -55,7 +71,8 @@ class QueryPredicateOperation extends QueryPredicate {
 
   @override
   bool evaluate(Model model) {
-    dynamic value = model.toJson()[field];
+    //ignore:implicit_dynamic_variable
+    var value = model.toJson()[field];
     return queryFieldOperator.evaluate(value);
   }
 
@@ -71,12 +88,6 @@ class QueryPredicateOperation extends QueryPredicate {
 }
 
 enum QueryPredicateGroupType { and, or, not }
-
-extension QueryPredicateGroupTypeExtension on QueryPredicateGroupType {
-  String toShortString() {
-    return this.toString().split('.').last;
-  }
-}
 
 // Represents rating > 4 & blogName.contains("awesome")
 class QueryPredicateGroup extends QueryPredicate {
@@ -125,10 +136,28 @@ class QueryPredicateGroup extends QueryPredicate {
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{
       'queryPredicateGroup': <String, dynamic>{
-        'type': type.toShortString(),
+        'type': describeEnum(type),
         'predicates':
             predicates.map((predicate) => predicate.serializeAsMap()).toList()
       },
+    };
+  }
+}
+
+enum QueryPredicateConstantType { none, all }
+
+class _QueryPredicateConstant extends QueryPredicate {
+  final QueryPredicateConstantType _type;
+
+  const _QueryPredicateConstant(this._type) : super();
+
+  @override
+  bool evaluate(Model model) => _type == QueryPredicateConstantType.all;
+
+  @override
+  Map<String, dynamic> serializeAsMap() {
+    return <String, dynamic>{
+      'queryPredicateConstant': <String, dynamic>{'type': describeEnum(_type)},
     };
   }
 }

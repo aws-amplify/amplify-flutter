@@ -13,30 +13,39 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/authenticator_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class InheritedAuthViewModel extends InheritedNotifier {
-  const InheritedAuthViewModel({
+class InheritedAuthenticatorState extends InheritedNotifier {
+  const InheritedAuthenticatorState({
     Key? key,
     required Widget child,
-    required this.viewModel,
+    required this.state,
   }) : super(
           key: key,
           child: child,
-          notifier: viewModel,
+          notifier: state,
         );
 
-  final AuthViewModel viewModel;
+  final AuthenticatorState state;
 
-  static AuthViewModel of(BuildContext context) {
-    final inheritedViewModel =
-        context.dependOnInheritedWidgetOfExactType<InheritedAuthViewModel>();
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
+
+  static AuthenticatorState of(BuildContext context, {bool listen = true}) {
+    InheritedAuthenticatorState? inheritedViewModel;
+    if (listen) {
+      inheritedViewModel = context
+          .dependOnInheritedWidgetOfExactType<InheritedAuthenticatorState>();
+    } else {
+      inheritedViewModel =
+          context.findAncestorWidgetOfExactType<InheritedAuthenticatorState>();
+    }
     assert(() {
       if (inheritedViewModel == null) {
         throw FlutterError.fromParts([
-          ErrorSummary('No InheritedAuthViewModel widget found.'),
+          ErrorSummary('No InheritedAuthenticatorState widget found.'),
           ErrorDescription(
             'Make sure your app is wrapped with an Authenticator widget.',
           )
@@ -44,13 +53,13 @@ class InheritedAuthViewModel extends InheritedNotifier {
       }
       return true;
     }());
-    return inheritedViewModel!.viewModel;
+    return inheritedViewModel!.state;
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<AuthViewModel>('viewModel', viewModel));
+    properties.add(DiagnosticsProperty<AuthenticatorState>('state', state));
   }
 }
 

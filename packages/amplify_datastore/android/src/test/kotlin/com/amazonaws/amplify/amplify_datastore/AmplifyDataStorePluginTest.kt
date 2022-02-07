@@ -369,7 +369,7 @@ class AmplifyDataStorePluginTest {
             mapOf(
                 "message" to ExceptionMessages.missingExceptionMessage,
                 "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                "underlyingException" to "kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String"
+                "underlyingException" to "java.lang.NullPointerException: null cannot be cast to non-null type kotlin.String"
             )
         )
     }
@@ -470,7 +470,7 @@ class AmplifyDataStorePluginTest {
             mapOf(
                 "message" to ExceptionMessages.missingExceptionMessage,
                 "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                "underlyingException" to "kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String"
+                "underlyingException" to "java.lang.NullPointerException: null cannot be cast to non-null type kotlin.String"
             )
         )
     }
@@ -573,7 +573,7 @@ class AmplifyDataStorePluginTest {
             mapOf(
                 "message" to ExceptionMessages.missingExceptionMessage,
                 "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                "underlyingException" to "kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String"
+                "underlyingException" to "java.lang.NullPointerException: null cannot be cast to non-null type kotlin.String"
             )
         )
     }

@@ -35,11 +35,17 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
-  final authenticator = MaterialApp(
-    home: Authenticator(child: Container()),
+  final authenticator = Authenticator(
+    child: MaterialApp(
+      builder: Authenticator.builder(),
+      home: const Scaffold(
+        body: Center(
+          child: SignOutButton(),
+        ),
+      ),
+    ),
   );
 
-  String phone = generatePhone();
   group('sign-up-with-phone', () {
     // Given I'm running the example "ui/components/authenticator/sign-up-with-username"
     setUpAll(() async {
@@ -88,12 +94,49 @@ void main() {
       //   // Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }'
       //   // with fixture "sign-up-with-email"
 
+      final phoneNumber = generateUSPhoneNumber();
       final password = generatePassword();
       final email = generateEmail();
 
       // When I select my country code
       await signUpPage.selectCountryCode();
-      await signUpPage.enterUsername(phone);
+      await signUpPage.enterUsername(phoneNumber.withOutCountryCode());
+
+      // And I type my password
+      await signUpPage.enterPassword(password);
+
+      // And I confirm my password
+      await signUpPage.enterPasswordConfirmation(password);
+
+      // And I type my "email" with a randomized email
+      await signUpPage.enterEmail(email);
+
+      // And I click the "Create Account" button
+      await signUpPage.submitSignUp();
+
+      // Then I see "Confirmation Code"
+      await confirmSignUpPage.expectConfirmSignUpIsPresent();
+      confirmSignUpPage.expectConfirmationCodeIsPresent();
+    });
+
+    testWidgets('Sign up with a non US number', (tester) async {
+      SignUpPage signUpPage = SignUpPage(tester: tester);
+      SignInPage signInPage = SignInPage(tester: tester);
+      ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
+
+      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await signInPage.navigateToSignUp();
+
+      final phoneNumber = generateFrenchPhoneNumber();
+      final password = generatePassword();
+      final email = generateEmail();
+
+      // When I select my country code as UK
+      await signUpPage.selectCountryCode(
+        countryName: 'France',
+        countryCode: phoneNumber.countryCode,
+      );
+      await signUpPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
       await signUpPage.enterPassword(password);

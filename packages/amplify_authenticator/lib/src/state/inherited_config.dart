@@ -22,11 +22,13 @@ class InheritedConfig extends InheritedWidget {
     Key? key,
     required this.amplifyConfig,
     required this.useAmplifyTheme,
+    required this.padding,
     required Widget child,
   }) : super(key: key, child: child);
 
   final AmplifyConfig? amplifyConfig;
   final bool useAmplifyTheme;
+  final EdgeInsets padding;
 
   static InheritedConfig of(BuildContext context) {
     final inheritedConfig =
@@ -73,6 +75,7 @@ class InheritedConfig extends InheritedWidget {
         .add(DiagnosticsProperty<AmplifyConfig?>('config', amplifyConfig));
     properties
         .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
+    properties.add(DiagnosticsProperty<EdgeInsets>('padding', padding));
   }
 }
 

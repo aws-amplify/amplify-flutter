@@ -1,33 +1,33 @@
 {
     "@@locale": "en",
     "@@context": "amplify_authenticator:titles",
-    "signin": "Sign in to your account",
-    "@signin": {
-        "description": "Title of the Signin screen and form"
+    "signIn": "Sign in to your account",
+    "@signIn": {
+        "description": "Title of the Sign In step and form"
     },
-    "signup": "Create your account",
-    "@signup": {
-        "description": "Title of the Signup screen and form"
+    "signUp": "Create your account",
+    "@signUp": {
+        "description": "Title of the Sign Up step and form"
     },
-    "confirmSignup": "Enter your confirmation code",
-    "@confirmSignup": {
-        "description": "Title of the Confirm Signup screen and form"
+    "confirmSignUp": "Enter your confirmation code",
+    "@confirmSignUp": {
+        "description": "Title of the Confirm Sign Up step and form"
     },
-    "confirmSigninMfa": "Enter your sign in code",
-    "@confirmSigninMfa": {
-        "description": "Title of the Confirm Signin with MFA screen and form"
+    "confirmSignInMfa": "Enter your sign in code",
+    "@confirmSignInMfa": {
+        "description": "Title of the Confirm Sign In with MFA step and form"
     },
-    "confirmSigninNewPassword": "Change your password to sign in",
-    "@confirmSigninNewPassword": {
-        "description": "Title of the Confirm Signin with New Password screen and form"
+    "confirmSignInNewPassword": "Change your password to sign in",
+    "@confirmSignInNewPassword": {
+        "description": "Title of the Confirm Sign In with New Password step and form"
     },
     "resetPassword": "Send Code",
     "@resetPassword": {
-        "description": "Title of the Reset Password screen and form"
+        "description": "Title of the Reset Password step and form"
     },
     "confirmResetPassword": "Reset your password",
     "@confirmResetPassword": {
-        "description": "Title of the Confirm Reset Password screen and form"
+        "description": "Title of the Confirm Reset Password step and form"
     },
     "verifyUser": "Account recovery requires verified contact information",
     "@verifyUser": {

@@ -21,19 +21,19 @@ class AuthenticatorTitleLocalizationsEn
   AuthenticatorTitleLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get signin => 'Sign in to your account';
+  String get signIn => 'Sign in to your account';
 
   @override
-  String get signup => 'Create your account';
+  String get signUp => 'Create your account';
 
   @override
-  String get confirmSignup => 'Enter your confirmation code';
+  String get confirmSignUp => 'Enter your confirmation code';
 
   @override
-  String get confirmSigninMfa => 'Enter your sign in code';
+  String get confirmSignInMfa => 'Enter your sign in code';
 
   @override
-  String get confirmSigninNewPassword => 'Change your password to sign in';
+  String get confirmSignInNewPassword => 'Change your password to sign in';
 
   @override
   String get resetPassword => 'Send Code';

@@ -17,9 +17,6 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:async/async.dart';
 
 import '../stream_utils/throttle.dart';
-import './DataStoreHubEvents/DataStoreHubEvent.dart';
-import './DataStoreHubEvents/ModelSyncedEvent.dart';
-import './DataStoreHubEvents/SyncQueriesStartedEvent.dart';
 
 typedef Query<T extends Model> = Future<List<T>> Function(
   ModelType<T> modelType, {

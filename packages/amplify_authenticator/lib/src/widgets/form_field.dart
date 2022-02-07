@@ -17,7 +17,6 @@ library authenticator.form_field;
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
@@ -33,9 +32,7 @@ import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
-import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -130,22 +127,20 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         T extends AuthenticatorFormField<FieldType, FieldValue, T>>
     extends AuthenticatorComponentState<T> {
   @nonVirtual
-  Widget get visibilityToggle => context
-      .findAncestorStateOfType<AuthenticatorFormState>()!
-      .obscureTextToggle;
+  Widget get visibilityToggle =>
+      AuthenticatorFormState.of(context).obscureTextToggle;
 
   @nonVirtual
   UsernameConfigType get usernameType =>
-      context.findAncestorStateOfType<AuthenticatorFormState>()!.usernameType;
+      AuthenticatorFormState.of(context).usernameType;
 
   @nonVirtual
-  UsernameType get selectedUsernameType => context
-      .findAncestorStateOfType<AuthenticatorFormState>()!
-      .selectedUsernameType;
+  UsernameType get selectedUsernameType =>
+      AuthenticatorFormState.of(context).selectedUsernameType;
 
   @nonVirtual
   ValueNotifier<bool> get useEmail =>
-      context.findAncestorStateOfType<AuthenticatorFormState>()!.useEmail;
+      AuthenticatorFormState.of(context).useEmail;
 
   /// Callback for when `onChanged` is triggered on the [FormField].
   ValueChanged<FieldValue> get onChanged => (_) {};

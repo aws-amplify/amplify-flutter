@@ -19,6 +19,7 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -28,7 +29,6 @@ import 'pages/confirm_verify_user_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
 import 'pages/verify_user_page.dart';
-import 'utils/data_utils.dart';
 import 'utils/mock_data.dart';
 
 void main() {
@@ -37,10 +37,13 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
-  final authenticator = MaterialApp(
-    home: Authenticator(
-      child: const Scaffold(
-        body: Center(child: SignOutButton()),
+  final authenticator = Authenticator(
+    child: MaterialApp(
+      builder: Authenticator.builder(),
+      home: const Scaffold(
+        body: Center(
+          child: SignOutButton(),
+        ),
       ),
     ),
   );
