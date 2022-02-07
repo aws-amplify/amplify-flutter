@@ -18,7 +18,6 @@ import 'dart:convert';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:amplify_flutter/src/categories/amplify_categories.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -83,6 +82,7 @@ void main() {
     // We want to instantiate a new instance for each test so we start
     // with a fresh state as `Amplify` singleton holds a state.
     amplify = AmplifyClass.protected();
+    AmplifyClass.instance = MethodChannelAmplify();
 
     // We only use Auth and Analytics category for testing this class.
     // Clear out their plugins before each test for a fresh state.

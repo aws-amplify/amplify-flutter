@@ -1,3 +1,7 @@
+## 0.1.0-rc.5 (2022-02-04)
+
+- fix: updates for latest flutter and dart versions (#1333)
+
 ## 0.1.0-rc.4 (2022-01-27)
 
 ### Features
