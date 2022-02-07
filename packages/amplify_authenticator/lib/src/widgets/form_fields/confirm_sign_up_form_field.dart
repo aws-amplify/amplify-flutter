@@ -16,7 +16,7 @@
 part of authenticator.form_field;
 
 /// {@template authenticator.confirm_sign_up_form_field}
-/// A form field component on the Confirm Sign Up screen.
+/// A form field component on the Confirm Sign Up step.
 /// {@endtemplate}
 abstract class ConfirmSignUpFormField<FieldValue>
     extends AuthenticatorFormField<ConfirmSignUpField, FieldValue,
@@ -153,9 +153,9 @@ class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
   String? get initialValue {
     switch (widget.field) {
       case ConfirmSignUpField.username:
-        return viewModel.username;
+        return state.username;
       case ConfirmSignUpField.code:
-        return viewModel.confirmationCode;
+        return state.confirmationCode;
     }
   }
 
@@ -163,9 +163,9 @@ class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case ConfirmSignUpField.username:
-        return viewModel.setUsername;
+        return (v) => state.username = v;
       case ConfirmSignUpField.code:
-        return viewModel.setConfirmationCode;
+        return (v) => state.confirmationCode = v;
     }
   }
 

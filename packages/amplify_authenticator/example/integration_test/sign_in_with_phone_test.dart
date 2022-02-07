@@ -20,6 +20,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_test/amplify_test.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -30,7 +31,6 @@ import 'pages/confirm_sign_in_page.dart';
 import 'pages/confirm_sign_up_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
-import 'utils/data_utils.dart';
 import 'utils/mock_data.dart';
 
 void main() {
@@ -39,11 +39,15 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
-  final authenticator = MaterialApp(
-    home: Authenticator(
-        child: const SignOutButton(
-      key: Key('keySignOutButton'),
-    )),
+  final authenticator = Authenticator(
+    child: MaterialApp(
+      builder: Authenticator.builder(),
+      home: const Scaffold(
+        body: Center(
+          child: SignOutButton(),
+        ),
+      ),
+    ),
   );
 
   group('sign-in-with-phone', () {
@@ -61,7 +65,7 @@ void main() {
 
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
-      final phone = generatePhone();
+      final phoneNumber = generateUSPhoneNumber();
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
 
@@ -69,7 +73,7 @@ void main() {
       await signInPage.selectCountryCode();
 
       // And I type my "phone number" with status "UNKNOWN"
-      await signInPage.enterUsername(phone);
+      await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
       await signInPage.enterPassword('UNKNOWN');
@@ -83,13 +87,13 @@ void main() {
 
     // Scenario: Sign in with unconfirmed credentials
     testWidgets('Sign in with unconfirmed credentials', (tester) async {
-      final phone = generatePhone();
+      final phoneNumber = generateUSPhoneNumber();
       final password = generatePassword();
       final email = generateEmail();
 
       // Use the standard Amplify API to create the user in the Unconfirmed state
       await Amplify.Auth.signUp(
-          username: phone,
+          username: phoneNumber.toE164(),
           password: password,
           options: CognitoSignUpOptions(
               userAttributes: {CognitoUserAttributeKey.email: email}));
@@ -103,7 +107,7 @@ void main() {
       await signInPage.selectCountryCode();
 
       // When I type my "username" with status "unconfirmed"
-      await signInPage.enterUsername(phone);
+      await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
       await signInPage.enterPassword(password);
@@ -118,16 +122,16 @@ void main() {
     // Scenario: Sign in with confirmed credentials then sign out
     testWidgets('Sign in with confirmed credentials then sign out',
         (tester) async {
-      final phone = generatePhone();
+      final phoneNumber = generateUSPhoneNumber();
       final password = generatePassword();
-      await adminCreateUser(phone, password,
+      await adminCreateUser(phoneNumber.toE164(), password,
           autoConfirm: true, verifyAttributes: true);
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername(label: 'Phone Number');
 
       // When I type my "username" with status "UNKNOWN"
-      await signInPage.enterUsername(phone);
+      await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
       await signInPage.enterPassword(password);
@@ -148,16 +152,16 @@ void main() {
     // Scenario: Sign in with force change password credentials
     testWidgets('Sign in with force change password credentials',
         (tester) async {
-      final phone = generatePhone();
+      final phoneNumber = generateUSPhoneNumber();
       final password = generatePassword();
-      await adminCreateUser(phone, password);
+      await adminCreateUser(phoneNumber.toE164(), password);
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
       signInPage.expectUsername(label: 'Phone Number');
 
       // When I type my "username"
-      await signInPage.enterUsername(phone);
+      await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
       await signInPage.enterPassword(password);

@@ -239,7 +239,7 @@ class GraphQLRequestFactory {
     if (queryPredicate is QueryPredicateGroup) {
       // .toShortString() is the same as expected graphql filter strings for all these,
       // so no translation helper required.
-      final typeExpression = queryPredicate.type.toShortString();
+      final typeExpression = describeEnum(queryPredicate.type);
 
       // not
       if (queryPredicate.type == QueryPredicateGroupType.not) {

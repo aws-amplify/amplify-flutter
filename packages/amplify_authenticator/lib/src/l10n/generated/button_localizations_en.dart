@@ -24,10 +24,10 @@ class AuthenticatorButtonLocalizationsEn
   AuthenticatorButtonLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get signin => 'Sign In';
+  String get signIn => 'Sign In';
 
   @override
-  String get signup => 'Create Account';
+  String get signUp => 'Create Account';
 
   @override
   String get confirm => 'Confirm';
@@ -63,24 +63,24 @@ class AuthenticatorButtonLocalizationsEn
   String get skip => 'Skip';
 
   @override
-  String get signout => 'Sign Out';
+  String get signOut => 'Sign Out';
 
   @override
-  String backTo(AuthScreen previousScreen) {
+  String backTo(AuthenticatorStep previousStep) {
     final String selectString = intl.Intl.select(
-        previousScreen,
+        previousStep,
         {
-          'signup': 'Sign Up',
-          'signin': 'Sign In',
-          'confirmSignup': 'Confirm Sign-up',
-          'confirmSigninMfa': 'Confirm Sign-in',
-          'confirmSigninNewPassword': 'Confirm Sign-in',
+          'signUp': 'Sign Up',
+          'signIn': 'Sign In',
+          'confirmSignUp': 'Confirm Sign-up',
+          'confirmSignInMfa': 'Confirm Sign-in',
+          'confirmSignInNewPassword': 'Confirm Sign-in',
           'sendCode': 'Send Code',
           'resetPassword': 'Reset Password',
           'verifyUser': 'Verify User',
           'confirmVerifyUser': 'Confirm Verify User'
         },
-        desc: 'Label of button to return to the previous screen');
+        desc: 'Label of button to return to the previous step');
 
     return 'Back to $selectString';
   }

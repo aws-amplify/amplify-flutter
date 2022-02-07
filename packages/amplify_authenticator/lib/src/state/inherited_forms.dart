@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:flutter/material.dart';
 
 class InheritedForms extends InheritedWidget {
@@ -42,25 +41,27 @@ class InheritedForms extends InheritedWidget {
   final VerifyUserForm verifyUserForm;
   final ConfirmVerifyUserForm confirmVerifyUserForm;
 
-  AuthenticatorForm operator [](AuthScreen screen) {
-    switch (screen) {
-      case AuthScreen.signup:
+  AuthenticatorForm operator [](AuthenticatorStep step) {
+    switch (step) {
+      case AuthenticatorStep.onboarding:
+      case AuthenticatorStep.loading:
+      case AuthenticatorStep.signUp:
         return signUpForm;
-      case AuthScreen.signin:
+      case AuthenticatorStep.signIn:
         return signInForm;
-      case AuthScreen.confirmSignup:
+      case AuthenticatorStep.confirmSignUp:
         return confirmSignUpForm;
-      case AuthScreen.confirmSigninMfa:
+      case AuthenticatorStep.confirmSignInMfa:
         return confirmSignInMFAForm;
-      case AuthScreen.confirmSigninNewPassword:
+      case AuthenticatorStep.confirmSignInNewPassword:
         return confirmSignInNewPasswordForm;
-      case AuthScreen.resetPassword:
+      case AuthenticatorStep.resetPassword:
         return resetPasswordForm;
-      case AuthScreen.confirmResetPassword:
+      case AuthenticatorStep.confirmResetPassword:
         return confirmResetPasswordForm;
-      case AuthScreen.verifyUser:
+      case AuthenticatorStep.verifyUser:
         return verifyUserForm;
-      case AuthScreen.confirmVerifyUser:
+      case AuthenticatorStep.confirmVerifyUser:
         return confirmVerifyUserForm;
     }
   }

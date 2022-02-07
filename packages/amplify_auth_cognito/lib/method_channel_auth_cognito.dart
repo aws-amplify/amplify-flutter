@@ -13,9 +13,11 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:io' show Platform;
+import 'dart:convert';
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
-import 'dart:convert';
 import 'amplify_auth_cognito.dart';
 import 'amplify_auth_error_handling.dart';
 
@@ -547,6 +549,20 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return devicesJson?.map((e) => CognitoDevice.fromJson(e)).toList() ?? [];
     } on PlatformException catch (e) {
       throw transformDeviceException(e);
+    }
+  }
+
+  @override
+  Future<void> deleteUser() async {
+    if (!Platform.isIOS) {
+      throw UnimplementedError(
+        'The deleteUser API is currently available on the iOS platform only.',
+      );
+    }
+    try {
+      await _channel.invokeMethod('deleteUser');
+    } on PlatformException catch (e) {
+      throw castAndReturnPlatformException(e);
     }
   }
 }

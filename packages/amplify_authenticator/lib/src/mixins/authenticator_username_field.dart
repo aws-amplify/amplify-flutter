@@ -31,13 +31,13 @@ mixin AuthenticatorUsernameField<FieldType,
     String? username;
     switch (selectedUsernameType) {
       case UsernameType.username:
-        username = viewModel.username;
+        username = state.username;
         break;
       case UsernameType.email:
-        username = viewModel.getAttribute(CognitoUserAttributeKey.email);
+        username = state.getAttribute(CognitoUserAttributeKey.email);
         break;
       case UsernameType.phoneNumber:
-        username = viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber);
+        username = state.getAttribute(CognitoUserAttributeKey.phoneNumber);
         break;
     }
 
@@ -49,17 +49,17 @@ mixin AuthenticatorUsernameField<FieldType,
     switch (selectedUsernameType) {
       case UsernameType.username:
         return (input) {
-          viewModel.setUsername(input.username);
+          state.username = input.username;
         };
       case UsernameType.email:
         return (input) {
-          viewModel.setEmail(input.username);
-          viewModel.setUsername(input.username);
+          state.email = input.username;
+          state.username = input.username;
         };
       case UsernameType.phoneNumber:
         return (input) {
-          viewModel.setPhoneNumber(input.username);
-          viewModel.setUsername(input.username);
+          state.phoneNumber = input.username;
+          state.username = input.username;
         };
     }
   }
@@ -168,12 +168,11 @@ mixin AuthenticatorUsernameField<FieldType,
                   });
                   // Reset current username value to align with the current switch state.
                   String newUsername = _useEmail
-                      ? viewModel.getAttribute(CognitoUserAttributeKey.email) ??
-                          ''
-                      : viewModel.getAttribute(
+                      ? state.getAttribute(CognitoUserAttributeKey.email) ?? ''
+                      : state.getAttribute(
                               CognitoUserAttributeKey.phoneNumber) ??
                           '';
-                  viewModel.setUsername(newUsername);
+                  state.username = newUsername;
                 },
               );
             }),
@@ -248,8 +247,7 @@ mixin AuthenticatorUsernameField<FieldType,
         validator: _validator,
         enabled: enabled,
         errorMaxLines: errorMaxLines,
-        initialValue:
-            viewModel.getAttribute(CognitoUserAttributeKey.phoneNumber),
+        initialValue: state.getAttribute(CognitoUserAttributeKey.phoneNumber),
         useAmplifyTheme: useAmplifyTheme,
       );
     }

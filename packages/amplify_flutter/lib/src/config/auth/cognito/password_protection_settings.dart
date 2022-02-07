@@ -19,6 +19,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'password_protection_settings.g.dart';
 
 @amplifySerializable
+@_PasswordPolicyMinLengthConverter()
 class PasswordProtectionSettings
     with AWSEquatable<PasswordProtectionSettings>, AWSSerializable {
   const PasswordProtectionSettings({
@@ -66,4 +67,25 @@ enum PasswordPolicyCharacters {
 
   @JsonValue('REQUIRES_SYMBOLS')
   requiresSymbols
+}
+
+class _PasswordPolicyMinLengthConverter
+    implements JsonConverter<int?, Object?> {
+  const _PasswordPolicyMinLengthConverter();
+
+  @override
+  int? fromJson(Object? json) {
+    if (json == null) {
+      return null;
+    }
+    if (json is String) {
+      return int.tryParse(json);
+    }
+    return json as int;
+  }
+
+  @override
+  Object? toJson(int? object) {
+    return object;
+  }
 }

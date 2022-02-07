@@ -15,4 +15,11 @@
 
 library amplify_test;
 
+/// Auth Utils
+export 'src/integration_test_utils/auth_cognito/integration_test_auth_utils.dart';
+export 'src/integration_test_utils/auth_cognito/types/admin_create_user_response.dart';
+export 'src/integration_test_utils/auth_cognito/types/confirm_sign_up_response.dart';
+export 'src/integration_test_utils/auth_cognito/types/delete_user_response.dart';
+
+/// Common Utils
 export 'src/json.dart';

@@ -13,9 +13,9 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
-import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
 import 'package:flutter/material.dart';
@@ -41,11 +41,10 @@ Future<void> nextBlocEvent(
   BlocEventPredicate? where,
   Duration timeout = const Duration(seconds: 5),
 }) async {
-  final inheritedViewModel = tester
-      .widget<InheritedAuthViewModel>(find.byKey(keyInheritedAuthViewModel));
-  await inheritedViewModel.viewModel
-      .nextBlocEvent(where: where)
-      .timeout(timeout);
+  final inheritedViewModel = tester.widget<InheritedAuthenticatorState>(
+    find.byKey(keyInheritedAuthenticatorState),
+  );
+  await inheritedViewModel.state.nextBlocEvent(where: where).timeout(timeout);
   await tester.pumpAndSettle();
 }
 

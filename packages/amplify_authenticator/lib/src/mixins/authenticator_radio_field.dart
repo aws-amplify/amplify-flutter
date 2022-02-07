@@ -30,7 +30,6 @@ mixin AuthenticatorRadioField<FieldType, FieldValue,
   @override
   Widget buildFormField(BuildContext context) {
     final inputResolver = stringResolver.inputs;
-    if (selectionValue != null) onChanged(selectionValue!);
     return Column(
       children: <Widget>[
         for (var selection in selections)

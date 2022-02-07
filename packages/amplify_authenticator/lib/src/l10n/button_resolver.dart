@@ -21,15 +21,15 @@ import 'authenticator_localizations.dart';
 import 'resolver.dart';
 
 enum ButtonResolverKeyType {
-  signin,
-  signup,
+  signIn,
+  signUp,
   confirm,
   submit,
   changePassword,
   sendCode,
   lostCode,
   verify,
-  signout,
+  signOut,
   signInWith,
   noAccount,
   haveAccount,
@@ -43,15 +43,15 @@ class ButtonResolverKey {
   const ButtonResolverKey._(
     this.type, {
     this.provider,
-    this.previousScreen,
+    this.previousStep,
   });
 
   final ButtonResolverKeyType type;
   final AuthProvider? provider;
-  final AuthScreen? previousScreen;
+  final AuthenticatorStep? previousStep;
 
-  static const signin = ButtonResolverKey._(ButtonResolverKeyType.signin);
-  static const signup = ButtonResolverKey._(ButtonResolverKeyType.signup);
+  static const signIn = ButtonResolverKey._(ButtonResolverKeyType.signIn);
+  static const signUp = ButtonResolverKey._(ButtonResolverKeyType.signUp);
   static const confirm = ButtonResolverKey._(ButtonResolverKeyType.confirm);
   static const submit = ButtonResolverKey._(ButtonResolverKeyType.submit);
   static const changePassword =
@@ -60,7 +60,7 @@ class ButtonResolverKey {
   static const lostCodeQuestion =
       ButtonResolverKey._(ButtonResolverKeyType.lostCode);
   static const verify = ButtonResolverKey._(ButtonResolverKeyType.verify);
-  static const signout = ButtonResolverKey._(ButtonResolverKeyType.signout);
+  static const signout = ButtonResolverKey._(ButtonResolverKeyType.signOut);
   const ButtonResolverKey.signInWith(AuthProvider provider)
       : this._(ButtonResolverKeyType.signInWith, provider: provider);
   static const noAccount = ButtonResolverKey._(ButtonResolverKeyType.noAccount);
@@ -70,8 +70,8 @@ class ButtonResolverKey {
       ButtonResolverKey._(ButtonResolverKeyType.forgotPassword);
   static const confirmResetPassword =
       ButtonResolverKey._(ButtonResolverKeyType.confirmResetPassword);
-  const ButtonResolverKey.backTo(AuthScreen previousScreen)
-      : this._(ButtonResolverKeyType.backTo, previousScreen: previousScreen);
+  const ButtonResolverKey.backTo(AuthenticatorStep previousStep)
+      : this._(ButtonResolverKeyType.backTo, previousStep: previousStep);
   static const skip = ButtonResolverKey._(ButtonResolverKeyType.skip);
 
   @override
@@ -82,14 +82,14 @@ class ButtonResolverKey {
 class ButtonResolver extends Resolver<ButtonResolverKey> {
   const ButtonResolver();
 
-  /// Label of signin form button
-  String signin(BuildContext context) {
-    return AuthenticatorLocalizations.buttonsOf(context).signin;
+  /// Label of sign in form button
+  String signIn(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).signIn;
   }
 
-  /// Label of signin form button
-  String signup(BuildContext context) {
-    return AuthenticatorLocalizations.buttonsOf(context).signup;
+  /// Label of sign up form button
+  String signUp(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).signUp;
   }
 
   /// Label of confirm forms' button
@@ -124,7 +124,7 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
 
   /// Label of button to sign out the user
   String signout(BuildContext context) {
-    return AuthenticatorLocalizations.buttonsOf(context).signout;
+    return AuthenticatorLocalizations.buttonsOf(context).signOut;
   }
 
   /// Label of button to sign in with a social provider
@@ -152,12 +152,12 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
     return AuthenticatorLocalizations.buttonsOf(context).confirmResetPassword;
   }
 
-  /// Label of button to return to the Sign In screen.
-  String backTo(BuildContext context, AuthScreen previousScreen) {
-    return AuthenticatorLocalizations.buttonsOf(context).backTo(previousScreen);
+  /// Label of button to return to the Sign In step.
+  String backTo(BuildContext context, AuthenticatorStep previousStep) {
+    return AuthenticatorLocalizations.buttonsOf(context).backTo(previousStep);
   }
 
-  /// Label of button to skip the current screen or action.
+  /// Label of button to skip the current step or action.
   String skip(BuildContext context) {
     return AuthenticatorLocalizations.buttonsOf(context).skip;
   }
@@ -165,10 +165,10 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
   @override
   String resolve(BuildContext context, ButtonResolverKey key) {
     switch (key.type) {
-      case ButtonResolverKeyType.signin:
-        return signin(context);
-      case ButtonResolverKeyType.signup:
-        return signup(context);
+      case ButtonResolverKeyType.signIn:
+        return signIn(context);
+      case ButtonResolverKeyType.signUp:
+        return signUp(context);
       case ButtonResolverKeyType.confirm:
         return confirm(context);
       case ButtonResolverKeyType.submit:
@@ -181,7 +181,7 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
         return lostCode(context);
       case ButtonResolverKeyType.verify:
         return verify(context);
-      case ButtonResolverKeyType.signout:
+      case ButtonResolverKeyType.signOut:
         return signout(context);
       case ButtonResolverKeyType.signInWith:
         return signInWith(context, key.provider!);
@@ -194,7 +194,7 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
       case ButtonResolverKeyType.confirmResetPassword:
         return confirmResetPassword(context);
       case ButtonResolverKeyType.backTo:
-        return backTo(context, key.previousScreen!);
+        return backTo(context, key.previousStep!);
       case ButtonResolverKeyType.skip:
         return skip(context);
     }

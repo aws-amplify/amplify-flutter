@@ -23,14 +23,10 @@ class AuthLoad extends AuthEvent {
   const AuthLoad();
 }
 
-class GetCurrentUser extends AuthEvent {
-  const GetCurrentUser();
-}
-
 class AuthChangeScreen extends AuthEvent {
-  final AuthScreen screen;
+  final AuthenticatorStep step;
 
-  const AuthChangeScreen(this.screen);
+  const AuthChangeScreen(this.step);
 }
 
 class AuthSignIn extends AuthEvent {

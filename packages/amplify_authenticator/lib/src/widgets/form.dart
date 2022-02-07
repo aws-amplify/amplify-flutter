@@ -20,9 +20,9 @@ import 'dart:collection';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
+import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
-import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_button.dart';
@@ -31,7 +31,34 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-/// Base class for Authenticator forms.
+/// Base class for Authenticator forms and ancestor of all Authenticator
+/// form fields.
+///
+/// {@template amplify_authenticator.authenticator_form_builder}
+/// When building custom authenticator forms composed of prebuilt
+/// form field widgets, AuthenticatorForm should be an ancestor of
+/// all field widgets.
+///
+/// ```dart
+/// AuthenticatorForm(
+///   child: Column(
+///     children: [
+///       // prebuilt form field widget
+///       SignUpFormField.username(),
+///       SignUpFormField.email(required: true),
+///       SignUpFormField.password(),
+///       SignUpFormField.passwordConfirmation(),
+///
+///       // custom field for a terms and conditions checkbox
+///       TermsAndConditionsCheckBox(),
+///
+///       // prebuilt sign up button from amplify_authenticator package
+///       const SignUpButton(),
+///     ],
+///   ),
+/// ),
+/// ```
+/// {@endtemplate}
 ///
 /// See also:
 /// - [SignUpForm]
@@ -43,14 +70,25 @@ import 'package:flutter/rendering.dart';
 /// - [ConfirmResetPasswordForm]
 /// - [VerifyUserForm]
 /// - [ConfirmVerifyUserForm]
-abstract class AuthenticatorForm<T extends AuthenticatorForm<T>>
-    extends AuthenticatorComponent<T> {
+class AuthenticatorForm extends AuthenticatorComponent<AuthenticatorForm> {
+  /// {@macro amplify_authenticator.authenticator_form_builder}
+  const AuthenticatorForm({
+    Key? key,
+    required this.child,
+  })  : requiredFields = const [],
+        customFields = const [],
+        actions = const [],
+        includeDefaultSocialProviders = false,
+        super(key: key);
+
   const AuthenticatorForm._({
     Key? key,
     required this.requiredFields,
     required this.customFields,
     required this.actions,
-  }) : super(key: key);
+    this.includeDefaultSocialProviders = true,
+  })  : child = null,
+        super(key: key);
 
   /// The form fields required by the form.
   final List<AuthenticatorFormField> requiredFields;
@@ -61,11 +99,50 @@ abstract class AuthenticatorForm<T extends AuthenticatorForm<T>>
 
   /// Buttons and checkboxes to show below the fields.
   final List<Widget> actions;
+
+  /// Whether to include buttons for the configured social providers.
+  final bool includeDefaultSocialProviders;
+
+  /// A completely custom child widget
+  final Widget? child;
+
+  @override
+  AuthenticatorFormState<AuthenticatorForm> createState() =>
+      AuthenticatorFormState<AuthenticatorForm>();
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<bool>(
+        'includeDefaultSocialProviders', includeDefaultSocialProviders));
+  }
 }
 
-class AuthenticatorFormState<T extends AuthenticatorForm<T>>
-    extends AuthenticatorComponentState<T> with UsernameAttributes<T> {
-  AuthenticatorFormState._();
+class AuthenticatorFormState<T extends AuthenticatorForm>
+    extends AuthenticatorComponentState<AuthenticatorForm>
+    with UsernameAttributes<AuthenticatorForm> {
+  AuthenticatorFormState();
+
+  static AuthenticatorFormState of(BuildContext context) {
+    AuthenticatorFormState? state =
+        context.findAncestorStateOfType<AuthenticatorFormState>();
+    // ignore: prefer_asserts_with_message
+    assert(() {
+      if (state == null) {
+        throw FlutterError.fromParts([
+          ErrorSummary('No AuthenticatorForm widget found.'),
+          ErrorDescription(
+            'All Form Field widgets from amplify_authenticator must be a descendant of a AuthenticatorForm widget.',
+          ),
+          ErrorDescription(
+            'If you are using prebuilt Form Field widgets to create a custom Authenticator UI, '
+            'ensure that they are a descendant of a AuthenticatorForm widget.',
+          )
+        ]);
+      }
+      return true;
+    }());
+    return state!;
+  }
 
   /// Additional fields defined at runtime.
   List<AuthenticatorFormField> runtimeFields(BuildContext context) => const [];
@@ -138,9 +215,17 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
 
   @override
   Widget build(BuildContext context) {
+    final formKey = InheritedAuthenticatorState.of(context).formKey;
+    if (widget.child != null) {
+      return Form(
+        key: formKey,
+        child: widget.child!,
+      );
+    }
+
     final _runtimeActions = runtimeActions(context);
     return Form(
-      key: viewModel.formKey,
+      key: formKey,
       child: Column(
         children: [
           ...allFields,
@@ -168,15 +253,16 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
 }
 
 /// {@template authenticator.sign_up_form}
-/// The Sign Up screen form.
+/// The Sign Up step form.
 ///
 /// To customize, use [SignUpForm.custom].
 /// {@endtemplate}
-class SignUpForm extends AuthenticatorForm<SignUpForm> {
+class SignUpForm extends AuthenticatorForm {
   /// {@macro authenticator.sign_up_form}
-  SignUpForm({Key? key})
-      : this.custom(
-          fields: const [],
+  SignUpForm({
+    Key? key,
+  }) : this.custom(
+          fields: [],
           key: key,
         );
 
@@ -202,7 +288,7 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
 }
 
 class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
-  _SignUpFormState() : super._();
+  _SignUpFormState() : super();
 
   @override
   List<SignUpFormField> runtimeFields(BuildContext context) {
@@ -268,11 +354,11 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
 }
 
 /// {@template authenticator.sign_in_form}
-/// The Sign In screen form.
+/// The Sign In step form.
 ///
 /// To customize, use [SignInForm.custom].
 /// {@endtemplate}
-class SignInForm extends AuthenticatorForm<SignInForm> {
+class SignInForm extends AuthenticatorForm {
   /// {@macro authenticator.sign_in_form}
   SignInForm({
     Key? key,
@@ -287,7 +373,7 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
   SignInForm.custom({
     Key? key,
     required List<SignInFormField> fields,
-    this.includeDefaultSocialProviders = true,
+    bool includeDefaultSocialProviders = true,
   }) : super._(
           key: key,
           customFields: fields,
@@ -299,24 +385,15 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
             SignInButton(),
             ForgotPasswordButton(),
           ],
+          includeDefaultSocialProviders: includeDefaultSocialProviders,
         );
-
-  /// Whether to include buttons for the configured social providers.
-  final bool includeDefaultSocialProviders;
 
   @override
   _SignInFormState createState() => _SignInFormState();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<bool>(
-        'includeDefaultSocialProviders', includeDefaultSocialProviders));
-  }
 }
 
 class _SignInFormState extends AuthenticatorFormState<SignInForm> {
-  _SignInFormState() : super._();
+  _SignInFormState() : super();
 
   @override
   List<Widget> runtimeActions(BuildContext context) {
@@ -365,11 +442,11 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
 }
 
 /// {@template authenticator.confirm_sign_up_form}
-/// The Confirm Sign Up screen form.
+/// The Confirm Sign Up step form.
 ///
 /// To customize, use [ConfirmSignUpForm.custom].
 /// {@endtemplate}
-class ConfirmSignUpForm extends AuthenticatorForm<ConfirmSignUpForm> {
+class ConfirmSignUpForm extends AuthenticatorForm {
   /// {@macro authenticator.confirm_sign_up_form}
   ConfirmSignUpForm({
     Key? key,
@@ -403,13 +480,13 @@ class ConfirmSignUpForm extends AuthenticatorForm<ConfirmSignUpForm> {
 
   @override
   AuthenticatorFormState<ConfirmSignUpForm> createState() =>
-      AuthenticatorFormState<ConfirmSignUpForm>._();
+      AuthenticatorFormState<ConfirmSignUpForm>();
 }
 
 /// {@template authenticator.confirm_sign_in_mfa_form}
-/// The Confirm Sign In with MFA screen form.
+/// The Confirm Sign In with MFA step form.
 /// {@endtemplate}
-class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
+class ConfirmSignInMFAForm extends AuthenticatorForm {
   /// {@macro authenticator.confirm_sign_in_mfa_form}
   ConfirmSignInMFAForm({Key? key})
       : super._(
@@ -426,16 +503,15 @@ class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
 
   @override
   AuthenticatorFormState<ConfirmSignInMFAForm> createState() =>
-      AuthenticatorFormState<ConfirmSignInMFAForm>._();
+      AuthenticatorFormState<ConfirmSignInMFAForm>();
 }
 
 /// {@template authenticator.confirm_sign_in_new_password_form}
-/// The Confirm Sign In with New Password screen form.
+/// The Confirm Sign In with New Password step form.
 ///
 /// To customize, use [ConfirmSignInNewPasswordForm.custom].
 /// {@endtemplate}
-class ConfirmSignInNewPasswordForm
-    extends AuthenticatorForm<ConfirmSignInNewPasswordForm> {
+class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
   /// {@macro authenticator.confirm_sign_in_new_password_form}
   ConfirmSignInNewPasswordForm({
     Key? key,
@@ -463,15 +539,15 @@ class ConfirmSignInNewPasswordForm
 
   @override
   AuthenticatorFormState<ConfirmSignInNewPasswordForm> createState() =>
-      AuthenticatorFormState<ConfirmSignInNewPasswordForm>._();
+      AuthenticatorFormState<ConfirmSignInNewPasswordForm>();
 }
 
 /// {@template authenticator.send_code_form}
-/// The Reset Password screen form.
+/// The Reset Password step form.
 ///
 /// To customize, use [ResetPasswordForm.custom].
 /// {@endtemplate}
-class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
+class ResetPasswordForm extends AuthenticatorForm {
   /// {@macro authenticator.send_code_form}
   ResetPasswordForm({
     Key? key,
@@ -498,16 +574,15 @@ class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
 
   @override
   AuthenticatorFormState<ResetPasswordForm> createState() =>
-      AuthenticatorFormState<ResetPasswordForm>._();
+      AuthenticatorFormState<ResetPasswordForm>();
 }
 
 /// {@template authenticator.reset_password_form}
-/// The Confirm Reset Password screen form.
+/// The Confirm Reset Password step form.
 ///
 /// To customize, use [ConfirmResetPasswordForm.custom].
 /// {@endtemplate}
-class ConfirmResetPasswordForm
-    extends AuthenticatorForm<ConfirmResetPasswordForm> {
+class ConfirmResetPasswordForm extends AuthenticatorForm {
   /// {@macro authenticator.reset_password_form}
   const ConfirmResetPasswordForm({
     Key? key,
@@ -536,15 +611,15 @@ class ConfirmResetPasswordForm
 
   @override
   AuthenticatorFormState<ConfirmResetPasswordForm> createState() =>
-      AuthenticatorFormState<ConfirmResetPasswordForm>._();
+      AuthenticatorFormState<ConfirmResetPasswordForm>();
 }
 
 /// {@template authenticator.verify_user_form}
-/// The Verify User screen form.
+/// The Verify User step form.
 ///
 /// Cannot be customized.
 /// {@endtemplate}
-class VerifyUserForm extends AuthenticatorForm<VerifyUserForm> {
+class VerifyUserForm extends AuthenticatorForm {
   /// {@macro authenticator.verify_user_form}
   VerifyUserForm({
     Key? key,
@@ -562,15 +637,15 @@ class VerifyUserForm extends AuthenticatorForm<VerifyUserForm> {
 
   @override
   AuthenticatorFormState<VerifyUserForm> createState() =>
-      AuthenticatorFormState<VerifyUserForm>._();
+      AuthenticatorFormState<VerifyUserForm>();
 }
 
 /// {@template authenticator.confirm_verify_user_form}
-/// The Confirm Verify User screen form.
+/// The Confirm Verify User step form.
 ///
 /// Cannot be customized.
 /// {@endtemplate}
-class ConfirmVerifyUserForm extends AuthenticatorForm<ConfirmVerifyUserForm> {
+class ConfirmVerifyUserForm extends AuthenticatorForm {
   /// {@macro authenticator.confirm_verify_user_form}
   ConfirmVerifyUserForm({
     Key? key,
@@ -588,5 +663,5 @@ class ConfirmVerifyUserForm extends AuthenticatorForm<ConfirmVerifyUserForm> {
 
   @override
   AuthenticatorFormState<ConfirmVerifyUserForm> createState() =>
-      AuthenticatorFormState<ConfirmVerifyUserForm>._();
+      AuthenticatorFormState<ConfirmVerifyUserForm>();
 }

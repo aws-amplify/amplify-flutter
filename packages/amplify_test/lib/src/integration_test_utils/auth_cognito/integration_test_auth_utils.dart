@@ -15,16 +15,17 @@
 
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
+
 import 'package:stream_transform/stream_transform.dart';
 
 import 'types/admin_create_user_response.dart';
 import 'types/confirm_sign_up_response.dart';
 import 'types/delete_user_response.dart';
 
+/// A GraphQL document used by the [deleteUser] test utility method.
 const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
   deleteUser(Username: \$Username) {
     error
@@ -32,15 +33,19 @@ const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
   }
 }''';
 
+/// A GraphQL document used by the [adminCreateUser] test utility method.
 const adminCreateUserDocument =
     '''mutation CreateUser(\$Username: String!, \$Password: String!, \$AutoConfirm: Boolean!, \$EnableMFA: Boolean!, \$VerifyAttributes: Boolean!) {
-  adminCreateUser(Username: \$Username, Password: \$Password, AutoConfirm: \$AutoConfirm, EnableMFA: \$EnableMFA, VerifyAttributes: \$VerifyAttributes) {
-    error
-    success
-  }
-}''';
+    adminCreateUser(Username: \$Username, Password: \$Password, AutoConfirm: \$AutoConfirm, EnableMFA: \$EnableMFA, VerifyAttributes: \$VerifyAttributes) {
+      error
+      success
+    }
+  }''';
 
-/// Deletes a Cognito user in backend infrastructure/
+/// Deletes a Cognito user in backend infrastructure.
+///
+/// This method differs from the Auth.deleteUser API in that
+/// an access token is not required.
 Future<DeleteUserResponse?> deleteUser(String username) async {
   var res = await Amplify.API
       .mutate(
@@ -53,7 +58,7 @@ Future<DeleteUserResponse?> deleteUser(String username) async {
       throw Exception(error.message);
     }
   } else {
-    return DeleteUserResponse.fromJson(res.data);
+    return DeleteUserResponse.fromJson(res.data!);
   }
 }
 
@@ -68,7 +73,7 @@ Future<DeleteUserResponse?> deleteUser(String username) async {
 /// The [autoconfirm] flag will mark the user as confirmed and give them a permanent password.
 /// The [enableMFA] flag will opt-in the user to using SMS MFA.
 /// The [verifyAttributes] flag will verify the email and phone, and should be used
-/// if tests need to bypass the verification screen.
+/// if tests need to bypass the verification step.
 Future<AdminCreateUserResponse?> adminCreateUser(
     String username, String password,
     {bool autoConfirm = false,
@@ -91,7 +96,7 @@ Future<AdminCreateUserResponse?> adminCreateUser(
       throw Exception(error.message);
     }
   } else {
-    return AdminCreateUserResponse.fromJson(res.data);
+    return AdminCreateUserResponse.fromJson(res.data!);
   }
 
   addTearDown(() async {
@@ -123,7 +128,7 @@ Future<String> getOtpCode(String username) async {
   return operation
       .map((event) {
         final json =
-            jsonDecode(event.data)['onCreateConfirmSignUpTestRun'] as Map;
+            jsonDecode(event.data!)['onCreateConfirmSignUpTestRun'] as Map;
         return ConfirmSignUpResponse.fromJson(json.cast());
       })
       .where((event) => event.username == username)

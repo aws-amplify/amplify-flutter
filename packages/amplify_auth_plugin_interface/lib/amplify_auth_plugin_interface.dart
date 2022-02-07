@@ -130,4 +130,9 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   Future<List<AuthDevice>> fetchDevices() {
     throw UnimplementedError('fetchDevices() has not been implemented.');
   }
+
+  /// Deletes the authenticated [AuthUser].
+  Future<void> deleteUser() {
+    throw UnimplementedError('deleteUser() has not been implemented.');
+  }
 }

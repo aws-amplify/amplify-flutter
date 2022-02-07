@@ -1,6 +1,6 @@
 {
-    "signin": "Iniciar Sesión",
-    "signup": "Crear una Cuenta",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Crear una Cuenta",
     "confirm": "Confirmar",
     "submit": "Enviar",
     "changePassword": "Cambiar contraseña",
@@ -12,8 +12,8 @@
     "confirmResetPassword": "Restablecer su contraseña",
     "verify": "Verificar",
     "skip": "Omitir",
-    "signout": "Salir",
-    "backTo": "Regresar al {previousScreen, select, signup{registro}, signin{inicio de sesión}, confirmSignup{Confirmar registro}, confirmSigninMfa{Confirmar inicio de sesión} confirmSigninNewPassword{Confirmar inicio de sesión} sendCode{Enviar código} resetPassword{Restablecer contraseña} verifyUser{Verificar usuario} confirmVerifyUser{Confirmar verificación de usuario}}",
+    "signOut": "Salir",
+    "backTo": "Regresar al {previousStep, select, signUp{registro}, signIn{inicio de sesión}, confirmSignUp{Confirmar registro}, confirmSignInMfa{Confirmar inicio de sesión} confirmSignInNewPassword{Confirmar inicio de sesión} sendCode{Enviar código} resetPassword{Restablecer contraseña} verifyUser{Verificar usuario} confirmVerifyUser{Confirmar verificación de usuario}}",
     "signInWith": "Iniciar Sesión con {provider, select, google{Google} facebook{Facebook} amazon{Amazon} apple{Apple}}",
     "us": "Estados Unidos",
     "selectDialCode": "seleccionar país"

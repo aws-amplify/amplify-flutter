@@ -161,4 +161,9 @@ class AmplifyAuthCognito extends AuthPluginInterface {
   Future<List<CognitoDevice>> fetchDevices() {
     return _instance.fetchDevices();
   }
+
+  @override
+  Future<void> deleteUser() {
+    return _instance.deleteUser();
+  }
 }

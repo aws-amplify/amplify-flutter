@@ -27,8 +27,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
   late final CountryResolver _countriesResolver = stringResolver.countries;
 
   @override
-  Country get selectionValue => _selectedCountry;
-  late Country _selectedCountry = selections.first.value;
+  Country get selectionValue => state.country;
 
   String _searchVal = '';
 
@@ -51,11 +50,11 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
       .toList();
 
   String? formatPhoneNumber(String? phoneNumber) {
-    return phoneNumber?.ensureStartsWith('+${_selectedCountry.value}');
+    return phoneNumber?.ensureStartsWith('+${state.country.value}');
   }
 
   String displayPhoneNumber(String phoneNumber) {
-    var prefix = '+${_selectedCountry.value}';
+    var prefix = '+${state.country.value}';
     if (phoneNumber.startsWith(prefix)) {
       phoneNumber = phoneNumber.substring(prefix.length);
     }
@@ -63,7 +62,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
   }
 
   String get dialCode {
-    return _selectedCountry.value;
+    return state.country.value;
   }
 
   @override
@@ -75,7 +74,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                '+${_selectedCountry.value}',
+                '+${state.country.value}',
                 style: Theme.of(context).inputDecorationTheme.hintStyle ??
                     Theme.of(context).textTheme.subtitle1,
                 textAlign: TextAlign.center,
@@ -158,9 +157,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
     );
 
     if (selectedCountry != null) {
-      setState(() {
-        _selectedCountry = selectedCountry;
-      });
+      state.country = selectedCountry;
     }
   }
 }
