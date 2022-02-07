@@ -143,6 +143,7 @@ void main() {
   group('AuthenticatorTabView', () {
     setUp(() {
       binding.window.clearPlatformBrightnessTestValue();
+      binding.window.physicalSizeTestValue = const Size(2400, 2400);
     });
 
     for (var config in configs.entries) {
