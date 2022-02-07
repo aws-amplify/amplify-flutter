@@ -141,8 +141,8 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
     buffer.write(isoString.substring(0, isoString.length - 4));
 
     int totalMicroseconds = _nanoseconds + Temporal.getNanoseconds(_dateTime);
-    // ensure DateTime strings stored in SQLite are in the same format
-    // which ensures string comparison based DataTime comparison accurate
+    // ensure DateTime strings stored in SQLite to be in the same format
+    // and string based DataTime comparison to be accurate
     buffer.write("." + totalMicroseconds.toString().padLeft(9, "0"));
 
     if (_offset != null) {
