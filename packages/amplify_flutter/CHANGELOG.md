@@ -3,6 +3,7 @@
 - fix(amplify_flutter): updates for latest flutter and dart versions #1333
 - feat(amplify_flutter): allow customers to override AmplifyClass methods #1325
 - fix(flutter): Password settings parsing #1323
+
 ## 0.3.2 (2022-01-21)
 
 - chore: bump amplify-android to 1.31.2

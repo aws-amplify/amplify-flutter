@@ -1,5 +1,7 @@
 ## 0.4.0-rc.1 (2022-02-08)
 
+- chore: bump Kotlin version to 1.6.10 (#1346)
+
 ## 0.3.2 (2022-01-21)
 
 - chore: bump amplify-android to 1.31.2

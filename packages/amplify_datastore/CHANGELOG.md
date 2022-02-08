@@ -1,6 +1,7 @@
 ## 0.4.0-rc.1 (2022-02-08)
 
-- chore(datastore): Export hub event types #1330
+- chore: bump Kotlin version to 1.6.10 (#1346)
+- chore(datastore): Export hub event types (#1330)
 - fix(datastore): Hub memory usage (#1201) 
 - feat(datastore): Add QueryPredicate.all (#1310)
 - chore(datastore): update integration tests schema (#1308)
