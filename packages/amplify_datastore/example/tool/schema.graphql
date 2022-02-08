@@ -44,7 +44,7 @@ type ModelWithAppsyncScalarTypes @model {
   booleanValue: Boolean
   listOfBooleanValue: [Boolean]
   awsDateValue: AWSDate
-  listOfAWSDataValue: [AWSDate]
+  listOfAWSDateValue: [AWSDate]
   awsTimeValue: AWSTime
   listOfAWSTimeValue: [AWSTime]
   awsDateTimeValue: AWSDateTime
@@ -87,7 +87,7 @@ type CustomTypeWithAppsyncScalarTypes {
   listOfIntValue: [Int]
   floatValue: Float
   listOfFloatValue: [Float]
-  boolValue: Boolean
+  booleanValue: Boolean
   listOfBooleanValue: [Boolean]
   awsDateValue: AWSDate
   listOfAWSDateValue: [AWSDate]
@@ -97,8 +97,16 @@ type CustomTypeWithAppsyncScalarTypes {
   listOfAWSTimeValue: [AWSTime]
   awsTimestampValue: AWSTimestamp
   listOfAWSTimestampValue: [AWSTimestamp]
+  awsEmailValue: AWSEmail
+  listOfAWSEmailValue: [AWSEmail]
   awsJsonValue: AWSJSON
   listOfAWSJsonValue: [AWSJSON]
+  awsPhoneValue: AWSPhone
+  listOfAWSPhoneValue: [AWSPhone]
+  awsURLValue: AWSURL
+  listOfAWSURLValue: [AWSURL]
+  awsIPAddressValue: AWSIPAddress
+  listOfAWSIPAddressValue: [AWSIPAddress]
   enumValue: EnumField
   listOfEnumValue: [EnumField]
   customTypeValue: SimpleCustomType

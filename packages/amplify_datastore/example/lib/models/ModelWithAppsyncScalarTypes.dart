@@ -39,7 +39,7 @@ class ModelWithAppsyncScalarTypes extends Model {
   final bool? _booleanValue;
   final List<bool>? _listOfBooleanValue;
   final TemporalDate? _awsDateValue;
-  final List<TemporalDate>? _listOfAWSDataValue;
+  final List<TemporalDate>? _listOfAWSDateValue;
   final TemporalTime? _awsTimeValue;
   final List<TemporalTime>? _listOfAWSTimeValue;
   final TemporalDateTime? _awsDateTimeValue;
@@ -111,8 +111,8 @@ class ModelWithAppsyncScalarTypes extends Model {
     return _awsDateValue;
   }
 
-  List<TemporalDate>? get listOfAWSDataValue {
-    return _listOfAWSDataValue;
+  List<TemporalDate>? get listOfAWSDateValue {
+    return _listOfAWSDateValue;
   }
 
   TemporalTime? get awsTimeValue {
@@ -200,7 +200,7 @@ class ModelWithAppsyncScalarTypes extends Model {
       booleanValue,
       listOfBooleanValue,
       awsDateValue,
-      listOfAWSDataValue,
+      listOfAWSDateValue,
       awsTimeValue,
       listOfAWSTimeValue,
       awsDateTimeValue,
@@ -230,7 +230,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         _booleanValue = booleanValue,
         _listOfBooleanValue = listOfBooleanValue,
         _awsDateValue = awsDateValue,
-        _listOfAWSDataValue = listOfAWSDataValue,
+        _listOfAWSDateValue = listOfAWSDateValue,
         _awsTimeValue = awsTimeValue,
         _listOfAWSTimeValue = listOfAWSTimeValue,
         _awsDateTimeValue = awsDateTimeValue,
@@ -263,7 +263,7 @@ class ModelWithAppsyncScalarTypes extends Model {
       bool? booleanValue,
       List<bool>? listOfBooleanValue,
       TemporalDate? awsDateValue,
-      List<TemporalDate>? listOfAWSDataValue,
+      List<TemporalDate>? listOfAWSDateValue,
       TemporalTime? awsTimeValue,
       List<TemporalTime>? listOfAWSTimeValue,
       TemporalDateTime? awsDateTimeValue,
@@ -301,9 +301,9 @@ class ModelWithAppsyncScalarTypes extends Model {
             ? List<bool>.unmodifiable(listOfBooleanValue)
             : listOfBooleanValue,
         awsDateValue: awsDateValue,
-        listOfAWSDataValue: listOfAWSDataValue != null
-            ? List<TemporalDate>.unmodifiable(listOfAWSDataValue)
-            : listOfAWSDataValue,
+        listOfAWSDateValue: listOfAWSDateValue != null
+            ? List<TemporalDate>.unmodifiable(listOfAWSDateValue)
+            : listOfAWSDateValue,
         awsTimeValue: awsTimeValue,
         listOfAWSTimeValue: listOfAWSTimeValue != null
             ? List<TemporalTime>.unmodifiable(listOfAWSTimeValue)
@@ -363,7 +363,7 @@ class ModelWithAppsyncScalarTypes extends Model {
             .equals(_listOfBooleanValue, other._listOfBooleanValue) &&
         _awsDateValue == other._awsDateValue &&
         DeepCollectionEquality()
-            .equals(_listOfAWSDataValue, other._listOfAWSDataValue) &&
+            .equals(_listOfAWSDateValue, other._listOfAWSDateValue) &&
         _awsTimeValue == other._awsTimeValue &&
         DeepCollectionEquality()
             .equals(_listOfAWSTimeValue, other._listOfAWSTimeValue) &&
@@ -430,9 +430,9 @@ class ModelWithAppsyncScalarTypes extends Model {
     buffer.write("awsDateValue=" +
         (_awsDateValue != null ? _awsDateValue!.format() : "null") +
         ", ");
-    buffer.write("listOfAWSDataValue=" +
-        (_listOfAWSDataValue != null
-            ? _listOfAWSDataValue!.toString()
+    buffer.write("listOfAWSDateValue=" +
+        (_listOfAWSDateValue != null
+            ? _listOfAWSDateValue!.toString()
             : "null") +
         ", ");
     buffer.write("awsTimeValue=" +
@@ -510,7 +510,7 @@ class ModelWithAppsyncScalarTypes extends Model {
       bool? booleanValue,
       List<bool>? listOfBooleanValue,
       TemporalDate? awsDateValue,
-      List<TemporalDate>? listOfAWSDataValue,
+      List<TemporalDate>? listOfAWSDateValue,
       TemporalTime? awsTimeValue,
       List<TemporalTime>? listOfAWSTimeValue,
       TemporalDateTime? awsDateTimeValue,
@@ -540,7 +540,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         booleanValue: booleanValue ?? this.booleanValue,
         listOfBooleanValue: listOfBooleanValue ?? this.listOfBooleanValue,
         awsDateValue: awsDateValue ?? this.awsDateValue,
-        listOfAWSDataValue: listOfAWSDataValue ?? this.listOfAWSDataValue,
+        listOfAWSDateValue: listOfAWSDateValue ?? this.listOfAWSDateValue,
         awsTimeValue: awsTimeValue ?? this.awsTimeValue,
         listOfAWSTimeValue: listOfAWSTimeValue ?? this.listOfAWSTimeValue,
         awsDateTimeValue: awsDateTimeValue ?? this.awsDateTimeValue,
@@ -581,7 +581,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         _awsDateValue = json['awsDateValue'] != null
             ? TemporalDate.fromString(json['awsDateValue'])
             : null,
-        _listOfAWSDataValue = (json['listOfAWSDataValue'] as List?)
+        _listOfAWSDateValue = (json['listOfAWSDateValue'] as List?)
             ?.map((e) => TemporalDate.fromString(e))
             .toList(),
         _awsTimeValue = json['awsTimeValue'] != null
@@ -633,8 +633,8 @@ class ModelWithAppsyncScalarTypes extends Model {
         'booleanValue': _booleanValue,
         'listOfBooleanValue': _listOfBooleanValue,
         'awsDateValue': _awsDateValue?.format(),
-        'listOfAWSDataValue':
-            _listOfAWSDataValue?.map((e) => e.format()).toList(),
+        'listOfAWSDateValue':
+            _listOfAWSDateValue?.map((e) => e.format()).toList(),
         'awsTimeValue': _awsTimeValue?.format(),
         'listOfAWSTimeValue':
             _listOfAWSTimeValue?.map((e) => e.format()).toList(),
@@ -676,8 +676,8 @@ class ModelWithAppsyncScalarTypes extends Model {
   static final QueryField LISTOFBOOLEANVALUE =
       QueryField(fieldName: "listOfBooleanValue");
   static final QueryField AWSDATEVALUE = QueryField(fieldName: "awsDateValue");
-  static final QueryField LISTOFAWSDATAVALUE =
-      QueryField(fieldName: "listOfAWSDataValue");
+  static final QueryField LISTOFAWSDATEVALUE =
+      QueryField(fieldName: "listOfAWSDateValue");
   static final QueryField AWSTIMEVALUE = QueryField(fieldName: "awsTimeValue");
   static final QueryField LISTOFAWSTIMEVALUE =
       QueryField(fieldName: "listOfAWSTimeValue");
@@ -778,7 +778,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         ofType: ModelFieldType(ModelFieldTypeEnum.date)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: ModelWithAppsyncScalarTypes.LISTOFAWSDATAVALUE,
+        key: ModelWithAppsyncScalarTypes.LISTOFAWSDATEVALUE,
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
