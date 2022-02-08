@@ -6,6 +6,7 @@
 ### Breaking Changes
 
 - The `data` field is now nullable in `GraphQLResponse`.
+- If your app has a dependency on Kotlin, the value of `ext.kotlin_version` set in `android/build.gradle` must be 1.5.31 or greater (1.6.10 recommended)
 
 ## 0.3.2 (2022-01-21)
 
