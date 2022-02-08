@@ -246,7 +246,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 XCTAssertEqual(flutterEvent["modelName"] as! String, "Post")
                 XCTAssertEqual(syncMetaData["_lastChangedAt"] as? Int, nil)
                 XCTAssertEqual(syncMetaData["_version"] as? Int, nil)
-                XCTAssertEqual(syncMetaData["_deleted"] as? Bool, nil)
+                XCTAssertEqual(syncMetaData["_deleted"] as? Bool, false)
                 XCTAssertEqual(model["modelName"] as! String, "Post")
                 XCTAssertEqual(serializedData["title"] as! String, "Title 1")
                 innerExpect?.fulfill()

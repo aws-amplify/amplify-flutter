@@ -43,8 +43,8 @@ inline fun <reified K, reified V> Map<*, *>.cast(): Map<K, V> =
  * casts and make them explicit.
  */
 @Suppress("UNCHECKED_CAST")
-inline fun <reified T> List<*>.cast(): ArrayList<T> =
-    this as ArrayList<T>
+inline fun <reified T> List<*>.cast(): List<T> =
+    this as List<T>
 
 /**
  * Thrown when an argument of the wrong type is passed to a function.

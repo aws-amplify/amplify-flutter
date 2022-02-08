@@ -39,6 +39,7 @@ export 'types/hub/NetworkStatusEvent.dart';
 export 'types/hub/OutboxMutationEvent.dart';
 export 'types/hub/OutboxStatusEvent.dart';
 export 'types/hub/SyncQueriesStartedEvent.dart';
+export 'types/hub/SubscriptionDataProcessedEvent.dart';
 export 'types/models/subscription_event.dart';
 export 'types/models/query_snapshot.dart';
 export 'types/models/observe_query_throttle_options.dart';

@@ -15,6 +15,7 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.model
 
+import com.amazonaws.amplify.amplify_core.cast
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.core.model.SerializedCustomType
@@ -54,34 +55,41 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
         )
 
         return serializedData.mapValues {
-            val field = modelSchema.fields[it.key]!!
-            when (val value: Any = it.value) {
-                is Temporal.DateTime -> value.format()
-                is Temporal.Date -> value.format()
-                is Temporal.Time -> value.format()
-                is Model -> FlutterSerializedModel(value as SerializedModel).toMap()
-                is Temporal.Timestamp -> value.secondsSinceEpoch
-                is SerializedCustomType -> FlutterSerializedCustomType(value).toMap()
-                is List<*> -> {
-                    if (field.isCustomType) {
-                        // for a list like field if its type is CustomType
-                        // Then the item type must be CustomType
-                        (value as List<SerializedCustomType>).map { item ->
-                            FlutterSerializedCustomType(item).toMap()
+            val field = modelSchema.fields[it.key]
+            if (field == null) {
+                // At some occasions the SerializeData returned from amplify-android contains meta fields
+                // e.g. _version, _delete which are not a model filed
+                // for this case we assign a null value to these meta fields as default
+                null
+            } else {
+                when (val value: Any = it.value) {
+                    is Temporal.DateTime -> value.format()
+                    is Temporal.Date -> value.format()
+                    is Temporal.Time -> value.format()
+                    is Model -> FlutterSerializedModel(value as SerializedModel).toMap()
+                    is Temporal.Timestamp -> value.secondsSinceEpoch
+                    is SerializedCustomType -> FlutterSerializedCustomType(value).toMap()
+                    is List<*> -> {
+                        if (field.isCustomType) {
+                            // for a list like field if its type is CustomType
+                            // Then the item type must be CustomType
+                            (value.cast<SerializedCustomType>()).map { item ->
+                                FlutterSerializedCustomType(item).toMap()
+                            }
+                        }
+                        // If collection is not a collection of CustomType
+                        // return the collection directly as
+                        // 1. currently hasMany field won't be populated
+                        // 2. collection of primitive types could be returned as is e.g. ["1", "2"]
+                        else {
+                            value.map { item ->
+                                FlutterFieldUtil.convertValueByFieldType(field.targetType, item)
+                            }
                         }
                     }
-                    // If collection is not a collection of CustomType
-                    // return the collection directly as
-                    // 1. currently hasMany field won't be populated
-                    // 2. collection of primitive types could be returned as is e.g. ["1", "2"]
-                    else {
-                        value.map { item ->
-                            FlutterFieldUtil.convertValueByFieldType(field.targetType, item)
-                        }
-                    }
+                    // TODO add for other complex objects that can be returned or be part of the codegen model
+                    else -> FlutterFieldUtil.convertValueByFieldType(field.targetType, value)
                 }
-                // TODO add for other complex objects that can be returned or be part of the codegen model
-                else -> FlutterFieldUtil.convertValueByFieldType(field.targetType, value)
             }
         }
     }
