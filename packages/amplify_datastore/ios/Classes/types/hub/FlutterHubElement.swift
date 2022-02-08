@@ -26,7 +26,7 @@ public struct FlutterHubElement {
     var model: [String: Any]
     var version: Int?
     var lastChangedAt: Int?
-    var deleted: Bool?
+    var deleted: Bool
     
     init(
         hubElement: OutboxMutationEvent.OutboxMutationEventElement,
@@ -44,7 +44,38 @@ public struct FlutterHubElement {
         )
         self.version = hubElement.version
         self.lastChangedAt = hubElement.lastChangedAt
-        self.deleted = hubElement.deleted
+        self.deleted = hubElement.deleted ?? false
+    }
+
+    init(
+        hubElement: MutationEvent,
+        modelSchemaRegistry: FlutterSchemaRegistry,
+        customTypeSchemaRegistry: FlutterSchemaRegistry,
+        modelName: String
+    ) throws {
+        do {
+            guard let decodedModel = (try ModelRegistry.decode(modelName: modelName, from: hubElement.json) as? FlutterSerializedModel) else {
+                throw FlutterDataStoreError.hubEventCast
+            }
+            model = try decodedModel.toMap(
+                modelSchemaRegistry: modelSchemaRegistry,
+                customTypeSchemaRegistry: customTypeSchemaRegistry,
+                modelName: modelName
+            )
+            self.version = hubElement.version
+            let serializedData = model["serializedData"] as? [String: Any] ?? [:]
+            self.deleted = serializedData["_deleted"] as? Bool ?? false
+            if let value = serializedData["_lastChangedAt"] as? Double {
+                self.lastChangedAt = Int(value)
+            } else if let value = serializedData["_lastChangedAt"] as? String {
+                self.lastChangedAt = Int(value)
+            } else if let value = serializedData["_lastChangedAt"] as? Int {
+                self.lastChangedAt = value
+            }
+        }
+        catch {
+            throw FlutterDataStoreError.hubEventCast
+        }
     }
     
     func toValueMap() -> Dictionary<String, Any> {
