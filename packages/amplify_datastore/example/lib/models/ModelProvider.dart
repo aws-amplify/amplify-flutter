@@ -75,7 +75,7 @@ export 'Tag.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "c4d29b43024b973d2fd3ba65fe7f0a5b";
+  String version = "f80fece878bf91a76f44577fe599b120";
   @override
   List<ModelSchema> modelSchemas = [
     BelongsToChildExplicit.schema,
