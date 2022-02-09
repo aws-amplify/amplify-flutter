@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   amplify_auth_plugin_interface: 0.4.1
   amplify_core: 0.4.1
+  amplify_auth_cognito_android: 0.4.1
+  amplify_auth_cognito_ios: 0.4.1
   collection: ^1.15.0
   plugin_platform_interface: ^2.0.0
 
@@ -25,7 +27,6 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.amazonaws.amplify.amplify_auth_cognito
-        pluginClass: AuthCognito
+        default_package: amplify_auth_cognito_android
       ios:
-        pluginClass: AuthCognito
+        default_package: amplify_auth_cognito_ios

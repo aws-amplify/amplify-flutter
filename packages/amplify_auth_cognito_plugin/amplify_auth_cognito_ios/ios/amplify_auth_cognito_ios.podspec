@@ -3,7 +3,7 @@
 # Run `pod lib lint amplify_auth_cognito.podspec' to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'amplify_auth_cognito'
+  s.name             = 'amplify_auth_cognito_ios'
   s.version          = '0.0.1'
   s.summary          = 'The auth module for Amplify Flutter.'
   s.description      = <<-DESC
