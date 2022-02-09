@@ -1,15 +1,7 @@
 # amplify_auth_cognito_ios
 
-A new flutter plugin project.
+The method channel implementation for amplify_auth_cognito on iOS
 
-## Getting Started
+## Usage
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+This package is an endorded plugin of amplify_auth_cognito and will be included as a transitive dependency. It does not need to be imported manually

@@ -1,5 +1,5 @@
 name: amplify_auth_cognito_ios
-description: A new flutter plugin project.
+description: The method channel implementation for amplify_auth_cognito on iOS
 version: 0.0.1
 homepage:
 
