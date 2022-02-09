@@ -18,7 +18,7 @@ import Amplify
 import Combine
 @testable import AmplifyPlugins
 @testable import AWSPluginsCore
-@testable import amplify_auth_cognito
+@testable import amplify_auth_cognito_ios
 
 class  amplify_auth_cognito_hub_tests: XCTestCase {
 

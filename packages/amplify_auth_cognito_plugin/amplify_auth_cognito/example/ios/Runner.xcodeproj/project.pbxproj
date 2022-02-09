@@ -11,15 +11,9 @@
 		26AECB412893A7A959622364 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1727BF3FA0D464713D41A3 /* Pods_Runner.framework */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
-		9674FCEAE95127916BA4C1B4 /* Pods_unit_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2AB19942AD94335DB089EE /* Pods_unit_tests.framework */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
-		9C3D802825C1F52600728B7B /* amplify_auth_error_handling_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D802725C1F52600728B7B /* amplify_auth_error_handling_tests.swift */; };
-		9C3D802B25C1F82800728B7B /* MockErrorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D802A25C1F82800728B7B /* MockErrorConstants.swift */; };
-		9C404087251AA2430036C5FE /* MockAuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C404086251AA2430036C5FE /* MockAuthSession.swift */; };
-		9CC45C2425A4F7E90055E103 /* amplify_auth_cognito_hub_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC45C2325A4F7E90055E103 /* amplify_auth_cognito_hub_tests.swift */; };
-		B43589BD2581AA9600789DEE /* amplify_auth_cognito_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43589BC2581AA9600789DEE /* amplify_auth_cognito_tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -56,13 +50,6 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9C3D802725C1F52600728B7B /* amplify_auth_error_handling_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amplify_auth_error_handling_tests.swift; sourceTree = "<group>"; };
-		9C3D802A25C1F82800728B7B /* MockErrorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockErrorConstants.swift; sourceTree = "<group>"; };
-		9C404086251AA2430036C5FE /* MockAuthSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthSession.swift; sourceTree = "<group>"; };
-		9CC45C2325A4F7E90055E103 /* amplify_auth_cognito_hub_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amplify_auth_cognito_hub_tests.swift; sourceTree = "<group>"; };
-		9CEFDF1225113C2F001481FC /* unit_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = unit_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CEFDF1625113C2F001481FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B43589BC2581AA9600789DEE /* amplify_auth_cognito_tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = amplify_auth_cognito_tests.swift; sourceTree = "<group>"; };
 		B9187703880B15C5125F5D1F /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		BCC22CF2A7736B5F1AA4E0A1 /* Pods-unit_tests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.profile.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.profile.xcconfig"; sourceTree = "<group>"; };
 		D3CF4B029A33413539369E68 /* Pods-amplify_auth_cognito_exampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amplify_auth_cognito_exampleTests.debug.xcconfig"; path = "Target Support Files/Pods-amplify_auth_cognito_exampleTests/Pods-amplify_auth_cognito_exampleTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -75,14 +62,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				26AECB412893A7A959622364 /* Pods_Runner.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9CEFDF0F25113C2F001481FC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9674FCEAE95127916BA4C1B4 /* Pods_unit_tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,7 +84,6 @@
 			children = (
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
-				9CEFDF1325113C2F001481FC /* unit_tests */,
 				97C146EF1CF9000F007C117D /* Products */,
 				DEFD1397E6D457FBCF57AA48 /* Pods */,
 				F0E8B898AFD29D60F8C1EEDC /* Frameworks */,
@@ -116,7 +94,6 @@
 			isa = PBXGroup;
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
-				9CEFDF1225113C2F001481FC /* unit_tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,19 +111,6 @@
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 			);
 			path = Runner;
-			sourceTree = "<group>";
-		};
-		9CEFDF1325113C2F001481FC /* unit_tests */ = {
-			isa = PBXGroup;
-			children = (
-				9C3D802725C1F52600728B7B /* amplify_auth_error_handling_tests.swift */,
-				9C404086251AA2430036C5FE /* MockAuthSession.swift */,
-				B43589BC2581AA9600789DEE /* amplify_auth_cognito_tests.swift */,
-				9CEFDF1625113C2F001481FC /* Info.plist */,
-				9CC45C2325A4F7E90055E103 /* amplify_auth_cognito_hub_tests.swift */,
-				9C3D802A25C1F82800728B7B /* MockErrorConstants.swift */,
-			);
-			path = unit_tests;
 			sourceTree = "<group>";
 		};
 		DEFD1397E6D457FBCF57AA48 /* Pods */ = {
@@ -199,25 +163,6 @@
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9CEFDF1125113C2F001481FC /* unit_tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9CEFDF1A25113C2F001481FC /* Build configuration list for PBXNativeTarget "unit_tests" */;
-			buildPhases = (
-				B82B703D06162671DAB1462F /* [CP] Check Pods Manifest.lock */,
-				9CEFDF0E25113C2F001481FC /* Sources */,
-				9CEFDF0F25113C2F001481FC /* Frameworks */,
-				9CEFDF1025113C2F001481FC /* Resources */,
-				4F5064AE80E09E74329C1F8A /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = unit_tests;
-			productName = amplify_auth_cognito_exampleTests;
-			productReference = 9CEFDF1225113C2F001481FC /* unit_tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -231,9 +176,6 @@
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 1100;
-					};
-					9CEFDF1125113C2F001481FC = {
-						CreatedOnToolsVersion = 11.7;
 					};
 				};
 			};
@@ -251,7 +193,6 @@
 			projectRoot = "";
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
-				9CEFDF1125113C2F001481FC /* unit_tests */,
 			);
 		};
 /* End PBXProject section */
@@ -265,13 +206,6 @@
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9CEFDF1025113C2F001481FC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,23 +248,6 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
 		};
-		4F5064AE80E09E74329C1F8A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-unit_tests/Pods-unit_tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-unit_tests/Pods-unit_tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-unit_tests/Pods-unit_tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -362,28 +279,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B82B703D06162671DAB1462F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-unit_tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -393,18 +288,6 @@
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9CEFDF0E25113C2F001481FC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9C3D802825C1F52600728B7B /* amplify_auth_error_handling_tests.swift in Sources */,
-				9CC45C2425A4F7E90055E103 /* amplify_auth_cognito_hub_tests.swift in Sources */,
-				9C404087251AA2430036C5FE /* MockAuthSession.swift in Sources */,
-				9C3D802B25C1F82800728B7B /* MockErrorConstants.swift in Sources */,
-				B43589BD2581AA9600789DEE /* amplify_auth_cognito_tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,90 +561,6 @@
 			};
 			name = Release;
 		};
-		9CEFDF1725113C2F001481FC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 142C31D59F09B92E6B391241 /* Pods-unit_tests.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W3DRXD72QU;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = unit_tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.amazonaws.amplify.amplify-auth-cognito-exampleTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		9CEFDF1825113C2F001481FC /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8438DFB604CC96F8F9D6DAF2 /* Pods-unit_tests.release.xcconfig */;
-			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W3DRXD72QU;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = unit_tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.amazonaws.amplify.amplify-auth-cognito-exampleTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		9CEFDF1925113C2F001481FC /* Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BCC22CF2A7736B5F1AA4E0A1 /* Pods-unit_tests.profile.xcconfig */;
-			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W3DRXD72QU;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = unit_tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.amazonaws.amplify.amplify-auth-cognito-exampleTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Profile;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -781,16 +580,6 @@
 				97C147061CF9000F007C117D /* Debug */,
 				97C147071CF9000F007C117D /* Release */,
 				249021D4217E4FDB00AE95B9 /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9CEFDF1A25113C2F001481FC /* Build configuration list for PBXNativeTarget "unit_tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9CEFDF1725113C2F001481FC /* Debug */,
-				9CEFDF1825113C2F001481FC /* Release */,
-				9CEFDF1925113C2F001481FC /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

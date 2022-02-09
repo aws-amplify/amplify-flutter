@@ -17,7 +17,7 @@ import XCTest
 import Amplify
 @testable import AmplifyPlugins
 @testable import AWSPluginsCore
-@testable import amplify_auth_cognito
+@testable import amplify_auth_cognito_ios
 
 class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     
@@ -34,7 +34,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
                XCTAssertEqual( MockErrorConstants.aliasExistsError, details?["recoverySuggestion"])
                XCTAssertEqual( "Could not deliver code", details?["message"])
             } else {
-                XCTFail()    
+                XCTFail()
             }
         })
     }

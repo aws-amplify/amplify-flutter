@@ -15,7 +15,7 @@
 
 import XCTest
 import Amplify
-@testable import amplify_auth_cognito
+@testable import amplify_auth_cognito_ios
 
 class  amplify_auth_utils_tests: XCTestCase {
     
