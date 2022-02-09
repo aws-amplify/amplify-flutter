@@ -1,4 +1,4 @@
-## 0.4.0-rc.1 (2022-02-08)
+## 0.4.0-rc.1 (2022-02-09)
 
 - chore: Many model-related type definitions moved from amplify_datastore_plugin_interface to amplify_core.
 

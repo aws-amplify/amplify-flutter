@@ -1,4 +1,4 @@
-## 0.4.0-rc.1 (2022-02-08)
+## 0.4.0-rc.1 (2022-02-09)
 
 - chore: bump Kotlin version to 1.6.10 (#1346)
 - chore(datastore): Export hub event types (#1330)

@@ -1,4 +1,4 @@
-## 0.4.0-rc.1 (2022-02-08)
+## 0.4.0-rc.1 (2022-02-09)
 
 - fix(amplify_flutter): updates for latest flutter and dart versions #1333
 - feat(amplify_flutter): allow customers to override AmplifyClass methods #1325
