@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
-import 'package:amplify_auth_cognito_ios/amplify_auth_cognito_ios.dart';
 
 void main() {
   runApp(const MyApp());
