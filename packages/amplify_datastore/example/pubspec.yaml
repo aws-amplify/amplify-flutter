@@ -38,6 +38,7 @@ dev_dependencies:
     path: ../../amplify_test
   flutter_test:
     sdk: flutter
+  tuple: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

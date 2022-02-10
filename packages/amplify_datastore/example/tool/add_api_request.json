@@ -4,9 +4,14 @@
     "serviceName": "AppSync",
     "apiName": "dataStoreIntegrationTestGraphQL",
     "transformSchema": "<SCHEMA_PLACEHOLDER>",
-    "defaultAuthType":  {
+    "defaultAuthType": {
       "mode": "API_KEY",
       "expirationTime": 365
+    },
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
     }
   }
 }

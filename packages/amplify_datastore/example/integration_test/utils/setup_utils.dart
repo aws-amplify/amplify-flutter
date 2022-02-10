@@ -13,17 +13,41 @@
 // permissions and limitations under the License.
 //
 
+import 'dart:async';
+
 import 'package:amplify_datastore/amplify_datastore.dart';
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore_example/amplifyconfiguration.dart';
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
-Future<void> configureDataStore() async {
+const ENABLE_CLOUD_SYNC =
+    bool.fromEnvironment('ENABLE_CLOUD_SYNC', defaultValue: false);
+const DATASTORE_READY_EVENT_TIMEOUT = const Duration(minutes: 2);
+const DELAY_TO_START_DATASTORE = const Duration(milliseconds: 500);
+const DELAY_TO_CLEAR_DATASTORE = const Duration(seconds: 2);
+
+/// Configure [AmplifyDataStore] plugin with given [modelProvider].
+/// When [ENABLE_CLOUD_SYNC] environment variable is set to true, it also
+/// configures [AmplifyAPI] and starts DataStore API sync automatically.
+Future<void> configureDataStore({
+  bool enableCloudSync = false,
+  ModelProviderInterface? modelProvider,
+}) async {
   if (!Amplify.isConfigured) {
-    final dataStorePlugin =
-        AmplifyDataStore(modelProvider: ModelProvider.instance);
-    await Amplify.addPlugins([dataStorePlugin]);
+    final dataStorePlugin = AmplifyDataStore(
+        modelProvider: modelProvider ?? ModelProvider.instance);
+    List<AmplifyPluginInterface> plugins = [dataStorePlugin];
+    if (enableCloudSync) {
+      plugins.add(AmplifyAPI());
+    }
+    await Amplify.addPlugins(plugins);
     await Amplify.configure(amplifyconfig);
+
+    // Start DataStore API sync after Amplify Configure when cloud sync is enabled
+    if (enableCloudSync) {
+      await startDataStore();
+    }
   }
 }
 
@@ -34,6 +58,38 @@ Future<void> configureDataStore() async {
 ///
 /// see: https:///github.com/aws-amplify/amplify-android/issues/1464
 Future<void> clearDataStore() async {
-  await Future.delayed(Duration(milliseconds: 100));
+  await Future.delayed(DELAY_TO_CLEAR_DATASTORE);
   await Amplify.DataStore.clear();
 }
+
+/// Am async operator that starts DataStore API sync.
+/// It returns a Future which complets when [Amplify.Hub] receives the ready
+/// event on [HubChannel.DataStore], or completes with an timeout error if
+/// the ready event hasn't been emitted with in 2 minutes.
+class DataStoreStarter {
+  final Completer _completer = Completer();
+  late StreamSubscription hubSubscription;
+
+  Future<void> startDataStore() {
+    hubSubscription = Amplify.Hub.listen([HubChannel.DataStore], (event) {
+      if (event.eventName == 'ready') {
+        print(
+            '🎉🎉🎉DataStore is ready to start running test suites with API sync enabled.🎉🎉🎉');
+        hubSubscription.cancel();
+        _completer.complete();
+      }
+    });
+
+    // we are not waiting for DataStore.start to complete
+    // but an asynchronous DataStore ready event dispatched via the hub
+    Amplify.DataStore.start();
+    return _completer.future.timeout(DATASTORE_READY_EVENT_TIMEOUT);
+  }
+}
+
+Future<void> startDataStore() async {
+  await Future.delayed(DELAY_TO_START_DATASTORE);
+  await DataStoreStarter().startDataStore();
+}
+
+bool shouldEnableCloudSync() => ENABLE_CLOUD_SYNC;

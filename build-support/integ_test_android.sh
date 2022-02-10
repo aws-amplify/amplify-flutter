@@ -1,13 +1,11 @@
 #!/bin/bash
 
-set -euo pipefail
-
-if [ ! -d ios ]; then
-    echo "No iOS project to test" >&2
+if [ ! -d android ]; then
+    echo "No Android project to test" >&2
     exit
 fi
 
-DEFAULT_DEVICE_ID="iPhone"
+DEFAULT_DEVICE_ID="sdk"
 DEFAULT_ENABLE_CLOUD_SYNC="true"
 
 while [ $# -gt 0 ]; do
@@ -45,28 +43,14 @@ if [ ! -e $TARGET ]; then
     exit
 fi
 
-
-
-# Use xcodebuild if 'RunnerTests' scheme exists, else `flutter test`
-if xcodebuild -workspace ios/Runner.xcworkspace -list -json | jq -e '.workspace.schemes | index("RunnerTests")' >/dev/null; then
-    # Build app for testing
-    flutter build ios --no-pub --config-only --simulator --target=$TARGET
-
-    xcodebuild \
-        -workspace ios/Runner.xcworkspace \
-        -scheme RunnerTests \
-        -destination "platform=iOS Simulator,name=iPhone 12 Pro Max" \
-        test
+testsList+=("$TARGET")
+if flutter test \
+    --no-pub \
+    -d $deviceId \
+    $TARGET; then
+    resultsList+=(0)
 else
-    testsList+=("$TARGET")
-    if flutter test \
-        --no-pub \
-        -d $deviceId \
-        $TARGET; then
-        resultsList+=(0)
-    else
-        resultsList+=(1)
-    fi
+    resultsList+=(1)
 fi
 
 TEST_ENTRIES="integration_test/separate_integration_tests/*.dart"
