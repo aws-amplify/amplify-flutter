@@ -33,7 +33,7 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
-        test.resources.srcDirs += '../test/resources'
+        test.resources.srcDirs += '../../amplify_auth_cognito/test/resources'
     }
     defaultConfig {
         minSdkVersion 21
