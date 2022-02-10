@@ -10,17 +10,17 @@
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		339628D48ABE8C6D14F537C0 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9651AC6E3A34D2E32F76E448 /* Pods_Runner.framework */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
-		6EBAFECC55E94E6457D02192 /* Pods_amplify_auth_cognito_ios_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A2B3C965CB85F009065260 /* Pods_amplify_auth_cognito_ios_tests.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		9C69351827B58C0000EEA5BF /* amplify_auth_cognito_error_handler_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C69351727B58C0000EEA5BF /* amplify_auth_cognito_error_handler_tests.swift */; };
 		9C9BEE6927B33B4100BFA30D /* amplify_auth_cognito_ios_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BEE6827B33B4100BFA30D /* amplify_auth_cognito_ios_tests.swift */; };
 		9C9BEE7127B43E2C00BFA30D /* MockAuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BEE7027B43E2C00BFA30D /* MockAuthSession.swift */; };
 		9C9BEE7327B43E4F00BFA30D /* MockErrorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BEE7227B43E4F00BFA30D /* MockErrorConstants.swift */; };
 		9C9BEE7527B43F1400BFA30D /* amplify_auth_utils_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BEE7427B43F1400BFA30D /* amplify_auth_utils_tests.swift */; };
 		9C9BEE7727B43F6D00BFA30D /* amplify_auth_cognito_hub_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BEE7627B43F6D00BFA30D /* amplify_auth_cognito_hub_tests.swift */; };
-		9C9BEE7927B43FE400BFA30D /* amplify_auth_cognito_error_handler_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BEE7827B43FE400BFA30D /* amplify_auth_cognito_error_handler_tests.swift */; };
+		B28E12945B3CFC02E68F6F49 /* Pods_unit_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5AD500386A764A733E257E8 /* Pods_unit_tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +51,8 @@
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
 		48A4DDBFA8A7B9B0A5541ED1 /* Pods-amplify_auth_cognito_ios_tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amplify_auth_cognito_ios_tests.debug.xcconfig"; path = "Target Support Files/Pods-amplify_auth_cognito_ios_tests/Pods-amplify_auth_cognito_ios_tests.debug.xcconfig"; sourceTree = "<group>"; };
-		65A2B3C965CB85F009065260 /* Pods_amplify_auth_cognito_ios_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amplify_auth_cognito_ios_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B9AEE0BE61CAEEA6B376F26 /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
+		4F933B9C9DF1FEE656B2F072 /* Pods-unit_tests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.profile.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.profile.xcconfig"; sourceTree = "<group>"; };
 		6C8479076E71237A2C228FAA /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,14 +66,16 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B718B1A53547EED9E2EB037 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		9C69351727B58C0000EEA5BF /* amplify_auth_cognito_error_handler_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amplify_auth_cognito_error_handler_tests.swift; sourceTree = "<group>"; };
 		9C9BEE6627B33B4100BFA30D /* unit_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = unit_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C9BEE6827B33B4100BFA30D /* amplify_auth_cognito_ios_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amplify_auth_cognito_ios_tests.swift; sourceTree = "<group>"; };
 		9C9BEE7027B43E2C00BFA30D /* MockAuthSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthSession.swift; sourceTree = "<group>"; };
 		9C9BEE7227B43E4F00BFA30D /* MockErrorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockErrorConstants.swift; sourceTree = "<group>"; };
 		9C9BEE7427B43F1400BFA30D /* amplify_auth_utils_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amplify_auth_utils_tests.swift; sourceTree = "<group>"; };
 		9C9BEE7627B43F6D00BFA30D /* amplify_auth_cognito_hub_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amplify_auth_cognito_hub_tests.swift; sourceTree = "<group>"; };
-		9C9BEE7827B43FE400BFA30D /* amplify_auth_cognito_error_handler_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amplify_auth_cognito_error_handler_tests.swift; sourceTree = SOURCE_ROOT; };
+		A5AD500386A764A733E257E8 /* Pods_unit_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unit_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD8C9C3C4A64505A6DD45D6B /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
+		B68EA2D2B84E4A2FB81CA820 /* Pods-unit_tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.debug.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.debug.xcconfig"; sourceTree = "<group>"; };
 		EF17EF14E0202CC5A4EA0B71 /* Pods-amplify_auth_cognito_ios_tests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amplify_auth_cognito_ios_tests.profile.xcconfig"; path = "Target Support Files/Pods-amplify_auth_cognito_ios_tests/Pods-amplify_auth_cognito_ios_tests.profile.xcconfig"; sourceTree = "<group>"; };
 		F54C03E51BA38D9E102EF2B0 /* Pods-amplify_auth_cognito_ios_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amplify_auth_cognito_ios_tests.release.xcconfig"; path = "Target Support Files/Pods-amplify_auth_cognito_ios_tests/Pods-amplify_auth_cognito_ios_tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,7 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EBAFECC55E94E6457D02192 /* Pods_amplify_auth_cognito_ios_tests.framework in Frameworks */,
+				B28E12945B3CFC02E68F6F49 /* Pods_unit_tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,7 +150,7 @@
 		9C9BEE6727B33B4100BFA30D /* unit_tests */ = {
 			isa = PBXGroup;
 			children = (
-				9C9BEE7827B43FE400BFA30D /* amplify_auth_cognito_error_handler_tests.swift */,
+				9C69351727B58C0000EEA5BF /* amplify_auth_cognito_error_handler_tests.swift */,
 				9C9BEE7627B43F6D00BFA30D /* amplify_auth_cognito_hub_tests.swift */,
 				9C9BEE7427B43F1400BFA30D /* amplify_auth_utils_tests.swift */,
 				9C9BEE6827B33B4100BFA30D /* amplify_auth_cognito_ios_tests.swift */,
@@ -161,7 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				9651AC6E3A34D2E32F76E448 /* Pods_Runner.framework */,
-				65A2B3C965CB85F009065260 /* Pods_amplify_auth_cognito_ios_tests.framework */,
+				A5AD500386A764A733E257E8 /* Pods_unit_tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -175,6 +178,9 @@
 				48A4DDBFA8A7B9B0A5541ED1 /* Pods-amplify_auth_cognito_ios_tests.debug.xcconfig */,
 				F54C03E51BA38D9E102EF2B0 /* Pods-amplify_auth_cognito_ios_tests.release.xcconfig */,
 				EF17EF14E0202CC5A4EA0B71 /* Pods-amplify_auth_cognito_ios_tests.profile.xcconfig */,
+				B68EA2D2B84E4A2FB81CA820 /* Pods-unit_tests.debug.xcconfig */,
+				4B9AEE0BE61CAEEA6B376F26 /* Pods-unit_tests.release.xcconfig */,
+				4F933B9C9DF1FEE656B2F072 /* Pods-unit_tests.profile.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -367,7 +373,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-amplify_auth_cognito_ios_tests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-unit_tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -380,15 +386,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-amplify_auth_cognito_ios_tests/Pods-amplify_auth_cognito_ios_tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-unit_tests/Pods-unit_tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-amplify_auth_cognito_ios_tests/Pods-amplify_auth_cognito_ios_tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-unit_tests/Pods-unit_tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-amplify_auth_cognito_ios_tests/Pods-amplify_auth_cognito_ios_tests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-unit_tests/Pods-unit_tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -409,7 +415,7 @@
 			files = (
 				9C9BEE7727B43F6D00BFA30D /* amplify_auth_cognito_hub_tests.swift in Sources */,
 				9C9BEE7127B43E2C00BFA30D /* MockAuthSession.swift in Sources */,
-				9C9BEE7927B43FE400BFA30D /* amplify_auth_cognito_error_handler_tests.swift in Sources */,
+				9C69351827B58C0000EEA5BF /* amplify_auth_cognito_error_handler_tests.swift in Sources */,
 				9C9BEE6927B33B4100BFA30D /* amplify_auth_cognito_ios_tests.swift in Sources */,
 				9C9BEE7527B43F1400BFA30D /* amplify_auth_utils_tests.swift in Sources */,
 				9C9BEE7327B43E4F00BFA30D /* MockErrorConstants.swift in Sources */,
@@ -672,7 +678,7 @@
 		};
 		9C9BEE6D27B33B4100BFA30D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48A4DDBFA8A7B9B0A5541ED1 /* Pods-amplify_auth_cognito_ios_tests.debug.xcconfig */;
+			baseConfigurationReference = B68EA2D2B84E4A2FB81CA820 /* Pods-unit_tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -686,7 +692,7 @@
 				DEVELOPMENT_TEAM = JZA2CXWBN4;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -703,7 +709,7 @@
 		};
 		9C9BEE6E27B33B4100BFA30D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F54C03E51BA38D9E102EF2B0 /* Pods-amplify_auth_cognito_ios_tests.release.xcconfig */;
+			baseConfigurationReference = 4B9AEE0BE61CAEEA6B376F26 /* Pods-unit_tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -717,7 +723,7 @@
 				DEVELOPMENT_TEAM = JZA2CXWBN4;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amazonaws.AWSDataStoreCategoryPluginFlutterIntegrationTests.amplify-auth-cognito-ios-tests";
@@ -731,7 +737,7 @@
 		};
 		9C9BEE6F27B33B4100BFA30D /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF17EF14E0202CC5A4EA0B71 /* Pods-amplify_auth_cognito_ios_tests.profile.xcconfig */;
+			baseConfigurationReference = 4F933B9C9DF1FEE656B2F072 /* Pods-unit_tests.profile.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -745,7 +751,7 @@
 				DEVELOPMENT_TEAM = JZA2CXWBN4;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.amazonaws.AWSDataStoreCategoryPluginFlutterIntegrationTests.amplify-auth-cognito-ios-tests";

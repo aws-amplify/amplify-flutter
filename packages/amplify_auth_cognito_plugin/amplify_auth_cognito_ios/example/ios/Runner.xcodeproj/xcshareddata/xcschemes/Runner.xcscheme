@@ -42,7 +42,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9C9BEE6527B33B4100BFA30D"
-               BuildableName = "amplify_auth_cognito_ios_tests.xctest"
+               BuildableName = "unit_tests.xctest"
                BlueprintName = "unit_tests"
                ReferencedContainer = "container:Runner.xcodeproj">
             </BuildableReference>
