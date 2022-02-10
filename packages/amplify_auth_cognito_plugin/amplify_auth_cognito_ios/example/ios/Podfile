@@ -34,7 +34,7 @@ target 'Runner' do
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 
-target 'amplify_auth_cognito_ios_tests' do
+target 'unit_tests' do
   use_frameworks!
   use_modular_headers!
 
