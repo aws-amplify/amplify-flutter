@@ -65,7 +65,7 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B718B1A53547EED9E2EB037 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
-		9C9BEE6627B33B4100BFA30D /* amplify_auth_cognito_ios_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = amplify_auth_cognito_ios_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C9BEE6627B33B4100BFA30D /* unit_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = unit_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C9BEE6827B33B4100BFA30D /* amplify_auth_cognito_ios_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amplify_auth_cognito_ios_tests.swift; sourceTree = "<group>"; };
 		9C9BEE7027B43E2C00BFA30D /* MockAuthSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthSession.swift; sourceTree = "<group>"; };
 		9C9BEE7227B43E4F00BFA30D /* MockErrorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockErrorConstants.swift; sourceTree = "<group>"; };
@@ -113,7 +113,7 @@
 			children = (
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
-				9C9BEE6727B33B4100BFA30D /* amplify_auth_cognito_ios_tests */,
+				9C9BEE6727B33B4100BFA30D /* unit_tests */,
 				97C146EF1CF9000F007C117D /* Products */,
 				D64AB42BC43734BFC935987A /* Pods */,
 				C16A44E8FE13650B630BC327 /* Frameworks */,
@@ -124,7 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
-				9C9BEE6627B33B4100BFA30D /* amplify_auth_cognito_ios_tests.xctest */,
+				9C9BEE6627B33B4100BFA30D /* unit_tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -144,7 +144,7 @@
 			path = Runner;
 			sourceTree = "<group>";
 		};
-		9C9BEE6727B33B4100BFA30D /* amplify_auth_cognito_ios_tests */ = {
+		9C9BEE6727B33B4100BFA30D /* unit_tests */ = {
 			isa = PBXGroup;
 			children = (
 				9C9BEE7827B43FE400BFA30D /* amplify_auth_cognito_error_handler_tests.swift */,
@@ -154,7 +154,7 @@
 				9C9BEE7027B43E2C00BFA30D /* MockAuthSession.swift */,
 				9C9BEE7227B43E4F00BFA30D /* MockErrorConstants.swift */,
 			);
-			path = amplify_auth_cognito_ios_tests;
+			path = unit_tests;
 			sourceTree = "<group>";
 		};
 		C16A44E8FE13650B630BC327 /* Frameworks */ = {
@@ -204,9 +204,9 @@
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9C9BEE6527B33B4100BFA30D /* amplify_auth_cognito_ios_tests */ = {
+		9C9BEE6527B33B4100BFA30D /* unit_tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9C9BEE6C27B33B4100BFA30D /* Build configuration list for PBXNativeTarget "amplify_auth_cognito_ios_tests" */;
+			buildConfigurationList = 9C9BEE6C27B33B4100BFA30D /* Build configuration list for PBXNativeTarget "unit_tests" */;
 			buildPhases = (
 				A8E851DE3A67B4ABC792091E /* [CP] Check Pods Manifest.lock */,
 				9C9BEE6227B33B4100BFA30D /* Sources */,
@@ -219,9 +219,9 @@
 			dependencies = (
 				9C9BEE6B27B33B4100BFA30D /* PBXTargetDependency */,
 			);
-			name = amplify_auth_cognito_ios_tests;
+			name = unit_tests;
 			productName = amplify_auth_cognito_ios_tests;
-			productReference = 9C9BEE6627B33B4100BFA30D /* amplify_auth_cognito_ios_tests.xctest */;
+			productReference = 9C9BEE6627B33B4100BFA30D /* unit_tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -258,7 +258,7 @@
 			projectRoot = "";
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
-				9C9BEE6527B33B4100BFA30D /* amplify_auth_cognito_ios_tests */,
+				9C9BEE6527B33B4100BFA30D /* unit_tests */,
 			);
 		};
 /* End PBXProject section */
@@ -780,7 +780,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9C9BEE6C27B33B4100BFA30D /* Build configuration list for PBXNativeTarget "amplify_auth_cognito_ios_tests" */ = {
+		9C9BEE6C27B33B4100BFA30D /* Build configuration list for PBXNativeTarget "unit_tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9C9BEE6D27B33B4100BFA30D /* Debug */,
