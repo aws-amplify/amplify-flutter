@@ -260,6 +260,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     }
     
     // Initial Save fails for QueryPredicate.all, so we must pass nil instead
+    // TODO: Amplify iOS should change .all initial save behavior to work.
+    // Afterwards, we can remove this function and safely pass .all as our default queryPredicates
+    // Relevant Amplify iOS issue: https://github.com/aws-amplify/amplify-ios/issues/1636
     func filterQueryPredicateAll(queryPredicates: QueryPredicate) -> QueryPredicate? {
         if let queryPredicateConstant = queryPredicates as? QueryPredicateConstant {
             switch queryPredicateConstant {
@@ -309,7 +312,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 flutterResult: flutterResult)
         }
         catch {
-            print("An unexpected error occured when parsing save arguments: \(error)")
+            print("An unexpected error occurred when parsing save arguments: \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
                                                               flutterResult: flutterResult)
         }
