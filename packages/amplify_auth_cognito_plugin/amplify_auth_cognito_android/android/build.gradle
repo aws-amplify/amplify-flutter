@@ -28,7 +28,7 @@ apply from: './coverage.gradle'
 def amplifyCore = findProject(':amplify_core')
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
