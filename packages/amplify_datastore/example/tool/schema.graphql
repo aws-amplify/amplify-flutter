@@ -12,7 +12,7 @@ type Post @model {
   title: String!
   rating: Int!
   created: AWSDateTime
-  blogID: ID! @index(name: "byBlog")
+  blogID: ID @index(name: "byBlog")
   blog: Blog @belongsTo(fields: ["blogID"])
   comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
   tags: [Tag] @manyToMany(relationName: "PostTags")
