@@ -23,6 +23,8 @@ import 'boolean_query_predicate_test.dart' as boolean_query_predicate_tests;
 import 'enum_query_predicate_test.dart' as enum_query_predicate_tests;
 import 'compound_query_predicate_test.dart' as compound_query_predicate_tests;
 import 'aws_date_query_predicate_test.dart' as aws_date_query_predicate_test;
+import 'aws_date_time_query_predicate_test.dart'
+    as aws_date_time_query_predicate_test;
 import 'aws_time_query_predicate_test.dart' as aws_time_query_predicate_test;
 import 'aws_timestamp_query_predicate_test.dart'
     as aws_timestamp_query_predicate_tests;
@@ -38,9 +40,7 @@ void main() async {
     enum_query_predicate_tests.main();
     compound_query_predicate_tests.main();
     aws_date_query_predicate_test.main();
-    // TODO: enable AWSDateTime test suite when this issue gets resolved:
-    //  https://github.com/aws-amplify/amplify-flutter/issues/1245
-    // aws_date_time_query_predicate_test.main();
+    aws_date_time_query_predicate_test.main();
     aws_time_query_predicate_test.main();
     aws_timestamp_query_predicate_tests.main();
   });
