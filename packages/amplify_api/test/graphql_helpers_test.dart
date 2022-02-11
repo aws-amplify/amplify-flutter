@@ -146,8 +146,39 @@ void main() {
                 request: req, data: data, errors: errors);
 
         expect(response.data, isA<PaginatedResult<Blog>>());
-        expect(response.data?.items, isA<List<Blog>>());
+        expect(response.data?.items, isA<List<Blog?>>());
         expect(response.data?.items.length, 2);
+      });
+
+      test(
+          'ModelQueries.list() should decode gracefully when there is a null in the items list',
+          () async {
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, limit: 2);
+
+        List<GraphQLResponseError> errors = [];
+        String data = '''{
+          "listBlogs": {
+              "items": [
+                {
+                  "id": "test-id-1",
+                  "name": "Test Blog 1",
+                  "createdAt": "2021-07-29T23:09:58.441Z"
+                },
+                null
+              ],
+              "nextToken": "super-secret-next-token"
+            }
+        }''';
+
+        GraphQLResponse<PaginatedResult<Blog>> response =
+            GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
+                request: req, data: data, errors: errors);
+
+        expect(response.data, isA<PaginatedResult<Blog>>());
+        expect(response.data?.items, isA<List<Blog?>>());
+        expect(response.data?.items.length, 2);
+        expect(response.data?.items[1], isNull);
       });
 
       test(

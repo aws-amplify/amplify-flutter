@@ -100,7 +100,8 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
   // check for list at top-level and tranform each entry
   if (isPaginated && _input[items] is List) {
     final transformedItems = (_input[items] as List)
-        .map((dynamic e) => transformAppSyncJsonToModelJson(e, modelSchema))
+        .map((dynamic e) =>
+            e != null ? transformAppSyncJsonToModelJson(e, modelSchema) : null)
         .toList();
     _input.update(items, (dynamic value) => transformedItems);
     return _input;

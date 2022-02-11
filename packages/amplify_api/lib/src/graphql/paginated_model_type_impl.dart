@@ -15,10 +15,10 @@ class PaginatedModelTypeImpl<T extends Model> extends PaginatedModelType<T> {
     }
 
     final items = itemsJson
-        .cast<Map>()
+        .cast<Map?>()
         .map(
           // ignore: implicit_dynamic_method
-          (e) => modelType.fromJson(e.cast()),
+          (e) => e != null ? modelType.fromJson(e.cast()) : null,
         )
         .toList();
 

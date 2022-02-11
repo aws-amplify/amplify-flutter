@@ -18,7 +18,7 @@ import 'package:amplify_core/amplify_core.dart';
 import '../../types.dart';
 
 abstract class PaginatedResult<T extends Model> extends Model {
-  final List<T> items;
+  final List<T?> items;
   final int? limit;
   final String? nextToken;
   final Map<String, dynamic>? filter;
