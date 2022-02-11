@@ -117,7 +117,7 @@ jobs:
       - store_artifacts:
           path: ~/test-results/failures
 
-  unit_test_ios_api:
+  unit_test_ios:
     executor: macos-executor
     parameters:
       plugin:
@@ -154,7 +154,7 @@ jobs:
       - store_artifacts:
           path: ~/test-results/junit
 
-  unit_test_android_api:
+  unit_test_android:
     executor: docker-executor
     parameters:
       plugin:
