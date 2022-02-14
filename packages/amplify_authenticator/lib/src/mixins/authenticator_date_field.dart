@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
 */
 
-import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -43,7 +42,6 @@ mixin AuthenticatorDateField<FieldType,
 
   @override
   Widget buildFormField(BuildContext context) {
-    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final inputResolver = stringResolver.inputs;
     final hintText = widget.hintText == null
         ? inputResolver.resolve(context, widget.hintTextKey!)
@@ -81,7 +79,7 @@ mixin AuthenticatorDateField<FieldType,
           onPressed: _pickTime,
         ),
         errorMaxLines: errorMaxLines,
-        labelText: useAmplifyTheme ? null : labelText,
+        labelText: labelText,
         hintText: hintText,
       ),
       keyboardType: TextInputType.datetime,

@@ -49,7 +49,6 @@ export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
 export 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 export 'package:amplify_authenticator/src/state/authenticator_state.dart';
-export 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 export 'package:amplify_authenticator/src/widgets/button.dart';
 export 'package:amplify_authenticator/src/widgets/form.dart';
 export 'package:amplify_flutter/amplify_flutter.dart'
@@ -150,8 +149,6 @@ export 'src/widgets/form_field.dart'
 /// ### Themeing
 ///
 /// By default, the Authenticator uses your app's Material theme for its styling.
-/// However, you can also use the a hand-crafted Amplify theme by setting
-/// [useAmplifyTheme] to `true`.
 ///
 /// ### Forms
 ///
@@ -286,7 +283,6 @@ class Authenticator extends StatefulWidget {
     this.confirmSignInNewPasswordForm,
     this.stringResolver = const AuthStringResolver(),
     required this.child,
-    this.useAmplifyTheme = false,
     this.onException,
     this.exceptionBannerLocation = ExceptionBannerLocation.auto,
     this.preferPrivateSession = false,
@@ -332,12 +328,6 @@ class Authenticator extends StatefulWidget {
         }
         return _AuthenticatorBody(child: child);
       };
-
-  /// Whether to use Amplify colors and styles in the Authenticator,
-  /// instead of those defined by the app's Material [Theme].
-  ///
-  /// Defaults to `false`.
-  final bool useAmplifyTheme;
 
   // Padding around each authenticator view
   final EdgeInsets padding;
@@ -424,8 +414,6 @@ class Authenticator extends StatefulWidget {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<AuthStringResolver>(
         'stringResolver', stringResolver));
-    properties
-        .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
     properties.add(
         ObjectFlagProperty<ExceptionHandler?>.has('onException', onException));
     properties.add(EnumProperty<ExceptionBannerLocation>(
@@ -526,7 +514,6 @@ class _AuthenticatorState extends State<Authenticator> {
         ..clearMaterialBanners()
         ..showMaterialBanner(createMaterialBanner(
           scaffoldMessengerContext,
-          useAmplifyTheme: widget.useAmplifyTheme,
           type: type,
           content: content,
           actions: [
@@ -543,7 +530,6 @@ class _AuthenticatorState extends State<Authenticator> {
           scaffoldMessengerContext,
           type: type,
           content: content,
-          useAmplifyTheme: widget.useAmplifyTheme,
         ));
     }
   }
@@ -637,7 +623,6 @@ class _AuthenticatorState extends State<Authenticator> {
       authBloc: _stateMachineBloc,
       child: InheritedConfig(
         amplifyConfig: _config,
-        useAmplifyTheme: widget.useAmplifyTheme,
         padding: widget.padding,
         child: InheritedAuthenticatorState(
           key: keyInheritedAuthenticatorState,

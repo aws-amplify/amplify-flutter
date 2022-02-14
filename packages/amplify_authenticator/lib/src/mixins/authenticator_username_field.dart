@@ -16,7 +16,6 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
-import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
@@ -219,7 +218,6 @@ mixin AuthenticatorUsernameField<FieldType,
 
   @override
   Widget buildFormField(BuildContext context) {
-    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final inputResolver = stringResolver.inputs;
     final hintText = inputResolver.resolve(context, hintKey);
 
@@ -247,7 +245,6 @@ mixin AuthenticatorUsernameField<FieldType,
         enabled: enabled,
         errorMaxLines: errorMaxLines,
         initialValue: state.getAttribute(CognitoUserAttributeKey.phoneNumber),
-        useAmplifyTheme: useAmplifyTheme,
       );
     }
     return TextFormField(
@@ -265,7 +262,7 @@ mixin AuthenticatorUsernameField<FieldType,
         prefixIcon: prefix,
         suffixIcon: suffix,
         errorMaxLines: errorMaxLines,
-        labelText: useAmplifyTheme ? null : labelText,
+        labelText: labelText,
         hintText: hintText,
       ),
       keyboardType: keyboardType,

@@ -23,29 +23,12 @@ MaterialBanner createMaterialBanner(
   required StatusType type,
   required Widget content,
   required List<Widget> actions,
-  required bool useAmplifyTheme,
 }) {
-  // final bool isDark = Theme.of(context).brightness == Brightness.dark;
   final margin = MediaQuery.of(context).viewPadding.top;
 
   return MaterialBanner(
     key: keyAuthenticatorBanner,
-    // backgroundColor:
-    //     useAmplifyTheme ? type.backgroundColor(context, isDark: isDark) : null,
-    contentTextStyle:
-        // useAmplifyTheme
-        // ? TextStyle(
-        //     fontSize: 16,
-        //     color: isDark ? AmplifyColors.white : AmplifyColors.black,
-        //   )
-        // :
-        MaterialBannerTheme.of(context).contentTextStyle,
-    leading: Icon(type.icon,
-        size: useAmplifyTheme ? 16 : null,
-        color: MaterialBannerTheme.of(context).contentTextStyle?.color
-        // ??
-        //     (isDark ? AmplifyColors.white : AmplifyColors.black),
-        ),
+    leading: Icon(type.icon),
     padding: EdgeInsetsDirectional.only(
       start: 16.0,
       top: 2.0 + margin,
@@ -60,36 +43,12 @@ SnackBar createSnackBar(
   BuildContext context, {
   required StatusType type,
   required Widget content,
-  required bool useAmplifyTheme,
 }) {
-  final bool isDark = Theme.of(context).brightness == Brightness.dark;
-  var foregroundColor = Theme.of(context).snackBarTheme.contentTextStyle?.color;
-  // if (useAmplifyTheme) {
-  //   foregroundColor ??= isDark ? AmplifyColors.white : AmplifyColors.black;
-  // } else {
-  //   foregroundColor ??= isDark ? AmplifyColors.black : AmplifyColors.white;
-  // }
-  if (useAmplifyTheme) {
-    content = DefaultTextStyle(
-      style: TextStyle(
-        fontSize: 16,
-        color: foregroundColor,
-      ),
-      child: content,
-    );
-  }
-
   return SnackBar(
     key: keyAuthenticatorBanner,
-    // backgroundColor:
-    //     useAmplifyTheme ? type.backgroundColor(context, isDark: isDark) : null,
     content: Row(
       children: [
-        Icon(
-          type.icon,
-          size: useAmplifyTheme ? 16 : null,
-          color: foregroundColor,
-        ),
+        Icon(type.icon),
         const SizedBox(width: 16),
         Expanded(child: content),
       ],
@@ -98,23 +57,6 @@ SnackBar createSnackBar(
 }
 
 extension on StatusType {
-  // Color? backgroundColor(
-  //   BuildContext context, {
-  //   required bool isDark,
-  // }) {
-  //   final theme = Theme.of(context);
-  //   switch (this) {
-  //     case StatusType.info:
-  //       return isDark ? theme.backgroundInfoDark : theme.backgroundInfo;
-  //     case StatusType.success:
-  //       return isDark ? theme.backgroundSuccessDark : theme.backgroundSuccess;
-  //     case StatusType.warning:
-  //       return isDark ? theme.backgroundWarningDark : theme.backgroundWarning;
-  //     case StatusType.error:
-  //       return isDark ? theme.backgroundErrorDark : theme.backgroundError;
-  //   }
-  // }
-
   IconData get icon {
     switch (this) {
       case StatusType.info:
