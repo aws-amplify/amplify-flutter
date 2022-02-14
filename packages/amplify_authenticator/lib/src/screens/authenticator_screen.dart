@@ -98,10 +98,7 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
 
     return Container(
       constraints: BoxConstraints(maxWidth: containerWidth),
-      color: Theme.of(context).backgroundColor,
-      child: SafeArea(
-        child: child,
-      ),
+      child: SafeArea(child: child),
     );
   }
 
@@ -205,6 +202,14 @@ class _AuthenticatorTabViewState
     setState(() {});
   }
 
+  Color getTabLabelColor(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final labelColor = Theme.of(context).tabBarTheme.labelColor;
+    final textColor = Theme.of(context).textTheme.bodyText1?.color;
+    final fallbackColor = isDark ? Colors.white : Colors.black;
+    return labelColor ?? textColor ?? fallbackColor;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -218,8 +223,7 @@ class _AuthenticatorTabViewState
                 text: stringResolver.buttons.resolve(context, tab.tabTitle),
               ),
           ],
-          // labelColor: Theme.of(context).tabBarTheme.labelColor,
-          // indicatorColor: Theme.of(context).tabBarTheme.indicator .tabIndicatorColor,
+          labelColor: getTabLabelColor(context),
         ),
         _FormWrapperView(step: selectedTab),
       ],

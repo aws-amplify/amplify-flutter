@@ -34,6 +34,8 @@ void main() {
     String? amplifyConfig,
   }) {
     return MaterialApp(
+      theme: lightTheme,
+      darkTheme: darkTheme,
       themeMode: ThemeMode.system,
       localizationsDelegates: AuthenticatorLocalizations.localizationsDelegates,
       home: Scaffold(
