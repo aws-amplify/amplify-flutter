@@ -126,4 +126,4 @@ if [ $test_failure -eq 1 ]; then
 else
     echo "${plugin} tests PASSED."
     exit 0
-fi 
+fi

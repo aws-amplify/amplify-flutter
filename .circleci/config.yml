@@ -169,7 +169,7 @@ jobs:
       - run:
           name: Build example APKs
           command: |
-            melos run build:examples:android << parameters.plugin >>
+            melos run build:examples:android:<< parameters.plugin >>
           no_output_timeout: 20m
       - run:
           name: Run lint checks

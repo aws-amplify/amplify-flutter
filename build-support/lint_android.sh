@@ -5,6 +5,8 @@ set -euo pipefail
 # Set plugin to variable passed from circle config
 plugin=$2
 
+echo $plugin
+
 cd ./packages/$2/example/android
 
 # Run in background to prevent Melos from hanging
