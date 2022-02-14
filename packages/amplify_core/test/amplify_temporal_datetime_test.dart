@@ -46,7 +46,7 @@ void main() {
 
     expect(time.getOffset(), Duration());
     expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30));
-    expect(time.format(), "1995-05-03T03:30:00.000000000Z");
+    expect(time.format(), "1995-05-03T03:30:00Z");
   });
 
   test('AWSDateTime from string YYYY-MM-DDThh:mm:ssZ success', () async {
@@ -54,7 +54,7 @@ void main() {
 
     expect(time.getOffset(), Duration());
     expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30, 25));
-    expect(time.format(), "1995-05-03T03:30:25.000000000Z");
+    expect(time.format(), "1995-05-03T03:30:25Z");
   });
 
   test('AWSDateTime from string YYYY-MM-DDThh:mm:ss.sssZ success', () async {
@@ -74,7 +74,7 @@ void main() {
 
     expect(time.getOffset(), duration);
     expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30));
-    expect(time.format(), "1995-05-03T03:30:00.000000000+03:25");
+    expect(time.format(), "1995-05-03T03:30:00+03:25");
   });
 
   test('AWSDateTime from string YYYY-MM-DDThh:mm-hh:mm success', () async {
@@ -84,7 +84,7 @@ void main() {
 
     expect(time.getOffset(), duration);
     expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30));
-    expect(time.format(), "1995-05-03T03:30:00.000000000-03:25");
+    expect(time.format(), "1995-05-03T03:30:00-03:25");
   });
 
   test('AWSDateTime from string YYYY-MM-DDThh:mm+hh:mm:ss success', () async {
@@ -94,7 +94,7 @@ void main() {
 
     expect(time.getOffset(), duration);
     expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30));
-    expect(time.format(), "1995-05-03T03:30:00.000000000+03:25:55");
+    expect(time.format(), "1995-05-03T03:30:00+03:25:55");
   });
 
   test('AWSDateTime from string YYYY-MM-DDThh:mm:ss+hh:mm:ss success',
@@ -105,7 +105,7 @@ void main() {
 
     expect(time.getOffset(), duration);
     expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30, 25));
-    expect(time.format(), "1995-05-03T03:30:25.000000000+03:25:55");
+    expect(time.format(), "1995-05-03T03:30:25+03:25:55");
   });
 
   test('AWSDateTime from string YYYY-MM-DDThh:mm:ss.sss+hh:mm:ss success',

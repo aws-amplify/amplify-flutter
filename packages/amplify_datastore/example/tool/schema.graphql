@@ -1,6 +1,8 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY {
   globalAuthRule: AuthRule = { allow: public }
-}
+} # FOR TESTING ONLY!
 type Blog @model {
   id: ID!
   name: String!
@@ -31,6 +33,7 @@ type Tag @model {
   posts: [Post] @manyToMany(relationName: "PostTags")
 }
 
+# scalar types, enum and CustomType
 type ModelWithAppsyncScalarTypes @model {
   id: ID!
   stringValue: String
@@ -109,6 +112,9 @@ type SimpleCustomType {
   foo: String!
 }
 
+# Model relationships
+
+# models with has one relationship
 type HasOneParent @model {
   id: ID!
   name: String
@@ -122,6 +128,7 @@ type HasOneChild @model {
   name: String
 }
 
+# models with has many relationship
 type HasManyParent @model {
   id: ID!
   name: String
@@ -168,6 +175,7 @@ type HasManyChildBiDirectionalExplicit @model {
     @belongsTo(fields: ["hasManyParentId"])
 }
 
+# models with belongs to relationship
 type BelongsToParent @model {
   id: ID!
   name: String
@@ -188,6 +196,7 @@ type BelongsToChildExplicit @model {
   belongsToParent: BelongsToParent @belongsTo(fields: ["belongsToParentID"])
 }
 
+# models with multiple relationships
 type MultiRelatedMeeting @model {
   id: ID! @primaryKey
   title: String!
