@@ -1,16 +1,20 @@
+
 #!/bin/bash
 
 set -euo pipefail
 
-# Set plugin to variable passed from circle config
-plugin=$2
+# Script is run from example/ folder. 
+# Pop up a dir to get the package we're testing.
+pushd ..
+project=$(basename $PWD)
+popd
 
-echo $plugin
+cd android
 
-cd ./packages/$2/example/android
+echo $project
 
 # Run in background to prevent Melos from hanging
-./gradlew :"$plugin"_example:lintDebug --no-rebuild --no-daemon --stacktrace &
+./gradlew :$project:lintDebug --no-rebuild --no-daemon --stacktrace &
 gradle_pid=$!
 
 if ! wait $gradle_pid; then
