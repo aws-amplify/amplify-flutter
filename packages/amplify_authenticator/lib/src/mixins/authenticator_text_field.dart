@@ -14,7 +14,6 @@
 */
 
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
-import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +37,7 @@ mixin AuthenticatorTextField<FieldType,
         return TextFormField(
           style: enabled
               ? null
-              : TextStyle(color: AmplifyTheme.of(context).fontDisabled),
+              : TextStyle(color: Theme.of(context).disabledColor),
           initialValue: initialValue,
           enabled: enabled,
           validator: widget.validatorOverride ?? validator,

@@ -39,7 +39,6 @@ import 'package:amplify_authenticator/src/state/inherited_authenticator_state.da
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
-import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_banner.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -50,6 +49,7 @@ export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
 export 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 export 'package:amplify_authenticator/src/state/authenticator_state.dart';
+export 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 export 'package:amplify_authenticator/src/widgets/button.dart';
 export 'package:amplify_authenticator/src/widgets/form.dart';
 export 'package:amplify_flutter/amplify_flutter.dart'
@@ -717,13 +717,9 @@ class _AuthStateBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     final authenticatorBuilder = InheritedAuthenticatorBuilder.of(context);
     final stateMachineBloc = InheritedAuthBloc.of(context);
-    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final userAppTheme = Theme.of(context);
-    final bool isDark = AmplifyTheme.of(context).isDark;
     return Theme(
-      data: useAmplifyTheme
-          ? (isDark ? AmplifyTheme.dark : AmplifyTheme.light)
-          : userAppTheme,
+      data: userAppTheme,
       child: StreamBuilder(
         stream: stateMachineBloc.stream,
         builder: (context, AsyncSnapshot<AuthState> snapshot) {
@@ -780,7 +776,7 @@ class _AuthenticatorBody extends StatelessWidget {
                 child: ScaffoldMessenger(
                   key: _AuthenticatorState.scaffoldMessengerKey,
                   child: Scaffold(
-                    backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
+                    backgroundColor: Theme.of(context).backgroundColor,
                     body: SizedBox.expand(
                       child: child is AuthenticatorScreen
                           ? SingleChildScrollView(child: child)
@@ -821,7 +817,7 @@ class AuthenticatedView extends StatelessWidget {
         return ScaffoldMessenger(
           key: _AuthenticatorState.scaffoldMessengerKey,
           child: Scaffold(
-            backgroundColor: AmplifyTheme.of(context).backgroundPrimary,
+            backgroundColor: Theme.of(context).backgroundColor,
             body: SizedBox.expand(
               child: child is AuthenticatorScreen
                   ? SingleChildScrollView(child: child)

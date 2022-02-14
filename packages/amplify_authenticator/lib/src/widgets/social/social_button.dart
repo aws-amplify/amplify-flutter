@@ -18,7 +18,6 @@ import 'dart:math';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/state/authenticator_state.dart';
-import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
@@ -143,7 +142,7 @@ class _SocialSignInButtonState
   static const _spacing = 5.0;
 
   Widget get icon {
-    final bool isDark = AmplifyTheme.of(context).isDark;
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     switch (widget.provider) {
       case AuthProvider.google:
         return SocialIcons.googleLogo;
@@ -188,26 +187,26 @@ class _SocialSignInButtonState
       height: 40,
       child: OutlinedButton(
         focusNode: focusNode,
-        style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.disabled)) {
-              return AmplifyTheme.of(context).fontDisabled;
-            }
-            return AmplifyTheme.of(context).fontPrimary;
-          }),
-          side: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.disabled)) {
-              return BorderSide(
-                width: 0,
-                color: AmplifyTheme.of(context).fontDisabled,
-              );
-            }
-            return BorderSide(
-              width: 0,
-              color: AmplifyTheme.of(context).fontPrimary,
-            );
-          }),
-        ),
+        // style: ButtonStyle(
+        //   foregroundColor: MaterialStateProperty.resolveWith((states) {
+        //     if (states.contains(MaterialState.disabled)) {
+        //       return AmplifyTheme.of(context).fontDisabled;
+        //     }
+        //     return AmplifyTheme.of(context).fontPrimary;
+        //   }),
+        //   side: MaterialStateProperty.resolveWith((states) {
+        //     if (states.contains(MaterialState.disabled)) {
+        //       return BorderSide(
+        //         width: 0,
+        //         color: AmplifyTheme.of(context).fontDisabled,
+        //       );
+        //     }
+        //     return BorderSide(
+        //       width: 0,
+        //       color: AmplifyTheme.of(context).fontPrimary,
+        //     );
+        //   }),
+        // ),
         onPressed: state.isBusy
             ? null
             : () => state.signInWithProvider(widget.provider),

@@ -106,8 +106,8 @@ class _MyAppState extends State<MyApp> {
       // Your MaterialApp should be the child of the Authenticator.
       child: MaterialApp(
         title: 'Authenticator Demo',
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
+        theme: AmplifyTheme.light,
+        darkTheme: AmplifyTheme.dark,
         themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
 

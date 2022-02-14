@@ -14,7 +14,6 @@
 */
 
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
-import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -69,7 +68,7 @@ mixin AuthenticatorDateField<FieldType,
       style: enabled
           ? null
           : TextStyle(
-              color: AmplifyTheme.of(context).fontDisabled,
+              color: Theme.of(context).disabledColor,
             ),
       enabled: enabled,
       readOnly: true,
