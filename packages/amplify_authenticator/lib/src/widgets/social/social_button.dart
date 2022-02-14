@@ -180,6 +180,22 @@ class _SocialSignInButtonState
     );
   }
 
+  MaterialStateProperty<Color?> getButtonForegroundColor(BuildContext context) {
+    final theme = Theme.of(context);
+    final foregroundColor = theme.outlinedButtonTheme.style?.foregroundColor;
+    if (foregroundColor != null) {
+      return foregroundColor;
+    }
+
+    final bodyTextColor = theme.textTheme.bodyText1?.color;
+    if (bodyTextColor != null) {
+      MaterialStateProperty.all(theme.textTheme.bodyText1?.color);
+    }
+
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    return MaterialStateProperty.all(isDark ? Colors.white : Colors.black);
+  }
+
   @override
   Widget build(BuildContext context) {
     final resolver = stringResolver.buttons;
@@ -187,26 +203,9 @@ class _SocialSignInButtonState
       height: 40,
       child: OutlinedButton(
         focusNode: focusNode,
-        // style: ButtonStyle(
-        //   foregroundColor: MaterialStateProperty.resolveWith((states) {
-        //     if (states.contains(MaterialState.disabled)) {
-        //       return AmplifyTheme.of(context).fontDisabled;
-        //     }
-        //     return AmplifyTheme.of(context).fontPrimary;
-        //   }),
-        //   side: MaterialStateProperty.resolveWith((states) {
-        //     if (states.contains(MaterialState.disabled)) {
-        //       return BorderSide(
-        //         width: 0,
-        //         color: AmplifyTheme.of(context).fontDisabled,
-        //       );
-        //     }
-        //     return BorderSide(
-        //       width: 0,
-        //       color: AmplifyTheme.of(context).fontPrimary,
-        //     );
-        //   }),
-        // ),
+        style: ButtonStyle(
+          foregroundColor: getButtonForegroundColor(context),
+        ),
         onPressed: state.isBusy
             ? null
             : () => state.signInWithProvider(widget.provider),
