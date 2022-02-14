@@ -720,6 +720,36 @@ void main() {
         expect(output, expectedOutput);
       });
 
+      test('should translate list with a null entry to expected format', () {
+        final input = <String, dynamic>{
+          'items': [
+            {
+              'id': 'xyz456',
+              'title': 'Lorem Ipsum',
+              'rating': 0,
+              'blog': {'id': 'abc123', 'title': 'blog about life'}
+            },
+            null
+          ]
+        };
+        final expectedOutput = <String, dynamic>{
+          'items': [
+            {
+              'id': 'xyz456',
+              'title': 'Lorem Ipsum',
+              'rating': 0,
+              'blog': {
+                'serializedData': {'id': 'abc123', 'title': 'blog about life'}
+              }
+            },
+            null
+          ]
+        };
+        final output = transformAppSyncJsonToModelJson(input, Post.schema,
+            isPaginated: true);
+        expect(output, expectedOutput);
+      });
+
       test('should result in no-op if wrong schema provided', () {
         final input = <String, dynamic>{
           'id': 'xyz456',
