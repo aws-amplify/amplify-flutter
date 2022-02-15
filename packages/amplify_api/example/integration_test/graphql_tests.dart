@@ -202,7 +202,11 @@ void main() {
         var secondRes = await Amplify.API.query(request: secondReq!).response;
         var secondData = secondRes.data;
         expect(secondData?.items.length, limit);
-        expect(secondData?.items[0].id, isNot(firstData?.items[0].id));
+        final firstId = firstData?.items[0]?.id;
+        final secondId = secondData?.items[0]?.id;
+        expect(firstId?.isNotEmpty, isTrue);
+        expect(secondId?.isNotEmpty, isTrue);
+        expect(firstId, isNot(secondId));
       });
 
       testWidgets('should LIST blogs with Model helper with query predicate',
