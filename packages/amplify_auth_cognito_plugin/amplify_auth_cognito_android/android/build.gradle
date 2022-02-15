@@ -39,7 +39,7 @@ android {
         minSdkVersion 21
     }
     lintOptions {
-        abortOnError false
+        disable 'InvalidPackage'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
