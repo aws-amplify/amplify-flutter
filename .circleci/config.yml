@@ -191,13 +191,10 @@ workflows:
                   "amplify_auth_cognito",
                   "amplify_core",
                   "amplify_datastore",
-<<<<<<< HEAD
                   "amplify_datastore_plugin_interface",
                   "amplify_flutter",
                   "amplify_storage_plugin_interface",
-=======
                   "amplify_flutter",
->>>>>>> e5ec7f6d (chore: use circleci job matrices)
                   "amplify_storage_s3",
                 ]
       - unit_test_android:
