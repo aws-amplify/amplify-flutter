@@ -2,16 +2,7 @@
 
 cd packages || exit
 
-<<<<<<< HEAD
 test_failure=0
-=======
-passed_plugins=()
-failed_plugins=()
-
-set +e
-set -o pipefail
-
->>>>>>> 7583a1c4 (removed skipped plugins variable)
 # TODO: FIND OUT WHY ARGS ARE SENT OUT OF ORDER
 test_suite=$1
 plugin=$3
@@ -25,11 +16,7 @@ set -o pipefail
 if [ -d "${plugin}_plugin" ]; then
     cd "./${plugin}_plugin/" || exit
 else
-<<<<<<< HEAD
     cd "./$plugin" || exit
-=======
-    cd "./$plugin_dir" || exit
->>>>>>> 7583a1c4 (removed skipped plugins variable)
 fi
 
 case $test_suite in
@@ -50,11 +37,7 @@ case $test_suite in
             fi
         else
             echo "FAILED: Expected Flutter unit tests for $plugin don't exist or where not found."
-<<<<<<< HEAD
             test_failure=1
-=======
-            failed_plugins+=("$plugin")
->>>>>>> 7583a1c4 (removed skipped plugins variable)
         fi
         cd $project_root_dir
         ;;
@@ -92,11 +75,7 @@ case $test_suite in
 
         else
             echo "FAILED: Expected Android unit tests for $plugin don't exist or where not found."
-<<<<<<< HEAD
             test_failure=1
-=======
-            failed_plugins+=("$plugin")
->>>>>>> 7583a1c4 (removed skipped plugins variable)
         fi
         ;;
     ios-test)
