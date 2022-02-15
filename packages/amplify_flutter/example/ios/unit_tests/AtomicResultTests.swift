@@ -90,6 +90,6 @@ class AtomicResultTests: XCTestCase {
             exp.fulfill()
         }
         
-        waitForExpectations(timeout: 0.2)
+        waitForExpectations(timeout: 0.3)
     }
 }
