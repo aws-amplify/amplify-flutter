@@ -115,7 +115,7 @@ class GraphQLApiUnitTests: XCTestCase {
                     XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
 
                     let errorMap: [String: String] = exception.details as! [String : String]
-                    XCTAssertEqual("The graphQL document request argument was not passed as a String", errorMap["message"])
+                    XCTAssertEqual("The graphQL document request argument was not passed as a String 'TEMP!'", errorMap["message"])
                     XCTAssertEqual("The request should include the graphQL document as a String", errorMap["recoverySuggestion"])
                 } else {
                     XCTFail()

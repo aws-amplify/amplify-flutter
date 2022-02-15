@@ -66,7 +66,7 @@ void main() {
     );
 
     var response = await operation.response;
-    expect(response.data, mutationResult.toString());
+    expect(response.data, 'TEMP!');
   });
 
   test('ModelMutations.create() executes correctly in the happy case',
