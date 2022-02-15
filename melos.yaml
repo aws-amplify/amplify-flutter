@@ -96,11 +96,11 @@ scripts:
 
   # AUTH
   build:examples:ios:amplify_auth_cognito: >
-    melos exec -c 1 --scope="amplify_auth_cognito_ios_example" --fail-fast -- \
+    melos exec -c 1 --scope="amplify_auth_cognito_example" --fail-fast -- \
       flutter build ios --simulator
 
   build:examples:android:amplify_auth_cognito: >
-    melos exec -c 1 --scope="amplify_auth_cognito_android_example" --fail-fast -- \
+    melos exec -c 1 --scope="amplify_auth_cognito_example" --fail-fast -- \
       flutter build apk --debug --verbose
 
   # TODO: LINT COGNITO PLUGIN
