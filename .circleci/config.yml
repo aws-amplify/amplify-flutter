@@ -128,11 +128,7 @@ jobs:
       - install_melos
       - run:
           name: Run lint checks
-<<<<<<< HEAD
           command: melos run lint:ios:<< parameters.plugin >>
-=======
-          command: melos run lint:iOS:<< parameters.plugin >>
->>>>>>> f74ce2cc (split up ios linting)
       - run:
           name: Pre-start iOS simulator
           # xcrun instruments returns non zero, but successfully starts the simulator
@@ -140,7 +136,7 @@ jobs:
       - run:
           name: Build example iOS apps
           command: |
-            melos run build:examples:ios << parameters.plugin >>
+            melos run build:examples:ios:<< parameters.plugin >>
       - run:
           name: Run iOS Unit Tests
           command: melos run test:unit:ios:plugin << parameters.plugin >>
