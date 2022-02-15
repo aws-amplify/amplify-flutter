@@ -11,8 +11,6 @@ popd
 
 cd android
 
-echo $project
-
 # Run in background to prevent Melos from hanging
 ./gradlew :$project:lintDebug --no-rebuild --no-daemon --stacktrace &
 gradle_pid=$!
