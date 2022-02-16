@@ -97,11 +97,11 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('query() has not been implemented.');
   }
 
-  Future<void> delete<T extends Model>(T model) {
+  Future<void> delete<T extends Model>(T model, {QueryPredicate? where}) {
     throw UnimplementedError('delete() has not been implemented.');
   }
 
-  Future<void> save<T extends Model>(T model) {
+  Future<void> save<T extends Model>(T model, {QueryPredicate? where}) {
     throw UnimplementedError('save() has not been implemented');
   }
 

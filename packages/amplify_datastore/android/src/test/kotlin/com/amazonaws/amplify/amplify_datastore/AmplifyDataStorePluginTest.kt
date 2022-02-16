@@ -399,14 +399,14 @@ class AmplifyDataStorePluginTest {
 
         doAnswer { invocation: InvocationOnMock ->
             assertEquals(serializedModel, invocation.arguments[0])
-            (invocation.arguments[1] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
+            (invocation.arguments[2] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
                 dataStoreItemChange
             )
             null as Void?
         }.`when`(mockAmplifyDataStorePlugin).delete(
             any<SerializedModel>(),
-            any<
-                    Consumer<DataStoreItemChange<SerializedModel>>>(),
+            any<QueryPredicate>(),
+            any<Consumer<DataStoreItemChange<SerializedModel>>>(),
             any<Consumer<DataStoreException>>()
         )
 
@@ -434,14 +434,14 @@ class AmplifyDataStorePluginTest {
 
         doAnswer { invocation: InvocationOnMock ->
             assertEquals(serializedModel, invocation.arguments[0])
-            (invocation.arguments[2] as Consumer<DataStoreException>).accept(
+            (invocation.arguments[3] as Consumer<DataStoreException>).accept(
                 dataStoreException
             )
             null as Void?
         }.`when`(mockAmplifyDataStorePlugin).delete(
             any<SerializedModel>(),
-            any<
-                    Consumer<DataStoreItemChange<SerializedModel>>>(),
+            any<QueryPredicate>(),
+            any<Consumer<DataStoreItemChange<SerializedModel>>>(),
             any<Consumer<DataStoreException>>()
         )
 
