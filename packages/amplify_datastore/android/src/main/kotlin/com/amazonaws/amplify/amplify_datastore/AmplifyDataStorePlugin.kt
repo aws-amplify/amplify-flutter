@@ -69,7 +69,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private val dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler
     private val uiThreadHandler = Handler(Looper.getMainLooper())
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
-    private var isSettingUpObserve = AtomicBoolean(false);
+    private var isSettingUpObserve = AtomicBoolean();
 
     val modelProvider = FlutterModelProvider.instance
 
@@ -397,13 +397,12 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     fun onSetUpObserve(flutterResult: Result) {
-        if (this::observeCancelable.isInitialized || isSettingUpObserve.get()) {
+        if (this::observeCancelable.isInitialized || isSettingUpObserve.getAndSet(true)) {
             flutterResult.success(true)
             return
         }
 
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
-        isSettingUpObserve.set(true);
         plugin.observe(
             { cancelable ->
                 LOG.info("Established a new stream form flutter $cancelable")

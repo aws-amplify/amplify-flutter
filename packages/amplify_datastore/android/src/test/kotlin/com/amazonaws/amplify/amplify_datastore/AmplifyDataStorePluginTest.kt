@@ -694,6 +694,10 @@ class AmplifyDataStorePluginTest {
 
         flutterPlugin.onSetUpObserve(mockResult)
 
+        // when the observe consume receive normal error events, `flutterResult` won't be invoked
+        verify(mockResult, times(0)).success(true)
+        verify(mockResult, times(0)).success(false)
+
         verify(mockStreamHandler, times(1)).error(
             "DataStoreException",
             mapOf(

@@ -230,7 +230,7 @@ class DataStorePluginUnitTests: XCTestCase {
         pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
-            XCTAssertEqual(result as! Bool, true)
+            XCTAssertTrue(result as! Bool)
         })
 
         dataStoreBridge.mockPublisher.send(MutationEvent(
@@ -270,7 +270,7 @@ class DataStorePluginUnitTests: XCTestCase {
         pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
-            XCTAssertEqual(result as! Bool, true)
+            XCTAssertTrue(result as! Bool)
         })
 
         dataStoreBridge.mockPublisher.send(MutationEvent(
@@ -309,7 +309,7 @@ class DataStorePluginUnitTests: XCTestCase {
         pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
-            XCTAssertEqual(result as! Bool, true)
+            XCTAssertTrue(result as! Bool)
         })
 
         dataStoreBridge.mockPublisher.send(completion:
@@ -337,7 +337,7 @@ class DataStorePluginUnitTests: XCTestCase {
         pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
-            XCTAssertEqual(result as! Bool, false)
+            XCTAssertFalse(result as! Bool)
         })
     }
 
