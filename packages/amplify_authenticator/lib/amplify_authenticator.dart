@@ -702,27 +702,23 @@ class _AuthStateBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     final authenticatorBuilder = InheritedAuthenticatorBuilder.of(context);
     final stateMachineBloc = InheritedAuthBloc.of(context);
-    final userAppTheme = Theme.of(context);
-    return Theme(
-      data: userAppTheme,
-      child: StreamBuilder(
-        stream: stateMachineBloc.stream,
-        builder: (context, AsyncSnapshot<AuthState> snapshot) {
-          final authState = snapshot.data ?? const LoadingState();
+    return StreamBuilder(
+      stream: stateMachineBloc.stream,
+      builder: (context, AsyncSnapshot<AuthState> snapshot) {
+        final authState = snapshot.data ?? const LoadingState();
 
-          final Widget authenticatorScreen = getAuthenticatorScreen(
-            context: context,
-            authenticatorBuilder: authenticatorBuilder,
-            authState: authState,
-          );
+        final Widget authenticatorScreen = getAuthenticatorScreen(
+          context: context,
+          authenticatorBuilder: authenticatorBuilder,
+          authState: authState,
+        );
 
-          return Localizations.override(
-            context: context,
-            delegates: AuthenticatorLocalizations.localizationsDelegates,
-            child: builder(authState, authenticatorScreen),
-          );
-        },
-      ),
+        return Localizations.override(
+          context: context,
+          delegates: AuthenticatorLocalizations.localizationsDelegates,
+          child: builder(authState, authenticatorScreen),
+        );
+      },
     );
   }
 
