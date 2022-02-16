@@ -178,8 +178,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(
-      ModelType<T> modelType) async* {
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
+      {QueryPredicate? where}) async* {
     await _setUpObserveIfNeeded();
 
     // Step #1. Open the event channel if it's not already open. Note
@@ -200,6 +200,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     // Step #3. Deserialize events and return new broadcast stream
     yield* filteredStream
         .map((event) => SubscriptionEvent.fromMap(event, modelType))
+        .where((event) => where == null || where.evaluate(event.item))
         .asBroadcastStream()
         .cast<SubscriptionEvent<T>>();
   }

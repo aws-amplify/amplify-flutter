@@ -121,8 +121,8 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('save() has not been implemented');
   }
 
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(
-      ModelType<T> modelType) {
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
+      {QueryPredicate? where}) {
     throw UnimplementedError('observe() has not been implemented.');
   }
 
