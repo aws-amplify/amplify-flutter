@@ -16,6 +16,8 @@
 import 'dart:async';
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:async/async.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -28,7 +30,7 @@ void main() {
   const standardCodec = StandardMethodCodec();
   const timeout = Timeout(Duration(seconds: 1));
 
-  AmplifyAPI api = AmplifyAPI();
+  AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
 
   /// Fires an event on the event channel from the mock platform side.
   void emitValues(ByteData? event) {
@@ -407,6 +409,36 @@ void main() {
 
       expect(subscribeCalls, equals(2));
       expect(cancelCalls, equals(2));
+    });
+
+    test(
+        'subscription event data decoded to a model instance for model request',
+        () async {
+      final request = ModelSubscriptions.onCreate(Blog.classType);
+      const blogId = 'abc123';
+
+      setupEventChannel({
+        request.id: <Object>[
+          {
+            'id': request.id,
+            'payload': {
+              'errors': <Map>[],
+              'data': '{"onCreateBlog": {"id": "$blogId", "name": "foo"}}',
+            },
+            'type': 'DATA'
+          },
+        ],
+      });
+      final stream = StreamQueue(api.subscribe(request));
+
+      StreamMatcher emitsBlogData = emits(allOf([
+        isA<GraphQLResponse<Blog>>(),
+        predicate<GraphQLResponse<Blog>>((response) {
+          return response.data?.id == blogId;
+        })
+      ]));
+      await expectLater(stream, emitsBlogData);
+      await stream.cancel();
     });
   }
 

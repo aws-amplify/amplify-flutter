@@ -16,6 +16,7 @@
 import 'dart:async';
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/graphql_subscription_event.dart';
 
 /// {@template graphql_subscription_transformer}
@@ -24,8 +25,10 @@ import 'package:amplify_api/src/graphql/graphql_subscription_event.dart';
 /// {@endtemplate}
 class GraphQLSubscriptionTransformer<T> extends StreamTransformerBase<
     GraphQLSubscriptionEvent, GraphQLResponse<T>> {
+  final GraphQLRequest<T> request;
+
   /// {@macro graphql_subscription_transformer}
-  const GraphQLSubscriptionTransformer();
+  const GraphQLSubscriptionTransformer(this.request);
 
   @override
   Stream<GraphQLResponse<T>> bind(
@@ -49,10 +52,10 @@ class GraphQLSubscriptionTransformer<T> extends StreamTransformerBase<
               controller.addError(Exception('Null response'));
               break;
             }
-            controller.add(GraphQLResponse<T>(
-              data: response.data as T,
-              errors: response.errors,
-            ));
+            controller.add(GraphQLResponseDecoder.instance.decode<T>(
+                request: request,
+                data: response.data,
+                errors: response.errors));
             break;
           case GraphQLSubscriptionEventType.done:
             controller.close();

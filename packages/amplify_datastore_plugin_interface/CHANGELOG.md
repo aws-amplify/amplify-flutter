@@ -1,3 +1,7 @@
+## 0.4.0-rc.1 (2022-02-10)
+
+- chore: Many model-related type definitions moved from amplify_datastore_plugin_interface to amplify_core.
+
 ## 0.3.2 (2022-01-21)
 
 - chore: bump amplify-android to 1.31.2

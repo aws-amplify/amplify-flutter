@@ -1,3 +1,14 @@
+## 0.4.0-rc.1 (2022-02-10)
+
+- fix(amplify_flutter): updates for latest flutter and dart versions #1333
+- feat(amplify_flutter): allow customers to override AmplifyClass methods #1325
+- fix(flutter): Password settings parsing #1323
+- chore: bump Kotlin version to 1.6.10 (#1346)
+
+### Breaking Changes
+
+- If your app has a dependency on Kotlin, the value of `ext.kotlin_version` set in `android/build.gradle` must be 1.5.31 or greater (1.6.10 recommended)
+
 ## 0.3.2 (2022-01-21)
 
 - chore: bump amplify-android to 1.31.2
