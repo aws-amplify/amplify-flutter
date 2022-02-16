@@ -1,5 +1,6 @@
 ## 0.4.0 (2022-02-17)
 
+- feat(datastore): Add QueryPredicate to Save/Delete (#1336)
 - feat(datastore): Add QueryPredicate to Observe (#1332)
 - fix(datastore): DataTime value comparison is inaccurate (#1326)
 - chore: bump Kotlin version to 1.6.10 (#1346)
