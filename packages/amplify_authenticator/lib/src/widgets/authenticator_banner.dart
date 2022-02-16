@@ -44,11 +44,17 @@ SnackBar createSnackBar(
   required StatusType type,
   required Widget content,
 }) {
+  final theme = Theme.of(context);
+  final foregroundColor = theme.snackBarTheme.contentTextStyle?.color ??
+      theme.colorScheme.onInverseSurface;
   return SnackBar(
     key: keyAuthenticatorBanner,
     content: Row(
       children: [
-        Icon(type.icon),
+        Icon(
+          type.icon,
+          color: foregroundColor,
+        ),
         const SizedBox(width: 16),
         Expanded(child: content),
       ],
