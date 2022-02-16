@@ -21,18 +21,21 @@ import 'package:collection/collection.dart';
 
 import 'auth_rule.dart';
 import 'model_field.dart';
+import 'model_index.dart';
 
 class ModelSchema {
   final String name;
   final String? pluralName; //opt
   final List<AuthRule>? authRules; //opt
   final Map<String, ModelField>? fields;
+  final List<ModelIndex>? indexes;
 
   const ModelSchema({
     required this.name,
     this.pluralName,
     this.authRules,
     this.fields,
+    this.indexes,
   });
 
   ModelSchema copyWith(
@@ -41,10 +44,12 @@ class ModelSchema {
       List<AuthRule>? authRules,
       Map<String, ModelField>? fields}) {
     return ModelSchema(
-        name: name ?? this.name,
-        pluralName: pluralName ?? this.pluralName,
-        authRules: authRules ?? this.authRules,
-        fields: fields ?? this.fields);
+      name: name ?? this.name,
+      pluralName: pluralName ?? this.pluralName,
+      authRules: authRules ?? this.authRules,
+      fields: fields ?? this.fields,
+      indexes: indexes ?? this.indexes,
+    );
   }
 
   Map<String, dynamic> toMap() {
@@ -53,6 +58,7 @@ class ModelSchema {
       'pluralName': pluralName,
       'authRules': authRules?.map((x) => x.toMap()).toList(),
       'fields': fields?.map((key, value) => MapEntry('$key', value.toMap())),
+      'indexes': indexes?.map((value) => value.toMap()).toList(),
     };
     return Map<String, dynamic>.from(map)
       ..removeWhere((k, dynamic v) => v == null);
@@ -65,6 +71,7 @@ class ModelSchema {
       authRules: List<AuthRule>.from(
           map['authRules']?.map((dynamic x) => AuthRule.fromMap(x))),
       fields: Map<String, ModelField>.from(map['fields']),
+      indexes: List<ModelIndex>.from(map['indexes']),
     );
   }
 
@@ -75,7 +82,7 @@ class ModelSchema {
 
   @override
   String toString() {
-    return 'ModelSchema(name: $name, pluralName: $pluralName, authRules: $authRules, fields: $fields)';
+    return 'ModelSchema(name: $name, pluralName: $pluralName, authRules: $authRules, fields: $fields, indexes: $indexes)';
   }
 
   @override
@@ -87,7 +94,8 @@ class ModelSchema {
         o.name == name &&
         o.pluralName == pluralName &&
         collectionEquals(o.authRules, authRules) &&
-        collectionEquals(o.fields, fields);
+        collectionEquals(o.fields, fields) &&
+        collectionEquals(o.indexes, indexes);
   }
 
   @override
@@ -95,6 +103,7 @@ class ModelSchema {
     return name.hashCode ^
         pluralName.hashCode ^
         authRules.hashCode ^
-        fields.hashCode;
+        fields.hashCode ^
+        indexes.hashCode;
   }
 }
