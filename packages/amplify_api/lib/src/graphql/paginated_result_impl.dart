@@ -19,7 +19,7 @@ import 'package:amplify_api/src/graphql/paginated_model_type_impl.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 class PaginatedResultImpl<T extends Model> extends PaginatedResult<T> {
-  const PaginatedResultImpl(List<T> items, int? limit, String? nextToken,
+  const PaginatedResultImpl(List<T?> items, int? limit, String? nextToken,
       Map<String, dynamic>? filter)
       : super(items, limit, nextToken, filter);
 
