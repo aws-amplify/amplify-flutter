@@ -31,7 +31,7 @@ void main() {
     type Blog @model {
       id: ID!
       name: String!
-      posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
+      posts: [Post] @hasMany(indexName: "byBlog", fields: ["id"])
     }
     */
 
@@ -74,10 +74,10 @@ void main() {
   test('Comment codegen model generates modelschema with proper fields',
       () async {
     /*
-    type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
+    type Comment @model {
       id: ID!
-      postID: ID!
-      post: Post @connection(fields: ["postID"])
+      postID: ID! @index(name: "byPost", sortKeyFields: ["content"])
+      post: Post @belongsTo(fields: ["postID"])
       content: String!
     }
      */
@@ -116,14 +116,38 @@ void main() {
             isArray: false));
   });
 
+  test('Comment codegen model generates modelschema with proper indexes',
+      () async {
+    /*
+    type Comment @model {
+      id: ID!
+      postID: ID! @index(name: "byPost", sortKeyFields: ["content"])
+      post: Post @belongsTo(fields: ["postID"])
+      content: String!
+    }
+     */
+
+    ModelSchema commentSchema = Comment.schema;
+
+    expect(commentSchema.name, "Comment");
+    expect(commentSchema.pluralName, "Comments");
+
+    expect(commentSchema.indexes!, [
+      ModelIndex(name: "byPost", fields: ["postID", "content"])
+    ]);
+  });
+
   test('Post codegen model generates modelschema with proper fields', () async {
     /*
-    type Post @model @key(name: "byBlog", fields: ["blogID"]) {
+    type Post @model {
       id: ID!
       title: String!
-      blogID: ID!
-      blog: Blog @connection(fields: ["blogID"])
-      comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+      rating: Int!
+      created: AWSDateTime
+      likeCount: Int
+      blogID: ID! @index(name: "byBlog")
+      blog: Blog @belongsTo(fields: ["blogID"])
+      comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
     }
      */
 
@@ -161,6 +185,31 @@ void main() {
                 targetName: "blogID")));
   });
 
+  test('Post codegen model generates modelschema with proper indexes',
+      () async {
+    /*
+    type Post @model {
+      id: ID!
+      title: String!
+      rating: Int!
+      created: AWSDateTime
+      likeCount: Int
+      blogID: ID! @index(name: "byBlog")
+      blog: Blog @belongsTo(fields: ["blogID"])
+      comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
+    }
+     */
+
+    ModelSchema postSchema = Post.schema;
+
+    expect(postSchema.name, "Post");
+    expect(postSchema.pluralName, "Posts");
+
+    expect(postSchema.indexes!, [
+      ModelIndex(name: "byBlog", fields: ["blogID"])
+    ]);
+  });
+
   test('PostAuthComplex codegen model generates modelschema with proper fields',
       () async {
     /*
@@ -186,6 +235,7 @@ void main() {
           authStrategy: AuthStrategy.OWNER,
           ownerField: "owner",
           identityClaim: "cognito:username",
+          provider: AuthRuleProvider.USERPOOLS,
           operations: [
             ModelOperation.CREATE,
             ModelOperation.UPDATE,

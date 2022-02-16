@@ -79,6 +79,12 @@ void main() {
     expect(map, {
       'name': 'Comment',
       'pluralName': 'Comments',
+      'indexes': [
+        {
+          'name': 'byPost',
+          'fields': ['postID', 'content']
+        }
+      ],
       'fields': {
         'id': {
           'name': 'id',
@@ -131,6 +137,12 @@ void main() {
     expect(map, {
       'name': 'Post',
       'pluralName': 'Posts',
+      'indexes': [
+        {
+          'name': 'byBlog',
+          'fields': ['blogID']
+        }
+      ],
       'fields': {
         'id': {
           'name': 'id',
@@ -222,6 +234,7 @@ void main() {
           'authStrategy': 'OWNER',
           'ownerField': 'owner',
           'identityClaim': 'cognito:username',
+          'provider': 'USERPOOLS',
           'operations': ['CREATE', 'UPDATE', 'DELETE', 'READ']
         }
       ],

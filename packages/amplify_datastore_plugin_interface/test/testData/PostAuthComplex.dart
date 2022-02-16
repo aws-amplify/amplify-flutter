@@ -13,15 +13,19 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the PostAuthComplex type in your schema. */
+/// This is an auto generated class representing the PostAuthComplex type in your schema.
 @immutable
 class PostAuthComplex extends Model {
-  static const classType = const _PostAuthComplexModelType();
+  static const classType = _PostAuthComplexModelType();
   final String id;
   final String? _title;
   final String? _owner;
@@ -40,7 +44,7 @@ class PostAuthComplex extends Model {
     try {
       return _title!;
     } catch (e) {
-      throw new DataStoreException(
+      throw DataStoreException(
           DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: DataStoreExceptionMessages
@@ -91,7 +95,7 @@ class PostAuthComplex extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("PostAuthComplex {");
     buffer.write("id=" + "$id" + ", ");
@@ -146,6 +150,7 @@ class PostAuthComplex extends Model {
           authStrategy: AuthStrategy.OWNER,
           ownerField: "owner",
           identityClaim: "cognito:username",
+          provider: AuthRuleProvider.USERPOOLS,
           operations: [
             ModelOperation.CREATE,
             ModelOperation.UPDATE,
