@@ -15,6 +15,7 @@
 
 part of authenticator.form_field;
 
+/// {@category Full UI Customization}
 /// {@template authenticator.confirm_sign_in_form_field}
 /// A form field component on the Confirm Sign In screens.
 /// {@endtemplate}

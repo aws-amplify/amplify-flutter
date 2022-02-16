@@ -1,0 +1,1 @@
+The amplify_authenticator package provides prebuilt widgets for [building custom UIs](https://ui.docs.amplify.aws/components/authenticator?platform=flutter#full-ui-customization). All of the prebuilt widgets are integrated into the authenticator's state, meaning that you do not have to add an onChanged callback for the Form Fields, or an onTap callback for the Buttons.

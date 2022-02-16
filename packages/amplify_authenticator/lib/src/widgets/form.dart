@@ -252,6 +252,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
   }
 }
 
+/// {@category Full UI Customization}
 /// {@template authenticator.sign_up_form}
 /// The Sign Up step form.
 ///
@@ -353,6 +354,7 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
   }
 }
 
+/// {@category Full UI Customization}
 /// {@template authenticator.sign_in_form}
 /// The Sign In step form.
 ///
@@ -441,6 +443,7 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
   }
 }
 
+/// {@category Full UI Customization}
 /// {@template authenticator.confirm_sign_up_form}
 /// The Confirm Sign Up step form.
 ///
@@ -483,6 +486,7 @@ class ConfirmSignUpForm extends AuthenticatorForm {
       AuthenticatorFormState<ConfirmSignUpForm>();
 }
 
+/// {@category Full UI Customization}
 /// {@template authenticator.confirm_sign_in_mfa_form}
 /// The Confirm Sign In with MFA step form.
 /// {@endtemplate}
@@ -506,6 +510,7 @@ class ConfirmSignInMFAForm extends AuthenticatorForm {
       AuthenticatorFormState<ConfirmSignInMFAForm>();
 }
 
+/// {@category Full UI Customization}
 /// {@template authenticator.confirm_sign_in_new_password_form}
 /// The Confirm Sign In with New Password step form.
 ///
@@ -542,6 +547,7 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
       AuthenticatorFormState<ConfirmSignInNewPasswordForm>();
 }
 
+/// {@category Full UI Customization}
 /// {@template authenticator.send_code_form}
 /// The Reset Password step form.
 ///
@@ -577,6 +583,7 @@ class ResetPasswordForm extends AuthenticatorForm {
       AuthenticatorFormState<ResetPasswordForm>();
 }
 
+/// {@category Full UI Customization}
 /// {@template authenticator.reset_password_form}
 /// The Confirm Reset Password step form.
 ///
@@ -614,6 +621,7 @@ class ConfirmResetPasswordForm extends AuthenticatorForm {
       AuthenticatorFormState<ConfirmResetPasswordForm>();
 }
 
+/// {@category Full UI Customization}
 /// {@template authenticator.verify_user_form}
 /// The Verify User step form.
 ///
@@ -640,6 +648,7 @@ class VerifyUserForm extends AuthenticatorForm {
       AuthenticatorFormState<VerifyUserForm>();
 }
 
+/// {@category Full UI Customization}
 /// {@template authenticator.confirm_verify_user_form}
 /// The Confirm Verify User step form.
 ///

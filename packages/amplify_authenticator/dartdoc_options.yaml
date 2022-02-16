@@ -1,0 +1,5 @@
+dartdoc:
+  categories:
+    "Full UI Customization":
+      markdown: docs/full-ui-customization.md
+      name: Full UI Customization

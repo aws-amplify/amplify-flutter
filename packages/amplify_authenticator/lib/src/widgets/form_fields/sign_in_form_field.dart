@@ -15,8 +15,13 @@
 
 part of authenticator.form_field;
 
+/// {@category Full UI Customization}
 /// {@template authenticator.sign_in_form_field}
-/// A form field component on the Sign In step.
+/// A form field widget for the Sign In step.
+///
+/// Can be used to create [username] or [password] form field.
+///
+/// See also: [SignInForm.custom]
 /// {@endtemplate}
 abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
     SignInField, FieldValue, SignInFormField<FieldValue>> {
@@ -43,7 +48,7 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
           requiredOverride: required,
         );
 
-  /// Creates a username component.
+  /// Creates a username FormField for the sign in step.
   static SignInFormField username({
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
@@ -53,7 +58,7 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
         validator: validator,
       );
 
-  /// Creates a password component.
+  /// Creates a password FormField for the sign in step.
   static SignInFormField password({
     Key? key,
     FormFieldValidator<String>? validator,

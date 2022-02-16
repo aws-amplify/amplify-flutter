@@ -15,6 +15,7 @@
 
 part of authenticator.form_field;
 
+/// {@category Full UI Customization}
 /// {@template authenticator.verify_user_form_field}
 /// A [Radio] form field component on the Verify User step.
 ///
