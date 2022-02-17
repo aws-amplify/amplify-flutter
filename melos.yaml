@@ -15,21 +15,59 @@ scripts:
   copy_dummy_config: >
     melos exec --scope="*example*,sample_app" -- \
       cp -n "\$MELOS_ROOT_PATH"/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
+
+  build:examples:ios: >
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
+      flutter build ios --simulator
+
   build:examples:release:ios: >
     melos exec -c 1 --scope="*example*" --ignore="*_android*" --fail-fast -- \
       flutter build ios --no-codesign
+
+  build:examples:android: >
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
+      flutter build apk --debug --verbose
 
   build:examples:release:android: >
     melos exec -c 1 --scope="*example*" --ignore="*_ios*" --fail-fast -- \
       flutter build apk --verbose
 
   test:unit:flutter:
-    run: ./.circleci/test_all_plugins.sh flutter-test $1 $PWD
+    run: |
+      melos run test:unit:flutter:plugin amplify_analytics_pinpoint && \
+      melos run test:unit:flutter:plugin amplify_api $PWD && \
+      melos run test:unit:flutter:plugin amplify_auth_cognito $PWD && \
+      melos run test:unit:flutter:plugin amplify_core $PWD && \
+      melos run test:unit:flutter:plugin amplify_datastore $PWD && \
+      melos run test:unit:flutter:plugin amplify_datastore_plugin_interface $PWD && \
+      melos run test:unit:flutter:plugin amplify_flutter $PWD && \
+      melos run test:unit:flutter:plugin amplify_storage_plugin_interface $PWD && \
+      melos run test:unit:flutter:plugin amplify_storage_s3 $PWD && exit 0
 
   test:unit:android:
-    run: ./.circleci/test_all_plugins.sh android-test $1 $PWD
+    run: |
+      melos run test:unit:android:plugin amplify_analytics_pinpoint && \
+      melos run test:unit:android:plugin amplify_api $PWD && \
+      melos run test:unit:android:plugin amplify_auth_cognito $PWD && \
+      # melos run test:unit:android:plugin amplify_core $PWD && \
+      # melos run test:unit:android:plugin amplify_datastore $PWD && \
+      # melos run test:unit:android:plugin amplify_flutter $PWD && exit 0
 
   test:unit:ios:
+    run: |
+      melos run test:unit:ios:plugin amplify_analytics_pinpoint && \
+      melos run test:unit:ios:plugin amplify_api $PWD && \
+      melos run test:unit:ios:plugin amplify_auth_cognito $PWD && \
+      melos run test:unit:ios:plugin amplify_datastore $PWD && \
+      melos run test:unit:ios:plugin amplify_flutter $PWD && exit 0
+
+  test:unit:flutter:plugin:
+    run: .circleci/test_all_plugins.sh flutter-test $1 $PWD
+
+  test:unit:android:plugin:
+    run: ./.circleci/test_all_plugins.sh android-test $1 $PWD
+
+  test:unit:ios:plugin:
     run: ./.circleci/test_all_plugins.sh ios-test $1 $PWD
 
   # ANALYTICS

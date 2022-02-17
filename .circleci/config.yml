@@ -77,7 +77,7 @@ jobs:
           command: flutter pub global activate junitreport
       - run:
           name: Run Flutter Unit Tests
-          command: melos run test:unit:flutter << parameters.plugin >>
+          command: melos run test:unit:flutter:plugin << parameters.plugin >>
       - run:
           name: Upload flutter test coverage
           command: melos run upload:coverage:flutter
@@ -118,7 +118,7 @@ jobs:
             melos run build:examples:ios:<< parameters.plugin >>
       - run:
           name: Run iOS Unit Tests
-          command: melos run test:unit:ios << parameters.plugin >>
+          command: melos run test:unit:ios:plugin << parameters.plugin >>
       - run:
           name: Upload iOS test coverage
           command: melos run upload:coverage:ios
@@ -155,7 +155,7 @@ jobs:
           command: melos run lint:android:<< parameters.plugin >>
       - run:
           name: Run Android Unit Tests
-          command: melos run test:unit:android << parameters.plugin >>
+          command: melos run test:unit:android:plugin << parameters.plugin >>
       - run:
           name: Upload android test coverage
           command: melos run upload:coverage:android
