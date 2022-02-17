@@ -58,7 +58,6 @@ export 'src/enums/enums.dart' show AuthenticatorStep, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
 export 'src/models/username_input.dart' show UsernameType, UsernameInput;
-export 'src/state/auth_state.dart';
 export 'src/widgets/button.dart' show SignOutButton;
 export 'src/widgets/form.dart'
     show SignInForm, SignUpForm, ConfirmSignInNewPasswordForm;
