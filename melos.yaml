@@ -12,9 +12,6 @@ ignore:
 scripts:
   setup_tuneup: >
     flutter pub global activate tuneup
-  copy_dummy_config: >
-    melos exec --scope="*example*,sample_app" -- \
-      cp -n "\$MELOS_ROOT_PATH"/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
 
   build:examples:ios: >
     melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
@@ -49,9 +46,9 @@ scripts:
       melos run test:unit:android:plugin amplify_analytics_pinpoint && \
       melos run test:unit:android:plugin amplify_api $PWD && \
       melos run test:unit:android:plugin amplify_auth_cognito $PWD && \
-      # melos run test:unit:android:plugin amplify_core $PWD && \
-      # melos run test:unit:android:plugin amplify_datastore $PWD && \
-      # melos run test:unit:android:plugin amplify_flutter $PWD && exit 0
+      melos run test:unit:android:plugin amplify_core $PWD && \
+      melos run test:unit:android:plugin amplify_datastore $PWD && \
+      melos run test:unit:android:plugin amplify_flutter $PWD && exit 0
 
   test:unit:ios:
     run: |
@@ -321,7 +318,6 @@ scripts:
     description: Run "pod repo update" and then updates amplify related pods. Intended for use after amplify iOS version has been updated.
 
   postbootstrap: |
-    melos run copy_dummy_config && \
     melos run packages:fix
   postclean: >
     melos exec -- \
