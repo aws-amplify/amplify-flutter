@@ -18,7 +18,6 @@ import 'dart:math';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/state/authenticator_state.dart';
-import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
@@ -143,7 +142,7 @@ class _SocialSignInButtonState
   static const _spacing = 5.0;
 
   Widget get icon {
-    final bool isDark = AmplifyTheme.of(context).isDark;
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     switch (widget.provider) {
       case AuthProvider.google:
         return SocialIcons.googleLogo;
@@ -181,6 +180,22 @@ class _SocialSignInButtonState
     );
   }
 
+  MaterialStateProperty<Color?> getButtonForegroundColor(BuildContext context) {
+    final theme = Theme.of(context);
+    final foregroundColor = theme.outlinedButtonTheme.style?.foregroundColor;
+    if (foregroundColor != null) {
+      return foregroundColor;
+    }
+
+    final bodyTextColor = theme.textTheme.bodyText1?.color;
+    if (bodyTextColor != null) {
+      MaterialStateProperty.all(theme.textTheme.bodyText1?.color);
+    }
+
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    return MaterialStateProperty.all(isDark ? Colors.white : Colors.black);
+  }
+
   @override
   Widget build(BuildContext context) {
     final resolver = stringResolver.buttons;
@@ -189,24 +204,7 @@ class _SocialSignInButtonState
       child: OutlinedButton(
         focusNode: focusNode,
         style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.disabled)) {
-              return AmplifyTheme.of(context).fontDisabled;
-            }
-            return AmplifyTheme.of(context).fontPrimary;
-          }),
-          side: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.disabled)) {
-              return BorderSide(
-                width: 0,
-                color: AmplifyTheme.of(context).fontDisabled,
-              );
-            }
-            return BorderSide(
-              width: 0,
-              color: AmplifyTheme.of(context).fontPrimary,
-            );
-          }),
+          foregroundColor: getButtonForegroundColor(context),
         ),
         onPressed: state.isBusy
             ? null

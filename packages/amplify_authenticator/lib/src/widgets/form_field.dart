@@ -217,11 +217,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   @nonVirtual
   @override
   Widget build(BuildContext context) {
-    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
-    final titleStyle = Theme.of(context).inputDecorationTheme.labelStyle ??
-        Theme.of(context).textTheme.subtitle1 ??
-        const TextStyle(fontSize: 16);
-
     return Container(
       margin: EdgeInsets.only(bottom: marginBottom ?? 0),
       child: Stack(
@@ -230,11 +225,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               if (surlabel != null) surlabel!,
-              if (useAmplifyTheme && label != null)
-                DefaultTextStyle(
-                  style: titleStyle,
-                  child: label!,
-                ),
               SizedBox(height: labelGap),
               buildFormField(context),
               if (companionWidget != null) companionWidget!,
