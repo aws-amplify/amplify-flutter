@@ -15,7 +15,7 @@
 
 part of authenticator.form_field;
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.confirm_sign_up_form_field}
 /// A prebuilt form field widget for use on the Confirm Sign Up step.
 /// {@endtemplate}

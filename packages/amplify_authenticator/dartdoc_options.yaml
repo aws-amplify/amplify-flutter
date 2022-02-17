@@ -1,5 +1,5 @@
 dartdoc:
   categories:
-    "Full UI Customization":
-      markdown: docs/full-ui-customization.md
-      name: Full UI Customization
+    "Prebuilt Widgets":
+      markdown: docs/prebuilt-widgets.md
+      name: Prebuilt Widgets

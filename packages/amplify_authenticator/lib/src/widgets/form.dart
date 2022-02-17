@@ -252,7 +252,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
   }
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.sign_up_form}
 /// A prebuilt form for registering a new user.
 ///
@@ -354,7 +354,7 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
   }
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.sign_in_form}
 /// A prebuilt form for signing in a user.
 ///
@@ -443,7 +443,7 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
   }
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.confirm_sign_up_form}
 /// A prebuilt form for completing the sign up flow with a confirmation code.
 ///
@@ -486,7 +486,7 @@ class ConfirmSignUpForm extends AuthenticatorForm {
       AuthenticatorFormState<ConfirmSignUpForm>();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.confirm_sign_in_mfa_form}
 /// A prebuilt form for completing the sign in process with an MFA code.
 /// {@endtemplate}
@@ -510,7 +510,7 @@ class ConfirmSignInMFAForm extends AuthenticatorForm {
       AuthenticatorFormState<ConfirmSignInMFAForm>();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.confirm_sign_in_new_password_form}
 /// A prebuilt form for completing the force new password flow.
 ///
@@ -547,7 +547,7 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
       AuthenticatorFormState<ConfirmSignInNewPasswordForm>();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.send_code_form}
 /// A prebuilt form for initiating the reset password flow.
 /// {@endtemplate}
@@ -572,7 +572,7 @@ class ResetPasswordForm extends AuthenticatorForm {
       AuthenticatorFormState<ResetPasswordForm>();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.reset_password_form}
 /// A prebuilt form for completing the reset password flow.
 /// {@endtemplate}
@@ -599,7 +599,7 @@ class ConfirmResetPasswordForm extends AuthenticatorForm {
       AuthenticatorFormState<ConfirmResetPasswordForm>();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.verify_user_form}
 /// A prebuilt form for initiating the account recovery attribute verification process.
 /// {@endtemplate}
@@ -624,7 +624,7 @@ class VerifyUserForm extends AuthenticatorForm {
       AuthenticatorFormState<VerifyUserForm>();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.confirm_verify_user_form}
 /// A prebuilt form for completing the account recovery attribute verification process.
 /// {@endtemplate}

@@ -15,7 +15,7 @@
 
 part of authenticator.form_field;
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.verify_user_form_field}
 /// A prebuilt [Radio] widget for use on the Verify User step.
 /// {@endtemplate}

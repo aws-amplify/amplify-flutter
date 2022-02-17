@@ -142,7 +142,7 @@ class _AmplifyElevatedButtonState
   }
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.sign_up_button}
 /// A prebuilt button for registering a new user.
 ///
@@ -163,7 +163,7 @@ class SignUpButton extends AuthenticatorElevatedButton {
       state.signUp();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.sign_in_button}
 /// A prebuilt button for signing in a user.
 ///
@@ -184,7 +184,7 @@ class SignInButton extends AuthenticatorElevatedButton {
       state.signIn();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.confirm_sign_up_button}
 /// A prebuilt button for completing the sign up flow with a confirmation code.
 ///
@@ -205,7 +205,7 @@ class ConfirmSignUpButton extends AuthenticatorElevatedButton {
       state.confirmSignUp();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.confirm_sign_in_mfa_button}
 /// A prebuilt button for completing Sign In with and MFA code.
 ///
@@ -226,7 +226,7 @@ class ConfirmSignInMFAButton extends AuthenticatorElevatedButton {
       state.confirmSignInMFA();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.sign_out_button}
 /// A prebuilt button for Signing Out.
 ///
@@ -247,7 +247,7 @@ class SignOutButton extends AuthenticatorElevatedButton {
       state.signOut();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.back_to_sign_in_button}
 /// A prebuilt button for navigating back to the Sign In step.
 /// {@endtemplate}
@@ -273,7 +273,7 @@ class BackToSignInButton extends StatelessAuthenticatorComponent {
   }
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.lost_code_button}
 /// A prebuilt button for resending a confirmation code during the sign up process.
 /// {@endtemplate}
@@ -316,7 +316,7 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
   }
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.forgot_password_button}
 /// A prebuilt button for changing the current step to [AuthenticatorStep.resetPassword].
 /// {@endtemplate}
@@ -342,7 +342,7 @@ class ForgotPasswordButton extends StatelessAuthenticatorComponent {
   }
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.reset_password_button}
 /// A prebuilt button for initiating the reset password flow.
 ///
@@ -363,7 +363,7 @@ class ResetPasswordButton extends AuthenticatorElevatedButton {
       state.resetPassword();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.confirm_reset_password_button}
 /// A prebuilt button for completing the reset password flow.
 ///
@@ -384,7 +384,7 @@ class ConfirmResetPasswordButton extends AuthenticatorElevatedButton {
       state.confirmResetPassword();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.confirm_sign_in_new_password}
 /// A prebuilt button for completing the force reset password flow.
 ///
@@ -405,7 +405,7 @@ class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {
       state.confirmSignInNewPassword();
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.verify_user_button}
 /// A prebuilt button for initiating the account recovery attribute verification process.
 ///
@@ -427,7 +427,7 @@ class VerifyUserButton extends AuthenticatorElevatedButton {
   }
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.confirm_verify_user_button}
 /// A prebuilt button for completing the account recovery attribute verification process.
 ///
@@ -451,7 +451,7 @@ class ConfirmVerifyUserButton extends AuthenticatorElevatedButton {
   }
 }
 
-/// {@category Full UI Customization}
+/// {@category Prebuilt Widgets}
 /// {@template authenticator.confirm_verify_user_button}
 /// A prebuilt button for skipping the verify user flow.
 /// {@endtemplate}
