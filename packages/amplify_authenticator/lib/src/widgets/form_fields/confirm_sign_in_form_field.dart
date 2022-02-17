@@ -17,7 +17,7 @@ part of authenticator.form_field;
 
 /// {@category Full UI Customization}
 /// {@template authenticator.confirm_sign_in_form_field}
-/// A form field component on the Confirm Sign In screens.
+/// A prebuilt form field widget for use on the Confirm Sign In step.
 /// {@endtemplate}
 abstract class ConfirmSignInFormField<FieldValue>
     extends AuthenticatorFormField<ConfirmSignInField, FieldValue,

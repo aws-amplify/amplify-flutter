@@ -17,7 +17,7 @@ part of authenticator.form_field;
 
 /// {@category Full UI Customization}
 /// {@template authenticator.sign_up_form_field}
-/// A form field component on the Sign Up step.
+/// A prebuilt form field widget for use on the Sign Up step.
 /// {@endtemplate}
 abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     SignUpField, FieldValue, SignUpFormField<FieldValue>> {

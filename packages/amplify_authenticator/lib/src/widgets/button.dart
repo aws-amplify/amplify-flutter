@@ -144,7 +144,7 @@ class _AmplifyElevatedButtonState
 
 /// {@category Full UI Customization}
 /// {@template authenticator.sign_up_button}
-/// A prebuilt button for Sign Up.
+/// A prebuilt button for registering a new user.
 ///
 /// Uses [ButtonResolverKey.signUp] for localization
 /// {@endtemplate}
@@ -165,7 +165,7 @@ class SignUpButton extends AuthenticatorElevatedButton {
 
 /// {@category Full UI Customization}
 /// {@template authenticator.sign_in_button}
-/// A prebuilt button for Sign In.
+/// A prebuilt button for signing in a user.
 ///
 /// Uses [ButtonResolverKey.signIn] for localization
 /// {@endtemplate}
@@ -186,7 +186,7 @@ class SignInButton extends AuthenticatorElevatedButton {
 
 /// {@category Full UI Customization}
 /// {@template authenticator.confirm_sign_up_button}
-/// A prebuilt button for Confirming Sign Up.
+/// A prebuilt button for completing the sign up flow with a confirmation code.
 ///
 /// Uses [ButtonResolverKey.confirm] for localization
 /// {@endtemplate}
@@ -207,7 +207,7 @@ class ConfirmSignUpButton extends AuthenticatorElevatedButton {
 
 /// {@category Full UI Customization}
 /// {@template authenticator.confirm_sign_in_mfa_button}
-/// A prebuilt button for Completing Sign In with and MFA code.
+/// A prebuilt button for completing Sign In with and MFA code.
 ///
 /// Uses [ButtonResolverKey.confirm] for localization
 /// {@endtemplate}
@@ -249,7 +249,7 @@ class SignOutButton extends AuthenticatorElevatedButton {
 
 /// {@category Full UI Customization}
 /// {@template authenticator.back_to_sign_in_button}
-/// A prebuilt button for navigating back to the Sign In screen.
+/// A prebuilt button for navigating back to the Sign In step.
 /// {@endtemplate}
 class BackToSignInButton extends StatelessAuthenticatorComponent {
   /// {@macro authenticator.back_to_sign_in_button}
@@ -386,7 +386,7 @@ class ConfirmResetPasswordButton extends AuthenticatorElevatedButton {
 
 /// {@category Full UI Customization}
 /// {@template authenticator.confirm_sign_in_new_password}
-/// A prebuilt button for completing force reset password flow.
+/// A prebuilt button for completing the force reset password flow.
 ///
 /// Uses [ButtonResolverKey.changePassword] for localization
 /// {@endtemplate}
@@ -407,7 +407,7 @@ class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {
 
 /// {@category Full UI Customization}
 /// {@template authenticator.verify_user_button}
-/// A prebuilt button for initiating the verify user flow.
+/// A prebuilt button for initiating the account recovery attribute verification process.
 ///
 /// Uses [ButtonResolverKey.verify] for localization
 /// {@endtemplate}
@@ -429,7 +429,7 @@ class VerifyUserButton extends AuthenticatorElevatedButton {
 
 /// {@category Full UI Customization}
 /// {@template authenticator.confirm_verify_user_button}
-/// A prebuilt button for completing the verify user flow.
+/// A prebuilt button for completing the account recovery attribute verification process.
 ///
 /// Uses [ButtonResolverKey.submit] for localization
 /// {@endtemplate}

@@ -27,7 +27,7 @@ typedef BlocEventPredicate = bool Function(AuthState state);
 /// State of the Amplify Authenticator.
 ///
 /// Contains the form data for the Authenticator (username, password, etc.) as
-/// well as methods to sign the user in or trasistion to a new Authentication State.
+/// well as methods to sign the user in or transition to a new Authentication State.
 ///
 /// Intended to be used within custom UIs for the Amplify Authenticator.
 class AuthenticatorState extends ChangeNotifier {
@@ -67,8 +67,8 @@ class AuthenticatorState extends ChangeNotifier {
 
   /// Indicates if the form is currently in a loading state
   ///
-  /// Will be set to true when an asynchrounous action (such as login) in
-  /// initiated, and will be set to false when that asynchrounous action completes
+  /// Will be set to true when an asynchronous action (such as login) in
+  /// initiated, and will be set to false when that asynchronous action completes
   bool get isBusy => _isBusy;
 
   bool _isBusy = false;
@@ -129,7 +129,7 @@ class AuthenticatorState extends ChangeNotifier {
 
   String _confirmationCode = '';
 
-  /// The value for the new assword form field
+  /// The value for the new password form field
   ///
   /// This value will be used during reset password, or other actions
   /// that required the password

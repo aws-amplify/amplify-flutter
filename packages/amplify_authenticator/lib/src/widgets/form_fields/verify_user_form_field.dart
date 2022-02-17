@@ -17,9 +17,7 @@ part of authenticator.form_field;
 
 /// {@category Full UI Customization}
 /// {@template authenticator.verify_user_form_field}
-/// A [Radio] form field component on the Verify User step.
-///
-/// Must be a descendant of a [VerifyUserFormFieldGroup] widget.
+/// A prebuilt [Radio] widget for use on the Verify User step.
 /// {@endtemplate}
 abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
     VerifyAttributeField, FieldValue, VerifyUserFormField<FieldValue>> {

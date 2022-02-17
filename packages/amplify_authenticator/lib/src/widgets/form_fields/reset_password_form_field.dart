@@ -17,7 +17,7 @@ part of authenticator.form_field;
 
 /// {@category Full UI Customization}
 /// {@template authenticator.confirm_sign_up_form_field}
-/// A form field component on the Confirm Sign Up step.
+/// A prebuild form field widget for use on the Reset Password Step.
 /// {@endtemplate}
 class ResetPasswordFormField extends AuthenticatorFormField<ResetPasswordField,
     String, ResetPasswordFormField> {

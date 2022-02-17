@@ -17,7 +17,7 @@ part of authenticator.form_field;
 
 /// {@category Full UI Customization}
 /// {@template authenticator.sign_in_form_field}
-/// A form field widget for the Sign In step.
+/// A prebuilt form field widget for the Sign In step.
 ///
 /// Can be used to create [username] or [password] form field.
 ///
