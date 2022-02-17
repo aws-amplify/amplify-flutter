@@ -112,7 +112,7 @@ class GraphQLApiUnitTests: XCTestCase {
             flutterResult: { (result) -> Void in
                 if let exception = result as? FlutterError {
                     XCTAssertEqual("ApiException", exception.code)
-                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage,"WRONG")
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
 
                     let errorMap: [String: String] = exception.details as! [String : String]
                     XCTAssertEqual("The graphQL document request argument was not passed as a String", errorMap["message"])

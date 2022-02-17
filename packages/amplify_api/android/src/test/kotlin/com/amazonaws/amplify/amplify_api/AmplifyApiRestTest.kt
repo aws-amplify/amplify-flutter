@@ -269,7 +269,7 @@ class AmplifyApiRestTest {
             mapOf(
                 "statusCode" to statusCode,
                 "headers" to headers,
-                "data" to "WRONG"
+                "data" to restResponse.data.rawBytes
             )
         )
 
