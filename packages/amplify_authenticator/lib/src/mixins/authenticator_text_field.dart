@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
 */
 
-import 'package:amplify_authenticator/src/state/inherited_config.dart';
-import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +23,6 @@ mixin AuthenticatorTextField<FieldType,
     on AuthenticatorFormFieldState<FieldType, String, T> {
   @override
   Widget buildFormField(BuildContext context) {
-    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final inputResolver = stringResolver.inputs;
     final hintText = widget.hintText == null
         ? widget.hintTextKey?.resolve(context, inputResolver)
@@ -38,14 +35,14 @@ mixin AuthenticatorTextField<FieldType,
         return TextFormField(
           style: enabled
               ? null
-              : TextStyle(color: AmplifyTheme.of(context).fontDisabled),
+              : TextStyle(color: Theme.of(context).disabledColor),
           initialValue: initialValue,
           enabled: enabled,
           validator: widget.validatorOverride ?? validator,
           onChanged: onChanged,
           autocorrect: false,
           decoration: InputDecoration(
-            labelText: useAmplifyTheme ? null : labelText,
+            labelText: labelText,
             prefixIcon: prefix,
             prefixIconConstraints: const BoxConstraints(
               minWidth: 40,

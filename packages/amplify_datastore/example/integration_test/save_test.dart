@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -62,5 +62,38 @@ void main() {
         expect(updatedBlogs[0].name, updatedBlogName);
       },
     );
+
+    testWidgets('predicate should prevent save to non matching model',
+        (WidgetTester tester) async {
+      // Note that predicate for save can only be applied to updates (not initial save)
+      const originalBlogName = 'non matching blog';
+      Blog testBlog = Blog(name: originalBlogName);
+      await Amplify.DataStore.save(testBlog);
+
+      var updatedBlog = testBlog.copyWith(name: 'changed name');
+      await Amplify.DataStore.save(updatedBlog,
+          where: Blog.NAME.contains("Predicate"));
+
+      var blogs = await Amplify.DataStore.query(Blog.classType);
+      expect(blogs.length, 1);
+      expect(blogs[0].name, originalBlogName);
+    });
+
+    testWidgets('predicate should not prevent save for matching model',
+        (WidgetTester tester) async {
+      // Note that predicate for save can only be applied to updates (not initial save)
+      const originalBlogName = 'original blog';
+      Blog testBlog = Blog(name: originalBlogName);
+      await Amplify.DataStore.save(testBlog);
+
+      const matchingBlogName = 'matching blog name';
+      var updatedBlog = testBlog.copyWith(name: matchingBlogName);
+      await Amplify.DataStore.save(updatedBlog,
+          where: Blog.NAME.contains("matching"));
+
+      var blogs = await Amplify.DataStore.query(Blog.classType);
+      expect(blogs.length, 1);
+      expect(blogs[0].name, matchingBlogName);
+    });
   });
 }
