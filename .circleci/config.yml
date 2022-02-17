@@ -194,7 +194,6 @@ workflows:
                   "amplify_datastore_plugin_interface",
                   "amplify_flutter",
                   "amplify_storage_plugin_interface",
-                  "amplify_flutter",
                   "amplify_storage_s3",
                 ]
       - unit_test_android:
