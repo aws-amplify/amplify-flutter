@@ -16,7 +16,7 @@
 part of authenticator.form_field;
 
 /// {@category Prebuilt Widgets}
-/// {@template authenticator.sign_in_form_field}
+/// {@template amplify_authenticator.sign_in_form_field}
 /// A prebuilt form field widget for the Sign In step.
 ///
 /// Can be used to create [username] or [password] form field.
@@ -25,7 +25,7 @@ part of authenticator.form_field;
 /// {@endtemplate}
 abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
     SignInField, FieldValue, SignInFormField<FieldValue>> {
-  /// {@macro authenticator.sign_in_form_field}
+  /// {@macro amplify_authenticator.sign_in_form_field}
   ///
   /// Either [titleKey] or [title] is required.
   const SignInFormField._({

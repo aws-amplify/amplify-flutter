@@ -45,7 +45,7 @@ part 'form_fields/sign_in_form_field.dart';
 part 'form_fields/sign_up_form_field.dart';
 part 'form_fields/verify_user_form_field.dart';
 
-/// {@template authenticator.authenticator_form_field}
+/// {@template amplify_authenticator.authenticator_form_field}
 /// Base class for form field components.
 ///
 /// See also:
@@ -58,7 +58,7 @@ part 'form_fields/verify_user_form_field.dart';
 abstract class AuthenticatorFormField<FieldType, FieldValue,
         T extends AuthenticatorFormField<FieldType, FieldValue, T>>
     extends AuthenticatorComponent<T> {
-  /// {@macro authenticator.authenticator_form_field}
+  /// {@macro amplify_authenticator.authenticator_form_field}
   const AuthenticatorFormField._({
     Key? key,
     required this.field,

@@ -16,12 +16,12 @@
 part of authenticator.form_field;
 
 /// {@category Prebuilt Widgets}
-/// {@template authenticator.confirm_sign_up_form_field}
+/// {@template amplify_authenticator.confirm_sign_up_form_field}
 /// A prebuild form field widget for use on the Reset Password Step.
 /// {@endtemplate}
 class ResetPasswordFormField extends AuthenticatorFormField<ResetPasswordField,
     String, ResetPasswordFormField> {
-  /// {@macro authenticator.sign_up_form_field}
+  /// {@macro amplify_authenticator.sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.
   const ResetPasswordFormField._({

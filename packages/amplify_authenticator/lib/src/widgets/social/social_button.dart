@@ -82,11 +82,11 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
   }
 }
 
-/// {@template authenticator.social_sign_in_button}
+/// {@template amplify_authenticator.social_sign_in_button}
 /// A button for launching a social sign in UI.
 /// {@endtemplate}
 class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
-  /// {@macro authenticator.social_sign_in_button}
+  /// {@macro amplify_authenticator.social_sign_in_button}
   const SocialSignInButton({
     Key? key,
     required this.provider,

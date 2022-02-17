@@ -21,11 +21,11 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// {@template authenticator.stateless_authenticator_component}
+/// {@template amplify_authenticator.stateless_authenticator_component}
 /// Base class for all Authenticator components which do not manage their own state.
 /// {@endtemplate}
 abstract class StatelessAuthenticatorComponent extends StatelessWidget {
-  /// {@macro authenticator.stateless_authenticator_component}
+  /// {@macro amplify_authenticator.stateless_authenticator_component}
   const StatelessAuthenticatorComponent({
     Key? key,
   }) : super(key: key);
@@ -47,12 +47,12 @@ abstract class StatelessAuthenticatorComponent extends StatelessWidget {
   }
 }
 
-/// {@template authenticator.authenticator_component}
+/// {@template amplify_authenticator.authenticator_component}
 /// Base class for all stateful Authenticator components.
 /// {@endtemplate}
 abstract class AuthenticatorComponent<T extends AuthenticatorComponent<T>>
     extends StatefulWidget {
-  /// {@macro authenticator.authenticator_component}
+  /// {@macro amplify_authenticator.authenticator_component}
   const AuthenticatorComponent({Key? key}) : super(key: key);
 
   @override

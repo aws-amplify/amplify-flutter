@@ -16,12 +16,12 @@
 part of authenticator.form_field;
 
 /// {@category Prebuilt Widgets}
-/// {@template authenticator.verify_user_form_field}
+/// {@template amplify_authenticator.verify_user_form_field}
 /// A prebuilt [Radio] widget for use on the Verify User step.
 /// {@endtemplate}
 abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
     VerifyAttributeField, FieldValue, VerifyUserFormField<FieldValue>> {
-  /// {@macro authenticator.verify_user_form_field}
+  /// {@macro amplify_authenticator.verify_user_form_field}
   const VerifyUserFormField._({
     Key? key,
     required VerifyAttributeField field,

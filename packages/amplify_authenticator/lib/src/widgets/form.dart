@@ -253,13 +253,13 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
 }
 
 /// {@category Prebuilt Widgets}
-/// {@template authenticator.sign_up_form}
+/// {@template amplify_authenticator.sign_up_form}
 /// A prebuilt form for registering a new user.
 ///
 /// To customize the form fields, use [SignUpForm.custom].
 /// {@endtemplate}
 class SignUpForm extends AuthenticatorForm {
-  /// {@macro authenticator.sign_up_form}
+  /// {@macro amplify_authenticator.sign_up_form}
   SignUpForm({
     Key? key,
   }) : this.custom(
@@ -355,13 +355,13 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
 }
 
 /// {@category Prebuilt Widgets}
-/// {@template authenticator.sign_in_form}
+/// {@template amplify_authenticator.sign_in_form}
 /// A prebuilt form for signing in a user.
 ///
 /// To customize the form fields, use [SignInForm.custom].
 /// {@endtemplate}
 class SignInForm extends AuthenticatorForm {
-  /// {@macro authenticator.sign_in_form}
+  /// {@macro amplify_authenticator.sign_in_form}
   SignInForm({
     Key? key,
     bool includeDefaultSocialProviders = true,
@@ -444,13 +444,13 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
 }
 
 /// {@category Prebuilt Widgets}
-/// {@template authenticator.confirm_sign_up_form}
+/// {@template amplify_authenticator.confirm_sign_up_form}
 /// A prebuilt form for completing the sign up flow with a confirmation code.
 ///
 /// To customize the form fields, use [ConfirmSignUpForm.custom].
 /// {@endtemplate}
 class ConfirmSignUpForm extends AuthenticatorForm {
-  /// {@macro authenticator.confirm_sign_up_form}
+  /// {@macro amplify_authenticator.confirm_sign_up_form}
   ConfirmSignUpForm({
     Key? key,
   }) : this.custom(
@@ -487,11 +487,11 @@ class ConfirmSignUpForm extends AuthenticatorForm {
 }
 
 /// {@category Prebuilt Widgets}
-/// {@template authenticator.confirm_sign_in_mfa_form}
+/// {@template amplify_authenticator.confirm_sign_in_mfa_form}
 /// A prebuilt form for completing the sign in process with an MFA code.
 /// {@endtemplate}
 class ConfirmSignInMFAForm extends AuthenticatorForm {
-  /// {@macro authenticator.confirm_sign_in_mfa_form}
+  /// {@macro amplify_authenticator.confirm_sign_in_mfa_form}
   ConfirmSignInMFAForm({Key? key})
       : super._(
           key: key,
@@ -511,13 +511,13 @@ class ConfirmSignInMFAForm extends AuthenticatorForm {
 }
 
 /// {@category Prebuilt Widgets}
-/// {@template authenticator.confirm_sign_in_new_password_form}
+/// {@template amplify_authenticator.confirm_sign_in_new_password_form}
 /// A prebuilt form for completing the force new password flow.
 ///
 /// To customize the form fields, use [ConfirmSignInNewPasswordForm.custom].
 /// {@endtemplate}
 class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
-  /// {@macro authenticator.confirm_sign_in_new_password_form}
+  /// {@macro amplify_authenticator.confirm_sign_in_new_password_form}
   ConfirmSignInNewPasswordForm({
     Key? key,
   }) : this.custom(
@@ -548,11 +548,11 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
 }
 
 /// {@category Prebuilt Widgets}
-/// {@template authenticator.send_code_form}
+/// {@template amplify_authenticator.send_code_form}
 /// A prebuilt form for initiating the reset password flow.
 /// {@endtemplate}
 class ResetPasswordForm extends AuthenticatorForm {
-  /// {@macro authenticator.send_code_form}
+  /// {@macro amplify_authenticator.send_code_form}
   ResetPasswordForm({
     Key? key,
   }) : super._(
@@ -573,11 +573,11 @@ class ResetPasswordForm extends AuthenticatorForm {
 }
 
 /// {@category Prebuilt Widgets}
-/// {@template authenticator.reset_password_form}
+/// {@template amplify_authenticator.reset_password_form}
 /// A prebuilt form for completing the reset password flow.
 /// {@endtemplate}
 class ConfirmResetPasswordForm extends AuthenticatorForm {
-  /// {@macro authenticator.reset_password_form}
+  /// {@macro amplify_authenticator.reset_password_form}
   const ConfirmResetPasswordForm({
     Key? key,
   }) : super._(
@@ -600,11 +600,11 @@ class ConfirmResetPasswordForm extends AuthenticatorForm {
 }
 
 /// {@category Prebuilt Widgets}
-/// {@template authenticator.verify_user_form}
+/// {@template amplify_authenticator.verify_user_form}
 /// A prebuilt form for initiating the account recovery attribute verification process.
 /// {@endtemplate}
 class VerifyUserForm extends AuthenticatorForm {
-  /// {@macro authenticator.verify_user_form}
+  /// {@macro amplify_authenticator.verify_user_form}
   VerifyUserForm({
     Key? key,
   }) : super._(
@@ -625,11 +625,11 @@ class VerifyUserForm extends AuthenticatorForm {
 }
 
 /// {@category Prebuilt Widgets}
-/// {@template authenticator.confirm_verify_user_form}
+/// {@template amplify_authenticator.confirm_verify_user_form}
 /// A prebuilt form for completing the account recovery attribute verification process.
 /// {@endtemplate}
 class ConfirmVerifyUserForm extends AuthenticatorForm {
-  /// {@macro authenticator.confirm_verify_user_form}
+  /// {@macro amplify_authenticator.confirm_verify_user_form}
   ConfirmVerifyUserForm({
     Key? key,
   }) : super._(
