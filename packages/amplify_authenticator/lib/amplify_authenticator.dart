@@ -47,7 +47,6 @@ import 'package:flutter/material.dart';
 
 export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
-export 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 export 'package:amplify_authenticator/src/state/authenticator_state.dart';
 export 'package:amplify_authenticator/src/widgets/button.dart';
 export 'package:amplify_authenticator/src/widgets/form.dart';
