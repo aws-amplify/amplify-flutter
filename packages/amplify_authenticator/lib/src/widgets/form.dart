@@ -75,7 +75,6 @@ class AuthenticatorForm extends AuthenticatorComponent<AuthenticatorForm> {
   })  : fields = const [],
         actions = const [],
         includeDefaultSocialProviders = false,
-        useRunTimeFields = false,
         super(key: key);
 
   const AuthenticatorForm._({
@@ -83,15 +82,11 @@ class AuthenticatorForm extends AuthenticatorComponent<AuthenticatorForm> {
     required this.fields,
     required this.actions,
     this.includeDefaultSocialProviders = true,
-    this.useRunTimeFields = true,
   })  : child = null,
         super(key: key);
 
   /// The form fields displayed on the form.
   final List<AuthenticatorFormField> fields;
-
-  /// determines if run time fields should be used
-  final bool useRunTimeFields;
 
   /// Buttons and checkboxes to show below the fields.
   final List<Widget> actions;
@@ -110,14 +105,11 @@ class AuthenticatorForm extends AuthenticatorComponent<AuthenticatorForm> {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<bool>(
         'includeDefaultSocialProviders', includeDefaultSocialProviders));
-    properties
-        .add(DiagnosticsProperty<bool>('useRunTimeFields', useRunTimeFields));
   }
 }
 
 class AuthenticatorFormState<T extends AuthenticatorForm>
-    extends AuthenticatorComponentState<AuthenticatorForm>
-    with UsernameAttributes<AuthenticatorForm> {
+    extends AuthenticatorComponentState<T> with UsernameAttributes<T> {
   AuthenticatorFormState();
 
   static AuthenticatorFormState of(BuildContext context) {
@@ -183,21 +175,12 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
     );
   }
 
+  /// all the fields to display on the form.
+  ///
+  /// defaults to `widget.fields`.
+  /// Implementations of AuthenticatorFormState can override this.
   List<AuthenticatorFormField> get allFields {
-    if (!widget.useRunTimeFields) {
-      return widget.fields;
-    }
-
-    // combine fields and sort on priority
-    final fields = [
-      ...widget.fields,
-      ...runtimeFields(context),
-    ]..sort((a, b) {
-        // Sort larger priorities first.
-        return -a.displayPriority.compareTo(b.displayPriority);
-      });
-
-    return fields.toList(growable: false);
+    return widget.fields;
   }
 
   @override
@@ -249,7 +232,8 @@ class SignUpForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.sign_up_form}
   SignUpForm({
     Key? key,
-  }) : super._(
+  })  : useRunTimeFields = true,
+        super._(
           key: key,
           fields: [
             SignUpFormField.username(),
@@ -265,21 +249,48 @@ class SignUpForm extends AuthenticatorForm {
   const SignUpForm.custom({
     Key? key,
     required List<SignUpFormField> fields,
-  }) : super._(
+  })  : useRunTimeFields = false,
+        super._(
           key: key,
-          useRunTimeFields: false,
           fields: fields,
           actions: const [
             SignUpButton(),
           ],
         );
 
+  /// determines if run time fields should be used
+  final bool useRunTimeFields;
+
   @override
   _SignUpFormState createState() => _SignUpFormState();
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty<bool>('useRunTimeFields', useRunTimeFields));
+  }
 }
 
 class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
   _SignUpFormState() : super();
+
+  @override
+  List<AuthenticatorFormField> get allFields {
+    if (!widget.useRunTimeFields) {
+      return widget.fields;
+    }
+
+    // combine fields and sort on priority
+    final fields = [
+      ...widget.fields,
+      ...runtimeFields(context),
+    ]..sort((a, b) {
+        // Sort larger priorities first.
+        return -a.displayPriority.compareTo(b.displayPriority);
+      });
+
+    return fields.toList(growable: false);
+  }
 
   @override
   List<SignUpFormField> runtimeFields(BuildContext context) {
@@ -375,7 +386,6 @@ class SignInForm extends AuthenticatorForm {
     bool includeDefaultSocialProviders = true,
   }) : super._(
           key: key,
-          useRunTimeFields: false,
           fields: fields,
           actions: const [
             SignInButton(),
@@ -467,7 +477,6 @@ class ConfirmSignUpForm extends AuthenticatorForm {
     this.resendCodeButton,
   }) : super._(
           key: key,
-          useRunTimeFields: false,
           fields: fields,
           actions: const [
             ConfirmSignUpButton(),
@@ -536,7 +545,6 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
     required List<ConfirmSignInFormField> fields,
   }) : super._(
           key: key,
-          useRunTimeFields: false,
           fields: fields,
           actions: const [
             ConfirmSignInNewPasswordButton(),
