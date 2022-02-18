@@ -69,7 +69,7 @@ class AtomicResultTest {
     fun multipleConcurrentRepliesAreNotSent() = coroutinesTestRule.testDispatcher.runBlockingTest {
         val atomicResult = AtomicResult(mockResult, "multipleConcurrentRepliesAreNotSent")
         val jobs = mutableListOf<Job>()
-        for (i in 0..1000) {
+        for (i in 0..10) {
             val job = launch(Dispatchers.IO) {
                 atomicResult.success(null)
             }
