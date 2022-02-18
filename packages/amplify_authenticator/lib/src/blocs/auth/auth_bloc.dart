@@ -19,11 +19,12 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
+import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
 part 'auth_event.dart';
 
-/// {@template authenticator.state_machine_bloc}
+/// {@template amplify_authenticator.state_machine_bloc}
 /// Internal state machine for the authenticator. Listens to authentication events
 /// and maps them to appropriate state transitions.
 /// {@endtemplate}
@@ -56,7 +57,7 @@ class StateMachineBloc {
   AuthState _currentState = const LoadingState();
   AuthState get currentState => _currentState;
 
-  /// {@macro authenticator.state_machine_bloc}
+  /// {@macro amplify_authenticator.state_machine_bloc}
   StateMachineBloc({
     required AuthService authService,
     required this.preferPrivateSession,

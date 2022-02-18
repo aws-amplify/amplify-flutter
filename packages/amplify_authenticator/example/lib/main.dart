@@ -1,14 +1,14 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator_example/authenticator_with_custom_layout.dart';
-import 'package:amplify_authenticator_example/authenticator_with_onboarding.dart';
-import 'package:amplify_authenticator_example/localized_country_resolver.dart';
+import 'package:amplify_authenticator_example/customization/authenticator_with_custom_layout.dart';
+import 'package:amplify_authenticator_example/customization/authenticator_with_onboarding.dart';
+import 'package:amplify_authenticator_example/resolvers/localized_button_resolver.dart';
+import 'package:amplify_authenticator_example/resolvers/localized_country_resolver.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'amplifyconfiguration.dart';
-import 'localized_button_resolver.dart';
 
 void main() {
   runApp(const MyApp());
@@ -88,7 +88,7 @@ class _MyAppState extends State<MyApp> {
       //
       // Providing a custom SignUpForm allows for simple customizations such as
       // adding a sign up attribute or adding a custom validator. More complex
-      // customizations can be acheived by providing a custom builder method to
+      // customizations can be achieved by providing a custom builder method to
       // Authenticator.builder()
       signUpForm: SignUpForm.custom(
         fields: [

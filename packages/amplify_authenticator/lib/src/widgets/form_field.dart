@@ -26,13 +26,14 @@ import 'package:amplify_authenticator/src/mixins/authenticator_radio_field.dart'
 import 'package:amplify_authenticator/src/mixins/authenticator_text_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
+import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
-import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
+import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +45,7 @@ part 'form_fields/sign_in_form_field.dart';
 part 'form_fields/sign_up_form_field.dart';
 part 'form_fields/verify_user_form_field.dart';
 
-/// {@template authenticator.authenticator_form_field}
+/// {@template amplify_authenticator.authenticator_form_field}
 /// Base class for form field components.
 ///
 /// See also:
@@ -57,7 +58,7 @@ part 'form_fields/verify_user_form_field.dart';
 abstract class AuthenticatorFormField<FieldType, FieldValue,
         T extends AuthenticatorFormField<FieldType, FieldValue, T>>
     extends AuthenticatorComponent<T> {
-  /// {@macro authenticator.authenticator_form_field}
+  /// {@macro amplify_authenticator.authenticator_form_field}
   const AuthenticatorFormField._({
     Key? key,
     required this.field,

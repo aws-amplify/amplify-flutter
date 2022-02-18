@@ -16,11 +16,11 @@
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:flutter/material.dart';
 
-/// {@template authenticator.adaptive_flex}
+/// {@template amplify_authenticator.adaptive_flex}
 /// Creates a [Flex] which changes direction based on the step size.
 /// {@endtemplate}
 class AdaptiveFlex extends StatelessWidget {
-  /// {@macro authenticator.adaptive_flex}}
+  /// {@macro amplify_authenticator.adaptive_flex}}
   const AdaptiveFlex({
     Key? key,
     required this.children,

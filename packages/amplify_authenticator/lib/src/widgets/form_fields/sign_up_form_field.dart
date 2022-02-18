@@ -15,12 +15,13 @@
 
 part of authenticator.form_field;
 
-/// {@template authenticator.sign_up_form_field}
-/// A form field component on the Sign Up step.
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.sign_up_form_field}
+/// A prebuilt form field widget for use on the Sign Up step.
 /// {@endtemplate}
 abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     SignUpField, FieldValue, SignUpFormField<FieldValue>> {
-  /// {@macro authenticator.sign_up_form_field}
+  /// {@macro amplify_authenticator.sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.
   const SignUpFormField._({

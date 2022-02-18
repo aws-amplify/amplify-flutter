@@ -16,6 +16,7 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
@@ -23,12 +24,12 @@ import 'package:amplify_authenticator/src/widgets/progress.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// {@template authenticator.authenticator_button}
+/// {@template amplify_authenticator.authenticator_button}
 /// Base class for Authenticator button components.
 /// {@endtemplate}
 abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
     extends AuthenticatorComponent<T> {
-  /// {@macro authenticator.authenticator_button}
+  /// {@macro amplify_authenticator.authenticator_button}
   const AuthenticatorButton({
     Key? key,
   }) : super(key: key);
@@ -89,12 +90,12 @@ abstract class AuthenticatorButtonState<T extends AuthenticatorButton<T>>
   }
 }
 
-/// {@template authenticator.amplify_elevated_button}
+/// {@template amplify_authenticator.amplify_elevated_button}
 /// An Amplify [ElevatedButton] component with default layout and styling.
 /// {@endtemplate}
 abstract class AuthenticatorElevatedButton
     extends AuthenticatorButton<AuthenticatorElevatedButton> {
-  /// {@macro authenticator.amplify_elevated_button}
+  /// {@macro amplify_authenticator.amplify_elevated_button}
   const AuthenticatorElevatedButton({Key? key}) : super(key: key);
 
   @override
@@ -141,7 +142,14 @@ class _AmplifyElevatedButtonState
   }
 }
 
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.sign_up_button}
+/// A prebuilt button for registering a new user.
+///
+/// Uses [ButtonResolverKey.signUp] for localization
+/// {@endtemplate}
 class SignUpButton extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.sign_up_button}
   const SignUpButton({Key? key})
       : super(
           key: key ?? keySignUpButton,
@@ -155,7 +163,14 @@ class SignUpButton extends AuthenticatorElevatedButton {
       state.signUp();
 }
 
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.sign_in_button}
+/// A prebuilt button for signing in a user.
+///
+/// Uses [ButtonResolverKey.signIn] for localization
+/// {@endtemplate}
 class SignInButton extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.sign_in_button}
   const SignInButton({Key? key})
       : super(
           key: key ?? keySignInButton,
@@ -169,7 +184,14 @@ class SignInButton extends AuthenticatorElevatedButton {
       state.signIn();
 }
 
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_sign_up_button}
+/// A prebuilt button for completing the sign up flow with a confirmation code.
+///
+/// Uses [ButtonResolverKey.confirm] for localization
+/// {@endtemplate}
 class ConfirmSignUpButton extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.confirm_sign_up_button}
   const ConfirmSignUpButton({Key? key})
       : super(
           key: key ?? keyConfirmSignUpButton,
@@ -183,7 +205,14 @@ class ConfirmSignUpButton extends AuthenticatorElevatedButton {
       state.confirmSignUp();
 }
 
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_sign_in_mfa_button}
+/// A prebuilt button for completing Sign In with and MFA code.
+///
+/// Uses [ButtonResolverKey.confirm] for localization
+/// {@endtemplate}
 class ConfirmSignInMFAButton extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.confirm_sign_in_mfa_button}
   const ConfirmSignInMFAButton({Key? key})
       : super(
           key: key ?? keyConfirmSignInButton,
@@ -197,33 +226,33 @@ class ConfirmSignInMFAButton extends AuthenticatorElevatedButton {
       state.confirmSignInMFA();
 }
 
-// SignOutButton should not inherit from AuthenticatorButton, since we override
-// the theme in AuthenticatorButton.
-//
-// Since SignOutButton is used within the user's app, it should use Theme.of(context)
-// to get the user's applied theme.
-class SignOutButton extends StatelessAuthenticatorComponent {
-  const SignOutButton({Key? key}) : super(key: key);
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.sign_out_button}
+/// A prebuilt button for Signing Out.
+///
+/// Uses [ButtonResolverKey.signout] for localization
+/// {@endtemplate}
+class SignOutButton extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.sign_out_button}
+  const SignOutButton({Key? key})
+      : super(
+          key: key ?? keyConfirmSignInButton,
+        );
 
   @override
-  Widget builder(
-    BuildContext context,
-    AuthenticatorState state,
-    AuthStringResolver stringResolver,
-  ) {
-    final buttonResolver = stringResolver.buttons;
-    return ElevatedButton(
-      key: keySignOutButton,
-      onPressed: state.signOut,
-      child: Text(buttonResolver.resolve(
-        context,
-        ButtonResolverKey.signout,
-      )),
-    );
-  }
+  ButtonResolverKey get labelKey => ButtonResolverKey.signout;
+
+  @override
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.signOut();
 }
 
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.back_to_sign_in_button}
+/// A prebuilt button for navigating back to the Sign In step.
+/// {@endtemplate}
 class BackToSignInButton extends StatelessAuthenticatorComponent {
+  /// {@macro amplify_authenticator.back_to_sign_in_button}
   const BackToSignInButton({Key? key}) : super(key: key);
 
   @override
@@ -244,111 +273,12 @@ class BackToSignInButton extends StatelessAuthenticatorComponent {
   }
 }
 
-class GoToSignUpButton extends StatelessAuthenticatorComponent {
-  const GoToSignUpButton({Key? key}) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    AuthenticatorState state,
-    AuthStringResolver stringResolver,
-  ) {
-    final resolver = stringResolver.buttons;
-    final Size screenSize = MediaQuery.of(context).size;
-    final bool isDesktop =
-        screenSize.width > AuthenticatorContainerConstants.landScapeView;
-
-    //This code prevents this button from hiding when the viewport changes
-    //to a Desktop view.
-    final flex = isDesktop ? 0 : 1;
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: flex,
-            child: Text(
-              resolver.noAccount(context),
-              style: const TextStyle(
-                color: AuthenticatorButtonConstants.textColor,
-                fontSize: AuthenticatorButtonConstants.fontSize,
-              ),
-            ),
-          ),
-          TextButton(
-            key: keyGoToSignUpButton,
-            onPressed: () => state.changeStep(
-              AuthenticatorStep.signUp,
-            ),
-            child: Text(
-              resolver.signUp(context),
-              style: TextStyle(
-                fontSize: AuthenticatorButtonConstants.fontSize,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class GoToSignInButton extends StatelessAuthenticatorComponent {
-  const GoToSignInButton({Key? key}) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    AuthenticatorState state,
-    AuthStringResolver stringResolver,
-  ) {
-    final resolver = stringResolver.buttons;
-    final Size screenSize = MediaQuery.of(context).size;
-    final bool isDesktop =
-        screenSize.width > AuthenticatorContainerConstants.landScapeView;
-
-    //This code prevents this button from hiding when the viewport changes
-    //to a Desktop view.
-    final flex = isDesktop ? 0 : 1;
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 4.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: flex,
-            child: Text(
-              resolver.haveAccount(context),
-              style: const TextStyle(
-                color: AuthenticatorButtonConstants.textColor,
-                fontSize: AuthenticatorButtonConstants.fontSize,
-              ),
-            ),
-          ),
-          TextButton(
-            key: keyGoToSignInButton,
-            child: Text(
-              resolver.signIn(context),
-              style: TextStyle(
-                fontSize: AuthenticatorButtonConstants.fontSize,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            onPressed: () => state.changeStep(
-              AuthenticatorStep.signIn,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.lost_code_button}
+/// A prebuilt button for resending a confirmation code during the sign up process.
+/// {@endtemplate}
 class LostCodeButton extends StatelessAuthenticatorComponent {
+  /// {@macro amplify_authenticator.lost_code_button}
   const LostCodeButton({Key? key}) : super(key: key);
 
   static const fontSize = 13.0;
@@ -386,7 +316,12 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
   }
 }
 
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.forgot_password_button}
+/// A prebuilt button for changing the current step to [AuthenticatorStep.resetPassword].
+/// {@endtemplate}
 class ForgotPasswordButton extends StatelessAuthenticatorComponent {
+  /// {@macro amplify_authenticator.forgot_password_button}
   const ForgotPasswordButton({Key? key}) : super(key: key);
 
   @override
@@ -407,7 +342,14 @@ class ForgotPasswordButton extends StatelessAuthenticatorComponent {
   }
 }
 
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.reset_password_button}
+/// A prebuilt button for initiating the reset password flow.
+///
+/// Uses [ButtonResolverKey.submit] for localization
+/// {@endtemplate}
 class ResetPasswordButton extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.reset_password_button}
   const ResetPasswordButton({Key? key})
       : super(
           key: key ?? keySendCodeButton,
@@ -421,7 +363,14 @@ class ResetPasswordButton extends AuthenticatorElevatedButton {
       state.resetPassword();
 }
 
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_reset_password_button}
+/// A prebuilt button for completing the reset password flow.
+///
+/// Uses [ButtonResolverKey.submit] for localization
+/// {@endtemplate}
 class ConfirmResetPasswordButton extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.confirm_reset_password_button}
   const ConfirmResetPasswordButton({Key? key})
       : super(
           key: key ?? keySendCodeButton,
@@ -435,7 +384,14 @@ class ConfirmResetPasswordButton extends AuthenticatorElevatedButton {
       state.confirmResetPassword();
 }
 
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_sign_in_new_password}
+/// A prebuilt button for completing the force reset password flow.
+///
+/// Uses [ButtonResolverKey.changePassword] for localization
+/// {@endtemplate}
 class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.confirm_sign_in_new_password}
   const ConfirmSignInNewPasswordButton({Key? key})
       : super(
           key: key ?? keyConfirmSignInButton,
@@ -449,7 +405,14 @@ class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {
       state.confirmSignInNewPassword();
 }
 
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.verify_user_button}
+/// A prebuilt button for initiating the account recovery attribute verification process.
+///
+/// Uses [ButtonResolverKey.verify] for localization
+/// {@endtemplate}
 class VerifyUserButton extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.verify_user_button}
   const VerifyUserButton({Key? key})
       : super(
           key: key ?? keySubmitVerifyUserButton,
@@ -464,7 +427,14 @@ class VerifyUserButton extends AuthenticatorElevatedButton {
   }
 }
 
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_verify_user_button}
+/// A prebuilt button for completing the account recovery attribute verification process.
+///
+/// Uses [ButtonResolverKey.submit] for localization
+/// {@endtemplate}
 class ConfirmVerifyUserButton extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.confirm_verify_user_button}
   const ConfirmVerifyUserButton({Key? key})
       : super(
           key: key ?? keySubmitConfirmVerifyUserButton,
@@ -481,7 +451,12 @@ class ConfirmVerifyUserButton extends AuthenticatorElevatedButton {
   }
 }
 
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_verify_user_button}
+/// A prebuilt button for skipping the verify user flow.
+/// {@endtemplate}
 class SkipVerifyUserButton extends StatelessAuthenticatorComponent {
+  /// {@macro amplify_authenticator.confirm_verify_user_button}
   const SkipVerifyUserButton({Key? key}) : super(key: key);
 
   @override

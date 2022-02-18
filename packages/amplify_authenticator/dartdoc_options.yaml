@@ -1,0 +1,5 @@
+dartdoc:
+  categories:
+    "Prebuilt Widgets":
+      markdown: docs/prebuilt-widgets.md
+      name: Prebuilt Widgets

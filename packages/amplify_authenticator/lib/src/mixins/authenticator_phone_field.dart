@@ -161,3 +161,12 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
     }
   }
 }
+
+extension _StringPrefix on String {
+  String ensureStartsWith(String value) {
+    if (!startsWith(value)) {
+      return '$value$this';
+    }
+    return this;
+  }
+}

@@ -47,10 +47,7 @@ import 'package:flutter/material.dart';
 
 export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
-export 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-export 'package:amplify_authenticator/src/state/authenticator_state.dart';
-export 'package:amplify_authenticator/src/widgets/button.dart';
-export 'package:amplify_authenticator/src/widgets/form.dart';
+
 export 'package:amplify_flutter/amplify_flutter.dart'
     show PasswordProtectionSettings, PasswordPolicyCharacters;
 
@@ -58,16 +55,43 @@ export 'src/enums/enums.dart' show AuthenticatorStep, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
 export 'src/models/username_input.dart' show UsernameType, UsernameInput;
-export 'src/state/auth_state.dart';
-export 'src/widgets/button.dart' show SignOutButton;
+export 'src/state/authenticator_state.dart';
+export 'src/widgets/button.dart'
+    show
+        SignUpButton,
+        SignInButton,
+        ConfirmSignUpButton,
+        ConfirmSignInMFAButton,
+        SignOutButton,
+        BackToSignInButton,
+        LostCodeButton,
+        ForgotPasswordButton,
+        ResetPasswordButton,
+        ConfirmResetPasswordButton,
+        ConfirmSignInNewPasswordButton,
+        VerifyUserButton,
+        ConfirmVerifyUserButton,
+        SkipVerifyUserButton;
 export 'src/widgets/form.dart'
-    show SignInForm, SignUpForm, ConfirmSignInNewPasswordForm;
+    show
+        AuthenticatorForm,
+        SignUpForm,
+        SignInForm,
+        ConfirmSignInMFAForm,
+        ConfirmSignInNewPasswordForm,
+        ConfirmSignUpForm,
+        ResetPasswordForm,
+        ConfirmResetPasswordForm,
+        VerifyUserForm,
+        ConfirmVerifyUserForm;
 export 'src/widgets/form_field.dart'
     show
+        ConfirmSignInFormField,
+        ConfirmSignUpFormField,
+        ResetPasswordFormField,
         SignInFormField,
         SignUpFormField,
-        ConfirmSignInFormField,
-        ConfirmSignUpFormField;
+        VerifyUserFormField;
 
 /// {@template amplify_authenticator.authenticator}
 /// # Amplify Authenticator

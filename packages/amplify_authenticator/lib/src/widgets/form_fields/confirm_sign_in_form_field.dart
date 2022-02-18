@@ -15,13 +15,14 @@
 
 part of authenticator.form_field;
 
-/// {@template authenticator.confirm_sign_in_form_field}
-/// A form field component on the Confirm Sign In screens.
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_sign_in_form_field}
+/// A prebuilt form field widget for use on the Confirm Sign In step.
 /// {@endtemplate}
 abstract class ConfirmSignInFormField<FieldValue>
     extends AuthenticatorFormField<ConfirmSignInField, FieldValue,
         ConfirmSignInFormField<FieldValue>> {
-  /// {@macro authenticator.confirm_sign_in_form_field}
+  /// {@macro amplify_authenticator.confirm_sign_in_form_field}
   ///
   /// Either [titleKey] or [title] is required.
   const ConfirmSignInFormField._({

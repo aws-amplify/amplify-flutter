@@ -252,13 +252,14 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
   }
 }
 
-/// {@template authenticator.sign_up_form}
-/// The Sign Up step form.
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.sign_up_form}
+/// A prebuilt form for registering a new user.
 ///
-/// To customize, use [SignUpForm.custom].
+/// To customize the form fields, use [SignUpForm.custom].
 /// {@endtemplate}
 class SignUpForm extends AuthenticatorForm {
-  /// {@macro authenticator.sign_up_form}
+  /// {@macro amplify_authenticator.sign_up_form}
   SignUpForm({
     Key? key,
   }) : this.custom(
@@ -353,13 +354,14 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
   }
 }
 
-/// {@template authenticator.sign_in_form}
-/// The Sign In step form.
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.sign_in_form}
+/// A prebuilt form for signing in a user.
 ///
-/// To customize, use [SignInForm.custom].
+/// To customize the form fields, use [SignInForm.custom].
 /// {@endtemplate}
 class SignInForm extends AuthenticatorForm {
-  /// {@macro authenticator.sign_in_form}
+  /// {@macro amplify_authenticator.sign_in_form}
   SignInForm({
     Key? key,
     bool includeDefaultSocialProviders = true,
@@ -441,13 +443,14 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
   }
 }
 
-/// {@template authenticator.confirm_sign_up_form}
-/// The Confirm Sign Up step form.
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_sign_up_form}
+/// A prebuilt form for completing the sign up flow with a confirmation code.
 ///
-/// To customize, use [ConfirmSignUpForm.custom].
+/// To customize the form fields, use [ConfirmSignUpForm.custom].
 /// {@endtemplate}
 class ConfirmSignUpForm extends AuthenticatorForm {
-  /// {@macro authenticator.confirm_sign_up_form}
+  /// {@macro amplify_authenticator.confirm_sign_up_form}
   ConfirmSignUpForm({
     Key? key,
   }) : this.custom(
@@ -483,11 +486,12 @@ class ConfirmSignUpForm extends AuthenticatorForm {
       AuthenticatorFormState<ConfirmSignUpForm>();
 }
 
-/// {@template authenticator.confirm_sign_in_mfa_form}
-/// The Confirm Sign In with MFA step form.
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_sign_in_mfa_form}
+/// A prebuilt form for completing the sign in process with an MFA code.
 /// {@endtemplate}
 class ConfirmSignInMFAForm extends AuthenticatorForm {
-  /// {@macro authenticator.confirm_sign_in_mfa_form}
+  /// {@macro amplify_authenticator.confirm_sign_in_mfa_form}
   ConfirmSignInMFAForm({Key? key})
       : super._(
           key: key,
@@ -506,13 +510,14 @@ class ConfirmSignInMFAForm extends AuthenticatorForm {
       AuthenticatorFormState<ConfirmSignInMFAForm>();
 }
 
-/// {@template authenticator.confirm_sign_in_new_password_form}
-/// The Confirm Sign In with New Password step form.
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_sign_in_new_password_form}
+/// A prebuilt form for completing the force new password flow.
 ///
-/// To customize, use [ConfirmSignInNewPasswordForm.custom].
+/// To customize the form fields, use [ConfirmSignInNewPasswordForm.custom].
 /// {@endtemplate}
 class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
-  /// {@macro authenticator.confirm_sign_in_new_password_form}
+  /// {@macro amplify_authenticator.confirm_sign_in_new_password_form}
   ConfirmSignInNewPasswordForm({
     Key? key,
   }) : this.custom(
@@ -542,27 +547,17 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
       AuthenticatorFormState<ConfirmSignInNewPasswordForm>();
 }
 
-/// {@template authenticator.send_code_form}
-/// The Reset Password step form.
-///
-/// To customize, use [ResetPasswordForm.custom].
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.send_code_form}
+/// A prebuilt form for initiating the reset password flow.
 /// {@endtemplate}
 class ResetPasswordForm extends AuthenticatorForm {
-  /// {@macro authenticator.send_code_form}
+  /// {@macro amplify_authenticator.send_code_form}
   ResetPasswordForm({
     Key? key,
-  }) : this.custom(
-          key: key,
-          fields: const [],
-        );
-
-  /// A custom Reset Password form.
-  ResetPasswordForm.custom({
-    Key? key,
-    required List<SignInFormField> fields,
   }) : super._(
           key: key,
-          customFields: fields,
+          customFields: const [],
           requiredFields: [
             SignInFormField.username(),
           ],
@@ -577,27 +572,17 @@ class ResetPasswordForm extends AuthenticatorForm {
       AuthenticatorFormState<ResetPasswordForm>();
 }
 
-/// {@template authenticator.reset_password_form}
-/// The Confirm Reset Password step form.
-///
-/// To customize, use [ConfirmResetPasswordForm.custom].
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.reset_password_form}
+/// A prebuilt form for completing the reset password flow.
 /// {@endtemplate}
 class ConfirmResetPasswordForm extends AuthenticatorForm {
-  /// {@macro authenticator.reset_password_form}
+  /// {@macro amplify_authenticator.reset_password_form}
   const ConfirmResetPasswordForm({
     Key? key,
-  }) : this.custom(
-          key: key,
-          fields: const [],
-        );
-
-  /// A custom Confirm Reset Password form.
-  const ConfirmResetPasswordForm.custom({
-    Key? key,
-    required List<ResetPasswordFormField> fields,
   }) : super._(
           key: key,
-          customFields: fields,
+          customFields: const [],
           requiredFields: const [
             ResetPasswordFormField.verificationCode(),
             ResetPasswordFormField.newPassword(),
@@ -614,13 +599,12 @@ class ConfirmResetPasswordForm extends AuthenticatorForm {
       AuthenticatorFormState<ConfirmResetPasswordForm>();
 }
 
-/// {@template authenticator.verify_user_form}
-/// The Verify User step form.
-///
-/// Cannot be customized.
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.verify_user_form}
+/// A prebuilt form for initiating the account recovery attribute verification process.
 /// {@endtemplate}
 class VerifyUserForm extends AuthenticatorForm {
-  /// {@macro authenticator.verify_user_form}
+  /// {@macro amplify_authenticator.verify_user_form}
   VerifyUserForm({
     Key? key,
   }) : super._(
@@ -640,13 +624,12 @@ class VerifyUserForm extends AuthenticatorForm {
       AuthenticatorFormState<VerifyUserForm>();
 }
 
-/// {@template authenticator.confirm_verify_user_form}
-/// The Confirm Verify User step form.
-///
-/// Cannot be customized.
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_verify_user_form}
+/// A prebuilt form for completing the account recovery attribute verification process.
 /// {@endtemplate}
 class ConfirmVerifyUserForm extends AuthenticatorForm {
-  /// {@macro authenticator.confirm_verify_user_form}
+  /// {@macro amplify_authenticator.confirm_verify_user_form}
   ConfirmVerifyUserForm({
     Key? key,
   }) : super._(

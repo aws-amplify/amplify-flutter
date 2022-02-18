@@ -28,7 +28,7 @@ export 'input_resolver.dart';
 export 'message_resolver.dart';
 export 'title_resolver.dart';
 
-/// {@template authenticator.auth_string_resolver}
+/// {@template amplify_authenticator.auth_string_resolver}
 /// The class that is accepted by the Authenticator to override strings
 ///
 /// Consists of a set of resolvers, which are functions for returning strings.
@@ -51,7 +51,7 @@ class AuthStringResolver {
   /// The resolver class for titles
   final MessageResolver messages;
 
-  /// {@macro authenticator.auth_string_resolver}
+  /// {@macro amplify_authenticator.auth_string_resolver}
   const AuthStringResolver({
     ButtonResolver? buttons,
     CountryResolver? countries,

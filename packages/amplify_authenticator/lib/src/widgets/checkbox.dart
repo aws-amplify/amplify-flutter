@@ -18,12 +18,12 @@ import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// {@template authenticator.authenticator_checkbox}
+/// {@template amplify_authenticator.authenticator_checkbox}
 /// An Authenticator checkbox component with default layout and styling.
 /// {@endtemplate}
 class AuthenticatorCheckbox<T extends AuthenticatorCheckbox<T>>
     extends AuthenticatorComponent<T> {
-  /// {@macro authenticator.authenticator_button}
+  /// {@macro amplify_authenticator.authenticator_button}
   const AuthenticatorCheckbox({Key? key, required this.labelKey})
       : super(key: key);
 
