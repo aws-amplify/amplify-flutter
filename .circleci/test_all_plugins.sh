@@ -55,7 +55,6 @@ case $test_suite in
                 test_failure=1
                 continue
             fi
-            cp ${project_root_dir}/.circleci/dummy_amplifyconfiguration.dart example/lib/amplifyconfiguration.dart
             if [ ! -f $dummy_file_path ]; then
                 cp ${project_root_dir}/.circleci/dummy_amplifyconfiguration.dart $dummy_file_path
             fi
