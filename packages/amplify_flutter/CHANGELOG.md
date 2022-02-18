@@ -1,18 +1,14 @@
-## 0.3.3 (2022-02-04)
+## 0.4.0 (2022-02-17)
 
-### Fixes
-
-- fix(amplify_flutter): Password settings parsing (#1323)
-- fix(amplify_datastore): Hub memory usage (#1201)
+- chore(flutter): Fix AtomicResultTest (#1363)
 - fix(amplify_flutter): updates for latest flutter and dart versions #1333
+- feat(amplify_flutter): allow customers to override AmplifyClass methods #1325
+- fix(flutter): Password settings parsing #1323
+- chore: bump Kotlin version to 1.6.10 (#1346)
 
-### Features
+### Breaking Changes
 
-- feat(amplify_flutter): allow customers to override AmplifyClass methods (#1325)
-
-### Chores
-
-- chore(amplify_datastore): Export hub event types (#1330)
+- If your app has a dependency on Kotlin, the value of `ext.kotlin_version` set in `android/build.gradle` must be 1.5.31 or greater (1.6.10 recommended)
 
 ## 0.3.2 (2022-01-21)
 

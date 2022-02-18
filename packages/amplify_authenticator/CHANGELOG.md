@@ -1,3 +1,8 @@
+## 0.1.0-rc.6 (2022-02-17)
+
+- chore: update amplify_flutter dep to >=0.3.0 <0.5.0 (#1361)
+- chore: remove support for amplify theme (#1367)
+
 ## 0.1.0-rc.5 (2022-02-04)
 
 - fix: updates for latest flutter and dart versions (#1333)

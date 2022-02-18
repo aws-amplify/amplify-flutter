@@ -1,6 +1,6 @@
-## 0.3.3 (2022-02-04)
+## 0.4.0 (2022-02-17)
 
-- fix: updates for latest flutter and dart versions (#1333)
+- chore: Many model-related type definitions moved from amplify_datastore_plugin_interface to amplify_core.
 
 ## 0.3.2 (2022-01-21)
 

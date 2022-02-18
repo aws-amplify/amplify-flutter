@@ -17,29 +17,13 @@ library amplify_datastore_plugin_interface;
 
 import 'dart:async';
 
-import 'package:amplify_datastore_plugin_interface/src/types/models/model_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-import 'src/types/models/model.dart';
 import 'src/types/models/observe_query_throttle_options.dart';
 import 'src/types/models/query_snapshot.dart';
 import 'src/types/models/subscription_event.dart';
 import 'src/types/sync/DataStoreSyncExpression.dart';
-import 'src/types/query/query_field.dart';
-
-export 'src/types/models/auth_rule.dart';
-export 'src/types/models/model.dart';
-export 'src/types/models/model_field.dart';
-export 'src/types/models/model_field_definition.dart';
-export 'src/types/models/model_field_type.dart';
-export 'src/types/models/model_provider.dart';
-export 'src/types/models/model_schema.dart';
-export 'src/types/models/model_schema_definition.dart';
-export 'src/types/models/uuid.dart';
-export 'src/types/query/query_field.dart';
-export 'src/types/temporal/datetime_parse.dart';
-export 'src/types/utils/parsers.dart';
 
 export 'src/publicTypes.dart';
 
@@ -113,16 +97,16 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('query() has not been implemented.');
   }
 
-  Future<void> delete<T extends Model>(T model) {
+  Future<void> delete<T extends Model>(T model, {QueryPredicate? where}) {
     throw UnimplementedError('delete() has not been implemented.');
   }
 
-  Future<void> save<T extends Model>(T model) {
+  Future<void> save<T extends Model>(T model, {QueryPredicate? where}) {
     throw UnimplementedError('save() has not been implemented');
   }
 
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(
-      ModelType<T> modelType) {
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
+      {QueryPredicate? where}) {
     throw UnimplementedError('observe() has not been implemented.');
   }
 

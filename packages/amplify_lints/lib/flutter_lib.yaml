@@ -3,6 +3,8 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   strong-mode:
     implicit-dynamic: false
+  errors:
+    depend_on_referenced_packages: error               # To prevent issues publishing.
 
 linter:
   rules:

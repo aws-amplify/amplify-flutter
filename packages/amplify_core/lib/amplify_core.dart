@@ -19,13 +19,34 @@ library amplify_core;
 export 'src/types/exception/amplify_already_configured_exception.dart';
 export 'src/types/exception/amplify_exception.dart';
 export 'src/types/exception/amplify_exception_messages.dart';
+export 'src/types/exception/codegen_exception.dart';
 
 /// Hub
 export 'src/types/hub/hub_channel.dart';
 export 'src/types/hub/hub_event.dart';
 export 'src/types/hub/hub_event_payload.dart';
-export 'src/types/plugin/amplify_plugin_interface.dart';
+
+/// Model-based types used in datastore and API
+export 'src/types/models/auth_rule.dart';
+export 'src/types/models/model.dart';
+export 'src/types/models/model_association.dart';
+export 'src/types/models/model_field.dart';
+export 'src/types/models/model_field_definition.dart';
+export 'src/types/models/model_field_type.dart';
+export 'src/types/models/model_provider.dart';
+export 'src/types/models/model_schema.dart';
+export 'src/types/models/model_schema_definition.dart';
+export 'src/types/query/query_field.dart';
+export 'src/types/temporal/datetime_parse.dart';
+export 'src/types/temporal/temporal_date.dart';
+export 'src/types/temporal/temporal_datetime.dart';
+export 'src/types/temporal/temporal_time.dart';
+export 'src/types/temporal/temporal_timestamp.dart';
 
 // Util
+export 'src/util/parsers.dart';
 export 'src/util/print.dart';
 export 'src/util/uuid.dart';
+
+// ignore: directives_ordering
+export 'src/types/plugin/amplify_plugin_interface.dart';

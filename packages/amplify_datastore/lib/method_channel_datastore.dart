@@ -151,24 +151,27 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
-  Future<void> delete<T extends Model>(T model) async {
+  Future<void> delete<T extends Model>(T model, {QueryPredicate? where}) async {
     try {
       await _setUpObserveIfNeeded();
-      await _channel.invokeMethod('delete', <String, dynamic>{
+      var methodChannelDeleteInput = <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
+        if (where != null) 'queryPredicate': where.serializeAsMap(),
         'serializedModel': model.toJson(),
-      });
+      };
+      await _channel.invokeMethod('delete', methodChannelDeleteInput);
     } on PlatformException catch (e) {
       throw _deserializeException(e);
     }
   }
 
   @override
-  Future<void> save<T extends Model>(T model) async {
+  Future<void> save<T extends Model>(T model, {QueryPredicate? where}) async {
     try {
       await _setUpObserveIfNeeded();
       var methodChannelSaveInput = <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
+        if (where != null) 'queryPredicate': where.serializeAsMap(),
         'serializedModel': model.toJson(),
       };
       await _channel.invokeMethod('save', methodChannelSaveInput);
@@ -178,8 +181,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(
-      ModelType<T> modelType) async* {
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
+      {QueryPredicate? where}) async* {
     await _setUpObserveIfNeeded();
 
     // Step #1. Open the event channel if it's not already open. Note
@@ -200,6 +203,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     // Step #3. Deserialize events and return new broadcast stream
     yield* filteredStream
         .map((event) => SubscriptionEvent.fromMap(event, modelType))
+        .where((event) => where == null || where.evaluate(event.item))
         .asBroadcastStream()
         .cast<SubscriptionEvent<T>>();
   }

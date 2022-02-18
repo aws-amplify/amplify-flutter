@@ -15,15 +15,23 @@
 
 import '../types.dart';
 
+/// A GraphQL response from the server. See https://graphql.org/learn/serving-over-http/#response
 class GraphQLResponse<T> {
-  final T data;
+  /// Response data matching the type of the request.
+  ///
+  /// This will be `null` if there are any GraphQL errors during execution.
+  final T? data;
+
+  /// A list of errors from execution. If no errors, it will be an empty list.
   final List<GraphQLResponseError> errors;
 
+  // ignore: public_member_api_docs
   const GraphQLResponse({
-    required this.data,
+    this.data,
     required this.errors,
   });
 
+  // ignore: public_member_api_docs
   static GraphQLResponse<String?> raw({
     required String? data,
     List<GraphQLResponseError>? errors,

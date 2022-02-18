@@ -1,6 +1,6 @@
 name: amplify_authenticator
 description: A prebuilt sign in/sign up experience for Amplify Auth.
-version: 0.1.0-rc.5
+version: 0.1.0-rc.6
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/release-candidate/packages/amplify_authenticator/
 
 environment:
@@ -8,10 +8,10 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  amplify_auth_cognito: ^0.3.0
-  amplify_auth_plugin_interface: ^0.3.0
-  amplify_core: ^0.3.0
-  amplify_flutter: ^0.3.0
+  amplify_auth_cognito: ">=0.3.0 <0.5.0"
+  amplify_auth_plugin_interface: ">=0.3.0 <0.5.0"
+  amplify_core: ">=0.3.0 <0.5.0"
+  amplify_flutter: ">=0.3.0 <0.5.0"
   collection: ^1.15.0
   flutter:
     sdk: flutter
@@ -38,26 +38,6 @@ flutter:
     - family: SocialIcons
       fonts:
         - asset: assets/social-buttons/SocialIcons.ttf
-    - family: Inter
-      fonts:
-        - asset: assets/Inter/Inter-Black.ttf
-          weight: 900
-        - asset: assets/Inter/Inter-ExtraBold.ttf
-          weight: 800
-        - asset: assets/Inter/Inter-Bold.ttf
-          weight: 700
-        - asset: assets/Inter/Inter-SemiBold.ttf
-          weight: 600
-        - asset: assets/Inter/Inter-Medium.ttf
-          weight: 500
-        - asset: assets/Inter/Inter-Regular.ttf
-          weight: 400
-        - asset: assets/Inter/Inter-Light.ttf
-          weight: 300
-        - asset: assets/Inter/Inter-ExtraLight.ttf
-          weight: 200
-        - asset: assets/Inter/Inter-Thin.ttf
-          weight: 100
 
   # To add assets to your package, add an assets section, like this:
   # assets:

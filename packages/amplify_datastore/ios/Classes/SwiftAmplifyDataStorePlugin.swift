@@ -259,6 +259,20 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
     
+    // Initial Save fails for QueryPredicate.all, so we must pass nil instead
+    // TODO: Amplify iOS should change .all initial save behavior to work.
+    // Afterwards, we can remove this function and safely pass .all as our default queryPredicates
+    // Relevant Amplify iOS issue: https://github.com/aws-amplify/amplify-ios/issues/1636
+    func filterQueryPredicateAll(queryPredicates: QueryPredicate) -> QueryPredicate? {
+        if let queryPredicateConstant = queryPredicates as? QueryPredicateConstant {
+            switch queryPredicateConstant {
+            case .all:
+                return nil
+            }
+        }
+        return queryPredicates
+    }
+    
     func onSave(args: [String: Any], flutterResult: @escaping FlutterResult) {
         
         do {
@@ -267,6 +281,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 modelSchemaRegistry: modelSchemaRegistry,
                 modelName: modelName
             )
+            let queryPredicates = filterQueryPredicateAll(queryPredicates: try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String : Any]))
+            
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
             
@@ -274,7 +290,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             
             try bridge.onSave(
                 serializedModel: serializedModel,
-                modelSchema: modelSchema
+                modelSchema: modelSchema,
+                where: queryPredicates
             ) { (result) in
                 switch result {
                 case .failure(let error):
@@ -295,7 +312,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 flutterResult: flutterResult)
         }
         catch {
-            print("An unexpected error occured when parsing save arguments: \(error)")
+            print("An unexpected error occurred when parsing save arguments: \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
                                                               flutterResult: flutterResult)
         }
@@ -308,6 +325,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 modelSchemaRegistry: modelSchemaRegistry,
                 modelName: modelName
             )
+            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String : Any])
+            
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
             
@@ -315,7 +334,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             
             try bridge.onDelete(
                 serializedModel: serializedModel,
-                modelSchema: modelSchema) { (result) in
+                modelSchema: modelSchema,
+                where: queryPredicates) { (result) in
                 switch result {
                 case .failure(let error):
                     print("Delete API failed. Error = \(error)")

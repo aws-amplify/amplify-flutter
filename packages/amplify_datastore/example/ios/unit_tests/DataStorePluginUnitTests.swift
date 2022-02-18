@@ -146,6 +146,7 @@ class DataStorePluginUnitTests: XCTestCase {
             override func onDelete(
                 serializedModel: FlutterSerializedModel,
                 modelSchema: ModelSchema,
+                where: QueryPredicate? = nil,
                 completion: @escaping DataStoreCallback<Void>
             ) throws {
                 // Validations that we called the native library correctly
@@ -173,6 +174,7 @@ class DataStorePluginUnitTests: XCTestCase {
             override func onDelete(
                 serializedModel: FlutterSerializedModel,
                 modelSchema: ModelSchema,
+                where: QueryPredicate? = nil,
                 completion: @escaping DataStoreCallback<Void>) throws {
                 // Validations that we called the native library correctly
                 XCTAssertEqual(testSchema.name, modelSchema.name)
@@ -473,7 +475,7 @@ class DataStorePluginUnitTests: XCTestCase {
             override func onSave<M: Model>(
                 serializedModel: M,
                 modelSchema: ModelSchema,
-                when predicate: QueryPredicate? = nil,
+                where predicate: QueryPredicate? = nil,
                 completion: @escaping DataStoreCallback<M>) throws {
                 // Validations that we called the native library correctly
                 XCTAssertEqual("9fc5fab4-37ff-4566-97e5-19c5d58a4c22", serializedModel.id)
@@ -501,7 +503,7 @@ class DataStorePluginUnitTests: XCTestCase {
             override func onSave<M: Model>(
                 serializedModel: M,
                 modelSchema: ModelSchema,
-                when predicate: QueryPredicate? = nil,
+                where predicate: QueryPredicate? = nil,
                 completion: @escaping DataStoreCallback<M>) throws {
                 // Validations that we called the native library correctly
                 XCTAssertEqual("9fc5fab4-37ff-4566-97e5-19c5d58a4c22", serializedModel.id)

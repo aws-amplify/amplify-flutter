@@ -41,6 +41,7 @@ import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.core.model.SerializedCustomType
 import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.core.model.query.QueryOptions
+import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreConfiguration
@@ -280,6 +281,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     @VisibleForTesting
     fun onDelete(flutterResult: Result, request: Map<String, Any>) {
         val modelName: String
+        val queryPredicate: QueryPredicate
         val serializedModelData: Map<String, Any?>
         val schema: ModelSchema
 
@@ -288,6 +290,9 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             schema = modelProvider.modelSchemas()[modelName]!!
             serializedModelData =
                 deserializeNestedModel(request["serializedModel"].safeCastToMap()!!, schema)
+
+            queryPredicate = QueryPredicateBuilder.fromSerializedMap(
+            request["queryPredicate"].safeCastToMap()) ?: QueryPredicates.all()
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
@@ -307,6 +312,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         plugin.delete(
             instance,
+            queryPredicate,
             {
                 LOG.info("Deleted item: " + it.item().toString())
                 uiThreadHandler.post { flutterResult.success(null) }
@@ -330,6 +336,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     @VisibleForTesting
     fun onSave(flutterResult: Result, request: Map<String, Any>) {
         val modelName: String
+        val queryPredicate: QueryPredicate
         val serializedModelData: Map<String, Any?>
         val schema: ModelSchema
 
@@ -338,6 +345,9 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             schema = modelProvider.modelSchemas()[modelName]!!
             serializedModelData =
                 deserializeNestedModel(request["serializedModel"].safeCastToMap()!!, schema)
+
+            queryPredicate = QueryPredicateBuilder.fromSerializedMap(
+                    request["queryPredicate"].safeCastToMap()) ?: QueryPredicates.all()
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
@@ -355,11 +365,9 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             .modelSchema(schema)
             .build()
 
-        val predicate = QueryPredicates.all()
-
         plugin.save(
             serializedModel,
-            predicate,
+            queryPredicate,
             {
                 LOG.info("Saved item: " + it.item().toString())
                 uiThreadHandler.post { flutterResult.success(null) }

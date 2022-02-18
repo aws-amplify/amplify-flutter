@@ -41,7 +41,7 @@ public class DataStoreBridge {
 
     func onSave<M: Model>(serializedModel: M,
                            modelSchema: ModelSchema,
-                           when predicate: QueryPredicate? = nil,
+                           where predicate: QueryPredicate? = nil,
                            completion: @escaping DataStoreCallback<M>) throws {
         try getPlugin().save(serializedModel,
                              modelSchema: modelSchema,
@@ -52,10 +52,12 @@ public class DataStoreBridge {
 
     func onDelete(serializedModel: FlutterSerializedModel,
                   modelSchema: ModelSchema,
+                  where predicate: QueryPredicate? = nil,
                   completion: @escaping DataStoreCallback<Void>) throws {
         
         try getPlugin().delete(serializedModel,
                                modelSchema: modelSchema,
+                               where: predicate,
                                completion: completion)
     }
 

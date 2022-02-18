@@ -79,7 +79,7 @@ class AtomicResultTests: XCTestCase {
         let atomicResult = AtomicResult(result, #function)
         
         DispatchQueue.global().sync {
-            DispatchQueue.concurrentPerform(iterations: 1000) { i in
+            DispatchQueue.concurrentPerform(iterations: 10) { i in
                 atomicResult(nil)
             }
         }

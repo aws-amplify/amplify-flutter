@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
 */
 
-import 'package:amplify_authenticator/src/state/inherited_config.dart';
-import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -28,21 +26,10 @@ class AmplifyProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProgressIndicatorThemeData data;
-    if (InheritedConfig.of(context).useAmplifyTheme) {
-      data = primary
-          ? AmplifyTheme.primaryProgressIndicatorTheme
-          : AmplifyTheme.secondaryProgressIndicatorTheme;
-    } else {
-      data = ProgressIndicatorTheme.of(context);
-    }
-    return ProgressIndicatorTheme(
-      data: data,
-      child: const SizedBox(
-        width: 16,
-        height: 16,
-        child: CircularProgressIndicator(),
-      ),
+    return const SizedBox(
+      width: 16,
+      height: 16,
+      child: CircularProgressIndicator(),
     );
   }
 

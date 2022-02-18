@@ -1,6 +1,10 @@
-## 0.3.3 (2022-02-04)
+## 0.4.0 (2022-02-17)
 
-- fix: updates for latest flutter and dart versions (#1333)
+- chore: bump Kotlin version to 1.6.10 (#1346)
+
+### Breaking Changes
+
+- If your app has a dependency on Kotlin, the value of `ext.kotlin_version` set in `android/build.gradle` must be 1.5.31 or greater (1.6.10 recommended)
 
 ## 0.3.2 (2022-01-21)
 

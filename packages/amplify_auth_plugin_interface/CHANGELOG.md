@@ -1,6 +1,4 @@
-## 0.3.3 (2022-02-04)
-
-- fix: updates for latest flutter and dart versions (#1333)
+## 0.4.0 (2022-02-17)
 
 ## 0.3.2 (2022-01-21)
 

@@ -75,5 +75,51 @@ void main() {
       await Amplify.DataStore.save(updatedBlog);
       await Amplify.DataStore.delete(updatedBlog);
     });
+
+    testWidgets('observe with query predicates returns all matches',
+        (WidgetTester tester) async {
+      Blog blog = Blog(name: 'blog');
+      Blog updatedBlog = blog.copyWith(name: 'updated blog');
+
+      var eventItemStream = Amplify.DataStore.observe(Blog.classType,
+              where: Blog.NAME.ne("not a blog name"))
+          .map((event) => event.item);
+      expectLater(
+        eventItemStream,
+        emitsInOrder(
+          [
+            blog,
+            updatedBlog,
+            updatedBlog,
+          ],
+        ),
+      );
+
+      await Amplify.DataStore.save(blog);
+      await Amplify.DataStore.save(updatedBlog);
+      await Amplify.DataStore.delete(updatedBlog);
+    });
+
+    testWidgets('observe with query predicates filters out non matches',
+        (WidgetTester tester) async {
+      Blog blog = Blog(name: 'matching blog');
+      Blog updatedBlog = blog.copyWith(name: 'updated blog');
+      Blog otherBlog = Blog(name: 'matching blog 2');
+
+      var eventItemStream = Amplify.DataStore.observe(Blog.classType,
+              where: Blog.NAME.contains("matching"))
+          .map((event) => event.item);
+      expectLater(
+        eventItemStream,
+        emitsInOrder(
+          [blog, otherBlog],
+        ),
+      );
+
+      await Amplify.DataStore.save(blog);
+      await Amplify.DataStore.save(updatedBlog);
+      await Amplify.DataStore.delete(updatedBlog);
+      await Amplify.DataStore.save(otherBlog);
+    });
   });
 }
