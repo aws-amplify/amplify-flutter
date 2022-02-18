@@ -7,7 +7,7 @@ test_failure=0
 test_suite=$1
 plugin=$3
 project_root_dir=$2
-
+dummy_file_path=example/lib/amplifyconfiguration.dart
 
 set +e
 set -o pipefail
@@ -56,6 +56,9 @@ case $test_suite in
                 continue
             fi
             cp ${project_root_dir}/.circleci/dummy_amplifyconfiguration.dart example/lib/amplifyconfiguration.dart
+            if [ ! -f $dummy_file_path ]; then
+                cp ${project_root_dir}/.circleci/dummy_amplifyconfiguration.dart $dummy_file_path
+            fi
             cd example/android
             if ./gradlew :"$plugin":testDebugUnitTest; then
                 echo "PASSED: Android unit tests for $plugin passed."
@@ -85,7 +88,9 @@ case $test_suite in
         fi
         if [ -d "example/ios/unit_tests" ]; then
             XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 12"
-            cp ${project_root_dir}/.circleci/dummy_amplifyconfiguration.dart example/lib/amplifyconfiguration.dart
+            if [ ! -f $dummy_file_path ]; then
+                cp ${project_root_dir}/.circleci/dummy_amplifyconfiguration.dart $dummy_file_path
+            fi
             cd example/ios
             if xcodebuild test \
                     -workspace Runner.xcworkspace \
