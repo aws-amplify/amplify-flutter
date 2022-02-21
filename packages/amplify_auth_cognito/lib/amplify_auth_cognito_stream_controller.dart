@@ -22,12 +22,12 @@ EventChannel channel =
 StreamSubscription? eventStream;
 
 class AuthStreamController {
-  StreamController get authStreamController {
+  StreamController<AuthHubEvent> get authStreamController {
     return _authStreamController;
   }
 }
 
-StreamController _authStreamController =
+StreamController<AuthHubEvent> _authStreamController =
     StreamController<AuthHubEvent>.broadcast(
   onListen: _onListen,
   onCancel: _onCancel,
@@ -38,19 +38,19 @@ _onListen() {
     eventStream = channel.receiveBroadcastStream(1).listen((event) {
       switch (event["eventName"]) {
         case "SIGNED_IN":
-          {
-            _authStreamController.add(AuthHubEvent(event["eventName"]));
-          }
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
           break;
         case "SIGNED_OUT":
-          {
-            _authStreamController.add(AuthHubEvent(event["eventName"]));
-          }
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
           break;
         case "SESSION_EXPIRED":
-          {
-            _authStreamController.add(AuthHubEvent(event["eventName"]));
-          }
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
+          break;
+        case "USER_DELETED":
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
+          break;
+        case "USER_DELETED":
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
           break;
         default:
           break;

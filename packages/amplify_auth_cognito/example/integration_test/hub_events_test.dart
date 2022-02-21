@@ -13,10 +13,12 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:io' show Platform;
+import 'package:amplify_test/amplify_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_api/amplify_api.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
@@ -29,15 +31,16 @@ void main() {
 
   group('auth hub', () {
     setUpAll(() async {
-      await configureAuth();
+      await configureAuth(additionalPlugins: [
+        AmplifyAPI(),
+      ]);
 
-      await Amplify.Auth.signUp(
-          username: username,
-          password: password,
-          options: CognitoSignUpOptions(userAttributes: {
-            'email': generateEmail(),
-            'phone_number': mockPhoneNumber
-          }));
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
 
       await signOutUser();
     });
@@ -56,7 +59,10 @@ void main() {
         nextEvent = authEventStream.first;
         await Amplify.Auth.signIn(username: username, password: password);
         event = await nextEvent;
-        expect(event.eventName, 'SIGNED_IN');
+        expect(
+          event.eventName,
+          'SIGNED_IN',
+        );
 
         // assert sign out event is broadcast
         nextEvent = authEventStream.first;
@@ -66,7 +72,10 @@ void main() {
 
         // assert a second sign in event is broadcast
         nextEvent = authEventStream.first;
-        await Amplify.Auth.signIn(username: username, password: password);
+        await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
         event = await nextEvent;
         expect(event.eventName, 'SIGNED_IN');
 
@@ -79,6 +88,42 @@ void main() {
         // assert that no other events are broadcast
         expect(eventCount, 4);
       },
+    );
+
+    testWidgets(
+      'should broadcast events for deleteUser',
+      (WidgetTester tester) async {
+        // setup
+        var nextEvent;
+        var event;
+        var eventCount = 0;
+        var authEventStream = Amplify.Hub.availableStreams[HubChannel.Auth]!;
+        authEventStream.listen((event) => eventCount++);
+
+        // assert sign in event is broadcast
+        nextEvent = authEventStream.first;
+        await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        event = await nextEvent;
+        expect(event.eventName, 'SIGNED_IN');
+
+        // assert signed out event is broadcast
+        nextEvent = authEventStream.first;
+        await Amplify.Auth.deleteUser();
+        event = await nextEvent;
+        expect(event.eventName, 'SIGNED_OUT');
+
+        // assert delete user event is broadcast
+        nextEvent = authEventStream.first;
+        event = await nextEvent;
+        expect(event.eventName, 'USER_DELETED');
+
+        // assert 3 total events are broadcast
+        expect(eventCount, 3);
+      },
+      skip: !Platform.isIOS,
     );
   });
 }

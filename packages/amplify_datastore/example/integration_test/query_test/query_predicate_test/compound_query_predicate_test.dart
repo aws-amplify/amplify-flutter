@@ -16,7 +16,7 @@
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 
 import '../../utils/setup_utils.dart';
 
@@ -33,39 +33,39 @@ void main() {
         var valueTwo = 'abc';
         var valueThree = 'xyz';
         var models = [
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             stringValue: valueOne,
             altStringValue: valueOne,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             stringValue: valueOne,
             altStringValue: valueTwo,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             stringValue: valueOne,
             altStringValue: valueThree,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             stringValue: valueTwo,
             altStringValue: valueOne,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             stringValue: valueTwo,
             altStringValue: valueTwo,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             stringValue: valueTwo,
             altStringValue: valueThree,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             stringValue: valueThree,
             altStringValue: valueOne,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             stringValue: valueThree,
             altStringValue: valueTwo,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             stringValue: valueThree,
             altStringValue: valueThree,
           ),
@@ -84,10 +84,10 @@ void main() {
               .where((model) => model.altStringValue == valueThree)
               .toList();
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.STRINGVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.STRINGVALUE
                 .eq(valueTwo)
-                .and(MultiTypeModel.ALTSTRINGVALUE.eq(valueThree)),
+                .and(ModelWithAppsyncScalarTypes.ALTSTRINGVALUE.eq(valueThree)),
           );
           expect(actualModels, unorderedEquals(expectedModels));
         });
@@ -98,10 +98,10 @@ void main() {
               .where((model) => model.altStringValue != valueThree)
               .toList();
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.STRINGVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.STRINGVALUE
                 .ne(valueTwo)
-                .and(MultiTypeModel.ALTSTRINGVALUE.ne(valueThree)),
+                .and(ModelWithAppsyncScalarTypes.ALTSTRINGVALUE.ne(valueThree)),
           );
           expect(actualModels, unorderedEquals(expectedModels));
         });
@@ -113,10 +113,10 @@ void main() {
               .where((model) => model.stringValue != valueThree)
               .toList();
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.STRINGVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.STRINGVALUE
                 .ne(valueTwo)
-                .and(MultiTypeModel.STRINGVALUE.ne(valueThree)),
+                .and(ModelWithAppsyncScalarTypes.STRINGVALUE.ne(valueThree)),
           );
           expect(actualModels, unorderedEquals(expectedModels));
         });
@@ -127,10 +127,10 @@ void main() {
               .where((model) => model.altStringValue!.compareTo(valueThree) < 0)
               .toList();
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.STRINGVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.STRINGVALUE
                 .lt(valueTwo)
-                .and(MultiTypeModel.ALTSTRINGVALUE.lt(valueThree)),
+                .and(ModelWithAppsyncScalarTypes.ALTSTRINGVALUE.lt(valueThree)),
           );
           expect(actualModels, unorderedEquals(expectedModels));
         });
@@ -141,10 +141,10 @@ void main() {
               .where((model) => model.altStringValue!.compareTo(valueTwo) > 0)
               .toList();
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.STRINGVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.STRINGVALUE
                 .gt(valueOne)
-                .and(MultiTypeModel.ALTSTRINGVALUE.gt(valueTwo)),
+                .and(ModelWithAppsyncScalarTypes.ALTSTRINGVALUE.gt(valueTwo)),
           );
           expect(actualModels, unorderedEquals(expectedModels));
         });
@@ -155,39 +155,39 @@ void main() {
         var valueTwo = 0;
         var valueThree = 1;
         var models = [
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             intValue: valueOne,
             altIntValue: valueOne,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             intValue: valueOne,
             altIntValue: valueTwo,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             intValue: valueOne,
             altIntValue: valueThree,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             intValue: valueTwo,
             altIntValue: valueOne,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             intValue: valueTwo,
             altIntValue: valueTwo,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             intValue: valueTwo,
             altIntValue: valueThree,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             intValue: valueThree,
             altIntValue: valueOne,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             intValue: valueThree,
             altIntValue: valueTwo,
           ),
-          MultiTypeModel(
+          ModelWithAppsyncScalarTypes(
             intValue: valueThree,
             altIntValue: valueThree,
           ),
@@ -206,10 +206,10 @@ void main() {
               .where((model) => model.altIntValue == valueThree)
               .toList();
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.INTVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.INTVALUE
                 .eq(valueTwo)
-                .and(MultiTypeModel.ALTINTVALUE.eq(valueThree)),
+                .and(ModelWithAppsyncScalarTypes.ALTINTVALUE.eq(valueThree)),
           );
           expect(actualModels, unorderedEquals(expectedModels));
         });
@@ -220,10 +220,10 @@ void main() {
               .where((model) => model.altIntValue != valueThree)
               .toList();
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.INTVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.INTVALUE
                 .ne(valueTwo)
-                .and(MultiTypeModel.ALTINTVALUE.ne(valueThree)),
+                .and(ModelWithAppsyncScalarTypes.ALTINTVALUE.ne(valueThree)),
           );
           expect(actualModels, unorderedEquals(expectedModels));
         });
@@ -235,10 +235,10 @@ void main() {
               .where((model) => model.intValue != valueThree)
               .toList();
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.INTVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.INTVALUE
                 .ne(valueTwo)
-                .and(MultiTypeModel.INTVALUE.ne(valueThree)),
+                .and(ModelWithAppsyncScalarTypes.INTVALUE.ne(valueThree)),
           );
           expect(actualModels, unorderedEquals(expectedModels));
         });
@@ -249,10 +249,10 @@ void main() {
               .where((model) => model.altIntValue!.compareTo(valueThree) < 0)
               .toList();
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.INTVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.INTVALUE
                 .lt(valueTwo)
-                .and(MultiTypeModel.ALTINTVALUE.lt(valueThree)),
+                .and(ModelWithAppsyncScalarTypes.ALTINTVALUE.lt(valueThree)),
           );
           expect(actualModels, unorderedEquals(expectedModels));
         });
@@ -263,10 +263,10 @@ void main() {
               .where((model) => model.altIntValue!.compareTo(valueTwo) > 0)
               .toList();
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.INTVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.INTVALUE
                 .gt(valueOne)
-                .and(MultiTypeModel.ALTINTVALUE.gt(valueTwo)),
+                .and(ModelWithAppsyncScalarTypes.ALTINTVALUE.gt(valueTwo)),
           );
           expect(actualModels, unorderedEquals(expectedModels));
         });
@@ -281,7 +281,7 @@ void main() {
         // generate a model with every combination
         var models = List.generate(
           16,
-          (index) => MultiTypeModel(
+          (index) => ModelWithAppsyncScalarTypes(
             intValue: index % 2 < 1 ? intValueOne : intValueTwo,
             altIntValue: index % 4 < 2 ? intValueOne : intValueTwo,
             stringValue: index % 8 < 4 ? stringValueOne : stringValueTwo,
@@ -299,12 +299,13 @@ void main() {
 
         testWidgets('eq() (and)', (WidgetTester tester) async {
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.STRINGVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.STRINGVALUE
                 .eq(stringValueOne)
-                .and(MultiTypeModel.ALTSTRINGVALUE.eq(stringValueTwo))
-                .and(MultiTypeModel.INTVALUE.eq(intValueOne))
-                .and(MultiTypeModel.ALTINTVALUE.eq(intValueTwo)),
+                .and(ModelWithAppsyncScalarTypes.ALTSTRINGVALUE
+                    .eq(stringValueTwo))
+                .and(ModelWithAppsyncScalarTypes.INTVALUE.eq(intValueOne))
+                .and(ModelWithAppsyncScalarTypes.ALTINTVALUE.eq(intValueTwo)),
           );
           expect(actualModels.length, 1);
           expect(actualModels.first.stringValue, stringValueOne);
@@ -322,12 +323,13 @@ void main() {
                   model.altIntValue == intValueTwo)
               .toList();
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.STRINGVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.STRINGVALUE
                 .eq(stringValueOne)
-                .or(MultiTypeModel.ALTSTRINGVALUE.eq(stringValueTwo))
-                .or(MultiTypeModel.INTVALUE.eq(intValueOne))
-                .or(MultiTypeModel.ALTINTVALUE.eq(intValueTwo)),
+                .or(ModelWithAppsyncScalarTypes.ALTSTRINGVALUE
+                    .eq(stringValueTwo))
+                .or(ModelWithAppsyncScalarTypes.INTVALUE.eq(intValueOne))
+                .or(ModelWithAppsyncScalarTypes.ALTINTVALUE.eq(intValueTwo)),
           );
           expect(actualModels.length, 15);
           expect(actualModels, unorderedEquals(expectedModels));
@@ -335,12 +337,13 @@ void main() {
 
         testWidgets('ne() (and)', (WidgetTester tester) async {
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.STRINGVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.STRINGVALUE
                 .ne(stringValueOne)
-                .and(MultiTypeModel.ALTSTRINGVALUE.ne(stringValueTwo))
-                .and(MultiTypeModel.INTVALUE.ne(intValueOne))
-                .and(MultiTypeModel.ALTINTVALUE.ne(intValueTwo)),
+                .and(ModelWithAppsyncScalarTypes.ALTSTRINGVALUE
+                    .ne(stringValueTwo))
+                .and(ModelWithAppsyncScalarTypes.INTVALUE.ne(intValueOne))
+                .and(ModelWithAppsyncScalarTypes.ALTINTVALUE.ne(intValueTwo)),
           );
           expect(actualModels.length, 1);
           expect(actualModels.first.stringValue, stringValueTwo);
@@ -358,12 +361,13 @@ void main() {
                   model.altIntValue != intValueTwo)
               .toList();
           var actualModels = await Amplify.DataStore.query(
-            MultiTypeModel.classType,
-            where: MultiTypeModel.STRINGVALUE
+            ModelWithAppsyncScalarTypes.classType,
+            where: ModelWithAppsyncScalarTypes.STRINGVALUE
                 .ne(stringValueOne)
-                .or(MultiTypeModel.ALTSTRINGVALUE.ne(stringValueTwo))
-                .or(MultiTypeModel.INTVALUE.ne(intValueOne))
-                .or(MultiTypeModel.ALTINTVALUE.ne(intValueTwo)),
+                .or(ModelWithAppsyncScalarTypes.ALTSTRINGVALUE
+                    .ne(stringValueTwo))
+                .or(ModelWithAppsyncScalarTypes.INTVALUE.ne(intValueOne))
+                .or(ModelWithAppsyncScalarTypes.ALTINTVALUE.ne(intValueTwo)),
           );
           expect(actualModels.length, 15);
           expect(actualModels, unorderedEquals(expectedModels));

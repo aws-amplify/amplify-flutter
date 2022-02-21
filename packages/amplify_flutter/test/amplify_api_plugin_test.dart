@@ -13,14 +13,10 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_flutter/categories/amplify_categories.dart';
-import 'package:amplify_core/types/index.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
@@ -30,27 +26,21 @@ void main() {
 
   bool platformError = false;
 
-  // Class under test
-  AmplifyClass amplify;
-
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
     });
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "addPlugin") {
+      if (methodCall.method == 'addPlugin') {
         if (!platformError) {
           return true;
         } else {
-          throw PlatformException(code: "AmplifyAlreadyConfiguredException");
+          throw PlatformException(code: 'AmplifyAlreadyConfiguredException');
         }
       } else {
         return true;
       }
     });
-    // We want to instantiate a new instance for each test so we start
-    // with a fresh state as `Amplify` singleton holds a state.
-    amplify = new AmplifyClass.protected();
 
     // Clear out plugins before each test for a fresh state.
     APICategory.plugins.clear();
@@ -67,8 +57,8 @@ void main() {
     platformError = true;
     try {
       await Amplify.addPlugin(AmplifyAPI());
-    } catch (e) {
-      fail("exception was thrown");
+    } on Exception {
+      fail('exception was thrown');
     }
   });
 
@@ -84,11 +74,11 @@ void main() {
     try {
       await Amplify.addPlugin(AmplifyAPI());
       await Amplify.addPlugin(AmplifyAPI());
-      fail("exception not thrown");
+      fail('exception not thrown');
     } on AmplifyException catch (e) {
       expect(
           e.message, 'Amplify plugin AmplifyAPI was not added successfully.');
-    } catch (e) {
+    } on Exception catch (e) {
       expect(e, isA<AmplifyException>());
     }
   });

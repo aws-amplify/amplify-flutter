@@ -61,7 +61,7 @@ struct FlutterModelSchema {
 
     }
     
-    public func convertToNativeModelSchema() throws -> ModelSchema {
+    public func convertToNativeModelSchema(customTypeSchemasRegistry: FlutterSchemaRegistry) throws -> ModelSchema {
         return ModelSchema.init(
             name: name,
             pluralName: pluralName,
@@ -69,7 +69,7 @@ struct FlutterModelSchema {
                             $0.convertToNativeAuthRule()
                         } ?? [AuthRule](),
             attributes: attributes,
-            fields: try fields.mapValues { try $0.convertToNativeModelField() }
+            fields: try fields.mapValues { try $0.convertToNativeModelField(customTypeSchemasRegistry: customTypeSchemasRegistry) }
         )
     }
 }

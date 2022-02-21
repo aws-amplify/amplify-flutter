@@ -13,15 +13,14 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 import 'ConfirmUserAttribute.dart';
 
-// ignore_for_file: public_member_api_docs
 class UpdateUserAttributeWidget extends StatefulWidget {
-  final String? userAttributeKey;
+  final CognitoUserAttributeKey? userAttributeKey;
   UpdateUserAttributeWidget({this.userAttributeKey});
 
   @override
@@ -52,7 +51,7 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
   void _updateAttribute() async {
     try {
       var res = await Amplify.Auth.updateUserAttribute(
-        userAttributeKey: _keyController.text,
+        userAttributeKey: CognitoUserAttributeKey.parse(_keyController.text),
         value: _valueController.text,
       );
       if (res.nextStep.updateAttributeStep == 'CONFIRM_ATTRIBUTE_WITH_CODE') {
@@ -69,7 +68,9 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
   @override
   void initState() {
     isNewAttribute = widget.userAttributeKey == null;
-    _keyController = TextEditingController(text: widget.userAttributeKey);
+    _keyController = TextEditingController(
+      text: widget.userAttributeKey.toString(),
+    );
     super.initState();
   }
 
@@ -107,7 +108,8 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) => ConfirmUserAttribute(
-                      userAttributeKey: _keyController.text,
+                      userAttributeKey:
+                          CognitoUserAttributeKey.parse(_keyController.text),
                     ),
                   ),
                 );

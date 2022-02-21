@@ -15,10 +15,10 @@
 
 import 'dart:async';
 
-import 'package:amplify_core/types/index.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
+
 import 'mocks/mock_stream_controller.dart';
 
 void main() {
@@ -54,7 +54,7 @@ void main() {
     Amplify.Hub.addChannel(
         HubChannel.Auth, mockPluginController.thisController);
     StreamController underlying = mockPluginController.underlyingStream;
-    await Amplify.Hub.listen([HubChannel.Auth], (msg) {});
+    Amplify.Hub.listen([HubChannel.Auth], (msg) {});
     expect(underlying.hasListener, true);
   });
 
@@ -63,8 +63,9 @@ void main() {
       () async {
     Amplify.Hub.addChannel(
         HubChannel.Auth, mockPluginController.thisController);
-    StreamController underlying = mockPluginController.underlyingStream;
-    final String reBroadcastEvent = 'hear me!';
+    final StreamController<HubEvent> underlying =
+        mockPluginController.underlyingStream;
+    const HubEvent reBroadcastEvent = MockHubEvent('hear me!');
     Amplify.Hub.listen([HubChannel.Auth], (msg) {});
     underlying.add(reBroadcastEvent);
     expectLater(
@@ -92,3 +93,5 @@ void main() {
   //   expect(underlying.hasListener, true);
   // });
 }
+
+// ignore_for_file: close_sinks

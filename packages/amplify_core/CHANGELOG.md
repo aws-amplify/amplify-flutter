@@ -1,3 +1,33 @@
+## 0.4.0 (2022-02-17)
+
+- chore: Many model-related type definitions moved from amplify_datastore_plugin_interface to amplify_core.
+- chore: bump Kotlin version to 1.6.10 (#1346)
+
+### Breaking Changes
+
+- If your app has a dependency on Kotlin, the value of `ext.kotlin_version` set in `android/build.gradle` must be 1.5.31 or greater (1.6.10 recommended)
+
+## 0.3.2 (2022-01-21)
+
+- chore: bump amplify-android to 1.31.2
+
+## 0.3.1 (2022-01-20)
+
+- chore: bump amplify-ios to 1.18.3
+
+## 0.3.0 (2022-01-20)
+
+### Features
+
+- [Amplify Authenticator](https://pub.dev/packages/amplify_authenticator) preview release!
+- New `AmplifyConfig` type for fully-typed configurations
+
+### Fixes
+
+- fix(amplify_auth_cognito): remove int.parse from AuthUserAttribute (#1169)
+- fix(amplify_datastore): fix error map from ios (#1126)
+- fix(api): OIDC Fixes for REST/GraphQL
+
 ## 0.2.10 (2021-11-23)
 
 ### Fixes
@@ -45,6 +75,7 @@
 ## 0.2.5 (2021-10-14)
 
 ### Fixes
+
 - fix(datastore): Sync issues with owner-based auth
 - fix(datastore): Ensure attaching nested model schema
 - fix(datastore): Timeout period not increasing

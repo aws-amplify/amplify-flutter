@@ -15,7 +15,7 @@
 
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 
@@ -26,6 +26,7 @@ import 'hub_events_test.dart' as hub_events_tests;
 import 'update_password_test.dart' as update_password_tests;
 import 'fetch_session_test.dart' as fetch_session_tests;
 import 'get_current_user_test.dart' as get_current_user_tests;
+import 'delete_user_test.dart' as delete_user_tests;
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -44,5 +45,6 @@ void main() async {
     update_password_tests.main();
     fetch_session_tests.main();
     get_current_user_tests.main();
+    delete_user_tests.main();
   });
 }

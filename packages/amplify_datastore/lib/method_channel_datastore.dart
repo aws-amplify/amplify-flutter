@@ -13,10 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/types/index.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/services.dart';
-import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 import 'types/observe_query_executor.dart';
@@ -88,6 +87,9 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'modelSchemas': modelProvider?.modelSchemas
             .map((schema) => schema.toMap())
             .toList(),
+        'customTypeSchemas': modelProvider?.customTypeSchemas
+            .map((schema) => schema.toMap())
+            .toList(),
         'hasErrorHandler': errorHandler != null,
         'modelProviderVersion': modelProvider?.version,
         'syncExpressions': syncExpressions!
@@ -110,13 +112,9 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   /// This method performs the steps necessary to configure this plugin.
-  /// Currently, it only sets up an event channel to carry datastore observe
-  /// and is invoked as the last step of Amplify.configure(). This must be
-  /// called before any observe() method is called.
+  /// Currently, [configure] doesn't do anything specific.
   @override
-  Future<void> configure({String? configuration}) async {
-    return _channel.invokeMethod('setUpObserve', {});
-  }
+  Future<void> configure({String? configuration}) async {}
 
   @override
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
@@ -124,6 +122,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       QueryPagination? pagination,
       List<QuerySortBy>? sortBy}) async {
     try {
+      await _setUpObserveIfNeeded();
       final List<Map<dynamic, dynamic>>? serializedResults =
           await (_channel.invokeListMethod('query', <String, dynamic>{
         'modelName': modelType.modelName(),
@@ -152,22 +151,27 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
-  Future<void> delete<T extends Model>(T model) async {
+  Future<void> delete<T extends Model>(T model, {QueryPredicate? where}) async {
     try {
-      await _channel.invokeMethod('delete', <String, dynamic>{
+      await _setUpObserveIfNeeded();
+      var methodChannelDeleteInput = <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
+        if (where != null) 'queryPredicate': where.serializeAsMap(),
         'serializedModel': model.toJson(),
-      });
+      };
+      await _channel.invokeMethod('delete', methodChannelDeleteInput);
     } on PlatformException catch (e) {
       throw _deserializeException(e);
     }
   }
 
   @override
-  Future<void> save<T extends Model>(T model) async {
+  Future<void> save<T extends Model>(T model, {QueryPredicate? where}) async {
     try {
+      await _setUpObserveIfNeeded();
       var methodChannelSaveInput = <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
+        if (where != null) 'queryPredicate': where.serializeAsMap(),
         'serializedModel': model.toJson(),
       };
       await _channel.invokeMethod('save', methodChannelSaveInput);
@@ -177,8 +181,10 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(
-      ModelType<T> modelType) {
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
+      {QueryPredicate? where}) async* {
+    await _setUpObserveIfNeeded();
+
     // Step #1. Open the event channel if it's not already open. Note
     // that there is only one event channel for all observe calls for all models
     const _eventChannel =
@@ -195,8 +201,9 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     });
 
     // Step #3. Deserialize events and return new broadcast stream
-    return filteredStream
+    yield* filteredStream
         .map((event) => SubscriptionEvent.fromMap(event, modelType))
+        .where((event) => where == null || where.evaluate(event.item))
         .asBroadcastStream()
         .cast<SubscriptionEvent<T>>();
   }
@@ -284,5 +291,13 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
               AmplifyExceptionMessages.missingRecoverySuggestion,
           underlyingException: e.toString());
     }
+  }
+
+  /// Ensure the event channel is properly set up on the native side.
+  /// If not, it ensures event channel can receive event from native
+  /// `observe` APIs. If already set up, this channel call resolves
+  /// immediately.
+  Future<void> _setUpObserveIfNeeded() {
+    return _channel.invokeMethod('setUpObserve', {});
   }
 }

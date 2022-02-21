@@ -24,6 +24,7 @@ import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicateGroup
 import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation
 import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.not
+import com.amplifyframework.core.model.query.predicate.QueryPredicates
 
 class QueryPredicateBuilder {
     companion object {
@@ -74,9 +75,7 @@ class QueryPredicateBuilder {
                     serializedMap["queryPredicateGroup"].safeCastToMap()!!
                 var predicates: List<QueryPredicate> =
                     queryPredicateGroupMap["predicates"].safeCastToList<Map<String, Any>>()
-                        ?.map { queryPredicate ->
-                            fromSerializedMap(queryPredicate, modelSchema)!!
-                        }!!
+                        ?.map { fromSerializedMap(it, modelSchema)!! }!!
                 var resultQueryPredicate: QueryPredicateGroup? = null
                 // The first predicate in the list is either predicateOperation or predicateGroup. We need
                 // to know which one so that we can cast it appropriately and call the `and` or `not` method
@@ -104,13 +103,13 @@ class QueryPredicateBuilder {
 
                 when (queryPredicateGroupMap["type"]) {
                     "and" -> {
-                        predicates.forEach { predicate ->
-                            resultQueryPredicate = resultQueryPredicate!!.and(predicate)
+                        predicates.forEach {
+                            resultQueryPredicate = resultQueryPredicate!!.and(it)
                         }
                     }
                     "or" -> {
-                        predicates.forEach { predicate ->
-                            resultQueryPredicate = resultQueryPredicate!!.or(predicate)
+                        predicates.forEach {
+                            resultQueryPredicate = resultQueryPredicate!!.or(it)
                         }
                     }
                     "not" -> {
@@ -127,6 +126,15 @@ class QueryPredicateBuilder {
                 }
 
                 return resultQueryPredicate
+            }
+
+            if (serializedMap.containsKey("queryPredicateConstant")) {
+                val queryPredicateConstant: Map<String, Any> =
+                    serializedMap["queryPredicateConstant"].safeCastToMap()!!
+
+                when (queryPredicateConstant["type"]) {
+                    "all" -> return QueryPredicates.all()
+                }
             }
 
             return null

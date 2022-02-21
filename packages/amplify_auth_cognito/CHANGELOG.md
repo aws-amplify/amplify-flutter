@@ -1,3 +1,33 @@
+## 0.4.0 (2022-02-17)
+
+- chore: bump Kotlin version to 1.6.10 (#1346)
+
+### Breaking Changes
+
+- If your app has a dependency on Kotlin, the value of `ext.kotlin_version` set in `android/build.gradle` must be 1.5.31 or greater (1.6.10 recommended)
+
+## 0.3.2 (2022-01-21)
+
+- feat: add deleteUser API for iOS
+- chore: bump amplify-android to 1.31.2
+
+## 0.3.1 (2022-01-20)
+
+- chore: bump amplify-ios to 1.18.3
+
+## 0.3.0 (2022-01-20)
+
+### Breaking Changes
+
+- The amplify_auth_cognito fetchAuthSession API will throw a SignedOutException when the user has not signed in, and a SessionExpiredException when the tokens have expired.
+- The amplify_auth_cognito getCurrentUser API will return an AuthUser if the user is still authenticated but the session has expired.
+
+### Fixes
+
+- fix(amplify_auth_cognito): throw SignedOutException (#893)
+- fix(amplify_auth_cognito): fixes getCurrentUser disparity (#894)
+- fix(amplify_auth_cognito): remove int.parse from AuthUserAttribute (#1169)
+
 ## 0.2.10 (2021-11-23)
 
 ### Fixes
@@ -26,6 +56,7 @@
 ## 0.2.5 (2021-10-14)
 
 ### Fixes
+
 - fix(auth): Add global sign out
 - fix(auth): Support `preferPrivateSession` flag
 

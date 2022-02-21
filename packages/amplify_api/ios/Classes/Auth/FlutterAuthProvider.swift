@@ -24,7 +24,7 @@ extension FlutterError: Error {}
 /// A factory of [FlutterAuthProvider] instances. Manages shared state for all providers.
 class FlutterAuthProviders: APIAuthProviderFactory {
     /// Thread to perform wait activities on.
-    static private let queue = DispatchQueue(label: "FlutterAuthProviders")
+    private static let queue = DispatchQueue(label: "FlutterAuthProviders")
 
     /// Retrieves the latest token for `type` by calling into Flutter via the plugin's method channel.
     static func getToken(for type: AWSAuthorizationType) -> Result<String, Error> {
@@ -78,11 +78,23 @@ class FlutterAuthProviders: APIAuthProviderFactory {
         return token ?? unknownError
     }
 
+    private let authProviders: Set<AWSAuthorizationType>
+
+    init(_ authProviders: [AWSAuthorizationType]) {
+        self.authProviders = Set(authProviders)
+    }
+
     override func oidcAuthProvider() -> AmplifyOIDCAuthProvider? {
+        guard authProviders.contains(.openIDConnect) else {
+            return nil
+        }
         return FlutterAuthProvider(type: .openIDConnect)
     }
 
     override func functionAuthProvider() -> AmplifyFunctionAuthProvider? {
+        guard authProviders.contains(.function) else {
+            return nil
+        }
         return FlutterAuthProvider(type: .function)
     }
 }

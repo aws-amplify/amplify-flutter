@@ -13,20 +13,26 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the Blog type in your schema. */
+/// This is an auto generated class representing the Blog type in your schema.
 @immutable
 class Blog extends Model {
-  static const classType = const _BlogModelType();
+  static const classType = _BlogModelType();
   final String id;
   final String? _name;
   final List<Post>? _posts;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -40,7 +46,7 @@ class Blog extends Model {
     try {
       return _name!;
     } catch (e) {
-      throw new DataStoreException(
+      throw DataStoreException(
           DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: DataStoreExceptionMessages
@@ -53,9 +59,20 @@ class Blog extends Model {
     return _posts;
   }
 
-  const Blog._internal({required this.id, required name, posts})
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const Blog._internal(
+      {required this.id, required name, posts, createdAt, updatedAt})
       : _name = name,
-        _posts = posts;
+        _posts = posts,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory Blog({String? id, required String name, List<Post>? posts}) {
     return Blog._internal(
@@ -82,18 +99,23 @@ class Blog extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Blog {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("name=" + "$_name");
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   Blog copyWith({String? id, String? name, List<Post>? posts}) {
-    return Blog(
+    return Blog._internal(
         id: id ?? this.id, name: name ?? this.name, posts: posts ?? this.posts);
   }
 
@@ -104,14 +126,22 @@ class Blog extends Model {
             ? (json['posts'] as List)
                 .where((e) => e?['serializedData'] != null)
                 .map((e) => Post.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
-        'posts': _posts?.map((e) => e?.toJson())?.toList()
+        'posts': _posts?.map((Post? e) => e?.toJson()).toList(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
       };
 
   static final QueryField ID = QueryField(fieldName: "blog.id");
@@ -137,6 +167,18 @@ class Blog extends Model {
         isRequired: false,
         ofModelName: (Post).toString(),
         associatedKey: Post.BLOG));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

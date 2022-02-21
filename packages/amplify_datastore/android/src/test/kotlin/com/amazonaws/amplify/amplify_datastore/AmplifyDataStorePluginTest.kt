@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.async.Cancelable
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelSchema
+import com.amplifyframework.core.model.SerializedCustomType
 import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.core.model.query.Page
 import com.amplifyframework.core.model.query.QueryOptions
@@ -75,6 +76,7 @@ class AmplifyDataStorePluginTest {
         mock(DataStoreHubEventStreamHandler::class.java)
     private val dataStoreException =
         DataStoreException("Some useful exception message", "Some useful recovery message")
+    private val dataStoreObserveStartFailure = DataStoreException("Failed to start DataStore.", "Retry")
     private val mockModelSchemas = mutableListOf(
         mapOf(
             "name" to "Post",
@@ -85,6 +87,7 @@ class AmplifyDataStorePluginTest {
                     "targetType" to "Blog",
                     "isRequired" to false,
                     "isArray" to false,
+                    "isReadOnly" to false,
                     "type" to mapOf(
                         "fieldType" to "string"
                     )
@@ -101,6 +104,11 @@ class AmplifyDataStorePluginTest {
         flutterPlugin = AmplifyDataStorePlugin()
         val modelProvider = FlutterModelProvider.instance
         modelProvider.addModelSchema("Post", postSchema)
+        modelProvider.addModelSchema("Blog", blogSchema)
+        modelProvider.addModelSchema("Person", personSchema)
+        modelProvider.addCustomTypeSchema("Phone", phoneSchema)
+        modelProvider.addCustomTypeSchema("Address", addressSchema)
+        modelProvider.addCustomTypeSchema("Contact", contactSchema)
 
         modelSchema = flutterPlugin.modelProvider.modelSchemas()["Post"]!!
         amplifySuccessResults = mutableListOf<SerializedModel>(
@@ -362,7 +370,7 @@ class AmplifyDataStorePluginTest {
             mapOf(
                 "message" to ExceptionMessages.missingExceptionMessage,
                 "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                "underlyingException" to "kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String"
+                "underlyingException" to "java.lang.NullPointerException: null cannot be cast to non-null type kotlin.String"
             )
         )
     }
@@ -392,14 +400,14 @@ class AmplifyDataStorePluginTest {
 
         doAnswer { invocation: InvocationOnMock ->
             assertEquals(serializedModel, invocation.arguments[0])
-            (invocation.arguments[1] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
+            (invocation.arguments[2] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
                 dataStoreItemChange
             )
             null as Void?
         }.`when`(mockAmplifyDataStorePlugin).delete(
             any<SerializedModel>(),
-            any<
-                    Consumer<DataStoreItemChange<SerializedModel>>>(),
+            any<QueryPredicate>(),
+            any<Consumer<DataStoreItemChange<SerializedModel>>>(),
             any<Consumer<DataStoreException>>()
         )
 
@@ -427,14 +435,14 @@ class AmplifyDataStorePluginTest {
 
         doAnswer { invocation: InvocationOnMock ->
             assertEquals(serializedModel, invocation.arguments[0])
-            (invocation.arguments[2] as Consumer<DataStoreException>).accept(
+            (invocation.arguments[3] as Consumer<DataStoreException>).accept(
                 dataStoreException
             )
             null as Void?
         }.`when`(mockAmplifyDataStorePlugin).delete(
             any<SerializedModel>(),
-            any<
-                    Consumer<DataStoreItemChange<SerializedModel>>>(),
+            any<QueryPredicate>(),
+            any<Consumer<DataStoreItemChange<SerializedModel>>>(),
             any<Consumer<DataStoreException>>()
         )
 
@@ -463,7 +471,7 @@ class AmplifyDataStorePluginTest {
             mapOf(
                 "message" to ExceptionMessages.missingExceptionMessage,
                 "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                "underlyingException" to "kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String"
+                "underlyingException" to "java.lang.NullPointerException: null cannot be cast to non-null type kotlin.String"
             )
         )
     }
@@ -566,9 +574,57 @@ class AmplifyDataStorePluginTest {
             mapOf(
                 "message" to ExceptionMessages.missingExceptionMessage,
                 "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                "underlyingException" to "kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String"
+                "underlyingException" to "java.lang.NullPointerException: null cannot be cast to non-null type kotlin.String"
             )
         )
+    }
+
+    @Test
+    fun test_observe_set_up_success() {
+        flutterPlugin = AmplifyDataStorePlugin(
+            eventHandler = mockStreamHandler,
+            hubEventHandler = mockHubHandler
+        )
+
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[0] as Consumer<Cancelable>).accept(
+                Cancelable {  }
+            )
+            null
+        }.`when`(mockAmplifyDataStorePlugin).observe(
+            any<Consumer<Cancelable>>(),
+            any<Consumer<DataStoreItemChange<out Model>>>(),
+            any<Consumer<DataStoreException>>(),
+            any<Action>()
+        )
+
+        flutterPlugin.onSetUpObserve(mockResult)
+
+        verify(mockResult, times(1)).success(true)
+    }
+
+    @Test
+    fun test_observe_set_up_failure() {
+        flutterPlugin = AmplifyDataStorePlugin(
+            eventHandler = mockStreamHandler,
+            hubEventHandler = mockHubHandler
+        )
+
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[2] as Consumer<DataStoreException>).accept(
+                dataStoreObserveStartFailure
+            )
+            null
+        }.`when`(mockAmplifyDataStorePlugin).observe(
+            any<Consumer<Cancelable>>(),
+            any<Consumer<DataStoreItemChange<out Model>>>(),
+            any<Consumer<DataStoreException>>(),
+            any<Action>()
+        )
+
+        flutterPlugin.onSetUpObserve(mockResult)
+
+        verify(mockResult, times(1)).success(false)
     }
 
     @Test
@@ -614,12 +670,11 @@ class AmplifyDataStorePluginTest {
 
         flutterPlugin.onSetUpObserve(mockResult)
 
-        verify(mockResult, times(1)).success(true)
         verify(mockStreamHandler, times(1)).sendEvent(eventData)
     }
 
     @Test
-    fun test_observe_error_event() {
+    fun test_observe_receive_error_event() {
         flutterPlugin = AmplifyDataStorePlugin(
             eventHandler = mockStreamHandler,
             hubEventHandler = mockHubHandler
@@ -639,7 +694,10 @@ class AmplifyDataStorePluginTest {
 
         flutterPlugin.onSetUpObserve(mockResult)
 
-        verify(mockResult, times(1)).success(true)
+        // when the observe consume receive normal error events, `flutterResult` won't be invoked
+        verify(mockResult, times(0)).success(true)
+        verify(mockResult, times(0)).success(false)
+
         verify(mockStreamHandler, times(1)).error(
             "DataStoreException",
             mapOf(
@@ -686,9 +744,12 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_nested_model_deserialization() {
+        val postModelSchema = flutterPlugin.modelProvider.modelSchemas()["Post"]!!
+        val blogModelSchema = flutterPlugin.modelProvider.modelSchemas()["Blog"]!!
+
         val nestedSerializedModelInput = mapOf<String, Any>(
             "id" to "af9cfa64-1ea9-46d6-b9e2-8203179d5392",
-            "name" to "A brilliant Post",
+            "title" to "A brilliant Post",
             "rating" to 5,
             "blog" to mapOf<String, Any>(
                 "name" to "Amazing Blog",
@@ -698,20 +759,88 @@ class AmplifyDataStorePluginTest {
 
         val nestedSerializedModelOutput = mapOf(
             "id" to "af9cfa64-1ea9-46d6-b9e2-8203179d5392",
-            "name" to "A brilliant Post",
+            "title" to "A brilliant Post",
             "rating" to 5,
             "blog" to SerializedModel.builder().serializedData(
                 mapOf<String, Any>(
                     "name" to "Amazing Blog",
                     "id" to "8cb7d5a5-435d-4632-a890-90ed0c6107f5"
                 ) as HashMap<String, Any>
-            ).modelSchema(null).build()
+            ).modelSchema(blogModelSchema).build()
         )
+
 
         assertEquals(
             nestedSerializedModelOutput,
-            flutterPlugin.deserializeNestedModels(nestedSerializedModelInput)
+            flutterPlugin.deserializeNestedModel(nestedSerializedModelInput, postModelSchema)
         )
+    }
+
+    @Test
+    fun test_model_nested_custom_type_deserialization() {
+        val personSchema = flutterPlugin.modelProvider.modelSchemas()["Person"]!!
+        val serializedPersonData = mapOf<String, Any?>(
+            "id" to "af9cfa64-1ea9-46d6-b9e2-8203179d5392",
+            "name" to "Tester Testing",
+            "contact" to mapOf<String, Any?>(
+                "email" to "test@testing.com",
+                "phone" to mapOf<String, Any?>(
+                    "country" to "+1",
+                    "area" to "415",
+                    "number" to "6666666"
+                ),
+                "mailingAddresses" to listOf(
+                    mapOf<String, Any?>(
+                        "line1" to "000 Somewhere far",
+                        "line2" to "apt 4",
+                        "city" to "San Francisco",
+                        "state" to "CA",
+                        "postalCode" to "94115"
+                    ),
+                    mapOf<String, Any?>(
+                        "line1" to "111 Somewhere close",
+                        "line2" to null,
+                        "city" to "Seattle",
+                        "state" to "WA",
+                        "postalCode" to "98101"
+                    )
+                )
+            ),
+            "propertiesAddresses" to listOf(
+                mapOf<String, Any?>(
+                    "line1" to "222 Somewhere in the middle",
+                    "line2" to null,
+                    "city" to "Portland",
+                    "state" to "OR",
+                    "postalCode" to "97035"
+                )
+            )
+        )
+
+        val deserializedResult = flutterPlugin.deserializeNestedModel(serializedPersonData, personSchema);
+        assertEquals(deserializedResult["id"], serializedPersonData["id"])
+        assertEquals(deserializedResult["name"], serializedPersonData["name"])
+
+        assert(deserializedResult["contact"] is SerializedCustomType)
+        val serializedContactData = serializedPersonData["contact"] as Map<*, *>
+        val deserializedContactData = (deserializedResult["contact"] as SerializedCustomType).serializedData;
+        assertEquals(deserializedContactData["email"], serializedContactData["email"])
+        assert(deserializedContactData["phone"] is SerializedCustomType)
+        val serializedPhoneData = serializedContactData["phone"] as Map<*, *>
+        val deserializedPhoneData = (deserializedContactData["phone"] as SerializedCustomType).serializedData;
+        assertEquals(deserializedPhoneData, serializedPhoneData);
+        assert(deserializedContactData["mailingAddresses"] is List<*>)
+        val serializedMailingAddressesData = serializedContactData["mailingAddresses"] as List<Map<*, *>>
+        val deserializedMailingAddressesData = deserializedContactData["mailingAddresses"] as List<SerializedCustomType>
+        val flatDeserializedMailingAddressesData = deserializedMailingAddressesData.map { it.serializedData }
+        assertEquals(flatDeserializedMailingAddressesData as List<*>, serializedMailingAddressesData as List<*>)
+
+        assert(deserializedResult["propertiesAddresses"] is List<*>)
+        val serializedPropertiesAddressesData = serializedPersonData["propertiesAddresses"] as List<Map<*, *>>
+        val deserializedPropertiesAddressesData =
+            deserializedResult["propertiesAddresses"] as List<SerializedCustomType>
+        val flatDeserializedPropertiesAddressesData = deserializedPropertiesAddressesData.map { it.serializedData }
+        assertEquals(flatDeserializedPropertiesAddressesData, serializedPropertiesAddressesData)
     }
 
     @Test

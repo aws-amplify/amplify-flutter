@@ -16,7 +16,7 @@
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 
 import '../../utils/query_predicate_utils.dart';
 import '../../utils/setup_utils.dart';
@@ -27,17 +27,17 @@ void main() {
   group('type String', () {
     // models used for all tests
     var models = [
-      StringTypeModel(value: 'foo'),
-      StringTypeModel(value: 'bar'),
-      StringTypeModel(value: 'foo'),
-      StringTypeModel(value: 'bar'),
-      StringTypeModel(value: 'abcd'),
-      StringTypeModel(value: 'abce'),
-      StringTypeModel(value: 'abcf'),
-      StringTypeModel(value: '!@#^&*()'),
-      StringTypeModel(value: '\u{1F601}'),
-      StringTypeModel(value: ''),
-      StringTypeModel(),
+      ModelWithAppsyncScalarTypes(stringValue: 'foo'),
+      ModelWithAppsyncScalarTypes(stringValue: 'bar'),
+      ModelWithAppsyncScalarTypes(stringValue: 'foo'),
+      ModelWithAppsyncScalarTypes(stringValue: 'bar'),
+      ModelWithAppsyncScalarTypes(stringValue: 'abcd'),
+      ModelWithAppsyncScalarTypes(stringValue: 'abce'),
+      ModelWithAppsyncScalarTypes(stringValue: 'abcf'),
+      ModelWithAppsyncScalarTypes(stringValue: '!@#^&*()'),
+      ModelWithAppsyncScalarTypes(stringValue: '\u{1F601}'),
+      ModelWithAppsyncScalarTypes(stringValue: ''),
+      ModelWithAppsyncScalarTypes(),
     ];
 
     // a string value that will return 1 when compared to each test value
@@ -47,10 +47,10 @@ void main() {
     var minStringValue = '';
 
     // non-null models used for all tests
-    var nonNullModels = models.where((e) => e.value != null).toList();
+    var nonNullModels = models.where((e) => e.stringValue != null).toList();
 
     // distinct list of values in the test models
-    var values = models.map((e) => e.value).toSet().toList();
+    var values = models.map((e) => e.stringValue).toSet().toList();
 
     // distinct list of non-null values in the test models
     var nonNullValues = values.whereType<String>().toList();
@@ -66,16 +66,16 @@ void main() {
       // test against all values
       for (var value in values) {
         var expectedModels =
-            models.where((model) => model.value == value).toList();
-        await testQueryPredicate<StringTypeModel>(
-          queryPredicate: StringTypeModel.VALUE.eq(value),
+            models.where((model) => model.stringValue == value).toList();
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.eq(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with no match
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.eq('no match'),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.eq('no match'),
         expectedModels: [],
       );
     });
@@ -86,16 +86,16 @@ void main() {
         // update `nonNullModels` to `models` when #823 is fixed
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
         var expectedModels =
-            nonNullModels.where((model) => model.value != value).toList();
-        await testQueryPredicate<StringTypeModel>(
-          queryPredicate: StringTypeModel.VALUE.ne(value),
+            nonNullModels.where((model) => model.stringValue != value).toList();
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.ne(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with match all models
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.ne('no match'),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.ne('no match'),
         // update `nonNullModels` to `models` when #823 is fixed
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
         expectedModels: nonNullModels,
@@ -106,23 +106,25 @@ void main() {
       // test against all (non-null) values
       for (var value in nonNullValues) {
         var expectedModels = nonNullModels
-            .where((model) => model.value!.compareTo(value) < 0)
+            .where((model) => model.stringValue!.compareTo(value) < 0)
             .toList();
-        await testQueryPredicate<StringTypeModel>(
-          queryPredicate: StringTypeModel.VALUE.lt(value),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.lt(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with no matches
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.lt(minStringValue),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate:
+            ModelWithAppsyncScalarTypes.STRINGVALUE.lt(minStringValue),
         expectedModels: [],
       );
 
       // test with match all models
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.lt(maxStringValue),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate:
+            ModelWithAppsyncScalarTypes.STRINGVALUE.lt(maxStringValue),
         expectedModels: nonNullModels,
       );
     });
@@ -131,17 +133,18 @@ void main() {
       // test against all (non-null) values
       for (var value in nonNullValues) {
         var expectedModels = nonNullModels
-            .where((model) => model.value!.compareTo(value) <= 0)
+            .where((model) => model.stringValue!.compareTo(value) <= 0)
             .toList();
-        await testQueryPredicate<StringTypeModel>(
-          queryPredicate: StringTypeModel.VALUE.le(value),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.le(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with match all models
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.le(maxStringValue),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate:
+            ModelWithAppsyncScalarTypes.STRINGVALUE.le(maxStringValue),
         expectedModels: nonNullModels,
       );
     });
@@ -150,17 +153,18 @@ void main() {
       // test against all (non-null) values
       for (var value in nonNullValues) {
         var expectedModels = nonNullModels
-            .where((model) => model.value!.compareTo(value) > 0)
+            .where((model) => model.stringValue!.compareTo(value) > 0)
             .toList();
-        await testQueryPredicate<StringTypeModel>(
-          queryPredicate: StringTypeModel.VALUE.gt(value),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.gt(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with match all models
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.gt(maxStringValue),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate:
+            ModelWithAppsyncScalarTypes.STRINGVALUE.gt(maxStringValue),
         expectedModels: [],
       );
     });
@@ -169,23 +173,25 @@ void main() {
       // test against all (non-null) values
       for (var value in nonNullValues) {
         var expectedModels = nonNullModels
-            .where((model) => model.value!.compareTo(value) >= 0)
+            .where((model) => model.stringValue!.compareTo(value) >= 0)
             .toList();
-        await testQueryPredicate<StringTypeModel>(
-          queryPredicate: StringTypeModel.VALUE.ge(value),
+        await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+          queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE.ge(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with no matches
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.ge(maxStringValue),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate:
+            ModelWithAppsyncScalarTypes.STRINGVALUE.ge(maxStringValue),
         expectedModels: [],
       );
 
       // test with match all models
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.ge(minStringValue),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate:
+            ModelWithAppsyncScalarTypes.STRINGVALUE.ge(minStringValue),
         expectedModels: nonNullModels,
       );
     });
@@ -194,27 +200,30 @@ void main() {
       // test with exact match
       var exactMatchPattern = 'foo';
       var exactMatchModels = nonNullModels
-          .where((model) => model.value!.startsWith(exactMatchPattern))
+          .where((model) => model.stringValue!.startsWith(exactMatchPattern))
           .toList();
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.beginsWith(exactMatchPattern),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE
+            .beginsWith(exactMatchPattern),
         expectedModels: exactMatchModels,
       );
 
       // test with partial match
       var partialMatchPattern = 'a';
       var partialMatchModels = nonNullModels
-          .where((model) => model.value!.startsWith(partialMatchPattern))
+          .where((model) => model.stringValue!.startsWith(partialMatchPattern))
           .toList();
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.beginsWith(partialMatchPattern),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE
+            .beginsWith(partialMatchPattern),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = 'foobar';
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.beginsWith(noMatchPattern),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate:
+            ModelWithAppsyncScalarTypes.STRINGVALUE.beginsWith(noMatchPattern),
         expectedModels: [],
       );
     });
@@ -223,27 +232,30 @@ void main() {
       // test with exact match
       var exactMatchPattern = 'foo';
       var exactMatchModels = nonNullModels
-          .where((model) => model.value!.contains(exactMatchPattern))
+          .where((model) => model.stringValue!.contains(exactMatchPattern))
           .toList();
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.contains(exactMatchPattern),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate:
+            ModelWithAppsyncScalarTypes.STRINGVALUE.contains(exactMatchPattern),
         expectedModels: exactMatchModels,
       );
 
       // test with partial match
       var partialMatchPattern = 'bc';
       var partialMatchModels = nonNullModels
-          .where((model) => model.value!.contains(partialMatchPattern))
+          .where((model) => model.stringValue!.contains(partialMatchPattern))
           .toList();
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.contains(partialMatchPattern),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE
+            .contains(partialMatchPattern),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = 'foobar';
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.contains(noMatchPattern),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate:
+            ModelWithAppsyncScalarTypes.STRINGVALUE.contains(noMatchPattern),
         expectedModels: [],
       );
     });
@@ -251,11 +263,12 @@ void main() {
     testWidgets('bewtween()', (WidgetTester tester) async {
       // test with exact match
       var exactMatchPattern = 'foo';
-      var exactMatchModels =
-          models.where((model) => model.value == exactMatchPattern).toList();
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate:
-            StringTypeModel.VALUE.between(exactMatchPattern, exactMatchPattern),
+      var exactMatchModels = models
+          .where((model) => model.stringValue == exactMatchPattern)
+          .toList();
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE
+            .between(exactMatchPattern, exactMatchPattern),
         expectedModels: exactMatchModels,
       );
 
@@ -263,22 +276,24 @@ void main() {
       var partialMatchStart = 'abcd';
       var partialMatchEnd = 'abcf';
       var rangeMatchModels = nonNullModels
-          .where((model) => model.value!.compareTo(partialMatchStart) >= 0)
-          .where((model) => model.value!.compareTo(partialMatchEnd) <= 0)
+          .where(
+              (model) => model.stringValue!.compareTo(partialMatchStart) >= 0)
+          .where((model) => model.stringValue!.compareTo(partialMatchEnd) <= 0)
           .toList();
       // verify that the test is testing a partial match
       expect(rangeMatchModels.length, greaterThanOrEqualTo(1));
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate:
-            StringTypeModel.VALUE.between(partialMatchStart, partialMatchEnd),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE
+            .between(partialMatchStart, partialMatchEnd),
         expectedModels: rangeMatchModels,
       );
 
       // test with no match
       var noMatchStart = 'foobar';
       var noMatchEnd = 'foobuzz';
-      await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.between(noMatchStart, noMatchEnd),
+      await testQueryPredicate<ModelWithAppsyncScalarTypes>(
+        queryPredicate: ModelWithAppsyncScalarTypes.STRINGVALUE
+            .between(noMatchStart, noMatchEnd),
         expectedModels: [],
       );
     });

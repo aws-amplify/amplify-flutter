@@ -23,10 +23,8 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 // Uncomment the below line to enable online sync
 //import 'package:amplify_api/amplify_api.dart';
 
-import 'package:amplify_flutter/amplify.dart';
-import 'package:flutter/rendering.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/services.dart';
-import 'amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
 
 part 'queries_display_widgets.dart';
@@ -174,6 +172,10 @@ class _MyAppState extends State<MyApp> {
   void listenToHub() {
     setState(() {
       hubSubscription = Amplify.Hub.listen([HubChannel.DataStore], (msg) {
+        if (msg is NetworkStatusEvent) {
+          print('Network status message: $msg');
+          return;
+        }
         print(msg);
       });
       _listeningToHub = true;

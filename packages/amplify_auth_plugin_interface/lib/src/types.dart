@@ -40,10 +40,8 @@ export 'SignOut/SignOutResult.dart';
 export 'SignOut/SignOutOptions.dart';
 
 // Password Classes
-export 'Password/ConfirmPasswordRequest.dart';
 export 'Password/ConfirmResetPasswordOptions.dart';
 export 'Password/ConfirmResetPasswordRequest.dart';
-export 'Password/PasswordOptions.dart';
 export 'Password/ResetPasswordOptions.dart';
 export 'Password/ResetPasswordRequest.dart';
 export 'Password/ResetPasswordResult.dart';
@@ -62,8 +60,6 @@ export 'Session/AuthUserRequest.dart';
 
 // Attribute Classes
 export 'Attribute/AuthUserAttribute.dart';
-export 'Attribute/AuthUserAttributeOptions.dart';
-export 'Attribute/AuthUserAttributeRequest.dart';
 export 'Attribute/FetchUserAttributesOptions.dart';
 export 'Attribute/FetchUserAttributesRequest.dart';
 export 'Attribute/UpdateUserAttributeOptions.dart';
@@ -77,6 +73,7 @@ export 'Attribute/ConfirmUserAttributeResult.dart';
 export 'Attribute/ResendUserAttributeConfirmationCodeOptions.dart';
 export 'Attribute/ResendUserAttributeConfirmationCodeRequest.dart';
 export 'Attribute/ResendUserAttributeConfirmationCodeResult.dart';
+export 'Attribute/user_attribute_key.dart';
 
 // Exception Classes
 export 'Exceptions/AuthException.dart';
@@ -115,3 +112,4 @@ export 'Exceptions/UserNotFoundException.dart';
 export 'types/AuthCodeDeliveryDetails.dart';
 export 'types/AuthNextStep.dart';
 export 'types/auth_device.dart';
+export 'types/cognito_user_attribute_key.dart';

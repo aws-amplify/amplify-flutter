@@ -13,14 +13,15 @@
  * permissions and limitations under the License.
  */
 
-import 'package:integration_test/integration_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/amplifyconfiguration.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
-import 'graph_ql_tests.dart' as graph_ql_tests;
+import 'graphql_tests.dart' as graph_ql_tests;
 import 'rest_tests.dart' as rest_tests;
 
 void main() async {
@@ -28,7 +29,10 @@ void main() async {
 
   group('amplify_api', () {
     setUpAll(() async {
-      await Amplify.addPlugins([AmplifyAuthCognito(), AmplifyAPI()]);
+      await Amplify.addPlugins([
+        AmplifyAuthCognito(),
+        AmplifyAPI(modelProvider: ModelProvider.instance)
+      ]);
       await Amplify.configure(amplifyconfig);
     });
 

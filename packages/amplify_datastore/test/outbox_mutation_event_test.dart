@@ -13,10 +13,8 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_core/test_utils/index.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
-import 'package:amplify_datastore/types/DataStoreHubEvents/HubEventElement.dart';
-import 'package:amplify_datastore/types/DataStoreHubEvents/OutboxMutationEvent.dart';
+import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_models/ModelProvider.dart';

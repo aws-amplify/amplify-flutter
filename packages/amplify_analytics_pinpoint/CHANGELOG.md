@@ -1,3 +1,21 @@
+## 0.4.0 (2022-02-17)
+
+- chore: bump Kotlin version to 1.6.10 (#1346)
+
+### Breaking Changes
+
+- If your app has a dependency on Kotlin, the value of `ext.kotlin_version` set in `android/build.gradle` must be 1.5.31 or greater (1.6.10 recommended)
+
+## 0.3.2 (2022-01-21)
+
+- chore: bump amplify-android to 1.31.2
+
+## 0.3.1 (2022-01-20)
+
+- chore: bump amplify-ios to 1.18.3
+
+## 0.3.0 (2022-01-20)
+
 ## 0.2.10 (2021-11-23)
 
 ## 0.2.9 (2021-11-17)

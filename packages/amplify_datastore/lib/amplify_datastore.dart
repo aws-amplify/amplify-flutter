@@ -15,7 +15,7 @@
 
 import 'dart:async';
 
-import 'package:amplify_core/types/exception/AmplifyException.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:meta/meta.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -67,7 +67,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
     _instance = instance as AmplifyDataStore;
   }
 
-  StreamController get streamController {
+  StreamController<DataStoreHubEvent> get streamController {
     return streamWrapper.datastoreStreamController;
   }
 
@@ -112,19 +112,19 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
-  Future<void> delete<T extends Model>(T model) async {
-    return _instance.delete(model);
+  Future<void> delete<T extends Model>(T model, {QueryPredicate? where}) async {
+    return _instance.delete(model, where: where);
   }
 
   @override
-  Future<void> save<T extends Model>(T model) {
-    return _instance.save(model);
+  Future<void> save<T extends Model>(T model, {QueryPredicate? where}) {
+    return _instance.save(model, where: where);
   }
 
   @override
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(
-      ModelType<T> modelType) {
-    return _instance.observe(modelType);
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
+      {QueryPredicate? where}) {
+    return _instance.observe(modelType, where: where);
   }
 
   @override

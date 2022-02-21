@@ -1,3 +1,27 @@
+## 0.4.0 (2022-02-17)
+
+## 0.3.2 (2022-01-21)
+
+- chore: bump amplify-android to 1.31.2
+
+## 0.3.1 (2022-01-20)
+
+- chore: bump amplify-ios to 1.18.3
+
+## 0.3.0 (2022-01-20)
+
+### Breaking Changes
+
+- This version changes GraphQL subscription interface to use Stream
+
+### Features
+
+- feat(api): GraphQL Subscription Stream (#905)
+
+### Fixes
+
+- fix(api): OIDC Fixes for REST/GraphQL
+
 ## 0.2.10 (2021-11-23)
 
 ## 0.2.9 (2021-11-17)
@@ -19,6 +43,7 @@
 ## 0.2.5 (2021-10-14)
 
 ### Fixes
+
 - fix(api): OIDC/Lambda changes for DataStore
 
 ## 0.2.4 (2021-09-10)

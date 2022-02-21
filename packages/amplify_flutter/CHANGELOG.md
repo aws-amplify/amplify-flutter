@@ -1,3 +1,77 @@
+## 0.4.0 (2022-02-17)
+
+- chore(flutter): Fix AtomicResultTest (#1363)
+- fix(amplify_flutter): updates for latest flutter and dart versions #1333
+- feat(amplify_flutter): allow customers to override AmplifyClass methods #1325
+- fix(flutter): Password settings parsing #1323
+- chore: bump Kotlin version to 1.6.10 (#1346)
+
+### Breaking Changes
+
+- If your app has a dependency on Kotlin, the value of `ext.kotlin_version` set in `android/build.gradle` must be 1.5.31 or greater (1.6.10 recommended)
+
+## 0.3.2 (2022-01-21)
+
+- chore: bump amplify-android to 1.31.2
+
+## 0.3.1 (2022-01-20)
+
+- chore: bump amplify-ios to 1.18.3
+
+## 0.3.0 (2022-01-20)
+
+### Breaking Changes
+
+- **Flutter**: Linting & clean up (#1202)
+
+  **How to Migrate:**
+
+  - Update all imports of `import 'package:amplify_flutter/amplify.dart';` to import `'package:amplify_flutter/amplify_flutter.dart';`
+
+- **API**: This version changes GraphQL subscription interface to use Streams. See the [amplify_api](https://pub.dev/packages/amplify_api) page for additional information.
+
+- **Auth**: The `fetchAuthSession` API will throw a SignedOutException when the user has not signed in, and a SessionExpiredException when the tokens have expired.
+- **Auth**: The `getCurrentUser` API will return an AuthUser if the user is still authenticated but the session has expired.
+
+- **DataStore**: `ModelProvider` and `ModelField` interface changes
+
+  **How to Migrate:**
+
+  - Install the required version of `@aws-amplify/cli` as described on the [amplify_datastore](https://pub.dev/packages/amplify_datastore) page
+  - Run `amplify codegen models` to regenerate models
+
+- **DataStore**: This version introduces a breaking change to Android Apps as an existing bug writes `Double` and `Boolean` values as `TEXT` in local SQLite database. The fix corrects this behavior. Hence, directly applying this fix may raise SQL error while reading from and writing to local database.
+
+  **How to Migrate:**
+
+  Invoke [`Amplify.DataStore.clear()`](https://docs.amplify.aws/lib/datastore/sync/q/platform/flutter/#clear-local-data) on App start after upgrading to the latest version of Amplify Flutter. This API clears and recreates local database table with correct schema.
+
+  NOTE: Data stored in local database and not synced to cloud will be lost, as [local migration is not supported](https://docs.amplify.aws/lib/datastore/schema-updates/q/platform/flutter/#local-migrations).
+
+### Features
+
+- [Amplify Authenticator](https://pub.dev/packages/amplify_authenticator) preview release!
+- New `AmplifyConfig` type for fully-typed configurations
+- feat(api): GraphQL Subscription Stream (#905)
+- feat(datastore): Add CustomType functionality (#847)
+- feat(datastore): Add ModelField ReadOnly support (#599)
+
+### Fixes
+
+- fix(api): remove tabs from graphql document strings in android (#1178)
+- fix(api): OIDC Fixes for REST/GraphQL
+- fix(auth): throw SignedOutException (#893)
+- fix(auth): fixes getCurrentUser disparity (#894)
+- fix(auth): remove int.parse from AuthUserAttribute (#1169)
+- fix(datastore): configure function triggers initial sync unexpectedly (#986)
+- fix(datastore): fix error map from ios (#1126)
+- break(datastore): cannot saving boolean as integer in SQLite (#895)
+
+### Chores
+
+- chore(core): Linting & clean up (#1202)
+- chore(core): Add copyWith helpers (#1235)
+
 ## 0.2.10 (2021-11-23)
 
 ### Fixes
@@ -45,6 +119,7 @@
 ## 0.2.5 (2021-10-14)
 
 ### Fixes
+
 - fix(datastore): Sync issues with owner-based auth
 - fix(datastore): Ensure attaching nested model schema
 - fix(datastore): Timeout period not increasing

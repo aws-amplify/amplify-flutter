@@ -28,9 +28,9 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
   List<Map<dynamic, dynamic>> sampleResponse = [
-    {"key": "username", "value": "person"},
-    {"key": "custom_num", "value": "2"},
-    {"key": "float_shouldnt_parse_shouldnt_break", "value": "1.234"}
+    {"key": "preferred_username", "value": "person"},
+    {"key": "custom:num", "value": "2"},
+    {"key": "custom:float_shouldnt_parse_shouldnt_break", "value": "1.234"}
   ];
 
   setUp(() {
@@ -53,7 +53,8 @@ void main() {
         request:
             FetchUserAttributesRequest(options: FetchUserAttributesOptions()));
     expect(res, isInstanceOf<List<AuthUserAttribute>>());
-    expect(res[0].userAttributeKey, equals('username'));
+    expect(res[0].userAttributeKey,
+        equals(CognitoUserAttributeKey.preferredUsername));
     expect(res[0].value, equals('person'));
   });
 
@@ -62,12 +63,32 @@ void main() {
       () async {
     var res = await testChannel.formatFetchAttributesResponse(sampleResponse);
     expect(res, isInstanceOf<List<AuthUserAttribute>>());
-    expect(res[0].userAttributeKey, equals('username'));
+    expect(res[0].userAttributeKey,
+        equals(CognitoUserAttributeKey.preferredUsername));
     expect(res[0].value, equals('person'));
-    expect(res[1].userAttributeKey, equals('custom_num'));
-    expect(res[1].value, equals(2));
     expect(
-        res[2].userAttributeKey, equals('float_shouldnt_parse_shouldnt_break'));
+        res[1].userAttributeKey, equals(CognitoUserAttributeKey.custom('num')));
+    expect(res[1].value, equals('2'));
+    expect(
+      res[2].userAttributeKey,
+      equals(
+        CognitoUserAttributeKey.custom('float_shouldnt_parse_shouldnt_break'),
+      ),
+    );
     expect(res[2].value, equals("1.234"));
+  });
+
+  test('unknown cognito attribute', () {
+    const invalidResponse = [
+      {'key': 'unknown_cognito_key', 'value': 'someValue'},
+    ];
+    final res = testChannel.formatFetchAttributesResponse(invalidResponse);
+    expect(
+      res.single.userAttributeKey,
+      allOf([
+        isA<CognitoUserAttributeKey>(),
+        predicate<CognitoUserAttributeKey>((attr) => attr.readOnly),
+      ]),
+    );
   });
 }

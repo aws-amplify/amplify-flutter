@@ -1,3 +1,36 @@
+## 0.4.0 (2022-02-17)
+
+- chore: bump Kotlin version to 1.6.10 (#1346)
+- feat(amplify_api): model-based Graphql helpers (#1211)
+
+### Breaking Changes
+
+- The `data` field is now nullable in `GraphQLResponse`.
+- If your app has a dependency on Kotlin, the value of `ext.kotlin_version` set in `android/build.gradle` must be 1.5.31 or greater (1.6.10 recommended)
+
+## 0.3.2 (2022-01-21)
+
+- chore: bump amplify-android to 1.31.2
+
+## 0.3.1 (2022-01-20)
+
+- chore: bump amplify-ios to 1.18.3
+
+## 0.3.0 (2022-01-20)
+
+### Breaking Changes
+
+- This version changes GraphQL subscription interface to use Streams. See the README.md file for additional information.
+
+### Features
+
+- feat(api): GraphQL Subscription Stream (#905)
+
+### Fixes
+
+- fix(api): remove tabs from graphql document strings in android (#1178)
+- fix(api): OIDC Fixes for REST/GraphQL
+
 ## 0.2.10 (2021-11-23)
 
 ## 0.2.9 (2021-11-17)
@@ -25,6 +58,7 @@
 ## 0.2.5 (2021-10-14)
 
 ### Fixes
+
 - fix(api): OIDC/Lambda changes for DataStore
 
 ## 0.2.4 (2021-09-10)
