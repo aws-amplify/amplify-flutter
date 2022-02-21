@@ -1,0 +1,15 @@
+type Mutation {
+  adminCreateUser(
+    Username: String
+    Password: String
+    AutoConfirm: Boolean
+    EnableMFA: Boolean
+    VerifyAttributes: Boolean
+  ): CreateUserResponse
+    @function(name: "amplifyintegrationtestAdminCreateUser-${env}")
+}
+
+type CreateUserResponse @model {
+  success: Boolean!
+  error: String
+}

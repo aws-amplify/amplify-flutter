@@ -7,6 +7,6 @@
       "signinMethod": "USERNAME",
       "requiredSignupAttributes": ["EMAIL", "PHONE_NUMBER"]
     },
-    "includeIdentityPool": false
+    "includeIdentityPool": true
   }
 }
