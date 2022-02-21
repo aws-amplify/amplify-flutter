@@ -44,9 +44,15 @@ SnackBar createSnackBar(
   required StatusType type,
   required Widget content,
 }) {
-  final theme = Theme.of(context);
+  final ThemeData theme = Theme.of(context);
+  final bool isDark = theme.brightness == Brightness.dark;
+
+  // this uses the text style by default, and falls back on the color scheme.
+  // this mimics logic within the SnackBar that sets the backgroundColor.
+  // see SnackBarThemeData.backgroundColor
   final foregroundColor = theme.snackBarTheme.contentTextStyle?.color ??
-      theme.colorScheme.onInverseSurface;
+      (isDark ? theme.colorScheme.surface : theme.colorScheme.onSurface);
+
   return SnackBar(
     key: keyAuthenticatorBanner,
     content: Row(
