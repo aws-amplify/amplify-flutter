@@ -32,10 +32,9 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     String? title,
     String? hintText,
     FormFieldValidator<FieldValue>? validator,
-    CognitoUserAttributeKey? customAttributeKey,
+    this.customAttributeKey,
     bool? required,
-  })  : _customAttributeKey = customAttributeKey,
-        super._(
+  }) : super._(
           key: key,
           field: field,
           titleKey: titleKey,
@@ -267,7 +266,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
       );
 
   /// Custom Cognito attribute key.
-  final CognitoUserAttributeKey? _customAttributeKey;
+  final CognitoUserAttributeKey? customAttributeKey;
 
   @override
   int get displayPriority {
@@ -340,6 +339,13 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
       case SignUpField.custom:
         return null;
     }
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<CognitoUserAttributeKey?>(
+        'customAttributeKey', customAttributeKey));
   }
 }
 
@@ -448,7 +454,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
       case SignUpField.preferredUsername:
         return state.getAttribute(widget.field.toCognitoAttribute());
       case SignUpField.custom:
-        return state.getAttribute(widget._customAttributeKey!);
+        return state.getAttribute(widget.customAttributeKey!);
       default:
         return null;
     }
@@ -489,7 +495,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
         return (v) => state.preferredUsername = v;
       case SignUpField.custom:
         return (String value) => state.setCustomAttribute(
-              widget._customAttributeKey!,
+              widget.customAttributeKey!,
               value,
             );
       default:

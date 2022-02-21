@@ -15,8 +15,11 @@
 
 library authenticator.form;
 
+import 'dart:collection';
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
 import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
@@ -134,9 +137,6 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
     return state!;
   }
 
-  /// Additional fields defined at runtime.
-  List<AuthenticatorFormField> runtimeFields(BuildContext context) => const [];
-
   /// Additional actions defined at runtime.
   List<Widget> runtimeActions(BuildContext context) => const [];
 
@@ -232,25 +232,34 @@ class SignUpForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.sign_up_form}
   SignUpForm({
     Key? key,
-  })  : useRunTimeFields = true,
+  })  : includeSignUpAttributes = true,
+        includeVerificationAttributes = true,
         super._(
           key: key,
-          fields: [
-            SignUpFormField.username(),
-            SignUpFormField.password(),
-            SignUpFormField.passwordConfirmation(),
-          ],
+          fields: requiredFields,
           actions: const [
             SignUpButton(),
           ],
         );
 
+  /// The minimum required attributes for sign up.
+  ///
+  /// This does not include sign up attributes or verification attributes
+  /// that may be required by cognito based on your cognito configuration.
+  /// See [includeSignUpAttributes] and [includeVerificationAttributes].
+  static List<SignUpFormField> requiredFields = [
+    SignUpFormField.username(),
+    SignUpFormField.password(),
+    SignUpFormField.passwordConfirmation(),
+  ];
+
   /// A custom Sign Up form.
   const SignUpForm.custom({
     Key? key,
+    this.includeSignUpAttributes = false,
+    this.includeVerificationAttributes = false,
     required List<SignUpFormField> fields,
-  })  : useRunTimeFields = false,
-        super._(
+  }) : super._(
           key: key,
           fields: fields,
           actions: const [
@@ -258,16 +267,37 @@ class SignUpForm extends AuthenticatorForm {
           ],
         );
 
-  /// determines if run time fields should be used
-  final bool useRunTimeFields;
+  /// Determines if sign up attributes from the auth config will
+  /// automatically be added to the form at runtime
+  ///
+  /// If custom attributes are provided that overlap with any of the sign up
+  /// attributes from the config, the custom attributes will be used instead.
+  ///
+  /// If set to true, all displayed attributes will automatically be sorted
+  final bool includeSignUpAttributes;
+
+  /// Determines if verification attributes from the auth config will
+  /// automatically be added to the form at runtime
+  ///
+  /// If custom attributes are provided that overlap with any of the sign up
+  /// attributes from the config, the custom attributes will be used instead.
+  ///
+  /// If set to true, all displayed attributes will automatically be sorted
+  final bool includeVerificationAttributes;
 
   @override
   _SignUpFormState createState() => _SignUpFormState();
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty<bool>('useRunTimeFields', useRunTimeFields));
+    properties.add(DiagnosticsProperty<bool>(
+      'includeSignUpAttributes',
+      includeSignUpAttributes,
+    ));
+    properties.add(DiagnosticsProperty<bool>(
+      'includeVerificationAttributes',
+      includeVerificationAttributes,
+    ));
   }
 }
 
@@ -275,25 +305,42 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
   _SignUpFormState() : super();
 
   @override
-  List<AuthenticatorFormField> get allFields {
-    if (!widget.useRunTimeFields) {
-      return widget.fields;
+  List<SignUpFormField> get allFields {
+    if (!widget.includeSignUpAttributes &&
+        !widget.includeVerificationAttributes) {
+      return widget.fields.cast<SignUpFormField>();
     }
 
+    final fields = LinkedHashSet<SignUpFormField>(
+      equals: (SignUpFormField a, SignUpFormField b) {
+        if (a.field == SignUpField.custom && b.field == SignUpField.custom) {
+          return a.customAttributeKey == b.customAttributeKey;
+        }
+        return a.field == b.field;
+      },
+      hashCode: (field) => hashValues(field.field, field.customAttributeKey),
+    );
+
     // combine fields and sort on priority
-    final fields = [
-      ...widget.fields,
-      ...runtimeFields(context),
+    fields.addAll([
+      ...widget.fields.cast<SignUpFormField>(),
+      ...runtimeFields(
+        context: context,
+        includeSignUpAttributes: widget.includeSignUpAttributes,
+        includeVerificationAttributes: widget.includeVerificationAttributes,
+      ),
     ]..sort((a, b) {
         // Sort larger priorities first.
         return -a.displayPriority.compareTo(b.displayPriority);
-      });
-
+      }));
     return fields.toList(growable: false);
   }
 
-  @override
-  List<SignUpFormField> runtimeFields(BuildContext context) {
+  List<SignUpFormField> runtimeFields({
+    required BuildContext context,
+    required bool includeSignUpAttributes,
+    required bool includeVerificationAttributes,
+  }) {
     final authConfig = InheritedConfig.of(context)
         .amplifyConfig
         ?.auth
@@ -301,8 +348,8 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
         ?.auth
         ?.default$;
     final Set<CognitoUserAttributeKey> runtimeAttributes = {
-      ...?authConfig?.signupAttributes,
-      ...?authConfig?.verificationMechanisms,
+      if (includeSignUpAttributes) ...?authConfig?.signupAttributes,
+      if (includeVerificationAttributes) ...?authConfig?.verificationMechanisms,
     };
     if (runtimeAttributes.isEmpty) {
       return const [];
@@ -368,16 +415,19 @@ class SignInForm extends AuthenticatorForm {
     bool includeDefaultSocialProviders = true,
   }) : super._(
           key: key,
-          fields: [
-            SignInFormField.username(),
-            SignInFormField.password(),
-          ],
+          fields: requiredFields,
           actions: const [
             SignInButton(),
             ForgotPasswordButton(),
           ],
           includeDefaultSocialProviders: includeDefaultSocialProviders,
         );
+
+  // The required fields for the sign in flow
+  static List<SignInFormField> requiredFields = [
+    SignInFormField.username(),
+    SignInFormField.password(),
+  ];
 
   /// A custom Sign In form.
   const SignInForm.custom({
@@ -460,15 +510,18 @@ class ConfirmSignUpForm extends AuthenticatorForm {
   })  : resendCodeButton = null,
         super._(
           key: key,
-          fields: [
-            ConfirmSignUpFormField.username(),
-            ConfirmSignUpFormField.verificationCode(),
-          ],
+          fields: requiredFields,
           actions: const [
             ConfirmSignUpButton(),
             BackToSignInButton(),
           ],
         );
+
+  // The required fields for the confirm sign up flow
+  static List<ConfirmSignUpFormField> requiredFields = [
+    ConfirmSignUpFormField.username(),
+    ConfirmSignUpFormField.verificationCode(),
+  ];
 
   /// A custom Confirm Sign Up form.
   const ConfirmSignUpForm.custom({
@@ -529,15 +582,18 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
     Key? key,
   }) : super._(
           key: key,
-          fields: [
-            ConfirmSignInFormField.newPassword(),
-            ConfirmSignInFormField.confirmNewPassword(),
-          ],
+          fields: requiredFields,
           actions: const [
             ConfirmSignInNewPasswordButton(),
             BackToSignInButton(),
           ],
         );
+
+  // The required fields for the sign in flow
+  static List<ConfirmSignInFormField> requiredFields = [
+    ConfirmSignInFormField.newPassword(),
+    ConfirmSignInFormField.confirmNewPassword(),
+  ];
 
   /// A custom Confirm Sign In with New Password form.
   const ConfirmSignInNewPasswordForm.custom({
