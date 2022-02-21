@@ -14,7 +14,6 @@
 //
 
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_flutter/src/config/config_map.dart';
 
 export 'pinpoint_config.dart' hide PinpointPluginConfigFactory;
 
