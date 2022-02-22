@@ -47,7 +47,7 @@ body:
     attributes:
       label: Screenshots
       description: "If applicable, add screenshots to help explain your problem."
-      placeholder: "N/A"
+      placeholder: "No screenshots provided"
     validations:
       required: false
   - type: checkboxes
@@ -64,7 +64,7 @@ body:
     id: environment
     attributes:
       label: Environment
-      description: "Please provide details of your Flutter build environment."
+      description: "Please provide details of your Flutter build environment (`flutter doctor`)."
       placeholder: |
         Paste the output of running `flutter doctor` here
       render: bash
@@ -74,7 +74,7 @@ body:
     id: dependencies
     attributes:
       label: Dependencies
-      description: "Please provide your project's dependency versions."
+      description: "Please provide your project's dependency versions (`flutter pub deps --style=compact`)."
       placeholder: |
         Paste the output of running `flutter pub deps --style=compact` here
       render: bash
@@ -101,6 +101,6 @@ body:
     attributes:
       label: Additional Context
       description: Please add any other context about the problem here.
-      placeholder: "N/A"
+      placeholder: "No additional context provided"
     validations:
       required: false
