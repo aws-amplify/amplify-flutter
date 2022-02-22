@@ -21,7 +21,7 @@
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "flutterapiintegtest17270866",
+          "resourceName": "amplifyapiintegb04cef34",
           "attributes": [
             "Name",
             "Arn"
@@ -37,9 +37,8 @@
       "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
-        "loginMechanisms": [
-          "EMAIL"
-        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
         "signupAttributes": [
           "EMAIL"
         ],
@@ -58,7 +57,7 @@
     }
   },
   "function": {
-    "flutterapiintegtest17270866": {
+    "amplifyapiintegb04cef34": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

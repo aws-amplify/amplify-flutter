@@ -21,7 +21,7 @@ import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'graphql_tests.dart' as graph_ql_tests;
+import 'graphql_tests.dart' as graphql_tests;
 import 'rest_tests.dart' as rest_tests;
 
 void main() async {
@@ -36,7 +36,7 @@ void main() async {
       await Amplify.configure(amplifyconfig);
     });
 
-    graph_ql_tests.main();
+    graphql_tests.main();
     rest_tests.main();
   });
 }

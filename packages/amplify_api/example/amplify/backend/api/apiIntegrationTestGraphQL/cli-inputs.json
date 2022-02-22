@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "apiIntegrationTestGraphQL",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/tshepp/amplify_src/amplify-flutter/packages/amplify_api/example/amplify/backend/api/apiIntegrationTestGraphQL/schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 365
+    }
+  }
+}

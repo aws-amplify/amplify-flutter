@@ -1,14 +1,16 @@
 {
-    "identityPoolName": "flutterapiintegtest01a5d6a5_identitypool_01a5d6a5",
+  "version": "1",
+  "cognitoConfig": {
+    "identityPoolName": "amplifyapiinteg0e97153e_identitypool_0e97153e",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "flutte01a5d6a5",
-    "userPoolName": "flutterapiintegtest01a5d6a5_userpool_01a5d6a5",
+    "resourceNameTruncated": "amplif0e97153e",
+    "userPoolName": "amplifyapiinteg0e97153e_userpool_0e97153e",
     "autoVerifiedAttributes": [
-        "email"
+      "email"
     ],
     "mfaConfiguration": "OFF",
     "mfaTypes": [
-        "SMS Text Message"
+      "SMS Text Message"
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
@@ -18,50 +20,31 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+      "email"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-        "email"
+      "email"
     ],
     "userpoolClientReadAttributes": [
-        "email"
+      "email"
     ],
-    "userpoolClientLambdaRole": "flutte01a5d6a5_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "flutte0e97153e_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "01a5d6a5",
+    "sharedId": "0e97153e",
     "resourceName": "flutterApiIntegAuth",
     "authSelections": "identityPoolAndUserPool",
-    "authRoleArn": {
-        "Fn::GetAtt": [
-            "AuthRole",
-            "Arn"
-        ]
-    },
-    "unauthRoleArn": {
-        "Fn::GetAtt": [
-            "UnauthRole",
-            "Arn"
-        ]
-    },
     "useDefault": "manual",
     "thirdPartyAuth": false,
-    "usernameAttributes": [
-        "email"
-    ],
     "userPoolGroups": false,
     "adminQueries": false,
-    "triggers": "{}",
+    "triggers": {},
     "hostedUI": false,
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "parentStack": {
-        "Ref": "AWS::StackId"
-    },
-    "breakCircularDependency": true,
-    "permissions": [],
-    "dependsOn": []
+    "useEnabledMfas": true
+  }
 }
