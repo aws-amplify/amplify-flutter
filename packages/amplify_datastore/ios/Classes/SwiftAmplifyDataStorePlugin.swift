@@ -396,11 +396,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     // TODO communicate using datastore error handler?
                 }
             }
+            flutterResult(true)
         } catch {
             print("Failed to get the datastore plugin \(error)")
             flutterResult(false)
         }
-        flutterResult(nil)
     }
     
     func onClear(flutterResult: @escaping FlutterResult) {
