@@ -84,7 +84,7 @@ body:
     id: device
     attributes:
       label: Device
-      description: "Which device did you experience the issue on? (or N/A if not applicable)"
+      description: "Which device did you experience the issue on? (or `N/A` if not applicable)"
       placeholder: "iPhone 12"
     validations:
       required: true
@@ -92,7 +92,7 @@ body:
     id: os
     attributes:
       label: OS
-      description: "Which operating system did you experience the issue on? (or N/A if not applicable)"
+      description: "Which operating system did you experience the issue on? (or `N/A` if not applicable)"
       placeholder: "iOS 15.1"
     validations:
       required: true
