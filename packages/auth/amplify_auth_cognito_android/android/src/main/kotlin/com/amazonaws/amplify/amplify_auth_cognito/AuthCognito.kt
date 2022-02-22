@@ -203,6 +203,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
             "updateUserAttributes" -> onUpdateUserAttributes(result, data)
             "confirmUserAttribute" -> onConfirmUserAttribute(result, data)
             "resendUserAttributeConfirmationCode" -> onResendUserAttributeConfirmationCode(result, data)
+            "deleteUser" -> onDeleteUser(result)
             else -> result.notImplemented()
         }
     }
@@ -552,6 +553,18 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
             errorHandler.prepareGenericException(flutterResult, e)
         }
     }
+
+    private fun onDeleteUser (@NonNull flutterResult: Result) {
+        try {
+            Amplify.Auth.deleteUser(
+                { prepareDeleteResult(flutterResult) },
+                { error -> errorHandler.handleAuthError(flutterResult, error) }
+            );
+        } catch (e: Exception) {
+            errorHandler.prepareGenericException(flutterResult, e)
+        }
+    }
+
 
     fun prepareResendSignUpCodeResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
         var resendData = FlutterResendSignUpCodeResult(result)

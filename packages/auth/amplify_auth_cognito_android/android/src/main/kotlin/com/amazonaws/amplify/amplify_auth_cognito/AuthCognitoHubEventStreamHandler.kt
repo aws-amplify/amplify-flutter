@@ -60,6 +60,7 @@ class AuthCognitoHubEventStreamHandler : EventChannel.StreamHandler {
                 when (AuthChannelEventName.valueOf(hubEvent.name)) {
                     AuthChannelEventName.SIGNED_IN,
                     AuthChannelEventName.SIGNED_OUT,
+                    AuthChannelEventName.USER_DELETED,
                     AuthChannelEventName.SESSION_EXPIRED -> {
                         var hubEvent = mapOf("eventName" to hubEvent.name)
                         sendEvent(hubEvent)

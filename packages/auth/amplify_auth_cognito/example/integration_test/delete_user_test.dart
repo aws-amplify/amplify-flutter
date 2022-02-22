@@ -12,7 +12,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import 'dart:io' show Platform;
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -26,7 +25,7 @@ import 'utils/setup_utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('deleteUser (iOS)', () {
+  group('deleteUser', () {
     setUpAll(() async {
       await configureAuth(additionalPlugins: [
         AmplifyAPI(),
@@ -34,8 +33,7 @@ void main() {
       await signOutUser();
     });
 
-    testWidgets('should delete a confirmed user on iOS',
-        (WidgetTester tester) async {
+    testWidgets('should delete a confirmed user', (WidgetTester tester) async {
       final username = generateUsername();
       final password = generatePassword();
 
@@ -104,24 +102,5 @@ void main() {
       }
       fail('Expected SignedOutException');
     });
-  }, skip: !Platform.isIOS);
-
-  group('deleteUser (Android)', () {
-    setUpAll(() async {
-      await configureAuth(additionalPlugins: [
-        AmplifyAPI(),
-      ]);
-      await signOutUser();
-    });
-    testWidgets('should throw an UnimplementedError on Android',
-        (WidgetTester tester) async {
-      try {
-        await Amplify.Auth.deleteUser();
-      } catch (e) {
-        expect(e, TypeMatcher<UnimplementedError>());
-        return;
-      }
-      fail('Expected UnimplementedError');
-    });
-  }, skip: !Platform.isAndroid);
+  });
 }
