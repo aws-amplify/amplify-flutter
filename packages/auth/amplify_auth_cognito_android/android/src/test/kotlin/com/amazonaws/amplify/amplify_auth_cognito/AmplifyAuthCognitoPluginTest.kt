@@ -1437,6 +1437,26 @@ class AmplifyAuthCognitoPluginTest {
         }
     }
 
+    @Test
+    fun deleteUser_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareDeleteResult(mockResult)
+            null as Void?
+        }.`when`(mockAuth).deleteUser(
+            ArgumentMatchers.any<Action>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+        val call = MethodCall("deleteUser", null)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(null);
+    }
+
+
     private fun setFinalStatic(field: Field, newValue: Any?) {
         field.isAccessible = true
         val modifiersField: Field = Field::class.java.getDeclaredField("modifiers")

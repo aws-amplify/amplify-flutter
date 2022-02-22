@@ -131,4 +131,26 @@ class AmplifyAuthCognitoHubTest {
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(1)).sendEvent(eventData)
     }
+
+    @Test
+    fun test_hub_userDeleteEvent_event() {
+        val latch = CountDownLatch(1)
+        val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
+
+        flutterPlugin = AuthCognito(realHubHandler, mock(Activity::class.java))
+        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
+            "userDeletedEvent.json",
+            HashMap::class.java) as HashMap<String, Any>)
+
+        var event: HubEvent<*> = HubEvent.create(AuthChannelEventName.USER_DELETED)
+
+        val hubSpy = spy(realHubHandler)
+
+        val token: SubscriptionToken = hubSpy.getHubListener()
+        Amplify.Hub.publish(HubChannel.AUTH, event)
+        Latch.await(latch);
+        Amplify.Hub.unsubscribe(token)
+        shadowOf(getMainLooper()).idle()
+        verify(hubSpy, times(1)).sendEvent(eventData)
+    }
 }

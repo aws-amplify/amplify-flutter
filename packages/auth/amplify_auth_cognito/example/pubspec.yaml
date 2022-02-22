@@ -15,7 +15,7 @@ dependencies:
   amplify_flutter:
     path: ../../../amplify/amplify_flutter
   amplify_api:
-    path: ../../../amplify_api
+    path: ../../../api/amplify_api
   amplify_auth_cognito:
     # When depending on this package from a real application you should use:
     #   amplify_auth_cognito: ^x.y.z
