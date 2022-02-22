@@ -175,7 +175,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
     );
   }
 
-  /// All the fields to display on the form. Implementations of [AuthenticatorFormState] 
+  /// All the fields to display on the form. Implementations of [AuthenticatorFormState]
   /// can override this.
   ///
   /// Defaults to [AuthenticatorForm.fields].
@@ -232,7 +232,7 @@ class SignUpForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.sign_up_form}
   SignUpForm({
     Key? key,
-  })  : useRunTimeFields = true,
+  })  : includeDefaultFields = true,
         super._(
           key: key,
           fields: [
@@ -249,7 +249,7 @@ class SignUpForm extends AuthenticatorForm {
   const SignUpForm.custom({
     Key? key,
     required List<SignUpFormField> fields,
-  })  : useRunTimeFields = false,
+  })  : includeDefaultFields = false,
         super._(
           key: key,
           fields: fields,
@@ -260,15 +260,15 @@ class SignUpForm extends AuthenticatorForm {
 
   /// Controls whether the default form fields are included, based on settings in
   /// the Auth plugin configuration.
-  final bool useRunTimeFields;
+  final bool includeDefaultFields;
 
   @override
   _SignUpFormState createState() => _SignUpFormState();
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty<bool>('useRunTimeFields', useRunTimeFields));
+    properties.add(DiagnosticsProperty<bool>(
+        'includeDefaultFields', includeDefaultFields));
   }
 }
 
@@ -277,18 +277,24 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
 
   @override
   List<AuthenticatorFormField> get allFields {
-    if (!widget.useRunTimeFields) {
+    if (!widget.includeDefaultFields) {
       return widget.fields;
     }
 
-    // combine fields and sort on priority
+    // combine fields
     final fields = [
       ...widget.fields,
       ...runtimeFields(context),
-    ]..sort((a, b) {
+    ];
+
+    // sort on priority. mergeSort is used for a stable sort
+    mergeSort(
+      fields,
+      compare: (AuthenticatorFormField a, AuthenticatorFormField b) {
         // Sort larger priorities first.
         return -a.displayPriority.compareTo(b.displayPriority);
-      });
+      },
+    );
 
     return fields.toList(growable: false);
   }
