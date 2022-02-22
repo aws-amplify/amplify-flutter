@@ -85,7 +85,7 @@ class AuthenticatorForm extends AuthenticatorComponent<AuthenticatorForm> {
   })  : child = null,
         super(key: key);
 
-  /// The form fields displayed on the form.
+  /// The form fields which are independent of the Auth plugin configuration.
   final List<AuthenticatorFormField> fields;
 
   /// Buttons and checkboxes to show below the fields.
