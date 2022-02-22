@@ -47,7 +47,7 @@ body:
     attributes:
       label: Screenshots
       description: "If applicable, add screenshots to help explain your problem."
-      placeholder: ""
+      placeholder: "N/A"
     validations:
       required: false
   - type: checkboxes
@@ -101,6 +101,6 @@ body:
     attributes:
       label: Additional Context
       description: Please add any other context about the problem here.
-      placeholder: ""
+      placeholder: "N/A"
     validations:
       required: false
