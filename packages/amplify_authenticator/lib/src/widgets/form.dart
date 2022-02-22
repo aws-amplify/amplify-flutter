@@ -175,10 +175,10 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
     );
   }
 
-  /// all the fields to display on the form.
+  /// All the fields to display on the form. Implementations of [AuthenticatorFormState] 
+  /// can override this.
   ///
-  /// defaults to `widget.fields`.
-  /// Implementations of AuthenticatorFormState can override this.
+  /// Defaults to [AuthenticatorForm.fields].
   List<AuthenticatorFormField> get allFields {
     return widget.fields;
   }
@@ -258,7 +258,8 @@ class SignUpForm extends AuthenticatorForm {
           ],
         );
 
-  /// determines if run time fields should be used
+  /// Controls whether the default form fields are included, based on settings in
+  /// the Auth plugin configuration.
   final bool useRunTimeFields;
 
   @override
