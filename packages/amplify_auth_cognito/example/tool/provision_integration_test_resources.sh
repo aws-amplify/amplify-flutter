@@ -73,7 +73,7 @@ aws s3api put-object --bucket $deploymentBucket --key $s3Key --body ./tool/admin
 rm ./tool/adminCreateUserLambda/adminCreateUser.zip
 
 # create lambda function for adminCreateUser
-echo "creating lanmbda with cloudformation..."
+echo "creating lambda with cloudformation..."
 aws cloudformation deploy --template-file ./tool/adminCreateUserLambda/cloudformation.json --stack-name admin-create-user-stack --parameter-overrides deploymentBucketName=$deploymentBucket s3Key=$s3Key env=test authauthintegrationtestUserPoolId=$userpoolId stackId=$stackId --capabilities CAPABILITY_NAMED_IAM --profile default
 
 # create api (which uses lambda in mutation)
