@@ -1,0 +1,3 @@
+# amplify_analytics_pinpoint_example
+
+Test bed for amplify_analytics_pinpoint_android

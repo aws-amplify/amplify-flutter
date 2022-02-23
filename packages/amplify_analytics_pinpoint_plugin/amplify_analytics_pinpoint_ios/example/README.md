@@ -1,6 +1,6 @@
-# amplify_auth_cognito_ios_example
+# amplify_analytics_pinpoint_example
 
-Demonstrates how to use the amplify_auth_cognito_ios plugin.
+Demonstrates how to use the amplify_analytics_pinpoint plugin.
 
 ## Getting Started
 

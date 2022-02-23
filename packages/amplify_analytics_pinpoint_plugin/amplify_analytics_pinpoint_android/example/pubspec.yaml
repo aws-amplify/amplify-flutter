@@ -1,16 +1,16 @@
-name: amplify_analytics_pinpoint_ios_example
-description: Test bed for amplify_analytics_pinpoint_ios
+name: amplify_analytics_pinpoint_android_example
+description: Test bed for amplify_analytics_pinpoint_android
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
   flutter: ">=2.2.0"
 
 dependencies:
-  amplify_analytics_pinpoint_ios:
+  amplify_analytics_pinpoint_android:
     # When depending on this package from a real application you should use:
     #   amplify_analytics_pinpoint: ^x.y.z
     # See https://dart.dev/tools/pub/dependencies#version-constraints
