@@ -19,6 +19,19 @@ exports.handler = async (event) => {
         TemporaryPassword: event.arguments.Password
     }, baseParams);
     
+    var attributes = [];
+    
+    for (const [k, v] of Object.entries(event.arguments)) {
+      if (['Given_Name','Name', 'Email', 'Phone_Number'].includes(k)) {
+        attributes.push({"Name": k.toLowerCase(), "Value": v})
+      }
+    }
+    
+    if (attributes.length > 0) {
+      createUserParams["UserAttributes"] = attributes
+    }
+    
+    
     await cognitoidentityserviceprovider.adminCreateUser(createUserParams).promise().catch(function(err) {
       response['error'] = err.toString();
       return response;

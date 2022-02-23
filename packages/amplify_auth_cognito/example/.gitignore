@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+**/adminCreateUser.zip
 
 # IntelliJ related
 *.iml

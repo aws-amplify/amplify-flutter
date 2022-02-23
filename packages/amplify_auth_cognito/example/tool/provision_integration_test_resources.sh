@@ -60,10 +60,17 @@ stackId=$(echo "$stackId" | sed 's/.*-//' )
     echo "We will attempt to create the role."
 }
 
+# create zip of lambda code from source
+cd tool/adminCreateUserLambda/src
+zip -r ../adminCreateUser.zip *
+cd ../../..
+
 # put lambda code into bucket
 echo "adding lambda code to S3..."
 aws s3api put-object --bucket $deploymentBucket --key $s3Key --body ./tool/adminCreateUserLambda/adminCreateUser.zip
 
+# remove zip file
+rm ./tool/adminCreateUserLambda/adminCreateUser.zip
 
 # create lambda function for adminCreateUser
 echo "creating lanmbda with cloudformation..."

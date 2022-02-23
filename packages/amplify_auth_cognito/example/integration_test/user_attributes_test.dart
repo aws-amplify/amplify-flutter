@@ -52,12 +52,18 @@ void main() {
         AmplifyAPI(),
       ]);
       await signOutUser();
-      await adminCreateUser(
-        username,
-        password,
-        autoConfirm: true,
-        verifyAttributes: true,
-      );
+      await adminCreateUser(username, password,
+          autoConfirm: true,
+          verifyAttributes: true,
+          attributes: [
+            AuthUserAttribute(
+                userAttributeKey: CognitoUserAttributeKey.name, value: name),
+            AuthUserAttribute(
+                userAttributeKey: CognitoUserAttributeKey.email, value: email),
+            AuthUserAttribute(
+                userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+                value: mockPhoneNumber)
+          ]);
       await Amplify.Auth.signIn(username: username, password: password);
     });
 
