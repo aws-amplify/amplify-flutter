@@ -232,7 +232,7 @@ class SignUpForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.sign_up_form}
   SignUpForm({
     Key? key,
-  })  : includeDefaultFields = true,
+  })  : _includeDefaultFields = true,
         super._(
           key: key,
           fields: [
@@ -249,7 +249,7 @@ class SignUpForm extends AuthenticatorForm {
   const SignUpForm.custom({
     Key? key,
     required List<SignUpFormField> fields,
-  })  : includeDefaultFields = false,
+  })  : _includeDefaultFields = false,
         super._(
           key: key,
           fields: fields,
@@ -260,16 +260,10 @@ class SignUpForm extends AuthenticatorForm {
 
   /// Controls whether the default form fields are included, based on settings in
   /// the Auth plugin configuration.
-  final bool includeDefaultFields;
+  final bool _includeDefaultFields;
 
   @override
   _SignUpFormState createState() => _SignUpFormState();
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<bool>(
-        'includeDefaultFields', includeDefaultFields));
-  }
 }
 
 class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
@@ -277,7 +271,7 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
 
   @override
   List<AuthenticatorFormField> get allFields {
-    if (!widget.includeDefaultFields) {
+    if (!widget._includeDefaultFields) {
       return widget.fields;
     }
 
