@@ -51,7 +51,7 @@ class AtomicResult(private val result: MethodChannel.Result, private val operati
         }
     }
 
-    override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
+    override fun error(errorCode: String, errorMessage: String?, errorDetails: Any?) {
         scope.launch {
             if (isSent.getAndSet(true)) {
                 Log.w(

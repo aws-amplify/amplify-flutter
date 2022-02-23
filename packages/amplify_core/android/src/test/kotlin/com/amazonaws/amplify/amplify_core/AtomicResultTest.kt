@@ -46,8 +46,8 @@ class AtomicResultTest {
     @Test
     fun errorIsForwarded() = coroutinesTestRule.testDispatcher.runBlockingTest {
         val atomicResult = AtomicResult(mockResult, "errorIsForwarded")
-        atomicResult.error(null, null, null)
-        verify(mockResult).error(null, null, null)
+        atomicResult.error("", null, null)
+        verify(mockResult).error("", null, null)
     }
 
     @Test
