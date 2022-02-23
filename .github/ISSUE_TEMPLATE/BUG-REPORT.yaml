@@ -74,9 +74,9 @@ body:
     id: dependencies
     attributes:
       label: Dependencies
-      description: "Please provide your project's dependency versions (`flutter pub deps --style=compact`)."
+      description: "Please provide your project's dependency versions (`flutter pub deps --no-dev --style=compact`)."
       placeholder: |
-        Paste the output of running `flutter pub deps --style=compact` here
+        Paste the output of running `flutter pub deps --no-dev --style=compact` here
       render: bash
     validations:
       required: true
@@ -84,16 +84,24 @@ body:
     id: device
     attributes:
       label: Device
-      description: "Which device did you experience the issue on? (or `N/A` if not applicable)"
-      placeholder: "iPhone 12"
+      description: "Which device(s) did you experience the issue on? (or `N/A` if not applicable)"
+      placeholder: "iPhone 12, Pixel 5"
     validations:
       required: true
   - type: input
     id: os
     attributes:
       label: OS
-      description: "Which operating system did you experience the issue on? (or `N/A` if not applicable)"
-      placeholder: "iOS 15.1"
+      description: "Which operating system(s) did you experience the issue on? (or `N/A` if not applicable)"
+      placeholder: "iOS 15.1, Android 11"
+    validations:
+      required: true
+  - type: input
+    id: cli-version
+    attributes:
+      label: CLI Version
+      description: "Which version of the Amplify CLI are you running? (`amplify -v`)"
+      placeholder: "7.6.21"
     validations:
       required: true
   - type: textarea
