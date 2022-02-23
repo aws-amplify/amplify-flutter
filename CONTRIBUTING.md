@@ -155,6 +155,20 @@ toolkit for interacting with AWS backend resources.
 2. [AWS SDK for iOS](https://github.com/aws-amplify/aws-sdk-ios)
 3. [AWS SDK for JavaScript](https://github.com/aws/aws-sdk-js)
 
+## Unit Tests
+
+To run all the flutter unit tests for all plugins:
+
+```bash
+$ melos run test:unit:flutter
+```
+
+or run all unit tests for a given platform
+```bash
+$ melos run test:unit:android
+$ melos run test:unit:ios
+```
+
 ## Integration Tests
 
 In addition to unit tests which mock Amplify API interaction, this repository has integration tests which

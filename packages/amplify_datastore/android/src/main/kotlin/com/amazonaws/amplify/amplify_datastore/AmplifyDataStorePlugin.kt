@@ -56,6 +56,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 import java.util.Locale
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.collections.HashMap
 
 /** AmplifyDataStorePlugin */
@@ -69,6 +70,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private val dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler
     private val uiThreadHandler = Handler(Looper.getMainLooper())
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
+    private var isSettingUpObserve = AtomicBoolean();
 
     val modelProvider = FlutterModelProvider.instance
 
@@ -403,17 +405,18 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     fun onSetUpObserve(flutterResult: Result) {
-        if (this::observeCancelable.isInitialized) {
+        if (this::observeCancelable.isInitialized || isSettingUpObserve.getAndSet(true)) {
             flutterResult.success(true)
             return
         }
 
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
-
         plugin.observe(
             { cancelable ->
                 LOG.info("Established a new stream form flutter $cancelable")
                 observeCancelable = cancelable
+                isSettingUpObserve.set(false);
+                flutterResult.success(true)
             },
             { event ->
                 LOG.debug("Received event: $event")
@@ -427,15 +430,19 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 }
             },
             { failure: DataStoreException ->
-                LOG.error("Received an error", failure)
-                dataStoreObserveEventStreamHandler.error(
-                    "DataStoreException",
-                    createSerializedError(failure)
-                )
+                if (failure.message?.contains("Failed to start DataStore", true) == true) {
+                    isSettingUpObserve.set(false);
+                    flutterResult.success(false)
+                } else {
+                    LOG.error("Received an error", failure)
+                    dataStoreObserveEventStreamHandler.error(
+                        "DataStoreException",
+                        createSerializedError(failure)
+                    )
+                }
             },
             { LOG.info("Observation complete.") }
         )
-        flutterResult.success(true)
     }
 
     @VisibleForTesting

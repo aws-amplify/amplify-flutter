@@ -232,7 +232,7 @@ class DataStorePluginUnitTests: XCTestCase {
         pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
-            XCTAssertNil(result)
+            XCTAssertTrue(result as! Bool)
         })
 
         dataStoreBridge.mockPublisher.send(MutationEvent(
@@ -272,7 +272,7 @@ class DataStorePluginUnitTests: XCTestCase {
         pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
-            XCTAssertNil(result)
+            XCTAssertTrue(result as! Bool)
         })
 
         dataStoreBridge.mockPublisher.send(MutationEvent(
@@ -311,7 +311,7 @@ class DataStorePluginUnitTests: XCTestCase {
         pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
-            XCTAssertNil(result)
+            XCTAssertTrue(result as! Bool)
         })
 
         dataStoreBridge.mockPublisher.send(completion:
@@ -321,6 +321,26 @@ class DataStorePluginUnitTests: XCTestCase {
 
         // Make sure that the event was indeed sent successfully
         wait(for: [eventSentExp!], timeout: 1)
+    }
+
+    func test_observe_set_up_failure() throws {
+        class MockDataStoreBridge: DataStoreBridge {
+            override func getPlugin() throws -> AWSDataStorePlugin {
+                throw DataStoreError.configuration("No plugin has been added for 'awsDataStorePlugin'.",
+                                                   "Either add a plugin for 'awsDataStorePlugin', or use one of the known keys: awsDataStorePlugin")
+            }
+        }
+
+        class MockStreamHandler: DataStoreObserveEventStreamHandler {}
+
+        let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
+        let streamHandler: MockStreamHandler = MockStreamHandler()
+
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
+
+        pluginUnderTest.onSetUpObserve(flutterResult: { result in
+            XCTAssertFalse(result as! Bool)
+        })
     }
 
     func test_clear_success() throws {
