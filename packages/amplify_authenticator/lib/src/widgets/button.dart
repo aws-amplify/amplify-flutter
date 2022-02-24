@@ -232,19 +232,25 @@ class ConfirmSignInMFAButton extends AuthenticatorElevatedButton {
 ///
 /// Uses [ButtonResolverKey.signout] for localization
 /// {@endtemplate}
-class SignOutButton extends AuthenticatorElevatedButton {
+class SignOutButton extends StatelessAuthenticatorComponent {
   /// {@macro amplify_authenticator.sign_out_button}
-  const SignOutButton({Key? key})
-      : super(
-          key: key ?? keyConfirmSignInButton,
-        );
+  const SignOutButton({Key? key = keySignOutButton}) : super(key: key);
 
   @override
-  ButtonResolverKey get labelKey => ButtonResolverKey.signout;
+  Widget builder(
+    BuildContext context,
+    AuthenticatorState state,
+    AuthStringResolver stringResolver,
+  ) {
+    final ButtonResolver buttonResolver = stringResolver.buttons;
 
-  @override
-  void onPressed(BuildContext context, AuthenticatorState state) =>
-      state.signOut();
+    return ElevatedButton(
+      onPressed: state.signOut,
+      child: Text(
+        buttonResolver.signout(context),
+      ),
+    );
+  }
 }
 
 /// {@category Prebuilt Widgets}
