@@ -107,6 +107,12 @@ void main() {
   }, skip: !Platform.isIOS);
 
   group('deleteUser (Android)', () {
+    setUpAll(() async {
+      await configureAuth(additionalPlugins: [
+        AmplifyAPI(),
+      ]);
+      await signOutUser();
+    });
     testWidgets('should throw an UnimplementedError on Android',
         (WidgetTester tester) async {
       try {

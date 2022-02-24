@@ -94,33 +94,37 @@ void main() {
       'should broadcast events for deleteUser',
       (WidgetTester tester) async {
         // setup
-        var nextEvent;
+        var signinEvent;
+        var deleteEvent;
+        var signoutEvent;
         var event;
         var eventCount = 0;
         var authEventStream = Amplify.Hub.availableStreams[HubChannel.Auth]!;
         authEventStream.listen((event) => eventCount++);
 
         // assert sign in event is broadcast
-        nextEvent = authEventStream.first;
+        signinEvent =
+            authEventStream.firstWhere((el) => el.eventName == 'SIGNED_IN');
+        deleteEvent =
+            authEventStream.firstWhere((el) => el.eventName == 'USER_DELETED');
+        signoutEvent =
+            authEventStream.firstWhere((el) => el.eventName == 'SIGNED_OUT');
+
         await Amplify.Auth.signIn(
           username: username,
           password: password,
         );
-        event = await nextEvent;
-        expect(event.eventName, 'SIGNED_IN');
+        var event1 = await signinEvent;
+        expect(event1.eventName, 'SIGNED_IN');
 
         // assert signed out event is broadcast
-        nextEvent = authEventStream.first;
         await Amplify.Auth.deleteUser();
-        event = await nextEvent;
-        expect(event.eventName, 'SIGNED_OUT');
+        var event2 = await signoutEvent;
+        var event3 = await deleteEvent;
+        expect(event2.eventName, 'SIGNED_OUT');
 
-        // assert delete user event is broadcast
-        nextEvent = authEventStream.first;
-        event = await nextEvent;
-        expect(event.eventName, 'USER_DELETED');
+        expect(event3.eventName, 'USER_DELETED');
 
-        // assert 3 total events are broadcast
         expect(eventCount, 3);
       },
       skip: !Platform.isIOS,
