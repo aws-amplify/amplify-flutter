@@ -50,7 +50,7 @@ abstract class StatelessAuthenticatorComponent extends StatelessWidget {
 /// {@template amplify_authenticator.authenticator_component}
 /// Base class for all stateful Authenticator components.
 /// {@endtemplate}
-abstract class AuthenticatorComponent<T extends AuthenticatorComponent<T>>
+abstract class AuthenticatorComponent<T extends StatefulWidget>
     extends StatefulWidget {
   /// {@macro amplify_authenticator.authenticator_component}
   const AuthenticatorComponent({Key? key}) : super(key: key);
@@ -63,9 +63,9 @@ abstract class AuthenticatorComponent<T extends AuthenticatorComponent<T>>
 ///
 /// Subclasses of [AuthenticatorComponent] must have a [State] object which
 /// subclasses this class.
-abstract class AuthenticatorComponentState<T extends AuthenticatorComponent<T>>
+abstract class AuthenticatorComponentState<T extends StatefulWidget>
     extends State<T> {
-  /// The root Autheticator view model.
+  /// The root Authenticator state.
   late AuthenticatorState state;
 
   /// The root Authenticator string resolver.
