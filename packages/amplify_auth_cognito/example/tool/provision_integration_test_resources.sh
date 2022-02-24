@@ -2,7 +2,6 @@
 set -e
 IFS='|'
 
-# In development, AWS_PROFILE should be set. In CI, it's not.
 [ "$AWS_PROFILE" ] && profileName="$AWS_PROFILE" || profileName="default";
 
 FLUTTERCONFIG="{\
