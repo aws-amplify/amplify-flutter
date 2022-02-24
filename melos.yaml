@@ -82,7 +82,7 @@ scripts:
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
     select-package:
       scope:
-        - amplify_analytics_pinpoint_example
+        - amplify_analytics_pinpoint_android_example
 
   lint:ios:amplify_analytics_pinpoint:
     run: |
@@ -94,7 +94,7 @@ scripts:
     select-package:
       dir-exists: ios
       scope:
-        - amplify_analytics_pinpoint_example
+        - amplify_analytics_pinpoint_ios_example
 
   # API
   build:examples:ios:amplify_api: >
