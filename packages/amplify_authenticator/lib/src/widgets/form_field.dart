@@ -45,6 +45,14 @@ part 'form_fields/sign_in_form_field.dart';
 part 'form_fields/sign_up_form_field.dart';
 part 'form_fields/verify_user_form_field.dart';
 
+/// {@template amplify_authenticator.username_form_field}
+/// Creates a username component based on your app's configuration.
+///
+/// The look and behavior of this widget will depend on your app's auth configuration.
+/// The `usernameAttributes` will be used to determine if the field is a standard
+/// username field, and email field, or a phone number field.
+/// {@endtemplate}
+
 /// {@template amplify_authenticator.authenticator_form_field}
 /// Base class for form field components.
 ///
