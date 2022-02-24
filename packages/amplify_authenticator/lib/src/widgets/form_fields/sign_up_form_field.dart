@@ -46,7 +46,13 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
           requiredOverride: required,
         );
 
-  /// {@macro amplify_authenticator.username_form_field}
+  /// {@template amplify_authenticator.username_form_field}
+  /// Creates a username component based on your app's configuration.
+  ///
+  /// The look and behavior of this widget will depend on your app's auth configuration.
+  /// The `usernameAttributes` will be used to determine if the field is a standard
+  /// username field, and email field, or a phone number field.
+  /// {@endtemplate}
   ///
   /// If your app is configured to use email or phone, the value provided for this widget
   /// will be saved as the user's email or phone number in addition to their username.
