@@ -20,6 +20,16 @@ FRONTEND="{\
 \"config\":$FLUTTERCONFIG\
 }"
 
+AWSCLOUDFORMATIONCONFIG="{\
+\"configLevel\":\"project\",\
+\"useProfile\":"true",\
+\"profileName\":\"$profileName\",\
+\"region\":\"us-west-2\"\
+}"
+PROVIDERS="{\
+\"awscloudformation\":$AWSCLOUDFORMATIONCONFIG\
+}"
+
 # read the request template and the schema
 requestTemplate=`cat tool/add_api_request.json`
 schema=`cat tool/schema.graphql`
