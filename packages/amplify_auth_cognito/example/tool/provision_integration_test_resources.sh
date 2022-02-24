@@ -2,6 +2,9 @@
 set -e
 IFS='|'
 
+# In development, AWS_PROFILE should be set. In CI, it's not.
+[ "$AWS_PROFILE" ] && profileName="$AWS_PROFILE" || profileName="default";
+
 FLUTTERCONFIG="{\
 \"ResDir\":\"./lib/\",\
 }"
@@ -31,6 +34,7 @@ request="${requestTemplate/<SCHEMA_PLACEHOLDER>/$schema}"
 amplify init \
 --amplify $AMPLIFY \
 --frontend $FRONTEND \
+--providers $PROVIDERS \
 --yes
 cat tool/add_auth_request.json | jq -c | amplify add auth --headless
 amplify push --yes
@@ -45,8 +49,8 @@ stackId=$(echo "$stackId" | sed 's/.*-//' )
 # check for old stacks/roles
 {
     echo "attempting to delete admin-create-user-stack"
-    aws cloudformation delete-stack --stack-name admin-create-user-stack
-    aws cloudformation wait stack-delete-complete --stack-name admin-create-user-stack
+    aws cloudformation delete-stack --profile=$profileName --stack-name admin-create-user-stack
+    aws cloudformation wait stack-delete-complete --profile=$profileName --stack-name admin-create-user-stack
 } || {
     echo "admin-create-user-stack does not exist or could not be deleted."
     echo "We will attempt to create the stack."
@@ -54,7 +58,7 @@ stackId=$(echo "$stackId" | sed 's/.*-//' )
 
 {
     echo "attempting to delete amplifyauthintegLambdaRoleAdminCreateUser IAM role"
-    aws iam delete-role --role-name  amplifyauthintegLambdaRole${appId}-test
+    aws iam delete-role --profile=$profileName --role-name  amplifyauthintegLambdaRole${appId}-test
 } || {
     echo "amplifyauthintegLambdaRoleAdminCreateUser does not exist or could not be deleted."
     echo "We will attempt to create the role."
@@ -67,14 +71,14 @@ cd ../../..
 
 # put lambda code into bucket
 echo "adding lambda code to S3..."
-aws s3api put-object --bucket $deploymentBucket --key $s3Key --body ./tool/adminCreateUserLambda/adminCreateUser.zip
+aws s3api put-object --profile=$profileName --bucket $deploymentBucket --key $s3Key --body ./tool/adminCreateUserLambda/adminCreateUser.zip
 
 # remove zip file
 rm ./tool/adminCreateUserLambda/adminCreateUser.zip
 
 # create lambda function for adminCreateUser
 echo "creating lambda with cloudformation..."
-aws cloudformation deploy --template-file ./tool/adminCreateUserLambda/cloudformation.json --stack-name admin-create-user-stack --parameter-overrides deploymentBucketName=$deploymentBucket s3Key=$s3Key env=test authauthintegrationtestUserPoolId=$userpoolId stackId=$stackId --capabilities CAPABILITY_NAMED_IAM --profile default
+aws cloudformation deploy --profile=$profileName --template-file ./tool/adminCreateUserLambda/cloudformation.json --stack-name admin-create-user-stack --parameter-overrides deploymentBucketName=$deploymentBucket s3Key=$s3Key env=test authauthintegrationtestUserPoolId=$userpoolId stackId=$stackId --capabilities CAPABILITY_NAMED_IAM --profile default
 
 # create api (which uses lambda in mutation)
 echo "$request" | jq -c | amplify add api --headless
