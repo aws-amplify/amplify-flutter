@@ -272,11 +272,6 @@ scripts:
     melos exec -c 1 -- \
       flutter format --dry-run --set-exit-if-changed .
 
-  pana:
-    run: melos exec -c 1 --fail-fast --ignore="*example*,sample_app" -- \
-      pana --no-warning --exit-code-threshold 10 .
-    description: run pub analysis and fails if the packages score is more than 10 points below max score 
-
   analyze:
     run: melos exec -c 1 --fail-fast -- \
       flutter analyze --no-fatal-infos
