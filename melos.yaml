@@ -271,7 +271,6 @@ scripts:
   format: >
     melos exec -c 1 -- \
       flutter format --dry-run --set-exit-if-changed .
-
   analyze:
     run: melos exec -c 1 --fail-fast -- \
       flutter analyze --no-fatal-infos
