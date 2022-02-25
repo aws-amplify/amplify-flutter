@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_test/amplify_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -23,24 +25,24 @@ import 'utils/setup_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
+  late String username;
+  late String password;
   group('signIn', () {
-    late String username;
-    late String password;
     setUp(() async {
-      await configureAuth();
+      await configureAuth(additionalPlugins: [
+        AmplifyAPI(),
+      ]);
 
       // create new user for each test
       username = generateUsername();
       password = generatePassword();
 
-      await Amplify.Auth.signUp(
-          username: username,
-          password: password,
-          options: CognitoSignUpOptions(userAttributes: {
-            CognitoUserAttributeKey.email: generateEmail(),
-            CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
-          }));
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
 
       await signOutUser();
     });
@@ -99,17 +101,6 @@ void main() {
     });
 
     testWidgets('should sign a user out', (WidgetTester tester) async {
-      // sign up user
-      final username = generateUsername();
-      final password = generatePassword();
-      await Amplify.Auth.signUp(
-          username: username,
-          password: password,
-          options: CognitoSignUpOptions(userAttributes: {
-            CognitoUserAttributeKey.email: generateEmail(),
-            CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
-          }));
-
       // Ensure signed in before testing signOut.
       await Amplify.Auth.signIn(username: username, password: password);
       final authSession = await Amplify.Auth.fetchAuthSession();

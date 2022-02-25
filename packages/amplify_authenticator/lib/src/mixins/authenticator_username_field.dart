@@ -18,6 +18,7 @@ import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
+import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -271,7 +272,7 @@ mixin AuthenticatorUsernameField<FieldType,
   }
 }
 
-mixin UsernameAttributes<T extends AuthenticatorComponent<T>>
+mixin UsernameAttributes<T extends AuthenticatorForm>
     on AuthenticatorComponentState<T> {
   late final Set<CognitoUserAttributeKey> usernameAttributes = () {
     final authConfig = config.amplifyConfig?.auth?.awsPlugin?.auth?.default$;
