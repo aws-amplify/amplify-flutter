@@ -80,8 +80,8 @@ jobs:
       - install_melos
       - activate_pana
       - run:
-          name: Run pun analysis
-          command: melos run --scope="<< parameters.plugin >>" --no-select pana 
+          name: Run pub analysis and fail if the packages score is more than 10 points below max score 
+          command: melos exec -c 1 --fail-fast --scope="<< parameters.plugin >>" -- pana --no-warning --exit-code-threshold 10 .
 
   unit_test_flutter:
     executor: docker-executor
