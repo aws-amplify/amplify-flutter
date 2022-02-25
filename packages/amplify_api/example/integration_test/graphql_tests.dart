@@ -44,9 +44,9 @@ void main() {
       final req = GraphQLRequest<String>(
           document: graphQLDocument, variables: <String, String>{'id': id});
       final response = await Amplify.API.mutate(request: req).response;
-      if (response.errors.length > 0) {
-        fail('GraphQL error while deleting a blog: ' +
-            response.errors.toString());
+      if (response.errors.isNotEmpty) {
+        fail(
+            'GraphQL error while deleting a blog: ${response.errors.toString()}');
       }
       return true;
     }
