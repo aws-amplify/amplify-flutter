@@ -200,7 +200,7 @@ workflows:
     jobs:
       - format_flutter
       - analyze_flutter
-      - pub_analysis
+      - pub_analysis:
           matrix:
             parameters:
               plugin:
