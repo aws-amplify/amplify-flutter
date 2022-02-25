@@ -81,7 +81,7 @@ jobs:
       - activate_pana
       - run:
           name: Run pun analysis
-          command: melos run pana --scope="<< parameters.plugin >>" --no-select
+          command: melos run --scope="<< parameters.plugin >>" --no-select pana 
 
   unit_test_flutter:
     executor: docker-executor
