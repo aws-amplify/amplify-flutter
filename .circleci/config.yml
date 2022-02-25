@@ -38,6 +38,12 @@ commands:
           command: |
             flutter pub global activate melos 1.3.0
             melos bootstrap
+  activate_pana:
+    steps:
+      - run:
+          name: Install and set up pana
+          command: |
+            flutter pub global activate pana
   install_tuneup:
     steps:
       - run:
@@ -62,6 +68,19 @@ jobs:
       - run:
           name: Analyze Dart/Flutter Code
           command: melos run analyze --no-select
+  
+  pub_analysis:
+    executor: docker-executor
+    parameters:
+      plugin:
+        type: string
+    steps:
+      - install_flutter
+      - checkout
+      - activate_pana
+      - run:
+          name: Run pun analysis
+          command: melos run pana --scope="<< parameters.plugin >>" --no-select
 
   unit_test_flutter:
     executor: docker-executor
@@ -181,6 +200,16 @@ workflows:
     jobs:
       - format_flutter
       - analyze_flutter
+      - pub_analysis
+          matrix:
+            parameters:
+              plugin:
+                [
+                  "amplify_analytics_pinpoint",
+                  "amplify_api",
+                  "amplify_auth_cognito",
+                  "amplify_authenticator",
+                ]
       - unit_test_flutter:
           matrix:
             parameters:
