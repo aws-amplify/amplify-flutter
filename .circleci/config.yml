@@ -68,7 +68,7 @@ jobs:
       - run:
           name: Analyze Dart/Flutter Code
           command: melos run analyze --no-select
-  
+
   pub_analysis:
     executor: docker-executor
     parameters:
@@ -80,8 +80,8 @@ jobs:
       - install_melos
       - activate_pana
       - run:
-          name: Run pub analysis and fail if the score is below the max score 
-          command: IFS=: read plugin threshold <<< "<< parameters.plugin >>" && melos exec -c 1 --fail-fast --scope="$plugin" -- pana --no-warning --exit-code-threshold $threshold .
+          name: Run pub analysis and fail if the score is below the max score
+          command: 'IFS=: read plugin threshold <<< "<< parameters.plugin >>" && melos exec -c 1 --fail-fast --scope="$plugin" -- pana --no-warning --exit-code-threshold $threshold .'
 
   unit_test_flutter:
     executor: docker-executor
@@ -204,10 +204,9 @@ workflows:
       - pub_analysis:
           matrix:
             parameters:
-              plugin:
-                [
+              plugin: [
                   "amplify_authenticator:0",
-                  "amplify_auth_cognito:10"
+                  "amplify_auth_cognito:10",
                   # TODO: enable other packages once pub score is addressed
                   # "amplify_analytics_pinpoint",
                   # "amplify_api",
