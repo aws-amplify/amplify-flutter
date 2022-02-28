@@ -72,8 +72,9 @@ jobs:
   pub_analysis:
     executor: docker-executor
     parameters:
-      plugin:
+      plugin_threshold:
         type: string
+        description: the plugin name and the pub analysis threshold in the format <plugin_name>:<threshold>
     steps:
       - install_flutter
       - checkout
@@ -81,7 +82,7 @@ jobs:
       - activate_pana
       - run:
           name: Run pub analysis and fail if the score is below the max score
-          command: param=<< parameters.plugin >> && plugin=${param%:*} && threshold=${param#*:} && melos exec -c 1 --fail-fast --scope=\"$plugin\" -- pana --no-warning --exit-code-threshold $threshold .
+          command: param=<< parameters.plugin_threshold >> && plugin=${param%:*} && threshold=${param#*:} && melos exec -c 1 --fail-fast --scope="$plugin" -- pana --no-warning --exit-code-threshold $threshold .
 
   unit_test_flutter:
     executor: docker-executor
@@ -204,7 +205,8 @@ workflows:
       - pub_analysis:
           matrix:
             parameters:
-              plugin: [
+              plugin_threshold: [
+                  # should be in format <plugin_name>:<threshold>
                   "amplify_analytics_pinpoint:10",
                   "amplify_api:10",
                   "amplify_auth_cognito:10",
