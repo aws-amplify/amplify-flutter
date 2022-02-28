@@ -205,14 +205,14 @@ workflows:
           matrix:
             parameters:
               plugin: [
-                  # "amplify_analytics_pinpoint:10",
-                  # "amplify_api:10",
+                  "amplify_analytics_pinpoint:10",
+                  "amplify_api:10",
                   "amplify_auth_cognito:10",
                   "amplify_authenticator:0",
-                  # "amplify_core:10",
-                  # "amplify_datastore:10",
-                  # "amplify_flutter:10",
-                  # "amplify_storage_s3:10",
+                  "amplify_core:10",
+                  "amplify_datastore:10",
+                  "amplify_flutter:10",
+                  "amplify_storage_s3:10",
                 ]
       - unit_test_flutter:
           matrix:
