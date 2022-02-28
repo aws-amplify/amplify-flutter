@@ -1,4 +1,8 @@
-## 0.4.0 (2022-02-17)
+## 0.4.1 (2022-02-28)
+
+- fix: Export category interfaces 
+
+## 0.4.1 (2022-02-17)
 
 - chore(flutter): Fix AtomicResultTest (#1363)
 - fix(amplify_flutter): updates for latest flutter and dart versions #1333

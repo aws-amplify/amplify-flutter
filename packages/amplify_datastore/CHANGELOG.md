@@ -1,4 +1,9 @@
-## 0.4.0 (2022-02-17)
+## 0.4.1 (2022-02-28)
+
+- fix: delete default predicate causes deletion failure 
+- fix: observe may receive duplicate events in Android 
+
+## 0.4.1 (2022-02-17)
 
 - feat(datastore): Add QueryPredicate to Save/Delete (#1336)
 - feat(datastore): Add QueryPredicate to Observe (#1332)
