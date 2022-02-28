@@ -13,9 +13,9 @@ dependencies:
   flutter:
     sdk: flutter
   amplify_flutter:
-    path: ../../amplify_flutter
+    path: ../../../amplify_flutter
   amplify_api:
-    path: ../../amplify_api
+    path: ../../../amplify_api
   amplify_auth_cognito:
     # When depending on this package from a real application you should use:
     #   amplify_auth_cognito: ^x.y.z
@@ -28,8 +28,9 @@ dependencies:
   cupertino_icons: ^0.1.3
 
 dev_dependencies:
+  amplify_lints: ^1.0.0
   amplify_test:
-    path: ../../amplify_test
+    path: ../../../amplify_test
   flutter_test:
     sdk: flutter
   test: any
