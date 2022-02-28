@@ -3,7 +3,7 @@
 - fix: Implement Result in AtomicResult 
 - fix: android atomic result
 
-## 0.4.1 (2022-02-17)
+## 0.4.0 (2022-02-17)
 
 - chore: Many model-related type definitions moved from amplify_datastore_plugin_interface to amplify_core.
 - chore: bump Kotlin version to 1.6.10 (#1346)
