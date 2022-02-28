@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter/services.dart';
@@ -111,7 +110,7 @@ void main() {
 
     GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
 
-    var operation = await api.query<Blog>(request: req);
+    var operation = api.query<Blog>(request: req);
 
     var response = await operation.response;
 
@@ -159,7 +158,7 @@ void main() {
     GraphQLRequest<PaginatedResult<Blog>> req =
         ModelQueries.list<Blog>(Blog.classType, limit: 4);
 
-    var operation = await api.query<PaginatedResult<Blog>>(request: req);
+    var operation = api.query<PaginatedResult<Blog>>(request: req);
 
     var response = await operation.response;
 

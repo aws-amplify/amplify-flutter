@@ -43,7 +43,7 @@ abstract class ConfirmSignUpFormField<FieldValue>
           validator: validator,
         );
 
-  /// Creates a username component.
+  /// {@macro amplify_authenticator.username_form_field}
   static ConfirmSignUpFormField username({
     Key? key,
     FormFieldValidator<UsernameInput>? validator,

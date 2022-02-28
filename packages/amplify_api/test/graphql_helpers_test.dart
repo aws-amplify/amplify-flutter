@@ -23,7 +23,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('with ModelProvider', () {
-    final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
+    AmplifyAPI(modelProvider: ModelProvider.instance);
     const blogSelectionSet =
         'id name createdAt file { bucket region key meta { name } } files { bucket region key meta { name } } updatedAt';
 
@@ -787,9 +787,9 @@ void main() {
 
   group('without ModelProvider', () {
     test('should handle no ModelProvider instance', () {
-      AmplifyAPI api = AmplifyAPI();
+      AmplifyAPI();
       try {
-        GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, '');
+        ModelQueries.get<Blog>(Blog.classType, '');
       } on ApiException catch (e) {
         expect(e.message, 'No modelProvider found');
         expect(e.recoverySuggestion,
