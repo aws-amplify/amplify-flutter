@@ -1,7 +1,7 @@
 ## 0.4.1 (2022-02-28)
 
-- fix: Implement Result in AtomicResult 
-- fix: android atomic result
+- fix: Implement Result in AtomicResult (#1393)
+- fix: android atomic result (#1376)
 
 ## 0.4.0 (2022-02-17)
 
