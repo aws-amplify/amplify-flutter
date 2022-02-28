@@ -81,7 +81,7 @@ jobs:
       - activate_pana
       - run:
           name: Run pub analysis and fail if the score is below the max score
-          command: plugin=${STR%:*} "<< parameters.plugin >>" && threshold=${STR#*:} "<< parameters.plugin >>" && melos exec -c 1 --fail-fast --scope=\"$plugin\" -- pana --no-warning --exit-code-threshold $threshold ."
+          command: param=<< parameters.plugin >> && plugin=${param%:*} && threshold=${param#*:} && melos exec -c 1 --fail-fast --scope=\"$plugin\" -- pana --no-warning --exit-code-threshold $threshold ."
 
   unit_test_flutter:
     executor: docker-executor
