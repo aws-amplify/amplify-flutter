@@ -81,7 +81,7 @@ jobs:
       - activate_pana
       - run:
           name: Run pub analysis and fail if the score is below the max score 
-          command: melos exec -c 1 --fail-fast --scope="<< parameters.plugin >>" -- pana --no-warning --exit-code-threshold 0 .
+          command: IFS=: read plugin threshold <<< "<< parameters.plugin >>" && melos exec -c 1 --fail-fast --scope="$plugin" -- pana --no-warning --exit-code-threshold $threshold .
 
   unit_test_flutter:
     executor: docker-executor
@@ -206,7 +206,8 @@ workflows:
             parameters:
               plugin:
                 [
-                  "amplify_authenticator",
+                  "amplify_authenticator:0",
+                  "amplify_auth_cognito:10"
                   # TODO: enable other packages once pub score is addressed
                   # "amplify_analytics_pinpoint",
                   # "amplify_api",
