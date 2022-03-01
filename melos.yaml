@@ -63,7 +63,7 @@ scripts:
     run: ./.circleci/test_all_plugins.sh android-test $1 $PWD
 
   test:unit:ios:plugin:
-    run: ./.circleci/test_all_plugins.sh ios-test $1 $2 $PWD
+    run: ./.circleci/test_all_plugins.sh ios-test $1 $PWD
 
   # ANALYTICS
   build:examples:ios:amplify_analytics_pinpoint: >
