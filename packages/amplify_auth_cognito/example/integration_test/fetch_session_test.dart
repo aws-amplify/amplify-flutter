@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_test/amplify_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -30,16 +32,17 @@ void main() {
 
   group('fetchSession', () {
     setUpAll(() async {
-      await configureAuth();
+      await configureAuth(additionalPlugins: [
+        AmplifyAPI(),
+      ]);
 
-      // create one user for all tests
-      await Amplify.Auth.signUp(
-          username: username,
-          password: password,
-          options: CognitoSignUpOptions(userAttributes: {
-            CognitoUserAttributeKey.email: generateEmail(),
-            CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
-          }));
+      // create one confirmed user for all tests
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
     });
 
     // sign in prior to each test
@@ -78,7 +81,7 @@ void main() {
     testWidgets('should return isSignedIn as false if the user is signed out',
         (WidgetTester tester) async {
       await Amplify.Auth.signOut();
-      var res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+      var res = await Amplify.Auth.fetchAuthSession();
       expect(res.isSignedIn, isFalse);
     });
   });

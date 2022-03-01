@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+**/adminCreateUser.zip
 
 # IntelliJ related
 *.iml
@@ -49,7 +50,6 @@ amplify/.config/local-*
 amplify/logs
 amplify/mock-data
 amplify/backend/amplify-meta.json
-amplify/backend/awscloudformation
 amplify/backend/.temp
 build/
 dist/

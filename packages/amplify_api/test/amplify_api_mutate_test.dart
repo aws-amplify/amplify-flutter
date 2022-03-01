@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter/services.dart';
@@ -92,8 +91,7 @@ void main() {
 
     Blog blog = Blog(id: id, name: name, createdAt: dateTime);
 
-    var operation =
-        await api.mutate(request: ModelMutations.create<Blog>(blog));
+    var operation = api.mutate(request: ModelMutations.create<Blog>(blog));
 
     var response = await operation.response;
     expect(response.data?.equals(blog), isTrue);
@@ -121,8 +119,7 @@ void main() {
 
     Blog blog = Blog(id: id, name: name, createdAt: dateTime);
 
-    var operation =
-        await api.mutate(request: ModelMutations.delete<Blog>(blog));
+    var operation = api.mutate(request: ModelMutations.delete<Blog>(blog));
 
     var response = await operation.response;
     expect(response.data, equals(blog));
@@ -150,8 +147,7 @@ void main() {
 
     Blog blog = Blog(id: id, name: name, createdAt: dateTime);
 
-    var operation =
-        await api.mutate(request: ModelMutations.update<Blog>(blog));
+    var operation = api.mutate(request: ModelMutations.update<Blog>(blog));
 
     var response = await operation.response;
     expect(response.data, equals(blog));
