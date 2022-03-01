@@ -244,6 +244,23 @@ void main() {
         expect(postFromResponse?.blog?.id, createdPost.blog?.id);
       });
 
+      testWidgets('should LIST posts by parent ID',
+          (WidgetTester tester) async {
+        final title = 'Lorem Ipsum Test Post: ${UUID.getUUID()}';
+        const rating = 0;
+        final createdPost = await addPostAndBlogWithModelHelper(title, rating);
+        final blogId = createdPost.blog?.id;
+
+        final req =
+            ModelQueries.list(Post.classType, where: Post.BLOG.eq(blogId));
+        final res = await Amplify.API.query(request: req).response;
+        final postFromResponse = res.data?.items[0];
+
+        expect(postFromResponse?.blog?.id, isNotNull);
+        expect(postFromResponse?.blog?.id, createdPost.blog?.id);
+        expect(postFromResponse?.title, title);
+      });
+
       testWidgets(
           'should parse a deeply nested response if modelType and decodePath included in request',
           (WidgetTester tester) async {
