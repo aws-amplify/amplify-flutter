@@ -90,6 +90,9 @@ class GraphQLRequestFactory {
 
   String _capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
+  String _lowerCaseFirstCharacter(String s) =>
+      s[0].toLowerCase() + s.substring(1);
+
   DocumentInputs _buildDocumentInputs(
       ModelSchema schema, GraphQLRequestOperation operation) {
     String upperOutput = '';
@@ -200,9 +203,17 @@ class GraphQLRequestFactory {
 
     // e.g. { 'name': { 'eq': 'foo }}
     if (queryPredicate is QueryPredicateOperation) {
-      // check for the IDs where fieldName set to e.g. "blog.id" and convert to "id"
-      final isId = queryPredicate.field == '${schema.name.toLowerCase()}.id';
-      final fieldName = isId ? idFieldName : queryPredicate.field;
+      final associatedTargetName =
+          schema.fields?[queryPredicate.field]?.association?.targetName;
+      String fieldName = queryPredicate.field;
+      if (queryPredicate.field ==
+          '${_lowerCaseFirstCharacter(schema.name)}.$idFieldName') {
+        // check for the IDs where fieldName set to e.g. "blog.id" and convert to "id"
+        fieldName = idFieldName;
+      } else if (associatedTargetName != null) {
+        // when querying for the ID of another model, use the targetName from the schema
+        fieldName = associatedTargetName;
+      }
 
       return <String, dynamic>{
         fieldName: _queryFieldOperatorToPartialGraphQLFilter(

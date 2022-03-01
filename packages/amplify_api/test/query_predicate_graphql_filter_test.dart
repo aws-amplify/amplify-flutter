@@ -11,9 +11,10 @@ void main() {
 
     // helper method for all the tests
     void _testQueryPredicateTranslation(
-        QueryPredicate? queryPredicate, Map<String, dynamic>? expectedFilter) {
+        QueryPredicate? queryPredicate, Map<String, dynamic>? expectedFilter,
+        {ModelType modelType = Blog.classType}) {
       final resultFilter = GraphQLRequestFactory.instance
-          .queryPredicateToGraphQLFilter(queryPredicate, Blog.classType);
+          .queryPredicateToGraphQLFilter(queryPredicate, modelType);
       expect(resultFilter, expectedFilter);
     }
 
@@ -196,6 +197,17 @@ void main() {
       final queryPredicate = Blog.CREATEDAT.le(exampleValue);
 
       _testQueryPredicateTranslation(queryPredicate, expectedFilter);
+    });
+
+    test('query child by parent ID', () {
+      const blogId = 'blog-123';
+      final queryPredicate = Post.BLOG.eq(blogId);
+      final expectedFilter = {
+        'blogID': {'eq': blogId}
+      };
+
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter,
+          modelType: Post.classType);
     });
   });
 }
