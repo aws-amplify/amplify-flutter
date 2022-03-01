@@ -325,7 +325,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 modelSchemaRegistry: modelSchemaRegistry,
                 modelName: modelName
             )
-            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String : Any])
+            let queryPredicatesMap = args["queryPredicate"] as? [String : Any];
+            let queryPredicates = queryPredicatesMap != nil ? try QueryPredicateBuilder.fromSerializedMap(queryPredicatesMap) : nil;
             
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
