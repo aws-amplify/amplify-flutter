@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -71,12 +72,14 @@ void main() {
       await Amplify.DataStore.save(testBlog);
 
       var updatedBlog = testBlog.copyWith(name: 'changed name');
-      await Amplify.DataStore.save(updatedBlog,
-          where: Blog.NAME.contains("Predicate"));
 
-      var blogs = await Amplify.DataStore.query(Blog.classType);
-      expect(blogs.length, 1);
-      expect(blogs[0].name, originalBlogName);
+      expect(
+          () => Amplify.DataStore.save(updatedBlog,
+              where: Blog.NAME.contains("Predicate")),
+          throwsA(predicate((e) =>
+              e is DataStoreException &&
+              e.message.contains(
+                  "condition did not match existing model instance"))));
     });
 
     testWidgets('predicate should not prevent save for matching model',
@@ -89,7 +92,7 @@ void main() {
       const matchingBlogName = 'matching blog name';
       var updatedBlog = testBlog.copyWith(name: matchingBlogName);
       await Amplify.DataStore.save(updatedBlog,
-          where: Blog.NAME.contains("matching"));
+          where: Blog.NAME.contains("original"));
 
       var blogs = await Amplify.DataStore.query(Blog.classType);
       expect(blogs.length, 1);

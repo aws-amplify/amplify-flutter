@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_request_factory.dart';
 import 'package:amplify_api/src/graphql/paginated_model_type_impl.dart';

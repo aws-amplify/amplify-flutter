@@ -45,8 +45,12 @@ SnackBar createSnackBar(
   required Widget content,
 }) {
   final theme = Theme.of(context);
-  final foregroundColor = theme.snackBarTheme.contentTextStyle?.color ??
-      theme.colorScheme.onInverseSurface;
+
+  // if contentTextStyle is null, colorScheme.surface is used as a fallback
+  // since SnackBarThemeData.backgroundColor uses colorScheme.onSurface as a fall back
+  final foregroundColor =
+      theme.snackBarTheme.contentTextStyle?.color ?? theme.colorScheme.surface;
+
   return SnackBar(
     key: keyAuthenticatorBanner,
     content: Row(

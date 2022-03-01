@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_test/amplify_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -46,16 +48,22 @@ void main() {
 
   group('User Attributes', () {
     setUpAll(() async {
-      await configureAuth();
+      await configureAuth(additionalPlugins: [
+        AmplifyAPI(),
+      ]);
       await signOutUser();
-      await Amplify.Auth.signUp(
-          username: username,
-          password: password,
-          options: CognitoSignUpOptions(userAttributes: {
-            emailAttributeKey: email,
-            phoneNumberAttributeKey: phoneNumber,
-            nameAttributeKey: name
-          }));
+      await adminCreateUser(username, password,
+          autoConfirm: true,
+          verifyAttributes: true,
+          attributes: [
+            AuthUserAttribute(
+                userAttributeKey: CognitoUserAttributeKey.name, value: name),
+            AuthUserAttribute(
+                userAttributeKey: CognitoUserAttributeKey.email, value: email),
+            AuthUserAttribute(
+                userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+                value: mockPhoneNumber)
+          ]);
       await Amplify.Auth.signIn(username: username, password: password);
     });
 

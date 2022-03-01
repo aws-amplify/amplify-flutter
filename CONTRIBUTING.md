@@ -7,7 +7,7 @@ Thank you for your interest in contributing to our project! <3 Whether it's a bu
 - [Our Design](#our-design)
 - [Development Process](#development-process)
   - [Setting up for local development](#setting-up-for-local-development)
-      - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
+    - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
   - [Steps towards contributions](#steps-towards-contributions)
 - [Pull Requests](#pull-requests)
 - [Release](#release)
@@ -155,6 +155,21 @@ toolkit for interacting with AWS backend resources.
 2. [AWS SDK for iOS](https://github.com/aws-amplify/aws-sdk-ios)
 3. [AWS SDK for JavaScript](https://github.com/aws/aws-sdk-js)
 
+## Unit Tests
+
+To run all the flutter unit tests for all plugins:
+
+```bash
+$ melos run test:unit:flutter
+```
+
+or run all unit tests for a given platform
+
+```bash
+$ melos run test:unit:android
+$ melos run test:unit:ios
+```
+
 ## Integration Tests
 
 In addition to unit tests which mock Amplify API interaction, this repository has integration tests which
@@ -206,83 +221,6 @@ $ melos run provision_integration_test_resources
 
 Note: you will need to have [`jq`](https://github.com/stedolan/jq) installed, which you can install by running `brew install jq`.
 The provisioning script uses the [Amplify CLI headless mode](https://docs.amplify.aws/cli/usage/headless).
-
-The auth tests require some additional configuration to support lambda triggers for automatically
-verifying temporary test users. Note that this should only be done for the test environment, never a production one. This can be done manually by [following this process](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html#aws-lambda-triggers-pre-registration-example-2) or by following these instructions for the amplify CLI:
-
-```
-$ cd packages/amplify_auth_cognito/example
-$ amplify update auth
-  Please note that certain attributes may not be overwritten if you choose to use defaults settings.
-  Using service: Cognito, provided by: awscloudformation
-  What do you want to do?
-    Walk-through all the auth configurations
-  Select the authentication/authorization services that you want to use:
-    User Sign-Up, Sign-In, connected with AWS IAM controls ( Enables per-user Storage features for images or other content, Analytics, and more)
-  Please enter a name for your identity pool.
-    authintegrationtest
-  Allow unauthenticated logins? (Provides scoped down permissions that you can control via AWS IAM)
-    No
-  Do you want to enable 3rd party authentication providers in your identity pool?
-    No
-  Do you want to add User Pool Groups?
-    No
-  Do you want to add an admin queries API?
-    No
-  Multi-factor authentication (MFA) user login options:
-    OFF
-  Email based user registration/forgot password:
-    Enabled (Requires per-user email entry at registration)
-  Please specify an email verification subject:
-    Your verification code
-  Please specify an email verification message:
-    Your verification code is {####}
-  Do you want to override the default password policy for this User Pool?
-    No
-  Specify the app's refresh token expiration period (in days):
-    30
-  Do you want to specify the user attributes this app can read and write?
-    No
-  Do you want to enable any of the following capabilities?
-  Do you want to use an OAuth flow?
-    No
-  ? Do you want to configure Lambda Triggers for Cognito?
-    Yes
-  ? Which triggers do you want to enable for Cognito
-    Pre Sign-up
-  ? What functionality do you want to use for Pre Sign-up
-    Create your own module
-  Successfully added resource authintegrationtestPreSignup locally.
-```
-
-When prompted to edit the function now, choose "yes" and add the following code to the `custom.js` file
-created by the amplify CLI, from [documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html#aws-lambda-triggers-pre-registration-example-2).
-
-```js
-exports.handler = async event => {
-  // Confirm the user
-  event.response.autoConfirmUser = true;
-
-  // Set the email as verified if it is in the request
-  if (event.request.userAttributes.hasOwnProperty("email")) {
-    event.response.autoVerifyEmail = true;
-  }
-
-  // Set the phone number as verified if it is in the request
-  if (event.request.userAttributes.hasOwnProperty("phone_number")) {
-    event.response.autoVerifyPhone = true;
-  }
-
-  // Return to Amazon Cognito
-  return event;
-};
-```
-
-Finally, run a push to update the resources with the new function resource (lambda trigger):
-
-```bash
-$ amplify push
-```
 
 Additionally, the storage category requires some manual configuration as the [headless CLI does not yet support storage](https://github.com/aws-amplify/amplify-cli/issues/7378). Those instructions
 are notes in the [storage example app](packages/amplify_storage_s3/example/README.md).

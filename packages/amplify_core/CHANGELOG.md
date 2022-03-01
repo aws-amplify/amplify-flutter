@@ -1,3 +1,8 @@
+## 0.4.1 (2022-02-28)
+
+- fix: Implement Result in AtomicResult (#1393)
+- fix: android atomic result (#1376)
+
 ## 0.4.0 (2022-02-17)
 
 - chore: Many model-related type definitions moved from amplify_datastore_plugin_interface to amplify_core.

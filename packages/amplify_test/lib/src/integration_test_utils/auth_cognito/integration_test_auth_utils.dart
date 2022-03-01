@@ -16,7 +16,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:stream_transform/stream_transform.dart';
@@ -35,8 +37,8 @@ const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
 
 /// A GraphQL document used by the [adminCreateUser] test utility method.
 const adminCreateUserDocument =
-    '''mutation CreateUser(\$Username: String!, \$Password: String!, \$AutoConfirm: Boolean!, \$EnableMFA: Boolean!, \$VerifyAttributes: Boolean!) {
-    adminCreateUser(Username: \$Username, Password: \$Password, AutoConfirm: \$AutoConfirm, EnableMFA: \$EnableMFA, VerifyAttributes: \$VerifyAttributes) {
+    '''mutation CreateUser(\$Username: String!, \$Password: String!, \$AutoConfirm: Boolean!, \$EnableMFA: Boolean!, \$VerifyAttributes: Boolean!, \$Name: String, \$Given_Name: String, \$Email: String, \$Phone_Number: String) {
+    adminCreateUser(Username: \$Username, Password: \$Password, AutoConfirm: \$AutoConfirm, EnableMFA: \$EnableMFA, VerifyAttributes: \$VerifyAttributes, Given_Name: \$Given_Name, Name: \$Name, Email: \$Email, Phone_Number: \$Phone_Number) {
       error
       success
     }
@@ -74,11 +76,15 @@ Future<DeleteUserResponse?> deleteUser(String username) async {
 /// The [enableMFA] flag will opt-in the user to using SMS MFA.
 /// The [verifyAttributes] flag will verify the email and phone, and should be used
 /// if tests need to bypass the verification step.
+/// The [attributes] list passes additional attributes.
 Future<AdminCreateUserResponse?> adminCreateUser(
-    String username, String password,
-    {bool autoConfirm = false,
-    bool enableMfa = false,
-    bool verifyAttributes = false}) async {
+  String username,
+  String password, {
+  bool autoConfirm = false,
+  bool enableMfa = false,
+  bool verifyAttributes = false,
+  List<AuthUserAttribute> attributes = const [],
+}) async {
   var res = await Amplify.API
       .mutate(
           request: GraphQLRequest<String>(
@@ -88,6 +94,39 @@ Future<AdminCreateUserResponse?> adminCreateUser(
             'Password': password,
             'AutoConfirm': autoConfirm,
             'EnableMFA': enableMfa,
+            'Name': attributes
+                .firstWhere(
+                    (el) => el.userAttributeKey == CognitoUserAttributeKey.name,
+                    orElse: () => const AuthUserAttribute(
+                        userAttributeKey: CognitoUserAttributeKey.name,
+                        value: 'default_name'))
+                .value,
+            'Given_Name': attributes
+                .firstWhere(
+                    (el) =>
+                        el.userAttributeKey ==
+                        CognitoUserAttributeKey.givenName,
+                    orElse: () => const AuthUserAttribute(
+                        userAttributeKey: CognitoUserAttributeKey.givenName,
+                        value: 'default_given_name'))
+                .value,
+            'Email': attributes
+                .firstWhere(
+                    (el) =>
+                        el.userAttributeKey == CognitoUserAttributeKey.email,
+                    orElse: () => const AuthUserAttribute(
+                        userAttributeKey: CognitoUserAttributeKey.email,
+                        value: 'example@example.com'))
+                .value,
+            'Phone_Number': attributes
+                .firstWhere(
+                    (el) =>
+                        el.userAttributeKey ==
+                        CognitoUserAttributeKey.phoneNumber,
+                    orElse: () => const AuthUserAttribute(
+                        userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+                        value: '+15555555'))
+                .value,
             'VerifyAttributes': verifyAttributes,
           }))
       .response;

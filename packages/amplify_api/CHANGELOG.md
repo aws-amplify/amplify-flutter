@@ -1,3 +1,7 @@
+## 0.4.1 (2022-02-28)
+
+- chore: clean up some code to limit analysis infos (#1404)
+
 ## 0.4.0 (2022-02-17)
 
 - chore: bump Kotlin version to 1.6.10 (#1346)
