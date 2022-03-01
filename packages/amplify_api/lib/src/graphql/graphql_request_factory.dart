@@ -90,6 +90,9 @@ class GraphQLRequestFactory {
 
   String _capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
+  String _lowerCaseFirstCharacter(String s) =>
+      s[0].toLowerCase() + s.substring(1);
+
   DocumentInputs _buildDocumentInputs(
       ModelSchema schema, GraphQLRequestOperation operation) {
     String upperOutput = '';
@@ -203,7 +206,8 @@ class GraphQLRequestFactory {
       final associatedTargetName =
           schema.fields?[queryPredicate.field]?.association?.targetName;
       String fieldName = queryPredicate.field;
-      if (queryPredicate.field == '${schema.name.toLowerCase()}.$idFieldName') {
+      if (queryPredicate.field ==
+          '${_lowerCaseFirstCharacter(schema.name)}.$idFieldName') {
         // check for the IDs where fieldName set to e.g. "blog.id" and convert to "id"
         fieldName = idFieldName;
       } else if (associatedTargetName != null) {
