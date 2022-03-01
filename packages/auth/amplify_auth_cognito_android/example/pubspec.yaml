@@ -11,11 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
   amplify_auth_cognito_android:
-    # When depending on this package from a real application you should use:
-    #   amplify_auth_cognito_ios: ^x.y.z
-    # See https://dart.dev/tools/pub/dependencies#version-constraints
-    # The example app is bundled with the plugin so we use a path dependency on
-    # the parent directory to use the current plugin's version.
     path: ../
   amplify_core:
     path: ../../../amplify_core
