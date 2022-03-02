@@ -14,9 +14,9 @@ dependencies:
     sdk: flutter
   file_picker: ^4.0.0
   amplify_flutter:
-    path: ../../amplify_flutter
+    path: ../../../amplify_flutter
   amplify_auth_cognito:
-    path: ../../amplify_auth_cognito
+    path: ../../../amplify_auth_cognito
 
   amplify_storage_s3:
     # When depending on this package from a real application you should use:
@@ -32,7 +32,7 @@ dependencies:
 
 dev_dependencies:
   amplify_test:
-    path: ../../amplify_test
+    path: ../../../amplify_test
   flutter_test:
     sdk: flutter
   flutter_driver:

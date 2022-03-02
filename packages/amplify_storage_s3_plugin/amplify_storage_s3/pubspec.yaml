@@ -16,7 +16,7 @@ dependencies:
 
 dev_dependencies:
   amplify_test:
-    path: ../amplify_test
+    path: ../../amplify_test
   flutter_test:
     sdk: flutter
 
@@ -24,7 +24,6 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.amazonaws.amplify.amplify_storage_s3
-        pluginClass: AmplifyStorageS3Plugin
+        default_package: amplify_storage_s3_android
       ios:
-        pluginClass: AmplifyStorageS3Plugin
+        default_package: amplify_storage_s3_ios

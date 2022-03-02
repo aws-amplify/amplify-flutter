@@ -34,7 +34,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
 
-class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
+class StorageS3 : FlutterPlugin, ActivityAware, MethodCallHandler {
 
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
