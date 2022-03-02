@@ -24,8 +24,11 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
   /// from `List<int>`.
   FullSerializer<List<int>> get wireSerializer;
 
-  /// Interceptors for the protocol.
-  List<HttpInterceptor> get interceptors;
+  /// Request interceptors for the protocol.
+  List<HttpRequestInterceptor> get requestInterceptors;
+
+  /// Response interceptors for the protocol.
+  List<HttpResponseInterceptor> get responseInterceptors;
 
   /// Resolves the error type to use based off the operation's supported types
   /// and the response from the server.

@@ -5,7 +5,7 @@ import 'package:smithy/smithy.dart';
 /// Intercepts HTTP requests to provide a Basic credentials header.
 ///
 /// See: https://awslabs.github.io/smithy/1.0/spec/core/auth-traits.html#httpbasicauth-trait
-abstract class BasicAuthInterceptor extends HttpInterceptor {
+abstract class BasicAuthInterceptor extends HttpRequestInterceptor {
   /// Uses [username] and [password] for authorization.
   const factory BasicAuthInterceptor(
     CredentialsProvider username,

@@ -5,7 +5,7 @@ enum ApiKeyLocation { header, query }
 /// Intercepts HTTP requests to provide an API key parameter.
 ///
 /// See: https://awslabs.github.io/smithy/1.0/spec/core/auth-traits.html#httpapikeyauth-trait
-class ApiKeyAuthInterceptor extends HttpInterceptor {
+class ApiKeyAuthInterceptor extends HttpRequestInterceptor {
   const ApiKeyAuthInterceptor({
     required this.name,
     required this.apiKey,

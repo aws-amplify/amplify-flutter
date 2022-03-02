@@ -1,7 +1,7 @@
 import 'package:smithy/smithy.dart';
 
 /// Adds a header to the request.
-class WithHeader extends HttpInterceptor {
+class WithHeader extends HttpRequestInterceptor {
   const WithHeader(this.key, this.value, {this.replace = true});
 
   final String key;
@@ -22,7 +22,7 @@ class WithHeader extends HttpInterceptor {
 }
 
 /// Removes a header from the request.
-class WithNoHeader extends HttpInterceptor {
+class WithNoHeader extends HttpRequestInterceptor {
   const WithNoHeader(this.key);
 
   final String key;

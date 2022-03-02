@@ -40,14 +40,19 @@ class GenericJsonProtocol<InputPayload, Input, OutputPayload, Output>
     extends HttpProtocol<InputPayload, Input, OutputPayload, Output> {
   GenericJsonProtocol({
     this.mediaType,
-    this.interceptors = const [],
+    this.requestInterceptors = const [],
+    this.responseInterceptors = const [],
     List<SmithySerializer> serializers = const [],
     Map<FullType, Function> builderFactories = const {},
   })  : _userSerializers = serializers,
         _builderFactories = builderFactories;
 
   @override
-  final List<HttpInterceptor> interceptors;
+  final List<HttpRequestInterceptor> requestInterceptors;
+
+  @override
+  final List<HttpResponseInterceptor> responseInterceptors;
+
   final List<SmithySerializer> _userSerializers;
   final Map<FullType, Function> _builderFactories;
 

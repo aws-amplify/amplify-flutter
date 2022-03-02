@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:smithy/smithy.dart';
 
-class WithContentLength extends HttpInterceptor {
+class WithContentLength extends HttpRequestInterceptor {
   const WithContentLength();
 
   static const _key = 'Content-Length';

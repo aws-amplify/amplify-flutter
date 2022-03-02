@@ -163,7 +163,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       headers: headers,
     );
     final interceptors = [
-      ...protocol.interceptors,
+      ...protocol.requestInterceptors,
     ]..sort((a, b) => a.order.compareTo(b.order));
     for (final interceptor in interceptors) {
       final interception = interceptor.intercept(awsRequest);
@@ -176,6 +176,17 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     return awsRequest;
   }
 
+  /// Validates the server's response against the protocol's registered
+  /// interceptors.
+  Future<void> _validateResponse({
+    required AWSStreamedHttpResponse response,
+    required HttpProtocol protocol,
+  }) async {
+    for (final interceptor in protocol.responseInterceptors) {
+      await interceptor.intercept(response);
+    }
+  }
+
   @visibleForTesting
   Future<Output> innerSend({
     required HttpClient client,
@@ -186,6 +197,10 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     return r.retry(
       () async {
         final response = await client.send(httpRequest);
+        await _validateResponse(
+          response: response,
+          protocol: protocol,
+        );
         return deserializeOutput(
           protocol: protocol,
           response: response,
