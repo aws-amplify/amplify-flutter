@@ -1,6 +1,6 @@
-name: amplify_analytics_pinpoint_ios
-description: The method channel implementation for amplify_analytics_pinpoint on iOS
-version: 0.0.1
+name: amplify_analytics_pinpoint_android
+description: The method channel implementation for amplify_analytics_pinpoint on Android
+version: 0.4.1
 homepage:
 
 environment:
@@ -19,6 +19,7 @@ dev_dependencies:
 flutter:
   plugin:
     platforms:
-      ios:
+      android:
+        package: com.amazonaws.amplify.amplify_analytics_pinpoint
         pluginClass: AnalyticsPinpoint
       
