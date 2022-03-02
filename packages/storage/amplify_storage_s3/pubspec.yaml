@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   amplify_storage_plugin_interface: 0.4.1
   plugin_platform_interface: ^2.0.0
-  amplify_storage_s3_android: 0.0.1
-  amplify_storage_s3_ios: 0.0.1
+  amplify_storage_s3_android: 0.4.1
+  amplify_storage_s3_ios: 0.4.1
   amplify_core: 0.4.1
 
 dev_dependencies:

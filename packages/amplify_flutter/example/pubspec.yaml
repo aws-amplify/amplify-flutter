@@ -31,7 +31,7 @@ dev_dependencies:
     path: ../../amplify_datastore
   amplify_lints: ^1.0.0
   amplify_storage_s3:
-    path: ../../amplify_storage_s3_plugin/amplify_storage_s3
+    path: ../../storage/amplify_storage_s3
   amplify_test:
     path: ../../amplify_test
   flutter_test:

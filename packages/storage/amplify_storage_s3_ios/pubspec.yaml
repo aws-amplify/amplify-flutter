@@ -1,6 +1,6 @@
-name: amplify_storage_s3_android
-description: The method channel implementation for amplify_storage_s3 on Android
-version: 0.0.1
+name: amplify_storage_s3_ios
+description: The method channel implementation for amplify_storage_s3 on iOS
+version: 0.4.1
 homepage:
 
 environment:
@@ -19,6 +19,5 @@ dev_dependencies:
 flutter:
   plugin:
     platforms:
-      android:
-        package: com.amazonaws.amplify.amplify_storage_s3
+      ios:
         pluginClass: StorageS3
