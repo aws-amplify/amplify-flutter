@@ -17,9 +17,9 @@ dependencies:
     # the parent directory to use the current plugin's version.
     path: ../
   amplify_auth_cognito:
-    path: ../../auth/amplify_auth_cognito
+    path: ../../../auth/amplify_auth_cognito
   amplify_flutter:
-    path: ../../amplify_flutter
+    path: ../../../amplify_flutter
 
   flutter:
     sdk: flutter
@@ -27,7 +27,7 @@ dependencies:
 dev_dependencies:
   amplify_lints: ^1.0.0
   amplify_test:
-    path: ../../amplify_test
+    path: ../../../amplify_test
   flutter_test:
     sdk: flutter
 
