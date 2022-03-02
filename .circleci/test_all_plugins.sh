@@ -7,14 +7,16 @@ test_failure=0
 test_suite=$1
 plugin=$3
 project_root_dir=$2
+
 dummy_file_path=example/lib/amplifyconfiguration.dart
+category_dir=$(echo $plugin | cut -d'_' -f 2)
 
 set +e
 set -o pipefail
 
 # Check for federated plugin structure
-if [ -d "${plugin}_plugin" ]; then
-    cd "./${plugin}_plugin/" || exit
+if [ -d "${category_dir}" ]; then
+    cd "./${category_dir}/" || exit
 else
     cd "./$plugin" || exit
 fi
