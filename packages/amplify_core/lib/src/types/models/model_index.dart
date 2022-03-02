@@ -19,8 +19,10 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-/// Describe an index that is created by `@primaryKey` or `@index` directive,
+/// {@template model_index}
+/// Describes an index that is created by `@primaryKey` or `@index` directive,
 /// and is listed in [ModelSchemaDefinition.indexes].
+/// {@endtemplate}
 @immutable
 class ModelIndex {
   /// Index name that is defined by the name parameter of `@index` directive in
@@ -34,7 +36,7 @@ class ModelIndex {
   /// `@primaryKey` or `@index` directive.
   final List<String> fields;
 
-  /// Constructor
+  /// {@macro model_index}
   const ModelIndex({
     required this.fields,
     this.name,
