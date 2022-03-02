@@ -3,7 +3,7 @@
 # Run `pod lib lint amplify_storage_s3.podspec' to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'amplify_storage_s3'
+  s.name             = 'amplify_storage_s3_ios'
   s.version          = '0.0.1'
   s.summary          = 'Amplify Flutter AWS S3 Storage plugin'
   s.description      = <<-DESC

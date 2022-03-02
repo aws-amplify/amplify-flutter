@@ -20,13 +20,13 @@ import AmplifyPlugins
 import AWSMobileClient
 import amplify_core
 
-public class SwiftAmplifyStorageS3Plugin: NSObject, FlutterPlugin {
+public class SwiftStorageS3: NSObject, FlutterPlugin {
     
     private static var transferProgressStreamHandler : TransferProgressStreamHandler = TransferProgressStreamHandler()
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/storage_s3", binaryMessenger: registrar.messenger())
-        let instance = SwiftAmplifyStorageS3Plugin()
+        let instance = SwiftStorageS3()
         registrar.addMethodCallDelegate(instance, channel: channel)
         
         FlutterEventChannel(name: "com.amazonaws.amplify/storage_transfer_progress_events", binaryMessenger: registrar.messenger()).setStreamHandler(transferProgressStreamHandler)
@@ -78,7 +78,7 @@ public class SwiftAmplifyStorageS3Plugin: NSObject, FlutterPlugin {
     let arguments = call.arguments as! Dictionary<String,AnyObject>
     switch call.method {
         case "uploadFile":
-            AmplifyStorageOperations.uploadFile(flutterResult: result, request: arguments, transferProgressStreamHandler: SwiftAmplifyStorageS3Plugin.transferProgressStreamHandler)
+            AmplifyStorageOperations.uploadFile(flutterResult: result, request: arguments, transferProgressStreamHandler: SwiftStorageS3.transferProgressStreamHandler)
         case "getUrl":
             AmplifyStorageOperations.getURL(flutterResult: result, request: arguments)
         case "remove":
@@ -86,7 +86,7 @@ public class SwiftAmplifyStorageS3Plugin: NSObject, FlutterPlugin {
         case "list":
             AmplifyStorageOperations.list(flutterResult: result, request: arguments)
         case "downloadFile":
-            AmplifyStorageOperations.downloadFile(flutterResult: result, request: arguments, transferProgressStreamHandler: SwiftAmplifyStorageS3Plugin.transferProgressStreamHandler)
+            AmplifyStorageOperations.downloadFile(flutterResult: result, request: arguments, transferProgressStreamHandler: SwiftStorageS3.transferProgressStreamHandler)
         default:
             result(FlutterMethodNotImplemented)
     }
