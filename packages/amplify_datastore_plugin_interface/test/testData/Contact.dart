@@ -13,15 +13,18 @@
 * permissions and limitations under the License.
 */
 
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
+
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-// ignore_for_file: public_member_api_docs
-
-import 'ModelProvider.dart';
-
-/** This is an auto generated class representing the Contact type in your schema. */
+/// This is an auto generated class representing the Contact type in your schema.
 @immutable
 class Contact {
   final String? _email;
@@ -32,7 +35,7 @@ class Contact {
     try {
       return _email!;
     } catch (e) {
-      throw new DataStoreException(
+      throw DataStoreException(
           DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: DataStoreExceptionMessages
@@ -45,7 +48,7 @@ class Contact {
     try {
       return _phone!;
     } catch (e) {
-      throw new DataStoreException(
+      throw DataStoreException(
           DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: DataStoreExceptionMessages
@@ -94,7 +97,7 @@ class Contact {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Contact {");
     buffer.write("email=" + "$_email" + ", ");
@@ -119,13 +122,13 @@ class Contact {
       : _email = json['email'],
         _phone = json['phone']?['serializedData'] != null
             ? Phone.fromJson(
-                new Map<String, dynamic>.from(json['phone']['serializedData']))
+                Map<String, dynamic>.from(json['phone']['serializedData']))
             : null,
         _mailingAddresses = json['mailingAddresses'] is List
             ? (json['mailingAddresses'] as List)
                 .where((e) => e != null)
                 .map((e) => Address.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null;
 
