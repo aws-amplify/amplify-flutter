@@ -21,7 +21,7 @@ FRONTEND="{\
 
 AWSCLOUDFORMATIONCONFIG="{\
 \"configLevel\":\"project\",\
-\"useProfile\":"true",\
+\"useProfile\":\"true\",\
 \"profileName\":\"$profileName\",\
 \"region\":\"us-west-2\"\
 }"
