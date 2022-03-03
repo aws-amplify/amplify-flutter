@@ -13,18 +13,21 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-
-import 'Address.dart';
 import 'Blog.dart';
 import 'Comment.dart';
+import 'Post.dart';
+import 'PostAuthComplex.dart';
+import 'Address.dart';
 import 'Contact.dart';
 import 'Person.dart';
 import 'Phone.dart';
-import 'Post.dart';
-import 'PostAuthComplex.dart';
 
 export 'Address.dart';
 export 'Blog.dart';
@@ -37,7 +40,7 @@ export 'PostAuthComplex.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "836a1f8cc4a4adc493165acc7168289e";
+  String version = "17ca7e949658b1d89af21147c8fb3455";
   @override
   List<ModelSchema> modelSchemas = [
     Blog.schema,

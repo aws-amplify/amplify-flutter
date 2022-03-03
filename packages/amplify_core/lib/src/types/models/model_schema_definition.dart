@@ -16,12 +16,14 @@
 import 'auth_rule.dart';
 import 'model_field.dart';
 import 'model_field_definition.dart';
+import 'model_index.dart';
 import 'model_schema.dart';
 
 class ModelSchemaDefinition {
   late String name;
   String? pluralName;
   List<AuthRule>? authRules;
+  List<ModelIndex>? indexes;
   late Map<String, ModelField> fields;
 
   ModelSchemaDefinition() {
@@ -38,6 +40,7 @@ class ModelSchemaDefinition {
       pluralName: pluralName,
       authRules: authRules,
       fields: fields,
+      indexes: indexes,
     );
   }
 }
