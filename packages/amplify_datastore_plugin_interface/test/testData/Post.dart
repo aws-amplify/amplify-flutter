@@ -13,18 +13,21 @@
 * permissions and limitations under the License.
 */
 
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
+
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-// ignore_for_file: public_member_api_docs
-
-import 'ModelProvider.dart';
-
-/** This is an auto generated class representing the Post type in your schema. */
+/// This is an auto generated class representing the Post type in your schema.
 @immutable
 class Post extends Model {
-  static const classType = const _PostModelType();
+  static const classType = _PostModelType();
   final String id;
   final String? _title;
   final int? _rating;
@@ -47,7 +50,7 @@ class Post extends Model {
     try {
       return _title!;
     } catch (e) {
-      throw new DataStoreException(
+      throw DataStoreException(
           DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: DataStoreExceptionMessages
@@ -60,7 +63,7 @@ class Post extends Model {
     try {
       return _rating!;
     } catch (e) {
-      throw new DataStoreException(
+      throw DataStoreException(
           DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: DataStoreExceptionMessages
@@ -153,7 +156,7 @@ class Post extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Post {");
     buffer.write("id=" + "$id" + ", ");
@@ -204,13 +207,13 @@ class Post extends Model {
         _likeCount = (json['likeCount'] as num?)?.toInt(),
         _blog = json['blog']?['serializedData'] != null
             ? Blog.fromJson(
-                new Map<String, dynamic>.from(json['blog']['serializedData']))
+                Map<String, dynamic>.from(json['blog']['serializedData']))
             : null,
         _comments = json['comments'] is List
             ? (json['comments'] as List)
                 .where((e) => e?['serializedData'] != null)
                 .map((e) => Comment.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -249,6 +252,10 @@ class Post extends Model {
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Post";
     modelSchemaDefinition.pluralName = "Posts";
+
+    modelSchemaDefinition.indexes = [
+      ModelIndex(fields: ["blogID"], name: "byBlog")
+    ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 

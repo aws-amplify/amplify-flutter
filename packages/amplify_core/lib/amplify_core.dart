@@ -33,6 +33,7 @@ export 'src/types/models/model_association.dart';
 export 'src/types/models/model_field.dart';
 export 'src/types/models/model_field_definition.dart';
 export 'src/types/models/model_field_type.dart';
+export 'src/types/models/model_index.dart';
 export 'src/types/models/model_provider.dart';
 export 'src/types/models/model_schema.dart';
 export 'src/types/models/model_schema_definition.dart';
