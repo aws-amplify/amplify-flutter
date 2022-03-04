@@ -28,6 +28,8 @@ body:
           required: false
         - label: Auth
           required: false
+        - label: Authenticator
+          required: false
         - label: DataStore
           required: false
         - label: Storage
