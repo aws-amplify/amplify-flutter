@@ -20,7 +20,7 @@
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'ModelProvider.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
 /// This is an auto generated class representing the BelongsToParent type in your schema.
@@ -39,9 +39,13 @@ class BelongsToParent extends Model {
   @override
   getInstanceType() => classType;
 
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+
+  BelongsToParentModelIdentifier get modelIdentifier {
+    return BelongsToParentModelIdentifier(id: id);
   }
 
   String? get name {
@@ -150,14 +154,13 @@ class BelongsToParent extends Model {
   }
 
   BelongsToParent copyWith(
-      {String? id,
-      String? name,
+      {String? name,
       BelongsToChildImplicit? implicitChild,
       BelongsToChildExplicit? explicitChild,
       String? belongsToParentImplicitChildId,
       String? belongsToParentExplicitChildId}) {
     return BelongsToParent._internal(
-        id: id ?? this.id,
+        id: id,
         name: name ?? this.name,
         implicitChild: implicitChild ?? this.implicitChild,
         explicitChild: explicitChild ?? this.explicitChild,
@@ -269,4 +272,39 @@ class _BelongsToParentModelType extends ModelType<BelongsToParent> {
   BelongsToParent fromJson(Map<String, dynamic> jsonData) {
     return BelongsToParent.fromJson(jsonData);
   }
+}
+
+/// This is an auto generated class representing the model identifier
+/// of [BelongsToParent] in your schema.
+@immutable
+class BelongsToParentModelIdentifier
+    implements ModelIdentifier<BelongsToParent> {
+  final String id;
+
+  /// Create an instance of BelongsToParentModelIdentifier using [id] the primary key.
+  const BelongsToParentModelIdentifier({required this.id});
+
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
+  String serializeAsString() => serializeAsMap().values.join('#');
+
+  @override
+  String toString() => 'BelongsToParentModelIdentifier(id: $id)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is BelongsToParentModelIdentifier && id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

@@ -19,7 +19,7 @@
 
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
 /// This is an auto generated class representing the HasManyChildExplicit type in your schema.
@@ -35,9 +35,13 @@ class HasManyChildExplicit extends Model {
   @override
   getInstanceType() => classType;
 
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+
+  HasManyChildExplicitModelIdentifier get modelIdentifier {
+    return HasManyChildExplicitModelIdentifier(id: id);
   }
 
   String? get name {
@@ -48,10 +52,10 @@ class HasManyChildExplicit extends Model {
     try {
       return _hasManyParentID!;
     } catch (e) {
-      throw DataStoreException(
-          DataStoreExceptionMessages
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
+          recoverySuggestion: AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -114,10 +118,9 @@ class HasManyChildExplicit extends Model {
     return buffer.toString();
   }
 
-  HasManyChildExplicit copyWith(
-      {String? id, String? name, String? hasManyParentID}) {
+  HasManyChildExplicit copyWith({String? name, String? hasManyParentID}) {
     return HasManyChildExplicit._internal(
-        id: id ?? this.id,
+        id: id,
         name: name ?? this.name,
         hasManyParentID: hasManyParentID ?? this.hasManyParentID);
   }
@@ -149,6 +152,11 @@ class HasManyChildExplicit extends Model {
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasManyChildExplicit";
     modelSchemaDefinition.pluralName = "HasManyChildExplicits";
+
+    modelSchemaDefinition.indexes = [
+      ModelIndex(
+          fields: const ["hasManyParentID", "name"], name: "byHasManyParent")
+    ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
@@ -183,4 +191,39 @@ class _HasManyChildExplicitModelType extends ModelType<HasManyChildExplicit> {
   HasManyChildExplicit fromJson(Map<String, dynamic> jsonData) {
     return HasManyChildExplicit.fromJson(jsonData);
   }
+}
+
+/// This is an auto generated class representing the model identifier
+/// of [HasManyChildExplicit] in your schema.
+@immutable
+class HasManyChildExplicitModelIdentifier
+    implements ModelIdentifier<HasManyChildExplicit> {
+  final String id;
+
+  /// Create an instance of HasManyChildExplicitModelIdentifier using [id] the primary key.
+  const HasManyChildExplicitModelIdentifier({required this.id});
+
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
+  String serializeAsString() => serializeAsMap().values.join('#');
+
+  @override
+  String toString() => 'HasManyChildExplicitModelIdentifier(id: $id)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is HasManyChildExplicitModelIdentifier && id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

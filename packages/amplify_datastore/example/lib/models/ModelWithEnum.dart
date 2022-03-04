@@ -20,7 +20,7 @@
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'ModelProvider.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
@@ -37,9 +37,13 @@ class ModelWithEnum extends Model {
   @override
   getInstanceType() => classType;
 
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+
+  ModelWithEnumModelIdentifier get modelIdentifier {
+    return ModelWithEnumModelIdentifier(id: id);
   }
 
   EnumField? get enumField {
@@ -117,9 +121,9 @@ class ModelWithEnum extends Model {
   }
 
   ModelWithEnum copyWith(
-      {String? id, EnumField? enumField, List<EnumField>? listOfEnumField}) {
+      {EnumField? enumField, List<EnumField>? listOfEnumField}) {
     return ModelWithEnum._internal(
-        id: id ?? this.id,
+        id: id,
         enumField: enumField ?? this.enumField,
         listOfEnumField: listOfEnumField ?? this.listOfEnumField);
   }
@@ -193,4 +197,38 @@ class _ModelWithEnumModelType extends ModelType<ModelWithEnum> {
   ModelWithEnum fromJson(Map<String, dynamic> jsonData) {
     return ModelWithEnum.fromJson(jsonData);
   }
+}
+
+/// This is an auto generated class representing the model identifier
+/// of [ModelWithEnum] in your schema.
+@immutable
+class ModelWithEnumModelIdentifier implements ModelIdentifier<ModelWithEnum> {
+  final String id;
+
+  /// Create an instance of ModelWithEnumModelIdentifier using [id] the primary key.
+  const ModelWithEnumModelIdentifier({required this.id});
+
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
+  String serializeAsString() => serializeAsMap().values.join('#');
+
+  @override
+  String toString() => 'ModelWithEnumModelIdentifier(id: $id)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is ModelWithEnumModelIdentifier && id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

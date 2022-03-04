@@ -20,7 +20,7 @@
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'ModelProvider.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
 /// This is an auto generated class representing the HasManyChildBiDirectionalImplicit type in your schema.
@@ -36,9 +36,13 @@ class HasManyChildBiDirectionalImplicit extends Model {
   @override
   getInstanceType() => classType;
 
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+
+  HasManyChildBiDirectionalImplicitModelIdentifier get modelIdentifier {
+    return HasManyChildBiDirectionalImplicitModelIdentifier(id: id);
   }
 
   String? get name {
@@ -111,11 +115,9 @@ class HasManyChildBiDirectionalImplicit extends Model {
   }
 
   HasManyChildBiDirectionalImplicit copyWith(
-      {String? id,
-      String? name,
-      HasManyParentBiDirectionalImplicit? hasManyParent}) {
+      {String? name, HasManyParentBiDirectionalImplicit? hasManyParent}) {
     return HasManyChildBiDirectionalImplicit._internal(
-        id: id ?? this.id,
+        id: id,
         name: name ?? this.name,
         hasManyParent: hasManyParent ?? this.hasManyParent);
   }
@@ -191,4 +193,41 @@ class _HasManyChildBiDirectionalImplicitModelType
   HasManyChildBiDirectionalImplicit fromJson(Map<String, dynamic> jsonData) {
     return HasManyChildBiDirectionalImplicit.fromJson(jsonData);
   }
+}
+
+/// This is an auto generated class representing the model identifier
+/// of [HasManyChildBiDirectionalImplicit] in your schema.
+@immutable
+class HasManyChildBiDirectionalImplicitModelIdentifier
+    implements ModelIdentifier<HasManyChildBiDirectionalImplicit> {
+  final String id;
+
+  /// Create an instance of HasManyChildBiDirectionalImplicitModelIdentifier using [id] the primary key.
+  const HasManyChildBiDirectionalImplicitModelIdentifier({required this.id});
+
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
+  String serializeAsString() => serializeAsMap().values.join('#');
+
+  @override
+  String toString() =>
+      'HasManyChildBiDirectionalImplicitModelIdentifier(id: $id)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is HasManyChildBiDirectionalImplicitModelIdentifier &&
+        id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

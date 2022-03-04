@@ -20,7 +20,7 @@
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'ModelProvider.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
@@ -41,19 +41,23 @@ class Post extends Model {
   @override
   getInstanceType() => classType;
 
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+
+  PostModelIdentifier get modelIdentifier {
+    return PostModelIdentifier(id: id);
   }
 
   String get title {
     try {
       return _title!;
     } catch (e) {
-      throw DataStoreException(
-          DataStoreExceptionMessages
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
+          recoverySuggestion: AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -63,10 +67,10 @@ class Post extends Model {
     try {
       return _rating!;
     } catch (e) {
-      throw DataStoreException(
-          DataStoreExceptionMessages
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
+          recoverySuggestion: AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -177,15 +181,14 @@ class Post extends Model {
   }
 
   Post copyWith(
-      {String? id,
-      String? title,
+      {String? title,
       int? rating,
       TemporalDateTime? created,
       Blog? blog,
       List<Comment>? comments,
       List<PostTags>? tags}) {
     return Post._internal(
-        id: id ?? this.id,
+        id: id,
         title: title ?? this.title,
         rating: rating ?? this.rating,
         created: created ?? this.created,
@@ -259,6 +262,10 @@ class Post extends Model {
     modelSchemaDefinition.name = "Post";
     modelSchemaDefinition.pluralName = "Posts";
 
+    modelSchemaDefinition.indexes = [
+      ModelIndex(fields: const ["blogID"], name: "byBlog")
+    ];
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
@@ -315,4 +322,38 @@ class _PostModelType extends ModelType<Post> {
   Post fromJson(Map<String, dynamic> jsonData) {
     return Post.fromJson(jsonData);
   }
+}
+
+/// This is an auto generated class representing the model identifier
+/// of [Post] in your schema.
+@immutable
+class PostModelIdentifier implements ModelIdentifier<Post> {
+  final String id;
+
+  /// Create an instance of PostModelIdentifier using [id] the primary key.
+  const PostModelIdentifier({required this.id});
+
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
+  String serializeAsString() => serializeAsMap().values.join('#');
+
+  @override
+  String toString() => 'PostModelIdentifier(id: $id)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is PostModelIdentifier && id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }
