@@ -16,7 +16,7 @@
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'testData/ModelProvider.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 
 void main() {
   test('Blog codegen model generates modelschema with proper fields', () async {
@@ -64,7 +64,7 @@ void main() {
           'type': {'fieldType': 'dateTime'},
           'isRequired': false,
           'isArray': false,
-          'isReadOnly': true
+          'isReadOnly': false
         },
         'updatedAt': {
           'name': 'updatedAt',
@@ -72,7 +72,24 @@ void main() {
           'isRequired': false,
           'isArray': false,
           'isReadOnly': true
-        }
+        },
+        'file': {
+          'name': 'file',
+          'type': {'fieldType': 'embedded', 'ofCustomTypeName': 'S3Object'},
+          'isRequired': false,
+          'isArray': false,
+          'isReadOnly': false
+        },
+        'files': {
+          'name': 'files',
+          'type': {
+            'fieldType': 'embeddedCollection',
+            'ofCustomTypeName': 'S3Object'
+          },
+          'isRequired': false,
+          'isArray': true,
+          'isReadOnly': false
+        },
       }
     });
   });
@@ -227,14 +244,15 @@ void main() {
     });
   });
 
-  test('PostAuthComplex codegen model generates modelschema with proper fields',
+  test(
+      'PostWithAuthRules codegen model generates modelschema with proper fields',
       () async {
-    ModelSchema postAuthComplexSchema = PostAuthComplex.schema;
+    ModelSchema postAuthComplexSchema = PostWithAuthRules.schema;
     Map<String, dynamic> map = postAuthComplexSchema.toMap();
 
     expect(map, {
-      'name': 'PostAuthComplex',
-      'pluralName': 'PostAuthComplexes',
+      'name': 'PostWithAuthRules',
+      'pluralName': 'PostWithAuthRules',
       'authRules': [
         {
           'authStrategy': 'OWNER',

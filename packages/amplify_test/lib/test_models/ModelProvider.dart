@@ -23,23 +23,45 @@ import 'package:amplify_core/amplify_core.dart';
 import 'Blog.dart';
 import 'Comment.dart';
 import 'Post.dart';
+import 'PostWithAuthRules.dart';
+import 'Address.dart';
+import 'Contact.dart';
 import 'FileMeta.dart';
+import 'Person.dart';
+import 'Phone.dart';
 import 'S3Object.dart';
 
+export 'Address.dart';
 export 'Blog.dart';
 export 'Comment.dart';
+export 'Contact.dart';
 export 'FileMeta.dart';
+export 'Person.dart';
+export 'Phone.dart';
 export 'Post.dart';
+export 'PostWithAuthRules.dart';
 export 'S3Object.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "e22227993ad5df5e265b0d065245b740";
+  String version = "5cd1e05856f216886dac60dfd1381532";
   @override
-  List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, Post.schema];
+  List<ModelSchema> modelSchemas = [
+    Blog.schema,
+    Comment.schema,
+    Post.schema,
+    PostWithAuthRules.schema
+  ];
   static final ModelProvider _instance = ModelProvider();
   @override
-  List<ModelSchema> customTypeSchemas = [FileMeta.schema, S3Object.schema];
+  List<ModelSchema> customTypeSchemas = [
+    Address.schema,
+    Contact.schema,
+    FileMeta.schema,
+    Person.schema,
+    Phone.schema,
+    S3Object.schema
+  ];
 
   static ModelProvider get instance => _instance;
 
@@ -51,6 +73,8 @@ class ModelProvider implements ModelProviderInterface {
         return Comment.classType;
       case "Post":
         return Post.classType;
+      case "PostWithAuthRules":
+        return PostWithAuthRules.classType;
       default:
         throw Exception(
             "Failed to find model in model provider for model name: " +

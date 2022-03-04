@@ -15,7 +15,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'testData/ModelProvider.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 
 void main() {
   test('Comment.classType generates proper json from serializedMap modelschema',

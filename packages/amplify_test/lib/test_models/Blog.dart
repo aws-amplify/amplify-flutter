@@ -24,10 +24,10 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the Blog type in your schema. */
+/// This is an auto generated class representing the Blog type in your schema.
 @immutable
 class Blog extends Model {
-  static const classType = const _BlogModelType();
+  static const classType = _BlogModelType();
   final String id;
   final String? _name;
   final TemporalDateTime? _createdAt;
@@ -39,16 +39,20 @@ class Blog extends Model {
   @override
   getInstanceType() => classType;
 
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+
+  BlogModelIdentifier get modelIdentifier {
+    return BlogModelIdentifier(id: id);
   }
 
   String get name {
     try {
       return _name!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -129,7 +133,7 @@ class Blog extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Blog {");
     buffer.write("id=" + "$id" + ", ");
@@ -148,14 +152,13 @@ class Blog extends Model {
   }
 
   Blog copyWith(
-      {String? id,
-      String? name,
+      {String? name,
       TemporalDateTime? createdAt,
       S3Object? file,
       List<S3Object>? files,
       List<Post>? posts}) {
     return Blog._internal(
-        id: id ?? this.id,
+        id: id,
         name: name ?? this.name,
         createdAt: createdAt ?? this.createdAt,
         file: file ?? this.file,
@@ -171,20 +174,20 @@ class Blog extends Model {
             : null,
         _file = json['file']?['serializedData'] != null
             ? S3Object.fromJson(
-                new Map<String, dynamic>.from(json['file']['serializedData']))
+                Map<String, dynamic>.from(json['file']['serializedData']))
             : null,
         _files = json['files'] is List
             ? (json['files'] as List)
                 .where((e) => e != null)
                 .map((e) => S3Object.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
         _posts = json['posts'] is List
             ? (json['posts'] as List)
                 .where((e) => e?['serializedData'] != null)
                 .map((e) => Post.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
         _updatedAt = json['updatedAt'] != null
@@ -214,6 +217,10 @@ class Blog extends Model {
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Blog";
     modelSchemaDefinition.pluralName = "Blogs";
+
+    modelSchemaDefinition.indexes = [
+      ModelIndex(fields: const ["id"], name: null)
+    ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
@@ -261,4 +268,38 @@ class _BlogModelType extends ModelType<Blog> {
   Blog fromJson(Map<String, dynamic> jsonData) {
     return Blog.fromJson(jsonData);
   }
+}
+
+/// This is an auto generated class representing the model identifier
+/// of [Blog] in your schema.
+@immutable
+class BlogModelIdentifier implements ModelIdentifier<Blog> {
+  final String id;
+
+  /// Create an instance of BlogModelIdentifier using [id] the primary key.
+  const BlogModelIdentifier({required this.id});
+
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
+  String serializeAsString() => serializeAsMap().values.join('#');
+
+  @override
+  String toString() => 'BlogModelIdentifier(id: $id)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is BlogModelIdentifier && id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

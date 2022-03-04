@@ -27,6 +27,7 @@ type Post @model {
   title: String!
   rating: Int!
   created: AWSDateTime
+  likeCount: Int
   blogID: ID! @index(name: "byBlog")
   blog: Blog @belongsTo(fields: ["blogID"])
   comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
@@ -37,4 +38,45 @@ type Comment @model {
   postID: ID! @index(name: "byPost")
   post: Post @belongsTo(fields: ["postID"])
   content: String!
+}
+
+type PostWithAuthRules
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        ownerField: "owner"
+        operations: [create, update, delete, read]
+      }
+    ]
+  ) {
+  id: ID!
+  title: String!
+  owner: String
+}
+
+type Address {
+  line1: String!
+  line2: String
+  city: String!
+  state: String!
+  postalCode: String!
+}
+
+type Person {
+  name: String!
+  propertiesAddresses: [Address]
+  contact: Contact!
+}
+
+type Phone {
+  country: String!
+  number: String!
+}
+
+type Contact {
+  email: String!
+  phone: Phone!
+  mailingAddresses: [Address]
 }

@@ -19,7 +19,7 @@ import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the S3Object type in your schema. */
+/// This is an auto generated class representing the S3Object type in your schema.
 @immutable
 class S3Object {
   final String? _bucket;
@@ -31,7 +31,7 @@ class S3Object {
     try {
       return _bucket!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -44,7 +44,7 @@ class S3Object {
     try {
       return _region!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -57,7 +57,7 @@ class S3Object {
     try {
       return _key!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -105,7 +105,7 @@ class S3Object {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("S3Object {");
     buffer.write("bucket=" + "$_bucket" + ", ");
@@ -132,7 +132,7 @@ class S3Object {
         _key = json['key'],
         _meta = json['meta']?['serializedData'] != null
             ? FileMeta.fromJson(
-                new Map<String, dynamic>.from(json['meta']['serializedData']))
+                Map<String, dynamic>.from(json['meta']['serializedData']))
             : null;
 
   Map<String, dynamic> toJson() => {

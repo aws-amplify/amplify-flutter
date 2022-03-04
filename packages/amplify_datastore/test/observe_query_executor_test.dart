@@ -18,7 +18,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fake_async/fake_async.dart';
 import '../lib/types/observe_query_executor.dart';
-import './test_models/Blog.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 
 var syncQueriesStartedEvent = DataStoreHubEvent(
   'syncQueriesStarted',

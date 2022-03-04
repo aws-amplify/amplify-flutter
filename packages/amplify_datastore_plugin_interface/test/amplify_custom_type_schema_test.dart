@@ -16,7 +16,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import 'testData/ModelProvider.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 
 /*
   Tests use below schema

@@ -18,7 +18,7 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the FileMeta type in your schema. */
+/// This is an auto generated class representing the FileMeta type in your schema.
 @immutable
 class FileMeta {
   final String? _name;
@@ -27,7 +27,7 @@ class FileMeta {
     try {
       return _name!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -57,7 +57,7 @@ class FileMeta {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("FileMeta {");
     buffer.write("name=" + "$_name");
