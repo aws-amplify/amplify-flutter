@@ -1,0 +1,25 @@
+name: amplify_auth_cognito_ios
+description: The method channel implementation for amplify_auth_cognito on iOS
+version: 0.4.1
+homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/auth/amplify_auth_cognito_ios
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.20.0"
+
+dependencies:
+  amplify_core: 0.4.1
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints: ^1.0.0
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+flutter:
+  plugin:
+    platforms:
+      ios:
+        pluginClass: AuthCognito

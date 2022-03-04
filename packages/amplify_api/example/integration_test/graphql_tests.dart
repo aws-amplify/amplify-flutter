@@ -44,7 +44,10 @@ void main() {
       final req = GraphQLRequest<String>(
           document: graphQLDocument, variables: <String, String>{'id': id});
       final response = await Amplify.API.mutate(request: req).response;
-      Map data = jsonDecode(response.data!);
+      if (response.errors.isNotEmpty) {
+        fail(
+            'GraphQL error while deleting a blog: ${response.errors.toString()}');
+      }
       return true;
     }
 
@@ -171,12 +174,12 @@ void main() {
 
       testWidgets('should LIST blogs with Model helper',
           (WidgetTester tester) async {
-        String blog_1_name = 'Integration Test Blog 1';
-        String blog_2_name = 'Integration Test Blog 2';
-        String blog_3_name = 'Integration Test Blog 3';
-        Blog blog_1 = await addBlog(blog_1_name);
-        Blog blog_2 = await addBlog(blog_2_name);
-        Blog blog_3 = await addBlog(blog_3_name);
+        String blog1Name = 'Integration Test Blog 1';
+        String blog2Name = 'Integration Test Blog 2';
+        String blog3Name = 'Integration Test Blog 3';
+        Blog blog1 = await addBlog(blog1Name);
+        Blog blog2 = await addBlog(blog2Name);
+        Blog blog3 = await addBlog(blog3Name);
 
         var req = ModelQueries.list<Blog>(Blog.classType);
         var _r = Amplify.API.query(request: req);
@@ -184,7 +187,7 @@ void main() {
         var res = await _r.response;
         var data = res.data;
 
-        final blogs = [blog_1, blog_2, blog_3];
+        final blogs = [blog1, blog2, blog3];
 
         expect(data?.items, containsAll(blogs));
       });
@@ -239,6 +242,23 @@ void main() {
 
         expect(postFromResponse?.blog?.id, isNotNull);
         expect(postFromResponse?.blog?.id, createdPost.blog?.id);
+      });
+
+      testWidgets('should LIST posts by parent ID',
+          (WidgetTester tester) async {
+        final title = 'Lorem Ipsum Test Post: ${UUID.getUUID()}';
+        const rating = 0;
+        final createdPost = await addPostAndBlogWithModelHelper(title, rating);
+        final blogId = createdPost.blog?.id;
+
+        final req =
+            ModelQueries.list(Post.classType, where: Post.BLOG.eq(blogId));
+        final res = await Amplify.API.query(request: req).response;
+        final postFromResponse = res.data?.items[0];
+
+        expect(postFromResponse?.blog?.id, isNotNull);
+        expect(postFromResponse?.blog?.id, createdPost.blog?.id);
+        expect(postFromResponse?.title, title);
       });
 
       testWidgets(

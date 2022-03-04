@@ -33,16 +33,11 @@ scripts:
       flutter build apk --verbose
 
   test:unit:flutter:
-    run: |
-      melos run test:unit:flutter:plugin amplify_analytics_pinpoint && \
-      melos run test:unit:flutter:plugin amplify_api $PWD && \
-      melos run test:unit:flutter:plugin amplify_auth_cognito $PWD && \
-      melos run test:unit:flutter:plugin amplify_core $PWD && \
-      melos run test:unit:flutter:plugin amplify_datastore $PWD && \
-      melos run test:unit:flutter:plugin amplify_datastore_plugin_interface $PWD && \
-      melos run test:unit:flutter:plugin amplify_flutter $PWD && \
-      melos run test:unit:flutter:plugin amplify_storage_plugin_interface $PWD && \
-      melos run test:unit:flutter:plugin amplify_storage_s3 $PWD && exit 0
+    run: melos exec -c 1 "flutter test"
+    description: >
+      Runs flutter unit tests in all plugins and example apps. Manually run only, not in CI
+    select-package:
+      dir-exists: test
 
   test:unit:android:
     run: |
@@ -134,11 +129,11 @@ scripts:
 
   # AUTH
   build:examples:ios:amplify_auth_cognito: >
-    melos exec -c 1 --scope="amplify_auth_cognito_example" --fail-fast -- \
+    melos exec -c 1 --scope="amplify_auth_cognito_ios_example" --fail-fast -- \
       flutter build ios --simulator
 
   build:examples:android:amplify_auth_cognito: >
-    melos exec -c 1 --scope="amplify_auth_cognito_example" --fail-fast -- \
+    melos exec -c 1 --scope="amplify_auth_cognito_android_example" --fail-fast -- \
       flutter build apk --debug --verbose
 
   # TODO: LINT COGNITO PLUGIN

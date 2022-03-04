@@ -48,7 +48,7 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
           requiredOverride: required,
         );
 
-  /// Creates a username FormField for the sign in step.
+  /// {@macro amplify_authenticator.username_form_field}
   static SignInFormField username({
     Key? key,
     FormFieldValidator<UsernameInput>? validator,

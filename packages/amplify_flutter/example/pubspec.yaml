@@ -26,7 +26,7 @@ dev_dependencies:
   amplify_api:
     path: ../../amplify_api
   amplify_auth_cognito:
-    path: ../../amplify_auth_cognito
+    path: ../../auth/amplify_auth_cognito
   amplify_datastore:
     path: ../../amplify_datastore
   amplify_lints: ^1.0.0
