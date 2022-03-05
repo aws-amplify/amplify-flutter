@@ -22,9 +22,13 @@ body:
       options:
         - label: Analytics
           required: false
-        - label: API
+        - label: API (REST)
+          required: false
+        - label: API (GraphQL)
           required: false
         - label: Auth
+          required: false
+        - label: Authenticator
           required: false
         - label: DataStore
           required: false
