@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: const Center(
           child: Text(
-              'This application serves as a test bed for the Android implementation of the amplify_analytics_pinpoint method channel. Please see the example app in the main amplify_auth_cognito repository for a functional example app.'),
+              'This application serves as a test bed for the Android implementation of the amplify_analytics_pinpoint method channel. Please see the example app in the main amplify_analytics_pinpoint repository for a functional example app.'),
         ),
       ),
     );

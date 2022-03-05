@@ -1,6 +1,6 @@
 # amplify_analytics_pinpoint
 
-The Amplify Flutter Analytics category plugin using Pinpoint.
+The Amplify Flutter Analytics category plugin using the AWS Pinpoint provider.
 
 ## Getting Started
 

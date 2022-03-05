@@ -38,8 +38,6 @@ target 'unit_tests' do
   use_frameworks!
   use_modular_headers!
 
-  pod 'amplify_core', :path => '.symlinks/plugins/amplify_core/ios'
-
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 
