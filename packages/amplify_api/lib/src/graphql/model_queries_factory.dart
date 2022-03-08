@@ -50,7 +50,7 @@ class ModelQueriesFactory extends ModelQueriesInterface {
         .buildVariablesForListRequest(limit: limit, filter: filter);
 
     return GraphQLRequestFactory.instance.buildRequest<PaginatedResult<T>>(
-        modelType: PaginatedModelTypeImpl(modelType),
+        modelType: PaginatedModelType(modelType),
         variables: variables,
         requestType: GraphQLRequestType.query,
         requestOperation: GraphQLRequestOperation.list);

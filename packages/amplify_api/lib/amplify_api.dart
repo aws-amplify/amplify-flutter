@@ -27,7 +27,6 @@ export 'package:amplify_api_plugin_interface/src/types.dart';
 export './model_mutations.dart';
 export './model_queries.dart';
 export './model_subscriptions.dart';
-export './src/graphql/paginated_model_type_impl.dart';
 
 class AmplifyAPI extends APIPluginInterface {
   static final Object _token = Object();

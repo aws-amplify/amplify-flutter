@@ -48,7 +48,7 @@ class GraphQLRequest<T> {
   /// Or for a list request:
   ///
   /// ```dart
-  /// modelType: const PaginatedModelTypeImpl(Blog.classType)
+  /// modelType: const PaginatedModelType(Blog.classType)
   /// ```
   ///
   /// See https://docs.amplify.aws/lib/graphqlapi/advanced-workflows/q/platform/flutter/.

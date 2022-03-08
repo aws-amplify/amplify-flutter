@@ -331,7 +331,7 @@ void main() {
         }''';
         final request = GraphQLRequest<PaginatedResult<Blog>>(
             document: graphQLDocument,
-            modelType: const PaginatedModelTypeImpl(Blog.classType),
+            modelType: const PaginatedModelType(Blog.classType),
             decodePath: listBlogs);
         final response = await Amplify.API.query(request: request).response;
         expect(response.data?.items.first, isA<Blog>());
