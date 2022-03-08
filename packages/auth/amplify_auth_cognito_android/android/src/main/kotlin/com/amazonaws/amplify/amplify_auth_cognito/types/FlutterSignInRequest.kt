@@ -24,9 +24,10 @@ data class FlutterSignInRequest(val map: HashMap<String, *>) {
   /**
    * Custom Auth requires the ability to support passwordless login backed by Lambda triggers.
    * However, passing null to the amplify-android signIn API results in an InvalidStateException,
-   * which conflicts with the more intuitive InvalidParameterException surfaced by amplify-ios.
+   * which conflicts with the more intuitive NotAuthorizedException surfaced by amplify-ios.
    * As a workaround, we check to see whether a password has been sent over the MethodChannel;
-   * if it has not, we replace null with an empty string.
+   * if it has not, we replace null with an empty string. This causes amplify-android to throw
+   * the NotAuthorizedException.
    */
   val password: String = map["password"]?.toString() ?: ""
   val options: AWSCognitoAuthSignInOptions = formatOptions(map["options"] as HashMap<String, *>?)
