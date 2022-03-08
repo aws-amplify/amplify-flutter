@@ -36,16 +36,4 @@ struct FlutterSignInRequest {
      )
      return AuthSignInOperation.Request.Options(pluginOptions: pluginOptions)
   }
-
-  static func validate(dict: NSMutableDictionary) throws {
-    let validationErrorMessage = "SignIn Request malformed."
-    if (dict["username"] == nil && dict["options"] == nil) {
-        throw InvalidRequestError.auth(comment: validationErrorMessage,
-                                          suggestion: String(format: ErrorMessages.missingAttribute, "username"))
-    }
-    if (dict["password"] == nil && dict["options"] == nil) {
-        throw InvalidRequestError.auth(comment: validationErrorMessage,
-                                          suggestion: String(format: ErrorMessages.missingAttribute, "password"))
-    }
-  }
 }

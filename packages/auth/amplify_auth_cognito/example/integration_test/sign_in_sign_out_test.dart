@@ -67,6 +67,18 @@ void main() {
       fail('Expected NotAuthorizedException');
     });
 
+    testWidgets(
+        'should throw an NotAuthorizedException if a password is not provided',
+        (WidgetTester tester) async {
+      try {
+        await Amplify.Auth.signIn(username: username);
+      } catch (e) {
+        expect(e, TypeMatcher<NotAuthorizedException>());
+        return;
+      }
+      fail('Expected NotAuthorizedException');
+    });
+
     testWidgets('should throw a UserNotFoundException with a non-existent user',
         (WidgetTester tester) async {
       final incorrectUsername = generateUsername();

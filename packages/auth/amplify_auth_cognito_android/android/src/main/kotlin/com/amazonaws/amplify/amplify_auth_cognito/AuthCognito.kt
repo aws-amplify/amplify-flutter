@@ -262,37 +262,36 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
                 req.username,
                 req.options,
                 { result -> prepareResendSignUpCodeResult(flutterResult, result) },
-                { error -> errorHandler.handleAuthError(flutterResult, error) }
-            )
-        } catch (e: Exception) {
-            errorHandler.prepareGenericException(flutterResult, e)
-        }
-    }
+                { error -> errorHandler.handleAuthError(flutterResult, error)}
+        )
+      } catch (e: Exception) {
+        errorHandler.prepareGenericException(flutterResult, e)
+      }
+  }
 
-    private fun onSignIn(@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
-        try {
-            FlutterSignInRequest.checkUser()
-            FlutterSignInRequest.validate(request)
-            var req = FlutterSignInRequest(request)
-            Amplify.Auth.signIn(
-                req.username,
-                req.password,
-                req.options,
-                { result -> prepareSignInResult(flutterResult, result) },
-                { error -> errorHandler.handleAuthError(flutterResult, error) }
-            )
-        } catch (e: FlutterInvalidStateException) {
-            errorHandler.handleAuthError(flutterResult, e)
-        } catch (e: Exception) {
-            errorHandler.prepareGenericException(flutterResult, e)
-        }
+  private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    try {
+      FlutterSignInRequest.checkUser()
+      FlutterSignInRequest.validate(request)
+      var req = FlutterSignInRequest(request)
+      Amplify.Auth.signIn(
+              req.username,
+              req.password,
+              req.options,
+              { result -> prepareSignInResult(flutterResult, result) },
+              { error -> errorHandler.handleAuthError(flutterResult, error)}
+      );
+    } catch (e: FlutterInvalidStateException) {
+      errorHandler.handleAuthError(flutterResult, e)
+    } catch (e: Exception) {
+      errorHandler.prepareGenericException(flutterResult, e)
     }
+  }
 
-    private fun onConfirmSignIn(@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
-        try {
-            FlutterConfirmSignInRequest.validate(request)
-            var req = FlutterConfirmSignInRequest(request)
-            Amplify.Auth.confirmSignIn(
+  private fun onConfirmSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+      try {
+        var req = FlutterConfirmSignInRequest(request)
+        Amplify.Auth.confirmSignIn(
                 req.confirmationCode,
                 req.options,
                 { result -> prepareSignInResult(flutterResult, result) },

@@ -153,7 +153,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             }
         case "signIn":
             do {
-                try FlutterSignInRequest.validate(dict: data)
                 let request = FlutterSignInRequest(dict: data)
                 cognito.onSignIn(flutterResult: result, request: request)
             } catch {
