@@ -266,7 +266,6 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   @override
   Future<Output> run(
     Input input, {
-    Uri? baseUri,
     HttpClient? client,
     ShapeId? useProtocol,
   }) async {
