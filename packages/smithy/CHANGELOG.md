@@ -1,3 +1,7 @@
+## 0.1.2
+
+- fix: Client and operation overrides of operation params
+
 ## 0.1.1
 
 - Minor fixes and patches.
