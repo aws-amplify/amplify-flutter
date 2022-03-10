@@ -18,10 +18,12 @@ import 'package:amplify_core/amplify_core.dart';
 import '../../types.dart';
 
 class PaginatedResult<T extends Model> extends Model {
-  /// Model instances for this set of results. An entry might be null if
-  /// there are server-side errors inserting an instance into the result list (like
-  /// a missing required field value). In that case, the [GraphQLResponse] will
-  /// usually contain errors describing that instance along with an index.
+  /// Model instances for this set of results.
+  ///
+  /// An entry might be null if there are server-side errors inserting an instance
+  /// into the result list (like a missing required field value). In that case,
+  /// the [GraphQLResponse] will usually contain errors describing that instance
+  /// along with an index.
   final List<T?> items;
   final int? limit;
   final String? nextToken;
