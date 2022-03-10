@@ -2,7 +2,7 @@
 set -e
 IFS='|'
 
-[ "$AWS_PROFILE" ] && profileName="$AWS_PROFILE" || profileName="default";
+profileName=${AWS_PROFILE:-default}
 
 FLUTTERCONFIG="{\
 \"ResDir\":\"./lib/\",\
