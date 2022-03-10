@@ -2,6 +2,8 @@
 set -e
 IFS='|'
 
+profileName=${AWS_PROFILE:-default}
+
 FLUTTERCONFIG="{\
 \"ResDir\":\"./lib/\",\
 }"
@@ -15,6 +17,17 @@ AMPLIFY="{\
 FRONTEND="{\
 \"frontend\":\"flutter\",\
 \"config\":$FLUTTERCONFIG\
+}"
+
+AWSCLOUDFORMATIONCONFIG="{\
+\"configLevel\":\"project\",\
+\"useProfile\":\"true\",\
+\"profileName\":\"$profileName\",\
+\"region\":\"us-west-2\"\
+}"
+
+PROVIDERS="{\
+\"awscloudformation\":$AWSCLOUDFORMATIONCONFIG\
 }"
 
 # read the request template and the schema
@@ -31,6 +44,7 @@ request="${requestTemplate/<SCHEMA_PLACEHOLDER>/$schema}"
 amplify init \
 --amplify $AMPLIFY \
 --frontend $FRONTEND \
+--providers $PROVIDERS \
 --yes
 echo "$request" | jq -c | amplify add api --headless
 amplify push --yes
