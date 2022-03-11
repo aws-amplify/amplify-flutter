@@ -20,6 +20,8 @@ import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'utils.dart';
 
+const _nextToken = 'nextToken';
+
 class GraphQLResponseDecoder {
   // Singleton methods/properties
   // usage: GraphQLResponseDecoder.instance;
@@ -84,8 +86,25 @@ class GraphQLResponseDecoder {
     if (modelType is PaginatedModelType) {
       Map<String, dynamic>? filter = request.variables['filter'];
       int? limit = request.variables['limit'];
-      decodedData =
-          modelType.fromJson(dataJson!, limit: limit, filter: filter) as T;
+
+      String? resultNextToken = dataJson![_nextToken];
+      dynamic requestForNextResult;
+      // If result has nextToken property, prepare a request for the next page of results.
+      if (resultNextToken != null) {
+        final variablesWithNextToken = <String, dynamic>{
+          ...request.variables,
+          _nextToken: resultNextToken
+        };
+        requestForNextResult = GraphQLRequest<T>(
+            document: request.document,
+            decodePath: request.decodePath,
+            variables: variablesWithNextToken,
+            modelType: request.modelType);
+      }
+      decodedData = modelType.fromJson(dataJson!,
+          limit: limit,
+          filter: filter,
+          requestForNextResult: requestForNextResult) as T;
     } else {
       decodedData = modelType.fromJson(dataJson!) as T;
     }
