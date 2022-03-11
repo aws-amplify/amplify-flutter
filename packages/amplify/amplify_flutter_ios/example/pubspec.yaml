@@ -20,7 +20,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^1.0.0
   amplify_analytics_pinpoint:
-    path: ../../../amplify_analytics_pinpoint
+    path: ../../../analytics/amplify_analytics_pinpoint
   amplify_api:
     path: ../../../amplify_api
   amplify_auth_cognito:
