@@ -67,11 +67,11 @@ scripts:
 
   # ANALYTICS
   build:examples:ios:amplify_analytics_pinpoint: >
-    melos exec -c 1 --scope="amplify_analytics_pinpoint_example" --fail-fast -- \
+    melos exec -c 1 --scope="amplify_analytics_pinpoint_ios_example" --fail-fast -- \
       flutter build ios --simulator
 
   build:examples:android:amplify_analytics_pinpoint: >
-    melos exec -c 1 --scope="amplify_analytics_pinpoint_example" --fail-fast -- \
+    melos exec -c 1 --scope="amplify_analytics_pinpoint_android_example" --fail-fast -- \
       flutter build apk --debug --verbose
 
   lint:android:amplify_analytics_pinpoint:
@@ -82,7 +82,7 @@ scripts:
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
     select-package:
       scope:
-        - amplify_analytics_pinpoint_example
+        - amplify_analytics_pinpoint_android_example
 
   lint:ios:amplify_analytics_pinpoint:
     run: |
@@ -94,7 +94,7 @@ scripts:
     select-package:
       dir-exists: ios
       scope:
-        - amplify_analytics_pinpoint_example
+        - amplify_analytics_pinpoint_ios_example
 
   # API
   build:examples:ios:amplify_api: >
