@@ -35,17 +35,17 @@ void main() {
       ModelWithAppsyncScalarTypes(floatValue: 0.1),
       ModelWithAppsyncScalarTypes(floatValue: 2.1),
       ModelWithAppsyncScalarTypes(floatValue: 1000.0),
-      ModelWithAppsyncScalarTypes(floatValue: double.maxFinite),
-      ModelWithAppsyncScalarTypes(floatValue: double.minPositive),
+      ModelWithAppsyncScalarTypes(floatValue: 999999999.0),
+      ModelWithAppsyncScalarTypes(floatValue: -999999999.0),
       ModelWithAppsyncScalarTypes(floatValue: pi),
       ModelWithAppsyncScalarTypes(),
     ];
 
     // a value that will return 1 or 0 when compared to each test value
-    var maxDoubleValue = double.maxFinite;
+    var maxDoubleValue = 999999999.0;
 
     // a that will return 0 or -1 when compared to each test value
-    var minDoubleValue = double.minPositive;
+    var minDoubleValue = -999999999.0;
 
     // non-null models used for all tests
     var nonNullModels = models.where((e) => e.floatValue != null).toList();
@@ -125,8 +125,6 @@ void main() {
           expectedModels: [],
         );
       },
-      // see: https://github.com/aws-amplify/amplify-flutter/issues/830
-      skip: true,
     );
 
     testWidgets(
@@ -150,8 +148,6 @@ void main() {
           expectedModels: nonNullModels,
         );
       },
-      // see: https://github.com/aws-amplify/amplify-flutter/issues/830
-      skip: true,
     );
 
     testWidgets(
@@ -175,8 +171,6 @@ void main() {
           expectedModels: [],
         );
       },
-      // see: https://github.com/aws-amplify/amplify-flutter/issues/830
-      skip: true,
     );
 
     testWidgets(
@@ -200,8 +194,6 @@ void main() {
           expectedModels: nonNullModels,
         );
       },
-      // see: https://github.com/aws-amplify/amplify-flutter/issues/830
-      skip: true,
     );
 
     testWidgets('beginsWith()', (WidgetTester tester) async {
@@ -308,8 +300,6 @@ void main() {
           expectedModels: [],
         );
       },
-      // see: https://github.com/aws-amplify/amplify-flutter/issues/830
-      skip: true,
     );
   });
 }
