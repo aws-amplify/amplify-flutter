@@ -22,7 +22,7 @@ dependencies:
 
 dev_dependencies:
   amplify_analytics_pinpoint:
-    path: ../../amplify_analytics_pinpoint
+    path: ../../analytics/amplify_analytics_pinpoint
   amplify_api:
     path: ../../amplify_api
   amplify_auth_cognito:

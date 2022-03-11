@@ -313,6 +313,29 @@ void main() {
             ModelMutations.deleteById(Comment.classType, createdComment.id);
         await Amplify.API.mutate(request: deleteCommentReq).response;
       });
+
+      testWidgets('should decode a custom list request',
+          (WidgetTester tester) async {
+        final name = 'Lorem Ipsum Test Blog: ${UUID.getUUID()}';
+        await addBlog(name);
+
+        const listBlogs = 'listBlogs';
+        String graphQLDocument = '''query GetBlogsCustomDecoder {
+          $listBlogs {
+            items {
+              id
+              name
+              createdAt
+            }
+          }
+        }''';
+        final request = GraphQLRequest<PaginatedResult<Blog>>(
+            document: graphQLDocument,
+            modelType: const PaginatedModelType(Blog.classType),
+            decodePath: listBlogs);
+        final response = await Amplify.API.query(request: request).response;
+        expect(response.data?.items.first, isA<Blog>());
+      });
     });
 
     group('mutations', () {

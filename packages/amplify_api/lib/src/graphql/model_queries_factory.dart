@@ -17,7 +17,6 @@
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_request_factory.dart';
-import 'package:amplify_api/src/graphql/paginated_model_type_impl.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 class ModelQueriesFactory extends ModelQueriesInterface {
@@ -51,7 +50,7 @@ class ModelQueriesFactory extends ModelQueriesInterface {
         .buildVariablesForListRequest(limit: limit, filter: filter);
 
     return GraphQLRequestFactory.instance.buildRequest<PaginatedResult<T>>(
-        modelType: PaginatedModelTypeImpl(modelType),
+        modelType: PaginatedModelType(modelType),
         variables: variables,
         requestType: GraphQLRequestType.query,
         requestOperation: GraphQLRequestOperation.list);
