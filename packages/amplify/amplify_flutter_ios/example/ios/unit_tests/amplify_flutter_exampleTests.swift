@@ -16,7 +16,7 @@
 import XCTest
 import amplify_core
 @testable import Amplify
-@testable import amplify_flutter
+@testable import amplify_flutter_ios
 
 class amplify_flutter_exampleTests: XCTestCase {
     
