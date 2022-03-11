@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
   file_picker: ^4.0.0
   amplify_flutter:
-    path: ../../amplify_flutter
+    path: ../../amplify/amplify_flutter
   amplify_auth_cognito:
     path: ../../amplify_auth_cognito
 

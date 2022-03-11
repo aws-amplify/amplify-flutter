@@ -23,7 +23,7 @@ dependencies:
   # amplify_api:
   #   path: ../../amplify_api
   amplify_flutter:
-    path: ../../amplify_flutter
+    path: ../../amplify/amplify_flutter
   flutter_driver:
     sdk: flutter
   integration_test:
