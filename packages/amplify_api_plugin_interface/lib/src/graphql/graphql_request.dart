@@ -39,6 +39,17 @@ class GraphQLRequest<T> {
   final String? decodePath;
 
   /// Only required for custom decoding logic. The response will be decoded to this type.
+  /// For a request of a single instance (like get, update, create or delete):
+  ///
+  /// ```dart
+  /// modelType: Blog.classType
+  /// ```
+  ///
+  /// Or for a list request:
+  ///
+  /// ```dart
+  /// modelType: const PaginatedModelType(Blog.classType)
+  /// ```
   ///
   /// See https://docs.amplify.aws/lib/graphqlapi/advanced-workflows/q/platform/flutter/.
   final ModelType? modelType;

@@ -208,7 +208,8 @@ workflows:
               plugin_threshold: [
                   # should be in format <plugin_name>:<threshold>
                   "amplify_analytics_pinpoint:10",
-                  "amplify_api:10",
+                  # TODO, re-enable after releasing 0.4.2
+                  # "amplify_api:10",
                   "amplify_auth_cognito:10",
                   "amplify_authenticator:0",
                   "amplify_core:10",
