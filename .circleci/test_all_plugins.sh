@@ -12,7 +12,7 @@ dummy_file_path=example/lib/amplifyconfiguration.dart
 category_dir=$(echo $plugin | cut -d'_' -f 2)
 if [ "$plugin" = "amplify_flutter" ]; then
     category_dir="amplify" 
-else
+fi
 
 set +e
 set -o pipefail
