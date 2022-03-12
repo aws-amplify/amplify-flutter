@@ -21,7 +21,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 import 'src/types/conflict_handler/datastore_conflict_handler.dart';
-import 'src/types/models/model.dart';
 import 'src/types/models/observe_query_throttle_options.dart';
 import 'src/types/models/query_snapshot.dart';
 import 'src/types/models/subscription_event.dart';
