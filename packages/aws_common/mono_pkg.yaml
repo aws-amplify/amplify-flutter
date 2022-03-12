@@ -1,0 +1,10 @@
+sdk:
+  - stable
+  - dev
+
+stages:
+  - analyze_and_format:
+      - group:
+          - format
+          - analyze: --fatal-infos .
+          # - command: ../../tool/license.sh -check
