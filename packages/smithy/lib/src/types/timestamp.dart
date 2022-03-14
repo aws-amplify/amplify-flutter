@@ -7,7 +7,7 @@
 
 import 'package:http_parser/http_parser.dart';
 import 'package:intl/intl.dart';
-import 'package:smithy_ast/smithy_ast.dart';
+import 'package:smithy/ast.dart';
 
 /// {@template aws.smithy.timestamp}
 ///

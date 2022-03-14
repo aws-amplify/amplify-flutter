@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:smithy/smithy.dart';
 
 class WithContentLength extends HttpRequestInterceptor {

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:crypto/crypto.dart';
 import 'package:smithy/smithy.dart';
 

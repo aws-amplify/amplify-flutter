@@ -1,4 +1,5 @@
 import 'package:built_value/serializer.dart';
+import 'package:collection/collection.dart';
 import 'package:smithy/smithy.dart';
 import 'package:xml/xml.dart';
 

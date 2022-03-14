@@ -1,5 +1,5 @@
 import 'package:built_value/serializer.dart';
-import 'package:smithy_ast/smithy_ast.dart';
+import 'package:smithy/ast.dart';
 
 abstract class SmithySerializer<T> implements Serializer<T> {
   const SmithySerializer(this.wireName);

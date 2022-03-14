@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
-import 'package:smithy/smithy.dart';
 
 export 'auth/api_key_auth.dart';
 export 'auth/basic_auth.dart';

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:smithy/smithy.dart';
 
 /// Intercepts HTTP requests to provide a Basic credentials header.

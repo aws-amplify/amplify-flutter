@@ -1,3 +1,4 @@
+import 'package:aws_common/aws_common.dart';
 import 'package:http/http.dart' as http;
 import 'package:smithy/smithy.dart';
 

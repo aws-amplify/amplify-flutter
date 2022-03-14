@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:http/http.dart' as http;
 import 'package:smithy/smithy.dart';

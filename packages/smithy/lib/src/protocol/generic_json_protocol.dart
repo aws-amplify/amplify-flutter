@@ -1,8 +1,9 @@
 import 'dart:typed_data';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
+import 'package:smithy/ast.dart';
 import 'package:smithy/smithy.dart';
-import 'package:smithy_ast/smithy_ast.dart';
 
 /// A generic JSON protocol definition for generating service clients without
 /// a defined protocol.

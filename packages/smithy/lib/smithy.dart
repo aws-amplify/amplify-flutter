@@ -2,12 +2,8 @@
 
 library smithy;
 
-export 'package:aws_common/aws_common.dart';
-export 'package:collection/src/iterable_extensions.dart';
-export 'package:fixnum/fixnum.dart';
-
 // AST types
-export 'package:smithy_ast/smithy_ast.dart'
+export 'ast.dart'
     show
         AlpnProtocol,
         ChecksumAlgorithm,

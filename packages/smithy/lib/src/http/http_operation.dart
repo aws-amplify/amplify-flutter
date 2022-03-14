@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
+import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:retry/retry.dart';
+import 'package:smithy/ast.dart';
 import 'package:smithy/smithy.dart';
-import 'package:smithy_ast/smithy_ast.dart';
 
 /// Defines an operation which uses HTTP.
 ///
