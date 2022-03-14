@@ -1,11 +1,11 @@
-/// {@template aws_smithy.endpoint}
+/// {@template smithy.endpoint}
 /// Represents the endpoint a service client should make API operation calls to.
 ///
 /// The SDK will automatically resolve these endpoints per API client using an
 /// internal resolver.
 /// {@endtemplate}
 class Endpoint {
-  /// {@macro smithy_aws.endpoint}
+  /// {@macro smithy.endpoint}
   const Endpoint({
     required this.uri,
     this.isHostnameImmutable = false,
