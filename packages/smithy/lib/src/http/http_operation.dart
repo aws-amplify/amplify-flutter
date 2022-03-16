@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:collection/collection.dart';
+import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy/smithy.dart';
@@ -208,19 +208,10 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
           response: response,
           protocol: protocol,
         );
-        final result = await deserializeOutput(
+        return deserializeOutput(
           protocol: protocol,
           response: response,
         );
-        if (result.isError) {
-          final errorResult = result.asError!.error as SmithyErrorResult;
-          return onServerError(
-            request: httpRequest,
-            protocol: protocol,
-            result: errorResult,
-          );
-        }
-        return result.asValue!.value;
       },
       onRetry: (e, [delay]) {
         debugNumRetries++;
@@ -229,17 +220,8 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     );
   }
 
-  @visibleForOverriding
-  Future<Output> onServerError({
-    required AWSStreamedHttpRequest request,
-    required HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
-    required SmithyErrorResult result,
-  }) {
-    throw result.exception;
-  }
-
   @visibleForTesting
-  Future<Result<Output>> deserializeOutput({
+  Future<Output> deserializeOutput({
     required HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
     required AWSStreamedHttpResponse response,
   }) async {
@@ -260,7 +242,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     }
     if (response.statusCode == successCode) {
       if (output != null) {
-        return Result.value(output);
+        return output;
       }
       throw exception!;
     }
@@ -273,22 +255,28 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     }
     smithyError ??= errorTypes
         .singleWhereOrNull((t) => t.statusCode == response.statusCode);
-    final errorType = smithyError?.type ?? SmithyException;
-    final errorPayload = await protocol.deserialize(
+    if (smithyError == null) {
+      final body = await ByteStream(response.split()).toBytes();
+      throw SmithyHttpException.unknown(
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: body,
+      );
+    }
+    final Type errorType = smithyError.type;
+    final Function builder = smithyError.builder;
+    final Object? errorPayload = await protocol.deserialize(
       response.body,
       specifiedType: FullType(errorType),
     );
-    final builder = smithyError?.builder;
-    final SmithyException smithyException;
-    if (builder != null) {
-      smithyException = builder(errorPayload, response);
-    } else {
-      smithyException = errorPayload as SmithyException;
-    }
-    return Result.error(SmithyErrorResult(
-      smithyException,
-      smithyError: smithyError,
-    ));
+    final SmithyException smithyException = builder(errorPayload, response);
+    final List<int> body = await ByteStream(response.split()).toBytes();
+    throw SmithyHttpException(
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: body,
+      underlyingException: smithyException,
+    );
   }
 
   @override

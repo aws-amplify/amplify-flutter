@@ -18,17 +18,6 @@ class RetryConfig with AWSEquatable<RetryConfig> {
 }
 
 @immutable
-class SmithyErrorResult {
-  const SmithyErrorResult(
-    this.exception, {
-    this.smithyError,
-  });
-
-  final SmithyError? smithyError;
-  final SmithyException exception;
-}
-
-@immutable
 class SmithyError with AWSEquatable<SmithyError> {
   const SmithyError(
     this.shapeId,

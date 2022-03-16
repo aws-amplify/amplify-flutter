@@ -65,15 +65,18 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
     FullType? specifiedType,
   }) async {
     specifiedType ??= FullType(OutputPayload);
-    if (OutputPayload == Stream<List<int>>) {
+    if (specifiedType.root == OutputPayload &&
+        OutputPayload == Stream<List<int>>) {
       return response;
     }
 
     final body = await http.ByteStream(response).toBytes();
-    if (OutputPayload == List<int>) {
-      return body;
-    } else if (OutputPayload == String) {
-      return body.isEmpty ? '' : utf8.decode(body);
+    if (specifiedType.root == OutputPayload) {
+      if (OutputPayload == List<int>) {
+        return body;
+      } else if (OutputPayload == String) {
+        return body.isEmpty ? '' : utf8.decode(body);
+      }
     }
     return await wireSerializer.deserialize(body, specifiedType: specifiedType);
   }
