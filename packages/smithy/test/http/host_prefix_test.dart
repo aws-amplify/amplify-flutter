@@ -1,6 +1,5 @@
 import 'package:aws_common/src/http/aws_http_response.dart';
 import 'package:smithy/smithy.dart';
-import 'package:smithy/src/protocol/generic_json_protocol.dart';
 import 'package:test/test.dart';
 
 const bucket = 'SomeName';

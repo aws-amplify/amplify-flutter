@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:collection/collection.dart';
-import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy/smithy.dart';
@@ -256,11 +255,9 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     smithyError ??= errorTypes
         .singleWhereOrNull((t) => t.statusCode == response.statusCode);
     if (smithyError == null) {
-      final body = await ByteStream(response.split()).toBytes();
-      throw SmithyHttpException.unknown(
+      throw SmithyHttpException(
         statusCode: response.statusCode,
         headers: response.headers,
-        body: body,
       );
     }
     final Type errorType = smithyError.type;
@@ -270,13 +267,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       specifiedType: FullType(errorType),
     );
     final SmithyException smithyException = builder(errorPayload, response);
-    final List<int> body = await ByteStream(response.split()).toBytes();
-    throw SmithyHttpException(
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: body,
-      underlyingException: smithyException,
-    );
+    throw smithyException;
   }
 
   @override

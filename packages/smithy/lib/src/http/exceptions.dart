@@ -1,47 +1,45 @@
-import 'dart:convert';
-
 import 'package:smithy/smithy.dart';
 
 /// {@template smithy.smithy_http_exception}
-/// A wrapper of [SmithyException] types with HTTP context.
+/// A [SmithyException] with HTTP context.
 /// {@endtemplate}
-class SmithyHttpException implements SmithyException {
+abstract class SmithyHttpException implements SmithyException {
   /// {@macro smithy.smithy_http_exception}
-  SmithyHttpException({
-    required this.statusCode,
+  const factory SmithyHttpException({
+    required int statusCode,
     Map<String, String>? headers,
-    required this.body,
-    required SmithyException this.underlyingException,
-  }) : headers = headers ?? const {};
+  }) = _UnknownSmithyHttpException;
 
-  /// {@macro smithy.smithy_http_exception}
-  SmithyHttpException.unknown({
-    required this.statusCode,
-    Map<String, String>? headers,
-    required this.body,
-  })  : headers = headers ?? const {},
-        underlyingException = null;
+  const SmithyHttpException._();
 
   /// The HTTP response status code.
-  final int statusCode;
+  int? get statusCode;
 
   /// The HTTP response headers.
+  Map<String, String>? get headers;
+}
+
+class _UnknownSmithyHttpException extends SmithyHttpException {
+  const _UnknownSmithyHttpException({
+    required this.statusCode,
+    Map<String, String>? headers,
+  })  : headers = headers ?? const {},
+        super._();
+
+  @override
+  final int statusCode;
+
+  @override
   final Map<String, String> headers;
 
-  /// The HTTP response body.
-  final List<int> body;
-
-  /// The underlying exception.
-  final SmithyException? underlyingException;
+  @override
+  String get message => 'An unknown error occurred';
 
   @override
-  late final String message = underlyingException?.message ?? utf8.decode(body);
+  RetryConfig? get retryConfig => null;
 
   @override
-  RetryConfig? get retryConfig => underlyingException?.retryConfig;
-
-  @override
-  ShapeId? get shapeId => underlyingException?.shapeId;
+  ShapeId? get shapeId => null;
 }
 
 class MissingLabelException<T> implements Exception {
