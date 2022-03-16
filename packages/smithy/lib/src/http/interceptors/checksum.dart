@@ -61,13 +61,12 @@ class ValidateChecksum extends HttpResponseInterceptor {
 /// Thrown when the computed hash of a response payload does not match the
 /// `Content-MD5` header returned from the server.
 /// {@endtemplate}
-class ChecksumValidationException implements SmithyException {
+class ChecksumValidationException implements Exception {
   /// {@macro smithy.checksum_validation_exception}
   const ChecksumValidationException(this.message);
 
-  @override
   final String message;
 
   @override
-  RetryConfig? get retryConfig => null;
+  String toString() => 'ChecksumValidationException{$message}';
 }
