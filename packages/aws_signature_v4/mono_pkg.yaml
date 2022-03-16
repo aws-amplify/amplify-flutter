@@ -20,6 +20,6 @@ stages:
       - group:
           - command: git submodule update --init
           - test:
-        os:
-          - windows
-          - macos
+            os:
+              - windows
+              - macos
