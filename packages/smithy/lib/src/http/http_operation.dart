@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
-import 'package:retry/retry.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy/smithy.dart';
 
@@ -85,6 +85,9 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
 
   /// The endpoint for the operation.
   Endpoint get endpoint => Endpoint(uri: baseUri);
+
+  /// The retry handler for the operation.
+  Retryer get retryer => const Retryer();
 
   @visibleForTesting
   HttpProtocol<InputPayload, Input, OutputPayload, Output> resolveProtocol({
@@ -189,38 +192,55 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     }
   }
 
+  @visibleForOverriding
   @visibleForTesting
-  Future<Output> innerSend({
+  Future<Output> send({
     required HttpClient client,
-    required AWSStreamedHttpRequest httpRequest,
-    required HttpProtocol protocol,
+    required Future<AWSStreamedHttpRequest> Function() createRequest,
+    required HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
   }) {
-    const r = RetryOptions();
-    return r.retry(
+    return retryer.retry(
       () async {
+        // Re-create the request on each retry to perform signing again, etc.
+        final httpRequest = await createRequest();
         final response = await client.send(httpRequest);
         await _validateResponse(
           response: response,
           protocol: protocol,
         );
-        return deserializeOutput(
+        final result = await deserializeOutput(
           protocol: protocol,
           response: response,
         );
+        if (result.isError) {
+          final errorResult = result.asError!.error as SmithyErrorResult;
+          return onServerError(
+            request: httpRequest,
+            protocol: protocol,
+            result: errorResult,
+          );
+        }
+        return result.asValue!.value;
       },
-      retryIf: (e) {
-        return e is SmithyException && e.retryConfig != null;
-      },
-      onRetry: (e) {
+      onRetry: (e, [delay]) {
         debugNumRetries++;
         print('Retrying $e ($debugNumRetries)');
       },
     );
   }
 
+  @visibleForOverriding
+  Future<Output> onServerError({
+    required AWSStreamedHttpRequest request,
+    required HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
+    required SmithyErrorResult result,
+  }) {
+    throw result.exception;
+  }
+
   @visibleForTesting
-  Future<Output> deserializeOutput({
-    required HttpProtocol protocol,
+  Future<Result<Output>> deserializeOutput({
+    required HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
     required AWSStreamedHttpResponse response,
   }) async {
     Output? output;
@@ -240,7 +260,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     }
     if (response.statusCode == successCode) {
       if (output != null) {
-        return output;
+        return Result.value(output);
       }
       throw exception!;
     }
@@ -259,10 +279,16 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       specifiedType: FullType(errorType),
     );
     final builder = smithyError?.builder;
+    final SmithyException smithyException;
     if (builder != null) {
-      throw builder(errorPayload, response);
+      smithyException = builder(errorPayload, response);
+    } else {
+      smithyException = errorPayload as SmithyException;
     }
-    throw errorPayload as SmithyException;
+    return Result.error(SmithyErrorResult(
+      smithyException,
+      smithyError: smithyError,
+    ));
   }
 
   @override
@@ -274,15 +300,14 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     final protocol = resolveProtocol(useProtocol: useProtocol);
     client ??= protocol.getClient(input);
     final request = buildRequest(input);
-    final httpRequest = await createRequest(
-      request,
-      protocol,
-      input,
-    );
-    return innerSend(
+    return send(
+      createRequest: () => createRequest(
+        request,
+        protocol,
+        input,
+      ),
       client: client,
       protocol: protocol,
-      httpRequest: httpRequest,
     );
   }
 }

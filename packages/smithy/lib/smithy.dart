@@ -14,6 +14,7 @@ export 'ast.dart'
 
 // Behavior
 export 'src/behavior/paginated_result.dart';
+export 'src/behavior/retryer.dart';
 
 export 'src/endpoint.dart';
 
