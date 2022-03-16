@@ -55,6 +55,15 @@ abstract class AWSHeaders {
   /// The `X-Amz-Region-Set` header.
   static const regionSet = 'X-Amz-Region-Set';
 
+  /// The `X-Amz-Retry-After` header.
+  static const retryAfter = 'X-Amz-Retry-After';
+
+  /// The `amz-sdk-invocation-id` header.
+  static const sdkInvocationId = 'amz-sdk-invocation-id';
+
+  /// The `amz-sdk-request` header.
+  static const sdkRequest = 'amz-sdk-request';
+
   /// The `X-Amz-Security-Token` header.
   static const securityToken = 'X-Amz-Security-Token';
 
