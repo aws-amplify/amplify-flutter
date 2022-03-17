@@ -22,8 +22,11 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'Blog.dart';
 import 'Comment.dart';
+import 'Inventory.dart';
 import 'Post.dart';
 import 'PostWithAuthRules.dart';
+import 'Product.dart';
+import 'Warehouse.dart';
 import 'Address.dart';
 import 'Contact.dart';
 import 'FileMeta.dart';
@@ -36,21 +39,27 @@ export 'Blog.dart';
 export 'Comment.dart';
 export 'Contact.dart';
 export 'FileMeta.dart';
+export 'Inventory.dart';
 export 'Person.dart';
 export 'Phone.dart';
 export 'Post.dart';
 export 'PostWithAuthRules.dart';
+export 'Product.dart';
 export 'S3Object.dart';
+export 'Warehouse.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "5cd1e05856f216886dac60dfd1381532";
+  String version = "c51f720bee3a3b8db3aa9ce045d17f5c";
   @override
   List<ModelSchema> modelSchemas = [
     Blog.schema,
     Comment.schema,
+    Inventory.schema,
     Post.schema,
-    PostWithAuthRules.schema
+    PostWithAuthRules.schema,
+    Product.schema,
+    Warehouse.schema
   ];
   static final ModelProvider _instance = ModelProvider();
   @override
@@ -71,10 +80,16 @@ class ModelProvider implements ModelProviderInterface {
         return Blog.classType;
       case "Comment":
         return Comment.classType;
+      case "Inventory":
+        return Inventory.classType;
       case "Post":
         return Post.classType;
       case "PostWithAuthRules":
         return PostWithAuthRules.classType;
+      case "Product":
+        return Product.classType;
+      case "Warehouse":
+        return Warehouse.classType;
       default:
         throw Exception(
             "Failed to find model in model provider for model name: " +
