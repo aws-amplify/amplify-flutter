@@ -279,13 +279,16 @@ class BlogModelIdentifier implements ModelIdentifier<Blog> {
   /// Create an instance of BlogModelIdentifier using [id] the primary key.
   const BlogModelIdentifier({required this.id});
 
+  @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
+  @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
       .entries
       .map((entry) => (<String, dynamic>{entry.key: entry.value}))
       .toList();
 
+  @override
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override

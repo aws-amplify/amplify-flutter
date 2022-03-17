@@ -155,7 +155,7 @@ class Comment extends Model {
     modelSchemaDefinition.pluralName = "Comments";
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["postID", "content"], name: "byPost")
+      ModelIndex(fields: const ["postID"], name: "byPost")
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
@@ -203,13 +203,16 @@ class CommentModelIdentifier implements ModelIdentifier<Comment> {
   /// Create an instance of CommentModelIdentifier using [id] the primary key.
   const CommentModelIdentifier({required this.id});
 
+  @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
+  @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
       .entries
       .map((entry) => (<String, dynamic>{entry.key: entry.value}))
       .toList();
 
+  @override
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override

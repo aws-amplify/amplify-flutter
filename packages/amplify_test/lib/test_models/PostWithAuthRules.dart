@@ -207,13 +207,16 @@ class PostWithAuthRulesModelIdentifier
   /// Create an instance of PostWithAuthRulesModelIdentifier using [id] the primary key.
   const PostWithAuthRulesModelIdentifier({required this.id});
 
+  @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
+  @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
       .entries
       .map((entry) => (<String, dynamic>{entry.key: entry.value}))
       .toList();
 
+  @override
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override

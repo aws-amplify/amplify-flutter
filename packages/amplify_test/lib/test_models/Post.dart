@@ -326,13 +326,16 @@ class PostModelIdentifier implements ModelIdentifier<Post> {
   /// Create an instance of PostModelIdentifier using [id] the primary key.
   const PostModelIdentifier({required this.id});
 
+  @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
+  @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
       .entries
       .map((entry) => (<String, dynamic>{entry.key: entry.value}))
       .toList();
 
+  @override
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
