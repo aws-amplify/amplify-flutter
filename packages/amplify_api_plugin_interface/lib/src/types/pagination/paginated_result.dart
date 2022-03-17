@@ -17,6 +17,23 @@ import 'package:amplify_core/amplify_core.dart';
 
 import '../../types.dart';
 
+class _DummyModelIdentifier implements ModelIdentifier {
+  final List<Map<String, dynamic>> emptyList = const [];
+  final Map<String, dynamic> emptyMap = const <String, dynamic>{};
+  final String emptyString = '';
+
+  const _DummyModelIdentifier();
+
+  @override
+  List<Map<String, dynamic>> serializeAsList() => emptyList;
+
+  @override
+  Map<String, dynamic> serializeAsMap() => emptyMap;
+
+  @override
+  String serializeAsString() => emptyString;
+}
+
 class PaginatedResult<T extends Model> extends Model {
   /// Model instances for this set of results.
   ///
@@ -41,6 +58,11 @@ class PaginatedResult<T extends Model> extends Model {
   @override
   String getId() {
     return '';
+  }
+
+  @override
+  ModelIdentifier get modelIdentifier {
+    return const _DummyModelIdentifier();
   }
 
   /// Returns `true` if there is more data to fetch beyond the data
