@@ -35,7 +35,7 @@ type Post @model {
 
 type Comment @model {
   id: ID!
-  postID: ID! @index(name: "byPost")
+  postID: ID! @index(name: "byPost", fields: ["content"])
   post: Post @belongsTo(fields: ["postID"])
   content: String!
 }

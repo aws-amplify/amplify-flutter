@@ -155,7 +155,7 @@ class Comment extends Model {
     modelSchemaDefinition.pluralName = "Comments";
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["postID"], name: "byPost")
+      ModelIndex(fields: const ["postID", "content"], name: "byPost")
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
