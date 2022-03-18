@@ -424,19 +424,20 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   SignInResult _formatSignInResponse(Map<String, dynamic> res, String method) {
     var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
+    var additionalInfo = res["nextStep"]["additionalInfo"];
     return CognitoSignInResult(
-        isSignedIn: res["isSignedIn"],
-        nextStep: AuthNextSignInStep(
-            signInStep: res["nextStep"]["signInStep"],
-            codeDeliveryDetails: codeDeliveryDetails != null
-                ? AuthCodeDeliveryDetails(
-                    attributeName: codeDeliveryDetails["attributeName"],
-                    deliveryMedium: codeDeliveryDetails["deliveryMedium"],
-                    destination: codeDeliveryDetails["destination"])
-                : null,
-            additionalInfo: res["nextStep"]["additionalInfo"] is String
-                ? jsonDecode(res["nextStep"]["additionalInfo"])
-                : null));
+      isSignedIn: res["isSignedIn"],
+      nextStep: AuthNextSignInStep(
+        signInStep: res["nextStep"]["signInStep"],
+        codeDeliveryDetails: codeDeliveryDetails != null
+            ? AuthCodeDeliveryDetails(
+                attributeName: codeDeliveryDetails["attributeName"],
+                deliveryMedium: codeDeliveryDetails["deliveryMedium"],
+                destination: codeDeliveryDetails["destination"])
+            : null,
+        additionalInfo: additionalInfo ?? <dynamic, dynamic>{},
+      ),
+    );
   }
 
   UpdatePasswordResult _formatPasswordResponse(Map<String, dynamic> res) {
