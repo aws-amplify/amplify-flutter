@@ -3,11 +3,6 @@ import 'dart:async';
 import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
-export 'auth/api_key_auth.dart';
-export 'auth/basic_auth.dart';
-export 'auth/bearer_auth.dart';
-export 'auth/credentials_provider.dart';
-export 'auth/digest_auth.dart';
 export 'checksum.dart';
 export 'common/with_content_length.dart';
 export 'common/with_header.dart';

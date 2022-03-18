@@ -30,10 +30,6 @@ export 'src/http/http_protocol.dart';
 export 'src/http/http_request.dart';
 export 'src/http/interceptors/interceptor.dart';
 export 'src/http/interceptors/checksum.dart';
-export 'src/http/interceptors/auth/api_key_auth.dart';
-export 'src/http/interceptors/auth/basic_auth.dart';
-export 'src/http/interceptors/auth/bearer_auth.dart';
-export 'src/http/interceptors/auth/digest_auth.dart';
 
 // Protocol
 export 'src/protocol/generic_json_protocol.dart';
