@@ -138,6 +138,12 @@ abstract class AuthenticatorInputLocalizations {
   /// **'Phone Number'**
   String get phoneNumber;
 
+  /// The answer to custom auth challenge.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmation Code'**
+  String get customAuthChallenge;
+
   /// The code sent to the user's phone number or email address for verification.
   ///
   /// In en, this message translates to:
@@ -257,7 +263,7 @@ abstract class AuthenticatorInputLocalizations {
   ///
   /// In en, this message translates to:
   /// **'at least {numCharacters, plural, =1{1{characterType} character} other{{numCharacters}{characterType} characters}}'**
-  String passwordRequirementsAtLeast(int numCharacters, String characterType);
+  String passwordRequirementsAtLeast(num numCharacters, String characterType);
 
   /// Message for conflicting password and confirm password fields.
   ///

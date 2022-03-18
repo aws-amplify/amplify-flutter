@@ -207,6 +207,27 @@ class ConfirmSignUpButton extends AuthenticatorElevatedButton {
 }
 
 /// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_sign_in_custom_auth_button}
+/// A prebuilt button for completing the custom auth flow.
+///
+/// Uses [ButtonResolverKey.submit] for localization
+/// {@endtemplate}
+class ConfirmSignCustomAuthButton extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.confirm_sign_in_new_password}
+  const ConfirmSignCustomAuthButton({Key? key})
+      : super(
+          key: key ?? keyConfirmSignInButton,
+        );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.changePassword;
+
+  @override
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.confirmSignInCustomAuth();
+}
+
+/// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.confirm_sign_in_mfa_button}
 /// A prebuilt button for completing Sign In with and MFA code.
 ///

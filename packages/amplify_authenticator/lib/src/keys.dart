@@ -60,6 +60,8 @@ const keyCodeConfirmSignUpFormField = Key('codeConfirmSignUpFormField');
 //Confirm Sign In form field keys
 
 const keyCodeConfirmSignInFormField = Key('codeConfirmSignInFormField');
+const keyCustomChallengeConfirmSignInFormField =
+    Key('customChallengeConfirmSignInFormField');
 const keyUsernameConfirmSignInFormField = Key('usernameConfirmSignInFormField');
 const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
 const keyNewPasswordConfirmSignInFormField =
@@ -113,6 +115,7 @@ const keyBackToSignInButton = Key('backToSignInButton');
 const keyGoToSignUpButton = Key('goToSignUpButton');
 const keyGoToSignInButton = Key('goToSignInButton');
 const keyConfirmSignInButton = Key('confirmSignInButton');
+const keyConfirmSignInCustomButton = Key('confirmSignInCustomButton');
 const keyLostCodeButton = Key('lostCodeButton');
 const keySendCodeButton = Key('sendCodeButton');
 const keyForgotPasswordButton = Key('forgotPasswordButton');

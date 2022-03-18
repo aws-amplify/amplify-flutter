@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:flutter/material.dart';
 
 class InheritedForms extends InheritedWidget {
@@ -26,6 +27,7 @@ class InheritedForms extends InheritedWidget {
     required this.resetPasswordForm,
     required this.confirmResetPasswordForm,
     required this.confirmSignInNewPasswordForm,
+    required this.confirmSignInCustomAuthForm,
     required this.verifyUserForm,
     required this.confirmVerifyUserForm,
     required Widget child,
@@ -35,6 +37,7 @@ class InheritedForms extends InheritedWidget {
   final SignUpForm signUpForm;
   final ConfirmSignUpForm confirmSignUpForm;
   final ConfirmSignInMFAForm confirmSignInMFAForm;
+  final ConfirmSignInCustomAuthForm confirmSignInCustomAuthForm;
   final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
   final ResetPasswordForm resetPasswordForm;
   final ConfirmResetPasswordForm confirmResetPasswordForm;
@@ -51,6 +54,8 @@ class InheritedForms extends InheritedWidget {
         return signInForm;
       case AuthenticatorStep.confirmSignUp:
         return confirmSignUpForm;
+      case AuthenticatorStep.confirmSignInCustomAuth:
+        return confirmSignInCustomAuthForm;
       case AuthenticatorStep.confirmSignInMfa:
         return confirmSignInMFAForm;
       case AuthenticatorStep.confirmSignInNewPassword:

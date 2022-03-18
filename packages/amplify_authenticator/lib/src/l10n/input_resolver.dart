@@ -25,6 +25,7 @@ enum InputField {
   newPassword,
   passwordConfirmation,
   verificationCode,
+  customChallenge,
   address,
   birthdate,
   email,
@@ -154,6 +155,17 @@ class InputResolverKey {
     InputResolverKeyType.format,
     field: InputField.phoneNumber,
   );
+
+  static const authChallengeTitle = InputResolverKey._(
+    InputResolverKeyType.title,
+    field: InputField.customChallenge,
+  );
+
+  static const authChallengeHint = InputResolverKey._(
+    InputResolverKeyType.hint,
+    field: InputField.customChallenge,
+  );
+
   static const verificationCodeTitle = InputResolverKey._(
     InputResolverKeyType.title,
     field: InputField.verificationCode,
@@ -430,6 +442,8 @@ class InputResolver extends Resolver<InputResolverKey> {
         return AuthenticatorLocalizations.inputsOf(context).rememberDevice;
       case InputField.usernameType:
         return AuthenticatorLocalizations.inputsOf(context).usernameType;
+      case InputField.customChallenge:
+        return AuthenticatorLocalizations.inputsOf(context).customAuthChallenge;
     }
   }
 

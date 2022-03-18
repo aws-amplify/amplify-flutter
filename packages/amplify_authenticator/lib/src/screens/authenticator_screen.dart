@@ -85,6 +85,7 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
         break;
       case AuthenticatorStep.confirmSignUp:
       case AuthenticatorStep.confirmSignInMfa:
+      case AuthenticatorStep.confirmSignInCustomAuth:
       case AuthenticatorStep.confirmSignInNewPassword:
       case AuthenticatorStep.resetPassword:
       case AuthenticatorStep.confirmResetPassword:
@@ -247,6 +248,7 @@ extension on AuthenticatorStep {
       case AuthenticatorStep.signIn:
         return ButtonResolverKey.signIn;
       case AuthenticatorStep.confirmSignUp:
+      case AuthenticatorStep.confirmSignInCustomAuth:
       case AuthenticatorStep.confirmSignInMfa:
       case AuthenticatorStep.confirmSignInNewPassword:
       case AuthenticatorStep.resetPassword:

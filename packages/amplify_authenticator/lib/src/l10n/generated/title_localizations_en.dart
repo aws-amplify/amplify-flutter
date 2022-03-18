@@ -44,4 +44,7 @@ class AuthenticatorTitleLocalizationsEn
   @override
   String get verifyUser =>
       'Account recovery requires verified contact information';
+
+  @override
+  String get confirmSignInCustomAuth => 'Confirm Sign In';
 }

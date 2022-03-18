@@ -171,7 +171,9 @@ class StateMachineBloc {
           yield UnauthenticatedState.confirmSignInMfa;
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
-          _exceptionController.add(const AuthenticatorException.customAuth());
+          yield ConfirmSignInCustom(
+              publicChallengeParams:
+                  result.nextStep?.additionalInfo ?? <dynamic, dynamic>{});
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
           yield UnauthenticatedState.confirmSignInNewPassword;
@@ -197,6 +199,16 @@ class StateMachineBloc {
         default:
           break;
       }
+    } on NotAuthorizedException {
+      /// The .failAuthentication flag available in the DefineAuthChallenge Lambda trigger
+      /// returns a generic NotAuthorizedException.
+      ///
+      /// We display a more helpful message instead, and route the user back to signin.
+      _exceptionController.add(const AuthenticatorException(
+        'The value provised was incorrect. You cannot be signed in. Please try again.',
+        showBanner: true,
+      ));
+      yield* _changeScreen(initialStep);
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
@@ -272,7 +284,9 @@ class StateMachineBloc {
           yield UnauthenticatedState.confirmSignInMfa;
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
-          _exceptionController.add(const AuthenticatorException.customAuth());
+          yield ConfirmSignInCustom(
+              publicChallengeParams:
+                  result.nextStep?.additionalInfo ?? <dynamic, dynamic>{});
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
           yield UnauthenticatedState.confirmSignInNewPassword;

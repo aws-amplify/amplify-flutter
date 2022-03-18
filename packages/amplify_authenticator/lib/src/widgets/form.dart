@@ -503,6 +503,29 @@ class ConfirmSignUpForm extends AuthenticatorForm {
 /// {@template amplify_authenticator.confirm_sign_in_mfa_form}
 /// A prebuilt form for completing the sign in process with an MFA code.
 /// {@endtemplate}
+class ConfirmSignInCustomAuthForm extends AuthenticatorForm {
+  /// {@macro amplify_authenticator.confirm_sign_in_mfa_form}
+  ConfirmSignInCustomAuthForm({Key? key})
+      : super._(
+          key: key,
+          fields: [
+            ConfirmSignInFormField.authChallengeAnswer(),
+          ],
+          actions: const [
+            ConfirmSignCustomAuthButton(),
+            BackToSignInButton(),
+          ],
+        );
+
+  @override
+  AuthenticatorFormState<ConfirmSignInMFAForm> createState() =>
+      AuthenticatorFormState<ConfirmSignInMFAForm>();
+}
+
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_sign_in_mfa_form}
+/// A prebuilt form for completing the sign in process with an MFA code.
+/// {@endtemplate}
 class ConfirmSignInMFAForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_sign_in_mfa_form}
   ConfirmSignInMFAForm({Key? key})

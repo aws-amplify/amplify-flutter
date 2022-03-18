@@ -38,6 +38,11 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
     return AuthenticatorLocalizations.titlesOf(context).confirmSignUp;
   }
 
+  /// The title for the confirm sign in (custom auth) Widget.
+  String confirmSignInCustomAuth(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).confirmSignInCustomAuth;
+  }
+
   /// The title for the confirm sign in (MFA) Widget.
   String confirmSignInMfa(BuildContext context) {
     return AuthenticatorLocalizations.titlesOf(context).confirmSignInMfa;
@@ -74,6 +79,8 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
         return signUp(context);
       case AuthenticatorStep.confirmSignUp:
         return confirmSignUp(context);
+      case AuthenticatorStep.confirmSignInCustomAuth:
+        return confirmSignInCustomAuth(context);
       case AuthenticatorStep.confirmSignInMfa:
         return confirmSignInMfa(context);
       case AuthenticatorStep.confirmSignInNewPassword:

@@ -44,6 +44,14 @@ class AuthenticatorState extends ChangeNotifier {
         _resetAttributes();
       }
     });
+
+    /// ConfirmSignInCustom can happen sequentially
+    _authBloc.stream.listen((event) {
+      if (event is ConfirmSignInCustom) {
+        _publicChallengeParams.clear();
+        publicChallengeParams = event.publicChallengeParams;
+      }
+    });
   }
 
   GlobalKey<FormState> _formKey = GlobalKey();
@@ -128,6 +136,30 @@ class AuthenticatorState extends ChangeNotifier {
   }
 
   String _confirmationCode = '';
+
+  String get authChallenge => _authChallenge;
+
+  /// The value for the custom auth flow form field
+  ///
+  /// This value will be used during confirm sign in for custom auth flows
+  set authChallenge(String value) {
+    _authChallenge = value;
+    notifyListeners();
+  }
+
+  String _authChallenge = '';
+
+  Map<dynamic, dynamic> get publicChallengeParams => _publicChallengeParams;
+
+  /// The values returned from the CreateAuthChallenge lambda's publicChallengeParameters
+  ///
+  /// This value will be used during cutom auth flows
+  set publicChallengeParams(Map<dynamic, dynamic> value) {
+    _publicChallengeParams = value;
+    notifyListeners();
+  }
+
+  Map<dynamic, dynamic> _publicChallengeParams = <dynamic, dynamic>{};
 
   /// The value for the new password form field
   ///
@@ -260,6 +292,23 @@ class AuthenticatorState extends ChangeNotifier {
   set attributeKeyToVerify(CognitoUserAttributeKey attributeKey) {
     _attributeKeyToVerify = attributeKey;
     notifyListeners();
+  }
+
+  /// Complete custom auth form using the values for [confirmationCode],
+  /// [rememberDevice], and any user attributes.
+  Future<void> confirmSignInCustomAuth() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    _setIsBusy(true);
+    var confirm = AuthConfirmSignInData(
+      confirmationValue: _authChallenge.trim(),
+      attributes: _authAttributes,
+    );
+
+    _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
+    await nextBlocEvent();
+    _setIsBusy(false);
   }
 
   /// Complete MFA using the values for [confirmationCode],
@@ -472,6 +521,10 @@ class AuthenticatorState extends ChangeNotifier {
 
   void _resetFormKey() {
     _formKey = GlobalKey<FormState>();
+  }
+
+  void abortSignIn() {
+    _authBloc.add(const AuthSignOut());
   }
 
   void resetCode() {

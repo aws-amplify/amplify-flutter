@@ -73,6 +73,34 @@ abstract class ConfirmSignInFormField<FieldValue>
         validator: validator,
       );
 
+  /// Creates an auth answer component.
+  static ConfirmSignInFormField authChallengeAnswer({
+    Key? key,
+    FormFieldValidator<String>? validator,
+  }) =>
+      _ConfirmSignInTextField(
+        key: key ?? keyCodeConfirmSignInFormField,
+        titleKey: InputResolverKey.authChallengeTitle,
+        hintTextKey: InputResolverKey.authChallengeHint,
+        field: ConfirmSignInField.authChallenge,
+        validator: validator,
+      );
+
+  /// Creates a custom auth answer component.
+  static ConfirmSignInFormField customAuthChallengeAnswer({
+    Key? key,
+    required String title,
+    required String hintText,
+    FormFieldValidator<String>? validator,
+  }) =>
+      _ConfirmSignInTextField(
+        key: key ?? keyCodeConfirmSignInFormField,
+        title: title,
+        hintText: hintText,
+        field: ConfirmSignInField.authChallenge,
+        validator: validator,
+      );
+
   /// Creates a verification code component.
   static ConfirmSignInFormField verificationCode({
     Key? key,
@@ -281,6 +309,7 @@ abstract class ConfirmSignInFormField<FieldValue>
       case ConfirmSignInField.confirmNewPassword:
         return 99;
       case ConfirmSignInField.code:
+      case ConfirmSignInField.authChallenge:
         return 10;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -304,6 +333,7 @@ abstract class ConfirmSignInFormField<FieldValue>
       case ConfirmSignInField.code:
       case ConfirmSignInField.newPassword:
       case ConfirmSignInField.confirmNewPassword:
+      case ConfirmSignInField.authChallenge:
         return true;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -510,6 +540,8 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
     switch (widget.field) {
       case ConfirmSignInField.code:
         return (v) => state.confirmationCode = v;
+      case ConfirmSignInField.authChallenge:
+        return (v) => state.authChallenge = v;
       case ConfirmSignInField.newPassword:
         return (v) => state.newPassword = v;
       case ConfirmSignInField.confirmNewPassword:

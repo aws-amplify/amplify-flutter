@@ -126,7 +126,7 @@ class AuthenticatorInputLocalizationsEn
   }
 
   @override
-  String passwordRequirementsAtLeast(int numCharacters, String characterType) {
+  String passwordRequirementsAtLeast(num numCharacters, String characterType) {
     final String pluralString = intl.Intl.pluralLogic(
       numCharacters,
       locale: localeName,
@@ -150,4 +150,7 @@ class AuthenticatorInputLocalizationsEn
   String optional(String fieldTitle) {
     return '$fieldTitle (optional)';
   }
+
+  @override
+  String get customAuthChallenge => throw UnimplementedError();
 }
