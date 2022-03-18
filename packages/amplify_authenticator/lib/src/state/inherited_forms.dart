@@ -23,11 +23,11 @@ class InheritedForms extends InheritedWidget {
     required this.signInForm,
     required this.signUpForm,
     required this.confirmSignUpForm,
+    required this.confirmSignInCustomAuthForm,
     required this.confirmSignInMFAForm,
     required this.resetPasswordForm,
     required this.confirmResetPasswordForm,
     required this.confirmSignInNewPasswordForm,
-    required this.confirmSignInCustomAuthForm,
     required this.verifyUserForm,
     required this.confirmVerifyUserForm,
     required Widget child,
@@ -36,8 +36,8 @@ class InheritedForms extends InheritedWidget {
   final SignInForm signInForm;
   final SignUpForm signUpForm;
   final ConfirmSignUpForm confirmSignUpForm;
-  final ConfirmSignInMFAForm confirmSignInMFAForm;
   final ConfirmSignInCustomAuthForm confirmSignInCustomAuthForm;
+  final ConfirmSignInMFAForm confirmSignInMFAForm;
   final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
   final ResetPasswordForm resetPasswordForm;
   final ConfirmResetPasswordForm confirmResetPasswordForm;
@@ -93,6 +93,7 @@ class InheritedForms extends InheritedWidget {
         oldWidget.signUpForm != signUpForm ||
         oldWidget.confirmSignUpForm != confirmSignUpForm ||
         oldWidget.confirmSignInMFAForm != confirmSignInMFAForm ||
+        oldWidget.confirmSignInCustomAuthForm != confirmSignInCustomAuthForm ||
         oldWidget.resetPasswordForm != resetPasswordForm ||
         oldWidget.confirmResetPasswordForm != confirmResetPasswordForm ||
         oldWidget.confirmSignInNewPasswordForm !=

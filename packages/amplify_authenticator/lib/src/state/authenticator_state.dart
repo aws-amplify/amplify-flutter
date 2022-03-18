@@ -45,11 +45,10 @@ class AuthenticatorState extends ChangeNotifier {
       }
     });
 
-    /// ConfirmSignInCustom can happen sequentially
     _authBloc.stream.listen((event) {
+      _resetFormKey();
       if (event is ConfirmSignInCustom) {
-        _publicChallengeParams.clear();
-        publicChallengeParams = event.publicChallengeParams;
+        publicChallengeParams = event.publicParameters;
       }
     });
   }
@@ -137,28 +136,29 @@ class AuthenticatorState extends ChangeNotifier {
 
   String _confirmationCode = '';
 
-  String get authChallenge => _authChallenge;
+  String get customChallengeAnswer => _customChallengeAnswer;
 
-  /// The value for the custom auth flow form field
+  /// The value for the custom challenge form field
   ///
-  /// This value will be used during confirm sign in for custom auth flows
-  set authChallenge(String value) {
-    _authChallenge = value;
+  /// This value will be used during the custom auth challenge flow
+  set customChallengeAnswer(String value) {
+    _customChallengeAnswer = value;
     notifyListeners();
   }
 
-  String _authChallenge = '';
+  String _customChallengeAnswer = '';
 
-  Map<dynamic, dynamic> get publicChallengeParams => _publicChallengeParams;
-
-  /// The values returned from the CreateAuthChallenge lambda's publicChallengeParameters
+  /// The publicChallengeParameters received from the CreateAuthChallenge lambda during custom auth
   ///
-  /// This value will be used during cutom auth flows
+  /// This value will be used during the custom auth challenge flow
   set publicChallengeParams(Map<dynamic, dynamic> value) {
     _publicChallengeParams = value;
     notifyListeners();
   }
 
+  Map<dynamic, dynamic> get publicChallengeParams => _publicChallengeParams;
+
+  /// Public setter not needed, as _publicChallengeParams will only be set in current scope
   Map<dynamic, dynamic> _publicChallengeParams = <dynamic, dynamic>{};
 
   /// The value for the new password form field
@@ -302,7 +302,7 @@ class AuthenticatorState extends ChangeNotifier {
     }
     _setIsBusy(true);
     var confirm = AuthConfirmSignInData(
-      confirmationValue: _authChallenge.trim(),
+      confirmationValue: _customChallengeAnswer.trim(),
       attributes: _authAttributes,
     );
 
@@ -321,6 +321,23 @@ class AuthenticatorState extends ChangeNotifier {
     var confirm = AuthConfirmSignInData(
       confirmationValue: _confirmationCode.trim(),
       attributes: authAttributes,
+    );
+
+    _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
+    await nextBlocEvent();
+    _setIsBusy(false);
+  }
+
+  /// Complete Custom Challenge using the values for [confirmationValue],
+  /// [rememberDevice], and any user attributes.
+  Future<void> confirmSignInCustom() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    _setIsBusy(true);
+    var confirm = AuthConfirmSignInData(
+      confirmationValue: _customChallengeAnswer.trim(),
+      attributes: _authAttributes,
     );
 
     _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
@@ -510,21 +527,25 @@ class AuthenticatorState extends ChangeNotifier {
     _resetAttributes();
   }
 
+  /// Reset the authentication flow if initiated
+  void abortSignIn() {
+    _resetAttributes();
+    _authBloc.add(const AuthSignOut());
+  }
+
   void _resetAttributes() {
     _username = '';
     _password = '';
     _passwordConfirmation = '';
     _confirmationCode = '';
     _newPassword = '';
-    authAttributes.clear();
+    _authAttributes.clear();
+    _publicChallengeParams.clear();
+    _customChallengeAnswer = '';
   }
 
   void _resetFormKey() {
     _formKey = GlobalKey<FormState>();
-  }
-
-  void abortSignIn() {
-    _authBloc.add(const AuthSignOut());
   }
 
   void resetCode() {

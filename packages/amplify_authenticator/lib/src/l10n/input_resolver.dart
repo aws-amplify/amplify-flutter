@@ -404,6 +404,8 @@ class InputResolver extends Resolver<InputResolverKey> {
             .confirmAttribute(attributeName);
       case InputField.verificationCode:
         return AuthenticatorLocalizations.inputsOf(context).verificationCode;
+      case InputField.customChallenge:
+        return AuthenticatorLocalizations.inputsOf(context).customChallenge;
       case InputField.address:
         return AuthenticatorLocalizations.inputsOf(context).address;
       case InputField.birthdate:
@@ -442,8 +444,6 @@ class InputResolver extends Resolver<InputResolverKey> {
         return AuthenticatorLocalizations.inputsOf(context).rememberDevice;
       case InputField.usernameType:
         return AuthenticatorLocalizations.inputsOf(context).usernameType;
-      case InputField.customChallenge:
-        return AuthenticatorLocalizations.inputsOf(context).customAuthChallenge;
     }
   }
 

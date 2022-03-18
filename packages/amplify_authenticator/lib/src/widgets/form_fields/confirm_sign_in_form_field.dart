@@ -82,7 +82,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         key: key ?? keyCodeConfirmSignInFormField,
         titleKey: InputResolverKey.authChallengeTitle,
         hintTextKey: InputResolverKey.authChallengeHint,
-        field: ConfirmSignInField.authChallenge,
+        field: ConfirmSignInField.customChallenge,
         validator: validator,
       );
 
@@ -97,7 +97,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         key: key ?? keyCodeConfirmSignInFormField,
         title: title,
         hintText: hintText,
-        field: ConfirmSignInField.authChallenge,
+        field: ConfirmSignInField.customChallenge,
         validator: validator,
       );
 
@@ -111,6 +111,34 @@ abstract class ConfirmSignInFormField<FieldValue>
         titleKey: InputResolverKey.verificationCodeTitle,
         hintTextKey: InputResolverKey.verificationCodeHint,
         field: ConfirmSignInField.code,
+        validator: validator,
+      );
+
+  /// Creates a custom challenge field component.
+  static ConfirmSignInFormField authChallengeCustom({
+    Key? key,
+    required String title,
+    required String hintText,
+    FormFieldValidator<String>? validator,
+  }) =>
+      _ConfirmSignInTextField(
+        key: key ?? keyCustomChallengeConfirmSignInFormField,
+        title: title,
+        hintText: hintText,
+        field: ConfirmSignInField.customChallenge,
+        validator: validator,
+      );
+
+  /// Creates a custom challenge field component.
+  static ConfirmSignInFormField authChallenge({
+    Key? key,
+    FormFieldValidator<String>? validator,
+  }) =>
+      _ConfirmSignInTextField(
+        key: key ?? keyCustomChallengeConfirmSignInFormField,
+        titleKey: InputResolverKey.authChallengeTitle,
+        hintTextKey: InputResolverKey.authChallengeHint,
+        field: ConfirmSignInField.customChallenge,
         validator: validator,
       );
 
@@ -309,7 +337,7 @@ abstract class ConfirmSignInFormField<FieldValue>
       case ConfirmSignInField.confirmNewPassword:
         return 99;
       case ConfirmSignInField.code:
-      case ConfirmSignInField.authChallenge:
+      case ConfirmSignInField.customChallenge:
         return 10;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -331,9 +359,9 @@ abstract class ConfirmSignInFormField<FieldValue>
   bool get required {
     switch (field) {
       case ConfirmSignInField.code:
+      case ConfirmSignInField.customChallenge:
       case ConfirmSignInField.newPassword:
       case ConfirmSignInField.confirmNewPassword:
-      case ConfirmSignInField.authChallenge:
         return true;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -540,8 +568,8 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
     switch (widget.field) {
       case ConfirmSignInField.code:
         return (v) => state.confirmationCode = v;
-      case ConfirmSignInField.authChallenge:
-        return (v) => state.authChallenge = v;
+      case ConfirmSignInField.customChallenge:
+        return (v) => state.customChallengeAnswer = v;
       case ConfirmSignInField.newPassword:
         return (v) => state.newPassword = v;
       case ConfirmSignInField.confirmNewPassword:

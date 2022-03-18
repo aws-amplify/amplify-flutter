@@ -90,12 +90,12 @@ class CustomConfirmSignInView extends StatelessWidget {
 
                 // custom challenge field
                 if (state.publicChallengeParams.isNotEmpty)
-                  ConfirmSignInFormField.customAuthChallengeAnswer(
+                  ConfirmSignInFormField.authChallengeCustom(
                       title: state.publicChallengeParams['fieldTitle'],
                       hintText: state.publicChallengeParams['fieldHint']),
 
                 // prebuilt sign up button from amplify_authenticator package
-                const ConfirmSignCustomAuthButton(),
+                const ConfirmSignInCustomButton(),
 
                 const SizedBox(height: 16),
                 const Divider(),

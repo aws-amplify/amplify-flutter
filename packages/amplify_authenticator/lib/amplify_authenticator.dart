@@ -61,7 +61,7 @@ export 'src/widgets/button.dart'
         SignUpButton,
         SignInButton,
         ConfirmSignUpButton,
-        ConfirmSignCustomAuthButton,
+        ConfirmSignInCustomButton,
         ConfirmSignInMFAButton,
         SignOutButton,
         BackToSignInButton,

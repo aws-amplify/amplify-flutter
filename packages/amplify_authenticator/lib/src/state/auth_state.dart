@@ -77,8 +77,9 @@ class VerifyUserFlow extends UnauthenticatedState {
 }
 
 class ConfirmSignInCustom extends UnauthenticatedState {
-  final Map<dynamic, dynamic> publicChallengeParams;
+  final Map<dynamic, dynamic> publicParameters;
 
-  const ConfirmSignInCustom({required this.publicChallengeParams})
+  const ConfirmSignInCustom(
+      {this.publicParameters = const <dynamic, dynamic>{}})
       : super(step: AuthenticatorStep.confirmSignInCustomAuth);
 }

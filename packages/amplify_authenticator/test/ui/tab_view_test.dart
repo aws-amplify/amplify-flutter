@@ -54,6 +54,7 @@ void main() {
                 signInForm: SignInForm(),
                 signUpForm: SignUpForm(),
                 confirmSignUpForm: ConfirmSignUpForm(),
+                confirmSignInCustomAuthForm: ConfirmSignInCustomAuthForm(),
                 confirmSignInMFAForm: ConfirmSignInMFAForm(),
                 confirmSignInNewPasswordForm: ConfirmSignInNewPasswordForm(),
                 resetPasswordForm: ResetPasswordForm(),

@@ -1,6 +1,8 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_example/customization/authenticator_with_custom_auth_flow.dart';
+import 'package:amplify_authenticator_example/customization/authenticator_with_custom_layout.dart';
+import 'package:amplify_authenticator_example/customization/authenticator_with_onboarding.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_button_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_country_resolver.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -192,7 +194,8 @@ class _MyAppState extends State<MyApp> {
   //   return const AuthenticatorWithOnboarding();
   // }
 
-  // Below is yet another example of a custom authenticator, with a custom auth flow
+  // Below is yet another example of a custom authenticator, with custom auth flow widget
+
   @override
   Widget build(BuildContext context) {
     return const AuthenticatorWithCustomAuthFlow();

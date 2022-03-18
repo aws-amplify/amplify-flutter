@@ -197,5 +197,10 @@
                 "example": "Family Name"
             }
         }
+    },
+    "customChallenge": "Confirmation Code",
+    "@customChallenge": {
+        "description": "The answer to the custom auth challenge",
+        "example": "123456"
     }
 }

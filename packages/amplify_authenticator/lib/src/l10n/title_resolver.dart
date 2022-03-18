@@ -83,6 +83,8 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
         return confirmSignInCustomAuth(context);
       case AuthenticatorStep.confirmSignInMfa:
         return confirmSignInMfa(context);
+      case AuthenticatorStep.confirmSignInCustomAuth:
+        return confirmSignInCustomAuth(context);
       case AuthenticatorStep.confirmSignInNewPassword:
         return confirmSignInNewPassword(context);
       case AuthenticatorStep.resetPassword:

@@ -172,7 +172,7 @@ class StateMachineBloc {
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
           yield ConfirmSignInCustom(
-              publicChallengeParams:
+              publicParameters:
                   result.nextStep?.additionalInfo ?? <dynamic, dynamic>{});
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
@@ -285,7 +285,7 @@ class StateMachineBloc {
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
           yield ConfirmSignInCustom(
-              publicChallengeParams:
+              publicParameters:
                   result.nextStep?.additionalInfo ?? <dynamic, dynamic>{});
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
