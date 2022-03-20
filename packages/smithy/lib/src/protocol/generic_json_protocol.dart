@@ -99,7 +99,7 @@ class GenericJsonProtocol<InputPayload, Input, OutputPayload, Output>
 
   @override
   late final JsonSerializer wireSerializer =
-      JsonSerializer(serializers, EmptyPayloadType.empty);
+      JsonSerializer(serializers, EmptyPayloadType.object);
 
   @override
   Future<String?> resolveErrorType(AWSStreamedHttpResponse response) async =>
