@@ -10,6 +10,8 @@ environment:
   flutter: ">=2.2.0"
 
 dependencies:
+  flutter:
+    sdk: flutter
   amplify_analytics_pinpoint_ios:
     # When depending on this package from a real application you should use:
     #   amplify_analytics_pinpoint: ^x.y.z
