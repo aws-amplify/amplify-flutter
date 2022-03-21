@@ -158,6 +158,95 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
   }
 }
 
+class _$HttpResponse extends HttpResponse {
+  @override
+  final BuiltMap<String, String> headers;
+
+  factory _$HttpResponse([void Function(HttpResponseBuilder)? updates]) =>
+      (new HttpResponseBuilder()..update(updates)).build();
+
+  _$HttpResponse._({required this.headers}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(headers, 'HttpResponse', 'headers');
+  }
+
+  @override
+  HttpResponse rebuild(void Function(HttpResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  HttpResponseBuilder toBuilder() => new HttpResponseBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is HttpResponse && headers == other.headers;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, headers.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('HttpResponse')
+          ..add('headers', headers))
+        .toString();
+  }
+}
+
+class HttpResponseBuilder
+    implements Builder<HttpResponse, HttpResponseBuilder> {
+  _$HttpResponse? _$v;
+
+  MapBuilder<String, String>? _headers;
+  MapBuilder<String, String> get headers =>
+      _$this._headers ??= new MapBuilder<String, String>();
+  set headers(MapBuilder<String, String>? headers) => _$this._headers = headers;
+
+  HttpResponseBuilder();
+
+  HttpResponseBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _headers = $v.headers.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(HttpResponse other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$HttpResponse;
+  }
+
+  @override
+  void update(void Function(HttpResponseBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$HttpResponse build() {
+    _$HttpResponse _$result;
+    try {
+      _$result = _$v ?? new _$HttpResponse._(headers: headers.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'headers';
+        headers.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'HttpResponse', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$HttpRequestContext extends HttpRequestContext {
   @override
   final String? awsSigningService;

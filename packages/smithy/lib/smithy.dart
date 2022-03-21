@@ -1,5 +1,4 @@
 /// Smithy client runtime for Dart.
-
 library smithy;
 
 // AST types
@@ -28,6 +27,7 @@ export 'src/http/http_client.dart';
 export 'src/http/http_operation.dart';
 export 'src/http/http_protocol.dart';
 export 'src/http/http_request.dart';
+export 'src/http/http_server.dart';
 export 'src/http/interceptors/interceptor.dart';
 export 'src/http/interceptors/checksum.dart';
 

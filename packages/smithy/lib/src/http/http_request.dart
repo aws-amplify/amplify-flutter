@@ -62,6 +62,16 @@ abstract class HttpRequest implements Built<HttpRequest, HttpRequestBuilder> {
   BuiltListMultimap<String, String> get queryParameters;
 }
 
+abstract class HttpResponse
+    implements Built<HttpResponse, HttpResponseBuilder> {
+  factory HttpResponse([void Function(HttpResponseBuilder) updates]) =
+      _$HttpResponse;
+  HttpResponse._();
+
+  /// The HTTP headers.
+  BuiltMap<String, String> get headers;
+}
+
 /// Context for interceptors when building an HTTP request. Values can be
 /// updated by interceptors and used to communicate information to downstream
 /// interceptors, without storing all of this on the request itself.

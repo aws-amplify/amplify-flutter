@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:http/http.dart' as http;
+import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
 /// A protocol for sending requests over HTTP.
+@optionalTypeArgs
 abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
     implements Protocol<Input, Output, Stream<List<int>>> {
   const HttpProtocol();
@@ -50,10 +52,11 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
     } else if (payload is Stream<List<int>>) {
       return payload;
     } else {
+      specifiedType ??= FullType(Input, [FullType(InputPayload)]);
       return Stream.fromFuture(() async {
         return await wireSerializer.serialize(
           input,
-          specifiedType: FullType(Input, [FullType(InputPayload)]),
+          specifiedType: specifiedType,
         );
       }());
     }
