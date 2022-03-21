@@ -8,34 +8,18 @@ environment:
   flutter: ">=2.2.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
   amplify_flutter_ios:
     path: ../
-
   cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^1.0.0
-  amplify_analytics_pinpoint:
-    path: ../../../analytics/amplify_analytics_pinpoint
-  amplify_api:
-    path: ../../../amplify_api
-  amplify_auth_cognito:
-    path: ../../../auth/amplify_auth_cognito
-  amplify_datastore:
-    path: ../../../amplify_datastore
-  amplify_datastore_plugin_interface:
-    path: ../../../amplify_datastore_plugin_interface
-  amplify_flutter:
-    path: ../../amplify_flutter
   amplify_lints: ^1.0.0
-  amplify_storage_s3:
-    path: ../../../amplify_storage_s3
   amplify_test:
     path: ../../../amplify_test
+  flutter_test:
+    sdk: flutter
   integration_test:
     sdk: flutter
 

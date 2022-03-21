@@ -13,24 +13,16 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +32,10 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: const Center(
-          child: Text(
-              'This application serves as a test bed for the Android implementation of the amplify_flutter method channel. Please see the example app in the main amplify_flutter repository for a functional example app.'),
+          child: Text('''This application serves as a test bed for the Android 
+              implementation of the amplify_flutter method channel. Please see 
+              the example app in the main amplify_flutter repository for a 
+              functional example app.'''),
         ),
       ),
     );
