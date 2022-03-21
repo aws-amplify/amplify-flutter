@@ -31,6 +31,15 @@ enum HttpMethod {
 
   /// HTTP DELETE
   delete,
+
+  /// HTTP CONNECT
+  connect,
+
+  /// HTTP OPTIONS
+  options,
+
+  /// HTTP TRACE
+  trace,
 }
 
 /// Helpers for [HttpMethod].
