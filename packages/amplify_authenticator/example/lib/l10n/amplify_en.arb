@@ -1,7 +1,7 @@
 {
     "@@locale": "en",
     "@@context": "amplify_authenticator:buttons",
-    "signIn": "Sign In",
+    "signIn": "Log In",
     "@signIn": {
         "description": "Label of the button to sign in the user."
     },
@@ -87,7 +87,7 @@
     "@selectDialCode": {
         "description": "Label of the dial code selector modal"
     },
-    "confirmSignInCustomAuth": "Custom Form Title",
+    "confirmSignInCustomAuth": "Custom Login Challenge",
     "@confirmSignInCustomAuth": {
         "description": "Label of the custom auth confirm sign in form"
     }

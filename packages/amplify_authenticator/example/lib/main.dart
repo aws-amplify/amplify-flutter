@@ -5,6 +5,8 @@ import 'package:amplify_authenticator_example/customization/authenticator_with_c
 import 'package:amplify_authenticator_example/customization/authenticator_with_onboarding.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_button_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_country_resolver.dart';
+import 'package:amplify_authenticator_example/resolvers/localized_input_resolver.dart';
+import 'package:amplify_authenticator_example/resolvers/localized_title_resolver.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -72,7 +74,8 @@ class _MyAppState extends State<MyApp> {
     const stringResolver = AuthStringResolver(
       buttons: LocalizedButtonResolver(),
       countries: LocalizedCountryResolver(),
-      titles: TitleResolver(),
+      titles: LocalizedTitleResolver(),
+      inputs: LocalizedInputResolver(),
     );
 
     // We wrap our MaterialApp in an Authenticator component. This component
