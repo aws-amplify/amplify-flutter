@@ -437,7 +437,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
                 deliveryMedium: codeDeliveryDetails["deliveryMedium"],
                 destination: codeDeliveryDetails["destination"])
             : null,
-        additionalInfo: additionalInfo ?? <dynamic, dynamic>{},
+        additionalInfo: additionalInfo ?? null,
       ),
     );
   }
