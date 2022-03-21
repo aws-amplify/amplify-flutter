@@ -1,16 +1,24 @@
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
 
-// A custom authenticator widget with a custom layout
+// A custom authenticator widget which enables the Custom Auth Flow for Amazon Cognito
+// More information can be found (here)[https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-challenge.html]
 //
-// This authenticator provides custom views for Sign In and Sign Up,
+// This authenticator provides custom views for Sign In and Confirm Sign In,
 // but falls back on the standard views for all other states
 //
-// The custom views for sign up & sign in add an app logo and change the
-// navigation from a TabBar to buttons at the bottom of the screen
+// The custom confirmSignIn form assumes that the CreateAuthChallenge Lambda returns two values
+// as part of the publicChallengeParameters object in the event.response:
+//
+//      event.response.publicChallengeParameters = {};
+//      event.response.publicChallengeParameters.fieldTitle = 'Enter the secret code.'
+//      event.response.publicChallengeParameters.fieldHint =  'Check your email for the code we sent you.'
+//
+// [fieldTitle] is displayed in the input field's title.
+// [fieldHint] is displayed in the input field's hint.
+
 class AuthenticatorWithCustomAuthFlow extends StatelessWidget {
   const AuthenticatorWithCustomAuthFlow({Key? key}) : super(key: key);
 
@@ -89,14 +97,12 @@ class CustomConfirmSignInView extends StatelessWidget {
                 const Center(child: FlutterLogo(size: 100)),
 
                 // custom challenge field
-                if (state.publicChallengeParams.isNotEmpty)
-                  ConfirmSignInFormField.authChallengeCustom(
-                      title: state.publicChallengeParams['fieldTitle'],
-                      hintText: state.publicChallengeParams['fieldHint']),
+                ConfirmSignInFormField.authChallengeCustom(
+                    title: state.publicChallengeParams['fieldTitle'],
+                    hintText: state.publicChallengeParams['fieldHint']),
 
                 // prebuilt sign up button from amplify_authenticator package
                 const ConfirmSignInCustomButton(),
-
                 const SizedBox(height: 16),
                 const Divider(),
 
@@ -165,6 +171,7 @@ class NavigateToSignInButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextButton(
+          // abort sign in is called to make sure that the current auth flow is cancelled.
           onPressed: state.abortSignIn,
           child: const Text('Cancel Sign In'),
         ),

@@ -212,7 +212,7 @@ class ConfirmSignUpButton extends AuthenticatorElevatedButton {
 ///
 /// Uses [ButtonResolverKey.confirm] for localization
 /// {@endtemplate}
-class ConfirmSignInCustomButton extends AuthenticatorElevatedButton {
+class ConfirmSignInCustomButton extends ConfirmSignInMFAButton {
   /// {@macro amplify_authenticator.confirm_sign_in_mfa_button}
   const ConfirmSignInCustomButton({Key? key})
       : super(

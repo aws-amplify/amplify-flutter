@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-
 import 'country_localizations.dart';
 
 /// The translations for English (`en`).

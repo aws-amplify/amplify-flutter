@@ -47,7 +47,7 @@ enum AuthenticatorStep {
   /// an unconfirmed state.
   confirmSignUp,
 
-  /// The user is on the Confirm Sign In with Custom Auth step.
+  /// The user is on the Confirm Sign In (Custom Auth) step.
   ///
   /// The user has performed the initial step of the sign in process,
   /// and should be presented with a form to enter a response to a custom auth challenge.

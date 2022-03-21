@@ -24,8 +24,8 @@ struct FlutterSignInRequest {
   var password: String?
   var options: AuthSignInOperation.Request.Options?
   init(dict: NSMutableDictionary){
-    self.username = dict["username"] as! String?
-    self.password = dict["password"] as! String?
+    self.username = dict["username"] as? String
+    self.password = dict["password"] as? String
     self.options = formatOptions(options: dict["options"] as! Dictionary<String, Any>?)
   }
     

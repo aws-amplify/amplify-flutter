@@ -136,18 +136,6 @@ class AuthenticatorState extends ChangeNotifier {
 
   String _confirmationCode = '';
 
-  String get customChallengeAnswer => _customChallengeAnswer;
-
-  /// The value for the custom challenge form field
-  ///
-  /// This value will be used during the custom auth challenge flow
-  set customChallengeAnswer(String value) {
-    _customChallengeAnswer = value;
-    notifyListeners();
-  }
-
-  String _customChallengeAnswer = '';
-
   /// The publicChallengeParameters received from the CreateAuthChallenge lambda during custom auth
   ///
   /// This value will be used during the custom auth challenge flow
@@ -302,7 +290,7 @@ class AuthenticatorState extends ChangeNotifier {
     }
     _setIsBusy(true);
     var confirm = AuthConfirmSignInData(
-      confirmationValue: _customChallengeAnswer.trim(),
+      confirmationValue: _confirmationCode.trim(),
       attributes: _authAttributes,
     );
 
@@ -336,7 +324,7 @@ class AuthenticatorState extends ChangeNotifier {
     }
     _setIsBusy(true);
     var confirm = AuthConfirmSignInData(
-      confirmationValue: _customChallengeAnswer.trim(),
+      confirmationValue: _confirmationCode.trim(),
       attributes: _authAttributes,
     );
 
@@ -541,7 +529,6 @@ class AuthenticatorState extends ChangeNotifier {
     _newPassword = '';
     _authAttributes.clear();
     _publicChallengeParams.clear();
-    _customChallengeAnswer = '';
   }
 
   void _resetFormKey() {

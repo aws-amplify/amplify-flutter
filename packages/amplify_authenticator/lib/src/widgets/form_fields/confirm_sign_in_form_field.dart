@@ -80,23 +80,8 @@ abstract class ConfirmSignInFormField<FieldValue>
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyCodeConfirmSignInFormField,
-        titleKey: InputResolverKey.authChallengeTitle,
-        hintTextKey: InputResolverKey.authChallengeHint,
-        field: ConfirmSignInField.customChallenge,
-        validator: validator,
-      );
-
-  /// Creates a custom auth answer component.
-  static ConfirmSignInFormField customAuthChallengeAnswer({
-    Key? key,
-    required String title,
-    required String hintText,
-    FormFieldValidator<String>? validator,
-  }) =>
-      _ConfirmSignInTextField(
-        key: key ?? keyCodeConfirmSignInFormField,
-        title: title,
-        hintText: hintText,
+        titleKey: InputResolverKey.customAuthChallengeTitle,
+        hintTextKey: InputResolverKey.customAuthChallengeHint,
         field: ConfirmSignInField.customChallenge,
         validator: validator,
       );
@@ -114,7 +99,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         validator: validator,
       );
 
-  /// Creates a custom challenge field component.
+  /// Creates a customizable field for custom auth challenge answers
   static ConfirmSignInFormField authChallengeCustom({
     Key? key,
     required String title,
@@ -129,15 +114,15 @@ abstract class ConfirmSignInFormField<FieldValue>
         validator: validator,
       );
 
-  /// Creates a custom challenge field component.
-  static ConfirmSignInFormField authChallenge({
+  /// Creates a default field for custom auth challenge answers.
+  static ConfirmSignInFormField authChallengeDefault({
     Key? key,
     FormFieldValidator<String>? validator,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyCustomChallengeConfirmSignInFormField,
-        titleKey: InputResolverKey.authChallengeTitle,
-        hintTextKey: InputResolverKey.authChallengeHint,
+        titleKey: InputResolverKey.customAuthChallengeTitle,
+        hintTextKey: InputResolverKey.customAuthChallengeHint,
         field: ConfirmSignInField.customChallenge,
         validator: validator,
       );
@@ -569,7 +554,7 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
       case ConfirmSignInField.code:
         return (v) => state.confirmationCode = v;
       case ConfirmSignInField.customChallenge:
-        return (v) => state.customChallengeAnswer = v;
+        return (v) => state.confirmationCode = v;
       case ConfirmSignInField.newPassword:
         return (v) => state.newPassword = v;
       case ConfirmSignInField.confirmNewPassword:

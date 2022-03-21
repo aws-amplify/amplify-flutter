@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
     return null;
   }
 
-  // @override
+  // // @override
   // Widget build(BuildContext context) {
   //   // First, we set up the custom localizations for Authenticator buttons by
   //   // creating a custom resolver which conforms to the `ButtonResolver` class
@@ -194,8 +194,7 @@ class _MyAppState extends State<MyApp> {
   //   return const AuthenticatorWithOnboarding();
   // }
 
-  // Below is yet another example of a custom authenticator, with custom auth flow widget
-
+  // Below is yet another example of a custom authenticator, with a widget to support Cognito's Custom Auth flow
   @override
   Widget build(BuildContext context) {
     return const AuthenticatorWithCustomAuthFlow();

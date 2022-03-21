@@ -73,7 +73,7 @@ void main() {
       try {
         await Amplify.Auth.signIn(username: username);
       } catch (e) {
-        expect(e, TypeMatcher<NotAuthorizedException>());
+        expect(e, isA<NotAuthorizedException>());
         return;
       }
       fail('Expected NotAuthorizedException');
