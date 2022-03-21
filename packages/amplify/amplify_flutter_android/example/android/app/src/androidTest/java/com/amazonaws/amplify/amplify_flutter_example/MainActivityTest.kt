@@ -1,4 +1,4 @@
-package com.amazonaws.amplify.amplify_flutter_example
+package com.amazonaws.amplify.amplify_flutter_android_example
 
 import androidx.test.rule.ActivityTestRule
 import dev.flutter.plugins.integration_test.FlutterTestRunner

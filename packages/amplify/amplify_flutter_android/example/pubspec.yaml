@@ -8,11 +8,14 @@ environment:
   flutter: ">=2.2.0"
 
 dependencies:
+  amplify_core:
+    path: ../../../amplify_core
   amplify_flutter_android:
     path: ../
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+
 
 dev_dependencies:
   amplify_lints: ^1.0.0
