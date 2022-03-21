@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:flutter/material.dart';
 
 class InheritedForms extends InheritedWidget {

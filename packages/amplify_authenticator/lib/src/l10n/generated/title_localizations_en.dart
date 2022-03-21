@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+
 import 'title_localizations.dart';
 
 /// The translations for English (`en`).
@@ -33,6 +34,9 @@ class AuthenticatorTitleLocalizationsEn
   String get confirmSignInMfa => 'Enter your sign in code';
 
   @override
+  String get confirmSignInCustomAuth => 'Enter your sign in code';
+
+  @override
   String get confirmSignInNewPassword => 'Change your password to sign in';
 
   @override
@@ -44,7 +48,4 @@ class AuthenticatorTitleLocalizationsEn
   @override
   String get verifyUser =>
       'Account recovery requires verified contact information';
-
-  @override
-  String get confirmSignInCustomAuth => 'Confirm Sign In';
 }

@@ -39,9 +39,6 @@ class AuthenticatorInputLocalizationsEn
   String get phoneNumber => 'Phone Number';
 
   @override
-  String get customChallenge => 'Confirmation Code';
-
-  @override
   String get verificationCode => 'Verification Code';
 
   @override
@@ -155,5 +152,5 @@ class AuthenticatorInputLocalizationsEn
   }
 
   @override
-  String get customAuthChallenge => throw UnimplementedError();
+  String get customChallenge => 'Confirmation Code';
 }

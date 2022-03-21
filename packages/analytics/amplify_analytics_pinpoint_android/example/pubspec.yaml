@@ -19,7 +19,8 @@ dependencies:
     path: ../
   amplify_core:
     path: ../../../amplify_core
-
+  flutter:
+    sdk: flutter
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter

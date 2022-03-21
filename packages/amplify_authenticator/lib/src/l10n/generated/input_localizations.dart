@@ -138,12 +138,6 @@ abstract class AuthenticatorInputLocalizations {
   /// **'Phone Number'**
   String get phoneNumber;
 
-  /// The answer to the custom auth challenge.
-  ///
-  /// In en, this message translates to:
-  /// **'Confirmation Code'**
-  String get customChallenge;
-
   /// The code sent to the user's phone number or email address for verification.
   ///
   /// In en, this message translates to:
@@ -288,6 +282,12 @@ abstract class AuthenticatorInputLocalizations {
   /// In en, this message translates to:
   /// **'{fieldTitle} (optional)'**
   String optional(String fieldTitle);
+
+  /// The answer to the custom auth challenge
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmation Code'**
+  String get customChallenge;
 }
 
 class _AuthenticatorInputLocalizationsDelegate
