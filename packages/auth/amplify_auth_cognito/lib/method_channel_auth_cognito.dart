@@ -402,18 +402,18 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     var additionalInfo = res["nextStep"]["additionalInfo"];
 
     return CognitoSignUpResult(
-        isSignUpComplete: res["isSignUpComplete"],
-        nextStep: AuthNextSignUpStep(
-            signUpStep: res["nextStep"]["signUpStep"],
-            codeDeliveryDetails: codeDeliveryDetails != null
-                ? AuthCodeDeliveryDetails(
-                    attributeName: codeDeliveryDetails["attributeName"],
-                    deliveryMedium: codeDeliveryDetails["deliveryMedium"],
-                    destination: codeDeliveryDetails["destination"])
-                : null,
-            additionalInfo: res["nextStep"]["additionalInfo"] is String
-                ? jsonDecode(res["nextStep"]["additionalInfo"])
-                : null));
+      isSignUpComplete: res["isSignUpComplete"],
+      nextStep: AuthNextSignUpStep(
+        signUpStep: res["nextStep"]["signUpStep"],
+        codeDeliveryDetails: codeDeliveryDetails != null
+            ? AuthCodeDeliveryDetails(
+                attributeName: codeDeliveryDetails["attributeName"],
+                deliveryMedium: codeDeliveryDetails["deliveryMedium"],
+                destination: codeDeliveryDetails["destination"])
+            : null,
+        additionalInfo: additionalInfo ?? null,
+      ),
+    );
   }
 
   ResendSignUpCodeResult _formatResendSignUpResponse(

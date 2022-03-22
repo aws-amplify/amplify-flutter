@@ -205,7 +205,7 @@ class StateMachineBloc {
       ///
       /// We display a more helpful message instead, and route the user back to signin.
       _exceptionController.add(const AuthenticatorException(
-        'The value provised was incorrect. You cannot be signed in. Please try again.',
+        'The value provided was incorrect. You cannot be signed in. Please try again.',
         showBanner: true,
       ));
       yield* _changeScreen(initialStep);
