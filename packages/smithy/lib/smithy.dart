@@ -41,6 +41,7 @@ export 'src/protocol/xml_serializer.dart';
 export 'src/serialization/json/smithy_json_plugin.dart';
 export 'src/serialization/serializer.dart';
 export 'src/serialization/struct.dart';
+export 'src/serialization/stream_serializer.dart';
 export 'src/serialization/json/big_int_serializer.dart';
 export 'src/serialization/json/blob_serializer.dart';
 export 'src/serialization/json/double_serializer.dart';

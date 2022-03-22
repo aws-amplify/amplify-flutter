@@ -12,7 +12,11 @@ class BlobSerializer extends PrimitiveSmithySerializer<Uint8List> {
   final String mediaType;
 
   @override
-  Iterable<Type> get types => [Uint8List, Uint8List(0).runtimeType];
+  Iterable<Type> get types => [
+        Uint8List,
+        Uint8List(0).runtimeType,
+        List<int>,
+      ];
 
   @override
   Uint8List deserialize(Serializers serializers, Object serialized,
@@ -25,9 +29,8 @@ class BlobSerializer extends PrimitiveSmithySerializer<Uint8List> {
     serialized as String;
     switch (mediaType) {
       case 'text/plain':
-        return Uint8List.fromList(utf8.encode(serialized));
       case 'application/octet-stream':
-        return Uint8List.fromList(serialized as List<int>);
+        return Uint8List.fromList(utf8.encode(serialized));
       default:
         return base64Decode(serialized);
     }
