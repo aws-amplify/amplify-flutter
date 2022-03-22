@@ -62,7 +62,7 @@ class AmplifyPluginRegistry {
   }
 
   /// The global, shared plugin registry.
-  static late final shared = AmplifyPluginRegistry._();
+  static final shared = AmplifyPluginRegistry._();
 
   final Map<String, AmplifyPluginConfigFactory> _plugins = {};
 

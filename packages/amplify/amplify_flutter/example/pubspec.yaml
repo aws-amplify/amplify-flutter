@@ -29,6 +29,8 @@ dev_dependencies:
     path: ../../../auth/amplify_auth_cognito
   amplify_datastore:
     path: ../../../amplify_datastore
+  amplify_datastore_plugin_interface:
+    path: ../../../amplify_datastore_plugin_interface
   amplify_lints: ^1.0.0
   amplify_storage_s3:
     path: ../../../storage/amplify_storage_s3
