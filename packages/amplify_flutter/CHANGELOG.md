@@ -1,3 +1,8 @@
+## 0.4.2 (2022-03-24)
+
+- chore: bump amplify-android to 1.32.1 (#1448)
+- chore: bump amplify-ios to 1.22.0 (#1468)
+
 ## 0.4.1 (2022-02-28)
 
 - fix: Export category interfaces 
