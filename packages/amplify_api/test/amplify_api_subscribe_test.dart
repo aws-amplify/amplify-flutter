@@ -33,11 +33,13 @@ void main() {
 
   /// Fires an event on the event channel from the mock platform side.
   void emitValues(ByteData? event) {
-    ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
-      eventChannel,
-      event,
-      (ByteData? reply) {},
-    );
+    _ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .handlePlatformMessage(
+          eventChannel,
+          event,
+          (ByteData? reply) {},
+        );
   }
 
   // Monitors calls to subscribe and cancel on the method channel.
@@ -73,7 +75,9 @@ void main() {
     // This is mostly a no-op in these tests, since a `subscribe` event on the
     // method channel is what initializes GraphQL subscriptions, not adding a listener
     // to the event channel.
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    _ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .setMockMessageHandler(
       eventChannel,
       (ByteData? message) async {
         final methodCall = standardCodec.decodeMethodCall(message);
@@ -443,3 +447,8 @@ void main() {
 
   group('GraphQL Subscription', runAll);
 }
+
+// TODO(dnys1): Remove when Flutter SDK version is bumped.
+/// Ambiguates [o] to be nullable to account for transitions of the Flutter
+/// API from nullable to non-null getters on some APIs.
+T? _ambiguate<T>(T o) => o;

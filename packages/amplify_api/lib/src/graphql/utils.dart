@@ -63,27 +63,35 @@ ModelSchema getModelSchemaByModelName(
     String modelName, GraphQLRequestOperation? operation) {
   final provider = AmplifyAPI.instance.getModelProvider();
   if (provider == null) {
-    throw ApiException('No modelProvider found',
-        recoverySuggestion:
-            'Pass in a modelProvider instance while instantiating APIPlugin');
+    throw const ApiException(
+      'No modelProvider found',
+      recoverySuggestion:
+          'Pass in a modelProvider instance while instantiating APIPlugin',
+    );
   }
-  final schema = (provider.modelSchemas + provider.customTypeSchemas).firstWhere(
-      (elem) => elem.name == modelName,
-      orElse: () => throw ApiException(
-          'No schema found for the ModelType provided: $modelName',
-          recoverySuggestion:
-              'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a valid ModelType'));
+  final schema = (provider.modelSchemas + provider.customTypeSchemas)
+      .firstWhere((elem) => elem.name == modelName,
+          orElse: () => throw ApiException(
+                'No schema found for the ModelType provided: $modelName',
+                recoverySuggestion:
+                    'Pass in a valid modelProvider instance while '
+                    'instantiating APIPlugin or provide a valid ModelType',
+              ));
 
   if (schema.fields == null) {
-    throw ApiException('Schema found does not have a fields property',
-        recoverySuggestion:
-            'Pass in a valid modelProvider instance while instantiating APIPlugin');
+    throw const ApiException(
+      'Schema found does not have a fields property',
+      recoverySuggestion: 'Pass in a valid modelProvider instance while '
+          'instantiating APIPlugin',
+    );
   }
 
   if (operation == GraphQLRequestOperation.list && schema.pluralName == null) {
-    throw ApiException('No schema name found',
-        recoverySuggestion:
-            'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a valid ModelType');
+    throw const ApiException(
+      'No schema name found',
+      recoverySuggestion: 'Pass in a valid modelProvider instance while '
+          'instantiating APIPlugin or provide a valid ModelType',
+    );
   }
 
   return schema;

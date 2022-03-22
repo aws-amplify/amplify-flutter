@@ -45,16 +45,19 @@ class GraphQLResponseDecoder {
         return GraphQLResponse(
             data: data as T, errors: errors); // <T> is implied
       } else {
-        throw ApiException(
-            'Decoding of the response type provided is currently unsupported',
-            recoverySuggestion: "Please provide a Model Type or type 'String'");
+        throw const ApiException(
+          'Decoding of the response type provided is currently unsupported',
+          recoverySuggestion: "Please provide a Model Type or type 'String'",
+        );
       }
     }
     // From here, it appears this is a response that must be parsed into a non-string object.
 
     if (request.decodePath == null) {
-      throw ApiException('No decodePath found',
-          recoverySuggestion: 'Include decodePath when creating a request');
+      throw const ApiException(
+        'No decodePath found',
+        recoverySuggestion: 'Include decodePath when creating a request',
+      );
     }
 
     // Even if the data string is not null, it may be a null value shallow
@@ -67,10 +70,11 @@ class GraphQLResponseDecoder {
     }
     request.decodePath!.split('.').forEach((element) {
       if (!dataJson!.containsKey(element)) {
-        throw ApiException(
-            'decodePath did not match the structure of the JSON response',
-            recoverySuggestion:
-                'Include decodePath when creating a request that includes a modelType.');
+        throw const ApiException(
+          'decodePath did not match the structure of the JSON response',
+          recoverySuggestion: 'Include decodePath when creating a request '
+              'that includes a modelType.',
+        );
       }
       dataJson = dataJson![element];
     });
