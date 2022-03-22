@@ -1,7 +1,7 @@
 {
     "@@locale": "en",
     "@@context": "amplify_authenticator:buttons",
-    "signIn": "Log In",
+    "signIn": "Sign In",
     "@signIn": {
         "description": "Label of the button to sign in the user."
     },

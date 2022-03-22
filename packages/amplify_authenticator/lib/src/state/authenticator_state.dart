@@ -45,9 +45,10 @@ class AuthenticatorState extends ChangeNotifier {
       }
     });
 
+    // Always listen for ConfirmSignInCustom events (not distinct)
     _authBloc.stream.listen((event) {
-      _resetFormKey();
       if (event is ConfirmSignInCustom) {
+        _resetFormKey();
         publicChallengeParams = event.publicParameters;
       }
     });
