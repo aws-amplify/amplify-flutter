@@ -171,20 +171,19 @@ class _VerifyAttributeFieldState
   void initState() {
     super.initState();
 
-    final _authState =
-        InheritedAuthBloc.of(context, listen: false).currentState;
-    if (_authState is! VerifyUserFlow) {
-      throw StateError('Invalid verify attribute state: $_authState');
+    final authState = InheritedAuthBloc.of(context, listen: false).currentState;
+    if (authState is! VerifyUserFlow) {
+      throw StateError('Invalid verify attribute state: $authState');
     }
-    final List<CognitoUserAttributeKey> _unverifiedKeys =
-        _authState.unverifiedAttributeKeys;
+    final List<CognitoUserAttributeKey> unverifiedKeys =
+        authState.unverifiedAttributeKeys;
     selections = [
-      if (_unverifiedKeys.contains(CognitoUserAttributeKey.email))
+      if (unverifiedKeys.contains(CognitoUserAttributeKey.email))
         const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
           label: InputResolverKey.emailTitle,
           value: CognitoUserAttributeKey.email,
         ),
-      if (_unverifiedKeys.contains(CognitoUserAttributeKey.phoneNumber))
+      if (unverifiedKeys.contains(CognitoUserAttributeKey.phoneNumber))
         const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
           label: InputResolverKey.phoneNumberTitle,
           value: CognitoUserAttributeKey.phoneNumber,

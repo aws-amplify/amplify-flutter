@@ -47,9 +47,11 @@ mixin AuthenticatorRadioField<FieldType, FieldValue,
               value: selection.value,
               groupValue: selectionValue,
               onChanged: (FieldValue? value) {
-                setState(() {
-                  _selectionValue = value!;
-                });
+                if (value != null) {
+                  setState(() {
+                    _selectionValue = value;
+                  });
+                }
                 if (selectionValue != null) onChanged(selectionValue!);
               },
               activeColor: Theme.of(context).primaryColor,

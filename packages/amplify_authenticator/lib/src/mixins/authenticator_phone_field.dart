@@ -70,6 +70,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: InkWell(
           key: keySelectCountryCode,
+          onTap: showCountryDialog,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -88,7 +89,6 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
               const SizedBox(width: 5),
             ],
           ),
-          onTap: showCountryDialog,
         ),
       );
 

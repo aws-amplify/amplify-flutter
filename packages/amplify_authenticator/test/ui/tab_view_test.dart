@@ -131,7 +131,7 @@ void main() {
 
   group('AuthenticatorTabView', () {
     setUp(() {
-      binding.window.clearPlatformBrightnessTestValue();
+      binding.platformDispatcher.clearPlatformBrightnessTestValue();
       binding.window.physicalSizeTestValue = const Size(2400, 2400);
     });
 
@@ -141,7 +141,8 @@ void main() {
       group('$configName config', () {
         group('Light Mode', () {
           setUp(() {
-            binding.window.platformBrightnessTestValue = Brightness.light;
+            binding.platformDispatcher.platformBrightnessTestValue =
+                Brightness.light;
           });
 
           // Tests the default Material theme.
@@ -191,7 +192,8 @@ void main() {
 
         group('Dark Mode', () {
           setUp(() {
-            binding.window.platformBrightnessTestValue = Brightness.dark;
+            binding.platformDispatcher.platformBrightnessTestValue =
+                Brightness.dark;
           });
 
           // Tests the default Material theme (dark mode).

@@ -71,7 +71,8 @@ class ResetPasswordFormField extends AuthenticatorFormField<ResetPasswordField,
   bool get required => true;
 
   @override
-  _ResetPasswordFormFieldState createState() => _ResetPasswordFormFieldState();
+  AuthenticatorComponentState<ResetPasswordFormField> createState() =>
+      _ResetPasswordFormFieldState();
 }
 
 class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<

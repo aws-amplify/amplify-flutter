@@ -37,7 +37,7 @@ class AuthenticatorCheckbox<T extends AuthenticatorCheckbox<T>>
   }
 
   @override
-  _AuthenticatorCheckBoxState<T> createState() =>
+  AuthenticatorComponentState<T> createState() =>
       _AuthenticatorCheckBoxState<T>();
 }
 
@@ -56,13 +56,14 @@ class _AuthenticatorCheckBoxState<T extends AuthenticatorCheckbox<T>>
     return CheckboxListTile(
       title: Text(checkboxResolver.resolve(context, widget.labelKey)),
       value: _isChecked,
+      tristate: false,
       onChanged: (value) {
         // Checkbox value can only be true/false since tristate is false.
-        var _value = value!;
+        final boolValue = value!;
         setState(() {
-          _isChecked = _value;
+          _isChecked = boolValue;
         });
-        onChanged(_value);
+        onChanged(boolValue);
       },
       controlAffinity: ListTileControlAffinity.leading,
     );
@@ -81,7 +82,7 @@ class RememberDeviceCheckbox
       : super(key: key, labelKey: InputResolverKey.rememberDevice);
 
   @override
-  _RememberDeviceCheckboxState<RememberDeviceCheckbox> createState() =>
+  AuthenticatorComponentState<RememberDeviceCheckbox> createState() =>
       _RememberDeviceCheckboxState<RememberDeviceCheckbox>();
 }
 

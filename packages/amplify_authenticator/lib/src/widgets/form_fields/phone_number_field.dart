@@ -41,8 +41,8 @@ class AuthenticatorPhoneField<FieldType> extends AuthenticatorFormField<
   final int? errorMaxLines;
 
   @override
-  _AuthenticatorPhoneFieldState<FieldType> createState() =>
-      _AuthenticatorPhoneFieldState<FieldType>();
+  AuthenticatorComponentState<AuthenticatorPhoneField<FieldType>>
+      createState() => _AuthenticatorPhoneFieldState<FieldType>();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -63,11 +63,11 @@ class _AuthenticatorPhoneFieldState<FieldType>
     with AuthenticatorPhoneFieldMixin, AuthenticatorTextField {
   @override
   String? get initialValue {
-    var _initialValue = widget.initialValue ?? super.initialValue;
-    if (_initialValue != null) {
-      _initialValue = displayPhoneNumber(_initialValue);
+    var initialValue = widget.initialValue ?? super.initialValue;
+    if (initialValue != null) {
+      initialValue = displayPhoneNumber(initialValue);
     }
-    return _initialValue;
+    return initialValue;
   }
 
   @override

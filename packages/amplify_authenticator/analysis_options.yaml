@@ -5,4 +5,3 @@ analyzer:
     - tool/*.dart
   errors:
     public_member_api_docs: ignore
-    implementation_imports: ignore

@@ -32,7 +32,7 @@ class LocalizedButtonResolver extends ButtonResolver {
   }
 
   @override
-  String signOut(BuildContext context) {
+  String signout(BuildContext context) {
     return AppLocalizations.of(context).signOut;
   }
 
