@@ -19,10 +19,7 @@ enum QuerySortOrder { ascending, descending }
 
 extension QuerySortOrderExtension on QuerySortOrder {
   String toShortString() {
-    return this
-        .toString()
-        .split('.')
-        .last; // toString returns the enumName.value
+    return toString().split('.').last; // toString returns the enumName.value
   }
 }
 
@@ -45,7 +42,9 @@ class QuerySortBy {
     } else if (valueA is Comparable && valueB is Comparable) {
       return orderMultiplier * valueA.compareTo(valueB);
     }
-    throw AmplifyException('A non-comparable field was used as a QuerySortBy');
+    throw const AmplifyException(
+      'A non-comparable field was used as a QuerySortBy',
+    );
   }
 
   int _compareBool(bool a, bool b) {

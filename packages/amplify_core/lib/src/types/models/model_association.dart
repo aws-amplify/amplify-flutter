@@ -18,6 +18,7 @@ import 'package:flutter/foundation.dart';
 
 enum ModelAssociationEnum { HasMany, HasOne, BelongsTo }
 
+@immutable
 class ModelAssociation {
   final ModelAssociationEnum associationType;
   final String? targetName; // opt (used in belongsTo)
@@ -76,14 +77,14 @@ class ModelAssociation {
   }
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-    return o is ModelAssociation &&
-        o.associationType == associationType &&
-        o.targetName == targetName &&
-        o.associatedName == associatedName &&
-        o.associatedType == associatedType;
+    return other is ModelAssociation &&
+        other.associationType == associationType &&
+        other.targetName == targetName &&
+        other.associatedName == associatedName &&
+        other.associatedType == associatedType;
   }
 
   @override

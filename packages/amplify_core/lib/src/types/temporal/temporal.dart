@@ -14,37 +14,38 @@
  */
 
 class Temporal {
-  static String genericDocErrorMessage =
-      "For more information on acceptable string formats please visit https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html";
+  static const genericDocErrorMessage =
+      'For more information on acceptable string formats please visit https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html';
 
   static String durationToOffset(Duration duration) {
     var buffer = StringBuffer();
-    buffer.write(duration.isNegative ? "-" : "+");
+    buffer.write(duration.isNegative ? '-' : '+');
 
-    Duration _absOffset = duration.abs();
-    buffer.write(_absOffset.inHours.toString().padLeft(2, "0"));
-    buffer.write(":" + (_absOffset.inMinutes % 60).toString().padLeft(2, "0"));
+    Duration absOffset = duration.abs();
+    buffer.write(absOffset.inHours.toString().padLeft(2, '0'));
+    buffer
+      ..write(':')
+      ..write((absOffset.inMinutes % 60).toString().padLeft(2, '0'));
 
-    if (_absOffset.inSeconds % 60 != 0) {
+    if (absOffset.inSeconds % 60 != 0) {
       buffer
-          .write(":" + (_absOffset.inSeconds % 60).toString().padLeft(2, "0"));
+        ..write(':')
+        ..write((absOffset.inSeconds % 60).toString().padLeft(2, '0'));
     }
 
     return buffer.toString();
   }
 
   static Duration offsetToDuration(String offsetString) {
-    RegExp regExp = new RegExp(
-        r'^(\+|-)([0-2][0-9]):([0-5][0-9])(:([0-5][0-9]))?',
-        caseSensitive: false,
-        multiLine: false);
+    RegExp regExp = RegExp(r'^(\+|-)([0-2][0-9]):([0-5][0-9])(:([0-5][0-9]))?',
+        caseSensitive: false, multiLine: false);
 
     Match? match = regExp.matchAsPrefix(offsetString);
     if (match == null) {
-      return Duration();
+      return const Duration();
     }
 
-    int sign = match.group(1) == "+" ? 1 : -1;
+    int sign = match.group(1) == '+' ? 1 : -1;
     int hours = sign * Temporal.getIntOr0(match.group(2));
     int minutes = sign * Temporal.getIntOr0(match.group(3));
     int seconds = sign * Temporal.getIntOr0(match.group(5));

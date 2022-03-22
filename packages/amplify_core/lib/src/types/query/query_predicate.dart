@@ -17,13 +17,13 @@ part of 'query_field.dart';
 
 // Top level global function to be used without the context of the enclosing class
 QueryPredicateGroup not(QueryPredicate predicate) {
-  return new QueryPredicateGroup(QueryPredicateGroupType.not, [predicate]);
+  return QueryPredicateGroup(QueryPredicateGroupType.not, [predicate]);
 }
 
 /// Represents individual conditions or groups of conditions
 /// that are used to query data
 abstract class QueryPredicate<T extends Model> {
-  static final _QueryPredicateAll =
+  static const _queryPredicateAll =
       _QueryPredicateConstant(QueryPredicateConstantType.all);
 
   const QueryPredicate();
@@ -38,7 +38,7 @@ abstract class QueryPredicate<T extends Model> {
   ///   () => QueryPredicate.all,
   /// )
   /// ```
-  static QueryPredicate get all => _QueryPredicateAll;
+  static QueryPredicate get all => _queryPredicateAll;
 
   Map<String, dynamic> serializeAsMap();
 
@@ -51,20 +51,18 @@ class QueryPredicateOperation extends QueryPredicate {
   final String field;
   final QueryFieldOperator queryFieldOperator;
 
-  const QueryPredicateOperation(this.field, this.queryFieldOperator) : super();
+  const QueryPredicateOperation(this.field, this.queryFieldOperator);
 
   // and
   QueryPredicateGroup and(QueryPredicate predicate) {
-    return new QueryPredicateGroup(
-        QueryPredicateGroupType.and, [this, predicate]);
+    return QueryPredicateGroup(QueryPredicateGroupType.and, [this, predicate]);
   }
 
   QueryPredicateGroup operator &(QueryPredicate predicate) => and(predicate);
 
   // or
   QueryPredicateGroup or(QueryPredicate predicate) {
-    return new QueryPredicateGroup(
-        QueryPredicateGroupType.or, [this, predicate]);
+    return QueryPredicateGroup(QueryPredicateGroupType.or, [this, predicate]);
   }
 
   QueryPredicateGroup operator |(QueryPredicate predicate) => or(predicate);
@@ -98,24 +96,22 @@ class QueryPredicateGroup extends QueryPredicate {
 
   // and
   QueryPredicateGroup and(QueryPredicate predicate) {
-    if (this.type == QueryPredicateGroupType.and) {
+    if (type == QueryPredicateGroupType.and) {
       predicates.add(predicate);
       return this;
     }
-    return new QueryPredicateGroup(
-        QueryPredicateGroupType.and, [this, predicate]);
+    return QueryPredicateGroup(QueryPredicateGroupType.and, [this, predicate]);
   }
 
   QueryPredicateGroup operator &(QueryPredicate predicate) => and(predicate);
 
   // or
   QueryPredicateGroup or(QueryPredicate predicate) {
-    if (this.type == QueryPredicateGroupType.or) {
+    if (type == QueryPredicateGroupType.or) {
       predicates.add(predicate);
       return this;
     }
-    return new QueryPredicateGroup(
-        QueryPredicateGroupType.or, [this, predicate]);
+    return QueryPredicateGroup(QueryPredicateGroupType.or, [this, predicate]);
   }
 
   QueryPredicateGroup operator |(QueryPredicate predicate) => or(predicate);

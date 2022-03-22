@@ -18,10 +18,6 @@ library query_field;
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../util/parsers.dart';
-import '../models/model_field_type.dart';
-import '../temporal/datetime_parse.dart';
-
 part 'query_field_operators.dart';
 part 'query_pagination.dart';
 part 'query_predicate.dart';
@@ -34,62 +30,57 @@ class QueryField<T> {
   const QueryField({required this.fieldName, this.fieldType});
 
   // Equal operation with operator overloading
-  QueryPredicateOperation eq(T value) => new QueryPredicateOperation(
-      this.fieldName, new EqualQueryOperator<T>(value));
+  QueryPredicateOperation eq(T value) =>
+      QueryPredicateOperation(fieldName, EqualQueryOperator<T>(value));
   // TODO: == operator is not supported in dart to return anything but bool.
   // Figure out if there are any better alternative.
   // QueryPredicateOperation operator ==(Comparable<T> value) => eq(value);
 
   // Not equal to operation with operator overloading
-  QueryPredicateOperation ne(T value) => new QueryPredicateOperation(
-      this.fieldName, new NotEqualQueryOperator<T>(value));
+  QueryPredicateOperation ne(T value) =>
+      QueryPredicateOperation(fieldName, NotEqualQueryOperator<T>(value));
   // TODO: != is not a user overridable operator. Anything better we can do?
   // QueryPredicateOperation operator !=(Comparable<T> value) => ne(value);
 
   // Less than or equal to operation with operator overloading
-  QueryPredicateOperation le(Comparable<T> value) =>
-      new QueryPredicateOperation(
-          this.fieldName, new LessOrEqualQueryOperator<Comparable<T>>(value));
+  QueryPredicateOperation le(Comparable<T> value) => QueryPredicateOperation(
+      fieldName, LessOrEqualQueryOperator<Comparable<T>>(value));
   QueryPredicateOperation operator <=(Comparable<T> value) => le(value);
 
   // Less than operation with operator overloading
-  QueryPredicateOperation lt(Comparable<T> value) =>
-      new QueryPredicateOperation(
-          this.fieldName, new LessThanQueryOperator<Comparable<T>>(value));
+  QueryPredicateOperation lt(Comparable<T> value) => QueryPredicateOperation(
+      fieldName, LessThanQueryOperator<Comparable<T>>(value));
   QueryPredicateOperation operator <(Comparable<T> value) => lt(value);
 
   // Greater than equal to operation with operator overloading
-  QueryPredicateOperation ge(Comparable<T> value) =>
-      new QueryPredicateOperation(this.fieldName,
-          new GreaterOrEqualQueryOperator<Comparable<T>>(value));
+  QueryPredicateOperation ge(Comparable<T> value) => QueryPredicateOperation(
+      fieldName, GreaterOrEqualQueryOperator<Comparable<T>>(value));
   QueryPredicateOperation operator >=(Comparable<T> value) => ge(value);
 
   // Greater than operation with operator overloading
-  QueryPredicateOperation gt(Comparable<T> value) =>
-      new QueryPredicateOperation(
-          this.fieldName, new GreaterThanQueryOperator<Comparable<T>>(value));
+  QueryPredicateOperation gt(Comparable<T> value) => QueryPredicateOperation(
+      fieldName, GreaterThanQueryOperator<Comparable<T>>(value));
   QueryPredicateOperation operator >(Comparable<T> value) => gt(value);
 
   // Contains operation. No operator overloading for this one
-  QueryPredicateOperation contains(String value) => new QueryPredicateOperation(
-      this.fieldName, new ContainsQueryOperator(value));
+  QueryPredicateOperation contains(String value) =>
+      QueryPredicateOperation(fieldName, ContainsQueryOperator(value));
 
   // Between operation. No operator overloading for this one
   QueryPredicateOperation between(Comparable<T> start, Comparable<T> end) =>
-      new QueryPredicateOperation(
-          this.fieldName, new BetweenQueryOperator<Comparable<T>>(start, end));
+      QueryPredicateOperation(
+          fieldName, BetweenQueryOperator<Comparable<T>>(start, end));
 
   // Begins with operation. No operator overloading for this one
   QueryPredicateOperation beginsWith(String value) =>
-      new QueryPredicateOperation(
-          this.fieldName, new BeginsWithQueryOperator(value));
+      QueryPredicateOperation(fieldName, BeginsWithQueryOperator(value));
 
   // Sorting (Discussed later in this doc)
   QuerySortBy ascending() {
-    return new QuerySortBy(field: fieldName, order: QuerySortOrder.ascending);
+    return QuerySortBy(field: fieldName, order: QuerySortOrder.ascending);
   }
 
   QuerySortBy descending() {
-    return new QuerySortBy(field: fieldName, order: QuerySortOrder.descending);
+    return QuerySortBy(field: fieldName, order: QuerySortOrder.descending);
   }
 }

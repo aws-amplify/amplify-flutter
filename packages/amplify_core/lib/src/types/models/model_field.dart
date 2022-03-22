@@ -16,11 +16,13 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:meta/meta.dart';
 
 import 'auth_rule.dart';
 import 'model_association.dart';
 import 'model_field_type.dart';
 
+@immutable
 class ModelField {
   // Name of the field is the name of the instance variable
   // of the Model class.
@@ -111,17 +113,17 @@ class ModelField {
   }
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
 
-    return o is ModelField &&
-        o.name == name &&
-        o.type == type &&
-        o.isRequired == isRequired &&
-        o.isArray == isArray &&
-        o.isReadOnly == isReadOnly &&
-        listEquals(o.authRules, authRules);
+    return other is ModelField &&
+        other.name == name &&
+        other.type == type &&
+        other.isRequired == isRequired &&
+        other.isArray == isArray &&
+        other.isReadOnly == isReadOnly &&
+        listEquals(other.authRules, authRules);
   }
 
   @override
