@@ -61,7 +61,7 @@ import 'package:flutter/material.dart';
 /// - [SignUpForm]
 /// - [SignInForm]
 /// - [ConfirmSignUpForm]
-/// - [ConfirmSignUpForm]
+/// - [ConfirmSignInMFAForm]
 /// - [ConfirmSignInCustomAuthForm]
 /// - [ConfirmSignInNewPasswordForm]
 /// - [ResetPasswordForm]

@@ -482,7 +482,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
                 deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? null,
                 destination: codeDeliveryDetails["destination"])
             : null,
-        additionalInfo: additionalInfo,
+        additionalInfo: additionalInfo ?? null,
       ),
     );
   }
@@ -506,7 +506,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
                 deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? null,
                 destination: codeDeliveryDetails["destination"])
             : null,
-        additionalInfo: additionalInfo != null ? additionalInfo : {},
+        additionalInfo: additionalInfo ?? {},
       ),
     );
   }
