@@ -1,3 +1,8 @@
+## 0.4.2 (2022-03-24)
+
+- chore: fix pubspec urls (#1424)
+- chore: federated plugin (#1349)
+
 ## 0.4.1 (2022-02-28)
 
 - chore: adds API for auth integ tests + minor fixes (#1302)

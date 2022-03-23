@@ -1,3 +1,8 @@
+## 0.4.2 (2022-03-24)
+
+- chore: switch to federated plugins (#1378)
+- fix: adds flutter sdk to example apps (#1465)
+
 ## 0.4.1 (2022-02-28)
 
 ## 0.4.0 (2022-02-17)

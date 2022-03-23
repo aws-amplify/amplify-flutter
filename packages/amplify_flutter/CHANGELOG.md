@@ -1,3 +1,21 @@
+## 0.4.2 (2022-03-24)
+
+- fix(api): model helpers query predicates correctly translates query by associated id (#1417)
+- chore(api): support decoding custom list request (#1420)
+
+- chore(datastore): enable query predicate integration tests for float values (#1454)
+
+- chore(analytics): switch to federated plugins (#1378)
+- fix(analytics): adds flutter sdk to example apps (#1465)
+
+- chore(auth): fix pubspec urls (#1424)
+- chore(auth): federated plugin (#1349)
+
+- chore(storage): federated plugin (#1407)
+
+- chore: bump amplify-android to 1.32.1 (#1448)
+- chore: bump amplify-ios to 1.22.0 (#1468)
+
 ## 0.4.1 (2022-02-28)
 
 - fix: Export category interfaces 
