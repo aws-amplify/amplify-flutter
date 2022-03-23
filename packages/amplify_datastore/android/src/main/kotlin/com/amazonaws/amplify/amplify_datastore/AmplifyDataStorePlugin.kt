@@ -20,6 +20,7 @@ import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_core.AtomicResult
+import com.amazonaws.amplify.amplify_core.cast
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
@@ -719,7 +720,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                                     ResolutionStrategy.RETRY_LOCAL -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retryLocal())
                                     ResolutionStrategy.RETRY -> {
                                         val serializedModel = SerializedModel.builder()
-                                                .serializedData(resultMap["customModel"] as HashMap<String, Any>)
+                                                .serializedData((resultMap["customModel"] as Map<*, *>).cast())
                                                 .modelSchema(modelProvider.modelSchemas().getValue(modelName))
                                                 .build()
                                         onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retry(serializedModel))

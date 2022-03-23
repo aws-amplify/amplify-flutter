@@ -35,8 +35,7 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
 
     fun toMap(): Map<String, Any> {
 
-        val cleanedSerializedData : MutableMap<String, Any?> = serializedData.toMutableMap()
-        cleanedSerializedData.values.removeAll(sequenceOf(null))
+        val cleanedSerializedData : Map<String, Any?> = serializedData.filterValues { it != null }
 
         return mapOf(
                 "id" to id,

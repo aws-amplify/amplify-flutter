@@ -4,36 +4,40 @@ import 'package:flutter/foundation.dart';
 typedef DataStoreConflictHandler = ConflictResolutionDecision Function(
     ConflictData);
 
+@immutable
 class ConflictData {
-  Model local;
-  Model remote;
+  final Model local;
+  final Model remote;
 
-  ConflictData(this.local, this.remote);
+  const ConflictData(this.local, this.remote);
 
   ConflictData.fromJson(ModelType modelType, Map<String, dynamic> localJson,
       Map<String, dynamic> remoteJson)
       : local = modelType.fromJson(
-            new Map<String, dynamic>.from(localJson["serializedData"])),
+            (localJson["serializedData"] as Map).cast<String, dynamic>()),
         remote = modelType.fromJson(
-            new Map<String, dynamic>.from(remoteJson["serializedData"]));
+            (remoteJson["serializedData"] as Map).cast<String, dynamic>());
 }
 
-enum ResolutionStrategy { APPLY_REMOTE, RETRY_LOCAL, RETRY }
+enum ResolutionStrategy { applyRemote, retryLocal, retry }
 
+@immutable
 class ConflictResolutionDecision {
-  ResolutionStrategy _resolutionStrategy;
-  Model? customModel;
+  final ResolutionStrategy _resolutionStrategy;
+  final Model? customModel;
 
-  ConflictResolutionDecision(this._resolutionStrategy, customModel);
+  const ConflictResolutionDecision(this._resolutionStrategy, this.customModel);
 
   ConflictResolutionDecision.applyRemote()
-      : _resolutionStrategy = ResolutionStrategy.APPLY_REMOTE;
+      : _resolutionStrategy = ResolutionStrategy.applyRemote,
+        customModel = null;
 
   ConflictResolutionDecision.retryLocal()
-      : _resolutionStrategy = ResolutionStrategy.RETRY_LOCAL;
+      : _resolutionStrategy = ResolutionStrategy.retryLocal,
+        customModel = null;
 
-  ConflictResolutionDecision.retry(this.customModel)
-      : _resolutionStrategy = ResolutionStrategy.RETRY;
+  ConflictResolutionDecision.retry(Model this.customModel)
+      : _resolutionStrategy = ResolutionStrategy.retry;
 
   @override
   String toString() {

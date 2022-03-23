@@ -625,7 +625,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     "errorMesage" : ErrorMessages.defaultFallbackErrorMessage,
                     "details" : FlutterDataStoreErrorHandler.createSerializedError(error: error)
                 ]
-                self.channel!.invokeMethod("errorHandler", arguments: map)
+                DispatchQueue.main.async {
+                    self.channel!.invokeMethod("errorHandler", arguments: map)
+                }
             }
         } else {
             errorHandler = { error in
@@ -656,25 +658,30 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                             modelName: modelName)
                     ]
 
-                    self.channel!.invokeMethod("conflictHandler", arguments: map){ result in
-                        do {
-                            let resultMap : [String: Any] = result as! [String: Any]
-                            switch(resultMap["resolutionStrategy"] as! String){
-                                case "APPLY_REMOTE": onDecision(.applyRemote)
-                                case "RETRY_LOCAL": onDecision(.retryLocal)
-                                case "RETRY":
-                                    let modelMap : [String: Any] = resultMap["customModel"] as! [String : Any]
-                                    let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: modelMap)
-                                    let serializedModel = try FlutterSerializedModel(id: modelID, map:  FlutterDataStoreRequestUtils.getJSONValue(modelMap))
-                                        onDecision(.retry(serializedModel))
-                                default:
-                                    print("Unrecognized resolutionStrategy to resolve conflict. Applying default conflict resolution, applyRemote.")
-                                    onDecision(.applyRemote)
+                    DispatchQueue.main.async {
+                        self.channel!.invokeMethod("conflictHandler", arguments: map){ result in
+                            do {
+                                let resultMap : [String: Any] = result as! [String: Any]
+                                switch(resultMap["resolutionStrategy"] as! String){
+                                    case "APPLY_REMOTE": onDecision(.applyRemote)
+                                    case "RETRY_LOCAL": onDecision(.retryLocal)
+                                    case "RETRY":
+                                        guard let modelMap =  resultMap["customModel"] as? [String : Any]
+                                        else {
+                                            throw DataStoreError.decodingError("Flutter CustomModel map is invalid", "Check the values that are being passed from Dart.")
+                                        }
+                                        let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: modelMap)
+                                        let serializedModel = try FlutterSerializedModel(id: modelID, map:  FlutterDataStoreRequestUtils.getJSONValue(modelMap))
+                                            onDecision(.retry(serializedModel))
+                                    default:
+                                        print("Unrecognized resolutionStrategy to resolve conflict. Applying default conflict resolution, applyRemote.")
+                                        onDecision(.applyRemote)
+                                }
                             }
-                        }
-                        catch let error {
-                            print("Error in conflict handler: \(error) Applying default conflict resolution, applyRemote.")
-                            onDecision(.applyRemote)
+                            catch let error {
+                                print("Error in conflict handler: \(error) Applying default conflict resolution, applyRemote.")
+                                onDecision(.applyRemote)
+                            }
                         }
                     }
                 } catch let error {

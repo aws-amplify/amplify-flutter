@@ -53,22 +53,29 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
             .serializeAsMap();
 
       case 'errorHandler':
+        if (errorHandler == null)
+          throw StateError("Native calling non existent ErrorHandler in Dart");
+
         Map<String, dynamic> arguments =
             Map<String, dynamic>.from(call.arguments);
         errorHandler!(_deserializeExceptionFromMap(arguments));
         break;
 
       case 'conflictHandler':
-        Map<String, dynamic> arguments =
-            Map<String, dynamic>.from(call.arguments);
+        if (conflictHandler == null)
+          throw StateError(
+              "Native calling non existent ConflictHandler in Dart");
 
-        String modelName = arguments["modelName"];
-        var modelType = modelProvider!.getModelTypeByModelName(modelName);
+        Map<String, dynamic> arguments =
+            (call.arguments as Map).cast<String, dynamic>();
+
+        final modelName = arguments["modelName"] as String;
+        final modelType = modelProvider!.getModelTypeByModelName(modelName);
 
         ConflictData conflictData = ConflictData.fromJson(
             modelType,
-            Map<String, dynamic>.from(arguments["local"]),
-            Map<String, dynamic>.from(arguments["remote"]));
+            (arguments["local"] as Map).cast<String, dynamic>(),
+            (arguments["remote"] as Map).cast<String, dynamic>());
 
         ConflictResolutionDecision decision = conflictHandler!(conflictData);
         return decision.toJson();
