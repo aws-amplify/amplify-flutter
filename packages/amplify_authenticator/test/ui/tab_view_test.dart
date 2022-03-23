@@ -131,7 +131,9 @@ void main() {
 
   group('AuthenticatorTabView', () {
     setUp(() {
-      binding.platformDispatcher.clearPlatformBrightnessTestValue();
+      // TODO: Remove when Flutter SDK >= 2.11
+      // ignore: deprecated_member_use
+      binding.window.clearPlatformBrightnessTestValue();
       binding.window.physicalSizeTestValue = const Size(2400, 2400);
     });
 
@@ -141,8 +143,9 @@ void main() {
       group('$configName config', () {
         group('Light Mode', () {
           setUp(() {
-            binding.platformDispatcher.platformBrightnessTestValue =
-                Brightness.light;
+            // TODO: Remove when Flutter SDK >= 2.11
+            // ignore: deprecated_member_use
+            binding.window.platformBrightnessTestValue = Brightness.light;
           });
 
           // Tests the default Material theme.
@@ -192,8 +195,9 @@ void main() {
 
         group('Dark Mode', () {
           setUp(() {
-            binding.platformDispatcher.platformBrightnessTestValue =
-                Brightness.dark;
+            // TODO: Remove when Flutter SDK >= 2.11
+            // ignore: deprecated_member_use
+            binding.window.platformBrightnessTestValue = Brightness.dark;
           });
 
           // Tests the default Material theme (dark mode).
