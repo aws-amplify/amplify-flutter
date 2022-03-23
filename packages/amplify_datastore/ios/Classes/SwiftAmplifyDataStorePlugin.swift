@@ -642,9 +642,13 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         if((args["hasConflictHandler"] as? Bool) == true) {
             conflictHandler = { conflictData, onDecision in
                 do {
-                    let modelName = conflictData.remote["__typename"] as! String
-                    let local = conflictData.local as! FlutterSerializedModel
-                    let remote = conflictData.remote as! FlutterSerializedModel
+                    guard
+                        let modelName = conflictData.remote["__typename"] as? String,
+                        let local = conflictData.local as? FlutterSerializedModel,
+                        let remote = conflictData.remote as? FlutterSerializedModel
+                    else {
+                        throw DataStoreError.decodingError("Native ConflictData is invalid", "Check the values in ConflictData object.")
+                    }
 
                     let map : [String:Any] = [
                         "modelName" : modelName,
@@ -661,8 +665,14 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     DispatchQueue.main.async {
                         self.channel!.invokeMethod("conflictHandler", arguments: map){ result in
                             do {
-                                let resultMap : [String: Any] = result as! [String: Any]
-                                switch(resultMap["resolutionStrategy"] as! String){
+                                guard
+                                    let resultMap : [String: Any] = result as? [String: Any],
+                                    let resolutionStrategy = resultMap["resolutionStrategy"] as? String
+                                else {
+                                    throw DataStoreError.decodingError("Flutter resultMap is invalid", "Check the values that are being passed from Dart.")
+                                }
+                                
+                                switch(resolutionStrategy){
                                     case "APPLY_REMOTE": onDecision(.applyRemote)
                                     case "RETRY_LOCAL": onDecision(.retryLocal)
                                     case "RETRY":
