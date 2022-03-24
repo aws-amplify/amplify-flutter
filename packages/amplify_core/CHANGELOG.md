@@ -1,3 +1,5 @@
+## 0.4.2 (2022-03-24)
+
 ## 0.4.1 (2022-02-28)
 
 - fix: Implement Result in AtomicResult (#1393)

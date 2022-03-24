@@ -1,3 +1,10 @@
+## 0.4.2 (2022-03-24)
+
+- fix: model helpers query predicates correctly translates query by associated id (#1417)
+- chore: support decoding custom list request (#1420)
+- chore: bump amplify-android to 1.32.1 (#1448)
+- chore: bump amplify-ios to 1.22.0 (#1468)
+
 ## 0.4.1 (2022-02-28)
 
 - chore: clean up some code to limit analysis infos (#1404)
