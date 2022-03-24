@@ -713,8 +713,12 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                         override fun success(result: Any?) {
                             val resultMap: Map<String, Any>? = result.safeCastToMap()
                             try {
-                                val resolutionStrategy: ResolutionStrategy =
-                                        ResolutionStrategy.valueOf(resultMap?.get("resolutionStrategy") as String)
+                                var resolutionStrategy: ResolutionStrategy = ResolutionStrategy.APPLY_REMOTE
+                                when ( resultMap?.get("resolutionStrategy") as String ){
+                                    "applyRemote" -> resolutionStrategy = ResolutionStrategy.APPLY_REMOTE
+                                    "retryLocal" -> resolutionStrategy = ResolutionStrategy.RETRY_LOCAL
+                                    "retry" -> resolutionStrategy = ResolutionStrategy.RETRY
+                                }
                                 when (resolutionStrategy) {
                                     ResolutionStrategy.APPLY_REMOTE -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
                                     ResolutionStrategy.RETRY_LOCAL -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retryLocal())

@@ -673,9 +673,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                 }
                                 
                                 switch(resolutionStrategy){
-                                    case "APPLY_REMOTE": onDecision(.applyRemote)
-                                    case "RETRY_LOCAL": onDecision(.retryLocal)
-                                    case "RETRY":
+                                    case "applyRemote": onDecision(.applyRemote)
+                                    case "retryLocal": onDecision(.retryLocal)
+                                    case "retry":
                                         guard let modelMap =  resultMap["customModel"] as? [String : Any]
                                         else {
                                             throw DataStoreError.decodingError("Flutter CustomModel map is invalid", "Check the values that are being passed from Dart.")
