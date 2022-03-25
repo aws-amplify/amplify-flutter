@@ -15,23 +15,25 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when an operation is not valid with the current state of Auth category
+/// {@template auth.invalid_state_exception}
+/// Exception thrown when the requested operation is not valid in the current
+/// Amplity Auth state.
+/// {@endtemplate}
 class InvalidStateException extends AuthException {
-  /// Default constructor
+  /// {@macro auth.invalid_state_exception}
   InvalidStateException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AmplifyAuthException to this exception
+  /// {@macro auth.exception_downcasting}
   InvalidStateException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static InvalidStateException fromMap(
       Map<String, String> serializedException) {
     return InvalidStateException._private(

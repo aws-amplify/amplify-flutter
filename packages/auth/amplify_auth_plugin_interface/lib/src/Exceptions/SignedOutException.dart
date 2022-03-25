@@ -15,23 +15,25 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when the user is signed out.
+/// {@template auth.signed_out_exception}
+/// Exception thrown when the requested operation can't be performed due to the
+/// user being signed out.
+/// {@endtemplate}
 class SignedOutException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.signed_out_exception}
   SignedOutException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   SignedOutException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static SignedOutException fromMap(Map<String, String> serializedException) {
     return SignedOutException._private(
         AuthException.fromMap(serializedException));

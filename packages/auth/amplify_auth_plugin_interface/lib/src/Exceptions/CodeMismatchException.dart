@@ -15,24 +15,25 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not perform the action because user
-/// entered incorrect confirmation code.
+/// {@template auth.code_mismatch_exception}
+/// Exception thrown when a verification code provided to the requested service
+/// doesn't match what the service was expecting.
+/// {@endtemplate}
 class CodeMismatchException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.code_mismatch_exception}
   CodeMismatchException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   CodeMismatchException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static CodeMismatchException fromMap(
       Map<String, String> serializedException) {
     return CodeMismatchException._private(

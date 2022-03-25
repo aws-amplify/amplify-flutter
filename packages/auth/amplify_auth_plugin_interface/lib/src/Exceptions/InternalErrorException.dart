@@ -15,23 +15,24 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify encounters an internal service error.
+/// {@template auth.internal_error_exception}
+/// Exception thrown when the requested service encounters an internal error.
+/// {@endtemplate}
 class InternalErrorException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.internal_error_exception}
   InternalErrorException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   InternalErrorException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static InternalErrorException fromMap(
       Map<String, String> serializedException) {
     return InternalErrorException._private(

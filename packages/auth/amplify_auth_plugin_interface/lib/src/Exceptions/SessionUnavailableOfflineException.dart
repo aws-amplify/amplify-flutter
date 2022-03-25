@@ -15,23 +15,25 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not get valid credentials due to the device being offline.
+/// {@template auth.session_unavailable_offline_exception}
+/// Exception thrown when valid credentials could not be obtained due to the
+/// device being offline.
+/// {@endtemplate}
 class SessionUnavailableOfflineException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.session_unavailable_offline_exception}
   SessionUnavailableOfflineException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   SessionUnavailableOfflineException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static SessionUnavailableOfflineException fromMap(
       Map<String, String> serializedException) {
     return SessionUnavailableOfflineException._private(
