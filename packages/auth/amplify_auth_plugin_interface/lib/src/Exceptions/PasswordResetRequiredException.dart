@@ -15,23 +15,24 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not perform the action because password needs to be reset.
+/// {@template auth.password_reset_required_exception}
+/// Exception thrown when the requested operation requires a password reset.
+/// {@endtemplate}
 class PasswordResetRequiredException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.password_reset_required_exception}
   PasswordResetRequiredException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   PasswordResetRequiredException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static PasswordResetRequiredException fromMap(
       Map<String, String> serializedException) {
     return PasswordResetRequiredException._private(

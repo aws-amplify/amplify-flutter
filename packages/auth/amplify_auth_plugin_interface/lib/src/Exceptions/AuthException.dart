@@ -15,22 +15,28 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// Base Class for Auth Exceptions
+/// {@template auth.auth_exception}
+/// The base class for Auth exceptions.
+/// {@endtemplate}
 class AuthException extends AmplifyException {
+  /// {@macro auth.auth_exception}
   const AuthException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AmplifyException to this exception
+  /// Internal named constructor for downcasting an `AmplifyException` to this
+  /// exception
   AuthException._private(AmplifyException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AmplifyException` from the
-  /// serialized exception data
+  /// {@template auth.exception_from_map}
+  /// Returns a new instance of this exception constructed from the serialized
+  /// exception data
+  /// {@endtemplate}
   static AuthException fromMap(Map<String, String> serializedException) {
     return AuthException._private(
         AmplifyException.fromMap(serializedException));

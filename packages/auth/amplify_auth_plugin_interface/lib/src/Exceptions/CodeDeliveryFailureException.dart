@@ -15,24 +15,24 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not perform the action because
-/// error occured when delivering the confirmation code.
+/// {@template auth.code_delivery_failure_exception}
+/// Exception thrown when a verification code fails to deliver successfully.
+/// {@endtemplate}
 class CodeDeliveryFailureException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.code_delivery_failure_exception}
   CodeDeliveryFailureException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   CodeDeliveryFailureException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static CodeDeliveryFailureException fromMap(
       Map<String, String> serializedException) {
     return CodeDeliveryFailureException._private(

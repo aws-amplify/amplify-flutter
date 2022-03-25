@@ -15,24 +15,25 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not perform the action because
-/// user made too many failed attempts for a given action.
+/// {@template auth.failed_attempts_limit_exceeded_exception}
+/// Exception thrown when too many failed attempts for a given action has been
+/// made, such as sign-in.
+/// {@endtemplate}
 class FailedAttemptsLimitExceededException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.failed_attempts_limit_exceeded_exception}
   FailedAttemptsLimitExceededException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   FailedAttemptsLimitExceededException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static FailedAttemptsLimitExceededException fromMap(
       Map<String, String> serializedException) {
     return FailedAttemptsLimitExceededException._private(

@@ -15,23 +15,25 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not complete an action because it was cancelled by the user.
+/// {@template auth.user_cancelled_exception}
+/// Exception thrown when a requested operation could not be completed because
+/// it was cancelled by the user.
+/// {@endtemplate}
 class UserCancelledException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.user_cancelled_exception}
   UserCancelledException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   UserCancelledException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static UserCancelledException fromMap(
       Map<String, String> serializedException) {
     return UserCancelledException._private(

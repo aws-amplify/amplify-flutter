@@ -15,24 +15,25 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when a the software token TOTP multi-factor authentication (MFA)
-/// is not enabled for the user pool.
+/// {@template auth.software_token_mfa_not_found_exception}
+/// Exception thrown when the software token time-based one-time password (TOTP)
+/// multi-factor authentication (MFA) isn't activated for the user pool.
+/// {@endtemplate}
 class SoftwareTokenMFANotFoundException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.software_token_mfa_not_found_exception}
   SoftwareTokenMFANotFoundException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   SoftwareTokenMFANotFoundException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static SoftwareTokenMFANotFoundException fromMap(
       Map<String, String> serializedException) {
     return SoftwareTokenMFANotFoundException._private(

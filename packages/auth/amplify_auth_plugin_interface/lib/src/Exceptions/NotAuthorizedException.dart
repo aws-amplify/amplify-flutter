@@ -15,23 +15,25 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when a user is not authorized to access the requested resource.
+/// {@template auth.not_authorized_exception}
+/// Exception thrown when a user isn't authorized to access the requested
+/// resource.
+/// {@endtemplate}
 class NotAuthorizedException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.not_authorized_exception}
   NotAuthorizedException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   NotAuthorizedException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static NotAuthorizedException fromMap(
       Map<String, String> serializedException) {
     return NotAuthorizedException._private(
