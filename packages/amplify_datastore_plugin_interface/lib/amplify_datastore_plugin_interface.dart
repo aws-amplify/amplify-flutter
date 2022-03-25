@@ -20,6 +20,7 @@ import 'dart:async';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+import 'src/types/conflict_handler/datastore_conflict_handler.dart';
 import 'src/types/models/observe_query_throttle_options.dart';
 import 'src/types/models/query_snapshot.dart';
 import 'src/types/models/subscription_event.dart';
@@ -33,6 +34,9 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
 
   // errorHandler
   Function(AmplifyException)? errorHandler;
+
+  // conflictHandler
+  DataStoreConflictHandler? conflictHandler;
 
   /// list of sync expressions to filter datastore sync against
   List<DataStoreSyncExpression>? syncExpressions;
@@ -51,6 +55,7 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     required Object token,
     required this.modelProvider,
     this.errorHandler,
+    this.conflictHandler,
     this.syncExpressions,
     this.syncInterval,
     this.syncMaxRecords,
@@ -80,6 +85,7 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   Future<void> configureDataStore(
       {required ModelProviderInterface modelProvider,
       Function(AmplifyException)? errorHandler,
+      DataStoreConflictHandler? conflictHandler,
       int? syncInterval,
       int? syncMaxRecords,
       int? syncPageSize}) {

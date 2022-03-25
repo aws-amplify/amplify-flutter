@@ -15,23 +15,25 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when an underlying sdk throws an unknown error.
+/// {@template auth.unknown_exception}
+/// Exception thrown when an unknown error from an underlying SDK or service is
+/// encountered.
+/// {@endtemplate}
 class UnknownException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.unknown_exception}
   UnknownException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   UnknownException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static UnknownException fromMap(Map<String, String> serializedException) {
     return UnknownException._private(
         AuthException.fromMap(serializedException));

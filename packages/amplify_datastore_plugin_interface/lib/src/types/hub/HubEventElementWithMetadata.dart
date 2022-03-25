@@ -17,7 +17,7 @@ part of 'HubEventElement.dart';
 
 /// The model and metadata associated with a DataStore `outboxMutationProcessed`
 /// Hub event.
-class HubEventElementWithMetadata extends HubEventElement {
+class HubEventElementWithMetadata<M extends Model> extends HubEventElement<M> {
   /// The version of the model.
   final int version;
 
@@ -28,7 +28,7 @@ class HubEventElementWithMetadata extends HubEventElement {
   final bool deleted;
 
   const HubEventElementWithMetadata(
-    Model model, {
+    M model, {
     required this.version,
     required this.lastChangedAt,
     bool? deleted,
@@ -46,7 +46,7 @@ class HubEventElementWithMetadata extends HubEventElement {
     var lastChangedAt = metadata['_lastChangedAt'] as int;
     var deleted = metadata['_deleted'] as bool?;
     return HubEventElementWithMetadata(
-      model,
+      model as M,
       version: version,
       lastChangedAt: lastChangedAt,
       deleted: deleted,

@@ -20,6 +20,7 @@ import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_core.AtomicResult
+import com.amazonaws.amplify.amplify_core.cast
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
@@ -43,10 +44,7 @@ import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
-import com.amplifyframework.datastore.AWSDataStorePlugin
-import com.amplifyframework.datastore.DataStoreConfiguration
-import com.amplifyframework.datastore.DataStoreErrorHandler
-import com.amplifyframework.datastore.DataStoreException
+import com.amplifyframework.datastore.*
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
@@ -58,6 +56,8 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.collections.HashMap
+
+typealias ResolutionStrategy = DataStoreConflictHandler.ResolutionStrategy
 
 /** AmplifyDataStorePlugin */
 class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
@@ -188,22 +188,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             }
         }
 
-        var errorHandler : DataStoreErrorHandler;
-        errorHandler = if( (request["hasErrorHandler"] as? Boolean? == true) ) {
-            DataStoreErrorHandler {
-                val args = hashMapOf(
-                        "errorCode" to "DataStoreException",
-                        "errorMessage" to ExceptionMessages.defaultFallbackExceptionMessage,
-                        "details" to createSerializedError(it)
-                )
-                channel.invokeMethod("errorHandler", args)
-            }
-        } else {
-            DataStoreErrorHandler {
-                LOG.error(it.toString())
-            }
-        }
-        dataStoreConfigurationBuilder.errorHandler(errorHandler)
+        dataStoreConfigurationBuilder.errorHandler(createErrorHandler(request))
+        dataStoreConfigurationBuilder.conflictHandler(createConflictHandler(request))
 
         val dataStorePlugin = AWSDataStorePlugin
             .builder()
@@ -689,6 +675,83 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     it.name,
                     nativeSchema
                 )
+            }
+        }
+    }
+
+    private fun createErrorHandler(request: Map<String, Any>) : DataStoreErrorHandler{
+        return if(request["hasErrorHandler"] as? Boolean? == true ) {
+            DataStoreErrorHandler {
+                val args = mapOf(
+                        "errorCode" to "DataStoreException",
+                        "errorMessage" to ExceptionMessages.defaultFallbackExceptionMessage,
+                        "details" to createSerializedError(it)
+                )
+                channel.invokeMethod("errorHandler", args)
+            }
+        } else {
+            DataStoreErrorHandler {
+                LOG.error(it.toString())
+            }
+        }
+    }
+
+    private fun createConflictHandler(request: Map<String, Any>) : DataStoreConflictHandler {
+        return if (request["hasConflictHandler"] as? Boolean? == true) {
+            DataStoreConflictHandler { conflictData,
+                                       onDecision ->
+
+                val modelName = conflictData.local.modelName
+                val args = mapOf(
+                        "modelName" to modelName,
+                        "local" to FlutterSerializedModel(conflictData.local as SerializedModel).toMap(),
+                        "remote" to FlutterSerializedModel(conflictData.remote as SerializedModel).toMap()
+                )
+
+                uiThreadHandler.post {
+                    channel.invokeMethod("conflictHandler", args, object : Result {
+                        override fun success(result: Any?) {
+                            val resultMap: Map<String, Any>? = result.safeCastToMap()
+                            try {
+                                var resolutionStrategy: ResolutionStrategy = ResolutionStrategy.APPLY_REMOTE
+                                when ( resultMap?.get("resolutionStrategy") as String ){
+                                    "applyRemote" -> resolutionStrategy = ResolutionStrategy.APPLY_REMOTE
+                                    "retryLocal" -> resolutionStrategy = ResolutionStrategy.RETRY_LOCAL
+                                    "retry" -> resolutionStrategy = ResolutionStrategy.RETRY
+                                }
+                                when (resolutionStrategy) {
+                                    ResolutionStrategy.APPLY_REMOTE -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
+                                    ResolutionStrategy.RETRY_LOCAL -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retryLocal())
+                                    ResolutionStrategy.RETRY -> {
+                                        val serializedModel = SerializedModel.builder()
+                                                .serializedData((resultMap["customModel"] as Map<*, *>).cast())
+                                                .modelSchema(modelProvider.modelSchemas().getValue(modelName))
+                                                .build()
+                                        onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retry(serializedModel))
+                                    }
+                                }
+                            } catch (e : Exception){
+                                LOG.error("Unrecognized resolutionStrategy to resolve conflict. Applying default conflict resolution, applyRemote.")
+                                onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
+                            }
+                        }
+
+                        override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
+                            LOG.error("Error in conflict handler: $errorCode $errorMessage Applying default conflict resolution, applyRemote.")
+                            onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
+                        }
+
+                        override fun notImplemented() {
+                            LOG.error("Conflict handler not implemented.  Applying default conflict resolution, applyRemote.")
+                            onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
+                        }
+                    })
+                }
+            }
+        } else {
+            DataStoreConflictHandler { _,
+                                       onDecision ->
+                onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
             }
         }
     }

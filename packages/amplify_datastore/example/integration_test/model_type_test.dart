@@ -116,7 +116,7 @@ void main() {
       var list = List.generate(
           3, (i) => TemporalDate(dateTime.add(Duration(days: i))));
       var models = List.generate(
-          5, (_) => ModelWithAppsyncScalarTypes(listOfAWSDataValue: list));
+          5, (_) => ModelWithAppsyncScalarTypes(listOfAWSDateValue: list));
       testModelOperations(models: models);
     });
 
@@ -248,7 +248,7 @@ void main() {
         stringValue: 'string',
         intValue: 1,
         floatValue: 1.0,
-        boolValue: true,
+        booleanValue: true,
         awsDateValue: TemporalDate(DateTime.utc(2021, 9, 22)),
         awsDateTimeValue: TemporalDateTime(DateTime.utc(2021, 9, 22, 23, 0, 0)),
         awsTimeValue: TemporalTime(DateTime.utc(2021, 9, 22, 0, 0, 0)),

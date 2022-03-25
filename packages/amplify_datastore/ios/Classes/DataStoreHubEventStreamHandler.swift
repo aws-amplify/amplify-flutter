@@ -174,6 +174,22 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
             } catch {
                 print("Failed to parse and send outboxMutationProcessed event:  \(error)")
             }
+        case HubPayload.EventName.DataStore.syncReceived:
+            do {
+                guard let eventData = payload.data as? MutationEvent else {
+                    throw FlutterDataStoreError.hubEventCast
+                }
+                let schemaRegistries = try self.ensureSchemaRegistries()
+                let syncReceived = try FlutterSyncReceivedEvent(
+                    event: eventData,
+                    eventName: payload.eventName,
+                    modelSchemaRegistry: schemaRegistries.modelSchemaRegistry,
+                    customTypeSchemaRegistry: schemaRegistries.customTypeSchemaRegistry
+                )
+                flutterEvent = syncReceived.toValueMap()
+            } catch {
+                print("Failed to parse and send syncReceived event:  \(error)")
+            }
         case HubPayload.EventName.Amplify.configured:
             print("DataStorePlugin successfully initialized")
         default:

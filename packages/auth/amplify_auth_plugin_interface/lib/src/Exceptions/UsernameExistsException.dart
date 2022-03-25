@@ -15,23 +15,25 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when a username already exists.
+/// {@template auth.username_exists_exception}
+/// Exception thrown when the requested service encounters a user name that
+/// already exists in the user pool.
+/// {@endtemplate}
 class UsernameExistsException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.username_exists_exception}
   UsernameExistsException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   UsernameExistsException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static UsernameExistsException fromMap(
       Map<String, String> serializedException) {
     return UsernameExistsException._private(

@@ -15,11 +15,12 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// {@template invalid_user_pool_configuration_exception}
-/// Thrown when a user pool is is not configured for the requested action.
+/// {@template auth.invalid_user_pool_configuration_exception}
+/// Exception thrown when a user pool configuration provided to the requested
+/// service is invalid.
 /// {@endtemplate}
 class InvalidUserPoolConfigurationException extends AuthException {
-  /// {@macro invalid_user_pool_configuration_exception}
+  /// {@macro auth.invalid_user_pool_configuration_exception}
   const InvalidUserPoolConfigurationException({
     required String message,
     String? recoverySuggestion,
@@ -30,6 +31,7 @@ class InvalidUserPoolConfigurationException extends AuthException {
           underlyingException: underlyingException,
         );
 
+  /// {@macro auth.exception_from_map}
   static InvalidUserPoolConfigurationException fromMap(Map map) =>
       InvalidUserPoolConfigurationException(
         message: map['message'] as String,

@@ -15,24 +15,25 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not perform the action because the configuration of the
-/// signed in account does not support it.
+/// {@template auth.invalid_account_type_exception}
+/// Exception thrown when the configuration of the signed in account does not
+/// support the requested operation.
+/// {@endtemplate}
 class InvalidAccountTypeException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.invalid_account_type_exception}
   InvalidAccountTypeException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AmplifyAuthException to this exception
+  /// {@macro auth.exception_downcasting}
   InvalidAccountTypeException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static InvalidAccountTypeException fromMap(
       Map<String, String> serializedException) {
     return InvalidAccountTypeException._private(

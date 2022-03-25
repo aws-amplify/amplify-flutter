@@ -21,6 +21,7 @@ import com.amazonaws.amplify.amplify_datastore.types.hub.*
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.datastore.DataStoreChannelEventName
+import com.amplifyframework.datastore.appsync.ModelWithMetadata
 import com.amplifyframework.datastore.events.ModelSyncedEvent
 import com.amplifyframework.datastore.events.NetworkStatusEvent
 import com.amplifyframework.datastore.events.OutboxStatusEvent
@@ -187,6 +188,24 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                         sendEvent(res.toValueMap())
                     } catch (e: Exception) {
                         LOG.error("Failed to parse and send outboxStatus event: ", e)
+                    }
+                }
+                DataStoreChannelEventName.SUBSCRIPTION_DATA_PROCESSED.toString() -> {
+                    try {
+                        val eventData = hubEvent.data as ModelWithMetadata<*>
+                        val model = eventData.model
+                        if (model is SerializedModel) {
+                            val message = FlutterSubscriptionDataProcessedEvent(
+                                hubEvent.name,
+                                model,
+                                eventData.syncMetadata,
+                            )
+                            sendEvent(message.toValueMap())
+                        } else {
+                            LOG.error("Element is not an instance of SerializedModel.")
+                        }
+                    } catch (e: Exception) {
+                        LOG.error("Failed to parse and send ${DataStoreChannelEventName.SUBSCRIPTION_DATA_PROCESSED} event: ", e)
                     }
                 }
                 else -> {

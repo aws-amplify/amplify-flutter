@@ -15,23 +15,24 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when the requested resource does not exist.
+/// {@template auth.resource_not_found_exception}
+/// Exception thrown when the requested resource doesn't exist.
+/// {@endtemplate}
 class ResourceNotFoundException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.resource_not_found_exception}
   ResourceNotFoundException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   ResourceNotFoundException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static ResourceNotFoundException fromMap(
       Map<String, String> serializedException) {
     return ResourceNotFoundException._private(

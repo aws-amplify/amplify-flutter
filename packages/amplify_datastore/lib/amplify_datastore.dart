@@ -41,6 +41,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
   AmplifyDataStore({
     required ModelProviderInterface modelProvider,
     Function(AmplifyException)? errorHandler,
+    DataStoreConflictHandler? conflictHandler,
     List<DataStoreSyncExpression> syncExpressions = const [],
     int? syncInterval,
     int? syncMaxRecords,
@@ -49,6 +50,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
           token: _token,
           modelProvider: modelProvider,
           errorHandler: errorHandler,
+          conflictHandler: conflictHandler,
           syncExpressions: syncExpressions,
           syncInterval: syncInterval,
           syncMaxRecords: syncMaxRecords,
@@ -75,6 +77,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
   Future<void> configureDataStore({
     ModelProviderInterface? modelProvider,
     Function(AmplifyException)? errorHandler,
+    DataStoreConflictHandler? conflictHandler,
     List<DataStoreSyncExpression>? syncExpressions,
     int? syncInterval,
     int? syncMaxRecords,
@@ -90,6 +93,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
     return _instance.configureDataStore(
       modelProvider: provider,
       errorHandler: errorHandler ?? this.errorHandler,
+      conflictHandler: conflictHandler ?? this.conflictHandler,
       syncExpressions: this.syncExpressions,
       syncInterval: this.syncInterval,
       syncMaxRecords: this.syncMaxRecords,

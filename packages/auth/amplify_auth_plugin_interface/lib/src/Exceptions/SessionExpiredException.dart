@@ -15,23 +15,24 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when a session has expired.
+/// {@template auth.session_expired_exception}
+/// Exception thrown when the current session is expired.
+/// {@endtemplate}
 class SessionExpiredException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.session_expired_exception}
   SessionExpiredException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro auth.exception_downcasting}
   SessionExpiredException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static SessionExpiredException fromMap(
       Map<String, String> serializedException) {
     return SessionExpiredException._private(

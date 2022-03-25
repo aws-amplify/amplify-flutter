@@ -33,7 +33,7 @@ class CustomTypeWithAppsyncScalarTypes {
   final List<int>? _listOfIntValue;
   final double? _floatValue;
   final List<double>? _listOfFloatValue;
-  final bool? _boolValue;
+  final bool? _booleanValue;
   final List<bool>? _listOfBooleanValue;
   final TemporalDate? _awsDateValue;
   final List<TemporalDate>? _listOfAWSDateValue;
@@ -43,8 +43,16 @@ class CustomTypeWithAppsyncScalarTypes {
   final List<TemporalTime>? _listOfAWSTimeValue;
   final TemporalTimestamp? _awsTimestampValue;
   final List<TemporalTimestamp>? _listOfAWSTimestampValue;
+  final String? _awsEmailValue;
+  final List<String>? _listOfAWSEmailValue;
   final String? _awsJsonValue;
   final List<String>? _listOfAWSJsonValue;
+  final String? _awsPhoneValue;
+  final List<String>? _listOfAWSPhoneValue;
+  final String? _awsURLValue;
+  final List<String>? _listOfAWSURLValue;
+  final String? _awsIPAddressValue;
+  final List<String>? _listOfAWSIPAddressValue;
   final EnumField? _enumValue;
   final List<EnumField>? _listOfEnumValue;
   final SimpleCustomType? _customTypeValue;
@@ -74,8 +82,8 @@ class CustomTypeWithAppsyncScalarTypes {
     return _listOfFloatValue;
   }
 
-  bool? get boolValue {
-    return _boolValue;
+  bool? get booleanValue {
+    return _booleanValue;
   }
 
   List<bool>? get listOfBooleanValue {
@@ -114,12 +122,44 @@ class CustomTypeWithAppsyncScalarTypes {
     return _listOfAWSTimestampValue;
   }
 
+  String? get awsEmailValue {
+    return _awsEmailValue;
+  }
+
+  List<String>? get listOfAWSEmailValue {
+    return _listOfAWSEmailValue;
+  }
+
   String? get awsJsonValue {
     return _awsJsonValue;
   }
 
   List<String>? get listOfAWSJsonValue {
     return _listOfAWSJsonValue;
+  }
+
+  String? get awsPhoneValue {
+    return _awsPhoneValue;
+  }
+
+  List<String>? get listOfAWSPhoneValue {
+    return _listOfAWSPhoneValue;
+  }
+
+  String? get awsURLValue {
+    return _awsURLValue;
+  }
+
+  List<String>? get listOfAWSURLValue {
+    return _listOfAWSURLValue;
+  }
+
+  String? get awsIPAddressValue {
+    return _awsIPAddressValue;
+  }
+
+  List<String>? get listOfAWSIPAddressValue {
+    return _listOfAWSIPAddressValue;
   }
 
   EnumField? get enumValue {
@@ -145,7 +185,7 @@ class CustomTypeWithAppsyncScalarTypes {
       listOfIntValue,
       floatValue,
       listOfFloatValue,
-      boolValue,
+      booleanValue,
       listOfBooleanValue,
       awsDateValue,
       listOfAWSDateValue,
@@ -155,8 +195,16 @@ class CustomTypeWithAppsyncScalarTypes {
       listOfAWSTimeValue,
       awsTimestampValue,
       listOfAWSTimestampValue,
+      awsEmailValue,
+      listOfAWSEmailValue,
       awsJsonValue,
       listOfAWSJsonValue,
+      awsPhoneValue,
+      listOfAWSPhoneValue,
+      awsURLValue,
+      listOfAWSURLValue,
+      awsIPAddressValue,
+      listOfAWSIPAddressValue,
       enumValue,
       listOfEnumValue,
       customTypeValue,
@@ -167,7 +215,7 @@ class CustomTypeWithAppsyncScalarTypes {
         _listOfIntValue = listOfIntValue,
         _floatValue = floatValue,
         _listOfFloatValue = listOfFloatValue,
-        _boolValue = boolValue,
+        _booleanValue = booleanValue,
         _listOfBooleanValue = listOfBooleanValue,
         _awsDateValue = awsDateValue,
         _listOfAWSDateValue = listOfAWSDateValue,
@@ -177,8 +225,16 @@ class CustomTypeWithAppsyncScalarTypes {
         _listOfAWSTimeValue = listOfAWSTimeValue,
         _awsTimestampValue = awsTimestampValue,
         _listOfAWSTimestampValue = listOfAWSTimestampValue,
+        _awsEmailValue = awsEmailValue,
+        _listOfAWSEmailValue = listOfAWSEmailValue,
         _awsJsonValue = awsJsonValue,
         _listOfAWSJsonValue = listOfAWSJsonValue,
+        _awsPhoneValue = awsPhoneValue,
+        _listOfAWSPhoneValue = listOfAWSPhoneValue,
+        _awsURLValue = awsURLValue,
+        _listOfAWSURLValue = listOfAWSURLValue,
+        _awsIPAddressValue = awsIPAddressValue,
+        _listOfAWSIPAddressValue = listOfAWSIPAddressValue,
         _enumValue = enumValue,
         _listOfEnumValue = listOfEnumValue,
         _customTypeValue = customTypeValue,
@@ -191,7 +247,7 @@ class CustomTypeWithAppsyncScalarTypes {
       List<int>? listOfIntValue,
       double? floatValue,
       List<double>? listOfFloatValue,
-      bool? boolValue,
+      bool? booleanValue,
       List<bool>? listOfBooleanValue,
       TemporalDate? awsDateValue,
       List<TemporalDate>? listOfAWSDateValue,
@@ -201,8 +257,16 @@ class CustomTypeWithAppsyncScalarTypes {
       List<TemporalTime>? listOfAWSTimeValue,
       TemporalTimestamp? awsTimestampValue,
       List<TemporalTimestamp>? listOfAWSTimestampValue,
+      String? awsEmailValue,
+      List<String>? listOfAWSEmailValue,
       String? awsJsonValue,
       List<String>? listOfAWSJsonValue,
+      String? awsPhoneValue,
+      List<String>? listOfAWSPhoneValue,
+      String? awsURLValue,
+      List<String>? listOfAWSURLValue,
+      String? awsIPAddressValue,
+      List<String>? listOfAWSIPAddressValue,
       EnumField? enumValue,
       List<EnumField>? listOfEnumValue,
       SimpleCustomType? customTypeValue,
@@ -220,7 +284,7 @@ class CustomTypeWithAppsyncScalarTypes {
         listOfFloatValue: listOfFloatValue != null
             ? List<double>.unmodifiable(listOfFloatValue)
             : listOfFloatValue,
-        boolValue: boolValue,
+        booleanValue: booleanValue,
         listOfBooleanValue: listOfBooleanValue != null
             ? List<bool>.unmodifiable(listOfBooleanValue)
             : listOfBooleanValue,
@@ -240,10 +304,26 @@ class CustomTypeWithAppsyncScalarTypes {
         listOfAWSTimestampValue: listOfAWSTimestampValue != null
             ? List<TemporalTimestamp>.unmodifiable(listOfAWSTimestampValue)
             : listOfAWSTimestampValue,
+        awsEmailValue: awsEmailValue,
+        listOfAWSEmailValue: listOfAWSEmailValue != null
+            ? List<String>.unmodifiable(listOfAWSEmailValue)
+            : listOfAWSEmailValue,
         awsJsonValue: awsJsonValue,
         listOfAWSJsonValue: listOfAWSJsonValue != null
             ? List<String>.unmodifiable(listOfAWSJsonValue)
             : listOfAWSJsonValue,
+        awsPhoneValue: awsPhoneValue,
+        listOfAWSPhoneValue: listOfAWSPhoneValue != null
+            ? List<String>.unmodifiable(listOfAWSPhoneValue)
+            : listOfAWSPhoneValue,
+        awsURLValue: awsURLValue,
+        listOfAWSURLValue: listOfAWSURLValue != null
+            ? List<String>.unmodifiable(listOfAWSURLValue)
+            : listOfAWSURLValue,
+        awsIPAddressValue: awsIPAddressValue,
+        listOfAWSIPAddressValue: listOfAWSIPAddressValue != null
+            ? List<String>.unmodifiable(listOfAWSIPAddressValue)
+            : listOfAWSIPAddressValue,
         enumValue: enumValue,
         listOfEnumValue: listOfEnumValue != null
             ? List<EnumField>.unmodifiable(listOfEnumValue)
@@ -271,7 +351,7 @@ class CustomTypeWithAppsyncScalarTypes {
         _floatValue == other._floatValue &&
         DeepCollectionEquality()
             .equals(_listOfFloatValue, other._listOfFloatValue) &&
-        _boolValue == other._boolValue &&
+        _booleanValue == other._booleanValue &&
         DeepCollectionEquality()
             .equals(_listOfBooleanValue, other._listOfBooleanValue) &&
         _awsDateValue == other._awsDateValue &&
@@ -286,9 +366,21 @@ class CustomTypeWithAppsyncScalarTypes {
         _awsTimestampValue == other._awsTimestampValue &&
         DeepCollectionEquality()
             .equals(_listOfAWSTimestampValue, other._listOfAWSTimestampValue) &&
+        _awsEmailValue == other._awsEmailValue &&
+        DeepCollectionEquality()
+            .equals(_listOfAWSEmailValue, other._listOfAWSEmailValue) &&
         _awsJsonValue == other._awsJsonValue &&
         DeepCollectionEquality()
             .equals(_listOfAWSJsonValue, other._listOfAWSJsonValue) &&
+        _awsPhoneValue == other._awsPhoneValue &&
+        DeepCollectionEquality()
+            .equals(_listOfAWSPhoneValue, other._listOfAWSPhoneValue) &&
+        _awsURLValue == other._awsURLValue &&
+        DeepCollectionEquality()
+            .equals(_listOfAWSURLValue, other._listOfAWSURLValue) &&
+        _awsIPAddressValue == other._awsIPAddressValue &&
+        DeepCollectionEquality()
+            .equals(_listOfAWSIPAddressValue, other._listOfAWSIPAddressValue) &&
         _enumValue == other._enumValue &&
         DeepCollectionEquality()
             .equals(_listOfEnumValue, other._listOfEnumValue) &&
@@ -321,8 +413,8 @@ class CustomTypeWithAppsyncScalarTypes {
     buffer.write("listOfFloatValue=" +
         (_listOfFloatValue != null ? _listOfFloatValue!.toString() : "null") +
         ", ");
-    buffer.write("boolValue=" +
-        (_boolValue != null ? _boolValue!.toString() : "null") +
+    buffer.write("booleanValue=" +
+        (_booleanValue != null ? _booleanValue!.toString() : "null") +
         ", ");
     buffer.write("listOfBooleanValue=" +
         (_listOfBooleanValue != null
@@ -361,10 +453,32 @@ class CustomTypeWithAppsyncScalarTypes {
             ? _listOfAWSTimestampValue!.toString()
             : "null") +
         ", ");
+    buffer.write("awsEmailValue=" + "$_awsEmailValue" + ", ");
+    buffer.write("listOfAWSEmailValue=" +
+        (_listOfAWSEmailValue != null
+            ? _listOfAWSEmailValue!.toString()
+            : "null") +
+        ", ");
     buffer.write("awsJsonValue=" + "$_awsJsonValue" + ", ");
     buffer.write("listOfAWSJsonValue=" +
         (_listOfAWSJsonValue != null
             ? _listOfAWSJsonValue!.toString()
+            : "null") +
+        ", ");
+    buffer.write("awsPhoneValue=" + "$_awsPhoneValue" + ", ");
+    buffer.write("listOfAWSPhoneValue=" +
+        (_listOfAWSPhoneValue != null
+            ? _listOfAWSPhoneValue!.toString()
+            : "null") +
+        ", ");
+    buffer.write("awsURLValue=" + "$_awsURLValue" + ", ");
+    buffer.write("listOfAWSURLValue=" +
+        (_listOfAWSURLValue != null ? _listOfAWSURLValue!.toString() : "null") +
+        ", ");
+    buffer.write("awsIPAddressValue=" + "$_awsIPAddressValue" + ", ");
+    buffer.write("listOfAWSIPAddressValue=" +
+        (_listOfAWSIPAddressValue != null
+            ? _listOfAWSIPAddressValue!.toString()
             : "null") +
         ", ");
     buffer.write("enumValue=" +
@@ -394,7 +508,7 @@ class CustomTypeWithAppsyncScalarTypes {
       List<int>? listOfIntValue,
       double? floatValue,
       List<double>? listOfFloatValue,
-      bool? boolValue,
+      bool? booleanValue,
       List<bool>? listOfBooleanValue,
       TemporalDate? awsDateValue,
       List<TemporalDate>? listOfAWSDateValue,
@@ -404,8 +518,16 @@ class CustomTypeWithAppsyncScalarTypes {
       List<TemporalTime>? listOfAWSTimeValue,
       TemporalTimestamp? awsTimestampValue,
       List<TemporalTimestamp>? listOfAWSTimestampValue,
+      String? awsEmailValue,
+      List<String>? listOfAWSEmailValue,
       String? awsJsonValue,
       List<String>? listOfAWSJsonValue,
+      String? awsPhoneValue,
+      List<String>? listOfAWSPhoneValue,
+      String? awsURLValue,
+      List<String>? listOfAWSURLValue,
+      String? awsIPAddressValue,
+      List<String>? listOfAWSIPAddressValue,
       EnumField? enumValue,
       List<EnumField>? listOfEnumValue,
       SimpleCustomType? customTypeValue,
@@ -417,7 +539,7 @@ class CustomTypeWithAppsyncScalarTypes {
         listOfIntValue: listOfIntValue ?? this.listOfIntValue,
         floatValue: floatValue ?? this.floatValue,
         listOfFloatValue: listOfFloatValue ?? this.listOfFloatValue,
-        boolValue: boolValue ?? this.boolValue,
+        booleanValue: booleanValue ?? this.booleanValue,
         listOfBooleanValue: listOfBooleanValue ?? this.listOfBooleanValue,
         awsDateValue: awsDateValue ?? this.awsDateValue,
         listOfAWSDateValue: listOfAWSDateValue ?? this.listOfAWSDateValue,
@@ -429,8 +551,17 @@ class CustomTypeWithAppsyncScalarTypes {
         awsTimestampValue: awsTimestampValue ?? this.awsTimestampValue,
         listOfAWSTimestampValue:
             listOfAWSTimestampValue ?? this.listOfAWSTimestampValue,
+        awsEmailValue: awsEmailValue ?? this.awsEmailValue,
+        listOfAWSEmailValue: listOfAWSEmailValue ?? this.listOfAWSEmailValue,
         awsJsonValue: awsJsonValue ?? this.awsJsonValue,
         listOfAWSJsonValue: listOfAWSJsonValue ?? this.listOfAWSJsonValue,
+        awsPhoneValue: awsPhoneValue ?? this.awsPhoneValue,
+        listOfAWSPhoneValue: listOfAWSPhoneValue ?? this.listOfAWSPhoneValue,
+        awsURLValue: awsURLValue ?? this.awsURLValue,
+        listOfAWSURLValue: listOfAWSURLValue ?? this.listOfAWSURLValue,
+        awsIPAddressValue: awsIPAddressValue ?? this.awsIPAddressValue,
+        listOfAWSIPAddressValue:
+            listOfAWSIPAddressValue ?? this.listOfAWSIPAddressValue,
         enumValue: enumValue ?? this.enumValue,
         listOfEnumValue: listOfEnumValue ?? this.listOfEnumValue,
         customTypeValue: customTypeValue ?? this.customTypeValue,
@@ -449,7 +580,7 @@ class CustomTypeWithAppsyncScalarTypes {
         _listOfFloatValue = (json['listOfFloatValue'] as List?)
             ?.map((e) => (e as num).toDouble())
             .toList(),
-        _boolValue = json['boolValue'],
+        _booleanValue = json['booleanValue'],
         _listOfBooleanValue = json['listOfBooleanValue']?.cast<bool>(),
         _awsDateValue = json['awsDateValue'] != null
             ? TemporalDate.fromString(json['awsDateValue'])
@@ -475,8 +606,17 @@ class CustomTypeWithAppsyncScalarTypes {
         _listOfAWSTimestampValue = (json['listOfAWSTimestampValue'] as List?)
             ?.map((e) => TemporalTimestamp.fromSeconds(e))
             .toList(),
+        _awsEmailValue = json['awsEmailValue'],
+        _listOfAWSEmailValue = json['listOfAWSEmailValue']?.cast<String>(),
         _awsJsonValue = json['awsJsonValue'],
         _listOfAWSJsonValue = json['listOfAWSJsonValue']?.cast<String>(),
+        _awsPhoneValue = json['awsPhoneValue'],
+        _listOfAWSPhoneValue = json['listOfAWSPhoneValue']?.cast<String>(),
+        _awsURLValue = json['awsURLValue'],
+        _listOfAWSURLValue = json['listOfAWSURLValue']?.cast<String>(),
+        _awsIPAddressValue = json['awsIPAddressValue'],
+        _listOfAWSIPAddressValue =
+            json['listOfAWSIPAddressValue']?.cast<String>(),
         _enumValue =
             enumFromString<EnumField>(json['enumValue'], EnumField.values),
         _listOfEnumValue = json['listOfEnumValue'] is List
@@ -503,7 +643,7 @@ class CustomTypeWithAppsyncScalarTypes {
         'listOfIntValue': _listOfIntValue,
         'floatValue': _floatValue,
         'listOfFloatValue': _listOfFloatValue,
-        'boolValue': _boolValue,
+        'booleanValue': _booleanValue,
         'listOfBooleanValue': _listOfBooleanValue,
         'awsDateValue': _awsDateValue?.format(),
         'listOfAWSDateValue':
@@ -517,8 +657,16 @@ class CustomTypeWithAppsyncScalarTypes {
         'awsTimestampValue': _awsTimestampValue?.toSeconds(),
         'listOfAWSTimestampValue':
             _listOfAWSTimestampValue?.map((e) => e.toSeconds()).toList(),
+        'awsEmailValue': _awsEmailValue,
+        'listOfAWSEmailValue': _listOfAWSEmailValue,
         'awsJsonValue': _awsJsonValue,
         'listOfAWSJsonValue': _listOfAWSJsonValue,
+        'awsPhoneValue': _awsPhoneValue,
+        'listOfAWSPhoneValue': _listOfAWSPhoneValue,
+        'awsURLValue': _awsURLValue,
+        'listOfAWSURLValue': _listOfAWSURLValue,
+        'awsIPAddressValue': _awsIPAddressValue,
+        'listOfAWSIPAddressValue': _listOfAWSIPAddressValue,
         'enumValue': enumToString(_enumValue),
         'listOfEnumValue':
             _listOfEnumValue?.map((e) => enumToString(e)).toList(),
@@ -570,7 +718,7 @@ class CustomTypeWithAppsyncScalarTypes {
             ofModelName: describeEnum(ModelFieldTypeEnum.double))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'boolValue',
+        fieldName: 'booleanValue',
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.bool)));
 
@@ -630,12 +778,60 @@ class CustomTypeWithAppsyncScalarTypes {
             ofModelName: describeEnum(ModelFieldTypeEnum.timestamp))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+        fieldName: 'awsEmailValue',
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+        fieldName: 'listOfAWSEmailValue',
+        isRequired: false,
+        isArray: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'awsJsonValue',
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'listOfAWSJsonValue',
+        isRequired: false,
+        isArray: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+        fieldName: 'awsPhoneValue',
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+        fieldName: 'listOfAWSPhoneValue',
+        isRequired: false,
+        isArray: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+        fieldName: 'awsURLValue',
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+        fieldName: 'listOfAWSURLValue',
+        isRequired: false,
+        isArray: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+        fieldName: 'awsIPAddressValue',
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+        fieldName: 'listOfAWSIPAddressValue',
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,

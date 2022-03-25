@@ -15,24 +15,30 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not perform the action because
-/// alias (an account with certain email or phone) already exists in the system .
+/// {@template auth.alias_exists_exception}
+/// Exception thrown when attempts are made to confirm the account with an email
+/// or phone number that has already been supplied as an alias from a different
+/// account. This exception indicates an account with this email or phone
+/// already exists.
+/// {@endtemplate}
 class AliasExistsException extends AuthException {
-  /// Named constructor
+  /// {@macro auth.alias_exists_exception}
   AliasExistsException(String message,
       {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@template auth.exception_downcasting}
+  /// Internal named constructor for downcasting an `AuthException` to this
+  /// exception
+  /// {@endtemplate}
   AliasExistsException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro auth.exception_from_map}
   static AliasExistsException fromMap(Map<String, String> serializedException) {
     return AliasExistsException._private(
         AuthException.fromMap(serializedException));

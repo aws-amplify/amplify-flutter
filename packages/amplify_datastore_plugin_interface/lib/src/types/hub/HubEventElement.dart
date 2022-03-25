@@ -19,9 +19,9 @@ part 'HubEventElementWithMetadata.dart';
 
 /// The model associated with a DataStore `outboxMutationEnqueued` or
 /// `outboxMutationProcessed` Hub event.
-class HubEventElement {
+class HubEventElement<M extends Model> {
   /// The instance of the mutated model.
-  final Model model;
+  final M model;
 
   const HubEventElement(this.model);
 
@@ -30,7 +30,7 @@ class HubEventElement {
     ModelProviderInterface provider,
   ) {
     var model = _parseModelFromMap(serializedHubEventElement, provider);
-    return HubEventElement(model);
+    return HubEventElement(model as M);
   }
 }
 
