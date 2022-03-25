@@ -19,9 +19,9 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 
 - [x] [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks for developers who want to create user authentication experiences with Amazon Cognito.
 
-  <a href="https://pub.dev/packages/amplify_auth_cognito" target="_blank">
-    <img src="https://img.shields.io/pub/v/amplify_auth_cognito.svg">
-  </a>
+<a href="https://pub.dev/packages/amplify_auth_cognito" target="_blank">
+  <img src="https://img.shields.io/pub/v/amplify_auth_cognito.svg">
+</a>
 
 - [x] [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Easily collect analytics data for your app with Pinpoint. Analytics data includes user sessions and other custom events that you want to track in your app.
 

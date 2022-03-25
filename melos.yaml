@@ -192,11 +192,11 @@ scripts:
 
   # AMPLIFY_FLUTTER
   build:examples:ios:amplify_flutter: >
-    melos exec -c 1 --scope="amplify_flutter_example" --fail-fast -- \
+    melos exec -c 1 --scope="amplify_flutter_ios_example" --fail-fast -- \
       flutter build ios --simulator
 
   build:examples:android:amplify_flutter: >
-    melos exec -c 1 --scope="amplify_flutter_example" --fail-fast -- \
+    melos exec -c 1 --scope="amplify_flutter_android_example" --fail-fast -- \
       flutter build apk --debug --verbose
 
   lint:android:amplify_flutter:
@@ -207,7 +207,7 @@ scripts:
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
     select-package:
       scope:
-        - amplify_flutter_example
+        - amplify_flutter_android_example
 
   lint:ios:amplify_flutter:
     run: |
@@ -219,7 +219,7 @@ scripts:
     select-package:
       dir-exists: ios
       scope:
-        - amplify_flutter_example
+        - amplify_flutter_ios_example
 
   test:integration:
     run: melos run test:integration:android --no-select && melos run test:integration:ios --no-select
@@ -237,6 +237,7 @@ scripts:
       file-exists:
         - integration_test/main_test.dart
       scope: "*example*"
+      ignore: "*ios_example"
 
   test:integration:ios:
     run: melos exec -c 1 -- "$MELOS_ROOT_PATH/build-support/integ_test_ios.sh" $@
@@ -304,7 +305,7 @@ scripts:
       flutter analyze --no-fatal-infos --no-fatal-warnings &>/dev/null || true
 
   pod:repo-update:
-    run: melos exec -c 8 --scope="*example*,sample_app" "(cd ios && pod repo update)"
+    run: melos exec -c 8 --scope="*example*,sample_app"  --ignore="*_android_example" "(cd ios && pod repo update)"
     description: runs "pod repo update" in all example apps
 
   pod:update-amplify:

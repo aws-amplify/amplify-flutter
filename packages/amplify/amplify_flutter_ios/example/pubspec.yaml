@@ -1,0 +1,27 @@
+name: amplify_flutter_ios_example
+description: Test bed for amplify_flutter_ios
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.2.0"
+
+dependencies:
+  amplify_flutter_ios:
+    path: ../
+  cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints: ^1.0.0
+  amplify_test:
+    path: ../../../amplify_test
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
