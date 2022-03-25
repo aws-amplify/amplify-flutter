@@ -22,12 +22,13 @@ import 'types/observe_query_executor.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 
+typedef ConflictHandler = ConflictResolutionDecision Function(ConflictData);
+
 /// An implementation of [AmplifyDataStore] that uses method channels.
 class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   dynamic _allModelsStreamFromMethodChannel = null;
 
   List<DataStoreSyncExpression>? _syncExpressions;
-  Function(AmplifyException)? _errorHandler;
 
   ObserveQueryExecutor _observeQueryExecutor = ObserveQueryExecutor(
     dataStoreEventStream:
@@ -52,14 +53,32 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
             .serializeAsMap();
 
       case 'errorHandler':
+        if (errorHandler == null)
+          throw StateError("Native calling non existent ErrorHandler in Dart");
+
         Map<String, dynamic> arguments =
             Map<String, dynamic>.from(call.arguments);
-        _errorHandler!(_deserializeExceptionFromMap(arguments));
+        errorHandler!(_deserializeExceptionFromMap(arguments));
         break;
 
       case 'conflictHandler':
-        break;
+        if (conflictHandler == null)
+          throw StateError(
+              "Native calling non existent ConflictHandler in Dart");
 
+        Map<String, dynamic> arguments =
+            (call.arguments as Map).cast<String, dynamic>();
+
+        final modelName = arguments["modelName"] as String;
+        final modelType = modelProvider!.getModelTypeByModelName(modelName);
+
+        ConflictData conflictData = ConflictData.fromJson(
+            modelType,
+            (arguments["local"] as Map).cast<String, dynamic>(),
+            (arguments["remote"] as Map).cast<String, dynamic>());
+
+        ConflictResolutionDecision decision = conflictHandler!(conflictData);
+        return decision.toJson();
       default:
         throw UnimplementedError('${call.method} has not been implemented.');
     }
@@ -72,6 +91,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   Future<void> configureDataStore({
     ModelProviderInterface? modelProvider,
     Function(AmplifyException)? errorHandler,
+    DataStoreConflictHandler? conflictHandler,
     List<DataStoreSyncExpression>? syncExpressions,
     int? syncInterval,
     int? syncMaxRecords,
@@ -79,8 +99,10 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }) async {
     _channel.setMethodCallHandler(_methodCallHandler);
     try {
+      this.modelProvider = modelProvider;
+      this.errorHandler = errorHandler;
+      this.conflictHandler = conflictHandler;
       _syncExpressions = syncExpressions;
-      _errorHandler = errorHandler;
 
       return await _channel
           .invokeMethod('configureDataStore', <String, dynamic>{
@@ -91,6 +113,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
             .map((schema) => schema.toMap())
             .toList(),
         'hasErrorHandler': errorHandler != null,
+        'hasConflictHandler': conflictHandler != null,
         'modelProviderVersion': modelProvider?.version,
         'syncExpressions': syncExpressions!
             .map((syncExpression) => syncExpression.toMap())
