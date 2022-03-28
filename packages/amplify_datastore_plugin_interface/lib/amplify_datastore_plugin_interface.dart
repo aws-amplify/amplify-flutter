@@ -64,7 +64,7 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     this.syncInterval,
     this.syncMaxRecords,
     this.syncPageSize,
-    this.authModeStrategy = AuthModeStrategy.default$,
+    this.authModeStrategy = AuthModeStrategy.defaultStrategy,
   }) : super(token: token);
 
   /// Internal use constructor
@@ -94,7 +94,7 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     int? syncInterval,
     int? syncMaxRecords,
     int? syncPageSize,
-    AuthModeStrategy authModeStrategy = AuthModeStrategy.default$,
+    AuthModeStrategy authModeStrategy = AuthModeStrategy.defaultStrategy,
   }) {
     throw UnimplementedError('configureDataStore() has not been implemented.');
   }

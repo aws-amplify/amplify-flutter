@@ -46,7 +46,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
     int? syncInterval,
     int? syncMaxRecords,
     int? syncPageSize,
-    AuthModeStrategy authModeStrategy = AuthModeStrategy.default$,
+    AuthModeStrategy authModeStrategy = AuthModeStrategy.defaultStrategy,
   }) : super(
           token: _token,
           modelProvider: modelProvider,
@@ -84,7 +84,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
     int? syncInterval,
     int? syncMaxRecords,
     int? syncPageSize,
-    AuthModeStrategy authModeStrategy = AuthModeStrategy.default$,
+    AuthModeStrategy authModeStrategy = AuthModeStrategy.defaultStrategy,
   }) async {
     ModelProviderInterface provider = modelProvider ?? this.modelProvider!;
     if (provider.modelSchemas.isEmpty) {

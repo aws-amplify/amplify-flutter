@@ -90,7 +90,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     }
     
     private func getAuthModeStrategy(for strategyType: String?) throws -> AuthModeStrategyType {
-        switch strategyType {
+        switch strategyType?.lowercased() {
         case "multiauth":
             return .multiAuth
         case "default":

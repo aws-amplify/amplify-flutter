@@ -17,7 +17,7 @@
 /// interfacing with an AppSync backend
 enum AuthModeStrategy {
   /// Default authorization type read from API configuration
-  default$,
+  defaultStrategy,
 
   /// Uses schema metadata to create a prioritized list of potential
   /// authorization types that could be used for a request. The client iterates
@@ -31,7 +31,7 @@ extension AuthModeStrategyX on AuthModeStrategy {
   /// The raw value used for interfacing with native SDKs.
   String get rawValue {
     switch (this) {
-      case AuthModeStrategy.default$:
+      case AuthModeStrategy.defaultStrategy:
         return 'default';
       case AuthModeStrategy.multiAuth:
         return 'multiauth';

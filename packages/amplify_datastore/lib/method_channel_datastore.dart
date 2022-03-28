@@ -95,7 +95,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     int? syncInterval,
     int? syncMaxRecords,
     int? syncPageSize,
-    AuthModeStrategy authModeStrategy = AuthModeStrategy.default$,
+    AuthModeStrategy authModeStrategy = AuthModeStrategy.defaultStrategy,
   }) async {
     _channel.setMethodCallHandler(_methodCallHandler);
     try {
