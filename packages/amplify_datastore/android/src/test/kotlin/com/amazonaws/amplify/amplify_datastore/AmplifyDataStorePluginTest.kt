@@ -17,6 +17,7 @@ package com.amazonaws.amplify.amplify_datastore
 
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
+import com.amplifyframework.api.aws.AuthModeStrategyType
 import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
@@ -95,6 +96,8 @@ class AmplifyDataStorePluginTest {
             )
         )
     )
+
+    private val mockDataStorePluginBuilder = mock(AWSDataStorePlugin.Builder::class.java, RETURNS_SELF)
     private val defaultDataStoreConfiguration = DataStoreConfiguration.defaults()
     private val mockDataStoreConfigurationBuilder =
         mock(DataStoreConfiguration.Builder::class.java, RETURNS_SELF)
@@ -143,16 +146,21 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_default_datastore_configuration() {
+        val authModeStrategy = AuthModeStrategyType.DEFAULT
         val mockRequestWithoutCustomConfig = mapOf(
             "modelSchemas" to mockModelSchemas,
-            "modelProviderVersion" to "1.0"
+            "modelProviderVersion" to "1.0",
+            "authModeStrategy" to "default"
         )
 
+        val mockDataStorePlugin = mockStatic(AWSDataStorePlugin::class.java)
         mockStatic(DataStoreConfiguration::class.java).use { mockedDataStoreConfiguration ->
             mockedDataStoreConfiguration.`when`<Any> { DataStoreConfiguration.defaults() }
                 .thenReturn(defaultDataStoreConfiguration)
             mockedDataStoreConfiguration.`when`<Any> { DataStoreConfiguration.builder() }
                 .thenReturn(mockDataStoreConfigurationBuilder)
+            mockDataStorePlugin.`when`<AWSDataStorePlugin.Builder> { AWSDataStorePlugin.builder() }
+                .thenReturn(mockDataStorePluginBuilder)
 
             flutterPlugin.onConfigureDataStore(mockResult, mockRequestWithoutCustomConfig)
             verify(mockDataStoreConfigurationBuilder, times(1)).syncInterval(
@@ -166,7 +174,9 @@ class AmplifyDataStorePluginTest {
                 defaultDataStoreConfiguration.syncPageSize
             )
             verify(mockDataStoreConfigurationBuilder, never()).syncExpression(anyString(), any())
+            verify(mockDataStorePluginBuilder, times(1)).authModeStrategy(authModeStrategy)
         }
+        mockDataStorePlugin.close()
     }
 
     @Test
@@ -174,19 +184,24 @@ class AmplifyDataStorePluginTest {
         val mockSyncInterval = 3600
         val mockSyncMaxRecords = 60000
         val mockSyncPageSize = 500
+        val authModeStrategy = AuthModeStrategyType.MULTIAUTH
         val mockRequestWithCustomConfig = mapOf(
             "modelSchemas" to mockModelSchemas,
             "syncInterval" to mockSyncInterval,
             "syncMaxRecords" to mockSyncMaxRecords,
             "syncPageSize" to mockSyncPageSize,
-            "modelProviderVersion" to "1.0"
+            "modelProviderVersion" to "1.0",
+            "authModeStrategy" to "multiauth"
         )
 
+        val mockDataStorePlugin = mockStatic(AWSDataStorePlugin::class.java)
         mockStatic(DataStoreConfiguration::class.java).use { mockedDataStoreConfiguration ->
             mockedDataStoreConfiguration.`when`<Any> { DataStoreConfiguration.defaults() }
                 .thenReturn(defaultDataStoreConfiguration)
             mockedDataStoreConfiguration.`when`<Any> { DataStoreConfiguration.builder() }
                 .thenReturn(mockDataStoreConfigurationBuilder)
+            mockDataStorePlugin.`when`<AWSDataStorePlugin.Builder> { AWSDataStorePlugin.builder() }
+                .thenReturn(mockDataStorePluginBuilder)
 
             flutterPlugin.onConfigureDataStore(mockResult, mockRequestWithCustomConfig)
             verify(
@@ -195,7 +210,9 @@ class AmplifyDataStorePluginTest {
             ).syncInterval(mockSyncInterval.toLong(), TimeUnit.MINUTES)
             verify(mockDataStoreConfigurationBuilder, times(1)).syncMaxRecords(mockSyncMaxRecords)
             verify(mockDataStoreConfigurationBuilder, times(1)).syncPageSize(mockSyncPageSize)
+            verify(mockDataStorePluginBuilder, times(1)).authModeStrategy(authModeStrategy)
         }
+        mockDataStorePlugin.close()
     }
 
     @Test
@@ -232,7 +249,8 @@ class AmplifyDataStorePluginTest {
         val mockRequestWithCustomConfig = mapOf(
             "modelSchemas" to mockModelSchemas,
             "syncExpressions" to mockSyncExpressions,
-            "modelProviderVersion" to "1.0"
+            "modelProviderVersion" to "1.0",
+            "authModeStrategy" to "default"
         )
 
         mockStatic(DataStoreConfiguration::class.java).use { mockedDataStoreConfiguration ->

@@ -21,6 +21,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 import 'src/types/conflict_handler/datastore_conflict_handler.dart';
+import 'src/types/models/auth_mode_strategy.dart';
 import 'src/types/models/observe_query_throttle_options.dart';
 import 'src/types/models/query_snapshot.dart';
 import 'src/types/models/subscription_event.dart';
@@ -50,6 +51,9 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// Datastore page size to sync
   int? syncPageSize;
 
+  /// The strategy for authorizing an API call.
+  final AuthModeStrategy authModeStrategy;
+
   /// Constructs an AmplifyPlatform.
   DataStorePluginInterface({
     required Object token,
@@ -60,12 +64,13 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     this.syncInterval,
     this.syncMaxRecords,
     this.syncPageSize,
+    this.authModeStrategy = AuthModeStrategy.defaultStrategy,
   }) : super(token: token);
 
   /// Internal use constructor
   @protected
   DataStorePluginInterface.tokenOnly({required Object token})
-      : super(token: token);
+      : this(token: token, modelProvider: null);
 
   StreamController<HubEvent> get streamController {
     throw UnimplementedError(
@@ -82,13 +87,15 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// [syncMaxRecords]: Max number of records to sync
   ///
   /// [syncPageSize]: Page size to sync
-  Future<void> configureDataStore(
-      {required ModelProviderInterface modelProvider,
-      Function(AmplifyException)? errorHandler,
-      DataStoreConflictHandler? conflictHandler,
-      int? syncInterval,
-      int? syncMaxRecords,
-      int? syncPageSize}) {
+  Future<void> configureDataStore({
+    required ModelProviderInterface modelProvider,
+    Function(AmplifyException)? errorHandler,
+    DataStoreConflictHandler? conflictHandler,
+    int? syncInterval,
+    int? syncMaxRecords,
+    int? syncPageSize,
+    AuthModeStrategy authModeStrategy = AuthModeStrategy.defaultStrategy,
+  }) {
     throw UnimplementedError('configureDataStore() has not been implemented.');
   }
 
