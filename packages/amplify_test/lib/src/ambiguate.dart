@@ -13,15 +13,7 @@
  * permissions and limitations under the License.
  */
 
-library amplify_test;
-
-export 'src/ambiguate.dart';
-
-/// Auth Utils
-export 'src/integration_test_utils/auth_cognito/integration_test_auth_utils.dart';
-export 'src/integration_test_utils/auth_cognito/types/admin_create_user_response.dart';
-export 'src/integration_test_utils/auth_cognito/types/confirm_sign_up_response.dart';
-export 'src/integration_test_utils/auth_cognito/types/delete_user_response.dart';
-
-/// Common Utils
-export 'src/json.dart';
+// TODO(dnys1): Remove when Flutter SDK version is bumped.
+/// Ambiguates [o] to be nullable to account for transitions of the Flutter
+/// API from nullable to non-null getters on some APIs.
+T? ambiguate<T>(T o) => o;

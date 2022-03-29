@@ -16,6 +16,7 @@
 import 'dart:async';
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_test/amplify_test.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:async/async.dart';
 import 'package:flutter/services.dart';
@@ -33,7 +34,7 @@ void main() {
 
   /// Fires an event on the event channel from the mock platform side.
   void emitValues(ByteData? event) {
-    _ambiguate(ServicesBinding.instance)!
+    ambiguate(ServicesBinding.instance)!
         .defaultBinaryMessenger
         .handlePlatformMessage(
           eventChannel,
@@ -75,7 +76,7 @@ void main() {
     // This is mostly a no-op in these tests, since a `subscribe` event on the
     // method channel is what initializes GraphQL subscriptions, not adding a listener
     // to the event channel.
-    _ambiguate(ServicesBinding.instance)!
+    ambiguate(ServicesBinding.instance)!
         .defaultBinaryMessenger
         .setMockMessageHandler(
       eventChannel,
@@ -447,8 +448,3 @@ void main() {
 
   group('GraphQL Subscription', runAll);
 }
-
-// TODO(dnys1): Remove when Flutter SDK version is bumped.
-/// Ambiguates [o] to be nullable to account for transitions of the Flutter
-/// API from nullable to non-null getters on some APIs.
-T? _ambiguate<T>(T o) => o;

@@ -45,16 +45,19 @@ void main() {
   });
 
   tearDown(() {
-    ServicesBinding.instance!.defaultBinaryMessenger
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
         .setMockMessageHandler(channelName, null);
   });
 
   handler(event) {
-    ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
-      channelName,
-      event,
-      (ByteData? reply) {},
-    );
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .handlePlatformMessage(
+          channelName,
+          event,
+          (ByteData? reply) {},
+        );
   }
 
   test('Can receive Ready Event', () async {
@@ -63,7 +66,9 @@ void main() {
       handler(event);
     }
 
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -88,7 +93,9 @@ void main() {
       handler(event);
     }
 
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -113,7 +120,9 @@ void main() {
       handler(event);
     }
 
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -138,7 +147,9 @@ void main() {
       handler(event);
     }
 
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -165,7 +176,9 @@ void main() {
       handler(event);
     }
 
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -196,7 +209,9 @@ void main() {
       handler(event);
     }
 
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -231,7 +246,9 @@ void main() {
       handler(event);
     }
 
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -272,7 +289,9 @@ void main() {
       handler(event);
     }
 
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -300,7 +319,9 @@ void main() {
       handler(event);
     }
 
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));

@@ -15,6 +15,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
@@ -52,7 +53,7 @@ void main() {
           buildProgressionEventMap(uuid, currentBytes, totalBytes));
 
   Future<void> emitMockNativeValues(ByteData? event) {
-    return _ambiguate(ServicesBinding.instance)!
+    return ambiguate(ServicesBinding.instance)!
         .defaultBinaryMessenger
         .handlePlatformMessage(
           transferEventChannel,
@@ -71,7 +72,7 @@ void main() {
       return Future.wait(futures);
     }
 
-    _ambiguate(ServicesBinding.instance)!
+    ambiguate(ServicesBinding.instance)!
         .defaultBinaryMessenger
         .setMockMessageHandler(
       transferEventChannel,
@@ -229,8 +230,3 @@ void main() {
 
   // For Upload and Download sad case check downloadfile and uploadfile unit test files
 }
-
-// TODO(dnys1): Remove when Flutter SDK version is bumped.
-/// Ambiguates [o] to be nullable to account for transitions of the Flutter
-/// API from nullable to non-null getters on some APIs.
-T? _ambiguate<T>(T o) => o;

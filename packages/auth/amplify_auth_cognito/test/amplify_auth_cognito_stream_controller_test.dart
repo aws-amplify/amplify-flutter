@@ -33,7 +33,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   void emitValues(ByteData? event) {
-    _ambiguate(ServicesBinding.instance)!
+    ambiguate(ServicesBinding.instance)!
         .defaultBinaryMessenger
         .handlePlatformMessage(
           channelName,
@@ -46,7 +46,7 @@ void main() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
     });
-    _ambiguate(ServicesBinding.instance)!
+    ambiguate(ServicesBinding.instance)!
         .defaultBinaryMessenger
         .setMockMessageHandler(
       channelName,
@@ -57,7 +57,7 @@ void main() {
   });
 
   tearDownAll(() {
-    _ambiguate(ServicesBinding.instance)!
+    ambiguate(ServicesBinding.instance)!
         .defaultBinaryMessenger
         .setMockMessageHandler(channelName, null);
     authStreamController.close();
@@ -129,7 +129,3 @@ void Function() overridePrint(void testFn()) => () {
       });
       return Zone.current.fork(specification: spec).run<void>(testFn);
     };
-// TODO(dnys1): Remove when Flutter SDK version is bumped.
-/// Ambiguates [o] to be nullable to account for transitions of the Flutter
-/// API from nullable to non-null getters on some APIs.
-T? _ambiguate<T>(T o) => o;

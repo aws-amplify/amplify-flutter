@@ -15,6 +15,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
+import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'test_models/ModelProvider.dart';
@@ -26,12 +27,13 @@ extension MockMethodChannel on MethodChannel {
     const codec = StandardMethodCodec();
     final data = codec.encodeMethodCall(MethodCall(method, arguments));
 
-    return ServicesBinding.instance?.defaultBinaryMessenger
+    return ambiguate(ServicesBinding.instance)
+        ?.defaultBinaryMessenger
         .handlePlatformMessage(
-      name,
-      data,
-      (ByteData? data) {},
-    );
+          name,
+          data,
+          (ByteData? data) {},
+        );
   }
 }
 
