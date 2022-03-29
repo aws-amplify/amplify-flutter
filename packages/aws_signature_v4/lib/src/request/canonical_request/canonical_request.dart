@@ -123,7 +123,14 @@ class CanonicalRequest {
 
     // Apply service configuration to appropriate values for request type.
     if (presignedUrl) {
-      this.expiresIn = expiresIn?.inSeconds ?? 600;
+      ArgumentError.checkNotNull(expiresIn, 'expiresIn');
+      this.expiresIn = expiresIn!.inSeconds;
+      // Per https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html
+      assert(
+        expiresIn > const Duration(seconds: 1) &&
+            expiresIn < const Duration(days: 7),
+        'Expiration must be greater than 1 second and less than 7 days',
+      );
       canonicalHeaders = CanonicalHeaders(headers);
       signedHeaders = SignedHeaders(canonicalHeaders);
       configuration.apply(
@@ -134,7 +141,7 @@ class CanonicalRequest {
         contentLength: contentLength,
       );
     } else {
-      this.expiresIn = expiresIn?.inSeconds;
+      this.expiresIn = null;
       configuration.apply(
         headers,
         this,
