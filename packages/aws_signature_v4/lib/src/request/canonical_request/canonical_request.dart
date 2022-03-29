@@ -44,19 +44,19 @@ class CanonicalRequest {
   );
 
   /// The request query parameters, with AWS values added, if necessary.
-  late final Map<String, String> queryParameters;
+  final Map<String, String> queryParameters;
 
   /// The canonicalized [queryParameters].
-  late final CanonicalQueryParameters canonicalQueryParameters;
+  final CanonicalQueryParameters canonicalQueryParameters;
 
   /// The request headers, with AWS values added, if necessary.
-  late final Map<String, String> headers;
+  final Map<String, String> headers;
 
   /// The canonicalized [headers].
-  late final CanonicalHeaders canonicalHeaders;
+  final CanonicalHeaders canonicalHeaders;
 
   /// The list of signed headers.
-  late final SignedHeaders signedHeaders;
+  final SignedHeaders signedHeaders;
 
   /// Whether or not to normalize the URI path.
   ///
@@ -91,10 +91,10 @@ class CanonicalRequest {
   ///
   /// Only valid for presigned URLs, and must be provided if [presignedUrl]
   /// is `true`.
-  late final int? expiresIn;
+  final int? expiresIn;
 
   /// The configuration to use for canonicalizing the request.
-  final ServiceConfiguration configuration;
+  final ServiceConfiguration serviceConfiguration;
 
   /// The payload content length.
   final int contentLength;
@@ -106,54 +106,114 @@ class CanonicalRequest {
   final String payloadHash;
 
   /// {@macro aws_signature_v4.canonical_request}
-  CanonicalRequest({
-    required this.request,
+  factory CanonicalRequest({
+    required AWSBaseHttpRequest request,
     required AWSCredentials credentials,
-    required this.credentialScope,
-    required this.algorithm,
-    this.contentLength = 0,
-    this.payloadHash = emptyPayloadHash,
-    this.configuration = const BaseServiceConfiguration(),
-    this.presignedUrl = false,
-    Duration? expiresIn,
-  })  : normalizePath = configuration.normalizePath,
-        omitSessionTokenFromSigning = configuration.omitSessionToken {
-    headers = Map.of(request.headers);
-    queryParameters = Map.of(request.queryParameters);
+    required AWSCredentialScope credentialScope,
+    required int contentLength,
+    required String payloadHash,
+    ServiceConfiguration serviceConfiguration =
+        const BaseServiceConfiguration(),
+  }) {
+    final headers = Map.of(request.headers);
+    final queryParameters = Map.of(request.queryParameters);
 
-    // Apply service configuration to appropriate values for request type.
-    if (presignedUrl) {
-      ArgumentError.checkNotNull(expiresIn, 'expiresIn');
-      this.expiresIn = expiresIn!.inSeconds;
-      // Per https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html
-      assert(
-        expiresIn > const Duration(seconds: 1) &&
-            expiresIn < const Duration(days: 7),
-        'Expiration must be greater than 1 second and less than 7 days',
-      );
-      canonicalHeaders = CanonicalHeaders(headers);
-      signedHeaders = SignedHeaders(canonicalHeaders);
-      configuration.apply(
-        queryParameters,
-        this,
-        credentials: credentials,
-        payloadHash: payloadHash,
-        contentLength: contentLength,
-      );
-    } else {
-      this.expiresIn = null;
-      configuration.apply(
-        headers,
-        this,
-        credentials: credentials,
-        payloadHash: payloadHash,
-        contentLength: contentLength,
-      );
-      canonicalHeaders = CanonicalHeaders(headers);
-      signedHeaders = SignedHeaders(canonicalHeaders);
-    }
-    canonicalQueryParameters = CanonicalQueryParameters(queryParameters);
+    serviceConfiguration.applySigned(
+      headers,
+      request: request,
+      credentialScope: credentialScope,
+      credentials: credentials,
+      payloadHash: payloadHash,
+      contentLength: contentLength,
+    );
+    final canonicalQueryParameters = CanonicalQueryParameters(queryParameters);
+    final canonicalHeaders = CanonicalHeaders(headers);
+    final signedHeaders = SignedHeaders(canonicalHeaders);
+
+    return CanonicalRequest._(
+      request: request,
+      queryParameters: queryParameters,
+      canonicalQueryParameters: canonicalQueryParameters,
+      headers: headers,
+      canonicalHeaders: canonicalHeaders,
+      signedHeaders: signedHeaders,
+      credentialScope: credentialScope,
+      presignedUrl: false,
+      contentLength: contentLength,
+      payloadHash: payloadHash,
+      serviceConfiguration: serviceConfiguration,
+    );
   }
+
+  /// {@macro aws_signature_v4.canonical_request}
+  factory CanonicalRequest.presignedUrl({
+    required AWSBaseHttpRequest request,
+    required AWSCredentials credentials,
+    required AWSCredentialScope credentialScope,
+    required AWSAlgorithm algorithm,
+    required Duration expiresIn,
+    int contentLength = 0,
+    String payloadHash = emptyPayloadHash,
+    ServiceConfiguration serviceConfiguration =
+        const BaseServiceConfiguration(),
+  }) {
+    final headers = Map.of(request.headers);
+    final queryParameters = Map.of(request.queryParameters);
+
+    // Per https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html
+    assert(
+      expiresIn > const Duration(seconds: 1) &&
+          expiresIn < const Duration(days: 7),
+      'Expiration must be greater than 1 second and less than 7 days',
+    );
+
+    final canonicalHeaders = CanonicalHeaders(headers);
+    final signedHeaders = SignedHeaders(canonicalHeaders);
+    serviceConfiguration.applyPresigned(
+      queryParameters,
+      request: request,
+      credentialScope: credentialScope,
+      algorithm: algorithm,
+      expiresIn: expiresIn.inSeconds,
+      signedHeaders: signedHeaders,
+      credentials: credentials,
+    );
+
+    return CanonicalRequest._(
+      request: request,
+      queryParameters: queryParameters,
+      canonicalQueryParameters: CanonicalQueryParameters(queryParameters),
+      headers: headers,
+      canonicalHeaders: canonicalHeaders,
+      signedHeaders: signedHeaders,
+      credentialScope: credentialScope,
+      algorithm: algorithm,
+      expiresIn: expiresIn,
+      presignedUrl: true,
+      contentLength: contentLength,
+      payloadHash: payloadHash,
+      serviceConfiguration: serviceConfiguration,
+    );
+  }
+
+  /// {@macro aws_signature_v4.canonical_request}
+  CanonicalRequest._({
+    required this.request,
+    required this.queryParameters,
+    required this.canonicalQueryParameters,
+    required this.headers,
+    required this.canonicalHeaders,
+    required this.signedHeaders,
+    required this.credentialScope,
+    required this.contentLength,
+    required this.payloadHash,
+    required this.serviceConfiguration,
+    required this.presignedUrl,
+    this.algorithm,
+    Duration? expiresIn,
+  })  : normalizePath = serviceConfiguration.normalizePath,
+        omitSessionTokenFromSigning = serviceConfiguration.omitSessionToken,
+        expiresIn = expiresIn?.inSeconds;
 
   /// Returns the normalized path with double-encoded path segments.
   ///

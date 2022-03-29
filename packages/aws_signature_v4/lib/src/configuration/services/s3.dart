@@ -96,44 +96,42 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
   }
 
   @override
-  void apply(
-    Map<String, String> base,
-    CanonicalRequest canonicalRequest, {
+  void applySigned(
+    Map<String, String> headers, {
+    required AWSBaseHttpRequest request,
+    required AWSCredentialScope credentialScope,
     required AWSCredentials credentials,
     required String payloadHash,
     required int contentLength,
   }) {
-    super.apply(
-      base,
-      canonicalRequest,
+    super.applySigned(
+      headers,
+      request: request,
+      credentialScope: credentialScope,
       credentials: credentials,
       payloadHash: payloadHash,
       contentLength: contentLength,
     );
 
-    if (canonicalRequest.presignedUrl) {
-      return;
-    }
-
     if (chunked) {
       // Raw size of the data to be sent, before compression and without metadata.
-      base[AWSHeaders.decodedContentLength] = contentLength.toString();
+      headers[AWSHeaders.decodedContentLength] = contentLength.toString();
 
       if (encoding == S3PayloadEncoding.none) {
-        base[AWSHeaders.contentEncoding] = 'aws-chunked';
-        base[AWSHeaders.contentLength] = _calculateContentLength(
-          canonicalRequest.request,
+        headers[AWSHeaders.contentEncoding] = 'aws-chunked';
+        headers[AWSHeaders.contentLength] = _calculateContentLength(
+          request,
           contentLength,
         ).toString();
       } else {
-        base[AWSHeaders.contentEncoding] = 'aws-chunked,${encoding.value}';
+        headers[AWSHeaders.contentEncoding] = 'aws-chunked,${encoding.value}';
       }
     }
 
     if (signPayload) {
-      base[AWSHeaders.contentSHA256] = payloadHash;
+      headers[AWSHeaders.contentSHA256] = payloadHash;
     } else {
-      base[AWSHeaders.contentSHA256] = 'UNSIGNED-PAYLOAD';
+      headers[AWSHeaders.contentSHA256] = 'UNSIGNED-PAYLOAD';
     }
   }
 

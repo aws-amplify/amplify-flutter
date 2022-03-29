@@ -56,12 +56,12 @@ void main() {
 
   group('geo', () {
     test('Font', () {
-      final canonicalRequest = CanonicalRequest(
+      final canonicalRequest = CanonicalRequest.presignedUrl(
         request: request,
         credentials: credentials,
         credentialScope: scope,
         algorithm: AWSAlgorithm.hmacSha256,
-        presignedUrl: true,
+        expiresIn: const Duration(minutes: 10),
       );
       expect(canonicalRequest.toString(), equals(_canonicalString));
 

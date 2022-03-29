@@ -171,17 +171,25 @@ class AWSSigV4Signer {
     Duration? expiresIn,
     required bool presignedUrl,
   }) {
-    final canonicalRequest = CanonicalRequest(
-      request: request,
-      credentials: credentials,
-      credentialScope: credentialScope,
-      payloadHash: payloadHash,
-      contentLength: contentLength,
-      presignedUrl: presignedUrl,
-      algorithm: algorithm,
-      expiresIn: expiresIn,
-      configuration: serviceConfiguration,
-    );
+    final canonicalRequest = presignedUrl
+        ? CanonicalRequest.presignedUrl(
+            request: request,
+            credentials: credentials,
+            credentialScope: credentialScope,
+            algorithm: algorithm,
+            expiresIn: expiresIn!,
+            contentLength: contentLength,
+            payloadHash: payloadHash,
+            serviceConfiguration: serviceConfiguration,
+          )
+        : CanonicalRequest(
+            request: request,
+            credentials: credentials,
+            credentialScope: credentialScope,
+            contentLength: contentLength,
+            payloadHash: payloadHash,
+            serviceConfiguration: serviceConfiguration,
+          );
     final signingKey = algorithm.deriveSigningKey(
       credentials,
       credentialScope,

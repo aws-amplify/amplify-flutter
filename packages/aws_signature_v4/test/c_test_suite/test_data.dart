@@ -139,17 +139,25 @@ class SignerTest {
       presignedUrl: presignedUrl,
     );
     final contentLength = request.contentLength as int;
-    final CanonicalRequest canonicalRequest = CanonicalRequest(
-      request: request,
-      credentials: context.credentials,
-      credentialScope: credentialScope,
-      payloadHash: payloadHash,
-      contentLength: contentLength,
-      algorithm: algorithm,
-      presignedUrl: presignedUrl,
-      expiresIn: Duration(seconds: context.expirationInSeconds),
-      configuration: serviceConfiguration,
-    );
+    final CanonicalRequest canonicalRequest = presignedUrl
+        ? CanonicalRequest.presignedUrl(
+            request: request,
+            credentials: context.credentials,
+            credentialScope: credentialScope,
+            algorithm: algorithm,
+            expiresIn: Duration(seconds: context.expirationInSeconds),
+            contentLength: contentLength,
+            payloadHash: payloadHash,
+            serviceConfiguration: serviceConfiguration,
+          )
+        : CanonicalRequest(
+            request: request,
+            credentials: context.credentials,
+            credentialScope: credentialScope,
+            contentLength: contentLength,
+            payloadHash: payloadHash,
+            serviceConfiguration: serviceConfiguration,
+          );
     final String stringToSign = signer.stringToSign(
       algorithm: algorithm,
       credentialScope: credentialScope,
@@ -161,10 +169,15 @@ class SignerTest {
         expect(
           canonicalRequest.toString(),
           equals(testMethodData.canonicalRequest),
+          reason: 'Canonical requests must match',
         );
       });
       test('sts', () {
-        expect(stringToSign, equals(testMethodData.stringToSign));
+        expect(
+          stringToSign,
+          equals(testMethodData.stringToSign),
+          reason: 'STS must match',
+        );
       });
       if (presignedUrl) {
         group('presigned url', () {
@@ -179,6 +192,7 @@ class SignerTest {
             expect(
               uri.queryParameters[AWSHeaders.signature],
               equals(testMethodData.signature),
+              reason: 'Signatures must be identical',
             );
           });
         });
@@ -191,7 +205,11 @@ class SignerTest {
           );
 
           test('signature', () {
-            expect(signedRequest.signature, equals(testMethodData.signature));
+            expect(
+              signedRequest.signature,
+              equals(testMethodData.signature),
+              reason: 'Signatures must be identical',
+            );
           });
           test('headers', () {
             expect(
@@ -201,12 +219,14 @@ class SignerTest {
                 testMethodData.signedRequest.headers,
               ),
               isTrue,
+              reason: 'Headers must be case-insensitive equal',
             );
           });
           test('path', () {
             expect(
               signedRequest.path,
               equals(testMethodData.signedRequest.path),
+              reason: 'Paths must be identical',
             );
           });
           test('query parameters', () {
@@ -216,13 +236,18 @@ class SignerTest {
                 testMethodData.signedRequest.queryParameters,
               ),
               isTrue,
+              reason: 'Query parameters must be case-sensitive equal',
             );
           });
           test('body', () async {
             final body = await ByteStream(signedRequest.body).toBytes();
             final expected =
                 await ByteStream(testMethodData.signedRequest.body).toBytes();
-            expect(body, orderedEquals(expected));
+            expect(
+              body,
+              orderedEquals(expected),
+              reason: 'Bodies must be identical',
+            );
           });
         }, skip: presignedUrl);
       }

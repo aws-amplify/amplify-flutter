@@ -47,22 +47,29 @@ abstract class ServiceConfiguration {
   /// Whether to omit the session token during signing.
   final bool omitSessionToken;
 
-  /// Applies service-specific keys to [base] with values from [canonicalRequest]
-  /// and [credentials].
+  /// Applies service-specific keys to [headers] for signed header requests.
   @mustCallSuper
-  void apply(
-    Map<String, String> base,
-    CanonicalRequest canonicalRequest, {
+  void applySigned(
+    Map<String, String> headers, {
+    required AWSBaseHttpRequest request,
+    required AWSCredentialScope credentialScope,
     required AWSCredentials credentials,
     required String payloadHash,
     required int contentLength,
   });
 
-  /// Whether to include the body hash in the signing process.
-  bool includeBodyHash(
-    CanonicalRequest request,
-    int contentLength,
-  );
+  /// Applies service-specific keys to [queryParameters] for pre-signed URL
+  /// requests.
+  @mustCallSuper
+  void applyPresigned(
+    Map<String, String> queryParameters, {
+    required AWSBaseHttpRequest request,
+    required AWSCredentialScope credentialScope,
+    required AWSAlgorithm algorithm,
+    required SignedHeaders signedHeaders,
+    required int expiresIn,
+    required AWSCredentials credentials,
+  });
 
   /// Hashes the request payload for the canonical request.
   Future<String> hashPayload(
@@ -101,45 +108,46 @@ class BaseServiceConfiguration extends ServiceConfiguration {
         );
 
   @override
-  void apply(
-    Map<String, String> base,
-    CanonicalRequest canonicalRequest, {
+  void applySigned(
+    Map<String, String> headers, {
+    required AWSBaseHttpRequest request,
+    required AWSCredentialScope credentialScope,
     required AWSCredentials credentials,
     required String payloadHash,
     required int contentLength,
   }) {
-    final request = canonicalRequest.request;
-    final presignedUrl = canonicalRequest.presignedUrl;
-    final credentialScope = canonicalRequest.credentialScope;
-    final algorithm = canonicalRequest.algorithm;
-    final expiresIn = canonicalRequest.expiresIn;
-    final omitSessionTokenFromSigning =
-        canonicalRequest.omitSessionTokenFromSigning;
-
-    base.addAll({
+    final includeBodyHash = contentLength > 0;
+    headers.addAll({
       if (!request.headers.containsKey(AWSHeaders.host))
         AWSHeaders.host: request.host,
       AWSHeaders.date: credentialScope.dateTime.formatFull(),
-      if (presignedUrl)
-        AWSHeaders.signedHeaders: canonicalRequest.signedHeaders.toString(),
-      if (presignedUrl && algorithm != null) AWSHeaders.algorithm: algorithm.id,
-      if (presignedUrl)
-        AWSHeaders.credential: '${credentials.accessKeyId}/$credentialScope',
-      if (presignedUrl && expiresIn != null)
-        AWSHeaders.expires: expiresIn.toString(),
-      if (includeBodyHash(canonicalRequest, contentLength))
-        AWSHeaders.contentSHA256: canonicalRequest.payloadHash,
-      if (credentials.sessionToken != null && !omitSessionTokenFromSigning)
+      if (includeBodyHash) AWSHeaders.contentSHA256: payloadHash,
+      if (credentials.sessionToken != null && !omitSessionToken)
         AWSHeaders.securityToken: credentials.sessionToken!,
     });
   }
 
   @override
-  bool includeBodyHash(
-    CanonicalRequest request,
-    int contentLength,
-  ) {
-    return !request.presignedUrl && contentLength > 0;
+  void applyPresigned(
+    Map<String, String> queryParameters, {
+    required AWSBaseHttpRequest request,
+    required AWSCredentialScope credentialScope,
+    required AWSAlgorithm algorithm,
+    required SignedHeaders signedHeaders,
+    required int expiresIn,
+    required AWSCredentials credentials,
+  }) {
+    queryParameters.addAll({
+      if (!request.headers.containsKey(AWSHeaders.host))
+        AWSHeaders.host: request.host,
+      AWSHeaders.date: credentialScope.dateTime.formatFull(),
+      AWSHeaders.signedHeaders: signedHeaders.toString(),
+      AWSHeaders.algorithm: algorithm.id,
+      AWSHeaders.credential: '${credentials.accessKeyId}/$credentialScope',
+      AWSHeaders.expires: expiresIn.toString(),
+      if (credentials.sessionToken != null && !omitSessionToken)
+        AWSHeaders.securityToken: credentials.sessionToken!,
+    });
   }
 
   @override
