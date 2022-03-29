@@ -136,10 +136,17 @@ scripts:
     melos exec -c 1 --scope="amplify_auth_cognito_android_example" --fail-fast -- \
       flutter build apk --debug --verbose
 
-  # TODO: LINT COGNITO PLUGIN
   lint:android:amplify_auth_cognito:
-    run: echo "amplify_auth_cognito does not conform to Android lint rules"
-
+    run: |
+      melos exec -c 1 --fail-fast -- \
+        bash "$PWD/build-support/lint_android.sh"
+    description: >
+      Lints Android (Kotlin) files against global rules and fails if there are any errors.
+    select-package:
+      scope:
+        - amplify_auth_cognito_android_example
+  
+  # TODO: LINT COGNITO PLUGIN for iOS
   lint:ios:amplify_auth_cognito:
     run: echo "amplify_auth_cognito does not conform to iOS lint rules"
 
@@ -183,12 +190,28 @@ scripts:
     melos exec -c 1 --scope="amplify_datastore_example" --fail-fast -- \
       flutter build apk --debug --verbose
 
-  # TODO: LINT DATASTORE PLUGIN
   lint:android:amplify_datastore:
-    run: echo "amplify_datastore does not conform to Android lint rules"
+    run: |
+      melos exec -c 1 --fail-fast -- \
+        bash "$PWD/build-support/lint_android.sh"
+    description: >
+      Lints Android (Kotlin) files against global rules and fails if there are any errors.
+    select-package:
+      scope:
+        - amplify_datastore_example
 
+  # TODO: LINT DATASTORE PLUGIN for iOS
   lint:ios:amplify_datastore:
     run: echo "amplify_datastore does not conform to iOS lint rules"
+
+  # STORAGE
+  # TODO: LINT STORAGE PLUGIN
+  lint:android:amplify_storage_s3:
+    run: echo "amplify_storage_s3 does not have an Android example App yet"
+
+
+  lint:ios:amplify_storage_s3:
+    run: echo "amplify_storage_s3 does not have an iOS example App yet"
 
   # AMPLIFY_FLUTTER
   build:examples:ios:amplify_flutter: >
