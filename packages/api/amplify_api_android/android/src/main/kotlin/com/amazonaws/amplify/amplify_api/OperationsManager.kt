@@ -41,6 +41,5 @@ class OperationsManager {
             operationsMap[cancelToken]?.cancel()
             removeOperation(cancelToken)
         }
-
     }
 }

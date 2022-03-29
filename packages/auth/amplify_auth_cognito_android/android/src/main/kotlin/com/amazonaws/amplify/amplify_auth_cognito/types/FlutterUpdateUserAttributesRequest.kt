@@ -25,16 +25,16 @@ import com.amplifyframework.auth.cognito.options.AWSCognitoAuthUpdateUserAttribu
 data class FlutterUpdateUserAttributesRequest(val map: HashMap<String, *>) {
 
     val attributes: List<AuthUserAttribute> = (map["attributes"] as List<HashMap<*, *>>)
-            .map { createAuthUserAttribute(it["userAttributeKey"] as String, it["value"] as String) }
+        .map { createAuthUserAttribute(it["userAttributeKey"] as String, it["value"] as String) }
 
     val options: AWSCognitoAuthUpdateUserAttributesOptions = createOptions(map["options"] as HashMap<String, Any>?)
 
     private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthUpdateUserAttributesOptions {
-        val optionsBuilder =  AWSCognitoAuthUpdateUserAttributesOptions.builder();
+        val optionsBuilder = AWSCognitoAuthUpdateUserAttributesOptions.builder()
         if (rawOptions?.get("clientMetadata") != null) {
-            optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
+            optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>)
         }
-        return optionsBuilder.build();
+        return optionsBuilder.build()
     }
 
     companion object {

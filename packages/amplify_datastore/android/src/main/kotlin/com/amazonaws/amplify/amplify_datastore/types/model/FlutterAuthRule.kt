@@ -97,5 +97,4 @@ data class FlutterAuthRule(val map: Map<String, Any>) {
 
         return builder.build()
     }
-
 }

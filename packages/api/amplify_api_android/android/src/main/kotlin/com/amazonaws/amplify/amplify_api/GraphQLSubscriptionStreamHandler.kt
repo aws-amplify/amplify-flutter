@@ -17,7 +17,6 @@ package com.amazonaws.amplify.amplify_api
 
 import android.os.Handler
 import android.os.Looper
-import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import io.flutter.plugin.common.EventChannel
 
 class GraphQLSubscriptionStreamHandler : EventChannel.StreamHandler {

@@ -31,7 +31,11 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
-import org.mockito.Mockito.*
+import org.mockito.Mockito.any
+import org.mockito.Mockito.doAnswer
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.robolectric.RobolectricTestRunner
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
@@ -39,7 +43,7 @@ import java.lang.reflect.Modifier
 @RunWith(RobolectricTestRunner::class)
 @Suppress("UNCHECKED_CAST")
 class AmplifyApiRestTest {
-    lateinit var flutterPlugin: AmplifyApi
+    private lateinit var flutterPlugin: AmplifyApi
 
     private var mockApi = mock(ApiCategory::class.java)
 
@@ -104,7 +108,6 @@ class AmplifyApiRestTest {
                 "data" to restResponse.data.rawBytes
             )
         )
-
     }
 
     @Test
@@ -187,7 +190,6 @@ class AmplifyApiRestTest {
                 "data" to restResponse.data.rawBytes
             )
         )
-
     }
 
     @Test
@@ -231,7 +233,6 @@ class AmplifyApiRestTest {
                 "data" to restResponse.data.rawBytes
             )
         )
-
     }
 
     @Test
@@ -272,7 +273,6 @@ class AmplifyApiRestTest {
                 "data" to restResponse.data.rawBytes
             )
         )
-
     }
 
     // Invalid response code throws error
@@ -316,7 +316,6 @@ class AmplifyApiRestTest {
                 "data" to restResponse.data.rawBytes
             )
         )
-
     }
 
     // Invalid response code throws error
@@ -337,8 +336,7 @@ class AmplifyApiRestTest {
             any()
         )
 
-        val arguments: Map<String, Any> = mapOf(
-        )
+        val arguments: Map<String, Any> = mapOf()
 
         flutterPlugin.onMethodCall(
             MethodCall("get", arguments),
@@ -359,7 +357,7 @@ class AmplifyApiRestTest {
     // PUT PATCH and POST with no body throws error
     @Test
     fun required_body_methods_error() {
-        doAnswer { _ ->
+        doAnswer {
             mockRestOperation
         }.`when`(mockApi).get(
             any(RestOptions::class.java),

@@ -118,8 +118,6 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
         }
 
         try {
-
-
             when (call.method) {
                 "get" -> FlutterRestApi.get(result, arguments)
                 "post" -> FlutterRestApi.post(result, arguments)

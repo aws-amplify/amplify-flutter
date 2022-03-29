@@ -18,7 +18,6 @@ package com.amazonaws.amplify.amplify_datastore
 import android.os.Handler
 import android.os.Looper
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
-import com.amplifyframework.core.model.SerializedModel
 import io.flutter.plugin.common.EventChannel
 
 class DataStoreObserveEventStreamHandler : EventChannel.StreamHandler {
