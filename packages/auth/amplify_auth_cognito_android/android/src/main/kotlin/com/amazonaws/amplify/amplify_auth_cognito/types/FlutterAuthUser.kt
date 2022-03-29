@@ -17,16 +17,14 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amplifyframework.auth.AuthUser
 
-
 data class FlutterAuthUser(private var raw: AuthUser) {
-  val userId: String = raw.userId
-  val username: String = raw.username;
+    val userId: String = raw.userId
+    val username: String = raw.username
 
-
-  fun toValueMap(): Map<String, Any> {
-    return mapOf(
-      "userId" to this.userId,
-      "username" to this.username
-    )
-  }
+    fun toValueMap(): Map<String, Any> {
+        return mapOf(
+            "userId" to this.userId,
+            "username" to this.username
+        )
+    }
 }

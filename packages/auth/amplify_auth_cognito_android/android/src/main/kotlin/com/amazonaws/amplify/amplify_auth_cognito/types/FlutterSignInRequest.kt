@@ -15,7 +15,6 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.auth.AuthUser
@@ -23,45 +22,45 @@ import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignInOptions
 import com.amplifyframework.core.Amplify
 
 data class FlutterSignInRequest(val map: HashMap<String, *>) {
-  val username: String = map["username"] as String;
-  val password: String = map["password"] as String;
-  val options: AWSCognitoAuthSignInOptions = formatOptions(map["options"] as HashMap<String, *>?)
+    val username: String = map["username"] as String
+    val password: String = map["password"] as String
+    val options: AWSCognitoAuthSignInOptions = formatOptions(map["options"] as HashMap<String, *>?)
 
-  private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthSignInOptions {
-    var options =  AWSCognitoAuthSignInOptions.builder();
+    private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthSignInOptions {
+        var options = AWSCognitoAuthSignInOptions.builder()
 
-    if(rawOptions?.get("clientMetadata") != null)
-      options.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
+        if (rawOptions?.get("clientMetadata") != null)
+            options.metadata(rawOptions["clientMetadata"] as HashMap<String, String>)
 
-    return options.build();
-  }
-
-  companion object {
-    private const val validationErrorMessage: String = "SignIn Request malformed."
-    fun validate(req : HashMap<String, *>?) {
-      if (req == null || req !is HashMap<String, *>) {
-        throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
-      } else {
-        // username and password are optional if options are passed for clientmetadata auth flows
-        if (
-          (req["username"]  == null || req["password"] == null) &&
-          (req["options"] == null || (req["options"] as HashMap<String, *>).size < 1 )
-        ){
-          throw InvalidRequestException(validationErrorMessage, "username and/or password are missing, and you are not using a custom auth flow.")
-        }
-      }
+        return options.build()
     }
-    fun checkUser() {
-      try {
-        var user: AuthUser? = Amplify.Auth.currentUser;
-        if (user != null) {
-          throw FlutterInvalidStateException("There is already a user signed in.", "Sign out before calling sign in.")
+
+    companion object {
+        private const val validationErrorMessage: String = "SignIn Request malformed."
+        fun validate(req: HashMap<String, *>?) {
+            if (req == null || req !is HashMap<String, *>) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
+            } else {
+                // username and password are optional if options are passed for clientmetadata auth flows
+                if (
+                    (req["username"] == null || req["password"] == null) &&
+                    (req["options"] == null || (req["options"] as HashMap<String, *>).size < 1)
+                ) {
+                    throw InvalidRequestException(validationErrorMessage, "username and/or password are missing, and you are not using a custom auth flow.")
+                }
+            }
         }
-      } catch (e: Exception) {
-        if (e is FlutterInvalidStateException) {
-          throw e
+        fun checkUser() {
+            try {
+                var user: AuthUser? = Amplify.Auth.currentUser
+                if (user != null) {
+                    throw FlutterInvalidStateException("There is already a user signed in.", "Sign out before calling sign in.")
+                }
+            } catch (e: Exception) {
+                if (e is FlutterInvalidStateException) {
+                    throw e
+                }
+            }
         }
-      }
     }
-  }
 }

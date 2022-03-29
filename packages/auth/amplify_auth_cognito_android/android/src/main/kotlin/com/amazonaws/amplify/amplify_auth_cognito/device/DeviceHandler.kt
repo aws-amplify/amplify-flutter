@@ -15,7 +15,6 @@
 package com.amazonaws.amplify.amplify_auth_cognito.device
 
 import com.amazonaws.amplify.amplify_auth_cognito.AuthErrorHandler
-import com.amazonaws.amplify.amplify_core.AtomicResult
 import com.amazonaws.mobile.client.AWSMobileClient
 import com.amazonaws.mobile.client.Callback
 import com.amazonaws.mobile.client.results.ListDevicesResult
@@ -24,7 +23,11 @@ import com.amplifyframework.auth.cognito.util.CognitoAuthExceptionConverter
 import com.amplifyframework.core.Amplify
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
 
 /**
  * Handles method calls for the Devices API.
@@ -78,7 +81,8 @@ class DeviceHandler(private val errorHandler: AuthErrorHandler) :
 
                     override fun onError(exception: java.lang.Exception) {
                         errorHandler.handleAuthError(
-                            result, CognitoAuthExceptionConverter.lookup(
+                            result,
+                            CognitoAuthExceptionConverter.lookup(
                                 exception, "Fetching devices failed."
                             )
                         )

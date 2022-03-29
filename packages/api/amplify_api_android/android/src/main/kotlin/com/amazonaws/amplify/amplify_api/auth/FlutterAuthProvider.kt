@@ -23,7 +23,12 @@ import com.amplifyframework.api.aws.sigv4.FunctionAuthProvider
 import com.amplifyframework.api.aws.sigv4.OidcAuthProvider
 import io.flutter.Log
 import io.flutter.plugin.common.MethodChannel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 
 /**
  * Manages the shared state of all [FlutterAuthProvider] instances.

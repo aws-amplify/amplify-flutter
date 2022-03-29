@@ -20,6 +20,7 @@ import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.storage.StorageAccessLevel
 import com.amplifyframework.storage.options.StorageUploadFileOptions
 import java.io.File
+import java.util.*
 
 data class FlutterUploadFileRequest(val request: Map<String, *>) {
     val uuid: String = request["uuid"] as String
@@ -28,15 +29,19 @@ data class FlutterUploadFileRequest(val request: Map<String, *>) {
     val options: StorageUploadFileOptions = setOptions(request)
 
     private fun setOptions(request: Map<String, *>): StorageUploadFileOptions {
-        if(request["options"]!= null) {
+        if (request["options"] != null) {
             val optionsMap = request["options"] as Map<String, *>
-            var options: StorageUploadFileOptions.Builder<*> = StorageUploadFileOptions.builder()
+            val options: StorageUploadFileOptions.Builder<*> = StorageUploadFileOptions.builder()
 
             optionsMap.forEach { (optionKey, optionValue) ->
-                when(optionKey) {
+                when (optionKey) {
                     "accessLevel" -> {
                         val accessLevelStringOption = optionValue as String
-                        val accessLevel: StorageAccessLevel? = StorageAccessLevel.values().find { it.name == accessLevelStringOption.toUpperCase() }
+                        val accessLevel: StorageAccessLevel? = StorageAccessLevel.values().find {
+                            it.name == accessLevelStringOption.uppercase(
+                                Locale.ROOT
+                            )
+                        }
                         options.accessLevel(accessLevel)
                     }
                     "targetIdentityId" -> {
@@ -57,17 +62,16 @@ data class FlutterUploadFileRequest(val request: Map<String, *>) {
 
     companion object {
         private const val validationErrorMessage: String = "UploadFile request malformed."
-        fun validate(request: Map<String, *>)  {
-            if(request["uuid"] !is String) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("uuid" ))
+        fun validate(request: Map<String, *>) {
+            if (request["uuid"] !is String) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("uuid"))
             }
-            if(request["path"] !is String? || request["path"] == null) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("path" ))
+            if (request["path"] !is String? || request["path"] == null) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("path"))
             }
-            if(request["key"] !is String? || request["key"] == null) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("key" ))
+            if (request["key"] !is String? || request["key"] == null) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("key"))
             }
         }
     }
-
 }

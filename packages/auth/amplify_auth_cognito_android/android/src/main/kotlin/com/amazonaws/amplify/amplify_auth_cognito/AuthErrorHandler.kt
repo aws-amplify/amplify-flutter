@@ -20,11 +20,23 @@ import android.os.Looper
 import androidx.annotation.NonNull
 import com.amazonaws.AmazonClientException
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterInvalidStateException
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
-import com.amazonaws.services.cognitoidentityprovider.model.*
-
+import com.amazonaws.services.cognitoidentityprovider.model.CodeDeliveryFailureException
+import com.amazonaws.services.cognitoidentityprovider.model.CodeMismatchException
+import com.amazonaws.services.cognitoidentityprovider.model.ExpiredCodeException
+import com.amazonaws.services.cognitoidentityprovider.model.InvalidLambdaResponseException
+import com.amazonaws.services.cognitoidentityprovider.model.InvalidParameterException
+import com.amazonaws.services.cognitoidentityprovider.model.InvalidUserPoolConfigurationException
+import com.amazonaws.services.cognitoidentityprovider.model.LimitExceededException
+import com.amazonaws.services.cognitoidentityprovider.model.MFAMethodNotFoundException
+import com.amazonaws.services.cognitoidentityprovider.model.NotAuthorizedException
+import com.amazonaws.services.cognitoidentityprovider.model.SoftwareTokenMFANotFoundException
+import com.amazonaws.services.cognitoidentityprovider.model.TooManyFailedAttemptsException
+import com.amazonaws.services.cognitoidentityprovider.model.TooManyRequestsException
+import com.amazonaws.services.cognitoidentityprovider.model.UnexpectedLambdaException
+import com.amazonaws.services.cognitoidentityprovider.model.UserLambdaValidationException
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.core.Amplify
@@ -88,7 +100,7 @@ class AuthErrorHandler {
         var serializedError: Map<String, Any?> = emptyMap()
         if (error is AmplifyException) {
             serializedError = ExceptionUtil.createSerializedError(error)
-        // Need to catch and handle errors that originate in aws-android-sdk untransformed
+            // Need to catch and handle errors that originate in aws-android-sdk untransformed
         } else if (error is AmazonClientException) {
             var message: String = if (error.message != null) error.message!! else ExceptionMessages.missingExceptionMessage
             serializedError = ExceptionUtil.createSerializedError(message, ExceptionMessages.missingRecoverySuggestion, error.toString())
@@ -96,7 +108,7 @@ class AuthErrorHandler {
 
         var errorCode = getErrorCode(error)
         LOG.error(errorCode, error)
-        Handler (Looper.getMainLooper()).post {
+        Handler(Looper.getMainLooper()).post {
             ExceptionUtil.postExceptionToFlutterChannel(flutterResult, errorCode, serializedError)
         }
     }
@@ -105,14 +117,17 @@ class AuthErrorHandler {
         val errorCode = "AuthException"
         LOG.error(errorCode, error)
         val serializedError: Map<String, Any?> = ExceptionUtil.createSerializedError(
-                ExceptionMessages.missingExceptionMessage,
-                ExceptionMessages.missingRecoverySuggestion,
-                error.toString())
-        
+            ExceptionMessages.missingExceptionMessage,
+            ExceptionMessages.missingRecoverySuggestion,
+            error.toString()
+        )
+
         Handler(Looper.getMainLooper()).post {
-            ExceptionUtil.postExceptionToFlutterChannel(flutterResult,
-                    errorCode,
-                    serializedError)
+            ExceptionUtil.postExceptionToFlutterChannel(
+                flutterResult,
+                errorCode,
+                serializedError
+            )
         }
     }
 }

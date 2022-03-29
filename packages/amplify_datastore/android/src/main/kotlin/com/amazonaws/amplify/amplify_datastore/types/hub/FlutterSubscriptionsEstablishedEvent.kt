@@ -15,4 +15,4 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.hub
 
-class FlutterSubscriptionsEstablishedEvent(override val eventName: String) : FlutterHubEvent {}
+class FlutterSubscriptionsEstablishedEvent(override val eventName: String) : FlutterHubEvent

@@ -20,6 +20,7 @@ import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.storage.StorageAccessLevel
 import com.amplifyframework.storage.options.StorageDownloadFileOptions
 import java.io.File
+import java.util.*
 
 data class FlutterDownloadFileRequest(val request: Map<String, *>) {
     val uuid: String = request["uuid"] as String
@@ -30,13 +31,17 @@ data class FlutterDownloadFileRequest(val request: Map<String, *>) {
     private fun setOptions(request: Map<String, *>): StorageDownloadFileOptions {
         if (request["options"] != null) {
             val optionsMap = request["options"] as Map<String, *>
-            var options: StorageDownloadFileOptions.Builder<*> = StorageDownloadFileOptions.builder()
+            val options: StorageDownloadFileOptions.Builder<*> = StorageDownloadFileOptions.builder()
 
             optionsMap.forEach { (optionKey, optionValue) ->
                 when (optionKey) {
                     "accessLevel" -> {
                         val accessLevelStringOption = optionValue as String
-                        val accessLevel: StorageAccessLevel? = StorageAccessLevel.values().find { it.name == accessLevelStringOption.toUpperCase() }
+                        val accessLevel: StorageAccessLevel? = StorageAccessLevel.values().find {
+                            it.name == accessLevelStringOption.uppercase(
+                                Locale.ROOT
+                            )
+                        }
                         options.accessLevel(accessLevel)
                     }
                     "targetIdentityId" -> {
@@ -52,14 +57,14 @@ data class FlutterDownloadFileRequest(val request: Map<String, *>) {
     companion object {
         private const val validationErrorMessage: String = "DownloadFile request malformed."
         fun validate(request: Map<String, *>) {
-            if(request["uuid"] !is String) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("uuid" ))
+            if (request["uuid"] !is String) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("uuid"))
             }
-            if(request["path"] !is String) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("path" ))
+            if (request["path"] !is String) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("path"))
             }
-            if(request["key"] !is String) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "key" ))
+            if (request["key"] !is String) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("key"))
             }
         }
     }

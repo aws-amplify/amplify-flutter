@@ -70,7 +70,7 @@ class FlutterModelProvider private constructor() : ModelProvider {
             get() {
                 if (flutterGeneratedModelInstance == null) {
                     flutterGeneratedModelInstance =
-                            FlutterModelProvider()
+                        FlutterModelProvider()
                 }
                 return flutterGeneratedModelInstance!! // We know it's not null right now
             }

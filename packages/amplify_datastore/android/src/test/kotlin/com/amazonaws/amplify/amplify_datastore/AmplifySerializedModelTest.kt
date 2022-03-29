@@ -24,9 +24,13 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class AmplifySerializedModelTest {
 
-    var serializedModelMaps : Map<String, Any> = (readMapFromFile("model_schema",
+    var serializedModelMaps: Map<String, Any> = (
+        readMapFromFile(
+            "model_schema",
             "serialized_model_maps.json",
-            HashMap::class.java) as HashMap<String, Any>)
+            HashMap::class.java
+        ) as HashMap<String, Any>
+        )
 
     @Test
     fun test_schema_blog_with_hasMany() {
@@ -35,8 +39,8 @@ class AmplifySerializedModelTest {
 
         // Verify result
         Assert.assertEquals(
-                flutterSerializedModel.toMap(),
-                refMap
+            flutterSerializedModel.toMap(),
+            refMap
         )
     }
 
@@ -47,8 +51,8 @@ class AmplifySerializedModelTest {
 
         // Verify result
         Assert.assertEquals(
-                flutterSerializedModel.toMap(),
-                refMap
+            flutterSerializedModel.toMap(),
+            refMap
         )
     }
 
@@ -59,8 +63,8 @@ class AmplifySerializedModelTest {
 
         // Verify result
         Assert.assertEquals(
-                flutterSerializedModel.toMap(),
-                refMap
+            flutterSerializedModel.toMap(),
+            refMap
         )
     }
 
@@ -103,4 +107,3 @@ class AmplifySerializedModelTest {
         )
     }
 }
-

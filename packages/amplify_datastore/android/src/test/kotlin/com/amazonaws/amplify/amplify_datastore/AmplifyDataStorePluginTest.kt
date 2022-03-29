@@ -40,8 +40,6 @@ import com.amplifyframework.datastore.DataStoreConfiguration
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.DataStoreItemChange
 import io.flutter.plugin.common.MethodChannel
-import java.lang.reflect.Field
-import java.lang.reflect.Modifier
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -49,7 +47,7 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.ArgumentMatchers.eq
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito.RETURNS_SELF
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.mockStatic
@@ -57,9 +55,11 @@ import org.mockito.Mockito.never
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoInteractions
-import org.mockito.Mockito.RETURNS_SELF
+import org.mockito.Mockito.`when`
 import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
+import java.lang.reflect.Field
+import java.lang.reflect.Modifier
 import java.util.concurrent.TimeUnit
 
 @RunWith(RobolectricTestRunner::class)
@@ -343,11 +343,13 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_query_api_error() {
-        val testRequest: HashMap<String, Any> = (readMapFromFile(
-            "query_api",
-            "request/only_model_name.json",
-            HashMap::class.java
-        ) as HashMap<String, Any>)
+        val testRequest: HashMap<String, Any> = (
+            readMapFromFile(
+                "query_api",
+                "request/only_model_name.json",
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
 
         doAnswer { invocation: InvocationOnMock ->
             assertEquals("Post", invocation.arguments[0])
@@ -395,11 +397,13 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_delete_success_result_no_predicates() {
-        val testRequest: HashMap<String, Any> = (readMapFromFile(
-            "delete_api",
-            "request/instance_no_predicate.json",
-            HashMap::class.java
-        ) as HashMap<String, Any>)
+        val testRequest: HashMap<String, Any> = (
+            readMapFromFile(
+                "delete_api",
+                "request/instance_no_predicate.json",
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
 
         val serializedModelData: HashMap<String, Any> =
             testRequest["serializedModel"] as HashMap<String, Any>
@@ -437,11 +441,13 @@ class AmplifyDataStorePluginTest {
     @Test
     fun test_delete_api_error() {
 
-        val testRequest: HashMap<String, Any> = (readMapFromFile(
-            "delete_api",
-            "request/instance_no_predicate.json",
-            HashMap::class.java
-        ) as HashMap<String, Any>)
+        val testRequest: HashMap<String, Any> = (
+            readMapFromFile(
+                "delete_api",
+                "request/instance_no_predicate.json",
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
 
         val serializedModelData: HashMap<String, Any> =
             testRequest["serializedModel"] as HashMap<String, Any>
@@ -496,11 +502,13 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_save_success_result_no_predicates() {
-        val testRequest: HashMap<String, Any> = (readMapFromFile(
-            "save_api",
-            "request/instance_without_predicate.json",
-            HashMap::class.java
-        ) as HashMap<String, Any>)
+        val testRequest: HashMap<String, Any> = (
+            readMapFromFile(
+                "save_api",
+                "request/instance_without_predicate.json",
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
 
         val serializedModelData: HashMap<String, Any> =
             testRequest["serializedModel"] as HashMap<String, Any>
@@ -539,11 +547,13 @@ class AmplifyDataStorePluginTest {
     @Test
     fun test_save_api_error() {
 
-        val testRequest: HashMap<String, Any> = (readMapFromFile(
-            "save_api",
-            "request/instance_without_predicate.json",
-            HashMap::class.java
-        ) as HashMap<String, Any>)
+        val testRequest: HashMap<String, Any> = (
+            readMapFromFile(
+                "save_api",
+                "request/instance_without_predicate.json",
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
 
         val serializedModelData: HashMap<String, Any> =
             testRequest["serializedModel"] as HashMap<String, Any>
@@ -606,7 +616,7 @@ class AmplifyDataStorePluginTest {
 
         doAnswer { invocation: InvocationOnMock ->
             (invocation.arguments[0] as Consumer<Cancelable>).accept(
-                Cancelable {  }
+                Cancelable { }
             )
             null
         }.`when`(mockAmplifyDataStorePlugin).observe(
@@ -651,11 +661,13 @@ class AmplifyDataStorePluginTest {
             eventHandler = mockStreamHandler,
             hubEventHandler = mockHubHandler
         )
-        val eventData: HashMap<String, Any> = (readMapFromFile(
-            "observe_api",
-            "post_type_success_event.json",
-            HashMap::class.java
-        ) as HashMap<String, Any>)
+        val eventData: HashMap<String, Any> = (
+            readMapFromFile(
+                "observe_api",
+                "post_type_success_event.json",
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
         val modelData = mapOf(
             "id" to "43036c6b-8044-4309-bddc-262b6c686026",
             "title" to "Title 2",
@@ -787,7 +799,6 @@ class AmplifyDataStorePluginTest {
             ).modelSchema(blogModelSchema).build()
         )
 
-
         assertEquals(
             nestedSerializedModelOutput,
             flutterPlugin.deserializeNestedModel(nestedSerializedModelInput, postModelSchema)
@@ -835,18 +846,18 @@ class AmplifyDataStorePluginTest {
             )
         )
 
-        val deserializedResult = flutterPlugin.deserializeNestedModel(serializedPersonData, personSchema);
+        val deserializedResult = flutterPlugin.deserializeNestedModel(serializedPersonData, personSchema)
         assertEquals(deserializedResult["id"], serializedPersonData["id"])
         assertEquals(deserializedResult["name"], serializedPersonData["name"])
 
         assert(deserializedResult["contact"] is SerializedCustomType)
         val serializedContactData = serializedPersonData["contact"] as Map<*, *>
-        val deserializedContactData = (deserializedResult["contact"] as SerializedCustomType).serializedData;
+        val deserializedContactData = (deserializedResult["contact"] as SerializedCustomType).serializedData
         assertEquals(deserializedContactData["email"], serializedContactData["email"])
         assert(deserializedContactData["phone"] is SerializedCustomType)
         val serializedPhoneData = serializedContactData["phone"] as Map<*, *>
-        val deserializedPhoneData = (deserializedContactData["phone"] as SerializedCustomType).serializedData;
-        assertEquals(deserializedPhoneData, serializedPhoneData);
+        val deserializedPhoneData = (deserializedContactData["phone"] as SerializedCustomType).serializedData
+        assertEquals(deserializedPhoneData, serializedPhoneData)
         assert(deserializedContactData["mailingAddresses"] is List<*>)
         val serializedMailingAddressesData = serializedContactData["mailingAddresses"] as List<Map<*, *>>
         val deserializedMailingAddressesData = deserializedContactData["mailingAddresses"] as List<SerializedCustomType>

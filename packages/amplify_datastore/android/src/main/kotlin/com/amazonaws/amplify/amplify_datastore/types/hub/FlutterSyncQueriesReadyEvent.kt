@@ -15,4 +15,4 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.hub
 
-class FlutterSyncQueriesReadyEvent(override val eventName: String) : FlutterHubEvent {}
+class FlutterSyncQueriesReadyEvent(override val eventName: String) : FlutterHubEvent

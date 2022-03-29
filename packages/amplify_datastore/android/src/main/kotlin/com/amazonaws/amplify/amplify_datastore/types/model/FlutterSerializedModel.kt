@@ -19,10 +19,9 @@ import com.amazonaws.amplify.amplify_core.cast
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.core.model.SerializedCustomType
-import com.amplifyframework.core.model.temporal.Temporal
 import com.amplifyframework.core.model.SerializedModel
+import com.amplifyframework.core.model.temporal.Temporal
 import java.lang.Exception
-
 
 data class FlutterSerializedModel(val serializedModel: SerializedModel) {
     private val serializedData: Map<String, Any?> = parseSerializedDataMap(
@@ -36,21 +35,22 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
 
     fun toMap(): Map<String, Any> {
 
-        val cleanedSerializedData : Map<String, Any?> = serializedData.filterValues { it != null }
+        val cleanedSerializedData: Map<String, Any?> = serializedData.filterValues { it != null }
 
         return mapOf(
-                "id" to id,
-                "serializedData" to cleanedSerializedData,
-                "modelName" to modelName)
+            "id" to id,
+            "serializedData" to cleanedSerializedData,
+            "modelName" to modelName
+        )
     }
 
-    private fun parseModelName(modelName: String?) : String{
-        return if(modelName.isNullOrEmpty()) ""
+    private fun parseModelName(modelName: String?): String {
+        return if (modelName.isNullOrEmpty()) ""
         else modelName
     }
 
     private fun parseSerializedDataMap(serializedData: Map<String, Any>, modelSchema: ModelSchema): Map<String, Any?> {
-        if(serializedData.isEmpty()) throw Exception(
+        if (serializedData.isEmpty()) throw Exception(
             "FlutterSerializedModel - no serializedData for ${modelSchema.name}"
         )
 

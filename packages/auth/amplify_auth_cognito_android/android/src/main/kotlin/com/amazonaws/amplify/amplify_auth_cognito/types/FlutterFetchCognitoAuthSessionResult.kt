@@ -20,76 +20,75 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
 import com.amplifyframework.auth.result.AuthSessionResult
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 var gson = Gson()
 
 data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthSession) {
-  private val isSignedIn: Boolean = raw.isSignedIn
-  private val identityId: String? = raw.identityId.value as String?
-  private val userSub: String? = raw.userSub.value as String?
-  private val credentials: AuthSessionResult<AWSCredentials>? = raw.awsCredentials
-  private val tokens: AuthSessionResult<AWSCognitoUserPoolTokens>? = raw.userPoolTokens
+    private val isSignedIn: Boolean = raw.isSignedIn
+    private val identityId: String? = raw.identityId.value as String?
+    private val userSub: String? = raw.userSub.value as String?
+    private val credentials: AuthSessionResult<AWSCredentials>? = raw.awsCredentials
+    private val tokens: AuthSessionResult<AWSCognitoUserPoolTokens>? = raw.userPoolTokens
 
-  fun toValueMap(): Map<String, Any?> {
-    var serializedMap = mutableMapOf<String, Any?>(
-      "isSignedIn" to this.isSignedIn,
-      "identityId" to this.identityId,
-      "userSub" to this.userSub
-    )
+    fun toValueMap(): Map<String, Any?> {
+        var serializedMap = mutableMapOf<String, Any?>(
+            "isSignedIn" to this.isSignedIn,
+            "identityId" to this.identityId,
+            "userSub" to this.userSub
+        )
 
-    var credentials =  serializeCredentials(this.credentials)
-    var tokens =  serializeTokens(this.tokens)
+        var credentials = serializeCredentials(this.credentials)
+        var tokens = serializeTokens(this.tokens)
 
-    if (credentials != null) {
-      serializedMap["credentials"] = credentials
+        if (credentials != null) {
+            serializedMap["credentials"] = credentials
+        }
+
+        if (tokens != null) {
+            serializedMap["tokens"] = tokens
+        }
+
+        return serializedMap
     }
 
-    if (tokens != null) {
-      serializedMap["tokens"] = tokens
+    // parse userpool tokens
+    fun serializeTokens(res: AuthSessionResult<AWSCognitoUserPoolTokens>?): Map<String, Any>? {
+        var map = res.serializeToMap()
+        return if (map != null && map.containsKey("value")) {
+            var values = map["value"] as Map<String, Any>
+            return if (!values.containsKey("error")) {
+                values
+            } else {
+                null
+            }
+        } else {
+            null
+        }
     }
 
-    return serializedMap;
-  }
-
-  //parse userpool tokens
-  fun serializeTokens(res: AuthSessionResult<AWSCognitoUserPoolTokens>?): Map<String, Any>? {
-    var map = res.serializeToMap();
-    return if (map != null && map.containsKey("value")) {
-      var values = map["value"] as Map<String, Any>
-      return if (!values.containsKey("error")) {
-        values
-      } else {
-        null
-      }
-    } else {
-      null
+    // parse credentials
+    fun serializeCredentials(res: AuthSessionResult<AWSCredentials>?): Map<String, Any>? {
+        var map = res.serializeToMap()
+        return if (map != null && map.containsKey("value")) {
+            var values = map["value"] as Map<String, Any>
+            return if (!values.containsKey("error")) {
+                values
+            } else {
+                null
+            }
+        } else {
+            null
+        }
     }
-  }
 
-  //parse credentials
-  fun serializeCredentials(res: AuthSessionResult<AWSCredentials>?): Map<String, Any>? {
-    var map = res.serializeToMap();
-    return if (map != null && map.containsKey("value")) {
-      var values = map["value"] as Map<String, Any>
-      return if (!values.containsKey("error")) {
-        values
-      } else {
-        null
-      }
-    } else {
-      null
+    // convert a data class to a map
+    fun <T> T.serializeToMap(): Map<String, Any> {
+        return convert()
     }
-  }
 
-  //convert a data class to a map
-  fun <T> T.serializeToMap(): Map<String, Any> {
-    return convert()
-  }
-
-  //convert an object of type I to type O
-  inline fun <I, reified O> I.convert(): O {
-    val json = gson.toJson(this)
-    return gson.fromJson(json, O::class.java)
-  }
+    // convert an object of type I to type O
+    inline fun <I, reified O> I.convert(): O {
+        val json = gson.toJson(this)
+        return gson.fromJson(json, O::class.java)
+    }
 }

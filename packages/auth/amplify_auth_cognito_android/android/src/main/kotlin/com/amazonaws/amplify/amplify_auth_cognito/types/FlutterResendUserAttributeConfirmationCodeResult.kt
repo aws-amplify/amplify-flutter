@@ -18,18 +18,18 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 import com.amplifyframework.auth.AuthCodeDeliveryDetails
 
 data class FlutterResendUserAttributeConfirmationCodeResult(private var raw: AuthCodeDeliveryDetails) {
-    val codeDeliveryDetails: Map<String, Any> = setCodeDeliveryDetails();
+    val codeDeliveryDetails: Map<String, Any> = setCodeDeliveryDetails()
     private fun setCodeDeliveryDetails(): Map<String, Any> {
         return mapOf(
-                "destination" to (raw.destination ?: ""),
-                "deliveryMedium" to (raw.deliveryMedium?.name ?: ""),
-                "attributeName" to (raw.attributeName ?: "")
+            "destination" to (raw.destination ?: ""),
+            "deliveryMedium" to (raw.deliveryMedium?.name ?: ""),
+            "attributeName" to (raw.attributeName ?: "")
         )
     }
 
     fun toValueMap(): Map<String, Any> {
         return mapOf(
-                "codeDeliveryDetails" to this.codeDeliveryDetails
+            "codeDeliveryDetails" to this.codeDeliveryDetails
         )
     }
 }

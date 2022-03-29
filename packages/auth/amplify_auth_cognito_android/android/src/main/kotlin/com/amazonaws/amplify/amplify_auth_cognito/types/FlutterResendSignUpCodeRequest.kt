@@ -20,25 +20,25 @@ import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResendSignUpCodeOptions
 
 data class FlutterResendSignUpCodeRequest(val map: HashMap<String, *>) {
-  val username: String = map["username"] as String;
-  val options: AWSCognitoAuthResendSignUpCodeOptions = createOptions(map["options"] as HashMap<String, Any>?)
+    val username: String = map["username"] as String
+    val options: AWSCognitoAuthResendSignUpCodeOptions = createOptions(map["options"] as HashMap<String, Any>?)
 
-  private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthResendSignUpCodeOptions {
-    val optionsBuilder =  AWSCognitoAuthResendSignUpCodeOptions.builder();
-    if (rawOptions?.get("clientMetadata") != null) {
-      optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
-    }
-    return optionsBuilder.build();
-  }
-
-  companion object {
-    private const val validationErrorMessage: String = "ResendSignUpCode Request malformed."
-    fun validate(req : HashMap<String, *>?) {
-      if (req != null) {
-        if (!req.containsKey("username") && req["username"] != "") {
-          throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "username" ))
+    private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthResendSignUpCodeOptions {
+        val optionsBuilder = AWSCognitoAuthResendSignUpCodeOptions.builder()
+        if (rawOptions?.get("clientMetadata") != null) {
+            optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>)
         }
-      }
+        return optionsBuilder.build()
     }
-  }
+
+    companion object {
+        private const val validationErrorMessage: String = "ResendSignUpCode Request malformed."
+        fun validate(req: HashMap<String, *>?) {
+            if (req != null) {
+                if (!req.containsKey("username") && req["username"] != "") {
+                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("username"))
+                }
+            }
+        }
+    }
 }

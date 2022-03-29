@@ -22,24 +22,24 @@ import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResendUserAttributeConfirmationCodeOptions
 
 data class FlutterResendUserAttributeConfirmationCodeRequest(val map: HashMap<String, *>) {
-    val userAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(map["userAttributeKey"] as String);
+    val userAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(map["userAttributeKey"] as String)
     val options: AWSCognitoAuthResendUserAttributeConfirmationCodeOptions = createOptions(map["options"] as HashMap<String, Any>?)
 
     private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthResendUserAttributeConfirmationCodeOptions {
-        val optionsBuilder =  AWSCognitoAuthResendUserAttributeConfirmationCodeOptions.builder();
+        val optionsBuilder = AWSCognitoAuthResendUserAttributeConfirmationCodeOptions.builder()
         if (rawOptions?.get("clientMetadata") != null) {
-            optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
+            optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>)
         }
-        return optionsBuilder.build();
+        return optionsBuilder.build()
     }
 
     companion object {
         private const val validationErrorMessage: String = "ResendUserAttributeConfirmationCode Request malformed."
-        fun validate(req : HashMap<String, *>?) {
+        fun validate(req: HashMap<String, *>?) {
             if (req == null) {
                 throw InvalidRequestException(FlutterResendUserAttributeConfirmationCodeRequest.validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
             } else if (!req.containsKey("userAttributeKey")) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "userAttributeKey" ))
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("userAttributeKey"))
             }
         }
     }

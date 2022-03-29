@@ -101,15 +101,16 @@ object FlutterRestApi {
         try {
             val operation: RestOperation?
             if (apiName == null) {
-                operation = functionWithoutApiName(options,
+                operation = functionWithoutApiName(
+                    options,
                     Consumer { result ->
                         OperationsManager.removeOperation(cancelToken)
-                        //LOG.debug("$methodName operation succeeded with response: $result")
+                        // LOG.debug("$methodName operation succeeded with response: $result")
                         prepareRestResponseResult(flutterResult, result)
                     },
                     Consumer { exception ->
                         OperationsManager.removeOperation(cancelToken)
-                        //LOG.error("$methodName operation failed", exception)
+                        // LOG.error("$methodName operation failed", exception)
                         handler.post {
                             ExceptionUtil.postExceptionToFlutterChannel(
                                 flutterResult, "ApiException",
@@ -124,12 +125,12 @@ object FlutterRestApi {
                     options,
                     Consumer { result ->
                         OperationsManager.removeOperation(cancelToken)
-                        //LOG.debug("$methodName operation succeeded with response: $result")
+                        // LOG.debug("$methodName operation succeeded with response: $result")
                         prepareRestResponseResult(flutterResult, result)
                     },
                     Consumer { exception ->
                         OperationsManager.removeOperation(cancelToken)
-                        //LOG.error("$methodName operation failed", exception)
+                        // LOG.error("$methodName operation failed", exception)
                         handler.post {
                             ExceptionUtil.postExceptionToFlutterChannel(
                                 flutterResult, "ApiException",
@@ -142,7 +143,6 @@ object FlutterRestApi {
             if (operation != null) {
                 OperationsManager.addOperation(cancelToken, operation)
             }
-
         } catch (e: Exception) {
             handler.post {
                 ExceptionUtil.postExceptionToFlutterChannel(
@@ -199,7 +199,6 @@ object FlutterRestApi {
             this::patch
         )
     }
-
 
     /*
     GET
