@@ -32,7 +32,7 @@ data class FlutterDownloadFileRequest(val request: Map<String, *>) {
             val optionsMap = request["options"] as Map<String, *>
             var options: StorageDownloadFileOptions.Builder<*> = StorageDownloadFileOptions.builder()
 
-            optionsMap.forEach { (optionKey, optionValue) ->
+            optionsMap.iterator().forEach { (optionKey, optionValue) ->
                 when (optionKey) {
                     "accessLevel" -> {
                         val accessLevelStringOption = optionValue as String

@@ -49,7 +49,7 @@ data class FlutterUpdateUserAttributesRequest(val map: HashMap<String, *>) {
                 if (attributes.isEmpty()) {
                     throw InvalidRequestException(validationErrorMessage, "The request must have at least one attribute.")
                 } else {
-                    attributes.forEach { validateUserAttribute(it, validationErrorMessage) }
+                    attributes.iterator().forEach { validateUserAttribute(it, validationErrorMessage) }
                 }
             }
         }

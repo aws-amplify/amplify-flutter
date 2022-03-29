@@ -492,7 +492,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         @NonNull syncExpressions: List<Map<String, Any>>,
         @NonNull dataStoreConfigurationBuilder: DataStoreConfiguration.Builder
     ) {
-        syncExpressions.forEach {
+        syncExpressions.iterator().forEach {
             try {
                 val id = it["id"] as String
                 val modelName = it["modelName"] as String

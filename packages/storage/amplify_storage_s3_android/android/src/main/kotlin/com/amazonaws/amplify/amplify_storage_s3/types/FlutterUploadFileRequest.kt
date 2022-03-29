@@ -32,7 +32,7 @@ data class FlutterUploadFileRequest(val request: Map<String, *>) {
             val optionsMap = request["options"] as Map<String, *>
             var options: StorageUploadFileOptions.Builder<*> = StorageUploadFileOptions.builder()
 
-            optionsMap.forEach { (optionKey, optionValue) ->
+            optionsMap.iterator().forEach { (optionKey, optionValue) ->
                 when(optionKey) {
                     "accessLevel" -> {
                         val accessLevelStringOption = optionValue as String

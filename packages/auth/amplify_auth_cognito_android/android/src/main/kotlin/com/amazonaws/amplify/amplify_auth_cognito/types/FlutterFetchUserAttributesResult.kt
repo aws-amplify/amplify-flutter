@@ -23,7 +23,7 @@ class FlutterFetchUserAttributesResult(private var attributes: List<AuthUserAttr
 
     fun toList(): List<Map<String, String>> {
         var list: MutableList<Map<String, String>> = emptyList<Map<String, String>>().toMutableList()
-        attributes.forEach {
+        attributes.iterator().forEach {
             list.add(mapOf(
                 "key" to it.key.keyString,
                 "value" to it.value)

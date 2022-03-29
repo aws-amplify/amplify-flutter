@@ -103,12 +103,12 @@ class QueryPredicateBuilder {
 
                 when (queryPredicateGroupMap["type"]) {
                     "and" -> {
-                        predicates.forEach {
+                        predicates.iterator().forEach {
                             resultQueryPredicate = resultQueryPredicate!!.and(it)
                         }
                     }
                     "or" -> {
-                        predicates.forEach {
+                        predicates.iterator().forEach {
                             resultQueryPredicate = resultQueryPredicate!!.or(it)
                         }
                     }
