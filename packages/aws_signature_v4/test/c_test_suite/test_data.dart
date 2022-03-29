@@ -147,7 +147,7 @@ class SignerTest {
       contentLength: contentLength,
       algorithm: algorithm,
       presignedUrl: presignedUrl,
-      expiresIn: context.expirationInSeconds,
+      expiresIn: Duration(seconds: context.expirationInSeconds),
       configuration: serviceConfiguration,
     );
     final String stringToSign = signer.stringToSign(
@@ -171,7 +171,7 @@ class SignerTest {
           final Uri uri = signer.presignSync(
             request as AWSHttpRequest,
             credentialScope: credentialScope,
-            expiresIn: context.expirationInSeconds,
+            expiresIn: Duration(seconds: context.expirationInSeconds),
             serviceConfiguration: serviceConfiguration,
           );
 

@@ -50,7 +50,7 @@ class AWSSigV4Signer {
     required AWSCredentialScope credentialScope,
     ServiceConfiguration serviceConfiguration =
         const BaseServiceConfiguration(),
-    int? expiresIn,
+    Duration? expiresIn,
   }) async {
     return signZoned(() async {
       final credentials = await credentialsProvider.retrieve();
@@ -78,7 +78,7 @@ class AWSSigV4Signer {
     required AWSCredentialScope credentialScope,
     ServiceConfiguration serviceConfiguration =
         const BaseServiceConfiguration(),
-    int? expiresIn,
+    Duration? expiresIn,
   }) {
     return signZoned(() {
       final credentials = credentialsProvider.retrieve();
@@ -168,7 +168,7 @@ class AWSSigV4Signer {
     required int contentLength,
     ServiceConfiguration serviceConfiguration =
         const BaseServiceConfiguration(),
-    int? expiresIn,
+    Duration? expiresIn,
     required bool presignedUrl,
   }) {
     final canonicalRequest = CanonicalRequest(

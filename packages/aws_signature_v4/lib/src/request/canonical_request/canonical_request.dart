@@ -115,7 +115,7 @@ class CanonicalRequest {
     this.payloadHash = emptyPayloadHash,
     this.configuration = const BaseServiceConfiguration(),
     this.presignedUrl = false,
-    int? expiresIn,
+    Duration? expiresIn,
   })  : normalizePath = configuration.normalizePath,
         omitSessionTokenFromSigning = configuration.omitSessionToken {
     headers = Map.of(request.headers);
@@ -123,7 +123,7 @@ class CanonicalRequest {
 
     // Apply service configuration to appropriate values for request type.
     if (presignedUrl) {
-      this.expiresIn = expiresIn ?? 600;
+      this.expiresIn = expiresIn?.inSeconds ?? 600;
       canonicalHeaders = CanonicalHeaders(headers);
       signedHeaders = SignedHeaders(canonicalHeaders);
       configuration.apply(
@@ -134,7 +134,7 @@ class CanonicalRequest {
         contentLength: contentLength,
       );
     } else {
-      this.expiresIn = expiresIn;
+      this.expiresIn = expiresIn?.inSeconds;
       configuration.apply(
         headers,
         this,
