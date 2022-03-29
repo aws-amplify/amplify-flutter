@@ -23,10 +23,10 @@ import io.flutter.plugin.common.EventChannel
 
 class TransferProgressStreamHandler : EventChannel.StreamHandler {
 
-    private var eventSink : EventChannel.EventSink? = null
+    private var eventSink: EventChannel.EventSink? = null
     private val handler = Handler(Looper.getMainLooper())
 
-    fun onTransferProgressEvent(uuid : String, progress : StorageTransferProgress){
+    fun onTransferProgressEvent(uuid: String, progress: StorageTransferProgress) {
         handler.post {
             val result: MutableMap<String, Any?> = mutableMapOf(
                 "uuid" to uuid,

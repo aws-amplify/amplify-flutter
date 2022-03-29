@@ -33,8 +33,8 @@ data class FlutterSignInWithWebUIRequest(val map: HashMap<String, *>) {
         private var allowedProviders: Array<String> = arrayOf("amazon", "google", "facebook", "apple")
         private const val validationErrorMessage: String = "SignInWithWebUI Request malformed."
 
-        fun validate(req : HashMap<String, *>?) {
-            val provider: String? = req?.get("authProvider") as String?;
+        fun validate(req: HashMap<String, *>?) {
+            val provider: String? = req?.get("authProvider") as String?
             if (provider != null) {
                 if (!allowedProviders.contains(provider)) {
                     throw InvalidRequestException(validationErrorMessage, "You have passed an AuthProvider that is not supported.")

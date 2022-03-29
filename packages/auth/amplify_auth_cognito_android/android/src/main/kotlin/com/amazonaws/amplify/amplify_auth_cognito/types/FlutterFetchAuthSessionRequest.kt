@@ -18,6 +18,6 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 data class FlutterFetchAuthSessionRequest(val map: HashMap<String, *>) {
 // TODO: Implement options when/if supported by Amplify libraries
 //  var sessionOptions: AuthFetchSessionOptions = setOptions()
-  val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
-  val getAWSCredentials: Boolean = options != null && options["getAWSCredentials"] as Boolean? == true;
+    val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?
+    val getAWSCredentials: Boolean = options != null && options["getAWSCredentials"] as Boolean? == true
 }

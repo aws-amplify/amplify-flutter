@@ -19,7 +19,12 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.amazonaws.amplify.amplify_api.auth.FlutterAuthProvider
 import com.amplifyframework.api.ApiCategory
-import com.amplifyframework.api.aws.*
+import com.amplifyframework.api.aws.AWSApiPlugin
+import com.amplifyframework.api.aws.ApiAuthProviders
+import com.amplifyframework.api.aws.ApiGraphQLRequestOptions
+import com.amplifyframework.api.aws.AppSyncGraphQLRequest
+import com.amplifyframework.api.aws.AuthModeStrategyType
+import com.amplifyframework.api.aws.AuthorizationType
 import com.amplifyframework.api.aws.sigv4.FunctionAuthProvider
 import com.amplifyframework.api.aws.sigv4.OidcAuthProvider
 import com.amplifyframework.api.graphql.OperationType

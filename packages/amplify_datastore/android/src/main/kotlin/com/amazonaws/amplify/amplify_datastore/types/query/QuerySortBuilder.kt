@@ -30,9 +30,10 @@ class QuerySortBuilder {
 
         private fun fromSerializedMap(serializedMap: Map<String, Any>): QuerySortBy {
             return QuerySortBy(
-                    serializedMap["field"] as String,
-                    QuerySortOrder.valueOf(
-                            (serializedMap["order"] as String).toUpperCase()) // android enums are upper case
+                serializedMap["field"] as String,
+                QuerySortOrder.valueOf(
+                    (serializedMap["order"] as String).toUpperCase()
+                ) // android enums are upper case
             )
         }
     }

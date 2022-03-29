@@ -52,14 +52,14 @@ data class FlutterDownloadFileRequest(val request: Map<String, *>) {
     companion object {
         private const val validationErrorMessage: String = "DownloadFile request malformed."
         fun validate(request: Map<String, *>) {
-            if(request["uuid"] !is String) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("uuid" ))
+            if (request["uuid"] !is String) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("uuid"))
             }
-            if(request["path"] !is String) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("path" ))
+            if (request["path"] !is String) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("path"))
             }
-            if(request["key"] !is String) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "key" ))
+            if (request["key"] !is String) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("key"))
             }
         }
     }

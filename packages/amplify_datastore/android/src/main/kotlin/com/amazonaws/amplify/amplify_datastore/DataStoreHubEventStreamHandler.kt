@@ -17,7 +17,16 @@ package com.amazonaws.amplify.amplify_datastore
 
 import android.os.Handler
 import android.os.Looper
-import com.amazonaws.amplify.amplify_datastore.types.hub.*
+import com.amazonaws.amplify.amplify_datastore.types.hub.FlutterModelSyncedEvent
+import com.amazonaws.amplify.amplify_datastore.types.hub.FlutterNetworkStatusEvent
+import com.amazonaws.amplify.amplify_datastore.types.hub.FlutterOutboxMutationEnqueuedEvent
+import com.amazonaws.amplify.amplify_datastore.types.hub.FlutterOutboxMutationProcessedEvent
+import com.amazonaws.amplify.amplify_datastore.types.hub.FlutterOutboxStatusEvent
+import com.amazonaws.amplify.amplify_datastore.types.hub.FlutterReadyEvent
+import com.amazonaws.amplify.amplify_datastore.types.hub.FlutterSubscriptionDataProcessedEvent
+import com.amazonaws.amplify.amplify_datastore.types.hub.FlutterSubscriptionsEstablishedEvent
+import com.amazonaws.amplify.amplify_datastore.types.hub.FlutterSyncQueriesReadyEvent
+import com.amazonaws.amplify.amplify_datastore.types.hub.FlutterSyncQueriesStartedEvent
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.datastore.DataStoreChannelEventName
@@ -33,16 +42,15 @@ import com.amplifyframework.hub.SubscriptionToken
 import io.flutter.plugin.common.EventChannel
 import java.util.concurrent.CountDownLatch
 
-
 class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
     private var eventSink: EventChannel.EventSink? = null
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var token: SubscriptionToken
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
-    private var forwardHubResponse : (event: Map<String, Any>) -> Unit
+    private var forwardHubResponse: (event: Map<String, Any>) -> Unit
 
     // DataStore hub event history. Used to track events which may be lost on hot restart, such as sync and ready events.
-    private var eventHistory: MutableList<HubEvent<*>> = mutableListOf();
+    private var eventHistory: MutableList<HubEvent<*>> = mutableListOf()
 
     // Event types which should be replayed on hot restart.
     private val replayEvents: Set<String> = setOf(
@@ -54,10 +62,12 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
         DataStoreChannelEventName.READY.toString()
     )
 
-    constructor(){
-        forwardHubResponse = {event: Map<String, Any> -> handler.post {
-            eventSink?.success(event)
-        }}
+    constructor() {
+        forwardHubResponse = { event: Map<String, Any> ->
+            handler.post {
+                eventSink?.success(event)
+            }
+        }
     }
 
     constructor(latch: CountDownLatch) {
@@ -69,25 +79,25 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
         token = getHubListener()
     }
 
-     fun getHubListener(): SubscriptionToken {
-         for (event in eventHistory) {
-             if (replayEvents.contains(event.name)) {
-                 sendPayload(event);
-             }
-         }
-         return Amplify.Hub.subscribe(HubChannel.DATASTORE) { hubEvent: HubEvent<*> ->
-             eventHistory.add(hubEvent)
-             sendPayload(hubEvent)
-         }
-     }
+    fun getHubListener(): SubscriptionToken {
+        for (event in eventHistory) {
+            if (replayEvents.contains(event.name)) {
+                sendPayload(event)
+            }
+        }
+        return Amplify.Hub.subscribe(HubChannel.DATASTORE) { hubEvent: HubEvent<*> ->
+            eventHistory.add(hubEvent)
+            sendPayload(hubEvent)
+        }
+    }
 
     private fun sendPayload(hubEvent: HubEvent<*>) {
         try {
             when (hubEvent.name) {
                 DataStoreChannelEventName.NETWORK_STATUS.toString() -> {
                     try {
-                        var networkEvent = hubEvent.data as NetworkStatusEvent
-                        var res = FlutterNetworkStatusEvent(hubEvent.name, networkEvent.active)
+                        val networkEvent = hubEvent.data as NetworkStatusEvent
+                        val res = FlutterNetworkStatusEvent(hubEvent.name, networkEvent.active)
                         sendEvent(res.toValueMap())
                     } catch (e: Exception) {
                         LOG.error("Failed to parse and send networkStatus event: ", e)
@@ -95,7 +105,7 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                 }
                 DataStoreChannelEventName.SUBSCRIPTIONS_ESTABLISHED.toString() -> {
                     try {
-                        var res = FlutterSubscriptionsEstablishedEvent(hubEvent.name)
+                        val res = FlutterSubscriptionsEstablishedEvent(hubEvent.name)
                         sendEvent(res.toValueMap())
                     } catch (e: Exception) {
                         LOG.error("Failed to parse and send subscriptionsEstablished event: ", e)
@@ -103,8 +113,8 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                 }
                 DataStoreChannelEventName.SYNC_QUERIES_STARTED.toString() -> {
                     try {
-                        var syncQueriesStartedEvent = hubEvent.data as SyncQueriesStartedEvent
-                        var res = FlutterSyncQueriesStartedEvent(hubEvent.name, syncQueriesStartedEvent.models)
+                        val syncQueriesStartedEvent = hubEvent.data as SyncQueriesStartedEvent
+                        val res = FlutterSyncQueriesStartedEvent(hubEvent.name, syncQueriesStartedEvent.models)
                         sendEvent(res.toValueMap())
                     } catch (e: Exception) {
                         LOG.error("Failed to parse and send syncQueriesStarted event: ", e)
@@ -112,8 +122,8 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                 }
                 DataStoreChannelEventName.MODEL_SYNCED.toString() -> {
                     try {
-                        var modelSyncedEvent = hubEvent.data as ModelSyncedEvent
-                        var res = FlutterModelSyncedEvent(
+                        val modelSyncedEvent = hubEvent.data as ModelSyncedEvent
+                        val res = FlutterModelSyncedEvent(
                             hubEvent.name,
                             modelSyncedEvent.model,
                             modelSyncedEvent.isFullSync,
@@ -126,11 +136,10 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                     } catch (e: Exception) {
                         LOG.error("Failed to parse and send modelSynced event: ", e)
                     }
-
                 }
                 DataStoreChannelEventName.SYNC_QUERIES_READY.toString() -> {
                     try {
-                        var res = FlutterSyncQueriesReadyEvent(hubEvent.name)
+                        val res = FlutterSyncQueriesReadyEvent(hubEvent.name)
                         sendEvent(res.toValueMap())
                     } catch (e: Exception) {
                         LOG.error("Failed to parse and send syncQueriesReady event: ", e)
@@ -138,7 +147,7 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                 }
                 DataStoreChannelEventName.READY.toString() -> {
                     try {
-                        var res = FlutterReadyEvent(hubEvent.name)
+                        val res = FlutterReadyEvent(hubEvent.name)
                         sendEvent(res.toValueMap())
                     } catch (e: Exception) {
                         LOG.error("Failed to parse and send ready event: ", e)
@@ -146,10 +155,10 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                 }
                 DataStoreChannelEventName.OUTBOX_MUTATION_ENQUEUED.toString() -> {
                     try {
-                        var outboxMutationEnqueued = hubEvent.data as OutboxMutationEvent<*>
+                        val outboxMutationEnqueued = hubEvent.data as OutboxMutationEvent<*>
                         if (outboxMutationEnqueued.element.model is SerializedModel) {
-                            var modelName = (outboxMutationEnqueued.element.model as SerializedModel).modelName as String
-                            var res = FlutterOutboxMutationEnqueuedEvent(
+                            val modelName = (outboxMutationEnqueued.element.model as SerializedModel).modelName as String
+                            val res = FlutterOutboxMutationEnqueuedEvent(
                                 hubEvent.name,
                                 modelName,
                                 outboxMutationEnqueued.element
@@ -161,14 +170,13 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                     } catch (e: Exception) {
                         LOG.error("Failed to parse and send outboxMutationEnqueued event: ", e)
                     }
-
                 }
                 DataStoreChannelEventName.OUTBOX_MUTATION_PROCESSED.toString() -> {
                     try {
-                        var outboxMutationProcessed = hubEvent.data as OutboxMutationEvent<*>
+                        val outboxMutationProcessed = hubEvent.data as OutboxMutationEvent<*>
                         if (outboxMutationProcessed.element.model is SerializedModel) {
-                            var modelName = outboxMutationProcessed.modelName
-                            var res = FlutterOutboxMutationProcessedEvent(
+                            val modelName = outboxMutationProcessed.modelName
+                            val res = FlutterOutboxMutationProcessedEvent(
                                 hubEvent.name,
                                 modelName,
                                 outboxMutationProcessed.element
@@ -183,8 +191,8 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                 }
                 DataStoreChannelEventName.OUTBOX_STATUS.toString() -> {
                     try {
-                        var outboxEvent = hubEvent.data as OutboxStatusEvent
-                        var res = FlutterOutboxStatusEvent(hubEvent.name, outboxEvent.isEmpty)
+                        val outboxEvent = hubEvent.data as OutboxStatusEvent
+                        val res = FlutterOutboxStatusEvent(hubEvent.name, outboxEvent.isEmpty)
                         sendEvent(res.toValueMap())
                     } catch (e: Exception) {
                         LOG.error("Failed to parse and send outboxStatus event: ", e)
@@ -217,10 +225,9 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
         }
     }
 
-     fun sendEvent(flutterEvent: Map<String, Any>) {
-         forwardHubResponse(flutterEvent)
-     }
-
+    fun sendEvent(flutterEvent: Map<String, Any>) {
+        forwardHubResponse(flutterEvent)
+    }
 
     override fun onCancel(p0: Any?) {
         eventSink = null

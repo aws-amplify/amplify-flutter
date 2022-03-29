@@ -49,8 +49,8 @@ data class FlutterListRequest(val request: Map<String, *>) {
     companion object {
         private const val validationErrorMessage: String = "List request malformed."
         fun validate(request: Map<String, *>) {
-            if(request["path"] !is String?) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "path" ))
+            if (request["path"] !is String?) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("path"))
             }
         }
     }

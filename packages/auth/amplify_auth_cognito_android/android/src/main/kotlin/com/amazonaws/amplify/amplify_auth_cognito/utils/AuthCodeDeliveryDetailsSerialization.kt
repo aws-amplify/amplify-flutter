@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-
 package com.amazonaws.amplify.amplify_auth_cognito.utils
 
 import com.amplifyframework.auth.AuthCodeDeliveryDetails
@@ -23,8 +22,8 @@ fun serializeAuthCodeDeliveryDetails(deliveryDetails: AuthCodeDeliveryDetails?):
         return null
     }
     return mapOf(
-            "destination" to (deliveryDetails.destination),
-            "deliveryMedium" to (deliveryDetails.deliveryMedium.name),
-            "attributeName" to (deliveryDetails.attributeName ?: "")
+        "destination" to (deliveryDetails.destination),
+        "deliveryMedium" to (deliveryDetails.deliveryMedium.name),
+        "attributeName" to (deliveryDetails.attributeName ?: "")
     )
 }

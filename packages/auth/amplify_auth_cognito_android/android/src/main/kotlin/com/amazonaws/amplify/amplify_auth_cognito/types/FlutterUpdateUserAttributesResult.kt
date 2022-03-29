@@ -20,7 +20,7 @@ import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
 
 data class FlutterUpdateUserAttributesResult(private val raw: Map<AuthUserAttributeKey, AuthUpdateAttributeResult>) {
-    val attributes: Map<AuthUserAttributeKey, AuthUpdateAttributeResult> = raw;
+    val attributes: Map<AuthUserAttributeKey, AuthUpdateAttributeResult> = raw
 
     fun toValueMap(): Map<String, Any> {
         return attributes.entries.associate {

@@ -31,7 +31,7 @@ data class FlutterFieldType(val map: Map<String, Any>) {
     private val ofCustomTypeName: String? = map["ofCustomTypeName"] as String?
 
     private fun mapTargetType(targetType: String, isCollection: Boolean = false): String {
-        return when(targetType) {
+        return when (targetType) {
             "string" -> "String"
             "int" -> "Integer"
             "double" -> "Double"
@@ -51,7 +51,8 @@ data class FlutterFieldType(val map: Map<String, Any>) {
                     ofModelName!!
                 } else {
                     throw Exception(
-                        "FlutterFieldType.getModelTargetType - invalid fieldType supplied: $targetType")
+                        "FlutterFieldType.getModelTargetType - invalid fieldType supplied: $targetType"
+                    )
                 }
             }
         }
@@ -98,7 +99,8 @@ data class FlutterFieldType(val map: Map<String, Any>) {
             "embedded" -> Map::class.java
             "embeddedCollection" -> List::class.java
             else -> throw Exception(
-                    "FlutterFieldType.getJavaClass - invalid fieldType supplied: $fieldType")
+                "FlutterFieldType.getJavaClass - invalid fieldType supplied: $fieldType"
+            )
         }
     }
 }

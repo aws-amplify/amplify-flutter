@@ -15,19 +15,30 @@
 
 package com.amazonaws.amplify.amplify_storage_s3
 
-import androidx.annotation.NonNull
 import android.os.Handler
 import android.os.Looper
 import android.src.main.kotlin.com.amazonaws.amplify.amplify_storage_s3.types.TransferProgressStreamHandler
+import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
+import com.amazonaws.amplify.amplify_storage_s3.types.FlutterDownloadFileRequest
+import com.amazonaws.amplify.amplify_storage_s3.types.FlutterGetUrlRequest
+import com.amazonaws.amplify.amplify_storage_s3.types.FlutterListRequest
+import com.amazonaws.amplify.amplify_storage_s3.types.FlutterRemoveRequest
+import com.amazonaws.amplify.amplify_storage_s3.types.FlutterUploadFileRequest
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.storage.StorageException
+import com.amplifyframework.storage.result.StorageDownloadFileResult
+import com.amplifyframework.storage.result.StorageGetUrlResult
+import com.amplifyframework.storage.result.StorageListResult
+import com.amplifyframework.storage.result.StorageRemoveResult
+import com.amplifyframework.storage.result.StorageUploadFileResult
 import io.flutter.plugin.common.MethodChannel
 import java.lang.Exception
 import java.text.SimpleDateFormat
-import com.amazonaws.amplify.amplify_storage_s3.types.*
-import com.amplifyframework.storage.StorageException
-import com.amplifyframework.storage.result.*
+import java.util.Locale
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class AmplifyStorageOperations {
 
@@ -40,19 +51,20 @@ class AmplifyStorageOperations {
                 FlutterUploadFileRequest.validate(request)
                 val req = FlutterUploadFileRequest(request)
                 Amplify.Storage.uploadFile(
-                        req.key,
-                        req.file,
-                        req.options,
-                        { progress ->
-                            transferProgressStreamHandler.onTransferProgressEvent(req.uuid, progress)
-                        },
-                        { result ->
-                            prepareUploadFileResponse(flutterResult, result)
-                        },
-                        { error ->
-                            prepareError(flutterResult, error)
-                        })
-            } catch(e: Exception) {
+                    req.key,
+                    req.file,
+                    req.options,
+                    { progress ->
+                        transferProgressStreamHandler.onTransferProgressEvent(req.uuid, progress)
+                    },
+                    { result ->
+                        prepareUploadFileResponse(flutterResult, result)
+                    },
+                    { error ->
+                        prepareError(flutterResult, error)
+                    }
+                )
+            } catch (e: Exception) {
                 prepareError(flutterResult, e)
             }
         }
@@ -61,16 +73,17 @@ class AmplifyStorageOperations {
             try {
                 FlutterGetUrlRequest.validate(request)
                 val req = FlutterGetUrlRequest(request)
-                Amplify.Storage.getUrl(req.key,
-                        req.options,
-                        { result ->
-                            prepareGetUrlResponse(flutterResult, result)
-                        },
-                        { error ->
-                            prepareError(flutterResult, error)
-                        }
+                Amplify.Storage.getUrl(
+                    req.key,
+                    req.options,
+                    { result ->
+                        prepareGetUrlResponse(flutterResult, result)
+                    },
+                    { error ->
+                        prepareError(flutterResult, error)
+                    }
                 )
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 prepareError(flutterResult, e)
             }
         }
@@ -79,16 +92,17 @@ class AmplifyStorageOperations {
             try {
                 FlutterRemoveRequest.validate(request)
                 val req = FlutterRemoveRequest(request)
-                Amplify.Storage.remove(req.key,
-                        req.options,
-                        { result ->
-                            prepareRemoveResponse(flutterResult, result)
-                        },
-                        { error ->
-                            prepareError(flutterResult, error)
-                        }
+                Amplify.Storage.remove(
+                    req.key,
+                    req.options,
+                    { result ->
+                        prepareRemoveResponse(flutterResult, result)
+                    },
+                    { error ->
+                        prepareError(flutterResult, error)
+                    }
                 )
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 prepareError(flutterResult, e)
             }
         }
@@ -97,16 +111,17 @@ class AmplifyStorageOperations {
             try {
                 FlutterListRequest.validate(request)
                 val req = FlutterListRequest(request)
-                Amplify.Storage.list(req.path,
-                        req.options,
-                        { result ->
-                            prepareListResponse(flutterResult, result)
-                        },
-                        { error ->
-                            prepareError(flutterResult, error)
-                        }
+                Amplify.Storage.list(
+                    req.path,
+                    req.options,
+                    { result ->
+                        prepareListResponse(flutterResult, result)
+                    },
+                    { error ->
+                        prepareError(flutterResult, error)
+                    }
                 )
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 prepareError(flutterResult, e)
             }
         }
@@ -115,20 +130,21 @@ class AmplifyStorageOperations {
             try {
                 FlutterDownloadFileRequest.validate(request)
                 val req = FlutterDownloadFileRequest(request)
-                Amplify.Storage.downloadFile(req.key,
-                        req.file,
-                        req.options,
-                        { progress ->
-                            transferProgressStreamHandler.onTransferProgressEvent(req.uuid, progress)
-                        },
-                        { result ->
-                            prepareDownloadFileResponse(flutterResult, result)
-                        },
-                        { error ->
-                            prepareError(flutterResult, error)
-                        }
+                Amplify.Storage.downloadFile(
+                    req.key,
+                    req.file,
+                    req.options,
+                    { progress ->
+                        transferProgressStreamHandler.onTransferProgressEvent(req.uuid, progress)
+                    },
+                    { result ->
+                        prepareDownloadFileResponse(flutterResult, result)
+                    },
+                    { error ->
+                        prepareError(flutterResult, error)
+                    }
                 )
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 prepareError(flutterResult, e)
             }
         }
@@ -158,19 +174,19 @@ class AmplifyStorageOperations {
         }
 
         private fun prepareListResponse(@NonNull flutterResult: MethodChannel.Result, result: StorageListResult) {
-            val spf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            val spf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
             val storageItemList: ArrayList<Map<String, Any>> = arrayListOf()
             for (item in result.items) {
                 val storageItemMap: Map<String, Any> = mapOf(
-                        "key" to item.key,
-                        "eTag" to item.eTag,
-                        "size" to item.size,
-                        "lastModified" to spf.format(item.lastModified)
+                    "key" to item.key,
+                    "eTag" to item.eTag,
+                    "size" to item.size,
+                    "lastModified" to spf.format(item.lastModified)
                 )
                 storageItemList.add(storageItemMap)
             }
             val listResultMap: Map<String, Any> = mapOf(
-                    "items" to storageItemList
+                "items" to storageItemList
             )
             Handler(Looper.getMainLooper()).post {
                 flutterResult.success(listResultMap)
@@ -190,16 +206,19 @@ class AmplifyStorageOperations {
             LOG.error(errorCode, e)
             val serializedError: Map<String, Any?> = if (e is StorageException) {
                 ExceptionUtil.createSerializedError(e)
-            }  else {
+            } else {
                 ExceptionUtil.createSerializedError(
-                        ExceptionMessages.missingExceptionMessage,
-                        ExceptionMessages.missingRecoverySuggestion,
-                        e.toString())
+                    ExceptionMessages.missingExceptionMessage,
+                    ExceptionMessages.missingRecoverySuggestion,
+                    e.toString()
+                )
             }
             Handler(Looper.getMainLooper()).post {
-                ExceptionUtil.postExceptionToFlutterChannel(flutterResult,
-                        errorCode,
-                        serializedError)
+                ExceptionUtil.postExceptionToFlutterChannel(
+                    flutterResult,
+                    errorCode,
+                    serializedError
+                )
             }
         }
     }

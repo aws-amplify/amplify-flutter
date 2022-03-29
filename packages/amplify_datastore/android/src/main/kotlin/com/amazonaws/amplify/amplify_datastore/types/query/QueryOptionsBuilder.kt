@@ -56,5 +56,4 @@ class QueryOptionsBuilder {
             return queryOptions
         }
     }
-
 }

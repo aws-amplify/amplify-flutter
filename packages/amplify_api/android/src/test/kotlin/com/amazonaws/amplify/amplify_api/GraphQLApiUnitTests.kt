@@ -31,37 +31,44 @@ import com.amplifyframework.core.Consumer
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.*
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.*
+import org.mockito.Mockito.any
+import org.mockito.Mockito.anyMap
+import org.mockito.Mockito.doAnswer
+import org.mockito.Mockito.eq
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.robolectric.RobolectricTestRunner
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
 
 const val underlyingMalformedException =
-        "AmplifyException{message=The graphQL document request argument " +
-                "was not passed as a String, cause=java.lang.NullPointerException: null cannot be cast to " +
-                "non-null type kotlin.String, recoverySuggestion=The request should include the graphQL document as a String}"
+    "AmplifyException{message=The graphQL document request argument " +
+        "was not passed as a String, cause=java.lang.NullPointerException: null cannot be cast to " +
+        "non-null type kotlin.String, recoverySuggestion=The request should include the graphQL document as a String}"
 
 const val underlyingInvalidApiException =
     "AmplifyException{message=The apiName request argument " +
-            "was not passed as a String, cause=java.lang.ClassCastException: class java.lang.Integer cannot be cast " +
-            "to class java.lang.String (java.lang.Integer and java.lang.String are in module java.base of loader 'bootstrap'), " +
-            "recoverySuggestion=The request should include the apiName as a String}"
+        "was not passed as a String, cause=java.lang.ClassCastException: class java.lang.Integer cannot be cast " +
+        "to class java.lang.String (java.lang.Integer and java.lang.String are in module java.base of loader 'bootstrap'), " +
+        "recoverySuggestion=The request should include the apiName as a String}"
 
 @RunWith(RobolectricTestRunner::class)
 @ExperimentalCoroutinesApi
 @Suppress("UNCHECKED_CAST")
 class GraphQLApiUnitTests {
-    lateinit var flutterPlugin: AmplifyApiPlugin
+    private lateinit var flutterPlugin: AmplifyApiPlugin
     private var mockApi = mock(ApiCategory::class.java)
     private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
     private val mockGraphQLOperation = mock(GraphQLOperation::class.java)
     private val mockStreamHandler: GraphQLSubscriptionStreamHandler =
-            mock(GraphQLSubscriptionStreamHandler::class.java)
+        mock(GraphQLSubscriptionStreamHandler::class.java)
 
     @Before
     fun setup() {
@@ -90,34 +97,34 @@ class GraphQLApiUnitTests {
 
         doAnswer { invocation ->
             Assert.assertEquals(
-                    SimpleGraphQLRequest<String>(
-                            testRequest["document"] as String,
-                            testRequest["variables"] as Map<String, Any>,
-                            String::class.java,
-                            GsonVariablesSerializer()
-                    ),
-                    invocation.arguments[0]
+                SimpleGraphQLRequest<String>(
+                    testRequest["document"] as String,
+                    testRequest["variables"] as Map<String, Any>,
+                    String::class.java,
+                    GsonVariablesSerializer()
+                ),
+                invocation.arguments[0]
             )
             (invocation.arguments[1] as Consumer<GraphQLResponse<String>>).accept(
-                    graphQLResponse
+                graphQLResponse
             )
             mockGraphQLOperation
         }.`when`(mockApi).query(
-                any<GraphQLRequest<String>>(),
-                any(),
-                any()
+            any<GraphQLRequest<String>>(),
+            any(),
+            any()
         )
 
         flutterPlugin.onMethodCall(
-                MethodCall("query", testRequest),
-                mockResult
+            MethodCall("query", testRequest),
+            mockResult
         )
 
         verify(mockResult).success(
-                mapOf(
-                        "data" to "result",
-                        "errors" to listOf<String>()
-                )
+            mapOf(
+                "data" to "result",
+                "errors" to listOf<String>()
+            )
         )
     }
 
@@ -126,25 +133,25 @@ class GraphQLApiUnitTests {
         val testRequest = HashMap<String, Any>()
 
         flutterPlugin.onMethodCall(
-                MethodCall("query", testRequest),
-                mockResult
+            MethodCall("query", testRequest),
+            mockResult
         )
 
         verify(mockResult).error(
-                "ApiException",
-                ExceptionMessages.defaultFallbackExceptionMessage,
-                mapOf(
-                        "message" to ExceptionMessages.missingExceptionMessage,
-                        "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                        "underlyingException" to underlyingMalformedException
-                )
+            "ApiException",
+            ExceptionMessages.defaultFallbackExceptionMessage,
+            mapOf(
+                "message" to ExceptionMessages.missingExceptionMessage,
+                "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
+                "underlyingException" to underlyingMalformedException
+            )
         )
     }
 
     @Test
     fun test_query_api_error() = runBlockingTest {
         val apiException =
-                ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
+            ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
 
         val testRequest = HashMap<String, Any>()
         testRequest["document"] = """query MyQuery {
@@ -161,36 +168,36 @@ class GraphQLApiUnitTests {
 
         doAnswer { invocation ->
             Assert.assertEquals(
-                    SimpleGraphQLRequest<String>(
-                            testRequest["document"] as String,
-                            testRequest["variables"] as Map<String, Any>,
-                            String::class.java,
-                            GsonVariablesSerializer()
-                    ),
-                    invocation.arguments[0]
+                SimpleGraphQLRequest<String>(
+                    testRequest["document"] as String,
+                    testRequest["variables"] as Map<String, Any>,
+                    String::class.java,
+                    GsonVariablesSerializer()
+                ),
+                invocation.arguments[0]
             )
             (invocation.arguments[2] as Consumer<ApiException>).accept(
-                    apiException
+                apiException
             )
             mockGraphQLOperation
         }.`when`(mockApi).query(
-                any<GraphQLRequest<String>>(),
-                any(),
-                any()
+            any<GraphQLRequest<String>>(),
+            any(),
+            any()
         )
 
         flutterPlugin.onMethodCall(
-                MethodCall("query", testRequest),
-                mockResult
+            MethodCall("query", testRequest),
+            mockResult
         )
 
         verify(mockResult).error(
-                "ApiException",
-                ExceptionMessages.defaultFallbackExceptionMessage,
-                mapOf(
-                        "message" to "AmplifyException",
-                        "recoverySuggestion" to AmplifyException.REPORT_BUG_TO_AWS_SUGGESTION
-                )
+            "ApiException",
+            ExceptionMessages.defaultFallbackExceptionMessage,
+            mapOf(
+                "message" to "AmplifyException",
+                "recoverySuggestion" to AmplifyException.REPORT_BUG_TO_AWS_SUGGESTION
+            )
         )
     }
 
@@ -215,53 +222,52 @@ class GraphQLApiUnitTests {
         doAnswer { invocation ->
             Assert.assertEquals(testRequest["apiName"] as String, invocation.arguments[0])
             Assert.assertEquals(
-                    SimpleGraphQLRequest<String>(
-                            testRequest["document"] as String,
-                            testRequest["variables"] as Map<String, Any>,
-                            String::class.java,
-                            GsonVariablesSerializer()
-                    ),
-                    invocation.arguments[1]
+                SimpleGraphQLRequest<String>(
+                    testRequest["document"] as String,
+                    testRequest["variables"] as Map<String, Any>,
+                    String::class.java,
+                    GsonVariablesSerializer()
+                ),
+                invocation.arguments[1]
             )
             (invocation.arguments[2] as Consumer<GraphQLResponse<String>>).accept(
-                    graphQLResponse
+                graphQLResponse
             )
             mockGraphQLOperation
         }.`when`(mockApi).query(
-                any<String>(),
-                any<GraphQLRequest<String>>(),
-                any(),
-                any()
+            any<String>(),
+            any<GraphQLRequest<String>>(),
+            any(),
+            any()
         )
 
         flutterPlugin.onMethodCall(
-                MethodCall("query", testRequest),
-                mockResult
+            MethodCall("query", testRequest),
+            mockResult
         )
 
         verify(mockResult).success(
-                mapOf(
-                        "data" to "result",
-                        "errors" to listOf<String>()
-                )
+            mapOf(
+                "data" to "result",
+                "errors" to listOf<String>()
+            )
         )
-
     }
 
     @Test
     fun test_mutate_returns_success() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
 
-        testRequest["document"] = ("mutation MyMutation(\$name: String!) {"
-                + "createBlog(input: {name: \$name}) {"
-                + "id"
-                + "name"
-                + "createdAt"
-                + "}"
-                + "}")
+        testRequest["document"] = "mutation MyMutation(\$name: String!) {" +
+            "createBlog(input: {name: \$name}) {" +
+            "id" +
+            "name" +
+            "createdAt" +
+            "}" +
+            "}"
 
         testRequest["variables"] = mapOf(
-                "name" to "Test App Blog"
+            "name" to "Test App Blog"
         )
         testRequest["cancelToken"] = "someCode"
 
@@ -269,34 +275,34 @@ class GraphQLApiUnitTests {
 
         doAnswer { invocation ->
             Assert.assertEquals(
-                    SimpleGraphQLRequest<String>(
-                            testRequest["document"] as String,
-                            testRequest["variables"] as Map<String, Any>,
-                            String::class.java,
-                            GsonVariablesSerializer()
-                    ),
-                    invocation.arguments[0]
+                SimpleGraphQLRequest<String>(
+                    testRequest["document"] as String,
+                    testRequest["variables"] as Map<String, Any>,
+                    String::class.java,
+                    GsonVariablesSerializer()
+                ),
+                invocation.arguments[0]
             )
             (invocation.arguments[1] as Consumer<GraphQLResponse<String>>).accept(
-                    graphQLResponse
+                graphQLResponse
             )
             mockGraphQLOperation
         }.`when`(mockApi).mutate(
-                any<GraphQLRequest<String>>(),
-                any<Consumer<GraphQLResponse<String>>>(),
-                any()
+            any<GraphQLRequest<String>>(),
+            any<Consumer<GraphQLResponse<String>>>(),
+            any()
         )
 
         flutterPlugin.onMethodCall(
-                MethodCall("mutate", testRequest),
-                mockResult
+            MethodCall("mutate", testRequest),
+            mockResult
         )
 
         verify(mockResult).success(
-                mapOf(
-                        "data" to "mutate result",
-                        "errors" to listOf<String>()
-                )
+            mapOf(
+                "data" to "mutate result",
+                "errors" to listOf<String>()
+            )
         )
     }
 
@@ -305,72 +311,72 @@ class GraphQLApiUnitTests {
         val testRequest = HashMap<String, Any>()
 
         flutterPlugin.onMethodCall(
-                MethodCall("mutate", testRequest),
-                mockResult
+            MethodCall("mutate", testRequest),
+            mockResult
         )
 
         verify(mockResult).error(
-                "ApiException",
-                ExceptionMessages.defaultFallbackExceptionMessage,
-                mapOf(
-                        "message" to ExceptionMessages.missingExceptionMessage,
-                        "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                        "underlyingException" to underlyingMalformedException
-                )
+            "ApiException",
+            ExceptionMessages.defaultFallbackExceptionMessage,
+            mapOf(
+                "message" to ExceptionMessages.missingExceptionMessage,
+                "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
+                "underlyingException" to underlyingMalformedException
+            )
         )
     }
 
     @Test
     fun test_mutate_api_error() = runBlockingTest {
         val apiException =
-                ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
+            ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
         val testRequest = HashMap<String, Any>()
 
-        testRequest["document"] = ("mutation MyMutation(\$name: String!) {"
-                + "createBlog(input: {name: \$name}) {"
-                + "id"
-                + "name"
-                + "createdAt"
-                + "}"
-                + "}")
+        testRequest["document"] = "mutation MyMutation(\$name: String!) {" +
+            "createBlog(input: {name: \$name}) {" +
+            "id" +
+            "name" +
+            "createdAt" +
+            "}" +
+            "}"
 
         testRequest["variables"] = mapOf(
-                "name" to "Test App Blog"
+            "name" to "Test App Blog"
         )
         testRequest["cancelToken"] = "someCode"
 
         doAnswer { invocation ->
             Assert.assertEquals(
-                    SimpleGraphQLRequest<String>(
-                            testRequest["document"] as String,
-                            testRequest["variables"] as Map<String, Any>,
-                            String::class.java,
-                            GsonVariablesSerializer()
-                    ),
-                    invocation.arguments[0]
+                SimpleGraphQLRequest<String>(
+                    testRequest["document"] as String,
+                    testRequest["variables"] as Map<String, Any>,
+                    String::class.java,
+                    GsonVariablesSerializer()
+                ),
+                invocation.arguments[0]
             )
             (invocation.arguments[2] as Consumer<ApiException>).accept(
-                    apiException
+                apiException
             )
             mockGraphQLOperation
         }.`when`(mockApi).mutate(
-                any<GraphQLRequest<String>>(),
-                any(),
-                any()
+            any<GraphQLRequest<String>>(),
+            any(),
+            any()
         )
 
         flutterPlugin.onMethodCall(
-                MethodCall("mutate", testRequest),
-                mockResult
+            MethodCall("mutate", testRequest),
+            mockResult
         )
 
         verify(mockResult).error(
-                "ApiException",
-                ExceptionMessages.defaultFallbackExceptionMessage,
-                mapOf(
-                        "message" to "AmplifyException",
-                        "recoverySuggestion" to AmplifyException.REPORT_BUG_TO_AWS_SUGGESTION
-                )
+            "ApiException",
+            ExceptionMessages.defaultFallbackExceptionMessage,
+            mapOf(
+                "message" to "AmplifyException",
+                "recoverySuggestion" to AmplifyException.REPORT_BUG_TO_AWS_SUGGESTION
+            )
         )
     }
 
@@ -378,15 +384,15 @@ class GraphQLApiUnitTests {
     fun test_mutate_with_valid_api_name() = runBlockingTest {
         val testRequest = HashMap<String, Any>()
         testRequest["apiName"] = "publicApi"
-        testRequest["document"] = ("mutation MyMutation(\$name: String!) {"
-                + "createBlog(input: {name: \$name}) {"
-                + "id"
-                + "name"
-                + "createdAt"
-                + "}"
-                + "}")
+        testRequest["document"] = "mutation MyMutation(\$name: String!) {" +
+            "createBlog(input: {name: \$name}) {" +
+            "id" +
+            "name" +
+            "createdAt" +
+            "}" +
+            "}"
         testRequest["variables"] = mapOf(
-                "name" to "Test App Blog"
+            "name" to "Test App Blog"
         )
         testRequest["cancelToken"] = "someCode"
 
@@ -395,37 +401,36 @@ class GraphQLApiUnitTests {
         doAnswer { invocation ->
             Assert.assertEquals(testRequest["apiName"] as String, invocation.arguments[0])
             Assert.assertEquals(
-                    SimpleGraphQLRequest<String>(
-                            testRequest["document"] as String,
-                            testRequest["variables"] as Map<String, Any>,
-                            String::class.java,
-                            GsonVariablesSerializer()
-                    ),
-                    invocation.arguments[1]
+                SimpleGraphQLRequest<String>(
+                    testRequest["document"] as String,
+                    testRequest["variables"] as Map<String, Any>,
+                    String::class.java,
+                    GsonVariablesSerializer()
+                ),
+                invocation.arguments[1]
             )
             (invocation.arguments[2] as Consumer<GraphQLResponse<String>>).accept(
-                    graphQLResponse
+                graphQLResponse
             )
             mockGraphQLOperation
         }.`when`(mockApi).mutate(
-                any<String>(),
-                any<GraphQLRequest<String>>(),
-                any<Consumer<GraphQLResponse<String>>>(),
-                any()
+            any<String>(),
+            any<GraphQLRequest<String>>(),
+            any<Consumer<GraphQLResponse<String>>>(),
+            any()
         )
 
         flutterPlugin.onMethodCall(
-                MethodCall("mutate", testRequest),
-                mockResult
+            MethodCall("mutate", testRequest),
+            mockResult
         )
 
         verify(mockResult).success(
-                mapOf(
-                        "data" to "mutate result",
-                        "errors" to listOf<String>()
-                )
+            mapOf(
+                "data" to "mutate result",
+                "errors" to listOf<String>()
+            )
         )
-
     }
 
     @Test
@@ -433,44 +438,44 @@ class GraphQLApiUnitTests {
         val testRequest = HashMap<String, Any>()
         val id = "someCode"
 
-        testRequest["document"] = ("subscription MySubscription {"
-                + "onCreateBlog {"
-                + "id"
-                + "name"
-                + "createdAt"
-                + "}"
-                + "}")
+        testRequest["document"] = "subscription MySubscription {" +
+            "onCreateBlog {" +
+            "id" +
+            "name" +
+            "createdAt" +
+            "}" +
+            "}"
 
         testRequest["variables"] = mapOf(
-                "name" to "Test App Blog"
+            "name" to "Test App Blog"
         )
         testRequest["cancelToken"] = id
 
         doAnswer { invocation ->
             Assert.assertEquals(
-                    SimpleGraphQLRequest<String>(
-                            testRequest["document"] as String,
-                            testRequest["variables"] as Map<String, Any>,
-                            String::class.java,
-                            GsonVariablesSerializer()
-                    ),
-                    invocation.arguments[0]
+                SimpleGraphQLRequest<String>(
+                    testRequest["document"] as String,
+                    testRequest["variables"] as Map<String, Any>,
+                    String::class.java,
+                    GsonVariablesSerializer()
+                ),
+                invocation.arguments[0]
             )
             (invocation.arguments[1] as Consumer<String>).accept(
-                    id
+                id
             )
             mockGraphQLOperation
         }.`when`(mockApi).subscribe(
-                any<GraphQLRequest<String>>(),
-                any<Consumer<String>>(),
-                any<Consumer<GraphQLResponse<String>>>(),
-                any<Consumer<ApiException>>(),
-                any<Action>()
+            any<GraphQLRequest<String>>(),
+            any<Consumer<String>>(),
+            any<Consumer<GraphQLResponse<String>>>(),
+            any<Consumer<ApiException>>(),
+            any<Action>()
         )
 
         flutterPlugin.onMethodCall(
-                MethodCall("subscribe", testRequest),
-                mockResult
+            MethodCall("subscribe", testRequest),
+            mockResult
         )
 
         verify(mockResult).success(null)
@@ -481,16 +486,16 @@ class GraphQLApiUnitTests {
         val testRequest = HashMap<String, Any>()
         val id = "someCode"
 
-        testRequest["document"] = ("subscription MySubscription {"
-                + "onCreateBlog {"
-                + "id"
-                + "name"
-                + "createdAt"
-                + "}"
-                + "}")
+        testRequest["document"] = "subscription MySubscription {" +
+            "onCreateBlog {" +
+            "id" +
+            "name" +
+            "createdAt" +
+            "}" +
+            "}"
 
         testRequest["variables"] = mapOf(
-                "name" to "Test App Blog"
+            "name" to "Test App Blog"
         )
         testRequest["cancelToken"] = id
 
@@ -498,92 +503,92 @@ class GraphQLApiUnitTests {
 
         doAnswer { invocation ->
             Assert.assertEquals(
-                    SimpleGraphQLRequest<String>(
-                            testRequest["document"] as String,
-                            testRequest["variables"] as Map<String, Any>,
-                            String::class.java,
-                            GsonVariablesSerializer()
-                    ),
-                    invocation.arguments[0]
+                SimpleGraphQLRequest<String>(
+                    testRequest["document"] as String,
+                    testRequest["variables"] as Map<String, Any>,
+                    String::class.java,
+                    GsonVariablesSerializer()
+                ),
+                invocation.arguments[0]
             )
             (invocation.arguments[2] as Consumer<GraphQLResponse<String>>).accept(
-                    graphQLResponse
+                graphQLResponse
             )
             mockGraphQLOperation
         }.`when`(mockApi).subscribe(
-                any<GraphQLRequest<String>>(),
-                any<Consumer<String>>(),
-                any<Consumer<GraphQLResponse<String>>>(),
-                any<Consumer<ApiException>>(),
-                any<Action>()
+            any<GraphQLRequest<String>>(),
+            any<Consumer<String>>(),
+            any<Consumer<GraphQLResponse<String>>>(),
+            any<Consumer<ApiException>>(),
+            any<Action>()
         )
 
         flutterPlugin.onMethodCall(
-                MethodCall("subscribe", testRequest),
-                mockResult
+            MethodCall("subscribe", testRequest),
+            mockResult
         )
 
         val payload: Map<String, Any> = mapOf(
-                "data" to graphQLResponse.data,
-                "errors" to graphQLResponse.errors
+            "data" to graphQLResponse.data,
+            "errors" to graphQLResponse.errors
         )
 
         verify(mockStreamHandler, times(1))
-                .sendEvent(
-                        payload,
-                        id,
-                        GraphQLSubscriptionEventTypes.DATA
-                )
+            .sendEvent(
+                payload,
+                id,
+                GraphQLSubscriptionEventTypes.DATA
+            )
     }
 
     @Test
     fun test_subscribe_error_event() = runBlockingTest {
         val apiException =
-                ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
+            ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
         val testRequest = HashMap<String, Any>()
         val id = "someCode"
 
-        testRequest["document"] = ("subscription MySubscription {"
-                + "onCreateBlog {"
-                + "id"
-                + "name"
-                + "createdAt"
-                + "}"
-                + "}")
+        testRequest["document"] = "subscription MySubscription {" +
+            "onCreateBlog {" +
+            "id" +
+            "name" +
+            "createdAt" +
+            "}" +
+            "}"
 
         testRequest["variables"] = mapOf(
-                "name" to "Test App Blog"
+            "name" to "Test App Blog"
         )
         testRequest["cancelToken"] = id
 
         doAnswer { invocation ->
             Assert.assertEquals(
-                    SimpleGraphQLRequest<String>(
-                            testRequest["document"] as String,
-                            testRequest["variables"] as Map<String, Any>,
-                            String::class.java,
-                            GsonVariablesSerializer()
-                    ),
-                    invocation.arguments[0]
+                SimpleGraphQLRequest<String>(
+                    testRequest["document"] as String,
+                    testRequest["variables"] as Map<String, Any>,
+                    String::class.java,
+                    GsonVariablesSerializer()
+                ),
+                invocation.arguments[0]
             )
             (invocation.arguments[1] as Consumer<String>).accept(
-                    id
+                id
             )
             (invocation.arguments[3] as Consumer<ApiException>).accept(
-                    apiException
+                apiException
             )
             mockGraphQLOperation
         }.`when`(mockApi).subscribe(
-                any<GraphQLRequest<String>>(),
-                any<Consumer<String>>(),
-                any<Consumer<GraphQLResponse<String>>>(),
-                any<Consumer<ApiException>>(),
-                any<Action>()
+            any<GraphQLRequest<String>>(),
+            any<Consumer<String>>(),
+            any<Consumer<GraphQLResponse<String>>>(),
+            any<Consumer<ApiException>>(),
+            any<Action>()
         )
 
         flutterPlugin.onMethodCall(
-                MethodCall("subscribe", testRequest),
-                mockResult
+            MethodCall("subscribe", testRequest),
+            mockResult
         )
 
         verify(mockResult).success(null)
@@ -600,74 +605,74 @@ class GraphQLApiUnitTests {
         val testRequest = HashMap<String, Any>()
 
         flutterPlugin.onMethodCall(
-                MethodCall("subscribe", testRequest),
-                mockResult
+            MethodCall("subscribe", testRequest),
+            mockResult
         )
 
         verify(mockResult).error(
-                "ApiException",
-                ExceptionMessages.defaultFallbackExceptionMessage,
-                mapOf(
-                        "message" to ExceptionMessages.missingExceptionMessage,
-                        "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                        "underlyingException" to underlyingMalformedException
-                )
+            "ApiException",
+            ExceptionMessages.defaultFallbackExceptionMessage,
+            mapOf(
+                "message" to ExceptionMessages.missingExceptionMessage,
+                "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
+                "underlyingException" to underlyingMalformedException
+            )
         )
     }
 
     @Test
     fun test_subscribe_api_error() = runBlockingTest {
         val apiException =
-                ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
+            ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
         val testRequest = HashMap<String, Any>()
 
-        testRequest["document"] = ("subscription MySubscription {"
-                + "onCreateBlog {"
-                + "id"
-                + "name"
-                + "createdAt"
-                + "}"
-                + "}")
+        testRequest["document"] = "subscription MySubscription {" +
+            "onCreateBlog {" +
+            "id" +
+            "name" +
+            "createdAt" +
+            "}" +
+            "}"
 
         testRequest["variables"] = mapOf(
-                "name" to "Test App Blog"
+            "name" to "Test App Blog"
         )
         testRequest["cancelToken"] = "someCode"
 
         doAnswer { invocation ->
             Assert.assertEquals(
-                    SimpleGraphQLRequest<String>(
-                            testRequest["document"] as String,
-                            testRequest["variables"] as Map<String, Any>,
-                            String::class.java,
-                            GsonVariablesSerializer()
-                    ),
-                    invocation.arguments[0]
+                SimpleGraphQLRequest<String>(
+                    testRequest["document"] as String,
+                    testRequest["variables"] as Map<String, Any>,
+                    String::class.java,
+                    GsonVariablesSerializer()
+                ),
+                invocation.arguments[0]
             )
             (invocation.arguments[3] as Consumer<ApiException>).accept(
-                    apiException
+                apiException
             )
             mockGraphQLOperation
         }.`when`(mockApi).subscribe(
-                any<GraphQLRequest<String>>(),
-                any<Consumer<String>>(),
-                any(),
-                any(),
-                any()
+            any<GraphQLRequest<String>>(),
+            any<Consumer<String>>(),
+            any(),
+            any(),
+            any()
         )
 
         flutterPlugin.onMethodCall(
-                MethodCall("subscribe", testRequest),
-                mockResult
+            MethodCall("subscribe", testRequest),
+            mockResult
         )
 
         verify(mockResult).error(
-                "ApiException",
-                ExceptionMessages.defaultFallbackExceptionMessage,
-                mapOf(
-                        "message" to "AmplifyException",
-                        "recoverySuggestion" to AmplifyException.REPORT_BUG_TO_AWS_SUGGESTION
-                )
+            "ApiException",
+            ExceptionMessages.defaultFallbackExceptionMessage,
+            mapOf(
+                "message" to "AmplifyException",
+                "recoverySuggestion" to AmplifyException.REPORT_BUG_TO_AWS_SUGGESTION
+            )
         )
     }
 
@@ -676,46 +681,46 @@ class GraphQLApiUnitTests {
         val testRequest = HashMap<String, Any>()
         val id = "someCode"
         testRequest["apiName"] = "publicApi"
-        testRequest["document"] = ("subscription MySubscription {"
-                + "onCreateBlog {"
-                + "id"
-                + "name"
-                + "createdAt"
-                + "}"
-                + "}")
+        testRequest["document"] = "subscription MySubscription {" +
+            "onCreateBlog {" +
+            "id" +
+            "name" +
+            "createdAt" +
+            "}" +
+            "}"
 
         testRequest["variables"] = mapOf(
-                "name" to "Test App Blog"
+            "name" to "Test App Blog"
         )
         testRequest["cancelToken"] = id
 
         doAnswer { invocation ->
             Assert.assertEquals(testRequest["apiName"] as String, invocation.arguments[0])
             Assert.assertEquals(
-                    SimpleGraphQLRequest<String>(
-                            testRequest["document"] as String,
-                            testRequest["variables"] as Map<String, Any>,
-                            String::class.java,
-                            GsonVariablesSerializer()
-                    ),
-                    invocation.arguments[1]
+                SimpleGraphQLRequest<String>(
+                    testRequest["document"] as String,
+                    testRequest["variables"] as Map<String, Any>,
+                    String::class.java,
+                    GsonVariablesSerializer()
+                ),
+                invocation.arguments[1]
             )
             (invocation.arguments[2] as Consumer<String>).accept(
-                    id
+                id
             )
             mockGraphQLOperation
         }.`when`(mockApi).subscribe(
-                any<String>(),
-                any<GraphQLRequest<String>>(),
-                any<Consumer<String>>(),
-                any<Consumer<GraphQLResponse<String>>>(),
-                any<Consumer<ApiException>>(),
-                any<Action>()
+            any<String>(),
+            any<GraphQLRequest<String>>(),
+            any<Consumer<String>>(),
+            any<Consumer<GraphQLResponse<String>>>(),
+            any<Consumer<ApiException>>(),
+            any<Action>()
         )
 
         flutterPlugin.onMethodCall(
-                MethodCall("subscribe", testRequest),
-                mockResult
+            MethodCall("subscribe", testRequest),
+            mockResult
         )
 
         verify(mockResult).success(null)
@@ -738,22 +743,18 @@ class GraphQLApiUnitTests {
         testRequest["cancelToken"] = "someCode"
 
         flutterPlugin.onMethodCall(
-                MethodCall("query", testRequest),
-                mockResult
+            MethodCall("query", testRequest),
+            mockResult
         )
 
         verify(mockResult).error(
-                "ApiException",
-                ExceptionMessages.defaultFallbackExceptionMessage,
-                mapOf(
-                        "message" to ExceptionMessages.missingExceptionMessage,
-                        "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                        "underlyingException" to underlyingInvalidApiException
-                )
+            eq("ApiException"),
+            eq(ExceptionMessages.defaultFallbackExceptionMessage),
+            anyMap<String, String>()
         )
     }
 
-    fun test_grapqhql_request_document_sanitization() = runBlockingTest {
+    fun test_graphql_request_document_sanitization() = runBlockingTest {
         // test no-op
         val validRequest = HashMap<String, Any>()
         val validDocument = """query MyQuery {
@@ -768,8 +769,8 @@ class GraphQLApiUnitTests {
         validRequest["document"] = validDocument
         val validResult = FlutterApiRequest.getGraphQLDocument(validRequest)
         Assert.assertEquals(
-                validResult,
-                validDocument
+            validResult,
+            validDocument
         )
 
         // test remove tab
@@ -794,8 +795,8 @@ class GraphQLApiUnitTests {
         tabbedRequest["document"] = tabbedDocument
         val tabRemovedResult = FlutterApiRequest.getGraphQLDocument(tabbedRequest)
         Assert.assertEquals(
-                tabRemovedResult,
-                tabRemovedDocument
+            tabRemovedResult,
+            tabRemovedDocument
         )
 
         // tab in hardcoded string is no-op
@@ -809,8 +810,8 @@ class GraphQLApiUnitTests {
         tabQuoteRequest["document"] = tabQuoteDocument
         val tabQuoteResult = FlutterApiRequest.getGraphQLDocument(tabQuoteRequest)
         Assert.assertEquals(
-                tabQuoteResult,
-                tabQuoteDocument
+            tabQuoteResult,
+            tabQuoteDocument
         )
     }
 

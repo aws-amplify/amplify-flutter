@@ -16,10 +16,8 @@
 package com.amazonaws.amplify.amplify_datastore.types.hub
 
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
-import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.datastore.appsync.ModelMetadata
-import com.amplifyframework.datastore.appsync.ModelWithMetadata
 
 class FlutterSubscriptionDataProcessedEvent(
     override val eventName: String,

@@ -31,12 +31,14 @@ class AuthCognitoHubEventStreamHandler : EventChannel.StreamHandler {
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var token: SubscriptionToken
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:auth_cognito_hub_evnet_stream_handler")
-    private var forwardHubResponse : (event: Map<String, Any>) -> Unit
+    private var forwardHubResponse: (event: Map<String, Any>) -> Unit
 
-    constructor(){
-        forwardHubResponse = {event: Map<String, Any> -> handler.post {
-            eventSink?.success(event)
-        }}
+    constructor() {
+        forwardHubResponse = { event: Map<String, Any> ->
+            handler.post {
+                eventSink?.success(event)
+            }
+        }
     }
 
     constructor(latch: CountDownLatch) {
@@ -55,7 +57,7 @@ class AuthCognitoHubEventStreamHandler : EventChannel.StreamHandler {
             } else if (hubEvent.name == InitializationStatus.FAILED.toString()) {
                 LOG.info("AuthPlugin failed to initialize")
             } else {
-                when(AuthChannelEventName.valueOf(hubEvent.name)) {
+                when (AuthChannelEventName.valueOf(hubEvent.name)) {
                     AuthChannelEventName.SIGNED_IN,
                     AuthChannelEventName.SIGNED_OUT,
                     AuthChannelEventName.SESSION_EXPIRED -> {

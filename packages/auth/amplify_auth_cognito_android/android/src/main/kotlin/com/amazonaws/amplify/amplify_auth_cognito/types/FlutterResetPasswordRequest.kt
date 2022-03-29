@@ -20,27 +20,27 @@ import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResetPasswordOptions
 
 data class FlutterResetPasswordRequest(val map: HashMap<String, *>) {
-  val username: String = map["username"] as String;
-  val options: AWSCognitoAuthResetPasswordOptions = createOptions(map["options"] as HashMap<String, Any>?)
+    val username: String = map["username"] as String
+    val options: AWSCognitoAuthResetPasswordOptions = createOptions(map["options"] as HashMap<String, Any>?)
 
-  private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthResetPasswordOptions {
-    val optionsBuilder =  AWSCognitoAuthResetPasswordOptions.builder();
-    if (rawOptions?.get("clientMetadata") != null) {
-      optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
-    }
-    return optionsBuilder.build();
-  }
-
-  companion object {
-    private const val validationErrorMessage: String = "ResetPassword Request malformed."
-    fun validate(req : HashMap<String, *>?) {
-      if (req == null || req !is HashMap<String, *>) {
-        throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
-      } else if (req != null) {
-        if (!req.containsKey("username") && req["username"] != "") {
-          throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "username" ))
+    private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthResetPasswordOptions {
+        val optionsBuilder = AWSCognitoAuthResetPasswordOptions.builder()
+        if (rawOptions?.get("clientMetadata") != null) {
+            optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>)
         }
-      }
+        return optionsBuilder.build()
     }
-  }
+
+    companion object {
+        private const val validationErrorMessage: String = "ResetPassword Request malformed."
+        fun validate(req: HashMap<String, *>?) {
+            if (req == null || req !is HashMap<String, *>) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
+            } else if (req != null) {
+                if (!req.containsKey("username") && req["username"] != "") {
+                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("username"))
+                }
+            }
+        }
+    }
 }

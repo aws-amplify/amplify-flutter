@@ -33,17 +33,17 @@ import kotlin.reflect.KFunction3
 import kotlin.reflect.KFunction4
 
 typealias FunctionWithoutApiName = KFunction3<
-        @ParameterName(name = "restOptions") RestOptions,
-        @ParameterName(name = "restConsumer") Consumer<RestResponse>,
-        @ParameterName(name = "exceptionConsumer") Consumer<ApiException>,
-        RestOperation?>
+    @ParameterName(name = "restOptions") RestOptions,
+    @ParameterName(name = "restConsumer") Consumer<RestResponse>,
+    @ParameterName(name = "exceptionConsumer") Consumer<ApiException>,
+    RestOperation?>
 
 typealias FunctionWithApiName = KFunction4<
-        @ParameterName(name = "apiName") String,
-        @ParameterName(name = "restOptions") RestOptions,
-        @ParameterName(name = "restConsumer") Consumer<RestResponse>,
-        @ParameterName(name = "exceptionConsumer") Consumer<ApiException>,
-        RestOperation?>
+    @ParameterName(name = "apiName") String,
+    @ParameterName(name = "restOptions") RestOptions,
+    @ParameterName(name = "restConsumer") Consumer<RestResponse>,
+    @ParameterName(name = "exceptionConsumer") Consumer<ApiException>,
+    RestOperation?>
 
 enum class RestOperationType(val value: String) {
     GET("get"),
@@ -101,15 +101,16 @@ object FlutterRestApi {
         try {
             val operation: RestOperation?
             if (apiName == null) {
-                operation = functionWithoutApiName(options,
+                operation = functionWithoutApiName(
+                    options,
                     Consumer { result ->
                         OperationsManager.removeOperation(cancelToken)
-                        //LOG.debug("$methodName operation succeeded with response: $result")
+                        // LOG.debug("$methodName operation succeeded with response: $result")
                         prepareRestResponseResult(flutterResult, result)
                     },
                     Consumer { exception ->
                         OperationsManager.removeOperation(cancelToken)
-                        //LOG.error("$methodName operation failed", exception)
+                        // LOG.error("$methodName operation failed", exception)
                         handler.post {
                             ExceptionUtil.postExceptionToFlutterChannel(
                                 flutterResult, "ApiException",
@@ -124,12 +125,12 @@ object FlutterRestApi {
                     options,
                     Consumer { result ->
                         OperationsManager.removeOperation(cancelToken)
-                        //LOG.debug("$methodName operation succeeded with response: $result")
+                        // LOG.debug("$methodName operation succeeded with response: $result")
                         prepareRestResponseResult(flutterResult, result)
                     },
                     Consumer { exception ->
                         OperationsManager.removeOperation(cancelToken)
-                        //LOG.error("$methodName operation failed", exception)
+                        // LOG.error("$methodName operation failed", exception)
                         handler.post {
                             ExceptionUtil.postExceptionToFlutterChannel(
                                 flutterResult, "ApiException",
@@ -142,7 +143,6 @@ object FlutterRestApi {
             if (operation != null) {
                 OperationsManager.addOperation(cancelToken, operation)
             }
-
         } catch (e: Exception) {
             handler.post {
                 ExceptionUtil.postExceptionToFlutterChannel(
@@ -199,7 +199,6 @@ object FlutterRestApi {
             this::patch
         )
     }
-
 
     /*
     GET

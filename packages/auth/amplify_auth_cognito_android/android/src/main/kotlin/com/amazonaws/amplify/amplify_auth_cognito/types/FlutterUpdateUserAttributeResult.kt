@@ -19,7 +19,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.utils.serializeAuthUpdateAttri
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
 
 data class FlutterUpdateUserAttributeResult(private val raw: AuthUpdateAttributeResult) {
-    val result: AuthUpdateAttributeResult = raw;
+    val result: AuthUpdateAttributeResult = raw
 
     fun toValueMap(): Map<String, Any> {
         return serializeAuthUpdateAttributeResult(result)

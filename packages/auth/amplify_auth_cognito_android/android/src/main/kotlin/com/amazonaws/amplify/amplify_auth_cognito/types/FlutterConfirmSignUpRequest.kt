@@ -20,33 +20,32 @@ import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignUpOptions
 
 data class FlutterConfirmSignUpRequest(val map: HashMap<String, *>) {
-    val username: String = map["username"] as String;
-    val confirmationCode: String = map["confirmationCode"] as String;
-    val options: AWSCognitoAuthConfirmSignUpOptions = formatOptions(map["options"] as HashMap<String, *>?);
+    val username: String = map["username"] as String
+    val confirmationCode: String = map["confirmationCode"] as String
+    val options: AWSCognitoAuthConfirmSignUpOptions = formatOptions(map["options"] as HashMap<String, *>?)
 
     private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthConfirmSignUpOptions {
-        val optionsBuilder =  AWSCognitoAuthConfirmSignUpOptions.builder();
+        val optionsBuilder = AWSCognitoAuthConfirmSignUpOptions.builder()
 
-        if(rawOptions?.get("clientMetadata") != null)
-            optionsBuilder.clientMetadata(rawOptions["clientMetadata"] as HashMap<String, String>);
+        if (rawOptions?.get("clientMetadata") != null)
+            optionsBuilder.clientMetadata(rawOptions["clientMetadata"] as HashMap<String, String>)
 
-        return optionsBuilder.build();
+        return optionsBuilder.build()
     }
 
     companion object {
         private const val validationErrorMessage: String = "ConfirmSignUp Request malformed."
-        fun validate(req : HashMap<String, *>?) {
+        fun validate(req: HashMap<String, *>?) {
             if (req == null) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
             } else {
                 if (!req.containsKey("username")) {
-                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "username" ))
+                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("username"))
                 }
                 if (!req.containsKey("confirmationCode")) {
-                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "confirmationCode" ))
+                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("confirmationCode"))
                 }
             }
         }
     }
 }
-

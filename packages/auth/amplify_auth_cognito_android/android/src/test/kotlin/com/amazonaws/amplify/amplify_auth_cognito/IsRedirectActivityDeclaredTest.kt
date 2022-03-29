@@ -25,15 +25,13 @@ import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 
-
 class IsRedirectActivityDeclaredTest {
 
     val context: Context = mock(Context::class.java)
     val manager: PackageManager = mock(PackageManager::class.java)
     val packageInfo: PackageInfo = mock(PackageInfo::class.java)
     val activityInfo: ActivityInfo = ActivityInfo()
-    val packages  = mutableListOf<PackageInfo>(packageInfo)
-
+    val packages = mutableListOf<PackageInfo>(packageInfo)
 
     @Before
     fun setup() {
@@ -55,15 +53,14 @@ class IsRedirectActivityDeclaredTest {
     }
 
     /**
-    * Test that the isRedirectActivityDeclared method will return false
-    * when the customer's manifest file includes an activity and intent filter for
-    * com.amazonaws.mobileconnectors.cognitoauth.activities.CustomTabsRedirectActivity
-    */
+     * Test that the isRedirectActivityDeclared method will return false
+     * when the customer's manifest file includes an activity and intent filter for
+     * com.amazonaws.mobileconnectors.cognitoauth.activities.CustomTabsRedirectActivity
+     */
     @Test
     fun test_isRedirectActivity_CustomTabsRedirectActivity() {
         activityInfo.name = "CustomTabsRedirectActivity"
         var isHostedUIRedirectActivity = isRedirectActivityDeclared(context)
         assert(!isHostedUIRedirectActivity)
     }
-
 }

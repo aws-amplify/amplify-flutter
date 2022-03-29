@@ -16,23 +16,23 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amazonaws.amplify.amplify_auth_cognito.utils.createAuthUserAttributeKey
-import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
+import com.amplifyframework.auth.AuthUserAttributeKey
 
 data class FlutterConfirmUserAttributeRequest(val map: HashMap<String, *>) {
-    val userAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(map["userAttributeKey"] as String);
-    val confirmationCode: String = map["confirmationCode"] as String;
+    val userAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(map["userAttributeKey"] as String)
+    val confirmationCode: String = map["confirmationCode"] as String
 
     companion object {
         private const val validationErrorMessage: String = "ConfirmUserAttribute Request malformed."
-        fun validate(req : HashMap<String, *>?) {
+        fun validate(req: HashMap<String, *>?) {
             if (req == null) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
             } else if (!req.containsKey("userAttributeKey")) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "userAttributeKey" ))
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("userAttributeKey"))
             } else if (!req.containsKey("confirmationCode")) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "confirmationCode" ))
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("confirmationCode"))
             }
         }
     }

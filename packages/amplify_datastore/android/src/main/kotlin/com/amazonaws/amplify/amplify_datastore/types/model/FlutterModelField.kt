@@ -24,7 +24,7 @@ data class FlutterModelField(val map: Map<String, Any>) {
 
     // Type of the field is the data type of the instance variables
     // of the Model class.
-    private val type: FlutterFieldType = FlutterFieldType( map["type"] as Map<String, Any>)
+    private val type: FlutterFieldType = FlutterFieldType(map["type"] as Map<String, Any>)
 
     // If the field is a required or an optional field
     private val isRequired: Boolean = map["isRequired"] as Boolean
@@ -46,13 +46,12 @@ data class FlutterModelField(val map: Map<String, Any>) {
 
     // An array of rules for owner based authorization
     private val authRules: List<FlutterAuthRule>? =
-            (map["authRules"] as List<Map<String, Any>>?)?.map { FlutterAuthRule(it) }
+        (map["authRules"] as List<Map<String, Any>>?)?.map { FlutterAuthRule(it) }
 
     // Association (if any) of the model
     private val flutterModelAssociation: FlutterModelAssociation? =
-            if ( map["association"] == null ) null
-            else FlutterModelAssociation(map["association"] as Map<String, Any>)
-
+        if (map["association"] == null) null
+        else FlutterModelAssociation(map["association"] as Map<String, Any>)
 
     fun getModelAssociation(): FlutterModelAssociation? {
         return flutterModelAssociation
@@ -60,20 +59,19 @@ data class FlutterModelField(val map: Map<String, Any>) {
 
     fun convertToNativeModelField(): ModelField {
         var builder: ModelField.ModelFieldBuilder = ModelField.builder()
-                .name(name)
-                .javaClassForValue( type.getJavaClass() )
-                .targetType( type.getTargetType() )
-                .isRequired(isRequired)
-                .isArray(isArray)
-                .isEnum(isEnum)
-                .isModel(isModel)
-                .isReadOnly(isReadOnly)
-                .isCustomType(isCustomType)
+            .name(name)
+            .javaClassForValue(type.getJavaClass())
+            .targetType(type.getTargetType())
+            .isRequired(isRequired)
+            .isArray(isArray)
+            .isEnum(isEnum)
+            .isModel(isModel)
+            .isReadOnly(isReadOnly)
+            .isCustomType(isCustomType)
 
         if (!authRules.isNullOrEmpty()) {
             builder = builder.authRules(authRules.map { it.convertToNativeAuthRule() })
         }
         return builder.build()
     }
-
 }

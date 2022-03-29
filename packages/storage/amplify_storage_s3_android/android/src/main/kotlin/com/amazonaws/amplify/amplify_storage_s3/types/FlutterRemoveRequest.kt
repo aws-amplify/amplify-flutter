@@ -50,7 +50,7 @@ data class FlutterRemoveRequest(val request: Map<String, *>) {
         private const val validationErrorMessage: String = "Remove request malformed."
         fun validate(request: Map<String, *>) {
             if (request["key"] !is String? || request["key"] == null) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("key" ))
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("key"))
             }
         }
     }
