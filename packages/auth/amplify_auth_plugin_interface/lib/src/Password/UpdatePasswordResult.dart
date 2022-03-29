@@ -14,5 +14,5 @@
  */
 
 class UpdatePasswordResult {
-  UpdatePasswordResult() {}
+  UpdatePasswordResult();
 }

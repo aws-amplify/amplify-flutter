@@ -8,18 +8,17 @@ environment:
   flutter: ">=2.2.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
   amplify_auth_cognito_ios:
     path: ../
-
   cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
 
 dev_dependencies:
   amplify_lints: ^1.0.0
+  flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
 
 flutter:
   uses-material-design: true
