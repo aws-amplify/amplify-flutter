@@ -52,12 +52,13 @@ void main() {
           buildProgressionEventMap(uuid, currentBytes, totalBytes));
 
   Future<void> emitMockNativeValues(ByteData? event) {
-    return ServicesBinding.instance!.defaultBinaryMessenger
+    return _ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
         .handlePlatformMessage(
-      transferEventChannel,
-      event,
-      (ByteData? reply) {},
-    );
+          transferEventChannel,
+          event,
+          (ByteData? reply) {},
+        );
   }
 
   void setupTransferEventChannel() {
@@ -70,7 +71,9 @@ void main() {
       return Future.wait(futures);
     }
 
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    _ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .setMockMessageHandler(
       transferEventChannel,
       (ByteData? message) async {
         final methodCall = standardCodec.decodeMethodCall(message);
@@ -226,3 +229,8 @@ void main() {
 
   // For Upload and Download sad case check downloadfile and uploadfile unit test files
 }
+
+// TODO(dnys1): Remove when Flutter SDK version is bumped.
+/// Ambiguates [o] to be nullable to account for transitions of the Flutter
+/// API from nullable to non-null getters on some APIs.
+T? _ambiguate<T>(T o) => o;
