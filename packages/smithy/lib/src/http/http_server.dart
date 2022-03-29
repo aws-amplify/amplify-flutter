@@ -54,3 +54,19 @@ extension ShelfAwsRequest on Request {
         body: read(),
       );
 }
+
+class RpcRouter {
+  const RpcRouter(this.rpcHeader, this.handlers);
+
+  final String rpcHeader;
+  final Map<String, Handler> handlers;
+
+  Future<Response> call(Request request) async {
+    final rpcCall = request.headers[rpcHeader];
+    final rpcHandler = handlers[rpcCall];
+    if (rpcHandler == null) {
+      throw Exception('Route not found');
+    }
+    return rpcHandler(request);
+  }
+}
