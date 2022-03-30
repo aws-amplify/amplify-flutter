@@ -205,11 +205,19 @@ scripts:
     run: echo "amplify_datastore does not conform to iOS lint rules"
 
   # STORAGE
-  # TODO: LINT STORAGE PLUGIN
+  # NOTE the lint is run against the example in amplify_storage_s3 package
+  # as amplify_storage_s3_android_example doesn't exist now
   lint:android:amplify_storage_s3:
-    run: echo "amplify_storage_s3 does not have an Android example App yet"
+    run: |
+      melos exec -c 1 --fail-fast -- \
+        bash "$PWD/build-support/lint_android.sh"
+    description: >
+      Lints Android (Kotlin) files against global rules and fails if there are any errors.
+    select-package:
+      scope:
+        - amplify_storage_s3_example
 
-
+  # TODO: LINT STORAGE PLUGIN for iOS
   lint:ios:amplify_storage_s3:
     run: echo "amplify_storage_s3 does not have an iOS example App yet"
 
