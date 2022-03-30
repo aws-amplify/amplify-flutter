@@ -3,7 +3,7 @@ version: 2.1
 executors:
   docker-executor:
     docker:
-      - image: circleci/android:api-28
+      - image: circleci/android:api-30
     working_directory: ~/amplify-flutter
 
   macos-executor:
