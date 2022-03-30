@@ -32,11 +32,16 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
+import okhttp3.internal.wait
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.AdditionalMatchers.and
+import org.mockito.AdditionalMatchers.or
+import org.mockito.ArgumentMatcher
 import org.mockito.Mockito.*
+import org.mockito.kotlin.argThat
 import org.robolectric.RobolectricTestRunner
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
@@ -48,8 +53,7 @@ const val underlyingMalformedException =
 
 const val underlyingInvalidApiException =
     "AmplifyException{message=The apiName request argument " +
-            "was not passed as a String, cause=java.lang.ClassCastException: class java.lang.Integer cannot be cast to " +
-            "class java.lang.String"
+            "was not passed as a String"
 
 @RunWith(RobolectricTestRunner::class)
 @ExperimentalCoroutinesApi
@@ -742,14 +746,27 @@ class GraphQLApiUnitTests {
         )
 
         verify(mockResult).error(
-                "ApiException",
-                ExceptionMessages.defaultFallbackExceptionMessage,
-                mapOf(
+                eq("ApiException"),
+                eq(ExceptionMessages.defaultFallbackExceptionMessage),
+                argThat(
+                    InvalidApiMapErrorArgumentMatcher()
+                    /*
+                    mapOf(
                         "message" to ExceptionMessages.missingExceptionMessage,
-                        "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                        "underlyingException" to contains(underlyingInvalidApiException)
-                )
+                        "recoveryMessage" to ExceptionMessages.missingExceptionMessage,
+                        "underlyingException" to underlyingInvalidApiException
+                    )
+                     */
+                )//(InvalidApiMapErrorArgumentMatcher())
         )
+    }
+
+    class InvalidApiMapErrorArgumentMatcher : ArgumentMatcher<Map<String, String>>{
+        override fun matches(argument: Map<String, String>): Boolean {
+            return argument["message"] == ExceptionMessages.missingExceptionMessage &&
+            argument["recoverySuggestion"] == ExceptionMessages.missingRecoverySuggestion &&
+            argument["underlyingException"]!!.contains(underlyingInvalidApiException)
+        }
     }
 
     fun test_grapqhql_request_document_sanitization() = runBlockingTest {

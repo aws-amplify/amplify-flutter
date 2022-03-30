@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_analytics_pinpoint_example
+package com.amazonaws.amplify.amplify_api_example
 
 import io.flutter.embedding.android.FlutterActivity
 
