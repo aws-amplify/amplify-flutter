@@ -60,6 +60,6 @@ android {
 
 dependencies {
     api amplifyCore
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     implementation 'com.amplifyframework:aws-storage-s3:1.32.2'
 }
