@@ -750,14 +750,7 @@ class GraphQLApiUnitTests {
                 eq(ExceptionMessages.defaultFallbackExceptionMessage),
                 argThat(
                     InvalidApiMapErrorArgumentMatcher()
-                    /*
-                    mapOf(
-                        "message" to ExceptionMessages.missingExceptionMessage,
-                        "recoveryMessage" to ExceptionMessages.missingExceptionMessage,
-                        "underlyingException" to underlyingInvalidApiException
-                    )
-                     */
-                )//(InvalidApiMapErrorArgumentMatcher())
+                )
         )
     }
 
