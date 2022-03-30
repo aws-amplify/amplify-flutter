@@ -30,7 +30,7 @@ apply plugin: 'kotlin-android'
 apply from: './coverage.gradle'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
