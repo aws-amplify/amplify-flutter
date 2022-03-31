@@ -17,28 +17,27 @@ import 'dart:collection';
 import 'package:collection/collection.dart';
 
 /// {@template aws_common.case_insensitive_map}
-/// Creates a case-insensitive [Map].
-///
-/// Keys are converted to strings using [Object.toString] if they are not
-/// alreadys strings.
+/// Creates a case-insensitive [Map] using [equalsIgnoreAsciiCase] and
+/// [hashIgnoreAsciiCase] for comparison.
 /// {@endtemplate}
-class CaseInsensitiveMap<K, V> extends CanonicalizedMap<String, K, V> {
+class CaseInsensitiveMap<V> extends DelegatingMap<String, V> {
   /// {@macro aws_common.case_insensitive_map}
-  CaseInsensitiveMap(Map<K, V> other)
-      : super.from(
-          other,
-          (key) => key.toString().toLowerCase(),
-        );
+  CaseInsensitiveMap(Map<String, V> other)
+      : super(HashMap(
+          equals: equalsIgnoreAsciiCase,
+          hashCode: hashIgnoreAsciiCase,
+        )..addAll(other));
 }
 
 /// {@template aws_common.case_insensitive_set}
-/// Creates a case-insensitive [Set] of [String]s.
+/// Creates a case-insensitive [Set] using [equalsIgnoreAsciiCase] and
+/// [hashIgnoreAsciiCase] for comparison.
 /// {@endtemplate}
 class CaseInsensitiveSet extends DelegatingSet<String> {
   /// {@macro aws_common.case_insensitive_set}
   CaseInsensitiveSet(Iterable<String> base)
-      : super(LinkedHashSet(
-          equals: (a, b) => a.toLowerCase() == b.toLowerCase(),
-          hashCode: (key) => key.toLowerCase().hashCode,
+      : super(HashSet(
+          equals: equalsIgnoreAsciiCase,
+          hashCode: hashIgnoreAsciiCase,
         )..addAll(base));
 }

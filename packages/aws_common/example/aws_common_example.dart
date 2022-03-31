@@ -12,22 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Common types and utilities used across AWS and Amplify packages.
-library aws_common;
+import 'dart:convert';
 
-// Collection
-export 'src/collection/case_insensitive.dart';
+import 'package:aws_common/aws_common.dart';
+import 'package:http/http.dart' as http;
 
-// HTTP
-export 'src/http/aws_headers.dart';
-export 'src/http/aws_http_request.dart';
-export 'src/http/aws_http_response.dart';
-export 'src/http/http_method.dart';
-
-// Utils
-export 'src/util/closeable.dart';
-export 'src/util/debug.dart';
-export 'src/util/equatable.dart';
-export 'src/util/json.dart';
-export 'src/util/print.dart';
-export 'src/util/serializable.dart';
+Future<void> main() async {
+  final AWSHttpRequest request = AWSHttpRequest.get(
+    Uri.parse('https://httpstat.us/200'),
+  );
+  final http.StreamedResponse response = await request.send();
+  final String body = await utf8.decodeStream(response.stream);
+  safePrint(body);
+}

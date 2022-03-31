@@ -7,7 +7,6 @@ stages:
       - group:
           - format
           - analyze: --fatal-infos .
-          # - command: ../../tool/license.sh -check
   - unit_test:
       - group:
           - test:

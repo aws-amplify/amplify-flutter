@@ -26,7 +26,7 @@ import 'package:meta/meta.dart';
 /// See also:
 /// - [AWSHttpResponse]
 /// - [AWSStreamedHttpResponse]
-abstract class AWSBaseHttpResponse {
+abstract class AWSBaseHttpResponse implements Closeable {
   /// The response's status code.
   final int statusCode;
 
@@ -64,6 +64,9 @@ class AWSHttpResponse extends AWSBaseHttpResponse {
 
   /// The body bytes.
   final List<int> bodyBytes;
+
+  @override
+  void close() {}
 }
 
 /// {@template aws_common.aws_http_streamed_response}

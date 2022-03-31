@@ -29,12 +29,18 @@ import 'package:meta/meta.dart';
 /// See also:
 /// - [AWSHttpRequest]
 /// - [AWSStreamedHttpRequest]
-abstract class AWSBaseHttpRequest {
+abstract class AWSBaseHttpRequest implements Closeable {
   /// The method of the request.
   final HttpMethod method;
 
+  /// The scheme of the request, e.g. `https`.
+  final String scheme;
+
   /// The host for the request.
   final String host;
+
+  /// The port of the request.
+  final int? port;
 
   /// The path of the request.
   final String path;
@@ -68,8 +74,9 @@ abstract class AWSBaseHttpRequest {
 
   /// The URI of the request.
   late final Uri uri = Uri(
-    scheme: 'https',
+    scheme: scheme,
     host: host,
+    port: port,
     path: path,
     queryParameters: _queryParameters,
   );
@@ -107,7 +114,9 @@ abstract class AWSBaseHttpRequest {
 
   AWSBaseHttpRequest._({
     required this.method,
+    this.scheme = 'https',
     required this.host,
+    this.port,
     required this.path,
     Map<String, Object>? queryParameters,
     Map<String, String>? headers,
@@ -124,7 +133,9 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
   /// {@macro aws_common.aws_http_request}
   AWSHttpRequest({
     required HttpMethod method,
+    String scheme = 'https',
     required String host,
+    int? port,
     required String path,
     Map<String, Object>? queryParameters,
     Map<String, String>? headers,
@@ -133,9 +144,71 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
         contentLength = body?.length ?? 0,
         super._(
           method: method,
+          scheme: scheme,
           host: host,
+          port: port,
           path: path,
           queryParameters: queryParameters,
+          headers: headers,
+        );
+
+  /// Creates a GET request for [uri].
+  AWSHttpRequest.get(Uri uri, {Map<String, String>? headers})
+      : this(
+          method: HttpMethod.get,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.port,
+          path: uri.path,
+          queryParameters: uri.queryParametersAll,
+          headers: headers,
+        );
+
+  /// Creates a POST request for [uri].
+  AWSHttpRequest.post(
+    Uri uri, {
+    required List<int> body,
+    Map<String, String>? headers,
+  }) : this(
+          method: HttpMethod.post,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.port,
+          path: uri.path,
+          body: body,
+          queryParameters: uri.queryParametersAll,
+          headers: headers,
+        );
+
+  /// Creates a PUT request for [uri].
+  AWSHttpRequest.put(
+    Uri uri, {
+    required List<int> body,
+    Map<String, String>? headers,
+  }) : this(
+          method: HttpMethod.put,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.port,
+          path: uri.path,
+          body: body,
+          queryParameters: uri.queryParametersAll,
+          headers: headers,
+        );
+
+  /// Creates a PATCH request for [uri].
+  AWSHttpRequest.patch(
+    Uri uri, {
+    required List<int> body,
+    Map<String, String>? headers,
+  }) : this(
+          method: HttpMethod.patch,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.port,
+          path: uri.path,
+          body: body,
+          queryParameters: uri.queryParametersAll,
           headers: headers,
         );
 
@@ -151,6 +224,9 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
 
   /// The body bytes.
   final List<int> bodyBytes;
+
+  @override
+  void close() {}
 }
 
 /// {@template aws_common.aws_http_streamed_request}
@@ -166,7 +242,9 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
   /// calculating the signature.
   AWSStreamedHttpRequest({
     required HttpMethod method,
+    String scheme = 'https',
     required String host,
+    int? port,
     required String path,
     Map<String, Object>? queryParameters,
     Map<String, String>? headers,
@@ -176,16 +254,86 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
         _contentLength = contentLength,
         super._(
           method: method,
+          scheme: scheme,
           host: host,
+          port: port,
           path: path,
           queryParameters: queryParameters,
           headers: headers,
         );
 
+  /// Creates a GET request for [uri].
+  AWSStreamedHttpRequest.get(Uri uri, {Map<String, String>? headers})
+      : this(
+          method: HttpMethod.get,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.port,
+          path: uri.path,
+          queryParameters: uri.queryParametersAll,
+          headers: headers,
+          body: const Stream.empty(),
+          contentLength: 0,
+        );
+
+  /// Creates a POST request for [uri].
+  AWSStreamedHttpRequest.post(
+    Uri uri, {
+    required Stream<List<int>> body,
+    int? contentLength,
+    Map<String, String>? headers,
+  }) : this(
+          method: HttpMethod.post,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.port,
+          path: uri.path,
+          queryParameters: uri.queryParametersAll,
+          headers: headers,
+          body: body,
+          contentLength: contentLength,
+        );
+
+  /// Creates a PUT request for [uri].
+  AWSStreamedHttpRequest.put(
+    Uri uri, {
+    required Stream<List<int>> body,
+    int? contentLength,
+    Map<String, String>? headers,
+  }) : this(
+          method: HttpMethod.put,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.port,
+          path: uri.path,
+          queryParameters: uri.queryParametersAll,
+          headers: headers,
+          body: body,
+          contentLength: contentLength,
+        );
+
+  /// Creates a PATCH request for [uri].
+  AWSStreamedHttpRequest.patch(
+    Uri uri, {
+    required Stream<List<int>> body,
+    int? contentLength,
+    Map<String, String>? headers,
+  }) : this(
+          method: HttpMethod.patch,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.port,
+          path: uri.path,
+          queryParameters: uri.queryParametersAll,
+          headers: headers,
+          body: body,
+          contentLength: contentLength,
+        );
+
   /// Handles splitting [_body] into multiple single-subscription streams.
   StreamSplitter<List<int>>? _splitter;
 
-  /// The original body.
+  /// The original body, cleared on [close].
   final Stream<List<int>> _body;
 
   @override
@@ -210,13 +358,9 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
   bool get hasContentLength => _contentLength != null;
 
   @override
-  late final FutureOr<int> contentLength = () {
-    var length = _contentLength;
-    if (length != null) {
-      return length;
-    }
-    return split().fold<int>(0, (prev, el) => prev + el.length);
-  }() as FutureOr<int>;
+  late final FutureOr<int> contentLength = (_contentLength ??
+          split().fold<int>(0, (length, el) => length + el.length))
+      as FutureOr<int>;
 
   @override
   Future<void> close() => _splitter?.close() ?? Future.value();
