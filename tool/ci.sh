@@ -71,13 +71,9 @@ for PKG in ${PKGS}; do
         echo 'dart analyze --fatal-infos .'
         dart analyze --fatal-infos . || EXIT_CODE=$?
         ;;
-      command_0)
+      command)
         echo 'git submodule update --init'
         git submodule update --init || EXIT_CODE=$?
-        ;;
-      command_1)
-        echo '../../tool/coverage.sh'
-        ../../tool/coverage.sh || EXIT_CODE=$?
         ;;
       format)
         echo 'dart format --output=none --set-exit-if-changed .'
@@ -90,14 +86,6 @@ for PKG in ${PKGS}; do
       test_1)
         echo 'dart test -p chrome'
         dart test -p chrome || EXIT_CODE=$?
-        ;;
-      test_2)
-        echo 'dart test --coverage=coverage'
-        dart test --coverage=coverage || EXIT_CODE=$?
-        ;;
-      test_3)
-        echo 'dart test -p chrome --coverage=coverage'
-        dart test -p chrome --coverage=coverage || EXIT_CODE=$?
         ;;
       *)
         echo -e "\033[31mUnknown TASK '${TASK}' - TERMINATING JOB\033[0m"
