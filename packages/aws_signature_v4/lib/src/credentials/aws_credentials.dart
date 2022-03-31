@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'aws_credentials.g.dart';
@@ -21,8 +22,8 @@ part 'aws_credentials.g.dart';
 ///
 /// Temporary credentials must include an STS [sessionToken].
 /// {@endtemplate}
-@JsonSerializable(fieldRename: FieldRename.snake, createToJson: false)
-class AWSCredentials {
+@JsonSerializable(fieldRename: FieldRename.snake)
+class AWSCredentials with AWSSerializable {
   /// AWS Access Key ID
   final String accessKeyId;
 
@@ -47,4 +48,11 @@ class AWSCredentials {
   /// Deserializes credentials from JSON.
   factory AWSCredentials.fromJson(Map<String, dynamic> json) =>
       _$AWSCredentialsFromJson(json);
+
+  @override
+  Map<String, Object?> toJson() => _$AWSCredentialsToJson(this);
+
+  @override
+  String toString() =>
+      'AWSCredentials{accessKeyId=***, secretAccessKey=***, sessionToken=${sessionToken == null ? 'null' : '***'}, expiration=${expiration == null ? 'null' : '***'}}';
 }

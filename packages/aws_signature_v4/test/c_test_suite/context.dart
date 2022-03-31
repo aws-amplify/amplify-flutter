@@ -18,7 +18,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'context.g.dart';
 
 /// Test context used to configure the [credentials] and other signing parameters.
-@JsonSerializable(fieldRename: FieldRename.snake, createToJson: false)
+@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class Context {
   /// The AWS credentials to use for signing.
   final AWSCredentials credentials;
@@ -60,6 +60,8 @@ class Context {
     this.omitSessionToken,
   });
 
-  factory Context.fromJson(Map<String, dynamic> json) =>
+  factory Context.fromJson(Map<String, Object?> json) =>
       _$ContextFromJson(json);
+
+  Map<String, Object?> toJson() => _$ContextToJson(this);
 }

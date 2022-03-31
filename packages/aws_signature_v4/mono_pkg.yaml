@@ -7,16 +7,14 @@ stages:
       - group:
           - format
           - analyze: --fatal-infos .
-          # - command: ../../tool/license.sh -check
   - unit_test:
       - group:
           # Pull `aws-c-auth` with the test vectors
           - command: git submodule update --init
             sdk:
               - stable
-          - test: --coverage=coverage
-          - test: -p chrome --coverage=coverage
-          - command: ../../tool/coverage.sh
+          - test:
+          - test: -p chrome
       - group:
           - command: git submodule update --init
           - test:

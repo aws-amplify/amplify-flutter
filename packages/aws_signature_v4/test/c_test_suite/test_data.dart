@@ -22,10 +22,6 @@ import 'context.dart';
 
 enum SignerTestMethod { query, header }
 
-extension on SignerTestMethod {
-  String get string => toString().split('.')[1];
-}
-
 /// Test-specific data for verifiying.
 ///
 /// Each test class carries two instances of `SignerTestMethodData`: one where
@@ -45,6 +41,25 @@ class SignerTestMethodData {
     required this.signature,
     required this.signedRequest,
   });
+
+  factory SignerTestMethodData.fromJson(Map<String, Object?> json) {
+    return SignerTestMethodData(
+      method: SignerTestMethod.values.byName(json['method'] as String),
+      canonicalRequest: json['canonicalRequest'] as String,
+      stringToSign: json['stringToSign'] as String,
+      signature: json['signature'] as String,
+      signedRequest:
+          AWSHttpRequestX.fromJson((json['signedRequest'] as Map).cast()),
+    );
+  }
+
+  Future<Map<String, Object?>> toJson() async => {
+        'method': method.name,
+        'canonicalRequest': canonicalRequest,
+        'stringToSign': stringToSign,
+        'signature': signature,
+        'signedRequest': await signedRequest.toJson(),
+      };
 }
 
 /// Builder class to make it easy to lazily create a [SignerTest].
@@ -127,7 +142,23 @@ class SignerTest {
               omitSessionToken: context.omitSessionToken,
             );
 
-  void _runMethod(SignerTestMethod method) {
+  factory SignerTest.fromJson(Map<String, Object?> json) {
+    return SignerTest(
+      name: json['name'] as String,
+      context: Context.fromJson((json['context'] as Map).cast()),
+      request: AWSHttpRequestX.fromJson((json['request'] as Map).cast()),
+      headerTestData: json['headerTestData'] == null
+          ? null
+          : SignerTestMethodData.fromJson(
+              (json['headerTestData'] as Map).cast()),
+      queryTestData: json['queryTestData'] == null
+          ? null
+          : SignerTestMethodData.fromJson(
+              (json['queryTestData'] as Map).cast()),
+    );
+  }
+
+  Future<void> _runMethod(SignerTestMethod method) async {
     final testMethodData =
         method == SignerTestMethod.header ? headerTestData : queryTestData;
     if (testMethodData == null) {
@@ -164,100 +195,114 @@ class SignerTest {
       canonicalRequest: canonicalRequest,
     );
 
-    group(method.string, () {
-      test('canonical request', () {
-        expect(
-          canonicalRequest.toString(),
-          equals(testMethodData.canonicalRequest),
-          reason: 'Canonical requests must match',
-        );
-      });
-      test('sts', () {
-        expect(
-          stringToSign,
-          equals(testMethodData.stringToSign),
-          reason: 'STS must match',
-        );
-      });
-      if (presignedUrl) {
-        group('presigned url', () {
-          final Uri uri = signer.presignSync(
-            request as AWSHttpRequest,
-            credentialScope: credentialScope,
-            expiresIn: Duration(seconds: context.expirationInSeconds),
-            serviceConfiguration: serviceConfiguration,
-          );
+    expect(
+      canonicalRequest.toString(),
+      equals(testMethodData.canonicalRequest),
+      reason: 'Canonical requests must match',
+    );
 
-          test('signature', () {
-            expect(
-              uri.queryParameters[AWSHeaders.signature],
-              equals(testMethodData.signature),
-              reason: 'Signatures must be identical',
-            );
-          });
-        });
-      } else {
-        group('signed request', () {
-          final AWSSignedRequest signedRequest = signer.signSync(
-            request,
-            credentialScope: credentialScope,
-            serviceConfiguration: serviceConfiguration,
-          );
+    expect(
+      stringToSign,
+      equals(testMethodData.stringToSign),
+      reason: 'STS must match',
+    );
 
-          test('signature', () {
-            expect(
-              signedRequest.signature,
-              equals(testMethodData.signature),
-              reason: 'Signatures must be identical',
-            );
-          });
-          test('headers', () {
-            expect(
-              const MapEquality<String, String>(keys: CaseInsensitiveEquality())
-                  .equals(
-                signedRequest.headers,
-                testMethodData.signedRequest.headers,
-              ),
-              isTrue,
-              reason: 'Headers must be case-insensitive equal',
-            );
-          });
-          test('path', () {
-            expect(
-              signedRequest.path,
-              equals(testMethodData.signedRequest.path),
-              reason: 'Paths must be identical',
-            );
-          });
-          test('query parameters', () {
-            expect(
-              const MapEquality<String, String>().equals(
-                signedRequest.queryParameters,
-                testMethodData.signedRequest.queryParameters,
-              ),
-              isTrue,
-              reason: 'Query parameters must be case-sensitive equal',
-            );
-          });
-          test('body', () async {
-            final body = await ByteStream(signedRequest.body).toBytes();
-            final expected =
-                await ByteStream(testMethodData.signedRequest.body).toBytes();
-            expect(
-              body,
-              orderedEquals(expected),
-              reason: 'Bodies must be identical',
-            );
-          });
-        }, skip: presignedUrl);
-      }
-    });
+    if (presignedUrl) {
+      final Uri uri = signer.presignSync(
+        request as AWSHttpRequest,
+        credentialScope: credentialScope,
+        expiresIn: Duration(seconds: context.expirationInSeconds),
+        serviceConfiguration: serviceConfiguration,
+      );
+
+      expect(
+        uri.queryParameters[AWSHeaders.signature],
+        equals(testMethodData.signature),
+        reason: 'Signatures must be identical',
+      );
+    } else {
+      final AWSSignedRequest signedRequest = signer.signSync(
+        request,
+        credentialScope: credentialScope,
+        serviceConfiguration: serviceConfiguration,
+      );
+
+      expect(
+        signedRequest.signature,
+        equals(testMethodData.signature),
+        reason: 'Signatures must be identical',
+      );
+
+      expect(
+        const MapEquality<String, String>(keys: CaseInsensitiveEquality())
+            .equals(
+          signedRequest.headers,
+          testMethodData.signedRequest.headers,
+        ),
+        isTrue,
+        reason: 'Headers must be case-insensitive equal',
+      );
+
+      expect(
+        signedRequest.path,
+        equals(testMethodData.signedRequest.path),
+        reason: 'Paths must be identical',
+      );
+
+      expect(
+        const MapEquality<String, String>().equals(
+          signedRequest.queryParameters,
+          testMethodData.signedRequest.queryParameters,
+        ),
+        isTrue,
+        reason: 'Query parameters must be case-sensitive equal',
+      );
+
+      final body = await ByteStream(signedRequest.body).toBytes();
+      final expected =
+          await ByteStream(testMethodData.signedRequest.body).toBytes();
+      expect(
+        body,
+        orderedEquals(expected),
+        reason: 'Bodies must be identical',
+      );
+    }
   }
 
-  void run() {
-    group(name, () {
-      _runMethod(SignerTestMethod.header);
-      _runMethod(SignerTestMethod.query);
-    });
+  Future<void> run() async {
+    await _runMethod(SignerTestMethod.header);
+    await _runMethod(SignerTestMethod.query);
   }
+
+  Future<Map<String, Object?>> toJson() async => {
+        'name': name,
+        'context': context.toJson(),
+        'request': await request.toJson(),
+        'headerTestData': await headerTestData?.toJson(),
+        'queryTestData': await queryTestData?.toJson(),
+        'serviceConfiguration':
+            serviceConfiguration is S3ServiceConfiguration ? 's3' : null,
+      };
+}
+
+extension AWSHttpRequestX on AWSBaseHttpRequest {
+  static AWSBaseHttpRequest fromJson(Map<String, Object?> json) {
+    return AWSHttpRequest(
+      method: HttpMethodX.fromString(json['method'] as String),
+      host: json['host'] as String,
+      path: json['path'] as String,
+      queryParameters: (json['queryParameters'] as Map).cast(),
+      headers: (json['headers'] as Map).cast(),
+      body: (json['body'] as List).cast(),
+    );
+  }
+
+  Future<Map<String, Object>> toJson() async => {
+        'method': method.value,
+        'host': host,
+        'path': path,
+        'queryParameters': queryParametersAll,
+        'headers': headers,
+        'body': await body.first.catchError((Object _) => const <int>[]),
+      };
 }

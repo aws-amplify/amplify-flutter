@@ -20,10 +20,8 @@ import 'testdata/single_chunk_testdata.dart';
 
 void main() {
   group('S3', () {
-    group('Single Chunk', () {
-      for (var signerTest in testCases) {
-        signerTest.run();
-      }
-    });
+    for (var signerTest in testCases) {
+      test(signerTest.name, signerTest.run);
+    }
   });
 }

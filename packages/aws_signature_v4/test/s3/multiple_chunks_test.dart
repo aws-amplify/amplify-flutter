@@ -20,6 +20,6 @@ import 'testdata/multiple_chunks_testdata.dart';
 
 void main() {
   group('Multiple Chunks', () {
-    group('PUT Object', putObjectTest.run);
+    test('PUT Object', putObjectTest.run);
   });
 }

@@ -20,30 +20,31 @@ import 'dart:math';
 /// Used for formatting dates and times throughout the signing process.
 /// {@endtemplate}
 class AWSDateTime {
-  final DateTime _dateTime;
+  /// The underlying [DateTime] object.
+  final DateTime dateTime;
 
   /// {@macro aws_signature_v4.aws_date_time}
-  AWSDateTime(DateTime dateTime) : _dateTime = dateTime.toUtc();
+  AWSDateTime(DateTime dateTime) : dateTime = dateTime.toUtc();
 
   /// {@macro aws_signature_v4.aws_date_time}
   ///
   /// Uses [DateTime.now] as the input.
-  AWSDateTime.now() : _dateTime = DateTime.now().toUtc();
+  AWSDateTime.now() : dateTime = DateTime.now().toUtc();
 
   /// Formats the date and time as `YYYYMMDDTHHMMSSZ`.
   String formatFull() => formatDate() + 'T' + formatTime() + 'Z';
 
   /// Formats the date as `YYYYMMDD`.
   String formatDate() =>
-      _padZeros('${_dateTime.year}', 4) +
-      _padZeros('${_dateTime.month}', 2) +
-      _padZeros('${_dateTime.day}', 2);
+      _padZeros('${dateTime.year}', 4) +
+      _padZeros('${dateTime.month}', 2) +
+      _padZeros('${dateTime.day}', 2);
 
   /// Formats the time as `HHMMSS`.
   String formatTime() =>
-      _padZeros('${_dateTime.hour}', 2) +
-      _padZeros('${_dateTime.minute}', 2) +
-      _padZeros('${_dateTime.second}', 2);
+      _padZeros('${dateTime.hour}', 2) +
+      _padZeros('${dateTime.minute}', 2) +
+      _padZeros('${dateTime.second}', 2);
 
   /// Ensures that [str] is exactly [length] characters long by padding the
   /// front with `0` characters.

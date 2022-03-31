@@ -12,33 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
+
 import 'dart:convert';
 
-import 'package:stream_channel/stream_channel.dart';
+import 'package:async/async.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:test/test.dart';
 
-import 'test_data_loader.dart';
+import 'c_test_suite/test_data.dart';
 
-Future<void> hybridMain(StreamChannel channel) async {
-  final testCases = await loadAllTests();
-
-  channel.sink.add(testCases.length);
-
-  for (final testCase in testCases) {
-    final json = await testCase.toJson();
-    channel.sink.add(jsonEncode(json));
-  }
-
-  channel.sink.close();
-}
-
-/// Runs all tests in the C signer test suite.
 Future<void> main() async {
-  final testCases = await loadAllTests();
+  test('C Test Suite', () async {
+    final channel = spawnHybridUri('c_test_suite/c_test_suite.dart');
+    final stream = StreamSplitter<dynamic>(channel.stream);
 
-  group('C Test Suite', () {
-    for (final testCase in testCases) {
-      test(testCase.name, testCase.run);
+    final int numTests = await stream.split().first;
+    final Stream<String> testCases =
+        stream.split().skip(1).cast<String>().take(numTests);
+
+    await for (final testCaseJson in testCases) {
+      final signerTest =
+          SignerTest.fromJson((jsonDecode(testCaseJson) as Map).cast());
+      safePrint('Running test: ${signerTest.name}');
+      await signerTest.run();
     }
   });
 }
