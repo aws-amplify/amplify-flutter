@@ -13,17 +13,13 @@
 // limitations under the License.
 
 /// Whether running in debug mode.
-///
-/// Asserts are only evaluated in debug mode and are ignored in release builds.
-bool get zDebugMode {
-  var isDebugMode = false;
-  // ignore: prefer_asserts_with_message
-  assert(() {
-    isDebugMode = true;
-    return true;
-  }());
-  return isDebugMode;
-}
+const bool zDebugMode = !zProfileMode && !zReleaseMode;
+
+/// Whether running in profile mode.
+const bool zProfileMode = bool.fromEnvironment('dart.vm.profile');
+
+/// Whether running in release mode.
+const bool zReleaseMode = bool.fromEnvironment('dart.vm.product');
 
 /// Whether running on the Web.
 ///

@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:convert';
+import 'dart:async';
 
-/// Encodes [json] with indentation for easier debugging.
-String prettyPrintJson(Object? json) {
-  const defaultIndent = '  ';
-  const jsonIndent = JsonEncoder.withIndent(defaultIndent);
-  return jsonIndent.convert(json);
+/// Interface for objects which need cleanup before GC, usually to prevent
+/// memory leaks.
+abstract class Closeable {
+  /// Closes the resource and all connected objects.
+  FutureOr<void> close();
 }

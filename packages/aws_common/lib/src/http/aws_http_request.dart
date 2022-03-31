@@ -38,7 +38,7 @@ abstract class AWSBaseHttpRequest {
 
   /// The path of the request.
   final String path;
-  final Map<String, Object?> _queryParameters;
+  final Map<String, Object> _queryParameters;
 
   /// Query parameters for the request.
   ///
@@ -109,7 +109,7 @@ abstract class AWSBaseHttpRequest {
     required this.method,
     required this.host,
     required this.path,
-    Map<String, Object?>? queryParameters,
+    Map<String, Object>? queryParameters,
     Map<String, String>? headers,
   })  : _queryParameters = queryParameters ?? {},
         headers = CaseInsensitiveMap(headers ?? {});
@@ -126,7 +126,7 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     required HttpMethod method,
     required String host,
     required String path,
-    Map<String, Object?>? queryParameters,
+    Map<String, Object>? queryParameters,
     Map<String, String>? headers,
     List<int>? body,
   })  : bodyBytes = body ?? const [],
@@ -168,7 +168,7 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
     required HttpMethod method,
     required String host,
     required String path,
-    Map<String, Object?>? queryParameters,
+    Map<String, Object>? queryParameters,
     Map<String, String>? headers,
     required Stream<List<int>> body,
     int? contentLength,
