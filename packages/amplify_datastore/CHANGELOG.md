@@ -1,3 +1,9 @@
+## 0.4.3-rc.1 (2022-04-04)
+
+- feat: Multi-auth (#1478)
+- chore: make example Android Apps runnable with API 32+ (#1474)
+- chore: Emit subscriptionDataProcessed and syncReceived events (#1474)
+
 ## 0.4.2 (2022-03-24)
 
 - chore: enable query predicate integration tests for float values (#1454)

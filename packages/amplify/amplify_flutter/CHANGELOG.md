@@ -1,3 +1,10 @@
+## 0.4.3-rc.1 (2022-04-04)
+
+- feat(datastore): Multi-auth (#1478)
+- chore(datastore): make example Android Apps runnable with API 32+ (#1474)
+- chore(datastore): Emit subscriptionDataProcessed and syncReceived events (#1474)
+- chore(auth): Update exception comments (#1476)
+
 ## 0.4.2 (2022-03-24)
 
 - fix(api): model helpers query predicates correctly translates query by associated id (#1417)
