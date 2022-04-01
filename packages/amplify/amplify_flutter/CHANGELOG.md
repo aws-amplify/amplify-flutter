@@ -1,4 +1,4 @@
-## 0.4.3-rc (2022-03-31)
+## 0.4.3-rc (2022-04-04)
 
 - feat(datastore): Multi-auth (#1478)
 - chore(datastore): make example Android Apps runnable with API 32+ (#1474)
