@@ -40,11 +40,6 @@ android {
     }
     defaultConfig {
         minSdkVersion 21
-
-        // TODO: Remove when Gradle can be updated, since
-        // this seems to have been fixed in newer versions
-        // https://stackoverflow.com/a/64506880/12626712
-        consumerProguardFiles 'proguard-rules.pro'
     }
     lintOptions {
         disable 'InvalidPackage'
