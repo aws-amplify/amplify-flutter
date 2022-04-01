@@ -1,4 +1,4 @@
-#import "Api.h"
+#import "AmplifyApi.h"
 #if __has_include(<amplify_api_ios/amplify_api_ios-Swift.h>)
 #import <amplify_api_ios/amplify_api_ios-Swift.h>
 #else
@@ -8,7 +8,7 @@
 #import "amplify_api_ios-Swift.h"
 #endif
 
-@implementation Api
+@implementation AmplifyApi
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   [SwiftAmplifyApiPlugin registerWithRegistrar:registrar];
 }

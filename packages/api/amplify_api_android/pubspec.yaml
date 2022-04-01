@@ -21,4 +21,4 @@ flutter:
     platforms:
       android:
         package: com.amazonaws.amplify.amplify_api
-        pluginClass: Api
+        pluginClass: AmplifyApi

@@ -21,4 +21,4 @@ flutter:
   plugin:
     platforms:
       ios:
-        pluginClass: Api
+        pluginClass: AmplifyApi

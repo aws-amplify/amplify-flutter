@@ -40,7 +40,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 /** AmplifyApiPlugin */
-class Api : FlutterPlugin, MethodCallHandler {
+class AmplifyApi : FlutterPlugin, MethodCallHandler {
 
     private lateinit var channel: MethodChannel
     private lateinit var eventchannel: EventChannel
