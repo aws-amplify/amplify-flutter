@@ -59,7 +59,7 @@ const val underlyingInvalidApiException =
 @ExperimentalCoroutinesApi
 @Suppress("UNCHECKED_CAST")
 class GraphQLApiUnitTests {
-    lateinit var flutterPlugin: Api
+    lateinit var flutterPlugin: AmplifyApi
     private var mockApi = mock(ApiCategory::class.java)
     private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
     private val mockGraphQLOperation = mock(GraphQLOperation::class.java)
@@ -68,7 +68,7 @@ class GraphQLApiUnitTests {
 
     @Before
     fun setup() {
-        flutterPlugin = Api(mockStreamHandler, testDispatcher)
+        flutterPlugin = AmplifyApi(mockStreamHandler, testDispatcher)
         setFinalStatic(Amplify::class.java.getDeclaredField("API"), mockApi)
     }
 

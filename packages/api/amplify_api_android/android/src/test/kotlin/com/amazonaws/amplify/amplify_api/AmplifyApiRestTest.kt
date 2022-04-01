@@ -39,7 +39,7 @@ import java.lang.reflect.Modifier
 @RunWith(RobolectricTestRunner::class)
 @Suppress("UNCHECKED_CAST")
 class AmplifyApiRestTest {
-    lateinit var flutterPlugin: Api
+    lateinit var flutterPlugin: AmplifyApi
 
     private var mockApi = mock(ApiCategory::class.java)
 
@@ -48,7 +48,7 @@ class AmplifyApiRestTest {
 
     @Before
     fun setup() {
-        flutterPlugin = Api()
+        flutterPlugin = AmplifyApi()
         setFinalStatic(Amplify::class.java.getDeclaredField("API"), mockApi)
     }
 
