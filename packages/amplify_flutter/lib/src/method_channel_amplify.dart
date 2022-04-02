@@ -167,6 +167,6 @@ class MethodChannelAmplify extends AmplifyClass {
   }
 
   String _getVersion() {
-    return '0.4.2-1';
+    return '0.4.3';
   }
 }
