@@ -1,0 +1,19 @@
+{
+    "@@locale": "en",
+    "@@context": "amplify_authenticator:messages",
+    "codeSent": "A confirmation code has been sent to {destination}.",
+    "@codeSent": {
+        "description": "The message that is displayed after a new confirmation code is sent via Email/SMS.",
+        "placeholders": {
+            "destination": {
+                "type": "String",
+                "example": "j**@g**.com",
+                "description": "The privacy-enabled delivery destination."
+            }
+        }
+    },
+    "codeSentUnknown": "A confirmation code has been sent.",
+    "@codeSentUnknown": {
+        "description": "The message that is displayed after a new confirmation code is sent via an unknown delivery medium"
+    }
+}

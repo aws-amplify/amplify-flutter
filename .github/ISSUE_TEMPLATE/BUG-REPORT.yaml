@@ -1,0 +1,118 @@
+name: Bug Report
+description: File a bug report
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the bug
+      placeholder: |
+        A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: checkboxes
+    id: categories
+    attributes:
+      label: Categories
+      description: "Select the affected categories, if applicable."
+      options:
+        - label: Analytics
+          required: false
+        - label: API (REST)
+          required: false
+        - label: API (GraphQL)
+          required: false
+        - label: Auth
+          required: false
+        - label: Authenticator
+          required: false
+        - label: DataStore
+          required: false
+        - label: Storage
+          required: false
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to Reproduce
+      description: "How do you trigger this bug? Please walk us through it step by step."
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: false
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: "If applicable, add screenshots to help explain your problem."
+      placeholder: "No screenshots provided"
+    validations:
+      required: false
+  - type: checkboxes
+    id: platforms
+    attributes:
+      label: Platforms
+      description: "Please mark the platforms where this issue occurs."
+      options:
+        - label: iOS
+          required: false
+        - label: Android
+          required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: "Please provide details of your Flutter build environment (`flutter doctor`)."
+      placeholder: |
+        Paste the output of running `flutter doctor` here
+      render: bash
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: "Please provide your project's dependency versions (`flutter pub deps --no-dev --style=compact`)."
+      placeholder: |
+        Paste the output of running `flutter pub deps --no-dev --style=compact` here
+      render: bash
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device
+      description: "Which device(s) did you experience the issue on? (or `N/A` if not applicable)"
+      placeholder: "iPhone 12, Pixel 5"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      description: "Which operating system(s) did you experience the issue on? (or `N/A` if not applicable)"
+      placeholder: "iOS 15.1, Android 11"
+    validations:
+      required: true
+  - type: input
+    id: cli-version
+    attributes:
+      label: CLI Version
+      description: "Which version of the Amplify CLI are you running? (`amplify -v`)"
+      placeholder: "7.6.21"
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Please add any other context about the problem here.
+      placeholder: "No additional context provided"
+    validations:
+      required: false

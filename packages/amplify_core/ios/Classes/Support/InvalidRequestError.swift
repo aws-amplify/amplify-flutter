@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 public enum InvalidRequestError: Error {
     case auth(comment: String, suggestion: String)
     case storage(comment: String, suggestion: String)

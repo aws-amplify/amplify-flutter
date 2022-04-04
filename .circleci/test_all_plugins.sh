@@ -2,109 +2,133 @@
 
 cd packages || exit
 
-passed_plugins=()
-failed_plugins=()
-skipped_plugins=()
+test_failure=0
+# TODO: FIND OUT WHY ARGS ARE SENT OUT OF ORDER
+test_suite=$1
+plugin=$3
+project_root_dir=$2
+
+dummy_file_path=example/lib/amplifyconfiguration.dart
+category_dir=$(echo $plugin | cut -d'_' -f 2)
+if [ "$plugin" = "amplify_flutter" ]; then
+    category_dir="amplify" 
+fi
 
 set +e
 set -o pipefail
 
-for plugin_dir in */; do
-    cd "$plugin_dir" || exit
-    plugin=$(basename "$plugin_dir")
-    case $1 in
-        flutter-test)
-            echo "=== Running Flutter unit tests for $plugin ==="
-            if [ -d "test" ]; then
-                mkdir -p test-results
-                if flutter test --machine --coverage | tojunit --output "test-results/$plugin-flutter-test.xml"; then
-                    echo "PASSED: Flutter unit tests for $plugin passed."
-                    passed_plugins+=("$plugin")
-                else
-                    echo "FAILED: Flutter unit tests for $plugin failed."
-                    failed_plugins+=("$plugin")
-                fi
-            else
-                echo "SKIPPED: Flutter unit tests for $plugin don't exist. Skipping."
-                skipped_plugins+=("$plugin")
-            fi
-            ;;
-        android-test)
-            echo "=== Running Android unit tests for $plugin ==="
-            if [ -d "android/src/test" ]; then
-                if [ ! -d "example/android" ]; then
-                    echo "FAILED: example/android missing, can't run tests."
-                    failed_plugins+=("$plugin")
-                    continue
-                fi
-                cp ../../.circleci/dummy_amplifyconfiguration.dart example/lib/amplifyconfiguration.dart
-                cd example/android
+# Check for federated plugin structure
+if [ -d "${category_dir}" ]; then
+    cd "./${category_dir}/" || exit
+else
+    cd "./$plugin" || exit
+fi
 
-                if ./gradlew :"$plugin":testDebugUnitTest; then
-                    echo "PASSED: Android unit tests for $plugin passed."
-                    if ./gradlew :"$plugin":testDebugUnitTestCoverage; then
-                        echo "PASSED: Generating android unit tests coverage for $plugin passed."
-                        passed_plugins+=("$plugin")
-                    else
-                        echo "FAILED: Generating android unit tests coverage for $plugin failed."
-                        failed_plugins+=("$plugin")
-                    fi
-                else
-                    echo "FAILED: Android unit tests for $plugin failed."
-                    failed_plugins+=("$plugin")
-                fi
-                cd ../..
+case $test_suite in
+    flutter-test)
+        echo "=== Running Flutter unit tests for $plugin ==="
+        
+        # Navigate into the app-facing plugin for federated plugin structures
+        if [ -d "${plugin}" ]; then
+            cd "./${plugin}"
+        fi
+        if [ -d "test" ]; then
+            mkdir -p test-results
+            if flutter test --machine --coverage | tojunit --output "test-results/$plugin-flutter-test.xml"; then
+                echo "PASSED: Flutter unit tests for $plugin passed."
             else
-                echo "SKIPPED: Android unit tests for $plugin don't exist. Skipping."
-                skipped_plugins+=("$plugin")
+                echo "FAILED: Flutter unit tests for $plugin failed."
+                test_failure=1
             fi
-            ;;
-        ios-test)
-            echo "=== Running iOS unit tests for $plugin ==="
-            if [ -d "example/ios/unit_tests" ]; then
-                XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 11,OS=14.2"
-                cp ../../.circleci/dummy_amplifyconfiguration.dart example/lib/amplifyconfiguration.dart
-                cd example/ios
-                if xcodebuild test \
-                        -workspace Runner.xcworkspace \
-                        -scheme Runner \
-                        -destination "$XCODEBUILD_DESTINATION" | xcpretty \
-                        -r "junit" \
-                        -o "test-results/$plugin-xcodebuild-test.xml"; then
-                    echo "PASSED: iOS unit tests for $plugin passed."
-                    passed_plugins+=("$plugin")
-                else
-                    echo "FAILED: iOS unit tests for $plugin failed."
-                    failed_plugins+=("$plugin")
-                fi
-                cd ../..
+        else
+            echo "FAILED: Expected Flutter unit tests for $plugin don't exist or where not found."
+            test_failure=1
+        fi
+        cd $project_root_dir
+        ;;
+
+    android-test)
+        echo "=== Running Android unit tests for $plugin ==="       
+        
+        # Navigate into the Android plugin for federated plugin structures
+        if [ -d "${plugin}_android" ]; then
+            cd "./${plugin}_android"
+        fi
+        if [ -d "android/src/test" ]; then
+            if [ ! -d "example/android" ]; then
+                echo "FAILED: example/android missing, can't run tests."
+                test_failure=1
+                continue
+            fi
+            if [ ! -f $dummy_file_path ]; then
+                cp ${project_root_dir}/.circleci/dummy_amplifyconfiguration.dart $dummy_file_path
+            fi
+            cd example/android
+            if ./gradlew :"$plugin":testDebugUnitTest; then
+                echo "PASSED: Android unit tests for $plugin passed."
+                # if ./gradlew :"$plugin":testDebugUnitTestCoverage; then
+                #     echo "PASSED: Generating android unit tests coverage for $plugin passed."
+                # else
+                #     echo "FAILED: Generating android unit tests coverage for $plugin failed."
+                #     test_failure=1
+                # fi
             else
-                echo "SKIPPED: iOS unit tests for $plugin don't exist. Skipping."
-                skipped_plugins+=("$plugin")
+                echo "FAILED: Android unit tests for $plugin failed."
+                test_failure=1
             fi
-            ;;
-    esac
-    cd ..
-    echo
-done
+            cd ${project_root_dir}
+
+        else
+            echo "FAILED: Expected Android unit tests for $plugin don't exist or where not found."
+            test_failure=1
+        fi
+        ;;
+    ios-test)
+        echo "=== Running iOS unit tests for $plugin ==="
+        
+        # Navigate into the iOS plugin for federated plugin structures
+        if [ -d "${plugin}_ios" ]; then
+            cd "./${plugin}_ios"
+        fi
+        if [ -d "example/ios/unit_tests" ]; then
+            XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 12"
+            if [ ! -f $dummy_file_path ]; then
+                cp ${project_root_dir}/.circleci/dummy_amplifyconfiguration.dart $dummy_file_path
+            fi
+            cd example/ios
+            if xcodebuild test \
+                    -workspace Runner.xcworkspace \
+                    -scheme Runner \
+                    -destination "$XCODEBUILD_DESTINATION" | xcpretty \
+                    -r "junit" \
+                    -o "test-results/$plugin-xcodebuild-test.xml"; then
+                echo "PASSED: iOS unit tests for $plugin passed."
+            else
+                echo "FAILED: iOS unit tests for $plugin failed."
+                test_failure=1
+            fi
+            cd ${project_root_dir}
+        else
+            echo "FAILED: Expected iOS unit tests for $plugin don't exist or where not found."
+            test_failure=1
+        fi
+        ;;
+esac
+cd ..
+echo
+# done
 
 echo "=== Unit test complete ==="
-echo
-
-echo "${#passed_plugins[@]} passed plugins:"
-printf "* %s\n" "${passed_plugins[@]}"
-echo
-
-echo "${#failed_plugins[@]} failed plugins:"
-printf "* %s\n" "${failed_plugins[@]}"
-echo
-
-echo "${#skipped_plugins[@]} skipped plugins:"
-printf "* %s\n" "${skipped_plugins[@]}"
 echo
 
 cd ..
 
 set -e
 
-exit ${#failed_plugins[@]}
+if [ $test_failure -eq 1 ]; then
+    echo "${plugin} tests FAILED."
+    exit 1
+else
+    echo "${plugin} tests PASSED."
+    exit 0
+fi 

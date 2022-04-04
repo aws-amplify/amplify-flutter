@@ -14,11 +14,9 @@
  */
 
 import 'package:amplify_datastore/amplify_datastore.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_core/test_utils/get_json_from_file.dart';
-import './test_models/Post.dart';
+import 'package:amplify_test/amplify_test.dart';
 import 'test_models/ModelProvider.dart';
 
 void main() {

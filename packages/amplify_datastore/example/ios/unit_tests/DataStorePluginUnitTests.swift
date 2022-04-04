@@ -37,11 +37,12 @@ var eventSentExp: XCTestExpectation?
 class DataStorePluginUnitTests: XCTestCase {
 
     var pluginUnderTest: SwiftAmplifyDataStorePlugin = SwiftAmplifyDataStorePlugin()
-    var flutterModelSchemaRegistration: FlutterModels = FlutterModels()
+    var modelSchemaRegistry = FlutterSchemaRegistry()
+    var customTypeSchemaRegistry = FlutterSchemaRegistry()
 
     override func setUpWithError() throws {
-        flutterModelSchemaRegistration.addModelSchema(modelName: "Post", modelSchema: testSchema)
-        flutterModelSchemaRegistration.registerModels(registry: ModelRegistry.self)
+        modelSchemaRegistry.addModelSchema(modelName: "Post", modelSchema: testSchema)
+        modelSchemaRegistry.registerModels(registry: ModelRegistry.self)
     }
 
     func test_query_success_result_with_query_parameters() throws {
@@ -76,7 +77,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
         pluginUnderTest.onQuery(
             args: try readJsonMap(filePath: "model_name_with_all_query_parameters") as [String: Any],
             flutterResult: { (results) -> Void in
@@ -122,7 +123,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
         pluginUnderTest.onQuery(
             args: try readJsonMap(filePath: "only_model_name") as [String: Any],
             flutterResult: { (results) -> Void in
@@ -145,6 +146,7 @@ class DataStorePluginUnitTests: XCTestCase {
             override func onDelete(
                 serializedModel: FlutterSerializedModel,
                 modelSchema: ModelSchema,
+                where: QueryPredicate? = nil,
                 completion: @escaping DataStoreCallback<Void>
             ) throws {
                 // Validations that we called the native library correctly
@@ -155,7 +157,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
 
         pluginUnderTest.onDelete(
             args: try readJsonMap(filePath: "instance_no_predicate") as [String: Any],
@@ -172,6 +174,7 @@ class DataStorePluginUnitTests: XCTestCase {
             override func onDelete(
                 serializedModel: FlutterSerializedModel,
                 modelSchema: ModelSchema,
+                where: QueryPredicate? = nil,
                 completion: @escaping DataStoreCallback<Void>) throws {
                 // Validations that we called the native library correctly
                 XCTAssertEqual(testSchema.name, modelSchema.name)
@@ -181,7 +184,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
 
         pluginUnderTest.onDelete(
             args: try readJsonMap(filePath: "instance_no_predicate") as [String: Any],
@@ -226,12 +229,10 @@ class DataStorePluginUnitTests: XCTestCase {
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
         let streamHandler: MockStreamHandler = MockStreamHandler()
 
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge,
-                                                      flutterModelRegistration: flutterModelSchemaRegistration,
-                                                      dataStoreObserveEventStreamHandler: streamHandler)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
-            XCTAssertNil(result)
+            XCTAssertTrue(result as! Bool)
         })
 
         dataStoreBridge.mockPublisher.send(MutationEvent(
@@ -268,12 +269,10 @@ class DataStorePluginUnitTests: XCTestCase {
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
         let streamHandler: MockStreamHandler = MockStreamHandler()
 
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge,
-                                                      flutterModelRegistration: flutterModelSchemaRegistration,
-                                                      dataStoreObserveEventStreamHandler: streamHandler)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
-            XCTAssertNil(result)
+            XCTAssertTrue(result as! Bool)
         })
 
         dataStoreBridge.mockPublisher.send(MutationEvent(
@@ -309,12 +308,10 @@ class DataStorePluginUnitTests: XCTestCase {
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
         let streamHandler: MockStreamHandler = MockStreamHandler()
 
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge,
-                                                      flutterModelRegistration: flutterModelSchemaRegistration,
-                                                      dataStoreObserveEventStreamHandler: streamHandler)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
-            XCTAssertNil(result)
+            XCTAssertTrue(result as! Bool)
         })
 
         dataStoreBridge.mockPublisher.send(completion:
@@ -324,6 +321,26 @@ class DataStorePluginUnitTests: XCTestCase {
 
         // Make sure that the event was indeed sent successfully
         wait(for: [eventSentExp!], timeout: 1)
+    }
+
+    func test_observe_set_up_failure() throws {
+        class MockDataStoreBridge: DataStoreBridge {
+            override func getPlugin() throws -> AWSDataStorePlugin {
+                throw DataStoreError.configuration("No plugin has been added for 'awsDataStorePlugin'.",
+                                                   "Either add a plugin for 'awsDataStorePlugin', or use one of the known keys: awsDataStorePlugin")
+            }
+        }
+
+        class MockStreamHandler: DataStoreObserveEventStreamHandler {}
+
+        let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
+        let streamHandler: MockStreamHandler = MockStreamHandler()
+
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
+
+        pluginUnderTest.onSetUpObserve(flutterResult: { result in
+            XCTAssertFalse(result as! Bool)
+        })
     }
 
     func test_clear_success() throws {
@@ -336,7 +353,7 @@ class DataStorePluginUnitTests: XCTestCase {
             }
         }
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
 
         pluginUnderTest.onClear(
             flutterResult: {(result) in
@@ -355,7 +372,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
 
         pluginUnderTest.onClear(
             flutterResult: { (result) -> Void in
@@ -379,7 +396,7 @@ class DataStorePluginUnitTests: XCTestCase {
             }
         }
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
 
         pluginUnderTest.onStart(
             flutterResult: {(result) in
@@ -395,7 +412,7 @@ class DataStorePluginUnitTests: XCTestCase {
             }
         }
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
 
         pluginUnderTest.onStart(
             flutterResult: { (result) -> Void in
@@ -419,7 +436,7 @@ class DataStorePluginUnitTests: XCTestCase {
             }
         }
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
 
         pluginUnderTest.onStop(
             flutterResult: {(result) in
@@ -435,7 +452,7 @@ class DataStorePluginUnitTests: XCTestCase {
             }
         }
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
 
         pluginUnderTest.onStop(
             flutterResult: { (result) -> Void in
@@ -458,7 +475,7 @@ class DataStorePluginUnitTests: XCTestCase {
             override func onSave<M: Model>(
                 serializedModel: M,
                 modelSchema: ModelSchema,
-                when predicate: QueryPredicate? = nil,
+                where predicate: QueryPredicate? = nil,
                 completion: @escaping DataStoreCallback<M>) throws {
                 // Validations that we called the native library correctly
                 XCTAssertEqual("9fc5fab4-37ff-4566-97e5-19c5d58a4c22", serializedModel.id)
@@ -470,7 +487,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
 
         pluginUnderTest.onSave(
             args: testArgs,
@@ -486,7 +503,7 @@ class DataStorePluginUnitTests: XCTestCase {
             override func onSave<M: Model>(
                 serializedModel: M,
                 modelSchema: ModelSchema,
-                when predicate: QueryPredicate? = nil,
+                where predicate: QueryPredicate? = nil,
                 completion: @escaping DataStoreCallback<M>) throws {
                 // Validations that we called the native library correctly
                 XCTAssertEqual("9fc5fab4-37ff-4566-97e5-19c5d58a4c22", serializedModel.id)
@@ -498,7 +515,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
 
         pluginUnderTest.onSave(
             args: testArgs,
@@ -518,8 +535,7 @@ class DataStorePluginUnitTests: XCTestCase {
     func test_save_with_malformed_error() throws {
 
         pluginUnderTest = SwiftAmplifyDataStorePlugin(
-            bridge: DataStoreBridge(),
-            flutterModelRegistration: flutterModelSchemaRegistration)
+            bridge: DataStoreBridge(), modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
 
         pluginUnderTest.onSave(
             args: [:],

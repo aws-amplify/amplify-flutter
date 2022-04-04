@@ -32,7 +32,7 @@ export 'StringListTypeModel.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "347131afbb942a93e3b2dc5e934164b9";
+  String version = "f43670a12adedf95a96cd58377c6c2bc";
   @override
   List<ModelSchema> modelSchemas = [
     Blog.schema,
@@ -41,37 +41,25 @@ class ModelProvider implements ModelProviderInterface {
     StringListTypeModel.schema
   ];
   static final ModelProvider _instance = ModelProvider();
+  @override
+  List<ModelSchema> customTypeSchemas = [];
 
   static ModelProvider get instance => _instance;
 
   ModelType getModelTypeByModelName(String modelName) {
     switch (modelName) {
       case "Blog":
-        {
-          return Blog.classType;
-        }
-        break;
+        return Blog.classType;
       case "Comment":
-        {
-          return Comment.classType;
-        }
-        break;
+        return Comment.classType;
       case "Post":
-        {
-          return Post.classType;
-        }
-        break;
+        return Post.classType;
       case "StringListTypeModel":
-        {
-          return StringListTypeModel.classType;
-        }
-        break;
+        return StringListTypeModel.classType;
       default:
-        {
-          throw Exception(
-              "Failed to find model in model provider for model name: " +
-                  modelName);
-        }
+        throw Exception(
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }

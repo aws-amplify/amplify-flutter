@@ -1,0 +1,161 @@
+{
+    "AddressSchema": {
+        "name": "Address",
+        "pluralName": "Addresses",
+        "fields": {
+            "line1": {
+                "name": "line1",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                },
+                "isReadOnly": false
+            },
+            "line2": {
+                "name": "line2",
+                "isRequired": false,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                },
+                "isReadOnly": false
+            },
+            "city": {
+                "name": "city",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                },
+                "isReadOnly": false
+            },
+            "state": {
+                "name": "state",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                },
+                "isReadOnly": false
+            },
+            "postalCode": {
+                "name": "postalCode",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                },
+                "isReadOnly": false
+            },
+        }
+    },
+    "PhoneSchema": {
+        "name": "Phone",
+        "pluralName": "Phones",
+        "fields": {
+            "country": {
+                "name": "country",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                },
+                "isReadOnly": false
+            },
+            "area": {
+                "name": "area",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                },
+                "isReadOnly": false
+            },
+            "number": {
+                "name": "number",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                },
+                "isReadOnly": false
+            },
+        }
+    },
+    "ContactSchema": {
+        "name": "Contact",
+        "pluralName": "Contacts",
+        "fields": {
+            "email": {
+                "name": "email",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                },
+                "isReadOnly": false
+            },
+            "phone": {
+                "name": "phone",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "embedded",
+                    "ofCustomTypeName": "Phone"
+                },
+                "isReadOnly": false
+            },
+            "mailingAddresses": {
+                "name": "mailingAddresses",
+                "isRequired": false,
+                "isArray": false,
+                "type": {
+                    "fieldType": "embeddedCollection",
+                    "ofCustomTypeName": "Address"
+                },
+                "isReadOnly": false
+            },
+        }
+    },
+    "CustomASchema": {
+        "name": "CustomA",
+        "pluralName": "CustomAs",
+        "fields": {
+            "field1": {
+                "name": "field1",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                },
+                "isReadOnly": false
+            },
+            "field2": {
+                "name": "field2",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "embedded",
+                    "ofCustomTypeName": "CustomB"
+                },
+                "isReadOnly": false
+            },
+        }
+    },
+    "CustomBSchema": {
+        "name": "CustomB",
+        "pluralName": "CustomBs",
+        "fields": {
+            "field": {
+                "name": "field",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                },
+                "isReadOnly": false
+            },
+        }
+    }
+}

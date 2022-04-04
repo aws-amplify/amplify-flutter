@@ -1,0 +1,15 @@
+{
+  "name": "testdata",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "generate": "node generate.js"
+  },
+  "dependencies": {
+    "cli-4": "npm:amplify-frontend-flutter@0.4.3",
+    "cli-5": "npm:amplify-frontend-flutter@0.4.4",
+    "cli-6": "npm:amplify-frontend-flutter@0.4.4",
+    "cli-7": "npm:amplify-frontend-flutter@1.3.0",
+    "cli-latest": "npm:amplify-frontend-flutter@1.3.3"
+  }
+}

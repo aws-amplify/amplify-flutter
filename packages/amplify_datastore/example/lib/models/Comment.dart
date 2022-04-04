@@ -13,19 +13,25 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the Comment type in your schema. */
+/// This is an auto generated class representing the Comment type in your schema.
 @immutable
 class Comment extends Model {
-  static const classType = const _CommentModelType();
+  static const classType = _CommentModelType();
   final String id;
   final Post? _post;
   final String? _content;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -43,7 +49,7 @@ class Comment extends Model {
     try {
       return _content!;
     } catch (e) {
-      throw new DataStoreException(
+      throw DataStoreException(
           DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: DataStoreExceptionMessages
@@ -52,9 +58,20 @@ class Comment extends Model {
     }
   }
 
-  const Comment._internal({required this.id, post, required content})
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const Comment._internal(
+      {required this.id, post, required content, createdAt, updatedAt})
       : _post = post,
-        _content = content;
+        _content = content,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory Comment({String? id, Post? post, required String content}) {
     return Comment._internal(
@@ -79,19 +96,24 @@ class Comment extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Comment {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
-    buffer.write("content=" + "$_content");
+    buffer.write("content=" + "$_content" + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   Comment copyWith({String? id, Post? post, String? content}) {
-    return Comment(
+    return Comment._internal(
         id: id ?? this.id,
         post: post ?? this.post,
         content: content ?? this.content);
@@ -101,12 +123,23 @@ class Comment extends Model {
       : id = json['id'],
         _post = json['post']?['serializedData'] != null
             ? Post.fromJson(
-                new Map<String, dynamic>.from(json['post']['serializedData']))
+                Map<String, dynamic>.from(json['post']['serializedData']))
             : null,
-        _content = json['content'];
+        _content = json['content'],
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
 
-  Map<String, dynamic> toJson() =>
-      {'id': id, 'post': _post?.toJson(), 'content': _content};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'post': _post?.toJson(),
+        'content': _content,
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "comment.id");
   static final QueryField POST = QueryField(
@@ -131,6 +164,18 @@ class Comment extends Model {
         key: Comment.CONTENT,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

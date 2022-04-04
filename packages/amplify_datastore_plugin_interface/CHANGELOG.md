@@ -1,3 +1,30 @@
+## 0.4.2 (2022-03-24)
+
+## 0.4.1 (2022-02-28)
+
+## 0.4.0 (2022-02-17)
+
+- chore: Many model-related type definitions moved from amplify_datastore_plugin_interface to amplify_core.
+
+## 0.3.2 (2022-01-21)
+
+- chore: bump amplify-android to 1.31.2
+
+## 0.3.1 (2022-01-20)
+
+- chore: bump amplify-ios to 1.18.3
+
+## 0.3.0 (2022-01-20)
+
+### Fixes
+
+- fix(datastore): fix error map from ios (#1126)
+
+### Features
+
+- feat: Add CustomType functionality (#847)
+- feat: Add ModelField ReadOnly support (#599)
+
 ## 0.2.10 (2021-11-23)
 
 ## 0.2.9 (2021-11-17)
@@ -28,6 +55,7 @@
 ## 0.2.5 (2021-10-14)
 
 ### Fixes
+
 - fix(datastore): Sync issues with owner-based auth
 - fix(datastore): Ensure attaching nested model schema
 - fix(datastore): Timeout period not increasing

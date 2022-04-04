@@ -17,29 +17,15 @@ library amplify_datastore_plugin_interface;
 
 import 'dart:async';
 
-import 'package:amplify_datastore_plugin_interface/src/types/models/model_provider.dart';
-import 'package:amplify_core/types/index.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-import 'src/types/models/model.dart';
+import 'src/types/conflict_handler/datastore_conflict_handler.dart';
+import 'src/types/models/auth_mode_strategy.dart';
 import 'src/types/models/observe_query_throttle_options.dart';
 import 'src/types/models/query_snapshot.dart';
 import 'src/types/models/subscription_event.dart';
 import 'src/types/sync/DataStoreSyncExpression.dart';
-import 'src/types/query/query_field.dart';
-
-export 'src/types/models/auth_rule.dart';
-export 'src/types/models/model.dart';
-export 'src/types/models/model_field.dart';
-export 'src/types/models/model_field_definition.dart';
-export 'src/types/models/model_field_type.dart';
-export 'src/types/models/model_provider.dart';
-export 'src/types/models/model_schema.dart';
-export 'src/types/models/model_schema_definition.dart';
-export 'src/types/models/uuid.dart';
-export 'src/types/query/query_field.dart';
-export 'src/types/temporal/datetime_parse.dart';
-export 'src/types/utils/parsers.dart';
 
 export 'src/publicTypes.dart';
 
@@ -49,6 +35,9 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
 
   // errorHandler
   Function(AmplifyException)? errorHandler;
+
+  // conflictHandler
+  DataStoreConflictHandler? conflictHandler;
 
   /// list of sync expressions to filter datastore sync against
   List<DataStoreSyncExpression>? syncExpressions;
@@ -62,23 +51,28 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// Datastore page size to sync
   int? syncPageSize;
 
+  /// The strategy for authorizing an API call.
+  final AuthModeStrategy authModeStrategy;
+
   /// Constructs an AmplifyPlatform.
   DataStorePluginInterface({
     required Object token,
     required this.modelProvider,
     this.errorHandler,
+    this.conflictHandler,
     this.syncExpressions,
     this.syncInterval,
     this.syncMaxRecords,
     this.syncPageSize,
+    this.authModeStrategy = AuthModeStrategy.defaultStrategy,
   }) : super(token: token);
 
   /// Internal use constructor
   @protected
   DataStorePluginInterface.tokenOnly({required Object token})
-      : super(token: token);
+      : this(token: token, modelProvider: null);
 
-  StreamController get streamController {
+  StreamController<HubEvent> get streamController {
     throw UnimplementedError(
         'streamController getter has not been implemented.');
   }
@@ -93,12 +87,15 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// [syncMaxRecords]: Max number of records to sync
   ///
   /// [syncPageSize]: Page size to sync
-  Future<void> configureDataStore(
-      {required ModelProviderInterface modelProvider,
-      Function(AmplifyException)? errorHandler,
-      int? syncInterval,
-      int? syncMaxRecords,
-      int? syncPageSize}) {
+  Future<void> configureDataStore({
+    required ModelProviderInterface modelProvider,
+    Function(AmplifyException)? errorHandler,
+    DataStoreConflictHandler? conflictHandler,
+    int? syncInterval,
+    int? syncMaxRecords,
+    int? syncPageSize,
+    AuthModeStrategy authModeStrategy = AuthModeStrategy.defaultStrategy,
+  }) {
     throw UnimplementedError('configureDataStore() has not been implemented.');
   }
 
@@ -113,16 +110,16 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('query() has not been implemented.');
   }
 
-  Future<void> delete<T extends Model>(T model) {
+  Future<void> delete<T extends Model>(T model, {QueryPredicate? where}) {
     throw UnimplementedError('delete() has not been implemented.');
   }
 
-  Future<void> save<T extends Model>(T model) {
+  Future<void> save<T extends Model>(T model, {QueryPredicate? where}) {
     throw UnimplementedError('save() has not been implemented');
   }
 
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(
-      ModelType<T> modelType) {
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
+      {QueryPredicate? where}) {
     throw UnimplementedError('observe() has not been implemented.');
   }
 

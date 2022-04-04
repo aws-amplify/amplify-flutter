@@ -28,7 +28,7 @@ import com.amplifyframework.core.category.CategoryType
 import com.amplifyframework.core.model.Model
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import org.junit.After
 import org.junit.Before
@@ -184,7 +184,7 @@ class AuthProviderTests {
     }
 
     @Test
-    fun testAuthProvidersInvokedCorrectlyByPlugin() = runBlockingTest {
+    fun testAuthProvidersInvokedCorrectlyByPlugin() = runBlocking {
         for (enabled in supportedAuthTypes) {
             runQuery(enabled)
             val provider = providerFor(enabled)

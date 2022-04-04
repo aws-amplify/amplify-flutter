@@ -13,10 +13,8 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_datastore/amplify_datastore.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'model_utils.dart';
@@ -54,108 +52,124 @@ testSortOperations<T extends Model>({
   });
 }
 
-/// sort [StringTypeModel] by value, accounting for nulls
-int sortStringTypeModel(StringTypeModel a, StringTypeModel b) {
-  if (a.value == null && b.value == null) {
+/// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.STRINGVALUE], accounting for nulls
+int sortStringTypeModel(
+    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  if (a.stringValue == null && b.stringValue == null) {
     return 0;
-  } else if (a.value == null) {
+  } else if (a.stringValue == null) {
     return -1;
-  } else if (b.value == null) {
+  } else if (b.stringValue == null) {
     return 1;
   } else {
-    return a.value!.compareTo(b.value!);
+    return a.stringValue!.compareTo(b.stringValue!);
   }
 }
 
-/// sort [IntTypeModel] by value, accounting for nulls
-int sortIntTypeModel(IntTypeModel a, IntTypeModel b) {
-  if (a.value == null && b.value == null) {
+/// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.INTVALUE], accounting for nulls
+int sortIntTypeModel(
+    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  if (a.intValue == null && b.intValue == null) {
     return 0;
-  } else if (a.value == null) {
+  } else if (a.intValue == null) {
     return -1;
-  } else if (b.value == null) {
+  } else if (b.intValue == null) {
     return 1;
   } else {
-    return a.value!.compareTo(b.value!);
+    return a.intValue!.compareTo(b.intValue!);
   }
 }
 
-/// sort [DoubleTypeModel] by value, accounting for nulls
-int sortDoubleTypeModel(DoubleTypeModel a, DoubleTypeModel b) {
-  if (a.value == null && b.value == null) {
+/// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.FLOATVALUE], accounting for nulls
+int sortFloatTypeModel(
+    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  if (a.floatValue == null && b.floatValue == null) {
     return 0;
-  } else if (a.value == null) {
+  } else if (a.floatValue == null) {
     return -1;
-  } else if (b.value == null) {
+  } else if (b.floatValue == null) {
     return 1;
   } else {
-    return a.value!.compareTo(b.value!);
+    return a.floatValue!.compareTo(b.floatValue!);
   }
 }
 
-/// sort [BoolTypeModel] by value, accounting for nulls
-int sortBoolTypeModel(BoolTypeModel a, BoolTypeModel b) {
-  if (a.value == b.value) {
+/// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.BOOLEANVALUE], accounting for nulls
+int sortBooleanTypeModel(
+    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  if (a.booleanValue == b.booleanValue) {
     return 0;
-  } else if (a.value == null) {
+  } else if (a.booleanValue == null) {
     return -1;
-  } else if (b.value == null) {
+  } else if (b.booleanValue == null) {
     return 1;
-  } else if (a.value!) {
+  } else if (a.booleanValue!) {
     return 1;
   } else {
     return 0;
   }
 }
 
-/// sort [DateTypeModel] by value, accounting for nulls
-int sortDateTypeModel(DateTypeModel a, DateTypeModel b) {
-  if (a.value == null && b.value == null) {
+/// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.AWSDATEVALUE], accounting for nulls
+int sortAWSDateTypeModel(
+    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  if (a.awsDateValue == null && b.awsDateValue == null) {
     return 0;
-  } else if (a.value == null) {
+  } else if (a.awsDateValue == null) {
     return -1;
-  } else if (b.value == null) {
+  } else if (b.awsDateValue == null) {
     return 1;
   } else {
-    return a.value!.getDateTime().compareTo(b.value!.getDateTime());
+    return a.awsDateValue!
+        .getDateTime()
+        .compareTo(b.awsDateValue!.getDateTime());
   }
 }
 
-/// sort [DateTimeTypeModel] by value, accounting for nulls
-int sortDateTimeTypeModel(DateTimeTypeModel a, DateTimeTypeModel b) {
-  if (a.value == null && b.value == null) {
+/// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.AWSDATETIMEVALUE], accounting for nulls
+int sortAWSDateTimeTypeModel(
+    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  if (a.awsDateTimeValue == null && b.awsDateTimeValue == null) {
     return 0;
-  } else if (a.value == null) {
+  } else if (a.awsDateTimeValue == null) {
     return -1;
-  } else if (b.value == null) {
+  } else if (b.awsDateTimeValue == null) {
     return 1;
   } else {
-    return a.value!.getDateTimeInUtc().compareTo(b.value!.getDateTimeInUtc());
+    return a.awsDateTimeValue!
+        .getDateTimeInUtc()
+        .compareTo(b.awsDateTimeValue!.getDateTimeInUtc());
   }
 }
 
-/// sort [TimeTypeModel] by value, accounting for nulls
-int sortTimeTypeModel(TimeTypeModel a, TimeTypeModel b) {
-  if (a.value == null && b.value == null) {
+/// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes], accounting for nulls
+int sortAWSTimeTypeModel(
+    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  if (a.awsTimeValue == null && b.awsTimeValue == null) {
     return 0;
-  } else if (a.value == null) {
+  } else if (a.awsTimeValue == null) {
     return -1;
-  } else if (b.value == null) {
+  } else if (b.awsTimeValue == null) {
     return 1;
   } else {
-    return a.value!.getDateTime().compareTo(b.value!.getDateTime());
+    return a.awsTimeValue!
+        .getDateTime()
+        .compareTo(b.awsTimeValue!.getDateTime());
   }
 }
 
-/// sort [TimestampTypeModel] by value, accounting for nulls
-int sortTimestampTypeModel(TimestampTypeModel a, TimestampTypeModel b) {
-  if (a.value == null && b.value == null) {
+/// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.AWSTIMESTAMPVALUE], accounting for nulls
+int sortAWSTimestampTypeModel(
+    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  if (a.awsTimestampValue == null && b.awsTimestampValue == null) {
     return 0;
-  } else if (a.value == null) {
+  } else if (a.awsTimestampValue == null) {
     return -1;
-  } else if (b.value == null) {
+  } else if (b.awsTimestampValue == null) {
     return 1;
   } else {
-    return a.value!.toSeconds().compareTo(b.value!.toSeconds());
+    return a.awsTimestampValue!
+        .toSeconds()
+        .compareTo(b.awsTimestampValue!.toSeconds());
   }
 }

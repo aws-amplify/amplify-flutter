@@ -15,7 +15,7 @@
 
 import 'dart:async';
 
-import 'package:amplify_core/types/exception/AmplifyException.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:meta/meta.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -41,18 +41,22 @@ class AmplifyDataStore extends DataStorePluginInterface {
   AmplifyDataStore({
     required ModelProviderInterface modelProvider,
     Function(AmplifyException)? errorHandler,
+    DataStoreConflictHandler? conflictHandler,
     List<DataStoreSyncExpression> syncExpressions = const [],
     int? syncInterval,
     int? syncMaxRecords,
     int? syncPageSize,
+    AuthModeStrategy authModeStrategy = AuthModeStrategy.defaultStrategy,
   }) : super(
           token: _token,
           modelProvider: modelProvider,
           errorHandler: errorHandler,
+          conflictHandler: conflictHandler,
           syncExpressions: syncExpressions,
           syncInterval: syncInterval,
           syncMaxRecords: syncMaxRecords,
           syncPageSize: syncPageSize,
+          authModeStrategy: authModeStrategy,
         );
 
   /// Internal use constructor
@@ -67,7 +71,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
     _instance = instance as AmplifyDataStore;
   }
 
-  StreamController get streamController {
+  StreamController<DataStoreHubEvent> get streamController {
     return streamWrapper.datastoreStreamController;
   }
 
@@ -75,10 +79,12 @@ class AmplifyDataStore extends DataStorePluginInterface {
   Future<void> configureDataStore({
     ModelProviderInterface? modelProvider,
     Function(AmplifyException)? errorHandler,
+    DataStoreConflictHandler? conflictHandler,
     List<DataStoreSyncExpression>? syncExpressions,
     int? syncInterval,
     int? syncMaxRecords,
     int? syncPageSize,
+    AuthModeStrategy authModeStrategy = AuthModeStrategy.defaultStrategy,
   }) async {
     ModelProviderInterface provider = modelProvider ?? this.modelProvider!;
     if (provider.modelSchemas.isEmpty) {
@@ -90,10 +96,12 @@ class AmplifyDataStore extends DataStorePluginInterface {
     return _instance.configureDataStore(
       modelProvider: provider,
       errorHandler: errorHandler ?? this.errorHandler,
+      conflictHandler: conflictHandler ?? this.conflictHandler,
       syncExpressions: this.syncExpressions,
       syncInterval: this.syncInterval,
       syncMaxRecords: this.syncMaxRecords,
       syncPageSize: this.syncPageSize,
+      authModeStrategy: this.authModeStrategy,
     );
   }
 
@@ -112,19 +120,19 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
-  Future<void> delete<T extends Model>(T model) async {
-    return _instance.delete(model);
+  Future<void> delete<T extends Model>(T model, {QueryPredicate? where}) async {
+    return _instance.delete(model, where: where);
   }
 
   @override
-  Future<void> save<T extends Model>(T model) {
-    return _instance.save(model);
+  Future<void> save<T extends Model>(T model, {QueryPredicate? where}) {
+    return _instance.save(model, where: where);
   }
 
   @override
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(
-      ModelType<T> modelType) {
-    return _instance.observe(modelType);
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
+      {QueryPredicate? where}) {
+    return _instance.observe(modelType, where: where);
   }
 
   @override

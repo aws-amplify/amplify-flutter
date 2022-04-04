@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 import 'ErrorView.dart';
@@ -45,7 +45,7 @@ class _SignInViewState extends State<SignInView> {
     }
 
     try {
-      SignInResult res = await Amplify.Auth.signIn(
+      await Amplify.Auth.signIn(
           username: usernameController.text.trim(),
           password: passwordController.text.trim());
       Navigator.pop(context, true);

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "resourceName": "authintegrationtest",
+  "serviceConfiguration": {
+    "serviceName": "Cognito",
+    "userPoolConfiguration": {
+      "signinMethod": "USERNAME",
+      "requiredSignupAttributes": ["EMAIL", "PHONE_NUMBER"]
+    },
+    "includeIdentityPool": true
+  }
+}

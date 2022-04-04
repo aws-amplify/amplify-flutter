@@ -120,6 +120,17 @@ public class QueryPredicateBuilder {
             }
             return resultQueryPredicate
         }
+
+        if let queryPredicateConstant = data["queryPredicateConstant"] as? [String: Any] {
+            switch (queryPredicateConstant["type"] as! String) {
+            case "all":
+                return QueryPredicateConstant.all
+            default:
+                throw DataStoreError.decodingError("Received invalid query predicate constant type " +
+                                                    "\(String(describing: queryPredicateConstant["type"]))",
+                                                   "Check the values that are being passed from Dart.")
+            }
+        }
         
         throw DataStoreError.decodingError("Received invalid serialization for query predicates.",
                                            "Check the values that are being passed from Dart.")

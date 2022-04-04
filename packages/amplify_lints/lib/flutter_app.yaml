@@ -17,3 +17,4 @@ linter:
     - sort_pub_dependencies                            # To simplify searching a large list.
     - unnecessary_await_in_return                      # To make code more concise and to encourage mindfulness about where Futures are awaited.
     - unnecessary_lambdas                              # To make code more concise.
+    - use_build_context_synchronously                  # To prevent asynchronous usage of an invalid BuildContext.

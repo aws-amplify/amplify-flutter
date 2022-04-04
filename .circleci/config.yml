@@ -8,7 +8,7 @@ executors:
 
   macos-executor:
     macos:
-      xcode: 12.2.0
+      xcode: 12.5.1
     working_directory: ~/amplify-flutter
 
 commands:
@@ -31,22 +31,25 @@ commands:
             git clone --branch ${FLUTTER_BRANCH} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
             (yes || true) | flutter doctor --android-licenses && flutter doctor
             flutter precache
-
   install_melos:
     steps:
       - run:
           name: Install and set up melos
           command: |
-            flutter pub global activate melos 0.4.5
+            flutter pub global activate melos 1.3.0
             melos bootstrap
-
+  activate_pana:
+    steps:
+      - run:
+          name: Install and set up pana
+          command: |
+            flutter pub global activate pana
   install_tuneup:
     steps:
       - run:
           name: Install tuneup
           command: |
             flutter pub global activate tuneup
-
 jobs:
   format_flutter:
     executor: docker-executor
@@ -66,8 +69,26 @@ jobs:
           name: Analyze Dart/Flutter Code
           command: melos run analyze --no-select
 
+  pub_analysis:
+    executor: docker-executor
+    parameters:
+      plugin_threshold:
+        type: string
+        description: the plugin name and the pub analysis threshold in the format <plugin_name>:<threshold>
+    steps:
+      - install_flutter
+      - checkout
+      - install_melos
+      - activate_pana
+      - run:
+          name: Run pub analysis and fail if the score is below the max score
+          command: param=<< parameters.plugin_threshold >> && plugin=${param%:*} && threshold=${param#*:} && melos exec -c 1 --fail-fast --scope="$plugin" -- pana --no-warning --exit-code-threshold $threshold .
+
   unit_test_flutter:
     executor: docker-executor
+    parameters:
+      plugin:
+        type: string
     steps:
       - install_flutter
       - checkout
@@ -77,7 +98,7 @@ jobs:
           command: flutter pub global activate junitreport
       - run:
           name: Run Flutter Unit Tests
-          command: melos run test:unit:flutter
+          command: melos run test:unit:flutter:plugin << parameters.plugin >>
       - run:
           name: Upload flutter test coverage
           command: melos run upload:coverage:flutter
@@ -85,33 +106,40 @@ jobs:
           name: Save test results
           command: |
             mkdir -p ~/test-results/junit/
+            mkdir -p ~/test-results/failures/
             find . -type f -regex "\./packages/.*/test-results/.*-flutter-test\.xml" -exec cp {} ~/test-results/junit/ \;
+            find . -type f -regex "\./packages/.*/failures/.*\.png" -exec cp {} ~/test-results/failures/ \;
           when: always
       - store_test_results:
           path: ~/test-results
       - store_artifacts:
           path: ~/test-results/junit
+      - store_artifacts:
+          path: ~/test-results/failures
 
   unit_test_ios:
     executor: macos-executor
+    parameters:
+      plugin:
+        type: string
     steps:
       - install_flutter
       - checkout
       - install_melos
       - run:
           name: Run lint checks
-          command: melos run lint:ios --no-select
+          command: melos run lint:ios:<< parameters.plugin >>
       - run:
           name: Pre-start iOS simulator
           # xcrun instruments returns non zero, but successfully starts the simulator
-          command: xcrun instruments -w "iPhone 11 (14.2) [" || true
+          command: xcrun instruments -w "iPhone 11 (14.5) [" || true
       - run:
           name: Build example iOS apps
           command: |
-            melos run build:examples:ios
+            melos run build:examples:ios:<< parameters.plugin >>
       - run:
           name: Run iOS Unit Tests
-          command: melos run test:unit:ios
+          command: melos run test:unit:ios:plugin << parameters.plugin >>
       - run:
           name: Upload iOS test coverage
           command: melos run upload:coverage:ios
@@ -128,6 +156,9 @@ jobs:
 
   unit_test_android:
     executor: docker-executor
+    parameters:
+      plugin:
+        type: string
     environment:
       _JAVA_OPTIONS: -XX:MaxRAMPercentage=80.0
       GRADLE_OPTS: -Xmx1536m -Xms768m -Dkotlin.compiler.execution.strategy=in-process -Dorg.gradle.daemon=false
@@ -138,14 +169,14 @@ jobs:
       - run:
           name: Build example APKs
           command: |
-            melos run build:examples:android
+            melos run build:examples:android:<< parameters.plugin >>
           no_output_timeout: 20m
-      - run: 
+      - run:
           name: Run lint checks
-          command: melos run lint:android --no-select
+          command: melos run lint:android:<< parameters.plugin >>
       - run:
           name: Run Android Unit Tests
-          command: melos run test:unit:android
+          command: melos run test:unit:android:plugin << parameters.plugin >>
       - run:
           name: Upload android test coverage
           command: melos run upload:coverage:android
@@ -171,6 +202,58 @@ workflows:
     jobs:
       - format_flutter
       - analyze_flutter
-      - unit_test_flutter
-      - unit_test_android
-      - unit_test_ios
+      # TODO: Enable pub_analysis after https://github.com/dart-lang/pana/issues/1020 is 
+      # resolved or these are updated to run against unpub
+      # - pub_analysis:
+      #     matrix:
+      #       parameters:
+      #         plugin_threshold: [
+      #             # should be in format <plugin_name>:<threshold>
+      #             "amplify_analytics_pinpoint:10",
+      #             "amplify_api:10",
+      #             "amplify_auth_cognito:10",
+      #             "amplify_authenticator:0",
+      #             "amplify_core:10",
+      #             "amplify_datastore:20",
+      #             "amplify_flutter:20",
+      #             "amplify_storage_s3:10",
+      #           ]
+      - unit_test_flutter:
+          matrix:
+            parameters:
+              plugin:
+                [
+                  "amplify_analytics_pinpoint",
+                  "amplify_api",
+                  "amplify_auth_cognito",
+                  "amplify_authenticator",
+                  "amplify_core",
+                  "amplify_datastore",
+                  "amplify_datastore_plugin_interface",
+                  "amplify_flutter",
+                  "amplify_storage_plugin_interface",
+                  "amplify_storage_s3",
+                ]
+      - unit_test_android:
+          matrix:
+            parameters:
+              plugin:
+                [
+                  "amplify_analytics_pinpoint",
+                  "amplify_api",
+                  "amplify_auth_cognito",
+                  "amplify_core",
+                  "amplify_datastore",
+                  "amplify_flutter",
+                ]
+      - unit_test_ios:
+          matrix:
+            parameters:
+              plugin:
+                [
+                  "amplify_analytics_pinpoint",
+                  "amplify_api",
+                  "amplify_auth_cognito",
+                  "amplify_datastore",
+                  "amplify_flutter",
+                ]

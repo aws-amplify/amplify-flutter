@@ -1,166 +1,218 @@
+input AMPLIFY {
+  globalAuthRule: AuthRule = { allow: public }
+}
 type Blog @model {
   id: ID!
   name: String!
-  posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
+  posts: [Post] @hasMany(indexName: "byBlog", fields: ["id"])
 }
 
-type Post @model @key(name: "byBlog", fields: ["blogID"]) {
+type Post @model {
   id: ID!
   title: String!
   rating: Int!
   created: AWSDateTime
-  blogID: ID!
-  blog: Blog @connection(fields: ["blogID"])
-  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+  blogID: ID @index(name: "byBlog")
+  blog: Blog @belongsTo(fields: ["blogID"])
+  comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
+  tags: [Tag] @manyToMany(relationName: "PostTags")
 }
 
-type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
+type Comment @model {
   id: ID!
-  postID: ID!
-  post: Post @connection(fields: ["postID"])
+  postID: ID! @index(name: "byPost", sortKeyFields: ["content"])
+  post: Post @belongsTo(fields: ["postID"])
   content: String!
 }
 
-type HasManyModel @model {
+type Tag @model {
   id: ID!
-  name: String!
-  children: [HasManyChildModel] @connection(keyName: "byParent", fields: ["id"])
+  label: String!
+  posts: [Post] @manyToMany(relationName: "PostTags")
 }
 
-type HasManyChildModel @model @key(name: "byParent", fields: ["parentID"]) {
+type ModelWithAppsyncScalarTypes @model {
   id: ID!
-  name: String!
-  parent: HasManyModel @connection(fields: ["parentID"])
-  parentID: ID!
+  stringValue: String
+  altStringValue: String
+  listOfStringValue: [String]
+  intValue: Int
+  altIntValue: Int
+  listOfIntValue: [Int]
+  floatValue: Float
+  listOfFloatValue: [Float]
+  booleanValue: Boolean
+  listOfBooleanValue: [Boolean]
+  awsDateValue: AWSDate
+  listOfAWSDateValue: [AWSDate]
+  awsTimeValue: AWSTime
+  listOfAWSTimeValue: [AWSTime]
+  awsDateTimeValue: AWSDateTime
+  listOfAWSDateTimeValue: [AWSDateTime]
+  awsTimestampValue: AWSTimestamp
+  listOfAWSTimestampValue: [AWSTimestamp]
+  awsEmailValue: AWSEmail
+  listOfAWSEmailValue: [AWSEmail]
+  awsJsonValue: AWSJSON
+  listOfAWSJsonValue: [AWSJSON]
+  awsPhoneValue: AWSPhone
+  listOfAWSPhoneValue: [AWSPhone]
+  awsURLValue: AWSURL
+  listOfAWSURLValue: [AWSURL]
+  awsIPAddressValue: AWSIPAddress
+  listOfAWSIPAddressValue: [AWSIPAddress]
 }
 
-type HasOneModel @model {
+type ModelWithEnum @model {
   id: ID!
-  name: String!
-  childID: ID!
-  child: ChildModel @connection(fields: ["childID"])
+  enumField: EnumField
+  listOfEnumField: [EnumField]
 }
 
-type BelongsToModel @model {
-  id: ID!
-  name: String!
-  child: ChildModel! @connection
-}
-
-type ChildModel @model {
-  id: ID!
-  name: String!
-}
-
-enum EnumModel {
+enum EnumField {
   yes
   no
 }
 
-type StringTypeModel @model {
+type ModelWithCustomType @model {
   id: ID!
-  value: String
+  customTypeValue: CustomTypeWithAppsyncScalarTypes
+  listOfCustomTypeValue: [CustomTypeWithAppsyncScalarTypes]
 }
 
-type StringListTypeModel @model {
-  id: ID!
-  value: [String]
-}
-
-type IntTypeModel @model {
-  id: ID!
-  value: Int
-}
-
-type IntListTypeModel @model {
-  id: ID!
-  value: [Int]
-}
-
-type DoubleTypeModel @model {
-  id: ID!
-  value: Float
-}
-
-type DoubleListTypeModel @model {
-  id: ID!
-  value: [Float]
-}
-
-type BoolTypeModel @model {
-  id: ID!
-  value: Boolean
-}
-
-type BoolListTypeModel @model {
-  id: ID!
-  value: [Boolean]
-}
-
-type DateTypeModel @model {
-  id: ID!
-  value: AWSDate
-}
-
-type DateListTypeModel @model {
-  id: ID!
-  value: [AWSDate]
-}
-
-type DateTimeTypeModel @model {
-  id: ID!
-  value: AWSDateTime
-}
-
-type DateTimeListTypeModel @model {
-  id: ID!
-  value: [AWSDateTime]
-}
-
-type TimeTypeModel @model {
-  id: ID!
-  value: AWSTime
-}
-
-type TimeListTypeModel @model {
-  id: ID!
-  value: [AWSTime]
-}
-
-type TimestampTypeModel @model {
-  id: ID!
-  value: AWSTimestamp
-}
-
-type TimestampListTypeModel @model {
-  id: ID!
-  value: [AWSTimestamp]
-}
-
-type JSONTypeModel @model {
-  id: ID!
-  value: AWSJSON
-}
-
-type JSONListTypeModel @model {
-  id: ID!
-  value: [AWSJSON]
-}
-
-type EnumTypeModel @model {
-  id: ID!
-  value: EnumModel
-}
-
-type EnumListTypeModel @model {
-  id: ID!
-  value: [EnumModel]
-}
-
-type MultiTypeModel @model {
-  id: ID!
+type CustomTypeWithAppsyncScalarTypes {
   stringValue: String
-  altStringValue: String
+  listOfStringValue: [String]
   intValue: Int
-  altIntValue: Int
+  listOfIntValue: [Int]
+  floatValue: Float
+  listOfFloatValue: [Float]
+  booleanValue: Boolean
+  listOfBooleanValue: [Boolean]
+  awsDateValue: AWSDate
+  listOfAWSDateValue: [AWSDate]
+  awsDateTimeValue: AWSDateTime
+  listOfAWSDateTimeValue: [AWSDateTime]
+  awsTimeValue: AWSTime
+  listOfAWSTimeValue: [AWSTime]
+  awsTimestampValue: AWSTimestamp
+  listOfAWSTimestampValue: [AWSTimestamp]
+  awsEmailValue: AWSEmail
+  listOfAWSEmailValue: [AWSEmail]
+  awsJsonValue: AWSJSON
+  listOfAWSJsonValue: [AWSJSON]
+  awsPhoneValue: AWSPhone
+  listOfAWSPhoneValue: [AWSPhone]
+  awsURLValue: AWSURL
+  listOfAWSURLValue: [AWSURL]
+  awsIPAddressValue: AWSIPAddress
+  listOfAWSIPAddressValue: [AWSIPAddress]
+  enumValue: EnumField
+  listOfEnumValue: [EnumField]
+  customTypeValue: SimpleCustomType
+  listOfCustomTypeValue: [SimpleCustomType]
+}
+
+type SimpleCustomType {
+  foo: String!
+}
+
+type HasOneParent @model {
+  id: ID!
+  name: String
+  implicitChild: HasOneChild @hasOne
+  explicitChildID: ID
+  explicitChild: HasOneChild @hasOne(fields: ["explicitChildID"])
+}
+
+type HasOneChild @model {
+  id: ID!
+  name: String
+}
+
+type HasManyParent @model {
+  id: ID!
+  name: String
+  implicitChildren: [HasManyChildImplicit] @hasMany
+  explicitChildren: [HasManyChildExplicit]
+    @hasMany(indexName: "byHasManyParent", fields: ["id"])
+}
+
+type HasManyChildImplicit @model {
+  id: ID!
+  name: String
+}
+
+type HasManyChildExplicit @model {
+  id: ID!
+  name: String
+  hasManyParentID: ID! @index(name: "byHasManyParent", sortKeyFields: ["name"])
+}
+
+type HasManyParentBiDirectionalImplicit @model {
+  id: ID!
+  name: String
+  biDirectionalImplicitChildren: [HasManyChildBiDirectionalImplicit] @hasMany
+}
+
+type HasManyChildBiDirectionalImplicit @model {
+  id: ID!
+  name: String
+  hasManyParent: HasManyParentBiDirectionalImplicit @belongsTo
+}
+
+type HasManyParentBiDirectionalExplicit @model {
+  id: ID!
+  name: String
+  biDirectionalExplicitChildren: [HasManyChildBiDirectionalExplicit]
+    @hasMany(indexName: "byHasManyParent", fields: ["id"])
+}
+
+type HasManyChildBiDirectionalExplicit @model {
+  id: ID!
+  name: String
+  hasManyParentId: ID! @index(name: "byHasManyParent", sortKeyFields: ["name"])
+  hasManyParent: HasManyParentBiDirectionalExplicit
+    @belongsTo(fields: ["hasManyParentId"])
+}
+
+type BelongsToParent @model {
+  id: ID!
+  name: String
+  implicitChild: BelongsToChildImplicit @hasOne
+  explicitChild: BelongsToChildExplicit @hasOne
+}
+
+type BelongsToChildImplicit @model {
+  id: ID!
+  name: String
+  belongsToParent: BelongsToParent @belongsTo
+}
+
+type BelongsToChildExplicit @model {
+  id: ID!
+  name: String
+  belongsToParentID: ID
+  belongsToParent: BelongsToParent @belongsTo(fields: ["belongsToParentID"])
+}
+
+type MultiRelatedMeeting @model {
+  id: ID! @primaryKey
+  title: String!
+  attendees: [MultiRelatedRegistration]
+    @hasMany(indexName: "byMeeting", fields: ["id"])
+}
+
+type MultiRelatedAttendee @model {
+  id: ID! @primaryKey
+  meetings: [MultiRelatedRegistration]
+    @hasMany(indexName: "byAttendee", fields: ["id"])
+}
+
+type MultiRelatedRegistration @model {
+  id: ID! @primaryKey
+  meetingId: ID @index(name: "byMeeting", sortKeyFields: ["attendeeId"])
+  meeting: MultiRelatedMeeting! @belongsTo(fields: ["meetingId"])
+  attendeeId: ID @index(name: "byAttendee", sortKeyFields: ["meetingId"])
+  attendee: MultiRelatedAttendee! @belongsTo(fields: ["attendeeId"])
 }

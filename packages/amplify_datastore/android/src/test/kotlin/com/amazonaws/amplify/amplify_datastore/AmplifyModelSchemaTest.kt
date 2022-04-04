@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -76,6 +76,30 @@ class AmplifyModelSchemaTest {
     }
 
     @Test
+    fun test_schema_postAuthComplex_with_authRules_with_provider_userpools() {
+        // Generate Flutter ModelSchema from map input
+        var inputMap = schemasMap["PostAuthComplexWithProviderUserPoolsSchema"] as Map<String, Any>
+        var modelSchema = FlutterModelSchema(inputMap)
+        // Verify result
+        assertEquals(
+            modelSchema.convertToNativeModelSchema(),
+            postAuthComplexWithProviderUserPoolsSchema
+        )
+    }
+
+    @Test
+    fun test_schema_postAuthComplex_with_authRules_with_provider_apikey() {
+        // Generate Flutter ModelSchema from map input
+        var inputMap = schemasMap["PostAuthComplexWithProviderApiKeySchema"] as Map<String, Any>
+        var modelSchema = FlutterModelSchema(inputMap)
+        // Verify result
+        assertEquals(
+            modelSchema.convertToNativeModelSchema(),
+            postAuthComplexWithProviderApiKeySchema
+        )
+    }
+
+    @Test
     fun test_schema_allTypeModel() {
         // Generate Flutter ModelSchema from map input
         var inputMap = schemasMap["AllTypeModelSchema"] as Map<String, Any>
@@ -84,6 +108,20 @@ class AmplifyModelSchemaTest {
         assertEquals(
                 modelSchema.convertToNativeModelSchema(),
                 allTypeModelSchema
+        )
+    }
+
+    @Test
+    fun test_model_schema_nested_custom_type_schema() {
+        val inputMap = schemasMap["PersonModelSchema"] as Map<String, Any>
+        val modelSchema = FlutterModelSchema(inputMap);
+
+        val convertedModelSchema = modelSchema.convertToNativeModelSchema()
+
+        // Verify result
+        assertEquals(
+            convertedModelSchema,
+            personSchema
         )
     }
 }
