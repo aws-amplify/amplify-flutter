@@ -181,7 +181,6 @@ class ContainsQueryOperator<T extends Comparable>
       : super(value, QueryFieldOperatorType.contains);
 
   @override
-  // `other` is dynamic because it can be T or List<T>
   bool evaluate(dynamic other) {
     if (other == null) {
       return false;
@@ -192,7 +191,9 @@ class ContainsQueryOperator<T extends Comparable>
       return other.contains(value);
     } else {
       throw const AmplifyException(
-        'Invalid type. The .contains() query predicate only supports type String and List',
+        'Invalid type. The .contains() query predicate only supports type String and List<T extends Comparable>.',
+        recoverySuggestion:
+            'Ensure that the field and predicate value are of the appropriate type.',
       );
     }
   }
