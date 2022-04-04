@@ -1,4 +1,4 @@
-## 0.4.3-rc.1 (2022-04-04)
+## 0.4.4-rc.1 (2022-04-04)
 
 - feat: Multi-auth (#1478)
 - chore: make example Android Apps runnable with API 32+ (#1474)

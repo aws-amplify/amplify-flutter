@@ -1,4 +1,4 @@
-## 0.4.3-rc.1 (2022-04-04)
+## 0.4.4-rc.1 (2022-04-04)
 
 - chore: Update exception comments (#1476)
 
