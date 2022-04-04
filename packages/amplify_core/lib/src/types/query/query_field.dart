@@ -78,15 +78,19 @@ class QueryField<T> {
   /// Example:
   /// ```dart
   /// // returns all blogs that have "foo" in the name
+  /// //
+  /// // In this example, `Blog.name` is of type String.
   /// Amplify.DataStore.query(
   ///   Blog.classType,
   ///   where: Blog.NAME.contains('foo'),
   /// );
   ///
-  /// // returns all blogs that have "bar" as one of the categories
+  /// // returns all blogs that have "bar" as one of the categories.
+  /// //
+  /// // In this example, `Blog.categories` is of type List<String>.
   /// Amplify.DataStore.query(
   ///   Blog.classType,
-  ///   where: Blog.CATEGORIES.contains('Bar'),
+  ///   where: Blog.CATEGORIES.contains('bar'),
   /// );
   /// ```
   QueryPredicateOperation contains(dynamic value) => QueryPredicateOperation(
