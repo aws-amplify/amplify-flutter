@@ -175,25 +175,22 @@ class GreaterThanQueryOperator<T extends Comparable>
   }
 }
 
-class ContainsQueryOperator<T extends Comparable>
-    extends QueryFieldOperatorSingleValue<T> {
-  const ContainsQueryOperator(T value)
+class ContainsQueryOperator extends QueryFieldOperatorSingleValue<String> {
+  const ContainsQueryOperator(String value)
       : super(value, QueryFieldOperatorType.contains);
 
   @override
   bool evaluate(dynamic other) {
     if (other == null) {
       return false;
-    }
-    if (other is String && value is String) {
-      return other.contains(value as String);
-    } else if (other is List<T>) {
+    } else if (other is String) {
+      return other.contains(value);
+    } else if (other is List<String>) {
       return other.contains(value);
     } else {
       throw const AmplifyException(
-        'Invalid type. The .contains() query predicate only supports type String and List<T extends Comparable>.',
-        recoverySuggestion:
-            'Ensure that the field and predicate value are of the appropriate type.',
+        'Invalid type. The .contains() query predicate only supports type String and List<String>.',
+        recoverySuggestion: 'Ensure that the field is of the appropriate type.',
       );
     }
   }

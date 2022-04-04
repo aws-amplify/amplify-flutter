@@ -73,7 +73,7 @@ class QueryField<T> {
   /// An operation that returns models that contain the given item.
   ///
   /// This operation can be applied to fields of type String or
-  /// List<T extends Comparable>.
+  /// List<String>.
   ///
   /// Example:
   /// ```dart
@@ -93,7 +93,7 @@ class QueryField<T> {
   ///   where: Blog.CATEGORIES.contains('bar'),
   /// );
   /// ```
-  QueryPredicateOperation contains(dynamic value) => QueryPredicateOperation(
+  QueryPredicateOperation contains(String value) => QueryPredicateOperation(
         fieldName,
         ContainsQueryOperator(value),
       );
