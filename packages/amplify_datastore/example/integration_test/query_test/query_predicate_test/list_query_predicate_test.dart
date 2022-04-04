@@ -49,8 +49,8 @@ void main() {
     testWidgets('contains()', (WidgetTester tester) async {
       // a list of unique values across all the lists
       final values = listOfStringValues
-          .where((values) => values != null)
-          .reduce(((value, element) => [...value!, ...element!]))!
+          .whereType<List<String>>()
+          .expand((el) => el)
           .toSet()
           .toList();
 
