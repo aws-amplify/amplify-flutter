@@ -1,6 +1,6 @@
-# amplify_api_android
+# amplify_api_ios
 
-The method channel implementation for amplify_api on Android
+The method channel implementation for amplify_api on iOS
 
 ## Usage
 
