@@ -28,6 +28,7 @@ import 'aws_date_time_query_predicate_test.dart'
 import 'aws_time_query_predicate_test.dart' as aws_time_query_predicate_test;
 import 'aws_timestamp_query_predicate_test.dart'
     as aws_timestamp_query_predicate_tests;
+import 'list_query_predicate_test.dart' as list_query_predicate_tests;
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -43,5 +44,6 @@ void main() async {
     aws_date_time_query_predicate_test.main();
     aws_time_query_predicate_test.main();
     aws_timestamp_query_predicate_tests.main();
+    list_query_predicate_tests.main();
   });
 }

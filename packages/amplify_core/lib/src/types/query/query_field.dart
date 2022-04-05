@@ -70,9 +70,33 @@ class QueryField<T> {
           this.fieldName, new GreaterThanQueryOperator<Comparable<T>>(value));
   QueryPredicateOperation operator >(Comparable<T> value) => gt(value);
 
-  // Contains operation. No operator overloading for this one
-  QueryPredicateOperation contains(String value) => new QueryPredicateOperation(
-      this.fieldName, new ContainsQueryOperator(value));
+  /// An operation that returns models that contain the given item.
+  ///
+  /// This operation can be applied to fields of type String or
+  /// List<String>.
+  ///
+  /// Example:
+  /// ```dart
+  /// // returns all blogs that have "foo" in the name
+  /// //
+  /// // In this example, `Blog.name` is of type String.
+  /// Amplify.DataStore.query(
+  ///   Blog.classType,
+  ///   where: Blog.NAME.contains('foo'),
+  /// );
+  ///
+  /// // returns all blogs that have "bar" as one of the categories.
+  /// //
+  /// // In this example, `Blog.categories` is of type List<String>.
+  /// Amplify.DataStore.query(
+  ///   Blog.classType,
+  ///   where: Blog.CATEGORIES.contains('bar'),
+  /// );
+  /// ```
+  QueryPredicateOperation contains(String value) => QueryPredicateOperation(
+        fieldName,
+        ContainsQueryOperator(value),
+      );
 
   // Between operation. No operator overloading for this one
   QueryPredicateOperation between(Comparable<T> start, Comparable<T> end) =>

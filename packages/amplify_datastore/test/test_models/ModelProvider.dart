@@ -23,16 +23,23 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'Blog.dart';
 import 'Comment.dart';
 import 'Post.dart';
+import 'StringListTypeModel.dart';
 
 export 'Blog.dart';
 export 'Comment.dart';
 export 'Post.dart';
+export 'StringListTypeModel.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
   String version = "f43670a12adedf95a96cd58377c6c2bc";
   @override
-  List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, Post.schema];
+  List<ModelSchema> modelSchemas = [
+    Blog.schema,
+    Comment.schema,
+    Post.schema,
+    StringListTypeModel.schema
+  ];
   static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [];
@@ -47,6 +54,8 @@ class ModelProvider implements ModelProviderInterface {
         return Comment.classType;
       case "Post":
         return Post.classType;
+      case "StringListTypeModel":
+        return StringListTypeModel.classType;
       default:
         throw Exception(
             "Failed to find model in model provider for model name: " +
