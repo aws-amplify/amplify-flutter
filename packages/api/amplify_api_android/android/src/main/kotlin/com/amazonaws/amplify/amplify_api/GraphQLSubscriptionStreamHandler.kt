@@ -32,6 +32,10 @@ class GraphQLSubscriptionStreamHandler : EventChannel.StreamHandler {
         eventSink = null
     }
 
+    fun close() {
+        eventSink?.endOfStream()
+    }
+
     fun sendEvent(payload: Map<String, Any>?, id: String, type: GraphQLSubscriptionEventTypes) {
         handler.post {
             val result: MutableMap<String, Any?> = mutableMapOf(

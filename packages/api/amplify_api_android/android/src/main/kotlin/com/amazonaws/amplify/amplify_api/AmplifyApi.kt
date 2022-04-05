@@ -55,11 +55,11 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
 
     private var channel: MethodChannel? = null
     private var eventchannel: EventChannel? = null
+    private var graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler? = null
     private val logger = Amplify.Logging.forNamespace("amplify:flutter:api")
     private var dispatcher: CoroutineDispatcher
 
     constructor() {
-        graphqlSubscriptionStreamHandler = GraphQLSubscriptionStreamHandler()
         dispatcher = Dispatchers.IO
     }
 
@@ -75,6 +75,7 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
     private val handler = Handler(Looper.getMainLooper())
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        graphqlSubscriptionStreamHandler = graphqlSubscriptionStreamHandler ?: GraphQLSubscriptionStreamHandler()
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/api")
         channel!!.setMethodCallHandler(this)
         eventchannel = EventChannel(
@@ -131,7 +132,7 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
                 "subscribe" -> FlutterGraphQLApi(dispatcher).subscribe(
                     result,
                     arguments,
-                    graphqlSubscriptionStreamHandler
+                    graphqlSubscriptionStreamHandler!!
                 )
                 else -> result.notImplemented()
             }
@@ -167,5 +168,7 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
         channel = null
         eventchannel?.setStreamHandler(null)
         eventchannel = null
+        graphqlSubscriptionStreamHandler?.close()
+        graphqlSubscriptionStreamHandler = null
     }
 }
