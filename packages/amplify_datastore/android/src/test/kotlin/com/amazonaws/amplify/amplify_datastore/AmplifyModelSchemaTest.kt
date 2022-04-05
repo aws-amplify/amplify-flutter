@@ -26,60 +26,62 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class AmplifyModelSchemaTest {
 
-    var schemasMap : Map<String, Any> = (readMapFromFile("model_schema",
-            "model_schema_maps.json",
-            HashMap::class.java) as HashMap<String, Any>)
+    private var schemasMap: Map<String, Any> = (readMapFromFile(
+        "model_schema",
+        "model_schema_maps.json",
+        HashMap::class.java
+    ) as HashMap<String, Any>)
 
     @Test
     fun test_schema_blog_with_hasMany() {
-        var inputMap = schemasMap["BlogSchema"] as Map<String, Any>
-        var modelSchema = FlutterModelSchema(inputMap)
+        val inputMap = schemasMap["BlogSchema"] as Map<String, Any>
+        val modelSchema = FlutterModelSchema(inputMap)
         // Verify result
         assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                blogSchema
+            modelSchema.convertToNativeModelSchema(),
+            blogSchema
         )
     }
 
     @Test
     fun test_schema_comment_with_belongsTo() {
-        var inputMap = schemasMap["CommentSchema"] as Map<String, Any>
-        var modelSchema = FlutterModelSchema(inputMap)
+        val inputMap = schemasMap["CommentSchema"] as Map<String, Any>
+        val modelSchema = FlutterModelSchema(inputMap)
         // Verify result
         assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                commentSchema
+            modelSchema.convertToNativeModelSchema(),
+            commentSchema
         )
     }
 
     @Test
     fun test_schema_post_with_datetime_int_hasMany_belongsTo() {
-        var inputMap = schemasMap["PostSchema"] as Map<String, Any>
-        var modelSchema = FlutterModelSchema(inputMap)
+        val inputMap = schemasMap["PostSchema"] as Map<String, Any>
+        val modelSchema = FlutterModelSchema(inputMap)
         // Verify result
         assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                postSchema
+            modelSchema.convertToNativeModelSchema(),
+            postSchema
         )
     }
 
     @Test
     fun test_schema_postAuthComplex_with_authRules() {
         // Generate Flutter ModelSchema from map input
-        var inputMap = schemasMap["PostAuthComplexSchema"] as Map<String, Any>
-        var modelSchema = FlutterModelSchema(inputMap)
+        val inputMap = schemasMap["PostAuthComplexSchema"] as Map<String, Any>
+        val modelSchema = FlutterModelSchema(inputMap)
         // Verify result
         assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                postAuthComplexSchema
+            modelSchema.convertToNativeModelSchema(),
+            postAuthComplexSchema
         )
     }
 
     @Test
     fun test_schema_postAuthComplex_with_authRules_with_provider_userpools() {
         // Generate Flutter ModelSchema from map input
-        var inputMap = schemasMap["PostAuthComplexWithProviderUserPoolsSchema"] as Map<String, Any>
-        var modelSchema = FlutterModelSchema(inputMap)
+        val inputMap = schemasMap["PostAuthComplexWithProviderUserPoolsSchema"] as Map<String, Any>
+        val modelSchema = FlutterModelSchema(inputMap)
         // Verify result
         assertEquals(
             modelSchema.convertToNativeModelSchema(),
@@ -90,8 +92,8 @@ class AmplifyModelSchemaTest {
     @Test
     fun test_schema_postAuthComplex_with_authRules_with_provider_apikey() {
         // Generate Flutter ModelSchema from map input
-        var inputMap = schemasMap["PostAuthComplexWithProviderApiKeySchema"] as Map<String, Any>
-        var modelSchema = FlutterModelSchema(inputMap)
+        val inputMap = schemasMap["PostAuthComplexWithProviderApiKeySchema"] as Map<String, Any>
+        val modelSchema = FlutterModelSchema(inputMap)
         // Verify result
         assertEquals(
             modelSchema.convertToNativeModelSchema(),
@@ -102,19 +104,19 @@ class AmplifyModelSchemaTest {
     @Test
     fun test_schema_allTypeModel() {
         // Generate Flutter ModelSchema from map input
-        var inputMap = schemasMap["AllTypeModelSchema"] as Map<String, Any>
-        var modelSchema = FlutterModelSchema(inputMap)
+        val inputMap = schemasMap["AllTypeModelSchema"] as Map<String, Any>
+        val modelSchema = FlutterModelSchema(inputMap)
         // Verify result
         assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                allTypeModelSchema
+            modelSchema.convertToNativeModelSchema(),
+            allTypeModelSchema
         )
     }
 
     @Test
     fun test_model_schema_nested_custom_type_schema() {
         val inputMap = schemasMap["PersonModelSchema"] as Map<String, Any>
-        val modelSchema = FlutterModelSchema(inputMap);
+        val modelSchema = FlutterModelSchema(inputMap)
 
         val convertedModelSchema = modelSchema.convertToNativeModelSchema()
 

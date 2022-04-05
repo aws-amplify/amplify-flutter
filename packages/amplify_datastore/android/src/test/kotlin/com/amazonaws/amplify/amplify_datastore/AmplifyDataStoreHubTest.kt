@@ -59,17 +59,16 @@ import java.util.concurrent.CountDownLatch
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyDataStoreHubTest {
-    lateinit var flutterPlugin: AmplifyDataStorePlugin
-    lateinit var modelSchema: ModelSchema
+    private lateinit var flutterPlugin: AmplifyDataStorePlugin
+    private lateinit var modelSchema: ModelSchema
     private var mockDataStore = mock(DataStoreCategory::class.java)
     private var mockAmplifyDataStorePlugin = mock(AWSDataStorePlugin::class.java)
     private var mockAmplifyHub = mock(AWSHubPlugin::class.java)
     private val mockStreamHandler: DataStoreObserveEventStreamHandler =
-            mock(DataStoreObserveEventStreamHandler::class.java)
+        mock(DataStoreObserveEventStreamHandler::class.java)
     private val mockHubHandler: DataStoreHubEventStreamHandler =
-            mock(DataStoreHubEventStreamHandler::class.java)
+        mock(DataStoreHubEventStreamHandler::class.java)
     private var time = Temporal.Timestamp.now()
-
 
 
     @Before
@@ -85,25 +84,30 @@ class AmplifyDataStoreHubTest {
     @Test
     fun test_hub_outboxMutationEnqueued_event() {
         flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
-        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
-                "outboxMutationEnqueuedEvent.json",
-                HashMap::class.java) as HashMap<String, Any>)
-        var element: HashMap<String, Any> = eventData["element"] as HashMap<String, Any>
-        var metadataMap: HashMap<String, Any>;
-        var modelMap: HashMap<String, Any> = element["model"] as HashMap<String, Any>
-        var serializedData: HashMap<String, Any> = modelMap["serializedData"] as HashMap<String, Any>
-        var modelMetadata = ModelMetadata(modelMap["id"] as String, null, null, null)
-        var modelData = mapOf("id" to serializedData["id"] as String,
-                "title" to serializedData["title"] as String,
-                "created" to Temporal.DateTime(serializedData["created"] as String))
-        var instance = SerializedModel.builder()
-                .serializedData(modelData)
-                .modelSchema(modelSchema)
-                .build()
+        val eventData: HashMap<String, Any> = (readMapFromFile(
+            "hub",
+            "outboxMutationEnqueuedEvent.json",
+            HashMap::class.java
+        ) as HashMap<String, Any>)
+        val element: HashMap<String, Any> = eventData["element"] as HashMap<String, Any>
+        var metadataMap: HashMap<String, Any>
+        val modelMap: HashMap<String, Any> = element["model"] as HashMap<String, Any>
+        val serializedData: HashMap<String, Any> = modelMap["serializedData"] as HashMap<String, Any>
+        val modelMetadata = ModelMetadata(modelMap["id"] as String, null, null, null)
+        val modelData = mapOf(
+            "id" to serializedData["id"] as String,
+            "title" to serializedData["title"] as String,
+            "created" to Temporal.DateTime(serializedData["created"] as String)
+        )
+        val instance = SerializedModel.builder()
+            .serializedData(modelData)
+            .modelSchema(modelSchema)
+            .build()
 
-        var modelWithMetadata: ModelWithMetadata<SerializedModel> = ModelWithMetadata(instance, modelMetadata)
-        var outboxMutationEnqueued: OutboxMutationEvent<*> = OutboxMutationEvent.create(eventData["modelName"] as String, modelWithMetadata)
-        var event: HubEvent<*> = HubEvent.create("outboxMutationEnqueued", outboxMutationEnqueued)
+        val modelWithMetadata: ModelWithMetadata<SerializedModel> = ModelWithMetadata(instance, modelMetadata)
+        val outboxMutationEnqueued: OutboxMutationEvent<*> =
+            OutboxMutationEvent.create(eventData["modelName"] as String, modelWithMetadata)
+        val event: HubEvent<*> = HubEvent.create("outboxMutationEnqueued", outboxMutationEnqueued)
 
         val latch = CountDownLatch(1)
 
@@ -111,14 +115,14 @@ class AmplifyDataStoreHubTest {
 
         val hubSpy = spy(realHubHandler)
         val hubMap = FlutterOutboxMutationEnqueuedEvent(
-                eventData["eventName"] as String,
-                eventData["modelName"] as String,
-                outboxMutationEnqueued.element
+            eventData["eventName"] as String,
+            eventData["modelName"] as String,
+            outboxMutationEnqueued.element
         )
 
         val token: SubscriptionToken = hubSpy.getHubListener()
         Amplify.Hub.publish(HubChannel.DATASTORE, event)
-        Latch.await(latch);
+        Latch.await(latch)
         Amplify.Hub.unsubscribe(token)
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(1)).sendEvent(hubMap.toValueMap())
@@ -127,25 +131,35 @@ class AmplifyDataStoreHubTest {
     @Test
     fun test_hub_outboxMutationProcessed_event() {
         flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
-        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
-                "outboxMutationProcessedEvent.json",
-                HashMap::class.java) as HashMap<String, Any>)
-        var element: HashMap<String, Any> = eventData["element"] as HashMap<String, Any>
-        var metadataMap: HashMap<String, Any> = element["syncMetadata"] as HashMap<String, Any>
-        var modelMap: HashMap<String, Any> = element["model"] as HashMap<String, Any>
-        var serializedData: HashMap<String, Any> = modelMap["serializedData"] as HashMap<String, Any>
-        var modelMetadata = ModelMetadata(metadataMap["id"] as String, metadataMap["_deleted"] as Boolean, metadataMap["_version"] as Int, time)
-        var modelData = mapOf("id" to serializedData["id"] as String,
-                "title" to serializedData["title"] as String,
-                "created" to Temporal.DateTime(serializedData["created"] as String))
-        var instance = SerializedModel.builder()
-                .serializedData(modelData)
-                .modelSchema(modelSchema)
-                .build()
+        val eventData: HashMap<String, Any> = (readMapFromFile(
+            "hub",
+            "outboxMutationProcessedEvent.json",
+            HashMap::class.java
+        ) as HashMap<String, Any>)
+        val element: HashMap<String, Any> = eventData["element"] as HashMap<String, Any>
+        val metadataMap: HashMap<String, Any> = element["syncMetadata"] as HashMap<String, Any>
+        val modelMap: HashMap<String, Any> = element["model"] as HashMap<String, Any>
+        val serializedData: HashMap<String, Any> = modelMap["serializedData"] as HashMap<String, Any>
+        val modelMetadata = ModelMetadata(
+            metadataMap["id"] as String,
+            metadataMap["_deleted"] as Boolean,
+            metadataMap["_version"] as Int,
+            time
+        )
+        val modelData = mapOf(
+            "id" to serializedData["id"] as String,
+            "title" to serializedData["title"] as String,
+            "created" to Temporal.DateTime(serializedData["created"] as String)
+        )
+        val instance = SerializedModel.builder()
+            .serializedData(modelData)
+            .modelSchema(modelSchema)
+            .build()
 
-        var modelWithMetadata: ModelWithMetadata<SerializedModel> = ModelWithMetadata(instance, modelMetadata)
-        var outboxMutationProcessed: OutboxMutationEvent<*> = OutboxMutationEvent.create(eventData["modelName"] as String, modelWithMetadata)
-        var event: HubEvent<*> = HubEvent.create("outboxMutationProcessed", outboxMutationProcessed)
+        val modelWithMetadata: ModelWithMetadata<SerializedModel> = ModelWithMetadata(instance, modelMetadata)
+        val outboxMutationProcessed: OutboxMutationEvent<*> =
+            OutboxMutationEvent.create(eventData["modelName"] as String, modelWithMetadata)
+        val event: HubEvent<*> = HubEvent.create("outboxMutationProcessed", outboxMutationProcessed)
 
         val latch = CountDownLatch(1)
 
@@ -153,14 +167,14 @@ class AmplifyDataStoreHubTest {
 
         val hubSpy = spy(realHubHandler)
         val hubMap = FlutterOutboxMutationProcessedEvent(
-                eventData["eventName"] as String,
-                eventData["modelName"] as String,
-                outboxMutationProcessed.element
+            eventData["eventName"] as String,
+            eventData["modelName"] as String,
+            outboxMutationProcessed.element
         )
 
         val token: SubscriptionToken = hubSpy.getHubListener()
         Amplify.Hub.publish(HubChannel.DATASTORE, event)
-        Latch.await(latch);
+        Latch.await(latch)
         Amplify.Hub.unsubscribe(token)
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(1)).sendEvent(hubMap.toValueMap())
@@ -169,11 +183,13 @@ class AmplifyDataStoreHubTest {
     @Test
     fun test_hub_ready_event() {
         flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
-        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
-                "readyEvent.json",
-                HashMap::class.java) as HashMap<String, Any>)
+        val eventData: HashMap<String, Any> = (readMapFromFile(
+            "hub",
+            "readyEvent.json",
+            HashMap::class.java
+        ) as HashMap<String, Any>)
 
-        var event: HubEvent<*> = HubEvent.create(DataStoreChannelEventName.READY);
+        val event: HubEvent<*> = HubEvent.create(DataStoreChannelEventName.READY)
 
         val latch = CountDownLatch(1)
 
@@ -181,12 +197,12 @@ class AmplifyDataStoreHubTest {
 
         val hubSpy = spy(realHubHandler)
         val hubMap = FlutterReadyEvent(
-                eventData["eventName"] as String
+            eventData["eventName"] as String
         )
 
         val token: SubscriptionToken = hubSpy.getHubListener()
         Amplify.Hub.publish(HubChannel.DATASTORE, event)
-        Latch.await(latch);
+        Latch.await(latch)
         Amplify.Hub.unsubscribe(token)
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(1)).sendEvent(hubMap.toValueMap())
@@ -195,11 +211,13 @@ class AmplifyDataStoreHubTest {
     @Test
     fun test_hub_subscriptionsEstablished_event() {
         flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
-        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
-                "subscriptionsEstablishedEvent.json",
-                HashMap::class.java) as HashMap<String, Any>)
+        val eventData: HashMap<String, Any> = (readMapFromFile(
+            "hub",
+            "subscriptionsEstablishedEvent.json",
+            HashMap::class.java
+        ) as HashMap<String, Any>)
 
-        var event: HubEvent<*> = HubEvent.create(DataStoreChannelEventName.SUBSCRIPTIONS_ESTABLISHED);
+        val event: HubEvent<*> = HubEvent.create(DataStoreChannelEventName.SUBSCRIPTIONS_ESTABLISHED)
 
         val latch = CountDownLatch(1)
 
@@ -207,12 +225,12 @@ class AmplifyDataStoreHubTest {
 
         val hubSpy = spy(realHubHandler)
         val hubMap = FlutterSubscriptionsEstablishedEvent(
-                eventData["eventName"] as String
+            eventData["eventName"] as String
         )
 
         val token: SubscriptionToken = hubSpy.getHubListener()
         Amplify.Hub.publish(HubChannel.DATASTORE, event)
-        Latch.await(latch);
+        Latch.await(latch)
         Amplify.Hub.unsubscribe(token)
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(1)).sendEvent(hubMap.toValueMap())
@@ -221,11 +239,13 @@ class AmplifyDataStoreHubTest {
     @Test
     fun test_hub_syncQueriesReady_event() {
         flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
-        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
-                "syncQueriesReadyEvent.json",
-                HashMap::class.java) as HashMap<String, Any>)
+        val eventData: HashMap<String, Any> = (readMapFromFile(
+            "hub",
+            "syncQueriesReadyEvent.json",
+            HashMap::class.java
+        ) as HashMap<String, Any>)
 
-        var event: HubEvent<*> = HubEvent.create(DataStoreChannelEventName.SYNC_QUERIES_READY);
+        val event: HubEvent<*> = HubEvent.create(DataStoreChannelEventName.SYNC_QUERIES_READY)
 
         val latch = CountDownLatch(1)
 
@@ -235,12 +255,12 @@ class AmplifyDataStoreHubTest {
 
         val hubSpy = spy(realHubHandler)
         val hubMap = FlutterSyncQueriesReadyEvent(
-                eventData["eventName"] as String
+            eventData["eventName"] as String
         )
 
         val token: SubscriptionToken = hubSpy.getHubListener()
         Amplify.Hub.publish(HubChannel.DATASTORE, event)
-        Latch.await(latch);
+        Latch.await(latch)
         Amplify.Hub.unsubscribe(token)
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(1)).sendEvent(hubMap.toValueMap())
@@ -249,11 +269,13 @@ class AmplifyDataStoreHubTest {
     @Test
     fun test_hub_networkStatus_event() {
         flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
-        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
-                "networkStatusEvent.json",
-                HashMap::class.java) as HashMap<String, Any>)
+        val eventData: HashMap<String, Any> = (readMapFromFile(
+            "hub",
+            "networkStatusEvent.json",
+            HashMap::class.java
+        ) as HashMap<String, Any>)
 
-        var networkStatusEvent: NetworkStatusEvent = NetworkStatusEvent(eventData["active"] as Boolean)
+        val networkStatusEvent: NetworkStatusEvent = NetworkStatusEvent(eventData["active"] as Boolean)
 
         val latch = CountDownLatch(1)
 
@@ -261,13 +283,13 @@ class AmplifyDataStoreHubTest {
 
         val hubSpy = spy(realHubHandler)
         val hubMap = FlutterNetworkStatusEvent(
-                eventData["eventName"] as String,
-                eventData["active"] as Boolean
+            eventData["eventName"] as String,
+            eventData["active"] as Boolean
         )
 
         val token: SubscriptionToken = hubSpy.getHubListener()
         Amplify.Hub.publish(HubChannel.DATASTORE, networkStatusEvent.toHubEvent())
-        Latch.await(latch);
+        Latch.await(latch)
         Amplify.Hub.unsubscribe(token)
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(1)).sendEvent(hubMap.toValueMap())
@@ -276,11 +298,13 @@ class AmplifyDataStoreHubTest {
     @Test
     fun test_hub_outboxStatus_event() {
         flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
-        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
-                "outboxStatusEvent.json",
-                HashMap::class.java) as HashMap<String, Any>)
+        val eventData: HashMap<String, Any> = (readMapFromFile(
+            "hub",
+            "outboxStatusEvent.json",
+            HashMap::class.java
+        ) as HashMap<String, Any>)
 
-        var outboxStatusEvent = OutboxStatusEvent(eventData["isEmpty"] as Boolean)
+        val outboxStatusEvent = OutboxStatusEvent(eventData["isEmpty"] as Boolean)
 
         val latch = CountDownLatch(1)
 
@@ -288,13 +312,13 @@ class AmplifyDataStoreHubTest {
 
         val hubSpy = spy(realHubHandler)
         val hubMap = FlutterOutboxStatusEvent(
-                eventData["eventName"] as String,
-                eventData["isEmpty"] as Boolean
+            eventData["eventName"] as String,
+            eventData["isEmpty"] as Boolean
         )
 
         val token: SubscriptionToken = hubSpy.getHubListener()
         Amplify.Hub.publish(HubChannel.DATASTORE, outboxStatusEvent.toHubEvent())
-        Latch.await(latch);
+        Latch.await(latch)
         Amplify.Hub.unsubscribe(token)
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(1)).sendEvent(hubMap.toValueMap())
@@ -303,12 +327,14 @@ class AmplifyDataStoreHubTest {
     @Test
     fun test_hub_syncQueriesStarted_event() {
         flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
-        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
-                "syncQueriesStartedEvent.json",
-                HashMap::class.java) as HashMap<String, Any>)
+        val eventData: HashMap<String, Any> = (readMapFromFile(
+            "hub",
+            "syncQueriesStartedEvent.json",
+            HashMap::class.java
+        ) as HashMap<String, Any>)
 
-        var syncQueriesStartedEvent: SyncQueriesStartedEvent = SyncQueriesStartedEvent(arrayOf("Post"))
-        var event: HubEvent<*> = HubEvent.create("syncQueriesStarted", syncQueriesStartedEvent)
+        val syncQueriesStartedEvent: SyncQueriesStartedEvent = SyncQueriesStartedEvent(arrayOf("Post"))
+        val event: HubEvent<*> = HubEvent.create("syncQueriesStarted", syncQueriesStartedEvent)
 
         val latch = CountDownLatch(1)
 
@@ -316,13 +342,13 @@ class AmplifyDataStoreHubTest {
 
         val hubSpy = spy(realHubHandler)
         val hubMap = FlutterSyncQueriesStartedEvent(
-                eventData["eventName"] as String,
-                arrayOf("Post")
+            eventData["eventName"] as String,
+            arrayOf("Post")
         )
 
         val token: SubscriptionToken = hubSpy.getHubListener()
         Amplify.Hub.publish(HubChannel.DATASTORE, event)
-        Latch.await(latch);
+        Latch.await(latch)
         Amplify.Hub.unsubscribe(token)
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(1)).sendEvent(hubMap.toValueMap())
@@ -331,18 +357,20 @@ class AmplifyDataStoreHubTest {
     @Test
     fun test_hub_modelSynced_event() {
         flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
-        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
-                "modelSyncedEvent.json",
-                HashMap::class.java) as HashMap<String, Any>)
+        val eventData: HashMap<String, Any> = (readMapFromFile(
+            "hub",
+            "modelSyncedEvent.json",
+            HashMap::class.java
+        ) as HashMap<String, Any>)
 
-        var modelSyncedEvent: ModelSyncedEvent = ModelSyncedEvent(
-                eventData["model"] as String,
-                eventData["isFullSync"] as Boolean,
-                eventData["added"] as Int,
-                eventData["updated"] as Int,
-                eventData["deleted"] as Int
+        val modelSyncedEvent: ModelSyncedEvent = ModelSyncedEvent(
+            eventData["model"] as String,
+            eventData["isFullSync"] as Boolean,
+            eventData["added"] as Int,
+            eventData["updated"] as Int,
+            eventData["deleted"] as Int
         )
-        var event: HubEvent<*> = HubEvent.create("modelSynced", modelSyncedEvent)
+        val event: HubEvent<*> = HubEvent.create("modelSynced", modelSyncedEvent)
 
         val latch = CountDownLatch(1)
 
@@ -350,18 +378,18 @@ class AmplifyDataStoreHubTest {
 
         val hubSpy = spy(realHubHandler)
         val hubMap = FlutterModelSyncedEvent(
-                eventData["eventName"] as String,
-                eventData["model"] as String,
-                eventData["isFullSync"] as Boolean,
-                eventData["isDeltaSync"] as Boolean,
-                eventData["added"] as Int,
-                eventData["updated"] as Int,
-                eventData["deleted"] as Int
+            eventData["eventName"] as String,
+            eventData["model"] as String,
+            eventData["isFullSync"] as Boolean,
+            eventData["isDeltaSync"] as Boolean,
+            eventData["added"] as Int,
+            eventData["updated"] as Int,
+            eventData["deleted"] as Int
         )
 
         val token: SubscriptionToken = hubSpy.getHubListener()
         Amplify.Hub.publish(HubChannel.DATASTORE, event)
-        Latch.await(latch);
+        Latch.await(latch)
         Amplify.Hub.unsubscribe(token)
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(1)).sendEvent(hubMap.toValueMap())
@@ -370,11 +398,13 @@ class AmplifyDataStoreHubTest {
     @Test
     fun test_replay_events() {
         flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
-        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
+        val eventData: HashMap<String, Any> = (readMapFromFile(
+            "hub",
             "readyEvent.json",
-            HashMap::class.java) as HashMap<String, Any>)
+            HashMap::class.java
+        ) as HashMap<String, Any>)
 
-        var event: HubEvent<*> = HubEvent.create(DataStoreChannelEventName.READY)
+        val event: HubEvent<*> = HubEvent.create(DataStoreChannelEventName.READY)
 
         val latch = CountDownLatch(1)
 
@@ -388,14 +418,14 @@ class AmplifyDataStoreHubTest {
         // initial event
         val token: SubscriptionToken = hubSpy.getHubListener()
         Amplify.Hub.publish(HubChannel.DATASTORE, event)
-        Latch.await(latch);
+        Latch.await(latch)
         Amplify.Hub.unsubscribe(token)
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(1)).sendEvent(hubMap.toValueMap())
 
         // replay event after getHubListener() is invoked a second time
         val token2: SubscriptionToken = hubSpy.getHubListener()
-        Latch.await(latch);
+        Latch.await(latch)
         Amplify.Hub.unsubscribe(token2)
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(2)).sendEvent(hubMap.toValueMap())

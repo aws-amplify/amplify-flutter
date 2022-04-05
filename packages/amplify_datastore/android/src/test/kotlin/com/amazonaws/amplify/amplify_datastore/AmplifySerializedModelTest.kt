@@ -24,43 +24,45 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class AmplifySerializedModelTest {
 
-    var serializedModelMaps : Map<String, Any> = (readMapFromFile("model_schema",
-            "serialized_model_maps.json",
-            HashMap::class.java) as HashMap<String, Any>)
+    private var serializedModelMaps: Map<String, Any> = (readMapFromFile(
+        "model_schema",
+        "serialized_model_maps.json",
+        HashMap::class.java
+    ) as HashMap<String, Any>)
 
     @Test
     fun test_schema_blog_with_hasMany() {
-        var flutterSerializedModel = FlutterSerializedModel(blogSerializedModel)
-        var refMap = serializedModelMaps["BlogSerializedMap"] as Map<String, Any>
+        val flutterSerializedModel = FlutterSerializedModel(blogSerializedModel)
+        val refMap = serializedModelMaps["BlogSerializedMap"] as Map<String, Any>
 
         // Verify result
         Assert.assertEquals(
-                flutterSerializedModel.toMap(),
-                refMap
+            flutterSerializedModel.toMap(),
+            refMap
         )
     }
 
     @Test
     fun test_schema_comment_with_hasMany() {
-        var flutterSerializedModel = FlutterSerializedModel(commentSerializedModel)
-        var refMap = serializedModelMaps["CommentSerializedMap"] as Map<String, Any>
+        val flutterSerializedModel = FlutterSerializedModel(commentSerializedModel)
+        val refMap = serializedModelMaps["CommentSerializedMap"] as Map<String, Any>
 
         // Verify result
         Assert.assertEquals(
-                flutterSerializedModel.toMap(),
-                refMap
+            flutterSerializedModel.toMap(),
+            refMap
         )
     }
 
     @Test
     fun test_schema_post_with_hasMany() {
-        var flutterSerializedModel = FlutterSerializedModel(postSerializedModel)
-        var refMap = serializedModelMaps["PostSerializedMap"] as Map<String, Any>
+        val flutterSerializedModel = FlutterSerializedModel(postSerializedModel)
+        val refMap = serializedModelMaps["PostSerializedMap"] as Map<String, Any>
 
         // Verify result
         Assert.assertEquals(
-                flutterSerializedModel.toMap(),
-                refMap
+            flutterSerializedModel.toMap(),
+            refMap
         )
     }
 

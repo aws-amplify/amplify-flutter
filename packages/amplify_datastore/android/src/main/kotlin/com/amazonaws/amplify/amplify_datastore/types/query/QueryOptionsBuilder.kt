@@ -33,14 +33,14 @@ class QueryOptionsBuilder {
             if (request == null) {
                 return queryOptions
             }
-            var queryPredicate: QueryPredicate? = QueryPredicateBuilder.fromSerializedMap(
+            val queryPredicate: QueryPredicate? = QueryPredicateBuilder.fromSerializedMap(
                 request["queryPredicate"].safeCastToMap(),
                 modelSchema
             )
-            var querySortInput: List<QuerySortBy>? = QuerySortBuilder.fromSerializedList(
+            val querySortInput: List<QuerySortBy>? = QuerySortBuilder.fromSerializedList(
                 request["querySort"].safeCastToList()
             )
-            var queryPagination: QueryPaginationInput? = QueryPaginationBuilder.fromSerializedMap(
+            val queryPagination: QueryPaginationInput? = QueryPaginationBuilder.fromSerializedMap(
                 request["queryPagination"].safeCastToMap()
             )
 

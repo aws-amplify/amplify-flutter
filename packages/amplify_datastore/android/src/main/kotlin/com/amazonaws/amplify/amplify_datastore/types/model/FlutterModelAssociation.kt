@@ -27,16 +27,16 @@ data class FlutterModelAssociation(val map: Map<String, Any>) {
 
     fun convertToNativeModelAssociation(): ModelAssociation {
         val builder: ModelAssociation.Builder = ModelAssociation.builder()
-                .name(associationType)
+            .name(associationType)
 
-        if(!targetName.isNullOrEmpty()){
+        if (!targetName.isNullOrEmpty()) {
             builder.targetName(targetName)
         }
-        if(!associatedName.isNullOrEmpty()){
+        if (!associatedName.isNullOrEmpty()) {
             builder.associatedName(associatedName)
         }
-        if(!associatedType.isNullOrEmpty()){
-            builder.associatedType(associatedType)    
+        if (!associatedType.isNullOrEmpty()) {
+            builder.associatedType(associatedType)
         }
 
         return builder.build()

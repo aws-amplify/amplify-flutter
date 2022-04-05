@@ -15,4 +15,4 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.hub
 
-class FlutterReadyEvent(override val eventName: String) : FlutterHubEvent {}
+class FlutterReadyEvent(override val eventName: String) : FlutterHubEvent

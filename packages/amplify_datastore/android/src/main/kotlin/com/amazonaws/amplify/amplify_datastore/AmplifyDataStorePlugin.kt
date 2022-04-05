@@ -71,7 +71,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private val dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler
     private val uiThreadHandler = Handler(Looper.getMainLooper())
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
-    private var isSettingUpObserve = AtomicBoolean();
+    private var isSettingUpObserve = AtomicBoolean()
 
     val modelProvider = FlutterModelProvider.instance
 
@@ -282,7 +282,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 deserializeNestedModel(request["serializedModel"].safeCastToMap()!!, schema)
 
             queryPredicate = QueryPredicateBuilder.fromSerializedMap(
-            request["queryPredicate"].safeCastToMap()) ?: QueryPredicates.all()
+                request["queryPredicate"].safeCastToMap()
+            ) ?: QueryPredicates.all()
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
@@ -337,7 +338,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 deserializeNestedModel(request["serializedModel"].safeCastToMap()!!, schema)
 
             queryPredicate = QueryPredicateBuilder.fromSerializedMap(
-                    request["queryPredicate"].safeCastToMap()) ?: QueryPredicates.all()
+                request["queryPredicate"].safeCastToMap()
+            ) ?: QueryPredicates.all()
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
@@ -405,7 +407,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             { cancelable ->
                 LOG.info("Established a new stream form flutter $cancelable")
                 observeCancelable = cancelable
-                isSettingUpObserve.set(false);
+                isSettingUpObserve.set(false)
                 flutterResult.success(true)
             },
             { event ->
@@ -414,14 +416,14 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     dataStoreObserveEventStreamHandler.sendEvent(
                         FlutterSubscriptionEvent(
                             serializedModel = event.item() as SerializedModel,
-                            eventType = event.type().name.toLowerCase(Locale.getDefault())
+                            eventType = event.type().name.lowercase(Locale.getDefault())
                         ).toMap()
                     )
                 }
             },
             { failure: DataStoreException ->
                 if (failure.message?.contains("Failed to start DataStore", true) == true) {
-                    isSettingUpObserve.set(false);
+                    isSettingUpObserve.set(false)
                     flutterResult.success(false)
                 } else {
                     LOG.error("Received an error", failure)
@@ -587,7 +589,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     private fun deserializeNestedCustomType(
-        serializedModelData: Map<String, Any?>, customTypeSchema: CustomTypeSchema): Map<String, Any?> {
+        serializedModelData: Map<String, Any?>, customTypeSchema: CustomTypeSchema
+    ): Map<String, Any?> {
         val result = mutableMapOf<String, Any?>()
 
         for ((key, field) in customTypeSchema.fields.entries) {
@@ -683,13 +686,13 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    private fun createErrorHandler(request: Map<String, Any>) : DataStoreErrorHandler{
-        return if(request["hasErrorHandler"] as? Boolean? == true ) {
+    private fun createErrorHandler(request: Map<String, Any>): DataStoreErrorHandler {
+        return if (request["hasErrorHandler"] as? Boolean? == true) {
             DataStoreErrorHandler {
                 val args = mapOf(
-                        "errorCode" to "DataStoreException",
-                        "errorMessage" to ExceptionMessages.defaultFallbackExceptionMessage,
-                        "details" to createSerializedError(it)
+                    "errorCode" to "DataStoreException",
+                    "errorMessage" to ExceptionMessages.defaultFallbackExceptionMessage,
+                    "details" to createSerializedError(it)
                 )
                 channel.invokeMethod("errorHandler", args)
             }
@@ -700,16 +703,16 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    private fun createConflictHandler(request: Map<String, Any>) : DataStoreConflictHandler {
+    private fun createConflictHandler(request: Map<String, Any>): DataStoreConflictHandler {
         return if (request["hasConflictHandler"] as? Boolean? == true) {
             DataStoreConflictHandler { conflictData,
                                        onDecision ->
 
                 val modelName = conflictData.local.modelName
                 val args = mapOf(
-                        "modelName" to modelName,
-                        "local" to FlutterSerializedModel(conflictData.local as SerializedModel).toMap(),
-                        "remote" to FlutterSerializedModel(conflictData.remote as SerializedModel).toMap()
+                    "modelName" to modelName,
+                    "local" to FlutterSerializedModel(conflictData.local as SerializedModel).toMap(),
+                    "remote" to FlutterSerializedModel(conflictData.remote as SerializedModel).toMap()
                 )
 
                 uiThreadHandler.post {
@@ -718,7 +721,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                             val resultMap: Map<String, Any>? = result.safeCastToMap()
                             try {
                                 var resolutionStrategy: ResolutionStrategy = ResolutionStrategy.APPLY_REMOTE
-                                when ( resultMap?.get("resolutionStrategy") as String ){
+                                when (resultMap?.get("resolutionStrategy") as String) {
                                     "applyRemote" -> resolutionStrategy = ResolutionStrategy.APPLY_REMOTE
                                     "retryLocal" -> resolutionStrategy = ResolutionStrategy.RETRY_LOCAL
                                     "retry" -> resolutionStrategy = ResolutionStrategy.RETRY
@@ -728,13 +731,17 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                                     ResolutionStrategy.RETRY_LOCAL -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retryLocal())
                                     ResolutionStrategy.RETRY -> {
                                         val serializedModel = SerializedModel.builder()
-                                                .serializedData((resultMap["customModel"] as Map<*, *>).cast())
-                                                .modelSchema(modelProvider.modelSchemas().getValue(modelName))
-                                                .build()
-                                        onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retry(serializedModel))
+                                            .serializedData((resultMap["customModel"] as Map<*, *>).cast())
+                                            .modelSchema(modelProvider.modelSchemas().getValue(modelName))
+                                            .build()
+                                        onDecision.accept(
+                                            DataStoreConflictHandler.ConflictResolutionDecision.retry(
+                                                serializedModel
+                                            )
+                                        )
                                     }
                                 }
-                            } catch (e : Exception){
+                            } catch (e: Exception) {
                                 LOG.error("Unrecognized resolutionStrategy to resolve conflict. Applying default conflict resolution, applyRemote.")
                                 onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
                             }

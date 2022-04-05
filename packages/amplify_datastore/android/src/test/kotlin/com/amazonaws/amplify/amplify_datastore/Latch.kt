@@ -32,9 +32,8 @@ object Latch {
      * @param waitTimeMs Time to wait before throwing an error
      * @throws RuntimeException If the latch doesn't count down in the allotted timeout
      */
-    fun await(latch: CountDownLatch, waitTimeMs: Long) {
-        val didCountDown: Boolean
-        didCountDown = try {
+    private fun await(latch: CountDownLatch, waitTimeMs: Long) {
+        val didCountDown: Boolean = try {
             latch.await(waitTimeMs, TimeUnit.MILLISECONDS)
         } catch (interruptedException: InterruptedException) {
             throw RuntimeException("Thread interrupted while wait for latch count down.", interruptedException)

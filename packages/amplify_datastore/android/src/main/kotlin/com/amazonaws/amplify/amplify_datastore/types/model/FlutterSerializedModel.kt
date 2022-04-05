@@ -32,25 +32,27 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
 
     // ignored fields
     private val id: String = serializedModel.id
-    private val modelName: String = parseModelName(serializedModel.modelName) // ModelSchema -> SerializedModel should always have a name
+    private val modelName: String =
+        parseModelName(serializedModel.modelName) // ModelSchema -> SerializedModel should always have a name
 
     fun toMap(): Map<String, Any> {
 
-        val cleanedSerializedData : Map<String, Any?> = serializedData.filterValues { it != null }
+        val cleanedSerializedData: Map<String, Any?> = serializedData.filterValues { it != null }
 
         return mapOf(
-                "id" to id,
-                "serializedData" to cleanedSerializedData,
-                "modelName" to modelName)
+            "id" to id,
+            "serializedData" to cleanedSerializedData,
+            "modelName" to modelName
+        )
     }
 
-    private fun parseModelName(modelName: String?) : String{
-        return if(modelName.isNullOrEmpty()) ""
+    private fun parseModelName(modelName: String?): String {
+        return if (modelName.isNullOrEmpty()) ""
         else modelName
     }
 
     private fun parseSerializedDataMap(serializedData: Map<String, Any>, modelSchema: ModelSchema): Map<String, Any?> {
-        if(serializedData.isEmpty()) throw Exception(
+        if (serializedData.isEmpty()) throw Exception(
             "FlutterSerializedModel - no serializedData for ${modelSchema.name}"
         )
 

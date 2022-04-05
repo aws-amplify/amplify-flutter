@@ -64,9 +64,9 @@ import java.util.concurrent.TimeUnit
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyDataStorePluginTest {
-    lateinit var flutterPlugin: AmplifyDataStorePlugin
-    lateinit var modelSchema: ModelSchema
-    lateinit var amplifySuccessResults: MutableList<SerializedModel>
+    private lateinit var flutterPlugin: AmplifyDataStorePlugin
+    private lateinit var modelSchema: ModelSchema
+    private lateinit var amplifySuccessResults: MutableList<SerializedModel>
 
     private var mockDataStore = mock(DataStoreCategory::class.java)
     private var mockAmplifyDataStorePlugin = mock(AWSDataStorePlugin::class.java)
@@ -114,7 +114,7 @@ class AmplifyDataStorePluginTest {
         modelProvider.addCustomTypeSchema("Contact", contactSchema)
 
         modelSchema = flutterPlugin.modelProvider.modelSchemas()["Post"]!!
-        amplifySuccessResults = mutableListOf<SerializedModel>(
+        amplifySuccessResults = mutableListOf(
             SerializedModel.builder()
                 .serializedData(
                     mapOf(
@@ -421,10 +421,10 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[2] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
                 dataStoreItemChange
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin).delete(
-            any<SerializedModel>(),
-            any<QueryPredicate>(),
+            any(),
+            any(),
             any<Consumer<DataStoreItemChange<SerializedModel>>>(),
             any<Consumer<DataStoreException>>()
         )
@@ -456,10 +456,10 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[3] as Consumer<DataStoreException>).accept(
                 dataStoreException
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin).delete(
-            any<SerializedModel>(),
-            any<QueryPredicate>(),
+            any(),
+            any(),
             any<Consumer<DataStoreItemChange<SerializedModel>>>(),
             any<Consumer<DataStoreException>>()
         )
@@ -523,10 +523,10 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[2] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
                 dataStoreItemChange
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin).save(
-            any<SerializedModel>(),
-            any<QueryPredicate>(),
+            any(),
+            any(),
             any<Consumer<DataStoreItemChange<SerializedModel>>>(),
             any<Consumer<DataStoreException>>()
         )
@@ -559,10 +559,10 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[3] as Consumer<DataStoreException>).accept(
                 dataStoreException
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin).save(
-            any<SerializedModel>(),
-            any<QueryPredicate>(),
+            any(),
+            any(),
             any<Consumer<DataStoreItemChange<SerializedModel>>>(),
             any<Consumer<DataStoreException>>()
         )
@@ -606,14 +606,14 @@ class AmplifyDataStorePluginTest {
 
         doAnswer { invocation: InvocationOnMock ->
             (invocation.arguments[0] as Consumer<Cancelable>).accept(
-                Cancelable {  }
+                Cancelable { }
             )
             null
         }.`when`(mockAmplifyDataStorePlugin).observe(
             any<Consumer<Cancelable>>(),
             any<Consumer<DataStoreItemChange<out Model>>>(),
             any<Consumer<DataStoreException>>(),
-            any<Action>()
+            any()
         )
 
         flutterPlugin.onSetUpObserve(mockResult)
@@ -637,7 +637,7 @@ class AmplifyDataStorePluginTest {
             any<Consumer<Cancelable>>(),
             any<Consumer<DataStoreItemChange<out Model>>>(),
             any<Consumer<DataStoreException>>(),
-            any<Action>()
+            any()
         )
 
         flutterPlugin.onSetUpObserve(mockResult)
@@ -683,7 +683,7 @@ class AmplifyDataStorePluginTest {
             any<Consumer<Cancelable>>(),
             any<Consumer<DataStoreItemChange<out Model>>>(),
             any<Consumer<DataStoreException>>(),
-            any<Action>()
+            any()
         )
 
         flutterPlugin.onSetUpObserve(mockResult)
@@ -707,7 +707,7 @@ class AmplifyDataStorePluginTest {
             any<Consumer<Cancelable>>(),
             any<Consumer<DataStoreItemChange<out Model>>>(),
             any<Consumer<DataStoreException>>(),
-            any<Action>()
+            any()
         )
 
         flutterPlugin.onSetUpObserve(mockResult)
@@ -729,9 +729,9 @@ class AmplifyDataStorePluginTest {
     fun test_clear_success_result() {
         doAnswer { invocation: InvocationOnMock ->
             (invocation.arguments[0] as Action).call()
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin)
-            .clear(any<Action>(), any<Consumer<DataStoreException>>())
+            .clear(any(), any<Consumer<DataStoreException>>())
 
         flutterPlugin.onClear(mockResult)
 
@@ -744,9 +744,9 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[1] as Consumer<DataStoreException>).accept(
                 dataStoreException
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin)
-            .clear(any<Action>(), any<Consumer<DataStoreException>>())
+            .clear(any(), any<Consumer<DataStoreException>>())
 
         flutterPlugin.onClear(mockResult)
 
@@ -835,18 +835,18 @@ class AmplifyDataStorePluginTest {
             )
         )
 
-        val deserializedResult = flutterPlugin.deserializeNestedModel(serializedPersonData, personSchema);
+        val deserializedResult = flutterPlugin.deserializeNestedModel(serializedPersonData, personSchema)
         assertEquals(deserializedResult["id"], serializedPersonData["id"])
         assertEquals(deserializedResult["name"], serializedPersonData["name"])
 
         assert(deserializedResult["contact"] is SerializedCustomType)
         val serializedContactData = serializedPersonData["contact"] as Map<*, *>
-        val deserializedContactData = (deserializedResult["contact"] as SerializedCustomType).serializedData;
+        val deserializedContactData = (deserializedResult["contact"] as SerializedCustomType).serializedData
         assertEquals(deserializedContactData["email"], serializedContactData["email"])
         assert(deserializedContactData["phone"] is SerializedCustomType)
         val serializedPhoneData = serializedContactData["phone"] as Map<*, *>
-        val deserializedPhoneData = (deserializedContactData["phone"] as SerializedCustomType).serializedData;
-        assertEquals(deserializedPhoneData, serializedPhoneData);
+        val deserializedPhoneData = (deserializedContactData["phone"] as SerializedCustomType).serializedData
+        assertEquals(deserializedPhoneData, serializedPhoneData)
         assert(deserializedContactData["mailingAddresses"] is List<*>)
         val serializedMailingAddressesData = serializedContactData["mailingAddresses"] as List<Map<*, *>>
         val deserializedMailingAddressesData = deserializedContactData["mailingAddresses"] as List<SerializedCustomType>
@@ -865,9 +865,9 @@ class AmplifyDataStorePluginTest {
     fun test_onStart_success() {
         doAnswer { invocation: InvocationOnMock ->
             (invocation.arguments[0] as Action).call()
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin)
-            .start(any<Action>(), any<Consumer<DataStoreException>>())
+            .start(any(), any<Consumer<DataStoreException>>())
 
         flutterPlugin.onStart(mockResult)
 
@@ -880,9 +880,9 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[1] as Consumer<DataStoreException>).accept(
                 dataStoreException
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin)
-            .start(any<Action>(), any<Consumer<DataStoreException>>())
+            .start(any(), any<Consumer<DataStoreException>>())
 
         flutterPlugin.onStart(mockResult)
 
@@ -900,9 +900,9 @@ class AmplifyDataStorePluginTest {
     fun test_onStop_success() {
         doAnswer { invocation: InvocationOnMock ->
             (invocation.arguments[0] as Action).call()
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin)
-            .stop(any<Action>(), any<Consumer<DataStoreException>>())
+            .stop(any(), any<Consumer<DataStoreException>>())
 
         flutterPlugin.onStop(mockResult)
 
@@ -915,9 +915,9 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[1] as Consumer<DataStoreException>).accept(
                 dataStoreException
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin)
-            .stop(any<Action>(), any<Consumer<DataStoreException>>())
+            .stop(any(), any<Consumer<DataStoreException>>())
 
         flutterPlugin.onStop(mockResult)
 
