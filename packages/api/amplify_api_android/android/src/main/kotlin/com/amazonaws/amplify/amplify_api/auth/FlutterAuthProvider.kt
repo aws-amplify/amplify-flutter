@@ -93,7 +93,7 @@ class FlutterAuthProviders(
                     }
 
                     override fun error(
-                        errorCode: String?,
+                        errorCode: String,
                         errorMessage: String?,
                         errorDetails: Any?
                     ) {
