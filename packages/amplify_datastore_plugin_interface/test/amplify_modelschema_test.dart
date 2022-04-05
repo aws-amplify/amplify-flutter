@@ -22,7 +22,7 @@ We need to verify that each conversion step (->) is done correctly and each stat
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'testData/ModelProvider.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 
 void main() {
   test('Blog codegen model generates modelschema with proper fields', () async {
@@ -229,10 +229,11 @@ void main() {
     ]);
   });
 
-  test('PostAuthComplex codegen model generates modelschema with proper fields',
+  test(
+      'PostWithAuthRules codegen model generates modelschema with proper fields',
       () async {
     /*
-    type PostAuthComplex
+    type PostWithAuthRules
       @model
       @auth(
         rules: [
@@ -245,10 +246,10 @@ void main() {
     }
      */
 
-    ModelSchema postSchema = PostAuthComplex.schema;
+    ModelSchema postSchema = PostWithAuthRules.schema;
 
-    expect(postSchema.name, "PostAuthComplex");
-    expect(postSchema.pluralName, "PostAuthComplexes");
+    expect(postSchema.name, "PostWithAuthRules");
+    expect(postSchema.pluralName, "PostWithAuthRules");
     expect(postSchema.authRules, [
       AuthRule(
           authStrategy: AuthStrategy.OWNER,

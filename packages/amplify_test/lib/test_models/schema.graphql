@@ -14,7 +14,7 @@ type S3Object {
 }
 
 type Blog @model {
-  id: ID!
+  id: ID! @primaryKey
   name: String!
   createdAt: AWSDateTime
   file: S3Object
@@ -35,7 +35,7 @@ type Post @model {
 
 type Comment @model {
   id: ID!
-  postID: ID! @index(name: "byPost")
+  postID: ID! @index(name: "byPost", sortKeyFields: ["content"])
   post: Post @belongsTo(fields: ["postID"])
   content: String!
 }
@@ -79,4 +79,24 @@ type Contact {
   email: String!
   phone: Phone!
   mailingAddresses: [Address]
+}
+
+type Product @model {
+  productID: ID! @primaryKey
+  name: String!
+  amount: Int!
+}
+
+type Inventory @model {
+  productID: String!
+    @primaryKey(sortKeyFields: ["name", "warehouseID", "region"])
+  name: String!
+  warehouseID: ID!
+  region: String!
+}
+
+type Warehouse @model {
+  id: ID! @primaryKey(sortKeyFields: ["name", "region"])
+  name: String!
+  region: String!
 }

@@ -13,13 +13,17 @@
 * permissions and limitations under the License.
 */
 
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code, implicit_dynamic_parameter, implicit_dynamic_map_literal, implicit_dynamic_type
 
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the S3Object type in your schema. */
+/// This is an auto generated class representing the S3Object type in your schema.
 @immutable
 class S3Object {
   final String? _bucket;
@@ -31,7 +35,7 @@ class S3Object {
     try {
       return _bucket!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -44,7 +48,7 @@ class S3Object {
     try {
       return _region!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -57,7 +61,7 @@ class S3Object {
     try {
       return _key!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -105,7 +109,7 @@ class S3Object {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("S3Object {");
     buffer.write("bucket=" + "$_bucket" + ", ");
@@ -132,7 +136,7 @@ class S3Object {
         _key = json['key'],
         _meta = json['meta']?['serializedData'] != null
             ? FileMeta.fromJson(
-                new Map<String, dynamic>.from(json['meta']['serializedData']))
+                Map<String, dynamic>.from(json['meta']['serializedData']))
             : null;
 
   Map<String, dynamic> toJson() => {

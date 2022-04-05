@@ -24,6 +24,23 @@ class MockModelType extends ModelType<Model> {
   }
 }
 
+class _MockModelIdentifier implements ModelIdentifier {
+  final List<Map<String, dynamic>> emptyList = const [];
+  final Map<String, dynamic> emptyMap = const <String, dynamic>{};
+  final String emptyString = '';
+
+  const _MockModelIdentifier();
+
+  @override
+  List<Map<String, dynamic>> serializeAsList() => emptyList;
+
+  @override
+  Map<String, dynamic> serializeAsMap() => emptyMap;
+
+  @override
+  String serializeAsString() => emptyString;
+}
+
 class MockModel extends Model {
   final String id;
 
@@ -31,6 +48,11 @@ class MockModel extends Model {
 
   @override
   String getId() => id;
+
+  @override
+  ModelIdentifier get modelIdentifier {
+    return const _MockModelIdentifier();
+  }
 
   @override
   ModelType<Model> getInstanceType() => const MockModelType();

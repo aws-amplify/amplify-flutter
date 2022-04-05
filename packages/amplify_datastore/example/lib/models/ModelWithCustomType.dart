@@ -20,7 +20,7 @@
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'ModelProvider.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
@@ -37,9 +37,13 @@ class ModelWithCustomType extends Model {
   @override
   getInstanceType() => classType;
 
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+
+  ModelWithCustomTypeModelIdentifier get modelIdentifier {
+    return ModelWithCustomTypeModelIdentifier(id: id);
   }
 
   CustomTypeWithAppsyncScalarTypes? get customTypeValue {
@@ -124,11 +128,10 @@ class ModelWithCustomType extends Model {
   }
 
   ModelWithCustomType copyWith(
-      {String? id,
-      CustomTypeWithAppsyncScalarTypes? customTypeValue,
+      {CustomTypeWithAppsyncScalarTypes? customTypeValue,
       List<CustomTypeWithAppsyncScalarTypes>? listOfCustomTypeValue}) {
     return ModelWithCustomType._internal(
-        id: id ?? this.id,
+        id: id,
         customTypeValue: customTypeValue ?? this.customTypeValue,
         listOfCustomTypeValue:
             listOfCustomTypeValue ?? this.listOfCustomTypeValue);
@@ -211,4 +214,39 @@ class _ModelWithCustomTypeModelType extends ModelType<ModelWithCustomType> {
   ModelWithCustomType fromJson(Map<String, dynamic> jsonData) {
     return ModelWithCustomType.fromJson(jsonData);
   }
+}
+
+/// This is an auto generated class representing the model identifier
+/// of [ModelWithCustomType] in your schema.
+@immutable
+class ModelWithCustomTypeModelIdentifier
+    implements ModelIdentifier<ModelWithCustomType> {
+  final String id;
+
+  /// Create an instance of ModelWithCustomTypeModelIdentifier using [id] the primary key.
+  const ModelWithCustomTypeModelIdentifier({required this.id});
+
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
+  String serializeAsString() => serializeAsMap().values.join('#');
+
+  @override
+  String toString() => 'ModelWithCustomTypeModelIdentifier(id: $id)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is ModelWithCustomTypeModelIdentifier && id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

@@ -20,7 +20,7 @@
 // ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'ModelProvider.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
@@ -37,19 +37,23 @@ class Blog extends Model {
   @override
   getInstanceType() => classType;
 
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+
+  BlogModelIdentifier get modelIdentifier {
+    return BlogModelIdentifier(id: id);
   }
 
   String get name {
     try {
       return _name!;
     } catch (e) {
-      throw DataStoreException(
-          DataStoreExceptionMessages
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
+          recoverySuggestion: AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -114,9 +118,9 @@ class Blog extends Model {
     return buffer.toString();
   }
 
-  Blog copyWith({String? id, String? name, List<Post>? posts}) {
+  Blog copyWith({String? name, List<Post>? posts}) {
     return Blog._internal(
-        id: id ?? this.id, name: name ?? this.name, posts: posts ?? this.posts);
+        id: id, name: name ?? this.name, posts: posts ?? this.posts);
   }
 
   Blog.fromJson(Map<String, dynamic> json)
@@ -189,4 +193,38 @@ class _BlogModelType extends ModelType<Blog> {
   Blog fromJson(Map<String, dynamic> jsonData) {
     return Blog.fromJson(jsonData);
   }
+}
+
+/// This is an auto generated class representing the model identifier
+/// of [Blog] in your schema.
+@immutable
+class BlogModelIdentifier implements ModelIdentifier<Blog> {
+  final String id;
+
+  /// Create an instance of BlogModelIdentifier using [id] the primary key.
+  const BlogModelIdentifier({required this.id});
+
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
+  String serializeAsString() => serializeAsMap().values.join('#');
+
+  @override
+  String toString() => 'BlogModelIdentifier(id: $id)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is BlogModelIdentifier && id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }
