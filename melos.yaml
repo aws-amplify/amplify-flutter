@@ -98,11 +98,11 @@ scripts:
 
   # API
   build:examples:ios:amplify_api: >
-    melos exec -c 1 --scope="amplify_api_example" --fail-fast -- \
+    melos exec -c 1 --scope="amplify_api_ios_example" --fail-fast -- \
       flutter build ios --simulator
 
   build:examples:android:amplify_api: >
-    melos exec -c 1 --scope="amplify_api_example" --fail-fast -- \
+    melos exec -c 1 --scope="amplify_api_android_example" --fail-fast -- \
       flutter build apk --debug --verbose
 
   lint:android:amplify_api:
@@ -113,7 +113,7 @@ scripts:
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
     select-package:
       scope:
-        - amplify_api_example
+        - amplify_api_android_example
 
   lint:ios:amplify_api:
     run: |
@@ -125,7 +125,7 @@ scripts:
     select-package:
       dir-exists: ios
       scope:
-        - amplify_api_example
+        - amplify_api_ios_example
 
   # AUTH
   build:examples:ios:amplify_auth_cognito: >
