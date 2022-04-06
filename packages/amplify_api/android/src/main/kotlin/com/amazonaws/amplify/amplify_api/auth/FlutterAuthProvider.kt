@@ -29,10 +29,8 @@ import kotlinx.coroutines.*
  * Manages the shared state of all [FlutterAuthProvider] instances.
  */
 class FlutterAuthProviders(
-    private val authProviders: List<AuthorizationType>,
-    private val methodChannel: MethodChannel
+    private val authProviders: List<AuthorizationType>
 ) {
-
     private companion object {
         /**
          * Timeout on a single [getToken] call.
@@ -48,6 +46,19 @@ class FlutterAuthProviders(
          * Name for suspending block in [getToken]. Used for debugging
          */
         val coroutineName = CoroutineName(tag)
+    }
+
+    /**
+     * The method channel used for Android -> Flutter communication. Should be cleared when the API
+     * plugin is detached from Flutter and set when it is reattached.
+     */
+    private var methodChannel: MethodChannel? = null
+
+    /**
+     * Configures the method channel for API authorization.
+     */
+    fun setMethodChannel(methodChannel: MethodChannel?) {
+        this.methodChannel = methodChannel
     }
 
     /**
@@ -74,7 +85,7 @@ class FlutterAuthProviders(
     fun getToken(authType: AuthorizationType): String? {
         // Not blocking the main thread is required for making platform channel calls without
         // deadlock.
-        if (Thread.currentThread() == Looper.getMainLooper().thread) {
+        if (Thread.currentThread() == Looper.getMainLooper().thread || methodChannel == null) {
             Log.e(tag, ExceptionMessages.createGithubIssueString)
             return null
         }
@@ -93,7 +104,7 @@ class FlutterAuthProviders(
                     }
 
                     override fun error(
-                        errorCode: String?,
+                        errorCode: String,
                         errorMessage: String?,
                         errorDetails: Any?
                     ) {
@@ -109,7 +120,7 @@ class FlutterAuthProviders(
                     }
                 }
                 launch(Dispatchers.Main) {
-                    methodChannel.invokeMethod(
+                    methodChannel!!.invokeMethod(
                         "getLatestAuthToken",
                         authType.name,
                         result
