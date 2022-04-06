@@ -1,6 +1,6 @@
 ## 0.4.4 (2022-04-06)
 
-- fix(api): JNI issues
+- fix(api): JNI issues (#1509)
 
 ## 0.4.3 (2022-04-02)
 
