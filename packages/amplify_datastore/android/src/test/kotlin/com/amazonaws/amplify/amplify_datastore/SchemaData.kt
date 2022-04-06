@@ -21,6 +21,9 @@ import com.amplifyframework.core.model.temporal.Temporal
 val postSchema = ModelSchema.builder()
     .name("Post")
     .pluralName("Posts")
+    .indexes(mapOf(
+        "byBlog" to ModelIndex.builder().indexName("byBlog").indexFieldNames(listOf("blogID")).build()
+    ))
     .fields(
         mapOf(
             "id" to

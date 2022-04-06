@@ -55,7 +55,7 @@ class AmplifyModelSchemaTest {
     }
 
     @Test
-    fun test_schema_post_with_datetime_int_hasMany_belongsTo() {
+    fun test_schema_post_with_datetime_int_hasMany_belongsTo_indexes() {
         val inputMap = schemasMap["PostSchema"] as Map<String, Any>
         val modelSchema = FlutterModelSchema(inputMap)
         // Verify result
