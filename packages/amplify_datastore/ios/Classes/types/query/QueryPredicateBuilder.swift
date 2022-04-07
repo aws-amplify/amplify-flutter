@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -17,29 +17,25 @@ import Flutter
 import Foundation
 import Amplify
 
-public class QueryPredicateBuilder {
-    
-    // Remove model name if queryPredicate is on id 
-    private static func extractFieldName( field : String? ) -> String? {
-        
-        if let queryField = field, queryField.hasSuffix(".id"){
+public enum QueryPredicateBuilder {
+    // Remove model name if queryPredicate is on id
+    private static func extractFieldName( field: String? ) -> String? {
+        if let queryField = field, queryField.hasSuffix(".id") {
             return "id"
         }
-        return field;
+        return field
     }
-    
+
     static func fromSerializedMap(_ serializedMap: [String: Any]?) throws -> QueryPredicate {
-        
         guard let data = serializedMap else {
             return QueryPredicateConstant.all
         }
-        
-        
-        
+
         if let queryPredicateOperationMap = data["queryPredicateOperation"] as? [String: Any] {
             if let fieldValue = extractFieldName(field: queryPredicateOperationMap["field"] as? String),
                let queryFieldOperatorMap = queryPredicateOperationMap["fieldOperator"] as? [String: Any],
-               let operatorName = queryFieldOperatorMap["operatorName"] as? String {
+               let operatorName = queryFieldOperatorMap["operatorName"] as? String
+            {
                 let operand = convertToAmplifyPersistable(operand: queryFieldOperatorMap["value"])
                 let queryField = field(fieldValue)
                 switch operatorName {
@@ -71,13 +67,13 @@ public class QueryPredicateBuilder {
                                                    "Check the values that are being passed from Dart.")
             }
         }
-        
+
         if let queryPredicateGroupMap = data["queryPredicateGroup"] as? [String: Any] {
             let serializedPredicates = queryPredicateGroupMap["predicates"] as! [[String: Any]]
             var predicates = try serializedPredicates.map { try fromSerializedMap($0) }
             var resultQueryPredicate: QueryPredicate
-            if(predicates[0] is QueryPredicateOperation) {
-                switch (queryPredicateGroupMap["type"] as! String) {
+            if predicates[0] is QueryPredicateOperation {
+                switch queryPredicateGroupMap["type"] as! String {
                 case "and":
                     resultQueryPredicate = (predicates[0] as! QueryPredicateOperation).and(predicates[1])
                     predicates = Array(predicates.dropFirst(2))
@@ -96,19 +92,19 @@ public class QueryPredicateBuilder {
                 resultQueryPredicate = predicates[0] as! QueryPredicateGroup
                 predicates = Array(predicates.dropFirst(1))
             }
-            
+
             // Now iterate over all other predicates and add
-            switch (queryPredicateGroupMap["type"] as! String) {
+            switch queryPredicateGroupMap["type"] as! String {
             case "and":
-                predicates.forEach { (predicate) in
+                predicates.forEach { predicate in
                     resultQueryPredicate = (resultQueryPredicate as! QueryPredicateGroup).and(predicate)
                 }
             case "or":
-                predicates.forEach { (predicate) in
+                predicates.forEach { predicate in
                     resultQueryPredicate = (resultQueryPredicate as! QueryPredicateGroup).or(predicate)
                 }
             case "not":
-                if(!predicates.isEmpty) {
+                if !predicates.isEmpty {
                     throw DataStoreError.decodingError("Received more than one query predicates for group type not.",
                                                        "Check the values that are being passed from Dart.")
                 }
@@ -122,7 +118,7 @@ public class QueryPredicateBuilder {
         }
 
         if let queryPredicateConstant = data["queryPredicateConstant"] as? [String: Any] {
-            switch (queryPredicateConstant["type"] as! String) {
+            switch queryPredicateConstant["type"] as! String {
             case "all":
                 return QueryPredicateConstant.all
             default:
@@ -131,11 +127,11 @@ public class QueryPredicateBuilder {
                                                    "Check the values that are being passed from Dart.")
             }
         }
-        
+
         throw DataStoreError.decodingError("Received invalid serialization for query predicates.",
                                            "Check the values that are being passed from Dart.")
     }
-    
+
     static func convertToAmplifyPersistable(operand: Any?) -> Persistable? {
         if operand == nil {
             return nil

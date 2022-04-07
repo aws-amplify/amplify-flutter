@@ -20,7 +20,7 @@ import AmplifyPlugins
 struct FlutterSyncReceivedEvent: FlutterHubEvent {
     var eventName: String
     var modelName: String
-    var element:  FlutterHubElement
+    var element: FlutterHubElement
 
     init(
         event: MutationEvent,
@@ -38,11 +38,11 @@ struct FlutterSyncReceivedEvent: FlutterHubEvent {
         }
     }
 
-    func toValueMap() -> Dictionary<String, Any> {
+    func toValueMap() -> [String: Any] {
         return [
-            "eventName": self.eventName,
-            "modelName": self.modelName,
-            "element": self.element.toValueMap()
+            "eventName": eventName,
+            "modelName": modelName,
+            "element": element.toValueMap()
         ]
     }
 }
