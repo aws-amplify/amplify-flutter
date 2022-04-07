@@ -1,7 +1,5 @@
 ## 0.4.4 (2022-04-06)
 
-- fix(api): JNI issues (#1509)
-
 ## 0.4.3 (2022-04-02)
 
 - chore: bump amplify-ios to 1.22.3
