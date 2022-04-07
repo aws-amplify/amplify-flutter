@@ -1,8 +1,17 @@
+## 0.4.4 (2022-04-06)
+
+- fix(api): JNI issues (#1509)
+
 ## 0.4.3 (2022-04-02)
+
+- chore: bump amplify-ios to 1.22.3
 
 ## 0.4.2 (2022-03-24)
 
-## 0.4.1 (2022-02-28)
+- fix: model helpers query predicates correctly translates query by associated id (#1417)
+- chore: support decoding custom list request (#1420)
+- chore: bump amplify-android to 1.32.1 (#1448)
+- chore: bump amplify-ios to 1.22.0 (#1468)
 
 ## 0.4.0 (2022-02-17)
 
