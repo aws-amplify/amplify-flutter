@@ -21,10 +21,8 @@ struct FlutterModelSchema {
     let name: String
     let fields: [String: FlutterModelField]
     let pluralName: String?
-    let authRules: [FlutterAuthRule]?
-
-    // Not used for now
-    let attributes: [ModelAttribute] = []
+    let authRules: [FlutterAuthRule]
+    var attributes: [FlutterModelAttribute] = []
 
     init(serializedData: [String: Any]) throws {
         guard let name = serializedData["name"] as? String else {
@@ -41,6 +39,7 @@ struct FlutterModelSchema {
                 fieldName: "fields",
                 desiredType: "[String: [String: Any]]")
         }
+
         self.fields = try inputFieldsMap.mapValues {
             try FlutterModelField.init(serializedData: $0)
         }
@@ -48,11 +47,18 @@ struct FlutterModelSchema {
         self.pluralName = serializedData["pluralName"] as? String
 
         if let inputAuthRulesMap = serializedData["authRules"] as? [[String: Any]] {
-            self.authRules = try inputAuthRulesMap.map {
+            authRules = try inputAuthRulesMap.map {
                 try FlutterAuthRule(serializedData: $0)
             }
         } else {
-            self.authRules = nil
+            authRules = [FlutterAuthRule]()
+        }
+
+        if let inputIndexes = serializedData["indexes"] as? [[String: Any]] {
+            attributes += try inputIndexes.map {
+                let parsedIndex = try parseInputIndexes(serializedData: $0)
+                return FlutterModelAttribute.index(fields: parsedIndex.fields, name: parsedIndex.name)
+            }
         }
     }
 
@@ -60,11 +66,23 @@ struct FlutterModelSchema {
         return ModelSchema.init(
             name: name,
             pluralName: pluralName,
-            authRules: authRules?.map{
-                            $0.convertToNativeAuthRule()
-                        } ?? [AuthRule](),
-            attributes: attributes,
-            fields: try fields.mapValues { try $0.convertToNativeModelField(customTypeSchemasRegistry: customTypeSchemasRegistry) }
+            authRules: authRules.map{ $0.convertToNativeAuthRule() },
+            attributes: attributes.map{ $0.convertToNativeModelAttribute() },
+            fields: try fields.mapValues {
+                try $0.convertToNativeModelField(customTypeSchemasRegistry: customTypeSchemasRegistry)
+            }
         )
+    }
+
+    private func parseInputIndexes(serializedData: [String: Any]) throws -> (fields: [String], name: String?) {
+        let name = serializedData["name"] as? String
+        guard let fields = serializedData["fields"] as? [String] else {
+            throw ModelSchemaError.parse(
+                className: "FlutterModelIndex",
+                fieldName: "name",
+                desiredType: "[String]")
+        }
+
+        return (fields, name)
     }
 }

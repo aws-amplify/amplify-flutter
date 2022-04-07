@@ -22,6 +22,7 @@ struct SchemaData {
     static var PostSchema: ModelSchema = ModelSchema(
         name: "Post",
         pluralName: "Posts",
+        attributes: [.index(fields: ["blogID"], name: "byBlog")],
         fields: [
             "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "title": ModelField(name: "title", type: .string, isRequired: true, isArray: false),

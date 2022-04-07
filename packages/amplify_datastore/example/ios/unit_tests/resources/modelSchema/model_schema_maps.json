@@ -117,6 +117,12 @@
     "PostSchema": {
         "name": "Post",
         "pluralName": "Posts",
+        "indexes": [
+            {
+                "name": "byBlog",
+                "fields": ["blogID"]
+            }
+        ],
         "fields": {
             "id": {
                 "name": "id",

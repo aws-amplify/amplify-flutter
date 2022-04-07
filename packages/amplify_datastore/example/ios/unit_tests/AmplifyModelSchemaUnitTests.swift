@@ -51,19 +51,19 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
     }
 
     func test_schema_comment_with_belongsTo() throws {
-        let flutterBlogSchema = try FlutterModelSchema(
+        let flutterCommentSchema = try FlutterModelSchema(
             serializedData: modelSchemaMap["CommentSchema"] as! [String : Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
 
-        XCTAssertEqual(SchemaData.CommentSchema, flutterBlogSchema)
+        XCTAssertEqual(SchemaData.CommentSchema, flutterCommentSchema)
     }
 
-    func test_schema_post_with_datetime_int_hasMany_belongsTo() throws{
-        let flutterBlogSchema = try FlutterModelSchema(
+    func test_schema_post_with_datetime_int_hasMany_belongsTo_index_model_attributes() throws{
+        let flutterPostSchema = try FlutterModelSchema(
             serializedData: modelSchemaMap["PostSchema"] as! [String : Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
 
-        XCTAssertEqual(SchemaData.PostSchema, flutterBlogSchema)
+        XCTAssertEqual(SchemaData.PostSchema, flutterPostSchema)
     }
 
     func test_schema_postAuthComplex_with_authRules() throws{
