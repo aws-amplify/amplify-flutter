@@ -20,8 +20,9 @@ dependencies:
     path: ../
   amplify_core:
     path: ../../../amplify_core
-
   cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
