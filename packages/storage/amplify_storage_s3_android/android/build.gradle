@@ -43,6 +43,7 @@ android {
     }
     lintOptions {
         disable 'InvalidPackage'
+        disable 'AndroidGradlePluginVersion'
         informational 'GradleDependency'
 
         abortOnError true
