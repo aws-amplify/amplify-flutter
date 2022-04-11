@@ -32,7 +32,7 @@ class QueryField<T> {
   /// {@macro amplify_core.query_field}
   const QueryField({required this.fieldName, this.fieldType});
 
-  /// The name of the filed that this is used to query.
+  /// The name of the field to be queried on.
   final String fieldName;
 
   /// Contains information about the model that this field represents.
