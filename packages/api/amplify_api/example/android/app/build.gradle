@@ -34,6 +34,7 @@ android {
 
     lintOptions {
         disable 'InvalidPackage'
+        disable 'AndroidGradlePluginVersion'
     }
 
     defaultConfig {
