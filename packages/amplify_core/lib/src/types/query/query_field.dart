@@ -42,7 +42,7 @@ class QueryField<T> {
 
   /// An **equal to** operation.
   ///
-  /// Matches models that where the given field is equal to the provided value.
+  /// Matches models where the given field is equal to the provided value.
   ///
   /// ### Example:
   /// The example returns Posts where the rating is equal to 10.
@@ -58,7 +58,7 @@ class QueryField<T> {
 
   /// A **not equal to** operation.
   ///
-  /// Matches models that where the given field is **not** equal to the provided value.
+  /// Matches models where the given field is **not** equal to the provided value.
   ///
   /// ### Example:
   /// The example returns Posts where the rating is not equal to 10.
@@ -75,7 +75,7 @@ class QueryField<T> {
   /// {@template amplify_core.query_field.le}
   /// A **less than or equal to** operation.
   ///
-  /// Matches models that where the given field is less than or equal to
+  /// Matches models where the given field is less than or equal to
   /// the provided value.
   ///
   /// ### Examples:
@@ -106,7 +106,7 @@ class QueryField<T> {
   /// {@template amplify_core.query_field.lt}
   /// A **less than** operation.
   ///
-  /// Matches models that where the given field is less than the provided value.
+  /// Matches models where the given field is less than the provided value.
   ///
   /// ### Examples:
   /// Both examples return Posts where the rating is less than 10.
@@ -136,7 +136,7 @@ class QueryField<T> {
   /// {@template amplify_core.query_field.ge}
   /// A **greater than or equal to** operation.
   ///
-  /// Matches models that where the given field is greater than or equal to
+  /// Matches models where the given field is greater than or equal to
   /// the provided value.
   ///
   /// ### Examples:
@@ -167,7 +167,7 @@ class QueryField<T> {
   /// {@template amplify_core.query_field.gt}
   /// A **greater than** operation.
   ///
-  /// Matches models that where the given field is greater than the provided value.
+  /// Matches models where the given field is greater than the provided value.
   ///
   /// ### Examples:
   /// Both examples return Posts where the rating is greater than 10.
@@ -196,7 +196,7 @@ class QueryField<T> {
 
   /// A **contains** operation.
   ///
-  /// Matches models that where the given field contains the provided value.
+  /// Matches models where the given field contains the provided value.
   ///
   /// This operation can be applied to fields of type String or
   /// List<String>.
@@ -226,7 +226,7 @@ class QueryField<T> {
 
   /// A **between** operation.
   ///
-  /// Matches models that where the given field is between the start and end.
+  /// Matches models where the given field is between the provided start and end values.
   ///
   /// ### Example:
   /// The example returns Posts where the rating is between 5 and 10.
@@ -243,7 +243,7 @@ class QueryField<T> {
 
   /// A **beginsWith** operation.
   ///
-  /// Matches models that where the given field begins with the provided value.
+  /// Matches models where the given field begins with the provided value.
   ///
   /// ### Example:
   /// The example returns Posts where the title begins with "foo".
