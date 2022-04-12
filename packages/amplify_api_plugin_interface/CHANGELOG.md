@@ -1,3 +1,7 @@
+## 0.4.5 (2022-04-13)
+
+-fix: bumps ios version and bumps api AuthProvider timeout (#1520)
+
 ## 0.4.4 (2022-04-06)
 
 - fix(api): JNI issues (#1509)
