@@ -35,7 +35,7 @@ class FlutterAuthProviders(
         /**
          * Timeout on a single [getToken] call.
          */
-        const val getTokenTimeoutMillis = 2000L
+        const val getTokenTimeoutMillis = 4000L
 
         /**
          * Logger tag.
