@@ -12,9 +12,9 @@ dependencies:
     path: ../amplify_core
   flutter:
     sdk: flutter
-  amplify_api: ^0.4.3
-  amplify_auth_cognito: ^0.4.3
-  amplify_flutter: ^0.4.3
+  amplify_api: ^0.4.5
+  amplify_auth_cognito: ^0.4.5
+  amplify_flutter: ^0.4.5
   stream_transform: ^2.0.0
 
 dev_dependencies:
