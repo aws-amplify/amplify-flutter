@@ -1,6 +1,6 @@
 name: amplify_api_plugin_interface
 description: The platform interface for the API module of Amplify Flutter.
-version: 0.4.4
+version: 0.4.5
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_api_plugin_interface
 
 environment:
@@ -8,7 +8,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  amplify_core: 0.4.4
+  amplify_core: 0.4.5
   collection: ^1.15.0
   flutter:
     sdk: flutter
