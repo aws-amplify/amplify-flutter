@@ -1,11 +1,5 @@
-Example using the signer to describe a Cognito User Pool.
+Example using the signer to create an S3 bucket and upload a file to it.
 
-> Make sure you have AWS credentials in your environment (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`) or use the `--access-key-id` and `--secret-access-key` flags to specify them manually.
+### Web Notes
 
-```bash
-$ export AWS_ACCESS_KEY_ID=...
-$ export AWS_SECRET_ACCESS_KEY=...
-$ dart run http_example.dart \
-    --user-pool-id=us-west-2_1abc2dEfg \
-    --region=us-west-2 # | jq (Optionally, you can pipe it to jq)
-```
+Due to CORS restrictions in S3, creating a bucket is not currently possible in the browser. The web example assumes you already have a bucket and have enabled CORS settings on it which allow `PUT` requests from the origin you're uploading from. See the S3 [CORS documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/cors.html) for more info.

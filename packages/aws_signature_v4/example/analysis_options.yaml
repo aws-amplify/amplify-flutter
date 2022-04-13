@@ -1,0 +1,5 @@
+include: package:amplify_lints/dart.yaml
+
+analyzer:
+  errors:
+    avoid_positional_boolean_parameters: ignore

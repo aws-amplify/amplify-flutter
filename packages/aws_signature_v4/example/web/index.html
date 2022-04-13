@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS SigV4 Signer</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+</head>
+
+<body>
+    <main class="container">
+        <form>
+            <label for="bucket-name">
+                Bucket Name
+                <input id="bucket-name" type="text" placeholder="mybucket-123">
+            </label>
+            <label for="region">
+                Region
+                <input id="region" type="text" placeholder="us-west-1">
+            </label>
+            <label for="file">
+                Choose a File
+                <input id="file" type="file">
+            </label>
+            <button id="upload" type="submit" disabled>Upload</button>
+            <a id="download">
+                <button type="button" class="contrast">Download</button>
+            </a>
+        </form>
+    </main>
+    <script defer src="main.dart.js"></script>
+</body>
+
+</html>

@@ -23,6 +23,10 @@ import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 
+// This examples walks through the creation of an S3 bucket and the process of
+// uploading a file to that bucket and retrieving a secure URL for reading back
+// its contents.
+
 Future<void> main(List<String> args) async {
   final argParser = ArgParser();
 
