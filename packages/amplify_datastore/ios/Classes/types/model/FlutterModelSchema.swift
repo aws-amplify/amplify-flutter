@@ -22,6 +22,7 @@ struct FlutterModelSchema {
     let fields: [String: FlutterModelField]
     let pluralName: String?
     let authRules: [FlutterAuthRule]
+    var primaryKeyFieldKeys = [ModelFieldName]()
     var attributes: [FlutterModelAttribute] = []
 
     init(serializedData: [String: Any]) throws {
@@ -60,6 +61,11 @@ struct FlutterModelSchema {
                 return FlutterModelAttribute.index(fields: parsedIndex.fields, name: parsedIndex.name)
             }
         }
+
+        if let inputPrimaryKey = serializedData["primaryKey"] as? [String: Any] {
+            let parsedPrimaryKey = try parseInputIndexes(serializedData: inputPrimaryKey)
+            primaryKeyFieldKeys += parsedPrimaryKey.fields
+        }
     }
 
     public func convertToNativeModelSchema(customTypeSchemasRegistry: FlutterSchemaRegistry) throws -> ModelSchema {
@@ -70,7 +76,8 @@ struct FlutterModelSchema {
             attributes: attributes.map{ $0.convertToNativeModelAttribute() },
             fields: try fields.mapValues {
                 try $0.convertToNativeModelField(customTypeSchemasRegistry: customTypeSchemasRegistry)
-            }
+            },
+            primaryKeyFieldKeys: primaryKeyFieldKeys
         )
     }
 
