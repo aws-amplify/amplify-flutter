@@ -29,6 +29,7 @@ class ModelSchema {
   final List<AuthRule>? authRules; //opt
   final Map<String, ModelField>? fields;
   final List<ModelIndex>? indexes;
+  final ModelIndex? primaryKey;
 
   const ModelSchema({
     required this.name,
@@ -36,6 +37,7 @@ class ModelSchema {
     this.authRules,
     this.fields,
     this.indexes,
+    this.primaryKey,
   });
 
   ModelSchema copyWith(
@@ -49,6 +51,7 @@ class ModelSchema {
       authRules: authRules ?? this.authRules,
       fields: fields ?? this.fields,
       indexes: indexes ?? this.indexes,
+      primaryKey: primaryKey ?? this.primaryKey,
     );
   }
 
@@ -59,6 +62,7 @@ class ModelSchema {
       'authRules': authRules?.map((x) => x.toMap()).toList(),
       'fields': fields?.map((key, value) => MapEntry('$key', value.toMap())),
       'indexes': indexes?.map((value) => value.toMap()).toList(),
+      'primaryKey': primaryKey?.toMap(),
     };
     return Map<String, dynamic>.from(map)
       ..removeWhere((k, dynamic v) => v == null);
@@ -72,6 +76,7 @@ class ModelSchema {
           map['authRules']?.map((dynamic x) => AuthRule.fromMap(x))),
       fields: Map<String, ModelField>.from(map['fields']),
       indexes: List<ModelIndex>.from(map['indexes']),
+      primaryKey: ModelIndex.fromMap(map['primaryKey']),
     );
   }
 
@@ -82,7 +87,7 @@ class ModelSchema {
 
   @override
   String toString() {
-    return 'ModelSchema(name: $name, pluralName: $pluralName, authRules: $authRules, fields: $fields, indexes: $indexes)';
+    return 'ModelSchema(name: $name, pluralName: $pluralName, authRules: $authRules, fields: $fields, indexes: $indexes, primaryKey: $primaryKey)';
   }
 
   @override
@@ -95,7 +100,8 @@ class ModelSchema {
         o.pluralName == pluralName &&
         collectionEquals(o.authRules, authRules) &&
         collectionEquals(o.fields, fields) &&
-        collectionEquals(o.indexes, indexes);
+        collectionEquals(o.indexes, indexes) &&
+        collectionEquals(o.primaryKey, primaryKey);
   }
 
   @override
@@ -104,6 +110,7 @@ class ModelSchema {
         pluralName.hashCode ^
         authRules.hashCode ^
         fields.hashCode ^
-        indexes.hashCode;
+        indexes.hashCode ^
+        primaryKey.hashCode;
   }
 }

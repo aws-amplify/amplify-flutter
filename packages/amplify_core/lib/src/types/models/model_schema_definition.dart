@@ -24,6 +24,7 @@ class ModelSchemaDefinition {
   String? pluralName;
   List<AuthRule>? authRules;
   List<ModelIndex>? indexes;
+  ModelIndex? primaryKey;
   late Map<String, ModelField> fields;
 
   ModelSchemaDefinition() {
@@ -41,6 +42,7 @@ class ModelSchemaDefinition {
       authRules: authRules,
       fields: fields,
       indexes: indexes,
+      primaryKey: primaryKey,
     );
   }
 }
