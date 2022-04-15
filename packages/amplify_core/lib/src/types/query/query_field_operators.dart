@@ -75,6 +75,8 @@ abstract class QueryFieldOperator<T> {
       return value.toSeconds();
     } else if (isEnum(value)) {
       return enumToString(value);
+    } else if (value is ModelIdentifier) {
+      return value.serializeAsList();
     }
 
     // TODO sanitize other types appropriately
@@ -102,6 +104,23 @@ class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   bool evaluate(T? other) {
     dynamic serializedValue = serializeDynamicValue(value);
     return other == serializedValue;
+  }
+}
+
+class EqualModelIdentifierQueryOperator<T>
+    extends QueryFieldOperatorSingleValue<T> {
+  const EqualModelIdentifierQueryOperator(T value)
+      : super(value, QueryFieldOperatorType.equal);
+
+  @override
+  bool evaluate(T? other) {
+    // == is a overridden impl. of ModelIdentifier
+    return other == value;
+  }
+
+  @override
+  Map<String, dynamic> serializeAsMap() {
+    return serializeAsMapWithOperator(type.toShortString(), value);
   }
 }
 

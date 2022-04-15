@@ -38,6 +38,7 @@ export 'src/types/models/model_provider.dart';
 export 'src/types/models/model_schema.dart';
 export 'src/types/models/model_schema_definition.dart';
 export 'src/types/query/query_field.dart';
+export 'src/types/query/query_model_identifier.dart';
 export 'src/types/temporal/datetime_parse.dart';
 export 'src/types/temporal/temporal_date.dart';
 export 'src/types/temporal/temporal_datetime.dart';
