@@ -12,9 +12,9 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:7.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'org.jlleitschuh.gradle:ktlint-gradle:9.4.1'
+        classpath 'org.jlleitschuh.gradle:ktlint-gradle:10.2.1'
     }
 }
 
@@ -30,7 +30,7 @@ apply plugin: 'kotlin-android'
 apply from: './coverage.gradle'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -42,6 +42,7 @@ android {
     }
     lintOptions {
         disable 'InvalidPackage'
+        disable 'AndroidGradlePluginVersion'
         informational 'GradleDependency'
 
         abortOnError true
@@ -68,7 +69,6 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.amplifyframework:core:1.32.2'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'

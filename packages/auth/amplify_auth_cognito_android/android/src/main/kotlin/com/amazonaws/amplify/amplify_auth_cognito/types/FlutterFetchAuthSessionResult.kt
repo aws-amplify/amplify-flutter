@@ -19,11 +19,11 @@ import androidx.annotation.Nullable
 import com.amplifyframework.auth.AuthSession
 
 data class FlutterFetchAuthSessionResult(@Nullable public var raw: AuthSession) {
-  val isSignedIn: Boolean = raw.isSignedIn;
+    val isSignedIn: Boolean = raw.isSignedIn
 
-  fun toValueMap(): Map<String, Any> {
-    return mapOf(
-      "isSignedIn" to this.isSignedIn
-    )
-  }
+    fun toValueMap(): Map<String, Any> {
+        return mapOf(
+            "isSignedIn" to this.isSignedIn
+        )
+    }
 }

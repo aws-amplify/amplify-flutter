@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -14,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package android.src.main.kotlin.com.amazonaws.amplify.amplify_storage_s3.types
+package com.amazonaws.amplify.amplify_storage_s3.types
 
 import android.os.Handler
 import android.os.Looper
@@ -23,10 +22,10 @@ import io.flutter.plugin.common.EventChannel
 
 class TransferProgressStreamHandler : EventChannel.StreamHandler {
 
-    private var eventSink : EventChannel.EventSink? = null
+    private var eventSink: EventChannel.EventSink? = null
     private val handler = Handler(Looper.getMainLooper())
 
-    fun onTransferProgressEvent(uuid : String, progress : StorageTransferProgress){
+    fun onTransferProgressEvent(uuid: String, progress: StorageTransferProgress) {
         handler.post {
             val result: MutableMap<String, Any?> = mutableMapOf(
                 "uuid" to uuid,

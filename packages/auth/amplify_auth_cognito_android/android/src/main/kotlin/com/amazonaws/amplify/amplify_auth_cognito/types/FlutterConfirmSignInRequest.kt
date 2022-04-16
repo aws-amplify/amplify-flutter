@@ -18,35 +18,34 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 import com.amazonaws.amplify.amplify_auth_cognito.utils.createAuthUserAttribute
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
-import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignInOptions
 
 data class FlutterConfirmSignInRequest(val map: HashMap<String, *>) {
-  val confirmationCode: String = map["confirmationCode"] as String;
-  val options: AWSCognitoAuthConfirmSignInOptions = formatOptions(map["options"] as HashMap<String, *>?)
+    val confirmationCode: String = map["confirmationCode"] as String
+    val options: AWSCognitoAuthConfirmSignInOptions = formatOptions(map["options"] as HashMap<String, *>?)
 
-  private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthConfirmSignInOptions {
-    val options =  AWSCognitoAuthConfirmSignInOptions.builder();
+    private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthConfirmSignInOptions {
+        val options = AWSCognitoAuthConfirmSignInOptions.builder()
 
-    if(rawOptions?.get("clientMetadata") != null)
-      options.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
+        if (rawOptions?.get("clientMetadata") != null)
+            options.metadata(rawOptions["clientMetadata"] as HashMap<String, String>)
 
-    val rawAttributes = rawOptions?.get("userAttributes") as HashMap<String, String>? ?: emptyMap<String, String>()
-    val attributes = rawAttributes.map { (key, value) ->
-      createAuthUserAttribute(key, value)
+        val rawAttributes = rawOptions?.get("userAttributes") as HashMap<String, String>? ?: emptyMap<String, String>()
+        val attributes = rawAttributes.map { (key, value) ->
+            createAuthUserAttribute(key, value)
+        }
+
+        options.userAttributes(attributes)
+
+        return options.build()
     }
 
-    options.userAttributes(attributes)
-
-    return options.build();
-  }
-
-  companion object {
-    private const val validationErrorMessage: String = "ConfirmSignIn Request malformed."
-    fun validate(req : HashMap<String, *>?) {
-      if (req == null || req !is HashMap<String, *>) {
-        throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
-      }
+    companion object {
+        private const val validationErrorMessage: String = "ConfirmSignIn Request malformed."
+        fun validate(req: HashMap<String, *>?) {
+            if (req == null || req !is HashMap<String, *>) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
+            }
+        }
     }
-  }
 }

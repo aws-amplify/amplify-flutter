@@ -19,18 +19,18 @@ import com.amazonaws.amplify.amplify_auth_cognito.setNextStep
 import com.amplifyframework.auth.result.AuthSignInResult
 
 data class FlutterSignInResult(private val raw: AuthSignInResult) {
-  val isSignedIn: Boolean = raw.isSignInComplete
-  val nextStep: Map<String, Any> = setNextStep(
-          "signInStep",
-          raw.nextStep.signInStep.toString(),
-          raw.nextStep.codeDeliveryDetails,
-          raw.nextStep.additionalInfo)
+    val isSignedIn: Boolean = raw.isSignInComplete
+    val nextStep: Map<String, Any> = setNextStep(
+        "signInStep",
+        raw.nextStep.signInStep.toString(),
+        raw.nextStep.codeDeliveryDetails,
+        raw.nextStep.additionalInfo
+    )
 
-
-  fun toValueMap(): Map<String, Any> {
-    return mapOf(
+    fun toValueMap(): Map<String, Any> {
+        return mapOf(
             "isSignedIn" to this.isSignedIn,
             "nextStep" to this.nextStep
-    )
-  }
+        )
+    }
 }

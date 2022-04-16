@@ -143,6 +143,18 @@ void main() {
       rating: 1000,
     );
 
+    StringListTypeModel stringListTypeModel1 = StringListTypeModel(
+      value: ['abc'],
+    );
+
+    StringListTypeModel stringListTypeModel2 = StringListTypeModel(
+      value: ['abc', 'xyz'],
+    );
+
+    StringListTypeModel stringListTypeModel3 = StringListTypeModel(
+      value: ['xyz'],
+    );
+
     test('equals', () {
       QueryPredicate testPredicate = Post.LIKECOUNT.eq(1);
       expect(testPredicate.evaluate(post1), isTrue);
@@ -233,6 +245,17 @@ void main() {
       ));
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isFalse);
+    });
+
+    group('List type', () {
+      test('contains', () {
+        QueryPredicate testPredicate = StringListTypeModel.VALUE.contains(
+          'abc',
+        );
+        expect(testPredicate.evaluate(stringListTypeModel1), isTrue);
+        expect(testPredicate.evaluate(stringListTypeModel2), isTrue);
+        expect(testPredicate.evaluate(stringListTypeModel3), isFalse);
+      });
     });
   });
 }

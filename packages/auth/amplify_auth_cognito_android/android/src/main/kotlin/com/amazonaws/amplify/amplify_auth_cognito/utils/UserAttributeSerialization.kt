@@ -21,15 +21,15 @@ import com.google.gson.Gson
 
 fun serializeAuthUpdateAttributeResult(result: AuthUpdateAttributeResult): Map<String, Any> {
     return mapOf(
-            "isUpdated" to result.isUpdated,
-            "nextStep" to serializeAuthUpdateAttributeStep(result.nextStep)
+        "isUpdated" to result.isUpdated,
+        "nextStep" to serializeAuthUpdateAttributeStep(result.nextStep)
     )
 }
 
 fun serializeAuthUpdateAttributeStep(nextStep: AuthNextUpdateAttributeStep): Map<String, Any?> {
     return mapOf(
-            "updateAttributeStep" to nextStep.updateAttributeStep.toString(),
-            "additionalInfo" to Gson().toJson(nextStep.additionalInfo),
-            "codeDeliveryDetails" to serializeAuthCodeDeliveryDetails(nextStep.codeDeliveryDetails)
+        "updateAttributeStep" to nextStep.updateAttributeStep.toString(),
+        "additionalInfo" to Gson().toJson(nextStep.additionalInfo),
+        "codeDeliveryDetails" to serializeAuthCodeDeliveryDetails(nextStep.codeDeliveryDetails)
     )
 }

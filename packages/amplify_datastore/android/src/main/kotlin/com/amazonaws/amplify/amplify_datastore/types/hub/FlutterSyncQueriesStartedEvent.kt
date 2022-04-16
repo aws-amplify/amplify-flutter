@@ -20,8 +20,8 @@ import org.json.JSONArray
 class FlutterSyncQueriesStartedEvent(override val eventName: String, private val models: Array<String>) : FlutterHubEvent {
     override fun toValueMap(): Map<String, Any> {
         return mapOf(
-                "eventName" to this.eventName,
-                "models" to JSONArray(this.models).toString()
+            "eventName" to this.eventName,
+            "models" to JSONArray(this.models).toString()
         )
     }
 }

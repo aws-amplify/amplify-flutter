@@ -16,42 +16,51 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import com.amazonaws.AmazonClientException
-import com.amazonaws.AmazonServiceException
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterInvalidStateException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
-import com.amazonaws.auth.AWSCredentials
-import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.services.cognitoidentityprovider.model.*
+import com.amazonaws.services.cognitoidentityprovider.model.AliasExistsException
+import com.amazonaws.services.cognitoidentityprovider.model.CodeDeliveryFailureException
+import com.amazonaws.services.cognitoidentityprovider.model.CodeMismatchException
+import com.amazonaws.services.cognitoidentityprovider.model.ExpiredCodeException
+import com.amazonaws.services.cognitoidentityprovider.model.InvalidLambdaResponseException
+import com.amazonaws.services.cognitoidentityprovider.model.InvalidParameterException
+import com.amazonaws.services.cognitoidentityprovider.model.InvalidPasswordException
+import com.amazonaws.services.cognitoidentityprovider.model.InvalidUserPoolConfigurationException
+import com.amazonaws.services.cognitoidentityprovider.model.LimitExceededException
+import com.amazonaws.services.cognitoidentityprovider.model.NotAuthorizedException
+import com.amazonaws.services.cognitoidentityprovider.model.PasswordResetRequiredException
+import com.amazonaws.services.cognitoidentityprovider.model.ResourceNotFoundException
+import com.amazonaws.services.cognitoidentityprovider.model.TooManyFailedAttemptsException
+import com.amazonaws.services.cognitoidentityprovider.model.UnexpectedLambdaException
+import com.amazonaws.services.cognitoidentityprovider.model.UserLambdaValidationException
 import com.amazonaws.services.securitytoken.model.ExpiredTokenException
-import com.amplifyframework.auth.*
+import com.amplifyframework.auth.AuthCategory
+import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.options.AuthSignOutOptions
-import com.amplifyframework.auth.options.AuthSignUpOptions
-import com.amplifyframework.auth.result.AuthResetPasswordResult
-import com.amplifyframework.auth.result.AuthSignInResult
-import com.amplifyframework.auth.result.AuthSignUpResult
-import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
-import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
-import com.amplifyframework.auth.result.AuthSessionResult
-import com.amplifyframework.auth.result.step.*
 import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.logging.Logger
-import com.google.gson.internal.LinkedTreeMap
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
+import org.mockito.Mockito.any
+import org.mockito.Mockito.anyString
+import org.mockito.Mockito.doAnswer
+import org.mockito.Mockito.doNothing
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
 
 @RunWith(RobolectricTestRunner::class)
-class AuthErrorHandlerTest {
+class AmplifyAuthErrorHandlerTest {
 
     lateinit var plugin: AuthCognito
 
@@ -61,9 +70,8 @@ class AuthErrorHandlerTest {
     private val data: HashMap<String, String> = HashMap()
     private val arguments: HashMap<String, Any> = hashMapOf("data" to data)
     private val cognitoErrorPrefix = "com.amazonaws.services.cognitoidentityprovider.model."
-    private val cognitoErrorSuffix =  " (Service: null; Status Code: 0; Error Code: null; Request ID: null)"
+    private val cognitoErrorSuffix = " (Service: null; Status Code: 0; Error Code: null; Request ID: null)"
     private val errorHandler: AuthErrorHandler = AuthErrorHandler()
-
 
     @Before
     fun setup() {
@@ -92,16 +100,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-            "recoverySuggestion" to  "Retry operation and use another alias.",
+            "recoverySuggestion" to "Retry operation and use another alias.",
             "message" to "Alias (an account with this email or phone) already exists in the system.",
-                "underlyingException" to "${cognitoErrorPrefix}${expectedCode}: ${expectedCode}${cognitoErrorSuffix}"
+            "underlyingException" to "${cognitoErrorPrefix}$expectedCode: ${expectedCode}$cognitoErrorSuffix"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -120,16 +128,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to  "Retry operation and send another confirmation code.",
-                "message" to "Error in delivering the confirmation code.",
-                "underlyingException" to "${cognitoErrorPrefix}${expectedCode}: ${expectedCode}${cognitoErrorSuffix}"
+            "recoverySuggestion" to "Retry operation and send another confirmation code.",
+            "message" to "Error in delivering the confirmation code.",
+            "underlyingException" to "${cognitoErrorPrefix}$expectedCode: ${expectedCode}$cognitoErrorSuffix"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -148,16 +156,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "Resend a new confirmation code and then retry operation with it.",
-                "message" to "Confirmation code has expired.",
-                "underlyingException" to "${cognitoErrorPrefix}ExpiredCodeException: ${expectedCode}${cognitoErrorSuffix}"
+            "recoverySuggestion" to "Resend a new confirmation code and then retry operation with it.",
+            "message" to "Confirmation code has expired.",
+            "underlyingException" to "${cognitoErrorPrefix}ExpiredCodeException: ${expectedCode}$cognitoErrorSuffix"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -176,16 +184,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "Enter correct confirmation code.",
-                "message" to "Confirmation code entered is not correct.",
-                "underlyingException" to "${cognitoErrorPrefix}${expectedCode}: ${expectedCode}${cognitoErrorSuffix}"
+            "recoverySuggestion" to "Enter correct confirmation code.",
+            "message" to "Confirmation code entered is not correct.",
+            "underlyingException" to "${cognitoErrorPrefix}$expectedCode: ${expectedCode}$cognitoErrorSuffix"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -204,16 +212,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "Please check out the service configuration to see the condition of locking.",
-                "message" to "User has made too many failed attempts for a given action.",
-                "underlyingException" to "${cognitoErrorPrefix}TooManyFailedAttemptsException: ${expectedCode}${cognitoErrorSuffix}"
+            "recoverySuggestion" to "Please check out the service configuration to see the condition of locking.",
+            "message" to "User has made too many failed attempts for a given action.",
+            "underlyingException" to "${cognitoErrorPrefix}TooManyFailedAttemptsException: ${expectedCode}$cognitoErrorSuffix"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -232,16 +240,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "Update your Auth configuration to an account type which supports this operation.",
-                "message" to "The account type you have configured doesn't support this operation.",
-                "underlyingException" to "${cognitoErrorPrefix}InvalidUserPoolConfigurationException: ${expectedCode}${cognitoErrorSuffix}"
+            "recoverySuggestion" to "Update your Auth configuration to an account type which supports this operation.",
+            "message" to "The account type you have configured doesn't support this operation.",
+            "underlyingException" to "${cognitoErrorPrefix}InvalidUserPoolConfigurationException: ${expectedCode}$cognitoErrorSuffix"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -260,16 +268,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "Enter correct parameters.",
-                "message" to "One or more parameters are incorrect.",
-                "underlyingException" to "${cognitoErrorPrefix}${expectedCode}: ${expectedCode}${cognitoErrorSuffix}"
+            "recoverySuggestion" to "Enter correct parameters.",
+            "message" to "One or more parameters are incorrect.",
+            "underlyingException" to "${cognitoErrorPrefix}$expectedCode: ${expectedCode}$cognitoErrorSuffix"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -288,16 +296,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "Enter correct password.",
-                "message" to "The password given is invalid.",
-                "underlyingException" to "${cognitoErrorPrefix}${expectedCode}: ${expectedCode}${cognitoErrorSuffix}"
+            "recoverySuggestion" to "Enter correct password.",
+            "message" to "The password given is invalid.",
+            "underlyingException" to "${cognitoErrorPrefix}$expectedCode: ${expectedCode}$cognitoErrorSuffix"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -316,16 +324,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "Invalid state recovery message",
-                "message" to "Invalid state message",
-                "underlyingException" to "java.lang.Exception: invalidState"
+            "recoverySuggestion" to "Invalid state recovery message",
+            "message" to "Invalid state message",
+            "underlyingException" to "java.lang.Exception: invalidState"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -344,16 +352,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "Please wait a while before re-attempting or increase the service limit.",
-                "message" to "Number of allowed operation has exceeded.",
-                "underlyingException" to "${cognitoErrorPrefix}${expectedCode}: ${expectedCode}${cognitoErrorSuffix}"
+            "recoverySuggestion" to "Please wait a while before re-attempting or increase the service limit.",
+            "message" to "Number of allowed operation has exceeded.",
+            "underlyingException" to "${cognitoErrorPrefix}$expectedCode: ${expectedCode}$cognitoErrorSuffix"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -372,16 +380,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "Reset the password of the user.",
-                "message" to "Required to reset the password of the user.",
-                "underlyingException" to "${cognitoErrorPrefix}${expectedCode}: ${expectedCode}${cognitoErrorSuffix}"
+            "recoverySuggestion" to "Reset the password of the user.",
+            "message" to "Required to reset the password of the user.",
+            "underlyingException" to "${cognitoErrorPrefix}$expectedCode: ${expectedCode}$cognitoErrorSuffix"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -400,16 +408,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "Retry with exponential back-off or check your config file to be sure the endpoint is valid.",
-                "message" to "Could not find the requested online resource.",
-                "underlyingException" to "${cognitoErrorPrefix}${expectedCode}: ${expectedCode}${cognitoErrorSuffix}"
+            "recoverySuggestion" to "Retry with exponential back-off or check your config file to be sure the endpoint is valid.",
+            "message" to "Could not find the requested online resource.",
+            "underlyingException" to "${cognitoErrorPrefix}$expectedCode: ${expectedCode}$cognitoErrorSuffix"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -428,16 +436,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to  "Please sign in and reattempt the operation.",
-                "message" to "Your session has expired.",
-                "underlyingException" to "com.amazonaws.services.securitytoken.model.ExpiredTokenException: SessionExpiredException (Service: null; Status Code: 0; Error Code: null; Request ID: null)"
+            "recoverySuggestion" to "Please sign in and reattempt the operation.",
+            "message" to "Your session has expired.",
+            "underlyingException" to "com.amazonaws.services.securitytoken.model.ExpiredTokenException: SessionExpiredException (Service: null; Status Code: 0; Error Code: null; Request ID: null)"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -456,16 +464,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "Check online connectivity and retry operation.",
-                "message" to "Unable to fetch/refresh credentials because the server is unreachable.",
-                "underlyingException" to "com.amazonaws.AmazonClientException: AuthException"
+            "recoverySuggestion" to "Check online connectivity and retry operation.",
+            "message" to "Unable to fetch/refresh credentials because the server is unreachable.",
+            "underlyingException" to "com.amazonaws.AmazonClientException: AuthException"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -484,16 +492,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "Retry with exponential backoff.",
-                "message" to "Unable to fetch/refresh credentials because of a service error.",
-                "underlyingException" to "com.amazonaws.AmazonClientException: AuthException"
+            "recoverySuggestion" to "Retry with exponential backoff.",
+            "message" to "Unable to fetch/refresh credentials because of a service error.",
+            "underlyingException" to "com.amazonaws.AmazonClientException: AuthException"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -512,16 +520,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "Please sign in and reattempt the operation.",
-                "message" to "You are currently signed out.",
-                "underlyingException" to "com.amazonaws.AmazonClientException: SignedOutException"
+            "recoverySuggestion" to "Please sign in and reattempt the operation.",
+            "message" to "You are currently signed out.",
+            "underlyingException" to "com.amazonaws.AmazonClientException: SignedOutException"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -540,16 +548,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to "See the attached exception for more details",
-                "message" to "An unclassified error prevented this operation.",
-                "underlyingException" to "com.amazonaws.AmazonClientException: UnknownException"
+            "recoverySuggestion" to "See the attached exception for more details",
+            "message" to "An unclassified error prevented this operation.",
+            "underlyingException" to "com.amazonaws.AmazonClientException: UnknownException"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -568,16 +576,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to expectedCode,
-                "message" to expectedCode,
-                "underlyingException" to "com.amazonaws.AmazonClientException: UserCancelledException"
+            "recoverySuggestion" to expectedCode,
+            "message" to expectedCode,
+            "underlyingException" to "com.amazonaws.AmazonClientException: UserCancelledException"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -596,16 +604,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to expectedCode,
-                "message" to expectedCode,
-                "underlyingException" to "${cognitoErrorPrefix}${expectedCode}: ${expectedCode}${cognitoErrorSuffix}"
+            "recoverySuggestion" to expectedCode,
+            "message" to expectedCode,
+            "underlyingException" to "${cognitoErrorPrefix}$expectedCode: ${expectedCode}$cognitoErrorSuffix"
         )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -624,15 +632,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to expectedCode,
-                "message" to expectedCode,
-                "underlyingException" to "${cognitoErrorPrefix}InvalidLambdaResponseException: ${expectedCode}${cognitoErrorSuffix}"        )
+            "recoverySuggestion" to expectedCode,
+            "message" to expectedCode,
+            "underlyingException" to "${cognitoErrorPrefix}InvalidLambdaResponseException: ${expectedCode}$cognitoErrorSuffix"
+        )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -651,15 +660,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to expectedCode,
-                "message" to expectedCode,
-                "underlyingException" to "${cognitoErrorPrefix}UnexpectedLambdaException: ${expectedCode}${cognitoErrorSuffix}"        )
+            "recoverySuggestion" to expectedCode,
+            "message" to expectedCode,
+            "underlyingException" to "${cognitoErrorPrefix}UnexpectedLambdaException: ${expectedCode}$cognitoErrorSuffix"
+        )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -678,15 +688,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to expectedCode,
-                "message" to expectedCode,
-                "underlyingException" to "${cognitoErrorPrefix}UserLambdaValidationException: ${expectedCode}${cognitoErrorSuffix}"        )
+            "recoverySuggestion" to expectedCode,
+            "message" to expectedCode,
+            "underlyingException" to "${cognitoErrorPrefix}UserLambdaValidationException: ${expectedCode}$cognitoErrorSuffix"
+        )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -705,15 +716,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to expectedCode,
-                "message" to expectedCode,
-                "underlyingException" to "${cognitoErrorPrefix}LimitExceededException: ${expectedCode}${cognitoErrorSuffix}"        )
+            "recoverySuggestion" to expectedCode,
+            "message" to expectedCode,
+            "underlyingException" to "${cognitoErrorPrefix}LimitExceededException: ${expectedCode}$cognitoErrorSuffix"
+        )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -732,15 +744,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to expectedCode,
-                "message" to expectedCode,
-                "underlyingException" to "${cognitoErrorPrefix}InvalidParameterException: ${expectedCode}${cognitoErrorSuffix}"        )
+            "recoverySuggestion" to expectedCode,
+            "message" to expectedCode,
+            "underlyingException" to "${cognitoErrorPrefix}InvalidParameterException: ${expectedCode}$cognitoErrorSuffix"
+        )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -759,15 +772,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to expectedCode,
-                "message" to expectedCode,
-                "underlyingException" to "${cognitoErrorPrefix}ExpiredCodeException: ${expectedCode}${cognitoErrorSuffix}"        )
+            "recoverySuggestion" to expectedCode,
+            "message" to expectedCode,
+            "underlyingException" to "${cognitoErrorPrefix}ExpiredCodeException: ${expectedCode}$cognitoErrorSuffix"
+        )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -786,15 +800,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to expectedCode,
-                "message" to expectedCode,
-                "underlyingException" to "${cognitoErrorPrefix}CodeMismatchException: ${expectedCode}${cognitoErrorSuffix}"        )
+            "recoverySuggestion" to expectedCode,
+            "message" to expectedCode,
+            "underlyingException" to "${cognitoErrorPrefix}CodeMismatchException: ${expectedCode}$cognitoErrorSuffix"
+        )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     @Test
@@ -813,15 +828,16 @@ class AuthErrorHandlerTest {
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
-                "recoverySuggestion" to expectedCode,
-                "message" to expectedCode,
-                "underlyingException" to "${cognitoErrorPrefix}CodeDeliveryFailureException: ${expectedCode}${cognitoErrorSuffix}"        )
+            "recoverySuggestion" to expectedCode,
+            "message" to expectedCode,
+            "underlyingException" to "${cognitoErrorPrefix}CodeDeliveryFailureException: ${expectedCode}$cognitoErrorSuffix"
+        )
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details)
     }
 
     private fun setFinalStatic(field: Field, newValue: Any?) {
@@ -832,5 +848,3 @@ class AuthErrorHandlerTest {
         field.set(null, newValue)
     }
 }
-
-
