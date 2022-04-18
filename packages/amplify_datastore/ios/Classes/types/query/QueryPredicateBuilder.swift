@@ -150,4 +150,27 @@ public enum QueryPredicateBuilder {
             return operand as? Persistable
         }
     }
+
+    static func extractPredicateWithModelIdentifier(_ serializedMap: [String: Any]?) throws -> FlutterModelIdentifier? {
+        guard let data = serializedMap else {
+            return nil
+        }
+
+        if let queryPredicateOperationMap = data["queryPredicateOperation"] as? [String: Any] {
+            if let fieldValue = extractFieldName(field: queryPredicateOperationMap["field"] as? String),
+               fieldValue == "modelIdentifier",
+               let queryFieldOperatorMap = queryPredicateOperationMap["fieldOperator"] as? [String: Any] {
+                guard let identifierFields = queryFieldOperatorMap["value"] as? [[String: Any]] else {
+                    throw DataStoreError.decodingError(
+                        "Model identifier fields must be a list of key-value pairs",
+                        "Check the values that are being passed from Dart."
+                    )
+                }
+
+                return try FlutterModelIdentifier(identifierFields: identifierFields)
+            }
+        }
+
+        return nil
+    }
 }

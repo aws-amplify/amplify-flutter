@@ -38,10 +38,22 @@ public class DataStoreBridge {
                               completion: completion)
     }
 
+    func onQueryByIdentifier(
+        modelSchema: ModelSchema,
+        identifier: ModelIdentifier<FlutterSerializedModel, FlutterSerializedModel.IdentifierFormat>,
+        completion: DataStoreCallback<FlutterSerializedModel?>) throws {
+            try getPlugin().query(
+                FlutterSerializedModel.self,
+                modelSchema: modelSchema,
+                byIdentifier: identifier,
+                completion: completion
+            )
+        }
+
     func onSave<M: Model>(serializedModel: M,
-                           modelSchema: ModelSchema,
-                           where predicate: QueryPredicate? = nil,
-                           completion: @escaping DataStoreCallback<M>) throws
+                          modelSchema: ModelSchema,
+                          where predicate: QueryPredicate? = nil,
+                          completion: @escaping DataStoreCallback<M>) throws
     {
         try getPlugin().save(serializedModel,
                              modelSchema: modelSchema,

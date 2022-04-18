@@ -25,7 +25,7 @@ struct FlutterModelSchema {
     var primaryKeyFieldKeys = [ModelFieldName]()
     var attributes: [FlutterModelAttribute] = []
 
-    init(serializedData: [String: Any]) throws {
+    init(serializedData: [String: Any], isModelSchema: Bool = true) throws {
         guard let name = serializedData["name"] as? String else {
             throw ModelSchemaError.parse(
                 className: "FlutterModelSchema",
@@ -65,6 +65,11 @@ struct FlutterModelSchema {
         if let inputPrimaryKey = serializedData["primaryKey"] as? [String: Any] {
             let parsedPrimaryKey = try parseInputIndexes(serializedData: inputPrimaryKey)
             primaryKeyFieldKeys += parsedPrimaryKey.fields
+        } else if (isModelSchema) {
+            // If this schema presents a model but has no primaryKey info provided from Dart
+            // then make a default primary key fields
+            // This is for backwards compatibility
+            primaryKeyFieldKeys += ["id"]
         }
     }
 

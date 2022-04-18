@@ -17,23 +17,39 @@ import Flutter
 import Foundation
 import Amplify
 
-struct FlutterSerializedModel: Model, JSONValueHolder {
-    public let id: String
+public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder {
+    public typealias IdentifierFormat = ModelIdentifierFormat.Custom
+    public typealias Identifier = ModelIdentifier<FlutterSerializedModel, ModelIdentifierFormat.Custom>
 
     public var values: [String: JSONValue]
+    public var _modelName: String
 
-    public init(id: String = UUID().uuidString, map: [String: JSONValue]) {
-        self.id = id
+    public var modelName: String {
+        _modelName
+    }
+
+    public init(map: [String: JSONValue], modelName: String) {
         self.values = map
+        self._modelName = modelName
     }
 
     public init(from decoder: Decoder) throws {
-        let y = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try y.decode(String.self, forKey: .id)
+        _ = try decoder.container(keyedBy: CodingKeys.self)
 
         let json = try JSONValue(from: decoder)
         let typeName = json["__typename"]
         let modified = FlutterSerializedModel.removeReservedNames(json)
+        _modelName = try { () -> String in
+            switch typeName {
+            case .some(.string(let deserializedValue)):
+                return deserializedValue
+            default:
+                throw DataStoreError.decodingError(
+                    "__typename was missing decoding JSON payload to FlutterSerializedModel",
+                    "please open an issue at https://github.com/aws-amplify/amplify-flutter/issues"
+                )
+            }
+        }()
 
         if case .object(var v) = modified {
             v["__typename"] = typeName
@@ -72,11 +88,11 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         try x.encode(values)
     }
 
-    internal func jsonValue(for key: String) -> Any?? {
+    public func jsonValue(for key: String) -> Any?? {
         return FlutterSerializedModel.extractJsonValue(value: values[key])
     }
 
-    internal func jsonValue(for key: String, modelSchema: ModelSchema) -> Any?? {
+    public func jsonValue(for key: String, modelSchema: ModelSchema) -> Any?? {
         return FlutterSerializedModel.extractJsonValue(key: key, value: values[key], modelSchema: modelSchema)
     }
 
@@ -283,7 +299,6 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         modelName: String
     ) throws -> [String: Any] {
         return [
-            "id": id,
             "modelName": modelName,
             "serializedData": try FlutterSerializedModel.generateSerializedData(
                 values: values,
@@ -297,7 +312,6 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
 
 extension FlutterSerializedModel {
     public enum CodingKeys: String, ModelKey {
-        case id
         case values
     }
 
