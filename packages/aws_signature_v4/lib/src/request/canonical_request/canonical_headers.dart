@@ -14,6 +14,11 @@
 
 part of 'canonical_request.dart';
 
+// Headers to ignore during signing.
+final _ignoreHeaders = CaseInsensitiveSet({
+  AWSHeaders.userAgent,
+});
+
 /// {@template aws_signature_v4.canonical_headers}
 /// A map of canonicalized headers.
 /// {@endtemplate}
@@ -30,7 +35,10 @@ class CanonicalHeaders extends DelegatingMap<String, String> {
       ),
     );
     return LinkedHashMap.fromEntries(
-      lowerCaseHeaders.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
+      lowerCaseHeaders.entries
+          .where((e) => !_ignoreHeaders.contains(e.key))
+          .toList()
+        ..sort((a, b) => a.key.compareTo(b.key)),
     );
   }
 

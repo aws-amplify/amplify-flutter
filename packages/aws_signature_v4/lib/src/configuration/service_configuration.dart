@@ -16,6 +16,7 @@ import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'package:aws_signature_v4/src/version.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 
@@ -125,6 +126,14 @@ class BaseServiceConfiguration extends ServiceConfiguration {
       if (credentials.sessionToken != null && !omitSessionToken)
         AWSHeaders.securityToken: credentials.sessionToken!,
     });
+
+    // Add user agent header
+    const userAgent = 'aws-sdk-dart/$packageVersion';
+    headers.update(
+      AWSHeaders.userAgent,
+      (value) => '$value $userAgent',
+      ifAbsent: () => userAgent,
+    );
   }
 
   @override

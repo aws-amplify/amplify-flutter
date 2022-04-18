@@ -78,4 +78,7 @@ abstract class AWSHeaders {
 
   /// The `Transfer-Encoding` header.
   static const transferEncoding = 'Transfer-Encoding';
+
+  /// The `User-Agent` header.
+  static const userAgent = 'User-Agent';
 }

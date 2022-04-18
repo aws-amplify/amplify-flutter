@@ -233,15 +233,14 @@ class SignerTest {
         reason: 'Signatures must be identical',
       );
 
-      expect(
-        const MapEquality<String, String>(keys: CaseInsensitiveEquality())
-            .equals(
+      for (final expectedHeader
+          in testMethodData.signedRequest.headers.entries) {
+        expect(
           signedRequest.headers,
-          testMethodData.signedRequest.headers,
-        ),
-        isTrue,
-        reason: 'Headers must be case-insensitive equal',
-      );
+          containsPair(expectedHeader.key, expectedHeader.value),
+          reason: 'Headers must be case-insensitive equal',
+        );
+      }
 
       expect(
         signedRequest.path,

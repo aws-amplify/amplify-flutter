@@ -19,7 +19,8 @@ part of 'canonical_request.dart';
 /// {@endtemplate}
 class SignedHeaders extends DelegatingIterable<String> {
   /// {@macro aws_signature_v4.signed_headers}
-  SignedHeaders(Map<String, String> headers) : super(headers.keys);
+  SignedHeaders(Map<String, String> headers)
+      : super(headers.keys.where((key) => !_ignoreHeaders.contains(key)));
 
   /// Creates the signed headers string.
   @override
