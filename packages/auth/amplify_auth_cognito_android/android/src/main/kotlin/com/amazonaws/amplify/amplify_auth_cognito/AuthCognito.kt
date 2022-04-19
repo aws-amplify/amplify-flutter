@@ -92,6 +92,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     private val authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler
     var eventMessenger: BinaryMessenger? = null
     private lateinit var activityBinding: ActivityPluginBinding
+    private val nullaryMethods = listOf("deleteUser")
 
     /**
      * Handles the Devices API.
@@ -179,12 +180,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         }
 
         var data: HashMap<String, Any> = HashMap<String, Any> ()
-        try {
-            data = checkData(checkArguments(call.arguments))
-        } catch (e: Exception) {
-            return errorHandler.prepareGenericException(result, e)
+        if (!nullaryMethods.contains(call.method)) {
+            try {
+                data = checkData(checkArguments(call.arguments))
+            } catch (e: Exception) {
+                return errorHandler.prepareGenericException(result, e)
+            }
         }
-
         when (call.method) {
             "signUp" -> onSignUp(result, data)
             "confirmSignUp" -> onConfirmSignUp(result, data)
@@ -666,6 +668,12 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         var resendUserAttributeConfirmationCodeResult = FlutterResendUserAttributeConfirmationCodeResult(result)
         Handler(Looper.getMainLooper()).post {
             flutterResult.success(resendUserAttributeConfirmationCodeResult.toValueMap())
+        }
+    }
+
+    fun prepareDeleteResult(@NonNull flutterResult: Result) {
+        Handler(Looper.getMainLooper()).post {
+            flutterResult.success(null)
         }
     }
 }

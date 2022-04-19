@@ -72,8 +72,8 @@ android {
 dependencies {
     api amplifyCore
 
-    implementation 'com.amplifyframework:aws-analytics-pinpoint:1.32.2'
-    implementation 'com.amplifyframework:aws-auth-cognito:1.32.2'
+    implementation 'com.amplifyframework:aws-analytics-pinpoint:1.35.1'
+    implementation 'com.amplifyframework:aws-auth-cognito:1.35.1'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.10.0'
