@@ -16,16 +16,24 @@
 import 'model_schema.dart';
 import 'model_schema_definition.dart';
 
-abstract class Model {
-  ModelType getInstanceType();
+class Model {
+  ModelType getInstanceType() {
+    throw UnimplementedError();
+  }
 
   @Deprecated(
       '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
-  String getId();
+  String getId() {
+    throw UnimplementedError();
+  }
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() {
+    throw UnimplementedError();
+  }
 
-  ModelIdentifier get modelIdentifier;
+  ModelIdentifier get modelIdentifier {
+    throw UnimplementedError();
+  }
 
   const Model();
 
