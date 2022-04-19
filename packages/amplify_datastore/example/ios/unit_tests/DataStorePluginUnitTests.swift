@@ -20,12 +20,11 @@ import amplify_core
 @testable import AmplifyPlugins
 @testable import amplify_datastore
 
-let testSchema: ModelSchema = ModelSchema.init(name: "Post")
+let testSchema: ModelSchema = SchemaData.PostSchema
 let amplifySuccessResults: [FlutterSerializedModel] =
     (try! readJsonArray(filePath: "2_results") as! [[String: Any]]).map { (serializedModel) in
         FlutterSerializedModel.init(
-            id: serializedModel["id"] as! String,
-            map: try! getJSONValue(serializedModel["serializedData"] as! [String : Any]))
+            map: try! getJSONValue(serializedModel["serializedData"] as! [String : Any]), modelName: serializedModel["modelName"] as! String)
     }
 
 let id: QueryField = field("id")
@@ -83,14 +82,12 @@ class DataStorePluginUnitTests: XCTestCase {
             flutterResult: { (results) -> Void in
                 if let results = results as? [[String: Any]] {
                     // Result #1 (Any/AnyObject is not equatable so we iterate over fields we know)
-                    XCTAssertEqual("4281dfba-96c8-4a38-9a8e-35c7e893ea47", results[0]["id"] as! String)
                     XCTAssertEqual("Post", results[0]["modelName"] as! String)
                     XCTAssertEqual("4281dfba-96c8-4a38-9a8e-35c7e893ea47", (results[0]["serializedData"] as! [String: Any])["id"] as! String)
                     XCTAssertEqual("Title 1", (results[0]["serializedData"] as! [String: Any])["title"] as! String)
-                    XCTAssertEqual(4, (results[0]["serializedData"] as! [String: Any])["rating"] as? Double) // Fixme, manually testing results in int
+                    XCTAssertEqual(4, (results[0]["serializedData"] as! [String: Any])["rating"] as? Int) // Fixme, manually testing results in int
 
                     // Result #2
-                    XCTAssertEqual("43036c6b-8044-4309-bddc-262b6c686026", results[1]["id"] as! String)
                     XCTAssertEqual("Post", results[1]["modelName"] as! String)
                     XCTAssertEqual("43036c6b-8044-4309-bddc-262b6c686026", (results[1]["serializedData"] as! [String: Any])["id"] as! String)
                     XCTAssertEqual("Title 2", (results[1]["serializedData"] as! [String: Any])["title"] as! String)
@@ -218,11 +215,10 @@ class DataStorePluginUnitTests: XCTestCase {
                 XCTAssertEqual("create", flutterEvent["eventType"] as! String)
 
                 let item = flutterEvent["item"] as! [String: Any]
-                XCTAssertEqual("4281dfba-96c8-4a38-9a8e-35c7e893ea47", item["id"] as! String)
                 XCTAssertEqual("Post", item["modelName"] as! String)
                 XCTAssertEqual("4281dfba-96c8-4a38-9a8e-35c7e893ea47", (item["serializedData"] as! [String: Any])["id"] as! String)
                 XCTAssertEqual("Title 1", (item["serializedData"] as! [String: Any])["title"] as! String)
-                XCTAssertEqual(4, (item["serializedData"] as! [String: Any])["rating"] as? Double) // Fixme, manually testing results in int
+                XCTAssertEqual(4, (item["serializedData"] as! [String: Any])["rating"] as? Int) // Fixme, manually testing results in int
             }
         }
 
@@ -478,7 +474,6 @@ class DataStorePluginUnitTests: XCTestCase {
                 where predicate: QueryPredicate? = nil,
                 completion: @escaping DataStoreCallback<M>) throws {
                 // Validations that we called the native library correctly
-                XCTAssertEqual("9fc5fab4-37ff-4566-97e5-19c5d58a4c22", serializedModel.id)
                 XCTAssertEqual(testSchema.name, modelSchema.name)
                 XCTAssertNil(predicate)
                 // Return from the mock
@@ -506,7 +501,6 @@ class DataStorePluginUnitTests: XCTestCase {
                 where predicate: QueryPredicate? = nil,
                 completion: @escaping DataStoreCallback<M>) throws {
                 // Validations that we called the native library correctly
-                XCTAssertEqual("9fc5fab4-37ff-4566-97e5-19c5d58a4c22", serializedModel.id)
                 XCTAssertEqual(testSchema.name, modelSchema.name)
                 XCTAssertNil(predicate)
                 // Return from the mock

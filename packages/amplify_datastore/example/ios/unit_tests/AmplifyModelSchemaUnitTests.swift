@@ -33,7 +33,8 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
                 customTypeSchemasRegistry.addModelSchema(
                     modelName: serializedCustomType["name"] as! String,
                     modelSchema: try FlutterModelSchema(
-                        serializedData: serializedCustomType
+                        serializedData: serializedCustomType,
+                        isModelSchema: false
                     ).convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
                 )
             } catch {
@@ -100,7 +101,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
 
     func test_model_nested_custom_type_schema() throws {
         let personModelSchema = try FlutterModelSchema(
-            serializedData: modelSchemaMap["PersonModelSchema"] as! [String: Any])
+            serializedData: modelSchemaMap["PersonModelSchema"] as! [String: Any], isModelSchema: false)
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
         let expectedPersonModelSchema = SchemaData.PersonSchema
 

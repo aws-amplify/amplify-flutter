@@ -20,21 +20,21 @@ import Amplify
 struct FlutterSerializedModelData {
 
     static var BlogSerializedModel : FlutterSerializedModel =
-        FlutterSerializedModel(id: "999", map: [
+        FlutterSerializedModel(map: [
             "id" : JSONValue.string("999"),
             "name" : JSONValue.string("blog name"),
-        ]);
+        ], modelName: "Blog");
     static var CommentSerializedModel : FlutterSerializedModel =
-        FlutterSerializedModel(id: "999", map: [
+        FlutterSerializedModel(map: [
             "id" : JSONValue.string("999"),
             "post" : JSONValue.object([
                 "id" : "555"
             ]),
             "content" : "content"
-       ]);
+       ], modelName: "Comment");
 
     static var PostSerializedModel : FlutterSerializedModel =
-        FlutterSerializedModel(id: "999", map: [
+        FlutterSerializedModel(map: [
             "id" : JSONValue.string("999"),
             "title" : JSONValue.string("post title"),
             "created" : JSONValue.string("2020-11-25T01:28:49.000Z"),
@@ -51,10 +51,10 @@ struct FlutterSerializedModelData {
                     "description": "Testing department 1"
                 ])
             ])
-        ]);
+        ], modelName: "Post");
 
     static var AllTypeModelSerializedModel : FlutterSerializedModel =
-        FlutterSerializedModel(id: "999", map: [
+        FlutterSerializedModel(map: [
             "id" : JSONValue.string("999"),
             "stringType" : JSONValue.string("string value"),
             "intType": JSONValue.number(10),
@@ -65,11 +65,10 @@ struct FlutterSerializedModelData {
             "timeType" : JSONValue.string("20:20:20:020Z"),
             "timestampType" : JSONValue.number(999),
             "enumType" : JSONValue.string("maybe")
-        ]);
+        ], modelName: "AllTypeModel");
 
     static var PersonModelSerializedModel: FlutterSerializedModel =
         FlutterSerializedModel(
-            id: "123",
             map: [
                 "id": JSONValue.string("123"),
                 "name": JSONValue.string("Tester Testing"),
@@ -112,6 +111,7 @@ struct FlutterSerializedModelData {
                         "field": "just a string"
                     ])
                 ])
-            ]
+            ],
+            modelName: "Person"
         )
 }
