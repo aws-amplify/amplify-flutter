@@ -7,21 +7,26 @@ An HTTP request signer for AWS Signature Version 4, which can be used to communi
 Using static credentials:
 
 ```dart
+import 'dart:convert';
+
+import 'package:aws_common/aws_common.dart';
+import 'package:aws_signature_v4/aws_signature_v4.dart';
+
 final AWSCredentials credentials =
-  AWSCredentials(accessKeyId, secretAccessKey, sessionToken);
+    AWSCredentials(accessKeyId, secretAccessKey, sessionToken);
 final AWSSigV4Signer signer = AWSSigV4Signer(
   credentialsProvider: AWSCredentialsProvider(credentials),
 );
 
+const region = 'us-east-1';
 final AWSCredentialScope scope =
     AWSCredentialScope(region: region, service: 'cognito-idp');
 final List<int> body = json.encode({
   'UserPoolId': userPoolId,
 }).codeUnits;
 final AWSHttpRequest sigRequest = AWSHttpRequest(
-  method: HttpMethod.post,
-  host: 'cognito-idp.$region.amazonaws.com',
-  path: '/',
+  method: AWSHttpMethod.post,
+  uri: Uri.https('cognito-idp.$region.amazonaws.com', '/'),
   headers: {
     AWSHeaders.target: 'AWSCognitoIdentityProviderService.DescribeUserPool',
     AWSHeaders.contentType: 'application/x-amz-json-1.1',
@@ -34,8 +39,8 @@ final AWSSignedRequest signedRequest = await signer.sign(
   sigRequest,
   credentialScope: scope,
 );
-final resp = await signedRequest.send();
-final respBody = await resp.stream.bytesToString();
+final AWSStreamedHttpResponse resp = await signedRequest.send();
+final String respBody = await resp.decodeBody();
 print(respBody);
 ```
 

@@ -23,12 +23,14 @@ import 'testdata/single_chunk_testdata.dart';
 
 void main() {
   group('S3', () {
-    for (var signerTest in testCases) {
-      test(signerTest.name, () {
-        runZoned(signerTest.run, zoneValues: {
-          zIncludeUserAgent: false,
+    group('Single Chunk', () {
+      for (var signerTest in testCases) {
+        test(signerTest.name, () {
+          runZoned(signerTest.run, zoneValues: {
+            zIncludeUserAgent: false,
+          });
         });
-      });
-    }
+      }
+    });
   });
 }

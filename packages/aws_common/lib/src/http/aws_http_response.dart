@@ -13,6 +13,8 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
@@ -36,11 +38,17 @@ abstract class AWSBaseHttpResponse implements Closeable {
   /// The response's body.
   Stream<List<int>> get body;
 
+  /// The collected bytes of the response [body].
+  FutureOr<List<int>> get bodyBytes;
+
+  /// Decodes the response body using [encoding] (defaults to UTF-8).
+  FutureOr<String> decodeBody({Encoding encoding = utf8});
+
   AWSBaseHttpResponse._({
     required this.statusCode,
     Map<String, String>? headers,
   }) : headers = UnmodifiableMapView(
-          CaseInsensitiveMap(headers ?? {}),
+          CaseInsensitiveMap(headers ?? const {}),
         );
 }
 
@@ -62,8 +70,13 @@ class AWSHttpResponse extends AWSBaseHttpResponse {
   Stream<List<int>> get body =>
       bodyBytes.isEmpty ? const Stream.empty() : Stream.value(bodyBytes);
 
-  /// The body bytes.
+  @override
   final List<int> bodyBytes;
+
+  @override
+  String decodeBody({Encoding encoding = utf8}) {
+    return encoding.decode(bodyBytes);
+  }
 
   @override
   void close() {}
@@ -93,6 +106,24 @@ class AWSStreamedHttpResponse extends AWSBaseHttpResponse
 
   @override
   Stream<List<int>> get body => _splitter == null ? _body : split();
+
+  @override
+  Future<String> decodeBody({Encoding encoding = utf8}) {
+    return encoding.decodeStream(body);
+  }
+
+  @override
+  Future<Uint8List> get bodyBytes {
+    final completer = Completer<Uint8List>();
+    final sink = ByteConversionSink.withCallback(
+      (bytes) => completer.complete(Uint8List.fromList(bytes)),
+    );
+    body.listen(sink.add,
+        onError: completer.completeError,
+        onDone: sink.close,
+        cancelOnError: true);
+    return completer.future;
+  }
 
   /// The number of times the body stream has been split.
   @visibleForTesting

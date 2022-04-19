@@ -20,12 +20,11 @@ import 'package:args/args.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:collection/collection.dart';
-import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 
 // This examples walks through the creation of an S3 bucket and the process of
-// uploading a file to that bucket and retrieving a secure URL for reading back
-// its contents.
+// uploading a file to that bucket and retrieving a pre-signed URL for reading
+// back its contents.
 
 Future<void> main(List<String> args) async {
   final argParser = ArgParser();
@@ -58,25 +57,25 @@ Future<void> main(List<String> args) async {
     mandatory: true,
   );
 
-  final pArgs = argParser.parse(args);
+  final parsedArgs = argParser.parse(args);
   final String? accessKeyId =
-      Platform.environment[$awsAccessKeyId] ?? pArgs[accessKeyIdArg];
-  final String? secretAccessKey =
-      Platform.environment[$awsSecretAccessKey] ?? pArgs[secretAccessKeyArg];
+      Platform.environment[$awsAccessKeyId] ?? parsedArgs[accessKeyIdArg];
+  final String? secretAccessKey = Platform.environment[$awsSecretAccessKey] ??
+      parsedArgs[secretAccessKeyArg];
   final String? sessionToken =
-      Platform.environment[$awsSessionToken] ?? pArgs[sessionTokenArg];
+      Platform.environment[$awsSessionToken] ?? parsedArgs[sessionTokenArg];
 
   if (accessKeyId == null || secretAccessKey == null) {
-    exitError('No AWS credentials found');
+    exitWithError('No AWS credentials found');
   }
 
-  final bucket =
-      pArgs[bucketArg] as String? ?? 'mybucket-${Random().nextInt(1 << 30)}';
-  final region = pArgs[regionArg] as String;
-  final filename = pArgs.rest.singleOrNull;
+  final bucket = parsedArgs[bucketArg] as String? ??
+      'mybucket-${Random().nextInt(1 << 30)}';
+  final region = parsedArgs[regionArg] as String;
+  final filename = parsedArgs.rest.singleOrNull;
 
   if (filename == null) {
-    exitError(
+    exitWithError(
       'Usage: dart s3_example.dart --bucket=... --region=... <FILE_TO_UPLOAD>',
     );
   }
@@ -99,10 +98,8 @@ Future<void> main(List<String> args) async {
 <LocationConstraint>$region</LocationConstraint>
 </CreateBucketConfiguration>
 ''');
-  final AWSHttpRequest createRequest = AWSHttpRequest(
-    method: HttpMethod.put,
-    host: host,
-    path: '/',
+  final AWSHttpRequest createRequest = AWSHttpRequest.put(
+    Uri.https(host, '/'),
     body: createBody,
     headers: {
       AWSHeaders.host: host,
@@ -117,24 +114,23 @@ Future<void> main(List<String> args) async {
     credentialScope: scope,
     serviceConfiguration: serviceConfiguration,
   );
-  final http.StreamedResponse createResponse = await signedCreateRequest.send();
+  final AWSStreamedHttpResponse createResponse =
+      await signedCreateRequest.send();
   final int createStatus = createResponse.statusCode;
   stdout.writeln('Create Bucket Response: $createStatus');
   if (createStatus == 409) {
-    exitError('Bucket name already exists!');
+    exitWithError('Bucket name already exists!');
   }
   if (createStatus != 200) {
-    exitError('Bucket creation failed');
+    exitWithError('Bucket creation failed');
   }
   stdout.writeln('Bucket creation succeeded!');
 
   // Upload the file
   final Stream<List<int>> file = File(filename).openRead();
   final String path = '/${p.basename(filename)}';
-  final AWSStreamedHttpRequest uploadRequest = AWSStreamedHttpRequest(
-    method: HttpMethod.put,
-    host: host,
-    path: path,
+  final AWSStreamedHttpRequest uploadRequest = AWSStreamedHttpRequest.put(
+    Uri.https(host, path),
     body: file,
     headers: {
       AWSHeaders.host: host,
@@ -148,19 +144,18 @@ Future<void> main(List<String> args) async {
     credentialScope: scope,
     serviceConfiguration: serviceConfiguration,
   );
-  final http.StreamedResponse uploadResponse = await signedUploadRequest.send();
+  final AWSStreamedHttpResponse uploadResponse =
+      await signedUploadRequest.send();
   final int uploadStatus = uploadResponse.statusCode;
   stdout.writeln('Upload File Response: $uploadStatus');
   if (uploadStatus != 200) {
-    exitError('Could not upload file');
+    exitWithError('Could not upload file');
   }
   stdout.writeln('File uploaded successfully!');
 
   // Create a pre-signed URL for downloading the file
-  final AWSHttpRequest urlRequest = AWSHttpRequest(
-    method: HttpMethod.get,
-    host: host,
-    path: path,
+  final AWSHttpRequest urlRequest = AWSHttpRequest.get(
+    Uri.https(host, path),
     headers: {
       AWSHeaders.host: host,
     },
@@ -175,7 +170,7 @@ Future<void> main(List<String> args) async {
 }
 
 /// Exits the script with an [error].
-Never exitError(String error) {
+Never exitWithError(String error) {
   stderr.writeln(error);
   exit(1);
 }

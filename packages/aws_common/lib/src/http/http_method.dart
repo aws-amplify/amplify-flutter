@@ -13,7 +13,7 @@
 // limitations under the License.
 
 /// Valid HTTP methods for AWS requests.
-enum HttpMethod {
+enum AWSHttpMethod {
   /// HTTP GET
   get,
 
@@ -42,29 +42,14 @@ enum HttpMethod {
   trace,
 }
 
-/// Helpers for [HttpMethod].
-extension HttpMethodX on HttpMethod {
+/// Helpers for [AWSHttpMethod].
+extension AWSHttpMethodHelper on AWSHttpMethod {
   /// Parses the HTTP method from [method].
-  static HttpMethod fromString(String method) =>
-      HttpMethod.values.firstWhere((el) => method.toUpperCase() == el.value);
+  static AWSHttpMethod fromString(String method) =>
+      AWSHttpMethod.values.firstWhere((el) => method.toUpperCase() == el.value);
 
   /// {@template aws_common.http_method_value}
   /// Returns the uppercased HTTP method, e.g. 'POST'.
   /// {@endtemplate}
   String get value => toString().split('.')[1].toUpperCase();
-
-  /// {@macro aws_common.http_method_value}
-  String canonicalize() => value.toUpperCase();
-
-  /// Whether this method requires a body.
-  bool get hasBody {
-    switch (this) {
-      case HttpMethod.post:
-      case HttpMethod.put:
-      case HttpMethod.patch:
-        return true;
-      default:
-        return false;
-    }
-  }
 }

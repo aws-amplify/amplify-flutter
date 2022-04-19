@@ -27,8 +27,8 @@ class AWSConfigValue<T extends Object> {
     this.key,
     this._fromEnv,
     this.defaultValue, {
-    T? Function(String)? tryParse,
-  }) : _tryParse = tryParse ?? _identity;
+    T Function(String)? parse,
+  }) : _parse = parse ?? _identity;
 
   /// The `AWS_MAX_ATTEMPTS` value specifies how many HTTP requests an SDK
   /// should make for a single SDK operation invocation before giving up.
@@ -36,7 +36,7 @@ class AWSConfigValue<T extends Object> {
     'AWS_MAX_ATTEMPTS',
     String.fromEnvironment('AWS_MAX_ATTEMPTS'),
     3,
-    tryParse: int.tryParse,
+    parse: int.parse,
   );
 
   /// The environment variable key.
@@ -46,7 +46,7 @@ class AWSConfigValue<T extends Object> {
   final T defaultValue;
 
   final String? _fromEnv;
-  final T? Function(String) _tryParse;
+  final T Function(String) _parse;
   String? get _fromPlatformEnv => lookupPlatformEnv(key);
 
   /// The value of the configuration parameter. Lookup order:
@@ -59,24 +59,15 @@ class AWSConfigValue<T extends Object> {
     if (fromOverride is T) {
       return fromOverride;
     } else if (fromOverride is String) {
-      final parsed = _tryParse(fromOverride);
-      if (parsed != null) {
-        return parsed;
-      }
+      return _parse(fromOverride);
     }
     final fromEnv = _fromEnv;
-    if (fromEnv != null) {
-      final value = _tryParse(fromEnv);
-      if (value != null) {
-        return value;
-      }
+    if (fromEnv != null && fromEnv.isNotEmpty) {
+      return _parse(fromEnv);
     }
     final fromPlatformEnv = _fromPlatformEnv;
-    if (fromPlatformEnv != null) {
-      final value = _tryParse(fromPlatformEnv);
-      if (value != null) {
-        return value;
-      }
+    if (fromPlatformEnv != null && fromPlatformEnv.isNotEmpty) {
+      return _parse(fromPlatformEnv);
     }
     return defaultValue;
   }

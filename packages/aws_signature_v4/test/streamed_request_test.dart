@@ -37,7 +37,7 @@ void main() {
     group('base service configuration', () {
       test('| body is split twice with contentLength given', () async {
         final request = AWSStreamedHttpRequest(
-          method: HttpMethod.post,
+          method: AWSHttpMethod.post,
           host: 'example.com',
           path: '/',
           body: makeBody(),
@@ -59,7 +59,7 @@ void main() {
 
       test('| body is split thrice without contentLength given', () async {
         final request = AWSStreamedHttpRequest(
-          method: HttpMethod.post,
+          method: AWSHttpMethod.post,
           host: 'example.com',
           path: '/',
           body: makeBody(),
@@ -85,7 +85,7 @@ void main() {
 
       test('| body is not split when contentLength is given', () async {
         final request = AWSStreamedHttpRequest(
-          method: HttpMethod.post,
+          method: AWSHttpMethod.post,
           host: 'example.com',
           path: '/',
           body: makeBody(),
@@ -107,7 +107,7 @@ void main() {
 
       test('| body is split twice when contentLength is not given', () async {
         final request = AWSStreamedHttpRequest(
-          method: HttpMethod.post,
+          method: AWSHttpMethod.post,
           host: 'example.com',
           path: '/',
           body: makeBody(),

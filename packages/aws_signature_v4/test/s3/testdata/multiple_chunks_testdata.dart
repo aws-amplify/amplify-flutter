@@ -49,7 +49,7 @@ AWS4-HMAC-SHA256
 cee3fed04b70f867d036f722359b0b1f2f0e5dc0efadbc082b76c4c60e316455''',
   signature: '4f232c4386841ef735655705268965c44a0e4690baa4adea153f7db9fa80a0a9',
   signedRequest: AWSStreamedHttpRequest(
-    method: HttpMethod.put,
+    method: AWSHttpMethod.put,
     host: 's3.amazonaws.com',
     path: '/examplebucket/chunkObject.txt',
     headers: {
@@ -83,7 +83,7 @@ final putObjectTest = SignerTest(
   name: 'PUT Object',
   context: buildContext(),
   request: AWSStreamedHttpRequest(
-    method: HttpMethod.put,
+    method: AWSHttpMethod.put,
     host: 's3.amazonaws.com',
     path: '/examplebucket/chunkObject.txt',
     headers: {

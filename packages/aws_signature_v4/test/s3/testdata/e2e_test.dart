@@ -14,6 +14,7 @@
 
 @TestOn('vm')
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:aws_common/aws_common.dart';
@@ -38,7 +39,7 @@ void main() {
       final signer = AWSSigV4Signer(credentialsProvider: creds);
       final signedReq = await signer.sign(
         AWSStreamedHttpRequest(
-          method: HttpMethod.put,
+          method: AWSHttpMethod.put,
           host: 's3.amazonaws.com',
           path: '/examplebucket/chunkObject.txt',
           body: testBody,
@@ -56,7 +57,7 @@ void main() {
       final resp = await signedReq.send(client);
 
       expect(resp.statusCode, equals(200));
-      expect(await resp.stream.bytesToString(), equals('OK'));
+      expect(await utf8.decodeStream(resp.body), equals('OK'));
     });
   });
 }

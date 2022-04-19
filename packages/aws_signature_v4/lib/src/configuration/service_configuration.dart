@@ -17,7 +17,6 @@ import 'dart:async';
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:aws_signature_v4/src/version.dart';
-import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 
 /// Zone flag to change inclusion of user agent header.
@@ -171,7 +170,7 @@ class BaseServiceConfiguration extends ServiceConfiguration {
     required bool presignedUrl,
   }) async {
     if (request is AWSStreamedHttpRequest) {
-      final payload = await ByteStream(request.split()).toBytes();
+      final payload = await request.bodyBytes;
       return payloadEncoder.convert(payload);
     }
     return hashPayloadSync(request, presignedUrl: presignedUrl);

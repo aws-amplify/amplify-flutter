@@ -13,6 +13,8 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
@@ -31,7 +33,7 @@ import 'package:meta/meta.dart';
 /// - [AWSStreamedHttpRequest]
 abstract class AWSBaseHttpRequest implements Closeable {
   /// The method of the request.
-  final HttpMethod method;
+  final AWSHttpMethod method;
 
   /// The scheme of the request, e.g. `https`.
   final String scheme;
@@ -57,8 +59,11 @@ abstract class AWSBaseHttpRequest implements Closeable {
   /// The case-insensitive headers of the request.
   final Map<String, String> headers;
 
-  /// The request's body.
+  /// The request's body stream.
   Stream<List<int>> get body;
+
+  /// The collected bytes of the [body] stream.
+  FutureOr<List<int>> get bodyBytes;
 
   /// The request's content length.
   ///
@@ -100,14 +105,19 @@ abstract class AWSBaseHttpRequest implements Closeable {
   /// Sends the HTTP request.
   ///
   /// If [client] is not provided, a short-lived one is created for this request.
-  Future<http.StreamedResponse> send([http.Client? client]) async {
-    final _client = client ?? http.Client();
+  Future<AWSStreamedHttpResponse> send([http.Client? client]) async {
+    final useClient = client ?? http.Client();
     try {
-      return await _client.send(httpRequest);
+      final resp = await useClient.send(httpRequest);
+      return AWSStreamedHttpResponse(
+        headers: resp.headers,
+        statusCode: resp.statusCode,
+        body: resp.stream,
+      );
     } finally {
       // Only close a client we created.
       if (client == null) {
-        _client.close();
+        useClient.close();
       }
     }
   }
@@ -132,7 +142,7 @@ abstract class AWSBaseHttpRequest implements Closeable {
 class AWSHttpRequest extends AWSBaseHttpRequest {
   /// {@macro aws_common.aws_http_request}
   AWSHttpRequest({
-    required HttpMethod method,
+    required AWSHttpMethod method,
     String scheme = 'https',
     required String host,
     int? port,
@@ -152,10 +162,10 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
           headers: headers,
         );
 
-  /// Creates a GET request for [uri].
+  /// Creates a `GET` request for [uri].
   AWSHttpRequest.get(Uri uri, {Map<String, String>? headers})
       : this(
-          method: HttpMethod.get,
+          method: AWSHttpMethod.get,
           scheme: uri.scheme,
           host: uri.host,
           port: uri.port,
@@ -164,51 +174,79 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
           headers: headers,
         );
 
-  /// Creates a POST request for [uri].
-  AWSHttpRequest.post(
-    Uri uri, {
-    required List<int> body,
-    Map<String, String>? headers,
-  }) : this(
-          method: HttpMethod.post,
+  /// Creates a `HEAD` request for [uri].
+  AWSHttpRequest.head(Uri uri, {Map<String, String>? headers})
+      : this(
+          method: AWSHttpMethod.head,
           scheme: uri.scheme,
           host: uri.host,
           port: uri.port,
           path: uri.path,
-          body: body,
           queryParameters: uri.queryParametersAll,
           headers: headers,
         );
 
-  /// Creates a PUT request for [uri].
+  /// Creates a `PUT` request for [uri].
   AWSHttpRequest.put(
     Uri uri, {
-    required List<int> body,
+    List<int>? body,
     Map<String, String>? headers,
   }) : this(
-          method: HttpMethod.put,
+          method: AWSHttpMethod.put,
           scheme: uri.scheme,
           host: uri.host,
           port: uri.port,
           path: uri.path,
-          body: body,
           queryParameters: uri.queryParametersAll,
+          body: body,
           headers: headers,
         );
 
-  /// Creates a PATCH request for [uri].
-  AWSHttpRequest.patch(
+  /// Creates a `POST` request for [uri].
+  AWSHttpRequest.post(
     Uri uri, {
-    required List<int> body,
+    List<int>? body,
     Map<String, String>? headers,
   }) : this(
-          method: HttpMethod.patch,
+          method: AWSHttpMethod.post,
           scheme: uri.scheme,
           host: uri.host,
           port: uri.port,
           path: uri.path,
-          body: body,
           queryParameters: uri.queryParametersAll,
+          body: body,
+          headers: headers,
+        );
+
+  /// Creates a `PATCH` request for [uri].
+  AWSHttpRequest.patch(
+    Uri uri, {
+    List<int>? body,
+    Map<String, String>? headers,
+  }) : this(
+          method: AWSHttpMethod.patch,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.port,
+          path: uri.path,
+          queryParameters: uri.queryParametersAll,
+          body: body,
+          headers: headers,
+        );
+
+  /// Creates a `DELETE` request for [uri].
+  AWSHttpRequest.delete(
+    Uri uri, {
+    List<int>? body,
+    Map<String, String>? headers,
+  }) : this(
+          method: AWSHttpMethod.delete,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.port,
+          path: uri.path,
+          queryParameters: uri.queryParametersAll,
+          body: body,
           headers: headers,
         );
 
@@ -222,7 +260,7 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
   @override
   bool get hasContentLength => true;
 
-  /// The body bytes.
+  @override
   final List<int> bodyBytes;
 
   @override
@@ -241,16 +279,16 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
   /// have to be read twice, since the content length must be known when
   /// calculating the signature.
   AWSStreamedHttpRequest({
-    required HttpMethod method,
+    required AWSHttpMethod method,
     String scheme = 'https',
     required String host,
     int? port,
     required String path,
     Map<String, Object>? queryParameters,
     Map<String, String>? headers,
-    required Stream<List<int>> body,
+    Stream<List<int>>? body,
     int? contentLength,
-  })  : _body = body,
+  })  : _body = body ?? const Stream.empty(),
         _contentLength = contentLength,
         super._(
           method: method,
@@ -262,28 +300,40 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
           headers: headers,
         );
 
-  /// Creates a GET request for [uri].
+  /// Creates a `GET` request for [uri].
   AWSStreamedHttpRequest.get(Uri uri, {Map<String, String>? headers})
       : this(
-          method: HttpMethod.get,
+          method: AWSHttpMethod.get,
           scheme: uri.scheme,
           host: uri.host,
           port: uri.port,
           path: uri.path,
           queryParameters: uri.queryParametersAll,
           headers: headers,
-          body: const Stream.empty(),
           contentLength: 0,
         );
 
-  /// Creates a POST request for [uri].
+  /// Creates a `HEAD` request for [uri].
+  AWSStreamedHttpRequest.head(Uri uri, {Map<String, String>? headers})
+      : this(
+          method: AWSHttpMethod.head,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.port,
+          path: uri.path,
+          queryParameters: uri.queryParametersAll,
+          headers: headers,
+          contentLength: 0,
+        );
+
+  /// Creates a `POST` request for [uri].
   AWSStreamedHttpRequest.post(
     Uri uri, {
-    required Stream<List<int>> body,
+    Stream<List<int>>? body,
     int? contentLength,
     Map<String, String>? headers,
   }) : this(
-          method: HttpMethod.post,
+          method: AWSHttpMethod.post,
           scheme: uri.scheme,
           host: uri.host,
           port: uri.port,
@@ -294,14 +344,14 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
           contentLength: contentLength,
         );
 
-  /// Creates a PUT request for [uri].
+  /// Creates a `PUT` request for [uri].
   AWSStreamedHttpRequest.put(
     Uri uri, {
-    required Stream<List<int>> body,
+    Stream<List<int>>? body,
     int? contentLength,
     Map<String, String>? headers,
   }) : this(
-          method: HttpMethod.put,
+          method: AWSHttpMethod.put,
           scheme: uri.scheme,
           host: uri.host,
           port: uri.port,
@@ -312,14 +362,32 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
           contentLength: contentLength,
         );
 
-  /// Creates a PATCH request for [uri].
+  /// Creates a `PATCH` request for [uri].
   AWSStreamedHttpRequest.patch(
     Uri uri, {
-    required Stream<List<int>> body,
+    Stream<List<int>>? body,
     int? contentLength,
     Map<String, String>? headers,
   }) : this(
-          method: HttpMethod.patch,
+          method: AWSHttpMethod.patch,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.port,
+          path: uri.path,
+          queryParameters: uri.queryParametersAll,
+          headers: headers,
+          body: body,
+          contentLength: contentLength,
+        );
+
+  /// Creates a `DELETE` request for [uri].
+  AWSStreamedHttpRequest.delete(
+    Uri uri, {
+    Stream<List<int>>? body,
+    int? contentLength,
+    Map<String, String>? headers,
+  }) : this(
+          method: AWSHttpMethod.delete,
           scheme: uri.scheme,
           host: uri.host,
           port: uri.port,
@@ -338,6 +406,19 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
 
   @override
   Stream<List<int>> get body => _splitter == null ? _body : split();
+
+  @override
+  Future<Uint8List> get bodyBytes {
+    final completer = Completer<Uint8List>();
+    final sink = ByteConversionSink.withCallback(
+      (bytes) => completer.complete(Uint8List.fromList(bytes)),
+    );
+    split().listen(sink.add,
+        onError: completer.completeError,
+        onDone: sink.close,
+        cancelOnError: true);
+    return completer.future;
+  }
 
   /// The number of times the body stream has been split.
   @visibleForTesting

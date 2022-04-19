@@ -22,11 +22,11 @@ import 'package:collection/collection.dart';
 /// {@endtemplate}
 class CaseInsensitiveMap<V> extends DelegatingMap<String, V> {
   /// {@macro aws_common.case_insensitive_map}
-  CaseInsensitiveMap(Map<String, V> other)
+  CaseInsensitiveMap(Map<String, V> base)
       : super(HashMap(
           equals: equalsIgnoreAsciiCase,
           hashCode: hashIgnoreAsciiCase,
-        )..addAll(other));
+        )..addAll(base));
 }
 
 /// {@template aws_common.case_insensitive_set}

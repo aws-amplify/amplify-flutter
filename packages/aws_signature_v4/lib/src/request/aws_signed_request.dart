@@ -29,7 +29,7 @@ class AWSSignedRequest extends AWSStreamedHttpRequest {
   AWSSignedRequest({
     required this.canonicalRequest,
     required this.signature,
-    required HttpMethod method,
+    required AWSHttpMethod method,
     required String host,
     required String path,
     Map<String, String>? queryParameters,

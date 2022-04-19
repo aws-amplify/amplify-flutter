@@ -47,7 +47,7 @@ void main() {
       });
     });
 
-    test('fallsback when override cannot be parsed', () {
+    test('throws when override cannot be parsed', () {
       expect(
         AWSConfigValue.maxAttempts.value,
         equals(AWSConfigValue.maxAttempts.defaultValue),
@@ -55,8 +55,8 @@ void main() {
 
       runZoned(() {
         expect(
-          AWSConfigValue.maxAttempts.value,
-          equals(AWSConfigValue.maxAttempts.defaultValue),
+          () => AWSConfigValue.maxAttempts.value,
+          throwsA(isA<FormatException>()),
         );
       }, zoneValues: {
         AWSConfigValue.maxAttempts: 'abc',

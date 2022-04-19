@@ -49,7 +49,7 @@ AWS4-HMAC-SHA256
 7344ae5b7ee6c3e7e6b0fe0640412a37625d1fbfff95c48bbb2dc43964946972''',
   signature: 'f0e8bdb87c964420e857bd35b5d6ed310bd44f0170aba48dd91039c6036bdb41',
   signedRequest: AWSHttpRequest(
-    method: HttpMethod.get,
+    method: AWSHttpMethod.get,
     host: 'examplebucket.s3.amazonaws.com',
     path: '/test.txt',
     headers: const {
@@ -68,7 +68,7 @@ final getObjectTest = SignerTest(
   name: 'GET Object',
   context: buildContext(),
   request: AWSHttpRequest(
-    method: HttpMethod.get,
+    method: AWSHttpMethod.get,
     host: 'examplebucket.s3.amazonaws.com',
     path: '/test.txt',
     headers: const {
@@ -100,7 +100,7 @@ AWS4-HMAC-SHA256
 9e0e90d9c76de8fa5b200d8c849cd5b8dc7a3be3951ddb7f6a76b4158342019d''',
   signature: '98ad721746da40c64f1a55b78f14c238d841ea1380cd77a1b5971af0ece108bd',
   signedRequest: AWSHttpRequest(
-    method: HttpMethod.put,
+    method: AWSHttpMethod.put,
     host: 'examplebucket.s3.amazonaws.com',
     path: r'test$file.text',
     headers: const {
@@ -121,7 +121,7 @@ final putObjectTest = SignerTest(
   name: 'PUT Object',
   context: buildContext(),
   request: AWSHttpRequest(
-    method: HttpMethod.put,
+    method: AWSHttpMethod.put,
     host: 'examplebucket.s3.amazonaws.com',
     path: r'test$file.text',
     headers: const {
@@ -153,7 +153,7 @@ AWS4-HMAC-SHA256
 9766c798316ff2757b517bc739a67f6213b4ab36dd5da2f94eaebf79c77395ca''',
   signature: 'fea454ca298b7da1c68078a5d1bdbfbbe0d65c699e0f91ac7a200a0136783543',
   signedRequest: AWSHttpRequest(
-    method: HttpMethod.get,
+    method: AWSHttpMethod.get,
     host: 'examplebucket.s3.amazonaws.com',
     path: '/',
     headers: const {
@@ -174,7 +174,7 @@ final getBucketLifecycleTest = SignerTest(
   name: 'GET Bucket Lifecycle',
   context: buildContext(),
   request: AWSHttpRequest(
-    method: HttpMethod.get,
+    method: AWSHttpMethod.get,
     host: 'examplebucket.s3.amazonaws.com',
     path: '/',
     queryParameters: const {
@@ -204,7 +204,7 @@ AWS4-HMAC-SHA256
 df57d21db20da04d7fa30298dd4488ba3a2b47ca3a489c74750e0f1e7df1b9b7''',
   signature: '34b48302e7b5fa45bde8084f4b7868a86f0a534bc59db6670ed5711ef69dc6f7',
   signedRequest: AWSHttpRequest(
-    method: HttpMethod.get,
+    method: AWSHttpMethod.get,
     host: 'examplebucket.s3.amazonaws.com',
     path: '/',
     headers: const {
@@ -226,7 +226,7 @@ final getBucketListObjectsTest = SignerTest(
   name: 'GET Bucket (List Objects)',
   context: buildContext(),
   request: AWSHttpRequest(
-    method: HttpMethod.get,
+    method: AWSHttpMethod.get,
     host: 'examplebucket.s3.amazonaws.com',
     path: '/',
     queryParameters: const {

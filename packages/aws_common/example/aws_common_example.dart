@@ -15,13 +15,12 @@
 import 'dart:convert';
 
 import 'package:aws_common/aws_common.dart';
-import 'package:http/http.dart' as http;
 
 Future<void> main() async {
   final AWSHttpRequest request = AWSHttpRequest.get(
     Uri.parse('https://httpstat.us/200'),
   );
-  final http.StreamedResponse response = await request.send();
-  final String body = await utf8.decodeStream(response.stream);
+  final AWSStreamedHttpResponse response = await request.send();
+  final String body = await utf8.decodeStream(response.body);
   safePrint(body);
 }

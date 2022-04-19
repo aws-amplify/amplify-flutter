@@ -22,7 +22,7 @@ import 'testdata/multiple_chunks_testdata.dart';
 // From: https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-streaming.html
 
 void main() {
-  group('Multiple Chunks', () {
+  group('S3 Multiple Chunks', () {
     test('PUT Object', () {
       runZoned(putObjectTest.run, zoneValues: {
         zIncludeUserAgent: false,

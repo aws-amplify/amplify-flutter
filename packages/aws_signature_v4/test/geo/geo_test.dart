@@ -43,7 +43,7 @@ void main() {
     dateTime: AWSDateTime(DateTime.parse('20210907T012110Z')),
   );
   final request = AWSHttpRequest(
-    method: HttpMethod.get,
+    method: AWSHttpMethod.get,
     host: 'maps.geo.us-west-2.amazonaws.com',
     path: '/maps/v0/maps/mapb6ded86f-dev/glyphs/Arial%20Italic/0-255.pbf',
     headers: const {

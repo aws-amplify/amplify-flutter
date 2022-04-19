@@ -1,10 +1,23 @@
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 import 'dart:html';
 import 'dart:typed_data';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
-import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 
 final TextInputElement bucketNameEl =
@@ -71,10 +84,8 @@ Future<void> upload(BucketUpload bucketUpload) async {
   }
 
   // Upload the file
-  final AWSHttpRequest uploadRequest = AWSHttpRequest(
-    method: HttpMethod.put,
-    host: host,
-    path: path,
+  final AWSHttpRequest uploadRequest = AWSHttpRequest.put(
+    Uri.https(host, path),
     body: fileBytes,
     headers: {
       AWSHeaders.host: host,
@@ -88,7 +99,8 @@ Future<void> upload(BucketUpload bucketUpload) async {
     credentialScope: scope,
     serviceConfiguration: serviceConfiguration,
   );
-  final http.StreamedResponse uploadResponse = await signedUploadRequest.send();
+  final AWSStreamedHttpResponse uploadResponse =
+      await signedUploadRequest.send();
   final int uploadStatus = uploadResponse.statusCode;
   safePrint('Upload File Response: $uploadStatus');
   if (uploadStatus != 200) {
@@ -97,10 +109,8 @@ Future<void> upload(BucketUpload bucketUpload) async {
   safePrint('File uploaded successfully!');
 
   // Create a pre-signed URL for downloading the file
-  final AWSHttpRequest urlRequest = AWSHttpRequest(
-    method: HttpMethod.get,
-    host: host,
-    path: path,
+  final AWSHttpRequest urlRequest = AWSHttpRequest.get(
+    Uri.https(host, path),
     headers: {
       AWSHeaders.host: host,
     },

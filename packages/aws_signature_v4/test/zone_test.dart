@@ -27,7 +27,7 @@ void main() {
     dateTime: AWSDateTime(DateTime(2022, 1, 1)),
   );
   final request = AWSHttpRequest(
-    method: HttpMethod.get,
+    method: AWSHttpMethod.get,
     host: 'example.com',
     path: '/',
   );
