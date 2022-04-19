@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
+import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:test/test.dart';
 
 import 'testdata/single_chunk_testdata.dart';
@@ -21,7 +24,11 @@ import 'testdata/single_chunk_testdata.dart';
 void main() {
   group('S3', () {
     for (var signerTest in testCases) {
-      test(signerTest.name, signerTest.run);
+      test(signerTest.name, () {
+        runZoned(signerTest.run, zoneValues: {
+          zIncludeUserAgent: false,
+        });
+      });
     }
   });
 }

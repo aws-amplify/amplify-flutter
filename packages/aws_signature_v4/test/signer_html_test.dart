@@ -14,10 +14,12 @@
 
 @TestOn('browser')
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:test/test.dart';
 
 import 'c_test_suite/test_data.dart';
@@ -35,7 +37,9 @@ Future<void> main() async {
       final signerTest =
           SignerTest.fromJson((jsonDecode(testCaseJson) as Map).cast());
       safePrint('Running test: ${signerTest.name}');
-      await signerTest.run();
+      await runZoned(signerTest.run, zoneValues: {
+        zIncludeUserAgent: false,
+      });
     }
   });
 }

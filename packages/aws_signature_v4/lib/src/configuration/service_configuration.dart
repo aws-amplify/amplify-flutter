@@ -20,6 +20,10 @@ import 'package:aws_signature_v4/src/version.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 
+/// Zone flag to change inclusion of user agent header.
+@visibleForTesting
+const zIncludeUserAgent = #_includeUserAgent;
+
 /// {@template aws_signature_v4.service_configuration}
 /// A description of an [AWSSigV4Signer] configuration.
 /// {@endtemplate}
@@ -128,12 +132,14 @@ class BaseServiceConfiguration extends ServiceConfiguration {
     });
 
     // Add user agent header
-    const userAgent = 'aws-sdk-dart/$packageVersion';
-    headers.update(
-      zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent,
-      (value) => '$value $userAgent',
-      ifAbsent: () => userAgent,
-    );
+    if (Zone.current[zIncludeUserAgent] ?? true) {
+      const userAgent = 'aws-sdk-dart/$packageVersion';
+      headers.update(
+        zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent,
+        (value) => '$value $userAgent',
+        ifAbsent: () => userAgent,
+      );
+    }
   }
 
   @override

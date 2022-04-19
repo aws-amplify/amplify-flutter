@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
+import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:test/scaffolding.dart';
 
 import 'testdata/multiple_chunks_testdata.dart';
@@ -20,6 +23,10 @@ import 'testdata/multiple_chunks_testdata.dart';
 
 void main() {
   group('Multiple Chunks', () {
-    test('PUT Object', putObjectTest.run);
+    test('PUT Object', () {
+      runZoned(putObjectTest.run, zoneValues: {
+        zIncludeUserAgent: false,
+      });
+    });
   });
 }
