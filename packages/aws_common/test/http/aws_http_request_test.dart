@@ -20,6 +20,8 @@ import 'package:http/testing.dart';
 import 'package:test/test.dart';
 
 void main() {
+  final uri = Uri.parse('https://example.com');
+
   group('AWSHttpRequest', () {
     const body = [0, 1, 2];
 
@@ -57,7 +59,6 @@ void main() {
     });
 
     test('factories', () async {
-      final uri = Uri.parse('https://example.com');
       final emitsBody = emitsInOrder(<Matcher>[
         orderedEquals(<int>[0, 1, 2]),
         emitsDone,
@@ -75,10 +76,14 @@ void main() {
       final patch = AWSHttpRequest.patch(uri, body: body);
       expect(patch.body, emitsBody);
     });
+
+    test('bodyBytes', () {
+      final req = AWSHttpRequest.get(uri);
+      expect(req.bodyBytes, isEmpty);
+    });
   });
 
   group('AWSStreamedHttpRequest', () {
-    final uri = Uri.parse('https://example.com');
     Stream<List<int>> makeBody() => Stream.fromIterable([
           [0],
           [1],
@@ -172,6 +177,12 @@ void main() {
       await post.close();
       expect(() => post.body, throwsStateError);
       expect(post.split, throwsStateError);
+    });
+
+    test('bodyBytes', () async {
+      final streamingReq = AWSStreamedHttpRequest.get(uri);
+      final bodyBytes = await streamingReq.bodyBytes;
+      expect(bodyBytes, isEmpty);
     });
   });
 }
