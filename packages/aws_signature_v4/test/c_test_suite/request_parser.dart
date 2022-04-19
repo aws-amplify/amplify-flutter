@@ -153,7 +153,7 @@ class SignerRequestParser {
     final headers = _parseHeaders(requestLines.sublist(1));
     final host = headers[AWSHeaders.host]!;
 
-    return AWSHttpRequest(
+    return AWSHttpRequest.raw(
       method: AWSHttpMethodHelper.fromString(httpRequest.method),
       host: host,
       path: path,

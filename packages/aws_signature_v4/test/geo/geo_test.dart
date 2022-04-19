@@ -44,8 +44,10 @@ void main() {
   );
   final request = AWSHttpRequest(
     method: AWSHttpMethod.get,
-    host: 'maps.geo.us-west-2.amazonaws.com',
-    path: '/maps/v0/maps/mapb6ded86f-dev/glyphs/Arial%20Italic/0-255.pbf',
+    uri: Uri.https(
+      'maps.geo.us-west-2.amazonaws.com',
+      '/maps/v0/maps/mapb6ded86f-dev/glyphs/Arial Italic/0-255.pbf',
+    ),
     headers: const {
       AWSHeaders.host: 'maps.geo.us-west-2.amazonaws.com',
     },

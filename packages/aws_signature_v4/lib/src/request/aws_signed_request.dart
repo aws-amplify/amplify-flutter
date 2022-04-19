@@ -36,7 +36,7 @@ class AWSSignedRequest extends AWSStreamedHttpRequest {
     Map<String, String>? headers,
     required Stream<List<int>> body,
     int? contentLength,
-  }) : super(
+  }) : super.raw(
           method: method,
           host: host,
           path: path,

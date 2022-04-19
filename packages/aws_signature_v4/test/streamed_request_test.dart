@@ -23,6 +23,8 @@ import 'package:test/test.dart';
 const _dummyCredentials = AWSCredentials('accessKeyId', 'secretAccessKey');
 
 void main() {
+  final uri = Uri.parse('https://example.com');
+
   group('AWSStreamedHttpRequest', () {
     const signer = AWSSigV4Signer(
       credentialsProvider: AWSCredentialsProvider(_dummyCredentials),
@@ -38,8 +40,7 @@ void main() {
       test('| body is split twice with contentLength given', () async {
         final request = AWSStreamedHttpRequest(
           method: AWSHttpMethod.post,
-          host: 'example.com',
-          path: '/',
+          uri: uri,
           body: makeBody(),
           contentLength: 3,
         );
@@ -60,8 +61,7 @@ void main() {
       test('| body is split thrice without contentLength given', () async {
         final request = AWSStreamedHttpRequest(
           method: AWSHttpMethod.post,
-          host: 'example.com',
-          path: '/',
+          uri: uri,
           body: makeBody(),
         );
         final signedRequest = await signer.sign(
@@ -86,8 +86,7 @@ void main() {
       test('| body is not split when contentLength is given', () async {
         final request = AWSStreamedHttpRequest(
           method: AWSHttpMethod.post,
-          host: 'example.com',
-          path: '/',
+          uri: uri,
           body: makeBody(),
           contentLength: 3,
         );
@@ -108,8 +107,7 @@ void main() {
       test('| body is split twice when contentLength is not given', () async {
         final request = AWSStreamedHttpRequest(
           method: AWSHttpMethod.post,
-          host: 'example.com',
-          path: '/',
+          uri: uri,
           body: makeBody(),
         );
         final signedRequest = await signer.sign(

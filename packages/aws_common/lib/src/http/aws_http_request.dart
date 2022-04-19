@@ -143,6 +143,29 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
   /// {@macro aws_common.aws_http_request}
   AWSHttpRequest({
     required AWSHttpMethod method,
+    required Uri uri,
+    Map<String, String>? headers,
+    List<int>? body,
+  })  : bodyBytes = body ?? const [],
+        contentLength = body?.length ?? 0,
+        super._(
+          method: method,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.hasPort ? uri.port : null,
+          path: uri.path,
+          queryParameters: uri.queryParametersAll,
+          headers: headers,
+        );
+
+  /// Creates a "raw", or unprocessed, HTTP request. Since the [Uri] constructor
+  /// will normalize paths by default, this constructor provides an escape hatch
+  /// for situations when paths are already normalized and further processing
+  /// could interfere with downstream activities like signing.
+  ///
+  /// If you're unsure, it's likely safe to use [AWSHttpRequest.new] and [Uri].
+  AWSHttpRequest.raw({
+    required AWSHttpMethod method,
     String scheme = 'https',
     required String host,
     int? port,
@@ -166,11 +189,7 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
   AWSHttpRequest.get(Uri uri, {Map<String, String>? headers})
       : this(
           method: AWSHttpMethod.get,
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.port,
-          path: uri.path,
-          queryParameters: uri.queryParametersAll,
+          uri: uri,
           headers: headers,
         );
 
@@ -178,11 +197,7 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
   AWSHttpRequest.head(Uri uri, {Map<String, String>? headers})
       : this(
           method: AWSHttpMethod.head,
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.port,
-          path: uri.path,
-          queryParameters: uri.queryParametersAll,
+          uri: uri,
           headers: headers,
         );
 
@@ -193,11 +208,7 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     Map<String, String>? headers,
   }) : this(
           method: AWSHttpMethod.put,
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.port,
-          path: uri.path,
-          queryParameters: uri.queryParametersAll,
+          uri: uri,
           body: body,
           headers: headers,
         );
@@ -209,11 +220,7 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     Map<String, String>? headers,
   }) : this(
           method: AWSHttpMethod.post,
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.port,
-          path: uri.path,
-          queryParameters: uri.queryParametersAll,
+          uri: uri,
           body: body,
           headers: headers,
         );
@@ -225,11 +232,7 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     Map<String, String>? headers,
   }) : this(
           method: AWSHttpMethod.patch,
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.port,
-          path: uri.path,
-          queryParameters: uri.queryParametersAll,
+          uri: uri,
           body: body,
           headers: headers,
         );
@@ -241,11 +244,7 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     Map<String, String>? headers,
   }) : this(
           method: AWSHttpMethod.delete,
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.port,
-          path: uri.path,
-          queryParameters: uri.queryParametersAll,
+          uri: uri,
           body: body,
           headers: headers,
         );
@@ -274,11 +273,40 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
     implements StreamSplitter<List<int>> {
   /// @{macro aws_common.aws_http_streamed_request}
   ///
+  /// {@template aws_common.aws_http_streamed_request_desc}
   /// For signed requests, [body] is read once, in chunks, as it is sent to AWS.
   /// It is recommended that [contentLength] be provided so that [body] does not
   /// have to be read twice, since the content length must be known when
   /// calculating the signature.
+  /// {@endtemplate}
   AWSStreamedHttpRequest({
+    required AWSHttpMethod method,
+    required Uri uri,
+    Map<String, String>? headers,
+    Stream<List<int>>? body,
+    int? contentLength,
+  })  : _body = body ?? const Stream.empty(),
+        _contentLength = contentLength,
+        super._(
+          method: method,
+          scheme: uri.scheme,
+          host: uri.host,
+          port: uri.hasPort ? uri.port : null,
+          path: uri.path,
+          queryParameters: uri.queryParametersAll,
+          headers: headers,
+        );
+
+  /// Creates a "raw", or unprocessed, streaming HTTP request. Since the [Uri]
+  /// constructor will normalize paths by default, this constructor provides an
+  /// escape hatch for situations when paths are already normalized and further
+  /// processing could interfere with downstream activities like signing.
+  ///
+  /// If you're unsure, it's likely safe to use [AWSStreamedHttpRequest.new] and
+  /// [Uri].
+  ///
+  /// @{macro aws_common.aws_http_streamed_request_desc}
+  AWSStreamedHttpRequest.raw({
     required AWSHttpMethod method,
     String scheme = 'https',
     required String host,
@@ -304,11 +332,7 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
   AWSStreamedHttpRequest.get(Uri uri, {Map<String, String>? headers})
       : this(
           method: AWSHttpMethod.get,
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.port,
-          path: uri.path,
-          queryParameters: uri.queryParametersAll,
+          uri: uri,
           headers: headers,
           contentLength: 0,
         );
@@ -317,11 +341,7 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
   AWSStreamedHttpRequest.head(Uri uri, {Map<String, String>? headers})
       : this(
           method: AWSHttpMethod.head,
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.port,
-          path: uri.path,
-          queryParameters: uri.queryParametersAll,
+          uri: uri,
           headers: headers,
           contentLength: 0,
         );
@@ -334,11 +354,7 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
     Map<String, String>? headers,
   }) : this(
           method: AWSHttpMethod.post,
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.port,
-          path: uri.path,
-          queryParameters: uri.queryParametersAll,
+          uri: uri,
           headers: headers,
           body: body,
           contentLength: contentLength,
@@ -352,11 +368,7 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
     Map<String, String>? headers,
   }) : this(
           method: AWSHttpMethod.put,
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.port,
-          path: uri.path,
-          queryParameters: uri.queryParametersAll,
+          uri: uri,
           headers: headers,
           body: body,
           contentLength: contentLength,
@@ -370,11 +382,7 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
     Map<String, String>? headers,
   }) : this(
           method: AWSHttpMethod.patch,
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.port,
-          path: uri.path,
-          queryParameters: uri.queryParametersAll,
+          uri: uri,
           headers: headers,
           body: body,
           contentLength: contentLength,
@@ -388,11 +396,7 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
     Map<String, String>? headers,
   }) : this(
           method: AWSHttpMethod.delete,
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.port,
-          path: uri.path,
-          queryParameters: uri.queryParametersAll,
+          uri: uri,
           headers: headers,
           body: body,
           contentLength: contentLength,

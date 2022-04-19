@@ -50,8 +50,10 @@ AWS4-HMAC-SHA256
   signature: 'f0e8bdb87c964420e857bd35b5d6ed310bd44f0170aba48dd91039c6036bdb41',
   signedRequest: AWSHttpRequest(
     method: AWSHttpMethod.get,
-    host: 'examplebucket.s3.amazonaws.com',
-    path: '/test.txt',
+    uri: Uri.https(
+      'examplebucket.s3.amazonaws.com',
+      '/test.txt',
+    ),
     headers: const {
       'Host': 'examplebucket.s3.amazonaws.com',
       'x-amz-date': '20130524T000000Z',
@@ -69,8 +71,10 @@ final getObjectTest = SignerTest(
   context: buildContext(),
   request: AWSHttpRequest(
     method: AWSHttpMethod.get,
-    host: 'examplebucket.s3.amazonaws.com',
-    path: '/test.txt',
+    uri: Uri.https(
+      'examplebucket.s3.amazonaws.com',
+      '/test.txt',
+    ),
     headers: const {
       'Range': 'bytes=0-9',
     },
@@ -101,8 +105,10 @@ AWS4-HMAC-SHA256
   signature: '98ad721746da40c64f1a55b78f14c238d841ea1380cd77a1b5971af0ece108bd',
   signedRequest: AWSHttpRequest(
     method: AWSHttpMethod.put,
-    host: 'examplebucket.s3.amazonaws.com',
-    path: r'test$file.text',
+    uri: Uri.https(
+      'examplebucket.s3.amazonaws.com',
+      r'test$file.text',
+    ),
     headers: const {
       'x-amz-storage-class': 'REDUCED_REDUNDANCY',
       'Host': 'examplebucket.s3.amazonaws.com',
@@ -122,8 +128,10 @@ final putObjectTest = SignerTest(
   context: buildContext(),
   request: AWSHttpRequest(
     method: AWSHttpMethod.put,
-    host: 'examplebucket.s3.amazonaws.com',
-    path: r'test$file.text',
+    uri: Uri.https(
+      'examplebucket.s3.amazonaws.com',
+      r'test$file.text',
+    ),
     headers: const {
       'Date': 'Fri, 24 May 2013 00:00:00 GMT',
       'x-amz-storage-class': 'REDUCED_REDUNDANCY',
@@ -154,8 +162,13 @@ AWS4-HMAC-SHA256
   signature: 'fea454ca298b7da1c68078a5d1bdbfbbe0d65c699e0f91ac7a200a0136783543',
   signedRequest: AWSHttpRequest(
     method: AWSHttpMethod.get,
-    host: 'examplebucket.s3.amazonaws.com',
-    path: '/',
+    uri: Uri.https(
+      'examplebucket.s3.amazonaws.com',
+      '/',
+      const <String, String>{
+        'lifecycle': '',
+      },
+    ),
     headers: const {
       'Host': 'examplebucket.s3.amazonaws.com',
       'Authorization':
@@ -163,9 +176,6 @@ AWS4-HMAC-SHA256
       'x-amz-date': '20130524T000000Z',
       'x-amz-content-sha256':
           'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-    },
-    queryParameters: const {
-      'lifecycle': '',
     },
   ),
 );
@@ -175,11 +185,13 @@ final getBucketLifecycleTest = SignerTest(
   context: buildContext(),
   request: AWSHttpRequest(
     method: AWSHttpMethod.get,
-    host: 'examplebucket.s3.amazonaws.com',
-    path: '/',
-    queryParameters: const {
-      'lifecycle': '',
-    },
+    uri: Uri.https(
+      'examplebucket.s3.amazonaws.com',
+      '/',
+      const <String, String>{
+        'lifecycle': '',
+      },
+    ),
   ),
   headerTestData: getBucketLifecycleTestData,
   serviceConfiguration: serviceConfiguration,
@@ -205,8 +217,14 @@ df57d21db20da04d7fa30298dd4488ba3a2b47ca3a489c74750e0f1e7df1b9b7''',
   signature: '34b48302e7b5fa45bde8084f4b7868a86f0a534bc59db6670ed5711ef69dc6f7',
   signedRequest: AWSHttpRequest(
     method: AWSHttpMethod.get,
-    host: 'examplebucket.s3.amazonaws.com',
-    path: '/',
+    uri: Uri.https(
+      'examplebucket.s3.amazonaws.com',
+      '/',
+      const <String, String>{
+        'max-keys': '2',
+        'prefix': 'J',
+      },
+    ),
     headers: const {
       'Host': 'examplebucket.s3.amazonaws.com',
       'Authorization':
@@ -214,10 +232,6 @@ df57d21db20da04d7fa30298dd4488ba3a2b47ca3a489c74750e0f1e7df1b9b7''',
       'x-amz-date': '20130524T000000Z',
       'x-amz-content-sha256':
           'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-    },
-    queryParameters: const {
-      'max-keys': '2',
-      'prefix': 'J',
     },
   ),
 );
@@ -227,12 +241,14 @@ final getBucketListObjectsTest = SignerTest(
   context: buildContext(),
   request: AWSHttpRequest(
     method: AWSHttpMethod.get,
-    host: 'examplebucket.s3.amazonaws.com',
-    path: '/',
-    queryParameters: const {
-      'max-keys': '2',
-      'prefix': 'J',
-    },
+    uri: Uri.https(
+      'examplebucket.s3.amazonaws.com',
+      '/',
+      const <String, String>{
+        'max-keys': '2',
+        'prefix': 'J',
+      },
+    ),
   ),
   headerTestData: getBucketListObjectsTestData,
   serviceConfiguration: serviceConfiguration,

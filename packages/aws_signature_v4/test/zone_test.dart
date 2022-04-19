@@ -28,8 +28,7 @@ void main() {
   );
   final request = AWSHttpRequest(
     method: AWSHttpMethod.get,
-    host: 'example.com',
-    path: '/',
+    uri: Uri.parse('https://example.com'),
   );
   const signer = AWSSigV4Signer(
     credentialsProvider: AWSCredentialsProvider(_dummyCredentials),

@@ -50,8 +50,10 @@ cee3fed04b70f867d036f722359b0b1f2f0e5dc0efadbc082b76c4c60e316455''',
   signature: '4f232c4386841ef735655705268965c44a0e4690baa4adea153f7db9fa80a0a9',
   signedRequest: AWSStreamedHttpRequest(
     method: AWSHttpMethod.put,
-    host: 's3.amazonaws.com',
-    path: '/examplebucket/chunkObject.txt',
+    uri: Uri.https(
+      's3.amazonaws.com',
+      '/examplebucket/chunkObject.txt',
+    ),
     headers: {
       'Host': 's3.amazonaws.com',
       'x-amz-date': '20130524T000000Z',
@@ -84,8 +86,10 @@ final putObjectTest = SignerTest(
   context: buildContext(),
   request: AWSStreamedHttpRequest(
     method: AWSHttpMethod.put,
-    host: 's3.amazonaws.com',
-    path: '/examplebucket/chunkObject.txt',
+    uri: Uri.https(
+      's3.amazonaws.com',
+      '/examplebucket/chunkObject.txt',
+    ),
     headers: {
       'x-amz-storage-class': 'REDUCED_REDUNDANCY',
     },

@@ -38,7 +38,7 @@ void main() {
 
       final signer = AWSSigV4Signer(credentialsProvider: creds);
       final signedReq = await signer.sign(
-        AWSStreamedHttpRequest(
+        AWSStreamedHttpRequest.raw(
           method: AWSHttpMethod.put,
           host: 's3.amazonaws.com',
           path: '/examplebucket/chunkObject.txt',
