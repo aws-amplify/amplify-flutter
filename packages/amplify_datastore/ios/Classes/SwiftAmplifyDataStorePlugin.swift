@@ -14,7 +14,6 @@
  */
 
 import Flutter
-import UIKit
 import Amplify
 import AmplifyPlugins
 import AWSPluginsCore
@@ -209,56 +208,71 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     }
 
     func onQuery(args: [String: Any], flutterResult: @escaping FlutterResult) {
-        do {
+        tryDataStoreOperation(
+            operation: TriableDataStoreOperation.query,
+            flutterResult: flutterResult
+        ) {
             let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
             let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(
                 modelSchemaRegistry: modelSchemaRegistry,
                 modelName: modelName
             )
-            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String: Any])
-            let querySortInput = try QuerySortBuilder.fromSerializedList(args["querySort"] as? [[String: Any]])
-            let queryPagination = QueryPaginationBuilder.fromSerializedMap(args["queryPagination"] as? [String: Any])
-            try bridge.onQuery(FlutterSerializedModel.self,
-                               modelSchema: modelSchema,
-                               where: queryPredicates,
-                               sort: querySortInput,
-                               paginate: queryPagination) { result in
-                switch result {
-                case .failure(let error):
-                    print("Query API failed. Error = \(error)")
-                    FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
-                                                                      flutterResult: flutterResult)
-                case .success(let res):
-                    do {
-                        let serializedResults = try res.map { queryResult -> [String: Any] in
-                            return try queryResult.toMap(
+            let modelIdentifier = try QueryPredicateBuilder.extractPredicateWithModelIdentifier(args["queryPredicate"] as? [String: Any])
+            if (modelIdentifier == nil) {
+                let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String: Any])
+                let querySortInput = try QuerySortBuilder.fromSerializedList(args["querySort"] as? [[String: Any]])
+                let queryPagination = QueryPaginationBuilder.fromSerializedMap(args["queryPagination"] as? [String: Any])
+                try bridge.onQuery(FlutterSerializedModel.self,
+                                   modelSchema: modelSchema,
+                                   where: queryPredicates,
+                                   sort: querySortInput,
+                                   paginate: queryPagination) { result in
+                    switch result {
+                    case .success(let res):
+                        tryDataStoreOperation(
+                            operation: .serialize,
+                            flutterResult: flutterResult
+                        ) {
+                            let serializedResults = try res.map { queryResult -> [String: Any] in
+                                return try queryResult.toMap(
+                                    modelSchemaRegistry: modelSchemaRegistry,
+                                    customTypeSchemaRegistry: customTypeSchemaRegistry,
+                                    modelName: modelName
+                                )
+                            }
+                            flutterResult(serializedResults)
+                        }
+                    case .failure(let error):
+                    handleAPIFailure(operation: .query, error: error, flutterResult: flutterResult)
+                    }
+                }
+            } else {
+                try bridge.onQueryByIdentifier(
+                    modelSchema: modelSchema,
+                    identifier: modelIdentifier!.convertToNativeModelIdentifier()
+                ) { result in
+                    switch result {
+                    case .success(let res):
+                        tryDataStoreOperation(
+                            operation: .serialize,
+                            flutterResult: flutterResult
+                        ) {
+                            var serializedResults = [[String: Any]]()
+                            let result = try res?.toMap(
                                 modelSchemaRegistry: modelSchemaRegistry,
                                 customTypeSchemaRegistry: customTypeSchemaRegistry,
                                 modelName: modelName
                             )
+                            if (result != nil) {
+                                serializedResults.append(result!)
+                            }
+                            flutterResult(serializedResults)
                         }
-                        flutterResult(serializedResults)
-                    } catch let error as DataStoreError {
-                        print("Failed to parse query result with \(error)")
-                        FlutterDataStoreErrorHandler.handleDataStoreError(
-                            error: error,
-                            flutterResult: flutterResult)
-                    } catch {
-                        print("An unexpected error occured when parsing query result with \(error)")
-                        FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
-                                                                          flutterResult: flutterResult)
+                    case .failure(let error):
+                        handleAPIFailure(operation: .query, error: error, flutterResult: flutterResult)
                     }
                 }
             }
-        } catch let error as DataStoreError {
-            print("Failed to parse query arguments with \(error)")
-            FlutterDataStoreErrorHandler.handleDataStoreError(
-                error: error,
-                flutterResult: flutterResult)
-        } catch {
-            print("An unexpected error occured when parsing query arguments: \(error)")
-            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
-                                                              flutterResult: flutterResult)
         }
     }
 
@@ -286,9 +300,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             let queryPredicates = filterQueryPredicateAll(queryPredicates: try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String: Any]))
 
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
-            let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
 
-            let serializedModel = FlutterSerializedModel(id: modelID, map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData))
+            let serializedModel = FlutterSerializedModel(map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData), modelName: modelSchema.name)
 
             try bridge.onSave(
                 serializedModel: serializedModel,
@@ -329,9 +342,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             let queryPredicates = queryPredicatesMap != nil ? try QueryPredicateBuilder.fromSerializedMap(queryPredicatesMap) : nil
 
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
-            let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
 
-            let serializedModel = FlutterSerializedModel(id: modelID, map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData))
+            let serializedModel = FlutterSerializedModel(map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData), modelName: modelSchema.name)
 
             try bridge.onDelete(
                 serializedModel: serializedModel,
@@ -508,7 +520,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     "This should not happen, please open an issue at https://github.com/aws-amplify/amplify-flutter/issues"
                 )
             }
-            let schema: ModelSchema = try FlutterModelSchema.init(serializedData: serializedSchema)
+            let schema: ModelSchema = try FlutterModelSchema.init(serializedData: serializedSchema, isModelSchema: false)
                 .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemaRegistry)
             customTypeSchemaRegistry.addModelSchema(modelName: schemaName, modelSchema: schema)
         }
@@ -617,11 +629,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         unresolved.remove(startNode)
     }
 
-    // TODO: Remove once all configure is moved to the bridge
-    func getPlugin() throws -> AWSDataStorePlugin {
-        return try Amplify.DataStore.getPlugin(for: "awsDataStorePlugin") as! AWSDataStorePlugin
-    }
-
     func createErrorHandler(args: [String: Any]) -> DataStoreErrorHandler {
         var errorHandler: DataStoreErrorHandler
         if (args["hasErrorHandler"] as? Bool) == true {
@@ -686,8 +693,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                         else {
                                             throw DataStoreError.decodingError("Flutter CustomModel map is invalid", "Check the values that are being passed from Dart.")
                                         }
-                                        let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: modelMap)
-                                        let serializedModel = try FlutterSerializedModel(id: modelID, map: FlutterDataStoreRequestUtils.getJSONValue(modelMap))
+                                    let serializedModel = try FlutterSerializedModel(map: FlutterDataStoreRequestUtils.getJSONValue(modelMap), modelName: modelName)
                                             onDecision(.retry(serializedModel))
                                     default:
                                         print("Unrecognized resolutionStrategy to resolve conflict. Applying default conflict resolution, applyRemote.")
@@ -710,5 +716,59 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             }
         }
         return conflictHandler
+    }
+
+    private func tryDataStoreOperation(
+        operation: TriableDataStoreOperation,
+        flutterResult: @escaping FlutterResult,
+        executableBlock: () throws -> Void
+    ) {
+        do {
+            try executableBlock()
+        } catch let error as DataStoreError {
+            print("DataStore error occurred for operation: \(operation.toString()), with error \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(
+                error: error,
+                flutterResult: flutterResult
+            )
+        } catch {
+            print("An unexpected error occured for operation: \(operation.toString()), with error \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(
+                error: DataStoreError(error: error),
+                flutterResult: flutterResult
+            )
+        }
+    }
+
+    private func handleAPIFailure(
+        operation: TriableDataStoreOperation,
+        error: DataStoreError,
+        flutterResult: @escaping FlutterResult
+    ) {
+        print("DataStore API \(operation.toString()) failure occurred with error \(error)")
+        FlutterDataStoreErrorHandler.handleDataStoreError(
+            error: error,
+            flutterResult: flutterResult
+        )
+    }
+
+    private enum TriableDataStoreOperation {
+        case save
+        case query
+        case delete
+        case serialize
+
+        func toString() -> String {
+            switch self {
+            case .save:
+                return "save"
+            case .query:
+                return "query"
+            case .delete:
+                return "delete"
+            case .serialize:
+                return "serialzie"
+            }
+        }
     }
 }
