@@ -22,6 +22,9 @@ abstract class AWSHeaders {
   /// The `X-Amz-Algorithm` header.
   static const algorithm = 'X-Amz-Algorithm';
 
+  /// The `X-Amz-User-Agent` header.
+  static const amzUserAgent = 'X-Amz-User-Agent';
+
   /// The `Authorization` header.
   static const authorization = 'Authorization';
 
