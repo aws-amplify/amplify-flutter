@@ -229,9 +229,7 @@ class CanonicalRequest {
       if (request.path.endsWith('/')) {
         path = path.ensureEndsWith('/');
       }
-      if (!request.path.startsWith('/')) {
-        path = path.ensureStartsWith('/');
-      }
+      path = path.ensureStartsWith('/');
     }
 
     return path.split('/').map(Uri.encodeComponent).join('/');
