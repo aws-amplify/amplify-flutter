@@ -66,11 +66,5 @@ void main() {
         ),
       );
     });
-
-    // Sanity check that printing works within signer zones.
-    test('print', () {
-      // ignore: avoid_print
-      signZoned<void>(() => print(''));
-    });
   });
 }

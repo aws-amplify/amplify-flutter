@@ -49,7 +49,7 @@ void main() {
         statusCode: 200,
         body: Stream.value(bodyBytes),
       );
-      resp.split(); // Split the stream so follow calls use splitter.
+      resp.split(); // Split the stream so following calls use splitter.
       expect(resp.bodyBytes, completion(orderedEquals(bodyBytes)));
       expect(resp.decodeBody(), completion(body));
     });

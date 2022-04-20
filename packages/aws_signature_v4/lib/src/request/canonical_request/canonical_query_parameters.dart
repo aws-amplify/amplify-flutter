@@ -26,24 +26,13 @@ class CanonicalQueryParameters extends DelegatingMap<String, String> {
   static Map<String, String> canonicalize(
     Map<String, String> queryParameters,
   ) {
-    final encodedEntries = queryParameters.entries.map((e) => MapEntry(
-          Uri.encodeComponent(_decodeIfNeeded(e.key)),
-          Uri.encodeComponent(_decodeIfNeeded(e.value)),
-        ));
-    final sortedParameters = LinkedHashMap.fromEntries(
-      encodedEntries.toList()
-        ..sort(
-          (a, b) {
-            final keyCompare = a.key.compareTo(b.key);
-            if (keyCompare != 0) {
-              return keyCompare;
-            }
-            return a.value.compareTo(b.value);
-          },
-        ),
-    );
-
-    return sortedParameters;
+    final map = SplayTreeMap<String, String>();
+    for (final entry in queryParameters.entries) {
+      final key = _safeEncode(entry.key);
+      final value = _safeEncode(entry.value);
+      map[key] = value;
+    }
+    return map;
   }
 
   /// Returns the sorted, encoded query string.

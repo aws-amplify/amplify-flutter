@@ -14,13 +14,11 @@
 
 part of 'canonical_request.dart';
 
-/// Decodes a query parameter if it's encoded.
-///
-/// Used to prevent double-encoding unless required.
-String _decodeIfNeeded(String queryComponent) {
+/// Encodes a query parameter while preventing double-encoding.
+String _safeEncode(String queryComponent) {
   return queryComponent.contains('%')
-      ? Uri.decodeComponent(queryComponent)
-      : queryComponent;
+      ? queryComponent
+      : Uri.encodeComponent(queryComponent);
 }
 
 /// The SHA-256/Hex-encoded hash for empty requests.

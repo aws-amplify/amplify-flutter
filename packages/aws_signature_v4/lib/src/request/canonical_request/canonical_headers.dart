@@ -15,7 +15,7 @@
 part of 'canonical_request.dart';
 
 // Headers to ignore during signing.
-final _ignoreHeaders = CaseInsensitiveSet({
+final _ignoredHeaders = CaseInsensitiveSet({
   AWSHeaders.userAgent,
 });
 
@@ -28,18 +28,15 @@ class CanonicalHeaders extends DelegatingMap<String, String> {
 
   /// Lowercases and sorts the headers.
   static Map<String, String> canonicalize(Map<String, String> headers) {
-    final lowerCaseHeaders = headers.map(
-      (k, v) => MapEntry(
-        k.toLowerCase(),
-        v.trim().replaceAll(RegExp(r'\s+'), ' '),
-      ),
-    );
-    return LinkedHashMap.fromEntries(
-      lowerCaseHeaders.entries
-          .where((e) => !_ignoreHeaders.contains(e.key))
-          .toList()
-        ..sort((a, b) => a.key.compareTo(b.key)),
-    );
+    final map = SplayTreeMap<String, String>();
+    for (final entry in headers.entries) {
+      final key = entry.key.toLowerCase();
+      if (_ignoredHeaders.contains(key)) {
+        continue;
+      }
+      map[key] = entry.value.trim().replaceAll(RegExp(r'\s+'), ' ');
+    }
+    return map;
   }
 
   /// Returns the lowercased and sorted headers string.

@@ -70,7 +70,7 @@ Future<List<SignerTest>> loadAllTests() async {
 
     // List all the files in the test directory and sort them alphabetically.
     // This is required to ensure that `context.json` is the first file parsed,
-    // since it's data is used to parse other files accordingly, namely `request.txt`.
+    // since its data is used to parse other files accordingly, namely `request.txt`.
     final testFiles =
         testCaseDir.listSync().map((ent) => File(ent.path)).toList()
           ..sort(

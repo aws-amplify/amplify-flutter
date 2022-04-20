@@ -20,9 +20,9 @@ export 'src/collection/case_insensitive.dart';
 
 // HTTP
 export 'src/http/aws_headers.dart';
+export 'src/http/aws_http_method.dart';
 export 'src/http/aws_http_request.dart';
 export 'src/http/aws_http_response.dart';
-export 'src/http/http_method.dart';
 
 // Utils
 export 'src/util/closeable.dart';

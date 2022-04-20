@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:math';
-
 /// {@template aws_signature_v4.aws_date_time}
 /// A utility class which wraps [DateTime] objects.
 ///
@@ -32,25 +30,19 @@ class AWSDateTime {
   AWSDateTime.now() : dateTime = DateTime.now().toUtc();
 
   /// Formats the date and time as `YYYYMMDDTHHMMSSZ`.
-  String formatFull() => formatDate() + 'T' + formatTime() + 'Z';
+  String formatFull() => '${formatDate()}T${formatTime()}Z';
 
   /// Formats the date as `YYYYMMDD`.
   String formatDate() =>
-      _padZeros('${dateTime.year}', 4) +
-      _padZeros('${dateTime.month}', 2) +
-      _padZeros('${dateTime.day}', 2);
+      '${dateTime.year}'.padLeft(4, '0') +
+      '${dateTime.month}'.padLeft(2, '0') +
+      '${dateTime.day}'.padLeft(2, '0');
 
   /// Formats the time as `HHMMSS`.
   String formatTime() =>
-      _padZeros('${dateTime.hour}', 2) +
-      _padZeros('${dateTime.minute}', 2) +
-      _padZeros('${dateTime.second}', 2);
-
-  /// Ensures that [str] is exactly [length] characters long by padding the
-  /// front with `0` characters.
-  static String _padZeros(String str, int length) {
-    return '0' * max(0, length - str.length) + str;
-  }
+      '${dateTime.hour}'.padLeft(2, '0') +
+      '${dateTime.minute}'.padLeft(2, '0') +
+      '${dateTime.second}'.padLeft(2, '0');
 
   @override
   String toString() => formatFull();

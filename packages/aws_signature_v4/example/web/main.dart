@@ -32,8 +32,10 @@ final AnchorElement downloadBtnEl =
     document.getElementById('download') as AnchorElement;
 
 void main() {
-  downloadBtnEl.hide();
   bucketNameEl.onChange.listen((e) {
+    updateState();
+  });
+  regionEl.onChange.listen((e) {
     updateState();
   });
   fileEl.onChange.listen((e) {
@@ -141,29 +143,29 @@ BucketUpload? getBucketUpload() {
   final bucketName = bucketNameEl.value;
   final region = regionEl.value;
   final files = fileEl.files;
-  if (bucketName == null ||
+  final hasInvalidProps = bucketName == null ||
       bucketName.isEmpty ||
       region == null ||
       region.isEmpty ||
       files == null ||
-      files.isEmpty) {
+      files.isEmpty;
+  if (hasInvalidProps) {
     return null;
   }
   return BucketUpload(bucketName, region, files.first);
 }
 
+bool get uploadEnabled {
+  return getBucketUpload() != null;
+}
+
 void updateState() {
-  final uploadEnabled = getBucketUpload() != null;
   uploadBtnEl.disabled = !uploadEnabled;
 }
 
 extension on Element {
   void show() {
     style.display = 'block';
-  }
-
-  void hide() {
-    style.display = 'none';
   }
 }
 

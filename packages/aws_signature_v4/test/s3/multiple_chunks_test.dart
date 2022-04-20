@@ -19,7 +19,7 @@ import 'package:test/scaffolding.dart';
 
 import 'testdata/multiple_chunks_testdata.dart';
 
-// From: https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-streaming.html
+// From: https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-streaming.html#example-signature-calculations-streaming
 
 void main() {
   group('S3 Multiple Chunks', () {
