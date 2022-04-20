@@ -40,9 +40,9 @@ object FlutterApiRequest {
             return request[CANCEL_TOKEN_KEY] as String
         } catch (cause: Exception) {
             throw AmplifyException(
-                    "The cancelToken request argument was not passed as a String",
-                    cause,
-                    "The request should include the cancelToken as a String"
+                "The cancelToken request argument was not passed as a String",
+                cause,
+                "The request should include the cancelToken as a String"
             )
         }
     }
@@ -52,9 +52,9 @@ object FlutterApiRequest {
             return requestMap?.get(API_NAME_KEY) as String?
         } catch (cause: Exception) {
             throw AmplifyException(
-                    "The apiName request argument was not passed as a String",
-                    cause,
-                    "The request should include the apiName as a String"
+                "The apiName request argument was not passed as a String",
+                cause,
+                "The request should include the apiName as a String"
             )
         }
     }
@@ -73,7 +73,7 @@ object FlutterApiRequest {
             val builder: RestOptions.Builder = RestOptions.builder()
 
             val restOptionsMap: Map<String, Any> =
-                    request[REST_OPTIONS_KEY]?.asMap() ?: emptyMap()
+                request[REST_OPTIONS_KEY]?.asMap() ?: emptyMap()
 
             for ((key, value) in restOptionsMap) {
                 when (key) {
@@ -94,9 +94,9 @@ object FlutterApiRequest {
             return builder.build()
         } catch (cause: Exception) {
             throw AmplifyException(
-                    "The restOptions request argument was not passed as a dictionary",
-                    cause,
-                    "The request should include the restOptions argument as a [String: Any] dictionary"
+                "The restOptions request argument was not passed as a dictionary",
+                cause,
+                "The request should include the restOptions argument as a [String: Any] dictionary"
             )
         }
     }
@@ -105,8 +105,8 @@ object FlutterApiRequest {
     fun checkForEmptyBodyIfRequired(options: RestOptions, operationType: RestOperationType) {
         if (operationType.requiresBody() && !options.hasData()) {
             throw ApiException(
-                    "$operationType request must have a body",
-                    "Add a body to the request."
+                "$operationType request must have a body",
+                "Add a body to the request."
             )
         }
     }
@@ -117,13 +117,12 @@ object FlutterApiRequest {
         try {
             val doc = request["document"] as String
             // Remove tabs to avoid MalformedHttpRequestException
-            val sanitizedDoc = doc.replace(TABS_OUTSIDE_QUOTES_PATTERN, "")
-            return sanitizedDoc;
+            return doc.replace(TABS_OUTSIDE_QUOTES_PATTERN, "")
         } catch (cause: Exception) {
             throw AmplifyException(
-                    "The graphQL document request argument was not passed as a String",
-                    cause,
-                    "The request should include the graphQL document as a String"
+                "The graphQL document request argument was not passed as a String",
+                cause,
+                "The request should include the graphQL document as a String"
             )
         }
     }
@@ -134,9 +133,9 @@ object FlutterApiRequest {
             return request["variables"]?.asMap() ?: emptyMap()
         } catch (cause: Exception) {
             throw AmplifyException(
-                    "The variables request argument was not passed as a dictionary",
-                    cause,
-                    "The request should include the variables argument as a [String: Any] dictionary"
+                "The variables request argument was not passed as a dictionary",
+                cause,
+                "The request should include the variables argument as a [String: Any] dictionary"
             )
         }
     }

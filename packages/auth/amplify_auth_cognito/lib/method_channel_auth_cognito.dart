@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:io' show Platform;
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -554,11 +553,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
   Future<void> deleteUser() async {
-    if (!Platform.isIOS) {
-      throw UnimplementedError(
-        'The deleteUser API is currently available on the iOS platform only.',
-      );
-    }
     try {
       await _channel.invokeMethod('deleteUser');
     } on PlatformException catch (e) {

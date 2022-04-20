@@ -1,3 +1,9 @@
+## 0.4.5 (2022-04-13)
+
+-fix: bumps ios version and bumps api AuthProvider timeout (#1526)
+
+## 0.4.4 (2022-04-06)
+
 ## 0.4.3 (2022-04-02)
 
 - chore: bump amplify-ios to 1.22.3
@@ -20,7 +26,7 @@
 - fix(datastore): DataTime value comparison is inaccurate (#1326)
 - chore: bump Kotlin version to 1.6.10 (#1346)
 - chore(datastore): Export hub event types (#1330)
-- fix(datastore): Hub memory usage (#1201) 
+- fix(datastore): Hub memory usage (#1201)
 - feat(datastore): Add QueryPredicate.all (#1310)
 - chore(datastore): update integration tests schema (#1308)
 

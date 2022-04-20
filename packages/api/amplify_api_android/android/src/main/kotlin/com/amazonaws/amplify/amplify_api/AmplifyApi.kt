@@ -15,7 +15,6 @@
 
 package com.amazonaws.amplify.amplify_api
 
-import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
@@ -27,8 +26,8 @@ import com.amazonaws.amplify.amplify_core.cast
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
-import com.amplifyframework.api.aws.AuthorizationType
 import com.amplifyframework.api.aws.AWSApiPlugin
+import com.amplifyframework.api.aws.AuthorizationType
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
@@ -42,15 +41,25 @@ import kotlinx.coroutines.Dispatchers
 /** AmplifyApiPlugin */
 class AmplifyApi : FlutterPlugin, MethodCallHandler {
 
-    private lateinit var channel: MethodChannel
-    private lateinit var eventchannel: EventChannel
-    private lateinit var context: Context
-    private val graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler
+    private companion object {
+        /**
+         * API authorization providers configured during the `addPlugin` call.
+         *
+         * The auth providers require a reference to the active method channel to be able to
+         * communicate back to Dart code. If the app is moved to the background and resumed,
+         * the `Amplify.addPlugin` call does not re-configure auth providers, so these must
+         * be instantiated only once but still maintain a reference to the active method channel.
+         */
+        var flutterAuthProviders: FlutterAuthProviders? = null
+    }
+
+    private var channel: MethodChannel? = null
+    private var eventchannel: EventChannel? = null
+    private var graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler? = null
     private val logger = Amplify.Logging.forNamespace("amplify:flutter:api")
     private var dispatcher: CoroutineDispatcher
 
     constructor() {
-        graphqlSubscriptionStreamHandler = GraphQLSubscriptionStreamHandler()
         dispatcher = Dispatchers.IO
     }
 
@@ -66,14 +75,14 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
     private val handler = Handler(Looper.getMainLooper())
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        graphqlSubscriptionStreamHandler = graphqlSubscriptionStreamHandler ?: GraphQLSubscriptionStreamHandler()
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/api")
-        channel.setMethodCallHandler(this)
+        channel!!.setMethodCallHandler(this)
         eventchannel = EventChannel(
             flutterPluginBinding.binaryMessenger,
             "com.amazonaws.amplify/api_observe_events"
         )
-        eventchannel.setStreamHandler(graphqlSubscriptionStreamHandler)
-        context = flutterPluginBinding.applicationContext
+        eventchannel!!.setStreamHandler(graphqlSubscriptionStreamHandler)
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -90,10 +99,14 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
                 val authProvidersList: List<String> =
                     (arguments["authProviders"] as List<*>?)?.cast() ?: listOf()
                 val authProviders = authProvidersList.map { AuthorizationType.valueOf(it) }
+                if (flutterAuthProviders == null) {
+                    flutterAuthProviders = FlutterAuthProviders(authProviders)
+                }
+                flutterAuthProviders!!.setMethodChannel(channel)
                 Amplify.addPlugin(
                     AWSApiPlugin
                         .builder()
-                        .apiAuthProviders(FlutterAuthProviders(authProviders, channel).factory)
+                        .apiAuthProviders(flutterAuthProviders!!.factory)
                         .build()
                 )
                 logger.info("Added API plugin")
@@ -105,8 +118,6 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
         }
 
         try {
-
-
             when (call.method) {
                 "get" -> FlutterRestApi.get(result, arguments)
                 "post" -> FlutterRestApi.post(result, arguments)
@@ -119,7 +130,7 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
                 "subscribe" -> FlutterGraphQLApi(dispatcher).subscribe(
                     result,
                     arguments,
-                    graphqlSubscriptionStreamHandler
+                    graphqlSubscriptionStreamHandler!!
                 )
                 else -> result.notImplemented()
             }
@@ -149,7 +160,13 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-        channel.setMethodCallHandler(null)
+    override fun onDetachedFromEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        flutterAuthProviders?.setMethodChannel(null)
+        channel?.setMethodCallHandler(null)
+        channel = null
+        eventchannel?.setStreamHandler(null)
+        eventchannel = null
+        graphqlSubscriptionStreamHandler?.close()
+        graphqlSubscriptionStreamHandler = null
     }
 }

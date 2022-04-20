@@ -19,7 +19,7 @@ import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 
 fun createAuthUserAttribute(key: String, value: String): AuthUserAttribute {
-    val authUserAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(key);
+    val authUserAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(key)
     return AuthUserAttribute(authUserAttributeKey, value)
 }
 
@@ -47,6 +47,6 @@ fun createAuthUserAttributeKey(keyName: String): AuthUserAttributeKey {
 }
 
 private fun createCustomAuthUserAttributeKey(keyName: String): AuthUserAttributeKey {
-    val customKey: String = if (keyName.startsWith("custom:")) keyName else "custom:$keyName";
+    val customKey: String = if (keyName.startsWith("custom:")) keyName else "custom:$keyName"
     return AuthUserAttributeKey.custom(customKey)
 }

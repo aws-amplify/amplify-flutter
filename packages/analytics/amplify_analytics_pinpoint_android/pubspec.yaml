@@ -1,6 +1,6 @@
 name: amplify_analytics_pinpoint_android
 description: The method channel implementation for amplify_analytics_pinpoint on Android
-version: 0.4.3
+version: 0.4.5
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/analytics/amplify_analytics_pinpoint_android
 
 environment:

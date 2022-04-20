@@ -37,9 +37,13 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
-
 
 /** Amplify */
 class Amplify(
@@ -73,7 +77,7 @@ class Amplify(
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
         val result = AtomicResult(_result, call.method)
-        
+
         when (call.method) {
             "configure" ->
                 try {
@@ -87,7 +91,7 @@ class Amplify(
                         createSerializedError(
                             "Failed to parse the configuration.",
                             "Please check your amplifyconfiguration.dart if you are " +
-                                    "manually updating it, else please create an issue.",
+                                "manually updating it, else please create an issue.",
                             e.toString()
                         )
                     )
@@ -130,7 +134,8 @@ class Amplify(
     }
 
     private fun onConfigure(
-        @NonNull result: Result, @NonNull version: String,
+        @NonNull result: Result,
+        @NonNull version: String,
         @NonNull config: String
     ) {
         coroutineScope.launch(dispatcher) {

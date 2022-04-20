@@ -16,7 +16,8 @@ package com.amazonaws.amplify.amplify_core
 
 import io.flutter.Log
 import io.flutter.plugin.common.MethodChannel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -42,7 +43,7 @@ class AtomicResult(private val result: MethodChannel.Result, private val operati
         scope.launch {
             if (isSent.getAndSet(true)) {
                 Log.w(
-                    "AtomicResult(${operation})",
+                    "AtomicResult($operation)",
                     "Attempted to send success value after initial reply"
                 )
                 return@launch
@@ -55,10 +56,10 @@ class AtomicResult(private val result: MethodChannel.Result, private val operati
         scope.launch {
             if (isSent.getAndSet(true)) {
                 Log.w(
-                    "AtomicResult(${operation})",
+                    "AtomicResult($operation)",
                     """
                     Attempted to send error value after initial reply:
-                    | PlatformException{code=${errorCode}, message=${errorMessage}, details=${errorDetails}}
+                    | PlatformException{code=$errorCode, message=$errorMessage, details=$errorDetails}
                     """.trimMargin()
                 )
                 return@launch
@@ -71,7 +72,7 @@ class AtomicResult(private val result: MethodChannel.Result, private val operati
         scope.launch {
             if (isSent.getAndSet(true)) {
                 Log.w(
-                    "AtomicResult(${operation})",
+                    "AtomicResult($operation)",
                     "Attempted to send notImplemented value after initial reply"
                 )
                 return@launch

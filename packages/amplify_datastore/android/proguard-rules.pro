@@ -1,1 +1,0 @@
--keep class io.reactivex.rxjava3.** { *; }

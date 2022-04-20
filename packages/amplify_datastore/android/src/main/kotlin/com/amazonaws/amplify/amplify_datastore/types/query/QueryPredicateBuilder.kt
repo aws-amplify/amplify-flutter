@@ -43,7 +43,7 @@ class QueryPredicateBuilder {
                 var field = queryPredicateOperationMap["field"] as String
 
                 if (modelSchema?.associations?.containsKey(field) == true) {
-                    val association = modelSchema.associations.getValue(field);
+                    val association = modelSchema.associations.getValue(field)
 
                     if (BelongsTo::class.java.simpleName.equals(association.name)) {
                         field = modelSchema.associations.getValue(field).targetName
@@ -117,7 +117,7 @@ class QueryPredicateBuilder {
                         if (predicates.isNotEmpty()) {
                             throw IllegalArgumentException(
                                 "More than one predicates added in the `not` queryPredicate operation." +
-                                        " Predicates Size: " + predicates.size
+                                    " Predicates Size: " + predicates.size
                             )
                         }
                         resultQueryPredicate =

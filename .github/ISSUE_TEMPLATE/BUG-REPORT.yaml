@@ -64,6 +64,26 @@ body:
           required: false
         - label: Android
           required: false
+  - type: dropdown
+    id: androidAPILevel
+    attributes:
+      label: Android Device/Emulator API Level
+      description: "If applicable, please mark the API level of the Android device or emulator with which this issue occurs."
+      multiple: true
+      options:
+        - API 16 - 20
+        - API 21
+        - API 22
+        - API 23
+        - API 24
+        - API 25
+        - API 26
+        - API 27
+        - API 28
+        - API 29
+        - API 30
+        - API 31
+        - API 32+
   - type: textarea
     id: environment
     attributes:

@@ -18,59 +18,185 @@ library query_field;
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../util/parsers.dart';
-import '../models/model_field_type.dart';
-import '../temporal/datetime_parse.dart';
-
 part 'query_field_operators.dart';
 part 'query_pagination.dart';
 part 'query_predicate.dart';
 part 'query_sort.dart';
 
+/// {@template amplify_core.query_field}
+/// A field used to query models.
+///
+/// Contains methods for filtering and sorting query results.
+/// {@endtemplate}
 class QueryField<T> {
-  final String fieldName;
-  final ModelFieldType? fieldType;
-
+  /// {@macro amplify_core.query_field}
   const QueryField({required this.fieldName, this.fieldType});
 
-  // Equal operation with operator overloading
-  QueryPredicateOperation eq(T value) => new QueryPredicateOperation(
-      this.fieldName, new EqualQueryOperator<T>(value));
-  // TODO: == operator is not supported in dart to return anything but bool.
-  // Figure out if there are any better alternative.
-  // QueryPredicateOperation operator ==(Comparable<T> value) => eq(value);
+  /// The name of the field to be queried on.
+  final String fieldName;
 
-  // Not equal to operation with operator overloading
-  QueryPredicateOperation ne(T value) => new QueryPredicateOperation(
-      this.fieldName, new NotEqualQueryOperator<T>(value));
-  // TODO: != is not a user overridable operator. Anything better we can do?
-  // QueryPredicateOperation operator !=(Comparable<T> value) => ne(value);
+  /// Contains information about the model that this field represents.
+  ///
+  /// Will be null if this field is not a model.
+  final ModelFieldType? fieldType;
 
-  // Less than or equal to operation with operator overloading
-  QueryPredicateOperation le(Comparable<T> value) =>
-      new QueryPredicateOperation(
-          this.fieldName, new LessOrEqualQueryOperator<Comparable<T>>(value));
+  /// An **equal to** operation.
+  ///
+  /// Matches models where the given field is equal to the provided value.
+  ///
+  /// ### Example:
+  /// The example returns Posts where the rating is equal to 10.
+  ///
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///  Post.classType,
+  ///  where: Post.RATING.eq(10),
+  /// );
+  /// ```
+  QueryPredicateOperation eq(T value) =>
+      QueryPredicateOperation(fieldName, EqualQueryOperator<T>(value));
+
+  /// A **not equal to** operation.
+  ///
+  /// Matches models where the given field is **not** equal to the provided value.
+  ///
+  /// ### Example:
+  /// The example returns Posts where the rating is not equal to 10.
+  ///
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///  Post.classType,
+  ///  where: Post.RATING.ne(10),
+  /// );
+  /// ```
+  QueryPredicateOperation ne(T value) =>
+      QueryPredicateOperation(fieldName, NotEqualQueryOperator<T>(value));
+
+  /// {@template amplify_core.query_field.le}
+  /// A **less than or equal to** operation.
+  ///
+  /// Matches models where the given field is less than or equal to
+  /// the provided value.
+  ///
+  /// ### Examples:
+  /// Both examples return Posts where the rating is less than or equal to 10.
+  ///
+  /// #### Example with `.le()` method:
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///  Post.classType,
+  ///  where: Post.RATING.le(10),
+  /// );
+  /// ```
+  ///
+  /// #### Example with `<=` operator:
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///  Post.classType,
+  ///  where: Post.RATING <= 10,
+  /// );
+  /// ```
+  /// {@endtemplate}
+  QueryPredicateOperation le(Comparable<T> value) => QueryPredicateOperation(
+      fieldName, LessOrEqualQueryOperator<Comparable<T>>(value));
+
+  /// {@macro amplify_core.query_field.le}
   QueryPredicateOperation operator <=(Comparable<T> value) => le(value);
 
-  // Less than operation with operator overloading
-  QueryPredicateOperation lt(Comparable<T> value) =>
-      new QueryPredicateOperation(
-          this.fieldName, new LessThanQueryOperator<Comparable<T>>(value));
+  /// {@template amplify_core.query_field.lt}
+  /// A **less than** operation.
+  ///
+  /// Matches models where the given field is less than the provided value.
+  ///
+  /// ### Examples:
+  /// Both examples return Posts where the rating is less than 10.
+  ///
+  /// #### Example with `.lt()` method:
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///  Post.classType,
+  ///  where: Post.RATING.lt(10),
+  /// );
+  /// ```
+  ///
+  /// #### Example with `<` operator:
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///  Post.classType,
+  ///  where: Post.RATING < 10,
+  /// );
+  /// ```
+  /// {@endtemplate}
+  QueryPredicateOperation lt(Comparable<T> value) => QueryPredicateOperation(
+      fieldName, LessThanQueryOperator<Comparable<T>>(value));
+
+  /// {@macro amplify_core.query_field.lt}
   QueryPredicateOperation operator <(Comparable<T> value) => lt(value);
 
-  // Greater than equal to operation with operator overloading
-  QueryPredicateOperation ge(Comparable<T> value) =>
-      new QueryPredicateOperation(this.fieldName,
-          new GreaterOrEqualQueryOperator<Comparable<T>>(value));
+  /// {@template amplify_core.query_field.ge}
+  /// A **greater than or equal to** operation.
+  ///
+  /// Matches models where the given field is greater than or equal to
+  /// the provided value.
+  ///
+  /// ### Examples:
+  /// Both examples return Posts where the rating is greater than or equal to 10.
+  ///
+  /// #### Example with `.ge()` method:
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///  Post.classType,
+  ///  where: Post.RATING.ge(10),
+  /// );
+  /// ```
+  ///
+  /// #### Example with `>=` operator:
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///  Post.classType,
+  ///  where: Post.RATING >= 10,
+  /// );
+  /// ```
+  /// {@endtemplate}
+  QueryPredicateOperation ge(Comparable<T> value) => QueryPredicateOperation(
+      fieldName, GreaterOrEqualQueryOperator<Comparable<T>>(value));
+
+  /// {@macro amplify_core.query_field.ge}
   QueryPredicateOperation operator >=(Comparable<T> value) => ge(value);
 
-  // Greater than operation with operator overloading
-  QueryPredicateOperation gt(Comparable<T> value) =>
-      new QueryPredicateOperation(
-          this.fieldName, new GreaterThanQueryOperator<Comparable<T>>(value));
+  /// {@template amplify_core.query_field.gt}
+  /// A **greater than** operation.
+  ///
+  /// Matches models where the given field is greater than the provided value.
+  ///
+  /// ### Examples:
+  /// Both examples return Posts where the rating is greater than 10.
+  ///
+  /// #### Example with `.gt()` method:
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///  Post.classType,
+  ///  where: Post.RATING.gt(10),
+  /// );
+  /// ```
+  ///
+  /// #### Example with `>` operator:
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///  Post.classType,
+  ///  where: Post.RATING > 10,
+  /// );
+  /// ```
+  /// {@endtemplate}
+  QueryPredicateOperation gt(Comparable<T> value) => QueryPredicateOperation(
+      fieldName, GreaterThanQueryOperator<Comparable<T>>(value));
+
+  /// {@macro amplify_core.query_field.gt}
   QueryPredicateOperation operator >(Comparable<T> value) => gt(value);
 
-  /// An operation that returns models that contain the given item.
+  /// A **contains** operation.
+  ///
+  /// Matches models where the given field contains the provided value.
   ///
   /// This operation can be applied to fields of type String or
   /// List<String>.
@@ -98,22 +224,66 @@ class QueryField<T> {
         ContainsQueryOperator(value),
       );
 
-  // Between operation. No operator overloading for this one
+  /// A **between** operation.
+  ///
+  /// Matches models where the given field is between the provided start and end values.
+  ///
+  /// ### Example:
+  /// The example returns Posts where the rating is between 5 and 10.
+  ///
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///  Post.classType,
+  ///  where: Post.RATING.between(5, 10),
+  /// );
+  /// ```
   QueryPredicateOperation between(Comparable<T> start, Comparable<T> end) =>
-      new QueryPredicateOperation(
-          this.fieldName, new BetweenQueryOperator<Comparable<T>>(start, end));
+      QueryPredicateOperation(
+          fieldName, BetweenQueryOperator<Comparable<T>>(start, end));
 
-  // Begins with operation. No operator overloading for this one
+  /// A **beginsWith** operation.
+  ///
+  /// Matches models where the given field begins with the provided value.
+  ///
+  /// ### Example:
+  /// The example returns Posts where the title begins with "foo".
+  ///
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///  Post.classType,
+  ///  where: Post.TITLE.beginsWith("foo"),
+  /// );
+  /// ```
   QueryPredicateOperation beginsWith(String value) =>
-      new QueryPredicateOperation(
-          this.fieldName, new BeginsWithQueryOperator(value));
+      QueryPredicateOperation(fieldName, BeginsWithQueryOperator(value));
 
-  // Sorting (Discussed later in this doc)
+  /// Sorts models by the given field in ascending order
+  ///
+  /// ### Example:
+  /// The example returns Posts sorted by rating in ascending order.
+  ///
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///   Post.classType,
+  ///   sortBy: [Post.RATING.ascending()],
+  /// );
+  /// ```
   QuerySortBy ascending() {
-    return new QuerySortBy(field: fieldName, order: QuerySortOrder.ascending);
+    return QuerySortBy(field: fieldName, order: QuerySortOrder.ascending);
   }
 
+  /// Sorts models by the given field in descending order
+  ///
+  /// ### Example:
+  /// The example returns Posts sorted by rating in descending order.
+  ///
+  /// ```dart
+  /// Amplify.DataStore.query(
+  ///   Post.classType,
+  ///   sortBy: [Post.RATING.descending()],
+  /// );
+  /// ```
   QuerySortBy descending() {
-    return new QuerySortBy(field: fieldName, order: QuerySortOrder.descending);
+    return QuerySortBy(field: fieldName, order: QuerySortOrder.descending);
   }
 }

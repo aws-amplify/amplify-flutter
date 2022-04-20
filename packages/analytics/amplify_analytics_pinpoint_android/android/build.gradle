@@ -6,11 +6,15 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:7.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'org.jlleitschuh.gradle:ktlint-gradle:10.2.1'
     }
 }
 
@@ -24,11 +28,12 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply from: './coverage.gradle'
+apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 def amplifyCore = findProject(':amplify_core')
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -39,6 +44,7 @@ android {
     }
     lintOptions {
         disable 'InvalidPackage'
+        disable 'AndroidGradlePluginVersion'
         informational 'GradleDependency'
 
         abortOnError true
@@ -66,9 +72,9 @@ android {
 dependencies {
     api amplifyCore
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.amplifyframework:aws-analytics-pinpoint:1.32.2'
-    implementation 'com.amplifyframework:aws-auth-cognito:1.32.2'
+    implementation 'com.amplifyframework:aws-analytics-pinpoint:1.35.1'
+    implementation 'com.amplifyframework:aws-auth-cognito:1.35.1'
+
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.10.0'
     testImplementation 'org.mockito:mockito-inline:3.10.0'

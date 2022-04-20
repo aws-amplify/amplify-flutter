@@ -19,24 +19,24 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 
 data class FlutterUpdatePasswordRequest(val map: HashMap<String, *>) {
-  val oldPassword: String = map["oldPassword"] as String;
-  val newPassword: String = map["newPassword"] as String;
+    val oldPassword: String = map["oldPassword"] as String
+    val newPassword: String = map["newPassword"] as String
 
-  val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
+    val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?
 
-  companion object {
-    private const val validationErrorMessage: String = "UpdatePassword Request malformed."
-    fun validate(req : HashMap<String, *>?) {
-      if (req == null || req !is HashMap<String, *>) {
-        throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
-      } else if (req != null) {
-        if (!req.containsKey("oldPassword")) {
-          throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "oldPassword" ))
+    companion object {
+        private const val validationErrorMessage: String = "UpdatePassword Request malformed."
+        fun validate(req: HashMap<String, *>?) {
+            if (req == null || req !is HashMap<String, *>) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
+            } else if (req != null) {
+                if (!req.containsKey("oldPassword")) {
+                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("oldPassword"))
+                }
+                if (!req.containsKey("newPassword")) {
+                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("newPassword"))
+                }
+            }
         }
-        if (!req.containsKey("newPassword")) {
-          throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "newPassword" ))
-        }
-      }
     }
-  }
 }

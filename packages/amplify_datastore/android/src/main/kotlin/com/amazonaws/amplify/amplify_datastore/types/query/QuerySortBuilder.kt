@@ -17,6 +17,7 @@ package com.amazonaws.amplify.amplify_datastore.types.query
 
 import com.amplifyframework.core.model.query.QuerySortBy
 import com.amplifyframework.core.model.query.QuerySortOrder
+import java.util.Locale
 
 class QuerySortBuilder {
     companion object {
@@ -30,9 +31,10 @@ class QuerySortBuilder {
 
         private fun fromSerializedMap(serializedMap: Map<String, Any>): QuerySortBy {
             return QuerySortBy(
-                    serializedMap["field"] as String,
-                    QuerySortOrder.valueOf(
-                            (serializedMap["order"] as String).toUpperCase()) // android enums are upper case
+                serializedMap["field"] as String,
+                QuerySortOrder.valueOf(
+                    (serializedMap["order"] as String).uppercase(Locale.ROOT)
+                ) // android enums are upper case
             )
         }
     }

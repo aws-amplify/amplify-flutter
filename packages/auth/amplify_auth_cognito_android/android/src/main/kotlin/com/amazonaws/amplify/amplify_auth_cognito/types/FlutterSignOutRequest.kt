@@ -29,11 +29,10 @@ data class FlutterSignOutRequest(val map: HashMap<String, *>) {
 
     companion object {
         private const val validationErrorMessage: String = "SignOut Request malformed."
-        fun validate(req : HashMap<String, *>?) {
+        fun validate(req: HashMap<String, *>?) {
             if (req == null) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
             }
         }
     }
-
 }

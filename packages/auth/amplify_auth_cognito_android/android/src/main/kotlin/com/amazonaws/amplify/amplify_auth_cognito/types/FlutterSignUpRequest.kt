@@ -29,7 +29,7 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
     val options: AWSCognitoAuthSignUpOptions = formatOptions(map["options"] as HashMap<String, *>?)
 
     private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthSignUpOptions {
-        val optionsBuilder =  AWSCognitoAuthSignUpOptions.builder()
+        val optionsBuilder = AWSCognitoAuthSignUpOptions.builder()
         if (rawOptions != null) {
             val attributeData = rawOptions["userAttributes"] as? MutableMap<String, String>
             val clientMetadata = rawOptions["clientMetadata"] as? MutableMap<String, String>
@@ -49,21 +49,19 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
             if (clientMetadata is MutableMap<String, String>) {
                 optionsBuilder.clientMetadata(clientMetadata)
             }
-
         }
         return optionsBuilder.build()
     }
 
     companion object {
         private const val validationErrorMessage: String = "SignUp Request malformed."
-        fun validate(req : HashMap<String, *>?) {
+        fun validate(req: HashMap<String, *>?) {
             if (req == null) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
             }
             if (!req.containsKey("password")) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "password" ))
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("password"))
             }
         }
     }
-
 }

@@ -26,9 +26,13 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class AmplifyModelSchemaTest {
 
-    var schemasMap : Map<String, Any> = (readMapFromFile("model_schema",
+    var schemasMap: Map<String, Any> = (
+        readMapFromFile(
+            "model_schema",
             "model_schema_maps.json",
-            HashMap::class.java) as HashMap<String, Any>)
+            HashMap::class.java
+        ) as HashMap<String, Any>
+        )
 
     @Test
     fun test_schema_blog_with_hasMany() {
@@ -36,8 +40,8 @@ class AmplifyModelSchemaTest {
         var modelSchema = FlutterModelSchema(inputMap)
         // Verify result
         assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                blogSchema
+            modelSchema.convertToNativeModelSchema(),
+            blogSchema
         )
     }
 
@@ -47,8 +51,8 @@ class AmplifyModelSchemaTest {
         var modelSchema = FlutterModelSchema(inputMap)
         // Verify result
         assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                commentSchema
+            modelSchema.convertToNativeModelSchema(),
+            commentSchema
         )
     }
 
@@ -58,8 +62,8 @@ class AmplifyModelSchemaTest {
         var modelSchema = FlutterModelSchema(inputMap)
         // Verify result
         assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                postSchema
+            modelSchema.convertToNativeModelSchema(),
+            postSchema
         )
     }
 
@@ -70,8 +74,8 @@ class AmplifyModelSchemaTest {
         var modelSchema = FlutterModelSchema(inputMap)
         // Verify result
         assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                postAuthComplexSchema
+            modelSchema.convertToNativeModelSchema(),
+            postAuthComplexSchema
         )
     }
 
@@ -106,15 +110,15 @@ class AmplifyModelSchemaTest {
         var modelSchema = FlutterModelSchema(inputMap)
         // Verify result
         assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                allTypeModelSchema
+            modelSchema.convertToNativeModelSchema(),
+            allTypeModelSchema
         )
     }
 
     @Test
     fun test_model_schema_nested_custom_type_schema() {
         val inputMap = schemasMap["PersonModelSchema"] as Map<String, Any>
-        val modelSchema = FlutterModelSchema(inputMap);
+        val modelSchema = FlutterModelSchema(inputMap)
 
         val convertedModelSchema = modelSchema.convertToNativeModelSchema()
 

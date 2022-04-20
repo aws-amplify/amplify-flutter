@@ -25,22 +25,22 @@ import com.amplifyframework.auth.cognito.options.AWSCognitoAuthUpdateUserAttribu
 
 data class FlutterUpdateUserAttributeRequest(val map: HashMap<String, *>) {
 
-    val attribute: AuthUserAttribute = createAttribute(map["attribute"] as HashMap<String, *>);
+    val attribute: AuthUserAttribute = createAttribute(map["attribute"] as HashMap<String, *>)
     val options: AWSCognitoAuthUpdateUserAttributeOptions = createOptions(map["options"] as HashMap<String, Any>?)
 
     private fun createAttribute(@NonNull rawAttribute: HashMap<String, *>): AuthUserAttribute {
-        val value = rawAttribute["value"].toString();
-        val key: String = rawAttribute["userAttributeKey"] as String;
-        val attribute: AuthUserAttribute = createAuthUserAttribute(key, value);
-        return attribute;
+        val value = rawAttribute["value"].toString()
+        val key: String = rawAttribute["userAttributeKey"] as String
+        val attribute: AuthUserAttribute = createAuthUserAttribute(key, value)
+        return attribute
     }
 
     private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthUpdateUserAttributeOptions {
-        val optionsBuilder =  AWSCognitoAuthUpdateUserAttributeOptions.builder();
+        val optionsBuilder = AWSCognitoAuthUpdateUserAttributeOptions.builder()
         if (rawOptions?.get("clientMetadata") != null) {
-            optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
+            optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>)
         }
-        return optionsBuilder.build();
+        return optionsBuilder.build()
     }
 
     companion object {
@@ -51,7 +51,7 @@ data class FlutterUpdateUserAttributeRequest(val map: HashMap<String, *>) {
             } else if (!req.containsKey("attribute") || req["attribute"] !is HashMap<*, *>) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("attribute"))
             } else {
-                val attribute = req["attribute"] as HashMap<*, *>;
+                val attribute = req["attribute"] as HashMap<*, *>
                 validateUserAttribute(attribute, validationErrorMessage)
             }
         }

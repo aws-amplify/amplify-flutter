@@ -30,14 +30,17 @@ data class FlutterSerializedCustomType(val serializedCustomType: SerializedCusto
     fun toMap(): Map<String, Any> {
         return mapOf(
             "serializedData" to serializedData,
-            "customTypeName" to customTypeName)
+            "customTypeName" to customTypeName
+        )
     }
 
-    private fun parseCustomTypeName(customTypeName: String?) : String = customTypeName ?: ""
+    private fun parseCustomTypeName(customTypeName: String?): String = customTypeName ?: ""
 
     private fun parseSerializedDataMap(
-        serializedData: Map<String, Any>, customTypeSchema: CustomTypeSchema): Map<String, Any?> {
-        if(serializedData.isEmpty()) throw Exception(
+        serializedData: Map<String, Any>,
+        customTypeSchema: CustomTypeSchema
+    ): Map<String, Any?> {
+        if (serializedData.isEmpty()) throw Exception(
             "FlutterSerializedCustomType - no serializedData for ${customTypeSchema.name}"
         )
 

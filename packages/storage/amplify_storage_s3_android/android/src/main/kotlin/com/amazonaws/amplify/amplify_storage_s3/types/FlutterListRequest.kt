@@ -19,6 +19,7 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.storage.StorageAccessLevel
 import com.amplifyframework.storage.options.StorageListOptions
+import java.util.*
 
 data class FlutterListRequest(val request: Map<String, *>) {
     val path: String = request["path"] as String? ?: ""
@@ -27,13 +28,17 @@ data class FlutterListRequest(val request: Map<String, *>) {
     private fun setOptions(request: Map<String, *>): StorageListOptions {
         if (request["options"] != null) {
             val optionsMap = request["options"] as Map<String, *>
-            var options: StorageListOptions.Builder<*> = StorageListOptions.builder()
+            val options: StorageListOptions.Builder<*> = StorageListOptions.builder()
 
             optionsMap.forEach { (optionKey, optionValue) ->
                 when (optionKey) {
                     "accessLevel" -> {
                         val accessLevelStringOption = optionValue as String
-                        val accessLevel: StorageAccessLevel? = StorageAccessLevel.values().find { it.name == accessLevelStringOption.toUpperCase() }
+                        val accessLevel: StorageAccessLevel? = StorageAccessLevel.values().find {
+                            it.name == accessLevelStringOption.uppercase(
+                                Locale.ROOT
+                            )
+                        }
                         options.accessLevel(accessLevel)
                     }
                     "targetIdentityId" -> {
@@ -49,8 +54,8 @@ data class FlutterListRequest(val request: Map<String, *>) {
     companion object {
         private const val validationErrorMessage: String = "List request malformed."
         fun validate(request: Map<String, *>) {
-            if(request["path"] !is String?) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "path" ))
+            if (request["path"] !is String?) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("path"))
             }
         }
     }

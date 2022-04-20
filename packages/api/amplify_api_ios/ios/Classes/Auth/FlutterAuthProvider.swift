@@ -64,7 +64,7 @@ class FlutterAuthProviders: APIAuthProviderFactory {
                 }
             }
 
-            let timeout: DispatchTimeInterval = .seconds(2)
+            let timeout: DispatchTimeInterval = .seconds(5)
             let waitResult = completer.wait(timeout: .now() + timeout)
             if waitResult == .timedOut {
                 token = .failure(APIError.operationError(
