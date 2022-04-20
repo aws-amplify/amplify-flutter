@@ -558,7 +558,7 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
         )(context);
       case ConfirmSignInField.confirmNewPassword:
         return validatePasswordConfirmation(
-          () => state.password,
+          () => state.newPassword,
           context: context,
           inputResolver: stringResolver.inputs,
         );
