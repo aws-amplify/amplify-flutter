@@ -43,6 +43,14 @@ const Map<String, TestFileParser> _fileParsers = {
 /// Parses raw HTTP requests.
 final _requestParser = SignerRequestParser();
 
+/// Test cases to skip.
+///
+/// See: https://github.com/awslabs/aws-c-auth/issues/160
+const skipTestCases = [
+  'get-vanilla-query-order-key',
+  'get-vanilla-query-order-value',
+];
+
 /// Loads all test cases in the C signer test suite by walking the file tree
 /// and creating a [SignerTest] for each folder encountered where all requisite
 /// files are available.
@@ -68,6 +76,10 @@ Future<List<SignerTest>> loadAllTests() async {
     final testCaseName = path.basename(entity.path);
     final testCaseBuilder = SignerTestBuilder(testCaseName);
 
+    if (skipTestCases.contains(testCaseName)) {
+      continue;
+    }
+
     // List all the files in the test directory and sort them alphabetically.
     // This is required to ensure that `context.json` is the first file parsed,
     // since its data is used to parse other files accordingly, namely `request.txt`.
@@ -83,8 +95,7 @@ Future<List<SignerTest>> loadAllTests() async {
     // they are borrowing the rest of the files from other folders, but it's not
     // clear. This represents only 2 tests, as of writing.
     if (testFiles.length < 10) {
-      print('Warning: $testCaseName does not include all necessary files');
-      continue;
+      throw Exception('$testCaseName does not include all necessary files');
     }
 
     for (var testFile in testFiles) {
