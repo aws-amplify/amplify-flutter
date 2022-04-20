@@ -263,11 +263,10 @@ class _MyAppState extends State<MyApp> {
                   onPressed: _viewUserAttributes,
                   child: const Text('View/Edit User Attributes')),
               const Padding(padding: EdgeInsets.all(10.0)),
-              if (Platform.isIOS)
-                ElevatedButton(
-                  onPressed: _deleteUser,
-                  child: const Text('Delete User'),
-                ),
+              ElevatedButton(
+                onPressed: _deleteUser,
+                child: const Text('Delete User'),
+              ),
             ],
           ),
         ),
