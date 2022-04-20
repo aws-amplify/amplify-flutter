@@ -29,7 +29,7 @@ const zIncludeUserAgent = #_includeUserAgent;
 ///
 /// All requests made to AWS services must be processed in the precise way
 /// that service expects. Since each service is different, this class provides
-/// a way to override steps of the signing process which need precendence over
+/// a way to override steps of the signing process which need precedence over
 /// the [BaseServiceConfiguration].
 @sealed
 abstract class ServiceConfiguration {
