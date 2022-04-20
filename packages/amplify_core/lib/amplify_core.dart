@@ -15,6 +15,9 @@
 
 library amplify_core;
 
+/// Auth
+export 'src/types/categories/auth/auth_types.dart';
+
 /// Exceptions
 export 'src/types/exception/amplify_already_configured_exception.dart';
 export 'src/types/exception/amplify_exception.dart';
