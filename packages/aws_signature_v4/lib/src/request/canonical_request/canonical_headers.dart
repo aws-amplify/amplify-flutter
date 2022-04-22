@@ -34,10 +34,13 @@ class CanonicalHeaders extends DelegatingMap<String, String> {
       if (_ignoredHeaders.contains(key)) {
         continue;
       }
-      map[key] = entry.value.trim().replaceAll(RegExp(r'\s+'), ' ');
+      map[key] = entry.value.trim().replaceAll(_whitespace, ' ');
     }
     return map;
   }
+
+  /// Matches multiple sequential whitespace characters.
+  static final _whitespace = RegExp(r'\s+');
 
   /// Returns the lowercased and sorted headers string.
   @override

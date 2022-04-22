@@ -59,8 +59,6 @@ class CanonicalRequest {
   final SignedHeaders signedHeaders;
 
   /// Whether or not to normalize the URI path.
-  ///
-  /// Defaults to `true`.
   final bool normalizePath;
 
   /// Whether to create a presigned URL.
@@ -76,8 +74,6 @@ class CanonicalRequest {
   ///
   /// If `true`, the session token will be added to the request after the signing
   /// process.
-  ///
-  /// Defaults to `false`.
   final bool omitSessionTokenFromSigning;
 
   // Query-specific parameters

@@ -12,5 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:meta/meta.dart';
+
 /// {@macro aws_common.lookup_platform_env}
+@internal
 String? lookupPlatformEnv(String key) => null;

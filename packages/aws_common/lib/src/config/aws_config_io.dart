@@ -14,7 +14,10 @@
 
 import 'dart:io';
 
+import 'package:meta/meta.dart';
+
 /// {@template aws_common.lookup_platform_env}
 /// Looks up a value from the platform environment.
 /// {@endtemplate}
+@internal
 String? lookupPlatformEnv(String key) => Platform.environment[key];

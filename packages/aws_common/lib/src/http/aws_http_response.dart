@@ -118,10 +118,12 @@ class AWSStreamedHttpResponse extends AWSBaseHttpResponse
     final sink = ByteConversionSink.withCallback(
       (bytes) => completer.complete(Uint8List.fromList(bytes)),
     );
-    body.listen(sink.add,
-        onError: completer.completeError,
-        onDone: sink.close,
-        cancelOnError: true);
+    body.listen(
+      sink.add,
+      onError: completer.completeError,
+      onDone: sink.close,
+      cancelOnError: true,
+    );
     return completer.future;
   }
 

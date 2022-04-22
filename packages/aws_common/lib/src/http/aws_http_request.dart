@@ -94,10 +94,12 @@ abstract class AWSBaseHttpRequest implements Closeable {
       request.contentLength = contentLength as int;
     }
 
-    body.listen(request.sink.add,
-        onError: request.sink.addError,
-        onDone: request.sink.close,
-        cancelOnError: true);
+    body.listen(
+      request.sink.add,
+      onError: request.sink.addError,
+      onDone: request.sink.close,
+      cancelOnError: true,
+    );
 
     return request;
   }
@@ -417,10 +419,12 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
     final sink = ByteConversionSink.withCallback(
       (bytes) => completer.complete(Uint8List.fromList(bytes)),
     );
-    split().listen(sink.add,
-        onError: completer.completeError,
-        onDone: sink.close,
-        cancelOnError: true);
+    split().listen(
+      sink.add,
+      onError: completer.completeError,
+      onDone: sink.close,
+      cancelOnError: true,
+    );
     return completer.future;
   }
 

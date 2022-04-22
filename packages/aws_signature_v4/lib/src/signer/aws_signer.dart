@@ -32,7 +32,7 @@ class AWSSigV4Signer {
 
   /// The algorithm to use for signing.
   ///
-  /// Defaults to `AWS4-HMAC-SHA256`.
+  /// Defaults to [AWSAlgorithm.hmacSha256].
   final AWSAlgorithm algorithm;
 
   /// The credentials provider for the signer to use.
