@@ -57,7 +57,6 @@ mixin AuthenticatorUsernameField<FieldType,
         };
       case UsernameType.phoneNumber:
         return (input) {
-          state.phoneNumber = input.username;
           state.username = input.username;
         };
     }

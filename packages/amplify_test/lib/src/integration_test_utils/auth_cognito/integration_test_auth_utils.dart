@@ -48,7 +48,7 @@ const adminCreateUserDocument =
 ///
 /// This method differs from the Auth.deleteUser API in that
 /// an access token is not required.
-Future<DeleteUserResponse?> deleteUser(String username) async {
+Future<DeleteUserResponse> deleteUser(String username) async {
   var res = await Amplify.API
       .mutate(
           request: GraphQLRequest<String>(
@@ -56,12 +56,9 @@ Future<DeleteUserResponse?> deleteUser(String username) async {
               variables: <String, dynamic>{'Username': username}))
       .response;
   if (res.errors.isNotEmpty) {
-    for (var error in res.errors) {
-      throw Exception(error.message);
-    }
-  } else {
-    return DeleteUserResponse.fromJson(res.data!);
+    throw Exception(res.errors.first.message);
   }
+  return DeleteUserResponse.fromJson(res.data!);
 }
 
 /// Creates a Cognito user in backend infrastructure. This documention describes
@@ -77,7 +74,7 @@ Future<DeleteUserResponse?> deleteUser(String username) async {
 /// The [verifyAttributes] flag will verify the email and phone, and should be used
 /// if tests need to bypass the verification step.
 /// The [attributes] list passes additional attributes.
-Future<AdminCreateUserResponse?> adminCreateUser(
+Future<AdminCreateUserResponse> adminCreateUser(
   String username,
   String password, {
   bool autoConfirm = false,
@@ -131,21 +128,22 @@ Future<AdminCreateUserResponse?> adminCreateUser(
           }))
       .response;
   if (res.errors.isNotEmpty) {
-    for (var error in res.errors) {
-      throw Exception(error.message);
-    }
-  } else {
-    return AdminCreateUserResponse.fromJson(res.data!);
+    throw Exception(res.errors.first.message);
+  }
+
+  final data = AdminCreateUserResponse.fromJson(res.data!);
+  if (data.error != null) {
+    throw Exception(data.error!);
   }
 
   addTearDown(() async {
     try {
       await deleteUser(username);
-      // ignore: avoid_catches_without_on_clauses
-    } catch (e) {
+    } on Object catch (e) {
       print('Error deleting user: $e');
     }
   });
+  return data;
 }
 
 /// Returns the OTP code for [username]. Must be called before the network call
