@@ -7,10 +7,6 @@ import 'package:smithy/smithy.dart';
 abstract class Operation<Input, Output> {
   const Operation();
 
-  /// The protocols used by this operation for all serialization/deserialization
-  /// of wire formats.
-  Iterable<Protocol> get protocols;
-
   /// Runs the operation for [input].
   ///
   /// Specifying [client] or [useProtocol] overrides the default for the

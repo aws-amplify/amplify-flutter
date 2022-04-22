@@ -62,7 +62,8 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     AWSStreamedHttpResponse response,
   );
 
-  @override
+  /// The protocols used by this operation for all serialization/deserialization
+  /// of wire formats.
   Iterable<HttpProtocol<InputPayload, Input, OutputPayload, Output>>
       get protocols;
 
@@ -155,8 +156,8 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       path += '/';
     }
     uri = uri.replace(host: host).resolve(path);
-    var awsRequest = AWSStreamedHttpRequest(
-      method: HttpMethod.values.byName(request.method.toLowerCase()),
+    var awsRequest = AWSStreamedHttpRequest.raw(
+      method: AWSHttpMethodHelper.fromString(request.method),
       host: host,
       path: uri.path,
       body: body,

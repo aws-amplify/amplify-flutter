@@ -45,8 +45,8 @@ class Context {
 }
 
 extension ShelfAwsRequest on Request {
-  AWSStreamedHttpRequest get awsRequest => AWSStreamedHttpRequest(
-        method: HttpMethodX.fromString(method),
+  AWSStreamedHttpRequest get awsRequest => AWSStreamedHttpRequest.raw(
+        method: AWSHttpMethodHelper.fromString(method),
         host: requestedUri.host,
         path: requestedUri.path,
         headers: headers,

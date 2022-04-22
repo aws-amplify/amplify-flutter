@@ -104,3 +104,9 @@ export 'traits/test/http_response_tests_trait.dart';
 export 'traits/test/parameterized_http_malformed_test_case.dart';
 
 export 'traits/trait.dart';
+
+// Waiters
+export 'traits/waiters/acceptor_definition.dart';
+export 'traits/waiters/matcher.dart';
+export 'traits/waiters/waitable_trait.dart';
+export 'traits/waiters/waiter.dart';

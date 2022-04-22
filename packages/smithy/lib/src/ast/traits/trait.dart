@@ -110,6 +110,7 @@ abstract class Trait<TraitValue extends Object>
     TitleTrait.id: TitleTrait.fromJson,
     UnitTypeTrait.id: UnitTypeTrait.fromJson,
     UnstableTrait.id: UnstableTrait.fromJson,
+    WaitableTrait.id: WaitableTrait.fromJson,
     XmlAttributeTrait.id: XmlAttributeTrait.fromJson,
     XmlFlattenedTrait.id: XmlFlattenedTrait.fromJson,
     XmlNameTrait.id: XmlNameTrait.fromJson,

@@ -4,6 +4,7 @@ library smithy;
 // AST types
 export 'ast.dart'
     show
+        AcceptorState,
         AlpnProtocol,
         ChecksumAlgorithm,
         ErrorKind,
@@ -67,5 +68,8 @@ export 'src/types/unit.dart';
 
 // Exceptions
 export 'src/exceptions/exceptions.dart';
+
+// Waiters
+export 'src/waiter/waitable.dart';
 
 // ignore_for_file: directives_ordering

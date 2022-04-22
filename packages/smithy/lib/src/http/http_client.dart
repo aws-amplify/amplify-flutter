@@ -25,7 +25,7 @@ class _Http1_1Client implements HttpClient {
     return AWSStreamedHttpResponse(
       statusCode: response.statusCode,
       headers: response.headers,
-      body: response.stream,
+      body: response.body,
     );
   }
 
