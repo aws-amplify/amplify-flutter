@@ -27,7 +27,7 @@ class HttpChecksumTrait
     with AWSSerializable
     implements Trait<HttpChecksumTrait> {
   const HttpChecksumTrait({
-    required this.requestChecksumRequired,
+    this.requestChecksumRequired,
     this.requestAlgorithmMember,
     this.requestValidationModeMember,
     this.responseAlgorithms = const {},
@@ -38,7 +38,7 @@ class HttpChecksumTrait
 
   static const id = ShapeId(namespace: 'aws.protocols', shape: 'httpChecksum');
 
-  final bool requestChecksumRequired;
+  final bool? requestChecksumRequired;
   final String? requestAlgorithmMember;
   final String? requestValidationModeMember;
   final Set<ChecksumAlgorithm> responseAlgorithms;

@@ -7,9 +7,9 @@ part of 'arn_trait.dart';
 // **************************************************************************
 
 ArnTrait _$ArnTraitFromJson(Map<String, dynamic> json) => ArnTrait(
-      noRegion: json['noRegion'] as bool,
-      noAccount: json['noAccount'] as bool,
-      absolute: json['absolute'] as bool,
+      noRegion: json['noRegion'] as bool?,
+      noAccount: json['noAccount'] as bool?,
+      absolute: json['absolute'] as bool?,
       template: json['template'] as String,
     );
 

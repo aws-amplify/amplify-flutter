@@ -8,7 +8,7 @@ part of 'http_checksum_trait.dart';
 
 HttpChecksumTrait _$HttpChecksumTraitFromJson(Map<String, dynamic> json) =>
     HttpChecksumTrait(
-      requestChecksumRequired: json['requestChecksumRequired'] as bool,
+      requestChecksumRequired: json['requestChecksumRequired'] as bool?,
       requestAlgorithmMember: json['requestAlgorithmMember'] as String?,
       requestValidationModeMember:
           json['requestValidationModeMember'] as String?,

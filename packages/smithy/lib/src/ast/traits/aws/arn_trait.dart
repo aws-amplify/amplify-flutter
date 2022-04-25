@@ -8,9 +8,9 @@ part 'arn_trait.g.dart';
 @JsonSerializable()
 class ArnTrait with AWSSerializable implements Trait<ArnTrait> {
   const ArnTrait({
-    required this.noRegion,
-    required this.noAccount,
-    required this.absolute,
+    this.noRegion,
+    this.noAccount,
+    this.absolute,
     required this.template,
   });
 
@@ -24,9 +24,9 @@ class ArnTrait with AWSSerializable implements Trait<ArnTrait> {
 
   static const id = ShapeId(namespace: 'aws.api', shape: 'arn');
 
-  final bool noRegion;
-  final bool noAccount;
-  final bool absolute;
+  final bool? noRegion;
+  final bool? noAccount;
+  final bool? absolute;
   final String template;
 
   @JsonKey(ignore: true)
