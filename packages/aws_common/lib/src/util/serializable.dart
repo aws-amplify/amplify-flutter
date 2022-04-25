@@ -12,16 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:json_annotation/json_annotation.dart';
-
 import 'json.dart';
-
-/// Global serialization options for AWS types.
-const awsSerializable = JsonSerializable(
-  fieldRename: FieldRename.pascal,
-  includeIfNull: false,
-  explicitToJson: true,
-);
 
 /// A mixin to provide `toJson` functionality to objects.
 mixin AWSSerializable on Object {
