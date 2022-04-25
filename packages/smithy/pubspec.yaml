@@ -1,6 +1,6 @@
 name: smithy
 description: Smithy client runtime for Dart
-version: 0.3.4
+version: 0.3.5
 homepage: https://github.com/dnys1/smithy-dart
 publish_to: https://pub.dillonnys.com
 
@@ -12,7 +12,7 @@ dependencies:
     hosted: https://pub.dillonnys.com
     version: ^0.1.8
   built_collection: ^5.0.0
-  built_value: ^8.0.0
+  built_value: ">=8.2.0 <8.3.0"
   collection: ^1.15.0
   convert: ^3.0.1
   crypto: ^3.0.1

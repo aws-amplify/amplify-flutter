@@ -39,18 +39,18 @@ class _$StructureShapeSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'members':
           result.members = serializers.deserialize(value,
-                  specifiedType: const FullType(NamedMembersMap))
+                  specifiedType: const FullType(NamedMembersMap))!
               as NamedMembersMap;
           break;
         case 'traits':
           result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap)) as TraitMap;
+              specifiedType: const FullType(TraitMap))! as TraitMap;
           break;
       }
     }

@@ -40,13 +40,13 @@ class _$SmithyAstSerializer implements StructuredSerializer<SmithyAst> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'smithy':
           result.version = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'metadata':
           result.metadata.replace(serializers.deserialize(value,
@@ -57,7 +57,7 @@ class _$SmithyAstSerializer implements StructuredSerializer<SmithyAst> {
           break;
         case 'shapes':
           result.shapes = serializers.deserialize(value,
-              specifiedType: const FullType(ShapeMap)) as ShapeMap;
+              specifiedType: const FullType(ShapeMap))! as ShapeMap;
           break;
       }
     }

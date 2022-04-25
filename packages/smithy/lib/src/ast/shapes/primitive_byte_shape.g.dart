@@ -37,13 +37,13 @@ class _$PrimitiveByteShapeSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
           result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap)) as TraitMap;
+              specifiedType: const FullType(TraitMap))! as TraitMap;
           break;
       }
     }

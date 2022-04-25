@@ -39,21 +39,21 @@ class _$MemberShapeSerializer implements StructuredSerializer<MemberShape> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'target':
           result.target = serializers.deserialize(value,
-              specifiedType: const FullType(ShapeId)) as ShapeId;
+              specifiedType: const FullType(ShapeId))! as ShapeId;
           break;
         case 'memberName':
           result.memberName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'traits':
           result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap)) as TraitMap;
+              specifiedType: const FullType(TraitMap))! as TraitMap;
           break;
       }
     }

@@ -36,7 +36,7 @@ class _$ListShapeSerializer implements StructuredSerializer<ListShape> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -46,7 +46,7 @@ class _$ListShapeSerializer implements StructuredSerializer<ListShape> {
           break;
         case 'traits':
           result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap)) as TraitMap;
+              specifiedType: const FullType(TraitMap))! as TraitMap;
           break;
       }
     }
