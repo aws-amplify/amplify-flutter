@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:collection';
 import 'dart:io';
 
 import 'package:aws_common/aws_common.dart';
@@ -26,6 +25,9 @@ class SignerRequestParser {
   late final HttpServer _server;
   late final Stream<HttpRequest> _serverStream;
   late Socket _sendSocket;
+
+  // Allows for correct behavior on all platforms.
+  static final platformNewline = RegExp('\r?\n');
 
   /// Starts a local HTTP server.
   Future<void> init() async {
@@ -68,13 +70,7 @@ class SignerRequestParser {
 
   Map<String, String> _parseHeaders(List<String> headerLines) {
     final numLines = headerLines.length;
-
-    // Create a case-insensitive hash map for valid comparison, i.e. 'Host' and
-    // 'host' as keys should point to the same value.
-    final Map<String, String> headers = LinkedHashMap(
-      equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
-      hashCode: (key) => key.toLowerCase().hashCode,
-    );
+    final Map<String, String> headers = CaseInsensitiveMap({});
 
     // Process all lines by starting with the ones with the key, i.e. containing
     // a ':' character, and get all values for that key by processing subsequent
@@ -144,7 +140,7 @@ class SignerRequestParser {
     // Close server connection.
     await httpRequest.response.close();
 
-    final requestLines = request.split(RegExp('\r?\n'));
+    final requestLines = request.split(platformNewline);
 
     // Parse these parameters manually since they are modified, normalized, etc.
     // by the Dart server.
@@ -167,7 +163,7 @@ class SignerRequestParser {
   /// be an implementation detail of the server but it cannot process the request
   /// otherwise.
   String _preprocessRequest(String request) {
-    final requestLines = request.split(RegExp('\r?\n'));
+    final requestLines = request.split(platformNewline);
     var requestLine = requestLines.first;
 
     final requestParts = requestLine.split(' ');
@@ -177,16 +173,19 @@ class SignerRequestParser {
     //
     // e.g. requestLine = 'GET /abc 123/ HTTP/1.1'
     //   => requestParts = ['GET', '/abc', '123/', 'HTTP/1.1']
+    const space = ' ';
+    const newline = '\n';
+    const encodedSpace = '%20';
     if (requestPartsLength > 3) {
       requestLine = [
         requestParts.first,
-        requestParts.sublist(1, requestPartsLength - 1).join('%20'),
+        requestParts.sublist(1, requestPartsLength - 1).join(encodedSpace),
         requestParts.last,
-      ].join(' ');
+      ].join(space);
       request = [
         requestLine,
         ...requestLines.sublist(1),
-      ].join('\n');
+      ].join(newline);
     }
     return request;
   }
