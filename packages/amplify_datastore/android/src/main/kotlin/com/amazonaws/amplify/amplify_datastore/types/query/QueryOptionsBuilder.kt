@@ -15,6 +15,8 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.query
 
+import com.amazonaws.amplify.amplify_core.cast
+import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelPrimaryKey
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
 import com.amplifyframework.core.model.ModelSchema
@@ -23,6 +25,7 @@ import com.amplifyframework.core.model.query.QueryPaginationInput
 import com.amplifyframework.core.model.query.QuerySortBy
 import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.query.predicate.QueryPredicate
+import java.io.Serializable
 
 class QueryOptionsBuilder {
 
@@ -54,6 +57,29 @@ class QueryOptionsBuilder {
                 queryOptions = queryOptions.sorted(*querySortInput.toTypedArray())
             }
             return queryOptions
+        }
+
+        @JvmStatic
+        fun extractModelPrimaryKeyFromPredicate(request: Map<String, Any>?): FlutterModelPrimaryKey? {
+            if (request == null) {
+                return null
+            }
+
+            val queryPredicate = request["queryPredicate"]
+
+            if (queryPredicate is Map<*, *>) {
+                val queryByIdentifierOperation = queryPredicate.cast<String, Any>()["queryByIdentifierOperation"]
+                if (queryByIdentifierOperation is Map<*, *>) {
+                    val identifierKeyValues = queryByIdentifierOperation.cast<String, Any>()["value"]
+                    if (identifierKeyValues is List<*>) {
+                        return FlutterModelPrimaryKey(
+                            identifierKeyValues.cast<Map<String, Serializable>>().map { it.values.first() }
+                        )
+                    }
+                }
+            }
+
+            return null
         }
     }
 

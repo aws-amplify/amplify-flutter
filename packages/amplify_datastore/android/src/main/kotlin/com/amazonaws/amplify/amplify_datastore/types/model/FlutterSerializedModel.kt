@@ -31,7 +31,6 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
     )
 
     // ignored fields
-    private val id: String = serializedModel.id
     private val modelName: String =
         parseModelName(serializedModel.modelName) // ModelSchema -> SerializedModel should always have a name
 
@@ -40,7 +39,6 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
         val cleanedSerializedData: Map<String, Any?> = serializedData.filterValues { it != null }
 
         return mapOf(
-            "id" to id,
             "serializedData" to cleanedSerializedData,
             "modelName" to modelName
         )

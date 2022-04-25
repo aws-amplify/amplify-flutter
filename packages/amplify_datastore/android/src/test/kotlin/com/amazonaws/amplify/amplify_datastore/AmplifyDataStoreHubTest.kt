@@ -93,15 +93,15 @@ class AmplifyDataStoreHubTest {
         var metadataMap: HashMap<String, Any>
         val modelMap: HashMap<String, Any> = element["model"] as HashMap<String, Any>
         val serializedData: HashMap<String, Any> = modelMap["serializedData"] as HashMap<String, Any>
-        val modelMetadata = ModelMetadata(modelMap["id"] as String, null, null, null)
+        val modelMetadata = ModelMetadata(modelMap["id"] as String, null, null, null, "Post")
         val modelData = mapOf(
             "id" to serializedData["id"] as String,
             "title" to serializedData["title"] as String,
             "created" to Temporal.DateTime(serializedData["created"] as String)
         )
         val instance = SerializedModel.builder()
-            .serializedData(modelData)
             .modelSchema(modelSchema)
+            .serializedData(modelData)
             .build()
 
         val modelWithMetadata: ModelWithMetadata<SerializedModel> = ModelWithMetadata(instance, modelMetadata)
@@ -144,7 +144,8 @@ class AmplifyDataStoreHubTest {
             metadataMap["id"] as String,
             metadataMap["_deleted"] as Boolean,
             metadataMap["_version"] as Int,
-            time
+            time,
+            "Post"
         )
         val modelData = mapOf(
             "id" to serializedData["id"] as String,
@@ -152,8 +153,8 @@ class AmplifyDataStoreHubTest {
             "created" to Temporal.DateTime(serializedData["created"] as String)
         )
         val instance = SerializedModel.builder()
-            .serializedData(modelData)
             .modelSchema(modelSchema)
+            .serializedData(modelData)
             .build()
 
         val modelWithMetadata: ModelWithMetadata<SerializedModel> = ModelWithMetadata(instance, modelMetadata)

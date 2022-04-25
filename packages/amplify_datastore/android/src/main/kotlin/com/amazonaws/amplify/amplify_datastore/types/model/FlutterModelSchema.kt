@@ -16,6 +16,7 @@
 package com.amazonaws.amplify.amplify_datastore.types.model
 
 import com.amazonaws.amplify.amplify_core.cast
+import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelIndex
 import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.core.model.SerializedModel
@@ -39,14 +40,33 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
         fields.filterKeys { key -> fields[key]?.getModelAssociation() != null }
             .mapValues { it.value.getModelAssociation()!! }
 
-    private val indexes: Map<String, ModelIndex> = when (val rawIndexes = map["indexes"]) {
-        is List<*> -> {
-            (rawIndexes.cast<Map<String, Any>>()).associate {
-                (it["name"] as String?
-                    ?: FlutterModelIndex.unnamedIndexKey) to FlutterModelIndex(it).convertToNativeModelIndex()
-            }.toMap()
+    // In amplify-android, primaryKey and indexes are categories as ModelIndex
+    private val indexes: Map<String, ModelIndex> = run {
+        val parsedIndexes = emptyMap<String, ModelIndex>().toMutableMap()
+        val rawIndexes = map["indexes"]
+
+        if (rawIndexes is List<*>) {
+            parsedIndexes.putAll(
+                (rawIndexes.cast<Map<String, Any>>()).associate {
+                    (it["name"] as String?
+                        ?: FlutterModelIndex.unnamedIndexKey) to FlutterModelIndex(it).convertToNativeModelIndex()
+                }.toMap()
+            )
         }
-        else -> emptyMap()
+
+        val rawPrimaryKey = map["primaryKey"]
+
+        if (rawPrimaryKey is Map<*, *>) {
+            parsedIndexes.putAll(
+                mapOf(
+                    FlutterModelIndex.unnamedIndexKey to FlutterModelIndex(
+                        rawPrimaryKey.cast()
+                    ).convertToNativeModelIndex()
+                )
+            )
+        }
+
+        parsedIndexes
     }
 
     fun convertToNativeModelSchema(): ModelSchema {
@@ -58,6 +78,7 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
             .authRules(authRules.map { it.convertToNativeAuthRule() })
             .associations(associations.mapValues { it.value.convertToNativeModelAssociation() })
             .modelClass(SerializedModel::class.java)
-            .build();
+            .modelType(Model.Type.USER)
+            .build()
     }
 }

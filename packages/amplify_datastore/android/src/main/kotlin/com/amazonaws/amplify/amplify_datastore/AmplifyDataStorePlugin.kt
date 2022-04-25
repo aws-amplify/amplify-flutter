@@ -27,6 +27,7 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.crea
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterCustomTypeSchema
+import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelPrimaryKey
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSubscriptionEvent
@@ -43,6 +44,7 @@ import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.core.model.SerializedCustomType
 import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.core.model.query.QueryOptions
+import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.datastore.*
@@ -220,10 +222,80 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     fun onQuery(flutterResult: Result, request: Map<String, Any>) {
         val modelName: String
         val queryOptions: QueryOptions
+        val queryModelPrimaryKey: FlutterModelPrimaryKey?
         try {
             modelName = request["modelName"] as String
             val modelSchema = modelProvider.modelSchemas().getValue(modelName)
-            queryOptions = QueryOptionsBuilder.fromSerializedMap(request, modelSchema)
+
+            queryModelPrimaryKey = QueryOptionsBuilder.extractModelPrimaryKeyFromPredicate(request)
+
+            val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+            if (queryModelPrimaryKey == null) {
+                queryOptions = QueryOptionsBuilder.fromSerializedMap(request, modelSchema)
+                plugin.query(
+                    modelName,
+                    queryOptions,
+                    {
+                        try {
+                            val results: List<Map<String, Any>> =
+                                it.asSequence().toList().map { model: Model? ->
+                                    FlutterSerializedModel(model as SerializedModel).toMap()
+                                }
+                            LOG.debug("Number of items received " + results.size)
+
+                            uiThreadHandler.post { flutterResult.success(results) }
+                        } catch (e: Exception) {
+                            uiThreadHandler.post {
+                                postExceptionToFlutterChannel(
+                                    flutterResult, "DataStoreException",
+                                    createSerializedUnrecognizedError(e)
+                                )
+                            }
+                        }
+                    },
+                    {
+                        LOG.error("Query operation failed.", it)
+                        uiThreadHandler.post {
+                            postExceptionToFlutterChannel(
+                                flutterResult, "DataStoreException",
+                                createSerializedError(it)
+                            )
+                        }
+                    }
+                )
+            } else {
+                plugin.query(
+                    modelName,
+                    Where.identifier(modelName, queryModelPrimaryKey.convertToNativeModelPrimaryKey()),
+                    {
+                        try {
+                            val results: List<Map<String, Any>> =
+                                it.asSequence().toList().map { model: Model? ->
+                                    FlutterSerializedModel(model as SerializedModel).toMap()
+                                }
+                            LOG.debug("Number of items received " + results.size)
+
+                            uiThreadHandler.post { flutterResult.success(results) }
+                        } catch (e: Exception) {
+                            uiThreadHandler.post {
+                                postExceptionToFlutterChannel(
+                                    flutterResult, "DataStoreException",
+                                    createSerializedUnrecognizedError(e)
+                                )
+                            }
+                        }
+                    },
+                    {
+                        LOG.error("Query operation failed.", it)
+                        uiThreadHandler.post {
+                            postExceptionToFlutterChannel(
+                                flutterResult, "DataStoreException",
+                                createSerializedError(it)
+                            )
+                        }
+                    }
+                )
+            }
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
@@ -233,39 +305,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             }
             return
         }
-
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
-        plugin.query(
-            modelName,
-            queryOptions,
-            {
-                try {
-                    val results: List<Map<String, Any>> =
-                        it.asSequence().toList().map { model: Model? ->
-                            FlutterSerializedModel(model as SerializedModel).toMap()
-                        }
-                    LOG.debug("Number of items received " + results.size)
-
-                    uiThreadHandler.post { flutterResult.success(results) }
-                } catch (e: Exception) {
-                    uiThreadHandler.post {
-                        postExceptionToFlutterChannel(
-                            flutterResult, "DataStoreException",
-                            createSerializedUnrecognizedError(e)
-                        )
-                    }
-                }
-            },
-            {
-                LOG.error("Query operation failed.", it)
-                uiThreadHandler.post {
-                    postExceptionToFlutterChannel(
-                        flutterResult, "DataStoreException",
-                        createSerializedError(it)
-                    )
-                }
-            }
-        )
     }
 
     @VisibleForTesting
@@ -297,8 +336,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
         val instance = SerializedModel.builder()
-            .serializedData(serializedModelData)
             .modelSchema(schema)
+            .serializedData(serializedModelData)
             .build()
 
         plugin.delete(
@@ -353,8 +392,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
         val serializedModel = SerializedModel.builder()
-            .serializedData(serializedModelData)
             .modelSchema(schema)
+            .serializedData(serializedModelData)
             .build()
 
         plugin.save(
@@ -564,8 +603,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 // ignore field if the field doesn't have valid schema in ModelProvider
                 val fieldModelSchema = modelProvider.modelSchemas()[field.targetType] ?: continue
                 result[key] = SerializedModel.builder()
-                    .serializedData(deserializeNestedModel(fieldSerializedData as Map<String, Any?>, fieldModelSchema))
                     .modelSchema(fieldModelSchema)
+                    .serializedData(deserializeNestedModel(fieldSerializedData as Map<String, Any?>, fieldModelSchema))
                     .build()
             } else if (field.isCustomType) {
                 // ignore field if the field doesn't have valid schema in ModelProvider
@@ -731,8 +770,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                                     ResolutionStrategy.RETRY_LOCAL -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retryLocal())
                                     ResolutionStrategy.RETRY -> {
                                         val serializedModel = SerializedModel.builder()
-                                            .serializedData((resultMap["customModel"] as Map<*, *>).cast())
                                             .modelSchema(modelProvider.modelSchemas().getValue(modelName))
+                                            .serializedData((resultMap["customModel"] as Map<*, *>).cast())
                                             .build()
                                         onDecision.accept(
                                             DataStoreConflictHandler.ConflictResolutionDecision.retry(
