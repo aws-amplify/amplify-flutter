@@ -456,6 +456,9 @@ class AuthenticatorState extends ChangeNotifier {
   /// Change to a new step in the authentication flow
   void changeStep(AuthenticatorStep step) {
     _authBloc.add(AuthChangeScreen(step));
+
+    /// Clean [ViewModel] when user manually navigates widgets
+    _resetAttributes();
   }
 
   void _resetAttributes() {
