@@ -87,8 +87,10 @@ Future<void> main(List<String> args) async {
   );
 
   // Set up S3 values
-  final AWSCredentialScope scope =
-      AWSCredentialScope(region: region, service: 's3');
+  final AWSCredentialScope scope = AWSCredentialScope(
+    region: region,
+    service: AWSService.s3,
+  );
   final String host = '$bucket.s3.$region.amazonaws.com';
   final ServiceConfiguration serviceConfiguration = S3ServiceConfiguration();
 

@@ -21,7 +21,7 @@ import 'package:test/test.dart';
 const _dummyCredentials = AWSCredentials('accessKeyId', 'secretAccessKey');
 
 void main() {
-  final credentialScope = AWSCredentialScope(
+  final credentialScope = AWSCredentialScope.raw(
     region: 'us-west-2',
     service: 'serviceA',
     dateTime: AWSDateTime(DateTime(2022, 1, 1)),
@@ -48,7 +48,7 @@ void main() {
       );
     });
 
-    test('values (with overrides)', () async {
+    test('values (with string overrides)', () async {
       final signedRequest = await runZoned(
         () => signer.sign(
           request,
@@ -63,6 +63,25 @@ void main() {
         signedRequest.headers['Authorization'],
         contains(
           'Credential=accessKeyId/20220101/us-east-1/serviceB/aws4_request',
+        ),
+      );
+    });
+
+    test('values (with typed override)', () async {
+      final signedRequest = await runZoned(
+        () => signer.sign(
+          request,
+          credentialScope: credentialScope,
+        ),
+        zoneValues: {
+          #sigV4Region: 'us-east-1',
+          #sigV4Service: AWSService.s3,
+        },
+      );
+      expect(
+        signedRequest.headers['Authorization'],
+        contains(
+          'Credential=accessKeyId/20220101/us-east-1/s3/aws4_request',
         ),
       );
     });

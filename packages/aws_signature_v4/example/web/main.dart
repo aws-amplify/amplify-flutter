@@ -69,8 +69,10 @@ Future<void> upload(BucketUpload bucketUpload) async {
   const AWSSigV4Signer signer = AWSSigV4Signer();
 
   // Set up S3 values
-  final AWSCredentialScope scope =
-      AWSCredentialScope(region: region, service: 's3');
+  final AWSCredentialScope scope = AWSCredentialScope(
+    region: region,
+    service: AWSService.s3,
+  );
   final ServiceConfiguration serviceConfiguration = S3ServiceConfiguration();
   final String host = '$bucketName.s3.$region.amazonaws.com';
   final String path = '/$filename';

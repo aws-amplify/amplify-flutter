@@ -131,7 +131,7 @@ class SignerTest {
           credentialsProvider: AWSCredentialsProvider(context.credentials),
           algorithm: algorithm,
         ),
-        credentialScope = AWSCredentialScope(
+        credentialScope = AWSCredentialScope.raw(
           dateTime: context.awsDateTime,
           region: context.region,
           service: context.service,

@@ -44,7 +44,7 @@ void main() {
           path: '/examplebucket/chunkObject.txt',
           body: testBody,
         ),
-        credentialScope: AWSCredentialScope(
+        credentialScope: AWSCredentialScope.raw(
           region: context.region,
           service: context.service,
         ),

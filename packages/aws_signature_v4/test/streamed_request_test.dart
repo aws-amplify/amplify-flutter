@@ -46,7 +46,7 @@ void main() {
         );
         final signedRequest = await signer.sign(
           request,
-          credentialScope: AWSCredentialScope(
+          credentialScope: AWSCredentialScope.raw(
             region: 'us-west-2',
             service: 'service',
           ),
@@ -66,7 +66,7 @@ void main() {
         );
         final signedRequest = await signer.sign(
           request,
-          credentialScope: AWSCredentialScope(
+          credentialScope: AWSCredentialScope.raw(
             region: 'us-west-2',
             service: 'service',
           ),
@@ -92,7 +92,7 @@ void main() {
         );
         final signedRequest = await signer.sign(
           request,
-          credentialScope: AWSCredentialScope(
+          credentialScope: AWSCredentialScope.raw(
             region: 'us-west-2',
             service: 'service',
           ),
@@ -112,7 +112,7 @@ void main() {
         );
         final signedRequest = await signer.sign(
           request,
-          credentialScope: AWSCredentialScope(
+          credentialScope: AWSCredentialScope.raw(
             region: 'us-west-2',
             service: 'service',
           ),

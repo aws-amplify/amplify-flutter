@@ -18,6 +18,9 @@ library aws_common;
 // Collection
 export 'src/collection/case_insensitive.dart';
 
+// Config
+export 'src/config/aws_service.dart';
+
 // HTTP
 export 'src/http/aws_headers.dart';
 export 'src/http/aws_http_method.dart';

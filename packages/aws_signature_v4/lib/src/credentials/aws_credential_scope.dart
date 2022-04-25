@@ -14,6 +14,7 @@
 
 import 'dart:async';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/src/request/aws_date_time.dart';
 import 'package:aws_signature_v4/src/signer/aws_signer.dart';
 
@@ -38,10 +39,29 @@ class AWSCredentialScope {
   ///
   /// This value may be overriden on a per-request basis using [runZoned] and
   /// the `zoneValues` field.
-  String get service => Zone.current[#sigV4Service] ?? _service;
+  String get service {
+    final Object? override = Zone.current[#sigV4Service];
+    if (override is AWSService) {
+      return override.service;
+    } else if (override is String) {
+      return override;
+    }
+    return _service;
+  }
 
   /// {@macro aws_signature_v4.aws_credential_scope}
   AWSCredentialScope({
+    AWSDateTime? dateTime,
+    required String region,
+    required AWSService service,
+  }) : this.raw(
+          region: region,
+          service: service.service,
+          dateTime: dateTime,
+        );
+
+  /// {@macro aws_signature_v4.aws_credential_scope}
+  AWSCredentialScope.raw({
     AWSDateTime? dateTime,
     required String region,
     required String service,
