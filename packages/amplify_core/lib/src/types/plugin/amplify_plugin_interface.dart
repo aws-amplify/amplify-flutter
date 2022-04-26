@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/config/amplify_config.dart';
 import 'package:meta/meta.dart';
 
 /// Interface for all amplify plugins
