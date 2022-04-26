@@ -13,6 +13,11 @@
  * permissions and limitations under the License.
  */
 
+<<<<<<< HEAD
+=======
+library amplify_auth_plugin_interface;
+
+>>>>>>> 3e97d8f6 (chore: moved auth types)
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';

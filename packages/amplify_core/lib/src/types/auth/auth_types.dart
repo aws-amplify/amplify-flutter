@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -33,7 +33,10 @@ export 'attribute/user_attribute_key.dart';
 /// Common
 export 'common/auth_code_delivery_details.dart';
 export 'common/auth_device.dart';
+ HEAD
 export 'common/auth_hub_event.dart';
+=======
+>>>>>>> 3e97d8f6 (chore: moved auth types)
 export 'common/auth_next_step.dart';
 export 'common/cognito_user_attribute_key.dart';
 
