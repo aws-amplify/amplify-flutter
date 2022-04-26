@@ -51,7 +51,6 @@ export 'src/types/models/model_field_type.dart';
 export 'src/types/models/model_provider.dart';
 export 'src/types/models/model_schema.dart';
 export 'src/types/models/model_schema_definition.dart';
-<<<<<<< HEAD
 
 /// Plugin
 export 'src/types/plugin/amplify_analytics_plugin_interface.dart';
@@ -60,8 +59,6 @@ export 'src/types/plugin/amplify_plugin_interface.dart';
 export 'src/types/plugin/amplify_storage_plugin_interface.dart';
 
 /// Query
-=======
->>>>>>> 1c8c913c (chore: moved auth types)
 export 'src/types/query/query_field.dart';
 
 /// Storage
@@ -73,11 +70,8 @@ export 'src/types/temporal/temporal_date.dart';
 export 'src/types/temporal/temporal_datetime.dart';
 export 'src/types/temporal/temporal_time.dart';
 export 'src/types/temporal/temporal_timestamp.dart';
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 1c8c913c (chore: moved auth types)
 // Util
 export 'src/util/parsers.dart';
 export 'src/util/serializable.dart';
