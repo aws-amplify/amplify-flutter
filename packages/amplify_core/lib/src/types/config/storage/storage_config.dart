@@ -13,9 +13,13 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_flutter/amplify_flutter.dart';
-
 export 's3_config.dart' hide S3PluginConfigFactory;
+
+import 'package:amplify_core/src/types/config/amplify_plugin_config.dart';
+import 'package:amplify_core/src/types/config/amplify_plugin_registry.dart';
+import 'package:amplify_core/src/types/config/config_map.dart';
+import 'package:amplify_core/src/types/config/storage/storage_config.dart';
+import 'package:amplify_core/src/util/serializable.dart';
 
 part 'storage_config.g.dart';
 

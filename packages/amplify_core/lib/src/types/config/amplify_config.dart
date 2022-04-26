@@ -13,7 +13,9 @@
 // permissions and limitations under the License.
 //
 
+import 'package:amplify_core/src/types/config/analytics/analytics_config.dart';
 import 'package:amplify_core/src/types/config/api/api_config.dart';
+import 'package:amplify_core/src/types/config/storage/storage_config.dart';
 import 'package:amplify_core/src/util/equatable.dart';
 import 'package:amplify_core/src/util/serializable.dart';
 import 'package:json_annotation/json_annotation.dart';
