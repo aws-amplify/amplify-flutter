@@ -18,6 +18,9 @@ library amplify_core;
 /// Categories
 export 'src/category/amplify_categories.dart';
 
+/// Auth
+export 'src/types/auth/auth_types.dart';
+
 /// Exceptions
 export 'src/types/exception/amplify_already_configured_exception.dart';
 export 'src/types/exception/amplify_exception.dart';
@@ -39,17 +42,15 @@ export 'src/types/models/model_field_type.dart';
 export 'src/types/models/model_provider.dart';
 export 'src/types/models/model_schema.dart';
 export 'src/types/models/model_schema_definition.dart';
+// ignore: directives_ordering
+export 'src/types/plugin/amplify_plugin_interface.dart';
 export 'src/types/query/query_field.dart';
 export 'src/types/temporal/datetime_parse.dart';
 export 'src/types/temporal/temporal_date.dart';
 export 'src/types/temporal/temporal_datetime.dart';
 export 'src/types/temporal/temporal_time.dart';
 export 'src/types/temporal/temporal_timestamp.dart';
-
 // Util
 export 'src/util/parsers.dart';
 export 'src/util/print.dart';
 export 'src/util/uuid.dart';
-
-// ignore: directives_ordering
-export 'src/types/plugin/amplify_plugin_interface.dart';
