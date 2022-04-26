@@ -15,11 +15,9 @@
 
 import 'dart:collection';
 
-import 'package:amplify_flutter/src/config/config_map.dart';
+import 'package:amplify_core/src/util/json.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-
-import 'json.dart';
 
 /// Global serialization options for Amplify types.
 const amplifySerializable = JsonSerializable(

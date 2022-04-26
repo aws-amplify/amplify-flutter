@@ -13,8 +13,12 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_core/src/types/config/api/api_config.dart';
+import 'package:amplify_core/src/util/equatable.dart';
+import 'package:amplify_core/src/util/serializable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'auth/auth_config.dart';
 
 part 'amplify_config.g.dart';
 
