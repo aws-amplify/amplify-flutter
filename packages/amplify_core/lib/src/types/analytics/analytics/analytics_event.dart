@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import '../../amplify_analytics_plugin_interface.dart';
+import 'package:amplify_core/src/types/analytics/analytics/analytics_properties.dart';
 
 class AnalyticsEvent {
   final String name;

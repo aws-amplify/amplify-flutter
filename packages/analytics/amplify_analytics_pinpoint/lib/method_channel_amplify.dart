@@ -15,13 +15,15 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import '../amplify_analytics_pinpoint.dart';
 
 const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
 
-class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
+class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint
+    implements PlatformInterface {
   @override
   Future<void> addPlugin() async {
     try {

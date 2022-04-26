@@ -13,7 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import '../../amplify_analytics_plugin_interface.dart';
+import 'package:amplify_core/src/types/analytics/analytics/analytics_properties.dart';
+import 'package:amplify_core/src/types/analytics/analytics/analytics_user_profile_location.dart';
 
 class AnalyticsUserProfile {
   String? name;

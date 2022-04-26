@@ -15,10 +15,10 @@
 
 part of amplify_interface;
 
-class AnalyticsCategory {
-  const AnalyticsCategory();
-
-  static List<AnalyticsPluginInterface> plugins = [];
+class AnalyticsCategory extends AmplifyCategory<AnalyticsPluginInterface> {
+  @override
+  @nonVirtual
+  Category get category => Category.analytics;
 
   Future<void> addPlugin(AnalyticsPluginInterface plugin) async {
     //TODO: Allow for multiple plugins to work simultaneously
