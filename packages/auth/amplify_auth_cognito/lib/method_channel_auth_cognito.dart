@@ -25,7 +25,8 @@ const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/auth_cognito');
 
 /// An implementation of [AmplifyAuthCognito] that uses method channels.
-class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
+class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito
+    implements PlatformInterface {
   // Throws if the user attempts to update a user attribute key which is not a
   // Cognito attribute or which is set to read-only.
   void _checkUserAttributeKey(UserAttributeKey? userAttributeKey) {
