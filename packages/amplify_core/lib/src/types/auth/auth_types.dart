@@ -33,10 +33,7 @@ export 'attribute/user_attribute_key.dart';
 /// Common
 export 'common/auth_code_delivery_details.dart';
 export 'common/auth_device.dart';
- HEAD
 export 'common/auth_hub_event.dart';
-=======
->>>>>>> 3e97d8f6 (chore: moved auth types)
 export 'common/auth_next_step.dart';
 export 'common/cognito_user_attribute_key.dart';
 
