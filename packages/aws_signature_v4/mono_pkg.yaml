@@ -1,4 +1,5 @@
 sdk:
+  - '2.15.0'
   - stable
   - dev
 
@@ -6,7 +7,7 @@ stages:
   - analyze_and_format:
       - group:
           - format
-          - analyze: --fatal-infos .
+          - analyze: --fatal-infos lib test
   - unit_test:
       - group:
           # Pull `aws-c-auth` with the test vectors
