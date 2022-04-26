@@ -19,10 +19,10 @@ part of amplify_interface;
 /// are supported by this category's plugins. This class will accept plugins to
 /// be registered and configured and then subsequent API calls will be forwarded
 /// to those plugins.
-class AuthCategory {
-  const AuthCategory();
-
-  static List<AuthPluginInterface> plugins = [];
+class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
+  @override
+  @nonVirtual
+  Category get category => Category.auth;
 
   /// `Add plugin` method
   Future<void> addPlugin(AuthPluginInterface plugin) async {

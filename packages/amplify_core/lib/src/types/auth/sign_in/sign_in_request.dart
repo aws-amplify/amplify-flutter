@@ -13,7 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import './SignInOptions.dart';
+// ignore_for_file: implicit_dynamic_parameter
+
+import 'package:amplify_core/amplify_core.dart';
 
 class SignInRequest {
   String? username;
@@ -21,7 +23,7 @@ class SignInRequest {
   SignInOptions? options;
   SignInRequest({this.username, this.password, this.options});
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = {
+    final pendingRequest = <String, dynamic>{
       'username': username,
       'password': password,
       'options': options?.serializeAsMap()

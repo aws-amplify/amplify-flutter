@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// Cognito extension of [UpdateUserAttributeOptions] to add the platform specific fields
 class CognitoUpdateUserAttributeOptions extends UpdateUserAttributeOptions {

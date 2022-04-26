@@ -13,13 +13,15 @@
  * permissions and limitations under the License.
  */
 
-import '../types/AuthNextStep.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class AuthNextSignUpStep extends AuthNextStep {
   String signUpStep;
-  AuthNextSignUpStep(
-      {additionalInfo, codeDeliveryDetails, required this.signUpStep})
-      : super(
+  AuthNextSignUpStep({
+    Map<String, dynamic>? additionalInfo,
+    AuthCodeDeliveryDetails? codeDeliveryDetails,
+    required this.signUpStep,
+  }) : super(
             additionalInfo: additionalInfo,
             codeDeliveryDetails: codeDeliveryDetails);
 }

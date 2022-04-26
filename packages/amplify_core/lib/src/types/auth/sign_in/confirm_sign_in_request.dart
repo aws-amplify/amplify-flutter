@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import './ConfirmSignInOptions.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class ConfirmSignInRequest {
   String confirmationValue;

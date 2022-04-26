@@ -28,7 +28,7 @@ class ResendSignUpCodeRequest {
 
   /// Serialize the object to a map for use over the method channel
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = {
+    final pendingRequest = <String, dynamic>{
       'username': username,
       if (options != null) 'options': options?.serializeAsMap(),
     };

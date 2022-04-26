@@ -25,8 +25,8 @@ class SignOutOptions {
   const SignOutOptions({this.globalSignOut = false});
 
   /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap() {
-    return {
+  Map serializeAsMap() {
+    return <String, dynamic>{
       'globalSignOut': globalSignOut,
     };
   }

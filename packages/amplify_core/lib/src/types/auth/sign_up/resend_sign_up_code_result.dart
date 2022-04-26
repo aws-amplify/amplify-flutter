@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import '../types/AuthCodeDeliveryDetails.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class ResendSignUpCodeResult {
   AuthCodeDeliveryDetails codeDeliveryDetails;

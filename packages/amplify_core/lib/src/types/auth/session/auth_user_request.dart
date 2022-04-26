@@ -12,7 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import './AuthUserOptions.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class AuthUserRequest {
   AuthUserOptions? options;

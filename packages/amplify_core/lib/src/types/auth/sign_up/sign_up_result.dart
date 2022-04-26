@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import './AuthNextSignUpStep.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class SignUpResult {
   bool isSignUpComplete;

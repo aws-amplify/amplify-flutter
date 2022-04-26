@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-library amplify_auth_plugin_interface;
-
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';

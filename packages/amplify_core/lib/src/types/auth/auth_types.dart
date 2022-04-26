@@ -33,6 +33,7 @@ export 'attribute/user_attribute_key.dart';
 /// Common
 export 'common/auth_code_delivery_details.dart';
 export 'common/auth_device.dart';
+export 'common/auth_hub_event.dart';
 export 'common/auth_next_step.dart';
 export 'common/cognito_user_attribute_key.dart';
 
@@ -68,3 +69,49 @@ export 'exceptions/user_cancelled_exception.dart';
 export 'exceptions/user_not_confirmed_exception.dart';
 export 'exceptions/user_not_found_exception.dart';
 export 'exceptions/username_exists_exception.dart';
+
+/// Password
+export 'password/confirm_reset_password_options.dart';
+export 'password/confirm_reset_password_request.dart';
+export 'password/reset_password_options.dart';
+export 'password/reset_password_request.dart';
+export 'password/reset_password_result.dart';
+export 'password/reset_password_step.dart';
+export 'password/update_password_options.dart';
+export 'password/update_password_request.dart';
+export 'password/update_password_result.dart';
+
+/// Session
+export 'session/auth_session.dart';
+export 'session/auth_session_options.dart';
+export 'session/auth_session_request.dart';
+export 'session/auth_user.dart';
+export 'session/auth_user_options.dart';
+export 'session/auth_user_request.dart';
+
+/// Sign In
+export 'sign_in/auth_next_sign_in_step.dart';
+export 'sign_in/auth_provider.dart';
+export 'sign_in/confirm_sign_in_options.dart';
+export 'sign_in/confirm_sign_in_request.dart';
+export 'sign_in/sign_in_options.dart';
+export 'sign_in/sign_in_request.dart';
+export 'sign_in/sign_in_result.dart';
+export 'sign_in/sign_in_with_web_ui_options.dart';
+export 'sign_in/sign_in_with_web_ui_request.dart';
+
+/// Sign Out
+export 'sign_out/sign_out_options.dart';
+export 'sign_out/sign_out_request.dart';
+export 'sign_out/sign_out_result.dart';
+
+/// Sign Up
+export 'sign_up/auth_next_sign_up_step.dart';
+export 'sign_up/confirm_sign_up_options.dart';
+export 'sign_up/confirm_sign_up_request.dart';
+export 'sign_up/resend_sign_up_code_options.dart';
+export 'sign_up/resend_sign_up_code_request.dart';
+export 'sign_up/resend_sign_up_code_result.dart';
+export 'sign_up/sign_up_options.dart';
+export 'sign_up/sign_up_request.dart';
+export 'sign_up/sign_up_result.dart';

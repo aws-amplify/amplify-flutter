@@ -13,7 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import './SignOutOptions.dart';
+// ignore_for_file: implicit_dynamic_parameter
+
+import 'package:amplify_core/amplify_core.dart';
 
 /// {@template sign_out_request}
 /// Encapsulates parameters for a sign out request
@@ -29,7 +31,7 @@ class SignOutRequest {
 
   /// Serialize the object to a map
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = {
+    final pendingRequest = <String, dynamic>{
       'options': options?.serializeAsMap()
     };
     pendingRequest.removeWhere((_, v) => v == null);
