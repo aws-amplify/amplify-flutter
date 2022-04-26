@@ -1,0 +1,23 @@
+sdk:
+  - stable
+  - dev
+
+stages:
+  - analyze_and_format:
+      - group:
+          - format
+          - analyze: --fatal-infos .
+  - unit_test:
+      - group:
+          # Pull `aws-c-auth` with the test vectors
+          - command: git submodule update --init
+            sdk:
+              - stable
+          - test:
+          - test: -p chrome
+      - group:
+          - command: git submodule update --init
+          - test:
+            os:
+              - windows
+              - macos

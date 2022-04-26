@@ -1,0 +1,24 @@
+name: example
+publish_to: none
+
+environment:
+  sdk: ">=2.15.0 <3.0.0"
+
+dependencies:
+  args: ^2.3.0
+  aws_common:
+    path: ../../aws_common
+  aws_signature_v4:
+    path: ../
+  collection: ^1.15.0
+  http: ^0.13.0
+  path: ^1.8.0
+
+dependency_overrides:
+  aws_common:
+    path: ../../aws_common
+
+dev_dependencies:
+  amplify_lints: ^1.0.0
+  build_runner: ^2.0.0
+  build_web_compilers: ^3.2.2
