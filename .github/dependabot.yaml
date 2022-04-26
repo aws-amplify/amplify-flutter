@@ -3,5 +3,6 @@ enable-beta-ecosystems: true
 updates:
   - package-ecosystem: "pub"
     directory: "packages/auth/amplify_auth_cognito"
+    target-branch: "feat/dependabot"
     schedule:
       interval: "daily"
