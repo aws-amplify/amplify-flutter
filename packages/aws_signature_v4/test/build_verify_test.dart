@@ -23,5 +23,6 @@ void main() {
     () => expectBuildClean(
       packageRelativeDirectory: 'packages/aws_signature_v4',
     ),
+    timeout: const Timeout(Duration(minutes: 3)),
   );
 }

@@ -275,8 +275,7 @@ class AWSSigV4Signer {
         sessionToken != null && canonicalRequest.omitSessionTokenFromSigning;
     if (canonicalRequest.presignedUrl) {
       queryParameters[AWSHeaders.signature] = signature;
-      // TODO(dnys1): Remove second check when package SDK dep is >=2.15.0
-      if (includeSessionToken && sessionToken != null) {
+      if (includeSessionToken) {
         queryParameters[AWSHeaders.securityToken] = sessionToken;
       }
     } else {
@@ -286,8 +285,7 @@ class AWSSigV4Signer {
         signedHeaders: canonicalRequest.signedHeaders,
         signature: signature,
       );
-      // TODO(dnys1): Remove second check when package SDK dep is >=2.15.0
-      if (includeSessionToken && sessionToken != null) {
+      if (includeSessionToken) {
         headers[AWSHeaders.securityToken] = sessionToken;
       }
     }
