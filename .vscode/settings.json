@@ -1,4 +1,5 @@
 {
   "dart.runPubGetOnPubspecChanges": false,
-  "files.insertFinalNewline": true
+  "files.insertFinalNewline": true,
+  "search.followSymlinks": false
 }
