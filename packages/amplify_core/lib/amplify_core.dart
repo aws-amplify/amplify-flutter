@@ -57,7 +57,7 @@ export 'src/types/plugin/amplify_analytics_plugin_interface.dart';
 export 'src/types/plugin/amplify_api_plugin_interface.dart';
 export 'src/types/plugin/amplify_auth_plugin_interface.dart';
 export 'src/types/plugin/amplify_plugin_interface.dart';
-export 'src/types/plugin/amplify_storage_plugin_interface.dart';
+export 'src/types/plugin/amplify_storage_category_interface.dart';
 
 /// Query
 export 'src/types/query/query_field.dart';
