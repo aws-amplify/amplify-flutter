@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api_plugin_interface/src/auth/api_authorization_type.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// Handles the retrieval of authentication tokens for third-party providers.
 ///

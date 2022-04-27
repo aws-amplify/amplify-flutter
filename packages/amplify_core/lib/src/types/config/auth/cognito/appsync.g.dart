@@ -12,6 +12,7 @@
 // express or implied. See the License for the specific language governing
 // permissions and limitations under the License.
 //
+// ignore_for_file: implicit_dynamic_parameter
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 

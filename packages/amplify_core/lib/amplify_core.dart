@@ -18,6 +18,9 @@ library amplify_core;
 /// Categories
 export 'src/category/amplify_categories.dart';
 
+/// API
+export 'src/types/api/api_types.dart';
+
 /// Auth
 export 'src/types/auth/auth_types.dart';
 
