@@ -13,6 +13,8 @@
 // permissions and limitations under the License.
 //
 
+// ignore_for_file: implicit_dynamic_parameter
+
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'auth.dart';
