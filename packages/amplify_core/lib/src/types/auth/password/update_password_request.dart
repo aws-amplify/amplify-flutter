@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'update_password_options.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// Encapsulates parameters for an update password request
 class UpdatePasswordRequest {

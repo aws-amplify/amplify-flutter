@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'auth_code_delivery_details.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class AuthNextStep {
   Map<dynamic, dynamic>? additionalInfo;

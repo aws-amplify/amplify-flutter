@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'reset_password_step.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class ResetPasswordResult {
   bool isPasswordReset;

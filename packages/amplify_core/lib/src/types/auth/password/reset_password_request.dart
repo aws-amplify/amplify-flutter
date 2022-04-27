@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'reset_password_options.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// Encapsulates parameters for a reset password request
 class ResetPasswordRequest {
