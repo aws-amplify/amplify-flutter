@@ -16,6 +16,8 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/config/amplify_config.dart';
+import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
 
@@ -31,7 +33,9 @@ var _transferProgressionCallbackMap =
     Map<String, void Function(TransferProgress)?>();
 
 /// An implementation of [AmplifyPlatform] that uses method channels.
-class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
+class AmplifyStorageS3MethodChannel extends StoragePlatformInterface {
+  AmplifyStorageS3MethodChannel({required Object token}) : super(token: token);
+
   @override
   Future<void> addPlugin() async {
     try {
@@ -239,5 +243,11 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
 
   StorageException _convertToStorageException(PlatformException e) {
     return StorageException.fromMap(Map<String, String>.from(e.details));
+  }
+
+  @override
+  P cast<P extends AmplifyPluginInterface>() {
+    // TODO: implement cast
+    throw UnimplementedError();
   }
 }

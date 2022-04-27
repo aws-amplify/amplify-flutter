@@ -19,12 +19,11 @@ import 'dart:async';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-abstract class StoragePluginInterface extends AmplifyPluginInterface {
-  const StoragePluginInterface();
-
+abstract class StorageCategoryInterface extends AmplifyPluginInterface {
   @override
   @nonVirtual
-  Category get category => Category.auth;
+  Category get category => Category.storage;
+
   Future<void> addPlugin() async {
     throw UnimplementedError('addPlugin() has not been implemented.');
   }

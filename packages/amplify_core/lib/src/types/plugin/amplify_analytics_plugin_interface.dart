@@ -19,8 +19,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 abstract class AnalyticsPluginInterface extends AmplifyPluginInterface {
-  const AnalyticsPluginInterface();
-
   @override
   @nonVirtual
   Category get category => Category.analytics;

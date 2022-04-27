@@ -15,14 +15,14 @@
 
 part of amplify_interface;
 
-class StorageCategory {
+class StorageCategory implements Storage {
   @override
   @nonVirtual
-  Category get category => Category.auth;
-  static List<StoragePluginInterface> plugins = [];
+  Category get category => Category.storage;
+  static List<StorageCategoryInterface> plugins = [];
 
   /// `Add plugin` method
-  Future<void> addPlugin(StoragePluginInterface plugin) async {
+  Future<void> addPlugin(StorageCategoryInterface plugin) async {
     //TODO: Allow for multiple plugins to work simultaneously
     if (plugins.isEmpty) {
       try {

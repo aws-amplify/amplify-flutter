@@ -22,13 +22,14 @@ import './method_channel_storage_s3.dart';
 
 export './src/types.dart';
 
-class AmplifyStorageS3 extends StoragePluginInterface {
+class AmplifyStorageS3 extends StorageCategoryInterface {
   static final Object _token = Object();
 
   /// Constructs a AmplifyStoragePlugin.
   AmplifyStorageS3();
 
-  static AmplifyStorageS3 _instance = AmplifyStorageS3MethodChannel();
+  static AmplifyStorageS3 _instance =
+      AmplifyStorageS3MethodChannel(token: _token) as AmplifyStorageS3;
 
   static set instance(StoragePlatformInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
