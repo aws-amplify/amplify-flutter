@@ -25,7 +25,8 @@ class AmplifyStorageS3 extends StoragePluginInterface {
   /// Constructs a AmplifyStoragePlugin.
   AmplifyStorageS3();
 
-  static AmplifyStorageS3 _instance = AmplifyStorageS3MethodChannel();
+  static AmplifyStorageS3 _instance =
+      AmplifyStorageS3MethodChannel(token: _token) as AmplifyStorageS3;
 
   @override
   Future<void> addPlugin() async {
