@@ -14,6 +14,7 @@
 //
 
 import 'package:amplify_core/src/types/config/amplify_plugin_config.dart';
+import 'package:amplify_core/src/types/config/amplify_plugin_registry.dart';
 import 'package:amplify_core/src/types/config/analytics/analytics_config.dart';
 import 'package:amplify_core/src/types/config/config_map.dart';
 import 'package:amplify_core/src/util/serializable.dart';
