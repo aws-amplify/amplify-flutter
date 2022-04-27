@@ -22,21 +22,6 @@ export 'package:amplify_core/amplify_core.dart';
 // Amplify interface
 export 'src/amplify_impl.dart';
 
-// Config
-export 'src/config/amplify_config.dart';
-export 'src/config/amplify_plugin_config.dart' hide UnknownPluginConfigFactory;
-export 'src/config/amplify_plugin_registry.dart';
-export 'src/config/analytics/analytics_config.dart';
-export 'src/config/api/api_config.dart';
-export 'src/config/auth/auth_config.dart';
-export 'src/config/config_map.dart';
-export 'src/config/storage/storage_config.dart';
-
-// Utilities
-export 'src/utils/equatable.dart';
-export 'src/utils/json.dart';
-export 'src/utils/serializable.dart';
-
 /// Top level singleton Amplify object.
 AmplifyClass get Amplify => AmplifyClass.instance;
 

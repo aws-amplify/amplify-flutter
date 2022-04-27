@@ -21,6 +21,9 @@ export 'src/category/amplify_categories.dart';
 /// Auth
 export 'src/types/auth/auth_types.dart';
 
+/// Config
+export 'src/types/config/amplify_config.dart';
+
 /// Exceptions
 export 'src/types/exception/amplify_already_configured_exception.dart';
 export 'src/types/exception/amplify_exception.dart';
