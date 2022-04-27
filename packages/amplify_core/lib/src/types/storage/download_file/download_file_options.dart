@@ -13,20 +13,19 @@
  * permissions and limitations under the License.
  */
 
-import './RemoveOptions.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:flutter/foundation.dart';
 
-class RemoveRequest {
-  String key;
-  RemoveOptions? options;
+class DownloadFileOptions extends StorageOptions {
+  StorageAccessLevel accessLevel;
 
-  RemoveRequest({required this.key, this.options});
+  DownloadFileOptions({this.accessLevel = StorageAccessLevel.guest}) : super();
 
+  @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = {
-      'key': key,
-      'options': options?.serializeAsMap()
+    final optionsMap = <String, dynamic>{
+      'accessLevel': describeEnum(accessLevel)
     };
-    result.removeWhere((_, v) => v == null);
-    return result;
+    return optionsMap;
   }
 }

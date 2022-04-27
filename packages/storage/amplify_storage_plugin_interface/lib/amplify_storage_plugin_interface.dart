@@ -13,42 +13,12 @@
  * permissions and limitations under the License.
  */
 
-library amplify_storage_plugin_interface;
-
-import 'dart:async';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'src/types.dart';
-export 'src/types.dart';
-
-abstract class StoragePluginInterface extends AmplifyPluginInterface {
-  StoragePluginInterface({required Object token}) : super(token: token);
-
-  Future<void> addPlugin() async {
-    throw UnimplementedError('addPlugin() has not been implemented.');
-  }
-
-  Future<UploadFileResult> uploadFile(
-      {required UploadFileRequest request,
-      void Function(TransferProgress)? onProgress}) {
-    throw UnimplementedError('uploadFile() has not been implemented.');
-  }
-
-  Future<GetUrlResult> getUrl({required GetUrlRequest request}) {
-    throw UnimplementedError('getUrl() has not been implemented.');
-  }
-
-  Future<RemoveResult> remove({required RemoveRequest request}) {
-    throw UnimplementedError('remove() has not been implemented.');
-  }
-
-  Future<ListResult> list({required ListRequest request}) {
-    throw UnimplementedError('list() has not been implemented.');
-  }
-
-  Future<DownloadFileResult> downloadFile(
-      {required DownloadFileRequest request,
-      void Function(TransferProgress)? onProgress}) {
-    throw UnimplementedError('downloadFile() has not been implemented.');
-  }
+// ignore_for_file: public_member_api_docs
+abstract class StoragePlatformInterface extends PlatformInterface
+    implements StoragePluginInterface {
+  /// Constructs a AmplifyPlatform.
+  StoragePlatformInterface({required Object token}) : super(token: token);
 }

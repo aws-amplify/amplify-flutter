@@ -13,20 +13,10 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-import '../Storage/StorageAccessLevel.dart';
-import '../Storage/StorageOptions.dart';
+import 'package:amplify_core/amplify_core.dart';
 
-class DownloadFileOptions extends StorageOptions {
-  StorageAccessLevel accessLevel;
+class ListResult {
+  List<StorageItem> items;
 
-  DownloadFileOptions({this.accessLevel = StorageAccessLevel.guest}) : super();
-
-  @override
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = {
-      'accessLevel': describeEnum(accessLevel)
-    };
-    return optionsMap;
-  }
+  ListResult({required this.items});
 }

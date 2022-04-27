@@ -13,29 +13,19 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
-import '../Storage/StorageAccessLevel.dart';
-import '../Storage/StorageOptions.dart';
 
-class UploadFileOptions extends StorageOptions {
+class ListOptions extends StorageOptions {
   StorageAccessLevel accessLevel;
-  String? contentType;
-  Map<String, String>? metadata;
 
-  UploadFileOptions(
-      {this.accessLevel = StorageAccessLevel.guest,
-      this.contentType,
-      this.metadata})
-      : super();
+  ListOptions({this.accessLevel = StorageAccessLevel.guest}) : super();
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = {
-      'accessLevel': describeEnum(accessLevel),
-      'contentType': contentType,
-      'metadata': metadata
+    final Map<String, dynamic> optionsMap = <String, dynamic>{
+      'accessLevel': describeEnum(accessLevel)
     };
-    optionsMap.removeWhere((_, v) => v == null);
     return optionsMap;
   }
 }

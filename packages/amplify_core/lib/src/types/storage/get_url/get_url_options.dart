@@ -13,20 +13,25 @@
  * permissions and limitations under the License.
  */
 
-import '../Storage/StorageAccessLevel.dart';
-import '../Storage/StorageOptions.dart';
+// ignore_for_file: implicit_dynamic_parameter
+
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-class RemoveOptions extends StorageOptions {
+class GetUrlOptions extends StorageOptions {
   StorageAccessLevel accessLevel;
+  int? expires;
 
-  RemoveOptions({this.accessLevel = StorageAccessLevel.guest}) : super();
+  GetUrlOptions({this.accessLevel = StorageAccessLevel.guest, this.expires})
+      : super();
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = {
-      'accessLevel': describeEnum(accessLevel)
+    final optionsMap = <String, dynamic>{
+      'accessLevel': describeEnum(accessLevel),
+      'expires': expires
     };
+    optionsMap.removeWhere((_, v) => v == null);
     return optionsMap;
   }
 }

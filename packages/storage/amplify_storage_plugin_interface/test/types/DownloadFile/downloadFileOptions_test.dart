@@ -13,8 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_storage_plugin_interface/src/DownloadFile/DownloadFileOptions.dart';
-import 'package:amplify_storage_plugin_interface/src/Storage/StorageAccessLevel.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

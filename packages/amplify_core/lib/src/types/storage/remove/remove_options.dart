@@ -13,10 +13,19 @@
  * permissions and limitations under the License.
  */
 
-import '../Storage/StorageItem.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:flutter/foundation.dart';
 
-class ListResult {
-  List<StorageItem> items;
+class RemoveOptions extends StorageOptions {
+  StorageAccessLevel accessLevel;
 
-  ListResult({required this.items});
+  RemoveOptions({this.accessLevel = StorageAccessLevel.guest}) : super();
+
+  @override
+  Map<String, dynamic> serializeAsMap() {
+    final Map<String, dynamic> optionsMap = <String, dynamic>{
+      'accessLevel': describeEnum(accessLevel)
+    };
+    return optionsMap;
+  }
 }

@@ -16,8 +16,9 @@
 part of amplify_interface;
 
 class StorageCategory {
-  const StorageCategory();
-
+  @override
+  @nonVirtual
+  Category get category => Category.auth;
   static List<StoragePluginInterface> plugins = [];
 
   /// `Add plugin` method

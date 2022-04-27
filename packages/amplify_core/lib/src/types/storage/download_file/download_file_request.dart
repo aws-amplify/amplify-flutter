@@ -13,10 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+// ignore_for_file: implicit_dynamic_parameter
 
-import './DownloadFileOptions.dart';
 import 'dart:io';
+
+import 'package:amplify_core/amplify_core.dart';
 
 class DownloadFileRequest {
   late String uuid;
@@ -29,7 +30,7 @@ class DownloadFileRequest {
   }
 
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = {
+    final Map<String, dynamic> result = <String, dynamic>{
       'uuid': uuid,
       'key': key,
       'path': local.absolute.path,

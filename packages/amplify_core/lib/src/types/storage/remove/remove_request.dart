@@ -13,17 +13,19 @@
  * permissions and limitations under the License.
  */
 
-import './ListOptions.dart';
+// ignore_for_file: implicit_dynamic_parameter
 
-class ListRequest {
-  String? path;
-  ListOptions? options;
+import 'package:amplify_core/amplify_core.dart';
 
-  ListRequest({this.path, this.options});
+class RemoveRequest {
+  String key;
+  RemoveOptions? options;
+
+  RemoveRequest({required this.key, this.options});
 
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = {
-      'path': path,
+    final Map<String, dynamic> result = <String, dynamic>{
+      'key': key,
       'options': options?.serializeAsMap()
     };
     result.removeWhere((_, v) => v == null);
