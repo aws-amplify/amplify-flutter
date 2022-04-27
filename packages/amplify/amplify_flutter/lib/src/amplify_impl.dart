@@ -40,7 +40,7 @@ class AmplifyClass extends PlatformInterface {
   final AuthCategory Auth = AuthCategory();
 
   /// The Analytics category.
-  final AnalyticsCategory Analytics = const AnalyticsCategory();
+  final AnalyticsCategory Analytics = AnalyticsCategory();
 
   /// The Storage category.
   final StorageCategory Storage = const StorageCategory();
