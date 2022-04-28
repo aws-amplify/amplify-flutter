@@ -13,9 +13,8 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_core/src/types/config/auth/cognito/oauth.dart';
-import 'package:amplify_core/src/util/equatable.dart';
-import 'package:amplify_core/src/util/serializable.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 
 part 'user_pool.g.dart';
 

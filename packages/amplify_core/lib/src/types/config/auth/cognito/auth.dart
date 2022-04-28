@@ -15,7 +15,9 @@
 
 // ignore_for_file: deprecated_member_use_from_same_package
 
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/config/auth/auth_config.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'user_attribute_key.dart';

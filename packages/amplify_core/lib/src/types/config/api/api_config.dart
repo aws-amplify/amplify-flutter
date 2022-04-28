@@ -13,13 +13,13 @@
 // permissions and limitations under the License.
 //
 
-export 'aws_api_config.dart' hide AWSApiPluginConfigFactory;
-
 import 'package:amplify_core/src/types/config/amplify_plugin_config.dart';
 import 'package:amplify_core/src/types/config/amplify_plugin_registry.dart';
 import 'package:amplify_core/src/types/config/api/api_config.dart';
 import 'package:amplify_core/src/types/config/config_map.dart';
 import 'package:amplify_core/src/util/serializable.dart';
+
+export 'aws_api_config.dart' hide AWSApiPluginConfigFactory;
 
 part 'api_config.g.dart';
 

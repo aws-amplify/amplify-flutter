@@ -14,7 +14,7 @@
 //
 
 import 'package:amplify_core/src/types/config/config_map.dart';
-import 'package:amplify_core/src/util/equatable.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:amplify_core/src/util/serializable.dart';
 
 part 'credentials_provider.g.dart';

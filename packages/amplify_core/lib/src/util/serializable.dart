@@ -15,7 +15,7 @@
 
 import 'dart:collection';
 
-import 'package:amplify_core/src/util/json.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
@@ -39,17 +39,6 @@ const configMapSerializable = JsonSerializable(
   ignoreUnannotated: true,
   createToJson: false,
 );
-
-/// An object which can be serialized to JSON.
-mixin AWSSerializable on Object {
-  /// The JSON representation of `this`.
-  Map<String, Object?> toJson();
-
-  @override
-  String toString() {
-    return prettyPrintJson(this);
-  }
-}
 
 /// {@template amplify_flutter.serializable_map}
 /// A [Map] which conforms to [AWSSerializable].

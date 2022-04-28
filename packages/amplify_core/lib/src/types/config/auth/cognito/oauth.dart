@@ -13,8 +13,9 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_core/src/util/equatable.dart';
-import 'package:amplify_core/src/util/serializable.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'oauth.g.dart';

@@ -13,10 +13,10 @@
 // permissions and limitations under the License.
 //
 
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/config/amplify_plugin_config.dart';
 import 'package:amplify_core/src/types/config/amplify_plugin_registry.dart';
-import 'package:amplify_core/src/util/equatable.dart';
-import 'package:amplify_core/src/util/serializable.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
 part 'pinpoint_config.g.dart';
