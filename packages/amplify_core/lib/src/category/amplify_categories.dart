@@ -19,12 +19,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
-<<<<<<< HEAD
-=======
-import 'package:amplify_core/src/types/plugin/amplify_auth_plugin_interface.dart';
-import 'package:amplify_core/src/types/plugin/amplify_plugin_interface.dart';
 import 'package:collection/collection.dart';
->>>>>>> 1c8c913c (chore: moved auth types)
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
