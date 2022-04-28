@@ -15,6 +15,9 @@
 
 library amplify_core;
 
+/// Categories
+export 'src/category/amplify_categories.dart';
+
 /// Exceptions
 export 'src/types/exception/amplify_already_configured_exception.dart';
 export 'src/types/exception/amplify_exception.dart';
