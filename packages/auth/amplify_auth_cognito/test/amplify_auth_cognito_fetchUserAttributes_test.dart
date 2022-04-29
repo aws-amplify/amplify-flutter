@@ -60,8 +60,8 @@ void main() {
 
   test(
       'formatFetchAttributesResponse accepts a list of maps and returns a list of AuthUserAttributes',
-      () async {
-    var res = await testChannel.formatFetchAttributesResponse(sampleResponse);
+      () {
+    var res = testChannel.formatFetchAttributesResponse(sampleResponse);
     expect(res, isInstanceOf<List<AuthUserAttribute>>());
     expect(res[0].userAttributeKey,
         equals(CognitoUserAttributeKey.preferredUsername));

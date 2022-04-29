@@ -102,7 +102,8 @@ abstract class AuthenticatorElevatedButton
   Widget? get loadingIndicator => const AmplifyProgressIndicator();
 
   @override
-  _AmplifyElevatedButtonState createState() => _AmplifyElevatedButtonState();
+  AuthenticatorButtonState<AuthenticatorElevatedButton> createState() =>
+      _AmplifyElevatedButtonState();
 }
 
 class _AmplifyElevatedButtonState
@@ -310,11 +311,11 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
             ),
           ),
           TextButton(
+            onPressed: state.resendSignUpCode,
             child: Text(
               buttonResolver.sendCode(context),
               style: const TextStyle(fontSize: fontSize),
             ),
-            onPressed: state.resendSignUpCode,
           ),
         ],
       ),
@@ -473,6 +474,7 @@ class SkipVerifyUserButton extends StatelessAuthenticatorComponent {
   ) {
     return TextButton(
       key: keySkipVerifyUserButton,
+      onPressed: state.skipVerifyUser,
       child: Text(
         stringResolver.buttons.skip(context),
         style: TextStyle(
@@ -480,7 +482,6 @@ class SkipVerifyUserButton extends StatelessAuthenticatorComponent {
           color: Theme.of(context).primaryColor,
         ),
       ),
-      onPressed: state.skipVerifyUser,
     );
   }
 }

@@ -164,7 +164,8 @@ class AuthenticatorTabView
   final int initialIndex;
 
   @override
-  _AuthenticatorTabViewState createState() => _AuthenticatorTabViewState();
+  AuthenticatorComponentState<AuthenticatorTabView> createState() =>
+      _AuthenticatorTabViewState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

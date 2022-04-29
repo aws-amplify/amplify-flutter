@@ -16,6 +16,7 @@
 import 'dart:async';
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_test/amplify_test.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:async/async.dart';
 import 'package:flutter/services.dart';
@@ -33,11 +34,13 @@ void main() {
 
   /// Fires an event on the event channel from the mock platform side.
   void emitValues(ByteData? event) {
-    ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
-      eventChannel,
-      event,
-      (ByteData? reply) {},
-    );
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .handlePlatformMessage(
+          eventChannel,
+          event,
+          (ByteData? reply) {},
+        );
   }
 
   // Monitors calls to subscribe and cancel on the method channel.
@@ -73,7 +76,9 @@ void main() {
     // This is mostly a no-op in these tests, since a `subscribe` event on the
     // method channel is what initializes GraphQL subscriptions, not adding a listener
     // to the event channel.
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .setMockMessageHandler(
       eventChannel,
       (ByteData? message) async {
         final methodCall = standardCodec.decodeMethodCall(message);

@@ -131,6 +131,8 @@ void main() {
 
   group('AuthenticatorTabView', () {
     setUp(() {
+      // TODO: Remove when Flutter SDK >= 2.11
+      // ignore: deprecated_member_use
       binding.window.clearPlatformBrightnessTestValue();
       binding.window.physicalSizeTestValue = const Size(2400, 2400);
     });
@@ -141,6 +143,8 @@ void main() {
       group('$configName config', () {
         group('Light Mode', () {
           setUp(() {
+            // TODO: Remove when Flutter SDK >= 2.11
+            // ignore: deprecated_member_use
             binding.window.platformBrightnessTestValue = Brightness.light;
           });
 
@@ -191,6 +195,8 @@ void main() {
 
         group('Dark Mode', () {
           setUp(() {
+            // TODO: Remove when Flutter SDK >= 2.11
+            // ignore: deprecated_member_use
             binding.window.platformBrightnessTestValue = Brightness.dark;
           });
 

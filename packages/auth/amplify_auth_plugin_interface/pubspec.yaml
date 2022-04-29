@@ -7,10 +7,10 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  amplify_core: 0.4.5
   flutter:
     sdk: flutter
   meta: ^1.1.8
-  amplify_core: 0.4.5
 
 dev_dependencies:
   amplify_test:

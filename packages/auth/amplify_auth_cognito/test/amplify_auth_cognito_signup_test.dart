@@ -47,9 +47,7 @@ void main() {
                 code: "UnknownException",
                 details: Map.from({"message": "I am an exception"}));
         }
-        ;
       }
-      ;
     });
   });
 

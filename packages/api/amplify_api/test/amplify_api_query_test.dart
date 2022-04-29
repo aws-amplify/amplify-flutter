@@ -19,8 +19,6 @@ import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-// ignore_for_file: implicit_dynamic_list_literal
-
 void main() {
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
 
@@ -105,7 +103,7 @@ void main() {
     }''';
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return {'data': queryResult.toString(), 'errors': []};
+      return {'data': queryResult.toString(), 'errors': <Object>[]};
     });
 
     GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
@@ -152,7 +150,7 @@ void main() {
     }''';
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return {'data': queryResult, 'errors': []};
+      return {'data': queryResult, 'errors': <Object>[]};
     });
 
     GraphQLRequest<PaginatedResult<Blog>> req =

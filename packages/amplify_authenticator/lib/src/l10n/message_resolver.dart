@@ -18,19 +18,19 @@ import 'package:flutter/material.dart';
 
 import 'authenticator_localizations.dart';
 
-enum _MessageResolverKey {
+enum MessageResolverKeyType {
   codeSent,
 }
 
 class MessageResolverKey {
-  final _MessageResolverKey key;
+  final MessageResolverKeyType type;
   final String? destination;
 
-  const MessageResolverKey._(this.key, this.destination);
+  const MessageResolverKey._(this.type, this.destination);
 
   const MessageResolverKey.codeSent(String? destination)
       : this._(
-          _MessageResolverKey.codeSent,
+          MessageResolverKeyType.codeSent,
           destination,
         );
 }
@@ -53,8 +53,8 @@ class MessageResolver extends Resolver<MessageResolverKey> {
 
   @override
   String resolve(BuildContext context, MessageResolverKey key) {
-    switch (key.key) {
-      case _MessageResolverKey.codeSent:
+    switch (key.type) {
+      case MessageResolverKeyType.codeSent:
         var destination = key.destination;
         if (destination != null) {
           return codeSent(context, destination);

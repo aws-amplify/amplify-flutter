@@ -56,12 +56,9 @@ Future<DeleteUserResponse?> deleteUser(String username) async {
               variables: <String, dynamic>{'Username': username}))
       .response;
   if (res.errors.isNotEmpty) {
-    for (var error in res.errors) {
-      throw Exception(error.message);
-    }
-  } else {
-    return DeleteUserResponse.fromJson(res.data!);
+    throw Exception(res.errors.first.message);
   }
+  return DeleteUserResponse.fromJson(res.data!);
 }
 
 /// Creates a Cognito user in backend infrastructure. This documention describes
@@ -134,18 +131,17 @@ Future<AdminCreateUserResponse?> adminCreateUser(
     for (var error in res.errors) {
       throw Exception(error.message);
     }
-  } else {
-    return AdminCreateUserResponse.fromJson(res.data!);
   }
 
   addTearDown(() async {
     try {
       await deleteUser(username);
-      // ignore: avoid_catches_without_on_clauses
-    } catch (e) {
-      print('Error deleting user: $e');
+    } on Object catch (e) {
+      safePrint('Error deleting user: $e');
     }
   });
+
+  return AdminCreateUserResponse.fromJson(res.data!);
 }
 
 /// Returns the OTP code for [username]. Must be called before the network call

@@ -8,9 +8,9 @@ environment:
   flutter: ">=1.20.0"
 
 dependencies:
-  amplify_analytics_plugin_interface: 0.4.5
   amplify_analytics_pinpoint_android: 0.4.5
   amplify_analytics_pinpoint_ios: 0.4.5
+  amplify_analytics_plugin_interface: 0.4.5
   amplify_core: 0.4.5
   flutter:
     sdk: flutter

@@ -25,7 +25,7 @@ class ModelSchemaDefinition {
   late Map<String, ModelField> fields;
 
   ModelSchemaDefinition() {
-    fields = Map<String, ModelField>();
+    fields = {};
   }
 
   void addField(ModelFieldDefinition fieldDefinition) {

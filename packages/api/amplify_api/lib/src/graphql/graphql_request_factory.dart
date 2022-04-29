@@ -126,8 +126,10 @@ class GraphQLRequestFactory {
         // upperOutput and lowerOutput already '', done
         break;
       default:
-        throw ApiException('GraphQL Request Operation is currently unsupported',
-            recoverySuggestion: 'please use a supported GraphQL operation');
+        throw const ApiException(
+          'GraphQL Request Operation is currently unsupported',
+          recoverySuggestion: 'please use a supported GraphQL operation',
+        );
     }
 
     return DocumentInputs(upperOutput, lowerOutput);
@@ -237,8 +239,9 @@ class GraphQLRequestFactory {
         }
         // Public not() API only allows 1 condition but QueryPredicateGroup
         // technically allows multiple conditions so explicitly disallow multiple.
-        throw ApiException(
-            'Unable to translate not() with multiple conditions.');
+        throw const ApiException(
+          'Unable to translate not() with multiple conditions.',
+        );
       }
 
       // and, or

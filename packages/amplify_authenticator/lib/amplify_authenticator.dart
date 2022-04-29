@@ -431,7 +431,7 @@ class Authenticator extends StatefulWidget {
   final AuthenticatorStep initialStep;
 
   @override
-  _AuthenticatorState createState() => _AuthenticatorState();
+  State<Authenticator> createState() => _AuthenticatorState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

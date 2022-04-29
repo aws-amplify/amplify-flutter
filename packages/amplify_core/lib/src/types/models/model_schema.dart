@@ -18,10 +18,12 @@ library model_schema;
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:meta/meta.dart';
 
 import 'auth_rule.dart';
 import 'model_field.dart';
 
+@immutable
 class ModelSchema {
   final String name;
   final String? pluralName; //opt
@@ -52,7 +54,7 @@ class ModelSchema {
       'name': name,
       'pluralName': pluralName,
       'authRules': authRules?.map((x) => x.toMap()).toList(),
-      'fields': fields?.map((key, value) => MapEntry('$key', value.toMap())),
+      'fields': fields?.map((key, value) => MapEntry(key, value.toMap())),
     };
     return Map<String, dynamic>.from(map)
       ..removeWhere((k, dynamic v) => v == null);
@@ -79,15 +81,15 @@ class ModelSchema {
   }
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
     final collectionEquals = const DeepCollectionEquality().equals;
 
-    return o is ModelSchema &&
-        o.name == name &&
-        o.pluralName == pluralName &&
-        collectionEquals(o.authRules, authRules) &&
-        collectionEquals(o.fields, fields);
+    return other is ModelSchema &&
+        other.name == name &&
+        other.pluralName == pluralName &&
+        collectionEquals(other.authRules, authRules) &&
+        collectionEquals(other.fields, fields);
   }
 
   @override

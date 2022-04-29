@@ -155,24 +155,24 @@ mixin AuthenticatorUsernameField<FieldType,
               return ToggleButtons(
                 borderWidth: buttonBorderWidth,
                 constraints: buttonConstraints,
-                children: [
-                  Text(emailTitle),
-                  Text(phoneNumberTitle),
-                ],
                 isSelected: [useEmail.value, !useEmail.value],
                 onPressed: (int index) {
-                  bool _useEmail = index == 0;
+                  bool useEmail = index == 0;
                   setState(() {
-                    useEmail.value = _useEmail;
+                    this.useEmail.value = useEmail;
                   });
                   // Reset current username value to align with the current switch state.
-                  String newUsername = _useEmail
+                  String newUsername = useEmail
                       ? state.getAttribute(CognitoUserAttributeKey.email) ?? ''
                       : state.getAttribute(
                               CognitoUserAttributeKey.phoneNumber) ??
                           '';
                   state.username = newUsername;
                 },
+                children: [
+                  Text(emailTitle),
+                  Text(phoneNumberTitle),
+                ],
               );
             }),
             SizedBox(height: marginBottom),
@@ -230,8 +230,8 @@ mixin AuthenticatorUsernameField<FieldType,
     }
 
     String? _validator(String? username) {
-      final _validator = widget.validatorOverride ?? validator;
-      return _validator(UsernameInput(
+      final validator = widget.validatorOverride ?? this.validator;
+      return validator(UsernameInput(
         type: selectedUsernameType,
         username: username ?? '',
       ));
