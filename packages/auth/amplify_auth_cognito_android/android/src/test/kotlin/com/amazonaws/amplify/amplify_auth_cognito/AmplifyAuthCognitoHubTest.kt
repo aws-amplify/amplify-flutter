@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
@@ -30,45 +29,52 @@ import com.amplifyframework.logging.Logger
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
-import org.mockito.Mockito.*
+import org.mockito.Mockito.any
+import org.mockito.Mockito.anyString
+import org.mockito.Mockito.doNothing
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.spy
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
 import java.util.concurrent.CountDownLatch
-
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyAuthCognitoHubTest {
     private var context: Context = getApplicationContext()
     private lateinit var flutterPlugin: AuthCognito
     private var mockHubHandler: AuthCognitoHubEventStreamHandler =
-            mock(AuthCognitoHubEventStreamHandler::class.java)
+        mock(AuthCognitoHubEventStreamHandler::class.java)
 
     @Before
     fun setup() {
         flutterPlugin = AuthCognito()
         val mockLog = mock(Logger::class.java)
-        Mockito.doNothing().`when`(mockLog).error(Mockito.anyString(), Mockito.any(AuthException::class.java))
+        doNothing().`when`(mockLog).error(anyString(), any(AuthException::class.java))
     }
 
-    
     @Test
     fun test_hub_signedIn_event() {
         val latch = CountDownLatch(1)
         val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
 
-        flutterPlugin = AuthCognito(realHubHandler,  mock(Activity::class.java))
-        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
+        flutterPlugin = AuthCognito(realHubHandler, mock(Activity::class.java))
+        var eventData: HashMap<String, Any> = (
+            readMapFromFile(
+                "hub",
                 "signedInEvent.json",
-                HashMap::class.java) as HashMap<String, Any>)
-       
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
+
         var event: HubEvent<*> = HubEvent.create(AuthChannelEventName.SIGNED_IN)
 
         val hubSpy = spy(realHubHandler)
 
         val token: SubscriptionToken = hubSpy.getHubListener()
         Amplify.Hub.publish(HubChannel.AUTH, event)
-        Latch.await(latch);
+        Latch.await(latch)
         Amplify.Hub.unsubscribe(token)
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(1)).sendEvent(eventData)
@@ -80,9 +86,13 @@ class AmplifyAuthCognitoHubTest {
         val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
 
         flutterPlugin = AuthCognito(realHubHandler, mock(Activity::class.java))
-        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
+        var eventData: HashMap<String, Any> = (
+            readMapFromFile(
+                "hub",
                 "signedOutEvent.json",
-                HashMap::class.java) as HashMap<String, Any>)
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
 
         var event: HubEvent<*> = HubEvent.create(AuthChannelEventName.SIGNED_OUT)
 
@@ -90,7 +100,7 @@ class AmplifyAuthCognitoHubTest {
 
         val token: SubscriptionToken = hubSpy.getHubListener()
         Amplify.Hub.publish(HubChannel.AUTH, event)
-        Latch.await(latch);
+        Latch.await(latch)
         Amplify.Hub.unsubscribe(token)
         shadowOf(getMainLooper()).idle()
         verify(hubSpy, times(1)).sendEvent(eventData)
@@ -102,11 +112,37 @@ class AmplifyAuthCognitoHubTest {
         val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
 
         flutterPlugin = AuthCognito(realHubHandler, mock(Activity::class.java))
-        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
+        var eventData: HashMap<String, Any> = (
+            readMapFromFile(
+                "hub",
                 "sessionExpiredEvent.json",
-                HashMap::class.java) as HashMap<String, Any>)
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
 
         var event: HubEvent<*> = HubEvent.create(AuthChannelEventName.SESSION_EXPIRED)
+
+        val hubSpy = spy(realHubHandler)
+
+        val token: SubscriptionToken = hubSpy.getHubListener()
+        Amplify.Hub.publish(HubChannel.AUTH, event)
+        Latch.await(latch)
+        Amplify.Hub.unsubscribe(token)
+        shadowOf(getMainLooper()).idle()
+        verify(hubSpy, times(1)).sendEvent(eventData)
+    }
+
+    @Test
+    fun test_hub_userDeleteEvent_event() {
+        val latch = CountDownLatch(1)
+        val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
+
+        flutterPlugin = AuthCognito(realHubHandler, mock(Activity::class.java))
+        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
+            "userDeletedEvent.json",
+            HashMap::class.java) as HashMap<String, Any>)
+
+        var event: HubEvent<*> = HubEvent.create(AuthChannelEventName.USER_DELETED)
 
         val hubSpy = spy(realHubHandler)
 

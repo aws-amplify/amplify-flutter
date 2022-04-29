@@ -13,18 +13,15 @@
  * permissions and limitations under the License.
  */
 
-
 package com.amazonaws.amplify.amplify_auth_cognito.utils
 
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import com.amplifyframework.core.Amplify
-import com.amplifyframework.logging.Logger
 
 private val REDIRECT_ACTIVITY_NAME = "HostedUIRedirectActivity"
 private val LOG = Amplify.Logging.forNamespace("amplify:flutter:auth_cognito:utils")
-
 
 /**
  * The amplify-android library has added a HostedUIRedirectActivity to replace
@@ -37,7 +34,7 @@ private val LOG = Amplify.Logging.forNamespace("amplify:flutter:auth_cognito:uti
 fun isRedirectActivityDeclared(context: Context): Boolean {
 
     if (context == null) {
-        LOG.warn("Context is null. Failed to inspect packages.");
+        LOG.warn("Context is null. Failed to inspect packages.")
         return false
     }
     try {

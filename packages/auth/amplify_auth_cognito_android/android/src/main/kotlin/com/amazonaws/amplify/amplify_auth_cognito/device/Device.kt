@@ -15,8 +15,6 @@
 package com.amazonaws.amplify.amplify_auth_cognito.device
 
 import com.amazonaws.mobile.client.results.Device
-import java.time.Instant
-import java.util.*
 
 /**
  * Attribute key for retrieving a [Device] instance's name.

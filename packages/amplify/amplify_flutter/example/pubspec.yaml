@@ -24,7 +24,7 @@ dev_dependencies:
   amplify_analytics_pinpoint:
     path: ../../../analytics/amplify_analytics_pinpoint
   amplify_api:
-    path: ../../../amplify_api
+    path: ../../../api/amplify_api
   amplify_auth_cognito:
     path: ../../../auth/amplify_auth_cognito
   amplify_datastore:

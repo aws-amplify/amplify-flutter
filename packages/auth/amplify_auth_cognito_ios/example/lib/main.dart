@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: const Center(
           child: Text(
-              'This application serves as a test bed for the iOS implementation of the amplify_auth_cognito method channel. Please see the example app in the main amplify_auth_cognito repository for a functional example app.'),
+              'This application serves as a test bed for the iOS implementation of the amplify_auth_cognito method channel. Please see the example app in the main amplify_api repository for a functional example app.'),
         ),
       ),
     );

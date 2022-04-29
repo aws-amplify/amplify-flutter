@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:io' show Platform;
 import 'package:amplify_test/amplify_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -126,7 +125,6 @@ void main() {
 
         expect(eventCount, 3);
       },
-      skip: !Platform.isIOS,
     );
   });
 }

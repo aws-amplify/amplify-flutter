@@ -19,7 +19,7 @@ interface FlutterHubEvent {
     val eventName: String
     fun toValueMap(): Map<String, Any> {
         return mapOf(
-                "eventName" to this.eventName
+            "eventName" to this.eventName
         )
     }
 }

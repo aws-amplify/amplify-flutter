@@ -1,0 +1,24 @@
+name: amplify_api_android
+description: The method channel implementation for amplify_api on Android
+version: 0.4.5
+homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/api/amplify_api_android
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.20.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.amazonaws.amplify.amplify_api
+        pluginClass: AmplifyApi

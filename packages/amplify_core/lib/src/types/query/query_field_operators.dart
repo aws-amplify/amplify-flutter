@@ -177,11 +177,19 @@ class ContainsQueryOperator extends QueryFieldOperatorSingleValue<String> {
       : super(value, QueryFieldOperatorType.contains);
 
   @override
-  bool evaluate(String? other) {
+  bool evaluate(dynamic other) {
     if (other == null) {
       return false;
+    } else if (other is String) {
+      return other.contains(value);
+    } else if (other is List<String>) {
+      return other.contains(value);
+    } else {
+      throw const AmplifyException(
+        'Invalid type. The .contains() query predicate only supports type String and List<String>.',
+        recoverySuggestion: 'Ensure that the field is of the appropriate type.',
+      );
     }
-    return other.contains(value);
   }
 }
 

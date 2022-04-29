@@ -13,20 +13,20 @@
  * permissions and limitations under the License.
  */
 
-
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amplifyframework.auth.AuthUserAttribute
-import org.json.JSONArray
 
 class FlutterFetchUserAttributesResult(private var attributes: List<AuthUserAttribute>) {
 
     fun toList(): List<Map<String, String>> {
         var list: MutableList<Map<String, String>> = emptyList<Map<String, String>>().toMutableList()
         attributes.forEach {
-            list.add(mapOf(
-                "key" to it.key.keyString,
-                "value" to it.value)
+            list.add(
+                mapOf(
+                    "key" to it.key.keyString,
+                    "value" to it.value
+                )
             )
         }
 

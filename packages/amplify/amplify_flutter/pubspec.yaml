@@ -1,6 +1,6 @@
 name: amplify_flutter
 description: The top level Flutter package for the AWS Amplify libraries.
-version: 0.4.2
+version: 0.4.5
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify/amplify_flutter
 
 environment:
@@ -8,14 +8,14 @@ environment:
   flutter: ">=2.0.0"
 
 dependencies:
-  amplify_analytics_plugin_interface: 0.4.2
-  amplify_api_plugin_interface: 0.4.2
-  amplify_auth_plugin_interface: 0.4.2
-  amplify_core: 0.4.2
-  amplify_datastore_plugin_interface: 0.4.2
-  amplify_flutter_android: 0.4.2
-  amplify_flutter_ios: 0.4.2
-  amplify_storage_plugin_interface: 0.4.2
+  amplify_analytics_plugin_interface: 0.4.5
+  amplify_api_plugin_interface: 0.4.5
+  amplify_auth_plugin_interface: 0.4.5
+  amplify_core: 0.4.5
+  amplify_datastore_plugin_interface: 0.4.5
+  amplify_flutter_android: 0.4.5
+  amplify_flutter_ios: 0.4.5
+  amplify_storage_plugin_interface: 0.4.5
   collection: ^1.15.0
   flutter:
     sdk: flutter
@@ -49,12 +49,12 @@ dependencies:
 #     path: ../amplify_storage_s3
 
 dev_dependencies:
-  amplify_analytics_pinpoint: 0.4.2
-  amplify_api: 0.4.2
-  amplify_auth_cognito: 0.4.2
-  amplify_datastore: 0.4.2
+  amplify_analytics_pinpoint: 0.4.3
+  amplify_api: 0.4.3
+  amplify_auth_cognito: 0.4.3
+  amplify_datastore: 0.4.3
   amplify_lints: ^1.0.0
-  amplify_storage_s3: 0.4.2
+  amplify_storage_s3: 0.4.3
   amplify_test:
     path: ../../amplify_test
   build_runner: ^2.0.0

@@ -1,0 +1,33 @@
+name: amplify_api_android_example
+description: Test bed for amplify_api_android
+homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/api/amplify_api_android
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+  flutter: ">=2.2.0"
+
+dependencies:
+  amplify_api_android:
+    # When depending on this package from a real application you should use:
+    #   amplify_analytics_pinpoint: ^x.y.z
+    # See https://dart.dev/tools/pub/dependencies#version-constraints
+    # The example app is bundled with the plugin so we use a path dependency on
+    # the parent directory to use the current plugin's version.
+    path: ../
+  amplify_core:
+    path: ../../../amplify_core
+  cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+flutter:
+  uses-material-design: true
