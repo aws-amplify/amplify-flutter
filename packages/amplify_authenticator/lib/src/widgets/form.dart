@@ -197,7 +197,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
       );
     }
 
-    final _runtimeActions = runtimeActions(context);
+    final runtimeActions = this.runtimeActions(context);
     return Form(
       key: formKey,
       child: Column(
@@ -207,9 +207,9 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
             children: [
               if (widget.actions.isNotEmpty) const SizedBox(height: 4),
               ...widget.actions,
-              if (_runtimeActions.isNotEmpty) ...[
+              if (runtimeActions.isNotEmpty) ...[
                 const Divider(),
-                ..._runtimeActions,
+                ...runtimeActions,
               ]
             ].spacedBy(const SizedBox(height: 12)),
           ),
@@ -267,7 +267,7 @@ class SignUpForm extends AuthenticatorForm {
   final bool _includeDefaultFields;
 
   @override
-  _SignUpFormState createState() => _SignUpFormState();
+  AuthenticatorFormState<SignUpForm> createState() => _SignUpFormState();
 }
 
 class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
@@ -400,7 +400,7 @@ class SignInForm extends AuthenticatorForm {
         );
 
   @override
-  _SignInFormState createState() => _SignInFormState();
+  AuthenticatorFormState<SignInForm> createState() => _SignInFormState();
 }
 
 class _SignInFormState extends AuthenticatorFormState<SignInForm> {

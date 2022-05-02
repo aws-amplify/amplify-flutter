@@ -15,8 +15,6 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-import 'model_association.dart';
-
 class ModelFieldDefinition {
   final String name;
   final ModelFieldType type;
@@ -104,7 +102,7 @@ class ModelFieldDefinition {
     return id(name: key.fieldName);
   }
 
-  static ModelFieldDefinition id({String name = "id"}) {
+  static ModelFieldDefinition id({String name = 'id'}) {
     return ModelFieldDefinition(
       name: name,
       type: const ModelFieldType(ModelFieldTypeEnum.string),
@@ -149,7 +147,7 @@ class ModelFieldDefinition {
 
   static ModelFieldDefinition belongsTo(
       {required QueryField key,
-      bool isRequired: true,
+      bool isRequired = true,
       required String ofModelName,
       QueryField? associatedKey,
       String? targetName}) {
@@ -168,7 +166,7 @@ class ModelFieldDefinition {
         association: ModelAssociation(
             associationType: ModelAssociationEnum.BelongsTo,
             targetName: targetName,
-            associatedName: associatedName, // associatedName,
+            associatedName: associatedName,
             associatedType: associatedType));
   }
 

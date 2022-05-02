@@ -140,9 +140,10 @@ Future<AdminCreateUserResponse> adminCreateUser(
     try {
       await deleteUser(username);
     } on Object catch (e) {
-      print('Error deleting user: $e');
+      safePrint('Error deleting user: $e');
     }
   });
+
   return data;
 }
 

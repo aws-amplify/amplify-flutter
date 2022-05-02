@@ -21,6 +21,8 @@ import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+final _deepEquals = const DeepCollectionEquality().equals;
+
 void main() {
   group('with ModelProvider', () {
     AmplifyAPI(modelProvider: ModelProvider.instance);
@@ -36,8 +38,7 @@ void main() {
         GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
 
         expect(req.document, expected);
-        expect(
-            DeepCollectionEquality().equals(req.variables, {'id': id}), isTrue);
+        expect(_deepEquals(req.variables, {'id': id}), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'getBlog');
       });
@@ -316,8 +317,8 @@ void main() {
     group('ModelMutations', () {
       test('ModelMutations.create() should build a valid request', () {
         final id = UUID.getUUID();
-        final name = 'Test Blog';
-        final time = '2021-08-03T16:39:18.000000651Z';
+        const name = 'Test Blog';
+        const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
@@ -336,8 +337,7 @@ void main() {
         GraphQLRequest<Blog> req = ModelMutations.create<Blog>(blog);
 
         expect(req.document, expectedDoc);
-        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
-            isTrue);
+        expect(_deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'createBlog');
       });
@@ -370,8 +370,7 @@ void main() {
         GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
 
         expect(req.document, expectedDoc);
-        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
-            isTrue);
+        expect(_deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Post.classType);
         expect(req.decodePath, 'createPost');
       });
@@ -389,8 +388,8 @@ void main() {
 
       test('ModelMutations.delete() should build a valid request', () {
         final id = UUID.getUUID();
-        final name = 'Test Blog';
-        final time = '2021-08-03T16:39:18.000000651Z';
+        const name = 'Test Blog';
+        const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
@@ -405,8 +404,7 @@ void main() {
         GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog);
 
         expect(req.document, expectedDoc);
-        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
-            isTrue);
+        expect(_deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'deleteBlog');
       });
@@ -425,16 +423,15 @@ void main() {
             ModelMutations.deleteById<Blog>(Blog.classType, id);
 
         expect(req.document, expectedDoc);
-        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
-            isTrue);
+        expect(_deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'deleteBlog');
       });
 
       test('ModelMutations.update() should build a valid request', () {
         final id = UUID.getUUID();
-        final name = 'Test Blog';
-        final time = '2021-08-03T16:39:18.000000651Z';
+        const name = 'Test Blog';
+        const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
@@ -455,8 +452,7 @@ void main() {
         GraphQLRequest<Blog> req = ModelMutations.update<Blog>(blog);
 
         expect(req.document, expectedDoc);
-        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
-            isTrue);
+        expect(_deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'updateBlog');
       });
@@ -490,8 +486,7 @@ void main() {
         GraphQLRequest<Post> req = ModelMutations.update<Post>(post);
 
         expect(req.document, expectedDoc);
-        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
-            isTrue);
+        expect(_deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Post.classType);
         expect(req.decodePath, 'updatePost');
       });
@@ -523,8 +518,7 @@ void main() {
             ModelMutations.update(blog, where: Blog.CREATEDAT.lt(createdAt));
 
         expect(req.document, expectedDoc);
-        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
-            isTrue);
+        expect(_deepEquals(req.variables, expectedVars), isTrue);
       });
 
       test(
@@ -548,8 +542,7 @@ void main() {
             where: Blog.CREATEDAT.lt(createdAt));
 
         expect(req.document, expectedDoc);
-        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
-            isTrue);
+        expect(_deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'deleteBlog');
       });

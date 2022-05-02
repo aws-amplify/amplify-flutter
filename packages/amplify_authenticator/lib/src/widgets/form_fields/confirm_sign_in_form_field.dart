@@ -422,11 +422,11 @@ class _ConfirmSignInPhoneFieldState extends _ConfirmSignInTextFieldState
     with AuthenticatorPhoneFieldMixin {
   @override
   String? get initialValue {
-    var _initialValue = state.getAttribute(CognitoUserAttributeKey.phoneNumber);
-    if (_initialValue != null) {
-      _initialValue = displayPhoneNumber(_initialValue);
+    var initialValue = state.getAttribute(CognitoUserAttributeKey.phoneNumber);
+    if (initialValue != null) {
+      initialValue = displayPhoneNumber(initialValue);
     }
-    return _initialValue;
+    return initialValue;
   }
 
   @override

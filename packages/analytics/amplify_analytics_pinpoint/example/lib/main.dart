@@ -28,7 +28,7 @@ class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -83,20 +83,20 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _registerGlobalProperties() async {
-    print('register global properties: ' + _globalProp);
+    print('register global properties: $_globalProp');
 
     AnalyticsProperties properties = AnalyticsProperties();
-    properties.addIntProperty(_globalProp + '_1numKey', 1);
-    properties.addBoolProperty(_globalProp + '_boolKey', true);
-    properties.addDoubleProperty(_globalProp + '_doubleKey', 10.0);
-    properties.addIntProperty(_globalProp + '_intKey', 10);
-    properties.addStringProperty(_globalProp + '_stringKey', 'stringValue');
+    properties.addIntProperty('${_globalProp}_1numKey', 1);
+    properties.addBoolProperty('${_globalProp}_boolKey', true);
+    properties.addDoubleProperty('${_globalProp}_doubleKey', 10.0);
+    properties.addIntProperty('${_globalProp}_intKey', 10);
+    properties.addStringProperty('${_globalProp}_stringKey', 'stringValue');
 
     Amplify.Analytics.registerGlobalProperties(globalProperties: properties);
   }
 
   void _unregisterGlobalProperties() async {
-    print('unregister global properties: ' + _globalProp);
+    print('unregister global properties: $_globalProp');
 
     Amplify.Analytics.unregisterGlobalProperties(propertyNames: [_globalProp]);
   }
@@ -115,9 +115,9 @@ class _MyAppState extends State<MyApp> {
 
   void _identifyUser() async {
     AnalyticsUserProfile analyticsUserProfile = AnalyticsUserProfile();
-    analyticsUserProfile.name = _userId + '_name';
-    analyticsUserProfile.email = _userId + '_email';
-    analyticsUserProfile.plan = _userId + '_plan';
+    analyticsUserProfile.name = '${_userId}_name';
+    analyticsUserProfile.email = '${_userId}_email';
+    analyticsUserProfile.plan = '${_userId}_plan';
 
     AnalyticsUserProfileLocation analyticsUserLocation =
         AnalyticsUserProfileLocation();
@@ -131,10 +131,10 @@ class _MyAppState extends State<MyApp> {
     analyticsUserProfile.location = analyticsUserLocation;
 
     AnalyticsProperties properties = AnalyticsProperties();
-    properties.addStringProperty(_userId + '_stringKey', 'stringValue');
-    properties.addIntProperty(_userId + '_intKey', 10);
-    properties.addDoubleProperty(_userId + '_doubleKey', 10.0);
-    properties.addBoolProperty(_userId + '_boolKey', false);
+    properties.addStringProperty('${_userId}_stringKey', 'stringValue');
+    properties.addIntProperty('${_userId}_intKey', 10);
+    properties.addDoubleProperty('${_userId}_doubleKey', 10.0);
+    properties.addBoolProperty('${_userId}_boolKey', false);
 
     analyticsUserProfile.properties = properties;
 

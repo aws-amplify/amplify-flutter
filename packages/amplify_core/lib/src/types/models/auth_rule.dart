@@ -24,6 +24,7 @@ enum ModelOperation { CREATE, UPDATE, DELETE, READ }
 
 enum AuthRuleProvider { APIKEY, OIDC, IAM, USERPOOLS, FUNCTION }
 
+@immutable
 class AuthRule {
   final AuthStrategy authStrategy;
   final String? ownerField;
@@ -75,7 +76,7 @@ class AuthRule {
       'groups': groups,
       'groupsField': groupsField,
       'provider': provider != null ? describeEnum(provider!) : null,
-      'operations': operations?.map((x) => describeEnum(x)).toList(),
+      'operations': operations?.map(describeEnum).toList(),
     };
     return Map<String, dynamic>.from(map)
       ..removeWhere((k, dynamic v) => v == null);
@@ -105,19 +106,19 @@ class AuthRule {
   }
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
 
-    return o is AuthRule &&
-        o.authStrategy == authStrategy &&
-        o.ownerField == ownerField &&
-        o.identityClaim == identityClaim &&
-        o.groupClaim == groupClaim &&
-        listEquals(o.groups, groups) &&
-        o.groupsField == groupsField &&
-        o.provider == provider &&
-        listEquals(o.operations, operations);
+    return other is AuthRule &&
+        other.authStrategy == authStrategy &&
+        other.ownerField == ownerField &&
+        other.identityClaim == identityClaim &&
+        other.groupClaim == groupClaim &&
+        listEquals(other.groups, groups) &&
+        other.groupsField == groupsField &&
+        other.provider == provider &&
+        listEquals(other.operations, operations);
   }
 
   @override

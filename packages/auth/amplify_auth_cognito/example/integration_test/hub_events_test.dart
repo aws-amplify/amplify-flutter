@@ -96,7 +96,6 @@ void main() {
         var signinEvent;
         var deleteEvent;
         var signoutEvent;
-        var event;
         var eventCount = 0;
         var authEventStream = Amplify.Hub.availableStreams[HubChannel.Auth]!;
         authEventStream.listen((event) => eventCount++);

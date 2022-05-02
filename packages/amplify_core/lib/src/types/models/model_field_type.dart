@@ -15,6 +15,7 @@
 
 import 'package:flutter/foundation.dart';
 
+@immutable
 class ModelFieldType {
   final ModelFieldTypeEnum fieldType;
 

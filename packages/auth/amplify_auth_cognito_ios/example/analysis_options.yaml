@@ -1,8 +1,5 @@
-include: package:amplify_lints/flutter_lib.yaml
+include: package:amplify_lints/flutter_app.yaml
 
 analyzer:
-  exclude:
-    - "**/*.mocks.dart"
   errors:
-    # TODO: Renable when logging library is finished
     avoid_print: ignore

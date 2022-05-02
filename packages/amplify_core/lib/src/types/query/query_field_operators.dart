@@ -31,10 +31,7 @@ enum QueryFieldOperatorType {
 
 extension QueryFieldOperatorTypeExtension on QueryFieldOperatorType {
   String toShortString() {
-    return this
-        .toString()
-        .split('.')
-        .last; // toString returns the enumName.value
+    return toString().split('.').last; // toString returns the enumName.value
   }
 }
 

@@ -127,7 +127,8 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
   }
 
   @override
-  _SocialSignInButtonState createState() => _SocialSignInButtonState();
+  AuthenticatorButtonState<SocialSignInButton> createState() =>
+      _SocialSignInButtonState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
