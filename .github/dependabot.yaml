@@ -2,6 +2,182 @@ version: 2
 enable-beta-ecosystems: true
 updates:
   - package-ecosystem: "pub"
+    directory: "example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify_authenticator/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify_core/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify_datastore/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify_datastore_plugin_interface/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify_lints/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify_test/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/aws_common/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/aws_signature_v4/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify/amplify_flutter/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify/amplify_flutter_android/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify/amplify_flutter_ios/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify_authenticator/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify_core/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify_datastore/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/analytics/amplify_analytics_pinpoint/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/analytics/amplify_analytics_pinpoint_android/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/analytics/amplify_analytics_pinpoint_ios/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/analytics/amplify_analytics_plugin_interface/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/api/amplify_api/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/api/amplify_api_android/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/api/amplify_api_ios/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/api/amplify_api_plugin_interface/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
     directory: "packages/auth/amplify_auth_cognito/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/auth/amplify_auth_cognito_android/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/auth/amplify_auth_cognito_ios/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/auth/amplify_auth_plugin_interface/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/aws_signature_v4/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/storage/amplify_storage_plugin_interface/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/storage/amplify_storage_s3/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/storage/amplify_storage_s3_android/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/storage/amplify_storage_s3_ios/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify/amplify_flutter/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify/amplify_flutter_android/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify/amplify_flutter_ios/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/analytics/amplify_analytics_pinpoint/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/analytics/amplify_analytics_pinpoint_android/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/analytics/amplify_analytics_pinpoint_ios/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/api/amplify_api/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/api/amplify_api_android/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/api/amplify_api_ios/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/auth/amplify_auth_cognito/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/auth/amplify_auth_cognito_android/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/auth/amplify_auth_cognito_ios/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/storage/amplify_storage_s3/example/"
     schedule:
       interval: "daily"
