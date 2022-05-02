@@ -14,8 +14,8 @@
  */
 
 import 'dart:async';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
-import 'src/CognitoHubEvents/AuthHubEvent.dart';
 
 EventChannel channel =
     const EventChannel("com.amazonaws.amplify/auth_cognito_events");

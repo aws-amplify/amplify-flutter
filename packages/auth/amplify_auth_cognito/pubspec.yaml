@@ -15,7 +15,6 @@ dependencies:
   amplify_auth_cognito_android: 0.4.5
   amplify_auth_cognito_ios: 0.4.5
   collection: ^1.15.0
-  plugin_platform_interface: ^2.0.0
 
 dev_dependencies:
   amplify_lints: ^1.0.0

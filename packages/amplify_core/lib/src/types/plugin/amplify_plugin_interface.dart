@@ -13,10 +13,28 @@
  * permissions and limitations under the License.
  */
 
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:meta/meta.dart';
 
 /// Interface for all amplify plugins
-abstract class AmplifyPluginInterface extends PlatformInterface {
-  /// Constructs a plugin
-  AmplifyPluginInterface({required Object token}) : super(token: token);
+abstract class AmplifyPluginInterface {
+  const AmplifyPluginInterface();
+
+  /// Casts a plugin to a category-specific implementation.
+  P cast<P extends AmplifyPluginInterface>() => this as P;
+
+  /// The category implemented by this plugin.
+  Category get category;
+
+  /// Called when the plugin is added to the category.
+  Future<void> addPlugin() async {}
+
+  /// Configures the plugin using the registered [config].
+  Future<void> configure({AmplifyConfig? config}) async {}
+
+  /// Resets the plugin by removing all traces of it from the device.
+  @visibleForTesting
+  Future<void> reset() async {
+    throw UnimplementedError('reset is not available on this platform');
+  }
 }

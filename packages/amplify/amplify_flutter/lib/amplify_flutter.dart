@@ -22,9 +22,6 @@ export 'package:amplify_core/amplify_core.dart';
 // Amplify interface
 export 'src/amplify_impl.dart';
 
-// Category interfaces
-export 'src/categories/amplify_categories.dart';
-
 // Config
 export 'src/config/amplify_config.dart';
 export 'src/config/amplify_plugin_config.dart' hide UnknownPluginConfigFactory;

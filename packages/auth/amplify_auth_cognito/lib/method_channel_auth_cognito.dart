@@ -17,6 +17,7 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'amplify_auth_cognito.dart';
 import 'amplify_auth_error_handling.dart';
 
@@ -494,13 +495,11 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
         isUpdated: res["isUpdated"],
         nextStep: AuthNextUpdateAttributeStep(
             updateAttributeStep: res["nextStep"]["updateAttributeStep"],
-            codeDeliveryDetails: codeDeliveryDetails != null
-                ? AuthCodeDeliveryDetails(
-                    attributeName: codeDeliveryDetails["attributeName"] ?? null,
-                    deliveryMedium:
-                        codeDeliveryDetails["deliveryMedium"] ?? null,
-                    destination: codeDeliveryDetails["destination"])
-                : null,
+            codeDeliveryDetails: AuthCodeDeliveryDetails(
+              attributeName: codeDeliveryDetails["attributeName"] ?? null,
+              deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? null,
+              destination: codeDeliveryDetails["destination"],
+            ),
             additionalInfo: res["nextStep"]["additionalInfo"] is String
                 ? jsonDecode(res["nextStep"]["additionalInfo"])
                 : {}));
