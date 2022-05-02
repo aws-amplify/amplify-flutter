@@ -26,7 +26,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
   /// Constructs a AmplifyAuthCognito plugin
   AmplifyAuthCognito();
 
-  static AmplifyAuthCognito _instance = AmplifyAuthCognitoMethodChannel();
+  static final AmplifyAuthCognito _instance = AmplifyAuthCognitoMethodChannel();
   static AuthStreamController streamWrapper = AuthStreamController();
 
   Future<void> addPlugin() async {

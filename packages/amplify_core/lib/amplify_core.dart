@@ -58,6 +58,11 @@ export 'src/types/temporal/temporal_datetime.dart';
 export 'src/types/temporal/temporal_time.dart';
 export 'src/types/temporal/temporal_timestamp.dart';
 
+/// Plugin
+export 'src/types/plugin/amplify_analytics_plugin_interface.dart';
+export 'src/types/plugin/amplify_auth_plugin_interface.dart';
+export 'src/types/plugin/amplify_plugin_interface.dart';
+
 // Util
 export 'src/util/parsers.dart';
 export 'src/util/serializable.dart';
