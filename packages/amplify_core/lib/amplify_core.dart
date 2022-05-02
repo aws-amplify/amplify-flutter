@@ -18,8 +18,14 @@ library amplify_core;
 /// Categories
 export 'src/category/amplify_categories.dart';
 
+/// API
+export 'src/types/api/api_types.dart';
+
 /// Auth
 export 'src/types/auth/auth_types.dart';
+
+/// Config
+export 'src/types/config/amplify_config.dart';
 
 /// Exceptions
 export 'src/types/exception/amplify_already_configured_exception.dart';
@@ -53,7 +59,7 @@ export 'src/types/temporal/temporal_date.dart';
 export 'src/types/temporal/temporal_datetime.dart';
 export 'src/types/temporal/temporal_time.dart';
 export 'src/types/temporal/temporal_timestamp.dart';
+
 // Util
 export 'src/util/parsers.dart';
-export 'src/util/print.dart';
-export 'src/util/uuid.dart';
+export 'src/util/serializable.dart';

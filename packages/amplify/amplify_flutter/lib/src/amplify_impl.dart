@@ -20,8 +20,8 @@ import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_inte
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';

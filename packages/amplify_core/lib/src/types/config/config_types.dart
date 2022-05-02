@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,12 +13,5 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
-
-class AuthSessionRequest {
-  AuthSessionOptions? options;
-  AuthSessionRequest({this.options});
-  Map<String, Object?> serializeAsMap() => {
-        if (options != null) 'options': options!.serializeAsMap(),
-      };
-}
+export 'amplify_config.dart';
+export 'auth/auth_config.dart';

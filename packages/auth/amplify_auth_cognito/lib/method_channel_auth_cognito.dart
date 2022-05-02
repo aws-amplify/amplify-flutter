@@ -17,7 +17,6 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'amplify_auth_cognito.dart';
 import 'amplify_auth_error_handling.dart';
 

@@ -24,26 +24,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   @nonVirtual
   Category get category => Category.auth;
 
-  /// `Add plugin` method
-  Future<void> addPlugin(AuthPluginInterface plugin) async {
-    //TODO: Allow for multiple plugins to work simultaneously
-    if (plugins.isEmpty) {
-      try {
-        await plugin.addPlugin();
-        plugins.add(plugin);
-      } on AmplifyAlreadyConfiguredException {
-        plugins.add(plugin);
-      } on PlatformException catch (e) {
-        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
-      }
-    } else {
-      throw const AmplifyException(
-        'Auth plugin has already been added, '
-        'multiple plugins for Auth category are currently not supported.',
-      );
-    }
-  }
-
   StreamController get streamController {
     return plugins.length == 1
         ? plugins[0].streamController
