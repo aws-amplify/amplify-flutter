@@ -148,14 +148,8 @@ class MethodChannelAmplify extends AmplifyClass {
       },
     );
     await Future.wait(
-<<<<<<< HEAD
         //ignore:invalid_use_of_protected_member
         Analytics.plugins.map((plugin) => plugin.onConfigure()));
-=======
-      //ignore:invalid_use_of_protected_member
-      AnalyticsCategory().plugins.map((plugin) => plugin.configure()),
-    );
->>>>>>> f7cb6249 (onConfigure ref)
   }
 
   /// Parses the [configuration] string into an [AmplifyConfig] object.
