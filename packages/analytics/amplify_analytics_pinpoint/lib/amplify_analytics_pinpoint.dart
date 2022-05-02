@@ -23,7 +23,6 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
       AmplifyAnalyticsPinpointMethodChannel();
 
   // Public facing methods
-
   @override
   Future<void> addPlugin() async {
     return _instance.addPlugin();
