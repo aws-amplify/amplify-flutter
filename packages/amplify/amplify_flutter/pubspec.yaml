@@ -15,6 +15,7 @@ dependencies:
   amplify_flutter_android: 0.4.5
   amplify_flutter_ios: 0.4.5
   amplify_storage_plugin_interface: 0.4.5
+  aws_common: 0.1.0
   collection: ^1.15.0
   flutter:
     sdk: flutter
