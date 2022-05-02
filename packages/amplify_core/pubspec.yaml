@@ -8,7 +8,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  aws_common: 0.1.0
+  aws_common: ^0.1.0
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.0
