@@ -25,13 +25,13 @@ import 'package:meta/meta.dart';
 
 part 'config_map.g.dart';
 
-/// {@template amplify_flutter.config_map}
+/// {@template amplify_common.config_map}
 /// A map of configuration names to their typed representations.
 /// {@endtemplate}
 @immutable
 abstract class ConfigMap<T extends AWSSerializable>
     with MapMixin<String, T>, AWSEquatable<ConfigMap<T>>, AWSSerializable {
-  /// {@macro amplify_flutter.config_map}
+  /// {@macro amplify_common.config_map}
   const ConfigMap();
 
   /// All configurations in this map.
@@ -66,12 +66,12 @@ abstract class ConfigMap<T extends AWSSerializable>
   Map<String, Object?> toJson() => map((k, v) => MapEntry(k, v.toJson()));
 }
 
-/// {@template amplify_flutter.aws_config_map}
+/// {@template amplify_common.aws_config_map}
 /// A map of AWS configuration names to their typed representations.
 /// {@endtemplate}
 @configMapSerializable
 class AWSConfigMap<T extends AWSSerializable> extends ConfigMap<T> {
-  /// {@macro amplify_flutter.aws_config_map}
+  /// {@macro amplify_common.aws_config_map}
   const AWSConfigMap(this.configs);
 
   /// All configurations.
@@ -97,11 +97,11 @@ class AWSConfigMap<T extends AWSSerializable> extends ConfigMap<T> {
   Map<String, T> get all => configs;
 }
 
-/// {@template amplify_flutter.amplify_plugin_config_map}
+/// {@template amplify_common.amplify_plugin_config_map}
 /// A map of Amplify Plugin names to their typed representations.
 /// {@endtemplate}
 abstract class AmplifyPluginConfigMap extends ConfigMap<AmplifyPluginConfig> {
-  /// {@macro amplify_flutter.amplify_plugin_config_map}
+  /// {@macro amplify_common.amplify_plugin_config_map}
   const AmplifyPluginConfigMap(this.plugins);
 
   /// All category plugin configurations.

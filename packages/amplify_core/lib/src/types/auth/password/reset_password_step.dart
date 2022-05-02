@@ -18,7 +18,7 @@ import 'package:amplify_core/amplify_core.dart';
 class ResetPasswordStep extends AuthNextStep {
   String updateStep;
   ResetPasswordStep(
-      {Map<dynamic, dynamic>? additionalInfo,
+      {Map<String, String>? additionalInfo,
       AuthCodeDeliveryDetails? codeDeliveryDetails,
       required this.updateStep})
       : super(

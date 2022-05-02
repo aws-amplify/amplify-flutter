@@ -13,18 +13,12 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: implicit_dynamic_parameter
-
 import 'package:amplify_core/amplify_core.dart';
 
 class AuthSessionRequest {
   AuthSessionOptions? options;
   AuthSessionRequest({this.options});
-  Map<String, dynamic> serializeAsMap() {
-    final pendingRequest = <String, dynamic>{
-      'options': options?.serializeAsMap()
-    };
-    pendingRequest.removeWhere((_, v) => v == null);
-    return pendingRequest;
-  }
+  Map<String, Object?> serializeAsMap() => {
+        if (options != null) 'options': options!.serializeAsMap(),
+      };
 }
