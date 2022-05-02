@@ -2,6 +2,6 @@ version: 2
 enable-beta-ecosystems: true
 updates:
   - package-ecosystem: "pub"
-    directory: "packages/auth/amplify_auth_cognito/"
+    directory: "example/" # Will scan all pubspecs in repo from this root.
     schedule:
       interval: "daily"
