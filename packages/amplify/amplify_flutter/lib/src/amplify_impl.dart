@@ -18,7 +18,6 @@ import 'dart:convert';
 
 import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
@@ -28,7 +27,6 @@ import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'amplify_hub.dart';
-import 'categories/amplify_categories.dart';
 
 part 'method_channel_amplify.dart';
 
@@ -39,7 +37,7 @@ part 'method_channel_amplify.dart';
 /// only support iOS and Android platforms.
 class AmplifyClass extends PlatformInterface {
   /// The Auth category.
-  final AuthCategory Auth = const AuthCategory();
+  final AuthCategory Auth = AuthCategory();
 
   /// The Analytics category.
   final AnalyticsCategory Analytics = const AnalyticsCategory();

@@ -15,7 +15,6 @@
 
 // ignore_for_file: deprecated_member_use_from_same_package
 
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
 

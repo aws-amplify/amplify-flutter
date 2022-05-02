@@ -16,27 +16,21 @@
 import 'dart:async';
 import 'dart:core';
 import 'package:amplify_auth_cognito/src/CognitoDevice/cognito_device.dart';
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_auth_cognito.dart';
 import './amplify_auth_cognito_stream_controller.dart';
 
 export './src/types.dart';
 
 class AmplifyAuthCognito extends AuthPluginInterface {
-  static final Object _token = Object();
-
   /// Constructs a AmplifyAuthCognito plugin
   AmplifyAuthCognito();
 
   static AmplifyAuthCognito _instance = AmplifyAuthCognitoMethodChannel();
   static AuthStreamController streamWrapper = AuthStreamController();
 
-  static set instance(AuthPlatformInterface instance) {
-    PlatformInterface.verifyToken(instance, _token);
-    _instance = instance as AmplifyAuthCognito;
-  }
+  @override
+  List<AuthPluginInterface> get plugins => plugins;
 
   Future<void> addPlugin() async {
     return _instance.addPlugin();
