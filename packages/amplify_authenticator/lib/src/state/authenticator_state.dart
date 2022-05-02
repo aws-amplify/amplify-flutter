@@ -148,9 +148,9 @@ class AuthenticatorState extends ChangeNotifier {
   set country(Country newCountry) {
     final oldCountry = _country;
     final currentPhoneNumber =
-        _authAttributes[CognitoUserAttributeKey.phoneNumber];
+        authAttributes[CognitoUserAttributeKey.phoneNumber];
     if (currentPhoneNumber != null) {
-      _authAttributes[CognitoUserAttributeKey.phoneNumber] =
+      authAttributes[CognitoUserAttributeKey.phoneNumber] =
           currentPhoneNumber.replaceFirst(
         oldCountry.value,
         newCountry.value,
@@ -162,13 +162,13 @@ class AuthenticatorState extends ChangeNotifier {
 
   Country _country = countryCodes.first;
 
-  final Map<CognitoUserAttributeKey, String> _authAttributes = {};
+  final Map<CognitoUserAttributeKey, String> authAttributes = {};
 
   // Returns the form field value for a User Attribute
-  String? getAttribute(CognitoUserAttributeKey key) => _authAttributes[key];
+  String? getAttribute(CognitoUserAttributeKey key) => authAttributes[key];
 
   void _setAttribute(CognitoUserAttributeKey attribute, String value) {
-    _authAttributes[attribute] = value.trim();
+    authAttributes[attribute] = value.trim();
     notifyListeners();
   }
 
@@ -271,7 +271,7 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(true);
     var confirm = AuthConfirmSignInData(
       confirmationValue: _confirmationCode.trim(),
-      attributes: _authAttributes,
+      attributes: authAttributes,
     );
 
     _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
@@ -287,7 +287,7 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(true);
     var confirm = AuthConfirmSignInData(
       confirmationValue: _newPassword.trim(),
-      attributes: _authAttributes,
+      attributes: authAttributes,
     );
 
     _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
@@ -388,7 +388,7 @@ class AuthenticatorState extends ChangeNotifier {
     final signUp = AuthSignUpData(
       username: _username.trim(),
       password: _password.trim(),
-      attributes: _authAttributes,
+      attributes: authAttributes,
     );
 
     _authBloc.add(AuthSignUp(signUp));
@@ -467,7 +467,7 @@ class AuthenticatorState extends ChangeNotifier {
     _passwordConfirmation = '';
     _confirmationCode = '';
     _newPassword = '';
-    _authAttributes.clear();
+    authAttributes.clear();
   }
 
   void _resetFormKey() {

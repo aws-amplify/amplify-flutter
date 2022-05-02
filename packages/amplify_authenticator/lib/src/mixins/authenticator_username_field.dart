@@ -45,21 +45,9 @@ mixin AuthenticatorUsernameField<FieldType,
 
   @override
   ValueChanged<UsernameInput> get onChanged {
-    switch (selectedUsernameType) {
-      case UsernameType.username:
-        return (input) {
-          state.username = input.username;
-        };
-      case UsernameType.email:
-        return (input) {
-          state.email = input.username;
-          state.username = input.username;
-        };
-      case UsernameType.phoneNumber:
-        return (input) {
-          state.username = input.username;
-        };
-    }
+    return (input) {
+      state.username = input.username;
+    };
   }
 
   @override
