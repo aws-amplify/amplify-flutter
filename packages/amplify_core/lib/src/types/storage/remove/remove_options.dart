@@ -22,8 +22,8 @@ class RemoveOptions extends StorageOptions {
   RemoveOptions({this.accessLevel = StorageAccessLevel.guest}) : super();
 
   @override
-  Map<String, String> serializeAsMap() {
-    final optionsMap = <String, String>{
+  Map<String, Object?> serializeAsMap() {
+    final optionsMap = <String, Object?>{
       'accessLevel': describeEnum(accessLevel)
     };
     return optionsMap;
