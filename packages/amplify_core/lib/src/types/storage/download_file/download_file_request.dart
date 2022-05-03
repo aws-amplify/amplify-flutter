@@ -18,6 +18,7 @@
 import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 
 class DownloadFileRequest {
   late String uuid;

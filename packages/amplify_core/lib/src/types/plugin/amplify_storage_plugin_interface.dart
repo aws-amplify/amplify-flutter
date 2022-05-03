@@ -20,9 +20,9 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 abstract class StoragePluginInterface extends AmplifyPluginInterface {
-  Future<void> addPlugin() async {
-    throw UnimplementedError('addPlugin() has not been implemented.');
-  }
+  @override
+  @nonVirtual
+  Category get category => Category.storage;
 
   Future<UploadFileResult> uploadFile(
       {required UploadFileRequest request,
