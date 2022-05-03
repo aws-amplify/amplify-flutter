@@ -45,4 +45,6 @@ abstract class AnalyticsPluginInterface extends AmplifyPluginInterface {
     required String userId,
     required AnalyticsUserProfile userProfile,
   });
+
+  Future<void> onConfigure() async {}
 }

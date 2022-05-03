@@ -17,7 +17,6 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'amplify_auth_cognito.dart';
 import 'amplify_auth_error_handling.dart';
 
@@ -25,8 +24,7 @@ const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/auth_cognito');
 
 /// An implementation of [AmplifyAuthCognito] that uses method channels.
-class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito
-    implements PlatformInterface {
+class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   // Throws if the user attempts to update a user attribute key which is not a
   // Cognito attribute or which is set to read-only.
   void _checkUserAttributeKey(UserAttributeKey? userAttributeKey) {

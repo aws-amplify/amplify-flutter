@@ -16,8 +16,6 @@
 library amplify_analytics_pinpoint;
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-
 import 'method_channel_amplify.dart';
 
 class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
