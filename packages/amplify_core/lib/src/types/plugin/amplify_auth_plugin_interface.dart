@@ -16,7 +16,6 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/types/plugin/amplify_plugin_interface.dart';
 import 'package:meta/meta.dart';
 
 abstract class AuthPluginInterface extends AmplifyPluginInterface {
