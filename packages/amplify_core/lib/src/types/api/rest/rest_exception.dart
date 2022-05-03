@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// {@template rest_exception}
 /// An HTTP error encountered during a REST API call, i.e. for calls returning

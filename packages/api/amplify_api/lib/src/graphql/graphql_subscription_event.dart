@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// GraphQL subscription event types.
 enum GraphQLSubscriptionEventType {

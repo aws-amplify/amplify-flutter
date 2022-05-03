@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import '../types.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// A GraphQL response from the server. See https://graphql.org/learn/serving-over-http/#response
 class GraphQLResponse<T> {

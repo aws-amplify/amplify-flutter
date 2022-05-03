@@ -46,7 +46,7 @@ class AmplifyClass extends PlatformInterface {
   final DataStoreCategory DataStore = const DataStoreCategory();
 
   /// The API category.
-  final APICategory API = const APICategory();
+  final APICategory API = APICategory();
 
   /// The Amplify event hub.
   final AmplifyHub Hub = AmplifyHub();

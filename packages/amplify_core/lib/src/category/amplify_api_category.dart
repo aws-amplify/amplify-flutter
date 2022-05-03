@@ -15,10 +15,10 @@
 
 part of amplify_interface;
 
-class APICategory {
-  const APICategory();
-
-  static List<APIPluginInterface> plugins = [];
+class APICategory extends AmplifyCategory<APIPluginInterface> {
+  @override
+  @nonVirtual
+  Category get category => Category.api;
 
   Future<void> addPlugin(APIPluginInterface plugin) async {
     //TODO: Allow for multiple plugins to work simultaneously

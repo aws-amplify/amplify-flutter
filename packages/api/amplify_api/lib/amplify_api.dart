@@ -15,14 +15,9 @@
 
 library amplify_api_plugin;
 
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:meta/meta.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'src/method_channel_api.dart';
-
-export 'package:amplify_api_plugin_interface/src/types.dart';
 
 export './model_mutations.dart';
 export './model_queries.dart';
@@ -34,14 +29,10 @@ class AmplifyAPI extends APIPluginInterface {
   AmplifyAPI(
       {List<APIAuthProvider> authProviders = const [],
       ModelProviderInterface? modelProvider})
-      : super(token: _token, modelProvider: modelProvider) {
+      : super(modelProvider: modelProvider) {
     _instance.modelProvider = modelProvider;
     authProviders.forEach(registerAuthProvider);
   }
-
-  /// Internal use constructor
-  @protected
-  AmplifyAPI.tokenOnly() : super.tokenOnly(token: _token);
 
   static AmplifyAPI _instance = AmplifyAPIMethodChannel();
 
@@ -50,11 +41,6 @@ class AmplifyAPI extends APIPluginInterface {
 
   ModelProviderInterface? getModelProvider() {
     return modelProvider;
-  }
-
-  static set instance(AmplifyAPI instance) {
-    PlatformInterface.verifyToken(instance, _token);
-    _instance = instance;
   }
 
   @override

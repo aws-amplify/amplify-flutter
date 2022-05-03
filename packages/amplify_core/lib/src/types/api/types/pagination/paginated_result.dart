@@ -15,8 +15,6 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-import '../../types.dart';
-
 class PaginatedResult<T extends Model> extends Model {
   /// Model instances for this set of results.
   ///

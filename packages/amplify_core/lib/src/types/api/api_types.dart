@@ -16,3 +16,21 @@
 // API Authorization
 export 'auth/api_auth_provider.dart';
 export 'auth/api_authorization_type.dart';
+
+export 'exceptions/api_exception.dart';
+
+export 'graphql/graphql_helpers.dart';
+export 'graphql/graphql_operation.dart';
+export 'graphql/graphql_request.dart';
+export 'graphql/graphql_request_type.dart';
+export 'graphql/graphql_response.dart';
+export 'graphql/graphql_response_error.dart';
+export 'graphql/graphql_subscription_operation.dart';
+
+export 'rest/rest_exception.dart';
+export 'rest/rest_operation.dart';
+export 'rest/rest_options.dart';
+export 'rest/rest_response.dart';
+
+export 'types/pagination/paginated_model_type.dart';
+export 'types/pagination/paginated_result.dart';

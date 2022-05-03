@@ -13,10 +13,9 @@
  * permissions and limitations under the License.
  */
 
+import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
-
-import '../util.dart';
 
 /// {@template graphql_response_error}
 /// Contains an error produced via a GraphQL invocation. Corresponds to one
