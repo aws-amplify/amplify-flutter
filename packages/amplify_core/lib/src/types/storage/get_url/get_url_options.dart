@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: implicit_dynamic_parameter
-
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
@@ -26,12 +24,8 @@ class GetUrlOptions extends StorageOptions {
       : super();
 
   @override
-  Map<String, dynamic> serializeAsMap() {
-    final optionsMap = <String, dynamic>{
-      'accessLevel': describeEnum(accessLevel),
-      'expires': expires
-    };
-    optionsMap.removeWhere((_, v) => v == null);
-    return optionsMap;
-  }
+  Map<String, Object?> serializeAsMap() => {
+        if (expires != null) 'expires': expires,
+        'accessLevel': describeEnum(accessLevel),
+      };
 }

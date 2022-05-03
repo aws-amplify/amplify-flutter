@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: implicit_dynamic_parameter
-
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
@@ -30,13 +28,9 @@ class UploadFileOptions extends StorageOptions {
       : super();
 
   @override
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = <String, dynamic>{
-      'accessLevel': describeEnum(accessLevel),
-      'contentType': contentType,
-      'metadata': metadata
-    };
-    optionsMap.removeWhere((_, v) => v == null);
-    return optionsMap;
-  }
+  Map<String, Object?> serializeAsMap() => {
+        'accessLevel': describeEnum(accessLevel),
+        if (contentType != null) 'contentType': contentType,
+        if (metadata != null) 'metadata': metadata,
+      };
 }

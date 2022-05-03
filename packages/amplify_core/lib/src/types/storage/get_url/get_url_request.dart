@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: implicit_dynamic_parameter
-
 import 'package:amplify_core/amplify_core.dart';
 
 class GetUrlRequest {
@@ -23,12 +21,8 @@ class GetUrlRequest {
 
   GetUrlRequest({required this.key, this.options});
 
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = <String, dynamic>{
-      'key': key,
-      'options': options?.serializeAsMap()
-    };
-    result.removeWhere((_, v) => v == null);
-    return result;
-  }
+  Map<String, Object?> serializeAsMap() => {
+        if (options != null) 'options': options!.serializeAsMap(),
+        'key': key,
+      };
 }
