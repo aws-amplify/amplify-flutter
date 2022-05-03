@@ -22,8 +22,8 @@ class ListOptions extends StorageOptions {
   ListOptions({this.accessLevel = StorageAccessLevel.guest}) : super();
 
   @override
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = <String, dynamic>{
+  Map<String, String> serializeAsMap() {
+    final optionsMap = <String, String>{
       'accessLevel': describeEnum(accessLevel)
     };
     return optionsMap;

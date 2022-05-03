@@ -22,8 +22,8 @@ class DownloadFileOptions extends StorageOptions {
   DownloadFileOptions({this.accessLevel = StorageAccessLevel.guest}) : super();
 
   @override
-  Map<String, dynamic> serializeAsMap() {
-    final optionsMap = <String, dynamic>{
+  Map<String, String> serializeAsMap() {
+    final optionsMap = <String, String>{
       'accessLevel': describeEnum(accessLevel)
     };
     return optionsMap;

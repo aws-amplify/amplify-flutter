@@ -14,18 +14,19 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-class RemoveOptions extends StorageOptions {
-  StorageAccessLevel accessLevel;
+void main() {
+  test('DownloadFileOptions can be serialized as a Map', () async {
+    DownloadFileOptions options =
+        DownloadFileOptions(accessLevel: StorageAccessLevel.private);
+    var serializedResult = options.serializeAsMap();
+    expect(serializedResult, {'accessLevel': 'private'});
+  });
 
-  RemoveOptions({this.accessLevel = StorageAccessLevel.guest}) : super();
-
-  @override
-  Map<String, String> serializeAsMap() {
-    final optionsMap = <String, String>{
-      'accessLevel': describeEnum(accessLevel)
-    };
-    return optionsMap;
-  }
+  test('DownloadFileOptions has accessLevel as guest by default', () async {
+    DownloadFileOptions options = DownloadFileOptions();
+    var serializedResult = options.serializeAsMap();
+    expect(serializedResult, {'accessLevel': 'guest'});
+  });
 }
