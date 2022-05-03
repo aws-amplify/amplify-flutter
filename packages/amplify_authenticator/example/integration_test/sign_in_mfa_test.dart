@@ -16,6 +16,7 @@
 // This test follows the Amplify UI feature "sign-in-with-username"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_test/amplify_test.dart';
 
@@ -47,6 +48,9 @@ void main() {
   );
 
   group('sign-in-sms-mfa', () {
+    late PhoneNumber phoneNumber;
+    late String password;
+
     // Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa.feature"
     setUpAll(() async {
       await loadConfiguration(
@@ -55,18 +59,32 @@ void main() {
       );
     });
 
-    // Scenario: Sign in using a valid phone number and SMS MFA
-    testWidgets('Sign in using a valid phone number and SMS MFA',
-        (tester) async {
-      final phoneNumber = generateUSPhoneNumber();
-      final password = generatePassword();
+    setUp(() async {
+      phoneNumber = generateUSPhoneNumber();
+      password = generatePassword();
       await adminCreateUser(
         phoneNumber.toE164(),
         password,
         autoConfirm: true,
         enableMfa: true,
         verifyAttributes: true,
+        attributes: [
+          AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            value: phoneNumber.toE164(),
+          ),
+        ],
       );
+    });
+
+    tearDown(() async {
+      await signOut();
+      await deleteUser(phoneNumber.toE164());
+    });
+
+    // Scenario: Sign in using a valid phone number and SMS MFA
+    testWidgets('Sign in using a valid phone number and SMS MFA',
+        (tester) async {
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
@@ -91,15 +109,6 @@ void main() {
 
     // Scenario: Redirect to sign in page
     testWidgets('Redirect to sign in page', (tester) async {
-      final phoneNumber = generateUSPhoneNumber();
-      final password = generatePassword();
-      await adminCreateUser(
-        phoneNumber.toE164(),
-        password,
-        autoConfirm: true,
-        enableMfa: true,
-        verifyAttributes: true,
-      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
@@ -127,15 +136,6 @@ void main() {
 
     // Scenario: Incorrect SMS code
     testWidgets('Incorrect SMS code', (tester) async {
-      final phoneNumber = generateUSPhoneNumber();
-      final password = generatePassword();
-      await adminCreateUser(
-        phoneNumber.toE164(),
-        password,
-        autoConfirm: true,
-        enableMfa: true,
-        verifyAttributes: true,
-      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
@@ -153,6 +153,7 @@ void main() {
 
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
+      signInPage.expectStep(AuthenticatorStep.confirmSignInMfa);
 
       // And I type an invalid SMS code
       await confirmSignInPage.enterVerificationCode('123456');

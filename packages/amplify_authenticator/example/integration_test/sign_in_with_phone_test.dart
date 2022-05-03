@@ -51,6 +51,9 @@ void main() {
   );
 
   group('sign-in-with-phone', () {
+    late PhoneNumber phoneNumber;
+    late String password;
+
     // Given I'm running the example "ui/components/authenticator/sign-in-with-phone.feature"
     setUpAll(() async {
       await loadConfiguration(
@@ -59,7 +62,12 @@ void main() {
       );
     });
 
-    tearDownAll(() async {
+    setUp(() {
+      phoneNumber = generateUSPhoneNumber();
+      password = generatePassword();
+    });
+
+    tearDown(() async {
       await Amplify.Auth.signOut();
     });
 
@@ -87,16 +95,18 @@ void main() {
 
     // Scenario: Sign in with unconfirmed credentials
     testWidgets('Sign in with unconfirmed credentials', (tester) async {
-      final phoneNumber = generateUSPhoneNumber();
-      final password = generatePassword();
       final email = generateEmail();
 
       // Use the standard Amplify API to create the user in the Unconfirmed state
       await Amplify.Auth.signUp(
-          username: phoneNumber.toE164(),
-          password: password,
-          options: CognitoSignUpOptions(
-              userAttributes: {CognitoUserAttributeKey.email: email}));
+        username: phoneNumber.toE164(),
+        password: password,
+        options: CognitoSignUpOptions(
+          userAttributes: {
+            CognitoUserAttributeKey.email: email,
+          },
+        ),
+      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
@@ -122,10 +132,18 @@ void main() {
     // Scenario: Sign in with confirmed credentials then sign out
     testWidgets('Sign in with confirmed credentials then sign out',
         (tester) async {
-      final phoneNumber = generateUSPhoneNumber();
-      final password = generatePassword();
-      await adminCreateUser(phoneNumber.toE164(), password,
-          autoConfirm: true, verifyAttributes: true);
+      await adminCreateUser(
+        phoneNumber.toE164(),
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+        attributes: [
+          AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            value: phoneNumber.toE164(),
+          ),
+        ],
+      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername(label: 'Phone Number');
@@ -152,9 +170,16 @@ void main() {
     // Scenario: Sign in with force change password credentials
     testWidgets('Sign in with force change password credentials',
         (tester) async {
-      final phoneNumber = generateUSPhoneNumber();
-      final password = generatePassword();
-      await adminCreateUser(phoneNumber.toE164(), password);
+      await adminCreateUser(
+        phoneNumber.toE164(),
+        password,
+        attributes: [
+          AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            value: phoneNumber.toE164(),
+          ),
+        ],
+      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
