@@ -19,14 +19,10 @@ import 'package:amplify_core/amplify_core.dart';
 import 'method_channel_amplify.dart';
 
 class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
-  /// Constructs a AmplifyAnalyticsPinpoint plugin
-  AmplifyAnalyticsPinpoint();
-
   static final AmplifyAnalyticsPinpoint _instance =
       AmplifyAnalyticsPinpointMethodChannel();
 
   // Public facing methods
-
   @override
   Future<void> addPlugin() async {
     return _instance.addPlugin();

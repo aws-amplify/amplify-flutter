@@ -13,8 +13,8 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/method_channel_api.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api_plugin_interface/src/types.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// The [modelType] for decoding list query requests.

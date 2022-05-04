@@ -17,18 +17,14 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 abstract class APIPluginInterface extends AmplifyPluginInterface {
+  @override
+  @nonVirtual
+  Category get category => Category.api;
+
   /// modelProvider
   ModelProviderInterface? modelProvider;
 
   APIPluginInterface({this.modelProvider});
-
-  @override
-  @nonVirtual
-  Category get category => Category.analytics;
-
-  Future<void> addPlugin() async {
-    throw UnimplementedError('addPlugin() has not been implemented.');
-  }
 
   // ====== GraphQL =======
   GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {

@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 
 /// A GraphQL request with a few extra properties used to decode the response or use the correct API if the backend has multiple.
 class GraphQLRequest<T> {

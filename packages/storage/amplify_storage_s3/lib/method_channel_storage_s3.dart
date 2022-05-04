@@ -240,4 +240,10 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   StorageException _convertToStorageException(PlatformException e) {
     return StorageException.fromMap(Map<String, String>.from(e.details));
   }
+
+  @override
+  P cast<P extends AmplifyPluginInterface>() {
+    // TODO: implement cast
+    throw UnimplementedError();
+  }
 }

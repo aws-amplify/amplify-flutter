@@ -8,7 +8,6 @@ environment:
   flutter: ">=2.0.0"
 
 dependencies:
-  amplify_api_plugin_interface: 0.4.5
   amplify_core: 0.4.5
   amplify_datastore_plugin_interface: 0.4.5
   amplify_flutter_android: 0.4.5

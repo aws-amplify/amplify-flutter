@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import '../types.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class GraphQLOperation<T> {
   final Function cancel;

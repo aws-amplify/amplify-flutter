@@ -15,8 +15,6 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-import '../types.dart';
-
 abstract class ModelQueriesInterface {
   // Get
   GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id);

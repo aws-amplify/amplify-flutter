@@ -8,10 +8,10 @@ environment:
   flutter: ">=1.20.0"
 
 dependencies:
-  amplify_api_plugin_interface: 0.4.5
   amplify_core: 0.4.5
   amplify_api_android: 0.4.5
   amplify_api_ios: 0.4.5
+  aws_common: ^0.1.0
   collection: ^1.15.0
   flutter:
     sdk: flutter

@@ -15,29 +15,10 @@
 
 part of amplify_interface;
 
-class APICategory {
-  const APICategory();
-
-  static List<APIPluginInterface> plugins = [];
-
-  Future<void> addPlugin(APIPluginInterface plugin) async {
-    //TODO: Allow for multiple plugins to work simultaneously
-    if (plugins.isEmpty) {
-      try {
-        await plugin.addPlugin();
-        plugins.add(plugin);
-      } on AmplifyAlreadyConfiguredException {
-        plugins.add(plugin);
-      } on PlatformException catch (e) {
-        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
-      }
-    } else {
-      throw const AmplifyException(
-        'API plugin has already been added, '
-        'multiple plugins for API category are currently not supported.',
-      );
-    }
-  }
+class APICategory extends AmplifyCategory<APIPluginInterface> {
+  @override
+  @nonVirtual
+  Category get category => Category.api;
 
   // ====== GraphQL =======
   GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {

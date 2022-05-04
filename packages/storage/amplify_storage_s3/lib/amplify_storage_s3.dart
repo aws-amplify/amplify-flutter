@@ -16,7 +16,6 @@
 library amplify_storage_plugin;
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_storage_s3.dart';
 
 export './src/types.dart';
