@@ -23,6 +23,7 @@ import 'package:crypto/crypto.dart';
 import 'package:path/path.dart';
 
 part 'canonical_headers.dart';
+part 'canonical_path.dart';
 part 'canonical_query_parameters.dart';
 part 'signed_headers.dart';
 part 'canonical_request_util.dart';
@@ -38,9 +39,9 @@ class CanonicalRequest {
   final AWSCredentialScope credentialScope;
 
   /// The canonicalized request path.
-  late final String canonicalPath = _canonicalPath(
-    request,
-    normalizePath: normalizePath,
+  late final String canonicalPath = CanonicalPath.canonicalize(
+    request.path,
+    serviceConfiguration: serviceConfiguration,
   );
 
   /// The request query parameters, with AWS values added, if necessary.
@@ -210,26 +211,6 @@ class CanonicalRequest {
   })  : normalizePath = serviceConfiguration.normalizePath,
         omitSessionTokenFromSigning = serviceConfiguration.omitSessionToken,
         expiresIn = expiresIn?.inSeconds;
-
-  /// Returns the normalized path with double-encoded path segments.
-  ///
-  /// Uses [url] to normalize the path.
-  static String _canonicalPath(
-    AWSBaseHttpRequest request, {
-    required bool normalizePath,
-  }) {
-    var path = normalizePath ? url.normalize(request.path) : request.path;
-
-    // `normalize` removes leading and trailing slashes which should be preserved.
-    if (normalizePath) {
-      if (request.path.endsWith('/')) {
-        path = path.ensureEndsWith('/');
-      }
-      path = path.ensureStartsWith('/');
-    }
-
-    return path.split('/').map(Uri.encodeComponent).join('/');
-  }
 
   /// Creates the canonical request string.
   @override

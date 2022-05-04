@@ -77,6 +77,7 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
         super(
           normalizePath: false,
           omitSessionToken: false,
+          doubleEncodePathSegments: false,
         );
 
   int _calculateContentLength(AWSBaseHttpRequest request, int decodedLength) {

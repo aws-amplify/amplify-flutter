@@ -140,6 +140,10 @@ class SignerTest {
             BaseServiceConfiguration(
               normalizePath: context.normalize,
               omitSessionToken: context.omitSessionToken,
+
+              // Although most SigV4 services expect double encoding, the C
+              // tests expect single encoding like S3.
+              doubleEncodePathSegments: false,
             );
 
   factory SignerTest.fromJson(Map<String, Object?> json) {

@@ -42,14 +42,27 @@ abstract class ServiceConfiguration {
   const ServiceConfiguration._({
     bool? normalizePath,
     bool? omitSessionToken,
+    bool? doubleEncodePathSegments,
   })  : normalizePath = normalizePath ?? true,
-        omitSessionToken = omitSessionToken ?? false;
+        omitSessionToken = omitSessionToken ?? false,
+        doubleEncodePathSegments = doubleEncodePathSegments ?? true;
 
   /// Whether to normalize paths in the canonical request.
+  ///
+  /// Defaults to `true`.
   final bool normalizePath;
 
   /// Whether to omit the session token during signing.
+  ///
+  /// Defaults to `false`.
   final bool omitSessionToken;
+
+  /// Whether path segments should be encoded twice.
+  ///
+  /// If `false`, path segments are only encoded once.
+  ///
+  /// Defaults to `true`.
+  final bool doubleEncodePathSegments;
 
   /// Applies service-specific keys to [headers] for signed header requests.
   @mustCallSuper
@@ -106,9 +119,11 @@ class BaseServiceConfiguration extends ServiceConfiguration {
   const BaseServiceConfiguration({
     bool? normalizePath,
     bool? omitSessionToken,
+    bool? doubleEncodePathSegments,
   }) : super._(
           normalizePath: normalizePath,
           omitSessionToken: omitSessionToken,
+          doubleEncodePathSegments: doubleEncodePathSegments,
         );
 
   @override
