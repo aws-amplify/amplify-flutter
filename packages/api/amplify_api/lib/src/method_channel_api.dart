@@ -81,8 +81,6 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
 
-  AmplifyAPIMethodChannel();
-
   @override
   Future<void> addPlugin() async {
     try {
