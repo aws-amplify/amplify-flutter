@@ -16,7 +16,6 @@
 library amplify_storage_plugin;
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_storage_s3.dart';
 
 export './src/types.dart';
@@ -25,8 +24,7 @@ class AmplifyStorageS3 extends StoragePluginInterface {
   /// Constructs a AmplifyStoragePlugin.
   AmplifyStorageS3();
 
-  static AmplifyStorageS3 _instance =
-      AmplifyStorageS3MethodChannel(token: _token) as AmplifyStorageS3;
+  static AmplifyStorageS3 _instance = AmplifyStorageS3MethodChannel();
 
   @override
   Future<void> addPlugin() async {
