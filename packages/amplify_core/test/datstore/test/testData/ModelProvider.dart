@@ -42,15 +42,25 @@ class ModelProvider implements ModelProviderInterface {
   @override
   String version = "498bb027c4c405ee69e9f40c1f890c61";
   @override
-  List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, Post.schema, PostAuthComplex.schema];
+  List<ModelSchema> modelSchemas = [
+    Blog.schema,
+    Comment.schema,
+    Post.schema,
+    PostAuthComplex.schema
+  ];
   static final ModelProvider _instance = ModelProvider();
   @override
-  List<ModelSchema> customTypeSchemas = [Address.schema, Contact.schema, Person.schema, Phone.schema];
+  List<ModelSchema> customTypeSchemas = [
+    Address.schema,
+    Contact.schema,
+    Person.schema,
+    Phone.schema
+  ];
 
   static ModelProvider get instance => _instance;
-  
+
   ModelType getModelTypeByModelName(String modelName) {
-    switch(modelName) {
+    switch (modelName) {
       case "Blog":
         return Blog.classType;
       case "Comment":
@@ -60,7 +70,9 @@ class ModelProvider implements ModelProviderInterface {
       case "PostAuthComplex":
         return PostAuthComplex.classType;
       default:
-        throw Exception("Failed to find model in model provider for model name: " + modelName);
+        throw Exception(
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }
