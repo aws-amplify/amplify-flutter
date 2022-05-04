@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_storage_plugin_interface: 0.4.5
   plugin_platform_interface: ^2.0.0
   amplify_storage_s3_android: 0.4.5
   amplify_storage_s3_ios: 0.4.5

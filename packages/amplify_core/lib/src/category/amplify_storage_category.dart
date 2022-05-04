@@ -15,30 +15,10 @@
 
 part of amplify_interface;
 
-class StorageCategory {
-  const StorageCategory();
-
-  static List<StoragePluginInterface> plugins = [];
-
-  /// `Add plugin` method
-  Future<void> addPlugin(StoragePluginInterface plugin) async {
-    //TODO: Allow for multiple plugins to work simultaneously
-    if (plugins.isEmpty) {
-      try {
-        await plugin.addPlugin();
-        plugins.add(plugin);
-      } on AmplifyAlreadyConfiguredException {
-        plugins.add(plugin);
-      } on PlatformException catch (e) {
-        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
-      }
-    } else {
-      throw const AmplifyException(
-        'Storage plugin has already been added, '
-        'multiple plugins for Storage category are currently not supported.',
-      );
-    }
-  }
+class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
+  @override
+  @nonVirtual
+  Category get category => Category.storage;
 
   Future<UploadFileResult> uploadFile(
       {required File local,

@@ -14,24 +14,25 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_storage_s3/src/S3List/S3ListOptions.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('S3ListOptions can be serialized as a Map', () async {
-    S3ListOptions options = S3ListOptions(
-        accessLevel: StorageAccessLevel.private,
-        targetIdentityId: 'testIdentityId');
-    var serializedResult = options.serializeAsMap();
-    expect(serializedResult,
-        {'accessLevel': 'private', 'targetIdentityId': 'testIdentityId'});
+  test('A RemoveRequest excluding options can be serialized as a Map',
+      () async {
+    RemoveRequest request = RemoveRequest(key: 'keyForFile');
+    var serializedResult = request.serializeAsMap();
+    expect(serializedResult, {'key': 'keyForFile'});
   });
 
-  test(
-      'S3ListOptions has accessLevel as guest and other properties null by default',
+  test('A RemoveRequest including options can be serialized as a Map',
       () async {
-    S3ListOptions options = S3ListOptions();
-    var serializedResult = options.serializeAsMap();
-    expect(serializedResult, {'accessLevel': 'guest'});
+    RemoveOptions options =
+        RemoveOptions(accessLevel: StorageAccessLevel.protected);
+    RemoveRequest request = RemoveRequest(key: 'keyForFile', options: options);
+    var serializedResult = request.serializeAsMap();
+    expect(serializedResult, {
+      'key': 'keyForFile',
+      'options': {'accessLevel': 'protected'}
+    });
   });
 }

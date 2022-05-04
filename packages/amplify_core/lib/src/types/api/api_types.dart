@@ -13,6 +13,6 @@
  * permissions and limitations under the License.
  */
 
-/// Auth
+// API Authorization
 export 'auth/api_auth_provider.dart';
 export 'auth/api_authorization_type.dart';

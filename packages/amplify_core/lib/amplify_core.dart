@@ -51,17 +51,26 @@ export 'src/types/models/model_field_type.dart';
 export 'src/types/models/model_provider.dart';
 export 'src/types/models/model_schema.dart';
 export 'src/types/models/model_schema_definition.dart';
+
+/// Plugin
+export 'src/types/plugin/amplify_analytics_plugin_interface.dart';
+export 'src/types/plugin/amplify_auth_plugin_interface.dart';
+export 'src/types/plugin/amplify_plugin_interface.dart';
+export 'src/types/plugin/amplify_storage_plugin_interface.dart';
+
+/// Query
 export 'src/types/query/query_field.dart';
+
+/// Storage
+export 'src/types/storage/storage_types.dart';
+
+/// Temporal
 export 'src/types/temporal/datetime_parse.dart';
 export 'src/types/temporal/temporal_date.dart';
 export 'src/types/temporal/temporal_datetime.dart';
 export 'src/types/temporal/temporal_time.dart';
 export 'src/types/temporal/temporal_timestamp.dart';
 
-/// Plugin
-export 'src/types/plugin/amplify_analytics_plugin_interface.dart';
-export 'src/types/plugin/amplify_auth_plugin_interface.dart';
-export 'src/types/plugin/amplify_plugin_interface.dart';
 
 // Util
 export 'src/util/parsers.dart';

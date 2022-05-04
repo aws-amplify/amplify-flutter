@@ -13,25 +13,24 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:io';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
+import 'package:aws_common/aws_common.dart';
 
-class S3GetUrlOptions extends GetUrlOptions {
-  String? targetIdentityId;
-  S3GetUrlOptions(
-      {StorageAccessLevel accessLevel = StorageAccessLevel.guest,
-      int? expires,
-      this.targetIdentityId})
-      : super(accessLevel: accessLevel, expires: expires);
+class UploadFileRequest {
+  late String uuid;
+  File local;
+  String key;
+  UploadFileOptions? options;
 
-  @override
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = {
-      'accessLevel': describeEnum(accessLevel),
-      'expires': expires,
-      'targetIdentityId': targetIdentityId
-    };
-    optionsMap.removeWhere((_, v) => v == null);
-    return optionsMap;
+  UploadFileRequest({required this.local, required this.key, this.options}) {
+    this.uuid = UUID.getUUID();
   }
+
+  Map<String, Object?> serializeAsMap() => {
+        if (options != null) 'options': options!.serializeAsMap(),
+        'uuid': uuid,
+        'path': local.absolute.path,
+        'key': key,
+      };
 }

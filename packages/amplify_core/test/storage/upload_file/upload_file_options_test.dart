@@ -14,23 +14,26 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_storage_s3/src/S3List/S3ListOptions.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('S3ListOptions can be serialized as a Map', () async {
-    S3ListOptions options = S3ListOptions(
+  test('UploadFileOptions can be serialized as a Map', () async {
+    UploadFileOptions options = UploadFileOptions(
         accessLevel: StorageAccessLevel.private,
-        targetIdentityId: 'testIdentityId');
+        contentType: 'image/jpeg',
+        metadata: {'description': 'test desription'});
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult,
-        {'accessLevel': 'private', 'targetIdentityId': 'testIdentityId'});
+    expect(serializedResult, {
+      'accessLevel': 'private',
+      'contentType': 'image/jpeg',
+      'metadata': {'description': 'test desription'}
+    });
   });
 
   test(
-      'S3ListOptions has accessLevel as guest and other properties null by default',
+      'UploadFileOptions has accessLevel as guest and other properties null by default',
       () async {
-    S3ListOptions options = S3ListOptions();
+    UploadFileOptions options = UploadFileOptions();
     var serializedResult = options.serializeAsMap();
     expect(serializedResult, {'accessLevel': 'guest'});
   });
