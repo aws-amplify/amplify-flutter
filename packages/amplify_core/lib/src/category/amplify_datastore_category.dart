@@ -19,12 +19,10 @@ part of amplify_interface;
 /// are supported by this category's plugins. This class will accept plugins to
 /// be registered and configured and then subsequent API calls will be forwarded
 /// to those plugins.
-class DataStoreCategory {
-  /// Default constant constructor
-  const DataStoreCategory();
-
-  /// Added DataStore plugins.
-  static List<DataStorePluginInterface> plugins = [];
+class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
+  @override
+  @nonVirtual
+  Category get category => Category.dataStore;
 
   /// Add DataStore plugin
   Future<void> addPlugin(DataStorePluginInterface plugin) async {
@@ -61,7 +59,7 @@ class DataStoreCategory {
   /// Configure DataStore
   Future<void> configure(String configuration) async {
     if (plugins.length == 1) {
-      return plugins[0].configure(configuration: configuration);
+      return plugins[0].configure(config: configuration);
     }
   }
 

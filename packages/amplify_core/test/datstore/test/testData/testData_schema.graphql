@@ -1,37 +1,39 @@
-# This schema can be used to regenerate the test models that are in this folder
 type Blog @model {
   id: ID!
   name: String!
-  posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
+  posts: [Post] @hasMany
 }
 
-type Post @model @key(name: "byBlog", fields: ["blogID"]) {
+type Post @model {
   id: ID!
   title: String!
   rating: Int!
   created: AWSDateTime
   likeCount: Int
-  blogID: ID!
-  blog: Blog @connection(fields: ["blogID"])
-  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+  blog: Blog @belongsTo
+  comments: [Comment] @hasMany
 }
 
 type PostAuthComplex
   @model
   @auth(
     rules: [
-      { allow: owner, ownerField: "owner", operations: [create, update, delete, read] },
-    ])
-{
+      {
+        allow: owner
+        ownerField: "owner"
+        operations: [create, update, delete, read]
+      }
+    ]
+  ) {
   id: ID!
   title: String!
   owner: String
 }
 
-type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
+type Comment @model {
   id: ID!
   postID: ID!
-  post: Post @connection(fields: ["postID"])
+  post: Post @belongsTo
   content: String!
 }
 

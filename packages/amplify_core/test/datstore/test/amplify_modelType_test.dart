@@ -20,7 +20,7 @@ import 'testData/ModelProvider.dart';
 void main() {
   test('Comment.classType generates proper json from serializedMap modelschema',
       () async {
-    Map<String, dynamic> inputMap = {
+    Map<String, dynamic> inputMap = <String, dynamic>{
       "id": "2",
       "modelName": "Comment",
       "serializedData": {

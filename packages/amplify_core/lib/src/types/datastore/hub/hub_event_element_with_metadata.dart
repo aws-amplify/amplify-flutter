@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-part of 'HubEventElement.dart';
+part of 'hub_event_element.dart';
 
 /// The model and metadata associated with a DataStore `outboxMutationProcessed`
 /// Hub event.

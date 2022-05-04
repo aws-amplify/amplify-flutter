@@ -17,6 +17,7 @@ dependencies:
     # the parent directory to use the current plugin's version.
     path: ../
 
+  aws_common: ^0.1.1
   flutter:
     sdk: flutter
 

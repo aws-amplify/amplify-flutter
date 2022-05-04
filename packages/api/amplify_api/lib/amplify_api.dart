@@ -24,8 +24,6 @@ export './model_queries.dart';
 export './model_subscriptions.dart';
 
 class AmplifyAPI extends APIPluginInterface {
-  static final Object _token = Object();
-
   AmplifyAPI(
       {List<APIAuthProvider> authProviders = const [],
       ModelProviderInterface? modelProvider})

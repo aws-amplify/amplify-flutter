@@ -13,20 +13,24 @@
 * permissions and limitations under the License.
 */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:flutter/foundation.dart';
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code, implicit_dynamic_map_literal, implicit_dynamic_parameter, implicit_dynamic_type
 
 import 'ModelProvider.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the Comment type in your schema. */
+/** This is an auto generated class representing the Blog type in your schema. */
 @immutable
-class Comment extends Model {
-  static const classType = const _CommentModelType();
+class Blog extends Model {
+  static const classType = const _BlogModelType();
   final String id;
-  final Post? _post;
-  final String? _content;
+  final String? _name;
+  final List<Post>? _posts;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -38,21 +42,21 @@ class Comment extends Model {
     return id;
   }
 
-  Post? get post {
-    return _post;
-  }
-
-  String get content {
+  String get name {
     try {
-      return _content!;
+      return _name!;
     } catch (e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
+          recoverySuggestion: AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
+  }
+
+  List<Post>? get posts {
+    return _posts;
   }
 
   TemporalDateTime? get createdAt {
@@ -63,16 +67,18 @@ class Comment extends Model {
     return _updatedAt;
   }
 
-  const Comment._internal(
-      {required this.id, post, required content, createdAt, updatedAt})
-      : _post = post,
-        _content = content,
+  const Blog._internal(
+      {required this.id, required name, posts, createdAt, updatedAt})
+      : _name = name,
+        _posts = posts,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Comment({String? id, Post? post, required String content}) {
-    return Comment._internal(
-        id: id == null ? UUID.getUUID() : id, post: post, content: content);
+  factory Blog({String? id, required String name, List<Post>? posts}) {
+    return Blog._internal(
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        posts: posts != null ? List<Post>.unmodifiable(posts) : posts);
   }
 
   bool equals(Object other) {
@@ -82,10 +88,10 @@ class Comment extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Comment &&
+    return other is Blog &&
         id == other.id &&
-        _post == other._post &&
-        _content == other._content;
+        _name == other._name &&
+        DeepCollectionEquality().equals(_posts, other._posts);
   }
 
   @override
@@ -95,10 +101,9 @@ class Comment extends Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("Comment {");
+    buffer.write("Blog {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
-    buffer.write("content=" + "$_content" + ", ");
+    buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -109,20 +114,21 @@ class Comment extends Model {
     return buffer.toString();
   }
 
-  Comment copyWith({String? id, Post? post, String? content}) {
-    return Comment._internal(
-        id: id ?? this.id,
-        post: post ?? this.post,
-        content: content ?? this.content);
+  Blog copyWith({String? id, String? name, List<Post>? posts}) {
+    return Blog._internal(
+        id: id ?? this.id, name: name ?? this.name, posts: posts ?? this.posts);
   }
 
-  Comment.fromJson(Map<String, dynamic> json)
+  Blog.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _post = json['post']?['serializedData'] != null
-            ? Post.fromJson(
-                new Map<String, dynamic>.from(json['post']['serializedData']))
+        _name = json['name'],
+        _posts = json['posts'] is List
+            ? (json['posts'] as List)
+                .where((e) => e?['serializedData'] != null)
+                .map((e) => Post.fromJson(
+                    new Map<String, dynamic>.from(e['serializedData'])))
+                .toList()
             : null,
-        _content = json['content'],
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -132,35 +138,35 @@ class Comment extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'post': _post?.toJson(),
-        'content': _content,
+        'name': _name,
+        'posts': _posts?.map((Post? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "comment.id");
-  static final QueryField POST = QueryField(
-      fieldName: "post",
+  static final QueryField ID = QueryField(fieldName: "blog.id");
+  static final QueryField NAME = QueryField(fieldName: "name");
+  static final QueryField POSTS = QueryField(
+      fieldName: "posts",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Post).toString()));
-  static final QueryField CONTENT = QueryField(fieldName: "content");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Comment";
-    modelSchemaDefinition.pluralName = "Comments";
+    modelSchemaDefinition.name = "Blog";
+    modelSchemaDefinition.pluralName = "Blogs";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: Comment.POST,
-        isRequired: false,
-        targetName: "postID",
-        ofModelName: (Post).toString()));
-
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Comment.CONTENT,
+        key: Blog.NAME,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+        key: Blog.POSTS,
+        isRequired: false,
+        ofModelName: (Post).toString(),
+        associatedKey: Post.BLOG));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -176,11 +182,11 @@ class Comment extends Model {
   });
 }
 
-class _CommentModelType extends ModelType<Comment> {
-  const _CommentModelType();
+class _BlogModelType extends ModelType<Blog> {
+  const _BlogModelType();
 
   @override
-  Comment fromJson(Map<String, dynamic> jsonData) {
-    return Comment.fromJson(jsonData);
+  Blog fromJson(Map<String, dynamic> jsonData) {
+    return Blog.fromJson(jsonData);
   }
 }

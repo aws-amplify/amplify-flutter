@@ -34,8 +34,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         AmplifyDataStore.streamWrapper.datastoreStreamController.stream,
   );
 
-  /// Internal use constructor
-  AmplifyDataStoreMethodChannel() : super.tokenOnly();
+  AmplifyDataStoreMethodChannel({required ModelProviderInterface modelProvider})
+      : super(modelProvider: modelProvider);
 
   // Receives calls from Native
   Future<dynamic> _methodCallHandler(MethodCall call) async {
@@ -138,7 +138,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   /// This method performs the steps necessary to configure this plugin.
   /// Currently, [configure] doesn't do anything specific.
   @override
-  Future<void> configure({String? configuration}) async {}
+  Future<void> configure({String? config}) async {}
 
   @override
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,

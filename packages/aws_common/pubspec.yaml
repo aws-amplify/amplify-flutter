@@ -12,7 +12,6 @@ dependencies:
   collection: ^1.15.0
   http: ^0.13.4
   meta: ^1.7.0
-  uuid: ^3.0.1
 
 dev_dependencies:
   amplify_lints: ^1.0.0

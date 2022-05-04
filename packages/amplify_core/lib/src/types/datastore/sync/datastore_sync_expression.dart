@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:aws_common/aws_common.dart';
 
 /// Sync expression to configure DataStore plugin with. These expressions
 /// include query predicates which specify filters for selectively persisting a
@@ -35,7 +35,7 @@ class DataStoreSyncExpression {
   /// Returns a map representation of this sync expression as it is needed by
   /// native platforms
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'id': id,
       'modelName': _modelType.modelName(),
       'queryPredicate': _queryPredicateResolver().serializeAsMap()
