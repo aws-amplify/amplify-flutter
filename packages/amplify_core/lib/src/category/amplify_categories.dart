@@ -20,7 +20,6 @@ import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
 /// category parts

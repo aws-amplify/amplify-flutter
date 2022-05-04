@@ -88,11 +88,6 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('configureDataStore() has not been implemented.');
   }
 
-  @override
-  Future<void> configure({String? config}) {
-    throw UnimplementedError('configure() has not been implemented.');
-  }
-
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
       {QueryPredicate? where,
       QueryPagination? pagination,
