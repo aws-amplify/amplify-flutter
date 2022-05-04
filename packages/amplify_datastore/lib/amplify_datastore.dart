@@ -92,11 +92,6 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
-  Future<void> configure({String? config}) async {
-    return _instance.configure(config: config);
-  }
-
-  @override
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
       {QueryPredicate? where,
       QueryPagination? pagination,

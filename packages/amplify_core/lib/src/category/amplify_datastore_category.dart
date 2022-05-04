@@ -31,13 +31,6 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
         : throw _pluginNotAddedException('DataStore');
   }
 
-  /// Configure DataStore
-  Future<void> configure(String configuration) async {
-    if (plugins.length == 1) {
-      return plugins[0].configure(config: configuration);
-    }
-  }
-
   /// Query the DataStore to find all items of the specified [modelType] that satisfy the specified
   /// query predicate [where]. Returned items are paginated by [pagination] and sorted by [sortBy].
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,

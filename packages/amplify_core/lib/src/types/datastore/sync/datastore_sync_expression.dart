@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_common/aws_common.dart';
 
 /// Sync expression to configure DataStore plugin with. These expressions
 /// include query predicates which specify filters for selectively persisting a

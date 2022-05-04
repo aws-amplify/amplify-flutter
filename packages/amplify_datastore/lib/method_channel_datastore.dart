@@ -135,11 +135,6 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     }
   }
 
-  /// This method performs the steps necessary to configure this plugin.
-  /// Currently, [configure] doesn't do anything specific.
-  @override
-  Future<void> configure({String? config}) async {}
-
   @override
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
       {QueryPredicate? where,
