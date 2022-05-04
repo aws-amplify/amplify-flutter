@@ -39,6 +39,6 @@ void main() {
       () async {
     ListRequest request = ListRequest();
     var serializedResult = request.serializeAsMap();
-    expect(serializedResult, <Map, Object?>{});
+    expect(serializedResult, <String, Object?>{});
   });
 }
