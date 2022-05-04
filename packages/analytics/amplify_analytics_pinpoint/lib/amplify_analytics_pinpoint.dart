@@ -15,29 +15,15 @@
 
 library amplify_analytics_pinpoint;
 
-import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-
+import 'package:amplify_core/amplify_core.dart';
 import 'method_channel_amplify.dart';
 
-export 'package:amplify_analytics_plugin_interface/src/types.dart';
-
 class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
-  static final Object _token = Object();
+  /// Constructs a AmplifyAnalyticsPinpoint plugin
+  AmplifyAnalyticsPinpoint();
 
-  AmplifyAnalyticsPinpoint() : super(token: _token);
-
-  static AmplifyAnalyticsPinpoint _instance =
+  static final AmplifyAnalyticsPinpoint _instance =
       AmplifyAnalyticsPinpointMethodChannel();
-
-  static AmplifyAnalyticsPinpoint get instance => _instance;
-
-  /// Platform-specific plugins should set this with their own platform-specific
-  /// class that extends [AnalyticsPluginInterface] when they register themselves.
-  static set instance(AmplifyAnalyticsPinpoint instance) {
-    PlatformInterface.verifyToken(instance, _token);
-    _instance = instance;
-  }
 
   // Public facing methods
 

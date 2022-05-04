@@ -14,7 +14,6 @@ dependencies:
   amplify_core: 0.4.5
   flutter:
     sdk: flutter
-  plugin_platform_interface: ^2.0.0
 
 dev_dependencies:
   amplify_lints: ^1.0.0

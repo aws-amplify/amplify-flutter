@@ -15,29 +15,10 @@
 
 part of amplify_interface;
 
-class AnalyticsCategory {
-  const AnalyticsCategory();
-
-  static List<AnalyticsPluginInterface> plugins = [];
-
-  Future<void> addPlugin(AnalyticsPluginInterface plugin) async {
-    //TODO: Allow for multiple plugins to work simultaneously
-    if (plugins.isEmpty) {
-      try {
-        await plugin.addPlugin();
-        plugins.add(plugin);
-      } on AmplifyAlreadyConfiguredException {
-        plugins.add(plugin);
-      } on PlatformException catch (e) {
-        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
-      }
-    } else {
-      throw const AmplifyException(
-        'Analytics plugin has already been added, '
-        'multiple plugins for Analytics category are currently not supported.',
-      );
-    }
-  }
+class AnalyticsCategory extends AmplifyCategory<AnalyticsPluginInterface> {
+  @override
+  @nonVirtual
+  Category get category => Category.analytics;
 
   Future<void> recordEvent({required AnalyticsEvent event}) async {
     return plugins.length == 1

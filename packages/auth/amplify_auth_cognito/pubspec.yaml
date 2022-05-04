@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_auth_plugin_interface: 0.4.5
   amplify_core: 0.4.5
   amplify_auth_cognito_android: 0.4.5
   amplify_auth_cognito_ios: 0.4.5
