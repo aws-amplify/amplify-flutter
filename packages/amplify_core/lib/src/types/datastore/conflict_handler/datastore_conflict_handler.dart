@@ -49,7 +49,7 @@ class ConflictResolutionDecision {
         "}";
   }
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
+  Map<String, Object?> toJson() => <String, Object?>{
         'resolutionStrategy': describeEnum(_resolutionStrategy),
         'customModel': customModel?.toJson()
       };
