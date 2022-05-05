@@ -166,7 +166,7 @@ class Blog extends Model {
         key: Blog.POSTS,
         isRequired: false,
         ofModelName: (Post).toString(),
-        associatedKey: Post.BLOG));
+        associatedKey: Post.BLOGID));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',

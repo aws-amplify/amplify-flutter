@@ -24,6 +24,31 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
   @nonVirtual
   Category get category => Category.dataStore;
 
+  @override
+  Future<void> addPlugin(DataStorePluginInterface plugin) async {
+    // TODO: Discuss and support multiple plugins
+    if (plugins.isEmpty) {
+      try {
+        // Extra step to configure datastore specifically.
+        // Note: The native datastore plugins are not added
+        // in the `onAttachedToEngine` but rather in the `configure()
+        await plugin.configureDataStore(
+            modelProvider: plugin.modelProvider!,
+            errorHandler: plugin.errorHandler);
+        plugins.add(plugin);
+      } on AmplifyAlreadyConfiguredException {
+        plugins.add(plugin);
+      } on PlatformException catch (e) {
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
+      }
+    } else {
+      throw const AmplifyException(
+        'DataStore plugin has already been added, multiple plugins for '
+        'DataStore category are currently not supported.',
+      );
+    }
+  }
+
   /// Get [streamController]
   StreamController get streamController {
     return plugins.length == 1

@@ -33,6 +33,7 @@ class Post extends Model {
   final int? _rating;
   final TemporalDateTime? _created;
   final int? _likeCount;
+  final String? _blogID;
   final Blog? _blog;
   final List<Comment>? _comments;
   final TemporalDateTime? _createdAt;
@@ -80,6 +81,19 @@ class Post extends Model {
     return _likeCount;
   }
 
+  String get blogID {
+    try {
+      return _blogID!;
+    } catch (e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
   Blog? get blog {
     return _blog;
   }
@@ -102,6 +116,7 @@ class Post extends Model {
       required rating,
       created,
       likeCount,
+      required blogID,
       blog,
       comments,
       createdAt,
@@ -110,6 +125,7 @@ class Post extends Model {
         _rating = rating,
         _created = created,
         _likeCount = likeCount,
+        _blogID = blogID,
         _blog = blog,
         _comments = comments,
         _createdAt = createdAt,
@@ -121,6 +137,7 @@ class Post extends Model {
       required int rating,
       TemporalDateTime? created,
       int? likeCount,
+      required String blogID,
       Blog? blog,
       List<Comment>? comments}) {
     return Post._internal(
@@ -129,6 +146,7 @@ class Post extends Model {
         rating: rating,
         created: created,
         likeCount: likeCount,
+        blogID: blogID,
         blog: blog,
         comments:
             comments != null ? List<Comment>.unmodifiable(comments) : comments);
@@ -147,6 +165,7 @@ class Post extends Model {
         _rating == other._rating &&
         _created == other._created &&
         _likeCount == other._likeCount &&
+        _blogID == other._blogID &&
         _blog == other._blog &&
         DeepCollectionEquality().equals(_comments, other._comments);
   }
@@ -168,6 +187,7 @@ class Post extends Model {
     buffer.write("likeCount=" +
         (_likeCount != null ? _likeCount!.toString() : "null") +
         ", ");
+    buffer.write("blogID=" + "$_blogID" + ", ");
     buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null") + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
@@ -185,6 +205,7 @@ class Post extends Model {
       int? rating,
       TemporalDateTime? created,
       int? likeCount,
+      String? blogID,
       Blog? blog,
       List<Comment>? comments}) {
     return Post._internal(
@@ -193,6 +214,7 @@ class Post extends Model {
         rating: rating ?? this.rating,
         created: created ?? this.created,
         likeCount: likeCount ?? this.likeCount,
+        blogID: blogID ?? this.blogID,
         blog: blog ?? this.blog,
         comments: comments ?? this.comments);
   }
@@ -205,6 +227,7 @@ class Post extends Model {
             ? TemporalDateTime.fromString(json['created'])
             : null,
         _likeCount = (json['likeCount'] as num?)?.toInt(),
+        _blogID = json['blogID'],
         _blog = json['blog']?['serializedData'] != null
             ? Blog.fromJson(
                 new Map<String, dynamic>.from(json['blog']['serializedData']))
@@ -229,6 +252,7 @@ class Post extends Model {
         'rating': _rating,
         'created': _created?.format(),
         'likeCount': _likeCount,
+        'blogID': _blogID,
         'blog': _blog?.toJson(),
         'comments': _comments?.map((Comment? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
@@ -240,6 +264,7 @@ class Post extends Model {
   static final QueryField RATING = QueryField(fieldName: "rating");
   static final QueryField CREATED = QueryField(fieldName: "created");
   static final QueryField LIKECOUNT = QueryField(fieldName: "likeCount");
+  static final QueryField BLOGID = QueryField(fieldName: "blogID");
   static final QueryField BLOG = QueryField(
       fieldName: "blog",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
@@ -275,6 +300,11 @@ class Post extends Model {
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.int)));
 
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Post.BLOGID,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Post.BLOG,
         isRequired: false,
@@ -285,7 +315,7 @@ class Post extends Model {
         key: Post.COMMENTS,
         isRequired: false,
         ofModelName: (Comment).toString(),
-        associatedKey: Comment.POST));
+        associatedKey: Comment.POSTID));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',

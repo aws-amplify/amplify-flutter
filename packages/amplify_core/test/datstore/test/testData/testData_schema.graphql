@@ -1,7 +1,7 @@
 type Blog @model {
   id: ID!
   name: String!
-  posts: [Post] @hasMany
+  posts: [Post] @hasMany(indexName: "byBlog", fields: ["id"])
 }
 
 type Post @model {
@@ -10,8 +10,9 @@ type Post @model {
   rating: Int!
   created: AWSDateTime
   likeCount: Int
+  blogID: ID! @index(name: "byBlog")
   blog: Blog @belongsTo
-  comments: [Comment] @hasMany
+  comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
 }
 
 type PostAuthComplex
@@ -32,7 +33,7 @@ type PostAuthComplex
 
 type Comment @model {
   id: ID!
-  postID: ID!
+  postID: ID! @index(name: "byPost", sortKeyFields: ["content"])
   post: Post @belongsTo
   content: String!
 }
