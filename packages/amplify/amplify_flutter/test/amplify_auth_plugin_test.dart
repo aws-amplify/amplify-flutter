@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -46,7 +45,7 @@ void main() {
     });
 
     // Clear out plugins before each test for a fresh state.
-    instance.plugins.clear();
+    Amplify.Auth.plugins.clear();
   });
 
   tearDown(() {
@@ -70,7 +69,7 @@ void main() {
       () async {
     platformError = true;
     await Amplify.addPlugin(AmplifyAuthCognito());
-    expect(instance.plugins.length, 1);
+    expect(Amplify.Auth.plugins.length, 1);
   });
 
   test('AmplifyException is thrown if addPlugin called twice', () async {

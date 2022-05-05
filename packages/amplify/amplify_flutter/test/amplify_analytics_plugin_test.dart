@@ -44,7 +44,7 @@ void main() {
     });
 
     // Clear out plugins before each test for a fresh state.
-    AnalyticsCategory.plugins.clear();
+    Amplify.Analytics.plugins.clear();
   });
 
   tearDown(() {
@@ -68,7 +68,7 @@ void main() {
       () async {
     platformError = true;
     await Amplify.addPlugin(AmplifyAnalyticsPinpoint());
-    expect(AnalyticsCategory.plugins.length, 1);
+    expect(Amplify.Analytics.plugins.length, 1);
   });
 
   test('AmplifyException is thrown if addPlugin called twice', () async {
