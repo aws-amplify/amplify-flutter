@@ -143,6 +143,7 @@ class SignerTest {
 
               // Although most SigV4 services expect double encoding, the C
               // tests expect single encoding like S3.
+              // https://github.com/awslabs/aws-c-auth/issues/162
               doubleEncodePathSegments: false,
             );
 
