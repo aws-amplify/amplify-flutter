@@ -21,6 +21,7 @@ import './method_channel_auth_cognito.dart';
 import './amplify_auth_cognito_stream_controller.dart';
 
 export './src/types.dart';
+export 'package:amplify_core/src/types/auth/auth_types.dart';
 
 class AmplifyAuthCognito extends AuthPluginInterface {
   /// Constructs a AmplifyAuthCognito plugin

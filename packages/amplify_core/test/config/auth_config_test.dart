@@ -18,7 +18,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:path/path.dart' as path;
 import 'package:test/test.dart';
 
@@ -35,7 +35,7 @@ void main() {
             final json = File(file.path).readAsStringSync();
             final configJson = jsonDecode(json) as Map<String, Object?>;
             final config = AmplifyConfig.fromJson(configJson);
-            final expectedConfig = expected[name]!;
+            final CognitoAuthConfig expectedConfig = expected[name]!;
             final cognitoConfig = config.auth!.awsPlugin!.auth!.default$!;
             expect(cognitoConfig, equals(expectedConfig));
             expect(

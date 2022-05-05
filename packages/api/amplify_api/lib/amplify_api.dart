@@ -19,6 +19,8 @@ import 'package:amplify_core/amplify_core.dart';
 
 import 'src/method_channel_api.dart';
 
+export 'package:amplify_core/src/types/api/api_types.dart';
+
 export './model_mutations.dart';
 export './model_queries.dart';
 export './model_subscriptions.dart';

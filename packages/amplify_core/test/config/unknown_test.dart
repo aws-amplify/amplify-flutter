@@ -13,7 +13,8 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/config/amplify_plugin_config.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -35,7 +36,7 @@ void main() {
       };
 
       final config = AmplifyConfig.fromJson(json);
-      const expected = AmplifyConfig(
+      var expected = AmplifyConfig(
         auth: AuthConfig(plugins: {
           customPluginName: UnknownPluginConfig(
             customPluginName,

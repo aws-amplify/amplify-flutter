@@ -20,7 +20,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'amplify_hub.dart';
 
@@ -31,7 +30,7 @@ part 'method_channel_amplify.dart';
 /// This class can be extended to create a custom Amplify implementation.
 /// The default Amplify implementation will use method channels, and will
 /// only support iOS and Android platforms.
-class AmplifyClass extends PlatformInterface {
+class AmplifyClass {
   /// The Auth category.
   final AuthCategory Auth = AuthCategory();
 
@@ -92,7 +91,7 @@ class AmplifyClass extends PlatformInterface {
   /// Constructs a Core platform.
   /// Internal Use Only
   @protected
-  AmplifyClass.protected() : super(token: _token);
+  AmplifyClass.protected();
 
   static final Object _token = Object();
 
@@ -106,7 +105,6 @@ class AmplifyClass extends PlatformInterface {
   /// Platform-specific plugins should set this with their own platform-specific
   /// class that extends [AmplifyClass] when they register themselves.
   static set instance(AmplifyClass instance) {
-    PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
 }

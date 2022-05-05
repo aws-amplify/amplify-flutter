@@ -24,6 +24,8 @@ dev_dependencies:
     path: ../amplify_test
   flutter_test:
     sdk: flutter
+  path: any
+  test: ^1.17.0
 
 # The following section is specific to Flutter.
 flutter:
