@@ -30,6 +30,8 @@ export 'src/types/auth/auth_types.dart';
 /// Config
 export 'src/types/config/amplify_config.dart';
 
+export 'src/types/datastore/datastore_types.dart';
+
 /// Exceptions
 export 'src/types/exception/amplify_already_configured_exception.dart';
 export 'src/types/exception/amplify_exception.dart';
@@ -56,6 +58,7 @@ export 'src/types/models/model_schema_definition.dart';
 export 'src/types/plugin/amplify_analytics_plugin_interface.dart';
 export 'src/types/plugin/amplify_api_plugin_interface.dart';
 export 'src/types/plugin/amplify_auth_plugin_interface.dart';
+export 'src/types/plugin/amplify_datastore_plugin_interface.dart';
 export 'src/types/plugin/amplify_plugin_interface.dart';
 export 'src/types/plugin/amplify_storage_plugin_interface.dart';
 
@@ -72,11 +75,7 @@ export 'src/types/temporal/temporal_datetime.dart';
 export 'src/types/temporal/temporal_time.dart';
 export 'src/types/temporal/temporal_timestamp.dart';
 
-/// Plugin
-export 'src/types/plugin/amplify_analytics_plugin_interface.dart';
-export 'src/types/plugin/amplify_auth_plugin_interface.dart';
-export 'src/types/plugin/amplify_plugin_interface.dart';
-
 // Util
 export 'src/util/parsers.dart';
 export 'src/util/serializable.dart';
+export 'src/util/uuid.dart';

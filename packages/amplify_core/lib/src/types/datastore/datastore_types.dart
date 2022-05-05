@@ -28,23 +28,31 @@ export 'package:amplify_core/src/types/temporal/temporal_datetime.dart';
 export 'package:amplify_core/src/types/temporal/temporal_time.dart';
 export 'package:amplify_core/src/types/temporal/temporal_timestamp.dart';
 export 'package:amplify_core/src/util/parsers.dart';
-export 'package:amplify_core/src/util/uuid.dart';
 
-export 'types/exception/DataStoreException.dart';
-export 'types/exception/DataStoreExceptionMessages.dart';
-export 'types/hub/DataStoreHubEvent.dart';
-export 'types/hub/HubEventElement.dart';
-export 'types/hub/ModelSyncedEvent.dart';
-export 'types/hub/NetworkStatusEvent.dart';
-export 'types/hub/OutboxMutationEvent.dart';
-export 'types/hub/OutboxStatusEvent.dart';
-export 'types/hub/SyncQueriesStartedEvent.dart';
-export 'types/hub/SubscriptionDataProcessedEvent.dart';
-export 'types/models/auth_mode_strategy.dart';
-export 'types/models/subscription_event.dart';
-export 'types/models/query_snapshot.dart';
-export 'types/models/observe_query_throttle_options.dart';
-export 'types/models/query_snapshot.dart';
-export 'types/models/subscription_event.dart';
-export 'types/sync/DataStoreSyncExpression.dart';
-export 'types/conflict_handler/datastore_conflict_handler.dart';
+/// Conflict Handler
+export 'conflict_handler/datastore_conflict_handler.dart';
+
+/// Exception
+export 'exception/data_store_exception_messages.dart';
+export 'exception/datstore_exception.dart';
+
+/// Hub
+export 'hub/datstore_hub_event.dart';
+export 'hub/hub_event_element.dart';
+export 'hub/model_synced_event.dart';
+export 'hub/network_status_event.dart';
+export 'hub/outbox_mutation_event.dart';
+export 'hub/outbox_status_event.dart';
+export 'hub/subscription_data_processed_event.dart';
+export 'hub/sync_queries_started_event.dart';
+
+/// Models
+export 'models/auth_mode_strategy.dart';
+export 'models/observe_query_throttle_options.dart';
+export 'models/query_snapshot.dart';
+export 'models/query_snapshot.dart';
+export 'models/subscription_event.dart';
+export 'models/subscription_event.dart';
+
+/// Sync
+export 'sync/datastore_sync_expression.dart';

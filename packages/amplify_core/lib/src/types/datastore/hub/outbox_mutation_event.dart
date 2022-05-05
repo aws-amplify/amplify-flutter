@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,16 +13,18 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'hub_event_element.dart';
 
-class SubscriptionDataProcessedEvent<M extends Model> extends HubEventPayload {
-  late HubEventElementWithMetadata<M> element;
+class OutboxMutationEvent extends HubEventPayload {
+  late HubEventElement element;
   late String modelName;
 
-  SubscriptionDataProcessedEvent(Map<dynamic, dynamic> serializedData,
+  OutboxMutationEvent(Map<dynamic, dynamic> serializedData,
       ModelProviderInterface provider, String eventName) {
-    element = HubEventElementWithMetadata.fromMap(serializedData, provider);
+    element = eventName == "outboxMutationEnqueued"
+        ? HubEventElement.fromMap(serializedData, provider)
+        : HubEventElementWithMetadata.fromMap(serializedData, provider);
     modelName = serializedData["modelName"] as String;
   }
 }

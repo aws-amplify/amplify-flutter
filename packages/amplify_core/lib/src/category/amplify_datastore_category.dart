@@ -19,14 +19,12 @@ part of amplify_interface;
 /// are supported by this category's plugins. This class will accept plugins to
 /// be registered and configured and then subsequent API calls will be forwarded
 /// to those plugins.
-class DataStoreCategory {
-  /// Default constant constructor
-  const DataStoreCategory();
+class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
+  @override
+  @nonVirtual
+  Category get category => Category.dataStore;
 
-  /// Added DataStore plugins.
-  static List<DataStorePluginInterface> plugins = [];
-
-  /// Add DataStore plugin
+  @override
   Future<void> addPlugin(DataStorePluginInterface plugin) async {
     // TODO: Discuss and support multiple plugins
     if (plugins.isEmpty) {
@@ -56,13 +54,6 @@ class DataStoreCategory {
     return plugins.length == 1
         ? plugins[0].streamController
         : throw _pluginNotAddedException('DataStore');
-  }
-
-  /// Configure DataStore
-  Future<void> configure(String configuration) async {
-    if (plugins.length == 1) {
-      return plugins[0].configure(configuration: configuration);
-    }
   }
 
   /// Query the DataStore to find all items of the specified [modelType] that satisfy the specified

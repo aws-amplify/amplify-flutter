@@ -1,4 +1,4 @@
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
 typedef DataStoreConflictHandler = ConflictResolutionDecision Function(
@@ -49,7 +49,7 @@ class ConflictResolutionDecision {
         "}";
   }
 
-  Map<String, dynamic> toJson() => {
+  Map<String, Object?> toJson() => <String, Object?>{
         'resolutionStrategy': describeEnum(_resolutionStrategy),
         'customModel': customModel?.toJson()
       };

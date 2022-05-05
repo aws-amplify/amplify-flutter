@@ -131,7 +131,6 @@ class MethodChannelAmplify extends AmplifyClass {
             underlyingException: e.toString());
       }
     }
-    await DataStore.configure(configuration);
 
     if (_isConfigured && !_configCompleter.isCompleted) {
       _config = _parseConfigJson(configuration);
