@@ -175,15 +175,11 @@ void main() {
   /// Simulates a hot restart
   void hotRestart() {
     Amplify = MethodChannelAmplify();
-    for (var p in [
-      AnalyticsCategory.plugins,
-      AuthCategory.plugins,
-      APICategory.plugins,
-      DataStoreCategory.plugins,
-      StorageCategory.plugins,
-    ]) {
-      p.clear();
-    }
+    Amplify.Analytics.plugins.clear();
+    Amplify.Auth.plugins.clear();
+    Amplify.API.plugins.clear();
+    Amplify.DataStore.plugins.clear();
+    Amplify.Storage.plugins.clear();
   }
 
   group(

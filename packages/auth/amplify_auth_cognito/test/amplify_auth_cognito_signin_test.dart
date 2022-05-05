@@ -74,8 +74,8 @@ void main() {
         SignInRequest(username: 'testUser', password: '123', options: options)
             .serializeAsMap();
     expect(req['options'], isInstanceOf<Map>());
-    expect(req['options']['clientMetadata'], isInstanceOf<Map>());
-    expect(req['options']['clientMetadata']['key'], equals('val'));
+    expect((req['options'] as Map)['clientMetadata'], isInstanceOf<Map>());
+    expect((req['options'] as Map)['clientMetadata']['key'], equals('val'));
   });
 
   test('signIn thrown PlatFormException results in AuthError', () async {

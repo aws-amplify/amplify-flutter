@@ -14,13 +14,16 @@
 //
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/types/config/analytics/analytics_config.dart';
-import 'package:amplify_core/src/types/config/api/api_config.dart';
-import 'package:amplify_core/src/types/config/storage/storage_config.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'auth/auth_config.dart';
+export 'amplify_plugin_config.dart' hide UnknownPluginConfig;
+export 'amplify_plugin_registry.dart';
+export 'analytics/analytics_config.dart';
+export 'api/api_config.dart';
+export 'auth/auth_config.dart';
+export 'config_map.dart';
+export 'storage/storage_config.dart';
 
 part 'amplify_config.g.dart';
 

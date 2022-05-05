@@ -55,8 +55,9 @@ void main() {
         amplifyAPI = AmplifyAPIMethodChannel();
         amplifyAPI.setupAuthProviders();
         reset(provider);
-        when(provider.type).thenReturn(APIAuthorizationType.oidc);
-        amplifyAPI.registerAuthProvider(provider);
+        when<APIAuthorizationType>(provider.type)
+            .thenReturn(APIAuthorizationType.oidc);
+        amplifyAPI.registerAuthProvider(provider as APIAuthProvider);
       });
 
       test('returns token', () async {
