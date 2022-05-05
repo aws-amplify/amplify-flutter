@@ -20,7 +20,6 @@ import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/graphql_subscription_event.dart';
 import 'package:amplify_api/src/graphql/graphql_subscription_transformer.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_common/aws_common.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
