@@ -17,24 +17,14 @@ import 'package:amplify_core/amplify_core.dart';
 
 /// Wraps the result of a resend user confirmation code operation.
 class ResendUserAttributeConfirmationCodeResult {
-  /// Contains the delivery details of the confirmation code that was sent to
-  /// the user.
-  final AuthCodeDeliveryDetails codeDeliveryDetails;
+  /// Contains the delivery details of the confirmation code that was sent to the user.
+  AuthCodeDeliveryDetails codeDeliveryDetails;
 
-  /// {@macro amplify_common.resend_user_attribute_confirmation_code_result}
-  ResendUserAttributeConfirmationCodeResult({
-    required this.codeDeliveryDetails,
-  });
-
-  ResendUserAttributeConfirmationCodeResult.fromMap({
-    required Map<String, String> codeDeliveryDetails,
-  }) : codeDeliveryDetails = AuthCodeDeliveryDetails(
-          attributeName: codeDeliveryDetails['attributeName'],
-          deliveryMedium: codeDeliveryDetails['deliveryMedium'],
-          destination: codeDeliveryDetails['destination'] ?? '',
-        );
-
-  ResendUserAttributeConfirmationCodeResult.fromCodeDeliveryDetails({
-    required this.codeDeliveryDetails,
-  });
+  // ignore: public_member_api_docs
+  ResendUserAttributeConfirmationCodeResult(
+      {required Map<String, dynamic> codeDeliveryDetails})
+      : this.codeDeliveryDetails = AuthCodeDeliveryDetails(
+            attributeName: codeDeliveryDetails["attributeName"] ?? "",
+            deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
+            destination: codeDeliveryDetails["destination"] ?? "");
 }

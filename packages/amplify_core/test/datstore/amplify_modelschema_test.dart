@@ -184,6 +184,7 @@ void main() {
       AuthRule(
           authStrategy: AuthStrategy.OWNER,
           ownerField: "owner",
+          provider: AuthRuleProvider.USERPOOLS,
           identityClaim: "cognito:username",
           operations: [
             ModelOperation.CREATE,
