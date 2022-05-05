@@ -43,7 +43,7 @@ void main() {
     });
 
     // Clear out plugins before each test for a fresh state.
-    APICategory.plugins.clear();
+    Amplify.API.plugins.clear();
   });
 
   tearDown(() {
@@ -67,7 +67,7 @@ void main() {
       () async {
     platformError = true;
     await Amplify.addPlugin(AmplifyAPI());
-    expect(APICategory.plugins.length, 1);
+    expect(Amplify.API.plugins.length, 1);
   });
 
   test('AmplifyException is thrown if addPlugin called twice', () async {

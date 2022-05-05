@@ -85,8 +85,8 @@ void main() {
 
     // We only use Auth and Analytics category for testing this class.
     // Clear out their plugins before each test for a fresh state.
-    AuthCategory.plugins.clear();
-    AnalyticsCategory.plugins.clear();
+    Amplify.Auth.plugins.clear();
+    Amplify.Analytics.plugins.clear();
   });
 
   tearDown(() {
