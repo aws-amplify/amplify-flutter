@@ -229,10 +229,9 @@ workflows:
                   "amplify_authenticator",
                   "amplify_core",
                   "amplify_datastore",
-                  "amplify_datastore_plugin_interface",
                   "amplify_flutter",
-                  "amplify_storage_plugin_interface",
                   "amplify_storage_s3",
+                  "aws_common",
                 ]
       - unit_test_android:
           matrix:

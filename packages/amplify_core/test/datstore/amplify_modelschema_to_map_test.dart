@@ -47,10 +47,10 @@ void main() {
           'isRequired': false,
           'isArray': true,
           'isReadOnly': false,
-          'association': const {
+          'association': {
             'associationType': 'HasMany',
-            'associatedName': "blog",
-            'associatedType': "Post"
+            'associatedName': 'blogID',
+            'associatedType': 'Post'
           }
         },
         'createdAt': {
@@ -87,6 +87,13 @@ void main() {
           'isArray': false,
           'isReadOnly': false,
         },
+        'postID': {
+          'name': 'postID',
+          'type': {'fieldType': 'string'},
+          'isRequired': true,
+          'isArray': false,
+          'isReadOnly': false
+        },
         'post': {
           'name': 'post',
           'type': {'fieldType': 'model', 'ofModelName': 'Post'},
@@ -95,9 +102,9 @@ void main() {
           'isReadOnly': false,
           'association': {
             'associationType': 'BelongsTo',
-            'targetName': 'postID',
+            'targetName': 'postCommentsId',
             'associatedType': 'Post'
-          },
+          }
         },
         'content': {
           'name': 'content',
@@ -167,6 +174,13 @@ void main() {
           'isArray': false,
           'isReadOnly': false
         },
+        'blogID': {
+          'name': 'blogID',
+          'type': {'fieldType': 'string'},
+          'isRequired': true,
+          'isArray': false,
+          'isReadOnly': false
+        },
         'blog': {
           'name': 'blog',
           'type': {'fieldType': 'model', 'ofModelName': 'Blog'},
@@ -175,7 +189,7 @@ void main() {
           'isReadOnly': false,
           'association': {
             'associationType': 'BelongsTo',
-            'targetName': 'blogID',
+            'targetName': 'blogPostsId',
             'associatedType': 'Blog'
           }
         },
@@ -187,7 +201,7 @@ void main() {
           'isReadOnly': false,
           'association': {
             'associationType': 'HasMany',
-            'associatedName': 'post',
+            'associatedName': 'postID',
             'associatedType': 'Comment'
           }
         },
@@ -222,6 +236,7 @@ void main() {
           'authStrategy': 'OWNER',
           'ownerField': 'owner',
           'identityClaim': 'cognito:username',
+          'provider': 'USERPOOLS',
           'operations': ['CREATE', 'UPDATE', 'DELETE', 'READ']
         }
       ],

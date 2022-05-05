@@ -518,7 +518,8 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       _formatResendUserAttributeConfirmationCodeResponse(
           Map<String, dynamic> res) {
     return ResendUserAttributeConfirmationCodeResult(
-        codeDeliveryDetails: res["codeDeliveryDetails"]);
+        codeDeliveryDetails:
+            Map<String, dynamic>.from(res["codeDeliveryDetails"]));
   }
 
   @override
