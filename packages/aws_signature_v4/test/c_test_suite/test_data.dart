@@ -163,17 +163,22 @@ class SignerTest {
     );
   }
 
-  Future<void> _runMethod(SignerTestMethod method) async {
+  Future<void> _runMethod(SignerTestMethod method, {required bool sync}) async {
     final testMethodData =
         method == SignerTestMethod.header ? headerTestData : queryTestData;
     if (testMethodData == null) {
       return;
     }
     final presignedUrl = method == SignerTestMethod.query;
-    final payloadHash = serviceConfiguration.hashPayloadSync(
-      request,
-      presignedUrl: presignedUrl,
-    );
+    final payloadHash = sync
+        ? serviceConfiguration.hashPayloadSync(
+            request,
+            presignedUrl: presignedUrl,
+          )
+        : await serviceConfiguration.hashPayload(
+            request,
+            presignedUrl: presignedUrl,
+          );
     final contentLength = request.contentLength as int;
     final CanonicalRequest canonicalRequest = presignedUrl
         ? CanonicalRequest.presignedUrl(
@@ -213,12 +218,19 @@ class SignerTest {
     );
 
     if (presignedUrl) {
-      final Uri uri = signer.presignSync(
-        request as AWSHttpRequest,
-        credentialScope: credentialScope,
-        expiresIn: Duration(seconds: context.expirationInSeconds),
-        serviceConfiguration: serviceConfiguration,
-      );
+      final Uri uri = sync
+          ? signer.presignSync(
+              request as AWSHttpRequest,
+              credentialScope: credentialScope,
+              expiresIn: Duration(seconds: context.expirationInSeconds),
+              serviceConfiguration: serviceConfiguration,
+            )
+          : await signer.presign(
+              request as AWSHttpRequest,
+              credentialScope: credentialScope,
+              expiresIn: Duration(seconds: context.expirationInSeconds),
+              serviceConfiguration: serviceConfiguration,
+            );
 
       expect(
         uri.queryParameters[AWSHeaders.signature],
@@ -226,11 +238,17 @@ class SignerTest {
         reason: 'Signatures must be identical',
       );
     } else {
-      final AWSSignedRequest signedRequest = signer.signSync(
-        request,
-        credentialScope: credentialScope,
-        serviceConfiguration: serviceConfiguration,
-      );
+      final AWSSignedRequest signedRequest = sync
+          ? signer.signSync(
+              request,
+              credentialScope: credentialScope,
+              serviceConfiguration: serviceConfiguration,
+            )
+          : await signer.sign(
+              request,
+              credentialScope: credentialScope,
+              serviceConfiguration: serviceConfiguration,
+            );
 
       expect(
         signedRequest.signature,
@@ -263,8 +281,14 @@ class SignerTest {
       );
 
       final body = await ByteStream(signedRequest.body).toBytes();
-      final expected =
-          await ByteStream(testMethodData.signedRequest.body).toBytes();
+      final expectedRequest = testMethodData.signedRequest;
+      final Stream<List<int>> expectedBody;
+      if (expectedRequest is AWSStreamedHttpRequest) {
+        expectedBody = expectedRequest.split();
+      } else {
+        expectedBody = expectedRequest.body;
+      }
+      final expected = await ByteStream(expectedBody).toBytes();
       expect(
         body,
         orderedEquals(expected),
@@ -274,8 +298,10 @@ class SignerTest {
   }
 
   Future<void> run() async {
-    await _runMethod(SignerTestMethod.header);
-    await _runMethod(SignerTestMethod.query);
+    await _runMethod(SignerTestMethod.header, sync: true);
+    await _runMethod(SignerTestMethod.query, sync: true);
+    await _runMethod(SignerTestMethod.header, sync: false);
+    await _runMethod(SignerTestMethod.query, sync: false);
   }
 
   Future<Map<String, Object?>> toJson() async => {

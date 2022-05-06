@@ -93,7 +93,9 @@ final putObjectTest = SignerTest(
     headers: {
       'x-amz-storage-class': 'REDUCED_REDUNDANCY',
     },
-    body: chunks,
+    body: Stream.multi(
+      (controller) => controller.addStream(chunks),
+    ),
     contentLength: 66560,
   ),
   headerTestData: putObjectTestData,
