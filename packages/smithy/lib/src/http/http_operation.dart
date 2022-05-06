@@ -15,6 +15,11 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   /// Regex for label placeholders.
   static final _labelRegex = RegExp(r'{(\w+)}');
 
+  /// Reserved characters defined in section 2.2 of RFC3986 and the % itself
+  /// MUST be percent-encoded (that is, `:/?#[]@!$&'()*+,;=%`).
+  ///
+  /// Since [Uri.encodeQueryComponent] does not encode `+`, we must handle that
+  /// separately as well.
   static String _escapeLabel(String label) =>
       Uri.encodeQueryComponent(label).replaceAll('+', '%20');
 
@@ -45,7 +50,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   ) {
     return template.replaceAllMapped(_labelRegex, (match) {
       final key = match.group(1)!;
-      return Uri.encodeQueryComponent(labelFor(key)).replaceAll('+', '%20');
+      return _escapeLabel(labelFor(key));
     });
   }
 
@@ -97,14 +102,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
         ? protocols.first
         : protocols.firstWhere(
             (el) => el.protocolId == useProtocol,
-            orElse: () {
-              final using = protocols.first;
-              print(
-                'No protocol found matching $useProtocol. '
-                'Using ${using.protocolId} instead.',
-              );
-              return using;
-            },
+            orElse: () => protocols.first,
           );
   }
 
@@ -159,7 +157,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     var awsRequest = AWSStreamedHttpRequest.raw(
       method: AWSHttpMethodHelper.fromString(request.method),
       host: host,
-      path: uri.path,
+      path: path,
       body: body,
       queryParameters: {
         ...queryParameters,
@@ -215,7 +213,6 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       },
       onRetry: (e, [delay]) {
         debugNumRetries++;
-        print('Retrying $e ($debugNumRetries)');
       },
     );
   }
@@ -251,7 +248,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     final resolvedType = await protocol.resolveErrorType(response);
     if (resolvedType != null) {
       smithyError =
-          errorTypes.firstWhere((t) => t.shapeId.shape == resolvedType);
+          errorTypes.firstWhereOrNull((t) => t.shapeId.shape == resolvedType);
     }
     smithyError ??= errorTypes
         .singleWhereOrNull((t) => t.statusCode == response.statusCode);
