@@ -20,8 +20,8 @@ dependencies:
     # the parent directory to use the current plugin's version.
     path: ../
   # Uncomment the below lines to enable online sync
-  # amplify_api:
-  #   path: ../../amplify_api
+  amplify_api:
+    path: ../../api/amplify_api
   amplify_flutter:
     path: ../../amplify/amplify_flutter
   flutter_driver:

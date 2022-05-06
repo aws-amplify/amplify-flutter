@@ -24,7 +24,11 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   /// modelProvider
   ModelProviderInterface? modelProvider;
 
-  APIPluginInterface({this.modelProvider});
+  APIPluginInterface({this.modelProvider}) : super();
+
+  /// Internal use constructor
+  @protected
+  APIPluginInterface.emptyConstructor() : super();
 
   // ====== GraphQL =======
   GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
