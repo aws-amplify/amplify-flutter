@@ -31,7 +31,7 @@ class DownloadFileRequest {
   Map<String, Object?> serializeAsMap() => {
         if (options != null) 'options': options!.serializeAsMap(),
         'key': key,
-        'local': local,
+        'path': local.absolute.path,
         'uuid': uuid,
       };
 }
