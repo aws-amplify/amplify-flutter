@@ -16,6 +16,7 @@
 library amplify_api_plugin;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:meta/meta.dart';
 
 import 'src/method_channel_api.dart';
 
@@ -34,7 +35,10 @@ class AmplifyAPI extends APIPluginInterface {
     authProviders.forEach(registerAuthProvider);
   }
 
-  static AmplifyAPI _instance = AmplifyAPIMethodChannel();
+  @protected
+  AmplifyAPI.emptyConstructor() : super.emptyConstructor();
+
+  static final AmplifyAPI _instance = AmplifyAPIMethodChannel();
 
   /// The default instance of [AmplifyAPIPlugin] to use.
   static AmplifyAPI get instance => _instance;

@@ -34,8 +34,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         AmplifyDataStore.streamWrapper.datastoreStreamController.stream,
   );
 
-  AmplifyDataStoreMethodChannel({required ModelProviderInterface modelProvider})
-      : super(modelProvider: modelProvider);
+  /// Internal use constructor
+  AmplifyDataStoreMethodChannel() : super.emptyConstructor();
 
   // Receives calls from Native
   Future<dynamic> _methodCallHandler(MethodCall call) async {

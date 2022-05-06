@@ -61,6 +61,10 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     this.authModeStrategy = AuthModeStrategy.defaultStrategy,
   });
 
+  /// Internal use constructor
+  @protected
+  DataStorePluginInterface.emptyConstructor() : this(modelProvider: null);
+
   StreamController<HubEvent> get streamController {
     throw UnimplementedError(
         'streamController getter has not been implemented.');

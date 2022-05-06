@@ -16,6 +16,7 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:meta/meta.dart';
 
 import 'amplify_datastore_stream_controller.dart';
 import 'method_channel_datastore.dart';
@@ -53,8 +54,11 @@ class AmplifyDataStore extends DataStorePluginInterface {
           authModeStrategy: authModeStrategy,
         );
 
-  static AmplifyDataStore _instance =
-      AmplifyDataStoreMethodChannel(modelProvider: modelProvider);
+  /// Internal use constructor
+  @protected
+  AmplifyDataStore.emptyConstructor() : super.emptyConstructor();
+
+  static AmplifyDataStore _instance = AmplifyDataStoreMethodChannel();
   static DataStoreStreamController streamWrapper = DataStoreStreamController();
 
   StreamController<DataStoreHubEvent> get streamController {
