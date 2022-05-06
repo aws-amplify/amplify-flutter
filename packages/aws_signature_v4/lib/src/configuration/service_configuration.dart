@@ -132,7 +132,7 @@ class BaseServiceConfiguration extends ServiceConfiguration {
 
     // Add user agent header
     if (Zone.current[zIncludeUserAgent] ?? true) {
-      const userAgent = 'aws-sdk-dart/$packageVersion';
+      const userAgent = 'aws-sigv4-dart/$packageVersion';
       headers.update(
         zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent,
         (value) => '$value $userAgent',
