@@ -16,7 +16,7 @@
 import 'package:amplify_core/amplify_core.dart';
 
 class AuthNextStep {
-  Map<String, String>? additionalInfo;
+  Map<String, dynamic>? additionalInfo;
   AuthCodeDeliveryDetails? codeDeliveryDetails;
   AuthNextStep({this.codeDeliveryDetails, this.additionalInfo});
 }
