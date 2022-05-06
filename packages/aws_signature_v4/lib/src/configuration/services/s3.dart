@@ -138,7 +138,7 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     if (signPayload) {
       headers[AWSHeaders.contentSHA256] = payloadHash;
     } else {
-      headers[AWSHeaders.contentSHA256] = 'UNSIGNED-PAYLOAD';
+      headers[AWSHeaders.contentSHA256] = unsignedPayloadHash;
     }
   }
 
