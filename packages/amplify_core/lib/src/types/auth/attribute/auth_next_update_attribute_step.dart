@@ -30,7 +30,7 @@ class AuthNextUpdateAttributeStep extends AuthNextStep {
 
   // ignore: public_member_api_docs
   AuthNextUpdateAttributeStep(
-      {Map<String, String>? additionalInfo,
+      {Map<String, dynamic>? additionalInfo,
       AuthCodeDeliveryDetails? codeDeliveryDetails,
       required this.updateAttributeStep})
       : super(
