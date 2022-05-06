@@ -8,11 +8,10 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  amplify_api: ^0.4.5
-  amplify_auth_cognito: ^0.4.5
-  amplify_core:
-    path: ../amplify_core
-  amplify_flutter: ^0.4.5
+  amplify_api: 0.4.5
+  amplify_auth_cognito: 0.4.5
+  amplify_core: 0.4.5
+  amplify_flutter: 0.4.5
   flutter:
     sdk: flutter
   stream_transform: ^2.0.0

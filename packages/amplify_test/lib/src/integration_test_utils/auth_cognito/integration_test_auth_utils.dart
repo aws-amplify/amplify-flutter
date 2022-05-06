@@ -48,7 +48,7 @@ const adminCreateUserDocument =
 ///
 /// This method differs from the Auth.deleteUser API in that
 /// an access token is not required.
-Future<DeleteUserResponse?> deleteUser(String username) async {
+Future<DeleteUserResponse> deleteUser(String username) async {
   var res = await Amplify.API
       .mutate(
           request: GraphQLRequest<String>(
@@ -74,7 +74,7 @@ Future<DeleteUserResponse?> deleteUser(String username) async {
 /// The [verifyAttributes] flag will verify the email and phone, and should be used
 /// if tests need to bypass the verification step.
 /// The [attributes] list passes additional attributes.
-Future<AdminCreateUserResponse?> adminCreateUser(
+Future<AdminCreateUserResponse> adminCreateUser(
   String username,
   String password, {
   bool autoConfirm = false,
@@ -128,9 +128,12 @@ Future<AdminCreateUserResponse?> adminCreateUser(
           }))
       .response;
   if (res.errors.isNotEmpty) {
-    for (var error in res.errors) {
-      throw Exception(error.message);
-    }
+    throw Exception(res.errors.first.message);
+  }
+
+  final data = AdminCreateUserResponse.fromJson(res.data!);
+  if (data.error != null) {
+    throw Exception(data.error!);
   }
 
   addTearDown(() async {
@@ -141,7 +144,7 @@ Future<AdminCreateUserResponse?> adminCreateUser(
     }
   });
 
-  return AdminCreateUserResponse.fromJson(res.data!);
+  return data;
 }
 
 /// Returns the OTP code for [username]. Must be called before the network call

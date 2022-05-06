@@ -48,13 +48,16 @@ void main() {
   );
 
   group('reset-password', () {
-    // Given I'm running the example "ui/components/authenticator/reset-password.feature"
+    // Given I'm running the example
+    // "ui/components/authenticator/reset-password.feature"
     setUpAll(() async {
-      await loadConfiguration('ui/components/authenticator/reset-password',
-          additionalConfigs: [AmplifyAPI()]);
+      await loadConfiguration(
+        'ui/components/authenticator/reset-password',
+        additionalConfigs: [AmplifyAPI()],
+      );
     });
 
-    tearDownAll(() async {
+    tearDown(() async {
       await Amplify.Auth.signOut();
     });
 
@@ -62,8 +65,12 @@ void main() {
     testWidgets('Reset Password with valid username', (tester) async {
       final username = generateUsername();
       final password = generatePassword();
-      await adminCreateUser(username, password,
-          autoConfirm: true, verifyAttributes: true);
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ForgotPasswordPage forgotPasswordPage =
