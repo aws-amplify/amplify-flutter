@@ -13,17 +13,26 @@
 // permissions and limitations under the License.
 //
 
+import 'dart:convert';
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
-Future<void> configureAuth({
-  List<AmplifyPluginInterface> additionalPlugins = const [],
-}) async {
+Future<void> configureAuth(
+    {List<AmplifyPluginInterface> additionalPlugins = const [],
+    bool customAuth = false}) async {
   if (!Amplify.isConfigured) {
     final authPlugin = AmplifyAuthCognito();
+    String config = amplifyconfig;
+    if (customAuth) {
+      var configString = jsonDecode(amplifyconfig);
+      configString['auth']['plugins']['awsCognitoAuthPlugin']['Auth']['Default']
+          ['authenticationFlowType'] = 'CUSTOM_AUTH';
+      config = jsonEncode(configString);
+    }
     await Amplify.addPlugins([authPlugin, ...additionalPlugins]);
-    await Amplify.configure(amplifyconfig);
+    await Amplify.configure(config);
   }
 }
 

@@ -1,5 +1,5 @@
 /* Amplify Params - DO NOT EDIT
-	AUTH_USERPOOLID
+	USERPOOL_ID
 	ENV
 	REGION
 Amplify Params - DO NOT EDIT */
@@ -11,7 +11,7 @@ var cognitoidentityserviceprovider = new aws.CognitoIdentityServiceProvider({
 exports.handler = async (event) => {
     var response = {success: false }
     var baseParams = {
-        UserPoolId: process.env.AUTH_USERPOOLID,
+        UserPoolId: process.env.USERPOOL_ID,
         Username: event.arguments.Username
       }
 
