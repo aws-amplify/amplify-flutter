@@ -68,7 +68,7 @@ void main() {
     });
 
     testWidgets(
-        'should throw an NotAuthorizedException if a password is not provided',
+        'should throw an NotAuthorizedException if a password is not provided and Custom Auth is not configured without SRP',
         (WidgetTester tester) async {
       try {
         await Amplify.Auth.signIn(username: username);

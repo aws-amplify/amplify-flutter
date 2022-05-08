@@ -292,7 +292,7 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(true);
     var confirm = AuthConfirmSignInData(
       confirmationValue: _confirmationCode.trim(),
-      attributes: _authAttributes,
+      attributes: authAttributes,
     );
 
     _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
@@ -326,7 +326,7 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(true);
     var confirm = AuthConfirmSignInData(
       confirmationValue: _confirmationCode.trim(),
-      attributes: _authAttributes,
+      attributes: authAttributes,
     );
 
     _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
@@ -528,7 +528,7 @@ class AuthenticatorState extends ChangeNotifier {
     _passwordConfirmation = '';
     _confirmationCode = '';
     _newPassword = '';
-    _authAttributes.clear();
+    authAttributes.clear();
     _publicChallengeParams.clear();
   }
 

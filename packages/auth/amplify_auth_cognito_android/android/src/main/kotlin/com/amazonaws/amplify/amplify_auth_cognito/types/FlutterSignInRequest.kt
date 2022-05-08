@@ -42,7 +42,6 @@ data class FlutterSignInRequest(val map: HashMap<String, *>) {
   }
 
   companion object {
-
         fun checkUser() {
             try {
                 var user: AuthUser? = Amplify.Auth.currentUser

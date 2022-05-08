@@ -97,6 +97,7 @@ class CustomConfirmSignInView extends StatelessWidget {
                 const Center(child: FlutterLogo(size: 100)),
 
                 // custom challenge field
+                // Field Title and Field Hint can be set within the Lambda Code.
                 ConfirmSignInFormField.authChallengeCustom(
                     title: state.publicChallengeParams['fieldTitle'],
                     hintText: state.publicChallengeParams['fieldHint']),
@@ -139,6 +140,9 @@ class CustomSignInView extends StatelessWidget {
 
                 // custom challenge field
                 SignInFormField.username(),
+
+                // custom challenge field
+                // SignInFormField.password(),
 
                 // prebuilt sign up button from amplify_authenticator package
                 const SignInButton(),

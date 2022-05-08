@@ -9,9 +9,4 @@ class LocalizedTitleResolver extends TitleResolver {
   String signIn(BuildContext context) {
     return AppLocalizations.of(context).signIn;
   }
-
-  @override
-  String confirmSignInCustomAuth(BuildContext context) {
-    return AppLocalizations.of(context).confirmSignInCustomAuth;
-  }
 }
