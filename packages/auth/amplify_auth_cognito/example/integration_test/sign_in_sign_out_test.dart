@@ -113,6 +113,13 @@ void main() {
     });
 
     testWidgets('should sign a user out', (WidgetTester tester) async {
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
+
       // Ensure signed in before testing signOut.
       await Amplify.Auth.signIn(username: username, password: password);
       final authSession = await Amplify.Auth.fetchAuthSession();

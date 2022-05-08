@@ -16,6 +16,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import com.amplifyframework.auth.AuthCodeDeliveryDetails
+import com.google.gson.Gson
 
 fun setNextStep(resultKey: String, resultValue: String, codeDeliveryDetails: AuthCodeDeliveryDetails?, additionalInfo: Map<String, String>?): Map<String, Any> {
     val result = mutableMapOf<String, Any>(resultKey to resultValue)
@@ -38,7 +39,7 @@ fun setNextStep(resultKey: String, resultValue: String, codeDeliveryDetails: Aut
     }
 
     if (additionalInfo?.isNotEmpty() == true) {
-        result["additionalInfo"] = additionalInfo
+        result["additionalInfo"] = Gson().toJson(additionalInfo)
     }
 
     return result

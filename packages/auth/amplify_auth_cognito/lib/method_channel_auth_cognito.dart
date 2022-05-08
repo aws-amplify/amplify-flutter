@@ -412,7 +412,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
                 deliveryMedium: codeDeliveryDetails["deliveryMedium"],
                 destination: codeDeliveryDetails["destination"])
             : null,
-        additionalInfo: additionalInfo ?? null,
+        additionalInfo: res["nextStep"]["additionalInfo"] is String
+            ? jsonDecode(res["nextStep"]["additionalInfo"])
+            : null,
       ),
     );
   }
@@ -438,7 +440,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
                 deliveryMedium: codeDeliveryDetails["deliveryMedium"],
                 destination: codeDeliveryDetails["destination"])
             : null,
-        additionalInfo: additionalInfo ?? null,
+        additionalInfo: res["nextStep"]["additionalInfo"] is String
+            ? jsonDecode(res["nextStep"]["additionalInfo"])
+            : null,
       ),
     );
   }
@@ -483,7 +487,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
                 deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? null,
                 destination: codeDeliveryDetails["destination"])
             : null,
-        additionalInfo: additionalInfo ?? null,
+        additionalInfo: res["nextStep"]["additionalInfo"] is String
+            ? jsonDecode(res["nextStep"]["additionalInfo"])
+            : null,
       ),
     );
   }
@@ -507,7 +513,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
                 deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? null,
                 destination: codeDeliveryDetails["destination"])
             : null,
-        additionalInfo: additionalInfo ?? {},
+        additionalInfo: res["nextStep"]["additionalInfo"] is String
+            ? jsonDecode(res["nextStep"]["additionalInfo"])
+            : {},
       ),
     );
   }
