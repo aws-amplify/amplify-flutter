@@ -19,8 +19,6 @@ dependencies:
     path: ../
   amplify_auth_cognito:
     path: ../../../auth/amplify_auth_cognito
-  amplify_storage_s3:
-    path: ../../../storage/amplify_storage_s3
   amplify_flutter:
     path: ../../../amplify/amplify_flutter
   aws_common: ^0.1.0

@@ -21,7 +21,7 @@ import 'dart:async';
 import 'package:amplify_datastore/amplify_datastore.dart';
 
 // Uncomment the below line to enable online sync
-import 'package:amplify_api/amplify_api.dart';
+// import 'package:amplify_api/amplify_api.dart';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/services.dart';
@@ -94,11 +94,11 @@ class _MyAppState extends State<MyApp> {
       // Configure
 
       // Uncomment the below lines to enable online sync.
-      await Amplify.addPlugin(AmplifyAPI());
-      await Amplify.configure(amplifyconfig);
+      // await Amplify.addPlugin(AmplifyAPI());
+      // await Amplify.configure(amplifyconfig);
 
       // Remove this line when using the lines above for online sync
-      // await Amplify.configure("{}");
+      await Amplify.configure("{}");
     } on AmplifyAlreadyConfiguredException {
       print(
           'Amplify was already configured. Looks like app restarted on android.');
