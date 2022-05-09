@@ -13,9 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
-import 'dart:io' show Platform;
-
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
 import 'amplify_auth_cognito.dart';

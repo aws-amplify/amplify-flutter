@@ -24,13 +24,7 @@ Future<void> configureAuth(
     bool customAuth = false}) async {
   if (!Amplify.isConfigured) {
     final authPlugin = AmplifyAuthCognito();
-    String config = amplifyconfig;
-    if (customAuth) {
-      var configString = jsonDecode(amplifyconfig);
-      configString['auth']['plugins']['awsCognitoAuthPlugin']['Auth']['Default']
-          ['authenticationFlowType'] = 'CUSTOM_AUTH';
-      config = jsonEncode(configString);
-    }
+    String config = _createConfig(amplifyconfig, customAuth: customAuth);
     await Amplify.addPlugins([authPlugin, ...additionalPlugins]);
     await Amplify.configure(config);
   }
@@ -44,4 +38,16 @@ Future<void> signOutUser() async {
   } on AuthException catch (e) {
     // Ignore a signOut error because we only care when someone signed in.
   }
+}
+
+// parse json, and switch auth mode if required by test
+String _createConfig(String amplifyconfig, {bool customAuth = false}) {
+  String config = amplifyconfig;
+  if (customAuth) {
+    var configString = jsonDecode(amplifyconfig);
+    configString['auth']['plugins']['awsCognitoAuthPlugin']['Auth']['Default']
+        ['authenticationFlowType'] = 'CUSTOM_AUTH';
+    config = jsonEncode(configString);
+  }
+  return config;
 }
