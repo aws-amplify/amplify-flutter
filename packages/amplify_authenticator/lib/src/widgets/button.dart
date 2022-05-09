@@ -208,12 +208,12 @@ class ConfirmSignUpButton extends AuthenticatorElevatedButton {
 
 /// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.confirm__sign_in_custom_button}
-/// A prebuilt button for completing Sign In with and custom challenge.
+/// A prebuilt button for completing Sign In with a custom challenge.
 ///
 /// Uses [ButtonResolverKey.confirm] for localization
 /// {@endtemplate}
 class ConfirmSignInCustomButton extends ConfirmSignInMFAButton {
-  /// {@macro amplify_authenticator.confirm_sign_in_mfa_button}
+  /// {@macro amplify_authenticator.confirm_sign_custom_button}
   const ConfirmSignInCustomButton({Key? key})
       : super(
           key: key ?? keyConfirmSignInCustomButton,

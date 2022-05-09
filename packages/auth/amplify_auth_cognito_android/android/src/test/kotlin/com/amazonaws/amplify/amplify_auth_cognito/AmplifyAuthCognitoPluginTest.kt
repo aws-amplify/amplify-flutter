@@ -906,7 +906,7 @@ class AmplifyAuthCognitoPluginTest {
                     "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
                     "attributeName" to "email"
                 ),
-                "additionalInfo" to "{}"
+                "additionalInfo"  to emptyMap<String, String>()
             )
         )
 
@@ -947,7 +947,7 @@ class AmplifyAuthCognitoPluginTest {
                     "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
                     "attributeName" to "email"
                 ),
-                "additionalInfo" to "{}"
+                "additionalInfo" to emptyMap<String, String>()
             )
         )
 
@@ -993,7 +993,7 @@ class AmplifyAuthCognitoPluginTest {
                     "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
                     "attributeName" to "email"
                 ),
-                "additionalInfo" to "{}"
+                "additionalInfo" to emptyMap<String, String>()
             )
         )
 
@@ -1106,7 +1106,7 @@ class AmplifyAuthCognitoPluginTest {
                 "isUpdated" to true,
                 "nextStep" to mapOf(
                     "updateAttributeStep" to "CONFIRM_ATTRIBUTE_WITH_CODE",
-                    "additionalInfo" to "{}",
+                    "additionalInfo" to emptyMap<String, String>(),
                     "codeDeliveryDetails" to mapOf(
                         "destination" to "test@test.com",
                         "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
@@ -1118,7 +1118,7 @@ class AmplifyAuthCognitoPluginTest {
                 "isUpdated" to true,
                 "nextStep" to mapOf(
                     "updateAttributeStep" to "DONE",
-                    "additionalInfo" to "{}",
+                    "additionalInfo" to emptyMap<String, String>(),
                     "codeDeliveryDetails" to null
                 )
             )
@@ -1176,7 +1176,7 @@ class AmplifyAuthCognitoPluginTest {
                 "isUpdated" to true,
                 "nextStep" to mapOf(
                     "updateAttributeStep" to "CONFIRM_ATTRIBUTE_WITH_CODE",
-                    "additionalInfo" to "{}",
+                    "additionalInfo" to emptyMap<String, String>(),
                     "codeDeliveryDetails" to mapOf(
                         "destination" to "test@test.com",
                         "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
@@ -1188,7 +1188,7 @@ class AmplifyAuthCognitoPluginTest {
                 "isUpdated" to true,
                 "nextStep" to mapOf(
                     "updateAttributeStep" to "DONE",
-                    "additionalInfo" to "{}",
+                    "additionalInfo" to emptyMap<String, String>(),
                     "codeDeliveryDetails" to null
                 )
             )

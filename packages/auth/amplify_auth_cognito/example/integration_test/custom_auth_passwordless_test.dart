@@ -74,14 +74,11 @@ void main() {
         'an incorrect challenge reply should throw a NotAuthorizedException',
         (WidgetTester tester) async {
       await Amplify.Auth.signIn(username: username, password: null);
-      try {
-        // '123' is the arbitrary challenge answer defined in lambda code
-        await Amplify.Auth.confirmSignIn(confirmationValue: 'wrong');
-      } catch (e) {
-        expect(e, TypeMatcher<NotAuthorizedException>());
-        return;
-      }
-      fail('Expected NotAuthorizedException');
+      // '123' is the arbitrary challenge answer defined in lambda code
+      expect(
+        Amplify.Auth.confirmSignIn(confirmationValue: 'wrong'),
+        throwsA(isA<NotAuthorizedException>()),
+      );
     });
   });
 }

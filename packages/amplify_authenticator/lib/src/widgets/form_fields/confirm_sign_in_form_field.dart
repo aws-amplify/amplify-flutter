@@ -74,14 +74,20 @@ abstract class ConfirmSignInFormField<FieldValue>
       );
 
   /// Creates an auth answer component.
-  static ConfirmSignInFormField authChallengeAnswer({
+  static ConfirmSignInFormField customChallenge({
     Key? key,
+    String? title,
+    String? hintText,
     FormFieldValidator<String>? validator,
   }) =>
       _ConfirmSignInTextField(
-        key: key ?? keyCodeConfirmSignInFormField,
-        titleKey: InputResolverKey.customAuthChallengeTitle,
-        hintTextKey: InputResolverKey.customAuthChallengeHint,
+        key: key ?? keyCustomChallengeConfirmSignInFormField,
+        title: title,
+        hintText: hintText,
+        titleKey:
+            title == null ? InputResolverKey.customAuthChallengeTitle : null,
+        hintTextKey:
+            hintText == null ? InputResolverKey.customAuthChallengeHint : null,
         field: ConfirmSignInField.customChallenge,
         validator: validator,
       );
@@ -96,34 +102,6 @@ abstract class ConfirmSignInFormField<FieldValue>
         titleKey: InputResolverKey.verificationCodeTitle,
         hintTextKey: InputResolverKey.verificationCodeHint,
         field: ConfirmSignInField.code,
-        validator: validator,
-      );
-
-  /// Creates a customizable field for custom auth challenge answers
-  static ConfirmSignInFormField authChallengeCustom({
-    Key? key,
-    required String title,
-    required String hintText,
-    FormFieldValidator<String>? validator,
-  }) =>
-      _ConfirmSignInTextField(
-        key: key ?? keyCustomChallengeConfirmSignInFormField,
-        title: title,
-        hintText: hintText,
-        field: ConfirmSignInField.customChallenge,
-        validator: validator,
-      );
-
-  /// Creates a default field for custom auth challenge answers.
-  static ConfirmSignInFormField authChallengeDefault({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) =>
-      _ConfirmSignInTextField(
-        key: key ?? keyCustomChallengeConfirmSignInFormField,
-        titleKey: InputResolverKey.customAuthChallengeTitle,
-        hintTextKey: InputResolverKey.customAuthChallengeHint,
-        field: ConfirmSignInField.customChallenge,
         validator: validator,
       );
 

@@ -172,8 +172,9 @@ class StateMachineBloc {
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
           yield ConfirmSignInCustom(
-              publicParameters:
-                  result.nextStep?.additionalInfo ?? <dynamic, dynamic>{});
+            publicParameters:
+                result.nextStep?.additionalInfo ?? <String, String>{},
+          );
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
           yield UnauthenticatedState.confirmSignInNewPassword;
@@ -285,8 +286,9 @@ class StateMachineBloc {
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
           yield ConfirmSignInCustom(
-              publicParameters:
-                  result.nextStep?.additionalInfo ?? <dynamic, dynamic>{});
+            publicParameters:
+                result.nextStep?.additionalInfo ?? <String, String>{},
+          );
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
           yield UnauthenticatedState.confirmSignInNewPassword;

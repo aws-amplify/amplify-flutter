@@ -510,7 +510,7 @@ class ConfirmSignInCustomAuthForm extends AuthenticatorForm {
       : super._(
           key: key,
           fields: [
-            ConfirmSignInFormField.authChallengeDefault(),
+            ConfirmSignInFormField.customChallenge(),
           ],
           actions: const [
             ConfirmSignInCustomButton(),
