@@ -257,7 +257,7 @@ abstract class AuthenticatorInputLocalizations {
   ///
   /// In en, this message translates to:
   /// **'at least {numCharacters, plural, =1{1{characterType} character} other{{numCharacters}{characterType} characters}}'**
-  String passwordRequirementsAtLeast(num numCharacters, String characterType);
+  String passwordRequirementsAtLeast(int numCharacters, String characterType);
 
   /// Message for conflicting password and confirm password fields.
   ///
