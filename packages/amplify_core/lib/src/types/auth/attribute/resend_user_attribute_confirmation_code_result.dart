@@ -20,7 +20,7 @@ class ResendUserAttributeConfirmationCodeResult {
   /// Contains the delivery details of the confirmation code that was sent to the user.
   AuthCodeDeliveryDetails codeDeliveryDetails;
 
-  // ignore: public_member_api_docs
+  /// {@macro amplify_common.resend_user_attribute_confirmation_code_result}
   ResendUserAttributeConfirmationCodeResult(
       {required Map<String, dynamic> codeDeliveryDetails})
       : this.codeDeliveryDetails = AuthCodeDeliveryDetails(
