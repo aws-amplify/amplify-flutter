@@ -317,23 +317,6 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(false);
   }
 
-  /// Complete Custom Challenge using the values for [confirmationValue],
-  /// [rememberDevice], and any user attributes.
-  Future<void> confirmSignInCustom() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-    _setIsBusy(true);
-    var confirm = AuthConfirmSignInData(
-      confirmationValue: _confirmationCode.trim(),
-      attributes: authAttributes,
-    );
-
-    _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
-    await nextBlocEvent();
-    _setIsBusy(false);
-  }
-
   /// Complete the force password change with [newPassword]
   Future<void> confirmSignInNewPassword() async {
     if (!_formKey.currentState!.validate()) {

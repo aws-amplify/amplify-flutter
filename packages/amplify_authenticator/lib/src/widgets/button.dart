@@ -224,7 +224,7 @@ class ConfirmSignInCustomButton extends ConfirmSignInMFAButton {
 
   @override
   void onPressed(BuildContext context, AuthenticatorState state) =>
-      state.confirmSignInCustom();
+      state.confirmSignInCustomAuth();
 }
 
 /// {@category Prebuilt Widgets}
