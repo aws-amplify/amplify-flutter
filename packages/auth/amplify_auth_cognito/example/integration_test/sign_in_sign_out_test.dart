@@ -70,13 +70,10 @@ void main() {
     testWidgets(
         'should throw an NotAuthorizedException if a password is not provided and Custom Auth is not configured without SRP',
         (WidgetTester tester) async {
-      try {
-        await Amplify.Auth.signIn(username: username);
-      } catch (e) {
-        expect(e, isA<NotAuthorizedException>());
-        return;
-      }
-      fail('Expected NotAuthorizedException');
+      expect(
+        Amplify.Auth.signIn(username: username),
+        throwsA(isA<NotAuthorizedException>()),
+      );
     });
 
     testWidgets('should throw a UserNotFoundException with a non-existent user',

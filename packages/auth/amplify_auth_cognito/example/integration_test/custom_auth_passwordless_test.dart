@@ -29,13 +29,16 @@ void main() {
   late String password;
   group('custom auth passwordless signIn', () {
     setUp(() async {
+      await signOutUser();
+    });
+
+    setUpAll(() async {
       await configureAuth(
         additionalPlugins: [
           AmplifyAPI(),
         ],
         customAuth: true,
       );
-
       // create new user for each test
       username = generateUsername();
       password = generatePassword();
@@ -46,8 +49,6 @@ void main() {
         autoConfirm: true,
         verifyAttributes: true,
       );
-
-      await signOutUser();
     });
 
     testWidgets('signIn should return data from the auth challenge lambda',

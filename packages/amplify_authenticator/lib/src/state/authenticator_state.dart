@@ -140,15 +140,15 @@ class AuthenticatorState extends ChangeNotifier {
   /// The publicChallengeParameters received from the CreateAuthChallenge lambda during custom auth
   ///
   /// This value will be used during the custom auth challenge flow
-  set publicChallengeParams(Map<dynamic, dynamic> value) {
+  set publicChallengeParams(Map<String, String> value) {
     _publicChallengeParams = value;
     notifyListeners();
   }
 
-  Map<dynamic, dynamic> get publicChallengeParams => _publicChallengeParams;
+  Map<String, String> get publicChallengeParams => _publicChallengeParams;
 
   /// Public setter not needed, as _publicChallengeParams will only be set in current scope
-  Map<dynamic, dynamic> _publicChallengeParams = <dynamic, dynamic>{};
+  Map<String, String> _publicChallengeParams = <String, String>{};
 
   /// The value for the new password form field
   ///

@@ -397,8 +397,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res, method) {
     var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
-    var additionalInfo = res["nextStep"]["additionalInfo"] ?? null;
-
+    var additionalInfo = res["nextStep"]["additionalInfo"] != null
+        ? Map<String, String>.from(res["nextStep"]["additionalInfo"])
+        : null;
     return CognitoSignUpResult(
       isSignUpComplete: res["isSignUpComplete"],
       nextStep: AuthNextSignUpStep(
@@ -424,7 +425,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   SignInResult _formatSignInResponse(Map<String, dynamic> res, String method) {
     var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
-    var additionalInfo = res["nextStep"]["additionalInfo"] ?? null;
+    var additionalInfo = res["nextStep"]["additionalInfo"] != null
+        ? Map<String, String>.from(res["nextStep"]["additionalInfo"])
+        : null;
     return CognitoSignInResult(
       isSignedIn: res["isSignedIn"],
       nextStep: AuthNextSignInStep(
@@ -468,8 +471,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   ResetPasswordResult _formatResetPasswordResponse(Map<String, dynamic> res) {
     var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
-    var additionalInfo = res["nextStep"]["additionalInfo"] ?? null;
-
+    var additionalInfo = res["nextStep"]["additionalInfo"] != null
+        ? Map<String, String>.from(res["nextStep"]["additionalInfo"])
+        : null;
     return CognitoResetPasswordResult(
       isPasswordReset: res["isPasswordReset"],
       nextStep: ResetPasswordStep(
@@ -492,8 +496,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   UpdateUserAttributeResult _formatUpdateUserAttributeResponse(
       Map<String, dynamic> res) {
     var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
-    var additionalInfo = res["nextStep"]["additionalInfo"] ?? {};
-
+    var additionalInfo = res["nextStep"]["additionalInfo"] != null
+        ? Map<String, String>.from(res["nextStep"]["additionalInfo"])
+        : null;
     return UpdateUserAttributeResult(
       isUpdated: res["isUpdated"],
       nextStep: AuthNextUpdateAttributeStep(

@@ -17,9 +17,11 @@ import '../types/AuthNextStep.dart';
 
 class AuthNextSignUpStep extends AuthNextStep {
   String signUpStep;
-  AuthNextSignUpStep(
-      {additionalInfo, codeDeliveryDetails, required this.signUpStep})
-      : super(
+  AuthNextSignUpStep({
+    Map<String, String>? additionalInfo,
+    codeDeliveryDetails,
+    required this.signUpStep,
+  }) : super(
             additionalInfo: additionalInfo,
             codeDeliveryDetails: codeDeliveryDetails);
 }

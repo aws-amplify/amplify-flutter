@@ -240,6 +240,7 @@ class TermsAndConditionsCheckBox extends FormField<bool> {
             if (value != true) {
               return 'You must agree to the terms and conditions';
             }
+            return null;
           },
           initialValue: false,
           builder: (FormFieldState<bool> state) {

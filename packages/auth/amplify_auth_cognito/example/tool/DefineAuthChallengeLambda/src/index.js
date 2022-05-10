@@ -6,7 +6,6 @@ exports.handler = async (event) => {
   } else if (event.request.session.length == 2 && event.request.session[1].challengeName == 'CUSTOM_CHALLENGE' && event.request.session[1].challengeResult == true) {
       event.response.issueTokens = true;
       event.response.failAuthentication = false;
-      event.response.challengeName = 'CUSTOM_CHALLENGE';
   } else {
       event.response.issueTokens = false;
       event.response.failAuthentication = true;

@@ -530,7 +530,6 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case ConfirmSignInField.code:
-        return (v) => state.confirmationCode = v;
       case ConfirmSignInField.customChallenge:
         return (v) => state.confirmationCode = v;
       case ConfirmSignInField.newPassword:
