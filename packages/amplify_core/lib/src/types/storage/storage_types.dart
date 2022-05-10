@@ -32,9 +32,9 @@ export 'list/list_request.dart';
 export 'list/list_result.dart';
 
 /// Remove
-export 'remove/remove_Options.dart';
-export 'remove/remove_Request.dart';
-export 'remove/remove_Result.dart';
+export 'remove/remove_options.dart';
+export 'remove/remove_request.dart';
+export 'remove/remove_result.dart';
 
 /// Storage
 export 'storage/storage_access_level.dart';
