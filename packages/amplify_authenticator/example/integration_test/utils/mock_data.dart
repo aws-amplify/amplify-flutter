@@ -39,8 +39,8 @@ String generatePassword() =>
 /// See https://en.wikipedia.org/wiki/Fictitious_telephone_number#North_American_Numbering_Plan
 PhoneNumber generateUSPhoneNumber() => PhoneNumber(
       countryCode: '+1',
-      areaCode: '555',
-      phoneNumber: '01${randomPhoneDigits(2)}',
+      areaCode: '888',
+      phoneNumber: '555${randomPhoneDigits(4)}',
     );
 
 /// generates a fake french phone number using a reserved number in france

@@ -155,6 +155,10 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
   }
 
   void _updateUseEmail() {
+    // Clear attributes on switch
+    state.authAttributes.clear();
+
+    // Refresh state
     setState(() {});
   }
 
