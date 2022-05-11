@@ -75,3 +75,11 @@ class VerifyUserFlow extends UnauthenticatedState {
   const VerifyUserFlow({required this.unverifiedAttributeKeys})
       : super(step: AuthenticatorStep.verifyUser);
 }
+
+class ConfirmSignInCustom extends UnauthenticatedState {
+  final Map<String, String> publicParameters;
+
+  const ConfirmSignInCustom({
+    this.publicParameters = const <String, String>{},
+  }) : super(step: AuthenticatorStep.confirmSignInCustomAuth);
+}

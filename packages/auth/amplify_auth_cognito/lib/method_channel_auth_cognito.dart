@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
-
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
 import 'amplify_auth_cognito.dart';
@@ -399,19 +397,22 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res, method) {
     var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
+    var additionalInfo = res["nextStep"]["additionalInfo"] != null
+        ? Map<String, String>.from(res["nextStep"]["additionalInfo"])
+        : null;
     return CognitoSignUpResult(
-        isSignUpComplete: res["isSignUpComplete"],
-        nextStep: AuthNextSignUpStep(
-            signUpStep: res["nextStep"]["signUpStep"],
-            codeDeliveryDetails: codeDeliveryDetails != null
-                ? AuthCodeDeliveryDetails(
-                    attributeName: codeDeliveryDetails["attributeName"],
-                    deliveryMedium: codeDeliveryDetails["deliveryMedium"],
-                    destination: codeDeliveryDetails["destination"])
-                : null,
-            additionalInfo: res["nextStep"]["additionalInfo"] is String
-                ? jsonDecode(res["nextStep"]["additionalInfo"])
-                : null));
+      isSignUpComplete: res["isSignUpComplete"],
+      nextStep: AuthNextSignUpStep(
+        signUpStep: res["nextStep"]["signUpStep"],
+        codeDeliveryDetails: codeDeliveryDetails != null
+            ? AuthCodeDeliveryDetails(
+                attributeName: codeDeliveryDetails["attributeName"],
+                deliveryMedium: codeDeliveryDetails["deliveryMedium"],
+                destination: codeDeliveryDetails["destination"])
+            : null,
+        additionalInfo: additionalInfo,
+      ),
+    );
   }
 
   ResendSignUpCodeResult _formatResendSignUpResponse(
@@ -424,19 +425,22 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   SignInResult _formatSignInResponse(Map<String, dynamic> res, String method) {
     var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
+    var additionalInfo = res["nextStep"]["additionalInfo"] != null
+        ? Map<String, String>.from(res["nextStep"]["additionalInfo"])
+        : null;
     return CognitoSignInResult(
-        isSignedIn: res["isSignedIn"],
-        nextStep: AuthNextSignInStep(
-            signInStep: res["nextStep"]["signInStep"],
-            codeDeliveryDetails: codeDeliveryDetails != null
-                ? AuthCodeDeliveryDetails(
-                    attributeName: codeDeliveryDetails["attributeName"],
-                    deliveryMedium: codeDeliveryDetails["deliveryMedium"],
-                    destination: codeDeliveryDetails["destination"])
-                : null,
-            additionalInfo: res["nextStep"]["additionalInfo"] is String
-                ? jsonDecode(res["nextStep"]["additionalInfo"])
-                : null));
+      isSignedIn: res["isSignedIn"],
+      nextStep: AuthNextSignInStep(
+        signInStep: res["nextStep"]["signInStep"],
+        codeDeliveryDetails: codeDeliveryDetails != null
+            ? AuthCodeDeliveryDetails(
+                attributeName: codeDeliveryDetails["attributeName"],
+                deliveryMedium: codeDeliveryDetails["deliveryMedium"],
+                destination: codeDeliveryDetails["destination"])
+            : null,
+        additionalInfo: additionalInfo,
+      ),
+    );
   }
 
   UpdatePasswordResult _formatPasswordResponse(Map<String, dynamic> res) {
@@ -467,20 +471,22 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   ResetPasswordResult _formatResetPasswordResponse(Map<String, dynamic> res) {
     var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
+    var additionalInfo = res["nextStep"]["additionalInfo"] != null
+        ? Map<String, String>.from(res["nextStep"]["additionalInfo"])
+        : null;
     return CognitoResetPasswordResult(
-        isPasswordReset: res["isPasswordReset"],
-        nextStep: ResetPasswordStep(
-            updateStep: res["nextStep"]["resetPasswordStep"],
-            codeDeliveryDetails: codeDeliveryDetails != null
-                ? AuthCodeDeliveryDetails(
-                    attributeName: codeDeliveryDetails["attributeName"] ?? null,
-                    deliveryMedium:
-                        codeDeliveryDetails["deliveryMedium"] ?? null,
-                    destination: codeDeliveryDetails["destination"])
-                : null,
-            additionalInfo: res["nextStep"]["additionalInfo"] is String
-                ? jsonDecode(res["nextStep"]["additionalInfo"])
-                : null));
+      isPasswordReset: res["isPasswordReset"],
+      nextStep: ResetPasswordStep(
+        updateStep: res["nextStep"]["resetPasswordStep"],
+        codeDeliveryDetails: codeDeliveryDetails != null
+            ? AuthCodeDeliveryDetails(
+                attributeName: codeDeliveryDetails["attributeName"] ?? null,
+                deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? null,
+                destination: codeDeliveryDetails["destination"])
+            : null,
+        additionalInfo: additionalInfo,
+      ),
+    );
   }
 
   AuthSession _formatSessionResponse(Map<String, dynamic> res) {
@@ -490,20 +496,22 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   UpdateUserAttributeResult _formatUpdateUserAttributeResponse(
       Map<String, dynamic> res) {
     var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
+    var additionalInfo = res["nextStep"]["additionalInfo"] != null
+        ? Map<String, String>.from(res["nextStep"]["additionalInfo"])
+        : null;
     return UpdateUserAttributeResult(
-        isUpdated: res["isUpdated"],
-        nextStep: AuthNextUpdateAttributeStep(
-            updateAttributeStep: res["nextStep"]["updateAttributeStep"],
-            codeDeliveryDetails: codeDeliveryDetails != null
-                ? AuthCodeDeliveryDetails(
-                    attributeName: codeDeliveryDetails["attributeName"] ?? null,
-                    deliveryMedium:
-                        codeDeliveryDetails["deliveryMedium"] ?? null,
-                    destination: codeDeliveryDetails["destination"])
-                : null,
-            additionalInfo: res["nextStep"]["additionalInfo"] is String
-                ? jsonDecode(res["nextStep"]["additionalInfo"])
-                : {}));
+      isUpdated: res["isUpdated"],
+      nextStep: AuthNextUpdateAttributeStep(
+        updateAttributeStep: res["nextStep"]["updateAttributeStep"],
+        codeDeliveryDetails: codeDeliveryDetails != null
+            ? AuthCodeDeliveryDetails(
+                attributeName: codeDeliveryDetails["attributeName"] ?? null,
+                deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? null,
+                destination: codeDeliveryDetails["destination"])
+            : null,
+        additionalInfo: additionalInfo,
+      ),
+    );
   }
 
   Map<UserAttributeKey, UpdateUserAttributeResult>

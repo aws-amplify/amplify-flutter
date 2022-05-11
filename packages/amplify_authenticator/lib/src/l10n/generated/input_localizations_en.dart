@@ -150,4 +150,7 @@ class AuthenticatorInputLocalizationsEn
   String optional(String fieldTitle) {
     return '$fieldTitle (optional)';
   }
+
+  @override
+  String get customChallenge => 'Confirmation Code';
 }

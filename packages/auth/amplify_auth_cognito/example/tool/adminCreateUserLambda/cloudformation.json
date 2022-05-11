@@ -18,9 +18,9 @@
       "stackId": {
         "Type": "String"
       },
-      "authauthintegrationtestUserPoolId": {
+      "userpoolId": {
         "Type": "String",
-        "Default": "authauthintegrationtestUserPoolId"
+        "Default": "userpoolId"
       }
     },
     "Conditions": {
@@ -54,7 +54,7 @@
             "Fn::Join": [
               "",
               [
-                "amplifyintegrationtestAdminCreateUser",
+                "AdminCreateUser",
                 "-",
                 {
                   "Ref": "env"
@@ -70,8 +70,8 @@
               "REGION": {
                 "Ref": "AWS::Region"
               },
-              "AUTH_USERPOOLID": {
-                "Ref": "authauthintegrationtestUserPoolId"
+              "USERPOOL_ID": {
+                "Ref": "userpoolId"
               }
             }
           },
@@ -215,7 +215,7 @@
                         },
                         ":userpool/",
                         {
-                          "Ref": "authauthintegrationtestUserPoolId"
+                          "Ref": "userpoolId"
                         }
                       ]
                     ]

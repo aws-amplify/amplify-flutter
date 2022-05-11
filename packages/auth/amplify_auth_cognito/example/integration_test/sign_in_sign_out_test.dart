@@ -67,6 +67,15 @@ void main() {
       fail('Expected NotAuthorizedException');
     });
 
+    testWidgets(
+        'should throw an NotAuthorizedException if a password is not provided and Custom Auth is not configured without SRP',
+        (WidgetTester tester) async {
+      expect(
+        Amplify.Auth.signIn(username: username),
+        throwsA(isA<NotAuthorizedException>()),
+      );
+    });
+
     testWidgets('should throw a UserNotFoundException with a non-existent user',
         (WidgetTester tester) async {
       final incorrectUsername = generateUsername();
@@ -101,6 +110,13 @@ void main() {
     });
 
     testWidgets('should sign a user out', (WidgetTester tester) async {
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
+
       // Ensure signed in before testing signOut.
       await Amplify.Auth.signIn(username: username, password: password);
       final authSession = await Amplify.Auth.fetchAuthSession();

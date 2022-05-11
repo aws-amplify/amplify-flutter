@@ -44,6 +44,14 @@ class AuthenticatorState extends ChangeNotifier {
         _resetAttributes();
       }
     });
+
+    // Always listen for ConfirmSignInCustom events (not distinct)
+    _authBloc.stream.listen((event) {
+      if (event is ConfirmSignInCustom) {
+        _resetFormKey();
+        publicChallengeParams = event.publicParameters;
+      }
+    });
   }
 
   GlobalKey<FormState> _formKey = GlobalKey();
@@ -128,6 +136,19 @@ class AuthenticatorState extends ChangeNotifier {
   }
 
   String _confirmationCode = '';
+
+  /// The publicChallengeParameters received from the CreateAuthChallenge lambda during custom auth
+  ///
+  /// This value will be used during the custom auth challenge flow
+  set publicChallengeParams(Map<String, String> value) {
+    _publicChallengeParams = value;
+    notifyListeners();
+  }
+
+  Map<String, String> get publicChallengeParams => _publicChallengeParams;
+
+  /// Public setter not needed, as _publicChallengeParams will only be set in current scope
+  Map<String, String> _publicChallengeParams = <String, String>{};
 
   /// The value for the new password form field
   ///
@@ -260,6 +281,23 @@ class AuthenticatorState extends ChangeNotifier {
   set attributeKeyToVerify(CognitoUserAttributeKey attributeKey) {
     _attributeKeyToVerify = attributeKey;
     notifyListeners();
+  }
+
+  /// Complete custom auth form using the values for [confirmationCode],
+  /// [rememberDevice], and any user attributes.
+  Future<void> confirmSignInCustomAuth() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    _setIsBusy(true);
+    var confirm = AuthConfirmSignInData(
+      confirmationValue: _confirmationCode.trim(),
+      attributes: authAttributes,
+    );
+
+    _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
+    await nextBlocEvent();
+    _setIsBusy(false);
   }
 
   /// Complete MFA using the values for [confirmationCode],
@@ -461,6 +499,12 @@ class AuthenticatorState extends ChangeNotifier {
     _resetAttributes();
   }
 
+  /// Reset the authentication flow if initiated
+  void abortSignIn() {
+    _resetAttributes();
+    _authBloc.add(const AuthSignOut());
+  }
+
   void _resetAttributes() {
     _username = '';
     _password = '';
@@ -468,6 +512,7 @@ class AuthenticatorState extends ChangeNotifier {
     _confirmationCode = '';
     _newPassword = '';
     authAttributes.clear();
+    _publicChallengeParams.clear();
   }
 
   void _resetFormKey() {

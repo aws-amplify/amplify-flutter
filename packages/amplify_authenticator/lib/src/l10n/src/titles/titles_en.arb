@@ -17,6 +17,10 @@
     "@confirmSignInMfa": {
         "description": "Title of the Confirm Sign In with MFA step and form"
     },
+    "confirmSignInCustomAuth": "Enter your sign in code",
+    "@confirmSignInCustomAuth": {
+        "description": "Title of the Confirm Sign In with Custom Auth step and form"
+    },
     "confirmSignInNewPassword": "Change your password to sign in",
     "@confirmSignInNewPassword": {
         "description": "Title of the Confirm Sign In with New Password step and form"

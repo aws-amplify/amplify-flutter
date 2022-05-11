@@ -73,6 +73,25 @@ abstract class ConfirmSignInFormField<FieldValue>
         validator: validator,
       );
 
+  /// Creates an auth answer component.
+  static ConfirmSignInFormField customChallenge({
+    Key? key,
+    String? title,
+    String? hintText,
+    FormFieldValidator<String>? validator,
+  }) =>
+      _ConfirmSignInTextField(
+        key: key ?? keyCustomChallengeConfirmSignInFormField,
+        title: title,
+        hintText: hintText,
+        titleKey:
+            title == null ? InputResolverKey.customAuthChallengeTitle : null,
+        hintTextKey:
+            hintText == null ? InputResolverKey.customAuthChallengeHint : null,
+        field: ConfirmSignInField.customChallenge,
+        validator: validator,
+      );
+
   /// Creates a verification code component.
   static ConfirmSignInFormField verificationCode({
     Key? key,
@@ -281,6 +300,7 @@ abstract class ConfirmSignInFormField<FieldValue>
       case ConfirmSignInField.confirmNewPassword:
         return 99;
       case ConfirmSignInField.code:
+      case ConfirmSignInField.customChallenge:
         return 10;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -302,6 +322,7 @@ abstract class ConfirmSignInFormField<FieldValue>
   bool get required {
     switch (field) {
       case ConfirmSignInField.code:
+      case ConfirmSignInField.customChallenge:
       case ConfirmSignInField.newPassword:
       case ConfirmSignInField.confirmNewPassword:
         return true;
@@ -509,6 +530,7 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case ConfirmSignInField.code:
+      case ConfirmSignInField.customChallenge:
         return (v) => state.confirmationCode = v;
       case ConfirmSignInField.newPassword:
         return (v) => state.newPassword = v;

@@ -86,5 +86,9 @@
     "selectDialCode": "Select country",
     "@selectDialCode": {
         "description": "Label of the dial code selector modal"
+    },
+    "confirmSignInCustomAuth": "Custom Login Challenge",
+    "@confirmSignInCustomAuth": {
+        "description": "Label of the custom auth confirm sign in form"
     }
 }

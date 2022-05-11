@@ -62,6 +62,7 @@ import 'package:flutter/material.dart';
 /// - [SignInForm]
 /// - [ConfirmSignUpForm]
 /// - [ConfirmSignInMFAForm]
+/// - [ConfirmSignInCustomAuthForm]
 /// - [ConfirmSignInNewPasswordForm]
 /// - [ResetPasswordForm]
 /// - [ConfirmResetPasswordForm]
@@ -497,6 +498,31 @@ class ConfirmSignUpForm extends AuthenticatorForm {
   @override
   AuthenticatorFormState<ConfirmSignUpForm> createState() =>
       AuthenticatorFormState<ConfirmSignUpForm>();
+}
+
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_sign_in_custom_auth_form}
+/// A prebuilt form for completing the sign in process with a Custom Auth Flow.
+/// {@endtemplate}
+class ConfirmSignInCustomAuthForm extends AuthenticatorForm {
+  /// {@macro amplify_authenticator.confirm_sign_in_custom_auth_form}
+  ConfirmSignInCustomAuthForm({Key? key})
+      : super._(
+          key: key,
+          fields: [
+            ConfirmSignInFormField.customChallenge(),
+          ],
+          actions: const [
+            ConfirmSignInCustomButton(),
+            BackToSignInButton(
+              abortSignIn: true,
+            ),
+          ],
+        );
+
+  @override
+  AuthenticatorFormState<ConfirmSignInCustomAuthForm> createState() =>
+      AuthenticatorFormState<ConfirmSignInCustomAuthForm>();
 }
 
 /// {@category Prebuilt Widgets}
