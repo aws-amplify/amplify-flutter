@@ -25,7 +25,7 @@ dev_dependencies:
   amplify_lints: ^1.0.0
   flutter_test:
     sdk: flutter
-  mocktail: ^0.2.0
+  mocktail: ">=0.2.0 <0.4.0"
   path: any
 
 # For information on the generic Dart part of this file, see the
