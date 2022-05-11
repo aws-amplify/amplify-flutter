@@ -19,10 +19,6 @@ import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:aws_signature_v4/src/version.dart';
 import 'package:meta/meta.dart';
 
-/// Zone flag to change inclusion of user agent header.
-@visibleForTesting
-const zIncludeUserAgent = #_includeUserAgent;
-
 /// {@template aws_signature_v4.service_configuration}
 /// A description of an [AWSSigV4Signer] configuration.
 /// {@endtemplate}
@@ -42,14 +38,27 @@ abstract class ServiceConfiguration {
   const ServiceConfiguration._({
     bool? normalizePath,
     bool? omitSessionToken,
+    bool? doubleEncodePathSegments,
   })  : normalizePath = normalizePath ?? true,
-        omitSessionToken = omitSessionToken ?? false;
+        omitSessionToken = omitSessionToken ?? false,
+        doubleEncodePathSegments = doubleEncodePathSegments ?? true;
 
   /// Whether to normalize paths in the canonical request.
+  ///
+  /// Defaults to `true`.
   final bool normalizePath;
 
   /// Whether to omit the session token during signing.
+  ///
+  /// Defaults to `false`.
   final bool omitSessionToken;
+
+  /// Whether path segments should be encoded twice.
+  ///
+  /// If `false`, path segments are only encoded once.
+  ///
+  /// Defaults to `true`.
+  final bool doubleEncodePathSegments;
 
   /// Applies service-specific keys to [headers] for signed header requests.
   @mustCallSuper
@@ -106,9 +115,11 @@ class BaseServiceConfiguration extends ServiceConfiguration {
   const BaseServiceConfiguration({
     bool? normalizePath,
     bool? omitSessionToken,
+    bool? doubleEncodePathSegments,
   }) : super._(
           normalizePath: normalizePath,
           omitSessionToken: omitSessionToken,
+          doubleEncodePathSegments: doubleEncodePathSegments,
         );
 
   @override
@@ -131,8 +142,9 @@ class BaseServiceConfiguration extends ServiceConfiguration {
     });
 
     // Add user agent header
-    if (Zone.current[zIncludeUserAgent] ?? true) {
-      const userAgent = 'aws-sigv4-dart/$packageVersion';
+    final isSigningTest = Zone.current[zSigningTest] as bool? ?? false;
+    if (!isSigningTest) {
+      const userAgent = 'aws-sdk-dart/$packageVersion';
       headers.update(
         zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent,
         (value) => '$value $userAgent',

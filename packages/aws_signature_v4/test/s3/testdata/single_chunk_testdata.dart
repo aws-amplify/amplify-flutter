@@ -20,7 +20,10 @@ import '../../c_test_suite/test_data.dart';
 
 import 'util.dart';
 
-final serviceConfiguration = S3ServiceConfiguration();
+final serviceConfiguration = S3ServiceConfiguration(
+  signPayload: true,
+  chunked: false,
+);
 
 final testCases = <SignerTest>[
   getObjectTest,

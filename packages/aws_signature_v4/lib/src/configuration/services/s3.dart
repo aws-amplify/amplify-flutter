@@ -50,8 +50,12 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
   // 64 KB is the recommended chunk size.
   static const int _defaultChunkSize = 64 * 1024;
 
-  static const _chunkedPayloadSeedHash = 'STREAMING-AWS4-HMAC-SHA256-PAYLOAD';
-  static const _unsignedChunkedPayloadSeedHash = 'UNSIGNED-PAYLOAD';
+  /// The seed hash used for chunked requests.
+  static const chunkedPayloadSeedHash = 'STREAMING-AWS4-HMAC-SHA256-PAYLOAD';
+
+  /// The hash sent for unsigned payloads.
+  static const unsignedPayloadHash = 'UNSIGNED-PAYLOAD';
+
   static final _sigSep = Uint8List.fromList(';chunk-signature='.codeUnits);
   static final _sep = Uint8List.fromList('\r\n'.codeUnits);
 
@@ -70,16 +74,21 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
   /// {@macro aws_signature_v4.s3_service_configuration}
   S3ServiceConfiguration({
     this.signPayload = true,
-    this.chunked = false,
+    this.chunked = true,
     int chunkSize = _defaultChunkSize,
     this.encoding = S3PayloadEncoding.none,
-  })  : chunkSize = max(chunkSize, _minChunkSize),
+  })  : assert(
+          signPayload || !chunked,
+          'S3 does not accept unsigned, chunked payloads',
+        ),
+        chunkSize = max(chunkSize, _minChunkSize),
         super(
-          normalizePath: true,
+          normalizePath: false,
           omitSessionToken: false,
+          doubleEncodePathSegments: false,
         );
 
-  int _calculateContentLength(AWSBaseHttpRequest request, int decodedLength) {
+  int _calculateContentLength(int decodedLength) {
     var chunkedLength = 0;
     var metadataLength = 0;
     var numChunks = (decodedLength / chunkSize).ceil() + 1;
@@ -119,10 +128,8 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
 
       if (encoding == S3PayloadEncoding.none) {
         headers[AWSHeaders.contentEncoding] = 'aws-chunked';
-        headers[AWSHeaders.contentLength] = _calculateContentLength(
-          request,
-          contentLength,
-        ).toString();
+        headers[AWSHeaders.contentLength] =
+            _calculateContentLength(contentLength).toString();
       } else {
         headers[AWSHeaders.contentEncoding] = 'aws-chunked,${encoding.value}';
       }
@@ -131,7 +138,7 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     if (signPayload) {
       headers[AWSHeaders.contentSHA256] = payloadHash;
     } else {
-      headers[AWSHeaders.contentSHA256] = 'UNSIGNED-PAYLOAD';
+      headers[AWSHeaders.contentSHA256] = unsignedPayloadHash;
     }
   }
 
@@ -140,10 +147,11 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     AWSBaseHttpRequest request, {
     required bool presignedUrl,
   }) async {
-    if (chunked || presignedUrl) {
-      return hashPayloadSync(request, presignedUrl: presignedUrl);
+    // Only unchunked, signed requests are hashed as other services would be.
+    if (signPayload && !chunked) {
+      return super.hashPayload(request, presignedUrl: presignedUrl);
     }
-    return super.hashPayload(request, presignedUrl: presignedUrl);
+    return hashPayloadSync(request, presignedUrl: presignedUrl);
   }
 
   @override
@@ -151,14 +159,11 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     AWSBaseHttpRequest request, {
     required bool presignedUrl,
   }) {
-    if (presignedUrl) {
-      return _unsignedChunkedPayloadSeedHash;
+    if (presignedUrl || !signPayload) {
+      return unsignedPayloadHash;
     }
     if (chunked) {
-      if (signPayload) {
-        return _chunkedPayloadSeedHash;
-      }
-      return _unsignedChunkedPayloadSeedHash;
+      return chunkedPayloadSeedHash;
     }
     return super.hashPayloadSync(request, presignedUrl: presignedUrl);
   }

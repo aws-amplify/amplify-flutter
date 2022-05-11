@@ -20,14 +20,14 @@ import 'package:http/http.dart';
 import 'package:http/testing.dart';
 import 'package:test/test.dart';
 
-const _dummyCredentials = AWSCredentials('accessKeyId', 'secretAccessKey');
+import 'common.dart';
 
 void main() {
   final uri = Uri.parse('https://example.com');
 
   group('AWSStreamedHttpRequest', () {
     const signer = AWSSigV4Signer(
-      credentialsProvider: AWSCredentialsProvider(_dummyCredentials),
+      credentialsProvider: AWSCredentialsProvider(dummyCredentials),
     );
     final mockClient = MockHttpClient();
     Stream<List<int>> makeBody() => Stream.fromIterable([

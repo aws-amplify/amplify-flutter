@@ -27,7 +27,7 @@ void main() {
       for (var signerTest in testCases) {
         test(signerTest.name, () {
           runZoned(signerTest.run, zoneValues: {
-            zIncludeUserAgent: false,
+            zSigningTest: true,
           });
         });
       }

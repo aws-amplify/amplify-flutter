@@ -38,7 +38,7 @@ Future<void> main() async {
           SignerTest.fromJson((jsonDecode(testCaseJson) as Map).cast());
       safePrint('Running test: ${signerTest.name}');
       await runZoned(signerTest.run, zoneValues: {
-        zIncludeUserAgent: false,
+        zSigningTest: true,
       });
     }
   });
