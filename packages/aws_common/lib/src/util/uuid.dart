@@ -12,26 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Common types and utilities used across AWS and Amplify packages.
-library aws_common;
+import 'package:uuid/uuid.dart';
+import 'package:uuid/uuid_util.dart';
 
-// Collection
-export 'src/collection/case_insensitive.dart';
-
-// Config
-export 'src/config/aws_service.dart';
-
-// HTTP
-export 'src/http/aws_headers.dart';
-export 'src/http/aws_http_method.dart';
-export 'src/http/aws_http_request.dart';
-export 'src/http/aws_http_response.dart';
-
-// Utils
-export 'src/util/closeable.dart';
-export 'src/util/debug.dart';
-export 'src/util/equatable.dart';
-export 'src/util/json.dart';
-export 'src/util/print.dart';
-export 'src/util/serializable.dart';
-export 'src/util/uuid.dart';
+/// Generates a crypto-secure UUID (v4).
+String uuid() => const Uuid().v4(
+      // Use the crypto-secure RNG per `package:uuid` docs:
+      // https://github.com/Daegalus/dart-uuid/blob/d7bc930942afc752edd0fd15f8bf8234d81dfeda/example/example.dart#L21
+      options: const <String, Object>{
+        'rng': UuidUtil.cryptoRNG,
+      },
+    );
