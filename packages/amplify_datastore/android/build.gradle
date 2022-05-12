@@ -69,8 +69,8 @@ android {
 }
 
 dependencies {
-    implementation "com.amplifyframework:aws-datastore:1.35.1"
-    implementation "com.amplifyframework:aws-api-appsync:1.35.1"
+    implementation "com.amplifyframework:aws-datastore:1.35.3"
+    implementation "com.amplifyframework:aws-api-appsync:1.35.3"
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.10.0'
