@@ -1,0 +1,8 @@
+# melos_managed_dependency_overrides: amplify_lints,aws_common,aws_signature_v4
+dependency_overrides:
+  amplify_lints:
+    path: ../../amplify_lints
+  aws_common:
+    path: ../../aws_common
+  aws_signature_v4:
+    path: ..
