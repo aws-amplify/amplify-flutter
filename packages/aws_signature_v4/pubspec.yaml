@@ -18,10 +18,6 @@ dependencies:
   meta: ^1.0.0
   path: ^1.8.0
 
-dependency_overrides:
-  aws_common:
-    path: ../aws_common
-
 dev_dependencies:
   amplify_lints: ^1.0.0
   args: ^2.2.0

@@ -23,31 +23,6 @@ dependencies:
   meta: ^1.7.0
   plugin_platform_interface: ^2.0.0
 
-## Uncomment to run `flutter pub run build_runner` (cannot use Melos).
-# dependency_overrides:
-#   amplify_analytics_pinpoint:
-#     path: ../amplify_analytics_pinpoint
-#   amplify_analytics_plugin_interface:
-#     path: ../amplify_analytics_plugin_interface
-#   amplify_api:
-#     path: ../amplify_api
-#   amplify_api_plugin_interface:
-#     path: ../amplify_api_plugin_interface
-#   amplify_auth_cognito:
-#     path: ../amplify_auth_cognito
-#   amplify_auth_plugin_interface:
-#     path: ../amplify_auth_plugin_interface
-#   amplify_core:
-#     path: ../amplify_core
-#   amplify_datastore:
-#     path: ../amplify_datastore
-#   amplify_datastore_plugin_interface:
-#     path: ../amplify_datastore_plugin_interface
-#   amplify_storage_plugin_interface:
-#     path: ../amplify_storage_plugin_interface
-#   amplify_storage_s3:
-#     path: ../amplify_storage_s3
-
 dev_dependencies:
   amplify_analytics_pinpoint: 0.4.3
   amplify_api: 0.4.3

@@ -9,6 +9,10 @@ packages:
 ignore:
   - synthetic_package
 
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
 scripts:
   setup_tuneup: >
     flutter pub global activate tuneup
@@ -348,8 +352,8 @@ scripts:
     description: Run "pod repo update" and then updates amplify related pods. Intended for use after amplify iOS version has been updated.
 
   postbootstrap: |
-    melos run copy_dummy_config && \
-    melos run packages:fix
+    melos run copy_dummy_config
+
   postclean: >
     melos exec -- \
       rm -rf ./build ./android/.gradle ./ios/.symlinks ./ios/Pods ./ios/Podfile.lock

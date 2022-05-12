@@ -5,6 +5,7 @@ build/
 **/ios/.symlinks/
 **/android/.settings/
 pubspec.lock
+pubspec_overrides.yaml
 Podfile.lock
 *.iml
 *.jar
@@ -18,7 +19,6 @@ Podfile.lock
 
 # IDEs
 .idea/
-.vscode/
 .atom/
 .idea/
 

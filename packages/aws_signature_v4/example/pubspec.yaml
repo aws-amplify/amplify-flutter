@@ -14,10 +14,6 @@ dependencies:
   http: ^0.13.0
   path: ^1.8.0
 
-dependency_overrides:
-  aws_common:
-    path: ../../aws_common
-
 dev_dependencies:
   amplify_lints: ^1.0.0
   build_runner: ^2.0.0
