@@ -12,6 +12,7 @@ ignore:
 command:
   bootstrap:
     usePubspecOverrides: true
+    runPubGetInParallel: false
 
 scripts:
   setup_tuneup: >

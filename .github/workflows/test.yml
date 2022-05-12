@@ -1,4 +1,4 @@
-# Created with package:mono_repo v6.2.1
+# Created with package:mono_repo v6.2.2
 name: Test
 on:
   push:
@@ -33,7 +33,7 @@ jobs:
         with:
           sdk: "2.15.0"
       - id: checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3
       - id: packages_aws_common_pub_upgrade
         name: packages/aws_common; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -65,7 +65,7 @@ jobs:
         with:
           sdk: "2.15.0"
       - id: checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -97,7 +97,7 @@ jobs:
         with:
           sdk: "2.15.0"
       - id: checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -133,7 +133,7 @@ jobs:
         with:
           sdk: dev
       - id: checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3
       - id: packages_aws_common_pub_upgrade
         name: packages/aws_common; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -165,7 +165,7 @@ jobs:
         with:
           sdk: dev
       - id: checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -197,7 +197,7 @@ jobs:
         with:
           sdk: dev
       - id: checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -233,7 +233,7 @@ jobs:
         with:
           sdk: stable
       - id: checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3
       - id: packages_aws_common_pub_upgrade
         name: packages/aws_common; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -265,7 +265,7 @@ jobs:
         with:
           sdk: stable
       - id: checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -297,7 +297,7 @@ jobs:
         with:
           sdk: stable
       - id: checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
