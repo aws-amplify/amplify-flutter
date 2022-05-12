@@ -525,7 +525,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                                     latch.countDown()
                                 }
 
-                                override fun error(code: String?, msg: String?, details: Any?) {
+                                override fun error(code: String, msg: String?, details: Any?) {
                                     LOG.error("Failed to resolve query predicate. Reverting to original query predicate.")
                                     latch.countDown()
                                 }
@@ -751,7 +751,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                                 }
                             }
 
-                            override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
+                            override fun error(errorCode: String, errorMessage: String?, errorDetails: Any?) {
                                 LOG.error("Error in conflict handler: $errorCode $errorMessage Applying default conflict resolution, applyRemote.")
                                 onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
                             }
