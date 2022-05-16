@@ -2,6 +2,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_request_factory.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 enum Size { SMALL, MEDIUM, LARGE }
@@ -217,7 +218,7 @@ void main() {
       // expect this predicate to translate as follows.
       final queryPredicate = Post.TITLE.eq(Size.MEDIUM);
       final expectedFilter = {
-        'title': {'eq': 'MEDIUM'}
+        'title': {'eq': describeEnum(Size.MEDIUM)}
       };
 
       _testQueryPredicateTranslation(queryPredicate, expectedFilter,
