@@ -46,9 +46,6 @@
 - chore(aws): Bump min SDK version (#1551)
 - chore: Lint fixes (#1471)
 - chore(authenticator): Fix failing integration tests (#1545)
-- chore(aws_signature_v4): Update README (#1559)
-- chore(aws_signature_v4): Update user agent header name (#1561)
-- chore(aws_common): Crypto-secure UUID (#1573)
 - chore: enable dependabot (#1568)
 - chore: Flutter 3 fixes (#1580)
 
