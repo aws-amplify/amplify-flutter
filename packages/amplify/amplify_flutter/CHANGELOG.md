@@ -15,7 +15,7 @@
 
   - Ensure that you are only invoking the `Auth.deleteUser` API when you want the user to be deleted, and do not rely on library to throw an exception on the Android platform.
 
-  - Pass null to the Auth.signIn API only for passwordless login, using Cognito Custom Auth flows.
+  - Pass null to the `Auth.signIn` API only for passwordless login, using Cognito Custom Auth flows.
 
 ### Features
 
