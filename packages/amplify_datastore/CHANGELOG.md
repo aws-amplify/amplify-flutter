@@ -19,7 +19,8 @@
 - chore: replace 0.4.2-1 with 0.4.3 due to melos limitation (#1496)
 - chore: Lint fixes (#1471)
 - chore: Flutter 3 fixes (#1580)
-- chore: bump amplify-android version to 1.35.3 #1586
+- chore: bump amplify-android version to 1.35.3 (#1586)
+- chore: downgrade amplify-android to 1.33.0 (#1591)
 
 ## 0.4.5 (2022-04-13)
 

@@ -51,7 +51,6 @@
 - chore(aws_common): Crypto-secure UUID (#1573)
 - chore: enable dependabot (#1568)
 - chore: Flutter 3 fixes (#1580)
-- chore: bump amplify-android version to 1.35.3 #1586
 
 ## 0.4.5 (2022-04-13)
 
