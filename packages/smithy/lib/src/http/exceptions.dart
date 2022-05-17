@@ -40,6 +40,9 @@ class _UnknownSmithyHttpException extends SmithyHttpException {
 
   @override
   ShapeId? get shapeId => null;
+
+  @override
+  Exception? get underlyingException => null;
 }
 
 class MissingLabelException<T> implements Exception {
