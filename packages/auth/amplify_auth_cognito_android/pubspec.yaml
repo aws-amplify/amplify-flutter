@@ -1,6 +1,6 @@
 name: amplify_auth_cognito_android
 description: The method channel implementation for amplify_auth_cognito on Android
-version: 0.4.5
+version: 0.5.0
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/auth/amplify_auth_cognito_android
 
 environment:
@@ -13,9 +13,9 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ^1.0.0
+  flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
 
 flutter:
   plugin:

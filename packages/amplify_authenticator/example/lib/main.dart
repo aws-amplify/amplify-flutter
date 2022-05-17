@@ -1,9 +1,12 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator_example/customization/authenticator_with_custom_auth_flow.dart';
 import 'package:amplify_authenticator_example/customization/authenticator_with_custom_layout.dart';
 import 'package:amplify_authenticator_example/customization/authenticator_with_onboarding.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_button_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_country_resolver.dart';
+import 'package:amplify_authenticator_example/resolvers/localized_input_resolver.dart';
+import 'package:amplify_authenticator_example/resolvers/localized_title_resolver.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -71,6 +74,8 @@ class _MyAppState extends State<MyApp> {
     const stringResolver = AuthStringResolver(
       buttons: LocalizedButtonResolver(),
       countries: LocalizedCountryResolver(),
+      titles: LocalizedTitleResolver(),
+      inputs: LocalizedInputResolver(),
     );
 
     // We wrap our MaterialApp in an Authenticator component. This component
@@ -191,6 +196,12 @@ class _MyAppState extends State<MyApp> {
   // @override
   // Widget build(BuildContext context) {
   //   return const AuthenticatorWithOnboarding();
+  // }
+
+  // Below is yet another example of a custom authenticator, with a widget to support Cognito's Custom Auth flow
+  // @override
+  // Widget build(BuildContext context) {
+  //   return const AuthenticatorWithCustomAuthFlow();
   // }
 }
 

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "auth": {
+      "authwithphone1099b0ba": [
+        "read",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": [],
+  "environmentVariableList": []
+}

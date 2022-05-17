@@ -33,6 +33,9 @@ class AuthenticatorTitleLocalizationsEn
   String get confirmSignInMfa => 'Enter your sign in code';
 
   @override
+  String get confirmSignInCustomAuth => 'Enter your sign in code';
+
+  @override
   String get confirmSignInNewPassword => 'Change your password to sign in';
 
   @override

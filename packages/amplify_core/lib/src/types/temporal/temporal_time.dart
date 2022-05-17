@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:meta/meta.dart';
 
 import 'temporal.dart';
 
@@ -21,10 +22,11 @@ import 'temporal.dart';
 /// hh:mm:ss.sss±hh:mm:ss
 /// hh:mm:ss.sss
 /// https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html#appsync-defined-scalars
+@immutable
 class TemporalTime implements Comparable<TemporalTime> {
-  late DateTime _dateTime;
-  int _nanoseconds = 0; // DateTime only stores millisecond and microsecond
-  Duration? _offset;
+  final DateTime _dateTime;
+  final int _nanoseconds; // DateTime only stores millisecond and microsecond
+  final Duration? _offset;
 
   /// Constructs a new TemporalTime at the current date.
   static TemporalTime now() {
@@ -33,24 +35,41 @@ class TemporalTime implements Comparable<TemporalTime> {
 
   /// Constructs a new TemporalTime from a Dart DateTime
   /// The date fields (year, month, day) are ignored
-  TemporalTime(DateTime dateTime) {
+  factory TemporalTime(DateTime dateTime) {
     dateTime = dateTime.toUtc();
-    _dateTime = DateTime.utc(1970, 1, 1, dateTime.hour, dateTime.minute,
-        dateTime.second, dateTime.millisecond, dateTime.microsecond);
+    return TemporalTime._(DateTime.utc(
+      1970,
+      1,
+      1,
+      dateTime.hour,
+      dateTime.minute,
+      dateTime.second,
+      dateTime.millisecond,
+      dateTime.microsecond,
+    ));
   }
 
   /// Constructs a new TemporalTime from a Dart DateTime and Duration
   /// The date fields (year, month, day) are ignored
-  TemporalTime.withOffset(DateTime dateTime, Duration offset) {
-    dateTime = dateTime.toUtc();
-    _dateTime = DateTime.utc(1970, 1, 1, dateTime.hour, dateTime.minute,
-        dateTime.second, dateTime.millisecond, dateTime.microsecond);
-
+  factory TemporalTime.withOffset(DateTime dateTime, Duration offset) {
     if (offset.inDays > 0) {
-      throw new Exception("Cannot have an offset in days (hh:mm:ss)");
+      throw Exception('Cannot have an offset in days (hh:mm:ss)');
     }
 
-    _offset = offset;
+    dateTime = dateTime.toUtc();
+    return TemporalTime._(
+      DateTime.utc(
+        1970,
+        1,
+        1,
+        dateTime.hour,
+        dateTime.minute,
+        dateTime.second,
+        dateTime.millisecond,
+        dateTime.microsecond,
+      ),
+      offset: offset,
+    );
   }
 
   /// Constructs a new TemporalTime from a ISO8601 string adhering to the format:
@@ -63,8 +82,8 @@ class TemporalTime implements Comparable<TemporalTime> {
   ///  without Z:
   ///    +hh:mm
   ///    +hh:mm:ss
-  TemporalTime.fromString(String iso8601String) {
-    RegExp regExp = new RegExp(
+  factory TemporalTime.fromString(String iso8601String) {
+    RegExp regExp = RegExp(
         r'^([0-2][0-9]):([0-5][0-9])(:([0-5][0-9])(\.([0-9]{1,9}))?)?((z|Z)|((\+|-)[0-2][0-9]:[0-5][0-9](:[0-5][0-9])?))?',
         caseSensitive: false,
         multiLine: false);
@@ -72,14 +91,17 @@ class TemporalTime implements Comparable<TemporalTime> {
     // Validate
     String? regexString = regExp.stringMatch(iso8601String);
     if (regexString == null || regexString != iso8601String) {
-      throw AmplifyException("Invalid ISO8601 String Input",
-          recoverySuggestion:
-              "Please provide an extended ISO 8601 time string in the format hh:mm:ss.sss with an optional time zone offset ±hh:mm:ss.  " +
-                  Temporal.genericDocErrorMessage);
+      throw const AmplifyException(
+        'Invalid ISO8601 String Input',
+        recoverySuggestion:
+            'Please provide an extended ISO 8601 time string in the format '
+            'hh:mm:ss.sss with an optional time zone offset ±hh:mm:ss.  '
+            '${Temporal.genericDocErrorMessage}',
+      );
     }
 
     // Remove Z
-    regexString = iso8601String.replaceAll(new RegExp(r'(z|Z)'), '');
+    regexString = iso8601String.replaceAll(RegExp(r'(z|Z)'), '');
 
     // Extract Time
     var match = regExp.matchAsPrefix(regexString)!;
@@ -88,19 +110,41 @@ class TemporalTime implements Comparable<TemporalTime> {
     int minutes = int.parse(match.group(2)!);
     int seconds = Temporal.getIntOr0(match.group(4));
 
-    int totalNanoseconds = Temporal.getIntOr0(match.group(6)?.padRight(9, "0"));
+    int totalNanoseconds = Temporal.getIntOr0(match.group(6)?.padRight(9, '0'));
     int milliseconds = totalNanoseconds ~/ 1000000;
     int microseconds = (totalNanoseconds ~/ 1000) % 1000;
-    _nanoseconds = totalNanoseconds % 1000;
-
-    _dateTime = DateTime.utc(
-        1970, 1, 1, hours, minutes, seconds, milliseconds, microseconds);
+    int nanoseconds = totalNanoseconds % 1000;
 
     // Extract Offset
-    if (match.group(7) != null && match.group(7)!.isNotEmpty)
-      _offset = Temporal.offsetToDuration(match.group(7)!);
-    else if (iso8601String.toLowerCase().contains("z")) _offset = Duration();
+    Duration? offset;
+    if (match.group(7) != null && match.group(7)!.isNotEmpty) {
+      offset = Temporal.offsetToDuration(match.group(7)!);
+    } else if (iso8601String.toLowerCase().contains('z')) {
+      offset = const Duration();
+    }
+
+    return TemporalTime._(
+      DateTime.utc(
+        1970,
+        1,
+        1,
+        hours,
+        minutes,
+        seconds,
+        milliseconds,
+        microseconds,
+      ),
+      nanoseconds: nanoseconds,
+      offset: offset,
+    );
   }
+
+  const TemporalTime._(
+    this._dateTime, {
+    int nanoseconds = 0,
+    Duration? offset,
+  })  : _nanoseconds = nanoseconds,
+        _offset = offset;
 
   /// Return offset
   Duration? getOffset() {
@@ -124,12 +168,12 @@ class TemporalTime implements Comparable<TemporalTime> {
 
     int totalMicroseconds = _nanoseconds + Temporal.getNanoseconds(_dateTime);
     if (totalMicroseconds > 0) {
-      buffer.write("." + totalMicroseconds.toString().padLeft(9, "0"));
+      buffer.write('.${totalMicroseconds.toString().padLeft(9, '0')}');
     }
 
     if (_offset != null) {
       if (_offset!.inSeconds == 0) {
-        buffer.write("Z");
+        buffer.write('Z');
       } else {
         buffer.write(Temporal.durationToOffset(_offset!));
       }
@@ -138,15 +182,19 @@ class TemporalTime implements Comparable<TemporalTime> {
     return buffer.toString();
   }
 
+  @override
   String toString() {
     return format();
   }
 
-  bool operator ==(o) =>
-      o is TemporalTime &&
-      _dateTime == o._dateTime &&
-      _offset == o._offset &&
-      _nanoseconds == o._nanoseconds;
+  @override
+  bool operator ==(Object other) =>
+      other is TemporalTime &&
+      _dateTime == other._dateTime &&
+      _offset == other._offset &&
+      _nanoseconds == other._nanoseconds;
+
+  @override
   int get hashCode =>
       _dateTime.hashCode * _offset.hashCode * _nanoseconds.hashCode;
 

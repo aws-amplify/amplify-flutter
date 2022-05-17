@@ -282,6 +282,12 @@ abstract class AuthenticatorInputLocalizations {
   /// In en, this message translates to:
   /// **'{fieldTitle} (optional)'**
   String optional(String fieldTitle);
+
+  /// The answer to the custom auth challenge
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmation Code'**
+  String get customChallenge;
 }
 
 class _AuthenticatorInputLocalizationsDelegate

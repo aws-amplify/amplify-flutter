@@ -18,7 +18,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('AWSTime from DateTime success', () async {
-    DateTime dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
+    DateTime dateTime = DateTime.parse('2021-11-09T18:53:12.183540Z');
 
     TemporalTime time = TemporalTime(dateTime);
     dateTime = dateTime.toUtc();
@@ -28,12 +28,12 @@ void main() {
         time.getDateTime(),
         DateTime.utc(1970, 1, 1, dateTime.hour, dateTime.minute,
             dateTime.second, dateTime.millisecond, dateTime.microsecond));
-    expect(time.format(), dateTime.toIso8601String().substring(11, 26) + "000");
+    expect(time.format(), '${dateTime.toIso8601String().substring(11, 26)}000');
   });
 
   test('AWSTime from DateTime with offset success', () async {
-    DateTime dateTime = DateTime.parse("2021-11-09T18:53:12.183540Z");
-    Duration offset = Duration(hours: 3, minutes: 30);
+    DateTime dateTime = DateTime.parse('2021-11-09T18:53:12.183540Z');
+    Duration offset = const Duration(hours: 3, minutes: 30);
 
     TemporalTime time = TemporalTime.withOffset(dateTime, offset);
     dateTime = dateTime.toUtc();
@@ -44,93 +44,93 @@ void main() {
         DateTime.utc(1970, 1, 1, dateTime.hour, dateTime.minute,
             dateTime.second, dateTime.millisecond, dateTime.microsecond));
     expect(time.format(),
-        dateTime.toIso8601String().substring(11, 26) + "000" + "+03:30");
+        '${dateTime.toIso8601String().substring(11, 26)}000+03:30');
   });
 
   test('AWSDate from string hh:mm success', () async {
-    TemporalTime time = TemporalTime.fromString("05:30");
+    TemporalTime time = TemporalTime.fromString('05:30');
 
     expect(time.getOffset(), null);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
-    expect(time.format(), "05:30:00");
+    expect(time.format(), '05:30:00');
   });
 
   test('AWSDate from string hh:mmZ success', () async {
-    TemporalTime time = TemporalTime.fromString("05:30Z");
+    TemporalTime time = TemporalTime.fromString('05:30Z');
 
-    expect(time.getOffset(), Duration());
+    expect(time.getOffset(), const Duration());
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
-    expect(time.format(), "05:30:00Z");
+    expect(time.format(), '05:30:00Z');
   });
 
   test('AWSDate from string hh:mm:ss success', () async {
-    TemporalTime time = TemporalTime.fromString("05:30:25");
+    TemporalTime time = TemporalTime.fromString('05:30:25');
 
     expect(time.getOffset(), null);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25));
-    expect(time.format(), "05:30:25");
+    expect(time.format(), '05:30:25');
   });
 
   test('AWSDate from string hh:mm:ss.sss success', () async {
-    TemporalTime time = TemporalTime.fromString("05:30:25.999999999");
+    TemporalTime time = TemporalTime.fromString('05:30:25.999999999');
 
     expect(time.getOffset(), null);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25, 999, 999));
-    expect(time.format(), "05:30:25.999999999");
+    expect(time.format(), '05:30:25.999999999');
   });
 
   test('AWSDate from string hh:mm+hh:mm success', () async {
-    TemporalTime time = TemporalTime.fromString("05:30+03:30");
-    Duration duration = Duration(hours: 3, minutes: 30);
+    TemporalTime time = TemporalTime.fromString('05:30+03:30');
+    Duration duration = const Duration(hours: 3, minutes: 30);
 
     expect(time.getOffset(), duration);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
-    expect(time.format(), "05:30:00+03:30");
+    expect(time.format(), '05:30:00+03:30');
   });
 
   test('AWSDate from string hh:mm-hh:mm success', () async {
-    TemporalTime time = TemporalTime.fromString("05:30-03:30");
-    Duration duration = Duration(hours: -3, minutes: -30);
+    TemporalTime time = TemporalTime.fromString('05:30-03:30');
+    Duration duration = const Duration(hours: -3, minutes: -30);
 
     expect(time.getOffset(), duration);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
-    expect(time.format(), "05:30:00-03:30");
+    expect(time.format(), '05:30:00-03:30');
   });
 
   test('AWSDate from string hh:mm+hh:mm:ss success', () async {
-    TemporalTime time = TemporalTime.fromString("05:30+03:30:45");
-    Duration duration = Duration(hours: 3, minutes: 30, seconds: 45);
+    TemporalTime time = TemporalTime.fromString('05:30+03:30:45');
+    Duration duration = const Duration(hours: 3, minutes: 30, seconds: 45);
 
     expect(time.getOffset(), duration);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
-    expect(time.format(), "05:30:00+03:30:45");
+    expect(time.format(), '05:30:00+03:30:45');
   });
 
   test('AWSDate from string hh:mm-hh:mm:ss success', () async {
-    TemporalTime time = TemporalTime.fromString("05:30-03:30:45");
-    Duration duration = Duration(hours: -3, minutes: -30, seconds: -45);
+    TemporalTime time = TemporalTime.fromString('05:30-03:30:45');
+    Duration duration = const Duration(hours: -3, minutes: -30, seconds: -45);
 
     expect(time.getOffset(), duration);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
-    expect(time.format(), "05:30:00-03:30:45");
+    expect(time.format(), '05:30:00-03:30:45');
   });
 
   test('AWSDate from string hh:mm:ss+hh:mm:ss success', () async {
-    TemporalTime time = TemporalTime.fromString("05:30:25+03:30:45");
-    Duration duration = Duration(hours: 3, minutes: 30, seconds: 45);
+    TemporalTime time = TemporalTime.fromString('05:30:25+03:30:45');
+    Duration duration = const Duration(hours: 3, minutes: 30, seconds: 45);
 
     expect(time.getOffset(), duration);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25));
-    expect(time.format(), "05:30:25+03:30:45");
+    expect(time.format(), '05:30:25+03:30:45');
   });
 
   test('AWSDate from string hh:mm:ss.sss+hh:mm:ss success', () async {
-    TemporalTime time = TemporalTime.fromString("05:30:25.999999999+03:30:45");
-    Duration duration = Duration(hours: 3, minutes: 30, seconds: 45);
+    TemporalTime time = TemporalTime.fromString('05:30:25.999999999+03:30:45');
+    Duration duration = const Duration(hours: 3, minutes: 30, seconds: 45);
 
     expect(time.getOffset(), duration);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25, 999, 999));
-    expect(time.format(), "05:30:25.999999999+03:30:45");
+    expect(time.format(), '05:30:25.999999999+03:30:45');
   });
 
   test('compareTo compares two TemporalTime objects', () {

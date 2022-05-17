@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'package:meta/meta.dart';
+
 import 'model_schema.dart';
 import 'model_schema_definition.dart';
 
@@ -36,6 +38,7 @@ abstract class Model {
 }
 
 // New ModelType superclass
+@immutable
 abstract class ModelType<T extends Model> {
   const ModelType();
 
@@ -62,7 +65,11 @@ abstract class ModelType<T extends Model> {
   bool operator <=(ModelType other) => other >= this;
   bool operator <(ModelType other) => other >= this && !(this >= other);
   bool operator >(ModelType other) => this >= other && !(other >= this);
+
+  @override
   bool operator ==(Object other) =>
       other is ModelType && this >= other && other >= this;
+
+  @override
   int get hashCode => T.hashCode;
 }

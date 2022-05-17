@@ -27,10 +27,11 @@ class AmplifyExceptionMessages {
       'We currently don\'t have a recovery suggestion for this exception.';
 
   static const missingExceptionMessage =
-      'An unknown exception has happened. ' + _createGithubIssueString;
+      'An unknown exception has happened. $_createGithubIssueString';
 
   static const alreadyConfiguredDefaultMessage =
-      'Amplify has already been configured and adding plugins after configure is not supported.';
+      'Amplify has already been configured and adding plugins after configure '
+      'is not supported.';
 
   static const alreadyConfiguredDefaultSuggestion =
       'Check if Amplify is already configured using Amplify.isConfigured.';
@@ -39,12 +40,12 @@ class AmplifyExceptionMessages {
       'The value returned from the MethodChannel is null';
 
   static const codeGenRequiredFieldForceCastExceptionMessage =
-      // ignore: missing_whitespace_between_adjacent_strings
-      'The field you are accessing is not nullable but has a null value.'
-      'It was marked as required (!) in your schema.graphql but the containing model class was initialized without setting its value.';
+      'The field you are accessing is not nullable but has a null value. '
+      'It was marked as required (!) in your schema.graphql but the containing '
+      'model class was initialized without setting its value.';
 
   static const codeGenRequiredFieldForceCastRecoverySuggestion =
-      // ignore: missing_whitespace_between_adjacent_strings
-      'Please validate that the containing model class was initialized properly with all requried fields being initialized.'
-      'This can happen when a nested model is returned but only its id field has been set';
+      'Please validate that the containing model class was initialized '
+      'properly with all requried fields being initialized. This can happen '
+      'when a nested model is returned but only its id field has been set';
 }

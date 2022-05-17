@@ -29,7 +29,7 @@ fun serializeAuthUpdateAttributeResult(result: AuthUpdateAttributeResult): Map<S
 fun serializeAuthUpdateAttributeStep(nextStep: AuthNextUpdateAttributeStep): Map<String, Any?> {
     return mapOf(
         "updateAttributeStep" to nextStep.updateAttributeStep.toString(),
-        "additionalInfo" to Gson().toJson(nextStep.additionalInfo),
+        "additionalInfo" to nextStep.additionalInfo,
         "codeDeliveryDetails" to serializeAuthCodeDeliveryDetails(nextStep.codeDeliveryDetails)
     )
 }

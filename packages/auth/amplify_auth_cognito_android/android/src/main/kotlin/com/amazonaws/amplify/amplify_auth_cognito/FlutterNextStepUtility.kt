@@ -39,7 +39,7 @@ fun setNextStep(resultKey: String, resultValue: String, codeDeliveryDetails: Aut
     }
 
     if (additionalInfo?.isNotEmpty() == true) {
-        result["additionalInfo"] = Gson().toJson(additionalInfo)
+        result["additionalInfo"] = additionalInfo
     }
 
     return result

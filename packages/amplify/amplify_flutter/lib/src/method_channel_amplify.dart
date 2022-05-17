@@ -68,18 +68,16 @@ class MethodChannelAmplify extends AmplifyClass {
         await API.addPlugin(plugin);
       } else {
         throw AmplifyException(
-            'The type of plugin ' +
-                plugin.runtimeType.toString() +
-                ' is not yet supported in Amplify.',
-            recoverySuggestion:
-                AmplifyExceptionMessages.missingRecoverySuggestion);
+          'The type of plugin ${plugin.runtimeType} is not yet supported '
+          'in Amplify.',
+          recoverySuggestion:
+              AmplifyExceptionMessages.missingRecoverySuggestion,
+        );
       }
     } on Exception catch (e) {
       safePrint('Amplify plugin was not added');
       throw AmplifyException(
-        'Amplify plugin ' +
-            plugin.runtimeType.toString() +
-            ' was not added successfully.',
+        'Amplify plugin ${plugin.runtimeType} was not added successfully.',
         recoverySuggestion: AmplifyExceptionMessages.missingRecoverySuggestion,
         underlyingException: e.toString(),
       );
@@ -96,9 +94,10 @@ class MethodChannelAmplify extends AmplifyClass {
     // Validation #1
     if (_isConfigured) {
       throw const AmplifyAlreadyConfiguredException(
-        'Amplify has already been configured and re-configuration is not supported.',
-        recoverySuggestion:
-            'Check if Amplify is already configured using Amplify.isConfigured.',
+        'Amplify has already been configured and re-configuration is '
+        'not supported.',
+        recoverySuggestion: 'Check if Amplify is already configured using '
+            'Amplify.isConfigured.',
       );
     }
 
@@ -165,6 +164,6 @@ class MethodChannelAmplify extends AmplifyClass {
   }
 
   String _getVersion() {
-    return '0.4.3';
+    return '0.5.0';
   }
 }

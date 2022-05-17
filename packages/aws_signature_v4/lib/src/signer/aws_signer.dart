@@ -20,6 +20,11 @@ import 'package:meta/meta.dart';
 
 part 'zone.dart';
 
+/// Zone value flag for signer tests, used to determine behavior of header
+/// inclusion on Web, for example.
+@internal
+const zSigningTest = #_signingTest;
+
 /// {@template aws_signature_v4.aws_sig_v4_signer}
 /// The main class for signing requests made to AWS services.
 ///
@@ -275,8 +280,7 @@ class AWSSigV4Signer {
         sessionToken != null && canonicalRequest.omitSessionTokenFromSigning;
     if (canonicalRequest.presignedUrl) {
       queryParameters[AWSHeaders.signature] = signature;
-      // TODO(dnys1): Remove second check when package SDK dep is >=2.15.0
-      if (includeSessionToken && sessionToken != null) {
+      if (includeSessionToken) {
         queryParameters[AWSHeaders.securityToken] = sessionToken;
       }
     } else {
@@ -286,10 +290,19 @@ class AWSSigV4Signer {
         signedHeaders: canonicalRequest.signedHeaders,
         signature: signature,
       );
-      // TODO(dnys1): Remove second check when package SDK dep is >=2.15.0
-      if (includeSessionToken && sessionToken != null) {
+      if (includeSessionToken) {
         headers[AWSHeaders.securityToken] = sessionToken;
       }
+    }
+
+    // On Web, sign the `Host` and `Content-Length` headers, but do not send
+    // them as part of the request, since these will be included automatically
+    // by the browser and most now restrict the ability to set them via code.
+    final isSigningTest = Zone.current[zSigningTest] as bool? ?? false;
+    if (zIsWeb && !isSigningTest) {
+      headers
+        ..remove(AWSHeaders.host)
+        ..remove(AWSHeaders.contentLength);
     }
 
     final originalRequest = canonicalRequest.request;

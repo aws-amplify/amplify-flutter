@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:meta/meta.dart';
 
 import 'temporal.dart';
 
@@ -22,9 +23,10 @@ import 'temporal.dart';
 /// or
 /// YYYY-MM-DD (ISO_LOCAL_DATE)
 /// https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html#appsync-defined-scalars
+@immutable
 class TemporalDate implements Comparable<TemporalDate> {
-  late DateTime _dateTime;
-  Duration? _offset;
+  final DateTime _dateTime;
+  final Duration? _offset;
 
   /// Constructs a new TemporalDate at the current date.
   static TemporalDate now() {
@@ -33,30 +35,33 @@ class TemporalDate implements Comparable<TemporalDate> {
 
   /// Constructs a new TemporalDate from a Dart DateTime
   /// The time fields (hour, minute, second, etc) are ignored
-  TemporalDate(DateTime dateTime) {
+  factory TemporalDate(DateTime dateTime) {
     dateTime = dateTime.toUtc();
-    _dateTime = DateTime.utc(
-      dateTime.year,
-      dateTime.month,
-      dateTime.day,
+    return TemporalDate._(
+      DateTime.utc(
+        dateTime.year,
+        dateTime.month,
+        dateTime.day,
+      ),
     );
   }
 
   /// Constructs a new TemporalDate from a Dart DateTime and Duration
   /// The time fields (hour, minute, second, etc) are ignored
-  TemporalDate.withOffset(DateTime dateTime, Duration offset) {
-    dateTime = dateTime.toUtc();
-    _dateTime = DateTime.utc(
-      dateTime.year,
-      dateTime.month,
-      dateTime.day,
-    );
-
+  factory TemporalDate.withOffset(DateTime dateTime, Duration offset) {
     if (offset.inDays > 0) {
-      throw new Exception("Cannot have an offset in days (hh:mm:ss)");
+      throw Exception('Cannot have an offset in days (hh:mm:ss)');
     }
 
-    _offset = offset;
+    dateTime = dateTime.toUtc();
+    return TemporalDate._(
+      DateTime.utc(
+        dateTime.year,
+        dateTime.month,
+        dateTime.day,
+      ),
+      offset,
+    );
   }
 
   /// Constructs a new TemporalDate from a ISO8601 string adhering to the format:
@@ -65,9 +70,9 @@ class TemporalDate implements Comparable<TemporalDate> {
   ///   without Z:
   ///     +hh:mm
   ///     +hh:mm:ss
-  TemporalDate.fromString(String iso8601String) {
+  factory TemporalDate.fromString(String iso8601String) {
     // TODO: enforce month 1-12
-    RegExp regExp = new RegExp(
+    RegExp regExp = RegExp(
         r'^([0-9]{4}-[0-1][0-9]-[0-3][0-9])((z|Z)|((\+|-)[0-2][0-9]:[0-5][0-9](:[0-5][0-9])?))?',
         caseSensitive: false,
         multiLine: false);
@@ -75,27 +80,37 @@ class TemporalDate implements Comparable<TemporalDate> {
     // Validate
     String? regexString = regExp.stringMatch(iso8601String);
     if (regexString == null || regexString != iso8601String) {
-      throw AmplifyException("Invalid ISO8601 String Input",
-          recoverySuggestion:
-              "Please provide an extended ISO 8601 date string in the format YYYY-MM-DD with an optional time zone offset ±hh:mm:ss.  " +
-                  Temporal.genericDocErrorMessage);
+      throw const AmplifyException(
+        'Invalid ISO8601 String Input',
+        recoverySuggestion:
+            'Please provide an extended ISO 8601 date string in the format '
+            'YYYY-MM-DD with an optional time zone offset ±hh:mm:ss. '
+            '${Temporal.genericDocErrorMessage}',
+      );
     }
 
     // Remove Z
-    regexString = iso8601String.replaceAll(new RegExp(r'(z|Z)'), '');
+    regexString = iso8601String.replaceAll(RegExp(r'(z|Z)'), '');
 
     // Extract Date
     var match = regExp.matchAsPrefix(regexString)!;
 
     // Parse cannot take a YYYY-MM-DD as UTC!
     DateTime dateTime = DateTime.parse(match.group(1)!);
-    _dateTime = DateTime.utc(dateTime.year, dateTime.month, dateTime.day);
+    dateTime = DateTime.utc(dateTime.year, dateTime.month, dateTime.day);
 
     // Extract Offset
-    if (match.group(2) != null && match.group(2)!.isNotEmpty)
-      _offset = Temporal.offsetToDuration(match.group(2)!);
-    else if (iso8601String.toLowerCase().contains("z")) _offset = Duration();
+    Duration? offset;
+    if (match.group(2) != null && match.group(2)!.isNotEmpty) {
+      offset = Temporal.offsetToDuration(match.group(2)!);
+    } else if (iso8601String.toLowerCase().contains('z')) {
+      offset = const Duration();
+    }
+
+    return TemporalDate._(dateTime, offset);
   }
+
+  const TemporalDate._(this._dateTime, [this._offset]);
 
   /// Return offset
   Duration? getOffset() {
@@ -118,7 +133,7 @@ class TemporalDate implements Comparable<TemporalDate> {
     // But we need -09:30 / +09:30
     if (_offset != null) {
       if (_offset!.inSeconds == 0) {
-        buffer.write("Z");
+        buffer.write('Z');
       } else {
         buffer.write(Temporal.durationToOffset(_offset!));
       }
@@ -127,13 +142,18 @@ class TemporalDate implements Comparable<TemporalDate> {
     return buffer.toString();
   }
 
+  @override
   String toString() {
     return format();
   }
 
-  bool operator ==(o) =>
-      o is TemporalDate && _dateTime == o._dateTime && _offset == o._offset;
+  @override
+  bool operator ==(Object other) =>
+      other is TemporalDate &&
+      _dateTime == other._dateTime &&
+      _offset == other._offset;
 
+  @override
   int get hashCode => _dateTime.hashCode * _offset.hashCode;
 
   @override

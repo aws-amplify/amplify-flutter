@@ -38,6 +38,7 @@ class PaginatedModelType<T extends Model>
   /// ```
   const PaginatedModelType(this.modelType);
 
+  @override
   PaginatedResult<T> fromJson(Map<String, dynamic> jsonData,
       {Map<String, dynamic>? filter,
       int? limit,
@@ -61,6 +62,7 @@ class PaginatedModelType<T extends Model>
         filter, modelType, requestForNextResult);
   }
 
+  @override
   String modelName() {
     return modelType.modelName();
   }

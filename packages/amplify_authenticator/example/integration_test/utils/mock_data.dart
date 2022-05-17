@@ -37,16 +37,16 @@ String generatePassword() =>
 /// generates a fake US phone number using a reserved number in the North America
 ///
 /// See https://en.wikipedia.org/wiki/Fictitious_telephone_number#North_American_Numbering_Plan
-_PhoneNumber generateUSPhoneNumber() => _PhoneNumber(
+PhoneNumber generateUSPhoneNumber() => PhoneNumber(
       countryCode: '+1',
-      areaCode: '555',
-      phoneNumber: '01${randomPhoneDigits(2)}',
+      areaCode: '888',
+      phoneNumber: '555${randomPhoneDigits(4)}',
     );
 
 /// generates a fake french phone number using a reserved number in france
 ///
 /// See https://en.wikipedia.org/wiki/Fictitious_telephone_number#France
-_PhoneNumber generateFrenchPhoneNumber() => _PhoneNumber(
+PhoneNumber generateFrenchPhoneNumber() => PhoneNumber(
       countryCode: '+33',
       areaCode: '1',
       phoneNumber: '9900${randomPhoneDigits(4)}',
@@ -64,12 +64,12 @@ String randomPhoneDigits(int count) {
   return value;
 }
 
-class _PhoneNumber {
+class PhoneNumber {
   final String countryCode;
   final String? areaCode;
   final String phoneNumber;
 
-  _PhoneNumber({
+  PhoneNumber({
     required this.countryCode,
     this.areaCode = '',
     required this.phoneNumber,

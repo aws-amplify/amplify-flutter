@@ -272,7 +272,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     private fun onSignIn(@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
         try {
             FlutterSignInRequest.checkUser()
-            FlutterSignInRequest.validate(request)
             var req = FlutterSignInRequest(request)
             Amplify.Auth.signIn(
                 req.username,

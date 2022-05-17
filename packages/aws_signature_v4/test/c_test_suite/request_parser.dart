@@ -96,11 +96,11 @@ class SignerRequestParser {
       }
 
       // Concatenate values for the same key with a ','
-      headers.update(
-        key,
-        (currValue) => currValue + ',' + value,
-        ifAbsent: () => value,
-      );
+      if (headers.containsKey(key)) {
+        headers[key] = '${headers[key]},$value';
+      } else {
+        headers[key] = value;
+      }
 
       // Skip to the next key line
       lineNo = headerLines.indexWhere((el) => el.contains(':'), nextLineNo);

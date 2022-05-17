@@ -797,34 +797,6 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func test_signInValidationOptions() {
-        var rawData: NSMutableDictionary = ["username":_username]
-        
-        XCTAssertThrowsError(try FlutterSignInRequest.validate(dict: rawData))
-        
-        rawData = ["password": _password]
-        XCTAssertThrowsError(try FlutterSignInRequest.validate(dict: rawData))
-        
-        let rawOptions: Dictionary<String, Any> = ["clientMetadata" : ["foo": "bar"]]
-        rawData = ["options": rawOptions]
-        XCTAssertNoThrow(try FlutterSignInRequest.validate(dict: rawData))
-        let req = FlutterSignInRequest(dict: rawData)
-        let options = (req.options?.pluginOptions as! AWSAuthSignInOptions)
-        XCTAssertEqual(options.metadata, ["foo": "bar"])
-    }
-    
-    func test_signInValidationNoOptions() {
-        var rawData: NSMutableDictionary = ["username":_username]
-        
-        XCTAssertThrowsError(try FlutterSignInRequest.validate(dict: rawData))
-        
-        rawData = ["password": _password]
-        XCTAssertThrowsError(try FlutterSignInRequest.validate(dict: rawData))
-        let req = FlutterSignInRequest(dict: rawData)
-        let options = (req.options?.pluginOptions as! AWSAuthSignInOptions)
-        XCTAssertEqual(options.metadata, nil)
-    }
-    
     func test_signInError() {
         
         class SignInMock: AuthCognitoBridge {

@@ -53,12 +53,13 @@ void main() {
           buildProgressionEventMap(uuid, currentBytes, totalBytes));
 
   Future<void> emitMockNativeValues(ByteData? event) {
-    return ServicesBinding.instance!.defaultBinaryMessenger
+    return ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
         .handlePlatformMessage(
-      transferEventChannel,
-      event,
-      (ByteData? reply) {},
-    );
+          transferEventChannel,
+          event,
+          (ByteData? reply) {},
+        );
   }
 
   void setupTransferEventChannel() {
@@ -71,7 +72,9 @@ void main() {
       return Future.wait(futures);
     }
 
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ambiguate(ServicesBinding.instance)!
+        .defaultBinaryMessenger
+        .setMockMessageHandler(
       transferEventChannel,
       (ByteData? message) async {
         final methodCall = standardCodec.decodeMethodCall(message);

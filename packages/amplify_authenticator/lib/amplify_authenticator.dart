@@ -62,6 +62,7 @@ export 'src/widgets/button.dart'
         SignUpButton,
         SignInButton,
         ConfirmSignUpButton,
+        ConfirmSignInCustomButton,
         ConfirmSignInMFAButton,
         SignOutButton,
         BackToSignInButton,
@@ -78,6 +79,7 @@ export 'src/widgets/form.dart'
         AuthenticatorForm,
         SignUpForm,
         SignInForm,
+        ConfirmSignInCustomAuthForm,
         ConfirmSignInMFAForm,
         ConfirmSignInNewPasswordForm,
         ConfirmSignUpForm,
@@ -432,7 +434,7 @@ class Authenticator extends StatefulWidget {
   final AuthenticatorStep initialStep;
 
   @override
-  _AuthenticatorState createState() => _AuthenticatorState();
+  State<Authenticator> createState() => _AuthenticatorState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -665,6 +667,7 @@ class _AuthenticatorState extends State<Authenticator> {
                 signInForm: widget.signInForm ?? SignInForm(),
                 signUpForm: widget.signUpForm ?? SignUpForm(),
                 confirmSignUpForm: ConfirmSignUpForm(),
+                confirmSignInCustomAuthForm: ConfirmSignInCustomAuthForm(),
                 confirmSignInMFAForm: ConfirmSignInMFAForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),

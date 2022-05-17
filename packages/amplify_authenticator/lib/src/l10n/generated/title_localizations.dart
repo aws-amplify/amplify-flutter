@@ -131,6 +131,12 @@ abstract class AuthenticatorTitleLocalizations {
   /// **'Enter your sign in code'**
   String get confirmSignInMfa;
 
+  /// Title of the Confirm Sign In with Custom Auth step and form
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your sign in code'**
+  String get confirmSignInCustomAuth;
+
   /// Title of the Confirm Sign In with New Password step and form
   ///
   /// In en, this message translates to:

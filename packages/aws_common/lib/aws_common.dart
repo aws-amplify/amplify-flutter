@@ -34,3 +34,4 @@ export 'src/util/equatable.dart';
 export 'src/util/json.dart';
 export 'src/util/print.dart';
 export 'src/util/serializable.dart';
+export 'src/util/uuid.dart';

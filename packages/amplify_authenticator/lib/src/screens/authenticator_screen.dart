@@ -84,6 +84,7 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
         child = const AuthenticatorTabView(tabs: signInUpTabs, initialIndex: 1);
         break;
       case AuthenticatorStep.confirmSignUp:
+      case AuthenticatorStep.confirmSignInCustomAuth:
       case AuthenticatorStep.confirmSignInMfa:
       case AuthenticatorStep.confirmSignInNewPassword:
       case AuthenticatorStep.resetPassword:
@@ -164,7 +165,8 @@ class AuthenticatorTabView
   final int initialIndex;
 
   @override
-  _AuthenticatorTabViewState createState() => _AuthenticatorTabViewState();
+  AuthenticatorComponentState<AuthenticatorTabView> createState() =>
+      _AuthenticatorTabViewState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -246,6 +248,7 @@ extension on AuthenticatorStep {
       case AuthenticatorStep.signIn:
         return ButtonResolverKey.signIn;
       case AuthenticatorStep.confirmSignUp:
+      case AuthenticatorStep.confirmSignInCustomAuth:
       case AuthenticatorStep.confirmSignInMfa:
       case AuthenticatorStep.confirmSignInNewPassword:
       case AuthenticatorStep.resetPassword:

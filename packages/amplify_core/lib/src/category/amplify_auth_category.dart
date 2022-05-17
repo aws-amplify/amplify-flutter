@@ -74,7 +74,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
 
   Future<SignInResult> signIn({
     required String username,
-    required String password,
+    String? password,
     SignInOptions? options,
   }) {
     var request =

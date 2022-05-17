@@ -50,10 +50,8 @@ class AmplifyException implements Exception {
 
   @override
   String toString() =>
-      runtimeType.toString() +
-      '(message: $message, ' +
-      'recoverySuggestion: $recoverySuggestion, ' +
-      'underlyingException: $underlyingException)';
+      '$runtimeType(message: $message, recoverySuggestion: $recoverySuggestion,'
+      ' underlyingException: $underlyingException)';
 
   @override
   bool operator ==(Object other) {

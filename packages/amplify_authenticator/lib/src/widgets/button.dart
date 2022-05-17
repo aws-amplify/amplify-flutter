@@ -102,7 +102,8 @@ abstract class AuthenticatorElevatedButton
   Widget? get loadingIndicator => const AmplifyProgressIndicator();
 
   @override
-  _AmplifyElevatedButtonState createState() => _AmplifyElevatedButtonState();
+  AuthenticatorButtonState<AuthenticatorElevatedButton> createState() =>
+      _AmplifyElevatedButtonState();
 }
 
 class _AmplifyElevatedButtonState
@@ -206,6 +207,27 @@ class ConfirmSignUpButton extends AuthenticatorElevatedButton {
 }
 
 /// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm__sign_in_custom_button}
+/// A prebuilt button for completing Sign In with a custom challenge.
+///
+/// Uses [ButtonResolverKey.confirm] for localization
+/// {@endtemplate}
+class ConfirmSignInCustomButton extends ConfirmSignInMFAButton {
+  /// {@macro amplify_authenticator.confirm_sign_in_custom_button}
+  const ConfirmSignInCustomButton({Key? key})
+      : super(
+          key: key ?? keyConfirmSignInCustomButton,
+        );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.confirm;
+
+  @override
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.confirmSignInCustomAuth();
+}
+
+/// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.confirm_sign_in_mfa_button}
 /// A prebuilt button for completing Sign In with and MFA code.
 ///
@@ -258,8 +280,12 @@ class SignOutButton extends StatelessAuthenticatorComponent {
 /// A prebuilt button for navigating back to the Sign In step.
 /// {@endtemplate}
 class BackToSignInButton extends StatelessAuthenticatorComponent {
+  /// Resets the authentication flow
+  final bool abortSignIn;
+
   /// {@macro amplify_authenticator.back_to_sign_in_button}
-  const BackToSignInButton({Key? key}) : super(key: key);
+  const BackToSignInButton({Key? key, this.abortSignIn = false})
+      : super(key: key);
 
   @override
   Widget builder(
@@ -272,10 +298,22 @@ class BackToSignInButton extends StatelessAuthenticatorComponent {
       child: Text(
         stringResolver.buttons.backTo(context, AuthenticatorStep.signIn),
       ),
-      onPressed: () => state.changeStep(
-        AuthenticatorStep.signIn,
-      ),
+      onPressed: () {
+        if (!abortSignIn) {
+          state.changeStep(
+            AuthenticatorStep.signIn,
+          );
+        } else {
+          state.abortSignIn();
+        }
+      },
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<bool>('abortSignIn', abortSignIn));
   }
 }
 
@@ -310,11 +348,11 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
             ),
           ),
           TextButton(
+            onPressed: state.resendSignUpCode,
             child: Text(
               buttonResolver.sendCode(context),
               style: const TextStyle(fontSize: fontSize),
             ),
-            onPressed: state.resendSignUpCode,
           ),
         ],
       ),
@@ -473,6 +511,7 @@ class SkipVerifyUserButton extends StatelessAuthenticatorComponent {
   ) {
     return TextButton(
       key: keySkipVerifyUserButton,
+      onPressed: state.skipVerifyUser,
       child: Text(
         stringResolver.buttons.skip(context),
         style: TextStyle(
@@ -480,7 +519,6 @@ class SkipVerifyUserButton extends StatelessAuthenticatorComponent {
           color: Theme.of(context).primaryColor,
         ),
       ),
-      onPressed: state.skipVerifyUser,
     );
   }
 }

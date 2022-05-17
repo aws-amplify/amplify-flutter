@@ -16,5 +16,5 @@
 /// Wraps the result of a confirm user attribute operation.
 class ConfirmUserAttributeResult {
   // ignore: public_member_api_docs
-  ConfirmUserAttributeResult() {}
+  ConfirmUserAttributeResult();
 }

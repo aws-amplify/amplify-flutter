@@ -13,6 +13,7 @@
 // limitations under the License.
 
 @TestOn('vm')
+@Tags(['build'])
 
 import 'package:build_verify/build_verify.dart';
 import 'package:test/test.dart';
@@ -23,5 +24,6 @@ void main() {
     () => expectBuildClean(
       packageRelativeDirectory: 'packages/aws_signature_v4',
     ),
+    timeout: const Timeout(Duration(minutes: 3)),
   );
 }

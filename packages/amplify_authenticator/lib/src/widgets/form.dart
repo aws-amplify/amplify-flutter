@@ -62,6 +62,7 @@ import 'package:flutter/material.dart';
 /// - [SignInForm]
 /// - [ConfirmSignUpForm]
 /// - [ConfirmSignInMFAForm]
+/// - [ConfirmSignInCustomAuthForm]
 /// - [ConfirmSignInNewPasswordForm]
 /// - [ResetPasswordForm]
 /// - [ConfirmResetPasswordForm]
@@ -155,6 +156,10 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
   }
 
   void _updateUseEmail() {
+    // Clear attributes on switch
+    state.authAttributes.clear();
+
+    // Refresh state
     setState(() {});
   }
 
@@ -193,7 +198,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
       );
     }
 
-    final _runtimeActions = runtimeActions(context);
+    final runtimeActions = this.runtimeActions(context);
     return Form(
       key: formKey,
       child: Column(
@@ -203,9 +208,9 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
             children: [
               if (widget.actions.isNotEmpty) const SizedBox(height: 4),
               ...widget.actions,
-              if (_runtimeActions.isNotEmpty) ...[
+              if (runtimeActions.isNotEmpty) ...[
                 const Divider(),
-                ..._runtimeActions,
+                ...runtimeActions,
               ]
             ].spacedBy(const SizedBox(height: 12)),
           ),
@@ -263,7 +268,7 @@ class SignUpForm extends AuthenticatorForm {
   final bool _includeDefaultFields;
 
   @override
-  _SignUpFormState createState() => _SignUpFormState();
+  AuthenticatorFormState<SignUpForm> createState() => _SignUpFormState();
 }
 
 class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
@@ -396,7 +401,7 @@ class SignInForm extends AuthenticatorForm {
         );
 
   @override
-  _SignInFormState createState() => _SignInFormState();
+  AuthenticatorFormState<SignInForm> createState() => _SignInFormState();
 }
 
 class _SignInFormState extends AuthenticatorFormState<SignInForm> {
@@ -493,6 +498,31 @@ class ConfirmSignUpForm extends AuthenticatorForm {
   @override
   AuthenticatorFormState<ConfirmSignUpForm> createState() =>
       AuthenticatorFormState<ConfirmSignUpForm>();
+}
+
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_sign_in_custom_auth_form}
+/// A prebuilt form for completing the sign in process with a Custom Auth Flow.
+/// {@endtemplate}
+class ConfirmSignInCustomAuthForm extends AuthenticatorForm {
+  /// {@macro amplify_authenticator.confirm_sign_in_custom_auth_form}
+  ConfirmSignInCustomAuthForm({Key? key})
+      : super._(
+          key: key,
+          fields: [
+            ConfirmSignInFormField.customChallenge(),
+          ],
+          actions: const [
+            ConfirmSignInCustomButton(),
+            BackToSignInButton(
+              abortSignIn: true,
+            ),
+          ],
+        );
+
+  @override
+  AuthenticatorFormState<ConfirmSignInCustomAuthForm> createState() =>
+      AuthenticatorFormState<ConfirmSignInCustomAuthForm>();
 }
 
 /// {@category Prebuilt Widgets}

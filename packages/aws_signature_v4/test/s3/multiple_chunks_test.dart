@@ -25,7 +25,7 @@ void main() {
   group('S3 Multiple Chunks', () {
     test('PUT Object', () {
       runZoned(putObjectTest.run, zoneValues: {
-        zIncludeUserAgent: false,
+        zSigningTest: true,
       });
     });
   });

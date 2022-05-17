@@ -38,7 +38,7 @@ void main() {
       final username = generateUsername();
       final password = generatePassword();
 
-      var res = await Amplify.Auth.signUp(
+      var _ = await Amplify.Auth.signUp(
           username: username,
           password: password,
           options: CognitoSignUpOptions(userAttributes: {

@@ -130,6 +130,7 @@ class _UpdateUserAttributesWidgetState
                           if (value == null) {
                             return 'An Attribute name is required.';
                           }
+                          return null;
                         },
                       ),
                       TextFormField(
@@ -141,6 +142,7 @@ class _UpdateUserAttributesWidgetState
                           if (value == null) {
                             return 'An Attribute value is required.';
                           }
+                          return null;
                         },
                       ),
                     ]),
