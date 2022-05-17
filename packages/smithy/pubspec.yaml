@@ -8,9 +8,7 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  aws_common:
-    hosted: https://pub.dillonnys.com
-    version: ^0.2.0
+  aws_common: ^0.1.0
   built_collection: ^5.0.0
   built_value: ">=8.2.0 <8.3.0"
   collection: ^1.15.0
