@@ -15,7 +15,10 @@
 
 library amplify_storage_plugin;
 
+import 'dart:io';
+
 import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
 import './method_channel_storage_s3.dart';
@@ -28,9 +31,9 @@ export './src/types.dart';
 abstract class AmplifyStorageS3 extends StoragePluginInterface {
   /// {@macro amplify_storage_s3.amplify_storage_s3}
   factory AmplifyStorageS3() {
-    // if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-    //   throw UnsupportedError('This platform is not supported yet');
-    // }
+    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+      throw UnsupportedError('This platform is not supported yet');
+    }
     return AmplifyStorageS3MethodChannel();
   }
 

@@ -13,7 +13,10 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:io';
+
 import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
 import './method_channel_auth_cognito.dart';
@@ -27,9 +30,9 @@ export './src/types.dart';
 class AmplifyAuthCognito extends AuthPluginInterface {
   /// {@macro amplify_auth_cognito.amplify_auth_cognito}
   factory AmplifyAuthCognito() {
-    // if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-    //   throw UnsupportedError('This platform is not supported yet');
-    // }
+    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+      throw UnsupportedError('This platform is not supported yet');
+    }
     return AmplifyAuthCognitoMethodChannel();
   }
 

@@ -10,6 +10,7 @@ enum Size { small, medium, large }
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  Amplify = MethodChannelAmplify();
 
   group('queryPredicateToGraphQLFilter()', () {
     setUpAll(() async {

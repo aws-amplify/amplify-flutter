@@ -13,18 +13,20 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/method_channel_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  Amplify = MethodChannelAmplify();
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
 
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   bool platformError = false;
+  final apiPlugin = AmplifyAPIMethodChannel();
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -56,7 +58,7 @@ void main() {
       () async {
     platformError = true;
     try {
-      await Amplify.addPlugin(AmplifyAPI());
+      await Amplify.addPlugin(apiPlugin);
     } on Exception {
       fail('exception was thrown');
     }
@@ -66,14 +68,14 @@ void main() {
       'Plugin is added if platform exception contains "AmplifyAlreadyConfiguredException" code',
       () async {
     platformError = true;
-    await Amplify.addPlugin(AmplifyAPI());
+    await Amplify.addPlugin(apiPlugin);
     expect(Amplify.API.plugins.length, 1);
   });
 
   test('AmplifyException is thrown if addPlugin called twice', () async {
     try {
-      await Amplify.addPlugin(AmplifyAPI());
-      await Amplify.addPlugin(AmplifyAPI());
+      await Amplify.addPlugin(apiPlugin);
+      await Amplify.addPlugin(apiPlugin);
       fail('exception not thrown');
     } on AmplifyException catch (e) {
       expect(e.message,

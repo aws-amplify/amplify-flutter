@@ -14,17 +14,17 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3/method_channel_storage_s3.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   const MethodChannel storageChannel =
       MethodChannel('com.amazonaws.amplify/storage_s3');
 
-  AmplifyStorageS3 storage = AmplifyStorageS3();
-
-  TestWidgetsFlutterBinding.ensureInitialized();
+  AmplifyStorageS3 storage = AmplifyStorageS3MethodChannel();
 
   tearDown(() {
     storageChannel.setMockMethodCallHandler(null);

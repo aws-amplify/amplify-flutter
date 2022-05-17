@@ -15,17 +15,18 @@
 
 import 'dart:collection';
 
+import 'package:amplify_auth_cognito/method_channel_auth_cognito.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   const MethodChannel authChannel =
       MethodChannel('com.amazonaws.amplify/auth_cognito');
 
-  AmplifyAuthCognito auth = AmplifyAuthCognito();
-
-  TestWidgetsFlutterBinding.ensureInitialized();
+  AmplifyAuthCognito auth = AmplifyAuthCognitoMethodChannel();
 
   int testCode = 0;
 

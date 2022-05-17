@@ -15,6 +15,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_common/aws_common.dart';
@@ -35,9 +36,9 @@ part 'method_channel_amplify.dart';
 abstract class AmplifyClass {
   /// {@macro amplify_flutter.amplify_class}
   factory AmplifyClass() {
-    // if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-    //   throw UnsupportedError('This platform is not supported yet');
-    // }
+    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+      throw UnsupportedError('This platform is not supported yet');
+    }
     return MethodChannelAmplify();
   }
 

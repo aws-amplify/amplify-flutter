@@ -38,6 +38,7 @@ class MockAmplifyAPI extends AmplifyAPIMethodChannel {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  Amplify = MethodChannelAmplify();
 
   group('with ModelProvider', () {
     setUpAll(() async {

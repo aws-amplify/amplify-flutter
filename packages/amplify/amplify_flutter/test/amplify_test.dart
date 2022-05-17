@@ -15,13 +15,16 @@
 
 import 'dart:convert';
 
-import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_analytics_pinpoint/method_channel_amplify.dart';
+import 'package:amplify_auth_cognito/method_channel_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  Amplify = MethodChannelAmplify();
+
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
   const MethodChannel authChannel =
       MethodChannel('com.amazonaws.amplify/auth_cognito');
@@ -59,8 +62,6 @@ void main() {
       recoverySuggestion:
           'Add Auth plugin to Amplify and call configure before calling Auth related APIs');
 
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   // Class under test
   late AmplifyClass amplify;
 
@@ -80,7 +81,7 @@ void main() {
     });
     // We want to instantiate a new instance for each test so we start
     // with a fresh state as `Amplify` singleton holds a state.
-    amplify = AmplifyClass();
+    amplify = MethodChannelAmplify();
     AmplifyClass.instance = amplify;
 
     // We only use Auth and Analytics category for testing this class.
@@ -153,23 +154,25 @@ void main() {
 
   test('adding multiple plugins using addPlugins method doesn\'t throw',
       () async {
-    await amplify
-        .addPlugins([AmplifyAuthCognito(), AmplifyAnalyticsPinpoint()]);
+    await amplify.addPlugins([
+      AmplifyAuthCognitoMethodChannel(),
+      AmplifyAnalyticsPinpointMethodChannel(),
+    ]);
     await amplify.configure(validJsonConfiguration);
     expect(amplify.isConfigured, true);
   });
 
   test('adding single plugins using addPlugin method doesn\'t throw', () async {
-    await amplify.addPlugin(AmplifyAuthCognito());
+    await amplify.addPlugin(AmplifyAuthCognitoMethodChannel());
     await amplify.configure(validJsonConfiguration);
     expect(amplify.isConfigured, true);
   });
 
   test('adding multiple plugins from same Auth category throws exception',
       () async {
-    await amplify.addPlugin(AmplifyAuthCognito());
+    await amplify.addPlugin(AmplifyAuthCognitoMethodChannel());
     try {
-      await amplify.addPlugin(AmplifyAuthCognito());
+      await amplify.addPlugin(AmplifyAuthCognitoMethodChannel());
     } catch (e) {
       expect(e, multiplePluginsForAuthException);
       expect(amplify.isConfigured, false);
@@ -179,10 +182,10 @@ void main() {
   });
 
   test('adding plugins after configure throws an exception', () async {
-    await amplify.addPlugin(AmplifyAuthCognito());
+    await amplify.addPlugin(AmplifyAuthCognitoMethodChannel());
     await amplify.configure(validJsonConfiguration);
     try {
-      await amplify.addPlugin(AmplifyAnalyticsPinpoint());
+      await amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());
     } catch (e) {
       expect(e, amplifyAlreadyConfiguredForAddPluginException);
       expect(amplify.isConfigured, true);

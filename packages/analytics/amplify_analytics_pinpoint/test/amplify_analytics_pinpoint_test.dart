@@ -19,12 +19,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   const MethodChannel analyticsChannel =
       MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
 
   AmplifyAnalyticsPinpoint analytics = AmplifyAnalyticsPinpointMethodChannel();
-
-  TestWidgetsFlutterBinding.ensureInitialized();
 
   const eventName = 'test';
   const userId = 'testUser';

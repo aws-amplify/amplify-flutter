@@ -14,7 +14,7 @@
 //
 
 import 'package:amplify_api/src/method_channel_api.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -25,6 +25,7 @@ import 'auth_providers_test.mocks.dart';
 @GenerateMocks([OIDCAuthProvider])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  Amplify = MethodChannelAmplify();
 
   const apiChannel = 'com.amazonaws.amplify/api';
   final binaryMessenger =

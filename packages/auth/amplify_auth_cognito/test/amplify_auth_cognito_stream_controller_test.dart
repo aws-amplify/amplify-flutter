@@ -24,13 +24,13 @@ import 'package:amplify_test/amplify_test.dart';
 var log = [];
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   const MethodChannel authChannel =
       MethodChannel('com.amazonaws.amplify/auth_cognito');
   const String channelName = 'com.amazonaws.amplify/auth_cognito_events';
   const StandardMethodCodec standardCodec = StandardMethodCodec();
   final StreamController authStreamController =
       AuthStreamController().authStreamController;
-  TestWidgetsFlutterBinding.ensureInitialized();
 
   void emitValues(ByteData? event) {
     ambiguate(ServicesBinding.instance)!

@@ -14,16 +14,17 @@
  */
 
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_storage_s3/amplify_storage_s3.dart';
+import 'package:amplify_storage_s3/method_channel_storage_s3.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  Amplify = MethodChannelAmplify();
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
   const MethodChannel storageChannel =
       MethodChannel('com.amazonaws.amplify/storage_s3');
-
-  TestWidgetsFlutterBinding.ensureInitialized();
 
   bool platformError = false;
 
@@ -57,7 +58,7 @@ void main() {
       () async {
     platformError = true;
     try {
-      await Amplify.addPlugin(AmplifyStorageS3());
+      await Amplify.addPlugin(AmplifyStorageS3MethodChannel());
     } on Exception {
       fail('exception was thrown');
     }
@@ -67,14 +68,14 @@ void main() {
       'Plugin is added if platform exception contains "AmplifyAlreadyConfiguredException" code',
       () async {
     platformError = true;
-    await Amplify.addPlugin(AmplifyStorageS3());
+    await Amplify.addPlugin(AmplifyStorageS3MethodChannel());
     expect(Amplify.Storage.plugins.length, 1);
   });
 
   test('AmplifyException is thrown if addPlugin called twice', () async {
     try {
-      await Amplify.addPlugin(AmplifyStorageS3());
-      await Amplify.addPlugin(AmplifyStorageS3());
+      await Amplify.addPlugin(AmplifyStorageS3MethodChannel());
+      await Amplify.addPlugin(AmplifyStorageS3MethodChannel());
       fail('exception not thrown');
     } on AmplifyException catch (e) {
       expect(e.message,

@@ -14,8 +14,6 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/src/method_channel_api.dart';
-import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +23,7 @@ import 'graphql_helpers_test.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  Amplify = MethodChannelAmplify();
 
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
 

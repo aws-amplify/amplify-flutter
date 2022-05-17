@@ -31,6 +31,7 @@ final throwsRestException = throwsA(isA<RestException>());
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  Amplify = MethodChannelAmplify();
 
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
   late AmplifyAPI api;

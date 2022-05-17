@@ -23,6 +23,7 @@ import 'graphql_helpers_test.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  Amplify = MethodChannelAmplify();
 
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
 
