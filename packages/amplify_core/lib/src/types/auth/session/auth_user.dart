@@ -16,5 +16,8 @@
 class AuthUser {
   String userId;
   String username;
-  AuthUser({required this.userId, required this.username});
+  AuthUser({
+    required this.userId,
+    required this.username,
+  });
 }

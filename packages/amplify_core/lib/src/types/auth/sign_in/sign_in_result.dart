@@ -18,8 +18,8 @@ import 'package:amplify_core/amplify_core.dart';
 class SignInResult {
   bool isSignedIn;
   AuthNextSignInStep? nextStep;
-  SignInResult({required this.isSignedIn, this.nextStep}) {
-    this.isSignedIn = isSignedIn;
-    this.nextStep = nextStep;
-  }
+  SignInResult({
+    required this.isSignedIn,
+    this.nextStep,
+  });
 }

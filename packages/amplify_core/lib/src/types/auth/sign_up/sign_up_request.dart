@@ -13,20 +13,22 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'sign_up_options.dart';
 
 class SignUpRequest {
   String username;
   String password;
   SignUpOptions? options;
 
-  SignUpRequest({required this.username, required this.password, this.options});
-  Map<String, dynamic> serializeAsMap() {
-    final pendingRequest = <String, dynamic>{
-      'username': username,
-      'password': password,
-      if (options != null) 'options': options!.serializeAsMap()
-    };
-    return pendingRequest;
-  }
+  SignUpRequest({
+    required this.username,
+    required this.password,
+    this.options,
+  });
+
+  Map<String, Object?> serializeAsMap() => {
+        'username': username,
+        'password': password,
+        if (options != null) 'options': options!.serializeAsMap()
+      };
 }

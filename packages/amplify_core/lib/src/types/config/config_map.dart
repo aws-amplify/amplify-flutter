@@ -16,8 +16,6 @@
 import 'dart:collection';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/types/config/amplify_plugin_config.dart';
-import 'package:amplify_core/src/types/config/amplify_plugin_registry.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';

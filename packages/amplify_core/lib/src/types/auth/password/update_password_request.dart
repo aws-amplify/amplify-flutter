@@ -15,7 +15,9 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@template amplify_common.update_password_request}
 /// Encapsulates parameters for an update password request
+/// {@endtemplate}
 class UpdatePasswordRequest {
   /// The user's desired new password
   String newPassword;
@@ -26,17 +28,17 @@ class UpdatePasswordRequest {
   /// Plugin-specific, advanced options such as information about the client
   UpdatePasswordOptions? options;
 
-  /// Default constructor
-  UpdatePasswordRequest(
-      {required this.newPassword, required this.oldPassword, this.options});
+  /// {@macro amplify_common.update_password_request}
+  UpdatePasswordRequest({
+    required this.newPassword,
+    required this.oldPassword,
+    this.options,
+  });
 
   /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap() {
-    final pendingRequest = <String, dynamic>{
-      'newPassword': newPassword,
-      'oldPassword': oldPassword,
-      if (options != null) 'options': options?.serializeAsMap()
-    };
-    return pendingRequest;
-  }
+  Map<String, Object?> serializeAsMap() => {
+        'newPassword': newPassword,
+        'oldPassword': oldPassword,
+        if (options != null) 'options': options?.serializeAsMap()
+      };
 }

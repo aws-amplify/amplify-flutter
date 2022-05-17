@@ -14,8 +14,9 @@
  */
 
 class AuthSession {
-  late bool isSignedIn;
-  AuthSession({required this.isSignedIn}) {
-    this.isSignedIn = isSignedIn;
-  }
+  final bool isSignedIn;
+
+  const AuthSession({
+    required this.isSignedIn,
+  });
 }

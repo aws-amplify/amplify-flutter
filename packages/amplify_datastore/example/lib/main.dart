@@ -25,7 +25,6 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/services.dart';
-import 'amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
 
 part 'queries_display_widgets.dart';

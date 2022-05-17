@@ -14,10 +14,6 @@
 //
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/types/config/amplify_plugin_config.dart';
-import 'package:amplify_core/src/types/config/amplify_plugin_registry.dart';
-import 'package:amplify_core/src/types/config/api/api_config.dart';
-import 'package:amplify_core/src/types/config/config_map.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 

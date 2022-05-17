@@ -13,9 +13,35 @@
  * permissions and limitations under the License.
  */
 
-/*
-  !!IMPORTANT!! 
-  Dart enums are 0-based indices; new values must be added to the end of the list.
-  !!IMPORTANT!! 
-*/
-enum AuthProvider { google, facebook, amazon, apple }
+class AuthProvider {
+  const AuthProvider._(this.name);
+
+  final String name;
+
+  const AuthProvider.custom(this.name);
+
+  static const google = AuthProvider._('google');
+  static const facebook = AuthProvider._('facebook');
+  static const amazon = AuthProvider._('amazon');
+  static const apple = AuthProvider._('apple');
+  static const cognito = AuthProvider._('cognito');
+
+  /// The value of the `identity_provider` URI parameter.
+  ///
+  /// [Reference](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html)
+  String get uriParameter {
+    switch (this) {
+      case google:
+        return 'Google';
+      case facebook:
+        return 'Facebook';
+      case amazon:
+        return 'LoginWithAmazon';
+      case apple:
+        return 'SignInWithApple';
+      case cognito:
+        return 'COGNITO';
+    }
+    return name;
+  }
+}

@@ -93,20 +93,10 @@ class AmplifyClass {
   @protected
   AmplifyClass.protected();
 
-  static final Object _token = Object();
-
-  static AmplifyClass _instance = MethodChannelAmplify();
-
-  /// The default instance of [AmplifyClass] to use.
+  /// The instance of [AmplifyClass] to use.
   ///
   /// Defaults to [MethodChannelAmplify].
-  static AmplifyClass get instance => _instance;
-
-  /// Platform-specific plugins should set this with their own platform-specific
-  /// class that extends [AmplifyClass] when they register themselves.
-  static set instance(AmplifyClass instance) {
-    _instance = instance;
-  }
+  static AmplifyClass instance = MethodChannelAmplify();
 }
 
 // ignore_for_file: non_constant_identifier_names

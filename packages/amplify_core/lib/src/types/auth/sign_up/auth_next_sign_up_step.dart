@@ -22,6 +22,7 @@ class AuthNextSignUpStep extends AuthNextStep {
     AuthCodeDeliveryDetails? codeDeliveryDetails,
     required this.signUpStep,
   }) : super(
-            additionalInfo: additionalInfo,
-            codeDeliveryDetails: codeDeliveryDetails);
+          additionalInfo: additionalInfo,
+          codeDeliveryDetails: codeDeliveryDetails,
+        );
 }

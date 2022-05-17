@@ -22,6 +22,7 @@ import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_icons.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -169,6 +170,9 @@ class _SocialSignInButtonState
             const SizedBox(height: 4),
           ],
         );
+      default:
+        safePrint('Unsupported provider: ${widget.provider}');
+        return const SizedBox.shrink();
     }
   }
 
@@ -248,6 +252,7 @@ extension on AuthProvider {
       case AuthProvider.facebook:
       case AuthProvider.amazon:
       case AuthProvider.apple:
+      default:
         return EdgeInsets.zero;
     }
   }

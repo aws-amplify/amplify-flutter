@@ -16,7 +16,6 @@
 import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_common/aws_common.dart';
 
 class DownloadFileRequest {
   late String uuid;
@@ -25,7 +24,7 @@ class DownloadFileRequest {
   DownloadFileOptions? options;
 
   DownloadFileRequest({required this.key, required this.local, this.options}) {
-    this.uuid = UUID.getUUID();
+    uuid = UUID.getUUID();
   }
 
   Map<String, Object?> serializeAsMap() => {

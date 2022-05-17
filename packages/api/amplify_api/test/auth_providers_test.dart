@@ -57,7 +57,7 @@ void main() {
         reset(provider);
         when<APIAuthorizationType>(provider.type)
             .thenReturn(APIAuthorizationType.oidc);
-        amplifyAPI.registerAuthProvider(provider as APIAuthProvider);
+        amplifyAPI.registerAuthProvider(provider);
       });
 
       test('returns token', () async {

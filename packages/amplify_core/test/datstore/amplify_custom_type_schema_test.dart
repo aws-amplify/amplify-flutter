@@ -41,16 +41,16 @@ import 'testData/ModelProvider.dart';
 */
 void main() {
   final expectedContactFields = {
-    'email': ModelField(
+    'email': const ModelField(
         name: 'email',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'phone': ModelField(
+    'phone': const ModelField(
         name: 'phone',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.embedded,
             ofCustomTypeName: 'Phone')),
-    'mailingAddresses': ModelField(
+    'mailingAddresses': const ModelField(
         name: 'mailingAddresses',
         isRequired: false,
         isArray: true,
@@ -59,38 +59,38 @@ void main() {
   };
 
   final expectedPhoneFields = {
-    'country': ModelField(
+    'country': const ModelField(
         name: 'country',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'area': ModelField(
+    'area': const ModelField(
         name: 'area',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'number': ModelField(
+    'number': const ModelField(
         name: 'number',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
   };
 
   final expectedAddressFields = {
-    'line1': ModelField(
+    'line1': const ModelField(
         name: 'line1',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'line2': ModelField(
+    'line2': const ModelField(
         name: 'line2',
         isRequired: false,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'city': ModelField(
+    'city': const ModelField(
         name: 'city',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'state': ModelField(
+    'state': const ModelField(
         name: 'state',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'postalCode': ModelField(
+    'postalCode': const ModelField(
         name: 'postalCode',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),

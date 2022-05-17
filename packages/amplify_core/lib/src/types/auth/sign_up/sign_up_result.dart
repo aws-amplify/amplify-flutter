@@ -13,13 +13,14 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'auth_next_sign_up_step.dart';
 
 class SignUpResult {
   bool isSignUpComplete;
   AuthNextSignUpStep nextStep;
-  SignUpResult({required this.isSignUpComplete, required this.nextStep}) {
-    this.isSignUpComplete = isSignUpComplete;
-    this.nextStep = nextStep;
-  }
+
+  SignUpResult({
+    required this.isSignUpComplete,
+    required this.nextStep,
+  });
 }

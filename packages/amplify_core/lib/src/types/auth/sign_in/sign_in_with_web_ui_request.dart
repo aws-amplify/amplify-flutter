@@ -14,20 +14,13 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
 
 class SignInWithWebUIRequest {
   AuthProvider? provider;
   SignInWithWebUIOptions? options;
   SignInWithWebUIRequest({this.provider, this.options});
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    if (this.provider != null) {
-      pendingRequest["authProvider"] = describeEnum(provider!);
-    }
-    if (options != null) {
-      pendingRequest['options'] = options?.serializeAsMap();
-    }
-    return pendingRequest;
-  }
+  Map<String, Object?> serializeAsMap() => {
+        if (provider != null) 'authProvider': provider!.name,
+        if (options != null) 'options': options!.serializeAsMap(),
+      };
 }

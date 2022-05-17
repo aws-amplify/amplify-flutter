@@ -13,11 +13,13 @@
  * permissions and limitations under the License.
  */
 
-/// The shared update user attribute options among all Auth plugins
+/// {@template amplify_common.update_user_attribute_options}
+/// The shared update user attribute options among all Auth plugins.
+/// {@endtemplate}
 abstract class UpdateUserAttributeOptions {
-  /// Default constructor
+  /// {@macro amplify_common.update_user_attribute_options}
   const UpdateUserAttributeOptions();
 
   /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap();
+  Map<String, Object?> serializeAsMap();
 }

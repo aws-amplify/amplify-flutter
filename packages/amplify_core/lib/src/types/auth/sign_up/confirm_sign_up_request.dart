@@ -13,21 +13,20 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'confirm_sign_up_options.dart';
 
 class ConfirmSignUpRequest {
   String username;
   String confirmationCode;
   ConfirmSignUpOptions? options;
-  ConfirmSignUpRequest(
-      {required this.username, required this.confirmationCode, this.options});
-  Map<String, dynamic> serializeAsMap() {
-    final pendingRequest = {
-      'username': username,
-      'confirmationCode': confirmationCode,
-      'options': options?.serializeAsMap()
-    };
-    pendingRequest.removeWhere((_, v) => v == null);
-    return pendingRequest;
-  }
+  ConfirmSignUpRequest({
+    required this.username,
+    required this.confirmationCode,
+    this.options,
+  });
+  Map<String, Object?> serializeAsMap() => {
+        'username': username,
+        'confirmationCode': confirmationCode,
+        if (options != null) 'options': options!.serializeAsMap()
+      };
 }

@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'sign_in_options.dart';
 
 class SignInRequest {
   String? username;

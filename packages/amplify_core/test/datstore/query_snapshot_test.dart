@@ -21,7 +21,7 @@ import 'testData/ModelProvider.dart';
 void main() {
   group('QuerySnapshot', () {
     TemporalDateTime _temporalDateTime =
-        TemporalDateTime.fromString("2021-11-09T18:53:12.183540Z");
+        TemporalDateTime.fromString('2021-11-09T18:53:12.183540Z');
     group('withSubscriptionEvent()', () {
       Blog parent = Blog(
         name: 'parent',

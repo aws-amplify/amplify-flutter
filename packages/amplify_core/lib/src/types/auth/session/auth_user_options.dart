@@ -14,7 +14,7 @@
  */
 class AuthUserOptions {
   const AuthUserOptions();
-  Map<String, dynamic> serializeAsMap() {
+  Map<String, Object?> serializeAsMap() {
     throw UnimplementedError(
         'serializeAsMap() has not been implemented on AuthUserOptions.');
   }

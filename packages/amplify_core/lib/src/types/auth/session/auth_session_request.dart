@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'auth_session_options.dart';
 
 class AuthSessionRequest {
   AuthSessionOptions? options;

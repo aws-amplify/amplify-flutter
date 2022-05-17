@@ -14,7 +14,6 @@
 //
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/types/config/auth/auth_config.dart';
 import 'package:aws_common/aws_common.dart';
 
 part 'user_pool.g.dart';

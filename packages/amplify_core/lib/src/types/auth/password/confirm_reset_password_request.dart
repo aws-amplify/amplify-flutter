@@ -15,7 +15,9 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// Encapsulates parameters for a confirm reset password request
+/// {@template amplify_common.confirm_reset_password_request}
+/// Encapsulates parameters for a confirm reset password request.
+/// {@endtemplate}
 class ConfirmResetPasswordRequest {
   /// A login identifier or an email/phone number, depending on configuration
   String username;
@@ -29,7 +31,7 @@ class ConfirmResetPasswordRequest {
   /// Plugin-specific, advanced options such as information about the client
   ConfirmResetPasswordOptions? options;
 
-  /// Default Constructor
+  /// {@macro amplify_common.confirm_reset_password_request}
   ConfirmResetPasswordRequest({
     required this.username,
     required this.newPassword,
@@ -38,13 +40,10 @@ class ConfirmResetPasswordRequest {
   });
 
   /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap() {
-    final pendingRequest = <String, dynamic>{
-      'username': username,
-      'newPassword': newPassword,
-      'confirmationCode': confirmationCode,
-      if (options != null) 'options': options?.serializeAsMap()
-    };
-    return pendingRequest;
-  }
+  Map<String, Object?> serializeAsMap() => {
+        'username': username,
+        'newPassword': newPassword,
+        'confirmationCode': confirmationCode,
+        if (options != null) 'options': options?.serializeAsMap()
+      };
 }

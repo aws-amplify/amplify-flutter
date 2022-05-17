@@ -16,6 +16,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
+// ignore: constant_identifier_names
 enum ModelAssociationEnum { HasMany, HasOne, BelongsTo }
 
 @immutable

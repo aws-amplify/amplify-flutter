@@ -13,8 +13,13 @@
  * permissions and limitations under the License.
  */
 
-/// The shared resend sign up code options among all Auth plugins
+/// {@template amplify_common.auth.resend_sign_up_code_options}
+/// The shared resend sign up code options among all Auth plugins.
+/// {@endtemplate}
 abstract class ResendSignUpCodeOptions {
-  /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap();
+  /// {@macro amplify_common.auth.resend_sign_up_code_options}
+  const ResendSignUpCodeOptions();
+
+  /// Serialize the object to a map.
+  Map<String, Object?> serializeAsMap();
 }

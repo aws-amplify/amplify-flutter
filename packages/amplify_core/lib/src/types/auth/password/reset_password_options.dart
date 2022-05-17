@@ -13,8 +13,13 @@
  * permissions and limitations under the License.
  */
 
-/// The shared reset password options among all Auth plugins
+/// {@template amplify_common.reset_password_options}
+/// The shared reset password options among all Auth plugins.
+/// {@endtemplate}
 abstract class ResetPasswordOptions {
-  /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap();
+  /// {@macro amplify_common.reset_password_options}
+  const ResetPasswordOptions();
+
+  /// Serialize the object to a map.
+  Map<String, Object?> serializeAsMap();
 }

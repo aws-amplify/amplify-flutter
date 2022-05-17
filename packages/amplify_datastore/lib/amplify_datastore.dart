@@ -21,7 +21,8 @@ import 'package:meta/meta.dart';
 import 'amplify_datastore_stream_controller.dart';
 import 'method_channel_datastore.dart';
 
-export 'package:amplify_core/src/types/datastore/datastore_types.dart';
+export 'package:amplify_core/src/types/datastore/datastore_types.dart'
+    hide DateTimeParse;
 
 class AmplifyDataStore extends DataStorePluginInterface {
   /// Constructs an AmplifyDataStore plugin with mandatory [modelProvider]

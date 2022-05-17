@@ -91,11 +91,12 @@ void main() {
     var req = ConfirmSignInRequest(confirmationValue: '1233', options: options)
         .serializeAsMap();
     expect(req['options'], isInstanceOf<Map>());
-    expect(req['options']['clientMetadata'], isInstanceOf<Map>());
-    expect(req['options']['clientMetadata'][testMetadataKey],
+    final optionsMap = req['options'] as Map;
+    expect(optionsMap['clientMetadata'], isInstanceOf<Map>());
+    expect(optionsMap['clientMetadata'][testMetadataKey],
         equals(testMetaDataAttribute));
-    expect(req['options']['userAttributes'], isInstanceOf<Map>());
-    expect(req['options']['userAttributes']['email'], equals(testEmailValue));
+    expect(optionsMap['userAttributes'], isInstanceOf<Map>());
+    expect(optionsMap['userAttributes']['email'], equals(testEmailValue));
   });
 
   test('confirmSignIn thrown PlatFormException results in AuthException',

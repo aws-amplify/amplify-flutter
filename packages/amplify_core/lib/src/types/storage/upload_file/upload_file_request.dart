@@ -15,7 +15,6 @@
 
 import 'dart:io';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_common/aws_common.dart';
 
 class UploadFileRequest {
   late String uuid;
@@ -24,7 +23,7 @@ class UploadFileRequest {
   UploadFileOptions? options;
 
   UploadFileRequest({required this.local, required this.key, this.options}) {
-    this.uuid = UUID.getUUID();
+    uuid = UUID.getUUID();
   }
 
   Map<String, Object?> serializeAsMap() => {

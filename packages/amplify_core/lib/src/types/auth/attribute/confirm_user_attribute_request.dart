@@ -13,11 +13,11 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: public_member_api_docs
+import 'user_attribute_key.dart';
 
-import 'package:amplify_core/amplify_core.dart';
-
-/// Encapsulates parameters for a request to confirm a user attribute update
+/// {@template amplify_common.confirm_user_attribute_request}
+/// Encapsulates parameters for a request to confirm a user attribute update.
+/// {@endtemplate}
 class ConfirmUserAttributeRequest {
   /// The key of the user attribute to update
   final UserAttributeKey userAttributeKey;
@@ -25,13 +25,14 @@ class ConfirmUserAttributeRequest {
   /// The confirmation code the user received after starting the user attribute operation
   final String confirmationCode;
 
+  /// {@macro amplify_common.confirm_user_attribute_request}
   const ConfirmUserAttributeRequest({
     required this.userAttributeKey,
     required this.confirmationCode,
   });
 
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
+  Map<String, Object?> serializeAsMap() {
+    final Map<String, Object?> pendingRequest = <String, dynamic>{};
     pendingRequest['userAttributeKey'] = userAttributeKey.key;
     pendingRequest['confirmationCode'] = confirmationCode;
     return pendingRequest;

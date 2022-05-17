@@ -28,10 +28,10 @@ export 'src/types/api/api_types.dart';
 export 'src/types/auth/auth_types.dart';
 
 /// Config
-export 'src/types/config/amplify_config.dart';
+export 'src/types/config/amplify_config.dart' hide UnknownPluginConfigFactory;
 
 /// Datastore
-export 'src/types/datastore/datastore_types.dart';
+export 'src/types/datastore/datastore_types.dart' hide DateTimeParse;
 
 /// Exceptions
 export 'src/types/exception/amplify_already_configured_exception.dart';
@@ -40,6 +40,7 @@ export 'src/types/exception/amplify_exception_messages.dart';
 export 'src/types/exception/codegen_exception.dart';
 
 /// Hub
+export 'src/types/hub/auth/auth_hub_event.dart';
 export 'src/types/hub/hub_channel.dart';
 export 'src/types/hub/hub_event.dart';
 export 'src/types/hub/hub_event_payload.dart';
@@ -70,7 +71,6 @@ export 'src/types/query/query_field.dart';
 export 'src/types/storage/storage_types.dart';
 
 /// Temporal
-export 'src/types/temporal/datetime_parse.dart';
 export 'src/types/temporal/temporal_date.dart';
 export 'src/types/temporal/temporal_datetime.dart';
 export 'src/types/temporal/temporal_time.dart';

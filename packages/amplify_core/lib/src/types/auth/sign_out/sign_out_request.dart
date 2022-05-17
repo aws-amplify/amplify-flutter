@@ -13,21 +13,21 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'sign_out_options.dart';
 
-/// {@template sign_out_request}
+/// {@template amplify_common.auth.sign_out_request}
 /// Encapsulates parameters for a sign out request
 /// {@endtemplate}
 class SignOutRequest {
-  /// Advanced options for the request
+  /// Advanced options for the request.
   ///
-  /// Can be used to specify global sign out
+  /// Can be used to specify global sign out.
   SignOutOptions? options;
 
-  /// {@macro sign_out_request}
+  /// {@macro amplify_common.auth.sign_out_request}
   SignOutRequest({this.options});
 
-  /// Serialize the object to a map
+  /// Serialize the object to a map.
   Map<String, Object?> serializeAsMap() {
     final Map<String, Object?> pendingRequest = {
       'options': options?.serializeAsMap()

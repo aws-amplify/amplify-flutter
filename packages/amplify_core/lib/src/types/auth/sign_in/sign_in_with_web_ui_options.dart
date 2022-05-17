@@ -15,5 +15,5 @@
 
 abstract class SignInWithWebUIOptions {
   const SignInWithWebUIOptions();
-  Map<String, dynamic> serializeAsMap();
+  Map<String, Object?> serializeAsMap();
 }

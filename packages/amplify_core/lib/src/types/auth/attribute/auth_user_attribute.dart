@@ -14,7 +14,9 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:meta/meta.dart';
 
+@immutable
 class AuthUserAttribute {
   final UserAttributeKey userAttributeKey;
   final String value;
@@ -25,11 +27,23 @@ class AuthUserAttribute {
     required this.value,
   });
 
-  // ignore: public_member_api_docs
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
+  Map<String, Object?> serializeAsMap() {
+    final Map<String, Object?> pendingRequest = <String, dynamic>{};
     pendingRequest['userAttributeKey'] = userAttributeKey.key;
     pendingRequest['value'] = value;
     return pendingRequest;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      other is AuthUserAttribute &&
+      userAttributeKey == other.userAttributeKey &&
+      value == other.value;
+
+  @override
+  int get hashCode => Object.hash(userAttributeKey.hashCode, value.hashCode);
+
+  @override
+  String toString() =>
+      'AuthUserAttribute(userAttributeKey=$userAttributeKey, value=$value)';
 }

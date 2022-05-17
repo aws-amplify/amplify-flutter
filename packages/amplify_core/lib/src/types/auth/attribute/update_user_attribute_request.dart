@@ -15,7 +15,9 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// Encapsulates parameters for a update user attribute operation
+/// {@template amplify_common.update_user_attribute_request}
+/// Encapsulates parameters for a update user attribute operation.
+/// {@endtemplate}
 class UpdateUserAttributeRequest {
   /// The user attribute to update
   final AuthUserAttribute attribute;
@@ -23,7 +25,7 @@ class UpdateUserAttributeRequest {
   /// Plugin-specific, advanced options such as information about the client
   final UpdateUserAttributeOptions? options;
 
-  /// Default constructor
+  /// {@macro amplify_common.update_user_attribute_request}
   UpdateUserAttributeRequest({
     required UserAttributeKey userAttributeKey,
     required String value,
@@ -34,11 +36,8 @@ class UpdateUserAttributeRequest {
         );
 
   /// Serialize the object to a map for use over the method channel
-  Map<String, dynamic> serializeAsMap() {
-    final pendingRequest = <String, dynamic>{
-      'attribute': attribute.serializeAsMap(),
-      if (options != null) 'options': options?.serializeAsMap(),
-    };
-    return pendingRequest;
-  }
+  Map<String, Object?> serializeAsMap() => {
+        'attribute': attribute.serializeAsMap(),
+        if (options != null) 'options': options?.serializeAsMap(),
+      };
 }

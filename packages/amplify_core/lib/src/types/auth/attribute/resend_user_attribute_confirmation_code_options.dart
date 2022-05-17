@@ -13,11 +13,14 @@
  * permissions and limitations under the License.
  */
 
-/// The shared resend user attribute confirmation code options among all Auth plugins
+/// {@template amplify_common.resend_user_attribute_confirmation_code_options}
+/// The shared resend user attribute confirmation code options among all Auth
+/// plugins.
+/// {@endtemplate}
 abstract class ResendUserAttributeConfirmationCodeOptions {
-  /// Default constructor
+  /// {@macro amplify_common.resend_user_attribute_confirmation_code_options}
   const ResendUserAttributeConfirmationCodeOptions();
 
   /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap();
+  Map<String, Object?> serializeAsMap();
 }

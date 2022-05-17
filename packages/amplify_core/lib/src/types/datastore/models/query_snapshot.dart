@@ -18,7 +18,6 @@ library model;
 import 'package:amplify_core/amplify_core.dart';
 
 import 'sorted_list.dart';
-import 'subscription_event.dart';
 
 /// {@template query_snapshot}
 /// A snapshot consisting of the [items] in the local store when the
@@ -41,13 +40,6 @@ class QuerySnapshot<T extends Model> {
   /// A list of [QuerySortBy] conditions, used to specify the order of results
   final List<QuerySortBy>? sortBy;
 
-  const QuerySnapshot._({
-    required SortedList<T> sortedList,
-    required this.isSynced,
-    this.where,
-    this.sortBy,
-  }) : _sortedList = sortedList;
-
   /// {@macro query_snapshot}
   factory QuerySnapshot({
     required List<T> items,
@@ -67,7 +59,15 @@ class QuerySnapshot<T extends Model> {
     );
   }
 
+  const QuerySnapshot._({
+    required SortedList<T> sortedList,
+    required this.isSynced,
+    this.where,
+    this.sortBy,
+  }) : _sortedList = sortedList;
+
   /// Returns a new QuerySnapshot with the [status] applied
+  // ignore: avoid_positional_boolean_parameters
   QuerySnapshot<T> withSyncStatus(bool status) {
     return QuerySnapshot._(
       sortedList: _sortedList,
@@ -87,7 +87,7 @@ class QuerySnapshot<T extends Model> {
   QuerySnapshot<T> withSubscriptionEvent({
     required SubscriptionEvent<T> event,
   }) {
-    SortedList<T> sortedListCopy = SortedList.from(this._sortedList);
+    SortedList<T> sortedListCopy = SortedList.from(_sortedList);
     SortedList<T>? updatedSortedList;
 
     T newItem = event.item;

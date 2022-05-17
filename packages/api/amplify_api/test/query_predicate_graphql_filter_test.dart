@@ -5,7 +5,7 @@ import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-enum Size { SMALL, MEDIUM, LARGE }
+enum Size { small, medium, large }
 
 void main() {
   group('queryPredicateToGraphQLFilter()', () {
@@ -216,9 +216,9 @@ void main() {
     test('query with enum should serialize to string', () {
       // Note: enums are not actually in the codegen model. Nonetheless, we
       // expect this predicate to translate as follows.
-      final queryPredicate = Post.TITLE.eq(Size.MEDIUM);
+      final queryPredicate = Post.TITLE.eq(Size.medium);
       final expectedFilter = {
-        'title': {'eq': describeEnum(Size.MEDIUM)}
+        'title': {'eq': describeEnum(Size.medium)}
       };
 
       _testQueryPredicateTranslation(queryPredicate, expectedFilter,

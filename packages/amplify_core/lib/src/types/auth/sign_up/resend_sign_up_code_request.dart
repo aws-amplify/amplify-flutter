@@ -15,23 +15,22 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// Encapsulates parameters for a resend sign up code request
+/// {@template amplify_common.auth.resend_sign_up_code_request}
+/// Encapsulates parameters for a resend sign up code request.
+/// {@endtemplate}
 class ResendSignUpCodeRequest {
-  /// A login identifier or an email/phone number, depending on configuration
+  /// A login identifier or an email/phone number, depending on configuration.
   String username;
 
-  /// Plugin-specific, advanced options such as information about the client
+  /// Plugin-specific, advanced options such as information about the client.
   ResendSignUpCodeOptions? options;
 
-  /// Default constructor
+  /// {@macro amplify_common.auth.resend_sign_up_code_request}
   ResendSignUpCodeRequest({required this.username, this.options});
 
-  /// Serialize the object to a map for use over the method channel
-  Map<String, dynamic> serializeAsMap() {
-    final pendingRequest = <String, dynamic>{
-      'username': username,
-      if (options != null) 'options': options?.serializeAsMap(),
-    };
-    return pendingRequest;
-  }
+  /// Serialize the object to a map for use over the method channel.
+  Map<String, Object?> serializeAsMap() => {
+        'username': username,
+        if (options != null) 'options': options!.serializeAsMap(),
+      };
 }

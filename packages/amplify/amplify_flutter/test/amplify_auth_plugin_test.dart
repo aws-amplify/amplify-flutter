@@ -19,7 +19,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  AmplifyAuthCognito instance = AmplifyAuthCognito();
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
   const MethodChannel authChannel =
       MethodChannel('com.amazonaws.amplify/auth_cognito');

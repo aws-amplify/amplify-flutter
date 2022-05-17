@@ -37,8 +37,8 @@ class ObserveQueryThrottleOptions {
 
   /// default throttle options
   const ObserveQueryThrottleOptions.defaults()
-      : this.maxCount = 1000,
-        this.maxDuration = const Duration(seconds: 2);
+      : maxCount = 1000,
+        maxDuration = const Duration(seconds: 2);
 
   /// removes all throttling options
   ///
@@ -46,6 +46,6 @@ class ObserveQueryThrottleOptions {
   /// QuerySnapshot be emitted for every single item that
   /// is synced to the device that matches the query predicate
   const ObserveQueryThrottleOptions.none()
-      : this.maxCount = 1,
-        this.maxDuration = null;
+      : maxCount = 1,
+        maxDuration = null;
 }

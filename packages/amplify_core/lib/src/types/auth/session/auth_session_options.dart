@@ -12,12 +12,11 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-class AuthSessionOptions {
-  // TODO: Implement force refresh when/if amplify-libraries support it
 
+class AuthSessionOptions {
   const AuthSessionOptions();
 
-  Map<String, dynamic> serializeAsMap() {
+  Map<String, Object?> serializeAsMap() {
     throw UnimplementedError(
         'serializeAsMap() has not been implemented on AuthSessionOptions.');
   }

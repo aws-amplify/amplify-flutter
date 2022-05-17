@@ -17,11 +17,14 @@ import 'package:amplify_core/amplify_core.dart';
 
 class AuthNextSignInStep extends AuthNextStep {
   String signInStep;
+  final Map<String, String>? challengeParameters;
   AuthNextSignInStep({
     Map<String, String>? additionalInfo,
     AuthCodeDeliveryDetails? codeDeliveryDetails,
     required this.signInStep,
+    this.challengeParameters,
   }) : super(
-            additionalInfo: additionalInfo,
-            codeDeliveryDetails: codeDeliveryDetails);
+          additionalInfo: additionalInfo,
+          codeDeliveryDetails: codeDeliveryDetails,
+        );
 }

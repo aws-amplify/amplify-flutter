@@ -14,5 +14,5 @@
  */
 
 class SignOutResult {
-  SignOutResult();
+  const SignOutResult();
 }

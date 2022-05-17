@@ -14,9 +14,9 @@ class ConflictData {
   ConflictData.fromJson(ModelType modelType, Map<String, dynamic> localJson,
       Map<String, dynamic> remoteJson)
       : local = modelType.fromJson(
-            (localJson["serializedData"] as Map).cast<String, dynamic>()),
+            (localJson['serializedData'] as Map).cast<String, dynamic>()),
         remote = modelType.fromJson(
-            (remoteJson["serializedData"] as Map).cast<String, dynamic>());
+            (remoteJson['serializedData'] as Map).cast<String, dynamic>());
 }
 
 enum ResolutionStrategy { applyRemote, retryLocal, retry }
@@ -28,25 +28,24 @@ class ConflictResolutionDecision {
 
   const ConflictResolutionDecision(this._resolutionStrategy, this.customModel);
 
-  ConflictResolutionDecision.applyRemote()
+  const ConflictResolutionDecision.applyRemote()
       : _resolutionStrategy = ResolutionStrategy.applyRemote,
         customModel = null;
 
-  ConflictResolutionDecision.retryLocal()
+  const ConflictResolutionDecision.retryLocal()
       : _resolutionStrategy = ResolutionStrategy.retryLocal,
         customModel = null;
 
-  ConflictResolutionDecision.retry(Model this.customModel)
+  const ConflictResolutionDecision.retry(Model this.customModel)
       : _resolutionStrategy = ResolutionStrategy.retry;
 
   @override
   String toString() {
-    return "ConflictResolutionDecision{" +
-        "resolutionStrategy=" +
+    return 'ConflictResolutionDecision{' 'resolutionStrategy=' +
         _resolutionStrategy.toString() +
-        ", customModel=" +
+        ', customModel=' +
         customModel.toString() +
-        "}";
+        '}';
   }
 
   Map<String, Object?> toJson() => <String, Object?>{

@@ -12,13 +12,10 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import 'package:amplify_core/amplify_core.dart';
+import 'auth_user_options.dart';
 
 class AuthUserRequest {
   AuthUserOptions? options;
   AuthUserRequest();
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    return pendingRequest;
-  }
+  Map<String, Object?> serializeAsMap() => {};
 }

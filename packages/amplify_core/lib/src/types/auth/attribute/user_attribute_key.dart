@@ -13,11 +13,14 @@
  * permissions and limitations under the License.
  */
 
-/// {@template amplify_auth_cognito.user_attribute_key}
+import 'package:meta/meta.dart';
+
+/// {@template amplify_common.user_attribute_key}
 /// A user attribute identifier.
 /// {@endtemplate}
+@immutable
 abstract class UserAttributeKey implements Comparable<UserAttributeKey> {
-  /// {@macro amplify_auth_cognito.user_attribute_key}
+  /// {@macro amplify_common.user_attribute_key}
   const UserAttributeKey();
 
   /// The JSON key for this attribute.

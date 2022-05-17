@@ -13,8 +13,13 @@
  * permissions and limitations under the License.
  */
 
-/// The shared update password options among all Auth plugins
+/// {@template amplify_common.update_password_options}
+/// The shared update password options among all Auth plugins.
+/// {@endtemplate}
 abstract class UpdatePasswordOptions {
-  /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap();
+  /// {@macro amplify_common.update_password_options}
+  const UpdatePasswordOptions();
+
+  /// Serialize the object to a map.
+  Map<String, Object?> serializeAsMap();
 }

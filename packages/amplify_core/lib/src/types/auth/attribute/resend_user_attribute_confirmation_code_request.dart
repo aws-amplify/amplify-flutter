@@ -15,26 +15,26 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// Encapsulates parameters for a request to resend a user attribute confirmation code
+/// {@template amplify_common.resend_user_attribute_confirmation_code_request}
+/// Encapsulates parameters for a request to resend a user attribute
+/// confirmation code.
+/// {@endtemplate}
 class ResendUserAttributeConfirmationCodeRequest {
-  /// The key of the user attribute to resend the confirmation code for
+  /// The key of the user attribute to resend the confirmation code for.
   final UserAttributeKey userAttributeKey;
 
-  /// Plugin-specific, advanced options such as information about the client
+  /// Plugin-specific, advanced options such as information about the client.
   final ResendUserAttributeConfirmationCodeOptions? options;
 
-  /// Default constructor
+  /// {@macro amplify_common.resend_user_attribute_confirmation_code_request}
   const ResendUserAttributeConfirmationCodeRequest({
     required this.userAttributeKey,
     this.options,
   });
 
-  /// Serialize the object to a map for use over the method channel
-  Map<String, dynamic> serializeAsMap() {
-    final pendingRequest = <String, dynamic>{
-      'userAttributeKey': userAttributeKey.key,
-      if (options != null) 'options': options?.serializeAsMap(),
-    };
-    return pendingRequest;
-  }
+  /// Serialize the object to a map for use over the method channel.
+  Map<String, Object?> serializeAsMap() => {
+        'userAttributeKey': userAttributeKey.key,
+        if (options != null) 'options': options?.serializeAsMap(),
+      };
 }

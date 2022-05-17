@@ -57,8 +57,9 @@ void main() {
         .serializeAsMap();
 
     expect(request['options'], isInstanceOf<Map>());
-    expect(request['options']['clientMetadata'], isInstanceOf<Map>());
-    expect(request['options']['clientMetadata'], mockClientMetadata);
+    final optionsMap = request['options'] as Map;
+    expect(optionsMap['clientMetadata'], isInstanceOf<Map>());
+    expect(optionsMap['clientMetadata'], mockClientMetadata);
   });
 
   test('confirmnSignUp request returns a SignUpResult', () async {

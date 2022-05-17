@@ -13,6 +13,10 @@
  * permissions and limitations under the License.
  */
 
+/// {@template amplify_common.update_password_result}
+/// The result of an update password request.
+/// {@endtemplate}
 class UpdatePasswordResult {
-  UpdatePasswordResult();
+  /// {@macro amplify_common.update_password_result}
+  const UpdatePasswordResult();
 }

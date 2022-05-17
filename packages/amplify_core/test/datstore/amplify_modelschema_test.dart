@@ -36,32 +36,32 @@ void main() {
 
     ModelSchema blogSchema = Blog.schema;
 
-    expect(blogSchema.name, "Blog");
-    expect(blogSchema.pluralName, "Blogs");
+    expect(blogSchema.name, 'Blog');
+    expect(blogSchema.pluralName, 'Blogs');
     expect(blogSchema.authRules, null);
 
     expect(
-        blogSchema.fields!["id"],
-        ModelField(
-            name: "id",
-            type: const ModelFieldType(ModelFieldTypeEnum.string),
+        blogSchema.fields!['id'],
+        const ModelField(
+            name: 'id',
+            type: ModelFieldType(ModelFieldTypeEnum.string),
             isRequired: true,
             isArray: false));
 
     expect(
-        blogSchema.fields!["name"],
-        ModelField(
-            name: "name",
-            type: const ModelFieldType(ModelFieldTypeEnum.string),
+        blogSchema.fields!['name'],
+        const ModelField(
+            name: 'name',
+            type: ModelFieldType(ModelFieldTypeEnum.string),
             isRequired: true,
             isArray: false));
 
     expect(
-        blogSchema.fields!["posts"],
+        blogSchema.fields!['posts'],
         ModelField(
-            name: "posts",
+            name: 'posts',
             type: const ModelFieldType(ModelFieldTypeEnum.collection,
-                ofModelName: "Post"),
+                ofModelName: 'Post'),
             isRequired: false,
             isArray: true,
             association: ModelAssociation(
@@ -83,33 +83,33 @@ void main() {
 
     ModelSchema commentSchema = Comment.schema;
 
-    expect(commentSchema.name, "Comment");
-    expect(commentSchema.pluralName, "Comments");
+    expect(commentSchema.name, 'Comment');
+    expect(commentSchema.pluralName, 'Comments');
     expect(commentSchema.authRules, null);
 
     expect(
-        commentSchema.fields!["id"],
-        ModelField(
-            name: "id",
-            type: const ModelFieldType(ModelFieldTypeEnum.string),
+        commentSchema.fields!['id'],
+        const ModelField(
+            name: 'id',
+            type: ModelFieldType(ModelFieldTypeEnum.string),
             isRequired: true,
             isArray: false));
 
     expect(
-        commentSchema.fields!["post"],
-        ModelField(
-            name: "post",
-            type: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "Post"),
+        commentSchema.fields!['post'],
+        const ModelField(
+            name: 'post',
+            type: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Post'),
             isRequired: false,
             isArray: false,
             association: ModelAssociation(
                 associationType: ModelAssociationEnum.BelongsTo,
-                targetName: "postID")));
+                targetName: 'postID')));
 
     expect(
-        commentSchema.fields!["content"],
-        ModelField(
-            name: "content",
+        commentSchema.fields!['content'],
+        const ModelField(
+            name: 'content',
             type: ModelFieldType(ModelFieldTypeEnum.string),
             isRequired: true,
             isArray: false));
@@ -128,36 +128,36 @@ void main() {
 
     ModelSchema postSchema = Post.schema;
 
-    expect(postSchema.name, "Post");
-    expect(postSchema.pluralName, "Posts");
+    expect(postSchema.name, 'Post');
+    expect(postSchema.pluralName, 'Posts');
     expect(postSchema.authRules, null);
 
     expect(
-        postSchema.fields!["id"],
-        ModelField(
-            name: "id",
-            type: const ModelFieldType(ModelFieldTypeEnum.string),
-            isRequired: true,
-            isArray: false));
-
-    expect(
-        postSchema.fields!["title"],
-        ModelField(
-            name: "title",
+        postSchema.fields!['id'],
+        const ModelField(
+            name: 'id',
             type: ModelFieldType(ModelFieldTypeEnum.string),
             isRequired: true,
             isArray: false));
 
     expect(
-        postSchema.fields!["blog"],
-        ModelField(
-            name: "blog",
-            type: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "Blog"),
+        postSchema.fields!['title'],
+        const ModelField(
+            name: 'title',
+            type: ModelFieldType(ModelFieldTypeEnum.string),
+            isRequired: true,
+            isArray: false));
+
+    expect(
+        postSchema.fields!['blog'],
+        const ModelField(
+            name: 'blog',
+            type: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Blog'),
             isRequired: false,
             isArray: false,
             association: ModelAssociation(
                 associationType: ModelAssociationEnum.BelongsTo,
-                targetName: "blogID")));
+                targetName: 'blogID')));
   });
 
   test('PostAuthComplex codegen model generates modelschema with proper fields',
@@ -178,14 +178,14 @@ void main() {
 
     ModelSchema postSchema = PostAuthComplex.schema;
 
-    expect(postSchema.name, "PostAuthComplex");
-    expect(postSchema.pluralName, "PostAuthComplexes");
+    expect(postSchema.name, 'PostAuthComplex');
+    expect(postSchema.pluralName, 'PostAuthComplexes');
     expect(postSchema.authRules, [
-      AuthRule(
+      const AuthRule(
           authStrategy: AuthStrategy.OWNER,
-          ownerField: "owner",
+          ownerField: 'owner',
           provider: AuthRuleProvider.USERPOOLS,
-          identityClaim: "cognito:username",
+          identityClaim: 'cognito:username',
           operations: [
             ModelOperation.CREATE,
             ModelOperation.UPDATE,
@@ -219,34 +219,34 @@ void main() {
       }
     */
     final expectedPersonFields = {
-      'id': ModelField(
-          name: "id",
-          type: const ModelFieldType(ModelFieldTypeEnum.string),
+      'id': const ModelField(
+          name: 'id',
+          type: ModelFieldType(ModelFieldTypeEnum.string),
           isRequired: true,
           isArray: false),
-      'name': ModelField(
-          name: "name",
-          type: const ModelFieldType(ModelFieldTypeEnum.string),
+      'name': const ModelField(
+          name: 'name',
+          type: ModelFieldType(ModelFieldTypeEnum.string),
           isRequired: true,
           isArray: false),
-      'contact': ModelField(
+      'contact': const ModelField(
           name: 'contact',
           isRequired: true,
           type: ModelFieldType(ModelFieldTypeEnum.embedded,
               ofCustomTypeName: 'Contact')),
-      'propertiesAddresses': ModelField(
+      'propertiesAddresses': const ModelField(
           name: 'propertiesAddresses',
           isRequired: false,
           isArray: true,
           type: ModelFieldType(ModelFieldTypeEnum.embeddedCollection,
               ofCustomTypeName: 'Address')),
-      'createdAt': ModelField(
+      'createdAt': const ModelField(
           name: 'createdAt',
           isRequired: false,
           isArray: false,
           isReadOnly: true,
           type: ModelFieldType(ModelFieldTypeEnum.dateTime)),
-      'updatedAt': ModelField(
+      'updatedAt': const ModelField(
           name: 'updatedAt',
           isRequired: false,
           isArray: false,

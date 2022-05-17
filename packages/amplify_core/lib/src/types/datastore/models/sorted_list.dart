@@ -27,23 +27,28 @@ import 'dart:collection';
 /// part of the public API
 class SortedList<E> with ListMixin<E> {
   // Required for ListMixin
-  void set length(int newLength) {
+  @override
+  set length(int newLength) {
     _items.length = newLength;
   }
 
   // Required for ListMixin
+  @override
   int get length => _items.length;
 
   // Required for ListMixin
+  @override
   E operator [](int index) => _items[index];
 
   // Required for ListMixin
+  @override
   void operator []=(int index, E value) {
     _items[index] = value;
   }
 
   // ListMixin add() only works for lists that accept null
-  void add(E value) => _items.add(value);
+  @override
+  void add(E element) => _items.add(element);
 
   // items in the list
   final List<E> _items;
@@ -68,7 +73,7 @@ class SortedList<E> with ListMixin<E> {
 
   /// adds a new item to the list, maintaining the sort order
   void addSorted(E item) {
-    if (this._compare == null || _items.length == 0) {
+    if (_compare == null || _items.isEmpty) {
       add(item);
       return;
     }
@@ -78,7 +83,7 @@ class SortedList<E> with ListMixin<E> {
 
   /// Updates an item in the list, maintaining the sort order
   void updateAtSorted(int index, E item) {
-    if (this._compare == null) {
+    if (_compare == null) {
       this[index] = item;
     } else {
       removeAt(index);
@@ -95,10 +100,11 @@ class SortedList<E> with ListMixin<E> {
 
     while (low < high) {
       var mid = (low + high) >> 1;
-      if (_compare!(item, _items[mid]) > 0)
+      if (_compare!(item, _items[mid]) > 0) {
         low = mid + 1;
-      else
+      } else {
         high = mid;
+      }
     }
     return low;
   }

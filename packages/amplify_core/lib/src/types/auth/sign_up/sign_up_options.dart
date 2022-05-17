@@ -18,5 +18,5 @@ abstract class SignUpOptions {
 
   const SignUpOptions({required this.userAttributes});
 
-  Map<String, dynamic> serializeAsMap();
+  Map<String, Object?> serializeAsMap();
 }

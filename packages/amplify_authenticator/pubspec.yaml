@@ -12,6 +12,7 @@ dependencies:
   amplify_auth_cognito: ">=0.3.0 <0.6.0"
   amplify_core: ">=0.3.0 <0.6.0"
   amplify_flutter: ">=0.3.0 <0.6.0"
+  aws_common: ^0.1.0
   collection: ^1.15.0
   flutter:
     sdk: flutter

@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: implicit_dynamic_type
+// ignore_for_file: implicit_dynamic_type, constant_identifier_names
 
 part of 'query_field.dart';
 

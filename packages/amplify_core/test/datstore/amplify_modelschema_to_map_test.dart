@@ -24,26 +24,26 @@ void main() {
     Map<String, dynamic> map = blogSchema.toMap();
 
     expect(map, {
-      'name': "Blog",
-      'pluralName': "Blogs",
+      'name': 'Blog',
+      'pluralName': 'Blogs',
       'fields': {
         'id': {
-          'name': "id",
+          'name': 'id',
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
           'isReadOnly': false,
         },
         'name': {
-          'name': "name",
+          'name': 'name',
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
           'isReadOnly': false,
         },
         'posts': {
-          'name': "posts",
-          'type': {'fieldType': 'collection', 'ofModelName': "Post"},
+          'name': 'posts',
+          'type': {'fieldType': 'collection', 'ofModelName': 'Post'},
           'isRequired': false,
           'isArray': true,
           'isReadOnly': false,

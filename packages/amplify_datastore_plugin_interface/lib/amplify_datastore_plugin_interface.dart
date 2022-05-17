@@ -13,5 +13,6 @@
  * permissions and limitations under the License.
  */
 
-export 'package:amplify_core/src/types/datastore/datastore_types.dart';
+export 'package:amplify_core/src/types/datastore/datastore_types.dart'
+    hide DateTimeParse;
 export 'package:amplify_core/src/util/uuid.dart';

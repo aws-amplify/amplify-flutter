@@ -15,7 +15,7 @@
 
 abstract class ConfirmSignInOptions {
   const ConfirmSignInOptions();
-  Map<String, dynamic> serializeAsMap() {
+  Map<String, Object?> serializeAsMap() {
     throw UnimplementedError(
         'serializeAsMap() has not been implemented on ConfirmSignInOptions.');
   }

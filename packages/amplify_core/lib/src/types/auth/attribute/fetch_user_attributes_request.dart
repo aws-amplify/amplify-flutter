@@ -15,19 +15,18 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@template amplify_common.fetch_user_attribute_request}
 /// Encapsulates parameters for a fetch user attributes operation
+/// {@endtemplate}
 class FetchUserAttributesRequest {
   /// Plugin-specific, advanced options such as information about the client
   FetchUserAttributesOptions? options;
 
-  /// Default constructor
+  /// {@macro amplify_common.fetch_user_attribute_request}
   FetchUserAttributesRequest({this.options});
 
   /// Serialize the object to a map for use over the method channel
-  Map<String, dynamic> serializeAsMap() {
-    final pendingRequest = <String, dynamic>{
-      if (options != null) 'options': options?.serializeAsMap()
-    };
-    return pendingRequest;
-  }
+  Map<String, Object?> serializeAsMap() => {
+        if (options != null) 'options': options?.serializeAsMap(),
+      };
 }

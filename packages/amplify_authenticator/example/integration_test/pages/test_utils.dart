@@ -28,8 +28,7 @@ Future<void> loadAuthenticator({
   required Widget authenticator,
 }) async {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
-      as IntegrationTestWidgetsFlutterBinding;
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   if (!binding.sendFramesToEngine) binding.allowFirstFrame();
   await tester.pumpWidget(authenticator);
   await tester.pumpAndSettle();

@@ -13,13 +13,15 @@
  * permissions and limitations under the License.
  */
 
-/// The shared fetch user attributes options among all Auth plugins
+/// {@template amplify_common.fetch_user_attributes_options}
+/// The shared fetch user attributes options among all Auth plugins.
+/// {@endtemplate}
 class FetchUserAttributesOptions {
-  /// Default constructor
+  /// {@macro amplify_common.fetch_user_attributes_options}
   const FetchUserAttributesOptions();
 
   /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap() {
+  Map<String, Object?> serializeAsMap() {
     throw UnimplementedError(
         'serializeAsMap() has not been implemented on FetchUserAttributesOptions.');
   }

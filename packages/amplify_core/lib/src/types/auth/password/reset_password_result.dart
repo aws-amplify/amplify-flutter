@@ -15,11 +15,16 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@template amplify_common.reset_password_result}
+/// The result of a password reset request.
+/// {@endtemplate}
 class ResetPasswordResult {
   bool isPasswordReset;
   ResetPasswordStep nextStep;
-  ResetPasswordResult({required this.isPasswordReset, required this.nextStep}) {
-    this.isPasswordReset = isPasswordReset;
-    this.nextStep = nextStep;
-  }
+
+  /// {@macro amplify_common.reset_password_result}
+  ResetPasswordResult({
+    required this.isPasswordReset,
+    required this.nextStep,
+  });
 }

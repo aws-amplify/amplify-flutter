@@ -15,7 +15,9 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@template amplify_common.update_user_attribute_result}
 /// Wraps the result of an update user attribute operation.
+/// {@endtemplate}
 class UpdateUserAttributeResult {
   /// True if the user attribute has now been updated. False if it has not yet been updated.
   bool isUpdated;
@@ -23,12 +25,9 @@ class UpdateUserAttributeResult {
   /// Contains details about the next step in the user attribute update process (or whether the flow is now done).
   AuthNextUpdateAttributeStep nextStep;
 
-  // ignore: public_member_api_docs
+  // {@macro amplify_common.update_user_attribute_result}
   UpdateUserAttributeResult({
     required this.isUpdated,
     required this.nextStep,
-  }) {
-    this.isUpdated = isUpdated;
-    this.nextStep = nextStep;
-  }
+  });
 }

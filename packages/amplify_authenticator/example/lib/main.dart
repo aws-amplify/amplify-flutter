@@ -1,8 +1,5 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator_example/customization/authenticator_with_custom_auth_flow.dart';
-import 'package:amplify_authenticator_example/customization/authenticator_with_custom_layout.dart';
-import 'package:amplify_authenticator_example/customization/authenticator_with_onboarding.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_button_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_country_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_input_resolver.dart';
@@ -106,11 +103,11 @@ class _MyAppState extends State<MyApp> {
           SignUpFormField.address(),
           SignUpFormField.custom(
             title: 'Bio',
-            attributeKey: const CognitoUserAttributeKey.custom('bio'),
+            attributeKey: CognitoUserAttributeKey.custom('bio'),
           ),
           SignUpFormField.custom(
             title: 'Age',
-            attributeKey: const CognitoUserAttributeKey.custom('age'),
+            attributeKey: CognitoUserAttributeKey.custom('age'),
           )
         ],
       ),

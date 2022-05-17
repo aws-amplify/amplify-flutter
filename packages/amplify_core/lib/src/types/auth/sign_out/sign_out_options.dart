@@ -13,7 +13,9 @@
  * permissions and limitations under the License.
  */
 
-/// The shared sign out options among all Auth plugins
+/// {@template amplify_common.sign_out_options}
+/// The shared sign out options among all Auth plugins.
+/// {@endtemplate}
 class SignOutOptions {
   /// Sign the current user out from all devices
   ///
@@ -21,12 +23,12 @@ class SignOutOptions {
   /// tasks that requires a valid token after a global signout is called.
   final bool globalSignOut;
 
-  /// Default constructor
+  /// {@macro amplify_common.sign_out_options}
   const SignOutOptions({this.globalSignOut = false});
 
   /// Serialize the object to a map
-  Map serializeAsMap() {
-    return <String, dynamic>{
+  Map<String, Object?> serializeAsMap() {
+    return {
       'globalSignOut': globalSignOut,
     };
   }
