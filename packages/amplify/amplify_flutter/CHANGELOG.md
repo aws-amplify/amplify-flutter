@@ -2,23 +2,24 @@
 
 ### Breaking Changes
 
-- break: adds deleteUser support for Android (#1540)
-- feat(auth): enables custom auth flows (#1444)
-
 - **Auth**: Auth API Changes
 
-- The `Auth.deleteUser` API is now functional on both Android and iOS platforms. Previsiously, this API would throw an exception on the Android platform. Now, the user will be deleted.
+  - Previously, the [`Amplify.Auth.deleteUser`](https://docs.amplify.aws/lib/auth/delete_user/q/platform/flutter/) API would throw `UnimplementedException` when it was called on Android platform. When this release, this API becomes functional and will delete currently signed in user on Android platform.
+  
+    **How to Migrate:**
 
-- Custom Auth flows are now available with passwordless logins. To support this change, the password attribute is now optional in the `Auth.signIn` API. While this should not prove breaking in most cases, we are calling it out since it alters a very commonly used API.
+    - Remove unwanted calls of the `Amplify.Auth.deleteUser` API, if you were replying on expecting above describe exception to prevent deleting user on Android platform
 
-  **How to Migrate:**
+  - Custom Auth flows are now available with passwordless logins. To support this change, the password attribute is now optional in the `Auth.signIn` API. While this should not prove breaking in most cases, we are calling it out since it alters a very commonly used API.
 
-  - Ensure that you are only invoking the `Auth.deleteUser` API when you want the user to be deleted, and do not rely on library to throw an exception on the Android platform.
+    **How to Migrate:**
 
-  - Pass null to the `Auth.signIn` API only for passwordless login, using Cognito Custom Auth flows.
+    - Pass null to the `Auth.signIn` API only for passwordless login, using Cognito Custom Auth flows
 
 ### Features
 
+- feat(auth): add deleteUser support for Android (#1540)
+- feat(auth): enables custom auth flows (#1444)
 - feat(datastore): Custom Conflict Handler (#1254)
 - feat(datastore): emit subscriptionDataProcessed and syncReceived events (#1351)
 - feat(datastore): Multi-auth (#1478)
