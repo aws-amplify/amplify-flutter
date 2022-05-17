@@ -25,21 +25,31 @@ import 'package:meta/meta.dart';
 /// Use [CognitoUserAttributeKey.custom] to create a custom Cognito attribute.
 @immutable
 class CognitoUserAttributeKey extends UserAttributeKey {
-  const CognitoUserAttributeKey._(this.key, {this.readOnly = false});
+  const CognitoUserAttributeKey._(this._key, {this.readOnly = false})
+      : isCustom = false;
 
   /// Prefix for custom Cognito attributes.
   static const customPrefix = 'custom:';
 
-  /// The JSON key for this attribute.
+  final String _key;
+
   @override
-  final String key;
+  String get key {
+    if (isCustom) {
+      return key.startsWith(customPrefix) ? _key : '$customPrefix$key';
+    }
+    return _key;
+  }
 
   /// Whether this attribute can only be read from Cognito.
   final bool readOnly;
 
+  /// Whether this is a custom key.
+  final bool isCustom;
+
   /// Creates a custom Cognito attribute.
-  CognitoUserAttributeKey.custom(String key)
-      : key = key.startsWith(customPrefix) ? key : '$customPrefix$key',
+  const CognitoUserAttributeKey.custom(this._key)
+      : isCustom = true,
         readOnly = false;
 
   /// Parses the given Cognito attribute key.

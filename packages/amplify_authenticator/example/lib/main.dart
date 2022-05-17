@@ -103,11 +103,11 @@ class _MyAppState extends State<MyApp> {
           SignUpFormField.address(),
           SignUpFormField.custom(
             title: 'Bio',
-            attributeKey: CognitoUserAttributeKey.custom('bio'),
+            attributeKey: const CognitoUserAttributeKey.custom('bio'),
           ),
           SignUpFormField.custom(
             title: 'Age',
-            attributeKey: CognitoUserAttributeKey.custom('age'),
+            attributeKey: const CognitoUserAttributeKey.custom('age'),
           )
         ],
       ),

@@ -17,8 +17,11 @@ part of 'amplify_impl.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/amplify');
 
-/// An implementation of [Core] that uses method channels.
+/// {@template amplify.method_channel_amplify}
+/// An implementation of [AmplifyClass] that uses method channels.
+/// {@endtemplate}
 class MethodChannelAmplify extends AmplifyClass {
+  /// {@macro amplify.method_channel_amplify}
   MethodChannelAmplify() : super.protected();
 
   AmplifyConfig? _config;

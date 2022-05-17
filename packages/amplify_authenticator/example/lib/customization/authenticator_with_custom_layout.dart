@@ -155,7 +155,7 @@ class SignUpView extends StatelessWidget {
                 // checked, and a custom error message will be displayed.
                 TermsAndConditionsCheckBox(
                   onChanged: (value) => state.setCustomAttribute(
-                    CognitoUserAttributeKey.custom(
+                    const CognitoUserAttributeKey.custom(
                       'terms-and-conditions',
                     ),
                     value.toString(),
