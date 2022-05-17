@@ -310,13 +310,13 @@ class FlutterURLSessionTests: XCTestCase {
         }
     }
     
-    func test_aws_operation_records_success_response() {
+    func skip_test_aws_operation_records_success_response() {
         runForAllVerbs { method, body in
             runAWSTest(statusCode: 200, method: method, body: body)
         }
     }
     
-    func test_aws_operation_records_failure_response() {
+    func skip_test_aws_operation_records_failure_response() {
         runForAllVerbs { method, body in
             runAWSTest(statusCode: 400, method: method, body: body)
         }
