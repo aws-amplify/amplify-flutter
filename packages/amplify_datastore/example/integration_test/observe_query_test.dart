@@ -27,6 +27,7 @@ void main() {
     setUp(() async {
       await configureDataStore();
       await clearDataStore();
+      await waitForObserve();
     });
 
     testWidgets(
@@ -59,14 +60,18 @@ void main() {
         Blog.classType,
       ).map((event) => event.items);
 
+      // should emit an initial snapshot with the data in the store
+      final firstSnapshot = await observeQueryItemStream.first;
+      expect(firstSnapshot, orderedEquals(blogs));
+
       Blog newBlog1 = Blog(name: 'new blog 1');
       Blog newBlog2 = Blog(name: 'new blog 2');
       Blog newBlog1Copy = newBlog1.copyWith(name: 'new name');
 
+      // should emit a snapshot for each save/update
       expectLater(
         observeQueryItemStream,
         emitsInOrder([
-          orderedEquals([...blogs]),
           orderedEquals([...blogs, newBlog1]),
           orderedEquals([...blogs, newBlog1, newBlog2]),
           orderedEquals([...blogs, newBlog1Copy, newBlog2]),
@@ -92,15 +97,19 @@ void main() {
         where: Blog.NAME.contains('blog'),
       ).map((event) => event.items);
 
+      // should emit an initial snapshot with the data in the store
+      final firstSnapshot = await observeQueryItemStream.first;
+      expect(firstSnapshot, orderedEquals(blogs));
+
       Blog newBlog1 = Blog(name: 'new blog 1');
       Blog newBlog2 = Blog(name: 'new blog 2');
       Blog newBlog3 = Blog(name: 'new 3');
       Blog newBlog1Copy = newBlog1.copyWith(name: 'new name');
 
+      // should emit a snapshot for each save/update
       expectLater(
         observeQueryItemStream,
         emitsInOrder([
-          orderedEquals([...blogs]),
           orderedEquals([...blogs, newBlog1]),
           orderedEquals([...blogs, newBlog1, newBlog2]),
           orderedEquals([...blogs, newBlog2]),
@@ -125,14 +134,18 @@ void main() {
         sortBy: [Blog.NAME.ascending()],
       ).map((event) => event.items);
 
+      // should emit an initial snapshot with the data in the store
+      final firstSnapshot = await observeQueryItemStream.first;
+      expect(firstSnapshot, orderedEquals(blogs));
+
       Blog newBlog1 = Blog(name: 'aaa blog');
       Blog newBlog2 = Blog(name: 'ccc blog');
       Blog newBlog2Copy = newBlog2.copyWith(name: 'azz blog');
 
+      // should emit a snapshot for each save/update
       expectLater(
         observeQueryItemStream,
         emitsInOrder([
-          orderedEquals([...blogs]),
           orderedEquals([newBlog1, ...blogs]),
           orderedEquals([newBlog1, ...blogs, newBlog2]),
           orderedEquals([newBlog1, newBlog2Copy, ...blogs]),
