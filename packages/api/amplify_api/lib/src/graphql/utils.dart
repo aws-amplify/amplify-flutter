@@ -13,8 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:collection/collection.dart';
 
 const _serializedData = 'serializedData';
@@ -41,8 +40,7 @@ _RelatedFields _getRelatedFieldsUncached(ModelSchema modelSchema) {
   return _RelatedFields(singleFields, hasManyFields);
 }
 
-// ignore: prefer_collection_literals
-final _fieldsMemo = Map<ModelSchema, _RelatedFields>();
+final _fieldsMemo = <ModelSchema, _RelatedFields>{};
 // cached to avoid repeat iterations over fields in schema to get related fields
 _RelatedFields _getRelatedFields(ModelSchema modelSchema) {
   if (_fieldsMemo[modelSchema] != null) {
@@ -61,7 +59,8 @@ ModelField? getBelongsToFieldFromModelSchema(ModelSchema modelSchema) {
 /// Gets the modelSchema from provider that matches the name and validates its fields.
 ModelSchema getModelSchemaByModelName(
     String modelName, GraphQLRequestOperation? operation) {
-  final provider = AmplifyAPI.instance.getModelProvider();
+  // ignore: invalid_use_of_protected_member
+  final provider = Amplify.API.defaultPlugin.modelProvider;
   if (provider == null) {
     throw const ApiException(
       'No modelProvider found',

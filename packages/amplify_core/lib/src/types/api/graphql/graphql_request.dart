@@ -17,7 +17,6 @@ import 'package:amplify_core/amplify_core.dart';
 
 /// A GraphQL request with a few extra properties used to decode the response or use the correct API if the backend has multiple.
 class GraphQLRequest<T> {
-  // ignore: public_member_api_docs
   final String id = UUID.getUUID();
 
   /// Only required if your backend has multiple GraphQL endpoints in the amplifyconfiguration.dart file. This parameter is then needed to specify which one to use for this request.
@@ -54,7 +53,6 @@ class GraphQLRequest<T> {
   /// See https://docs.amplify.aws/lib/graphqlapi/advanced-workflows/q/platform/flutter/.
   final ModelType? modelType;
 
-  // ignore: public_member_api_docs
   GraphQLRequest(
       {this.apiName,
       required this.document,
@@ -62,7 +60,6 @@ class GraphQLRequest<T> {
       this.decodePath,
       this.modelType});
 
-  // ignore: public_member_api_docs
   Map<String, dynamic> serializeAsMap() => <String, dynamic>{
         'document': document,
         'variables': variables,

@@ -54,6 +54,7 @@ void noOp() {}
 Future<void> signOut() async {
   try {
     await Amplify.Auth.signOut();
-    // ignore: avoid_catches_without_on_clauses
-  } catch (_) {}
+  } on Object {
+    // OK
+  }
 }

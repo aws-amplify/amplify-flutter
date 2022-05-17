@@ -13,11 +13,13 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
 import 'amplify_auth_cognito.dart';
+import 'amplify_auth_cognito_stream_controller.dart';
 import 'amplify_auth_error_handling.dart';
 
 const MethodChannel _channel =
@@ -25,6 +27,8 @@ const MethodChannel _channel =
 
 /// An implementation of [AmplifyAuthCognito] that uses method channels.
 class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
+  AmplifyAuthCognitoMethodChannel() : super.protected();
+
   // Throws if the user attempts to update a user attribute key which is not a
   // Cognito attribute or which is set to read-only.
   void _checkUserAttributeKey(UserAttributeKey? userAttributeKey) {
@@ -36,6 +40,12 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
         'or a custom attribute created with CognitoUserAttributeKey.custom.',
       );
     }
+  }
+
+  final AuthStreamController _streamWrapper = AuthStreamController();
+
+  StreamController<AuthHubEvent> get streamController {
+    return _streamWrapper.authStreamController;
   }
 
   @override

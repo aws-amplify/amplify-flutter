@@ -53,8 +53,8 @@ class PaginatedModelType<T extends Model>
     final items = itemsJson
         .cast<Map?>()
         .map(
-          // ignore: implicit_dynamic_method
-          (e) => e != null ? modelType.fromJson(e.cast()) : null,
+          (e) =>
+              e != null ? modelType.fromJson(e.cast<String, Object?>()) : null,
         )
         .toList();
 

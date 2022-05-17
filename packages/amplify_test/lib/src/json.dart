@@ -22,8 +22,7 @@ Future<dynamic> getJsonFromFile(String path) async {
   String jsonString = '';
   try {
     jsonString = await File(path).readAsString();
-    // ignore: avoid_catches_without_on_clauses
-  } catch (e) {
+  } on Object {
     jsonString = await File('test/$path').readAsString();
   }
   return jsonDecode(jsonString);

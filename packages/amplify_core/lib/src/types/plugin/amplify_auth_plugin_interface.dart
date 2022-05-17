@@ -23,7 +23,8 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   @nonVirtual
   Category get category => Category.auth;
 
-  StreamController<AuthHubEvent> get streamController;
+  StreamController<AuthHubEvent> get streamController =>
+      throw UnimplementedError('streamController has not been implemented');
 
   Future<SignUpResult> signUp({
     required SignUpRequest request,

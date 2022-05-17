@@ -34,8 +34,7 @@ Future<void> configureAuth(
 Future<void> signOutUser() async {
   try {
     await Amplify.Auth.signOut();
-    // ignore: unused_catch_clause
-  } on AuthException catch (e) {
+  } on AuthException {
     // Ignore a signOut error because we only care when someone signed in.
   }
 }

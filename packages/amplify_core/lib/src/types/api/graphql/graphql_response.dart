@@ -25,13 +25,11 @@ class GraphQLResponse<T> {
   /// A list of errors from execution. If no errors, it will be an empty list.
   final List<GraphQLResponseError> errors;
 
-  // ignore: public_member_api_docs
   const GraphQLResponse({
     this.data,
     required this.errors,
   });
 
-  // ignore: public_member_api_docs
   static GraphQLResponse<String?> raw({
     required String? data,
     List<GraphQLResponseError>? errors,

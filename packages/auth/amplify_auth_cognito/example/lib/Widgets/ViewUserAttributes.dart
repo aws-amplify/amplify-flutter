@@ -19,7 +19,6 @@ import 'package:flutter/material.dart';
 import 'UpdateUserAttributes.dart';
 import 'UpdateUserAttribute.dart';
 
-// ignore: public_member_api_docs
 class ViewUserAttributes extends StatefulWidget {
   @override
   _ViewUserAttributesState createState() => _ViewUserAttributesState();

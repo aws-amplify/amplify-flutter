@@ -19,8 +19,10 @@ class SubscriptionDataProcessedEvent<M extends Model> extends HubEventPayload {
   late HubEventElementWithMetadata<M> element;
   late String modelName;
 
-  SubscriptionDataProcessedEvent(Map<dynamic, dynamic> serializedData,
-      ModelProviderInterface provider) {
+  SubscriptionDataProcessedEvent(
+    Map<dynamic, dynamic> serializedData,
+    ModelProviderInterface provider,
+  ) {
     element = HubEventElementWithMetadata.fromMap(serializedData, provider);
     modelName = serializedData['modelName'] as String;
   }
