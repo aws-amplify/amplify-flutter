@@ -8,7 +8,7 @@
   
     **How to Migrate:**
 
-    - Remove unwanted calls of the `Amplify.Auth.deleteUser` API, if you were replying on expecting above describe exception to prevent deleting user on Android platform
+    - Remove unwanted calls of the `Amplify.Auth.deleteUser` API, if you were handling the `UnimplementedException` exception for Android
 
   - Custom Auth flows are now available with passwordless logins. To support this change, the password attribute is now optional in the `Auth.signIn` API. While this should not prove breaking in most cases, we are calling it out since it alters a very commonly used API.
 
