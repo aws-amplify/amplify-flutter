@@ -78,7 +78,7 @@ void main() {
       fail('exception not thrown');
     } on AmplifyException catch (e) {
       expect(e.message,
-          'Amplify plugin AmplifyStorageS3 was not added successfully.');
+          'Amplify plugin AmplifyStorageS3MethodChannel was not added successfully.');
     } on Exception catch (e) {
       expect(e, isA<AmplifyException>());
     }

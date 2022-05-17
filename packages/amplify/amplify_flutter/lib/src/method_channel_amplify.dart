@@ -24,25 +24,9 @@ class MethodChannelAmplify extends AmplifyClass {
   /// {@macro amplify.method_channel_amplify}
   MethodChannelAmplify() : super.protected();
 
-  AmplifyConfig? _config;
-
-  bool _isConfigured = false;
-
-  final _configCompleter = Completer<AmplifyConfig>();
-
-  @override
-  bool get isConfigured {
-    return _isConfigured;
-  }
-
-  @override
-  Future<AmplifyConfig> get asyncConfig {
-    return _configCompleter.future;
-  }
-
   @override
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
-    if (_isConfigured) {
+    if (isConfigured) {
       throw const AmplifyAlreadyConfiguredException(
         'Amplify has already been configured and adding plugins after configure is not supported.',
         recoverySuggestion:
@@ -93,37 +77,25 @@ class MethodChannelAmplify extends AmplifyClass {
   }
 
   @override
-  Future<void> configure(String configuration) async {
-    // Validation #1
-    if (_isConfigured) {
-      throw const AmplifyAlreadyConfiguredException(
-        'Amplify has already been configured and re-configuration is '
-        'not supported.',
-        recoverySuggestion: 'Check if Amplify is already configured using '
-            'Amplify.isConfigured.',
+  Future<void> configurePlatform(String config) async {
+    try {
+      await _channel.invokeMethod<void>(
+        'configure',
+        <String, Object>{
+          'version': version,
+          'configuration': config,
+        },
       );
-    }
-
-    // Validation #2. Try decoding the json string
-    try {
-      jsonDecode(configuration);
-    } on FormatException catch (e) {
-      throw AmplifyException(
-          'The provided configuration is not a valid json. Check underlyingException.',
-          recoverySuggestion:
-              'Inspect your amplifyconfiguration.dart and ensure that the string is proper json',
-          underlyingException: e.toString());
-    }
-    try {
-      await _configurePlatforms(_getVersion(), configuration);
-      _isConfigured = true;
+      await Future.wait(
+        Analytics.plugins.map((plugin) => plugin.onConfigure()),
+      );
     } on PlatformException catch (e) {
       if (e.code == 'AnalyticsException') {
         throw AnalyticsException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyException') {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyAlreadyConfiguredException') {
-        _isConfigured = true;
+        return;
       } else {
         // This shouldn't happen. All exceptions coming from platform for
         // amplify_flutter should have a known code. Throw an unknown error.
@@ -133,40 +105,14 @@ class MethodChannelAmplify extends AmplifyClass {
             underlyingException: e.toString());
       }
     }
-
-    if (_isConfigured && !_configCompleter.isCompleted) {
-      _config = _parseConfigJson(configuration);
-      _configCompleter.complete(_config);
-    }
   }
 
-  Future<void> _configurePlatforms(String version, String configuration) async {
-    await _channel.invokeMethod<void>(
-      'configure',
-      <String, Object>{
-        'version': version,
-        'configuration': configuration,
-      },
-    );
-    await Future.wait(
-      Analytics.plugins.map((plugin) => plugin.onConfigure()),
-    );
-  }
-
-  /// Parses the [configuration] string into an [AmplifyConfig] object.
-  /// An empty [AmplifyConfig] is returned on exception.
-  AmplifyConfig _parseConfigJson(String configuration) {
-    try {
-      return AmplifyConfig.fromJson(jsonDecode(configuration));
-    } on Exception catch (e) {
-      safePrint(
-        'There was an unexpected problem parsing the amplifyconfiguration.dart file: $e',
-      );
-      return const AmplifyConfig();
-    }
-  }
-
-  String _getVersion() {
-    return '0.5.0';
+  @override
+  Future<void> reset() async {
+    Auth.plugins.clear();
+    Analytics.plugins.clear();
+    Storage.plugins.clear();
+    DataStore.plugins.clear();
+    API.plugins.clear();
   }
 }

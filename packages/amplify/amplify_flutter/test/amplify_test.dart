@@ -45,7 +45,7 @@ void main() {
               'Check if Amplify is already configured using Amplify.isConfigured.');
 
   AmplifyException multiplePluginsForAuthException = AmplifyException(
-    'Amplify plugin AmplifyAuthCognito was not added successfully.',
+    'Amplify plugin AmplifyAuthCognitoMethodChannel was not added successfully.',
     recoverySuggestion:
         "We currently don't have a recovery suggestion for this exception.",
     underlyingException:
@@ -80,8 +80,8 @@ void main() {
     });
     // We want to instantiate a new instance for each test so we start
     // with a fresh state as `Amplify` singleton holds a state.
-    amplify = AmplifyClass.protected();
-    AmplifyClass.instance = MethodChannelAmplify();
+    amplify = AmplifyClass();
+    AmplifyClass.instance = amplify;
 
     // We only use Auth and Analytics category for testing this class.
     // Clear out their plugins before each test for a fresh state.

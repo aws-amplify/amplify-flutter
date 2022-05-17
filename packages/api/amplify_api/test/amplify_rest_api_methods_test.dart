@@ -17,8 +17,11 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'graphql_helpers_test.dart';
 
 const statusOK = 200;
 const statusBadRequest = 400;
@@ -27,11 +30,15 @@ const statusBadRequest = 400;
 final throwsRestException = throwsA(isA<RestException>());
 
 void main() {
-  const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
-
-  AmplifyAPI api = AmplifyAPI();
-
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
+  late AmplifyAPI api;
+
+  setUpAll(() async {
+    api = MockAmplifyAPI();
+    await Amplify.addPlugin(api);
+  });
 
   test('PUT returns proper response.data', () async {
     var responseData = Uint8List.fromList(

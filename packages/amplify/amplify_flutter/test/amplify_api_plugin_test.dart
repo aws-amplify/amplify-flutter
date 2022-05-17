@@ -76,8 +76,8 @@ void main() {
       await Amplify.addPlugin(AmplifyAPI());
       fail('exception not thrown');
     } on AmplifyException catch (e) {
-      expect(
-          e.message, 'Amplify plugin AmplifyAPI was not added successfully.');
+      expect(e.message,
+          'Amplify plugin AmplifyAPIMethodChannel was not added successfully.');
     } on Exception catch (e) {
       expect(e, isA<AmplifyException>());
     }

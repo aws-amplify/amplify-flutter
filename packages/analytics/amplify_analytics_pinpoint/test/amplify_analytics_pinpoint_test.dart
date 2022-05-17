@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
+import 'package:amplify_analytics_pinpoint/method_channel_amplify.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -21,7 +22,7 @@ void main() {
   const MethodChannel analyticsChannel =
       MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
 
-  AmplifyAnalyticsPinpoint analytics = AmplifyAnalyticsPinpoint();
+  AmplifyAnalyticsPinpoint analytics = AmplifyAnalyticsPinpointMethodChannel();
 
   TestWidgetsFlutterBinding.ensureInitialized();
 

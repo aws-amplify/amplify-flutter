@@ -16,16 +16,36 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/utils.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_api/src/method_channel_api.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 final _deepEquals = const DeepCollectionEquality().equals;
 
+class MockAmplifyAPI extends AmplifyAPIMethodChannel {
+  MockAmplifyAPI({
+    ModelProviderInterface? modelProvider,
+  }) : super(modelProvider: modelProvider);
+
+  @override
+  void registerAuthProvider(APIAuthProvider authProvider) {}
+
+  @override
+  Future<void> addPlugin() async {}
+}
+
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('with ModelProvider', () {
-    AmplifyAPI(modelProvider: ModelProvider.instance);
+    setUpAll(() async {
+      await Amplify.addPlugin(
+        // needed to fetch the schema from within the helper
+        MockAmplifyAPI(modelProvider: ModelProvider.instance),
+      );
+    });
     const blogSelectionSet =
         'id name createdAt file { bucket region key meta { name } } files { bucket region key meta { name } } updatedAt';
 
@@ -779,8 +799,13 @@ void main() {
   });
 
   group('without ModelProvider', () {
-    test('should handle no ModelProvider instance', () {
-      AmplifyAPI();
+    setUp(() async {
+      await Amplify.reset();
+    });
+
+    test('should handle no ModelProvider instance', () async {
+      await Amplify.addPlugin(MockAmplifyAPI());
+
       try {
         ModelQueries.get<Blog>(Blog.classType, '');
       } on ApiException catch (e) {

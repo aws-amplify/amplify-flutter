@@ -13,25 +13,27 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:io';
-
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
 import './method_channel_auth_cognito.dart';
 
-export './src/types.dart';
 export 'package:amplify_core/src/types/auth/auth_types.dart';
+export './src/types.dart';
 
+/// {@template amplify_auth_cognito.amplify_auth_cognito}
+/// The AWS Cognito implementation of the Amplify Auth category.
+/// {@endtemplate}
 class AmplifyAuthCognito extends AuthPluginInterface {
+  /// {@macro amplify_auth_cognito.amplify_auth_cognito}
   factory AmplifyAuthCognito() {
-    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      throw UnsupportedError('This platform is not supported yet');
-    }
+    // if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+    //   throw UnsupportedError('This platform is not supported yet');
+    // }
     return AmplifyAuthCognitoMethodChannel();
   }
 
+  /// Protected constructor for subclasses.
   @protected
   AmplifyAuthCognito.protected();
 }

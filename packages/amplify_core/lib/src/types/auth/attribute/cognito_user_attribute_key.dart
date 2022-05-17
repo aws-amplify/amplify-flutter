@@ -36,7 +36,7 @@ class CognitoUserAttributeKey extends UserAttributeKey {
   @override
   String get key {
     if (isCustom) {
-      return key.startsWith(customPrefix) ? _key : '$customPrefix$key';
+      return _key.startsWith(customPrefix) ? _key : '$customPrefix$_key';
     }
     return _key;
   }

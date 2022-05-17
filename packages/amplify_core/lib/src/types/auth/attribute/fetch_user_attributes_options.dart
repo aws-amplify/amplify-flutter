@@ -21,8 +21,5 @@ class FetchUserAttributesOptions {
   const FetchUserAttributesOptions();
 
   /// Serialize the object to a map
-  Map<String, Object?> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on FetchUserAttributesOptions.');
-  }
+  Map<String, Object?> serializeAsMap() => {};
 }

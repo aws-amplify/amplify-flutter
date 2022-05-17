@@ -14,6 +14,7 @@
 //
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/method_channel_api.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -21,7 +22,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   const apiChannel = MethodChannel('com.amazonaws.amplify/api');
-  final api = AmplifyAPI();
+  final api = AmplifyAPIMethodChannel();
 
   test('GraphQL Error Decoding', () async {
     const message = 'Not Authorized';

@@ -6,8 +6,8 @@ description: Demonstrates how to use the amplify_auth_cognito plugin.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.2.0"
+  sdk: ">=2.15.0 <3.0.0"
+  flutter: ">=2.10.0"
 
 dependencies:
   flutter:

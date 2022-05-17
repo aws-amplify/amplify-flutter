@@ -78,7 +78,7 @@ void main() {
       fail('exception not thrown');
     } on AmplifyException catch (e) {
       expect(e.message,
-          'Amplify plugin AmplifyAuthCognito was not added successfully.');
+          'Amplify plugin AmplifyAuthCognitoMethodChannel was not added successfully.');
     } on Exception catch (e) {
       expect(e, isA<AmplifyException>());
     }

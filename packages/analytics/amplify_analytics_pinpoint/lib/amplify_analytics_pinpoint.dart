@@ -15,10 +15,7 @@
 
 library amplify_analytics_pinpoint;
 
-import 'dart:io';
-
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
 import 'method_channel_amplify.dart';
@@ -31,9 +28,9 @@ export 'package:amplify_core/src/types/analytics/analytics_types.dart';
 abstract class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
   /// {@macro amplify_analytics_pinpoint.amplify_analytics_pinpoint}
   factory AmplifyAnalyticsPinpoint() {
-    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      throw UnsupportedError('This platform is not supported yet');
-    }
+    // if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+    //   throw UnsupportedError('This platform is not supported yet');
+    // }
     return AmplifyAnalyticsPinpointMethodChannel();
   }
 
