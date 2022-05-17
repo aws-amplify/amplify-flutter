@@ -19,7 +19,7 @@ class _$HttpRequest extends HttpRequest {
   final BuiltListMultimap<String, String> queryParameters;
 
   factory _$HttpRequest([void Function(HttpRequestBuilder)? updates]) =>
-      (new HttpRequestBuilder()..update(updates)).build();
+      (new HttpRequestBuilder()..update(updates))._build();
 
   _$HttpRequest._(
       {this.hostPrefix,
@@ -128,7 +128,9 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
   }
 
   @override
-  _$HttpRequest build() {
+  HttpRequest build() => _build();
+
+  _$HttpRequest _build() {
     _$HttpRequest _$result;
     try {
       _$result = _$v ??
@@ -163,7 +165,7 @@ class _$HttpResponse extends HttpResponse {
   final BuiltMap<String, String> headers;
 
   factory _$HttpResponse([void Function(HttpResponseBuilder)? updates]) =>
-      (new HttpResponseBuilder()..update(updates)).build();
+      (new HttpResponseBuilder()..update(updates))._build();
 
   _$HttpResponse._({required this.headers}) : super._() {
     BuiltValueNullFieldError.checkNotNull(headers, 'HttpResponse', 'headers');
@@ -227,7 +229,9 @@ class HttpResponseBuilder
   }
 
   @override
-  _$HttpResponse build() {
+  HttpResponse build() => _build();
+
+  _$HttpResponse _build() {
     _$HttpResponse _$result;
     try {
       _$result = _$v ?? new _$HttpResponse._(headers: headers.build());
@@ -255,7 +259,7 @@ class _$HttpRequestContext extends HttpRequestContext {
 
   factory _$HttpRequestContext(
           [void Function(HttpRequestContextBuilder)? updates]) =>
-      (new HttpRequestContextBuilder()..update(updates)).build();
+      (new HttpRequestContextBuilder()..update(updates))._build();
 
   _$HttpRequestContext._({this.awsSigningService, this.awsSigningRegion})
       : super._();
@@ -330,7 +334,9 @@ class HttpRequestContextBuilder
   }
 
   @override
-  _$HttpRequestContext build() {
+  HttpRequestContext build() => _build();
+
+  _$HttpRequestContext _build() {
     final _$result = _$v ??
         new _$HttpRequestContext._(
             awsSigningService: awsSigningService,
@@ -340,4 +346,4 @@ class HttpRequestContextBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
