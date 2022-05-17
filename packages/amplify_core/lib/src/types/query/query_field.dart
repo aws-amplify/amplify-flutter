@@ -16,6 +16,7 @@
 library query_field;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/query/query_utils.dart';
 import 'package:flutter/foundation.dart';
 
 part 'query_field_operators.dart';
