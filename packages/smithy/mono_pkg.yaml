@@ -16,3 +16,4 @@ stages:
         os:
           - windows
           - macos
+      - test: -p firefox
