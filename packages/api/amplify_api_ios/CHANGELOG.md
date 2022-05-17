@@ -1,3 +1,3 @@
-## 0.4.1 (2022-03-04)
+## 0.5.0 (2022-05-17)
 
-Initial release of this plugin
+- feat: Initial release of this plugin

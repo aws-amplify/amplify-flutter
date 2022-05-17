@@ -1,3 +1,57 @@
+## 0.5.0 (2022-05-17)
+
+### Breaking Changes
+
+- **Auth**: Auth API Changes
+
+  - Previously, the [`Amplify.Auth.deleteUser`](https://docs.amplify.aws/lib/auth/delete_user/q/platform/flutter/) API would throw `UnimplementedException` when it was called on Android platform. When this release, this API becomes functional and will delete currently signed in user on Android platform.
+  
+    **How to Migrate:**
+
+    - Remove unwanted calls of the `Amplify.Auth.deleteUser` API, if you were handling the `UnimplementedException` exception for Android
+
+  - Custom Auth flows are now available with passwordless logins. To support this change, the password attribute is now optional in the `Auth.signIn` API. While this should not prove breaking in most cases, we are calling it out since it alters a very commonly used API.
+
+    **How to Migrate:**
+
+    - Pass null to the `Auth.signIn` API only for passwordless login, using Cognito Custom Auth flows
+
+### Features
+
+- feat(auth): add deleteUser support for Android (#1540)
+- feat(auth): enables custom auth flows (#1444)
+- feat(datastore): Custom Conflict Handler (#1254)
+- feat(datastore): emit subscriptionDataProcessed and syncReceived events (#1351)
+- feat(datastore): Multi-auth (#1478)
+- feat: AWS Signature V4 library (#1456)
+
+### Fixes
+
+- fix: support lists for .contains query predicate in observeQuery (#1233)
+- fix(auth): Fix FlutterAuthProvider.kt (#1505)
+- fix(core): Update QueryPagination page field to default to 0 (#1533)
+- fix(authenticator): Fix confirm password validator (#1542)
+- fix(aws_signature_v4): Various fixes (#1572)
+
+### Chores
+
+- chore(amplify_api): federated plugin (#1410)
+- chore(amplify_flutter): migrate amplify_flutter to federated plugin (#1450)
+- chore: make example Android Apps runnable with API 32+ (#1474)
+- chore(auth): Templatize and update exception comments (#1476)
+- chore(ci): Bump Xcode version
+- chore: update android compileSdkVersion to 31
+- chore: upgrade gradle plugin to 7.1.2
+- chore: enable android codebase linter checks
+- chore: replace 0.4.2-1 with 0.4.3 due to melos limitation (#1496)
+- chore(aws): Bump min SDK version (#1551)
+- chore: Lint fixes (#1471)
+- chore(authenticator): Fix failing integration tests (#1545)
+- chore: enable dependabot (#1568)
+- chore: Flutter 3 fixes (#1580)
+- chore: bump amplify-android version to 1.35.3 (#1586)
+- chore: downgrade amplify-android to 1.33.0 (#1591)
+
 ## 0.4.5 (2022-04-13)
 
 -fix: bumps ios version and bumps api AuthProvider timeout (#1526)
