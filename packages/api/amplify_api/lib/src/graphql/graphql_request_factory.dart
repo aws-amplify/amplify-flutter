@@ -276,7 +276,7 @@ class GraphQLRequestFactory {
     if (belongsToAssociation != null) {
       belongsToModelName = belongsToAssociation.name;
       belongsToKey = belongsToAssociation.association?.targetName;
-      belongsToValue = modelJson[belongsToModelName]?[idFieldName];
+      belongsToValue = (modelJson[belongsToModelName] as Map?)?[idFieldName];
     }
 
     // Remove any relational fields or readonly.

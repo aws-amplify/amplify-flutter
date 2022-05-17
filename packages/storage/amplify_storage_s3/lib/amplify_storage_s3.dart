@@ -15,48 +15,28 @@
 
 library amplify_storage_plugin;
 
+import 'dart:io';
+
 import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
+import 'package:meta/meta.dart';
+
 import './method_channel_storage_s3.dart';
 
 export './src/types.dart';
 
-class AmplifyStorageS3 extends StoragePluginInterface {
-  /// Constructs a AmplifyStoragePlugin.
-  AmplifyStorageS3();
-
-  static AmplifyStorageS3 _instance = AmplifyStorageS3MethodChannel();
-
-  @override
-  Future<void> addPlugin() async {
-    return _instance.addPlugin();
+/// {@template amplify_storage_s3.amplify_storage_s3}
+/// The AWS S3 implementation of the Amplify Storage category.
+/// {@endtemplate}
+abstract class AmplifyStorageS3 extends StoragePluginInterface {
+  /// {@macro amplify_storage_s3.amplify_storage_s3}
+  factory AmplifyStorageS3() {
+    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+      throw UnsupportedError('This platform is not supported yet');
+    }
+    return AmplifyStorageS3MethodChannel();
   }
 
-  @override
-  Future<UploadFileResult> uploadFile(
-      {required UploadFileRequest request,
-      void Function(TransferProgress)? onProgress}) {
-    return _instance.uploadFile(request: request, onProgress: onProgress);
-  }
-
-  @override
-  Future<GetUrlResult> getUrl({required GetUrlRequest request}) {
-    return _instance.getUrl(request: request);
-  }
-
-  @override
-  Future<RemoveResult> remove({required RemoveRequest request}) {
-    return _instance.remove(request: request);
-  }
-
-  @override
-  Future<ListResult> list({required ListRequest request}) {
-    return _instance.list(request: request);
-  }
-
-  @override
-  Future<DownloadFileResult> downloadFile(
-      {required DownloadFileRequest request,
-      void Function(TransferProgress)? onProgress}) {
-    return _instance.downloadFile(request: request, onProgress: onProgress);
-  }
+  @protected
+  AmplifyStorageS3.protected();
 }

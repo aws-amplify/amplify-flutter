@@ -30,7 +30,13 @@ part 'auth_token.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
+/// {@template amplify_api.amplify_api_method_channel}
+/// The method channel implementation of [AmplifyAPI].
+///
+/// Used on iOS and Android clients.
+/// {@endtemplate}
 class AmplifyAPIMethodChannel extends AmplifyAPI {
+  /// {@macro amplify_api.amplify_api_method_channel}
   AmplifyAPIMethodChannel({
     List<APIAuthProvider> authProviders = const [],
     this.modelProvider,

@@ -28,7 +28,11 @@ export './model_mutations.dart';
 export './model_queries.dart';
 export './model_subscriptions.dart';
 
+/// {@template amplify_api.amplify_api}
+/// The AWS implementation of the Amplify API category.
+/// {@endtemplate}
 abstract class AmplifyAPI extends APIPluginInterface {
+  /// {@macro amplify_api.amplify_api}
   factory AmplifyAPI({
     List<APIAuthProvider> authProviders = const [],
     ModelProviderInterface? modelProvider,
@@ -42,6 +46,7 @@ abstract class AmplifyAPI extends APIPluginInterface {
     );
   }
 
+  /// Protected constructor for subclasses.
   @protected
   AmplifyAPI.protected();
 }

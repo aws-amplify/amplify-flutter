@@ -32,6 +32,8 @@ var _transferProgressionCallbackMap =
 
 /// An implementation of [AmplifyPlatform] that uses method channels.
 class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
+  AmplifyStorageS3MethodChannel() : super.protected();
+
   @override
   Future<void> addPlugin() async {
     try {
