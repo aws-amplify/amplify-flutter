@@ -14,7 +14,7 @@
           "predicates": [
             {
               "queryPredicateOperation": {
-                "field": "post.id",
+                "field": "id",
                 "fieldOperator": { "operatorName": "contains", "value": "abc" }
               }
             },

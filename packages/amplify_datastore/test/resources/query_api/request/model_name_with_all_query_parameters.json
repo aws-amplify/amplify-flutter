@@ -6,7 +6,7 @@
       "predicates": [
         {
           "queryPredicateOperation": {
-            "field": "post.id",
+            "field": "id",
             "fieldOperator": { "operatorName": "equal", "value": "123" }
           }
         },
@@ -47,7 +47,7 @@
   },
   "queryPagination": { "page": 2, "limit": 8 },
   "querySort": [
-    { "field": "post.id", "order": "ascending" },
+    { "field": "id", "order": "ascending" },
     { "field": "created", "order": "descending" }
   ]
 }

@@ -40,7 +40,7 @@ class QueryPredicateBuilder {
             if (serializedMap.containsKey("queryPredicateOperation")) {
                 val queryPredicateOperationMap: Map<String, Any> =
                     serializedMap["queryPredicateOperation"].safeCastToMap()!!
-                var field = queryPredicateOperationMap["field"] as String
+                var field = extractIdFieldName(queryPredicateOperationMap["field"] as String)
 
                 if (modelSchema?.associations?.containsKey(field) == true) {
                     val association = modelSchema.associations.getValue(field)
@@ -143,6 +143,15 @@ class QueryPredicateBuilder {
         @JvmStatic
         fun fromSerializedMap(serializedMap: Map<String, Any>?): QueryPredicate? {
             return fromSerializedMap(serializedMap, null)
+        }
+
+        @JvmStatic
+        fun extractIdFieldName(fieldName: String): String {
+            if (fieldName.endsWith(".id")) {
+                return "id";
+            }
+
+            return fieldName;
         }
     }
 }

@@ -22,7 +22,7 @@ import org.junit.Assert
 import org.junit.Test
 
 class QuerySortBuilderTest {
-    private val id: QueryField = QueryField.field("post.id")
+    private val id: QueryField = QueryField.field("id")
     private val rating: QueryField = QueryField.field("rating")
 
     @Test
