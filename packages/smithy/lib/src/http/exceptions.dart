@@ -7,8 +7,9 @@ abstract class SmithyHttpException implements SmithyException {
   /// {@macro smithy.smithy_http_exception}
   const factory SmithyHttpException({
     required int statusCode,
+    required String body,
     Map<String, String>? headers,
-  }) = _UnknownSmithyHttpException;
+  }) = UnknownSmithyHttpException;
 
   const SmithyHttpException._();
 
@@ -19,9 +20,10 @@ abstract class SmithyHttpException implements SmithyException {
   Map<String, String>? get headers;
 }
 
-class _UnknownSmithyHttpException extends SmithyHttpException {
-  const _UnknownSmithyHttpException({
+class UnknownSmithyHttpException extends SmithyHttpException {
+  const UnknownSmithyHttpException({
     required this.statusCode,
+    required this.body,
     Map<String, String>? headers,
   })  : headers = headers ?? const {},
         super._();
@@ -31,6 +33,9 @@ class _UnknownSmithyHttpException extends SmithyHttpException {
 
   @override
   final Map<String, String> headers;
+
+  /// The HTTP response body.
+  final String body;
 
   @override
   String get message => 'An unknown error occurred';

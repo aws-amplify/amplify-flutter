@@ -255,6 +255,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     if (smithyError == null) {
       throw SmithyHttpException(
         statusCode: response.statusCode,
+        body: await response.decodeBody(),
         headers: response.headers,
       );
     }
