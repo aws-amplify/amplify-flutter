@@ -14,7 +14,7 @@ dependencies:
   convert: ^3.0.0
   crypto: ^3.0.0
   http: ^0.13.0
-  json_annotation: ">=4.4.0 <4.5.0"
+  json_annotation: ^4.4.0
   meta: ^1.0.0
   path: ^1.8.0
 
