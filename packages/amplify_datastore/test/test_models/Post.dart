@@ -235,7 +235,7 @@ class Post extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "post.id");
+  static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField RATING = QueryField(fieldName: "rating");
   static final QueryField CREATED = QueryField(fieldName: "created");

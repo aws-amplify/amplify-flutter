@@ -59,6 +59,9 @@ class QuerySortBy {
   }
 
   Map<String, dynamic> serializeAsMap() {
-    return <String, dynamic>{'field': field, 'order': order.toShortString()};
+    return <String, dynamic>{
+      'field': getFieldName(field),
+      'order': order.toShortString(),
+    };
   }
 }

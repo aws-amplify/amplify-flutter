@@ -84,7 +84,7 @@ class StringListTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value};
 
-  static final QueryField ID = QueryField(fieldName: "stringListTypeModel.id");
+  static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField VALUE = QueryField(fieldName: "value");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {

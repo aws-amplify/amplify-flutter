@@ -144,7 +144,7 @@ class Blog extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "blog.id");
+  static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField POSTS = QueryField(
       fieldName: "posts",
