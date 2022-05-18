@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "resourceName": "storageintegrationtestauth",
+  "serviceConfiguration": {
+    "serviceName": "Cognito",
+    "userPoolConfiguration": {
+      "signinMethod": "USERNAME",
+      "requiredSignupAttributes": ["EMAIL", "PHONE_NUMBER"]
+    },
+    "includeIdentityPool": true,
+    "identityPoolConfiguration": {
+      "unauthenticatedLogin": true
+    }
+  }
+}
