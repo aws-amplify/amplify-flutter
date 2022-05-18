@@ -36,7 +36,7 @@ void main() {
       };
 
       final config = AmplifyConfig.fromJson(json);
-      var expected = const AmplifyConfig(
+      const expected = AmplifyConfig(
         auth: AuthConfig(plugins: {
           customPluginName: UnknownPluginConfig(
             customPluginName,
