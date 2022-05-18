@@ -222,9 +222,6 @@ $ melos run provision_integration_test_resources
 Note: you will need to have [`jq`](https://github.com/stedolan/jq) installed, which you can install by running `brew install jq`.
 The provisioning script uses the [Amplify CLI headless mode](https://docs.amplify.aws/cli/usage/headless).
 
-Additionally, the storage category requires some manual configuration as the [headless CLI does not yet support storage](https://github.com/aws-amplify/amplify-cli/issues/7378). Those instructions
-are notes in the [storage example app](packages/amplify_storage_s3/example/README.md).
-
 ## Code of Conduct
 
 This project has adopted the [Amazon Open Source Code of Conduct](https://aws.github.io/code-of-conduct).

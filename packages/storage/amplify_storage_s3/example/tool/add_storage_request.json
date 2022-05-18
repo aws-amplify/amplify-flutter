@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "resourceName": "storageintegrationtests3",
+  "serviceConfiguration": {
+    "serviceName": "S3",
+    "permissions": {
+      "auth": [],
+      "guest": ["CREATE_AND_UPDATE", "READ", "DELETE"]
+    },
+    "bucketName": "storageintegbucket"
+  }
+}
