@@ -28,6 +28,22 @@ void main() {
     setUp(() async {
       await configureDataStore();
       await clearDataStore();
+      await waitForObserve();
+    });
+
+    testWidgets('should emit an event for each item saved',
+        (WidgetTester tester) async {
+      var itemStream = Amplify.DataStore.observe(Blog.classType)
+          .map((event) => event.item.name);
+
+      expectLater(
+        itemStream,
+        emitsInOrder(['blog 1', 'blog 2', 'blog 3']),
+      );
+
+      await Amplify.DataStore.save(Blog(name: 'blog 1'));
+      await Amplify.DataStore.save(Blog(name: 'blog 2'));
+      await Amplify.DataStore.save(Blog(name: 'blog 3'));
     });
 
     testWidgets('should broadcast events for create, update, and delete',

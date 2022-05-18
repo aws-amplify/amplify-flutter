@@ -15,12 +15,15 @@
 
 part of amplify_interface;
 
-/// Interface for DataStore category. This expose all the APIs that
-/// are supported by this category's plugins. This class will accept plugins to
-/// be registered and configured and then subsequent API calls will be forwarded
-/// to those plugins.
+/// {@template amplify_flutter.amplify_datastore_category}
+/// Interface for the DataStore category.
+///
+/// This exposes all the APIs that are supported by this category's plugins.
+/// This class will accept plugins to be registered and configured and then
+/// subsequent API calls will be forwarded to those plugins.
+/// {@endtemplate}
 class DataStoreCategory {
-  /// Default constant constructor
+  /// {@macro amplify_flutter.amplify_datastore_category}
   const DataStoreCategory();
 
   /// Added DataStore plugins.
@@ -66,7 +69,9 @@ class DataStoreCategory {
   }
 
   /// Query the DataStore to find all items of the specified [modelType] that satisfy the specified
-  /// query predicate [where]. Returned items are paginated by [pagination] and sorted by [sortBy].
+  /// query predicate [where].
+  ///
+  /// Returned items are paginated by [pagination] and sorted by [sortBy].
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
       {QueryPredicate? where,
       QueryPagination? pagination,
@@ -99,9 +104,15 @@ class DataStoreCategory {
         : throw _pluginNotAddedException('DataStore');
   }
 
-  /// Stops the underlying DataStore, resetting the plugin to the initialized state, and deletes all data
-  /// from the local device. Remotely synced data can be re-synced back when starting DataStore using
-  /// [start]. local-only data will be lost permanently.
+  /// Stops the underlying DataStore's synchronization with a remote system, if DataStore is configured to
+  /// support remote synchronization, resetting the plugin to the initialized state, and deletes all data
+  /// from the local device.
+  ///
+  /// Any items pending synchronization in the outbound queue will be lost. Remotely synced data can be re-synced
+  /// back when starting DataStore using [start]. **Local-only data will be lost permanently.**
+  ///
+  /// Synchronization processes will be restarted on the next interaction with the DataStore, or can be
+  /// restarted manually by calling [start].
   Future<void> clear() {
     return plugins.length == 1
         ? plugins[0].clear()
@@ -109,7 +120,9 @@ class DataStoreCategory {
   }
 
   /// Starts the DataStore's synchronization with a remote system, if DataStore is configured to support
-  /// remote synchronization. This only needs to be called if you wish to start the synchronization eagerly.
+  /// remote synchronization.
+  ///
+  /// This only needs to be called if you wish to start the synchronization eagerly.
   /// If you don't call start(), the synchronization will start automatically, prior to executing any other
   /// operations (query, save, delete, update).
   Future<void> start() {
@@ -120,16 +133,19 @@ class DataStoreCategory {
 
   /// Stops the underlying DataStore's synchronization with a remote system, if DataStore is configured to
   /// support remote synchronization.
+  ///
+  /// Synchronization processes will be restarted on the next interaction with the DataStore, or can be
+  /// restarted manually by calling [start].
   Future<void> stop() {
     return plugins.length == 1
         ? plugins[0].stop()
         : throw _pluginNotAddedException('DataStore');
   }
 
-  /// Observe the result set of a given Query
+  /// Observe the result set of a given Query.
   ///
   /// Emits an initial [QuerySnapshot] with data from the local store, as well as
-  /// subsequent events with data synced over the network
+  /// subsequent events with data synced over the network.
   Stream<QuerySnapshot<T>> observeQuery<T extends Model>(
     ModelType<T> modelType, {
     QueryPredicate? where,

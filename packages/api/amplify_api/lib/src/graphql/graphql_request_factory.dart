@@ -341,7 +341,8 @@ String _getGraphQLFilterExpression(QueryFieldOperatorType operatorType) {
   return result;
 }
 
-/// Convert Temporal* and DateTime values to string if needed; otherwise return unchanged.
+/// Convert Temporal*, DateTime and enum values to string if needed.
+/// Otherwise return unchanged.
 dynamic _getSerializedValue(dynamic value) {
   if (value is TemporalDateTime ||
       value is TemporalDate ||
@@ -351,6 +352,9 @@ dynamic _getSerializedValue(dynamic value) {
   }
   if (value is DateTime) {
     return _getSerializedValue(TemporalDateTime(value));
+  }
+  if (value is Enum) {
+    return describeEnum(value);
   }
   return value;
 }

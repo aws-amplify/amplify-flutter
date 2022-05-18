@@ -27,20 +27,7 @@ mixin AuthenticatorUsernameField<FieldType,
     on AuthenticatorFormFieldState<FieldType, UsernameInput, T> {
   @override
   UsernameInput? get initialValue {
-    String? username;
-    switch (selectedUsernameType) {
-      case UsernameType.username:
-        username = state.username;
-        break;
-      case UsernameType.email:
-        username = state.getAttribute(CognitoUserAttributeKey.email);
-        break;
-      case UsernameType.phoneNumber:
-        username = state.getAttribute(CognitoUserAttributeKey.phoneNumber);
-        break;
-    }
-
-    return UsernameInput(type: selectedUsernameType, username: username ?? '');
+    return UsernameInput(type: selectedUsernameType, username: state.username);
   }
 
   @override

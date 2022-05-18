@@ -30,7 +30,9 @@ public enum OperationsManager {
     private static var operationsResponseMap: [UUID: HTTPURLResponse] = [:]
 
     public static func containsOperation(cancelToken: String) -> Bool {
-        return operationsMap[cancelToken] != nil
+        queue.sync {
+            return operationsMap[cancelToken] != nil
+        }
     }
 
     public static func addOperation(cancelToken: String, operation: Operation) {
@@ -40,10 +42,10 @@ public enum OperationsManager {
     }
 
     public static func removeOperation(cancelToken: String) {
-        guard let operation = operationsMap[cancelToken] else {
-            return
-        }
         queue.sync {
+            guard let operation = operationsMap[cancelToken] else {
+                return
+            }
             operationsMap.removeValue(forKey: cancelToken)
             if let restOperation = operation as? RESTOperation {
                 operationsResponseMap.removeValue(forKey: restOperation.id)
@@ -52,32 +54,36 @@ public enum OperationsManager {
     }
 
     public static func setTaskId(for cancelToken: String, taskId: Int) {
-        guard let operation = operationsMap[cancelToken] as? RESTOperation else {
-            return
-        }
         queue.sync {
+            guard let operation = operationsMap[cancelToken] as? RESTOperation else {
+                return
+            }
             operationIdsByTaskId[taskId] = operation.id
         }
     }
 
     public static func updateProgress(for taskId: Int, urlResponse: HTTPURLResponse) {
-        guard let operationId = operationIdsByTaskId[taskId] else {
-            return
-        }
         queue.sync {
+            guard let operationId = operationIdsByTaskId[taskId] else {
+                return
+            }
             operationsResponseMap[operationId] = urlResponse
         }
     }
 
     public static func getResponse(for cancelToken: String) -> HTTPURLResponse? {
-        guard let operation = operationsMap[cancelToken] as? RESTOperation else {
-            return nil
+        queue.sync {
+            guard let operation = operationsMap[cancelToken] as? RESTOperation else {
+                return nil
+            }
+            return operationsResponseMap[operation.id]
         }
-        return operationsResponseMap[operation.id]
     }
 
     public static func cancelOperation(cancelToken: String) {
-        operationsMap[cancelToken]?.cancel()
+        queue.sync {
+            operationsMap[cancelToken]?.cancel()
+        }
         removeOperation(cancelToken: cancelToken)
     }
 }
