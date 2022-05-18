@@ -168,6 +168,7 @@ void main() {
       expect(testPredicate.evaluate(post2), isTrue);
       expect(testPredicate.evaluate(post4), isFalse);
     });
+
     test('not equals', () {
       QueryPredicate testPredicate = Post.LIKECOUNT.ne(1);
       expect(testPredicate.evaluate(post1), isFalse);
