@@ -23,6 +23,7 @@ part 'query_field_operators.dart';
 part 'query_pagination.dart';
 part 'query_predicate.dart';
 part 'query_sort.dart';
+part 'query_utils.dart';
 
 /// {@template amplify_core.query_field}
 /// A field used to query models.

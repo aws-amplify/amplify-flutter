@@ -69,7 +69,9 @@ class QueryPredicateOperation extends QueryPredicate {
 
   @override
   bool evaluate(Model model) {
-    var value = model.toJson()[field];
+    String fieldName = getFieldName(field);
+    //ignore:implicit_dynamic_variable
+    var value = model.toJson()[fieldName];
     return queryFieldOperator.evaluate(value);
   }
 
@@ -77,7 +79,7 @@ class QueryPredicateOperation extends QueryPredicate {
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{
       'queryPredicateOperation': <String, dynamic>{
-        'field': field,
+        'field': getFieldName(field),
         'fieldOperator': queryFieldOperator.serializeAsMap(),
       },
     };

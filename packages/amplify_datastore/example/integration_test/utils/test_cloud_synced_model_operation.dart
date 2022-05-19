@@ -76,7 +76,7 @@ Future<void> testCloudSyncedModelOperation<R extends Model, A extends Model>({
       .toList();
 
   if (assertingAssociatedModels) {
-    var associatedModelsSyncedEventsGetters = associatedModels!.map(
+    var associatedModelsSyncedEventsGetters = associatedModels.map(
       (associatedModel) => getExpectedSubscriptionDataProcessedEvent(
         eventMatcher: (event) {
           var model = event.element.model;
