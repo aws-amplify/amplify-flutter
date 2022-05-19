@@ -51,6 +51,7 @@ export 'models/auth_mode_strategy.dart';
 export 'models/observe_query_throttle_options.dart';
 export 'models/query_snapshot.dart';
 export 'models/query_snapshot.dart';
+export 'models/sorted_list.dart';
 export 'models/subscription_event.dart';
 export 'models/subscription_event.dart';
 

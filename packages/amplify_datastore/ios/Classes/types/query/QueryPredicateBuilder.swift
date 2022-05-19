@@ -18,26 +18,13 @@ import Foundation
 import Amplify
 
 public class QueryPredicateBuilder {
-    
-    // Remove model name if queryPredicate is on id 
-    private static func extractFieldName( field : String? ) -> String? {
-        
-        if let queryField = field, queryField.hasSuffix(".id"){
-            return "id"
-        }
-        return field;
-    }
-    
     static func fromSerializedMap(_ serializedMap: [String: Any]?) throws -> QueryPredicate {
-        
         guard let data = serializedMap else {
             return QueryPredicateConstant.all
         }
-        
-        
-        
+
         if let queryPredicateOperationMap = data["queryPredicateOperation"] as? [String: Any] {
-            if let fieldValue = extractFieldName(field: queryPredicateOperationMap["field"] as? String),
+            if let fieldValue = queryPredicateOperationMap["field"] as? String,
                let queryFieldOperatorMap = queryPredicateOperationMap["fieldOperator"] as? [String: Any],
                let operatorName = queryFieldOperatorMap["operatorName"] as? String {
                 let operand = convertToAmplifyPersistable(operand: queryFieldOperatorMap["value"])

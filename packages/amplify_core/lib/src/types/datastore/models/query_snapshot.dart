@@ -17,8 +17,6 @@ library model;
 
 import 'package:amplify_core/amplify_core.dart';
 
-import 'sorted_list.dart';
-
 /// {@template query_snapshot}
 /// A snapshot consisting of the [items] in the local store when the
 /// snapshot was generated and a boolean value to indicate if

@@ -13,8 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 import 'testData/ModelProvider.dart';
 
@@ -41,16 +41,16 @@ import 'testData/ModelProvider.dart';
 */
 void main() {
   final expectedContactFields = {
-    'email': const ModelField(
+    'email': ModelField(
         name: 'email',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'phone': const ModelField(
+    'phone': ModelField(
         name: 'phone',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.embedded,
             ofCustomTypeName: 'Phone')),
-    'mailingAddresses': const ModelField(
+    'mailingAddresses': ModelField(
         name: 'mailingAddresses',
         isRequired: false,
         isArray: true,
@@ -59,38 +59,38 @@ void main() {
   };
 
   final expectedPhoneFields = {
-    'country': const ModelField(
+    'country': ModelField(
         name: 'country',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'area': const ModelField(
+    'area': ModelField(
         name: 'area',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'number': const ModelField(
+    'number': ModelField(
         name: 'number',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
   };
 
   final expectedAddressFields = {
-    'line1': const ModelField(
+    'line1': ModelField(
         name: 'line1',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'line2': const ModelField(
+    'line2': ModelField(
         name: 'line2',
         isRequired: false,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'city': const ModelField(
+    'city': ModelField(
         name: 'city',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'state': const ModelField(
+    'state': ModelField(
         name: 'state',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),
-    'postalCode': const ModelField(
+    'postalCode': ModelField(
         name: 'postalCode',
         isRequired: true,
         type: ModelFieldType(ModelFieldTypeEnum.string)),

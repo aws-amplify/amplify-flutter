@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'testData/ModelProvider.dart';
@@ -24,33 +24,33 @@ void main() {
     Map<String, dynamic> map = blogSchema.toMap();
 
     expect(map, {
-      'name': 'Blog',
-      'pluralName': 'Blogs',
+      'name': "Blog",
+      'pluralName': "Blogs",
       'fields': {
         'id': {
-          'name': 'id',
+          'name': "id",
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
           'isReadOnly': false,
         },
         'name': {
-          'name': 'name',
+          'name': "name",
           'type': {'fieldType': 'string'},
           'isRequired': true,
           'isArray': false,
           'isReadOnly': false,
         },
         'posts': {
-          'name': 'posts',
-          'type': {'fieldType': 'collection', 'ofModelName': 'Post'},
+          'name': "posts",
+          'type': {'fieldType': 'collection', 'ofModelName': "Post"},
           'isRequired': false,
           'isArray': true,
           'isReadOnly': false,
-          'association': {
+          'association': const {
             'associationType': 'HasMany',
-            'associatedName': 'blogID',
-            'associatedType': 'Post'
+            'associatedName': "blog",
+            'associatedType': "Post"
           }
         },
         'createdAt': {
@@ -87,13 +87,6 @@ void main() {
           'isArray': false,
           'isReadOnly': false,
         },
-        'postID': {
-          'name': 'postID',
-          'type': {'fieldType': 'string'},
-          'isRequired': true,
-          'isArray': false,
-          'isReadOnly': false
-        },
         'post': {
           'name': 'post',
           'type': {'fieldType': 'model', 'ofModelName': 'Post'},
@@ -102,9 +95,9 @@ void main() {
           'isReadOnly': false,
           'association': {
             'associationType': 'BelongsTo',
-            'targetName': 'postCommentsId',
+            'targetName': 'postID',
             'associatedType': 'Post'
-          }
+          },
         },
         'content': {
           'name': 'content',
@@ -174,13 +167,6 @@ void main() {
           'isArray': false,
           'isReadOnly': false
         },
-        'blogID': {
-          'name': 'blogID',
-          'type': {'fieldType': 'string'},
-          'isRequired': true,
-          'isArray': false,
-          'isReadOnly': false
-        },
         'blog': {
           'name': 'blog',
           'type': {'fieldType': 'model', 'ofModelName': 'Blog'},
@@ -189,7 +175,7 @@ void main() {
           'isReadOnly': false,
           'association': {
             'associationType': 'BelongsTo',
-            'targetName': 'blogPostsId',
+            'targetName': 'blogID',
             'associatedType': 'Blog'
           }
         },
@@ -201,7 +187,7 @@ void main() {
           'isReadOnly': false,
           'association': {
             'associationType': 'HasMany',
-            'associatedName': 'postID',
+            'associatedName': 'post',
             'associatedType': 'Comment'
           }
         },
@@ -236,7 +222,6 @@ void main() {
           'authStrategy': 'OWNER',
           'ownerField': 'owner',
           'identityClaim': 'cognito:username',
-          'provider': 'USERPOOLS',
           'operations': ['CREATE', 'UPDATE', 'DELETE', 'READ']
         }
       ],

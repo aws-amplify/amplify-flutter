@@ -13,16 +13,13 @@
 * permissions and limitations under the License.
 */
 
-// NOTE: This file is generated and may not follow lint rules defined in your app
-// Generated files can be excluded from analysis in analysis_options.yaml
-// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
-
-// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code, implicit_dynamic_map_literal, implicit_dynamic_parameter, implicit_dynamic_type
-
-import 'ModelProvider.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+
+// ignore_for_file: public_member_api_docs
+
+import 'ModelProvider.dart';
 
 /** This is an auto generated class representing the Blog type in your schema. */
 @immutable
@@ -46,10 +43,10 @@ class Blog extends Model {
     try {
       return _name!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw new DataStoreException(
+          DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: DataStoreExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -166,7 +163,7 @@ class Blog extends Model {
         key: Blog.POSTS,
         isRequired: false,
         ofModelName: (Post).toString(),
-        associatedKey: Post.BLOGID));
+        associatedKey: Post.BLOG));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',

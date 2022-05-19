@@ -25,7 +25,7 @@ import org.junit.Assert
 import org.junit.Test
 
 class QueryPredicateBuilderTest {
-    private val id: QueryField = QueryField.field("post.id")
+    private val id: QueryField = QueryField.field("id")
     private val title: QueryField = QueryField.field("title")
     private val rating: QueryField = QueryField.field("rating")
     private val created: QueryField = QueryField.field("created")

@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'testData/ModelProvider.dart';
@@ -21,11 +21,8 @@ import 'testData/ModelProvider.dart';
 void main() {
   group('QuerySnapshot', () {
     TemporalDateTime _temporalDateTime =
-        TemporalDateTime.fromString('2021-11-09T18:53:12.183540Z');
+        TemporalDateTime.fromString("2021-11-09T18:53:12.183540Z");
     group('withSubscriptionEvent()', () {
-      Blog parent = Blog(
-        name: 'parent',
-      );
       group('with no query predicate or sort order', () {
         late List<Blog> blogs;
         late QuerySnapshot<Blog> snapshot;
@@ -329,7 +326,6 @@ void main() {
             5,
             (index) => Post(
               title: 'post $index',
-              blogID: parent.id,
               rating: index * 10,
               created: _temporalDateTime,
             ),
@@ -346,7 +342,6 @@ void main() {
               () async {
             Post newPost = Post(
               title: 'new post',
-              blogID: parent.id,
               rating: 25,
               created: _temporalDateTime,
             );
@@ -407,7 +402,6 @@ void main() {
               () async {
             Post updatedPost = Post(
               title: 'new post',
-              blogID: parent.id,
               rating: 25,
               created: _temporalDateTime,
             );
@@ -442,7 +436,6 @@ void main() {
             2,
             (index) => Post(
               title: 'post $index',
-              blogID: parent.id,
               rating: index * 10,
               created: _temporalDateTime,
             ),
@@ -459,28 +452,24 @@ void main() {
               () async {
             Post newPost1 = Post(
               title: 'new post a',
-              blogID: parent.id,
               rating: 25,
               created: _temporalDateTime,
             );
 
             Post newPost2 = Post(
               title: 'new post a',
-              blogID: parent.id,
               rating: 40,
               created: _temporalDateTime,
             );
 
             Post newPost3 = Post(
               title: 'new post b',
-              blogID: parent.id,
               rating: 25,
               created: _temporalDateTime,
             );
 
             Post newPost4 = Post(
               title: 'new post b',
-              blogID: parent.id,
               rating: 40,
               created: _temporalDateTime,
             );

@@ -44,6 +44,15 @@ void main() {
         await getJsonFromFile('sort_by_id_ascending.json'));
   });
 
+  test('bad model id field naming backwards compatibility', () async {
+    QuerySortBy testPredicateWithBadIdFiledNaming =
+        QueryField(fieldName: 'blog.id').ascending();
+    expect(
+      [testPredicateWithBadIdFiledNaming.serializeAsMap()],
+      await getJsonFromFile('sort_by_id_ascending.json'),
+    );
+  });
+
   test('when sorting by Id ascending and then rating descending', () async {
     expect([
       Post.ID.ascending().serializeAsMap(),
@@ -53,12 +62,14 @@ void main() {
 
   group('compare', () {
     Post post1 = Post(
+      id: '123e4567-e89b-12d3-a456-426614174000',
       title: 'post1',
       rating: 1,
       created: TemporalDateTime(DateTime(2020, 01, 01, 10, 30)),
     );
 
     Post post2 = Post(
+      id: '123e4567-e89b-12d3-a456-426614174001',
       title: 'post2',
       rating: 2,
       created: TemporalDateTime(DateTime(2020, 01, 01, 12, 30)),
@@ -71,6 +82,19 @@ void main() {
     Post post4 = post1.copyWith(likeCount: 1);
 
     Post post4Copy = post4.copyWith();
+
+    test('should compare ID fields', () {
+      QuerySortBy sortByAsc = Post.ID.ascending();
+      QuerySortBy sortByDesc = Post.ID.descending();
+
+      expect(sortByAsc.compare(post1, post2), -1);
+      expect(sortByAsc.compare(post2, post1), 1);
+      expect(sortByAsc.compare(post2, post2Copy), 0);
+
+      expect(sortByDesc.compare(post1, post2), 1);
+      expect(sortByDesc.compare(post2, post1), -1);
+      expect(sortByDesc.compare(post2, post2Copy), 0);
+    });
 
     test('should compare int fields', () {
       QuerySortBy sortByAsc = Post.RATING.ascending();
