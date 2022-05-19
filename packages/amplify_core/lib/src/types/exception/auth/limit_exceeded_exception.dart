@@ -15,11 +15,12 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.limit_exceeded_exception}
-/// Thrown when Amplify encounters a Lambda error.
+/// {@template amplify_core.auth.limit_exceeded_exception}
+/// Exception thrown when the limit for the requested service resource is
+/// exceeded.
 /// {@endtemplate}
 class LimitExceededException extends AuthException {
-  /// {@macro amplify_common.limit_exceeded_exception}
+  /// {@macro amplify_core.auth.limit_exceeded_exception}
   const LimitExceededException(
     String message, {
     String? recoverySuggestion,
@@ -30,7 +31,7 @@ class LimitExceededException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   LimitExceededException._private(AuthException exception)
       : super(
           exception.message,
@@ -38,8 +39,7 @@ class LimitExceededException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static LimitExceededException fromMap(
     Map<String, String> serializedException,
   ) {

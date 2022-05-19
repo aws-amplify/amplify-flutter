@@ -15,12 +15,12 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.session_unavailable_service_exception}
-/// Thrown when Amplify not get valid credentials due to an error from the
-/// underlying service.
+/// {@template amplify_core.auth.session_unavailable_service_exception}
+/// Exception thrown when valid credentials could not be obtained due to the
+/// an error from the requested service.
 /// {@endtemplate}
 class SessionUnavailableServiceException extends AuthException {
-  /// {@macro amplify_common.session_unavailable_service_exception}
+  /// {@macro amplify_core.auth.session_unavailable_service_exception}
   const SessionUnavailableServiceException(
     String message, {
     String? recoverySuggestion,
@@ -31,7 +31,7 @@ class SessionUnavailableServiceException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   SessionUnavailableServiceException._private(AuthException exception)
       : super(
           exception.message,
@@ -39,8 +39,7 @@ class SessionUnavailableServiceException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static SessionUnavailableServiceException fromMap(
     Map<String, String> serializedException,
   ) {

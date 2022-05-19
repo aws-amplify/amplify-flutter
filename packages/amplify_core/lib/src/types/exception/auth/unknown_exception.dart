@@ -15,11 +15,12 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.unknown_exception}
-/// Thrown when an underlying sdk throws an unknown error.
+/// {@template amplify_core.auth.unknown_exception}
+/// Exception thrown when an unknown error from an underlying SDK or service is
+/// encountered.
 /// {@endtemplate}
 class UnknownException extends AuthException {
-  /// {@macro amplify_common.unknown_exception}
+  /// {@macro amplify_core.auth.unknown_exception}
   const UnknownException(
     String message, {
     String? recoverySuggestion,
@@ -30,7 +31,7 @@ class UnknownException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception.
+  /// {@macro amplify_core.auth.exception_downcasting}
   UnknownException._private(AuthException exception)
       : super(
           exception.message,
@@ -38,8 +39,7 @@ class UnknownException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data.
+  /// {@macro amplify_core.auth.exception_from_map}
   static UnknownException fromMap(Map<String, String> serializedException) {
     return UnknownException._private(
       AuthException.fromMap(serializedException),

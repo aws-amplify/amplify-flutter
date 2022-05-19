@@ -15,12 +15,11 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.code_delivery_failure_exception}
-/// Thrown when Amplify could not perform the action because
-/// error occured when delivering the confirmation code.
+/// {@template amplify_core.auth.code_delivery_failure_exception}
+/// Exception thrown when a verification code fails to deliver successfully.
 /// {@endtemplate}
 class CodeDeliveryFailureException extends AuthException {
-  /// {@macro amplify_common.code_delivery_failure_exception}
+  /// {@macro amplify_core.auth.code_delivery_failure_exception}
   const CodeDeliveryFailureException(
     String message, {
     String? recoverySuggestion,
@@ -31,17 +30,19 @@ class CodeDeliveryFailureException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   CodeDeliveryFailureException._private(AuthException exception)
-      : super(exception.message,
-            recoverySuggestion: exception.recoverySuggestion,
-            underlyingException: exception.underlyingException);
+      : super(
+          exception.message,
+          recoverySuggestion: exception.recoverySuggestion,
+          underlyingException: exception.underlyingException,
+        );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static CodeDeliveryFailureException fromMap(
       Map<String, String> serializedException) {
     return CodeDeliveryFailureException._private(
-        AuthException.fromMap(serializedException));
+      AuthException.fromMap(serializedException),
+    );
   }
 }

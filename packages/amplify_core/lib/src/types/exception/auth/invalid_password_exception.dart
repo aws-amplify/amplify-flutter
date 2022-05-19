@@ -15,12 +15,11 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.invalid_password_exception}
-/// Thrown when the Amazon Cognito service encounters an invalid AWS Lambda
-/// response.
+/// {@template amplify_core.auth.invalid_password_exception}
+/// Exception thrown when the requested service encounters an invalid password.
 /// {@endtemplate}
 class InvalidPasswordException extends AuthException {
-  /// {@macro amplify_common.invalid_password_exception}
+  /// {@macro amplify_core.auth.invalid_password_exception}
   const InvalidPasswordException(
     String message, {
     String? recoverySuggestion,
@@ -31,7 +30,7 @@ class InvalidPasswordException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   InvalidPasswordException._private(AuthException exception)
       : super(
           exception.message,
@@ -39,8 +38,7 @@ class InvalidPasswordException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static InvalidPasswordException fromMap(
     Map<String, String> serializedException,
   ) {

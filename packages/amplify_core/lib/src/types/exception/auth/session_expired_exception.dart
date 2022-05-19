@@ -15,11 +15,11 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.session_expired_exception}
-/// Thrown when a session has expired.
+/// {@template amplify_core.auth.session_expired_exception}
+/// Exception thrown when the current session is expired.
 /// {@endtemplate}
 class SessionExpiredException extends AuthException {
-  /// {@macro amplify_common.session_expired_exception}
+  /// {@macro amplify_core.auth.session_expired_exception}
   const SessionExpiredException(
     String message, {
     String? recoverySuggestion,
@@ -30,7 +30,7 @@ class SessionExpiredException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   SessionExpiredException._private(AuthException exception)
       : super(
           exception.message,
@@ -38,8 +38,7 @@ class SessionExpiredException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static SessionExpiredException fromMap(
     Map<String, String> serializedException,
   ) {

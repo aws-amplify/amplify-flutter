@@ -15,12 +15,12 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.mfa_method_not_found_exception}
-/// Thrown when Amazon Cognito cannot find a multi-factor authentication (MFA)
-/// method.
+/// {@template amplify_core.auth.mfa_method_not_found_exception}
+/// Exception thrown when the requested service cannot find a multi-factor
+/// authentication (MFA) method
 /// {@endtemplate}
 class MFAMethodNotFoundException extends AuthException {
-  /// {@macro amplify_common.mfa_method_not_found_exception}
+  /// {@macro amplify_core.auth.mfa_method_not_found_exception}
   const MFAMethodNotFoundException(
     String message, {
     String? recoverySuggestion,
@@ -31,7 +31,7 @@ class MFAMethodNotFoundException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   MFAMethodNotFoundException._private(AuthException exception)
       : super(
           exception.message,
@@ -39,8 +39,7 @@ class MFAMethodNotFoundException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static MFAMethodNotFoundException fromMap(
     Map<String, String> serializedException,
   ) {

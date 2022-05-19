@@ -15,11 +15,11 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.auth_exception}
-/// Base class for Auth category exceptions.
+/// {@template amplify_core.auth.auth_exception}
+/// The base class for Auth category exceptions.
 /// {@endtemplate}
 class AuthException extends AmplifyException {
-  /// {@macro amplify_common.auth_exception}
+  /// {@macro amplify_core.auth.auth_exception}
   const AuthException(
     String message, {
     String? recoverySuggestion,
@@ -30,7 +30,10 @@ class AuthException extends AmplifyException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AmplifyException to this exception
+  /// {@template amplify_core.auth.exception_downcasting}
+  /// Internal named constructor for downcasting an [AuthException] to this
+  /// exception.
+  /// {@endtemplate}
   AuthException._private(AmplifyException exception)
       : super(
           exception.message,
@@ -38,27 +41,13 @@ class AuthException extends AmplifyException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AmplifyException` from the
-  /// serialized exception data
+  /// {@template amplify_core.auth.exception_from_map}
+  /// Returns a new instance of this exception constructed from the serialized
+  /// exception data.
+  /// {@endtemplate}
   static AuthException fromMap(Map<String, String> serializedException) {
     return AuthException._private(
       AmplifyException.fromMap(serializedException),
     );
-  }
-
-  /// Creates an [AuthException] from [e].
-  static AuthException fromException(Exception e) {
-    if (e is AuthException) {
-      return e;
-    }
-    if (e is AmplifyException) {
-      return AuthException(
-        e.message,
-        recoverySuggestion: e.recoverySuggestion,
-        underlyingException: e.underlyingException,
-      );
-    }
-    // TODO: Unknown exception?
-    return AuthException(e.toString());
   }
 }

@@ -15,11 +15,12 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.signed_out_exception}
-/// Thrown when the user is signed out.
+/// {@template amplify_core.auth.signed_out_exception}
+/// Exception thrown when the requested operation can't be performed due to the
+/// user being signed out.
 /// {@endtemplate}
 class SignedOutException extends AuthException {
-  /// {@macro amplify_common.signed_out_exception}
+  /// {@macro amplify_core.auth.signed_out_exception}
   const SignedOutException(
     String message, {
     String? recoverySuggestion,
@@ -30,7 +31,7 @@ class SignedOutException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   SignedOutException._private(AuthException exception)
       : super(
           exception.message,
@@ -38,8 +39,7 @@ class SignedOutException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static SignedOutException fromMap(Map<String, String> serializedException) {
     return SignedOutException._private(
       AuthException.fromMap(serializedException),

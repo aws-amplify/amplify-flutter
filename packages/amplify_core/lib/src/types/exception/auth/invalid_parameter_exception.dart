@@ -15,12 +15,11 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.invalid_parameter_exception}
-/// Thrown when Amplify could not perform the action because there are incorrect
-/// parameters.
+/// {@template amplify_core.auth.invalid_parameter_exception}
+/// Exception thrown when the requested service encounters an invalid parameter.
 /// {@endtemplate}
 class InvalidParameterException extends AuthException {
-  /// {@macro amplify_common.invalid_parameter_exception}
+  /// {@macro amplify_core.auth.invalid_parameter_exception}
   const InvalidParameterException(
     String message, {
     String? recoverySuggestion,
@@ -31,7 +30,7 @@ class InvalidParameterException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   InvalidParameterException._private(AuthException exception)
       : super(
           exception.message,
@@ -39,8 +38,7 @@ class InvalidParameterException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static InvalidParameterException fromMap(
     Map<String, String> serializedException,
   ) {

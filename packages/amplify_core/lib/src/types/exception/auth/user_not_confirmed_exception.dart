@@ -15,12 +15,12 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.user_not_confirmed_exception}
-/// Thrown when Amplify could not perform the action because user is not
-/// confirmed in the system.
+/// {@template amplify_core.auth.user_not_confirmed_exception}
+/// Exception thrown when the requested operation can't be performed because
+/// the user hasn't been confirmed successfully with the requested service.
 /// {@endtemplate}
 class UserNotConfirmedException extends AuthException {
-  /// {@macro amplify_common.user_not_confirmed_exception}
+  /// {@macro amplify_core.auth.user_not_confirmed_exception}
   const UserNotConfirmedException(
     String message, {
     String? recoverySuggestion,
@@ -31,7 +31,7 @@ class UserNotConfirmedException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   UserNotConfirmedException._private(AuthException exception)
       : super(
           exception.message,
@@ -39,8 +39,7 @@ class UserNotConfirmedException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static UserNotConfirmedException fromMap(
     Map<String, String> serializedException,
   ) {

@@ -15,12 +15,12 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.code_expired_exception}
-/// Thrown when Amplify could not perform the action because confirmation code
-/// has expired.
+/// {@template amplify_core.auth.code_expired_exception}
+/// Exception thrown when a verification code provided to the requested service
+/// is expired.
 /// {@endtemplate}
 class CodeExpiredException extends AuthException {
-  /// {@macro amplify_common.code_expired_exception}
+  /// {@macro amplify_core.auth.code_expired_exception}
   const CodeExpiredException(
     String message, {
     String? recoverySuggestion,
@@ -31,16 +31,18 @@ class CodeExpiredException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   CodeExpiredException._private(AuthException exception)
-      : super(exception.message,
-            recoverySuggestion: exception.recoverySuggestion,
-            underlyingException: exception.underlyingException);
+      : super(
+          exception.message,
+          recoverySuggestion: exception.recoverySuggestion,
+          underlyingException: exception.underlyingException,
+        );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static CodeExpiredException fromMap(Map<String, String> serializedException) {
     return CodeExpiredException._private(
-        AuthException.fromMap(serializedException));
+      AuthException.fromMap(serializedException),
+    );
   }
 }

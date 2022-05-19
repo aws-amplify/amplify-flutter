@@ -15,22 +15,20 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.lambda_exception}
-/// Thrown when Amplify encounters a Lambda error.
+/// {@template amplify_core.auth.lambda_exception}
+/// Exception thrown when an error from the AWS Lambda service is encountered.
 /// {@endtemplate}
 class LambdaException extends AuthException {
-  /// {@macro amplify_common.lambda_exception}
+  /// {@macro amplify_core.auth.lambda_exception}
   const LambdaException(
     String message, {
     String? recoverySuggestion,
     String? underlyingException,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
+  }) : super(message,
+            recoverySuggestion: recoverySuggestion,
+            underlyingException: underlyingException);
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   LambdaException._private(AuthException exception)
       : super(
           exception.message,
@@ -38,8 +36,7 @@ class LambdaException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static LambdaException fromMap(Map<String, String> serializedException) {
     return LambdaException._private(
       AuthException.fromMap(serializedException),

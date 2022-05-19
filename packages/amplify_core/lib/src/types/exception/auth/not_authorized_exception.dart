@@ -15,11 +15,12 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.not_authorized_exception}
-/// Thrown when a user is not authorized to access the requested resource.
+/// {@template amplify_core.auth.not_authorized_exception}
+/// Exception thrown when a user isn't authorized to access the requested
+/// resource.
 /// {@endtemplate}
 class NotAuthorizedException extends AuthException {
-  /// {@macro amplify_common.not_authorized_exception}
+  /// {@macro amplify_core.auth.not_authorized_exception}
   const NotAuthorizedException(
     String message, {
     String? recoverySuggestion,
@@ -30,7 +31,7 @@ class NotAuthorizedException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   NotAuthorizedException._private(AuthException exception)
       : super(
           exception.message,
@@ -38,8 +39,7 @@ class NotAuthorizedException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static NotAuthorizedException fromMap(
     Map<String, String> serializedException,
   ) {

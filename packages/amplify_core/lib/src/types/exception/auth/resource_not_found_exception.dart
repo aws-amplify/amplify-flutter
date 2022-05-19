@@ -15,11 +15,11 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.resource_not_found_exception}
-/// Thrown when the requested resource does not exist.
+/// {@template amplify_core.auth.resource_not_found_exception}
+/// Exception thrown when the requested resource doesn't exist.
 /// {@endtemplate}
 class ResourceNotFoundException extends AuthException {
-  /// {@macro amplify_common.resource_not_found_exception}
+  /// {@macro amplify_core.auth.resource_not_found_exception}
   const ResourceNotFoundException(
     String message, {
     String? recoverySuggestion,
@@ -30,7 +30,7 @@ class ResourceNotFoundException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   ResourceNotFoundException._private(AuthException exception)
       : super(
           exception.message,
@@ -38,8 +38,7 @@ class ResourceNotFoundException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static ResourceNotFoundException fromMap(
     Map<String, String> serializedException,
   ) {

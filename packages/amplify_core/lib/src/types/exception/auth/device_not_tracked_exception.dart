@@ -15,24 +15,21 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.device_not_tracked_exception}
+/// {@template amplify_core.auth.device_not_tracked_exception}
 /// Exception thrown when a request is made for a device which is either not
-/// currently tracked or was previously forgotten.
+/// currently tracked or previously forgotten.
 /// {@endtemplate}
 class DeviceNotTrackedException extends AuthException {
-  /// {@macro amplify_common.device_not_tracked_exception}
-  const DeviceNotTrackedException({
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          'This device does not have an id, either it was never tracked or '
-          'previously forgotten.',
-          recoverySuggestion: recoverySuggestion ??
-              'Enable device tracking in your user pool and try signing in '
-                  'again',
+  /// {@macro amplify_core.auth.device_not_tracked_exception}
+  const DeviceNotTrackedException(
+      {String? recoverySuggestion, String? underlyingException})
+      : super(
+          'This device does not have an id, either it was never tracked or previously forgotten.',
+          recoverySuggestion: recoverySuggestion,
           underlyingException: underlyingException,
         );
 
+  /// {@macro amplify_core.auth.exception_from_map}
   static DeviceNotTrackedException fromMap(Map map) =>
       DeviceNotTrackedException(
         recoverySuggestion: map['recoverySuggestion'] as String?,

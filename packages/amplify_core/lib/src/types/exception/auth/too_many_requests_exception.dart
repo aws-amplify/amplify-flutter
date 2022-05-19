@@ -15,11 +15,12 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.too_many_requests_exception}
-/// Thrown when a request is throttled.
+/// {@template amplify_core.auth.too_many_requests_exception}
+/// Exception thrown when a request is being made too frequently and is more
+/// than what the requested service can handle.
 /// {@endtemplate}
 class TooManyRequestsException extends AuthException {
-  /// {@macro amplify_common.too_many_requests_exception}
+  /// {@macro amplify_core.auth.too_many_requests_exception}
   const TooManyRequestsException(
     String message, {
     String? recoverySuggestion,
@@ -30,7 +31,7 @@ class TooManyRequestsException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   TooManyRequestsException._private(AuthException exception)
       : super(
           exception.message,
@@ -38,8 +39,7 @@ class TooManyRequestsException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static TooManyRequestsException fromMap(
     Map<String, String> serializedException,
   ) {

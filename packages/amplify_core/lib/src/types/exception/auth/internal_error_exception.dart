@@ -15,11 +15,11 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.internal_error_exception}
-/// Thrown when Amplify encounters an internal service error.
+/// {@template amplify_core.auth.internal_error_exception}
+/// Exception thrown when the requested service encounters an internal error.
 /// {@endtemplate}
 class InternalErrorException extends AuthException {
-  /// {@macro amplify_common.internal_error_exception}
+  /// {@macro amplify_core.auth.internal_error_exception}
   const InternalErrorException(
     String message, {
     String? recoverySuggestion,
@@ -30,7 +30,7 @@ class InternalErrorException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   InternalErrorException._private(AuthException exception)
       : super(
           exception.message,
@@ -38,8 +38,7 @@ class InternalErrorException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static InternalErrorException fromMap(
     Map<String, String> serializedException,
   ) {

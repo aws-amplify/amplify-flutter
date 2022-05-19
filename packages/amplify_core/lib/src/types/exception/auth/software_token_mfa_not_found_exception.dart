@@ -15,12 +15,12 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.software_token_mfa_not_found_exception}
-/// Thrown when a the software token TOTP multi-factor authentication (MFA)
-/// is not enabled for the user pool.
+/// {@template amplify_core.auth.software_token_mfa_not_found_exception}
+/// Exception thrown when the software token time-based one-time password (TOTP)
+/// multi-factor authentication (MFA) isn't activated for the user pool.
 /// {@endtemplate}
 class SoftwareTokenMFANotFoundException extends AuthException {
-  /// {@macro amplify_common.software_token_mfa_not_found_exception}
+  /// {@macro amplify_core.auth.software_token_mfa_not_found_exception}
   const SoftwareTokenMFANotFoundException(
     String message, {
     String? recoverySuggestion,
@@ -31,7 +31,7 @@ class SoftwareTokenMFANotFoundException extends AuthException {
           underlyingException: underlyingException,
         );
 
-  /// Constructor for down casting an AuthException to this exception
+  /// {@macro amplify_core.auth.exception_downcasting}
   SoftwareTokenMFANotFoundException._private(AuthException exception)
       : super(
           exception.message,
@@ -39,8 +39,7 @@ class SoftwareTokenMFANotFoundException extends AuthException {
           underlyingException: exception.underlyingException,
         );
 
-  /// Instantiates and return a new `AuthException` from the
-  /// serialized exception data
+  /// {@macro amplify_core.auth.exception_from_map}
   static SoftwareTokenMFANotFoundException fromMap(
     Map<String, String> serializedException,
   ) {
