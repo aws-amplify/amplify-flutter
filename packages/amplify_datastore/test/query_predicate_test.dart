@@ -41,6 +41,15 @@ void main() {
           await getJsonFromFile('id_not_equals.json'));
     });
 
+    test('bad model id field naming backwards compatibility', () async {
+      QueryPredicate testPredicateWithBadIdFiledNaming =
+          QueryField(fieldName: 'blog.id').ne('123');
+      expect(
+        testPredicateWithBadIdFiledNaming.serializeAsMap(),
+        await getJsonFromFile('id_not_equals.json'),
+      );
+    });
+
     test('when rating greater or equal', () async {
       expect(Post.RATING.ge(4).serializeAsMap(),
           await getJsonFromFile('rating_greater_or_equal.json'));

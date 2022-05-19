@@ -306,7 +306,7 @@ class AmplifyDataStorePluginTest {
     fun test_query_with_predicates_success_zero_result() {
         val queryOptions =
             Where.matches(
-                field("post.id").eq("123").or(
+                field("id").eq("123").or(
                     field("rating").ge(4).and(
                         not(
                             field("created").eq("2020-02-20T20:20:20-08:00")
@@ -315,7 +315,7 @@ class AmplifyDataStorePluginTest {
                 )
             )
                 .paginated(Page.startingAt(2).withLimit(8))
-                .sorted(field("post.id").ascending(), field("created").descending())
+                .sorted(field("id").ascending(), field("created").descending())
 
         doAnswer { invocation: InvocationOnMock ->
             assertEquals("Post", invocation.arguments[0])

@@ -79,7 +79,7 @@ class QueryPredicateOperation extends QueryPredicate {
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{
       'queryPredicateOperation': <String, dynamic>{
-        'field': field,
+        'field': getFieldName(field),
         'fieldOperator': queryFieldOperator.serializeAsMap(),
       },
     };

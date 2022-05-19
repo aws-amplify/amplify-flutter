@@ -141,7 +141,7 @@ class Comment extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "comment.id");
+  static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField POST = QueryField(
       fieldName: "post",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
