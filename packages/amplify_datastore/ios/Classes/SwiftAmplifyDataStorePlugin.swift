@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import Combine
 import amplify_core
 
 public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
-    
     private let bridge: DataStoreBridge
     private let modelSchemaRegistry: FlutterSchemaRegistry
     private let customTypeSchemaRegistry: FlutterSchemaRegistry
@@ -31,19 +30,20 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     private let dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler?
     private var channel: FlutterMethodChannel?
     private var observeSubscription: AnyCancellable?
-    
+
     init(bridge: DataStoreBridge = DataStoreBridge(),
          modelSchemaRegistry: FlutterSchemaRegistry = FlutterSchemaRegistry(),
          customTypeSchemasRegistry: FlutterSchemaRegistry = FlutterSchemaRegistry(),
          dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler(),
-         dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler = DataStoreHubEventStreamHandler()) {
+         dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler = DataStoreHubEventStreamHandler())
+    {
         self.bridge = bridge
         self.modelSchemaRegistry = modelSchemaRegistry
         self.customTypeSchemaRegistry = customTypeSchemasRegistry
         self.dataStoreObserveEventStreamHandler = dataStoreObserveEventStreamHandler
         self.dataStoreHubEventStreamHandler = dataStoreHubEventStreamHandler
     }
-    
+
     public static func register(with registrar: FlutterPluginRegistrar) {
         let instance = SwiftAmplifyDataStorePlugin()
         let observeChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_observe_events", binaryMessenger: registrar.messenger())
@@ -53,12 +53,12 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         hubChannel.setStreamHandler(instance.dataStoreHubEventStreamHandler)
         registrar.addMethodCallDelegate(instance, channel: instance.channel!)
     }
-    
+
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let result = AtomicResult(result, call.method)
         var arguments: [String: Any] = [:]
         do {
-            if(call.arguments != nil) {
+            if call.arguments != nil {
                 try arguments = checkArguments(args: call.arguments as Any)
             }
         } catch {
@@ -66,7 +66,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                                               flutterResult: result)
             return
         }
-        
+
         switch call.method {
         case "configureDataStore":
             onConfigureDataStore(args: arguments, result: result)
@@ -88,7 +88,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             result(FlutterMethodNotImplemented)
         }
     }
-    
+
     private func getAuthModeStrategy(for strategyType: String?) throws -> AuthModeStrategyType {
         switch strategyType?.lowercased() {
         case "multiauth":
@@ -102,13 +102,12 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 nil)
         }
     }
-    
-    private func onConfigureDataStore(args: [String: Any], result: @escaping FlutterResult) {
 
+    private func onConfigureDataStore(args: [String: Any], result: @escaping FlutterResult) {
         guard let serializedModelSchemas = args["modelSchemas"] as? [[String: Any]],
               let serializedCustomTypeSchemas = (args["customTypeSchemas"] ?? []) as? [[String: Any]],
-              let modelProviderVersion = args["modelProviderVersion"] as? String else {
-
+              let modelProviderVersion = args["modelProviderVersion"] as? String
+        else {
             FlutterDataStoreErrorHandler.handleDataStoreError(
                 error:
                     DataStoreError.decodingError(
@@ -119,19 +118,19 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             )
             return
         }
-        
+
         guard channel != nil else {
             return
         }
-        
+
         let syncExpressionList = args["syncExpressions"] as? [[String: Any]] ?? []
         let syncInterval = args["syncInterval"] as? Double ?? DataStoreConfiguration.defaultSyncInterval
         let syncMaxRecords = args["syncMaxRecords"] as? UInt ?? DataStoreConfiguration.defaultSyncMaxRecords
         let syncPageSize = args["syncPageSize"] as? UInt ?? DataStoreConfiguration.defaultSyncPageSize
-        
+
         do {
             let authModeStrategy = try getAuthModeStrategy(for: args["authModeStrategy"] as? String)
-            
+
             let customTypeSchemaDependenciesOrder = try getCustomTypeSchemasDependenciesOrder(
                 serializedCustomTypeSchemas: serializedCustomTypeSchemas
             )
@@ -143,8 +142,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             let modelSchemas: [ModelSchema] = try serializedModelSchemas.map {
                 try FlutterModelSchema.init(serializedData: $0).convertToNativeModelSchema(customTypeSchemasRegistry: self.customTypeSchemaRegistry)
             }
-            
-            modelSchemas.forEach { (modelSchema) in
+
+            modelSchemas.forEach { modelSchema in
                 modelSchemaRegistry.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
             }
 
@@ -152,13 +151,13 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
             let syncExpressions: [DataStoreSyncExpression] = try createSyncExpressions(syncExpressionList: syncExpressionList)
 
-            self.dataStoreHubEventStreamHandler?.registerModelsForHub(
+            dataStoreHubEventStreamHandler?.registerModelsForHub(
                 modelSchemaRegistry: modelSchemaRegistry,
                 customTypeSchemaRegistry: customTypeSchemaRegistry
             )
-            
-            var errorHandler:DataStoreErrorHandler = createErrorHandler(args: args)
-            var conflictHandler:DataStoreConflictHandler = createConflictHandler(args: args)
+
+            var errorHandler: DataStoreErrorHandler = createErrorHandler(args: args)
+            var conflictHandler: DataStoreConflictHandler = createConflictHandler(args: args)
 
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: modelSchemaRegistry,
                                                      configuration: .custom(
@@ -170,23 +169,23 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                                         syncExpressions: syncExpressions,
                                                         authModeStrategy: authModeStrategy))
             try Amplify.add(plugin: dataStorePlugin)
-            
+
             Amplify.Logging.logLevel = .info
             print("Amplify configured with DataStore plugin")
             result(true)
-        } catch ModelSchemaError.parse(let className, let fieldName, let desiredType){
+        } catch ModelSchemaError.parse(let className, let fieldName, let desiredType) {
             FlutterDataStoreErrorHandler.handleDataStoreError(
                 error: DataStoreError.decodingError(
                     "Invalid modelSchema " + className + "-" + fieldName + " cannot be cast to " + desiredType,
                     ErrorMessages.missingRecoverySuggestion),
                 flutterResult: result)
             return
-        } catch let error {
-            if(error is DataStoreError){
+        } catch {
+            if error is DataStoreError{
                 FlutterDataStoreErrorHandler.handleDataStoreError(
                     error: error as! DataStoreError,
                     flutterResult: result)
-            } else if(error is ConfigurationError) {
+            } else if error is ConfigurationError {
                 let configError = error as! ConfigurationError
                 var errorCode = "DataStoreException"
                 if case .amplifyAlreadyConfigured = configError {
@@ -196,8 +195,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     result: result,
                     errorCode: errorCode,
                     details: [
-                        "message" : configError.errorDescription,
-                        "recoverySuggestion" : configError.recoverySuggestion,
+                        "message": configError.errorDescription,
+                        "recoverySuggestion": configError.recoverySuggestion,
                         "underlyingError": configError.underlyingError != nil ? configError.underlyingError!.localizedDescription : ""
                     ]
                 )
@@ -207,25 +206,23 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             }
             return
         }
-        
     }
-    
+
     func onQuery(args: [String: Any], flutterResult: @escaping FlutterResult) {
-        
         do {
             let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
             let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(
                 modelSchemaRegistry: modelSchemaRegistry,
                 modelName: modelName
             )
-            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String : Any])
+            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String: Any])
             let querySortInput = try QuerySortBuilder.fromSerializedList(args["querySort"] as? [[String: Any]])
             let queryPagination = QueryPaginationBuilder.fromSerializedMap(args["queryPagination"] as? [String: Any])
             try bridge.onQuery(FlutterSerializedModel.self,
                                modelSchema: modelSchema,
                                where: queryPredicates,
                                sort: querySortInput,
-                               paginate: queryPagination) { (result) in
+                               paginate: queryPagination) { result in
                 switch result {
                 case .failure(let error):
                     print("Query API failed. Error = \(error)")
@@ -233,7 +230,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                                                       flutterResult: flutterResult)
                 case .success(let res):
                     do {
-                        let serializedResults = try res.map { (queryResult) -> [String: Any] in
+                        let serializedResults = try res.map { queryResult -> [String: Any] in
                             return try queryResult.toMap(
                                 modelSchemaRegistry: modelSchemaRegistry,
                                 customTypeSchemaRegistry: customTypeSchemaRegistry,
@@ -264,7 +261,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                                               flutterResult: flutterResult)
         }
     }
-    
+
     // Initial Save fails for QueryPredicate.all, so we must pass nil instead
     // TODO: Amplify iOS should change .all initial save behavior to work.
     // Afterwards, we can remove this function and safely pass .all as our default queryPredicates
@@ -278,27 +275,26 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
         return queryPredicates
     }
-    
+
     func onSave(args: [String: Any], flutterResult: @escaping FlutterResult) {
-        
         do {
             let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
             let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(
                 modelSchemaRegistry: modelSchemaRegistry,
                 modelName: modelName
             )
-            let queryPredicates = filterQueryPredicateAll(queryPredicates: try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String : Any]))
-            
+            let queryPredicates = filterQueryPredicateAll(queryPredicates: try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String: Any]))
+
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
-            
+
             let serializedModel = FlutterSerializedModel(id: modelID, map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData))
-            
+
             try bridge.onSave(
                 serializedModel: serializedModel,
                 modelSchema: modelSchema,
                 where: queryPredicates
-            ) { (result) in
+            ) { result in
                 switch result {
                 case .failure(let error):
                     print("Save API failed. Error: \(error)")
@@ -310,20 +306,18 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     flutterResult(nil)
                 }
             }
-        }
-        catch let error as DataStoreError {
+        } catch let error as DataStoreError {
             print("Failed to parse save arguments with \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(
                 error: error,
                 flutterResult: flutterResult)
-        }
-        catch {
+        } catch {
             print("An unexpected error occurred when parsing save arguments: \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
                                                               flutterResult: flutterResult)
         }
     }
-    
+
     func onDelete(args: [String: Any], flutterResult: @escaping FlutterResult) {
         do {
             let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
@@ -331,18 +325,18 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 modelSchemaRegistry: modelSchemaRegistry,
                 modelName: modelName
             )
-            let queryPredicatesMap = args["queryPredicate"] as? [String : Any];
-            let queryPredicates = queryPredicatesMap != nil ? try QueryPredicateBuilder.fromSerializedMap(queryPredicatesMap) : nil;
-            
+            let queryPredicatesMap = args["queryPredicate"] as? [String: Any]
+            let queryPredicates = queryPredicatesMap != nil ? try QueryPredicateBuilder.fromSerializedMap(queryPredicatesMap) : nil
+
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
-            
+
             let serializedModel = FlutterSerializedModel(id: modelID, map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData))
-            
+
             try bridge.onDelete(
                 serializedModel: serializedModel,
                 modelSchema: modelSchema,
-                where: queryPredicates) { (result) in
+                where: queryPredicates) { result in
                 switch result {
                 case .failure(let error):
                     print("Delete API failed. Error = \(error)")
@@ -352,22 +346,19 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     flutterResult(nil)
                 }
             }
-            
-        }
-        catch let error as DataStoreError {
+        } catch let error as DataStoreError {
             print("Failed to parse delete arguments with \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(
                 error: error,
                 flutterResult: flutterResult)
-        }
-        catch {
+        } catch {
             print("An unexpected error occured when parsing delete arguments: \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
                                                               flutterResult: flutterResult)
             return
         }
     }
-    
+
     public func onSetUpObserve(flutterResult: @escaping FlutterResult) {
         do {
             observeSubscription = try observeSubscription ?? bridge.onObserve().sink { completion in
@@ -380,8 +371,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 case .finished:
                     print("finished")
                 }
-                
-            } receiveValue: { (mutationEvent) in
+
+            } receiveValue: { mutationEvent in
                 do {
                     let serializedEvent = try mutationEvent.decodeModel(as: FlutterSerializedModel.self)
                     guard let eventType = EventType(rawValue: mutationEvent.mutationType) else {
@@ -409,10 +400,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             flutterResult(false)
         }
     }
-    
+
     func onClear(flutterResult: @escaping FlutterResult) {
         do {
-            try bridge.onClear() {(result) in
+            try bridge.onClear {result in
                 switch result {
                 case .failure(let error):
                     print("Clear API failed. Error: \(error)")
@@ -424,8 +415,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     flutterResult(nil)
                 }
             }
-        }
-        catch {
+        } catch {
             print("An unexpected error occured: \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
                                                               flutterResult: flutterResult)
@@ -434,7 +424,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
     func onStart(flutterResult: @escaping FlutterResult) {
         do {
-            try bridge.onStart() { (result) in
+            try bridge.onStart { result in
                 switch result {
                 case .failure(let error):
                     print("Start API failed. Error: \(error)")
@@ -446,8 +436,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     flutterResult(nil)
                 }
             }
-        }
-        catch {
+        } catch {
             print("An unexpected error occured: \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
                                                               flutterResult: flutterResult)
@@ -456,7 +445,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
     func onStop(flutterResult: @escaping FlutterResult) {
         do {
-            try bridge.onStop() { (result) in
+            try bridge.onStop { result in
                 switch result {
                 case .failure(let error):
                     print("Stop API failed. Error: \(error)")
@@ -468,22 +457,21 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     flutterResult(nil)
                 }
             }
-        }
-        catch {
+        } catch {
             print("An unexpected error occured: \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
                                                               flutterResult: flutterResult)
         }
     }
-    
+
     private func checkArguments(args: Any) throws -> [String: Any] {
         guard let res = args as? [String: Any] else {
             throw DataStoreError.decodingError("Flutter method call arguments are not a map.",
                                                "Check the values that are being passed from Dart.")
         }
-        return res;
+        return res
     }
-    
+
     private func createSyncExpressions(syncExpressionList: [[String: Any]]) throws -> [DataStoreSyncExpression] {
         return try syncExpressionList.map { syncExpression in
             let id = syncExpression["id"] as! String
@@ -532,7 +520,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     FlutterDataStoreErrorRecoverySuggestion.decoding.rawValue
                 )
             }
-            if (!customTypeSchemaDependenciesOrder.contains(schemaName)) {
+            if !customTypeSchemaDependenciesOrder.contains(schemaName) {
                 let schema: ModelSchema = try FlutterModelSchema.init(serializedData: serializedCustomTypeSchema)
                     .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemaRegistry)
                 customTypeSchemaRegistry.addModelSchema(modelName: schemaName, modelSchema: schema)
@@ -562,14 +550,14 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     )
                 }
 
-                if (type["fieldType"] == "embedded" || type["fieldType"] == "embeddedCollection") {
+                if type["fieldType"] == "embedded" || type["fieldType"] == "embeddedCollection" {
                     guard let schemaName = serializedCustomTypeSchema["name"] as? String else {
                         throw DataStoreError.decodingError(
                             "Cannot get schema name.",
                             FlutterDataStoreErrorRecoverySuggestion.decoding.rawValue
                         )
                     }
-                    if (schemasDependencies[schemaName] == nil) {
+                    if schemasDependencies[schemaName] == nil {
                         schemasDependencies[schemaName] = []
                     }
                     guard let customTypeName = type["ofCustomTypeName"] else {
@@ -583,11 +571,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             }
         }
 
-        var result: [String] = [];
+        var result: [String] = []
         var unresolved: Set<String> = []
 
         for node in schemasDependencies.keys {
-            if (result.contains(node)) {
+            if result.contains(node) {
                 continue
             }
             try resolveCustomTypeSchemaOrder(
@@ -609,8 +597,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     ) throws {
         unresolved.insert(startNode)
         for node in dependenciesMap[startNode] ?? [] {
-            if (!result.contains(node)) {
-                if (unresolved.contains(node)) {
+            if !result.contains(node) {
+                if unresolved.contains(node) {
                     throw DataStoreError.configuration(
                         "Cicularly dependent schemas are not supported.",
                         "Please check schema definition and avoid cicular dependencies."
@@ -633,15 +621,15 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     func getPlugin() throws -> AWSDataStorePlugin {
         return try Amplify.DataStore.getPlugin(for: "awsDataStorePlugin") as! AWSDataStorePlugin
     }
-    
-    func createErrorHandler(args: [String: Any])  -> DataStoreErrorHandler {
+
+    func createErrorHandler(args: [String: Any]) -> DataStoreErrorHandler {
         var errorHandler: DataStoreErrorHandler
-        if((args["hasErrorHandler"] as? Bool) == true) {
+        if (args["hasErrorHandler"] as? Bool) == true {
             errorHandler = { error in
-                let map : [String:Any] = [
-                    "errorCode" : "DataStoreException",
-                    "errorMesage" : ErrorMessages.defaultFallbackErrorMessage,
-                    "details" : FlutterDataStoreErrorHandler.createSerializedError(error: error)
+                let map: [String: Any] = [
+                    "errorCode": "DataStoreException",
+                    "errorMesage": ErrorMessages.defaultFallbackErrorMessage,
+                    "details": FlutterDataStoreErrorHandler.createSerializedError(error: error)
                 ]
                 DispatchQueue.main.async {
                     self.channel!.invokeMethod("errorHandler", arguments: map)
@@ -654,10 +642,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
         return errorHandler
     }
-    
-    func createConflictHandler(args: [String: Any])  -> DataStoreConflictHandler {
-        var conflictHandler:DataStoreConflictHandler
-        if((args["hasConflictHandler"] as? Bool) == true) {
+
+    func createConflictHandler(args: [String: Any]) -> DataStoreConflictHandler {
+        var conflictHandler: DataStoreConflictHandler
+        if (args["hasConflictHandler"] as? Bool) == true {
             conflictHandler = { conflictData, onDecision in
                 do {
                     guard
@@ -668,57 +656,56 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                         throw DataStoreError.decodingError("Native ConflictData is invalid", "Check the values in ConflictData object.")
                     }
 
-                    let map : [String:Any] = [
-                        "modelName" : modelName,
-                        "local" : try local.toMap(
+                    let map: [String: Any] = [
+                        "modelName": modelName,
+                        "local": try local.toMap(
                             modelSchemaRegistry: self.modelSchemaRegistry,
                             customTypeSchemaRegistry: self.customTypeSchemaRegistry,
                             modelName: modelName),
-                        "remote" : try remote.toMap(
+                        "remote": try remote.toMap(
                             modelSchemaRegistry: self.modelSchemaRegistry,
                             customTypeSchemaRegistry: self.customTypeSchemaRegistry,
                             modelName: modelName)
                     ]
 
                     DispatchQueue.main.async {
-                        self.channel!.invokeMethod("conflictHandler", arguments: map){ result in
+                        self.channel!.invokeMethod("conflictHandler", arguments: map) { result in
                             do {
                                 guard
-                                    let resultMap : [String: Any] = result as? [String: Any],
+                                    let resultMap: [String: Any] = result as? [String: Any],
                                     let resolutionStrategy = resultMap["resolutionStrategy"] as? String
                                 else {
                                     throw DataStoreError.decodingError("Flutter resultMap is invalid", "Check the values that are being passed from Dart.")
                                 }
-                                
-                                switch(resolutionStrategy){
+
+                                switch resolutionStrategy{
                                     case "applyRemote": onDecision(.applyRemote)
                                     case "retryLocal": onDecision(.retryLocal)
                                     case "retry":
-                                        guard let modelMap =  resultMap["customModel"] as? [String : Any]
+                                        guard let modelMap = resultMap["customModel"] as? [String: Any]
                                         else {
                                             throw DataStoreError.decodingError("Flutter CustomModel map is invalid", "Check the values that are being passed from Dart.")
                                         }
                                         let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: modelMap)
-                                        let serializedModel = try FlutterSerializedModel(id: modelID, map:  FlutterDataStoreRequestUtils.getJSONValue(modelMap))
+                                        let serializedModel = try FlutterSerializedModel(id: modelID, map: FlutterDataStoreRequestUtils.getJSONValue(modelMap))
                                             onDecision(.retry(serializedModel))
                                     default:
                                         print("Unrecognized resolutionStrategy to resolve conflict. Applying default conflict resolution, applyRemote.")
                                         onDecision(.applyRemote)
                                 }
-                            }
-                            catch let error {
+                            } catch {
                                 print("Error in conflict handler: \(error) Applying default conflict resolution, applyRemote.")
                                 onDecision(.applyRemote)
                             }
                         }
                     }
-                } catch let error {
+                } catch {
                     print("Error in conflict handler: \(error) Applying default conflict resolution, applyRemote.")
                     onDecision(.applyRemote)
                 }
             }
         } else {
-            conflictHandler = { _, resolve  in
+            conflictHandler = { _, resolve in
                 resolve(.applyRemote)
             }
         }

@@ -157,7 +157,8 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                     try {
                         val outboxMutationEnqueued = hubEvent.data as OutboxMutationEvent<*>
                         if (outboxMutationEnqueued.element.model is SerializedModel) {
-                            val modelName = (outboxMutationEnqueued.element.model as SerializedModel).modelName as String
+                            val modelName =
+                                (outboxMutationEnqueued.element.model as SerializedModel).modelName as String
                             val res = FlutterOutboxMutationEnqueuedEvent(
                                 hubEvent.name,
                                 modelName,
@@ -213,7 +214,10 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                             LOG.error("Element is not an instance of SerializedModel.")
                         }
                     } catch (e: Exception) {
-                        LOG.error("Failed to parse and send ${DataStoreChannelEventName.SUBSCRIPTION_DATA_PROCESSED} event: ", e)
+                        LOG.error(
+                            "Failed to parse and send ${DataStoreChannelEventName.SUBSCRIPTION_DATA_PROCESSED} event: ",
+                            e
+                        )
                     }
                 }
                 else -> {

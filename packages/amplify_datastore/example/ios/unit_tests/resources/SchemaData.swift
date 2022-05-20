@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,8 +18,7 @@ import Amplify
 @testable import amplify_datastore
 
 struct SchemaData {
-    
-    static var PostSchema: ModelSchema = ModelSchema(
+    static var PostSchema: ModelSchema = .init(
         name: "Post",
         pluralName: "Posts",
         fields: [
@@ -34,8 +33,8 @@ struct SchemaData {
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-    
-    static var CommentSchema: ModelSchema = ModelSchema(
+
+    static var CommentSchema: ModelSchema = .init(
         name: "Comment",
         pluralName: "Comments",
         fields: [
@@ -46,9 +45,8 @@ struct SchemaData {
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-    
-    
-    static var BlogSchema: ModelSchema = ModelSchema(
+
+    static var BlogSchema: ModelSchema = .init(
         name: "Blog",
         pluralName: "Blogs",
         fields: [
@@ -59,8 +57,8 @@ struct SchemaData {
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-    
-    static var PostAuthComplexSchema: ModelSchema = ModelSchema(
+
+    static var PostAuthComplexSchema: ModelSchema = .init(
         name: "PostAuthComplex",
         pluralName: "PostAuthComplexes",
         authRules: [
@@ -81,8 +79,8 @@ struct SchemaData {
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-    
-    static var PostAuthComplexWithProviderUserPoolsSchema: ModelSchema = ModelSchema(
+
+    static var PostAuthComplexWithProviderUserPoolsSchema: ModelSchema = .init(
         name: "PostAuthComplexWithProviderUserPools",
         pluralName: "PostAuthComplexWithProviderUserPools",
         authRules: [
@@ -103,8 +101,8 @@ struct SchemaData {
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-    
-    static var PostAuthComplexWithProviderApiKeySchema: ModelSchema = ModelSchema(
+
+    static var PostAuthComplexWithProviderApiKeySchema: ModelSchema = .init(
         name: "PostAuthComplexWithProviderApiKey",
         pluralName: "PostAuthComplexWithProviderApiKeys",
         authRules: [
@@ -122,8 +120,8 @@ struct SchemaData {
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-    
-    static var AllTypeModelSchema: ModelSchema = ModelSchema(
+
+    static var AllTypeModelSchema: ModelSchema = .init(
         name: "AllTypeModel",
         pluralName: "AllTypeModels",
         fields: [
@@ -141,8 +139,8 @@ struct SchemaData {
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-    
-    static var AuthorModelSchema: ModelSchema = ModelSchema(
+
+    static var AuthorModelSchema: ModelSchema = .init(
         name: "Author",
         pluralName: "Authors",
         fields: [
@@ -153,8 +151,8 @@ struct SchemaData {
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-    
-    static var DepartmentSchema: ModelSchema = ModelSchema(
+
+    static var DepartmentSchema: ModelSchema = .init(
         name: "Department",
         pluralName: "Departments",
         fields: [
@@ -165,8 +163,8 @@ struct SchemaData {
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
         ]
     )
-    
-    static var AddressSchema: ModelSchema = ModelSchema(
+
+    static var AddressSchema: ModelSchema = .init(
         name: "Address",
         pluralName: "Addresses",
         fields: [
@@ -177,8 +175,8 @@ struct SchemaData {
             "postalCode": ModelField(name: "postalCode", type: .string, isRequired: true, isArray: false),
         ]
     )
-    
-    static var PhoneSchema: ModelSchema = ModelSchema(
+
+    static var PhoneSchema: ModelSchema = .init(
         name: "Phone",
         pluralName: "Phones",
         fields: [
@@ -187,8 +185,8 @@ struct SchemaData {
             "number": ModelField(name: "number", type: .string, isRequired: true, isArray: false),
         ]
     )
-    
-    static var ContactSchema: ModelSchema = ModelSchema(
+
+    static var ContactSchema: ModelSchema = .init(
         name: "Contact",
         pluralName: "Contacts",
         fields: [
@@ -201,16 +199,16 @@ struct SchemaData {
             ),
         ]
     )
-    
-    static var CustomBSchema: ModelSchema = ModelSchema(
+
+    static var CustomBSchema: ModelSchema = .init(
         name: "CustomB",
         pluralName: "CustomBs",
         fields: [
             "field": ModelField(name: "field", type: .string, isRequired: true, isArray: false),
         ]
     )
-    
-    static var CustomASchema: ModelSchema = ModelSchema(
+
+    static var CustomASchema: ModelSchema = .init(
         name: "CustomA",
         pluralName: "CustomAs",
         fields: [
@@ -218,8 +216,8 @@ struct SchemaData {
             "field2": ModelField(name: "field2", type: .embedded(type: JSONValue.self, schema: SchemaData.CustomBSchema), isRequired: true),
         ]
     )
-    
-    static var PersonSchema: ModelSchema = ModelSchema(
+
+    static var PersonSchema: ModelSchema = .init(
         name: "Person",
         pluralName: "People",
         fields: [
@@ -234,7 +232,7 @@ struct SchemaData {
             "anotherCustomTypeTree": ModelField(name: "anotherCustomTypeTree", type: .embedded(type: JSONValue.self, schema: SchemaData.CustomASchema)),
         ]
     )
-    
+
     static var modelSchemas: [String: ModelSchema] {
         return [
             PostSchema.name: PostSchema,
@@ -247,7 +245,7 @@ struct SchemaData {
             PersonSchema.name: PersonSchema
         ]
     }
-    
+
     static var customTypeSchemas: [String: ModelSchema] {
         return [
             AddressSchema.name: AddressSchema,
@@ -257,26 +255,26 @@ struct SchemaData {
             CustomASchema.name: CustomASchema
         ]
     }
-    
+
     static var modelSchemaRegistry: FlutterSchemaRegistry {
         let modelSchemaRegistry = FlutterSchemaRegistry()
-        
+
         for (key, value) in SchemaData.modelSchemas {
             modelSchemaRegistry.addModelSchema(modelName: key, modelSchema: value)
         }
-        
+
         modelSchemaRegistry.registerModels(registry: ModelRegistry.self)
-        
+
         return modelSchemaRegistry
     }
-    
+
     static var customTypeSchemaRegistry: FlutterSchemaRegistry {
         let customTypeSchemaRegistry = FlutterSchemaRegistry()
-        
+
         for (key, customTypeSchema) in SchemaData.customTypeSchemas {
             customTypeSchemaRegistry.addModelSchema(modelName: key, modelSchema: customTypeSchema)
         }
-        
+
         return customTypeSchemaRegistry
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,17 +18,15 @@ import Foundation
 import Amplify
 
 struct FlutterModelSchema {
-    
     let name: String
     let fields: [String: FlutterModelField]
     let pluralName: String?
     let authRules: [FlutterAuthRule]?
-    
+
     // Not used for now
     let attributes: [ModelAttribute] = []
-    
+
     init(serializedData: [String: Any]) throws {
-        
         guard let name = serializedData["name"] as? String else {
             throw ModelSchemaError.parse(
                 className: "FlutterModelSchema",
@@ -36,7 +34,7 @@ struct FlutterModelSchema {
                 desiredType: "String")
         }
         self.name = name
-        
+
         guard let inputFieldsMap = serializedData["fields"] as? [String: [String: Any]] else {
             throw ModelSchemaError.parse(
                 className: "FlutterModelSchema",
@@ -48,19 +46,16 @@ struct FlutterModelSchema {
         }
 
         self.pluralName = serializedData["pluralName"] as? String
-        
-        if let inputAuthRulesMap = serializedData["authRules"] as? [[String:Any]]{
+
+        if let inputAuthRulesMap = serializedData["authRules"] as? [[String: Any]] {
             self.authRules = try inputAuthRulesMap.map {
                 try FlutterAuthRule(serializedData: $0)
             }
-        }
-        else {
+        } else {
             self.authRules = nil
         }
-
-
     }
-    
+
     public func convertToNativeModelSchema(customTypeSchemasRegistry: FlutterSchemaRegistry) throws -> ModelSchema {
         return ModelSchema.init(
             name: name,

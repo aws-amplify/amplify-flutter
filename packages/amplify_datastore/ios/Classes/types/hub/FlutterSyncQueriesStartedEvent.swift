@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import AmplifyPlugins
 struct FlutterSyncQueriesStartedEvent: FlutterHubEvent {
     var eventName: String
     var models: [String]
-    
+
     init(payload: HubPayload) throws {
         guard let syncQueriesStarted = payload.data as? SyncQueriesStartedEvent else {
                   throw FlutterDataStoreError.hubEventCast
@@ -28,11 +28,11 @@ struct FlutterSyncQueriesStartedEvent: FlutterHubEvent {
         self.eventName = shortEventName(eventName: payload.eventName)
         self.models = syncQueriesStarted.models
     }
-    
-    func toValueMap() -> Dictionary<String, Any> {
+
+    func toValueMap() -> [String: Any] {
         return [
-            "eventName": self.eventName,
-            "models": self.models.description
+            "eventName": eventName,
+            "models": models.description
         ]
     }
 }
