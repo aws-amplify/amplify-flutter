@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/model_mutations_factory.dart';
 import 'package:amplify_core/amplify_core.dart';
 

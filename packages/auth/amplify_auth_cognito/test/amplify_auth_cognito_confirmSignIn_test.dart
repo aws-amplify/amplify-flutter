@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_cognito/method_channel_auth_cognito.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -34,11 +35,12 @@ extension IsEqual on SignInResult {
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   const MethodChannel authChannel =
       MethodChannel('com.amazonaws.amplify/auth_cognito');
 
-  AmplifyAuthCognito auth = AmplifyAuthCognito();
-  TestWidgetsFlutterBinding.ensureInitialized();
+  AmplifyAuthCognito auth = AmplifyAuthCognitoMethodChannel();
   const testAttributeKey = CognitoUserAttributeKey.email;
   const testEmailValue = 'test@test.test';
   const testMetadataKey = 'key';
@@ -91,11 +93,12 @@ void main() {
     var req = ConfirmSignInRequest(confirmationValue: '1233', options: options)
         .serializeAsMap();
     expect(req['options'], isInstanceOf<Map>());
-    expect(req['options']['clientMetadata'], isInstanceOf<Map>());
-    expect(req['options']['clientMetadata'][testMetadataKey],
+    final optionsMap = req['options'] as Map;
+    expect(optionsMap['clientMetadata'], isInstanceOf<Map>());
+    expect(optionsMap['clientMetadata'][testMetadataKey],
         equals(testMetaDataAttribute));
-    expect(req['options']['userAttributes'], isInstanceOf<Map>());
-    expect(req['options']['userAttributes']['email'], equals(testEmailValue));
+    expect(optionsMap['userAttributes'], isInstanceOf<Map>());
+    expect(optionsMap['userAttributes']['email'], equals(testEmailValue));
   });
 
   test('confirmSignIn thrown PlatFormException results in AuthException',

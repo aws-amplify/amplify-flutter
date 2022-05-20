@@ -15,79 +15,29 @@
 
 library amplify_analytics_pinpoint;
 
-import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'dart:io';
+
+import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
+import 'package:meta/meta.dart';
 
 import 'method_channel_amplify.dart';
 
-export 'package:amplify_analytics_plugin_interface/src/types.dart';
+export 'package:amplify_core/src/types/analytics/analytics_types.dart';
 
-class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
-  static final Object _token = Object();
-
-  AmplifyAnalyticsPinpoint() : super(token: _token);
-
-  static AmplifyAnalyticsPinpoint _instance =
-      AmplifyAnalyticsPinpointMethodChannel();
-
-  static AmplifyAnalyticsPinpoint get instance => _instance;
-
-  /// Platform-specific plugins should set this with their own platform-specific
-  /// class that extends [AnalyticsPluginInterface] when they register themselves.
-  static set instance(AmplifyAnalyticsPinpoint instance) {
-    PlatformInterface.verifyToken(instance, _token);
-    _instance = instance;
+/// {@template amplify_analytics_pinpoint.amplify_analytics_pinpoint}
+/// The AWS Pinpoint implementation of the Amplify Analytics category.
+/// {@endtemplate}
+abstract class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
+  /// {@macro amplify_analytics_pinpoint.amplify_analytics_pinpoint}
+  factory AmplifyAnalyticsPinpoint() {
+    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+      throw UnsupportedError('This platform is not supported yet');
+    }
+    return AmplifyAnalyticsPinpointMethodChannel();
   }
 
-  // Public facing methods
-
-  @override
-  Future<void> addPlugin() async {
-    return _instance.addPlugin();
-  }
-
-  @override
-  Future<void> recordEvent({required AnalyticsEvent event}) async {
-    return _instance.recordEvent(event: event);
-  }
-
-  @override
-  Future<void> flushEvents() async {
-    await _instance.flushEvents();
-  }
-
-  @override
-  Future<void> registerGlobalProperties(
-      {required AnalyticsProperties globalProperties}) async {
-    return _instance.registerGlobalProperties(
-        globalProperties: globalProperties);
-  }
-
-  @override
-  Future<void> unregisterGlobalProperties(
-      {required List<String> propertyNames}) async {
-    return _instance.unregisterGlobalProperties(propertyNames: propertyNames);
-  }
-
-  @override
-  Future<void> enable() async {
-    await _instance.enable();
-  }
-
-  @override
-  Future<void> disable() async {
-    return _instance.disable();
-  }
-
-  @override
-  Future<void> identifyUser(
-      {required String userId,
-      required AnalyticsUserProfile userProfile}) async {
-    return _instance.identifyUser(userId: userId, userProfile: userProfile);
-  }
-
-  @override
-  Future<void> onConfigure() {
-    return _instance.onConfigure();
-  }
+  /// Protected constructor for subclasses.
+  @protected
+  AmplifyAnalyticsPinpoint.protected();
 }

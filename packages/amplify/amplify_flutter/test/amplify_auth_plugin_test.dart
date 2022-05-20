@@ -13,17 +13,18 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_auth_cognito/method_channel_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  Amplify = MethodChannelAmplify();
+
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
   const MethodChannel authChannel =
       MethodChannel('com.amazonaws.amplify/auth_cognito');
-
-  TestWidgetsFlutterBinding.ensureInitialized();
 
   bool platformError = false;
 
@@ -44,7 +45,7 @@ void main() {
     });
 
     // Clear out plugins before each test for a fresh state.
-    AuthCategory.plugins.clear();
+    Amplify.Auth.plugins.clear();
   });
 
   tearDown(() {
@@ -57,7 +58,7 @@ void main() {
       () async {
     platformError = true;
     try {
-      await Amplify.addPlugin(AmplifyAuthCognito());
+      await Amplify.addPlugin(AmplifyAuthCognitoMethodChannel());
     } on Exception {
       fail('exception was thrown');
     }
@@ -67,18 +68,18 @@ void main() {
       'Plugin is added if platform exception contains "AmplifyAlreadyConfiguredException" code',
       () async {
     platformError = true;
-    await Amplify.addPlugin(AmplifyAuthCognito());
-    expect(AuthCategory.plugins.length, 1);
+    await Amplify.addPlugin(AmplifyAuthCognitoMethodChannel());
+    expect(Amplify.Auth.plugins.length, 1);
   });
 
   test('AmplifyException is thrown if addPlugin called twice', () async {
     try {
-      await Amplify.addPlugin(AmplifyAuthCognito());
-      await Amplify.addPlugin(AmplifyAuthCognito());
+      await Amplify.addPlugin(AmplifyAuthCognitoMethodChannel());
+      await Amplify.addPlugin(AmplifyAuthCognitoMethodChannel());
       fail('exception not thrown');
     } on AmplifyException catch (e) {
       expect(e.message,
-          'Amplify plugin AmplifyAuthCognito was not added successfully.');
+          'Amplify plugin AmplifyAuthCognitoMethodChannel was not added successfully.');
     } on Exception catch (e) {
       expect(e, isA<AmplifyException>());
     }

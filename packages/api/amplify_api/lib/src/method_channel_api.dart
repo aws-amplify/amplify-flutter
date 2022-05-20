@@ -30,7 +30,20 @@ part 'auth_token.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
+/// {@template amplify_api.amplify_api_method_channel}
+/// The method channel implementation of [AmplifyAPI].
+///
+/// Used on iOS and Android clients.
+/// {@endtemplate}
 class AmplifyAPIMethodChannel extends AmplifyAPI {
+  /// {@macro amplify_api.amplify_api_method_channel}
+  AmplifyAPIMethodChannel({
+    List<APIAuthProvider> authProviders = const [],
+    this.modelProvider,
+  }) : super.protected() {
+    authProviders.forEach(registerAuthProvider);
+  }
+
   static const _eventChannel =
       EventChannel('com.amazonaws.amplify/api_observe_events');
   late final Stream<GraphQLSubscriptionEvent> _allSubscriptionsStream =
@@ -80,7 +93,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
 
-  AmplifyAPIMethodChannel() : super.tokenOnly();
+  @override
+  final ModelProviderInterface? modelProvider;
 
   @override
   Future<void> addPlugin() async {

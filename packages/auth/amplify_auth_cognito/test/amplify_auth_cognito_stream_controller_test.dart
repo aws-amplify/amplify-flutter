@@ -16,7 +16,7 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito_stream_controller.dart';
-import 'package:amplify_auth_cognito/src/CognitoHubEvents/AuthHubEvent.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_test/amplify_test.dart';
@@ -24,13 +24,13 @@ import 'package:amplify_test/amplify_test.dart';
 var log = [];
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   const MethodChannel authChannel =
       MethodChannel('com.amazonaws.amplify/auth_cognito');
   const String channelName = 'com.amazonaws.amplify/auth_cognito_events';
   const StandardMethodCodec standardCodec = StandardMethodCodec();
   final StreamController authStreamController =
       AuthStreamController().authStreamController;
-  TestWidgetsFlutterBinding.ensureInitialized();
 
   void emitValues(ByteData? event) {
     ambiguate(ServicesBinding.instance)!

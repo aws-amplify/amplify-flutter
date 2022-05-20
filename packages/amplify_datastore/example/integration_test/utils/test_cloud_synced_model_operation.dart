@@ -1,4 +1,3 @@
-import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tuple/tuple.dart';
@@ -77,7 +76,7 @@ Future<void> testCloudSyncedModelOperation<R extends Model, A extends Model>({
       .toList();
 
   if (assertingAssociatedModels) {
-    var associatedModelsSyncedEventsGetters = associatedModels!.map(
+    var associatedModelsSyncedEventsGetters = associatedModels.map(
       (associatedModel) => getExpectedSubscriptionDataProcessedEvent(
         eventMatcher: (event) {
           var model = event.element.model;

@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions {
   /// {@template amplify_auth_plugin_interface.cognito_sign_in_with_web_ui_options}

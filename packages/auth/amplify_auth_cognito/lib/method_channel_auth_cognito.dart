@@ -13,9 +13,13 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
 import 'amplify_auth_cognito.dart';
+import 'amplify_auth_cognito_stream_controller.dart';
 import 'amplify_auth_error_handling.dart';
 
 const MethodChannel _channel =
@@ -23,6 +27,8 @@ const MethodChannel _channel =
 
 /// An implementation of [AmplifyAuthCognito] that uses method channels.
 class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
+  AmplifyAuthCognitoMethodChannel() : super.protected();
+
   // Throws if the user attempts to update a user attribute key which is not a
   // Cognito attribute or which is set to read-only.
   void _checkUserAttributeKey(UserAttributeKey? userAttributeKey) {
@@ -34,6 +40,12 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
         'or a custom attribute created with CognitoUserAttributeKey.custom.',
       );
     }
+  }
+
+  final AuthStreamController _streamWrapper = AuthStreamController();
+
+  StreamController<AuthHubEvent> get streamController {
+    return _streamWrapper.authStreamController;
   }
 
   @override
@@ -496,22 +508,21 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   UpdateUserAttributeResult _formatUpdateUserAttributeResponse(
       Map<String, dynamic> res) {
     var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
-    var additionalInfo = res["nextStep"]["additionalInfo"] != null
-        ? Map<String, String>.from(res["nextStep"]["additionalInfo"])
-        : null;
     return UpdateUserAttributeResult(
-      isUpdated: res["isUpdated"],
-      nextStep: AuthNextUpdateAttributeStep(
-        updateAttributeStep: res["nextStep"]["updateAttributeStep"],
-        codeDeliveryDetails: codeDeliveryDetails != null
-            ? AuthCodeDeliveryDetails(
-                attributeName: codeDeliveryDetails["attributeName"] ?? null,
-                deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? null,
-                destination: codeDeliveryDetails["destination"])
-            : null,
-        additionalInfo: additionalInfo,
-      ),
-    );
+        isUpdated: res["isUpdated"],
+        nextStep: AuthNextUpdateAttributeStep(
+            updateAttributeStep: res["nextStep"]["updateAttributeStep"],
+            codeDeliveryDetails: codeDeliveryDetails != null
+                ? AuthCodeDeliveryDetails(
+                    attributeName: codeDeliveryDetails["attributeName"] ?? null,
+                    deliveryMedium:
+                        codeDeliveryDetails["deliveryMedium"] ?? null,
+                    destination: codeDeliveryDetails["destination"])
+                : null,
+            additionalInfo: res["nextStep"]["additionalInfo"] is String
+                ? Map<String, String>.from(
+                    jsonDecode(res["nextStep"]["additionalInfo"]))
+                : {}));
   }
 
   Map<UserAttributeKey, UpdateUserAttributeResult>
@@ -527,8 +538,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   ResendUserAttributeConfirmationCodeResult
       _formatResendUserAttributeConfirmationCodeResponse(
           Map<String, dynamic> res) {
-    return ResendUserAttributeConfirmationCodeResult(
-        codeDeliveryDetails: res["codeDeliveryDetails"]);
+    return ResendUserAttributeConfirmationCodeResult.fromMap(
+        codeDeliveryDetails:
+            Map<String, String>.from(res["codeDeliveryDetails"]));
   }
 
   @override

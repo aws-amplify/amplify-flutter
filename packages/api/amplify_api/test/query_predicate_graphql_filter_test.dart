@@ -1,16 +1,24 @@
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_request_factory.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-enum Size { SMALL, MEDIUM, LARGE }
+import 'graphql_helpers_test.dart';
+
+enum Size { small, medium, large }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  Amplify = MethodChannelAmplify();
+
   group('queryPredicateToGraphQLFilter()', () {
-    // needed to fetch the schema from within the helper
-    AmplifyAPI(modelProvider: ModelProvider.instance);
+    setUpAll(() async {
+      await Amplify.addPlugin(
+        // needed to fetch the schema from within the helper
+        MockAmplifyAPI(modelProvider: ModelProvider.instance),
+      );
+    });
 
     // helper method for all the tests
     void _testQueryPredicateTranslation(
@@ -216,9 +224,9 @@ void main() {
     test('query with enum should serialize to string', () {
       // Note: enums are not actually in the codegen model. Nonetheless, we
       // expect this predicate to translate as follows.
-      final queryPredicate = Post.TITLE.eq(Size.MEDIUM);
+      final queryPredicate = Post.TITLE.eq(Size.medium);
       final expectedFilter = {
-        'title': {'eq': describeEnum(Size.MEDIUM)}
+        'title': {'eq': describeEnum(Size.medium)}
       };
 
       _testQueryPredicateTranslation(queryPredicate, expectedFilter,

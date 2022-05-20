@@ -22,9 +22,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'mocks/mock_stream_controller.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  Amplify = MethodChannelAmplify();
   const MethodChannel channel = MethodChannel('amplify/amplify_core');
   MockStreamController mockPluginController = MockStreamController();
-  TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {

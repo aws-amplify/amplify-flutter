@@ -15,6 +15,8 @@
 
 import 'dart:async';
 
+import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3/method_channel_storage_s3.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -30,7 +32,7 @@ void main() {
       'com.amazonaws.amplify/storage_transfer_progress_events';
   const standardCodec = StandardMethodCodec();
 
-  AmplifyStorageS3 storage = AmplifyStorageS3();
+  AmplifyStorageS3 storage = AmplifyStorageS3MethodChannel();
 
   int totalTransferProgress = 15;
   int unitTransferProgress = 5;

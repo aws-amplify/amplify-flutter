@@ -13,14 +13,12 @@
 // permissions and limitations under the License.
 //
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 import 'UpdateUserAttributes.dart';
 import 'UpdateUserAttribute.dart';
 
-// ignore: public_member_api_docs
 class ViewUserAttributes extends StatefulWidget {
   @override
   _ViewUserAttributesState createState() => _ViewUserAttributesState();

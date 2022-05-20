@@ -15,7 +15,6 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
-import 'amplify_auth_cognito.dart';
 
 /// Converts MethodChannel error data to Dart AuthException subclass
 Exception castAndReturnPlatformException(PlatformException e) {

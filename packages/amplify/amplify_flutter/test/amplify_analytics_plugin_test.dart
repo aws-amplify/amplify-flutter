@@ -13,17 +13,18 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
+import 'package:amplify_analytics_pinpoint/method_channel_amplify.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  Amplify = MethodChannelAmplify();
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
   const MethodChannel analyticsChannel =
       MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
-
-  TestWidgetsFlutterBinding.ensureInitialized();
 
   bool platformError = false;
 
@@ -44,7 +45,7 @@ void main() {
     });
 
     // Clear out plugins before each test for a fresh state.
-    AnalyticsCategory.plugins.clear();
+    Amplify.Analytics.plugins.clear();
   });
 
   tearDown(() {
@@ -57,7 +58,7 @@ void main() {
       () async {
     platformError = true;
     try {
-      await Amplify.addPlugin(AmplifyAnalyticsPinpoint());
+      await Amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());
     } on Exception {
       fail('exception was thrown');
     }
@@ -67,18 +68,18 @@ void main() {
       'Plugin is added if platform exception contains "AmplifyAlreadyConfiguredException" code',
       () async {
     platformError = true;
-    await Amplify.addPlugin(AmplifyAnalyticsPinpoint());
-    expect(AnalyticsCategory.plugins.length, 1);
+    await Amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());
+    expect(Amplify.Analytics.plugins.length, 1);
   });
 
   test('AmplifyException is thrown if addPlugin called twice', () async {
     try {
-      await Amplify.addPlugin(AmplifyAnalyticsPinpoint());
-      await Amplify.addPlugin(AmplifyAnalyticsPinpoint());
+      await Amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());
+      await Amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());
       fail('exception not thrown');
     } on AmplifyException catch (e) {
       expect(e.message,
-          'Amplify plugin AmplifyAnalyticsPinpoint was not added successfully.');
+          'Amplify plugin AmplifyAnalyticsPinpointMethodChannel was not added successfully.');
     } on Exception catch (e) {
       expect(e, isA<AmplifyException>());
     }

@@ -4,8 +4,8 @@ description: Test bed for amplify_auth_cognito_ios
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.2.0"
+  sdk: ">=2.15.0 <3.0.0"
+  flutter: ">=2.10.0"
 
 dependencies:
   amplify_auth_cognito_android:
@@ -19,7 +19,6 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ^1.0.0
-  flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
 
