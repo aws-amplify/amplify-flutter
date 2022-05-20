@@ -86,6 +86,25 @@ class QueryPredicateOperation extends QueryPredicate {
   }
 }
 
+class QueryByIdentifierOperation extends QueryPredicate {
+  final String field;
+  final QueryFieldOperator queryFieldOperator;
+
+  const QueryByIdentifierOperation(this.field, this.queryFieldOperator);
+
+  @override
+  bool evaluate(Model model) {
+    return queryFieldOperator.evaluate(model.modelIdentifier);
+  }
+
+  @override
+  Map<String, dynamic> serializeAsMap() {
+    return <String, dynamic>{
+      'queryByIdentifierOperation': queryFieldOperator.serializeAsMap(),
+    };
+  }
+}
+
 enum QueryPredicateGroupType { and, or, not }
 
 // Represents rating > 4 & blogName.contains("awesome")
