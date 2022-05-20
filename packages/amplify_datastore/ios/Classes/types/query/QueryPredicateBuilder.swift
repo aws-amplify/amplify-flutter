@@ -28,12 +28,28 @@ public enum QueryPredicateBuilder {
                let queryFieldOperatorMap = queryPredicateOperationMap["fieldOperator"] as? [String: Any],
                let operatorName = queryFieldOperatorMap["operatorName"] as? String
             {
-                let operand = convertToAmplifyPersistable(operand: queryFieldOperatorMap["value"])
+                let operand = convertToAmplifyPersistable(value: queryFieldOperatorMap["value"])
                 let queryField = field(fieldValue)
                 switch operatorName {
                 case "equal":
+                    if operand == nil,
+                     let operands = queryFieldOperatorMap["value"] as? [[String: Any]] {
+                        return try convertIdentifierFieldOperatorToPredicate(
+                            operands: operands,
+                            field: queryField,
+                            isEqualOperator: true
+                        )
+                    }
                     return queryField.eq(operand)
                 case "not_equal":
+                    if operand == nil,
+                     let operands = queryFieldOperatorMap["value"] as? [[String: Any]] {
+                        return try convertIdentifierFieldOperatorToPredicate(
+                            operands: operands,
+                            field: queryField,
+                            isEqualOperator: false
+                        )
+                    }
                     return queryField.ne(operand)
                 case "less_or_equal":
                     return queryField.le(operand!)
@@ -46,8 +62,8 @@ public enum QueryPredicateBuilder {
                 case "contains":
                     return queryField.contains(operand as! String)
                 case "between":
-                    return queryField.between(start: convertToAmplifyPersistable(operand: queryFieldOperatorMap["start"])!,
-                                              end: convertToAmplifyPersistable(operand: queryFieldOperatorMap["end"])!)
+                    return queryField.between(start: convertToAmplifyPersistable(value: queryFieldOperatorMap["start"])!,
+                                              end: convertToAmplifyPersistable(value: queryFieldOperatorMap["end"])!)
                 case "begins_with":
                     return queryField.beginsWith(operand as! String)
                 default:
@@ -120,26 +136,58 @@ public enum QueryPredicateBuilder {
             }
         }
 
+        if let queryByIdentifierOperationMap = data["queryByIdentifierOperation"] as? [String: Any] {
+            let operatorName = queryByIdentifierOperationMap["operatorName"] as? String
+            guard let operands = queryByIdentifierOperationMap["value"] as? [[String: Any]] else {
+                throw DataStoreError.decodingError("A queryByIdentifierOperation must provide a list of operands. ",
+                                                   "Check the values that are being passed from Dart.")
+            }
+
+            switch(operatorName) {
+            case "equal":
+                return try convertIdentifierOperatorToPredicateGroup(operands: operands, isEqualOpeartor: true)
+            case "not_equal":
+                return try convertIdentifierOperatorToPredicateGroup(operands: operands, isEqualOpeartor: false)
+            default:
+                throw DataStoreError.decodingError("Received invalid serialized query by identifier operation. ",
+                                                   "Check the values that are being passed from Dart.")
+            }
+        }
+
         throw DataStoreError.decodingError("Received invalid serialization for query predicates.",
                                            "Check the values that are being passed from Dart.")
     }
 
-    static func convertToAmplifyPersistable(operand: Any?) -> Persistable? {
-        if operand == nil {
-            return nil
+    static func convertIdentifierFieldOperatorToPredicate(operands: [[String: Any]], field: QueryField, isEqualOperator: Bool) throws -> QueryPredicate {
+        let identifierFields = try convertToModelIdentifierFields(values: operands)
+        let operand = FlutterSerializedModel.Identifier.make(fields: identifierFields).stringValue
+
+        return isEqualOperator ? field.eq(operand) : field.ne(operand)
+    }
+
+    static func convertIdentifierOperatorToPredicateGroup(operands: [[String: Any]], isEqualOpeartor: Bool) throws -> QueryPredicate {
+        let identifierFields = try convertToModelIdentifierFields(values: operands)
+        var predicates: [QueryPredicate] = identifierFields.map {
+            let queryFiled = field($0.name)
+            let value = convertToAmplifyPersistable(value: $0.value)
+            if (isEqualOpeartor) {
+                return queryFiled.eq(value)
+            }
+
+            return queryFiled.ne(value)
         }
-        switch operand {
-        case is Int:
-            return operand as! Int
-        case is Double:
-            return operand as! Double
-        case is Bool:
-            return operand as! Bool
-        case is String:
-            return operand as! String
-        default:
-            // TODO: This should probably be an error case
-            return operand as? Persistable
+
+        if (predicates.count == 1) {
+            return predicates[0]
         }
+
+        var predicateGroup = (predicates[0] as! QueryPredicateOperation).and(predicates[1])
+        predicates = Array(predicates.dropFirst(2))
+
+        predicates.forEach {
+            predicateGroup = predicateGroup.and($0)
+        }
+
+        return predicateGroup
     }
 }
