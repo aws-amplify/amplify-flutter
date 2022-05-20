@@ -15,7 +15,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.resend_user_attribute_confirmation_code_request}
+/// {@template amplify_core.resend_user_attribute_confirmation_code_request}
 /// Encapsulates parameters for a request to resend a user attribute
 /// confirmation code.
 /// {@endtemplate}
@@ -26,7 +26,7 @@ class ResendUserAttributeConfirmationCodeRequest {
   /// Plugin-specific, advanced options such as information about the client.
   final ResendUserAttributeConfirmationCodeOptions? options;
 
-  /// {@macro amplify_common.resend_user_attribute_confirmation_code_request}
+  /// {@macro amplify_core.resend_user_attribute_confirmation_code_request}
   const ResendUserAttributeConfirmationCodeRequest({
     required this.userAttributeKey,
     this.options,

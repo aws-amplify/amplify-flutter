@@ -15,7 +15,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.auth_next_update_attribute_step}
+/// {@template amplify_core.auth_next_update_attribute_step}
 /// This wraps all the details around the next step in the user attribute update process.
 ///
 /// It contains [updateAttributeStep] to denote the step and supplements it with
@@ -30,7 +30,7 @@ class AuthNextUpdateAttributeStep extends AuthNextStep {
   /// Will have a value of `"DONE"` if the flow is completed and no further steps are needed.
   String updateAttributeStep;
 
-  /// {@macro amplify_common.auth_next_update_attribute_step}
+  /// {@macro amplify_core.auth_next_update_attribute_step}
   AuthNextUpdateAttributeStep({
     Map<String, String>? additionalInfo,
     AuthCodeDeliveryDetails? codeDeliveryDetails,

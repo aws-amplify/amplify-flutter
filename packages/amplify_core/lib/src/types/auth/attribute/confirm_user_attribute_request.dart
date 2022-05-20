@@ -15,7 +15,7 @@
 
 import 'user_attribute_key.dart';
 
-/// {@template amplify_common.confirm_user_attribute_request}
+/// {@template amplify_core.confirm_user_attribute_request}
 /// Encapsulates parameters for a request to confirm a user attribute update.
 /// {@endtemplate}
 class ConfirmUserAttributeRequest {
@@ -25,7 +25,7 @@ class ConfirmUserAttributeRequest {
   /// The confirmation code the user received after starting the user attribute operation
   final String confirmationCode;
 
-  /// {@macro amplify_common.confirm_user_attribute_request}
+  /// {@macro amplify_core.confirm_user_attribute_request}
   const ConfirmUserAttributeRequest({
     required this.userAttributeKey,
     required this.confirmationCode,

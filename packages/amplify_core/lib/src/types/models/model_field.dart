@@ -97,8 +97,7 @@ class ModelField {
       association:
           map['association'] ?? ModelAssociation.fromMap(map['association']),
       authRules: map['authRules'] ??
-          List<AuthRule>.from(
-              map['authRules']?.map((dynamic x) => AuthRule.fromMap(x))),
+          List<AuthRule>.from(map['authRules']?.map(AuthRule.fromMap)),
     );
   }
 

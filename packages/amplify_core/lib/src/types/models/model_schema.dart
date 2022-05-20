@@ -64,8 +64,7 @@ class ModelSchema {
     return ModelSchema(
       name: map['name'],
       pluralName: map['pluralName'],
-      authRules: List<AuthRule>.from(
-          map['authRules']?.map((dynamic x) => AuthRule.fromMap(x))),
+      authRules: List<AuthRule>.from(map['authRules']?.map(AuthRule.fromMap)),
       fields: Map<String, ModelField>.from(map['fields']),
     );
   }

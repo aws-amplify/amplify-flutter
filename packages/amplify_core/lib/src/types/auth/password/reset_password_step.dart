@@ -15,13 +15,13 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.reset_password_step}
+/// {@template amplify_core.reset_password_step}
 /// The next step required for resetting a user's password.
 /// {@endtemplate}
 class ResetPasswordStep extends AuthNextStep {
   String updateStep;
 
-  /// {@macro amplify_common.reset_password_step}
+  /// {@macro amplify_core.reset_password_step}
   ResetPasswordStep({
     Map<String, String>? additionalInfo,
     AuthCodeDeliveryDetails? codeDeliveryDetails,

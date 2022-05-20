@@ -15,7 +15,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.update_user_attribute_result}
+/// {@template amplify_core.update_user_attribute_result}
 /// Wraps the result of an update user attribute operation.
 /// {@endtemplate}
 class UpdateUserAttributeResult {
@@ -25,7 +25,7 @@ class UpdateUserAttributeResult {
   /// Contains details about the next step in the user attribute update process (or whether the flow is now done).
   AuthNextUpdateAttributeStep nextStep;
 
-  // {@macro amplify_common.update_user_attribute_result}
+  // {@macro amplify_core.update_user_attribute_result}
   UpdateUserAttributeResult({
     required this.isUpdated,
     required this.nextStep,

@@ -15,7 +15,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.update_user_attribute_request}
+/// {@template amplify_core.update_user_attribute_request}
 /// Encapsulates parameters for a update user attribute operation.
 /// {@endtemplate}
 class UpdateUserAttributeRequest {
@@ -25,7 +25,7 @@ class UpdateUserAttributeRequest {
   /// Plugin-specific, advanced options such as information about the client
   final UpdateUserAttributeOptions? options;
 
-  /// {@macro amplify_common.update_user_attribute_request}
+  /// {@macro amplify_core.update_user_attribute_request}
   UpdateUserAttributeRequest({
     required UserAttributeKey userAttributeKey,
     required String value,

@@ -16,7 +16,6 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_common/aws_common.dart';
 
 final fakeEventChannel = StreamController<MockHubEvent>.broadcast(
   onListen: () => safePrint('listening'),

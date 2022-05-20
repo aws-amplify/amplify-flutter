@@ -16,7 +16,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:aws_common/aws_common.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:stream_transform/stream_transform.dart';

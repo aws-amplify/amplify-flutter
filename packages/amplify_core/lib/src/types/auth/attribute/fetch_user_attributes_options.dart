@@ -13,11 +13,11 @@
  * permissions and limitations under the License.
  */
 
-/// {@template amplify_common.fetch_user_attributes_options}
+/// {@template amplify_core.fetch_user_attributes_options}
 /// The shared fetch user attributes options among all Auth plugins.
 /// {@endtemplate}
 class FetchUserAttributesOptions {
-  /// {@macro amplify_common.fetch_user_attributes_options}
+  /// {@macro amplify_core.fetch_user_attributes_options}
   const FetchUserAttributesOptions();
 
   /// Serialize the object to a map
