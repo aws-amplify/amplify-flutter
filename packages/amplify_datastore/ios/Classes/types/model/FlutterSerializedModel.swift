@@ -17,23 +17,38 @@ import Flutter
 import Foundation
 import Amplify
 
-struct FlutterSerializedModel: Model, JSONValueHolder {
-    public let id: String
+public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder {
+    public typealias IdentifierFormat = ModelIdentifierFormat.Custom
+    public typealias Identifier = ModelIdentifier<FlutterSerializedModel, ModelIdentifierFormat.Custom>
 
     public var values: [String: JSONValue]
+    var _modelName: String
 
-    public init(id: String = UUID().uuidString, map: [String: JSONValue]) {
-        self.id = id
+    public var modelName: String {
+        _modelName
+    }
+
+    public init(map: [String: JSONValue], modelName: String) {
         self.values = map
+        self._modelName = modelName
     }
 
     public init(from decoder: Decoder) throws {
-        let y = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try y.decode(String.self, forKey: .id)
-
         let json = try JSONValue(from: decoder)
         let typeName = json["__typename"]
         let modified = FlutterSerializedModel.removeReservedNames(json)
+
+        self._modelName = try { () -> String in
+            switch typeName {
+            case .some(.string(let deserializedValue)):
+                return deserializedValue
+            default:
+                throw DataStoreError.decodingError(
+                    "__typename was missing decoding JSON payload to FlutterSerializedModel",
+                    "please open an issue at https://github.com/aws-amplify/amplify-flutter/issues"
+                )
+            }
+        }()
 
         if case .object(var v) = modified {
             v["__typename"] = typeName
@@ -72,11 +87,11 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         try x.encode(values)
     }
 
-    internal func jsonValue(for key: String) -> Any?? {
+    public func jsonValue(for key: String) -> Any?? {
         return FlutterSerializedModel.extractJsonValue(value: values[key])
     }
 
-    internal func jsonValue(for key: String, modelSchema: ModelSchema) -> Any?? {
+    public func jsonValue(for key: String, modelSchema: ModelSchema) -> Any?? {
         return FlutterSerializedModel.extractJsonValue(key: key, value: values[key], modelSchema: modelSchema)
     }
 
@@ -101,25 +116,25 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
 
     private static func extractJsonValue(key: String, value: JSONValue?, modelSchema: ModelSchema, returnTemporalType: Bool = true) -> Any?? {
         let field = modelSchema.field(withName: key)
-            switch (field?.type, value) {
-                case (.int, .number(let deserializedValue)):
-                    return Int(deserializedValue)
-                case (.dateTime, .string(let deserializedValue)), (.date, .string(let deserializedValue)), (.time, .string(let deserializedValue)):
+        switch (field?.type, value) {
+        case (.int, .number(let deserializedValue)):
+            return Int(deserializedValue)
+        case (.dateTime, .string(let deserializedValue)), (.date, .string(let deserializedValue)), (.time, .string(let deserializedValue)):
 
-                    // If returning value for Amplify iOS library return FlutterTemporal
-                    if returnTemporalType {
-                        return FlutterTemporal(iso8601String: deserializedValue)
-                    }
-                    // Else returning value to be serialized to Flutter layer
-                    else{
-                        return deserializedValue
-                    }
-
-                case (.timestamp, .number(let deserializedValue)):
-                    return Int(deserializedValue)
-                default:
-                    return extractJsonValue(value: value)
+            // If returning value for Amplify iOS library return FlutterTemporal
+            if returnTemporalType {
+                return FlutterTemporal(iso8601String: deserializedValue)
             }
+            // Else returning value to be serialized to Flutter layer
+            else{
+                return deserializedValue
+            }
+
+        case (.timestamp, .number(let deserializedValue)):
+            return Int(deserializedValue)
+        default:
+            return extractJsonValue(value: value)
+        }
     }
 
     private static func deserializeValue(value: JSONValue?, fieldType: Codable.Type) -> Any?? {
@@ -209,41 +224,49 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
                 continue
             }
 
-            if case .object(let deserializedValue) = value {
-               // If a field that has many models
-               if deserializedValue["associatedField"] != nil && deserializedValue["associatedId"] != nil {
-                   result[key] = nil
-               }
-               // If a field that has one or belongs to a model
-               else if case .string(let modelId) = deserializedValue["id"],
-                       case .model(let nextModelName) = field!.type
-               {
-                   result[key] = [
-                       "id": modelId,
-                       "modelName": nextModelName,
-                       "serializedData": try generateSerializedData(
-                          values: deserializedValue,
-                          modelSchemaRegistry: modelSchemaRegistry,
-                          customTypeSchemaRegistry: customTypeSchemaRegistry,
-                          modelName: nextModelName
-                       )
-                   ]
-               }
-               // if a field has a single CustomType value presented as JSONValue.object
-               else if case .embedded(_, .some(let customTypeSchema)) = field?.type,
-                         case .some(.object(let deserializedValue)) = values[key]
-               {
-                   let customTypeName = customTypeSchema.name
-                   result[key] = [
-                       "customTypeName": customTypeName,
-                       "serializedData": try FlutterSerializedModel.generateSerializedData(
-                           values: deserializedValue,
-                           modelSchemaRegistry: modelSchemaRegistry,
-                           customTypeSchemaRegistry: customTypeSchemaRegistry,
-                           modelName: customTypeName
-                       )
-                   ]
-               }
+            if case let .object(deserializedValue) = value {
+                // If a field that has many models
+                if deserializedValue["associatedField"] != nil && deserializedValue["associatedId"] != nil {
+                    result[key] = nil
+                }
+                // If a field that has one or belongs to a model
+                else if case .model(let nextModelName) = field!.type {
+                    let attachNestedModel = try FlutterSerializedModel.hasValidNestedModelData(
+                        modelName: nextModelName,
+                        nestedModelData: deserializedValue,
+                        modelSchemaRegistry: modelSchemaRegistry,
+                        customTypeSchemaRegistry: customTypeSchemaRegistry
+                    )
+
+                    if !attachNestedModel {
+                        continue
+                    }
+
+                    result[key] = [
+                        "modelName": nextModelName,
+                        "serializedData": try generateSerializedData(
+                            values: deserializedValue,
+                            modelSchemaRegistry: modelSchemaRegistry,
+                            customTypeSchemaRegistry: customTypeSchemaRegistry,
+                            modelName: nextModelName
+                        )
+                    ]
+                }
+                // if a field has a single CustomType value presented as JSONValue.object
+                else if case .embedded(_, .some(let customTypeSchema)) = field?.type,
+                        case .some(.object(let deserializedValue)) = values[key]
+                {
+                    let customTypeName = customTypeSchema.name
+                    result[key] = [
+                        "customTypeName": customTypeName,
+                        "serializedData": try FlutterSerializedModel.generateSerializedData(
+                            values: deserializedValue,
+                            modelSchemaRegistry: modelSchemaRegistry,
+                            customTypeSchemaRegistry: customTypeSchemaRegistry,
+                            modelName: customTypeName
+                        )
+                    ]
+                }
             } else if case .collection = field?.type{
                 continue
             } else if case .embeddedCollection(let fieldType, _) = field?.type,
@@ -277,13 +300,39 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         return result
     }
 
+    private static func hasValidNestedModelData(
+        modelName: String,
+        nestedModelData: [String: JSONValue?],
+        modelSchemaRegistry: FlutterSchemaRegistry,
+        customTypeSchemaRegistry: FlutterSchemaRegistry
+    ) throws -> Bool {
+        let modelSchema = try FlutterSerializedModel.getSchema(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemaRegistry,
+            modelName: modelName
+        )
+
+        return modelSchema.primaryKey.fields
+            .map { $0.name }
+            .allSatisfy {
+                guard let value = nestedModelData[$0] else {
+                    return false
+                }
+
+                if case .null = value {
+                    return false
+                }
+
+                return true
+            }
+    }
+
     public func toMap(
         modelSchemaRegistry: FlutterSchemaRegistry,
         customTypeSchemaRegistry: FlutterSchemaRegistry,
         modelName: String
     ) throws -> [String: Any] {
         return [
-            "id": id,
             "modelName": modelName,
             "serializedData": try FlutterSerializedModel.generateSerializedData(
                 values: values,
@@ -295,11 +344,10 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
     }
 }
 
-extension FlutterSerializedModel {
-    public enum CodingKeys: String, ModelKey {
-        case id
+public extension FlutterSerializedModel {
+    enum CodingKeys: String, ModelKey {
         case values
     }
 
-    public static let keys = CodingKeys.self
+    static let keys = CodingKeys.self
 }
