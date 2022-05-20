@@ -30,7 +30,6 @@ class FlutterSubscriptionDataProcessedEvent(
             "modelName" to model.modelName,
             "element" to mapOf(
                 "syncMetadata" to mapOf(
-                    "id" to syncMetadata.id,
                     "_deleted" to syncMetadata.isDeleted,
                     "_version" to syncMetadata.version,
                     "_lastChangedAt" to syncMetadata.lastChangedAt?.secondsSinceEpoch

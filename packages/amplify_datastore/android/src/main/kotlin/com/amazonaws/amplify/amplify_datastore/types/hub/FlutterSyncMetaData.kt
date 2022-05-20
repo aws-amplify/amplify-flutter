@@ -21,10 +21,9 @@ import com.amplifyframework.datastore.syncengine.OutboxMutationEvent
 class FlutterSyncMetaData(private var metadata: OutboxMutationEvent.OutboxMutationEventElement<out Model>) {
     fun toValueMap(): Map<String, Any?> {
         return mapOf(
-            "id" to this.metadata.model.id,
             "_deleted" to this.metadata.isDeleted,
             "_version" to this.metadata.version,
-            "_lastChangedAt" to (this.metadata.lastChangedAt ?: null)
+            "_lastChangedAt" to this.metadata.lastChangedAt
         )
     }
 }
