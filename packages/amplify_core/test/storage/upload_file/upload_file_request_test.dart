@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+@TestOn('vm')
+
 import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';

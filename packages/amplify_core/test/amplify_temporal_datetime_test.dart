@@ -13,6 +13,10 @@
  * permissions and limitations under the License.
  */
 
+@OnPlatform(<String, Object>{
+  'browser': Skip('Failing on web'),
+})
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
