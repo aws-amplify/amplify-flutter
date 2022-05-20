@@ -15,46 +15,52 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
-import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:amplify_flutter/src/config/amplify_config.dart';
-import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'amplify_hub.dart';
-import 'categories/amplify_categories.dart';
 
 part 'method_channel_amplify.dart';
 
+/// {@template amplify_flutter.amplify_class}
 /// Amplify singleton class.
 ///
 /// This class can be extended to create a custom Amplify implementation.
 /// The default Amplify implementation will use method channels, and will
 /// only support iOS and Android platforms.
-class AmplifyClass extends PlatformInterface {
+/// {@endtemplate}
+abstract class AmplifyClass {
+  /// {@macro amplify_flutter.amplify_class}
+  factory AmplifyClass() {
+    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+      throw UnsupportedError('This platform is not supported yet');
+    }
+    return MethodChannelAmplify();
+  }
+
   /// The Auth category.
-  final AuthCategory Auth = const AuthCategory();
+  final AuthCategory Auth = AuthCategory();
 
   /// The Analytics category.
-  final AnalyticsCategory Analytics = const AnalyticsCategory();
+  final AnalyticsCategory Analytics = AnalyticsCategory();
 
   /// The Storage category.
-  final StorageCategory Storage = const StorageCategory();
+  final StorageCategory Storage = StorageCategory();
 
   /// The DataStore category.
-  final DataStoreCategory DataStore = const DataStoreCategory();
+  final DataStoreCategory DataStore = DataStoreCategory();
 
   /// The API category.
-  final APICategory API = const APICategory();
+  final APICategory API = APICategory();
 
   /// The Amplify event hub.
   final AmplifyHub Hub = AmplifyHub();
+
+  final _configCompleter = Completer<AmplifyConfig>();
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -62,26 +68,20 @@ class AmplifyClass extends PlatformInterface {
   ///
   /// Throws AmplifyAlreadyConfiguredException if
   /// this method is called after configure (e.g. during hot reload).
-  Future<void> addPlugin(AmplifyPluginInterface plugin) async {
-    return instance.addPlugin(plugin);
-  }
+  Future<void> addPlugin(AmplifyPluginInterface plugin);
 
   /// Adds multiple plugins at the same time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
   /// to check the configuration state by calling `Amplify.isConfigured`
   Future<void> addPlugins(List<AmplifyPluginInterface> plugins) {
-    return instance.addPlugins(plugins);
+    return Future.wait(plugins.map(addPlugin), eagerError: true);
   }
 
   /// Returns whether Amplify has been configured or not.
-  bool get isConfigured {
-    return instance.isConfigured;
-  }
+  bool get isConfigured => _configCompleter.isCompleted;
 
   /// A future when completes when Amplify has been successfully configured.
-  Future<AmplifyConfig> get asyncConfig {
-    return instance.asyncConfig;
-  }
+  Future<AmplifyConfig> get asyncConfig => _configCompleter.future;
 
   /// Configures Amplify with the provided configuration string.
   /// **This method can only be called once**, after all the plugins
@@ -92,29 +92,53 @@ class AmplifyClass extends PlatformInterface {
   /// Throws AmplifyAlreadyConfiguredException if
   /// this method is called again (e.g. during hot reload).
   Future<void> configure(String configuration) async {
-    return instance.configure(configuration);
+    if (isConfigured) {
+      throw const AmplifyAlreadyConfiguredException(
+        'Amplify has already been configured and re-configuration is not supported.',
+        recoverySuggestion:
+            'Check if Amplify is already configured using Amplify.isConfigured.',
+      );
+    }
+
+    final AmplifyConfig amplifyConfig;
+    try {
+      final json = jsonDecode(configuration) as Map;
+      amplifyConfig = AmplifyConfig.fromJson(json.cast());
+    } on FormatException catch (e) {
+      throw AmplifyException(
+        'The provided configuration is not a valid json. Check underlyingException.',
+        recoverySuggestion:
+            'Inspect your amplifyconfiguration.dart and ensure that the string is proper json',
+        underlyingException: e.toString(),
+      );
+    }
+
+    await configurePlatform(configuration);
+    _configCompleter.complete(amplifyConfig);
   }
+
+  /// Configures the platform-specific implementation of Amplify using the
+  /// registered [config].
+  @protected
+  Future<void> configurePlatform(String config);
 
   /// Constructs a Core platform.
   /// Internal Use Only
   @protected
-  AmplifyClass.protected() : super(token: _token);
+  AmplifyClass.protected();
 
-  static final Object _token = Object();
-
-  static AmplifyClass _instance = MethodChannelAmplify();
-
-  /// The default instance of [AmplifyClass] to use.
+  /// The instance of [AmplifyClass] to use.
   ///
-  /// Defaults to [MethodChannelAmplify].
-  static AmplifyClass get instance => _instance;
+  /// Defaults to the platform-specific implementation.
+  static AmplifyClass instance = AmplifyClass();
 
-  /// Platform-specific plugins should set this with their own platform-specific
-  /// class that extends [AmplifyClass] when they register themselves.
-  static set instance(AmplifyClass instance) {
-    PlatformInterface.verifyToken(instance, _token);
-    _instance = instance;
-  }
+  /// The library version.
+  String get version => '0.5.1';
+
+  /// Resets the Amplify implementation, removing all traces of Amplify from
+  /// the device.
+  @visibleForTesting
+  Future<void> reset();
 }
 
 // ignore_for_file: non_constant_identifier_names

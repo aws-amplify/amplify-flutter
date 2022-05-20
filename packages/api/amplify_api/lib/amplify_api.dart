@@ -15,110 +15,38 @@
 
 library amplify_api_plugin;
 
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
+import 'dart:io';
+
+import 'package:amplify_api/src/method_channel_api.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'src/method_channel_api.dart';
-
-export 'package:amplify_api_plugin_interface/src/types.dart';
+export 'package:amplify_core/src/types/api/api_types.dart';
 
 export './model_mutations.dart';
 export './model_queries.dart';
 export './model_subscriptions.dart';
 
-class AmplifyAPI extends APIPluginInterface {
-  static final Object _token = Object();
-
-  AmplifyAPI(
-      {List<APIAuthProvider> authProviders = const [],
-      ModelProviderInterface? modelProvider})
-      : super(token: _token, modelProvider: modelProvider) {
-    _instance.modelProvider = modelProvider;
-    authProviders.forEach(registerAuthProvider);
-  }
-
-  /// Internal use constructor
-  @protected
-  AmplifyAPI.tokenOnly() : super.tokenOnly(token: _token);
-
-  static AmplifyAPI _instance = AmplifyAPIMethodChannel();
-
-  /// The default instance of [AmplifyAPIPlugin] to use.
-  static AmplifyAPI get instance => _instance;
-
-  ModelProviderInterface? getModelProvider() {
-    return modelProvider;
-  }
-
-  static set instance(AmplifyAPI instance) {
-    PlatformInterface.verifyToken(instance, _token);
-    _instance = instance;
-  }
-
-  @override
-  Future<void> addPlugin() async {
-    return _instance.addPlugin();
-  }
-
-  @override
-  void registerAuthProvider(APIAuthProvider authProvider) {
-    _instance.registerAuthProvider(authProvider);
-  }
-
-  // ====== GraphQL =======
-  @override
-  GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
-    return _instance.query(request: request);
-  }
-
-  @override
-  GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) {
-    return _instance.mutate(request: request);
-  }
-
-  @override
-  Stream<GraphQLResponse<T>> subscribe<T>(
-    GraphQLRequest<T> request, {
-    void Function()? onEstablished,
+/// {@template amplify_api.amplify_api}
+/// The AWS implementation of the Amplify API category.
+/// {@endtemplate}
+abstract class AmplifyAPI extends APIPluginInterface {
+  /// {@macro amplify_api.amplify_api}
+  factory AmplifyAPI({
+    List<APIAuthProvider> authProviders = const [],
+    ModelProviderInterface? modelProvider,
   }) {
-    return _instance.subscribe(request, onEstablished: onEstablished);
+    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+      throw UnsupportedError('This platform is not supported yet');
+    }
+    return AmplifyAPIMethodChannel(
+      authProviders: authProviders,
+      modelProvider: modelProvider,
+    );
   }
 
-  // ====== RestAPI ======
-  @override
-  void cancelRequest(String cancelToken) {
-    _instance.cancelRequest(cancelToken);
-  }
-
-  @override
-  RestOperation get({required RestOptions restOptions}) {
-    return _instance.get(restOptions: restOptions);
-  }
-
-  @override
-  RestOperation put({required RestOptions restOptions}) {
-    return _instance.put(restOptions: restOptions);
-  }
-
-  @override
-  RestOperation post({required RestOptions restOptions}) {
-    return _instance.post(restOptions: restOptions);
-  }
-
-  @override
-  RestOperation delete({required RestOptions restOptions}) {
-    return _instance.delete(restOptions: restOptions);
-  }
-
-  @override
-  RestOperation head({required RestOptions restOptions}) {
-    return _instance.head(restOptions: restOptions);
-  }
-
-  @override
-  RestOperation patch({required RestOptions restOptions}) {
-    return _instance.patch(restOptions: restOptions);
-  }
+  /// Protected constructor for subclasses.
+  @protected
+  AmplifyAPI.protected();
 }

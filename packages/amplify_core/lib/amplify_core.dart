@@ -15,6 +15,24 @@
 
 library amplify_core;
 
+/// Categories
+export 'src/category/amplify_categories.dart';
+
+/// Analytics
+export 'src/types/analytics/analytics_types.dart';
+
+/// API
+export 'src/types/api/api_types.dart';
+
+/// Auth
+export 'src/types/auth/auth_types.dart';
+
+/// Config
+export 'src/types/config/amplify_config.dart' hide UnknownPluginConfigFactory;
+
+/// Datastore
+export 'src/types/datastore/datastore_types.dart' hide DateTimeParse;
+
 /// Exceptions
 export 'src/types/exception/amplify_already_configured_exception.dart';
 export 'src/types/exception/amplify_exception.dart';
@@ -22,6 +40,7 @@ export 'src/types/exception/amplify_exception_messages.dart';
 export 'src/types/exception/codegen_exception.dart';
 
 /// Hub
+export 'src/types/hub/auth/auth_hub_event.dart';
 export 'src/types/hub/hub_channel.dart';
 export 'src/types/hub/hub_event.dart';
 export 'src/types/hub/hub_event_payload.dart';
@@ -36,8 +55,22 @@ export 'src/types/models/model_field_type.dart';
 export 'src/types/models/model_provider.dart';
 export 'src/types/models/model_schema.dart';
 export 'src/types/models/model_schema_definition.dart';
+
+/// Plugin
+export 'src/types/plugin/amplify_analytics_plugin_interface.dart';
+export 'src/types/plugin/amplify_api_plugin_interface.dart';
+export 'src/types/plugin/amplify_auth_plugin_interface.dart';
+export 'src/types/plugin/amplify_datastore_plugin_interface.dart';
+export 'src/types/plugin/amplify_plugin_interface.dart';
+export 'src/types/plugin/amplify_storage_plugin_interface.dart';
+
+/// Query
 export 'src/types/query/query_field.dart';
-export 'src/types/temporal/datetime_parse.dart';
+
+/// Storage
+export 'src/types/storage/storage_types.dart';
+
+/// Temporal
 export 'src/types/temporal/temporal_date.dart';
 export 'src/types/temporal/temporal_datetime.dart';
 export 'src/types/temporal/temporal_time.dart';
@@ -45,8 +78,5 @@ export 'src/types/temporal/temporal_timestamp.dart';
 
 // Util
 export 'src/util/parsers.dart';
-export 'src/util/print.dart';
+export 'src/util/serializable.dart';
 export 'src/util/uuid.dart';
-
-// ignore: directives_ordering
-export 'src/types/plugin/amplify_plugin_interface.dart';

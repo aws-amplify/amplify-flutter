@@ -6,22 +6,18 @@ repository: https://github.com/aws-amplify/amplify-flutter
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.0.0"
+  sdk: ">=2.15.0 <3.0.0"
+  flutter: ">=2.10.0"
 
 dependencies:
-  amplify_analytics_plugin_interface: 0.5.1
-  amplify_api_plugin_interface: 0.5.1
-  amplify_auth_plugin_interface: 0.5.1
   amplify_core: 0.5.1
   amplify_datastore_plugin_interface: 0.5.1
   amplify_flutter_android: 0.5.1
   amplify_flutter_ios: 0.5.1
-  amplify_storage_plugin_interface: 0.5.1
+  aws_common: ^0.1.0
   collection: ^1.15.0
   flutter:
     sdk: flutter
-  json_annotation: ^4.3.0
   meta: ^1.7.0
   plugin_platform_interface: ^2.0.0
 
@@ -29,24 +25,16 @@ dependencies:
 # dependency_overrides:
 #   amplify_analytics_pinpoint:
 #     path: ../amplify_analytics_pinpoint
-#   amplify_analytics_plugin_interface:
-#     path: ../amplify_analytics_plugin_interface
 #   amplify_api:
 #     path: ../amplify_api
-#   amplify_api_plugin_interface:
-#     path: ../amplify_api_plugin_interface
 #   amplify_auth_cognito:
 #     path: ../amplify_auth_cognito
-#   amplify_auth_plugin_interface:
-#     path: ../amplify_auth_plugin_interface
 #   amplify_core:
 #     path: ../amplify_core
 #   amplify_datastore:
 #     path: ../amplify_datastore
 #   amplify_datastore_plugin_interface:
 #     path: ../amplify_datastore_plugin_interface
-#   amplify_storage_plugin_interface:
-#     path: ../amplify_storage_plugin_interface
 #   amplify_storage_s3:
 #     path: ../amplify_storage_s3
 
@@ -63,8 +51,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   json_serializable: ^6.0.0
-  path: any
-  test: ^1.17.0
 
 flutter:
   plugin:

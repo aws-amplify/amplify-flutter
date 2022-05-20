@@ -13,17 +13,18 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_cognito/method_channel_auth_cognito.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   const MethodChannel authChannel =
       MethodChannel('com.amazonaws.amplify/auth_cognito');
 
-  AmplifyAuthCognito auth = AmplifyAuthCognito();
-
-  TestWidgetsFlutterBinding.ensureInitialized();
+  AmplifyAuthCognito auth = AmplifyAuthCognitoMethodChannel();
 
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -57,8 +58,9 @@ void main() {
         .serializeAsMap();
 
     expect(request['options'], isInstanceOf<Map>());
-    expect(request['options']['clientMetadata'], isInstanceOf<Map>());
-    expect(request['options']['clientMetadata'], mockClientMetadata);
+    final optionsMap = request['options'] as Map;
+    expect(optionsMap['clientMetadata'], isInstanceOf<Map>());
+    expect(optionsMap['clientMetadata'], mockClientMetadata);
   });
 
   test('confirmnSignUp request returns a SignUpResult', () async {

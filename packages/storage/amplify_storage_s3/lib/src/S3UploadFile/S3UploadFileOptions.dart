@@ -13,8 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
-import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 
 class S3UploadFileOptions extends UploadFileOptions {
   String? targetIdentityId;

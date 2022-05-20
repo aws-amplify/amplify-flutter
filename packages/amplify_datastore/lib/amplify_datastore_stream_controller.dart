@@ -15,7 +15,6 @@
 
 import 'dart:async';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 import 'package:flutter/services.dart';
 
@@ -101,7 +100,6 @@ _onListen() {
               payload: SubscriptionDataProcessedEvent(
                 event,
                 modelProvider,
-                'subscriptionDataProcessed',
               ),
             );
             break;

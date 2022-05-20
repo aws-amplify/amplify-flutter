@@ -16,13 +16,14 @@
 library query_field;
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/types/query/query_utils.dart';
+import 'package:amplify_core/src/types/temporal/datetime_parse.dart';
 import 'package:flutter/foundation.dart';
 
 part 'query_field_operators.dart';
 part 'query_pagination.dart';
 part 'query_predicate.dart';
 part 'query_sort.dart';
+part 'query_utils.dart';
 
 /// {@template amplify_core.query_field}
 /// A field used to query models.

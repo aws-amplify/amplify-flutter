@@ -15,7 +15,6 @@
 
 // ignore_for_file: public_member_api_docs
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
@@ -277,7 +276,7 @@ class GraphQLRequestFactory {
     if (belongsToAssociation != null) {
       belongsToModelName = belongsToAssociation.name;
       belongsToKey = belongsToAssociation.association?.targetName;
-      belongsToValue = modelJson[belongsToModelName]?[idFieldName];
+      belongsToValue = (modelJson[belongsToModelName] as Map?)?[idFieldName];
     }
 
     // Remove any relational fields or readonly.

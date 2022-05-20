@@ -15,17 +15,18 @@
 
 import 'dart:collection';
 
+import 'package:amplify_auth_cognito/method_channel_auth_cognito.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   const MethodChannel authChannel =
       MethodChannel('com.amazonaws.amplify/auth_cognito');
 
-  AmplifyAuthCognito auth = AmplifyAuthCognito();
-
-  TestWidgetsFlutterBinding.ensureInitialized();
+  AmplifyAuthCognito auth = AmplifyAuthCognitoMethodChannel();
 
   int testCode = 0;
 
@@ -50,13 +51,15 @@ void main() {
 
   test('fetchSession request returns a AuthCognitoSession', () async {
     testCode = 1;
-    expect(await auth.fetchAuthSession(), isInstanceOf<CognitoAuthSession>());
+    expect(await auth.fetchAuthSession(request: AuthSessionRequest()),
+        isInstanceOf<CognitoAuthSession>());
   });
 
   test('fetchSession thrown PlatFormException results in AuthError', () async {
     testCode = 2;
     try {
-      expect(await auth.fetchAuthSession(), isInstanceOf<SignInResult>());
+      expect(await auth.fetchAuthSession(request: AuthSessionRequest()),
+          isInstanceOf<SignInResult>());
     } on AuthException catch (e) {
       expect(e.message, "I am an exception");
       return;

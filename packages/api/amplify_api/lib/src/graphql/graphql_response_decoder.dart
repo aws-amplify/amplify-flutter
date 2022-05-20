@@ -17,7 +17,7 @@
 
 import 'dart:convert';
 
-import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'utils.dart';
 
 const _nextToken = 'nextToken';

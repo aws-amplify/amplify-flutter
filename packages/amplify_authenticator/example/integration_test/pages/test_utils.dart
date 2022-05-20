@@ -28,8 +28,7 @@ Future<void> loadAuthenticator({
   required Widget authenticator,
 }) async {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
-      as IntegrationTestWidgetsFlutterBinding;
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   if (!binding.sendFramesToEngine) binding.allowFirstFrame();
   await tester.pumpWidget(authenticator);
   await tester.pumpAndSettle();
@@ -55,6 +54,7 @@ void noOp() {}
 Future<void> signOut() async {
   try {
     await Amplify.Auth.signOut();
-    // ignore: avoid_catches_without_on_clauses
-  } catch (_) {}
+  } on Object {
+    // OK
+  }
 }
