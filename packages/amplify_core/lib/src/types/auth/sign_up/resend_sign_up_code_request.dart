@@ -15,7 +15,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.auth.resend_sign_up_code_request}
+/// {@template amplify_core.auth.resend_sign_up_code_request}
 /// Encapsulates parameters for a resend sign up code request.
 /// {@endtemplate}
 class ResendSignUpCodeRequest {
@@ -25,7 +25,7 @@ class ResendSignUpCodeRequest {
   /// Plugin-specific, advanced options such as information about the client.
   ResendSignUpCodeOptions? options;
 
-  /// {@macro amplify_common.auth.resend_sign_up_code_request}
+  /// {@macro amplify_core.auth.resend_sign_up_code_request}
   ResendSignUpCodeRequest({required this.username, this.options});
 
   /// Serialize the object to a map for use over the method channel.

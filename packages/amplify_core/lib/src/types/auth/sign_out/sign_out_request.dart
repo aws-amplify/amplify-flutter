@@ -15,7 +15,7 @@
 
 import 'sign_out_options.dart';
 
-/// {@template amplify_common.auth.sign_out_request}
+/// {@template amplify_core.auth.sign_out_request}
 /// Encapsulates parameters for a sign out request
 /// {@endtemplate}
 class SignOutRequest {
@@ -24,7 +24,7 @@ class SignOutRequest {
   /// Can be used to specify global sign out.
   SignOutOptions? options;
 
-  /// {@macro amplify_common.auth.sign_out_request}
+  /// {@macro amplify_core.auth.sign_out_request}
   SignOutRequest({this.options});
 
   /// Serialize the object to a map.

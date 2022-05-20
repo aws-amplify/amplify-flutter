@@ -23,8 +23,6 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ^1.0.0
-  amplify_test:
-    path: ../../amplify_test
   flutter_test:
     sdk: flutter
 

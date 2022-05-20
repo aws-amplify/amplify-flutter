@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:aws_common/aws_common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

@@ -15,7 +15,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.resend_user_attribute_confirmation_code_result}
+/// {@template amplify_core.resend_user_attribute_confirmation_code_result}
 /// Wraps the result of a resend user confirmation code operation.
 /// {@endtemplate}
 class ResendUserAttributeConfirmationCodeResult {
@@ -23,7 +23,7 @@ class ResendUserAttributeConfirmationCodeResult {
   /// the user.
   final AuthCodeDeliveryDetails codeDeliveryDetails;
 
-  /// {@macro amplify_common.resend_user_attribute_confirmation_code_result}
+  /// {@macro amplify_core.resend_user_attribute_confirmation_code_result}
   ResendUserAttributeConfirmationCodeResult({
     required this.codeDeliveryDetails,
   });

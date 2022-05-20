@@ -16,7 +16,7 @@
 import 'auth_user_attribute.dart';
 import 'update_user_attributes_options.dart';
 
-/// {@template amplify_common.update_user_attributes_request}
+/// {@template amplify_core.update_user_attributes_request}
 /// Encapsulates parameters for a update user attributes operation.
 /// {@endtemplate}
 class UpdateUserAttributesRequest {
@@ -26,7 +26,7 @@ class UpdateUserAttributesRequest {
   /// Plugin-specific, advanced options such as information about the client
   final UpdateUserAttributesOptions? options;
 
-  /// {@macro amplify_common.update_user_attributes_request}
+  /// {@macro amplify_core.update_user_attributes_request}
   const UpdateUserAttributesRequest({
     required this.attributes,
     this.options,
