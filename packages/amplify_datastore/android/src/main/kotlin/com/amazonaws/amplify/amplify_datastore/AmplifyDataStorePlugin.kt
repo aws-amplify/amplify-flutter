@@ -157,7 +157,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                         ExceptionMessages.missingExceptionMessage,
                         ExceptionMessages.missingRecoverySuggestion,
                         "Received invalid request from Dart, modelSchemas and/or modelProviderVersion" +
-                            " are not available. Request: " + request.toString()
+                                " are not available. Request: " + request.toString()
                     )
                 )
             }
@@ -420,7 +420,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     dataStoreObserveEventStreamHandler.sendEvent(
                         FlutterSubscriptionEvent(
                             serializedModel = event.item() as SerializedModel,
-                            eventType = event.type().name.toLowerCase(Locale.getDefault())
+                            eventType = event.type().name.lowercase(Locale.getDefault())
                         ).toMap()
                     )
                 }
@@ -712,7 +712,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private fun createConflictHandler(request: Map<String, Any>): DataStoreConflictHandler {
         return if (request["hasConflictHandler"] as? Boolean? == true) {
             DataStoreConflictHandler { conflictData,
-                onDecision ->
+                                       onDecision ->
 
                 val modelName = conflictData.local.modelName
                 val args = mapOf(
@@ -742,7 +742,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                                                 .serializedData((resultMap["customModel"] as Map<*, *>).cast())
                                                 .modelSchema(modelProvider.modelSchemas().getValue(modelName))
                                                 .build()
-                                            onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retry(serializedModel))
+                                            onDecision.accept(
+                                                DataStoreConflictHandler.ConflictResolutionDecision.retry(
+                                                    serializedModel
+                                                )
+                                            )
                                         }
                                     }
                                 } catch (e: Exception) {
@@ -766,7 +770,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             }
         } else {
             DataStoreConflictHandler { _,
-                onDecision ->
+                                       onDecision ->
                 onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
             }
         }
