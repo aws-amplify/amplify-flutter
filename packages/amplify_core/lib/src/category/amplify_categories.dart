@@ -19,6 +19,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:async/async.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';

@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+export 'async/legacy_api_operation.dart';
+
 // API Authorization
 export 'auth/api_auth_provider.dart';
 export 'auth/api_authorization_type.dart';
@@ -27,6 +29,7 @@ export 'graphql/graphql_response.dart';
 export 'graphql/graphql_response_error.dart';
 export 'graphql/graphql_subscription_operation.dart';
 
+export 'rest/http_payload.dart';
 export 'rest/rest_exception.dart';
 export 'rest/rest_operation.dart';
 export 'rest/rest_options.dart';

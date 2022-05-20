@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 
 class GraphQLApiView extends StatefulWidget {
@@ -29,7 +30,7 @@ class GraphQLApiView extends StatefulWidget {
 class _GraphQLApiViewState extends State<GraphQLApiView> {
   String _result = '';
   void Function()? _unsubscribe;
-  late GraphQLOperation _lastOperation;
+  late CancelableOperation _lastOperation;
 
   Future<void> subscribe() async {
     String graphQLDocument = '''subscription MySubscription {

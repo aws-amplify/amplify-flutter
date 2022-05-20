@@ -21,6 +21,7 @@ dependencies:
     path: ../../../auth/amplify_auth_cognito
   amplify_flutter:
     path: ../../../amplify/amplify_flutter
+  async: ^2.9.0
   aws_common: ^0.1.0
 
   # The following adds the Cupertino Icons font to your application.

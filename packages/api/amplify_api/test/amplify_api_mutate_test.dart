@@ -40,25 +40,26 @@ void main() {
     apiChannel.setMockMethodCallHandler(null);
   });
 
-  test('Mutate advanced flow executes correctly in the happy case', () async {
-    const mutationResult = {
-      'createBlog': {
-        'id': '068ac891-77a3-4653-89de-b05d46bcc60a',
-        'name': 'Test Blog',
-        'createdAt': '2020-12-14T19:54:18.733Z'
-      }
-    };
+  group('GraphQL mutations', () {
+    test('Mutate advanced flow executes correctly in the happy case', () async {
+      const mutationResult = {
+        'createBlog': {
+          'id': '068ac891-77a3-4653-89de-b05d46bcc60a',
+          'name': 'Test Blog',
+          'createdAt': '2020-12-14T19:54:18.733Z'
+        }
+      };
 
-    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'mutate') {
-        return {
-          'data': mutationResult.toString(),
-          'errors': <Map>[],
-        };
-      }
-    });
+      apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+        if (methodCall.method == 'mutate') {
+          return {
+            'data': mutationResult.toString(),
+            'errors': <Map>[],
+          };
+        }
+      });
 
-    String graphQLDocument = '''mutation MyMutation(\$name: String!) {
+      String graphQLDocument = '''mutation MyMutation(\$name: String!) {
       createBlog(input: {name: \$name}) {
         id
         name
@@ -66,24 +67,24 @@ void main() {
       }
     }''';
 
-    var operation = api.mutate(
-      request: GraphQLRequest<String>(
-        document: graphQLDocument,
-        variables: <String, dynamic>{'name': 'Test App Blog'},
-      ),
-    );
+      var operation = api.mutate(
+        request: GraphQLRequest<String>(
+          document: graphQLDocument,
+          variables: <String, dynamic>{'name': 'Test App Blog'},
+        ),
+      );
 
-    var response = await operation.response;
-    expect(response.data, mutationResult.toString());
-  });
+      var response = await operation.response;
+      expect(response.data, mutationResult.toString());
+    });
 
-  test('ModelMutations.create() executes correctly in the happy case',
-      () async {
-    final id = UUID.getUUID();
-    const name = 'Test App Blog';
-    const time = '2020-12-14T19:54:18.733Z';
-    final dateTime = TemporalDateTime.fromString(time);
-    final mutationResult = '''{
+    test('ModelMutations.create() executes correctly in the happy case',
+        () async {
+      final id = UUID.getUUID();
+      const name = 'Test App Blog';
+      const time = '2020-12-14T19:54:18.733Z';
+      final dateTime = TemporalDateTime.fromString(time);
+      final mutationResult = '''{
       "createBlog": {
         "id": "$id",
         "name": "$name",
@@ -91,27 +92,27 @@ void main() {
       }
     }''';
 
-    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'mutate') {
-        return {'data': mutationResult.toString(), 'errors': <Object>[]};
-      }
+      apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+        if (methodCall.method == 'mutate') {
+          return {'data': mutationResult.toString(), 'errors': <Object>[]};
+        }
+      });
+
+      Blog blog = Blog(id: id, name: name, createdAt: dateTime);
+
+      var operation = api.mutate(request: ModelMutations.create<Blog>(blog));
+
+      var response = await operation.response;
+      expect(response.data?.equals(blog), isTrue);
     });
 
-    Blog blog = Blog(id: id, name: name, createdAt: dateTime);
-
-    var operation = api.mutate(request: ModelMutations.create<Blog>(blog));
-
-    var response = await operation.response;
-    expect(response.data?.equals(blog), isTrue);
-  });
-
-  test('ModelMutations.delete() executes correctly in the happy case',
-      () async {
-    final id = UUID.getUUID();
-    const name = 'Test App Blog';
-    const time = '2020-12-14T19:54:18.733Z';
-    final dateTime = TemporalDateTime.fromString(time);
-    final mutationResult = '''{
+    test('ModelMutations.delete() executes correctly in the happy case',
+        () async {
+      final id = UUID.getUUID();
+      const name = 'Test App Blog';
+      const time = '2020-12-14T19:54:18.733Z';
+      final dateTime = TemporalDateTime.fromString(time);
+      final mutationResult = '''{
       "deleteBlog": {
         "id": "$id",
         "name": "$name",
@@ -119,27 +120,27 @@ void main() {
       }
     }''';
 
-    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'mutate') {
-        return {'data': mutationResult.toString(), 'errors': <Object>[]};
-      }
+      apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+        if (methodCall.method == 'mutate') {
+          return {'data': mutationResult.toString(), 'errors': <Object>[]};
+        }
+      });
+
+      Blog blog = Blog(id: id, name: name, createdAt: dateTime);
+
+      var operation = api.mutate(request: ModelMutations.delete<Blog>(blog));
+
+      var response = await operation.response;
+      expect(response.data, equals(blog));
     });
 
-    Blog blog = Blog(id: id, name: name, createdAt: dateTime);
-
-    var operation = api.mutate(request: ModelMutations.delete<Blog>(blog));
-
-    var response = await operation.response;
-    expect(response.data, equals(blog));
-  });
-
-  test('ModelMutations.update() executes correctly in the happy case',
-      () async {
-    final id = UUID.getUUID();
-    const name = 'Test App Blog';
-    const time = '2020-12-14T19:54:18.733Z';
-    final dateTime = TemporalDateTime.fromString(time);
-    final mutationResult = '''{
+    test('ModelMutations.update() executes correctly in the happy case',
+        () async {
+      final id = UUID.getUUID();
+      const name = 'Test App Blog';
+      const time = '2020-12-14T19:54:18.733Z';
+      final dateTime = TemporalDateTime.fromString(time);
+      final mutationResult = '''{
       "updateBlog": {
         "id": "$id",
         "name": "$name",
@@ -147,124 +148,125 @@ void main() {
       }
     }''';
 
-    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'mutate') {
-        return {'data': mutationResult.toString(), 'errors': <Object>[]};
-      }
+      apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+        if (methodCall.method == 'mutate') {
+          return {'data': mutationResult.toString(), 'errors': <Object>[]};
+        }
+      });
+
+      Blog blog = Blog(id: id, name: name, createdAt: dateTime);
+
+      var operation = api.mutate(request: ModelMutations.update<Blog>(blog));
+
+      var response = await operation.response;
+      expect(response.data, equals(blog));
     });
 
-    Blog blog = Blog(id: id, name: name, createdAt: dateTime);
-
-    var operation = api.mutate(request: ModelMutations.update<Blog>(blog));
-
-    var response = await operation.response;
-    expect(response.data, equals(blog));
-  });
-
-  test(
-      'A PlatformException for a failed API call results in the corresponding ApiException',
-      () async {
-    final exception = PlatformException(
-      code: 'ApiException',
-      details: {
-        'message': 'AMPLIFY_API_MUTATE_FAILED',
-        'recoverySuggestion': 'some insightful suggestion',
-        'underlyingException': 'Act of God'
-      },
-    );
-
-    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'mutate') {
-        throw exception;
-      }
-    });
-    String graphQLDocument = '';
-
-    try {
-      var operation = api.mutate<String>(
-        request: GraphQLRequest(
-          document: graphQLDocument,
-          variables: <String, dynamic>{},
-        ),
+    test(
+        'A PlatformException for a failed API call results in the corresponding ApiException',
+        () async {
+      final exception = PlatformException(
+        code: 'ApiException',
+        details: {
+          'message': 'AMPLIFY_API_MUTATE_FAILED',
+          'recoverySuggestion': 'some insightful suggestion',
+          'underlyingException': 'Act of God'
+        },
       );
-      await operation.response;
-    } on ApiException catch (e) {
-      expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
-      expect(e.recoverySuggestion, 'some insightful suggestion');
-      expect(e.underlyingException, 'Act of God');
-      return;
-    }
-    throw Exception('Expected an ApiException');
-  });
 
-  test(
-      'A PlatformException for a malformed request results in the corresponding ApiException',
-      () async {
-    final exception = PlatformException(
-      code: 'ApiException',
-      details: {
-        'message': 'AMPLIFY_API_MUTATE_FAILED',
-        'recoverySuggestion': 'some insightful suggestion',
-        'underlyingException': 'Act of God'
-      },
-    );
+      apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+        if (methodCall.method == 'mutate') {
+          throw exception;
+        }
+      });
+      String graphQLDocument = '';
 
-    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'mutate') {
-        throw exception;
+      try {
+        var operation = api.mutate<String>(
+          request: GraphQLRequest(
+            document: graphQLDocument,
+            variables: <String, dynamic>{},
+          ),
+        );
+        await operation.response;
+      } on ApiException catch (e) {
+        expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
+        expect(e.recoverySuggestion, 'some insightful suggestion');
+        expect(e.underlyingException, 'Act of God');
+        return;
       }
+      throw Exception('Expected an ApiException');
     });
-    String graphQLDocument = '';
 
-    try {
-      var operation = api.mutate<String>(
-        request: GraphQLRequest(
-          document: graphQLDocument,
-          variables: <String, dynamic>{},
-        ),
+    test(
+        'A PlatformException for a malformed request results in the corresponding ApiException',
+        () async {
+      final exception = PlatformException(
+        code: 'ApiException',
+        details: {
+          'message': 'AMPLIFY_API_MUTATE_FAILED',
+          'recoverySuggestion': 'some insightful suggestion',
+          'underlyingException': 'Act of God'
+        },
       );
-      await operation.response;
-    } on ApiException catch (e) {
-      expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
-      expect(e.recoverySuggestion, 'some insightful suggestion');
-      expect(e.underlyingException, 'Act of God');
-      return;
-    }
-    throw Exception('Expected an ApiException');
-  });
 
-  test(
-      'An unrecognized PlatformException results in the corresponding ApiException',
-      () async {
-    final exception = PlatformException(
-      code: 'ApiException',
-      details: {
-        'message': 'AMPLIFY_API_MUTATE_FAILED',
-        'recoverySuggestion': 'some insightful suggestion',
-        'underlyingException': 'Act of God'
-      },
-    );
-    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'mutate') {
-        throw exception;
+      apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+        if (methodCall.method == 'mutate') {
+          throw exception;
+        }
+      });
+      String graphQLDocument = '';
+
+      try {
+        var operation = api.mutate<String>(
+          request: GraphQLRequest(
+            document: graphQLDocument,
+            variables: <String, dynamic>{},
+          ),
+        );
+        await operation.response;
+      } on ApiException catch (e) {
+        expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
+        expect(e.recoverySuggestion, 'some insightful suggestion');
+        expect(e.underlyingException, 'Act of God');
+        return;
       }
+      throw Exception('Expected an ApiException');
     });
-    String graphQLDocument = '';
 
-    try {
-      var operation = api.mutate<String>(
-        request: GraphQLRequest(
-          document: graphQLDocument,
-          variables: <String, dynamic>{},
-        ),
+    test(
+        'An unrecognized PlatformException results in the corresponding ApiException',
+        () async {
+      final exception = PlatformException(
+        code: 'ApiException',
+        details: {
+          'message': 'AMPLIFY_API_MUTATE_FAILED',
+          'recoverySuggestion': 'some insightful suggestion',
+          'underlyingException': 'Act of God'
+        },
       );
-      await operation.response;
-    } on ApiException catch (e) {
-      expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
-      expect(e.recoverySuggestion, 'some insightful suggestion');
-      expect(e.underlyingException, 'Act of God');
-      return;
-    }
-    throw Exception('Expected an ApiException');
-  });
+      apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+        if (methodCall.method == 'mutate') {
+          throw exception;
+        }
+      });
+      String graphQLDocument = '';
+
+      try {
+        var operation = api.mutate<String>(
+          request: GraphQLRequest(
+            document: graphQLDocument,
+            variables: <String, dynamic>{},
+          ),
+        );
+        await operation.response;
+      } on ApiException catch (e) {
+        expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
+        expect(e.recoverySuggestion, 'some insightful suggestion');
+        expect(e.underlyingException, 'Act of God');
+        return;
+      }
+      throw Exception('Expected an ApiException');
+    });
+  }, skip: true);
 }

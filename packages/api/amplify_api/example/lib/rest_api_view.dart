@@ -16,6 +16,7 @@
 import 'dart:convert';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 
 class RestApiView extends StatefulWidget {
@@ -27,7 +28,7 @@ class RestApiView extends StatefulWidget {
 
 class _RestApiViewState extends State<RestApiView> {
   late TextEditingController _apiPathController;
-  late RestOperation _lastRestOperation;
+  late CancelableOperation _lastRestOperation;
 
   @override
   void initState() {
@@ -39,15 +40,13 @@ class _RestApiViewState extends State<RestApiView> {
 
   void onPutPressed() async {
     try {
-      RestOperation restOperation = Amplify.API.put(
-        restOptions: RestOptions(
-          path: _apiPathController.text,
-          body: ascii.encode('{"name":"Mow the lawn"}'),
-        ),
+      final restOperation = Amplify.API.put(
+        _apiPathController.text,
+        body: HttpPayload.string('{"name":"Mow the lawn"}'),
       );
 
       _lastRestOperation = restOperation;
-      RestResponse response = await restOperation.response;
+      final response = await restOperation.value;
 
       print('Put SUCCESS');
       print(response);
@@ -59,15 +58,13 @@ class _RestApiViewState extends State<RestApiView> {
 
   void onPostPressed() async {
     try {
-      RestOperation restOperation = Amplify.API.post(
-        restOptions: RestOptions(
-          path: _apiPathController.text,
-          body: ascii.encode('{"name":"Mow the lawn"}'),
-        ),
+      final restOperation = Amplify.API.post(
+        _apiPathController.text,
+        body: HttpPayload.string('{"name":"Mow the lawn"}'),
       );
 
       _lastRestOperation = restOperation;
-      RestResponse response = await restOperation.response;
+      final response = await restOperation.value;
 
       print('Post SUCCESS');
       print(response);
@@ -79,13 +76,12 @@ class _RestApiViewState extends State<RestApiView> {
 
   void onGetPressed() async {
     try {
-      RestOperation restOperation = Amplify.API.get(
-          restOptions: RestOptions(
-        path: _apiPathController.text,
-      ));
+      final restOperation = Amplify.API.get(
+        _apiPathController.text,
+      );
 
       _lastRestOperation = restOperation;
-      RestResponse response = await restOperation.response;
+      final response = await restOperation.value;
 
       print('Get SUCCESS');
       print(response);
@@ -97,12 +93,11 @@ class _RestApiViewState extends State<RestApiView> {
 
   void onDeletePressed() async {
     try {
-      RestOperation restOperation = Amplify.API.delete(
-        restOptions: RestOptions(path: _apiPathController.text),
+      final restOperation = Amplify.API.delete(
+        _apiPathController.text,
       );
-
       _lastRestOperation = restOperation;
-      RestResponse response = await restOperation.response;
+      final response = await restOperation.value;
 
       print('Delete SUCCESS');
       print(response);
@@ -123,12 +118,12 @@ class _RestApiViewState extends State<RestApiView> {
 
   void onHeadPressed() async {
     try {
-      RestOperation restOperation = Amplify.API.head(
-        restOptions: RestOptions(path: _apiPathController.text),
+      final restOperation = Amplify.API.head(
+        _apiPathController.text,
       );
 
       _lastRestOperation = restOperation;
-      RestResponse response = await restOperation.response;
+      final response = await restOperation.response;
 
       print('Head SUCCESS');
       print(response);
@@ -140,12 +135,13 @@ class _RestApiViewState extends State<RestApiView> {
 
   void onPatchPressed() async {
     try {
-      RestOperation restOperation = Amplify.API.patch(
-        restOptions: RestOptions(path: _apiPathController.text),
+      final restOperation = Amplify.API.patch(
+        _apiPathController.text,
+        body: HttpPayload.string('{"name":"Mow the lawn"}'),
       );
 
       _lastRestOperation = restOperation;
-      RestResponse response = await restOperation.response;
+      final response = await restOperation.response;
 
       print('Patch SUCCESS');
       print(response);

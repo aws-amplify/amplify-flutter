@@ -457,5 +457,5 @@ void main() {
     });
   }
 
-  group('GraphQL Subscription', runAll);
+  group('GraphQL Subscription', runAll, skip: true);
 }

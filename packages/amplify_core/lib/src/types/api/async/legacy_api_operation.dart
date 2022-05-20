@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,18 +13,12 @@
  * permissions and limitations under the License.
  */
 
-part of 'api_plugin_impl.dart';
+import 'package:async/async.dart';
 
-extension on APIAuthProvider {
-  /// Retrieves the latest auth token for [type].
-  ///
-  /// Any [Exception] is caught and treated as a `null` token.
-  Future<String?> get authToken async {
-    String? token;
-    try {
-      token = await getLatestAuthToken();
-      // ignore:empty_catches
-    } on Exception {}
-    return token;
-  }
+/// Eventually this should be deprecated and just use [CancelableOperation].
+/// Until then, this is used to make `.response` available like it was for older
+/// [GraphQLOperation] and [RestOperation] classes.
+extension LegacyApiOperation<T> on CancelableOperation<T> {
+  @Deprecated('Use .value instead.')
+  Future<T> get response => value;
 }
