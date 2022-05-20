@@ -68,10 +68,14 @@ for PKG in ${PKGS}; do
       echo -e "\033[1mPKG: ${PKG}; TASK: ${TASK}\033[22m"
       case ${TASK} in
       analyze_0)
+        echo 'flutter analyze --fatal-infos .'
+        flutter analyze --fatal-infos . || EXIT_CODE=$?
+        ;;
+      analyze_1)
         echo 'dart analyze --fatal-infos .'
         dart analyze --fatal-infos . || EXIT_CODE=$?
         ;;
-      analyze_1)
+      analyze_2)
         echo 'dart analyze --fatal-infos lib test'
         dart analyze --fatal-infos lib test || EXIT_CODE=$?
         ;;
@@ -84,10 +88,18 @@ for PKG in ${PKGS}; do
         dart format --output=none --set-exit-if-changed . || EXIT_CODE=$?
         ;;
       test_0)
+        echo 'flutter test'
+        flutter test || EXIT_CODE=$?
+        ;;
+      test_1)
+        echo 'flutter test --platform chrome'
+        flutter test --platform chrome || EXIT_CODE=$?
+        ;;
+      test_2)
         echo 'dart test'
         dart test || EXIT_CODE=$?
         ;;
-      test_1)
+      test_3)
         echo 'dart test -p chrome'
         dart test -p chrome || EXIT_CODE=$?
         ;;
