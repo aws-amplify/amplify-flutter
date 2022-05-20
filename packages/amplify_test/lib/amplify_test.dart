@@ -15,8 +15,6 @@
 
 library amplify_test;
 
-export 'src/ambiguate.dart';
-
 /// Auth Utils
 export 'src/integration_test_utils/auth_cognito/integration_test_auth_utils.dart';
 export 'src/integration_test_utils/auth_cognito/types/admin_create_user_response.dart';

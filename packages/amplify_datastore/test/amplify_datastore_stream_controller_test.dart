@@ -44,19 +44,16 @@ void main() {
   });
 
   tearDown(() {
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
+    ServicesBinding.instance.defaultBinaryMessenger
         .setMockMessageHandler(channelName, null);
   });
 
   handler(event) {
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
-        .handlePlatformMessage(
-          channelName,
-          event,
-          (ByteData? reply) {},
-        );
+    ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
+      channelName,
+      event,
+      (ByteData? reply) {},
+    );
   }
 
   test('Can receive Ready Event', () async {
@@ -65,9 +62,7 @@ void main() {
       handler(event);
     }
 
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
-        .setMockMessageHandler(
+    ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -93,9 +88,7 @@ void main() {
       handler(event);
     }
 
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
-        .setMockMessageHandler(
+    ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -121,9 +114,7 @@ void main() {
       handler(event);
     }
 
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
-        .setMockMessageHandler(
+    ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -149,9 +140,7 @@ void main() {
       handler(event);
     }
 
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
-        .setMockMessageHandler(
+    ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -179,9 +168,7 @@ void main() {
       handler(event);
     }
 
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
-        .setMockMessageHandler(
+    ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -213,9 +200,7 @@ void main() {
       handler(event);
     }
 
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
-        .setMockMessageHandler(
+    ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -251,9 +236,7 @@ void main() {
       handler(event);
     }
 
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
-        .setMockMessageHandler(
+    ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -295,9 +278,7 @@ void main() {
       handler(event);
     }
 
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
-        .setMockMessageHandler(
+    ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -326,9 +307,7 @@ void main() {
       handler(event);
     }
 
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
-        .setMockMessageHandler(
+    ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));

@@ -352,8 +352,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _ambiguate(WidgetsBinding.instance)
-        ?.addPostFrameCallback((_) => executeAfterBuild());
+    WidgetsBinding.instance.addPostFrameCallback((_) => executeAfterBuild());
   }
 
   Future<void> executeAfterBuild() async {
@@ -379,8 +378,3 @@ class _MyAppState extends State<MyApp> {
     });
   }
 }
-
-// TODO(dnys1): Remove when Flutter SDK version is bumped.
-/// Ambiguates [o] to be nullable to account for transitions of the Flutter
-/// API from nullable to non-null getters on some APIs.
-T? _ambiguate<T>(T o) => o;

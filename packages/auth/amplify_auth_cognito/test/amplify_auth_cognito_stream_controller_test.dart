@@ -33,22 +33,18 @@ void main() {
       AuthStreamController().authStreamController;
 
   void emitValues(ByteData? event) {
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
-        .handlePlatformMessage(
-          channelName,
-          event,
-          (ByteData? reply) {},
-        );
+    ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
+      channelName,
+      event,
+      (ByteData? reply) {},
+    );
   }
 
   setUpAll(() async {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
     });
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
-        .setMockMessageHandler(
+    ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         return standardCodec.encodeSuccessEnvelope(null);
@@ -57,8 +53,7 @@ void main() {
   });
 
   tearDownAll(() {
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
+    ServicesBinding.instance.defaultBinaryMessenger
         .setMockMessageHandler(channelName, null);
     authStreamController.close();
   });
