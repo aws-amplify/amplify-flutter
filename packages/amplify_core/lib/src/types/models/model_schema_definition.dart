@@ -16,6 +16,7 @@
 import 'auth_rule.dart';
 import 'model_field.dart';
 import 'model_field_definition.dart';
+import 'model_index.dart';
 import 'model_schema.dart';
 
 class ModelSchemaDefinition {
@@ -23,6 +24,7 @@ class ModelSchemaDefinition {
   String? pluralName;
   List<AuthRule>? authRules;
   late Map<String, ModelField> fields;
+  List<ModelIndex>? indexes;
 
   ModelSchemaDefinition() {
     fields = {};
@@ -38,6 +40,7 @@ class ModelSchemaDefinition {
       pluralName: pluralName,
       authRules: authRules,
       fields: fields,
+      indexes: indexes,
     );
   }
 }
