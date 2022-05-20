@@ -117,7 +117,7 @@ class QueryPredicateBuilder {
                         if (predicates.isNotEmpty()) {
                             throw IllegalArgumentException(
                                 "More than one predicates added in the `not` queryPredicate operation." +
-                                    " Predicates Size: " + predicates.size
+                                        " Predicates Size: " + predicates.size
                             )
                         }
                         resultQueryPredicate =

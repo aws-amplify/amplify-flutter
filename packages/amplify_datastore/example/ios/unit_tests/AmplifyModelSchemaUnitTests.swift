@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ import Amplify
 @testable import amplify_datastore
 
 class AmplifyModelSchemaUnitTests: XCTestCase {
-
     let modelSchemaMap: [String: Any] = try! readJsonMap(filePath: "model_schema_maps")
     let customTypeSchemaMap: [String: Any] = try! readJsonMap(filePath: "custom_type_schema_maps")
     let customTypeSchemasRegistry = FlutterSchemaRegistry()
@@ -29,7 +28,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
         // This also tests the deserialization functionality for CustomType schemas
         ["AddressSchema", "PhoneSchema", "ContactSchema", "CustomBSchema", "CustomASchema"].forEach { schemaName in
             do {
-                let serializedCustomType = customTypeSchemaMap[schemaName] as! [String : Any]
+                let serializedCustomType = customTypeSchemaMap[schemaName] as! [String: Any]
                 customTypeSchemasRegistry.addModelSchema(
                     modelName: serializedCustomType["name"] as! String,
                     modelSchema: try FlutterModelSchema(
@@ -44,7 +43,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
 
     func test_schema_blog_with_hasMany() throws {
         let flutterBlogSchema = try FlutterModelSchema(
-            serializedData: modelSchemaMap["BlogSchema"] as! [String : Any] )
+            serializedData: modelSchemaMap["BlogSchema"] as! [String: Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
 
         XCTAssertEqual(SchemaData.BlogSchema, flutterBlogSchema)
@@ -52,7 +51,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
 
     func test_schema_comment_with_belongsTo() throws {
         let flutterBlogSchema = try FlutterModelSchema(
-            serializedData: modelSchemaMap["CommentSchema"] as! [String : Any] )
+            serializedData: modelSchemaMap["CommentSchema"] as! [String: Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
 
         XCTAssertEqual(SchemaData.CommentSchema, flutterBlogSchema)
@@ -60,7 +59,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
 
     func test_schema_post_with_datetime_int_hasMany_belongsTo() throws{
         let flutterBlogSchema = try FlutterModelSchema(
-            serializedData: modelSchemaMap["PostSchema"] as! [String : Any] )
+            serializedData: modelSchemaMap["PostSchema"] as! [String: Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
 
         XCTAssertEqual(SchemaData.PostSchema, flutterBlogSchema)
@@ -68,7 +67,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
 
     func test_schema_postAuthComplex_with_authRules() throws{
         let postAuthComplexSchema = try FlutterModelSchema(
-            serializedData: modelSchemaMap["PostAuthComplexSchema"] as! [String : Any] )
+            serializedData: modelSchemaMap["PostAuthComplexSchema"] as! [String: Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
 
         XCTAssertEqual(SchemaData.PostAuthComplexSchema, postAuthComplexSchema)
@@ -76,7 +75,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
 
     func test_schema_postAuthComplex_with_authRules_provider_userpools() throws{
         let postAuthComplexSchema = try FlutterModelSchema(
-            serializedData: modelSchemaMap["PostAuthComplexWithProviderUserPoolsSchema"] as! [String : Any] )
+            serializedData: modelSchemaMap["PostAuthComplexWithProviderUserPoolsSchema"] as! [String: Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
 
         XCTAssertEqual(SchemaData.PostAuthComplexWithProviderUserPoolsSchema, postAuthComplexSchema)
@@ -84,7 +83,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
 
     func test_schema_postAuthComplex_with_authRules_provider_apikey() throws{
         let postAuthComplexSchema = try FlutterModelSchema(
-            serializedData: modelSchemaMap["PostAuthComplexWithProviderApiKeySchema"] as! [String : Any] )
+            serializedData: modelSchemaMap["PostAuthComplexWithProviderApiKeySchema"] as! [String: Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
 
         XCTAssertEqual(SchemaData.PostAuthComplexWithProviderApiKeySchema, postAuthComplexSchema)
@@ -92,7 +91,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
 
     func test_schema_allTypeModel() throws{
         let allTypeModelSchema = try FlutterModelSchema(
-            serializedData: modelSchemaMap["AllTypeModelSchema"] as! [String : Any] )
+            serializedData: modelSchemaMap["AllTypeModelSchema"] as! [String: Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
 
         XCTAssertEqual(SchemaData.AllTypeModelSchema, allTypeModelSchema)

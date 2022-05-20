@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@ import AmplifyPlugins
 struct FlutterOutboxMutationEnqueuedEvent: FlutterHubEvent {
     var eventName: String
     var modelName: String
-    var element:  FlutterHubElement
-    
+    var element: FlutterHubElement
+
     init(
         outboxMutationEnqueued: OutboxMutationEvent,
         eventName: String,
@@ -35,19 +35,18 @@ struct FlutterOutboxMutationEnqueuedEvent: FlutterHubEvent {
                 hubElement: outboxMutationEnqueued.element,
                 modelSchemaRegistry: modelSchemaRegistry,
                 customTypeSchemaRegistry: customTypeSchemaRegistry,
-                modelName: self.modelName
+                modelName: modelName
             )
         } catch {
             throw FlutterDataStoreError.acquireSchemaForHub
         }
-        
     }
-    
-    func toValueMap() -> Dictionary<String, Any> {
+
+    func toValueMap() -> [String: Any] {
         return [
-            "eventName": self.eventName,
-            "modelName": self.modelName,
-            "element": self.element.toValueMap() as Any
+            "eventName": eventName,
+            "modelName": modelName,
+            "element": element.toValueMap() as Any
         ]
     }
 }

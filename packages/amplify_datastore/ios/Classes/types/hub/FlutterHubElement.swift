@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -22,12 +22,11 @@ import AWSCore
 import Combine
 
 public struct FlutterHubElement {
-    
     var model: [String: Any]
     var version: Int?
     var lastChangedAt: Int?
     var deleted: Bool
-    
+
     init(
         hubElement: OutboxMutationEvent.OutboxMutationEventElement,
         modelSchemaRegistry: FlutterSchemaRegistry,
@@ -57,7 +56,7 @@ public struct FlutterHubElement {
             guard let decodedModel = (try ModelRegistry.decode(modelName: modelName, from: hubElement.json) as? FlutterSerializedModel) else {
                 throw FlutterDataStoreError.hubEventCast
             }
-            model = try decodedModel.toMap(
+            self.model = try decodedModel.toMap(
                 modelSchemaRegistry: modelSchemaRegistry,
                 customTypeSchemaRegistry: customTypeSchemaRegistry,
                 modelName: modelName
@@ -72,21 +71,19 @@ public struct FlutterHubElement {
             } else if let value = serializedData["_lastChangedAt"] as? Int {
                 self.lastChangedAt = value
             }
-        }
-        catch {
+        } catch {
             throw FlutterDataStoreError.hubEventCast
         }
     }
-    
-    func toValueMap() -> Dictionary<String, Any> {
+
+    func toValueMap() -> [String: Any] {
         return [
-            "model": self.model,
+            "model": model,
             "syncMetadata": [
-                "_version": self.version as Any,
-                "_lastChangedAt": self.lastChangedAt as Any,
-                "_deleted": self.deleted as Any
+                "_version": version as Any,
+                "_lastChangedAt": lastChangedAt as Any,
+                "_deleted": deleted as Any
             ]
         ]
     }
 }
-
