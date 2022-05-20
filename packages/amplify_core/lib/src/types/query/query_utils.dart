@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+part of 'query_field.dart';
+
 /// Removes the model name that is pre-pended to id fields.
 ///
 /// ID fields are named `<Model_Name>.<Field_Name>`, for example "blog.id".

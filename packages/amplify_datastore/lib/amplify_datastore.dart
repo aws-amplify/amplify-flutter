@@ -16,18 +16,15 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:meta/meta.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'amplify_datastore_stream_controller.dart';
 import 'method_channel_datastore.dart';
 
-export 'package:amplify_datastore_plugin_interface/src/publicTypes.dart';
+export 'package:amplify_core/src/types/datastore/datastore_types.dart'
+    hide DateTimeParse;
 
 class AmplifyDataStore extends DataStorePluginInterface {
-  static final Object _token = Object();
-
   /// Constructs an AmplifyDataStore plugin with mandatory [modelProvider]
   /// and optional datastore configuration properties including
   ///
@@ -48,7 +45,6 @@ class AmplifyDataStore extends DataStorePluginInterface {
     int? syncPageSize,
     AuthModeStrategy authModeStrategy = AuthModeStrategy.defaultStrategy,
   }) : super(
-          token: _token,
           modelProvider: modelProvider,
           errorHandler: errorHandler,
           conflictHandler: conflictHandler,
@@ -61,15 +57,10 @@ class AmplifyDataStore extends DataStorePluginInterface {
 
   /// Internal use constructor
   @protected
-  AmplifyDataStore.tokenOnly() : super.tokenOnly(token: _token);
+  AmplifyDataStore.emptyConstructor() : super.emptyConstructor();
 
   static AmplifyDataStore _instance = AmplifyDataStoreMethodChannel();
   static DataStoreStreamController streamWrapper = DataStoreStreamController();
-
-  static set instance(DataStorePluginInterface instance) {
-    PlatformInterface.verifyToken(instance, _token);
-    _instance = instance as AmplifyDataStore;
-  }
 
   StreamController<DataStoreHubEvent> get streamController {
     return streamWrapper.datastoreStreamController;
@@ -103,11 +94,6 @@ class AmplifyDataStore extends DataStorePluginInterface {
       syncPageSize: this.syncPageSize,
       authModeStrategy: this.authModeStrategy,
     );
-  }
-
-  @override
-  Future<void> configure({String? configuration}) async {
-    return _instance.configure(configuration: configuration);
   }
 
   @override

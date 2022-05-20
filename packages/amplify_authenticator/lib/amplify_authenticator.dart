@@ -42,6 +42,7 @@ import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_banner.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

@@ -4,8 +4,8 @@ version: 0.5.0
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/auth/amplify_auth_cognito_android
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.20.0"
+  sdk: ">=2.15.0 <3.0.0"
+  flutter: ">=2.10.0"
 
 dependencies:
   flutter:
@@ -13,7 +13,6 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ^1.0.0
-  flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
 

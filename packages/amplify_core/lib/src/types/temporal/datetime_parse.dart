@@ -13,14 +13,17 @@
  * permissions and limitations under the License.
  */
 
-import 'package:date_time_format/date_time_format.dart';
-
 // ignore_for_file: public_member_api_docs
 
-// only to be used internally by amplify-flutter library
+import 'package:intl/intl.dart';
+import 'package:meta/meta.dart';
+
+final _iso8601Format = DateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+
+@internal
 extension DateTimeParse on DateTime {
   String toDateTimeIso8601String() {
-    return DateTimeFormat.format(this, format: DateTimeFormats.iso8601);
+    return _iso8601Format.format(this);
   }
 
   static DateTime? fromString(String? input) {

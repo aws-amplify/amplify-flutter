@@ -23,7 +23,7 @@ abstract class Model {
 
   String getId();
 
-  Map<String, dynamic> toJson();
+  Map<String, Object?> toJson();
 
   const Model();
 

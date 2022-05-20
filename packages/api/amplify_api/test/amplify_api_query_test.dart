@@ -14,17 +14,27 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'graphql_helpers_test.dart';
+
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  Amplify = MethodChannelAmplify();
+
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
 
-  AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
+  late AmplifyAPI api;
 
-  TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(() async {
+    api = MockAmplifyAPI(
+      modelProvider: ModelProvider.instance,
+    );
+    await Amplify.addPlugin(api);
+  });
 
   tearDown(() {
     apiChannel.setMockMethodCallHandler(null);

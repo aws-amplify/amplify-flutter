@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/datastore/datastore_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 enum TestEnum { yes, no, maybe }

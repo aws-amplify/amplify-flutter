@@ -20,6 +20,7 @@ import 'dart:async';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/graphql_subscription_event.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// {@template graphql_subscription_transformer}
 /// Transforms events for a GraphQL subscription into [GraphQLResponse<T>],

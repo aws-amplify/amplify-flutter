@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
 const DEFAULT_TIMEOUT = const Duration(seconds: 20);

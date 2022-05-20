@@ -13,17 +13,17 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_cognito/method_channel_auth_cognito.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   const MethodChannel authChannel =
       MethodChannel('com.amazonaws.amplify/auth_cognito');
 
-  AmplifyAuthCognito auth = AmplifyAuthCognito();
-
-  TestWidgetsFlutterBinding.ensureInitialized();
+  AmplifyAuthCognito auth = AmplifyAuthCognitoMethodChannel();
 
   int testCode = 0;
 
@@ -73,8 +73,8 @@ void main() {
         SignInRequest(username: 'testUser', password: '123', options: options)
             .serializeAsMap();
     expect(req['options'], isInstanceOf<Map>());
-    expect(req['options']['clientMetadata'], isInstanceOf<Map>());
-    expect(req['options']['clientMetadata']['key'], equals('val'));
+    expect((req['options'] as Map)['clientMetadata'], isInstanceOf<Map>());
+    expect((req['options'] as Map)['clientMetadata']['key'], equals('val'));
   });
 
   test('signIn thrown PlatFormException results in AuthError', () async {

@@ -16,21 +16,32 @@
 import 'dart:async';
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:async/async.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'graphql_helpers_test.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  Amplify = MethodChannelAmplify();
 
   const methodChannel = MethodChannel('com.amazonaws.amplify/api');
   const eventChannel = 'com.amazonaws.amplify/api_observe_events';
   const standardCodec = StandardMethodCodec();
   const timeout = Timeout(Duration(seconds: 1));
 
-  AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
+  late AmplifyAPI api;
+
+  setUpAll(() async {
+    api = MockAmplifyAPI(
+      modelProvider: ModelProvider.instance,
+    );
+    await Amplify.addPlugin(api);
+  });
 
   /// Fires an event on the event channel from the mock platform side.
   void emitValues(ByteData? event) {

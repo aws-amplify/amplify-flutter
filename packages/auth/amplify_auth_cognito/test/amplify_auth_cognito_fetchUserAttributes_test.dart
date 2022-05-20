@@ -19,14 +19,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   const MethodChannel authChannel =
       MethodChannel('com.amazonaws.amplify/auth_cognito');
 
-  AmplifyAuthCognito auth = AmplifyAuthCognito();
+  AmplifyAuthCognito auth = AmplifyAuthCognitoMethodChannel();
   AmplifyAuthCognitoMethodChannel testChannel =
       AmplifyAuthCognitoMethodChannel();
 
-  TestWidgetsFlutterBinding.ensureInitialized();
   List<Map<dynamic, dynamic>> sampleResponse = [
     {"key": "preferred_username", "value": "person"},
     {"key": "custom:num", "value": "2"},

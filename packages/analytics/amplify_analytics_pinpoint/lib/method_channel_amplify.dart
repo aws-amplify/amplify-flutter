@@ -22,6 +22,7 @@ const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
 
 class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
+  AmplifyAnalyticsPinpointMethodChannel() : super.protected();
   @override
   Future<void> addPlugin() async {
     try {

@@ -27,8 +27,7 @@ void main() {
   const keyTabView = Key('tabView');
   final tabViewFinder = find.byKey(keyTabView);
 
-  final binding = TestWidgetsFlutterBinding.ensureInitialized()
-      as TestWidgetsFlutterBinding;
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
   Widget buildTabView({
     ThemeData? lightTheme,

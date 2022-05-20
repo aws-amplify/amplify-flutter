@@ -23,7 +23,7 @@ extension on APIAuthProvider {
     String? token;
     try {
       token = await getLatestAuthToken();
-      //ignore:empty_catches
+      // ignore:empty_catches
     } on Exception {}
     return token;
   }
