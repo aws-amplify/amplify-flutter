@@ -19,11 +19,25 @@ import 'model_schema.dart';
 import 'model_schema_definition.dart';
 
 abstract class Model {
-  ModelType getInstanceType();
+  ModelType getInstanceType() {
+    throw UnimplementedError(
+        'getInstanceType() has not been implemented on Model.');
+  }
 
-  String getId();
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+  String getId() {
+    throw UnimplementedError('getId() has not been implemented on Model.');
+  }
 
-  Map<String, Object?> toJson();
+  ModelIdentifier get modelIdentifier {
+    throw UnimplementedError(
+        'modelIdentifier has not been implemented on Model.');
+  }
+
+  Map<String, Object?> toJson() {
+    throw UnimplementedError('toJson() has not been implemented on Model.');
+  }
 
   const Model();
 
@@ -72,4 +86,20 @@ abstract class ModelType<T extends Model> {
 
   @override
   int get hashCode => T.hashCode;
+}
+
+/// Model identifier presentation
+abstract class ModelIdentifier<T extends Model> {
+  const ModelIdentifier();
+
+  /// Serialize a model identifier as a map.
+  Map<String, dynamic> serializeAsMap();
+
+  /// Serialize a model identifier as a list of key-value pairs. The order of
+  /// key-value pairs presents primary key and sort keys.
+  List<Map<String, dynamic>> serializeAsList();
+
+  /// Serialize a model identifier into a single string in format:
+  /// <primaryKey>[#<sortKey>]
+  String serializeAsString();
 }
