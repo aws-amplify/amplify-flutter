@@ -38,7 +38,7 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
         if (!authRules.isNullOrEmpty()) {
             builder = builder.authRules(authRules.map { it.convertToNativeAuthRule() })
         }
-        if (!associations.isNullOrEmpty()) {
+        if (!associations.isEmpty()) {
             builder = builder.associations(
                 associations.mapValues { it.value.convertToNativeModelAssociation() }
             )

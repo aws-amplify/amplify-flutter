@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -17,14 +17,14 @@ import Foundation
 import Amplify
 import AmplifyPlugins
 
-public class QuerySortBuilder {
+public enum QuerySortBuilder {
     static func fromSerializedList(_ serializedList: [[String: Any]]?) throws -> [QuerySortDescriptor]? {
         if let serializedList = serializedList, !serializedList.isEmpty {
             return try serializedList.map { try fromSerializedMap($0) }
         }
         return nil
     }
-    
+
     static func fromSerializedMap(_ serializedMap: [String: Any]) throws -> QuerySortDescriptor {
         if let fieldName = serializedMap["field"] as? String, let order = serializedMap["order"] as? String {
             switch order {

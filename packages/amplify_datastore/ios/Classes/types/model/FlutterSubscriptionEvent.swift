@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -27,14 +27,15 @@ struct FlutterSubscriptionEvent {
 
     public func toJSON(modelSchemaRegistry: FlutterSchemaRegistry, customTypeSchemaRegistry: FlutterSchemaRegistry, modelName: String) throws -> [String: Any] {
         return [
-            "item": try self.item.toMap(
+            "item": try item.toMap(
                 modelSchemaRegistry: modelSchemaRegistry,
                 customTypeSchemaRegistry: customTypeSchemaRegistry,
                 modelName: modelName
             ),
-            "eventType": self.eventType.rawValue
+            "eventType": eventType.rawValue
         ]
-    }}
+    }
+}
 
 enum EventType: String {
     case create

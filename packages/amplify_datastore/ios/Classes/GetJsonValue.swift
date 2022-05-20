@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@ func getJSONValue(_ jsonDict: [String: Any]) throws -> [String: JSONValue] {
     guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
         throw DataStoreError.decodingError("Unable to deserialize json data", "Check the model structure.")
     }
-    guard let jsonValue = try? JSONDecoder().decode(Dictionary<String, JSONValue>.self,
-                                                    from: jsonData) else {
+    guard let jsonValue = try? JSONDecoder().decode([String: JSONValue].self,
+                                                    from: jsonData)
+    else {
         throw DataStoreError.decodingError("Unable to decode json value", "Check the model structure.")
-
     }
     return jsonValue
 }

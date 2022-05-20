@@ -18,7 +18,7 @@ package com.amazonaws.amplify.amplify_datastore.types.hub
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.datastore.syncengine.OutboxMutationEvent
 
-class FlutterSyncMetaData(var metadata: OutboxMutationEvent.OutboxMutationEventElement<out Model>) {
+class FlutterSyncMetaData(private var metadata: OutboxMutationEvent.OutboxMutationEventElement<out Model>) {
     fun toValueMap(): Map<String, Any?> {
         return mapOf(
             "id" to this.metadata.model.primaryKeyString,
