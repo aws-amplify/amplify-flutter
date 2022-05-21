@@ -44,6 +44,23 @@ extension on S3PayloadEncoding {
 /// The base service configuration for AWS S3 requests.
 /// {@endtemplate}
 class S3ServiceConfiguration extends BaseServiceConfiguration {
+  /// {@macro aws_signature_v4.s3_service_configuration}
+  S3ServiceConfiguration({
+    this.signPayload = true,
+    this.chunked = true,
+    int chunkSize = _defaultChunkSize,
+    this.encoding = S3PayloadEncoding.none,
+  })  : assert(
+          signPayload || !chunked,
+          'S3 does not accept unsigned, chunked payloads',
+        ),
+        chunkSize = max(chunkSize, _minChunkSize),
+        super(
+          normalizePath: false,
+          omitSessionToken: false,
+          doubleEncodePathSegments: false,
+        );
+
   // 8 KB is the minimum chunk size.
   static const int _minChunkSize = 8 * 1024;
 
@@ -71,30 +88,13 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
   /// The encoding to use for the body.
   final S3PayloadEncoding encoding;
 
-  /// {@macro aws_signature_v4.s3_service_configuration}
-  S3ServiceConfiguration({
-    this.signPayload = true,
-    this.chunked = true,
-    int chunkSize = _defaultChunkSize,
-    this.encoding = S3PayloadEncoding.none,
-  })  : assert(
-          signPayload || !chunked,
-          'S3 does not accept unsigned, chunked payloads',
-        ),
-        chunkSize = max(chunkSize, _minChunkSize),
-        super(
-          normalizePath: false,
-          omitSessionToken: false,
-          doubleEncodePathSegments: false,
-        );
-
   int _calculateContentLength(int decodedLength) {
     var chunkedLength = 0;
     var metadataLength = 0;
-    var numChunks = (decodedLength / chunkSize).ceil() + 1;
+    final numChunks = (decodedLength / chunkSize).ceil() + 1;
     final hashLength = sha256.blockSize;
     for (var i = 0; i < numChunks; i++) {
-      var chunkLength = min(decodedLength - chunkedLength, chunkSize);
+      final chunkLength = min(decodedLength - chunkedLength, chunkSize);
       metadataLength += chunkLength.toRadixString(16).codeUnits.length +
           _sigSep.length +
           (2 * _sep.length) +
@@ -123,7 +123,8 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     );
 
     if (chunked) {
-      // Raw size of the data to be sent, before compression and without metadata.
+      // Raw size of the data to be sent, before compression and without
+      // metadata.
       headers[AWSHeaders.decodedContentLength] = contentLength.toString();
 
       if (encoding == S3PayloadEncoding.none) {
@@ -198,8 +199,8 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     var previousSignature = seedSignature;
     var chunkedLength = 0;
     while (true) {
-      var size = min(decodedLength - chunkedLength, chunkSize);
-      var chunk = await reader.readBytes(size);
+      final size = min(decodedLength - chunkedLength, chunkSize);
+      final chunk = await reader.readBytes(size);
       final sb = StringBuffer()
         ..writeln('$algorithm-PAYLOAD')
         ..writeln(credentialScope.dateTime)

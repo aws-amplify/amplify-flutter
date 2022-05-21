@@ -17,8 +17,10 @@ package com.amazonaws.amplify.amplify_core
 import io.flutter.plugin.common.MethodChannel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 import org.junit.Test
@@ -34,6 +36,8 @@ import org.mockito.junit.MockitoJUnitRunner
 class AtomicResultTest {
     @get:Rule
     var coroutinesTestRule = CoroutineTestRule()
+
+    private val testScope = TestCoroutineScope(coroutinesTestRule.testDispatcher)
 
     @Mock
     private lateinit var mockResult: MethodChannel.Result
@@ -70,16 +74,13 @@ class AtomicResultTest {
     @Test
     fun multipleConcurrentRepliesAreNotSent() = coroutinesTestRule.testDispatcher.runBlockingTest {
         val atomicResult = AtomicResult(mockResult, "multipleConcurrentRepliesAreNotSent")
-        val jobs = mutableListOf<Job>()
-        for (i in 0..10) {
-            val job = launch(Dispatchers.IO) {
-                atomicResult.success(null)
-            }
-            jobs.add(job)
-        }
-        // Block til jobs complete
-        jobs.forEach {
-            it.join()
+        testScope.launch {
+            // Launch 10 coroutines and wait til they all complete
+            (0..10).map {
+                async(Dispatchers.IO) {
+                    atomicResult.success(null)
+                }
+            }.awaitAll()
         }
         verify(mockResult, times(1)).success(any())
     }

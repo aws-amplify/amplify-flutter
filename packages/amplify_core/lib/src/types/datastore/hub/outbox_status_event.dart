@@ -18,6 +18,6 @@ import 'package:amplify_core/amplify_core.dart';
 class OutboxStatusEvent extends HubEventPayload {
   late bool isEmpty;
   OutboxStatusEvent(Map<dynamic, dynamic> serializedData) {
-    isEmpty = serializedData['isEmpty'];
+    isEmpty = serializedData['isEmpty'] as bool;
   }
 }

@@ -34,6 +34,9 @@ void main() {
     ThemeData? darkTheme,
     String? amplifyConfig,
   }) {
+    final config = amplifyConfig == null
+        ? null
+        : AmplifyConfig.fromJson((jsonDecode(amplifyConfig) as Map).cast());
     return MaterialApp(
       theme: lightTheme,
       darkTheme: darkTheme,
@@ -41,9 +44,7 @@ void main() {
       localizationsDelegates: AuthenticatorLocalizations.localizationsDelegates,
       home: Scaffold(
         body: InheritedConfig(
-          amplifyConfig: amplifyConfig == null
-              ? null
-              : AmplifyConfig.fromJson(jsonDecode(amplifyConfig)),
+          amplifyConfig: config,
           padding: const EdgeInsets.all(32),
           child: InheritedAuthenticatorState(
             state: AuthenticatorState(MockBloc()),

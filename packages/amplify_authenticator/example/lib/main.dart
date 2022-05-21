@@ -15,7 +15,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
       return 'Username cannot be empty';
     }
 
-    bool containsAmplify = username.contains('amplify');
+    final bool containsAmplify = username.contains('amplify');
     if (!containsAmplify) {
       return 'Username needs to include amplify';
     }
@@ -63,11 +63,11 @@ class _MyAppState extends State<MyApp> {
     // creating a custom resolver which conforms to the `ButtonResolver` class
     // from the Authenticator library.
     //
-    // In addition to ButtonResolver, which handles the labels for buttons, there
-    // are also resolvers for input fields, screen titles, and navigation-related
-    // items, all of which can be customized as well. To keep this demo simple,
-    // we only specify a custom button resolver, which automatically configures
-    // the default for the others.
+    // In addition to ButtonResolver, which handles the labels for buttons,
+    // there are also resolvers for input fields, screen titles, and
+    // navigation-related items, all of which can be customized as well. To keep
+    // this demo simple, we only specify a custom button resolver, which
+    // automatically configures the default for the others.
     const stringResolver = AuthStringResolver(
       buttons: LocalizedButtonResolver(),
       countries: LocalizedCountryResolver(),
@@ -195,19 +195,20 @@ class _MyAppState extends State<MyApp> {
   //   return const AuthenticatorWithOnboarding();
   // }
 
-  // Below is yet another example of a custom authenticator, with a widget to support Cognito's Custom Auth flow
+  // Below is yet another example of a custom authenticator, with a widget to
+  // support Cognito's Custom Auth flow
   // @override
   // Widget build(BuildContext context) {
   //   return const AuthenticatorWithCustomAuthFlow();
   // }
 }
 
-/// The screen which is shown once the user is logged in. We can use [SignOutButton]
-/// from the Authenticator library anywhere in our app to provide a pre-configured
-/// sign out experience. Alternatively, we can call [Amplify.Auth.signOut] which
-/// will also notify the Authenticator.
+/// The screen which is shown once the user is logged in. We can use
+/// [SignOutButton] from the Authenticator library anywhere in our app to
+/// provide a pre-configured sign out experience. Alternatively, we can call
+/// [Amplify.Auth.signOut] which will also notify the Authenticator.
 class RouteA extends StatelessWidget {
-  const RouteA({Key? key}) : super(key: key);
+  const RouteA({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +234,7 @@ class RouteA extends StatelessWidget {
 }
 
 class RouteB extends StatelessWidget {
-  const RouteB({Key? key}) : super(key: key);
+  const RouteB({super.key});
 
   @override
   Widget build(BuildContext context) {

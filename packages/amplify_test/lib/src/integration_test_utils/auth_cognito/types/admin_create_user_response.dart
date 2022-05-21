@@ -19,8 +19,8 @@ class AdminCreateUserResponse {
   late bool success;
   String? error;
   AdminCreateUserResponse.fromJson(String resolverData) {
-    Map<String, dynamic> parsedMap = jsonDecode(resolverData);
-    success = parsedMap['adminCreateUser']['success'];
-    error = parsedMap['adminCreateUser']['error'];
+    Map<String, dynamic> parsedMap = (jsonDecode(resolverData) as Map).cast();
+    success = parsedMap['adminCreateUser']['success'] as bool;
+    error = parsedMap['adminCreateUser']['error'] as String?;
   }
 }

@@ -41,7 +41,7 @@ void main() {
     );
     final sentHeaders = signedRequest.headers;
 
-    test('Host, Content-Length unset by signer (web)', () {
+    test(testOn: 'browser', 'Host, Content-Length unset by signer', () {
       expect(
         signedHeaders,
         contains(AWSHeaders.host),
@@ -58,9 +58,9 @@ void main() {
         sentHeaders,
         isNot(contains(AWSHeaders.contentLength)),
       );
-    }, testOn: 'browser');
+    });
 
-    test('Host, Content-Length set by signer (vm)', () {
+    test(testOn: 'vm', 'Host, Content-Length set by signer', () {
       expect(
         signedHeaders,
         contains(AWSHeaders.host),
@@ -77,6 +77,6 @@ void main() {
         sentHeaders,
         contains(AWSHeaders.contentLength),
       );
-    }, testOn: 'vm');
+    });
   });
 }

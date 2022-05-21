@@ -22,7 +22,7 @@ class RestApiView extends StatefulWidget {
   const RestApiView({Key? key}) : super(key: key);
 
   @override
-  _RestApiViewState createState() => _RestApiViewState();
+  State<RestApiView> createState() => _RestApiViewState();
 }
 
 class _RestApiViewState extends State<RestApiView> {
@@ -166,30 +166,30 @@ class _RestApiViewState extends State<RestApiView> {
         ),
       ),
       ElevatedButton(
-        child: const Text('Post'),
         onPressed: onPostPressed,
+        child: const Text('Post'),
       ),
       ElevatedButton(
-        child: const Text('Put'),
         onPressed: onPutPressed,
+        child: const Text('Put'),
       ),
       ElevatedButton(
-        child: const Text('Get'),
         onPressed: onGetPressed,
+        child: const Text('Get'),
       ),
       ElevatedButton(
-        child: const Text('Cancel'),
         onPressed: onCancelPressed,
+        child: const Text('Cancel'),
       ),
       ElevatedButton(
-        child: const Text('Delete'),
         onPressed: onDeletePressed,
+        child: const Text('Delete'),
       ),
       ElevatedButton(
-        child: const Text('Head'),
         onPressed: onHeadPressed,
+        child: const Text('Head'),
       ),
-      ElevatedButton(child: const Text('Patch'), onPressed: onPatchPressed),
+      ElevatedButton(onPressed: onPatchPressed, child: const Text('Patch')),
     ]);
   }
 }

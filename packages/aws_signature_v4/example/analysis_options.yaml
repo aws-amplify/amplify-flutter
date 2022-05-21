@@ -1,4 +1,4 @@
-include: package:amplify_lints/dart.yaml
+include: package:amplify_lints/app.yaml
 
 analyzer:
   errors:

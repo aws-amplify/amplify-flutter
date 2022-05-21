@@ -59,14 +59,15 @@ void main() {
     testWidgets(
       'Confirm a new username & password with an invalid code',
       (tester) async {
-        SignUpPage signUpPage = SignUpPage(tester: tester);
-        ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
-        SignInPage signInPage = SignInPage(tester: tester);
+        final SignUpPage signUpPage = SignUpPage(tester: tester);
+        final ConfirmSignUpPage confirmSignUpPage =
+            ConfirmSignUpPage(tester: tester);
+        final SignInPage signInPage = SignInPage(tester: tester);
 
         await loadAuthenticator(tester: tester, authenticator: authenticator);
 
-        var username = generateEmail();
-        var password = generatePassword();
+        final username = generateEmail();
+        final password = generatePassword();
 
         await signInPage.navigateToSignUp();
 
@@ -100,14 +101,15 @@ void main() {
     testWidgets(
       'Confirm a new username & password with a valid code',
       (tester) async {
-        SignUpPage signUpPage = SignUpPage(tester: tester);
-        ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
-        SignInPage signInPage = SignInPage(tester: tester);
+        final SignUpPage signUpPage = SignUpPage(tester: tester);
+        final ConfirmSignUpPage confirmSignUpPage =
+            ConfirmSignUpPage(tester: tester);
+        final SignInPage signInPage = SignInPage(tester: tester);
 
         await loadAuthenticator(tester: tester, authenticator: authenticator);
 
-        var username = generateEmail();
-        var password = generatePassword();
+        final username = generateEmail();
+        final password = generatePassword();
         final code = getOtpCode(username);
 
         await signInPage.navigateToSignUp();

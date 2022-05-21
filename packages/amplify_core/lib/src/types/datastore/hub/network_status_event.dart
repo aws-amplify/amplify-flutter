@@ -18,6 +18,6 @@ import 'package:amplify_core/amplify_core.dart';
 class NetworkStatusEvent extends HubEventPayload {
   late bool active;
   NetworkStatusEvent(Map<dynamic, dynamic> serializedData) {
-    active = serializedData['active'];
+    active = serializedData['active'] as bool;
   }
 }

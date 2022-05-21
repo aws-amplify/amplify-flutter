@@ -91,9 +91,13 @@ class MethodChannelAmplify extends AmplifyClass {
       );
     } on PlatformException catch (e) {
       if (e.code == 'AnalyticsException') {
-        throw AnalyticsException.fromMap(Map<String, String>.from(e.details));
+        throw AnalyticsException.fromMap(
+          Map<String, String>.from(e.details as Map),
+        );
       } else if (e.code == 'AmplifyException') {
-        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(
+          Map<String, String>.from(e.details as Map),
+        );
       } else if (e.code == 'AmplifyAlreadyConfiguredException') {
         return;
       } else {

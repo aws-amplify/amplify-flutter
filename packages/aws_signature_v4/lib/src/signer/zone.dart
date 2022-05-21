@@ -18,11 +18,14 @@ part of 'aws_signer.dart';
 /// mode in order to prevent accidental exposure of secrets.
 @visibleForTesting
 R signZoned<R>(R Function() signFn) {
-  return runZoned(signFn, zoneSpecification: ZoneSpecification(
-    print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
-      if (zDebugMode) {
-        parent.print(zone, line);
-      }
-    },
-  ));
+  return runZoned(
+    signFn,
+    zoneSpecification: ZoneSpecification(
+      print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
+        if (zDebugMode) {
+          parent.print(zone, line);
+        }
+      },
+    ),
+  );
 }

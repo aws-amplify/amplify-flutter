@@ -28,12 +28,6 @@ enum SignerTestMethod { query, header }
 /// the signature info should be attached to the headers and one where it should
 /// be attached via query parameters.
 class SignerTestMethodData {
-  final SignerTestMethod method;
-  final String canonicalRequest;
-  final String stringToSign;
-  final String signature;
-  final AWSBaseHttpRequest signedRequest;
-
   const SignerTestMethodData({
     required this.method,
     required this.canonicalRequest,
@@ -53,6 +47,12 @@ class SignerTestMethodData {
     );
   }
 
+  final SignerTestMethod method;
+  final String canonicalRequest;
+  final String stringToSign;
+  final String signature;
+  final AWSBaseHttpRequest signedRequest;
+
   Future<Map<String, Object?>> toJson() async => {
         'method': method.name,
         'canonicalRequest': canonicalRequest,
@@ -64,9 +64,9 @@ class SignerTestMethodData {
 
 /// Builder class to make it easy to lazily create a [SignerTest].
 class SignerTestBuilder {
-  final String name;
-
   SignerTestBuilder(this.name);
+
+  final String name;
 
   late final Context context;
   late final AWSBaseHttpRequest request;
@@ -107,19 +107,6 @@ class SignerTestBuilder {
 /// Each folder in the test suite is built into an instance of this class, where
 /// [name] is the name of the folder used.
 class SignerTest {
-  /// Only V4 (e.g. HMAC/SHA-2) is supported for signer tests.
-  static const algorithm = AWSAlgorithm.hmacSha256;
-
-  final String name;
-  final Context context;
-  final AWSBaseHttpRequest request;
-  final SignerTestMethodData? headerTestData;
-  final SignerTestMethodData? queryTestData;
-  final ServiceConfiguration serviceConfiguration;
-
-  final AWSSigV4Signer signer;
-  final AWSCredentialScope credentialScope;
-
   SignerTest({
     required this.name,
     required this.context,
@@ -155,13 +142,28 @@ class SignerTest {
       headerTestData: json['headerTestData'] == null
           ? null
           : SignerTestMethodData.fromJson(
-              (json['headerTestData'] as Map).cast()),
+              (json['headerTestData'] as Map).cast(),
+            ),
       queryTestData: json['queryTestData'] == null
           ? null
           : SignerTestMethodData.fromJson(
-              (json['queryTestData'] as Map).cast()),
+              (json['queryTestData'] as Map).cast(),
+            ),
     );
   }
+
+  /// Only V4 (e.g. HMAC/SHA-2) is supported for signer tests.
+  static const algorithm = AWSAlgorithm.hmacSha256;
+
+  final String name;
+  final Context context;
+  final AWSBaseHttpRequest request;
+  final SignerTestMethodData? headerTestData;
+  final SignerTestMethodData? queryTestData;
+  final ServiceConfiguration serviceConfiguration;
+
+  final AWSSigV4Signer signer;
+  final AWSCredentialScope credentialScope;
 
   Future<void> _runMethod(SignerTestMethod method, {required bool sync}) async {
     final testMethodData =
@@ -180,7 +182,7 @@ class SignerTest {
             presignedUrl: presignedUrl,
           );
     final contentLength = request.contentLength as int;
-    final CanonicalRequest canonicalRequest = presignedUrl
+    final canonicalRequest = presignedUrl
         ? CanonicalRequest.presignedUrl(
             request: request,
             credentials: context.credentials,
@@ -199,7 +201,7 @@ class SignerTest {
             payloadHash: payloadHash,
             serviceConfiguration: serviceConfiguration,
           );
-    final String stringToSign = signer.stringToSign(
+    final stringToSign = signer.stringToSign(
       algorithm: algorithm,
       credentialScope: credentialScope,
       canonicalRequest: canonicalRequest,
@@ -218,7 +220,7 @@ class SignerTest {
     );
 
     if (presignedUrl) {
-      final Uri uri = sync
+      final uri = sync
           ? signer.presignSync(
               request as AWSHttpRequest,
               credentialScope: credentialScope,
@@ -238,7 +240,7 @@ class SignerTest {
         reason: 'Signatures must be identical',
       );
     } else {
-      final AWSSignedRequest signedRequest = sync
+      final signedRequest = sync
           ? signer.signSync(
               request,
               credentialScope: credentialScope,

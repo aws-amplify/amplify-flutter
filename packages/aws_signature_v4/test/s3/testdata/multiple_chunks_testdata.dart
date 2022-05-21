@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:aws_signature_v4/src/configuration/services/s3.dart';
@@ -66,13 +68,9 @@ cee3fed04b70f867d036f722359b0b1f2f0e5dc0efadbc082b76c4c60e316455''',
           'AWS4-HMAC-SHA256 Credential=AKIAIOSFODNN7EXAMPLE/20130524/us-east-1/s3/aws4_request, SignedHeaders=content-encoding;content-length;host;x-amz-content-sha256;x-amz-date;x-amz-decoded-content-length;x-amz-storage-class, Signature=4f232c4386841ef735655705268965c44a0e4690baa4adea153f7db9fa80a0a9',
     },
     body: Stream.fromIterable([
-      ('10000;chunk-signature=ad80c730a21e5b8d04586a2213dd63b9a0e99e0e2307b0ade35a65485a288648\r\n' +
-              'a' * 65536 +
-              '\r\n')
+      ('10000;chunk-signature=ad80c730a21e5b8d04586a2213dd63b9a0e99e0e2307b0ade35a65485a288648\r\n${'a' * 65536}\r\n')
           .codeUnits,
-      ('400;chunk-signature=0055627c9e194cb4542bae2aa5492e3c1575bbb81b612b7d234b86a503ef5497\r\n' +
-              'a' * 1024 +
-              '\r\n')
+      ('400;chunk-signature=0055627c9e194cb4542bae2aa5492e3c1575bbb81b612b7d234b86a503ef5497\r\n${'a' * 1024}\r\n')
           .codeUnits,
       ('0;chunk-signature=b6c6ea8a5354eaf15b3cb7646744f4275b71ea724fed81ceb9323e279d449df9\r\n\r\n')
           .codeUnits,

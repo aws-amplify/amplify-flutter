@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: omit_local_variable_types
+
 import 'dart:convert';
 
 import 'package:aws_common/aws_common.dart';

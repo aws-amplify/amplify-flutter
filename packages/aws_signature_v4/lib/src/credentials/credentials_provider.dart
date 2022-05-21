@@ -61,8 +61,8 @@ abstract class AWSCredentialsProvider {
   /// On the VM, this uses `Platform.environment`. On the Web, this uses the
   /// Dart environment, e.g. `--dart-define` for Flutter.
   ///
-  /// To always use the Dart environment, use [AWSCredentialsProvider.dartEnvironment]
-  /// instead.
+  /// To always use the Dart environment, use
+  /// [AWSCredentialsProvider.dartEnvironment] instead.
   /// {@endtemplate}
   const factory AWSCredentialsProvider.environment() =
       EnvironmentCredentialsProvider;

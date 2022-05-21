@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:stream_channel/stream_channel.dart';
@@ -19,7 +20,7 @@ import 'package:test/test.dart';
 
 import 'test_data_loader.dart';
 
-Future<void> hybridMain(StreamChannel channel) async {
+Future<void> hybridMain(StreamChannel<dynamic> channel) async {
   final testCases = await loadAllTests();
 
   channel.sink.add(testCases.length);
@@ -29,7 +30,7 @@ Future<void> hybridMain(StreamChannel channel) async {
     channel.sink.add(jsonEncode(json));
   }
 
-  channel.sink.close();
+  unawaited(channel.sink.close());
 }
 
 /// Runs all tests in the C signer test suite.

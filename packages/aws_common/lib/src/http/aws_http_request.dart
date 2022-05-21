@@ -32,6 +32,17 @@ import 'package:meta/meta.dart';
 /// - [AWSHttpRequest]
 /// - [AWSStreamedHttpRequest]
 abstract class AWSBaseHttpRequest implements Closeable {
+  AWSBaseHttpRequest._({
+    required this.method,
+    this.scheme = 'https',
+    required this.host,
+    this.port,
+    required this.path,
+    Map<String, Object>? queryParameters,
+    Map<String, String>? headers,
+  })  : _queryParameters = queryParameters ?? {},
+        headers = CaseInsensitiveMap(headers ?? {});
+
   /// The method of the request.
   final AWSHttpMethod method;
 
@@ -106,7 +117,8 @@ abstract class AWSBaseHttpRequest implements Closeable {
 
   /// Sends the HTTP request.
   ///
-  /// If [client] is not provided, a short-lived one is created for this request.
+  /// If [client] is not provided, a short-lived one is created for this
+  /// request.
   Future<AWSStreamedHttpResponse> send([http.Client? client]) async {
     final useClient = client ?? http.Client();
     try {
@@ -124,17 +136,6 @@ abstract class AWSBaseHttpRequest implements Closeable {
     }
   }
 
-  AWSBaseHttpRequest._({
-    required this.method,
-    this.scheme = 'https',
-    required this.host,
-    this.port,
-    required this.path,
-    Map<String, Object>? queryParameters,
-    Map<String, String>? headers,
-  })  : _queryParameters = queryParameters ?? {},
-        headers = CaseInsensitiveMap(headers ?? {});
-
   @override
   String toString() => uri.toString();
 }
@@ -144,20 +145,18 @@ abstract class AWSBaseHttpRequest implements Closeable {
 class AWSHttpRequest extends AWSBaseHttpRequest {
   /// {@macro aws_common.aws_http_request}
   AWSHttpRequest({
-    required AWSHttpMethod method,
+    required super.method,
     required Uri uri,
-    Map<String, String>? headers,
+    super.headers,
     List<int>? body,
   })  : bodyBytes = body ?? const [],
         contentLength = body?.length ?? 0,
         super._(
-          method: method,
           scheme: uri.scheme,
           host: uri.host,
           port: uri.hasPort ? uri.port : null,
           path: uri.path,
           queryParameters: uri.queryParametersAll,
-          headers: headers,
         );
 
   /// Creates a "raw", or unprocessed, HTTP request. Since the [Uri] constructor
@@ -167,25 +166,17 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
   ///
   /// If you're unsure, it's likely safe to use [AWSHttpRequest.new] and [Uri].
   AWSHttpRequest.raw({
-    required AWSHttpMethod method,
-    String scheme = 'https',
-    required String host,
-    int? port,
-    required String path,
-    Map<String, Object>? queryParameters,
-    Map<String, String>? headers,
+    required super.method,
+    super.scheme,
+    required super.host,
+    super.port,
+    required super.path,
+    super.queryParameters,
+    super.headers,
     List<int>? body,
   })  : bodyBytes = body ?? const [],
         contentLength = body?.length ?? 0,
-        super._(
-          method: method,
-          scheme: scheme,
-          host: host,
-          port: port,
-          path: path,
-          queryParameters: queryParameters,
-          headers: headers,
-        );
+        super._();
 
   /// Creates a `GET` request for [uri].
   AWSHttpRequest.get(Uri uri, {Map<String, String>? headers})
@@ -282,21 +273,19 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
   /// calculating the signature.
   /// {@endtemplate}
   AWSStreamedHttpRequest({
-    required AWSHttpMethod method,
+    required super.method,
     required Uri uri,
-    Map<String, String>? headers,
+    super.headers,
     Stream<List<int>>? body,
     int? contentLength,
   })  : _body = body ?? const Stream.empty(),
         _contentLength = contentLength,
         super._(
-          method: method,
           scheme: uri.scheme,
           host: uri.host,
           port: uri.hasPort ? uri.port : null,
           path: uri.path,
           queryParameters: uri.queryParametersAll,
-          headers: headers,
         );
 
   /// Creates a "raw", or unprocessed, streaming HTTP request. Since the [Uri]
@@ -309,26 +298,18 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
   ///
   /// @{macro aws_common.aws_http_streamed_request_desc}
   AWSStreamedHttpRequest.raw({
-    required AWSHttpMethod method,
-    String scheme = 'https',
-    required String host,
-    int? port,
-    required String path,
-    Map<String, Object>? queryParameters,
-    Map<String, String>? headers,
+    required super.method,
+    super.scheme,
+    required super.host,
+    super.port,
+    required super.path,
+    super.queryParameters,
+    super.headers,
     Stream<List<int>>? body,
     int? contentLength,
   })  : _body = body ?? const Stream.empty(),
         _contentLength = contentLength,
-        super._(
-          method: method,
-          scheme: scheme,
-          host: host,
-          port: port,
-          path: path,
-          queryParameters: queryParameters,
-          headers: headers,
-        );
+        super._();
 
   /// Creates a `GET` request for [uri].
   AWSStreamedHttpRequest.get(Uri uri, {Map<String, String>? headers})

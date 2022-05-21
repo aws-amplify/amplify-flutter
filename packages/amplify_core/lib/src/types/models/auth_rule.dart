@@ -84,23 +84,7 @@ class AuthRule {
       ..removeWhere((k, dynamic v) => v == null);
   }
 
-  factory AuthRule.fromMap(Map<String, dynamic> map) {
-    return AuthRule(
-        authStrategy: AuthStrategy.values[map['authStrategy']],
-        ownerField: map['ownerField'],
-        identityClaim: map['identityClaim'],
-        groupClaim: map['groupClaim'],
-        groups: List<String>.from(map['groups']),
-        groupsField: map['groupsField'],
-        provider: map['provider'],
-        operations: List<ModelOperation>.from(
-            map['operations']?.map((dynamic x) => ModelOperation.values[x])));
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory AuthRule.fromJson(String source) =>
-      AuthRule.fromMap(json.decode(source));
 
   @override
   String toString() {

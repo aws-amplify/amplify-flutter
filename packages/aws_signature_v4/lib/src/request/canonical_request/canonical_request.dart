@@ -32,76 +32,6 @@ part 'canonical_request_util.dart';
 /// A canonicalized request, used for signing via the SigV4 signing process.
 /// {@endtemplate}
 class CanonicalRequest {
-  /// The original HTTP request.
-  final AWSBaseHttpRequest request;
-
-  /// The scope for the request.
-  final AWSCredentialScope credentialScope;
-
-  /// The canonicalized request path.
-  late final String canonicalPath = CanonicalPath.canonicalize(
-    request.path,
-    serviceConfiguration: serviceConfiguration,
-  );
-
-  /// The request query parameters, with AWS values added, if necessary.
-  final Map<String, String> queryParameters;
-
-  /// The canonicalized [queryParameters].
-  final CanonicalQueryParameters canonicalQueryParameters;
-
-  /// The request headers, with AWS values added, if necessary.
-  final Map<String, String> headers;
-
-  /// The canonicalized [headers].
-  final CanonicalHeaders canonicalHeaders;
-
-  /// The list of signed headers.
-  final SignedHeaders signedHeaders;
-
-  /// Whether or not to normalize the URI path.
-  final bool normalizePath;
-
-  /// Whether to create a presigned URL.
-  ///
-  /// If `true`, authentication information is encoded in the query string
-  /// instead of in the request headers.
-  ///
-  /// Defaults to `false`.
-  final bool presignedUrl;
-
-  /// Whether to omit the session token, if present, from the initial signing
-  /// process.
-  ///
-  /// If `true`, the session token will be added to the request after the signing
-  /// process.
-  final bool omitSessionTokenFromSigning;
-
-  // Query-specific parameters
-
-  /// The algorithm to use for signing.
-  ///
-  /// Must be provided if [presignedUrl] is `true`.
-  final AWSAlgorithm? algorithm;
-
-  /// The number of seconds the request is valid for.
-  ///
-  /// Only valid for presigned URLs, and must be provided if [presignedUrl]
-  /// is `true`.
-  final int? expiresIn;
-
-  /// The configuration to use for canonicalizing the request.
-  final ServiceConfiguration serviceConfiguration;
-
-  /// The payload content length.
-  final int contentLength;
-
-  /// The computed hash of the canonical request.
-  late final String hash = payloadEncoder.convert(utf8.encode(toString()));
-
-  /// The payload hash.
-  final String payloadHash;
-
   /// {@macro aws_signature_v4.canonical_request}
   factory CanonicalRequest({
     required AWSBaseHttpRequest request,
@@ -212,16 +142,86 @@ class CanonicalRequest {
         omitSessionTokenFromSigning = serviceConfiguration.omitSessionToken,
         expiresIn = expiresIn?.inSeconds;
 
+  /// The original HTTP request.
+  final AWSBaseHttpRequest request;
+
+  /// The scope for the request.
+  final AWSCredentialScope credentialScope;
+
+  /// The canonicalized request path.
+  late final String canonicalPath = CanonicalPath.canonicalize(
+    request.path,
+    serviceConfiguration: serviceConfiguration,
+  );
+
+  /// The request query parameters, with AWS values added, if necessary.
+  final Map<String, String> queryParameters;
+
+  /// The canonicalized [queryParameters].
+  final CanonicalQueryParameters canonicalQueryParameters;
+
+  /// The request headers, with AWS values added, if necessary.
+  final Map<String, String> headers;
+
+  /// The canonicalized [headers].
+  final CanonicalHeaders canonicalHeaders;
+
+  /// The list of signed headers.
+  final SignedHeaders signedHeaders;
+
+  /// Whether or not to normalize the URI path.
+  final bool normalizePath;
+
+  /// Whether to create a presigned URL.
+  ///
+  /// If `true`, authentication information is encoded in the query string
+  /// instead of in the request headers.
+  ///
+  /// Defaults to `false`.
+  final bool presignedUrl;
+
+  /// Whether to omit the session token, if present, from the initial signing
+  /// process.
+  ///
+  /// If `true`, the session token will be added to the request after the
+  /// signing process.
+  final bool omitSessionTokenFromSigning;
+
+  // Query-specific parameters
+
+  /// The algorithm to use for signing.
+  ///
+  /// Must be provided if [presignedUrl] is `true`.
+  final AWSAlgorithm? algorithm;
+
+  /// The number of seconds the request is valid for.
+  ///
+  /// Only valid for presigned URLs, and must be provided if [presignedUrl]
+  /// is `true`.
+  final int? expiresIn;
+
+  /// The configuration to use for canonicalizing the request.
+  final ServiceConfiguration serviceConfiguration;
+
+  /// The payload content length.
+  final int contentLength;
+
+  /// The computed hash of the canonical request.
+  late final String hash = payloadEncoder.convert(utf8.encode(toString()));
+
+  /// The payload hash.
+  final String payloadHash;
+
   /// Creates the canonical request string.
   @override
   String toString() {
-    final sb = StringBuffer();
-    sb.writeln(request.method.value);
-    sb.writeln(canonicalPath);
-    sb.writeln(canonicalQueryParameters);
-    sb.writeln(canonicalHeaders);
-    sb.writeln(signedHeaders);
-    sb.write(payloadHash);
+    final sb = StringBuffer()
+      ..writeln(request.method.value)
+      ..writeln(canonicalPath)
+      ..writeln(canonicalQueryParameters)
+      ..writeln(canonicalHeaders)
+      ..writeln(signedHeaders)
+      ..write(payloadHash);
     return sb.toString();
   }
 }

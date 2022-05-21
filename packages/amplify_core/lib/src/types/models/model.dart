@@ -28,7 +28,7 @@ abstract class Model {
   const Model();
 
   static ModelSchema defineSchema(
-      {required Function(ModelSchemaDefinition) define}) {
+      {required void Function(ModelSchemaDefinition) define}) {
     var definition = ModelSchemaDefinition();
 
     define(definition);
@@ -43,7 +43,7 @@ abstract class ModelType<T extends Model> {
   const ModelType();
 
   T fromSerializedMap(Map<String, dynamic> serializedMap) {
-    return fromJson(serializedMap['serializedData']);
+    return fromJson((serializedMap['serializedData'] as Map).cast());
   }
 
   T fromJson(Map<String, dynamic> jsonData);

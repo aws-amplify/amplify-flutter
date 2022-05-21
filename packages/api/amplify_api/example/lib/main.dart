@@ -30,7 +30,7 @@ class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -79,11 +79,11 @@ class _MyAppState extends State<MyApp> {
             child: Row(
               children: [
                 ElevatedButton(
-                    child: const Text('Rest API'),
-                    onPressed: _onRestApiViewButtonClick),
+                    onPressed: _onRestApiViewButtonClick,
+                    child: const Text('Rest API')),
                 ElevatedButton(
-                    child: const Text('GraphQL API'),
-                    onPressed: _onGraphQlApiViewButtonClick)
+                    onPressed: _onGraphQlApiViewButtonClick,
+                    child: const Text('GraphQL API'))
               ],
             ),
           ),
