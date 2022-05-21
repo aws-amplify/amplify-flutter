@@ -58,19 +58,7 @@ class ModelAssociation {
       ..removeWhere((k, dynamic v) => v == null);
   }
 
-  factory ModelAssociation.fromMap(Map<String, dynamic> map) {
-    return ModelAssociation(
-      associationType: map['associationType'],
-      targetName: map['targetName'],
-      associatedName: map['associatedName'],
-      associatedType: map['associatedType'],
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory ModelAssociation.fromJson(String source) =>
-      ModelAssociation.fromMap(json.decode(source));
 
   @override
   String toString() {

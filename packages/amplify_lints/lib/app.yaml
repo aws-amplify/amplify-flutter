@@ -1,0 +1,48 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    - avoid_catches_without_on_clauses                 # To encourage thoughtfulness when introducing catch clauses and to avoid catching Errors unless specifically required.
+    - avoid_catching_errors                            # To avoid catching runtime errors which need attention.
+    - avoid_dynamic_calls                              # To prevent unintentional dynamic dispatch which can lead to preventable runtime errors.
+    - avoid_field_initializers_in_const_classes        # To prefer using getters over fields.
+    - cancel_subscriptions                             # To avoid memory leaks and to prevent code from firing after a subscription is no longer being used.
+    - close_sinks                                      # To avoid memory leaks.
+    - directives_ordering                              # To maintain visual separation of a file’s imports.
+    - eol_at_end_of_file                               # To provide consistency across our repos/languages.
+    - flutter_style_todos                              # To ensure traceability of TODOs.
+    - lines_longer_than_80_chars                       # To improve code readability.
+    - omit_local_variable_types                        # To encourage conciseness and improve code readability.
+    - only_throw_errors                                # To ensure downstream exception handling always works.
+    - prefer_final_in_for_each                         # To improve code intent and avoid accidental reassignment.
+    - prefer_final_locals                              # To improve code intent and avoid accidental reassignment.
+    - prefer_if_elements_to_conditional_expressions    # To make large lists easier to read and navigate.
+    - prefer_int_literals                              # To improve code readability.
+    - prefer_null_aware_method_calls                   # To improve code readability.
+    - prefer_single_quotes                             # To encourage consistent styling.
+    - require_trailing_commas                          # To improve code readability.
+    - secure_pubspec_urls                              # To improve security posture.
+    - sized_box_shrink_expand                          # To improve code readability.
+    - sort_constructors_first                          # To provide a consistent style for classes.
+    - sort_pub_dependencies                            # To simplify searching a large list.
+    - tighten_type_of_initializing_formals             # To catch errors at compile-time vs. runtime.
+    - unawaited_futures                                # To prevent accidental fire-and-forget.
+    - unnecessary_await_in_return                      # To make code more concise and to encourage mindfulness about where Futures are awaited.
+    - unnecessary_lambdas                              # To make code more concise.
+    - unnecessary_null_checks                          # To improve code readability.
+    - use_colored_box                                  # To improve code readability.
+    - use_decorated_box                                # To improve code readability.
+    - use_enums                                        # To encourage use of the enhanced-enums language feature.
+    - use_if_null_to_convert_nulls_to_bools            # To improve code readability.
+    - use_late_for_private_fields_and_variables        # To improve code readability.
+    - use_named_constants                              # To improve code readability.
+    - use_raw_strings                                  # To improve code readability.
+    - use_setters_to_change_properties                 # To improve code readability and consistency.
+    - use_super_parameters                             # To improve code readability and prevent redundancy.
+    - use_test_throws_matchers                         # To improve code readability.

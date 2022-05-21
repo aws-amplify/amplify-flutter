@@ -113,14 +113,10 @@ abstract class ServiceConfiguration {
 class BaseServiceConfiguration extends ServiceConfiguration {
   /// {@macro aws_signature_v4.base_service_configuration}
   const BaseServiceConfiguration({
-    bool? normalizePath,
-    bool? omitSessionToken,
-    bool? doubleEncodePathSegments,
-  }) : super._(
-          normalizePath: normalizePath,
-          omitSessionToken: omitSessionToken,
-          doubleEncodePathSegments: doubleEncodePathSegments,
-        );
+    super.normalizePath,
+    super.omitSessionToken,
+    super.doubleEncodePathSegments,
+  }) : super._();
 
   @override
   void applySigned(

@@ -21,7 +21,7 @@ import 'authenticator_page.dart';
 
 /// Confirm Sign In Page Object
 class ConfirmSignInPage extends AuthenticatorPage {
-  ConfirmSignInPage({required WidgetTester tester}) : super(tester: tester);
+  ConfirmSignInPage({required super.tester});
 
   @override
   Finder get usernameField => throw UnimplementedError();

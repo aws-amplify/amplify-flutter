@@ -19,7 +19,7 @@ import 'authenticator_page.dart';
 
 /// Sign Up Page Object
 class SignUpPage extends AuthenticatorPage {
-  SignUpPage({required WidgetTester tester}) : super(tester: tester);
+  SignUpPage({required super.tester});
 
   @override
   Finder get usernameField => find.byKey(keyUsernameSignUpFormField);
@@ -69,7 +69,7 @@ class SignUpPage extends AuthenticatorPage {
     // username field is present
     expect(usernameField, findsOneWidget);
     // login type is "username"
-    Finder usernameFieldHint = find.descendant(
+    final Finder usernameFieldHint = find.descendant(
       of: find.byKey(keyUsernameSignUpFormField),
       matching: find.text(usernameLabel),
     );
@@ -93,7 +93,7 @@ class SignUpPage extends AuthenticatorPage {
 
   /// Then I don't see "Username as an input field"
   void expectPlainUsernameNotPresent() {
-    Finder usernameFieldHint = find.descendant(
+    final Finder usernameFieldHint = find.descendant(
       of: find.byKey(keyUsernameSignUpFormField),
       matching: find.text('Username'),
     );

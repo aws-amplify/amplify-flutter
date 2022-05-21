@@ -48,8 +48,7 @@ void main() {
       final resp = AWSStreamedHttpResponse(
         statusCode: 200,
         body: Stream.value(bodyBytes),
-      );
-      resp.split(); // Split the stream so following calls use splitter.
+      )..split(); // Split the stream so following calls use splitter.
       expect(resp.bodyBytes, completion(orderedEquals(bodyBytes)));
       expect(resp.decodeBody(), completion(body));
     });

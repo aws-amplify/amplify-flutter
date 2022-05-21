@@ -18,9 +18,6 @@
 /// Used for formatting dates and times throughout the signing process.
 /// {@endtemplate}
 class AWSDateTime {
-  /// The underlying [DateTime] object.
-  final DateTime dateTime;
-
   /// {@macro aws_signature_v4.aws_date_time}
   AWSDateTime(DateTime dateTime) : dateTime = dateTime.toUtc();
 
@@ -28,6 +25,9 @@ class AWSDateTime {
   ///
   /// Uses [DateTime.now] as the input.
   AWSDateTime.now() : dateTime = DateTime.now().toUtc();
+
+  /// The underlying [DateTime] object.
+  final DateTime dateTime;
 
   /// Formats the date and time as `YYYYMMDDTHHMMSSZ`.
   String formatFull() => '${formatDate()}T${formatTime()}Z';

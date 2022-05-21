@@ -21,7 +21,7 @@ import 'authenticator_page.dart';
 
 /// Forgot Password Page Object
 class ForgotPasswordPage extends AuthenticatorPage {
-  ForgotPasswordPage({required WidgetTester tester}) : super(tester: tester);
+  ForgotPasswordPage({required super.tester});
 
   @override
   Finder get usernameField => find.byKey(keyUsernameSignInFormField);

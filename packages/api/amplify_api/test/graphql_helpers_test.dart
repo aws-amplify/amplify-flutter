@@ -327,7 +327,8 @@ void main() {
         GraphQLResponse<PaginatedResult<Blog>> response =
             GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
                 request: req, data: data, errors: errors);
-        Map<String, dynamic> firstRequestFilter = req.variables['filter'];
+        Map<String, dynamic> firstRequestFilter =
+            req.variables['filter'] as Map<String, dynamic>;
         final resultRequest = response.data?.requestForNextResult!;
 
         expect(resultRequest?.variables['filter'], firstRequestFilter);

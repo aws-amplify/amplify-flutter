@@ -60,19 +60,7 @@ class ModelSchema {
       ..removeWhere((k, dynamic v) => v == null);
   }
 
-  factory ModelSchema.fromMap(Map<String, dynamic> map) {
-    return ModelSchema(
-      name: map['name'],
-      pluralName: map['pluralName'],
-      authRules: List<AuthRule>.from(map['authRules']?.map(AuthRule.fromMap)),
-      fields: Map<String, ModelField>.from(map['fields']),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory ModelSchema.fromJson(String source) =>
-      ModelSchema.fromMap(json.decode(source));
 
   @override
   String toString() {

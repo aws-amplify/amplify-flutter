@@ -88,7 +88,7 @@ void main() {
         verifyAttributes: true,
       );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
-      SignInPage signInPage = SignInPage(tester: tester);
+      final SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername(label: 'Email');
 
       // When I type my "email" with status "CONFIRMED"

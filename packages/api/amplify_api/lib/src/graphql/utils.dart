@@ -102,16 +102,18 @@ ModelSchema getModelSchemaByModelName(
 Map<String, dynamic> transformAppSyncJsonToModelJson(
     Map<String, dynamic> input, ModelSchema modelSchema,
     {bool isPaginated = false}) {
-  final _input = <String, dynamic>{...input}; // avoid mutating original
+  input = <String, dynamic>{...input}; // avoid mutating original
 
   // check for list at top-level and tranform each entry
-  if (isPaginated && _input[items] is List) {
-    final transformedItems = (_input[items] as List)
-        .map((dynamic e) =>
-            e != null ? transformAppSyncJsonToModelJson(e, modelSchema) : null)
+  if (isPaginated && input[items] is List) {
+    final transformedItems = (input[items] as List)
+        .map((dynamic e) => e != null
+            ? transformAppSyncJsonToModelJson(
+                e as Map<String, dynamic>, modelSchema)
+            : null)
         .toList();
-    _input.update(items, (dynamic value) => transformedItems);
-    return _input;
+    input.update(items, (dynamic value) => transformedItems);
+    return input;
   }
 
   final relatedFields = _getRelatedFields(modelSchema);
@@ -120,22 +122,22 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
   for (var parentField in relatedFields.singleFields) {
     final ofModelName =
         parentField.type.ofModelName ?? parentField.type.ofCustomTypeName;
-    dynamic inputValue = _input[parentField.name];
+    dynamic inputValue = input[parentField.name];
     if ((inputValue is Map || inputValue is List) && ofModelName != null) {
       final parentSchema = getModelSchemaByModelName(ofModelName, null);
-      _input.update(parentField.name, (dynamic parentData) {
+      input.update(parentField.name, (dynamic parentData) {
         if (parentData is List) {
           // only used for embeddedCollection
           return parentData
               .map((dynamic e) => {
-                    _serializedData:
-                        transformAppSyncJsonToModelJson(e, parentSchema)
+                    _serializedData: transformAppSyncJsonToModelJson(
+                        e as Map<String, dynamic>, parentSchema)
                   })
               .toList();
         }
         return {
-          _serializedData:
-              transformAppSyncJsonToModelJson(parentData, parentSchema)
+          _serializedData: transformAppSyncJsonToModelJson(
+              parentData as Map<String, dynamic>, parentSchema)
         };
       });
     }
@@ -144,19 +146,20 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
   // transform children recursively
   for (var childField in relatedFields.hasManyFields) {
     final ofModelName = childField.type.ofModelName;
-    dynamic inputValue = _input[childField.name];
-    List<dynamic>? inputItems = (inputValue is Map) ? inputValue[items] : null;
+    dynamic inputValue = input[childField.name];
+    List<dynamic>? inputItems =
+        (inputValue is Map) ? inputValue[items] as List? : null;
     if (inputItems is List && ofModelName != null) {
       final childSchema = getModelSchemaByModelName(ofModelName, null);
       final transformedItems = inputItems
           .map((dynamic item) => {
-                _serializedData:
-                    transformAppSyncJsonToModelJson(item, childSchema)
+                _serializedData: transformAppSyncJsonToModelJson(
+                    item as Map<String, dynamic>, childSchema)
               })
           .toList();
-      _input.update(childField.name, (dynamic value) => transformedItems);
+      input.update(childField.name, (dynamic value) => transformedItems);
     }
   }
 
-  return _input;
+  return input;
 }

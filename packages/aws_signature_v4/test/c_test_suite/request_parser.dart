@@ -59,13 +59,15 @@ class SignerRequestParser {
   Map<String, String>? _parseQueryString(String requestLine) {
     final requestUriParts = _parseRequestUri(requestLine).split('?');
     if (requestUriParts.length < 2) return null;
-    return Map.fromEntries(requestUriParts[1].split('&').map((q) {
-      final parts = q.split('=');
-      return MapEntry(
-        parts[0],
-        Uri.decodeQueryComponent(parts[1]),
-      );
-    }));
+    return Map.fromEntries(
+      requestUriParts[1].split('&').map((q) {
+        final parts = q.split('=');
+        return MapEntry(
+          parts[0],
+          Uri.decodeQueryComponent(parts[1]),
+        );
+      }),
+    );
   }
 
   Map<String, String> _parseHeaders(List<String> headerLines) {
@@ -74,24 +76,25 @@ class SignerRequestParser {
 
     // Process all lines by starting with the ones with the key, i.e. containing
     // a ':' character, and get all values for that key by processing subsequent
-    // lines which do not have a ':' character. This allows us to correctly process
-    // multiline header values which are incorrectly interpreted by the Dart server.
+    // lines which do not have a ':' character. This allows us to correctly
+    // process multiline header values which are incorrectly interpreted by the
+    // Dart server.
     var lineNo = 0;
     while (lineNo >= 0 && lineNo < numLines) {
       var line = headerLines[lineNo];
       if (line.isEmpty) {
         break;
       }
-      var lineParts = line.split(':');
-      var key = lineParts.first;
-      var value = lineParts[1];
+      final lineParts = line.split(':');
+      final key = lineParts.first;
+      final value = StringBuffer(lineParts[1]);
       var nextLineNo = lineNo + 1;
       while (nextLineNo < numLines) {
         line = headerLines[nextLineNo];
         if (line.isEmpty || line.contains(':')) {
           break;
         }
-        value += '\n' + line;
+        value.write('\n$line');
         nextLineNo++;
       }
 
@@ -99,7 +102,7 @@ class SignerRequestParser {
       if (headers.containsKey(key)) {
         headers[key] = '${headers[key]},$value';
       } else {
-        headers[key] = value;
+        headers[key] = value.toString();
       }
 
       // Skip to the next key line
@@ -128,11 +131,12 @@ class SignerRequestParser {
 
     // Send request and wait for server to process it.
     final nextRequest = _serverStream.first;
-    _sendSocket.write(request);
-    _sendSocket.writeln();
+    _sendSocket
+      ..write(request)
+      ..writeln();
     await _sendSocket.flush();
     await _sendSocket.close();
-    final HttpRequest httpRequest = await nextRequest;
+    final httpRequest = await nextRequest;
 
     // Capture the body bytes of the request.
     final List<int> body = await ByteStream(httpRequest).toBytes();
@@ -160,8 +164,8 @@ class SignerRequestParser {
   }
 
   /// Encodes spaces in the URI before sending to the Dart server. This might
-  /// be an implementation detail of the server but it cannot process the request
-  /// otherwise.
+  /// be an implementation detail of the server but it cannot process the
+  /// request otherwise.
   String _preprocessRequest(String request) {
     final requestLines = request.split(platformNewline);
     var requestLine = requestLines.first;

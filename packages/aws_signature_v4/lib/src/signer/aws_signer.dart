@@ -32,6 +32,12 @@ const zSigningTest = #_signingTest;
 /// the `AWS4-HMAC-SHA256` signing algorithm.
 /// {@endtemplate}
 class AWSSigV4Signer {
+  /// {@macro aws_signature_v4.aws_sig_v4_signer}
+  const AWSSigV4Signer({
+    this.credentialsProvider = const AWSCredentialsProvider.environment(),
+    this.algorithm = AWSAlgorithm.hmacSha256,
+  });
+
   /// Common termination string for different parts of the signing process.
   static const terminationString = 'aws4_request';
 
@@ -42,12 +48,6 @@ class AWSSigV4Signer {
 
   /// The credentials provider for the signer to use.
   final AWSCredentialsProvider credentialsProvider;
-
-  /// {@macro aws_signature_v4.aws_sig_v4_signer}
-  const AWSSigV4Signer({
-    this.credentialsProvider = const AWSCredentialsProvider.environment(),
-    this.algorithm = AWSAlgorithm.hmacSha256,
-  });
 
   /// Creates a presigned URL for the given [request].
   Future<Uri> presign(
@@ -231,11 +231,11 @@ class AWSSigV4Signer {
     required AWSCredentialScope credentialScope,
     required CanonicalRequest canonicalRequest,
   }) {
-    final sb = StringBuffer();
-    sb.writeln(algorithm);
-    sb.writeln(credentialScope.dateTime);
-    sb.writeln(credentialScope);
-    sb.write(canonicalRequest.hash);
+    final sb = StringBuffer()
+      ..writeln(algorithm)
+      ..writeln(credentialScope.dateTime)
+      ..writeln(credentialScope)
+      ..write(canonicalRequest.hash);
 
     return sb.toString();
   }

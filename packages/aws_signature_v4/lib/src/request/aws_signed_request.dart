@@ -19,30 +19,22 @@ import 'package:aws_signature_v4/aws_signature_v4.dart';
 /// A signed [AWSStreamedHttpRequest].
 /// {@endtemplate}
 class AWSSignedRequest extends AWSStreamedHttpRequest {
+  /// @{macro aws_signature_v4.aws_sig_v4_signed_request}
+  AWSSignedRequest({
+    required this.canonicalRequest,
+    required this.signature,
+    required super.method,
+    required super.host,
+    required super.path,
+    Map<String, String>? super.queryParameters,
+    super.headers,
+    required Stream<List<int>> super.body,
+    super.contentLength,
+  }) : super.raw();
+
   /// The canonical request for this request.
   final CanonicalRequest canonicalRequest;
 
   /// The signature for [canonicalRequest].
   final String signature;
-
-  /// @{macro aws_signature_v4.aws_sig_v4_signed_request}
-  AWSSignedRequest({
-    required this.canonicalRequest,
-    required this.signature,
-    required AWSHttpMethod method,
-    required String host,
-    required String path,
-    Map<String, String>? queryParameters,
-    Map<String, String>? headers,
-    required Stream<List<int>> body,
-    int? contentLength,
-  }) : super.raw(
-          method: method,
-          host: host,
-          path: path,
-          queryParameters: queryParameters,
-          headers: headers,
-          body: body,
-          contentLength: contentLength,
-        );
 }

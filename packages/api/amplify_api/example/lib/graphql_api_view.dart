@@ -23,7 +23,7 @@ class GraphQLApiView extends StatefulWidget {
       : super(key: key);
 
   @override
-  _GraphQLApiViewState createState() => _GraphQLApiViewState();
+  State<GraphQLApiView> createState() => _GraphQLApiViewState();
 }
 
 class _GraphQLApiViewState extends State<GraphQLApiView> {
@@ -71,11 +71,11 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     var response = await operation.response;
     var data = response.data;
     if (data == null) {
-      print('errors: ' + response.errors.toString());
+      print('errors: ${response.errors}');
       return;
     }
 
-    print('Result data: ' + data);
+    print('Result data: $data');
     setState(() {
       _result = data;
     });
@@ -101,11 +101,11 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     var response = await operation.response;
     var data = response.data;
     if (data == null) {
-      print('errors: ' + response.errors.toString());
+      print('errors: ${response.errors}');
       return;
     }
 
-    print('Result data: ' + data);
+    print('Result data: $data');
     setState(() {
       _result = data;
     });
@@ -158,8 +158,8 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
         ),
         const Padding(padding: EdgeInsets.all(5.0)),
         ElevatedButton(
-          child: const Text('Cancel'),
           onPressed: onCancelPressed,
+          child: const Text('Cancel'),
         ),
         Text('Result: \n$_result\n'),
       ],

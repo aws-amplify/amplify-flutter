@@ -21,7 +21,7 @@ import 'authenticator_page.dart';
 
 /// Sign In Page Object
 class SignInPage extends AuthenticatorPage {
-  SignInPage({required WidgetTester tester}) : super(tester: tester);
+  SignInPage({required super.tester});
 
   @override
   Finder get usernameField => find.byKey(keyUsernameSignInFormField);

@@ -1,14 +1,14 @@
-include: package:flutter_lints/flutter.yaml
+include: package:lints/recommended.yaml
 
 analyzer:
-  strong-mode:
-    implicit-dynamic: false
+  language:
+    strict-casts: true
+    strict-inference: true
   errors:
     depend_on_referenced_packages: error               # To prevent issues publishing.
 
 linter:
   rules:
-    # Same as `dart.yaml`
     - always_declare_return_types                      # To ensure that functions do not implicitly return dynamic.
     - avoid_catches_without_on_clauses                 # To encourage thoughtfulness when introducing catch clauses and to avoid catching Errors unless specifically required.
     - avoid_equals_and_hash_code_on_mutable_classes    # To prevent issues with hash sets and maps.
@@ -36,8 +36,3 @@ linter:
     - type_annotate_public_apis                        # To ensure public APIs provide type safety.
     - unnecessary_await_in_return                      # To make code more concise and to encourage mindfulness about where Futures are awaited.
     - unnecessary_lambdas                              # To make code more concise.
-
-    # Flutter-specific linter rules
-    - diagnostic_describe_all_properties               # To make Amplify widgets easier to debug.
-    - prefer_if_elements_to_conditional_expressions    # To make large lists easier to read and navigate.
-    - use_build_context_synchronously                  # To prevent asynchronous usage of an invalid BuildContext.

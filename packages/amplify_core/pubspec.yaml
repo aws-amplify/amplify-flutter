@@ -19,7 +19,8 @@ dependencies:
   uuid: ^3.0.1
 
 dev_dependencies:
-  amplify_lints: ^1.0.0
+  amplify_lints:
+    path: ../amplify_lints
   build_runner: ^2.0.0
   flutter_test:
     sdk: flutter

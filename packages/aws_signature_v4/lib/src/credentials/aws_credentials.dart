@@ -24,6 +24,18 @@ part 'aws_credentials.g.dart';
 /// {@endtemplate}
 @JsonSerializable(fieldRename: FieldRename.snake)
 class AWSCredentials with AWSSerializable {
+  /// {@macro aws_signature_v4.aws_credentials}
+  const AWSCredentials(
+    this.accessKeyId,
+    this.secretAccessKey, [
+    this.sessionToken,
+    this.expiration,
+  ]);
+
+  /// Deserializes credentials from JSON.
+  factory AWSCredentials.fromJson(Map<String, dynamic> json) =>
+      _$AWSCredentialsFromJson(json);
+
   /// AWS Access Key ID
   final String accessKeyId;
 
@@ -37,22 +49,11 @@ class AWSCredentials with AWSSerializable {
   /// The time the credentials will expire
   final DateTime? expiration;
 
-  /// {@macro aws_signature_v4.aws_credentials}
-  const AWSCredentials(
-    this.accessKeyId,
-    this.secretAccessKey, [
-    this.sessionToken,
-    this.expiration,
-  ]);
-
-  /// Deserializes credentials from JSON.
-  factory AWSCredentials.fromJson(Map<String, dynamic> json) =>
-      _$AWSCredentialsFromJson(json);
-
   @override
   Map<String, Object?> toJson() => _$AWSCredentialsToJson(this);
 
   @override
-  String toString() =>
-      'AWSCredentials{accessKeyId=***, secretAccessKey=***, sessionToken=${sessionToken == null ? 'null' : '***'}, expiration=${expiration == null ? 'null' : '***'}}';
+  String toString() => 'AWSCredentials{accessKeyId=***, secretAccessKey=***, '
+      'sessionToken=${sessionToken == null ? 'null' : '***'}, '
+      'expiration=${expiration == null ? 'null' : '***'}}';
 }

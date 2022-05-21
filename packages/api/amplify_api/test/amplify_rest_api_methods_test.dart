@@ -54,7 +54,8 @@ void main() {
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'put') {
-        Map<dynamic, dynamic> restOptions = methodCall.arguments['restOptions'];
+        Map<dynamic, dynamic> restOptions =
+            methodCall.arguments['restOptions'] as Map;
         expect(restOptions['apiName'], 'restapi');
         expect(restOptions['path'], '/items');
         expect(restOptions['body'], body);
@@ -93,7 +94,8 @@ void main() {
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'post') {
-        Map<dynamic, dynamic> restOptions = methodCall.arguments['restOptions'];
+        Map<dynamic, dynamic> restOptions =
+            methodCall.arguments['restOptions'] as Map;
         expect(restOptions['apiName'], 'restapi');
         expect(restOptions['path'], '/items');
         expect(restOptions['body'], body);
@@ -125,7 +127,8 @@ void main() {
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'get') {
-        Map<dynamic, dynamic> restOptions = methodCall.arguments['restOptions'];
+        Map<dynamic, dynamic> restOptions =
+            methodCall.arguments['restOptions'] as Map;
         expect(restOptions['path'], '/items');
 
         return {'data': responseData, 'statusCode': statusOK};
@@ -148,7 +151,8 @@ void main() {
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'delete') {
-        Map<dynamic, dynamic> restOptions = methodCall.arguments['restOptions'];
+        Map<dynamic, dynamic> restOptions =
+            methodCall.arguments['restOptions'] as Map;
         expect(restOptions['path'], '/items');
 
         return {'data': responseData, 'statusCode': statusOK};
@@ -225,7 +229,8 @@ void main() {
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'get') {
-        Map<dynamic, dynamic> restOptions = methodCall.arguments['restOptions'];
+        Map<dynamic, dynamic> restOptions =
+            methodCall.arguments['restOptions'] as Map;
         expect(restOptions['path'], '/items');
         return {'data': responseData, 'statusCode': statusOK};
       }

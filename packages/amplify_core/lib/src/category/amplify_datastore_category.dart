@@ -39,7 +39,9 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
       } on AmplifyAlreadyConfiguredException {
         plugins.add(plugin);
       } on PlatformException catch (e) {
-        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(
+          Map<String, String>.from(e.details as Map),
+        );
       }
     } else {
       throw const AmplifyException(

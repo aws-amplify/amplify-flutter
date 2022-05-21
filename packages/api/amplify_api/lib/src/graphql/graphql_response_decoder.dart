@@ -64,7 +64,7 @@ class GraphQLResponseDecoder {
     // nested in a small JSON object in the `decodePath`. Its structure varies by
     // platform when null. Unpack the JSON object and null check the result along
     // the way. If null at any point, return null response.
-    Map<String, dynamic>? dataJson = json.decode(data);
+    Map<String, dynamic>? dataJson = json.decode(data) as Map<String, dynamic>?;
     if (dataJson == null) {
       return GraphQLResponse(data: null, errors: errors);
     }
@@ -76,7 +76,7 @@ class GraphQLResponseDecoder {
               'that includes a modelType.',
         );
       }
-      dataJson = dataJson![element];
+      dataJson = (dataJson![element] as Map?)?.cast();
     });
     if (dataJson == null) {
       return GraphQLResponse(data: null, errors: errors);
@@ -88,10 +88,11 @@ class GraphQLResponseDecoder {
     dataJson = transformAppSyncJsonToModelJson(dataJson!, modelSchema,
         isPaginated: modelType is PaginatedModelType);
     if (modelType is PaginatedModelType) {
-      Map<String, dynamic>? filter = request.variables['filter'];
-      int? limit = request.variables['limit'];
+      Map<String, dynamic>? filter =
+          request.variables['filter'] as Map<String, dynamic>?;
+      int? limit = request.variables['limit'] as int?;
 
-      String? resultNextToken = dataJson![_nextToken];
+      String? resultNextToken = dataJson![_nextToken] as String?;
       dynamic requestForNextResult;
       // If result has nextToken property, prepare a request for the next page of results.
       if (resultNextToken != null) {
@@ -105,10 +106,13 @@ class GraphQLResponseDecoder {
             variables: variablesWithNextToken,
             modelType: request.modelType);
       }
-      decodedData = modelType.fromJson(dataJson!,
-          limit: limit,
-          filter: filter,
-          requestForNextResult: requestForNextResult) as T;
+      decodedData = modelType.fromJson(
+        dataJson!,
+        limit: limit,
+        filter: filter,
+        requestForNextResult:
+            requestForNextResult as GraphQLRequest<PaginatedResult<Model>>?,
+      ) as T;
     } else {
       decodedData = modelType.fromJson(dataJson!) as T;
     }

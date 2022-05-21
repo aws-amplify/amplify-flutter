@@ -29,7 +29,7 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   ModelProviderInterface? modelProvider;
 
   // errorHandler
-  Function(AmplifyException)? errorHandler;
+  void Function(AmplifyException)? errorHandler;
 
   // conflictHandler
   DataStoreConflictHandler? conflictHandler;
@@ -82,7 +82,7 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// [syncPageSize]: Page size to sync
   Future<void> configureDataStore({
     required ModelProviderInterface modelProvider,
-    Function(AmplifyException)? errorHandler,
+    void Function(AmplifyException)? errorHandler,
     DataStoreConflictHandler? conflictHandler,
     int? syncInterval,
     int? syncMaxRecords,

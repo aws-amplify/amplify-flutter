@@ -1,4 +1,4 @@
-include: package:amplify_lints/flutter_app.yaml
+include: package:amplify_lints/app_core.yaml
 
 linter:
   rules:

@@ -219,8 +219,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
       }
       final errors = _deserializeGraphQLResponseErrors(result);
 
-      GraphQLResponse<T> response = GraphQLResponseDecoder.instance
-          .decode<T>(request: request, data: result['data'], errors: errors);
+      GraphQLResponse<T> response = GraphQLResponseDecoder.instance.decode<T>(
+          request: request, data: result['data'] as String?, errors: errors);
 
       return response;
     } on PlatformException catch (e) {
@@ -334,11 +334,11 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
   @override
   Future<void> cancelRequest(String cancelToken) async {
-    print('Attempting to cancel Operation ' + cancelToken);
+    print('Attempting to cancel Operation $cancelToken');
 
     try {
       await _channel.invokeMethod<void>('cancel', cancelToken);
-      print('Cancel succeeded for Operation: ' + cancelToken);
+      print('Cancel succeeded for Operation: $cancelToken');
     } on PlatformException catch (e) {
       print('Cancel request failed due to: $e');
     }
@@ -348,7 +348,9 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
   ApiException _deserializeException(PlatformException e) {
     if (e.code == 'ApiException') {
-      return ApiException.fromMap(Map<String, String>.from(e.details));
+      return ApiException.fromMap(
+        Map<String, String>.from(e.details as Map),
+      );
     } else {
       // This shouldn't happen. All exceptions coming from platform for
       // amplify_api should have a known code. Throw an unknown error.
