@@ -26,12 +26,9 @@ import 'package:crypto/crypto.dart';
 /// Payload encoding for S3 requests.
 enum S3PayloadEncoding {
   /// No encoding.
-  none,
-}
+  none;
 
-extension on S3PayloadEncoding {
-  String get value => toString().split('.')[1];
-
+  /// The [Codec] for this encoding.
   Codec<List<int>, List<int>> get encoding {
     switch (this) {
       case S3PayloadEncoding.none:
@@ -132,7 +129,7 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
         headers[AWSHeaders.contentLength] =
             _calculateContentLength(contentLength).toString();
       } else {
-        headers[AWSHeaders.contentEncoding] = 'aws-chunked,${encoding.value}';
+        headers[AWSHeaders.contentEncoding] = 'aws-chunked,${encoding.name}';
       }
     }
 
