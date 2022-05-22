@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/// Helpers for [AWSHttpMethod].
+@Deprecated('Use AWSHttpMethod instead')
+typedef AWSHttpMethodHelper = AWSHttpMethod;
+
 /// Valid HTTP methods for AWS requests.
 enum AWSHttpMethod {
   /// HTTP GET
@@ -39,17 +43,14 @@ enum AWSHttpMethod {
   options,
 
   /// HTTP TRACE
-  trace,
-}
+  trace;
 
-/// Helpers for [AWSHttpMethod].
-extension AWSHttpMethodHelper on AWSHttpMethod {
   /// Parses the HTTP method from [method].
   static AWSHttpMethod fromString(String method) =>
-      AWSHttpMethod.values.firstWhere((el) => method.toUpperCase() == el.value);
+      values.firstWhere((el) => method.toUpperCase() == el.value);
 
   /// {@template aws_common.http_method_value}
   /// Returns the uppercased HTTP method, e.g. 'POST'.
   /// {@endtemplate}
-  String get value => toString().split('.')[1].toUpperCase();
+  String get value => name.toUpperCase();
 }

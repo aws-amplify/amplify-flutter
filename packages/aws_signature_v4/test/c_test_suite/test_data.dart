@@ -320,7 +320,7 @@ class SignerTest {
 extension AWSHttpRequestX on AWSBaseHttpRequest {
   static AWSBaseHttpRequest fromJson(Map<String, Object?> json) {
     return AWSHttpRequest.raw(
-      method: AWSHttpMethodHelper.fromString(json['method'] as String),
+      method: AWSHttpMethod.fromString(json['method'] as String),
       host: json['host'] as String,
       path: json['path'] as String,
       queryParameters: (json['queryParameters'] as Map).cast(),
