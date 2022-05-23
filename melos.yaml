@@ -4,6 +4,7 @@ packages:
   - packages/**
   - example/*
   - packages/**/example/*
+  - "*"
 
 # Generated output of flutter_localizations
 ignore:

@@ -1,0 +1,27 @@
+name: amplify_tools
+description: Amplify Flutter repo tools
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+
+dependencies: 
+  args: ^2.3.0
+  aws_common: ^0.1.0
+  checked_yaml: ^2.0.0
+  json_annotation: ^4.4.0
+  path: any
+  pubspec_parse: ^1.2.0
+  smithy:
+    hosted: https://pub.dillonnys.com
+    version: ^0.5.0
+  smithy_codegen:
+    hosted: https://pub.dillonnys.com
+    version: ^0.5.0
+  yaml: ^3.1.0
+
+dev_dependencies:
+  amplify_lints: ^1.0.0
+  build_runner: ^2.0.0
+  json_serializable: ^6.1.0

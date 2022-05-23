@@ -22,10 +22,16 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.4
-  json_annotation: ^4.5.0
+  json_annotation: ^4.4.0
   meta: ^1.7.0
   oauth2: ^2.0.0
   plugin_platform_interface: ^2.0.0
+  smithy:
+    hosted: https://pub.dillonnys.com
+    version: ^0.5.0
+  smithy_aws:
+    hosted: https://pub.dillonnys.com
+    version: ^0.5.0
 
 dev_dependencies:
   amplify_lints:
@@ -35,7 +41,7 @@ dev_dependencies:
   built_value_generator: '>=8.3.0 <8.4.0'
   flutter_test:
     sdk: flutter
-  json_serializable: ^6.2.0
+  json_serializable: ^6.1.0
   test: any
 
 flutter:
