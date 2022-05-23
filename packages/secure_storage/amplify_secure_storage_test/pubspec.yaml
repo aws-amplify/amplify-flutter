@@ -1,0 +1,15 @@
+name: amplify_secure_storage_test
+description: A common set of integration-style tests for amplify secure storage packages
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  test: ^1.16.0
+  amplify_secure_storage_dart:
+    path: ../amplify_secure_storage_dart
+  
+dev_dependencies:
+  amplify_lints: ^1.0.0
