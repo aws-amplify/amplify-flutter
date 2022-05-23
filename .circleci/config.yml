@@ -224,7 +224,6 @@ workflows:
                 [
                   "amplify_analytics_pinpoint",
                   "amplify_api",
-                  "amplify_auth_cognito",
                   "amplify_authenticator",
                   "amplify_datastore",
                   "amplify_flutter",
@@ -237,7 +236,6 @@ workflows:
                 [
                   "amplify_analytics_pinpoint",
                   "amplify_api",
-                  "amplify_auth_cognito",
                   "amplify_core",
                   "amplify_datastore",
                   "amplify_flutter",
@@ -249,7 +247,6 @@ workflows:
                 [
                   "amplify_analytics_pinpoint",
                   "amplify_api",
-                  "amplify_auth_cognito",
                   "amplify_datastore",
                   "amplify_flutter",
                 ]

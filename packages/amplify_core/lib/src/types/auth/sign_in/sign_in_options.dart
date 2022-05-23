@@ -12,10 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-class SignInOptions {
+abstract class SignInOptions {
   const SignInOptions();
-  Map<String, Object?> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on SignInOptions.');
-  }
+  Map<String, Object?> serializeAsMap();
 }

@@ -16,8 +16,8 @@
 import 'dart:convert';
 
 import 'package:amplify_analytics_pinpoint/method_channel_amplify.dart';
-import 'package:amplify_auth_cognito/method_channel_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_storage_s3/method_channel_storage_s3.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -26,8 +26,8 @@ void main() {
   Amplify = MethodChannelAmplify();
 
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
-  const MethodChannel authChannel =
-      MethodChannel('com.amazonaws.amplify/auth_cognito');
+  const MethodChannel storageChannel =
+      MethodChannel('com.amazonaws.amplify/storage_s3');
   const MethodChannel analyticsChannel =
       MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
   var platformConfigured = false;
@@ -47,14 +47,14 @@ void main() {
           recoverySuggestion:
               'Check if Amplify is already configured using Amplify.isConfigured.');
 
-  AmplifyException multiplePluginsForAuthException = AmplifyException(
-    'Amplify plugin AmplifyAuthCognitoMethodChannel was not added successfully.',
+  AmplifyException multiplePluginsForStorageException = AmplifyException(
+    'Amplify plugin AmplifyStorageS3MethodChannel was not added successfully.',
     recoverySuggestion:
         "We currently don't have a recovery suggestion for this exception.",
-    underlyingException:
-        const AmplifyException('Auth plugin has already been added, multiple '
-                'plugins for Auth category are currently not supported.')
-            .toString(),
+    underlyingException: const AmplifyException(
+            'Storage plugin has already been added, multiple '
+            'plugins for Storage category are currently not supported.')
+        .toString(),
   );
 
   const pluginNotAddedException = AmplifyException(
@@ -73,7 +73,7 @@ void main() {
         throw PlatformException(code: 'AmplifyAlreadyConfiguredException');
       }
     });
-    authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
     });
     analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -92,7 +92,7 @@ void main() {
 
   tearDown(() {
     channel.setMockMethodCallHandler(null);
-    authChannel.setMockMethodCallHandler(null);
+    storageChannel.setMockMethodCallHandler(null);
     analyticsChannel.setMockMethodCallHandler(null);
   });
 
@@ -155,7 +155,7 @@ void main() {
   test('adding multiple plugins using addPlugins method doesn\'t throw',
       () async {
     await amplify.addPlugins([
-      AmplifyAuthCognitoMethodChannel(),
+      AmplifyStorageS3MethodChannel(),
       AmplifyAnalyticsPinpointMethodChannel(),
     ]);
     await amplify.configure(validJsonConfiguration);
@@ -163,18 +163,18 @@ void main() {
   });
 
   test('adding single plugins using addPlugin method doesn\'t throw', () async {
-    await amplify.addPlugin(AmplifyAuthCognitoMethodChannel());
+    await amplify.addPlugin(AmplifyStorageS3MethodChannel());
     await amplify.configure(validJsonConfiguration);
     expect(amplify.isConfigured, true);
   });
 
-  test('adding multiple plugins from same Auth category throws exception',
+  test('adding multiple plugins from same Storage category throws exception',
       () async {
-    await amplify.addPlugin(AmplifyAuthCognitoMethodChannel());
+    await amplify.addPlugin(AmplifyStorageS3MethodChannel());
     try {
-      await amplify.addPlugin(AmplifyAuthCognitoMethodChannel());
+      await amplify.addPlugin(AmplifyStorageS3MethodChannel());
     } catch (e) {
-      expect(e, multiplePluginsForAuthException);
+      expect(e, multiplePluginsForStorageException);
       expect(amplify.isConfigured, false);
       return;
     }
@@ -182,7 +182,7 @@ void main() {
   });
 
   test('adding plugins after configure throws an exception', () async {
-    await amplify.addPlugin(AmplifyAuthCognitoMethodChannel());
+    await amplify.addPlugin(AmplifyStorageS3MethodChannel());
     await amplify.configure(validJsonConfiguration);
     try {
       await amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());

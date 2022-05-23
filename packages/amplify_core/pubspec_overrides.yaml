@@ -1,0 +1,10 @@
+# This file is checked in until it can be easily generated locally
+# and in CI pipelines, e.g. with melos.
+#
+# It may cause issues with publishing until https://github.com/dart-lang/pub/pull/3419
+# is released in stable.
+dependency_overrides:
+  aws_common:
+    path: ../aws_common
+  aws_signature_v4:
+    path: ../aws_signature_v4

@@ -17,7 +17,7 @@ linter:
     - directives_ordering                              # To maintain visual separation of a file’s imports.
     - eol_at_end_of_file                               # To provide consistency across our repos/languages.
     - flutter_style_todos                              # To ensure traceability of TODOs.
-    - lines_longer_than_80_chars                       # To improve code readability.
+    # - lines_longer_than_80_chars                     # Too restrictive as a lint, but generally a good rule to follow nonetheless.
     - omit_local_variable_types                        # To encourage conciseness and improve code readability.
     - only_throw_errors                                # To ensure downstream exception handling always works.
     - prefer_final_in_for_each                         # To improve code intent and avoid accidental reassignment.

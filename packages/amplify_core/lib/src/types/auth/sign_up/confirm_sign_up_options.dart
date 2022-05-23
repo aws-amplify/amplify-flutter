@@ -13,10 +13,12 @@
  * permissions and limitations under the License.
  */
 
+/// {@template amplify_core.types.auth.cognito_confirm_sign_up_options}
+/// Options passed to `Amplify.Auth.confirmSignUp`.
+/// {@endtemplate}
 abstract class ConfirmSignUpOptions {
+  /// {@macro amplify_core.types.auth.cognito_confirm_sign_up_options}
   const ConfirmSignUpOptions();
-  Map<String, Object?> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on ConfirmSignUpOptions.');
-  }
+
+  Map<String, Object?> serializeAsMap();
 }

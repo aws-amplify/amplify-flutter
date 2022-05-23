@@ -1,41 +1,43 @@
-/*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
-import 'dart:io';
-
-import 'package:amplify_core/amplify_core.dart';
-import 'package:meta/meta.dart';
-
-import './method_channel_auth_cognito.dart';
+/// Amplify Auth Cognito
+library amplify_auth_cognito;
 
 export 'package:amplify_core/src/types/auth/auth_types.dart';
-export './src/types.dart';
 
-/// {@template amplify_auth_cognito.amplify_auth_cognito}
-/// The AWS Cognito implementation of the Amplify Auth category.
-/// {@endtemplate}
-class AmplifyAuthCognito extends AuthPluginInterface {
-  /// {@macro amplify_auth_cognito.amplify_auth_cognito}
-  factory AmplifyAuthCognito() {
-    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      throw UnsupportedError('This platform is not supported yet');
-    }
-    return AmplifyAuthCognitoMethodChannel();
-  }
+export 'src/auth_plugin_impl.dart';
 
-  /// Protected constructor for subclasses.
-  @protected
-  AmplifyAuthCognito.protected();
-}
+export 'src/model/attribute/cognito_resend_user_attribute_confirmation_code_options.dart';
+export 'src/model/attribute/cognito_update_user_attribute_options.dart';
+export 'src/model/attribute/cognito_update_user_attributes_options.dart';
+export 'src/model/device/cognito_device.dart';
+export 'src/model/password/cognito_confirm_reset_password_options.dart';
+export 'src/model/password/cognito_reset_password_options.dart';
+export 'src/model/password/cognito_reset_password_result.dart';
+export 'src/model/password/cognito_update_password_options.dart';
+export 'src/model/session/cognito_auth_session.dart';
+export 'src/model/session/cognito_session_options.dart';
+export 'src/model/session/cognito_user_pool_tokens.dart';
+export 'src/model/signin/cognito_confirm_sign_in_options.dart';
+export 'src/model/signin/cognito_sign_in_options.dart';
+export 'src/model/signin/cognito_sign_in_result.dart';
+export 'src/model/signin/cognito_sign_in_step.dart';
+export 'src/model/signin/cognito_sign_in_with_web_ui_options.dart';
+export 'src/model/signup/cognito_confirm_sign_up_options.dart';
+export 'src/model/signup/cognito_resend_sign_up_code_options.dart';
+export 'src/model/signup/cognito_resend_sign_up_code_result.dart';
+export 'src/model/signup/cognito_sign_up_options.dart';
+export 'src/model/signup/cognito_sign_up_result.dart';
+export 'src/model/signup/cognito_sign_up_step.dart';

@@ -34,7 +34,7 @@ linter:
     - eol_at_end_of_file                               # To provide consistency across our repos/languages.
     - flutter_style_todos                              # To ensure traceability of TODOs.
     - join_return_with_assignment                      # To improve code readability.
-    - lines_longer_than_80_chars                       # To improve code readability.
+    # - lines_longer_than_80_chars                     # Too restrictive as a lint, but generally a good rule to follow nonetheless.
     - missing_whitespace_between_adjacent_strings      # To prevent sentences which are smashedtogether.
     - no_runtimeType_toString                          # To avoid issues when compiling to Web and improve performance.
     - noop_primitive_operations                        # To prevent redundancy.

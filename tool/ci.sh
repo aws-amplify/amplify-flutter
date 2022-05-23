@@ -96,10 +96,14 @@ for PKG in ${PKGS}; do
         flutter test --platform chrome || EXIT_CODE=$?
         ;;
       test_2)
+        echo 'flutter test --exclude-tags=build'
+        flutter test --exclude-tags=build || EXIT_CODE=$?
+        ;;
+      test_3)
         echo 'dart test'
         dart test || EXIT_CODE=$?
         ;;
-      test_3)
+      test_4)
         echo 'dart test -p chrome'
         dart test -p chrome || EXIT_CODE=$?
         ;;

@@ -13,14 +13,20 @@
  * permissions and limitations under the License.
  */
 
-import 'auth_next_sign_up_step.dart';
+import 'package:amplify_core/amplify_core.dart';
 
-class SignUpResult {
-  bool isSignUpComplete;
-  AuthNextSignUpStep nextStep;
+class SignUpResult with AWSSerializable {
+  final bool isSignUpComplete;
+  final AuthNextSignUpStep nextStep;
 
-  SignUpResult({
+  const SignUpResult({
     required this.isSignUpComplete,
     required this.nextStep,
   });
+
+  @override
+  Map<String, Object?> toJson() => {
+        'isSignUpComplete': isSignUpComplete,
+        'nextStep': nextStep,
+      };
 }
