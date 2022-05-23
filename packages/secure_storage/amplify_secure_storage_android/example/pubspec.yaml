@@ -1,0 +1,25 @@
+name: amplify_secure_storage_android_example
+description: Demonstrates how to use the amplify_secure_storage_android plugin and houses the integration tests
+
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  amplify_secure_storage_android: 0.0.1
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints: ^1.0.0
+  amplify_secure_storage_test:
+    path: ../../amplify_secure_storage_test
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

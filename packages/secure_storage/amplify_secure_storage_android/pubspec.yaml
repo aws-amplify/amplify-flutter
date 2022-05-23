@@ -1,0 +1,27 @@
+name: amplify_secure_storage_android
+description: The Android implementation of amplify_secure_storage.
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  amplify_secure_storage_dart: 0.0.1
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints: ^1.0.0
+  flutter_test:
+    sdk: flutter
+  pigeon: ^3.0.3
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage_android
+        pluginClass: AmplifySecureStorageAndroidPlugin
+
