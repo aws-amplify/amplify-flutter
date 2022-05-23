@@ -23,7 +23,8 @@ part 'aws_credentials.g.dart';
 /// Temporary credentials must include an STS [sessionToken].
 /// {@endtemplate}
 @JsonSerializable(fieldRename: FieldRename.snake)
-class AWSCredentials with AWSSerializable {
+class AWSCredentials
+    with AWSEquatable<AWSCredentials>, AWSSerializable<Map<String, Object?>> {
   /// {@macro aws_signature_v4.aws_credentials}
   const AWSCredentials(
     this.accessKeyId,
@@ -50,10 +51,13 @@ class AWSCredentials with AWSSerializable {
   final DateTime? expiration;
 
   @override
-  Map<String, Object?> toJson() => _$AWSCredentialsToJson(this);
+  List<Object?> get props => [
+        accessKeyId,
+        secretAccessKey,
+        sessionToken,
+        expiration?.toUtc(),
+      ];
 
   @override
-  String toString() => 'AWSCredentials{accessKeyId=***, secretAccessKey=***, '
-      'sessionToken=${sessionToken == null ? 'null' : '***'}, '
-      'expiration=${expiration == null ? 'null' : '***'}}';
+  Map<String, Object?> toJson() => _$AWSCredentialsToJson(this);
 }

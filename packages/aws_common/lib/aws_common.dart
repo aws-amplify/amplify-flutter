@@ -29,8 +29,9 @@ export 'src/http/aws_http_response.dart';
 
 // Utils
 export 'src/util/closeable.dart';
-export 'src/util/debug.dart';
+export 'src/util/debuggable.dart';
 export 'src/util/equatable.dart';
+export 'src/util/globals.dart';
 export 'src/util/json.dart';
 export 'src/util/print.dart';
 export 'src/util/serializable.dart';
