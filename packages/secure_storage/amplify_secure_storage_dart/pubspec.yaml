@@ -14,7 +14,7 @@
 
 name: amplify_secure_storage_dart
 description: A dart implementation of amplify_secure_storage, using ffi for desktop and dart:html for web
-version: 0.0.1
+version: 0.1.0
 publish_to: none
 
 environment:
