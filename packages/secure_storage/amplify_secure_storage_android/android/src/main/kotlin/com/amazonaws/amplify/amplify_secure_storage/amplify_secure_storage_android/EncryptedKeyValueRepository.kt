@@ -18,7 +18,6 @@ package com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage_andr
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.annotation.VisibleForTesting
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV
 import androidx.security.crypto.EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
