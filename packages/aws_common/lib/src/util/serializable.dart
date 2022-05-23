@@ -12,13 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'json.dart';
+import 'package:meta/meta.dart';
 
 /// A mixin to provide `toJson` functionality to objects.
-mixin AWSSerializable on Object {
+@optionalTypeArgs
+mixin AWSSerializable<T extends Object?> on Object {
   /// Serializes `this` as a JSON object.
-  Object? toJson();
-
-  @override
-  String toString() => prettyPrintJson(this);
+  T toJson();
 }

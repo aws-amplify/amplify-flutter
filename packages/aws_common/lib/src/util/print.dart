@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aws_common/src/util/debug.dart';
+import 'package:aws_common/src/util/globals.dart';
 
 /// Prints [o] in debug-mode only.
 void safePrint(Object? o) {
