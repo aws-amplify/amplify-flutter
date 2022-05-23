@@ -19,18 +19,15 @@
 
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
-import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/// This is an auto generated class representing the Tag type in your schema.
+/// This is an auto generated class representing the CpkHasOneUnidirectionalChild type in your schema.
 @immutable
-class Tag extends Model {
-  static const classType = _TagModelType();
+class CpkHasOneUnidirectionalChild extends Model {
+  static const classType = _CpkHasOneUnidirectionalChildModelType();
   final String id;
-  final String? _label;
-  final List<PostTags>? _posts;
+  final String? _name;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -42,13 +39,9 @@ class Tag extends Model {
   @override
   String getId() => id;
 
-  TagModelIdentifier get modelIdentifier {
-    return TagModelIdentifier(id: id);
-  }
-
-  String get label {
+  CpkHasOneUnidirectionalChildModelIdentifier get modelIdentifier {
     try {
-      return _label!;
+      return CpkHasOneUnidirectionalChildModelIdentifier(id: id, name: _name!);
     } catch (e) {
       throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
@@ -59,8 +52,17 @@ class Tag extends Model {
     }
   }
 
-  List<PostTags>? get posts {
-    return _posts;
+  String get name {
+    try {
+      return _name!;
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   TemporalDateTime? get createdAt {
@@ -71,18 +73,15 @@ class Tag extends Model {
     return _updatedAt;
   }
 
-  const Tag._internal(
-      {required this.id, required label, posts, createdAt, updatedAt})
-      : _label = label,
-        _posts = posts,
+  const CpkHasOneUnidirectionalChild._internal(
+      {required this.id, required name, createdAt, updatedAt})
+      : _name = name,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Tag({String? id, required String label, List<PostTags>? posts}) {
-    return Tag._internal(
-        id: id == null ? UUID.getUUID() : id,
-        label: label,
-        posts: posts != null ? List<PostTags>.unmodifiable(posts) : posts);
+  factory CpkHasOneUnidirectionalChild({String? id, required String name}) {
+    return CpkHasOneUnidirectionalChild._internal(
+        id: id == null ? UUID.getUUID() : id, name: name);
   }
 
   bool equals(Object other) {
@@ -92,10 +91,9 @@ class Tag extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Tag &&
+    return other is CpkHasOneUnidirectionalChild &&
         id == other.id &&
-        _label == other._label &&
-        DeepCollectionEquality().equals(_posts, other._posts);
+        _name == other._name;
   }
 
   @override
@@ -105,9 +103,9 @@ class Tag extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Tag {");
+    buffer.write("CpkHasOneUnidirectionalChild {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("label=" + "$_label" + ", ");
+    buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -118,21 +116,13 @@ class Tag extends Model {
     return buffer.toString();
   }
 
-  Tag copyWith({String? label, List<PostTags>? posts}) {
-    return Tag._internal(
-        id: id, label: label ?? this.label, posts: posts ?? this.posts);
+  CpkHasOneUnidirectionalChild copyWith() {
+    return CpkHasOneUnidirectionalChild._internal(id: id, name: name);
   }
 
-  Tag.fromJson(Map<String, dynamic> json)
+  CpkHasOneUnidirectionalChild.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _label = json['label'],
-        _posts = json['posts'] is List
-            ? (json['posts'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => PostTags.fromJson(
-                    Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
-            : null,
+        _name = json['name'],
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -142,37 +132,31 @@ class Tag extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'label': _label,
-        'posts': _posts?.map((PostTags? e) => e?.toJson()).toList(),
+        'name': _name,
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier<TagModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<TagModelIdentifier>();
+  static final QueryModelIdentifier<CpkHasOneUnidirectionalChildModelIdentifier>
+      MODEL_IDENTIFIER =
+      QueryModelIdentifier<CpkHasOneUnidirectionalChildModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField LABEL = QueryField(fieldName: "label");
-  static final QueryField POSTS = QueryField(
-      fieldName: "posts",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (PostTags).toString()));
+  static final QueryField NAME = QueryField(fieldName: "name");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Tag";
-    modelSchemaDefinition.pluralName = "Tags";
+    modelSchemaDefinition.name = "CpkHasOneUnidirectionalChild";
+    modelSchemaDefinition.pluralName = "CpkHasOneUnidirectionalChildren";
+
+    modelSchemaDefinition.indexes = [
+      ModelIndex(fields: const ["id", "name"], name: null)
+    ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Tag.LABEL,
+        key: CpkHasOneUnidirectionalChild.NAME,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-        key: Tag.POSTS,
-        isRequired: false,
-        ofModelName: (PostTags).toString(),
-        associatedKey: PostTags.TAG));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -188,26 +172,32 @@ class Tag extends Model {
   });
 }
 
-class _TagModelType extends ModelType<Tag> {
-  const _TagModelType();
+class _CpkHasOneUnidirectionalChildModelType
+    extends ModelType<CpkHasOneUnidirectionalChild> {
+  const _CpkHasOneUnidirectionalChildModelType();
 
   @override
-  Tag fromJson(Map<String, dynamic> jsonData) {
-    return Tag.fromJson(jsonData);
+  CpkHasOneUnidirectionalChild fromJson(Map<String, dynamic> jsonData) {
+    return CpkHasOneUnidirectionalChild.fromJson(jsonData);
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [Tag] in your schema.
+/// of [CpkHasOneUnidirectionalChild] in your schema.
 @immutable
-class TagModelIdentifier implements ModelIdentifier<Tag> {
+class CpkHasOneUnidirectionalChildModelIdentifier
+    implements ModelIdentifier<CpkHasOneUnidirectionalChild> {
   final String id;
+  final String name;
 
-  /// Create an instance of TagModelIdentifier using [id] the primary key.
-  const TagModelIdentifier({required this.id});
+  /// Create an instance of CpkHasOneUnidirectionalChildModelIdentifier using [id] the primary key.
+  /// And [name] the sort key.
+  const CpkHasOneUnidirectionalChildModelIdentifier(
+      {required this.id, required this.name});
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'id': id, 'name': name});
 
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
@@ -219,7 +209,8 @@ class TagModelIdentifier implements ModelIdentifier<Tag> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'TagModelIdentifier(id: $id)';
+  String toString() =>
+      'CpkHasOneUnidirectionalChildModelIdentifier(id: $id, name: $name)';
 
   @override
   bool operator ==(Object other) {
@@ -227,9 +218,11 @@ class TagModelIdentifier implements ModelIdentifier<Tag> {
       return true;
     }
 
-    return other is TagModelIdentifier && id == other.id;
+    return other is CpkHasOneUnidirectionalChildModelIdentifier &&
+        id == other.id &&
+        name == other.name;
   }
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode;
 }

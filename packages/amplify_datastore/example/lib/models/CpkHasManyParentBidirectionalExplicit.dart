@@ -24,13 +24,14 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/// This is an auto generated class representing the HasManyParentBiDirectionalImplicit type in your schema.
+/// This is an auto generated class representing the CpkHasManyParentBidirectionalExplicit type in your schema.
 @immutable
-class HasManyParentBiDirectionalImplicit extends Model {
-  static const classType = _HasManyParentBiDirectionalImplicitModelType();
+class CpkHasManyParentBidirectionalExplicit extends Model {
+  static const classType = _CpkHasManyParentBidirectionalExplicitModelType();
   final String id;
   final String? _name;
-  final List<HasManyChildBiDirectionalImplicit>? _biDirectionalImplicitChildren;
+  final List<CpkHasManyChildBidirectionalExplicit>?
+      _bidirectionalExplicitChildren;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -42,16 +43,36 @@ class HasManyParentBiDirectionalImplicit extends Model {
   @override
   String getId() => id;
 
-  HasManyParentBiDirectionalImplicitModelIdentifier get modelIdentifier {
-    return HasManyParentBiDirectionalImplicitModelIdentifier(id: id);
+  CpkHasManyParentBidirectionalExplicitModelIdentifier get modelIdentifier {
+    try {
+      return CpkHasManyParentBidirectionalExplicitModelIdentifier(
+          id: id, name: _name!);
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
-  String? get name {
-    return _name;
+  String get name {
+    try {
+      return _name!;
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
-  List<HasManyChildBiDirectionalImplicit>? get biDirectionalImplicitChildren {
-    return _biDirectionalImplicitChildren;
+  List<CpkHasManyChildBidirectionalExplicit>?
+      get bidirectionalExplicitChildren {
+    return _bidirectionalExplicitChildren;
   }
 
   TemporalDateTime? get createdAt {
@@ -62,28 +83,29 @@ class HasManyParentBiDirectionalImplicit extends Model {
     return _updatedAt;
   }
 
-  const HasManyParentBiDirectionalImplicit._internal(
+  const CpkHasManyParentBidirectionalExplicit._internal(
       {required this.id,
-      name,
-      biDirectionalImplicitChildren,
+      required name,
+      bidirectionalExplicitChildren,
       createdAt,
       updatedAt})
       : _name = name,
-        _biDirectionalImplicitChildren = biDirectionalImplicitChildren,
+        _bidirectionalExplicitChildren = bidirectionalExplicitChildren,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory HasManyParentBiDirectionalImplicit(
+  factory CpkHasManyParentBidirectionalExplicit(
       {String? id,
-      String? name,
-      List<HasManyChildBiDirectionalImplicit>? biDirectionalImplicitChildren}) {
-    return HasManyParentBiDirectionalImplicit._internal(
+      required String name,
+      List<CpkHasManyChildBidirectionalExplicit>?
+          bidirectionalExplicitChildren}) {
+    return CpkHasManyParentBidirectionalExplicit._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
-        biDirectionalImplicitChildren: biDirectionalImplicitChildren != null
-            ? List<HasManyChildBiDirectionalImplicit>.unmodifiable(
-                biDirectionalImplicitChildren)
-            : biDirectionalImplicitChildren);
+        bidirectionalExplicitChildren: bidirectionalExplicitChildren != null
+            ? List<CpkHasManyChildBidirectionalExplicit>.unmodifiable(
+                bidirectionalExplicitChildren)
+            : bidirectionalExplicitChildren);
   }
 
   bool equals(Object other) {
@@ -93,11 +115,11 @@ class HasManyParentBiDirectionalImplicit extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is HasManyParentBiDirectionalImplicit &&
+    return other is CpkHasManyParentBidirectionalExplicit &&
         id == other.id &&
         _name == other._name &&
-        DeepCollectionEquality().equals(_biDirectionalImplicitChildren,
-            other._biDirectionalImplicitChildren);
+        DeepCollectionEquality().equals(_bidirectionalExplicitChildren,
+            other._bidirectionalExplicitChildren);
   }
 
   @override
@@ -107,7 +129,7 @@ class HasManyParentBiDirectionalImplicit extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("HasManyParentBiDirectionalImplicit {");
+    buffer.write("CpkHasManyParentBidirectionalExplicit {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" +
@@ -120,24 +142,24 @@ class HasManyParentBiDirectionalImplicit extends Model {
     return buffer.toString();
   }
 
-  HasManyParentBiDirectionalImplicit copyWith(
-      {String? name,
-      List<HasManyChildBiDirectionalImplicit>? biDirectionalImplicitChildren}) {
-    return HasManyParentBiDirectionalImplicit._internal(
+  CpkHasManyParentBidirectionalExplicit copyWith(
+      {List<CpkHasManyChildBidirectionalExplicit>?
+          bidirectionalExplicitChildren}) {
+    return CpkHasManyParentBidirectionalExplicit._internal(
         id: id,
-        name: name ?? this.name,
-        biDirectionalImplicitChildren: biDirectionalImplicitChildren ??
-            this.biDirectionalImplicitChildren);
+        name: name,
+        bidirectionalExplicitChildren: bidirectionalExplicitChildren ??
+            this.bidirectionalExplicitChildren);
   }
 
-  HasManyParentBiDirectionalImplicit.fromJson(Map<String, dynamic> json)
+  CpkHasManyParentBidirectionalExplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _biDirectionalImplicitChildren =
-            json['biDirectionalImplicitChildren'] is List
-                ? (json['biDirectionalImplicitChildren'] as List)
+        _bidirectionalExplicitChildren =
+            json['bidirectionalExplicitChildren'] is List
+                ? (json['bidirectionalExplicitChildren'] as List)
                     .where((e) => e?['serializedData'] != null)
-                    .map((e) => HasManyChildBiDirectionalImplicit.fromJson(
+                    .map((e) => CpkHasManyChildBidirectionalExplicit.fromJson(
                         Map<String, dynamic>.from(e['serializedData'])))
                     .toList()
                 : null,
@@ -151,39 +173,45 @@ class HasManyParentBiDirectionalImplicit extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
-        'biDirectionalImplicitChildren': _biDirectionalImplicitChildren
-            ?.map((HasManyChildBiDirectionalImplicit? e) => e?.toJson())
+        'bidirectionalExplicitChildren': _bidirectionalExplicitChildren
+            ?.map((CpkHasManyChildBidirectionalExplicit? e) => e?.toJson())
             .toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
   static final QueryModelIdentifier<
-          HasManyParentBiDirectionalImplicitModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<HasManyParentBiDirectionalImplicitModelIdentifier>();
+          CpkHasManyParentBidirectionalExplicitModelIdentifier>
+      MODEL_IDENTIFIER = QueryModelIdentifier<
+          CpkHasManyParentBidirectionalExplicitModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField BIDIRECTIONALIMPLICITCHILDREN = QueryField(
-      fieldName: "biDirectionalImplicitChildren",
+  static final QueryField BIDIRECTIONALEXPLICITCHILDREN = QueryField(
+      fieldName: "bidirectionalExplicitChildren",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (HasManyChildBiDirectionalImplicit).toString()));
+          ofModelName: (CpkHasManyChildBidirectionalExplicit).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "HasManyParentBiDirectionalImplicit";
-    modelSchemaDefinition.pluralName = "HasManyParentBiDirectionalImplicits";
+    modelSchemaDefinition.name = "CpkHasManyParentBidirectionalExplicit";
+    modelSchemaDefinition.pluralName = "CpkHasManyParentBidirectionalExplicits";
+
+    modelSchemaDefinition.indexes = [
+      ModelIndex(fields: const ["id", "name"], name: null)
+    ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: HasManyParentBiDirectionalImplicit.NAME,
-        isRequired: false,
+        key: CpkHasManyParentBidirectionalExplicit.NAME,
+        isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-        key: HasManyParentBiDirectionalImplicit.BIDIRECTIONALIMPLICITCHILDREN,
+        key:
+            CpkHasManyParentBidirectionalExplicit.BIDIRECTIONALEXPLICITCHILDREN,
         isRequired: false,
-        ofModelName: (HasManyChildBiDirectionalImplicit).toString(),
-        associatedKey: HasManyChildBiDirectionalImplicit.HASMANYPARENT));
+        ofModelName: (CpkHasManyChildBidirectionalExplicit).toString(),
+        associatedKey: CpkHasManyChildBidirectionalExplicit.HASMANYPARENT));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -199,28 +227,33 @@ class HasManyParentBiDirectionalImplicit extends Model {
   });
 }
 
-class _HasManyParentBiDirectionalImplicitModelType
-    extends ModelType<HasManyParentBiDirectionalImplicit> {
-  const _HasManyParentBiDirectionalImplicitModelType();
+class _CpkHasManyParentBidirectionalExplicitModelType
+    extends ModelType<CpkHasManyParentBidirectionalExplicit> {
+  const _CpkHasManyParentBidirectionalExplicitModelType();
 
   @override
-  HasManyParentBiDirectionalImplicit fromJson(Map<String, dynamic> jsonData) {
-    return HasManyParentBiDirectionalImplicit.fromJson(jsonData);
+  CpkHasManyParentBidirectionalExplicit fromJson(
+      Map<String, dynamic> jsonData) {
+    return CpkHasManyParentBidirectionalExplicit.fromJson(jsonData);
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [HasManyParentBiDirectionalImplicit] in your schema.
+/// of [CpkHasManyParentBidirectionalExplicit] in your schema.
 @immutable
-class HasManyParentBiDirectionalImplicitModelIdentifier
-    implements ModelIdentifier<HasManyParentBiDirectionalImplicit> {
+class CpkHasManyParentBidirectionalExplicitModelIdentifier
+    implements ModelIdentifier<CpkHasManyParentBidirectionalExplicit> {
   final String id;
+  final String name;
 
-  /// Create an instance of HasManyParentBiDirectionalImplicitModelIdentifier using [id] the primary key.
-  const HasManyParentBiDirectionalImplicitModelIdentifier({required this.id});
+  /// Create an instance of CpkHasManyParentBidirectionalExplicitModelIdentifier using [id] the primary key.
+  /// And [name] the sort key.
+  const CpkHasManyParentBidirectionalExplicitModelIdentifier(
+      {required this.id, required this.name});
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'id': id, 'name': name});
 
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
@@ -233,7 +266,7 @@ class HasManyParentBiDirectionalImplicitModelIdentifier
 
   @override
   String toString() =>
-      'HasManyParentBiDirectionalImplicitModelIdentifier(id: $id)';
+      'CpkHasManyParentBidirectionalExplicitModelIdentifier(id: $id, name: $name)';
 
   @override
   bool operator ==(Object other) {
@@ -241,10 +274,11 @@ class HasManyParentBiDirectionalImplicitModelIdentifier
       return true;
     }
 
-    return other is HasManyParentBiDirectionalImplicitModelIdentifier &&
-        id == other.id;
+    return other is CpkHasManyParentBidirectionalExplicitModelIdentifier &&
+        id == other.id &&
+        name == other.name;
   }
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode;
 }

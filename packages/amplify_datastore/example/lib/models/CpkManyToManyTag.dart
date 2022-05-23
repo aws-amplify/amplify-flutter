@@ -24,13 +24,13 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/// This is an auto generated class representing the Tag type in your schema.
+/// This is an auto generated class representing the CpkManyToManyTag type in your schema.
 @immutable
-class Tag extends Model {
-  static const classType = _TagModelType();
+class CpkManyToManyTag extends Model {
+  static const classType = _CpkManyToManyTagModelType();
   final String id;
   final String? _label;
-  final List<PostTags>? _posts;
+  final List<CpkPostTags>? _posts;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -42,8 +42,17 @@ class Tag extends Model {
   @override
   String getId() => id;
 
-  TagModelIdentifier get modelIdentifier {
-    return TagModelIdentifier(id: id);
+  CpkManyToManyTagModelIdentifier get modelIdentifier {
+    try {
+      return CpkManyToManyTagModelIdentifier(id: id, label: _label!);
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   String get label {
@@ -59,7 +68,7 @@ class Tag extends Model {
     }
   }
 
-  List<PostTags>? get posts {
+  List<CpkPostTags>? get posts {
     return _posts;
   }
 
@@ -71,18 +80,19 @@ class Tag extends Model {
     return _updatedAt;
   }
 
-  const Tag._internal(
+  const CpkManyToManyTag._internal(
       {required this.id, required label, posts, createdAt, updatedAt})
       : _label = label,
         _posts = posts,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Tag({String? id, required String label, List<PostTags>? posts}) {
-    return Tag._internal(
+  factory CpkManyToManyTag(
+      {String? id, required String label, List<CpkPostTags>? posts}) {
+    return CpkManyToManyTag._internal(
         id: id == null ? UUID.getUUID() : id,
         label: label,
-        posts: posts != null ? List<PostTags>.unmodifiable(posts) : posts);
+        posts: posts != null ? List<CpkPostTags>.unmodifiable(posts) : posts);
   }
 
   bool equals(Object other) {
@@ -92,7 +102,7 @@ class Tag extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Tag &&
+    return other is CpkManyToManyTag &&
         id == other.id &&
         _label == other._label &&
         DeepCollectionEquality().equals(_posts, other._posts);
@@ -105,7 +115,7 @@ class Tag extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Tag {");
+    buffer.write("CpkManyToManyTag {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("label=" + "$_label" + ", ");
     buffer.write("createdAt=" +
@@ -118,18 +128,18 @@ class Tag extends Model {
     return buffer.toString();
   }
 
-  Tag copyWith({String? label, List<PostTags>? posts}) {
-    return Tag._internal(
-        id: id, label: label ?? this.label, posts: posts ?? this.posts);
+  CpkManyToManyTag copyWith({List<CpkPostTags>? posts}) {
+    return CpkManyToManyTag._internal(
+        id: id, label: label, posts: posts ?? this.posts);
   }
 
-  Tag.fromJson(Map<String, dynamic> json)
+  CpkManyToManyTag.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _label = json['label'],
         _posts = json['posts'] is List
             ? (json['posts'] as List)
                 .where((e) => e?['serializedData'] != null)
-                .map((e) => PostTags.fromJson(
+                .map((e) => CpkPostTags.fromJson(
                     Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
@@ -143,36 +153,41 @@ class Tag extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'label': _label,
-        'posts': _posts?.map((PostTags? e) => e?.toJson()).toList(),
+        'posts': _posts?.map((CpkPostTags? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier<TagModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<TagModelIdentifier>();
+  static final QueryModelIdentifier<CpkManyToManyTagModelIdentifier>
+      MODEL_IDENTIFIER =
+      QueryModelIdentifier<CpkManyToManyTagModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField LABEL = QueryField(fieldName: "label");
   static final QueryField POSTS = QueryField(
       fieldName: "posts",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (PostTags).toString()));
+          ofModelName: (CpkPostTags).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Tag";
-    modelSchemaDefinition.pluralName = "Tags";
+    modelSchemaDefinition.name = "CpkManyToManyTag";
+    modelSchemaDefinition.pluralName = "CpkManyToManyTags";
+
+    modelSchemaDefinition.indexes = [
+      ModelIndex(fields: const ["id", "label"], name: null)
+    ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Tag.LABEL,
+        key: CpkManyToManyTag.LABEL,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-        key: Tag.POSTS,
+        key: CpkManyToManyTag.POSTS,
         isRequired: false,
-        ofModelName: (PostTags).toString(),
-        associatedKey: PostTags.TAG));
+        ofModelName: (CpkPostTags).toString(),
+        associatedKey: CpkPostTags.CPKMANYTOMANYTAG));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -188,26 +203,31 @@ class Tag extends Model {
   });
 }
 
-class _TagModelType extends ModelType<Tag> {
-  const _TagModelType();
+class _CpkManyToManyTagModelType extends ModelType<CpkManyToManyTag> {
+  const _CpkManyToManyTagModelType();
 
   @override
-  Tag fromJson(Map<String, dynamic> jsonData) {
-    return Tag.fromJson(jsonData);
+  CpkManyToManyTag fromJson(Map<String, dynamic> jsonData) {
+    return CpkManyToManyTag.fromJson(jsonData);
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [Tag] in your schema.
+/// of [CpkManyToManyTag] in your schema.
 @immutable
-class TagModelIdentifier implements ModelIdentifier<Tag> {
+class CpkManyToManyTagModelIdentifier
+    implements ModelIdentifier<CpkManyToManyTag> {
   final String id;
+  final String label;
 
-  /// Create an instance of TagModelIdentifier using [id] the primary key.
-  const TagModelIdentifier({required this.id});
+  /// Create an instance of CpkManyToManyTagModelIdentifier using [id] the primary key.
+  /// And [label] the sort key.
+  const CpkManyToManyTagModelIdentifier(
+      {required this.id, required this.label});
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'id': id, 'label': label});
 
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
@@ -219,7 +239,8 @@ class TagModelIdentifier implements ModelIdentifier<Tag> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'TagModelIdentifier(id: $id)';
+  String toString() =>
+      'CpkManyToManyTagModelIdentifier(id: $id, label: $label)';
 
   @override
   bool operator ==(Object other) {
@@ -227,9 +248,11 @@ class TagModelIdentifier implements ModelIdentifier<Tag> {
       return true;
     }
 
-    return other is TagModelIdentifier && id == other.id;
+    return other is CpkManyToManyTagModelIdentifier &&
+        id == other.id &&
+        label == other.label;
   }
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => id.hashCode ^ label.hashCode;
 }
