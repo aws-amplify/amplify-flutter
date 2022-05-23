@@ -38,8 +38,10 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  amplify_api: 0.5.0
-  amplify_lints: ^2.0.0
+  amplify_api:
+    path: ../../api/amplify_api
+  amplify_lints:
+    path: ../../amplify_lints
   amplify_test:
     path: ../../amplify_test
   flutter_driver:

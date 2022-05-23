@@ -16,10 +16,11 @@
 import 'package:amplify_core/amplify_core.dart';
 
 class SignInResult {
-  bool isSignedIn;
-  AuthNextSignInStep? nextStep;
-  SignInResult({
+  const SignInResult({
     required this.isSignedIn,
     this.nextStep,
   });
+
+  final bool isSignedIn;
+  final AuthNextSignInStep? nextStep;
 }

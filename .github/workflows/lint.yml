@@ -191,16 +191,16 @@ jobs:
         working-directory: packages/aws_signature_v4
         run: dart analyze --fatal-infos lib test
   job_006:
-    name: "analyze_and_format; Flutter stable; PKG: packages/amplify_core; `dart format --output=none --set-exit-if-changed .`, `flutter analyze --fatal-infos .`"
+    name: "analyze_and_format; Flutter stable; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito; `dart format --output=none --set-exit-if-changed .`, `flutter analyze --fatal-infos .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core;commands:format-analyze_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito;commands:format-analyze_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -221,6 +221,19 @@ jobs:
       - name: "packages/amplify_core; flutter analyze --fatal-infos ."
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
+        run: flutter analyze --fatal-infos .
+      - id: packages_auth_amplify_auth_cognito_pub_upgrade
+        name: packages/auth/amplify_auth_cognito; flutter pub pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito
+        run: flutter pub pub upgrade
+      - name: "packages/auth/amplify_auth_cognito; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_auth_amplify_auth_cognito_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/auth/amplify_auth_cognito; flutter analyze --fatal-infos ."
+        if: "always() && steps.packages_auth_amplify_auth_cognito_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito
         run: flutter analyze --fatal-infos .
   job_007:
     name: "analyze_and_format; Dart stable; PKGS: packages/aws_common, packages/aws_signature_v4/example; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"

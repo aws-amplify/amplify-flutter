@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   aws_common: ^0.1.0
+  aws_signature_v4: ^0.1.0
   collection: ^1.15.0
   flutter:
     sdk: flutter

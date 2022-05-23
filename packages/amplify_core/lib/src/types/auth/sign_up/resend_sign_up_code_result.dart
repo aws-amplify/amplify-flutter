@@ -16,6 +16,7 @@
 import 'package:amplify_core/amplify_core.dart';
 
 class ResendSignUpCodeResult {
-  AuthCodeDeliveryDetails codeDeliveryDetails;
-  ResendSignUpCodeResult(this.codeDeliveryDetails);
+  const ResendSignUpCodeResult(this.codeDeliveryDetails);
+
+  final AuthCodeDeliveryDetails codeDeliveryDetails;
 }

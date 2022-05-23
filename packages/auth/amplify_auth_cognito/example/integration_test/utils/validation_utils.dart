@@ -13,11 +13,12 @@
 // permissions and limitations under the License.
 //
 
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
-final _hex = '[0-9a-f]';
-final _uuidMatch = '$_hex{8}-$_hex{4}-$_hex{4}-$_hex{4}-$_hex{12}';
-final _regionMatch = '[a-z]{2}-[a-z]{4,9}-[0-9]{1}';
+const _hex = '[0-9a-f]';
+const _uuidMatch = '$_hex{8}-$_hex{4}-$_hex{4}-$_hex{4}-$_hex{12}';
+const _regionMatch = '[a-z]{2}-[a-z]{4,9}-[0-9]{1}';
 
 // validates that the user sub exists and is a valid uuid
 bool isValidUserSub(String? value) {
@@ -40,18 +41,16 @@ bool isValidIdentityId(String? value) {
 // validates that the keys/tokens exist and are non empty strings
 bool isValidAWSCredentials(AWSCredentials? credentials) {
   return credentials is AWSCredentials &&
-      credentials.awsAccessKey != null &&
-      credentials.awsSecretKey != null &&
+      credentials.accessKeyId.isNotEmpty &&
+      credentials.secretAccessKey.isNotEmpty &&
       credentials.sessionToken != null &&
-      credentials.awsAccessKey!.isNotEmpty &&
-      credentials.awsSecretKey!.isNotEmpty &&
       credentials.sessionToken!.isNotEmpty;
 }
 
 // validates that the tokens exist and are non empty strings
-bool isValidAWSCognitoUserPoolTokens(AWSCognitoUserPoolTokens? tokens) {
-  return tokens is AWSCognitoUserPoolTokens &&
-      tokens.accessToken.isNotEmpty &&
-      tokens.idToken.isNotEmpty &&
+bool isValidAWSCognitoUserPoolTokens(CognitoUserPoolTokens? tokens) {
+  return tokens is CognitoUserPoolTokens &&
+      tokens.accessToken.raw.isNotEmpty &&
+      tokens.idToken.raw.isNotEmpty &&
       tokens.refreshToken.isNotEmpty;
 }
