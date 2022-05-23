@@ -22,13 +22,14 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-/// This is an auto generated class representing the HasManyChildExplicit type in your schema.
+/// This is an auto generated class representing the CpkHasManyUnidirectionalChildExplicit type in your schema.
 @immutable
-class HasManyChildExplicit extends Model {
-  static const classType = _HasManyChildExplicitModelType();
+class CpkHasManyUnidirectionalChildExplicit extends Model {
+  static const classType = _CpkHasManyUnidirectionalChildExplicitModelType();
   final String id;
   final String? _name;
   final String? _hasManyParentID;
+  final String? _hasManyParentName;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -40,17 +41,49 @@ class HasManyChildExplicit extends Model {
   @override
   String getId() => id;
 
-  HasManyChildExplicitModelIdentifier get modelIdentifier {
-    return HasManyChildExplicitModelIdentifier(id: id);
+  CpkHasManyUnidirectionalChildExplicitModelIdentifier get modelIdentifier {
+    try {
+      return CpkHasManyUnidirectionalChildExplicitModelIdentifier(
+          id: id, name: _name!);
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
-  String? get name {
-    return _name;
+  String get name {
+    try {
+      return _name!;
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   String get hasManyParentID {
     try {
       return _hasManyParentID!;
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  String get hasManyParentName {
+    try {
+      return _hasManyParentName!;
     } catch (e) {
       throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
@@ -69,19 +102,29 @@ class HasManyChildExplicit extends Model {
     return _updatedAt;
   }
 
-  const HasManyChildExplicit._internal(
-      {required this.id, name, required hasManyParentID, createdAt, updatedAt})
+  const CpkHasManyUnidirectionalChildExplicit._internal(
+      {required this.id,
+      required name,
+      required hasManyParentID,
+      required hasManyParentName,
+      createdAt,
+      updatedAt})
       : _name = name,
         _hasManyParentID = hasManyParentID,
+        _hasManyParentName = hasManyParentName,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory HasManyChildExplicit(
-      {String? id, String? name, required String hasManyParentID}) {
-    return HasManyChildExplicit._internal(
+  factory CpkHasManyUnidirectionalChildExplicit(
+      {String? id,
+      required String name,
+      required String hasManyParentID,
+      required String hasManyParentName}) {
+    return CpkHasManyUnidirectionalChildExplicit._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
-        hasManyParentID: hasManyParentID);
+        hasManyParentID: hasManyParentID,
+        hasManyParentName: hasManyParentName);
   }
 
   bool equals(Object other) {
@@ -91,10 +134,11 @@ class HasManyChildExplicit extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is HasManyChildExplicit &&
+    return other is CpkHasManyUnidirectionalChildExplicit &&
         id == other.id &&
         _name == other._name &&
-        _hasManyParentID == other._hasManyParentID;
+        _hasManyParentID == other._hasManyParentID &&
+        _hasManyParentName == other._hasManyParentName;
   }
 
   @override
@@ -104,10 +148,11 @@ class HasManyChildExplicit extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("HasManyChildExplicit {");
+    buffer.write("CpkHasManyUnidirectionalChildExplicit {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("hasManyParentID=" + "$_hasManyParentID" + ", ");
+    buffer.write("hasManyParentName=" + "$_hasManyParentName" + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -118,17 +163,20 @@ class HasManyChildExplicit extends Model {
     return buffer.toString();
   }
 
-  HasManyChildExplicit copyWith({String? name, String? hasManyParentID}) {
-    return HasManyChildExplicit._internal(
+  CpkHasManyUnidirectionalChildExplicit copyWith(
+      {String? hasManyParentID, String? hasManyParentName}) {
+    return CpkHasManyUnidirectionalChildExplicit._internal(
         id: id,
-        name: name ?? this.name,
-        hasManyParentID: hasManyParentID ?? this.hasManyParentID);
+        name: name,
+        hasManyParentID: hasManyParentID ?? this.hasManyParentID,
+        hasManyParentName: hasManyParentName ?? this.hasManyParentName);
   }
 
-  HasManyChildExplicit.fromJson(Map<String, dynamic> json)
+  CpkHasManyUnidirectionalChildExplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
         _hasManyParentID = json['hasManyParentID'],
+        _hasManyParentName = json['hasManyParentName'],
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -140,36 +188,47 @@ class HasManyChildExplicit extends Model {
         'id': id,
         'name': _name,
         'hasManyParentID': _hasManyParentID,
+        'hasManyParentName': _hasManyParentName,
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier<HasManyChildExplicitModelIdentifier>
-      MODEL_IDENTIFIER =
-      QueryModelIdentifier<HasManyChildExplicitModelIdentifier>();
+  static final QueryModelIdentifier<
+          CpkHasManyUnidirectionalChildExplicitModelIdentifier>
+      MODEL_IDENTIFIER = QueryModelIdentifier<
+          CpkHasManyUnidirectionalChildExplicitModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField HASMANYPARENTID =
       QueryField(fieldName: "hasManyParentID");
+  static final QueryField HASMANYPARENTNAME =
+      QueryField(fieldName: "hasManyParentName");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "HasManyChildExplicit";
-    modelSchemaDefinition.pluralName = "HasManyChildExplicits";
+    modelSchemaDefinition.name = "CpkHasManyUnidirectionalChildExplicit";
+    modelSchemaDefinition.pluralName = "CpkHasManyUnidirectionalChildExplicits";
 
     modelSchemaDefinition.indexes = [
+      ModelIndex(fields: const ["id", "name"], name: null),
       ModelIndex(
-          fields: const ["hasManyParentID", "name"], name: "byHasManyParent")
+          fields: const ["hasManyParentID", "hasManyParentName"],
+          name: "byHasManyParentCpk")
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: HasManyChildExplicit.NAME,
-        isRequired: false,
+        key: CpkHasManyUnidirectionalChildExplicit.NAME,
+        isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: HasManyChildExplicit.HASMANYPARENTID,
+        key: CpkHasManyUnidirectionalChildExplicit.HASMANYPARENTID,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: CpkHasManyUnidirectionalChildExplicit.HASMANYPARENTNAME,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
@@ -187,27 +246,33 @@ class HasManyChildExplicit extends Model {
   });
 }
 
-class _HasManyChildExplicitModelType extends ModelType<HasManyChildExplicit> {
-  const _HasManyChildExplicitModelType();
+class _CpkHasManyUnidirectionalChildExplicitModelType
+    extends ModelType<CpkHasManyUnidirectionalChildExplicit> {
+  const _CpkHasManyUnidirectionalChildExplicitModelType();
 
   @override
-  HasManyChildExplicit fromJson(Map<String, dynamic> jsonData) {
-    return HasManyChildExplicit.fromJson(jsonData);
+  CpkHasManyUnidirectionalChildExplicit fromJson(
+      Map<String, dynamic> jsonData) {
+    return CpkHasManyUnidirectionalChildExplicit.fromJson(jsonData);
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [HasManyChildExplicit] in your schema.
+/// of [CpkHasManyUnidirectionalChildExplicit] in your schema.
 @immutable
-class HasManyChildExplicitModelIdentifier
-    implements ModelIdentifier<HasManyChildExplicit> {
+class CpkHasManyUnidirectionalChildExplicitModelIdentifier
+    implements ModelIdentifier<CpkHasManyUnidirectionalChildExplicit> {
   final String id;
+  final String name;
 
-  /// Create an instance of HasManyChildExplicitModelIdentifier using [id] the primary key.
-  const HasManyChildExplicitModelIdentifier({required this.id});
+  /// Create an instance of CpkHasManyUnidirectionalChildExplicitModelIdentifier using [id] the primary key.
+  /// And [name] the sort key.
+  const CpkHasManyUnidirectionalChildExplicitModelIdentifier(
+      {required this.id, required this.name});
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'id': id, 'name': name});
 
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
@@ -219,7 +284,8 @@ class HasManyChildExplicitModelIdentifier
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'HasManyChildExplicitModelIdentifier(id: $id)';
+  String toString() =>
+      'CpkHasManyUnidirectionalChildExplicitModelIdentifier(id: $id, name: $name)';
 
   @override
   bool operator ==(Object other) {
@@ -227,9 +293,11 @@ class HasManyChildExplicitModelIdentifier
       return true;
     }
 
-    return other is HasManyChildExplicitModelIdentifier && id == other.id;
+    return other is CpkHasManyUnidirectionalChildExplicitModelIdentifier &&
+        id == other.id &&
+        name == other.name;
   }
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode;
 }

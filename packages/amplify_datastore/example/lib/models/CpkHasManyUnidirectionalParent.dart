@@ -24,17 +24,14 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/// This is an auto generated class representing the Post type in your schema.
+/// This is an auto generated class representing the CpkHasManyUnidirectionalParent type in your schema.
 @immutable
-class Post extends Model {
-  static const classType = _PostModelType();
+class CpkHasManyUnidirectionalParent extends Model {
+  static const classType = _CpkHasManyUnidirectionalParentModelType();
   final String id;
-  final String? _title;
-  final int? _rating;
-  final TemporalDateTime? _created;
-  final Blog? _blog;
-  final List<Comment>? _comments;
-  final List<PostTags>? _tags;
+  final String? _name;
+  final List<CpkHasManyUnidirectionalChildImplicit>? _implicitChildren;
+  final List<CpkHasManyUnidirectionalChildExplicit>? _explicitChildren;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -46,13 +43,10 @@ class Post extends Model {
   @override
   String getId() => id;
 
-  PostModelIdentifier get modelIdentifier {
-    return PostModelIdentifier(id: id);
-  }
-
-  String get title {
+  CpkHasManyUnidirectionalParentModelIdentifier get modelIdentifier {
     try {
-      return _title!;
+      return CpkHasManyUnidirectionalParentModelIdentifier(
+          id: id, name: _name!);
     } catch (e) {
       throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
@@ -63,9 +57,9 @@ class Post extends Model {
     }
   }
 
-  int get rating {
+  String get name {
     try {
-      return _rating!;
+      return _name!;
     } catch (e) {
       throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
@@ -76,20 +70,12 @@ class Post extends Model {
     }
   }
 
-  TemporalDateTime? get created {
-    return _created;
+  List<CpkHasManyUnidirectionalChildImplicit>? get implicitChildren {
+    return _implicitChildren;
   }
 
-  Blog? get blog {
-    return _blog;
-  }
-
-  List<Comment>? get comments {
-    return _comments;
-  }
-
-  List<PostTags>? get tags {
-    return _tags;
+  List<CpkHasManyUnidirectionalChildExplicit>? get explicitChildren {
+    return _explicitChildren;
   }
 
   TemporalDateTime? get createdAt {
@@ -100,42 +86,35 @@ class Post extends Model {
     return _updatedAt;
   }
 
-  const Post._internal(
+  const CpkHasManyUnidirectionalParent._internal(
       {required this.id,
-      required title,
-      required rating,
-      created,
-      blog,
-      comments,
-      tags,
+      required name,
+      implicitChildren,
+      explicitChildren,
       createdAt,
       updatedAt})
-      : _title = title,
-        _rating = rating,
-        _created = created,
-        _blog = blog,
-        _comments = comments,
-        _tags = tags,
+      : _name = name,
+        _implicitChildren = implicitChildren,
+        _explicitChildren = explicitChildren,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Post(
+  factory CpkHasManyUnidirectionalParent(
       {String? id,
-      required String title,
-      required int rating,
-      TemporalDateTime? created,
-      Blog? blog,
-      List<Comment>? comments,
-      List<PostTags>? tags}) {
-    return Post._internal(
+      required String name,
+      List<CpkHasManyUnidirectionalChildImplicit>? implicitChildren,
+      List<CpkHasManyUnidirectionalChildExplicit>? explicitChildren}) {
+    return CpkHasManyUnidirectionalParent._internal(
         id: id == null ? UUID.getUUID() : id,
-        title: title,
-        rating: rating,
-        created: created,
-        blog: blog,
-        comments:
-            comments != null ? List<Comment>.unmodifiable(comments) : comments,
-        tags: tags != null ? List<PostTags>.unmodifiable(tags) : tags);
+        name: name,
+        implicitChildren: implicitChildren != null
+            ? List<CpkHasManyUnidirectionalChildImplicit>.unmodifiable(
+                implicitChildren)
+            : implicitChildren,
+        explicitChildren: explicitChildren != null
+            ? List<CpkHasManyUnidirectionalChildExplicit>.unmodifiable(
+                explicitChildren)
+            : explicitChildren);
   }
 
   bool equals(Object other) {
@@ -145,14 +124,13 @@ class Post extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Post &&
+    return other is CpkHasManyUnidirectionalParent &&
         id == other.id &&
-        _title == other._title &&
-        _rating == other._rating &&
-        _created == other._created &&
-        _blog == other._blog &&
-        DeepCollectionEquality().equals(_comments, other._comments) &&
-        DeepCollectionEquality().equals(_tags, other._tags);
+        _name == other._name &&
+        DeepCollectionEquality()
+            .equals(_implicitChildren, other._implicitChildren) &&
+        DeepCollectionEquality()
+            .equals(_explicitChildren, other._explicitChildren);
   }
 
   @override
@@ -162,14 +140,9 @@ class Post extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Post {");
+    buffer.write("CpkHasManyUnidirectionalParent {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$_title" + ", ");
-    buffer.write(
-        "rating=" + (_rating != null ? _rating!.toString() : "null") + ", ");
-    buffer.write(
-        "created=" + (_created != null ? _created!.format() : "null") + ", ");
-    buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null") + ", ");
+    buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -180,45 +153,30 @@ class Post extends Model {
     return buffer.toString();
   }
 
-  Post copyWith(
-      {String? title,
-      int? rating,
-      TemporalDateTime? created,
-      Blog? blog,
-      List<Comment>? comments,
-      List<PostTags>? tags}) {
-    return Post._internal(
+  CpkHasManyUnidirectionalParent copyWith(
+      {List<CpkHasManyUnidirectionalChildImplicit>? implicitChildren,
+      List<CpkHasManyUnidirectionalChildExplicit>? explicitChildren}) {
+    return CpkHasManyUnidirectionalParent._internal(
         id: id,
-        title: title ?? this.title,
-        rating: rating ?? this.rating,
-        created: created ?? this.created,
-        blog: blog ?? this.blog,
-        comments: comments ?? this.comments,
-        tags: tags ?? this.tags);
+        name: name,
+        implicitChildren: implicitChildren ?? this.implicitChildren,
+        explicitChildren: explicitChildren ?? this.explicitChildren);
   }
 
-  Post.fromJson(Map<String, dynamic> json)
+  CpkHasManyUnidirectionalParent.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _title = json['title'],
-        _rating = (json['rating'] as num?)?.toInt(),
-        _created = json['created'] != null
-            ? TemporalDateTime.fromString(json['created'])
-            : null,
-        _blog = json['blog']?['serializedData'] != null
-            ? Blog.fromJson(
-                Map<String, dynamic>.from(json['blog']['serializedData']))
-            : null,
-        _comments = json['comments'] is List
-            ? (json['comments'] as List)
+        _name = json['name'],
+        _implicitChildren = json['implicitChildren'] is List
+            ? (json['implicitChildren'] as List)
                 .where((e) => e?['serializedData'] != null)
-                .map((e) => Comment.fromJson(
+                .map((e) => CpkHasManyUnidirectionalChildImplicit.fromJson(
                     Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
-        _tags = json['tags'] is List
-            ? (json['tags'] as List)
+        _explicitChildren = json['explicitChildren'] is List
+            ? (json['explicitChildren'] as List)
                 .where((e) => e?['serializedData'] != null)
-                .map((e) => PostTags.fromJson(
+                .map((e) => CpkHasManyUnidirectionalChildExplicit.fromJson(
                     Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
@@ -231,77 +189,58 @@ class Post extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'title': _title,
-        'rating': _rating,
-        'created': _created?.format(),
-        'blog': _blog?.toJson(),
-        'comments': _comments?.map((Comment? e) => e?.toJson()).toList(),
-        'tags': _tags?.map((PostTags? e) => e?.toJson()).toList(),
+        'name': _name,
+        'implicitChildren': _implicitChildren
+            ?.map((CpkHasManyUnidirectionalChildImplicit? e) => e?.toJson())
+            .toList(),
+        'explicitChildren': _explicitChildren
+            ?.map((CpkHasManyUnidirectionalChildExplicit? e) => e?.toJson())
+            .toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier<PostModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<PostModelIdentifier>();
+  static final QueryModelIdentifier<
+          CpkHasManyUnidirectionalParentModelIdentifier> MODEL_IDENTIFIER =
+      QueryModelIdentifier<CpkHasManyUnidirectionalParentModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField TITLE = QueryField(fieldName: "title");
-  static final QueryField RATING = QueryField(fieldName: "rating");
-  static final QueryField CREATED = QueryField(fieldName: "created");
-  static final QueryField BLOG = QueryField(
-      fieldName: "blog",
+  static final QueryField NAME = QueryField(fieldName: "name");
+  static final QueryField IMPLICITCHILDREN = QueryField(
+      fieldName: "implicitChildren",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Blog).toString()));
-  static final QueryField COMMENTS = QueryField(
-      fieldName: "comments",
+          ofModelName: (CpkHasManyUnidirectionalChildImplicit).toString()));
+  static final QueryField EXPLICITCHILDREN = QueryField(
+      fieldName: "explicitChildren",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Comment).toString()));
-  static final QueryField TAGS = QueryField(
-      fieldName: "tags",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (PostTags).toString()));
+          ofModelName: (CpkHasManyUnidirectionalChildExplicit).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Post";
-    modelSchemaDefinition.pluralName = "Posts";
+    modelSchemaDefinition.name = "CpkHasManyUnidirectionalParent";
+    modelSchemaDefinition.pluralName = "CpkHasManyUnidirectionalParents";
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["blogID"], name: "byBlog")
+      ModelIndex(fields: const ["id", "name"], name: null)
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Post.TITLE,
+        key: CpkHasManyUnidirectionalParent.NAME,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Post.RATING,
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.int)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Post.CREATED,
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+        key: CpkHasManyUnidirectionalParent.IMPLICITCHILDREN,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: Post.BLOG,
-        isRequired: false,
-        targetNames: ["blogID"],
-        ofModelName: (Blog).toString()));
+        ofModelName: (CpkHasManyUnidirectionalChildImplicit).toString(),
+        associatedKey: CpkHasManyUnidirectionalChildImplicit
+            .CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENID));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-        key: Post.COMMENTS,
+        key: CpkHasManyUnidirectionalParent.EXPLICITCHILDREN,
         isRequired: false,
-        ofModelName: (Comment).toString(),
-        associatedKey: Comment.POST));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-        key: Post.TAGS,
-        isRequired: false,
-        ofModelName: (PostTags).toString(),
-        associatedKey: PostTags.POST));
+        ofModelName: (CpkHasManyUnidirectionalChildExplicit).toString(),
+        associatedKey: CpkHasManyUnidirectionalChildExplicit.HASMANYPARENTID));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -317,26 +256,32 @@ class Post extends Model {
   });
 }
 
-class _PostModelType extends ModelType<Post> {
-  const _PostModelType();
+class _CpkHasManyUnidirectionalParentModelType
+    extends ModelType<CpkHasManyUnidirectionalParent> {
+  const _CpkHasManyUnidirectionalParentModelType();
 
   @override
-  Post fromJson(Map<String, dynamic> jsonData) {
-    return Post.fromJson(jsonData);
+  CpkHasManyUnidirectionalParent fromJson(Map<String, dynamic> jsonData) {
+    return CpkHasManyUnidirectionalParent.fromJson(jsonData);
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [Post] in your schema.
+/// of [CpkHasManyUnidirectionalParent] in your schema.
 @immutable
-class PostModelIdentifier implements ModelIdentifier<Post> {
+class CpkHasManyUnidirectionalParentModelIdentifier
+    implements ModelIdentifier<CpkHasManyUnidirectionalParent> {
   final String id;
+  final String name;
 
-  /// Create an instance of PostModelIdentifier using [id] the primary key.
-  const PostModelIdentifier({required this.id});
+  /// Create an instance of CpkHasManyUnidirectionalParentModelIdentifier using [id] the primary key.
+  /// And [name] the sort key.
+  const CpkHasManyUnidirectionalParentModelIdentifier(
+      {required this.id, required this.name});
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'id': id, 'name': name});
 
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
@@ -348,7 +293,8 @@ class PostModelIdentifier implements ModelIdentifier<Post> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'PostModelIdentifier(id: $id)';
+  String toString() =>
+      'CpkHasManyUnidirectionalParentModelIdentifier(id: $id, name: $name)';
 
   @override
   bool operator ==(Object other) {
@@ -356,9 +302,11 @@ class PostModelIdentifier implements ModelIdentifier<Post> {
       return true;
     }
 
-    return other is PostModelIdentifier && id == other.id;
+    return other is CpkHasManyUnidirectionalParentModelIdentifier &&
+        id == other.id &&
+        name == other.name;
   }
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode;
 }
