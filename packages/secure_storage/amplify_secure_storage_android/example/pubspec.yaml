@@ -8,7 +8,8 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
-  amplify_secure_storage_android: 0.0.1
+  amplify_secure_storage_android:
+    path: ../
   flutter:
     sdk: flutter
 
