@@ -1,6 +1,6 @@
 name: amplify_secure_storage_android
 description: The Android implementation of amplify_secure_storage.
-version: 0.0.1
+version: 0.1.0
 publish_to: none
 
 environment:
