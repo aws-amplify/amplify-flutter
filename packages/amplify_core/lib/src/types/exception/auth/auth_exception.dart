@@ -50,4 +50,20 @@ class AuthException extends AmplifyException {
       AmplifyException.fromMap(serializedException),
     );
   }
+
+  /// Creates an [AuthException] from [e].
+  static AuthException fromException(Exception e) {
+    if (e is AuthException) {
+      return e;
+    }
+    if (e is AmplifyException) {
+      return AuthException(
+        e.message,
+        recoverySuggestion: e.recoverySuggestion,
+        underlyingException: e.underlyingException,
+      );
+    }
+    // TODO(dnys1): Unknown exception?
+    return AuthException(e.toString());
+  }
 }

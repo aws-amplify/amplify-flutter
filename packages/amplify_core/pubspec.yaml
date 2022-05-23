@@ -8,6 +8,7 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
+  async: ^2.8.2
   aws_common: ^0.1.0
   aws_signature_v4: ^0.1.0
   collection: ^1.15.0
