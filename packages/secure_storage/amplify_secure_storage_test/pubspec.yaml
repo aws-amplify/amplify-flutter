@@ -1,6 +1,6 @@
 name: amplify_secure_storage_test
 description: A common set of integration-style tests for amplify secure storage packages
-version: 0.0.1
+version: 0.1.0
 publish_to: none
 
 environment:
