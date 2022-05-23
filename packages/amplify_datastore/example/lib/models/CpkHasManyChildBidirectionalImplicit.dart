@@ -21,16 +21,15 @@
 
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/// This is an auto generated class representing the Tag type in your schema.
+/// This is an auto generated class representing the CpkHasManyChildBidirectionalImplicit type in your schema.
 @immutable
-class Tag extends Model {
-  static const classType = _TagModelType();
+class CpkHasManyChildBidirectionalImplicit extends Model {
+  static const classType = _CpkHasManyChildBidirectionalImplicitModelType();
   final String id;
-  final String? _label;
-  final List<PostTags>? _posts;
+  final String? _name;
+  final CpkHasManyParentBidirectionalImplicit? _hasManyParent;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -42,13 +41,10 @@ class Tag extends Model {
   @override
   String getId() => id;
 
-  TagModelIdentifier get modelIdentifier {
-    return TagModelIdentifier(id: id);
-  }
-
-  String get label {
+  CpkHasManyChildBidirectionalImplicitModelIdentifier get modelIdentifier {
     try {
-      return _label!;
+      return CpkHasManyChildBidirectionalImplicitModelIdentifier(
+          id: id, name: _name!);
     } catch (e) {
       throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
@@ -59,8 +55,21 @@ class Tag extends Model {
     }
   }
 
-  List<PostTags>? get posts {
-    return _posts;
+  String get name {
+    try {
+      return _name!;
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  CpkHasManyParentBidirectionalImplicit? get hasManyParent {
+    return _hasManyParent;
   }
 
   TemporalDateTime? get createdAt {
@@ -71,18 +80,21 @@ class Tag extends Model {
     return _updatedAt;
   }
 
-  const Tag._internal(
-      {required this.id, required label, posts, createdAt, updatedAt})
-      : _label = label,
-        _posts = posts,
+  const CpkHasManyChildBidirectionalImplicit._internal(
+      {required this.id, required name, hasManyParent, createdAt, updatedAt})
+      : _name = name,
+        _hasManyParent = hasManyParent,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Tag({String? id, required String label, List<PostTags>? posts}) {
-    return Tag._internal(
+  factory CpkHasManyChildBidirectionalImplicit(
+      {String? id,
+      required String name,
+      CpkHasManyParentBidirectionalImplicit? hasManyParent}) {
+    return CpkHasManyChildBidirectionalImplicit._internal(
         id: id == null ? UUID.getUUID() : id,
-        label: label,
-        posts: posts != null ? List<PostTags>.unmodifiable(posts) : posts);
+        name: name,
+        hasManyParent: hasManyParent);
   }
 
   bool equals(Object other) {
@@ -92,10 +104,10 @@ class Tag extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Tag &&
+    return other is CpkHasManyChildBidirectionalImplicit &&
         id == other.id &&
-        _label == other._label &&
-        DeepCollectionEquality().equals(_posts, other._posts);
+        _name == other._name &&
+        _hasManyParent == other._hasManyParent;
   }
 
   @override
@@ -105,9 +117,12 @@ class Tag extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Tag {");
+    buffer.write("CpkHasManyChildBidirectionalImplicit {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("label=" + "$_label" + ", ");
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("hasManyParent=" +
+        (_hasManyParent != null ? _hasManyParent!.toString() : "null") +
+        ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -118,20 +133,19 @@ class Tag extends Model {
     return buffer.toString();
   }
 
-  Tag copyWith({String? label, List<PostTags>? posts}) {
-    return Tag._internal(
-        id: id, label: label ?? this.label, posts: posts ?? this.posts);
+  CpkHasManyChildBidirectionalImplicit copyWith(
+      {CpkHasManyParentBidirectionalImplicit? hasManyParent}) {
+    return CpkHasManyChildBidirectionalImplicit._internal(
+        id: id, name: name, hasManyParent: hasManyParent ?? this.hasManyParent);
   }
 
-  Tag.fromJson(Map<String, dynamic> json)
+  CpkHasManyChildBidirectionalImplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _label = json['label'],
-        _posts = json['posts'] is List
-            ? (json['posts'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => PostTags.fromJson(
-                    Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
+        _name = json['name'],
+        _hasManyParent = json['hasManyParent']?['serializedData'] != null
+            ? CpkHasManyParentBidirectionalImplicit.fromJson(
+                Map<String, dynamic>.from(
+                    json['hasManyParent']['serializedData']))
             : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
@@ -142,37 +156,46 @@ class Tag extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'label': _label,
-        'posts': _posts?.map((PostTags? e) => e?.toJson()).toList(),
+        'name': _name,
+        'hasManyParent': _hasManyParent?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier<TagModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<TagModelIdentifier>();
+  static final QueryModelIdentifier<
+          CpkHasManyChildBidirectionalImplicitModelIdentifier>
+      MODEL_IDENTIFIER = QueryModelIdentifier<
+          CpkHasManyChildBidirectionalImplicitModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField LABEL = QueryField(fieldName: "label");
-  static final QueryField POSTS = QueryField(
-      fieldName: "posts",
+  static final QueryField NAME = QueryField(fieldName: "name");
+  static final QueryField HASMANYPARENT = QueryField(
+      fieldName: "hasManyParent",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (PostTags).toString()));
+          ofModelName: (CpkHasManyParentBidirectionalImplicit).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Tag";
-    modelSchemaDefinition.pluralName = "Tags";
+    modelSchemaDefinition.name = "CpkHasManyChildBidirectionalImplicit";
+    modelSchemaDefinition.pluralName = "CpkHasManyChildBidirectionalImplicits";
+
+    modelSchemaDefinition.indexes = [
+      ModelIndex(fields: const ["id", "name"], name: null)
+    ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Tag.LABEL,
+        key: CpkHasManyChildBidirectionalImplicit.NAME,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-        key: Tag.POSTS,
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: CpkHasManyChildBidirectionalImplicit.HASMANYPARENT,
         isRequired: false,
-        ofModelName: (PostTags).toString(),
-        associatedKey: PostTags.TAG));
+        targetNames: [
+          "cpkHasManyParentBidirectionalImplicitBidirectionalImplicitChildrenId",
+          "cpkHasManyParentBidirectionalImplicitBidirectionalImplicitChildrenName"
+        ],
+        ofModelName: (CpkHasManyParentBidirectionalImplicit).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -188,26 +211,32 @@ class Tag extends Model {
   });
 }
 
-class _TagModelType extends ModelType<Tag> {
-  const _TagModelType();
+class _CpkHasManyChildBidirectionalImplicitModelType
+    extends ModelType<CpkHasManyChildBidirectionalImplicit> {
+  const _CpkHasManyChildBidirectionalImplicitModelType();
 
   @override
-  Tag fromJson(Map<String, dynamic> jsonData) {
-    return Tag.fromJson(jsonData);
+  CpkHasManyChildBidirectionalImplicit fromJson(Map<String, dynamic> jsonData) {
+    return CpkHasManyChildBidirectionalImplicit.fromJson(jsonData);
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [Tag] in your schema.
+/// of [CpkHasManyChildBidirectionalImplicit] in your schema.
 @immutable
-class TagModelIdentifier implements ModelIdentifier<Tag> {
+class CpkHasManyChildBidirectionalImplicitModelIdentifier
+    implements ModelIdentifier<CpkHasManyChildBidirectionalImplicit> {
   final String id;
+  final String name;
 
-  /// Create an instance of TagModelIdentifier using [id] the primary key.
-  const TagModelIdentifier({required this.id});
+  /// Create an instance of CpkHasManyChildBidirectionalImplicitModelIdentifier using [id] the primary key.
+  /// And [name] the sort key.
+  const CpkHasManyChildBidirectionalImplicitModelIdentifier(
+      {required this.id, required this.name});
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'id': id, 'name': name});
 
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
@@ -219,7 +248,8 @@ class TagModelIdentifier implements ModelIdentifier<Tag> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'TagModelIdentifier(id: $id)';
+  String toString() =>
+      'CpkHasManyChildBidirectionalImplicitModelIdentifier(id: $id, name: $name)';
 
   @override
   bool operator ==(Object other) {
@@ -227,9 +257,11 @@ class TagModelIdentifier implements ModelIdentifier<Tag> {
       return true;
     }
 
-    return other is TagModelIdentifier && id == other.id;
+    return other is CpkHasManyChildBidirectionalImplicitModelIdentifier &&
+        id == other.id &&
+        name == other.name;
   }
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode;
 }
