@@ -15,6 +15,7 @@ Podfile.lock
 .test_coverage.dart
 .last_build_id
 .fvm/
+.packages
 
 # IDEs
 .idea/

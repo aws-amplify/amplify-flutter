@@ -1,0 +1,28 @@
+apis:
+  cognito-identity-provider:
+  - com.amazonaws.cognitoidentityprovider#AssociateSoftwareToken
+  - com.amazonaws.cognitoidentityprovider#ChangePassword
+  - com.amazonaws.cognitoidentityprovider#ConfirmDevice
+  - com.amazonaws.cognitoidentityprovider#ConfirmForgotPassword
+  - com.amazonaws.cognitoidentityprovider#ConfirmSignUp
+  - com.amazonaws.cognitoidentityprovider#DeleteUser
+  - com.amazonaws.cognitoidentityprovider#ForgetDevice
+  - com.amazonaws.cognitoidentityprovider#ForgotPassword
+  - com.amazonaws.cognitoidentityprovider#GetDevice
+  - com.amazonaws.cognitoidentityprovider#GetUser
+  - com.amazonaws.cognitoidentityprovider#GetUserAttributeVerificationCode
+  - com.amazonaws.cognitoidentityprovider#GlobalSignOut
+  - com.amazonaws.cognitoidentityprovider#InitiateAuth
+  - com.amazonaws.cognitoidentityprovider#ListDevices
+  - com.amazonaws.cognitoidentityprovider#ResendConfirmationCode
+  - com.amazonaws.cognitoidentityprovider#RespondToAuthChallenge
+  - com.amazonaws.cognitoidentityprovider#RevokeToken
+  - com.amazonaws.cognitoidentityprovider#SignUp
+  - com.amazonaws.cognitoidentityprovider#UpdateDeviceStatus
+  - com.amazonaws.cognitoidentityprovider#UpdateUserAttributes
+  - com.amazonaws.cognitoidentityprovider#VerifySoftwareToken
+  - com.amazonaws.cognitoidentityprovider#VerifyUserAttribute
+  cognito-identity:
+  - com.amazonaws.cognitoidentity#GetCredentialsForIdentity
+  - com.amazonaws.cognitoidentity#GetId
+  

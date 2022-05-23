@@ -4,3 +4,4 @@ analyzer:
   exclude:
     - example
     - lib/**/*.g.dart
+    - lib/src/sdk/src/**
