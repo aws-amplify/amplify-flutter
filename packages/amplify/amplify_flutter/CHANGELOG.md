@@ -1,3 +1,11 @@
+## 0.5.1 (2022-05-24)
+
+- fix(api): OperationsManager crash (#1598)
+- fix(api): support enums in query predicates for model helpers (#1595)
+- fix(datastore): invalid model id field name implication (#1600)
+- fix(datastore): update in memory sorts and filters for IDs (#1597) 
+- Update pub.dev links
+
 ## 0.5.0 (2022-05-17)
 
 ### Breaking Changes

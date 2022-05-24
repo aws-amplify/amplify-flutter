@@ -1,3 +1,9 @@
+## 0.5.1 (2022-05-24)
+
+- fix: OperationsManager crash (#1598)
+- fix: support enums in query predicates for model helpers (#1595)
+- Update pub.dev links
+
 ## 0.5.0 (2022-05-17)
 
 ### Fixes

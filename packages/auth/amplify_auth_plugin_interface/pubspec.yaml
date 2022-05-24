@@ -1,13 +1,13 @@
 name: amplify_auth_plugin_interface
 description: The platform interface for the auth module of Amplify Flutter.
-version: 0.5.0
+version: 0.5.1
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/auth/amplify_auth_plugin_interface
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  amplify_core: 0.5.0
+  amplify_core: 0.5.1
   flutter:
     sdk: flutter
   meta: ^1.1.8

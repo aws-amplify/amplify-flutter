@@ -1,3 +1,9 @@
+## 0.5.1 (2022-05-24)
+
+- fix: invalid model id field name implication (#1600)
+- fix: update in memory sorts and filters for IDs (#1597) 
+- Update pub.dev links
+
 ## 0.5.0 (2022-05-17)
 
 ### Features
