@@ -1,0 +1,70 @@
+# ffigen config for MacOS/iOS keychain
+# to regenerate, run: dart run ffigen --config ffigen.keychain.config.yaml
+# 
+# This should be run on a Mac with Command Line Tools installed. Alternatively,
+# the headers can be pulled from https://opensource.apple.com/ and the 
+# entry-points & compiler-opts can be updated as needed.
+
+output: 'lib/src/ffi/keychain/keychain.bindings.g.dart'
+name: 'Keychain'
+description: 'Bindings to macOS & iOS Keychain APIs'
+headers:
+  entry-points:
+    - '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Security.framework/Headers/SecItem.h'
+    - '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFDictionary.h'
+    - '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFString.h'
+    - '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFData.h'
+compiler-opts:
+  - '-F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks'
+functions:
+  include:
+    - SecItemAdd
+    - SecItemUpdate
+    - SecItemCopyMatching
+    - SecItemDelete
+    - CFDictionaryCreate
+    - CFDataCreate
+    - SecCopyErrorMessageString
+    - CFStringGetCStringPtr
+    - CFStringCreateWithCString
+    - CFDataGetBytePtr
+    - CFRelease
+structs:
+  include:
+    - NONE
+  rename:
+    '__CFString': 'CFString'
+    '__CFType': 'CFType'
+    '__CFData': 'CFData'
+    '__CFDictionary': 'CFDictionary'
+enums:
+  include:
+    - NONE
+globals:
+  include:
+    - NONE
+    - kSecAttrAccount
+    - kSecReturnData
+    - kCFBooleanTrue
+    - kSecMatchLimit
+    - kSecMatchLimitOne
+    - kSecClass
+    - kSecClassGenericPassword
+    - kSecAttrService
+    - kSecValueData
+macros:
+  include:
+    - NONE
+unions:
+  include:
+    - NONE
+unnamed-enums:
+  include:
+    - errSecSuccess
+    - errSecItemNotFound
+    - errSecDuplicateItem
+    - errSecUserCanceled
+    - errSecAuthFailed
+    - errSecInteractionRequired
+    - kCFStringEncodingUTF8
+comments: false
