@@ -1,7 +1,9 @@
 name: amplify_storage_s3_android
 description: The method channel implementation for amplify_storage_s3 on Android
 version: 0.5.0
-homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/storage/amplify_storage_s3_android
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+repository: https://github.com/aws-amplify/amplify-flutter
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
   sdk: ">=2.15.0 <3.0.0"

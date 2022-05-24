@@ -285,9 +285,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   }
 
   /// Deletes the authenticated [AuthUser].
-  ///
-  /// This API is currently only available on the iOS platform.
-  /// Do not attempt to call this API from Android.
   Future<void> deleteUser() {
     return plugins.length == 1
         ? plugins[0].deleteUser()
