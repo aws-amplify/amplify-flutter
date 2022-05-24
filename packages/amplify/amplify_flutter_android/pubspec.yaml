@@ -1,7 +1,9 @@
 name: amplify_flutter_android
 description: The method channel implementation for amplify_flutter on Android
 version: 0.5.0
-homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify/amplify_flutter_android
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+repository: https://github.com/aws-amplify/amplify-flutter
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
   sdk: ">=2.15.0 <3.0.0"
