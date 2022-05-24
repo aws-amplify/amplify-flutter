@@ -8,7 +8,7 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
-  amplify_secure_storage_dart: 0.0.1
+  amplify_secure_storage_dart: 0.1.0
   flutter:
     sdk: flutter
 
