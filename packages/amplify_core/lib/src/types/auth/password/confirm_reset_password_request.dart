@@ -15,7 +15,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.confirm_reset_password_request}
+/// {@template amplify_core.confirm_reset_password_request}
 /// Encapsulates parameters for a confirm reset password request.
 /// {@endtemplate}
 class ConfirmResetPasswordRequest {
@@ -31,7 +31,7 @@ class ConfirmResetPasswordRequest {
   /// Plugin-specific, advanced options such as information about the client
   ConfirmResetPasswordOptions? options;
 
-  /// {@macro amplify_common.confirm_reset_password_request}
+  /// {@macro amplify_core.confirm_reset_password_request}
   ConfirmResetPasswordRequest({
     required this.username,
     required this.newPassword,

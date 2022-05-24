@@ -13,10 +13,10 @@
  * permissions and limitations under the License.
  */
 
-/// {@template amplify_common.confirm_user_attribute_result}
+/// {@template amplify_core.confirm_user_attribute_result}
 /// Wraps the result of a confirm user attribute operation.
 /// {@endtemplate}
 class ConfirmUserAttributeResult {
-  // {@macro amplify_common.confirm_user_attribute_result}
+  // {@macro amplify_core.confirm_user_attribute_result}
   const ConfirmUserAttributeResult();
 }

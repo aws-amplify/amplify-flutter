@@ -15,14 +15,14 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.fetch_user_attribute_request}
+/// {@template amplify_core.fetch_user_attribute_request}
 /// Encapsulates parameters for a fetch user attributes operation
 /// {@endtemplate}
 class FetchUserAttributesRequest {
   /// Plugin-specific, advanced options such as information about the client
   FetchUserAttributesOptions? options;
 
-  /// {@macro amplify_common.fetch_user_attribute_request}
+  /// {@macro amplify_core.fetch_user_attribute_request}
   FetchUserAttributesRequest({this.options});
 
   /// Serialize the object to a map for use over the method channel

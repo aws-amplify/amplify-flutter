@@ -17,7 +17,6 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3/method_channel_storage_s3.dart';
-import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
@@ -55,13 +54,12 @@ void main() {
           buildProgressionEventMap(uuid, currentBytes, totalBytes));
 
   Future<void> emitMockNativeValues(ByteData? event) {
-    return ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
+    return ServicesBinding.instance.defaultBinaryMessenger
         .handlePlatformMessage(
-          transferEventChannel,
-          event,
-          (ByteData? reply) {},
-        );
+      transferEventChannel,
+      event,
+      (ByteData? reply) {},
+    );
   }
 
   void setupTransferEventChannel() {
@@ -74,9 +72,7 @@ void main() {
       return Future.wait(futures);
     }
 
-    ambiguate(ServicesBinding.instance)!
-        .defaultBinaryMessenger
-        .setMockMessageHandler(
+    ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
       transferEventChannel,
       (ByteData? message) async {
         final methodCall = standardCodec.decodeMethodCall(message);

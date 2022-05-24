@@ -15,7 +15,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.reset_password_request}
+/// {@template amplify_core.reset_password_request}
 /// Encapsulates parameters for a reset password request.
 /// {@endtemplate}
 class ResetPasswordRequest {
@@ -25,7 +25,7 @@ class ResetPasswordRequest {
   /// Plugin-specific, advanced options such as information about the client.
   ResetPasswordOptions? options;
 
-  /// {@macro amplify_common.reset_password_request}
+  /// {@macro amplify_core.reset_password_request}
   ResetPasswordRequest({required this.username, this.options});
 
   /// Serialize the object to a map.

@@ -4,8 +4,8 @@ version: 0.5.0
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_core
 
 environment:
-  sdk: ">=2.15.0 <3.0.0"
-  flutter: ">=2.10.0"
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"
 
 dependencies:
   async: ^2.9.0
@@ -14,17 +14,17 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.17.0
-  json_annotation: ^4.3.0
+  json_annotation: ^4.4.0
   meta: ^1.7.0
   plugin_platform_interface: ^2.0.0
   uuid: ^3.0.1
 
 dev_dependencies:
   amplify_lints: ^1.0.0
-  amplify_test:
-    path: ../amplify_test
+  build_runner: ^2.0.0
   flutter_test:
     sdk: flutter
+  json_serializable: ^6.1.0
   path: any
   test: ^1.17.0
 

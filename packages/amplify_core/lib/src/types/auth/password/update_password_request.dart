@@ -15,7 +15,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_common.update_password_request}
+/// {@template amplify_core.update_password_request}
 /// Encapsulates parameters for an update password request
 /// {@endtemplate}
 class UpdatePasswordRequest {
@@ -28,7 +28,7 @@ class UpdatePasswordRequest {
   /// Plugin-specific, advanced options such as information about the client
   UpdatePasswordOptions? options;
 
-  /// {@macro amplify_common.update_password_request}
+  /// {@macro amplify_core.update_password_request}
   UpdatePasswordRequest({
     required this.newPassword,
     required this.oldPassword,

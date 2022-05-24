@@ -14,7 +14,6 @@
 //
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/types/config/amplify_plugin_config.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -5,7 +5,7 @@ homepage: https://github.com/aws-amplify/amplify-flutter/packages/aws_signature_
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ">=2.15.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   async: ^2.6.0
@@ -14,13 +14,9 @@ dependencies:
   convert: ^3.0.0
   crypto: ^3.0.0
   http: ^0.13.0
-  json_annotation: ">=4.4.0 <4.5.0"
+  json_annotation: ^4.4.0
   meta: ^1.7.0
   path: ^1.8.0
-
-dependency_overrides:
-  aws_common:
-    path: ../aws_common
 
 dev_dependencies:
   amplify_lints: ^1.0.0

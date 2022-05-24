@@ -13,11 +13,11 @@
  * permissions and limitations under the License.
  */
 
-/// {@template amplify_common.confirm_reset_password_options}
+/// {@template amplify_core.confirm_reset_password_options}
 /// The shared confirm reset password options among all Auth plugins.
 /// {@endtemplate}
 abstract class ConfirmResetPasswordOptions {
-  /// {@macro amplify_common.confirm_reset_password_options}
+  /// {@macro amplify_core.confirm_reset_password_options}
   const ConfirmResetPasswordOptions();
 
   /// Serialize the object to a map.

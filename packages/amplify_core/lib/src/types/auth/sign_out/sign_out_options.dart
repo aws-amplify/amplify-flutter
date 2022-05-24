@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-/// {@template amplify_common.sign_out_options}
+/// {@template amplify_core.sign_out_options}
 /// The shared sign out options among all Auth plugins.
 /// {@endtemplate}
 class SignOutOptions {
@@ -23,7 +23,7 @@ class SignOutOptions {
   /// tasks that requires a valid token after a global signout is called.
   final bool globalSignOut;
 
-  /// {@macro amplify_common.sign_out_options}
+  /// {@macro amplify_core.sign_out_options}
   const SignOutOptions({this.globalSignOut = false});
 
   /// Serialize the object to a map

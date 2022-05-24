@@ -15,12 +15,12 @@
 
 import 'package:meta/meta.dart';
 
-/// {@template amplify_common.user_attribute_key}
+/// {@template amplify_core.user_attribute_key}
 /// A user attribute identifier.
 /// {@endtemplate}
 @immutable
 abstract class UserAttributeKey implements Comparable<UserAttributeKey> {
-  /// {@macro amplify_common.user_attribute_key}
+  /// {@macro amplify_core.user_attribute_key}
   const UserAttributeKey();
 
   /// The JSON key for this attribute.
