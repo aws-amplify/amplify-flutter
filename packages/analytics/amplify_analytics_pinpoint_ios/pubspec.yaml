@@ -1,7 +1,9 @@
 name: amplify_analytics_pinpoint_ios
 description: The method channel implementation for amplify_analytics_pinpoint on iOS
 version: 0.5.0
-homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/analytics/amplify_analytics_pinpoint_ios
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+repository: https://github.com/aws-amplify/amplify-flutter
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
