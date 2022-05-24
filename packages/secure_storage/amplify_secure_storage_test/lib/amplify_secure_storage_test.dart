@@ -48,6 +48,12 @@ void runTests(SecureStorageFactory storageFactory) {
     await storageScope.delete(key: key1);
   });
 
+  tearDownAll(() async {
+    await storage.delete(key: key1);
+    await storagePackageID.delete(key: key1);
+    await storageScope.delete(key: key1);
+  });
+
   group('write', () {
     test('writes a new key-value pair to storage', () async {
       // write value

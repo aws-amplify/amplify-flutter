@@ -17,7 +17,10 @@
 /// {@endtemplate}
 class AmplifySecureStorageConfig {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_config}
-  AmplifySecureStorageConfig({required this.packageId, required this.scope});
+  const AmplifySecureStorageConfig({
+    required this.packageId,
+    required this.scope,
+  });
 
   /// A unique package identifier such as a bundle ID.
   ///
