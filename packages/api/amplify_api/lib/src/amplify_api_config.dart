@@ -18,6 +18,8 @@ import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
+const _slash = '/';
+
 @internal
 class EndpointConfig with AWSEquatable<EndpointConfig> {
   const EndpointConfig(this.name, this.config);
@@ -32,9 +34,15 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
   /// with [path] and [queryParameters] to return a full [Uri].
   Uri getUri(String path, Map<String, dynamic>? queryParameters) {
     final parsed = Uri.parse(config.endpoint);
+    // Remove leading slashes which are suggested in public documentation.
+    if (path.startsWith(_slash)) {
+      path = path.substring(1);
+    }
+    // Avoid URI-encoding slashes in path from caller.
+    final pathSegmentsFromPath = path.split(_slash);
     return parsed.replace(pathSegments: [
       ...parsed.pathSegments,
-      path,
+      ...pathSegmentsFromPath,
     ], queryParameters: queryParameters);
   }
 }

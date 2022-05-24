@@ -44,14 +44,15 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _configureAmplify() async {
-    Amplify.addPlugins([AmplifyAuthCognito(), AmplifyAPI()]);
+    // TEMP until Amplify methods implemented in dart.
+    // Amplify.addPlugins([AmplifyAuthCognito(), AmplifyAPI()]);
 
-    try {
-      await Amplify.configure(amplifyconfig);
-    } on AmplifyAlreadyConfiguredException {
-      print(
-          'Amplify was already configured. Looks like app restarted on android.');
-    }
+    // try {
+    //   await Amplify.configure(amplifyconfig);
+    // } on AmplifyAlreadyConfiguredException {
+    //   print(
+    //       'Amplify was already configured. Looks like app restarted on android.');
+    // }
     setState(() {
       _isAmplifyConfigured = true;
     });
