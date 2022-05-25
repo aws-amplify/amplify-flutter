@@ -15,7 +15,6 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
-import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
 abstract class APIPluginInterface extends AmplifyPluginInterface {
