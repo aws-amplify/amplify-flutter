@@ -22,6 +22,11 @@ class QueryPredicateBuilderUnitTests: XCTestCase {
     private let title: QueryField = field("title")
     private let rating: QueryField = field("rating")
     private let created: QueryField = field("created")
+    private let inventoryProductID: QueryField = field("productID")
+    private let inventoryName: QueryField = field("name")
+    private let inventoryWarehouseID: QueryField = field("warehouseID")
+    private let inventoryRegion: QueryField = field("region")
+    private let hasManyParent: QueryField = field("hasManyParent")
 
     func test_when_id_not_equals() throws {
         XCTAssertEqual(
@@ -97,6 +102,64 @@ class QueryPredicateBuilderUnitTests: XCTestCase {
             try QueryPredicateBuilder.fromSerializedMap(
                 readJsonMap(filePath: "query_predicate_constant_all")
             ) as! QueryPredicateConstant
+        )
+    }
+
+    func test_when_equals_model_identifier_used() throws {
+        XCTAssertEqual(
+            inventoryProductID.eq("product-id")
+                .and(inventoryName.eq("product-name"))
+                .and(inventoryWarehouseID.eq("warehouse-id"))
+                .and(inventoryRegion.eq("some region")),
+            try QueryPredicateBuilder.fromSerializedMap(readJsonMap(filePath: "model_identifier_equals"))  as! QueryPredicateGroup
+        )
+    }
+
+    func test_when_not_equals_model_identifier_used() throws {
+        XCTAssertEqual(
+            inventoryProductID.ne("product-id")
+                .and(inventoryName.ne("product-name"))
+                .and(inventoryWarehouseID.ne("warehouse-id"))
+                .and(inventoryRegion.ne("some region")),
+            try QueryPredicateBuilder.fromSerializedMap(readJsonMap(filePath: "model_identifier_not_equals"))  as! QueryPredicateGroup
+        )
+    }
+
+    func test_when_group_not_equals_model_identifier_used() throws {
+        XCTAssertEqual(
+            not(
+                inventoryProductID.eq("product-id")
+                    .and(inventoryName.eq("product-name"))
+                    .and(inventoryWarehouseID.eq("warehouse-id"))
+                    .and(inventoryRegion.eq("some region"))
+            ),
+            try QueryPredicateBuilder.fromSerializedMap(readJsonMap(filePath: "model_identifier_group_not_equals"))  as! QueryPredicateGroup
+        )
+    }
+
+    func test_when_group_equals_model_identifier_used() throws {
+        XCTAssertEqual(
+            not(
+                inventoryProductID.ne("product-id")
+                    .and(inventoryName.ne("product-name"))
+                    .and(inventoryWarehouseID.ne("warehouse-id"))
+                    .and(inventoryRegion.ne("some region"))
+            ),
+            try QueryPredicateBuilder.fromSerializedMap(readJsonMap(filePath: "model_identifier_group_equals"))  as! QueryPredicateGroup
+        )
+    }
+
+    func test_when_query_associated_model_identifier_used() throws {
+        XCTAssertEqual(
+            hasManyParent.eq(
+                FlutterSerializedModel.Identifier.make(
+                    fields: [
+                        (name: "id", value: "parent-id"),
+                        (name: "name", value: "parent-name")
+                    ]
+                ).stringValue
+            ),
+            try QueryPredicateBuilder.fromSerializedMap(readJsonMap(filePath: "relation_model_identifier_equals"))  as! QueryPredicateOperation
         )
     }
 }
