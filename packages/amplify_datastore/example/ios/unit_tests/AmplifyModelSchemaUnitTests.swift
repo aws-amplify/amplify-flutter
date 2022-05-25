@@ -32,7 +32,8 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
                 customTypeSchemasRegistry.addModelSchema(
                     modelName: serializedCustomType["name"] as! String,
                     modelSchema: try FlutterModelSchema(
-                        serializedData: serializedCustomType
+                        serializedData: serializedCustomType,
+                        isModelType: false
                     ).convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
                 )
             } catch {
@@ -99,7 +100,9 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
 
     func test_model_nested_custom_type_schema() throws {
         let personModelSchema = try FlutterModelSchema(
-            serializedData: modelSchemaMap["PersonModelSchema"] as! [String: Any])
+            serializedData: modelSchemaMap["PersonModelSchema"] as! [String: Any],
+            isModelType: false
+        )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
         let expectedPersonModelSchema = SchemaData.PersonSchema
 
@@ -135,5 +138,13 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
             expectedContactSchemaFields!["mailingAddresses"]?.embeddedTypeSchema?.sortedFields,
             contactSchemaFields!["mailingAddresses"]?.embeddedTypeSchema?.sortedFields
         )
+    }
+
+    func test_custom_primary_key_model_schema() throws {
+        let inventoryModelSchema = try FlutterModelSchema(
+            serializedData: modelSchemaMap["InventoryModelSchema"] as! [String: Any]
+        ).convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
+
+        XCTAssertEqual(SchemaData.InventorySchema, inventoryModelSchema)
     }
 }

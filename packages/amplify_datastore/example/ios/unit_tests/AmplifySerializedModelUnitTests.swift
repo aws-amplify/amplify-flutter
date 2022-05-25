@@ -31,7 +31,6 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         )
         let refMap = serializedModelMaps["BlogSerializedMap"] as! [String: Any]
 
-        XCTAssertEqual(ourMap["id"] as! String, refMap["id"] as! String)
         XCTAssertEqual(ourMap["modelName"] as! String, refMap["modelName"] as! String)
 
         let ourSd: [String: Any] = ourMap["serializedData"] as! [String: Any]
@@ -49,7 +48,6 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         )
         let refMap = serializedModelMaps["CommentSerializedMap"] as! [String: Any]
 
-        XCTAssertEqual(ourMap["id"] as! String, refMap["id"] as! String)
         XCTAssertEqual(ourMap["modelName"] as! String, refMap["modelName"] as! String)
 
         let ourSd: [String: Any] = ourMap["serializedData"] as! [String: Any]
@@ -57,11 +55,6 @@ class AmplifySerializedModelUnitTests: XCTestCase {
 
         XCTAssertEqual(ourSd["id"] as! String, refSd["id"] as! String)
         XCTAssertEqual(ourSd["content"] as! String, refSd["content"] as! String)
-
-        let ourNs: [String: Any] = ourSd["post"] as! [String: Any]
-        let refNs: [String: Any] = refSd["post"] as! [String: Any]
-
-        XCTAssertEqual(ourNs["id"] as! String, refNs["id"] as! String)
     }
 
     func test_post_with_datetime_int_hasMany_serialization() throws {
@@ -72,7 +65,6 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         )
         let refMap = serializedModelMaps["PostSerializedMap"] as! [String: Any]
 
-        XCTAssertEqual(ourMap["id"] as! String, refMap["id"] as! String)
         XCTAssertEqual(ourMap["modelName"] as! String, refMap["modelName"] as! String)
 
         let ourSd: [String: Any] = ourMap["serializedData"] as! [String: Any]
@@ -81,11 +73,6 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         XCTAssertEqual(ourSd["id"] as! String, refSd["id"] as! String)
         XCTAssertEqual(ourSd["title"] as! String, refSd["title"] as! String)
         XCTAssertEqual(ourSd["created"] as! String, refSd["created"] as! String)
-
-        let ourNs: [String: Any] = ourSd["blog"] as! [String: Any]
-        let refNs: [String: Any] = refSd["blog"] as! [String: Any]
-
-        XCTAssertEqual(ourNs["id"] as! String, refNs["id"] as! String)
     }
 
     func test_post_with_nested_models_serialization() throws {
@@ -120,7 +107,6 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         )
         let refMap = serializedModelMaps["AllTypeModelSerializedMap"] as! [String: Any]
 
-        XCTAssertEqual(ourMap["id"] as! String, refMap["id"] as! String)
         XCTAssertEqual(ourMap["modelName"] as! String, refMap["modelName"] as! String)
 
         let ourSd: [String: Any] = ourMap["serializedData"] as! [String: Any]
@@ -143,7 +129,6 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         let testModelContent = "a comment"
         let jsonString = "{\"id\":\"\(testModelId)\",\"content\":\"\(testModelContent)\"}"
         let decodedModel = try ModelRegistry.decode(modelName: modelName, from: jsonString)
-        XCTAssertEqual(decodedModel.id, testModelId)
         let values = (decodedModel as! FlutterSerializedModel).values
         XCTAssertEqual(values["content"], JSONValue.string(testModelContent))
     }
@@ -154,7 +139,6 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         let testModelContent = "a comment"
         let jsonString = "[{\"id\":\"\(testModelId)\",\"content\":\"\(testModelContent)\"}]"
         let decodedModel = try ModelRegistry.decode(modelName: modelName, from: jsonString)
-        XCTAssertEqual(decodedModel.id, testModelId)
         let values = (decodedModel as! FlutterSerializedModel).values
         XCTAssertEqual(values["content"], JSONValue.string(testModelContent))
     }
@@ -178,7 +162,6 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         )
         let expected = serializedModelMaps["PersonModelSerializedMap"] as! [String: Any]
 
-        XCTAssertEqual(expected["id"] as! String, actual["id"] as! String)
         XCTAssertEqual(expected["modelName"] as! String, actual["modelName"] as! String)
 
         let actualSerializedData = actual["serializedData"] as! [String: Any]

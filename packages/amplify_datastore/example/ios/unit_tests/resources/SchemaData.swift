@@ -21,6 +21,7 @@ struct SchemaData {
     static var PostSchema: ModelSchema = .init(
         name: "Post",
         pluralName: "Posts",
+        attributes: [.index(fields: ["blogID"], name: "byBlog")],
         fields: [
             "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "title": ModelField(name: "title", type: .string, isRequired: true, isArray: false),
@@ -31,7 +32,8 @@ struct SchemaData {
             "author": ModelField(name: "author", type: .model(name: "Author"), isRequired: true, isArray: false, association: ModelAssociation.belongsTo(targetName: "authorId")),
             "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-        ]
+        ],
+        primaryKeyFieldKeys: ["id"]
     )
 
     static var CommentSchema: ModelSchema = .init(
@@ -43,7 +45,8 @@ struct SchemaData {
             "content": ModelField(name: "content", type: .string, isRequired: true, isArray: false),
             "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-        ]
+        ],
+        primaryKeyFieldKeys: ["id"]
     )
 
     static var BlogSchema: ModelSchema = .init(
@@ -55,7 +58,8 @@ struct SchemaData {
             "posts": ModelField(name: "posts", type: .collection(of: "Post"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "blog")),
             "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-        ]
+        ],
+        primaryKeyFieldKeys: ["id"]
     )
 
     static var PostAuthComplexSchema: ModelSchema = .init(
@@ -77,7 +81,8 @@ struct SchemaData {
             "owner": ModelField(name: "owner", type: .string, isRequired: false, isArray: false),
             "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-        ]
+        ],
+        primaryKeyFieldKeys: ["id"]
     )
 
     static var PostAuthComplexWithProviderUserPoolsSchema: ModelSchema = .init(
@@ -99,7 +104,8 @@ struct SchemaData {
             "owner": ModelField(name: "owner", type: .string, isRequired: false, isArray: false),
             "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-        ]
+        ],
+        primaryKeyFieldKeys: ["id"]
     )
 
     static var PostAuthComplexWithProviderApiKeySchema: ModelSchema = .init(
@@ -118,7 +124,8 @@ struct SchemaData {
             "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-        ]
+        ],
+        primaryKeyFieldKeys: ["id"]
     )
 
     static var AllTypeModelSchema: ModelSchema = .init(
@@ -137,7 +144,8 @@ struct SchemaData {
             "enumType": ModelField(name: "enumType", type: .string, isRequired: true, isArray: false),
             "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-        ]
+        ],
+        primaryKeyFieldKeys: ["id"]
     )
 
     static var AuthorModelSchema: ModelSchema = .init(
@@ -149,7 +157,8 @@ struct SchemaData {
             "department": ModelField(name: "department", type: .model(name: "Department"), isRequired: true, isArray: false, association: ModelAssociation.belongsTo(targetName: "departmentId")),
             "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-        ]
+        ],
+        primaryKeyFieldKeys: ["id"]
     )
 
     static var DepartmentSchema: ModelSchema = .init(
@@ -161,7 +170,8 @@ struct SchemaData {
             "description": ModelField(name: "description", type: .string, isRequired: true, isArray: false),
             "createdAt": ModelField(name: "createdAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
             "updatedAt": ModelField(name: "updatedAt", type: .dateTime, isRequired: false, isReadOnly: true, isArray: false),
-        ]
+        ],
+        primaryKeyFieldKeys: ["id"]
     )
 
     static var AddressSchema: ModelSchema = .init(
@@ -230,7 +240,23 @@ struct SchemaData {
                 isArray: true
             ),
             "anotherCustomTypeTree": ModelField(name: "anotherCustomTypeTree", type: .embedded(type: JSONValue.self, schema: SchemaData.CustomASchema)),
-        ]
+        ],
+        primaryKeyFieldKeys: ["id"]
+    )
+
+    static var InventorySchema: ModelSchema = .init(
+        name: "Inventory",
+        pluralName: "Inventories",
+        attributes: [
+            .index(fields: ["productID", "name", "warehouseID", "region"], name: nil)
+        ],
+        fields: [
+            "productID": ModelField(name: "productID", type: .string, isRequired: true, isArray: false),
+            "name": ModelField(name: "name", type: .string, isRequired: true, isArray: false),
+            "warehouseID": ModelField(name: "warehouseID", type: .string, isRequired: true, isArray: false),
+            "region": ModelField(name: "region", type: .string, isRequired: true, isArray: false),
+        ],
+        primaryKeyFieldKeys: ["productID", "name", "warehouseID", "region"]
     )
 
     static var modelSchemas: [String: ModelSchema] {
@@ -242,7 +268,8 @@ struct SchemaData {
             AllTypeModelSchema.name: AllTypeModelSchema,
             AuthorModelSchema.name: AuthorModelSchema,
             DepartmentSchema.name: DepartmentSchema,
-            PersonSchema.name: PersonSchema
+            PersonSchema.name: PersonSchema,
+            InventorySchema.name: InventorySchema,
         ]
     }
 
