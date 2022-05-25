@@ -20,14 +20,14 @@ import 'package:crypto/crypto.dart';
 /// Defines the interface for an algorithm used in signing.
 /// {@endtemplate}
 abstract class AWSAlgorithm {
+  /// {@macro aws_signature_v4.aws_algorithm}
+  const AWSAlgorithm(this.id);
+
   /// `AWS4-HMAC-SHA256` signing algorithm.
-  static const _AWSHmacSha256 hmacSha256 = _AWSHmacSha256();
+  static const AWSAlgorithm hmacSha256 = _AWSHmacSha256();
 
   /// The algorithm's identifier.
   final String id;
-
-  /// {@macro aws_signature_v4.aws_algorithm}
-  const AWSAlgorithm(this.id);
 
   /// Derives a key for signing the string-to-sign (STS).
   List<int> deriveSigningKey(
@@ -44,10 +44,10 @@ abstract class AWSAlgorithm {
 
 /// The default V4 algorithm, using HMAC/SHA-256.
 class _AWSHmacSha256 extends AWSAlgorithm {
+  const _AWSHmacSha256() : super(_id);
+
   static const _id = 'AWS4-HMAC-SHA256';
   static const _hash = sha256;
-
-  const _AWSHmacSha256() : super(_id);
 
   @override
   List<int> deriveSigningKey(

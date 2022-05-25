@@ -45,7 +45,7 @@ abstract class AuthenticatorPage {
     // username field is present
     expect(usernameField, findsOneWidget);
     // login type is "username"
-    Finder usernameFieldHint = find.descendant(
+    final Finder usernameFieldHint = find.descendant(
       of: usernameField,
       matching: find.text(label),
     );
@@ -112,7 +112,7 @@ abstract class AuthenticatorPage {
   /// Then I see Username/client id combination not found banner.
   void expectCombinationNotFound() {
     expect(bannerFinder, findsOneWidget);
-    Finder expectCombinationNotFound = find.descendant(
+    final Finder expectCombinationNotFound = find.descendant(
       of: find.byKey(keyAuthenticatorBanner),
       matching: find.textContaining('not found'),
     );
@@ -125,7 +125,8 @@ abstract class AuthenticatorPage {
       await expectError('Confirmation code entered is not correct.');
     } else if (Platform.isIOS) {
       await expectError(
-          'Invalid verification code provided, please try again.');
+        'Invalid verification code provided, please try again.',
+      );
     } else {
       throw Exception('Unsupprted platform');
     }
@@ -142,7 +143,7 @@ abstract class AuthenticatorPage {
     expect(countrySearchField, findsOneWidget);
     await tester.enterText(countrySearchField, countryName);
     await tester.pumpAndSettle();
-    Finder dialCode = find.descendant(
+    final Finder dialCode = find.descendant(
       of: find.byKey(keyCountryDialog),
       matching: find.textContaining('($countryCode)'),
     );

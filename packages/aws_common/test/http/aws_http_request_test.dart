@@ -108,7 +108,7 @@ void main() {
       final request = AWSStreamedHttpRequest.post(uri, body: makeBody());
 
       expect(request.hasContentLength, isFalse);
-      expect(request.contentLength, isA<Future>());
+      expect(request.contentLength, isA<Future<int>>());
       await expectLater(request.contentLength, completion(3));
       await expectLater(request.contentLength, completion(3));
       await expectLater(request.contentLength, completion(3));

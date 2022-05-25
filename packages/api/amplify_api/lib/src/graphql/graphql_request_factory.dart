@@ -51,7 +51,7 @@ class GraphQLRequestFactory {
       {bool ignoreParents = false}) {
     // Schema has been validated & schema.fields is non-nullable.
     // Get a list of field names to include in the request body.
-    List<String> _fields = schema.fields!.entries
+    List<String> fields = schema.fields!.entries
         .where((entry) =>
             entry.value.association == null) // ignore related model fields
         .map((entry) {
@@ -75,16 +75,16 @@ class GraphQLRequestFactory {
           parentSchema, GraphQLRequestOperation.get,
           ignoreParents:
               true); // always format like a get, stop traversing parents
-      _fields.add('${belongsToAssociation!.name} { $parentSelectionSet }');
+      fields.add('${belongsToAssociation!.name} { $parentSelectionSet }');
     }
 
-    String fields = _fields.join(' '); // e.g. "id name createdAt"
+    String fieldSelection = fields.join(' '); // e.g. "id name createdAt"
 
     if (operation == GraphQLRequestOperation.list) {
-      return '$items { $fields } nextToken';
+      return '$items { $fieldSelection } nextToken';
     }
 
-    return fields;
+    return fieldSelection;
   }
 
   String _capitalize(String s) => s[0].toUpperCase() + s.substring(1);
@@ -276,7 +276,8 @@ class GraphQLRequestFactory {
     if (belongsToAssociation != null) {
       belongsToModelName = belongsToAssociation.name;
       belongsToKey = belongsToAssociation.association?.targetName;
-      belongsToValue = (modelJson[belongsToModelName] as Map?)?[idFieldName];
+      belongsToValue =
+          (modelJson[belongsToModelName] as Map?)?[idFieldName] as String?;
     }
 
     // Remove any relational fields or readonly.

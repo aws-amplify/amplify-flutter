@@ -24,11 +24,14 @@ import 'testdata/single_chunk_testdata.dart';
 void main() {
   group('S3', () {
     group('Single Chunk', () {
-      for (var signerTest in testCases) {
+      for (final signerTest in testCases) {
         test(signerTest.name, () {
-          runZoned(signerTest.run, zoneValues: {
-            zSigningTest: true,
-          });
+          runZoned(
+            signerTest.run,
+            zoneValues: {
+              zSigningTest: true,
+            },
+          );
         });
       }
     });

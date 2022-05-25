@@ -19,7 +19,7 @@ import 'authenticator_page.dart';
 
 /// Confirm Verify User Page Object
 class ConfirmVerifyUserPage extends AuthenticatorPage {
-  ConfirmVerifyUserPage({required WidgetTester tester}) : super(tester: tester);
+  ConfirmVerifyUserPage({required super.tester});
 
   @override
   Finder get usernameField =>

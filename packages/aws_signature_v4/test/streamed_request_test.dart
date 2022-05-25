@@ -73,9 +73,9 @@ void main() {
         );
         await signedRequest.send(mockClient);
 
-        // Body is split thrice, once to hash the payload, once to get the content
-        // length, then again to read the body which cannot be read from the
-        // original body stream.
+        // Body is split thrice, once to hash the payload, once to get the
+        // content length, then again to read the body which cannot be read from
+        // the original body stream.
         expect(request.debugNumSplits, equals(3));
       });
     });
@@ -133,7 +133,7 @@ class MockHttpClient extends MockClient {
 
   static Future<Response> _send(Request request) async {
     // Assert the request is finalized.
-    final _ = request.body;
+    request.body;
     return Response('', 200);
   }
 }

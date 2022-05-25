@@ -13,14 +13,14 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 class MockModelType extends ModelType<Model> {
   const MockModelType();
 
   @override
   MockModel fromJson(Map<String, dynamic> jsonData) {
-    return MockModel(jsonData['id']);
+    return MockModel(jsonData['id'] as String);
   }
 }
 

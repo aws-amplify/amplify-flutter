@@ -19,6 +19,7 @@ dependency_overrides:
     path: ../../aws_common
 
 dev_dependencies:
-  amplify_lints: ^1.0.0
+  amplify_lints:
+    path: ../../amplify_lints
   build_runner: ^2.0.0
   build_web_compilers: ^3.2.2

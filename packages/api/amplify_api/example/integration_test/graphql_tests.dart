@@ -75,14 +75,14 @@ void main() {
         }
       }''';
 
-      var _r = Amplify.API.mutate(
+      var r = Amplify.API.mutate(
           request: GraphQLRequest<String>(
               document: graphQLDocument,
               variables: <String, String>{'name': name}));
 
-      var response = await _r.response;
-      Map data = jsonDecode(response.data!);
-      Blog blog = Blog.fromJson(data['createBlog']);
+      var response = await r.response;
+      Map data = jsonDecode(response.data!) as Map;
+      Blog blog = Blog.fromJson((data['createBlog'] as Map).cast());
       blogCache.add(blog);
       return blog;
     }
@@ -131,10 +131,10 @@ void main() {
           }
         }
       }''';
-        var _r = Amplify.API
+        var r = Amplify.API
             .query<String>(request: GraphQLRequest(document: graphQLDocument));
-        var response = await _r.response;
-        Map data = jsonDecode(response.data!);
+        var response = await r.response;
+        Map data = jsonDecode(response.data!) as Map;
         expect(data[listBlogs][items], hasLength(greaterThanOrEqualTo(0)));
       });
 
@@ -152,10 +152,10 @@ void main() {
         }
       }''';
 
-        var _r = Amplify.API
+        var r = Amplify.API
             .query<String>(request: GraphQLRequest(document: graphQLDocument));
-        var response = await _r.response;
-        Map data = jsonDecode(response.data!);
+        var response = await r.response;
+        Map data = jsonDecode(response.data!) as Map;
         expect(data[listBlogs][items], hasLength(greaterThanOrEqualTo(0)));
       });
 
@@ -182,9 +182,9 @@ void main() {
         Blog blog3 = await addBlog(blog3Name);
 
         var req = ModelQueries.list<Blog>(Blog.classType);
-        var _r = Amplify.API.query(request: req);
+        var r = Amplify.API.query(request: req);
 
-        var res = await _r.response;
+        var res = await r.response;
         var data = res.data;
 
         final blogs = [blog1, blog2, blog3];

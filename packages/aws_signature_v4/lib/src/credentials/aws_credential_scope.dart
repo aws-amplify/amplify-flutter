@@ -22,33 +22,6 @@ import 'package:aws_signature_v4/src/signer/aws_signer.dart';
 /// The scope for an AWS request.
 /// {@endtemplate}
 class AWSCredentialScope {
-  /// The time of the request.
-  final AWSDateTime dateTime;
-
-  final String _region;
-
-  /// The region of the request.
-  ///
-  /// This value may be overriden on a per-request basis using [runZoned] and
-  /// the `zoneValues` field.
-  String get region => Zone.current[#sigV4Region] ?? _region;
-
-  final String _service;
-
-  /// The AWS service receiving the request.
-  ///
-  /// This value may be overriden on a per-request basis using [runZoned] and
-  /// the `zoneValues` field.
-  String get service {
-    final Object? override = Zone.current[#sigV4Service];
-    if (override is AWSService) {
-      return override.service;
-    } else if (override is String) {
-      return override;
-    }
-    return _service;
-  }
-
   /// {@macro aws_signature_v4.aws_credential_scope}
   AWSCredentialScope({
     AWSDateTime? dateTime,
@@ -68,6 +41,33 @@ class AWSCredentialScope {
   })  : _region = region,
         _service = service,
         dateTime = dateTime ?? AWSDateTime.now();
+
+  /// The time of the request.
+  final AWSDateTime dateTime;
+
+  final String _region;
+
+  /// The region of the request.
+  ///
+  /// This value may be overriden on a per-request basis using [runZoned] and
+  /// the `zoneValues` field.
+  String get region => Zone.current[#sigV4Region] as String? ?? _region;
+
+  final String _service;
+
+  /// The AWS service receiving the request.
+  ///
+  /// This value may be overriden on a per-request basis using [runZoned] and
+  /// the `zoneValues` field.
+  String get service {
+    final Object? override = Zone.current[#sigV4Service];
+    if (override is AWSService) {
+      return override.service;
+    } else if (override is String) {
+      return override;
+    }
+    return _service;
+  }
 
   @override
   String toString() =>

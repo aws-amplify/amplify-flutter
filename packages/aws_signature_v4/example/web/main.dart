@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: omit_local_variable_types
+
 import 'dart:async';
 import 'dart:html';
 import 'dart:typed_data';
@@ -79,8 +81,7 @@ Future<void> upload(BucketUpload bucketUpload) async {
 
   // Read the file's bytes
   final Blob fileBlob = file.slice();
-  final FileReader reader = FileReader();
-  reader.readAsArrayBuffer(fileBlob);
+  final FileReader reader = FileReader()..readAsArrayBuffer(fileBlob);
   await reader.onLoadEnd.first;
   final Uint8List? fileBytes = reader.result as Uint8List?;
   if (fileBytes == null) {
@@ -157,9 +158,7 @@ BucketUpload? getBucketUpload() {
   return BucketUpload(bucketName, region, files.first);
 }
 
-bool get uploadEnabled {
-  return getBucketUpload() != null;
-}
+bool get uploadEnabled => getBucketUpload() != null;
 
 void updateState() {
   uploadBtnEl.disabled = !uploadEnabled;

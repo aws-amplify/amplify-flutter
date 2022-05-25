@@ -67,7 +67,7 @@ Future<List<SignerTest>> loadAllTests() async {
   ]);
   final testCases = <SignerTest>[];
 
-  for (var entity in Directory(testSuitePath).listSync()) {
+  for (final entity in Directory(testSuitePath).listSync()) {
     final stat = entity.statSync();
     if (stat.type != FileSystemEntityType.directory) {
       throw StateError('Unexpected top level file found: ${entity.path}');
@@ -82,7 +82,8 @@ Future<List<SignerTest>> loadAllTests() async {
 
     // List all the files in the test directory and sort them alphabetically.
     // This is required to ensure that `context.json` is the first file parsed,
-    // since its data is used to parse other files accordingly, namely `request.txt`.
+    // since its data is used to parse other files accordingly, namely
+    // `request.txt`.
     final testFiles =
         testCaseDir.listSync().map((ent) => File(ent.path)).toList()
           ..sort(
@@ -98,7 +99,7 @@ Future<List<SignerTest>> loadAllTests() async {
       throw Exception('$testCaseName does not include all necessary files');
     }
 
-    for (var testFile in testFiles) {
+    for (final testFile in testFiles) {
       final filename = path.basename(testFile.path);
       final data = testFile.readAsStringSync().replaceAll('\r\n', '\n');
       final parser = _fileParsers[filename]!;

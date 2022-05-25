@@ -87,24 +87,7 @@ class ModelField {
       ..removeWhere((k, dynamic v) => v == null);
   }
 
-  factory ModelField.fromMap(Map<String, dynamic> map) {
-    return ModelField(
-      name: map['name'],
-      type: map['type'],
-      isRequired: map['isRequired'],
-      isArray: map['isArray'],
-      isReadOnly: map['isReadOnly'],
-      association:
-          map['association'] ?? ModelAssociation.fromMap(map['association']),
-      authRules: map['authRules'] ??
-          List<AuthRule>.from(map['authRules']?.map(AuthRule.fromMap)),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory ModelField.fromJson(String source) =>
-      ModelField.fromMap(json.decode(source));
 
   @override
   String toString() {

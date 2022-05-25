@@ -23,7 +23,7 @@ import 'authenticator_page.dart';
 
 /// Confirm Sign Up Page Object
 class ConfirmSignUpPage extends AuthenticatorPage {
-  ConfirmSignUpPage({required WidgetTester tester}) : super(tester: tester);
+  ConfirmSignUpPage({required super.tester});
 
   @override
   Finder get usernameField => find.byKey(keyUsernameConfirmSignUpFormField);

@@ -19,8 +19,8 @@ class DeleteUserResponse {
   late bool success;
   String? error;
   DeleteUserResponse.fromJson(String resolverData) {
-    Map<String, dynamic> parsedMap = jsonDecode(resolverData);
-    success = parsedMap['deleteUser']['success'];
-    error = parsedMap['deleteUser']['error'];
+    Map<String, dynamic> parsedMap = (jsonDecode(resolverData) as Map).cast();
+    success = parsedMap['deleteUser']['success'] as bool;
+    error = parsedMap['deleteUser']['error'] as String?;
   }
 }

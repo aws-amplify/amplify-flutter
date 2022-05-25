@@ -41,11 +41,8 @@ class ConflictResolutionDecision {
 
   @override
   String toString() {
-    return 'ConflictResolutionDecision{' 'resolutionStrategy=' +
-        _resolutionStrategy.toString() +
-        ', customModel=' +
-        customModel.toString() +
-        '}';
+    return 'ConflictResolutionDecision{resolutionStrategy=$_resolutionStrategy,'
+        ' customModel=$customModel}';
   }
 
   Map<String, Object?> toJson() => <String, Object?>{

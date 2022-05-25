@@ -20,7 +20,5 @@ mixin AWSSerializable on Object {
   Object? toJson();
 
   @override
-  String toString() {
-    return prettyPrintJson(this);
-  }
+  String toString() => prettyPrintJson(this);
 }

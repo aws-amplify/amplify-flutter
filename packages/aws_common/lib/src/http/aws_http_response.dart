@@ -29,6 +29,13 @@ import 'package:meta/meta.dart';
 /// - [AWSHttpResponse]
 /// - [AWSStreamedHttpResponse]
 abstract class AWSBaseHttpResponse implements Closeable {
+  AWSBaseHttpResponse._({
+    required this.statusCode,
+    Map<String, String>? headers,
+  }) : headers = UnmodifiableMapView(
+          CaseInsensitiveMap(headers ?? const {}),
+        );
+
   /// The response's status code.
   final int statusCode;
 
@@ -43,13 +50,6 @@ abstract class AWSBaseHttpResponse implements Closeable {
 
   /// Decodes the response body using [encoding] (defaults to UTF-8).
   FutureOr<String> decodeBody({Encoding encoding = utf8});
-
-  AWSBaseHttpResponse._({
-    required this.statusCode,
-    Map<String, String>? headers,
-  }) : headers = UnmodifiableMapView(
-          CaseInsensitiveMap(headers ?? const {}),
-        );
 }
 
 /// {@macro aws_common.aws_http_response}
@@ -57,14 +57,11 @@ abstract class AWSBaseHttpResponse implements Closeable {
 class AWSHttpResponse extends AWSBaseHttpResponse {
   /// {@macro aws_common.aws_http_response}
   AWSHttpResponse({
-    required int statusCode,
-    Map<String, String>? headers,
+    required super.statusCode,
+    super.headers,
     List<int>? body,
   })  : bodyBytes = body ?? const [],
-        super._(
-          statusCode: statusCode,
-          headers: headers,
-        );
+        super._();
 
   @override
   Stream<List<int>> get body =>
@@ -74,9 +71,7 @@ class AWSHttpResponse extends AWSBaseHttpResponse {
   final List<int> bodyBytes;
 
   @override
-  String decodeBody({Encoding encoding = utf8}) {
-    return encoding.decode(bodyBytes);
-  }
+  String decodeBody({Encoding encoding = utf8}) => encoding.decode(bodyBytes);
 
   @override
   void close() {}
@@ -89,14 +84,11 @@ class AWSStreamedHttpResponse extends AWSBaseHttpResponse
     implements StreamSplitter<List<int>> {
   /// @{macro aws_common.aws_http_streamed_response}
   AWSStreamedHttpResponse({
-    required int statusCode,
-    Map<String, String>? headers,
+    required super.statusCode,
+    super.headers,
     required Stream<List<int>> body,
   })  : _body = body,
-        super._(
-          statusCode: statusCode,
-          headers: headers,
-        );
+        super._();
 
   /// Handles splitting [_body] into multiple single-subscription streams.
   StreamSplitter<List<int>>? _splitter;
@@ -108,9 +100,8 @@ class AWSStreamedHttpResponse extends AWSBaseHttpResponse
   Stream<List<int>> get body => _splitter == null ? _body : split();
 
   @override
-  Future<String> decodeBody({Encoding encoding = utf8}) {
-    return encoding.decodeStream(body);
-  }
+  Future<String> decodeBody({Encoding encoding = utf8}) =>
+      encoding.decodeStream(body);
 
   @override
   Future<Uint8List> get bodyBytes {

@@ -23,11 +23,11 @@ class ModelSyncedEvent extends HubEventPayload {
   late int updated;
   late int deleted;
   ModelSyncedEvent(Map<dynamic, dynamic> serializedData) {
-    modelName = serializedData['model'];
-    isFullSync = serializedData['isFullSync'];
-    isDeltaSync = serializedData['isDeltaSync'];
-    added = serializedData['added'];
-    updated = serializedData['updated'];
-    deleted = serializedData['deleted'];
+    modelName = serializedData['model'] as String;
+    isFullSync = serializedData['isFullSync'] as bool;
+    isDeltaSync = serializedData['isDeltaSync'] as bool;
+    added = serializedData['added'] as int;
+    updated = serializedData['updated'] as int;
+    deleted = serializedData['deleted'] as int;
   }
 }

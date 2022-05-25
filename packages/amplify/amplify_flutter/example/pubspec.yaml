@@ -32,7 +32,7 @@ dev_dependencies:
     path: ../../../amplify_datastore
   amplify_datastore_plugin_interface:
     path: ../../../amplify_datastore_plugin_interface
-  amplify_lints: ^1.0.0
+  amplify_lints: ^2.0.0
   amplify_storage_s3:
     path: ../../../storage/amplify_storage_s3
   amplify_test:
