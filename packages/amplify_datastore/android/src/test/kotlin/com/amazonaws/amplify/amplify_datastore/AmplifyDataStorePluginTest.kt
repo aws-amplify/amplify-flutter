@@ -115,6 +115,7 @@ class AmplifyDataStorePluginTest {
         modelSchema = flutterPlugin.modelProvider.modelSchemas()["Post"]!!
         amplifySuccessResults = mutableListOf(
             SerializedModel.builder()
+                .modelSchema(modelSchema)
                 .serializedData(
                     mapOf(
                         "id" to "4281dfba-96c8-4a38-9a8e-35c7e893ea47",
@@ -123,9 +124,9 @@ class AmplifyDataStorePluginTest {
                         "created" to Temporal.DateTime("2020-02-20T20:20:20+03:50")
                     )
                 )
-                .modelSchema(modelSchema)
                 .build(),
             SerializedModel.builder()
+                .modelSchema(modelSchema)
                 .serializedData(
                     mapOf(
                         "id" to "43036c6b-8044-4309-bddc-262b6c686026",
@@ -136,7 +137,6 @@ class AmplifyDataStorePluginTest {
                         )
                     )
                 )
-                .modelSchema(modelSchema)
                 .build()
         )
         setFinalStatic(Amplify::class.java.getDeclaredField("DataStore"), mockDataStore)
@@ -408,8 +408,8 @@ class AmplifyDataStorePluginTest {
             testRequest["serializedModel"] as HashMap<String, Any>
 
         val serializedModel = SerializedModel.builder()
-            .serializedData(serializedModelData)
             .modelSchema(modelSchema)
+            .serializedData(serializedModelData)
             .build()
 
         val dataStoreItemChange = DataStoreItemChange.builder<SerializedModel>()
@@ -452,8 +452,8 @@ class AmplifyDataStorePluginTest {
             testRequest["serializedModel"] as HashMap<String, Any>
 
         val serializedModel = SerializedModel.builder()
-            .serializedData(serializedModelData)
             .modelSchema(modelSchema)
+            .serializedData(serializedModelData)
             .build()
 
         doAnswer { invocation: InvocationOnMock ->
@@ -513,8 +513,8 @@ class AmplifyDataStorePluginTest {
             testRequest["serializedModel"] as HashMap<String, Any>
 
         val serializedModel = SerializedModel.builder()
-            .serializedData(serializedModelData)
             .modelSchema(modelSchema)
+            .serializedData(serializedModelData)
             .build()
 
         val dataStoreItemChange = DataStoreItemChange.builder<SerializedModel>()
@@ -558,8 +558,8 @@ class AmplifyDataStorePluginTest {
             testRequest["serializedModel"] as HashMap<String, Any>
 
         val serializedModel = SerializedModel.builder()
-            .serializedData(serializedModelData)
             .modelSchema(modelSchema)
+            .serializedData(serializedModelData)
             .build()
 
         doAnswer { invocation: InvocationOnMock ->
@@ -674,8 +674,8 @@ class AmplifyDataStorePluginTest {
             "created" to Temporal.DateTime("2020-02-20T20:20:20-08:00")
         )
         val instance = SerializedModel.builder()
-            .serializedData(modelData)
             .modelSchema(modelSchema)
+            .serializedData(modelData)
             .build()
 
         val dataStoreItemChange = DataStoreItemChange.builder<SerializedModel>()
@@ -790,12 +790,15 @@ class AmplifyDataStorePluginTest {
             "id" to "af9cfa64-1ea9-46d6-b9e2-8203179d5392",
             "title" to "A brilliant Post",
             "rating" to 5,
-            "blog" to SerializedModel.builder().serializedData(
-                mapOf<String, Any>(
-                    "name" to "Amazing Blog",
-                    "id" to "8cb7d5a5-435d-4632-a890-90ed0c6107f5"
-                ) as HashMap<String, Any>
-            ).modelSchema(blogModelSchema).build()
+            "blog" to SerializedModel.builder()
+                .modelSchema(blogModelSchema)
+                .serializedData(
+                    mapOf<String, Any>(
+                        "name" to "Amazing Blog",
+                        "id" to "8cb7d5a5-435d-4632-a890-90ed0c6107f5"
+                    ) as HashMap<String, Any>
+                )
+                .build()
         )
 
         assertEquals(

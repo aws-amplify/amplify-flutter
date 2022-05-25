@@ -128,4 +128,17 @@ class AmplifyModelSchemaTest {
             personSchema
         )
     }
+
+    @Test
+    fun test_custom_primary_key_model_schema() {
+        val inputMap = schemasMap["InventoryModelSchema"] as Map<String, Any>
+        val modelSchema = FlutterModelSchema(inputMap)
+        val convertedModelSchema = modelSchema.convertToNativeModelSchema()
+
+        // Verify result
+        assertEquals(
+            convertedModelSchema,
+            inventorySchema
+        )
+    }
 }
