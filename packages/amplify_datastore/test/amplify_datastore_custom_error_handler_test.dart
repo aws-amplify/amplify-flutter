@@ -18,7 +18,7 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'test_models/ModelProvider.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 
 // Utilized from: https://github.com/flutter/flutter/issues/63465 #CyrilHu
 // For mocking Native -> Dart
