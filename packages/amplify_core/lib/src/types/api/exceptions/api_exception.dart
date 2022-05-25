@@ -42,11 +42,6 @@ class ApiException extends AmplifyException {
   /// Instantiates and return a new `ApiException` from the
   /// serialized exception data
   static ApiException fromMap(Map<String, String> serializedException) {
-    var statusCode = int.tryParse(serializedException['httpStatusCode'] ?? '');
-    // Ensure a valid HTTP status code for an error.
-    if (statusCode != null && (statusCode < 300 || statusCode > 511)) {
-      statusCode = null;
-    }
     return ApiException._private(
       AmplifyException.fromMap(serializedException),
     );
