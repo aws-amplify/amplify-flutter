@@ -236,7 +236,6 @@ workflows:
               plugin:
                 [
                   "amplify_analytics_pinpoint",
-                  "amplify_api",
                   "amplify_auth_cognito",
                   "amplify_core",
                   "amplify_datastore",
@@ -248,7 +247,6 @@ workflows:
               plugin:
                 [
                   "amplify_analytics_pinpoint",
-                  "amplify_api",
                   "amplify_auth_cognito",
                   "amplify_datastore",
                   "amplify_flutter",
