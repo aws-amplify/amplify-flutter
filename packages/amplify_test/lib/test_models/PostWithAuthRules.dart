@@ -13,15 +13,19 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously, implicit_dynamic_parameter, implicit_dynamic_map_literal, implicit_dynamic_type
+
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the PostAuthComplex type in your schema. */
+/// This is an auto generated class representing the PostWithAuthRules type in your schema.
 @immutable
-class PostAuthComplex extends Model {
-  static const classType = const _PostAuthComplexModelType();
+class PostWithAuthRules extends Model {
+  static const classType = _PostWithAuthRulesModelType();
   final String id;
   final String? _title;
   final String? _owner;
@@ -31,19 +35,23 @@ class PostAuthComplex extends Model {
   @override
   getInstanceType() => classType;
 
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+
+  PostWithAuthRulesModelIdentifier get modelIdentifier {
+    return PostWithAuthRulesModelIdentifier(id: id);
   }
 
   String get title {
     try {
       return _title!;
     } catch (e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
+          recoverySuggestion: AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -61,15 +69,16 @@ class PostAuthComplex extends Model {
     return _updatedAt;
   }
 
-  const PostAuthComplex._internal(
+  const PostWithAuthRules._internal(
       {required this.id, required title, owner, createdAt, updatedAt})
       : _title = title,
         _owner = owner,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory PostAuthComplex({String? id, required String title, String? owner}) {
-    return PostAuthComplex._internal(
+  factory PostWithAuthRules(
+      {String? id, required String title, String? owner}) {
+    return PostWithAuthRules._internal(
         id: id == null ? UUID.getUUID() : id, title: title, owner: owner);
   }
 
@@ -80,7 +89,7 @@ class PostAuthComplex extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is PostAuthComplex &&
+    return other is PostWithAuthRules &&
         id == other.id &&
         _title == other._title &&
         _owner == other._owner;
@@ -91,9 +100,9 @@ class PostAuthComplex extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write("PostAuthComplex {");
+    buffer.write("PostWithAuthRules {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
     buffer.write("owner=" + "$_owner" + ", ");
@@ -107,14 +116,12 @@ class PostAuthComplex extends Model {
     return buffer.toString();
   }
 
-  PostAuthComplex copyWith({String? id, String? title, String? owner}) {
-    return PostAuthComplex._internal(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        owner: owner ?? this.owner);
+  PostWithAuthRules copyWith({String? title, String? owner}) {
+    return PostWithAuthRules._internal(
+        id: id, title: title ?? this.title, owner: owner ?? this.owner);
   }
 
-  PostAuthComplex.fromJson(Map<String, dynamic> json)
+  PostWithAuthRules.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _title = json['title'],
         _owner = json['owner'],
@@ -133,19 +140,21 @@ class PostAuthComplex extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "postAuthComplex.id");
+  static final QueryModelIdentifier MODEL_IDENTIFIER = QueryModelIdentifier();
+  static final QueryField ID = QueryField(fieldName: "postWithAuthRules.id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField OWNER = QueryField(fieldName: "owner");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "PostAuthComplex";
-    modelSchemaDefinition.pluralName = "PostAuthComplexes";
+    modelSchemaDefinition.name = "PostWithAuthRules";
+    modelSchemaDefinition.pluralName = "PostWithAuthRules";
 
     modelSchemaDefinition.authRules = [
       AuthRule(
           authStrategy: AuthStrategy.OWNER,
           ownerField: "owner",
           identityClaim: "cognito:username",
+          provider: AuthRuleProvider.USERPOOLS,
           operations: [
             ModelOperation.CREATE,
             ModelOperation.UPDATE,
@@ -157,12 +166,12 @@ class PostAuthComplex extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: PostAuthComplex.TITLE,
+        key: PostWithAuthRules.TITLE,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: PostAuthComplex.OWNER,
+        key: PostWithAuthRules.OWNER,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
@@ -180,11 +189,49 @@ class PostAuthComplex extends Model {
   });
 }
 
-class _PostAuthComplexModelType extends ModelType<PostAuthComplex> {
-  const _PostAuthComplexModelType();
+class _PostWithAuthRulesModelType extends ModelType<PostWithAuthRules> {
+  const _PostWithAuthRulesModelType();
 
   @override
-  PostAuthComplex fromJson(Map<String, dynamic> jsonData) {
-    return PostAuthComplex.fromJson(jsonData);
+  PostWithAuthRules fromJson(Map<String, dynamic> jsonData) {
+    return PostWithAuthRules.fromJson(jsonData);
   }
+}
+
+/// This is an auto generated class representing the model identifier
+/// of [PostWithAuthRules] in your schema.
+@immutable
+class PostWithAuthRulesModelIdentifier
+    implements ModelIdentifier<PostWithAuthRules> {
+  final String id;
+
+  /// Create an instance of PostWithAuthRulesModelIdentifier using [id] the primary key.
+  const PostWithAuthRulesModelIdentifier({required this.id});
+
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+
+  @override
+  String toString() => 'PostWithAuthRulesModelIdentifier(id: $id)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is PostWithAuthRulesModelIdentifier && id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

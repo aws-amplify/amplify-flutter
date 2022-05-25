@@ -13,17 +13,21 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously, implicit_dynamic_parameter, implicit_dynamic_map_literal, implicit_dynamic_type
 
 import 'ModelProvider.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the Person type in your schema. */
+/// This is an auto generated class representing the Person type in your schema.
 @immutable
 class Person extends Model {
-  static const classType = const _PersonModelType();
+  static const classType = _PersonModelType();
   final String id;
   final String? _name;
   final List<Address>? _propertiesAddresses;
@@ -34,19 +38,23 @@ class Person extends Model {
   @override
   getInstanceType() => classType;
 
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+
+  PersonModelIdentifier get modelIdentifier {
+    return PersonModelIdentifier(id: id);
   }
 
   String get name {
     try {
       return _name!;
     } catch (e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
+          recoverySuggestion: AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -60,10 +68,10 @@ class Person extends Model {
     try {
       return _contact!;
     } catch (e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
+          recoverySuggestion: AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -124,7 +132,7 @@ class Person extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Person {");
     buffer.write("id=" + "$id" + ", ");
@@ -147,12 +155,9 @@ class Person extends Model {
   }
 
   Person copyWith(
-      {String? id,
-      String? name,
-      List<Address>? propertiesAddresses,
-      Contact? contact}) {
+      {String? name, List<Address>? propertiesAddresses, Contact? contact}) {
     return Person._internal(
-        id: id ?? this.id,
+        id: id,
         name: name ?? this.name,
         propertiesAddresses: propertiesAddresses ?? this.propertiesAddresses,
         contact: contact ?? this.contact);
@@ -165,12 +170,12 @@ class Person extends Model {
             ? (json['propertiesAddresses'] as List)
                 .where((e) => e != null)
                 .map((e) => Address.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
         _contact = json['contact']?['serializedData'] != null
-            ? Contact.fromJson(new Map<String, dynamic>.from(
-                json['contact']['serializedData']))
+            ? Contact.fromJson(
+                Map<String, dynamic>.from(json['contact']['serializedData']))
             : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
@@ -189,6 +194,7 @@ class Person extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  static final QueryModelIdentifier MODEL_IDENTIFIER = QueryModelIdentifier();
   static final QueryField ID = QueryField(fieldName: "person.id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField PROPERTIESADDRESSES =
@@ -240,4 +246,41 @@ class _PersonModelType extends ModelType<Person> {
   Person fromJson(Map<String, dynamic> jsonData) {
     return Person.fromJson(jsonData);
   }
+}
+
+/// This is an auto generated class representing the model identifier
+/// of [Person] in your schema.
+@immutable
+class PersonModelIdentifier implements ModelIdentifier<Person> {
+  final String id;
+
+  /// Create an instance of PersonModelIdentifier using [id] the primary key.
+  const PersonModelIdentifier({required this.id});
+
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+
+  @override
+  String toString() => 'PersonModelIdentifier(id: $id)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is PersonModelIdentifier && id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }
