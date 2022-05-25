@@ -50,7 +50,9 @@ void main() {
     // change all api.get(), etc... calls to Amplify.API.get()...
     // await Amplify.addPlugin(api);
     // await Amplify.configure(jsonString);
-    api.configure(config: AmplifyConfig.fromJson(json.decode(jsonString)));
+    api.configure(
+        config: AmplifyConfig.fromJson(
+            json.decode(jsonString) as Map<String, Object?>));
   });
   group('REST API', () {
     Future<void> _verifyRestOperation(

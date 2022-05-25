@@ -45,7 +45,9 @@ class _RestApiViewState extends State<RestApiView> {
 
     // TEMP until Amplify methods implemented in dart.
     api = AmplifyAPI();
-    api.configure(config: AmplifyConfig.fromJson(json.decode(amplifyconfig)));
+    api.configure(
+        config: AmplifyConfig.fromJson(
+            json.decode(amplifyconfig) as Map<String, Object?>));
   }
 
   void onPutPressed() async {
