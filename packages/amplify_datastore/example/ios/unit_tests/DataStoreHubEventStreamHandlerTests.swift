@@ -20,7 +20,7 @@ import Combine
 @testable import AWSPluginsCore
 @testable import amplify_datastore
 
-let testHubSchema: ModelSchema = ModelSchema.init(name: "Post")
+let testHubSchema: ModelSchema = SchemaData.PostSchema
 
 class DataStoreHubEventStreamHandlerTests: XCTestCase {
     var pluginUnderTest: SwiftAmplifyDataStorePlugin = .init()
@@ -28,7 +28,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
     var customTypeSchemaRegistry = FlutterSchemaRegistry()
 
     override func setUpWithError() throws {
-        modelSchemaRegistry.addModelSchema(modelName: "Post", modelSchema: testSchema)
+        modelSchemaRegistry.addModelSchema(modelName: "Post", modelSchema: testHubSchema)
         modelSchemaRegistry.registerModels(registry: ModelRegistry.self)
     }
 
@@ -266,7 +266,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
             "title": "Title 1"
         ]
 
-        let serializedModel = FlutterSerializedModel(id: uuid, map: try FlutterDataStoreRequestUtils.getJSONValue(modelMap))
+        let serializedModel = FlutterSerializedModel(map: try FlutterDataStoreRequestUtils.getJSONValue(modelMap), modelName: "Post")
         let outboxMutationEnqueuedEvent = OutboxMutationEvent.fromModelWithoutMetadata(modelName: "Post", model: serializedModel)
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
@@ -311,7 +311,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
             "title": "Title 1"
         ]
 
-        let serializedModel = FlutterSerializedModel(id: uuid, map: try FlutterDataStoreRequestUtils.getJSONValue(modelMap))
+        let serializedModel = FlutterSerializedModel(map: try FlutterDataStoreRequestUtils.getJSONValue(modelMap), modelName: "Post")
 
         let syncMetadata = MutationSyncMetadata(id: uuid,
                                                 deleted: false,

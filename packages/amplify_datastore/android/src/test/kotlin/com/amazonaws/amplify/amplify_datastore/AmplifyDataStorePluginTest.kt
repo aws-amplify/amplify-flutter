@@ -790,12 +790,15 @@ class AmplifyDataStorePluginTest {
             "id" to "af9cfa64-1ea9-46d6-b9e2-8203179d5392",
             "title" to "A brilliant Post",
             "rating" to 5,
-            "blog" to SerializedModel.builder().modelSchema(blogModelSchema).serializedData(
-                mapOf<String, Any>(
-                    "name" to "Amazing Blog",
-                    "id" to "8cb7d5a5-435d-4632-a890-90ed0c6107f5"
-                ) as HashMap<String, Any>
-            ).build()
+            "blog" to SerializedModel.builder()
+                .modelSchema(blogModelSchema)
+                .serializedData(
+                    mapOf<String, Any>(
+                        "name" to "Amazing Blog",
+                        "id" to "8cb7d5a5-435d-4632-a890-90ed0c6107f5"
+                    ) as HashMap<String, Any>
+                )
+                .build()
         )
 
         assertEquals(
