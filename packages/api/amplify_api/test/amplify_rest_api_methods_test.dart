@@ -26,9 +26,15 @@ import 'graphql_helpers_test.dart';
 
 const statusOK = 200;
 const statusBadRequest = 400;
-
-// Matchers
-final throwsRestException = throwsA(isA<RestException>());
+const mowLawnBody = '{"name": "Mow the lawn"}';
+const hello = 'Hello from lambda!';
+final helloResponse = ascii.encode(hello);
+final encodedMowLoanBody = ascii.encode(mowLawnBody);
+const queryParameters = {
+  'queryParameterA': 'queryValueA',
+  'queryParameterB': 'queryValueB'
+};
+const headers = {'headerA': 'headerValueA', 'headerB': 'headerValueB'};
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -42,185 +48,165 @@ void main() {
     await Amplify.addPlugin(api);
   });
 
-  test('PUT returns proper response.data', () async {
-    var responseData = Uint8List.fromList(
-        '{"success": "put call succeed!","url":/items?queryParameterA=queryValueA&queryParameterB=queryValueB","body": {"name": "Mow the lawn"}}'
-            .codeUnits);
-    var body = Uint8List.fromList('{"name":"Mow the lawn"}'.codeUnits);
-    var queryParameters = {
-      'queryParameterA': 'queryValueA',
-      'queryParameterB': 'queryValueB'
-    };
-    var headers = {'headerA': 'headerValueA', 'headerB': 'headerValueB'};
+  Future<void> _assertResponse(AWSStreamedHttpResponse response) async {
+    final actualResponseBody = await response.decodeBody();
+    expect(actualResponseBody, hello);
+    expect(response.statusCode, statusOK);
+  }
 
+  test('PUT returns proper response.data', () async {
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'put') {
         Map<dynamic, dynamic> restOptions =
             methodCall.arguments['restOptions'] as Map;
         expect(restOptions['apiName'], 'restapi');
         expect(restOptions['path'], '/items');
-        expect(restOptions['body'], body);
+        expect(restOptions['body'], encodedMowLoanBody);
         expect(restOptions['queryParameters'], queryParameters);
         expect(restOptions['headers'], headers);
-
-        return {'data': responseData, 'statusCode': statusOK};
+        return {'data': helloResponse, 'statusCode': statusOK};
       }
     });
 
-    RestOperation restOperation = api.put(
-      restOptions: RestOptions(
-        path: '/items',
-        body: body,
-        apiName: 'restapi',
-        queryParameters: queryParameters,
-        headers: headers,
-      ),
+    final restOperation = api.put(
+      '/items',
+      body: HttpPayload.string(mowLawnBody),
+      apiName: 'restapi',
+      queryParameters: queryParameters,
+      headers: headers,
     );
 
-    RestResponse response = await restOperation.response;
-
-    expect(response.data, responseData);
+    final response = await restOperation.value;
+    await _assertResponse(response);
   });
 
   test('POST returns proper response.data', () async {
-    var responseData = Uint8List.fromList(
-        '{"success": "post call succeed!","url":"/items?queryParameterA=queryValueA&queryParameterB=queryValueB","body": {"name": "Mow the lawn"}}'
-            .codeUnits);
-    var body = Uint8List.fromList('{"name":"Mow the lawn"}'.codeUnits);
-    var queryParameters = {
-      'queryParameterA': 'queryValueA',
-      'queryParameterB': 'queryValueB'
-    };
-    var headers = {'headerA': 'headerValueA', 'headerB': 'headerValueB'};
-
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'post') {
         Map<dynamic, dynamic> restOptions =
             methodCall.arguments['restOptions'] as Map;
         expect(restOptions['apiName'], 'restapi');
         expect(restOptions['path'], '/items');
-        expect(restOptions['body'], body);
+        expect(restOptions['body'], encodedMowLoanBody);
         expect(restOptions['queryParameters'], queryParameters);
         expect(restOptions['headers'], headers);
-
-        return {'data': responseData, 'statusCode': statusOK};
+        return {'data': helloResponse, 'statusCode': statusOK};
       }
     });
 
-    RestOperation restOperation = api.post(
-      restOptions: RestOptions(
-        path: '/items',
-        body: body,
-        apiName: 'restapi',
-        headers: headers,
-        queryParameters: queryParameters,
-      ),
+    final restOperation = api.post(
+      '/items',
+      body: HttpPayload.string(mowLawnBody),
+      apiName: 'restapi',
+      queryParameters: queryParameters,
+      headers: headers,
     );
 
-    RestResponse response = await restOperation.response;
-
-    expect(response.data, responseData);
+    final response = await restOperation.value;
+    await _assertResponse(response);
   });
 
   test('GET returns proper response.data', () async {
-    var responseData = Uint8List.fromList(
-        '{"success":"get call succeed!","url":"/items"}'.codeUnits);
-
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'get') {
         Map<dynamic, dynamic> restOptions =
             methodCall.arguments['restOptions'] as Map;
+        expect(restOptions['apiName'], 'restapi');
         expect(restOptions['path'], '/items');
-
-        return {'data': responseData, 'statusCode': statusOK};
+        expect(restOptions['queryParameters'], queryParameters);
+        expect(restOptions['headers'], headers);
+        return {'data': helloResponse, 'statusCode': statusOK};
       }
     });
 
-    RestOperation restOperation = api.get(
-        restOptions: const RestOptions(
-      path: '/items',
-    ));
+    final restOperation = api.get(
+      '/items',
+      apiName: 'restapi',
+      queryParameters: queryParameters,
+      headers: headers,
+    );
 
-    RestResponse response = await restOperation.response;
-
-    expect(response.data, responseData);
+    final response = await restOperation.value;
+    await _assertResponse(response);
   });
 
   test('DELETE returns proper response.data', () async {
-    var responseData = Uint8List.fromList(
-        '{"success":"delete call succeed!","url":"/items"}'.codeUnits);
-
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'delete') {
         Map<dynamic, dynamic> restOptions =
             methodCall.arguments['restOptions'] as Map;
+        expect(restOptions['apiName'], 'restapi');
         expect(restOptions['path'], '/items');
-
-        return {'data': responseData, 'statusCode': statusOK};
+        expect(restOptions['body'], encodedMowLoanBody);
+        expect(restOptions['queryParameters'], queryParameters);
+        expect(restOptions['headers'], headers);
+        return {'data': helloResponse, 'statusCode': statusOK};
       }
     });
 
-    RestOperation restOperation = api.delete(
-        restOptions: const RestOptions(
-      path: '/items',
-    ));
+    final restOperation = api.delete(
+      '/items',
+      body: HttpPayload.string(mowLawnBody),
+      apiName: 'restapi',
+      queryParameters: queryParameters,
+      headers: headers,
+    );
 
-    RestResponse response = await restOperation.response;
-
-    expect(response.data, responseData);
+    final response = await restOperation.value;
+    await _assertResponse(response);
   });
 
-  test('GET Status Code Error throws proper error', () async {
-    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'get') {
-        throw PlatformException(code: 'ApiException', details: {
-          'message': 'AMPLIFY_API_MUTATE_FAILED',
-          'recoverySuggestion': 'some insightful suggestion',
-          'underlyingException': 'Act of God'
-        });
-      }
-    });
+  // test('GET Status Code Error throws proper error', () async {
+  //   apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+  //     if (methodCall.method == 'get') {
+  //       throw PlatformException(code: 'ApiException', details: {
+  //         'message': 'AMPLIFY_API_MUTATE_FAILED',
+  //         'recoverySuggestion': 'some insightful suggestion',
+  //         'underlyingException': 'Act of God'
+  //       });
+  //     }
+  //   });
 
-    try {
-      RestOperation restOperation = api.get(
-          restOptions: const RestOptions(
-        path: '/items',
-      ));
-      await restOperation.response;
-    } on ApiException catch (e) {
-      expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
-      expect(e.recoverySuggestion, 'some insightful suggestion');
-      expect(e.underlyingException, 'Act of God');
-    }
-  });
+  //   try {
+  //     RestOperation restOperation = api.get(
+  //         restOptions: const RestOptions(
+  //       path: '/items',
+  //     ));
+  //     await restOperation.response;
+  //   } on ApiException catch (e) {
+  //     expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
+  //     expect(e.recoverySuggestion, 'some insightful suggestion');
+  //     expect(e.underlyingException, 'Act of God');
+  //   }
+  // });
 
-  test('GET exception adds the httpStatusCode to exception if available',
-      () async {
-    const statusCode = 500;
-    const data = 'Internal server error';
+  // test('GET exception adds the httpStatusCode to exception if available',
+  //     () async {
+  //   const statusCode = 500;
+  //   const data = 'Internal server error';
 
-    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'get') {
-        return {
-          'statusCode': statusCode,
-          'headers': <String, String>{},
-          'data': Uint8List.fromList(data.codeUnits),
-        };
-      }
-    });
+  //   apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+  //     if (methodCall.method == 'get') {
+  //       return {
+  //         'statusCode': statusCode,
+  //         'headers': <String, String>{},
+  //         'data': Uint8List.fromList(data.codeUnits),
+  //       };
+  //     }
+  //   });
 
-    try {
-      RestOperation restOperation = api.get(
-        restOptions: const RestOptions(
-          path: '/items',
-        ),
-      );
-      await restOperation.response;
-    } on RestException catch (e) {
-      expect(e.response.statusCode, 500);
-      expect(e.response.body, data);
-    }
-  });
+  //   try {
+  //     RestOperation restOperation = api.get(
+  //       restOptions: const RestOptions(
+  //         path: '/items',
+  //       ),
+  //     );
+  //     await restOperation.response;
+  //   } on RestException catch (e) {
+  //     expect(e.response.statusCode, 500);
+  //     expect(e.response.body, data);
+  //   }
+  // });
 
   test('CANCEL success does not throw error', () async {
     // Need to reply with PLACEHOLDER to avoid null issues in _formatRestResponse
@@ -237,10 +223,7 @@ void main() {
       }
     });
 
-    RestOperation restOperation = api.get(
-        restOptions: const RestOptions(
-      path: '/items',
-    ));
+    final restOperation = api.get('/items');
 
     //RestResponse response = await restOperation.response;
     restOperation.cancel();
@@ -260,27 +243,22 @@ void main() {
       });
     });
 
-    test('throws RestException', () async {
-      final restOp = api.get(restOptions: const RestOptions(path: '/'));
-      await expectLater(restOp.response, throwsRestException);
-    });
+    //   test('has valid RestResponse', () async {
+    //     final restOp = api.get(restOptions: const RestOptions(path: '/'));
 
-    test('has valid RestResponse', () async {
-      final restOp = api.get(restOptions: const RestOptions(path: '/'));
+    //     RestException restException;
+    //     try {
+    //       await restOp.response;
+    //       fail('RestOperation should throw');
+    //     } on Exception catch (e) {
+    //       expect(e, isA<RestException>());
+    //       restException = e as RestException;
+    //     }
 
-      RestException restException;
-      try {
-        await restOp.response;
-        fail('RestOperation should throw');
-      } on Exception catch (e) {
-        expect(e, isA<RestException>());
-        restException = e as RestException;
-      }
-
-      final response = restException.response;
-      expect(response.statusCode, statusBadRequest);
-      expect(response.headers, testResponseHeaders);
-      expect(response.body, testBody);
-    });
+    //     final response = restException.response;
+    //     expect(response.statusCode, statusBadRequest);
+    //     expect(response.headers, testResponseHeaders);
+    //     expect(response.body, testBody);
+    //   });
   });
 }
