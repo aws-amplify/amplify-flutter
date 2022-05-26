@@ -1,5 +1,3 @@
-load 'dependencies.rb'
-
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
 # Run `pod lib lint amplify_flutter.podspec' to validate before publishing.
@@ -21,12 +19,9 @@ Pod::Spec.new do |s|
   s.dependency 'AWSPluginsCore', '1.23.0'
   s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin', '1.23.0'
   s.dependency 'amplify_core'
-  s.dependency 'SwiftLint'
-  s.dependency 'SwiftFormat/CLI'
   s.platform = :ios, '11.0'
+  s.swift_version = '5.0'
 
-  # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
-  s.swift_version = $swift_version
-  s.script_phases = $default_script_phases
+  # Flutter.framework does not contain a i386 slice.
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
 end

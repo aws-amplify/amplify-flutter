@@ -1,5 +1,3 @@
-load 'dependencies.rb'
-
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
 # Run `pod lib lint amplify_core.podspec' to validate before publishing.
@@ -17,12 +15,9 @@ A base package shared across Amplify Flutter library.
   s.source = { :git => 'https://github.com/aws-amplify/amplify-flutter.git' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'SwiftLint'
-  s.dependency 'SwiftFormat/CLI'
   s.platform = :ios, '9.0'
+  s.swift_version = '5.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
-  s.swift_version = $swift_version
-  s.script_phases = $default_script_phases
 end

@@ -14,10 +14,10 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:integration_test/integration_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
@@ -38,13 +38,16 @@ void main() {
       final username = generateUsername();
       final password = generatePassword();
 
-      var _ = await Amplify.Auth.signUp(
-          username: username,
-          password: password,
-          options: CognitoSignUpOptions(userAttributes: {
+      await Amplify.Auth.signUp(
+        username: username,
+        password: password,
+        options: CognitoSignUpOptions(
+          userAttributes: {
             CognitoUserAttributeKey.email: generateEmail(),
             CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
-          }));
+          },
+        ),
+      );
       // should be uncommented when https://github.com/aws-amplify/amplify-flutter/issues/581 is closed
       // currently this just confirms there is no error thrown
       // expect(res.isSignUpComplete, true);
@@ -55,32 +58,31 @@ void main() {
         (WidgetTester tester) async {
       final username = generateUsername();
       final password = generatePassword();
-      try {
-        await Amplify.Auth.signUp(username: username, password: password);
-      } catch (e) {
-        expect(e, TypeMatcher<InvalidParameterException>());
-        return;
-      }
-      fail('Expected InvalidParameterException');
+      expect(
+        Amplify.Auth.signUp(username: username, password: password),
+        throwsA(isA<InvalidParameterException>()),
+      );
     });
 
     testWidgets(
         'should throw an InvalidPasswordException for a password that does not meet requirements',
         (WidgetTester tester) async {
       final username = generateUsername();
-      final invalidPassword = '123';
-      final options = CognitoSignUpOptions(userAttributes: {
-        CognitoUserAttributeKey.email: generateEmail(),
-        CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
-      });
-      try {
-        await Amplify.Auth.signUp(
-            username: username, password: invalidPassword, options: options);
-      } catch (e) {
-        expect(e, TypeMatcher<InvalidPasswordException>());
-        return;
-      }
-      fail('Expected InvalidPasswordException');
+      const invalidPassword = '123';
+      final options = CognitoSignUpOptions(
+        userAttributes: {
+          CognitoUserAttributeKey.email: generateEmail(),
+          CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
+        },
+      );
+      expect(
+        Amplify.Auth.signUp(
+          username: username,
+          password: invalidPassword,
+          options: options,
+        ),
+        throwsA(isA<InvalidPasswordException>()),
+      );
     });
 
     testWidgets(
@@ -107,17 +109,14 @@ void main() {
         CognitoUserAttributeKey.email: generateEmail(),
         CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
       });
-      try {
-        await Amplify.Auth.signUp(
+      expect(
+        Amplify.Auth.signUp(
           username: username,
           password: userTwoPassword,
           options: userTwoOptions,
-        );
-      } catch (e) {
-        expect(e, TypeMatcher<UsernameExistsException>());
-        return;
-      }
-      fail('Expected UsernameExistsException');
+        ),
+        throwsA(isA<UsernameExistsException>()),
+      );
     });
   });
 }
