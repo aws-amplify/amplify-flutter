@@ -1,0 +1,50 @@
+# ffigen config for Apple's CoreFoundation Framework
+# to regenerate, run: dart run ffigen --config ffigen.cupertino.security.config.yaml
+# 
+# This should be run on a Mac with Command Line Tools installed.
+#
+# NOTE: You may nee to update the path to the `/Frameworks/` directory depending on
+# your MacOS version.
+
+output: 'lib/src/ffi/cupertino/core_foundation.bindings.g.dart'
+name: 'CoreFoundation'
+description: 'Bindings for the CoreFoundation Framework'
+headers:
+  entry-points:
+    - '/Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFDictionary.h'
+    - '/Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFString.h'
+    - '/Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFData.h'
+compiler-opts:
+  - '-F/Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/System/Library/Frameworks'
+functions:
+  include:
+    - CFDictionaryCreate
+    - CFDataCreate
+    - CFStringGetCStringPtr
+    - CFStringCreateWithCString
+    - CFDataGetBytePtr
+    - CFRelease
+structs:
+  include:
+    - NONE
+  rename:
+    '__CFString': 'CFString'
+    '__CFType': 'CFType'
+    '__CFData': 'CFData'
+    '__CFDictionary': 'CFDictionary'
+enums:
+  include:
+    - NONE
+globals:
+  include:
+    - NONE
+macros:
+  include:
+    - NONE
+unions:
+  include:
+    - NONE
+unnamed-enums:
+  include:
+    - kCFStringEncodingUTF8
+comments: false
