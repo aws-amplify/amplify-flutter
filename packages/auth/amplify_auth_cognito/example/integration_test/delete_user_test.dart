@@ -12,12 +12,12 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import 'package:integration_test/integration_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
@@ -56,16 +56,13 @@ void main() {
       await Amplify.Auth.deleteUser();
 
       // Expect subsequent sign in to fail
-      try {
-        await Amplify.Auth.signIn(
+      expect(
+        Amplify.Auth.signIn(
           username: username,
           password: password,
-        );
-      } catch (e) {
-        expect(e, TypeMatcher<UserNotFoundException>());
-        return;
-      }
-      fail('Expected UserNotFoundException');
+        ),
+        throwsA(isA<UserNotFoundException>()),
+      );
     });
 
     testWidgets(
@@ -93,14 +90,12 @@ void main() {
       await Amplify.Auth.deleteUser();
 
       // Expect fetchAuthSession to throw a SignedOutException (the tokens have been cleared)
-      try {
-        await Amplify.Auth.fetchAuthSession(
-            options: CognitoSessionOptions(getAWSCredentials: true));
-      } catch (e) {
-        expect(e, TypeMatcher<SignedOutException>());
-        return;
-      }
-      fail('Expected SignedOutException');
+      expect(
+        Amplify.Auth.fetchAuthSession(
+          options: const CognitoSessionOptions(getAWSCredentials: true),
+        ),
+        throwsA(isA<SignedOutException>()),
+      );
     });
   });
 }

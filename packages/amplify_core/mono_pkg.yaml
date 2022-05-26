@@ -10,5 +10,6 @@ stages:
           - analyze: --fatal-infos .
   - unit_test:
       - group:
+          - command: flutter doctor -v
           - test:
           - test: --platform chrome

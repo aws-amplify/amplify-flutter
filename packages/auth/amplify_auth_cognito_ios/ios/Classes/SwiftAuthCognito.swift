@@ -17,240 +17,280 @@ import Flutter
 import UIKit
 import Amplify
 import AmplifyPlugins
-import AWSCore
+import AWSPluginsCore
 import amplify_core
 
-public class SwiftAuthCognito: NSObject, FlutterPlugin {
+public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, NativeAuthBridge {
     
-    private var authEventSink: FlutterEventSink?
-    private var token: UnsubscribeToken?
-    private let cognito: AuthCognitoBridge
-    private let authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler?
-    private let nullaryMethods: Set<String> = ["deleteUser"]
-    var errorHandler = AuthErrorHandler()
+    /// Shim for [AuthCategoryPlugin] to allow Dart Auth to fulfill the contract of the native Auth plugin in
+    /// other categories like API/Storage. For the subset of methods needed to fulfill the requirements
+    /// of those categories, we bridge to the Dart plugin using a Flutter MethodChannel via `pigeon`.
+    private let nativeAuthPlugin: NativeAuthPlugin
     
-    /// Handles calls to the Devices API.
-    private let deviceHandler: DeviceHandler
-    
-    init(cognito: AuthCognitoBridge = AuthCognitoBridge(),
-         authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()) {
-        self.cognito = cognito
-        self.authCognitoHubEventStreamHandler = authCognitoHubEventStreamHandler
-        self.deviceHandler = DeviceHandler(errorHandler: errorHandler)
+    init(nativeAuthPlugin: NativeAuthPlugin) {
+        self.nativeAuthPlugin = nativeAuthPlugin
+        super.init()
     }
     
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/auth_cognito", binaryMessenger: registrar.messenger())
-        let eventChannel = FlutterEventChannel(name: "com.amazonaws.amplify/auth_cognito_events", binaryMessenger: registrar.messenger())
-        let instance = SwiftAuthCognito()
-        registrar.addMethodCallDelegate(instance, channel: channel)
-        let authPlugin = AWSCognitoAuthPlugin()
-        eventChannel.setStreamHandler(instance.authCognitoHubEventStreamHandler)
-        Amplify.Logging.logLevel = .error
+        let nativeAuthPlugin = NativeAuthPlugin(binaryMessenger: registrar.messenger())
+        let instance = SwiftAuthCognito(nativeAuthPlugin: nativeAuthPlugin)
+        NativeAuthBridgeSetup(registrar.messenger(), instance)
     }
     
-    private func checkArguments(args: Any) throws -> Dictionary<String, AnyObject> {
-        guard let res = args as? Dictionary<String, AnyObject> else {
-            throw InvalidRequestError.auth(comment: "Flutter method call could not be cast.",
-                                              suggestion: "arguments is not a Dictionary<String, AnyObject>")
+    public let key: PluginKey = "awsCognitoAuthPlugin"
+    
+    public func configure(using configuration: Any?) throws {}
+    
+    public func configure(completion: @escaping (FlutterError?) -> Void) {
+        do {
+            try Amplify.add(plugin: self)
+            completion(nil)
+        } catch {
+            completion(FlutterError(
+                code: "UNKNOWN",
+                message: error.localizedDescription,
+                details: nil
+            ))
         }
-        return res;
     }
     
-    private func checkData(args: Dictionary<String, AnyObject>) throws -> NSMutableDictionary {
-        guard let res = args["data"] as? NSMutableDictionary else {
-            throw InvalidRequestError.auth(comment:  "Flutter method call could not be cast",
-                                              suggestion: "arguments['data'] is not a NSMutableDictionary")
-        }
-        return res;
+    public func reset(onComplete: @escaping BasicClosure) {
+        onComplete()
     }
     
-    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        let result = AtomicResult(result, call.method)
-
-        if(call.method == "addPlugin"){
-            do {
-                try Amplify.add(plugin: AWSCognitoAuthPlugin() )
-                result(true)
-            } catch let error{
-                if(error is AuthError){
-                    let authError = error as! AuthError
-
-                    ErrorUtil.postErrorToFlutterChannel(
-                        result: result,
-                        errorCode: "AuthException",
-                        details: [
-                            "message" : authError.errorDescription,
-                            "recoverySuggestion" : authError.recoverySuggestion,
-                            "underlyingError": authError.underlyingError != nil ? authError.underlyingError!.localizedDescription : ""
-                        ]
-                    )
-                } else if(error is ConfigurationError) {
-                    let configError = error as! ConfigurationError
-                    
-                    var errorCode = "AuthException"
-                    if case .amplifyAlreadyConfigured = configError {
-                       errorCode = "AmplifyAlreadyConfiguredException"
-                    }
-                    ErrorUtil.postErrorToFlutterChannel(
-                        result: result,
-                        errorCode: errorCode,
-                        details: [
-                            "message" : configError.errorDescription,
-                            "recoverySuggestion" : configError.recoverySuggestion,
-                            "underlyingError": configError.underlyingError != nil ? configError.underlyingError!.localizedDescription : ""
-                        ]
-                    )
-                } else{
-                    print("Failed to add Amplify Auth Plugin \(error)")
-                    result(false)
-                }
+    public func fetchAuthSession(
+        options: AuthFetchSessionRequest.Options?,
+        listener: ((AmplifyOperation<AuthFetchSessionRequest,
+                        AuthSession,
+                        AuthError>.OperationResult)
+                  -> Void)?
+    ) -> AuthFetchSessionOperation {
+        let operation = NativeAuthFetchSessionOperation(
+            categoryType: .auth,
+            eventName: HubPayload.EventName.Auth.fetchSessionAPI,
+            request: AuthFetchSessionRequest(options: options ?? AuthFetchSessionRequest.Options()),
+            resultListener: listener
+        )
+        nativeAuthPlugin.fetchAuthSessionGetAwsCredentials(true) { session, error in
+            guard let session = session else {
+                let authError: AuthError = .unknown(
+                    error?.localizedDescription ?? "Could not complete native request",
+                    error
+                )
+                operation.dispatch(result: .failure(authError))
+                return
             }
-            return
+            let result = NativeAWSAuthCognitoSession(from: session)
+            operation.dispatch(result: .success(result))
         }
-        
-        if (DeviceHandler.canHandle(call.method)) {
-            deviceHandler.handle(call, result: result)
-            return
-        }
-        
-        var arguments: Dictionary<String, AnyObject> = [:]
-        var data: NSMutableDictionary = [:]
-    
-        if (!nullaryMethods.contains(call.method)) {
-            do {
-                try arguments = checkArguments(args: call.arguments as Any)
-                try data = checkData(args: arguments)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        }
-
-        switch call.method {
-        case "signUp":
-            do {
-                try FlutterSignUpRequest.validate(dict: data)
-                let request = FlutterSignUpRequest(dict: data)
-                cognito.onSignUp(flutterResult: result, request: request)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        case "confirmSignUp":
-            do {
-                try FlutterConfirmSignUpRequest.validate(dict: data)
-                let request = FlutterConfirmSignUpRequest(dict: data)
-                cognito.onConfirmSignUp(flutterResult: result, request: request)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        case "resendSignUpCode":
-            do {
-                try FlutterResendSignUpCodeRequest.validate(dict: data)
-                let request = FlutterResendSignUpCodeRequest(dict: data)
-                cognito.onResendSignUpCode(flutterResult: result, request: request)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        case "signIn":
-            do {
-                let request = FlutterSignInRequest(dict: data)
-                cognito.onSignIn(flutterResult: result, request: request)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        case "confirmSignIn":
-            do {
-                try FlutterConfirmSignInRequest.validate(dict: data)
-                let request = FlutterConfirmSignInRequest(dict: data)
-                cognito.onConfirmSignIn(flutterResult: result, request: request)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        case "signOut":
-            // signOut has no validation as there are no required params
-            let request = FlutterSignOutRequest(dict: data)
-            cognito.onSignOut(flutterResult: result, request: request)
-        case "updatePassword":
-            do {
-                try FlutterUpdatePasswordRequest.validate(dict: data)
-                let request = FlutterUpdatePasswordRequest(dict: data)
-                cognito.onUpdatePassword(flutterResult: result, request: request)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        case "resetPassword":
-            do {
-                try FlutterResetPasswordRequest.validate(dict: data)
-                let request = FlutterResetPasswordRequest(dict: data)
-                cognito.onResetPassword(flutterResult: result, request: request)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        case "confirmResetPassword":
-            do {
-                try FlutterConfirmResetPasswordRequest.validate(dict: data)
-                let request = FlutterConfirmResetPasswordRequest(dict: data)
-                cognito.onConfirmResetPassword(flutterResult: result, request: request)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        case "fetchAuthSession":
-            let request = FlutterFetchSessionRequest(dict: data)
-            cognito.onFetchSession(flutterResult: result, request: request)
-        case "getCurrentUser":
-            cognito.onGetCurrentUser(flutterResult: result)
-        case "fetchUserAttributes":
-            cognito.onFetchUserAttributes(flutterResult: result)
-        case "signInWithWebUI":
-            do {
-                try FlutterSignInWithWebUIRequest.validate(dict: data)
-                let request = FlutterSignInWithWebUIRequest(dict: data)
-                if request.provider == nil {
-                    cognito.onSignInWithWebUI(flutterResult: result, request: request)
-                } else {
-                    cognito.onSignInWithSocialWebUI(flutterResult: result, request: request)
-                }
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        case "updateUserAttribute":
-            do {
-                try FlutterUpdateUserAttributeRequest.validate(dict: data)
-                let request = FlutterUpdateUserAttributeRequest(dict: data)
-                cognito.onUpdateUserAttribute(flutterResult: result, request: request)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        case "updateUserAttributes":
-            do {
-                try FlutterUpdateUserAttributesRequest.validate(dict: data)
-                let request = FlutterUpdateUserAttributesRequest(dict: data)
-                cognito.onUpdateUserAttributes(flutterResult: result, request: request)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        case "confirmUserAttribute":
-            do {
-                try FlutterConfirmUserAttributeRequest.validate(dict: data)
-                let request = FlutterConfirmUserAttributeRequest(dict: data)
-                cognito.onConfirmUserAttribute(flutterResult: result, request: request)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        case "resendUserAttributeConfirmationCode":
-            do {
-                try FlutterResendUserAttributeConfirmationCodeRequest.validate(dict: data)
-                let request = FlutterResendUserAttributeConfirmationCodeRequest(dict: data)
-                cognito.onResendUserAttributeConfirmationCode(flutterResult: result, request: request)
-            } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
-            }
-        case "deleteUser":
-            cognito.onDeleteUser(flutterResult: result)
-        default:
-            result(FlutterMethodNotImplemented)
-        }
+        return operation
     }
+    
+    public func signUp(
+        username: String,
+        password: String?,
+        options: AuthSignUpRequest.Options?,
+        listener: ((AmplifyOperation<AuthSignUpRequest, AuthSignUpResult, AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthSignUpOperation {
+        preconditionFailure("signUp is not supported")
+    }
+    
+    public func getCurrentUser() -> AuthUser? {
+        preconditionFailure("getCurrentUser is not supported")
+    }
+    
+    public func fetchDevices(
+        options: AuthFetchDevicesRequest.Options?,
+        listener: ((AmplifyOperation<AuthFetchDevicesRequest, Array<AuthDevice>, AuthError>.OperationResult)
+                  -> Void)?
+    ) -> AuthFetchDevicesOperation {
+        preconditionFailure("fetchDevices is not supported")
+    }
+    
+    public func confirmSignUp(
+        for username: String,
+        confirmationCode: String,
+        options: AuthConfirmSignUpRequest.Options?,
+        listener: ((AmplifyOperation<AuthConfirmSignUpRequest, AuthSignUpResult, AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthConfirmSignUpOperation {
+        preconditionFailure("confirmSignUp is not supported")
+    }
+    
+    public func fetchUserAttributes(
+        options: AuthFetchUserAttributesRequest.Options?,
+        listener: ((AmplifyOperation<AuthFetchUserAttributesRequest,
+                        Array<AuthUserAttribute>,
+                        AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthFetchUserAttributeOperation {
+        preconditionFailure("fetchUserAttributes is not supported")
+    }
+    
+    public func forgetDevice(
+        _ device: AuthDevice?,
+        options: AuthForgetDeviceRequest.Options?,
+        listener: ((AmplifyOperation<AuthForgetDeviceRequest, (), AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthForgetDeviceOperation {
+        preconditionFailure("forgetDevice is not supported")
+    }
+    
+    public func resendSignUpCode(
+        for username: String,
+        options: AuthResendSignUpCodeRequest.Options?,
+        listener: ((AmplifyOperation<AuthResendSignUpCodeRequest,
+                        AuthCodeDeliveryDetails,
+                        AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthResendSignUpCodeOperation {
+        preconditionFailure("resendSignUpCode is not supported")
+    }
+    
+    public func update(
+        userAttribute: AuthUserAttribute,
+        options: AuthUpdateUserAttributeRequest.Options?,
+        listener: ((AmplifyOperation<AuthUpdateUserAttributeRequest,
+                        AuthUpdateAttributeResult,
+                        AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthUpdateUserAttributeOperation {
+        preconditionFailure("update is not supported")
+    }
+    
+    public func rememberDevice(
+        options: AuthRememberDeviceRequest.Options?,
+        listener: ((AmplifyOperation<AuthRememberDeviceRequest, (), AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthRememberDeviceOperation {
+        preconditionFailure("rememberDevice is not supported")
+    }
+    
+    public func signIn(
+        username: String?,
+        password: String?,
+        options: AuthSignInRequest.Options?,
+        listener: ((AmplifyOperation<AuthSignInRequest,
+                        AuthSignInResult,
+                        AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthSignInOperation {
+        preconditionFailure("signIn is not supported")
+    }
+    
+    public func update(
+        userAttributes: [AuthUserAttribute],
+        options: AuthUpdateUserAttributesRequest.Options?,
+        listener: ((AmplifyOperation<AuthUpdateUserAttributesRequest,
+                        Dictionary<AuthUserAttributeKey, AuthUpdateAttributeResult>,
+                        AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthUpdateUserAttributesOperation {
+        preconditionFailure("update is not supported")
+    }
+    
+    public func signInWithWebUI(
+        presentationAnchor: AuthUIPresentationAnchor,
+        options: AuthWebUISignInRequest.Options?,
+        listener: ((AmplifyOperation<AuthWebUISignInRequest,
+                        AuthSignInResult,
+                        AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthWebUISignInOperation {
+        preconditionFailure("signInWithWebUI is not supported")
+    }
+    
+    public func resendConfirmationCode(
+        for attributeKey: AuthUserAttributeKey,
+        options: AuthAttributeResendConfirmationCodeRequest.Options?,
+        listener: ((AmplifyOperation<AuthAttributeResendConfirmationCodeRequest,
+                        AuthCodeDeliveryDetails,
+                        AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthAttributeResendConfirmationCodeOperation {
+        preconditionFailure("resendConfirmationCode is not supported")
+    }
+    
+    public func signInWithWebUI(
+        for authProvider: AuthProvider,
+        presentationAnchor: AuthUIPresentationAnchor,
+        options: AuthWebUISignInRequest.Options?,
+        listener: ((AmplifyOperation<AuthWebUISignInRequest,
+                        AuthSignInResult,
+                        AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthSocialWebUISignInOperation {
+        preconditionFailure("signInWithWebUI is not supported")
+    }
+    
+    public func confirm(
+        userAttribute: AuthUserAttributeKey,
+        confirmationCode: String,
+        options: AuthConfirmUserAttributeRequest.Options?,
+        listener: ((AmplifyOperation<AuthConfirmUserAttributeRequest, (), AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthConfirmUserAttributeOperation {
+        preconditionFailure("confirm is not supported")
+    }
+    
+    public func confirmSignIn(
+        challengeResponse: String,
+        options: AuthConfirmSignInRequest.Options?,
+        listener: ((AmplifyOperation<AuthConfirmSignInRequest,
+                        AuthSignInResult,
+                        AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthConfirmSignInOperation {
+        preconditionFailure("confirmSignIn is not supported")
+    }
+    
+    public func update(
+        oldPassword: String,
+        to newPassword: String,
+        options: AuthChangePasswordRequest.Options?,
+        listener: ((AmplifyOperation<AuthChangePasswordRequest, (), AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthChangePasswordOperation {
+        preconditionFailure("update is not supported")
+    }
+    
+    public func signOut(
+        options: AuthSignOutRequest.Options?,
+        listener: ((AmplifyOperation<AuthSignOutRequest, (), AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthSignOutOperation {
+        preconditionFailure("signOut is not supported")
+    }
+    
+    public func deleteUser(
+        listener: ((AmplifyOperation<AuthDeleteUserRequest, (), AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthDeleteUserOperation {
+        preconditionFailure("deleteUser is not supported")
+    }
+    
+    public func resetPassword(
+        for username: String,
+        options: AuthResetPasswordRequest.Options?,
+        listener: ((AmplifyOperation<AuthResetPasswordRequest,
+                        AuthResetPasswordResult,
+                        AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthResetPasswordOperation {
+        preconditionFailure("resetPassword is not supported")
+    }
+    
+    public func confirmResetPassword(
+        for username: String,
+        with newPassword: String,
+        confirmationCode: String,
+        options: AuthConfirmResetPasswordRequest.Options?,
+        listener: ((AmplifyOperation<AuthConfirmResetPasswordRequest, (), AuthError>.OperationResult)
+                   -> Void)?
+    ) -> AuthConfirmResetPasswordOperation {
+        preconditionFailure("resetPassword is not supported")
+    }
+    
 }
-
-extension SwiftAuthCognito: DefaultLogger { }

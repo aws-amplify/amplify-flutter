@@ -1,5 +1,3 @@
-load '../../ios/dependencies.rb'
-
 # Uncomment this line to define a global platform for your project
 platform :ios, '13.0'
 
@@ -28,7 +26,6 @@ end
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
 
 flutter_ios_podfile_setup
-include_build_tools!
 
 target 'Runner' do
   use_frameworks!

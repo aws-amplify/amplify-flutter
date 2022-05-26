@@ -1,0 +1,6 @@
+framework module amplify_auth_cognito_ios {
+    umbrella header "amplify_auth_cognito_ios.h"
+
+    export *
+    module * { export * }
+}

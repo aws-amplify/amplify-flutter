@@ -13,17 +13,17 @@
  * permissions and limitations under the License.
  */
 
-import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
-import 'sign_in_sign_out_test.dart' as sign_in_sign_out_tests;
-import 'sign_up_test.dart' as sign_up_tests;
-import 'user_attributes_test.dart' as user_attributes_tests;
-import 'hub_events_test.dart' as hub_events_tests;
-import 'update_password_test.dart' as update_password_tests;
+import 'delete_user_test.dart' as delete_user_tests;
 import 'fetch_session_test.dart' as fetch_session_tests;
 import 'get_current_user_test.dart' as get_current_user_tests;
-import 'delete_user_test.dart' as delete_user_tests;
+import 'hub_events_test.dart' as hub_events_tests;
+import 'sign_in_sign_out_test.dart' as sign_in_sign_out_tests;
+import 'sign_up_test.dart' as sign_up_tests;
+import 'update_password_test.dart' as update_password_tests;
+import 'user_attributes_test.dart' as user_attributes_tests;
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();

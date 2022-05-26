@@ -1,6 +1,7 @@
 name: amplify_auth_cognito_example
 description: Demonstrates how to use the amplify_auth_cognito plugin.
-publish_to: "none"
+version: 0.1.0
+publish_to: none
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -16,9 +17,10 @@ dependencies:
     # The example app is bundled with the plugin so we use a path dependency on
     # the parent directory to use the current plugin's version.
     path: ../
+  amplify_authenticator:
+    path: ../../../amplify_authenticator
   amplify_flutter:
     path: ../../../amplify/amplify_flutter
-  cupertino_icons: ^0.1.3
   flutter:
     sdk: flutter
 
