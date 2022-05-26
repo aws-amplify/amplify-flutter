@@ -75,12 +75,12 @@ class _GHashTable extends ffi.Opaque {}
 
 typedef GHashFunc
     = ffi.Pointer<ffi.NativeFunction<guint Function(gconstpointer)>>;
-typedef guint = ffi.Uint32;
+typedef guint = ffi.UnsignedInt;
 typedef gconstpointer = ffi.Pointer<ffi.Void>;
 typedef GEqualFunc = ffi.Pointer<
     ffi.NativeFunction<gboolean Function(gconstpointer, gconstpointer)>>;
 typedef gboolean = gint;
-typedef gint = ffi.Int32;
+typedef gint = ffi.Int;
 typedef gpointer = ffi.Pointer<ffi.Void>;
 
 class GError extends ffi.Struct {
@@ -93,5 +93,5 @@ class GError extends ffi.Struct {
   external ffi.Pointer<gchar> message;
 }
 
-typedef GQuark = ffi.Int32;
-typedef gchar = ffi.Int8;
+typedef GQuark = ffi.Int;
+typedef gchar = ffi.Char;
