@@ -15,10 +15,11 @@
 
 import Foundation
 import Amplify
+import amplify_core
 
 public struct FlutterModelAssociation {
     private let associationType: String
-    private let targetName: String?
+    private var targetNames = [String]()
     private let associatedName: String?
 
     init(serializedData: [String: Any]) throws {
@@ -31,18 +32,30 @@ public struct FlutterModelAssociation {
         }
         self.associationType = associationType
 
-        self.targetName = serializedData["targetName"] as? String
+        // With custom primary key we are expecting model to provide targetNames instead of targetName
+        // For belongsTo model association, if this information is missing, mostl likely
+        // Flutter sent wrongly serialized data
+        // Also, keeping targetName for backwards compatibility
+        if let inputTargetName = serializedData["targetName"] as? String {
+            targetNames.append(inputTargetName)
+        } else if let inputTargetNames = serializedData["targetNames"] as? [String] {
+            targetNames += inputTargetNames
+        } else if associationType == "BelongsTo" {
+            throw DataStoreError.decodingError(
+                "Invalid ModelAssociation data: targetNames is not presented in the serialized ModelAssociation data",
+                ErrorMessages.missingAttribute)
+        }
         self.associatedName = serializedData["associatedName"] as? String
     }
 
     public func convertToNativeModelAssociation() -> ModelAssociation{
         switch associationType {
             case "HasMany":
-                return ModelAssociation.hasMany(associatedFieldName: associatedName)
+                return .hasMany(associatedFieldName: associatedName)
             case "HasOne":
-                return ModelAssociation.hasOne(associatedFieldName: associatedName)
+                return .hasOne(associatedFieldName: associatedName, targetNames: targetNames)
             case "BelongsTo":
-                return ModelAssociation.belongsTo(associatedFieldName: associatedName, targetName: targetName)
+                return .belongsTo(associatedFieldName: associatedName, targetNames: targetNames)
             default:
                 preconditionFailure("Could not create a ModelAssociation from \(associationType)")
         }
