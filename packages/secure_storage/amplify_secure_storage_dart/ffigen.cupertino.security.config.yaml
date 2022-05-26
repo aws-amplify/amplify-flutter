@@ -40,6 +40,8 @@ globals:
     - kSecClassGenericPassword
     - kSecAttrService
     - kSecValueData
+    - kSecUseDataProtectionKeychain
+    - kSecAttrAccessGroup
 macros:
   include:
     - NONE
@@ -54,6 +56,7 @@ unnamed-enums:
     - errSecUserCanceled
     - errSecAuthFailed
     - errSecInteractionRequired
+    - errSecMissingEntitlement
 comments: false
 library-imports:
   coreFoundation: './core_foundation.bindings.g.dart'

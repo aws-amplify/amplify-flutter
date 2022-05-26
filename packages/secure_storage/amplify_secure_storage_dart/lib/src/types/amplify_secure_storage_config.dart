@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_secure_storage_dart/src/types/ios_secure_storage_options.dart';
+import 'package:amplify_secure_storage_dart/src/types/macos_secure_storage_options.dart';
+
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_config}
 /// Configuration options for Amplify Secure Storage.
 /// {@endtemplate}
@@ -20,6 +23,8 @@ class AmplifySecureStorageConfig {
   const AmplifySecureStorageConfig({
     required this.packageId,
     required this.scope,
+    this.macOSOptions = MacOSSecureStorageOptions.defaultOptions,
+    this.iOSOptions = IOSSecureStorageOptions.defaultOptions,
   });
 
   /// A unique package identifier such as a bundle ID.
@@ -39,4 +44,10 @@ class AmplifySecureStorageConfig {
   /// identifier for the secret. Saving two values under unique scopes will
   /// prevent collisions even if the key & packageId overlap.
   final String scope;
+
+  /// Options that are specific to the MacOS platform.
+  final MacOSSecureStorageOptions macOSOptions;
+
+  /// Options that are specific to the iOS platform.
+  final IOSSecureStorageOptions iOSOptions;
 }
