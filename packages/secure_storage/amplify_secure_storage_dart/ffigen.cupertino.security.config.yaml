@@ -3,19 +3,19 @@
 #
 # The output depends on ffi bindings generated for the CoreFoundation Framework.
 # 
-# This should be run on a Mac with Command Line Tools installed.
+# This should be run on a Mac with XCode installed.
 #
-# NOTE: You may need to update the path to the `/Frameworks/` directory depending on
-# your MacOS version.
+# NOTE: You may need to update the path to the `/Frameworks/` directory depending
+# which SDK versions you have installed
 
 output: 'lib/src/ffi/cupertino/security.bindings.g.dart'
 name: 'Security'
 description: 'Bindings for the Security Framework'
 headers:
   entry-points:
-    - '/Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Security.framework/Headers/SecItem.h'
+    - '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Security.framework/Headers/SecItem.h'
 compiler-opts:
-  - '-F/Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/System/Library/Frameworks'
+  - '-F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks'
 functions:
   include:
     - SecItemAdd
