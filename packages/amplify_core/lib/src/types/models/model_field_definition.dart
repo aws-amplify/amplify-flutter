@@ -150,7 +150,9 @@ class ModelFieldDefinition {
       bool isRequired = true,
       required String ofModelName,
       QueryField? associatedKey,
-      String? targetName}) {
+      @Deprecated('Please use the latest version of Amplify CLI to regenerate models')
+          String? targetName,
+      List<String>? targetNames}) {
     // Extra code needed due to lack of nullability support
     String? associatedName;
     String? associatedType;
@@ -166,6 +168,7 @@ class ModelFieldDefinition {
         association: ModelAssociation(
             associationType: ModelAssociationEnum.BelongsTo,
             targetName: targetName,
+            targetNames: targetNames,
             associatedName: associatedName,
             associatedType: associatedType));
   }
