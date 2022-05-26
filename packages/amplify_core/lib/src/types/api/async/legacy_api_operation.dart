@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,11 +13,12 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:async/async.dart';
 
-class GraphQLOperation<T> {
-  final Function cancel;
-  final Future<GraphQLResponse<T>> response;
-
-  const GraphQLOperation({required this.response, required this.cancel});
+/// Eventually this should be deprecated and just use [CancelableOperation].
+/// Until then, this is used to make `.response` available like it was for older
+/// [GraphQLOperation] and [RestOperation] classes.
+extension LegacyApiOperation<T> on CancelableOperation<T> {
+  @Deprecated('Use .value instead.')
+  Future<T> get response => value;
 }
