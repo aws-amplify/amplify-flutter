@@ -25,22 +25,28 @@ void runTests(SecureStorageFactory storageFactory) {
   late AmplifySecureStorageInterface storagePackageID;
   late AmplifySecureStorageInterface storageScope;
   setUp(() async {
+    // Disabling `useDataProtection` for tests since it would require a MacOS
+    // app that has at least one app group
+    final macOSOptions = MacOSSecureStorageOptions(useDataProtection: false);
     storage = storageFactory(
       config: AmplifySecureStorageConfig(
         packageId: 'com.example.test',
         scope: 'default',
+        macOSOptions: macOSOptions,
       ),
     );
     storagePackageID = storageFactory(
       config: AmplifySecureStorageConfig(
         packageId: 'com.example.test2',
         scope: 'default',
+        macOSOptions: macOSOptions,
       ),
     );
     storageScope = storageFactory(
       config: AmplifySecureStorageConfig(
         packageId: 'com.example.test',
         scope: 'other',
+        macOSOptions: macOSOptions,
       ),
     );
     await storage.delete(key: key1);

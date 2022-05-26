@@ -16,9 +16,6 @@ import 'dart:async';
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
-export 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart'
-    show AmplifySecureStorageConfig;
-
 /// {@macro amplify_secure_storage.amplify_secure_storage}
 class AmplifySecureStorage extends AmplifySecureStorageInterface {
   /// {@macro amplify_secure_storage.amplify_secure_storage}
