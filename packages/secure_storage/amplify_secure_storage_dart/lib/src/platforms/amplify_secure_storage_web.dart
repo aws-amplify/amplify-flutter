@@ -58,8 +58,8 @@ class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
         database.createObjectStore(storeName);
       }
     };
-    // TODO: update once https://github.com/dart-lang/sdk/issues/48835 
-    // is resolved in a stable version. setting _database instead of returning 
+    // TODO: update once https://github.com/dart-lang/sdk/issues/48835
+    // is resolved in a stable version. setting _database instead of returning
     // it is a work around.
     _database = await openRequest.future;
   }
