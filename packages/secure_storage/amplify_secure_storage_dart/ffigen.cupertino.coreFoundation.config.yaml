@@ -3,7 +3,7 @@
 # 
 # This should be run on a Mac with Command Line Tools installed.
 #
-# NOTE: You may nee to update the path to the `/Frameworks/` directory depending on
+# NOTE: You may need to update the path to the `/Frameworks/` directory depending on
 # your MacOS version.
 
 output: 'lib/src/ffi/cupertino/core_foundation.bindings.g.dart'
