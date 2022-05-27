@@ -17,11 +17,11 @@ import 'dart:convert';
 
 import 'package:async/async.dart';
 
-/// {@template amplify_common.http_payload}
+/// {@template amplify_core.http_payload}
 /// An HTTP request's payload.
 /// {@endtemplate}
 class HttpPayload extends StreamView<List<int>> {
-  /// {@macro amplify_common.http_payload}
+  /// {@macro amplify_core.http_payload}
   factory HttpPayload([Object? body]) {
     if (body == null) {
       return const HttpPayload.empty();
