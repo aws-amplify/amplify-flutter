@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:amplify_api/amplify_api.dart';
@@ -43,7 +44,9 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _configure() async {
     try {
-      await Amplify.addPlugin(AmplifyAPI());
+      if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+        await Amplify.addPlugin(AmplifyAPI());
+      }
       await Amplify.addPlugin(AmplifyAuthCognito());
       await Amplify.configure(amplifyconfig);
       safePrint('Successfully configured Amplify');

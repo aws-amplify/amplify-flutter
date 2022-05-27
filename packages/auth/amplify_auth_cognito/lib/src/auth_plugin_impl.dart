@@ -17,14 +17,76 @@ import 'dart:io';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
+import 'package:amplify_auth_cognito/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+import 'package:meta/meta.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
 /// The AWS Cognito implementation of the Amplify Auth category.
 /// {@endtemplate}
 class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
+  /// {@macro amplify_auth_cognito.amplify_auth_cognito}
+  AmplifyAuthCognito({
+    SecureStorageInterface? credentialStorage,
+  }) : _credentialStorage = credentialStorage;
+
+  /// The on-device credential storage for the Auth category.
+  ///
+  /// Defaults to an instance of [AmplifySecureStorage] with a scope of "auth"
+  /// and the package ID, retrieved via [PackageInfo].
+  final SecureStorageInterface? _credentialStorage;
+
+  CognitoAuthStateMachine _stateMachine = CognitoAuthStateMachine();
+
+  @visibleForTesting
+  set stateMachine(CognitoAuthStateMachine stateMachine) {
+    if (!zDebugMode) throw StateError('Can only be called in tests');
+    _stateMachine = stateMachine;
+  }
+
+  Future<void> _init() async {
+    final credentialStorage = _credentialStorage ??
+        AmplifySecureStorage(
+          config: AmplifySecureStorageConfig(
+            packageId: (await PackageInfo.fromPlatform()).packageName,
+            scope: 'auth',
+          ),
+        );
+    _stateMachine.addInstance<SecureStorageInterface>(credentialStorage);
+  }
+
   @override
   Future<void> configure({AmplifyConfig? config}) async {
+    if (config == null) {
+      throw const AuthException('No Cognito plugin config detected');
+    }
+    if (_stateMachine.getOrCreate(AuthStateMachine.type).currentState.type !=
+        AuthStateType.notConfigured) {
+      throw const AmplifyAlreadyConfiguredException(
+        'Amplify has already been configured and re-configuration is not supported.',
+        recoverySuggestion:
+            'Check if Amplify is already configured using Amplify.isConfigured.',
+      );
+    }
+
+    await _init();
+    _stateMachine.dispatch(AuthEvent.configure(config));
+
+    await for (final state in _stateMachine.stream.whereType<AuthState>()) {
+      switch (state.type) {
+        case AuthStateType.notConfigured:
+        case AuthStateType.configuring:
+          continue;
+        case AuthStateType.configured:
+          return;
+        case AuthStateType.failure:
+          throw (state as AuthFailure).exception;
+      }
+    }
+
     // Configure this plugin to act as a native iOS/Android plugin.
     if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
       final nativePlugin = _NativeAmplifyAuthCognito(this);

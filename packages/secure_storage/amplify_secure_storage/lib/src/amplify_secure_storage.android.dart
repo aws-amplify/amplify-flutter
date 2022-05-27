@@ -17,9 +17,6 @@ import 'dart:async';
 import 'package:amplify_secure_storage/src/messages.g.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
-export 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart'
-    show AmplifySecureStorageConfig;
-
 class AmplifySecureStorageAndroid extends AmplifySecureStorageInterface {
   const AmplifySecureStorageAndroid({
     required AmplifySecureStorageConfig config,

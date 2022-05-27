@@ -44,6 +44,8 @@ export 'src/model/signup/cognito_sign_up_options.dart';
 export 'src/model/signup/cognito_sign_up_result.dart';
 export 'src/model/signup/cognito_sign_up_step.dart';
 
+export 'src/state/cognito_state_machine.dart';
+
 // State Machine
 export 'src/state/event/auth_event.dart';
 export 'src/state/event/credential_store_event.dart';
