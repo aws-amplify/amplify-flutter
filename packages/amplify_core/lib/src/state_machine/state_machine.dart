@@ -117,7 +117,7 @@ abstract class StateMachineManager<E extends StateMachineEvent>
 
   /// Dispatches an event to the appropriate state machine.
   @override
-  Future<void> dispatch(E event);
+  FutureOr<void> dispatch(E event);
 
   /// Closes the state machine manager and all state machines.
   @override
@@ -321,7 +321,7 @@ abstract class StateMachine<Event extends StateMachineEvent,
 
   /// Dispatches an event to the state machine.
   @override
-  Future<void> dispatch(StateMachineEvent event) => _manager.dispatch(event);
+  FutureOr<void> dispatch(StateMachineEvent event) => _manager.dispatch(event);
 
   /// Closes the state machine and all stream controllers.
   @override

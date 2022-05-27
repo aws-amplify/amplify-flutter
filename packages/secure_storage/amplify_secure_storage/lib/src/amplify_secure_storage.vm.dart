@@ -18,9 +18,6 @@ import 'dart:io';
 import 'package:amplify_secure_storage/src/amplify_secure_storage.android.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
-export 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart'
-    show AmplifySecureStorageConfig;
-
 /// {@template amplify_secure_storage.amplify_secure_storage}
 /// The default Secure Storage implementation used in Amplify packages.
 /// {@endtemplate}

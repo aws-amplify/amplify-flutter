@@ -14,5 +14,6 @@
 
 library amplify_secure_storage;
 
+export 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 export 'src/amplify_secure_storage.vm.dart'
     if (dart.library.html) 'src/amplify_secure_storage.web.dart';
