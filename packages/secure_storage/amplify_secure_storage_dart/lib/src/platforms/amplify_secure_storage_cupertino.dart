@@ -314,7 +314,7 @@ class _SecurityFrameworkError {
     }
   }
 
-  /// Maps the result code to a [SecureStorageException].
+  /// Maps the error to a [SecureStorageException].
   SecureStorageException toSecureStorageException() {
     switch (code) {
       case errSecItemNotFound:
@@ -343,11 +343,13 @@ class _SecurityFrameworkError {
           underlyingException: toString(),
         );
       case errSecMissingEntitlement:
+        // TODO: point to amplify documentation when available.
+        final recoverySuggestion = Platform.isMacOS
+            ? 'If you have not explicitly disabled `useDataProtection` this may be a result of your app not being in any app groups. See `MacOSSecureStorageOptions.useDataProtection` for more info.'
+            : SecureStorageException.missingRecovery;
         return AccessDeniedException(
           'Could not access the items in the keychain due to a missing entitlement.',
-          // TODO: point to amplify documentation when available.
-          recoverySuggestion:
-              'If you have not explicitly disabled `useDataProtection` this may be a result of your app not being in any app groups. See `MacOSSecureStorageOptions.useDataProtection` for more info.',
+          recoverySuggestion: recoverySuggestion,
           underlyingException: toString(),
         );
       default:
