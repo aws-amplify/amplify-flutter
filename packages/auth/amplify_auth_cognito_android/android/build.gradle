@@ -75,6 +75,7 @@ dependencies {
 
     implementation 'com.amplifyframework:aws-auth-cognito:1.36.0-dev-preview.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
+    implementation 'androidx.browser:browser:1.4.0'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito.kotlin:mockito-kotlin:4.0.0'

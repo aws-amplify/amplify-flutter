@@ -63,6 +63,28 @@ class AuthStateMachine extends AuthStateMachineBase {
       );
     }
 
+    // Configure HostedUI, if available
+    final hostedUiConfig = config.hostedUiConfig;
+    if (hostedUiConfig != null) {
+      addInstance(hostedUiConfig);
+
+      dispatch(const HostedUiEvent.configure());
+      final hostedUiConfigured = Completer<void>.sync();
+      subscribeTo(
+        HostedUiStateMachine.type,
+        (HostedUiState state) {
+          if ((state is HostedUiSignedIn || state is HostedUiSignedOut) &&
+              !hostedUiConfigured.isCompleted) {
+            hostedUiConfigured.complete();
+          }
+          if (state is HostedUiFailure && !hostedUiConfigured.isCompleted) {
+            hostedUiConfigured.completeError(state.exception);
+          }
+        },
+      );
+      waiters.add(hostedUiConfigured.future);
+    }
+
     final identityPoolConfig = config.identityPoolConfig;
     if (identityPoolConfig != null) {
       addInstance(identityPoolConfig);

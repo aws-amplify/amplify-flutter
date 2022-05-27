@@ -34,8 +34,8 @@ class MockBinaryMessenger: NSObject, FlutterBinaryMessenger {
         message: Data?,
         binaryReply callback: FlutterBinaryReply? = nil
     ) {
-        // TODO: There's a bug in pigeon which prevents passing `nil` for nested objects
-        // Similar to: https://github.com/flutter/flutter/issues/99150
+        // TODO(dnys1): There's a bug in pigeon which prevents passing `nil` for nested objects
+        // https://github.com/flutter/flutter/issues/104871
         let userPoolTokens = NativeUserPoolTokens.make(
             withAccessToken: "accessToken",
             refreshToken: "refreshToken",

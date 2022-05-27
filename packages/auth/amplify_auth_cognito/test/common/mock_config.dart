@@ -87,6 +87,7 @@ const idToken = JsonWebToken(
   claims: JsonWebClaims(subject: userSub),
   signature: [],
 );
+const username = 'username';
 const userSub = 'userSub';
 const accessKeyId = 'accessKeyId';
 const secretAccessKey = 'secretAccessKey';

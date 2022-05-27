@@ -80,6 +80,8 @@ class AmplifyHybridImpl extends AmplifyClass {
               AmplifyExceptionMessages.missingRecoverySuggestion,
         );
       }
+    } on AmplifyAlreadyConfiguredException {
+      return;
     } on Exception catch (e) {
       safePrint('Amplify plugin was not added');
       throw AmplifyException(

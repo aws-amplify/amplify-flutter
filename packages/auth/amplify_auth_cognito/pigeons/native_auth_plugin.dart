@@ -45,8 +45,33 @@ abstract class NativeAuthPlugin {
 
 @HostApi()
 abstract class NativeAuthBridge {
+  /// Adds the native platform/plugin.
+  ///
+  /// On iOS/Android, this calls `Amplify.addPlugin` with the [NativeAuthPlugin]
+  /// implementation.
   @async
-  void configure();
+  void addPlugin();
+
+  /// Sign in by presenting [url] and waiting for a response to a URL with
+  /// [callbackUrlScheme].
+  ///
+  /// If [preferPrivateSession] is `true`, do not persist session cookies.
+  @async
+  Map<String, String> signInWithUrl(
+    String url,
+    String callbackUrlScheme, // iOS-only
+    bool preferPrivateSession, // iOS-only
+    String? browserPackageName, // Android-only
+  );
+
+  /// Sign out by presenting [url] and waiting for a response to a URL with
+  /// [callbackUrlScheme].
+  @async
+  void signOutWithUrl(
+    String url,
+    String callbackUrlScheme, // iOS-only
+    String? browserPackageName, // Android-only
+  );
 }
 
 class NativeAuthSession {

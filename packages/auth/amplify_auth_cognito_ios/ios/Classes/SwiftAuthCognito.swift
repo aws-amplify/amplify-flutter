@@ -26,6 +26,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
     /// other categories like API/Storage. For the subset of methods needed to fulfill the requirements
     /// of those categories, we bridge to the Dart plugin using a Flutter MethodChannel via `pigeon`.
     private let nativeAuthPlugin: NativeAuthPlugin
+    private let hostedUIFlow = HostedUIFlow()
     
     init(nativeAuthPlugin: NativeAuthPlugin) {
         self.nativeAuthPlugin = nativeAuthPlugin
@@ -37,15 +38,64 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
         let instance = SwiftAuthCognito(nativeAuthPlugin: nativeAuthPlugin)
         NativeAuthBridgeSetup(registrar.messenger(), instance)
     }
+
+    public func signIn(
+        withUrlUrl url: String,
+        callbackUrlScheme: String,
+        preferPrivateSession: NSNumber,
+        browserPackageName: String?
+    ) async -> ([String : String]?, FlutterError?) {
+        do {
+            let queryParameters = try await hostedUIFlow.launchUrl(
+                url,
+                callbackURLScheme: callbackUrlScheme,
+                preferPrivateSession: preferPrivateSession.boolValue
+            )
+            return (queryParameters, nil)
+        } catch {
+            return (nil, error.flutterError)
+        }
+    }
+    
+    public func signOut(
+        withUrlUrl url: String,
+        callbackUrlScheme: String,
+        browserPackageName: String?
+    ) async -> FlutterError? {
+        do {
+            _ = try await hostedUIFlow.launchUrl(
+                url,
+                callbackURLScheme: callbackUrlScheme,
+                preferPrivateSession: false
+            )
+            return nil
+        } catch {
+            return error.flutterError
+        }
+    }
     
     public let key: PluginKey = "awsCognitoAuthPlugin"
     
     public func configure(using configuration: Any?) throws {}
     
-    public func configure(completion: @escaping (FlutterError?) -> Void) {
+    public func addPlugin(completion: @escaping (FlutterError?) -> Void) {
         do {
             try Amplify.add(plugin: self)
             completion(nil)
+        } catch let configError as ConfigurationError {
+            var errorCode = "AuthException"
+            if case .amplifyAlreadyConfigured = configError {
+                errorCode = "AmplifyAlreadyConfiguredException"
+            }
+            completion(FlutterError(
+                code: errorCode,
+                message: configError.localizedDescription,
+                details: [
+                    "message": configError.errorDescription,
+                    "recoverySuggestion": configError.recoverySuggestion,
+                    "underlyingError": configError.underlyingError?.localizedDescription ?? ""
+                ]
+            ))
         } catch {
             completion(FlutterError(
                 code: "UNKNOWN",

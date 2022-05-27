@@ -64,6 +64,7 @@ abstract class StateMachineManager<E extends StateMachineEvent>
   ) {
     addInstance<Dispatcher>(this);
     addInstance<StateMachineManager>(this);
+    addInstance<DependencyManager>(this);
     stateMachineBuilders.forEach((token, builder) {
       addBuilder(builder, token);
     });
