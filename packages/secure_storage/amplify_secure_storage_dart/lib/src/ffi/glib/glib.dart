@@ -29,9 +29,6 @@ final Glib glib = Glib(glibDyLib);
 final gStrHashPointer = glibDyLib
     .lookup<NativeFunction<guint Function(gconstpointer)>>('g_str_hash');
 
-/// The name of the default schema.
-const SECRET_COLLECTION_DEFAULT = 'default';
-
 /// Extensions on Pointer<GHashTable>.
 extension GHashTablePointer on Pointer<GHashTable> {
   /// Inserts a new String into the hash table with provided key/value.

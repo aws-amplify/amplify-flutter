@@ -16,19 +16,22 @@ import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
 
-import 'keychain.bindings.g.dart';
+import 'core_foundation.bindings.g.dart';
+import 'security.bindings.g.dart';
 
-export 'keychain.bindings.g.dart' hide Keychain;
+export 'core_foundation.bindings.g.dart' hide CoreFoundation;
+export 'security.bindings.g.dart' hide Security;
 
 final DynamicLibrary _dynamicLibrary = DynamicLibrary.executable();
 
-final Keychain keychain = Keychain(_dynamicLibrary);
+final Security security = Security(_dynamicLibrary);
+final CoreFoundation coreFoundation = CoreFoundation(_dynamicLibrary);
 
 extension CFDataRefX on Pointer<CFData> {
   /// Converts a [CFDataRef] to a Dart String.
   String? toDartString() {
     if (this == nullptr) return null;
-    final bytePtr = keychain.CFDataGetBytePtr(this);
+    final bytePtr = coreFoundation.CFDataGetBytePtr(this);
     if (bytePtr == nullptr) return null;
     return bytePtr.cast<Utf8>().toDartString();
   }
@@ -38,7 +41,7 @@ extension CFStringPointerX on Pointer<CFString> {
   /// Converts a [CFStringRef] to a Dart String.
   String? toDartString() {
     if (this == nullptr) return null;
-    final cStringPtr = keychain.CFStringGetCStringPtr(
+    final cStringPtr = coreFoundation.CFStringGetCStringPtr(
       this,
       kCFStringEncodingUTF8,
     );

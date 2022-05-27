@@ -1,0 +1,92 @@
+# ffigen config for Apple's Security Framework
+# to regenerate, run: dart run ffigen --config ffigen.cupertino.security.config.yaml
+#
+# The output depends on ffi bindings generated for the CoreFoundation Framework.
+# 
+# This should be run on a Mac with XCode installed.
+#
+# NOTE: You may need to update the path to the `/Frameworks/` directory depending
+# which SDK versions you have installed
+
+output: 'lib/src/ffi/cupertino/security.bindings.g.dart'
+name: 'Security'
+description: 'Bindings for the Security Framework'
+headers:
+  entry-points:
+    - '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Security.framework/Headers/SecItem.h'
+compiler-opts:
+  - '-F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks'
+functions:
+  include:
+    - SecItemAdd
+    - SecItemUpdate
+    - SecItemCopyMatching
+    - SecItemDelete
+    - SecCopyErrorMessageString
+structs:
+  include:
+    - NONE
+enums:
+  include:
+    - NONE
+globals:
+  include:
+    - kSecAttrAccount
+    - kSecReturnData
+    - kCFBooleanTrue
+    - kSecMatchLimit
+    - kSecMatchLimitOne
+    - kSecClass
+    - kSecClassGenericPassword
+    - kSecAttrService
+    - kSecValueData
+macros:
+  include:
+    - NONE
+unions:
+  include:
+    - NONE
+unnamed-enums:
+  include:
+    - errSecSuccess
+    - errSecItemNotFound
+    - errSecDuplicateItem
+    - errSecUserCanceled
+    - errSecAuthFailed
+    - errSecInteractionRequired
+comments: false
+library-imports:
+  coreFoundation: './core_foundation.bindings.g.dart'
+type-map:
+  'typedefs':
+    'CFString':
+      'lib': 'coreFoundation'
+      'c-type': 'CFString'
+      'dart-type': 'CFString'
+    'CFType':
+      'lib': 'coreFoundation'
+      'c-type': 'CFType'
+      'dart-type': 'CFType'
+    'CFData':
+      'lib': 'coreFoundation'
+      'c-type': 'CFData'
+      'dart-type': 'CFData'
+    'CFDictionary':
+      'lib': 'coreFoundation'
+      'c-type': 'CFDictionary'
+      'dart-type': 'CFDictionary'
+    'CFStringRef':
+      'lib': 'coreFoundation'
+      'c-type': 'CFStringRef'
+      'dart-type': 'CFStringRef'
+    'CFTypeRef':
+      'lib': 'coreFoundation'
+      'c-type': 'CFTypeRef'
+      'dart-type': 'CFTypeRef'
+    'CFDictionaryRef':
+      'lib': 'coreFoundation'
+      'c-type': 'CFDictionaryRef'
+      'dart-type': 'CFDictionaryRef'
+
+      
+      
