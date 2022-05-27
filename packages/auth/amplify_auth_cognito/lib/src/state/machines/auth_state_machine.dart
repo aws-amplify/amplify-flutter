@@ -14,6 +14,8 @@
 
 import 'dart:async';
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_auth_cognito/src/credentials/auth_plugin_credentials_provider.dart';
 import 'package:amplify_auth_cognito/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito/src/sdk/cognito_identity_provider.dart';
@@ -21,7 +23,6 @@ import 'package:amplify_auth_cognito/src/state/machines/generated/auth_state_mac
 import 'package:amplify_auth_cognito/src/state/state.dart';
 import 'package:amplify_auth_cognito/src/util/credentials_providers.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_signature_v4/aws_signature_v4.dart';
 
 /// {@template amplify_auth_cognito.auth_state_machine}
 /// Manages configuration of the Auth category.
@@ -34,11 +35,10 @@ class AuthStateMachine extends AuthStateMachineBase {
   static const type =
       StateMachineToken<AuthEvent, AuthState, AuthStateMachine>();
 
-  /// The AWS credentials provider, using cached credentials.
-  late final AWSCredentialsProvider credentialsProvider =
-      InlineCredentialsProvider(() async {
-    throw UnimplementedError();
-  });
+  /// The credentials provider for SDK calls.
+  AuthPluginCredentialsProvider get _credentialsProvider => getOrCreate(
+        AuthPluginCredentialsProvider.token,
+      );
 
   @override
   Future<void> onConfigure(AuthConfigure event) async {
@@ -58,7 +58,7 @@ class AuthStateMachine extends AuthStateMachineBase {
       addInstance(
         CognitoIdentityProviderClient(
           region: userPoolConfig.region,
-          credentialsProvider: credentialsProvider,
+          credentialsProvider: _credentialsProvider,
         ),
       );
     }

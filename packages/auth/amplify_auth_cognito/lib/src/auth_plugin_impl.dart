@@ -70,6 +70,15 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
       );
     }
 
+    // Configure this plugin to act as a native iOS/Android plugin.
+    if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+      final nativePlugin = _NativeAmplifyAuthCognito(this);
+      NativeAuthPlugin.setup(nativePlugin);
+
+      final nativeBridge = NativeAuthBridge();
+      await nativeBridge.configure();
+    }
+
     await _init();
     _stateMachine.dispatch(AuthEvent.configure(config));
 
@@ -84,15 +93,33 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
           throw (state as AuthFailure).exception;
       }
     }
+  }
 
-    // Configure this plugin to act as a native iOS/Android plugin.
-    if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      final nativePlugin = _NativeAmplifyAuthCognito(this);
-      NativeAuthPlugin.setup(nativePlugin);
+  @override
+  Future<AuthSession> fetchAuthSession({
+    required AuthSessionRequest request,
+  }) async {
+    final options = request.options as CognitoSessionOptions?;
+    _stateMachine.dispatch(FetchAuthSessionEvent.fetch(options));
 
-      final nativeBridge = NativeAuthBridge();
-      await nativeBridge.configure();
+    await for (final state
+        in _stateMachine.stream.whereType<FetchAuthSessionState>()) {
+      switch (state.type) {
+        case FetchAuthSessionStateType.idle:
+        case FetchAuthSessionStateType.fetching:
+        case FetchAuthSessionStateType.refreshing:
+          continue;
+        case FetchAuthSessionStateType.success:
+          state as FetchAuthSessionSuccess;
+          return state.session;
+        case FetchAuthSessionStateType.failure:
+          state as FetchAuthSessionFailure;
+          throw state.exception;
+      }
     }
+
+    // This should never happen.
+    throw const UnknownException('fetchAuthSession could not be completed');
   }
 
   /* -- TODO: Replace -- */
@@ -100,14 +127,6 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
   @override
   StreamController<AuthHubEvent> get streamController =>
       StreamController.broadcast();
-
-  @override
-  Future<AuthSession> fetchAuthSession({
-    required AuthSessionRequest request,
-  }) async {
-    await Future<void>.delayed(const Duration(seconds: 2));
-    return const CognitoAuthSession(isSignedIn: false);
-  }
 
   @override
   Future<void> close() async {}

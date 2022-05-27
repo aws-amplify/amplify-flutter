@@ -252,14 +252,14 @@ jobs:
         working-directory: packages/amplify_core
         run: flutter test --platform chrome
   job_008:
-    name: "unit_test; Flutter stable; PKG: packages/auth/amplify_auth_cognito; `flutter doctor -v`, `flutter test --exclude-tags=build`, `flutter test --platform chrome`"
+    name: "unit_test; Flutter stable; PKG: packages/auth/amplify_auth_cognito; `flutter doctor -v`, `flutter test --exclude-tags=build`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito;commands:command_0-test_2-test_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito;commands:command_0-test_2"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -283,10 +283,6 @@ jobs:
         if: "always() && steps.packages_auth_amplify_auth_cognito_pub_upgrade.conclusion == 'success'"
         working-directory: packages/auth/amplify_auth_cognito
         run: "flutter test --exclude-tags=build"
-      - name: "packages/auth/amplify_auth_cognito; flutter test --platform chrome"
-        if: "always() && steps.packages_auth_amplify_auth_cognito_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito
-        run: flutter test --platform chrome
   job_009:
     name: "unit_test; Dart stable; PKG: packages/aws_common; `dart test`, `dart test -p chrome`"
     runs-on: ubuntu-latest
