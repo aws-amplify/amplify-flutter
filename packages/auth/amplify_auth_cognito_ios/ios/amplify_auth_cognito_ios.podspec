@@ -20,8 +20,9 @@ Pod::Spec.new do |s|
   s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin', '1.23.0'
   s.dependency 'amplify_core'
   
-  s.platform = :ios, '11.0'
-  s.swift_version = '5.0'
+  # These are needed to support async/await and ASWebAuthenticationSession
+  s.platform = :ios, '13.0'
+  s.swift_version = '5.5'
 
   # Use a custom module map with a manually written umbrella header.
   #

@@ -31,13 +31,28 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
   /// {@macro amplify_auth_cognito.amplify_auth_cognito}
   AmplifyAuthCognito({
     SecureStorageInterface? credentialStorage,
-  }) : _credentialStorage = credentialStorage;
+    HostedUiPlatformFactory? hostedUiPlatformFactory,
+  })  : _credentialStorage = credentialStorage,
+        _hostedUiPlatformFactory = hostedUiPlatformFactory;
 
   /// The on-device credential storage for the Auth category.
   ///
   /// Defaults to an instance of [AmplifySecureStorage] with a scope of "auth"
   /// and the package ID, retrieved via [PackageInfo].
   final SecureStorageInterface? _credentialStorage;
+
+  /// The Hosted UI platform factory, which creates an instance of
+  /// [HostedUiPlatform], responsible for handling login and logout events
+  /// for OAuth flows.
+  ///
+  /// Constructor parameters can be passed to [HostedUiPlatform.protected], e.g.
+  ///
+  /// ```dart
+  /// class MyHostedUiPlatform extends HostedUiPlatform {
+  ///   MyHostedUiPlatform(super.dependencyManager): super.protected();
+  /// }
+  /// ```
+  final HostedUiPlatformFactory? _hostedUiPlatformFactory;
 
   CognitoAuthStateMachine _stateMachine = CognitoAuthStateMachine();
 
@@ -56,6 +71,12 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
           ),
         );
     _stateMachine.addInstance<SecureStorageInterface>(credentialStorage);
+    if (_hostedUiPlatformFactory != null) {
+      _stateMachine.addBuilder(
+        _hostedUiPlatformFactory!,
+        HostedUiPlatform.token,
+      );
+    }
   }
 
   @override
@@ -78,6 +99,7 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
       NativeAuthPlugin.setup(nativePlugin);
 
       final nativeBridge = NativeAuthBridge();
+      _stateMachine.addInstance(nativeBridge);
       await nativeBridge.configure();
     }
 
@@ -122,6 +144,47 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
 
     // This should never happen.
     throw const UnknownException('fetchAuthSession could not be completed');
+  }
+
+  @override
+  Future<SignInResult> signInWithWebUI({
+    SignInWithWebUIRequest? request,
+  }) async {
+    final options = request?.options as CognitoSignInWithWebUIOptions? ??
+        const CognitoSignInWithWebUIOptions();
+    await _stateMachine.dispatch(
+      HostedUiEvent.signIn(
+        options: options,
+        provider: request?.provider,
+      ),
+    );
+
+    await for (final state in _stateMachine.stream.whereType<HostedUiState>()) {
+      switch (state.type) {
+        case HostedUiStateType.notConfigured:
+        case HostedUiStateType.configuring:
+        case HostedUiStateType.signingIn:
+        case HostedUiStateType.signingOut:
+          continue;
+        case HostedUiStateType.signedOut:
+          throw const UnknownException(
+            'An unknown error occurred while signing in',
+          );
+        case HostedUiStateType.signedIn:
+          return SignInResult(
+            isSignedIn: true,
+            nextStep: AuthNextSignInStep(
+              signInStep: 'DONE',
+            ),
+          );
+        case HostedUiStateType.failure:
+          state as HostedUiFailure;
+          throw state.exception;
+      }
+    }
+
+    // This should never happen.
+    throw const UnknownException('signInWithWebUI could not be completed');
   }
 
   /* -- TODO: Replace -- */

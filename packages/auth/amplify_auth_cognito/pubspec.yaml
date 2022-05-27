@@ -12,6 +12,7 @@ dependencies:
   amplify_auth_cognito_ios: 0.5.0
   amplify_auth_plugin_interface: 0.5.0
   amplify_core: 0.5.0
+  amplify_flutter: 0.5.0
   amplify_secure_storage: ^0.1.0
   aws_common: ^0.1.0
   aws_signature_v4: ^0.1.0

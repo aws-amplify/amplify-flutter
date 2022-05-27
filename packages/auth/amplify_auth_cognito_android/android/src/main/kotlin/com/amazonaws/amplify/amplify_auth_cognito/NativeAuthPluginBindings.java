@@ -369,6 +369,8 @@ public class NativeAuthPluginBindings {
   /** Generated interface from Pigeon that represents a handler of messages from Flutter.*/
   public interface NativeAuthBridge {
     void configure(Result<Void> result);
+    void signIn(@NonNull String url, @NonNull String callbackUrlScheme, @NonNull Boolean preferPrivateSession, @Nullable String browserPackageName, Result<Map<String, String>> result);
+    void signOut(@NonNull String url, @NonNull String callbackUrlScheme, @Nullable String browserPackageName, Result<Void> result);
 
     /** The codec used by NativeAuthBridge. */
     static MessageCodec<Object> getCodec() {
@@ -396,6 +398,88 @@ public class NativeAuthPluginBindings {
               };
 
               api.configure(resultCallback);
+            }
+            catch (Error | RuntimeException exception) {
+              wrapped.put("error", wrapError(exception));
+              reply.reply(wrapped);
+            }
+          });
+        } else {
+          channel.setMessageHandler(null);
+        }
+      }
+      {
+        BasicMessageChannel<Object> channel =
+            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.NativeAuthBridge.signIn", getCodec());
+        if (api != null) {
+          channel.setMessageHandler((message, reply) -> {
+            Map<String, Object> wrapped = new HashMap<>();
+            try {
+              ArrayList<Object> args = (ArrayList<Object>)message;
+              String urlArg = (String)args.get(0);
+              if (urlArg == null) {
+                throw new NullPointerException("urlArg unexpectedly null.");
+              }
+              String callbackUrlSchemeArg = (String)args.get(1);
+              if (callbackUrlSchemeArg == null) {
+                throw new NullPointerException("callbackUrlSchemeArg unexpectedly null.");
+              }
+              Boolean preferPrivateSessionArg = (Boolean)args.get(2);
+              if (preferPrivateSessionArg == null) {
+                throw new NullPointerException("preferPrivateSessionArg unexpectedly null.");
+              }
+              String browserPackageNameArg = (String)args.get(3);
+              Result<Map<String, String>> resultCallback = new Result<Map<String, String>>() {
+                public void success(Map<String, String> result) {
+                  wrapped.put("result", result);
+                  reply.reply(wrapped);
+                }
+                public void error(Throwable error) {
+                  wrapped.put("error", wrapError(error));
+                  reply.reply(wrapped);
+                }
+              };
+
+              api.signIn(urlArg, callbackUrlSchemeArg, preferPrivateSessionArg, browserPackageNameArg, resultCallback);
+            }
+            catch (Error | RuntimeException exception) {
+              wrapped.put("error", wrapError(exception));
+              reply.reply(wrapped);
+            }
+          });
+        } else {
+          channel.setMessageHandler(null);
+        }
+      }
+      {
+        BasicMessageChannel<Object> channel =
+            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.NativeAuthBridge.signOut", getCodec());
+        if (api != null) {
+          channel.setMessageHandler((message, reply) -> {
+            Map<String, Object> wrapped = new HashMap<>();
+            try {
+              ArrayList<Object> args = (ArrayList<Object>)message;
+              String urlArg = (String)args.get(0);
+              if (urlArg == null) {
+                throw new NullPointerException("urlArg unexpectedly null.");
+              }
+              String callbackUrlSchemeArg = (String)args.get(1);
+              if (callbackUrlSchemeArg == null) {
+                throw new NullPointerException("callbackUrlSchemeArg unexpectedly null.");
+              }
+              String browserPackageNameArg = (String)args.get(2);
+              Result<Void> resultCallback = new Result<Void>() {
+                public void success(Void result) {
+                  wrapped.put("result", null);
+                  reply.reply(wrapped);
+                }
+                public void error(Throwable error) {
+                  wrapped.put("error", wrapError(error));
+                  reply.reply(wrapped);
+                }
+              };
+
+              api.signOut(urlArg, callbackUrlSchemeArg, browserPackageNameArg, resultCallback);
             }
             catch (Error | RuntimeException exception) {
               wrapped.put("error", wrapError(exception));

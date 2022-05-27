@@ -26,6 +26,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
     /// other categories like API/Storage. For the subset of methods needed to fulfill the requirements
     /// of those categories, we bridge to the Dart plugin using a Flutter MethodChannel via `pigeon`.
     private let nativeAuthPlugin: NativeAuthPlugin
+    private let hostedUIFlow = HostedUIFlow()
     
     init(nativeAuthPlugin: NativeAuthPlugin) {
         self.nativeAuthPlugin = nativeAuthPlugin
@@ -36,6 +37,41 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
         let nativeAuthPlugin = NativeAuthPlugin(binaryMessenger: registrar.messenger())
         let instance = SwiftAuthCognito(nativeAuthPlugin: nativeAuthPlugin)
         NativeAuthBridgeSetup(registrar.messenger(), instance)
+    }
+
+    public func sign(
+        inUrl url: String,
+        callbackUrlScheme: String,
+        preferPrivateSession: NSNumber,
+        browserPackageName: String?
+    ) async -> ([String : String]?, FlutterError?) {
+        do {
+            let queryParameters = try await hostedUIFlow.launchUrl(
+                url,
+                callbackURLScheme: callbackUrlScheme,
+                preferPrivateSession: preferPrivateSession.boolValue
+            )
+            return (queryParameters, nil)
+        } catch {
+            return (nil, error.flutterError)
+        }
+    }
+    
+    public func signOutUrl(
+        _ url: String,
+        callbackUrlScheme: String,
+        browserPackageName: String?
+    ) async -> FlutterError? {
+        do {
+            _ = try await hostedUIFlow.launchUrl(
+                url,
+                callbackURLScheme: callbackUrlScheme,
+                preferPrivateSession: false
+            )
+            return nil
+        } catch {
+            return error.flutterError
+        }
     }
     
     public let key: PluginKey = "awsCognitoAuthPlugin"

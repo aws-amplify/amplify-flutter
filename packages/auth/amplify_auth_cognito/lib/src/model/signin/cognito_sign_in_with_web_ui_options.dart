@@ -22,6 +22,7 @@ class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions {
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_options}
   const CognitoSignInWithWebUIOptions({
     this.isPreferPrivateSession = false,
+    this.browserPackageName,
   });
 
   /// {@template amplify_auth_plugin_interface.cognito_sign_in_with_web_ui_options}
@@ -35,8 +36,14 @@ class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions {
   /// {@endtemplate}
   final bool isPreferPrivateSession;
 
+  /// Android-only: The browser package name (application ID) to use to launch
+  /// the custom tab.
+  final String? browserPackageName;
+
   @override
   Map<String, Object?> serializeAsMap() => {
         'isPreferPrivateSession': isPreferPrivateSession,
+        if (browserPackageName != null)
+          'browserPackageName': browserPackageName,
       };
 }
