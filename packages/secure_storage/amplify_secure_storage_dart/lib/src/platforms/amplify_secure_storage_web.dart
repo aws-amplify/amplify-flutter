@@ -36,12 +36,14 @@ class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
   /// Reference: https://www.w3.org/TR/IndexedDB/#object-store-name
   final storeName = 'default.store';
 
-  late final Future<IDBDatabase> _databaseFuture = _openDatabase();
+  late final Future<void> _databaseOpenEvent = _openDatabase();
+
+  late final IDBDatabase _database;
 
   /// Opens the database and returns it as a future.
   ///
   /// Will throw a [NotAvailableException] if IndexedDB is not supported.
-  Future<IDBDatabase> _openDatabase() async {
+  Future<void> _openDatabase() async {
     if (indexedDB == null) {
       throw const NotAvailableException(
         'IndexedDB is not supported.',
@@ -56,14 +58,16 @@ class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
         database.createObjectStore(storeName);
       }
     };
-    return openRequest.future;
+    // TODO: update once https://github.com/dart-lang/sdk/issues/48835
+    // is resolved in a stable version. setting _database instead of returning
+    // it is a work around.
+    _database = await openRequest.future;
   }
 
   /// Returns a new [IDBObjectStore] instance after waiting for initialization
   /// to complete.
-  Future<IDBObjectStore> _getObjectStore() async {
-    final IDBDatabase db = await _databaseFuture;
-    final IDBTransaction transaction = db.transaction(
+  IDBObjectStore _getObjectStore() {
+    final IDBTransaction transaction = _database.transaction(
       storeName,
       mode: IDBTransactionMode.readwrite,
     );
@@ -73,20 +77,23 @@ class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
 
   @override
   Future<void> write({required String key, required String value}) async {
-    final IDBObjectStore store = await _getObjectStore();
+    await _databaseOpenEvent;
+    final IDBObjectStore store = _getObjectStore();
     await store.put(value, key).future;
   }
 
   @override
   Future<String?> read({required String key}) async {
-    final IDBObjectStore store = await _getObjectStore();
+    await _databaseOpenEvent;
+    final IDBObjectStore store = _getObjectStore();
     final String? value = await store.getObject(key).future;
     return value;
   }
 
   @override
   Future<void> delete({required String key}) async {
-    final IDBObjectStore store = await _getObjectStore();
+    await _databaseOpenEvent;
+    final IDBObjectStore store = _getObjectStore();
     await store.delete(key).future;
   }
 }
