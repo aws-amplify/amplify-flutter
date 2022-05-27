@@ -316,6 +316,7 @@ class _SecurityFrameworkError {
 
   /// Maps the error to a [SecureStorageException].
   SecureStorageException toSecureStorageException() {
+    final underlyingException = toString();
     switch (code) {
       case errSecItemNotFound:
         // A missing recovery is used because this should be caught
@@ -323,7 +324,7 @@ class _SecurityFrameworkError {
         return ItemNotFoundException(
           'Them item was not found in the keychain.',
           recoverySuggestion: SecureStorageException.missingRecovery,
-          underlyingException: toString(),
+          underlyingException: underlyingException,
         );
       case errSecDuplicateItem:
         // A missing recovery is used because this should be caught
@@ -331,7 +332,7 @@ class _SecurityFrameworkError {
         return DuplicateItemException(
           'The item is already present in the keychain.',
           recoverySuggestion: SecureStorageException.missingRecovery,
-          underlyingException: toString(),
+          underlyingException: underlyingException,
         );
       case errSecUserCanceled:
       case errSecAuthFailed:
@@ -339,8 +340,8 @@ class _SecurityFrameworkError {
         return AccessDeniedException(
           'Could not access the items in the keychain.',
           recoverySuggestion:
-              'Ensure that the users keychain is available and unlocked.',
-          underlyingException: toString(),
+              'Ensure that the keychain is available and unlocked.',
+          underlyingException: underlyingException,
         );
       case errSecMissingEntitlement:
         // TODO: point to amplify documentation when available.
@@ -350,13 +351,13 @@ class _SecurityFrameworkError {
         return AccessDeniedException(
           'Could not access the items in the keychain due to a missing entitlement.',
           recoverySuggestion: recoverySuggestion,
-          underlyingException: toString(),
+          underlyingException: underlyingException,
         );
       default:
         return UnknownException(
           'An unknown exception occurred.',
           recoverySuggestion: SecureStorageException.missingRecovery,
-          underlyingException: toString(),
+          underlyingException: underlyingException,
         );
     }
   }
