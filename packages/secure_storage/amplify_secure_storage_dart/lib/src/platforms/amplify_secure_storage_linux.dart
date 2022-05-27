@@ -81,7 +81,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
     });
   }
 
-  String _createLabel(String key) => '${config.packageId}.${config.scope}/$key';
+  String _createLabel(String key) => 'com.amplify.${config.scope}/$key';
 
   /// Creates a [SecretSchema] pointer.
   ///
@@ -105,7 +105,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
       ..insertAll(
         {
           Attributes.key.name: key,
-          Attributes.packageId.name: config.packageId,
+          Attributes.service.name: 'com.amplify',
           Attributes.scope.name: config.scope,
         },
         arena: arena,
@@ -120,6 +120,6 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 /// The attributes used to identify the secret.
 enum Attributes {
   key,
-  packageId,
+  service,
   scope,
 }

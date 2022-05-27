@@ -40,23 +40,23 @@ class AmplifySecureStoragePlugin: FlutterPlugin, Messages.AmplifySecureStorageAp
     Messages.AmplifySecureStorageApi.setup(binding.binaryMessenger, null)
   }
 
-  override fun read(packageId: String, scope: String, key: String): String? {
-    val repository = getOrCreateRepository(packageId, scope)
+  override fun read(scope: String, key: String): String? {
+    val repository = getOrCreateRepository(scope)
     return repository.get(key)
   }
 
-  override fun write(packageId: String, scope: String, key: String, value: String?) {
-    val repository = getOrCreateRepository(packageId, scope)
+  override fun write(scope: String, key: String, value: String?) {
+    val repository = getOrCreateRepository(scope)
     repository.put(key, value)
   }
 
-  override fun delete(packageId: String, scope: String, key: String) {
-    val repository = getOrCreateRepository(packageId, scope)
+  override fun delete(scope: String, key: String) {
+    val repository = getOrCreateRepository(scope)
     repository.remove(key)
   }
 
-  private fun getOrCreateRepository(packageId: String, scope: String): EncryptedKeyValueRepository {
-    val name = "$packageId.$scope"
+  private fun getOrCreateRepository(scope: String): EncryptedKeyValueRepository {
+    val name = "com.amplify.$scope"
     return if (repositories.containsKey(name)) {
       repositories[name]!!
     } else {

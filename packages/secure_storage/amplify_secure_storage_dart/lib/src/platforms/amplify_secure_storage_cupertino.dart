@@ -44,7 +44,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   }) : super(config: config);
 
   /// The value of the service name attribute for all keychain items.
-  String get _serviceName => '${config.packageId}.${config.scope}';
+  String get _serviceName => 'com.amplify.${config.scope}';
 
   String? get _accessGroup => Platform.isIOS
       ? config.iOSOptions.accessGroup
