@@ -85,9 +85,22 @@ class _MyHomePageState extends State<MyHomePage> {
   late final _controller = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _fetchAuthSession();
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  Future<void> _fetchAuthSession() async {
+    final authSession = await Amplify.Auth.fetchAuthSession(
+      options: const CognitoSessionOptions(getAWSCredentials: true),
+    ) as CognitoAuthSession;
+    safePrint(authSession);
   }
 
   Future<void> _requestGreeting() async {

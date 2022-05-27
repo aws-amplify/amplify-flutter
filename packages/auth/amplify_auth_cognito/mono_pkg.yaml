@@ -12,4 +12,5 @@ stages:
       - group:
           - command: flutter doctor -v
           - test: --exclude-tags=build # TODO: Re-enable when CI Flutter is updated
-          - test: --platform chrome
+          # TODO(dnys1): Re-enable after investigation
+          # - test: --platform chrome
