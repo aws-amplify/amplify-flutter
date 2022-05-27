@@ -16,6 +16,7 @@
 package com.amazonaws.amplify
 
 import android.content.Context
+import android.os.Looper.getMainLooper
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.BinaryMessenger
@@ -32,6 +33,7 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.Shadows.shadowOf
 
 @ExperimentalCoroutinesApi
 @RunWith(RobolectricTestRunner::class)
@@ -65,6 +67,7 @@ class AmplifyTest {
         // Act
         val mockFirstCallResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
         plugin.onMethodCall(call, mockFirstCallResult)
+        shadowOf(getMainLooper()).idle()
 
         // Assert that first configure is successful
         verify(mockFirstCallResult, times(1)).success(true)
@@ -72,6 +75,7 @@ class AmplifyTest {
         // Act again
         val mockSecondCallResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
         plugin.onMethodCall(call, mockSecondCallResult)
+        shadowOf(getMainLooper()).idle()
 
         // Assert that second configure returns error
         verify(mockSecondCallResult, times(1)).error(
