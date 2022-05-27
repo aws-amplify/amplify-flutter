@@ -14,6 +14,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_auth_cognito/src/credentials/auth_plugin_credentials_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
@@ -25,12 +26,14 @@ import 'state.dart';
 final stateMachineBuilders = <StateMachineToken, StateMachineBuilder>{
   AuthStateMachine.type: AuthStateMachine.new,
   CredentialStoreStateMachine.type: CredentialStoreStateMachine.new,
+  FetchAuthSessionStateMachine.type: FetchAuthSessionStateMachine.new,
 };
 
 /// Default defaultDependencies for [CognitoAuthStateMachine].
 @visibleForTesting
 final defaultDependencies = <Token, DependencyBuilder>{
   const Token<http.Client>(): http.Client.new,
+  AuthPluginCredentialsProvider.token: AuthPluginCredentialsProviderImpl.new,
 };
 
 /// {@template amplify_auth_cognito_dart.auth_state_machine}
@@ -52,6 +55,8 @@ class CognitoAuthStateMachine extends StateMachineManager {
         return getOrCreate(AuthStateMachine.type).add(event);
       } else if (event is CredentialStoreEvent) {
         return getOrCreate(CredentialStoreStateMachine.type).add(event);
+      } else if (event is FetchAuthSessionEvent) {
+        return getOrCreate(FetchAuthSessionStateMachine.type).add(event);
       }
       throw StateError('Unhandled event: $event');
     } finally {
