@@ -140,11 +140,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   }) {
     final baseQueryAttributes = _getBaseAttributes(key: key, arena: arena);
     final query = _createCFDictionary(
-      map: {
-        ...baseQueryAttributes,
-        security.kSecReturnData:
-            security.kCFBooleanTrue, // TODO: is this needed?
-      },
+      map: baseQueryAttributes,
       arena: arena,
     );
     final status = security.SecItemDelete(query);
