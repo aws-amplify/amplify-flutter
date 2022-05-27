@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// To regenerate, run `make pigeons`.
+
 import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
@@ -28,7 +30,7 @@ import 'package:pigeon/pigeon.dart';
 )
 @HostApi()
 abstract class AmplifySecureStorageApi {
-  String? read(String packageId, String scope, String key);
-  void write(String packageId, String scope, String key, String? value);
-  void delete(String packageId, String scope, String key);
+  String? read(String scope, String key);
+  void write(String scope, String key, String? value);
+  void delete(String scope, String key);
 }

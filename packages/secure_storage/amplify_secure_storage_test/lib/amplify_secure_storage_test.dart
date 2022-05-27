@@ -22,7 +22,6 @@ typedef SecureStorageFactory = AmplifySecureStorageInterface Function({
 void runTests(SecureStorageFactory storageFactory) {
   const key1 = 'key_1';
   late AmplifySecureStorageInterface storage;
-  late AmplifySecureStorageInterface storagePackageID;
   late AmplifySecureStorageInterface storageScope;
   setUp(() async {
     // Disabling `useDataProtection` for tests since it would require a MacOS
@@ -30,33 +29,22 @@ void runTests(SecureStorageFactory storageFactory) {
     final macOSOptions = MacOSSecureStorageOptions(useDataProtection: false);
     storage = storageFactory(
       config: AmplifySecureStorageConfig(
-        packageId: 'com.example.test',
-        scope: 'default',
-        macOSOptions: macOSOptions,
-      ),
-    );
-    storagePackageID = storageFactory(
-      config: AmplifySecureStorageConfig(
-        packageId: 'com.example.test2',
         scope: 'default',
         macOSOptions: macOSOptions,
       ),
     );
     storageScope = storageFactory(
       config: AmplifySecureStorageConfig(
-        packageId: 'com.example.test',
         scope: 'other',
         macOSOptions: macOSOptions,
       ),
     );
     await storage.delete(key: key1);
-    await storagePackageID.delete(key: key1);
     await storageScope.delete(key: key1);
   });
 
   tearDownAll(() async {
     await storage.delete(key: key1);
-    await storagePackageID.delete(key: key1);
     await storageScope.delete(key: key1);
   });
 
@@ -153,21 +141,6 @@ void runTests(SecureStorageFactory storageFactory) {
       // confirm new value was written
       final value2 = await storage.read(key: key1);
       expect(value2, 'test_update');
-    });
-  });
-
-  group('packageId', () {
-    test('The same key with different package IDs should not collide',
-        () async {
-      // write to both storage instances
-      await storage.write(key: key1, value: 'test_write_1');
-      await storagePackageID.write(key: key1, value: 'test_write_2');
-
-      // confirm value was written to both storage instances
-      final value1 = await storage.read(key: key1);
-      expect(value1, 'test_write_1');
-      final value2 = await storagePackageID.read(key: key1);
-      expect(value2, 'test_write_2');
     });
   });
 
