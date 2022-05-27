@@ -16,10 +16,13 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_auth_cognito/src/flows/hosted_ui/initial_parameters_stub.dart'
+    if (dart.library.html) 'package:amplify_auth_cognito/src/flows/hosted_ui/initial_parameters_html.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
 import 'package:amplify_auth_cognito/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
 
@@ -30,12 +33,32 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
   /// {@macro amplify_auth_cognito.amplify_auth_cognito}
   AmplifyAuthCognito({
     SecureStorageInterface? credentialStorage,
-  }) : _credentialStorage = credentialStorage;
+    HostedUiPlatformFactory? hostedUiPlatformFactory,
+  })  : _credentialStorage = credentialStorage,
+        _hostedUiPlatformFactory = hostedUiPlatformFactory;
+
+  /// Capture the initial parameters on instantiation of this class.
+  ///
+  /// {@macro amplify_auth_cognito.initial_parameters}
+  final OAuthParameters? _initialParameters = initialParameters;
 
   /// The on-device credential storage for the Auth category.
   ///
   /// Defaults to an instance of [AmplifySecureStorage] with a scope of "auth".
   final SecureStorageInterface? _credentialStorage;
+
+  /// The Hosted UI platform factory, which creates an instance of
+  /// [HostedUiPlatform], responsible for handling login and logout events
+  /// for OAuth flows.
+  ///
+  /// Constructor parameters can be passed to [HostedUiPlatform.protected], e.g.
+  ///
+  /// ```dart
+  /// class MyHostedUiPlatform extends HostedUiPlatform {
+  ///   MyHostedUiPlatform(super.dependencyManager): super.protected();
+  /// }
+  /// ```
+  final HostedUiPlatformFactory? _hostedUiPlatformFactory;
 
   CognitoAuthStateMachine _stateMachine = CognitoAuthStateMachine();
 
@@ -54,6 +77,45 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
           ),
         );
     _stateMachine.addInstance<SecureStorageInterface>(credentialStorage);
+    if (_hostedUiPlatformFactory != null) {
+      _stateMachine.addBuilder(
+        _hostedUiPlatformFactory!,
+        HostedUiPlatform.token,
+      );
+    }
+    if (_initialParameters != null) {
+      _stateMachine.addInstance<OAuthParameters>(_initialParameters!);
+    }
+  }
+
+  @override
+  Future<void> addPlugin() async {
+    if (zIsWeb || !(Platform.isAndroid || Platform.isIOS)) {
+      return;
+    }
+
+    // Configure this plugin to act as a native iOS/Android plugin.
+    final nativePlugin = _NativeAmplifyAuthCognito(this);
+    NativeAuthPlugin.setup(nativePlugin);
+
+    final nativeBridge = NativeAuthBridge();
+    _stateMachine.addInstance(nativeBridge);
+    try {
+      await nativeBridge.addPlugin();
+    } on PlatformException catch (e) {
+      if (e.code == 'AmplifyAlreadyConfiguredException' ||
+          e.code == 'AlreadyConfiguredException') {
+        throw const AmplifyAlreadyConfiguredException(
+          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+          recoverySuggestion:
+              AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion,
+        );
+      }
+      throw AmplifyException(
+        e.message ?? 'An unknown error occurred',
+        underlyingException: e.toString(),
+      );
+    }
   }
 
   @override
@@ -68,15 +130,6 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
         recoverySuggestion:
             'Check if Amplify is already configured using Amplify.isConfigured.',
       );
-    }
-
-    // Configure this plugin to act as a native iOS/Android plugin.
-    if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      final nativePlugin = _NativeAmplifyAuthCognito(this);
-      NativeAuthPlugin.setup(nativePlugin);
-
-      final nativeBridge = NativeAuthBridge();
-      await nativeBridge.configure();
     }
 
     await _init();
@@ -120,6 +173,47 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
 
     // This should never happen.
     throw const UnknownException('fetchAuthSession could not be completed');
+  }
+
+  @override
+  Future<SignInResult> signInWithWebUI({
+    SignInWithWebUIRequest? request,
+  }) async {
+    final options = request?.options as CognitoSignInWithWebUIOptions? ??
+        const CognitoSignInWithWebUIOptions();
+    await _stateMachine.dispatch(
+      HostedUiEvent.signIn(
+        options: options,
+        provider: request?.provider,
+      ),
+    );
+
+    await for (final state in _stateMachine.stream.whereType<HostedUiState>()) {
+      switch (state.type) {
+        case HostedUiStateType.notConfigured:
+        case HostedUiStateType.configuring:
+        case HostedUiStateType.signingIn:
+        case HostedUiStateType.signingOut:
+          continue;
+        case HostedUiStateType.signedOut:
+          throw const UnknownException(
+            'An unknown error occurred while signing in',
+          );
+        case HostedUiStateType.signedIn:
+          return SignInResult(
+            isSignedIn: true,
+            nextStep: AuthNextSignInStep(
+              signInStep: 'DONE',
+            ),
+          );
+        case HostedUiStateType.failure:
+          state as HostedUiFailure;
+          throw state.exception;
+      }
+    }
+
+    // This should never happen.
+    throw const UnknownException('signInWithWebUI could not be completed');
   }
 
   /* -- TODO: Replace -- */
