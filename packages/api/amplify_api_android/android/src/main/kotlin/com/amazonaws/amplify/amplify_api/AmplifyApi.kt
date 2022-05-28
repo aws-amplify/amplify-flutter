@@ -15,6 +15,8 @@
 
 package com.amazonaws.amplify.amplify_api
 
+import android.content.Context
+import android.os.AsyncTask
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
@@ -149,8 +151,12 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
         cancelToken: String
     ) {
         if (OperationsManager.containsOperation(cancelToken)) {
-            OperationsManager.cancelOperation(cancelToken)
-            flutterResult.success("Operation Canceled")
+            AsyncTask.execute {
+                OperationsManager.cancelOperation(cancelToken)
+                handler.post {
+                    flutterResult.success("Operation Canceled")
+                }
+            }
         } else {
             flutterResult.error(
                 "AmplifyAPI-CancelError",
