@@ -112,7 +112,7 @@ FormFieldValidator<String> validatePasswordConfirmation(
         context,
         InputResolverKey.passwordConfirmationEmpty,
       );
-    } else if (getPassword() != passwordConfirmation) {
+    } else if (getPassword().trim() != passwordConfirmation.trim()) {
       return inputResolver.resolve(
           context, InputResolverKey.passwordsDoNotMatch);
     }
