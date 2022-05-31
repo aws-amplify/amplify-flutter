@@ -114,16 +114,16 @@ jobs:
         working-directory: packages/aws_signature_v4
         run: dart analyze --fatal-infos lib test
   job_004:
-    name: "analyze_and_format; Dart dev; PKGS: packages/aws_common, packages/aws_signature_v4/example; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
+    name: "analyze_and_format; Dart dev; PKGS: packages/aws_common, packages/aws_signature_v4/example, packages/worker_bee/e2e_test, packages/worker_bee/worker_bee, packages/worker_bee/worker_bee_builder; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_common-packages/aws_signature_v4/example;commands:format-analyze_2"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_common-packages/aws_signature_v4/example-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder;commands:format-analyze_2"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_common-packages/aws_signature_v4/example
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_common-packages/aws_signature_v4/example-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -157,6 +157,45 @@ jobs:
       - name: "packages/aws_signature_v4/example; dart analyze --fatal-infos ."
         if: "always() && steps.packages_aws_signature_v4_example_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4/example
+        run: dart analyze --fatal-infos .
+      - id: packages_worker_bee_e2e_test_pub_upgrade
+        name: packages/worker_bee/e2e_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart pub upgrade
+      - name: "packages/worker_bee/e2e_test; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/worker_bee/e2e_test; dart analyze --fatal-infos ."
+        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart analyze --fatal-infos .
+      - id: packages_worker_bee_worker_bee_pub_upgrade
+        name: packages/worker_bee/worker_bee; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/worker_bee
+        run: dart pub upgrade
+      - name: "packages/worker_bee/worker_bee; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_worker_bee_worker_bee_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/worker_bee
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/worker_bee/worker_bee; dart analyze --fatal-infos ."
+        if: "always() && steps.packages_worker_bee_worker_bee_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/worker_bee
+        run: dart analyze --fatal-infos .
+      - id: packages_worker_bee_worker_bee_builder_pub_upgrade
+        name: packages/worker_bee/worker_bee_builder; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/worker_bee_builder
+        run: dart pub upgrade
+      - name: "packages/worker_bee/worker_bee_builder; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_worker_bee_worker_bee_builder_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/worker_bee_builder
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/worker_bee/worker_bee_builder; dart analyze --fatal-infos ."
+        if: "always() && steps.packages_worker_bee_worker_bee_builder_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/worker_bee_builder
         run: dart analyze --fatal-infos .
   job_005:
     name: "analyze_and_format; Dart dev; PKG: packages/aws_signature_v4; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
@@ -255,16 +294,16 @@ jobs:
         working-directory: packages/auth/amplify_auth_cognito
         run: flutter analyze --fatal-infos lib test
   job_008:
-    name: "analyze_and_format; Dart stable; PKGS: packages/aws_common, packages/aws_signature_v4/example; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
+    name: "analyze_and_format; Dart stable; PKGS: packages/aws_common, packages/aws_signature_v4/example, packages/worker_bee/e2e_test, packages/worker_bee/worker_bee, packages/worker_bee/worker_bee_builder; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_common-packages/aws_signature_v4/example;commands:format-analyze_2"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_common-packages/aws_signature_v4/example-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder;commands:format-analyze_2"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_common-packages/aws_signature_v4/example
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_common-packages/aws_signature_v4/example-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -298,6 +337,45 @@ jobs:
       - name: "packages/aws_signature_v4/example; dart analyze --fatal-infos ."
         if: "always() && steps.packages_aws_signature_v4_example_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4/example
+        run: dart analyze --fatal-infos .
+      - id: packages_worker_bee_e2e_test_pub_upgrade
+        name: packages/worker_bee/e2e_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart pub upgrade
+      - name: "packages/worker_bee/e2e_test; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/worker_bee/e2e_test; dart analyze --fatal-infos ."
+        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart analyze --fatal-infos .
+      - id: packages_worker_bee_worker_bee_pub_upgrade
+        name: packages/worker_bee/worker_bee; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/worker_bee
+        run: dart pub upgrade
+      - name: "packages/worker_bee/worker_bee; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_worker_bee_worker_bee_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/worker_bee
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/worker_bee/worker_bee; dart analyze --fatal-infos ."
+        if: "always() && steps.packages_worker_bee_worker_bee_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/worker_bee
+        run: dart analyze --fatal-infos .
+      - id: packages_worker_bee_worker_bee_builder_pub_upgrade
+        name: packages/worker_bee/worker_bee_builder; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/worker_bee_builder
+        run: dart pub upgrade
+      - name: "packages/worker_bee/worker_bee_builder; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_worker_bee_worker_bee_builder_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/worker_bee_builder
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/worker_bee/worker_bee_builder; dart analyze --fatal-infos ."
+        if: "always() && steps.packages_worker_bee_worker_bee_builder_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/worker_bee_builder
         run: dart analyze --fatal-infos .
   job_009:
     name: "analyze_and_format; Dart stable; PKG: packages/aws_signature_v4; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"

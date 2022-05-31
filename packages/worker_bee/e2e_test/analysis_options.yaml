@@ -1,0 +1,5 @@
+include: package:amplify_lints/app.yaml
+
+analyzer:
+  exclude:
+    - '**/*.g.dart'

@@ -1,0 +1,89 @@
+# Created with package:mono_repo v6.2.2
+name: Integration Test
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 0"
+defaults:
+  run:
+    shell: bash
+env:
+  PUB_ENVIRONMENT: bot.github
+
+jobs:
+  job_001:
+    name: "integration_test; Flutter beta; `flutter doctor -v`, `xcrun simctl boot \"iPhone 13\"`, `flutter test -d iPhone integration_test/e2e_test.dart`"
+    runs-on: macos-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@v3
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:macos-latest;pub-cache-hosted;sdk:beta;packages:packages/worker_bee/e2e_flutter_test;commands:command_0-command_2-test_5"
+          restore-keys: |
+            os:macos-latest;pub-cache-hosted;sdk:beta;packages:packages/worker_bee/e2e_flutter_test
+            os:macos-latest;pub-cache-hosted;sdk:beta
+            os:macos-latest;pub-cache-hosted
+            os:macos-latest
+      - uses: subosito/flutter-action@v2.3.0
+        with:
+          channel: beta
+      - id: checkout
+        uses: actions/checkout@v3
+      - id: packages_worker_bee_e2e_flutter_test_pub_upgrade
+        name: packages/worker_bee/e2e_flutter_test; flutter pub pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_flutter_test
+        run: flutter pub pub upgrade
+      - name: "packages/worker_bee/e2e_flutter_test; flutter doctor -v"
+        if: "always() && steps.packages_worker_bee_e2e_flutter_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_flutter_test
+        run: flutter doctor -v
+      - name: packages/worker_bee/e2e_flutter_test; xcrun simctl boot "iPhone 13"
+        if: "always() && steps.packages_worker_bee_e2e_flutter_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_flutter_test
+        run: xcrun simctl boot "iPhone 13"
+      - name: "packages/worker_bee/e2e_flutter_test; flutter test -d iPhone integration_test/e2e_test.dart"
+        if: "always() && steps.packages_worker_bee_e2e_flutter_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_flutter_test
+        run: flutter test -d iPhone integration_test/e2e_test.dart
+  job_002:
+    name: "integration_test; Flutter stable; `flutter doctor -v`, `xcrun simctl boot \"iPhone 13\"`, `flutter test -d iPhone integration_test/e2e_test.dart`"
+    runs-on: macos-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@v3
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_flutter_test;commands:command_0-command_2-test_5"
+          restore-keys: |
+            os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_flutter_test
+            os:macos-latest;pub-cache-hosted;sdk:stable
+            os:macos-latest;pub-cache-hosted
+            os:macos-latest
+      - uses: subosito/flutter-action@v2.3.0
+        with:
+          channel: stable
+      - id: checkout
+        uses: actions/checkout@v3
+      - id: packages_worker_bee_e2e_flutter_test_pub_upgrade
+        name: packages/worker_bee/e2e_flutter_test; flutter pub pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_flutter_test
+        run: flutter pub pub upgrade
+      - name: "packages/worker_bee/e2e_flutter_test; flutter doctor -v"
+        if: "always() && steps.packages_worker_bee_e2e_flutter_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_flutter_test
+        run: flutter doctor -v
+      - name: packages/worker_bee/e2e_flutter_test; xcrun simctl boot "iPhone 13"
+        if: "always() && steps.packages_worker_bee_e2e_flutter_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_flutter_test
+        run: xcrun simctl boot "iPhone 13"
+      - name: "packages/worker_bee/e2e_flutter_test; flutter test -d iPhone integration_test/e2e_test.dart"
+        if: "always() && steps.packages_worker_bee_e2e_flutter_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_flutter_test
+        run: flutter test -d iPhone integration_test/e2e_test.dart
