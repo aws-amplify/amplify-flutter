@@ -23,7 +23,18 @@ void runTests(SecureStorageFactory storageFactory) {
   const key1 = 'key_1';
   late AmplifySecureStorageInterface storage;
   late AmplifySecureStorageInterface storageScope;
-  late AmplifySecureStorageInterface storageNamespace;
+  late AmplifySecureStorageInterface storageWeb;
+  late AmplifySecureStorageInterface storageLinux;
+  late AmplifySecureStorageInterface storageWindows;
+
+  Future<void> clearAll() async {
+    await storage.delete(key: key1);
+    await storageScope.delete(key: key1);
+    await storageWeb.delete(key: key1);
+    await storageLinux.delete(key: key1);
+    await storageWindows.delete(key: key1);
+  }
+
   setUp(() async {
     // Disabling `useDataProtection` for tests since it would require a MacOS
     // app that has at least one app group
@@ -40,20 +51,34 @@ void runTests(SecureStorageFactory storageFactory) {
         macOSOptions: macOSOptions,
       ),
     );
-    storageNamespace = storageFactory(
+    storageWeb = storageFactory(
       config: AmplifySecureStorageConfig(
         scope: 'default',
-        namespace: 'com.test',
+        webOptions: WebSecureStorageOptions(databaseNamePrefix: 'com.test'),
         macOSOptions: macOSOptions,
       ),
     );
-    await storage.delete(key: key1);
-    await storageScope.delete(key: key1);
+    storageLinux = storageFactory(
+      config: AmplifySecureStorageConfig(
+        scope: 'default',
+        linuxOptions: LinuxSecureStorageOptions(schemaName: 'com.test'),
+        macOSOptions: macOSOptions,
+      ),
+    );
+    storageWindows = storageFactory(
+      config: AmplifySecureStorageConfig(
+        scope: 'default',
+        windowsOptions: WindowsSecureStorageOptions(
+          targetNamePrefix: 'com.test',
+        ),
+        macOSOptions: macOSOptions,
+      ),
+    );
+    await clearAll();
   });
 
   tearDownAll(() async {
-    await storage.delete(key: key1);
-    await storageScope.delete(key: key1);
+    await clearAll();
   });
 
   group('write', () {
@@ -167,16 +192,52 @@ void runTests(SecureStorageFactory storageFactory) {
   });
 
   group('namespace', () {
-    test('The same key with different namespaces should not collide', () async {
-      // write to both storage instances
-      await storage.write(key: key1, value: 'test_write_1');
-      await storageNamespace.write(key: key1, value: 'test_write_2');
+    test(
+      'The same key with different db names should not collide',
+      testOn: 'browser',
+      () async {
+        // write to both storage instances
+        await storage.write(key: key1, value: 'test_write_1');
+        await storageWeb.write(key: key1, value: 'test_write_2');
 
-      // confirm value was written to both storage instances
-      final value1 = await storage.read(key: key1);
-      expect(value1, 'test_write_1');
-      final value2 = await storageNamespace.read(key: key1);
-      expect(value2, 'test_write_2');
-    });
+        // confirm value was written to both storage instances
+        final value1 = await storage.read(key: key1);
+        expect(value1, 'test_write_1');
+        final value2 = await storageWeb.read(key: key1);
+        expect(value2, 'test_write_2');
+      },
+    );
+
+    test(
+      'The same key with different schema names should not collide',
+      testOn: 'linux',
+      () async {
+        // write to both storage instances
+        await storage.write(key: key1, value: 'test_write_1');
+        await storageLinux.write(key: key1, value: 'test_write_2');
+
+        // confirm value was written to both storage instances
+        final value1 = await storage.read(key: key1);
+        expect(value1, 'test_write_1');
+        final value2 = await storageLinux.read(key: key1);
+        expect(value2, 'test_write_2');
+      },
+    );
+
+    test(
+      'The same key with different schema target name prefixes should not collide',
+      testOn: 'windows',
+      () async {
+        // write to both storage instances
+        await storage.write(key: key1, value: 'test_write_1');
+        await storageWindows.write(key: key1, value: 'test_write_2');
+
+        // confirm value was written to both storage instances
+        final value1 = await storage.read(key: key1);
+        expect(value1, 'test_write_1');
+        final value2 = await storageWindows.read(key: key1);
+        expect(value2, 'test_write_2');
+      },
+    );
   });
 }

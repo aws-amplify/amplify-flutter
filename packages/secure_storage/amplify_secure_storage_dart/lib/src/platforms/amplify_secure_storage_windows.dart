@@ -33,15 +33,15 @@ class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
   /// The user name of the account used to connect to the "TargetName".
   ///
   /// Reference: https://docs.microsoft.com/en-us/windows/win32/api/wincred/ns-wincred-credentiala
-  String get _username => '${config.namespace}.${config.scope}';
+  String get _username =>
+      '${config.windowsOptions.targetNamePrefix}.${config.scope}';
 
   /// The name of the credential.
   ///
   /// The TargetName and Type members uniquely identify the credential.
   ///
   /// Reference: https://docs.microsoft.com/en-us/windows/win32/api/wincred/ns-wincred-credentiala
-  String _getTargetName(String key) =>
-      '${config.namespace}.${config.scope}/$key';
+  String _getTargetName(String key) => '$_username/$key';
 
   @override
   void write({required String key, required String value}) {
