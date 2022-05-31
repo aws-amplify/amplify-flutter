@@ -105,7 +105,7 @@ class AuthenticatorState extends ChangeNotifier {
   String get password => _password;
 
   set password(String value) {
-    _password = value;
+    _password = value.trim();
     notifyListeners();
   }
 
@@ -157,7 +157,7 @@ class AuthenticatorState extends ChangeNotifier {
   String get newPassword => _newPassword;
 
   set newPassword(String value) {
-    _newPassword = value;
+    _newPassword = value.trim();
     notifyListeners();
   }
 
