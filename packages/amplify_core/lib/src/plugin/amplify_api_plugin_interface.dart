@@ -57,7 +57,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     throw UnimplementedError('delete() has not been implemented');
@@ -69,7 +69,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   CancelableOperation<AWSStreamedHttpResponse> get(
     String path, {
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     throw UnimplementedError('get() has not been implemented');
@@ -78,7 +78,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   CancelableOperation<AWSStreamedHttpResponse> head(
     String path, {
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     throw UnimplementedError('head() has not been implemented');
@@ -88,7 +88,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     throw UnimplementedError('patch() has not been implemented');
@@ -98,7 +98,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     throw UnimplementedError('post() has not been implemented');
@@ -108,7 +108,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     throw UnimplementedError('put() has not been implemented');
