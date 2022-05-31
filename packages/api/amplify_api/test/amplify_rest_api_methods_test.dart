@@ -156,58 +156,6 @@ void main() {
     await _assertResponse(response);
   });
 
-  // test('GET Status Code Error throws proper error', () async {
-  //   apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-  //     if (methodCall.method == 'get') {
-  //       throw PlatformException(code: 'ApiException', details: {
-  //         'message': 'AMPLIFY_API_MUTATE_FAILED',
-  //         'recoverySuggestion': 'some insightful suggestion',
-  //         'underlyingException': 'Act of God'
-  //       });
-  //     }
-  //   });
-
-  //   try {
-  //     RestOperation restOperation = api.get(
-  //         restOptions: const RestOptions(
-  //       path: '/items',
-  //     ));
-  //     await restOperation.response;
-  //   } on ApiException catch (e) {
-  //     expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
-  //     expect(e.recoverySuggestion, 'some insightful suggestion');
-  //     expect(e.underlyingException, 'Act of God');
-  //   }
-  // });
-
-  // test('GET exception adds the httpStatusCode to exception if available',
-  //     () async {
-  //   const statusCode = 500;
-  //   const data = 'Internal server error';
-
-  //   apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-  //     if (methodCall.method == 'get') {
-  //       return {
-  //         'statusCode': statusCode,
-  //         'headers': <String, String>{},
-  //         'data': Uint8List.fromList(data.codeUnits),
-  //       };
-  //     }
-  //   });
-
-  //   try {
-  //     RestOperation restOperation = api.get(
-  //       restOptions: const RestOptions(
-  //         path: '/items',
-  //       ),
-  //     );
-  //     await restOperation.response;
-  //   } on RestException catch (e) {
-  //     expect(e.response.statusCode, 500);
-  //     expect(e.response.body, data);
-  //   }
-  // });
-
   test('CANCEL success does not throw error', () async {
     // Need to reply with PLACEHOLDER to avoid null issues in _formatRestResponse
     // In actual production code, the methodChannel doesn't respond to the future response

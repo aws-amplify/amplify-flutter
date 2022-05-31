@@ -29,9 +29,6 @@ class _RestApiViewState extends State<RestApiView> {
   late TextEditingController _apiPathController;
   late CancelableOperation _lastRestOperation;
 
-  // TEMP until Amplify methods implemented in dart.
-  late AmplifyAPI api;
-
   @override
   void initState() {
     super.initState();
