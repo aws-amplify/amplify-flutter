@@ -190,23 +190,5 @@ void main() {
         };
       });
     });
-
-    //   test('has valid RestResponse', () async {
-    //     final restOp = api.get(restOptions: const RestOptions(path: '/'));
-
-    //     RestException restException;
-    //     try {
-    //       await restOp.response;
-    //       fail('RestOperation should throw');
-    //     } on Exception catch (e) {
-    //       expect(e, isA<RestException>());
-    //       restException = e as RestException;
-    //     }
-
-    //     final response = restException.response;
-    //     expect(response.statusCode, statusBadRequest);
-    //     expect(response.headers, testResponseHeaders);
-    //     expect(response.body, testBody);
-    //   });
   });
 }
