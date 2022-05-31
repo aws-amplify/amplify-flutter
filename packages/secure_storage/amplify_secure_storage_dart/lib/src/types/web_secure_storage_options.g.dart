@@ -23,7 +23,11 @@ class _$WebSecureStorageOptionsSerializer
   Iterable<Object?> serialize(
       Serializers serializers, WebSecureStorageOptions object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[];
+    final result = <Object?>[
+      'inMemory',
+      serializers.serialize(object.inMemory,
+          specifiedType: const FullType(bool)),
+    ];
     Object? value;
     value = object.databaseName;
     if (value != null) {
@@ -51,6 +55,10 @@ class _$WebSecureStorageOptionsSerializer
           result.databaseName = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'inMemory':
+          result.inMemory = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
       }
     }
 
@@ -61,12 +69,18 @@ class _$WebSecureStorageOptionsSerializer
 class _$WebSecureStorageOptions extends WebSecureStorageOptions {
   @override
   final String? databaseName;
+  @override
+  final bool inMemory;
 
   factory _$WebSecureStorageOptions(
           [void Function(WebSecureStorageOptionsBuilder)? updates]) =>
       (new WebSecureStorageOptionsBuilder()..update(updates))._build();
 
-  _$WebSecureStorageOptions._({this.databaseName}) : super._();
+  _$WebSecureStorageOptions._({this.databaseName, required this.inMemory})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        inMemory, r'WebSecureStorageOptions', 'inMemory');
+  }
 
   @override
   WebSecureStorageOptions rebuild(
@@ -81,18 +95,20 @@ class _$WebSecureStorageOptions extends WebSecureStorageOptions {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is WebSecureStorageOptions &&
-        databaseName == other.databaseName;
+        databaseName == other.databaseName &&
+        inMemory == other.inMemory;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, databaseName.hashCode));
+    return $jf($jc($jc(0, databaseName.hashCode), inMemory.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'WebSecureStorageOptions')
-          ..add('databaseName', databaseName))
+          ..add('databaseName', databaseName)
+          ..add('inMemory', inMemory))
         .toString();
   }
 }
@@ -106,12 +122,17 @@ class WebSecureStorageOptionsBuilder
   String? get databaseName => _$this._databaseName;
   set databaseName(String? databaseName) => _$this._databaseName = databaseName;
 
+  bool? _inMemory;
+  bool? get inMemory => _$this._inMemory;
+  set inMemory(bool? inMemory) => _$this._inMemory = inMemory;
+
   WebSecureStorageOptionsBuilder();
 
   WebSecureStorageOptionsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _databaseName = $v.databaseName;
+      _inMemory = $v.inMemory;
       _$v = null;
     }
     return this;
@@ -132,8 +153,11 @@ class WebSecureStorageOptionsBuilder
   WebSecureStorageOptions build() => _build();
 
   _$WebSecureStorageOptions _build() {
-    final _$result =
-        _$v ?? new _$WebSecureStorageOptions._(databaseName: databaseName);
+    final _$result = _$v ??
+        new _$WebSecureStorageOptions._(
+            databaseName: databaseName,
+            inMemory: BuiltValueNullFieldError.checkNotNull(
+                inMemory, r'WebSecureStorageOptions', 'inMemory'));
     replace(_$result);
     return _$result;
   }

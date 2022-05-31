@@ -26,6 +26,7 @@ abstract class WebSecureStorageOptions
   /// {@macro amplify_secure_storage_dart.web_secure_storage_options}
   factory WebSecureStorageOptions({
     String? databaseName,
+    required bool inMemory,
   }) = _$WebSecureStorageOptions._;
 
   const WebSecureStorageOptions._();
@@ -35,6 +36,15 @@ abstract class WebSecureStorageOptions
   /// If no value is provided, [AmplifySecureStorageConfig.defaultNamespace]
   /// will be used as the database name.
   String? get databaseName;
+
+  /// Wether or not data should be stored in memory.
+  ///
+  /// If this is true, secrets will never be written to disk. Instead
+  /// they will be stored in memory.
+  ///
+  /// If this is false, secrets will be stored in browser storage
+  /// using IndexedDB.
+  bool get inMemory;
 
   /// The [WebSecureStorageOptions] serializer.
   static Serializer<WebSecureStorageOptions> get serializer =>
