@@ -223,7 +223,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     required AWSStreamedHttpResponse response,
   }) async {
     Output? output;
-    Exception? exception;
+    Object? exception;
     var successCode = this.successCode();
     try {
       final payload = await protocol.deserialize(response.split(),
@@ -234,13 +234,14 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
         output = buildOutput(payload, response);
       }
       successCode = this.successCode(output);
-    } on Exception catch (e) {
+    } on Object catch (e) {
       exception = e;
     }
     if (response.statusCode == successCode) {
       if (output != null) {
         return output;
       }
+      // ignore: only_throw_errors
       throw exception!;
     }
 
