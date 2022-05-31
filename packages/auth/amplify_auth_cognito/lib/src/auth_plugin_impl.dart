@@ -16,7 +16,13 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_auth_cognito/src/flows/helpers.dart';
+import 'package:amplify_auth_cognito/src/model/sign_up_parameters.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
+import 'package:amplify_auth_cognito/src/sdk/cognito_identity_provider.dart'
+    as cognito
+    show CognitoIdentityProviderClient, ResendConfirmationCodeRequest;
+import 'package:amplify_auth_cognito/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
@@ -61,6 +67,13 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
     if (!zDebugMode) throw StateError('Can only be called in tests');
     _stateMachine = stateMachine;
   }
+
+  /// The Cognito Identity Provider client.
+  cognito.CognitoIdentityProviderClient get _cognitoIdp =>
+      _stateMachine.expect();
+
+  /// The Cognito user pool configuration.
+  CognitoUserPoolConfig get _userPoolConfig => _stateMachine.expect();
 
   Future<void> _init() async {
     final credentialStorage = _credentialStorage ??
@@ -185,6 +198,134 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
 
     // This should never happen.
     throw const UnknownException('signInWithWebUI could not be completed');
+  }
+
+  @override
+  Future<SignUpResult> signUp({
+    required SignUpRequest request,
+  }) async {
+    final options = request.options as CognitoSignUpOptions?;
+    _stateMachine.dispatch(
+      SignUpEvent.initiate(
+        parameters: SignUpParameters(
+          (p) => p
+            ..username = request.username
+            ..password = request.password,
+        ),
+        clientMetadata: options?.clientMetadata,
+        userAttributes: options?.userAttributes,
+        validationData: options?.validationData,
+      ),
+    );
+
+    await for (final state in _stateMachine.stream.whereType<SignUpState>()) {
+      switch (state.type) {
+        case SignUpStateType.notStarted:
+        case SignUpStateType.initiating:
+        case SignUpStateType.confirming:
+          continue;
+        case SignUpStateType.needsConfirmation:
+          state as SignUpNeedsConfirmation;
+          return SignUpResult(
+            isSignUpComplete: false,
+            nextStep: AuthNextSignUpStep(
+              signUpStep: CognitoSignUpStep.confirmSignUp.name,
+              codeDeliveryDetails:
+                  state.codeDeliveryDetails?.asAuthCodeDeliveryDetails,
+            ),
+          );
+        case SignUpStateType.success:
+          return SignUpResult(
+            isSignUpComplete: true,
+            nextStep: AuthNextSignUpStep(
+              signUpStep: CognitoSignUpStep.done.name,
+            ),
+          );
+        case SignUpStateType.failure:
+          throw (state as SignUpFailure).exception;
+      }
+    }
+
+    // This should never happen.
+    throw const UnknownException('Sign up could not be completed');
+  }
+
+  @override
+  Future<SignUpResult> confirmSignUp({
+    required ConfirmSignUpRequest request,
+  }) async {
+    final options = request.options as CognitoConfirmSignUpOptions?;
+    _stateMachine.dispatch(
+      SignUpEvent.confirm(
+        username: request.username,
+        confirmationCode: request.confirmationCode,
+        clientMetadata: options?.clientMetadata,
+      ),
+    );
+
+    await for (final state in _stateMachine.stream.whereType<SignUpState>()) {
+      switch (state.type) {
+        case SignUpStateType.notStarted:
+        case SignUpStateType.initiating:
+        case SignUpStateType.confirming:
+          continue;
+        case SignUpStateType.needsConfirmation:
+          state as SignUpNeedsConfirmation;
+          return SignUpResult(
+            isSignUpComplete: false,
+            nextStep: AuthNextSignUpStep(
+              signUpStep: CognitoSignUpStep.confirmSignUp.name,
+              codeDeliveryDetails:
+                  state.codeDeliveryDetails?.asAuthCodeDeliveryDetails,
+            ),
+          );
+        case SignUpStateType.success:
+          return SignUpResult(
+            isSignUpComplete: true,
+            nextStep: AuthNextSignUpStep(
+              signUpStep: CognitoSignUpStep.done.name,
+            ),
+          );
+        case SignUpStateType.failure:
+          throw (state as SignUpFailure).exception;
+      }
+    }
+
+    // This should never happen.
+    throw const UnknownException('Sign up confirmation could not be completed');
+  }
+
+  @override
+  Future<ResendSignUpCodeResult> resendSignUpCode({
+    required ResendSignUpCodeRequest request,
+  }) async {
+    final options = request.options as CognitoResendSignUpCodeOptions?;
+    final result = await _cognitoIdp.resendConfirmationCode(
+      cognito.ResendConfirmationCodeRequest.build((b) {
+        b
+          ..clientId = _userPoolConfig.appClientId
+          ..username = request.username;
+
+        final clientSecret = _userPoolConfig.appClientSecret;
+        if (clientSecret != null) {
+          b.secretHash = computeSecretHash(
+            request.username,
+            _userPoolConfig.appClientId,
+            clientSecret,
+          );
+        }
+
+        final clientMetadata = options?.clientMetadata ?? const {};
+        b.clientMetadata.addAll(clientMetadata);
+      }),
+    );
+
+    final codeDeliveryDetails =
+        result.codeDeliveryDetails?.asAuthCodeDeliveryDetails;
+    if (codeDeliveryDetails == null) {
+      throw const CodeDeliveryFailureException('Could not deliver code');
+    }
+    return CognitoResendSignUpCodeResult(codeDeliveryDetails);
   }
 
   /* -- TODO: Replace -- */

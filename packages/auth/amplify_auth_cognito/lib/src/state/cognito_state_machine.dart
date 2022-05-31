@@ -29,6 +29,7 @@ final stateMachineBuilders = <StateMachineToken, StateMachineBuilder>{
   CredentialStoreStateMachine.type: CredentialStoreStateMachine.new,
   FetchAuthSessionStateMachine.type: FetchAuthSessionStateMachine.new,
   HostedUiStateMachine.type: HostedUiStateMachine.new,
+  SignUpStateMachine.type: SignUpStateMachine.new,
 };
 
 /// Default defaultDependencies for [CognitoAuthStateMachine].
@@ -62,6 +63,8 @@ class CognitoAuthStateMachine extends StateMachineManager {
         return getOrCreate(FetchAuthSessionStateMachine.type).add(event);
       } else if (event is HostedUiEvent) {
         return getOrCreate(HostedUiStateMachine.type).add(event);
+      } else if (event is SignUpEvent) {
+        return getOrCreate(SignUpStateMachine.type).add(event);
       }
       throw StateError('Unhandled event: $event');
     } finally {
