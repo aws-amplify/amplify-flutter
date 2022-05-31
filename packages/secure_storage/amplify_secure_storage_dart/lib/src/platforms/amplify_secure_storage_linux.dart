@@ -37,10 +37,10 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
       final schema = _getSchema(arena);
       libsecret.secret_password_storev_sync(
         schema,
-        attributes.cast(),
+        attributes,
         nullptr,
-        label.cast(),
-        secret.cast(),
+        label,
+        secret,
         nullptr,
         nullptr,
       );
@@ -54,7 +54,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
       final schema = _getSchema(arena);
       final result = libsecret.secret_password_lookupv_sync(
         schema,
-        attributes.cast(),
+        attributes,
         nullptr,
         nullptr,
       );
@@ -74,7 +74,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
       final schema = _getSchema(arena);
       libsecret.secret_password_clearv_sync(
         schema,
-        attributes.cast(),
+        attributes,
         nullptr,
         nullptr,
       );
@@ -89,7 +89,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   Pointer<SecretSchema> _getSchema(Arena arena) {
     final schemaName = SECRET_COLLECTION_DEFAULT.toNativeUtf8(allocator: arena);
     return arena<SecretSchema>()
-      ..ref.name = schemaName.cast()
+      ..ref.name = schemaName
       ..ref.flags = SecretSchemaFlags.SECRET_SCHEMA_NONE
       ..addAttributes(Attributes.values.map((e) => e.name), arena: arena);
   }
@@ -114,18 +114,6 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
       glib.g_hash_table_destroy(gHashTable);
     });
     return gHashTable;
-  }
-}
-
-// TODO: Remove Int32Pointer, SECRET_COLLECTION_DEFAULT and
-// calls to `cast()` throughout this file after upgrading
-// to ffigen 5.0.0 and ffi 1.2.0
-//
-// See: ffigen.libsecret.config.yaml for more info
-
-extension Int32Pointer on Pointer<Int32> {
-  String toDartString({int? length}) {
-    return cast<Utf8>().toDartString(length: length);
   }
 }
 

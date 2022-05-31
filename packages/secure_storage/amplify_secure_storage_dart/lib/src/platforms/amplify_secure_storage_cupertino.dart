@@ -19,7 +19,7 @@ import 'package:amplify_secure_storage_dart/src/exception/duplicate_item_excepti
 import 'package:amplify_secure_storage_dart/src/exception/item_not_found_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/unknown_exception.dart';
-import 'package:amplify_secure_storage_dart/src/ffi/keychain/keychain.dart';
+import 'package:amplify_secure_storage_dart/src/ffi/cupertino/cupertino.dart';
 import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';
 import 'package:amplify_secure_storage_dart/src/types/amplify_secure_storage_config.dart';
 import 'package:ffi/ffi.dart';
@@ -90,18 +90,18 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     final service = _createCFString(value: _serviceName, arena: arena);
     final query = _createCFDictionary(
       map: {
-        keychain.kSecClass: keychain.kSecClassGenericPassword,
-        keychain.kSecAttrAccount: account,
-        keychain.kSecAttrService: service,
+        security.kSecClass: security.kSecClassGenericPassword,
+        security.kSecAttrAccount: account,
+        security.kSecAttrService: service,
       },
       arena: arena,
     );
     final data = _createCFData(value: value, arena: arena);
     final attributes = _createCFDictionary(
-      map: {keychain.kSecValueData: data},
+      map: {security.kSecValueData: data},
       arena: arena,
     );
-    final status = keychain.SecItemUpdate(query, attributes);
+    final status = security.SecItemUpdate(query, attributes);
     if (status != errSecSuccess) {
       throw _getExceptionFromResultCode(status);
     }
@@ -121,14 +121,14 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     final secret = _createCFData(value: value, arena: arena);
     final query = _createCFDictionary(
       map: {
-        keychain.kSecClass: keychain.kSecClassGenericPassword,
-        keychain.kSecAttrAccount: account,
-        keychain.kSecAttrService: service,
-        keychain.kSecValueData: secret,
+        security.kSecClass: security.kSecClassGenericPassword,
+        security.kSecAttrAccount: account,
+        security.kSecAttrService: service,
+        security.kSecValueData: secret,
       },
       arena: arena,
     );
-    final status = keychain.SecItemAdd(query, nullptr);
+    final status = security.SecItemAdd(query, nullptr);
     if (status != errSecSuccess) {
       throw _getExceptionFromResultCode(status);
     }
@@ -145,14 +145,14 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     final service = _createCFString(value: _serviceName, arena: arena);
     final query = _createCFDictionary(
       map: {
-        keychain.kSecClass: keychain.kSecClassGenericPassword,
-        keychain.kSecAttrAccount: account,
-        keychain.kSecAttrService: service,
-        keychain.kSecReturnData: keychain.kCFBooleanTrue,
+        security.kSecClass: security.kSecClassGenericPassword,
+        security.kSecAttrAccount: account,
+        security.kSecAttrService: service,
+        security.kSecReturnData: security.kCFBooleanTrue,
       },
       arena: arena,
     );
-    final status = keychain.SecItemDelete(query);
+    final status = security.SecItemDelete(query);
     if (status != errSecSuccess) {
       throw _getExceptionFromResultCode(status);
     }
@@ -166,23 +166,23 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     final service = _createCFString(value: _serviceName, arena: arena);
     final query = _createCFDictionary(
       map: {
-        keychain.kSecMatchLimit: keychain.kSecMatchLimitOne,
-        keychain.kSecClass: keychain.kSecClassGenericPassword,
-        keychain.kSecAttrAccount: account,
-        keychain.kSecAttrService: service,
-        keychain.kSecReturnData: keychain.kCFBooleanTrue,
+        security.kSecMatchLimit: security.kSecMatchLimitOne,
+        security.kSecClass: security.kSecClassGenericPassword,
+        security.kSecAttrAccount: account,
+        security.kSecAttrService: service,
+        security.kSecReturnData: security.kCFBooleanTrue,
       },
       arena: arena,
     );
     final queryResult = arena<CFTypeRef>();
-    final status = keychain.SecItemCopyMatching(query, queryResult);
+    final status = security.SecItemCopyMatching(query, queryResult);
     if (status != errSecSuccess) {
       throw _getExceptionFromResultCode(status);
     }
     try {
       final CFDataRef cfData = queryResult.value.cast();
       final value = cfData.toDartString();
-      keychain.CFRelease(cfData.cast());
+      coreFoundation.CFRelease(cfData.cast());
       return value;
     } on Exception {
       // this should only occur if the data can not be parsed as
@@ -213,7 +213,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
       valuesPtr[index] = entry.value.cast();
       index++;
     }
-    final cFDictionary = keychain.CFDictionaryCreate(
+    final cFDictionary = coreFoundation.CFDictionaryCreate(
       nullptr, // default allocator
       keysPtr,
       valuesPtr,
@@ -222,7 +222,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
       nullptr, // no-op callback
     );
     arena.onReleaseAll(() {
-      keychain.CFRelease(cFDictionary.cast());
+      coreFoundation.CFRelease(cFDictionary.cast());
     });
     return cFDictionary;
   }
@@ -234,13 +234,13 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     required String value,
     required Arena arena,
   }) {
-    final cfString = keychain.CFStringCreateWithCString(
+    final cfString = coreFoundation.CFStringCreateWithCString(
       nullptr, // default allocator
-      value.toNativeUtf8(allocator: arena).cast<Int8>(),
+      value.toNativeUtf8(allocator: arena).cast<Char>(),
       kCFStringEncodingUTF8,
     );
     arena.onReleaseAll(() {
-      keychain.CFRelease(cfString.cast());
+      coreFoundation.CFRelease(cfString.cast());
     });
     return cfString;
   }
@@ -254,14 +254,14 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   }) {
     final valuePtr = value.toNativeUtf8(allocator: arena);
     final length = valuePtr.length;
-    final bytes = valuePtr.cast<Uint8>();
-    final cfData = keychain.CFDataCreate(
+    final bytes = valuePtr.cast<UnsignedChar>();
+    final cfData = coreFoundation.CFDataCreate(
       nullptr, // default allocator
       bytes,
       length,
     );
     arena.onReleaseAll(() {
-      keychain.CFRelease(cfData.cast());
+      coreFoundation.CFRelease(cfData.cast());
     });
     return cfData;
   }
@@ -305,7 +305,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
 
   /// Returns the error associated with the result code.
   _SecurityFrameworkError _getErrorFromResultCode(int code) {
-    CFStringRef cfString = keychain.SecCopyErrorMessageString(code, nullptr);
+    CFStringRef cfString = security.SecCopyErrorMessageString(code, nullptr);
     if (cfString == nullptr) {
       return _SecurityFrameworkError(
         code: code,
@@ -322,7 +322,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
       );
     } finally {
       if (cfString != nullptr) {
-        keychain.CFRelease(cfString.cast());
+        coreFoundation.CFRelease(cfString.cast());
       }
     }
   }
