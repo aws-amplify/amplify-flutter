@@ -47,7 +47,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
     String path, {
     Map<String, String>? headers,
     HttpPayload? body,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) =>
       defaultPlugin.delete(
@@ -60,7 +60,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
   CancelableOperation<AWSStreamedHttpResponse> get(
     String path, {
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) =>
       defaultPlugin.get(
@@ -72,7 +72,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
   CancelableOperation<AWSStreamedHttpResponse> head(
     String path, {
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) =>
       defaultPlugin.head(
@@ -85,7 +85,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
     String path, {
     Map<String, String>? headers,
     HttpPayload? body,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) =>
       defaultPlugin.patch(
@@ -99,7 +99,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
     String path, {
     Map<String, String>? headers,
     HttpPayload? body,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) =>
       defaultPlugin.post(
@@ -113,7 +113,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
     String path, {
     Map<String, String>? headers,
     HttpPayload? body,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) =>
       defaultPlugin.put(

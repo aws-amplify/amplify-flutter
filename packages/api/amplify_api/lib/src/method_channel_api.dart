@@ -14,6 +14,7 @@
  */
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
@@ -243,16 +244,29 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     required String cancelToken,
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) async {
-    final bodyBytes =
-        body != null ? Uint8List.fromList(await body.single) : null;
+    Uint8List? bodyBytes;
+    if (body != null) {
+      final completer = Completer<Uint8List>();
+      final sink = ByteConversionSink.withCallback(
+        (bytes) => completer.complete(Uint8List.fromList(bytes)),
+      );
+      body.listen(
+        sink.add,
+        onError: completer.completeError,
+        onDone: sink.close,
+        cancelOnError: true,
+      );
+      bodyBytes = await completer.future;
+    }
+
     final restOptions = RestOptions(
         path: path,
         body: bodyBytes,
         apiName: apiName,
-        queryParameters: queryParameters as Map<String, String>?,
+        queryParameters: queryParameters,
         headers: headers);
     return _callNativeRestMethod(methodName, cancelToken, restOptions);
   }
@@ -262,11 +276,11 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     required String path,
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     // Send Request cancelToken to Native
-    String cancelToken = UUID.getUUID();
+    String cancelToken = uuid();
     final responseFuture = _restResponseHelper(
         methodName: methodName,
         path: path,
@@ -316,7 +330,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   CancelableOperation<AWSStreamedHttpResponse> get(
     String path, {
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     return _restFunctionHelper(
@@ -332,7 +346,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     return _restFunctionHelper(
@@ -349,7 +363,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     return _restFunctionHelper(
@@ -366,7 +380,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     return _restFunctionHelper(
@@ -382,7 +396,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   CancelableOperation<AWSStreamedHttpResponse> head(
     String path, {
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     return _restFunctionHelper(
@@ -398,7 +412,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     return _restFunctionHelper(
