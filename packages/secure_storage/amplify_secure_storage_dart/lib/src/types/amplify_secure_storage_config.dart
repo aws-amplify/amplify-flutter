@@ -13,7 +13,10 @@
 // limitations under the License.
 
 import 'package:amplify_secure_storage_dart/src/types/ios_secure_storage_options.dart';
+import 'package:amplify_secure_storage_dart/src/types/linux_secure_storage_options.dart';
 import 'package:amplify_secure_storage_dart/src/types/macos_secure_storage_options.dart';
+import 'package:amplify_secure_storage_dart/src/types/web_secure_storage_options.dart';
+import 'package:amplify_secure_storage_dart/src/types/windows_secure_storage_options.dart';
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_config}
 /// Configuration options for Amplify Secure Storage.
@@ -21,21 +24,13 @@ import 'package:amplify_secure_storage_dart/src/types/macos_secure_storage_optio
 class AmplifySecureStorageConfig {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_config}
   const AmplifySecureStorageConfig({
-    this.namespace = 'com.amplify',
     required this.scope,
+    this.webOptions = WebSecureStorageOptions.defaultOptions,
+    this.windowsOptions = WindowsSecureStorageOptions.defaultOptions,
+    this.linuxOptions = LinuxSecureStorageOptions.defaultOptions,
     this.macOSOptions = MacOSSecureStorageOptions.defaultOptions,
     this.iOSOptions = IOSSecureStorageOptions.defaultOptions,
   });
-
-  /// A namespace used for all keys.
-  ///
-  /// Defaults to 'com.amplify'. This allows two Amplify apps
-  /// that share the same Amplify backend to share key-value
-  /// pairs.
-  ///
-  /// This can be set to a value that is unique to your application,
-  /// such as the package ID.
-  final String namespace;
 
   /// The scope of the secrets to be stored.
   ///
@@ -45,6 +40,15 @@ class AmplifySecureStorageConfig {
   /// identifier for the secret. Saving two values under unique scopes will
   /// prevent collisions even if the keys are the same.
   final String scope;
+
+  /// Options that are specific to the Web platform.
+  final WebSecureStorageOptions webOptions;
+
+  /// Options that are specific to the Windows platform.
+  final WindowsSecureStorageOptions windowsOptions;
+
+  /// Options that are specific to the Linux platform.
+  final LinuxSecureStorageOptions linuxOptions;
 
   /// Options that are specific to the MacOS platform.
   final MacOSSecureStorageOptions macOSOptions;

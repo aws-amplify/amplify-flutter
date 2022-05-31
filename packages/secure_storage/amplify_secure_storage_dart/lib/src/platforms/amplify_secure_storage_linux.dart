@@ -81,13 +81,15 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
     });
   }
 
-  String _createLabel(String key) => '${config.namespace}.${config.scope}/$key';
+  String get _schemaName => config.linuxOptions.schemaName;
+
+  String _createLabel(String key) => '${config.scope}/$key';
 
   /// Creates a [SecretSchema] pointer.
   ///
   /// [SecretSchema](https://developer-old.gnome.org/libsecret/0.18/libsecret-SecretSchema.html#SecretSchema)
   Pointer<SecretSchema> _getSchema(Arena arena) {
-    final schemaName = SECRET_COLLECTION_DEFAULT.toNativeUtf8(allocator: arena);
+    final schemaName = _schemaName.toNativeUtf8(allocator: arena);
     return arena<SecretSchema>()
       ..ref.name = schemaName
       ..ref.flags = SecretSchemaFlags.SECRET_SCHEMA_NONE
@@ -105,7 +107,6 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
       ..insertAll(
         {
           Attributes.key.name: key,
-          Attributes.service.name: config.namespace,
           Attributes.scope.name: config.scope,
         },
         arena: arena,
@@ -120,6 +121,5 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 /// The attributes used to identify the secret.
 enum Attributes {
   key,
-  service,
   scope,
 }

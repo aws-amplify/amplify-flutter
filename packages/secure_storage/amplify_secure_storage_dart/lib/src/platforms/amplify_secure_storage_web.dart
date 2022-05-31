@@ -29,7 +29,8 @@ class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
   /// The name of the database
   ///
   /// Reference: https://www.w3.org/TR/IndexedDB/#name
-  String get databaseName => '${config.namespace}.${config.scope}';
+  String get databaseName =>
+      '${config.webOptions.databaseNamePrefix}.${config.scope}';
 
   /// The name of the object store
   ///
