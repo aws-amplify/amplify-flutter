@@ -21,6 +21,7 @@ class WebSecureStorageOptions {
   /// {@macro amplify_secure_storage_dart.web_secure_storage_options}
   const WebSecureStorageOptions({
     this.databaseNamePrefix = 'com.amplify',
+    this.inMemory = true,
   });
 
   /// The default options for Web.
@@ -33,4 +34,15 @@ class WebSecureStorageOptions {
   /// This value will be uses with [AmplifySecureStorageConfig.scope] to form
   /// the full database name.
   final String databaseNamePrefix;
+
+  /// Wether or not data should be stored in memory.
+  ///
+  /// Defaults to true.
+  ///
+  /// If this is true, secrets will never be written to disk. Instead
+  /// they will be stored in memory.
+  ///
+  /// If this is false, secrets will be stored in browser storage
+  /// using IndexedDB.
+  final bool inMemory;
 }
