@@ -1,0 +1,15 @@
+builders:
+  worker_bee_builder:
+    import: "package:worker_bee_builder/worker_bee_builder.dart"
+    builder_factories: ["workerBeeBuilder"]
+    build_extensions: { ".dart": [".worker.vm.dart", ".worker.js.dart"] }
+    auto_apply: dependents
+    build_to: source
+    applies_builders: ["source_gen:combining_builder"]
+  worker_hive_builder:
+    import: "package:worker_bee_builder/worker_bee_builder.dart"
+    builder_factories: ["workerHiveBuilder"]
+    build_extensions: { ".dart": [".g.part"] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen:combining_builder"]

@@ -11,9 +11,14 @@ github:
       name: Test
       stages:
         - unit_test
+    integration_test:
+      name: Integration Test
+      stages:
+        - integration_test
 
 self_validate: analyze_and_format
 
 merge_stages:
   - analyze_and_format
   - unit_test
+  - integration_test

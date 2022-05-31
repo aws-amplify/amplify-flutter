@@ -91,6 +91,22 @@ for PKG in ${PKGS}; do
         echo 'git submodule update --init'
         git submodule update --init || EXIT_CODE=$?
         ;;
+      command_2)
+        echo 'xcrun simctl boot "iPhone 13"'
+        xcrun simctl boot "iPhone 13" || EXIT_CODE=$?
+        ;;
+      command_3)
+        echo 'dart run build_runner build --delete-conflicting-outputs'
+        dart run build_runner build --delete-conflicting-outputs || EXIT_CODE=$?
+        ;;
+      command_4)
+        echo 'tool/test.sh -p chrome'
+        tool/test.sh -p chrome || EXIT_CODE=$?
+        ;;
+      command_5)
+        echo 'tool/test.sh -p firefox'
+        tool/test.sh -p firefox || EXIT_CODE=$?
+        ;;
       format)
         echo 'dart format --output=none --set-exit-if-changed .'
         dart format --output=none --set-exit-if-changed . || EXIT_CODE=$?
@@ -114,6 +130,10 @@ for PKG in ${PKGS}; do
       test_4)
         echo 'dart test -p chrome'
         dart test -p chrome || EXIT_CODE=$?
+        ;;
+      test_5)
+        echo 'flutter test -d iPhone integration_test/e2e_test.dart'
+        flutter test -d iPhone integration_test/e2e_test.dart || EXIT_CODE=$?
         ;;
       *)
         echo -e "\033[31mUnknown TASK '${TASK}' - TERMINATING JOB\033[0m"
