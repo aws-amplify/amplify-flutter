@@ -81,7 +81,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
     });
   }
 
-  String _createLabel(String key) => 'com.amplify.${config.scope}/$key';
+  String _createLabel(String key) => '${config.namespace}.${config.scope}/$key';
 
   /// Creates a [SecretSchema] pointer.
   ///
@@ -105,7 +105,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
       ..insertAll(
         {
           Attributes.key.name: key,
-          Attributes.service.name: 'com.amplify',
+          Attributes.service.name: config.namespace,
           Attributes.scope.name: config.scope,
         },
         arena: arena,

@@ -21,18 +21,29 @@ import 'package:amplify_secure_storage_dart/src/types/macos_secure_storage_optio
 class AmplifySecureStorageConfig {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_config}
   const AmplifySecureStorageConfig({
+    this.namespace = 'com.amplify',
     required this.scope,
     this.macOSOptions = MacOSSecureStorageOptions.defaultOptions,
     this.iOSOptions = IOSSecureStorageOptions.defaultOptions,
   });
 
+  /// A namespace used for all keys.
+  ///
+  /// Defaults to 'com.amplify'. This allows two Amplify apps
+  /// that share the same Amplify backend to share key-value
+  /// pairs.
+  ///
+  /// This can be set to a value that is unique to your application,
+  /// such as the package ID.
+  final String namespace;
+
   /// The scope of the secrets to be stored.
   ///
   /// Example: "auth"
   ///
-  /// This value will be used with the key to form a unique identifier
-  /// for the secret. Saving two values under unique scopes will prevent
-  /// collisions even if the keys are the same.
+  /// This value will be used with [namespace] and the key to form a unique
+  /// identifier for the secret. Saving two values under unique scopes will
+  /// prevent collisions even if the keys are the same.
   final String scope;
 
   /// Options that are specific to the MacOS platform.
