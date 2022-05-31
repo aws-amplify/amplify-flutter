@@ -23,6 +23,7 @@ void runTests(SecureStorageFactory storageFactory) {
   const key1 = 'key_1';
   late AmplifySecureStorageInterface storage;
   late AmplifySecureStorageInterface storageScope;
+  late AmplifySecureStorageInterface storageNamespace;
   setUp(() async {
     // Disabling `useDataProtection` for tests since it would require a MacOS
     // app that has at least one app group
@@ -36,6 +37,13 @@ void runTests(SecureStorageFactory storageFactory) {
     storageScope = storageFactory(
       config: AmplifySecureStorageConfig(
         scope: 'other',
+        macOSOptions: macOSOptions,
+      ),
+    );
+    storageNamespace = storageFactory(
+      config: AmplifySecureStorageConfig(
+        scope: 'default',
+        namespace: 'com.test',
         macOSOptions: macOSOptions,
       ),
     );
@@ -154,6 +162,20 @@ void runTests(SecureStorageFactory storageFactory) {
       final value1 = await storage.read(key: key1);
       expect(value1, 'test_write_1');
       final value2 = await storageScope.read(key: key1);
+      expect(value2, 'test_write_2');
+    });
+  });
+
+  group('namespace', () {
+    test('The same key with different namespaces should not collide', () async {
+      // write to both storage instances
+      await storage.write(key: key1, value: 'test_write_1');
+      await storageNamespace.write(key: key1, value: 'test_write_2');
+
+      // confirm value was written to both storage instances
+      final value1 = await storage.read(key: key1);
+      expect(value1, 'test_write_1');
+      final value2 = await storageNamespace.read(key: key1);
       expect(value2, 'test_write_2');
     });
   });
