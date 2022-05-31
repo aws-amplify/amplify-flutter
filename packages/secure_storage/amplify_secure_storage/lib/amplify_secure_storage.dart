@@ -18,7 +18,10 @@ export 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart'
     show
         AmplifySecureStorageConfig,
         MacOSSecureStorageOptions,
-        IOSSecureStorageOptions;
+        IOSSecureStorageOptions,
+        LinuxSecureStorageOptions,
+        WindowsSecureStorageOptions,
+        WebSecureStorageOptions;
 
 export 'src/amplify_secure_storage.vm.dart'
     if (dart.library.html) 'src/amplify_secure_storage.web.dart';
