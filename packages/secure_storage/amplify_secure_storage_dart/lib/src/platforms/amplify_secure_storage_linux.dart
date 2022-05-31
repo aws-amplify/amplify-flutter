@@ -83,7 +83,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 
   String get _schemaName => config.linuxOptions.schemaName;
 
-  String _createLabel(String key) => '${config.scope}/$key';
+  String _createLabel(String key) => '$_schemaName.${config.scope}/$key';
 
   /// Creates a [SecretSchema] pointer.
   ///
