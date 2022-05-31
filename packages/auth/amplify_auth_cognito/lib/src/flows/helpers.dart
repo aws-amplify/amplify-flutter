@@ -12,19 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// {@template amplify_auth_cognito.model.cognito_user_attribute_step}
-/// The current step in the Cognito update attribute flow.
-/// {@endtemplate}
-enum CognitoUpdateUserAttributeStep {
-  /// The attribute update needs confirmation before it is complete.
-  confirmAttribute('CONFIRM_ATTRIBUTE_WITH_CODE'),
+@internal
+library amplify_auth_cognito.flow.helpers;
 
-  /// The attribute update is complete.
-  done('DONE');
+import 'dart:convert';
 
-  /// {@macro amplify_auth_cognito.model.cognito_user_attribute_step}
-  const CognitoUpdateUserAttributeStep(this.value);
+import 'package:crypto/crypto.dart';
+import 'package:meta/meta.dart';
 
-  /// The string value of `this`.
-  final String value;
+/// Computes the client's secret hash for use in Cognito operations.
+String computeSecretHash(
+  String userId,
+  String clientId,
+  String clientSecret,
+) {
+  final message = '$userId$clientId';
+  final keyBytes = utf8.encode(clientSecret);
+  final messageBytes = utf8.encode(message);
+
+  final hash = Hmac(sha256, keyBytes);
+  final secretHash = hash.convert(messageBytes).bytes;
+
+  return base64Encode(secretHash);
 }
