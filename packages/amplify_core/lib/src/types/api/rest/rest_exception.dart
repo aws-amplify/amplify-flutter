@@ -20,7 +20,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// non-2xx status codes.
 /// {@endtemplate}
 @Deprecated('No longer thrown for non-200 responses. Will soon be removed')
-class RestException extends ApiException {
+abstract class RestException extends ApiException {
   /// {@macro rest_exception}
   const RestException() : super('REST exception.');
 }
