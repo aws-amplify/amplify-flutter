@@ -11,7 +11,7 @@ environment:
 
 dependencies:
   amplify_analytics_pinpoint_android: 0.5.0
-  amplify_analytics_pinpoint_ios: 0.5.0
+  amplify_analytics_pinpoint_ios: ^0.5.0
   amplify_analytics_plugin_interface: 0.5.0
   amplify_core: 0.5.0
   aws_common: ^0.1.0
