@@ -44,4 +44,7 @@ class AuthProvider {
     }
     return name;
   }
+
+  @override
+  String toString() => 'AuthProvider.$name';
 }

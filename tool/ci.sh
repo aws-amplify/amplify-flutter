@@ -72,14 +72,22 @@ for PKG in ${PKGS}; do
         flutter analyze --fatal-infos . || EXIT_CODE=$?
         ;;
       analyze_1)
+        echo 'flutter analyze --fatal-infos lib test'
+        flutter analyze --fatal-infos lib test || EXIT_CODE=$?
+        ;;
+      analyze_2)
         echo 'dart analyze --fatal-infos .'
         dart analyze --fatal-infos . || EXIT_CODE=$?
         ;;
-      analyze_2)
+      analyze_3)
         echo 'dart analyze --fatal-infos lib test'
         dart analyze --fatal-infos lib test || EXIT_CODE=$?
         ;;
-      command)
+      command_0)
+        echo 'flutter doctor -v'
+        flutter doctor -v || EXIT_CODE=$?
+        ;;
+      command_1)
         echo 'git submodule update --init'
         git submodule update --init || EXIT_CODE=$?
         ;;

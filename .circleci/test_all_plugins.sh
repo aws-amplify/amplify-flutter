@@ -10,7 +10,7 @@ project_root_dir=$2
 
 dummy_file_path=example/lib/amplifyconfiguration.dart
 category_dir=$(echo $plugin | cut -d'_' -f 2)
-if [ "$plugin" = "amplify_flutter" ]; then
+if [[ "$plugin" =~ "amplify_flutter" ]]; then
     category_dir="amplify" 
 fi
 
@@ -19,10 +19,9 @@ set -o pipefail
 
 # Check for federated plugin structure
 if [ -d "${category_dir}" ]; then
-    cd "./${category_dir}/" || exit
-else
-    cd "./$plugin" || exit
+    cd "./${category_dir}/"
 fi
+cd "./$plugin"
 
 case $test_suite in
     flutter-test)
@@ -50,10 +49,6 @@ case $test_suite in
     android-test)
         echo "=== Running Android unit tests for $plugin ==="       
         
-        # Navigate into the Android plugin for federated plugin structures
-        if [ -d "${plugin}_android" ]; then
-            cd "./${plugin}_android"
-        fi
         if [ -d "android/src/test" ]; then
             if [ ! -d "example/android" ]; then
                 echo "FAILED: example/android missing, can't run tests."
@@ -87,9 +82,6 @@ case $test_suite in
         echo "=== Running iOS unit tests for $plugin ==="
         
         # Navigate into the iOS plugin for federated plugin structures
-        if [ -d "${plugin}_ios" ]; then
-            cd "./${plugin}_ios"
-        fi
         if [ -d "example/ios/unit_tests" ]; then
             XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 13,OS=latest"
             if [ ! -f $dummy_file_path ]; then

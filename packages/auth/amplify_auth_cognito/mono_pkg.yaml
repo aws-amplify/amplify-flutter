@@ -7,8 +7,9 @@ stages:
   - analyze_and_format:
       - group:
           - format
-          - analyze: --fatal-infos .
+          - analyze: --fatal-infos lib test
   - unit_test:
       - group:
-          - test: --exclude-tags=build
+          - command: flutter doctor -v
+          - test: --exclude-tags=build # TODO: Re-enable when CI Flutter is updated
           - test: --platform chrome

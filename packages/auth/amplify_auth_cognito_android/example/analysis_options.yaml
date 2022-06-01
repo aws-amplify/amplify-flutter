@@ -1,5 +1,0 @@
-include: package:amplify_lints/app_core.yaml
-
-analyzer:
-  errors:
-    avoid_print: ignore

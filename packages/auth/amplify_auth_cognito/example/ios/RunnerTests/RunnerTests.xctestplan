@@ -1,0 +1,42 @@
+{
+  "configurations" : [
+    {
+      "id" : "7D4EFF23-E464-46E2-8B74-F0A541DEFCE7",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:Pods\/Pods.xcodeproj",
+          "identifier" : "CCD5B2E572C4D61484D007F080A455C5",
+          "name" : "amplify_auth_cognito"
+        },
+        {
+          "containerPath" : "container:Pods\/Pods.xcodeproj",
+          "identifier" : "6233D5834CC19CF4A04CFE9A9DA676DA",
+          "name" : "amplify_core"
+        }
+      ]
+    },
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Runner.xcodeproj",
+      "identifier" : "97C146ED1CF9000F007C117D",
+      "name" : "Runner"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Runner.xcodeproj",
+        "identifier" : "4B27DFE8283FFA0700E69719",
+        "name" : "RunnerTests"
+      }
+    }
+  ],
+  "version" : 1
+}

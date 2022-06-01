@@ -60,4 +60,7 @@ addlicense -l apache -c "Amazon.com, Inc. or its affiliates. All Rights Reserved
     -ignore '**/*.xml' \
     -ignore '**/GeneratedPluginRegistrant.java' \
     -ignore '**/Runner-Bridging-Header.h' \
+    -ignore '**/GeneratedPluginRegistrant.swift' \
+    -ignore '**/generated_plugin_registrant.*' \
+    -ignore '**/Pods/**' \
     $@ $PWD

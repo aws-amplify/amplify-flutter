@@ -13,11 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_test/amplify_test.dart';
-import 'package:integration_test/integration_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_test/amplify_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
@@ -48,8 +48,8 @@ void main() {
       'should broadcast events for sign in and sign out',
       (WidgetTester tester) async {
         // setup
-        var nextEvent;
-        var event;
+        Future<HubEvent> nextEvent;
+        HubEvent event;
         var eventCount = 0;
         var authEventStream = Amplify.Hub.availableStreams[HubChannel.Auth]!;
         authEventStream.listen((event) => eventCount++);
@@ -93,9 +93,9 @@ void main() {
       'should broadcast events for deleteUser',
       (WidgetTester tester) async {
         // setup
-        var signinEvent;
-        var deleteEvent;
-        var signoutEvent;
+        Future<HubEvent> signinEvent;
+        Future<HubEvent> deleteEvent;
+        Future<HubEvent> signoutEvent;
         var eventCount = 0;
         var authEventStream = Amplify.Hub.availableStreams[HubChannel.Auth]!;
         authEventStream.listen((event) => eventCount++);

@@ -2,6 +2,6 @@ include: package:amplify_lints/library.yaml
 
 analyzer:
   exclude:
-    - example
     - lib/**/*.g.dart
     - lib/src/sdk/src/**
+    - lib/src/native_auth_plugin.dart

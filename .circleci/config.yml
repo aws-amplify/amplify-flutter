@@ -127,15 +127,12 @@ jobs:
       - checkout
       - install_melos
       - run:
-          name: Run lint checks
-          command: melos run lint:ios:<< parameters.plugin >>
-      - run:
           name: Pre-start iOS simulator
           command: xcrun simctl boot "iPhone 13" || true
       - run:
           name: Build example iOS apps
           command: |
-            melos run build:examples:ios:<< parameters.plugin >>
+            melos run build:example:ios << parameters.plugin >>
       - run:
           name: Run iOS Unit Tests
           command: melos run test:unit:ios:plugin << parameters.plugin >>
@@ -168,11 +165,11 @@ jobs:
       - run:
           name: Build example APKs
           command: |
-            melos run build:examples:android:<< parameters.plugin >>
+            melos run build:example:android << parameters.plugin >>
           no_output_timeout: 20m
-      - run:
-          name: Run lint checks
-          command: melos run lint:android:<< parameters.plugin >>
+      # - run:
+      #     name: Run lint checks
+      #     command: melos run lint:android:<< parameters.plugin >>
       - run:
           name: Run Android Unit Tests
           command: melos run test:unit:android:plugin << parameters.plugin >>
@@ -234,19 +231,20 @@ workflows:
             parameters:
               plugin:
                 [
-                  "amplify_analytics_pinpoint",
-                  "amplify_api",
+                  "amplify_analytics_pinpoint_android",
+                  "amplify_api_android",
                   "amplify_core",
                   "amplify_datastore",
-                  "amplify_flutter",
+                  "amplify_flutter_android",
                 ]
       - unit_test_ios:
           matrix:
             parameters:
               plugin:
                 [
-                  "amplify_analytics_pinpoint",
-                  "amplify_api",
+                  "amplify_analytics_pinpoint_ios",
+                  "amplify_api_ios",
+                  "amplify_auth_cognito",
                   "amplify_datastore",
-                  "amplify_flutter",
+                  "amplify_flutter_ios",
                 ]

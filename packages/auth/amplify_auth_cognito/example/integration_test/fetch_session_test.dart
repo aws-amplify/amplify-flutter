@@ -14,11 +14,11 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_test/amplify_test.dart';
-import 'package:integration_test/integration_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_test/amplify_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
@@ -57,7 +57,7 @@ void main() {
     testWidgets('should return user credentials if getAWSCredentials is true',
         (WidgetTester tester) async {
       var res = await Amplify.Auth.fetchAuthSession(
-        options: CognitoSessionOptions(getAWSCredentials: true),
+        options: const CognitoSessionOptions(getAWSCredentials: true),
       ) as CognitoAuthSession;
 
       expect(res.isSignedIn, isTrue);

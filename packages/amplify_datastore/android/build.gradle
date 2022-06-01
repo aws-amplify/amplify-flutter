@@ -39,7 +39,7 @@ android {
         test.resources.srcDirs += '../test/resources'
     }
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 24
     }
     lintOptions {
         disable 'InvalidPackage'

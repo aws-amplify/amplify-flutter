@@ -18,6 +18,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/src/dart_impl.dart';
+import 'package:amplify_flutter/src/hybrid_impl.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -35,10 +37,10 @@ part 'method_channel_amplify.dart';
 abstract class AmplifyClass {
   /// {@macro amplify_flutter.amplify_class}
   factory AmplifyClass() {
-    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      throw UnsupportedError('This platform is not supported yet');
+    if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+      return AmplifyHybridImpl();
     }
-    return MethodChannelAmplify();
+    return AmplifyDartImpl();
   }
 
   /// The Auth category.
