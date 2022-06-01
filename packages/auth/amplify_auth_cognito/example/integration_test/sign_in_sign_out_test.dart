@@ -14,10 +14,10 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_test/amplify_test.dart';
-import 'package:integration_test/integration_test.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_test/amplify_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
@@ -56,14 +56,13 @@ void main() {
         'should throw a NotAuthorizedException with an incorrect password',
         (WidgetTester tester) async {
       final incorrectPassword = generatePassword();
-      try {
-        await Amplify.Auth.signIn(
-            username: username, password: incorrectPassword);
-      } catch (e) {
-        expect(e, TypeMatcher<NotAuthorizedException>());
-        return;
-      }
-      fail('Expected NotAuthorizedException');
+      expect(
+        Amplify.Auth.signIn(
+          username: username,
+          password: incorrectPassword,
+        ),
+        throwsA(isA<NotAuthorizedException>()),
+      );
     });
 
     testWidgets(
@@ -78,27 +77,20 @@ void main() {
     testWidgets('should throw a UserNotFoundException with a non-existent user',
         (WidgetTester tester) async {
       final incorrectUsername = generateUsername();
-      try {
-        await Amplify.Auth.signIn(
-            username: incorrectUsername, password: password);
-      } catch (e) {
-        expect(e, TypeMatcher<UserNotFoundException>());
-        return;
-      }
-      fail('Expected UserNotFoundException');
+      expect(
+        Amplify.Auth.signIn(username: incorrectUsername, password: password),
+        throwsA(isA<UserNotFoundException>()),
+      );
     });
 
     testWidgets(
         'should throw an InvalidStateException if a user is already signed in',
         (WidgetTester tester) async {
       await Amplify.Auth.signIn(username: username, password: password);
-      try {
-        await Amplify.Auth.signIn(username: username, password: password);
-      } catch (e) {
-        expect(e, TypeMatcher<InvalidStateException>());
-        return;
-      }
-      fail('Expected InvalidStateException');
+      expect(
+        Amplify.Auth.signIn(username: username, password: password),
+        throwsA(isA<InvalidStateException>()),
+      );
     });
   });
 

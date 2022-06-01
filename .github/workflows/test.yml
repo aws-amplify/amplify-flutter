@@ -55,7 +55,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command-test_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_1-test_3"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0
@@ -87,7 +87,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command-test_3-test_4"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_1-test_3-test_4"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0
@@ -155,7 +155,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command-test_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_1-test_3"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -187,7 +187,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command-test_3-test_4"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_1-test_3-test_4"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -216,14 +216,14 @@ jobs:
         working-directory: packages/aws_signature_v4
         run: dart test -p chrome
   job_007:
-    name: "unit_test; Flutter stable; PKG: packages/amplify_core; `flutter test`, `flutter test --platform chrome`"
+    name: "unit_test; Flutter stable; PKG: packages/amplify_core; `flutter doctor -v`, `flutter test`, `flutter test --platform chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core;commands:test_0-test_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core;commands:command_0-test_0-test_1"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -239,6 +239,10 @@ jobs:
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/amplify_core
         run: flutter pub pub upgrade
+      - name: "packages/amplify_core; flutter doctor -v"
+        if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/amplify_core
+        run: flutter doctor -v
       - name: packages/amplify_core; flutter test
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
@@ -248,14 +252,14 @@ jobs:
         working-directory: packages/amplify_core
         run: flutter test --platform chrome
   job_008:
-    name: "unit_test; Flutter stable; PKG: packages/auth/amplify_auth_cognito; `flutter test --exclude-tags=build`, `flutter test --platform chrome`"
+    name: "unit_test; Flutter stable; PKG: packages/auth/amplify_auth_cognito; `flutter doctor -v`, `flutter test --exclude-tags=build`, `flutter test --platform chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito;commands:test_2-test_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito;commands:command_0-test_2-test_1"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -271,6 +275,10 @@ jobs:
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/auth/amplify_auth_cognito
         run: flutter pub pub upgrade
+      - name: "packages/auth/amplify_auth_cognito; flutter doctor -v"
+        if: "always() && steps.packages_auth_amplify_auth_cognito_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito
+        run: flutter doctor -v
       - name: "packages/auth/amplify_auth_cognito; flutter test --exclude-tags=build"
         if: "always() && steps.packages_auth_amplify_auth_cognito_pub_upgrade.conclusion == 'success'"
         working-directory: packages/auth/amplify_auth_cognito
@@ -319,7 +327,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command-test_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_1-test_3"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -351,7 +359,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command-test_3-test_4"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_1-test_3-test_4"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:stable

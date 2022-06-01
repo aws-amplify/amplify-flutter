@@ -41,6 +41,14 @@ export 'src/plugin/amplify_datastore_plugin_interface.dart';
 export 'src/plugin/amplify_plugin_interface.dart';
 export 'src/plugin/amplify_storage_plugin_interface.dart';
 
+// State Machine
+export 'src/state_machine/dependency_manager.dart';
+export 'src/state_machine/event.dart';
+export 'src/state_machine/state.dart';
+export 'src/state_machine/state_machine.dart';
+export 'src/state_machine/token.dart';
+export 'src/state_machine/transition.dart';
+
 /// Analytics
 export 'src/types/analytics/analytics_types.dart';
 

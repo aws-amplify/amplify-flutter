@@ -14,10 +14,11 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_test/amplify_test.dart';
-import 'package:integration_test/integration_test.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_test/amplify_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
 
@@ -42,7 +43,7 @@ void main() {
   final username = generateUsername();
   final password = generatePassword();
   final email = generateEmail();
-  final phoneNumber = mockPhoneNumber;
+  const phoneNumber = mockPhoneNumber;
   final name = generateNameAttribute();
 
   group('User Attributes', () {
@@ -59,9 +60,10 @@ void main() {
                 userAttributeKey: CognitoUserAttributeKey.name, value: name),
             AuthUserAttribute(
                 userAttributeKey: CognitoUserAttributeKey.email, value: email),
-            AuthUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-                value: mockPhoneNumber)
+            const AuthUserAttribute(
+              userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+              value: mockPhoneNumber,
+            )
           ]);
       await Amplify.Auth.signIn(username: username, password: password);
     });
@@ -114,32 +116,26 @@ void main() {
       testWidgets(
           'should throw an InvalidParameterException for an invalid attribute key',
           (WidgetTester tester) async {
-        try {
-          await Amplify.Auth.updateUserAttribute(
+        expect(
+          Amplify.Auth.updateUserAttribute(
             userAttributeKey: CognitoUserAttributeKey.parse('fake-key-name'),
             value: 'mock-value',
-          );
-        } catch (e) {
-          expect(e, TypeMatcher<InvalidParameterException>());
-          return;
-        }
-        throw Exception('Expected InvalidParameterException');
+          ),
+          throwsA(isA<InvalidParameterException>()),
+        );
       });
 
       testWidgets(
           'should throw an InvalidParameterException for an invalid attribute value',
           (WidgetTester tester) async {
         const invalidEmailAddress = 'invalidEmailFormat.com';
-        try {
-          await Amplify.Auth.updateUserAttribute(
+        expect(
+          Amplify.Auth.updateUserAttribute(
             userAttributeKey: emailAttributeKey,
             value: invalidEmailAddress,
-          );
-        } catch (e) {
-          expect(e, TypeMatcher<InvalidParameterException>());
-          return;
-        }
-        throw Exception('Expected InvalidParameterException');
+          ),
+          throwsA(isA<InvalidParameterException>()),
+        );
       });
     });
 
@@ -198,8 +194,8 @@ void main() {
               value: 'mock-value',
             ),
           ]);
-        } catch (e) {
-          expect(e, TypeMatcher<InvalidParameterException>());
+        } on Object catch (e) {
+          expect(e, const TypeMatcher<InvalidParameterException>());
           var userAttributes = await Amplify.Auth.fetchUserAttributes();
           var nameAttributeValue = getAttributeValueFromList(
             userAttributes,

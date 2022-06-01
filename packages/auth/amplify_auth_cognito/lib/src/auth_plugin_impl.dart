@@ -13,7 +13,10 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:io';
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
@@ -21,7 +24,80 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
   @override
-  Future<void> close() {
-    throw UnimplementedError();
+  Future<void> configure({AmplifyConfig? config}) async {
+    // Configure this plugin to act as a native iOS/Android plugin.
+    if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+      final nativePlugin = _NativeAmplifyAuthCognito(this);
+      NativeAuthPlugin.setup(nativePlugin);
+
+      final nativeBridge = NativeAuthBridge();
+      await nativeBridge.configure();
+    }
+  }
+
+  /* -- TODO: Replace -- */
+
+  @override
+  StreamController<AuthHubEvent> get streamController =>
+      StreamController.broadcast();
+
+  @override
+  Future<AuthSession> fetchAuthSession({
+    required AuthSessionRequest request,
+  }) async {
+    await Future<void>.delayed(const Duration(seconds: 2));
+    return const CognitoAuthSession(isSignedIn: false);
+  }
+
+  @override
+  Future<void> close() async {}
+
+  /* ------------------- */
+}
+
+class _NativeAmplifyAuthCognito implements NativeAuthPlugin {
+  _NativeAmplifyAuthCognito(this._basePlugin);
+
+  final AmplifyAuthCognito _basePlugin;
+
+  @override
+  Future<NativeAuthSession> fetchAuthSession(
+    bool getAwsCredentials,
+  ) async {
+    try {
+      final authSession = await _basePlugin.fetchAuthSession(
+        request: AuthSessionRequest(
+          options: CognitoSessionOptions(getAWSCredentials: getAwsCredentials),
+        ),
+      ) as CognitoAuthSession;
+      final nativeAuthSession = NativeAuthSession(
+        isSignedIn: authSession.isSignedIn,
+        userSub: authSession.userSub,
+        identityId: authSession.identityId,
+      );
+      final userPoolTokens = authSession.userPoolTokens;
+      if (userPoolTokens != null) {
+        nativeAuthSession.userPoolTokens = NativeUserPoolTokens(
+          accessToken: userPoolTokens.accessToken.raw,
+          refreshToken: userPoolTokens.refreshToken,
+          idToken: userPoolTokens.idToken.raw,
+        );
+      }
+      final awsCredentials = authSession.credentials;
+      if (awsCredentials != null) {
+        nativeAuthSession.awsCredentials = NativeAWSCredentials(
+          accessKeyId: awsCredentials.accessKeyId,
+          secretAccessKey: awsCredentials.secretAccessKey,
+          sessionToken: awsCredentials.sessionToken,
+          expirationIso8601Utc:
+              awsCredentials.expiration?.toUtc().toIso8601String(),
+        );
+      }
+      return nativeAuthSession;
+    } on Exception catch (e) {
+      // TODO(dnys1): Log
+      safePrint('Error fetching session for native plugin: $e');
+    }
+    return NativeAuthSession(isSignedIn: false);
   }
 }

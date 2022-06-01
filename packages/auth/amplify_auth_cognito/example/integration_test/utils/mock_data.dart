@@ -13,17 +13,14 @@
 // permissions and limitations under the License.
 //
 
-import 'package:uuid/uuid.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 
-final uuid = Uuid();
+const mockPhoneNumber = '+15555551234';
 
-final String mockPhoneNumber = '+15555551234';
+String generateEmail() => 'test-amplify-flutter-${uuid()}@test${uuid()}.com';
 
-String generateEmail() =>
-    'test-amplify-flutter-${uuid.v4()}@test${uuid.v4()}.com';
+String generatePassword() => uuid();
 
-String generatePassword() => uuid.v4();
+String generateUsername() => 'TEMP_USER-${uuid()}';
 
-String generateUsername() => 'TEMP_USER-${uuid.v4()}';
-
-String generateNameAttribute() => 'FAKE-NAME-${uuid.v4()}';
+String generateNameAttribute() => 'FAKE-NAME-${uuid()}';

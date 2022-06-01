@@ -14,10 +14,10 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_test/amplify_test.dart';
-import 'package:integration_test/integration_test.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_test/amplify_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
@@ -76,35 +76,29 @@ void main() {
         'should throw a NotAuthorizedException for an incorrect current password',
         (WidgetTester tester) async {
       // attempt to change password using an incorrect password
-      try {
-        final incorrectPassword = generatePassword();
-        final newPassword = generatePassword();
-        await Amplify.Auth.updatePassword(
+      final incorrectPassword = generatePassword();
+      final newPassword = generatePassword();
+      expect(
+        Amplify.Auth.updatePassword(
           oldPassword: incorrectPassword,
           newPassword: newPassword,
-        );
-      } catch (e) {
-        expect(e, TypeMatcher<NotAuthorizedException>());
-        return;
-      }
-      fail('Expected NotAuthorizedException');
+        ),
+        throwsA(isA<NotAuthorizedException>()),
+      );
     });
 
     testWidgets(
         'should throw an InvalidPasswordException for a new password that doesn\'t meet password requirements',
         (WidgetTester tester) async {
       // attempt to change password to an invalid password
-      try {
-        final invalidPassword = '123';
-        await Amplify.Auth.updatePassword(
+      const invalidPassword = '123';
+      expect(
+        Amplify.Auth.updatePassword(
           oldPassword: password,
           newPassword: invalidPassword,
-        );
-      } catch (e) {
-        expect(e, TypeMatcher<InvalidPasswordException>());
-        return;
-      }
-      fail('Expected InvalidPasswordException');
+        ),
+        throwsA(isA<InvalidPasswordException>()),
+      );
     });
   });
 }

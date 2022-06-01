@@ -42,20 +42,20 @@ scripts:
 
   test:unit:android:
     run: |
-      melos run test:unit:android:plugin amplify_analytics_pinpoint && \
-      melos run test:unit:android:plugin amplify_api $PWD && \
-      melos run test:unit:android:plugin amplify_auth_cognito $PWD && \
+      melos run test:unit:android:plugin amplify_analytics_pinpoint_android && \
+      melos run test:unit:android:plugin amplify_api_android $PWD && \
+      melos run test:unit:android:plugin amplify_auth_cognito_android $PWD && \
       melos run test:unit:android:plugin amplify_core $PWD && \
       melos run test:unit:android:plugin amplify_datastore $PWD && \
-      melos run test:unit:android:plugin amplify_flutter $PWD && exit 0
+      melos run test:unit:android:plugin amplify_flutter_android $PWD && exit 0
 
   test:unit:ios:
     run: |
-      melos run test:unit:ios:plugin amplify_analytics_pinpoint && \
-      melos run test:unit:ios:plugin amplify_api $PWD && \
+      melos run test:unit:ios:plugin amplify_analytics_pinpoint_ios && \
+      melos run test:unit:ios:plugin amplify_api_ios $PWD && \
       melos run test:unit:ios:plugin amplify_auth_cognito $PWD && \
       melos run test:unit:ios:plugin amplify_datastore $PWD && \
-      melos run test:unit:ios:plugin amplify_flutter $PWD && exit 0
+      melos run test:unit:ios:plugin amplify_flutter_ios $PWD && exit 0
 
   test:unit:flutter:plugin:
     run: .circleci/test_all_plugins.sh flutter-test $1 $PWD
@@ -66,15 +66,13 @@ scripts:
   test:unit:ios:plugin:
     run: ./.circleci/test_all_plugins.sh ios-test $1 $PWD
 
-  # ANALYTICS
-  build:examples:ios:amplify_analytics_pinpoint: >
-    melos exec -c 1 --scope="amplify_analytics_pinpoint_ios_example" --fail-fast -- \
-      flutter build ios --simulator
+  build:example:ios:
+    run: build-support/build_ios.sh $1
 
-  build:examples:android:amplify_analytics_pinpoint: >
-    melos exec -c 1 --scope="amplify_analytics_pinpoint_android_example" --fail-fast -- \
-      flutter build apk --debug --verbose
+  build:example:android:
+    run: build-support/build_android.sh $1
 
+  # Analytics
   lint:android:amplify_analytics_pinpoint:
     run: |
       melos exec -c 1 --fail-fast -- \
@@ -85,27 +83,7 @@ scripts:
       scope:
         - amplify_analytics_pinpoint_android_example
 
-  lint:ios:amplify_analytics_pinpoint:
-    run: |
-      export AMPLIFY_FLUTTER_ROOT="$PWD" && \
-      melos exec -c 1 --fail-fast -- \
-        bash "$AMPLIFY_FLUTTER_ROOT/build-support/lint_ios.sh"
-    description: >
-      Lints iOS (Swift) files against global rules and fails if there are any errors.
-    select-package:
-      dir-exists: ios
-      scope:
-        - amplify_analytics_pinpoint_ios_example
-
   # API
-  build:examples:ios:amplify_api: >
-    melos exec -c 1 --scope="amplify_api_ios_example" --fail-fast -- \
-      flutter build ios --simulator
-
-  build:examples:android:amplify_api: >
-    melos exec -c 1 --scope="amplify_api_android_example" --fail-fast -- \
-      flutter build apk --debug --verbose
-
   lint:android:amplify_api:
     run: |
       melos exec -c 1 --fail-fast -- \
@@ -116,27 +94,7 @@ scripts:
       scope:
         - amplify_api_android_example
 
-  lint:ios:amplify_api:
-    run: |
-      export AMPLIFY_FLUTTER_ROOT="$PWD" && \
-      melos exec -c 1 --fail-fast -- \
-        bash "$AMPLIFY_FLUTTER_ROOT/build-support/lint_ios.sh"
-    description: >
-      Lints iOS (Swift) files against global rules and fails if there are any errors.
-    select-package:
-      dir-exists: ios
-      scope:
-        - amplify_api_ios_example
-
   # AUTH
-  build:examples:ios:amplify_auth_cognito: >
-    melos exec -c 1 --scope="amplify_auth_cognito_ios_example" --fail-fast -- \
-      flutter build ios --simulator
-
-  build:examples:android:amplify_auth_cognito: >
-    melos exec -c 1 --scope="amplify_auth_cognito_android_example" --fail-fast -- \
-      flutter build apk --debug --verbose
-
   lint:android:amplify_auth_cognito:
     run: |
       melos exec -c 1 --fail-fast -- \
@@ -145,21 +103,9 @@ scripts:
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
     select-package:
       scope:
-        - amplify_auth_cognito_android_example
-  
-  # TODO: LINT COGNITO PLUGIN for iOS
-  lint:ios:amplify_auth_cognito:
-    run: echo "amplify_auth_cognito does not conform to iOS lint rules"
+        - amplify_auth_cognito_android
 
   # CORE
-  build:examples:ios:amplify_core: >
-    melos exec -c 1 --scope="amplify_core_example" --fail-fast -- \
-      flutter build ios --simulator
-
-  build:examples:android:amplify_core: >
-    melos exec -c 1 --scope="amplify_core_example" --fail-fast -- \
-      flutter build apk --debug --verbose
-
   lint:android:amplify_core:
     run: |
       melos exec -c 1 --fail-fast -- \
@@ -170,27 +116,7 @@ scripts:
       scope:
         - amplify_core_example
 
-  lint:ios:amplify_core:
-    run: |
-      export AMPLIFY_FLUTTER_ROOT="$PWD" && \
-      melos exec -c 1 --fail-fast -- \
-        bash "$AMPLIFY_FLUTTER_ROOT/build-support/lint_ios.sh"
-    description: >
-      Lints iOS (Swift) files against global rules and fails if there are any errors.
-    select-package:
-      dir-exists: ios
-      scope:
-        - amplify_core_example
-
   # DATASTORE
-  build:examples:ios:amplify_datastore: >
-    melos exec -c 1 --scope="amplify_datastore_example" --fail-fast -- \
-      flutter build ios --simulator
-
-  build:examples:android:amplify_datastore: >
-    melos exec -c 1 --scope="amplify_datastore_example" --fail-fast -- \
-      flutter build apk --debug --verbose
-
   lint:android:amplify_datastore:
     run: |
       melos exec -c 1 --fail-fast -- \
@@ -200,10 +126,6 @@ scripts:
     select-package:
       scope:
         - amplify_datastore_example
-
-  # TODO: LINT DATASTORE PLUGIN for iOS
-  lint:ios:amplify_datastore:
-    run: echo "amplify_datastore does not conform to iOS lint rules"
 
   # STORAGE
   # NOTE the lint is run against the example in amplify_storage_s3 package
@@ -218,19 +140,7 @@ scripts:
       scope:
         - amplify_storage_s3_example
 
-  # TODO: LINT STORAGE PLUGIN for iOS
-  lint:ios:amplify_storage_s3:
-    run: echo "amplify_storage_s3 does not have an iOS example App yet"
-
   # AMPLIFY_FLUTTER
-  build:examples:ios:amplify_flutter: >
-    melos exec -c 1 --scope="amplify_flutter_ios_example" --fail-fast -- \
-      flutter build ios --simulator
-
-  build:examples:android:amplify_flutter: >
-    melos exec -c 1 --scope="amplify_flutter_android_example" --fail-fast -- \
-      flutter build apk --debug --verbose
-
   lint:android:amplify_flutter:
     run: |
       melos exec -c 1 --fail-fast -- \
@@ -240,18 +150,6 @@ scripts:
     select-package:
       scope:
         - amplify_flutter_android_example
-
-  lint:ios:amplify_flutter:
-    run: |
-      export AMPLIFY_FLUTTER_ROOT="$PWD" && \
-      melos exec -c 1 --fail-fast -- \
-        bash "$AMPLIFY_FLUTTER_ROOT/build-support/lint_ios.sh"
-    description: >
-      Lints iOS (Swift) files against global rules and fails if there are any errors.
-    select-package:
-      dir-exists: ios
-      scope:
-        - amplify_flutter_ios_example
 
   test:integration:
     run: melos run test:integration:android --no-select && melos run test:integration:ios --no-select
@@ -313,20 +211,9 @@ scripts:
       scope:
         - amplify_analytics_*
         - amplify_api*
+        - amplify_auth_cognito*
         - amplify_flutter*
         - amplify_core*
-
-  copy_dependencies:
-    run: |
-      melos exec -c 1 -- \
-        cp "\$MELOS_ROOT_PATH"/build-support/dependencies.rb ios
-    description: Updates the iOS build dependencies for each project
-    select-package:
-      scope:
-        - amplify_analytics_pinpoint
-        - amplify_api
-        - amplify_flutter
-        - amplify_core
 
   lint:pub: >
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
