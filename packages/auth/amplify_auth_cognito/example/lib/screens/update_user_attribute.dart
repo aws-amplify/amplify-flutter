@@ -15,62 +15,80 @@
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import 'confirm_user_attribute.dart';
+class UpdateUserAttributeScreen extends StatefulWidget {
+  const UpdateUserAttributeScreen({this.userAttributeKey, super.key});
 
-class UpdateUserAttributeWidget extends StatefulWidget {
   final CognitoUserAttributeKey? userAttributeKey;
-  const UpdateUserAttributeWidget({this.userAttributeKey, super.key});
 
   @override
-  State<UpdateUserAttributeWidget> createState() =>
-      _UpdateUserAttributeWidgetState();
+  State<UpdateUserAttributeScreen> createState() =>
+      _UpdateUserAttributeScreenState();
 }
 
-class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
-  bool isNewAttribute = false;
-  late TextEditingController _keyController;
+class _UpdateUserAttributeScreenState extends State<UpdateUserAttributeScreen> {
+  late final _isNewAttribute = widget.userAttributeKey == null;
+  late final _keyController = TextEditingController(
+    text: widget.userAttributeKey?.toString(),
+  );
   final _valueController = TextEditingController();
+
+  @override
+  void dispose() {
+    _keyController.dispose();
+    _valueController.dispose();
+    super.dispose();
+  }
 
   void _showSuccess(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(backgroundColor: Colors.green[800], content: Text(message)));
+      SnackBar(
+        backgroundColor: Colors.green[800],
+        content: Text(message),
+      ),
+    );
   }
 
   void _showInfo(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(backgroundColor: Colors.blue[800], content: Text(message)));
+      SnackBar(
+        backgroundColor: Colors.blue[800],
+        content: Text(message),
+      ),
+    );
   }
 
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(backgroundColor: Colors.red[900], content: Text(message)));
+      SnackBar(
+        backgroundColor: Colors.red[900],
+        content: Text(message),
+      ),
+    );
   }
 
-  void _updateAttribute() async {
+  Future<void> _updateAttribute() async {
     try {
-      var res = await Amplify.Auth.updateUserAttribute(
+      final res = await Amplify.Auth.updateUserAttribute(
         userAttributeKey: CognitoUserAttributeKey.parse(_keyController.text),
         value: _valueController.text,
       );
       if (res.nextStep.updateAttributeStep == 'CONFIRM_ATTRIBUTE_WITH_CODE') {
         _showInfo(
-            'Confirmation Code Sent via ${res.nextStep.codeDeliveryDetails?.deliveryMedium}');
+          'Confirmation Code Sent via '
+          '${res.nextStep.codeDeliveryDetails?.deliveryMedium}',
+        );
       } else {
         _showSuccess('Attribute Updated Successfully');
-      }
-    } on AmplifyException catch (e) {
-      _showError(e.message);
-    }
-  }
 
-  @override
-  void initState() {
-    isNewAttribute = widget.userAttributeKey == null;
-    _keyController = TextEditingController(
-      text: widget.userAttributeKey.toString(),
-    );
-    super.initState();
+        if (mounted) {
+          context.go('/');
+        }
+      }
+    } on Exception catch (e) {
+      _showError(e.toString());
+    }
   }
 
   @override
@@ -86,7 +104,7 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
             const SizedBox(height: 12),
             TextFormField(
               controller: _keyController,
-              enabled: isNewAttribute,
+              enabled: _isNewAttribute,
               decoration: const InputDecoration(
                 labelText: 'Attribute Name',
               ),
@@ -103,16 +121,9 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
               child: const Text('Update Attribute'),
             ),
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute<void>(
-                    builder: (context) => ConfirmUserAttribute(
-                      userAttributeKey:
-                          CognitoUserAttributeKey.parse(_keyController.text),
-                    ),
-                  ),
-                );
-              },
+              onPressed: () => context.go(
+                '/confirm-user-attribute/${_keyController.text.trim()}',
+              ),
               child: const Text('Confirm User Attribute'),
             ),
           ],

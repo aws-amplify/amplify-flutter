@@ -24,14 +24,21 @@ import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
 import 'package:amplify_auth_cognito/src/sdk/cognito_identity_provider.dart'
     as cognito
     show
+        CodeDeliveryDetailsType,
         CognitoIdentityProviderClient,
+        GetUserAttributeVerificationCodeRequest,
+        GetUserRequest,
         GlobalSignOutRequest,
         ResendConfirmationCodeRequest,
-        RevokeTokenRequest;
+        RevokeTokenRequest,
+        UpdateUserAttributesRequest,
+        VerifyUserAttributeRequest;
 import 'package:amplify_auth_cognito/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -363,6 +370,121 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
       throw const CodeDeliveryFailureException('Could not deliver code');
     }
     return CognitoResendSignUpCodeResult(codeDeliveryDetails);
+  }
+
+  @override
+  Future<List<AuthUserAttribute>> fetchUserAttributes({
+    FetchUserAttributesRequest? request,
+  }) async {
+    final userPoolTokens = await getUserPoolTokens();
+    final resp = await _cognitoIdp.getUser(
+      cognito.GetUserRequest(
+        accessToken: userPoolTokens.accessToken.raw,
+      ),
+    );
+    return [
+      for (final attributeType in resp.userAttributes)
+        attributeType.asAuthUserAttribute,
+    ];
+  }
+
+  @override
+  Future<UpdateUserAttributeResult> updateUserAttribute({
+    required UpdateUserAttributeRequest request,
+  }) async {
+    final options = request.options as CognitoUpdateUserAttributeOptions?;
+    final results = await updateUserAttributes(
+      request: UpdateUserAttributesRequest(
+        attributes: [request.attribute],
+        options: CognitoUpdateUserAttributesOptions(
+          clientMetadata: options?.clientMetadata,
+        ),
+      ),
+    );
+    return results.values.single;
+  }
+
+  @override
+  Future<Map<UserAttributeKey, UpdateUserAttributeResult>>
+      updateUserAttributes({
+    required UpdateUserAttributesRequest request,
+  }) async {
+    final userPoolTokens = await getUserPoolTokens();
+    final options = request.options as CognitoUpdateUserAttributesOptions?;
+    final response = await _cognitoIdp.updateUserAttributes(
+      cognito.UpdateUserAttributesRequest.build(
+        (b) => b
+          ..accessToken = userPoolTokens.accessToken.raw
+          ..clientMetadata.addAll(options?.clientMetadata ?? const {})
+          ..userAttributes.addAll({
+            for (final attr in request.attributes) attr.asAttributeType,
+          }),
+      ),
+    );
+    final result = <UserAttributeKey, UpdateUserAttributeResult>{};
+    final codeDeliveryDetailsList = response.codeDeliveryDetailsList ??
+        const <cognito.CodeDeliveryDetailsType>[];
+    for (final attribute in request.attributes) {
+      final codeDeliveryDetails = codeDeliveryDetailsList.firstWhereOrNull(
+        (details) => details.attributeName == attribute.userAttributeKey.key,
+      );
+
+      // Unless we receive code delivery details, we must assume the attribute
+      // was successfully updated since otherwise the call to Cognito would have
+      // thrown an exception.
+      final isUpdated = codeDeliveryDetails == null;
+      final nextStep = isUpdated
+          ? CognitoUpdateUserAttributeStep.done
+          : CognitoUpdateUserAttributeStep.confirmAttribute;
+      result[attribute.userAttributeKey] = UpdateUserAttributeResult(
+        isUpdated: isUpdated,
+        nextStep: AuthNextUpdateAttributeStep(
+          updateAttributeStep: nextStep.value,
+          codeDeliveryDetails: codeDeliveryDetails?.asAuthCodeDeliveryDetails,
+        ),
+      );
+    }
+    return result;
+  }
+
+  @override
+  Future<ConfirmUserAttributeResult> confirmUserAttribute({
+    required ConfirmUserAttributeRequest request,
+  }) async {
+    final userPoolTokens = await getUserPoolTokens();
+    await _cognitoIdp.verifyUserAttribute(
+      cognito.VerifyUserAttributeRequest(
+        accessToken: userPoolTokens.accessToken.raw,
+        attributeName: request.userAttributeKey.key,
+        code: request.confirmationCode,
+      ),
+    );
+    return const ConfirmUserAttributeResult();
+  }
+
+  @override
+  Future<ResendUserAttributeConfirmationCodeResult>
+      resendUserAttributeConfirmationCode({
+    required ResendUserAttributeConfirmationCodeRequest request,
+  }) async {
+    final userPoolTokens = await getUserPoolTokens();
+    final options =
+        request.options as CognitoResendUserAttributeConfirmationCodeOptions?;
+    final result = await _cognitoIdp.getUserAttributeVerificationCode(
+      cognito.GetUserAttributeVerificationCodeRequest(
+        accessToken: userPoolTokens.accessToken.raw,
+        attributeName: request.userAttributeKey.key,
+        clientMetadata: BuiltMap(options?.clientMetadata ?? const {}),
+      ),
+    );
+    final codeDeliveryDetails =
+        result.codeDeliveryDetails?.asAuthCodeDeliveryDetails;
+    if (codeDeliveryDetails == null) {
+      throw const UnknownException('Could not resend confirmation code');
+    }
+    return ResendUserAttributeConfirmationCodeResult(
+      codeDeliveryDetails: codeDeliveryDetails,
+    );
   }
 
   @override

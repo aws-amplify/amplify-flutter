@@ -16,16 +16,22 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+/// {@template amplify_core.auth.auth_user_attribute}
+/// The key and value for a user attribute.
+/// {@endtemplate}
 @immutable
-class AuthUserAttribute {
-  final UserAttributeKey userAttributeKey;
-  final String value;
-
-  /// Creates an object that holds the key and value for a user attribute.
+class AuthUserAttribute with AWSEquatable<AuthUserAttribute>, AWSDebuggable {
+  /// {@macro amplify_core.auth.auth_user_attribute}
   const AuthUserAttribute({
     required this.userAttributeKey,
     required this.value,
   });
+
+  final UserAttributeKey userAttributeKey;
+  final String value;
+
+  @override
+  List<Object> get props => [userAttributeKey, value];
 
   Map<String, Object?> serializeAsMap() {
     final Map<String, Object?> pendingRequest = <String, dynamic>{};
@@ -35,15 +41,5 @@ class AuthUserAttribute {
   }
 
   @override
-  bool operator ==(Object other) =>
-      other is AuthUserAttribute &&
-      userAttributeKey == other.userAttributeKey &&
-      value == other.value;
-
-  @override
-  int get hashCode => Object.hash(userAttributeKey.hashCode, value.hashCode);
-
-  @override
-  String toString() =>
-      'AuthUserAttribute(userAttributeKey=$userAttributeKey, value=$value)';
+  String get runtimeTypeName => 'AuthUserAttribute';
 }

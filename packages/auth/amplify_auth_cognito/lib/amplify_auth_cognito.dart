@@ -24,6 +24,7 @@ export 'src/flows/hosted_ui/hosted_ui_platform.dart';
 // Models
 export 'src/model/attribute/cognito_resend_user_attribute_confirmation_code_options.dart';
 export 'src/model/attribute/cognito_update_user_attribute_options.dart';
+export 'src/model/attribute/cognito_update_user_attribute_step.dart';
 export 'src/model/attribute/cognito_update_user_attributes_options.dart';
 export 'src/model/device/cognito_device.dart';
 export 'src/model/hosted_ui/oauth_parameters.dart';

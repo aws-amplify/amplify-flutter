@@ -15,21 +15,20 @@
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import 'update_user_attribute.dart';
-import 'update_user_attributes.dart';
-
-class ViewUserAttributes extends StatefulWidget {
-  const ViewUserAttributes({super.key});
+class ViewUserAttributesScreen extends StatefulWidget {
+  const ViewUserAttributesScreen({super.key});
 
   @override
-  State<ViewUserAttributes> createState() => _ViewUserAttributesState();
+  State<ViewUserAttributesScreen> createState() =>
+      _ViewUserAttributesScreenState();
 }
 
-class _ViewUserAttributesState extends State<ViewUserAttributes> {
-  bool _isLoading = true;
-  String _errorMessage = '';
-  List<AuthUserAttribute> _userAttributes = [];
+class _ViewUserAttributesScreenState extends State<ViewUserAttributesScreen> {
+  var _isLoading = true;
+  var _errorMessage = '';
+  var _userAttributes = <AuthUserAttribute>[];
 
   void _showSuccess(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -41,24 +40,27 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
         SnackBar(backgroundColor: Colors.red[900], content: Text(message)));
   }
 
-  Future<void> _fetchAttributes({bool isRefresh = false}) {
-    return Amplify.Auth.fetchUserAttributes().then((attributes) {
-      setState(() => _userAttributes = attributes
-        ..sort((a, b) => a.userAttributeKey.compareTo(b.userAttributeKey)));
+  Future<void> _fetchAttributes({bool isRefresh = false}) async {
+    try {
+      final attributes = await Amplify.Auth.fetchUserAttributes();
+      setState(() {
+        _userAttributes = List.of(attributes)
+          ..sort((a, b) => a.userAttributeKey.compareTo(b.userAttributeKey));
+      });
       if (isRefresh) {
         _showSuccess('User Attributes Refreshed Successfully');
       }
-      return;
-    }).catchError((Object error) {
-      var errorMessage =
-          'There was an error fetching the user attribute: $error';
+    } on Exception catch (e) {
+      final errorMessage = 'There was an error fetching the user attribute: $e';
 
       if (isRefresh) {
         _showError(errorMessage);
       } else {
         setState(() => _errorMessage = errorMessage);
       }
-    }).whenComplete(() => setState(() => _isLoading = false));
+    } finally {
+      setState(() => _isLoading = false);
+    }
   }
 
   @override
@@ -74,13 +76,7 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
         title: const Text('User Attributes'),
         actions: [
           TextButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute<void>(
-                  builder: (context) => const UpdateUserAttributesWidget(),
-                ),
-              );
-            },
+            onPressed: () => context.push('/update-user-attributes'),
             child: const Text(
               'Bulk Update',
               style: TextStyle(color: Colors.white),
@@ -117,16 +113,9 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
                         ? null
                         : IconButton(
                             icon: const Icon(Icons.edit),
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute<void>(
-                                  builder: (context) =>
-                                      UpdateUserAttributeWidget(
-                                    userAttributeKey: userAttributeKey,
-                                  ),
-                                ),
-                              );
-                            },
+                            onPressed: () => context.push(
+                              '/update-user-attribute/$userAttributeKey',
+                            ),
                           ),
                   );
                 },
@@ -136,13 +125,7 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute<void>(
-              builder: (context) => const UpdateUserAttributeWidget(),
-            ),
-          );
-        },
+        onPressed: () => context.push('/update-user-attribute'),
         icon: const Icon(Icons.add),
         label: const Text('Add Attribute'),
       ),
