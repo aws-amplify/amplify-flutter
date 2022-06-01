@@ -318,11 +318,14 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
   AWSStreamedHttpResponse _formatRestResponse(Map<String, dynamic> res) {
     final statusCode = res['statusCode'] as int;
-    final headers = res['headers'] as Map?;
+    // Make type-safe version of response headers.
+    final serializedHeaders = res['headers'] as Map?;
+    final headers = serializedHeaders?.cast<String, String>();
     final rawResponseBody = res['data'] as Uint8List?;
 
     return AWSStreamedHttpResponse(
         statusCode: statusCode,
+        headers: headers,
         body: Stream.value(rawResponseBody?.toList() ?? []));
   }
 
@@ -440,8 +443,6 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   // ====== GENERAL METHODS ======
 
   ApiException _deserializeException(PlatformException e) {
-    print(e.message);
-
     if (e.code == 'ApiException') {
       return ApiException.fromMap(
         Map<String, String>.from(e.details as Map),

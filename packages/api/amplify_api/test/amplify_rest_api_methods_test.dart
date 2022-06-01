@@ -156,6 +156,39 @@ void main() {
     await _assertResponse(response);
   });
 
+  test(
+      'POST with form-encoded body gets proper response with response headers included',
+      () async {
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == 'post') {
+        Map<dynamic, dynamic> restOptions =
+            methodCall.arguments['restOptions'] as Map;
+        expect(restOptions['apiName'], 'restapi');
+        expect(restOptions['path'], '/items');
+        expect(restOptions['queryParameters'], queryParameters);
+        expect(restOptions['headers'], headers);
+        expect(utf8.decode(restOptions['body'] as List<int>), 'foo=bar');
+        return {
+          'data': helloResponse,
+          'statusCode': statusOK,
+          'headers': {'foo': 'bar'}
+        };
+      }
+    });
+
+    final restOperation = api.post(
+      '/items',
+      apiName: 'restapi',
+      body: HttpPayload.fields({'foo': 'bar'}),
+      queryParameters: queryParameters,
+      headers: headers,
+    );
+
+    final response = await restOperation.value;
+    expect(response.headers['foo'], 'bar');
+    await _assertResponse(response);
+  });
+
   test('CANCEL success does not throw error', () async {
     // Need to reply with PLACEHOLDER to avoid null issues in _formatRestResponse
     // In actual production code, the methodChannel doesn't respond to the future response
@@ -175,20 +208,5 @@ void main() {
 
     //RestResponse response = await restOperation.response;
     restOperation.cancel();
-  });
-
-  group('non-2xx status code', () {
-    const testBody = 'test';
-    const testResponseHeaders = {'key': 'value'};
-
-    setUpAll(() {
-      apiChannel.setMockMethodCallHandler((call) async {
-        return {
-          'data': utf8.encode(testBody),
-          'statusCode': statusBadRequest,
-          'headers': testResponseHeaders,
-        };
-      });
-    });
   });
 }

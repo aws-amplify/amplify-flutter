@@ -35,6 +35,9 @@ class HttpPayload extends StreamView<List<int>> {
     if (body is Stream<List<int>>) {
       return HttpPayload.streaming(body);
     }
+    if (body is Map) {
+      return HttpPayload.fields(body.cast<String, String>());
+    }
     throw ArgumentError('Invalid HTTP payload type: ${body.runtimeType}');
   }
 
@@ -48,6 +51,26 @@ class HttpPayload extends StreamView<List<int>> {
   /// A byte buffer HTTP body.
   HttpPayload.bytes(List<int> body) : super(Stream.value(body));
 
+  /// Form-encodes the body.
+  HttpPayload.fields(Map<String, String> body, {Encoding encoding = utf8})
+      : super(LazyStream(() => Stream.value(
+            encoding.encode(_mapToQuery(body, encoding: encoding)))));
+
   /// A streaming HTTP body.
   const HttpPayload.streaming(Stream<List<int>> body) : super(body);
+}
+
+/// Converts a [Map] from parameter names to values to a URL query string.
+///
+///     mapToQuery({"foo": "bar", "baz": "bang"});
+///     //=> "foo=bar&baz=bang"
+///
+/// Copied from similar util. https://github.com/dart-lang/http/blob/06649afbb5847dbb0293816ba8348766b116e419/pkgs/http/lib/src/utils.dart#L15
+String _mapToQuery(Map<String, String> map, {Encoding? encoding}) {
+  var pairs = <List<String>>[];
+  map.forEach((key, value) => pairs.add([
+        Uri.encodeQueryComponent(key, encoding: encoding ?? utf8),
+        Uri.encodeQueryComponent(value, encoding: encoding ?? utf8)
+      ]));
+  return pairs.map((pair) => '${pair[0]}=${pair[1]}').join('&');
 }
