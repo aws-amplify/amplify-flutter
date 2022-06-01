@@ -54,14 +54,14 @@ void runTests(SecureStorageFactory storageFactory) {
     storageWeb = storageFactory(
       config: AmplifySecureStorageConfig(
         scope: 'default',
-        webOptions: WebSecureStorageOptions(databaseNamePrefix: 'com.test'),
+        webOptions: WebSecureStorageOptions(databaseName: 'com.example.test'),
         macOSOptions: macOSOptions,
       ),
     );
     storageLinux = storageFactory(
       config: AmplifySecureStorageConfig(
         scope: 'default',
-        linuxOptions: LinuxSecureStorageOptions(schemaName: 'com.test'),
+        linuxOptions: LinuxSecureStorageOptions(schemaName: 'com.example.test'),
         macOSOptions: macOSOptions,
       ),
     );

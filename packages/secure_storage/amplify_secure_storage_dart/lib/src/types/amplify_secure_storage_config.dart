@@ -34,7 +34,7 @@ class AmplifySecureStorageConfig {
 
   /// The default namespace for keys-value pairs.
   ///
-  /// Unless platform specific configs are provided, this will be
+  /// Unless platform specific options are provided, this will be
   /// used in the following way on each platform:
   /// - iOS & macOS: the Keychain service name
   /// - Android: the EncryptedSharedPreferences file name
@@ -47,9 +47,9 @@ class AmplifySecureStorageConfig {
   ///
   /// Example: "auth"
   ///
-  /// This value will be used with [namespace] and the key to form a unique
-  /// identifier for the secret. Saving two values under unique scopes will
-  /// prevent collisions even if the keys are the same.
+  /// This value will be used to create a namespace for the secret.
+  ///
+  /// See also: [defaultNamespace]
   final String scope;
 
   /// Options that are specific to the Web platform.
