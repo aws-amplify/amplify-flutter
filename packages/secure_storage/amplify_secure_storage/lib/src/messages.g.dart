@@ -36,12 +36,12 @@ class AmplifySecureStorageApi {
 
   static const MessageCodec<Object?> codec = _AmplifySecureStorageApiCodec();
 
-  Future<String?> read(String arg_scope, String arg_key) async {
+  Future<String?> read(String arg_namespace, String arg_key) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.AmplifySecureStorageApi.read', codec,
         binaryMessenger: _binaryMessenger);
     final Map<Object?, Object?>? replyMap = await channel
-        .send(<Object?>[arg_scope, arg_key]) as Map<Object?, Object?>?;
+        .send(<Object?>[arg_namespace, arg_key]) as Map<Object?, Object?>?;
     if (replyMap == null) {
       throw PlatformException(
         code: 'channel-error',
@@ -61,12 +61,12 @@ class AmplifySecureStorageApi {
   }
 
   Future<void> write(
-      String arg_scope, String arg_key, String? arg_value) async {
+      String arg_namespace, String arg_key, String? arg_value) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.AmplifySecureStorageApi.write', codec,
         binaryMessenger: _binaryMessenger);
     final Map<Object?, Object?>? replyMap =
-        await channel.send(<Object?>[arg_scope, arg_key, arg_value])
+        await channel.send(<Object?>[arg_namespace, arg_key, arg_value])
             as Map<Object?, Object?>?;
     if (replyMap == null) {
       throw PlatformException(
@@ -86,12 +86,12 @@ class AmplifySecureStorageApi {
     }
   }
 
-  Future<void> delete(String arg_scope, String arg_key) async {
+  Future<void> delete(String arg_namespace, String arg_key) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.AmplifySecureStorageApi.delete', codec,
         binaryMessenger: _binaryMessenger);
     final Map<Object?, Object?>? replyMap = await channel
-        .send(<Object?>[arg_scope, arg_key]) as Map<Object?, Object?>?;
+        .send(<Object?>[arg_namespace, arg_key]) as Map<Object?, Object?>?;
     if (replyMap == null) {
       throw PlatformException(
         code: 'channel-error',

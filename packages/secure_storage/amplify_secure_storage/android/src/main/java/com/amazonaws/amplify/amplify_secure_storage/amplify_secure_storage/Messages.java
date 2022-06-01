@@ -41,9 +41,9 @@ public class Messages {
 
   /** Generated interface from Pigeon that represents a handler of messages from Flutter.*/
   public interface AmplifySecureStorageApi {
-    @Nullable String read(@NonNull String scope, @NonNull String key);
-    void write(@NonNull String scope, @NonNull String key, @Nullable String value);
-    void delete(@NonNull String scope, @NonNull String key);
+    @Nullable String read(@NonNull String namespace, @NonNull String key);
+    void write(@NonNull String namespace, @NonNull String key, @Nullable String value);
+    void delete(@NonNull String namespace, @NonNull String key);
 
     /** The codec used by AmplifySecureStorageApi. */
     static MessageCodec<Object> getCodec() {
@@ -60,15 +60,15 @@ public class Messages {
             Map<String, Object> wrapped = new HashMap<>();
             try {
               ArrayList<Object> args = (ArrayList<Object>)message;
-              String scopeArg = (String)args.get(0);
-              if (scopeArg == null) {
-                throw new NullPointerException("scopeArg unexpectedly null.");
+              String namespaceArg = (String)args.get(0);
+              if (namespaceArg == null) {
+                throw new NullPointerException("namespaceArg unexpectedly null.");
               }
               String keyArg = (String)args.get(1);
               if (keyArg == null) {
                 throw new NullPointerException("keyArg unexpectedly null.");
               }
-              String output = api.read(scopeArg, keyArg);
+              String output = api.read(namespaceArg, keyArg);
               wrapped.put("result", output);
             }
             catch (Error | RuntimeException exception) {
@@ -88,16 +88,16 @@ public class Messages {
             Map<String, Object> wrapped = new HashMap<>();
             try {
               ArrayList<Object> args = (ArrayList<Object>)message;
-              String scopeArg = (String)args.get(0);
-              if (scopeArg == null) {
-                throw new NullPointerException("scopeArg unexpectedly null.");
+              String namespaceArg = (String)args.get(0);
+              if (namespaceArg == null) {
+                throw new NullPointerException("namespaceArg unexpectedly null.");
               }
               String keyArg = (String)args.get(1);
               if (keyArg == null) {
                 throw new NullPointerException("keyArg unexpectedly null.");
               }
               String valueArg = (String)args.get(2);
-              api.write(scopeArg, keyArg, valueArg);
+              api.write(namespaceArg, keyArg, valueArg);
               wrapped.put("result", null);
             }
             catch (Error | RuntimeException exception) {
@@ -117,15 +117,15 @@ public class Messages {
             Map<String, Object> wrapped = new HashMap<>();
             try {
               ArrayList<Object> args = (ArrayList<Object>)message;
-              String scopeArg = (String)args.get(0);
-              if (scopeArg == null) {
-                throw new NullPointerException("scopeArg unexpectedly null.");
+              String namespaceArg = (String)args.get(0);
+              if (namespaceArg == null) {
+                throw new NullPointerException("namespaceArg unexpectedly null.");
               }
               String keyArg = (String)args.get(1);
               if (keyArg == null) {
                 throw new NullPointerException("keyArg unexpectedly null.");
               }
-              api.delete(scopeArg, keyArg);
+              api.delete(namespaceArg, keyArg);
               wrapped.put("result", null);
             }
             catch (Error | RuntimeException exception) {

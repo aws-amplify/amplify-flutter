@@ -30,7 +30,7 @@ import 'package:pigeon/pigeon.dart';
 )
 @HostApi()
 abstract class AmplifySecureStorageApi {
-  String? read(String scope, String key);
-  void write(String scope, String key, String? value);
-  void delete(String scope, String key);
+  String? read(String namespace, String key);
+  void write(String namespace, String key, String? value);
+  void delete(String namespace, String key);
 }
