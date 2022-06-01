@@ -39,22 +39,30 @@ void runTests(SecureStorageFactory storageFactory) {
     // Disabling `useDataProtection` for tests since it would require a MacOS
     // app that has at least one app group
     final macOSOptions = MacOSSecureStorageOptions(useDataProtection: false);
+
+    final webOptions = WebSecureStorageOptions(inMemory: false);
+
     storage = storageFactory(
       config: AmplifySecureStorageConfig(
         scope: 'default',
         macOSOptions: macOSOptions,
+        webOptions: webOptions,
       ),
     );
     storageScope = storageFactory(
       config: AmplifySecureStorageConfig(
         scope: 'other',
         macOSOptions: macOSOptions,
+        webOptions: webOptions,
       ),
     );
     storageWeb = storageFactory(
       config: AmplifySecureStorageConfig(
         scope: 'default',
-        webOptions: WebSecureStorageOptions(databaseNamePrefix: 'com.test'),
+        webOptions: WebSecureStorageOptions(
+          databaseNamePrefix: 'com.test',
+          inMemory: false,
+        ),
         macOSOptions: macOSOptions,
       ),
     );
