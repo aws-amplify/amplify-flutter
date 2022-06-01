@@ -13,7 +13,7 @@
 // limitations under the License.
 
 @internal
-library amplify_auth_cognito_dart.credentials.credentials;
+library amplify_auth_cognito.credentials.credentials;
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito/src/credentials/cognito_keys.dart';
@@ -25,7 +25,7 @@ import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 
-/// {@template amplify_auth_cognito_dart.credentials}
+/// {@template amplify_auth_cognito.credentials}
 /// A user's access and refresh tokens plus metadata needed to access services.
 ///
 /// The base oauth2 implementation is extended to provided extra functionality
@@ -33,7 +33,7 @@ import 'package:oauth2/oauth2.dart' as oauth2;
 /// cryptographically, the tokens received.
 /// {@endtemplate}
 class Credentials implements oauth2.Credentials {
-  /// {@macro amplify_auth_cognito_dart.credentials}
+  /// {@macro amplify_auth_cognito.credentials}
   Credentials(
     this._config,
     this._accessToken,
@@ -47,7 +47,7 @@ class Credentials implements oauth2.Credentials {
 
   /// Creates [Credentials] from `package:oauth2` credentials.
   ///
-  /// {@macro amplify_auth_cognito_dart.credentials}
+  /// {@macro amplify_auth_cognito.credentials}
   factory Credentials.fromOAuthCredentials(
     oauth2.Credentials creds, {
     required CognitoOAuthConfig config,
@@ -70,7 +70,7 @@ class Credentials implements oauth2.Credentials {
 
   /// Creates [Credentials] from Cognito user pool tokens.
   ///
-  /// {@macro amplify_auth_cognito_dart.credentials}
+  /// {@macro amplify_auth_cognito.credentials}
   factory Credentials.fromUserPoolTokens(
     CognitoUserPoolTokens tokens, {
     required CognitoOAuthConfig config,

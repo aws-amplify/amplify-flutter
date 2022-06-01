@@ -24,11 +24,11 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-/// {@template amplify_auth_cognito_dart.auth_store_state_machine}
+/// {@template amplify_auth_cognito.auth_store_state_machine}
 /// Manages the loading and storing of auth configuration data.
 /// {@endtemplate}
 class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
-  /// {@macro amplify_auth_cognito_dart.auth_store_state_machine}
+  /// {@macro amplify_auth_cognito.auth_store_state_machine}
   CredentialStoreStateMachine(super.manager);
 
   /// The [CredentialStoreStateMachine] type.

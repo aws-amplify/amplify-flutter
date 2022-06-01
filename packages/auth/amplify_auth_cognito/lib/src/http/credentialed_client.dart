@@ -20,13 +20,13 @@ import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 
-/// {@template amplify_auth_cognito_dart.credentialed_client}
+/// {@template amplify_auth_cognito.credentialed_client}
 /// HTTP client which handles making authorized requests and automatically
 /// refreshes access tokens when expired.
 /// {@endtemplate}
 @internal
 class CredentialedClient extends http.BaseClient {
-  /// {@macro amplify_auth_cognito_dart.credentialed_client}
+  /// {@macro amplify_auth_cognito.credentialed_client}
   CredentialedClient({
     required this.credentials,
     required String clientId,

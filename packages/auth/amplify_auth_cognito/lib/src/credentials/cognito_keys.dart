@@ -13,7 +13,7 @@
 // limitations under the License.
 
 @internal
-library amplify_auth_cognito_dart.credentials.cognito_keys;
+library amplify_auth_cognito.credentials.cognito_keys;
 
 import 'dart:collection';
 
@@ -80,12 +80,12 @@ enum HostedUiKey {
   nonce,
 }
 
-/// {@template amplify_auth_cognito_dart.cognito_identity_pool_keys}
+/// {@template amplify_auth_cognito.cognito_identity_pool_keys}
 /// Enumerates and iterates over the keys stored in secure storage by
 /// Cognito Identity Pool operations.
 /// {@endtemplate}
 class CognitoIdentityPoolKeys extends CognitoKeys<CognitoIdentityPoolKey> {
-  /// {@macro amplify_auth_cognito_dart.cognito_identity_pool_keys}
+  /// {@macro amplify_auth_cognito.cognito_identity_pool_keys}
   const CognitoIdentityPoolKeys(this.config);
 
   /// The Cognito identity pool configuration, used to determine the key
@@ -99,12 +99,12 @@ class CognitoIdentityPoolKeys extends CognitoKeys<CognitoIdentityPoolKey> {
   String get prefix => config.poolId;
 }
 
-/// {@template amplify_auth_cognito_dart.cognito_user_pool_keys}
+/// {@template amplify_auth_cognito.cognito_user_pool_keys}
 /// Enumerates and iterates over the keys stored in secure storage by
 /// Cognito User Pool operations.
 /// {@endtemplate}
 class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
-  /// {@macro amplify_auth_cognito_dart.cognito_user_pool_keys}
+  /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
   const CognitoUserPoolKeys(this.config);
 
   /// The Cognito user pool configuration, used to determine the key prefixes.
@@ -117,12 +117,12 @@ class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
   String get prefix => config.appClientId;
 }
 
-/// {@template amplify_auth_cognito_dart.hosted_ui_keys}
+/// {@template amplify_auth_cognito.hosted_ui_keys}
 /// Enumerates and iterates over the keys stored in secure storage by
 /// Cognito Hosted UI operations.
 /// {@endtemplate}
 class HostedUiKeys extends CognitoKeys<HostedUiKey> {
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_keys}
+  /// {@macro amplify_auth_cognito.hosted_ui_keys}
   const HostedUiKeys(this.config);
 
   /// The Cognito OAuth configuration, used to determine the key prefixes.
@@ -135,11 +135,11 @@ class HostedUiKeys extends CognitoKeys<HostedUiKey> {
   String get prefix => '${config.appClientId}.hostedUi';
 }
 
-/// {@template amplify_auth_cognito_dart.cognito_keys}
+/// {@template amplify_auth_cognito.cognito_keys}
 /// Iterable secure storage keys.
 /// {@endtemplate}
 abstract class CognitoKeys<Key extends Enum> extends IterableBase<String> {
-  /// {@macro amplify_auth_cognito_dart.cognito_keys}
+  /// {@macro amplify_auth_cognito.cognito_keys}
   const CognitoKeys();
 
   /// Enum values of the key type.

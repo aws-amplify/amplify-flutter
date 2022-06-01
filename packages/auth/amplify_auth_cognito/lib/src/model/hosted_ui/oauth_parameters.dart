@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library amplify_auth_cognito_dart.hostedui.oauth_parameters;
+library amplify_auth_cognito.hostedui.oauth_parameters;
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:built_collection/built_collection.dart';
@@ -183,14 +183,14 @@ class OAuthErrorCode extends EnumClass {
       _$oAuthErrorCodeSerializer;
 }
 
-/// {@template amplify_auth_cognito_dart.oauth_parameters}
+/// {@template amplify_auth_cognito.oauth_parameters}
 /// Query parameters of the OAuth redirect.
 ///
 /// [Reference](https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.2)
 /// {@endtemplate}
 abstract class OAuthParameters
     implements Built<OAuthParameters, OAuthParametersBuilder> {
-  /// {@macro amplify_auth_cognito_dart.oauth_parameters}
+  /// {@macro amplify_auth_cognito.oauth_parameters}
   factory OAuthParameters([void Function(OAuthParametersBuilder) updates]) =
       _$OAuthParameters;
   OAuthParameters._();

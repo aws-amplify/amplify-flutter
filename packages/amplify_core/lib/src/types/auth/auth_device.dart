@@ -16,12 +16,12 @@
 import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
-/// {@template amplify_auth_cognito_dart.auth_device}
+/// {@template amplify_auth_cognito.auth_device}
 /// Common interface for devices tracked by an authentication provider.
 /// {@endtemplate}
 @immutable
 abstract class AuthDevice with AWSSerializable {
-  /// {@macro amplify_auth_cognito_dart.auth_device}
+  /// {@macro amplify_auth_cognito.auth_device}
   const AuthDevice();
 
   /// Device unique identifier.

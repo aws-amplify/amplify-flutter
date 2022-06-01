@@ -13,18 +13,18 @@
 // limitations under the License.
 
 @internal
-library amplify_auth_cognito_dart.util.credentials_providers;
+library amplify_auth_cognito.util.credentials_providers;
 
 import 'dart:async';
 
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:meta/meta.dart';
 
-/// {@template amplify_auth_cognito_dart.anonymous_credentials_provider}
+/// {@template amplify_auth_cognito.anonymous_credentials_provider}
 /// Creates a credentials provider with no credentials.
 /// {@endtemplate}
 class AnonymousCredentialsProvider implements AWSCredentialsProvider {
-  /// {@macro amplify_auth_cognito_dart.anonymous_credentials_provider}
+  /// {@macro amplify_auth_cognito.anonymous_credentials_provider}
   const AnonymousCredentialsProvider();
 
   @override
@@ -33,11 +33,11 @@ class AnonymousCredentialsProvider implements AWSCredentialsProvider {
   }
 }
 
-/// {@template amplify_auth_cognito_dart.inline_credentials_provider}
+/// {@template amplify_auth_cognito.inline_credentials_provider}
 /// Creates a credentials provider using a closure.
 /// {@endtemplate}
 class InlineCredentialsProvider implements AWSCredentialsProvider {
-  /// {@macro amplify_auth_cognito_dart.inline_credentials_provider}
+  /// {@macro amplify_auth_cognito.inline_credentials_provider}
   const InlineCredentialsProvider(this._retrieve);
 
   final FutureOr<AWSCredentials> Function() _retrieve;
