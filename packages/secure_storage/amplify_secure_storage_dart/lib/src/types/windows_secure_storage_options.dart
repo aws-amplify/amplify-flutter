@@ -12,22 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+
 /// {@template amplify_secure_storage_dart.windows_secure_storage_options}
 /// Configuration options that are specific to Windows.
 /// {@endtemplate}
 class WindowsSecureStorageOptions {
   /// {@macro amplify_secure_storage_dart.windows_secure_storage_options}
   const WindowsSecureStorageOptions({
-    this.targetNamePrefix = 'com.amplify',
+    this.targetNamePrefix,
   });
 
   /// The default options for Windows.
   static const defaultOptions = WindowsSecureStorageOptions();
 
-  /// The prefix for the "TargetName" in Windows Credential Manager.
+  /// The prefix for the "TargetName", which is used to identify the
+  /// secret in Windows Credential Manager.
   ///
-  /// Defaults to "com.amplify".
+  /// This will also be used for the "Username".
+  ///
+  /// If no value is provided, [AmplifySecureStorageConfig.defaultNamespace]
+  /// will be used as the prefix.
   ///
   /// Reference: [Wincred](https://docs.microsoft.com/en-us/windows/win32/api/wincred/ns-wincred-credentiala)
-  final String targetNamePrefix;
+  final String? targetNamePrefix;
 }

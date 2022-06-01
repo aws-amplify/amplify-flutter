@@ -32,6 +32,17 @@ class AmplifySecureStorageConfig {
     this.iOSOptions = IOSSecureStorageOptions.defaultOptions,
   });
 
+  /// The default namespace for keys-value pairs.
+  ///
+  /// Unless platform specific configs are provided, this will be
+  /// used in the following way on each platform:
+  /// - iOS & macOS: the Keychain service name
+  /// - Android: the EncryptedSharedPreferences file name
+  /// - Windows: the prefix for the target name of each secret
+  /// - Linux: the SecretSchema schema name
+  /// - Web: the Indexed DB Database name
+  String get defaultNamespace => 'com.amplify.$scope';
+
   /// The scope of the secrets to be stored.
   ///
   /// Example: "auth"

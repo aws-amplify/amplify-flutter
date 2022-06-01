@@ -81,9 +81,11 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
     });
   }
 
-  String get _schemaName => config.linuxOptions.schemaName;
+  String get _schemaName => config.linuxOptions.schemaName != null
+      ? config.linuxOptions.schemaName!
+      : config.defaultNamespace;
 
-  String _createLabel(String key) => '$_schemaName.${config.scope}/$key';
+  String _createLabel(String key) => '$_schemaName/$key';
 
   /// Creates a [SecretSchema] pointer.
   ///
@@ -93,7 +95,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
     return arena<SecretSchema>()
       ..ref.name = schemaName
       ..ref.flags = SecretSchemaFlags.SECRET_SCHEMA_NONE
-      ..addAttributes(Attributes.values.map((e) => e.name), arena: arena);
+      ..insertAttribute(0, Attributes.key.name, arena: arena);
   }
 
   /// Creates a [GHashTable] pointer containing the account name.
@@ -107,7 +109,6 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
       ..insertAll(
         {
           Attributes.key.name: key,
-          Attributes.scope.name: config.scope,
         },
         arena: arena,
       );
@@ -121,5 +122,4 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 /// The attributes used to identify the secret.
 enum Attributes {
   key,
-  scope,
 }

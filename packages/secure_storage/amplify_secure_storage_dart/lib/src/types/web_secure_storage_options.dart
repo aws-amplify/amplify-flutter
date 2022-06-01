@@ -20,7 +20,7 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 class WebSecureStorageOptions {
   /// {@macro amplify_secure_storage_dart.web_secure_storage_options}
   const WebSecureStorageOptions({
-    this.databaseNamePrefix = 'com.amplify',
+    this.databaseName,
   });
 
   /// The default options for Web.
@@ -28,9 +28,7 @@ class WebSecureStorageOptions {
 
   /// The prefix of the Indexed DB database name.
   ///
-  /// Defaults to 'com.amplify'.
-  ///
-  /// This value will be uses with [AmplifySecureStorageConfig.scope] to form
-  /// the full database name.
-  final String databaseNamePrefix;
+  /// If no value is provided, [AmplifySecureStorageConfig.defaultNamespace]
+  /// will be used as the database name.
+  final String? databaseName;
 }

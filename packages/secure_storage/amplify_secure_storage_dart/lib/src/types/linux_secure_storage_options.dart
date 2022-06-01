@@ -12,13 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+
 /// {@template amplify_secure_storage_dart.linux_secure_storage_options}
 /// Configuration options that are specific to Linux.
 /// {@endtemplate}
 class LinuxSecureStorageOptions {
   /// {@macro amplify_secure_storage_dart.linux_secure_storage_options}
   const LinuxSecureStorageOptions({
-    this.schemaName = 'com.amplify',
+    this.schemaName,
   });
 
   /// The default options for Linux.
@@ -26,8 +28,9 @@ class LinuxSecureStorageOptions {
 
   /// The name of schema used for all key-value pairs.
   ///
-  /// Defaults to 'com.amplify'.
+  /// If no value is provided, [AmplifySecureStorageConfig.defaultNamespace]
+  /// will be used as the schema name.
   ///
   /// Reference: [SecretSchema](https://developer-old.gnome.org/libsecret/unstable/libsecret-SecretSchema.html#SecretSchema)
-  final String schemaName;
+  final String? schemaName;
 }
