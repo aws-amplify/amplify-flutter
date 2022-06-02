@@ -30,6 +30,7 @@ class AmplifyDartImpl extends AmplifyClass {
     );
     await Future.wait(
       [
+        ...API.plugins,
         ...Auth.plugins,
       ].map((p) => p.configure(config: amplifyConfig)),
       eagerError: true,
@@ -60,6 +61,7 @@ class AmplifyDartImpl extends AmplifyClass {
       case Category.analytics:
       case Category.storage:
       case Category.api:
+        return API.addPlugin(plugin.cast());
       case Category.dataStore:
       case Category.hub:
         throw UnimplementedError();

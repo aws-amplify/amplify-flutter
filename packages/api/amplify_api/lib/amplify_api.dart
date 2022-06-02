@@ -21,6 +21,8 @@ import 'package:amplify_api/src/method_channel_api.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+import 'src/api_plugin_impl.dart';
+
 export 'package:amplify_core/src/types/api/api_types.dart';
 
 export './model_mutations.dart';
@@ -37,7 +39,8 @@ abstract class AmplifyAPI extends APIPluginInterface {
     ModelProviderInterface? modelProvider,
   }) {
     if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      throw UnsupportedError('This platform is not supported yet');
+      return AmplifyAPIDart(
+          authProviders: authProviders, modelProvider: modelProvider);
     }
     return AmplifyAPIMethodChannel(
       authProviders: authProviders,
