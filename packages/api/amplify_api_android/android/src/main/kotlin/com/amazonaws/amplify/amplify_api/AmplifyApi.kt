@@ -21,11 +21,11 @@ import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_api.auth.FlutterAuthProviders
 import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
-import com.amazonaws.amplify.amplify_core.AtomicResult
-import com.amazonaws.amplify.amplify_core.cast
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
+import com.amazonaws.amplify.AtomicResult
+import com.amazonaws.amplify.cast
+import com.amazonaws.amplify.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
+import com.amazonaws.amplify.exception.ExceptionUtil.Companion.handleAddPluginException
+import com.amazonaws.amplify.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.api.aws.AuthorizationType
 import com.amplifyframework.core.Amplify

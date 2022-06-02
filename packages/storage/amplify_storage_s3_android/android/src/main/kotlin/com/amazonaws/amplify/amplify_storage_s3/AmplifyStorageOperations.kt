@@ -18,8 +18,8 @@ package com.amazonaws.amplify.amplify_storage_s3
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
-import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
+import com.amazonaws.amplify.exception.ExceptionMessages
+import com.amazonaws.amplify.exception.ExceptionUtil
 import com.amazonaws.amplify.amplify_storage_s3.types.FlutterDownloadFileRequest
 import com.amazonaws.amplify.amplify_storage_s3.types.FlutterGetUrlRequest
 import com.amazonaws.amplify.amplify_storage_s3.types.FlutterListRequest

@@ -171,7 +171,7 @@ class _MyAppState extends State<MyApp> {
 
   void listenToHub() {
     setState(() {
-      hubSubscription = Amplify.Hub.listen([HubChannel.DataStore], (msg) {
+      hubSubscription = Amplify.Hub.listen(HubChannel.DataStore, (msg) {
         if (msg is NetworkStatusEvent) {
           print('Network status message: $msg');
           return;

@@ -17,7 +17,7 @@ import XCTest
 import Amplify
 import AmplifyPlugins
 import AWSCore
-import amplify_core
+import amplify_flutter_ios
 
 @testable import amplify_api_ios
 

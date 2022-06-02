@@ -15,7 +15,7 @@
 
 package com.amazonaws.amplify.amplify_analytics_pinpoint
 
-import com.amazonaws.amplify.amplify_core.asMap
+import com.amazonaws.amplify.asMap
 import com.amplifyframework.analytics.AnalyticsEvent
 import com.amplifyframework.analytics.AnalyticsProperties
 import com.amplifyframework.analytics.UserProfile

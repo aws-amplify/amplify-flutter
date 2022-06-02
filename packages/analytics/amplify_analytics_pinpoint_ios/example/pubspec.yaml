@@ -1,30 +1,28 @@
 name: amplify_analytics_pinpoint_ios_example
 description: Test bed for amplify_analytics_pinpoint_ios
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+publish_to: none
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
   flutter: ">=3.0.0"
 
 dependencies:
-  amplify_analytics_pinpoint_ios:
-    # When depending on this package from a real application you should use:
-    #   amplify_analytics_pinpoint: ^x.y.z
-    # See https://dart.dev/tools/pub/dependencies#version-constraints
-    # The example app is bundled with the plugin so we use a path dependency on
-    # the parent directory to use the current plugin's version.
-    path: ../
-  amplify_core:
-    path: ../../../amplify_core
-  cupertino_icons: ^1.0.2
+  amplify_analytics_pinpoint:
+    path: ../../amplify_analytics_pinpoint
+  amplify_flutter:
+    path: ../../../amplify/amplify_flutter
   flutter:
     sdk: flutter
 
+dependency_overrides:
+  amplify_analytics_pinpoint_ios:
+    path: ../
+  amplify_flutter_ios:
+    path: ../../../amplify/amplify_flutter_ios
+
 dev_dependencies:
-  amplify_lints: ^2.0.0
+  amplify_lints:
+    path: ../../../amplify_lints
   flutter_test:
     sdk: flutter
 

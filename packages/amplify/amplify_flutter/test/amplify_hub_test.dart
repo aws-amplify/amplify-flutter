@@ -16,6 +16,7 @@
 import 'dart:async';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -39,39 +40,37 @@ void main() {
   });
 
   test('Amplify.Hub.listen returns a StreamSubscription', () async {
-    var sub = Amplify.Hub.listen([HubChannel.Auth], (msg) {});
+    var sub = Amplify.Hub.listen(HubChannel.Auth, (msg) {});
     expect(sub, isInstanceOf<StreamSubscription>());
     sub.cancel();
-  });
-
-  test('Add channel method inserts into available streams', () async {
-    Amplify.Hub.addChannel(
-        HubChannel.Auth, mockPluginController.thisController);
-    expect(Amplify.Hub.availableStreams.length, equals(1));
   });
 
   test(
       'When channel is added and Hub is listening, underlying channel should have listener',
       () async {
-    Amplify.Hub.addChannel(
-        HubChannel.Auth, mockPluginController.thisController);
+    Amplify.Hub.addChannel<AuthUser, AuthHubEvent>(
+      HubChannel.Auth,
+      mockPluginController.thisController.stream.cast(),
+    );
     StreamController underlying = mockPluginController.underlyingStream;
-    Amplify.Hub.listen([HubChannel.Auth], (msg) {});
+    Amplify.Hub.listen(HubChannel.Auth, (msg) {});
     expect(underlying.hasListener, true);
   });
 
   test(
       'Underlying stream event is rebroadcast on the controller returned from listen',
       () async {
-    Amplify.Hub.addChannel(
-        HubChannel.Auth, mockPluginController.thisController);
+    Amplify.Hub.addChannel<AuthUser, AuthHubEvent>(
+      HubChannel.Auth,
+      mockPluginController.thisController.stream.cast(),
+    );
     final StreamController<HubEvent> underlying =
         mockPluginController.underlyingStream;
     const HubEvent reBroadcastEvent = MockHubEvent('hear me!');
-    Amplify.Hub.listen([HubChannel.Auth], (msg) {});
+    Amplify.Hub.listen(HubChannel.Auth, expectAsync1((msg) {
+      expect(msg, reBroadcastEvent);
+    }));
     underlying.add(reBroadcastEvent);
-    expectLater(
-        Amplify.Hub.availableStreams[HubChannel.Auth], emits(reBroadcastEvent));
   });
 
   // TODO: Figure out async cancellation tests

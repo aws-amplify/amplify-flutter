@@ -16,7 +16,7 @@
 package com.amazonaws.amplify.amplify_api
 
 import com.amazonaws.amplify.amplify_api.rest_api.RestOperationType
-import com.amazonaws.amplify.amplify_core.asMap
+import com.amazonaws.amplify.asMap
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.rest.RestOptions

@@ -17,7 +17,7 @@ package com.amazonaws.amplify
 
 import android.content.Context
 import android.os.Looper.getMainLooper
-import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amazonaws.amplify.exception.ExceptionMessages
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall

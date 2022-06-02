@@ -68,42 +68,42 @@ for PKG in ${PKGS}; do
       echo -e "\033[1mPKG: ${PKG}; TASK: ${TASK}\033[22m"
       case ${TASK} in
       analyze_0)
-        echo 'flutter analyze --fatal-infos .'
-        flutter analyze --fatal-infos . || EXIT_CODE=$?
+        echo 'dart analyze --fatal-infos .'
+        dart analyze --fatal-infos . || EXIT_CODE=$?
         ;;
       analyze_1)
         echo 'flutter analyze --fatal-infos lib test'
         flutter analyze --fatal-infos lib test || EXIT_CODE=$?
         ;;
       analyze_2)
-        echo 'dart analyze --fatal-infos .'
-        dart analyze --fatal-infos . || EXIT_CODE=$?
-        ;;
-      analyze_3)
         echo 'dart analyze --fatal-infos lib test'
         dart analyze --fatal-infos lib test || EXIT_CODE=$?
         ;;
       command_0)
+        echo 'dart --version'
+        dart --version || EXIT_CODE=$?
+        ;;
+      command_1)
         echo 'flutter doctor -v'
         flutter doctor -v || EXIT_CODE=$?
         ;;
-      command_1)
+      command_2)
         echo 'git submodule update --init'
         git submodule update --init || EXIT_CODE=$?
         ;;
-      command_2)
+      command_3)
         echo 'xcrun simctl boot "iPhone 13"'
         xcrun simctl boot "iPhone 13" || EXIT_CODE=$?
         ;;
-      command_3)
+      command_4)
         echo 'dart run build_runner build --delete-conflicting-outputs'
         dart run build_runner build --delete-conflicting-outputs || EXIT_CODE=$?
         ;;
-      command_4)
+      command_5)
         echo 'tool/test.sh -p chrome'
         tool/test.sh -p chrome || EXIT_CODE=$?
         ;;
-      command_5)
+      command_6)
         echo 'tool/test.sh -p firefox'
         tool/test.sh -p firefox || EXIT_CODE=$?
         ;;
@@ -112,26 +112,18 @@ for PKG in ${PKGS}; do
         dart format --output=none --set-exit-if-changed . || EXIT_CODE=$?
         ;;
       test_0)
-        echo 'flutter test'
-        flutter test || EXIT_CODE=$?
+        echo 'dart test'
+        dart test || EXIT_CODE=$?
         ;;
       test_1)
-        echo 'flutter test --platform chrome'
-        flutter test --platform chrome || EXIT_CODE=$?
+        echo 'dart test -p chrome'
+        dart test -p chrome || EXIT_CODE=$?
         ;;
       test_2)
         echo 'flutter test --exclude-tags=build'
         flutter test --exclude-tags=build || EXIT_CODE=$?
         ;;
       test_3)
-        echo 'dart test'
-        dart test || EXIT_CODE=$?
-        ;;
-      test_4)
-        echo 'dart test -p chrome'
-        dart test -p chrome || EXIT_CODE=$?
-        ;;
-      test_5)
         echo 'flutter test -d iPhone integration_test/e2e_test.dart'
         flutter test -d iPhone integration_test/e2e_test.dart || EXIT_CODE=$?
         ;;

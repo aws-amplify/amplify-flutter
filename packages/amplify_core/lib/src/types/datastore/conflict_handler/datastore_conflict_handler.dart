@@ -1,5 +1,5 @@
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 
 typedef DataStoreConflictHandler = ConflictResolutionDecision Function(
     ConflictData);
@@ -46,7 +46,7 @@ class ConflictResolutionDecision {
   }
 
   Map<String, Object?> toJson() => <String, Object?>{
-        'resolutionStrategy': describeEnum(_resolutionStrategy),
+        'resolutionStrategy': _resolutionStrategy.name,
         'customModel': customModel?.toJson()
       };
 }
