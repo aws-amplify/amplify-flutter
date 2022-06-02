@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
@@ -94,14 +91,13 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       final response = await Amplify.API
           .post(
-            restOptions: RestOptions(
-              path: '/hello',
-              body: utf8.encode(_controller.text) as Uint8List,
-            ),
+            '/hello',
+            body: HttpPayload.string(_controller.text),
           )
-          .response;
+          .value;
+      final decodedBody = await response.decodeBody();
       setState(() {
-        _greeting = response.body;
+        _greeting = decodedBody;
       });
     } on Exception catch (e) {
       setState(() {
