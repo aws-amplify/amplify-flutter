@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:io';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
@@ -40,7 +42,9 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _configure() async {
     try {
-      await Amplify.addPlugin(AmplifyAPI());
+      if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+        await Amplify.addPlugin(AmplifyAPI());
+      }
       await Amplify.addPlugin(AmplifyAuthCognito());
       await Amplify.configure(amplifyconfig);
       safePrint('Successfully configured Amplify');
@@ -79,9 +83,22 @@ class _MyHomePageState extends State<MyHomePage> {
   late final _controller = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _fetchAuthSession();
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  Future<void> _fetchAuthSession() async {
+    final authSession = await Amplify.Auth.fetchAuthSession(
+      options: const CognitoSessionOptions(getAWSCredentials: true),
+    ) as CognitoAuthSession;
+    safePrint(authSession);
   }
 
   Future<void> _requestGreeting() async {

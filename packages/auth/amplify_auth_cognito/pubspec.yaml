@@ -12,6 +12,7 @@ dependencies:
   amplify_auth_cognito_ios: 0.5.0
   amplify_auth_plugin_interface: 0.5.0
   amplify_core: 0.5.0
+  amplify_secure_storage: ^0.1.0
   aws_common: ^0.1.0
   aws_signature_v4: ^0.1.0
   built_collection: ^5.0.0
@@ -25,6 +26,7 @@ dependencies:
   json_annotation: ^4.4.0
   meta: ^1.7.0
   oauth2: ^2.0.0
+  path: ^1.8.0
   plugin_platform_interface: ^2.0.0
   smithy:
     hosted: https://pub.dillonnys.com
@@ -32,6 +34,7 @@ dependencies:
   smithy_aws:
     hosted: https://pub.dillonnys.com
     version: ^0.5.0
+  stream_transform: ^2.0.0
 
 dev_dependencies:
   amplify_lints:
@@ -42,6 +45,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   json_serializable: ^6.1.0
+  mockito: ^5.2.0
   pigeon: ^3.0.0
   test: any
 

@@ -17,28 +17,28 @@ import 'package:amplify_core/amplify_core.dart';
 
 /// Discrete event types of the hosted UI state machine.
 enum HostedUiEventType {
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_configure}
+  /// {@macro amplify_auth_cognito.hosted_ui_configure}
   configure,
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_found_state}
+  /// {@macro amplify_auth_cognito.hosted_ui_found_state}
   foundState,
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_sign_in}
+  /// {@macro amplify_auth_cognito.hosted_ui_sign_in}
   signIn,
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_cancel_sign_in}
+  /// {@macro amplify_auth_cognito.hosted_ui_cancel_sign_in}
   cancelSignIn,
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_exchange}
+  /// {@macro amplify_auth_cognito.hosted_ui_exchange}
   exchange,
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_sign_out}
+  /// {@macro amplify_auth_cognito.hosted_ui_sign_out}
   signOut,
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_succeeded}
+  /// {@macro amplify_auth_cognito.hosted_ui_succeeded}
   succeeded,
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_failed}
+  /// {@macro amplify_auth_cognito.hosted_ui_failed}
   failed,
 }
 
@@ -46,49 +46,49 @@ enum HostedUiEventType {
 abstract class HostedUiEvent extends StateMachineEvent<HostedUiEventType> {
   const HostedUiEvent._();
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_configure}
+  /// {@macro amplify_auth_cognito.hosted_ui_configure}
   const factory HostedUiEvent.configure() = HostedUiConfigure;
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_found_state}
+  /// {@macro amplify_auth_cognito.hosted_ui_found_state}
   const factory HostedUiEvent.foundState({
     required String state,
     required String codeVerifier,
   }) = HostedUiFoundState;
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_sign_in}
+  /// {@macro amplify_auth_cognito.hosted_ui_sign_in}
   const factory HostedUiEvent.signIn({
     CognitoSignInWithWebUIOptions options,
     AuthProvider? provider,
     Uri? redirectUri,
   }) = HostedUiSignIn;
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_cancel_sign_in}
+  /// {@macro amplify_auth_cognito.hosted_ui_cancel_sign_in}
   const factory HostedUiEvent.cancelSignIn() = HostedUiCancelSignIn;
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_exchange}
+  /// {@macro amplify_auth_cognito.hosted_ui_exchange}
   const factory HostedUiEvent.exchange(OAuthParameters parameters) =
       HostedUiExchange;
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_sign_out}
+  /// {@macro amplify_auth_cognito.hosted_ui_sign_out}
   const factory HostedUiEvent.signOut() = HostedUiSignOut;
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_succeeded}
+  /// {@macro amplify_auth_cognito.hosted_ui_succeeded}
   const factory HostedUiEvent.succeeded(
     CognitoUserPoolTokens tokens,
   ) = HostedUiSucceeded;
 
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_failed}
+  /// {@macro amplify_auth_cognito.hosted_ui_failed}
   const factory HostedUiEvent.failed(Exception exception) = HostedUiFailed;
 
   @override
   String get runtimeTypeName => 'HostedUiEvent';
 }
 
-/// {@template amplify_auth_cognito_dart.hosted_ui_configure}
+/// {@template amplify_auth_cognito.hosted_ui_configure}
 /// Configure the hosted UI flow for use.
 /// {@endtemplate}
 class HostedUiConfigure extends HostedUiEvent {
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_configure}
+  /// {@macro amplify_auth_cognito.hosted_ui_configure}
   const HostedUiConfigure() : super._();
 
   @override
@@ -98,11 +98,11 @@ class HostedUiConfigure extends HostedUiEvent {
   HostedUiEventType get type => HostedUiEventType.configure;
 }
 
-/// {@template amplify_auth_cognito_dart.hosted_ui_found_state}
+/// {@template amplify_auth_cognito.hosted_ui_found_state}
 /// The hosted UI flow was found to be in a partially complete state.
 /// {@endtemplate}
 class HostedUiFoundState extends HostedUiEvent {
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_found_state}
+  /// {@macro amplify_auth_cognito.hosted_ui_found_state}
   const HostedUiFoundState({
     required this.state,
     required this.codeVerifier,
@@ -121,11 +121,11 @@ class HostedUiFoundState extends HostedUiEvent {
   HostedUiEventType get type => HostedUiEventType.foundState;
 }
 
-/// {@template amplify_auth_cognito_dart.hosted_ui_sign_in}
+/// {@template amplify_auth_cognito.hosted_ui_sign_in}
 /// Sign in via the hosted UI flow.
 /// {@endtemplate}
 class HostedUiSignIn extends HostedUiEvent {
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_sign_in}
+  /// {@macro amplify_auth_cognito.hosted_ui_sign_in}
   const HostedUiSignIn({
     this.options = const CognitoSignInWithWebUIOptions(),
     this.provider,
@@ -155,11 +155,11 @@ class HostedUiSignIn extends HostedUiEvent {
   HostedUiEventType get type => HostedUiEventType.signIn;
 }
 
-/// {@template amplify_auth_cognito_dart.hosted_ui_cancel_sign_in}
+/// {@template amplify_auth_cognito.hosted_ui_cancel_sign_in}
 /// Cancels the hosted UI flow.
 /// {@endtemplate}
 class HostedUiCancelSignIn extends HostedUiEvent {
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_cancel_sign_in}
+  /// {@macro amplify_auth_cognito.hosted_ui_cancel_sign_in}
   const HostedUiCancelSignIn() : super._();
 
   @override
@@ -177,11 +177,11 @@ class HostedUiCancelSignIn extends HostedUiEvent {
   }
 }
 
-/// {@template amplify_auth_cognito_dart.hosted_ui_exchange}
+/// {@template amplify_auth_cognito.hosted_ui_exchange}
 /// Perform the `exchange` portion of the hosted UI flow.
 /// {@endtemplate}
 class HostedUiExchange extends HostedUiEvent {
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_exchange}
+  /// {@macro amplify_auth_cognito.hosted_ui_exchange}
   const HostedUiExchange(this.parameters) : super._();
 
   /// The query parameters returned from the call to `authorize`.
@@ -194,11 +194,11 @@ class HostedUiExchange extends HostedUiEvent {
   HostedUiEventType get type => HostedUiEventType.exchange;
 }
 
-/// {@template amplify_auth_cognito_dart.hosted_ui_sign_out}
+/// {@template amplify_auth_cognito.hosted_ui_sign_out}
 /// Signs out a user who signed in with the Hosted UI flow.
 /// {@endtemplate}
 class HostedUiSignOut extends HostedUiEvent {
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_sign_out}
+  /// {@macro amplify_auth_cognito.hosted_ui_sign_out}
   const HostedUiSignOut() : super._();
 
   @override
@@ -227,11 +227,11 @@ class HostedUiSignOut extends HostedUiEvent {
   }
 }
 
-/// {@template amplify_auth_cognito_dart.hosted_ui_succeeded}
+/// {@template amplify_auth_cognito.hosted_ui_succeeded}
 /// The user successfully logged in via the hosted UI flow.
 /// {@endtemplate}
 class HostedUiSucceeded extends HostedUiEvent {
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_succeeded}
+  /// {@macro amplify_auth_cognito.hosted_ui_succeeded}
   const HostedUiSucceeded(this.tokens) : super._();
 
   /// The tokens retrieved via the hosted UI flow.
@@ -244,11 +244,11 @@ class HostedUiSucceeded extends HostedUiEvent {
   HostedUiEventType get type => HostedUiEventType.succeeded;
 }
 
-/// {@template amplify_auth_cognito_dart.hosted_ui_failed}
+/// {@template amplify_auth_cognito.hosted_ui_failed}
 /// The Hosted UI flow failed with an [exception].
 /// {@endtemplate}
 class HostedUiFailed extends HostedUiEvent with ErrorEvent {
-  /// {@macro amplify_auth_cognito_dart.hosted_ui_failed}
+  /// {@macro amplify_auth_cognito.hosted_ui_failed}
   const HostedUiFailed(this.exception) : super._();
 
   /// The Hosted UI exception.

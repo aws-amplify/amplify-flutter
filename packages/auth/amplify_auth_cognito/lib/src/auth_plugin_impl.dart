@@ -17,14 +17,59 @@ import 'dart:io';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
+import 'package:amplify_auth_cognito/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+import 'package:meta/meta.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
 /// The AWS Cognito implementation of the Amplify Auth category.
 /// {@endtemplate}
 class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
+  /// {@macro amplify_auth_cognito.amplify_auth_cognito}
+  AmplifyAuthCognito({
+    SecureStorageInterface? credentialStorage,
+  }) : _credentialStorage = credentialStorage;
+
+  /// The on-device credential storage for the Auth category.
+  ///
+  /// Defaults to an instance of [AmplifySecureStorage] with a scope of "auth".
+  final SecureStorageInterface? _credentialStorage;
+
+  CognitoAuthStateMachine _stateMachine = CognitoAuthStateMachine();
+
+  @visibleForTesting
+  set stateMachine(CognitoAuthStateMachine stateMachine) {
+    if (!zDebugMode) throw StateError('Can only be called in tests');
+    _stateMachine = stateMachine;
+  }
+
+  Future<void> _init() async {
+    final credentialStorage = _credentialStorage ??
+        AmplifySecureStorage(
+          config: const AmplifySecureStorageConfig(
+            packageId: 'com.amplify', // TODO(dnys1): Remove
+            scope: 'auth',
+          ),
+        );
+    _stateMachine.addInstance<SecureStorageInterface>(credentialStorage);
+  }
+
   @override
   Future<void> configure({AmplifyConfig? config}) async {
+    if (config == null) {
+      throw const AuthException('No Cognito plugin config detected');
+    }
+    if (_stateMachine.getOrCreate(AuthStateMachine.type).currentState.type !=
+        AuthStateType.notConfigured) {
+      throw const AmplifyAlreadyConfiguredException(
+        'Amplify has already been configured and re-configuration is not supported.',
+        recoverySuggestion:
+            'Check if Amplify is already configured using Amplify.isConfigured.',
+      );
+    }
+
     // Configure this plugin to act as a native iOS/Android plugin.
     if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
       final nativePlugin = _NativeAmplifyAuthCognito(this);
@@ -33,6 +78,48 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
       final nativeBridge = NativeAuthBridge();
       await nativeBridge.configure();
     }
+
+    await _init();
+    _stateMachine.dispatch(AuthEvent.configure(config));
+
+    await for (final state in _stateMachine.stream.whereType<AuthState>()) {
+      switch (state.type) {
+        case AuthStateType.notConfigured:
+        case AuthStateType.configuring:
+          continue;
+        case AuthStateType.configured:
+          return;
+        case AuthStateType.failure:
+          throw (state as AuthFailure).exception;
+      }
+    }
+  }
+
+  @override
+  Future<AuthSession> fetchAuthSession({
+    required AuthSessionRequest request,
+  }) async {
+    final options = request.options as CognitoSessionOptions?;
+    _stateMachine.dispatch(FetchAuthSessionEvent.fetch(options));
+
+    await for (final state
+        in _stateMachine.stream.whereType<FetchAuthSessionState>()) {
+      switch (state.type) {
+        case FetchAuthSessionStateType.idle:
+        case FetchAuthSessionStateType.fetching:
+        case FetchAuthSessionStateType.refreshing:
+          continue;
+        case FetchAuthSessionStateType.success:
+          state as FetchAuthSessionSuccess;
+          return state.session;
+        case FetchAuthSessionStateType.failure:
+          state as FetchAuthSessionFailure;
+          throw state.exception;
+      }
+    }
+
+    // This should never happen.
+    throw const UnknownException('fetchAuthSession could not be completed');
   }
 
   /* -- TODO: Replace -- */
@@ -40,14 +127,6 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
   @override
   StreamController<AuthHubEvent> get streamController =>
       StreamController.broadcast();
-
-  @override
-  Future<AuthSession> fetchAuthSession({
-    required AuthSessionRequest request,
-  }) async {
-    await Future<void>.delayed(const Duration(seconds: 2));
-    return const CognitoAuthSession(isSignedIn: false);
-  }
 
   @override
   Future<void> close() async {}

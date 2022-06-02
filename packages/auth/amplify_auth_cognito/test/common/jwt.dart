@@ -12,8 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library amplify_secure_storage;
+import 'package:amplify_auth_cognito/src/jwt/jwt.dart';
 
-export 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-export 'src/amplify_secure_storage.vm.dart'
-    if (dart.library.html) 'src/amplify_secure_storage.web.dart';
+JsonWebToken createJwt({
+  required Duration expiration,
+  String? nonce,
+}) {
+  return JsonWebToken(
+    header: const JsonWebHeader(
+      algorithm: Algorithm.rsaSha256,
+    ),
+    claims: JsonWebClaims.fromJson(
+      {
+        'exp': (DateTime.now().add(expiration)).millisecondsSinceEpoch ~/ 1000,
+        if (nonce != null) 'nonce': nonce,
+      },
+    ),
+    signature: const [],
+  );
+}

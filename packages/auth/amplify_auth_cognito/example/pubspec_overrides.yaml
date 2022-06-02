@@ -22,6 +22,10 @@ dependency_overrides:
     path: ../../../amplify/amplify_flutter_ios
   amplify_flutter_android:
     path: ../../../amplify/amplify_flutter_android
+  amplify_secure_storage:
+    path: ../../../secure_storage/amplify_secure_storage
+  amplify_secure_storage_dart:
+    path: ../../../secure_storage/amplify_secure_storage_dart
   aws_common:
     path: ../../../aws_common
   aws_signature_v4:
