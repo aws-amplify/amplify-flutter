@@ -20,6 +20,7 @@ import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 /// {@template aws_common.aws_http_request}
 /// A parameterized HTTP request.
@@ -121,18 +122,30 @@ abstract class AWSBaseHttpRequest implements Closeable {
   /// request.
   Future<AWSStreamedHttpResponse> send([http.Client? client]) async {
     final useClient = client ?? http.Client();
+
+    // Closes the HTTP client, but only if we created it.
+    void closeClient() {
+      if (client == null) {
+        useClient.close();
+      }
+    }
+
     try {
       final resp = await useClient.send(httpRequest);
       return AWSStreamedHttpResponse(
         headers: resp.headers,
         statusCode: resp.statusCode,
-        body: resp.stream,
+        body: resp.stream.tap(
+          null,
+          // Wait until the body has been read before closing the client,
+          // since chunked requests require that the client not be closed
+          // until they're complete.
+          onDone: closeClient,
+        ),
       );
-    } finally {
-      // Only close a client we created.
-      if (client == null) {
-        useClient.close();
-      }
+    } on Object {
+      closeClient();
+      rethrow;
     }
   }
 
