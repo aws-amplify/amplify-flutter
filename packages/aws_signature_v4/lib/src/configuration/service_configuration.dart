@@ -164,8 +164,6 @@ class BaseServiceConfiguration extends ServiceConfiguration {
     required AWSCredentials credentials,
   }) {
     queryParameters.addAll({
-      if (!request.headers.containsKey(AWSHeaders.host))
-        AWSHeaders.host: request.host,
       AWSHeaders.date: credentialScope.dateTime.formatFull(),
       AWSHeaders.signedHeaders: signedHeaders.toString(),
       AWSHeaders.algorithm: algorithm.id,
