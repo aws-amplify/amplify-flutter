@@ -85,6 +85,11 @@ class CanonicalRequest {
         const BaseServiceConfiguration(),
   }) {
     final headers = Map.of(request.headers);
+    // Include header for signing since it will be included by the HTTP client
+    // of the end user.
+    if (!headers.containsKey(AWSHeaders.host)) {
+      headers[AWSHeaders.host] = request.host;
+    }
     final queryParameters = Map.of(request.queryParameters);
 
     // Per https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html
