@@ -13,6 +13,7 @@ dependencies:
   collection: ^1.15.0
   http: ^0.13.4
   meta: ^1.7.0
+  stream_transform: ^2.0.0
   uuid: 3.0.6
 
 dev_dependencies:
