@@ -101,6 +101,20 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     return decodedLength + metadataLength;
   }
 
+  /// Whether [request] should be chunked, given the environment and whether
+  /// chunking was requested.
+  bool _shouldChunk(AWSBaseHttpRequest request) {
+    var isChunkableMethod = true;
+    if (zIsWeb) {
+      // Browser APIs (XMLHttpRequest, fetch) disallow sending bodies for these
+      // methods and, thus, chunked requests are not possible and we should not
+      // try.
+      isChunkableMethod = request.method != AWSHttpMethod.get &&
+          request.method != AWSHttpMethod.head;
+    }
+    return chunked && isChunkableMethod;
+  }
+
   @override
   void applySigned(
     Map<String, String> headers, {
@@ -119,7 +133,7 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
       contentLength: contentLength,
     );
 
-    if (chunked) {
+    if (_shouldChunk(request)) {
       // Raw size of the data to be sent, before compression and without
       // metadata.
       headers[AWSHeaders.decodedContentLength] = contentLength.toString();
@@ -146,7 +160,7 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     required bool presignedUrl,
   }) async {
     // Only unchunked, signed requests are hashed as other services would be.
-    if (signPayload && !chunked) {
+    if (signPayload && !_shouldChunk(request)) {
       return super.hashPayload(request, presignedUrl: presignedUrl);
     }
     return hashPayloadSync(request, presignedUrl: presignedUrl);
@@ -160,7 +174,7 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     if (presignedUrl || !signPayload) {
       return unsignedPayloadHash;
     }
-    if (chunked) {
+    if (_shouldChunk(request)) {
       return chunkedPayloadSeedHash;
     }
     return super.hashPayloadSync(request, presignedUrl: presignedUrl);
@@ -175,7 +189,9 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     required AWSCredentialScope credentialScope,
     required CanonicalRequest canonicalRequest,
   }) async* {
-    if (canonicalRequest.presignedUrl || !signPayload || !chunked) {
+    if (canonicalRequest.presignedUrl ||
+        !signPayload ||
+        !_shouldChunk(canonicalRequest.request)) {
       yield* super.signBody(
         algorithm: algorithm,
         contentLength: contentLength,
