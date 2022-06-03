@@ -1,0 +1,8 @@
+githubRepoOwner: aws-amplify
+githubRepoName: amplify-flutter
+githubHost: github.com
+requireChecks: true
+requireApproval: true
+githubRemote: aws
+githubBranch: next
+mergeMethod: rebase
