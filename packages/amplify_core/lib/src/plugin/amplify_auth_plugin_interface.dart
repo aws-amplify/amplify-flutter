@@ -74,7 +74,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_auth_category.update_password}
   Future<UpdatePasswordResult> updatePassword({
-    UpdatePasswordRequest? request,
+    required UpdatePasswordRequest request,
   }) {
     throw UnimplementedError('updatePassword() has not been implemented.');
   }

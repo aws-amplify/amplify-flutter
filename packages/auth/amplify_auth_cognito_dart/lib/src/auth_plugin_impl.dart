@@ -19,19 +19,30 @@ import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_stub.dart'
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_html.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito
     show
+        AttributeType,
+        ChangePasswordRequest,
         CodeDeliveryDetailsType,
         CognitoIdentityProviderClient,
+        ConfirmForgotPasswordRequest,
+        DeleteUserRequest,
+        DeviceRememberedStatusType,
+        DeviceType,
+        ForgetDeviceRequest,
+        ForgotPasswordRequest,
         GetUserAttributeVerificationCodeRequest,
         GetUserRequest,
         GlobalSignOutRequest,
         PasswordResetRequiredException,
+        ListDevicesRequest,
         ResendConfirmationCodeRequest,
         RevokeTokenRequest,
+        UpdateDeviceStatusRequest,
         UpdateUserAttributesRequest,
         UserNotConfirmedException,
         VerifyUserAttributeRequest;
@@ -101,6 +112,14 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   /// The Cognito identity pool configuration.
   CognitoIdentityCredentialsProvider? get _identityPoolConfig =>
       _stateMachine.get();
+
+  final StreamController<AuthHubEvent> _hubController =
+      StreamController.broadcast();
+
+  @override
+  Future<void> close() async {
+    await _hubController.close();
+  }
 
   Future<void> _init() async {
     final credentialStorage = _credentialStorage ??
@@ -600,6 +619,192 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   }
 
   @override
+  Future<UpdatePasswordResult> updatePassword({
+    required UpdatePasswordRequest request,
+  }) async {
+    // TODO(dnys1): Where does clientMetadata go?
+    // ignore: unused_local_variable
+    final options = request.options as CognitoUpdatePasswordOptions?;
+
+    final tokens = await getUserPoolTokens();
+    await _cognitoIdp.changePassword(
+      cognito.ChangePasswordRequest(
+        accessToken: tokens.accessToken.raw,
+        previousPassword: request.oldPassword,
+        proposedPassword: request.newPassword,
+      ),
+    );
+    return const UpdatePasswordResult();
+  }
+
+  @override
+  Future<CognitoResetPasswordResult> resetPassword({
+    required ResetPasswordRequest request,
+  }) async {
+    final options = request.options as CognitoResendSignUpCodeOptions?;
+    final result = await _cognitoIdp.forgotPassword(
+      cognito.ForgotPasswordRequest.build((b) {
+        b
+          ..clientId = _userPoolConfig.appClientId
+          ..username = request.username;
+
+        final clientSecret = _userPoolConfig.appClientSecret;
+        if (clientSecret != null) {
+          b.secretHash = computeSecretHash(
+            request.username,
+            _userPoolConfig.appClientId,
+            clientSecret,
+          );
+        }
+
+        final clientMetadata = options?.clientMetadata ?? const {};
+        b.clientMetadata.addAll(clientMetadata);
+      }),
+    );
+
+    final codeDeliveryDetails =
+        result.codeDeliveryDetails?.asAuthCodeDeliveryDetails;
+    if (codeDeliveryDetails == null) {
+      throw const CodeDeliveryFailureException('Could not deliver code');
+    }
+
+    return CognitoResetPasswordResult(
+      isPasswordReset: false,
+      nextStep: ResetPasswordStep(
+        updateStep: 'CONFIRM_RESET_PASSWORD_WITH_CODE',
+        codeDeliveryDetails:
+            result.codeDeliveryDetails?.asAuthCodeDeliveryDetails,
+      ),
+    );
+  }
+
+  @override
+  Future<UpdatePasswordResult> confirmResetPassword({
+    required ConfirmResetPasswordRequest request,
+  }) async {
+    final options = request.options as CognitoConfirmResetPasswordOptions?;
+    await _cognitoIdp.confirmForgotPassword(
+      cognito.ConfirmForgotPasswordRequest.build((b) {
+        b
+          ..username = request.username
+          ..password = request.newPassword
+          ..confirmationCode = request.confirmationCode
+          ..clientId = _userPoolConfig.appClientId;
+
+        final clientSecret = _userPoolConfig.appClientSecret;
+        if (clientSecret != null) {
+          b.secretHash = computeSecretHash(
+            request.username,
+            _userPoolConfig.appClientId,
+            clientSecret,
+          );
+        }
+
+        final clientMetadata = options?.clientMetadata ?? const {};
+        b.clientMetadata.addAll(clientMetadata);
+      }),
+    );
+
+    return const UpdatePasswordResult();
+  }
+
+  @override
+  Future<AuthUser> getCurrentUser({
+    AuthUserRequest? request,
+  }) async {
+    final userPoolTokens = await getUserPoolTokens();
+    final userId = userPoolTokens.idToken.userId;
+    final username = CognitoIdToken(userPoolTokens.idToken).username;
+    return AuthUser(
+      userId: userId,
+      username: username,
+    );
+  }
+
+  @override
+  Future<void> rememberDevice() async {
+    // Use credentials state machine since we need device info as well.
+    final credentials = await _stateMachine
+        .expect(CredentialStoreStateMachine.type)
+        .getCredentialsResult();
+    final deviceKey = credentials.deviceSecrets?.deviceKey;
+    if (deviceKey == null) {
+      throw const DeviceNotTrackedException();
+    }
+    final accessToken = credentials.userPoolTokens?.accessToken;
+    if (accessToken == null) {
+      throw const SignedOutException('No user is currently signed in');
+    }
+    await _cognitoIdp.updateDeviceStatus(
+      cognito.UpdateDeviceStatusRequest(
+        accessToken: accessToken.raw,
+        deviceKey: deviceKey,
+        deviceRememberedStatus: cognito.DeviceRememberedStatusType.remembered,
+      ),
+    );
+  }
+
+  @override
+  Future<void> forgetDevice([AuthDevice? device]) async {
+    // Use credentials state machine since we need device info as well.
+    final credentials = await _stateMachine
+        .expect(CredentialStoreStateMachine.type)
+        .getCredentialsResult();
+    final deviceKey = device?.id ?? credentials.deviceSecrets?.deviceKey;
+    if (deviceKey == null) {
+      throw const DeviceNotTrackedException();
+    }
+    await _cognitoIdp.forgetDevice(
+      cognito.ForgetDeviceRequest(
+        accessToken: credentials.userPoolTokens?.accessToken.raw,
+        deviceKey: deviceKey,
+      ),
+    );
+  }
+
+  @override
+  Future<List<AuthDevice>> fetchDevices() async {
+    final allDevices = <AuthDevice>[];
+
+    String? paginationToken;
+    do {
+      final tokens = await getUserPoolTokens();
+      const devicePageLimit = 60;
+      final resp = await _cognitoIdp.listDevices(
+        cognito.ListDevicesRequest(
+          accessToken: tokens.accessToken.raw,
+          limit: devicePageLimit,
+          paginationToken: paginationToken,
+        ),
+      );
+      final devices = resp.devices ?? const <cognito.DeviceType>[];
+      for (final device in devices) {
+        final attributes =
+            device.deviceAttributes ?? const <cognito.AttributeType>[];
+        final deviceKey = device.deviceKey;
+        if (deviceKey == null) {
+          continue;
+        }
+        allDevices.add(
+          CognitoDevice(
+            id: deviceKey,
+            attributes: {
+              for (final attribute in attributes)
+                attribute.name: attribute.value ?? '',
+            },
+            createdDate: device.deviceCreateDate,
+            lastAuthenticatedDate: device.deviceLastAuthenticatedDate,
+            lastModifiedDate: device.deviceLastModifiedDate,
+          ),
+        );
+      }
+      paginationToken = resp.paginationToken;
+    } while (paginationToken != null);
+
+    return allDevices;
+  }
+
+  @override
   Future<SignOutResult> signOut({
     SignOutRequest? request,
   }) async {
@@ -664,6 +869,19 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     return const SignOutResult();
   }
 
+  @override
+  Future<void> deleteUser() async {
+    final tokens = await getUserPoolTokens();
+    await _cognitoIdp.deleteUser(
+      cognito.DeleteUserRequest(
+        accessToken: tokens.accessToken.raw,
+      ),
+    );
+    await _stateMachine.dispatch(
+      const CredentialStoreEvent.clearCredentials(),
+    );
+  }
+
   /// Checks for the presence of user pool tokens.
   ///
   /// Throws [SignedOutException] if tokens are not present.
@@ -680,15 +898,4 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     }
     return userPoolTokens;
   }
-
-  /* -- TODO(dnys1): Replace -- */
-
-  @override
-  StreamController<AuthHubEvent> get streamController =>
-      StreamController.broadcast();
-
-  @override
-  Future<void> close() async {}
-
-  /* ------------------- */
 }
