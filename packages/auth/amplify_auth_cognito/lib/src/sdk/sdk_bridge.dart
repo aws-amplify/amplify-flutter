@@ -54,3 +54,24 @@ extension CodeDeliveryDetailsBridge on CodeDeliveryDetailsType {
     );
   }
 }
+
+/// Bridging helpers for [AuthUserAttribute].
+extension AuthUserAttributeBridge on AuthUserAttribute {
+  /// This attribute as an [AttributeType].
+  AttributeType get asAttributeType => AttributeType(
+        name: userAttributeKey.key,
+        value: value,
+      );
+}
+
+/// Bridging helpers for [AttributeType].
+extension AttributeTypeBridge on AttributeType {
+  /// This attribute as an [AuthUserAttribute].
+  AuthUserAttribute get asAuthUserAttribute {
+    final key = CognitoUserAttributeKey.parse(name);
+    return AuthUserAttribute(
+      userAttributeKey: key,
+      value: value ?? '',
+    );
+  }
+}

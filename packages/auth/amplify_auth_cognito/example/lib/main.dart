@@ -18,9 +18,14 @@ import 'dart:typed_data';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_auth_cognito_example/screens/confirm_user_attribute.dart';
+import 'package:amplify_auth_cognito_example/screens/update_user_attribute.dart';
+import 'package:amplify_auth_cognito_example/screens/update_user_attributes.dart';
+import 'package:amplify_auth_cognito_example/screens/view_user_attributes.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'amplifyconfiguration.dart';
 
@@ -36,6 +41,37 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  static final _router = GoRouter(routes: [
+    GoRoute(
+      path: '/',
+      builder: (BuildContext _, GoRouterState __) => const HomeScreen(),
+    ),
+    GoRoute(
+      path: '/view-user-attributes',
+      builder: (BuildContext _, GoRouterState __) =>
+          const ViewUserAttributesScreen(),
+    ),
+    GoRoute(
+      path: '/update-user-attribute',
+      builder: (BuildContext _, GoRouterState state) =>
+          const UpdateUserAttributeScreen(),
+    ),
+    GoRoute(
+      path: '/update-user-attributes',
+      builder: (BuildContext _, GoRouterState state) =>
+          const UpdateUserAttributesScreen(),
+    ),
+    GoRoute(
+      path: '/confirm-user-attribute/:attribute',
+      builder: (BuildContext _, GoRouterState state) =>
+          ConfirmUserAttributeScreen(
+        userAttributeKey: CognitoUserAttributeKey.parse(
+          state.params['attribute']!,
+        ),
+      ),
+    ),
+  ]);
+
   @override
   void initState() {
     super.initState();
@@ -58,28 +94,28 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Authenticator(
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: 'Flutter Demo',
         builder: Authenticator.builder(),
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        routeInformationParser: _router.routeInformationParser,
+        routerDelegate: _router.routerDelegate,
+        debugShowCheckedModeBanner: false,
       ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   var _greeting = '';
   var _loading = false;
   late final _controller = TextEditingController();
@@ -134,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Amplify Auth Example'),
       ),
       body: Center(
         child: Column(
@@ -150,6 +186,21 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: _requestGreeting,
               child: const Text('Request Greeting'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () => context.push('/view-user-attributes'),
+              child: const Text('View User Attributes'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () => context.push('/update-user-attribute'),
+              child: const Text('Update User Attribute'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () => context.push('/update-user-attributes'),
+              child: const Text('Update User Attributes'),
             ),
             const SizedBox(height: 30),
             const SignOutButton(),

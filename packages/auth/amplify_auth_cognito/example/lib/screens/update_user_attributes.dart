@@ -15,6 +15,7 @@
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class _UserAttributeController {
   late TextEditingController keyController;
@@ -25,16 +26,16 @@ class _UserAttributeController {
   }
 }
 
-class UpdateUserAttributesWidget extends StatefulWidget {
-  const UpdateUserAttributesWidget({super.key});
+class UpdateUserAttributesScreen extends StatefulWidget {
+  const UpdateUserAttributesScreen({super.key});
 
   @override
-  State<UpdateUserAttributesWidget> createState() =>
-      _UpdateUserAttributesWidgetState();
+  State<UpdateUserAttributesScreen> createState() =>
+      _UpdateUserAttributesScreenState();
 }
 
-class _UpdateUserAttributesWidgetState
-    extends State<UpdateUserAttributesWidget> {
+class _UpdateUserAttributesScreenState
+    extends State<UpdateUserAttributesScreen> {
   final List<_UserAttributeController> _userAttributeControllers = [
     _UserAttributeController(keyValue: 'name'),
     _UserAttributeController(keyValue: 'preferred_username'),
@@ -44,48 +45,70 @@ class _UpdateUserAttributesWidgetState
 
   void _showSuccess(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(backgroundColor: Colors.green[800], content: Text(message)));
+      SnackBar(
+        backgroundColor: Colors.green[800],
+        content: Text(message),
+      ),
+    );
   }
 
   void _showInfo(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(backgroundColor: Colors.blue[800], content: Text(message)));
+      SnackBar(
+        backgroundColor: Colors.blue[800],
+        content: Text(message),
+      ),
+    );
   }
 
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(backgroundColor: Colors.red[900], content: Text(message)));
+      SnackBar(
+        backgroundColor: Colors.red[900],
+        content: Text(message),
+      ),
+    );
   }
 
-  void _updateAttributes() async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        var attributes = _userAttributeControllers
-            .map(
-              (controller) => AuthUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.parse(
-                    controller.keyController.text),
-                value: controller.valueController.text,
+  Future<void> _updateAttributes() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    try {
+      final attributes = _userAttributeControllers
+          .map(
+            (controller) => AuthUserAttribute(
+              userAttributeKey: CognitoUserAttributeKey.parse(
+                controller.keyController.text,
               ),
-            )
-            .toList();
-        var res =
-            await Amplify.Auth.updateUserAttributes(attributes: attributes);
-        var attributesWithConfirmation = res.entries
-            .where((element) =>
+              value: controller.valueController.text,
+            ),
+          )
+          .toList();
+      final res = await Amplify.Auth.updateUserAttributes(
+        attributes: attributes,
+      );
+      final attributesWithConfirmation = res.entries
+          .where(
+            (element) =>
                 element.value.nextStep.updateAttributeStep ==
-                'CONFIRM_ATTRIBUTE_WITH_CODE')
-            .map((element) => element.key)
-            .toList();
-        if (attributesWithConfirmation.isNotEmpty) {
-          _showInfo(
-              'Confirmation Code sent for attributes: $attributesWithConfirmation');
-        } else {
-          _showSuccess('Attributes Updated Successfully');
-        }
-      } on AmplifyException catch (e) {
-        _showError(e.message);
+                'CONFIRM_ATTRIBUTE_WITH_CODE',
+          )
+          .map((element) => element.key)
+          .toList();
+      if (attributesWithConfirmation.isNotEmpty) {
+        _showInfo(
+          'Confirmation Code sent for attributes: '
+          '$attributesWithConfirmation',
+        );
+      } else {
+        _showSuccess('Attributes Updated Successfully');
       }
+      if (mounted) {
+        context.go('/');
+      }
+    } on Exception catch (e) {
+      _showError(e.toString());
     }
   }
 
@@ -105,7 +128,7 @@ class _UpdateUserAttributesWidgetState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Update Attribute'),
+        title: const Text('Update Attributes'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
@@ -117,8 +140,11 @@ class _UpdateUserAttributesWidgetState
                 return Card(
                     child: Stack(children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 16, bottom: 24, right: 16),
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      bottom: 24,
+                      right: 16,
+                    ),
                     child: Column(children: [
                       TextFormField(
                         controller: element.keyController,
