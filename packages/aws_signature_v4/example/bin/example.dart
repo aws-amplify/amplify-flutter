@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: omit_local_variable_types
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
@@ -36,34 +38,47 @@ Future<void> main(List<String> args) async {
   const bucketArg = 'bucket';
   const regionArg = 'region';
 
-  argParser.addOption(accessKeyIdArg,
-      abbr: 'a', valueHelp: $awsAccessKeyId, mandatory: false);
-  argParser.addOption(secretAccessKeyArg,
-      abbr: 's', valueHelp: $awsSecretAccessKey, mandatory: false);
-  argParser.addOption(sessionTokenArg,
-      abbr: 't', valueHelp: $awsSessionToken, mandatory: false);
-  argParser.addOption(
-    bucketArg,
-    abbr: 'b',
-    help: 'The name of the bucket to create',
-    valueHelp: 'BUCKET',
-    mandatory: false,
-  );
-  argParser.addOption(
-    regionArg,
-    abbr: 'r',
-    help: 'The region of the bucket',
-    valueHelp: 'REGION',
-    mandatory: true,
-  );
+  argParser
+    ..addOption(
+      accessKeyIdArg,
+      abbr: 'a',
+      valueHelp: $awsAccessKeyId,
+      mandatory: false,
+    )
+    ..addOption(
+      secretAccessKeyArg,
+      abbr: 's',
+      valueHelp: $awsSecretAccessKey,
+      mandatory: false,
+    )
+    ..addOption(
+      sessionTokenArg,
+      abbr: 't',
+      valueHelp: $awsSessionToken,
+      mandatory: false,
+    )
+    ..addOption(
+      bucketArg,
+      abbr: 'b',
+      help: 'The name of the bucket to create',
+      valueHelp: 'BUCKET',
+      mandatory: false,
+    )
+    ..addOption(
+      regionArg,
+      abbr: 'r',
+      help: 'The region of the bucket',
+      valueHelp: 'REGION',
+      mandatory: true,
+    );
 
   final parsedArgs = argParser.parse(args);
-  final String? accessKeyId =
-      Platform.environment[$awsAccessKeyId] ?? parsedArgs[accessKeyIdArg];
+  final String? accessKeyId = Platform.environment[$awsAccessKeyId] ??
+      parsedArgs[accessKeyIdArg] as String?;
   final String? secretAccessKey = Platform.environment[$awsSecretAccessKey] ??
-      parsedArgs[secretAccessKeyArg];
-  final String? sessionToken =
-      Platform.environment[$awsSessionToken] ?? parsedArgs[sessionTokenArg];
+      parsedArgs[secretAccessKeyArg] as String?;
+  final String? sessionToken = Platform.environment[$awsSessionToken] ??
+      parsedArgs[sessionTokenArg] as String?;
 
   if (accessKeyId == null || secretAccessKey == null) {
     exitWithError('No AWS credentials found');
@@ -95,11 +110,13 @@ Future<void> main(List<String> args) async {
   final ServiceConfiguration serviceConfiguration = S3ServiceConfiguration();
 
   // Create the bucket
-  final List<int> createBody = utf8.encode('''
+  final List<int> createBody = utf8.encode(
+    '''
 <CreateBucketConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
 <LocationConstraint>$region</LocationConstraint>
 </CreateBucketConfiguration>
-''');
+''',
+  );
   final AWSHttpRequest createRequest = AWSHttpRequest.put(
     Uri.https(host, '/'),
     body: createBody,
