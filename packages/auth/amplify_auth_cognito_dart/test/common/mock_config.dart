@@ -36,13 +36,15 @@ const userPoolOnlyConfig = AmplifyConfig(
   auth: AuthConfig(
     plugins: {
       CognitoPluginConfig.pluginKey: CognitoPluginConfig(
-        cognitoUserPool: AWSConfigMap({
-          'Default': CognitoUserPoolConfig(
-            poolId: testUserPoolId,
-            appClientId: testAppClientId,
-            region: testRegion,
-          ),
-        }),
+        cognitoUserPool: AWSConfigMap(
+          {
+            'Default': CognitoUserPoolConfig(
+              poolId: testUserPoolId,
+              appClientId: testAppClientId,
+              region: testRegion,
+            ),
+          },
+        ),
       ),
     },
   ),
@@ -78,13 +80,24 @@ const mockConfig = AmplifyConfig(
 
 final accessToken = JsonWebToken(
   header: const JsonWebHeader(algorithm: Algorithm.hmacSha256),
-  claims: JsonWebClaims(subject: userSub, expiration: expiration),
+  claims: JsonWebClaims(
+    subject: userSub,
+    expiration: expiration,
+    customClaims: const {
+      'cognito:username': userSub,
+    },
+  ),
   signature: const [],
 );
 const refreshToken = 'refreshToken';
 const idToken = JsonWebToken(
   header: JsonWebHeader(algorithm: Algorithm.hmacSha256),
-  claims: JsonWebClaims(subject: userSub),
+  claims: JsonWebClaims(
+    subject: userSub,
+    customClaims: {
+      'cognito:username': username,
+    },
+  ),
   signature: [],
 );
 const username = 'username';

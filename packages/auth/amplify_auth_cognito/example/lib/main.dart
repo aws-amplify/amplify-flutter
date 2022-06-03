@@ -86,6 +86,10 @@ class _MyAppState extends State<MyApp> {
       await Amplify.addPlugin(AmplifyAuthCognito());
       await Amplify.configure(amplifyconfig);
       safePrint('Successfully configured Amplify');
+
+      Amplify.Hub.listen(HubChannel.Auth, (event) {
+        safePrint('Auth Event: $event');
+      });
     } on Exception catch (e) {
       safePrint('Configuring Amplify failed: $e');
     }

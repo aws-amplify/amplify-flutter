@@ -58,7 +58,7 @@ abstract class HostedUiState extends StateMachineState<HostedUiStateType> {
   const factory HostedUiState.signedOut() = HostedUiSignedOut;
 
   /// {@macro amplify_auth_cognito.hosted_ui_signed_in}
-  const factory HostedUiState.signedIn() = HostedUiSignedIn;
+  const factory HostedUiState.signedIn(AuthUser user) = HostedUiSignedIn;
 
   /// {@macro amplify_auth_cognito.hosted_ui_failure}
   const factory HostedUiState.failure(Exception exception) = HostedUiFailure;
@@ -142,10 +142,13 @@ class HostedUiSignedOut extends HostedUiState {
 /// {@endtemplate}
 class HostedUiSignedIn extends HostedUiState {
   /// {@macro amplify_auth_cognito.hosted_ui_signed_in}
-  const HostedUiSignedIn() : super._();
+  const HostedUiSignedIn(this.user) : super._();
+
+  /// The signed-in user.
+  final AuthUser user;
 
   @override
-  List<Object?> get props => [type];
+  List<Object?> get props => [type, user];
 
   @override
   HostedUiStateType get type => HostedUiStateType.signedIn;

@@ -20,8 +20,11 @@ import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_stub.dart'
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_html.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
+import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
+    as cognito_identity show NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito
     show
@@ -40,8 +43,10 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         GlobalSignOutRequest,
         PasswordResetRequiredException,
         ListDevicesRequest,
+        NotAuthorizedException,
         ResendConfirmationCodeRequest,
         RevokeTokenRequest,
+        UnauthorizedException,
         UpdateDeviceStatusRequest,
         UpdateUserAttributesRequest,
         UserNotConfirmedException,
@@ -113,12 +118,12 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   CognitoIdentityCredentialsProvider? get _identityPoolConfig =>
       _stateMachine.get();
 
-  final StreamController<AuthHubEvent> _hubController =
+  final StreamController<AuthHubEvent> _hubEventController =
       StreamController.broadcast();
 
   @override
   Future<void> close() async {
-    await _hubController.close();
+    await _hubEventController.close();
   }
 
   Future<void> _init() async {
@@ -138,6 +143,29 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     if (_initialParameters != null) {
       _stateMachine.addInstance<OAuthParameters>(_initialParameters!);
     }
+    _stateMachine.stream.listen(
+      (state) {
+        AuthHubEvent? hubEvent;
+        if (state is HostedUiSignedIn) {
+          hubEvent = AuthHubEvent.signedIn(state.user);
+        }
+        if (state is SignInSuccess) {
+          hubEvent = AuthHubEvent.signedIn(state.user.authUser);
+        }
+        if (state is FetchAuthSessionFailure &&
+            (state.exception is cognito.UnauthorizedException ||
+                state.exception is cognito.NotAuthorizedException ||
+                state.exception is cognito_identity.NotAuthorizedException)) {
+          hubEvent = AuthHubEvent.sessionExpired();
+        }
+
+        if (hubEvent != null) {
+          _hubEventController.add(hubEvent);
+        }
+      },
+      onDone: _hubEventController.close,
+    );
+    Amplify.Hub.addChannel(HubChannel.Auth, _hubEventController.stream);
   }
 
   @override
@@ -817,6 +845,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     try {
       tokens = await getUserPoolTokens();
     } on SignedOutException {
+      _hubEventController.add(AuthHubEvent.signedOut());
       return const SignOutResult();
     }
 
@@ -865,6 +894,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
       await _stateMachine.dispatch(
         const CredentialStoreEvent.clearCredentials(),
       );
+      _hubEventController.add(AuthHubEvent.signedOut());
     }
     return const SignOutResult();
   }
@@ -880,6 +910,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     await _stateMachine.dispatch(
       const CredentialStoreEvent.clearCredentials(),
     );
+    _hubEventController
+      ..add(AuthHubEvent.signedOut())
+      ..add(AuthHubEvent.userDeleted());
   }
 
   /// Checks for the presence of user pool tokens.

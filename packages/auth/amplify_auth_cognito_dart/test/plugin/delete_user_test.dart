@@ -55,6 +55,15 @@ void main() {
   late CognitoAuthStateMachine stateMachine;
   late SecureStorageInterface secureStorage;
 
+  late StreamController<AuthHubEvent> hubEventsController;
+  late Stream<AuthHubEvent> hubEvents;
+
+  final userDeletedEvent = isA<AuthHubEvent>().having(
+    (event) => event.type,
+    'type',
+    AuthHubEventType.userDeleted,
+  );
+
   group('AmplifyAuthCognitoDart', () {
     setUp(() async {
       secureStorage = MockSecureStorage();
@@ -62,6 +71,10 @@ void main() {
 
       plugin = AmplifyAuthCognitoDart(credentialStorage: secureStorage)
         ..stateMachine = stateMachine;
+
+      hubEventsController = StreamController();
+      hubEvents = hubEventsController.stream;
+      Amplify.Hub.listen(HubChannel.Auth, hubEventsController.add);
     });
 
     tearDown(() {
@@ -72,6 +85,9 @@ void main() {
       test('throws when signed out', () async {
         await plugin.configure(config: mockConfig);
         await expectLater(plugin.deleteUser(), throwsSignedOutException);
+
+        expect(hubEvents, neverEmits(userDeletedEvent));
+        unawaited(hubEventsController.close());
       });
 
       test('clears credential store when signed in & HTTP succeeds', () async {
@@ -88,6 +104,7 @@ void main() {
         await expectLater(plugin.getUserPoolTokens(), completes);
         await expectLater(plugin.deleteUser(), completes);
         expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+        expect(hubEvents, emitsThrough(userDeletedEvent));
       });
 
       test('does not clear credentials when signed in & HTTP fails', () async {
@@ -106,6 +123,8 @@ void main() {
         await expectLater(plugin.getUserPoolTokens(), completes);
         await expectLater(plugin.deleteUser(), throwsA(isA<Exception>()));
         expect(plugin.getUserPoolTokens(), completes);
+        expect(hubEvents, neverEmits(userDeletedEvent));
+        unawaited(hubEventsController.close());
       });
     });
   });
