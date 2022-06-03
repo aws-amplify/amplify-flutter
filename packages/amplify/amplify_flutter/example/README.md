@@ -1,6 +1,6 @@
 # amplify_flutter_example
 
-A new Flutter project.
+An example application for the top-level amplify-flutter package.
 
 ## Getting Started
 
