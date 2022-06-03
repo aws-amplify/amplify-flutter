@@ -162,13 +162,22 @@ Future<void> main(List<String> args) async {
       AWSHeaders.host: host,
     },
   );
-  final Uri signedUrl = await signer.presign(
+
+  final Uri signedUrl1Sec = await signer.presign(
     urlRequest,
     credentialScope: scope,
     serviceConfiguration: serviceConfiguration,
-    expiresIn: const Duration(minutes: 10),
+    expiresIn: const Duration(seconds: 1),
   );
-  stdout.writeln('Download URL: $signedUrl');
+  stdout.writeln('Download URL for 1 second: $signedUrl1Sec');
+
+  final Uri signedUrl7Days = await signer.presign(
+    urlRequest,
+    credentialScope: scope,
+    serviceConfiguration: serviceConfiguration,
+    expiresIn: const Duration(days: 7),
+  );
+  stdout.writeln('Download URL for 7 days: $signedUrl7Days');
 }
 
 /// Exits the script with an [error].
