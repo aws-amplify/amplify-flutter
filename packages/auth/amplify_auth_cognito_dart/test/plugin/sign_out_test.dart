@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide InternalErrorException;
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/machines/credential_store_state_machine.dart';
+import 'package:amplify_core/amplify_core.dart' hide InternalErrorException;
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:mockito/mockito.dart';
 import 'package:smithy/smithy.dart';
@@ -63,6 +66,17 @@ void main() {
   late CognitoAuthStateMachine stateMachine;
   late SecureStorageInterface secureStorage;
 
+  late StreamController<AuthHubEvent> hubEventsController;
+  late Stream<AuthHubEvent> hubEvents;
+
+  final emitsSignOutEvent = emitsThrough(
+    isA<AuthHubEvent>().having(
+      (event) => event.type,
+      'type',
+      AuthHubEventType.signedOut,
+    ),
+  );
+
   group('AmplifyAuthCognitoDart', () {
     setUp(() async {
       secureStorage = MockSecureStorage();
@@ -81,18 +95,29 @@ void main() {
 
       plugin = AmplifyAuthCognitoDart(credentialStorage: secureStorage)
         ..stateMachine = stateMachine;
+
+      hubEventsController = StreamController();
+      hubEvents = hubEventsController.stream;
+      Amplify.Hub.listen(HubChannel.Auth, hubEventsController.add);
+    });
+
+    tearDown(() {
+      hubEventsController.close();
+      Amplify.Hub.close();
     });
 
     group('signOut', () {
       test('completes when already signed out', () async {
         await plugin.configure(config: mockConfig);
         expect(plugin.signOut(), completes);
+        expect(hubEvents, emitsSignOutEvent);
       });
 
       test('does not clear AWS creds when already signed out', () async {
         seedStorage(secureStorage, identityPoolKeys: identityPoolKeys);
         await plugin.configure(config: mockConfig);
         await expectLater(plugin.signOut(), completes);
+        expect(hubEvents, emitsSignOutEvent);
 
         final credentials = await stateMachine
             .getOrCreate(CredentialStoreStateMachine.type)
@@ -122,6 +147,7 @@ void main() {
         await expectLater(plugin.getUserPoolTokens(), completes);
         await expectLater(plugin.signOut(), completes);
         expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+        expect(hubEvents, emitsSignOutEvent);
       });
 
       test('clears credential store when signed in & global sign out fails',
@@ -150,6 +176,7 @@ void main() {
           throwsA(isA<Exception>()),
         );
         expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+        expect(hubEvents, emitsSignOutEvent);
       });
 
       test('clears credential store when signed in & revoke token fails',
@@ -177,6 +204,7 @@ void main() {
           throwsA(isA<Exception>()),
         );
         expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+        expect(hubEvents, emitsSignOutEvent);
       });
 
       test('can sign out in user pool-only mode', () async {
@@ -204,6 +232,7 @@ void main() {
           await expectLater(plugin.getUserPoolTokens(), completes);
           await expectLater(plugin.signOut(), completes);
           expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+          expect(hubEvents, emitsSignOutEvent);
         });
 
         test('clears credential store when signed in & global sign out fails',
@@ -232,6 +261,7 @@ void main() {
             throwsA(isA<Exception>()),
           );
           expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+          expect(hubEvents, emitsSignOutEvent);
         });
 
         test('clears credential store when signed in & revoke token fails',
@@ -259,6 +289,7 @@ void main() {
             throwsA(isA<Exception>()),
           );
           expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+          expect(hubEvents, emitsSignOutEvent);
         });
 
         test('fails with platform exception', () async {
@@ -285,6 +316,7 @@ void main() {
             throwsA(isA<_HostedUiException>()),
           );
           expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+          expect(hubEvents, emitsSignOutEvent);
         });
       });
     });
