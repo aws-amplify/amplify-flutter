@@ -13,18 +13,22 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:io';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart' as common;
 
 class UploadFileRequest {
-  late String uuid;
-  File local;
-  String key;
-  UploadFileOptions? options;
+  final String uuid;
+  // TODO(HuiSF): AWSFile
+  final dynamic /* File */ local;
+  final String key;
+  final UploadFileOptions? options;
 
-  UploadFileRequest({required this.local, required this.key, this.options}) {
-    uuid = UUID.getUUID();
-  }
+  UploadFileRequest({
+    required this.local,
+    required this.key,
+    this.options,
+    String? uuid,
+  }) : uuid = uuid ?? common.uuid();
 
   Map<String, Object?> serializeAsMap() => {
         if (options != null) 'options': options!.serializeAsMap(),

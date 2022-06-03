@@ -17,7 +17,7 @@ package com.amazonaws.amplify.amplify_api
 
 import android.os.Handler
 import android.os.Looper
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
+import com.amazonaws.amplify.exception.ExceptionUtil
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.GsonVariablesSerializer
 import com.amplifyframework.api.graphql.GraphQLOperation

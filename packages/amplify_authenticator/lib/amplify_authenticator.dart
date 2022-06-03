@@ -462,7 +462,7 @@ class _AuthenticatorState extends State<Authenticator> {
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
   late final StreamSubscription<MessageResolverKey> _infoSub;
   late final StreamSubscription<AuthState> _successSub;
-  StreamSubscription? _hubSubscription;
+  StreamSubscription<AuthHubEvent>? _hubSubscription;
 
   AmplifyConfig? _config;
   late List<String> _missingConfigValues;
@@ -572,12 +572,15 @@ class _AuthenticatorState extends State<Authenticator> {
   Future<void> _setUpHubSubscription() async {
     // the stream does not exist until configuration is complete
     await Amplify.asyncConfig;
-    _hubSubscription = Amplify.Hub.listen([HubChannel.Auth], (event) {
-      switch (event.eventName) {
-        case 'SIGNED_OUT':
+    _hubSubscription =
+        Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) {
+      switch (event.type) {
+        case AuthHubEventType.signedOut:
           _stateMachineBloc.add(
             const AuthChangeScreen(AuthenticatorStep.signIn),
           );
+          break;
+        default:
           break;
       }
     });

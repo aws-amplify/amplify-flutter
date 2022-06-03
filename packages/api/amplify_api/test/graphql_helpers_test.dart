@@ -18,6 +18,7 @@ import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/utils.dart';
 import 'package:amplify_api/src/method_channel_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';

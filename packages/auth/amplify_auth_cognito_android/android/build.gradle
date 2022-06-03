@@ -30,7 +30,8 @@ apply plugin: 'kotlin-android'
 apply from: './coverage.gradle'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
-def amplifyCore = findProject(':amplify_core')
+// Logic for finding sibling plugins, from `flutter_tools/gradle/flutter.gradle`
+def amplifyFlutter = project.rootProject.findProject(':amplify_flutter_android')
 
 android {
     compileSdkVersion 31
@@ -71,7 +72,7 @@ android {
 }
 
 dependencies {
-    api amplifyCore
+    api amplifyFlutter
 
     implementation 'com.amplifyframework:aws-auth-cognito:1.36.0-dev-preview.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'

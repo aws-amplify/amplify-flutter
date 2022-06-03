@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
 
 class GetUrlOptions extends StorageOptions {
   StorageAccessLevel accessLevel;
@@ -26,6 +25,6 @@ class GetUrlOptions extends StorageOptions {
   @override
   Map<String, Object?> serializeAsMap() => {
         if (expires != null) 'expires': expires,
-        'accessLevel': describeEnum(accessLevel),
+        'accessLevel': accessLevel.name,
       };
 }

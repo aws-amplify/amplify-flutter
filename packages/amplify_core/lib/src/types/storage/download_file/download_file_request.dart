@@ -13,14 +13,13 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:io';
-
 import 'package:amplify_core/amplify_core.dart';
 
 class DownloadFileRequest {
   late String uuid;
   String key;
-  File local;
+  // TODO(HuiSF): AWSFile
+  dynamic /* File */ local;
   DownloadFileOptions? options;
 
   DownloadFileRequest({required this.key, required this.local, this.options}) {

@@ -18,7 +18,7 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 
 enum AuthStrategy { OWNER, GROUPS, PRIVATE, PUBLIC }
 
@@ -71,14 +71,14 @@ class AuthRule {
 
   Map<String, dynamic> toMap() {
     final map = {
-      'authStrategy': describeEnum(authStrategy),
+      'authStrategy': authStrategy.name,
       'ownerField': ownerField,
       'identityClaim': identityClaim,
       'groupClaim': groupClaim,
       'groups': groups,
       'groupsField': groupsField,
-      'provider': provider != null ? describeEnum(provider!) : null,
-      'operations': operations?.map(describeEnum).toList(),
+      'provider': provider != null ? provider!.name : null,
+      'operations': operations?.map((op) => op.name).toList(),
     };
     return Map<String, dynamic>.from(map)
       ..removeWhere((k, dynamic v) => v == null);

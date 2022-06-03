@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 
 @immutable
 class ModelFieldType {
@@ -28,7 +28,7 @@ class ModelFieldType {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'fieldType': describeEnum(fieldType),
+      'fieldType': fieldType.name,
       if (ofModelName != null) 'ofModelName': ofModelName,
       if (ofCustomTypeName != null) 'ofCustomTypeName': ofCustomTypeName,
     };

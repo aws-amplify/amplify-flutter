@@ -133,7 +133,7 @@ class QueryPredicateGroup extends QueryPredicate {
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{
       'queryPredicateGroup': <String, dynamic>{
-        'type': describeEnum(type),
+        'type': type.name,
         'predicates':
             predicates.map((predicate) => predicate.serializeAsMap()).toList()
       },
@@ -154,7 +154,7 @@ class _QueryPredicateConstant extends QueryPredicate {
   @override
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{
-      'queryPredicateConstant': <String, dynamic>{'type': describeEnum(_type)},
+      'queryPredicateConstant': <String, dynamic>{'type': _type.name},
     };
   }
 }

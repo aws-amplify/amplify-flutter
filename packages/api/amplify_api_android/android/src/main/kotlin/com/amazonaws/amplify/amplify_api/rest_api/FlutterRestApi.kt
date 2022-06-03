@@ -21,7 +21,7 @@ import android.os.Handler
 import android.os.Looper
 import com.amazonaws.amplify.amplify_api.FlutterApiRequest
 import com.amazonaws.amplify.amplify_api.OperationsManager
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
+import com.amazonaws.amplify.exception.ExceptionUtil
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.rest.RestOperation
 import com.amplifyframework.api.rest.RestOptions

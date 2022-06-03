@@ -16,7 +16,7 @@
 import Foundation
 import Amplify
 import AmplifyPlugins
-import amplify_core
+import amplify_flutter_ios
 
 class FlutterDataStoreErrorHandler {
     

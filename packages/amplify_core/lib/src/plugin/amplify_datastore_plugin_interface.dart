@@ -65,7 +65,7 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   @protected
   DataStorePluginInterface.emptyConstructor() : this(modelProvider: null);
 
-  StreamController<HubEvent> get streamController {
+  StreamController<DataStoreHubEvent> get streamController {
     throw UnimplementedError(
         'streamController getter has not been implemented.');
   }
