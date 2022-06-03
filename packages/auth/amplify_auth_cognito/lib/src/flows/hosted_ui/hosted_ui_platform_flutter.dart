@@ -14,12 +14,12 @@
 
 import 'dart:async';
 import 'dart:io';
-
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
+// ignore: implementation_imports
+import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_io.dart'
+    as io;
 import 'package:amplify_core/amplify_core.dart';
-
-import 'hosted_ui_platform_io.dart' as io;
 
 /// {@template amplify_auth_cognito.hosted_ui_platform_flutter}
 /// The hybrid Flutter implementation of [HostedUiPlatform] which uses
