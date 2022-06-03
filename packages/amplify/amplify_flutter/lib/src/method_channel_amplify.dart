@@ -36,10 +36,6 @@ class MethodChannelAmplify extends AmplifyClass {
     try {
       if (plugin is AuthPluginInterface) {
         await Auth.addPlugin(plugin);
-        Hub.addChannel(
-          HubChannel.Auth,
-          plugin.streamController.stream,
-        );
       } else if (plugin is AnalyticsPluginInterface) {
         await Analytics.addPlugin(plugin);
       } else if (plugin is StoragePluginInterface) {

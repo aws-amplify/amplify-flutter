@@ -18,6 +18,7 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/credentials.dart';
 import 'package:amplify_auth_cognito_dart/src/http/credentialed_client.dart';
+import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/hosted_ui_state_machine_base.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -47,8 +48,9 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
   Future<void> onConfigure(HostedUiConfigure event) async {
     final credentials = await getOrCreate(CredentialStoreStateMachine.type)
         .getCredentialsResult();
-    if (credentials.userPoolTokens != null) {
-      emit(const HostedUiState.signedIn());
+    final userPoolTokens = credentials.userPoolTokens;
+    if (userPoolTokens != null) {
+      emit(HostedUiState.signedIn(userPoolTokens.authUser));
       return;
     }
 

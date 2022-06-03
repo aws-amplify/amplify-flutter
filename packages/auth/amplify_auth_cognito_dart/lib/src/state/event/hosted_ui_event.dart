@@ -238,7 +238,7 @@ class HostedUiSucceeded extends HostedUiEvent {
   final CognitoUserPoolTokens tokens;
 
   @override
-  List<Object?> get props => [type];
+  List<Object?> get props => [type, tokens];
 
   @override
   HostedUiEventType get type => HostedUiEventType.succeeded;

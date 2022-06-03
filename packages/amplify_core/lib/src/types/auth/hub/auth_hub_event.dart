@@ -41,7 +41,8 @@ enum AuthHubEventType {
 /// The base class for hub events of the Auth category.
 ///
 /// One of [AuthHubEventType.values].
-class AuthHubEvent extends HubEvent<AuthUser> with AWSEquatable<AuthHubEvent> {
+class AuthHubEvent extends HubEvent<AuthUser>
+    with AWSEquatable<AuthHubEvent>, AWSDebuggable {
   AuthHubEvent._(
     this.type, {
     AuthUser? payload,
@@ -77,4 +78,7 @@ class AuthHubEvent extends HubEvent<AuthUser> with AWSEquatable<AuthHubEvent> {
 
   @override
   List<Object?> get props => [type, payload];
+
+  @override
+  String get runtimeTypeName => 'AuthHubEvent';
 }

@@ -16,66 +16,66 @@ import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_auth_cognito.sign_in_state_type}
+/// {@template amplify_auth_cognito_dart.sign_in_state_type}
 /// Discrete state types of an auth flow state machine.
 /// {@endtemplate}
 enum SignInStateType {
-  /// {@macro amplify_auth_cognito.sign_in_not_started}
+  /// {@macro amplify_auth_cognito_dart.sign_in_not_started}
   notStarted,
 
-  /// {@macro amplify_auth_cognito.sign_in_initiating}
+  /// {@macro amplify_auth_cognito_dart.sign_in_initiating}
   initiating,
 
-  /// {@macro amplify_auth_cognito.sign_in_challenge}
+  /// {@macro amplify_auth_cognito_dart.sign_in_challenge}
   challenge,
 
-  /// {@macro amplify_auth_cognito.sign_in_success}
+  /// {@macro amplify_auth_cognito_dart.sign_in_success}
   success,
 
-  /// {@macro amplify_auth_cognito.sign_in_cancelling}
+  /// {@macro amplify_auth_cognito_dart.sign_in_cancelling}
   cancelling,
 
-  /// {@macro amplify_auth_cognito.sign_in_failure}
+  /// {@macro amplify_auth_cognito_dart.sign_in_failure}
   failure,
 }
 
-/// {@template amplify_auth_cognito.sign_in_state}
+/// {@template amplify_auth_cognito_dart.sign_in_state}
 /// Discrete states of an auth flow state machine.
 /// {@endtemplate}
 abstract class SignInState extends StateMachineState<SignInStateType> {
-  /// {@macro amplify_auth_cognito.sign_in_state}
+  /// {@macro amplify_auth_cognito_dart.sign_in_state}
   const SignInState();
 
-  /// {@macro amplify_auth_cognito.sign_in_not_started}
+  /// {@macro amplify_auth_cognito_dart.sign_in_not_started}
   const factory SignInState.notStarted() = SignInNotStarted;
 
-  /// {@macro amplify_auth_cognito.sign_in_initiating}
+  /// {@macro amplify_auth_cognito_dart.sign_in_initiating}
   const factory SignInState.initiating() = SignInInitiating;
 
-  /// {@macro amplify_auth_cognito.sign_in_challenge}
+  /// {@macro amplify_auth_cognito_dart.sign_in_challenge}
   const factory SignInState.challenge(
     ChallengeNameType challengeName,
     Map<String, String> challengeParameters,
   ) = SignInChallenge;
 
-  /// {@macro amplify_auth_cognito.sign_in_success}
+  /// {@macro amplify_auth_cognito_dart.sign_in_success}
   const factory SignInState.success(CognitoUser user) = SignInSuccess;
 
-  /// {@macro amplify_auth_cognito.sign_in_cancelling}
+  /// {@macro amplify_auth_cognito_dart.sign_in_cancelling}
   const factory SignInState.cancelling() = SignInCancelling;
 
-  /// {@macro amplify_auth_cognito.sign_in_failure}
+  /// {@macro amplify_auth_cognito_dart.sign_in_failure}
   const factory SignInState.failure(Exception exception) = SignInFailure;
 
   @override
   String get runtimeTypeName => 'SignInState';
 }
 
-/// {@template amplify_auth_cognito.sign_in_not_started}
+/// {@template amplify_auth_cognito_dart.sign_in_not_started}
 /// Initial state.
 /// {@endtemplate}
 class SignInNotStarted extends SignInState {
-  /// {@macro amplify_auth_cognito.sign_in_not_started}
+  /// {@macro amplify_auth_cognito_dart.sign_in_not_started}
   const SignInNotStarted();
 
   @override
@@ -85,11 +85,11 @@ class SignInNotStarted extends SignInState {
   List<Object?> get props => [type];
 }
 
-/// {@template amplify_auth_cognito.sign_in_initiating}
+/// {@template amplify_auth_cognito_dart.sign_in_initiating}
 /// Sign in is initiating.
 /// {@endtemplate}
 class SignInInitiating extends SignInState {
-  /// {@macro amplify_auth_cognito.sign_in_initiating}
+  /// {@macro amplify_auth_cognito_dart.sign_in_initiating}
   const SignInInitiating();
 
   @override
@@ -99,11 +99,11 @@ class SignInInitiating extends SignInState {
   List<Object?> get props => [type];
 }
 
-/// {@template amplify_auth_cognito.sign_in_challenge}
+/// {@template amplify_auth_cognito_dart.sign_in_challenge}
 /// Sign in is paused and requires user input to continue.
 /// {@endtemplate}
 class SignInChallenge extends SignInState {
-  /// {@macro amplify_auth_cognito.sign_in_challenge}
+  /// {@macro amplify_auth_cognito_dart.sign_in_challenge}
   const SignInChallenge(this.challengeName, this.challengeParameters);
 
   /// The name of the challenge requiring user input.
@@ -119,11 +119,11 @@ class SignInChallenge extends SignInState {
   List<Object?> get props => [type, challengeName, challengeParameters];
 }
 
-/// {@template amplify_auth_cognito.sign_in_success}
+/// {@template amplify_auth_cognito_dart.sign_in_success}
 /// Sign in successfully completed.
 /// {@endtemplate}
 class SignInSuccess extends SignInState {
-  /// {@macro amplify_auth_cognito.sign_in_success}
+  /// {@macro amplify_auth_cognito_dart.sign_in_success}
   const SignInSuccess(this.user);
 
   /// The signed in user.
@@ -136,11 +136,11 @@ class SignInSuccess extends SignInState {
   List<Object?> get props => [type, user];
 }
 
-/// {@template amplify_auth_cognito.sign_in_cancelling}
+/// {@template amplify_auth_cognito_dart.sign_in_cancelling}
 /// Sign in is being cancelled by the user.
 /// {@endtemplate}
 class SignInCancelling extends SignInState {
-  /// {@macro amplify_auth_cognito.sign_in_cancelling}
+  /// {@macro amplify_auth_cognito_dart.sign_in_cancelling}
   const SignInCancelling();
 
   @override
@@ -150,11 +150,11 @@ class SignInCancelling extends SignInState {
   List<Object?> get props => [type];
 }
 
-/// {@template amplify_auth_cognito.sign_in_failure}
+/// {@template amplify_auth_cognito_dart.sign_in_failure}
 /// Sign in failed with an [exception].
 /// {@endtemplate}
 class SignInFailure extends SignInState with ErrorState {
-  /// {@macro amplify_auth_cognito.sign_in_failure}
+  /// {@macro amplify_auth_cognito_dart.sign_in_failure}
   const SignInFailure(this.exception);
 
   /// The exception thrown during sign up.
