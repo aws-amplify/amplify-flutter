@@ -72,8 +72,8 @@ for PKG in ${PKGS}; do
         dart analyze --fatal-infos . || EXIT_CODE=$?
         ;;
       analyze_1)
-        echo 'flutter analyze --fatal-infos lib test'
-        flutter analyze --fatal-infos lib test || EXIT_CODE=$?
+        echo 'flutter analyze --fatal-infos lib'
+        flutter analyze --fatal-infos lib || EXIT_CODE=$?
         ;;
       analyze_2)
         echo 'dart analyze --fatal-infos lib test'
@@ -84,12 +84,12 @@ for PKG in ${PKGS}; do
         dart --version || EXIT_CODE=$?
         ;;
       command_1)
-        echo 'flutter doctor -v'
-        flutter doctor -v || EXIT_CODE=$?
-        ;;
-      command_2)
         echo 'git submodule update --init'
         git submodule update --init || EXIT_CODE=$?
+        ;;
+      command_2)
+        echo 'flutter doctor -v'
+        flutter doctor -v || EXIT_CODE=$?
         ;;
       command_3)
         echo 'xcrun simctl boot "iPhone 13"'
@@ -120,10 +120,6 @@ for PKG in ${PKGS}; do
         dart test -p chrome || EXIT_CODE=$?
         ;;
       test_2)
-        echo 'flutter test --exclude-tags=build'
-        flutter test --exclude-tags=build || EXIT_CODE=$?
-        ;;
-      test_3)
         echo 'flutter test -d iPhone integration_test/e2e_test.dart'
         flutter test -d iPhone integration_test/e2e_test.dart || EXIT_CODE=$?
         ;;

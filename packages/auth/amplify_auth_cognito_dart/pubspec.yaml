@@ -1,0 +1,47 @@
+name: amplify_auth_cognito_dart
+description: Amplify Auth Cognito for Dart
+version: 0.1.0
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  amplify_core: ^0.5.0
+  amplify_secure_storage_dart: ^0.1.0
+  async: ^2.8.2
+  aws_common: ^0.1.0
+  aws_signature_v4: ^0.1.0
+  browser_launcher: ^1.0.0
+  built_collection: ^5.0.0
+  built_value: '>=8.2.0 <8.3.0'
+  collection: ^1.15.0
+  convert: ^3.0.1
+  crypto: ^3.0.1
+  fixnum: ^1.0.0
+  http: ^0.13.4
+  intl: ^0.17.0
+  js: ^0.6.4
+  json_annotation: ^4.4.0
+  meta: ^1.7.0
+  oauth2: ^2.0.0
+  path: ^1.8.0
+  smithy:
+    hosted: https://pub.dillonnys.com
+    version: ^0.5.0
+  smithy_aws:
+    hosted: https://pub.dillonnys.com
+    version: ^0.5.0
+  stream_transform: ^2.0.0
+  uuid: ^3.0.0
+
+dev_dependencies:
+  amplify_lints:
+    path: ../../amplify_lints
+  build: ^2.2.0
+  build_runner: ^2.0.0
+  build_verify: ^3.0.0
+  build_web_compilers: ^3.2.2
+  built_value_generator: '>=8.3.0 <8.4.0'
+  json_serializable: ^6.1.0
+  mockito: ^5.0.0
+  test: ^1.16.0
