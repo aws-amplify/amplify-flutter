@@ -23,7 +23,11 @@ import 'package:amplify_auth_cognito/src/model/sign_up_parameters.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
 import 'package:amplify_auth_cognito/src/sdk/cognito_identity_provider.dart'
     as cognito
-    show CognitoIdentityProviderClient, ResendConfirmationCodeRequest;
+    show
+        CognitoIdentityProviderClient,
+        GlobalSignOutRequest,
+        ResendConfirmationCodeRequest,
+        RevokeTokenRequest;
 import 'package:amplify_auth_cognito/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -80,6 +84,10 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
 
   /// The Cognito user pool configuration.
   CognitoUserPoolConfig get _userPoolConfig => _stateMachine.expect();
+
+  /// The Cognito identity pool configuration.
+  CognitoIdentityCredentialsProvider? get _identityPoolConfig =>
+      _stateMachine.get();
 
   Future<void> _init() async {
     final credentialStorage = _credentialStorage ??
@@ -355,6 +363,88 @@ class AmplifyAuthCognito extends AuthPluginInterface implements Closeable {
       throw const CodeDeliveryFailureException('Could not deliver code');
     }
     return CognitoResendSignUpCodeResult(codeDeliveryDetails);
+  }
+
+  @override
+  Future<SignOutResult> signOut({
+    SignOutRequest? request,
+  }) async {
+    final options = request?.options ?? const SignOutOptions();
+
+    // Try to retrieve tokens and return successfully if already logged out.
+    // Do not clear other storage items (e.g. AWS credentials) in this case,
+    // since an unauthenticated user may still be cached.
+    final CognitoUserPoolTokens tokens;
+    try {
+      tokens = await getUserPoolTokens();
+    } on SignedOutException {
+      return const SignOutResult();
+    }
+
+    try {
+      // Sign out via Hosted UI, if configured.
+      if (tokens.signInMethod == CognitoSignInMethod.hostedUi) {
+        _stateMachine.dispatch(const HostedUiEvent.signOut());
+        final hostedUiResult = await _stateMachine.stream
+            .where(
+              (state) => state is HostedUiSignedOut || state is HostedUiFailure,
+            )
+            .first;
+        if (hostedUiResult is HostedUiFailure) {
+          throw hostedUiResult.exception;
+        }
+      }
+
+      // Do not try to send Cognito requests for plugin configs without an
+      // Identity Pool, since the requests will fail.
+      if (_identityPoolConfig != null) {
+        // Try to refresh AWS credentials since Cognito requests will require
+        // them.
+        await fetchAuthSession(
+          request: AuthSessionRequest(
+            options: const CognitoSessionOptions(getAWSCredentials: true),
+          ),
+        );
+        if (options.globalSignOut) {
+          // Revokes the refresh token
+          await _cognitoIdp.globalSignOut(
+            cognito.GlobalSignOutRequest(
+              accessToken: tokens.accessToken.raw,
+            ),
+          );
+        }
+        // Revokes the access token
+        await _cognitoIdp.revokeToken(
+          cognito.RevokeTokenRequest(
+            clientId: _userPoolConfig.appClientId,
+            clientSecret: _userPoolConfig.appClientSecret,
+            token: tokens.refreshToken,
+          ),
+        );
+      }
+    } finally {
+      await _stateMachine.dispatch(
+        const CredentialStoreEvent.clearCredentials(),
+      );
+    }
+    return const SignOutResult();
+  }
+
+  /// Checks for the presence of user pool tokens.
+  ///
+  /// Throws [SignedOutException] if tokens are not present.
+  @visibleForTesting
+  Future<CognitoUserPoolTokens> getUserPoolTokens() async {
+    final credentials = await fetchAuthSession(
+      request: AuthSessionRequest(
+        options: const CognitoSessionOptions(getAWSCredentials: false),
+      ),
+    ) as CognitoAuthSession;
+    final userPoolTokens = credentials.userPoolTokens;
+    if (userPoolTokens == null) {
+      throw const SignedOutException('No user is currently signed in');
+    }
+    return userPoolTokens;
   }
 
   /* -- TODO: Replace -- */

@@ -128,7 +128,7 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
       // credentials should be cleared regardless of how the platform handles
       // the sign out.
       dispatch(
-        const CredentialStoreEvent.clearCredentials(),
+        CredentialStoreEvent.clearCredentials(_keys),
       );
       await expect(CredentialStoreStateMachine.type).getCredentialsResult();
 

@@ -151,6 +151,8 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: _requestGreeting,
               child: const Text('Request Greeting'),
             ),
+            const SizedBox(height: 30),
+            const SignOutButton(),
           ],
         ),
       ),
