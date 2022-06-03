@@ -39,8 +39,8 @@ enum CognitoSignInStep {
   done('DONE');
 
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_step}
-  const CognitoSignInStep(this.name);
+  const CognitoSignInStep(this.value);
 
   /// The string value of `this`.
-  final String name;
+  final String value;
 }

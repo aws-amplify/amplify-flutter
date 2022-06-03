@@ -16,8 +16,9 @@
 import 'package:amplify_core/amplify_core.dart';
 
 class AuthNextSignUpStep extends AuthNextStep {
-  String signUpStep;
-  AuthNextSignUpStep({
+  final String signUpStep;
+
+  const AuthNextSignUpStep({
     Map<String, String>? additionalInfo,
     AuthCodeDeliveryDetails? codeDeliveryDetails,
     required this.signUpStep,

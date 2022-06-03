@@ -31,7 +31,7 @@ export 'machines/credential_store_state_machine.dart';
 export 'machines/fetch_auth_session_state_machine.dart';
 export 'machines/hosted_ui_state_machine.dart';
 // export 'machines/sign_in_state_machine.dart';
-// export 'machines/sign_up_state_machine.dart';
+export 'machines/sign_up_state_machine.dart';
 
 export 'state/auth_state.dart';
 export 'state/credential_store_state.dart';
