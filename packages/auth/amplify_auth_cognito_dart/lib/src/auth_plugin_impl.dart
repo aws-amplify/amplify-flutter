@@ -15,9 +15,11 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_stub.dart'
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_html.dart';
+import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito
@@ -27,9 +29,11 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         GetUserAttributeVerificationCodeRequest,
         GetUserRequest,
         GlobalSignOutRequest,
+        PasswordResetRequiredException,
         ResendConfirmationCodeRequest,
         RevokeTokenRequest,
         UpdateUserAttributesRequest,
+        UserNotConfirmedException,
         VerifyUserAttributeRequest;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
@@ -148,6 +152,23 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     }
   }
 
+  /// Retrieves the code delivery details from the challenge parameters.
+  AuthCodeDeliveryDetails? _getChallengeDeliveryDetails(
+    Map<String, String> challengeParameters,
+  ) {
+    final destination =
+        challengeParameters[CognitoConstants.challengeParamDeliveryDest];
+    if (destination == null) {
+      return null;
+    }
+    final deliveryMedium =
+        challengeParameters[CognitoConstants.challengeParamDeliveryMedium];
+    return AuthCodeDeliveryDetails(
+      destination: destination,
+      deliveryMedium: deliveryMedium,
+    );
+  }
+
   @override
   Future<AuthSession> fetchAuthSession({
     required AuthSessionRequest request,
@@ -200,7 +221,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
             'An unknown error occurred while signing in',
           );
         case HostedUiStateType.signedIn:
-          return SignInResult(
+          return const SignInResult(
             isSignedIn: true,
             nextStep: AuthNextSignInStep(
               signInStep: 'DONE',
@@ -342,6 +363,126 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
       throw const CodeDeliveryFailureException('Could not deliver code');
     }
     return CognitoResendSignUpCodeResult(codeDeliveryDetails);
+  }
+
+  @override
+  Future<SignInResult> signIn({
+    required SignInRequest request,
+  }) async {
+    final options = request.options as CognitoSignInOptions?;
+
+    // Create a new state machine for every call since it caches values
+    // internally on each run.
+    final stream = _stateMachine.create(SignInStateMachine.type).stream;
+    _stateMachine.dispatch(
+      SignInEvent.initiate(
+        parameters: SignInParameters(
+          (p) => p
+            ..username = request.username
+            ..password = request.password,
+        ),
+        clientMetadata: options?.clientMetadata,
+      ),
+    );
+
+    await for (final state in stream) {
+      switch (state.type) {
+        case SignInStateType.notStarted:
+        case SignInStateType.initiating:
+        case SignInStateType.cancelling:
+          continue;
+        case SignInStateType.challenge:
+          state as SignInChallenge;
+          return SignInResult(
+            isSignedIn: false,
+            nextStep: AuthNextSignInStep(
+              signInStep: state.challengeName.signInStep.value,
+              codeDeliveryDetails: _getChallengeDeliveryDetails(
+                state.challengeParameters,
+              ),
+              challengeParameters: state.challengeParameters,
+            ),
+          );
+        case SignInStateType.success:
+          return SignInResult(
+            isSignedIn: true,
+            nextStep: AuthNextSignInStep(
+              signInStep: CognitoSignInStep.done.value,
+            ),
+          );
+        case SignInStateType.failure:
+          final exception = (state as SignInFailure).exception;
+          if (exception is cognito.PasswordResetRequiredException) {
+            return SignInResult(
+              isSignedIn: false,
+              nextStep: AuthNextSignInStep(
+                signInStep: CognitoSignInStep.resetPassword.value,
+              ),
+            );
+          } else if (exception is cognito.UserNotConfirmedException) {
+            return SignInResult(
+              isSignedIn: false,
+              nextStep: AuthNextSignInStep(
+                signInStep: CognitoSignInStep.confirmSignUp.value,
+              ),
+            );
+          }
+          throw exception;
+      }
+    }
+
+    // This should never happen.
+    throw const UnknownException('Sign in could not be completed');
+  }
+
+  @override
+  Future<SignInResult> confirmSignIn({
+    required ConfirmSignInRequest request,
+  }) async {
+    final options = request.options as CognitoConfirmSignInOptions? ??
+        const CognitoConfirmSignInOptions();
+    _stateMachine.dispatch(
+      SignInEvent.respondToChallenge(
+        answer: request.confirmationValue,
+        clientMetadata: options.clientMetadata,
+        userAttributes: options.userAttributes,
+      ),
+    );
+
+    final stream = _stateMachine.expect(SignInStateMachine.type).stream;
+    await for (final state in stream) {
+      switch (state.type) {
+        case SignInStateType.notStarted:
+        case SignInStateType.initiating:
+        case SignInStateType.cancelling:
+          continue;
+        case SignInStateType.challenge:
+          state as SignInChallenge;
+          return SignInResult(
+            isSignedIn: false,
+            nextStep: AuthNextSignInStep(
+              signInStep: state.challengeName.signInStep.value,
+              codeDeliveryDetails: _getChallengeDeliveryDetails(
+                state.challengeParameters,
+              ),
+              challengeParameters: state.challengeParameters,
+              missingAttributes: state.requiredAttributes,
+            ),
+          );
+        case SignInStateType.success:
+          return SignInResult(
+            isSignedIn: true,
+            nextStep: AuthNextSignInStep(
+              signInStep: CognitoSignInStep.done.value,
+            ),
+          );
+        case SignInStateType.failure:
+          throw (state as SignInFailure).exception;
+      }
+    }
+
+    // This should never happen.
+    throw const UnknownException('Sign in could not be completed');
   }
 
   @override
