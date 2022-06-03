@@ -55,7 +55,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_2-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_1-test_0"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0
@@ -87,7 +87,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_2-test_0-test_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_1-test_0-test_1"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0
@@ -116,16 +116,16 @@ jobs:
         working-directory: packages/aws_signature_v4
         run: dart test -p chrome
   job_004:
-    name: "unit_test; Dart dev; PKG: packages/amplify_core; `dart --version`, `dart test`, `dart test -p chrome`"
+    name: "unit_test; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_dart; `dart --version`, `dart test`, `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core;commands:command_0-test_0-test_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_dart;commands:command_0-test_0-test_1"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_dart
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -150,6 +150,23 @@ jobs:
       - name: "packages/amplify_core; dart test -p chrome"
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
+        run: dart test -p chrome
+      - id: packages_auth_amplify_auth_cognito_dart_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_dart; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_dart
+        run: dart pub upgrade
+      - name: "packages/auth/amplify_auth_cognito_dart; dart --version"
+        if: "always() && steps.packages_auth_amplify_auth_cognito_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_dart
+        run: dart --version
+      - name: packages/auth/amplify_auth_cognito_dart; dart test
+        if: "always() && steps.packages_auth_amplify_auth_cognito_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_dart
+        run: dart test
+      - name: "packages/auth/amplify_auth_cognito_dart; dart test -p chrome"
+        if: "always() && steps.packages_auth_amplify_auth_cognito_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_dart
         run: dart test -p chrome
   job_005:
     name: "unit_test; Dart dev; PKG: packages/aws_common; `dart test`, `dart test -p chrome`"
@@ -191,7 +208,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_2-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_1-test_0"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -223,7 +240,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_2-test_0-test_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_1-test_0-test_1"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -340,16 +357,16 @@ jobs:
         working-directory: packages/worker_bee/e2e_test
         run: tool/test.sh -p firefox
   job_011:
-    name: "unit_test; Dart stable; PKG: packages/amplify_core; `dart --version`, `dart test`, `dart test -p chrome`"
+    name: "unit_test; Dart stable; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_dart; `dart --version`, `dart test`, `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core;commands:command_0-test_0-test_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_dart;commands:command_0-test_0-test_1"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_dart
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -375,39 +392,24 @@ jobs:
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
         run: dart test -p chrome
-  job_012:
-    name: "unit_test; Flutter stable; PKG: packages/auth/amplify_auth_cognito; `flutter doctor -v`, `flutter test --exclude-tags=build`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@v3
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito;commands:command_1-test_2"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - uses: subosito/flutter-action@v2.3.0
-        with:
-          channel: stable
-      - id: checkout
-        uses: actions/checkout@v3
-      - id: packages_auth_amplify_auth_cognito_pub_upgrade
-        name: packages/auth/amplify_auth_cognito; flutter pub pub upgrade
+      - id: packages_auth_amplify_auth_cognito_dart_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_dart; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito
-        run: flutter pub pub upgrade
-      - name: "packages/auth/amplify_auth_cognito; flutter doctor -v"
-        if: "always() && steps.packages_auth_amplify_auth_cognito_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito
-        run: flutter doctor -v
-      - name: "packages/auth/amplify_auth_cognito; flutter test --exclude-tags=build"
-        if: "always() && steps.packages_auth_amplify_auth_cognito_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito
-        run: "flutter test --exclude-tags=build"
-  job_013:
+        working-directory: packages/auth/amplify_auth_cognito_dart
+        run: dart pub upgrade
+      - name: "packages/auth/amplify_auth_cognito_dart; dart --version"
+        if: "always() && steps.packages_auth_amplify_auth_cognito_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_dart
+        run: dart --version
+      - name: packages/auth/amplify_auth_cognito_dart; dart test
+        if: "always() && steps.packages_auth_amplify_auth_cognito_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_dart
+        run: dart test
+      - name: "packages/auth/amplify_auth_cognito_dart; dart test -p chrome"
+        if: "always() && steps.packages_auth_amplify_auth_cognito_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_dart
+        run: dart test -p chrome
+  job_012:
     name: "unit_test; Dart stable; PKG: packages/aws_common; `dart test`, `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
@@ -439,7 +441,7 @@ jobs:
         if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_common
         run: dart test -p chrome
-  job_014:
+  job_013:
     name: "unit_test; Dart stable; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`"
     runs-on: ubuntu-latest
     steps:
@@ -447,7 +449,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_2-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_1-test_0"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -471,7 +473,7 @@ jobs:
         if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
         run: dart test
-  job_015:
+  job_014:
     name: "unit_test; Dart stable; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`, `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
@@ -479,7 +481,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_2-test_0-test_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_1-test_0-test_1"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -507,7 +509,7 @@ jobs:
         if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
         run: dart test -p chrome
-  job_016:
+  job_015:
     name: "unit_test; Dart stable; PKG: packages/worker_bee/e2e_test; `dart run build_runner build --delete-conflicting-outputs`, `dart test`"
     runs-on: ubuntu-latest
     steps:
@@ -539,7 +541,7 @@ jobs:
         if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
         working-directory: packages/worker_bee/e2e_test
         run: dart test
-  job_017:
+  job_016:
     name: "unit_test; Dart stable; PKG: packages/worker_bee/e2e_test; `tool/test.sh -p chrome`"
     runs-on: ubuntu-latest
     steps:
@@ -567,7 +569,7 @@ jobs:
         if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
         working-directory: packages/worker_bee/e2e_test
         run: tool/test.sh -p chrome
-  job_018:
+  job_017:
     name: "unit_test; Dart stable; PKG: packages/worker_bee/e2e_test; `tool/test.sh -p firefox`"
     runs-on: ubuntu-latest
     steps:
