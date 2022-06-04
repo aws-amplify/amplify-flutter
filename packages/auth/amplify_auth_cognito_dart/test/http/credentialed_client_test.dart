@@ -58,8 +58,14 @@ void main() {
     test('refreshes expired tokens', () async {});
 
     test('throws on refresh failure', () async {
-      final accessToken = createJwt(expiration: Duration.zero);
-      final idToken = createJwt(expiration: Duration.zero);
+      final accessToken = createJwt(
+        type: TokenType.access,
+        expiration: Duration.zero,
+      );
+      final idToken = createJwt(
+        type: TokenType.id,
+        expiration: Duration.zero,
+      );
       secureStorage
         ..write(
           key: keys[HostedUiKey.accessToken],
