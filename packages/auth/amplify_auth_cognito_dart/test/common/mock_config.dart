@@ -84,7 +84,7 @@ final accessToken = JsonWebToken(
     subject: userSub,
     expiration: expiration,
     customClaims: const {
-      'cognito:username': userSub,
+      'username': username,
     },
   ),
   signature: const [],

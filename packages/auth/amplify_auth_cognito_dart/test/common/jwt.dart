@@ -16,7 +16,10 @@ import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 
 import 'mock_config.dart';
 
+enum TokenType { access, id }
+
 JsonWebToken createJwt({
+  required TokenType type,
   required Duration expiration,
   String? nonce,
 }) {
@@ -27,7 +30,8 @@ JsonWebToken createJwt({
     claims: JsonWebClaims.fromJson(
       {
         'sub': userSub,
-        'cognito:username': username,
+        if (type == TokenType.access) 'username': username,
+        if (type == TokenType.id) 'cognito:username': username,
         'exp': (DateTime.now().add(expiration)).millisecondsSinceEpoch ~/ 1000,
         if (nonce != null) 'nonce': nonce,
       },
