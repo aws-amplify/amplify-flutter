@@ -18,6 +18,8 @@ import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
+    as cognito_identity show NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito_idp;
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
@@ -227,24 +229,38 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
   Future<_AwsCredentialsResult> _retrieveAwsCredentials({
     CognitoUserPoolTokens? userPoolTokens,
   }) async {
-    final identityId = await _getIdentityId(
-      config: _identityPoolConfig,
-      idToken: userPoolTokens?.idToken.raw,
-    );
+    try {
+      final identityId = await _getIdentityId(
+        config: _identityPoolConfig,
+        idToken: userPoolTokens?.idToken.raw,
+      );
 
-    final awsCredentials = await _fetchAwsCredentials(
-      idToken: userPoolTokens?.idToken.raw,
-      identityId: identityId,
-    );
-
-    dispatch(
-      CredentialStoreEvent.storeCredentials(
-        awsCredentials: awsCredentials,
+      final awsCredentials = await _fetchAwsCredentials(
+        idToken: userPoolTokens?.idToken.raw,
         identityId: identityId,
-      ),
-    );
+      );
 
-    return _AwsCredentialsResult(awsCredentials, identityId);
+      dispatch(
+        CredentialStoreEvent.storeCredentials(
+          awsCredentials: awsCredentials,
+          identityId: identityId,
+        ),
+      );
+
+      return _AwsCredentialsResult(awsCredentials, identityId);
+    } on cognito_identity.NotAuthorizedException {
+      // If expired credentials were cached and trying to refresh them throws
+      // a NotAuthorizedException, clear any AWS credentials which were being
+      // refreshed, since they may have been from an authenticated user whose
+      // session expired in an identity pool not supporting unauthenticated
+      // access and we should prevent further attempts at refreshing.
+      dispatch(
+        CredentialStoreEvent.clearCredentials(
+          CognitoIdentityPoolKeys(_identityPoolConfig),
+        ),
+      );
+      rethrow;
+    }
   }
 
   Future<CognitoUserPoolTokens> _refreshUserPoolTokens({
@@ -302,7 +318,11 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
           break;
       }
       dispatch(
-        CredentialStoreEvent.clearCredentials(keys),
+        CredentialStoreEvent.clearCredentials([
+          ...keys,
+          // Clear associated AWS credentials
+          ...CognitoIdentityPoolKeys(_identityPoolConfig),
+        ]),
       );
       rethrow;
     }
