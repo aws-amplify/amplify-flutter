@@ -30,10 +30,22 @@ struct FlutterSignInRequest {
   }
     
    func formatOptions(options: Dictionary<String, Any>?) -> AuthSignInOperation.Request.Options {
+     
+     let authFlowType: AuthFlowType = {
+       switch options?["authFlowType"] as? String {
+         case "userSrpAuth":
+           return AuthFlowType.userSRP
+         case "customAuth":
+           return AuthFlowType.custom
+         default:
+           return AuthFlowType.unknown
+         }
+     }()
     
-     let pluginOptions =  AWSAuthSignInOptions(
-       metadata: options?["clientMetadata"] as? [String : String]
+     let pluginOptions = AWSAuthSignInOptions(
+       metadata: options?["clientMetadata"] as? [String : String],
+       authFlowType: authFlowType
      )
+       
      return AuthSignInOperation.Request.Options(pluginOptions: pluginOptions)
-  }
-}
+  }}

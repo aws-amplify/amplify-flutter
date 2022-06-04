@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_auth_cognito/method_channel_auth_cognito.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -68,13 +69,17 @@ void main() {
   });
 
   test('signIn request accepts and serializes options', () async {
-    var options = CognitoSignInOptions(clientMetadata: {'key': 'val'});
+    var options = CognitoSignInOptions(
+      clientMetadata: {'key': 'val'},
+      authFlowType: AuthenticationFlowType.userSrpAuth,
+    );
     var req =
         SignInRequest(username: 'testUser', password: '123', options: options)
             .serializeAsMap();
     expect(req['options'], isInstanceOf<Map>());
     expect((req['options'] as Map)['clientMetadata'], isInstanceOf<Map>());
     expect((req['options'] as Map)['clientMetadata']['key'], equals('val'));
+    expect((req['options'] as Map)['authFlowType'], equals('userSrpAuth'));
   });
 
   test('signIn thrown PlatFormException results in AuthError', () async {
