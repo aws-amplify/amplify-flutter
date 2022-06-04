@@ -139,10 +139,12 @@ class MockOAuthServer {
 
         const exp = Duration(minutes: 5);
         final jwt = createJwt(
+          type: TokenType.access,
           expiration: exp,
         );
         final refreshToken = uuid();
         final idToken = createJwt(
+          type: TokenType.id,
           expiration: exp,
           nonce: includeNonce ? session.nonce : null,
         );

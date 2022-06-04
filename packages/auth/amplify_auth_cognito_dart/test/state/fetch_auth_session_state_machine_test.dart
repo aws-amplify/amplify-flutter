@@ -312,7 +312,10 @@ void main() {
           );
           secureStorage.write(
             key: userPoolKeys[CognitoUserPoolKey.accessToken],
-            value: createJwt(expiration: Duration.zero).raw,
+            value: createJwt(
+              type: TokenType.access,
+              expiration: Duration.zero,
+            ).raw,
           );
           stateMachine.dispatch(const AuthEvent.configure(mockConfig));
           await stateMachine.stream.whereType<AuthConfigured>().first;
@@ -363,7 +366,10 @@ void main() {
           );
           secureStorage.write(
             key: userPoolKeys[CognitoUserPoolKey.accessToken],
-            value: createJwt(expiration: Duration.zero).raw,
+            value: createJwt(
+              type: TokenType.access,
+              expiration: Duration.zero,
+            ).raw,
           );
           stateMachine.dispatch(const AuthEvent.configure(mockConfig));
           await stateMachine.stream.whereType<AuthConfigured>().first;
