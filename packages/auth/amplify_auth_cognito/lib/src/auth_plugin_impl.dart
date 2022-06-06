@@ -34,7 +34,6 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
       : super(
           credentialStorage: AmplifySecureStorage(
             config: const AmplifySecureStorageConfig(
-              packageId: 'com.amplify',
               scope: 'auth',
             ),
           ),

@@ -40,28 +40,27 @@ class AmplifySecureStoragePlugin: FlutterPlugin, Messages.AmplifySecureStorageAp
     Messages.AmplifySecureStorageApi.setup(binding.binaryMessenger, null)
   }
 
-  override fun read(packageId: String, scope: String, key: String): String? {
-    val repository = getOrCreateRepository(packageId, scope)
+  override fun read(namespace: String, key: String): String? {
+    val repository = getOrCreateRepository(namespace)
     return repository.get(key)
   }
 
-  override fun write(packageId: String, scope: String, key: String, value: String?) {
-    val repository = getOrCreateRepository(packageId, scope)
+  override fun write(namespace: String, key: String, value: String?) {
+    val repository = getOrCreateRepository(namespace)
     repository.put(key, value)
   }
 
-  override fun delete(packageId: String, scope: String, key: String) {
-    val repository = getOrCreateRepository(packageId, scope)
+  override fun delete(namespace: String, key: String) {
+    val repository = getOrCreateRepository(namespace)
     repository.remove(key)
   }
 
-  private fun getOrCreateRepository(packageId: String, scope: String): EncryptedKeyValueRepository {
-    val name = "$packageId.$scope"
-    return if (repositories.containsKey(name)) {
-      repositories[name]!!
+  private fun getOrCreateRepository(namespace: String): EncryptedKeyValueRepository {
+    return if (repositories.containsKey(namespace)) {
+      repositories[namespace]!!
     } else {
-      val repository = EncryptedKeyValueRepository(context, name)
-      repositories[name] = repository
+      val repository = EncryptedKeyValueRepository(context, namespace)
+      repositories[namespace] = repository
       repository
     }
   }
