@@ -10,11 +10,13 @@ environment:
 dependencies:
   amplify_secure_storage:
     path: ../
+  aws_common: ^0.1.0
   flutter:
     sdk: flutter
 
 dev_dependencies:
-  amplify_lints: ^1.0.0
+  amplify_lints:
+    path: ../../../amplify_lints
   amplify_secure_storage_test:
     path: ../../amplify_secure_storage_test
   flutter_test:

@@ -12,23 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:amplify_secure_storage_test/amplify_secure_storage_test.dart';
-import 'package:test/test.dart';
+import 'package:amplify_secure_storage_dart/src/worker/secure_storage_worker.dart';
+import 'package:worker_bee/worker_bee.dart';
 
-AmplifySecureStorageDart storageFactory({
-  required AmplifySecureStorageConfig config,
-}) {
-  return AmplifySecureStorageDart(config: config);
-}
+part 'workers.g.dart';
 
-AmplifySecureStorageInterface remoteStorageFactory({
-  required AmplifySecureStorageConfig config,
-}) {
-  return AmplifySecureStorageWorker(config: config);
-}
-
+@WorkerHive([
+  SecureStorageWorker,
+])
 void main() {
-  group('local', () => runTests(storageFactory));
-  group('remote', () => runTests(remoteStorageFactory));
+  runHive(workers);
 }

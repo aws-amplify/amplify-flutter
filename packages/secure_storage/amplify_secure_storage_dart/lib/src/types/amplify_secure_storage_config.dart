@@ -17,20 +17,37 @@ import 'package:amplify_secure_storage_dart/src/types/linux_secure_storage_optio
 import 'package:amplify_secure_storage_dart/src/types/macos_secure_storage_options.dart';
 import 'package:amplify_secure_storage_dart/src/types/web_secure_storage_options.dart';
 import 'package:amplify_secure_storage_dart/src/types/windows_secure_storage_options.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+
+part 'amplify_secure_storage_config.g.dart';
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_config}
 /// Configuration options for Amplify Secure Storage.
 /// {@endtemplate}
-class AmplifySecureStorageConfig {
+abstract class AmplifySecureStorageConfig
+    implements
+        Built<AmplifySecureStorageConfig, AmplifySecureStorageConfigBuilder> {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_config}
-  const AmplifySecureStorageConfig({
-    required this.scope,
-    this.webOptions = WebSecureStorageOptions.defaultOptions,
-    this.windowsOptions = WindowsSecureStorageOptions.defaultOptions,
-    this.linuxOptions = LinuxSecureStorageOptions.defaultOptions,
-    this.macOSOptions = MacOSSecureStorageOptions.defaultOptions,
-    this.iOSOptions = IOSSecureStorageOptions.defaultOptions,
-  });
+  factory AmplifySecureStorageConfig({
+    required String scope,
+    WebSecureStorageOptions? webOptions,
+    WindowsSecureStorageOptions? windowsOptions,
+    LinuxSecureStorageOptions? linuxOptions,
+    MacOSSecureStorageOptions? macOSOptions,
+    IOSSecureStorageOptions? iOSOptions,
+  }) {
+    return _$AmplifySecureStorageConfig._(
+      scope: scope,
+      webOptions: webOptions ?? WebSecureStorageOptions(),
+      windowsOptions: windowsOptions ?? WindowsSecureStorageOptions(),
+      linuxOptions: linuxOptions ?? LinuxSecureStorageOptions(),
+      macOSOptions: macOSOptions ?? MacOSSecureStorageOptions(),
+      iOSOptions: iOSOptions ?? IOSSecureStorageOptions(),
+    );
+  }
+
+  const AmplifySecureStorageConfig._();
 
   /// The default namespace for keys-value pairs.
   ///
@@ -50,20 +67,23 @@ class AmplifySecureStorageConfig {
   /// This value will be used to create a namespace for the secret.
   ///
   /// See also: [defaultNamespace]
-  final String scope;
+  String get scope;
 
   /// Options that are specific to the Web platform.
-  final WebSecureStorageOptions webOptions;
+  WebSecureStorageOptions get webOptions;
 
   /// Options that are specific to the Windows platform.
-  final WindowsSecureStorageOptions windowsOptions;
+  WindowsSecureStorageOptions get windowsOptions;
 
   /// Options that are specific to the Linux platform.
-  final LinuxSecureStorageOptions linuxOptions;
+  LinuxSecureStorageOptions get linuxOptions;
 
   /// Options that are specific to the MacOS platform.
-  final MacOSSecureStorageOptions macOSOptions;
+  MacOSSecureStorageOptions get macOSOptions;
 
   /// Options that are specific to the iOS platform.
-  final IOSSecureStorageOptions iOSOptions;
+  IOSSecureStorageOptions get iOSOptions;
+
+  static Serializer<AmplifySecureStorageConfig> get serializer =>
+      _$amplifySecureStorageConfigSerializer;
 }

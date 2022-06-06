@@ -13,22 +13,29 @@
 // limitations under the License.
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+
+part 'web_secure_storage_options.g.dart';
 
 /// {@template amplify_secure_storage_dart.web_secure_storage_options}
 /// Configuration options that are specific to Web.
 /// {@endtemplate}
-class WebSecureStorageOptions {
+abstract class WebSecureStorageOptions
+    implements Built<WebSecureStorageOptions, WebSecureStorageOptionsBuilder> {
   /// {@macro amplify_secure_storage_dart.web_secure_storage_options}
-  const WebSecureStorageOptions({
-    this.databaseName,
-  });
+  factory WebSecureStorageOptions({
+    String? databaseName,
+  }) = _$WebSecureStorageOptions._;
 
-  /// The default options for Web.
-  static const defaultOptions = WebSecureStorageOptions();
+  const WebSecureStorageOptions._();
 
   /// The prefix of the Indexed DB database name.
   ///
   /// If no value is provided, [AmplifySecureStorageConfig.defaultNamespace]
   /// will be used as the database name.
-  final String? databaseName;
+  String? get databaseName;
+
+  static Serializer<WebSecureStorageOptions> get serializer =>
+      _$webSecureStorageOptionsSerializer;
 }

@@ -12,8 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:io';
+
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:amplify_secure_storage_test/amplify_secure_storage_test.dart';
+import 'package:aws_common/aws_common.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 AmplifySecureStorage storageFactory({
@@ -22,7 +26,19 @@ AmplifySecureStorage storageFactory({
   return AmplifySecureStorage(config: config);
 }
 
+AmplifySecureStorageInterface remoteStorageFactory({
+  required AmplifySecureStorageConfig config,
+}) {
+  return AmplifySecureStorageWorker(config: config);
+}
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  runTests(storageFactory);
+  group('local', () => runTests(storageFactory));
+  group(
+    'remote',
+    () => runTests(remoteStorageFactory),
+    // Android is already run on a background thread via pigeon
+    skip: !zIsWeb && Platform.isAndroid,
+  );
 }

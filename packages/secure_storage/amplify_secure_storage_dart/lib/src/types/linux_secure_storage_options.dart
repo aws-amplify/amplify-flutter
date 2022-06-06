@@ -13,18 +13,23 @@
 // limitations under the License.
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+
+part 'linux_secure_storage_options.g.dart';
 
 /// {@template amplify_secure_storage_dart.linux_secure_storage_options}
 /// Configuration options that are specific to Linux.
 /// {@endtemplate}
-class LinuxSecureStorageOptions {
+abstract class LinuxSecureStorageOptions
+    implements
+        Built<LinuxSecureStorageOptions, LinuxSecureStorageOptionsBuilder> {
   /// {@macro amplify_secure_storage_dart.linux_secure_storage_options}
-  const LinuxSecureStorageOptions({
-    this.schemaName,
-  });
+  factory LinuxSecureStorageOptions({
+    String? schemaName,
+  }) = _$LinuxSecureStorageOptions._;
 
-  /// The default options for Linux.
-  static const defaultOptions = LinuxSecureStorageOptions();
+  const LinuxSecureStorageOptions._();
 
   /// The name of schema used for all key-value pairs.
   ///
@@ -32,5 +37,8 @@ class LinuxSecureStorageOptions {
   /// will be used as the schema name.
   ///
   /// Reference: [SecretSchema](https://developer-old.gnome.org/libsecret/unstable/libsecret-SecretSchema.html#SecretSchema)
-  final String? schemaName;
+  String? get schemaName;
+
+  static Serializer<LinuxSecureStorageOptions> get serializer =>
+      _$linuxSecureStorageOptionsSerializer;
 }

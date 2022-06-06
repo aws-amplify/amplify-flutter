@@ -128,11 +128,12 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
 
   Future<void> _init() async {
     final credentialStorage = _credentialStorage ??
-        AmplifySecureStorageDart(
-          config: const AmplifySecureStorageConfig(
+        AmplifySecureStorageWorker(
+          config: AmplifySecureStorageConfig(
             scope: 'auth',
           ),
         );
+    await credentialStorage.init();
     _stateMachine.addInstance<SecureStorageInterface>(credentialStorage);
     if (_hostedUiPlatformFactory != null) {
       _stateMachine.addBuilder(
