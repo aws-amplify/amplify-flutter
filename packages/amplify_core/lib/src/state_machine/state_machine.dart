@@ -135,7 +135,7 @@ abstract class StateMachineManager<E extends StateMachineEvent>
 /// {@endtemplate}
 abstract class StateMachine<Event extends StateMachineEvent,
         State extends StateMachineState>
-    implements StreamSink<Event>, Emitter<State>, StateMachineManager {
+    implements Emitter<State>, StateMachineManager {
   /// {@macro amplify_core.state_machine}
   StateMachine(this._manager) {
     _init();
@@ -306,19 +306,8 @@ abstract class StateMachine<Event extends StateMachineEvent,
     }
   }
 
-  @override
+  /// Add an event to the state machine.
   void add(Event event) => _eventController.add(event);
-
-  @override
-  void addError(Object error, [StackTrace? stackTrace]) =>
-      _eventController.addError(error, stackTrace);
-
-  @override
-  Future<void> addStream(Stream<Event> stream) async {
-    await for (final event in stream) {
-      add(event);
-    }
-  }
 
   /// Dispatches an event to the state machine.
   @override

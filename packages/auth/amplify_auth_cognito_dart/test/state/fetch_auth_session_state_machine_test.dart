@@ -450,5 +450,3 @@ void main() {
 }
 
 class _FetchAuthSessionException implements Exception {}
-
-// ignore_for_file: close_sinks
