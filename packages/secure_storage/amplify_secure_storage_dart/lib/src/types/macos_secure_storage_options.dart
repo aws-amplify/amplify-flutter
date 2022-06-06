@@ -12,23 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+
+part 'macos_secure_storage_options.g.dart';
+
 /// {@template amplify_secure_storage_dart.macos_secure_storage_options}
 /// Configuration options that are specific to MacOS.
 /// {@endtemplate}
-class MacOSSecureStorageOptions {
+abstract class MacOSSecureStorageOptions
+    implements
+        Built<MacOSSecureStorageOptions, MacOSSecureStorageOptionsBuilder> {
   /// {@macro amplify_secure_storage_dart.macos_secure_storage_options}
-  const MacOSSecureStorageOptions({
-    required this.useDataProtection,
-    this.accessGroup,
-  }) : assert(
-          useDataProtection || accessGroup == null,
-          'useDataProtectionKeychain must be set to true when using an access group.',
-        );
+  factory MacOSSecureStorageOptions({
+    bool useDataProtection = true,
+    String? accessGroup,
+  }) {
+    assert(
+      useDataProtection || accessGroup == null,
+      'useDataProtectionKeychain must be set to true when using an access '
+      'group.',
+    );
+    return _$MacOSSecureStorageOptions._(
+      useDataProtection: useDataProtection,
+      accessGroup: accessGroup,
+    );
+  }
 
-  /// The default options for MacOS.
-  static const defaultOptions = MacOSSecureStorageOptions(
-    useDataProtection: true,
-  );
+  const MacOSSecureStorageOptions._();
 
   /// Sets the `kSecUseDataProtectionKeychain` attribute to true for
   /// all Keychain operations.
@@ -46,12 +57,15 @@ class MacOSSecureStorageOptions {
   /// link below for more info.
   ///
   /// Reference: [Sharing Access to Keychain Items Among a Collection of Apps](https://developer.apple.com/documentation/security/keychain_services/keychain_items/sharing_access_to_keychain_items_among_a_collection_of_apps?language=objc)
-  final bool useDataProtection;
+  bool get useDataProtection;
 
   /// Sets the `kSecAttrAccessGroup` attribute for all Keychain operations.
   ///
   /// **Note:** [useDataProtection] must be set to true if a value is provided.
   ///
   /// Reference: [kSecAttrAccessGroup](https://developer.apple.com/documentation/security/ksecattraccessgroup?language=objc)
-  final String? accessGroup;
+  String? get accessGroup;
+
+  static Serializer<MacOSSecureStorageOptions> get serializer =>
+      _$macOSSecureStorageOptionsSerializer;
 }

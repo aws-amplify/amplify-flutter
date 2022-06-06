@@ -21,6 +21,9 @@ class MockSecureStorage implements SecureStorageInterface {
   final Map<String, String> _storage = {};
 
   @override
+  void init() {}
+
+  @override
   void delete({required String key}) => _storage.remove(key);
 
   @override

@@ -12,20 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+
+part 'ios_secure_storage_options.g.dart';
+
 /// {@template amplify_secure_storage_dart.ios_secure_storage_options}
 /// Configuration options that are specific to iOS.
 /// {@endtemplate}
-class IOSSecureStorageOptions {
+abstract class IOSSecureStorageOptions
+    implements Built<IOSSecureStorageOptions, IOSSecureStorageOptionsBuilder> {
   /// {@macro amplify_secure_storage_dart.ios_secure_storage_options}
-  const IOSSecureStorageOptions({
-    this.accessGroup,
-  });
+  factory IOSSecureStorageOptions({
+    String? accessGroup,
+  }) = _$IOSSecureStorageOptions._;
 
-  /// The default options for iOS.
-  static const defaultOptions = IOSSecureStorageOptions();
+  const IOSSecureStorageOptions._();
 
   /// Sets the `kSecAttrAccessGroup` attribute for all Keychain operations.
   ///
   /// Reference: [kSecAttrAccessGroup](https://developer.apple.com/documentation/security/ksecattraccessgroup?language=objc)
-  final String? accessGroup;
+  String? get accessGroup;
+
+  static Serializer<IOSSecureStorageOptions> get serializer =>
+      _$iOSSecureStorageOptionsSerializer;
 }

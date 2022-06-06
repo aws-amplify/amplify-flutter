@@ -1,4 +1,9 @@
-include: package:amplify_lints/flutter_lib.yaml
+include: package:amplify_lints/library.yaml
+
+analyzer:
+  exclude:
+    - '**/*.g.dart'
+
 linter:
   rules:
     public_member_api_docs: false

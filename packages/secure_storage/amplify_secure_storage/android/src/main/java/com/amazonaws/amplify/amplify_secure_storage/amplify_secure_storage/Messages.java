@@ -53,8 +53,9 @@ public class Messages {
     /** Sets up an instance of `AmplifySecureStorageApi` to handle messages through the `binaryMessenger`. */
     static void setup(BinaryMessenger binaryMessenger, AmplifySecureStorageApi api) {
       {
+        BinaryMessenger.TaskQueue taskQueue = binaryMessenger.makeBackgroundTaskQueue();
         BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.AmplifySecureStorageApi.read", getCodec());
+            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.AmplifySecureStorageApi.read", getCodec(), taskQueue);
         if (api != null) {
           channel.setMessageHandler((message, reply) -> {
             Map<String, Object> wrapped = new HashMap<>();
@@ -81,8 +82,9 @@ public class Messages {
         }
       }
       {
+        BinaryMessenger.TaskQueue taskQueue = binaryMessenger.makeBackgroundTaskQueue();
         BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.AmplifySecureStorageApi.write", getCodec());
+            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.AmplifySecureStorageApi.write", getCodec(), taskQueue);
         if (api != null) {
           channel.setMessageHandler((message, reply) -> {
             Map<String, Object> wrapped = new HashMap<>();
@@ -110,8 +112,9 @@ public class Messages {
         }
       }
       {
+        BinaryMessenger.TaskQueue taskQueue = binaryMessenger.makeBackgroundTaskQueue();
         BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.AmplifySecureStorageApi.delete", getCodec());
+            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.AmplifySecureStorageApi.delete", getCodec(), taskQueue);
         if (api != null) {
           channel.setMessageHandler((message, reply) -> {
             Map<String, Object> wrapped = new HashMap<>();

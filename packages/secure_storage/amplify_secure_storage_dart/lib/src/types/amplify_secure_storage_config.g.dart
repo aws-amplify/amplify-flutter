@@ -1,0 +1,289 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'amplify_secure_storage_config.dart';
+
+// **************************************************************************
+// BuiltValueGenerator
+// **************************************************************************
+
+Serializer<AmplifySecureStorageConfig> _$amplifySecureStorageConfigSerializer =
+    new _$AmplifySecureStorageConfigSerializer();
+
+class _$AmplifySecureStorageConfigSerializer
+    implements StructuredSerializer<AmplifySecureStorageConfig> {
+  @override
+  final Iterable<Type> types = const [
+    AmplifySecureStorageConfig,
+    _$AmplifySecureStorageConfig
+  ];
+  @override
+  final String wireName = 'AmplifySecureStorageConfig';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, AmplifySecureStorageConfig object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'scope',
+      serializers.serialize(object.scope,
+          specifiedType: const FullType(String)),
+      'webOptions',
+      serializers.serialize(object.webOptions,
+          specifiedType: const FullType(WebSecureStorageOptions)),
+      'windowsOptions',
+      serializers.serialize(object.windowsOptions,
+          specifiedType: const FullType(WindowsSecureStorageOptions)),
+      'linuxOptions',
+      serializers.serialize(object.linuxOptions,
+          specifiedType: const FullType(LinuxSecureStorageOptions)),
+      'macOSOptions',
+      serializers.serialize(object.macOSOptions,
+          specifiedType: const FullType(MacOSSecureStorageOptions)),
+      'iOSOptions',
+      serializers.serialize(object.iOSOptions,
+          specifiedType: const FullType(IOSSecureStorageOptions)),
+    ];
+
+    return result;
+  }
+
+  @override
+  AmplifySecureStorageConfig deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new AmplifySecureStorageConfigBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'scope':
+          result.scope = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'webOptions':
+          result.webOptions.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(WebSecureStorageOptions))!
+              as WebSecureStorageOptions);
+          break;
+        case 'windowsOptions':
+          result.windowsOptions.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(WindowsSecureStorageOptions))!
+              as WindowsSecureStorageOptions);
+          break;
+        case 'linuxOptions':
+          result.linuxOptions.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(LinuxSecureStorageOptions))!
+              as LinuxSecureStorageOptions);
+          break;
+        case 'macOSOptions':
+          result.macOSOptions.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(MacOSSecureStorageOptions))!
+              as MacOSSecureStorageOptions);
+          break;
+        case 'iOSOptions':
+          result.iOSOptions.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(IOSSecureStorageOptions))!
+              as IOSSecureStorageOptions);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$AmplifySecureStorageConfig extends AmplifySecureStorageConfig {
+  @override
+  final String scope;
+  @override
+  final WebSecureStorageOptions webOptions;
+  @override
+  final WindowsSecureStorageOptions windowsOptions;
+  @override
+  final LinuxSecureStorageOptions linuxOptions;
+  @override
+  final MacOSSecureStorageOptions macOSOptions;
+  @override
+  final IOSSecureStorageOptions iOSOptions;
+
+  factory _$AmplifySecureStorageConfig(
+          [void Function(AmplifySecureStorageConfigBuilder)? updates]) =>
+      (new AmplifySecureStorageConfigBuilder()..update(updates))._build();
+
+  _$AmplifySecureStorageConfig._(
+      {required this.scope,
+      required this.webOptions,
+      required this.windowsOptions,
+      required this.linuxOptions,
+      required this.macOSOptions,
+      required this.iOSOptions})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        scope, r'AmplifySecureStorageConfig', 'scope');
+    BuiltValueNullFieldError.checkNotNull(
+        webOptions, r'AmplifySecureStorageConfig', 'webOptions');
+    BuiltValueNullFieldError.checkNotNull(
+        windowsOptions, r'AmplifySecureStorageConfig', 'windowsOptions');
+    BuiltValueNullFieldError.checkNotNull(
+        linuxOptions, r'AmplifySecureStorageConfig', 'linuxOptions');
+    BuiltValueNullFieldError.checkNotNull(
+        macOSOptions, r'AmplifySecureStorageConfig', 'macOSOptions');
+    BuiltValueNullFieldError.checkNotNull(
+        iOSOptions, r'AmplifySecureStorageConfig', 'iOSOptions');
+  }
+
+  @override
+  AmplifySecureStorageConfig rebuild(
+          void Function(AmplifySecureStorageConfigBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  AmplifySecureStorageConfigBuilder toBuilder() =>
+      new AmplifySecureStorageConfigBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is AmplifySecureStorageConfig &&
+        scope == other.scope &&
+        webOptions == other.webOptions &&
+        windowsOptions == other.windowsOptions &&
+        linuxOptions == other.linuxOptions &&
+        macOSOptions == other.macOSOptions &&
+        iOSOptions == other.iOSOptions;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc($jc($jc(0, scope.hashCode), webOptions.hashCode),
+                    windowsOptions.hashCode),
+                linuxOptions.hashCode),
+            macOSOptions.hashCode),
+        iOSOptions.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'AmplifySecureStorageConfig')
+          ..add('scope', scope)
+          ..add('webOptions', webOptions)
+          ..add('windowsOptions', windowsOptions)
+          ..add('linuxOptions', linuxOptions)
+          ..add('macOSOptions', macOSOptions)
+          ..add('iOSOptions', iOSOptions))
+        .toString();
+  }
+}
+
+class AmplifySecureStorageConfigBuilder
+    implements
+        Builder<AmplifySecureStorageConfig, AmplifySecureStorageConfigBuilder> {
+  _$AmplifySecureStorageConfig? _$v;
+
+  String? _scope;
+  String? get scope => _$this._scope;
+  set scope(String? scope) => _$this._scope = scope;
+
+  WebSecureStorageOptionsBuilder? _webOptions;
+  WebSecureStorageOptionsBuilder get webOptions =>
+      _$this._webOptions ??= new WebSecureStorageOptionsBuilder();
+  set webOptions(WebSecureStorageOptionsBuilder? webOptions) =>
+      _$this._webOptions = webOptions;
+
+  WindowsSecureStorageOptionsBuilder? _windowsOptions;
+  WindowsSecureStorageOptionsBuilder get windowsOptions =>
+      _$this._windowsOptions ??= new WindowsSecureStorageOptionsBuilder();
+  set windowsOptions(WindowsSecureStorageOptionsBuilder? windowsOptions) =>
+      _$this._windowsOptions = windowsOptions;
+
+  LinuxSecureStorageOptionsBuilder? _linuxOptions;
+  LinuxSecureStorageOptionsBuilder get linuxOptions =>
+      _$this._linuxOptions ??= new LinuxSecureStorageOptionsBuilder();
+  set linuxOptions(LinuxSecureStorageOptionsBuilder? linuxOptions) =>
+      _$this._linuxOptions = linuxOptions;
+
+  MacOSSecureStorageOptionsBuilder? _macOSOptions;
+  MacOSSecureStorageOptionsBuilder get macOSOptions =>
+      _$this._macOSOptions ??= new MacOSSecureStorageOptionsBuilder();
+  set macOSOptions(MacOSSecureStorageOptionsBuilder? macOSOptions) =>
+      _$this._macOSOptions = macOSOptions;
+
+  IOSSecureStorageOptionsBuilder? _iOSOptions;
+  IOSSecureStorageOptionsBuilder get iOSOptions =>
+      _$this._iOSOptions ??= new IOSSecureStorageOptionsBuilder();
+  set iOSOptions(IOSSecureStorageOptionsBuilder? iOSOptions) =>
+      _$this._iOSOptions = iOSOptions;
+
+  AmplifySecureStorageConfigBuilder();
+
+  AmplifySecureStorageConfigBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _scope = $v.scope;
+      _webOptions = $v.webOptions.toBuilder();
+      _windowsOptions = $v.windowsOptions.toBuilder();
+      _linuxOptions = $v.linuxOptions.toBuilder();
+      _macOSOptions = $v.macOSOptions.toBuilder();
+      _iOSOptions = $v.iOSOptions.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(AmplifySecureStorageConfig other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$AmplifySecureStorageConfig;
+  }
+
+  @override
+  void update(void Function(AmplifySecureStorageConfigBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  AmplifySecureStorageConfig build() => _build();
+
+  _$AmplifySecureStorageConfig _build() {
+    _$AmplifySecureStorageConfig _$result;
+    try {
+      _$result = _$v ??
+          new _$AmplifySecureStorageConfig._(
+              scope: BuiltValueNullFieldError.checkNotNull(
+                  scope, r'AmplifySecureStorageConfig', 'scope'),
+              webOptions: webOptions.build(),
+              windowsOptions: windowsOptions.build(),
+              linuxOptions: linuxOptions.build(),
+              macOSOptions: macOSOptions.build(),
+              iOSOptions: iOSOptions.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'webOptions';
+        webOptions.build();
+        _$failedField = 'windowsOptions';
+        windowsOptions.build();
+        _$failedField = 'linuxOptions';
+        linuxOptions.build();
+        _$failedField = 'macOSOptions';
+        macOSOptions.build();
+        _$failedField = 'iOSOptions';
+        iOSOptions.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'AmplifySecureStorageConfig', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

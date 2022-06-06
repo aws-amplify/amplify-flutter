@@ -30,7 +30,12 @@ import 'package:pigeon/pigeon.dart';
 )
 @HostApi()
 abstract class AmplifySecureStorageApi {
+  @TaskQueue(type: TaskQueueType.serialBackgroundThread)
   String? read(String namespace, String key);
+
+  @TaskQueue(type: TaskQueueType.serialBackgroundThread)
   void write(String namespace, String key, String? value);
+
+  @TaskQueue(type: TaskQueueType.serialBackgroundThread)
   void delete(String namespace, String key);
 }

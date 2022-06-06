@@ -74,6 +74,15 @@ void runTests(SecureStorageFactory storageFactory) {
         macOSOptions: macOSOptions,
       ),
     );
+    await Future.wait(
+      [
+        storage,
+        storageScope,
+        storageWeb,
+        storageLinux,
+        storageWindows,
+      ].map((storage) => Future.value(storage.init())),
+    );
     await clearAll();
   });
 
