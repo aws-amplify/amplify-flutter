@@ -12,6 +12,8 @@ dependency_overrides:
     path: ../
   amplify_auth_cognito_android:
     path: ../../amplify_auth_cognito_android
+  amplify_auth_cognito_dart:
+    path: ../../amplify_auth_cognito_dart
   amplify_auth_cognito_ios:
     path: ../../amplify_auth_cognito_ios
   amplify_core:
