@@ -15,7 +15,7 @@
 package com.amazonaws.amplify.amplify_api
 
 import com.amazonaws.amplify.amplify_api.rest_api.RestOperationType
-import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amazonaws.amplify.exception.ExceptionMessages
 import com.amplifyframework.api.ApiCategory
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.rest.RestOperation

@@ -56,9 +56,10 @@ abstract class QueryFieldOperator<T> {
   dynamic serializeDynamicValue(dynamic value) {
     // DateTime is deprecated and will be removed in the next major version
     if (value is DateTime) {
-      if (kDebugMode) {
-        print(
-          'WARNING: Using DateTime types in a QueryPredicate is deprecated. Use a Temporal Date/Time Type instead.',
+      if (zDebugMode) {
+        safePrint(
+          'WARNING: Using DateTime types in a QueryPredicate is deprecated. '
+          'Use a Temporal Date/Time Type instead.',
         );
       }
       return value.toDateTimeIso8601String();
@@ -70,7 +71,7 @@ abstract class QueryFieldOperator<T> {
       return value.format();
     } else if (value is TemporalTimestamp) {
       return value.toSeconds();
-    } else if (isEnum(value)) {
+    } else if (value is Enum) {
       return enumToString(value);
     }
 

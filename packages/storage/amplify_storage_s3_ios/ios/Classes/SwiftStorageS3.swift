@@ -18,7 +18,7 @@ import UIKit
 import Amplify
 import AmplifyPlugins
 import AWSMobileClient
-import amplify_core
+import amplify_flutter_ios
 
 public class SwiftStorageS3: NSObject, FlutterPlugin {
     

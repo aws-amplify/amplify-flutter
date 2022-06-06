@@ -18,7 +18,6 @@ Pod::Spec.new do |s|
   s.dependency 'Amplify', '1.23.0'
   s.dependency 'AWSPluginsCore', '1.23.0'
   s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin', '1.23.0'
-  s.dependency 'amplify_core'
   s.platform = :ios, '11.0'
   s.swift_version = '5.0'
 

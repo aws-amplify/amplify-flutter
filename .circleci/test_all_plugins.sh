@@ -49,34 +49,28 @@ case $test_suite in
     android-test)
         echo "=== Running Android unit tests for $plugin ==="       
         
-        if [ -d "android/src/test" ]; then
-            if [ ! -d "example/android" ]; then
-                echo "FAILED: example/android missing, can't run tests."
-                test_failure=1
-                continue
-            fi
-            if [ ! -f $dummy_file_path ]; then
-                cp ${project_root_dir}/.circleci/dummy_amplifyconfiguration.dart $dummy_file_path
-            fi
-            cd example/android
-            if ./gradlew :"$plugin":testDebugUnitTest; then
-                echo "PASSED: Android unit tests for $plugin passed."
-                # if ./gradlew :"$plugin":testDebugUnitTestCoverage; then
-                #     echo "PASSED: Generating android unit tests coverage for $plugin passed."
-                # else
-                #     echo "FAILED: Generating android unit tests coverage for $plugin failed."
-                #     test_failure=1
-                # fi
-            else
-                echo "FAILED: Android unit tests for $plugin failed."
-                test_failure=1
-            fi
-            cd ${project_root_dir}
-
+        if [ ! -d "example/android" ]; then
+            echo "FAILED: example/android missing, can't run tests."
+            test_failure=1
+            continue
+        fi
+        if [ ! -f $dummy_file_path ]; then
+            cp ${project_root_dir}/.circleci/dummy_amplifyconfiguration.dart $dummy_file_path
+        fi
+        cd example/android
+        if ./gradlew :"$plugin":testDebugUnitTest; then
+            echo "PASSED: Android unit tests for $plugin passed."
+            # if ./gradlew :"$plugin":testDebugUnitTestCoverage; then
+            #     echo "PASSED: Generating android unit tests coverage for $plugin passed."
+            # else
+            #     echo "FAILED: Generating android unit tests coverage for $plugin failed."
+            #     test_failure=1
+            # fi
         else
-            echo "FAILED: Expected Android unit tests for $plugin don't exist or where not found."
+            echo "FAILED: Android unit tests for $plugin failed."
             test_failure=1
         fi
+        cd ${project_root_dir}
         ;;
     ios-test)
         echo "=== Running iOS unit tests for $plugin ==="

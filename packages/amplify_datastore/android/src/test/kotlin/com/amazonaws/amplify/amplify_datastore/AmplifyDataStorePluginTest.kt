@@ -15,7 +15,7 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
-import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amazonaws.amplify.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amplifyframework.api.aws.AuthModeStrategyType
 import com.amplifyframework.core.Action

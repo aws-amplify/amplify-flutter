@@ -13,10 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:io';
-
 class DownloadFileResult {
-  File file;
+  // TODO(HuiSF): AWSFile
+  dynamic /* File */ file;
 
   DownloadFileResult({required this.file});
 }

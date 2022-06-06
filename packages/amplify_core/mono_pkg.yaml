@@ -1,7 +1,6 @@
 sdk:
   - stable
-  # TODO: Once Flutter Beta's Dart SDK is >=2.17.0
-  # - beta
+  - dev
 
 stages:
   - analyze_and_format:
@@ -10,6 +9,6 @@ stages:
           - analyze: --fatal-infos .
   - unit_test:
       - group:
-          - command: flutter doctor -v
+          - command: dart --version
           - test:
-          - test: --platform chrome
+          - test: -p chrome

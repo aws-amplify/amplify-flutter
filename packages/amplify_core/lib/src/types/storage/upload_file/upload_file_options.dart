@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
 
 class UploadFileOptions extends StorageOptions {
   StorageAccessLevel accessLevel;
@@ -29,7 +28,7 @@ class UploadFileOptions extends StorageOptions {
 
   @override
   Map<String, Object?> serializeAsMap() => {
-        'accessLevel': describeEnum(accessLevel),
+        'accessLevel': accessLevel.name,
         if (contentType != null) 'contentType': contentType,
         if (metadata != null) 'metadata': metadata,
       };

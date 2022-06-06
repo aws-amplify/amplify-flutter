@@ -14,7 +14,7 @@
  */
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 
 // ignore: constant_identifier_names
 enum ModelAssociationEnum { HasMany, HasOne, BelongsTo }
@@ -49,7 +49,7 @@ class ModelAssociation {
 
   Map<String, dynamic> toMap() {
     final map = {
-      'associationType': describeEnum(associationType),
+      'associationType': associationType.name,
       'targetName': targetName,
       'associatedName': associatedName,
       'associatedType': associatedType,

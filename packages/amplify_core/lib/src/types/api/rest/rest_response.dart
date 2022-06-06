@@ -16,14 +16,14 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:meta/meta.dart';
 
 /// {@template rest_response}
 /// An HTTP response from a REST API call.
 /// {@endtemplate}
 @immutable
-class RestResponse {
+class RestResponse with AWSEquatable<RestResponse> {
   /// The response status code.
   final int statusCode;
 
@@ -50,15 +50,7 @@ class RestResponse {
   }
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is RestResponse &&
-          statusCode == other.statusCode &&
-          headers == other.headers &&
-          listEquals(data, other.data);
-
-  @override
-  int get hashCode => hashValues(statusCode, headers, hashList(data));
+  List<Object?> get props => [statusCode, headers, data];
 
   @override
   String toString() {

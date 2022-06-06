@@ -18,7 +18,6 @@ import UIKit
 import Amplify
 import AmplifyPlugins
 import AWSPluginsCore
-import amplify_core
 
 public class SwiftAmplify: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {

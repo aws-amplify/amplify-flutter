@@ -16,7 +16,7 @@
 import 'dart:convert';
 import 'package:amplify_core/amplify_core.dart';
 
-class SyncQueriesStartedEvent extends HubEventPayload {
+class SyncQueriesStartedEvent extends DataStoreHubEventPayload {
   final List<String> models;
   SyncQueriesStartedEvent(Map<dynamic, dynamic> serializedData)
       : models = List<String>.from(

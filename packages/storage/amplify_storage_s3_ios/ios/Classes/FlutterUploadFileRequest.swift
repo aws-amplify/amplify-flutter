@@ -15,7 +15,7 @@
 
 import Foundation
 import Amplify
-import amplify_core
+import amplify_flutter_ios
 
 struct FlutterUploadFileRequest {
     var uuid: String

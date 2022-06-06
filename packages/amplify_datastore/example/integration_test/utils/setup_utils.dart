@@ -100,7 +100,8 @@ class DataStoreStarter {
   late StreamSubscription hubSubscription;
 
   Future<void> startDataStore() {
-    hubSubscription = Amplify.Hub.listen([HubChannel.DataStore], (event) {
+    hubSubscription =
+        Amplify.Hub.listen(HubChannel.DataStore, (DataStoreHubEvent event) {
       if (event.eventName == 'ready') {
         print(
             '🎉🎉🎉DataStore is ready to start running test suites with API sync enabled.🎉🎉🎉');

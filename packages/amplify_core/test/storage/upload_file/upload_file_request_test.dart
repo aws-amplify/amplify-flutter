@@ -18,7 +18,7 @@
 import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('A UploadFileRequest excluding options can be serialized as a Map',
