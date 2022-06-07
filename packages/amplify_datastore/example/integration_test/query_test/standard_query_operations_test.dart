@@ -81,5 +81,30 @@ void main() {
       var post = posts[0];
       expect(post.blog!.id, testBlog.id);
     });
+
+    testWidgets('should return the correct records when queried by parent ID',
+        (WidgetTester tester) async {
+      Blog testBlog1 = Blog(name: 'blog one');
+      Blog testBlog2 = Blog(name: 'blog two');
+      Post testPost1 = Post(title: 'post one', rating: 0, blog: testBlog1);
+      Post testPost2 = Post(title: 'post two', rating: 0, blog: testBlog1);
+      Post testPost3 = Post(title: 'post three', rating: 0, blog: testBlog2);
+
+      await Amplify.DataStore.save(testBlog1);
+      await Amplify.DataStore.save(testBlog2);
+      await Amplify.DataStore.save(testPost1);
+      await Amplify.DataStore.save(testPost2);
+      await Amplify.DataStore.save(testPost3);
+
+      var posts = await Amplify.DataStore.query(
+        Post.classType,
+        where: Post.BLOG.eq(testBlog1.id),
+      );
+
+      expect(posts.length, 2);
+      expect(posts.contains(testPost1), isTrue);
+      expect(posts.contains(testPost2), isTrue);
+      expect(posts.contains(testPost3), isFalse);
+    });
   });
 }
