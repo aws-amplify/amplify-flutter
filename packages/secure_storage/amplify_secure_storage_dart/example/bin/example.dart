@@ -25,7 +25,6 @@ enum InputMode {
 
 final storage = AmplifySecureStorageDart(
   config: AmplifySecureStorageConfig(
-    packageId: 'com.example.app',
     scope: 'default',
   ),
 );

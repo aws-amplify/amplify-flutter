@@ -1,0 +1,29 @@
+targets:
+  $default:
+    builders:
+      build_web_compilers:entrypoint:
+        generate_for:
+          - lib/workers.dart
+        options:
+          compiler: dart2js
+        dev_options:
+          dart2js_args:
+            - --no-minify
+        release_options:
+          dart2js_args:
+            - -O2
+      amplify_auth_cognito_dart:_workers_copy:
+        enabled: true
+
+builders:
+  # Copies the output of the entrypoint generator to lib/
+  _workers_copy:
+    import: "tool/copy_builder.dart"
+    builder_factories:
+      - copyBuilder
+    build_extensions:
+      lib/workers.dart.js:
+        - lib/workers.js
+    auto_apply: none
+    build_to: source
+    required_inputs: [".dart.js"]

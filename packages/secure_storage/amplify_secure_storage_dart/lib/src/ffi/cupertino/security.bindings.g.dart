@@ -60,6 +60,15 @@ class Security {
   set kSecClassGenericPassword(coreFoundation.CFStringRef value) =>
       _kSecClassGenericPassword.value = value;
 
+  late final ffi.Pointer<coreFoundation.CFStringRef> _kSecAttrAccessGroup =
+      _lookup<coreFoundation.CFStringRef>('kSecAttrAccessGroup');
+
+  coreFoundation.CFStringRef get kSecAttrAccessGroup =>
+      _kSecAttrAccessGroup.value;
+
+  set kSecAttrAccessGroup(coreFoundation.CFStringRef value) =>
+      _kSecAttrAccessGroup.value = value;
+
   late final ffi.Pointer<coreFoundation.CFStringRef> _kSecAttrAccount =
       _lookup<coreFoundation.CFStringRef>('kSecAttrAccount');
 
@@ -107,6 +116,16 @@ class Security {
 
   set kSecValueData(coreFoundation.CFStringRef value) =>
       _kSecValueData.value = value;
+
+  late final ffi.Pointer<coreFoundation.CFStringRef>
+      _kSecUseDataProtectionKeychain =
+      _lookup<coreFoundation.CFStringRef>('kSecUseDataProtectionKeychain');
+
+  coreFoundation.CFStringRef get kSecUseDataProtectionKeychain =>
+      _kSecUseDataProtectionKeychain.value;
+
+  set kSecUseDataProtectionKeychain(coreFoundation.CFStringRef value) =>
+      _kSecUseDataProtectionKeychain.value = value;
 
   int SecItemCopyMatching(
     coreFoundation.CFDictionaryRef query,
@@ -186,6 +205,8 @@ class __CFBoolean extends ffi.Opaque {}
 const int errSecSuccess = 0;
 
 const int errSecUserCanceled = -128;
+
+const int errSecMissingEntitlement = -34018;
 
 const int errSecAuthFailed = -25293;
 

@@ -12,31 +12,58 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_secure_storage_dart/src/types/ios_secure_storage_options.dart';
+import 'package:amplify_secure_storage_dart/src/types/linux_secure_storage_options.dart';
+import 'package:amplify_secure_storage_dart/src/types/macos_secure_storage_options.dart';
+import 'package:amplify_secure_storage_dart/src/types/web_secure_storage_options.dart';
+import 'package:amplify_secure_storage_dart/src/types/windows_secure_storage_options.dart';
+
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_config}
 /// Configuration options for Amplify Secure Storage.
 /// {@endtemplate}
 class AmplifySecureStorageConfig {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_config}
   const AmplifySecureStorageConfig({
-    required this.packageId,
     required this.scope,
+    this.webOptions = WebSecureStorageOptions.defaultOptions,
+    this.windowsOptions = WindowsSecureStorageOptions.defaultOptions,
+    this.linuxOptions = LinuxSecureStorageOptions.defaultOptions,
+    this.macOSOptions = MacOSSecureStorageOptions.defaultOptions,
+    this.iOSOptions = IOSSecureStorageOptions.defaultOptions,
   });
 
-  /// A unique package identifier such as a bundle ID.
+  /// The default namespace for keys-value pairs.
   ///
-  /// Example: "com.example.app"
-  ///
-  /// This value will be used with the [scope] and key to for a unique
-  /// identifier for the secret. Saving two values under unique packageIds will
-  /// prevent collisions even if the key & scope overlap.
-  final String packageId;
+  /// Unless platform specific options are provided, this will be
+  /// used in the following way on each platform:
+  /// - iOS & macOS: the Keychain service name
+  /// - Android: the EncryptedSharedPreferences file name
+  /// - Windows: the prefix for the target name of each secret
+  /// - Linux: the SecretSchema schema name
+  /// - Web: the Indexed DB Database name
+  String get defaultNamespace => 'com.amplify.$scope';
 
   /// The scope of the secrets to be stored.
   ///
   /// Example: "auth"
   ///
-  /// This value will be used with the [packageId] and key to for a unique
-  /// identifier for the secret. Saving two values under unique scopes will
-  /// prevent collisions even if the key & packageId overlap.
+  /// This value will be used to create a namespace for the secret.
+  ///
+  /// See also: [defaultNamespace]
   final String scope;
+
+  /// Options that are specific to the Web platform.
+  final WebSecureStorageOptions webOptions;
+
+  /// Options that are specific to the Windows platform.
+  final WindowsSecureStorageOptions windowsOptions;
+
+  /// Options that are specific to the Linux platform.
+  final LinuxSecureStorageOptions linuxOptions;
+
+  /// Options that are specific to the MacOS platform.
+  final MacOSSecureStorageOptions macOSOptions;
+
+  /// Options that are specific to the iOS platform.
+  final IOSSecureStorageOptions iOSOptions;
 }

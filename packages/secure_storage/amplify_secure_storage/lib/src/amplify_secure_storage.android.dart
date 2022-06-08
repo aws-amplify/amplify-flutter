@@ -26,16 +26,16 @@ class AmplifySecureStorageAndroid extends AmplifySecureStorageInterface {
 
   @override
   Future<String?> read({required String key}) {
-    return _api.read(config.packageId, config.scope, key);
+    return _api.read(config.defaultNamespace, key);
   }
 
   @override
   Future<void> write({required String key, required String value}) {
-    return _api.write(config.packageId, config.scope, key, value);
+    return _api.write(config.defaultNamespace, key, value);
   }
 
   @override
   Future<void> delete({required String key}) {
-    return _api.delete(config.packageId, config.scope, key);
+    return _api.delete(config.defaultNamespace, key);
   }
 }
