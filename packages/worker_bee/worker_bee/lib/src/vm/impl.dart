@@ -17,6 +17,7 @@ import 'dart:isolate';
 
 import 'package:meta/meta.dart';
 import 'package:worker_bee/src/common.dart';
+import 'package:worker_bee/src/exception/worker_bee_exception.dart';
 import 'package:worker_bee/worker_bee.dart';
 
 /// {@template worker_bee.send_ports}
@@ -61,20 +62,23 @@ mixin WorkerBeeImpl<Request extends Object, Response>
     return null;
   }
 
+  StreamController<Response>? _controller;
   Isolate? _isolate;
 
   @override
   Future<void> spawn({String? jsEntrypoint}) async {
     logger.finest('Starting worker');
     final receivePort = ReceivePort(name);
+
+    _controller = StreamController<Response>(sync: true);
     final channel = IsolateChannel<Object?>.connectReceive(receivePort);
 
-    stream = channel.stream.cast();
+    stream = _controller!.stream;
     sink = channel.sink.cast();
 
-    // Listen to stream to activate transformer.
-    stream.listen((message) {
+    channel.stream.listen((message) {
       logger.finest('Got message: $message');
+      _controller?.add(message as Response);
     });
 
     final logPort = ReceivePort('${name}_logs');
@@ -105,14 +109,18 @@ mixin WorkerBeeImpl<Request extends Object, Response>
         if (result is Response?) {
           complete(result);
         } else {
-          completeError(Exception('Unexpected result: $result'));
+          final error = Exception('Unexpected result: $result');
+          _controller?.addError(error);
+          completeError(error);
         }
       }),
     );
     unawaited(
       exitPort.first.then<void>((dynamic _) {
         if (isCompleted) return;
-        completeError(Exception('Worker quit unexpectedly'));
+        final error = Exception('Worker quit unexpectedly');
+        _controller?.addError(error);
+        completeError(error);
       }),
     );
     unawaited(
@@ -124,7 +132,9 @@ mixin WorkerBeeImpl<Request extends Object, Response>
         final stackTrace = stackTraceString == null
             ? null
             : StackTrace.fromString(stackTraceString);
-        completeError(message, stackTrace);
+        final exception = WorkerBeeExceptionImpl(message, stackTrace);
+        _controller?.addError(exception, stackTrace);
+        completeError(exception, stackTrace);
       }),
     );
   }
@@ -133,6 +143,8 @@ mixin WorkerBeeImpl<Request extends Object, Response>
   Future<void> close({
     bool force = false,
   }) async {
+    await _controller?.close();
+    _controller = null;
     await super.close(force: force);
     await logsController.close();
     _isolate?.kill();

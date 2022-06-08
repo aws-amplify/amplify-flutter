@@ -54,6 +54,7 @@ abstract class SignInEvent extends StateMachineEvent<SignInEventType> {
   const factory SignInEvent.respondToChallenge({
     required String answer,
     Map<String, String>? clientMetadata,
+    Map<CognitoUserAttributeKey, String>? userAttributes,
   }) = SignInRespondToChallenge;
 
   /// {@macro amplify_auth_cognito.sign_in_cancelled}
@@ -112,7 +113,9 @@ class SignInRespondToChallenge extends SignInEvent {
   const SignInRespondToChallenge({
     required this.answer,
     Map<String, String>? clientMetadata,
+    Map<CognitoUserAttributeKey, String>? userAttributes,
   })  : clientMetadata = clientMetadata ?? const {},
+        userAttributes = userAttributes ?? const {},
         super._();
 
   /// The answer to the challenge.
@@ -121,11 +124,19 @@ class SignInRespondToChallenge extends SignInEvent {
   /// The optional client metadata.
   final Map<String, String> clientMetadata;
 
+  /// Required user attributes which were not previously provided.
+  final Map<CognitoUserAttributeKey, String> userAttributes;
+
   @override
   SignInEventType get type => SignInEventType.respondToChallenge;
 
   @override
-  List<Object?> get props => [type, answer, clientMetadata];
+  List<Object?> get props => [
+        type,
+        answer,
+        clientMetadata,
+        userAttributes,
+      ];
 
   @override
   String? checkPrecondition(SignInState currentState) {
