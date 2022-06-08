@@ -106,7 +106,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     final credentialStorage = _credentialStorage ??
         AmplifySecureStorageDart(
           config: const AmplifySecureStorageConfig(
-            packageId: 'com.amplify', // TODO(dnys1): Remove
             scope: 'auth',
           ),
         );

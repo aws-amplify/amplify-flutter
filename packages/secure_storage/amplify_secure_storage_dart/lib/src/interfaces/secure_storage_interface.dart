@@ -18,9 +18,12 @@ import 'dart:async';
 abstract class SecureStorageInterface {
   const SecureStorageInterface();
 
-  /// Write a key/value pair to storage.
+  /// Write a key-value pair to storage.
   ///
-  /// Adds a new key/value pair if the key does not currently exist,
+  /// The [key] should be unique to the Amplify backend for which the
+  /// [value] applies to.
+  ///
+  /// Adds a new key-value pair if the key does not currently exist,
   /// or updates the existing value if the key is present.
   FutureOr<void> write({required String key, required String value});
 
