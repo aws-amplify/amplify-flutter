@@ -321,7 +321,4 @@ abstract class StateMachine<Event extends StateMachineEvent,
     await _eventController.close();
     await _stateController.close();
   }
-
-  @override
-  Future<void> get done => _eventController.done;
 }
