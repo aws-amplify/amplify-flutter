@@ -19,8 +19,10 @@ import 'dart:typed_data';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/screens/confirm_user_attribute.dart';
+import 'package:amplify_auth_cognito_example/screens/update_password.dart';
 import 'package:amplify_auth_cognito_example/screens/update_user_attribute.dart';
 import 'package:amplify_auth_cognito_example/screens/update_user_attributes.dart';
+import 'package:amplify_auth_cognito_example/screens/view_session_screen.dart';
 import 'package:amplify_auth_cognito_example/screens/view_user_attributes.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -70,6 +72,15 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     ),
+    GoRoute(
+      path: '/reset-password',
+      builder: (BuildContext _, GoRouterState __) =>
+          const UpdatePasswordScreen(),
+    ),
+    GoRoute(
+      path: '/view-session',
+      builder: (BuildContext _, GoRouterState __) => const ViewSessionScreen(),
+    ),
   ]);
 
   @override
@@ -102,9 +113,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp.router(
         title: 'Flutter Demo',
         builder: Authenticator.builder(),
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(primarySwatch: Colors.blue),
         routeInformationParser: _router.routeInformationParser,
         routerDelegate: _router.routerDelegate,
         debugShowCheckedModeBanner: false,
@@ -207,7 +216,17 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () => context.push('/update-user-attributes'),
               child: const Text('Update User Attributes'),
             ),
+            const SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: () => context.push('/reset-password'),
+              child: const Text('Update Password'),
+            ),
             const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () => context.push('/view-session'),
+              child: const Text('View Session'),
+            ),
+            const SizedBox(height: 12),
             const SignOutButton(),
           ],
         ),

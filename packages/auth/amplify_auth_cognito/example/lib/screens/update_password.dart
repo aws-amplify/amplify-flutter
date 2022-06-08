@@ -15,84 +15,105 @@
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class UpdatePasswordWidget extends StatefulWidget {
-  final Function showResult;
-  final Function changeDisplay;
-  final Function setError;
-  final VoidCallback backToSignIn;
-  final VoidCallback backToApp;
+class UpdatePasswordScreen extends StatefulWidget {
+  const UpdatePasswordScreen({this.userAttributeKey, super.key});
 
-  const UpdatePasswordWidget(this.showResult, this.changeDisplay, this.setError,
-      this.backToSignIn, this.backToApp,
-      {super.key});
+  final CognitoUserAttributeKey? userAttributeKey;
 
   @override
-  State<UpdatePasswordWidget> createState() => _UpdatePasswordWidgetState();
+  State<UpdatePasswordScreen> createState() => _UpdatePasswordScreenState();
 }
 
-class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
-  final oldPasswordController = TextEditingController();
-  final newPasswordController = TextEditingController();
+class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
+  final _newPassword = TextEditingController();
+  final _oldPassword = TextEditingController();
 
-  void _updatePassword() async {
+  @override
+  void dispose() {
+    _newPassword.dispose();
+    _oldPassword.dispose();
+    super.dispose();
+  }
+
+  void _showSuccess(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.green[800],
+        content: Text(message),
+      ),
+    );
+  }
+
+  void _showInfo(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.blue[800],
+        content: Text(message),
+      ),
+    );
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.red[900],
+        content: Text(message),
+      ),
+    );
+  }
+
+  Future<void> _changePassword() async {
     try {
-      await Amplify.Auth.updatePassword(
-          newPassword: newPasswordController.text.trim(),
-          oldPassword: oldPasswordController.text.trim());
-      widget.showResult('Password Updated');
-      widget.changeDisplay('SIGNED_IN');
-    } on AmplifyException catch (e) {
-      widget.setError(e);
+      final res = await Amplify.Auth.updatePassword(
+        oldPassword: _oldPassword.text,
+        newPassword: _newPassword.text,
+      );
+      context.go('/');
+    } on Exception catch (e) {
+      _showError(e.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Expanded(
-          // wrap your Column in Expanded
-          child: Column(
-            children: [
-              const Padding(padding: EdgeInsets.all(10.0)),
-              TextFormField(
-                  controller: oldPasswordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.question_answer),
-                    hintText: 'Your old password',
-                    labelText: 'Old Password *',
-                  )),
-              TextFormField(
-                  controller: newPasswordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.question_answer),
-                    hintText: 'Your new password',
-                    labelText: 'New Password *',
-                  )),
-              const Padding(padding: EdgeInsets.all(10.0)),
-              ElevatedButton(
-                onPressed: _updatePassword,
-                child: const Text('Update Password'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Update Attribute'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: ListView(
+          children: [
+            const SizedBox(height: 12),
+            TextFormField(
+              controller: _newPassword,
+              decoration: const InputDecoration(
+                labelText: 'New Password',
               ),
-              const Padding(padding: EdgeInsets.all(10.0)),
-              ElevatedButton(
-                onPressed: widget.backToApp,
-                child: const Text('Back to App'),
+            ),
+            TextFormField(
+              controller: _oldPassword,
+              decoration: const InputDecoration(
+                labelText: 'Old Password',
               ),
-              const Padding(padding: EdgeInsets.all(10.0)),
-              ElevatedButton(
-                key: const Key('goto-signin-button'),
-                onPressed: widget.backToSignIn,
-                child: const Text('Back to Sign In'),
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: _changePassword,
+              child: const Text('Update Password'),
+            ),
+            const SizedBox(height: 12),
+            TextButton(
+              onPressed: () => context.go(
+                '/',
               ),
-            ],
-          ),
+              child: const Text('Back'),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
