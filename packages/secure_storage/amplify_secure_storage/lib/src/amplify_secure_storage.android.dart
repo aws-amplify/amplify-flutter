@@ -19,8 +19,8 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
 class AmplifySecureStorageAndroid extends AmplifySecureStorageInterface {
   const AmplifySecureStorageAndroid({
-    required AmplifySecureStorageConfig config,
-  }) : super(config: config);
+    required super.config,
+  });
 
   static final AmplifySecureStorageApi _api = AmplifySecureStorageApi();
 

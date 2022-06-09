@@ -20,8 +20,8 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 class AmplifySecureStorage extends AmplifySecureStorageInterface {
   /// {@macro amplify_secure_storage.amplify_secure_storage}
   AmplifySecureStorage({
-    required AmplifySecureStorageConfig config,
-  }) : super(config: config);
+    required super.config,
+  });
 
   late final SecureStorageInterface _instance =
       AmplifySecureStorageDart(config: config);

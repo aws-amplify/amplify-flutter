@@ -46,7 +46,7 @@ class SecureStorageAction extends EnumClass {
   static SecureStorageAction valueOf(String name) =>
       _$SecureStorageActionValueOf(name);
 
-  /// The [SecureStorageAction] action.
+  /// The [SecureStorageAction] serializer.
   static Serializer<SecureStorageAction> get serializer =>
       _$secureStorageActionSerializer;
 }

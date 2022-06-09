@@ -39,6 +39,7 @@ abstract class LinuxSecureStorageOptions
   /// Reference: [SecretSchema](https://developer-old.gnome.org/libsecret/unstable/libsecret-SecretSchema.html#SecretSchema)
   String? get schemaName;
 
+  /// The [LinuxSecureStorageOptions] serializer.
   static Serializer<LinuxSecureStorageOptions> get serializer =>
       _$linuxSecureStorageOptionsSerializer;
 }

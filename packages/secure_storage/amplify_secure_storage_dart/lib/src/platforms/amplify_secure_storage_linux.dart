@@ -14,8 +14,7 @@
 
 import 'dart:ffi';
 
-import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';
-import 'package:amplify_secure_storage_dart/src/types/amplify_secure_storage_config.dart';
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:ffi/ffi.dart';
 
 import '../ffi/glib/glib.dart';
@@ -24,8 +23,8 @@ import '../ffi/libsecret/libsecret.dart';
 /// The Linux implementation of [SecureStorageInterface].
 class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   const AmplifySecureStorageLinux({
-    required AmplifySecureStorageConfig config,
-  }) : super(config: config);
+    required super.config,
+  });
 
   @override
   void write({required String key, required String value}) {

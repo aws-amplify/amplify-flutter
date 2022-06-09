@@ -23,7 +23,7 @@ builders:
       - copyBuilder
     build_extensions:
       lib/src/workers.dart.js:
-        - lib/workers.js
+        - lib/src/workers.js
     auto_apply: none
     build_to: source
     required_inputs: [".dart.js"]

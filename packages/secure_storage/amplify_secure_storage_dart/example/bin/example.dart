@@ -33,7 +33,7 @@ Future<void> main() async {
   InputMode? inputMode;
 
   while (inputMode == null) {
-    String rawInput = _prompt(
+    final rawInput = _prompt(
       'Would you like to read (r), write (w), or delete (d): ',
     );
     final input = rawInput[0].toLowerCase();
@@ -60,7 +60,7 @@ Future<void> main() async {
 }
 
 Future<void> _read() async {
-  String key = _prompt('Enter the key to read: ');
+  final key = _prompt('Enter the key to read: ');
 
   final value = await storage.read(key: key);
 
@@ -68,8 +68,8 @@ Future<void> _read() async {
 }
 
 Future<void> _write() async {
-  String key = _prompt('Enter the key to write to: ');
-  String value = _prompt('Enter the value to write: ');
+  final key = _prompt('Enter the key to write to: ');
+  final value = _prompt('Enter the value to write: ');
 
   await storage.write(key: key, value: value);
 
@@ -77,7 +77,7 @@ Future<void> _write() async {
 }
 
 Future<void> _delete() async {
-  String key = _prompt('Enter the key to delete: ');
+  final key = _prompt('Enter the key to delete: ');
 
   await storage.delete(key: key);
 

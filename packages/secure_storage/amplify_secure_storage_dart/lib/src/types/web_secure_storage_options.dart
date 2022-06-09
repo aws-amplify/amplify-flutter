@@ -36,6 +36,7 @@ abstract class WebSecureStorageOptions
   /// will be used as the database name.
   String? get databaseName;
 
+  /// The [WebSecureStorageOptions] serializer.
   static Serializer<WebSecureStorageOptions> get serializer =>
       _$webSecureStorageOptionsSerializer;
 }

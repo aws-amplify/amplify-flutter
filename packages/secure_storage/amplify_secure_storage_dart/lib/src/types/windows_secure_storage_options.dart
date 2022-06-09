@@ -42,6 +42,7 @@ abstract class WindowsSecureStorageOptions
   /// Reference: [Wincred](https://docs.microsoft.com/en-us/windows/win32/api/wincred/ns-wincred-credentiala)
   String? get targetNamePrefix;
 
+  /// The [WindowsSecureStorageOptions] serializer.
   static Serializer<WindowsSecureStorageOptions> get serializer =>
       _$windowsSecureStorageOptionsSerializer;
 }
