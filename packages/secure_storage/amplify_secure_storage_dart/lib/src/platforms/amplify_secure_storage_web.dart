@@ -19,12 +19,10 @@ import 'package:amplify_secure_storage_dart/src/exception/secure_storage_excepti
 import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';
 import 'package:amplify_secure_storage_dart/src/interfaces/secure_storage_interface.dart';
 import 'package:amplify_secure_storage_dart/src/js/indexed_db.dart';
-import 'package:amplify_secure_storage_dart/src/types/amplify_secure_storage_config.dart';
 
 /// The web implementation of [SecureStorageInterface].
 class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
-  AmplifySecureStorageWeb({required AmplifySecureStorageConfig config})
-      : super(config: config);
+  AmplifySecureStorageWeb({required super.config});
 
   /// The name of the database
   ///
@@ -52,15 +50,15 @@ class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
         recoverySuggestion: SecureStorageException.missingRecovery,
       );
     }
-    final openRequest = indexedDB!.open(databaseName, 1);
-    openRequest.onupgradeneeded = (event) {
-      final IDBDatabase database = event.target.result;
-      final DOMStringList objectStoreNames = database.objectStoreNames;
-      if (!objectStoreNames.contains(storeName)) {
-        database.createObjectStore(storeName);
-      }
-    };
-    // TODO: update once https://github.com/dart-lang/sdk/issues/48835
+    final openRequest = indexedDB!.open(databaseName, 1)
+      ..onupgradeneeded = (event) {
+        final database = event.target.result;
+        final objectStoreNames = database.objectStoreNames;
+        if (!objectStoreNames.contains(storeName)) {
+          database.createObjectStore(storeName);
+        }
+      };
+    // TODO(Jordan-Nelson): update once https://github.com/dart-lang/sdk/issues/48835
     // is resolved in a stable version. setting _database instead of returning
     // it is a work around.
     _database = await openRequest.future;
@@ -69,33 +67,33 @@ class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
   /// Returns a new [IDBObjectStore] instance after waiting for initialization
   /// to complete.
   IDBObjectStore _getObjectStore() {
-    final IDBTransaction transaction = _database.transaction(
+    final transaction = _database.transaction(
       storeName,
       mode: IDBTransactionMode.readwrite,
     );
-    final IDBObjectStore store = transaction.objectStore(storeName);
+    final store = transaction.objectStore(storeName);
     return store;
   }
 
   @override
   Future<void> write({required String key, required String value}) async {
     await _databaseOpenEvent;
-    final IDBObjectStore store = _getObjectStore();
+    final store = _getObjectStore();
     await store.put(value, key).future;
   }
 
   @override
   Future<String?> read({required String key}) async {
     await _databaseOpenEvent;
-    final IDBObjectStore store = _getObjectStore();
-    final String? value = await store.getObject(key).future;
+    final store = _getObjectStore();
+    final value = await store.getObject(key).future;
     return value;
   }
 
   @override
   Future<void> delete({required String key}) async {
     await _databaseOpenEvent;
-    final IDBObjectStore store = _getObjectStore();
+    final store = _getObjectStore();
     await store.delete(key).future;
   }
 }

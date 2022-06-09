@@ -12,17 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: omit_local_variable_types
+
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/exception/access_denied_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/duplicate_item_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/item_not_found_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/unknown_exception.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/cupertino/cupertino.dart';
-import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';
-import 'package:amplify_secure_storage_dart/src/types/amplify_secure_storage_config.dart';
 import 'package:ffi/ffi.dart';
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_cupertino}
@@ -40,8 +41,8 @@ import 'package:ffi/ffi.dart';
 class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_cupertino}
   const AmplifySecureStorageCupertino({
-    required AmplifySecureStorageConfig config,
-  }) : super(config: config);
+    required super.config,
+  });
 
   /// The value of the service name attribute for all keychain items.
   String get _serviceName => config.defaultNamespace;
@@ -217,7 +218,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     final keysPtr = arena<CFTypeRef>(map.length);
     final valuesPtr = arena<CFTypeRef>(map.length);
     var index = 0;
-    for (var entry in map.entries) {
+    for (final entry in map.entries) {
       keysPtr[index] = entry.key.cast();
       valuesPtr[index] = entry.value.cast();
       index++;
@@ -285,14 +286,10 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
 /// An error from the Security Framework.
 class _SecurityFrameworkError {
   _SecurityFrameworkError({required this.code, required this.message});
-  final int code;
-  final String message;
-
-  static const _noErrorStringMessage = 'No error string is available.';
 
   /// Creates an error from the given result code.
   factory _SecurityFrameworkError.fromCode(int code) {
-    CFStringRef cfString = security.SecCopyErrorMessageString(code, nullptr);
+    final cfString = security.SecCopyErrorMessageString(code, nullptr);
     if (cfString == nullptr) {
       return _SecurityFrameworkError(
         code: code,
@@ -313,6 +310,11 @@ class _SecurityFrameworkError {
       }
     }
   }
+
+  final int code;
+  final String message;
+
+  static const _noErrorStringMessage = 'No error string is available.';
 
   /// Maps the error to a [SecureStorageException].
   SecureStorageException toSecureStorageException() {
@@ -344,7 +346,7 @@ class _SecurityFrameworkError {
           underlyingException: underlyingException,
         );
       case errSecMissingEntitlement:
-        // TODO: point to amplify documentation when available.
+        // TODO(Jordan-Nelson): point to amplify documentation when available.
         final recoverySuggestion = Platform.isMacOS
             ? 'If you have not explicitly disabled `useDataProtection` this may be a result of your app not being in any app groups. See `MacOSSecureStorageOptions.useDataProtection` for more info.'
             : SecureStorageException.missingRecovery;

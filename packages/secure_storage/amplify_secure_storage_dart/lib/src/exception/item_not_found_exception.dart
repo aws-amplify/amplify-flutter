@@ -20,12 +20,8 @@ import 'package:amplify_secure_storage_dart/src/exception/secure_storage_excepti
 class ItemNotFoundException extends SecureStorageException {
   /// {@macro amplify_secure_storage_dart.item_not_found_exception}
   const ItemNotFoundException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 }

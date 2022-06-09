@@ -84,6 +84,7 @@ abstract class AmplifySecureStorageConfig
   /// Options that are specific to the iOS platform.
   IOSSecureStorageOptions get iOSOptions;
 
+  /// The [AmplifySecureStorageConfig] serializer.
   static Serializer<AmplifySecureStorageConfig> get serializer =>
       _$amplifySecureStorageConfigSerializer;
 }

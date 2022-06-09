@@ -34,6 +34,7 @@ abstract class IOSSecureStorageOptions
   /// Reference: [kSecAttrAccessGroup](https://developer.apple.com/documentation/security/ksecattraccessgroup?language=objc)
   String? get accessGroup;
 
+  /// The [IOSSecureStorageOptions] serializer.
   static Serializer<IOSSecureStorageOptions> get serializer =>
       _$iOSSecureStorageOptionsSerializer;
 }

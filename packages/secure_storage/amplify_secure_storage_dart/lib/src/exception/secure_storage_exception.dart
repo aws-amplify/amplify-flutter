@@ -41,9 +41,9 @@ class SecureStorageException implements Exception {
       'and file an issue with the details of the bug if there isn\'t.';
 
   @override
-  String toString() =>
-      '$runtimeType(message: $message, recoverySuggestion: $recoverySuggestion,'
-      ' underlyingException: $underlyingException)';
+  String toString() => 'SecureStorageException(message: $message, '
+      'recoverySuggestion: $recoverySuggestion, '
+      'underlyingException: $underlyingException)';
 
   @override
   bool operator ==(Object other) {

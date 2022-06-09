@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: close_sinks
-
 import 'dart:async';
 
 import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';

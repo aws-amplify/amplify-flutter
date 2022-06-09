@@ -16,19 +16,18 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:typed_data';
 
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/unknown_exception.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/win32/utils.dart';
-import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';
-import 'package:amplify_secure_storage_dart/src/types/amplify_secure_storage_config.dart';
 import 'package:ffi/ffi.dart';
 import 'package:win32/win32.dart';
 
 /// The windows implementation of [SecureStorageInterface].
 class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
   const AmplifySecureStorageWindows({
-    required AmplifySecureStorageConfig config,
-  }) : super(config: config);
+    required super.config,
+  });
 
   /// The user name of the account used to connect to the "TargetName".
   ///
