@@ -35,8 +35,8 @@ class HttpPayload extends StreamView<List<int>> {
     if (body is Stream<List<int>>) {
       return HttpPayload.streaming(body);
     }
-    if (body is Map) {
-      return HttpPayload.fields(body.cast<String, String>());
+    if (body is Map<String, String>) {
+      return HttpPayload.fields(body);
     }
     throw ArgumentError('Invalid HTTP payload type: ${body.runtimeType}');
   }
