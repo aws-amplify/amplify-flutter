@@ -23,7 +23,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:macos-latest;pub-cache-hosted;sdk:beta;packages:packages/worker_bee/e2e_flutter_test;commands:command_2-command_3-test_2"
+          key: "os:macos-latest;pub-cache-hosted;sdk:beta;packages:packages/worker_bee/e2e_flutter_test;commands:command_4-command_5-test_2"
           restore-keys: |
             os:macos-latest;pub-cache-hosted;sdk:beta;packages:packages/worker_bee/e2e_flutter_test
             os:macos-latest;pub-cache-hosted;sdk:beta
@@ -59,7 +59,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_flutter_test;commands:command_2-command_3-test_2"
+          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_flutter_test;commands:command_4-command_5-test_2"
           restore-keys: |
             os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_flutter_test
             os:macos-latest;pub-cache-hosted;sdk:stable

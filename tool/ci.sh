@@ -88,24 +88,24 @@ for PKG in ${PKGS}; do
         git submodule update --init || EXIT_CODE=$?
         ;;
       command_2)
-        echo 'flutter doctor -v'
-        flutter doctor -v || EXIT_CODE=$?
-        ;;
-      command_3)
-        echo 'xcrun simctl boot "iPhone 13"'
-        xcrun simctl boot "iPhone 13" || EXIT_CODE=$?
-        ;;
-      command_4)
-        echo 'dart run build_runner build --delete-conflicting-outputs'
-        dart run build_runner build --delete-conflicting-outputs || EXIT_CODE=$?
-        ;;
-      command_5)
         echo 'tool/test.sh -p chrome'
         tool/test.sh -p chrome || EXIT_CODE=$?
         ;;
-      command_6)
+      command_3)
         echo 'tool/test.sh -p firefox'
         tool/test.sh -p firefox || EXIT_CODE=$?
+        ;;
+      command_4)
+        echo 'flutter doctor -v'
+        flutter doctor -v || EXIT_CODE=$?
+        ;;
+      command_5)
+        echo 'xcrun simctl boot "iPhone 13"'
+        xcrun simctl boot "iPhone 13" || EXIT_CODE=$?
+        ;;
+      command_6)
+        echo 'dart run build_runner build --delete-conflicting-outputs'
+        dart run build_runner build --delete-conflicting-outputs || EXIT_CODE=$?
         ;;
       format)
         echo 'dart format --output=none --set-exit-if-changed .'
