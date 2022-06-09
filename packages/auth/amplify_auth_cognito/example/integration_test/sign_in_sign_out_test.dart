@@ -83,6 +83,19 @@ void main() {
       );
     });
 
+    testWidgets('should be able to sign in after a failed attempt',
+        (WidgetTester tester) async {
+      final incorrectUsername = generateUsername();
+      expect(
+        Amplify.Auth.signIn(username: incorrectUsername, password: password),
+        throwsA(isA<UserNotFoundException>()),
+      );
+
+      final res =
+          await Amplify.Auth.signIn(username: username, password: password);
+      expect(res.isSignedIn, true);
+    });
+
     testWidgets(
         'should throw an InvalidStateException if a user is already signed in',
         (WidgetTester tester) async {

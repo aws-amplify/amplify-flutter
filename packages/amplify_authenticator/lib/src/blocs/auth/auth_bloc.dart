@@ -325,8 +325,10 @@ class StateMachineBloc {
         e.message,
         showBanner: !e.message.contains('cancelled'),
       ));
+      yield UnauthenticatedState.signIn;
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
+      yield UnauthenticatedState.signIn;
     }
   }
 
