@@ -18,12 +18,6 @@ import 'dart:async';
 abstract class SecureStorageInterface {
   const SecureStorageInterface();
 
-  /// {@template amplify_secure_storage_dart.secure_storage_interface.init}
-  /// Initializes the secure storage and performs any work which should be
-  /// performed once before any secure storage operations.
-  /// {@endtemplate}
-  FutureOr<void> init() async {}
-
   /// {@template amplify_secure_storage_dart.secure_storage_interface.write}
   /// Write a key-value pair to storage.
   ///

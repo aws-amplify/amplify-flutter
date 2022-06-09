@@ -133,7 +133,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
             scope: 'auth',
           ),
         );
-    await credentialStorage.init();
     _stateMachine.addInstance<SecureStorageInterface>(credentialStorage);
     if (_hostedUiPlatformFactory != null) {
       _stateMachine.addBuilder(

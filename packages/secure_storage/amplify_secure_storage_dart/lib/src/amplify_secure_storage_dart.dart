@@ -60,8 +60,11 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
   late final SecureStorageWorker _worker;
   final _workerMemo = AsyncMemoizer<void>();
 
-  @override
-  Future<void> init() => _workerMemo.runOnce(() async {
+  /// {@template amplify_secure_storage_dart.secure_storage_interface.init}
+  /// Initializes the secure storage and performs any work which should be
+  /// performed once before any secure storage operations.
+  /// {@endtemplate}
+  Future<void> _init() => _workerMemo.runOnce(() async {
         _worker = SecureStorageWorker.create();
         // TODO(dnys1): Log
         _worker.logs.listen(safePrint);
@@ -74,6 +77,7 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
 
   @override
   Future<void> delete({required String key}) async {
+    await _init();
     final request = SecureStorageRequest.delete(key: key);
     _worker.add(request);
     await _worker.stream.firstWhere(
@@ -83,6 +87,7 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
 
   @override
   Future<String?> read({required String key}) async {
+    await _init();
     final request = SecureStorageRequest.read(key: key);
     _worker.add(request);
     final resp = await _worker.stream.firstWhere(
@@ -93,6 +98,7 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
 
   @override
   Future<void> write({required String key, required String value}) async {
+    await _init();
     final request = SecureStorageRequest.write(key: key, value: value);
     _worker.add(request);
     await _worker.stream.firstWhere((event) => event.id == request.id);
