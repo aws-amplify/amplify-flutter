@@ -29,7 +29,7 @@ final _voidType = _typeOf<void>();
 /// The actual base class mixes in platform-specific code to this class.
 /// {@endtemplate}
 abstract class WorkerBeeCommon<Request extends Object, Response>
-    implements StreamSink<Request>, Closeable {
+    implements Closeable {
   /// {@template worker_bee.worker_bee_common}
   WorkerBeeCommon({
     Serializers? serializers,
@@ -236,15 +236,8 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
   /// The result of the worker bee's computation.
   Future<Result<Response?>> get result => _resultCompleter.future;
 
-  @override
+  /// Add an event to the worker's [sink].
   void add(Request event) => sink.add(event);
-
-  @override
-  void addError(Object error, [StackTrace? stackTrace]) =>
-      sink.addError(error, stackTrace);
-
-  @override
-  Future<void> addStream(Stream<Request> stream) => sink.addStream(stream);
 
   final AsyncMemoizer<void> _closeMemoizer = AsyncMemoizer();
 
@@ -262,7 +255,4 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
         );
         await sink.close();
       });
-
-  @override
-  Future<void> get done => sink.done;
 }

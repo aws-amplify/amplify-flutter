@@ -428,5 +428,3 @@ void main() {
     });
   });
 }
-
-// ignore_for_file: close_sinks

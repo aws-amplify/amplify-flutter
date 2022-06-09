@@ -80,8 +80,8 @@ abstract class SrpPasswordVerifierMessage
 /// {@template amplify_auth_cognito.srp_password_verifier_worker}
 /// Worker bee for handling the SRP password verifier challenge routine.
 /// {@endtemplate}
-@WorkerBee('packages/amplify_auth_cognito_dart/workers.dart.js', [
-  'packages/amplify_auth_cognito_dart/workers.js',
+@WorkerBee('packages/amplify_auth_cognito_dart/src/workers.dart.js', [
+  'packages/amplify_auth_cognito_dart/src/workers.js',
 ])
 abstract class SrpPasswordVerifierWorker extends WorkerBeeBase<
     SrpPasswordVerifierMessage, RespondToAuthChallengeRequest> {

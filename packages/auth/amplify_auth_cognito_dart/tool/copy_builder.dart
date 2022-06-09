@@ -39,6 +39,6 @@ class _CopyBuilder extends Builder {
 }
 
 final _generatedWorkersJs =
-    AssetId('amplify_auth_cognito_dart', 'lib/workers.dart.js');
+    AssetId('amplify_auth_cognito_dart', 'lib/src/workers.dart.js');
 final _publishedWorkersJs =
-    AssetId('amplify_auth_cognito_dart', 'lib/workers.js');
+    AssetId('amplify_auth_cognito_dart', 'lib/src/workers.js');

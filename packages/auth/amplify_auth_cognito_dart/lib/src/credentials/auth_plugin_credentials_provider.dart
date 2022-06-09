@@ -58,7 +58,6 @@ class AuthPluginCredentialsProviderImpl extends AuthPluginCredentialsProvider {
 
   @override
   Future<AWSCredentials> retrieve() async {
-    // ignore: close_sinks
     final fetchAuthSessionMachine = dependencyManager.getOrCreate(
       FetchAuthSessionStateMachine.type,
     );

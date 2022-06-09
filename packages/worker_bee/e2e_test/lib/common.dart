@@ -55,7 +55,7 @@ Future<void> testWorker({String? jsEntrypoint}) async {
   final worker = E2EWorker.create();
   worker.logs.listen(safePrint);
   await worker.spawn(jsEntrypoint: jsEntrypoint);
-  worker.add(message);
+  worker.sink.add(message);
 
   final messages = await worker.stream.take(1).toList();
   final result = await Result.release(worker.result);

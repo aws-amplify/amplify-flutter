@@ -28,114 +28,20 @@ class _ReCase {
   final String originalText;
   final List<String> _words;
 
-  /// camelCase
-  String get camelCase => _getCamelCase();
-
-  /// CONSTANT_CASE
-  String get constantCase => _getConstantCase();
-
-  /// Sentence case
-  String get sentenceCase => _getSentenceCase();
-
-  /// snake_case
-  String get snakeCase => _getSnakeCase();
-
-  /// dot.case
-  String get dotCase => _getSnakeCase(separator: '.');
-
   /// param-case
   String get paramCase => _getSnakeCase(separator: '-');
-
-  /// path/case
-  String get pathCase => _getSnakeCase(separator: '/');
-
-  /// PascalCase
-  String get pascalCase => _getPascalCase();
-
-  /// Header-Case
-  String get headerCase => _getPascalCase(separator: '-');
-
-  /// Title Case
-  String get titleCase => _getPascalCase(separator: ' ');
-
-  String _getCamelCase({String separator = ''}) {
-    final words = _words.map(_upperCaseFirstLetter).toList();
-    if (_words.isNotEmpty) {
-      words[0] = words[0].toLowerCase();
-    }
-
-    return words.join(separator);
-  }
-
-  String _getConstantCase({String separator = '_'}) {
-    final words = _words.map((word) => word.toUpperCase()).toList();
-
-    return words.join(separator);
-  }
-
-  String _getPascalCase({String separator = ''}) {
-    final words = _words.map(_upperCaseFirstLetter).toList();
-
-    return words.join(separator);
-  }
-
-  String _getSentenceCase({String separator = ' '}) {
-    final words = _words.map((word) => word.toLowerCase()).toList();
-    if (_words.isNotEmpty) {
-      words[0] = _upperCaseFirstLetter(words[0]);
-    }
-
-    return words.join(separator);
-  }
 
   String _getSnakeCase({String separator = '_'}) {
     final words = _words.map((word) => word.toLowerCase()).toList();
 
     return words.join(separator);
   }
-
-  String _upperCaseFirstLetter(String word) {
-    return '${word.substring(0, 1).toUpperCase()}${word.substring(1).toLowerCase()}';
-  }
 }
 
 /// Recasing string helpers.
 extension StringReCase on String {
-  /// The capitalized word.
-  String get capitalized {
-    if (length < 2) return toUpperCase();
-    return this[0].toUpperCase() + substring(1).toLowerCase();
-  }
-
-  /// camelCase
-  String get camelCase => _ReCase(this).camelCase;
-
-  /// CONSTANT_CASE
-  String get constantCase => _ReCase(this).constantCase;
-
-  /// Sentence case
-  String get sentenceCase => _ReCase(this).sentenceCase;
-
-  /// snake_case
-  String get snakeCase => _ReCase(this).snakeCase;
-
-  /// dot.case
-  String get dotCase => _ReCase(this).dotCase;
-
   /// param-case
   String get paramCase => _ReCase(this).paramCase;
-
-  /// path/case
-  String get pathCase => _ReCase(this).pathCase;
-
-  /// PascalCase
-  String get pascalCase => _ReCase(this).pascalCase;
-
-  /// Header-Case
-  String get headerCase => _ReCase(this).headerCase;
-
-  /// Title Case
-  String get titleCase => _ReCase(this).titleCase;
 
   // "acm-success"-> "acm success"
   static final _nonAlphaNumericChars = RegExp(r'[^A-Za-z0-9+]');
