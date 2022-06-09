@@ -1,4 +1,4 @@
-# Created with package:mono_repo v6.2.2
+# Created with package:mono_repo v6.3.0-dev
 name: Integration Test
 on:
   push:
@@ -13,6 +13,7 @@ defaults:
     shell: bash
 env:
   PUB_ENVIRONMENT: bot.github
+permissions: read-all
 
 jobs:
   job_001:
@@ -20,7 +21,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
           key: "os:macos-latest;pub-cache-hosted;sdk:beta;packages:packages/worker_bee/e2e_flutter_test;commands:command_4-command_5-test_2"
@@ -29,11 +30,11 @@ jobs:
             os:macos-latest;pub-cache-hosted;sdk:beta
             os:macos-latest;pub-cache-hosted
             os:macos-latest
-      - uses: subosito/flutter-action@v2.3.0
+      - uses: subosito/flutter-action@2fb73e25c9488eb544b9b14b2ce00c4c2baf789e
         with:
           channel: beta
       - id: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
       - id: packages_worker_bee_e2e_flutter_test_pub_upgrade
         name: packages/worker_bee/e2e_flutter_test; flutter pub pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -56,7 +57,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
           key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_flutter_test;commands:command_4-command_5-test_2"
@@ -65,11 +66,11 @@ jobs:
             os:macos-latest;pub-cache-hosted;sdk:stable
             os:macos-latest;pub-cache-hosted
             os:macos-latest
-      - uses: subosito/flutter-action@v2.3.0
+      - uses: subosito/flutter-action@2fb73e25c9488eb544b9b14b2ce00c4c2baf789e
         with:
           channel: stable
       - id: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
       - id: packages_worker_bee_e2e_flutter_test_pub_upgrade
         name: packages/worker_bee/e2e_flutter_test; flutter pub pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"

@@ -16,7 +16,6 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
-import 'package:smithy/smithy.dart';
 
 /// {@template amplify_auth_cognito.state.machines.hosted_ui_state_machine_base}
 /// Generated definition for the hosted UI state machine.
@@ -75,17 +74,10 @@ abstract class HostedUiStateMachineBase
 
   @override
   HostedUiState? resolveError(Object error, [StackTrace? st]) {
-    if (error is AuthException) {
-      return HostedUiState.failure(error);
-    } else if (error is SmithyException) {
-      return HostedUiState.failure(error);
+    if (error is Exception) {
+      return HostedUiFailure(error);
     }
-    return HostedUiState.failure(
-      UnknownException(
-        'An unknown error occurred',
-        underlyingException: error.toString(),
-      ),
-    );
+    return null;
   }
 
   /// State machine callback for the [HostedUiConfigure] event.
