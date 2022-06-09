@@ -38,14 +38,14 @@ abstract class AmplifyAPI extends APIPluginInterface {
     List<APIAuthProvider> authProviders = const [],
     ModelProviderInterface? modelProvider,
   }) {
-    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      return AmplifyAPIDart(
-          authProviders: authProviders, modelProvider: modelProvider);
-    }
-    return AmplifyAPIMethodChannel(
-      authProviders: authProviders,
-      modelProvider: modelProvider,
-    );
+    // if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+    return AmplifyAPIDart(
+        authProviders: authProviders, modelProvider: modelProvider);
+    // }
+    // return AmplifyAPIMethodChannel(
+    //   authProviders: authProviders,
+    //   modelProvider: modelProvider,
+    // );
   }
 
   /// Protected constructor for subclasses.

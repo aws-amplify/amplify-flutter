@@ -39,7 +39,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 /** AmplifyApiPlugin */
-class AmplifyApi : FlutterPlugin, MethodCallHandler {
+class AmplifyApi : FlutterPlugin, MethodCallHandler, NativeApiPluginBindings.NativeApiBridge {
 
     private companion object {
         /**
@@ -83,6 +83,11 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
             "com.amazonaws.amplify/api_observe_events"
         )
         eventchannel!!.setStreamHandler(graphqlSubscriptionStreamHandler)
+
+        NativeApiPluginBindings.NativeApiBridge.setup(
+            flutterPluginBinding.binaryMessenger,
+            this
+        )
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -95,25 +100,6 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
             onCancel(result, (call.arguments as String))
             return
         } else if (methodName == "addPlugin") {
-            try {
-                val authProvidersList: List<String> =
-                    (arguments["authProviders"] as List<*>?)?.cast() ?: listOf()
-                val authProviders = authProvidersList.map { AuthorizationType.valueOf(it) }
-                if (flutterAuthProviders == null) {
-                    flutterAuthProviders = FlutterAuthProviders(authProviders)
-                }
-                flutterAuthProviders!!.setMethodChannel(channel)
-                Amplify.addPlugin(
-                    AWSApiPlugin
-                        .builder()
-                        .apiAuthProviders(flutterAuthProviders!!.factory)
-                        .build()
-                )
-                logger.info("Added API plugin")
-                result.success(null)
-            } catch (e: Exception) {
-                handleAddPluginException("API", e, result)
-            }
             return
         }
 
@@ -168,5 +154,33 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
         eventchannel = null
         graphqlSubscriptionStreamHandler?.close()
         graphqlSubscriptionStreamHandler = null
+
+        NativeApiPluginBindings.NativeApiBridge.setup(
+            flutterPluginBinding.binaryMessenger,
+            null,
+        )
+    }
+
+    override fun addPlugin(
+        authProvidersList: List<String>,
+        result: NativeApiPluginBindings.Result<Void>
+    ) {
+        try {
+            val authProviders = authProvidersList.map { AuthorizationType.valueOf(it) }
+            if (flutterAuthProviders == null) {
+                flutterAuthProviders = FlutterAuthProviders(authProviders)
+            }
+            flutterAuthProviders!!.setMethodChannel(channel)
+            Amplify.addPlugin(
+                AWSApiPlugin
+                    .builder()
+                    .apiAuthProviders(flutterAuthProviders!!.factory)
+                    .build()
+            )
+            logger.info("Added API plugin")
+            result.success(null)
+        } catch (e: Exception) {
+            result.error(e)
+        }
     }
 }

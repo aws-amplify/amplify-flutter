@@ -20,7 +20,7 @@ import AmplifyPlugins
 import amplify_core
 import AWSPluginsCore
 
-public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
+public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
     private let bridge: ApiBridge
     private let graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler
     static var methodChannel: FlutterMethodChannel!
@@ -43,6 +43,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
         let instance = SwiftAmplifyApiPlugin()
         eventchannel.setStreamHandler(instance.graphQLSubscriptionsStreamHandler)
         registrar.addMethodCallDelegate(instance, channel: methodChannel)
+        NativeApiBridgeSetup(registrar.messenger(),instance)
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -62,58 +63,53 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
 
             let arguments = try FlutterApiRequest.getMap(args: callArgs)
 
-            if method == "addPlugin"{
-                let authProvidersList = arguments["authProviders"] as? [String] ?? []
-                let authProviders = authProvidersList.compactMap {
-                    AWSAuthorizationType(rawValue: $0)
-                }
-                addPlugin(authProviders: authProviders, result: result)
-                return
-            }
-
             try innerHandle(method: method, arguments: arguments, result: result)
         } catch {
             print("Failed to parse query arguments with \(error)")
             FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: result)
         }
     }
-
-    private func addPlugin(authProviders: [AWSAuthorizationType], result: FlutterResult) {
+    
+    public func addPluginAuthProvidersList(_ authProvidersList: [String], completion: @escaping (FlutterError?) -> Void) {
         do {
+            let authProviders = authProvidersList.compactMap {
+                AWSAuthorizationType(rawValue: $0)
+            }
             try Amplify.add(
                 plugin: AWSAPIPlugin(
                     sessionFactory: FlutterURLSessionBehaviorFactory(),
                     apiAuthProviderFactory: FlutterAuthProviders(authProviders)))
-            result(true)
+            completion(nil)
         } catch let apiError as APIError {
-            ErrorUtil.postErrorToFlutterChannel(
-                result: result,
-                errorCode: "APIException",
+            completion(FlutterError(
+                code: "APIException",
+                message: apiError.localizedDescription,
                 details: [
                     "message": apiError.errorDescription,
                     "recoverySuggestion": apiError.recoverySuggestion,
                     "underlyingError": apiError.underlyingError?.localizedDescription ?? ""
                 ]
-            )
+            ))
         } catch let configError as ConfigurationError {
             var errorCode = "APIException"
             if case .amplifyAlreadyConfigured = configError {
                 errorCode = "AmplifyAlreadyConfiguredException"
             }
-            ErrorUtil.postErrorToFlutterChannel(
-                result: result,
-                errorCode: errorCode,
+            completion(FlutterError(
+                code: errorCode,
+                message: configError.localizedDescription,
                 details: [
                     "message": configError.errorDescription,
                     "recoverySuggestion": configError.recoverySuggestion,
                     "underlyingError": configError.underlyingError?.localizedDescription ?? ""
                 ]
-            )
+            ))
         } catch {
-            ErrorUtil.postErrorToFlutterChannel(
-                result: result,
-                errorCode: "UNKNOWN",
-                details: ["message": error.localizedDescription])
+            completion(FlutterError(
+                code: "UNKNOWN",
+                message: error.localizedDescription,
+                details: nil
+            ))
         }
     }
 
