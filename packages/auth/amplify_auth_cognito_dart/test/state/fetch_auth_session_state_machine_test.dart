@@ -300,9 +300,11 @@ void main() {
           );
 
           final state = sm.currentState as FetchAuthSessionFailure;
-          expect(state.exception, isA<UnknownException>());
-          expect(sm.getLatestResult(), throwsA(isA<UnknownException>()));
-          // TODO(dnys1): Underlying exception
+          expect(state.exception, isA<_FetchAuthSessionException>());
+          expect(
+            sm.getLatestResult(),
+            throwsA(isA<_FetchAuthSessionException>()),
+          );
         });
 
         test('User Pool tokens (success)', () async {
@@ -401,9 +403,11 @@ void main() {
           );
 
           final state = sm.currentState as FetchAuthSessionFailure;
-          expect(state.exception, isA<UnknownException>());
-          expect(sm.getLatestResult(), throwsA(isA<UnknownException>()));
-          // TODO(dnys1): Underlying exception
+          expect(state.exception, isA<_FetchAuthSessionException>());
+          expect(
+            sm.getLatestResult(),
+            throwsA(isA<_FetchAuthSessionException>()),
+          );
         });
       });
 
@@ -441,9 +445,11 @@ void main() {
         );
 
         final state = sm.currentState as FetchAuthSessionFailure;
-        expect(state.exception, isA<UnknownException>());
-        expect(sm.getLatestResult(), throwsA(isA<UnknownException>()));
-        // TODO(dnys1): Underlying exception
+        expect(state.exception, isA<_FetchAuthSessionException>());
+        expect(
+          sm.getLatestResult(),
+          throwsA(isA<_FetchAuthSessionException>()),
+        );
       });
     });
   });

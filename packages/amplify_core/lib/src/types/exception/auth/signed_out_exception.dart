@@ -22,27 +22,8 @@ import 'package:amplify_core/amplify_core.dart';
 class SignedOutException extends AuthException {
   /// {@macro amplify_core.auth.signed_out_exception}
   const SignedOutException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
-
-  /// {@macro amplify_core.auth.exception_downcasting}
-  SignedOutException._private(AuthException exception)
-      : super(
-          exception.message,
-          recoverySuggestion: exception.recoverySuggestion,
-          underlyingException: exception.underlyingException,
-        );
-
-  /// {@macro amplify_core.auth.exception_from_map}
-  static SignedOutException fromMap(Map<String, String> serializedException) {
-    return SignedOutException._private(
-      AuthException.fromMap(serializedException),
-    );
-  }
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 }

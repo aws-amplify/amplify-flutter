@@ -37,8 +37,8 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
   Never _noSuitableRedirect({required bool signIn}) {
     final inOut = signIn ? 'in' : 'out';
     throw InvalidUserPoolConfigurationException(
-      message: 'No sign $inOut redirect URLs registered for a custom scheme',
-      recoverySuggestion: 'Add one or more sign $inOut redirect URLs that '
+      message: 'No sign $inOut redirect URLs registered for a custom scheme. '
+          'Add one or more sign $inOut redirect URLs that '
           'use a custom scheme like "myapp", for example "myapp://auth". See '
           'the docs for more info: '
           'https://docs.amplify.aws/lib/auth/signin_web_ui/q/platform/flutter/',

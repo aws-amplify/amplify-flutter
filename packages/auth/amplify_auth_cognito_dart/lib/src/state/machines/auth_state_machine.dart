@@ -19,6 +19,7 @@ import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credential
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/auth_state_machine_base.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_dart/src/util/credentials_providers.dart';
@@ -55,8 +56,8 @@ class AuthStateMachine extends AuthStateMachineBase {
     final userPoolConfig = config.userPoolConfig;
     if (userPoolConfig != null) {
       addInstance(userPoolConfig);
-      addInstance(
-        CognitoIdentityProviderClient(
+      addInstance<CognitoIdentityProviderClient>(
+        WrappedCognitoIdentityProviderClient(
           region: userPoolConfig.region,
           credentialsProvider: _credentialsProvider,
         ),
@@ -88,8 +89,8 @@ class AuthStateMachine extends AuthStateMachineBase {
     final identityPoolConfig = config.identityPoolConfig;
     if (identityPoolConfig != null) {
       addInstance(identityPoolConfig);
-      addInstance(
-        CognitoIdentityClient(
+      addInstance<CognitoIdentityClient>(
+        WrappedCognitoIdentityClient(
           region: identityPoolConfig.region,
           credentialsProvider: const AnonymousCredentialsProvider(),
         ),
