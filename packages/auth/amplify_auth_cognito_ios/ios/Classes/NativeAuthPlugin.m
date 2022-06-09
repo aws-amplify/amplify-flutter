@@ -73,6 +73,10 @@ static id GetNullableObjectAtIndex(NSArray* array, NSInteger key) {
   return pigeonResult;
 }
 + (NativeAuthSession *)fromMap:(NSDictionary *)dict {
+    // TODO(dnys1): Do not remove before fixed: https://github.com/flutter/flutter/issues/104871
+    if (!dict) {
+        return nil;
+    }
   NativeAuthSession *pigeonResult = [[NativeAuthSession alloc] init];
   pigeonResult.isSignedIn = GetNullableObject(dict, @"isSignedIn");
   NSAssert(pigeonResult.isSignedIn != nil, @"");
@@ -104,6 +108,10 @@ static id GetNullableObjectAtIndex(NSArray* array, NSInteger key) {
   return pigeonResult;
 }
 + (NativeUserPoolTokens *)fromMap:(NSDictionary *)dict {
+    // TODO(dnys1): Do not remove before fixed: https://github.com/flutter/flutter/issues/104871
+    if (!dict) {
+        return nil;
+    }
   NativeUserPoolTokens *pigeonResult = [[NativeUserPoolTokens alloc] init];
   pigeonResult.accessToken = GetNullableObject(dict, @"accessToken");
   NSAssert(pigeonResult.accessToken != nil, @"");
@@ -135,6 +143,10 @@ static id GetNullableObjectAtIndex(NSArray* array, NSInteger key) {
   return pigeonResult;
 }
 + (NativeAWSCredentials *)fromMap:(NSDictionary *)dict {
+    // TODO(dnys1): Do not remove before fixed: https://github.com/flutter/flutter/issues/104871
+    if (!dict) {
+        return nil;
+    }
   NativeAWSCredentials *pigeonResult = [[NativeAWSCredentials alloc] init];
   pigeonResult.accessKeyId = GetNullableObject(dict, @"accessKeyId");
   NSAssert(pigeonResult.accessKeyId != nil, @"");
@@ -282,13 +294,58 @@ void NativeAuthBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<
   {
     FlutterBasicMessageChannel *channel =
       [[FlutterBasicMessageChannel alloc]
-        initWithName:@"dev.flutter.pigeon.NativeAuthBridge.configure"
+        initWithName:@"dev.flutter.pigeon.NativeAuthBridge.addPlugin"
         binaryMessenger:binaryMessenger
         codec:NativeAuthBridgeGetCodec()        ];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(configureWithCompletion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(configureWithCompletion:)", api);
+      NSCAssert([api respondsToSelector:@selector(addPluginWithCompletion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(addPluginWithCompletion:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
-        [api configureWithCompletion:^(FlutterError *_Nullable error) {
+        [api addPluginWithCompletion:^(FlutterError *_Nullable error) {
+          callback(wrapResult(nil, error));
+        }];
+      }];
+    }
+    else {
+      [channel setMessageHandler:nil];
+    }
+  }
+  {
+    FlutterBasicMessageChannel *channel =
+      [[FlutterBasicMessageChannel alloc]
+        initWithName:@"dev.flutter.pigeon.NativeAuthBridge.signInWithUrl"
+        binaryMessenger:binaryMessenger
+        codec:NativeAuthBridgeGetCodec()        ];
+    if (api) {
+      NSCAssert([api respondsToSelector:@selector(signInWithUrlUrl:callbackUrlScheme:preferPrivateSession:browserPackageName:completion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(signInWithUrlUrl:callbackUrlScheme:preferPrivateSession:browserPackageName:completion:)", api);
+      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
+        NSArray *args = message;
+        NSString *arg_url = GetNullableObjectAtIndex(args, 0);
+        NSString *arg_callbackUrlScheme = GetNullableObjectAtIndex(args, 1);
+        NSNumber *arg_preferPrivateSession = GetNullableObjectAtIndex(args, 2);
+        NSString *arg_browserPackageName = GetNullableObjectAtIndex(args, 3);
+        [api signInWithUrlUrl:arg_url callbackUrlScheme:arg_callbackUrlScheme preferPrivateSession:arg_preferPrivateSession browserPackageName:arg_browserPackageName completion:^(NSDictionary<NSString *, NSString *> *_Nullable output, FlutterError *_Nullable error) {
+          callback(wrapResult(output, error));
+        }];
+      }];
+    }
+    else {
+      [channel setMessageHandler:nil];
+    }
+  }
+  {
+    FlutterBasicMessageChannel *channel =
+      [[FlutterBasicMessageChannel alloc]
+        initWithName:@"dev.flutter.pigeon.NativeAuthBridge.signOutWithUrl"
+        binaryMessenger:binaryMessenger
+        codec:NativeAuthBridgeGetCodec()        ];
+    if (api) {
+      NSCAssert([api respondsToSelector:@selector(signOutWithUrlUrl:callbackUrlScheme:browserPackageName:completion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(signOutWithUrlUrl:callbackUrlScheme:browserPackageName:completion:)", api);
+      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
+        NSArray *args = message;
+        NSString *arg_url = GetNullableObjectAtIndex(args, 0);
+        NSString *arg_callbackUrlScheme = GetNullableObjectAtIndex(args, 1);
+        NSString *arg_browserPackageName = GetNullableObjectAtIndex(args, 2);
+        [api signOutWithUrlUrl:arg_url callbackUrlScheme:arg_callbackUrlScheme browserPackageName:arg_browserPackageName completion:^(FlutterError *_Nullable error) {
           callback(wrapResult(nil, error));
         }];
       }];

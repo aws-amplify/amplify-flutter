@@ -204,12 +204,76 @@ class NativeAuthBridge {
 
   static const MessageCodec<Object?> codec = _NativeAuthBridgeCodec();
 
-  Future<void> configure() async {
+  Future<void> addPlugin() async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.NativeAuthBridge.configure', codec,
+        'dev.flutter.pigeon.NativeAuthBridge.addPlugin', codec,
         binaryMessenger: _binaryMessenger);
     final Map<Object?, Object?>? replyMap =
         await channel.send(null) as Map<Object?, Object?>?;
+    if (replyMap == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+      );
+    } else if (replyMap['error'] != null) {
+      final Map<Object?, Object?> error =
+          (replyMap['error'] as Map<Object?, Object?>?)!;
+      throw PlatformException(
+        code: (error['code'] as String?)!,
+        message: error['message'] as String?,
+        details: error['details'],
+      );
+    } else {
+      return;
+    }
+  }
+
+  Future<Map<String?, String?>> signInWithUrl(
+      String arg_url,
+      String arg_callbackUrlScheme,
+      bool arg_preferPrivateSession,
+      String? arg_browserPackageName) async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.NativeAuthBridge.signInWithUrl', codec,
+        binaryMessenger: _binaryMessenger);
+    final Map<Object?, Object?>? replyMap = await channel.send(<Object?>[
+      arg_url,
+      arg_callbackUrlScheme,
+      arg_preferPrivateSession,
+      arg_browserPackageName
+    ]) as Map<Object?, Object?>?;
+    if (replyMap == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+      );
+    } else if (replyMap['error'] != null) {
+      final Map<Object?, Object?> error =
+          (replyMap['error'] as Map<Object?, Object?>?)!;
+      throw PlatformException(
+        code: (error['code'] as String?)!,
+        message: error['message'] as String?,
+        details: error['details'],
+      );
+    } else if (replyMap['result'] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (replyMap['result'] as Map<Object?, Object?>?)!
+          .cast<String?, String?>();
+    }
+  }
+
+  Future<void> signOutWithUrl(String arg_url, String arg_callbackUrlScheme,
+      String? arg_browserPackageName) async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.NativeAuthBridge.signOutWithUrl', codec,
+        binaryMessenger: _binaryMessenger);
+    final Map<Object?, Object?>? replyMap = await channel.send(
+            <Object?>[arg_url, arg_callbackUrlScheme, arg_browserPackageName])
+        as Map<Object?, Object?>?;
     if (replyMap == null) {
       throw PlatformException(
         code: 'channel-error',

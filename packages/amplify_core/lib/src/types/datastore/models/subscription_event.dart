@@ -16,7 +16,6 @@
 library model;
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
 
 /// {@template subscription_event}
 /// An event containing the details of mutations that have occurred on the backend
@@ -45,7 +44,7 @@ class SubscriptionEvent<T extends Model> {
           Map<String, dynamic>.from(serializedItem['serializedData'] as Map),
         ),
         eventType: EventType.values
-            .firstWhere((e) => describeEnum(e) == map['eventType'] as String?),
+            .firstWhere((e) => e.name == map['eventType'] as String?),
         modelType: modelType);
   }
 }

@@ -18,10 +18,10 @@ package com.amazonaws.amplify.amplify_analytics_pinpoint
 import android.app.Application
 import android.content.Context
 import androidx.annotation.NonNull
-import com.amazonaws.amplify.amplify_core.asMap
-import com.amazonaws.amplify.amplify_core.asPlatformChannelMap
-import com.amazonaws.amplify.amplify_core.cast
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
+import com.amazonaws.amplify.asMap
+import com.amazonaws.amplify.asPlatformChannelMap
+import com.amazonaws.amplify.cast
+import com.amazonaws.amplify.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amplifyframework.analytics.pinpoint.AWSPinpointAnalyticsPlugin
 import com.amplifyframework.core.Amplify
 import io.flutter.plugin.common.MethodChannel

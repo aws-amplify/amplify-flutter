@@ -20,12 +20,8 @@ import 'package:amplify_secure_storage_dart/src/exception/secure_storage_excepti
 class NotAvailableException extends SecureStorageException {
   /// {@macro amplify_secure_storage_dart.not_available_exception}
   const NotAvailableException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 }

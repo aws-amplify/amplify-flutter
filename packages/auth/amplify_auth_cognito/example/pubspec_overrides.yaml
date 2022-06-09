@@ -6,12 +6,18 @@
 dependency_overrides:
   amplify_api:
     path: ../../../api/amplify_api
+  amplify_api_android:
+    path: ../../../api/amplify_api_android
+  amplify_api_ios:
+    path: ../../../api/amplify_api_ios
   amplify_authenticator:
     path: ../../../amplify_authenticator
   amplify_auth_cognito:
     path: ../
   amplify_auth_cognito_android:
     path: ../../amplify_auth_cognito_android
+  amplify_auth_cognito_dart:
+    path: ../../amplify_auth_cognito_dart
   amplify_auth_cognito_ios:
     path: ../../amplify_auth_cognito_ios
   amplify_core:
@@ -30,3 +36,5 @@ dependency_overrides:
     path: ../../../aws_common
   aws_signature_v4:
     path: ../../../aws_signature_v4
+  worker_bee:
+    path: ../../../worker_bee/worker_bee

@@ -21,12 +21,8 @@ import 'package:amplify_secure_storage_dart/src/exception/secure_storage_excepti
 class UnknownException extends SecureStorageException {
   /// {@macro amplify_secure_storage_dart.unknown_exception}
   const UnknownException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 }

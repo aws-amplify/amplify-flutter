@@ -15,16 +15,33 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-class AuthNextSignInStep extends AuthNextStep {
-  String signInStep;
-  final Map<String, String>? challengeParameters;
-  AuthNextSignInStep({
-    Map<String, String>? additionalInfo,
-    AuthCodeDeliveryDetails? codeDeliveryDetails,
+class AuthNextSignInStep extends AuthNextStep
+    with AWSEquatable<AuthNextSignInStep>, AWSDebuggable {
+  const AuthNextSignInStep({
+    super.additionalInfo,
+    super.codeDeliveryDetails,
     required this.signInStep,
     this.challengeParameters,
-  }) : super(
-          additionalInfo: additionalInfo,
-          codeDeliveryDetails: codeDeliveryDetails,
-        );
+    this.missingAttributes = const [],
+  });
+
+  final String signInStep;
+  final Map<String, String>? challengeParameters;
+
+  /// Attributes which are required in your backend but have not yet been
+  /// provided as part of the sign-in/sign-up flow for this user.
+  ///
+  /// Values for these attributes should be passed to the next
+  /// `Amplify.Auth.confirmSignIn` call.
+  final List<UserAttributeKey> missingAttributes;
+
+  @override
+  List<Object?> get props => [
+        signInStep,
+        challengeParameters,
+        missingAttributes,
+      ];
+
+  @override
+  String get runtimeTypeName => 'AuthNextSignInStep';
 }

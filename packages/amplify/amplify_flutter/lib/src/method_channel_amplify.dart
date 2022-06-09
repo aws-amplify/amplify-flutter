@@ -36,7 +36,6 @@ class MethodChannelAmplify extends AmplifyClass {
     try {
       if (plugin is AuthPluginInterface) {
         await Auth.addPlugin(plugin);
-        Hub.addChannel(HubChannel.Auth, plugin.streamController);
       } else if (plugin is AnalyticsPluginInterface) {
         await Analytics.addPlugin(plugin);
       } else if (plugin is StoragePluginInterface) {
@@ -50,7 +49,10 @@ class MethodChannelAmplify extends AmplifyClass {
           // method will throw an exception in android. We will ignore this
           // like other plugins and move on. Other exceptions fall through.
         }
-        Hub.addChannel(HubChannel.DataStore, plugin.streamController);
+        Hub.addChannel(
+          HubChannel.DataStore,
+          plugin.streamController.stream,
+        );
       } else if (plugin is APIPluginInterface) {
         await API.addPlugin(plugin);
       } else {

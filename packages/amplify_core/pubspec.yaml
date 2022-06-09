@@ -5,37 +5,21 @@ homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/ampl
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
-  flutter: ">=3.0.0"
 
 dependencies:
   async: ^2.8.2
   aws_common: ^0.1.0
   aws_signature_v4: ^0.1.0
   collection: ^1.15.0
-  flutter:
-    sdk: flutter
   intl: ^0.17.0
   json_annotation: ^4.4.0
   meta: ^1.7.0
-  plugin_platform_interface: ^2.0.0
   uuid: ^3.0.1
 
 dev_dependencies:
   amplify_lints:
     path: ../amplify_lints
   build_runner: ^2.0.0
-  flutter_test:
-    sdk: flutter
   json_serializable: ^6.1.0
   path: any
   test: ^1.17.0
-
-# The following section is specific to Flutter.
-flutter:
-  plugin:
-    platforms:
-      android:
-        package: com.amazonaws.amplify.amplify_core
-        pluginClass: AmplifyCorePlugin
-      ios:
-        pluginClass: AmplifyCorePlugin

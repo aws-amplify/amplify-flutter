@@ -14,6 +14,7 @@
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_test/amplify_secure_storage_test.dart';
+import 'package:test/test.dart';
 
 AmplifySecureStorageDart storageFactory({
   required AmplifySecureStorageConfig config,
@@ -21,6 +22,13 @@ AmplifySecureStorageDart storageFactory({
   return AmplifySecureStorageDart(config: config);
 }
 
+AmplifySecureStorageInterface remoteStorageFactory({
+  required AmplifySecureStorageConfig config,
+}) {
+  return AmplifySecureStorageWorker(config: config);
+}
+
 void main() {
-  runTests(storageFactory);
+  group('local', () => runTests(storageFactory));
+  group('remote', () => runTests(remoteStorageFactory));
 }

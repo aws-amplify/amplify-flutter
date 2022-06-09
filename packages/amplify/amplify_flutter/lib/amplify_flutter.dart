@@ -15,15 +15,16 @@
 
 library amplify_flutter;
 
+import 'package:amplify_core/amplify_core.dart';
+
 import 'src/amplify_impl.dart';
 
-export 'package:amplify_core/amplify_core.dart';
-
-// Amplify interface
-export 'src/amplify_impl.dart';
+export 'package:amplify_core/amplify_core.dart' hide Amplify;
 
 /// Top level singleton Amplify object.
-AmplifyClass get Amplify => AmplifyClass.instance;
+AmplifyClass get Amplify {
+  return AmplifyClass.instance ??= AmplifyClassImpl();
+}
 
 set Amplify(AmplifyClass amplifyClass) {
   AmplifyClass.instance = amplifyClass;

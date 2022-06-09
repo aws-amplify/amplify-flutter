@@ -32,9 +32,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   @nonVirtual
   Category get category => Category.auth;
 
-  // TODO: Remove with Hub migration
-  StreamController get streamController => defaultPlugin.streamController;
-
   /// {@template amplify_core.amplify_auth_category.sign_up}
   /// Create a new user with the given [username] and [password].
   /// {@endtemplate}

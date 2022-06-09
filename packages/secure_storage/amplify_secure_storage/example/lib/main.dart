@@ -16,13 +16,15 @@ import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    home: MyApp(),
-  ));
+  runApp(
+    const MaterialApp(
+      home: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -30,9 +32,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final storage = AmplifySecureStorage(
-    config: const AmplifySecureStorageConfig(
-      packageId: 'com.example.test',
+    config: AmplifySecureStorageConfig(
       scope: 'test',
+      // enabling this requires adding the app to an app group,
+      // which requires setting a development team
+      macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
     ),
   );
   String _key = '';

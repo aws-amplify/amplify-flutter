@@ -25,7 +25,7 @@ import org.mockito.kotlin.check
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 
-class NativeAuthPluginTests {
+internal class NativeAuthPluginTests {
 
     private fun runFetchAuthSessionTest(isSignedIn: Boolean) {
         val mockBinaryMessenger = mock<BinaryMessenger>()

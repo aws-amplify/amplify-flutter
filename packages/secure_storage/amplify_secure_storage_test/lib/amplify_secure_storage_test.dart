@@ -22,36 +22,63 @@ typedef SecureStorageFactory = AmplifySecureStorageInterface Function({
 void runTests(SecureStorageFactory storageFactory) {
   const key1 = 'key_1';
   late AmplifySecureStorageInterface storage;
-  late AmplifySecureStorageInterface storagePackageID;
   late AmplifySecureStorageInterface storageScope;
+  late AmplifySecureStorageInterface storageWeb;
+  late AmplifySecureStorageInterface storageLinux;
+  late AmplifySecureStorageInterface storageWindows;
+
+  Future<void> clearAll() async {
+    await storage.delete(key: key1);
+    await storageScope.delete(key: key1);
+    await storageWeb.delete(key: key1);
+    await storageLinux.delete(key: key1);
+    await storageWindows.delete(key: key1);
+  }
+
   setUp(() async {
+    // Disabling `useDataProtection` for tests since it would require a MacOS
+    // app that has at least one app group
+    final macOSOptions = MacOSSecureStorageOptions(useDataProtection: false);
     storage = storageFactory(
       config: AmplifySecureStorageConfig(
-        packageId: 'com.example.test',
         scope: 'default',
-      ),
-    );
-    storagePackageID = storageFactory(
-      config: AmplifySecureStorageConfig(
-        packageId: 'com.example.test2',
-        scope: 'default',
+        macOSOptions: macOSOptions,
       ),
     );
     storageScope = storageFactory(
       config: AmplifySecureStorageConfig(
-        packageId: 'com.example.test',
         scope: 'other',
+        macOSOptions: macOSOptions,
       ),
     );
-    await storage.delete(key: key1);
-    await storagePackageID.delete(key: key1);
-    await storageScope.delete(key: key1);
+    storageWeb = storageFactory(
+      config: AmplifySecureStorageConfig(
+        scope: 'default',
+        webOptions: WebSecureStorageOptions(databaseName: 'com.example.test'),
+        macOSOptions: macOSOptions,
+      ),
+    );
+    storageLinux = storageFactory(
+      config: AmplifySecureStorageConfig(
+        scope: 'default',
+        linuxOptions: LinuxSecureStorageOptions(schemaName: 'com.example.test'),
+        macOSOptions: macOSOptions,
+      ),
+    );
+    storageWindows = storageFactory(
+      config: AmplifySecureStorageConfig(
+        scope: 'default',
+        windowsOptions: WindowsSecureStorageOptions(
+          targetNamePrefix: 'com.test',
+        ),
+        macOSOptions: macOSOptions,
+      ),
+    );
+    await clearAll();
   });
 
   tearDownAll(() async {
-    await storage.delete(key: key1);
-    await storagePackageID.delete(key: key1);
-    await storageScope.delete(key: key1);
+    await clearAll();
   });
 
   group('write', () {
@@ -150,21 +177,6 @@ void runTests(SecureStorageFactory storageFactory) {
     });
   });
 
-  group('packageId', () {
-    test('The same key with different package IDs should not collide',
-        () async {
-      // write to both storage instances
-      await storage.write(key: key1, value: 'test_write_1');
-      await storagePackageID.write(key: key1, value: 'test_write_2');
-
-      // confirm value was written to both storage instances
-      final value1 = await storage.read(key: key1);
-      expect(value1, 'test_write_1');
-      final value2 = await storagePackageID.read(key: key1);
-      expect(value2, 'test_write_2');
-    });
-  });
-
   group('scope', () {
     test('The same key with different scopes should not collide', () async {
       // write to both storage instances
@@ -177,5 +189,55 @@ void runTests(SecureStorageFactory storageFactory) {
       final value2 = await storageScope.read(key: key1);
       expect(value2, 'test_write_2');
     });
+  });
+
+  group('namespace', () {
+    test(
+      'The same key with different db names should not collide',
+      testOn: 'browser',
+      () async {
+        // write to both storage instances
+        await storage.write(key: key1, value: 'test_write_1');
+        await storageWeb.write(key: key1, value: 'test_write_2');
+
+        // confirm value was written to both storage instances
+        final value1 = await storage.read(key: key1);
+        expect(value1, 'test_write_1');
+        final value2 = await storageWeb.read(key: key1);
+        expect(value2, 'test_write_2');
+      },
+    );
+
+    test(
+      'The same key with different schema names should not collide',
+      testOn: 'linux',
+      () async {
+        // write to both storage instances
+        await storage.write(key: key1, value: 'test_write_1');
+        await storageLinux.write(key: key1, value: 'test_write_2');
+
+        // confirm value was written to both storage instances
+        final value1 = await storage.read(key: key1);
+        expect(value1, 'test_write_1');
+        final value2 = await storageLinux.read(key: key1);
+        expect(value2, 'test_write_2');
+      },
+    );
+
+    test(
+      'The same key with different schema target name prefixes should not collide',
+      testOn: 'windows',
+      () async {
+        // write to both storage instances
+        await storage.write(key: key1, value: 'test_write_1');
+        await storageWindows.write(key: key1, value: 'test_write_2');
+
+        // confirm value was written to both storage instances
+        final value1 = await storage.read(key: key1);
+        expect(value1, 'test_write_1');
+        final value2 = await storageWindows.read(key: key1);
+        expect(value2, 'test_write_2');
+      },
+    );
   });
 }

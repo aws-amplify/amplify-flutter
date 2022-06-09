@@ -1,0 +1,24 @@
+name: e2e_flutter_test
+description: Flutter testbed for worker_bee
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  e2e_test:
+    path: ../e2e_test
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints:
+    path: ../../amplify_lints
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

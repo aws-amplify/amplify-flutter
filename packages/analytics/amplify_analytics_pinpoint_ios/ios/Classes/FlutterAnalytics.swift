@@ -20,7 +20,7 @@ import UIKit
 import Amplify
 import AmplifyPlugins
 import AWSCore
-import amplify_core
+import amplify_flutter_ios
 
 public enum FlutterAnalytics {
     public static func addPlugin(result: @escaping FlutterResult) {

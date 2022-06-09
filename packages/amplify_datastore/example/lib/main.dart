@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
   late Stream<SubscriptionEvent<Post>> postStream;
   late Stream<SubscriptionEvent<Blog>> blogStream;
   late Stream<SubscriptionEvent<Comment>> commentStream;
-  late StreamSubscription hubSubscription;
+  late StreamSubscription<DataStoreHubEvent> hubSubscription;
   bool _listeningToHub = true;
   late AmplifyDataStore datastorePlugin;
 
@@ -171,7 +171,7 @@ class _MyAppState extends State<MyApp> {
 
   void listenToHub() {
     setState(() {
-      hubSubscription = Amplify.Hub.listen([HubChannel.DataStore], (msg) {
+      hubSubscription = Amplify.Hub.listen(HubChannel.DataStore, (msg) {
         if (msg is NetworkStatusEvent) {
           print('Network status message: $msg');
           return;

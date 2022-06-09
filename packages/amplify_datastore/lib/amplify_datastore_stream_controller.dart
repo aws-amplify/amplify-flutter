@@ -111,7 +111,7 @@ _onListen() {
   }
 }
 
-_rebroadcast(String eventName, {HubEventPayload? payload}) {
+_rebroadcast(String eventName, {DataStoreHubEventPayload? payload}) {
   try {
     _controller.add(DataStoreHubEvent(eventName, payload: payload));
   } catch (e) {

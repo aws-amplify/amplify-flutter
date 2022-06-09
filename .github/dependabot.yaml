@@ -20,15 +20,7 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/amplify/amplify_flutter_android/example/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
     directory: "packages/amplify/amplify_flutter_ios/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/amplify/amplify_flutter_ios/example/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
@@ -45,10 +37,6 @@ updates:
       interval: "daily"
   - package-ecosystem: "pub"
     directory: "packages/amplify_core/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/amplify_core/example/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
@@ -140,19 +128,7 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/auth/amplify_auth_cognito_android/example/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
     directory: "packages/auth/amplify_auth_cognito_ios/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/auth/amplify_auth_cognito_ios/example/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/auth/amplify_auth_plugin_interface/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"

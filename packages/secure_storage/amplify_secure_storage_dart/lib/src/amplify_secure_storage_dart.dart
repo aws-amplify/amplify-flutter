@@ -12,9 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';
 import 'package:amplify_secure_storage_dart/src/mixins/amplify_secure_storage_mixin.dart';
-import 'package:amplify_secure_storage_dart/src/types/amplify_secure_storage_config.dart';
+import 'package:amplify_secure_storage_dart/src/worker/secure_storage_request.dart';
+import 'package:amplify_secure_storage_dart/src/worker/secure_storage_worker.dart';
+import 'package:aws_common/aws_common.dart';
+import 'package:worker_bee/worker_bee.dart';
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_dart}
 /// Secure Storage implementation in Dart, supporting web and desktop platforms.
@@ -38,6 +43,64 @@ class AmplifySecureStorageDart extends AmplifySecureStorageInterface
     with AmplifySecureStorageDartMixin {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_dart}
   AmplifySecureStorageDart({
-    required AmplifySecureStorageConfig config,
-  }) : super(config: config);
+    required super.config,
+  });
+}
+
+/// {@template amplify_secure_storage_dart.amplify_secure_storage_worker}
+/// A `package:worker_bee` variant of [AmplifySecureStorageDart] which runs
+/// storage operations in a background thread.
+/// {@endtemplate}
+class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
+  /// {@macro amplify_secure_storage_dart.amplify_secure_storage_worker}
+  AmplifySecureStorageWorker({
+    required super.config,
+  });
+
+  late final SecureStorageWorker _worker;
+  final _workerMemo = AsyncMemoizer<void>();
+
+  /// {@template amplify_secure_storage_dart.secure_storage_interface.init}
+  /// Initializes the secure storage and performs any work which should be
+  /// performed once before any secure storage operations.
+  /// {@endtemplate}
+  Future<void> _init() => _workerMemo.runOnce(() async {
+        _worker = SecureStorageWorker.create();
+        // TODO(dnys1): Log
+        _worker.logs.listen(safePrint);
+        await _worker.spawn();
+        _worker.add(
+          SecureStorageRequest.init(config: config),
+        );
+        await _worker.stream.first;
+      });
+
+  @override
+  Future<void> delete({required String key}) async {
+    await _init();
+    final request = SecureStorageRequest.delete(key: key);
+    _worker.add(request);
+    await _worker.stream.firstWhere(
+      (event) => event.id == request.id,
+    );
+  }
+
+  @override
+  Future<String?> read({required String key}) async {
+    await _init();
+    final request = SecureStorageRequest.read(key: key);
+    _worker.add(request);
+    final resp = await _worker.stream.firstWhere(
+      (event) => event.id == request.id,
+    );
+    return resp.value;
+  }
+
+  @override
+  Future<void> write({required String key, required String value}) async {
+    await _init();
+    final request = SecureStorageRequest.write(key: key, value: value);
+    _worker.add(request);
+    await _worker.stream.firstWhere((event) => event.id == request.id);
+  }
 }

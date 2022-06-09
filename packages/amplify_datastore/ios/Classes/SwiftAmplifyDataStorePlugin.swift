@@ -20,7 +20,7 @@ import AmplifyPlugins
 import AWSPluginsCore
 import AWSCore
 import Combine
-import amplify_core
+import amplify_flutter_ios
 
 public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     

@@ -30,7 +30,8 @@ apply plugin: 'kotlin-android'
 apply from: './coverage.gradle'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
-def amplifyCore = findProject(':amplify_core')
+// Logic for finding sibling plugins, from `flutter_tools/gradle/flutter.gradle`
+def amplifyFlutter = project.rootProject.findProject(':amplify_flutter_android')
 
 android {
     compileSdkVersion 31
@@ -60,7 +61,7 @@ android {
 }
 
 dependencies {
-    api amplifyCore
+    api amplifyFlutter
 
     implementation 'com.amplifyframework:aws-storage-s3:1.33.0'
 }
