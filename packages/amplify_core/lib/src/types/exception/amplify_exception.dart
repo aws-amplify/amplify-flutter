@@ -13,20 +13,27 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 /// Thrown from top level Amplify APIs from the amplify-flutter package.
 /// All other Amplify APIs throw subclasses of AmplifyException.
 @immutable
-class AmplifyException implements Exception {
-  /// Message contained in the exception
+class AmplifyException
+    with AWSEquatable<AmplifyException>
+    implements Exception {
+  /// A descriptive message of the problem.
   final String message;
 
-  /// How to recover from this exception (Optional)
+  /// How to recover from this exception.
   final String? recoverySuggestion;
 
-  /// Underlying cause of this exception helpful for debugging (Optional)
+  /// Underlying cause of this exception helpful for debugging.
+  // TODO(dnys1): Migrate to `Exception` type when DataStore codegen can be fixed.
   final String? underlyingException;
+
+  @override
+  List<Object?> get props => [message, recoverySuggestion, underlyingException];
 
   /// Named constructor
   const AmplifyException(this.message,
@@ -52,20 +59,4 @@ class AmplifyException implements Exception {
   String toString() =>
       '$runtimeType(message: $message, recoverySuggestion: $recoverySuggestion,'
       ' underlyingException: $underlyingException)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is AmplifyException &&
-        other.message == message &&
-        other.recoverySuggestion == recoverySuggestion &&
-        other.underlyingException == underlyingException;
-  }
-
-  @override
-  int get hashCode =>
-      message.hashCode ^
-      recoverySuggestion.hashCode ^
-      underlyingException.hashCode;
 }

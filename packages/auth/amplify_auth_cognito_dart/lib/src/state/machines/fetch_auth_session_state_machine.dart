@@ -17,9 +17,8 @@ import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
-    as cognito_identity show NotAuthorizedException;
+    hide NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito_idp;
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
@@ -248,7 +247,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       );
 
       return _AwsCredentialsResult(awsCredentials, identityId);
-    } on cognito_identity.NotAuthorizedException {
+    } on NotAuthorizedException {
       // If expired credentials were cached and trying to refresh them throws
       // a NotAuthorizedException, clear any AWS credentials which were being
       // refreshed, since they may have been from an authenticated user whose
@@ -307,7 +306,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       );
 
       return newTokens;
-    } on cognito_idp.NotAuthorizedException {
+    } on NotAuthorizedException {
       late Iterable<String> keys;
       switch (userPoolTokens.signInMethod) {
         case CognitoSignInMethod.default$:

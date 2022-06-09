@@ -22,29 +22,8 @@ import 'package:amplify_core/amplify_core.dart';
 class InvalidStateException extends AuthException {
   /// {@macro amplify_core.auth.invalid_state_exception}
   const InvalidStateException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
-
-  /// {@macro amplify_core.auth.exception_downcasting}
-  InvalidStateException._private(AuthException exception)
-      : super(
-          exception.message,
-          recoverySuggestion: exception.recoverySuggestion,
-          underlyingException: exception.underlyingException,
-        );
-
-  /// {@macro amplify_core.auth.exception_from_map}
-  static InvalidStateException fromMap(
-    Map<String, String> serializedException,
-  ) {
-    return InvalidStateException._private(
-      AuthException.fromMap(serializedException),
-    );
-  }
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 }

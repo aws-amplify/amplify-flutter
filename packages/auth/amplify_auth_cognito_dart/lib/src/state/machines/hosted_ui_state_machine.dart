@@ -98,7 +98,11 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
   @override
   Future<void> onCancelSignIn(HostedUiCancelSignIn event) async {
     await dispatch(CredentialStoreEvent.clearCredentials(_keys));
-    emit(const HostedUiState.signedOut());
+    emit(
+      const HostedUiState.failure(
+        UserCancelledException('The user cancelled the sign-in flow'),
+      ),
+    );
   }
 
   @override
