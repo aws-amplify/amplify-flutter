@@ -34,25 +34,12 @@ class MockBinaryMessenger: NSObject, FlutterBinaryMessenger {
         message: Data?,
         binaryReply callback: FlutterBinaryReply? = nil
     ) {
-        // TODO(dnys1): There's a bug in pigeon which prevents passing `nil` for nested objects
-        // https://github.com/flutter/flutter/issues/104871
-        let userPoolTokens = NativeUserPoolTokens.make(
-            withAccessToken: "accessToken",
-            refreshToken: "refreshToken",
-            idToken: "idToken"
-        )
-        let awsCredentials = NativeAWSCredentials.make(
-            withAccessKeyId: "accessKeyId",
-            secretAccessKey: "secretAccessKey",
-            sessionToken: nil,
-            expirationIso8601Utc: nil
-        )
         let authSession = NativeAuthSession.makeWithIsSigned(
             in: NSNumber(booleanLiteral: isSignedIn),
             userSub: nil,
-            userPoolTokens: userPoolTokens,
+            userPoolTokens: nil,
             identityId: nil,
-            awsCredentials: awsCredentials
+            awsCredentials: nil
         )
         let encodedAuthSession = codec.encode(authSession)
         callback?(encodedAuthSession)
