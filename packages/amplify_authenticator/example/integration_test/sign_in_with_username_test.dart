@@ -16,7 +16,6 @@
 // This test follows the Amplify UI feature "sign-in-with-username"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
@@ -165,5 +164,42 @@ void main() {
       await confirmSignInPage.expectConfirmSignInNewPasswordIsPresent();
       confirmSignInPage.expectNewPasswordIsPresent();
     });
+  });
+
+  testWidgets(
+      'Sign in with confirmed credentials after a failed attempt with bad credentials',
+      (tester) async {
+    final username = generateUsername();
+    final password = generatePassword();
+    await adminCreateUser(
+      username,
+      password,
+      autoConfirm: true,
+      verifyAttributes: true,
+    );
+    await loadAuthenticator(tester: tester, authenticator: authenticator);
+    SignInPage signInPage = SignInPage(tester: tester);
+    signInPage.expectUsername();
+
+    // When I type my "username"
+    await signInPage.enterUsername('bad_username');
+
+    // And I type my bad password
+    await signInPage.enterPassword(password);
+
+    // And I click the "Sign in" button
+    await signInPage.submitSignIn();
+
+    /// Then I see UserNotFound exception bannder
+    await signInPage.expectUserNotFound();
+
+    // Then I type the correct username
+    await signInPage.enterUsername(username);
+
+    // Then I type the correct password
+    await signInPage.enterPassword(password);
+
+    // And I click the "Sign in" button
+    await signInPage.expectAuthenticated();
   });
 }
