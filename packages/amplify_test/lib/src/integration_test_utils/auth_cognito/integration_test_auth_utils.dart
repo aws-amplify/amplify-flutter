@@ -16,7 +16,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql/client.dart';
 import 'package:stream_transform/stream_transform.dart';
 
@@ -32,30 +31,44 @@ const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
   }
 }''';
 
-/// A GraphQL document used by the [adminCreateUser] test utility method.
-const adminCreateUserDocument =
-    '''mutation CreateUser(\$Username: String!, \$Password: String!, \$AutoConfirm: Boolean!, \$EnableMFA: Boolean!, \$VerifyAttributes: Boolean!, \$Name: String, \$Given_Name: String, \$Email: String, \$Phone_Number: String) {
-    adminCreateUser(Username: \$Username, Password: \$Password, AutoConfirm: \$AutoConfirm, EnableMFA: \$EnableMFA, VerifyAttributes: \$VerifyAttributes, Given_Name: \$Given_Name, Name: \$Name, Email: \$Email, Phone_Number: \$Phone_Number) {
-      error
-      success
-    }
-  }''';
-
 /// Deletes a Cognito user in backend infrastructure.
 ///
 /// This method differs from the Auth.deleteUser API in that
 /// an access token is not required.
-Future<DeleteUserResponse> deleteUser(String username) async {
-  var res = await Amplify.API
-      .mutate(
-          request: GraphQLRequest<String>(
-              document: deleteDocument,
-              variables: <String, dynamic>{'Username': username}))
-      .response;
-  if (res.errors.isNotEmpty) {
-    throw Exception(res.errors.first.message);
+Future<void> deleteUser(String username) async {
+  final config = await Amplify.asyncConfig;
+  final url = config.auth?.awsPlugin?.appSync?.default$?.apiUrl;
+  final key = config.auth?.awsPlugin?.appSync?.default$?.apiKey;
+  final client = GraphQLClient(
+    cache: GraphQLCache(),
+    link: HttpLink(
+      url!,
+      defaultHeaders: {
+        'x-api-key': key!,
+      },
+    ),
+  );
+
+  final options = MutationOptions(
+      document: gql(
+        r'''
+          mutation DeleteUser(
+            $Username: String!
+          ) {
+          deleteUser(Username: $Username) {
+              success
+            }
+          }
+      ''',
+      ),
+      variables: <String, dynamic>{
+        'Username': username,
+      });
+
+  final QueryResult result = await client.mutate(options);
+  if (result.hasException) {
+    throw Exception(result.exception);
   }
-  return DeleteUserResponse.fromJson(res.data!);
 }
 
 /// Creates a Cognito user in backend infrastructure. This documention describes
