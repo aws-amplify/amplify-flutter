@@ -190,7 +190,7 @@ void main() {
     // And I click the "Sign in" button
     await signInPage.submitSignIn();
 
-    /// Then I see UserNotFound exception bannder
+    /// Then I see UserNotFound exception banner
     await signInPage.expectUserNotFound();
 
     // Then I type the correct username
@@ -198,6 +198,9 @@ void main() {
 
     // Then I type the correct password
     await signInPage.enterPassword(password);
+
+    // And I click the "Sign in" button
+    await signInPage.submitSignIn();
 
     // And I click the "Sign in" button
     await signInPage.expectAuthenticated();
