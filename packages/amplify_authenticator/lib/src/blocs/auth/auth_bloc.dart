@@ -122,6 +122,7 @@ class StateMachineBloc {
     yield const LoadingState();
     await Amplify.asyncConfig;
     yield* _isValidSession();
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _isValidSession() async* {
@@ -325,11 +326,10 @@ class StateMachineBloc {
         e.message,
         showBanner: !e.message.contains('cancelled'),
       ));
-      yield UnauthenticatedState.signIn;
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
-      yield UnauthenticatedState.signIn;
     }
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _checkUserVerification() async* {
@@ -380,6 +380,7 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _confirmSignUp(AuthConfirmSignUpData data) async* {
@@ -396,6 +397,7 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _signOut() async* {
@@ -407,6 +409,7 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
@@ -424,6 +427,7 @@ class StateMachineBloc {
         _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _confirmVerifyUser(AuthConfirmVerifyUserData data) async* {
@@ -440,6 +444,7 @@ class StateMachineBloc {
         _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _changeScreen(AuthenticatorStep step) async* {
@@ -457,6 +462,7 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    yield* const Stream.empty();
   }
 
   Future<void> dispose() {
