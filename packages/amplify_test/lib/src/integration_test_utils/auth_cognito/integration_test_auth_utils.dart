@@ -24,16 +24,6 @@ import 'package:stream_transform/stream_transform.dart';
 import 'types/confirm_sign_up_response.dart';
 import 'types/delete_user_response.dart';
 
-final _client = GraphQLClient(
-  cache: GraphQLCache(),
-  link: HttpLink(
-    'https://jl4qnpx675bqlks7w2wgmnfhv4.appsync-api.us-west-2.amazonaws.com/graphql',
-    defaultHeaders: {
-      'x-api-key': 'da2-tlfvlgu5tvdnhorfd433oddvxe',
-    },
-  ),
-);
-
 /// A GraphQL document used by the [deleteUser] test utility method.
 const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
   deleteUser(Username: \$Username) {
@@ -89,6 +79,19 @@ Future<void> adminCreateUser(
   bool verifyAttributes = false,
   List<AuthUserAttribute> attributes = const [],
 }) async {
+  final config = await Amplify.asyncConfig;
+  final url = config.auth?.awsPlugin?.appSync?.default$?.apiUrl;
+  final key = config.auth?.awsPlugin?.appSync?.default$?.apiKey;
+  final client = GraphQLClient(
+    cache: GraphQLCache(),
+    link: HttpLink(
+      url!,
+      defaultHeaders: {
+        'x-api-key': key!,
+      },
+    ),
+  );
+
   final options = MutationOptions(
       document: gql(
         r'''
@@ -156,7 +159,7 @@ Future<void> adminCreateUser(
         'VerifyAttributes': verifyAttributes
       });
 
-  final QueryResult result = await _client.mutate(options);
+  final QueryResult result = await client.mutate(options);
   if (result.hasException) {
     throw Exception(result.exception);
   }
