@@ -44,10 +44,10 @@ class _RestApiViewState extends State<RestApiView> {
       );
 
       _lastRestOperation = restOperation;
-      final response = await restOperation.value;
+      final response = await restOperation.response;
 
       print('Put SUCCESS');
-      print(await response.decodeBody());
+      print(response.decodeBody());
     } on Exception catch (e) {
       print('Put FAILED');
       print(e);
@@ -62,10 +62,10 @@ class _RestApiViewState extends State<RestApiView> {
       );
 
       _lastRestOperation = restOperation;
-      final response = await restOperation.value;
+      final response = await restOperation.response;
 
       print('Post SUCCESS');
-      print(await response.decodeBody());
+      print(response.decodeBody());
     } on Exception catch (e) {
       print('Post FAILED');
       print(e);
@@ -79,11 +79,10 @@ class _RestApiViewState extends State<RestApiView> {
       );
 
       _lastRestOperation = restOperation;
-      final response = await restOperation.value;
+      final response = await restOperation.response;
 
       print('Get SUCCESS');
-      print(response.statusCode);
-      print(await response.decodeBody());
+      print(response.decodeBody());
     } on ApiException catch (e) {
       print('Get FAILED');
       print(e.toString());
@@ -96,10 +95,10 @@ class _RestApiViewState extends State<RestApiView> {
         _apiPathController.text,
       );
       _lastRestOperation = restOperation;
-      final response = await restOperation.value;
+      final response = await restOperation.response;
 
       print('Delete SUCCESS');
-      print(await response.decodeBody());
+      print(response.decodeBody());
     } on Exception catch (e) {
       print('Delete FAILED');
       print(e);
@@ -122,7 +121,7 @@ class _RestApiViewState extends State<RestApiView> {
       );
 
       _lastRestOperation = restOperation;
-      final response = await restOperation.response;
+      await restOperation.response;
 
       print('Head SUCCESS');
     } on ApiException catch (e) {
@@ -142,7 +141,7 @@ class _RestApiViewState extends State<RestApiView> {
       final response = await restOperation.response;
 
       print('Patch SUCCESS');
-      print(await response.decodeBody());
+      print(response.decodeBody());
     } on ApiException catch (e) {
       print('Patch FAILED');
       print(e.toString());

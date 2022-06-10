@@ -14,11 +14,16 @@
  */
 
 import 'package:async/async.dart';
+import 'package:aws_common/aws_common.dart';
 
-/// Eventually this should be deprecated and just use [CancelableOperation].
-/// Until then, this is used to make `.response` available like it was for older
-/// [GraphQLOperation] and [RestOperation] classes.
-extension LegacyApiOperation<T> on CancelableOperation<T> {
-  @Deprecated('Use .value instead.')
-  Future<T> get response => value;
+/// Allows callers to synchronously get unstreamed response with the decoded body.
+extension RestOperation on CancelableOperation<AWSStreamedHttpResponse> {
+  Future<AWSHttpResponse> get response async {
+    final value = await this.value;
+    return AWSHttpResponse(
+      body: await value.bodyBytes,
+      statusCode: value.statusCode,
+      headers: value.headers,
+    );
+  }
 }

@@ -21,10 +21,12 @@ import 'package:async/async.dart';
 /// An HTTP request's payload.
 /// {@endtemplate}
 class HttpPayload extends StreamView<List<int>> {
+  String contentType = 'text/plain';
+
   /// {@macro amplify_core.http_payload}
   factory HttpPayload([Object? body]) {
     if (body == null) {
-      return const HttpPayload.empty();
+      return HttpPayload.empty();
     }
     if (body is String) {
       return HttpPayload.string(body);
@@ -36,13 +38,13 @@ class HttpPayload extends StreamView<List<int>> {
       return HttpPayload.streaming(body);
     }
     if (body is Map<String, String>) {
-      return HttpPayload.fields(body);
+      return HttpPayload.formFields(body);
     }
     throw ArgumentError('Invalid HTTP payload type: ${body.runtimeType}');
   }
 
   /// An empty HTTP body.
-  const HttpPayload.empty() : super(const Stream.empty());
+  HttpPayload.empty() : super(const Stream.empty());
 
   /// A UTF-8 encoded HTTP body.
   HttpPayload.string(String body, {Encoding encoding = utf8})
@@ -51,26 +53,24 @@ class HttpPayload extends StreamView<List<int>> {
   /// A byte buffer HTTP body.
   HttpPayload.bytes(List<int> body) : super(Stream.value(body));
 
-  /// Form-encodes the body.
-  HttpPayload.fields(Map<String, String> body, {Encoding encoding = utf8})
-      : super(LazyStream(() => Stream.value(
+  /// A form-encoded body of `key=value` pairs.
+  HttpPayload.formFields(Map<String, String> body, {Encoding encoding = utf8})
+      : contentType = 'application/x-www-form-urlencoded',
+        super(LazyStream(() => Stream.value(
             encoding.encode(_mapToQuery(body, encoding: encoding)))));
 
   /// A streaming HTTP body.
-  const HttpPayload.streaming(Stream<List<int>> body) : super(body);
+  HttpPayload.streaming(Stream<List<int>> body) : super(body);
 }
 
 /// Converts a [Map] from parameter names to values to a URL query string.
 ///
-///     mapToQuery({"foo": "bar", "baz": "bang"});
+///     _mapToQuery({"foo": "bar", "baz": "bang"});
 ///     //=> "foo=bar&baz=bang"
 ///
-/// Copied from similar util. https://github.com/dart-lang/http/blob/06649afbb5847dbb0293816ba8348766b116e419/pkgs/http/lib/src/utils.dart#L15
-String _mapToQuery(Map<String, String> map, {Encoding? encoding}) {
-  var pairs = <List<String>>[];
-  map.forEach((key, value) => pairs.add([
-        Uri.encodeQueryComponent(key, encoding: encoding ?? utf8),
-        Uri.encodeQueryComponent(value, encoding: encoding ?? utf8)
-      ]));
-  return pairs.map((pair) => '${pair[0]}=${pair[1]}').join('&');
-}
+/// Similar util at https://github.com/dart-lang/http/blob/06649afbb5847dbb0293816ba8348766b116e419/pkgs/http/lib/src/utils.dart#L15
+String _mapToQuery(Map<String, String> map, {required Encoding encoding}) => map
+    .entries
+    .map((e) =>
+        '${Uri.encodeQueryComponent(e.key, encoding: encoding)}=${Uri.encodeQueryComponent(e.value, encoding: encoding)}')
+    .join('&');
