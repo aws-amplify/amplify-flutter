@@ -122,6 +122,8 @@ class StateMachineBloc {
     yield const LoadingState();
     await Amplify.asyncConfig;
     yield* _isValidSession();
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    // TODO: investigate broken event handling
     yield* const Stream.empty();
   }
 
@@ -329,6 +331,7 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
   }
 
@@ -380,6 +383,7 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
   }
 
@@ -397,6 +401,7 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
   }
 
@@ -409,6 +414,7 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
   }
 
@@ -427,6 +433,7 @@ class StateMachineBloc {
         _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
   }
 
@@ -444,11 +451,14 @@ class StateMachineBloc {
         _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
   }
 
   Stream<AuthState> _changeScreen(AuthenticatorStep step) async* {
     yield UnauthenticatedState(step: step);
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _resendSignUpCode(String username) async* {
@@ -462,6 +472,7 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
   }
 
