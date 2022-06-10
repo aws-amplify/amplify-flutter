@@ -95,48 +95,49 @@ void main() {
       },
     );
 
+    // TODO(dnnoyes): enable subscriptions with graphql package
     // Scenario: Confirm a new username & password with a valid code
-    testWidgets(
-      'Confirm a new username & password with a valid code',
-      (tester) async {
-        final SignUpPage signUpPage = SignUpPage(tester: tester);
-        final ConfirmSignUpPage confirmSignUpPage =
-            ConfirmSignUpPage(tester: tester);
-        final SignInPage signInPage = SignInPage(tester: tester);
+    // testWidgets(
+    //   'Confirm a new username & password with a valid code',
+    //   (tester) async {
+    //     final SignUpPage signUpPage = SignUpPage(tester: tester);
+    //     final ConfirmSignUpPage confirmSignUpPage =
+    //         ConfirmSignUpPage(tester: tester);
+    //     final SignInPage signInPage = SignInPage(tester: tester);
 
-        await loadAuthenticator(tester: tester, authenticator: authenticator);
+    //     await loadAuthenticator(tester: tester, authenticator: authenticator);
 
-        final username = generateEmail();
-        final password = generatePassword();
-        final code = getOtpCode(username);
+    //     final username = generateEmail();
+    //     final password = generatePassword();
+    //     final code = getOtpCode(username);
 
-        await signInPage.navigateToSignUp();
+    //     await signInPage.navigateToSignUp();
 
-        // When I type a new "email"
-        await signUpPage.enterUsername(username);
+    //     // When I type a new "email"
+    //     await signUpPage.enterUsername(username);
 
-        // And I type my password
-        await signUpPage.enterPassword(password);
+    //     // And I type my password
+    //     await signUpPage.enterPassword(password);
 
-        // And I confirm my password
-        await signUpPage.enterPasswordConfirmation(password);
+    //     // And I confirm my password
+    //     await signUpPage.enterPasswordConfirmation(password);
 
-        // And I click the "Create Account" button
-        await signUpPage.submitSignUp();
+    //     // And I click the "Create Account" button
+    //     await signUpPage.submitSignUp();
 
-        // And I see "Confirmation Code"
-        confirmSignUpPage.expectConfirmationCodeIsPresent();
+    //     // And I see "Confirmation Code"
+    //     confirmSignUpPage.expectConfirmationCodeIsPresent();
 
-        // And I type a valid confirmation code
-        await confirmSignUpPage.enterCode(await code);
+    //     // And I type a valid confirmation code
+    //     await confirmSignUpPage.enterCode(await code);
 
-        // And I click the "Confirm" button
-        await confirmSignUpPage.submitConfirmSignUp();
+    //     // And I click the "Confirm" button
+    //     await confirmSignUpPage.submitConfirmSignUp();
 
-        // Then I see "Sign out"
-        await signInPage.expectAuthenticated();
-      },
-    );
+    //     // Then I see "Sign out"
+    //     await signInPage.expectAuthenticated();
+    //   },
+    // );
 
     // Scenario: User is already confirmed and then clicks Resend Code
     testWidgets(
