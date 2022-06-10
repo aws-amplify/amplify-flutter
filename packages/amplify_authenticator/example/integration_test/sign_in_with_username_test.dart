@@ -202,7 +202,7 @@ void main() {
     // And I click the "Sign in" button
     await signInPage.submitSignIn();
 
-    // And I click the "Sign in" button
+    // Then I am signed in
     await signInPage.expectAuthenticated();
   });
 }
