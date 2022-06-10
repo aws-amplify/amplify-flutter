@@ -19,9 +19,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:graphql/client.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-// import 'types/admin_create_user_response.dart';
 import 'types/confirm_sign_up_response.dart';
-import 'types/delete_user_response.dart';
 
 /// A GraphQL document used by the [deleteUser] test utility method.
 const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
