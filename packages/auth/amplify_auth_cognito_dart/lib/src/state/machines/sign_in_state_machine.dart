@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: close_sinks
-
 import 'dart:async';
 import 'dart:convert';
 
@@ -55,7 +53,10 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   SignInState get initialState => const SignInState.notStarted();
 
   /// Flow used to sign in.
-  late final AuthFlowType authFlowType = () {
+  late final AuthFlowType authFlowType;
+
+  /// The default flow used to sign in.
+  late final AuthFlowType defaultAuthFlowType = () {
     // Get the flow from the plugin config
     final pluginFlowType =
         expect<CognitoPluginConfig>().auth?.default$?.authenticationFlowType ??
@@ -175,6 +176,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       _password = password;
     }
 
+    authFlowType = event.authFlow ?? defaultAuthFlowType;
     if (authFlowType != AuthFlowType.customAuth) {
       return initiateSrp(event);
     }
