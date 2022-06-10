@@ -43,7 +43,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
         let instance = SwiftAmplifyApiPlugin()
         eventchannel.setStreamHandler(instance.graphQLSubscriptionsStreamHandler)
         registrar.addMethodCallDelegate(instance, channel: methodChannel)
-        NativeApiBridgeSetup(registrar.messenger(),instance)
+        NativeApiBridgeSetup(registrar.messenger(), instance)
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -70,7 +70,10 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
         }
     }
     
-    public func addPluginAuthProvidersList(_ authProvidersList: [String], completion: @escaping (FlutterError?) -> Void) {
+    public func addPluginAuthProvidersList(
+        _ authProvidersList: [String],
+        completion: @escaping (FlutterError?) -> Void
+        ) {
         do {
             let authProviders = authProvidersList.compactMap {
                 AWSAuthorizationType(rawValue: $0)

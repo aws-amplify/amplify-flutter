@@ -64,7 +64,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   Future<void> addPlugin() async {
     final nativeBridge = NativeApiBridge();
     try {
-      List<String> authProvidersList =
+      final authProvidersList =
           _authProviders.keys.map((key) => key.rawValue).toList();
       await nativeBridge.addPlugin(authProvidersList);
     } on PlatformException catch (e) {
