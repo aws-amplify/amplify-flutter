@@ -411,19 +411,21 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   Future<SignInResult> signIn({
     required SignInRequest request,
   }) async {
-    final options = request.options as CognitoSignInOptions?;
+    final options = request.options as CognitoSignInOptions? ??
+        const CognitoSignInOptions();
 
     // Create a new state machine for every call since it caches values
     // internally on each run.
     final stream = _stateMachine.create(SignInStateMachine.type).stream;
     _stateMachine.dispatch(
       SignInEvent.initiate(
+        authFlow: options.authFlow?.sdkValue,
         parameters: SignInParameters(
           (p) => p
             ..username = request.username
             ..password = request.password,
         ),
-        clientMetadata: options?.clientMetadata,
+        clientMetadata: options.clientMetadata,
       ),
     );
 

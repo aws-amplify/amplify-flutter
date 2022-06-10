@@ -17,8 +17,12 @@ import 'package:json_annotation/json_annotation.dart';
 
 enum AuthenticationFlowType {
   @JsonValue('USER_SRP_AUTH')
-  userSrpAuth,
+  userSrpAuth('USER_SRP_AUTH'),
 
   @JsonValue('CUSTOM_AUTH')
-  customAuth,
+  customAuth('CUSTOM_AUTH');
+
+  const AuthenticationFlowType(this.value);
+
+  final String value;
 }

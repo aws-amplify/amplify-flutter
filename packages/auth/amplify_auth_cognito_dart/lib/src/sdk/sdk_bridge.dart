@@ -20,6 +20,7 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
+import 'package:amplify_core/amplify_core.dart' show AuthenticationFlowType;
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:smithy/smithy.dart';
 
@@ -77,6 +78,19 @@ extension AttributeTypeBridge on AttributeType {
       userAttributeKey: key,
       value: value ?? '',
     );
+  }
+}
+
+/// Bridging helpers for [AuthenticationFlowType].
+extension AuthenticationFlowTypeBridge on AuthenticationFlowType {
+  /// The Cognito SDK value of `this`.
+  AuthFlowType get sdkValue {
+    switch (this) {
+      case AuthenticationFlowType.userSrpAuth:
+        return AuthFlowType.userSrpAuth;
+      case AuthenticationFlowType.customAuth:
+        return AuthFlowType.customAuth;
+    }
   }
 }
 
