@@ -15,6 +15,7 @@
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.sign_in_event_type}
@@ -46,6 +47,7 @@ abstract class SignInEvent extends StateMachineEvent<SignInEventType> {
 
   /// {@macro amplify_auth_cognito.sign_in_initiate}
   const factory SignInEvent.initiate({
+    AuthFlowType? authFlow,
     required SignInParameters parameters,
     Map<String, String>? clientMetadata,
   }) = SignInInitiate;
@@ -79,10 +81,14 @@ abstract class SignInEvent extends StateMachineEvent<SignInEventType> {
 class SignInInitiate extends SignInEvent {
   /// {@macro amplify_auth_cognito.sign_in_initiate}
   const SignInInitiate({
+    this.authFlow,
     required this.parameters,
     Map<String, String>? clientMetadata,
   })  : clientMetadata = clientMetadata ?? const {},
         super._();
+
+  /// Runtime override of the Authentication flow.
+  final AuthFlowType? authFlow;
 
   /// The flow-specific parameters.
   final SignInParameters parameters;
@@ -94,7 +100,7 @@ class SignInInitiate extends SignInEvent {
   SignInEventType get type => SignInEventType.initiate;
 
   @override
-  List<Object?> get props => [type, clientMetadata, parameters];
+  List<Object?> get props => [type, authFlow, clientMetadata, parameters];
 
   @override
   String? checkPrecondition(SignInState currentState) {
