@@ -17,12 +17,22 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:graphql/client.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-import 'types/admin_create_user_response.dart';
+// import 'types/admin_create_user_response.dart';
 import 'types/confirm_sign_up_response.dart';
 import 'types/delete_user_response.dart';
+
+final _client = GraphQLClient(
+  cache: GraphQLCache(),
+  link: HttpLink(
+    'https://jl4qnpx675bqlks7w2wgmnfhv4.appsync-api.us-west-2.amazonaws.com/graphql',
+    defaultHeaders: {
+      'x-api-key': 'da2-tlfvlgu5tvdnhorfd433oddvxe',
+    },
+  ),
+);
 
 /// A GraphQL document used by the [deleteUser] test utility method.
 const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
@@ -71,7 +81,7 @@ Future<DeleteUserResponse> deleteUser(String username) async {
 /// The [verifyAttributes] flag will verify the email and phone, and should be used
 /// if tests need to bypass the verification step.
 /// The [attributes] list passes additional attributes.
-Future<AdminCreateUserResponse> adminCreateUser(
+Future<void> adminCreateUser(
   String username,
   String password, {
   bool autoConfirm = false,
@@ -79,69 +89,77 @@ Future<AdminCreateUserResponse> adminCreateUser(
   bool verifyAttributes = false,
   List<AuthUserAttribute> attributes = const [],
 }) async {
-  var res = await Amplify.API
-      .mutate(
-          request: GraphQLRequest<String>(
-              document: adminCreateUserDocument,
-              variables: <String, dynamic>{
-            'Username': username,
-            'Password': password,
-            'AutoConfirm': autoConfirm,
-            'EnableMFA': enableMfa,
-            'Name': attributes
-                .firstWhere(
-                    (el) => el.userAttributeKey == CognitoUserAttributeKey.name,
-                    orElse: () => const AuthUserAttribute(
-                        userAttributeKey: CognitoUserAttributeKey.name,
-                        value: 'default_name'))
-                .value,
-            'Given_Name': attributes
-                .firstWhere(
-                    (el) =>
-                        el.userAttributeKey ==
-                        CognitoUserAttributeKey.givenName,
-                    orElse: () => const AuthUserAttribute(
-                        userAttributeKey: CognitoUserAttributeKey.givenName,
-                        value: 'default_given_name'))
-                .value,
-            'Email': attributes
-                .firstWhere(
-                    (el) =>
-                        el.userAttributeKey == CognitoUserAttributeKey.email,
-                    orElse: () => const AuthUserAttribute(
-                        userAttributeKey: CognitoUserAttributeKey.email,
-                        value: 'example@example.com'))
-                .value,
-            'Phone_Number': attributes
-                .firstWhere(
-                    (el) =>
-                        el.userAttributeKey ==
-                        CognitoUserAttributeKey.phoneNumber,
-                    orElse: () => const AuthUserAttribute(
-                        userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-                        value: '+15555555'))
-                .value,
-            'VerifyAttributes': verifyAttributes,
-          }))
-      .response;
-  if (res.errors.isNotEmpty) {
-    throw Exception(res.errors.first.message);
+  final options = MutationOptions(
+      document: gql(
+        r'''
+          mutation AdminCreateUser(
+            $AutoConfirm: Boolean,
+            $Email:String,
+            $EnabledMFA: Boolean,
+            $Given_Name: String,
+            $Name: String,
+            $Password: String!, 
+            $Phone_Number:String, 
+            $Username: String!, 
+            $VerifyAttributes: Boolean) {
+            adminCreateUser(
+              AutoConfirm: $AutoConfirm, 
+              Email: $Email, 
+              EnableMFA: $EnabledMFA, 
+              Given_Name: $Given_Name, 
+              Name: $Name,
+              Phone_Number: $Phone_Number,
+              Password: $Password,
+              Username: $Username,
+              VerifyAttributes: $VerifyAttributes
+            ){
+              success
+            }
+          }
+      ''',
+      ),
+      variables: <String, dynamic>{
+        'AutoConfirm': autoConfirm,
+        'Email': attributes
+            .firstWhere(
+                (el) => el.userAttributeKey == CognitoUserAttributeKey.email,
+                orElse: () => const AuthUserAttribute(
+                    userAttributeKey: CognitoUserAttributeKey.email,
+                    value: 'example@example.com'))
+            .value,
+        'EnabledMFA': enableMfa,
+        'Given_Name': attributes
+            .firstWhere(
+                (el) =>
+                    el.userAttributeKey == CognitoUserAttributeKey.givenName,
+                orElse: () => const AuthUserAttribute(
+                    userAttributeKey: CognitoUserAttributeKey.givenName,
+                    value: 'default_given_name'))
+            .value,
+        'Name': attributes
+            .firstWhere(
+                (el) => el.userAttributeKey == CognitoUserAttributeKey.name,
+                orElse: () => const AuthUserAttribute(
+                    userAttributeKey: CognitoUserAttributeKey.name,
+                    value: 'default_name'))
+            .value,
+        'Password': password,
+        'Phone_Number': attributes
+            .firstWhere(
+                (el) =>
+                    el.userAttributeKey == CognitoUserAttributeKey.phoneNumber,
+                orElse: () => const AuthUserAttribute(
+                    userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+                    value: '+15555555'))
+            .value,
+        'Username': username,
+        'VerifyAttributes': verifyAttributes
+      });
+
+  final QueryResult result = await _client.mutate(options);
+  if (result.hasException) {
+    throw Exception(result.exception);
   }
-
-  final data = AdminCreateUserResponse.fromJson(res.data!);
-  if (data.error != null) {
-    throw Exception(data.error!);
-  }
-
-  addTearDown(() async {
-    try {
-      await deleteUser(username);
-    } on Object catch (e) {
-      safePrint('Error deleting user: $e');
-    }
-  });
-
-  return data;
 }
 
 /// Returns the OTP code for [username]. Must be called before the network call

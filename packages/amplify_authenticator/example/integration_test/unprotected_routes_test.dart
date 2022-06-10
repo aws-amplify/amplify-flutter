@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +46,6 @@ void main() {
     setUpAll(() async {
       await loadConfiguration(
         'ui/components/authenticator/sign-in-with-email',
-        additionalConfigs: [AmplifyAPI()],
       );
     });
 
