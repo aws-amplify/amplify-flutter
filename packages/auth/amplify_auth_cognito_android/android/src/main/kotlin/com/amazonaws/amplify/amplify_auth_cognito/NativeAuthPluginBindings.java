@@ -370,7 +370,7 @@ public class NativeAuthPluginBindings {
   public interface NativeAuthBridge {
     void addPlugin(Result<Void> result);
     void signInWithUrl(@NonNull String url, @NonNull String callbackUrlScheme, @NonNull Boolean preferPrivateSession, @Nullable String browserPackageName, Result<Map<String, String>> result);
-    void signOutWithUrl(@NonNull String url, @NonNull String callbackUrlScheme, @Nullable String browserPackageName, Result<Void> result);
+    void signOutWithUrl(@NonNull String url, @NonNull String callbackUrlScheme, @NonNull Boolean preferPrivateSession, @Nullable String browserPackageName, Result<Void> result);
 
     /** The codec used by NativeAuthBridge. */
     static MessageCodec<Object> getCodec() {
@@ -467,7 +467,11 @@ public class NativeAuthPluginBindings {
               if (callbackUrlSchemeArg == null) {
                 throw new NullPointerException("callbackUrlSchemeArg unexpectedly null.");
               }
-              String browserPackageNameArg = (String)args.get(2);
+              Boolean preferPrivateSessionArg = (Boolean)args.get(2);
+              if (preferPrivateSessionArg == null) {
+                throw new NullPointerException("preferPrivateSessionArg unexpectedly null.");
+              }
+              String browserPackageNameArg = (String)args.get(3);
               Result<Void> resultCallback = new Result<Void>() {
                 public void success(Void result) {
                   wrapped.put("result", null);
@@ -479,7 +483,7 @@ public class NativeAuthPluginBindings {
                 }
               };
 
-              api.signOutWithUrl(urlArg, callbackUrlSchemeArg, browserPackageNameArg, resultCallback);
+              api.signOutWithUrl(urlArg, callbackUrlSchemeArg, preferPrivateSessionArg, browserPackageNameArg, resultCallback);
             }
             catch (Error | RuntimeException exception) {
               wrapped.put("error", wrapError(exception));

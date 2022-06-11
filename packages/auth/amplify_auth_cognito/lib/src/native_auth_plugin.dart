@@ -267,13 +267,16 @@ class NativeAuthBridge {
   }
 
   Future<void> signOutWithUrl(String arg_url, String arg_callbackUrlScheme,
-      String? arg_browserPackageName) async {
+      bool arg_preferPrivateSession, String? arg_browserPackageName) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.NativeAuthBridge.signOutWithUrl', codec,
         binaryMessenger: _binaryMessenger);
-    final Map<Object?, Object?>? replyMap = await channel.send(
-            <Object?>[arg_url, arg_callbackUrlScheme, arg_browserPackageName])
-        as Map<Object?, Object?>?;
+    final Map<Object?, Object?>? replyMap = await channel.send(<Object?>[
+      arg_url,
+      arg_callbackUrlScheme,
+      arg_preferPrivateSession,
+      arg_browserPackageName
+    ]) as Map<Object?, Object?>?;
     if (replyMap == null) {
       throw PlatformException(
         code: 'channel-error',
