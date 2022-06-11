@@ -50,7 +50,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
   CognitoUserPoolConfig get _userPoolConfig => expect();
 
   /// The registered identity pool config
-  CognitoIdentityCredentialsProvider get _identityPoolConfig => expect();
+  CognitoIdentityCredentialsProvider? get _identityPoolConfig => get();
 
   /// Gets the latest fetchAuthSession result.
   Future<FetchAuthSessionSuccess?> getLatestResult() async {
@@ -146,13 +146,21 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         ? _isExpired(userPoolTokensExpiration)
         : false;
 
+    final hasIdentityPool = _identityPoolConfig != null;
     final awsCredentials = credentialsState.awsCredentials;
     final awsCredentialsExpiration = awsCredentials?.expiration;
     final refreshAwsCredentials = awsCredentialsExpiration != null
         ? _isExpired(awsCredentialsExpiration)
         : false;
-    final retrieveAwsCredentials =
-        awsCredentials == null && (event.options?.getAWSCredentials ?? false);
+    final getAwsCredentials = (event.options?.getAWSCredentials ?? false);
+    final retrieveAwsCredentials = awsCredentials == null && getAwsCredentials;
+    if ((refreshAwsCredentials || retrieveAwsCredentials) && !hasIdentityPool) {
+      throw const InvalidAccountTypeException.noIdentityPool(
+        recoverySuggestion:
+            'Register an identity pool using the CLI or set getAWSCredentials '
+            'to false',
+      );
+    }
 
     if (refreshUserPoolTokens ||
         refreshAwsCredentials ||
@@ -228,9 +236,13 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
   Future<_AwsCredentialsResult> _retrieveAwsCredentials({
     CognitoUserPoolTokens? userPoolTokens,
   }) async {
+    final identityPoolConfig = _identityPoolConfig;
+    if (identityPoolConfig == null) {
+      throw const InvalidAccountTypeException.noIdentityPool();
+    }
     try {
       final identityId = await _getIdentityId(
-        config: _identityPoolConfig,
+        config: identityPoolConfig,
         idToken: userPoolTokens?.idToken.raw,
       );
 
@@ -255,7 +267,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       // access and we should prevent further attempts at refreshing.
       dispatch(
         CredentialStoreEvent.clearCredentials(
-          CognitoIdentityPoolKeys(_identityPoolConfig),
+          CognitoIdentityPoolKeys(identityPoolConfig),
         ),
       );
       rethrow;
@@ -316,11 +328,13 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
           keys = HostedUiKeys(expect());
           break;
       }
+      final identityPoolConfig = _identityPoolConfig;
       dispatch(
         CredentialStoreEvent.clearCredentials([
           ...keys,
-          // Clear associated AWS credentials
-          ...CognitoIdentityPoolKeys(_identityPoolConfig),
+          if (identityPoolConfig != null)
+            // Clear associated AWS credentials
+            ...CognitoIdentityPoolKeys(identityPoolConfig),
         ]),
       );
       rethrow;

@@ -75,6 +75,12 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   /// The configured user pool.
   late final CognitoUserPoolConfig config = expect();
 
+  /// The configured identity pool.
+  CognitoIdentityCredentialsProvider? get identityPoolConfig => get();
+
+  /// Whether there is an identity pool configured.
+  bool get hasIdentityPool => identityPoolConfig != null;
+
   /// The Cognito Identity Provider service client.
   late final CognitoIdentityProviderClient cognitoIdentityProvider = expect();
 
@@ -521,11 +527,16 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         userPoolTokens: user.userPoolTokens.build(),
       ),
     );
-    dispatch(
-      CredentialStoreEvent.clearCredentials(
-        CognitoIdentityPoolKeys(expect()),
-      ),
-    );
+
+    // Clear anonymous credentials, if there were any.
+    if (hasIdentityPool) {
+      dispatch(
+        CredentialStoreEvent.clearCredentials(
+          CognitoIdentityPoolKeys(identityPoolConfig!),
+        ),
+      );
+    }
+
     dispatch(
       const FetchAuthSessionEvent.fetch(
         CognitoSessionOptions(getAWSCredentials: true),
@@ -632,7 +643,9 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     if (authenticationResult != null) {
       final accessToken = _saveAuthResult(authenticationResult);
       final newDeviceMetadata = authenticationResult.newDeviceMetadata;
-      if (newDeviceMetadata != null) {
+      if (newDeviceMetadata != null &&
+          // ConfirmDevice API requires an identity pool
+          hasIdentityPool) {
         user.deviceSecrets
           ..deviceGroupKey = newDeviceMetadata.deviceGroupKey
           ..deviceKey = newDeviceMetadata.deviceKey;
