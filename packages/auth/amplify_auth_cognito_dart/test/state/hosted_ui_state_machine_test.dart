@@ -25,6 +25,7 @@ import 'package:test/test.dart';
 
 import '../common/mock_config.dart';
 import '../common/mock_dispatcher.dart';
+import '../common/mock_hosted_ui.dart';
 import '../common/mock_oauth_server.dart';
 import '../common/mock_secure_storage.dart';
 
@@ -43,7 +44,9 @@ class MockHostedUiPlatform extends HostedUiPlatform {
   }
 
   @override
-  Future<void> signOut() async {}
+  Future<void> signOut({
+    required CognitoSignInWithWebUIOptions options,
+  }) async {}
 
   @override
   Uri get signInRedirectUri => config.signInRedirectUris.first;
@@ -64,7 +67,9 @@ class FailingHostedUiPlatform extends HostedUiPlatform {
   }
 
   @override
-  Future<void> signOut() {
+  Future<void> signOut({
+    required CognitoSignInWithWebUIOptions options,
+  }) {
     throw Exception();
   }
 
@@ -424,6 +429,57 @@ void main() {
             isA<HostedUiFailure>(),
           ]),
         );
+      });
+
+      test('preserves options', () async {
+        stateMachine
+          ..addBuilder(
+            createHostedUiFactory(
+              signIn: (
+                HostedUiPlatform platform,
+                CognitoSignInWithWebUIOptions options,
+                AuthProvider? provider,
+              ) async {
+                final signInUrl =
+                    platform.getSignInUri(provider: provider).toString();
+                _launchUrl.complete(signInUrl);
+              },
+              signOut: expectAsync2((platform, options) async {
+                expect(options.isPreferPrivateSession, isTrue);
+              }),
+            ),
+            HostedUiPlatform.token,
+          )
+          ..dispatch(const AuthEvent.configure(mockConfig));
+
+        await expectLater(
+          stateMachine.stream.whereType<HostedUiState>(),
+          emitsInOrder(<Matcher>[
+            isA<HostedUiConfiguring>(),
+            isA<HostedUiSignedOut>(),
+          ]),
+        );
+
+        stateMachine.dispatch(
+          const HostedUiEvent.signIn(
+            options: CognitoSignInWithWebUIOptions(
+              isPreferPrivateSession: true,
+            ),
+          ),
+        );
+        final params =
+            await server.authorize(Uri.parse(await _launchUrl.future));
+        stateMachine.dispatch(HostedUiEvent.exchange(params));
+
+        await expectLater(
+          stateMachine.stream.whereType<HostedUiState>(),
+          emitsInOrder(<Matcher>[
+            isA<HostedUiSigningIn>(),
+            isA<HostedUiSignedIn>(),
+          ]),
+        );
+
+        stateMachine.dispatch(const HostedUiEvent.signOut());
       });
     });
   });

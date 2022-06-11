@@ -60,13 +60,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
     public func signOut(
         withUrlUrl url: String,
         callbackUrlScheme: String,
+        preferPrivateSession: NSNumber,
         browserPackageName: String?
     ) async -> FlutterError? {
         do {
             _ = try await hostedUIFlow.launchUrl(
                 url,
                 callbackURLScheme: callbackUrlScheme,
-                preferPrivateSession: false
+                preferPrivateSession: preferPrivateSession.boolValue
             )
             return nil
         } catch {

@@ -247,6 +247,7 @@ open class AuthCognito :
     override fun signOutWithUrl(
         url: String,
         callbackUrlScheme: String,
+        preferPrivateSession: Boolean,
         browserPackageName: String?,
         unsafeResult: NativeAuthPluginBindings.Result<Void>
     ) {

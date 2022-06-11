@@ -84,11 +84,15 @@ void main() {
         ..addInstance(secureStorage)
         ..addBuilder(
           createHostedUiFactory(
-            signIn: ({
-              required CognitoSignInWithWebUIOptions options,
+            signIn: (
+              HostedUiPlatform platform,
+              CognitoSignInWithWebUIOptions options,
               AuthProvider? provider,
-            }) async {},
-            signOut: () async {},
+            ) async {},
+            signOut: (
+              HostedUiPlatform platform,
+              CognitoSignInWithWebUIOptions options,
+            ) async {},
           ),
           HostedUiPlatform.token,
         );
@@ -300,11 +304,16 @@ void main() {
           );
           stateMachine.addBuilder(
             createHostedUiFactory(
-              signIn: ({
-                required CognitoSignInWithWebUIOptions options,
+              signIn: (
+                HostedUiPlatform platform,
+                CognitoSignInWithWebUIOptions options,
                 AuthProvider? provider,
-              }) async {},
-              signOut: () async => throw _HostedUiException(),
+              ) async {},
+              signOut: (
+                HostedUiPlatform platform,
+                CognitoSignInWithWebUIOptions options,
+              ) async =>
+                  throw _HostedUiException(),
             ),
             HostedUiPlatform.token,
           );

@@ -95,15 +95,18 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
   }
 
   @override
-  Future<void> signOut() async {
+  Future<void> signOut({
+    required CognitoSignInWithWebUIOptions options,
+  }) async {
     if (!_isMobile) {
-      return super.signOut();
+      return super.signOut(options: options);
     }
     final signOutUri = getSignOutUri();
     await _nativeAuthBridge.signOutWithUrl(
       signOutUri.toString(),
       signOutRedirectUri.scheme,
-      null,
+      options.isPreferPrivateSession,
+      options.browserPackageName,
     );
   }
 }
