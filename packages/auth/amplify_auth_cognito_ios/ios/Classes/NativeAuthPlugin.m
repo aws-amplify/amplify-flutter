@@ -333,13 +333,14 @@ void NativeAuthBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<
         binaryMessenger:binaryMessenger
         codec:NativeAuthBridgeGetCodec()        ];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(signOutWithUrlUrl:callbackUrlScheme:browserPackageName:completion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(signOutWithUrlUrl:callbackUrlScheme:browserPackageName:completion:)", api);
+      NSCAssert([api respondsToSelector:@selector(signOutWithUrlUrl:callbackUrlScheme:preferPrivateSession:browserPackageName:completion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(signOutWithUrlUrl:callbackUrlScheme:preferPrivateSession:browserPackageName:completion:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
         NSArray *args = message;
         NSString *arg_url = GetNullableObjectAtIndex(args, 0);
         NSString *arg_callbackUrlScheme = GetNullableObjectAtIndex(args, 1);
-        NSString *arg_browserPackageName = GetNullableObjectAtIndex(args, 2);
-        [api signOutWithUrlUrl:arg_url callbackUrlScheme:arg_callbackUrlScheme browserPackageName:arg_browserPackageName completion:^(FlutterError *_Nullable error) {
+        NSNumber *arg_preferPrivateSession = GetNullableObjectAtIndex(args, 2);
+        NSString *arg_browserPackageName = GetNullableObjectAtIndex(args, 3);
+        [api signOutWithUrlUrl:arg_url callbackUrlScheme:arg_callbackUrlScheme preferPrivateSession:arg_preferPrivateSession browserPackageName:arg_browserPackageName completion:^(FlutterError *_Nullable error) {
           callback(wrapResult(nil, error));
         }];
       }];

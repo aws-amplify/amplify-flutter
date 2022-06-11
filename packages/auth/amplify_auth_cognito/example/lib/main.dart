@@ -96,6 +96,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Authenticator(
+      preferPrivateSession: true,
       child: MaterialApp.router(
         title: 'Flutter Demo',
         builder: Authenticator.builder(),
