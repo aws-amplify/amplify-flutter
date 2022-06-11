@@ -78,7 +78,7 @@ NSObject<FlutterMessageCodec> *NativeAuthBridgeGetCodec(void);
 @protocol NativeAuthBridge
 - (void)addPluginWithCompletion:(void(^)(FlutterError *_Nullable))completion;
 - (void)signInWithUrlUrl:(NSString *)url callbackUrlScheme:(NSString *)callbackUrlScheme preferPrivateSession:(NSNumber *)preferPrivateSession browserPackageName:(nullable NSString *)browserPackageName completion:(void(^)(NSDictionary<NSString *, NSString *> *_Nullable, FlutterError *_Nullable))completion;
-- (void)signOutWithUrlUrl:(NSString *)url callbackUrlScheme:(NSString *)callbackUrlScheme browserPackageName:(nullable NSString *)browserPackageName completion:(void(^)(FlutterError *_Nullable))completion;
+- (void)signOutWithUrlUrl:(NSString *)url callbackUrlScheme:(NSString *)callbackUrlScheme preferPrivateSession:(NSNumber *)preferPrivateSession browserPackageName:(nullable NSString *)browserPackageName completion:(void(^)(FlutterError *_Nullable))completion;
 @end
 
 extern void NativeAuthBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<NativeAuthBridge> *_Nullable api);

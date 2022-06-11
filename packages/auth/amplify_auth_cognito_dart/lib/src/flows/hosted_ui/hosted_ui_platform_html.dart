@@ -89,7 +89,9 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   }
 
   @override
-  Future<void> signOut() async {
+  Future<void> signOut({
+    required CognitoSignInWithWebUIOptions options,
+  }) async {
     final signOutUrl = getSignOutUri().toString();
     await launchUrl(signOutUrl);
   }

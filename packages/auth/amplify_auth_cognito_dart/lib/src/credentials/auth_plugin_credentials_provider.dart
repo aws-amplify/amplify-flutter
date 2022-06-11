@@ -76,7 +76,7 @@ class AuthPluginCredentialsProviderImpl extends AuthPluginCredentialsProvider {
     // or refresh existing ones if needed, but do not initiate an
     // unauthenticated session since that should be handled via an explicit call
     // to `fetchAuthSession`.
-    _dispatcher.dispatch(
+    await _dispatcher.dispatch(
       const FetchAuthSessionEvent.fetch(
         CognitoSessionOptions(getAWSCredentials: false),
       ),

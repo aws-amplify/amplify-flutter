@@ -220,5 +220,7 @@ abstract class HostedUiPlatform {
   });
 
   /// Sign out the current user.
-  Future<void> signOut();
+  Future<void> signOut({
+    required CognitoSignInWithWebUIOptions options,
+  });
 }
