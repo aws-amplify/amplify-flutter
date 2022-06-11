@@ -28,7 +28,9 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   }
 
   @override
-  Future<void> signOut() {
+  Future<void> signOut({
+    required CognitoSignInWithWebUIOptions options,
+  }) {
     throw UnimplementedError();
   }
 

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
@@ -86,6 +87,10 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
   @override
   Future<void> onSignIn(HostedUiSignIn event) async {
     try {
+      _secureStorage.write(
+        key: _keys[HostedUiKey.options],
+        value: jsonEncode(event.options),
+      );
       await _platform.signIn(
         options: event.options,
         provider: event.provider,
@@ -129,6 +134,14 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
   @override
   Future<void> onSignOut(HostedUiSignOut event) async {
     try {
+      final optionsJson = await _secureStorage.read(
+        key: _keys[HostedUiKey.options],
+      );
+      final options = optionsJson == null
+          ? const CognitoSignInWithWebUIOptions()
+          : CognitoSignInWithWebUIOptions.fromJson(
+              (jsonDecode(optionsJson) as Map<Object?, Object?>).cast(),
+            );
       // Clear credentials before dispatching to platform since the platform
       // may redirect and only for the intention of clearing cookies. That is,
       // credentials should be cleared regardless of how the platform handles
@@ -138,7 +151,7 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
       );
       await expect(CredentialStoreStateMachine.type).getCredentialsResult();
 
-      await _platform.signOut();
+      await _platform.signOut(options: options);
       emit(const HostedUiState.signedOut());
     } on Exception catch (e) {
       dispatch(HostedUiEvent.failed(e));
