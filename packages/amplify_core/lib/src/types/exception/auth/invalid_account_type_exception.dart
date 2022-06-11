@@ -26,4 +26,13 @@ class InvalidAccountTypeException extends AuthException {
     super.recoverySuggestion,
     super.underlyingException,
   });
+
+  /// Thrown when no identity pool is available, but an identity pool operation
+  /// was explicitly requested.
+  const InvalidAccountTypeException.noIdentityPool({
+    String recoverySuggestion = 'Register an identity pool using the CLI',
+  }) : this(
+          'No identity pool registered for this account',
+          recoverySuggestion: recoverySuggestion,
+        );
 }
