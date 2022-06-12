@@ -495,7 +495,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   }
 
   /// Adds the session info from [result] to the user.
-  String _saveAuthResult(AuthenticationResultType result) {
+  Future<String> _saveAuthResult(AuthenticationResultType result) async {
     final accessToken = result.accessToken;
     final refreshToken = result.refreshToken;
     final idToken = result.idToken;
@@ -528,7 +528,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       ),
     );
 
-    // Clear anonymous credentials, if there were any.
+    // Clear anonymous credentials, if there were any, and fetch authenticated
+    // credentials.
     if (hasIdentityPool) {
       dispatch(
         CredentialStoreEvent.clearCredentials(
@@ -536,11 +537,14 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         ),
       );
 
-      dispatch(
+      await dispatch(
         const FetchAuthSessionEvent.fetch(
           CognitoSessionOptions(getAWSCredentials: true),
         ),
       );
+
+      // Wait for above to propagate and complete successfully.
+      await expect(FetchAuthSessionStateMachine.type).getLatestResult();
     }
 
     return accessToken;
@@ -641,7 +645,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     // Only when authenticationResult is set is the flow considered complete.
     final authenticationResult = _authenticationResult;
     if (authenticationResult != null) {
-      final accessToken = _saveAuthResult(authenticationResult);
+      final accessToken = await _saveAuthResult(authenticationResult);
       final newDeviceMetadata = authenticationResult.newDeviceMetadata;
       if (newDeviceMetadata != null &&
           // ConfirmDevice API requires an identity pool
@@ -651,7 +655,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           ..deviceKey = newDeviceMetadata.deviceKey;
 
         await _createDevice(
-          authenticationResult.accessToken!,
+          accessToken,
           newDeviceMetadata,
         );
 
