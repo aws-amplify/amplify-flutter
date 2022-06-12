@@ -22,7 +22,7 @@ import 'package:meta/meta.dart';
 @optionalTypeArgs
 abstract class Dispatcher<E extends StateMachineEvent> {
   /// Dispatches an event.
-  void dispatch(E event);
+  FutureOr<void> dispatch(E event);
 }
 
 /// Interface for emitting a state from a state machine.
