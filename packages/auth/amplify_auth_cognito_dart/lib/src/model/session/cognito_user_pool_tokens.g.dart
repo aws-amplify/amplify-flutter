@@ -82,16 +82,6 @@ class _$CognitoUserPoolTokens extends CognitoUserPoolTokens {
             refreshToken.hashCode),
         idToken.hashCode));
   }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'CognitoUserPoolTokens')
-          ..add('signInMethod', signInMethod)
-          ..add('accessToken', accessToken)
-          ..add('refreshToken', refreshToken)
-          ..add('idToken', idToken))
-        .toString();
-  }
 }
 
 class CognitoUserPoolTokensBuilder
@@ -162,3 +152,41 @@ class CognitoUserPoolTokensBuilder
 }
 
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+CognitoUserPoolTokens _$CognitoUserPoolTokensFromJson(
+        Map<String, dynamic> json) =>
+    CognitoUserPoolTokens(
+      signInMethod: json['signInMethod'] == null
+          ? CognitoSignInMethod.default$
+          : const _CognitoSignInMethodSerializer()
+              .fromJson(json['signInMethod'] as String),
+      accessToken: const JsonWebTokenSerializer()
+          .fromJson(json['accessToken'] as String),
+      refreshToken: json['refreshToken'] as String,
+      idToken:
+          const JsonWebTokenSerializer().fromJson(json['idToken'] as String),
+    );
+
+Map<String, dynamic> _$CognitoUserPoolTokensToJson(
+    CognitoUserPoolTokens instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('signInMethod',
+      const _CognitoSignInMethodSerializer().toJson(instance.signInMethod));
+  writeNotNull('accessToken',
+      const JsonWebTokenSerializer().toJson(instance.accessToken));
+  val['refreshToken'] = instance.refreshToken;
+  writeNotNull(
+      'idToken', const JsonWebTokenSerializer().toJson(instance.idToken));
+  return val;
+}

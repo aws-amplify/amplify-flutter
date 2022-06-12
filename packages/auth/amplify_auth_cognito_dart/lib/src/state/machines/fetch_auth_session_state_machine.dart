@@ -305,13 +305,12 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         throw const UnknownException('User Pool tokens could not be refreshed');
       }
       final newTokens = CognitoUserPoolTokens(
-        (b) => b
-          ..signInMethod = userPoolTokens.signInMethod
-          ..accessToken = JsonWebToken.parse(accessToken)
-          ..refreshToken = refreshToken ?? userPoolTokens.refreshToken
-          ..idToken = idToken != null
-              ? JsonWebToken.parse(idToken)
-              : userPoolTokens.idToken,
+        signInMethod: userPoolTokens.signInMethod,
+        accessToken: JsonWebToken.parse(accessToken),
+        refreshToken: refreshToken ?? userPoolTokens.refreshToken,
+        idToken: idToken != null
+            ? JsonWebToken.parse(idToken)
+            : userPoolTokens.idToken,
       );
 
       dispatch(
