@@ -54,6 +54,9 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
   /// Gets the latest fetchAuthSession result.
   Future<FetchAuthSessionSuccess?> getLatestResult() async {
+    // Wait for any pending events to be processed and their initial states to
+    // fire.
+    await Future<void>.delayed(Duration.zero);
     final fetchState = await stream.startWith(currentState).firstWhere((state) {
       return state is FetchAuthSessionSuccess ||
           state is FetchAuthSessionFailure;
