@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:aws_common/aws_common.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 import 'claims.dart';
@@ -99,4 +100,18 @@ class JsonWebToken with AWSEquatable<JsonWebToken>, AWSSerializable {
   String encode() => '${header.encodeBase64()}.'
       '${claims.encodeBase64()}.'
       '${base64RawUrl.encode(signature)}';
+}
+
+/// {@template amplify_auth_cognito_dart.jwt.json_web_token_serializer}
+/// `package:json_serializable` plugin for [JsonWebToken].
+/// {@endtemplate}
+class JsonWebTokenSerializer implements JsonConverter<JsonWebToken, String> {
+  /// {@macro amplify_auth_cognito_dart.jwt.json_web_token_serializer}
+  const JsonWebTokenSerializer();
+
+  @override
+  JsonWebToken fromJson(String json) => JsonWebToken.parse(json);
+
+  @override
+  String toJson(JsonWebToken object) => object.toJson();
 }

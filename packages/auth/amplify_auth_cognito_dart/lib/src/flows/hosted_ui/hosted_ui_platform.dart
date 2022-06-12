@@ -183,11 +183,10 @@ abstract class HostedUiPlatform {
       );
       final oAuthCredentials = client.credentials;
       final tokens = CognitoUserPoolTokens(
-        (b) => b
-          ..signInMethod = CognitoSignInMethod.hostedUi
-          ..accessToken = JsonWebToken.parse(oAuthCredentials.accessToken)
-          ..refreshToken = oAuthCredentials.refreshToken
-          ..idToken = JsonWebToken.parse(oAuthCredentials.idToken!),
+        signInMethod: CognitoSignInMethod.hostedUi,
+        accessToken: JsonWebToken.parse(oAuthCredentials.accessToken),
+        refreshToken: oAuthCredentials.refreshToken!,
+        idToken: JsonWebToken.parse(oAuthCredentials.idToken!),
       )..validate(
           nonce: await _secureStorage.read(key: _keys[HostedUiKey.nonce]),
         );
