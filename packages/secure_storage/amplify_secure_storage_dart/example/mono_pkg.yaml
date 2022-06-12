@@ -12,26 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: amplify_secure_storage_dart_example
-description: Example for amplify_secure_storage_dart
-version: 1.0.0
-publish_to: none
+sdk:
+  - stable
+  - dev
 
-environment:
-  sdk: ">=2.17.0 <3.0.0"
-
-dependencies:
-  amplify_secure_storage_dart:
-    path: ../
-  example_common:
-    path: ../../../example_common
-
-dependency_overrides:
-  worker_bee:
-    path: ../../../worker_bee/worker_bee
-
-dev_dependencies:
-  amplify_lints:
-    path: ../../../amplify_lints
-  build_runner: ^2.1.4
-  build_web_compilers: ^3.2.1
+stages:
+  - analyze_and_format:
+      - group:
+          - format
+          - analyze: --fatal-infos .

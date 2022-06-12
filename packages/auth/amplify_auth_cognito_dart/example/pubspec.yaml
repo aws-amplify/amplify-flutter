@@ -1,0 +1,35 @@
+name: cognito_example
+description: Amplify Auth Cognito for Dart example
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  amplify_auth_cognito_dart:
+    path: ../
+  amplify_core:
+    path: ../../../amplify_core
+  amplify_secure_storage_dart:
+    path: ../../../secure_storage/amplify_secure_storage_dart
+  example_common:
+    path: ../../../example_common
+
+dependency_overrides:
+  amplify_core:
+    path: ../../../amplify_core
+  amplify_secure_storage_dart:
+    path: ../../../secure_storage/amplify_secure_storage_dart
+  aws_common:
+    path: ../../../aws_common
+  aws_signature_v4:
+    path: ../../../aws_signature_v4
+  worker_bee:
+    path: ../../../worker_bee/worker_bee
+
+dev_dependencies:
+  amplify_lints:
+    path: ../../../amplify_lints
+  build_runner: ^2.1.4
+  build_web_compilers: ^3.2.1
