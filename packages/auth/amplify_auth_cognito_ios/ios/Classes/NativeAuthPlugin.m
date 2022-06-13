@@ -292,11 +292,11 @@ void NativeAuthBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<
         binaryMessenger:binaryMessenger
         codec:NativeAuthBridgeGetCodec()        ];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(addPluginWithCompletion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(addPluginWithCompletion:)", api);
+      NSCAssert([api respondsToSelector:@selector(addPluginWithError:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(addPluginWithError:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
-        [api addPluginWithCompletion:^(FlutterError *_Nullable error) {
-          callback(wrapResult(nil, error));
-        }];
+        FlutterError *error;
+        [api addPluginWithError:&error];
+        callback(wrapResult(nil, error));
       }];
     }
     else {
@@ -343,6 +343,24 @@ void NativeAuthBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<
         [api signOutWithUrlUrl:arg_url callbackUrlScheme:arg_callbackUrlScheme preferPrivateSession:arg_preferPrivateSession browserPackageName:arg_browserPackageName completion:^(FlutterError *_Nullable error) {
           callback(wrapResult(nil, error));
         }];
+      }];
+    }
+    else {
+      [channel setMessageHandler:nil];
+    }
+  }
+  {
+    FlutterBasicMessageChannel *channel =
+      [[FlutterBasicMessageChannel alloc]
+        initWithName:@"dev.flutter.pigeon.NativeAuthBridge.getValidationData"
+        binaryMessenger:binaryMessenger
+        codec:NativeAuthBridgeGetCodec()        ];
+    if (api) {
+      NSCAssert([api respondsToSelector:@selector(getValidationDataWithError:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(getValidationDataWithError:)", api);
+      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
+        FlutterError *error;
+        NSDictionary<NSString *, NSString *> *output = [api getValidationDataWithError:&error];
+        callback(wrapResult(output, error));
       }];
     }
     else {

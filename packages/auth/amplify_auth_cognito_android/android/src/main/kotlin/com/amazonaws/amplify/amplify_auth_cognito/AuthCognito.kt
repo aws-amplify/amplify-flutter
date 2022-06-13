@@ -123,13 +123,13 @@ open class AuthCognito :
         mainActivity = null
     }
 
-    override fun addPlugin(result: NativeAuthPluginBindings.Result<Void>) {
-        try {
-            Amplify.addPlugin(NativeAuthPlugin { nativePlugin })
-            result.success(null)
-        } catch (e: Exception) {
-            result.error(e)
-        }
+    override fun addPlugin() {
+        Amplify.addPlugin(NativeAuthPlugin { nativePlugin })
+    }
+
+    override fun getValidationData(): MutableMap<String, String> {
+        // Currently, the Android libraries do not provide any data by default.
+        return mutableMapOf()
     }
 
     /**

@@ -75,20 +75,37 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
         }
     }
     
+    public func getValidationDataWithError(_ error: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> [String : String]? {
+        let device = UIDevice.current
+        let bundle = Bundle.main
+        let bundleVersion = bundle.object(forInfoDictionaryKey: String(kCFBundleVersionKey)) as? String
+        let bundleShortVersion = bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+
+        return [
+            "cognito:iOSVersion": device.systemVersion,
+            "cognito:systemName": device.systemName,
+            "cognito:deviceName": device.name,
+            "cognito:model": device.model,
+            "cognito:idForVendor": device.identifierForVendor?.uuidString ?? "",
+            "cognito:bundleId": bundle.bundleIdentifier ?? "",
+            "cognito:bundleVersion": bundleVersion ?? "",
+            "cognito:bundleShortV": bundleShortVersion ?? ""
+        ]
+    }
+    
     public let key: PluginKey = "awsCognitoAuthPlugin"
     
     public func configure(using configuration: Any?) throws {}
     
-    public func addPlugin(completion: @escaping (FlutterError?) -> Void) {
+    public func addPluginWithError(_ errorPtr: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
         do {
             try Amplify.add(plugin: self)
-            completion(nil)
         } catch let configError as ConfigurationError {
             var errorCode = "AuthException"
             if case .amplifyAlreadyConfigured = configError {
                 errorCode = "AmplifyAlreadyConfiguredException"
             }
-            completion(FlutterError(
+            errorPtr.pointee = FlutterError(
                 code: errorCode,
                 message: configError.localizedDescription,
                 details: [
@@ -96,13 +113,13 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
                     "recoverySuggestion": configError.recoverySuggestion,
                     "underlyingError": configError.underlyingError?.localizedDescription ?? ""
                 ]
-            ))
+            )
         } catch {
-            completion(FlutterError(
+            errorPtr.pointee = FlutterError(
                 code: "UNKNOWN",
                 message: error.localizedDescription,
                 details: nil
-            ))
+            )
         }
     }
     
