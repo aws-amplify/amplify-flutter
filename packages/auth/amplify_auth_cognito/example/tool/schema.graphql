@@ -16,13 +16,13 @@ type Mutation {
 
 type CreateUserResponse @model {
   success: Boolean!
-  error: String
+  exception: String
 }
 
 type DeleteUserResponse {
   id: ID!
   success: Boolean!
-  error: String
+  exception: String
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!

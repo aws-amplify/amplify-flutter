@@ -55,6 +55,7 @@ Future<void> deleteUser(String username) async {
           ) {
           deleteUser(Username: $Username) {
               success
+              exception
             }
           }
       ''',
@@ -64,8 +65,8 @@ Future<void> deleteUser(String username) async {
       });
 
   final QueryResult result = await client.mutate(options);
-  if (result.hasException) {
-    throw Exception(result.exception);
+  if (result.data?['deleteUser']?['exception'] != null) {
+    throw Exception(result.data?['deleteUser']?['exception']);
   }
 }
 
@@ -128,6 +129,7 @@ Future<void> adminCreateUser(
               VerifyAttributes: $VerifyAttributes
             ){
               success
+              exception
             }
           }
       ''',
@@ -171,8 +173,8 @@ Future<void> adminCreateUser(
       });
 
   final QueryResult result = await client.mutate(options);
-  if (result.hasException) {
-    throw Exception(result.exception);
+  if (result.data?['adminCreateUser']?['exception'] != null) {
+    throw Exception(result.data?['adminCreateUser']?['exception']);
   }
 }
 
