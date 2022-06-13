@@ -69,6 +69,22 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
       );
     }
   }
+
+  @override
+  Future<SignUpResult> signUp({required SignUpRequest request}) async {
+    Map<String, String>? validationData;
+    if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+      final nativeValidationData =
+          await stateMachine.expect<NativeAuthBridge>().getValidationData();
+      validationData = nativeValidationData.cast();
+    }
+    request = SignUpRequest(
+      username: request.username,
+      password: request.password,
+      options: CognitoSignUpOptions(validationData: validationData),
+    );
+    return super.signUp(request: request);
+  }
 }
 
 class _NativeAmplifyAuthCognito implements NativeAuthPlugin {
