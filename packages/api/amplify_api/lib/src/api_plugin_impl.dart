@@ -117,7 +117,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     final client = getRestClient(apiName: apiName);
     return _prepareRestResponse(AWSStreamedHttpRequest.delete(
       uri,
-      body: body ?? const HttpPayload.empty(),
+      body: body ?? HttpPayload.empty(),
       headers: headers,
     ).send(client));
   }
@@ -171,7 +171,7 @@ class AmplifyAPIDart extends AmplifyAPI {
       AWSStreamedHttpRequest.patch(
         uri,
         headers: headers,
-        body: body ?? const HttpPayload.empty(),
+        body: body ?? HttpPayload.empty(),
       ).send(client),
     );
   }
@@ -190,7 +190,7 @@ class AmplifyAPIDart extends AmplifyAPI {
       AWSStreamedHttpRequest.post(
         uri,
         headers: headers,
-        body: body ?? const HttpPayload.empty(),
+        body: body ?? HttpPayload.empty(),
       ).send(client),
     );
   }
@@ -209,7 +209,7 @@ class AmplifyAPIDart extends AmplifyAPI {
       AWSStreamedHttpRequest.put(
         uri,
         headers: headers,
-        body: body ?? const HttpPayload.empty(),
+        body: body ?? HttpPayload.empty(),
       ).send(client),
     );
   }
