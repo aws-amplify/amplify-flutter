@@ -1,0 +1,18 @@
+sdk:
+  - stable
+  - dev
+
+stages:
+  - analyze_and_format:
+      - group:
+          - format
+          - analyze: --fatal-infos .
+  - unit_test:
+      - test:
+        os:
+          # TODO(Jordan-Nelson): Fix integ tests on Linux
+          # - linux
+          - windows
+          - macos
+      - command: tool/test.sh -p chrome
+      - command: tool/test.sh -p firefox

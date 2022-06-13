@@ -17,6 +17,7 @@ import 'dart:async';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:async/async.dart';
 import 'package:flutter/services.dart';

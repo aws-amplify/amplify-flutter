@@ -8,7 +8,7 @@ executors:
 
   macos-executor:
     macos:
-      xcode: 13
+      xcode: 13.2
     working_directory: ~/amplify-flutter
 
 commands:
@@ -233,9 +233,9 @@ workflows:
                 [
                   "amplify_analytics_pinpoint_android",
                   "amplify_api_android",
-                  "amplify_core",
+                  "amplify_auth_cognito",
                   "amplify_datastore",
-                  "amplify_flutter_android",
+                  "amplify_flutter",
                 ]
       - unit_test_ios:
           matrix:
@@ -246,5 +246,5 @@ workflows:
                   "amplify_api_ios",
                   "amplify_auth_cognito",
                   "amplify_datastore",
-                  "amplify_flutter_ios",
+                  "amplify_flutter",
                 ]

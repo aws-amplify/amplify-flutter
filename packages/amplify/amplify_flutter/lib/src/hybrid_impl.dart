@@ -15,12 +15,13 @@
 import 'dart:convert';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/src/amplify_impl.dart';
 
 /// {@template amplify_flutter.amplify_hybrid_impl}
 /// A hybrid implementation of [AmplifyClass] which uses method channels for
 /// iOS/Android plugins and Dart, otherwise.
 /// {@endtemplate}
-class AmplifyHybridImpl extends AmplifyClass {
+class AmplifyHybridImpl extends AmplifyClassImpl {
   /// {@macro amplify_flutter.amplify_hybrid_impl}
   AmplifyHybridImpl() : super.protected();
 
@@ -55,7 +56,6 @@ class AmplifyHybridImpl extends AmplifyClass {
     try {
       if (plugin is AuthPluginInterface) {
         await Auth.addPlugin(plugin);
-        Hub.addChannel(HubChannel.Auth, plugin.streamController);
       } else if (plugin is AnalyticsPluginInterface) {
         await Analytics.addPlugin(plugin);
       } else if (plugin is StoragePluginInterface) {
@@ -69,7 +69,10 @@ class AmplifyHybridImpl extends AmplifyClass {
           // method will throw an exception in android. We will ignore this
           // like other plugins and move on. Other exceptions fall through.
         }
-        Hub.addChannel(HubChannel.DataStore, plugin.streamController);
+        Hub.addChannel(
+          HubChannel.DataStore,
+          plugin.streamController.stream,
+        );
       } else if (plugin is APIPluginInterface) {
         await API.addPlugin(plugin);
       } else {
@@ -80,6 +83,8 @@ class AmplifyHybridImpl extends AmplifyClass {
               AmplifyExceptionMessages.missingRecoverySuggestion,
         );
       }
+    } on AmplifyAlreadyConfiguredException {
+      return;
     } on Exception catch (e) {
       safePrint('Amplify plugin was not added');
       throw AmplifyException(

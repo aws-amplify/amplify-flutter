@@ -24,9 +24,24 @@ import 'package:meta/meta.dart';
 ///
 /// Use [CognitoUserAttributeKey.custom] to create a custom Cognito attribute.
 @immutable
-class CognitoUserAttributeKey extends UserAttributeKey {
+class CognitoUserAttributeKey extends UserAttributeKey
+    with AWSEquatable<CognitoUserAttributeKey>, AWSDebuggable {
   const CognitoUserAttributeKey._(this._key, {this.readOnly = false})
       : isCustom = false;
+
+  /// Creates a custom Cognito attribute.
+  const CognitoUserAttributeKey.custom(this._key)
+      : isCustom = true,
+        readOnly = false;
+
+  /// Parses the given Cognito attribute key.
+  factory CognitoUserAttributeKey.parse(String key) {
+    key = key.toLowerCase();
+    return values.firstWhere(
+      (attr) => attr.key == key,
+      orElse: () => CognitoUserAttributeKey.custom(key),
+    );
+  }
 
   /// Prefix for custom Cognito attributes.
   static const customPrefix = 'custom:';
@@ -47,22 +62,12 @@ class CognitoUserAttributeKey extends UserAttributeKey {
   /// Whether this is a custom key.
   final bool isCustom;
 
-  /// Creates a custom Cognito attribute.
-  const CognitoUserAttributeKey.custom(this._key)
-      : isCustom = true,
-        readOnly = false;
-
-  /// Parses the given Cognito attribute key.
-  factory CognitoUserAttributeKey.parse(String key) {
-    key = key.toLowerCase();
-    return values.firstWhere(
-      (attr) => attr.key == key,
-      orElse: () => CognitoUserAttributeKey._(
-        key,
-        readOnly: !key.startsWith(customPrefix),
-      ),
-    );
-  }
+  @override
+  List<Object?> get props => [
+        // Cognito will lowercase these in API calls
+        key.toLowerCase(),
+        readOnly,
+      ];
 
   /// The user's preferred postal address.
   ///
@@ -194,12 +199,5 @@ class CognitoUserAttributeKey extends UserAttributeKey {
   ];
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is CognitoUserAttributeKey &&
-          key == other.key &&
-          readOnly == other.readOnly;
-
-  @override
-  int get hashCode => key.hashCode ^ readOnly.hashCode;
+  String get runtimeTypeName => 'CognitoUserAttributeKey';
 }

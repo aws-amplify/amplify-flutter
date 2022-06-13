@@ -15,9 +15,13 @@
 
 library amplify_core;
 
+import 'src/amplify_class.dart';
+
 /// Common types
 export 'package:aws_common/aws_common.dart';
 export 'package:aws_signature_v4/aws_signature_v4.dart' show AWSCredentials;
+
+export 'src/amplify_class.dart';
 
 /// Categories
 export 'src/category/amplify_auth_category.dart';
@@ -32,6 +36,11 @@ export 'src/config/api/api_config.dart';
 export 'src/config/auth/auth_config.dart';
 export 'src/config/config_map.dart';
 export 'src/config/storage/storage_config.dart';
+
+// Hub
+export 'src/hub/amplify_hub.dart';
+export 'src/hub/hub_channel.dart';
+export 'src/hub/hub_event.dart';
 
 /// Plugin
 export 'src/plugin/amplify_analytics_plugin_interface.dart';
@@ -67,12 +76,6 @@ export 'src/types/exception/amplify_exception.dart';
 export 'src/types/exception/amplify_exception_messages.dart';
 export 'src/types/exception/codegen_exception.dart';
 
-/// Hub
-export 'src/types/hub/auth/auth_hub_event.dart';
-export 'src/types/hub/hub_channel.dart';
-export 'src/types/hub/hub_event.dart';
-export 'src/types/hub/hub_event_payload.dart';
-
 /// Model-based types used in datastore and API
 export 'src/types/models/auth_rule.dart';
 export 'src/types/models/model.dart';
@@ -100,3 +103,14 @@ export 'src/types/temporal/temporal_timestamp.dart';
 export 'src/util/parsers.dart';
 export 'src/util/serializable.dart';
 export 'src/util/uuid.dart';
+
+/// Top level singleton Amplify object.
+AmplifyClass get Amplify {
+  return AmplifyClass.instance ??= AmplifyClass();
+}
+
+set Amplify(AmplifyClass amplifyClass) {
+  AmplifyClass.instance = amplifyClass;
+}
+
+// ignore_for_file: non_constant_identifier_names

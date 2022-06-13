@@ -26,14 +26,18 @@ final Libsecret libsecret = Libsecret(libsecretDyLib);
 
 /// Extensions on Pointer<SecretSchema>.
 extension SecretSchemaPointer on Pointer<SecretSchema> {
+  /// Inserts the attribute into the schema with a type SECRET_SCHEMA_ATTRIBUTE_STRING.
+  void insertAttribute(int index, String attribute, {required Arena arena}) {
+    final attributeName = attribute.toNativeUtf8(allocator: arena);
+    ref.attributes[index].name = attributeName.cast();
+    ref.attributes[index].type =
+        SecretSchemaAttributeType.SECRET_SCHEMA_ATTRIBUTE_STRING;
+  }
+
   /// Adds the list of attributes to the schema with a type SECRET_SCHEMA_ATTRIBUTE_STRING.
-  void addAttributes(Iterable<String> attributes, {required Arena arena}) {
+  void addAllAttributes(Iterable<String> attributes, {required Arena arena}) {
     for (var i = 0; i < attributes.length; i++) {
-      final attributeName =
-          attributes.elementAt(i).toNativeUtf8(allocator: arena);
-      ref.attributes[i].name = attributeName.cast();
-      ref.attributes[i].type =
-          SecretSchemaAttributeType.SECRET_SCHEMA_ATTRIBUTE_STRING;
+      insertAttribute(i, attributes.elementAt(i), arena: arena);
     }
   }
 }

@@ -19,8 +19,8 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
-import com.amazonaws.amplify.amplify_core.AtomicResult
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
+import com.amazonaws.amplify.AtomicResult
+import com.amazonaws.amplify.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_storage_s3.types.TransferProgressStreamHandler
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin

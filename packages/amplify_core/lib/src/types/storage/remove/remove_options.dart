@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
 
 class RemoveOptions extends StorageOptions {
   StorageAccessLevel accessLevel;
@@ -24,7 +23,7 @@ class RemoveOptions extends StorageOptions {
   @override
   Map<String, Object?> serializeAsMap() {
     final optionsMap = <String, Object?>{
-      'accessLevel': describeEnum(accessLevel)
+      'accessLevel': accessLevel.name,
     };
     return optionsMap;
   }

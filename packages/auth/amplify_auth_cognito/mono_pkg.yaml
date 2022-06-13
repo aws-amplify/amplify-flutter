@@ -1,16 +1,9 @@
 sdk:
   - stable
-  # TODO: Once Flutter Beta's Dart SDK is >=2.17.0
-  # - beta
+  - beta
 
 stages:
   - analyze_and_format:
       - group:
           - format
-          - analyze: --fatal-infos lib test
-  - unit_test:
-      - group:
-          - command: flutter doctor -v
-          - test: --exclude-tags=build # TODO: Re-enable when CI Flutter is updated
-          # TODO(dnys1): Re-enable after investigation
-          # - test: --platform chrome
+          - analyze: --fatal-infos lib

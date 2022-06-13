@@ -6,7 +6,7 @@ part of 'config_map.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AWSConfigMap<T> _$AWSConfigMapFromJson<T extends AWSSerializable>(
+AWSConfigMap<T> _$AWSConfigMapFromJson<T extends AWSSerializable<Object?>>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
 ) =>

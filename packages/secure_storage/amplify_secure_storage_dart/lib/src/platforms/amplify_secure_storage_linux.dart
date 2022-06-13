@@ -14,8 +14,7 @@
 
 import 'dart:ffi';
 
-import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';
-import 'package:amplify_secure_storage_dart/src/types/amplify_secure_storage_config.dart';
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:ffi/ffi.dart';
 
 import '../ffi/glib/glib.dart';
@@ -24,8 +23,8 @@ import '../ffi/libsecret/libsecret.dart';
 /// The Linux implementation of [SecureStorageInterface].
 class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   const AmplifySecureStorageLinux({
-    required AmplifySecureStorageConfig config,
-  }) : super(config: config);
+    required super.config,
+  });
 
   @override
   void write({required String key, required String value}) {
@@ -81,17 +80,21 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
     });
   }
 
-  String _createLabel(String key) => '${config.packageId}.${config.scope}/$key';
+  String get _schemaName => config.linuxOptions.schemaName != null
+      ? config.linuxOptions.schemaName!
+      : config.defaultNamespace;
+
+  String _createLabel(String key) => '$_schemaName/$key';
 
   /// Creates a [SecretSchema] pointer.
   ///
   /// [SecretSchema](https://developer-old.gnome.org/libsecret/0.18/libsecret-SecretSchema.html#SecretSchema)
   Pointer<SecretSchema> _getSchema(Arena arena) {
-    final schemaName = SECRET_COLLECTION_DEFAULT.toNativeUtf8(allocator: arena);
+    final schemaName = _schemaName.toNativeUtf8(allocator: arena);
     return arena<SecretSchema>()
       ..ref.name = schemaName
       ..ref.flags = SecretSchemaFlags.SECRET_SCHEMA_NONE
-      ..addAttributes(Attributes.values.map((e) => e.name), arena: arena);
+      ..insertAttribute(0, Attributes.key.name, arena: arena);
   }
 
   /// Creates a [GHashTable] pointer containing the account name.
@@ -105,8 +108,6 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
       ..insertAll(
         {
           Attributes.key.name: key,
-          Attributes.packageId.name: config.packageId,
-          Attributes.scope.name: config.scope,
         },
         arena: arena,
       );
@@ -120,6 +121,4 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 /// The attributes used to identify the secret.
 enum Attributes {
   key,
-  packageId,
-  scope,
 }

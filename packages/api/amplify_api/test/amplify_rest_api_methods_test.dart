@@ -18,6 +18,7 @@ import 'dart:typed_data';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -33,7 +34,11 @@ const queryParameters = {
   'queryParameterA': 'queryValueA',
   'queryParameterB': 'queryValueB'
 };
-const headers = {'headerA': 'headerValueA', 'headerB': 'headerValueB'};
+const headers = {
+  'headerA': 'headerValueA',
+  'headerB': 'headerValueB',
+  AWSHeaders.contentType: 'text/plain'
+};
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -165,7 +170,8 @@ void main() {
         expect(restOptions['apiName'], 'restapi');
         expect(restOptions['path'], '/items');
         expect(restOptions['queryParameters'], queryParameters);
-        expect(restOptions['headers'], headers);
+        expect(restOptions['headers'][AWSHeaders.contentType],
+            'application/x-www-form-urlencoded');
         expect(utf8.decode(restOptions['body'] as List<int>), 'foo=bar');
         return {
           'data': helloResponse,
@@ -178,9 +184,8 @@ void main() {
     final restOperation = api.post(
       '/items',
       apiName: 'restapi',
-      body: HttpPayload.fields({'foo': 'bar'}),
+      body: HttpPayload.formFields({'foo': 'bar'}),
       queryParameters: queryParameters,
-      headers: headers,
     );
 
     final response = await restOperation.value;

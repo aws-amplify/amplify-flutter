@@ -26,10 +26,6 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   @nonVirtual
   Category get category => Category.auth;
 
-  // TODO: Remove with Hub migration
-  StreamController<AuthHubEvent> get streamController =>
-      throw UnimplementedError('streamController has not been implemented');
-
   /// {@macro amplify_core.amplify_auth_category.sign_up}
   Future<SignUpResult> signUp({
     required SignUpRequest request,
@@ -74,7 +70,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_auth_category.update_password}
   Future<UpdatePasswordResult> updatePassword({
-    UpdatePasswordRequest? request,
+    required UpdatePasswordRequest request,
   }) {
     throw UnimplementedError('updatePassword() has not been implemented.');
   }

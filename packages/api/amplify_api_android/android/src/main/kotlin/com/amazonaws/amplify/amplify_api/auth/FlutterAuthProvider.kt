@@ -15,7 +15,7 @@
 package com.amazonaws.amplify.amplify_api.auth
 
 import android.os.Looper
-import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amazonaws.amplify.exception.ExceptionMessages
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.ApiAuthProviders
 import com.amplifyframework.api.aws.AuthorizationType

@@ -16,7 +16,7 @@
 
 import Foundation
 import Amplify
-import amplify_core
+import amplify_flutter_ios
 
 public struct FlutterModelFieldType {
     public let fieldType : String

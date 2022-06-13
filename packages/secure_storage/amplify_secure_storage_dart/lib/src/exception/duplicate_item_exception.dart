@@ -20,12 +20,8 @@ import 'package:amplify_secure_storage_dart/src/exception/secure_storage_excepti
 class DuplicateItemException extends SecureStorageException {
   /// {@macro amplify_secure_storage_dart.duplicate_item_exception}
   const DuplicateItemException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 }

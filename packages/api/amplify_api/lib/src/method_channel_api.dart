@@ -263,11 +263,12 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     }
 
     final restOptions = RestOptions(
-        path: path,
-        body: bodyBytes,
-        apiName: apiName,
-        queryParameters: queryParameters,
-        headers: headers);
+      path: path,
+      body: bodyBytes,
+      apiName: apiName,
+      queryParameters: queryParameters,
+      headers: headers,
+    );
     return _callNativeRestMethod(methodName, cancelToken, restOptions);
   }
 
@@ -281,14 +282,22 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }) {
     // Send Request cancelToken to Native
     String cancelToken = uuid();
+    // Ensure Content-Type header matches payload.
+    var modifiedHeaders = headers != null ? Map.of(headers) : null;
+    final contentType = body?.contentType;
+    if (contentType != null) {
+      modifiedHeaders = modifiedHeaders ?? {};
+      modifiedHeaders.putIfAbsent(AWSHeaders.contentType, () => contentType);
+    }
     final responseFuture = _restResponseHelper(
-        methodName: methodName,
-        path: path,
-        cancelToken: cancelToken,
-        body: body,
-        headers: headers,
-        queryParameters: queryParameters,
-        apiName: apiName);
+      methodName: methodName,
+      path: path,
+      cancelToken: cancelToken,
+      body: body,
+      headers: modifiedHeaders,
+      queryParameters: queryParameters,
+      apiName: apiName,
+    );
 
     return CancelableOperation.fromFuture(responseFuture,
         onCancel: () => cancelRequest(cancelToken));
@@ -337,11 +346,12 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     String? apiName,
   }) {
     return _restFunctionHelper(
-        methodName: 'get',
-        path: path,
-        headers: headers,
-        queryParameters: queryParameters,
-        apiName: apiName);
+      methodName: 'get',
+      path: path,
+      headers: headers,
+      queryParameters: queryParameters,
+      apiName: apiName,
+    );
   }
 
   @override
@@ -353,12 +363,13 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     String? apiName,
   }) {
     return _restFunctionHelper(
-        methodName: 'put',
-        path: path,
-        body: body,
-        headers: headers,
-        queryParameters: queryParameters,
-        apiName: apiName);
+      methodName: 'put',
+      path: path,
+      body: body,
+      headers: headers,
+      queryParameters: queryParameters,
+      apiName: apiName,
+    );
   }
 
   @override
@@ -370,12 +381,13 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     String? apiName,
   }) {
     return _restFunctionHelper(
-        methodName: 'post',
-        path: path,
-        body: body,
-        headers: headers,
-        queryParameters: queryParameters,
-        apiName: apiName);
+      methodName: 'post',
+      path: path,
+      body: body,
+      headers: headers,
+      queryParameters: queryParameters,
+      apiName: apiName,
+    );
   }
 
   @override
@@ -387,12 +399,13 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     String? apiName,
   }) {
     return _restFunctionHelper(
-        methodName: 'delete',
-        path: path,
-        body: body,
-        headers: headers,
-        queryParameters: queryParameters,
-        apiName: apiName);
+      methodName: 'delete',
+      path: path,
+      body: body,
+      headers: headers,
+      queryParameters: queryParameters,
+      apiName: apiName,
+    );
   }
 
   @override
@@ -403,11 +416,12 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     String? apiName,
   }) {
     return _restFunctionHelper(
-        methodName: 'head',
-        path: path,
-        headers: headers,
-        queryParameters: queryParameters,
-        apiName: apiName);
+      methodName: 'head',
+      path: path,
+      headers: headers,
+      queryParameters: queryParameters,
+      apiName: apiName,
+    );
   }
 
   @override
@@ -419,12 +433,13 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     String? apiName,
   }) {
     return _restFunctionHelper(
-        methodName: 'patch',
-        path: path,
-        body: body,
-        headers: headers,
-        queryParameters: queryParameters,
-        apiName: apiName);
+      methodName: 'patch',
+      path: path,
+      body: body,
+      headers: headers,
+      queryParameters: queryParameters,
+      apiName: apiName,
+    );
   }
 
   /// Cancels a request with a given request ID.

@@ -15,7 +15,8 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-class SubscriptionDataProcessedEvent<M extends Model> extends HubEventPayload {
+class SubscriptionDataProcessedEvent<M extends Model>
+    extends DataStoreHubEventPayload {
   late HubEventElementWithMetadata<M> element;
   late String modelName;
 

@@ -19,7 +19,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.annotation.NonNull
-import com.amazonaws.amplify.amplify_core.AtomicResult
+import com.amazonaws.amplify.AtomicResult
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware

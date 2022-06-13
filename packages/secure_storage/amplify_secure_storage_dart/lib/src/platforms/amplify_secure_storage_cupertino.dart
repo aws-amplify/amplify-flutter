@@ -12,16 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:ffi';
+// ignore_for_file: omit_local_variable_types
 
+import 'dart:ffi';
+import 'dart:io';
+
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/exception/access_denied_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/duplicate_item_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/item_not_found_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/unknown_exception.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/cupertino/cupertino.dart';
-import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';
-import 'package:amplify_secure_storage_dart/src/types/amplify_secure_storage_config.dart';
 import 'package:ffi/ffi.dart';
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_cupertino}
@@ -39,11 +41,18 @@ import 'package:ffi/ffi.dart';
 class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_cupertino}
   const AmplifySecureStorageCupertino({
-    required AmplifySecureStorageConfig config,
-  }) : super(config: config);
+    required super.config,
+  });
 
   /// The value of the service name attribute for all keychain items.
-  String get _serviceName => '${config.packageId}.${config.scope}';
+  String get _serviceName => config.defaultNamespace;
+
+  String? get _accessGroup => Platform.isIOS
+      ? config.iOSOptions.accessGroup
+      : config.macOSOptions.accessGroup;
+
+  bool get _useDataProtection =>
+      Platform.isMacOS && config.macOSOptions.useDataProtection;
 
   @override
   void write({required String key, required String value}) {
@@ -86,16 +95,8 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     required String value,
     required Arena arena,
   }) {
-    final account = _createCFString(value: key, arena: arena);
-    final service = _createCFString(value: _serviceName, arena: arena);
-    final query = _createCFDictionary(
-      map: {
-        security.kSecClass: security.kSecClassGenericPassword,
-        security.kSecAttrAccount: account,
-        security.kSecAttrService: service,
-      },
-      arena: arena,
-    );
+    final baseQueryAttributes = _getBaseAttributes(key: key, arena: arena);
+    final query = _createCFDictionary(map: baseQueryAttributes, arena: arena);
     final data = _createCFData(value: value, arena: arena);
     final attributes = _createCFDictionary(
       map: {security.kSecValueData: data},
@@ -116,14 +117,11 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     required String value,
     required Arena arena,
   }) {
-    final account = _createCFString(value: key, arena: arena);
-    final service = _createCFString(value: _serviceName, arena: arena);
+    final baseQueryAttributes = _getBaseAttributes(key: key, arena: arena);
     final secret = _createCFData(value: value, arena: arena);
     final query = _createCFDictionary(
       map: {
-        security.kSecClass: security.kSecClassGenericPassword,
-        security.kSecAttrAccount: account,
-        security.kSecAttrService: service,
+        ...baseQueryAttributes,
         security.kSecValueData: secret,
       },
       arena: arena,
@@ -141,15 +139,9 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     required String key,
     required Arena arena,
   }) {
-    final account = _createCFString(value: key, arena: arena);
-    final service = _createCFString(value: _serviceName, arena: arena);
+    final baseQueryAttributes = _getBaseAttributes(key: key, arena: arena);
     final query = _createCFDictionary(
-      map: {
-        security.kSecClass: security.kSecClassGenericPassword,
-        security.kSecAttrAccount: account,
-        security.kSecAttrService: service,
-        security.kSecReturnData: security.kCFBooleanTrue,
-      },
+      map: baseQueryAttributes,
       arena: arena,
     );
     final status = security.SecItemDelete(query);
@@ -162,14 +154,11 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   ///
   /// throws [ItemNotFoundException] if the item is not in the keychain.
   String? _getValue({required String key, required Arena arena}) {
-    final account = _createCFString(value: key, arena: arena);
-    final service = _createCFString(value: _serviceName, arena: arena);
+    final baseQueryAttributes = _getBaseAttributes(key: key, arena: arena);
     final query = _createCFDictionary(
       map: {
+        ...baseQueryAttributes,
         security.kSecMatchLimit: security.kSecMatchLimitOne,
-        security.kSecClass: security.kSecClassGenericPassword,
-        security.kSecAttrAccount: account,
-        security.kSecAttrService: service,
         security.kSecReturnData: security.kCFBooleanTrue,
       },
       arena: arena,
@@ -195,6 +184,27 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     }
   }
 
+  /// Get the query attributes that are common to all queries.
+  Map<Pointer<NativeType>, Pointer<NativeType>> _getBaseAttributes({
+    required String key,
+    required Arena arena,
+  }) {
+    final account = _createCFString(value: key, arena: arena);
+    final service = _createCFString(value: _serviceName, arena: arena);
+    return {
+      security.kSecClass: security.kSecClassGenericPassword,
+      security.kSecAttrAccount: account,
+      security.kSecAttrService: service,
+      if (_accessGroup != null)
+        security.kSecAttrAccessGroup: _createCFString(
+          value: _accessGroup!,
+          arena: arena,
+        ),
+      if (_useDataProtection)
+        security.kSecUseDataProtectionKeychain: security.kCFBooleanTrue,
+    };
+  }
+
   /// Creates a [CFDictionary] from a map of pointers, and registers
   /// a callback to release it from memory when the arena frees
   /// allocations.
@@ -208,7 +218,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     final keysPtr = arena<CFTypeRef>(map.length);
     final valuesPtr = arena<CFTypeRef>(map.length);
     var index = 0;
-    for (var entry in map.entries) {
+    for (final entry in map.entries) {
       keysPtr[index] = entry.key.cast();
       valuesPtr[index] = entry.value.cast();
       index++;
@@ -268,44 +278,18 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
 
   /// Maps the result code to a [SecureStorageException].
   SecureStorageException _getExceptionFromResultCode(int code) {
-    final underlyingException = _getErrorFromResultCode(code).toString();
-    switch (code) {
-      case errSecItemNotFound:
-        // A missing recovery is used because this should be caught
-        // and handled internally
-        return ItemNotFoundException(
-          _notFoundMessage,
-          recoverySuggestion: SecureStorageException.missingRecovery,
-          underlyingException: underlyingException,
-        );
-      case errSecDuplicateItem:
-        // A missing recovery is used because this should be caught
-        // and handled internally
-        return DuplicateItemException(
-          _itemPresentMessage,
-          recoverySuggestion: SecureStorageException.missingRecovery,
-          underlyingException: underlyingException,
-        );
-      case errSecUserCanceled:
-      case errSecAuthFailed:
-      case errSecInteractionRequired:
-        return AccessDeniedException(
-          _couldNotAccessMessage,
-          recoverySuggestion: _ensureUnlockedMessage,
-          underlyingException: underlyingException,
-        );
-      default:
-        return UnknownException(
-          _unknownMessage,
-          recoverySuggestion: SecureStorageException.missingRecovery,
-          underlyingException: underlyingException,
-        );
-    }
+    final securityFrameworkError = _SecurityFrameworkError.fromCode(code);
+    return securityFrameworkError.toSecureStorageException();
   }
+}
 
-  /// Returns the error associated with the result code.
-  _SecurityFrameworkError _getErrorFromResultCode(int code) {
-    CFStringRef cfString = security.SecCopyErrorMessageString(code, nullptr);
+/// An error from the Security Framework.
+class _SecurityFrameworkError {
+  _SecurityFrameworkError({required this.code, required this.message});
+
+  /// Creates an error from the given result code.
+  factory _SecurityFrameworkError.fromCode(int code) {
+    final cfString = security.SecCopyErrorMessageString(code, nullptr);
     if (cfString == nullptr) {
       return _SecurityFrameworkError(
         code: code,
@@ -318,7 +302,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     } on Exception {
       return _SecurityFrameworkError(
         code: code,
-        message: _couldNotBeParsedMessage,
+        message: 'The error string could not be parsed.',
       );
     } finally {
       if (cfString != nullptr) {
@@ -326,22 +310,59 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
       }
     }
   }
-}
 
-const _notFoundMessage = 'Them item was not found in the keychain.';
-const _itemPresentMessage = 'The item is already present in the keychain.';
-const _couldNotAccessMessage = 'Could not access the items in the keychain.';
-const _ensureUnlockedMessage =
-    'Ensure that the users keychain is available and unlocked.';
-const _unknownMessage = 'An unknown exception occurred.';
-const _noErrorStringMessage = 'No error string is available.';
-const _couldNotBeParsedMessage = 'The error string could not be parsed.';
-
-/// An error from the Security Framework
-class _SecurityFrameworkError {
-  _SecurityFrameworkError({required this.code, required this.message});
   final int code;
   final String message;
+
+  static const _noErrorStringMessage = 'No error string is available.';
+
+  /// Maps the error to a [SecureStorageException].
+  SecureStorageException toSecureStorageException() {
+    final underlyingException = toString();
+    switch (code) {
+      case errSecItemNotFound:
+        // A missing recovery is used because this should be caught
+        // and handled internally
+        return ItemNotFoundException(
+          'Them item was not found in the keychain.',
+          recoverySuggestion: SecureStorageException.missingRecovery,
+          underlyingException: underlyingException,
+        );
+      case errSecDuplicateItem:
+        // A missing recovery is used because this should be caught
+        // and handled internally
+        return DuplicateItemException(
+          'The item is already present in the keychain.',
+          recoverySuggestion: SecureStorageException.missingRecovery,
+          underlyingException: underlyingException,
+        );
+      case errSecUserCanceled:
+      case errSecAuthFailed:
+      case errSecInteractionRequired:
+        return AccessDeniedException(
+          'Could not access the items in the keychain.',
+          recoverySuggestion:
+              'Ensure that the keychain is available and unlocked.',
+          underlyingException: underlyingException,
+        );
+      case errSecMissingEntitlement:
+        // TODO(Jordan-Nelson): point to amplify documentation when available.
+        final recoverySuggestion = Platform.isMacOS
+            ? 'If you have not explicitly disabled `useDataProtection` this may be a result of your app not being in any app groups. See `MacOSSecureStorageOptions.useDataProtection` for more info.'
+            : SecureStorageException.missingRecovery;
+        return AccessDeniedException(
+          'Could not access the items in the keychain due to a missing entitlement.',
+          recoverySuggestion: recoverySuggestion,
+          underlyingException: underlyingException,
+        );
+      default:
+        return UnknownException(
+          'An unknown exception occurred.',
+          recoverySuggestion: SecureStorageException.missingRecovery,
+          underlyingException: underlyingException,
+        );
+    }
+  }
 
   @override
   String toString() {

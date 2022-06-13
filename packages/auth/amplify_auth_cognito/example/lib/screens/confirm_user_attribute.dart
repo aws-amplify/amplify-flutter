@@ -16,15 +16,21 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-class ConfirmUserAttribute extends StatefulWidget {
+class ConfirmUserAttributeScreen extends StatefulWidget {
+  const ConfirmUserAttributeScreen({
+    required this.userAttributeKey,
+    super.key,
+  });
+
   final UserAttributeKey userAttributeKey;
-  const ConfirmUserAttribute({required this.userAttributeKey, super.key});
 
   @override
-  State<ConfirmUserAttribute> createState() => _ConfirmUserAttributeState();
+  State<ConfirmUserAttributeScreen> createState() =>
+      _ConfirmUserAttributeScreenState();
 }
 
-class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
+class _ConfirmUserAttributeScreenState
+    extends State<ConfirmUserAttributeScreen> {
   final _confirmationCodeController = TextEditingController();
 
   void _showSuccess(String message) {
@@ -42,27 +48,29 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
         SnackBar(backgroundColor: Colors.red[900], content: Text(message)));
   }
 
-  void _confirmUpdate() async {
+  Future<void> _confirmUpdate() async {
     try {
       await Amplify.Auth.confirmUserAttribute(
         userAttributeKey: widget.userAttributeKey,
         confirmationCode: _confirmationCodeController.text,
       );
       _showSuccess('Attribute Confirmed Successfully');
-    } on AmplifyException catch (e) {
-      _showError(e.message);
+    } on Exception catch (e) {
+      _showError(e.toString());
     }
   }
 
-  void _resendCode() async {
+  Future<void> _resendCode() async {
     try {
-      var res = await Amplify.Auth.resendUserAttributeConfirmationCode(
+      final res = await Amplify.Auth.resendUserAttributeConfirmationCode(
         userAttributeKey: widget.userAttributeKey,
       );
       _showInfo(
-          'Confirmation Code Sent via ${res.codeDeliveryDetails.deliveryMedium}');
-    } on AmplifyException catch (e) {
-      _showError(e.message);
+        'Confirmation Code Sent via '
+        '${res.codeDeliveryDetails.deliveryMedium}',
+      );
+    } on Exception catch (e) {
+      _showError(e.toString());
     }
   }
 

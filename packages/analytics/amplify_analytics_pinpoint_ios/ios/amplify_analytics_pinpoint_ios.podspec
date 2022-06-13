@@ -17,7 +17,7 @@ This code is the iOS part of the Amplify Flutter Pinpoint Analytics Plugin.  The
   s.dependency 'Flutter'
   s.dependency 'Amplify', '1.23.0'
   s.dependency 'AmplifyPlugins/AWSPinpointAnalyticsPlugin', '1.23.0'
-  s.dependency 'amplify_core'
+  s.dependency 'amplify_flutter_ios'
   s.platform = :ios, '11.0'
   s.swift_version = '5.0'
 

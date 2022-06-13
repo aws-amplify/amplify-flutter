@@ -69,6 +69,9 @@ export 'auth_code_delivery_details.dart';
 export 'auth_device.dart';
 export 'auth_next_step.dart';
 
+// Hub
+export 'hub/auth_hub_event.dart';
+
 /// Password
 export 'password/confirm_reset_password_options.dart';
 export 'password/confirm_reset_password_request.dart';

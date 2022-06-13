@@ -20,11 +20,13 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   @nonVirtual
   Category get category => Category.storage;
 
-  Future<UploadFileResult> uploadFile(
-      {required File local,
-      required String key,
-      void Function(TransferProgress)? onProgress,
-      UploadFileOptions? options}) {
+  Future<UploadFileResult> uploadFile({
+    // TODO(HuiSF): AWSFile
+    required dynamic /* File */ local,
+    required String key,
+    void Function(TransferProgress)? onProgress,
+    UploadFileOptions? options,
+  }) {
     final UploadFileRequest request =
         UploadFileRequest(local: local, key: key, options: options);
     return plugins[0].uploadFile(request: request, onProgress: onProgress);
@@ -47,7 +49,8 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
 
   Future<DownloadFileResult> downloadFile(
       {required String key,
-      required File local,
+      // TODO(HuiSF): AWSFile
+      required dynamic /* File */ local,
       void Function(TransferProgress)? onProgress,
       DownloadFileOptions? options}) {
     final DownloadFileRequest request =

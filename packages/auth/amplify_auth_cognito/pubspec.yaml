@@ -9,45 +9,30 @@ environment:
 
 dependencies:
   amplify_auth_cognito_android: 0.5.0
+  amplify_auth_cognito_dart: 0.1.0
   amplify_auth_cognito_ios: 0.5.0
-  amplify_auth_plugin_interface: 0.5.0
   amplify_core: 0.5.0
+  amplify_flutter: 0.5.0
   amplify_secure_storage: ^0.1.0
-  aws_common: ^0.1.0
-  aws_signature_v4: ^0.1.0
-  built_collection: ^5.0.0
-  built_value: ^8.0.0
-  collection: ^1.15.0
-  convert: ^3.0.0
-  crypto: ^3.0.0
   flutter:
     sdk: flutter
-  http: ^0.13.4
-  json_annotation: ^4.4.0
+  flutter_web_plugins:
+    sdk: flutter
   meta: ^1.7.0
-  oauth2: ^2.0.0
   path: ^1.8.0
   plugin_platform_interface: ^2.0.0
-  smithy:
-    hosted: https://pub.dillonnys.com
-    version: ^0.5.0
-  smithy_aws:
-    hosted: https://pub.dillonnys.com
-    version: ^0.5.0
-  stream_transform: ^2.0.0
+
+dependency_overrides:
+  # TODO(dnys1): Remove when pigeon is bumped
+  # https://github.com/flutter/flutter/issues/105090
+  analyzer: ^3.0.0
 
 dev_dependencies:
   amplify_lints:
     path: ../../amplify_lints
-  build_runner: ^2.0.0
-  build_verify: ^3.0.0
-  built_value_generator: '>=8.3.0 <8.4.0'
   flutter_test:
     sdk: flutter
-  json_serializable: ^6.1.0
-  mockito: ^5.2.0
   pigeon: ^3.0.0
-  test: any
 
 flutter:
   plugin:
