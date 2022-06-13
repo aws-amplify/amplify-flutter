@@ -16,14 +16,21 @@
 // This test follows the Amplify UI feature "sign-in-with-email"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-in-with-email.feature
 
+import 'dart:io';
+
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'config.dart';
 import 'pages/confirm_sign_in_page.dart';
+import 'pages/confirm_sign_up_page.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/test_utils.dart';
 import 'utils/mock_data.dart';
@@ -32,6 +39,8 @@ void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
+
+  final isMobile = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
   final authenticator = Authenticator(
     child: MaterialApp(
@@ -49,6 +58,7 @@ void main() {
     setUpAll(() async {
       await loadConfiguration(
         'ui/components/authenticator/sign-in-with-email',
+        additionalConfigs: isMobile ? [AmplifyAPI()] : null,
       );
     });
 
@@ -76,48 +86,52 @@ void main() {
 
     // TODO(dnnoyes): enable subscriptions with graphql package
     // Scenario: Sign in with unconfirmed credentials
-    // testWidgets('Sign in with unconfirmed credentials', (tester) async {
-    //   final email = generateEmail();
-    //   final password = generatePassword();
+    testWidgets(
+      'Sign in with unconfirmed credentials',
+      (tester) async {
+        final email = generateEmail();
+        final password = generatePassword();
 
-    //   await loadAuthenticator(tester: tester, authenticator: authenticator);
-    //   SignInPage signInPage = SignInPage(tester: tester);
-    //   ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
+        await loadAuthenticator(tester: tester, authenticator: authenticator);
+        SignInPage signInPage = SignInPage(tester: tester);
+        ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
-    //   final code = getOtpCode(email);
+        final code = getOtpCode(email);
 
-    //   // Use the standard Amplify API to create the user in the Unconfirmed state
-    //   await Amplify.Auth.signUp(
-    //     username: email,
-    //     password: password,
-    //     options: CognitoSignUpOptions(
-    //       userAttributes: {CognitoUserAttributeKey.email: email},
-    //     ),
-    //   );
+        // Use the standard Amplify API to create the user in the Unconfirmed state
+        await Amplify.Auth.signUp(
+          username: email,
+          password: password,
+          options: CognitoSignUpOptions(
+            userAttributes: {CognitoUserAttributeKey.email: email},
+          ),
+        );
 
-    //   signInPage.expectUsername(label: 'Email');
+        signInPage.expectUsername(label: 'Email');
 
-    //   // When I type my "username" with status "unconfirmed"
-    //   await signInPage.enterUsername(email);
+        // When I type my "username" with status "unconfirmed"
+        await signInPage.enterUsername(email);
 
-    //   // And I type my password
-    //   await signInPage.enterPassword(password);
+        // And I type my password
+        await signInPage.enterPassword(password);
 
-    //   // And I click the "Sign in" button
-    //   await signInPage.submitSignIn();
+        // And I click the "Sign in" button
+        await signInPage.submitSignIn();
 
-    //   // Then I see "Confirmation Code"
-    //   confirmSignUpPage.expectConfirmationCodeIsPresent();
+        // Then I see "Confirmation Code"
+        confirmSignUpPage.expectConfirmationCodeIsPresent();
 
-    //   /// And I type a valid confirmation code
-    //   await confirmSignUpPage.enterCode(await code);
+        /// And I type a valid confirmation code
+        await confirmSignUpPage.enterCode(await code);
 
-    //   // And I click the "Confirm" button
-    //   await confirmSignUpPage.submitConfirmSignUp();
+        // And I click the "Confirm" button
+        await confirmSignUpPage.submitConfirmSignUp();
 
-    //   // Then I see "Sign out"
-    //   await confirmSignUpPage.expectAuthenticated();
-    // });
+        // Then I see "Sign out"
+        await confirmSignUpPage.expectAuthenticated();
+      },
+      skip: !isMobile,
+    );
 
     // Scenario: Sign in with confirmed credentials
     testWidgets('Sign in with confirmed credentials', (tester) async {
