@@ -14,10 +14,12 @@
 
 import 'dart:async';
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_common/aws_common.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
+
+import 'util.dart';
 
 /// Implementation of http [http.Client] that authorizes HTTP requests with
 /// Amplify.
@@ -40,18 +42,39 @@ class AmplifyAuthorizationRestClient extends http.BaseClient {
   /// header already set.
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async =>
-      _baseClient.send(_authorizeRequest(request));
+      _baseClient.send(await _authorizeRequest(request));
 
   @override
   void close() {
     if (_useDefaultBaseClient) _baseClient.close();
   }
 
-  http.BaseRequest _authorizeRequest(http.BaseRequest request) {
+  Future<http.BaseRequest> _authorizeRequest(http.BaseRequest request) async {
     if (!request.headers.containsKey(AWSHeaders.authorization) &&
         endpointConfig.authorizationType != APIAuthorizationType.none) {
       // ignore: todo
       // TODO: Use auth providers from core to transform the request.
+      if (endpointConfig.authorizationType == APIAuthorizationType.iam) {
+        final authSession = await Amplify.Auth.fetchAuthSession(
+                options: const CognitoSessionOptions(getAWSCredentials: true))
+            as CognitoAuthSession;
+        final credentials = authSession.credentials;
+        if (credentials == null) {
+          throw const ApiException(
+              'No AWS credentials found for IAM authorization');
+        }
+        final region = endpointConfig.region;
+        final service = endpointConfig.endpointType == EndpointType.graphQL
+            ? AWSService.appSync
+            : AWSService.apiGateway;
+        final signedRequest = await generateAWSSignedRequest(
+          request,
+          region: region,
+          service: service,
+          credentials: credentials,
+        );
+        return signedRequest.httpRequest;
+      }
     }
     return request;
   }

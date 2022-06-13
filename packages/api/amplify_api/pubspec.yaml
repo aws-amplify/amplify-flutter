@@ -11,10 +11,12 @@ environment:
 dependencies:
   amplify_api_android: 0.5.0
   amplify_api_ios: 0.5.0
+  amplify_auth_cognito: 0.5.0 # TEMP
   amplify_core: 0.5.0
   amplify_flutter: 0.5.0
   async: ^2.8.2
   aws_common: ^0.1.0
+  aws_signature_v4: ^0.1.0
   collection: ^1.15.0
   flutter:
     sdk: flutter
