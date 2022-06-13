@@ -283,10 +283,10 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     // Send Request cancelToken to Native
     String cancelToken = uuid();
     // Ensure Content-Type header matches payload.
-    var modifiedHeaders = headers;
+    var modifiedHeaders = headers != null ? Map.of(headers) : null;
     final contentType = body?.contentType;
     if (contentType != null) {
-      modifiedHeaders = headers ?? {};
+      modifiedHeaders = modifiedHeaders ?? {};
       modifiedHeaders.putIfAbsent(AWSHeaders.contentType, () => contentType);
     }
     final responseFuture = _restResponseHelper(
