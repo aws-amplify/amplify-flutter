@@ -21,7 +21,7 @@ import AmplifyPlugins
 extension AWSAuthDevice: Codable {
     /// Attribute key for retrieving a device's name.
     static let deviceNameKey = "device_name"
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -30,24 +30,24 @@ extension AWSAuthDevice: Codable {
         case lastAuthenticatedDate
         case lastModifiedDate
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let id = try container.decode(String.self, forKey: .id)
-        let name = try container.decode(String.self, forKey: .name)
-        let attributes = try container.decode([String: String]?.self, forKey: .attributes)
-        let createdDate = try container.decode(Date?.self, forKey: .createdDate)
-        let lastAuthenticatedDate = try container.decode(Date?.self, forKey: .lastAuthenticatedDate)
-        let lastModifiedDate = try container.decode(Date?.self, forKey: .lastModifiedDate)
+        let name = try container.decodeIfPresent(String?.self, forKey: .name) ?? nil
+        let attributes = try container.decodeIfPresent([String: String]?.self, forKey: .attributes) ?? nil
+        let createdDate = try container.decodeIfPresent(Date?.self, forKey: .createdDate) ?? nil
+        let lastAuthenticatedDate = try container.decodeIfPresent(Date?.self, forKey: .lastAuthenticatedDate) ?? nil
+        let lastModifiedDate = try container.decodeIfPresent(Date?.self, forKey: .lastModifiedDate) ?? nil
         self.init(
             id: id,
-            name: name,
+            name: name ?? "",
             attributes: attributes,
             createdDate: createdDate,
             lastAuthenticatedDate: lastAuthenticatedDate,
             lastModifiedDate: lastModifiedDate)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)

@@ -28,10 +28,10 @@ struct DeviceHandler {
         attributes: [.concurrent])
     
     /// Encoder used for proper [Date] handling.
-    private static let encoder = JSONEncoder(dateEncodingStrategy: .millisecondsSince1970)
+    internal static let encoder = JSONEncoder(dateEncodingStrategy: .millisecondsSince1970)
     
     /// Decoder used for proper [Date] handling.
-    private static let decoder = JSONDecoder(dateDecodingStrategy: .millisecondsSince1970)
+    internal static let decoder = JSONDecoder(dateDecodingStrategy: .millisecondsSince1970)
     
     /// Methods handled by [DeviceHandler].
     private static let methods: Set<String> = ["rememberDevice", "forgetDevice", "fetchDevices"]
