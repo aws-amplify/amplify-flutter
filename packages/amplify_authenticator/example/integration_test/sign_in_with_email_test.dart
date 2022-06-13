@@ -84,7 +84,6 @@ void main() {
       await signInPage.expectUserNotFound();
     });
 
-    // TODO(dnnoyes): enable subscriptions with graphql package
     // Scenario: Sign in with unconfirmed credentials
     testWidgets(
       'Sign in with unconfirmed credentials',

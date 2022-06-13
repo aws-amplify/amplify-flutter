@@ -102,7 +102,6 @@ void main() {
       },
     );
 
-    // TODO(dnnoyes): enable subscriptions with graphql package
     // Scenario: Confirm a new username & password with a valid code
     testWidgets(
       'Confirm a new username & password with a valid code',
