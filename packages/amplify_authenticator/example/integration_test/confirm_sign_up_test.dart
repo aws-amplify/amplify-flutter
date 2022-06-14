@@ -13,9 +13,12 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:io';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_test/amplify_test.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -35,6 +38,8 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
+  final isMobile = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+
   final authenticator = Authenticator(
     child: MaterialApp(
       builder: Authenticator.builder(),
@@ -51,7 +56,7 @@ void main() {
     setUpAll(() async {
       await loadConfiguration(
         'ui/components/authenticator/confirm-sign-up',
-        additionalConfigs: [AmplifyAPI()],
+        additionalConfigs: isMobile ? [AmplifyAPI()] : null,
       );
     });
 
@@ -138,6 +143,7 @@ void main() {
         // Then I see "Sign out"
         await signInPage.expectAuthenticated();
       },
+      skip: !isMobile,
     );
 
     // Scenario: User is already confirmed and then clicks Resend Code
