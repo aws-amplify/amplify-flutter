@@ -26,8 +26,12 @@ abstract class WebSecureStorageOptions
   /// {@macro amplify_secure_storage_dart.web_secure_storage_options}
   factory WebSecureStorageOptions({
     String? databaseName,
-    required bool inMemory,
-  }) = _$WebSecureStorageOptions._;
+    bool inMemory = true,
+  }) =>
+      _$WebSecureStorageOptions._(
+        databaseName: databaseName,
+        inMemory: inMemory,
+      );
 
   const WebSecureStorageOptions._();
 

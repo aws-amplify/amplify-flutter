@@ -39,7 +39,7 @@ abstract class AmplifySecureStorageConfig
   }) {
     return _$AmplifySecureStorageConfig._(
       scope: scope,
-      webOptions: webOptions ?? WebSecureStorageOptions(inMemory: true),
+      webOptions: webOptions ?? WebSecureStorageOptions(),
       windowsOptions: windowsOptions ?? WindowsSecureStorageOptions(),
       linuxOptions: linuxOptions ?? LinuxSecureStorageOptions(),
       macOSOptions: macOSOptions ?? MacOSSecureStorageOptions(),
