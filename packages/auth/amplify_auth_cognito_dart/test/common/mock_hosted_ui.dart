@@ -23,7 +23,7 @@ typedef SignInFn = Future<void> Function(
 
 typedef SignOutFn = Future<void> Function(
   HostedUiPlatform platform,
-  CognitoSignInWithWebUIOptions options,
+  CognitoSignOutWithWebUIOptions options,
 );
 
 HostedUiPlatformFactory createHostedUiFactory({
@@ -60,7 +60,7 @@ class MockHostedUiPlatform extends HostedUiPlatform {
 
   @override
   Future<void> signOut({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignOutWithWebUIOptions options,
   }) =>
       _signOut(this, options);
 

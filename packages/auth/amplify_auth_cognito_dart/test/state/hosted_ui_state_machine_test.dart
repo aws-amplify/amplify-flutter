@@ -45,7 +45,7 @@ class MockHostedUiPlatform extends HostedUiPlatform {
 
   @override
   Future<void> signOut({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignOutWithWebUIOptions options,
   }) async {}
 
   @override
@@ -68,7 +68,7 @@ class FailingHostedUiPlatform extends HostedUiPlatform {
 
   @override
   Future<void> signOut({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignOutWithWebUIOptions options,
   }) {
     throw Exception();
   }
