@@ -15,6 +15,7 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/src/credentials/credentials.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';

@@ -19,7 +19,7 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/machines/credential_store_state_machine.dart';
-import 'package:amplify_core/amplify_core.dart' hide InternalErrorException;
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:mockito/mockito.dart';
 import 'package:smithy/smithy.dart';

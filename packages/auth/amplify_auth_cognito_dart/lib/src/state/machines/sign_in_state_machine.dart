@@ -37,7 +37,6 @@ import 'package:amplify_core/amplify_core.dart'
 import 'package:async/async.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:meta/meta.dart';
-import 'package:smithy/smithy.dart';
 
 /// {@template amplify_auth_cognito.sign_in_state_machine}
 /// Base class for state machines which perform some auth flow. These all follow
@@ -756,17 +755,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
   @override
   SignInState? resolveError(Object error, [StackTrace? st]) {
-    if (error is AmplifyException) {
+    if (error is Exception) {
       return SignInFailure(error);
-    } else if (error is SmithyException) {
-      return SignInFailure(error);
-    } else if (error is Exception) {
-      return SignInFailure(
-        UnknownException(
-          'An unknown error occurred',
-          underlyingException: error.toString(),
-        ),
-      );
     }
     return null;
   }

@@ -23,8 +23,6 @@ import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
-    as cognito_identity show NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito
     show
@@ -42,7 +40,6 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         GetUserRequest,
         GlobalSignOutRequest,
         ListDevicesRequest,
-        NotAuthorizedException,
         PasswordResetRequiredException,
         ResendConfirmationCodeRequest,
         RevokeTokenRequest,
@@ -154,8 +151,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
         }
         if (state is FetchAuthSessionFailure &&
             (state.exception is cognito.UnauthorizedException ||
-                state.exception is cognito.NotAuthorizedException ||
-                state.exception is cognito_identity.NotAuthorizedException)) {
+                state.exception is NotAuthorizedException)) {
           hubEvent = AuthHubEvent.sessionExpired();
         }
 
@@ -406,7 +402,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     final codeDeliveryDetails =
         result.codeDeliveryDetails?.asAuthCodeDeliveryDetails;
     if (codeDeliveryDetails == null) {
-      throw const CodeDeliveryFailureException('Could not deliver code');
+      throw CodeDeliveryFailureException(message: 'Could not deliver code');
     }
     return CognitoResendSignUpCodeResult(codeDeliveryDetails);
   }
@@ -693,7 +689,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     final codeDeliveryDetails =
         result.codeDeliveryDetails?.asAuthCodeDeliveryDetails;
     if (codeDeliveryDetails == null) {
-      throw const CodeDeliveryFailureException('Could not deliver code');
+      throw CodeDeliveryFailureException(message: 'Could not deliver code');
     }
 
     return CognitoResetPasswordResult(
