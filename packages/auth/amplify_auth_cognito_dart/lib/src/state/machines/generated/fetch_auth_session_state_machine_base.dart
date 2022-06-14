@@ -15,7 +15,6 @@
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
-import 'package:smithy/smithy.dart';
 
 /// {@template amplify_auth_cognito.state.machines.fetch_auth_session_state_machine_base}
 /// Generated definition for the fetch auth session state machine.
@@ -55,17 +54,10 @@ abstract class FetchAuthSessionStateMachineBase
 
   @override
   FetchAuthSessionState? resolveError(Object error, [StackTrace? st]) {
-    if (error is AuthException) {
-      return FetchAuthSessionState.failure(error);
-    } else if (error is SmithyException) {
-      return FetchAuthSessionState.failure(error);
+    if (error is Exception) {
+      return FetchAuthSessionFailure(error);
     }
-    return FetchAuthSessionState.failure(
-      UnknownException(
-        'An unknown error occurred',
-        underlyingException: error.toString(),
-      ),
-    );
+    return null;
   }
 
   /// State machine callback for the [FetchAuthSessionFetch] event.

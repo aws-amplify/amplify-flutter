@@ -58,8 +58,8 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   Never _noSuitableRedirect({required bool signIn}) {
     final inOut = signIn ? 'in' : 'out';
     throw InvalidUserPoolConfigurationException(
-      message: 'No sign $inOut redirect URLs registered for localhost',
-      recoverySuggestion: 'Add one or more sign $inOut redirect URLs that '
+      message: 'No sign $inOut redirect URLs registered for localhost. '
+          'Add one or more sign $inOut redirect URLs that '
           'start with "http://localhost:" followed by a random port greater '
           'than 1024, for example: "http://localhost:3084/". See the docs for '
           'more info: '

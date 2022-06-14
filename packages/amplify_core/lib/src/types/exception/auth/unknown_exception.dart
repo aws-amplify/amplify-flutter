@@ -22,27 +22,8 @@ import 'package:amplify_core/amplify_core.dart';
 class UnknownException extends AuthException {
   /// {@macro amplify_core.auth.unknown_exception}
   const UnknownException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
-
-  /// {@macro amplify_core.auth.exception_downcasting}
-  UnknownException._private(AuthException exception)
-      : super(
-          exception.message,
-          recoverySuggestion: exception.recoverySuggestion,
-          underlyingException: exception.underlyingException,
-        );
-
-  /// {@macro amplify_core.auth.exception_from_map}
-  static UnknownException fromMap(Map<String, String> serializedException) {
-    return UnknownException._private(
-      AuthException.fromMap(serializedException),
-    );
-  }
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 }
