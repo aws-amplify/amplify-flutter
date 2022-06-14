@@ -350,7 +350,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/worker_bee/e2e_test;commands:command_6-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/worker_bee/e2e_test;commands:command_4-test_0"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/worker_bee/e2e_test
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -609,7 +609,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_test;commands:command_6-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_test;commands:command_4-test_0"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_test
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -634,6 +634,34 @@ jobs:
         working-directory: packages/worker_bee/e2e_test
         run: dart test
   job_018:
+    name: "unit_test; macos; Flutter beta; PKG: packages/worker_bee/e2e_flutter_test; `flutter test`"
+    runs-on: macos-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@v3
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:macos-latest;pub-cache-hosted;sdk:beta;packages:packages/worker_bee/e2e_flutter_test;commands:test_2"
+          restore-keys: |
+            os:macos-latest;pub-cache-hosted;sdk:beta;packages:packages/worker_bee/e2e_flutter_test
+            os:macos-latest;pub-cache-hosted;sdk:beta
+            os:macos-latest;pub-cache-hosted
+            os:macos-latest
+      - uses: subosito/flutter-action@v2.3.0
+        with:
+          channel: beta
+      - id: checkout
+        uses: actions/checkout@v3
+      - id: packages_worker_bee_e2e_flutter_test_pub_upgrade
+        name: packages/worker_bee/e2e_flutter_test; flutter pub pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_flutter_test
+        run: flutter pub pub upgrade
+      - name: packages/worker_bee/e2e_flutter_test; flutter test
+        if: "always() && steps.packages_worker_bee_e2e_flutter_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_flutter_test
+        run: flutter test
+  job_019:
     name: "unit_test; macos; Dart dev; PKG: packages/secure_storage/amplify_secure_storage_dart; `dart test`"
     runs-on: macos-latest
     steps:
@@ -661,7 +689,7 @@ jobs:
         if: "always() && steps.packages_secure_storage_amplify_secure_storage_dart_pub_upgrade.conclusion == 'success'"
         working-directory: packages/secure_storage/amplify_secure_storage_dart
         run: dart test
-  job_019:
+  job_020:
     name: "unit_test; macos; Dart stable; PKG: packages/secure_storage/amplify_secure_storage_dart; `dart test`"
     runs-on: macos-latest
     steps:
@@ -689,7 +717,35 @@ jobs:
         if: "always() && steps.packages_secure_storage_amplify_secure_storage_dart_pub_upgrade.conclusion == 'success'"
         working-directory: packages/secure_storage/amplify_secure_storage_dart
         run: dart test
-  job_020:
+  job_021:
+    name: "unit_test; macos; Flutter stable; PKG: packages/worker_bee/e2e_flutter_test; `flutter test`"
+    runs-on: macos-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@v3
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_flutter_test;commands:test_2"
+          restore-keys: |
+            os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_flutter_test
+            os:macos-latest;pub-cache-hosted;sdk:stable
+            os:macos-latest;pub-cache-hosted
+            os:macos-latest
+      - uses: subosito/flutter-action@v2.3.0
+        with:
+          channel: stable
+      - id: checkout
+        uses: actions/checkout@v3
+      - id: packages_worker_bee_e2e_flutter_test_pub_upgrade
+        name: packages/worker_bee/e2e_flutter_test; flutter pub pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_flutter_test
+        run: flutter pub pub upgrade
+      - name: packages/worker_bee/e2e_flutter_test; flutter test
+        if: "always() && steps.packages_worker_bee_e2e_flutter_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_flutter_test
+        run: flutter test
+  job_022:
     name: "unit_test; windows; Dart dev; PKG: packages/secure_storage/amplify_secure_storage_dart; `dart test`"
     runs-on: windows-latest
     steps:
@@ -707,7 +763,7 @@ jobs:
         if: "always() && steps.packages_secure_storage_amplify_secure_storage_dart_pub_upgrade.conclusion == 'success'"
         working-directory: packages/secure_storage/amplify_secure_storage_dart
         run: dart test
-  job_021:
+  job_023:
     name: "unit_test; windows; Dart stable; PKG: packages/secure_storage/amplify_secure_storage_dart; `dart test`"
     runs-on: windows-latest
     steps:

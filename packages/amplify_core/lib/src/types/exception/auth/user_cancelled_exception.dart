@@ -21,30 +21,5 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class UserCancelledException extends AuthException {
   /// {@macro amplify_core.auth.user_cancelled_exception}
-  const UserCancelledException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
-
-  /// {@macro amplify_core.auth.exception_downcasting}
-  UserCancelledException._private(AuthException exception)
-      : super(
-          exception.message,
-          recoverySuggestion: exception.recoverySuggestion,
-          underlyingException: exception.underlyingException,
-        );
-
-  /// {@macro amplify_core.auth.exception_from_map}
-  static UserCancelledException fromMap(
-    Map<String, String> serializedException,
-  ) {
-    return UserCancelledException._private(
-      AuthException.fromMap(serializedException),
-    );
-  }
+  const UserCancelledException(super.message);
 }

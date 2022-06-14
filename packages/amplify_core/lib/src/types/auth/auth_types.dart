@@ -14,37 +14,14 @@
  */
 
 /// Exceptions
-export '../exception/auth/alias_exists_exception.dart';
 export '../exception/auth/auth_exception.dart';
-export '../exception/auth/code_delivery_failure_exception.dart';
-export '../exception/auth/code_expired_exception.dart';
-export '../exception/auth/code_mismatch_exception.dart';
 export '../exception/auth/device_not_tracked_exception.dart';
-export '../exception/auth/failed_attempts_limit_exceeded_exception.dart';
-export '../exception/auth/internal_error_exception.dart';
 export '../exception/auth/invalid_account_type_exception.dart';
-export '../exception/auth/invalid_parameter_exception.dart';
-export '../exception/auth/invalid_password_exception.dart';
 export '../exception/auth/invalid_state_exception.dart';
-export '../exception/auth/invalid_user_pool_configuration_exception.dart';
-export '../exception/auth/lambda_exception.dart';
-export '../exception/auth/limit_exceeded_exception.dart';
-export '../exception/auth/mfa_method_not_found_exception.dart';
-export '../exception/auth/not_authorized_exception.dart';
-export '../exception/auth/password_reset_required_exception.dart';
-export '../exception/auth/resource_not_found_exception.dart';
 export '../exception/auth/session_expired_exception.dart';
-export '../exception/auth/session_unavailable_offline_exception.dart';
-export '../exception/auth/session_unavailable_service_exception.dart';
 export '../exception/auth/signed_out_exception.dart';
-export '../exception/auth/software_token_mfa_not_found_exception.dart';
-export '../exception/auth/too_many_failed_attempts_exception.dart';
-export '../exception/auth/too_many_requests_exception.dart';
 export '../exception/auth/unknown_exception.dart';
 export '../exception/auth/user_cancelled_exception.dart';
-export '../exception/auth/user_not_confirmed_exception.dart';
-export '../exception/auth/user_not_found_exception.dart';
-export '../exception/auth/username_exists_exception.dart';
 
 /// Attributes
 export 'attribute/auth_next_update_attribute_step.dart';

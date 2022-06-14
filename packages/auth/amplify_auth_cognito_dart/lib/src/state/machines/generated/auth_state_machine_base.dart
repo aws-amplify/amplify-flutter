@@ -52,10 +52,8 @@ abstract class AuthStateMachineBase extends StateMachine<AuthEvent, AuthState> {
 
   @override
   AuthState? resolveError(Object error, [StackTrace? st]) {
-    if (error is AuthException) {
+    if (error is Exception) {
       return AuthFailure(error);
-    } else if (error is Exception) {
-      return AuthFailure(AuthException.fromException(error));
     }
     return null;
   }

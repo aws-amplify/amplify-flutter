@@ -22,29 +22,8 @@ import 'package:amplify_core/amplify_core.dart';
 class InvalidAccountTypeException extends AuthException {
   /// {@macro amplify_core.auth.invalid_account_type_exception}
   const InvalidAccountTypeException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
-
-  /// {@macro amplify_core.auth.exception_downcasting}
-  InvalidAccountTypeException._private(AuthException exception)
-      : super(
-          exception.message,
-          recoverySuggestion: exception.recoverySuggestion,
-          underlyingException: exception.underlyingException,
-        );
-
-  /// {@macro amplify_core.auth.exception_from_map}
-  static InvalidAccountTypeException fromMap(
-    Map<String, String> serializedException,
-  ) {
-    return InvalidAccountTypeException._private(
-      AuthException.fromMap(serializedException),
-    );
-  }
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 }
