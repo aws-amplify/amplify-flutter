@@ -97,7 +97,7 @@ Future<void> waitForObserve() async {
 /// the ready event hasn't been emitted with in 2 minutes.
 class DataStoreStarter {
   final Completer _completer = Completer();
-  late StreamSubscription hubSubscription;
+  late StreamSubscription<DataStoreHubEvent> hubSubscription;
 
   Future<void> startDataStore() {
     hubSubscription =
