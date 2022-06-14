@@ -78,8 +78,9 @@ class FetchAuthSessionFetch extends FetchAuthSessionEvent {
 
   @override
   String? checkPrecondition(FetchAuthSessionState currentState) {
-    if (currentState.type == FetchAuthSessionStateType.refreshing) {
-      return 'Tokens are being refreshed...';
+    if (currentState.type == FetchAuthSessionStateType.refreshing ||
+        currentState.type == FetchAuthSessionStateType.fetching) {
+      return 'Credentials are already being fetched...';
     }
     return null;
   }
@@ -110,6 +111,15 @@ class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
         refreshAwsCredentials,
         refreshUserPoolTokens,
       ];
+
+  @override
+  String? checkPrecondition(FetchAuthSessionState currentState) {
+    if (currentState.type == FetchAuthSessionStateType.refreshing ||
+        currentState.type == FetchAuthSessionStateType.fetching) {
+      return 'Credentials are already being fetched...';
+    }
+    return null;
+  }
 }
 
 /// {@template amplify_auth_cognito.fetch_auth_session_succeeded}
