@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -30,9 +29,7 @@ void main() {
 
   group('auth hub', () {
     setUpAll(() async {
-      await configureAuth(additionalPlugins: [
-        AmplifyAPI(),
-      ]);
+      await configureAuth();
 
       await adminCreateUser(
         username,

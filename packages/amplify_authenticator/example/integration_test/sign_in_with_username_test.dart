@@ -51,7 +51,6 @@ void main() {
     setUpAll(() async {
       await loadConfiguration(
         'ui/components/authenticator/sign-in-with-username',
-        additionalConfigs: [AmplifyAPI()],
       );
     });
 
