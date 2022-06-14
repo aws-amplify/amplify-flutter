@@ -138,8 +138,8 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
         key: _keys[HostedUiKey.options],
       );
       final options = optionsJson == null
-          ? const CognitoSignInWithWebUIOptions()
-          : CognitoSignInWithWebUIOptions.fromJson(
+          ? const CognitoSignOutWithWebUIOptions()
+          : CognitoSignOutWithWebUIOptions.fromJson(
               (jsonDecode(optionsJson) as Map<Object?, Object?>).cast(),
             );
       // Clear credentials before dispatching to platform since the platform

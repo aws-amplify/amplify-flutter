@@ -225,7 +225,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
   @override
   Future<void> signOut({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignOutWithWebUIOptions options,
   }) async {
     final signOutUris = config.signOutRedirectUris.where(
       (uri) =>

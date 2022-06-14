@@ -91,7 +91,7 @@ void main() {
             ) async {},
             signOut: (
               HostedUiPlatform platform,
-              CognitoSignInWithWebUIOptions options,
+              CognitoSignOutWithWebUIOptions options,
             ) async {},
           ),
           HostedUiPlatform.token,
@@ -311,7 +311,7 @@ void main() {
               ) async {},
               signOut: (
                 HostedUiPlatform platform,
-                CognitoSignInWithWebUIOptions options,
+                CognitoSignOutWithWebUIOptions options,
               ) async =>
                   throw _HostedUiException(),
             ),
