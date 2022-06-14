@@ -37,24 +37,6 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
     super.dispose();
   }
 
-  void _showSuccess(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.green[800],
-        content: Text(message),
-      ),
-    );
-  }
-
-  void _showInfo(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.blue[800],
-        content: Text(message),
-      ),
-    );
-  }
-
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -66,10 +48,11 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
 
   Future<void> _changePassword() async {
     try {
-      final res = await Amplify.Auth.updatePassword(
+      await Amplify.Auth.updatePassword(
         oldPassword: _oldPassword.text,
         newPassword: _newPassword.text,
       );
+      if (!mounted) return;
       context.go('/');
     } on Exception catch (e) {
       _showError(e.toString());
@@ -80,7 +63,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Update Attribute'),
+        title: const Text('Update Password'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

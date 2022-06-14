@@ -14,9 +14,9 @@
 //
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 
 // stores ExpansionPanel state information
 class Item {
@@ -47,43 +47,44 @@ class _ViewSessionScreenState extends State<ViewSessionScreen> {
   }
 
   void generateItems(CognitoAuthSession session) {
-    final List<Item> items = [];
-    items.add(Item(
-      headerValue: 'Authentication Status',
-      expandedValue: session.isSignedIn.toString(),
-    ));
-    items.add(Item(
-      headerValue: 'IdentityId',
-      expandedValue: session.identityId,
-    ));
-    items.add(Item(
-      headerValue: 'UserSub',
-      expandedValue: session.userSub,
-    ));
-    items.add(Item(
-      headerValue: 'AccessKeyId',
-      expandedValue: session.credentials?.accessKeyId,
-    ));
-    items.add(Item(
-      headerValue: 'SessionToken',
-      expandedValue: session.credentials?.sessionToken,
-    ));
-    items.add(Item(
-      headerValue: 'SecretAccessKey',
-      expandedValue: session.credentials?.secretAccessKey,
-    ));
-    items.add(Item(
-      headerValue: 'AccessToken',
-      expandedValue: session.userPoolTokens?.accessToken.raw,
-    ));
-    items.add(Item(
-      headerValue: 'IdToken',
-      expandedValue: session.userPoolTokens?.idToken.raw,
-    ));
-    items.add(Item(
-      headerValue: 'RefreshToken',
-      expandedValue: session.userPoolTokens?.refreshToken,
-    ));
+    final items = [
+      Item(
+        headerValue: 'Authentication Status',
+        expandedValue: session.isSignedIn.toString(),
+      ),
+      Item(
+        headerValue: 'IdentityId',
+        expandedValue: session.identityId,
+      ),
+      Item(
+        headerValue: 'UserSub',
+        expandedValue: session.userSub,
+      ),
+      Item(
+        headerValue: 'AccessKeyId',
+        expandedValue: session.credentials?.accessKeyId,
+      ),
+      Item(
+        headerValue: 'SessionToken',
+        expandedValue: session.credentials?.sessionToken,
+      ),
+      Item(
+        headerValue: 'SecretAccessKey',
+        expandedValue: session.credentials?.secretAccessKey,
+      ),
+      Item(
+        headerValue: 'AccessToken',
+        expandedValue: session.userPoolTokens?.accessToken.raw,
+      ),
+      Item(
+        headerValue: 'IdToken',
+        expandedValue: session.userPoolTokens?.idToken.raw,
+      ),
+      Item(
+        headerValue: 'RefreshToken',
+        expandedValue: session.userPoolTokens?.refreshToken,
+      )
+    ];
     setState(() {
       _data = items;
     });
@@ -103,7 +104,10 @@ class _ViewSessionScreenState extends State<ViewSessionScreen> {
       child: Column(
         children: [
           _buildPanel(),
-          ElevatedButton(onPressed: () => context.go('/'), child: Text('Back'))
+          ElevatedButton(
+            onPressed: () => context.go('/'),
+            child: const Text('Back'),
+          )
         ],
       ),
     );
