@@ -12,27 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';
 import 'package:amplify_secure_storage_dart/src/interfaces/secure_storage_interface.dart';
+import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_in_memory.dart';
 import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_web.dart';
+import 'package:amplify_secure_storage_dart/src/types/web_secure_storage_options.dart';
 
 /// [AmplifySecureStorageDartMixin] that will be used on the web
 mixin AmplifySecureStorageDartMixin on AmplifySecureStorageInterface
     implements SecureStorageInterface {
-  late final _instance = AmplifySecureStorageWeb(config: config);
+  late final _instance =
+      config.webOptions.persistenceOption == WebPersistenceOption.inMemory
+          ? const AmplifySecureStorageInMemory()
+          : AmplifySecureStorageWeb(config: config);
 
   @override
-  Future<void> write({required String key, required String value}) {
+  FutureOr<void> write({required String key, required String value}) {
     return _instance.write(key: key, value: value);
   }
 
   @override
-  Future<String?> read({required String key}) {
+  FutureOr<String?> read({required String key}) {
     return _instance.read(key: key);
   }
 
   @override
-  Future<void> delete({required String key}) {
+  FutureOr<void> delete({required String key}) {
     return _instance.delete(key: key);
   }
 }
