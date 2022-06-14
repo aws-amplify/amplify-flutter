@@ -60,7 +60,11 @@ class WebPersistenceOption extends EnumClass {
   // ignore: use_super_parameters
   const WebPersistenceOption._(String name) : super(name);
 
-  /// Data is stored in memory and will never written to disk.
+  /// Data will be stored in memory and will never written to disk.
+  ///
+  /// Data will not be shared across tabs or windows, and all
+  /// data will be lost when the window is closed or page is
+  /// refreshed.
   static const WebPersistenceOption inMemory = _$inMemory;
 
   /// Data will be stored in browser storage using IndexedDB.
