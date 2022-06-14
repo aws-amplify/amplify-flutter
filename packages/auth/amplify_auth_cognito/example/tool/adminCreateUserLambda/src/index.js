@@ -31,11 +31,13 @@ exports.handler = async (event) => {
       createUserParams["UserAttributes"] = attributes
     }
     
-    
-    await cognitoidentityserviceprovider.adminCreateUser(createUserParams).promise().catch(function(err) {
-      response['error'] = err.toString();
+    try {
+      await cognitoidentityserviceprovider.adminCreateUser(createUserParams).promise()
+    } catch(err) {
+      response['exception'] = err.toString();
       return response;
-    });
+    }
+
     
     if (event.arguments.AutoConfirm) {
       var passwordParams = Object.assign({
@@ -43,10 +45,12 @@ exports.handler = async (event) => {
         Permanent: true,
       }, baseParams);
       
-      await cognitoidentityserviceprovider.adminSetUserPassword(passwordParams).promise().catch(function(err) {
-        response['error'] = err.toString();
+      try {
+        await cognitoidentityserviceprovider.adminSetUserPassword(passwordParams).promise()
+      } catch(err) {
+        response['exception'] = err.toString();
         return response;
-      })
+      }
     } 
     
     if (event.arguments.EnableMFA) {
@@ -59,10 +63,12 @@ exports.handler = async (event) => {
           ]
         }, baseParams);
       
-      await cognitoidentityserviceprovider.adminSetUserSettings(mfaParams).promise().then().catch(function(err) {
-        response['error'] = err.toString();
-        return response;
-      })
+        try {
+          await cognitoidentityserviceprovider.adminSetUserSettings(mfaParams).promise()
+        } catch(err) {
+          response['exception'] = err.toString();
+          return response;
+        }
     }
 
     if (event.arguments.VerifyAttributes) {
@@ -79,12 +85,15 @@ exports.handler = async (event) => {
         ]
       }, baseParams);
 
-      await cognitoidentityserviceprovider.adminUpdateUserAttributes(verifyParams).promise().then().catch(function(err) {
-        response['error'] = err.toString();
+      try {
+        await cognitoidentityserviceprovider.adminUpdateUserAttributes(verifyParams).promise()
+      } catch(err) {
+        response['exception'] = err.toString();
         return response;
-      })
+      }
     }
     
+    // Function would have returned on any exceptions before this point
     response['success'] = true;
     return response;
 };

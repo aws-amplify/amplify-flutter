@@ -15,7 +15,6 @@
 
 // This test follows the Amplify UI feature "reset-password"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/reset-password.feature
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
@@ -52,7 +51,6 @@ void main() {
     setUpAll(() async {
       await loadConfiguration(
         'ui/components/authenticator/reset-password',
-        additionalConfigs: [AmplifyAPI()],
       );
     });
 

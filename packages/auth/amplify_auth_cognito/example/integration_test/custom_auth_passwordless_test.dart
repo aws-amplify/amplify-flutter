@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -36,9 +35,6 @@ void main() {
 
       setUpAll(() async {
         await configureAuth(
-          additionalPlugins: [
-            AmplifyAPI(),
-          ],
           customAuth: true,
         );
         // create new user for each test
