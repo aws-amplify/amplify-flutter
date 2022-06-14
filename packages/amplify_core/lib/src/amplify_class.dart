@@ -18,6 +18,7 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
+import 'package:http/http.dart' as http;
 
 import 'amplify_class_impl.dart';
 
@@ -51,6 +52,14 @@ abstract class AmplifyClass {
   final AmplifyHub Hub = AmplifyHub();
 
   final _configCompleter = Completer<AmplifyConfig>();
+
+  final Map<
+      String,
+      Future<http.BaseRequest> Function(
+    http.BaseRequest request, {
+    String? region,
+    AWSService? service,
+  })> _authProviders = {};
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -129,6 +138,25 @@ abstract class AmplifyClass {
   /// the device.
   @visibleForTesting
   Future<void> reset();
+
+  // TEMP
+  Future<http.BaseRequest> Function(
+    http.BaseRequest request, {
+    String? region,
+    AWSService? service,
+  })? getAuthProvider(String authorizationType) =>
+      _authProviders[authorizationType];
+
+  void registerAuthProvider(
+      String authorizationType,
+      Future<http.BaseRequest> Function(
+    http.BaseRequest request, {
+    String? region,
+    AWSService? service,
+  })
+          authProviderCallback) {
+    _authProviders.putIfAbsent(authorizationType, () => authProviderCallback);
+  }
 }
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_getters_setters

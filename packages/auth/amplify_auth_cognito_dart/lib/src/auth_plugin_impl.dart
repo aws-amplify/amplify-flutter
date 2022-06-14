@@ -53,10 +53,12 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         VerifyUserAttributeRequest;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_auth_cognito_dart/src/util/authorization_providers.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
+import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
 
@@ -930,5 +932,18 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
       throw const SignedOutException('No user is currently signed in');
     }
     return userPoolTokens;
+  }
+
+  @override
+  Map<
+      String,
+      Future<http.BaseRequest> Function(
+    http.BaseRequest request, {
+    String? region,
+    AWSService? service,
+  })> getAuthProviders() {
+    return {
+      'iam': awsIAMAuthorizationProvider,
+    };
   }
 }

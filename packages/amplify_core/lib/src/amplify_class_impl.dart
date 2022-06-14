@@ -29,6 +29,9 @@ class AmplifyClassImpl extends AmplifyClass {
 
   @override
   Future<void> addPlugin(AmplifyPluginInterface plugin) {
+    final authProviders = plugin.getAuthProviders();
+    authProviders.forEach(registerAuthProvider);
+
     switch (plugin.category) {
       case Category.analytics:
         return Analytics.addPlugin(plugin.cast());

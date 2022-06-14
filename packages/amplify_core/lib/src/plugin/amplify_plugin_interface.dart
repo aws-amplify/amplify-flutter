@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
 /// Interface for all amplify plugins
@@ -36,5 +37,15 @@ abstract class AmplifyPluginInterface {
   @visibleForTesting
   Future<void> reset() async {
     throw UnimplementedError('reset() has not been implemented');
+  }
+
+  Map<
+      String,
+      Future<http.BaseRequest> Function(
+    http.BaseRequest request, {
+    String? region,
+    AWSService? service,
+  })> getAuthProviders() {
+    return {};
   }
 }
