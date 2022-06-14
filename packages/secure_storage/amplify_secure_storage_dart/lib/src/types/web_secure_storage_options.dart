@@ -43,11 +43,16 @@ abstract class WebSecureStorageOptions
 
   /// Wether or not data should be stored in memory.
   ///
-  /// If this is true, secrets will never be written to disk. Instead
-  /// they will be stored in memory.
+  /// If true, data is stored in memory and will never written to disk.
   ///
-  /// If this is false, secrets will be stored in browser storage
-  /// using IndexedDB.
+  /// If false, data will be stored in browser storage using IndexedDB.
+  ///
+  /// For the Amplify Auth category, credentials will be persisted
+  /// either in memory or in the browser based on this setting. It
+  /// is recommended to enable device tracking when enabling
+  /// persistence in browser storage.
+  ///
+  /// Reference: [Cognito Device Tracking](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html)
   bool get inMemory;
 
   /// The [WebSecureStorageOptions] serializer.
