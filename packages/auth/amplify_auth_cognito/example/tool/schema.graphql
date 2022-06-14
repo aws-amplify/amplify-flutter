@@ -3,7 +3,7 @@ type Mutation {
     @function(name: "deleteuser-${env}")
   adminCreateUser(
     Username: String!
-    Password: String!
+    Password: String
     AutoConfirm: Boolean
     EnableMFA: Boolean
     VerifyAttributes: Boolean
@@ -16,13 +16,13 @@ type Mutation {
 
 type CreateUserResponse @model {
   success: Boolean!
-  error: String
+  exception: String
 }
 
 type DeleteUserResponse {
   id: ID!
   success: Boolean!
-  error: String
+  exception: String
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
