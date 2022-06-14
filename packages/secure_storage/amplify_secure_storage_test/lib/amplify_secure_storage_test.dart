@@ -28,13 +28,19 @@ typedef SecureStorageFactory = AmplifySecureStorageInterface Function({
 void runTests(SecureStorageFactory storageFactory) {
   group(
     'read, write, delete - ',
-    () => runStandardTests(storageFactory),
+    () => runStandardTests(
+      storageFactory,
+      webPersistenceOption: WebPersistenceOption.indexedDB,
+    ),
   );
 
   group(
     'read, write, delete (web in memory) -',
     testOn: 'browser',
-    () => runStandardTests(storageFactory, inMemory: true),
+    () => runStandardTests(
+      storageFactory,
+      webPersistenceOption: WebPersistenceOption.inMemory,
+    ),
   );
 
   group(
@@ -46,7 +52,7 @@ void runTests(SecureStorageFactory storageFactory) {
 /// basic test suite that applies to all platforms and config options
 void runStandardTests(
   SecureStorageFactory storageFactory, {
-  bool inMemory = false,
+  required WebPersistenceOption webPersistenceOption,
 }) {
   late AmplifySecureStorageInterface storage;
 
@@ -55,7 +61,9 @@ void runStandardTests(
   }
 
   setUp(() async {
-    final webOptions = WebSecureStorageOptions(inMemory: inMemory);
+    final webOptions = WebSecureStorageOptions(
+      persistenceOption: webPersistenceOption,
+    );
     storage = storageFactory(
       config: AmplifySecureStorageConfig(
         scope: 'default',
@@ -171,7 +179,9 @@ void runStandardTests(
 /// platform specific tests and tests that do not apply for all config
 /// options, such as inMemory for web.
 void runScopeAndNamespaceTests(SecureStorageFactory storageFactory) {
-  final webOptions = WebSecureStorageOptions(inMemory: false);
+  final webOptions = WebSecureStorageOptions(
+    persistenceOption: WebPersistenceOption.indexedDB,
+  );
   late AmplifySecureStorageInterface storage;
 
   Future<void> clearAll() async {
@@ -227,7 +237,7 @@ void runScopeAndNamespaceTests(SecureStorageFactory storageFactory) {
             scope: 'default',
             webOptions: WebSecureStorageOptions(
               databaseName: 'com.example.test',
-              inMemory: false,
+              persistenceOption: WebPersistenceOption.indexedDB,
             ),
             macOSOptions: macOSOptions,
           ),

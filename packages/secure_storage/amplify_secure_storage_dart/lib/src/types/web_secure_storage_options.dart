@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -26,11 +27,11 @@ abstract class WebSecureStorageOptions
   /// {@macro amplify_secure_storage_dart.web_secure_storage_options}
   factory WebSecureStorageOptions({
     String? databaseName,
-    bool inMemory = true,
+    WebPersistenceOption persistenceOption = WebPersistenceOption.inMemory,
   }) =>
       _$WebSecureStorageOptions._(
         databaseName: databaseName,
-        inMemory: inMemory,
+        persistenceOption: persistenceOption,
       );
 
   const WebSecureStorageOptions._();
@@ -41,21 +42,45 @@ abstract class WebSecureStorageOptions
   /// will be used as the database name.
   String? get databaseName;
 
-  /// Wether or not data should be stored in memory.
+  /// {@macro amplify_secure_storage_dart.web_secure_storage_options.web_persistence_option}
   ///
-  /// If true, data is stored in memory and will never written to disk.
-  ///
-  /// If false, data will be stored in browser storage using IndexedDB.
-  ///
-  /// For the Amplify Auth category, credentials will be persisted
-  /// either in memory or in the browser based on this setting. It
-  /// is recommended to enable device tracking when enabling
-  /// persistence in browser storage.
-  ///
-  /// Reference: [Cognito Device Tracking](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html)
-  bool get inMemory;
+  /// Defaults to [WebPersistenceOption.inMemory].
+  WebPersistenceOption get persistenceOption;
 
   /// The [WebSecureStorageOptions] serializer.
   static Serializer<WebSecureStorageOptions> get serializer =>
       _$webSecureStorageOptionsSerializer;
+}
+
+/// {@template amplify_secure_storage_dart.web_secure_storage_options.web_persistence_option}
+/// How data is persisted on the Web platform.
+/// {@endtemplate}
+class WebPersistenceOption extends EnumClass {
+  // TODO(Jordan-Nelson): Remove when built_value supports super parameters.
+  // ignore: use_super_parameters
+  const WebPersistenceOption._(String name) : super(name);
+
+  /// Data is stored in memory and will never written to disk.
+  static const WebPersistenceOption inMemory = _$inMemory;
+
+  /// Data will be stored in browser storage using IndexedDB.
+  ///
+  /// For the Amplify Auth category, it is recommended to
+  /// enable device tracking when enabling persistence in
+  /// browser storage.
+  ///
+  /// Reference: [Cognito Device Tracking](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html)
+  static const WebPersistenceOption indexedDB = _$indexedDB;
+
+  /// All values of [WebPersistenceOption].
+  static BuiltSet<WebPersistenceOption> get values =>
+      _$WebPersistenceOptionValues;
+
+  /// Gets the [WebPersistenceOption] value corresponding to [name].
+  static WebPersistenceOption valueOf(String name) =>
+      _$WebPersistenceOptionValueOf(name);
+
+  /// The [WebPersistenceOption] serializer.
+  static Serializer<WebPersistenceOption> get serializer =>
+      _$webPersistenceOptionSerializer;
 }
