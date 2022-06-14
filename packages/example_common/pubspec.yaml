@@ -1,0 +1,15 @@
+name: example_common
+description: Common components and utils for example apps.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  meta: ^1.7.0
+
+dev_dependencies:
+  amplify_lints:
+    path: ../amplify_lints
+  test: ^1.16.0
