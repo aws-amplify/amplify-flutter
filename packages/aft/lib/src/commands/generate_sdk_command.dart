@@ -15,15 +15,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:aft/aft.dart';
 import 'package:args/args.dart';
 import 'package:checked_yaml/checked_yaml.dart';
 import 'package:path/path.dart' as path;
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
-
-import '../models.dart';
-import 'amplify_command.dart';
 
 /// Command for generating the AWS SDK for a given package and `sdk.yaml` file.
 class GenerateSdkCommand extends AmplifyCommand {

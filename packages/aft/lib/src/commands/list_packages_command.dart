@@ -14,7 +14,7 @@
 
 import 'dart:io';
 
-import 'amplify_command.dart';
+import 'package:aft/aft.dart';
 
 /// Command to list all Dart/Flutter packages in the repo.
 class ListPackagesCommand extends AmplifyCommand {

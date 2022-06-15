@@ -12,26 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
-
-import 'package:pub_semver/pub_semver.dart';
-import 'package:pubspec_parse/pubspec_parse.dart';
-
-import 'amplify_command.dart';
-
-/// Command to manage dependencies across all Dart/Flutter packages in the repo.
-class DepsCommand extends AmplifyCommand {
-  DepsCommand() {
-    addSubcommand(_DepsCheckCommand());
-  }
-
-  @override
-  String get description =>
-      'Manage dependencies across all packages in the Amplify Flutter repo';
-
-  @override
-  String get name => 'deps';
-}
+part of 'deps_command.dart';
 
 class _DepsCheckCommand extends AmplifyCommand {
   @override
@@ -44,6 +25,7 @@ class _DepsCheckCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
+    final globalDependencyConfig = await this.globalDependencyConfig;
     final mismatchedDependencies = <String>[];
     for (final package in await allPackages) {
       for (final globalDep in globalDependencyConfig.dependencies.entries) {
@@ -57,13 +39,8 @@ class _DepsCheckCommand extends AmplifyCommand {
           satisfiesGlobalConstraint = globalDep.value == localDep.version;
         } else {
           final localConstraint = localDep.version;
-          if (localConstraint is Version) {
-            satisfiesGlobalConstraint =
-                globalConstraint.allows(localConstraint);
-          } else {
-            satisfiesGlobalConstraint =
-                !globalConstraint.intersect(localConstraint).isEmpty;
-          }
+          satisfiesGlobalConstraint =
+              globalConstraint.allowsAll(localConstraint);
         }
         if (!satisfiesGlobalConstraint) {
           mismatchedDependencies.add(
