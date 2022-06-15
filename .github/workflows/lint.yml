@@ -327,16 +327,16 @@ jobs:
         working-directory: packages/secure_storage/amplify_secure_storage_dart
         run: dart analyze --fatal-infos lib test
   job_007:
-    name: "analyze_and_format; Dart stable; PKGS: packages/aft, packages/amplify_core, packages/aws_common, packages/aws_signature_v4/example, packages/example_common, packages/secure_storage/amplify_secure_storage_dart, packages/secure_storage/amplify_secure_storage_dart/example, packages/worker_bee/e2e_test, packages/worker_bee/worker_bee, packages/worker_bee/worker_bee_builder; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
+    name: "analyze_and_format; Dart stable; PKGS: packages/aft, packages/amplify_core, packages/aws_common, packages/aws_signature_v4/example, packages/example_common, packages/secure_storage/amplify_secure_storage_dart/example, packages/worker_bee/e2e_test, packages/worker_bee/worker_bee, packages/worker_bee/worker_bee_builder; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart-packages/secure_storage/amplify_secure_storage_dart/example-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder;commands:format-analyze_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder;commands:format-analyze_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart-packages/secure_storage/amplify_secure_storage_dart/example-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
