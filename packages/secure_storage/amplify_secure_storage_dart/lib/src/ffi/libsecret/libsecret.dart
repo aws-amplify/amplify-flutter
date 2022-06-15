@@ -14,13 +14,15 @@
 
 import 'dart:ffi';
 
+import 'package:amplify_secure_storage_dart/src/ffi/utils/dynamic_library_utils.dart';
 import 'package:ffi/ffi.dart';
 
 import 'libsecret.bindings.g.dart';
 
 export 'libsecret.bindings.g.dart' hide Libsecret;
 
-final DynamicLibrary libsecretDyLib = DynamicLibrary.open('libsecret-1.so');
+final DynamicLibrary libsecretDyLib =
+    (() => openDynamicLibrary('libsecret-1'))();
 
 final Libsecret libsecret = Libsecret(libsecretDyLib);
 
