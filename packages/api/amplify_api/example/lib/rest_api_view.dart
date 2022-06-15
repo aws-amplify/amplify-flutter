@@ -40,7 +40,7 @@ class _RestApiViewState extends State<RestApiView> {
     try {
       final restOperation = Amplify.API.put(
         _apiPathController.text,
-        body: HttpPayload.string('{"name":"Mow the lawn"}'),
+        body: HttpPayload.json({'name': 'Mow the lawn'}),
       );
 
       _lastRestOperation = restOperation;
@@ -58,7 +58,7 @@ class _RestApiViewState extends State<RestApiView> {
     try {
       final restOperation = Amplify.API.post(
         _apiPathController.text,
-        body: HttpPayload.string('{"name":"Mow the lawn"}'),
+        body: HttpPayload.json({'name': 'Mow the lawn'}),
       );
 
       _lastRestOperation = restOperation;
@@ -134,7 +134,7 @@ class _RestApiViewState extends State<RestApiView> {
     try {
       final restOperation = Amplify.API.patch(
         _apiPathController.text,
-        body: HttpPayload.string('{"name":"Mow the lawn"}'),
+        body: HttpPayload.json({'name': 'Mow the lawn'}),
       );
 
       _lastRestOperation = restOperation;

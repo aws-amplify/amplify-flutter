@@ -193,6 +193,38 @@ void main() {
     await _assertResponse(response);
   });
 
+  test(
+      'POST with json-encoded body has property Content-Type and gets proper response',
+      () async {
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == 'post') {
+        Map<dynamic, dynamic> restOptions =
+            methodCall.arguments['restOptions'] as Map;
+        expect(restOptions['apiName'], 'restapi');
+        expect(restOptions['path'], '/items');
+        expect(restOptions['queryParameters'], queryParameters);
+        expect(
+            restOptions['headers'][AWSHeaders.contentType], 'application/json');
+        expect(utf8.decode(restOptions['body'] as List<int>), '{"foo":"bar"}');
+        return {
+          'data': helloResponse,
+          'statusCode': statusOK,
+          'headers': {'foo': 'bar'}
+        };
+      }
+    });
+
+    final restOperation = api.post(
+      '/items',
+      apiName: 'restapi',
+      body: HttpPayload.json({'foo': 'bar'}),
+      queryParameters: queryParameters,
+    );
+
+    final response = await restOperation.value;
+    await _assertResponse(response);
+  });
+
   test('CANCEL success does not throw error', () async {
     // Need to reply with PLACEHOLDER to avoid null issues in _formatRestResponse
     // In actual production code, the methodChannel doesn't respond to the future response

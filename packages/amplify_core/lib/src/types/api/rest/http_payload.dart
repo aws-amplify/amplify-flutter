@@ -59,6 +59,12 @@ class HttpPayload extends StreamView<List<int>> {
         super(LazyStream(() => Stream.value(
             encoding.encode(_mapToQuery(body, encoding: encoding)))));
 
+  /// Encodes body as a JSON string and sets Content-Type to 'application/json'
+  HttpPayload.json(Object body, {Encoding encoding = utf8})
+      : contentType = 'application/json',
+        super(
+            LazyStream(() => Stream.value(encoding.encode(json.encode(body)))));
+
   /// A streaming HTTP body.
   HttpPayload.streaming(Stream<List<int>> body) : super(body);
 }
