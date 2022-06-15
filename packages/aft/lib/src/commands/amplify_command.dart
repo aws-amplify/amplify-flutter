@@ -14,18 +14,18 @@
 
 import 'dart:io';
 
+import 'package:aft/aft.dart';
 import 'package:args/command_runner.dart';
+import 'package:async/async.dart';
 import 'package:checked_yaml/checked_yaml.dart';
 import 'package:path/path.dart' as p;
 import 'package:stream_transform/stream_transform.dart';
-
-import '../models.dart';
 
 const _ignorePackages = [
   'synthetic_package',
 ];
 
-abstract class AmplifyCommand<T> extends Command<T> {
+abstract class AmplifyCommand extends Command<void> {
   /// The root directory of the Amplify Flutter repo.
   late final Directory rootDir = () {
     var dir = Directory.current;
@@ -43,31 +43,36 @@ abstract class AmplifyCommand<T> extends Command<T> {
     );
   }();
 
-  /// All packages in the Amplify Flutter repo.
-  late final List<PackageInfo> allPackages = () {
-    final allDirs = rootDir
-        .listSync(recursive: true, followLinks: false)
-        .whereType<Directory>();
+  final _allPackagesMemo = AsyncMemoizer<List<PackageInfo>>();
 
-    final allPackages = <PackageInfo>[];
-    for (final dir in allDirs) {
-      final pubspec = dir.pubspec;
-      if (pubspec == null) {
-        continue;
-      }
-      if (_ignorePackages.contains(pubspec.name)) {
-        continue;
-      }
-      allPackages.add(PackageInfo(
-        name: pubspec.name,
-        path: dir.path,
-        usesMonoRepo: dir.usesMonoRepo,
-        pubspec: pubspec,
-        flavor: pubspec.flavor,
-      ));
-    }
-    return allPackages..sort();
-  }();
+  /// All packages in the Amplify Flutter repo.
+  Future<List<PackageInfo>> get allPackages =>
+      _allPackagesMemo.runOnce(() async {
+        final allDirs = rootDir
+            .list(recursive: true, followLinks: false)
+            .whereType<Directory>();
+
+        final allPackages = <PackageInfo>[];
+        await for (final dir in allDirs) {
+          final pubspec = dir.pubspec;
+          if (pubspec == null) {
+            continue;
+          }
+          if (_ignorePackages.contains(pubspec.name)) {
+            continue;
+          }
+          allPackages.add(
+            PackageInfo(
+              name: pubspec.name,
+              path: dir.path,
+              usesMonoRepo: dir.usesMonoRepo,
+              pubspec: pubspec,
+              flavor: pubspec.flavor,
+            ),
+          );
+        }
+        return allPackages..sort();
+      });
 
   /// The global dependency configuration for the repo.
   late final GlobalDependencyConfig globalDependencyConfig = () {

@@ -20,7 +20,7 @@ import 'package:pubspec_parse/pubspec_parse.dart';
 import 'amplify_command.dart';
 
 /// Command to manage dependencies across all Dart/Flutter packages in the repo.
-class DepsCommand extends AmplifyCommand<void> {
+class DepsCommand extends AmplifyCommand {
   DepsCommand() {
     addSubcommand(_DepsCheckCommand());
   }
@@ -33,7 +33,7 @@ class DepsCommand extends AmplifyCommand<void> {
   String get name => 'deps';
 }
 
-class _DepsCheckCommand extends AmplifyCommand<void> {
+class _DepsCheckCommand extends AmplifyCommand {
   @override
   String get description =>
       'Checks whether all dependency constraints in the repo '
@@ -45,7 +45,7 @@ class _DepsCheckCommand extends AmplifyCommand<void> {
   @override
   Future<void> run() async {
     final mismatchedDependencies = <String>[];
-    for (final package in allPackages) {
+    for (final package in await allPackages) {
       for (final globalDep in globalDependencyConfig.dependencies.entries) {
         final localDep = package.pubspec.dependencies[globalDep.key];
         if (localDep is! HostedDependency) {
@@ -57,8 +57,13 @@ class _DepsCheckCommand extends AmplifyCommand<void> {
           satisfiesGlobalConstraint = globalDep.value == localDep.version;
         } else {
           final localConstraint = localDep.version;
-          satisfiesGlobalConstraint = localConstraint is Version &&
-              globalConstraint.allows(localConstraint);
+          if (localConstraint is Version) {
+            satisfiesGlobalConstraint =
+                globalConstraint.allows(localConstraint);
+          } else {
+            satisfiesGlobalConstraint =
+                !globalConstraint.intersect(localConstraint).isEmpty;
+          }
         }
         if (!satisfiesGlobalConstraint) {
           mismatchedDependencies.add(
