@@ -161,7 +161,7 @@ void main() {
           isA<SignUpFailure>().having(
             (state) => state.exception,
             'exception',
-            isA<UnknownException>(), // TODO(dnys1): Underlying exception
+            isA<_SignUpException>(),
           ),
         ]),
       );

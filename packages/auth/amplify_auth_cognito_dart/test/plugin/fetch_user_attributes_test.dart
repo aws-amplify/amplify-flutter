@@ -76,7 +76,7 @@ final claims = <String, String>{
 class MockAmplifyAuthCognito extends AmplifyAuthCognitoDart {
   @override
   Future<CognitoUserPoolTokens> getUserPoolTokens() async {
-    return CognitoUserPoolTokens(
+    return CognitoUserPoolTokens.build(
       (b) => b
         ..accessToken = JsonWebToken(
           header: const JsonWebHeader(algorithm: Algorithm.rsaSha256),

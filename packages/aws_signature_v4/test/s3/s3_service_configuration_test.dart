@@ -16,6 +16,8 @@ import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:test/test.dart';
 
+import '../common.dart';
+
 void main() {
   const bodyHash =
       '44ce7dd67c959e0d3524ffac1771dfbba87d2b6b4b4e99e42034a8b803f8b072';
@@ -84,5 +86,66 @@ void main() {
         throwsA(isA<AssertionError>()),
       );
     });
+
+    group(
+      'GET/HEAD do not contain body on Web',
+      () {
+        final request = AWSHttpRequest.get(Uri.parse('https://example.com'));
+        const signer = AWSSigV4Signer(
+          credentialsProvider: AWSCredentialsProvider(dummyCredentials),
+        );
+        final serviceConfigurations = [
+          S3ServiceConfiguration(chunked: true, signPayload: true),
+          S3ServiceConfiguration(chunked: false, signPayload: true),
+          S3ServiceConfiguration(chunked: false, signPayload: false),
+        ];
+
+        void expectNoContentLength(Iterable<String> signedHeaders) {
+          expect(
+            CaseInsensitiveSet(signedHeaders),
+            isNot(contains(AWSHeaders.contentLength)),
+          );
+        }
+
+        group('sign', () {
+          for (final serviceConfiguration in serviceConfigurations) {
+            test(
+              'chunked=${serviceConfiguration.chunked}, '
+              'signPayload=${serviceConfiguration.signPayload}',
+              () async {
+                final signedRequest = await signer.sign(
+                  request,
+                  credentialScope: dummyCredentialScope,
+                  serviceConfiguration: serviceConfiguration,
+                );
+                expectNoContentLength(
+                  signedRequest.canonicalRequest.signedHeaders,
+                );
+              },
+            );
+          }
+        });
+
+        group('signSync', () {
+          for (final serviceConfiguration in serviceConfigurations) {
+            test(
+              'chunked=${serviceConfiguration.chunked}, '
+              'signPayload=${serviceConfiguration.signPayload}',
+              () {
+                final signedRequest = signer.signSync(
+                  request,
+                  credentialScope: dummyCredentialScope,
+                  serviceConfiguration: serviceConfiguration,
+                );
+                expectNoContentLength(
+                  signedRequest.canonicalRequest.signedHeaders,
+                );
+              },
+            );
+          }
+        });
+      },
+      testOn: 'browser',
+    );
   });
 }

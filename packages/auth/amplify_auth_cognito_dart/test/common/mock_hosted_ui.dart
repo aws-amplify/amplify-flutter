@@ -15,14 +15,20 @@
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 
-typedef SignInFn = Future<void> Function({
-  required CognitoSignInWithWebUIOptions options,
+typedef SignInFn = Future<void> Function(
+  HostedUiPlatform platform,
+  CognitoSignInWithWebUIOptions options,
   AuthProvider? provider,
-});
+);
+
+typedef SignOutFn = Future<void> Function(
+  HostedUiPlatform platform,
+  CognitoSignOutWithWebUIOptions options,
+);
 
 HostedUiPlatformFactory createHostedUiFactory({
   required SignInFn signIn,
-  required Future<void> Function() signOut,
+  required SignOutFn signOut,
 }) {
   return (DependencyManager dependencyManager) {
     return MockHostedUiPlatform(
@@ -37,23 +43,26 @@ class MockHostedUiPlatform extends HostedUiPlatform {
   MockHostedUiPlatform(
     super.dependencyManager, {
     required SignInFn signIn,
-    required Future<void> Function() signOut,
+    required SignOutFn signOut,
   })  : _signIn = signIn,
         _signOut = signOut,
         super.protected();
 
   final SignInFn _signIn;
-  final Future<void> Function() _signOut;
+  final SignOutFn _signOut;
 
   @override
   Future<void> signIn({
     required CognitoSignInWithWebUIOptions options,
     AuthProvider? provider,
   }) =>
-      _signIn(options: options, provider: provider);
+      _signIn(this, options, provider);
 
   @override
-  Future<void> signOut() => _signOut();
+  Future<void> signOut({
+    required CognitoSignOutWithWebUIOptions options,
+  }) =>
+      _signOut(this, options);
 
   @override
   Uri get signInRedirectUri => config.signInRedirectUris.first;

@@ -21,18 +21,11 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class DeviceNotTrackedException extends AuthException {
   /// {@macro amplify_core.auth.device_not_tracked_exception}
-  const DeviceNotTrackedException(
-      {String? recoverySuggestion, String? underlyingException})
-      : super(
-          'This device does not have an id, either it was never tracked or previously forgotten.',
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
+  const DeviceNotTrackedException({
+    super.recoverySuggestion,
+    super.underlyingException,
+  }) : super(
+          'This device does not have an id, either it was never tracked or '
+          'previously forgotten.',
         );
-
-  /// {@macro amplify_core.auth.exception_from_map}
-  static DeviceNotTrackedException fromMap(Map map) =>
-      DeviceNotTrackedException(
-        recoverySuggestion: map['recoverySuggestion'] as String?,
-        underlyingException: map['underlyingException'] as String?,
-      );
 }

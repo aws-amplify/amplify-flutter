@@ -13,6 +13,7 @@ Serializers _$_serializers = (new Serializers().toBuilder()
       ..add(MacOSSecureStorageOptions.serializer)
       ..add(SecureStorageAction.serializer)
       ..add(SecureStorageRequest.serializer)
+      ..add(WebPersistenceOption.serializer)
       ..add(WebSecureStorageOptions.serializer)
       ..add(WindowsSecureStorageOptions.serializer))
     .build();
