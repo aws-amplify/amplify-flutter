@@ -19,24 +19,16 @@ import 'package:amplify_core/amplify_core.dart';
 /// Exception thrown from the API Category.
 /// {@endtemplate}
 class ApiException extends AmplifyException {
-  /// HTTP status of response, only available if error
-  @Deprecated(
-      'Use RestException instead to retrieve the HTTP response. Existing uses of '
-      'ApiException for handling REST errors can be safely replaced with RestException')
-  final int? httpStatusCode;
-
   /// {@macro api_exception}
   const ApiException(
     super.message, {
     super.recoverySuggestion,
     super.underlyingException,
-    this.httpStatusCode,
   });
 
   /// Constructor for down casting an AmplifyException to this exception
   ApiException._private(
     AmplifyException exception,
-    this.httpStatusCode,
   ) : super(
           exception.message,
           recoverySuggestion: exception.recoverySuggestion,
@@ -53,7 +45,6 @@ class ApiException extends AmplifyException {
     }
     return ApiException._private(
       AmplifyException.fromMap(serializedException),
-      statusCode,
     );
   }
 }
