@@ -19,16 +19,8 @@ import 'package:amplify_core/amplify_core.dart';
 /// An HTTP error encountered during a REST API call, i.e. for calls returning
 /// non-2xx status codes.
 /// {@endtemplate}
-class RestException extends ApiException {
-  /// The HTTP response from the server.
-  final RestResponse response;
-
+@Deprecated('BREAKING CHANGE: No longer thrown for non-200 responses.')
+abstract class RestException extends ApiException {
   /// {@macro rest_exception}
-  RestException(this.response)
-      : super(response.body, httpStatusCode: response.statusCode);
-
-  @override
-  String toString() {
-    return 'RestException{response=$response}';
-  }
+  const RestException() : super('REST exception.');
 }
