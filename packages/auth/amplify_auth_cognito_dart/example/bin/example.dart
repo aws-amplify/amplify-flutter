@@ -24,7 +24,6 @@ import 'package:cognito_example/common.dart';
 Future<void> main() async {
   try {
     await Amplify.addPlugin(
-      // ignore: invalid_use_of_protected_member
       AmplifyAuthCognitoDart(
         credentialStorage: AmplifySecureStorageDart(
           config: AmplifySecureStorageConfig(
@@ -32,7 +31,7 @@ Future<void> main() async {
             macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
           ),
         ),
-      )..stateMachine.stream.listen(safePrint),
+      ),
     );
     await Amplify.configure(amplifyconfig);
   } on Exception catch (e) {
