@@ -1,0 +1,9 @@
+# Global dependency versions for third-party dependencies of
+# Amplify Flutter projects. These represent the values which
+# have been vetted by manual review and should be used consistently 
+# across all packages.
+#
+# Application of these values can verified/updated with the `aft` 
+# tool.
+dependencies:
+  uuid: 3.0.6
