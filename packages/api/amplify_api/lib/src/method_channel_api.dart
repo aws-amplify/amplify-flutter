@@ -335,7 +335,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     return AWSStreamedHttpResponse(
         statusCode: statusCode,
         headers: headers,
-        body: Stream.value(rawResponseBody?.toList() ?? []));
+        body: Stream.value(rawResponseBody ?? []));
   }
 
   @override
