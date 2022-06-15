@@ -66,7 +66,6 @@ class CognitoUserAttributeKey extends UserAttributeKey
   List<Object?> get props => [
         // Cognito will lowercase these in API calls
         key.toLowerCase(),
-        readOnly,
       ];
 
   /// The user's preferred postal address.

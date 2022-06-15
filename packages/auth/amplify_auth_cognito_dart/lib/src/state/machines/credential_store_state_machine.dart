@@ -75,11 +75,10 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       );
       if (accessToken != null && refreshToken != null && idToken != null) {
         userPoolTokens = CognitoUserPoolTokens(
-          (b) => b
-            ..signInMethod = CognitoSignInMethod.default$
-            ..accessToken = JsonWebToken.parse(accessToken)
-            ..refreshToken = refreshToken
-            ..idToken = JsonWebToken.parse(idToken),
+          signInMethod: CognitoSignInMethod.default$,
+          accessToken: JsonWebToken.parse(accessToken),
+          refreshToken: refreshToken,
+          idToken: JsonWebToken.parse(idToken),
         );
       }
 
@@ -112,11 +111,10 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       );
       if (accessToken != null && refreshToken != null && idToken != null) {
         userPoolTokens = CognitoUserPoolTokens(
-          (b) => b
-            ..signInMethod = CognitoSignInMethod.hostedUi
-            ..accessToken = JsonWebToken.parse(accessToken)
-            ..refreshToken = refreshToken
-            ..idToken = JsonWebToken.parse(idToken),
+          signInMethod: CognitoSignInMethod.hostedUi,
+          accessToken: JsonWebToken.parse(accessToken),
+          refreshToken: refreshToken,
+          idToken: JsonWebToken.parse(idToken),
         );
       }
     }

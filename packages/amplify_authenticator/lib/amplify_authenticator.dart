@@ -415,7 +415,7 @@ class Authenticator extends StatefulWidget {
   /// {@macro amplify_authenticator.exception_banner_location}
   final ExceptionBannerLocation exceptionBannerLocation;
 
-  /// {@macro amplify_auth_plugin_interface.cognito_sign_in_with_web_ui_options}
+  /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options.private_session}
   final bool preferPrivateSession;
 
   /// This widget will be displayed after a user has signed in.

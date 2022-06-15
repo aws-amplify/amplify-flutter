@@ -25,8 +25,8 @@ import 'package:path/path.dart';
 part 'canonical_headers.dart';
 part 'canonical_path.dart';
 part 'canonical_query_parameters.dart';
-part 'signed_headers.dart';
 part 'canonical_request_util.dart';
+part 'signed_headers.dart';
 
 /// {@template aws_signature_v4.canonical_request}
 /// A canonicalized request, used for signing via the SigV4 signing process.
@@ -85,12 +85,17 @@ class CanonicalRequest {
         const BaseServiceConfiguration(),
   }) {
     final headers = Map.of(request.headers);
+    // Include header for signing since it will be included by the HTTP client
+    // of the end user.
+    if (!headers.containsKey(AWSHeaders.host)) {
+      headers[AWSHeaders.host] = request.host;
+    }
     final queryParameters = Map.of(request.queryParameters);
 
     // Per https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html
     assert(
-      expiresIn > const Duration(seconds: 1) &&
-          expiresIn < const Duration(days: 7),
+      expiresIn >= const Duration(seconds: 1) &&
+          expiresIn <= const Duration(days: 7),
       'Expiration must be greater than 1 second and less than 7 days',
     );
 

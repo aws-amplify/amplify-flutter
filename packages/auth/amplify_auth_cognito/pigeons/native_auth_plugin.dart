@@ -70,6 +70,7 @@ abstract class NativeAuthBridge {
   void signOutWithUrl(
     String url,
     String callbackUrlScheme, // iOS-only
+    bool preferPrivateSession, // iOS-only
     String? browserPackageName, // Android-only
   );
 }

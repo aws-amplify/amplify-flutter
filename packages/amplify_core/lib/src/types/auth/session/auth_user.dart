@@ -13,11 +13,33 @@
  * permissions and limitations under the License.
  */
 
-class AuthUser {
-  String userId;
-  String username;
-  AuthUser({
+import 'package:amplify_core/amplify_core.dart';
+
+part 'auth_user.g.dart';
+
+@amplifySerializable
+class AuthUser
+    with
+        AWSEquatable<AuthUser>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  const AuthUser({
     required this.userId,
     required this.username,
   });
+
+  factory AuthUser.fromJson(Map<String, Object?> json) =>
+      _$AuthUserFromJson(json);
+
+  final String userId;
+  final String username;
+
+  @override
+  List<Object?> get props => [userId, username];
+
+  @override
+  String get runtimeTypeName => 'AuthUser';
+
+  @override
+  Map<String, Object?> toJson() => _$AuthUserToJson(this);
 }
