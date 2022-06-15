@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,11 +13,14 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:async/async.dart';
 
-class GraphQLOperation<T> {
-  final Function cancel;
-  final Future<GraphQLResponse<T>> response;
+import 'graphql_response.dart';
 
-  const GraphQLOperation({required this.response, required this.cancel});
+/// Allows callers to synchronously get the unstreamed response with decoded body.
+extension GraphQLOperation<T> on CancelableOperation<GraphQLResponse<T>> {
+  @Deprecated('use .value instead')
+  Future<GraphQLResponse<T>> get response {
+    return value;
+  }
 }
