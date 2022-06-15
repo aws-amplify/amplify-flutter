@@ -21,8 +21,7 @@ import 'libsecret.bindings.g.dart';
 
 export 'libsecret.bindings.g.dart' hide Libsecret;
 
-final DynamicLibrary libsecretDyLib =
-    (() => openDynamicLibrary('libsecret-1'))();
+final DynamicLibrary libsecretDyLib = openDynamicLibrary('libsecret-1');
 
 final Libsecret libsecret = Libsecret(libsecretDyLib);
 

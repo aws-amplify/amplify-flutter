@@ -23,7 +23,7 @@ import 'glib.bindings.g.dart';
 
 export 'glib.bindings.g.dart' hide Glib;
 
-final DynamicLibrary glibDyLib = (() => openDynamicLibrary('libglib-2.0'))();
+final DynamicLibrary glibDyLib = openDynamicLibrary('libglib-2.0');
 
 final Glib glib = Glib(glibDyLib);
 
