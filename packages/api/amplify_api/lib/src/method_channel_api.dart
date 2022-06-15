@@ -14,13 +14,14 @@
  */
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/graphql_subscription_event.dart';
 import 'package:amplify_api/src/graphql/graphql_subscription_transformer.dart';
 import 'package:amplify_core/amplify_core.dart';
-
+import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -153,31 +154,19 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }
 
   @override
-  GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
-    Future<GraphQLResponse<T>> response =
+  CancelableOperation<GraphQLResponse<T>> query<T>(
+      {required GraphQLRequest<T> request}) {
+    Future<GraphQLResponse<T>> responseFuture =
         _getMethodChannelResponse(methodName: 'query', request: request);
-
-    //TODO: Cancel implementation will be added along with REST API as it is shared
-    GraphQLOperation<T> result = GraphQLOperation<T>(
-      cancel: () => cancelRequest(request.id),
-      response: response,
-    );
-
-    return result;
+    return CancelableOperation.fromFuture(responseFuture);
   }
 
   @override
-  GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) {
-    Future<GraphQLResponse<T>> response =
+  CancelableOperation<GraphQLResponse<T>> mutate<T>(
+      {required GraphQLRequest<T> request}) {
+    Future<GraphQLResponse<T>> responseFuture =
         _getMethodChannelResponse(methodName: 'mutate', request: request);
-
-    //TODO: Cancel implementation will be added along with REST API as it is shared
-    GraphQLOperation<T> result = GraphQLOperation<T>(
-      cancel: () => cancelRequest(request.id),
-      response: response,
-    );
-
-    return result;
+    return CancelableOperation.fromFuture(responseFuture);
   }
 
   @override
@@ -251,21 +240,73 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }
 
   // ====== RestAPI ======
-  RestOperation _restFunctionHelper(
-      {required String methodName, required RestOptions restOptions}) {
-    // Send Request cancelToken to Native
-    String cancelToken = UUID.getUUID();
 
-    Future<RestResponse> futureResponse =
-        _callNativeRestMethod(methodName, cancelToken, restOptions);
+  Future<AWSStreamedHttpResponse> _restResponseHelper({
+    required String methodName,
+    required String path,
+    required String cancelToken,
+    HttpPayload? body,
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) async {
+    Uint8List? bodyBytes;
+    if (body != null) {
+      final completer = Completer<Uint8List>();
+      final sink = ByteConversionSink.withCallback(
+        (bytes) => completer.complete(Uint8List.fromList(bytes)),
+      );
+      body.listen(
+        sink.add,
+        onError: completer.completeError,
+        onDone: sink.close,
+        cancelOnError: true,
+      );
+      bodyBytes = await completer.future;
+    }
 
-    return RestOperation(
-      response: futureResponse,
-      cancel: () => cancelRequest(cancelToken),
+    final restOptions = RestOptions(
+      path: path,
+      body: bodyBytes,
+      apiName: apiName,
+      queryParameters: queryParameters,
+      headers: headers,
     );
+    return _callNativeRestMethod(methodName, cancelToken, restOptions);
   }
 
-  Future<RestResponse> _callNativeRestMethod(
+  CancelableOperation<AWSStreamedHttpResponse> _restFunctionHelper({
+    required String methodName,
+    required String path,
+    HttpPayload? body,
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    // Send Request cancelToken to Native
+    String cancelToken = uuid();
+    // Ensure Content-Type header matches payload.
+    var modifiedHeaders = headers != null ? Map.of(headers) : null;
+    final contentType = body?.contentType;
+    if (contentType != null) {
+      modifiedHeaders = modifiedHeaders ?? {};
+      modifiedHeaders.putIfAbsent(AWSHeaders.contentType, () => contentType);
+    }
+    final responseFuture = _restResponseHelper(
+      methodName: methodName,
+      path: path,
+      cancelToken: cancelToken,
+      body: body,
+      headers: modifiedHeaders,
+      queryParameters: queryParameters,
+      apiName: apiName,
+    );
+
+    return CancelableOperation.fromFuture(responseFuture,
+        onCancel: () => cancelRequest(cancelToken));
+  }
+
+  Future<AWSStreamedHttpResponse> _callNativeRestMethod(
       String methodName, String cancelToken, RestOptions restOptions) async {
     // Prepare map input
     Map<String, dynamic> inputsMap = <String, dynamic>{};
@@ -287,55 +328,125 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     }
   }
 
-  bool _shouldThrow(int statusCode) {
-    return statusCode < 200 || statusCode > 299;
-  }
-
-  RestResponse _formatRestResponse(Map<String, dynamic> res) {
+  AWSStreamedHttpResponse _formatRestResponse(Map<String, dynamic> res) {
     final statusCode = res['statusCode'] as int;
-    final headers = res['headers'] as Map?;
-    final response = RestResponse(
-      data: res['data'] as Uint8List?,
-      headers: headers?.cast<String, String>(),
-      statusCode: statusCode,
+    // Make type-safe version of response headers.
+    final serializedHeaders = res['headers'] as Map?;
+    final headers = serializedHeaders?.cast<String, String>();
+    final rawResponseBody = res['data'] as Uint8List?;
+
+    return AWSStreamedHttpResponse(
+        statusCode: statusCode,
+        headers: headers,
+        body: Stream.value(rawResponseBody ?? []));
+  }
+
+  @override
+  CancelableOperation<AWSStreamedHttpResponse> get(
+    String path, {
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    return _restFunctionHelper(
+      methodName: 'get',
+      path: path,
+      headers: headers,
+      queryParameters: queryParameters,
+      apiName: apiName,
     );
-    if (_shouldThrow(statusCode)) {
-      throw RestException(response);
-    }
-    return response;
   }
 
   @override
-  RestOperation get({required RestOptions restOptions}) {
-    return _restFunctionHelper(methodName: 'get', restOptions: restOptions);
+  CancelableOperation<AWSStreamedHttpResponse> put(
+    String path, {
+    HttpPayload? body,
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    return _restFunctionHelper(
+      methodName: 'put',
+      path: path,
+      body: body,
+      headers: headers,
+      queryParameters: queryParameters,
+      apiName: apiName,
+    );
   }
 
   @override
-  RestOperation put({required RestOptions restOptions}) {
-    return _restFunctionHelper(methodName: 'put', restOptions: restOptions);
+  CancelableOperation<AWSStreamedHttpResponse> post(
+    String path, {
+    HttpPayload? body,
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    return _restFunctionHelper(
+      methodName: 'post',
+      path: path,
+      body: body,
+      headers: headers,
+      queryParameters: queryParameters,
+      apiName: apiName,
+    );
   }
 
   @override
-  RestOperation post({required RestOptions restOptions}) {
-    return _restFunctionHelper(methodName: 'post', restOptions: restOptions);
+  CancelableOperation<AWSStreamedHttpResponse> delete(
+    String path, {
+    HttpPayload? body,
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    return _restFunctionHelper(
+      methodName: 'delete',
+      path: path,
+      body: body,
+      headers: headers,
+      queryParameters: queryParameters,
+      apiName: apiName,
+    );
   }
 
   @override
-  RestOperation delete({required RestOptions restOptions}) {
-    return _restFunctionHelper(methodName: 'delete', restOptions: restOptions);
+  CancelableOperation<AWSStreamedHttpResponse> head(
+    String path, {
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    return _restFunctionHelper(
+      methodName: 'head',
+      path: path,
+      headers: headers,
+      queryParameters: queryParameters,
+      apiName: apiName,
+    );
   }
 
   @override
-  RestOperation head({required RestOptions restOptions}) {
-    return _restFunctionHelper(methodName: 'head', restOptions: restOptions);
+  CancelableOperation<AWSStreamedHttpResponse> patch(
+    String path, {
+    HttpPayload? body,
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    return _restFunctionHelper(
+      methodName: 'patch',
+      path: path,
+      body: body,
+      headers: headers,
+      queryParameters: queryParameters,
+      apiName: apiName,
+    );
   }
 
-  @override
-  RestOperation patch({required RestOptions restOptions}) {
-    return _restFunctionHelper(methodName: 'patch', restOptions: restOptions);
-  }
-
-  @override
+  /// Cancels a request with a given request ID.
+  @Deprecated('Use .cancel() on CancelableOperation instead.')
   Future<void> cancelRequest(String cancelToken) async {
     print('Attempting to cancel Operation $cancelToken');
 
