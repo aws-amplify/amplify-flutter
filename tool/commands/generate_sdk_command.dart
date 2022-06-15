@@ -16,17 +16,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:aws_common/aws_common.dart';
 import 'package:checked_yaml/checked_yaml.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as path;
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
 
+import '../models.dart';
 import 'amplify_command.dart';
-
-part 'generate_sdk_command.g.dart';
 
 /// Command for generating the AWS SDK for a given package and `sdk.yaml` file.
 class GenerateSdkCommand extends AmplifyCommand<void> {
@@ -173,28 +170,4 @@ class GenerateSdkCommand extends AmplifyCommand<void> {
 Never exitError(Object error) {
   stderr.writeln(error);
   exit(1);
-}
-
-/// Typed representation of the `sdk.yaml` file.
-@JsonSerializable(
-  anyMap: true,
-  checked: true,
-  disallowUnrecognizedKeys: true,
-)
-@ShapeIdConverter()
-class SdkConfig with AWSSerializable, AWSEquatable<SdkConfig> {
-  const SdkConfig({
-    required this.apis,
-  });
-
-  final Map<String, List<ShapeId>> apis;
-
-  factory SdkConfig.fromJson(Map<Object?, Object?>? json) =>
-      _$SdkConfigFromJson(json ?? const {});
-
-  @override
-  Map<String, Object?> toJson() => _$SdkConfigToJson(this);
-
-  @override
-  List<Object?> get props => [apis];
 }

@@ -1,10 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'generate_sdk_command.dart';
+part of 'models.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
+
+GlobalDependencyConfig _$GlobalDependencyConfigFromJson(Map json) =>
+    $checkedCreate(
+      'GlobalDependencyConfig',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          allowedKeys: const ['dependencies'],
+        );
+        final val = GlobalDependencyConfig(
+          dependencies: $checkedConvert(
+              'dependencies',
+              (v) => (v as Map).map(
+                    (k, e) => MapEntry(
+                        k as String,
+                        const _VersionConstraintConverter()
+                            .fromJson(e as String)),
+                  )),
+        );
+        return val;
+      },
+    );
 
 SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate(
       'SdkConfig',

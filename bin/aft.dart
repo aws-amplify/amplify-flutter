@@ -14,6 +14,7 @@
 
 import 'package:args/command_runner.dart';
 
+import '../tool/commands/deps_command.dart';
 import '../tool/commands/generate_sdk_command.dart';
 import '../tool/commands/list_packages_command.dart';
 
@@ -21,5 +22,6 @@ Future<void> main(List<String> args) async {
   CommandRunner('aft', 'Amplify Flutter repo tools')
     ..addCommand(GenerateSdkCommand())
     ..addCommand(ListPackagesCommand())
+    ..addCommand(DepsCommand())
     ..run(args);
 }
