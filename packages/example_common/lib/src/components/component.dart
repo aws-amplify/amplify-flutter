@@ -81,7 +81,7 @@ abstract class StatefulComponent extends Component {
   }
 
   /// Execute a function, and then re-render the component
-  void setState(Function() fn) {
+  void setState(void Function() fn) {
     fn();
     _rerenderComponent();
   }
