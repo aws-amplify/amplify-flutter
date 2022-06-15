@@ -123,10 +123,10 @@ class SdkConfig with AWSSerializable, AWSEquatable<SdkConfig> {
     required this.apis,
   });
 
-  final Map<String, List<ShapeId>> apis;
-
   factory SdkConfig.fromJson(Map<Object?, Object?>? json) =>
       _$SdkConfigFromJson(json ?? const {});
+
+  final Map<String, List<ShapeId>> apis;
 
   @override
   Map<String, Object?> toJson() => _$SdkConfigToJson(this);

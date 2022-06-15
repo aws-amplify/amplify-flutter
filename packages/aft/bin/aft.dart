@@ -12,22 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
+import 'package:aft/aft.dart';
+import 'package:args/command_runner.dart';
 
-import 'amplify_command.dart';
-
-/// Command to list all Dart/Flutter packages in the repo.
-class ListPackagesCommand extends AmplifyCommand<void> {
-  @override
-  String get description => 'Lists all packages in the Amplify Flutter repo';
-
-  @override
-  String get name => 'list';
-
-  @override
-  Future<void> run() async {
-    for (final package in await allPackages) {
-      stdout.writeln(package.name);
-    }
-  }
+Future<void> main(List<String> args) async {
+  final runner = CommandRunner<void>('aft', 'Amplify Flutter repo tools')
+    ..addCommand(GenerateSdkCommand())
+    ..addCommand(ListPackagesCommand())
+    ..addCommand(DepsCommand());
+  await runner.run(args);
 }

@@ -26,7 +26,7 @@ import '../models.dart';
 import 'amplify_command.dart';
 
 /// Command for generating the AWS SDK for a given package and `sdk.yaml` file.
-class GenerateSdkCommand extends AmplifyCommand<void> {
+class GenerateSdkCommand extends AmplifyCommand {
   @override
   String get description =>
       'Generates the AWS SDK for the current working directory';
@@ -122,7 +122,7 @@ class GenerateSdkCommand extends AmplifyCommand<void> {
       ],
     );
 
-    final Set<String> dependencies = {};
+    final dependencies = <String>{};
     for (final library in libraries) {
       final smithyLibrary = library.smithyLibrary;
       final outPath = path.join(
@@ -159,8 +159,9 @@ class GenerateSdkCommand extends AmplifyCommand<void> {
       exitError('`dart run build_runner build` failed: $exitCode.');
     }
 
-    stdout.writeln('Successfully generated SDK');
-    stdout.writeln('Make sure to add the following dependencies:');
+    stdout
+      ..writeln('Successfully generated SDK')
+      ..writeln('Make sure to add the following dependencies:');
     for (final dep in dependencies.toList()..sort()) {
       stdout.writeln('- $dep');
     }

@@ -1,5 +1,5 @@
-name: amplify_tools
-description: Amplify Flutter repo tools
+name: aft
+description: Amplify Flutter repo tools.
 version: 0.1.0
 publish_to: none
 
@@ -8,6 +8,7 @@ environment:
 
 dependencies: 
   args: ^2.3.0
+  async: ^2.9.0
   aws_common: ^0.1.0
   checked_yaml: ^2.0.0
   cli_util: ^0.3.5
@@ -26,7 +27,8 @@ dependencies:
   yaml_edit: ^2.0.3
 
 dev_dependencies:
-  amplify_lints: ^1.0.0
+  amplify_lints:
+    path: ../amplify_lints
   build_runner: ^2.0.0
   json_serializable: ^6.1.0
 
