@@ -4,6 +4,7 @@ version: 1.0.0-next.0+1
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/api/amplify_api
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
+publish_to: none # until finalized
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -14,6 +15,7 @@ dependencies:
   amplify_api_ios: 1.0.0-next.0
   amplify_core: 1.0.0-next.0
   amplify_flutter: '>=1.0.0-next.0 <1.0.0-next.1'
+  async: ^2.8.2
   aws_common: ^0.2.0
   collection: ^1.15.0
   flutter:
@@ -25,7 +27,6 @@ dev_dependencies:
   amplify_lints: ^2.0.0
   amplify_test:
     path: ../../amplify_test
-  async: ^2.6.0
   build_runner: ^2.0.0
   flutter_test:
     sdk: flutter
