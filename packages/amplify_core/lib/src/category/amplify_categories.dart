@@ -18,6 +18,7 @@ library amplify_interface;
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:async/async.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
