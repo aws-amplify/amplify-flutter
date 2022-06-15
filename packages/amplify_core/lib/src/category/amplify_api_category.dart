@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,17 +21,13 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
   Category get category => Category.api;
 
   // ====== GraphQL =======
-  GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
-    return plugins.length == 1
-        ? plugins[0].query(request: request)
-        : throw _pluginNotAddedException('Api');
-  }
+  CancelableOperation<GraphQLResponse<T>> query<T>(
+          {required GraphQLRequest<T> request}) =>
+      defaultPlugin.query(request: request);
 
-  GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) {
-    return plugins.length == 1
-        ? plugins[0].mutate(request: request)
-        : throw _pluginNotAddedException('Api');
-  }
+  CancelableOperation<GraphQLResponse<T>> mutate<T>(
+          {required GraphQLRequest<T> request}) =>
+      defaultPlugin.mutate(request: request);
 
   /// Subscribes to the given [request] and returns the stream of response events.
   /// An optional [onEstablished] callback can be used to be alerted when the
@@ -42,52 +38,88 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
   Stream<GraphQLResponse<T>> subscribe<T>(
     GraphQLRequest<T> request, {
     void Function()? onEstablished,
-  }) {
-    return plugins.length == 1
-        ? plugins[0].subscribe(request, onEstablished: onEstablished)
-        : throw _pluginNotAddedException('Api');
-  }
+  }) =>
+      defaultPlugin.subscribe(request, onEstablished: onEstablished);
 
   // ====== RestAPI ======
-  void cancelRequest(String cancelToken) {
-    return plugins.length == 1
-        ? plugins[0].cancelRequest(cancelToken)
-        : throw _pluginNotAddedException('Api');
-  }
 
-  RestOperation get({required RestOptions restOptions}) {
-    return plugins.length == 1
-        ? plugins[0].get(restOptions: restOptions)
-        : throw _pluginNotAddedException('Api');
-  }
+  CancelableOperation<AWSStreamedHttpResponse> delete(
+    String path, {
+    Map<String, String>? headers,
+    HttpPayload? body,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) =>
+      defaultPlugin.delete(
+        path,
+        headers: headers,
+        body: body,
+        apiName: apiName,
+      );
 
-  RestOperation put({required RestOptions restOptions}) {
-    return plugins.length == 1
-        ? plugins[0].put(restOptions: restOptions)
-        : throw _pluginNotAddedException('Api');
-  }
+  CancelableOperation<AWSStreamedHttpResponse> get(
+    String path, {
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) =>
+      defaultPlugin.get(
+        path,
+        headers: headers,
+        apiName: apiName,
+      );
 
-  RestOperation post({required RestOptions restOptions}) {
-    return plugins.length == 1
-        ? plugins[0].post(restOptions: restOptions)
-        : throw _pluginNotAddedException('Api');
-  }
+  CancelableOperation<AWSStreamedHttpResponse> head(
+    String path, {
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) =>
+      defaultPlugin.head(
+        path,
+        headers: headers,
+        apiName: apiName,
+      );
 
-  RestOperation delete({required RestOptions restOptions}) {
-    return plugins.length == 1
-        ? plugins[0].delete(restOptions: restOptions)
-        : throw _pluginNotAddedException('Api');
-  }
+  CancelableOperation<AWSStreamedHttpResponse> patch(
+    String path, {
+    Map<String, String>? headers,
+    HttpPayload? body,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) =>
+      defaultPlugin.patch(
+        path,
+        headers: headers,
+        body: body,
+        apiName: apiName,
+      );
 
-  RestOperation head({required RestOptions restOptions}) {
-    return plugins.length == 1
-        ? plugins[0].head(restOptions: restOptions)
-        : throw _pluginNotAddedException('Api');
-  }
+  CancelableOperation<AWSStreamedHttpResponse> post(
+    String path, {
+    Map<String, String>? headers,
+    HttpPayload? body,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) =>
+      defaultPlugin.post(
+        path,
+        headers: headers,
+        body: body,
+        apiName: apiName,
+      );
 
-  RestOperation patch({required RestOptions restOptions}) {
-    return plugins.length == 1
-        ? plugins[0].patch(restOptions: restOptions)
-        : throw _pluginNotAddedException('Api');
-  }
+  CancelableOperation<AWSStreamedHttpResponse> put(
+    String path, {
+    Map<String, String>? headers,
+    HttpPayload? body,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) =>
+      defaultPlugin.put(
+        path,
+        headers: headers,
+        body: body,
+        apiName: apiName,
+      );
 }
