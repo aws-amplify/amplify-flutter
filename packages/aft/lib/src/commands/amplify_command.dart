@@ -26,29 +26,32 @@ const _ignorePackages = [
 ];
 
 abstract class AmplifyCommand extends Command<void> {
+  final _rootDirMemo = AsyncMemoizer<Directory>();
+
   /// The root directory of the Amplify Flutter repo.
-  late final Directory rootDir = () {
-    var dir = Directory.current;
-    while (dir.parent != dir) {
-      for (final file in dir.listSync(followLinks: false).whereType<File>()) {
-        if (p.basename(file.path) == 'mono_repo.yaml') {
-          return dir;
+  Future<Directory> get rootDir => _rootDirMemo.runOnce(() async {
+        var dir = Directory.current;
+        while (dir.parent != dir) {
+          final files = dir.list(followLinks: false).whereType<File>();
+          await for (final file in files) {
+            if (p.basename(file.path) == 'mono_repo.yaml') {
+              return dir;
+            }
+          }
+          dir = dir.parent;
         }
-      }
-      dir = dir.parent;
-    }
-    throw StateError(
-      'Root directory not found. Make sure to run this command '
-      'from within the Amplify Flutter repo',
-    );
-  }();
+        throw StateError(
+          'Root directory not found. Make sure to run this command '
+          'from within the Amplify Flutter repo',
+        );
+      });
 
   final _allPackagesMemo = AsyncMemoizer<List<PackageInfo>>();
 
   /// All packages in the Amplify Flutter repo.
   Future<List<PackageInfo>> get allPackages =>
       _allPackagesMemo.runOnce(() async {
-        final allDirs = rootDir
+        final allDirs = (await rootDir)
             .list(recursive: true, followLinks: false)
             .whereType<Directory>();
 
@@ -74,11 +77,15 @@ abstract class AmplifyCommand extends Command<void> {
         return allPackages..sort();
       });
 
+  final _globalDependencyConfigMemo = AsyncMemoizer<GlobalDependencyConfig>();
+
   /// The global dependency configuration for the repo.
-  late final GlobalDependencyConfig globalDependencyConfig = () {
-    final depsFile = File(p.join(rootDir.path, 'deps.yaml'));
-    assert(depsFile.existsSync(), 'Could not find deps.yaml');
-    final depsYaml = depsFile.readAsStringSync();
-    return checkedYamlDecode(depsYaml, GlobalDependencyConfig.fromJson);
-  }();
+  Future<GlobalDependencyConfig> get globalDependencyConfig =>
+      _globalDependencyConfigMemo.runOnce(() async {
+        final rootDir = await this.rootDir;
+        final depsFile = File(p.join(rootDir.path, 'deps.yaml'));
+        assert(depsFile.existsSync(), 'Could not find deps.yaml');
+        final depsYaml = depsFile.readAsStringSync();
+        return checkedYamlDecode(depsYaml, GlobalDependencyConfig.fromJson);
+      });
 }
