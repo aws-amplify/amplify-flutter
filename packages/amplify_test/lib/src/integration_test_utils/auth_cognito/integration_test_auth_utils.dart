@@ -16,13 +16,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter_test/flutter_test.dart';
-
+import 'package:graphql/client.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-import 'types/admin_create_user_response.dart';
 import 'types/confirm_sign_up_response.dart';
-import 'types/delete_user_response.dart';
 
 /// A GraphQL document used by the [deleteUser] test utility method.
 const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
@@ -32,30 +29,45 @@ const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
   }
 }''';
 
-/// A GraphQL document used by the [adminCreateUser] test utility method.
-const adminCreateUserDocument =
-    '''mutation CreateUser(\$Username: String!, \$Password: String!, \$AutoConfirm: Boolean!, \$EnableMFA: Boolean!, \$VerifyAttributes: Boolean!, \$Name: String, \$Given_Name: String, \$Email: String, \$Phone_Number: String) {
-    adminCreateUser(Username: \$Username, Password: \$Password, AutoConfirm: \$AutoConfirm, EnableMFA: \$EnableMFA, VerifyAttributes: \$VerifyAttributes, Given_Name: \$Given_Name, Name: \$Name, Email: \$Email, Phone_Number: \$Phone_Number) {
-      error
-      success
-    }
-  }''';
-
 /// Deletes a Cognito user in backend infrastructure.
 ///
 /// This method differs from the Auth.deleteUser API in that
 /// an access token is not required.
-Future<DeleteUserResponse> deleteUser(String username) async {
-  var res = await Amplify.API
-      .mutate(
-          request: GraphQLRequest<String>(
-              document: deleteDocument,
-              variables: <String, dynamic>{'Username': username}))
-      .response;
-  if (res.errors.isNotEmpty) {
-    throw Exception(res.errors.first.message);
+Future<void> deleteUser(String username) async {
+  final config = await Amplify.asyncConfig;
+  final url = config.auth?.awsPlugin?.appSync?.default$?.apiUrl;
+  final key = config.auth?.awsPlugin?.appSync?.default$?.apiKey;
+  final client = GraphQLClient(
+    cache: GraphQLCache(),
+    link: HttpLink(
+      url!,
+      defaultHeaders: {
+        'x-api-key': key!,
+      },
+    ),
+  );
+
+  final options = MutationOptions(
+      document: gql(
+        r'''
+          mutation DeleteUser(
+            $Username: String!
+          ) {
+          deleteUser(Username: $Username) {
+              success
+              exception
+            }
+          }
+      ''',
+      ),
+      variables: <String, dynamic>{
+        'Username': username,
+      });
+
+  final QueryResult result = await client.mutate(options);
+  if (result.data?['deleteUser']?['exception'] != null) {
+    throw Exception(result.data?['deleteUser']?['exception']);
   }
-  return DeleteUserResponse.fromJson(res.data!);
 }
 
 /// Creates a Cognito user in backend infrastructure. This documention describes
@@ -71,7 +83,7 @@ Future<DeleteUserResponse> deleteUser(String username) async {
 /// The [verifyAttributes] flag will verify the email and phone, and should be used
 /// if tests need to bypass the verification step.
 /// The [attributes] list passes additional attributes.
-Future<AdminCreateUserResponse> adminCreateUser(
+Future<void> adminCreateUser(
   String username,
   String password, {
   bool autoConfirm = false,
@@ -79,69 +91,91 @@ Future<AdminCreateUserResponse> adminCreateUser(
   bool verifyAttributes = false,
   List<AuthUserAttribute> attributes = const [],
 }) async {
-  var res = await Amplify.API
-      .mutate(
-          request: GraphQLRequest<String>(
-              document: adminCreateUserDocument,
-              variables: <String, dynamic>{
-            'Username': username,
-            'Password': password,
-            'AutoConfirm': autoConfirm,
-            'EnableMFA': enableMfa,
-            'Name': attributes
-                .firstWhere(
-                    (el) => el.userAttributeKey == CognitoUserAttributeKey.name,
-                    orElse: () => const AuthUserAttribute(
-                        userAttributeKey: CognitoUserAttributeKey.name,
-                        value: 'default_name'))
-                .value,
-            'Given_Name': attributes
-                .firstWhere(
-                    (el) =>
-                        el.userAttributeKey ==
-                        CognitoUserAttributeKey.givenName,
-                    orElse: () => const AuthUserAttribute(
-                        userAttributeKey: CognitoUserAttributeKey.givenName,
-                        value: 'default_given_name'))
-                .value,
-            'Email': attributes
-                .firstWhere(
-                    (el) =>
-                        el.userAttributeKey == CognitoUserAttributeKey.email,
-                    orElse: () => const AuthUserAttribute(
-                        userAttributeKey: CognitoUserAttributeKey.email,
-                        value: 'example@example.com'))
-                .value,
-            'Phone_Number': attributes
-                .firstWhere(
-                    (el) =>
-                        el.userAttributeKey ==
-                        CognitoUserAttributeKey.phoneNumber,
-                    orElse: () => const AuthUserAttribute(
-                        userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-                        value: '+15555555'))
-                .value,
-            'VerifyAttributes': verifyAttributes,
-          }))
-      .response;
-  if (res.errors.isNotEmpty) {
-    throw Exception(res.errors.first.message);
+  final config = await Amplify.asyncConfig;
+  final url = config.auth?.awsPlugin?.appSync?.default$?.apiUrl;
+  final key = config.auth?.awsPlugin?.appSync?.default$?.apiKey;
+  final client = GraphQLClient(
+    cache: GraphQLCache(),
+    link: HttpLink(
+      url!,
+      defaultHeaders: {
+        'x-api-key': key!,
+      },
+    ),
+  );
+
+  final options = MutationOptions(
+      document: gql(
+        r'''
+          mutation AdminCreateUser(
+            $AutoConfirm: Boolean,
+            $Email:String,
+            $EnabledMFA: Boolean,
+            $Given_Name: String,
+            $Name: String,
+            $Password: String!, 
+            $Phone_Number:String, 
+            $Username: String!, 
+            $VerifyAttributes: Boolean) {
+            adminCreateUser(
+              AutoConfirm: $AutoConfirm, 
+              Email: $Email, 
+              EnableMFA: $EnabledMFA, 
+              Given_Name: $Given_Name, 
+              Name: $Name,
+              Phone_Number: $Phone_Number,
+              Password: $Password,
+              Username: $Username,
+              VerifyAttributes: $VerifyAttributes
+            ){
+              success
+              exception
+            }
+          }
+      ''',
+      ),
+      variables: <String, dynamic>{
+        'AutoConfirm': autoConfirm,
+        'Email': attributes
+            .firstWhere(
+                (el) => el.userAttributeKey == CognitoUserAttributeKey.email,
+                orElse: () => const AuthUserAttribute(
+                    userAttributeKey: CognitoUserAttributeKey.email,
+                    value: 'example@example.com'))
+            .value,
+        'EnabledMFA': enableMfa,
+        'Given_Name': attributes
+            .firstWhere(
+                (el) =>
+                    el.userAttributeKey == CognitoUserAttributeKey.givenName,
+                orElse: () => const AuthUserAttribute(
+                    userAttributeKey: CognitoUserAttributeKey.givenName,
+                    value: 'default_given_name'))
+            .value,
+        'Name': attributes
+            .firstWhere(
+                (el) => el.userAttributeKey == CognitoUserAttributeKey.name,
+                orElse: () => const AuthUserAttribute(
+                    userAttributeKey: CognitoUserAttributeKey.name,
+                    value: 'default_name'))
+            .value,
+        'Password': password,
+        'Phone_Number': attributes
+            .firstWhere(
+                (el) =>
+                    el.userAttributeKey == CognitoUserAttributeKey.phoneNumber,
+                orElse: () => const AuthUserAttribute(
+                    userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+                    value: '+15555555'))
+            .value,
+        'Username': username,
+        'VerifyAttributes': verifyAttributes
+      });
+
+  final QueryResult result = await client.mutate(options);
+  if (result.data?['adminCreateUser']?['exception'] != null) {
+    throw Exception(result.data?['adminCreateUser']?['exception']);
   }
-
-  final data = AdminCreateUserResponse.fromJson(res.data!);
-  if (data.error != null) {
-    throw Exception(data.error!);
-  }
-
-  addTearDown(() async {
-    try {
-      await deleteUser(username);
-    } on Object catch (e) {
-      safePrint('Error deleting user: $e');
-    }
-  });
-
-  return data;
 }
 
 /// Returns the OTP code for [username]. Must be called before the network call

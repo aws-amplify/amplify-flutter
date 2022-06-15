@@ -15,65 +15,63 @@
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:test/test.dart';
 
+const key1 = 'key_1';
+
+// Disabling `useDataProtection` for tests since it would require a MacOS
+// app that has at least one app group
+final macOSOptions = MacOSSecureStorageOptions(useDataProtection: false);
+
 typedef SecureStorageFactory = AmplifySecureStorageInterface Function({
   required AmplifySecureStorageConfig config,
 });
 
 void runTests(SecureStorageFactory storageFactory) {
-  const key1 = 'key_1';
+  group(
+    'read, write, delete - ',
+    () => runStandardTests(
+      storageFactory,
+      webPersistenceOption: WebPersistenceOption.indexedDB,
+    ),
+  );
+
+  group(
+    'read, write, delete (web in memory) -',
+    testOn: 'browser',
+    () => runStandardTests(
+      storageFactory,
+      webPersistenceOption: WebPersistenceOption.inMemory,
+    ),
+  );
+
+  group(
+    'scope and namespace - ',
+    () => runScopeAndNamespaceTests(storageFactory),
+  );
+}
+
+/// basic test suite that applies to all platforms and config options
+void runStandardTests(
+  SecureStorageFactory storageFactory, {
+  required WebPersistenceOption webPersistenceOption,
+}) {
   late AmplifySecureStorageInterface storage;
-  late AmplifySecureStorageInterface storageScope;
-  late AmplifySecureStorageInterface storageWeb;
-  late AmplifySecureStorageInterface storageLinux;
-  late AmplifySecureStorageInterface storageWindows;
 
   Future<void> clearAll() async {
     await storage.delete(key: key1);
-    await storageScope.delete(key: key1);
-    await storageWeb.delete(key: key1);
-    await storageLinux.delete(key: key1);
-    await storageWindows.delete(key: key1);
   }
 
   setUp(() async {
-    // Disabling `useDataProtection` for tests since it would require a MacOS
-    // app that has at least one app group
-    final macOSOptions = MacOSSecureStorageOptions(useDataProtection: false);
+    final webOptions = WebSecureStorageOptions(
+      persistenceOption: webPersistenceOption,
+    );
     storage = storageFactory(
       config: AmplifySecureStorageConfig(
         scope: 'default',
         macOSOptions: macOSOptions,
+        webOptions: webOptions,
       ),
     );
-    storageScope = storageFactory(
-      config: AmplifySecureStorageConfig(
-        scope: 'other',
-        macOSOptions: macOSOptions,
-      ),
-    );
-    storageWeb = storageFactory(
-      config: AmplifySecureStorageConfig(
-        scope: 'default',
-        webOptions: WebSecureStorageOptions(databaseName: 'com.example.test'),
-        macOSOptions: macOSOptions,
-      ),
-    );
-    storageLinux = storageFactory(
-      config: AmplifySecureStorageConfig(
-        scope: 'default',
-        linuxOptions: LinuxSecureStorageOptions(schemaName: 'com.example.test'),
-        macOSOptions: macOSOptions,
-      ),
-    );
-    storageWindows = storageFactory(
-      config: AmplifySecureStorageConfig(
-        scope: 'default',
-        windowsOptions: WindowsSecureStorageOptions(
-          targetNamePrefix: 'com.test',
-        ),
-        macOSOptions: macOSOptions,
-      ),
-    );
+
     await clearAll();
   });
 
@@ -176,9 +174,47 @@ void runTests(SecureStorageFactory storageFactory) {
       expect(value2, 'test_update');
     });
   });
+}
+
+/// platform specific tests and tests that do not apply for all config
+/// options, such as inMemory for web.
+void runScopeAndNamespaceTests(SecureStorageFactory storageFactory) {
+  final webOptions = WebSecureStorageOptions(
+    persistenceOption: WebPersistenceOption.indexedDB,
+  );
+  late AmplifySecureStorageInterface storage;
+
+  Future<void> clearAll() async {
+    await storage.delete(key: key1);
+  }
+
+  setUp(() async {
+    storage = storageFactory(
+      config: AmplifySecureStorageConfig(
+        scope: 'default',
+        macOSOptions: macOSOptions,
+        webOptions: webOptions,
+      ),
+    );
+
+    await clearAll();
+  });
+
+  tearDownAll(() async {
+    await clearAll();
+  });
 
   group('scope', () {
     test('The same key with different scopes should not collide', () async {
+      final storageScope = storageFactory(
+        config: AmplifySecureStorageConfig(
+          scope: 'other',
+          macOSOptions: macOSOptions,
+          webOptions: webOptions,
+        ),
+      );
+      await storageScope.delete(key: key1);
+
       // write to both storage instances
       await storage.write(key: key1, value: 'test_write_1');
       await storageScope.write(key: key1, value: 'test_write_2');
@@ -196,6 +232,18 @@ void runTests(SecureStorageFactory storageFactory) {
       'The same key with different db names should not collide',
       testOn: 'browser',
       () async {
+        final storageWeb = storageFactory(
+          config: AmplifySecureStorageConfig(
+            scope: 'default',
+            webOptions: WebSecureStorageOptions(
+              databaseName: 'com.example.test',
+              persistenceOption: WebPersistenceOption.indexedDB,
+            ),
+            macOSOptions: macOSOptions,
+          ),
+        );
+        await storageWeb.delete(key: key1);
+
         // write to both storage instances
         await storage.write(key: key1, value: 'test_write_1');
         await storageWeb.write(key: key1, value: 'test_write_2');
@@ -212,6 +260,17 @@ void runTests(SecureStorageFactory storageFactory) {
       'The same key with different schema names should not collide',
       testOn: 'linux',
       () async {
+        final storageLinux = storageFactory(
+          config: AmplifySecureStorageConfig(
+            scope: 'default',
+            linuxOptions: LinuxSecureStorageOptions(
+              schemaName: 'com.example.test',
+            ),
+            macOSOptions: macOSOptions,
+          ),
+        );
+        await storageLinux.delete(key: key1);
+
         // write to both storage instances
         await storage.write(key: key1, value: 'test_write_1');
         await storageLinux.write(key: key1, value: 'test_write_2');
@@ -228,6 +287,17 @@ void runTests(SecureStorageFactory storageFactory) {
       'The same key with different schema target name prefixes should not collide',
       testOn: 'windows',
       () async {
+        final storageWindows = storageFactory(
+          config: AmplifySecureStorageConfig(
+            scope: 'default',
+            windowsOptions: WindowsSecureStorageOptions(
+              targetNamePrefix: 'com.test',
+            ),
+            macOSOptions: macOSOptions,
+          ),
+        );
+        await storageWindows.delete(key: key1);
+
         // write to both storage instances
         await storage.write(key: key1, value: 'test_write_1');
         await storageWindows.write(key: key1, value: 'test_write_2');

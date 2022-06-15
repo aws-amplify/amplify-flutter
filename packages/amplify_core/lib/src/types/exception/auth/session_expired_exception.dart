@@ -21,29 +21,8 @@ import 'package:amplify_core/amplify_core.dart';
 class SessionExpiredException extends AuthException {
   /// {@macro amplify_core.auth.session_expired_exception}
   const SessionExpiredException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
-
-  /// {@macro amplify_core.auth.exception_downcasting}
-  SessionExpiredException._private(AuthException exception)
-      : super(
-          exception.message,
-          recoverySuggestion: exception.recoverySuggestion,
-          underlyingException: exception.underlyingException,
-        );
-
-  /// {@macro amplify_core.auth.exception_from_map}
-  static SessionExpiredException fromMap(
-    Map<String, String> serializedException,
-  ) {
-    return SessionExpiredException._private(
-      AuthException.fromMap(serializedException),
-    );
-  }
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 }

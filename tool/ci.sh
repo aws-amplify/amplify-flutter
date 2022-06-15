@@ -96,14 +96,6 @@ for PKG in ${PKGS}; do
         tool/test.sh -p firefox || EXIT_CODE=$?
         ;;
       command_4)
-        echo 'flutter doctor -v'
-        flutter doctor -v || EXIT_CODE=$?
-        ;;
-      command_5)
-        echo 'xcrun simctl boot "iPhone 13"'
-        xcrun simctl boot "iPhone 13" || EXIT_CODE=$?
-        ;;
-      command_6)
         echo 'dart run build_runner build --delete-conflicting-outputs'
         dart run build_runner build --delete-conflicting-outputs || EXIT_CODE=$?
         ;;
@@ -120,8 +112,8 @@ for PKG in ${PKGS}; do
         dart test -p chrome || EXIT_CODE=$?
         ;;
       test_2)
-        echo 'flutter test -d iPhone integration_test/e2e_test.dart'
-        flutter test -d iPhone integration_test/e2e_test.dart || EXIT_CODE=$?
+        echo 'flutter test'
+        flutter test || EXIT_CODE=$?
         ;;
       *)
         echo -e "\033[31mUnknown TASK '${TASK}' - TERMINATING JOB\033[0m"

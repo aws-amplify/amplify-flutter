@@ -15,6 +15,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart' hide AuthState;
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
@@ -122,6 +123,9 @@ class StateMachineBloc {
     yield const LoadingState();
     await Amplify.asyncConfig;
     yield* _isValidSession();
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    // TODO: investigate broken event handling
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _isValidSession() async* {
@@ -311,7 +315,7 @@ class StateMachineBloc {
       }
     } on UserNotConfirmedException catch (e) {
       _exceptionController.add(AuthenticatorException(
-        e.message,
+        e.message ?? 'An unknown error occurred',
         showBanner: false,
       ));
       yield UnauthenticatedState.confirmSignUp;
@@ -328,6 +332,8 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _checkUserVerification() async* {
@@ -378,6 +384,8 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _confirmSignUp(AuthConfirmSignUpData data) async* {
@@ -394,6 +402,8 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _signOut() async* {
@@ -405,6 +415,8 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
@@ -422,6 +434,8 @@ class StateMachineBloc {
         _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _confirmVerifyUser(AuthConfirmVerifyUserData data) async* {
@@ -438,10 +452,14 @@ class StateMachineBloc {
         _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _changeScreen(AuthenticatorStep step) async* {
     yield UnauthenticatedState(step: step);
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _resendSignUpCode(String username) async* {
@@ -455,6 +473,8 @@ class StateMachineBloc {
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
   }
 
   Future<void> dispose() {

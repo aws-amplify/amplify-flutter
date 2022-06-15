@@ -32,7 +32,7 @@ dev_dependencies:
     path: ../../amplify_lints
   flutter_test:
     sdk: flutter
-  pigeon: ^3.0.0
+  pigeon: ^3.1.5
 
 flutter:
   plugin:

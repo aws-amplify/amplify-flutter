@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: close_sinks
-
 import 'dart:async';
 import 'dart:convert';
 
@@ -37,7 +35,6 @@ import 'package:amplify_core/amplify_core.dart'
 import 'package:async/async.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:meta/meta.dart';
-import 'package:smithy/smithy.dart';
 
 /// {@template amplify_auth_cognito.sign_in_state_machine}
 /// Base class for state machines which perform some auth flow. These all follow
@@ -56,7 +53,10 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   SignInState get initialState => const SignInState.notStarted();
 
   /// Flow used to sign in.
-  late final AuthFlowType authFlowType = () {
+  late final AuthFlowType authFlowType;
+
+  /// The default flow used to sign in.
+  late final AuthFlowType defaultAuthFlowType = () {
     // Get the flow from the plugin config
     final pluginFlowType =
         expect<CognitoPluginConfig>().auth?.default$?.authenticationFlowType ??
@@ -74,6 +74,12 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
   /// The configured user pool.
   late final CognitoUserPoolConfig config = expect();
+
+  /// The configured identity pool.
+  CognitoIdentityCredentialsProvider? get identityPoolConfig => get();
+
+  /// Whether there is an identity pool configured.
+  bool get hasIdentityPool => identityPoolConfig != null;
 
   /// The Cognito Identity Provider service client.
   late final CognitoIdentityProviderClient cognitoIdentityProvider = expect();
@@ -176,6 +182,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       _password = password;
     }
 
+    authFlowType = event.authFlow ?? defaultAuthFlowType;
     if (authFlowType != AuthFlowType.customAuth) {
       return initiateSrp(event);
     }
@@ -488,7 +495,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   }
 
   /// Adds the session info from [result] to the user.
-  String _saveAuthResult(AuthenticationResultType result) {
+  Future<String> _saveAuthResult(AuthenticationResultType result) async {
     final accessToken = result.accessToken;
     final refreshToken = result.refreshToken;
     final idToken = result.idToken;
@@ -520,16 +527,25 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         userPoolTokens: user.userPoolTokens.build(),
       ),
     );
-    dispatch(
-      CredentialStoreEvent.clearCredentials(
-        CognitoIdentityPoolKeys(expect()),
-      ),
-    );
-    dispatch(
-      const FetchAuthSessionEvent.fetch(
-        CognitoSessionOptions(getAWSCredentials: true),
-      ),
-    );
+
+    // Clear anonymous credentials, if there were any, and fetch authenticated
+    // credentials.
+    if (hasIdentityPool) {
+      dispatch(
+        CredentialStoreEvent.clearCredentials(
+          CognitoIdentityPoolKeys(identityPoolConfig!),
+        ),
+      );
+
+      await dispatch(
+        const FetchAuthSessionEvent.fetch(
+          CognitoSessionOptions(getAWSCredentials: true),
+        ),
+      );
+
+      // Wait for above to propagate and complete successfully.
+      await expect(FetchAuthSessionStateMachine.type).getLatestResult();
+    }
 
     return accessToken;
   }
@@ -629,15 +645,17 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     // Only when authenticationResult is set is the flow considered complete.
     final authenticationResult = _authenticationResult;
     if (authenticationResult != null) {
-      final accessToken = _saveAuthResult(authenticationResult);
+      final accessToken = await _saveAuthResult(authenticationResult);
       final newDeviceMetadata = authenticationResult.newDeviceMetadata;
-      if (newDeviceMetadata != null) {
+      if (newDeviceMetadata != null &&
+          // ConfirmDevice API requires an identity pool
+          hasIdentityPool) {
         user.deviceSecrets
           ..deviceGroupKey = newDeviceMetadata.deviceGroupKey
           ..deviceKey = newDeviceMetadata.deviceKey;
 
         await _createDevice(
-          authenticationResult.accessToken!,
+          accessToken,
           newDeviceMetadata,
         );
 
@@ -756,17 +774,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
   @override
   SignInState? resolveError(Object error, [StackTrace? st]) {
-    if (error is AmplifyException) {
+    if (error is Exception) {
       return SignInFailure(error);
-    } else if (error is SmithyException) {
-      return SignInFailure(error);
-    } else if (error is Exception) {
-      return SignInFailure(
-        UnknownException(
-          'An unknown error occurred',
-          underlyingException: error.toString(),
-        ),
-      );
     }
     return null;
   }
