@@ -4,7 +4,7 @@ set -e
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 
-    sudo apt-get update && apt install -y libsecret-1-dev libglib2.0-dev dbus gnome-keyring
+    sudo apt-get update && sudo apt-get install -y libsecret-1-dev libglib2.0-dev dbus gnome-keyring
 
     # If running in headless mode, re-run script in dbus session.
     if [ -z $DBUS_SESSION_BUS_ADDRESS ]; then
