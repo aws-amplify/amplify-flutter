@@ -17,6 +17,8 @@ import 'package:amplify_core/amplify_core.dart';
 
 /// Cognito options for `Amplify.Auth.signUp`.
 class CognitoSignUpOptions extends SignUpOptions {
+  @override
+
   /// Creates a sign up configuration with the given user attributes and validation data.
   ///
   /// [userAttributes] is a map of key-value pairs, where the key is one of the standard
@@ -56,6 +58,15 @@ class CognitoSignUpOptions extends SignUpOptions {
           userAttributes: (Map.of(userAttributes)
                 ..removeWhere((key, value) => key.readOnly))
               .map((attribute, value) => MapEntry(attribute.key, value)),
+        );
+
+  /// Creates a sign up configuration when the user attributes are passed as <String, String> map.
+  CognitoSignUpOptions.fromAttributeMap({
+    Map<String, String> userAttributes = const {},
+    this.validationData,
+    this.clientMetadata,
+  }) : super(
+          userAttributes: userAttributes,
         );
 
   /// An optional map of arbitrary key-value pairs which will be passed to your

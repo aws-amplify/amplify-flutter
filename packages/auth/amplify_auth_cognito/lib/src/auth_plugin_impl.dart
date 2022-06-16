@@ -23,6 +23,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform
     if (dart.library.ui) 'flows/hosted_ui/hosted_ui_platform_flutter.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
@@ -78,10 +79,17 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
           await stateMachine.expect<NativeAuthBridge>().getValidationData();
       validationData = nativeValidationData.cast();
     }
+    final options = request.options as CognitoSignUpOptions?;
+
+    final mergedOptions = CognitoSignUpOptions.fromAttributeMap(
+      clientMetadata: (request.options as CognitoSignUpOptions).clientMetadata,
+      userAttributes: options?.userAttributes ?? {},
+      validationData: validationData,
+    );
     request = SignUpRequest(
       username: request.username,
       password: request.password,
-      options: CognitoSignUpOptions(validationData: validationData),
+      options: mergedOptions,
     );
     return super.signUp(request: request);
   }
