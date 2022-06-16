@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: ["amplify_api_example", "amplify_storage_s3_example", "amplify_auth_cognito_example"]
+        scope: ["amplify_api_example"] #, "amplify_storage_s3_example", "amplify_auth_cognito_example"]
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
         with:
