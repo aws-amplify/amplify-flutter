@@ -78,6 +78,30 @@ $ melos bootstrap
 - [amplify_analytics_plugin_interface](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_analytics_plugin_interface)
 - [amplify_analytics_pinpoint](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_analytics_pinpoint)
 
+### Platform Setup
+
+Some platforms require additional setup. See below for details.
+
+#### Linux
+
+`libsecret` and `glib` are required for some plugins. They can be installed on Debian based linux distributions such as Ubuntu by running the command below.
+
+```sh
+sudo apt-get update && sudo apt-get install libsecret-1-dev libglib2.0-dev
+```
+
+**VS Code Remote Container**
+
+[VS Code Remote Containers](https://code.visualstudio.com/docs/remote/containers) can be used for linux development. `/devcontainer` contains a Dockerfile that will install the required dependencies.
+
+Note: To run tests for secure_storage, start the tests in a dbus session.
+
+```sh
+dbus-run-session -- sh # this will drop you into a new D-bus shell
+echo 'password' | gnome-keyring-daemon --unlock # unlock the system's keyring
+dart test
+```
+
 ## Steps towards contributions
 
 Each packages/[category] contains the following for testing:
