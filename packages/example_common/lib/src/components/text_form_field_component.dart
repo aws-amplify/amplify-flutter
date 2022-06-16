@@ -57,7 +57,7 @@ class TextFormFieldComponent extends Component {
   final String type;
 
   /// A callback that will run when the value has changed.
-  final Function(String? value) onChanged;
+  final void Function(String? value) onChanged;
 
   late final _labelElement = LabelElement()..innerHtml = labelText;
   late final _inputElement = InputElement()

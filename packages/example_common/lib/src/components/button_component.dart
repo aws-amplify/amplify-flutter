@@ -47,7 +47,7 @@ class ButtonComponent extends Component {
   final String innerHtml;
 
   /// The click handler for the button
-  final Function() onClick;
+  final void Function() onClick;
 
   /// wether or not the button is in a loading state.
   final bool loading;

@@ -124,8 +124,12 @@ for PKG in ${PKGS}; do
         dart test -p chrome || EXIT_CODE=$?
         ;;
       test_2)
-        echo 'flutter test'
-        flutter test || EXIT_CODE=$?
+        echo 'dart test --exclude-tags=build'
+        dart test --exclude-tags=build || EXIT_CODE=$?
+        ;;
+      test_3)
+        echo 'dart test --tags=build'
+        dart test --tags=build || EXIT_CODE=$?
         ;;
       *)
         echo -e "\033[31mUnknown TASK '${TASK}' - TERMINATING JOB\033[0m"

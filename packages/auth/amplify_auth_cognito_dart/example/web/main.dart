@@ -12,12 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/amplify_core.dart';
 import 'package:example_common/example_common.dart';
 
 import 'components/app_component.dart';
 
 Future<void> main() async {
-  print(zIsWeb);
   renderApp(AppComponent());
 }

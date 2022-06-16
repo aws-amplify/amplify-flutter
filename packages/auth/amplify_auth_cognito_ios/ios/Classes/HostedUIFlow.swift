@@ -48,7 +48,10 @@ class HostedUIFlow: NSObject, ASWebAuthenticationPresentationContextProviding {
 
             session.presentationContextProvider = self
             session.prefersEphemeralWebBrowserSession = preferPrivateSession
-            session.start()
+            guard session.start() else {
+                continutation.resume(throwing: HostedUIError.unknown("Could not start ASWebAuthenticationSession"))
+                return
+            }
         }
     }
 

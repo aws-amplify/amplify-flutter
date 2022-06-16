@@ -12,7 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credentials_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
@@ -67,6 +70,17 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     return fetchState as FetchAuthSessionSuccess;
   }
 
+  /// Runs [fn] inside a zone which indicates the call originated from this
+  /// state machine.
+  ///
+  /// Should be used for all SDK calls made from within this class.
+  Future<T> _withZoneOverrides<T>(Future<T> Function() fn) {
+    return runZoned(
+      fn,
+      zoneValues: {zInFetch: true},
+    );
+  }
+
   /// The logins map, used to associate the ID token to the Cognito identity
   /// when retrieving an authenticated identity.
   Map<String, String> _logins(String? idToken) {
@@ -82,10 +96,12 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     required CognitoIdentityCredentialsProvider config,
     required String? idToken,
   }) async {
-    final resp = await _cognitoIdentityClient.getId(
-      GetIdInput(
-        identityPoolId: config.poolId,
-        logins: BuiltMap(_logins(idToken)),
+    final resp = await _withZoneOverrides(
+      () => _cognitoIdentityClient.getId(
+        GetIdInput(
+          identityPoolId: config.poolId,
+          logins: BuiltMap(_logins(idToken)),
+        ),
       ),
     );
     final identityId = resp.identityId;
@@ -100,10 +116,12 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     required String identityId,
     required String? idToken,
   }) async {
-    final resp = await _cognitoIdentityClient.getCredentialsForIdentity(
-      GetCredentialsForIdentityInput(
-        identityId: identityId,
-        logins: BuiltMap(_logins(idToken)),
+    final resp = await _withZoneOverrides(
+      () => _cognitoIdentityClient.getCredentialsForIdentity(
+        GetCredentialsForIdentityInput(
+          identityId: identityId,
+          logins: BuiltMap(_logins(idToken)),
+        ),
       ),
     );
     final credentials = resp.credentials;
@@ -295,7 +313,9 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       }
     });
     try {
-      final result = await _cognitoIdpClient.initiateAuth(refreshRequest);
+      final result = await _withZoneOverrides(
+        () => _cognitoIdpClient.initiateAuth(refreshRequest),
+      );
       final authResult = result.authenticationResult;
 
       final accessToken = authResult?.accessToken;
