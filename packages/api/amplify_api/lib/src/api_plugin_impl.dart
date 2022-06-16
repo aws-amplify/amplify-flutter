@@ -30,9 +30,6 @@ class AmplifyAPIDart extends AmplifyAPI {
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
 
-  /// The registered [APIAuthProvider] instances.
-  final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
-
   /// {@macro amplify_api.amplify_api_dart}
   AmplifyAPIDart({
     List<APIAuthProvider> authProviders = const [],
