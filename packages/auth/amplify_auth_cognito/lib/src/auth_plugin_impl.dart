@@ -12,15 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: implementation_imports
+
 import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-// ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_stub.dart'
     if (dart.library.html) 'flows/hosted_ui/hosted_ui_platform_html.dart'
     if (dart.library.ui) 'flows/hosted_ui/hosted_ui_platform_flutter.dart';
+import 'package:amplify_auth_cognito_dart/src/state/machines/hosted_ui_state_machine.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/services.dart';
@@ -47,7 +49,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
     }
 
     // Configure this plugin to act as a native iOS/Android plugin.
-    final nativePlugin = _NativeAmplifyAuthCognito(this);
+    final nativePlugin = _NativeAmplifyAuthCognito(this, stateMachine);
     NativeAuthPlugin.setup(nativePlugin);
 
     final nativeBridge = NativeAuthBridge();
@@ -96,9 +98,10 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
 }
 
 class _NativeAmplifyAuthCognito implements NativeAuthPlugin {
-  _NativeAmplifyAuthCognito(this._basePlugin);
+  _NativeAmplifyAuthCognito(this._basePlugin, this._stateMachine);
 
   final AmplifyAuthCognito _basePlugin;
+  final CognitoAuthStateMachine _stateMachine;
 
   @override
   Future<NativeAuthSession> fetchAuthSession(
@@ -139,5 +142,17 @@ class _NativeAmplifyAuthCognito implements NativeAuthPlugin {
       safePrint('Error fetching session for native plugin: $e');
     }
     return NativeAuthSession(isSignedIn: false);
+  }
+
+  @override
+  void exchange(Map<String?, String?> params) {
+    final oauthParameters = OAuthParameters.fromJson(params.cast());
+    final hostedUiStateMachine = _stateMachine.get(HostedUiStateMachine.type);
+    if (hostedUiStateMachine != null) {
+      _stateMachine.dispatch(HostedUiEvent.exchange(oauthParameters));
+    } else {
+      // Cache them as initial route parameters.
+      _stateMachine.addInstance(oauthParameters);
+    }
   }
 }

@@ -204,6 +204,17 @@ abstract class HostedUiPlatform {
     required String state,
     required String codeVerifier,
   }) async {
+    final parameters = dependencyManager.get<OAuthParameters>();
+    if (parameters != null) {
+      authCodeGrant = restoreGrant(
+        config,
+        state: state,
+        codeVerifier: codeVerifier,
+        httpClient: httpClient,
+      );
+      return dispatcher.dispatch(HostedUiEvent.exchange(parameters));
+    }
+
     _authCodeGrant = null;
     _secureStorage
       ..delete(key: _keys[HostedUiKey.state])

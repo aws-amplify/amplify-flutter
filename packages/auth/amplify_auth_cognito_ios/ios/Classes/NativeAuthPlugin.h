@@ -70,6 +70,7 @@ NSObject<FlutterMessageCodec> *NativeAuthPluginGetCodec(void);
 
 @interface NativeAuthPlugin : NSObject
 - (instancetype)initWithBinaryMessenger:(id<FlutterBinaryMessenger>)binaryMessenger;
+- (void)exchangeParams:(NSDictionary<NSString *, NSString *> *)params completion:(void(^)(NSError *_Nullable))completion;
 - (void)fetchAuthSessionGetAwsCredentials:(NSNumber *)getAwsCredentials completion:(void(^)(NativeAuthSession *_Nullable, NSError *_Nullable))completion;
 @end
 /// The codec used by NativeAuthBridge.

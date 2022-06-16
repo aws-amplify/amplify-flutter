@@ -39,6 +39,11 @@ import 'package:pigeon/pigeon.dart';
 
 @FlutterApi()
 abstract class NativeAuthPlugin {
+  /// Exchanges the route parameters used to launch the app, i.e. if the app
+  /// was closed and a redirect happened to the custom URI scheme (iOS) or an
+  /// intent was launched with the redirect parameters (Android).
+  void exchange(Map<String, String> params);
+
   @async
   NativeAuthSession fetchAuthSession(bool getAwsCredentials);
 }

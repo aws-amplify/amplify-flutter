@@ -164,8 +164,29 @@ class _NativeAuthPluginCodec extends StandardMessageCodec {
 abstract class NativeAuthPlugin {
   static const MessageCodec<Object?> codec = _NativeAuthPluginCodec();
 
+  void exchange(Map<String?, String?> params);
   Future<NativeAuthSession> fetchAuthSession(bool getAwsCredentials);
   static void setup(NativeAuthPlugin? api, {BinaryMessenger? binaryMessenger}) {
+    {
+      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.NativeAuthPlugin.exchange', codec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        channel.setMessageHandler(null);
+      } else {
+        channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+              'Argument for dev.flutter.pigeon.NativeAuthPlugin.exchange was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final Map<String?, String?>? arg_params =
+              (args[0] as Map<Object?, Object?>?)?.cast<String?, String?>();
+          assert(arg_params != null,
+              'Argument for dev.flutter.pigeon.NativeAuthPlugin.exchange was null, expected non-null Map<String?, String?>.');
+          api.exchange(arg_params!);
+          return;
+        });
+      }
+    }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.NativeAuthPlugin.fetchAuthSession', codec,

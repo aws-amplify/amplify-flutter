@@ -351,6 +351,13 @@ public class NativeAuthPluginBindings {
       return NativeAuthPluginCodec.INSTANCE;
     }
 
+    public void exchange(@NonNull Map<String, String> paramsArg, Reply<Void> callback) {
+      BasicMessageChannel<Object> channel =
+          new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.NativeAuthPlugin.exchange", getCodec());
+      channel.send(new ArrayList<Object>(Arrays.asList(paramsArg)), channelReply -> {
+        callback.reply(null);
+      });
+    }
     public void fetchAuthSession(@NonNull Boolean getAwsCredentialsArg, Reply<NativeAuthSession> callback) {
       BasicMessageChannel<Object> channel =
           new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.NativeAuthPlugin.fetchAuthSession", getCodec());
