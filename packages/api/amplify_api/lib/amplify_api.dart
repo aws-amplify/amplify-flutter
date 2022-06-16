@@ -17,6 +17,7 @@ library amplify_api_plugin;
 
 import 'dart:io';
 
+import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_api/src/method_channel_api.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
@@ -36,13 +37,8 @@ abstract class AmplifyAPI extends APIPluginInterface {
     List<APIAuthProvider> authProviders = const [],
     ModelProviderInterface? modelProvider,
   }) {
-    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      throw UnsupportedError('This platform is not supported yet');
-    }
-    return AmplifyAPIMethodChannel(
-      authProviders: authProviders,
-      modelProvider: modelProvider,
-    );
+    return AmplifyAPIDart(
+        authProviders: authProviders, modelProvider: modelProvider);
   }
 
   /// Protected constructor for subclasses.
