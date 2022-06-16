@@ -49,7 +49,6 @@ abstract class NativeAuthBridge {
   ///
   /// On iOS/Android, this calls `Amplify.addPlugin` with the [NativeAuthPlugin]
   /// implementation.
-  @async
   void addPlugin();
 
   /// Sign in by presenting [url] and waiting for a response to a URL with
@@ -73,6 +72,9 @@ abstract class NativeAuthBridge {
     bool preferPrivateSession, // iOS-only
     String? browserPackageName, // Android-only
   );
+
+  /// Retrieves the validation data for the current iOS/Android device.
+  Map<String, String> getValidationData();
 }
 
 class NativeAuthSession {
