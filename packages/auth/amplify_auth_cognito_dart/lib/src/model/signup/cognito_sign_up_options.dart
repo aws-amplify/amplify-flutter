@@ -17,8 +17,6 @@ import 'package:amplify_core/amplify_core.dart';
 
 /// Cognito options for `Amplify.Auth.signUp`.
 class CognitoSignUpOptions extends SignUpOptions {
-  @override
-
   /// Creates a sign up configuration with the given user attributes and validation data.
   ///
   /// [userAttributes] is a map of key-value pairs, where the key is one of the standard
