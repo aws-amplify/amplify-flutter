@@ -3,7 +3,6 @@
 set -e
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    # apt update && apt install -y libsecret-1-dev libglib2.0-dev dbus gnome-keyring
 
     # If running in headless mode, re-run script in dbus session.
     if [ -z $DBUS_SESSION_BUS_ADDRESS ]; then
@@ -12,6 +11,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 
     # Set up keyring in CI env
     if [ -n $CI ]; then
+        apt update && apt install -y libsecret-1-dev libglib2.0-dev dbus gnome-keyring
         echo 'password' | gnome-keyring-daemon --start --replace --daemonize --unlock
     fi
 fi
