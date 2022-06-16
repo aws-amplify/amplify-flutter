@@ -8,11 +8,10 @@ stages:
           - format
           - analyze: --fatal-infos .
   - unit_test:
-      - test:
+      - command: tool/test-desktop.sh
         os:
-          # TODO(Jordan-Nelson): Fix integ tests on Linux
-          # - linux
           - windows
           - macos
-      - command: tool/test.sh -p chrome
-      - command: tool/test.sh -p firefox
+          - linux
+      - command: tool/test-web.sh -p chrome
+      - command: tool/test-web.sh -p firefox
