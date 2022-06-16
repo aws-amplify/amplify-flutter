@@ -21,6 +21,12 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:meta/meta.dart';
 
+/// Zone tag for whether we're calling from inside the fetch auth session
+/// machine, in which case we should *not* initiate a new fetch (since that
+/// would cause a stack overflow, in essence).
+@internal
+const zInFetch = #_zInFetch;
+
 /// {@template amplify_auth_cognito.credentials.auth_plugin_credentials_provider}
 /// The AWS credentials provider for the Auth plugin.
 /// {@endtemplate}
@@ -62,12 +68,14 @@ class AuthPluginCredentialsProviderImpl extends AuthPluginCredentialsProvider {
       FetchAuthSessionStateMachine.type,
     );
 
+    // Whether this call originated from inside the fetch state machine.
+    final inFetch = (Zone.current[zInFetch] as bool?) ?? false;
+
     // If a call is made while credentials are being fetched, then we cannot
     // initiate another fetchAuthSession call and we must assume that any
     // cached credentials (if there are any) are invalid, so including them
     // in the request will do no good.
-    if (fetchAuthSessionMachine.currentState is FetchAuthSessionFetching ||
-        fetchAuthSessionMachine.currentState is FetchAuthSessionRefreshing) {
+    if (inFetch) {
       return const AnonymousCredentialsProvider().retrieve();
     }
 

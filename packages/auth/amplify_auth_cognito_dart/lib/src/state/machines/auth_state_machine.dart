@@ -22,7 +22,6 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/auth_state_machine_base.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_auth_cognito_dart/src/util/credentials_providers.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.auth_state_machine}
@@ -92,7 +91,7 @@ class AuthStateMachine extends AuthStateMachineBase {
       addInstance<CognitoIdentityClient>(
         WrappedCognitoIdentityClient(
           region: identityPoolConfig.region,
-          credentialsProvider: const AnonymousCredentialsProvider(),
+          credentialsProvider: _credentialsProvider,
         ),
       );
     }
