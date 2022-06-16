@@ -240,6 +240,16 @@ NSObject<FlutterMessageCodec> *NativeAuthPluginGetCodec() {
   }
   return self;
 }
+- (void)exchangeParams:(NSDictionary<NSString *, NSString *> *)arg_params completion:(void(^)(NSError *_Nullable))completion {
+  FlutterBasicMessageChannel *channel =
+    [FlutterBasicMessageChannel
+      messageChannelWithName:@"dev.flutter.pigeon.NativeAuthPlugin.exchange"
+      binaryMessenger:self.binaryMessenger
+      codec:NativeAuthPluginGetCodec()];
+  [channel sendMessage:@[arg_params ?: [NSNull null]] reply:^(id reply) {
+    completion(nil);
+  }];
+}
 - (void)fetchAuthSessionGetAwsCredentials:(NSNumber *)arg_getAwsCredentials completion:(void(^)(NativeAuthSession *_Nullable, NSError *_Nullable))completion {
   FlutterBasicMessageChannel *channel =
     [FlutterBasicMessageChannel
