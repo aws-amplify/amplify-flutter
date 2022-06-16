@@ -7,12 +7,14 @@ Thank you for your interest in contributing to our project! <3 Whether it's a bu
 - [Our Design](#our-design)
 - [Development Process](#development-process)
   - [Setting up for local development](#setting-up-for-local-development)
-    - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
+      - [Amplify Flutter Repo Tool (aft)](#amplify-flutter-repo-tool-aft)
+      - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
   - [Steps towards contributions](#steps-towards-contributions)
 - [Pull Requests](#pull-requests)
 - [Release](#release)
   - [Finding contributions to work on](#finding-contributions-to-work-on)
   - [Related Repositories](#related-repositories)
+  - [Unit Tests](#unit-tests)
   - [Integration Tests](#integration-tests)
   - [Provision Resources For Integration Tests](#provision-resources-for-integration-tests)
   - [Code of Conduct](#code-of-conduct)
@@ -69,6 +71,10 @@ $ melos bootstrap
 > Note: If you don't include `melos` on your path, you may execute `flutter pub global run melos bootstrap` instead of the last command above.
 
 > Note: Make sure to always [sync your fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork) with main branch of amplify-flutter
+
+#### Amplify Flutter Repo Tool (aft)
+
+Some workflows are being migrated to a tool we call `aft`. This is developed locally in the repo and can be installed using `dart pub global activate -spath packages/aft`. For a list of supported commands, run `aft --help`.
 
 #### Packages inside Amplify Flutter
 
