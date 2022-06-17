@@ -91,21 +91,27 @@ Future<void> main() async {
     }
     stdout.writeln();
 
-    final devices = await fetchDevices();
     stdout
       ..writeln('Devices')
       ..writeln('-------');
-    if (devices.isEmpty) {
-      stdout.writeln('No devices');
-    } else {
-      for (final device in devices) {
-        stdout.writeln(
-          '${device.name ?? device.id}: '
-          '${device.asCognitoDevice.attributes}',
-        );
+    try {
+      final devices = await fetchDevices();
+      if (devices.isEmpty) {
+        stdout.writeln('No devices');
+      } else {
+        for (final device in devices) {
+          stdout.writeln(
+            '${device.name ?? device.id}: '
+            '${device.asCognitoDevice.attributes}',
+          );
+        }
       }
+      stdout.writeln();
+    } on InvalidUserPoolConfigurationException {
+      stdout.writeln('Device tracking is not enabled.');
+    } on Object {
+      rethrow;
     }
-    stdout.writeln();
   } on Object catch (e, st) {
     exitError(e, st);
   }
