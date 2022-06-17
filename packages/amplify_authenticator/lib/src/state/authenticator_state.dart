@@ -21,6 +21,12 @@ import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:flutter/material.dart';
 
+/// {@macro amplify_authenticator.authenticator_state.username_selection}
+enum UsernameSelection {
+  email,
+  phoneNumber,
+}
+
 @visibleForTesting
 typedef BlocEventPredicate = bool Function(AuthState state);
 
@@ -97,6 +103,21 @@ class AuthenticatorState extends ChangeNotifier {
   }
 
   String _username = '';
+
+  /// {@template amplify_authenticator.authenticator_state.username_selection}
+  /// The username type to use during sign up and sign in.
+  ///
+  /// For auth configurations that allow sign up via username or email,
+  /// this will determine which option is currently selected.
+  /// {@endtemplate}
+  UsernameSelection get usernameSelection => _usernameSelection;
+
+  set usernameSelection(UsernameSelection value) {
+    _usernameSelection = value;
+    notifyListeners();
+  }
+
+  UsernameSelection _usernameSelection = UsernameSelection.email;
 
   /// The value for the password form field
   ///

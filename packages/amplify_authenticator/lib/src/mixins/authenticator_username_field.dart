@@ -14,11 +14,10 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -129,19 +128,29 @@ mixin AuthenticatorUsernameField<FieldType,
               return ToggleButtons(
                 borderWidth: buttonBorderWidth,
                 constraints: buttonConstraints,
-                isSelected: [useEmail.value, !useEmail.value],
+                isSelected: [
+                  state.usernameSelection == UsernameSelection.email,
+                  state.usernameSelection == UsernameSelection.phoneNumber,
+                ],
                 onPressed: (int index) {
-                  bool useEmail = index == 0;
-                  setState(() {
-                    this.useEmail.value = useEmail;
-                  });
+                  final newUsernameSelection = index == 0
+                      ? UsernameSelection.email
+                      : UsernameSelection.phoneNumber;
+                  final oldUsernameSelection = state.usernameSelection;
+                  if (oldUsernameSelection == newUsernameSelection) {
+                    return;
+                  }
+                  state.usernameSelection = newUsernameSelection;
                   // Reset current username value to align with the current switch state.
-                  String newUsername = useEmail
+                  String newUsername = newUsernameSelection ==
+                          UsernameSelection.email
                       ? state.getAttribute(CognitoUserAttributeKey.email) ?? ''
                       : state.getAttribute(
                               CognitoUserAttributeKey.phoneNumber) ??
                           '';
                   state.username = newUsername;
+                  // Clear attributes on switch
+                  state.authAttributes.clear();
                 },
                 children: [
                   Text(emailTitle),
@@ -219,7 +228,7 @@ mixin AuthenticatorUsernameField<FieldType,
         validator: _validator,
         enabled: enabled,
         errorMaxLines: errorMaxLines,
-        initialValue: state.getAttribute(CognitoUserAttributeKey.phoneNumber),
+        initialValue: state.username,
       );
     }
     return TextFormField(
@@ -253,9 +262,6 @@ mixin UsernameAttributes<T extends AuthenticatorForm>
     return <CognitoUserAttributeKey>{...?authConfig?.usernameAttributes};
   }();
 
-  /// Toggle value for the email or phone number case.
-  final ValueNotifier<bool> useEmail = ValueNotifier(true);
-
   UsernameConfigType get usernameType {
     if (usernameAttributes.isEmpty) {
       return UsernameConfigType.username;
@@ -283,7 +289,7 @@ mixin UsernameAttributes<T extends AuthenticatorForm>
       case UsernameConfigType.phoneNumber:
         return UsernameType.phoneNumber;
       case UsernameConfigType.emailOrPhoneNumber:
-        if (useEmail.value) {
+        if (state.usernameSelection == UsernameSelection.email) {
           return UsernameType.email;
         }
         return UsernameType.phoneNumber;
