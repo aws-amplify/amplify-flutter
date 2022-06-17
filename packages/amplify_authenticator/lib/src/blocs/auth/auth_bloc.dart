@@ -141,20 +141,15 @@ class StateMachineBloc {
       }
     } on SessionExpiredException {
       /// In this case, we want to give the end user an exception message and go to sign in.
-      _exceptionController.add(const AuthenticatorException(
+      _exceptionController.add(AuthenticatorException(
           'Your session has expired. Please sign in.',
           showBanner: true));
       yield* _changeScreen(initialStep);
 
       /// On [AmplifyException] and [Exception], update exception controller, do not show banner
       /// and go to sign in step.
-    } on AmplifyException catch (e) {
-      _exceptionController
-          .add(AuthenticatorException(e.message, showBanner: false));
-      yield* _changeScreen(initialStep);
     } on Exception catch (e) {
-      _exceptionController
-          .add(AuthenticatorException(e.toString(), showBanner: false));
+      _exceptionController.add(AuthenticatorException(e, showBanner: false));
       yield* _changeScreen(initialStep);
     }
   }
@@ -194,7 +189,7 @@ class StateMachineBloc {
               await _authService.rememberDevice();
             } on Exception catch (e) {
               _exceptionController.add(
-                AuthenticatorException(e.toString(), showBanner: false),
+                AuthenticatorException(e, showBanner: false),
               );
             }
           }
@@ -208,15 +203,13 @@ class StateMachineBloc {
       /// returns a generic NotAuthorizedException.
       ///
       /// We display a more helpful message instead, and route the user back to signin.
-      _exceptionController.add(const AuthenticatorException(
+      _exceptionController.add(AuthenticatorException(
         'The value provided was incorrect. You cannot be signed in. Please try again.',
         showBanner: true,
       ));
       yield* _changeScreen(initialStep);
-    } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      _exceptionController.add(AuthenticatorException(e.toString()));
+      _exceptionController.add(AuthenticatorException(e));
     }
   }
 
@@ -234,10 +227,8 @@ class StateMachineBloc {
         password: data.newPassword,
       );
       yield* _signIn(authSignInData);
-    } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      _exceptionController.add(AuthenticatorException(e.toString()));
+      _exceptionController.add(AuthenticatorException(e));
     }
   }
 
@@ -246,10 +237,8 @@ class StateMachineBloc {
       var result = await _authService.resetPassword(data.username);
       _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
       yield UnauthenticatedState.confirmResetPassword;
-    } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      _exceptionController.add(AuthenticatorException(e.toString()));
+      _exceptionController.add(AuthenticatorException(e));
     }
   }
 
@@ -324,13 +313,11 @@ class StateMachineBloc {
       } else {
         // TODO: Is this possible?
       }
-    } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(
-        e.message,
-        showBanner: !e.message.contains('cancelled'),
-      ));
     } on Exception catch (e) {
-      _exceptionController.add(AuthenticatorException(e.toString()));
+      _exceptionController.add(AuthenticatorException(
+        e,
+        showBanner: !e.toString().contains('cancelled'),
+      ));
     }
     // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
@@ -350,9 +337,7 @@ class StateMachineBloc {
         yield const AuthenticatedState();
       }
     } on Exception catch (e) {
-      _exceptionController.add(
-        AuthenticatorException(e.toString(), showBanner: false),
-      );
+      _exceptionController.add(AuthenticatorException(e, showBanner: false));
       yield const AuthenticatedState();
     }
   }
@@ -379,10 +364,8 @@ class StateMachineBloc {
           yield* _signIn(authSignInData);
           break;
       }
-    } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      _exceptionController.add(AuthenticatorException(e.toString()));
+      _exceptionController.add(AuthenticatorException(e));
     }
     // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
@@ -397,10 +380,8 @@ class StateMachineBloc {
       );
 
       yield* _signIn(authSignInData);
-    } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      _exceptionController.add(AuthenticatorException(e.toString()));
+      _exceptionController.add(AuthenticatorException(e));
     }
     // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
@@ -410,10 +391,8 @@ class StateMachineBloc {
     try {
       await _authService.signOut();
       yield* _changeScreen(AuthenticatorStep.signIn);
-    } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      _exceptionController.add(AuthenticatorException(e.toString()));
+      _exceptionController.add(AuthenticatorException(e));
     }
     // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
@@ -428,11 +407,7 @@ class StateMachineBloc {
       _notifyCodeSent(result.codeDeliveryDetails.destination);
       yield AttributeVerificationSent(data.userAttributeKey);
     } on Exception catch (e) {
-      if (e is AmplifyException) {
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
+      _exceptionController.add(AuthenticatorException(e));
     }
     // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
@@ -446,11 +421,7 @@ class StateMachineBloc {
       );
       yield const AuthenticatedState();
     } on Exception catch (e) {
-      if (e is AmplifyException) {
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
+      _exceptionController.add(AuthenticatorException(e));
     }
     // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
@@ -468,10 +439,8 @@ class StateMachineBloc {
           await _authService.resendSignUpCode(username);
       _notifyCodeSent(result.codeDeliveryDetails.destination);
       yield currentState;
-    } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      _exceptionController.add(AuthenticatorException(e.toString()));
+      _exceptionController.add(AuthenticatorException(e));
     }
     // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();

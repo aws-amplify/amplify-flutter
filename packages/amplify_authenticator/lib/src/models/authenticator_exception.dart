@@ -14,7 +14,9 @@
  */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
+import 'package:smithy/smithy.dart';
 
 /// {@template amplify_authenticator.authenticator_exception}
 /// An exception originating within the Authenticator as part of the sign up/
@@ -22,10 +24,39 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class AuthenticatorException implements Exception {
   /// {@macro amplify_authenticator.authenticator_exception}
-  const AuthenticatorException(
+  factory AuthenticatorException(
+    Object exception, {
+    bool showBanner = true,
+  }) {
+    String message;
+    if (exception is String) {
+      message = exception;
+    } else if (exception is AmplifyException) {
+      message = exception.message;
+    } else if (exception is SmithyException) {
+      message = exception.message ?? _unknownMessage;
+    } else {
+      try {
+        message = (exception as dynamic).message as String;
+      } on Object {
+        message = _unknownMessage;
+      }
+    }
+    return AuthenticatorException._(
+      message,
+      showBanner: showBanner,
+      underlyingException: exception,
+    );
+  }
+
+  /// {@macro amplify_authenticator.authenticator_exception}
+  const AuthenticatorException._(
     this.message, {
     this.showBanner = true,
-  });
+    Object? underlyingException,
+  }) : underlyingException = underlyingException ?? message;
+
+  static const _unknownMessage = 'An unknown error occurred';
 
   /// A message passed from the server, or generated locally, which can be
   /// presented to users.
@@ -34,12 +65,18 @@ class AuthenticatorException implements Exception {
   /// Whether to show a banner for this exception.
   final bool showBanner;
 
+  /// The underlying exception which may not be sanitized for presentation to
+  /// users.
+  final Object underlyingException;
+
   const AuthenticatorException.customAuth()
-      : message = 'Custom auth flows are not supported yet in Authenticator',
-        showBanner = true;
+      : this._(
+          'Custom auth flows are not supported yet in Authenticator',
+          showBanner: true,
+        );
 
   @override
-  String toString() => message;
+  String toString() => underlyingException.toString();
 }
 
 /// {@template amplify_authenticator.exception_handler}

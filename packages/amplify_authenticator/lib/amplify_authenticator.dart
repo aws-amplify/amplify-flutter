@@ -490,6 +490,7 @@ class _AuthenticatorState extends State<Authenticator> {
       if (onException != null) {
         onException(exception);
       } else {
+        // TODO(dnys1): Log
         safePrint('[ERROR]: $exception');
       }
       if (mounted && exception.showBanner) {
@@ -504,6 +505,7 @@ class _AuthenticatorState extends State<Authenticator> {
   void _subscribeToInfoMessages() {
     final resolver = widget.stringResolver.messages;
     _infoSub = _stateMachineBloc.infoMessages.listen((key) {
+      // TODO(dnys1): Log
       final context = scaffoldMessengerKey.currentContext;
       if (mounted && context != null) {
         _showExceptionBanner(
