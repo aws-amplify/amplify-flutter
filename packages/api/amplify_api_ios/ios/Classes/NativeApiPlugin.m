@@ -86,13 +86,13 @@ void NativeApiBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<N
         binaryMessenger:binaryMessenger
         codec:NativeApiBridgeGetCodec()        ];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(addPluginAuthProvidersList:completion:)], @"NativeApiBridge api (%@) doesn't respond to @selector(addPluginAuthProvidersList:completion:)", api);
+      NSCAssert([api respondsToSelector:@selector(addPluginAuthProvidersList:error:)], @"NativeApiBridge api (%@) doesn't respond to @selector(addPluginAuthProvidersList:error:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
         NSArray *args = message;
         NSArray<NSString *> *arg_authProvidersList = GetNullableObjectAtIndex(args, 0);
-        [api addPluginAuthProvidersList:arg_authProvidersList completion:^(FlutterError *_Nullable error) {
-          callback(wrapResult(nil, error));
-        }];
+        FlutterError *error;
+        [api addPluginAuthProvidersList:arg_authProvidersList error:&error];
+        callback(wrapResult(nil, error));
       }];
     }
     else {

@@ -72,7 +72,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
     
     public func addPluginAuthProvidersList(
         _ authProvidersList: [String],
-        completion: @escaping (FlutterError?) -> Void
+        _ errorPtr: AutoreleasingUnsafeMutablePointer<FlutterError?>
         ) {
         do {
             let authProviders = authProvidersList.compactMap {
@@ -82,9 +82,8 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
                 plugin: AWSAPIPlugin(
                     sessionFactory: FlutterURLSessionBehaviorFactory(),
                     apiAuthProviderFactory: FlutterAuthProviders(authProviders)))
-            completion(nil)
         } catch let apiError as APIError {
-            completion(FlutterError(
+            errorPtr.pointee = FlutterError(
                 code: "APIException",
                 message: apiError.localizedDescription,
                 details: [
@@ -92,13 +91,13 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
                     "recoverySuggestion": apiError.recoverySuggestion,
                     "underlyingError": apiError.underlyingError?.localizedDescription ?? ""
                 ]
-            ))
+            )
         } catch let configError as ConfigurationError {
             var errorCode = "APIException"
             if case .amplifyAlreadyConfigured = configError {
                 errorCode = "AmplifyAlreadyConfiguredException"
             }
-            completion(FlutterError(
+            errorPtr.pointee = FlutterError(
                 code: errorCode,
                 message: configError.localizedDescription,
                 details: [
@@ -106,13 +105,13 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
                     "recoverySuggestion": configError.recoverySuggestion,
                     "underlyingError": configError.underlyingError?.localizedDescription ?? ""
                 ]
-            ))
+            )
         } catch {
-            completion(FlutterError(
+            errorPtr.pointee = FlutterError(
                 code: "UNKNOWN",
                 message: error.localizedDescription,
                 details: nil
-            ))
+            )
         }
     }
 

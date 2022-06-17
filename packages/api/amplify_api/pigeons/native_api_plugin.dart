@@ -39,6 +39,5 @@ import 'package:pigeon/pigeon.dart';
 
 @HostApi()
 abstract class NativeApiBridge {
-  @async
   void addPlugin(List<String> authProvidersList);
 }

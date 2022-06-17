@@ -35,11 +35,6 @@ import java.util.HashMap;
 /** Generated class from Pigeon. */
 @SuppressWarnings({"unused", "unchecked", "CodeBlock2Expr", "RedundantSuppression"})
 public class NativeApiPluginBindings {
-
-  public interface Result<T> {
-    void success(T result);
-    void error(Throwable error);
-  }
   private static class NativeApiBridgeCodec extends StandardMessageCodec {
     public static final NativeApiBridgeCodec INSTANCE = new NativeApiBridgeCodec();
     private NativeApiBridgeCodec() {}
@@ -47,7 +42,7 @@ public class NativeApiPluginBindings {
 
   /** Generated interface from Pigeon that represents a handler of messages from Flutter.*/
   public interface NativeApiBridge {
-    void addPlugin(@NonNull List<String> authProvidersList, Result<Void> result);
+    void addPlugin(@NonNull List<String> authProvidersList);
 
     /** The codec used by NativeApiBridge. */
     static MessageCodec<Object> getCodec() {
@@ -68,23 +63,13 @@ public class NativeApiPluginBindings {
               if (authProvidersListArg == null) {
                 throw new NullPointerException("authProvidersListArg unexpectedly null.");
               }
-              Result<Void> resultCallback = new Result<Void>() {
-                public void success(Void result) {
-                  wrapped.put("result", null);
-                  reply.reply(wrapped);
-                }
-                public void error(Throwable error) {
-                  wrapped.put("error", wrapError(error));
-                  reply.reply(wrapped);
-                }
-              };
-
-              api.addPlugin(authProvidersListArg, resultCallback);
+              api.addPlugin(authProvidersListArg);
+              wrapped.put("result", null);
             }
             catch (Error | RuntimeException exception) {
               wrapped.put("error", wrapError(exception));
-              reply.reply(wrapped);
             }
+            reply.reply(wrapped);
           });
         } else {
           channel.setMessageHandler(null);

@@ -99,8 +99,6 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler, NativeApiPluginBindings.Nat
         if (methodName == "cancel") {
             onCancel(result, (call.arguments as String))
             return
-        } else if (methodName == "addPlugin") {
-            return
         }
 
         try {
@@ -161,10 +159,7 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler, NativeApiPluginBindings.Nat
         )
     }
 
-    override fun addPlugin(
-        authProvidersList: List<String>,
-        result: NativeApiPluginBindings.Result<Void>
-    ) {
+    override fun addPlugin(authProvidersList: MutableList<String>) {
         try {
             val authProviders = authProvidersList.map { AuthorizationType.valueOf(it) }
             if (flutterAuthProviders == null) {
@@ -178,9 +173,8 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler, NativeApiPluginBindings.Nat
                     .build()
             )
             logger.info("Added API plugin")
-            result.success(null)
         } catch (e: Exception) {
-            result.error(e)
+            logger.error(e.message)
         }
     }
 }

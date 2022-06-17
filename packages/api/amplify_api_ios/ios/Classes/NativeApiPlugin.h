@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 NSObject<FlutterMessageCodec> *NativeApiBridgeGetCodec(void);
 
 @protocol NativeApiBridge
-- (void)addPluginAuthProvidersList:(NSArray<NSString *> *)authProvidersList completion:(void(^)(FlutterError *_Nullable))completion;
+- (void)addPluginAuthProvidersList:(NSArray<NSString *> *)authProvidersList error:(FlutterError *_Nullable *_Nonnull)error;
 @end
 
 extern void NativeApiBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<NativeApiBridge> *_Nullable api);

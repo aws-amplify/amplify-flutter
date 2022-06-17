@@ -14,6 +14,8 @@
 
 library amplify_api;
 
+import 'dart:io';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/native_api_plugin.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -51,6 +53,10 @@ class AmplifyAPIDart extends AmplifyAPI {
 
   @override
   Future<void> addPlugin() async {
+    if (zIsWeb || !(Platform.isAndroid || Platform.isIOS)) {
+      return;
+    }
+
     final nativeBridge = NativeApiBridge();
     try {
       final authProvidersList =
