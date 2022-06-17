@@ -59,12 +59,13 @@ class ServiceTrait with AWSSerializable implements Trait<ServiceTrait> {
   ResolvedServiceTrait resolve(ShapeId target) {
     final arnNamespace = this.arnNamespace ?? target.shape.toLowerCase();
     return ResolvedServiceTrait(
-        sdkId: sdkId,
-        cloudFormationName: cloudFormationName ?? target.shape,
-        arnNamespace: arnNamespace,
-        cloudTrailEventSource:
-            cloudTrailEventSource ?? '$arnNamespace.amazonaws.com',
-        endpointPrefix: arnNamespace);
+      sdkId: sdkId,
+      cloudFormationName: cloudFormationName ?? target.shape,
+      arnNamespace: arnNamespace,
+      cloudTrailEventSource:
+          cloudTrailEventSource ?? '$arnNamespace.amazonaws.com',
+      endpointPrefix: endpointPrefix ?? arnNamespace,
+    );
   }
 
   @override
