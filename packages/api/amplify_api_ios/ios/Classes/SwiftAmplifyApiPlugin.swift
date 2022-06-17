@@ -70,10 +70,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
         }
     }
     
-    public func addPluginAuthProvidersList(
-        _ authProvidersList: [String],
-        _ errorPtr: AutoreleasingUnsafeMutablePointer<FlutterError?>
-        ) {
+    public func addPluginAuthProvidersList(_ authProvidersList: [String], error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
         do {
             let authProviders = authProvidersList.compactMap {
                 AWSAuthorizationType(rawValue: $0)
@@ -83,7 +80,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
                     sessionFactory: FlutterURLSessionBehaviorFactory(),
                     apiAuthProviderFactory: FlutterAuthProviders(authProviders)))
         } catch let apiError as APIError {
-            errorPtr.pointee = FlutterError(
+            error.pointee = FlutterError(
                 code: "APIException",
                 message: apiError.localizedDescription,
                 details: [
@@ -97,7 +94,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
             if case .amplifyAlreadyConfigured = configError {
                 errorCode = "AmplifyAlreadyConfiguredException"
             }
-            errorPtr.pointee = FlutterError(
+            error.pointee = FlutterError(
                 code: errorCode,
                 message: configError.localizedDescription,
                 details: [
@@ -106,10 +103,10 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
                     "underlyingError": configError.underlyingError?.localizedDescription ?? ""
                 ]
             )
-        } catch {
-            errorPtr.pointee = FlutterError(
+        } catch let e {
+            error.pointee = FlutterError(
                 code: "UNKNOWN",
-                message: error.localizedDescription,
+                message: e.localizedDescription,
                 details: nil
             )
         }
