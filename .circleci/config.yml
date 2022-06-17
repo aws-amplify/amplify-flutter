@@ -102,7 +102,6 @@ orbs:
               command: cp canaries/main.dart amplified_todo/lib && cp -r canaries/integration_test amplified_todo/integration_test && cp -r canaries/models amplified_todo/lib/models
               working_directory: ~/flutter-canaries/
 
-
     jobs:
       flutter-android:
         parameters:
@@ -154,6 +153,9 @@ orbs:
         steps:
           - checkout:
               path: ~/flutter-canaries
+          - run:
+              name: Install gnu-sed
+              command: brew install gnu-sed
           - macos/preboot-simulator:
               device: iPhone 13
               version: "15.2"
@@ -163,6 +165,9 @@ orbs:
               name: Setting up project
               command: cd ../ && flutter create amplified_todo
           - setup-amplify-flutter-project
+          - run:
+              name: Removing IPHONEOS_DEPLOYMENT_TARGET from build_settings
+              command: cd ios && gsed -i "/flutter_additional_ios_build_settings(target)/ a \    target.build_configurations.each do |config|\n      config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'\n    end" Podfile
           - run:
               name: Update ios version
               command: sed -i -e "s/# platform .*/platform :ios, '13.0'/" ./ios/Podfile && cat ./ios/Podfile
@@ -440,10 +445,10 @@ workflows:
   # Scheduled smoke test workflow
   # Jobs are pulled from the getting-started-smoke-test inline orb defined above
   canaries:
-#    when:
-#      and:
-#        - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-#        - equal: [ "Canaries", << pipeline.schedule.name >> ]
+    when:
+      and:
+        - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - equal: [ "Canaries", << pipeline.schedule.name >> ]
     jobs:
       - getting-started-smoke-test/flutter-android:
           matrix:
