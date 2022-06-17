@@ -18,6 +18,7 @@ import 'package:aft/aft.dart';
 import 'package:args/command_runner.dart';
 import 'package:async/async.dart';
 import 'package:checked_yaml/checked_yaml.dart';
+import 'package:cli_util/cli_logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:stream_transform/stream_transform.dart';
 
@@ -26,6 +27,12 @@ const _ignorePackages = [
 ];
 
 abstract class AmplifyCommand extends Command<void> {
+  /// Whether verbose logging is enabled.
+  late final verbose = globalResults!['verbose'] as bool;
+
+  /// The configured logger for the command.
+  late final Logger logger = verbose ? Logger.verbose() : Logger.standard();
+
   final _rootDirMemo = AsyncMemoizer<Directory>();
 
   /// The root directory of the Amplify Flutter repo.
