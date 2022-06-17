@@ -54,10 +54,10 @@ class _DepsCheckCommand extends AmplifyCommand {
     }
     if (mismatchedDependencies.isNotEmpty) {
       for (final mismatched in mismatchedDependencies) {
-        stderr.writeln(mismatched);
+        logger.stderr(mismatched);
       }
       exit(1);
     }
-    stdout.writeln('All dependencies matched!');
+    logger.stdout('All dependencies matched!');
   }
 }
