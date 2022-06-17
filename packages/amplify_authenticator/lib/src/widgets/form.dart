@@ -16,6 +16,7 @@
 library authenticator.form;
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
 import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
@@ -313,7 +314,7 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
       return const [];
     }
 
-    return runtimeAttributes
+    final runtimeFields = runtimeAttributes
         .map((attr) {
           if (attr == CognitoUserAttributeKey.address) {
             return SignUpFormField.address(required: true);
@@ -357,6 +358,24 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
         })
         .whereType<SignUpFormField>()
         .toList();
+
+    final hasSmsMfa = authConfig?.mfaTypes?.contains(MfaType.sms) ?? false;
+    if (hasSmsMfa) {
+      final mfaConfiguration =
+          authConfig?.mfaConfiguration ?? MfaConfiguration.off;
+      final hasSmsField = runtimeFields.any(
+        (f) => f.field == SignUpField.phoneNumber,
+      );
+      if (!hasSmsField && mfaConfiguration != MfaConfiguration.off) {
+        runtimeFields.add(
+          SignUpFormField.phoneNumber(
+            required: mfaConfiguration == MfaConfiguration.on,
+          ),
+        );
+      }
+    }
+
+    return runtimeFields;
   }
 }
 
