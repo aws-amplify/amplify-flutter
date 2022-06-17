@@ -12,7 +12,7 @@ class WithContentLength extends HttpRequestInterceptor {
   Future<AWSStreamedHttpRequest> intercept(
     AWSStreamedHttpRequest request,
   ) async {
-    if (!request.headers.containsKey(_key)) {
+    if (!zIsWeb && !request.headers.containsKey(_key)) {
       request.headers[_key] = (await request.contentLength).toString();
     }
     return request;

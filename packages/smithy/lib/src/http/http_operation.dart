@@ -144,7 +144,9 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       }
       host = '$prefix$host';
     }
-    headers.putIfAbsent('Host', () => host);
+    if (!zIsWeb) {
+      headers.putIfAbsent('Host', () => host);
+    }
     var basePath = uri.path;
     if (basePath.startsWith('/')) {
       basePath = basePath.substring(1);
