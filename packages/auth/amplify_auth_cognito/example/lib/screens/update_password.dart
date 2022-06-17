@@ -49,8 +49,8 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
   Future<void> _changePassword() async {
     try {
       await Amplify.Auth.updatePassword(
-        oldPassword: _oldPassword.text,
-        newPassword: _newPassword.text,
+        oldPassword: _oldPassword.text.trim(),
+        newPassword: _newPassword.text.trim(),
       );
       if (!mounted) return;
       context.go('/');

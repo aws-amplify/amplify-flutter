@@ -32,7 +32,7 @@ class Item {
 }
 
 class ViewSessionScreen extends StatefulWidget {
-  const ViewSessionScreen({Key? key}) : super(key: key);
+  const ViewSessionScreen({super.key});
 
   @override
   State<ViewSessionScreen> createState() => _ViewSessionScreenState();
