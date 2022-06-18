@@ -25,6 +25,7 @@ dependencies:
   meta: ^1.7.0
   oauth2: ^2.0.0
   path: ^1.8.0
+  qr: 3.0.1
   smithy:
     hosted: https://pub.dillonnys.com
     version: ^0.5.0

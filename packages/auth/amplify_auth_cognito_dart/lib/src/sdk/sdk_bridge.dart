@@ -35,13 +35,15 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
         return CognitoSignInStep.confirmSignInWithNewPassword;
       case ChallengeNameType.smsMfa:
         return CognitoSignInStep.confirmSignInWithSmsMfaCode;
+      case ChallengeNameType.mfaSetup:
+        return CognitoSignInStep.mfaSetup;
+      case ChallengeNameType.softwareTokenMfa:
+        return CognitoSignInStep.confirmSignInWithTotpMfaCode;
       case ChallengeNameType.adminNoSrpAuth:
       case ChallengeNameType.selectMfaType:
       case ChallengeNameType.passwordVerifier:
       case ChallengeNameType.devicePasswordVerifier:
       case ChallengeNameType.deviceSrpAuth:
-      case ChallengeNameType.mfaSetup:
-      case ChallengeNameType.softwareTokenMfa:
         break;
     }
     throw InvalidStateException('Unrecognized challenge type: $this');

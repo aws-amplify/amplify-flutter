@@ -78,6 +78,7 @@ export 'sign_in/sign_in_request.dart';
 export 'sign_in/sign_in_result.dart';
 export 'sign_in/sign_in_with_web_ui_options.dart';
 export 'sign_in/sign_in_with_web_ui_request.dart';
+export 'sign_in/totp_secret_code.dart';
 
 /// Sign Out
 export 'sign_out/sign_out_options.dart';
