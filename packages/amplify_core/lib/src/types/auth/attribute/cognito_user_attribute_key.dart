@@ -159,6 +159,11 @@ class CognitoUserAttributeKey extends UserAttributeKey
   /// Read-only: `false`
   static const profile = CognitoUserAttributeKey._('profile');
 
+  /// The user ID.
+  ///
+  /// Read-only: `true`
+  static const sub = CognitoUserAttributeKey._('sub', readOnly: true);
+
   /// The time the user's information was last updated.
   ///
   /// Read-only: `false`
@@ -192,6 +197,7 @@ class CognitoUserAttributeKey extends UserAttributeKey
     picture,
     preferredUsername,
     profile,
+    sub,
     updatedAt,
     website,
     zoneinfo
