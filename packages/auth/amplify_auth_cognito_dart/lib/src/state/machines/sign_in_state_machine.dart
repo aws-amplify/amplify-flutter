@@ -414,7 +414,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         // `userAttributes.attributename` parameter. This parameter can also set
         // values for writable attributes that aren't required by your user pool.
         b.challengeResponses[
-                '${CognitoConstants.challengeParamUserAttributesPrefix}$missingAttributeKey'] =
+                '${CognitoConstants.challengeParamUserAttributesPrefix}${missingAttributeKey.key}'] =
             missingAttributeValue;
       }
       _attributesNeedingUpdate = newAttributes;
