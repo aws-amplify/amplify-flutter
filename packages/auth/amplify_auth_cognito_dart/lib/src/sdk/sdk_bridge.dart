@@ -90,6 +90,8 @@ extension AuthenticationFlowTypeBridge on AuthenticationFlowType {
         return AuthFlowType.userSrpAuth;
       case AuthenticationFlowType.customAuth:
         return AuthFlowType.customAuth;
+      case AuthenticationFlowType.userPasswordAuth:
+        return AuthFlowType.userPasswordAuth;
     }
   }
 }
