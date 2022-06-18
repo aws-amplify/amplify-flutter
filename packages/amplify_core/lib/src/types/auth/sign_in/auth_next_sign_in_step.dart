@@ -23,6 +23,8 @@ class AuthNextSignInStep extends AuthNextStep
     required this.signInStep,
     this.challengeParameters,
     this.missingAttributes = const [],
+    this.allowedMfaTypes,
+    this.totpSecretCode,
   });
 
   final String signInStep;
@@ -35,11 +37,25 @@ class AuthNextSignInStep extends AuthNextStep
   /// `Amplify.Auth.confirmSignIn` call.
   final List<UserAttributeKey> missingAttributes;
 
+  /// The list of allowed MFA types.
+  ///
+  /// This is non-null when the sign-in step requires an MFA method
+  /// to be set up.
+  final List<MfaType>? allowedMfaTypes;
+
+  /// {@macro amplify_core.auth.totp_secret_code}
+  ///
+  /// This is non-null when the sign-in step requires association of a TOTP
+  /// authenticator.
+  final TotpSecretCode? totpSecretCode;
+
   @override
   List<Object?> get props => [
         signInStep,
         challengeParameters,
         missingAttributes,
+        allowedMfaTypes,
+        totpSecretCode,
       ];
 
   @override

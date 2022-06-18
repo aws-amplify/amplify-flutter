@@ -65,6 +65,16 @@ abstract class CognitoConstants {
   /// The `CODE_DELIVERY_DELIVERY_MEDIUM` parameter.
   static const challengeParamDeliveryMedium = 'CODE_DELIVERY_DELIVERY_MEDIUM';
 
+  /// The `MFAS_CAN_SETUP` parameter.
+  ///
+  /// Lists the MFA types which are allowed to be set up.
+  static const challengeParamMfasCanSetup = 'MFAS_CAN_SETUP';
+
+  /// The `Session` parameter.
+  ///
+  /// Used in the `SOFTWARE_TOKEN_MFA` flow.
+  static const challengeParamSession = 'Session';
+
   /// The `SMS_MFA_CODE` parameter.
   static const challengeParamSmsMfaCode = 'SMS_MFA_CODE';
 

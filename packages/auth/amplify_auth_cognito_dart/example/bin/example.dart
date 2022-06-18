@@ -78,7 +78,9 @@ Future<void> main() async {
       ..writeln('Session Details')
       ..writeln('---------------')
       ..writeln('Access Token: ${session.userPoolTokens?.accessToken.raw}')
+      ..writeln()
       ..writeln('Refresh Token: ${session.userPoolTokens?.refreshToken}')
+      ..writeln()
       ..writeln('ID Token: ${session.userPoolTokens?.idToken.raw}')
       ..writeln();
 
@@ -128,11 +130,11 @@ Future<SignInResult> _processSignInResult(
   required String username,
   required String password,
 }) async {
-  final nextStep = result.nextStep?.signInStep;
+  final nextStep = result.nextStep;
+  final signInStep = nextStep?.signInStep;
   final missingAttributes =
-      result.nextStep?.missingAttributes.cast<CognitoUserAttributeKey>() ??
-          const [];
-  switch (nextStep) {
+      nextStep?.missingAttributes.cast<CognitoUserAttributeKey>() ?? const [];
+  switch (signInStep) {
     case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
     case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
       final confirmationCode = prompt('Enter your confirmation code: ');
@@ -164,8 +166,32 @@ Future<SignInResult> _processSignInResult(
       );
       stdout.writeln(confirmResult);
       return signIn(username: username, password: password);
+    case 'MFA_SETUP':
+      final allowedTypes = nextStep!.allowedMfaTypes ?? const [];
+      for (final type in allowedTypes) {
+        switch (type) {
+          case MfaType.sms:
+            stderr.writeln('Cannot handle SMS set up');
+            continue;
+          case MfaType.totp:
+            return confirmSignIn(MfaType.totp.name);
+        }
+      }
+      throw StateError('Cannot handle any MFA type: $allowedTypes');
+    case 'CONFIRM_SIGN_IN_WITH_TOTP_MFA_CODE':
+      final totpSecretCode = nextStep!.totpSecretCode;
+      var message = 'Enter an MFA code: ';
+      if (totpSecretCode != null) {
+        stdout
+          ..writeln('Scan the QR code with an authenticator app:')
+          ..writeln(totpSecretCode.qrImage.renderConsoleText())
+          ..writeln();
+        message = 'Enter an MFA code to confirm registration: ';
+      }
+      final code = prompt(message);
+      return confirmSignIn(code);
     default:
-      throw StateError('Unhandled case: $nextStep');
+      throw StateError('Unhandled case: $signInStep');
   }
 }
 

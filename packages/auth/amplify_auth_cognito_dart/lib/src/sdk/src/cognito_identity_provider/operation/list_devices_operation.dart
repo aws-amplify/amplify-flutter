@@ -76,7 +76,8 @@ class ListDevicesOperation extends _i1.HttpOperation<_i2.ListDevicesRequest,
           _i5.WithSigV4(
               region: _region,
               service: _i7.AWSService.cognitoIdentityProvider,
-              credentialsProvider: _credentialsProvider),
+              credentialsProvider: _credentialsProvider,
+              isOptional: true),
           const _i5.WithSdkInvocationId(),
           const _i5.WithSdkRequest()
         ],

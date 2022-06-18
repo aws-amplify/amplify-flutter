@@ -6,4 +6,5 @@
 # Application of these values can be verified/updated with the `aft` 
 # tool.
 dependencies:
+  qr: 3.0.1
   uuid: 3.0.6
