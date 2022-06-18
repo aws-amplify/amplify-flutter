@@ -16,8 +16,16 @@
 /// The current step in the Cognito sign in flow.
 /// {@endtemplate}
 enum CognitoSignInStep {
+  /// The sign-in is not complete and the user must register an MFA method
+  /// before proceeding.
+  mfaSetup('MFA_SETUP'),
+
   /// The sign-in is not complete and must be confirmed with an SMS code.
   confirmSignInWithSmsMfaCode('CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE'),
+
+  /// The sign-in is not complete and must be confirmed with a TOTP code from
+  /// a registered authenticator.
+  confirmSignInWithTotpMfaCode('CONFIRM_SIGN_IN_WITH_TOTP_MFA_CODE'),
 
   /// The sign-in is not complete and must be confirmed with the user's new
   /// password.

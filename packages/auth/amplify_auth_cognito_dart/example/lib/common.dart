@@ -19,6 +19,8 @@ import 'package:amplify_core/amplify_core.dart';
 
 import 'amplifyconfiguration.dart';
 
+export 'qr_code.dart';
+
 AmplifyConfig loadConfig() {
   return AmplifyConfig.fromJson(
     jsonDecode(amplifyconfig) as Map<String, Object?>,
@@ -86,11 +88,7 @@ Future<void> changePassword({
 }
 
 Future<CognitoAuthSession> fetchAuthSession() async {
-  final res = await Amplify.Auth.fetchAuthSession(
-    options: const CognitoSessionOptions(
-      getAWSCredentials: true,
-    ),
-  );
+  final res = await Amplify.Auth.fetchAuthSession();
   return res as CognitoAuthSession;
 }
 

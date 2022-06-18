@@ -446,6 +446,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
               ),
               challengeParameters: state.challengeParameters,
               missingAttributes: state.requiredAttributes,
+              allowedMfaTypes: state.allowedMfaTypes,
+              totpSecretCode: state.totpSecretCode,
             ),
           );
         case SignInStateType.success:
@@ -512,6 +514,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
               ),
               challengeParameters: state.challengeParameters,
               missingAttributes: state.requiredAttributes,
+              allowedMfaTypes: state.allowedMfaTypes,
+              totpSecretCode: state.totpSecretCode,
             ),
           );
         case SignInStateType.success:
