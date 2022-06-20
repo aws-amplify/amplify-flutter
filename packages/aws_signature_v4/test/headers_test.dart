@@ -60,6 +60,25 @@ void main() {
       );
     }, testOn: 'browser');
 
+    test('X-Amz-User-Agent header is included', () {
+      expect(
+        sentHeaders,
+        containsPair(AWSHeaders.amzUserAgent, contains('aws-sigv4-dart')),
+      );
+      expect(
+        sentHeaders,
+        isNot(contains(AWSHeaders.userAgent)),
+      );
+      expect(
+        signedHeaders,
+        contains(AWSHeaders.amzUserAgent),
+      );
+      expect(
+        signedHeaders,
+        isNot(contains(AWSHeaders.userAgent)),
+      );
+    }, testOn: 'browser');
+
     test('Host, Content-Length set by signer (vm)', () {
       expect(
         signedHeaders,
@@ -76,6 +95,26 @@ void main() {
       expect(
         sentHeaders,
         contains(AWSHeaders.contentLength),
+      );
+    }, testOn: 'vm');
+
+    test('User-Agent header is included', () {
+      expect(
+        sentHeaders,
+        isNot(contains(AWSHeaders.amzUserAgent)),
+      );
+      expect(
+        sentHeaders,
+        containsPair(AWSHeaders.userAgent, contains('aws-sigv4-dart')),
+      );
+      expect(
+        signedHeaders,
+        isNot(contains(AWSHeaders.amzUserAgent)),
+      );
+      expect(
+        signedHeaders,
+        isNot(contains(AWSHeaders.userAgent)),
+        reason: 'User-Agent header is never signed',
       );
     }, testOn: 'vm');
   });
