@@ -12,17 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
+@TestOn('vm')
 
-/// {@template amplify_secure_storage_dart.not_available_exception}
-/// Thrown when the underlying platform dependencies or storage mechanisms
-/// are not available.
-/// {@endtemplate}
-class NotAvailableException extends SecureStorageException {
-  /// {@macro amplify_secure_storage_dart.not_available_exception}
-  const NotAvailableException(
-    super.message, {
-    super.recoverySuggestion,
-    super.underlyingException,
+import 'package:amplify_secure_storage_dart/src/exception/not_available_exception.dart';
+import 'package:amplify_secure_storage_dart/src/ffi/utils/dynamic_library_utils.dart';
+import 'package:test/test.dart';
+
+void main() {
+  group('utils', () {
+    test(
+      'openDynamicLibrary throws NotAvailableException when lib does not exist',
+      () {
+        expect(
+          () => openDynamicLibrary('fakelib'),
+          throwsA(isA<NotAvailableException>()),
+        );
+      },
+    );
   });
 }
