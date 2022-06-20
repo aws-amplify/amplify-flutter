@@ -13,6 +13,7 @@ concurrency:
 jobs:
   android:
     runs-on: macos-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
       contents: read
@@ -53,11 +54,13 @@ jobs:
         uses: reactivecircus/android-emulator-runner@e790971012b979513b4e2fe70d4079bc0ca8a1ae # 2.24.0
         timeout-minutes: 25
         with:
+          # API levels 30+ too slow https://github.com/ReactiveCircus/android-emulator-runner/issues/222
           api-level: 29
           script: melos exec -c 1 --scope ${{ matrix.scope }} -- "deviceId=emulator-5554 retries=1 \$MELOS_ROOT_PATH/build-support/integ_test_android.sh"
 
   ios:
     runs-on: macos-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
       contents: read

@@ -13,7 +13,7 @@ runs:
     - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
       with:
         channel: 'stable'
-        architecture: x64 # needed for https://github.com/flutter/flutter/issues/74511
+        architecture: x64 # needed to prevent "Bad CPU type" error
 
     - name: Run Melos bootstrap
       run: |
