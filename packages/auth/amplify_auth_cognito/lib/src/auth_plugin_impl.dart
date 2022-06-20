@@ -78,10 +78,18 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
           await stateMachine.expect<NativeAuthBridge>().getValidationData();
       validationData = nativeValidationData.cast();
     }
+    var options =
+        request.options as CognitoSignUpOptions? ?? CognitoSignUpOptions();
+    options = options.copyWith(
+      validationData: {
+        ...?validationData,
+        ...?options.validationData,
+      },
+    );
     request = SignUpRequest(
       username: request.username,
       password: request.password,
-      options: CognitoSignUpOptions(validationData: validationData),
+      options: options,
     );
     return super.signUp(request: request);
   }
