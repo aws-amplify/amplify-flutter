@@ -25,7 +25,8 @@ T _identity<T extends Object>(String o) => o as T;
 class AWSConfigValue<T extends Object> {
   const AWSConfigValue._(
     this.key,
-    this._fromEnv,
+    // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
+    // this._fromEnv,
     this.defaultValue, {
     T Function(String)? parse,
   }) : _parse = parse ?? _identity;
@@ -34,7 +35,8 @@ class AWSConfigValue<T extends Object> {
   /// should make for a single SDK operation invocation before giving up.
   static const AWSConfigValue<int> maxAttempts = AWSConfigValue<int>._(
     'AWS_MAX_ATTEMPTS',
-    String.fromEnvironment('AWS_MAX_ATTEMPTS'),
+    // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
+    // String.fromEnvironment('AWS_MAX_ATTEMPTS'),
     3,
     parse: int.parse,
   );
@@ -45,7 +47,8 @@ class AWSConfigValue<T extends Object> {
   /// The default value of the configuration parameter.
   final T defaultValue;
 
-  final String? _fromEnv;
+  // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
+  // final String? _fromEnv;
   final T Function(String) _parse;
   String? get _fromPlatformEnv => lookupPlatformEnv(key);
 
@@ -61,10 +64,11 @@ class AWSConfigValue<T extends Object> {
     } else if (fromOverride is String) {
       return _parse(fromOverride);
     }
-    final fromEnv = _fromEnv;
-    if (fromEnv != null && fromEnv.isNotEmpty) {
-      return _parse(fromEnv);
-    }
+    // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
+    // final fromEnv = _fromEnv;
+    // if (fromEnv != null && fromEnv.isNotEmpty) {
+    //   return _parse(fromEnv);
+    // }
     final fromPlatformEnv = _fromPlatformEnv;
     if (fromPlatformEnv != null && fromPlatformEnv.isNotEmpty) {
       return _parse(fromPlatformEnv);

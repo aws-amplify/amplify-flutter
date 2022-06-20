@@ -2055,4 +2055,16 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    func test_decode_and_encode_of_device() throws {
+        let deviceJson = [
+            "id": "123"
+        ]
+        let data = try JSONSerialization.data(withJSONObject: deviceJson)
+        let device = try DeviceHandler.decoder.decode(AWSAuthDevice.self, from: data)
+        XCTAssertEqual(device.id, "123")
+        let encodedDeviceData = try DeviceHandler.encoder.encode(device)
+        let encodedDevice = try JSONSerialization.jsonObject(with: encodedDeviceData) as? [String: String?]
+        XCTAssertEqual(encodedDevice?["id"], "123")
+    }
+    
 }

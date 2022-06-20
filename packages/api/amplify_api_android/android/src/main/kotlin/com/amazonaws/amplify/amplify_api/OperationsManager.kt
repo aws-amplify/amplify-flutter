@@ -16,12 +16,17 @@
 package com.amazonaws.amplify.amplify_api
 
 import com.amplifyframework.core.async.Cancelable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.concurrent.ConcurrentHashMap
 
 class OperationsManager {
 
     companion object {
 
-        private var operationsMap: HashMap<String, Cancelable> = HashMap()
+        private val scope = CoroutineScope(Dispatchers.IO)
+        private val operationsMap: ConcurrentHashMap<String, Cancelable> = ConcurrentHashMap()
 
         fun containsOperation(cancelToken: String): Boolean {
             return operationsMap.containsKey(cancelToken)
@@ -31,15 +36,20 @@ class OperationsManager {
             operationsMap[cancelToken] = operation
         }
 
-        fun removeOperation(cancelToken: String) {
-            if (containsOperation(cancelToken)) {
+        fun removeOperation(cancelToken: String): Cancelable? {
+            return if (containsOperation(cancelToken)) {
                 operationsMap.remove(cancelToken)
-            }
+            } else null
         }
 
         fun cancelOperation(cancelToken: String) {
-            operationsMap[cancelToken]?.cancel()
-            removeOperation(cancelToken)
+            val operation = removeOperation(cancelToken)
+            // Perform actual cancellation on a background thread.
+            operation?.let {
+                scope.launch {
+                    it.cancel()
+                }
+            }
         }
     }
 }
