@@ -53,9 +53,8 @@ jobs:
         uses: reactivecircus/android-emulator-runner@e790971012b979513b4e2fe70d4079bc0ca8a1ae # 2.24.0
         timeout-minutes: 25
         with:
-          api-level: 31
-          # retry once
-          script: melos exec --scope=${{ matrix.scope }} "flutter test --no-pub integration_test/main_test.dart -d emulator-5554" || melos exec --scope=${{ matrix.scope }} "flutter test --no-pub integration_test/main_test.dart -d emulator-5554"
+          api-level: 29
+          script: melos exec -c 1 --scope ${{ matrix.scope }} -- "deviceId=emulator-5554 retries=1 \$MELOS_ROOT_PATH/build-support/integ_test_android.sh"
 
   ios:
     runs-on: macos-latest
@@ -76,7 +75,7 @@ jobs:
 
       - name: Boot iOS Simulator
         run: |
-          xcrun simctl boot "iPhone 12"
+          xcrun simctl boot "iPhone 13"
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
@@ -94,15 +93,5 @@ jobs:
           melos exec --scope=${{ matrix.scope }} flutter build ios --simulator
 
       - name: Run integration tests
-        # retry once
-        id: iosTestFirstAttempt
-        continue-on-error: true
-        timeout-minutes: 10
         run: |
-          melos exec --scope=${{ matrix.scope }} "flutter test --no-pub integration_test/main_test.dart -d iPhone"
-
-      - name: run integration tests (2nd attempt)
-        if: steps.iosTestFirstAttempt.outcome == 'failure'
-        timeout-minutes: 30
-        run: |
-          melos exec --scope=${{ matrix.scope }} "flutter test --no-pub integration_test/main_test.dart -d iPhone"
+          melos exec -c 1 --scope ${{ matrix.scope }} -- "retries=1 \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh"
