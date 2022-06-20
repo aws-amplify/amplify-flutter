@@ -75,7 +75,8 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler {
     private val handler = Handler(Looper.getMainLooper())
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        graphqlSubscriptionStreamHandler = graphqlSubscriptionStreamHandler ?: GraphQLSubscriptionStreamHandler()
+        graphqlSubscriptionStreamHandler =
+            graphqlSubscriptionStreamHandler ?: GraphQLSubscriptionStreamHandler()
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/api")
         channel!!.setMethodCallHandler(this)
         eventchannel = EventChannel(
