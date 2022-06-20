@@ -1,3 +1,7 @@
+## 0.6.0 (2022-06-20)
+
+- Bump minimum Dart SDK to 2.15
+
 ## 0.5.1 (2022-05-24)
 
 - fix: invalid model id field name implication (#1600)
