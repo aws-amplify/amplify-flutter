@@ -50,10 +50,10 @@ jobs:
           melos exec --scope=${{ matrix.scope }} --file-exists="integration_test/main_test.dart" --fail-fast flutter build apk --verbose
 
       - name: Run Android integration tests
-        uses: reactivecircus/android-emulator-runner@76c2bf6f95ed6458fd659a1bdb680a0f8df232dc # 2.23.0
+        uses: reactivecircus/android-emulator-runner@e790971012b979513b4e2fe70d4079bc0ca8a1ae # 2.24.0
         timeout-minutes: 25
         with:
-          api-level: 29
+          api-level: 31
           # retry once
           script: melos exec --scope=${{ matrix.scope }} "flutter test --no-pub integration_test/main_test.dart -d emulator-5554" || melos exec --scope=${{ matrix.scope }} "flutter test --no-pub integration_test/main_test.dart -d emulator-5554"
 
