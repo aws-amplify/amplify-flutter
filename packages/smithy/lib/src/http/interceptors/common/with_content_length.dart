@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:smithy/smithy.dart';
+import 'package:smithy/src/http/http_operation.dart';
 
 class WithContentLength extends HttpRequestInterceptor {
   const WithContentLength();
