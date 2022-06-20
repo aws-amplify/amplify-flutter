@@ -1,6 +1,6 @@
 name: smithy
 description: Smithy client runtime for Dart
-version: 0.5.1
+version: 0.5.2
 homepage: https://github.com/dnys1/smithy-dart
 publish_to: https://pub.dillonnys.com
 
@@ -8,7 +8,7 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  aws_common: ^0.1.0
+  aws_common: ^0.1.1
   built_collection: ^5.0.0
   built_value: ">=8.2.0 <8.3.0"
   collection: ^1.15.0
