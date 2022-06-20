@@ -1,3 +1,10 @@
+## 0.6.0 (2022-06-20)
+
+- Bump minimum Dart SDK to 2.15
+- fix(api): Concurrent access to `OperationsManager`
+- fix(auth): Fix device serialization
+- fix(authenticator): Trim strings for password confirmation comparison ([#1653](https://github.com/aws-amplify/amplify-flutter/pull/1653))
+
 ## 0.5.1 (2022-05-24)
 
 - fix(api): OperationsManager crash (#1598)

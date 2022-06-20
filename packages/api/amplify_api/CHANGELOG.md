@@ -1,3 +1,8 @@
+## 0.6.0 (2022-06-20)
+
+- Bump minimum Dart SDK to 2.15
+- fix: Concurrent access to `OperationsManager`
+
 ## 0.5.1 (2022-05-24)
 
 - fix: OperationsManager crash (#1598)

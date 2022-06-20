@@ -228,6 +228,7 @@ workflows:
                   "amplify_authenticator",
                   "amplify_core",
                   "amplify_datastore",
+                  "amplify_datastore_plugin_interface",
                   "amplify_flutter",
                   "amplify_storage_s3"
                 ]

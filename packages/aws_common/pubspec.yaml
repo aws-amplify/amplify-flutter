@@ -1,6 +1,6 @@
 name: aws_common
 description: Common types and utilities used across AWS and Amplify packages.
-version: 0.1.0
+version: 0.1.1
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
