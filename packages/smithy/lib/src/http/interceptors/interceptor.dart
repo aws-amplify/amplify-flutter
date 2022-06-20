@@ -6,6 +6,8 @@ import 'package:meta/meta.dart';
 export 'checksum.dart';
 export 'common/with_content_length.dart';
 export 'common/with_header.dart';
+export 'common/with_host.dart';
+export 'common/with_user_agent.dart';
 
 /// {@template smithy.http_request_interceptor}
 /// Intercepts HTTP requests for validation and modification.
