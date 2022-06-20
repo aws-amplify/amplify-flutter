@@ -199,15 +199,15 @@ class _$ResourceShape extends ResourceShape {
       required this.operations})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        identifiers, 'ResourceShape', 'identifiers');
+        identifiers, r'ResourceShape', 'identifiers');
     BuiltValueNullFieldError.checkNotNull(
-        collectionOperations, 'ResourceShape', 'collectionOperations');
-    BuiltValueNullFieldError.checkNotNull(shapeId, 'ResourceShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, 'ResourceShape', 'traits');
+        collectionOperations, r'ResourceShape', 'collectionOperations');
+    BuiltValueNullFieldError.checkNotNull(shapeId, r'ResourceShape', 'shapeId');
+    BuiltValueNullFieldError.checkNotNull(traits, r'ResourceShape', 'traits');
     BuiltValueNullFieldError.checkNotNull(
-        resources, 'ResourceShape', 'resources');
+        resources, r'ResourceShape', 'resources');
     BuiltValueNullFieldError.checkNotNull(
-        operations, 'ResourceShape', 'operations');
+        operations, r'ResourceShape', 'operations');
   }
 
   @override
@@ -263,7 +263,7 @@ class _$ResourceShape extends ResourceShape {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ResourceShape')
+    return (newBuiltValueToStringHelper(r'ResourceShape')
           ..add('identifiers', identifiers)
           ..add('put', put)
           ..add('create', create)
@@ -393,9 +393,9 @@ class ResourceShapeBuilder
               list: _list?.build(),
               collectionOperations: collectionOperations.build(),
               shapeId: BuiltValueNullFieldError.checkNotNull(
-                  shapeId, 'ResourceShape', 'shapeId'),
+                  shapeId, r'ResourceShape', 'shapeId'),
               traits: BuiltValueNullFieldError.checkNotNull(
-                  traits, 'ResourceShape', 'traits'),
+                  traits, r'ResourceShape', 'traits'),
               resources: resources.build(),
               operations: operations.build());
     } catch (_) {
@@ -424,7 +424,7 @@ class ResourceShapeBuilder
         operations.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'ResourceShape', _$failedField, e.toString());
+            r'ResourceShape', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -433,4 +433,4 @@ class ResourceShapeBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

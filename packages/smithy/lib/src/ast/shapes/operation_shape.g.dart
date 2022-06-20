@@ -105,9 +105,10 @@ class _$OperationShape extends OperationShape {
       required this.shapeId,
       required this.traits})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(errors, 'OperationShape', 'errors');
-    BuiltValueNullFieldError.checkNotNull(shapeId, 'OperationShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, 'OperationShape', 'traits');
+    BuiltValueNullFieldError.checkNotNull(errors, r'OperationShape', 'errors');
+    BuiltValueNullFieldError.checkNotNull(
+        shapeId, r'OperationShape', 'shapeId');
+    BuiltValueNullFieldError.checkNotNull(traits, r'OperationShape', 'traits');
   }
 
   @override
@@ -139,7 +140,7 @@ class _$OperationShape extends OperationShape {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('OperationShape')
+    return (newBuiltValueToStringHelper(r'OperationShape')
           ..add('input', input)
           ..add('output', output)
           ..add('errors', errors)
@@ -215,9 +216,9 @@ class OperationShapeBuilder
               output: _output?.build(),
               errors: errors.build(),
               shapeId: BuiltValueNullFieldError.checkNotNull(
-                  shapeId, 'OperationShape', 'shapeId'),
+                  shapeId, r'OperationShape', 'shapeId'),
               traits: BuiltValueNullFieldError.checkNotNull(
-                  traits, 'OperationShape', 'traits'));
+                  traits, r'OperationShape', 'traits'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -229,7 +230,7 @@ class OperationShapeBuilder
         errors.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'OperationShape', _$failedField, e.toString());
+            r'OperationShape', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -238,4 +239,4 @@ class OperationShapeBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

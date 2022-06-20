@@ -60,8 +60,8 @@ class _$IntegerShape extends IntegerShape {
       (new IntegerShapeBuilder()..update(updates))._build();
 
   _$IntegerShape._({required this.shapeId, required this.traits}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(shapeId, 'IntegerShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, 'IntegerShape', 'traits');
+    BuiltValueNullFieldError.checkNotNull(shapeId, r'IntegerShape', 'shapeId');
+    BuiltValueNullFieldError.checkNotNull(traits, r'IntegerShape', 'traits');
   }
 
   @override
@@ -86,7 +86,7 @@ class _$IntegerShape extends IntegerShape {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('IntegerShape')
+    return (newBuiltValueToStringHelper(r'IntegerShape')
           ..add('shapeId', shapeId)
           ..add('traits', traits))
         .toString();
@@ -137,12 +137,12 @@ class IntegerShapeBuilder
     final _$result = _$v ??
         new _$IntegerShape._(
             shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, 'IntegerShape', 'shapeId'),
+                shapeId, r'IntegerShape', 'shapeId'),
             traits: BuiltValueNullFieldError.checkNotNull(
-                traits, 'IntegerShape', 'traits'));
+                traits, r'IntegerShape', 'traits'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

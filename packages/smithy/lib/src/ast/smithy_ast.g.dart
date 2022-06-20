@@ -80,9 +80,9 @@ class _$SmithyAst extends SmithyAst {
   _$SmithyAst._(
       {required this.version, required this.metadata, required this.shapes})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(version, 'SmithyAst', 'version');
-    BuiltValueNullFieldError.checkNotNull(metadata, 'SmithyAst', 'metadata');
-    BuiltValueNullFieldError.checkNotNull(shapes, 'SmithyAst', 'shapes');
+    BuiltValueNullFieldError.checkNotNull(version, r'SmithyAst', 'version');
+    BuiltValueNullFieldError.checkNotNull(metadata, r'SmithyAst', 'metadata');
+    BuiltValueNullFieldError.checkNotNull(shapes, r'SmithyAst', 'shapes');
   }
 
   @override
@@ -109,7 +109,7 @@ class _$SmithyAst extends SmithyAst {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('SmithyAst')
+    return (newBuiltValueToStringHelper(r'SmithyAst')
           ..add('version', version)
           ..add('metadata', metadata)
           ..add('shapes', shapes))
@@ -169,10 +169,10 @@ class SmithyAstBuilder implements Builder<SmithyAst, SmithyAstBuilder> {
       _$result = _$v ??
           new _$SmithyAst._(
               version: BuiltValueNullFieldError.checkNotNull(
-                  version, 'SmithyAst', 'version'),
+                  version, r'SmithyAst', 'version'),
               metadata: metadata.build(),
               shapes: BuiltValueNullFieldError.checkNotNull(
-                  shapes, 'SmithyAst', 'shapes'));
+                  shapes, r'SmithyAst', 'shapes'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -180,7 +180,7 @@ class SmithyAstBuilder implements Builder<SmithyAst, SmithyAstBuilder> {
         metadata.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'SmithyAst', _$failedField, e.toString());
+            r'SmithyAst', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -189,4 +189,4 @@ class SmithyAstBuilder implements Builder<SmithyAst, SmithyAstBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

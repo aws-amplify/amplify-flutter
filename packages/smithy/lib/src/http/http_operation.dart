@@ -7,6 +7,12 @@ import 'package:meta/meta.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy/smithy.dart';
 
+@visibleForTesting
+const zSmithyHttpTest = #_smithyHttpTest;
+
+@internal
+bool get isSmithyHttpTest => Zone.current[zSmithyHttpTest] as bool? ?? false;
+
 /// Defines an operation which uses HTTP.
 ///
 /// See: https://awslabs.github.io/smithy/1.0/spec/core/http-traits.html
@@ -143,9 +149,6 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
         prefix = expandHostLabel(prefix, input.labelFor);
       }
       host = '$prefix$host';
-    }
-    if (!zIsWeb) {
-      headers.putIfAbsent('Host', () => host);
     }
     var basePath = uri.path;
     if (basePath.startsWith('/')) {

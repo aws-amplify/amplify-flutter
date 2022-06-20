@@ -128,14 +128,14 @@ class _$ServiceShape extends ServiceShape {
       required this.resources,
       required this.operations})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(rename, 'ServiceShape', 'rename');
-    BuiltValueNullFieldError.checkNotNull(errors, 'ServiceShape', 'errors');
-    BuiltValueNullFieldError.checkNotNull(shapeId, 'ServiceShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, 'ServiceShape', 'traits');
+    BuiltValueNullFieldError.checkNotNull(rename, r'ServiceShape', 'rename');
+    BuiltValueNullFieldError.checkNotNull(errors, r'ServiceShape', 'errors');
+    BuiltValueNullFieldError.checkNotNull(shapeId, r'ServiceShape', 'shapeId');
+    BuiltValueNullFieldError.checkNotNull(traits, r'ServiceShape', 'traits');
     BuiltValueNullFieldError.checkNotNull(
-        resources, 'ServiceShape', 'resources');
+        resources, r'ServiceShape', 'resources');
     BuiltValueNullFieldError.checkNotNull(
-        operations, 'ServiceShape', 'operations');
+        operations, r'ServiceShape', 'operations');
   }
 
   @override
@@ -174,7 +174,7 @@ class _$ServiceShape extends ServiceShape {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ServiceShape')
+    return (newBuiltValueToStringHelper(r'ServiceShape')
           ..add('version', version)
           ..add('rename', rename)
           ..add('errors', errors)
@@ -267,9 +267,9 @@ class ServiceShapeBuilder
               rename: rename.build(),
               errors: errors.build(),
               shapeId: BuiltValueNullFieldError.checkNotNull(
-                  shapeId, 'ServiceShape', 'shapeId'),
+                  shapeId, r'ServiceShape', 'shapeId'),
               traits: BuiltValueNullFieldError.checkNotNull(
-                  traits, 'ServiceShape', 'traits'),
+                  traits, r'ServiceShape', 'traits'),
               resources: resources.build(),
               operations: operations.build());
     } catch (_) {
@@ -286,7 +286,7 @@ class ServiceShapeBuilder
         operations.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'ServiceShape', _$failedField, e.toString());
+            r'ServiceShape', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -295,4 +295,4 @@ class ServiceShapeBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

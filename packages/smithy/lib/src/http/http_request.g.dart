@@ -28,11 +28,11 @@ class _$HttpRequest extends HttpRequest {
       required this.headers,
       required this.queryParameters})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(method, 'HttpRequest', 'method');
-    BuiltValueNullFieldError.checkNotNull(path, 'HttpRequest', 'path');
-    BuiltValueNullFieldError.checkNotNull(headers, 'HttpRequest', 'headers');
+    BuiltValueNullFieldError.checkNotNull(method, r'HttpRequest', 'method');
+    BuiltValueNullFieldError.checkNotNull(path, r'HttpRequest', 'path');
+    BuiltValueNullFieldError.checkNotNull(headers, r'HttpRequest', 'headers');
     BuiltValueNullFieldError.checkNotNull(
-        queryParameters, 'HttpRequest', 'queryParameters');
+        queryParameters, r'HttpRequest', 'queryParameters');
   }
 
   @override
@@ -65,7 +65,7 @@ class _$HttpRequest extends HttpRequest {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('HttpRequest')
+    return (newBuiltValueToStringHelper(r'HttpRequest')
           ..add('hostPrefix', hostPrefix)
           ..add('method', method)
           ..add('path', path)
@@ -137,9 +137,9 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
           new _$HttpRequest._(
               hostPrefix: hostPrefix,
               method: BuiltValueNullFieldError.checkNotNull(
-                  method, 'HttpRequest', 'method'),
+                  method, r'HttpRequest', 'method'),
               path: BuiltValueNullFieldError.checkNotNull(
-                  path, 'HttpRequest', 'path'),
+                  path, r'HttpRequest', 'path'),
               headers: headers.build(),
               queryParameters: queryParameters.build());
     } catch (_) {
@@ -151,7 +151,7 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
         queryParameters.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'HttpRequest', _$failedField, e.toString());
+            r'HttpRequest', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -168,7 +168,7 @@ class _$HttpResponse extends HttpResponse {
       (new HttpResponseBuilder()..update(updates))._build();
 
   _$HttpResponse._({required this.headers}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(headers, 'HttpResponse', 'headers');
+    BuiltValueNullFieldError.checkNotNull(headers, r'HttpResponse', 'headers');
   }
 
   @override
@@ -191,7 +191,7 @@ class _$HttpResponse extends HttpResponse {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('HttpResponse')
+    return (newBuiltValueToStringHelper(r'HttpResponse')
           ..add('headers', headers))
         .toString();
   }
@@ -242,7 +242,7 @@ class HttpResponseBuilder
         headers.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'HttpResponse', _$failedField, e.toString());
+            r'HttpResponse', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -289,7 +289,7 @@ class _$HttpRequestContext extends HttpRequestContext {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('HttpRequestContext')
+    return (newBuiltValueToStringHelper(r'HttpRequestContext')
           ..add('awsSigningService', awsSigningService)
           ..add('awsSigningRegion', awsSigningRegion))
         .toString();
@@ -346,4 +346,4 @@ class HttpRequestContextBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
