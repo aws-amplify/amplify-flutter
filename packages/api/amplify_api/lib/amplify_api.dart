@@ -15,10 +15,7 @@
 
 library amplify_api_plugin;
 
-import 'dart:io';
-
 import 'package:amplify_api/src/api_plugin_impl.dart';
-import 'package:amplify_api/src/method_channel_api.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
