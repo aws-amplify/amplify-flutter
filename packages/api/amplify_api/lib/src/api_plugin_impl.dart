@@ -22,6 +22,7 @@ import 'package:meta/meta.dart';
 
 import 'amplify_api_config.dart';
 import 'amplify_authorization_rest_client.dart';
+import 'util.dart';
 
 /// {@template amplify_api.amplify_api_dart}
 /// The AWS implementation of the Amplify API category.
@@ -118,7 +119,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     return _prepareRestResponse(AWSStreamedHttpRequest.delete(
       uri,
       body: body ?? HttpPayload.empty(),
-      headers: headers,
+      headers: addContentTypeToHeaders(headers, body),
     ).send(client));
   }
 
@@ -170,7 +171,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     return _prepareRestResponse(
       AWSStreamedHttpRequest.patch(
         uri,
-        headers: headers,
+        headers: addContentTypeToHeaders(headers, body),
         body: body ?? HttpPayload.empty(),
       ).send(client),
     );
@@ -189,7 +190,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     return _prepareRestResponse(
       AWSStreamedHttpRequest.post(
         uri,
-        headers: headers,
+        headers: addContentTypeToHeaders(headers, body),
         body: body ?? HttpPayload.empty(),
       ).send(client),
     );
@@ -208,7 +209,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     return _prepareRestResponse(
       AWSStreamedHttpRequest.put(
         uri,
-        headers: headers,
+        headers: addContentTypeToHeaders(headers, body),
         body: body ?? HttpPayload.empty(),
       ).send(client),
     );
