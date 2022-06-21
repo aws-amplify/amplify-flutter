@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/state/authenticator_state.dart';
@@ -155,8 +156,8 @@ mixin AuthenticatorUsernameField<FieldType,
                   state.authAttributes.clear();
                 },
                 children: [
-                  Text(emailTitle),
-                  Text(phoneNumberTitle),
+                  Text(emailTitle, key: keyEmailUsernameToggleButton),
+                  Text(phoneNumberTitle, key: keyPhoneUsernameToggleButton),
                 ],
               );
             }),
