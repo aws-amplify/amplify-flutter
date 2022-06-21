@@ -32,9 +32,11 @@ import 'package:flutter/services.dart';
 /// {@endtemplate}
 class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
   /// {@macro amplify_auth_cognito.amplify_auth_cognito}
-  AmplifyAuthCognito()
+  AmplifyAuthCognito({
+    SecureStorageInterface? credentialStorage,
+  })
       : super(
-          credentialStorage: AmplifySecureStorage(
+          credentialStorage: credentialStorage ?? AmplifySecureStorage(
             config: AmplifySecureStorageConfig(
               scope: 'auth',
             ),
