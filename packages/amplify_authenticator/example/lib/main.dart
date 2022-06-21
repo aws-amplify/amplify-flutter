@@ -104,8 +104,8 @@ class _MyAppState extends State<MyApp> {
       signUpForm: SignUpForm.custom(
         fields: [
           SignUpFormField.username(
-              validator: _validateUsername,
-              ),
+            validator: _validateUsername,
+          ),
           SignUpFormField.email(required: true),
           SignUpFormField.password(),
           SignUpFormField.passwordConfirmation(),
