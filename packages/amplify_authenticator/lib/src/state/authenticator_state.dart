@@ -17,15 +17,10 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:flutter/material.dart';
-
-/// {@macro amplify_authenticator.authenticator_state.username_selection}
-enum UsernameSelection {
-  email,
-  phoneNumber,
-}
 
 @visibleForTesting
 typedef BlocEventPredicate = bool Function(AuthState state);
@@ -104,12 +99,12 @@ class AuthenticatorState extends ChangeNotifier {
 
   String _username = '';
 
-  /// {@template amplify_authenticator.authenticator_state.username_selection}
-  /// The username type to use during sign up and sign in.
+  /// {@macro amplify_authenticator.username_input.username_selection}
   ///
-  /// For auth configurations that allow sign up via username or email,
-  /// this will determine which option is currently selected.
-  /// {@endtemplate}
+  /// Defaults to [UsernameSelection.email].
+  ///
+  /// The value has no meaning for Auth configurations that do not allow
+  /// for email OR phone number to be used as username.
   UsernameSelection get usernameSelection => _usernameSelection;
 
   set usernameSelection(UsernameSelection value) {
