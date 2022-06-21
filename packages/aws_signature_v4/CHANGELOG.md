@@ -1,3 +1,7 @@
+## 0.1.1+1 (2022-06-21)
+
+- fix: Correct user agent
+
 ## 0.1.1 (2022-06-20)
 
 - fix: Presign URL min/max checks ([#1683](https://github.com/aws-amplify/amplify-flutter/pull/1683))
