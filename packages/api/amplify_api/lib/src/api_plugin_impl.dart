@@ -66,9 +66,8 @@ class AmplifyAPIDart extends AmplifyAPI {
             AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
             recoverySuggestion:
                 AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
-      } else {
-        throw AmplifyException.fromMap((e.details as Map).cast());
       }
+      throw AmplifyException.fromMap((e.details as Map).cast());
     }
   }
 
