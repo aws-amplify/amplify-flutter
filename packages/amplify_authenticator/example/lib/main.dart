@@ -104,20 +104,20 @@ class _MyAppState extends State<MyApp> {
       signUpForm: SignUpForm.custom(
         fields: [
           SignUpFormField.username(
-              // validator: _validateUsername,
+              validator: _validateUsername,
               ),
           SignUpFormField.email(required: true),
           SignUpFormField.password(),
           SignUpFormField.passwordConfirmation(),
-          // SignUpFormField.address(),
-          // SignUpFormField.custom(
-          //   title: 'Bio',
-          //   attributeKey: const CognitoUserAttributeKey.custom('bio'),
-          // ),
-          // SignUpFormField.custom(
-          //   title: 'Age',
-          //   attributeKey: const CognitoUserAttributeKey.custom('age'),
-          // )
+          SignUpFormField.address(),
+          SignUpFormField.custom(
+            title: 'Bio',
+            attributeKey: const CognitoUserAttributeKey.custom('bio'),
+          ),
+          SignUpFormField.custom(
+            title: 'Age',
+            attributeKey: const CognitoUserAttributeKey.custom('age'),
+          )
         ],
       ),
 
