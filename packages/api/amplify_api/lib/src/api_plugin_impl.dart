@@ -111,7 +111,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
@@ -127,7 +127,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   CancelableOperation<AWSStreamedHttpResponse> get(
     String path, {
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
@@ -144,7 +144,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   CancelableOperation<AWSStreamedHttpResponse> head(
     String path, {
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
@@ -163,7 +163,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
@@ -182,7 +182,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
@@ -201,7 +201,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
