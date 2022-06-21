@@ -34,6 +34,15 @@ class _MyAppState extends State<MyApp> {
   void _configureAmplify() async {
     try {
       await Amplify.addPlugin(AmplifyAuthCognito());
+      // Uncomment this block, and comment out the one above, in order to persist credentials
+      // await Amplify.addPlugin(AmplifyAuthCognito(credentialStorage: AmplifySecureStorage(
+      //       config: AmplifySecureStorageConfig(
+      //         scope: 'authtest',
+      //         webOptions: WebSecureStorageOptions(
+      //           persistenceOption: WebPersistenceOption.indexedDB,
+      //         ),
+      //       ),
+      //     )));
       await Amplify.configure(amplifyconfig);
       print('Successfully configured');
     } on Exception catch (e) {
@@ -95,20 +104,20 @@ class _MyAppState extends State<MyApp> {
       signUpForm: SignUpForm.custom(
         fields: [
           SignUpFormField.username(
-            validator: _validateUsername,
-          ),
+              // validator: _validateUsername,
+              ),
           SignUpFormField.email(required: true),
           SignUpFormField.password(),
           SignUpFormField.passwordConfirmation(),
-          SignUpFormField.address(),
-          SignUpFormField.custom(
-            title: 'Bio',
-            attributeKey: const CognitoUserAttributeKey.custom('bio'),
-          ),
-          SignUpFormField.custom(
-            title: 'Age',
-            attributeKey: const CognitoUserAttributeKey.custom('age'),
-          )
+          // SignUpFormField.address(),
+          // SignUpFormField.custom(
+          //   title: 'Bio',
+          //   attributeKey: const CognitoUserAttributeKey.custom('bio'),
+          // ),
+          // SignUpFormField.custom(
+          //   title: 'Age',
+          //   attributeKey: const CognitoUserAttributeKey.custom('age'),
+          // )
         ],
       ),
 
