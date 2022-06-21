@@ -114,9 +114,8 @@ class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
 
   @override
   String? checkPrecondition(FetchAuthSessionState currentState) {
-    if (currentState.type == FetchAuthSessionStateType.refreshing ||
-        currentState.type == FetchAuthSessionStateType.fetching) {
-      return 'Credentials are already being fetched...';
+    if (currentState.type == FetchAuthSessionStateType.refreshing) {
+      return 'Credentials are already being refreshed...';
     }
     return null;
   }

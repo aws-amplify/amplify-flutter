@@ -61,8 +61,5 @@ class CognitoAuthSession extends AuthSession
       ];
 
   @override
-  String get runtimeTypeName => 'CognitoAuthSession';
-
-  @override
   Map<String, Object?> toJson() => _$CognitoAuthSessionToJson(this);
 }
