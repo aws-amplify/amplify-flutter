@@ -15,9 +15,14 @@
 /// Bridging extensions between Cognito SDK and Amplify Flutter types.
 library amplify_auth_cognito.sdk.sdk_bridge;
 
-import 'package:amplify_auth_cognito_dart/src/model/signin/cognito_sign_in_step.dart';
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
+    hide ConfirmSignUpRequest, SignUpRequest, UpdateUserAttributesRequest;
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
+import 'package:amplify_core/amplify_core.dart' show AuthenticationFlowType;
+import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'package:smithy/smithy.dart';
 
 /// Bridging helpers for [ChallengeNameType].
 extension ChallengeNameTypeBridge on ChallengeNameType {
@@ -73,5 +78,417 @@ extension AttributeTypeBridge on AttributeType {
       userAttributeKey: key,
       value: value ?? '',
     );
+  }
+}
+
+/// Bridging helpers for [AuthenticationFlowType].
+extension AuthenticationFlowTypeBridge on AuthenticationFlowType {
+  /// The Cognito SDK value of `this`.
+  AuthFlowType get sdkValue {
+    switch (this) {
+      case AuthenticationFlowType.userSrpAuth:
+        return AuthFlowType.userSrpAuth;
+      case AuthenticationFlowType.customAuth:
+        return AuthFlowType.customAuth;
+    }
+  }
+}
+
+/// {@template amplify_auth_cognito_dart.sdk.wrapped_cognito_identity_provider_client}
+/// A wrapped [CognitoIdentityClient] which handles translation of exceptions
+/// to Amplify types.
+/// {@endtemplate}
+class WrappedCognitoIdentityClient implements CognitoIdentityClient {
+  /// {@macro amplify_auth_cognito_dart.sdk.wrapped_cognito_identity_provider_client}
+  WrappedCognitoIdentityClient({
+    required String region,
+    required AWSCredentialsProvider credentialsProvider,
+  }) : _base = CognitoIdentityClient(
+          region: region,
+          credentialsProvider: credentialsProvider,
+        );
+
+  final CognitoIdentityClient _base;
+
+  @override
+  Future<GetCredentialsForIdentityResponse> getCredentialsForIdentity(
+    GetCredentialsForIdentityInput input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.getCredentialsForIdentity(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<GetIdResponse> getId(
+    GetIdInput input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.getId(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+}
+
+/// {@template amplify_auth_cognito_dart.sdk.wrapped_cognito_identity_provider_client}
+/// A wrapped [CognitoIdentityProviderClient] which handles translation of
+/// exceptions to Amplify types.
+/// {@endtemplate}
+class WrappedCognitoIdentityProviderClient
+    implements CognitoIdentityProviderClient {
+  /// {@macro amplify_auth_cognito_dart.sdk.wrapped_cognito_identity_provider_client}
+  WrappedCognitoIdentityProviderClient({
+    required String region,
+    required AWSCredentialsProvider credentialsProvider,
+  }) : _base = CognitoIdentityProviderClient(
+          region: region,
+          credentialsProvider: credentialsProvider,
+        );
+
+  final CognitoIdentityProviderClient _base;
+
+  @override
+  Future<AssociateSoftwareTokenResponse> associateSoftwareToken(
+    AssociateSoftwareTokenRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.associateSoftwareToken(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<ChangePasswordResponse> changePassword(
+    ChangePasswordRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.changePassword(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<ConfirmDeviceResponse> confirmDevice(
+    ConfirmDeviceRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.confirmDevice(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<ConfirmForgotPasswordResponse> confirmForgotPassword(
+    ConfirmForgotPasswordRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.confirmForgotPassword(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<ConfirmSignUpResponse> confirmSignUp(
+    ConfirmSignUpRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.confirmSignUp(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<void> deleteUser(
+    DeleteUserRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.deleteUser(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<void> forgetDevice(
+    ForgetDeviceRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.forgetDevice(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<ForgotPasswordResponse> forgotPassword(
+    ForgotPasswordRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.forgotPassword(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<GetDeviceResponse> getDevice(
+    GetDeviceRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.getDevice(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<GetUserResponse> getUser(
+    GetUserRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.getUser(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<GetUserAttributeVerificationCodeResponse>
+      getUserAttributeVerificationCode(
+    GetUserAttributeVerificationCodeRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.getUserAttributeVerificationCode(
+        input,
+        client: client,
+      );
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<GlobalSignOutResponse> globalSignOut(
+    GlobalSignOutRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.globalSignOut(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<InitiateAuthResponse> initiateAuth(
+    InitiateAuthRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.initiateAuth(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<ListDevicesResponse> listDevices(
+    ListDevicesRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.listDevices(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<ResendConfirmationCodeResponse> resendConfirmationCode(
+    ResendConfirmationCodeRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.resendConfirmationCode(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<RespondToAuthChallengeResponse> respondToAuthChallenge(
+    RespondToAuthChallengeRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.respondToAuthChallenge(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<RevokeTokenResponse> revokeToken(
+    RevokeTokenRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.revokeToken(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<SignUpResponse> signUp(
+    SignUpRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.signUp(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<UpdateDeviceStatusResponse> updateDeviceStatus(
+    UpdateDeviceStatusRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.updateDeviceStatus(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<UpdateUserAttributesResponse> updateUserAttributes(
+    UpdateUserAttributesRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.updateUserAttributes(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<VerifySoftwareTokenResponse> verifySoftwareToken(
+    VerifySoftwareTokenRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.verifySoftwareToken(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<VerifyUserAttributeResponse> verifyUserAttribute(
+    VerifyUserAttributeRequest input, {
+    HttpClient? client,
+  }) async {
+    try {
+      return await _base.verifyUserAttribute(input, client: client);
+    } on Exception catch (e, st) {
+      Error.throwWithStackTrace(
+        transformSdkException(e),
+        st,
+      );
+    }
   }
 }

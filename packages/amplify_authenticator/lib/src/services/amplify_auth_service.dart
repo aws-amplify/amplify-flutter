@@ -173,9 +173,7 @@ class AmplifyAuthService implements AuthService {
   @override
   Future<bool> isValidSession() async {
     try {
-      var res = await Amplify.Auth.fetchAuthSession(
-              options: const CognitoSessionOptions(getAWSCredentials: true))
-          as CognitoAuthSession;
+      final res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
       return res.userPoolTokens != null;
     } on SignedOutException {
       return false;

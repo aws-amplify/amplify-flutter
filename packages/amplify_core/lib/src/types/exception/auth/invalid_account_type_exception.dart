@@ -22,29 +22,17 @@ import 'package:amplify_core/amplify_core.dart';
 class InvalidAccountTypeException extends AuthException {
   /// {@macro amplify_core.auth.invalid_account_type_exception}
   const InvalidAccountTypeException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          message,
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  /// Thrown when no identity pool is available, but an identity pool operation
+  /// was explicitly requested.
+  const InvalidAccountTypeException.noIdentityPool({
+    String recoverySuggestion = 'Register an identity pool using the CLI',
+  }) : this(
+          'No identity pool registered for this account',
           recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
         );
-
-  /// {@macro amplify_core.auth.exception_downcasting}
-  InvalidAccountTypeException._private(AuthException exception)
-      : super(
-          exception.message,
-          recoverySuggestion: exception.recoverySuggestion,
-          underlyingException: exception.underlyingException,
-        );
-
-  /// {@macro amplify_core.auth.exception_from_map}
-  static InvalidAccountTypeException fromMap(
-    Map<String, String> serializedException,
-  ) {
-    return InvalidAccountTypeException._private(
-      AuthException.fromMap(serializedException),
-    );
-  }
 }

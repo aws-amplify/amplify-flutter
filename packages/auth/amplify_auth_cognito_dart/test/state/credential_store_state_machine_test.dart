@@ -123,10 +123,9 @@ void main() {
           ),
           identityId: identityId,
           userPoolTokens: CognitoUserPoolTokens(
-            (b) => b
-              ..accessToken = accessToken
-              ..refreshToken = refreshToken
-              ..idToken = idToken,
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            idToken: idToken,
           ),
         );
         stateMachine.dispatch(storeCredentialsEvent);

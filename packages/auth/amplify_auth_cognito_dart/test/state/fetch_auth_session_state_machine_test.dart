@@ -14,6 +14,7 @@
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
@@ -197,6 +198,47 @@ void main() {
         expect(sm.getLatestResult(), completion(state));
       });
 
+      group('user pool-only', () {
+        setUp(() {
+          stateMachine
+            ..addInstance(userPoolOnlyConfig)
+            ..addInstance(
+              AuthConfiguration.fromConfig(
+                userPoolOnlyConfig.auth!.awsPlugin!,
+              ),
+            )
+            ..dispatch(const CredentialStoreEvent.loadCredentialStore());
+        });
+
+        test('succeeds for user pool only requests', () {
+          stateMachine.dispatch(
+            const FetchAuthSessionEvent.fetch(),
+          );
+
+          expect(
+            stateMachine
+                .expect(FetchAuthSessionStateMachine.type)
+                .getLatestResult(),
+            completes,
+          );
+        });
+
+        test('throws when aws creds are requested', () {
+          stateMachine.dispatch(
+            const FetchAuthSessionEvent.fetch(
+              CognitoSessionOptions(getAWSCredentials: true),
+            ),
+          );
+
+          expect(
+            stateMachine
+                .expect(FetchAuthSessionStateMachine.type)
+                .getLatestResult(),
+            throwsA(isA<InvalidAccountTypeException>()),
+          );
+        });
+      });
+
       group('refresh', () {
         test('AWS creds (success)', () async {
           seedStorage(
@@ -300,9 +342,11 @@ void main() {
           );
 
           final state = sm.currentState as FetchAuthSessionFailure;
-          expect(state.exception, isA<UnknownException>());
-          expect(sm.getLatestResult(), throwsA(isA<UnknownException>()));
-          // TODO(dnys1): Underlying exception
+          expect(state.exception, isA<_FetchAuthSessionException>());
+          expect(
+            sm.getLatestResult(),
+            throwsA(isA<_FetchAuthSessionException>()),
+          );
         });
 
         test('User Pool tokens (success)', () async {
@@ -401,9 +445,11 @@ void main() {
           );
 
           final state = sm.currentState as FetchAuthSessionFailure;
-          expect(state.exception, isA<UnknownException>());
-          expect(sm.getLatestResult(), throwsA(isA<UnknownException>()));
-          // TODO(dnys1): Underlying exception
+          expect(state.exception, isA<_FetchAuthSessionException>());
+          expect(
+            sm.getLatestResult(),
+            throwsA(isA<_FetchAuthSessionException>()),
+          );
         });
       });
 
@@ -441,9 +487,11 @@ void main() {
         );
 
         final state = sm.currentState as FetchAuthSessionFailure;
-        expect(state.exception, isA<UnknownException>());
-        expect(sm.getLatestResult(), throwsA(isA<UnknownException>()));
-        // TODO(dnys1): Underlying exception
+        expect(state.exception, isA<_FetchAuthSessionException>());
+        expect(
+          sm.getLatestResult(),
+          throwsA(isA<_FetchAuthSessionException>()),
+        );
       });
     });
   });

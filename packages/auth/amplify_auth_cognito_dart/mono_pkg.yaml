@@ -10,5 +10,9 @@ stages:
   - unit_test:
       - group:
           - command: dart --version
-          - test:
+          - test: --exclude-tags=build
           - test: -p chrome
+  - build_test:
+      - test: --tags=build
+        sdk:
+          - stable

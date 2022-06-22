@@ -13,14 +13,35 @@
  * permissions and limitations under the License.
  */
 
-class AuthCodeDeliveryDetails {
-  String? attributeName;
-  String? deliveryMedium;
-  String? destination;
+import 'package:amplify_core/amplify_core.dart';
 
-  AuthCodeDeliveryDetails({
+part 'auth_code_delivery_details.g.dart';
+
+@amplifySerializable
+class AuthCodeDeliveryDetails
+    with
+        AWSEquatable<AuthCodeDeliveryDetails>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  const AuthCodeDeliveryDetails({
     this.attributeName,
     this.deliveryMedium,
     this.destination,
   });
+
+  factory AuthCodeDeliveryDetails.fromJson(Map<String, Object?> json) =>
+      _$AuthCodeDeliveryDetailsFromJson(json);
+
+  final String? attributeName;
+  final String? deliveryMedium;
+  final String? destination;
+
+  @override
+  List<Object?> get props => [attributeName, deliveryMedium, destination];
+
+  @override
+  String get runtimeTypeName => 'AuthCodeDeliveryDetails';
+
+  @override
+  Map<String, Object?> toJson() => _$AuthCodeDeliveryDetailsToJson(this);
 }

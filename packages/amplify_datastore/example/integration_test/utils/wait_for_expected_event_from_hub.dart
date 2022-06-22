@@ -6,8 +6,8 @@ const DEFAULT_TIMEOUT = const Duration(seconds: 20);
 
 class WaitForExpectedEventFromHub<T extends DataStoreHubEventPayload> {
   final Completer<T> _completer = Completer();
-  late StreamSubscription hubSubscription;
-  final Function eventMatcher;
+  late StreamSubscription<DataStoreHubEvent> hubSubscription;
+  final bool Function(DataStoreHubEventPayload?) eventMatcher;
   final String eventName;
   Duration timeout;
 
@@ -38,7 +38,7 @@ Future<SubscriptionDataProcessedEvent>
 }) async {
   var getter = WaitForExpectedEventFromHub<SubscriptionDataProcessedEvent>(
     eventName: 'subscriptionDataProcessed',
-    eventMatcher: (DataStoreHubEventPayload eventPayload) {
+    eventMatcher: (DataStoreHubEventPayload? eventPayload) {
       if (eventPayload is SubscriptionDataProcessedEvent) {
         return eventMatcher(eventPayload);
       }

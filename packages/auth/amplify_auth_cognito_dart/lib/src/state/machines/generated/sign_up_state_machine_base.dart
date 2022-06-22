@@ -17,7 +17,6 @@ import 'dart:async';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
-import 'package:smithy/smithy.dart';
 
 /// {@template amplify_auth_cognito.state.machines.sign_up_state_machine_base}
 /// Generated definition for the sign up state machine.
@@ -59,17 +58,8 @@ abstract class SignUpStateMachineBase
 
   @override
   SignUpState? resolveError(Object error, [StackTrace? st]) {
-    if (error is AmplifyException) {
+    if (error is Exception) {
       return SignUpFailure(error);
-    } else if (error is SmithyException) {
-      return SignUpFailure(error);
-    } else if (error is Exception) {
-      return SignUpFailure(
-        UnknownException(
-          'An unknown error occurred signing up',
-          underlyingException: error.toString(),
-        ),
-      );
     }
     return null;
   }

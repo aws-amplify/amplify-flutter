@@ -17,6 +17,7 @@ library amplify_auth_cognito.credentials.cognito_keys;
 
 import 'dart:collection';
 
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
@@ -78,6 +79,9 @@ enum HostedUiKey {
 
   /// The OIDC nonce value.
   nonce,
+
+  /// The [CognitoSignInWithWebUIOptions] passed to `signInWithWebUI`.
+  options,
 }
 
 /// {@template amplify_auth_cognito.cognito_identity_pool_keys}

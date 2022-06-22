@@ -74,6 +74,9 @@ abstract class CredentialStoreStateMachineBase
 
   @override
   CredentialStoreState? resolveError(Object error, [StackTrace? st]) {
+    if (error is Exception) {
+      return CredentialStoreFailure(error);
+    }
     return null;
   }
 
