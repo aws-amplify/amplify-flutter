@@ -1,5 +1,186 @@
 version: 2.1
 
+orbs:
+  # Using inline orb for now
+  getting-started-smoke-test:
+    orbs:
+      macos: circleci/macos@2.2.0
+      android: circleci/android@2.0.3
+      flutter-orb: circleci/flutter@1.1.0
+
+    executors:
+      mac-executor:
+        macos:
+          xcode: 13.2.1
+        resource_class: large
+
+      android-executor:
+        machine:
+          image: android:202102-01
+        resource_class: large
+
+    commands:
+      run-with-retry:
+        description: Run command with retry
+        parameters:
+          label:
+            description: Display name
+            type: string
+          command:
+            description: Command to run
+            type: string
+          retry-count:
+            description: Number of retry
+            type: integer
+            default: 3
+          sleep:
+            description: Wait duration until next retry
+            type: integer
+            default: 5
+          no_output_timeout:
+            description: Elapsed time the command can run without output
+            type: string
+            default: 10m
+        steps:
+          - run:
+              name: << parameters.label >>
+              command: |
+                retry() {
+                  MAX_RETRY=<< parameters.retry-count >>
+                  n=0
+                  until [ $n -ge $MAX_RETRY ]
+                  do
+                      << parameters.command >> && break
+                      n=$[$n+1]
+                      sleep << parameters.sleep >>
+                  done
+                  if [ $n -ge $MAX_RETRY ]; then
+                    echo "failed: ${@}" >&2
+                    exit 1
+                  fi
+                }
+                retry
+              no_output_timeout: << parameters.no_output_timeout >>
+      install-flutter:
+        description: Install Flutter and set up paths.
+        parameters:
+          flutter_branch:
+            description: Flutter branch or version tag.
+            type: string
+            default: stable
+        steps:
+          - run:
+              name: Set up Flutter
+              command: |
+                echo 'export FLUTTER_HOME=${HOME}/sdks/flutter' >> $BASH_ENV
+                echo 'export FLUTTER_BRANCH=<< parameters.flutter_branch >>' >> $BASH_ENV
+                echo 'export FLUTTER_ROOT=${FLUTTER_HOME}' >> $BASH_ENV
+                echo 'export PATH=${PATH}:${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin:${HOME}/.pub-cache/bin:${FLUTTER_HOME}/.pub-cache/bin' >> $BASH_ENV
+                source $BASH_ENV
+                git clone --branch ${FLUTTER_BRANCH} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
+                (yes || true) | flutter doctor --android-licenses && flutter doctor
+                flutter precache
+      setup-amplify-flutter-project:
+        description: Setup Amplify project
+        steps:
+          - run-with-retry:
+              label: Setting up dependences
+              command: flutter pub add amplify_flutter && flutter pub add amplify_datastore && flutter pub add amplify_storage_s3 && flutter pub add amplify_analytics_pinpoint && flutter pub add amplify_auth_cognito && flutter pub add amplify_api
+              no_output_timeout: 5m
+          - run:
+              name: Adding integration_test package
+              command: 'sed -i -e "s/dev_dependencies:/dev_dependencies:\n  integration_test:\n    sdk: flutter/" ./pubspec.yaml && cat ./pubspec.yaml'
+          - run:
+              name: Update outdated dependences
+              command: flutter pub upgrade --major-versions
+          - run:
+              name: Adding amplifyconfig file
+              command: mv canaries/dummy_amplifyconfiguration.dart canaries/amplifyconfiguration.dart && cp canaries/amplifyconfiguration.dart amplified_todo/lib
+              working_directory: ~/flutter-canaries/
+          - run:
+              name: Adding test code
+              command: cp canaries/main.dart amplified_todo/lib && cp -r canaries/integration_test amplified_todo/integration_test && cp -r canaries/models amplified_todo/lib/models
+              working_directory: ~/flutter-canaries/
+
+    jobs:
+      flutter-android:
+        parameters:
+          flutter-version:
+            type: string
+        executor:
+          name: android/android-machine
+          resource-class: large
+          tag: 2021.10.1
+        working_directory: ~/flutter-canaries/amplified_todo
+        steps:
+          - checkout:
+              path: ~/flutter-canaries
+          - install-flutter:
+              flutter_branch: << parameters.flutter-version >>
+          - run:
+              name: Setting up project
+              command: cd ../ && flutter create amplified_todo
+          - run:
+              name: Update Android version
+              command: sed -i -e "s/minSdkVersion .*/minSdkVersion 21/" ./android/app/build.gradle && cat ./android/app/build.gradle
+          - setup-amplify-flutter-project
+          - flutter-orb/install_android_gradle:
+              app-dir: ./
+          - android/create-avd:
+              avd-name: flutter
+              install: true
+              system-image: system-images;android-29;default;x86
+          - android/start-emulator:
+              avd-name: flutter
+              post-emulator-launch-assemble-command: ls -lrt
+              restore-gradle-cache-find-args: ./android -name 'build.gradle'
+          - run-with-retry:
+              label: Run Flutter Build
+              command: flutter build apk --debug
+              no_output_timeout: 20m
+          - run-with-retry:
+              label: Run Flutter Tests
+              command: flutter test integration_test
+              no_output_timeout: 1h
+              retry-count: 5
+
+      flutter-ios:
+        parameters:
+          flutter-version:
+            type: string
+        executor: mac-executor
+        working_directory: ~/flutter-canaries/amplified_todo
+        steps:
+          - checkout:
+              path: ~/flutter-canaries
+          - run:
+              name: Install gnu-sed
+              command: brew install gnu-sed
+          - macos/preboot-simulator:
+              device: iPhone 13
+              version: "15.2"
+          - install-flutter:
+              flutter_branch: << parameters.flutter-version >>
+          - run:
+              name: Setting up project
+              command: cd ../ && flutter create amplified_todo
+          - setup-amplify-flutter-project
+          - run:
+              name: Removing IPHONEOS_DEPLOYMENT_TARGET from build_settings
+              command: cd ios && gsed -i "/flutter_additional_ios_build_settings(target)/ a \    target.build_configurations.each do |config|\n      config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'\n    end" Podfile
+          - run:
+              name: Update ios version
+              command: sed -i -e "s/# platform .*/platform :ios, '13.0'/" ./ios/Podfile && cat ./ios/Podfile
+          - run-with-retry:
+              label: Run Flutter Build
+              command: flutter build ios --debug --simulator
+              no_output_timeout: 20m
+          - run-with-retry:
+              label: Run Flutter Tests
+              command: flutter test integration_test
+              no_output_timeout: 20m
+
+
 executors:
   docker-executor:
     docker:
@@ -50,6 +231,7 @@ commands:
           name: Install tuneup
           command: |
             flutter pub global activate tuneup
+
 jobs:
   format_flutter:
     executor: docker-executor
@@ -198,10 +380,16 @@ releasable_branches: &releasable_branches
 
 workflows:
   test_deploy:
+    # Tells CircleCI to skip this workflow when the pipeline is triggered by the scheduled source,
+    # i.e. when the canaries workflow executes
+    # https://circleci.com/docs/2.0/scheduled-pipelines/#workflows-filtering
+    when:
+      not:
+        equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
       - format_flutter
       - analyze_flutter
-      # TODO: Enable pub_analysis after https://github.com/dart-lang/pana/issues/1020 is 
+      # TODO: Enable pub_analysis after https://github.com/dart-lang/pana/issues/1020 is
       # resolved or these are updated to run against unpub
       # - pub_analysis:
       #     matrix:
@@ -222,36 +410,52 @@ workflows:
             parameters:
               plugin:
                 [
-                  "amplify_analytics_pinpoint",
-                  "amplify_api",
-                  "amplify_auth_cognito",
-                  "amplify_authenticator",
-                  "amplify_core",
-                  "amplify_datastore",
-                  "amplify_datastore_plugin_interface",
-                  "amplify_flutter",
-                  "amplify_storage_s3"
+                    "amplify_analytics_pinpoint",
+                    "amplify_api",
+                    "amplify_auth_cognito",
+                    "amplify_authenticator",
+                    "amplify_core",
+                    "amplify_datastore",
+                    "amplify_datastore_plugin_interface",
+                    "amplify_flutter",
+                    "amplify_storage_s3"
                 ]
       - unit_test_android:
           matrix:
             parameters:
               plugin:
                 [
-                  "amplify_analytics_pinpoint",
-                  "amplify_api",
-                  "amplify_auth_cognito",
-                  "amplify_core",
-                  "amplify_datastore",
-                  "amplify_flutter",
+                    "amplify_analytics_pinpoint",
+                    "amplify_api",
+                    "amplify_auth_cognito",
+                    "amplify_core",
+                    "amplify_datastore",
+                    "amplify_flutter",
                 ]
       - unit_test_ios:
           matrix:
             parameters:
               plugin:
                 [
-                  "amplify_analytics_pinpoint",
-                  "amplify_api",
-                  "amplify_auth_cognito",
-                  "amplify_datastore",
-                  "amplify_flutter",
+                    "amplify_analytics_pinpoint",
+                    "amplify_api",
+                    "amplify_auth_cognito",
+                    "amplify_datastore",
+                    "amplify_flutter",
                 ]
+  # Scheduled smoke test workflow
+  # Jobs are pulled from the getting-started-smoke-test inline orb defined above
+  canaries:
+    when:
+      and:
+        - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - equal: [ "Canaries", << pipeline.schedule.name >> ]
+    jobs:
+      - getting-started-smoke-test/flutter-android:
+          matrix:
+            parameters:
+              flutter-version: [ "stable", "beta" ]
+      - getting-started-smoke-test/flutter-ios:
+          matrix:
+            parameters:
+              flutter-version: [ "stable", "beta" ]
