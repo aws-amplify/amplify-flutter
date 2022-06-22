@@ -139,9 +139,8 @@ mixin AuthenticatorUsernameField<FieldType,
                   final newUsernameSelection = index == 0
                       ? UsernameSelection.email
                       : UsernameSelection.phoneNumber;
-                  final oldUsernameSelection = state.usernameSelection;
                   // Return if username selection has not changed
-                  if (oldUsernameSelection == newUsernameSelection) {
+                  if (newUsernameSelection == state.usernameSelection) {
                     return;
                   }
                   // Determine the new username value based off the new username selection
