@@ -15,6 +15,7 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_helper.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:worker_bee/worker_bee.dart';
@@ -42,9 +43,7 @@ abstract class SrpInitMessage
 /// {@template amplify_auth_cognito.srp_init_worker}
 /// Worker bee for handling the SRP initialization routine.
 /// {@endtemplate}
-@WorkerBee('packages/amplify_auth_cognito_dart/src/workers.dart.js', [
-  'packages/amplify_auth_cognito_dart/src/workers.js',
-])
+@WorkerBee()
 abstract class SrpInitWorker
     extends WorkerBeeBase<SrpInitMessage, SrpInitResult> {
   /// {@macro amplify_auth_cognito.srp_init_worker}
@@ -52,6 +51,22 @@ abstract class SrpInitWorker
 
   /// {@macro amplify_auth_cognito.srp_init_worker}
   factory SrpInitWorker.create() = SrpInitWorkerImpl;
+
+  @override
+  String get jsEntrypoint {
+    return 'packages/amplify_auth_cognito_dart/src/workers/workers.js';
+  }
+
+  @override
+  List<String> get fallbackUrls => zDebugMode
+      ? const [
+          'packages/amplify_auth_cognito_dart/src/workers/workers.debug.dart.js',
+          'packages/amplify_auth_cognito_dart/src/workers/workers.js',
+        ]
+      : const [
+          'packages/amplify_auth_cognito_dart/src/workers/workers.release.dart.js',
+          'packages/amplify_auth_cognito_dart/src/workers/workers.min.js',
+        ];
 
   @override
   Future<SrpInitResult?> run(

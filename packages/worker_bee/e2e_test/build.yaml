@@ -13,7 +13,7 @@ targets:
       build_web_compilers:entrypoint:
         enabled: true
         generate_for:
-          - lib/src/worker/*.debug.dart
+          - lib/*.debug.dart
         options:
           compiler: dart2js
           dart2js_args:
@@ -26,7 +26,7 @@ targets:
       build_web_compilers:entrypoint:
         enabled: true
         generate_for:
-          - lib/src/worker/*.release.dart
+          - lib/*.release.dart
         options:
           compiler: dart2js
           dart2js_args:
@@ -37,10 +37,10 @@ targets:
       worker_bee_builder:worker_copy_builder:
         enabled: true
         generate_for:
-          - lib/src/worker/*.debug.dart.js
-          - lib/src/worker/*.debug.dart.js.map
-          - lib/src/worker/*.release.dart.js
-          - lib/src/worker/*.release.dart.js.map
+          - lib/*.debug.dart.js
+          - lib/*.debug.dart.js.map
+          - lib/*.release.dart.js
+          - lib/*.release.dart.js.map
     dependencies:
-      - amplify_secure_storage_dart:debug
-      - amplify_secure_storage_dart:release
+      - e2e_test:debug
+      - e2e_test:release
