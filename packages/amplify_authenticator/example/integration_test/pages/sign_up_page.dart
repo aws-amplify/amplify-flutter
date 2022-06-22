@@ -32,6 +32,9 @@ class SignUpPage extends AuthenticatorPage {
       find.byKey(keyPreferredUsernameSignUpFormField);
   Finder get signUpButton => find.byKey(keySignUpButton);
 
+  Finder get selectEmailButton => find.byKey(keyEmailUsernameToggleButton);
+  Finder get selectPhoneButton => find.byKey(keyPhoneUsernameToggleButton);
+
   /// When I type a new "username"
   Future<void> enterUsername(String username) async {
     await tester.enterText(usernameField, username);
@@ -52,6 +55,11 @@ class SignUpPage extends AuthenticatorPage {
     await tester.enterText(emailField, email);
   }
 
+  /// When I type my "PhoneNumber"
+  Future<void> enterPhoneNumber(String value) async {
+    await tester.enterText(phoneField, value);
+  }
+
   /// When I type a new "preferred username"
   Future<void> enterPreferredUsername(String username) async {
     await tester.enterText(preferredUsernameField, username);
@@ -61,6 +69,20 @@ class SignUpPage extends AuthenticatorPage {
   Future<void> submitSignUp() async {
     await tester.ensureVisible(signUpButton);
     await tester.tap(signUpButton);
+    await tester.pumpAndSettle();
+  }
+
+  /// When I select "email" as a username
+  Future<void> selectEmail() async {
+    await tester.ensureVisible(selectEmailButton);
+    await tester.tap(selectEmailButton);
+    await tester.pumpAndSettle();
+  }
+
+  /// When I select "phone" as a username
+  Future<void> selectPhone() async {
+    await tester.ensureVisible(selectPhoneButton);
+    await tester.tap(selectPhoneButton);
     await tester.pumpAndSettle();
   }
 
