@@ -72,7 +72,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ForgotPasswordPage forgotPasswordPage =
           ForgotPasswordPage(tester: tester);
-      signInPage.expectUsername();
+      await signInPage.expectUsername();
 
       // When I type my "username" with status "CONFIRMED"
       await signInPage.enterUsername(username);
@@ -91,7 +91,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ForgotPasswordPage forgotPasswordPage =
           ForgotPasswordPage(tester: tester);
-      signInPage.expectUsername();
+      await signInPage.expectUsername();
 
       // When I type my "username" with status "UNKNOWN"
       await signInPage.enterUsername(username);
