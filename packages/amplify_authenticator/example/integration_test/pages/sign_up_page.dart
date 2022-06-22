@@ -93,7 +93,8 @@ class SignUpPage extends AuthenticatorPage {
   }
 
   /// Then I see "Username" as an input field
-  void expectUserNameIsPresent({String usernameLabel = 'Username'}) {
+  Future<void> expectUserNameIsPresent({String usernameLabel = 'Username'}) async {
+    await tester.pumpAndSettle();
     // username field is present
     expect(usernameField, findsOneWidget);
     // login type is "username"

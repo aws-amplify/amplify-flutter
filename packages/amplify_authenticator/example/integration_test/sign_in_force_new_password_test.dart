@@ -102,7 +102,7 @@ void main() {
         await po.submitSignIn();
 
         // Then I should see the Force Change Password step
-        po.expectStep(AuthenticatorStep.confirmSignInNewPassword);
+        await po.expectStep(AuthenticatorStep.confirmSignInNewPassword);
       },
     );
 
@@ -127,7 +127,7 @@ void main() {
         // And I click the "Sign in" button
         await po.submitSignIn();
 
-        po.expectStep(AuthenticatorStep.confirmSignInNewPassword);
+        await po.expectStep(AuthenticatorStep.confirmSignInNewPassword);
         final cpo = ConfirmSignInPage(tester: tester);
 
         // And I type an invalid password
@@ -168,7 +168,7 @@ void main() {
         // And I click the "Sign in" button
         await po.submitSignIn();
 
-        po.expectStep(AuthenticatorStep.confirmSignInNewPassword);
+        await po.expectStep(AuthenticatorStep.confirmSignInNewPassword);
         final cpo = ConfirmSignInPage(tester: tester);
 
         // And I type a valid password

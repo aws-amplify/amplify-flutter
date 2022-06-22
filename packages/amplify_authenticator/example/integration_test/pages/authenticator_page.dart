@@ -38,10 +38,11 @@ abstract class AuthenticatorPage {
   Finder get signOutButton => find.byKey(keySignOutButton);
 
   /// Then I see "Username" as an input field
-  void expectUsername({
+  Future<void> expectUsername({
     String label = 'Username',
     bool isPresent = true,
-  }) {
+  }) async {
+    await tester.pumpAndSettle();
     // username field is present
     expect(usernameField, findsOneWidget);
     // login type is "username"
@@ -53,7 +54,8 @@ abstract class AuthenticatorPage {
   }
 
   /// Expects the current step to be [step].
-  void expectStep(AuthenticatorStep step) {
+  Future<void> expectStep(AuthenticatorStep step) async {
+    await tester.pumpAndSettle();
     final currentScreen = tester.widget<AuthenticatorScreen>(
       find.byType(AuthenticatorScreen),
     );
@@ -116,15 +118,7 @@ abstract class AuthenticatorPage {
 
   /// Then I see Invalid verification code
   Future<void> expectInvalidVerificationCode() async {
-    if (Platform.isAndroid) {
-      await expectError('Confirmation code entered is not correct.');
-    } else if (Platform.isIOS) {
-      await expectError(
-        'Invalid verification code provided, please try again.',
-      );
-    } else {
-      throw Exception('Unsupprted platform');
-    }
+    await expectError('Invalid verification code provided, please try again.');
   }
 
   Future<void> selectCountryCode({

@@ -69,7 +69,7 @@ void main() {
       final username = generateEmail();
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
-      signInPage.expectUsername(label: 'Email');
+      await signInPage.expectUsername(label: 'Email');
 
       // When I type my "email" with status "UNKNOWN"
       await signInPage.enterUsername(username);
@@ -106,7 +106,7 @@ void main() {
           ),
         );
 
-        signInPage.expectUsername(label: 'Email');
+        await signInPage.expectUsername(label: 'Email');
 
         // When I type my "username" with status "unconfirmed"
         await signInPage.enterUsername(email);
@@ -144,7 +144,7 @@ void main() {
       );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
-      signInPage.expectUsername(label: 'Email');
+      await signInPage.expectUsername(label: 'Email');
 
       // When I type my "email" with status "CONFIRMED"
       await signInPage.enterUsername(username);
@@ -174,7 +174,7 @@ void main() {
       );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
-      signInPage.expectUsername(label: 'Email');
+      await signInPage.expectUsername(label: 'Email');
 
       // When I type my "email" with status "CONFIRMED"
       await signInPage.enterUsername(username);
@@ -192,7 +192,7 @@ void main() {
       await signInPage.submitSignOut();
 
       // Then I see "Sign in"
-      signInPage.expectStep(AuthenticatorStep.signIn);
+      await signInPage.expectStep(AuthenticatorStep.signIn);
     });
 
     // Scenario: Sign in with force change password credentials
@@ -204,7 +204,7 @@ void main() {
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
-      signInPage.expectUsername(label: 'Email');
+      await signInPage.expectUsername(label: 'Email');
 
       // When I type my "username"
       await signInPage.enterUsername(username);
