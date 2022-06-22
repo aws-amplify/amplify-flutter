@@ -40,19 +40,19 @@ Future<void> main(List<String> args) async {
     ..addOption(
       accessKeyIdArg,
       abbr: 'a',
-      valueHelp: $awsAccessKeyId,
+      valueHelp: zAccessKeyId,
       mandatory: false,
     )
     ..addOption(
       secretAccessKeyArg,
       abbr: 's',
-      valueHelp: $awsSecretAccessKey,
+      valueHelp: zSecretAccessKey,
       mandatory: false,
     )
     ..addOption(
       sessionTokenArg,
       abbr: 't',
-      valueHelp: $awsSessionToken,
+      valueHelp: zSessionToken,
       mandatory: false,
     )
     ..addOption(
@@ -71,11 +71,11 @@ Future<void> main(List<String> args) async {
     );
 
   final parsedArgs = argParser.parse(args);
-  final accessKeyId = Platform.environment[$awsAccessKeyId] ??
+  final accessKeyId = Platform.environment[zAccessKeyId] ??
       parsedArgs[accessKeyIdArg] as String?;
-  final secretAccessKey = Platform.environment[$awsSecretAccessKey] ??
+  final secretAccessKey = Platform.environment[zSecretAccessKey] ??
       parsedArgs[secretAccessKeyArg] as String?;
-  final sessionToken = Platform.environment[$awsSessionToken] ??
+  final sessionToken = Platform.environment[zSessionToken] ??
       parsedArgs[sessionTokenArg] as String?;
 
   if (accessKeyId == null || secretAccessKey == null) {

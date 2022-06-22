@@ -13,14 +13,23 @@
 // limitations under the License.
 
 import 'package:aws_common/aws_common.dart';
+import 'package:test/test.dart';
 
-/// {@macro aws_signature_v4.environment_credentials_provider}
-class EnvironmentCredentialsProvider implements AWSCredentialsProvider {
-  /// {@macro aws_signature_v4.environment_credentials_provider}
-  const EnvironmentCredentialsProvider();
-
-  @override
-  AWSCredentials retrieve() {
-    return const DartEnvironmentCredentialsProvider().retrieve();
-  }
+void main() {
+  group('AWSCredentials', () {
+    test('toString obscures credentials', () {
+      const accessKeyId = 'accessKeyId';
+      const secretAccessKey = 'secretAccessKey';
+      const sessionToken = 'sessionToken';
+      const credentials = AWSCredentials(
+        accessKeyId,
+        secretAccessKey,
+        sessionToken,
+      );
+      final credsToString = credentials.toString();
+      expect(credsToString, isNot(contains(accessKeyId)));
+      expect(credsToString, isNot(contains(secretAccessKey)));
+      expect(credsToString, isNot(contains(sessionToken)));
+    });
+  });
 }

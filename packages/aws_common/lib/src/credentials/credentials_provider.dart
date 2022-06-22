@@ -15,18 +15,21 @@
 import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/src/config/aws_config_value.dart';
+import 'package:aws_common/src/config/config_file/file_loader.dart';
+import 'package:os_detect/os_detect.dart' as os;
 
 /// The `AWS_ACCESS_KEY_ID` identifier, used for locating credentials in the
 /// environment.
-const $awsAccessKeyId = 'AWS_ACCESS_KEY_ID';
+const zAccessKeyId = 'AWS_ACCESS_KEY_ID';
 
 /// The `AWS_SECRET_ACCESS_KEY` identifier, used for locating credentials in the
 /// environment.
-const $awsSecretAccessKey = 'AWS_SECRET_ACCESS_KEY';
+const zSecretAccessKey = 'AWS_SECRET_ACCESS_KEY';
 
 /// The `AWS_SESSION_TOKEN` identifier, used for locating credentials in the
 /// environment.
-const $awsSessionToken = 'AWS_SESSION_TOKEN';
+const zSessionToken = 'AWS_SESSION_TOKEN';
 
 /// {@template aws_signature_v4.invalid_credentials_exception}
 /// Exception thrown when AWS credentials are either unavailable or invalid.
@@ -37,8 +40,8 @@ class InvalidCredentialsException implements Exception {
 
   /// Exception thrown when AWS credentials could not be loaded by an
   /// [AWSCredentialsProvider].
-  const InvalidCredentialsException.couldNotLoad()
-      : this('Could not load credentials from environment');
+  const InvalidCredentialsException.couldNotLoad([String? message])
+      : this(message ?? 'Could not load credentials');
 
   /// Further information about the exception, if any.
   final String? message;
@@ -74,6 +77,16 @@ abstract class AWSCredentialsProvider {
   const factory AWSCredentialsProvider.dartEnvironment() =
       DartEnvironmentCredentialsProvider;
 
+  /// {@template aws_signature_v4.profile_credentials_provider}
+  /// Creates an [AWSCredentialsProvider] for credentials from an AWS shared
+  /// credentials file.
+  ///
+  /// Specify [profileName] to load from a specific profile. If none is
+  /// specified, the `default` profile is used.
+  /// {@endtemplate}
+  const factory AWSCredentialsProvider.profile([String profileName]) =
+      ProfileCredentialsProvider;
+
   const AWSCredentialsProvider._();
 
   /// Retrieves AWS credentials.
@@ -101,9 +114,21 @@ class DartEnvironmentCredentialsProvider extends AWSCredentialsProvider {
 
   @override
   AWSCredentials retrieve() {
-    const accessKeyId = String.fromEnvironment($awsAccessKeyId);
-    const secretAccessKey = String.fromEnvironment($awsSecretAccessKey);
-    const sessionToken = String.fromEnvironment($awsSessionToken);
+    var accessKeyId = const String.fromEnvironment(zAccessKeyId);
+    if (accessKeyId.isEmpty && zIsWeb) {
+      // Fallback for testing on Web
+      accessKeyId = lookupPlatformEnv(zAccessKeyId) ?? '';
+    }
+    var secretAccessKey = const String.fromEnvironment(zSecretAccessKey);
+    if (secretAccessKey.isEmpty && zIsWeb) {
+      // Fallback for testing on Web
+      secretAccessKey = lookupPlatformEnv(zSecretAccessKey) ?? '';
+    }
+    var sessionToken = const String.fromEnvironment(zSessionToken);
+    if (sessionToken.isEmpty && zIsWeb) {
+      // Fallback for testing on Web
+      sessionToken = lookupPlatformEnv(zSessionToken) ?? '';
+    }
 
     if (accessKeyId.isEmpty || secretAccessKey.isEmpty) {
       throw const InvalidCredentialsException.couldNotLoad();
@@ -114,5 +139,57 @@ class DartEnvironmentCredentialsProvider extends AWSCredentialsProvider {
       secretAccessKey,
       sessionToken.isEmpty ? null : sessionToken,
     );
+  }
+}
+
+/// {@macro aws_signature_v4.environment_credentials_provider}
+class EnvironmentCredentialsProvider implements AWSCredentialsProvider {
+  /// {@macro aws_signature_v4.environment_credentials_provider}
+  const EnvironmentCredentialsProvider();
+
+  @override
+  AWSCredentials retrieve() {
+    // On Android, iOS and Web, use the Dart VM's environment instead of
+    // the OS's since platform environment variables are not as useful or
+    // entirely unavailable.
+    if (os.isAndroid || os.isIOS || os.isBrowser) {
+      return const DartEnvironmentCredentialsProvider().retrieve();
+    }
+
+    final accessKeyId = lookupPlatformEnv(zAccessKeyId) ?? '';
+    final secretAccessKey = lookupPlatformEnv(zSecretAccessKey) ?? '';
+    final sessionToken = lookupPlatformEnv(zSessionToken);
+
+    if (accessKeyId.isEmpty || secretAccessKey.isEmpty) {
+      throw const InvalidCredentialsException.couldNotLoad();
+    }
+
+    return AWSCredentials(
+      accessKeyId,
+      secretAccessKey,
+      sessionToken == null || sessionToken.isEmpty ? null : sessionToken,
+    );
+  }
+}
+
+/// {@macro aws_signature_v4.profile_credentials_provider}
+class ProfileCredentialsProvider extends AWSCredentialsProvider {
+  /// {@macro aws_signature_v4.profile_credentials_provider}
+  const ProfileCredentialsProvider([this.profileName = 'default']) : super._();
+
+  /// The name of the profile to use from the AWS configuration and shared
+  /// credentials files.
+  final String profileName;
+
+  @override
+  Future<AWSCredentials> retrieve() async {
+    final profileFile = await const AWSProfileFileLoader().load();
+    final profileCredentials = profileFile.credentials(profileName);
+    if (profileCredentials == null) {
+      throw InvalidCredentialsException.couldNotLoad(
+        'Could not load credentials for profile "$profileName"',
+      );
+    }
+    return profileCredentials.retrieve();
   }
 }

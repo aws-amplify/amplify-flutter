@@ -30,8 +30,6 @@ export 'src/config/aws_service.dart';
 // Credentials
 export 'src/credentials/aws_credentials.dart';
 export 'src/credentials/credentials_provider.dart';
-export 'src/credentials/credentials_provider_io.dart'
-    if (dart.library.html) 'src/credentials/credentials_provider_html.dart';
 
 // Exception
 export 'src/exception/aws_http_exception.dart';

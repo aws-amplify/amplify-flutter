@@ -12,24 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('AWSCredentials', () {
-    test('toString obscures credentials', () {
-      const accessKeyId = 'accessKeyId';
-      const secretAccessKey = 'secretAccessKey';
-      const sessionToken = 'sessionToken';
-      const credentials = AWSCredentials(
-        accessKeyId,
-        secretAccessKey,
-        sessionToken,
+  const accessKeyId = 'accessKeyId';
+  const secretAccessKey = 'secretAccessKey';
+  const sessionToken = 'sessionToken';
+
+  group('AWSCredentialsProvider', () {
+    test('environment', () {
+      const credentialsProvider = EnvironmentCredentialsProvider();
+      final credentials = overrideEnvironment(
+        {
+          zAccessKeyId: accessKeyId,
+          zSecretAccessKey: secretAccessKey,
+          zSessionToken: sessionToken,
+        },
+        credentialsProvider.retrieve,
       );
-      final credsToString = credentials.toString();
-      expect(credsToString, isNot(contains(accessKeyId)));
-      expect(credsToString, isNot(contains(secretAccessKey)));
-      expect(credsToString, isNot(contains(sessionToken)));
+      expect(
+        credentials,
+        const AWSCredentials(
+          accessKeyId,
+          secretAccessKey,
+          sessionToken,
+        ),
+      );
     });
   });
 }

@@ -15,13 +15,8 @@
 /// HTTP request signer for AWS (Version 4).
 library aws_signature_v4;
 
-export 'package:aws_common/aws_common.dart'
-    show
-        AWSCredentials,
-        AWSCredentialsProvider,
-        DartEnvironmentCredentialsProvider,
-        EnvironmentCredentialsProvider,
-        StaticCredentialsProvider;
+export 'package:aws_common/src/credentials/aws_credentials.dart';
+export 'package:aws_common/src/credentials/credentials_provider.dart';
 
 export 'src/configuration/service_configuration.dart';
 export 'src/configuration/services/s3.dart';
