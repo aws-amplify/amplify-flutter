@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'dart:io';
+
+import 'package:aws_common/aws_common.dart';
 
 /// {@macro aws_signature_v4.environment_credentials_provider}
 class EnvironmentCredentialsProvider implements AWSCredentialsProvider {
@@ -21,6 +23,23 @@ class EnvironmentCredentialsProvider implements AWSCredentialsProvider {
 
   @override
   AWSCredentials retrieve() {
-    return const DartEnvironmentCredentialsProvider().retrieve();
+    // On Android and iOS, use the Dart VM's environment instead of the OS's.
+    if (Platform.isAndroid || Platform.isIOS) {
+      return const DartEnvironmentCredentialsProvider().retrieve();
+    }
+
+    final accessKeyId = Platform.environment[$awsAccessKeyId] ?? '';
+    final secretAccessKey = Platform.environment[$awsSecretAccessKey] ?? '';
+    final sessionToken = Platform.environment[$awsSessionToken];
+
+    if (accessKeyId.isEmpty || secretAccessKey.isEmpty) {
+      throw const InvalidCredentialsException.couldNotLoad();
+    }
+
+    return AWSCredentials(
+      accessKeyId,
+      secretAccessKey,
+      sessionToken == null || sessionToken.isEmpty ? null : sessionToken,
+    );
   }
 }

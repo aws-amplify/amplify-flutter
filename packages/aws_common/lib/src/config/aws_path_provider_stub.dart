@@ -12,15 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
+import 'package:logging/logging.dart';
 
-import 'package:aws_common/aws_common.dart';
-import 'package:meta/meta.dart';
+import 'aws_path_provider.dart';
 
-/// {@template aws_common.lookup_platform_env}
-/// Looks up a value from the platform environment.
-/// {@endtemplate}
-@internal
-String? lookupPlatformEnv(String key) =>
-    // ignore: invalid_use_of_visible_for_testing_member
-    (environmentOverrides ?? Platform.environment)[key];
+/// The stubbed implementation of [AWSPathProvider].
+///
+/// {@macro aws_common.aws_path_provider}
+class AWSPathProviderImpl extends AWSPathProvider {
+  /// {@macro aws_common.aws_path_provider}
+  const AWSPathProviderImpl() : super.protected();
+
+  static final _logger = Logger('AWSPathProvider');
+
+  @override
+  Future<String?> getHomeDirectory({String? forUser}) async {
+    _logger.warning('Home directory lookup not available on this platform');
+    return null;
+  }
+}

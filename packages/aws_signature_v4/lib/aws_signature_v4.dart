@@ -15,15 +15,18 @@
 /// HTTP request signer for AWS (Version 4).
 library aws_signature_v4;
 
+export 'package:aws_common/aws_common.dart'
+    show
+        AWSCredentials,
+        AWSCredentialsProvider,
+        DartEnvironmentCredentialsProvider,
+        EnvironmentCredentialsProvider,
+        StaticCredentialsProvider;
+
 export 'src/configuration/service_configuration.dart';
 export 'src/configuration/services/s3.dart';
 
-export 'src/credentials/aws_credential_scope.dart';
-export 'src/credentials/aws_credentials.dart';
-export 'src/credentials/credentials_provider.dart';
-export 'src/credentials/credentials_provider_io.dart'
-    if (dart.library.html) 'src/credentials/credentials_provider_html.dart';
-
+export 'src/request/aws_credential_scope.dart';
 export 'src/request/aws_date_time.dart';
 export 'src/request/aws_signed_request.dart';
 export 'src/request/canonical_request/canonical_request.dart';
