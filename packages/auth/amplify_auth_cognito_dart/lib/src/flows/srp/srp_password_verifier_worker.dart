@@ -92,6 +92,9 @@ abstract class SrpPasswordVerifierWorker extends WorkerBeeBase<
 
   @override
   String get jsEntrypoint {
+    if (zIsFlutter && zReleaseMode) {
+      return 'assets/packages/amplify_auth_cognito_dart/lib/src/workers/workers.min.js';
+    }
     return 'packages/amplify_auth_cognito_dart/src/workers/workers.js';
   }
 

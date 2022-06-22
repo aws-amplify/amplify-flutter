@@ -48,3 +48,8 @@ dev_dependencies:
   test: ^1.16.0
   worker_bee_builder:
     path: ../../worker_bee/worker_bee_builder
+
+flutter:
+  assets:
+  - lib/src/workers/workers.min.js
+  - lib/src/workers/workers.min.js.map
