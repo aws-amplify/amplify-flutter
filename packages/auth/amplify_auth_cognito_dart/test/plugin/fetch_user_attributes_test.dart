@@ -225,7 +225,7 @@ void main() {
         userAttributeKey: CognitoUserAttributeKey.zoneinfo,
         value: zoneinfo,
       ),
-      AuthUserAttribute(
+      const AuthUserAttribute(
         userAttributeKey: CognitoUserAttributeKey.custom(customKey),
         value: customValue,
       ),

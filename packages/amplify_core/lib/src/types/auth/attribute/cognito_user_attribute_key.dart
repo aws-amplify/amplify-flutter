@@ -26,25 +26,15 @@ import 'package:meta/meta.dart';
 @immutable
 class CognitoUserAttributeKey extends UserAttributeKey
     with AWSEquatable<CognitoUserAttributeKey>, AWSDebuggable {
-  const CognitoUserAttributeKey._(
-    super.key, {
-    this.readOnly = false,
-    this.isCustom = false,
-  });
+  const CognitoUserAttributeKey._(this._key, {this.readOnly = false})
+      : isCustom = false;
 
-  /// Creates a custom Cognito attribute.
-  factory CognitoUserAttributeKey.custom(String key) {
-    // Add the Cognito required custom prefix if not present.
-    final prefixedKey = hasCustomPrefix(key) ? key : '$_customPrefix$key';
-    return CognitoUserAttributeKey._(
-      prefixedKey,
-      readOnly: false,
-      isCustom: true,
-    );
-  }
+  const CognitoUserAttributeKey.custom(this._key)
+      : isCustom = true,
+        readOnly = false;
 
   /// Creates an unknown Cognito attribute.
-  const CognitoUserAttributeKey._unknown(super.key)
+  const CognitoUserAttributeKey._unknown(this._key)
       : isCustom = false,
         readOnly = true;
 
@@ -65,6 +55,16 @@ class CognitoUserAttributeKey extends UserAttributeKey
       orElse: () => CognitoUserAttributeKey._unknown(key),
     );
   }
+
+  /// Key provided when the attribute was constructed.
+  ///
+  /// For custom attributes, this may be missing the Cognito
+  /// required prefix.
+  final String _key;
+
+  @override
+  String get key =>
+      isCustom && !hasCustomPrefix(_key) ? '$_customPrefix$_key' : _key;
 
   /// Prefix for custom Cognito attributes.
   static const _customPrefix = 'custom:';
