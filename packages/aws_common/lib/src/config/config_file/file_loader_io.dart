@@ -20,9 +20,6 @@ import 'package:aws_common/src/config/config_file/resolved_file.dart';
 
 import 'file_loader.dart';
 
-/// If a file is not found or cannot be opened in the configured location,
-/// treat it as an empty file.
-
 /// {@macro aws_common.config_file.file_loader}
 class AWSFileLoaderImpl extends AWSFileLoader {
   /// {@macro aws_common.config_file.file_loader}
@@ -34,6 +31,10 @@ class AWSFileLoaderImpl extends AWSFileLoader {
   /// The path provider for locating configuration files.
   final AWSPathProvider _pathProvider;
 
+  /// If a file is not found or cannot be opened in the configured location,
+  /// treat it as an empty file.
+  ResolvedFile _empty(AWSProfileFileType type) => ResolvedFile.empty(type);
+
   @override
   Future<ResolvedFile> loadFile(
     AWSProfileFileType type,
@@ -42,12 +43,12 @@ class AWSFileLoaderImpl extends AWSFileLoader {
     final resolvedFilepath = await _pathProvider.resolve(filepath);
     if (resolvedFilepath == null) {
       AWSFileLoader.logger.warning('Could not resolve filepath for: $filepath');
-      return ResolvedFile.empty(type);
+      return _empty(type);
     }
     final file = File(resolvedFilepath);
     if (!await file.exists()) {
       AWSFileLoader.logger.warning('File does not exist: $resolvedFilepath');
-      return ResolvedFile.empty(type);
+      return _empty(type);
     }
     return ResolvedFile(
       type,

@@ -27,7 +27,7 @@ import 'aws_path_provider_stub.dart'
 final RegExp _homeDirExp = RegExp(r'^~(\w+)?');
 
 /// {@template aws_common.aws_path_provider}
-///
+/// Locates paths on the end-user's machine.
 /// {@endtemplate}
 abstract class AWSPathProvider {
   /// {@macro aws_common.aws_path_provider}
