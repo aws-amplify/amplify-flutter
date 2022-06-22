@@ -22,7 +22,16 @@ export 'package:async/async.dart' show CancelableOperation, CancelableCompleter;
 export 'src/collection/case_insensitive.dart';
 
 // Config
+export 'src/config/aws_config_value.dart' hide lookupPlatformEnv;
+export 'src/config/aws_path_provider.dart';
+export 'src/config/aws_profile_file.dart' hide AWSProfileFileType;
 export 'src/config/aws_service.dart';
+
+// Credentials
+export 'src/credentials/aws_credentials.dart';
+export 'src/credentials/credentials_provider.dart';
+export 'src/credentials/credentials_provider_io.dart'
+    if (dart.library.html) 'src/credentials/credentials_provider_html.dart';
 
 // Exception
 export 'src/exception/aws_http_exception.dart';
