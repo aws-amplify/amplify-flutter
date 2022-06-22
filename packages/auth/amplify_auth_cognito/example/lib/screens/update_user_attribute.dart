@@ -71,7 +71,12 @@ class _UpdateUserAttributeScreenState extends State<UpdateUserAttributeScreen> {
   Future<void> _updateAttribute() async {
     try {
       final key = _keyController.text;
-      final userAttributeKey = CognitoUserAttributeKey.parse(key);
+      final isCustom = !CognitoUserAttributeKey.values
+          .map((value) => value.key)
+          .contains(key);
+      final userAttributeKey = isCustom
+          ? CognitoUserAttributeKey.custom(key)
+          : CognitoUserAttributeKey.parse(key);
       final res = await Amplify.Auth.updateUserAttribute(
         userAttributeKey: userAttributeKey,
         value: _valueController.text,
