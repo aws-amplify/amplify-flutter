@@ -142,26 +142,6 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
 
   final ValueNotifier<bool> obscureTextToggleValue = ValueNotifier(true);
 
-  @override
-  void initState() {
-    super.initState();
-    useEmail.addListener(_updateUseEmail);
-  }
-
-  @override
-  void dispose() {
-    useEmail.removeListener(_updateUseEmail);
-    super.dispose();
-  }
-
-  void _updateUseEmail() {
-    // Clear attributes on switch
-    state.authAttributes.clear();
-
-    // Refresh state
-    setState(() {});
-  }
-
   /// Controls optional visibility of the field.
   Widget get obscureTextToggle {
     return ValueListenableBuilder<bool>(

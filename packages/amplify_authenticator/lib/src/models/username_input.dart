@@ -23,9 +23,10 @@ enum UsernameConfigType {
 }
 
 /// {@template amplify_authenticator.username_type}
-/// The type of username input field presented to the user. Depending on your
-/// Cognito configuration, users may choose to create their own username, use
-/// their email, or use their phone number as their login.
+/// The type of username input field presented to the user.
+///
+/// Depending on your Cognito configuration, users will be required to either
+/// create a unique username, or sign up with an email or phone number.
 /// {@endtemplate}
 enum UsernameType {
   /// The user's chosen username.
@@ -56,4 +57,13 @@ class UsernameInput {
     required this.type,
     required this.username,
   });
+}
+
+/// {@template amplify_authenticator.username_input.username_selection}
+/// The username type to use during sign up and sign in for configurations
+/// that allow email OR phone number.
+/// {@endtemplate}
+enum UsernameSelection {
+  email,
+  phoneNumber,
 }
