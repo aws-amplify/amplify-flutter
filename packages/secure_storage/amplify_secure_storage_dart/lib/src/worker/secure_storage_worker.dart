@@ -39,6 +39,9 @@ abstract class SecureStorageWorker
 
   @override
   String get jsEntrypoint {
+    if (zIsFlutter && zReleaseMode) {
+      return 'assets/packages/amplify_secure_storage_dart/src/worker/workers.min.js';
+    }
     return 'packages/amplify_secure_storage_dart/src/worker/workers.js';
   }
 
