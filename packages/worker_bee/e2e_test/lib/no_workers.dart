@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:worker_bee/worker_bee.dart';
+@WorkerHive([])
 
-void main() {
-  runHive(const {});
-}
+import 'package:worker_bee/worker_bee.dart';
