@@ -9292,7 +9292,7 @@
       return $T._as(o[method].apply(o, args));
     },
     main() {
-      return A.runHive($.workers);
+      return A.runHive($._workers);
     },
     IterableExtension_get_firstOrNull(_this, $T) {
       var iterator = _this.get$iterator(_this);
@@ -26057,7 +26057,7 @@
       var t1 = type$.String;
       return A.LinkedHashMap_LinkedHashMap$_empty(t1, t1);
     }();
-    $.workers = A.LinkedHashMap_LinkedHashMap$_literal(["SecureStorageWorker", A.secure_storage_worker_SecureStorageWorker___create_tearOff$closure()], type$.String, A.findType("WorkerBeeBase<Object,@>()"));
+    $._workers = A.LinkedHashMap_LinkedHashMap$_literal(["SecureStorageWorker", A.secure_storage_worker_SecureStorageWorker___create_tearOff$closure()], type$.String, A.findType("WorkerBeeBase<Object,@>()"));
     $._indentingBuiltValueToStringHelperIndent = 0;
     $.LogRecord__nextNumber = 0;
     $.Logger__loggers = A.LinkedHashMap_LinkedHashMap$_empty(type$.String, type$.Logger);

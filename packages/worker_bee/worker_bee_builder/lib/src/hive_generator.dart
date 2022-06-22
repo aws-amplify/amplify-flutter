@@ -45,7 +45,7 @@ class WorkerHiveGenerator extends GeneratorForAnnotation<WorkerHive> {
       b.body.addAll([
         Field(
           (m) => m
-            ..name = 'workers'
+            ..name = '_workers'
             ..modifier = FieldModifier.final$
             ..assignment = literalMap(
               {
@@ -63,7 +63,7 @@ class WorkerHiveGenerator extends GeneratorForAnnotation<WorkerHive> {
           (m) => m
             ..name = 'main'
             ..body = DartTypes.workerBee.runHive.call([
-              refer('workers'),
+              refer('_workers'),
             ]).code,
         )
       ]);
