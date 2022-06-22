@@ -21,10 +21,10 @@ import 'package:meta/meta.dart';
 @immutable
 abstract class UserAttributeKey implements Comparable<UserAttributeKey> {
   /// {@macro amplify_core.user_attribute_key}
-  const UserAttributeKey();
+  const UserAttributeKey(this.key);
 
   /// The JSON key for this attribute.
-  String get key;
+  final String key;
 
   @override
   int compareTo(UserAttributeKey other) => key.compareTo(other.key);
