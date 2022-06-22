@@ -17,7 +17,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
-import 'package:amplify_authenticator/src/state/authenticator_state.dart';
+import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
@@ -140,20 +140,27 @@ mixin AuthenticatorUsernameField<FieldType,
                       ? UsernameSelection.email
                       : UsernameSelection.phoneNumber;
                   final oldUsernameSelection = state.usernameSelection;
+                  // Return if username selection has not changed
                   if (oldUsernameSelection == newUsernameSelection) {
                     return;
                   }
-                  state.usernameSelection = newUsernameSelection;
-                  // Reset current username value to align with the current switch state.
-                  String newUsername = newUsernameSelection ==
+                  // Determine the new username value based off the new username selection
+                  // and the current user attributes
+                  final newUsername = newUsernameSelection ==
                           UsernameSelection.email
                       ? state.getAttribute(CognitoUserAttributeKey.email) ?? ''
                       : state.getAttribute(
                               CognitoUserAttributeKey.phoneNumber) ??
                           '';
-                  state.username = newUsername;
-                  // Clear attributes on switch
+                  // Clear user attributes
                   state.authAttributes.clear();
+                  // Reset country code if phone is not being used as a username
+                  if (newUsernameSelection != UsernameSelection.phoneNumber) {
+                    state.country = countryCodes.first;
+                  }
+                  // Update the username & username selection
+                  state.username = newUsername;
+                  state.usernameSelection = newUsernameSelection;
                 },
                 children: [
                   Text(emailTitle, key: keyEmailUsernameToggleButton),

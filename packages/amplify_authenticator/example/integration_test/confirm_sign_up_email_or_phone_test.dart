@@ -48,118 +48,120 @@ void main() {
     ),
   );
 
-  group('confirm-sign-up', () {
-    // Given I'm running the example with an "Email or Phone" config
-    setUpAll(() async {
-      await loadConfiguration(
-        'email-or-phone',
-        additionalConfigs: isMobile ? [AmplifyAPI()] : null,
+  group(
+    'confirm-sign-up',
+    () {
+      // Given I'm running the example with an "Email or Phone" config
+      setUpAll(() async {
+        await loadConfiguration(
+          'email-or-phone',
+          additionalConfigs: isMobile ? [AmplifyAPI()] : null,
+        );
+      });
+
+      setUp(signOut);
+
+      tearDown(Amplify.Auth.deleteUser);
+
+      // Scenario: Sign up & confirm account with email as username
+      testWidgets(
+        'Sign up & confirm account with email as username',
+        (tester) async {
+          final signUpPage = SignUpPage(tester: tester);
+          final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
+          final signInPage = SignInPage(tester: tester);
+
+          await loadAuthenticator(tester: tester, authenticator: authenticator);
+
+          final email = generateEmail();
+          final phoneNumber = generateUSPhoneNumber();
+          final password = generatePassword();
+
+          final code = getOtpCode(email);
+
+          await signInPage.navigateToSignUp();
+
+          // When I select email as a username
+          await signUpPage.selectEmail();
+
+          // And I type my email address as a username
+          await signUpPage.enterUsername(email);
+
+          // And I type my password
+          await signUpPage.enterPassword(password);
+
+          // And I confirm my password
+          await signUpPage.enterPasswordConfirmation(password);
+
+          // And I enter my phone number
+          await signUpPage.enterPhoneNumber(phoneNumber.withOutCountryCode());
+
+          // And I click the "Create Account" button
+          await signUpPage.submitSignUp();
+
+          // And I see "Confirmation Code"
+          confirmSignUpPage.expectConfirmationCodeIsPresent();
+
+          // And I type a valid confirmation code
+          await confirmSignUpPage.enterCode(await code);
+
+          // And I click the "Confirm" button
+          await confirmSignUpPage.submitConfirmSignUp();
+
+          // Then I see "Sign out"
+          await signInPage.expectAuthenticated();
+        },
       );
-    });
 
-    setUp(signOut);
+      testWidgets(
+        'Sign up & confirm account with phone number as username',
+        (tester) async {
+          final signUpPage = SignUpPage(tester: tester);
+          final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
+          final signInPage = SignInPage(tester: tester);
 
-    tearDown(Amplify.Auth.deleteUser);
+          await loadAuthenticator(tester: tester, authenticator: authenticator);
 
-    // Scenario: Sign up & confirm account with email as username
-    testWidgets(
-      'Sign up & confirm account with email as username',
-      (tester) async {
-        SignUpPage signUpPage = SignUpPage(tester: tester);
-        ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
-        SignInPage signInPage = SignInPage(tester: tester);
+          final email = generateEmail();
+          final phoneNumber = generateUSPhoneNumber();
+          final password = generatePassword();
 
-        await loadAuthenticator(tester: tester, authenticator: authenticator);
+          final code = getOtpCode(email);
 
-        final email = generateEmail();
-        final phoneNumber = generateUSPhoneNumber();
-        final password = generatePassword();
+          await signInPage.navigateToSignUp();
 
-        final code = getOtpCode(email);
+          // When I select phone number as a username
+          await signUpPage.selectPhone();
 
-        await signInPage.navigateToSignUp();
+          // And I type my phone number as a username
+          await signUpPage.enterUsername(phoneNumber.withOutCountryCode());
 
-        // When I select email as a username
-        await signUpPage.selectEmail();
+          // And I type my password
+          await signUpPage.enterPassword(password);
 
-        // And I type my email address as a username
-        await signUpPage.enterUsername(email);
+          // And I confirm my password
+          await signUpPage.enterPasswordConfirmation(password);
 
-        // And I type my password
-        await signUpPage.enterPassword(password);
+          // And I enter my email address
+          await signUpPage.enterEmail(email);
 
-        // And I confirm my password
-        await signUpPage.enterPasswordConfirmation(password);
+          // And I click the "Create Account" button
+          await signUpPage.submitSignUp();
 
-        // And I enter my phone number
-        await signUpPage.enterPhoneNumber(phoneNumber.withOutCountryCode());
+          // And I see "Confirmation Code"
+          confirmSignUpPage.expectConfirmationCodeIsPresent();
 
-        // And I click the "Create Account" button
-        await signUpPage.submitSignUp();
+          // And I type a valid confirmation code
+          await confirmSignUpPage.enterCode(await code);
 
-        // And I see "Confirmation Code"
-        confirmSignUpPage.expectConfirmationCodeIsPresent();
+          // And I click the "Confirm" button
+          await confirmSignUpPage.submitConfirmSignUp();
 
-        // And I type a valid confirmation code
-        await confirmSignUpPage.enterCode(await code);
-
-        // And I click the "Confirm" button
-        await confirmSignUpPage.submitConfirmSignUp();
-
-        // Then I see "Sign out"
-        await signInPage.expectAuthenticated();
-      },
-      skip: !isMobile,
-    );
-
-    testWidgets(
-      'Sign up & confirm account with phone number as username',
-      (tester) async {
-        SignUpPage signUpPage = SignUpPage(tester: tester);
-        ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
-        SignInPage signInPage = SignInPage(tester: tester);
-
-        await loadAuthenticator(tester: tester, authenticator: authenticator);
-
-        final email = generateEmail();
-        final phoneNumber = generateUSPhoneNumber();
-        final password = generatePassword();
-
-        final code = getOtpCode(email);
-
-        await signInPage.navigateToSignUp();
-
-        // When I select phone number as a username
-        await signUpPage.selectPhone();
-
-        // And I type my phone number as a username
-        await signUpPage.enterUsername(phoneNumber.withOutCountryCode());
-
-        // And I type my password
-        await signUpPage.enterPassword(password);
-
-        // And I confirm my password
-        await signUpPage.enterPasswordConfirmation(password);
-
-        // And I enter my email address
-        await signUpPage.enterEmail(email);
-
-        // And I click the "Create Account" button
-        await signUpPage.submitSignUp();
-
-        // And I see "Confirmation Code"
-        confirmSignUpPage.expectConfirmationCodeIsPresent();
-
-        // And I type a valid confirmation code
-        await confirmSignUpPage.enterCode(await code);
-
-        // And I click the "Confirm" button
-        await confirmSignUpPage.submitConfirmSignUp();
-
-        // Then I see "Sign out"
-        await signInPage.expectAuthenticated();
-      },
-      skip: !isMobile,
-    );
-  });
+          // Then I see "Sign out"
+          await signInPage.expectAuthenticated();
+        },
+      );
+    },
+    skip: !isMobile,
+  );
 }
