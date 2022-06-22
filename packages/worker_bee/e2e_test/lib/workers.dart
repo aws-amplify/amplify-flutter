@@ -12,16 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:e2e_test/e2e_worker.dart';
-import 'package:e2e_test/e2e_worker_no_result.dart';
-import 'package:e2e_test/e2e_worker_null_result.dart';
-import 'package:e2e_test/e2e_worker_void_result.dart';
-import 'package:worker_bee/worker_bee.dart';
-
-import 'e2e_worker_throws.dart';
-
-part 'workers.g.dart';
-
 @WorkerHive([
   E2EWorker,
   E2EWorkerNoResult,
@@ -29,6 +19,10 @@ part 'workers.g.dart';
   E2EWorkerNullResult,
   E2EWorkerThrows,
 ])
-void main() {
-  runHive(workers);
-}
+
+import 'package:e2e_test/e2e_worker.dart';
+import 'package:e2e_test/e2e_worker_no_result.dart';
+import 'package:e2e_test/e2e_worker_null_result.dart';
+import 'package:e2e_test/e2e_worker_throws.dart';
+import 'package:e2e_test/e2e_worker_void_result.dart';
+import 'package:worker_bee/worker_bee.dart';

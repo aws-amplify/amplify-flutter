@@ -7,10 +7,4 @@ class SrpDevicePasswordVerifierWorkerImpl
     extends SrpDevicePasswordVerifierWorker {
   @override
   String get name => 'SrpDevicePasswordVerifierWorker';
-  @override
-  String get jsEntrypoint =>
-      'packages/amplify_auth_cognito_dart/src/workers.dart.js';
-  @override
-  List<String> get fallbackUrls =>
-      const ['packages/amplify_auth_cognito_dart/src/workers.js'];
 }

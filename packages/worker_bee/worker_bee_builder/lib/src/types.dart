@@ -53,6 +53,13 @@ class _Core {
           ]),
       );
 
+  /// Creates a [core.Map] reference.
+  Reference map(Reference key, Reference value) => TypeReference(
+        (t) => t
+          ..symbol = 'Map'
+          ..types.addAll([key, value]),
+      );
+
   /// Creates an [core.Object] reference.
   Reference get object => const Reference('Object');
 
@@ -112,11 +119,17 @@ class _WorkerBee {
   /// Creates a [worker_bee.LogMessage] reference.
   Reference get logMessage => const Reference('LogMessage', _url);
 
+  /// Creates a [worker_bee.runHive] reference.
+  Reference get runHive => const Reference('runHive', _url);
+
   /// Creates a [worker_bee.SendPorts] reference.
   Reference get sendPorts => const Reference('SendPorts', _url);
 
   /// Creates a [worker_bee.VmEntrypoint] reference.
   Reference get vmEntrypoint => const Reference('VmEntrypoint', _url);
+
+  /// Creates a [worker_bee.WorkerBeeBuilder] reference.
+  Reference get workerBeeBuilder => const Reference('WorkerBeeBuilder', _url);
 }
 
 /// Helpers for [Reference] types.

@@ -30,10 +30,14 @@ class JsGenerator extends ImplGenerator {
   );
 
   /// The `.js` entrypoint to the compiled worker bee.
-  final String entrypoint;
+  ///
+  /// This will be `null` if the base implementation overrides `jsEntrypoint`.
+  final String? entrypoint;
 
   /// A list of fallback URLs to try if [entrypoint] fails.
-  final List<String> fallbackUrls;
+  ///
+  /// This will be `null` if the base implementation overrides `fallbackUrls`.
+  final List<String>? fallbackUrls;
 
   @override
   Library generate() {
@@ -57,18 +61,20 @@ class JsGenerator extends ImplGenerator {
               ..type = MethodType.getter
               ..name = 'name'
               ..body = literalString(workerName).code),
-            Method((m) => m
-              ..annotations.add(DartTypes.core.override)
-              ..returns = DartTypes.core.string
-              ..type = MethodType.getter
-              ..name = 'jsEntrypoint'
-              ..body = literalString(entrypoint).code),
-            Method((m) => m
-              ..annotations.add(DartTypes.core.override)
-              ..returns = DartTypes.core.list(DartTypes.core.string)
-              ..type = MethodType.getter
-              ..name = 'fallbackUrls'
-              ..body = literalConstList(fallbackUrls).code),
+            if (entrypoint != null)
+              Method((m) => m
+                ..annotations.add(DartTypes.core.override)
+                ..returns = DartTypes.core.string
+                ..type = MethodType.getter
+                ..name = 'jsEntrypoint'
+                ..body = literalString(entrypoint!).code),
+            if (fallbackUrls != null)
+              Method((m) => m
+                ..annotations.add(DartTypes.core.override)
+                ..returns = DartTypes.core.list(DartTypes.core.string)
+                ..type = MethodType.getter
+                ..name = 'fallbackUrls'
+                ..body = literalConstList(fallbackUrls!).code),
           ]),
       );
 }

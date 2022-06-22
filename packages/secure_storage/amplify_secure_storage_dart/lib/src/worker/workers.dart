@@ -12,20 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_auth_cognito_dart/src/flows/device/confirm_device_worker.dart';
-import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_device_password_verifier_worker.dart';
-import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_worker.dart';
-import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_password_verifier_worker.dart';
-import 'package:worker_bee/worker_bee.dart';
-
-part 'workers.g.dart';
-
 @WorkerHive([
-  SrpInitWorker,
-  SrpPasswordVerifierWorker,
-  SrpDevicePasswordVerifierWorker,
-  ConfirmDeviceWorker,
+  SecureStorageWorker,
 ])
-void main() {
-  runHive(workers);
-}
+library amplify_secure_storage_dart.workers;
+
+import 'package:amplify_secure_storage_dart/src/worker/secure_storage_worker.dart';
+import 'package:worker_bee/worker_bee.dart';

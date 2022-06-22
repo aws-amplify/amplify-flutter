@@ -19,6 +19,7 @@ import 'package:amplify_auth_cognito_dart/src/crypto/crypto.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_helper.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:worker_bee/worker_bee.dart';
@@ -56,9 +57,7 @@ abstract class ConfirmDeviceMessage
 /// Worker bee for handling the device verifier computations needed to call
 /// `ConfirmDevice` with Cognito.
 /// {@endtemplate}
-@WorkerBee('packages/amplify_auth_cognito_dart/src/workers.dart.js', [
-  'packages/amplify_auth_cognito_dart/src/workers.js',
-])
+@WorkerBee()
 abstract class ConfirmDeviceWorker
     extends WorkerBeeBase<ConfirmDeviceMessage, ConfirmDeviceRequest> {
   /// {@macro amplify_auth_cognito.confirm_device_worker}
@@ -66,6 +65,22 @@ abstract class ConfirmDeviceWorker
 
   /// {@macro amplify_auth_cognito.confirm_device_worker}
   factory ConfirmDeviceWorker.create() = ConfirmDeviceWorkerImpl;
+
+  @override
+  String get jsEntrypoint {
+    return 'packages/amplify_auth_cognito_dart/src/workers/workers.js';
+  }
+
+  @override
+  List<String> get fallbackUrls => zDebugMode
+      ? const [
+          'packages/amplify_auth_cognito_dart/src/workers/workers.debug.dart.js',
+          'packages/amplify_auth_cognito_dart/src/workers/workers.js',
+        ]
+      : const [
+          'packages/amplify_auth_cognito_dart/src/workers/workers.release.dart.js',
+          'packages/amplify_auth_cognito_dart/src/workers/workers.min.js',
+        ];
 
   @override
   Future<ConfirmDeviceRequest?> run(

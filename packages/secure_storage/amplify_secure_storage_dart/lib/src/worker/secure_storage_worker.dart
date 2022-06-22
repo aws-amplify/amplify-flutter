@@ -17,6 +17,7 @@ import 'dart:async';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_action.dart';
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_request.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:worker_bee/worker_bee.dart';
 
@@ -27,9 +28,7 @@ part 'secure_storage_worker.g.dart';
 /// {@template amplify_secure_storage_dart.secure_storage_worker}
 /// A remote worker which can handle secure storage requests.
 /// {@endtemplate}
-@WorkerBee('packages/amplify_secure_storage_dart/src/workers.dart.js', [
-  'packages/amplify_secure_storage_dart/src/workers.js',
-])
+@WorkerBee()
 abstract class SecureStorageWorker
     extends WorkerBeeBase<SecureStorageRequest, SecureStorageRequest> {
   /// {@macro amplify_secure_storage_dart.secure_storage_worker}
@@ -37,6 +36,22 @@ abstract class SecureStorageWorker
 
   /// {@macro amplify_secure_storage_dart.secure_storage_worker}
   factory SecureStorageWorker.create() = SecureStorageWorkerImpl;
+
+  @override
+  String get jsEntrypoint {
+    return 'packages/amplify_secure_storage_dart/src/worker/workers.js';
+  }
+
+  @override
+  List<String> get fallbackUrls => zDebugMode
+      ? const [
+          'packages/amplify_secure_storage_dart/src/worker/workers.debug.dart.js',
+          'packages/amplify_secure_storage_dart/src/worker/workers.js',
+        ]
+      : const [
+          'packages/amplify_secure_storage_dart/src/worker/workers.release.dart.js',
+          'packages/amplify_secure_storage_dart/src/worker/workers.min.js',
+        ];
 
   SecureStorageInterface? _storage;
 
