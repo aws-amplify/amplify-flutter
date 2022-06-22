@@ -54,6 +54,8 @@ class AmplifyAPIDart extends AmplifyAPI {
               'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api');
     }
     _apiConfig = apiConfig;
+
+    await super.configure(config: config);
   }
 
   /// Returns the HTTP client to be used for REST operations.

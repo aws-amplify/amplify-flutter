@@ -53,13 +53,7 @@ abstract class AmplifyClass {
 
   final _configCompleter = Completer<AmplifyConfig>();
 
-  final Map<
-      String,
-      Future<http.BaseRequest> Function(
-    http.BaseRequest request, {
-    String? region,
-    AWSService? service,
-  })> _authProviders = {};
+  final Map<String, AmplifyAuthProvider> _authProviders = {};
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -140,22 +134,12 @@ abstract class AmplifyClass {
   Future<void> reset();
 
   // TEMP
-  Future<http.BaseRequest> Function(
-    http.BaseRequest request, {
-    String? region,
-    AWSService? service,
-  })? getAuthProvider(String authorizationType) =>
+  AmplifyAuthProvider? getAuthProvider(String authorizationType) =>
       _authProviders[authorizationType];
 
   void registerAuthProvider(
-      String authorizationType,
-      Future<http.BaseRequest> Function(
-    http.BaseRequest request, {
-    String? region,
-    AWSService? service,
-  })
-          authProviderCallback) {
-    _authProviders.putIfAbsent(authorizationType, () => authProviderCallback);
+      String authorizationType, AmplifyAuthProvider authProvider) {
+    _authProviders.putIfAbsent(authorizationType, () => authProvider);
   }
 }
 

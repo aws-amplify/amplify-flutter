@@ -31,7 +31,9 @@ abstract class AmplifyPluginInterface {
   Future<void> addPlugin() async {}
 
   /// Configures the plugin using the registered [config].
-  Future<void> configure({AmplifyConfig? config}) async {}
+  Future<void> configure({AmplifyConfig? config}) async {
+    getAuthProviders().forEach(Amplify.registerAuthProvider);
+  }
 
   /// Resets the plugin by removing all traces of it from the device.
   @visibleForTesting
@@ -39,13 +41,7 @@ abstract class AmplifyPluginInterface {
     throw UnimplementedError('reset() has not been implemented');
   }
 
-  Map<
-      String,
-      Future<http.BaseRequest> Function(
-    http.BaseRequest request, {
-    String? region,
-    AWSService? service,
-  })> getAuthProviders() {
+  Map<String, AmplifyAuthProvider> getAuthProviders() {
     return {};
   }
 }

@@ -57,8 +57,11 @@ class AmplifyAuthorizationRestClient extends http.BaseClient {
         final service = endpointConfig.endpointType == EndpointType.graphQL
             ? AWSService.appSync
             : AWSService.apiGateway;
-
-        return authProvider(request, region: region, service: service);
+        if (authProvider is HttpRequestTransformAmplifyAuthProvider) {
+          return authProvider.authorizeRequest(request,
+              options: HttpRequestTransformOptions(
+                  service: service, region: region));
+        }
       } else {
         throw ApiException(
             'Unable to authorize request for authorization mode: ${describeEnum(endpointConfig.authorizationType)}. Ensure the correct plugin has been added from the CLI and Amplify.addPlugin.');
