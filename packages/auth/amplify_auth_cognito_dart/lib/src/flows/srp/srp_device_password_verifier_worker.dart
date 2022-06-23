@@ -21,7 +21,6 @@ import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
-import 'package:amplify_core/amplify_core.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -73,7 +72,7 @@ abstract class SrpDevicePasswordVerifierMessage
 /// {@template amplify_auth_cognito.srp_device_password_verifier_worker}
 /// Worker bee for handling the SRP device password verifier challenge routine.
 /// {@endtemplate}
-@WorkerBee()
+@WorkerBee('lib/src/workers/workers.dart')
 abstract class SrpDevicePasswordVerifierWorker extends WorkerBeeBase<
     SrpDevicePasswordVerifierMessage, RespondToAuthChallengeRequest> {
   /// {@macro amplify_auth_cognito.srp_device_password_verifier_worker}
@@ -82,25 +81,6 @@ abstract class SrpDevicePasswordVerifierWorker extends WorkerBeeBase<
   /// {@macro amplify_auth_cognito.srp_device_password_verifier_worker}
   factory SrpDevicePasswordVerifierWorker.create() =
       SrpDevicePasswordVerifierWorkerImpl;
-
-  @override
-  String get jsEntrypoint {
-    if (zIsFlutter && zReleaseMode) {
-      return 'assets/packages/amplify_auth_cognito_dart/lib/src/workers/workers.min.js';
-    }
-    return 'packages/amplify_auth_cognito_dart/src/workers/workers.js';
-  }
-
-  @override
-  List<String> get fallbackUrls => zDebugMode
-      ? const [
-          'packages/amplify_auth_cognito_dart/src/workers/workers.debug.dart.js',
-          'packages/amplify_auth_cognito_dart/src/workers/workers.js',
-        ]
-      : const [
-          'packages/amplify_auth_cognito_dart/src/workers/workers.release.dart.js',
-          'packages/amplify_auth_cognito_dart/src/workers/workers.min.js',
-        ];
 
   static final _dateFormat = DateFormat("EEE MMM d HH:mm:ss 'UTC' yyyy");
 

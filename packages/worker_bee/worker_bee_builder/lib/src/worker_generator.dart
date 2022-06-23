@@ -73,32 +73,26 @@ class WorkerBeeGenerator extends GeneratorForAnnotation<WorkerBee> {
     final responseType = typeArgs[1];
     final responseTypeEl = responseType.element;
 
-    String? jsEntrypoint;
     final declaresJsEntrypoint = element.fields.any(
       (el) => el.name == 'jsEntrypoint' && !el.isAbstract,
     );
-    if (!declaresJsEntrypoint) {
-      jsEntrypoint = annotation.read('jsEntrypoint').stringValue;
-    }
-
-    List<String>? fallbackUrls;
     final declaresFallbackUrls = element.fields.any(
       (el) => el.name == 'fallbackUrls' && !el.isAbstract,
     );
-    if (!declaresFallbackUrls) {
-      fallbackUrls = annotation
-          .read('fallbackUrls')
-          .listValue
-          .map((obj) => obj.toStringValue())
-          .toList()
-          .cast<String>();
-    }
+
+    final packageName = buildStep.inputId.package;
+    final hiveId = AssetId(
+      packageName,
+      annotation.read('hivePath').stringValue,
+    );
+
     final workerImpls = _generateWorkerImpls(
       element,
       requestTypeEl,
       responseTypeEl as ClassElement?,
-      jsEntrypoint,
-      fallbackUrls,
+      declaresJsEntrypoint,
+      declaresFallbackUrls,
+      hiveId,
     );
 
     final libraries = <Target, String>{};
@@ -124,8 +118,9 @@ export '${libraries[Target.vm]}'
     ClassElement workerEl,
     ClassElement messageTypeEl,
     ClassElement? resultTypeEl,
-    String? jsEntrypoint,
-    List<String>? fallbackUrls,
+    bool declaresJsEntrypoint,
+    bool declaresFallbackUrls,
+    AssetId hiveEntrypointId,
   ) {
     final vmClass = VmGenerator(
       workerEl,
@@ -136,8 +131,9 @@ export '${libraries[Target.vm]}'
       workerEl,
       messageTypeEl,
       resultTypeEl,
-      jsEntrypoint,
-      fallbackUrls,
+      declaresJsEntrypoint: declaresJsEntrypoint,
+      declaresFallbackUrls: declaresFallbackUrls,
+      hiveEntrypointId: hiveEntrypointId,
     ).generate();
 
     return [

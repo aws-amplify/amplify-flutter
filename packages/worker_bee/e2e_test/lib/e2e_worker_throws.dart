@@ -18,7 +18,7 @@ import 'package:worker_bee/worker_bee.dart';
 import 'e2e_message.dart';
 import 'e2e_worker_throws.worker.dart';
 
-@WorkerBee()
+@WorkerBee('lib/workers.dart')
 abstract class E2EWorkerThrows extends WorkerBeeBase<E2EMessage, E2EResult> {
   E2EWorkerThrows() : super(serializers: serializers);
   factory E2EWorkerThrows.create() = E2EWorkerThrowsImpl;
