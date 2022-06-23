@@ -134,6 +134,10 @@ open class AuthCognito :
     }
 
     override fun addPlugin(result: NativeAuthPluginBindings.Result<Void>) {
+        if (initialParameters != null) {
+            nativePlugin!!.exchange(initialParameters!!) {}
+            initialParameters = null
+        }
         try {
             Amplify.addPlugin(NativeAuthPlugin { nativePlugin })
             result.success(null)
