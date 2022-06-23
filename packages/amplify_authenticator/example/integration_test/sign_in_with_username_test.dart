@@ -61,7 +61,7 @@ void main() {
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
 
-      await signInPage.expectUsername();
+      signInPage.expectUsername();
 
       // When I type my "username" with status "UNKNOWN"
       await signInPage.enterUsername('UNKNOWN');
@@ -88,7 +88,7 @@ void main() {
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
 
-      await signInPage.expectUsername();
+      signInPage.expectUsername();
 
       // When I type my "username" with status "UNCONFIRMED"
       await signInPage.enterUsername(username);
@@ -119,7 +119,7 @@ void main() {
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
 
-      await signInPage.expectUsername();
+      signInPage.expectUsername();
 
       // When I type my "username" with status "UNKNOWN"
       await signInPage.enterUsername(username);
@@ -137,7 +137,7 @@ void main() {
       await signInPage.submitSignOut();
 
       // Then I see "Sign in"
-      await signInPage.expectUsername();
+      signInPage.expectUsername();
     });
 
     // Scenario: Sign in with force change password credentials
@@ -150,7 +150,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-      await signInPage.expectUsername();
+      signInPage.expectUsername();
 
       // When I type my "username"
       await signInPage.enterUsername(username);
@@ -180,7 +180,7 @@ void main() {
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
 
-      await signInPage.expectUsername();
+      signInPage.expectUsername();
 
       // When I type my "username"
       await signInPage.enterUsername('bad_username');

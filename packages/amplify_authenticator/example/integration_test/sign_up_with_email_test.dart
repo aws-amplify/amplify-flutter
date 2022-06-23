@@ -60,7 +60,7 @@ void main() {
       await signInPage.navigateToSignUp();
 
       // Then I see "Email" as an input field
-      await signUpPage.expectUserNameIsPresent(usernameLabel: 'Email');
+      signUpPage.expectUserNameIsPresent(usernameLabel: 'Email');
 
       // And I don't see "Username" as an input field
       signUpPage.expectPlainUsernameNotPresent();

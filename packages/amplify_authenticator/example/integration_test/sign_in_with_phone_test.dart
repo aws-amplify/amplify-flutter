@@ -108,7 +108,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
-      await signInPage.expectUsername(label: 'Phone Number');
+      signInPage.expectUsername(label: 'Phone Number');
 
       // When I select my country code
       await signInPage.selectCountryCode();
@@ -143,7 +143,7 @@ void main() {
       );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
-      await signInPage.expectUsername(label: 'Phone Number');
+      signInPage.expectUsername(label: 'Phone Number');
 
       // When I type my "username" with status "UNKNOWN"
       await signInPage.enterUsername(phoneNumber.withOutCountryCode());
@@ -180,7 +180,7 @@ void main() {
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
-      await signInPage.expectUsername(label: 'Phone Number');
+      signInPage.expectUsername(label: 'Phone Number');
 
       // When I type my "username"
       await signInPage.enterUsername(phoneNumber.withOutCountryCode());

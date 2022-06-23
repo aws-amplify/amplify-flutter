@@ -38,11 +38,10 @@ abstract class AuthenticatorPage {
   Finder get signOutButton => find.byKey(keySignOutButton);
 
   /// Then I see "Username" as an input field
-  Future<void> expectUsername({
+  void expectUsername({
     String label = 'Username',
     bool isPresent = true,
-  }) async {
-    await tester.pumpAndSettle();
+  }) {
     // username field is present
     expect(usernameField, findsOneWidget);
     // login type is "username"
@@ -54,8 +53,7 @@ abstract class AuthenticatorPage {
   }
 
   /// Expects the current step to be [step].
-  Future<void> expectStep(AuthenticatorStep step) async {
-    await tester.pumpAndSettle();
+  void expectStep(AuthenticatorStep step) {
     final currentScreen = tester.widget<AuthenticatorScreen>(
       find.byType(AuthenticatorScreen),
     );
