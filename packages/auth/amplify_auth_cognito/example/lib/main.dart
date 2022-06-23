@@ -54,7 +54,9 @@ class _MyAppState extends State<MyApp> {
     GoRoute(
       path: '/update-user-attribute',
       builder: (BuildContext _, GoRouterState state) =>
-          const UpdateUserAttributeScreen(),
+          UpdateUserAttributeScreen(
+        userAttributeKey: state.extra as CognitoUserAttributeKey?,
+      ),
     ),
     GoRoute(
       path: '/update-user-attributes',
@@ -62,12 +64,17 @@ class _MyAppState extends State<MyApp> {
           const UpdateUserAttributesScreen(),
     ),
     GoRoute(
-      path: '/confirm-user-attribute/:attribute',
+      path: '/confirm-user-attribute/email',
       builder: (BuildContext _, GoRouterState state) =>
-          ConfirmUserAttributeScreen(
-        userAttributeKey: CognitoUserAttributeKey.parse(
-          state.params['attribute']!,
-        ),
+          const ConfirmUserAttributeScreen(
+        userAttributeKey: CognitoUserAttributeKey.email,
+      ),
+    ),
+    GoRoute(
+      path: '/confirm-user-attribute/phone_number',
+      builder: (BuildContext _, GoRouterState state) =>
+          const ConfirmUserAttributeScreen(
+        userAttributeKey: CognitoUserAttributeKey.phoneNumber,
       ),
     ),
   ]);

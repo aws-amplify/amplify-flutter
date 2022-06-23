@@ -34,27 +34,45 @@ class CognitoUserAttributeKey extends UserAttributeKey
       : isCustom = true,
         readOnly = false;
 
+  /// Creates an unknown Cognito attribute.
+  const CognitoUserAttributeKey._unknown(this._key)
+      : isCustom = false,
+        readOnly = true;
+
   /// Parses the given Cognito attribute key.
+  ///
+  /// Intended for parsing keys that have been received from Cognito.
+  /// Use [CognitoUserAttributeKey.custom] to construct custom
+  /// attribute keys, or one of the static constructors such
+  /// as [CognitoUserAttributeKey.name] for standard attributes.
   factory CognitoUserAttributeKey.parse(String key) {
     key = key.toLowerCase();
+    // Custom attributes from Cognito will always start with the required prefix
+    if (hasCustomPrefix(key)) {
+      return CognitoUserAttributeKey.custom(key);
+    }
     return values.firstWhere(
       (attr) => attr.key == key,
-      orElse: () => CognitoUserAttributeKey.custom(key),
+      orElse: () => CognitoUserAttributeKey._unknown(key),
     );
   }
 
   /// Prefix for custom Cognito attributes.
-  static const customPrefix = 'custom:';
+  static const _customPrefix = 'custom:';
 
+  /// Whether or not a key starts with the custom prefix that is
+  /// required by Cognito for custom attributes.
+  static bool hasCustomPrefix(String key) => key.startsWith(_customPrefix);
+
+  /// Key provided when the attribute was constructed.
+  ///
+  /// For custom attributes, this may be missing the Cognito
+  /// required prefix.
   final String _key;
 
   @override
-  String get key {
-    if (isCustom) {
-      return _key.startsWith(customPrefix) ? _key : '$customPrefix$_key';
-    }
-    return _key;
-  }
+  String get key =>
+      isCustom && !hasCustomPrefix(_key) ? '$_customPrefix$_key' : _key;
 
   /// Whether this attribute can only be read from Cognito.
   final bool readOnly;
@@ -105,6 +123,12 @@ class CognitoUserAttributeKey extends UserAttributeKey
   ///
   /// Read-only: `false`
   static const givenName = CognitoUserAttributeKey._('given_name');
+
+  /// Federated identities of the user.
+  ///
+  /// Read-only: `true`
+  static const identities =
+      CognitoUserAttributeKey._('identities', readOnly: true);
 
   /// The user's locale, represented as a BCP47 language tag, e.g. `en-US`.
   ///
@@ -188,6 +212,7 @@ class CognitoUserAttributeKey extends UserAttributeKey
     familyName,
     gender,
     givenName,
+    identities,
     locale,
     middleName,
     name,

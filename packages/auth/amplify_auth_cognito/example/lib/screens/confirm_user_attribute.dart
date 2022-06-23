@@ -86,7 +86,7 @@ class _ConfirmUserAttributeScreenState
           children: [
             const SizedBox(height: 12),
             TextFormField(
-              initialValue: widget.userAttributeKey.toString(),
+              initialValue: widget.userAttributeKey.key,
               enabled: false,
               decoration: const InputDecoration(
                 labelText: 'Attribute Name',

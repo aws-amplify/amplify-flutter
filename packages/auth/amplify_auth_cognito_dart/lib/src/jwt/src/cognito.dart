@@ -250,8 +250,7 @@ extension CognitoIdToken on JsonWebToken {
   Map<CognitoUserAttributeKey, Object> get customAttributes => Map.fromEntries(
         claims.customClaims.entries
             .where(
-              (entry) =>
-                  entry.key.startsWith(CognitoUserAttributeKey.customPrefix),
+              (entry) => CognitoUserAttributeKey.hasCustomPrefix(entry.key),
             )
             .map(
               (entry) => MapEntry(
