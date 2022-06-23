@@ -24,14 +24,14 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   /// {@macro amplify_auth_cognito.hosted_ui_platform}
   HostedUiPlatformImpl(super.dependencyManager) : super.protected();
 
-  static const _successHtml = '''
+  static String _html(String title, String message) => '''
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Success!</title>
+    <title>$title</title>
     <style>
         body {
           font-family: -apple-system, 
@@ -50,10 +50,24 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   </head>
   <body>
     <center>
-      <h2>Success! You can now close this window.</h2>
+      <h2>$message</h2>
     </center>
   </body>
 </html>''';
+
+  String _htmlForParams(Map<String, String> parameters) {
+    if (parameters.containsKey('error')) {
+      return _html(
+        'Error',
+        'An unknown error occurred.<br> '
+            'Please return to the application for more info.',
+      );
+    }
+    return _html(
+      'Success!',
+      'Success! You can now close this window.',
+    );
+  }
 
   Never _noSuitableRedirect({required bool signIn}) {
     final inOut = signIn ? 'in' : 'out';
@@ -174,7 +188,6 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
       ).toString();
       await launchUrl(signInUrl);
 
-      late Map<String, String> queryParams;
       await for (final request in listenServer) {
         final method = request.method;
         if (method != 'GET') {
@@ -187,8 +200,9 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         }
         if (request.uri.path != signInRedirectUri.path) {
           await _respond(request, HttpStatus.notFound, 'Not found');
+          continue;
         }
-        queryParams = request.uri.queryParameters;
+        final queryParams = request.uri.queryParameters;
         if ((!queryParams.containsKey('code') &&
                 !queryParams.containsKey('error')) ||
             !queryParams.containsKey('state')) {
@@ -197,23 +211,23 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
             HttpStatus.badRequest,
             'Missing parameter',
           );
+          continue;
         }
+        dispatcher.dispatch(
+          HostedUiEvent.exchange(
+            OAuthParameters.fromJson(queryParams),
+          ),
+        );
         await _respond(
           request,
           HttpStatus.ok,
-          _successHtml,
+          _htmlForParams(queryParams),
           headers: {
             AWSHeaders.contentType: 'text/html',
           },
         );
         break;
       }
-
-      dispatcher.dispatch(
-        HostedUiEvent.exchange(
-          OAuthParameters.fromJson(queryParams),
-        ),
-      );
     } finally {
       unawaited(listenServer.close(force: true));
     }
@@ -250,11 +264,13 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         }
         if (request.uri.path != signOutRedirectUri.path) {
           await _respond(request, HttpStatus.notFound, 'Not found');
+          continue;
         }
+        final queryParams = request.uri.queryParameters;
         await _respond(
           request,
           HttpStatus.ok,
-          _successHtml,
+          _htmlForParams(queryParams),
           headers: {
             AWSHeaders.contentType: 'text/html',
           },
