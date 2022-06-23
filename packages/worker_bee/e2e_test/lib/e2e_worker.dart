@@ -19,7 +19,7 @@ import 'package:worker_bee/worker_bee.dart';
 import 'e2e_message.dart';
 import 'e2e_worker.worker.dart';
 
-@WorkerBee()
+@WorkerBee('lib/workers.dart')
 abstract class E2EWorker extends WorkerBeeBase<E2EMessage, E2EResult> {
   E2EWorker() : super(serializers: serializers);
   factory E2EWorker.create() = E2EWorkerImpl;

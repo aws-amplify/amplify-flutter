@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:worker_bee_builder/src/impl/common.dart';
 import 'package:worker_bee_builder/src/types.dart';
@@ -24,20 +25,22 @@ class JsGenerator extends ImplGenerator {
   JsGenerator(
     super.classEl,
     super.requestTypeEl,
-    super.responseTypeEl,
-    this.entrypoint,
-    this.fallbackUrls,
-  );
+    super.responseTypeEl, {
+    required this.declaresJsEntrypoint,
+    required this.declaresFallbackUrls,
+    required this.hiveEntrypointId,
+  });
 
-  /// The `.js` entrypoint to the compiled worker bee.
-  ///
-  /// This will be `null` if the base implementation overrides `jsEntrypoint`.
-  final String? entrypoint;
+  /// Whether the base implementation overrides `jsEntrypoint`, in which case
+  /// we should not generate it.
+  final bool declaresJsEntrypoint;
 
-  /// A list of fallback URLs to try if [entrypoint] fails.
-  ///
-  /// This will be `null` if the base implementation overrides `fallbackUrls`.
-  final List<String>? fallbackUrls;
+  /// Whether the base implementation overrides `fallbackUrls`, in which case
+  /// we should not generate it.
+  final bool declaresFallbackUrls;
+
+  /// The ID/location of the hive entrypoint, used to generate paths correctly.
+  final AssetId hiveEntrypointId;
 
   @override
   Library generate() {
@@ -47,6 +50,51 @@ class JsGenerator extends ImplGenerator {
           _workerClass,
         ]),
     );
+  }
+
+  late final _packageName = hiveEntrypointId.package;
+
+  late final _workersJs = hiveEntrypointId.changeExtension('.js');
+  late final _workersJsPath =
+      'packages/$_packageName/${_workersJs.path.replaceFirst('lib/', '')}';
+  late final _debugWorkersJs =
+      hiveEntrypointId.changeExtension('.debug.dart.js');
+  late final _debugWorkersJsPath =
+      'packages/$_packageName/${_debugWorkersJs.path.replaceFirst('lib/', '')}';
+
+  late final _minifiedWorkersJs = hiveEntrypointId.changeExtension('.min.js');
+  late final _minifiedWorkersJsPath =
+      'packages/$_packageName/${_minifiedWorkersJs.path.replaceFirst('lib/', '')}';
+
+  late final _releaseWorkersJs =
+      hiveEntrypointId.changeExtension('.release.dart.js');
+  late final _releaseWorkersJsPath =
+      'packages/$_packageName/${_releaseWorkersJs.path.replaceFirst('lib/', '')}';
+
+  Code get _jsEntrypoint {
+    // Flutter uses a special assets URL which includes the `lib/` path prefix.
+    final flutterUrl =
+        'assets/packages/$_packageName/${_minifiedWorkersJs.path}';
+
+    return Code.scope(
+      (allocate) => '''
+// Flutter web release builds must use the bundled asset.
+if (${allocate(DartTypes.awsCommon.zIsFlutter)} && !${allocate(DartTypes.awsCommon.zDebugMode)}) {
+  return '$flutterUrl';
+}
+    // Default to the compiled, published worker.
+return ${allocate(DartTypes.awsCommon.zDebugMode)} ? '$_workersJsPath' : '$_minifiedWorkersJsPath';
+''',
+    );
+  }
+
+  Code get _fallbackUrls {
+    return DartTypes.awsCommon.zDebugMode
+        .conditional(
+          literalConstList([_debugWorkersJsPath]),
+          literalConstList([_releaseWorkersJsPath]),
+        )
+        .code;
   }
 
   Class get _workerClass => Class(
@@ -61,20 +109,20 @@ class JsGenerator extends ImplGenerator {
               ..type = MethodType.getter
               ..name = 'name'
               ..body = literalString(workerName).code),
-            if (entrypoint != null)
+            if (!declaresJsEntrypoint)
               Method((m) => m
                 ..annotations.add(DartTypes.core.override)
                 ..returns = DartTypes.core.string
                 ..type = MethodType.getter
                 ..name = 'jsEntrypoint'
-                ..body = literalString(entrypoint!).code),
-            if (fallbackUrls != null)
+                ..body = _jsEntrypoint),
+            if (!declaresFallbackUrls)
               Method((m) => m
                 ..annotations.add(DartTypes.core.override)
                 ..returns = DartTypes.core.list(DartTypes.core.string)
                 ..type = MethodType.getter
                 ..name = 'fallbackUrls'
-                ..body = literalConstList(fallbackUrls!).code),
+                ..body = _fallbackUrls),
           ]),
       );
 }

@@ -30,6 +30,9 @@ abstract class DartTypes {
   /// `dart:async` types.
   static const async = _Async();
 
+  /// `package:aws_common` types.
+  static const awsCommon = _AwsCommon();
+
   /// `dart:isolate` types.
   static const isolate = _Isolate();
 
@@ -88,6 +91,22 @@ class _Async {
 
   /// Creates an [unawaited] reference.
   Reference get unawaited => const Reference('unawaited', _url);
+}
+
+/// `package:aws_common` types
+class _AwsCommon {
+  const _AwsCommon();
+
+  static const _url = 'package:aws_common/aws_common.dart';
+
+  /// Creates a [zDebugMode] reference.
+  Reference get zDebugMode => const Reference('zDebugMode', _url);
+
+  /// Creates a [zReleaseMode] reference.
+  Reference get zReleaseMode => const Reference('zReleaseMode', _url);
+
+  /// Creates a [zIsFlutter] reference.
+  Reference get zIsFlutter => const Reference('zIsFlutter', _url);
 }
 
 /// `dart:isolate` types
