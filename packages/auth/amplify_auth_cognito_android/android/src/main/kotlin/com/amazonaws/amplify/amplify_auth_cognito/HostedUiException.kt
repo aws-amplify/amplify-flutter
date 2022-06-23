@@ -27,6 +27,7 @@ abstract class HostedUiException(message: String? = null) : Exception(message) {
         }
     }
 
+    class NOBROWSER() : HostedUiException("No browser available for launching URL intent")
     class UNKNOWN(message: String? = null) : HostedUiException(message)
     class CANCELLED : HostedUiException()
 }

@@ -260,4 +260,12 @@ class HostedUiFailed extends HostedUiEvent with ErrorEvent {
 
   @override
   HostedUiEventType get type => HostedUiEventType.failed;
+
+  @override
+  String? checkPrecondition(HostedUiState currentState) {
+    if (currentState.type == HostedUiStateType.failure) {
+      return 'The state machine is already in a failure state.';
+    }
+    return null;
+  }
 }

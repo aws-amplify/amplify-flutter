@@ -213,7 +213,10 @@ open class AuthCognito :
         val intent = CustomTabsIntent.Builder().apply {
             setShareState(CustomTabsIntent.SHARE_STATE_OFF)
         }.build()
-        intent.intent.`package` = browserPackageName ?: this.browserPackageName
+        val useBrowserPackage = browserPackageName
+            ?: this.browserPackageName
+            ?: throw HostedUiException.NOBROWSER()
+        intent.intent.`package` = useBrowserPackage
         intent.intent.putExtra(
             Intent.EXTRA_REFERRER,
             Uri.parse("android-app://${mainActivity!!.packageName}")
