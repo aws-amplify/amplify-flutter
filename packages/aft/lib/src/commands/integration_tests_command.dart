@@ -24,7 +24,7 @@ import 'package:interact/interact.dart';
 import '../devices.dart';
 import '../utils/start_flutter_process.dart';
 
-/// Command to list all Dart/Flutter packages in the repo.
+/// Command to run integration tests.
 class IntegrationTestCommand extends AmplifyCommand {
   IntegrationTestCommand(this.args);
 
@@ -39,7 +39,6 @@ class IntegrationTestCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
-    // Prompts
     final packageSelections = [
       'amplify_authenticator',
       'auth/amplify_auth_cognito'
@@ -49,7 +48,10 @@ class IntegrationTestCommand extends AmplifyCommand {
       options: packageSelections,
     );
 
-    final platformSelections = ['VM', 'Web'];
+    final platformSelections = [
+      'VM',
+      'Web',
+    ];
     final platformPrompt = Select(
       prompt: 'Are you running on a VM or Web?',
       options: platformSelections,
@@ -61,18 +63,19 @@ class IntegrationTestCommand extends AmplifyCommand {
       options: deviceSelections,
     );
 
-    var devices = <ActiveDevice>[];
-    final package = packageSelections[packagePrompt.interact()];
-    final platform = platformSelections[platformPrompt.interact()];
+    final selectedPackage = packageSelections[packagePrompt.interact()];
+    final selectedPlatform = platformSelections[platformPrompt.interact()];
 
-    switch (platform) {
+    switch (selectedPlatform) {
       case 'VM':
+        var devices = <ActiveDevice>[];
         await startFlutterProcess(
           [
             'devices',
             '--machine',
           ],
-          package,
+          selectedPackage,
+          printStream: false,
         ).then((result) {
           final list = json.decode(result) as Iterable;
           devices = List<ActiveDevice>.from(
@@ -83,54 +86,88 @@ class IntegrationTestCommand extends AmplifyCommand {
               ),
             ),
           )..forEach((ActiveDevice el) => deviceSelections.add(el.name));
-          stdout.write(result);
         });
 
         final devicePromptSelection = deviceSelections[devicePrompt.interact()];
-
         final selectedDevice = devices
             .firstWhere((device) => device.name == devicePromptSelection);
 
-        await startFlutterProcess(
+        final results = await _executeTests(
           [
             'test',
-            'integration_test/',
+            'integration_test',
             '-d',
             selectedDevice.id,
           ],
-          package,
-        ).then((result) {
-          stdout.write(result);
-        });
+          selectedPackage,
+          1,
+        );
+        stdout.write(results);
         break;
 
       case 'Web':
         Process? process;
-        // try {
-        //   process = await Process.start('chromedriver', ['--port=4444']);
-        //   stdout.write('Started chromedriver');
-        // } on Exception catch (e) {
-        //   stderr
-        //     ..write('Tried and failed to start chromedriver.')
-        //     ..write('Make sure you are running chromedriver on port 4444.')
-        //     ..write(e);
-        // }
-        await startFlutterProcess(
+        try {
+          process = await Process.start('chromedriver', ['--port=4444']);
+          stdout.write('Started chromedriver \n');
+        } on Exception catch (e) {
+          stderr
+            ..write('Tried and failed to start chromedriver.')
+            ..write('Make sure you are running chromedriver on port 4444.')
+            ..write(e);
+        }
+        final results = await _executeTests(
           [
             'drive',
             '--driver=test_driver/integration_test.dart',
-            '--target=integration_test/main_test.dart',
+            '--target=integration_test/',
             '-d',
             'web-server',
             '--dart-define=WEB_INTEG=true',
           ],
-          package,
-        ).then((result) {
-          stdout.write(result);
-          // Kill chromedriver if we started chromedriver as part of this script
-          process?.kill();
-        });
+          selectedPackage,
+          2,
+        );
+        stdout.write(results);
+        process?.kill();
         break;
     }
+  }
+
+  Future<String> _executeTests(
+    List<String> args,
+    String package,
+    int fileArgIndex,
+  ) async {
+    final testResults = <String>['TEST RESULTS: '];
+    final files = await Directory('../../$package/example/integration_test')
+        .list(
+          recursive: true,
+          followLinks: false,
+        )
+        .toList();
+
+    final testPath = args[fileArgIndex];
+
+    for (final file in files) {
+      if (file.path.endsWith('_test.dart') &&
+          !file.path.endsWith('integration_test.dart')) {
+        final fileName = file.path.substring(file.path.lastIndexOf('/'));
+
+        args[fileArgIndex] = '$testPath$fileName';
+
+        await startFlutterProcess(
+          args,
+          package,
+        ).then((result) {
+          testResults.add(
+            '\n${fileName.replaceFirst('/', '').toUpperCase()}: ${result.substring(result.lastIndexOf('+'))}',
+          );
+        }).onError((error, _) {
+          testResults.add('\n$fileName test run failed: $error');
+        });
+      }
+    }
+    return testResults.join('');
   }
 }
