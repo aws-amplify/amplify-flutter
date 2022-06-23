@@ -77,7 +77,10 @@ class WorkerHiveGenerator extends GeneratorForAnnotation<WorkerHive> {
       buildStep.inputId.changeExtension('.release.dart'),
     ];
     for (final outputId in outputIds) {
-      await buildStep.writeAsString(outputId, generated);
+      await buildStep.writeAsString(outputId, '''
+$generatedHeader
+
+$generated''');
     }
 
     return null;
