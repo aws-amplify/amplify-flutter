@@ -29,6 +29,7 @@ class CognitoUserAttributeKey extends UserAttributeKey
   const CognitoUserAttributeKey._(this._key, {this.readOnly = false})
       : isCustom = false;
 
+  /// Creates a custom Cognito attribute.
   const CognitoUserAttributeKey.custom(this._key)
       : isCustom = true,
         readOnly = false;
