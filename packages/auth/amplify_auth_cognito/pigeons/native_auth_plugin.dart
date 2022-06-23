@@ -54,6 +54,7 @@ abstract class NativeAuthBridge {
   ///
   /// On iOS/Android, this calls `Amplify.addPlugin` with the [NativeAuthPlugin]
   /// implementation.
+  @async
   void addPlugin();
 
   /// Sign in by presenting [url] and waiting for a response to a URL with

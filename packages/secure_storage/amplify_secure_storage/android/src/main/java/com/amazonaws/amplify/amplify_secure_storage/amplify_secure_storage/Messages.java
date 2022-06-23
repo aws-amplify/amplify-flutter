@@ -34,6 +34,11 @@ import java.util.HashMap;
 /** Generated class from Pigeon. */
 @SuppressWarnings({"unused", "unchecked", "CodeBlock2Expr", "RedundantSuppression"})
 public class Messages {
+
+  public interface Result<T> {
+    void success(T result);
+    void error(Throwable error);
+  }
   private static class AmplifySecureStorageApiCodec extends StandardMessageCodec {
     public static final AmplifySecureStorageApiCodec INSTANCE = new AmplifySecureStorageApiCodec();
     private AmplifySecureStorageApiCodec() {}
@@ -41,9 +46,9 @@ public class Messages {
 
   /** Generated interface from Pigeon that represents a handler of messages from Flutter.*/
   public interface AmplifySecureStorageApi {
-    @Nullable String read(@NonNull String namespace, @NonNull String key);
-    void write(@NonNull String namespace, @NonNull String key, @Nullable String value);
-    void delete(@NonNull String namespace, @NonNull String key);
+    void read(@NonNull String namespace, @NonNull String key, Result<String> result);
+    void write(@NonNull String namespace, @NonNull String key, @Nullable String value, Result<Void> result);
+    void delete(@NonNull String namespace, @NonNull String key, Result<Void> result);
 
     /** The codec used by AmplifySecureStorageApi. */
     static MessageCodec<Object> getCodec() {
@@ -69,13 +74,23 @@ public class Messages {
               if (keyArg == null) {
                 throw new NullPointerException("keyArg unexpectedly null.");
               }
-              String output = api.read(namespaceArg, keyArg);
-              wrapped.put("result", output);
+              Result<String> resultCallback = new Result<String>() {
+                public void success(String result) {
+                  wrapped.put("result", result);
+                  reply.reply(wrapped);
+                }
+                public void error(Throwable error) {
+                  wrapped.put("error", wrapError(error));
+                  reply.reply(wrapped);
+                }
+              };
+
+              api.read(namespaceArg, keyArg, resultCallback);
             }
             catch (Error | RuntimeException exception) {
               wrapped.put("error", wrapError(exception));
+              reply.reply(wrapped);
             }
-            reply.reply(wrapped);
           });
         } else {
           channel.setMessageHandler(null);
@@ -99,13 +114,23 @@ public class Messages {
                 throw new NullPointerException("keyArg unexpectedly null.");
               }
               String valueArg = (String)args.get(2);
-              api.write(namespaceArg, keyArg, valueArg);
-              wrapped.put("result", null);
+              Result<Void> resultCallback = new Result<Void>() {
+                public void success(Void result) {
+                  wrapped.put("result", null);
+                  reply.reply(wrapped);
+                }
+                public void error(Throwable error) {
+                  wrapped.put("error", wrapError(error));
+                  reply.reply(wrapped);
+                }
+              };
+
+              api.write(namespaceArg, keyArg, valueArg, resultCallback);
             }
             catch (Error | RuntimeException exception) {
               wrapped.put("error", wrapError(exception));
+              reply.reply(wrapped);
             }
-            reply.reply(wrapped);
           });
         } else {
           channel.setMessageHandler(null);
@@ -128,13 +153,23 @@ public class Messages {
               if (keyArg == null) {
                 throw new NullPointerException("keyArg unexpectedly null.");
               }
-              api.delete(namespaceArg, keyArg);
-              wrapped.put("result", null);
+              Result<Void> resultCallback = new Result<Void>() {
+                public void success(Void result) {
+                  wrapped.put("result", null);
+                  reply.reply(wrapped);
+                }
+                public void error(Throwable error) {
+                  wrapped.put("error", wrapError(error));
+                  reply.reply(wrapped);
+                }
+              };
+
+              api.delete(namespaceArg, keyArg, resultCallback);
             }
             catch (Error | RuntimeException exception) {
               wrapped.put("error", wrapError(exception));
+              reply.reply(wrapped);
             }
-            reply.reply(wrapped);
           });
         } else {
           channel.setMessageHandler(null);
