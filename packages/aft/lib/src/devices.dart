@@ -12,20 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aft/aft.dart';
-import 'package:args/command_runner.dart';
+import 'dart:io';
 
-Future<void> main(List<String> args) async {
-  final runner = CommandRunner<void>('aft', 'Amplify Flutter repo tools')
-    ..argParser.addFlag(
-      'verbose',
-      abbr: 'v',
-      help: 'Prints verbose logs',
-      defaultsTo: false,
-    )
-    ..addCommand(GenerateSdkCommand())
-    ..addCommand(ListPackagesCommand())
-    ..addCommand(DepsCommand())
-    ..addCommand(IntegrationTestCommand(args));
-  await runner.run(args);
+import 'package:aws_common/aws_common.dart';
+
+
+/// {@template amplify_tools.device}
+/// Information about an active device.
+/// {@endtemplate}
+class ActiveDevice
+    with AWSEquatable<ActiveDevice>
+    implements Comparable<ActiveDevice> {
+  /// {@macro amplify_tools.deviceo}
+  const ActiveDevice({
+    required this.name,
+    required this.id,
+  });
+
+  /// The name of the device.
+  final String name;
+
+  /// id of the device.
+  final String id;
+
+  @override
+  List<Object?> get props => [
+        name,
+        id,
+      ];
+
+  @override
+  int compareTo(ActiveDevice other) {
+    return id.compareTo(other.id);
+  }
 }

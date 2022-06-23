@@ -86,7 +86,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-      await signInPage.expectUsername(label: 'Phone Number');
+      signInPage.expectUsername(label: 'Phone Number');
 
       // When I select my country code
       await signInPage.selectCountryCode();
@@ -110,7 +110,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-      await signInPage.expectUsername(label: 'Phone Number');
+      signInPage.expectUsername(label: 'Phone Number');
 
       // When I select my country code
       await signInPage.selectCountryCode();
@@ -128,7 +128,7 @@ void main() {
       await confirmSignInPage.navigateToSignIn();
 
       // Then I see "Sign in"
-      await signInPage.expectStep(AuthenticatorStep.signIn);
+      signInPage.expectStep(AuthenticatorStep.signIn);
     });
 
     // Scenario: Incorrect SMS code
@@ -137,7 +137,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-      await signInPage.expectUsername(label: 'Phone Number');
+      signInPage.expectUsername(label: 'Phone Number');
 
       // When I select my country code
       await signInPage.selectCountryCode();

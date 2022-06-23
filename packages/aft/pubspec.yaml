@@ -14,6 +14,7 @@ dependencies:
   cli_util: ^0.3.5
   collection: ^1.16.0
   git: ^2.0.0
+  interact: 2.1.1
   json_annotation: ^4.4.0
   path: any
   pub_semver: ^2.1.1

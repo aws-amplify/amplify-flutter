@@ -75,7 +75,7 @@ void main() {
       await routeAPage.navigateToRouteB();
 
       // then I should see the sign in page with email as the username
-      await signInPage.expectUsername(label: 'Email');
+      signInPage.expectUsername(label: 'Email');
 
       // When I type my "email" with status "CONFIRMED"
       await signInPage.enterUsername(username);
@@ -93,7 +93,7 @@ void main() {
       await signInPage.submitSignOut();
 
       // then I should see the sign in page with email as the username
-      await signInPage.expectUsername(label: 'Email');
+      signInPage.expectUsername(label: 'Email');
     });
   });
 }

@@ -49,13 +49,13 @@ void main() {
           final po = SignUpPage(tester: tester);
 
           // Then I see "Email" as an input field
-          await po.expectUsername(label: 'Email', isPresent: true);
+          po.expectUsername(label: 'Email', isPresent: true);
 
           // And I don't see "Username" as an input field
-          await po.expectUsername(label: 'Username', isPresent: false);
+          po.expectUsername(label: 'Username', isPresent: false);
 
           // And I don't see "Phone Number" as an input field
-          await po.expectUsername(label: 'Phone Number', isPresent: false);
+          po.expectUsername(label: 'Phone Number', isPresent: false);
         },
       );
 

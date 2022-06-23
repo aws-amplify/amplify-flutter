@@ -58,7 +58,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       await signInPage.navigateToSignUp();
-      await signUpPage.expectUserNameIsPresent();
+      signUpPage.expectUserNameIsPresent();
     });
 
     // Scenario: "Preferred Username" is included from `aws_cognito_signup_attributes`

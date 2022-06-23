@@ -87,7 +87,7 @@ void main() {
       );
       await loadAuthenticator(tester: tester, authenticator: authenticator);
       final SignInPage signInPage = SignInPage(tester: tester);
-      await signInPage.expectUsername(label: 'Email');
+      signInPage.expectUsername(label: 'Email');
 
       // When I type my "email" with status "CONFIRMED"
       await signInPage.enterUsername(username);
@@ -105,7 +105,7 @@ void main() {
       await signInPage.submitSignOut();
 
       // Then I see "Sign in"
-      await signInPage.expectUsername(label: 'Email');
+      signInPage.expectUsername(label: 'Email');
     });
   });
 }

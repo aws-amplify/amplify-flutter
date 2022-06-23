@@ -74,7 +74,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Then I see "Sign in"
-      await signInPage.expectStep(AuthenticatorStep.signIn);
+      signInPage.expectStep(AuthenticatorStep.signIn);
     });
   });
 }
