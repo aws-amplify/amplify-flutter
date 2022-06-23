@@ -20,7 +20,7 @@ import AmplifyPlugins
 import amplify_flutter_ios
 import AWSPluginsCore
 
-public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
+public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
     private let bridge: ApiBridge
     private let graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler
     static var methodChannel: FlutterMethodChannel!
@@ -43,6 +43,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
         let instance = SwiftAmplifyApiPlugin()
         eventchannel.setStreamHandler(instance.graphQLSubscriptionsStreamHandler)
         registrar.addMethodCallDelegate(instance, channel: methodChannel)
+        NativeApiBridgeSetup(registrar.messenger(), instance)
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -62,33 +63,26 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
 
             let arguments = try FlutterApiRequest.getMap(args: callArgs)
 
-            if method == "addPlugin"{
-                let authProvidersList = arguments["authProviders"] as? [String] ?? []
-                let authProviders = authProvidersList.compactMap {
-                    AWSAuthorizationType(rawValue: $0)
-                }
-                addPlugin(authProviders: authProviders, result: result)
-                return
-            }
-
             try innerHandle(method: method, arguments: arguments, result: result)
         } catch {
             print("Failed to parse query arguments with \(error)")
             FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: result)
         }
     }
-
-    private func addPlugin(authProviders: [AWSAuthorizationType], result: FlutterResult) {
+    
+    public func addPluginAuthProvidersList(_ authProvidersList: [String], error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
         do {
+            let authProviders = authProvidersList.compactMap {
+                AWSAuthorizationType(rawValue: $0)
+            }
             try Amplify.add(
                 plugin: AWSAPIPlugin(
                     sessionFactory: FlutterURLSessionBehaviorFactory(),
                     apiAuthProviderFactory: FlutterAuthProviders(authProviders)))
-            result(true)
         } catch let apiError as APIError {
-            ErrorUtil.postErrorToFlutterChannel(
-                result: result,
-                errorCode: "APIException",
+            error.pointee = FlutterError(
+                code: "APIException",
+                message: apiError.localizedDescription,
                 details: [
                     "message": apiError.errorDescription,
                     "recoverySuggestion": apiError.recoverySuggestion,
@@ -100,20 +94,21 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
             if case .amplifyAlreadyConfigured = configError {
                 errorCode = "AmplifyAlreadyConfiguredException"
             }
-            ErrorUtil.postErrorToFlutterChannel(
-                result: result,
-                errorCode: errorCode,
+            error.pointee = FlutterError(
+                code: errorCode,
+                message: configError.localizedDescription,
                 details: [
                     "message": configError.errorDescription,
                     "recoverySuggestion": configError.recoverySuggestion,
                     "underlyingError": configError.underlyingError?.localizedDescription ?? ""
                 ]
             )
-        } catch {
-            ErrorUtil.postErrorToFlutterChannel(
-                result: result,
-                errorCode: "UNKNOWN",
-                details: ["message": error.localizedDescription])
+        } catch let e {
+            error.pointee = FlutterError(
+                code: "UNKNOWN",
+                message: e.localizedDescription,
+                details: nil
+            )
         }
     }
 
