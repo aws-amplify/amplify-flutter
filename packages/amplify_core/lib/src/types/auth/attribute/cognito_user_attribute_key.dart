@@ -60,7 +60,7 @@ class CognitoUserAttributeKey extends UserAttributeKey
   /// Prefix for custom Cognito attributes.
   static const _customPrefix = 'custom:';
 
-  /// Wether or not a key has starts with the custom prefix that is
+  /// Whether or not a key starts with the custom prefix that is
   /// required by Cognito for custom attributes.
   static bool hasCustomPrefix(String key) => key.startsWith(_customPrefix);
 
