@@ -21,7 +21,6 @@ import 'src/amplify_impl.dart';
 
 export 'package:amplify_core/amplify_core.dart' hide Amplify;
 
-// ignore: depend_on_referenced_packages
 export 'package:amplify_secure_storage/amplify_secure_storage.dart';
 
 /// Top level singleton Amplify object.
