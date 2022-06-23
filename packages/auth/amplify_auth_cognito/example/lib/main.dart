@@ -84,6 +84,15 @@ class _MyAppState extends State<MyApp> {
         await Amplify.addPlugin(AmplifyAPI());
       }
       await Amplify.addPlugin(AmplifyAuthCognito());
+      // Uncomment this block, and comment out the one above, in order to persist credentials
+      // await Amplify.addPlugin(AmplifyAuthCognito(credentialStorage: AmplifySecureStorage(
+      //       config: AmplifySecureStorageConfig(
+      //         scope: 'authtest',
+      //         webOptions: WebSecureStorageOptions(
+      //           persistenceOption: WebPersistenceOption.inMemory,
+      //         ),
+      //       ),
+      //     )));
       await Amplify.configure(amplifyconfig);
       safePrint('Successfully configured Amplify');
 

@@ -27,14 +27,24 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/services.dart';
 
+
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
 /// The AWS Cognito implementation of the Amplify Auth category.
+/// To change the default behavior of credential storage,
+/// provide a [credentialStorage] value. If no value is provided,
+/// [AmplifySecureStorage] will be used with a `scope` of "auth".
+///
+/// **Warning:** Changing the credential provider, or customizing 
+/// the config value for [AmplifySecureStorage], will likely result in 
+/// end users having to re-authenticate then next time the app is opened.
 /// {@endtemplate}
 class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
   /// {@macro amplify_auth_cognito.amplify_auth_cognito}
-  AmplifyAuthCognito()
+  AmplifyAuthCognito({
+    SecureStorageInterface? credentialStorage,
+  })
       : super(
-          credentialStorage: AmplifySecureStorage(
+          credentialStorage: credentialStorage ?? AmplifySecureStorage(
             config: AmplifySecureStorageConfig(
               scope: 'auth',
             ),
