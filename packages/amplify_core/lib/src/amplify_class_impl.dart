@@ -24,6 +24,9 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 @internal
 class AmplifyClassImpl extends AmplifyClass {
+  final AmplifyAuthProviderRepository _authProviderRepo =
+      AmplifyAuthProviderRepository();
+
   /// {@macro amplify_flutter.amplify_class_impl}
   AmplifyClassImpl() : super.protected();
 
@@ -57,7 +60,8 @@ class AmplifyClassImpl extends AmplifyClass {
         ...Auth.plugins,
         ...DataStore.plugins,
         ...Storage.plugins,
-      ].map((p) => p.configure(config: amplifyConfig)),
+      ].map((p) => p.configure(
+          config: amplifyConfig, authProviderRepo: _authProviderRepo)),
       eagerError: true,
     );
   }

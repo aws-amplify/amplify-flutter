@@ -132,15 +132,6 @@ abstract class AmplifyClass {
   /// the device.
   @visibleForTesting
   Future<void> reset();
-
-  // TEMP
-  AmplifyAuthProvider? getAuthProvider(String authorizationType) =>
-      _authProviders[authorizationType];
-
-  void registerAuthProvider(
-      String authorizationType, AmplifyAuthProvider authProvider) {
-    _authProviders.putIfAbsent(authorizationType, () => authProvider);
-  }
 }
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_getters_setters

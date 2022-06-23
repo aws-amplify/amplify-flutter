@@ -27,14 +27,17 @@ class AmplifyAuthorizationRestClient extends http.BaseClient {
   final AWSApiConfig endpointConfig;
   final http.Client _baseClient;
   final bool _useDefaultBaseClient;
+  final AmplifyAuthProviderRepository _authProviderRepo;
 
   /// Provide an [AWSApiConfig] which will determine how requests from this
   /// client are authorized.
   AmplifyAuthorizationRestClient({
     required this.endpointConfig,
+    required AmplifyAuthProviderRepository authProviderRepo,
     http.Client? baseClient,
   })  : _useDefaultBaseClient = baseClient == null,
-        _baseClient = baseClient ?? http.Client();
+        _baseClient = baseClient ?? http.Client(),
+        _authProviderRepo = authProviderRepo;
 
   /// Implementation of [send] that authorizes any request without "Authorization"
   /// header already set.
@@ -50,18 +53,16 @@ class AmplifyAuthorizationRestClient extends http.BaseClient {
   Future<http.BaseRequest> _authorizeRequest(http.BaseRequest request) async {
     if (!request.headers.containsKey(AWSHeaders.authorization) &&
         endpointConfig.authorizationType != APIAuthorizationType.none) {
-      final authProvider = Amplify.getAuthProvider(
-          describeEnum(endpointConfig.authorizationType));
+      final authProvider = _authProviderRepo
+          .getAuthProvider(describeEnum(endpointConfig.authorizationType));
       if (authProvider != null) {
         final region = endpointConfig.region;
         final service = endpointConfig.endpointType == EndpointType.graphQL
             ? AWSService.appSync
             : AWSService.apiGateway;
-        if (authProvider is HttpRequestTransformAmplifyAuthProvider) {
-          return authProvider.authorizeRequest(request,
-              options: HttpRequestTransformOptions(
-                  service: service, region: region));
-        }
+        return authProvider.authorizeRequest(request,
+            options:
+                HttpRequestTransformOptions(service: service, region: region));
       } else {
         throw ApiException(
             'Unable to authorize request for authorization mode: ${describeEnum(endpointConfig.authorizationType)}. Ensure the correct plugin has been added from the CLI and Amplify.addPlugin.');

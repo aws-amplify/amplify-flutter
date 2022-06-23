@@ -167,11 +167,14 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   }
 
   @override
-  Future<void> configure({AmplifyConfig? config}) async {
+  Future<void> configure(
+      {AmplifyConfig? config,
+      required AmplifyAuthProviderRepository authProviderRepo}) async {
     if (config == null) {
       throw const AuthException('No Cognito plugin config detected');
     }
-    await super.configure(config: config);
+
+    authProviderRepo.registerAuthProvider('iam', AWSIamAuthProvider());
 
     if (_stateMachine.getOrCreate(AuthStateMachine.type).currentState.type !=
         AuthStateType.notConfigured) {
@@ -196,8 +199,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
           throw (state as AuthFailure).exception;
       }
     }
-
-    await super.configure(config: config);
   }
 
   /// Retrieves the code delivery details from the challenge parameters.
@@ -934,12 +935,5 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
       throw const SignedOutException('No user is currently signed in');
     }
     return userPoolTokens;
-  }
-
-  @override
-  Map<String, AmplifyAuthProvider> getAuthProviders() {
-    return {
-      'iam': AWSIamAuthProvider(),
-    };
   }
 }

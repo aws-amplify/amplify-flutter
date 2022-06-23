@@ -23,14 +23,34 @@ class HttpRequestTransformOptions {
   HttpRequestTransformOptions({required this.region, required this.service});
 }
 
-abstract class AmplifyAuthProvider {}
-
-abstract class TokenAmplifyAuthProvider extends AmplifyAuthProvider {
-  Future<String?> getLatestAuthToken();
-}
-
-abstract class HttpRequestTransformAmplifyAuthProvider
-    extends AmplifyAuthProvider {
+abstract class AmplifyAuthProvider {
   Future<http.BaseRequest> authorizeRequest(http.BaseRequest request,
       {HttpRequestTransformOptions? options});
+}
+
+abstract class TokenAmplifyAuthProvider extends AmplifyAuthProvider {
+  Future<String> getLatestAuthToken();
+
+  @override
+  Future<http.BaseRequest> authorizeRequest(http.BaseRequest request,
+      {HttpRequestTransformOptions? options}) async {
+    final token = await getLatestAuthToken();
+    request.headers.putIfAbsent(AWSHeaders.authorization, () => token);
+    return request;
+  }
+}
+
+class AmplifyAuthProviderRepository {
+  final Map<String, AmplifyAuthProvider> _authProviders = {};
+
+  AmplifyAuthProvider? getAuthProvider(String authorizationType) {
+    print('getting auth providers in repo');
+    print(_authProviders);
+    return _authProviders[authorizationType];
+  }
+
+  void registerAuthProvider(
+      String authorizationType, AmplifyAuthProvider authProvider) {
+    _authProviders.putIfAbsent(authorizationType, () => authProvider);
+  }
 }

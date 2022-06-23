@@ -23,7 +23,7 @@ import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
-class AWSIamAuthProvider extends HttpRequestTransformAmplifyAuthProvider {
+class AWSIamAuthProvider extends AmplifyAuthProvider {
   @override
   Future<http.BaseRequest> authorizeRequest(http.BaseRequest request,
       {HttpRequestTransformOptions? options}) async {
