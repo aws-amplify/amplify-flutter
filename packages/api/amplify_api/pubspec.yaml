@@ -23,14 +23,22 @@ dependencies:
   meta: ^1.7.0
   plugin_platform_interface: ^2.0.0
 
+dependency_overrides:
+  # TODO(dnys1): Remove when pigeon is bumped
+  # https://github.com/flutter/flutter/issues/105090
+  analyzer: ^3.0.0
+
+
 dev_dependencies:
-  amplify_lints: ^2.0.0
+  amplify_lints: 
+    path: ../../amplify_lints
   amplify_test:
     path: ../../amplify_test
   build_runner: ^2.0.0
   flutter_test:
     sdk: flutter
-  mocktail: ^0.3.0
+  mockito: ^5.0.0
+  pigeon: ^3.1.5
 
 # The following section is specific to Flutter.
 flutter:
