@@ -375,7 +375,7 @@ public class NativeAuthPluginBindings {
 
   /** Generated interface from Pigeon that represents a handler of messages from Flutter.*/
   public interface NativeAuthBridge {
-    void addPlugin();
+    void addPlugin(Result<Void> result);
     void signInWithUrl(@NonNull String url, @NonNull String callbackUrlScheme, @NonNull Boolean preferPrivateSession, @Nullable String browserPackageName, Result<Map<String, String>> result);
     void signOutWithUrl(@NonNull String url, @NonNull String callbackUrlScheme, @NonNull Boolean preferPrivateSession, @Nullable String browserPackageName, Result<Void> result);
     @NonNull Map<String, String> getValidationData();
@@ -394,13 +394,23 @@ public class NativeAuthPluginBindings {
           channel.setMessageHandler((message, reply) -> {
             Map<String, Object> wrapped = new HashMap<>();
             try {
-              api.addPlugin();
-              wrapped.put("result", null);
+              Result<Void> resultCallback = new Result<Void>() {
+                public void success(Void result) {
+                  wrapped.put("result", null);
+                  reply.reply(wrapped);
+                }
+                public void error(Throwable error) {
+                  wrapped.put("error", wrapError(error));
+                  reply.reply(wrapped);
+                }
+              };
+
+              api.addPlugin(resultCallback);
             }
             catch (Error | RuntimeException exception) {
               wrapped.put("error", wrapError(exception));
+              reply.reply(wrapped);
             }
-            reply.reply(wrapped);
           });
         } else {
           channel.setMessageHandler(null);

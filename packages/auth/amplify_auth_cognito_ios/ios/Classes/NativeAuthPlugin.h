@@ -77,7 +77,7 @@ NSObject<FlutterMessageCodec> *NativeAuthPluginGetCodec(void);
 NSObject<FlutterMessageCodec> *NativeAuthBridgeGetCodec(void);
 
 @protocol NativeAuthBridge
-- (void)addPluginWithError:(FlutterError *_Nullable *_Nonnull)error;
+- (void)addPluginWithCompletion:(void(^)(FlutterError *_Nullable))completion;
 - (void)signInWithUrlUrl:(NSString *)url callbackUrlScheme:(NSString *)callbackUrlScheme preferPrivateSession:(NSNumber *)preferPrivateSession browserPackageName:(nullable NSString *)browserPackageName completion:(void(^)(NSDictionary<NSString *, NSString *> *_Nullable, FlutterError *_Nullable))completion;
 - (void)signOutWithUrlUrl:(NSString *)url callbackUrlScheme:(NSString *)callbackUrlScheme preferPrivateSession:(NSNumber *)preferPrivateSession browserPackageName:(nullable NSString *)browserPackageName completion:(void(^)(FlutterError *_Nullable))completion;
 /// @return `nil` only when `error != nil`.

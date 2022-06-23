@@ -97,15 +97,16 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
     
     public func configure(using configuration: Any?) throws {}
     
-    public func addPluginWithError(_ errorPtr: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
+    public func addPlugin() async -> FlutterError? {
         do {
             try Amplify.add(plugin: self)
+            return nil
         } catch let configError as ConfigurationError {
             var errorCode = "AuthException"
             if case .amplifyAlreadyConfigured = configError {
                 errorCode = "AmplifyAlreadyConfiguredException"
             }
-            errorPtr.pointee = FlutterError(
+            return FlutterError(
                 code: errorCode,
                 message: configError.localizedDescription,
                 details: [
@@ -115,7 +116,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
                 ]
             )
         } catch {
-            errorPtr.pointee = FlutterError(
+            return FlutterError(
                 code: "UNKNOWN",
                 message: error.localizedDescription,
                 details: nil

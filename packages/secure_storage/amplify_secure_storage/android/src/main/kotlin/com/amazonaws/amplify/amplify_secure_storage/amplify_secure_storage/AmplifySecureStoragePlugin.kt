@@ -40,19 +40,38 @@ class AmplifySecureStoragePlugin: FlutterPlugin, Messages.AmplifySecureStorageAp
     Messages.AmplifySecureStorageApi.setup(binding.binaryMessenger, null)
   }
 
-  override fun read(namespace: String, key: String): String? {
-    val repository = getOrCreateRepository(namespace)
-    return repository.get(key)
+  override fun read(namespace: String, key: String, result: Messages.Result<String>) {
+    try {
+      val repository = getOrCreateRepository(namespace)
+      result.success(repository.get(key))
+    } catch (e: Exception) {
+      result.error(e)
+    }
   }
 
-  override fun write(namespace: String, key: String, value: String?) {
-    val repository = getOrCreateRepository(namespace)
-    repository.put(key, value)
+  override fun write(
+    namespace: String,
+    key: String,
+    value: String?,
+    result: Messages.Result<Void>
+  ) {
+    try {
+      val repository = getOrCreateRepository(namespace)
+      repository.put(key, value)
+      result.success(null)
+    } catch (e: Exception) {
+      result.error(e)
+    }
   }
 
-  override fun delete(namespace: String, key: String) {
-    val repository = getOrCreateRepository(namespace)
-    repository.remove(key)
+  override fun delete(namespace: String, key: String, result: Messages.Result<Void>) {
+    try {
+      val repository = getOrCreateRepository(namespace)
+      repository.remove(key)
+      result.success(null)
+    } catch (e: Exception) {
+      result.error(e)
+    }
   }
 
   private fun getOrCreateRepository(namespace: String): EncryptedKeyValueRepository {
