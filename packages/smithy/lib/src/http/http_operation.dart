@@ -161,7 +161,9 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     uri = uri.replace(host: host).resolve(path);
     var awsRequest = AWSStreamedHttpRequest.raw(
       method: AWSHttpMethodHelper.fromString(request.method),
+      scheme: uri.scheme,
       host: host,
+      port: uri.port,
       path: path,
       body: body,
       queryParameters: {
