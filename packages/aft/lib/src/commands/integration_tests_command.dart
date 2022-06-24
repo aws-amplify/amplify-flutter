@@ -12,23 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: avoid_dynamic_calls, inference_failure_on_untyped_parameter
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/platform.dart';
 import 'package:interact/interact.dart';
 
-import '../devices.dart';
+import '../active_device.dart';
 import '../utils/start_flutter_process.dart';
 
 /// Command to run integration tests.
 class IntegrationTestCommand extends AmplifyCommand {
-  IntegrationTestCommand(this.args);
-
-  List<String> args;
+  IntegrationTestCommand();
 
   @override
   String get description =>
@@ -39,10 +36,14 @@ class IntegrationTestCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
-    final packageSelections = [
-      'amplify_authenticator',
-      'auth/amplify_auth_cognito'
-    ];
+    final packages = await allPackages;
+
+    final testablePackages =
+        packages.where((package) => package.integTestDirectory != null);
+
+    final packageSelections =
+        testablePackages.map((package) => package.name).toList();
+
     final packagePrompt = Select(
       prompt: 'Which tests do you want to run?',
       options: packageSelections,
@@ -52,101 +53,111 @@ class IntegrationTestCommand extends AmplifyCommand {
       'VM',
       'Web',
     ];
+    var selectedPlatform = 'VM';
     final platformPrompt = Select(
       prompt: 'Are you running on a VM or Web?',
       options: platformSelections,
     );
 
+    final packaegPromptSelection = packageSelections[packagePrompt.interact()];
+    final selectedPackage = testablePackages
+        .firstWhere((package) => package.name == packaegPromptSelection);
+
+    if (selectedPackage.platforms != null &&
+        selectedPackage.platforms!.contains(FlutterPlatform.web)) {
+      selectedPlatform = platformSelections[platformPrompt.interact()];
+    }
+
+    switch (selectedPlatform) {
+      case 'VM':
+        await _handleVM(testablePackages.first);
+        break;
+
+      // TODO(dnnoyes) get and parse driver results properly
+      case 'Web':
+        await _handeWeb(testablePackages.first);
+        break;
+    }
+  }
+
+  Future<void> _handleVM(PackageInfo selectedPackage) async {
     final deviceSelections = <String>[];
     final devicePrompt = Select(
       prompt: 'Select a device:',
       options: deviceSelections,
     );
+    final devices = <ActiveDevice>[];
+    final result = await startFlutterProcess(
+      [
+        'devices',
+        '--machine',
+      ],
+      selectedPackage,
+      printStream: false,
+    );
 
-    final selectedPackage = packageSelections[packagePrompt.interact()];
-    final selectedPlatform = platformSelections[platformPrompt.interact()];
-
-    switch (selectedPlatform) {
-      case 'VM':
-        var devices = <ActiveDevice>[];
-        await startFlutterProcess(
-          [
-            'devices',
-            '--machine',
-          ],
-          selectedPackage,
-          printStream: false,
-        ).then((result) {
-          final list = json.decode(result) as Iterable;
-          devices = List<ActiveDevice>.from(
-            list.map(
-              (model) => ActiveDevice(
-                name: model['name'] as String,
-                id: model['id'] as String,
-              ),
-            ),
-          )..forEach((ActiveDevice el) {
-              if (el.name != 'Chrome') {
-                deviceSelections.add(el.name);
-              }
-            });
-        });
-
-        final devicePromptSelection = deviceSelections[devicePrompt.interact()];
-        final selectedDevice = devices
-            .firstWhere((device) => device.name == devicePromptSelection);
-
-        final results = await _executeTests(
-          [
-            'test',
-            'integration_test',
-            '-d',
-            selectedDevice.id,
-          ],
-          selectedPackage,
-          1,
-        );
-        stdout.write(results);
-        break;
-
-      // TODO(dnnoyes) get a parse driver results properly
-      case 'Web':
-        Process? process;
-        try {
-          process = await Process.start('chromedriver', ['--port=4444']);
-          stdout.write('Started chromedriver \n');
-        } on Exception catch (e) {
-          stderr
-            ..write('Tried and failed to start chromedriver.')
-            ..write(
-                'Make sure you are running chromedriver on port 4444 or that chromedriver is in your path.')
-            ..write(e);
-        }
-        final results = await _executeTests(
-          [
-            'drive',
-            '--driver=test_driver/integration_test.dart',
-            '--target=integration_test',
-            '-d',
-            'web-server',
-            '--dart-define=WEB_INTEG=true',
-          ],
-          selectedPackage,
-          2,
-        );
-        stdout.write(results);
-        process?.kill();
-        break;
+    final list = (json.decode(result) as List)
+        .map((i) => ActiveDevice.fromJson(i as Map<String, dynamic>))
+        .toList();
+    for (final item in list) {
+      if (item.name != 'Chrome') {
+        devices.add(item);
+        deviceSelections.add(item.name);
+      }
     }
+
+    final devicePromptSelection = deviceSelections[devicePrompt.interact()];
+    final selectedDevice =
+        devices.firstWhere((device) => device.name == devicePromptSelection);
+
+    final results = await _executeTests(
+      [
+        'test',
+        'integration_test',
+        '-d',
+        selectedDevice.id,
+      ],
+      selectedPackage,
+      1,
+    );
+    stdout.write(results);
+  }
+
+  Future<void> _handeWeb(PackageInfo selectedPackage) async {
+    Process? process;
+    try {
+      process = await Process.start('chromedriver', ['--port=4444']);
+      stdout.writeln('Started chromedriver');
+    } on Exception catch (e) {
+      stderr
+        ..writeln('Tried and failed to start chromedriver.')
+        ..writeln(
+            'Make sure you are running chromedriver on port 4444 or that chromedriver is in your PATH.')
+        ..writeln(e);
+    }
+    final results = await _executeTests(
+      [
+        'drive',
+        '--driver=test_driver/integration_test.dart',
+        '--target=integration_test',
+        '-d',
+        'web-server',
+        '--dart-define=WEB_INTEG=true',
+      ],
+      selectedPackage,
+      2,
+    );
+    stdout.write(results);
+    process?.kill();
   }
 
   Future<String> _executeTests(
     List<String> args,
-    String package,
+    PackageInfo package,
     int fileArgIndex,
   ) async {
     final testResults = <String>['TEST RESULTS: '];
-    final files = await Directory('../../$package/example/integration_test')
+    final files = await Directory('$package/example/integration_test')
         .list(
           recursive: true,
           followLinks: false,
