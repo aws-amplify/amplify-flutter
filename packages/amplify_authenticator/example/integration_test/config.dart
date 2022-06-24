@@ -55,7 +55,6 @@ Future<void> loadConfiguration(String configurationName,
     {List<AmplifyPluginInterface>? additionalConfigs}) async {
   final envName = environmentsByConfiguration[configurationName]!;
   final envConfig = environments[envName]!;
-  Amplify.reset();
   await Amplify.addPlugin(AmplifyAuthCognito());
   if (additionalConfigs != null && additionalConfigs.isNotEmpty) {
     Amplify.addPlugins(additionalConfigs);
