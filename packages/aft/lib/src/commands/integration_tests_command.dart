@@ -85,7 +85,11 @@ class IntegrationTestCommand extends AmplifyCommand {
                 id: model['id'] as String,
               ),
             ),
-          )..forEach((ActiveDevice el) => deviceSelections.add(el.name));
+          )..forEach((ActiveDevice el) {
+              if (el.name != 'Chrome') {
+                deviceSelections.add(el.name);
+              }
+            });
         });
 
         final devicePromptSelection = deviceSelections[devicePrompt.interact()];
@@ -113,14 +117,15 @@ class IntegrationTestCommand extends AmplifyCommand {
         } on Exception catch (e) {
           stderr
             ..write('Tried and failed to start chromedriver.')
-            ..write('Make sure you are running chromedriver on port 4444.')
+            ..write(
+                'Make sure you are running chromedriver on port 4444 or that chromedriver is in your path.')
             ..write(e);
         }
         final results = await _executeTests(
           [
             'drive',
             '--driver=test_driver/integration_test.dart',
-            '--target=integration_test/',
+            '--target=integration_test',
             '-d',
             'web-server',
             '--dart-define=WEB_INTEG=true',
@@ -161,7 +166,8 @@ class IntegrationTestCommand extends AmplifyCommand {
           package,
         ).then((result) {
           testResults.add(
-            '\n${fileName.replaceFirst('/', '').toUpperCase()}: ${result.substring(result.lastIndexOf('+'))}',
+            //TODO: get results properly
+            '\n${fileName.replaceFirst('/', '').toUpperCase()}: $result',
           );
         }).onError((error, _) {
           testResults.add('\n$fileName test run failed: $error');
