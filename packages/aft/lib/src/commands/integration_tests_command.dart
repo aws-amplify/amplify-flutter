@@ -109,6 +109,7 @@ class IntegrationTestCommand extends AmplifyCommand {
         stdout.write(results);
         break;
 
+      // TODO(dnnoyes) get a parse driver results properly
       case 'Web':
         Process? process;
         try {
@@ -166,7 +167,6 @@ class IntegrationTestCommand extends AmplifyCommand {
           package,
         ).then((result) {
           testResults.add(
-            //TODO: get results properly
             '\n${fileName.replaceFirst('/', '').toUpperCase()}: $result',
           );
         }).onError((error, _) {
