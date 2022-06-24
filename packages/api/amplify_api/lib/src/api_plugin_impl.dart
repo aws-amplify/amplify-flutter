@@ -14,9 +14,13 @@
 
 library amplify_api;
 
+import 'dart:io';
+
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/native_api_plugin.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
@@ -35,6 +39,9 @@ class AmplifyAPIDart extends AmplifyAPI {
   /// A map of the keys from the Amplify API config to HTTP clients to use for
   /// requests to that endpoint.
   final Map<String, AmplifyAuthorizationRestClient> _clientPool = {};
+
+  /// The registered [APIAuthProvider] instances.
+  final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
 
   /// {@macro amplify_api.amplify_api_dart}
   AmplifyAPIDart({
@@ -58,6 +65,28 @@ class AmplifyAPIDart extends AmplifyAPI {
     }
     _apiConfig = apiConfig;
     _authProviderRepo = authProviderRepo;
+  }
+
+  @override
+  Future<void> addPlugin() async {
+    if (zIsWeb || !(Platform.isAndroid || Platform.isIOS)) {
+      return;
+    }
+
+    final nativeBridge = NativeApiBridge();
+    try {
+      final authProvidersList =
+          _authProviders.keys.map((key) => key.rawValue).toList();
+      await nativeBridge.addPlugin(authProvidersList);
+    } on PlatformException catch (e) {
+      if (e.code == 'AmplifyAlreadyConfiguredException') {
+        throw const AmplifyAlreadyConfiguredException(
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+      }
+      throw AmplifyException.fromMap((e.details as Map).cast());
+    }
   }
 
   /// Returns the HTTP client to be used for REST operations.
@@ -103,10 +132,7 @@ class AmplifyAPIDart extends AmplifyAPI {
 
   @override
   void registerAuthProvider(APIAuthProvider authProvider) {
-    // ignore: todo
-    // TODO: integrate with auth provider implementation.
-    throw UnimplementedError(
-        'registerAuthProvider() has not been implemented.');
+    _authProviders[authProvider.type] = authProvider;
   }
 
   // ====== REST =======
