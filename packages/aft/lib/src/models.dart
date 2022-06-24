@@ -20,6 +20,7 @@ import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:smithy/ast.dart';
+import 'package:yaml_edit/yaml_edit.dart';
 
 part 'models.g.dart';
 
@@ -43,7 +44,7 @@ class PackageInfo
     required this.name,
     required this.path,
     required this.usesMonoRepo,
-    required this.pubspec,
+    required this.pubspecInfo,
     required this.flavor,
   });
 
@@ -57,7 +58,7 @@ class PackageInfo
   final bool usesMonoRepo;
 
   /// The package's pubspec.
-  final Pubspec pubspec;
+  final PubspecInfo pubspecInfo;
 
   /// The package flavor, e.g. Dart or Flutter.
   final PackageFlavor flavor;
@@ -67,7 +68,7 @@ class PackageInfo
         name,
         path,
         usesMonoRepo,
-        pubspec,
+        pubspecInfo,
         flavor,
       ];
 
@@ -75,6 +76,41 @@ class PackageInfo
   int compareTo(PackageInfo other) {
     return path.compareTo(other.path);
   }
+}
+
+/// The package's pubspec and metadata.
+class PubspecInfo {
+  PubspecInfo({
+    required this.pubspec,
+    required this.pubspecYaml,
+    required this.uri,
+  });
+
+  /// The package's parsed pubspec.
+  final Pubspec pubspec;
+
+  /// The URI of the `pubspec.yaml` file.
+  final Uri uri;
+
+  /// The package's pubspec as YAML.
+  final String pubspecYaml;
+
+  /// The pubspec as a YAML editor, used to alter dependencies or other info.
+  late final YamlEditor pubspecYamlEditor = YamlEditor(pubspecYaml);
+}
+
+enum DependencyType {
+  dependency('dependencies', 'dependency'),
+  devDependency('dev_dependencies', 'dev dependency'),
+  dependencyOverride('dependency_overrides', 'dependency override');
+
+  const DependencyType(this.key, this.description);
+
+  /// The key in the `pubspec.yaml`.
+  final String key;
+
+  /// The human description of a dependency of this type.
+  final String description;
 }
 
 extension DirectoryX on Directory {
@@ -85,14 +121,19 @@ extension DirectoryX on Directory {
   }
 
   /// The pubspec for the package in this directory, if any.
-  Pubspec? get pubspec {
+  PubspecInfo? get pubspec {
     final pubspecPath = p.join(path, 'pubspec.yaml');
     final pubspecFile = File(pubspecPath);
     if (!pubspecFile.existsSync()) {
       return null;
     }
     final pubspecYaml = pubspecFile.readAsStringSync();
-    return Pubspec.parse(pubspecYaml, sourceUrl: pubspecFile.uri);
+    final pubspec = Pubspec.parse(pubspecYaml, sourceUrl: pubspecFile.uri);
+    return PubspecInfo(
+      pubspec: pubspec,
+      pubspecYaml: pubspecYaml,
+      uri: pubspecFile.uri,
+    );
   }
 }
 
