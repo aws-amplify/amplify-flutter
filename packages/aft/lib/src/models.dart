@@ -14,6 +14,7 @@
 
 import 'dart:io';
 
+import 'package:aft/src/platform.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
@@ -62,6 +63,32 @@ class PackageInfo
 
   /// The package flavor, e.g. Dart or Flutter.
   final PackageFlavor flavor;
+
+  /// The integration test directory within the enclosing directory, if any
+  Directory? get integTestDirectory {
+    final expectedPath = p.join(path, 'integration_test');
+    final integTestDir = Directory(expectedPath);
+    if (!integTestDir.existsSync()) {
+      return null;
+    }
+    return integTestDir;
+  }
+
+  /// The platforms a package supports, typically for example apps.
+  List<Platform>? get platforms {
+    final platforms = <Platform>[];
+    for (final value in FlutterPlatform.values) {
+      final expectedPath = p.join(path, value.displayName.toLowerCase());
+      final platformDirectory = Directory(expectedPath);
+      if (platformDirectory.existsSync()) {
+        platforms.add(value);
+      }
+    }
+    if (platforms.isEmpty) {
+      return null;
+    }
+    return platforms;
+  }
 
   @override
   List<Object?> get props => [
