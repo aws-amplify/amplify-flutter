@@ -1,0 +1,6 @@
+framework module amplify_api_ios {
+    umbrella header "amplify_api_ios.h"
+
+    export *
+    module * { export * }
+}

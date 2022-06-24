@@ -15,9 +15,7 @@
 
 library amplify_api_plugin;
 
-import 'dart:io';
-
-import 'package:amplify_api/src/method_channel_api.dart';
+import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
@@ -34,19 +32,11 @@ export './model_subscriptions.dart';
 /// {@endtemplate}
 abstract class AmplifyAPI extends APIPluginInterface {
   /// {@macro amplify_api.amplify_api}
-  factory AmplifyAPI({
-    List<APIAuthProvider> authProviders = const [],
-    ModelProviderInterface? modelProvider,
-  }) {
-    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      return AmplifyAPIDart(
+  factory AmplifyAPI(
+          {List<APIAuthProvider> authProviders = const [],
+          ModelProviderInterface? modelProvider}) =>
+      AmplifyAPIDart(
           authProviders: authProviders, modelProvider: modelProvider);
-    }
-    return AmplifyAPIMethodChannel(
-      authProviders: authProviders,
-      modelProvider: modelProvider,
-    );
-  }
 
   /// Protected constructor for subclasses.
   @protected
