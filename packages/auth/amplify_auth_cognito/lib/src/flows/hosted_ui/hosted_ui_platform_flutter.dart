@@ -107,7 +107,7 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
           recoverySuggestion = "Ensure you've added the <queries> tag to your "
               'AndroidManifest.xml as outlined in the docs';
         }
-        throw UnknownException(
+        throw UrlLauncherException(
           message ?? 'An unknown error occurred',
           recoverySuggestion: recoverySuggestion,
         );
