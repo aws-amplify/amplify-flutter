@@ -265,10 +265,13 @@ abstract class HostedUiPlatform {
       return dispatcher.dispatch(HostedUiEvent.exchange(parameters));
     }
 
+    // Clear all state from the previous session.
     _authCodeGrant = null;
     _secureStorage
       ..delete(key: _keys[HostedUiKey.state])
-      ..delete(key: _keys[HostedUiKey.codeVerifier]);
+      ..delete(key: _keys[HostedUiKey.codeVerifier])
+      ..delete(key: _keys[HostedUiKey.nonce])
+      ..delete(key: _keys[HostedUiKey.options]);
 
     throw const SignedOutException('The user is currently signed out');
   }
