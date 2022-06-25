@@ -11,7 +11,6 @@ dependencies:
   async: ^2.8.2
   aws_common: ^0.1.0
   aws_signature_v4: ^0.1.0
-  browser_launcher: ^1.0.0
   built_collection: ^5.0.0
   built_value: '>=8.2.0 <8.3.0'
   collection: ^1.15.0
