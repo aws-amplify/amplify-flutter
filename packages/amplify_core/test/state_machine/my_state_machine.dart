@@ -12,13 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:amplify_core/amplify_core.dart';
 
 final _builders = <StateMachineToken, StateMachineBuilder>{
   MyStateMachine.type: MyStateMachine.new,
+  WorkerMachine.type: WorkerMachine.new,
 };
 
-enum MyType { initial, doWork, tryWork, success, error }
+enum MyType { initial, doWork, tryWork, delegateWork, success, error }
 
 class MyEvent extends StateMachineEvent<MyType> {
   const MyEvent(this.type);
@@ -85,12 +88,96 @@ class MyStateMachine extends StateMachine<MyEvent, MyState> {
       case MyType.tryWork:
         await doWork(fail: true);
         break;
+      case MyType.delegateWork:
+        final Completer<void> completer = Completer.sync();
+        dispatch(const WorkerEvent(WorkType.doWork));
+        subscribeTo(WorkerMachine.type, (WorkerState state) {
+          switch (state.type) {
+            case WorkType.initial:
+            case WorkType.doWork:
+              break;
+            case WorkType.success:
+              completer.complete();
+              break;
+            case WorkType.error:
+              completer.completeError('error');
+              break;
+          }
+        });
+        await completer.future;
+        dispatch(const MyEvent(MyType.success));
     }
   }
 
   @override
   MyState? resolveError(Object error, [StackTrace? st]) {
     return const MyState(MyType.error);
+  }
+}
+
+enum WorkType { initial, doWork, success, error }
+
+class WorkerEvent extends StateMachineEvent<WorkType> {
+  const WorkerEvent(this.type);
+
+  @override
+  List<Object?> get props => [type];
+
+  @override
+  final WorkType type;
+
+  @override
+  String? checkPrecondition(WorkerState currentState) {
+    if (currentState.type == type) {
+      return 'Cannot process event of same type';
+    }
+    return null;
+  }
+
+  @override
+  String get runtimeTypeName => 'WorkerEvent';
+}
+
+class WorkerState extends StateMachineState<WorkType> {
+  const WorkerState(this.type);
+
+  @override
+  List<Object?> get props => [type];
+
+  @override
+  final WorkType type;
+
+  @override
+  String get runtimeTypeName => 'WorkerState';
+}
+
+class WorkerMachine extends StateMachine<WorkerEvent, WorkerState> {
+  WorkerMachine(StateMachineManager manager) : super(manager);
+
+  static const type =
+      StateMachineToken<WorkerEvent, WorkerState, WorkerMachine>();
+
+  @override
+  WorkerState get initialState => const WorkerState(WorkType.initial);
+
+  @override
+  Future<void> resolve(WorkerEvent event) async {
+    emit(WorkerState(event.type));
+    switch (event.type) {
+      case WorkType.initial:
+      case WorkType.success:
+      case WorkType.error:
+        break;
+      case WorkType.doWork:
+        await Future<void>.delayed(Duration.zero);
+        dispatch(const WorkerEvent(WorkType.success));
+        break;
+    }
+  }
+
+  @override
+  WorkerState? resolveError(Object error, [StackTrace? st]) {
+    return const WorkerState(WorkType.error);
   }
 }
 
@@ -103,6 +190,9 @@ class MyStateMachineManager extends StateMachineManager {
   Future<void> dispatch(StateMachineEvent event) async {
     if (event is MyEvent) {
       return getOrCreate(MyStateMachine.type).add(event);
+    }
+    if (event is WorkerEvent) {
+      return getOrCreate(WorkerMachine.type).add(event);
     }
     throw ArgumentError('Invalid event: $event');
   }
