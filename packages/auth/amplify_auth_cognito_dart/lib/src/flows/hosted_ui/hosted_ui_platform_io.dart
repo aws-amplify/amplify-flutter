@@ -111,16 +111,24 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
     }
 
     final arguments = Platform.isWindows ? ['start-process', '"$url"'] : [url];
-    final res = await Process.run(
-      command,
-      arguments,
-      stdoutEncoding: utf8,
-      stderrEncoding: utf8,
-    );
-    if (res.exitCode != 0) {
-      throw UnknownException(
-        '"$command ${arguments.join(' ')}" command failed',
-        underlyingException: '${res.stdout}\n${res.stderr}',
+    final couldNotLaunch = '"$command ${arguments.join(' ')}" command failed';
+    try {
+      final res = await Process.run(
+        command,
+        arguments,
+        stdoutEncoding: utf8,
+        stderrEncoding: utf8,
+      );
+      if (res.exitCode != 0) {
+        throw UrlLauncherException(
+          couldNotLaunch,
+          underlyingException: '${res.stdout}\n${res.stderr}',
+        );
+      }
+    } on Exception catch (e) {
+      throw UrlLauncherException(
+        couldNotLaunch,
+        underlyingException: e.toString(),
       );
     }
   }
@@ -143,7 +151,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
       }
     }
     if (server == null) {
-      throw UnknownException(
+      throw UrlLauncherException(
         'Could not bind to the registered localhost ports',
         underlyingException:
             'All ports were blocked: [${uris.map((uri) => uri.port).join(',')}]',
