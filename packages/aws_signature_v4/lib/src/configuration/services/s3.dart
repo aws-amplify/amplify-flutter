@@ -74,7 +74,7 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
   /// {@macro aws_signature_v4.s3_service_configuration}
   S3ServiceConfiguration({
     this.signPayload = true,
-    this.chunked = true,
+    this.chunked = false,
     int chunkSize = _defaultChunkSize,
     this.encoding = S3PayloadEncoding.none,
   })  : assert(
