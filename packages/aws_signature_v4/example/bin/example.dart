@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: omit_local_variable_types
-
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
@@ -73,11 +71,11 @@ Future<void> main(List<String> args) async {
     );
 
   final parsedArgs = argParser.parse(args);
-  final String? accessKeyId = Platform.environment[$awsAccessKeyId] ??
+  final accessKeyId = Platform.environment[$awsAccessKeyId] ??
       parsedArgs[accessKeyIdArg] as String?;
-  final String? secretAccessKey = Platform.environment[$awsSecretAccessKey] ??
+  final secretAccessKey = Platform.environment[$awsSecretAccessKey] ??
       parsedArgs[secretAccessKeyArg] as String?;
-  final String? sessionToken = Platform.environment[$awsSessionToken] ??
+  final sessionToken = Platform.environment[$awsSessionToken] ??
       parsedArgs[sessionTokenArg] as String?;
 
   if (accessKeyId == null || secretAccessKey == null) {
@@ -95,29 +93,29 @@ Future<void> main(List<String> args) async {
     );
   }
 
-  final AWSCredentials credentials =
+  final credentials =
       AWSCredentials(accessKeyId, secretAccessKey, sessionToken);
-  final AWSSigV4Signer signer = AWSSigV4Signer(
+  final signer = AWSSigV4Signer(
     credentialsProvider: AWSCredentialsProvider(credentials),
   );
 
   // Set up S3 values
-  final AWSCredentialScope scope = AWSCredentialScope(
+  final scope = AWSCredentialScope(
     region: region,
     service: AWSService.s3,
   );
-  final String host = '$bucket.s3.$region.amazonaws.com';
-  final ServiceConfiguration serviceConfiguration = S3ServiceConfiguration();
+  final host = '$bucket.s3.$region.amazonaws.com';
+  final serviceConfiguration = S3ServiceConfiguration();
 
   // Create the bucket
-  final List<int> createBody = utf8.encode(
+  final createBody = utf8.encode(
     '''
 <CreateBucketConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
 <LocationConstraint>$region</LocationConstraint>
 </CreateBucketConfiguration>
 ''',
   );
-  final AWSHttpRequest createRequest = AWSHttpRequest.put(
+  final createRequest = AWSHttpRequest.put(
     Uri.https(host, '/'),
     body: createBody,
     headers: {
@@ -128,14 +126,13 @@ Future<void> main(List<String> args) async {
   );
 
   stdout.writeln('Creating bucket $bucket...');
-  final AWSSignedRequest signedCreateRequest = await signer.sign(
+  final signedCreateRequest = await signer.sign(
     createRequest,
     credentialScope: scope,
     serviceConfiguration: serviceConfiguration,
   );
-  final AWSStreamedHttpResponse createResponse =
-      await signedCreateRequest.send();
-  final int createStatus = createResponse.statusCode;
+  final createResponse = await signedCreateRequest.send();
+  final createStatus = createResponse.statusCode;
   stdout.writeln('Create Bucket Response: $createStatus');
   if (createStatus == 409) {
     exitWithError('Bucket name already exists!');
@@ -146,9 +143,9 @@ Future<void> main(List<String> args) async {
   stdout.writeln('Bucket creation succeeded!');
 
   // Upload the file
-  final Stream<List<int>> file = File(filename).openRead();
-  final String path = '/${p.basename(filename)}';
-  final AWSStreamedHttpRequest uploadRequest = AWSStreamedHttpRequest.put(
+  final file = File(filename).openRead();
+  final path = '/${p.basename(filename)}';
+  final uploadRequest = AWSStreamedHttpRequest.put(
     Uri.https(host, path),
     body: file,
     headers: {
@@ -158,14 +155,13 @@ Future<void> main(List<String> args) async {
   );
 
   stdout.writeln('Uploading file $filename to $path...');
-  final AWSSignedRequest signedUploadRequest = await signer.sign(
+  final signedUploadRequest = await signer.sign(
     uploadRequest,
     credentialScope: scope,
     serviceConfiguration: serviceConfiguration,
   );
-  final AWSStreamedHttpResponse uploadResponse =
-      await signedUploadRequest.send();
-  final int uploadStatus = uploadResponse.statusCode;
+  final uploadResponse = await signedUploadRequest.send();
+  final uploadStatus = uploadResponse.statusCode;
   stdout.writeln('Upload File Response: $uploadStatus');
   if (uploadStatus != 200) {
     exitWithError('Could not upload file');
@@ -173,13 +169,13 @@ Future<void> main(List<String> args) async {
   stdout.writeln('File uploaded successfully!');
 
   // Create a pre-signed URL for downloading the file
-  final AWSHttpRequest urlRequest = AWSHttpRequest.get(
+  final urlRequest = AWSHttpRequest.get(
     Uri.https(host, path),
     headers: {
       AWSHeaders.host: host,
     },
   );
-  final Uri signedUrl = await signer.presign(
+  final signedUrl = await signer.presign(
     urlRequest,
     credentialScope: scope,
     serviceConfiguration: serviceConfiguration,
