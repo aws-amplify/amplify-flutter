@@ -61,34 +61,34 @@ void main() {
 }
 
 Future<void> upload(BucketUpload bucketUpload) async {
-  final String bucketName = bucketUpload.bucketName;
-  final String region = bucketUpload.region;
-  final File file = bucketUpload.file;
-  final String filename = p.basename(bucketUpload.file.name);
+  final bucketName = bucketUpload.bucketName;
+  final region = bucketUpload.region;
+  final file = bucketUpload.file;
+  final filename = p.basename(bucketUpload.file.name);
 
-  const AWSSigV4Signer signer = AWSSigV4Signer();
+  const signer = AWSSigV4Signer();
 
   // Set up S3 values
-  final AWSCredentialScope scope = AWSCredentialScope(
+  final scope = AWSCredentialScope(
     region: region,
     service: AWSService.s3,
   );
-  final ServiceConfiguration serviceConfiguration = S3ServiceConfiguration();
-  final String host = '$bucketName.s3.$region.amazonaws.com';
-  final String path = '/$filename';
+  final serviceConfiguration = S3ServiceConfiguration();
+  final host = '$bucketName.s3.$region.amazonaws.com';
+  final path = '/$filename';
 
   // Read the file's bytes
-  final Blob fileBlob = file.slice();
-  final FileReader reader = FileReader();
+  final fileBlob = file.slice();
+  final reader = FileReader();
   reader.readAsArrayBuffer(fileBlob);
   await reader.onLoadEnd.first;
-  final Uint8List? fileBytes = reader.result as Uint8List?;
+  final fileBytes = reader.result as Uint8List?;
   if (fileBytes == null) {
     throw Exception('Cannot read bytes from Blob.');
   }
 
   // Upload the file
-  final AWSHttpRequest uploadRequest = AWSHttpRequest.put(
+  final uploadRequest = AWSHttpRequest.put(
     Uri.https(host, path),
     body: fileBytes,
     headers: {
@@ -98,14 +98,13 @@ Future<void> upload(BucketUpload bucketUpload) async {
   );
 
   safePrint('Uploading file $filename to $path...');
-  final AWSSignedRequest signedUploadRequest = await signer.sign(
+  final signedUploadRequest = await signer.sign(
     uploadRequest,
     credentialScope: scope,
     serviceConfiguration: serviceConfiguration,
   );
-  final AWSStreamedHttpResponse uploadResponse =
-      await signedUploadRequest.send();
-  final int uploadStatus = uploadResponse.statusCode;
+  final uploadResponse = await signedUploadRequest.send();
+  final uploadStatus = uploadResponse.statusCode;
   safePrint('Upload File Response: $uploadStatus');
   if (uploadStatus != 200) {
     throw Exception('Could not upload file');
@@ -113,13 +112,13 @@ Future<void> upload(BucketUpload bucketUpload) async {
   safePrint('File uploaded successfully!');
 
   // Create a pre-signed URL for downloading the file
-  final AWSHttpRequest urlRequest = AWSHttpRequest.get(
+  final urlRequest = AWSHttpRequest.get(
     Uri.https(host, path),
     headers: {
       AWSHeaders.host: host,
     },
   );
-  final Uri signedUrl = await signer.presign(
+  final signedUrl = await signer.presign(
     urlRequest,
     credentialScope: scope,
     serviceConfiguration: serviceConfiguration,
