@@ -25,7 +25,7 @@ Map<String, String>? addContentTypeToHeaders(
   if (contentType == null) {
     return headers;
   }
-  // Create new map to avoid modifying input headers.
+  // Create new map to avoid modifying input headers which may be unmodifiable.
   final modifiedHeaders = Map<String, String>.of(headers ?? {});
   modifiedHeaders.putIfAbsent(AWSHeaders.contentType, () => contentType);
   return modifiedHeaders;
