@@ -159,7 +159,10 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler, NativeApiPluginBindings.Nat
         )
     }
 
-    override fun addPlugin(authProvidersList: MutableList<String>) {
+    override fun addPlugin(
+        authProvidersList: MutableList<String>,
+        result: NativeApiPluginBindings.Result<Void>
+    ) {
         try {
             val authProviders = authProvidersList.map { AuthorizationType.valueOf(it) }
             if (flutterAuthProviders == null) {
@@ -173,8 +176,10 @@ class AmplifyApi : FlutterPlugin, MethodCallHandler, NativeApiPluginBindings.Nat
                     .build()
             )
             logger.info("Added API plugin")
+            result.success(null)
         } catch (e: Exception) {
             logger.error(e.message)
+            result.error(e)
         }
     }
 }
