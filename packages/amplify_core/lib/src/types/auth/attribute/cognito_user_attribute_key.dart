@@ -102,6 +102,12 @@ class CognitoUserAttributeKey extends UserAttributeKey {
   /// Read-only: `false`
   static const givenName = CognitoUserAttributeKey._('given_name');
 
+  /// Federated identities of the user.
+  ///
+  /// Read-only: `true`
+  static const identities =
+      CognitoUserAttributeKey._('identities', readOnly: true);
+
   /// The user's locale, represented as a BCP47 language tag, e.g. `en-US`.
   ///
   /// Read-only: `false`
@@ -155,6 +161,11 @@ class CognitoUserAttributeKey extends UserAttributeKey {
   /// Read-only: `false`
   static const profile = CognitoUserAttributeKey._('profile');
 
+  /// The user ID.
+  ///
+  /// Read-only: `true`
+  static const sub = CognitoUserAttributeKey._('sub', readOnly: true);
+
   /// The time the user's information was last updated.
   ///
   /// Read-only: `false`
@@ -179,6 +190,7 @@ class CognitoUserAttributeKey extends UserAttributeKey {
     familyName,
     gender,
     givenName,
+    identities,
     locale,
     middleName,
     name,
@@ -188,6 +200,7 @@ class CognitoUserAttributeKey extends UserAttributeKey {
     picture,
     preferredUsername,
     profile,
+    sub,
     updatedAt,
     website,
     zoneinfo
