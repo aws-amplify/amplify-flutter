@@ -18,6 +18,7 @@ dependencies:
   collection: ^1.15.0
   flutter:
     sdk: flutter
+  http: ^0.13.4
   meta: ^1.7.0
   plugin_platform_interface: ^2.0.0
 
