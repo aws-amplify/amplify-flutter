@@ -18,8 +18,10 @@ The API module for Amplify Flutter.
   s.dependency 'Amplify', '1.23.0'
   s.dependency 'AmplifyPlugins/AWSAPIPlugin', '1.23.0'
   s.dependency 'amplify_flutter_ios'
-  s.platform = :ios, '11.0'
-  s.swift_version = '5.0'
+
+  # These are needed to support async/await with pigeon
+  s.platform = :ios, '13.0'
+  s.swift_version = '5.5'
 
   # Use a custom module map with a manually written umbrella header.
   #
