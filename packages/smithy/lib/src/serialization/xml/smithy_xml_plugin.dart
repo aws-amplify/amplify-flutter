@@ -180,6 +180,8 @@ class SmithyXmlPlugin implements SerializerPlugin {
         object = XmlDocument.parse(object);
       } on XmlParserException {
         return object;
+      } on XmlTagException {
+        return object;
       }
     }
     return _deserialize(object.rootElement);
