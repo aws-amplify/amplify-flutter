@@ -7,12 +7,14 @@ Thank you for your interest in contributing to our project! <3 Whether it's a bu
 - [Our Design](#our-design)
 - [Development Process](#development-process)
   - [Setting up for local development](#setting-up-for-local-development)
-    - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
+      - [Amplify Flutter Repo Tool (aft)](#amplify-flutter-repo-tool-aft)
+      - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
   - [Steps towards contributions](#steps-towards-contributions)
 - [Pull Requests](#pull-requests)
 - [Release](#release)
   - [Finding contributions to work on](#finding-contributions-to-work-on)
   - [Related Repositories](#related-repositories)
+  - [Unit Tests](#unit-tests)
   - [Integration Tests](#integration-tests)
   - [Provision Resources For Integration Tests](#provision-resources-for-integration-tests)
   - [Code of Conduct](#code-of-conduct)
@@ -70,6 +72,10 @@ $ melos bootstrap
 
 > Note: Make sure to always [sync your fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork) with main branch of amplify-flutter
 
+#### Amplify Flutter Repo Tool (aft)
+
+Some workflows are being migrated to a tool we call `aft`. This is developed locally in the repo and can be installed using `dart pub global activate -spath packages/aft`. For a list of supported commands, run `aft --help`.
+
 #### Packages inside Amplify Flutter
 
 - [amplify_flutter](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_flutter)
@@ -77,6 +83,22 @@ $ melos bootstrap
 - [amplify_auth_cognito](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_auth_cognito)
 - [amplify_analytics_plugin_interface](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_analytics_plugin_interface)
 - [amplify_analytics_pinpoint](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_analytics_pinpoint)
+
+### Platform Setup
+
+Some platforms require additional setup. See below for details.
+
+#### Linux
+
+`libsecret` and `glib` are required for some plugins. They can be installed on Debian based linux distributions such as Ubuntu by running the command below.
+
+```sh
+sudo apt-get update && sudo apt-get install libsecret-1-dev libglib2.0-dev
+```
+
+**VS Code Remote Container**
+
+[VS Code Remote Containers](https://code.visualstudio.com/docs/remote/containers) can be used for linux development. `/devcontainer` contains a Dockerfile that will install the required dependencies.
 
 ## Steps towards contributions
 

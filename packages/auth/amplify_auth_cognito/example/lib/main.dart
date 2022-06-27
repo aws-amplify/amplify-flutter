@@ -52,7 +52,9 @@ class _MyAppState extends State<MyApp> {
     GoRoute(
       path: '/update-user-attribute',
       builder: (BuildContext _, GoRouterState state) =>
-          const UpdateUserAttributeScreen(),
+          UpdateUserAttributeScreen(
+        userAttributeKey: state.extra as CognitoUserAttributeKey?,
+      ),
     ),
     GoRoute(
       path: '/update-user-attributes',
@@ -60,12 +62,17 @@ class _MyAppState extends State<MyApp> {
           const UpdateUserAttributesScreen(),
     ),
     GoRoute(
-      path: '/confirm-user-attribute/:attribute',
+      path: '/confirm-user-attribute/email',
       builder: (BuildContext _, GoRouterState state) =>
-          ConfirmUserAttributeScreen(
-        userAttributeKey: CognitoUserAttributeKey.parse(
-          state.params['attribute']!,
-        ),
+          const ConfirmUserAttributeScreen(
+        userAttributeKey: CognitoUserAttributeKey.email,
+      ),
+    ),
+    GoRoute(
+      path: '/confirm-user-attribute/phone_number',
+      builder: (BuildContext _, GoRouterState state) =>
+          const ConfirmUserAttributeScreen(
+        userAttributeKey: CognitoUserAttributeKey.phoneNumber,
       ),
     ),
   ]);
@@ -82,6 +89,15 @@ class _MyAppState extends State<MyApp> {
         await Amplify.addPlugin(AmplifyAPI());
       }
       await Amplify.addPlugin(AmplifyAuthCognito());
+      // Uncomment this block, and comment out the one above, in order to persist credentials
+      // await Amplify.addPlugin(AmplifyAuthCognito(credentialStorage: AmplifySecureStorage(
+      //       config: AmplifySecureStorageConfig(
+      //         scope: 'authtest',
+      //         webOptions: WebSecureStorageOptions(
+      //           persistenceOption: WebPersistenceOption.inMemory,
+      //         ),
+      //       ),
+      //     )));
       await Amplify.configure(amplifyconfig);
       safePrint('Successfully configured Amplify');
 

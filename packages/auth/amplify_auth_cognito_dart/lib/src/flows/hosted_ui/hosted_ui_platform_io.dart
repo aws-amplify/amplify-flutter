@@ -96,11 +96,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
       throw UnsupportedError('Unsupported OS: ${Platform.operatingSystem}');
     }
 
-    final arguments = [
-      if (Platform.isWindows) 'start-process',
-      url,
-    ];
-
+    final arguments = Platform.isWindows ? ['start-process', '"$url"'] : [url];
     final res = await Process.run(
       command,
       arguments,

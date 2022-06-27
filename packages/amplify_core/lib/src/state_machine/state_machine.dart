@@ -167,7 +167,7 @@ abstract class StateMachine<Event extends StateMachineEvent,
         // Resolve in the next event loop since `emit` is synchronous and may
         // fire before listeners are registered.
         await Future.delayed(Duration.zero, () => resolve(event));
-      } on Exception catch (error, st) {
+      } on Object catch (error, st) {
         final resolution = resolveError(error, st);
 
         // Add the error to the state stream if it cannot be resolved to a new
@@ -206,8 +206,7 @@ abstract class StateMachine<Event extends StateMachineEvent,
     final precondError = event.checkPrecondition(currentState);
     if (precondError != null) {
       // TODO(dnys1): Log
-      // ignore:avoid_print
-      print('Precondition not met for event: $event ($precondError)');
+      safePrint('Precondition not met for event: $event ($precondError)');
       return false;
     }
 

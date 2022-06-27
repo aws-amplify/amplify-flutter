@@ -15,7 +15,8 @@
 import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
 
 /// {@template amplify_secure_storage_dart.not_available_exception}
-/// Thrown when the underlying platform storage mechanism is not available.
+/// Thrown when the underlying platform dependencies or storage mechanisms
+/// are not available.
 /// {@endtemplate}
 class NotAvailableException extends SecureStorageException {
   /// {@macro amplify_secure_storage_dart.not_available_exception}

@@ -161,6 +161,56 @@ abstract class HostedUiPlatform {
     );
   }
 
+  /// Creates an authorization code grant.
+  @protected
+  @visibleForTesting
+  @nonVirtual
+  oauth2.AuthorizationCodeGrant createGrant(
+    CognitoOAuthConfig config, {
+    AuthProvider? provider,
+    String? codeVerifier,
+    http.Client? httpClient,
+  }) {
+    return oauth2.AuthorizationCodeGrant(
+      config.appClientId,
+      HostedUiConfig(config).signInUri(provider),
+      HostedUiConfig(config).tokenUri,
+      secret: config.appClientSecret,
+      httpClient: httpClient,
+      codeVerifier: codeVerifier,
+
+      // The spec recommends against this, but it's what Cognito expects. Basic
+      // authorization will fail with `invalid_grant`.
+      basicAuth: false,
+    );
+  }
+
+  /// Creates an authorization code grant and advances the internal state to
+  /// `pendingResponse` so that parameter exchange will work.
+  @protected
+  @visibleForTesting
+  @nonVirtual
+  oauth2.AuthorizationCodeGrant restoreGrant(
+    CognitoOAuthConfig config, {
+    required String state,
+    required String codeVerifier,
+    http.Client? httpClient,
+  }) {
+    final grant = createGrant(
+      config,
+      codeVerifier: codeVerifier,
+      httpClient: httpClient,
+    );
+
+    return grant
+      // Advances the internal state.
+      ..getAuthorizationUrl(
+        signInRedirectUri,
+        scopes: config.scopes,
+        state: state,
+      );
+  }
+
   /// Performs the second part of the authorization code flow, exhanging the
   /// parameters retrieved via the WebView with the OAuth server for an access
   /// and refresh token.
@@ -204,6 +254,17 @@ abstract class HostedUiPlatform {
     required String state,
     required String codeVerifier,
   }) async {
+    final parameters = dependencyManager.get<OAuthParameters>();
+    if (parameters != null) {
+      authCodeGrant = restoreGrant(
+        config,
+        state: state,
+        codeVerifier: codeVerifier,
+        httpClient: httpClient,
+      );
+      return dispatcher.dispatch(HostedUiEvent.exchange(parameters));
+    }
+
     _authCodeGrant = null;
     _secureStorage
       ..delete(key: _keys[HostedUiKey.state])

@@ -17,6 +17,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart' hide AuthState;
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:flutter/material.dart';
@@ -97,6 +98,21 @@ class AuthenticatorState extends ChangeNotifier {
   }
 
   String _username = '';
+
+  /// {@macro amplify_authenticator.username_input.username_selection}
+  ///
+  /// Defaults to [UsernameSelection.email].
+  ///
+  /// The value has no meaning for Auth configurations that do not allow
+  /// for email OR phone number to be used as username.
+  UsernameSelection get usernameSelection => _usernameSelection;
+
+  set usernameSelection(UsernameSelection value) {
+    _usernameSelection = value;
+    notifyListeners();
+  }
+
+  UsernameSelection _usernameSelection = UsernameSelection.email;
 
   /// The value for the password form field
   ///

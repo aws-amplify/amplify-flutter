@@ -140,7 +140,7 @@ class BaseServiceConfiguration extends ServiceConfiguration {
     // Add user agent header
     final isSigningTest = Zone.current[zSigningTest] as bool? ?? false;
     if (!isSigningTest) {
-      const userAgent = 'aws-sdk-dart/$packageVersion';
+      const userAgent = 'aws-sigv4-dart/$packageVersion';
       headers.update(
         zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent,
         (value) => '$value $userAgent',

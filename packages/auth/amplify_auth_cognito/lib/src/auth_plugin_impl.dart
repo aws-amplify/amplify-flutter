@@ -12,27 +12,39 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: implementation_imports
+
 import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-// ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_stub.dart'
     if (dart.library.html) 'flows/hosted_ui/hosted_ui_platform_html.dart'
     if (dart.library.ui) 'flows/hosted_ui/hosted_ui_platform_flutter.dart';
+import 'package:amplify_auth_cognito_dart/src/state/machines/hosted_ui_state_machine.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/services.dart';
 
+
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
 /// The AWS Cognito implementation of the Amplify Auth category.
+/// To change the default behavior of credential storage,
+/// provide a [credentialStorage] value. If no value is provided,
+/// [AmplifySecureStorage] will be used with a `scope` of "auth".
+///
+/// **Warning:** Changing the credential provider, or customizing 
+/// the config value for [AmplifySecureStorage], will likely result in 
+/// end users having to re-authenticate then next time the app is opened.
 /// {@endtemplate}
 class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
   /// {@macro amplify_auth_cognito.amplify_auth_cognito}
-  AmplifyAuthCognito()
+  AmplifyAuthCognito({
+    SecureStorageInterface? credentialStorage,
+  })
       : super(
-          credentialStorage: AmplifySecureStorage(
+          credentialStorage: credentialStorage ?? AmplifySecureStorage(
             config: AmplifySecureStorageConfig(
               scope: 'auth',
             ),
@@ -47,7 +59,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
     }
 
     // Configure this plugin to act as a native iOS/Android plugin.
-    final nativePlugin = _NativeAmplifyAuthCognito(this);
+    final nativePlugin = _NativeAmplifyAuthCognito(this, stateMachine);
     NativeAuthPlugin.setup(nativePlugin);
 
     final nativeBridge = NativeAuthBridge();
@@ -69,12 +81,37 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
       );
     }
   }
+
+  @override
+  Future<SignUpResult> signUp({required SignUpRequest request}) async {
+    Map<String, String>? validationData;
+    if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+      final nativeValidationData =
+          await stateMachine.expect<NativeAuthBridge>().getValidationData();
+      validationData = nativeValidationData.cast();
+    }
+    var options =
+        request.options as CognitoSignUpOptions? ?? CognitoSignUpOptions();
+    options = options.copyWith(
+      validationData: {
+        ...?validationData,
+        ...?options.validationData,
+      },
+    );
+    request = SignUpRequest(
+      username: request.username,
+      password: request.password,
+      options: options,
+    );
+    return super.signUp(request: request);
+  }
 }
 
 class _NativeAmplifyAuthCognito implements NativeAuthPlugin {
-  _NativeAmplifyAuthCognito(this._basePlugin);
+  _NativeAmplifyAuthCognito(this._basePlugin, this._stateMachine);
 
   final AmplifyAuthCognito _basePlugin;
+  final CognitoAuthStateMachine _stateMachine;
 
   @override
   Future<NativeAuthSession> fetchAuthSession(
@@ -115,5 +152,17 @@ class _NativeAmplifyAuthCognito implements NativeAuthPlugin {
       safePrint('Error fetching session for native plugin: $e');
     }
     return NativeAuthSession(isSignedIn: false);
+  }
+
+  @override
+  void exchange(Map<String?, String?> params) {
+    final oauthParameters = OAuthParameters.fromJson(params.cast());
+    final hostedUiStateMachine = _stateMachine.get(HostedUiStateMachine.type);
+    if (hostedUiStateMachine != null) {
+      _stateMachine.dispatch(HostedUiEvent.exchange(oauthParameters));
+    } else {
+      // Cache them as initial route parameters.
+      _stateMachine.addInstance(oauthParameters);
+    }
   }
 }
