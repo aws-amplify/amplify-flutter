@@ -70,7 +70,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
         }
     }
     
-    public func addPluginAuthProvidersList(_ authProvidersList: [String], error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
+    public func addPluginAuthProvidersList(_ authProvidersList: [String]) async -> FlutterError? {
         do {
             let authProviders = authProvidersList.compactMap {
                 AWSAuthorizationType(rawValue: $0)
@@ -79,8 +79,9 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
                 plugin: AWSAPIPlugin(
                     sessionFactory: FlutterURLSessionBehaviorFactory(),
                     apiAuthProviderFactory: FlutterAuthProviders(authProviders)))
+            return nil
         } catch let apiError as APIError {
-            error.pointee = FlutterError(
+            return FlutterError(
                 code: "APIException",
                 message: apiError.localizedDescription,
                 details: [
@@ -94,7 +95,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
             if case .amplifyAlreadyConfigured = configError {
                 errorCode = "AmplifyAlreadyConfiguredException"
             }
-            error.pointee = FlutterError(
+            return FlutterError(
                 code: errorCode,
                 message: configError.localizedDescription,
                 details: [
@@ -104,7 +105,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
                 ]
             )
         } catch let e {
-            error.pointee = FlutterError(
+            return FlutterError(
                 code: "UNKNOWN",
                 message: e.localizedDescription,
                 details: nil
