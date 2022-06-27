@@ -96,6 +96,8 @@ void main() {
       final operation = Amplify.API.get('items');
       operation.cancel();
       operation.then((p0) => fail('Request should have been cancelled.'));
+      await operation.valueOrCancellation();
+      expect(operation.isCanceled, isTrue);
     });
   });
 }

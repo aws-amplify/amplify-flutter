@@ -1,4 +1,3 @@
-//
 // Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License").
@@ -11,7 +10,6 @@
 // on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
 // express or implied. See the License for the specific language governing
 // permissions and limitations under the License.
-//
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
@@ -34,6 +32,7 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
   Uri getUri(String path, Map<String, dynamic>? queryParameters) {
     final parsed = Uri.parse(config.endpoint);
     // Remove leading slashes which are suggested in public documentation.
+    // https://docs.amplify.aws/lib/restapi/getting-started/q/platform/flutter/#make-a-post-request
     if (path.startsWith(_slash)) {
       path = path.substring(1);
     }
