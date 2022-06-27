@@ -178,9 +178,9 @@ Future<void> adminCreateUser(
   }
 }
 
-/// Returns the OTP code for [username]. Must be called before the network call
+/// Returns the OTP code for [email]. Must be called before the network call
 /// generating the OTP code.
-Future<String> getOtpCode(String username) async {
+Future<String> getOtpCode(String email) async {
   const subscriptionDocument = '''subscription {
           onCreateConfirmSignUpTestRun {
             id
@@ -200,7 +200,7 @@ Future<String> getOtpCode(String username) async {
             jsonDecode(event.data!)['onCreateConfirmSignUpTestRun'] as Map;
         return ConfirmSignUpResponse.fromJson(json.cast());
       })
-      .where((event) => event.username == username)
+      .where((event) => event.username == email)
       .map((event) => event.currentCode)
       // When multiple Cognito events happen in a test, we must use the newest
       // code, since the others will have been invalidated.

@@ -140,10 +140,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   UsernameType get selectedUsernameType =>
       AuthenticatorFormState.of(context).selectedUsernameType;
 
-  @nonVirtual
-  ValueNotifier<bool> get useEmail =>
-      AuthenticatorFormState.of(context).useEmail;
-
   /// Callback for when `onChanged` is triggered on the [FormField].
   ValueChanged<FieldValue> get onChanged => (_) {};
 
@@ -255,8 +251,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
         .add(EnumProperty<UsernameConfigType>('usernameType', usernameType));
     properties.add(EnumProperty<UsernameType>(
         'selectedUsernameType', selectedUsernameType));
-    properties
-        .add(DiagnosticsProperty<ValueNotifier<bool>>('useEmail', useEmail));
     properties.add(IntProperty('maxLength', maxLength));
     properties.add(DiagnosticsProperty<bool>('isOptional', isOptional));
     properties.add(StringProperty('labelText', labelText));
