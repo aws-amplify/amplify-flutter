@@ -1,3 +1,7 @@
+## 0.5.3
+
+ - **FIX**: Support ports and schemes in `baseUri`.
+
 ## 0.5.2
 
 ## 0.5.1
