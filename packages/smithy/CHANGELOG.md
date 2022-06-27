@@ -1,3 +1,7 @@
+## 0.5.4
+
+ - **FIX**: Xml parsing.
+
 ## 0.5.3
 
  - **FIX**: Support ports and schemes in `baseUri`.
