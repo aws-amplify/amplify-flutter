@@ -44,10 +44,44 @@ class AuthenticatorGoldenComparator extends LocalFileComparator {
     }
     if (!result.passed) {
       safePrint(
-        'A tolerable difference of ${result.diffPercent * 100}% was found when '
+        'D1 tolerable difference of ${result.diffPercent * 100}% was found when '
         'comparing $golden.',
       );
     }
     return result.passed || result.diffPercent <= _kGoldenDiffTolerance;
   }
+}
+
+/// Runs a set of tests for a given set of Enum values.
+void enumGroup<E extends Enum>(List<E> values, void Function(E) cb) {
+  for (final value in values) {
+    group(value.name, () => cb(value));
+  }
+}
+
+/// Runs a 2-dimensional test matrix, using the two Enum lists as the matrix
+/// dimensions.
+void testMatrix2<D1 extends Enum, D2 extends Enum>(
+  List<D1> values1,
+  List<D2> values2,
+  void Function(D1, D2) cb,
+) {
+  enumGroup<D1>(values1, (a) {
+    enumGroup<D2>(values2, (b) => cb(a, b));
+  });
+}
+
+/// Runs a 3-dimensional test matrix, using the three Enum lists as the matrix
+/// dimensions.
+void testMatrix3<D1 extends Enum, D2 extends Enum, D3 extends Enum>(
+  List<D1> values1,
+  List<D2> values2,
+  List<D3> values3,
+  void Function(D1, D2, D3) cb,
+) {
+  enumGroup<D1>(values1, (a) {
+    enumGroup<D2>(values2, (b) {
+      enumGroup<D3>(values3, (c) => cb(a, b, c));
+    });
+  });
 }
