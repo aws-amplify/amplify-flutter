@@ -24,48 +24,71 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   /// {@macro amplify_auth_cognito.hosted_ui_platform}
   HostedUiPlatformImpl(super.dependencyManager) : super.protected();
 
-  static String _html(String title, String message) => '''
+  static String _html(String pageTitle, String title, String message) => '''
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>$title</title>
-    <style>
-        body {
-          font-family: -apple-system, 
-                      BlinkMacSystemFont, 
-                      "Segoe UI", 
-                      Roboto, 
-                      Oxygen,
-                      Ubuntu,
-                      Cantarell,
-                      "Fira Sans",
-                      "Droid Sans",
-                      "Helvetica Neue", 
-                      sans-serif;
-        }
-    </style>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>$pageTitle</title>
+      <style>
+          html,
+          body {
+              background-color: #f8f8f8;
+              color: #1d1d1d;
+              font-family:
+                  -apple-system,
+                  BlinkMacSystemFont,
+                  "Segoe UI",
+                  Roboto,
+                  Oxygen,
+                  Ubuntu,
+                  Cantarell,
+                  "Fira Sans",
+                  "Droid Sans",
+                  "Helvetica Neue",
+                  sans-serif;
+          }
+          /* Material style card with outline and minimal elevation */
+          .card {
+              background-color: white;
+              margin-top: 64px;
+              padding: 64px;
+              border: 1px solid #dddddd;
+              border-radius: 4px;
+              width: 500px;
+              box-shadow: 0 1px 0 rgb(0 0 0 / 25%);
+          }
+      </style>
   </head>
   <body>
-    <center>
-      <h2>$message</h2>
-    </center>
+      <center>
+          <div class="card">
+              <h1>$title</h1>
+              <p>$message</p>
+          </div>
+      </center>
   </body>
 </html>''';
 
-  String _htmlForParams(Map<String, String> parameters) {
+  String _htmlForParams(
+    Map<String, String> parameters, {
+    required bool signIn,
+  }) {
     if (parameters.containsKey('error')) {
       return _html(
-        'Error',
-        'An unknown error occurred.<br> '
-            'Please return to the application for more info.',
+        'Authentication Error',
+        'Something went wrong.',
+        'An error occurred. Please return to the application for more info.',
       );
     }
+    final title = signIn ? 'Signed In' : 'Signed Out';
+    final inOut = signIn ? 'in' : 'out';
     return _html(
-      'Success!',
-      'Success! You can now close this window.',
+      title,
+      'You are signed $inOut.',
+      'You have successfully signed $inOut. You can now close this window.',
     );
   }
 
@@ -229,7 +252,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         await _respond(
           request,
           HttpStatus.ok,
-          _htmlForParams(queryParams),
+          _htmlForParams(queryParams, signIn: true),
           headers: {
             AWSHeaders.contentType: 'text/html',
           },
@@ -278,7 +301,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         await _respond(
           request,
           HttpStatus.ok,
-          _htmlForParams(queryParams),
+          _htmlForParams(queryParams, signIn: false),
           headers: {
             AWSHeaders.contentType: 'text/html',
           },
