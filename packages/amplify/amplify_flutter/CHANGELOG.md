@@ -1,3 +1,10 @@
+## 0.6.1 (2022-06-29)
+
+- fix(authenticator): authenticator phone OR email confirmation ([#1785](https://github.com/aws-amplify/amplify-flutter/pull/1785))
+- fix(authenticator): Collect MFA types ([#1781](https://github.com/aws-amplify/amplify-flutter/pull/1781))
+- fix(auth): add toString override of AuthProvider ([#1826](https://github.com/aws-amplify/amplify-flutter/pull/1826))
+- fix(auth): add sub and identities attributes ([#1825](https://github.com/aws-amplify/amplify-flutter/pull/1825))
+
 ## 0.6.0 (2022-06-20)
 
 - Bump minimum Dart SDK to 2.15

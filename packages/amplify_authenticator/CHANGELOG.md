@@ -1,3 +1,8 @@
+## 0.2.1 (2022-06-29)
+
+- fix: authenticator phone OR email confirmation ([#1785](https://github.com/aws-amplify/amplify-flutter/pull/1785))
+- fix: Collect MFA types ([#1781](https://github.com/aws-amplify/amplify-flutter/pull/1781))
+
 ## 0.2.0 (2022-06-20)
 
 - Bump minimum Dart SDK version to 2.15
