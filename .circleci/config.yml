@@ -189,7 +189,7 @@ executors:
 
   macos-executor:
     macos:
-      xcode: 13 # test to verify failing CI
+      xcode: 13.4.1
     working_directory: ~/amplify-flutter
 
 commands:
