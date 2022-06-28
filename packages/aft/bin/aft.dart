@@ -26,6 +26,7 @@ Future<void> main(List<String> args) async {
     ..addCommand(GenerateSdkCommand())
     ..addCommand(ListPackagesCommand())
     ..addCommand(DepsCommand())
-    ..addCommand(IntegrationTestCommand(args));
+    ..addCommand(TestCommand())
+    ..addCommand(IntegrationTestCommand());
   await runner.run(args);
 }

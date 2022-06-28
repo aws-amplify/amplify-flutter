@@ -14,7 +14,7 @@
 
 import 'dart:io';
 
-import 'package:aft/src/platform.dart';
+import 'package:aft/src/flutter_platform.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
@@ -74,11 +74,21 @@ class PackageInfo
     return integTestDir;
   }
 
+  /// The unit test directory within the enclosing directory, if any
+  Directory? get unitTestDirectory {
+    final expectedPath = p.join(path, 'test');
+    final unitTestDir = Directory(expectedPath);
+    if (!unitTestDir.existsSync()) {
+      return null;
+    }
+    return unitTestDir;
+  }
+
   /// The platforms a package supports, typically for example apps.
-  List<Platform>? get platforms {
-    final platforms = <Platform>[];
+  List<FlutterPlatform>? get platforms {
+    final platforms = <FlutterPlatform>[];
     for (final value in FlutterPlatform.values) {
-      final expectedPath = p.join(path, value.displayName.toLowerCase());
+      final expectedPath = p.join(path, value.name);
       final platformDirectory = Directory(expectedPath);
       if (platformDirectory.existsSync()) {
         platforms.add(value);

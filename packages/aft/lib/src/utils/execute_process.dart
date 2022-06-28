@@ -16,24 +16,28 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:aft/aft.dart';
+
 /// Starts a flutter [Process]
 ///
 /// Passes [args] directly to [Process.start]
 /// Passes [package] to the [Process.start] workingDirectory parameter,
 /// after navigating to the amplify-flutter packages directory and appending "/example"
 /// Uses [printStream] to determine whether the events should be added to [stdout].
-Future<String> startFlutterProcess(
-  List<String> args,
-  String package, {
+Future<String> executeProcess(
+  PackageFlavor flavor,
+  List<String> args, {
+  PackageInfo? package,
   bool printStream = true,
 }) async {
   stderr.write('Running "flutter ${args.join(' ')}".\n');
+
   final output = <int>[];
-  final completer = Completer<void>();
+  final completer = Completer<int>();
   final process = await Process.start(
-    'flutter',
+    flavor.name.toLowerCase(),
     args,
-    workingDirectory: '../../$package/example',
+    workingDirectory: package?.path ?? Directory.current.path,
   );
   process.stdout.listen(
     (List<int> event) {
@@ -43,10 +47,13 @@ Future<String> startFlutterProcess(
       }
     },
     onDone: () async {
-      return completer.complete();
+      return completer.complete(process.exitCode);
     },
   );
 
-  await completer.future;
+  final exitCode = await completer.future;
+  if (exitCode != 0) {
+    stderr.write('flutter ${args.join(' ')} failed with exit code $exitCode');
+  }
   return Future<String>.value(utf8.decoder.convert(output).trim());
 }

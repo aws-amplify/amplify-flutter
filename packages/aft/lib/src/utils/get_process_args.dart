@@ -12,12 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library aft;
+List<String> getMachineArgs() {
+  return [
+    'devices',
+    '--machine',
+  ];
+}
 
-export 'src/commands/amplify_command.dart';
-export 'src/commands/deps_command.dart';
-export 'src/commands/generate_sdk_command.dart';
-export 'src/commands/integration_test_command.dart';
-export 'src/commands/list_packages_command.dart';
-export 'src/commands/unit_test_command.dart';
-export 'src/models.dart';
+List<String> getFlutterDriverArgs({String testPath = ''}) {
+  return [
+    'drive',
+    '--driver=test_driver/integration_test.dart',
+    '--target=integration_test/$testPath',
+    '-d',
+    'web-server',
+    '--no-headless'
+  ];
+}
+
+List<String> getFlutterTestArgs({
+  String testPath = '',
+  required String deviceId,
+}) {
+  return [
+    'test',
+    'integration_test/$testPath',
+    '-d',
+    deviceId,
+  ];
+}

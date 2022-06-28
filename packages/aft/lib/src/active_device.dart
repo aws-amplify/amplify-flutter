@@ -12,28 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aft/src/platform.dart';
+import 'package:aft/src/flutter_platform.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'active_device.g.dart';
-
-enum TargetPlatform {
-  android('android'),
-  androidArm('android_arm'),
-  androidArm64('android_arm64'),
-  androidX64('android_x64'),
-  androidX869('android_x86'),
-  webJavascript('web_javascript'),
-  ios('ios'),
-  darwin('darwin'),
-  windowsX64('windows_x64'),
-  linuxX64('linux_x64'),
-  linuxArm64('linux_arm64');
-
-  const TargetPlatform(this.flutterDeviceName);
-  final String flutterDeviceName;
-}
 
 /// {@template amplify_tools.active_device}
 /// Information about an active device.
@@ -59,14 +42,17 @@ class ActiveDevice
   /// The ID of the device.
   final String id;
 
-  /// The target platform of the device.
-  final TargetPlatform targetPlatform;
+  /// The target platform from device metadata, often including processor specification.
+  final String targetPlatform;
 
+  /// The target platform, shorn of processor specification
   FlutterPlatform? get platform {
-    switch (TargetPlatform) {
-      case TargetPlatform:
-        return FlutterPlatform.android;
+    for (final target in FlutterPlatform.values) {
+      if (target.deviceTargets.contains(targetPlatform)) {
+        return target;
+      }
     }
+    return null;
   }
 
   @override

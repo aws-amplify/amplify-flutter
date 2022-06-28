@@ -12,12 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library aft;
+import 'dart:convert';
+import 'package:aft/aft.dart';
+import 'package:aft/src/active_device.dart';
+import 'package:aft/src/utils/execute_process.dart';
+import 'package:aft/src/utils/get_process_args.dart';
 
-export 'src/commands/amplify_command.dart';
-export 'src/commands/deps_command.dart';
-export 'src/commands/generate_sdk_command.dart';
-export 'src/commands/integration_test_command.dart';
-export 'src/commands/list_packages_command.dart';
-export 'src/commands/unit_test_command.dart';
-export 'src/models.dart';
+Future<List<ActiveDevice>>? getActiveDevices() async {
+  final result = await executeProcess(
+    PackageFlavor.flutter,
+    getMachineArgs(),
+    printStream: false,
+  );
+
+  return (json.decode(result) as List)
+      .map((i) => ActiveDevice.fromJson(i as Map<String, dynamic>))
+      .toList();
+}

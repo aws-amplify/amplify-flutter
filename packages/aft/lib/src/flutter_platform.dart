@@ -14,13 +14,53 @@
 
 /// The platforms a package supports, typically for example apps.
 enum FlutterPlatform {
-  android('Android'),
-  ios('iOS'),
-  linux('Linux'),
-  macos('MacOS'),
-  windows('Windows'),
-  web('Web');
+  android(
+    [
+      'android-arm',
+      'android-arm64',
+      'android-x86',
+      'android-x64',
+    ],
+    'Android',
+  ),
+  ios(
+    [
+      'ios',
+    ],
+    'iOS',
+  ),
+  linux(
+    [
+      'linux-x64',
+      'linux-arm64',
+    ],
+    'Linux',
+  ),
+  macos(
+    [
+      'darwin',
+    ],
+    'MacOS',
+  ),
+  windows(
+    [
+      'windows-x64',
+    ],
+    'Windows',
+  ),
+  web(
+    [
+      'web-javascript',
+    ],
+    'Web',
+  );
 
-  const FlutterPlatform(this.displayName);
+  const FlutterPlatform(
+    this.deviceTargets,
+    this.displayName,
+  );
+
+  /// The variants, sometimes processor-specific, returned from device metadata
+  final List<String> deviceTargets;
   final String displayName;
 }

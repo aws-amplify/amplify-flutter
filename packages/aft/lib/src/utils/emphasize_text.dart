@@ -12,12 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library aft;
+/// Returns [text] in green.
+String formatSuccess(String? text) {
+  return '\x1B[32m${text ?? ''}\x1B[0m';
+}
 
-export 'src/commands/amplify_command.dart';
-export 'src/commands/deps_command.dart';
-export 'src/commands/generate_sdk_command.dart';
-export 'src/commands/integration_test_command.dart';
-export 'src/commands/list_packages_command.dart';
-export 'src/commands/unit_test_command.dart';
-export 'src/models.dart';
+/// Returns [text] in yellow.
+String formatWarning(String? text) {
+  return '\x1B[33m${text ?? ''}\x1B[0m';
+}
+
+/// Returns [text] in red.
+String formatException(String? text) {
+  return '\x1B[31m${text ?? ''}\x1B[0m';
+}

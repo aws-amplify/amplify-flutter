@@ -12,37 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
+import 'package:aft/src/models.dart';
+import 'package:interact/interact.dart';
 
-import 'package:aws_common/aws_common.dart';
+Future<List<PackageInfo>> selectPackages(
+    List<PackageInfo> testablePackages) async {
+  final packageSelections =
+      testablePackages.map((package) => package.name).toList();
 
+  final packagePrompt = MultiSelect(
+    prompt: 'Select packages (use spacebar to select)',
+    options: packageSelections,
+    // defaults: packageSelections.map((i) => true).toList(),
+  ).interact();
 
-/// {@template amplify_tools.device}
-/// Information about an active device.
-/// {@endtemplate}
-class ActiveDevice
-    with AWSEquatable<ActiveDevice>
-    implements Comparable<ActiveDevice> {
-  /// {@macro amplify_tools.deviceo}
-  const ActiveDevice({
-    required this.name,
-    required this.id,
-  });
+  final selectedPackages =
+      packagePrompt.map((e) => testablePackages[e]).toList();
 
-  /// The name of the device.
-  final String name;
-
-  /// id of the device.
-  final String id;
-
-  @override
-  List<Object?> get props => [
-        name,
-        id,
-      ];
-
-  @override
-  int compareTo(ActiveDevice other) {
-    return id.compareTo(other.id);
-  }
+  return selectedPackages;
 }
