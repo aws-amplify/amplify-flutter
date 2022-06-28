@@ -29,32 +29,10 @@ import 'package:path/path.dart' as p;
 Future<void> main(List<String> args) async {
   final argParser = ArgParser();
 
-  const accessKeyIdArg = 'access-key-id';
-  const secretAccessKeyArg = 'secret-access-key';
-  const sessionTokenArg = 'session-token';
-
   const bucketArg = 'bucket';
   const regionArg = 'region';
 
   argParser
-    ..addOption(
-      accessKeyIdArg,
-      abbr: 'a',
-      valueHelp: zAccessKeyId,
-      mandatory: false,
-    )
-    ..addOption(
-      secretAccessKeyArg,
-      abbr: 's',
-      valueHelp: zSecretAccessKey,
-      mandatory: false,
-    )
-    ..addOption(
-      sessionTokenArg,
-      abbr: 't',
-      valueHelp: zSessionToken,
-      mandatory: false,
-    )
     ..addOption(
       bucketArg,
       abbr: 'b',
@@ -71,16 +49,6 @@ Future<void> main(List<String> args) async {
     );
 
   final parsedArgs = argParser.parse(args);
-  final accessKeyId = Platform.environment[zAccessKeyId] ??
-      parsedArgs[accessKeyIdArg] as String?;
-  final secretAccessKey = Platform.environment[zSecretAccessKey] ??
-      parsedArgs[secretAccessKeyArg] as String?;
-  final sessionToken = Platform.environment[zSessionToken] ??
-      parsedArgs[sessionTokenArg] as String?;
-
-  if (accessKeyId == null || secretAccessKey == null) {
-    exitWithError('No AWS credentials found');
-  }
 
   final bucket = parsedArgs[bucketArg] as String? ??
       'mybucket-${Random().nextInt(1 << 30)}';
@@ -89,14 +57,14 @@ Future<void> main(List<String> args) async {
 
   if (filename == null) {
     exitWithError(
-      'Usage: dart s3_example.dart --bucket=... --region=... <FILE_TO_UPLOAD>',
+      'Usage: dart s3_example.dart --region=... <FILE_TO_UPLOAD>',
     );
   }
 
-  final credentials =
-      AWSCredentials(accessKeyId, secretAccessKey, sessionToken);
-  final signer = AWSSigV4Signer(
-    credentialsProvider: AWSCredentialsProvider(credentials),
+  // Create a signer which uses the `default` profile from the shared
+  // credentials file.
+  const signer = AWSSigV4Signer(
+    credentialsProvider: AWSCredentialsProvider.profile(),
   );
 
   // Set up S3 values
