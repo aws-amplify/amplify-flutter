@@ -44,7 +44,7 @@ class AuthenticatorGoldenComparator extends LocalFileComparator {
     }
     if (!result.passed) {
       safePrint(
-        'D1 tolerable difference of ${result.diffPercent * 100}% was found when '
+        'A tolerable difference of ${result.diffPercent * 100}% was found when '
         'comparing $golden.',
       );
     }

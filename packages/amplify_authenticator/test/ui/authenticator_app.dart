@@ -23,7 +23,7 @@ import 'package:flutter_test/flutter_test.dart';
 const authenticatorKey = Key('authenticator_app');
 final authenticatorFinder = find.byKey(authenticatorKey);
 
-/// Authenticator Test App, using Amplify and Auth stubs
+/// Authenticator Test App, using Amplify and Auth stubs.
 class AuthenticatorApp extends StatefulWidget {
   const AuthenticatorApp({
     Key? key,
