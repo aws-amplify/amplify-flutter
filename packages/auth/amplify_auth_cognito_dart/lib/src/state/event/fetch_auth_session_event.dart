@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// Discrete event types of the fetch auth session state machine.
@@ -77,10 +78,15 @@ class FetchAuthSessionFetch extends FetchAuthSessionEvent {
   List<Object?> get props => [type, options];
 
   @override
-  String? checkPrecondition(FetchAuthSessionState currentState) {
+  PreconditionException? checkPrecondition(
+    FetchAuthSessionState currentState,
+  ) {
     if (currentState.type == FetchAuthSessionStateType.refreshing ||
         currentState.type == FetchAuthSessionStateType.fetching) {
-      return 'Credentials are already being fetched...';
+      return const AuthPreconditionException(
+        'Credentials are already being fetched',
+        shouldEmit: false,
+      );
     }
     return null;
   }
@@ -113,9 +119,14 @@ class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
       ];
 
   @override
-  String? checkPrecondition(FetchAuthSessionState currentState) {
+  PreconditionException? checkPrecondition(
+    FetchAuthSessionState currentState,
+  ) {
     if (currentState.type == FetchAuthSessionStateType.refreshing) {
-      return 'Credentials are already being refreshed...';
+      return const AuthPreconditionException(
+        'Credentials are already being refreshed.',
+        shouldEmit: false,
+      );
     }
     return null;
   }

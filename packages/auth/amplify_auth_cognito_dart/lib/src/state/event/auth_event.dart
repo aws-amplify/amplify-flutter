@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_auth_cognito_dart/src/state/state/auth_state.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.auth_event_type}
@@ -47,7 +47,7 @@ abstract class AuthEvent extends StateMachineEvent<AuthEventType> {
       AuthConfigureFailed;
 
   @override
-  String? checkPrecondition(AuthState currentState) => null;
+  PreconditionException? checkPrecondition(AuthState currentState) => null;
 
   @override
   String get runtimeTypeName => 'AuthEvent';
@@ -67,12 +67,18 @@ class AuthConfigure extends AuthEvent {
   AuthEventType get type => AuthEventType.configure;
 
   @override
-  String? checkPrecondition(AuthState currentState) {
+  PreconditionException? checkPrecondition(AuthState currentState) {
     if (currentState.type == AuthStateType.configuring) {
-      return 'Already configuring';
+      return const AuthPreconditionException(
+        'Already configuring',
+        shouldEmit: false,
+      );
     }
     if (currentState.type == AuthStateType.configured) {
-      return 'Runtime re-configuration is not supported';
+      return const AuthPreconditionException(
+        'Runtime re-configuration is not supported',
+        shouldEmit: false,
+      );
     }
     return null;
   }

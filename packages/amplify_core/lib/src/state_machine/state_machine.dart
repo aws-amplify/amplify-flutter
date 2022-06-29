@@ -160,24 +160,15 @@ abstract class StateMachine<Event extends StateMachineEvent,
   Future<void> _listenForEvents() async {
     await for (final event in _eventStream) {
       try {
+        _currentEvent = event;
         if (!_checkPrecondition(event)) {
           continue;
         }
-        _currentEvent = event;
         // Resolve in the next event loop since `emit` is synchronous and may
         // fire before listeners are registered.
         await Future.delayed(Duration.zero, () => resolve(event));
       } on Object catch (error, st) {
-        final resolution = resolveError(error, st);
-
-        // Add the error to the state stream if it cannot be resolved to a new
-        // state internally.
-        if (resolution == null) {
-          _stateController.addError(error, st);
-          continue;
-        }
-
-        emit(resolution);
+        _emitError(error, st);
       }
     }
   }
@@ -200,13 +191,33 @@ abstract class StateMachine<Event extends StateMachineEvent,
     _currentState = state;
   }
 
+  void _emitError(Object error, [StackTrace? st]) {
+    // TODO(dnys1): Log error
+    final resolution = resolveError(error, st);
+
+    // Add the error to the state stream if it cannot be resolved to a new
+    // state internally.
+    if (resolution == null) {
+      _stateController.addError(error, st);
+      return;
+    }
+
+    emit(resolution);
+  }
+
   /// Checks the precondition on [event] given [currentState]. If it fails,
   /// return `false` to skip the event.
   bool _checkPrecondition(Event event) {
     final precondError = event.checkPrecondition(currentState);
     if (precondError != null) {
       // TODO(dnys1): Log
-      safePrint('Precondition not met for event: $event ($precondError)');
+      safePrint(
+        'Precondition not met for event ($event):\n'
+        '${precondError.precondition}',
+      );
+      if (precondError.shouldEmit) {
+        _emitError(precondError);
+      }
       return false;
     }
 

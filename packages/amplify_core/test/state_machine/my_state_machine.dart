@@ -23,6 +23,16 @@ final _builders = <StateMachineToken, StateMachineBuilder>{
 
 enum MyType { initial, doWork, tryWork, delegateWork, success, error }
 
+class MyPreconditionException implements PreconditionException {
+  const MyPreconditionException(this.precondition);
+
+  @override
+  final String precondition;
+
+  @override
+  bool get shouldEmit => false;
+}
+
 class MyEvent extends StateMachineEvent<MyType> {
   const MyEvent(this.type);
 
@@ -33,9 +43,9 @@ class MyEvent extends StateMachineEvent<MyType> {
   final MyType type;
 
   @override
-  String? checkPrecondition(MyState currentState) {
+  MyPreconditionException? checkPrecondition(MyState currentState) {
     if (currentState.type == type) {
-      return 'Cannot process event of same type';
+      return const MyPreconditionException('Cannot process event of same type');
     }
     return null;
   }
@@ -127,9 +137,9 @@ class WorkerEvent extends StateMachineEvent<WorkType> {
   final WorkType type;
 
   @override
-  String? checkPrecondition(WorkerState currentState) {
+  MyPreconditionException? checkPrecondition(WorkerState currentState) {
     if (currentState.type == type) {
-      return 'Cannot process event of same type';
+      return const MyPreconditionException('Cannot process event of same type');
     }
     return null;
   }
