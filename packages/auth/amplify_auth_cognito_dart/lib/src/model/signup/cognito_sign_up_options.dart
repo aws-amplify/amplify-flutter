@@ -14,10 +14,21 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'cognito_sign_up_options.g.dart';
 
 /// Cognito options for `Amplify.Auth.signUp`.
-class CognitoSignUpOptions extends SignUpOptions {
+@JsonSerializable(
+  includeIfNull: false,
+  explicitToJson: true,
+  constructor: '_',
+)
+class CognitoSignUpOptions extends SignUpOptions
+    with AWSEquatable<CognitoSignUpOptions>, AWSDebuggable {
+  /// {@template amplify_auth_cognito.model.signup.cognito_sign_up_options}
   /// Creates a sign up configuration with the given user attributes and validation data.
+  /// {@endtemplate}
   ///
   /// [userAttributes] is a map of key-value pairs, where the key is one of the standard
   /// attributes, found under [CognitoUserAttributeKey], or a custom attribute, prefixed
@@ -60,11 +71,19 @@ class CognitoSignUpOptions extends SignUpOptions {
           clientMetadata: clientMetadata,
         );
 
+  /// {@macro amplify_auth_cognito.model.signup.cognito_sign_up_options}
+  factory CognitoSignUpOptions.fromJson(Map<String, Object?> json) =>
+      _$CognitoSignUpOptionsFromJson(json);
+
   CognitoSignUpOptions._({
     required super.userAttributes,
     this.validationData,
     this.clientMetadata,
   });
+
+  @override
+  @JsonKey(fromJson: _userAttributesFromJson)
+  Map<String, String> get userAttributes => super.userAttributes;
 
   /// An optional map of arbitrary key-value pairs which will be passed to your
   /// PreAuthentication Lambda trigger as-is, used for implementing additional
@@ -77,13 +96,6 @@ class CognitoSignUpOptions extends SignUpOptions {
   /// about the client.
   ///
   final Map<String, String>? clientMetadata;
-
-  @override
-  Map<String, Object?> serializeAsMap() => {
-        if (validationData != null) 'validationData': validationData,
-        'userAttributes': userAttributes,
-        if (clientMetadata != null) 'clientMetadata': clientMetadata
-      };
 
   /// Creates a copy of `this` with the given parameters overridden.
   CognitoSignUpOptions copyWith({
@@ -103,4 +115,21 @@ class CognitoSignUpOptions extends SignUpOptions {
             validationData: validationData ?? this.validationData,
           );
   }
+
+  @override
+  List<Object?> get props => [userAttributes, validationData, clientMetadata];
+
+  @override
+  Map<String, Object?> toJson() => _$CognitoSignUpOptionsToJson(this);
+
+  @override
+  String get runtimeTypeName => 'CognitoSignUpOptions';
+}
+
+Map<String, String> _userAttributesFromJson(Map<Object?, Object?>? json) {
+  if (json == null) return const {};
+  if (json is Map<CognitoUserAttributeKey, Object?>) {
+    return json.map((k, v) => MapEntry(k.key, v as String));
+  }
+  return json.cast();
 }

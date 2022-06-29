@@ -26,6 +26,14 @@ class AuthProvider {
   static const apple = AuthProvider._('apple');
   static const cognito = AuthProvider._('cognito');
 
+  static const values = [
+    google,
+    facebook,
+    amazon,
+    apple,
+    cognito,
+  ];
+
   /// The value of the `identity_provider` URI parameter.
   ///
   /// [Reference](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html)

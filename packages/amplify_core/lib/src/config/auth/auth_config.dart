@@ -22,7 +22,7 @@ part 'auth_config.g.dart';
 /// {@template amplify_core.auth_config}
 /// The Auth category configuration.
 /// {@endtemplate}
-@amplifySerializable
+@zAmplifySerializable
 class AuthConfig extends AmplifyPluginConfigMap {
   /// {@macro amplify_core.auth_config}
   const AuthConfig({required Map<String, AmplifyPluginConfig> plugins})

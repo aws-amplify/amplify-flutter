@@ -22,7 +22,7 @@ part 'storage_config.g.dart';
 /// {@template amplify_core.storage_config}
 /// The Storage category configuration.
 /// {@endtemplate}
-@amplifySerializable
+@zAmplifySerializable
 class StorageConfig extends AmplifyPluginConfigMap {
   /// {@macro amplify_core.storage_config}
   const StorageConfig({

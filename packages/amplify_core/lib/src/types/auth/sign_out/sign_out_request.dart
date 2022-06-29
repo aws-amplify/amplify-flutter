@@ -13,26 +13,40 @@
  * permissions and limitations under the License.
  */
 
-import 'sign_out_options.dart';
+import 'package:amplify_core/amplify_core.dart';
+
+part 'sign_out_request.g.dart';
 
 /// {@template amplify_core.auth.sign_out_request}
 /// Encapsulates parameters for a sign out request
 /// {@endtemplate}
-class SignOutRequest {
+@zAmplifySerializable
+class SignOutRequest
+    with
+        AWSEquatable<SignOutRequest>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  /// {@macro amplify_core.auth.sign_out_request}
+  const SignOutRequest({this.options});
+
+  /// {@macro amplify_core.auth.sign_out_request}
+  factory SignOutRequest.fromJson(Map<String, Object?> json) =>
+      _$SignOutRequestFromJson(json);
+
   /// Advanced options for the request.
   ///
   /// Can be used to specify global sign out.
-  SignOutOptions? options;
+  final SignOutOptions? options;
 
-  /// {@macro amplify_core.auth.sign_out_request}
-  SignOutRequest({this.options});
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 
-  /// Serialize the object to a map.
-  Map<String, Object?> serializeAsMap() {
-    final Map<String, Object?> pendingRequest = {
-      'options': options?.serializeAsMap()
-    };
-    pendingRequest.removeWhere((_, v) => v == null);
-    return pendingRequest;
-  }
+  @override
+  List<Object?> get props => [options];
+
+  @override
+  String get runtimeTypeName => 'SignOutRequest';
+
+  @override
+  Map<String, Object?> toJson() => _$SignOutRequestToJson(this);
 }

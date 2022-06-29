@@ -13,10 +13,11 @@
  * permissions and limitations under the License.
  */
 
-abstract class ConfirmSignInOptions {
+import 'package:amplify_core/amplify_core.dart';
+
+abstract class ConfirmSignInOptions with AWSSerializable<Map<String, Object?>> {
   const ConfirmSignInOptions();
-  Map<String, Object?> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on ConfirmSignInOptions.');
-  }
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 }

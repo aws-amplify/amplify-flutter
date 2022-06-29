@@ -17,7 +17,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'pinpoint_targeting.g.dart';
 
-@awsSerializable
+@zAwsSerializable
 class CognitoPinpointTargetingConfig
     with AWSEquatable<CognitoPinpointTargetingConfig>, AWSSerializable {
   const CognitoPinpointTargetingConfig({

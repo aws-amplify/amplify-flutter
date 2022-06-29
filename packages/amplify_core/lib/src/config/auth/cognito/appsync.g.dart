@@ -21,7 +21,7 @@ Map<String, dynamic> _$CognitoAppSyncConfigToJson(
   final val = <String, dynamic>{
     'ApiUrl': instance.apiUrl,
     'Region': instance.region,
-    'AuthMode': _$APIAuthorizationTypeEnumMap[instance.authMode],
+    'AuthMode': _$APIAuthorizationTypeEnumMap[instance.authMode]!,
   };
 
   void writeNotNull(String key, dynamic value) {

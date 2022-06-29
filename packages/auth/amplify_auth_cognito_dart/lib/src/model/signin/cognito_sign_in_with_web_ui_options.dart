@@ -14,16 +14,18 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'cognito_sign_in_with_web_ui_options.g.dart';
 
 /// {@template amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options}
 /// Cognito options for `Amplify.Auth.signInWithWebUI`.
 /// {@endtemplate}
-@JsonSerializable(includeIfNull: false)
+@zAmplifySerializable
 class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions
-    with AWSSerializable, AWSDebuggable {
+    with
+        AWSEquatable<CognitoSignInWithWebUIOptions>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options}
   const CognitoSignInWithWebUIOptions({
     this.isPreferPrivateSession = false,
@@ -52,7 +54,7 @@ class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions
   final String? browserPackageName;
 
   @override
-  Map<String, Object?> serializeAsMap() => toJson();
+  List<Object?> get props => [isPreferPrivateSession, browserPackageName];
 
   @override
   Map<String, Object?> toJson() => _$CognitoSignInWithWebUIOptionsToJson(this);

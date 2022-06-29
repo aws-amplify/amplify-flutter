@@ -13,14 +13,17 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/amplify_core.dart';
+
 /// {@template amplify_core.resend_user_attribute_confirmation_code_options}
 /// The shared resend user attribute confirmation code options among all Auth
 /// plugins.
 /// {@endtemplate}
-abstract class ResendUserAttributeConfirmationCodeOptions {
+abstract class ResendUserAttributeConfirmationCodeOptions
+    with AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.resend_user_attribute_confirmation_code_options}
   const ResendUserAttributeConfirmationCodeOptions();
 
-  /// Serialize the object to a map
-  Map<String, Object?> serializeAsMap();
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 }

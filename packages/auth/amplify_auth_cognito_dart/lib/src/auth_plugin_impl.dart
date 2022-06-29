@@ -872,8 +872,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
         // Try to refresh AWS credentials since Cognito requests will require
         // them.
         await fetchAuthSession(
-          request: AuthSessionRequest(
-            options: const CognitoSessionOptions(getAWSCredentials: true),
+          request: const AuthSessionRequest(
+            options: CognitoSessionOptions(getAWSCredentials: true),
           ),
         );
         if (options.globalSignOut) {
@@ -924,8 +924,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   @visibleForTesting
   Future<CognitoUserPoolTokens> getUserPoolTokens() async {
     final credentials = await fetchAuthSession(
-      request: AuthSessionRequest(
-        options: const CognitoSessionOptions(getAWSCredentials: false),
+      request: const AuthSessionRequest(
+        options: CognitoSessionOptions(getAWSCredentials: false),
       ),
     ) as CognitoAuthSession;
     final userPoolTokens = credentials.userPoolTokens;

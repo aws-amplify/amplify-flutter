@@ -18,11 +18,9 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'cognito_user_attribute_key_converter.dart';
-
 part 'auth.g.dart';
 
-@amplifySerializable
+@zAmplifySerializable
 @CognitoUserAttributeKeyConverter()
 class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
   const CognitoAuthConfig({

@@ -13,7 +13,12 @@
  * permissions and limitations under the License.
  */
 
-abstract class SignInWithWebUIOptions {
+import 'package:amplify_core/amplify_core.dart';
+
+abstract class SignInWithWebUIOptions
+    with AWSSerializable<Map<String, Object?>> {
   const SignInWithWebUIOptions();
-  Map<String, Object?> serializeAsMap();
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 }

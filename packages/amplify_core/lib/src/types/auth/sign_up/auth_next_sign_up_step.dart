@@ -15,15 +15,32 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-class AuthNextSignUpStep extends AuthNextStep {
+part 'auth_next_sign_up_step.g.dart';
+
+@zAmplifySerializable
+class AuthNextSignUpStep extends AuthNextStep
+    with AWSEquatable<AuthNextSignUpStep>, AWSDebuggable {
+  const AuthNextSignUpStep({
+    super.additionalInfo,
+    super.codeDeliveryDetails,
+    required this.signUpStep,
+  });
+
+  factory AuthNextSignUpStep.fromJson(Map<String, Object?> json) =>
+      _$AuthNextSignUpStepFromJson(json);
+
   final String signUpStep;
 
-  const AuthNextSignUpStep({
-    Map<String, String>? additionalInfo,
-    AuthCodeDeliveryDetails? codeDeliveryDetails,
-    required this.signUpStep,
-  }) : super(
-          additionalInfo: additionalInfo,
-          codeDeliveryDetails: codeDeliveryDetails,
-        );
+  @override
+  List<Object?> get props => [
+        additionalInfo,
+        codeDeliveryDetails,
+        signUpStep,
+      ];
+
+  @override
+  String get runtimeTypeName => 'AuthNextSignUpStep';
+
+  @override
+  Map<String, Object?> toJson() => _$AuthNextSignUpStepToJson(this);
 }

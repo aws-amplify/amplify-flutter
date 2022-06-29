@@ -22,7 +22,7 @@ part 'analytics_config.g.dart';
 /// {@template amplify_core.analytics_config}
 /// The Analytics category configuration.
 /// {@endtemplate}
-@amplifySerializable
+@zAmplifySerializable
 class AnalyticsConfig extends AmplifyPluginConfigMap {
   /// {@macro amplify_core.analytics_config}
   const AnalyticsConfig({

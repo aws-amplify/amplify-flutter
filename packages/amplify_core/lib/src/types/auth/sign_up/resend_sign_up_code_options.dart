@@ -13,13 +13,16 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/amplify_core.dart';
+
 /// {@template amplify_core.auth.resend_sign_up_code_options}
 /// The shared resend sign up code options among all Auth plugins.
 /// {@endtemplate}
-abstract class ResendSignUpCodeOptions {
+abstract class ResendSignUpCodeOptions
+    with AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.auth.resend_sign_up_code_options}
   const ResendSignUpCodeOptions();
 
-  /// Serialize the object to a map.
-  Map<String, Object?> serializeAsMap();
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 }

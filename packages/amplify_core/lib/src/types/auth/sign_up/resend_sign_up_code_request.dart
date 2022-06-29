@@ -15,22 +15,45 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+part 'resend_sign_up_code_request.g.dart';
+
 /// {@template amplify_core.auth.resend_sign_up_code_request}
 /// Encapsulates parameters for a resend sign up code request.
 /// {@endtemplate}
-class ResendSignUpCodeRequest {
-  /// A login identifier or an email/phone number, depending on configuration.
-  String username;
-
-  /// Plugin-specific, advanced options such as information about the client.
-  ResendSignUpCodeOptions? options;
+@zAmplifyGenericSerializable
+class ResendSignUpCodeRequest<Options extends ResendSignUpCodeOptions>
+    with
+        AWSEquatable<ResendSignUpCodeRequest<Options>>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  /// {@macro amplify_core.auth.resend_sign_up_code_request}
+  const ResendSignUpCodeRequest({required this.username, this.options});
 
   /// {@macro amplify_core.auth.resend_sign_up_code_request}
-  ResendSignUpCodeRequest({required this.username, this.options});
+  factory ResendSignUpCodeRequest.fromJson(
+    Map<String, Object?> json,
+    Options Function(Map<String, Object?>) fromJsonOptions,
+  ) =>
+      _$ResendSignUpCodeRequestFromJson(
+        json,
+        (json) => fromJsonOptions((json as Map).cast()),
+      );
 
-  /// Serialize the object to a map for use over the method channel.
-  Map<String, Object?> serializeAsMap() => {
-        'username': username,
-        if (options != null) 'options': options!.serializeAsMap(),
-      };
+  /// A login identifier or an email/phone number, depending on configuration.
+  final String username;
+
+  /// Plugin-specific, advanced options such as information about the client.
+  final Options? options;
+
+  @override
+  List<Object?> get props => [username, options];
+
+  @override
+  String get runtimeTypeName => 'ResendSignUpCodeRequest';
+
+  @override
+  Map<String, Object?> toJson() => _$ResendSignUpCodeRequestToJson(
+        this,
+        (Options options) => options.toJson(),
+      );
 }

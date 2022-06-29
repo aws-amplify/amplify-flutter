@@ -15,22 +15,47 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+part 'reset_password_request.g.dart';
+
 /// {@template amplify_core.reset_password_request}
 /// Encapsulates parameters for a reset password request.
 /// {@endtemplate}
-class ResetPasswordRequest {
+@zAmplifyGenericSerializable
+class ResetPasswordRequest<Options extends ResetPasswordOptions>
+    with
+        AWSEquatable<ResetPasswordRequest<Options>>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  /// {@macro amplify_core.reset_password_request}
+  const ResetPasswordRequest({required this.username, this.options});
+
+  factory ResetPasswordRequest.fromJson(
+    Map<String, Object?> json,
+    Options Function(Map<String, Object?>) fromJsonOptions,
+  ) =>
+      _$ResetPasswordRequestFromJson(
+        json,
+        (json) => fromJsonOptions((json as Map).cast()),
+      );
+
   /// A login identifier or an email/phone number, depending on configuration.
-  String username;
+  final String username;
 
   /// Plugin-specific, advanced options such as information about the client.
-  ResetPasswordOptions? options;
+  final Options? options;
 
-  /// {@macro amplify_core.reset_password_request}
-  ResetPasswordRequest({required this.username, this.options});
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 
-  /// Serialize the object to a map.
-  Map<String, Object?> serializeAsMap() => {
-        'username': username,
-        if (options != null) 'options': options?.serializeAsMap()
-      };
+  @override
+  List<Object?> get props => [username, options];
+
+  @override
+  String get runtimeTypeName => 'ResetPasswordRequest';
+
+  @override
+  Map<String, Object?> toJson() => _$ResetPasswordRequestToJson(
+        this,
+        (Options options) => options.toJson(),
+      );
 }

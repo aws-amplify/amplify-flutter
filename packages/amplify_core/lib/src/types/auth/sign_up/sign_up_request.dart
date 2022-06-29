@@ -13,22 +13,47 @@
  * permissions and limitations under the License.
  */
 
-import 'sign_up_options.dart';
+import 'package:amplify_core/amplify_core.dart';
 
-class SignUpRequest {
-  String username;
-  String password;
-  SignUpOptions? options;
+part 'sign_up_request.g.dart';
 
-  SignUpRequest({
+@zAmplifyGenericSerializable
+class SignUpRequest<Options extends SignUpOptions>
+    with
+        AWSEquatable<SignUpRequest<Options>>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  const SignUpRequest({
     required this.username,
     required this.password,
     this.options,
   });
 
-  Map<String, Object?> serializeAsMap() => {
-        'username': username,
-        'password': password,
-        if (options != null) 'options': options!.serializeAsMap()
-      };
+  factory SignUpRequest.fromJson(
+    Map<String, Object?> json,
+    Options Function(Map<String, Object?>) fromJsonOptions,
+  ) =>
+      _$SignUpRequestFromJson(
+        json,
+        (json) => fromJsonOptions((json as Map).cast()),
+      );
+
+  final String username;
+  final String password;
+  final Options? options;
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
+
+  @override
+  List<Object?> get props => [username, password, options];
+
+  @override
+  String get runtimeTypeName => 'SignUpRequest';
+
+  @override
+  Map<String, Object?> toJson() => _$SignUpRequestToJson(
+        this,
+        (Options options) => options.toJson(),
+      );
 }
