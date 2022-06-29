@@ -19,6 +19,8 @@ library amplify_auth_cognito.state;
 
 import 'package:meta/meta.dart';
 
+export '../exception/auth_precondition_exception.dart';
+
 export 'event/auth_event.dart';
 export 'event/credential_store_event.dart';
 export 'event/fetch_auth_session_event.dart';

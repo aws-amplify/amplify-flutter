@@ -55,7 +55,6 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
-import 'package:stream_transform/stream_transform.dart';
 
 /// {@template amplify_auth_cognito_dart.amplify_auth_cognito_dart}
 /// The AWS Cognito implementation of the Amplify Auth category.
@@ -159,6 +158,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
           _hubEventController.add(hubEvent);
         }
       },
+      cancelOnError: false,
       onDone: _hubEventController.close,
     );
     Amplify.Hub.addChannel(HubChannel.Auth, _hubEventController.stream);
@@ -181,7 +181,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     await _init();
     _stateMachine.dispatch(AuthEvent.configure(config));
 
-    await for (final state in _stateMachine.stream.whereType<AuthState>()) {
+    await for (final state
+        in _stateMachine.expect(AuthStateMachine.type).stream) {
       switch (state.type) {
         case AuthStateType.notConfigured:
         case AuthStateType.configuring:
@@ -219,7 +220,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     _stateMachine.dispatch(FetchAuthSessionEvent.fetch(options));
 
     await for (final state
-        in _stateMachine.stream.whereType<FetchAuthSessionState>()) {
+        in _stateMachine.expect(FetchAuthSessionStateMachine.type).stream) {
       switch (state.type) {
         case FetchAuthSessionStateType.idle:
         case FetchAuthSessionStateType.fetching:
@@ -251,7 +252,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
       ),
     );
 
-    await for (final state in _stateMachine.stream.whereType<HostedUiState>()) {
+    await for (final state
+        in _stateMachine.expect(HostedUiStateMachine.type).stream) {
       switch (state.type) {
         case HostedUiStateType.notConfigured:
         case HostedUiStateType.configuring:
@@ -297,7 +299,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
       ),
     );
 
-    await for (final state in _stateMachine.stream.whereType<SignUpState>()) {
+    await for (final state
+        in _stateMachine.expect(SignUpStateMachine.type).stream) {
       switch (state.type) {
         case SignUpStateType.notStarted:
         case SignUpStateType.initiating:
@@ -342,7 +345,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
       ),
     );
 
-    await for (final state in _stateMachine.stream.whereType<SignUpState>()) {
+    await for (final state
+        in _stateMachine.expect(SignUpStateMachine.type).stream) {
       switch (state.type) {
         case SignUpStateType.notStarted:
         case SignUpStateType.initiating:

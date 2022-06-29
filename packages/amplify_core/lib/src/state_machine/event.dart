@@ -12,8 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/src/state_machine/state.dart';
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_core.event}
@@ -33,9 +32,11 @@ abstract class StateMachineEvent<EventType>
 
   /// Checks the precondition, given [currentState].
   ///
-  /// Returns a string with an error message if the check fails, otherwise
-  /// `null`.
-  String? checkPrecondition(covariant StateMachineState currentState) => null;
+  /// Returns a [PreconditionException] if the check fails, otherwise `null`.
+  PreconditionException? checkPrecondition(
+    covariant StateMachineState currentState,
+  ) =>
+      null;
 }
 
 /// Mixin functionality for error/failure events of a state machine.

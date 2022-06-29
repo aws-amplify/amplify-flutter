@@ -53,6 +53,7 @@ export 'src/plugin/amplify_storage_plugin_interface.dart';
 // State Machine
 export 'src/state_machine/dependency_manager.dart';
 export 'src/state_machine/event.dart';
+export 'src/state_machine/exception.dart';
 export 'src/state_machine/state.dart';
 export 'src/state_machine/state_machine.dart';
 export 'src/state_machine/token.dart';
