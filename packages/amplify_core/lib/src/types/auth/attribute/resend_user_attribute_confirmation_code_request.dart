@@ -15,26 +15,56 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+part 'resend_user_attribute_confirmation_code_request.g.dart';
+
 /// {@template amplify_core.resend_user_attribute_confirmation_code_request}
 /// Encapsulates parameters for a request to resend a user attribute
 /// confirmation code.
 /// {@endtemplate}
-class ResendUserAttributeConfirmationCodeRequest {
-  /// The key of the user attribute to resend the confirmation code for.
-  final UserAttributeKey userAttributeKey;
-
-  /// Plugin-specific, advanced options such as information about the client.
-  final ResendUserAttributeConfirmationCodeOptions? options;
-
+@zAmplifyGenericSerializable
+class ResendUserAttributeConfirmationCodeRequest<Key extends UserAttributeKey,
+        Options extends ResendUserAttributeConfirmationCodeOptions>
+    with
+        AWSEquatable<ResendUserAttributeConfirmationCodeRequest<Key, Options>>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   /// {@macro amplify_core.resend_user_attribute_confirmation_code_request}
   const ResendUserAttributeConfirmationCodeRequest({
     required this.userAttributeKey,
     this.options,
   });
 
-  /// Serialize the object to a map for use over the method channel.
-  Map<String, Object?> serializeAsMap() => {
-        'userAttributeKey': userAttributeKey.key,
-        if (options != null) 'options': options?.serializeAsMap(),
-      };
+  factory ResendUserAttributeConfirmationCodeRequest.fromJson(
+    Map<String, Object?> json,
+    Key Function(String) fromJsonKey,
+    Options Function(Map<String, Object?>) fromJsonOptions,
+  ) =>
+      _$ResendUserAttributeConfirmationCodeRequestFromJson(
+        json,
+        (key) => fromJsonKey(key as String),
+        (json) => fromJsonOptions((json as Map).cast()),
+      );
+
+  /// The key of the user attribute to resend the confirmation code for.
+  final Key userAttributeKey;
+
+  /// Plugin-specific, advanced options such as information about the client.
+  final Options? options;
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
+
+  @override
+  List<Object?> get props => [userAttributeKey, options];
+
+  @override
+  String get runtimeTypeName => 'ResendUserAttributeConfirmationCodeRequest';
+
+  @override
+  Map<String, Object?> toJson() =>
+      _$ResendUserAttributeConfirmationCodeRequestToJson(
+        this,
+        (Key key) => key.toJson(),
+        (Options options) => options.toJson(),
+      );
 }

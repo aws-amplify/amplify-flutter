@@ -13,18 +13,24 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_core.user_attribute_key}
 /// A user attribute identifier.
 /// {@endtemplate}
 @immutable
-abstract class UserAttributeKey implements Comparable<UserAttributeKey> {
+abstract class UserAttributeKey
+    with AWSSerializable<String>
+    implements Comparable<UserAttributeKey> {
   /// {@macro amplify_core.user_attribute_key}
   const UserAttributeKey();
 
   /// The JSON key for this attribute.
   String get key;
+
+  @override
+  String toJson() => key;
 
   @override
   int compareTo(UserAttributeKey other) => key.compareTo(other.key);

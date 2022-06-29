@@ -13,29 +13,57 @@
  * permissions and limitations under the License.
  */
 
-import 'auth_user_attribute.dart';
-import 'update_user_attributes_options.dart';
+import 'package:amplify_core/amplify_core.dart';
+
+part 'update_user_attributes_request.g.dart';
 
 /// {@template amplify_core.update_user_attributes_request}
 /// Encapsulates parameters for a update user attributes operation.
 /// {@endtemplate}
-class UpdateUserAttributesRequest {
-  /// The list of user attribute to update
-  final List<AuthUserAttribute> attributes;
-
-  /// Plugin-specific, advanced options such as information about the client
-  final UpdateUserAttributesOptions? options;
-
+@zAmplifyGenericSerializable
+class UpdateUserAttributesRequest<Key extends UserAttributeKey,
+        Options extends UpdateUserAttributesOptions>
+    with
+        AWSEquatable<UpdateUserAttributesRequest<Key, Options>>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   /// {@macro amplify_core.update_user_attributes_request}
   const UpdateUserAttributesRequest({
     required this.attributes,
     this.options,
   });
 
-  /// Serialize the object to a map for use over the method channel
-  Map<String, Object?> serializeAsMap() => {
-        'attributes':
-            attributes.map((attribute) => attribute.serializeAsMap()).toList(),
-        if (options != null) 'options': options?.serializeAsMap(),
-      };
+  /// {@macro amplify_core.update_user_attributes_request}
+  factory UpdateUserAttributesRequest.fromJson(
+    Map<String, Object?> json,
+    Key Function(String) fromJsonKey,
+    Options Function(Map<String, Object?>) fromJsonOptions,
+  ) =>
+      _$UpdateUserAttributesRequestFromJson(
+        json,
+        (key) => fromJsonKey(key as String),
+        (json) => fromJsonOptions((json as Map).cast()),
+      );
+
+  /// The list of user attribute to update
+  final List<AuthUserAttribute<Key>> attributes;
+
+  /// Plugin-specific, advanced options such as information about the client
+  final Options? options;
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
+
+  @override
+  List<Object?> get props => [attributes, options];
+
+  @override
+  String get runtimeTypeName => 'UpdateUserAttributesRequest';
+
+  @override
+  Map<String, Object?> toJson() => _$UpdateUserAttributesRequestToJson(
+        this,
+        (Key key) => key.toJson(),
+        (Options options) => options.toJson(),
+      );
 }

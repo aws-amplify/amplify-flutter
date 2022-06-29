@@ -13,9 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'auth_code_delivery_details.dart';
+import 'package:amplify_core/amplify_core.dart';
 
-class AuthNextStep {
+abstract class AuthNextStep with AWSSerializable<Map<String, Object?>> {
   const AuthNextStep({this.codeDeliveryDetails, this.additionalInfo});
 
   final Map<String, String>? additionalInfo;

@@ -15,7 +15,9 @@
 import 'auth_user_options.dart';
 
 class AuthUserRequest {
-  AuthUserOptions? options;
-  AuthUserRequest();
+  const AuthUserRequest({this.options});
+
+  final AuthUserOptions? options;
+
   Map<String, Object?> serializeAsMap() => {};
 }

@@ -173,8 +173,8 @@ void main() {
         await expectLater(plugin.getUserPoolTokens(), completes);
         await expectLater(
           plugin.signOut(
-            request: SignOutRequest(
-              options: const SignOutOptions(globalSignOut: true),
+            request: const SignOutRequest(
+              options: SignOutOptions(globalSignOut: true),
             ),
           ),
           throwsA(isA<Exception>()),
@@ -201,8 +201,8 @@ void main() {
         await expectLater(plugin.getUserPoolTokens(), completes);
         await expectLater(
           plugin.signOut(
-            request: SignOutRequest(
-              options: const SignOutOptions(globalSignOut: true),
+            request: const SignOutRequest(
+              options: SignOutOptions(globalSignOut: true),
             ),
           ),
           throwsA(isA<Exception>()),
@@ -258,8 +258,8 @@ void main() {
           await expectLater(plugin.getUserPoolTokens(), completes);
           await expectLater(
             plugin.signOut(
-              request: SignOutRequest(
-                options: const SignOutOptions(globalSignOut: true),
+              request: const SignOutRequest(
+                options: SignOutOptions(globalSignOut: true),
               ),
             ),
             throwsA(isA<Exception>()),
@@ -286,8 +286,8 @@ void main() {
           await expectLater(plugin.getUserPoolTokens(), completes);
           await expectLater(
             plugin.signOut(
-              request: SignOutRequest(
-                options: const SignOutOptions(globalSignOut: true),
+              request: const SignOutRequest(
+                options: SignOutOptions(globalSignOut: true),
               ),
             ),
             throwsA(isA<Exception>()),

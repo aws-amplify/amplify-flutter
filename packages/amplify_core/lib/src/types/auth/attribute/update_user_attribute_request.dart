@@ -14,30 +14,74 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'update_user_attribute_request.g.dart';
 
 /// {@template amplify_core.update_user_attribute_request}
 /// Encapsulates parameters for a update user attribute operation.
 /// {@endtemplate}
-class UpdateUserAttributeRequest {
-  /// The user attribute to update
-  final AuthUserAttribute attribute;
-
-  /// Plugin-specific, advanced options such as information about the client
-  final UpdateUserAttributeOptions? options;
-
+@JsonSerializable(
+  genericArgumentFactories: true,
+  includeIfNull: false,
+  explicitToJson: true,
+  constructor: '_',
+)
+class UpdateUserAttributeRequest<Key extends UserAttributeKey,
+        Options extends UpdateUserAttributeOptions>
+    with
+        AWSEquatable<UpdateUserAttributeRequest<Key, Options>>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   /// {@macro amplify_core.update_user_attribute_request}
-  UpdateUserAttributeRequest({
-    required UserAttributeKey userAttributeKey,
+  factory UpdateUserAttributeRequest({
+    required Key userAttributeKey,
     required String value,
-    this.options,
-  }) : attribute = AuthUserAttribute(
+    Options? options,
+  }) =>
+      UpdateUserAttributeRequest._(
+        attribute: AuthUserAttribute(
           userAttributeKey: userAttributeKey,
           value: value,
-        );
+        ),
+        options: options,
+      );
 
-  /// Serialize the object to a map for use over the method channel
-  Map<String, Object?> serializeAsMap() => {
-        'attribute': attribute.serializeAsMap(),
-        if (options != null) 'options': options?.serializeAsMap(),
-      };
+  const UpdateUserAttributeRequest._({
+    required this.attribute,
+    this.options,
+  });
+
+  factory UpdateUserAttributeRequest.fromJson(
+    Map<String, Object?> json,
+    Key Function(String) fromJsonKey,
+    Options Function(Map<String, Object?>) fromJsonOptions,
+  ) =>
+      _$UpdateUserAttributeRequestFromJson(
+        json,
+        (key) => fromJsonKey(key as String),
+        (json) => fromJsonOptions((json as Map).cast()),
+      );
+
+  /// The user attribute to update
+  final AuthUserAttribute<Key> attribute;
+
+  /// Plugin-specific, advanced options such as information about the client
+  final Options? options;
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
+
+  @override
+  List<Object?> get props => [attribute, options];
+
+  @override
+  String get runtimeTypeName => 'UpdateUserAttributeRequest';
+
+  @override
+  Map<String, Object?> toJson() => _$UpdateUserAttributeRequestToJson(
+        this,
+        (Key key) => key.toJson(),
+        (Options options) => options.toJson(),
+      );
 }

@@ -14,13 +14,53 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class SignInResult {
+part 'sign_in_result.g.dart';
+
+@JsonSerializable(
+  includeIfNull: false,
+  explicitToJson: true,
+  genericArgumentFactories: true,
+  // TODO(dnys1): Fix generic serialization
+  createFactory: false,
+)
+class SignInResult<Key extends UserAttributeKey>
+    with
+        AWSEquatable<SignInResult<Key>>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   const SignInResult({
     required this.isSignedIn,
     this.nextStep,
   });
 
+  factory SignInResult.fromJson(
+    Map<String, Object?> json,
+    Key Function(String) fromJsonKey,
+  ) =>
+      SignInResult<Key>(
+        isSignedIn: json['isSignedIn'] as bool,
+        nextStep: json['nextStep'] == null
+            ? null
+            : AuthNextSignInStep<Key>.fromJson(
+                json['nextStep'] as Map<String, Object?>,
+                fromJsonKey,
+              ),
+      );
+
   final bool isSignedIn;
-  final AuthNextSignInStep? nextStep;
+  final AuthNextSignInStep<Key>? nextStep;
+
+  @override
+  List<Object?> get props => [isSignedIn, nextStep];
+
+  @override
+  String get runtimeTypeName => 'SignInResult';
+
+  @override
+  Map<String, Object?> toJson() => _$SignInResultToJson(
+        this,
+        (Key key) => key.toJson(),
+      );
 }

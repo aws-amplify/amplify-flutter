@@ -15,8 +15,27 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-class ResendSignUpCodeResult {
+part 'resend_sign_up_code_result.g.dart';
+
+@zAmplifySerializable
+class ResendSignUpCodeResult
+    with
+        AWSEquatable<ResendSignUpCodeResult>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   const ResendSignUpCodeResult(this.codeDeliveryDetails);
 
+  factory ResendSignUpCodeResult.fromJson(Map<String, Object?> json) =>
+      _$ResendSignUpCodeResultFromJson(json);
+
   final AuthCodeDeliveryDetails codeDeliveryDetails;
+
+  @override
+  List<Object?> get props => [codeDeliveryDetails];
+
+  @override
+  String get runtimeTypeName => 'ResendSignUpCodeResult';
+
+  @override
+  Map<String, Object?> toJson() => _$ResendSignUpCodeResultToJson(this);
 }

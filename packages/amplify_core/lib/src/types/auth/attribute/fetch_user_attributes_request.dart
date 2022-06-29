@@ -15,18 +15,45 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+part 'fetch_user_attributes_request.g.dart';
+
 /// {@template amplify_core.fetch_user_attribute_request}
 /// Encapsulates parameters for a fetch user attributes operation
 /// {@endtemplate}
-class FetchUserAttributesRequest {
-  /// Plugin-specific, advanced options such as information about the client
-  FetchUserAttributesOptions? options;
+@zAmplifyGenericSerializable
+class FetchUserAttributesRequest<Options extends FetchUserAttributesOptions>
+    with
+        AWSEquatable<FetchUserAttributesRequest<Options>>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  /// {@macro amplify_core.fetch_user_attribute_request}
+  const FetchUserAttributesRequest({this.options});
 
   /// {@macro amplify_core.fetch_user_attribute_request}
-  FetchUserAttributesRequest({this.options});
+  factory FetchUserAttributesRequest.fromJson(
+    Map<String, Object?> json,
+    Options Function(Map<String, Object?>) fromJsonOptions,
+  ) =>
+      _$FetchUserAttributesRequestFromJson(
+        json,
+        (json) => fromJsonOptions((json as Map).cast()),
+      );
 
-  /// Serialize the object to a map for use over the method channel
-  Map<String, Object?> serializeAsMap() => {
-        if (options != null) 'options': options?.serializeAsMap(),
-      };
+  /// Plugin-specific, advanced options such as information about the client
+  final Options? options;
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
+
+  @override
+  List<Object?> get props => [options];
+
+  @override
+  String get runtimeTypeName => 'FetchUserAttributesRequest';
+
+  @override
+  Map<String, Object?> toJson() => _$FetchUserAttributesRequestToJson(
+        this,
+        (Options options) => options.toJson(),
+      );
 }

@@ -13,6 +13,14 @@
  * permissions and limitations under the License.
  */
 
-class SignOutResult {
+import 'package:amplify_core/amplify_core.dart';
+
+class SignOutResult with AWSEquatable<SignOutResult>, AWSDebuggable {
   const SignOutResult();
+
+  @override
+  List<Object?> get props => const [];
+
+  @override
+  String get runtimeTypeName => 'SignOutResult';
 }

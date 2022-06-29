@@ -27,7 +27,7 @@ typedef AWSCognitoUserPoolTokens = CognitoUserPoolTokens;
 /// {@template amplify_auth_dart.cognito_user_pool_tokens}
 /// Cognito credentials of the active user.
 /// {@endtemplate}
-@amplifySerializable
+@zAmplifySerializable
 @_CognitoSignInMethodSerializer()
 @JsonWebTokenSerializer()
 abstract class CognitoUserPoolTokens

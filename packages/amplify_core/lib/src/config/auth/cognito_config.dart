@@ -19,6 +19,7 @@ import 'package:meta/meta.dart';
 export 'cognito/appsync.dart';
 export 'cognito/auth.dart';
 export 'cognito/authentication_flow_type.dart';
+export 'cognito/cognito_user_attribute_key_converter.dart';
 export 'cognito/credentials_provider.dart';
 export 'cognito/identity_manager.dart';
 export 'cognito/mfa.dart';
@@ -53,7 +54,7 @@ class CognitoPluginConfigFactory
 /// {@template amplify_core.cognito_plugin_config}
 /// The AWS Cognito plugin configuration.
 /// {@endtemplate}
-@awsSerializable
+@zAwsSerializable
 class CognitoPluginConfig
     with AWSEquatable<CognitoPluginConfig>, AWSSerializable
     implements AmplifyPluginConfig {

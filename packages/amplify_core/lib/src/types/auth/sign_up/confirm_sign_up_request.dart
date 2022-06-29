@@ -13,20 +13,47 @@
  * permissions and limitations under the License.
  */
 
-import 'confirm_sign_up_options.dart';
+import 'package:amplify_core/amplify_core.dart';
 
-class ConfirmSignUpRequest {
-  String username;
-  String confirmationCode;
-  ConfirmSignUpOptions? options;
-  ConfirmSignUpRequest({
+part 'confirm_sign_up_request.g.dart';
+
+@zAmplifyGenericSerializable
+class ConfirmSignUpRequest<Options extends ConfirmSignUpOptions>
+    with
+        AWSEquatable<ConfirmSignUpRequest<Options>>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  const ConfirmSignUpRequest({
     required this.username,
     required this.confirmationCode,
     this.options,
   });
-  Map<String, Object?> serializeAsMap() => {
-        'username': username,
-        'confirmationCode': confirmationCode,
-        if (options != null) 'options': options!.serializeAsMap()
-      };
+
+  factory ConfirmSignUpRequest.fromJson(
+    Map<String, Object?> json,
+    Options Function(Map<String, Object?>) fromJsonOptions,
+  ) =>
+      _$ConfirmSignUpRequestFromJson(
+        json,
+        (json) => fromJsonOptions((json as Map).cast()),
+      );
+
+  final String username;
+  final String confirmationCode;
+  final Options? options;
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
+
+  @override
+  List<Object?> get props => [username, confirmationCode, options];
+
+  @override
+  String get runtimeTypeName => 'ConfirmSignUpRequest';
+
+  @override
+  Map<String, Object?> toJson() => _$ConfirmSignUpRequestToJson(
+        this,
+        (Options options) => options.toJson(),
+      );
 }

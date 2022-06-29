@@ -19,7 +19,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'oauth.g.dart';
 
 /// The Cognito HostedUI configuration.
-@awsSerializable
+@zAwsSerializable
 class CognitoOAuthConfig
     with AWSEquatable<CognitoOAuthConfig>, AWSSerializable {
   // From: https://github.com/aws-amplify/aws-sdk-ios/blob/main/AWSAuthSDK/Sources/AWSMobileClient/AWSMobileClient.swift#L253

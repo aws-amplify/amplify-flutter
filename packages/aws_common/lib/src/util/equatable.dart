@@ -13,8 +13,10 @@
 // limitations under the License.
 
 import 'package:collection/collection.dart';
+import 'package:meta/meta.dart';
 
 /// Mixin class to provide equatable functionality on objects.
+@immutable
 mixin AWSEquatable<T extends AWSEquatable<T>> on Object {
   /// The type's equatable properties.
   List<Object?> get props;

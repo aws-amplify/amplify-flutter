@@ -17,7 +17,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 's3_transfer_utility.g.dart';
 
-@awsSerializable
+@zAwsSerializable
 class S3TransferUtility with AWSEquatable<S3TransferUtility>, AWSSerializable {
   const S3TransferUtility({
     required this.bucket,

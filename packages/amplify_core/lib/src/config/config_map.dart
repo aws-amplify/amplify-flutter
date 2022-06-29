@@ -66,7 +66,7 @@ abstract class ConfigMap<T extends AWSSerializable>
 /// {@template amplify_core.aws_config_map}
 /// A map of AWS configuration names to their typed representations.
 /// {@endtemplate}
-@configMapSerializable
+@zConfigMapSerializable
 class AWSConfigMap<T extends AWSSerializable> extends ConfigMap<T> {
   /// {@macro amplify_core.aws_config_map}
   const AWSConfigMap(this.configs);

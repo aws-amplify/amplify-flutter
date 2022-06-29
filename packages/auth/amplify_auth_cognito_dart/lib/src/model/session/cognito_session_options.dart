@@ -15,14 +15,22 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+part 'cognito_session_options.g.dart';
+
 /// {@template amplify_auth_cognito.model.cognito_session_options}
 /// Cognito options for `Amplify.Auth.fetchAuthSession`.
 /// {@endtemplate}
-class CognitoSessionOptions extends AuthSessionOptions {
+@zAmplifySerializable
+class CognitoSessionOptions extends AuthSessionOptions
+    with AWSEquatable<CognitoSessionOptions>, AWSDebuggable {
   /// {@macro amplify_auth_cognito.model.cognito_session_options}
   const CognitoSessionOptions({
     this.getAWSCredentials = false,
   });
+
+  /// {@macro amplify_auth_cognito.model.cognito_session_options}
+  factory CognitoSessionOptions.fromJson(Map<String, Object?> json) =>
+      _$CognitoSessionOptionsFromJson(json);
 
   /// Whether to retrieve AWS credentials as part of the session fetching.
   ///
@@ -34,7 +42,11 @@ class CognitoSessionOptions extends AuthSessionOptions {
   final bool getAWSCredentials;
 
   @override
-  Map<String, Object?> serializeAsMap() => {
-        'getAWSCredentials': getAWSCredentials,
-      };
+  List<Object?> get props => [getAWSCredentials];
+
+  @override
+  String get runtimeTypeName => 'CognitoSessionOptions';
+
+  @override
+  Map<String, Object?> toJson() => _$CognitoSessionOptionsToJson(this);
 }
