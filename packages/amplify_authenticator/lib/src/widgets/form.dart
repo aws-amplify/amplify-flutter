@@ -340,7 +340,7 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
         .toList();
 
     final hasSmsMfa = authConfig?.mfaTypes?.contains(MfaType.sms) ?? false;
-    if (hasSmsMfa) {
+    if (hasSmsMfa && selectedUsernameType != UsernameType.phoneNumber) {
       final mfaConfiguration =
           authConfig?.mfaConfiguration ?? MfaConfiguration.off;
       final hasSmsField = runtimeFields.any(
