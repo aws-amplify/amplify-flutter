@@ -49,11 +49,11 @@ abstract class HostedUiPlatform {
   /// The dependency token for [HostedUiPlatform].
   static const token = Token<HostedUiPlatform>([Token<DependencyManager>()]);
 
-  /// Used to match errors returned from Hosted UI exchanges for errors 
+  /// Used to match errors returned from Hosted UI exchanges for errors
   /// originating in user-defined Lambda triggers.
   ///
-  /// This is the only way to check for these currently since Cognito does not 
-  /// send back any special code to distinguish these from other, more general 
+  /// This is the only way to check for these currently since Cognito does not
+  /// send back any special code to distinguish these from other, more general
   /// errors.
   static final RegExp _lambdaErrorRegex =
       RegExp(r'^\w+ failed with error (.*)\. $');
