@@ -12,21 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aft/aft.dart';
-import 'package:args/command_runner.dart';
+import 'package:aft/src/utils/emphasize_text.dart';
 
-Future<void> main(List<String> args) async {
-  final runner = CommandRunner<void>('aft', 'Amplify Flutter repo tools')
-    ..argParser.addFlag(
-      'verbose',
-      abbr: 'v',
-      help: 'Prints verbose logs',
-      defaultsTo: false,
-    )
-    ..addCommand(GenerateSdkCommand())
-    ..addCommand(ListPackagesCommand())
-    ..addCommand(DepsCommand())
-    ..addCommand(TestCommand(args));
-  // ..addCommand(IntegrationTestCommand());
-  await runner.run(args);
+class TestScore {
+  TestScore({this.passed = 0, this.skipped = 0, this.failed = 0});
+
+  /// The number of passed tests
+  int passed;
+
+  /// The number of failed tests
+  int failed;
+
+  /// The number of skipped tests
+  int skipped;
+
+  String get prettyTotal {
+    return '${formatSuccess('+${passed.toString()}')} ${formatWarning('~${skipped.toString()}')} -${formatException('-${failed.toString()}')}';
+  }
 }

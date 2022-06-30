@@ -16,35 +16,25 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/test_report.dart';
+import 'package:aft/src/test_report_folio.dart';
 import 'package:aft/src/utils/emphasize_text.dart';
 import 'package:aft/src/utils/select_packages.dart';
+import 'package:path/path.dart' as p;
 import 'package:very_good_test_runner/very_good_test_runner.dart';
 
 /// Command to run Flutter and Dart unit tests.
-class TestCommand extends AmplifyCommand {
+class UnitTestCommand extends AmplifyCommand {
   @override
   String get description => 'Runs Flutter and Dart unit tests';
 
   @override
   String get name => 'unit';
 
-  final _testReport = <String>[
-    'Test Results:',
-  ];
-  final _testResultsController = StreamController<TestDoneEvent>();
-
-  final _testErrors = <String>[
-    '${formatException('Problems during testing:')}\n',
-  ];
-  final _testErrorsController = StreamController<String>();
-
-  final _testFailures = <String>[
-    '\n${formatException('Failed tests:')}\n',
-  ];
-  final _testFailuresController = StreamController<String>();
+  final _testReports = <TestReport>[];
 
   @override
-  Future<void> run() async {
+  Future<TestReportFolio> run() async {
     final packages = await allPackages;
 
     final testablePackages = packages
@@ -56,108 +46,120 @@ class TestCommand extends AmplifyCommand {
     final selectedPackages = await selectPackages(testablePackages);
 
     if (selectedPackages.isEmpty) {
-      stderr.writeln(formatException('You did not select any tests.'));
+      stderr.writeln(formatException('You did not select any packages.'));
       exit(1);
     }
 
-    await _executeTests(selectedPackages);
-
-    stdout.writeln('\n${_testReport.join('')}');
-
-    if (_testFailures.length > 1) {
-      stdout.writeln(_testFailures.join('\n'));
-    }
-    if (_testErrors.length > 1) {
-      stdout.writeln(_testErrors.join('\n'));
-    }
-  }
-
-  Future<String> _executeTests(
-    List<PackageInfo> selectedPackages,
-  ) async {
-    final testResults = <TestDoneEvent>[];
-    _testErrorsController.stream.listen(_testErrors.add);
-    _testFailuresController.stream.listen(_testFailures.add);
-    _testResultsController.stream.listen(testResults.add);
-
-    print('packages.length: ${selectedPackages.length}');
+    final folio = TestReportFolio(TestType.unit);
 
     for (final package in selectedPackages) {
-      testResults.clear();
-      _testReport.add('\n${package.name}:');
-      final completer = Completer<void>();
+      final files = await Directory(p.join(package.path, 'test'))
+          .list(
+            recursive: true,
+          )
+          .where((f) => f.path.endsWith('_test.dart'))
+          .toList();
 
-      switch (package.flavor) {
-        case PackageFlavor.flutter:
-          flutterTest(
-            workingDirectory: package.path,
-          ).listen(
-            _onData(
-              package,
-              completer,
-            ),
+      for (final file in files) {
+        if (file.path.endsWith('_test.dart')) {
+          folio.testReports.add(
+            TestReport(package, p.basename(file.path)),
           );
-          break;
-        case PackageFlavor.dart:
-          dartTest(
-            workingDirectory: package.path,
-          ).listen(
-            _onData(
-              package,
-              completer,
-            ),
-          );
-          break;
+        }
       }
-      await completer.future;
-      _testReport.add(_testScore(testResults));
+
+      await _executeTest(package, folio);
     }
+    return folio;
+  }
 
-    // Some exceptions can be emitted after tests are completed, so we pause execution
-    await Future<void>.delayed(const Duration(seconds: 2));
+  Future<void> _executeTest(
+    PackageInfo package,
+    TestReportFolio folio,
+  ) async {
+    final completer = Completer<void>();
+    // final relativePath = p.relative(file.path, from: package.path);
+    // final fileName = p.basename(file.path);
 
-    await _testResultsController.sink.close();
-    await _testErrorsController.sink.close();
-    await _testFailuresController.sink.close();
-
-    return _testReport.join('');
+    switch (package.flavor) {
+      case PackageFlavor.flutter:
+        flutterTest(
+          // arguments: [relativePath],
+          workingDirectory: package.path,
+        ).listen(
+          _onData(
+            package,
+            folio,
+            completer,
+          ),
+        );
+        break;
+      case PackageFlavor.dart:
+        dartTest(
+          // arguments: [relativePath],
+          workingDirectory: package.path,
+        ).listen(
+          _onData(
+            package,
+            folio,
+            completer,
+          ),
+        );
+        break;
+    }
+    await completer.future;
+    // _testReports.add(testReport);
   }
 
   void Function(TestEvent) _onData(
     PackageInfo package,
+    TestReportFolio folio,
     Completer<void> completer,
   ) {
     return (TestEvent event) {
       switch (event.runtimeType) {
         case TestStartEvent:
           final testStartEvent = event as TestStartEvent;
-          if (!testStartEvent.test.name.startsWith('loading')) {
+          final url = testStartEvent.test.url ?? testStartEvent.test.rootUrl;
+          if (url is String) {
             stdout.writeln(
               'testing ${package.name}: ${testStartEvent.test.name}...',
             );
+            final fileName = p.basename(url);
+            folio.reportByFile(package, fileName).testId =
+                testStartEvent.test.id;
           }
           break;
         case ErrorTestEvent:
           final errorTestEvent = event as ErrorTestEvent;
           if (errorTestEvent.isFailure) {
-            _testFailuresController.add(
-              '${formatException('Package')}: ${package.name}\nStackTrace: ${errorTestEvent.stackTrace}\n',
-            );
+            folio.reportByTestId(package, errorTestEvent.testID)?.failures.add(
+                  '${formatException('Package')}: ${package.name}\nStackTrace: ${errorTestEvent.stackTrace}\n',
+                );
           } else {
-            _testErrorsController.add(
-              '* An Exception occurred in ${package.name} test and was not a test failure.\n  ${errorTestEvent.error}\n',
-            );
+            folio
+                .reportByTestId(package, errorTestEvent.testID)
+                ?.exceptions
+                .add(
+                  '* An Exception occurred in ${package.name} test and was not a test failure.\n  ${errorTestEvent.error}\n',
+                );
           }
           break;
+
         case TestDoneEvent:
-          _testResultsController.add(event as TestDoneEvent);
+          final testDoneEvent = event as TestDoneEvent;
+          final report = folio.reportByTestId(package, testDoneEvent.testID);
+          if (report != null) {
+            _scoreTest(
+              testDoneEvent,
+              report,
+            );
+          }
           break;
         case ExitTestEvent:
           final exitTestEvent = event as ExitTestEvent;
           if (exitTestEvent.exitCode != 0) {
-            _testErrorsController.add(
-              '* Tests for ${package.name} exited with exit code ${exitTestEvent.exitCode}\n',
-            );
+            folio.packegesWithExitExceptions.add(package);
           }
           completer.complete();
           break;
@@ -165,29 +167,22 @@ class TestCommand extends AmplifyCommand {
     };
   }
 
-  String _testScore(List<TestDoneEvent> events) {
-    var passed = 0;
-    var skipped = 0;
-    var failed = 0;
-
-    for (final event in events) {
-      if (!event.hidden) {
-        switch (event.result) {
-          case TestResult.success:
-            passed++;
-            break;
-          case TestResult.failure:
-            failed++;
-            break;
-          case TestResult.error:
-            // This case should be handled by ErrorTestEvent case in _onData
-            break;
-        }
-      }
-      if (event.skipped) {
-        skipped++;
+  void _scoreTest(TestDoneEvent event, TestReport testReport) {
+    if (!event.hidden) {
+      switch (event.result) {
+        case TestResult.success:
+          testReport.testScore.passed++;
+          break;
+        case TestResult.failure:
+          testReport.testScore.failed++;
+          break;
+        case TestResult.error:
+          // This case should be handled by ErrorTestEvent case in _onData
+          break;
       }
     }
-    return ' ${formatSuccess('+${passed.toString()}')}, ${formatWarning('~${skipped.toString()}')}, ${formatException('-${failed.toString()}')}';
+    if (event.skipped) {
+      testReport.testScore.skipped++;
+    }
   }
 }

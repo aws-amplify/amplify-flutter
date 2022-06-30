@@ -19,5 +19,6 @@ export 'src/commands/deps_command.dart';
 export 'src/commands/generate_sdk_command.dart';
 export 'src/commands/integration_test_command.dart';
 export 'src/commands/list_packages_command.dart';
+export 'src/commands/test_command.dart';
 export 'src/commands/unit_test_command.dart';
 export 'src/models.dart';
