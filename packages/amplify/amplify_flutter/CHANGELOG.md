@@ -1,4 +1,4 @@
-## 0.6.1 (2022-06-29)
+## 0.6.1 (2022-06-30)
 
 - fix(authenticator): authenticator phone OR email confirmation ([#1785](https://github.com/aws-amplify/amplify-flutter/pull/1785))
 - fix(authenticator): Collect MFA types ([#1781](https://github.com/aws-amplify/amplify-flutter/pull/1781))

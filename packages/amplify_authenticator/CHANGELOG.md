@@ -1,7 +1,8 @@
-## 0.2.1 (2022-06-29)
+## 0.2.1 (2022-06-30)
 
 - fix: authenticator phone OR email confirmation ([#1785](https://github.com/aws-amplify/amplify-flutter/pull/1785))
 - fix: Collect MFA types ([#1781](https://github.com/aws-amplify/amplify-flutter/pull/1781))
+- fix: duplicate phone showing for SMS MFA ([#1835]https://github.com/aws-amplify/amplify-flutter/pull/1835)
 
 ## 0.2.0 (2022-06-20)
 

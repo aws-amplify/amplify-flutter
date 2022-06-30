@@ -1,4 +1,4 @@
-## 0.1.2 (2022-06-29)
+## 0.1.2 (2022-06-30)
 
 - fix: Default to non-chunked payloads for S3 ([#1820](https://github.com/aws-amplify/amplify-flutter/pull/1820))
 
