@@ -298,7 +298,7 @@ abstract class StateMachine<Event extends StateMachineEvent,
         cancelOnError: true,
       );
     } else {
-      _subscriptions[type] = _manager.expect<M>().stream.listen(
+      _subscriptions[type] = _manager.expect(type).stream.listen(
             onData,
             cancelOnError: true,
           );
