@@ -41,9 +41,7 @@ class IntegrationTestCommand extends AmplifyCommand {
   @override
   String get name => 'integ';
 
-  final _testReport = <String>[
-    'Test Results:',
-  ];
+  final _testReport = <String>[];
   final _testResultsController = StreamController<String>();
 
   final _testErrors = <String>[
@@ -52,7 +50,7 @@ class IntegrationTestCommand extends AmplifyCommand {
   final _testErrorsController = StreamController<String>();
 
   @override
-  Future<void> run() async {
+  Future<String> run() async {
     final selectedDevice = await _selectDevice();
     if (selectedDevice == null) {
       stderr
@@ -107,11 +105,15 @@ class IntegrationTestCommand extends AmplifyCommand {
         exit(1);
     }
 
-    stdout.writeln('\n${_testReport.join('')}');
+    final testReportForDisplay = '\n${_testReport.join('')}';
+
+    stdout.writeln(testReportForDisplay);
 
     if (_testErrors.length > 1) {
       stdout.writeln(_testErrors.join(''));
     }
+
+    return testReportForDisplay;
   }
 
   Future<ActiveDevice?> _selectDevice() async {
