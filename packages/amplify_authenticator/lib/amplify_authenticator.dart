@@ -791,9 +791,7 @@ class _AuthenticatorBody extends StatelessWidget {
                   key: _AuthenticatorState.scaffoldMessengerKey,
                   child: Scaffold(
                     body: SizedBox.expand(
-                      child: child is AuthenticatorScreen
-                          ? SingleChildScrollView(child: child)
-                          : child,
+                      child: child,
                     ),
                   ),
                 ),
