@@ -148,13 +148,6 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
       padding: padding,
       child: Column(
         children: <Widget>[
-          Text(
-            titleResolver.resolve(context, step),
-            style: Theme.of(context).textTheme.headline6,
-          ),
-          const SizedBox(
-            height: AuthenticatorContainerConstants.gap,
-          ),
           form,
         ],
       ),
