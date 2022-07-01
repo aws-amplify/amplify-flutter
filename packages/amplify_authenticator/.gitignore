@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+test/ui/failures/
 
 # IntelliJ related
 *.iml
