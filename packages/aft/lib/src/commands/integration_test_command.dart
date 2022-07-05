@@ -149,12 +149,14 @@ class IntegrationTestCommand extends AmplifyCommand {
     final passRegex = RegExp(r'([\+][0-9]+)');
     final skipRegex = RegExp(r'([~][0-9]+)');
     final failRegex = RegExp(r'([-][0-9]+)');
-
     await _executeTests(
       selectedPackages,
       ((result, package, fileName) {
         final testReport = TestReportScored(package, p.basename(fileName));
         folio.testReports.add(testReport);
+
+        // TODO: Create regex to extract test failures and append to report
+
         final lastResult = result.substring(result.lastIndexOf('+'));
         final passed = int.parse(passRegex.stringMatch(lastResult) ?? '0');
         final skipped = int.parse(skipRegex.stringMatch(lastResult) ?? '0');
@@ -199,7 +201,7 @@ class IntegrationTestCommand extends AmplifyCommand {
           .toList();
 
       for (final file in files) {
-        if (file.path.endsWith('_test.dart')) {
+        if (file.path.endsWith(testFileSuffix)) {
           final fileName = p.basename(file.path);
           await executeProcess(
             PackageFlavor.flutter,
