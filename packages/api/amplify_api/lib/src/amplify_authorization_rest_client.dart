@@ -60,7 +60,7 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
         final region = endpointConfig.region;
         final service = endpointConfig.endpointType == EndpointType.graphQL
             ? AWSService.appSync
-            : AWSService.apiGateway;
+            : AWSService.apiGatewayManagementApi;
         return authProvider.authorizeRequest(request,
             options:
                 HttpRequestTransformOptions(service: service, region: region));
