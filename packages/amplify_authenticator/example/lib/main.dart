@@ -80,6 +80,28 @@ class _MyAppState extends State<MyApp> {
     // the user is signed in, the Authenticator will use your MaterialApp's
     // navigator to show the correct screen.
     return Authenticator(
+      theme: AuthenticatorTheme(
+        successBannerThemeData: const MaterialBannerThemeData(
+          backgroundColor: Colors.green,
+        ),
+        infoBannerThemeData: const MaterialBannerThemeData(
+          backgroundColor: Colors.blue,
+        ),
+        errorBannerThemeData: const MaterialBannerThemeData(
+          backgroundColor: Colors.red,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            padding: MaterialStateProperty.all<EdgeInsets>(
+              const EdgeInsets.all(16),
+            ),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            ),
+          ),
+        ),
+      ),
       stringResolver: stringResolver,
       onException: (exception) {
         print('[ERROR]: $exception');
