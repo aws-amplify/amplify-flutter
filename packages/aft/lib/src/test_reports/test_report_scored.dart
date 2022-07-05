@@ -12,21 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aft/src/utils/emphasize_text.dart';
+import 'package:aft/src/test_reports/test_report.dart';
+import 'package:aft/src/test_reports/test_score.dart';
 
-class TestScore {
-  TestScore({this.passed = 0, this.skipped = 0, this.failed = 0});
+/// Subclass of [TestReport] for tests which emit specific quantities
+/// of passed, skipped and failed tests.
+///
+/// This should be used for Flutter and Dart unit tests as well as
+/// integration tests on VMs.
+class TestReportScored extends TestReport {
+  TestReportScored(super.package, super.fileName);
 
-  /// The number of passed tests
-  int passed;
-
-  /// The number of failed tests
-  int failed;
-
-  /// The number of skipped tests
-  int skipped;
-
-  String get prettyTotal {
-    return '${formatSuccess('+${passed.toString()}')} ${formatWarning('~${skipped.toString()}')} -${formatException('-${failed.toString()}')}';
-  }
+  /// The test score
+  late TestScore testScore = TestScore();
 }

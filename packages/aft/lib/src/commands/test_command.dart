@@ -15,7 +15,9 @@
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:aft/src/test_report_folio.dart';
+import 'package:aft/src/test_reports/test_report_folio.dart';
+import 'package:aft/src/test_reports/test_report_pass_fail.dart';
+import 'package:aft/src/test_reports/test_report_scored.dart';
 import 'package:aft/src/utils/emphasize_text.dart';
 
 /// Top-level command for running Flutter, Dart and integration tests.
@@ -30,12 +32,13 @@ class TestCommand extends AmplifyCommand {
   @override
   String get name => 'test';
 
+  bool _verbose = false;
+
   @override
   Future<void> run() async {
     final testArgs = args.sublist(args.indexOf('test') + 1);
     TestReportFolio? unitTestOutput;
-    String? integTestOutput;
-    var verbose = false;
+    TestReportFolio? integTestOutput;
 
     if (testArgs.isEmpty) {
       unitTestOutput = await UnitTestCommand().run();
@@ -51,65 +54,79 @@ class TestCommand extends AmplifyCommand {
     }
 
     if (testArgs.contains('v')) {
-      verbose = true;
+      _verbose = true;
     }
 
     if (unitTestOutput != null || integTestOutput != null) {
-      stdout.writeln(formatSuccess('\n\nTest Results:'));
       if (unitTestOutput != null) {
         stdout.writeln(
-          '\nUnit Tests: : ${unitTestOutput.aggregateScore().prettyTotal}\n',
+          '\nUnit Tests: ${unitTestOutput.aggregateResult()}\n',
         );
-        for (final package in unitTestOutput.availablePackages()) {
-          stdout.writeln(
-            '${package.name}: ${unitTestOutput.aggregateScoreByPackage(package).prettyTotal}',
-          );
-
-          if (verbose) {
-            for (final report in unitTestOutput.reportsByPackage(package)) {
-              stdout.writeln(
-                '  ${report.fileName}: ${report.testScore.prettyTotal}',
-              );
-            }
-            if (unitTestOutput.packageHasFailures(package)) {
-              stdout.writeln('\nTest Failures:\n');
-              for (final report in unitTestOutput.reportsByPackage(package)) {
-                if (report.failures.isNotEmpty) {
-                  stdout.writeln(
-                    '${report.fileName}:\n${report.prettyFailures}',
-                  );
-                }
-              }
-            }
-            if (unitTestOutput.packageHasExceptions(package)) {
-              stdout.writeln('\nTest Exceptions:');
-              for (final report in unitTestOutput.reportsByPackage(package)) {
-                if (report.exceptions.isNotEmpty) {
-                  stdout.writeln(
-                    '\n  ${report.fileName}: ${report.prettyExceptions}',
-                  );
-                }
-              }
-            }
-            if (unitTestOutput.packegesWithExitExceptions.contains(package)) {
-              stdout.writeln(
-                formatException(
-                  '${package.name} exited with non-zero exit code.',
-                ),
-              );
-            }
-          }
-        }
+        printResults(unitTestOutput);
       }
 
       if (integTestOutput != null) {
-        stdout
-          ..writeln(formatSuccess('\nInteg Tests:'))
-          ..writeln(integTestOutput);
+        stdout.writeln(
+          '\nInteg Tests: ${integTestOutput.aggregateResult()}\n',
+        );
+        printResults(integTestOutput);
       }
     } else {
       // This should not happen.
       stderr.writeln('Test results were not returned.');
+    }
+  }
+
+  void printResults(TestReportFolio folio) {
+    stdout.writeln(formatSuccess('\nTest Results:'));
+
+    for (final package in folio.availablePackages()) {
+      stdout.writeln(
+        '${package.name}: ${folio.aggregateResultByPackage(package)}',
+      );
+
+      if (_verbose) {
+        for (final report in folio.reportsByPackage(package)) {
+          String? message;
+          switch (report.runtimeType) {
+            case TestReportScored:
+              message = (report as TestReportScored).testScore.prettyTotal;
+              break;
+            case TestReportPassFail:
+              message = (report as TestReportPassFail).testResultMessage;
+          }
+          stdout.writeln(
+            '  ${report.fileName}: $message',
+          );
+        }
+        if (folio.packageHasFailures(package)) {
+          stdout.writeln('\nTest Failures:\n');
+          for (final report in folio.reportsByPackage(package)) {
+            if (report.failures.isNotEmpty) {
+              stdout.writeln(
+                '${report.fileName}:\n${report.prettyFailures}',
+              );
+            }
+          }
+        }
+        if (folio.packageHasExceptions(package)) {
+          stdout.writeln('\nTest Exceptions:');
+          for (final report in folio.reportsByPackage(package)) {
+            if (report.exceptions.isNotEmpty) {
+              stdout.writeln(
+                '\n  ${report.fileName}: ${report.prettyExceptions}',
+              );
+            }
+          }
+        }
+        if (folio.packegesWithExitExceptions.contains(package)) {
+          stdout.writeln(
+            formatException(
+              '${package.name} exited with non-zero exit code.',
+            ),
+          );
+        }
+      }
     }
   }
 }

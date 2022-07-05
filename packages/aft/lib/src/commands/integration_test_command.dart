@@ -17,6 +17,11 @@ import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/flutter_platform.dart';
+import 'package:aft/src/test_reports/test_report_folio.dart';
+import 'package:aft/src/test_reports/test_report_pass_fail.dart';
+import 'package:aft/src/test_reports/test_report_scored.dart';
+import 'package:aft/src/test_reports/test_score.dart';
+import 'package:aft/src/utils/constants.dart';
 import 'package:aft/src/utils/emphasize_text.dart';
 import 'package:aft/src/utils/get_active_devices.dart';
 import 'package:aft/src/utils/get_process_args.dart';
@@ -27,7 +32,11 @@ import 'package:path/path.dart' as p;
 import '../active_device.dart';
 import '../utils/execute_process.dart';
 
-typedef ResultIterator = String Function(String result, String? fileName);
+typedef ResultIterator = void Function(
+  String result,
+  PackageInfo package,
+  String fileName,
+);
 const integrationTestPath = 'integration_test';
 
 /// Command to run integration tests.
@@ -41,16 +50,10 @@ class IntegrationTestCommand extends AmplifyCommand {
   @override
   String get name => 'integ';
 
-  final _testReport = <String>[];
-  final _testResultsController = StreamController<String>();
-
-  final _testErrors = <String>[
-    '${formatException('Problems during testing:')}\n',
-  ];
-  final _testErrorsController = StreamController<String>();
+  final folio = TestReportFolio();
 
   @override
-  Future<String> run() async {
+  Future<TestReportFolio> run() async {
     final selectedDevice = await _selectDevice();
     if (selectedDevice == null) {
       stderr
@@ -104,16 +107,7 @@ class IntegrationTestCommand extends AmplifyCommand {
         );
         exit(1);
     }
-
-    final testReportForDisplay = '\n${_testReport.join('')}';
-
-    stdout.writeln(testReportForDisplay);
-
-    if (_testErrors.length > 1) {
-      stdout.writeln(_testErrors.join(''));
-    }
-
-    return testReportForDisplay;
+    return folio;
   }
 
   Future<ActiveDevice?> _selectDevice() async {
@@ -151,15 +145,25 @@ class IntegrationTestCommand extends AmplifyCommand {
     List<PackageInfo> selectedPackages,
     ActiveDevice device,
   ) async {
+    folio.testType = TestType.integVM;
     final passRegex = RegExp(r'([\+][0-9]+)');
     final skipRegex = RegExp(r'([~][0-9]+)');
     final failRegex = RegExp(r'([-][0-9]+)');
 
     await _executeTests(
       selectedPackages,
-      ((result, fileName) {
+      ((result, package, fileName) {
+        final testReport = TestReportScored(package, p.basename(fileName));
+        folio.testReports.add(testReport);
         final lastResult = result.substring(result.lastIndexOf('+'));
-        return '\n  $fileName: ${formatSuccess(passRegex.stringMatch(lastResult))} ${formatWarning(skipRegex.stringMatch(lastResult))} ${formatException(failRegex.stringMatch(lastResult))} ';
+        final passed = int.parse(passRegex.stringMatch(lastResult) ?? '0');
+        final skipped = int.parse(skipRegex.stringMatch(lastResult) ?? '0');
+        final failed = int.parse(failRegex.stringMatch(lastResult) ?? '0');
+        testReport.testScore = TestScore(
+          passed: passed,
+          skipped: skipped,
+          failed: failed,
+        );
       }),
       device: device,
     );
@@ -168,13 +172,16 @@ class IntegrationTestCommand extends AmplifyCommand {
   Future<void> _handleWeb(
     List<PackageInfo> selectedPackages,
   ) async {
+    folio.testType = TestType.integWeb;
     Process? process;
     process = await Process.start('chromedriver', ['--port=4444']);
     await _executeTests(
       selectedPackages,
-      ((result, fileName) => result.contains('All tests passed')
-          ? formatSuccess('\n  $fileName: All tests passed!')
-          : formatException('\n  $fileName: Tests failed')),
+      ((result, package, fileName) {
+        final testReport = TestReportPassFail(package, p.basename(fileName));
+        folio.testReports.add(testReport);
+        testReport.allPassed = result.contains(testsPassed);
+      }),
     );
     process.kill();
   }
@@ -184,11 +191,7 @@ class IntegrationTestCommand extends AmplifyCommand {
     ResultIterator resultIterator, {
     ActiveDevice? device,
   }) async {
-    _testResultsController.stream.listen(_testReport.add);
-    _testErrorsController.stream.listen(_testErrors.add);
-
     for (final package in selectedPackages) {
-      _testResultsController.add('\n${package.name}:');
       final files = await Directory(p.join(package.path, integrationTestPath))
           .list(
             recursive: true,
@@ -198,7 +201,6 @@ class IntegrationTestCommand extends AmplifyCommand {
       for (final file in files) {
         if (file.path.endsWith('_test.dart')) {
           final fileName = p.basename(file.path);
-
           await executeProcess(
             PackageFlavor.flutter,
             device != null
@@ -209,20 +211,20 @@ class IntegrationTestCommand extends AmplifyCommand {
                 : getFlutterDriverArgs(testPath: fileName),
             package: package,
           ).then((result) {
-            _testResultsController.add(
-              resultIterator(
-                result,
-                fileName,
-              ),
+            resultIterator(
+              result,
+              package,
+              fileName,
             );
+            // );
           }).onError((error, _) {
-            _testErrorsController.add('\n$fileName test run failed: $error');
+            folio
+                .reportByFile(package, fileName)
+                .exceptions
+                .add('\n$fileName test run failed: $error');
           });
         }
       }
     }
-
-    await _testResultsController.sink.close();
-    await _testErrorsController.sink.close();
   }
 }

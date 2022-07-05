@@ -12,16 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
-
-import 'package:aft/src/utils/emphasize_text.dart';
-import 'package:path/path.dart';
-
-import 'models.dart';
-import 'test_score.dart';
+import 'package:aft/src/models.dart';
 
 /// Encapsulates test information for display in the terminal
-class TestReport {
+abstract class TestReport {
   TestReport(
     this._package,
     this._fileName,
@@ -45,26 +39,10 @@ class TestReport {
   /// Displays messages related to test failures
   List<String> failures = [];
 
-  /// The test score
-  TestScore testScore = TestScore();
-
   /// The testId from the test run
   int? testId;
 
-  // void printResults() {
-  //   stdout.writeln(
-  //     '$fileName: ${testScore.prettyTotal}',
-  //   );
-
-  //   if (testScore.passed + testScore.skipped + testScore.failed == 0) {
-  //     stderr.writeln(
-  //       formatException(
-  //         'It appears that 0 tests were invoked. This could indicate a problem.',
-  //       ),
-  //     );
-  //   }
-  // }
-
+  /// Prints all exceptions collated with new lines
   String? get prettyExceptions {
     String? joinedExceptions;
     if (exceptions.isNotEmpty) {
@@ -73,6 +51,7 @@ class TestReport {
     return joinedExceptions;
   }
 
+  /// Prints all failures collated with new lines
   String? get prettyFailures {
     String? joinedFailures;
     if (failures.isNotEmpty) {

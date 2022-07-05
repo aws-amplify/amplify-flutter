@@ -15,27 +15,26 @@
 import 'dart:io';
 
 import 'package:aft/src/models.dart';
-import 'package:aft/src/test_score.dart';
+import 'package:aft/src/test_reports/test_report_pass_fail.dart';
+import 'package:aft/src/test_reports/test_report_scored.dart';
+import 'package:aft/src/test_reports/test_score.dart';
+import 'package:aft/src/utils/constants.dart';
 import 'package:aft/src/utils/emphasize_text.dart';
 
 import 'test_report.dart';
 
 enum TestType {
-  integ,
+  integVM,
+  integWeb,
   unit,
 }
 
 /// Encapsulates test information for display in the terminal
 class TestReportFolio {
-  TestReportFolio(
-    this._testType,
-  );
+  TestReportFolio();
 
   /// Specifies whether the test is a unit test or integration test
-  final TestType _testType;
-  TestType get testType {
-    return _testType;
-  }
+  late TestType testType;
 
   /// The test reports included in the folio
   final List<TestReport> testReports = [];
@@ -98,6 +97,9 @@ class TestReportFolio {
     );
   }
 
+  /// Returns a test report by test id.
+  ///
+  /// Will only return a report for Flutter or Dart unit tests.
   TestReport? reportByTestId(PackageInfo package, int testId) {
     TestReport? report;
     try {
@@ -110,27 +112,100 @@ class TestReportFolio {
     return report;
   }
 
-  TestScore aggregateScoreByPackage(PackageInfo package) {
+  /// Returns a readable test result string for the entire folio
+  String aggregateResult() {
+    String result;
+    switch (testType) {
+      case TestType.integVM:
+      case TestType.unit:
+        result = _aggregateScore().prettyTotal;
+        break;
+      case TestType.integWeb:
+        result = _aggregatePassFail()
+            ? formatSuccess(testsPassed)
+            : formatException(testsFailed);
+        break;
+    }
+    return result;
+  }
+
+  /// Returns a readable test result string by package
+  String aggregateResultByPackage(PackageInfo package) {
+    String result;
+    switch (testType) {
+      case TestType.integVM:
+      case TestType.unit:
+        result = _aggregateScoreByPackage(package).prettyTotal;
+        break;
+      case TestType.integWeb:
+        result = _passFailByPackage(package)
+            ? formatSuccess(testsPassed)
+            : formatException(testsFailed);
+        break;
+    }
+    return result;
+  }
+
+  /// Returns the aggregate score for all files across one package.
+  ///
+  /// Should only be used for folios with test reports
+  /// that are [TestReportScored].
+  TestScore _aggregateScoreByPackage(PackageInfo package) {
     final totalScore = TestScore();
     for (final report in reportsByPackage(package)) {
-      totalScore
-        ..passed += report.testScore.passed
-        ..skipped += report.testScore.skipped
-        ..failed += report.testScore.failed;
+      if (report is TestReportScored) {
+        totalScore
+          ..passed += report.testScore.passed
+          ..skipped += report.testScore.skipped
+          ..failed += report.testScore.failed;
+      }
     }
     return totalScore;
   }
 
-  TestScore aggregateScore() {
+  /// Returns the aggregate score across the test folio.
+  ///
+  /// Should only be used for folios with test reports
+  /// that are [TestReportScored].
+  TestScore _aggregateScore() {
     final totalScore = TestScore();
     for (final package in availablePackages()) {
-      final packageScore = aggregateScoreByPackage(package);
+      final packageScore = _aggregateScoreByPackage(package);
       totalScore
         ..passed += packageScore.passed
         ..skipped += packageScore.skipped
         ..failed += packageScore.failed;
     }
     return totalScore;
+  }
+
+  /// Returns true if there are no failing tests
+  /// for any files within the package.
+  ///
+  /// Should only be used for folios with test reports
+  /// that are [TestReportPassFail], i.e. Web integration tests.
+  bool _passFailByPackage(PackageInfo package) {
+    var allPassed = true;
+    for (final report in reportsByPackage(package)) {
+      if (report is TestReportPassFail && !report.allPassed) {
+        allPassed = false;
+      }
+    }
+    return allPassed;
+  }
+
+  /// Returns true if there are not failing tests across the test folio.
+  ///
+  /// Should only be used for folios with test reports
+  /// that are [TestReportPassFail], i.e. Web integration tests.
+  bool _aggregatePassFail() {
+    var allPassed = true;
+    for (final package in availablePackages()) {
+      if (!_passFailByPackage(package)) {
+        allPassed = false;
+      }
+    }
+    return allPassed;
   }
 
   bool packageHasFailures(PackageInfo package) {
