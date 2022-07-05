@@ -44,8 +44,6 @@ class AmplifyAuthProviderRepository {
   final Map<String, AmplifyAuthProvider> _authProviders = {};
 
   AmplifyAuthProvider? getAuthProvider(String authorizationType) {
-    print('getting auth providers in repo');
-    print(_authProviders);
     return _authProviders[authorizationType];
   }
 

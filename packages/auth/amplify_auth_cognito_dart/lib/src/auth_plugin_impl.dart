@@ -55,7 +55,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
 

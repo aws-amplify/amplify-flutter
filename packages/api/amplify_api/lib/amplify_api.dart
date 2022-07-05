@@ -19,8 +19,6 @@ import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-import 'src/api_plugin_impl.dart';
-
 export 'package:amplify_core/src/types/api/api_types.dart';
 
 export './model_mutations.dart';
