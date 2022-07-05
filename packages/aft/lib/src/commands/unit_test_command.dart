@@ -16,8 +16,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:aft/src/test_report.dart';
-import 'package:aft/src/test_report_folio.dart';
+import 'package:aft/src/test_reports/test_report_folio.dart';
+import 'package:aft/src/test_reports/test_report_scored.dart';
 import 'package:aft/src/utils/emphasize_text.dart';
 import 'package:aft/src/utils/select_packages.dart';
 import 'package:path/path.dart' as p;
@@ -30,8 +30,6 @@ class UnitTestCommand extends AmplifyCommand {
 
   @override
   String get name => 'unit';
-
-  final _testReports = <TestReport>[];
 
   @override
   Future<TestReportFolio> run() async {
@@ -50,7 +48,7 @@ class UnitTestCommand extends AmplifyCommand {
       exit(1);
     }
 
-    final folio = TestReportFolio(TestType.unit);
+    final folio = TestReportFolio()..testType = TestType.unit;
 
     for (final package in selectedPackages) {
       final files = await Directory(p.join(package.path, 'test'))
@@ -63,7 +61,7 @@ class UnitTestCommand extends AmplifyCommand {
       for (final file in files) {
         if (file.path.endsWith('_test.dart')) {
           folio.testReports.add(
-            TestReport(package, p.basename(file.path)),
+            TestReportScored(package, p.basename(file.path)),
           );
         }
       }
@@ -78,9 +76,6 @@ class UnitTestCommand extends AmplifyCommand {
     TestReportFolio folio,
   ) async {
     final completer = Completer<void>();
-    // final relativePath = p.relative(file.path, from: package.path);
-    // final fileName = p.basename(file.path);
-
     switch (package.flavor) {
       case PackageFlavor.flutter:
         flutterTest(
@@ -108,7 +103,6 @@ class UnitTestCommand extends AmplifyCommand {
         break;
     }
     await completer.future;
-    // _testReports.add(testReport);
   }
 
   void Function(TestEvent) _onData(
@@ -152,7 +146,7 @@ class UnitTestCommand extends AmplifyCommand {
           if (report != null) {
             _scoreTest(
               testDoneEvent,
-              report,
+              report as TestReportScored,
             );
           }
           break;
@@ -167,7 +161,7 @@ class UnitTestCommand extends AmplifyCommand {
     };
   }
 
-  void _scoreTest(TestDoneEvent event, TestReport testReport) {
+  void _scoreTest(TestDoneEvent event, TestReportScored testReport) {
     if (!event.hidden) {
       switch (event.result) {
         case TestResult.success:
