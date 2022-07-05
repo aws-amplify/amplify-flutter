@@ -16,21 +16,21 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/active_device.dart';
 import 'package:aft/src/flutter_platform.dart';
+import 'package:aft/src/test_reports/print_results.dart';
 import 'package:aft/src/test_reports/test_report_folio.dart';
 import 'package:aft/src/test_reports/test_report_pass_fail.dart';
 import 'package:aft/src/test_reports/test_report_scored.dart';
 import 'package:aft/src/test_reports/test_score.dart';
 import 'package:aft/src/utils/constants.dart';
 import 'package:aft/src/utils/emphasize_text.dart';
+import 'package:aft/src/utils/execute_process.dart';
 import 'package:aft/src/utils/get_active_devices.dart';
 import 'package:aft/src/utils/get_process_args.dart';
 import 'package:aft/src/utils/select_packages.dart';
 import 'package:interact/interact.dart';
 import 'package:path/path.dart' as p;
-
-import '../active_device.dart';
-import '../utils/execute_process.dart';
 
 typedef ResultIterator = void Function(
   String result,
@@ -41,8 +41,6 @@ const integrationTestPath = 'integration_test';
 
 /// Command to run integration tests.
 class IntegrationTestCommand extends AmplifyCommand {
-  IntegrationTestCommand();
-
   @override
   String get description =>
       'Runs the appropriate integration test command for the given platform';
@@ -53,7 +51,9 @@ class IntegrationTestCommand extends AmplifyCommand {
   final folio = TestReportFolio();
 
   @override
-  Future<TestReportFolio> run() async {
+  Future<void> run() async {
+    final args = argResults!;
+    final verbose = args['verbose'] as bool;
     final selectedDevice = await _selectDevice();
     if (selectedDevice == null) {
       stderr
@@ -107,7 +107,7 @@ class IntegrationTestCommand extends AmplifyCommand {
         );
         exit(1);
     }
-    return folio;
+    printResults(folio, verbose);
   }
 
   Future<ActiveDevice?> _selectDevice() async {
@@ -151,22 +151,24 @@ class IntegrationTestCommand extends AmplifyCommand {
     final failRegex = RegExp(r'([-][0-9]+)');
     await _executeTests(
       selectedPackages,
-      ((result, package, fileName) {
+      (result, package, fileName) {
         final testReport = TestReportScored(package, p.basename(fileName));
         folio.testReports.add(testReport);
 
-        // TODO: Create regex to extract test failures and append to report
+        // TODO(dnnoyes): Create regex to extract test failures and append to report
 
         final lastResult = result.substring(result.lastIndexOf('+'));
         final passed = int.parse(passRegex.stringMatch(lastResult) ?? '0');
         final skipped = int.parse(skipRegex.stringMatch(lastResult) ?? '0');
-        final failed = int.parse(failRegex.stringMatch(lastResult) ?? '0');
+        final failed = int.parse(
+          failRegex.stringMatch(lastResult)?.replaceFirst('-', '') ?? '0',
+        );
         testReport.testScore = TestScore(
           passed: passed,
           skipped: skipped,
           failed: failed,
         );
-      }),
+      },
       device: device,
     );
   }
@@ -176,16 +178,20 @@ class IntegrationTestCommand extends AmplifyCommand {
   ) async {
     folio.testType = TestType.integWeb;
     Process? process;
-    process = await Process.start('chromedriver', ['--port=4444']);
+    try {
+      process = await Process.start('chromedriver', ['--port=4444']);
+    } on Exception catch (e) {
+      stderr.writeln('chromedriver failed to start: ${e.toString()}');
+    }
     await _executeTests(
       selectedPackages,
-      ((result, package, fileName) {
+      (result, package, fileName) {
         final testReport = TestReportPassFail(package, p.basename(fileName));
         folio.testReports.add(testReport);
         testReport.allPassed = result.contains(testsPassed);
-      }),
+      },
     );
-    process.kill();
+    process?.kill();
   }
 
   Future<void> _executeTests(
@@ -195,36 +201,35 @@ class IntegrationTestCommand extends AmplifyCommand {
   }) async {
     for (final package in selectedPackages) {
       final files = await Directory(p.join(package.path, integrationTestPath))
-          .list(
-            recursive: true,
-          )
+          .list(recursive: true)
           .toList();
 
       for (final file in files) {
         if (file.path.endsWith(testFileSuffix)) {
           final fileName = p.basename(file.path);
-          await executeProcess(
-            PackageFlavor.flutter,
-            device != null
-                ? getFlutterTestArgs(
-                    deviceId: device.id,
-                    testPath: fileName,
-                  )
-                : getFlutterDriverArgs(testPath: fileName),
-            package: package,
-          ).then((result) {
+
+          try {
+            final result = await executeProcess(
+              PackageFlavor.flutter,
+              device != null
+                  ? getFlutterTestArgs(
+                      deviceId: device.id,
+                      testPath: fileName,
+                    )
+                  : getFlutterDriverArgs(testPath: fileName),
+              package: package,
+            );
             resultIterator(
               result,
               package,
               fileName,
             );
-            // );
-          }).onError((error, _) {
+          } on Exception catch (error) {
             folio
                 .reportByFile(package, fileName)
-                .exceptions
+                ?.exceptions
                 .add('\n$fileName test run failed: $error');
-          });
+          }
         }
       }
     }

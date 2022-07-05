@@ -16,14 +16,14 @@ import 'package:aft/src/models.dart';
 import 'package:interact/interact.dart';
 
 Future<List<PackageInfo>> selectPackages(
-    List<PackageInfo> testablePackages) async {
+  List<PackageInfo> testablePackages,
+) async {
   final packageSelections =
       testablePackages.map((package) => package.name).toList();
 
   final packagePrompt = MultiSelect(
     prompt: 'Select packages (use spacebar to select)',
     options: packageSelections,
-    // defaults: packageSelections.map((i) => true).toList(),
   ).interact();
 
   final selectedPackages =

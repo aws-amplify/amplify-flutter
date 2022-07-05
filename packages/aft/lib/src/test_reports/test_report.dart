@@ -17,21 +17,15 @@ import 'package:aft/src/models.dart';
 /// Encapsulates test information for display in the terminal
 abstract class TestReport {
   TestReport(
-    this._package,
-    this._fileName,
+    this.package,
+    this.fileName,
   );
 
   /// The file under test
-  final String _fileName;
-  String get fileName {
-    return _fileName;
-  }
+  final String fileName;
 
   /// The package under test
-  final PackageInfo _package;
-  PackageInfo get package {
-    return _package;
-  }
+  final PackageInfo package;
 
   /// Displays non-zero exit code messages or other exceptions that are not simply test failures
   List<String> exceptions = [];

@@ -18,20 +18,16 @@ import 'dart:io';
 
 import 'package:aft/aft.dart';
 
-/// Starts a flutter [Process]
+/// Runs the `flutter` command from the root of [package], using the provided [args],
+/// and returns the decoded output.
 ///
-/// Passes [args] directly to [Process.start]
-/// Passes [package] to the [Process.start] workingDirectory parameter,
-/// after navigating to the amplify-flutter packages directory and appending "/example"
-/// Uses [printStream] to determine whether the events should be added to [stdout].
+/// If [printStream] is `true`, the output of the command will be piped to [stdout].
 Future<String> executeProcess(
   PackageFlavor flavor,
   List<String> args, {
   PackageInfo? package,
   bool printStream = true,
 }) async {
-  stderr.write('Running "flutter ${args.join(' ')}".\n');
-
   final output = <int>[];
   final completer = Completer<int>();
   final process = await Process.start(
@@ -53,7 +49,7 @@ Future<String> executeProcess(
 
   final exitCode = await completer.future;
   if (exitCode != 0) {
-    stderr.write('flutter ${args.join(' ')} failed with exit code $exitCode');
+    stderr.writeln('flutter ${args.join(' ')} failed with exit code $exitCode');
   }
   return Future<String>.value(utf8.decoder.convert(output).trim());
 }

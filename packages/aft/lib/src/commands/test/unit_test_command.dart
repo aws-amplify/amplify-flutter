@@ -16,6 +16,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/test_reports/print_results.dart';
 import 'package:aft/src/test_reports/test_report_folio.dart';
 import 'package:aft/src/test_reports/test_report_scored.dart';
 import 'package:aft/src/utils/constants.dart';
@@ -33,7 +34,9 @@ class UnitTestCommand extends AmplifyCommand {
   String get name => 'unit';
 
   @override
-  Future<TestReportFolio> run() async {
+  Future<void> run() async {
+    final args = argResults!;
+    final verbose = args['verbose'] as bool;
     final packages = await allPackages;
 
     final testablePackages = packages
@@ -69,7 +72,7 @@ class UnitTestCommand extends AmplifyCommand {
 
       await _executeTest(package, folio);
     }
-    return folio;
+    printResults(folio, verbose);
   }
 
   Future<void> _executeTest(
@@ -80,7 +83,6 @@ class UnitTestCommand extends AmplifyCommand {
     switch (package.flavor) {
       case PackageFlavor.flutter:
         flutterTest(
-          // arguments: [relativePath],
           workingDirectory: package.path,
         ).listen(
           _onData(
@@ -92,7 +94,6 @@ class UnitTestCommand extends AmplifyCommand {
         break;
       case PackageFlavor.dart:
         dartTest(
-          // arguments: [relativePath],
           workingDirectory: package.path,
         ).listen(
           _onData(
@@ -121,7 +122,7 @@ class UnitTestCommand extends AmplifyCommand {
               'testing ${package.name}: ${testStartEvent.test.name}...',
             );
             final fileName = p.basename(url);
-            folio.reportByFile(package, fileName).testId =
+            folio.reportByFile(package, fileName)?.testId =
                 testStartEvent.test.id;
           }
           break;

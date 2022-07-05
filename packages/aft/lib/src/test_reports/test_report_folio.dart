@@ -20,6 +20,7 @@ import 'package:aft/src/test_reports/test_report_scored.dart';
 import 'package:aft/src/test_reports/test_score.dart';
 import 'package:aft/src/utils/constants.dart';
 import 'package:aft/src/utils/emphasize_text.dart';
+import 'package:collection/collection.dart';
 
 import 'test_report.dart';
 
@@ -91,8 +92,8 @@ class TestReportFolio {
     return fileNames;
   }
 
-  TestReport reportByFile(PackageInfo package, String fileName) {
-    return testReports.firstWhere(
+  TestReport? reportByFile(PackageInfo package, String fileName) {
+    return testReports.firstWhereOrNull(
       (report) => report.package == package && report.fileName == fileName,
     );
   }
@@ -101,15 +102,9 @@ class TestReportFolio {
   ///
   /// Will only return a report for Flutter or Dart unit tests.
   TestReport? reportByTestId(PackageInfo package, int testId) {
-    TestReport? report;
-    try {
-      report = testReports.firstWhere(
-        (report) => report.package == package && report.testId == testId,
-      );
-    } on StateError {
-      // no-op
-    }
-    return report;
+    return testReports.firstWhereOrNull(
+      (report) => report.package == package && report.testId == testId,
+    );
   }
 
   /// Returns a readable test result string for the entire folio

@@ -13,19 +13,18 @@
 // limitations under the License.
 
 import 'package:aft/aft.dart';
-import 'package:args/command_runner.dart';
 
-Future<void> main(List<String> args) async {
-  final runner = CommandRunner<void>('aft', 'Amplify Flutter repo tools')
-    ..argParser.addFlag(
-      'verbose',
-      abbr: 'v',
-      help: 'Prints verbose logs',
-      defaultsTo: false,
-    )
-    ..addCommand(GenerateSdkCommand())
-    ..addCommand(ListPackagesCommand())
-    ..addCommand(DepsCommand())
-    ..addCommand(TestCommand());
-  await runner.run(args);
+/// Top-level command for running Flutter, Dart and integration tests.
+class TestCommand extends AmplifyCommand {
+  TestCommand() {
+    addSubcommand(UnitTestCommand());
+    addSubcommand(IntegrationTestCommand());
+  }
+
+  @override
+  String get description =>
+      'Top-level command for running Flutter, Dart and integration tests.';
+
+  @override
+  String get name => 'test';
 }

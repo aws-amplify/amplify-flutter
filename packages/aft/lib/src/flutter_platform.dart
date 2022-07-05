@@ -24,9 +24,7 @@ enum FlutterPlatform {
     'Android',
   ),
   ios(
-    [
-      'ios',
-    ],
+    ['ios'],
     'iOS',
   ),
   linux(
@@ -37,21 +35,15 @@ enum FlutterPlatform {
     'Linux',
   ),
   macos(
-    [
-      'darwin',
-    ],
+    ['darwin'],
     'MacOS',
   ),
   windows(
-    [
-      'windows-x64',
-    ],
+    ['windows-x64'],
     'Windows',
   ),
   web(
-    [
-      'web-javascript',
-    ],
+    ['web-javascript'],
     'Web',
   );
 
