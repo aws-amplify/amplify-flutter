@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/src/models/authenticator_theme.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,10 +24,12 @@ class InheritedConfig extends InheritedWidget {
     required this.amplifyConfig,
     required this.padding,
     required Widget child,
+    this.authenticatorTheme,
   }) : super(key: key, child: child);
 
   final AmplifyConfig? amplifyConfig;
   final EdgeInsets padding;
+  final AuthenticatorTheme? authenticatorTheme;
 
   static InheritedConfig of(BuildContext context) {
     final inheritedConfig =

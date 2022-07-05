@@ -15,6 +15,7 @@
 
 import 'package:amplify_authenticator/src/enums/status_type.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:flutter/material.dart';
 
 /// Creates an Authenticator-themed Material banner.
@@ -24,17 +25,24 @@ MaterialBanner createMaterialBanner(
   required Widget content,
   required List<Widget> actions,
 }) {
-  final margin = MediaQuery.of(context).viewPadding.top;
+  final authenticatorTheme = InheritedConfig.of(context).authenticatorTheme;
+  final bannerTheme = type == StatusType.success
+      ? authenticatorTheme?.successBannerThemeData
+      : type == StatusType.info
+          ? authenticatorTheme?.infoBannerThemeData
+          : authenticatorTheme?.errorBannerThemeData;
+  final textStyle = bannerTheme?.contentTextStyle;
 
   return MaterialBanner(
     key: keyAuthenticatorBanner,
+    elevation: bannerTheme?.elevation,
+    backgroundColor: bannerTheme?.backgroundColor,
+    leadingPadding: bannerTheme?.leadingPadding,
     leading: Icon(type.icon),
-    padding: EdgeInsetsDirectional.only(
-      start: 16.0,
-      top: 2.0 + margin,
-      bottom: 4.0,
-    ),
-    content: content,
+    padding: bannerTheme?.padding,
+    content: textStyle != null
+        ? DefaultTextStyle(style: textStyle, child: content)
+        : content,
     actions: actions,
   );
 }

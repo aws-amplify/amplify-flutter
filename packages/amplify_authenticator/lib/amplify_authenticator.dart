@@ -28,6 +28,7 @@ import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/models/authenticator_builder.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
+import 'package:amplify_authenticator/src/models/authenticator_theme.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
@@ -54,6 +55,7 @@ export 'package:amplify_flutter/amplify_flutter.dart'
 export 'src/enums/enums.dart' show AuthenticatorStep, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
+export 'src/models/authenticator_theme.dart';
 export 'src/models/username_input.dart'
     show UsernameType, UsernameInput, UsernameSelection;
 export 'src/state/authenticator_state.dart';
@@ -316,6 +318,7 @@ class Authenticator extends StatefulWidget {
     this.initialStep = AuthenticatorStep.signIn,
     this.authenticatorBuilder,
     this.padding = const EdgeInsets.all(32),
+    this.theme,
   }) : super(key: key) {
     // ignore: prefer_asserts_with_message
     assert(() {
@@ -432,6 +435,9 @@ class Authenticator extends StatefulWidget {
   /// AuthenticatorStep.onboarding should only be used with a custom builder
   /// method.
   final AuthenticatorStep initialStep;
+
+  /// {@macro amplify_authenticator.authenticator_theme}
+  final AuthenticatorTheme? theme;
 
   @override
   State<Authenticator> createState() => _AuthenticatorState();
@@ -656,6 +662,7 @@ class _AuthenticatorState extends State<Authenticator> {
       child: InheritedConfig(
         amplifyConfig: _config,
         padding: widget.padding,
+        authenticatorTheme: widget.theme,
         child: InheritedAuthenticatorState(
           key: keyInheritedAuthenticatorState,
           state: _authenticatorState,
@@ -778,6 +785,7 @@ class _AuthenticatorBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = InheritedConfig.of(context).authenticatorTheme;
     return _AuthStateBuilder(
       child: child,
       builder: (state, child) {
@@ -789,11 +797,14 @@ class _AuthenticatorBody extends StatelessWidget {
               MaterialPage<void>(
                 child: ScaffoldMessenger(
                   key: _AuthenticatorState.scaffoldMessengerKey,
-                  child: Scaffold(
-                    body: SizedBox.expand(
-                      child: child is AuthenticatorScreen
-                          ? SingleChildScrollView(child: child)
-                          : child,
+                  child: Theme(
+                    data: theme?.toTheme(context) ?? Theme.of(context),
+                    child: Scaffold(
+                      body: SizedBox.expand(
+                        child: child is AuthenticatorScreen
+                            ? SingleChildScrollView(child: child)
+                            : child,
+                      ),
                     ),
                   ),
                 ),
@@ -821,6 +832,7 @@ class AuthenticatedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = InheritedConfig.of(context).authenticatorTheme;
     return _AuthStateBuilder(
       child: child,
       builder: (state, child) {
@@ -829,11 +841,14 @@ class AuthenticatedView extends StatelessWidget {
         }
         return ScaffoldMessenger(
           key: _AuthenticatorState.scaffoldMessengerKey,
-          child: Scaffold(
-            body: SizedBox.expand(
-              child: child is AuthenticatorScreen
-                  ? SingleChildScrollView(child: child)
-                  : child,
+          child: Theme(
+            data: theme?.toTheme(context) ?? Theme.of(context),
+            child: Scaffold(
+              body: SizedBox.expand(
+                child: child is AuthenticatorScreen
+                    ? SingleChildScrollView(child: child)
+                    : child,
+              ),
             ),
           ),
         );
