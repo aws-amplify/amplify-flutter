@@ -18,7 +18,6 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
-import 'package:http/http.dart' as http;
 
 import 'amplify_class_impl.dart';
 
@@ -52,8 +51,6 @@ abstract class AmplifyClass {
   final AmplifyHub Hub = AmplifyHub();
 
   final _configCompleter = Completer<AmplifyConfig>();
-
-  final Map<String, AmplifyAuthProvider> _authProviders = {};
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
