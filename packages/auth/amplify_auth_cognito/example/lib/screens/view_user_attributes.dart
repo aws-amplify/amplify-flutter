@@ -102,19 +102,20 @@ class _ViewUserAttributesScreenState extends State<ViewUserAttributesScreen> {
               child: ListView.builder(
                 itemCount: _userAttributes.length,
                 itemBuilder: (context, index) {
-                  AuthUserAttribute atrribute = _userAttributes[index];
+                  AuthUserAttribute attribute = _userAttributes[index];
                   CognitoUserAttributeKey userAttributeKey =
-                      atrribute.userAttributeKey as CognitoUserAttributeKey;
-                  String value = atrribute.value;
+                      attribute.userAttributeKey as CognitoUserAttributeKey;
+                  String value = attribute.value;
                   return ListTile(
-                    title: Text(userAttributeKey.toString()),
+                    title: Text(userAttributeKey.key),
                     subtitle: Text(value),
                     trailing: userAttributeKey.readOnly
                         ? null
                         : IconButton(
                             icon: const Icon(Icons.edit),
                             onPressed: () => context.push(
-                              '/update-user-attribute/$userAttributeKey',
+                              '/update-user-attribute',
+                              extra: userAttributeKey,
                             ),
                           ),
                   );

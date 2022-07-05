@@ -54,7 +54,8 @@ export 'package:amplify_flutter/amplify_flutter.dart'
 export 'src/enums/enums.dart' show AuthenticatorStep, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
-export 'src/models/username_input.dart' show UsernameType, UsernameInput;
+export 'src/models/username_input.dart'
+    show UsernameType, UsernameInput, UsernameSelection;
 export 'src/state/authenticator_state.dart';
 export 'src/widgets/button.dart'
     show
@@ -490,6 +491,7 @@ class _AuthenticatorState extends State<Authenticator> {
       if (onException != null) {
         onException(exception);
       } else {
+        // TODO(dnys1): Log
         safePrint('[ERROR]: $exception');
       }
       if (mounted && exception.showBanner) {
@@ -504,6 +506,7 @@ class _AuthenticatorState extends State<Authenticator> {
   void _subscribeToInfoMessages() {
     final resolver = widget.stringResolver.messages;
     _infoSub = _stateMachineBloc.infoMessages.listen((key) {
+      // TODO(dnys1): Log
       final context = scaffoldMessengerKey.currentContext;
       if (mounted && context != null) {
         _showExceptionBanner(

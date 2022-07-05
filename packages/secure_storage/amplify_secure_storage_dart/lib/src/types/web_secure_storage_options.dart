@@ -27,7 +27,7 @@ abstract class WebSecureStorageOptions
   /// {@macro amplify_secure_storage_dart.web_secure_storage_options}
   factory WebSecureStorageOptions({
     String? databaseName,
-    WebPersistenceOption persistenceOption = WebPersistenceOption.inMemory,
+    WebPersistenceOption persistenceOption = WebPersistenceOption.indexedDB,
   }) =>
       _$WebSecureStorageOptions._(
         databaseName: databaseName,
@@ -60,7 +60,9 @@ class WebPersistenceOption extends EnumClass {
   // ignore: use_super_parameters
   const WebPersistenceOption._(String name) : super(name);
 
-  /// Data will be stored in memory and will never written to disk.
+  /// **NOTE**: Hosted UI is not supported for this option, currently.
+  ///
+  /// Data will be stored in memory and will never be written to disk.
   ///
   /// Data will not be shared across tabs or windows, and all
   /// data will be lost when the window is closed or page is

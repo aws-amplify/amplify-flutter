@@ -101,6 +101,7 @@ Map<String, dynamic> _$CognitoAuthConfigToJson(CognitoAuthConfig instance) {
 
 const _$AuthenticationFlowTypeEnumMap = {
   AuthenticationFlowType.userSrpAuth: 'USER_SRP_AUTH',
+  AuthenticationFlowType.userPasswordAuth: 'USER_PASSWORD_AUTH',
   AuthenticationFlowType.customAuth: 'CUSTOM_AUTH',
 };
 

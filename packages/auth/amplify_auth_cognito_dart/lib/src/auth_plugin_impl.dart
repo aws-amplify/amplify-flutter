@@ -452,6 +452,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
                 state.challengeParameters,
               ),
               challengeParameters: state.challengeParameters,
+              missingAttributes: state.requiredAttributes,
             ),
           );
         case SignInStateType.success:

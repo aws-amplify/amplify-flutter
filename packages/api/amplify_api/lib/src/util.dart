@@ -18,12 +18,15 @@ import 'package:meta/meta.dart';
 /// Sets the 'Content-Type' of headers to match the [HttpPayload] body.
 @internal
 Map<String, String>? addContentTypeToHeaders(
-    Map<String, String>? headers, HttpPayload? body) {
-  var modifiedHeaders = headers != null ? Map.of(headers) : null;
+  Map<String, String>? headers,
+  HttpPayload? body,
+) {
   final contentType = body?.contentType;
-  if (contentType != null) {
-    modifiedHeaders = modifiedHeaders ?? {};
-    modifiedHeaders.putIfAbsent(AWSHeaders.contentType, () => contentType);
+  if (contentType == null) {
+    return headers;
   }
+  // Create new map to avoid modifying input headers which may be unmodifiable.
+  final modifiedHeaders = Map<String, String>.of(headers ?? {});
+  modifiedHeaders.putIfAbsent(AWSHeaders.contentType, () => contentType);
   return modifiedHeaders;
 }

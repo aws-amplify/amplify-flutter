@@ -19,6 +19,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'envs/auth_with_email.dart' as auth_with_email;
 import 'envs/auth_with_email_lambda_signup_trigger.dart'
     as auth_with_email_lambda_signup_trigger;
+import 'envs/auth_with_email_or_phone.dart' as auth_with_email_or_phone;
 import 'envs/auth_with_phone.dart' as auth_with_phone;
 import 'envs/auth_with_username.dart' as auth_with_username;
 import 'pages/test_utils.dart';
@@ -38,6 +39,7 @@ const environmentsByConfiguration = {
       'auth-with-email-lambda-signup-trigger',
   'ui/components/authenticator/reset-password': 'auth-with-username',
   'ui/components/authenticator/verify-user': 'auth-with-email',
+  'email-or-phone': 'auth-with-email-or-phone'
 };
 
 const environments = {
@@ -46,6 +48,7 @@ const environments = {
   'auth-with-username': auth_with_username.amplifyconfig,
   'auth-with-email-lambda-signup-trigger':
       auth_with_email_lambda_signup_trigger.amplifyconfig,
+  'auth-with-email-or-phone': auth_with_email_or_phone.amplifyconfig,
 };
 
 Future<void> loadConfiguration(String configurationName,

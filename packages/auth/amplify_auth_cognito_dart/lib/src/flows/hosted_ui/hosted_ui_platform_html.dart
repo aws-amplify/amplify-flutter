@@ -15,7 +15,6 @@
 import 'dart:html';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_auth_cognito_dart/src/crypto/oauth.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:path/path.dart' show url;
 
@@ -53,30 +52,6 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   /// Launches the given URL.
   Future<void> launchUrl(String url) async {
     window.open(url, '_self');
-  }
-
-  @override
-  Future<void> onFoundState({
-    required String state,
-    required String codeVerifier,
-  }) async {
-    authCodeGrant = restoreGrant(
-      config,
-      state: state,
-      codeVerifier: codeVerifier,
-      httpClient: httpClient,
-    );
-
-    final parameters = dependencyManager.get<OAuthParameters>();
-    if (parameters != null) {
-      dispatcher.dispatch(HostedUiEvent.exchange(parameters));
-      return;
-    }
-
-    return super.onFoundState(
-      state: state,
-      codeVerifier: codeVerifier,
-    );
   }
 
   @override

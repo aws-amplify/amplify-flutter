@@ -22,7 +22,8 @@ import 'package:meta/meta.dart';
 /// Implementation of http [http.Client] that authorizes HTTP requests with
 /// Amplify.
 @internal
-class AmplifyAuthorizationRestClient extends http.BaseClient {
+class AmplifyAuthorizationRestClient extends http.BaseClient
+    implements Closeable {
   /// Determines how requests with this client are authorized.
   final AWSApiConfig endpointConfig;
   final http.Client _baseClient;

@@ -46,7 +46,7 @@ internal class AmplifyHostedUiPluginTest {
         val handler = argumentCaptor<BinaryMessenger.BinaryMessageHandler>()
         verify(
             binaryMessenger,
-            times(3)
+            times(4)
         ).setMessageHandler(anyString(), handler.capture())
 
         val codec = NativeAuthPluginBindings.NativeAuthBridge.getCodec()
@@ -84,7 +84,7 @@ internal class AmplifyHostedUiPluginTest {
         val handler = argumentCaptor<BinaryMessenger.BinaryMessageHandler>()
         verify(
             binaryMessenger,
-            times(3)
+            times(4)
         ).setMessageHandler(anyString(), handler.capture())
 
         val codec = NativeAuthPluginBindings.NativeAuthBridge.getCodec()

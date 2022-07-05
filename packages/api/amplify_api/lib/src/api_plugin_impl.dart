@@ -181,9 +181,8 @@ class AmplifyAPIDart extends AmplifyAPI {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getRestClient(apiName: apiName);
     return _prepareRestResponse(
-      AWSHttpRequest(
-        method: AWSHttpMethod.head,
-        uri: uri,
+      AWSHttpRequest.head(
+        uri,
         headers: headers,
       ).send(client),
     );

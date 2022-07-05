@@ -50,13 +50,21 @@ class CognitoSignUpOptions extends SignUpOptions {
   ///   - **and** users sign up with a chosen username or email
   CognitoSignUpOptions({
     Map<CognitoUserAttributeKey, String> userAttributes = const {},
-    this.validationData,
-    this.clientMetadata,
-  }) : super(
+    Map<String, String>? validationData,
+    Map<String, String>? clientMetadata,
+  }) : this._(
           userAttributes: (Map.of(userAttributes)
                 ..removeWhere((key, value) => key.readOnly))
               .map((attribute, value) => MapEntry(attribute.key, value)),
+          validationData: validationData,
+          clientMetadata: clientMetadata,
         );
+
+  CognitoSignUpOptions._({
+    required super.userAttributes,
+    this.validationData,
+    this.clientMetadata,
+  });
 
   /// An optional map of arbitrary key-value pairs which will be passed to your
   /// PreAuthentication Lambda trigger as-is, used for implementing additional
@@ -76,4 +84,23 @@ class CognitoSignUpOptions extends SignUpOptions {
         'userAttributes': userAttributes,
         if (clientMetadata != null) 'clientMetadata': clientMetadata
       };
+
+  /// Creates a copy of `this` with the given parameters overridden.
+  CognitoSignUpOptions copyWith({
+    Map<CognitoUserAttributeKey, String>? userAttributes,
+    Map<String, String>? validationData,
+    Map<String, String>? clientMetadata,
+  }) {
+    return userAttributes != null
+        ? CognitoSignUpOptions(
+            userAttributes: userAttributes,
+            clientMetadata: clientMetadata ?? this.clientMetadata,
+            validationData: validationData ?? this.validationData,
+          )
+        : CognitoSignUpOptions._(
+            userAttributes: this.userAttributes,
+            clientMetadata: clientMetadata ?? this.clientMetadata,
+            validationData: validationData ?? this.validationData,
+          );
+  }
 }
