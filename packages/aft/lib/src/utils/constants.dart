@@ -13,6 +13,6 @@
 // limitations under the License.
 
 // Tests
-const testsPassed = 'All tests passed!';
-const testsFailed = 'Some tests failed!';
+const testsPassed = 'All tests passed.';
+const testsFailed = 'Some tests failed.';
 const testFileSuffix = '_test.dart';

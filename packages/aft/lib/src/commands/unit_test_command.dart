@@ -18,6 +18,7 @@ import 'dart:io';
 import 'package:aft/aft.dart';
 import 'package:aft/src/test_reports/test_report_folio.dart';
 import 'package:aft/src/test_reports/test_report_scored.dart';
+import 'package:aft/src/utils/constants.dart';
 import 'package:aft/src/utils/emphasize_text.dart';
 import 'package:aft/src/utils/select_packages.dart';
 import 'package:path/path.dart' as p;
@@ -55,11 +56,11 @@ class UnitTestCommand extends AmplifyCommand {
           .list(
             recursive: true,
           )
-          .where((f) => f.path.endsWith('_test.dart'))
+          .where((f) => f.path.endsWith(testFileSuffix))
           .toList();
 
       for (final file in files) {
-        if (file.path.endsWith('_test.dart')) {
+        if (file.path.endsWith(testFileSuffix)) {
           folio.testReports.add(
             TestReportScored(package, p.basename(file.path)),
           );
