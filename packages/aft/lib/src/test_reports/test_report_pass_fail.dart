@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:aft/src/test_reports/test_report.dart';
+import 'package:aft/src/utils/constants.dart';
 import 'package:aft/src/utils/emphasize_text.dart';
 
 /// Subclass of [TestReport] for tests which do not emit specific quantities
@@ -27,7 +28,7 @@ class TestReportPassFail extends TestReport {
 
   String get testResultMessage {
     return allPassed
-        ? formatSuccess('All tests passed!')
-        : formatException('Some tests failed.');
+        ? formatSuccess(testsPassed)
+        : formatException(testsFailed);
   }
 }
