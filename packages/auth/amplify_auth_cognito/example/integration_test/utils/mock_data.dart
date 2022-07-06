@@ -13,16 +13,26 @@
 // permissions and limitations under the License.
 //
 
+import 'dart:math';
+
 import 'package:uuid/uuid.dart';
 
 final uuid = Uuid();
+final random = Random();
 
+const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
+const digits = '1234567890';
+const symbols = '~/`!@#\$%^&\\"\'*(),._?:;{}|<>';
 final String mockPhoneNumber = '+15555551234';
 
 String generateEmail() =>
     'test-amplify-flutter-${uuid.v4()}@test${uuid.v4()}.com';
 
-String generatePassword() => uuid.v4();
+String generatePassword() =>
+    uuid.v4() +
+    uppercaseLetters[random.nextInt(uppercaseLetters.length)] +
+    symbols[random.nextInt(symbols.length)];
 
 String generateUsername() => 'TEMP_USER-${uuid.v4()}';
 
