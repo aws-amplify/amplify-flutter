@@ -61,7 +61,7 @@ void printResults(TestReportFolio folio, bool verbose) {
           }
         }
       }
-      if (folio.packegesWithExitExceptions.contains(package)) {
+      if (folio.packagesWithExitExceptions.contains(package)) {
         stdout.writeln(
           formatException(
             '${package.name} exited with non-zero exit code.',

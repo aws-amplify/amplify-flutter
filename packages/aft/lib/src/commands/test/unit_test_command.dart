@@ -35,8 +35,6 @@ class UnitTestCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
-    final args = argResults!;
-    final verbose = args['verbose'] as bool;
     final packages = await allPackages;
 
     final testablePackages = packages
@@ -155,7 +153,7 @@ class UnitTestCommand extends AmplifyCommand {
         case ExitTestEvent:
           final exitTestEvent = event as ExitTestEvent;
           if (exitTestEvent.exitCode != 0) {
-            folio.packegesWithExitExceptions.add(package);
+            folio.packagesWithExitExceptions.add(package);
           }
           completer.complete();
           break;

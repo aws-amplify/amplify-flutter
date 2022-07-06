@@ -41,7 +41,7 @@ class TestReportFolio {
   final List<TestReport> testReports = [];
 
   /// Packages within the folio with test runs that exited with non-zero code
-  final List<PackageInfo> packegesWithExitExceptions = [];
+  final List<PackageInfo> packagesWithExitExceptions = [];
 
   List<TestReport> reportsByPackage(PackageInfo package) {
     final reports =

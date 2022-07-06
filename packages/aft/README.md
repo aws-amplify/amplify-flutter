@@ -7,3 +7,4 @@ A CLI tool for managing the Amplify Flutter repository.
 - `deps check`: Checks dependencies of all packages against `deps.yaml`
 - `generate-sdk`: Generates the AWS SDK for a given package
 - `list`: Lists all packages in the repo
+- 'test' Runs unit and integration tests. Arguments include `unit`, `integ` and `-v`.

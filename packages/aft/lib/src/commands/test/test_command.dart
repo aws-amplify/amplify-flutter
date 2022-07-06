@@ -13,6 +13,8 @@
 // limitations under the License.
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/commands/test/integration_test_command.dart';
+import 'package:aft/src/commands/test/unit_test_command.dart';
 
 /// Top-level command for running Flutter, Dart and integration tests.
 class TestCommand extends AmplifyCommand {

@@ -52,8 +52,6 @@ class IntegrationTestCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
-    final args = argResults!;
-    final verbose = args['verbose'] as bool;
     final selectedDevice = await _selectDevice();
     if (selectedDevice == null) {
       stderr
@@ -76,11 +74,12 @@ class IntegrationTestCommand extends AmplifyCommand {
         )
         .toList();
 
-    final selectedPackages = await selectPackages(testablePackages);
-
-    if (selectedPackages.isEmpty) {
-      stderr.writeln(formatException('You did not select any tests.'));
-      exit(1);
+    var selectedPackages = <PackageInfo>[];
+    while (selectedPackages.isEmpty) {
+      selectedPackages = await selectPackages(testablePackages);
+      if (selectedPackages.isEmpty) {
+        stderr.writeln(formatException('Select at least one set of tests.'));
+      }
     }
 
     switch (selectedDevice.platform) {
