@@ -157,6 +157,8 @@ void main() {
 
       /// Then I see "Sign out"
       await signInPage.expectAuthenticated();
+
+      await signInPage.submitSignOut();
     });
 
     // Scenario: Sign in with confirmed credentials then sign out
