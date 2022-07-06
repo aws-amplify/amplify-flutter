@@ -47,11 +47,13 @@ class SignInPage extends AuthenticatorPage {
   /// When I type a new "username"
   Future<void> enterUsername(String username) async {
     await tester.enterText(usernameField, username);
+    await tester.pumpAndSettle();
   }
 
   /// When I type my password
   Future<void> enterPassword(String password) async {
     await tester.enterText(passwordField, password);
+    await tester.pumpAndSettle();
   }
 
   /// When I click the "Sign In" button
