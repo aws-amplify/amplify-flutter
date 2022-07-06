@@ -161,46 +161,45 @@ void main() {
       await confirmSignInPage.expectConfirmSignInNewPasswordIsPresent();
       confirmSignInPage.expectNewPasswordIsPresent();
     });
+  });
 
-    testWidgets(
-        'Sign in with confirmed credentials after a failed attempt with bad credentials',
-        (tester) async {
-      final username = generateUsername();
-      final password = generatePassword();
-      await adminCreateUser(
-        username,
-        password,
-        autoConfirm: true,
-        verifyAttributes: true,
-      );
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
-      SignInPage signInPage = SignInPage(tester: tester);
+  testWidgets(
+      'Sign in with confirmed credentials after a failed attempt with bad credentials',
+      (tester) async {
+    final username = generateUsername();
+    final password = generatePassword();
+    await adminCreateUser(
+      username,
+      password,
+      autoConfirm: true,
+      verifyAttributes: true,
+    );
+    await loadAuthenticator(tester: tester, authenticator: authenticator);
+    SignInPage signInPage = SignInPage(tester: tester);
+    signInPage.expectUsername();
 
-      signInPage.expectUsername();
+    // When I type my "username"
+    await signInPage.enterUsername('bad_username');
 
-      // When I type my "username"
-      await signInPage.enterUsername('bad_username');
+    // And I type my bad password
+    await signInPage.enterPassword(password);
 
-      // And I type my bad password
-      await signInPage.enterPassword(password);
+    // And I click the "Sign in" button
+    await signInPage.submitSignIn();
 
-      // And I click the "Sign in" button
-      await signInPage.submitSignIn();
+    /// Then I see UserNotFound exception banner
+    await signInPage.expectUserNotFound();
 
-      /// Then I see UserNotFound exception banner
-      await signInPage.expectUserNotFound();
+    // Then I type the correct username
+    await signInPage.enterUsername(username);
 
-      // Then I type the correct username
-      await signInPage.enterUsername(username);
+    // Then I type the correct password
+    await signInPage.enterPassword(password);
 
-      // Then I type the correct password
-      await signInPage.enterPassword(password);
+    // And I click the "Sign in" button
+    await signInPage.submitSignIn();
 
-      // And I click the "Sign in" button
-      await signInPage.submitSignIn();
-
-      // Then I am signed in
-      await signInPage.expectAuthenticated();
-    });
+    // Then I am signed in
+    await signInPage.expectAuthenticated();
   });
 }
