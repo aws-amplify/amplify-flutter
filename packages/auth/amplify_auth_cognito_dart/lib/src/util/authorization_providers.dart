@@ -23,22 +23,27 @@ import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
+/// [AmplifyAuthProvider] implementation that signs a request using AWS credentials
+/// from `Amplify.Auth.fetchAuthSession()`.
 class AWSIamAuthProvider extends AmplifyAuthProvider {
   @override
-  Future<http.BaseRequest> authorizeRequest(http.BaseRequest request,
-      {HttpRequestTransformOptions? options}) async {
+  Future<http.BaseRequest> authorizeRequest(
+    http.BaseRequest request, {
+    HttpRequestTransformOptions? options,
+  }) async {
     if (options == null) {
       throw const AuthException(
         'Unable to authorize request with IAM. No region or service provided.',
       );
     }
     final authSession = await Amplify.Auth.fetchAuthSession(
-            options: const CognitoSessionOptions(getAWSCredentials: true))
-        as CognitoAuthSession;
+      options: const CognitoSessionOptions(getAWSCredentials: true),
+    ) as CognitoAuthSession;
     final credentials = authSession.credentials;
     if (credentials == null) {
       throw const ApiException(
-          'No AWS credentials found for IAM authorization');
+        'No AWS credentials found for IAM authorization',
+      );
     }
 
     final signedRequest = await _generateAWSSignedRequest(
