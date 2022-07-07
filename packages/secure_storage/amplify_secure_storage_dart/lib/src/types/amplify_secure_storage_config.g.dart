@@ -24,9 +24,6 @@ class _$AmplifySecureStorageConfigSerializer
       Serializers serializers, AmplifySecureStorageConfig object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'scope',
-      serializers.serialize(object.scope,
-          specifiedType: const FullType(String)),
       'webOptions',
       serializers.serialize(object.webOptions,
           specifiedType: const FullType(WebSecureStorageOptions)),
@@ -43,7 +40,21 @@ class _$AmplifySecureStorageConfigSerializer
       serializers.serialize(object.iOSOptions,
           specifiedType: const FullType(IOSSecureStorageOptions)),
     ];
-
+    Object? value;
+    value = object.namespace;
+    if (value != null) {
+      result
+        ..add('namespace')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.scope;
+    if (value != null) {
+      result
+        ..add('scope')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -59,9 +70,13 @@ class _$AmplifySecureStorageConfigSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
+        case 'namespace':
+          result.namespace = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'scope':
           result.scope = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'webOptions':
           result.webOptions.replace(serializers.deserialize(value,
@@ -97,7 +112,9 @@ class _$AmplifySecureStorageConfigSerializer
 
 class _$AmplifySecureStorageConfig extends AmplifySecureStorageConfig {
   @override
-  final String scope;
+  final String? namespace;
+  @override
+  final String? scope;
   @override
   final WebSecureStorageOptions webOptions;
   @override
@@ -114,15 +131,14 @@ class _$AmplifySecureStorageConfig extends AmplifySecureStorageConfig {
       (new AmplifySecureStorageConfigBuilder()..update(updates))._build();
 
   _$AmplifySecureStorageConfig._(
-      {required this.scope,
+      {this.namespace,
+      this.scope,
       required this.webOptions,
       required this.windowsOptions,
       required this.linuxOptions,
       required this.macOSOptions,
       required this.iOSOptions})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        scope, r'AmplifySecureStorageConfig', 'scope');
     BuiltValueNullFieldError.checkNotNull(
         webOptions, r'AmplifySecureStorageConfig', 'webOptions');
     BuiltValueNullFieldError.checkNotNull(
@@ -148,6 +164,7 @@ class _$AmplifySecureStorageConfig extends AmplifySecureStorageConfig {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AmplifySecureStorageConfig &&
+        namespace == other.namespace &&
         scope == other.scope &&
         webOptions == other.webOptions &&
         windowsOptions == other.windowsOptions &&
@@ -161,7 +178,9 @@ class _$AmplifySecureStorageConfig extends AmplifySecureStorageConfig {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, scope.hashCode), webOptions.hashCode),
+                $jc(
+                    $jc($jc($jc(0, namespace.hashCode), scope.hashCode),
+                        webOptions.hashCode),
                     windowsOptions.hashCode),
                 linuxOptions.hashCode),
             macOSOptions.hashCode),
@@ -171,6 +190,7 @@ class _$AmplifySecureStorageConfig extends AmplifySecureStorageConfig {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'AmplifySecureStorageConfig')
+          ..add('namespace', namespace)
           ..add('scope', scope)
           ..add('webOptions', webOptions)
           ..add('windowsOptions', windowsOptions)
@@ -185,6 +205,10 @@ class AmplifySecureStorageConfigBuilder
     implements
         Builder<AmplifySecureStorageConfig, AmplifySecureStorageConfigBuilder> {
   _$AmplifySecureStorageConfig? _$v;
+
+  String? _namespace;
+  String? get namespace => _$this._namespace;
+  set namespace(String? namespace) => _$this._namespace = namespace;
 
   String? _scope;
   String? get scope => _$this._scope;
@@ -225,6 +249,7 @@ class AmplifySecureStorageConfigBuilder
   AmplifySecureStorageConfigBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _namespace = $v.namespace;
       _scope = $v.scope;
       _webOptions = $v.webOptions.toBuilder();
       _windowsOptions = $v.windowsOptions.toBuilder();
@@ -255,8 +280,8 @@ class AmplifySecureStorageConfigBuilder
     try {
       _$result = _$v ??
           new _$AmplifySecureStorageConfig._(
-              scope: BuiltValueNullFieldError.checkNotNull(
-                  scope, r'AmplifySecureStorageConfig', 'scope'),
+              namespace: namespace,
+              scope: scope,
               webOptions: webOptions.build(),
               windowsOptions: windowsOptions.build(),
               linuxOptions: linuxOptions.build(),
