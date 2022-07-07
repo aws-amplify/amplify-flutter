@@ -23,24 +23,28 @@ import '../util.dart';
 import 'graphql_response_decoder.dart';
 
 @internal
-Future<GraphQLResponse<T>> GraphQLSendRequest<T>(
-    {required GraphQLRequest<T> request,
-    required http.Client client,
-    required Uri uri}) async {
+Future<GraphQLResponse<T>> graphQLSendRequest<T>({
+  required GraphQLRequest<T> request,
+  required http.Client client,
+  required Uri uri,
+}) async {
   final body = {'variables': request.variables, 'query': request.document};
   final graphQLResponse = await client.post(uri, body: json.encode(body));
 
   final responseBody = json.decode(graphQLResponse.body);
-  if (responseBody is Map<String, dynamic>) {
-    final responseData = json.encode(responseBody['data']);
 
-    List<GraphQLResponseError> errors =
-        deserializeGraphQLResponseErrors(responseBody);
-
-    return GraphQLResponseDecoder.instance
-        .decode<T>(request: request, data: responseData, errors: errors);
+  if (responseBody is! Map<String, dynamic>) {
+    throw Exception('Response from client is an incorrect type.');
   }
 
-  // TEMP
-  throw Exception('Bad types');
+  // Handle Model responses that do not return a 'data' key
+  final responseData = request.decodePath != null
+      ? json.encode(responseBody)
+      : json.encode(responseBody['data']);
+
+  List<GraphQLResponseError>? errors =
+      deserializeGraphQLResponseErrors(responseBody);
+
+  return GraphQLResponseDecoder.instance
+      .decode<T>(request: request, data: responseData, errors: errors);
 }

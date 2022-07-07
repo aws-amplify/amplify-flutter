@@ -3,11 +3,16 @@ import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_test/test_models/Blog.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
+
+final _deepEquals = const DeepCollectionEquality().equals;
 
 // Success Mocks
 const _expectedQuerySuccessResponseBody = {
@@ -21,6 +26,15 @@ const _expectedQuerySuccessResponseBody = {
         }
       ]
     }
+  }
+};
+
+final _modelQueryId = UUID.getUUID();
+final _expectedModelQueryResult = {
+  'getBlog': {
+    'createdAt': '2021-07-21T22:23:33.707Z',
+    'id': _modelQueryId,
+    'name': 'Test App Blog'
   }
 };
 const _expectedMutateSuccessResponseBody = {
@@ -57,14 +71,20 @@ const _expectedErrorResponseBody = {
 };
 
 class MockAmplifyAPI extends AmplifyAPIDart {
+  MockAmplifyAPI({
+    ModelProviderInterface? modelProvider,
+  }) : super(modelProvider: modelProvider);
+
   @override
   http.Client getGraphQLClient({String? apiName}) =>
       MockClient((request) async {
+        if (request.body.contains('getBlog')) {
+          return http.Response(json.encode(_expectedModelQueryResult), 200);
+        }
         if (request.body.contains('TestMutate')) {
           return http.Response(
               json.encode(_expectedMutateSuccessResponseBody), 400);
         }
-
         if (request.body.contains('TestError')) {
           return http.Response(json.encode(_expectedErrorResponseBody), 400);
         }
@@ -76,10 +96,13 @@ class MockAmplifyAPI extends AmplifyAPIDart {
 
 void main() {
   group('GraphQL Dart API', () {
-    late AmplifyAPI dartApi;
+    const blogSelectionSet =
+        'id name createdAt file { bucket region key meta { name } } files { bucket region key meta { name } } updatedAt';
 
     setUpAll(() async {
-      await Amplify.addPlugin(MockAmplifyAPI());
+      await Amplify.addPlugin(MockAmplifyAPI(
+        modelProvider: ModelProvider.instance,
+      ));
       await Amplify.configure(amplifyconfig);
     });
 
@@ -101,6 +124,29 @@ void main() {
       final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
 
       expect(res.data, equals(expected));
+      expect(res.errors, equals(null));
+    });
+
+    test('Query returns proper response.data for Models', () async {
+      const expectedDoc =
+          'query getBlog(\$id: ID!) { getBlog(id: \$id) { $blogSelectionSet } }';
+      const decodePath = 'getBlog';
+
+      GraphQLRequest<Blog> req =
+          ModelQueries.get<Blog>(Blog.classType, _modelQueryId);
+
+      final operation = Amplify.API.query(request: req);
+      final res = await operation.value;
+
+      // request asserts
+      expect(req.document, expectedDoc);
+      expect(_deepEquals(req.variables, {'id': _modelQueryId}), isTrue);
+      expect(req.modelType, Blog.classType);
+      expect(req.decodePath, decodePath);
+      // response asserts
+      expect(res.data, isA<Blog>());
+      expect(res.data?.id, _modelQueryId);
+      expect(res.errors, equals(null));
     });
 
     test('Mutate returns proper response.data', () async {
@@ -142,6 +188,24 @@ void main() {
 
       // expect(res.data, equals(null));
       expect(res.errors?.single, equals(errorExpected));
+    });
+
+    test('canceled query request should never resolve', () async {
+      final req = GraphQLRequest(document: '', variables: {});
+      final operation = Amplify.API.query(request: req);
+      operation.cancel();
+      operation.then((p0) => fail('Request should have been cancelled.'));
+      await operation.valueOrCancellation();
+      expect(operation.isCanceled, isTrue);
+    });
+
+    test('canceled mutation request should never resolve', () async {
+      final req = GraphQLRequest(document: '', variables: {});
+      final operation = Amplify.API.mutate(request: req);
+      operation.cancel();
+      operation.then((p0) => fail('Request should have been cancelled.'));
+      await operation.valueOrCancellation();
+      expect(operation.isCanceled, isTrue);
     });
   });
 }

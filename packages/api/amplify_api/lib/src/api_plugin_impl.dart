@@ -160,7 +160,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     final graphQLClient = getGraphQLClient(apiName: request.apiName);
     final uri = _getGraphQLUri(request.apiName);
 
-    final responseFuture = GraphQLSendRequest<T>(
+    final responseFuture = graphQLSendRequest<T>(
         request: request, client: graphQLClient, uri: uri);
     return _makeCancelable<GraphQLResponse<T>>(responseFuture);
   }
@@ -171,7 +171,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     final graphQLClient = getGraphQLClient(apiName: request.apiName);
     final uri = _getGraphQLUri(request.apiName);
 
-    final responseFuture = GraphQLSendRequest<T>(
+    final responseFuture = graphQLSendRequest<T>(
         request: request, client: graphQLClient, uri: uri);
     return _makeCancelable<GraphQLResponse<T>>(responseFuture);
   }
