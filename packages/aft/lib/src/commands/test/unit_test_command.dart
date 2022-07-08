@@ -82,6 +82,8 @@ class UnitTestCommand extends AmplifyCommand {
       case PackageFlavor.flutter:
         flutterTest(
           workingDirectory: package.path,
+          // runInShell required for Windows
+          runInShell: true,
         ).listen(
           _onData(
             package,
