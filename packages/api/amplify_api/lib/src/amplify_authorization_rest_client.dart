@@ -52,8 +52,7 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
   http.BaseRequest _authorizeRequest(http.BaseRequest request) {
     if (!request.headers.containsKey(AWSHeaders.authorization) &&
         endpointConfig.authorizationType != APIAuthorizationType.none) {
-      // ignore: todo
-      // TODO: Use auth providers from core to transform the request.
+      // TODO(ragingsquirrel3): Use auth providers from core to transform the request.
       final apiKey = endpointConfig.apiKey;
       if (endpointConfig.authorizationType == APIAuthorizationType.apiKey &&
           apiKey != null) {

@@ -119,7 +119,7 @@ class AmplifyAPIDart extends AmplifyAPI {
       type: EndpointType.graphQL,
       apiName: apiName,
     );
-    return endpoint.getUri(null, null);
+    return endpoint.getUri(path: null, queryParameters: null);
   }
 
   Uri _getRestUri(
@@ -128,7 +128,7 @@ class AmplifyAPIDart extends AmplifyAPI {
       type: EndpointType.rest,
       apiName: apiName,
     );
-    return endpoint.getUri(path, queryParameters);
+    return endpoint.getUri(path: path, queryParameters: queryParameters);
   }
 
   /// NOTE: http does not support request abort https://github.com/dart-lang/http/issues/424.

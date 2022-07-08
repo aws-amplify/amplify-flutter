@@ -44,8 +44,7 @@ Future<GraphQLResponse<T>> graphQLSendRequest<T>({
   final responseDataJson =
       responseData != null ? json.encode(responseData) : null;
 
-  List<GraphQLResponseError>? errors =
-      deserializeGraphQLResponseErrors(responseBody);
+  final errors = deserializeGraphQLResponseErrors(responseBody);
 
   return GraphQLResponseDecoder.instance
       .decode<T>(request: request, data: responseDataJson, errors: errors);
