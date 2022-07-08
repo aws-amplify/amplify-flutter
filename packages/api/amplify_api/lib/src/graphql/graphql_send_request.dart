@@ -34,17 +34,19 @@ Future<GraphQLResponse<T>> graphQLSendRequest<T>({
   final responseBody = json.decode(graphQLResponse.body);
 
   if (responseBody is! Map<String, dynamic>) {
-    throw Exception('Response from client is an incorrect type.');
+    throw Exception('Response from GraphQL client incorrect type.');
   }
 
   // Handle Model responses that do not return a 'data' key
-  final responseData = request.decodePath != null
-      ? json.encode(responseBody)
-      : json.encode(responseBody['data']);
+  final responseData =
+      request.decodePath != null ? responseBody : responseBody['data'];
+  // Preserve `null`. json.encode(null) returns "null" not `null`
+  final responseDataJson =
+      responseData != null ? json.encode(responseData) : null;
 
   List<GraphQLResponseError>? errors =
       deserializeGraphQLResponseErrors(responseBody);
 
   return GraphQLResponseDecoder.instance
-      .decode<T>(request: request, data: responseData, errors: errors);
+      .decode<T>(request: request, data: responseDataJson, errors: errors);
 }

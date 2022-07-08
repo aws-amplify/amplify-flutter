@@ -48,7 +48,7 @@ const _expectedMutateSuccessResponseBody = {
 };
 
 // Error Mocks
-const _errorMessage = 'Not Authorized';
+const _errorMessage = 'Unable to parse GraphQL query.';
 const _errorLocations = [
   {'line': 2, 'column': 3},
   {'line': 4, 'column': 5}
@@ -167,6 +167,7 @@ void main() {
       final expected = json.encode(_expectedMutateSuccessResponseBody['data']);
 
       expect(res.data, equals(expected));
+      expect(res.errors, equals(null));
     });
 
     test('Errors are decoded in response.errors', () async {
@@ -186,7 +187,7 @@ void main() {
         extensions: <String, dynamic>{..._errorExtensions},
       );
 
-      // expect(res.data, equals(null));
+      expect(res.data, equals(null));
       expect(res.errors?.single, equals(errorExpected));
     });
 
