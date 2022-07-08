@@ -37,6 +37,9 @@ export 'src/config/auth/auth_config.dart';
 export 'src/config/config_map.dart';
 export 'src/config/storage/storage_config.dart';
 
+// HTTP
+export 'src/http/amplify_http_client.dart';
+
 // Hub
 export 'src/hub/amplify_hub.dart';
 export 'src/hub/hub_channel.dart';

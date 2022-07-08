@@ -59,6 +59,7 @@ class AuthStateMachine extends AuthStateMachineBase {
         WrappedCognitoIdentityProviderClient(
           region: userPoolConfig.region,
           credentialsProvider: _credentialsProvider,
+          dependencyManager: this,
         ),
       );
     }
@@ -92,6 +93,7 @@ class AuthStateMachine extends AuthStateMachineBase {
         WrappedCognitoIdentityClient(
           region: identityPoolConfig.region,
           credentialsProvider: _credentialsProvider,
+          dependencyManager: this,
         ),
       );
     }
