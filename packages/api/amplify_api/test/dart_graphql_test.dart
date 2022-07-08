@@ -95,17 +95,13 @@ class MockAmplifyAPI extends AmplifyAPIDart {
 }
 
 void main() {
-  group('GraphQL Dart API', () {
-    const blogSelectionSet =
-        'id name createdAt file { bucket region key meta { name } } files { bucket region key meta { name } } updatedAt';
-
-    setUpAll(() async {
-      await Amplify.addPlugin(MockAmplifyAPI(
-        modelProvider: ModelProvider.instance,
-      ));
-      await Amplify.configure(amplifyconfig);
-    });
-
+  setUpAll(() async {
+    await Amplify.addPlugin(MockAmplifyAPI(
+      modelProvider: ModelProvider.instance,
+    ));
+    await Amplify.configure(amplifyconfig);
+  });
+  group('Vanilla GraphQL', () {
     test('Query returns proper response.data', () async {
       String graphQLDocument = ''' query TestQuery {
           listBlogs {
@@ -124,28 +120,6 @@ void main() {
       final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
 
       expect(res.data, equals(expected));
-      expect(res.errors, equals(null));
-    });
-
-    test('Query returns proper response.data for Models', () async {
-      const expectedDoc =
-          'query getBlog(\$id: ID!) { getBlog(id: \$id) { $blogSelectionSet } }';
-      const decodePath = 'getBlog';
-
-      GraphQLRequest<Blog> req =
-          ModelQueries.get<Blog>(Blog.classType, _modelQueryId);
-
-      final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
-
-      // request asserts
-      expect(req.document, expectedDoc);
-      expect(_deepEquals(req.variables, {'id': _modelQueryId}), isTrue);
-      expect(req.modelType, Blog.classType);
-      expect(req.decodePath, decodePath);
-      // response asserts
-      expect(res.data, isA<Blog>());
-      expect(res.data?.id, _modelQueryId);
       expect(res.errors, equals(null));
     });
 
@@ -169,8 +143,36 @@ void main() {
       expect(res.data, equals(expected));
       expect(res.errors, equals(null));
     });
+  });
+  group('Model Helpers', () {
+    const blogSelectionSet =
+        'id name createdAt file { bucket region key meta { name } } files { bucket region key meta { name } } updatedAt';
 
-    test('Errors are decoded in response.errors', () async {
+    test('Query returns proper response.data for Models', () async {
+      const expectedDoc =
+          'query getBlog(\$id: ID!) { getBlog(id: \$id) { $blogSelectionSet } }';
+      const decodePath = 'getBlog';
+
+      GraphQLRequest<Blog> req =
+          ModelQueries.get<Blog>(Blog.classType, _modelQueryId);
+
+      final operation = Amplify.API.query(request: req);
+      final res = await operation.value;
+
+      // request asserts
+      expect(req.document, expectedDoc);
+      expect(_deepEquals(req.variables, {'id': _modelQueryId}), isTrue);
+      expect(req.modelType, Blog.classType);
+      expect(req.decodePath, decodePath);
+      // response asserts
+      expect(res.data, isA<Blog>());
+      expect(res.data?.id, _modelQueryId);
+      expect(res.errors, equals(null));
+    });
+  });
+
+  group('Error Handling', () {
+    test('response errors are decoded', () async {
       String graphQLDocument = ''' TestError ''';
       final req = GraphQLRequest(document: graphQLDocument, variables: {});
 
