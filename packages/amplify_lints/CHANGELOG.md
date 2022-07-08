@@ -5,6 +5,7 @@
 - Migrated specs as follows:
     - `flutter_lib.yaml`, `dart.yaml` -> `library.yaml`
     - `flutter_app.yaml` -> `app.yaml`
+- Ignores `implementation_imports` lint for `library.yaml` and `library_core.yaml`
 
 Introduced the following new lints to `library.yaml`:
   - `avoid_classes_with_only_static_members`
