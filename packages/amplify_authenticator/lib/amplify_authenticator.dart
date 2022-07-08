@@ -614,7 +614,7 @@ class _AuthenticatorState extends State<Authenticator> {
       missingValues.add('usernameAttributes');
     }
     if (cognitoPlugin.signupAttributes == null) {
-      missingValues.add('signUpAttributes');
+      missingValues.add('signupAttributes');
     }
     if (cognitoPlugin.passwordProtectionSettings == null) {
       missingValues.add('passwordProtectionSettings');
