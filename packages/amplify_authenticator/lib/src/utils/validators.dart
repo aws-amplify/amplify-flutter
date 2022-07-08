@@ -181,5 +181,3 @@ FormFieldValidator<String> validateCode({
     return null;
   };
 }
-
-// ignore_for_file: implementation_imports
