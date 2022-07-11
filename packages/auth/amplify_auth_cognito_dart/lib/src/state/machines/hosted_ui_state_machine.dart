@@ -47,9 +47,9 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
 
   @override
   Future<void> onConfigure(HostedUiConfigure event) async {
-    final credentials = await getOrCreate(CredentialStoreStateMachine.type)
+    final result = await getOrCreate(CredentialStoreStateMachine.type)
         .getCredentialsResult();
-    final userPoolTokens = credentials.userPoolTokens;
+    final userPoolTokens = result.data.userPoolTokens;
     if (userPoolTokens != null) {
       emit(HostedUiState.signedIn(userPoolTokens.authUser));
       return;
@@ -162,7 +162,9 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
   Future<void> onSucceeded(HostedUiSucceeded event) async {
     dispatch(
       CredentialStoreEvent.storeCredentials(
-        userPoolTokens: event.tokens,
+        CredentialStoreData(
+          userPoolTokens: event.tokens,
+        ),
       ),
     );
   }

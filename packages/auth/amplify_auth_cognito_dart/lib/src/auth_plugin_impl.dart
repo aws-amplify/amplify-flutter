@@ -15,12 +15,14 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/legacy_secure_storage_factory.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_stub.dart'
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_html.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
+import 'package:amplify_auth_cognito_dart/src/model/bundle_id_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
@@ -65,8 +67,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   AmplifyAuthCognitoDart({
     SecureStorageInterface? credentialStorage,
     HostedUiPlatformFactory? hostedUiPlatformFactory,
+    FutureOr<String> Function()? bundleIdProvider,
   })  : _credentialStorage = credentialStorage,
-        _hostedUiPlatformFactory = hostedUiPlatformFactory;
+        _hostedUiPlatformFactory = hostedUiPlatformFactory,
+        _bundleIdProvider = bundleIdProvider;
 
   /// Capture the initial parameters on instantiation of this class.
   ///
@@ -91,6 +95,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   /// }
   /// ```
   final HostedUiPlatformFactory? _hostedUiPlatformFactory;
+
+  /// A method to get the bundle Id.
+  ///
+  /// Required to perform credential migration on iOS and Android.
+  final FutureOr<String> Function()? _bundleIdProvider;
 
   CognitoAuthStateMachine _stateMachine = CognitoAuthStateMachine();
 
@@ -130,7 +139,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
             scope: 'auth',
           ),
         );
-    _stateMachine.addInstance<SecureStorageInterface>(credentialStorage);
+    _stateMachine
+      ..addInstance<SecureStorageInterface>(credentialStorage)
+      ..addBuilder<LegacySecureStorageFactory>(LegacySecureStorageFactory.new);
     if (_hostedUiPlatformFactory != null) {
       _stateMachine.addBuilder(
         _hostedUiPlatformFactory!,
@@ -139,6 +150,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     }
     if (_initialParameters != null) {
       _stateMachine.addInstance<OAuthParameters>(_initialParameters!);
+    }
+    if (_bundleIdProvider != null) {
+      _stateMachine.addInstance<BundleIdProvider>(
+        BundleIdProvider(_bundleIdProvider),
+      );
     }
     _stateMachine.stream.listen(
       (state) {
@@ -751,14 +767,14 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   @override
   Future<void> rememberDevice() async {
     // Use credentials state machine since we need device info as well.
-    final credentials = await _stateMachine
+    final result = await _stateMachine
         .expect(CredentialStoreStateMachine.type)
         .getCredentialsResult();
-    final deviceKey = credentials.deviceSecrets?.deviceKey;
+    final deviceKey = result.data.deviceSecrets?.deviceKey;
     if (deviceKey == null) {
       throw const DeviceNotTrackedException();
     }
-    final accessToken = credentials.userPoolTokens?.accessToken;
+    final accessToken = result.data.userPoolTokens?.accessToken;
     if (accessToken == null) {
       throw const SignedOutException('No user is currently signed in');
     }
@@ -777,13 +793,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     final credentials = await _stateMachine
         .expect(CredentialStoreStateMachine.type)
         .getCredentialsResult();
-    final deviceKey = device?.id ?? credentials.deviceSecrets?.deviceKey;
+    final deviceKey = device?.id ?? credentials.data.deviceSecrets?.deviceKey;
     if (deviceKey == null) {
       throw const DeviceNotTrackedException();
     }
     await _cognitoIdp.forgetDevice(
       cognito.ForgetDeviceRequest(
-        accessToken: credentials.userPoolTokens?.accessToken.raw,
+        accessToken: credentials.data.userPoolTokens?.accessToken.raw,
         deviceKey: deviceKey,
       ),
     );
@@ -850,7 +866,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
 
     try {
       // Sign out via Hosted UI, if configured.
-      if (tokens.signInMethod == CognitoSignInMethod.hostedUi) {
+      if (tokens.signInMethod == CognitoSignInMethod.hostedUi ||
+          tokens.signInMethod == CognitoSignInMethod.unknown) {
         _stateMachine.dispatch(const HostedUiEvent.signOut());
         final hostedUiResult = await _stateMachine.stream
             .where(

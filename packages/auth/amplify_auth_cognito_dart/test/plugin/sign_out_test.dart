@@ -129,8 +129,12 @@ void main() {
         expect(
           credentials,
           isA<CredentialStoreSuccess>()
-              .having((creds) => creds.userPoolTokens, 'tokens', isNull)
-              .having((creds) => creds.awsCredentials, 'awsCreds', isNotNull),
+              .having((result) => result.data.userPoolTokens, 'tokens', isNull)
+              .having(
+                (result) => result.data.awsCredentials,
+                'awsCreds',
+                isNotNull,
+              ),
         );
       });
 

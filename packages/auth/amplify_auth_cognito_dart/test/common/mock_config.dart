@@ -113,3 +113,10 @@ final userPoolConfig = authConfig.userPoolConfig!;
 final identityPoolConfig = authConfig.identityPoolConfig!;
 final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
 final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
+const legacyUserSub = 'legacyUserSub';
+final legacyCognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+final legacyUserPoolKeys = LegacyCognitoUserPoolKeys(
+  legacyUserSub,
+  userPoolConfig,
+);
+const legacyIdentityPoolKeys = LegacyCognitoIdentityPoolKeys();

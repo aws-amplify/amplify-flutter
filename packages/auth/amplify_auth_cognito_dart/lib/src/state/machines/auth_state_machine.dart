@@ -96,7 +96,7 @@ class AuthStateMachine extends AuthStateMachineBase {
       );
     }
 
-    dispatch(const CredentialStoreEvent.loadCredentialStore());
+    dispatch(const CredentialStoreEvent.migrateLegacyCredentialStore());
 
     final credentialStoreConfigured = Completer<void>.sync();
     subscribeTo(CredentialStoreStateMachine.type, (state) {
