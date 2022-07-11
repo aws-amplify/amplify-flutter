@@ -25,24 +25,30 @@ import 'package:meta/meta.dart';
 
 /// [AmplifyAuthProvider] implementation that signs a request using AWS credentials
 /// from `Amplify.Auth.fetchAuthSession()`.
-class AWSIamAuthProvider extends AmplifyAuthProvider {
+class AWSIAMAuthProvider extends AWSCredentialAuthProvider {
+  @override
+  Future<AWSCredentials?> getCredentials() async {
+    final authSession = await Amplify.Auth.fetchAuthSession(
+      options: const CognitoSessionOptions(getAWSCredentials: true),
+    ) as CognitoAuthSession;
+    return authSession.credentials;
+  }
+
   @override
   Future<http.BaseRequest> authorizeRequest(
     http.BaseRequest request, {
-    HttpRequestTransformOptions? options,
+    IAMAuthProviderOptions? options,
   }) async {
     if (options == null) {
       throw const AuthException(
         'Unable to authorize request with IAM. No region or service provided.',
       );
     }
-    final authSession = await Amplify.Auth.fetchAuthSession(
-      options: const CognitoSessionOptions(getAWSCredentials: true),
-    ) as CognitoAuthSession;
-    final credentials = authSession.credentials;
+
+    final credentials = await getCredentials();
     if (credentials == null) {
-      throw const ApiException(
-        'No AWS credentials found for IAM authorization',
+      throw const InvalidCredentialsException(
+        'Unable to authorize request with IAM. No AWS credentials.',
       );
     }
 
@@ -80,7 +86,7 @@ class AWSIamAuthProvider extends AmplifyAuthProvider {
         uri: request.url,
         headers: {
           AWSHeaders.contentType: 'application/x-amz-json-1.1',
-          ...request.headers
+          ...request.headers,
         },
         body: request.bodyBytes,
       );
@@ -90,7 +96,7 @@ class AWSIamAuthProvider extends AmplifyAuthProvider {
         uri: request.url,
         headers: {
           AWSHeaders.contentType: 'application/x-amz-json-1.1',
-          ...request.headers
+          ...request.headers,
         },
         body: request.finalize(),
       );

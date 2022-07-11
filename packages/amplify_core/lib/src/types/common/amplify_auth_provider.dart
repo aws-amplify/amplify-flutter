@@ -16,24 +16,36 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart' as http;
 
-class HttpRequestTransformOptions {
+abstract class AuthProviderOptions {
+  const AuthProviderOptions();
+}
+
+class IAMAuthProviderOptions extends AuthProviderOptions {
   String region;
   AWSService service;
 
-  HttpRequestTransformOptions({required this.region, required this.service});
+  IAMAuthProviderOptions({required this.region, required this.service});
 }
 
 abstract class AmplifyAuthProvider {
-  Future<http.BaseRequest> authorizeRequest(http.BaseRequest request,
-      {HttpRequestTransformOptions? options});
+  Future<http.BaseRequest> authorizeRequest(
+    http.BaseRequest request, {
+    covariant AuthProviderOptions? options,
+  });
+}
+
+abstract class AWSCredentialAuthProvider extends AmplifyAuthProvider {
+  Future<AWSCredentials?> getCredentials();
 }
 
 abstract class TokenAmplifyAuthProvider extends AmplifyAuthProvider {
   Future<String> getLatestAuthToken();
 
   @override
-  Future<http.BaseRequest> authorizeRequest(http.BaseRequest request,
-      {HttpRequestTransformOptions? options}) async {
+  Future<http.BaseRequest> authorizeRequest(
+    http.BaseRequest request, {
+    covariant AuthProviderOptions? options,
+  }) async {
     final token = await getLatestAuthToken();
     request.headers.putIfAbsent(AWSHeaders.authorization, () => token);
     return request;
@@ -49,6 +61,6 @@ class AmplifyAuthProviderRepository {
 
   void registerAuthProvider(
       String authorizationType, AmplifyAuthProvider authProvider) {
-    _authProviders.putIfAbsent(authorizationType, () => authProvider);
+    _authProviders[authorizationType] = authProvider;
   }
 }

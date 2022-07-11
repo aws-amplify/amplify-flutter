@@ -15,7 +15,6 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
@@ -55,18 +54,17 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
     if (!request.headers.containsKey(AWSHeaders.authorization) &&
         endpointConfig.authorizationType != APIAuthorizationType.none) {
       final authProvider = _authProviderRepo
-          .getAuthProvider(describeEnum(endpointConfig.authorizationType));
+          .getAuthProvider(endpointConfig.authorizationType.name);
       if (authProvider != null) {
         final region = endpointConfig.region;
         final service = endpointConfig.endpointType == EndpointType.graphQL
             ? AWSService.appSync
             : AWSService.apiGatewayManagementApi;
         return authProvider.authorizeRequest(request,
-            options:
-                HttpRequestTransformOptions(service: service, region: region));
+            options: IAMAuthProviderOptions(service: service, region: region));
       } else {
         throw ApiException(
-            'Unable to authorize request for authorization mode: ${describeEnum(endpointConfig.authorizationType)}. Ensure the correct plugin has been added from the CLI and Amplify.addPlugin.');
+            'Unable to authorize request for authorization mode: ${endpointConfig.authorizationType.name}. Ensure the correct plugin has been added from the CLI and Amplify.addPlugin.');
       }
     }
     return request;
