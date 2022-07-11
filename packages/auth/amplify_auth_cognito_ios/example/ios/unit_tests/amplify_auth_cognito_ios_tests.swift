@@ -696,6 +696,19 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    func test_signInOptions() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata, "authFlowType": "customAuth"]
+        let rawData: NSMutableDictionary = [
+            "username": _username,
+            "options": rawOptions
+        ]
+        let request = FlutterSignInRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAuthSignInOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
+        XCTAssertEqual(AuthFlowType.custom, options.authFlowType)
+    }
+    
     func test_signInSuccessNewPassword() {
         
         class SignInMock: AuthCognitoBridge {

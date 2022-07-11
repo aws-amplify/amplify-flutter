@@ -17,6 +17,7 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amplifyframework.auth.AuthUser
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignInOptions
+import com.amplifyframework.auth.cognito.options.AuthFlowType
 import com.amplifyframework.core.Amplify
 
 data class FlutterSignInRequest(val map: HashMap<String, *>) {
@@ -34,6 +35,13 @@ data class FlutterSignInRequest(val map: HashMap<String, *>) {
 
         if (rawOptions?.get("clientMetadata") != null)
             options.metadata(rawOptions["clientMetadata"] as HashMap<String, String>)
+
+        if (rawOptions?.get("authFlowType") != null) {
+            when (rawOptions?.get("authFlowType")) {
+                "userSrpAuth" -> options.authFlowType(AuthFlowType.USER_SRP_AUTH)
+                "customAuth" -> options.authFlowType(AuthFlowType.CUSTOM_AUTH)
+            }
+        }
 
     return options.build();
   }
