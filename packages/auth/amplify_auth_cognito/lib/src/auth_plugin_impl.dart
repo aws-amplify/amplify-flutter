@@ -26,16 +26,6 @@ import 'package:amplify_auth_cognito_dart/src/state/machines/hosted_ui_state_mac
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/services.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-
-// TODO(Jordan-Nelson): Replace with platforms calls on iOS/Android to fetch this
-Future<String> _getBundleId() async {
-  final packageInfo = await PackageInfo.fromPlatform();
-  return packageInfo.packageName;
-}
-
-// TODO(Jordan-Nelson): Add Android when support is added
-final _bundleIdProvider = !zIsWeb && Platform.isIOS ? _getBundleId : null;
 
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
 /// The AWS Cognito implementation of the Amplify Auth category.
@@ -177,3 +167,11 @@ class _NativeAmplifyAuthCognito implements NativeAuthPlugin {
     }
   }
 }
+
+Future<String> _getBundleId() async {
+  final nativeBridge = NativeAuthBridge();
+  return nativeBridge.getBundleId();
+}
+
+// TODO(Jordan-Nelson): Add Android when support is added
+final _bundleIdProvider = !zIsWeb && Platform.isIOS ? _getBundleId : null;

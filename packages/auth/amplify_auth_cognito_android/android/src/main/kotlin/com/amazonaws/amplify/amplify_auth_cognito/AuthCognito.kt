@@ -16,6 +16,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager.MATCH_ALL
 import android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
@@ -66,6 +67,11 @@ open class AuthCognito :
     private var activityBinding: ActivityPluginBinding? = null
 
     /**
+     * The application context.
+     */
+    private var applicationContext: Context? = null
+
+    /**
      * The pending sign in result.
      */
     private var signInResult: NativeAuthPluginBindings.Result<MutableMap<String, String>>? = null
@@ -88,6 +94,7 @@ open class AuthCognito :
     private var initialParameters: Map<String, String>? = null
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        applicationContext = binding.applicationContext
         nativePlugin = NativeAuthPluginBindings.NativeAuthPlugin(binding.binaryMessenger)
         NativeAuthPluginBindings.NativeAuthBridge.setup(
             binding.binaryMessenger,
@@ -96,6 +103,7 @@ open class AuthCognito :
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        applicationContext = null
         cancelCurrentOperation()
         nativePlugin = null
         NativeAuthPluginBindings.NativeAuthBridge.setup(
@@ -151,6 +159,10 @@ open class AuthCognito :
     override fun getValidationData(): MutableMap<String, String> {
         // Currently, the Android libraries do not provide any data by default.
         return mutableMapOf()
+    }
+
+    override fun getBundleId(): String {
+        return applicationContext!!.packageName
     }
 
     /**

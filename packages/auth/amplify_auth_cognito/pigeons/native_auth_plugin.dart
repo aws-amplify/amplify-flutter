@@ -81,6 +81,8 @@ abstract class NativeAuthBridge {
 
   /// Retrieves the validation data for the current iOS/Android device.
   Map<String, String> getValidationData();
+
+  String getBundleId();
 }
 
 class NativeAuthSession {
