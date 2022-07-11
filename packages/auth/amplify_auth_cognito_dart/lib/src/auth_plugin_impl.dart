@@ -419,7 +419,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     final stream = _stateMachine.create(SignInStateMachine.type).stream;
     _stateMachine.dispatch(
       SignInEvent.initiate(
-        authFlow: options.authFlow?.sdkValue,
+        authFlowType: options.authFlowType?.sdkValue,
         parameters: SignInParameters(
           (p) => p
             ..username = request.username
