@@ -99,7 +99,8 @@ abstract class AuthenticatorPage {
   Future<void> expectUserNotFound() async => expectError('User does not exist');
 
   /// Then I see Invalid code
-  Future<void> expectInvalidCode() async => expectError('Invalid code or auth state for the user');
+  Future<void> expectInvalidCode() async =>
+      expectError('Invalid code or auth state for the user');
 
   /// Then I see Username/client id combination not found banner.
   void expectCombinationNotFound() {
