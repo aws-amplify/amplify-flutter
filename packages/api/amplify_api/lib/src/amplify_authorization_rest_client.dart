@@ -54,8 +54,12 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
         endpointConfig.authorizationType != APIAuthorizationType.none) {
       // TODO(ragingsquirrel3): Use auth providers from core to transform the request.
       final apiKey = endpointConfig.apiKey;
-      if (endpointConfig.authorizationType == APIAuthorizationType.apiKey &&
-          apiKey != null) {
+      if (endpointConfig.authorizationType == APIAuthorizationType.apiKey) {
+        if (apiKey == null) {
+          throw const ApiException(
+              'Auth mode is API Key, but no API Key was found in config.');
+        }
+
         request.headers.putIfAbsent(_xApiKey, () => apiKey);
       }
     }
