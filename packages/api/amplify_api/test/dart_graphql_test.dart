@@ -31,10 +31,12 @@ const _expectedQuerySuccessResponseBody = {
 
 final _modelQueryId = UUID.getUUID();
 final _expectedModelQueryResult = {
-  'getBlog': {
-    'createdAt': '2021-07-21T22:23:33.707Z',
-    'id': _modelQueryId,
-    'name': 'Test App Blog'
+  'data': {
+    'getBlog': {
+      'createdAt': '2021-07-21T22:23:33.707Z',
+      'id': _modelQueryId,
+      'name': 'Test App Blog'
+    }
   }
 };
 const _expectedMutateSuccessResponseBody = {

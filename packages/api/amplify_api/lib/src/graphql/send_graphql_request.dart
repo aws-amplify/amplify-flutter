@@ -41,9 +41,7 @@ Future<GraphQLResponse<T>> sendGraphQLRequest<T>({
           underlyingException: graphQLResponse.body);
     }
 
-    // Handle Model responses that do not return a 'data' key
-    final responseData =
-        request.decodePath != null ? responseBody : responseBody['data'];
+    final responseData = responseBody['data'];
     // Preserve `null`. json.encode(null) returns "null" not `null`
     final responseDataJson =
         responseData != null ? json.encode(responseData) : null;
