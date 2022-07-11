@@ -441,7 +441,8 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     final version = await _getVersion();
     if (version == CredentialStoreVersion.none) {
       final bundleIdProvider = get<BundleIdProvider>();
-      final bundleId = await bundleIdProvider?.bundleId.future;
+      final getBundleId = bundleIdProvider?.getBundleId;
+      final bundleId = getBundleId != null ? await getBundleId() : null;
       if (bundleId != null) {
         try {
           final legacyData = await _loadLegacyCredentials(bundleId);

@@ -14,20 +14,13 @@
 
 import 'dart:async';
 
-import 'package:async/async.dart';
-
 /// {@template amplify_auth_cognito_dart.bundle_id_provider}
 /// Provides the bundle Id for the application.
 /// {@endtemplate}
 class BundleIdProvider {
   /// {@macro amplify_auth_cognito_dart.bundle_id_provider}
-  BundleIdProvider(FutureOr<String?> Function()? getBundleId) {
-    bundleId.runOnce(() {
-      if (getBundleId != null) return getBundleId();
-      return null;
-    });
-  }
+  const BundleIdProvider(this.getBundleId);
 
-  /// The bundle Id.
-  AsyncMemoizer<String?> bundleId = AsyncMemoizer();
+  /// Get the bundle ID.
+  final FutureOr<String?> Function()? getBundleId;
 }
