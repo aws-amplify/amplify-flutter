@@ -17,10 +17,13 @@ import 'package:amplify_core/amplify_core.dart';
 
 class CognitoSignInOptions extends SignInOptions {
   Map<String, String>? clientMetadata;
-  CognitoSignInOptions({this.clientMetadata}) : super();
+  final AuthenticationFlowType? authFlowType;
+
+  CognitoSignInOptions({this.clientMetadata, this.authFlowType}) : super();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
-      'clientMetadata': clientMetadata
+      'clientMetadata': clientMetadata,
+      'authFlowType': authFlowType?.name,
     };
     pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;

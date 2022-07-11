@@ -26,6 +26,8 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   late String username;
   late String password;
+  CognitoSignInOptions options =
+      CognitoSignInOptions(authFlowType: AuthenticationFlowType.customAuth);
   group(
     'custom auth passwordless signIn',
     () {
@@ -36,6 +38,9 @@ void main() {
       setUpAll(() async {
         await configureAuth(
           customAuth: true,
+          additionalPlugins: [
+            AmplifyAPI(),
+          ],
         );
         // create new user for each test
         username = generateUsername();
@@ -79,6 +84,7 @@ void main() {
           final res = await Amplify.Auth.signIn(
             username: username,
             password: null,
+            options: options,
           );
           expect(
             res.isSignedIn,
@@ -102,6 +108,7 @@ void main() {
           await Amplify.Auth.signIn(
             username: username,
             password: null,
+            options: options,
           );
           // '123' is the arbitrary challenge answer defined in lambda code
           final res = await Amplify.Auth.confirmSignIn(
@@ -117,7 +124,11 @@ void main() {
       testWidgets(
         'an incorrect challenge reply should throw a NotAuthorizedException',
         (WidgetTester tester) async {
-          await Amplify.Auth.signIn(username: username, password: null);
+          await Amplify.Auth.signIn(
+            username: username,
+            password: null,
+            options: options,
+          );
           // '123' is the arbitrary challenge answer defined in lambda code
           expect(
             Amplify.Auth.confirmSignIn(confirmationValue: 'wrong'),
