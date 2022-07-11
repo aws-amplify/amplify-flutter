@@ -178,7 +178,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       return password;
     }
 
-    authFlowType = event.authFlow ?? defaultAuthFlowType;
+    authFlowType = event.authFlowType ?? defaultAuthFlowType;
     switch (authFlowType) {
       case AuthFlowType.userSrpAuth:
         expectPassword();

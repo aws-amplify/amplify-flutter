@@ -20,10 +20,10 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class CognitoSignInOptions extends SignInOptions {
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_options}
-  const CognitoSignInOptions({this.authFlow, this.clientMetadata});
+  const CognitoSignInOptions({this.authFlowType, this.clientMetadata});
 
   /// Runtime override of the Authentication flow to use for sign in.
-  final AuthenticationFlowType? authFlow;
+  final AuthenticationFlowType? authFlowType;
 
   /// A map of custom key-value pairs that you can provide as input for certain
   /// custom workflows that this action triggers.
@@ -31,7 +31,7 @@ class CognitoSignInOptions extends SignInOptions {
 
   @override
   Map<String, Object?> serializeAsMap() => {
-        if (authFlow != null) 'authFlow': authFlow?.value,
+        if (authFlowType != null) 'authFlowType': authFlowType?.value,
         if (clientMetadata != null) 'clientMetadata': clientMetadata,
       };
 }

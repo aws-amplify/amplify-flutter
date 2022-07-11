@@ -47,7 +47,7 @@ abstract class SignInEvent extends StateMachineEvent<SignInEventType> {
 
   /// {@macro amplify_auth_cognito.sign_in_initiate}
   const factory SignInEvent.initiate({
-    AuthFlowType? authFlow,
+    AuthFlowType? authFlowType,
     required SignInParameters parameters,
     Map<String, String>? clientMetadata,
   }) = SignInInitiate;
@@ -81,14 +81,14 @@ abstract class SignInEvent extends StateMachineEvent<SignInEventType> {
 class SignInInitiate extends SignInEvent {
   /// {@macro amplify_auth_cognito.sign_in_initiate}
   const SignInInitiate({
-    this.authFlow,
+    this.authFlowType,
     required this.parameters,
     Map<String, String>? clientMetadata,
   })  : clientMetadata = clientMetadata ?? const {},
         super._();
 
   /// Runtime override of the Authentication flow.
-  final AuthFlowType? authFlow;
+  final AuthFlowType? authFlowType;
 
   /// The flow-specific parameters.
   final SignInParameters parameters;
@@ -100,7 +100,7 @@ class SignInInitiate extends SignInEvent {
   SignInEventType get type => SignInEventType.initiate;
 
   @override
-  List<Object?> get props => [type, authFlow, clientMetadata, parameters];
+  List<Object?> get props => [type, authFlowType, clientMetadata, parameters];
 
   @override
   String? checkPrecondition(SignInState currentState) {
