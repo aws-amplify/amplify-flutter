@@ -14,6 +14,7 @@
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/legacy_secure_storage_factory.dart';
 import 'package:amplify_auth_cognito_dart/src/model/bundle_id_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
@@ -394,6 +395,8 @@ void main() {
           cognitoUserKeys: legacyCognitoUserKeys,
         );
 
+        expect(await getVersion(secureStorage), CredentialStoreVersion.none);
+
         expect(
           await legacyStorageIsEmpty(
             legacyStorage,
@@ -441,6 +444,8 @@ void main() {
           true,
         );
 
+        expect(await getVersion(secureStorage), CredentialStoreVersion.v1);
+
         await stateMachine.close();
       });
 
@@ -450,6 +455,8 @@ void main() {
           userPoolKeys: legacyUserPoolKeys,
           identityPoolKeys: legacyIdentityPoolKeys,
         );
+
+        expect(await getVersion(secureStorage), CredentialStoreVersion.none);
 
         expect(
           await legacyStorageIsEmpty(
@@ -496,6 +503,48 @@ void main() {
           ),
           true,
         );
+
+        expect(await getVersion(secureStorage), CredentialStoreVersion.v1);
+
+        await stateMachine.close();
+      });
+
+      test('legacy credentials are ignored if already migrated', () async {
+        seedLegacyStorage(
+          legacyStorage,
+          userPoolKeys: legacyUserPoolKeys,
+          identityPoolKeys: legacyIdentityPoolKeys,
+          cognitoUserKeys: legacyCognitoUserKeys,
+        );
+
+        seedStorage(secureStorage, version: CredentialStoreVersion.v1);
+
+        stateMachine.dispatch(
+          const CredentialStoreEvent.migrateLegacyCredentialStore(),
+        );
+
+        final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
+        await expectLater(
+          sm.stream.startWith(sm.currentState),
+          emitsInOrder(<Matcher>[
+            isA<CredentialStoreNotConfigured>(),
+            isA<CredentialStoreMigratingLegacyStore>(),
+            isA<CredentialStoreLoadingStoredCredentials>(),
+            isA<CredentialStoreSuccess>(),
+          ]),
+        );
+
+        final result = await sm.getCredentialsResult();
+        expect(result.data.awsCredentials, isNull);
+        expect(result.data.awsCredentials?.accessKeyId, isNull);
+        expect(result.data.awsCredentials?.secretAccessKey, isNull);
+        expect(result.data.awsCredentials?.sessionToken, isNull);
+        expect(result.data.awsCredentials?.expiration, isNull);
+        expect(result.data.identityId, isNull);
+        expect(result.data.userPoolTokens, isNull);
+        expect(result.data.userPoolTokens?.accessToken, isNull);
+        expect(result.data.userPoolTokens?.refreshToken, isNull);
+        expect(result.data.userPoolTokens?.idToken, isNull);
 
         await stateMachine.close();
       });

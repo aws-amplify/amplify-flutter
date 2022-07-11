@@ -17,6 +17,7 @@ import 'dart:io';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/legacy_secure_storage_factory.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
@@ -56,6 +57,22 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       throw credentialsState.exception;
     }
     return credentialsState as CredentialStoreSuccess;
+  }
+
+  Future<CredentialStoreVersion> _getVersion() async {
+    final version = await _secureStorage.read(
+      key: CredentialStoreKey.version.name,
+    );
+    return CredentialStoreVersion.values.byName(
+      version ?? CredentialStoreVersion.none.name,
+    );
+  }
+
+  FutureOr<void> _updateVersion(CredentialStoreVersion version) {
+    return _secureStorage.write(
+      key: CredentialStoreKey.version.name,
+      value: version.name,
+    );
   }
 
   /// Loads the credential store from storage and returns the data.
@@ -421,19 +438,22 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
   Future<void> onMigrateLegacyCredentialStore(
     CredentialStoreMigrateLegacyCredentialStore event,
   ) async {
-    // TODO(Jordan-Nelson): skip migration if migration has already occurred.
-    final bundleIdProvider = get<BundleIdProvider>();
-    final bundleId = await bundleIdProvider?.bundleId.future;
-    if (bundleId != null) {
-      try {
-        final legacyData = await _loadLegacyCredentials(bundleId);
-        if (legacyData != null) {
-          await _storeCredentials(legacyData);
-          await _clearLegacyCredentials(bundleId);
+    final version = await _getVersion();
+    if (version == CredentialStoreVersion.none) {
+      final bundleIdProvider = get<BundleIdProvider>();
+      final bundleId = await bundleIdProvider?.bundleId.future;
+      if (bundleId != null) {
+        try {
+          final legacyData = await _loadLegacyCredentials(bundleId);
+          if (legacyData != null) {
+            await _storeCredentials(legacyData);
+            await _clearLegacyCredentials(bundleId);
+          }
+        } on Object catch (e) {
+          // TODO(Jordan-Nelson): log warning when logger exists.
         }
-      } on Object catch (e) {
-        // TODO(Jordan-Nelson): log warning when logger exists.
       }
+      await _updateVersion(CredentialStoreVersion.v1);
     }
     dispatch(const CredentialStoreEvent.loadCredentialStore());
   }
