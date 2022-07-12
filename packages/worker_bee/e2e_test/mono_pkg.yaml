@@ -8,14 +8,6 @@ stages:
           - format
           - analyze: --fatal-infos .
   - unit_test:
-      - group:
-          - command: dart run build_runner build --delete-conflicting-outputs
-          - test:
-      - command: tool/test.sh -p chrome
-      - command: tool/test.sh -p firefox
-  # TODO: Safari tests cannot be run in CI
-  # https://github.com/dart-lang/test/issues/1253
-  # - unit_test_safari:
-  #     - command: tool/test.sh -p safari
-  #       os:
-  #         - macos
+      - test:
+      - command: dart run build_runner test -- -p chrome,firefox
+      - command: dart run build_runner test --release -- -p chrome,firefox

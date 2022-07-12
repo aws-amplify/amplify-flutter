@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:e2e_test/e2e_message.dart';
-import 'package:e2e_test/e2e_worker.dart';
-import 'package:e2e_test/e2e_worker_no_result.dart';
-import 'package:e2e_test/e2e_worker_null_result.dart';
-import 'package:e2e_test/e2e_worker_throws.dart';
-import 'package:e2e_test/e2e_worker_void_result.dart';
+import 'package:e2e/e2e_message.dart';
+import 'package:e2e/e2e_worker.dart';
+import 'package:e2e/e2e_worker_no_result.dart';
+import 'package:e2e/e2e_worker_null_result.dart';
+import 'package:e2e/e2e_worker_throws.dart';
+import 'package:e2e/e2e_worker_void_result.dart';
 import 'package:test/test.dart';
 import 'package:worker_bee/worker_bee.dart';
 

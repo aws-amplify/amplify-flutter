@@ -3,28 +3,28 @@
 import 'dart:async';
 import 'dart:isolate';
 
-import 'package:e2e_test/e2e_worker_void_result.dart';
+import 'package:e2e/e2e_worker.dart';
 import 'package:worker_bee/worker_bee.dart';
 
 Future<void> _run(SendPorts ports) async {
   final channel = IsolateChannel<Object?>.connectSend(ports.messagePort);
   final logsChannel = IsolateChannel<LogEntry>.connectSend(ports.logPort);
-  final worker = E2EWorkerVoidResultImpl();
+  final worker = E2EWorkerImpl();
   await worker.connect(logsChannel: logsChannel);
-  await worker.run(
+  final result = await worker.run(
     channel.stream.asBroadcastStream().cast(),
     channel.sink.cast(),
   );
 // ignore: invalid_use_of_protected_member
   worker.logger.verbose('Finished');
   unawaited(worker.close());
-  Isolate.exit(ports.donePort);
+  Isolate.exit(ports.donePort, result);
 }
 
-/// The VM implementation of [E2EWorkerVoidResult].
-class E2EWorkerVoidResultImpl extends E2EWorkerVoidResult {
+/// The VM implementation of [E2EWorker].
+class E2EWorkerImpl extends E2EWorker {
   @override
-  String get name => 'E2EWorkerVoidResult';
+  String get name => 'E2EWorker';
   @override
   VmEntrypoint get vmEntrypoint => _run;
 }

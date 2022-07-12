@@ -3,13 +3,13 @@
 import 'dart:async';
 import 'dart:isolate';
 
-import 'package:e2e_test/e2e_worker.dart';
+import 'package:e2e/e2e_worker_throws.dart';
 import 'package:worker_bee/worker_bee.dart';
 
 Future<void> _run(SendPorts ports) async {
   final channel = IsolateChannel<Object?>.connectSend(ports.messagePort);
   final logsChannel = IsolateChannel<LogEntry>.connectSend(ports.logPort);
-  final worker = E2EWorkerImpl();
+  final worker = E2EWorkerThrowsImpl();
   await worker.connect(logsChannel: logsChannel);
   final result = await worker.run(
     channel.stream.asBroadcastStream().cast(),
@@ -21,10 +21,10 @@ Future<void> _run(SendPorts ports) async {
   Isolate.exit(ports.donePort, result);
 }
 
-/// The VM implementation of [E2EWorker].
-class E2EWorkerImpl extends E2EWorker {
+/// The VM implementation of [E2EWorkerThrows].
+class E2EWorkerThrowsImpl extends E2EWorkerThrows {
   @override
-  String get name => 'E2EWorker';
+  String get name => 'E2EWorkerThrows';
   @override
   VmEntrypoint get vmEntrypoint => _run;
 }

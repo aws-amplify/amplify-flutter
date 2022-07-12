@@ -13,33 +13,17 @@
 // limitations under the License.
 
 @TestOn('vm')
+@Tags(['build'])
 
-import 'package:e2e/common.dart';
+import 'package:build_verify/build_verify.dart';
 import 'package:test/test.dart';
-import 'package:worker_bee/worker_bee.dart';
 
 void main() {
-  AWSLogger().logLevel = LogLevel.verbose;
-
-  group('WorkerBee', () {
-    group('', () {
-      test('VM', testWorker);
-    });
-
-    group('| no result', () {
-      test('VM', testWorkerNoResult);
-    });
-
-    group('| void result', () {
-      test('VM', testWorkerVoidResult);
-    });
-
-    group('| null result', () {
-      test('VM', testWorkerNullResult);
-    });
-
-    group('| throws', () {
-      test('VM', testWorkerThrows);
-    });
-  });
+  test(
+    'Ensure Build',
+    () => expectBuildClean(
+      packageRelativeDirectory: 'packages/worker_bee/e2e',
+    ),
+    timeout: const Timeout(Duration(minutes: 5)),
+  );
 }

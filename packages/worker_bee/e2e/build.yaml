@@ -42,5 +42,5 @@ targets:
           - lib/*.release.dart.js
           - lib/*.release.dart.js.map
     dependencies:
-      - e2e_test:debug
-      - e2e_test:release
+      - e2e:debug
+      - e2e:release
