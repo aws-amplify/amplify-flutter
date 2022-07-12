@@ -101,7 +101,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
   @visibleForTesting
   set stateMachine(CognitoAuthStateMachine stateMachine) {
-    if (!zDebugMode) throw StateError('Can only be called in tests');
+    if (!zAssertsEnabled) throw StateError('Can only be called in tests');
     _stateMachine = stateMachine;
   }
 
