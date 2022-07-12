@@ -197,13 +197,13 @@ Future<bool> legacyStorageIsEmpty(
     final currentUser = await secureStorage.read(
       key: legacyCognitoUserKeys[LegacyCognitoKey.currentUser],
     );
-    final accessToken = secureStorage.read(
+    final accessToken = await secureStorage.read(
       key: userPoolKeys[LegacyCognitoUserPoolKey.accessToken],
     );
-    final refreshToken = secureStorage.read(
+    final refreshToken = await secureStorage.read(
       key: userPoolKeys[LegacyCognitoUserPoolKey.refreshToken],
     );
-    final idToken = secureStorage.read(
+    final idToken = await secureStorage.read(
       key: userPoolKeys[LegacyCognitoUserPoolKey.idToken],
     );
     if ((currentUser ?? accessToken ?? refreshToken ?? idToken) != null) {
