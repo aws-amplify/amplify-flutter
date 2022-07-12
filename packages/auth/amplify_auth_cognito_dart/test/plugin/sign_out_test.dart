@@ -123,11 +123,11 @@ void main() {
         await expectLater(plugin.signOut(), completes);
         expect(hubEvents, emitsSignOutEvent);
 
-        final credentials = await stateMachine
+        final result = await stateMachine
             .getOrCreate(CredentialStoreStateMachine.type)
             .getCredentialsResult();
         expect(
-          credentials,
+          result,
           isA<CredentialStoreSuccess>()
               .having((result) => result.data.userPoolTokens, 'tokens', isNull)
               .having(

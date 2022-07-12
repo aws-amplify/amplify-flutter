@@ -790,16 +790,16 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   @override
   Future<void> forgetDevice([AuthDevice? device]) async {
     // Use credentials state machine since we need device info as well.
-    final credentials = await _stateMachine
+    final result = await _stateMachine
         .expect(CredentialStoreStateMachine.type)
         .getCredentialsResult();
-    final deviceKey = device?.id ?? credentials.data.deviceSecrets?.deviceKey;
+    final deviceKey = device?.id ?? result.data.deviceSecrets?.deviceKey;
     if (deviceKey == null) {
       throw const DeviceNotTrackedException();
     }
     await _cognitoIdp.forgetDevice(
       cognito.ForgetDeviceRequest(
-        accessToken: credentials.data.userPoolTokens?.accessToken.raw,
+        accessToken: result.data.userPoolTokens?.accessToken.raw,
         deviceKey: deviceKey,
       ),
     );

@@ -212,12 +212,12 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
   @override
   Future<void> onRefresh(FetchAuthSessionRefresh event) async {
-    final credentialsState = await getOrCreate(CredentialStoreStateMachine.type)
+    final result = await getOrCreate(CredentialStoreStateMachine.type)
         .getCredentialsResult();
 
-    var userPoolTokens = credentialsState.data.userPoolTokens;
-    var identityId = credentialsState.data.identityId;
-    var awsCredentials = credentialsState.data.awsCredentials;
+    var userPoolTokens = result.data.userPoolTokens;
+    var identityId = result.data.identityId;
+    var awsCredentials = result.data.awsCredentials;
     if (event.refreshUserPoolTokens) {
       if (userPoolTokens == null) {
         dispatch(
@@ -231,7 +231,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       }
       userPoolTokens = await _refreshUserPoolTokens(
         userPoolTokens: userPoolTokens,
-        deviceSecrets: credentialsState.data.deviceSecrets,
+        deviceSecrets: result.data.deviceSecrets,
       );
     }
     if (event.refreshAwsCredentials) {
