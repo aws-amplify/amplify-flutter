@@ -17,8 +17,11 @@ import 'dart:io';
 import 'package:aft/aft.dart';
 import 'package:args/command_runner.dart';
 import 'package:async/async.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:checked_yaml/checked_yaml.dart';
 import 'package:cli_util/cli_logging.dart';
+import 'package:http/http.dart' as http;
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:stream_transform/stream_transform.dart';
 
@@ -26,12 +29,15 @@ const _ignorePackages = [
   'synthetic_package',
 ];
 
-abstract class AmplifyCommand extends Command<void> {
+abstract class AmplifyCommand extends Command<void> implements Closeable {
   /// Whether verbose logging is enabled.
   late final verbose = globalResults!['verbose'] as bool;
 
   /// The configured logger for the command.
   late final Logger logger = verbose ? Logger.verbose() : Logger.standard();
+
+  /// HTTP client for remote operations.
+  final http.Client httpClient = http.Client();
 
   final _rootDirMemo = AsyncMemoizer<Directory>();
 
@@ -96,4 +102,20 @@ abstract class AmplifyCommand extends Command<void> {
         final depsYaml = depsFile.readAsStringSync();
         return checkedYamlDecode(depsYaml, GlobalDependencyConfig.fromJson);
       });
+
+  /// Displays a prompt to the user and waits for a response on stdin.
+  String prompt(String prompt) {
+    String? response;
+    while (response == null) {
+      stdout.write(prompt);
+      response = stdin.readLineSync();
+    }
+    return response;
+  }
+
+  @override
+  @mustCallSuper
+  void close() {
+    httpClient.close();
+  }
 }

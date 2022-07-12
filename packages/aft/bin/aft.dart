@@ -25,6 +25,14 @@ Future<void> main(List<String> args) async {
     )
     ..addCommand(GenerateSdkCommand())
     ..addCommand(ListPackagesCommand())
-    ..addCommand(DepsCommand());
-  await runner.run(args);
+    ..addCommand(DepsCommand())
+    ..addCommand(PublishCommand());
+  try {
+    await runner.run(args);
+  } finally {
+    // Free up resources before exiting. This prevents hangs from `pkg:http`.
+    for (final command in runner.commands.values.whereType<AmplifyCommand>()) {
+      command.close();
+    }
+  }
 }
