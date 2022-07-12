@@ -38,8 +38,7 @@ void main() {
 
   group('REST Config', () {
     const endpointType = EndpointType.rest;
-    const endpoint =
-        'https://abc123.appsync-api.us-east-1.amazonaws.com/graphql';
+    const endpoint = 'https://abc123.appsync-api.us-east-1.amazonaws.com/test';
     const region = 'us-east-1';
     const authorizationType = APIAuthorizationType.iam;
 
@@ -68,7 +67,7 @@ void main() {
       final params = {'foo': 'bar', 'bar': 'baz'};
       final uri = endpointConfig.getUri(path: path, queryParameters: params);
 
-      final expected = Uri.parse('$endpoint/$path?foo=bar&bar=baz');
+      final expected = Uri.parse('$endpoint$path?foo=bar&bar=baz');
 
       expect(uri, equals(expected));
     });
