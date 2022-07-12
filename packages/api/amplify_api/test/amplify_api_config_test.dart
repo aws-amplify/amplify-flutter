@@ -12,7 +12,7 @@ void main() {
   group('GraphQL Config', () {
     const endpointType = EndpointType.graphQL;
     const endpoint =
-        'https=//abc123.appsync-api.us-east-1.amazonaws.com/graphql';
+        'https://abc123.appsync-api.us-east-1.amazonaws.com/graphql';
     const region = 'us-east-1';
     const authorizationType = APIAuthorizationType.apiKey;
     const apiKey = 'abc-123';
@@ -34,20 +34,12 @@ void main() {
 
       expect(uri, equals(expected));
     });
-
-    test('should returns invalid URI with params', () async {
-      final uri = endpointConfig
-          .getUri(path: 'random/path', queryParameters: {'key': 'value'});
-      final expected = Uri.parse('$endpoint/');
-
-      expect(uri, isNot(expected));
-    });
   });
 
   group('REST Config', () {
     const endpointType = EndpointType.rest;
     const endpoint =
-        'https=//abc123.appsync-api.us-east-1.amazonaws.com/graphql';
+        'https://abc123.appsync-api.us-east-1.amazonaws.com/graphql';
     const region = 'us-east-1';
     const authorizationType = APIAuthorizationType.iam;
 
@@ -72,7 +64,7 @@ void main() {
     });
 
     test('should handle a leading slash', () async {
-      final path = 'path/to/nowhere/';
+      final path = '/path/to/nowhere';
       final params = {'foo': 'bar', 'bar': 'baz'};
       final uri = endpointConfig.getUri(path: path, queryParameters: params);
 
