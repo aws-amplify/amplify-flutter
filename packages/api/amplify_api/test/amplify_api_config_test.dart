@@ -15,25 +15,27 @@ void main() {
         'https=//abc123.appsync-api.us-east-1.amazonaws.com/graphql';
     const region = 'us-east-1';
     const authorizationType = APIAuthorizationType.apiKey;
+    const apiKey = 'abc-123';
 
     setUpAll(() async {
       const config = AWSApiConfig(
           endpointType: endpointType,
           endpoint: endpoint,
           region: region,
-          authorizationType: authorizationType);
+          authorizationType: authorizationType,
+          apiKey: apiKey);
 
       endpointConfig = const EndpointConfig('GraphQL', config);
     });
 
-    test('should return valid URI wtih null params', () async {
+    test('should return valid URI with null params', () async {
       final uri = endpointConfig.getUri(path: null, queryParameters: null);
       final expected = Uri.parse('$endpoint/');
 
       expect(uri, equals(expected));
     });
 
-    test('should returns invalid URI wtih params', () async {
+    test('should returns invalid URI with params', () async {
       final uri = endpointConfig
           .getUri(path: 'random/path', queryParameters: {'key': 'value'});
       final expected = Uri.parse('$endpoint/');
@@ -47,7 +49,7 @@ void main() {
     const endpoint =
         'https=//abc123.appsync-api.us-east-1.amazonaws.com/graphql';
     const region = 'us-east-1';
-    const authorizationType = APIAuthorizationType.apiKey;
+    const authorizationType = APIAuthorizationType.iam;
 
     setUpAll(() async {
       const config = AWSApiConfig(
@@ -59,8 +61,18 @@ void main() {
       endpointConfig = const EndpointConfig('REST', config);
     });
 
-    test('should return valid URI wtih params', () async {
+    test('should return valid URI with params', () async {
       final path = 'path/to/nowhere';
+      final params = {'foo': 'bar', 'bar': 'baz'};
+      final uri = endpointConfig.getUri(path: path, queryParameters: params);
+
+      final expected = Uri.parse('$endpoint/$path?foo=bar&bar=baz');
+
+      expect(uri, equals(expected));
+    });
+
+    test('should handle a leading slash', () async {
+      final path = 'path/to/nowhere/';
       final params = {'foo': 'bar', 'bar': 'baz'};
       final uri = endpointConfig.getUri(path: path, queryParameters: params);
 
