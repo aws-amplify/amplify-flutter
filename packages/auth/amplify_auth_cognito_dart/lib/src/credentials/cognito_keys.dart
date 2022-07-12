@@ -250,7 +250,8 @@ abstract class CognitoKeys<Key extends Enum> extends IterableBase<String> {
   String? get prefix;
 
   /// Retrieves the storage identifier for [key].
-  String operator [](Key key) => '$prefix.${key.name}';
+  String operator [](Key key) =>
+      prefix == null ? key.name : '$prefix.${key.name}';
 
   @override
   Iterator<String> get iterator => _CognitoKeysIterator(this);
