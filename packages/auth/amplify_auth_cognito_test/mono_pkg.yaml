@@ -1,0 +1,17 @@
+sdk:
+  - stable
+  - dev
+
+stages:
+  - analyze_and_format:
+      - group:
+          - format
+          - analyze: --fatal-infos .
+  - unit_test:
+      - group:
+          - command: dart --version
+          - test:
+          # TODO(dnys1): DDC tests will fail right now due to ongoing staticInterop changes. These should not
+          # be an issue for end users
+          # - command: dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox
+          - command: dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox

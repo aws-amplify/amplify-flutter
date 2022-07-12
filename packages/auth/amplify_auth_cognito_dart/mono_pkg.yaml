@@ -6,12 +6,7 @@ stages:
   - analyze_and_format:
       - group:
           - format
-          - analyze: --fatal-infos lib test
-  - unit_test:
-      - group:
-          - command: dart --version
-          - test: --exclude-tags=build
-          - test: -p chrome
+          - analyze: --fatal-infos lib
   - build_test:
       - test: --tags=build
         sdk:
