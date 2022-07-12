@@ -21,7 +21,6 @@ class LegacySecureStorageFactory {
   /// {@macro amplify_auth_cognito_dart.legacy_secure_storage_factory}
   LegacySecureStorageFactory();
 
-  // ignore: avoid_field_initializers_in_const_classes
   final Map<String, SecureStorageInterface> _instances = {};
 
   /// Creates a legacy secure storage instance given a namespace,
