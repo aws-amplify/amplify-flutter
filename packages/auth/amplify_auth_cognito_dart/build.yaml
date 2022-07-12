@@ -34,7 +34,6 @@ targets:
           compiler: dart2js
           dart2js_args:
             - -O2
-            - --define=dart.vm.product=true
   workers:
     auto_apply_builders: false
     builders:
