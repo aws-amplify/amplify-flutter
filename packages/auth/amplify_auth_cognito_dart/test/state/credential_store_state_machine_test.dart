@@ -23,6 +23,7 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
 
+import '../common/mock_bundle_id_provider.dart';
 import '../common/mock_config.dart';
 import '../common/mock_secure_storage.dart';
 
@@ -365,7 +366,7 @@ void main() {
 
     group('migrateCredentials', () {
       setUp(() {
-        manager.addInstance(BundleIdProvider(() => 'com.example'));
+        manager.addInstance<BundleIdProvider>(MockBundleIdProvider());
       });
 
       test('no legacy credentials', () async {

@@ -14,10 +14,9 @@
 
 import 'dart:async';
 
-/// {@template amplify_auth_cognito_dart.bundle_id_provider}
-/// Provides the bundle Id for the application.
-/// {@endtemplate}
-abstract class BundleIdProvider {
-  /// Returns the bundle ID.
-  FutureOr<String?> getBundleId();
+import 'package:amplify_auth_cognito_dart/src/model/bundle_id_provider.dart';
+
+class MockBundleIdProvider implements BundleIdProvider {
+  @override
+  FutureOr<String?> getBundleId() => 'com.example';
 }

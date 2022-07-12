@@ -50,7 +50,6 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
                 ),
               ),
           hostedUiPlatformFactory: HostedUiPlatformImpl.new,
-          bundleIdProvider: _bundleIdProvider,
         );
 
   @override
@@ -105,6 +104,16 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
       options: options,
     );
     return super.signUp(request: request);
+  }
+
+  @override
+  FutureOr<String?> getBundleId() {
+    // TODO(Jordan-Nelson): Add Android when support is added
+    if (!zIsWeb && Platform.isIOS) {
+      final bridge = stateMachine.expect<NativeAuthBridge>();
+      return bridge.getBundleId();
+    }
+    return null;
   }
 }
 
@@ -167,11 +176,3 @@ class _NativeAmplifyAuthCognito implements NativeAuthPlugin {
     }
   }
 }
-
-Future<String> _getBundleId() async {
-  final nativeBridge = NativeAuthBridge();
-  return nativeBridge.getBundleId();
-}
-
-// TODO(Jordan-Nelson): Add Android when support is added
-final _bundleIdProvider = !zIsWeb && Platform.isIOS ? _getBundleId : null;

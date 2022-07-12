@@ -62,15 +62,14 @@ import 'package:stream_transform/stream_transform.dart';
 /// {@template amplify_auth_cognito_dart.amplify_auth_cognito_dart}
 /// The AWS Cognito implementation of the Amplify Auth category.
 /// {@endtemplate}
-class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
+class AmplifyAuthCognitoDart extends AuthPluginInterface
+    implements Closeable, BundleIdProvider {
   /// {@macro amplify_auth_cognito_dart.amplify_auth_cognito_dart}
   AmplifyAuthCognitoDart({
     SecureStorageInterface? credentialStorage,
     HostedUiPlatformFactory? hostedUiPlatformFactory,
-    FutureOr<String> Function()? bundleIdProvider,
   })  : _credentialStorage = credentialStorage,
-        _hostedUiPlatformFactory = hostedUiPlatformFactory,
-        _bundleIdProvider = bundleIdProvider;
+        _hostedUiPlatformFactory = hostedUiPlatformFactory;
 
   /// Capture the initial parameters on instantiation of this class.
   ///
@@ -95,11 +94,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   /// }
   /// ```
   final HostedUiPlatformFactory? _hostedUiPlatformFactory;
-
-  /// A method to get the bundle Id.
-  ///
-  /// Required to perform credential migration on iOS and Android.
-  final FutureOr<String> Function()? _bundleIdProvider;
 
   CognitoAuthStateMachine _stateMachine = CognitoAuthStateMachine();
 
@@ -141,7 +135,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
         );
     _stateMachine
       ..addInstance<SecureStorageInterface>(credentialStorage)
-      ..addBuilder<LegacySecureStorageFactory>(LegacySecureStorageFactory.new);
+      ..addBuilder<LegacySecureStorageFactory>(LegacySecureStorageFactory.new)
+      ..addInstance<BundleIdProvider>(this);
     if (_hostedUiPlatformFactory != null) {
       _stateMachine.addBuilder(
         _hostedUiPlatformFactory!,
@@ -150,11 +145,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     }
     if (_initialParameters != null) {
       _stateMachine.addInstance<OAuthParameters>(_initialParameters!);
-    }
-    if (_bundleIdProvider != null) {
-      _stateMachine.addInstance<BundleIdProvider>(
-        BundleIdProvider(_bundleIdProvider),
-      );
     }
     _stateMachine.stream.listen(
       (state) {
@@ -947,4 +937,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     }
     return userPoolTokens;
   }
+
+  @override
+  FutureOr<String?> getBundleId() => null;
 }
