@@ -100,24 +100,12 @@ for PKG in ${PKGS}; do
         tool/test-desktop.sh || EXIT_CODE=$?
         ;;
       command_4)
-        echo 'tool/test-web.sh -p chrome'
-        tool/test-web.sh -p chrome || EXIT_CODE=$?
+        echo 'dart run build_runner test -- -p chrome,firefox'
+        dart run build_runner test -- -p chrome,firefox || EXIT_CODE=$?
         ;;
       command_5)
-        echo 'tool/test-web.sh -p firefox'
-        tool/test-web.sh -p firefox || EXIT_CODE=$?
-        ;;
-      command_6)
-        echo 'dart run build_runner build --delete-conflicting-outputs'
-        dart run build_runner build --delete-conflicting-outputs || EXIT_CODE=$?
-        ;;
-      command_7)
-        echo 'tool/test.sh -p chrome'
-        tool/test.sh -p chrome || EXIT_CODE=$?
-        ;;
-      command_8)
-        echo 'tool/test.sh -p firefox'
-        tool/test.sh -p firefox || EXIT_CODE=$?
+        echo 'dart run build_runner test --release -- -p chrome,firefox'
+        dart run build_runner test --release -- -p chrome,firefox || EXIT_CODE=$?
         ;;
       format)
         echo 'dart format --output=none --set-exit-if-changed .'
