@@ -1,3 +1,7 @@
+## 0.5.5
+
+- Update dependencies
+
 ## 0.5.4
 
  - **FIX**: Xml parsing.
