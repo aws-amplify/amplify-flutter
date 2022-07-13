@@ -26,6 +26,7 @@ import 'package:meta/meta.dart';
 
 import 'amplify_api_config.dart';
 import 'amplify_authorization_rest_client.dart';
+import 'graphql/send_graphql_request.dart';
 import 'util.dart';
 
 /// {@template amplify_api.amplify_api_dart}
@@ -85,6 +86,19 @@ class AmplifyAPIDart extends AmplifyAPI {
     }
   }
 
+  /// Returns the HTTP client to be used for GraphQL operations.
+  ///
+  /// Use [apiName] if there are multiple GraphQL endpoints.
+  @visibleForTesting
+  http.Client getGraphQLClient({String? apiName}) {
+    final endpoint = _apiConfig.getEndpoint(
+      type: EndpointType.graphQL,
+      apiName: apiName,
+    );
+    return _clientPool[endpoint.name] ??= AmplifyAuthorizationRestClient(
+        endpointConfig: endpoint.config, baseClient: _baseHttpClient);
+  }
+
   /// Returns the HTTP client to be used for REST operations.
   ///
   /// Use [apiName] if there are multiple REST endpoints.
@@ -100,13 +114,21 @@ class AmplifyAPIDart extends AmplifyAPI {
     );
   }
 
+  Uri _getGraphQLUri(String? apiName) {
+    final endpoint = _apiConfig.getEndpoint(
+      type: EndpointType.graphQL,
+      apiName: apiName,
+    );
+    return endpoint.getUri(path: null, queryParameters: null);
+  }
+
   Uri _getRestUri(
       String path, String? apiName, Map<String, dynamic>? queryParameters) {
     final endpoint = _apiConfig.getEndpoint(
       type: EndpointType.rest,
       apiName: apiName,
     );
-    return endpoint.getUri(path, queryParameters);
+    return endpoint.getUri(path: path, queryParameters: queryParameters);
   }
 
   /// NOTE: http does not support request abort https://github.com/dart-lang/http/issues/424.
@@ -128,6 +150,30 @@ class AmplifyAPIDart extends AmplifyAPI {
   @override
   void registerAuthProvider(APIAuthProvider authProvider) {
     _authProviders[authProvider.type] = authProvider;
+  }
+
+  // ====== GraphQL ======
+
+  @override
+  CancelableOperation<GraphQLResponse<T>> query<T>(
+      {required GraphQLRequest<T> request}) {
+    final graphQLClient = getGraphQLClient(apiName: request.apiName);
+    final uri = _getGraphQLUri(request.apiName);
+
+    final responseFuture = sendGraphQLRequest<T>(
+        request: request, client: graphQLClient, uri: uri);
+    return _makeCancelable<GraphQLResponse<T>>(responseFuture);
+  }
+
+  @override
+  CancelableOperation<GraphQLResponse<T>> mutate<T>(
+      {required GraphQLRequest<T> request}) {
+    final graphQLClient = getGraphQLClient(apiName: request.apiName);
+    final uri = _getGraphQLUri(request.apiName);
+
+    final responseFuture = sendGraphQLRequest<T>(
+        request: request, client: graphQLClient, uri: uri);
+    return _makeCancelable<GraphQLResponse<T>>(responseFuture);
   }
 
   // ====== REST =======
