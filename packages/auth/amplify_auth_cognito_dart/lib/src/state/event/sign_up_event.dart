@@ -33,7 +33,7 @@ enum SignUpEventType {
 
 /// Discrete events of the sign up flow.
 abstract class SignUpEvent
-    extends StateMachineEvent<SignUpEventType, AuthStateType> {
+    extends StateMachineEvent<SignUpEventType, SignUpStateType> {
   const SignUpEvent._();
 
   /// {@macro amplify_auth_cognito.sign_up_inititate}
