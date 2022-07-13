@@ -25,7 +25,8 @@ import 'package:meta/meta.dart';
 
 /// [AmplifyAuthProvider] implementation that signs a request using AWS credentials
 /// from `Amplify.Auth.fetchAuthSession()`.
-class AWSIAMAuthProvider extends AWSCredentialAuthProvider {
+class AWSIAMAuthProvider extends AWSCredentialsAmplifyAuthProvider {
+  /// AWS credentials from Auth category.
   @override
   Future<AWSCredentials?> getCredentials() async {
     final authSession = await Amplify.Auth.fetchAuthSession(
@@ -34,6 +35,7 @@ class AWSIAMAuthProvider extends AWSCredentialAuthProvider {
     return authSession.credentials;
   }
 
+  /// Signs request with AWSSigV4Signer and AWS credentials from `.getCredentials()`.
   @override
   Future<http.BaseRequest> authorizeRequest(
     http.BaseRequest request, {

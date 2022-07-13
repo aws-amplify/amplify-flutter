@@ -34,7 +34,7 @@ abstract class AmplifyAuthProvider {
   });
 }
 
-abstract class AWSCredentialAuthProvider extends AmplifyAuthProvider {
+abstract class AWSCredentialsAmplifyAuthProvider extends AmplifyAuthProvider {
   Future<AWSCredentials?> getCredentials();
 }
 

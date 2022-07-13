@@ -27,45 +27,31 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
   final AWSApiConfig endpointConfig;
   final http.Client _baseClient;
   final bool _useDefaultBaseClient;
-  final AmplifyAuthProviderRepository _authProviderRepo;
 
   /// Provide an [AWSApiConfig] which will determine how requests from this
   /// client are authorized.
   AmplifyAuthorizationRestClient({
     required this.endpointConfig,
-    required AmplifyAuthProviderRepository authProviderRepo,
     http.Client? baseClient,
   })  : _useDefaultBaseClient = baseClient == null,
-        _baseClient = baseClient ?? http.Client(),
-        _authProviderRepo = authProviderRepo;
+        _baseClient = baseClient ?? http.Client();
 
   /// Implementation of [send] that authorizes any request without "Authorization"
   /// header already set.
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async =>
-      _baseClient.send(await _authorizeRequest(request));
+      _baseClient.send(_authorizeRequest(request));
 
   @override
   void close() {
     if (_useDefaultBaseClient) _baseClient.close();
   }
 
-  Future<http.BaseRequest> _authorizeRequest(http.BaseRequest request) async {
+  http.BaseRequest _authorizeRequest(http.BaseRequest request) {
     if (!request.headers.containsKey(AWSHeaders.authorization) &&
         endpointConfig.authorizationType != APIAuthorizationType.none) {
-      final authProvider = _authProviderRepo
-          .getAuthProvider(endpointConfig.authorizationType.name);
-      if (authProvider != null) {
-        final region = endpointConfig.region;
-        final service = endpointConfig.endpointType == EndpointType.graphQL
-            ? AWSService.appSync
-            : AWSService.apiGatewayManagementApi;
-        return authProvider.authorizeRequest(request,
-            options: IAMAuthProviderOptions(service: service, region: region));
-      } else {
-        throw ApiException(
-            'Unable to authorize request for authorization mode: ${endpointConfig.authorizationType.name}. Ensure the correct plugin has been added from the CLI and Amplify.addPlugin.');
-      }
+      // ignore: todo
+      // TODO: Use auth providers from core to transform the request.
     }
     return request;
   }
