@@ -27,9 +27,11 @@ class AmplifyLogger {
       _subscriptions = {};
   final Logger _logger;
 
+  /// Create a top level [AmplifyLogger]
   factory AmplifyLogger([String namespace = loggerNamespace]) =>
       AmplifyLogger._(Logger(namespace));
 
+  /// Create a [AmplifyLogger] for the namespace of [Category]
   factory AmplifyLogger.category(Category category) =>
       AmplifyLogger._(Logger('$loggerNamespace.${category.name}'));
 
@@ -37,11 +39,13 @@ class AmplifyLogger {
     hierarchicalLoggingEnabled = true;
   }
 
+  /// Register a [AmplifyLoggerPlugin] that will handle the logs emitted by this [AmplifyLogger] instance
   void registerPlugin(AmplifyLoggerPlugin plugin) {
     unregisterPlugin(plugin);
     _subscriptions[plugin] = _logger.onRecord.listen(plugin._handleLogRecord);
   }
 
+  /// Unregister the [AmplifyLoggerPlugin] that will handle the logs emitted by this [AmplifyLogger] instance
   void unregisterPlugin(AmplifyLoggerPlugin plugin) {
     final currentSubscription = _subscriptions.remove(plugin);
     if (currentSubscription != null) {
@@ -49,16 +53,19 @@ class AmplifyLogger {
     }
   }
 
+  /// Unregister all [AmplifyLoggerPlugin]s that were handling logs emitted by this [AmplifyLogger] instance
   void unregisterAllPlugins() {
     for (final plugin in List.of(_subscriptions.keys)) {
       unregisterPlugin(plugin);
     }
   }
 
+  /// Set the minimum [LogLevel] that will be emitted by the logger
   set logLevel(LogLevel logLevel) {
     _logger.level = logLevel.level;
   }
 
+  /// Get the minimum [LogLevel] that will be emitted by the logger
   LogLevel get logLevel => _logger.level.logLevel;
 
   /// Log a message with level [LogLevel.verbose]
@@ -91,5 +98,6 @@ abstract class AmplifyLoggerPlugin {
   void _handleLogRecord(LogRecord record) =>
       handleLogEntry(LogEntry.fromLogRecord(record));
 
+  /// Handle a LogEntry emitted by the [AmplifyLogger]
   void handleLogEntry(LogEntry logEntry);
 }
