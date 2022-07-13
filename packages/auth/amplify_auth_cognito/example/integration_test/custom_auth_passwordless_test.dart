@@ -36,12 +36,7 @@ void main() {
       });
 
       setUpAll(() async {
-        await configureAuth(
-          customAuth: true,
-          additionalPlugins: [
-            AmplifyAPI(),
-          ],
-        );
+        await configureAuth();
         // create new user for each test
         username = generateUsername();
         password = generatePassword();
@@ -53,30 +48,6 @@ void main() {
           verifyAttributes: true,
         );
       });
-
-      testWidgets(
-        'Unconfirmed user sign in throws UserNotConfirmedException (even when password not verified)',
-        (WidgetTester tester) async {
-          var unconfirmedUsername = '${generateUsername()}unconfirmedUSer';
-          await Amplify.Auth.signUp(
-            username: unconfirmedUsername,
-            password: password,
-            options: CognitoSignUpOptions(
-              userAttributes: {
-                CognitoUserAttributeKey.email: 'test@test.com',
-                CognitoUserAttributeKey.phoneNumber: '+15555555555',
-              },
-            ),
-          );
-
-          expect(
-            Amplify.Auth.signIn(username: unconfirmedUsername, password: null),
-            throwsA(
-              isA<UserNotConfirmedException>(),
-            ),
-          );
-        },
-      );
 
       testWidgets(
         'signIn should return data from the auth challenge lambda',
