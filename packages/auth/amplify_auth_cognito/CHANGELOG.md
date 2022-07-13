@@ -1,3 +1,9 @@
+## 0.6.2 (2022-07-14)
+
+- fix(authenticator): fixes configure call in custom auth test and removes redundant test ([#1878](https://github.com/aws-amplify/amplify-flutter/pull/1878))
+- feat(auth): runtime authFlow attribute ([#1687](https://github.com/aws-amplify/amplify-flutter/pull/1687))
+- chore: fix various integ test issues ([#1838](https://github.com/aws-amplify/amplify-flutter/pull/1838))
+
 ## 0.6.1 (2022-06-30)
 - fix: add toString override of AuthProvider ([#1826](https://github.com/aws-amplify/amplify-flutter/pull/1826))
 - fix: add sub and identities attributes ([#1825](https://github.com/aws-amplify/amplify-flutter/pull/1825))
