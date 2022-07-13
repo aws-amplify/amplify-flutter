@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:io';
+
 import 'package:aft/aft.dart';
 import 'package:args/command_runner.dart';
 
@@ -33,7 +35,8 @@ Future<void> main(List<String> args) async {
     ..addCommand(DepsCommand())
     ..addCommand(LinkCommand())
     ..addCommand(CleanCommand())
-    ..addCommand(PubCommand());
+    ..addCommand(PubCommand())
+    ..addCommand(BootstrapCommand());
   try {
     await runner.run(args);
   } on UsageException catch (e) {
