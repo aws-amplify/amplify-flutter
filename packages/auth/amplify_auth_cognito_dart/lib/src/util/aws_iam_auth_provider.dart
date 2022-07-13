@@ -24,7 +24,7 @@ import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
 /// [AmplifyAuthProvider] implementation that signs a request using AWS credentials
-/// from `Amplify.Auth.fetchAuthSession()`.
+/// from `Amplify.Auth.fetchAuthSession()` or allows getting credentials directly.
 class AWSIAMAuthProvider extends AWSCredentialsAmplifyAuthProvider {
   /// AWS credentials from Auth category.
   @override

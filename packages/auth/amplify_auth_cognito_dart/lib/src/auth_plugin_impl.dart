@@ -174,6 +174,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
       throw const AuthException('No Cognito plugin config detected');
     }
 
+    // Register auth providers to provide auth functionality to other plugins
+    // without calling them `Amplify.Auth...` directly.
     authProviderRepo.registerAuthProvider(
       APIAuthorizationType.iam.name,
       AWSIAMAuthProvider(),
