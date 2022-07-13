@@ -35,9 +35,11 @@ void main() {
       const originalBlogName = 'non matching blog';
       Blog testBlog = Blog(name: originalBlogName);
       await Amplify.DataStore.save(testBlog);
-
-      await Amplify.DataStore.delete(testBlog,
-          where: Blog.NAME.contains("Predicate"));
+      expect(
+        Amplify.DataStore.delete(testBlog,
+            where: Blog.NAME.contains("Predicate")),
+        throwsA(isA<DataStoreException>()),
+      );
       var blogs = await Amplify.DataStore.query(Blog.classType);
       expect(blogs.length, 1);
       expect(blogs[0].name, originalBlogName);
