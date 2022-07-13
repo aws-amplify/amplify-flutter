@@ -207,7 +207,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
           AmplifyExceptionMessages.nullReturnedFromMethodChannel,
         );
       }
-      final errors = _deserializeGraphQLResponseErrors(result);
+      final errors = deserializeGraphQLResponseErrors(result);
 
       GraphQLResponse<T> response = GraphQLResponseDecoder.instance.decode<T>(
           request: request, data: result['data'] as String?, errors: errors);
@@ -465,20 +465,5 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
         underlyingException: e.toString(),
       );
     }
-  }
-
-  List<GraphQLResponseError> _deserializeGraphQLResponseErrors(
-    Map<String, dynamic> response,
-  ) {
-    final errors = response['errors'] as List?;
-    if (errors == null || errors.isEmpty) {
-      return const [];
-    }
-    return errors
-        .cast<Map>()
-        .map((message) => GraphQLResponseError.fromJson(
-              message.cast<String, dynamic>(),
-            ))
-        .toList();
   }
 }
