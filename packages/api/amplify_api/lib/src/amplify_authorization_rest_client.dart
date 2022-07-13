@@ -29,40 +29,63 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
   final AWSApiConfig endpointConfig;
   final http.Client _baseClient;
   final bool _useDefaultBaseClient;
+  final AmplifyAuthProviderRepository _authProviderRepo;
 
   /// Provide an [AWSApiConfig] which will determine how requests from this
   /// client are authorized.
   AmplifyAuthorizationRestClient({
     required this.endpointConfig,
+    required AmplifyAuthProviderRepository authRepo,
     http.Client? baseClient,
-  })  : _useDefaultBaseClient = baseClient == null,
+  })  : _authProviderRepo = authRepo,
+        _useDefaultBaseClient = baseClient == null,
         _baseClient = baseClient ?? http.Client();
 
   /// Implementation of [send] that authorizes any request without "Authorization"
   /// header already set.
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async =>
-      _baseClient.send(_authorizeRequest(request));
+      _baseClient.send(await _authorizeRequest(request));
 
   @override
   void close() {
     if (_useDefaultBaseClient) _baseClient.close();
   }
 
-  http.BaseRequest _authorizeRequest(http.BaseRequest request) {
+  Future<http.BaseRequest> _authorizeRequest(http.BaseRequest request) async {
     if (!request.headers.containsKey(AWSHeaders.authorization) &&
         endpointConfig.authorizationType != APIAuthorizationType.none) {
+      final authType = endpointConfig.authorizationType;
+
       // TODO(ragingsquirrel3): Use auth providers from core to transform the request.
       final apiKey = endpointConfig.apiKey;
-      if (endpointConfig.authorizationType == APIAuthorizationType.apiKey) {
+      if (authType == APIAuthorizationType.apiKey) {
         if (apiKey == null) {
           throw const ApiException(
               'Auth mode is API Key, but no API Key was found in config.');
         }
 
         request.headers.putIfAbsent(_xApiKey, () => apiKey);
+        return request;
       }
+
+      // Look for auth provider and use to decorate request.
+      final authProvider = _authProviderRepo.getAuthProvider(authType.name);
+      if (authProvider == null) {
+        throw ApiException(
+            'No auth provider found for auth mode ${authType.name}.',
+            recoverySuggestion: 'Ensure auth plugin correctly configured.');
+      }
+      final service = endpointConfig.endpointType == EndpointType.graphQL
+          ? AWSService.appSync
+          : AWSService.apiGatewayManagementApi;
+      return authProvider.authorizeRequest(
+        request,
+        options: IAMAuthProviderOptions(
+            region: endpointConfig.region, service: service),
+      );
     }
+
     return request;
   }
 }

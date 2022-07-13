@@ -35,6 +35,7 @@ import 'util.dart';
 class AmplifyAPIDart extends AmplifyAPI {
   late final AWSApiPluginConfig _apiConfig;
   final http.Client? _baseHttpClient;
+  late final AmplifyAuthProviderRepository _authProviderRepo;
 
   /// A map of the keys from the Amplify API config to HTTP clients to use for
   /// requests to that endpoint.
@@ -65,6 +66,7 @@ class AmplifyAPIDart extends AmplifyAPI {
               'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api');
     }
     _apiConfig = apiConfig;
+    _authProviderRepo = authProviderRepo;
   }
 
   @override
@@ -99,7 +101,10 @@ class AmplifyAPIDart extends AmplifyAPI {
       apiName: apiName,
     );
     return _clientPool[endpoint.name] ??= AmplifyAuthorizationRestClient(
-        endpointConfig: endpoint.config, baseClient: _baseHttpClient);
+      endpointConfig: endpoint.config,
+      baseClient: _baseHttpClient,
+      authRepo: _authProviderRepo,
+    );
   }
 
   /// Returns the HTTP client to be used for REST operations.
@@ -114,6 +119,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     return _clientPool[endpoint.name] ??= AmplifyAuthorizationRestClient(
       endpointConfig: endpoint.config,
       baseClient: _baseHttpClient,
+      authRepo: _authProviderRepo,
     );
   }
 
