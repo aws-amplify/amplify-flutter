@@ -171,9 +171,7 @@ class HostedUiCancelSignIn extends HostedUiEvent {
   HostedUiEventType get type => HostedUiEventType.cancelSignIn;
 
   @override
-  PreconditionException? checkPrecondition(
-    StateMachineState<HostedUiStateType> currentState,
-  ) {
+  PreconditionException? checkPrecondition(HostedUiState currentState) {
     if (currentState.type != HostedUiStateType.signingIn) {
       return const AuthPreconditionException(
         'There is no active sign-in session',
@@ -214,9 +212,7 @@ class HostedUiSignOut extends HostedUiEvent {
   HostedUiEventType get type => HostedUiEventType.signOut;
 
   @override
-  PreconditionException? checkPrecondition(
-    StateMachineState<HostedUiStateType> currentState,
-  ) {
+  PreconditionException? checkPrecondition(HostedUiState currentState) {
     switch (currentState.type) {
       case HostedUiStateType.notConfigured:
         return const AuthPreconditionException('Hosted UI is not configured');
@@ -275,9 +271,7 @@ class HostedUiFailed extends HostedUiEvent with ErrorEvent {
   HostedUiEventType get type => HostedUiEventType.failed;
 
   @override
-  PreconditionException? checkPrecondition(
-    StateMachineState<HostedUiStateType> currentState,
-  ) {
+  PreconditionException? checkPrecondition(HostedUiState currentState) {
     if (currentState.type == HostedUiStateType.failure) {
       return const AuthPreconditionException(
         'The state machine is already in a failure state.',

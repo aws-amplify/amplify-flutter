@@ -83,7 +83,7 @@ abstract class CredentialStoreEvent extends StateMachineEvent<
 
   @override
   PreconditionException? checkPrecondition(
-    StateMachineState<CredentialStoreStateType> currentState,
+    CredentialStoreState currentState,
   ) =>
       null;
 
@@ -107,7 +107,7 @@ class CredentialStoreLoadCredentialStore extends CredentialStoreEvent {
 
   @override
   PreconditionException? checkPrecondition(
-    StateMachineState<CredentialStoreStateType> currentState,
+    CredentialStoreState currentState,
   ) {
     if (currentState.type != CredentialStoreStateType.notConfigured &&
         currentState.type != CredentialStoreStateType.failure) {
@@ -137,7 +137,7 @@ class CredentialStoreMigrateLegacyCredentialStore extends CredentialStoreEvent {
 
   @override
   PreconditionException? checkPrecondition(
-    StateMachineState<CredentialStoreStateType> currentState,
+    CredentialStoreState currentState,
   ) {
     if (currentState.type !=
         CredentialStoreStateType.loadingStoredCredentials) {
@@ -188,7 +188,7 @@ class CredentialStoreStoreCredentials extends CredentialStoreEvent {
 
   @override
   PreconditionException? checkPrecondition(
-    StateMachineState<CredentialStoreStateType> currentState,
+    CredentialStoreState currentState,
   ) {
     if (currentState.type == CredentialStoreStateType.notConfigured) {
       return const AuthPreconditionException(
@@ -227,7 +227,7 @@ class CredentialStoreClearCredentials extends CredentialStoreEvent {
 
   @override
   PreconditionException? checkPrecondition(
-    StateMachineState<CredentialStoreStateType> currentState,
+    CredentialStoreState currentState,
   ) {
     if (currentState.type == CredentialStoreStateType.notConfigured) {
       return const AuthPreconditionException(
@@ -284,7 +284,7 @@ class CredentialStoreSucceeded extends CredentialStoreEvent {
 
   @override
   PreconditionException? checkPrecondition(
-    StateMachineState<CredentialStoreStateType> currentState,
+    CredentialStoreState currentState,
   ) {
     if (currentState.type == CredentialStoreStateType.notConfigured) {
       return const AuthPreconditionException(
@@ -314,7 +314,7 @@ class CredentialStoreFailed extends CredentialStoreEvent with ErrorEvent {
 
   @override
   PreconditionException? checkPrecondition(
-    StateMachineState<CredentialStoreStateType> currentState,
+    CredentialStoreState currentState,
   ) {
     return null;
   }

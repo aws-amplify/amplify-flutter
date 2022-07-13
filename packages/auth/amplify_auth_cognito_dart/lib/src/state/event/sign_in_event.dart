@@ -71,10 +71,7 @@ abstract class SignInEvent
   const factory SignInEvent.failed(Exception exception) = SignInFailed;
 
   @override
-  PreconditionException? checkPrecondition(
-    StateMachineState<SignInStateType> currentState,
-  ) =>
-      null;
+  PreconditionException? checkPrecondition(SignInState currentState) => null;
 
   @override
   String get runtimeTypeName => 'SignInEvent';
@@ -108,9 +105,7 @@ class SignInInitiate extends SignInEvent {
   List<Object?> get props => [type, authFlowType, clientMetadata, parameters];
 
   @override
-  PreconditionException? checkPrecondition(
-    StateMachineState<SignInStateType> currentState,
-  ) {
+  PreconditionException? checkPrecondition(SignInState currentState) {
     if (currentState.type != SignInStateType.notStarted) {
       return const AuthPreconditionException(
         'Auth flow has already been initiated',
@@ -154,9 +149,7 @@ class SignInRespondToChallenge extends SignInEvent {
       ];
 
   @override
-  PreconditionException? checkPrecondition(
-    StateMachineState<SignInStateType> currentState,
-  ) {
+  PreconditionException? checkPrecondition(SignInState currentState) {
     if (currentState.type != SignInStateType.challenge) {
       return const AuthPreconditionException('There is no active challenge');
     }
@@ -178,9 +171,7 @@ class SignInCancelled extends SignInEvent {
   List<Object?> get props => [type];
 
   @override
-  PreconditionException? checkPrecondition(
-    StateMachineState<SignInStateType> currentState,
-  ) {
+  PreconditionException? checkPrecondition(SignInState currentState) {
     return null;
   }
 }
@@ -202,9 +193,7 @@ class SignInSucceeded extends SignInEvent {
   List<Object?> get props => [type, user];
 
   @override
-  PreconditionException? checkPrecondition(
-    StateMachineState<SignInStateType> currentState,
-  ) {
+  PreconditionException? checkPrecondition(SignInState currentState) {
     if (currentState.type == SignInStateType.success) {
       return const AuthPreconditionException('Auth flow was already completed');
     }
@@ -230,9 +219,7 @@ class SignInFailed extends SignInEvent with ErrorEvent {
   List<Object?> get props => [type, exception];
 
   @override
-  PreconditionException? checkPrecondition(
-    StateMachineState<SignInStateType> currentState,
-  ) {
+  PreconditionException? checkPrecondition(SignInState currentState) {
     if (currentState.type == SignInStateType.failure) {
       return const AuthPreconditionException(
         'Auth flow already completed with error',

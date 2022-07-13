@@ -34,7 +34,7 @@ abstract class StateMachineEvent<EventType, StateType>
   ///
   /// Returns a [PreconditionException] if the check fails, otherwise `null`.
   PreconditionException? checkPrecondition(
-    StateMachineState<StateType> currentState,
+    covariant StateMachineState<StateType> currentState,
   ) =>
       null;
 }

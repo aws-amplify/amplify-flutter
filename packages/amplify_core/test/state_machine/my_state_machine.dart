@@ -43,9 +43,7 @@ class MyEvent extends StateMachineEvent<MyType, MyType> {
   final MyType type;
 
   @override
-  MyPreconditionException? checkPrecondition(
-    StateMachineState<MyType> currentState,
-  ) {
+  MyPreconditionException? checkPrecondition(MyState currentState) {
     if (currentState.type == type) {
       return const MyPreconditionException('Cannot process event of same type');
     }
@@ -139,9 +137,7 @@ class WorkerEvent extends StateMachineEvent<WorkType, WorkType> {
   final WorkType type;
 
   @override
-  MyPreconditionException? checkPrecondition(
-    StateMachineState<WorkType> currentState,
-  ) {
+  MyPreconditionException? checkPrecondition(WorkerState currentState) {
     if (currentState.type == type) {
       return const MyPreconditionException('Cannot process event of same type');
     }
