@@ -35,11 +35,7 @@ void main() {
       final allPackages = await command.allPackages;
       expect(
         allPackages,
-        contains(
-          predicate<PackageInfo>(
-            (info) => info.name == 'amplify_flutter',
-          ),
-        ),
+        contains('amplify_flutter'),
       );
     });
 
