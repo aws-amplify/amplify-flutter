@@ -17,7 +17,6 @@ import Flutter
 import UIKit
 import Amplify
 import AmplifyPlugins
-import AWSMobileClient
 import amplify_flutter_ios
 
 public class AmplifyStorageOperations {
