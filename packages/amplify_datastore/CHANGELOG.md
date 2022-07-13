@@ -1,3 +1,9 @@
+## 0.6.2 (2022-07-14)
+
+- fix(datastore): delete test fix ([#1880](https://github.com/aws-amplify/amplify-flutter/pull/1880))
+- chore: upgrade amplify-android to 1.36.1 ([#1841](https://github.com/aws-amplify/amplify-flutter/pull/1841))
+- chore: Update line endings to LF ([#1836](https://github.com/aws-amplify/amplify-flutter/pull/1836))
+
 ## 0.6.1 (2022-06-30)
 
 ## 0.6.0 (2022-06-20)

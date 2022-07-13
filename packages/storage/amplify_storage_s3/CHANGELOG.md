@@ -1,3 +1,7 @@
+## 0.6.2 (2022-07-14)
+
+- chore: add meta to storage deps ([#1856](https://github.com/aws-amplify/amplify-flutter/pull/1856))
+
 ## 0.6.1 (2022-06-30)
 
 ## 0.6.0 (2022-06-20)

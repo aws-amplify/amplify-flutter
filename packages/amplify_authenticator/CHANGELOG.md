@@ -1,3 +1,11 @@
+## 0.2.2 (2022-06-30)
+
+- chore(authenticator): Update versions on the README ([#1854](https://github.com/aws-amplify/amplify-flutter/pull/1854))
+- fix(authenticator): fixes configure call in custom auth test and removes redundant test ([#1878](https://github.com/aws-amplify/amplify-flutter/pull/1878))
+- chore(authenticator): Fix typo in error message ([#1846](https://github.com/aws-amplify/amplify-flutter/pull/1846))
+- test(authenticator): add golden tests for new configs ([#1831](https://github.com/aws-amplify/amplify-flutter/pull/1831))
+- chore(deps): bump mocktail in /packages/amplify_authenticator ([#1582](https://github.com/aws-amplify/amplify-flutter/pull/1582))
+
 ## 0.2.1 (2022-06-30)
 
 - fix: authenticator phone OR email confirmation ([#1785](https://github.com/aws-amplify/amplify-flutter/pull/1785))

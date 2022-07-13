@@ -1,3 +1,19 @@
+## 0.6.2 (2022-07-14)
+
+- fix(datastore): delete test fix ([#1880](https://github.com/aws-amplify/amplify-flutter/pull/1880))
+- chore(authenticator): Update versions on the README ([#1854](https://github.com/aws-amplify/amplify-flutter/pull/1854))
+- fix(authenticator): fixes configure call in custom auth test and removes redundant test ([#1878](https://github.com/aws-amplify/amplify-flutter/pull/1878))
+- feat(auth): runtime authFlow attribute ([#1687](https://github.com/aws-amplify/amplify-flutter/pull/1687))
+- chore: enable integration tests in gh actions ([#1754](https://github.com/aws-amplify/amplify-flutter/pull/1754))
+- chore(authenticator): Fix typo in error message ([#1846](https://github.com/aws-amplify/amplify-flutter/pull/1846))
+- test(authenticator): add golden tests for new configs ([#1831](https://github.com/aws-amplify/amplify-flutter/pull/1831))
+- chore: add meta to storage deps ([#1856](https://github.com/aws-amplify/amplify-flutter/pull/1856))
+- chore: fix various integ test issues ([#1838](https://github.com/aws-amplify/amplify-flutter/pull/1838))
+- chore: upgrade amplify-android to 1.36.1 ([#1841](https://github.com/aws-amplify/amplify-flutter/pull/1841))
+- chore(deps): bump mocktail in /packages/amplify_authenticator ([#1582](https://github.com/aws-amplify/amplify-flutter/pull/1582))
+- chore: Update line endings to LF ([#1836](https://github.com/aws-amplify/amplify-flutter/pull/1836))
+- chore(repo): Update mono_repo ([#1821](https://github.com/aws-amplify/amplify-flutter/pull/1821))
+
 ## 0.6.1 (2022-06-30)
 
 - fix(authenticator): authenticator phone OR email confirmation ([#1785](https://github.com/aws-amplify/amplify-flutter/pull/1785))
