@@ -32,6 +32,7 @@ import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
+import com.amplifyframework.auth.cognito.options.AuthFlowType
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmResetPasswordOptions
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignInOptions
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignUpOptions
@@ -451,7 +452,8 @@ class AmplifyAuthCognitoPluginTest {
             "username" to "testUser",
             "password" to "testPassword",
             "options" to hashMapOf(
-                "clientMetadata" to metadata
+                "clientMetadata" to metadata,
+                "authFlowType" to "customAuth",
             )
         )
         val arguments: HashMap<String, Any> = hashMapOf("data" to data)
@@ -461,7 +463,7 @@ class AmplifyAuthCognitoPluginTest {
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        var expectedOptions = AWSCognitoAuthSignInOptions.builder().metadata(metadata).build()
+        var expectedOptions = AWSCognitoAuthSignInOptions.builder().metadata(metadata).authFlowType(AuthFlowType.CUSTOM_AUTH).build()
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
         verify(mockAuth).signIn(ArgumentMatchers.eq("testUser"), ArgumentMatchers.eq("testPassword"), ArgumentMatchers.eq(expectedOptions), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
     }
