@@ -62,11 +62,6 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
   @override
   String resolve(BuildContext context, AuthenticatorStep key) {
     switch (key) {
-      case AuthenticatorStep.onboarding:
-      case AuthenticatorStep.signIn:
-        return '';
-      case AuthenticatorStep.signUp:
-        return '';
       case AuthenticatorStep.confirmSignUp:
         return confirmSignUp(context);
       case AuthenticatorStep.confirmSignInCustomAuth:
@@ -83,6 +78,9 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
       case AuthenticatorStep.confirmVerifyUser:
         return verifyUser(context);
       case AuthenticatorStep.loading:
+      case AuthenticatorStep.onboarding:
+      case AuthenticatorStep.signIn:
+      case AuthenticatorStep.signUp:
         throw StateError('Invalid step: $this');
     }
   }
