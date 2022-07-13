@@ -79,7 +79,7 @@ class FetchAuthSessionFetch extends FetchAuthSessionEvent {
 
   @override
   PreconditionException? checkPrecondition(
-    FetchAuthSessionState currentState,
+    StateMachineState<FetchAuthSessionStateType> currentState,
   ) {
     if (currentState.type == FetchAuthSessionStateType.refreshing ||
         currentState.type == FetchAuthSessionStateType.fetching) {
@@ -120,7 +120,7 @@ class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
 
   @override
   PreconditionException? checkPrecondition(
-    FetchAuthSessionState currentState,
+    StateMachineState<FetchAuthSessionStateType> currentState,
   ) {
     if (currentState.type == FetchAuthSessionStateType.refreshing) {
       return const AuthPreconditionException(

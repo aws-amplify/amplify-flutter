@@ -48,7 +48,10 @@ abstract class AuthEvent
       AuthConfigureFailed;
 
   @override
-  PreconditionException? checkPrecondition(AuthState currentState) => null;
+  PreconditionException? checkPrecondition(
+    StateMachineState<AuthStateType> currentState,
+  ) =>
+      null;
 
   @override
   String get runtimeTypeName => 'AuthEvent';
@@ -68,7 +71,9 @@ class AuthConfigure extends AuthEvent {
   AuthEventType get type => AuthEventType.configure;
 
   @override
-  PreconditionException? checkPrecondition(AuthState currentState) {
+  PreconditionException? checkPrecondition(
+    StateMachineState<AuthStateType> currentState,
+  ) {
     if (currentState.type == AuthStateType.configuring) {
       return const AuthPreconditionException(
         'Already configuring',
