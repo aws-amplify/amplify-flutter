@@ -43,8 +43,8 @@ enum CredentialStoreEventType {
 /// {@template amplify_auth_cognito.credential_store_event}
 /// Discrete events of the credential store state machine.
 /// {@endtemplate}
-abstract class CredentialStoreEvent
-    extends StateMachineEvent<CredentialStoreEventType> {
+abstract class CredentialStoreEvent extends StateMachineEvent<
+    CredentialStoreEventType, CredentialStoreStateType> {
   /// {@macro amplify_auth_cognito.credential_store_event}
   const CredentialStoreEvent._();
 

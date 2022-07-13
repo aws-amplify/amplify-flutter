@@ -19,10 +19,10 @@ class DispatchListener implements Dispatcher {
     this.onDispatch,
   });
 
-  final void Function(StateMachineEvent<dynamic>)? onDispatch;
+  final void Function(StateMachineEvent<dynamic, dynamic>)? onDispatch;
 
   @override
-  void dispatch(StateMachineEvent<dynamic> event) {
+  void dispatch(StateMachineEvent<dynamic, dynamic> event) {
     onDispatch?.call(event);
   }
 }
