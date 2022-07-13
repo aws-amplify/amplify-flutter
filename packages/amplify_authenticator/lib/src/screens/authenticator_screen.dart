@@ -63,18 +63,18 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
     AuthStringResolver stringResolver,
   ) {
     final Size screenSize = MediaQuery.of(context).size;
-    final bool isDesktop =
-        screenSize.width > AuthenticatorContainerConstants.landScapeView;
+    final bool isMobile =
+        screenSize.shortestSide < AuthenticatorContainerConstants.landScapeView;
     final double containerWidth;
     final double containerPadding;
 
-    if (isDesktop) {
-      containerWidth = AuthenticatorContainerConstants.mediumWidth;
-      containerPadding = 100.0;
-    } else {
+    if (isMobile) {
       double mobileWidth = MediaQuery.of(context).size.width;
       containerWidth = mobileWidth;
       containerPadding = 0.0;
+    } else {
+      containerWidth = AuthenticatorContainerConstants.mediumWidth;
+      containerPadding = 100.0;
     }
 
     const signInUpTabs = [AuthenticatorStep.signIn, AuthenticatorStep.signUp];
@@ -107,12 +107,7 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
         child: Center(
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: containerWidth),
-            child: SafeArea(
-                child: isDesktop
-                    ? Card(
-                        child: child,
-                      )
-                    : child),
+            child: SafeArea(child: isMobile ? child : Card(child: child)),
           ),
         ),
       ),
@@ -144,14 +139,29 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
     final form = InheritedForms.of(context)[step];
     final padding = InheritedConfig.of(context).padding;
 
-    return Padding(
-      padding: padding,
-      child: Column(
-        children: <Widget>[
-          form,
-        ],
-      ),
-    );
+    final Widget layout;
+    switch (step) {
+      case AuthenticatorStep.signIn:
+      case AuthenticatorStep.signUp:
+        layout = form;
+        break;
+      default:
+        layout = Column(
+          children: <Widget>[
+            Text(
+              titleResolver.resolve(context, step),
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            const SizedBox(
+              height: AuthenticatorContainerConstants.gap,
+            ),
+            form,
+          ],
+        );
+        break;
+    }
+
+    return Padding(padding: padding, child: layout);
   }
 
   @override

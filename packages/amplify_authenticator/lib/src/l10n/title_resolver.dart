@@ -23,16 +23,6 @@ import 'resolver.dart';
 class TitleResolver extends Resolver<AuthenticatorStep> {
   const TitleResolver();
 
-  /// The title for the sign in Widget.
-  String signIn(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context).signIn;
-  }
-
-  /// The title for the sign up Widget.
-  String signUp(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context).signUp;
-  }
-
   /// The title for the confirm sign up Widget.
   String confirmSignUp(BuildContext context) {
     return AuthenticatorLocalizations.titlesOf(context).confirmSignUp;
@@ -74,9 +64,9 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
     switch (key) {
       case AuthenticatorStep.onboarding:
       case AuthenticatorStep.signIn:
-        return signIn(context);
+        return '';
       case AuthenticatorStep.signUp:
-        return signUp(context);
+        return '';
       case AuthenticatorStep.confirmSignUp:
         return confirmSignUp(context);
       case AuthenticatorStep.confirmSignInCustomAuth:

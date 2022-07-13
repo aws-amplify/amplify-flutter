@@ -107,18 +107,6 @@ abstract class AuthenticatorTitleLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
-  /// Title of the Sign In step and form
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in to your account'**
-  String get signIn;
-
-  /// Title of the Sign Up step and form
-  ///
-  /// In en, this message translates to:
-  /// **'Create your account'**
-  String get signUp;
-
   /// Title of the Confirm Sign Up step and form
   ///
   /// In en, this message translates to:

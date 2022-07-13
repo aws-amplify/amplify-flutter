@@ -13,18 +13,13 @@
  * permissions and limitations under the License.
  */
 
+
 import 'title_localizations.dart';
 
 /// The translations for English (`en`).
 class AuthenticatorTitleLocalizationsEn
     extends AuthenticatorTitleLocalizations {
   AuthenticatorTitleLocalizationsEn([String locale = 'en']) : super(locale);
-
-  @override
-  String get signIn => 'Sign in to your account';
-
-  @override
-  String get signUp => 'Create your account';
 
   @override
   String get confirmSignUp => 'Enter your confirmation code';
