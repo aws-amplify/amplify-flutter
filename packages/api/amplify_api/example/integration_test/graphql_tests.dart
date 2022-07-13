@@ -44,7 +44,7 @@ void main() {
       final req = GraphQLRequest<String>(
           document: graphQLDocument, variables: <String, String>{'id': id});
       final response = await Amplify.API.mutate(request: req).response;
-      if (response.errors.isNotEmpty) {
+      if (response.hasErrors) {
         fail(
             'GraphQL error while deleting a blog: ${response.errors.toString()}');
       }
@@ -561,7 +561,7 @@ void main() {
         // With stream established, exec callback with stream events.
         final subscription = await _getEstablishedSubscriptionOperation<T>(
             subscriptionRequest, (event) {
-          if (event.errors.isNotEmpty) {
+          if (event.hasErrors) {
             fail('subscription errors: ${event.errors}');
           }
           dataCompleter.complete(event);
@@ -657,6 +657,8 @@ void main() {
 
         expect(postFromEvent?.title, equals(title));
       });
-    });
+    },
+        skip:
+            'TODO(ragingsquirrel3): re-enable tests once subscriptions are implemented.');
   });
 }

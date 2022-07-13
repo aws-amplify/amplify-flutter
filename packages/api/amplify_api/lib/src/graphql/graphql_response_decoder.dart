@@ -34,7 +34,7 @@ class GraphQLResponseDecoder {
   GraphQLResponse<T> decode<T>(
       {required GraphQLRequest request,
       String? data,
-      required List<GraphQLResponseError> errors}) {
+      List<GraphQLResponseError>? errors}) {
     if (data == null) {
       return GraphQLResponse(data: null, errors: errors);
     }
