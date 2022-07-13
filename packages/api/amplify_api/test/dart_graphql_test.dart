@@ -17,7 +17,6 @@ import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_test/test_models/Blog.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -43,7 +42,7 @@ const _expectedQuerySuccessResponseBody = {
   }
 };
 
-final _modelQueryId = UUID.getUUID();
+final _modelQueryId = uuid();
 final _expectedModelQueryResult = {
   'data': {
     'getBlog': {

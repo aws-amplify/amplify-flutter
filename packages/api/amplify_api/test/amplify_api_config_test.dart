@@ -43,7 +43,7 @@ void main() {
     });
 
     test('should return valid URI with null params', () async {
-      final uri = endpointConfig.getUri(path: null, queryParameters: null);
+      final uri = endpointConfig.getUri();
       final expected = Uri.parse('$endpoint/');
 
       expect(uri, equals(expected));

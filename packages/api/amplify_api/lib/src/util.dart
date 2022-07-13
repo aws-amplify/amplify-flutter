@@ -32,7 +32,7 @@ Map<String, String>? addContentTypeToHeaders(
 }
 
 /// Grabs errors from GraphQL Response. Is used in method channel and Dart first code.
-/// TODO: Move to Dart first code when method channel GraphQL implementation is removed.
+/// TODO(Equartey): Move to Dart first code when method channel GraphQL implementation is removed.
 @internal
 List<GraphQLResponseError>? deserializeGraphQLResponseErrors(
   Map<String, dynamic> response,
