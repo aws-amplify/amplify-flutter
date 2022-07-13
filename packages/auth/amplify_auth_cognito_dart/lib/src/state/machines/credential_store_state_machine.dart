@@ -328,7 +328,12 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       if (accessKeyId != null && secretAccessKey != null) {
         DateTime? expiration;
         if (expirationStr != null) {
-          expiration = DateTime.tryParse(expirationStr);
+          final secondsSinceEpoch = double.tryParse(expirationStr)?.toInt();
+          if (secondsSinceEpoch != null) {
+            expiration = DateTime.fromMillisecondsSinceEpoch(
+              secondsSinceEpoch * 1000,
+            );
+          }
         }
         awsCredentials = AWSCredentials(
           accessKeyId,
