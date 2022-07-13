@@ -18,6 +18,8 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
+const _xApiKey = 'X-Api-Key';
+
 /// Implementation of http [http.Client] that authorizes HTTP requests with
 /// Amplify.
 @internal
@@ -50,8 +52,16 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
   http.BaseRequest _authorizeRequest(http.BaseRequest request) {
     if (!request.headers.containsKey(AWSHeaders.authorization) &&
         endpointConfig.authorizationType != APIAuthorizationType.none) {
-      // ignore: todo
-      // TODO: Use auth providers from core to transform the request.
+      // TODO(ragingsquirrel3): Use auth providers from core to transform the request.
+      final apiKey = endpointConfig.apiKey;
+      if (endpointConfig.authorizationType == APIAuthorizationType.apiKey) {
+        if (apiKey == null) {
+          throw const ApiException(
+              'Auth mode is API Key, but no API Key was found in config.');
+        }
+
+        request.headers.putIfAbsent(_xApiKey, () => apiKey);
+      }
     }
     return request;
   }
