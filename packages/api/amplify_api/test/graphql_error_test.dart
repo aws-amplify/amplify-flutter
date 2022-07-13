@@ -68,6 +68,6 @@ void main() {
         .response;
 
     expect(resp.data, equals(null));
-    expect(resp.errors.single, equals(expected));
+    expect(resp.errors?.single, equals(expected));
   });
 }
