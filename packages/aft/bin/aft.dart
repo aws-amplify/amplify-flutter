@@ -23,11 +23,17 @@ Future<void> main(List<String> args) async {
       help: 'Prints verbose logs',
       defaultsTo: false,
     )
+    ..argParser.addOption(
+      'directory',
+      help: 'Directory to run commands from. Defaults to current directory.',
+      hide: true,
+    )
     ..addCommand(GenerateSdkCommand())
     ..addCommand(ListPackagesCommand())
     ..addCommand(DepsCommand())
     ..addCommand(LinkCommand())
-    ..addCommand(CleanCommand());
+    ..addCommand(CleanCommand())
+    ..addCommand(PubCommand());
   try {
     await runner.run(args);
   } on UsageException catch (e) {

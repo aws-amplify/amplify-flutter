@@ -26,11 +26,13 @@ part 'models.g.dart';
 
 /// The flavor of a package, e.g. Dart/Flutter.
 enum PackageFlavor {
-  flutter('Flutter'),
-  dart('Dart');
+  flutter('Flutter', 'flutter'),
+  dart('Dart', 'dart');
 
-  const PackageFlavor(this.displayName);
+  const PackageFlavor(this.displayName, this.entrypoint);
+
   final String displayName;
+  final String entrypoint;
 }
 
 /// {@template amplify_tools.package_info}
