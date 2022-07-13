@@ -26,7 +26,7 @@ const _ignorePackages = [
   'synthetic_package',
 ];
 
-abstract class AmplifyCommand extends Command<void> {
+abstract class AmplifyCommand extends Command<void> implements Closeable {
   /// Whether verbose logging is enabled.
   late final verbose = globalResults!['verbose'] as bool;
 
@@ -96,4 +96,9 @@ abstract class AmplifyCommand extends Command<void> {
         final depsYaml = depsFile.readAsStringSync();
         return checkedYamlDecode(depsYaml, GlobalDependencyConfig.fromJson);
       });
+
+  @override
+  @mustCallSuper
+  void close() {
+  }
 }

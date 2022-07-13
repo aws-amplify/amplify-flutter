@@ -25,6 +25,25 @@ Future<void> main(List<String> args) async {
     )
     ..addCommand(GenerateSdkCommand())
     ..addCommand(ListPackagesCommand())
-    ..addCommand(DepsCommand());
-  await runner.run(args);
+    ..addCommand(DepsCommand())
+    ..addCommand(LinkCommand());
+  try {
+    await runner.run(args);
+  } on UsageException catch (e) {
+    stderr
+      ..writeln(e.message)
+      ..writeln(e.usage);
+    exitCode = 1;
+  } on Object catch (e, st) {
+    stderr
+      ..writeln(e.toString())
+      ..writeln(st);
+    exitCode = 1;
+  } finally {
+    // Free up resources before exiting..
+    for (final command in runner.commands.values.whereType<AmplifyCommand>()) {
+      command.close();
+    }
+    exit(exitCode);
+  }
 }
