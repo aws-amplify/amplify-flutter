@@ -43,6 +43,7 @@ class PubCommand extends AmplifyCommand {
   PubCommand() {
     addSubcommand(PubSubcommand(PubAction.get));
     addSubcommand(PubSubcommand(PubAction.upgrade));
+    addSubcommand(PublishCommand());
   }
 
   @override
