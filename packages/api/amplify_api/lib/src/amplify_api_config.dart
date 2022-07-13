@@ -29,7 +29,8 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
 
   /// Gets the host with environment path prefix from Amplify config and combines
   /// with [path] and [queryParameters] to return a full [Uri].
-  Uri getUri(String path, Map<String, dynamic>? queryParameters) {
+  Uri getUri({String? path, Map<String, dynamic>? queryParameters}) {
+    path = path ?? '';
     final parsed = Uri.parse(config.endpoint);
     // Remove leading slashes which are suggested in public documentation.
     // https://docs.amplify.aws/lib/restapi/getting-started/q/platform/flutter/#make-a-post-request
