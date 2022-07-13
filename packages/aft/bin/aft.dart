@@ -26,7 +26,8 @@ Future<void> main(List<String> args) async {
     ..addCommand(GenerateSdkCommand())
     ..addCommand(ListPackagesCommand())
     ..addCommand(DepsCommand())
-    ..addCommand(LinkCommand());
+    ..addCommand(LinkCommand())
+    ..addCommand(CleanCommand());
   try {
     await runner.run(args);
   } on UsageException catch (e) {
