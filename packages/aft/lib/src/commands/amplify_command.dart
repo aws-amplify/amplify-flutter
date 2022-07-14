@@ -64,10 +64,11 @@ abstract class AmplifyCommand extends Command<void> {
 
         final allPackages = <PackageInfo>[];
         await for (final dir in allDirs) {
-          final pubspec = dir.pubspec;
-          if (pubspec == null) {
+          final pubspecInfo = dir.pubspec;
+          if (pubspecInfo == null) {
             continue;
           }
+          final pubspec = pubspecInfo.pubspec;
           if (_ignorePackages.contains(pubspec.name)) {
             continue;
           }
@@ -76,7 +77,7 @@ abstract class AmplifyCommand extends Command<void> {
               name: pubspec.name,
               path: dir.path,
               usesMonoRepo: dir.usesMonoRepo,
-              pubspec: pubspec,
+              pubspecInfo: pubspecInfo,
               flavor: pubspec.flavor,
             ),
           );

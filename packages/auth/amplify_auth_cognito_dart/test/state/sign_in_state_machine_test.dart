@@ -95,7 +95,7 @@ void main() {
         ..addInstance<CognitoIdentityProviderClient>(mockClient)
         ..dispatch(
           SignInEvent.initiate(
-            authFlow: AuthFlowType.customAuth,
+            authFlowType: AuthFlowType.customAuth,
             parameters: SignInParameters(
               (p) => p
                 ..username = 'username'

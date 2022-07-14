@@ -12,17 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/amplify_core.dart';
+/// (@template amplify_core.state_machine.precondition_exception)
+/// An exception raised within a state machine when an event could not be
+/// processed due to some precondition not being met.
+/// {@endtemplate}
+abstract class PreconditionException implements Exception {
+  /// (@macro amplify_core.state_machine.precondition_exception)
+  const PreconditionException();
 
-class DispatchListener implements Dispatcher {
-  const DispatchListener({
-    this.onDispatch,
-  });
+  /// The precondition which was not met.
+  String get precondition;
 
-  final void Function(StateMachineEvent<dynamic, dynamic>)? onDispatch;
-
-  @override
-  void dispatch(StateMachineEvent<dynamic, dynamic> event) {
-    onDispatch?.call(event);
-  }
+  /// Whether the event should be resolved and emitted as a state machine state
+  /// (`true`) or whether the error should be reported but not emitted (`false`).
+  bool get shouldEmit;
 }

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.credential_store_event_type}
@@ -41,8 +41,8 @@ enum CredentialStoreEventType {
 /// {@template amplify_auth_cognito.credential_store_event}
 /// Discrete events of the credential store state machine.
 /// {@endtemplate}
-abstract class CredentialStoreEvent
-    extends StateMachineEvent<CredentialStoreEventType> {
+abstract class CredentialStoreEvent extends StateMachineEvent<
+    CredentialStoreEventType, CredentialStoreStateType> {
   /// {@macro amplify_auth_cognito.credential_store_event}
   const CredentialStoreEvent._();
 
@@ -73,7 +73,10 @@ abstract class CredentialStoreEvent
       CredentialStoreFailed;
 
   @override
-  String? checkPrecondition(CredentialStoreState currentState) => null;
+  PreconditionException? checkPrecondition(
+    CredentialStoreState currentState,
+  ) =>
+      null;
 
   @override
   String get runtimeTypeName => 'CredentialStoreEvent';
@@ -94,10 +97,15 @@ class CredentialStoreLoadCredentialStore extends CredentialStoreEvent {
   List<Object?> get props => [type];
 
   @override
-  String? checkPrecondition(CredentialStoreState currentState) {
+  PreconditionException? checkPrecondition(
+    CredentialStoreState currentState,
+  ) {
     if (currentState.type != CredentialStoreStateType.migratingLegacyStore &&
         currentState.type != CredentialStoreStateType.failure) {
-      return 'Credential store already configured';
+      return const AuthPreconditionException(
+        'Credential store already configured',
+        shouldEmit: false,
+      );
     }
     return null;
   }
@@ -119,9 +127,13 @@ class CredentialStoreMigrateLegacyCredentialStore extends CredentialStoreEvent {
   List<Object?> get props => [type];
 
   @override
-  String? checkPrecondition(CredentialStoreState currentState) {
+  PreconditionException? checkPrecondition(
+    CredentialStoreState currentState,
+  ) {
     if (currentState.type != CredentialStoreStateType.notConfigured) {
-      return 'Credential store cannot be migrated in current state';
+      return const AuthPreconditionException(
+        'Credential store cannot be migrated in current state',
+      );
     }
     return null;
   }
@@ -148,15 +160,21 @@ class CredentialStoreStoreCredentials extends CredentialStoreEvent {
       ];
 
   @override
-  String? checkPrecondition(CredentialStoreState currentState) {
+  PreconditionException? checkPrecondition(
+    CredentialStoreState currentState,
+  ) {
     if (currentState.type == CredentialStoreStateType.notConfigured) {
-      return 'Credential store is not configured';
+      return const AuthPreconditionException(
+        'Credential store is not configured',
+      );
     }
     if (currentState.type == CredentialStoreStateType.failure) {
-      return 'Credential store has error. Re-load before continuing.';
+      return const AuthPreconditionException(
+        'Credential store has error. Re-load before continuing.',
+      );
     }
     if (currentState.type != CredentialStoreStateType.success) {
-      return 'Credential store is busy';
+      return const AuthPreconditionException('Credential store is busy');
     }
     return null;
   }
@@ -181,15 +199,21 @@ class CredentialStoreClearCredentials extends CredentialStoreEvent {
   List<Object?> get props => [type, keys];
 
   @override
-  String? checkPrecondition(CredentialStoreState currentState) {
+  PreconditionException? checkPrecondition(
+    CredentialStoreState currentState,
+  ) {
     if (currentState.type == CredentialStoreStateType.notConfigured) {
-      return 'Credential store is not configured';
+      return const AuthPreconditionException(
+        'Credential store is not configured',
+      );
     }
     if (currentState.type == CredentialStoreStateType.failure) {
-      return 'Credential store has error. Re-load before continuing.';
+      return const AuthPreconditionException(
+        'Credential store has error. Re-load before continuing.',
+      );
     }
     if (currentState.type != CredentialStoreStateType.success) {
-      return 'Credential store is busy';
+      return const AuthPreconditionException('Credential store is busy');
     }
     return null;
   }
@@ -215,9 +239,13 @@ class CredentialStoreSucceeded extends CredentialStoreEvent {
       ];
 
   @override
-  String? checkPrecondition(CredentialStoreState currentState) {
+  PreconditionException? checkPrecondition(
+    CredentialStoreState currentState,
+  ) {
     if (currentState.type == CredentialStoreStateType.notConfigured) {
-      return 'Credential store is not configured';
+      return const AuthPreconditionException(
+        'Credential store is not configured',
+      );
     }
     return null;
   }
@@ -241,7 +269,9 @@ class CredentialStoreFailed extends CredentialStoreEvent with ErrorEvent {
   List<Object?> get props => [type, exception];
 
   @override
-  String? checkPrecondition(CredentialStoreState currentState) {
+  PreconditionException? checkPrecondition(
+    CredentialStoreState currentState,
+  ) {
     return null;
   }
 }
