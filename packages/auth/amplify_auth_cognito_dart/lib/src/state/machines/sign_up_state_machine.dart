@@ -31,6 +31,9 @@ class SignUpStateMachine extends SignUpStateMachineBase {
   static const type =
       StateMachineToken<SignUpEvent, SignUpState, SignUpStateMachine>();
 
+  @override
+  String get runtimeTypeName => 'SignUpStateMachine';
+
   CognitoIdentityProviderClient get _cognito => expect();
   CognitoUserPoolConfig get _userPoolConfig => expect();
 
