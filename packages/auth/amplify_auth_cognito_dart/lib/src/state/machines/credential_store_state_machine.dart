@@ -21,7 +21,6 @@ import 'package:amplify_auth_cognito_dart/src/credentials/legacy_secure_storage_
 import 'package:amplify_auth_cognito_dart/src/credentials/secure_storage_extension.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
-import 'package:amplify_auth_cognito_dart/src/model/bundle_id_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/credential_store_state_machine_base.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -405,6 +404,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
   ) async {
     final version = await _getVersion();
     if (version == CredentialStoreVersion.none) {
+      // TODO(Jordan-Nelson): Add Android support for credential migration
       final bundleIdProvider = get<BundleIdProvider>();
       final getBundleId = bundleIdProvider?.getBundleId;
       final bundleId = getBundleId != null ? await getBundleId() : null;
@@ -426,6 +426,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
           }
         }
       }
+
       await _updateVersion(CredentialStoreVersion.v1);
     }
     dispatch(const CredentialStoreEvent.loadCredentialStore());

@@ -29,12 +29,9 @@ class LegacySecureStorageFactory {
   /// The namespace is used as the "service" on iOS and the key-value
   /// repository name on Android.
   SecureStorageInterface _get(String namespace) {
-    if (_instances[namespace] != null) return _instances[namespace]!;
-    final instance = AmplifySecureStorageDart(
+    return _instances[namespace] ??= AmplifySecureStorageDart(
       config: AmplifySecureStorageConfig.legacy(namespace: namespace),
     );
-    _instances[namespace] = instance;
-    return instance;
   }
 
   /// Returns the legacy User Pool Storage instance.

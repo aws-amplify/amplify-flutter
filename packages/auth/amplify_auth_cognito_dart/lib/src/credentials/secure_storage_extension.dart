@@ -13,8 +13,10 @@
 // limitations under the License.
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:meta/meta.dart';
 
 /// Extensions for the secure storage interface.
+@internal
 extension SecureStorageInterfaceX on SecureStorageInterface {
   /// Write all key-value pairs to storage
   Future<void> writeMany(Map<String, String> items) {

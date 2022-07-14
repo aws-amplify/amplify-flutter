@@ -19,5 +19,5 @@ import 'dart:async';
 /// {@endtemplate}
 abstract class BundleIdProvider {
   /// Returns the bundle ID.
-  FutureOr<String?> getBundleId();
+  FutureOr<String> getBundleId();
 }

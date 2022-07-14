@@ -22,7 +22,6 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_html.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
-import 'package:amplify_auth_cognito_dart/src/model/bundle_id_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
@@ -61,8 +60,7 @@ import 'package:meta/meta.dart';
 /// {@template amplify_auth_cognito_dart.amplify_auth_cognito_dart}
 /// The AWS Cognito implementation of the Amplify Auth category.
 /// {@endtemplate}
-class AmplifyAuthCognitoDart extends AuthPluginInterface
-    implements Closeable, BundleIdProvider {
+class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   /// {@macro amplify_auth_cognito_dart.amplify_auth_cognito_dart}
   AmplifyAuthCognitoDart({
     SecureStorageInterface? credentialStorage,
@@ -134,8 +132,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
         );
     _stateMachine
       ..addInstance<SecureStorageInterface>(credentialStorage)
-      ..addBuilder<LegacySecureStorageFactory>(LegacySecureStorageFactory.new)
-      ..addInstance<BundleIdProvider>(this);
+      ..addBuilder<LegacySecureStorageFactory>(LegacySecureStorageFactory.new);
     if (_hostedUiPlatformFactory != null) {
       _stateMachine.addBuilder(
         _hostedUiPlatformFactory!,
@@ -941,7 +938,4 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     }
     return userPoolTokens;
   }
-
-  @override
-  FutureOr<String?> getBundleId() => null;
 }

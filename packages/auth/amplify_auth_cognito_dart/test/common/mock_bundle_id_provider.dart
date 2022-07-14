@@ -18,5 +18,5 @@ import 'package:amplify_auth_cognito_dart/src/model/bundle_id_provider.dart';
 
 class MockBundleIdProvider implements BundleIdProvider {
   @override
-  FutureOr<String?> getBundleId() => 'com.example';
+  FutureOr<String> getBundleId() => 'com.example';
 }
