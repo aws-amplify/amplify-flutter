@@ -35,6 +35,9 @@ class AuthStateMachine extends AuthStateMachineBase {
   static const type =
       StateMachineToken<AuthEvent, AuthState, AuthStateMachine>();
 
+  @override
+  String get runtimeTypeName => 'AuthStateMachine';
+
   /// The credentials provider for SDK calls.
   AuthPluginCredentialsProvider get _credentialsProvider => getOrCreate(
         AuthPluginCredentialsProvider.token,

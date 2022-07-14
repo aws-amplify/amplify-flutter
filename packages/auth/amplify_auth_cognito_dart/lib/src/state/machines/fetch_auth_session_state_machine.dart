@@ -43,6 +43,9 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
   static const type = StateMachineToken<FetchAuthSessionEvent,
       FetchAuthSessionState, FetchAuthSessionStateMachine>();
 
+  @override
+  String get runtimeTypeName => 'FetchAuthSessionStateMachine';
+
   /// The Cognito Identity Provider service client.
   cognito_idp.CognitoIdentityProviderClient get _cognitoIdpClient => expect();
 

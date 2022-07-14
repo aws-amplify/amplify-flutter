@@ -28,7 +28,7 @@ import 'package:flutter/services.dart';
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
 /// The AWS Cognito implementation of the Amplify Auth category.
 /// {@endtemplate}
-class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
+class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   /// {@macro amplify_auth_cognito.amplify_auth_cognito}
   ///
   /// To change the default behavior of credential storage,
@@ -103,9 +103,14 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
     );
     return super.signUp(request: request);
   }
+
+  @override
+  String get runtimeTypeName => 'AmplifyAuthCognito';
 }
 
-class _NativeAmplifyAuthCognito implements NativeAuthPlugin {
+class _NativeAmplifyAuthCognito
+    with AWSDebuggable, AmplifyLoggerMixin
+    implements NativeAuthPlugin {
   _NativeAmplifyAuthCognito(this._basePlugin, this._stateMachine);
 
   final AmplifyAuthCognito _basePlugin;
@@ -146,8 +151,7 @@ class _NativeAmplifyAuthCognito implements NativeAuthPlugin {
       }
       return nativeAuthSession;
     } on Exception catch (e) {
-      // TODO(dnys1): Log
-      safePrint('Error fetching session for native plugin: $e');
+      logger.error('Error fetching session for native plugin', e);
     }
     return NativeAuthSession(isSignedIn: false);
   }
@@ -163,4 +167,7 @@ class _NativeAmplifyAuthCognito implements NativeAuthPlugin {
       _stateMachine.addInstance(oauthParameters);
     }
   }
+
+  @override
+  String get runtimeTypeName => '_NativeAmplifyAuthCognito';
 }
