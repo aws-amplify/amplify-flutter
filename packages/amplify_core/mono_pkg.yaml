@@ -8,7 +8,9 @@ stages:
           - format
           - analyze: --fatal-infos .
   - unit_test:
-      - group:
-          - command: dart --version
-          - test:
-          - test: -p chrome
+    - test:
+      os:
+        - windows
+        - macos
+        - linux
+    - test: -p chrome,firefox
