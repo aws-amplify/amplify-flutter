@@ -414,13 +414,13 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
           if (legacyData != null) {
             await _storeCredentials(legacyData);
           }
-        } on Object catch (e) {
+        } on Object catch (_) {
           // TODO(Jordan-Nelson): log when logger exists.
           // logger.error('migrating legacy credentials failed.');
         } finally {
           try {
             await _clearLegacyCredentials(bundleId);
-          } on Object catch (e) {
+          } on Object catch (_) {
             // TODO(Jordan-Nelson): log when logger exists.
             // logger.error('clearing legacy credentials failed.');
           }
