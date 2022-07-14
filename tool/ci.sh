@@ -120,14 +120,18 @@ for PKG in ${PKGS}; do
         dart test || EXIT_CODE=$?
         ;;
       test_1)
-        echo 'dart test -p chrome'
-        dart test -p chrome || EXIT_CODE=$?
+        echo 'dart test -p chrome,firefox'
+        dart test -p chrome,firefox || EXIT_CODE=$?
         ;;
       test_2)
         echo 'dart test --exclude-tags=build'
         dart test --exclude-tags=build || EXIT_CODE=$?
         ;;
       test_3)
+        echo 'dart test -p chrome'
+        dart test -p chrome || EXIT_CODE=$?
+        ;;
+      test_4)
         echo 'dart test --tags=build'
         dart test --tags=build || EXIT_CODE=$?
         ;;
