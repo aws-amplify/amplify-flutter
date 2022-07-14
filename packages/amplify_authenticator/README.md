@@ -2,6 +2,10 @@
 
 The Amplify Flutter Authenticator simplifies the process of authenticating users by providing a fully-customizable flow which just works. Simply wrap your app's authenticated route in an Authenticator component and the process of authenticating users and managing login sessions is handled for you.
 
+## Developer Preview
+
+This package is part of the the developer preview for the Amplify Auth category on mobile, web and desktop. It is not intended for production usage. 
+
 ## Example
 
 See the [example](https://github.com/aws-amplify/amplify-flutter/tree/release-candidate/packages/amplify_authenticator/example) which showcases many of the customizations available.

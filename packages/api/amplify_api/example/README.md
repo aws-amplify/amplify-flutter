@@ -2,6 +2,10 @@
 
 Demonstrates how to use the amplify_api plugin.
 
+## Developer Preview
+
+This package is part of the the developer preview for the Amplify Auth category on mobile, web and desktop. It is not intended for production usage. 
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
