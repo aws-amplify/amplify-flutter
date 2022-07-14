@@ -332,6 +332,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
           if (secondsSinceEpoch != null) {
             expiration = DateTime.fromMillisecondsSinceEpoch(
               secondsSinceEpoch * 1000,
+              isUtc: true,
             );
           }
         }

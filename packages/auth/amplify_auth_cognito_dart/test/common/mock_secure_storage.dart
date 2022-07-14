@@ -177,7 +177,7 @@ void seedLegacyStorage(
       )
       ..write(
         key: identityPoolKeys[LegacyCognitoIdentityPoolKey.expiration],
-        value: expiration.toIso8601String(),
+        value: (expiration.millisecondsSinceEpoch / 1000).toString(),
       )
       ..write(
         key: identityPoolKeys[LegacyCognitoIdentityPoolKey.identityId],
