@@ -32,7 +32,8 @@ enum AuthEventType {
 /// {@template amplify_auth_cognito.auth_event}
 /// Discrete events of the Auth state machine.
 /// {@endtemplate}
-abstract class AuthEvent extends StateMachineEvent<AuthEventType> {
+abstract class AuthEvent
+    extends StateMachineEvent<AuthEventType, AuthStateType> {
   const AuthEvent._();
 
   /// {@macro amplify_auth_cognito.auth_configure}

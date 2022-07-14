@@ -33,7 +33,7 @@ class MyPreconditionException implements PreconditionException {
   bool get shouldEmit => false;
 }
 
-class MyEvent extends StateMachineEvent<MyType> {
+class MyEvent extends StateMachineEvent<MyType, MyType> {
   const MyEvent(this.type);
 
   @override
@@ -127,7 +127,7 @@ class MyStateMachine extends StateMachine<MyEvent, MyState> {
 
 enum WorkType { initial, doWork, success, error }
 
-class WorkerEvent extends StateMachineEvent<WorkType> {
+class WorkerEvent extends StateMachineEvent<WorkType, WorkType> {
   const WorkerEvent(this.type);
 
   @override

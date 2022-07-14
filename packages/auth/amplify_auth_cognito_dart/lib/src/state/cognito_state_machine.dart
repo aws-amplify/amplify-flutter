@@ -54,7 +54,7 @@ class CognitoAuthStateMachine extends StateMachineManager {
         );
 
   @override
-  FutureOr<void> dispatch(StateMachineEvent<dynamic> event) async {
+  FutureOr<void> dispatch(StateMachineEvent<dynamic, dynamic> event) async {
     try {
       if (event is AuthEvent) {
         return getOrCreate(AuthStateMachine.type).add(event);

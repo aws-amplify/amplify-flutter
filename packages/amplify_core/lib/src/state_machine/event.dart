@@ -19,8 +19,8 @@ import 'package:meta/meta.dart';
 /// Base class for discrete events of a state machine.
 /// {@endtemplate}
 @immutable
-abstract class StateMachineEvent<EventType>
-    with AWSEquatable<StateMachineEvent<EventType>>, AWSDebuggable {
+abstract class StateMachineEvent<EventType, StateType>
+    with AWSEquatable<StateMachineEvent<EventType, StateType>>, AWSDebuggable {
   /// {@macro amplify_core.event}
   const StateMachineEvent();
 
@@ -28,19 +28,20 @@ abstract class StateMachineEvent<EventType>
   EventType get type;
 
   /// Casts this to an event of type [E].
-  E cast<E extends StateMachineEvent<EventType>>() => this as E;
+  E cast<E extends StateMachineEvent<EventType, StateType>>() => this as E;
 
   /// Checks the precondition, given [currentState].
   ///
   /// Returns a [PreconditionException] if the check fails, otherwise `null`.
   PreconditionException? checkPrecondition(
-    covariant StateMachineState currentState,
+    covariant StateMachineState<StateType> currentState,
   ) =>
       null;
 }
 
 /// Mixin functionality for error/failure events of a state machine.
-mixin ErrorEvent<EventType> on StateMachineEvent<EventType> {
+mixin ErrorEvent<EventType, StateType>
+    on StateMachineEvent<EventType, StateType> {
   /// The exception which triggered this event.
   Exception get exception;
 }

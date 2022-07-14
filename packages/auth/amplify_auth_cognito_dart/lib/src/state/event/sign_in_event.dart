@@ -42,7 +42,8 @@ enum SignInEventType {
 /// {@template amplify_auth_cognito.sign_in_event}
 /// Discrete events of an auth flow state machine.
 /// {@endtemplate}
-abstract class SignInEvent extends StateMachineEvent<SignInEventType> {
+abstract class SignInEvent
+    extends StateMachineEvent<SignInEventType, SignInStateType> {
   /// {@macro amplify_auth_cognito.sign_in_event}
   const SignInEvent._();
 
