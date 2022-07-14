@@ -178,7 +178,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     // without calling them `Amplify.Auth...` directly.
     authProviderRepo.registerAuthProvider(
       APIAuthorizationType.iam.name,
-      AWSIAMAuthProvider(),
+      AWSIamAuthProvider(),
     );
 
     if (_stateMachine.getOrCreate(AuthStateMachine.type).currentState.type !=

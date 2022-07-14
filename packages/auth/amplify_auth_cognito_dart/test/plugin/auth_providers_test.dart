@@ -45,36 +45,36 @@ void main() {
       plugin = TestAmplifyAuth();
     });
 
-    test('registers AWSIAMAuthProvider', () async {
+    test('registers AWSIamAuthProvider', () async {
       await plugin.configure(
         config: mockConfig,
         authProviderRepo: testAuthRepo,
       );
       final authProvider =
           testAuthRepo.getAuthProvider(APIAuthorizationType.iam.name);
-      expect(authProvider, isA<AWSIAMAuthProvider>());
+      expect(authProvider, isA<AWSIamAuthProvider>());
     });
   });
 
-  group('AWSIAMAuthProvider', () {
+  group('AWSIamAuthProvider', () {
     setUpAll(() async {
       await Amplify.addPlugin(TestAmplifyAuth());
     });
 
     test('gets AWS credentials from Amplify.Auth.fetchAuthSession', () async {
-      final authProvider = AWSIAMAuthProvider();
-      final creds = await authProvider.getCredentials();
-      expect(creds?.accessKeyId, isA<String>());
-      expect(creds?.secretAccessKey, isA<String>());
+      final authProvider = AWSIamAuthProvider();
+      final creds = await authProvider.retrieve();
+      expect(creds.accessKeyId, isA<String>());
+      expect(creds.secretAccessKey, isA<String>());
     });
 
     test('signs a request when calling authorizeRequest', () async {
-      final authProvider = AWSIAMAuthProvider();
+      final authProvider = AWSIamAuthProvider();
       final inputRequest =
           http.Request('GET', Uri.parse('https://www.amazon.com'));
       final authorizedRequest = await authProvider.authorizeRequest(
         inputRequest,
-        options: IAMAuthProviderOptions(
+        options: IamAuthProviderOptions(
           region: 'us-east-1',
           service: AWSService.appSync,
         ),
@@ -89,7 +89,7 @@ void main() {
     });
 
     test('throws when no options provided', () async {
-      final authProvider = AWSIAMAuthProvider();
+      final authProvider = AWSIamAuthProvider();
       final inputRequest =
           http.Request('GET', Uri.parse('https://www.amazon.com'));
       await expectLater(

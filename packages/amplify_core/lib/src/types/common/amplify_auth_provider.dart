@@ -14,17 +14,18 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:http/http.dart' as http;
 
 abstract class AuthProviderOptions {
   const AuthProviderOptions();
 }
 
-class IAMAuthProviderOptions extends AuthProviderOptions {
-  String region;
-  AWSService service;
+class IamAuthProviderOptions extends AuthProviderOptions {
+  final String region;
+  final AWSService service;
 
-  IAMAuthProviderOptions({required this.region, required this.service});
+  const IamAuthProviderOptions({required this.region, required this.service});
 }
 
 abstract class AmplifyAuthProvider {
@@ -34,9 +35,8 @@ abstract class AmplifyAuthProvider {
   });
 }
 
-abstract class AWSCredentialsAmplifyAuthProvider extends AmplifyAuthProvider {
-  Future<AWSCredentials?> getCredentials();
-}
+abstract class AWSCredentialsAmplifyAuthProvider extends AmplifyAuthProvider
+    implements AWSCredentialsProvider {}
 
 abstract class TokenAmplifyAuthProvider extends AmplifyAuthProvider {
   Future<String> getLatestAuthToken();
@@ -55,8 +55,8 @@ abstract class TokenAmplifyAuthProvider extends AmplifyAuthProvider {
 class AmplifyAuthProviderRepository {
   final Map<String, AmplifyAuthProvider> _authProviders = {};
 
-  AmplifyAuthProvider? getAuthProvider(String authorizationType) {
-    return _authProviders[authorizationType];
+  T? getAuthProvider<T extends AmplifyAuthProvider>(String authorizationType) {
+    return _authProviders[authorizationType] as T?;
   }
 
   void registerAuthProvider(
