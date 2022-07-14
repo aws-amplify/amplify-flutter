@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide InternalErrorException;
@@ -20,6 +21,7 @@ import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
 
 import '../common/mock_config.dart';
+import '../common/mock_secure_storage.dart';
 
 /// Returns dummy AWS credentials.
 class TestAmplifyAuth extends AmplifyAuthCognitoDart {
@@ -35,23 +37,25 @@ class TestAmplifyAuth extends AmplifyAuthCognitoDart {
 }
 
 void main() {
-  late AmplifyAuthCognitoDart plugin;
-  final testAuthRepo = AmplifyAuthProviderRepository();
-
   group(
       'AmplifyAuthCognitoDart plugin registers auth providers during configuration',
       () {
+    late AmplifyAuthCognitoDart plugin;
+
     setUp(() async {
-      plugin = TestAmplifyAuth();
+      plugin = AmplifyAuthCognitoDart(credentialStorage: MockSecureStorage());
     });
 
     test('registers AWSIamAuthProvider', () async {
+      final testAuthRepo = AmplifyAuthProviderRepository();
       await plugin.configure(
         config: mockConfig,
         authProviderRepo: testAuthRepo,
       );
       final authProvider =
-          testAuthRepo.getAuthProvider(APIAuthorizationType.iam.name);
+          testAuthRepo.getAuthProvider<AWSCredentialsAmplifyAuthProvider>(
+        APIAuthorizationType.iam.name,
+      );
       expect(authProvider, isA<AWSIamAuthProvider>());
     });
   });
@@ -63,9 +67,9 @@ void main() {
 
     test('gets AWS credentials from Amplify.Auth.fetchAuthSession', () async {
       final authProvider = AWSIamAuthProvider();
-      final creds = await authProvider.retrieve();
-      expect(creds.accessKeyId, isA<String>());
-      expect(creds.secretAccessKey, isA<String>());
+      final credentials = await authProvider.retrieve();
+      expect(credentials.accessKeyId, isA<String>());
+      expect(credentials.secretAccessKey, isA<String>());
     });
 
     test('signs a request when calling authorizeRequest', () async {
@@ -74,7 +78,7 @@ void main() {
           http.Request('GET', Uri.parse('https://www.amazon.com'));
       final authorizedRequest = await authProvider.authorizeRequest(
         inputRequest,
-        options: IamAuthProviderOptions(
+        options: const IamAuthProviderOptions(
           region: 'us-east-1',
           service: AWSService.appSync,
         ),
