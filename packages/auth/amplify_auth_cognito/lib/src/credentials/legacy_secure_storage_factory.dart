@@ -12,15 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 
 /// {@template amplify_auth_cognito_dart.legacy_secure_storage_factory}
 /// A factory for creating legacy secure storage instances.
 /// {@endtemplate}
-class LegacySecureStorageFactory {
-  /// {@macro amplify_auth_cognito_dart.legacy_secure_storage_factory}
-  LegacySecureStorageFactory();
-
+mixin LegacySecureStorageProvider {
   final Map<String, SecureStorageInterface> _instances = {};
 
   /// Creates a legacy secure storage instance given a namespace,

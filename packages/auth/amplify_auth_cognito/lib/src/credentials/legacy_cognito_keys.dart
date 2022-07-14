@@ -17,12 +17,17 @@ library amplify_auth_cognito.credentials.cognito_keys;
 
 import 'dart:collection';
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-/// Discrete keys stored for Cognito User Pool operations in secure storage.
-enum CognitoUserPoolKey {
+/// Discrete keys stored for Legacy Cognito operations on iOS.
+enum LegacyCognitoKey {
+  /// The ID of the user that is currently authenticated.
+  currentUser;
+}
+
+/// Discrete keys stored for Legacy Cognito User Pool operations on iOS.
+enum LegacyCognitoUserPoolKey {
   /// The access token, serialized as a JWT.
   accessToken,
 
@@ -32,26 +37,20 @@ enum CognitoUserPoolKey {
   /// The ID token, serialized as a JWT.
   idToken,
 
-  /// The user ID.
-  userSub,
-
-  /// The device key.
-  deviceKey,
-
-  /// The device group key.
-  deviceGroupKey,
+  /// The token expiration.
+  tokenExpiration,
 }
 
-/// Discrete keys stored for Cognito Identity Pool operations in secure storage.
-enum CognitoIdentityPoolKey {
+/// Discrete keys stored for Legacy Cognito Identity Pool operations on iOS.
+enum LegacyCognitoIdentityPoolKey {
   /// AWS Access Key ID
-  accessKeyId,
+  accessKey,
 
   /// AWS Secret Access Key
-  secretAccessKey,
+  secretKey,
 
   /// AWS Session Token
-  sessionToken,
+  sessionKey,
 
   /// AWS Credentials Expiration, encoded using ISO 8601.
   expiration,
@@ -60,83 +59,62 @@ enum CognitoIdentityPoolKey {
   identityId,
 }
 
-/// Discrete keys stored for Hosted UI operations in secure storage.
-enum HostedUiKey {
-  /// The access token, serialized as a JWT.
-  accessToken,
-
-  /// The refresh token.
-  refreshToken,
-
-  /// The ID token, serialized as a JWT.
-  idToken,
-
-  /// The OAuth state string.
-  state,
-
-  /// The OAuth code verifier.
-  codeVerifier,
-
-  /// The OIDC nonce value.
-  nonce,
-
-  /// The [CognitoSignInWithWebUIOptions] passed to `signInWithWebUI`.
-  options,
-}
-
-/// {@template amplify_auth_cognito.cognito_identity_pool_keys}
+/// {@template amplify_auth_cognito.legacy_cognito_identity_pool_keys}
 /// Enumerates and iterates over the keys stored in secure storage by
-/// Cognito Identity Pool operations.
+/// legacy Cognito Identity Pool operations.
 /// {@endtemplate}
-class CognitoIdentityPoolKeys extends CognitoKeys<CognitoIdentityPoolKey> {
-  /// {@macro amplify_auth_cognito.cognito_identity_pool_keys}
-  const CognitoIdentityPoolKeys(this.config);
+class LegacyCognitoUserKeys extends CognitoKeys<LegacyCognitoKey> {
+  /// {@macro amplify_auth_cognito.legacy_cognito_identity_pool_keys}
+  const LegacyCognitoUserKeys(this.config);
 
   /// The Cognito identity pool configuration, used to determine the key
   /// prefixes.
-  final CognitoIdentityCredentialsProvider config;
+  final CognitoUserPoolConfig config;
 
   @override
-  List<CognitoIdentityPoolKey> get _values => CognitoIdentityPoolKey.values;
+  List<LegacyCognitoKey> get _values => LegacyCognitoKey.values;
 
   @override
-  String get prefix => config.poolId;
+  String? get prefix => config.appClientId;
+}
+
+/// {@template amplify_auth_cognito.legacy_cognito_identity_pool_keys}
+/// Enumerates and iterates over the keys stored in secure storage by
+/// legacy Cognito Identity Pool operations.
+/// {@endtemplate}
+class LegacyCognitoIdentityPoolKeys
+    extends CognitoKeys<LegacyCognitoIdentityPoolKey> {
+  /// {@macro amplify_auth_cognito.legacy_cognito_identity_pool_keys}
+  const LegacyCognitoIdentityPoolKeys();
+
+  @override
+  List<LegacyCognitoIdentityPoolKey> get _values =>
+      LegacyCognitoIdentityPoolKey.values;
+
+  @override
+  String? get prefix => null;
 }
 
 /// {@template amplify_auth_cognito.cognito_user_pool_keys}
 /// Enumerates and iterates over the keys stored in secure storage by
-/// Cognito User Pool operations.
+/// legacy Cognito User Pool operations.
 /// {@endtemplate}
-class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
+class LegacyCognitoUserPoolKeys extends CognitoKeys<LegacyCognitoUserPoolKey> {
   /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
-  const CognitoUserPoolKeys(this.config);
+  const LegacyCognitoUserPoolKeys(this.currentUserId, this.config);
 
-  /// The Cognito user pool configuration, used to determine the key prefixes.
+  /// The Cognito identity pool configuration, used to determine the key
+  /// prefixes.
   final CognitoUserPoolConfig config;
 
-  @override
-  List<CognitoUserPoolKey> get _values => CognitoUserPoolKey.values;
+  /// The current user ID, used to determine the key prefixes.
+  final String currentUserId;
 
   @override
-  String get prefix => config.appClientId;
-}
-
-/// {@template amplify_auth_cognito.hosted_ui_keys}
-/// Enumerates and iterates over the keys stored in secure storage by
-/// Cognito Hosted UI operations.
-/// {@endtemplate}
-class HostedUiKeys extends CognitoKeys<HostedUiKey> {
-  /// {@macro amplify_auth_cognito.hosted_ui_keys}
-  const HostedUiKeys(this.config);
-
-  /// The Cognito OAuth configuration, used to determine the key prefixes.
-  final CognitoOAuthConfig config;
+  List<LegacyCognitoUserPoolKey> get _values => LegacyCognitoUserPoolKey.values;
 
   @override
-  List<HostedUiKey> get _values => HostedUiKey.values;
-
-  @override
-  String get prefix => '${config.appClientId}.hostedUi';
+  String get prefix => '${config.appClientId}.$currentUserId';
 }
 
 /// {@template amplify_auth_cognito.cognito_keys}
@@ -150,10 +128,11 @@ abstract class CognitoKeys<Key extends Enum> extends IterableBase<String> {
   List<Key> get _values;
 
   /// The prefix to use for keys.
-  String get prefix;
+  String? get prefix;
 
   /// Retrieves the storage identifier for [key].
-  String operator [](Key key) => '$prefix.${key.name}';
+  String operator [](Key key) =>
+      prefix == null ? key.name : '$prefix.${key.name}';
 
   @override
   Iterator<String> get iterator => _CognitoKeysIterator(this);

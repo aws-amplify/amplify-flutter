@@ -17,9 +17,7 @@ import 'dart:async';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
-import 'package:amplify_auth_cognito_dart/src/credentials/legacy_secure_storage_factory.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/secure_storage_extension.dart';
-import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/credential_store_state_machine_base.dart';
@@ -257,160 +255,22 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     await _secureStorage.deleteMany(deletions);
   }
 
-  /// Loads legacy data if it exists.
-  Future<CredentialStoreData?> _loadLegacyCredentials(String bundleId) async {
-    final authConfig = expect<AuthConfiguration>();
-    final legacyStorageFactory = getOrCreate<LegacySecureStorageFactory>();
-    final userPoolConfig = authConfig.userPoolConfig;
-    CognitoUserPoolTokens? userPoolTokens;
-    if (userPoolConfig != null) {
-      final userPoolStorage = legacyStorageFactory.getUserPoolStorage(
-        bundleId,
-      );
-      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
-      final currentUserId = await userPoolStorage.read(
-        key: cognitoUserKeys[LegacyCognitoKey.currentUser],
-      );
-      if (currentUserId != null) {
-        final userPoolKeys = LegacyCognitoUserPoolKeys(
-          currentUserId,
-          userPoolConfig,
-        );
-        final accessToken = await userPoolStorage.read(
-          key: userPoolKeys[LegacyCognitoUserPoolKey.accessToken],
-        );
-        final refreshToken = await userPoolStorage.read(
-          key: userPoolKeys[LegacyCognitoUserPoolKey.refreshToken],
-        );
-        final idToken = await userPoolStorage.read(
-          key: userPoolKeys[LegacyCognitoUserPoolKey.idToken],
-        );
-        if (accessToken != null && refreshToken != null && idToken != null) {
-          // TODO(Jordan-Nelson): fetch sign in method from keychain on iOS
-          final signInMethod = authConfig.hostedUiConfig != null
-              ? CognitoSignInMethod.unknown
-              : CognitoSignInMethod.default$;
-          userPoolTokens = CognitoUserPoolTokens(
-            signInMethod: signInMethod,
-            accessToken: JsonWebToken.parse(accessToken),
-            refreshToken: refreshToken,
-            idToken: JsonWebToken.parse(idToken),
-          );
-        }
-      }
-    }
-
-    String? identityId;
-    AWSCredentials? awsCredentials;
-    final identityPoolId = authConfig.identityPoolConfig?.poolId;
-    if (identityPoolId != null) {
-      final identityPoolStorage = legacyStorageFactory.getIdentityPoolStorage(
-        bundleId,
-        identityPoolId,
-      );
-      const identityPoolKeys = LegacyCognitoIdentityPoolKeys();
-      identityId = await identityPoolStorage.read(
-        key: identityPoolKeys[LegacyCognitoIdentityPoolKey.identityId],
-      );
-      final accessKeyId = await identityPoolStorage.read(
-        key: identityPoolKeys[LegacyCognitoIdentityPoolKey.accessKey],
-      );
-      final secretAccessKey = await identityPoolStorage.read(
-        key: identityPoolKeys[LegacyCognitoIdentityPoolKey.secretKey],
-      );
-      final sessionToken = await identityPoolStorage.read(
-        key: identityPoolKeys[LegacyCognitoIdentityPoolKey.sessionKey],
-      );
-      final expirationStr = await identityPoolStorage.read(
-        key: identityPoolKeys[LegacyCognitoIdentityPoolKey.expiration],
-      );
-      if (accessKeyId != null && secretAccessKey != null) {
-        DateTime? expiration;
-        if (expirationStr != null) {
-          final secondsSinceEpoch = double.tryParse(expirationStr)?.toInt();
-          if (secondsSinceEpoch != null) {
-            expiration = DateTime.fromMillisecondsSinceEpoch(
-              secondsSinceEpoch * 1000,
-              isUtc: true,
-            );
-          }
-        }
-        awsCredentials = AWSCredentials(
-          accessKeyId,
-          secretAccessKey,
-          sessionToken,
-          expiration,
-        );
-      }
-    }
-
-    if ((userPoolTokens ?? awsCredentials ?? identityId) != null) {
-      return CredentialStoreData(
-        userPoolTokens: userPoolTokens,
-        awsCredentials: awsCredentials,
-        identityId: identityId,
-      );
-    }
-    return null;
-  }
-
-  /// Clears legacy data, it it exists.
-  Future<void> _clearLegacyCredentials(String bundleId) async {
-    final authConfig = expect<AuthConfiguration>();
-    final legacyStorageFactory = getOrCreate<LegacySecureStorageFactory>();
-    final userPoolConfig = authConfig.userPoolConfig;
-    if (userPoolConfig != null) {
-      final userPoolStorage = legacyStorageFactory.getUserPoolStorage(
-        bundleId,
-      );
-      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
-      final currentUser = await userPoolStorage.read(
-        key: cognitoUserKeys[LegacyCognitoKey.currentUser],
-      );
-      if (currentUser != null) {
-        final userPoolKeys = LegacyCognitoUserPoolKeys(
-          currentUser,
-          userPoolConfig,
-        );
-        await userPoolStorage.deleteMany([
-          userPoolKeys[LegacyCognitoUserPoolKey.accessToken],
-          userPoolKeys[LegacyCognitoUserPoolKey.refreshToken],
-          userPoolKeys[LegacyCognitoUserPoolKey.idToken],
-          cognitoUserKeys[LegacyCognitoKey.currentUser],
-        ]);
-      }
-    }
-
-    final identityPoolId = authConfig.identityPoolConfig?.poolId;
-    if (identityPoolId != null) {
-      final identityPoolStorage = legacyStorageFactory.getIdentityPoolStorage(
-        bundleId,
-        identityPoolId,
-      );
-      const identityPoolKeys = LegacyCognitoIdentityPoolKeys();
-      await identityPoolStorage.deleteMany([
-        identityPoolKeys[LegacyCognitoIdentityPoolKey.identityId],
-        identityPoolKeys[LegacyCognitoIdentityPoolKey.accessKey],
-        identityPoolKeys[LegacyCognitoIdentityPoolKey.secretKey],
-        identityPoolKeys[LegacyCognitoIdentityPoolKey.sessionKey],
-        identityPoolKeys[LegacyCognitoIdentityPoolKey.expiration],
-      ]);
-    }
-  }
-
   @override
   Future<void> onMigrateLegacyCredentialStore(
     CredentialStoreMigrateLegacyCredentialStore event,
   ) async {
     final version = await _getVersion();
     if (version == CredentialStoreVersion.none) {
-      // TODO(Jordan-Nelson): Add Android support for credential migration
-      final bundleIdProvider = get<BundleIdProvider>();
-      final getBundleId = bundleIdProvider?.getBundleId;
-      final bundleId = getBundleId != null ? await getBundleId() : null;
-      if (bundleId != null) {
+      final legacyCredentialProvider = get<LegacyCredentialProvider>();
+      if (legacyCredentialProvider != null) {
+        final authConfig = expect<AuthConfiguration>();
         try {
-          final legacyData = await _loadLegacyCredentials(bundleId);
+          final legacyData =
+              await legacyCredentialProvider.fetchLegacyCredentials(
+            userPoolConfig: authConfig.userPoolConfig,
+            identityPoolConfig: authConfig.identityPoolConfig,
+            hostedUiConfig: authConfig.hostedUiConfig,
+          );
           if (legacyData != null) {
             await _storeCredentials(legacyData);
           }
@@ -419,7 +279,11 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
           // logger.error('migrating legacy credentials failed.');
         } finally {
           try {
-            await _clearLegacyCredentials(bundleId);
+            await legacyCredentialProvider.deleteLegacyCredentials(
+              userPoolConfig: authConfig.userPoolConfig,
+              identityPoolConfig: authConfig.identityPoolConfig,
+              hostedUiConfig: authConfig.hostedUiConfig,
+            );
           } on Object catch (_) {
             // TODO(Jordan-Nelson): log when logger exists.
             // logger.error('clearing legacy credentials failed.');

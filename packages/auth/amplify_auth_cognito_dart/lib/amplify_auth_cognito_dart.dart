@@ -19,16 +19,19 @@ export 'package:amplify_core/src/types/auth/auth_types.dart';
 
 export 'src/auth_plugin_impl.dart';
 
+export 'src/credentials/legacy_credential_provider.dart';
+
 export 'src/exception/srp_exception.dart';
 
 export 'src/flows/hosted_ui/hosted_ui_platform.dart';
+
+export 'src/jwt/src/token.dart';
 
 // Models
 export 'src/model/attribute/cognito_resend_user_attribute_confirmation_code_options.dart';
 export 'src/model/attribute/cognito_update_user_attribute_options.dart';
 export 'src/model/attribute/cognito_update_user_attribute_step.dart';
 export 'src/model/attribute/cognito_update_user_attributes_options.dart';
-export 'src/model/bundle_id_provider.dart';
 export 'src/model/device/cognito_device.dart';
 export 'src/model/hosted_ui/oauth_parameters.dart';
 export 'src/model/password/cognito_confirm_reset_password_options.dart';

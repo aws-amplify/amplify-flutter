@@ -12,12 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:async';
+import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+import 'package:meta/meta.dart';
 
-/// {@template amplify_auth_cognito_dart.bundle_id_provider}
-/// Provides the bundle Id for the application.
-/// {@endtemplate}
-abstract class BundleIdProvider {
-  /// Returns the bundle ID.
-  FutureOr<String> getBundleId();
+/// Extensions for the secure storage interface.
+@internal
+extension SecureStorageInterfaceX on SecureStorageInterface {
+  /// Delete all key-value pairs from storage
+  Future<void> deleteMany(Iterable<String> keys) {
+    return Future.wait(
+      keys.map(
+        (key) async => delete(key: key),
+      ),
+    );
+  }
 }

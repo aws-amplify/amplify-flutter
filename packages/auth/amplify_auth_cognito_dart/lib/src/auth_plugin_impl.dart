@@ -15,7 +15,6 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_auth_cognito_dart/src/credentials/legacy_secure_storage_factory.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_stub.dart'
@@ -130,9 +129,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
             scope: 'auth',
           ),
         );
-    _stateMachine
-      ..addInstance<SecureStorageInterface>(credentialStorage)
-      ..addBuilder<LegacySecureStorageFactory>(LegacySecureStorageFactory.new);
+    _stateMachine.addInstance<SecureStorageInterface>(credentialStorage);
     if (_hostedUiPlatformFactory != null) {
       _stateMachine.addBuilder(
         _hostedUiPlatformFactory!,

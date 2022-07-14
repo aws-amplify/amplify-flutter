@@ -15,15 +15,14 @@
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
-import 'package:amplify_auth_cognito_dart/src/credentials/legacy_secure_storage_factory.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
 
-import '../common/mock_bundle_id_provider.dart';
 import '../common/mock_config.dart';
+import '../common/mock_legacy_credential_provider.dart';
 import '../common/mock_secure_storage.dart';
 
 void main() {
@@ -37,19 +36,15 @@ void main() {
     late CognitoAuthStateMachine stateMachine;
     late SecureStorageInterface secureStorage;
     late SecureStorageInterface legacyStorage;
-    late LegacySecureStorageFactory legacySecureStorageFactory;
 
     setUp(() {
       secureStorage = MockSecureStorage();
       legacyStorage = MockSecureStorage();
-      legacySecureStorageFactory = MockLegacySecureStorageFactory(
-        legacyStorage,
-      );
+
       manager = DependencyManager()
         ..addInstance(secureStorage)
         ..addInstance(mockConfig)
-        ..addInstance(authConfig)
-        ..addInstance(legacySecureStorageFactory);
+        ..addInstance(authConfig);
       stateMachine = CognitoAuthStateMachine(dependencyManager: manager);
     });
 
@@ -364,9 +359,7 @@ void main() {
     });
 
     group('migrateCredentials', () {
-      setUp(() {
-        manager.addInstance<BundleIdProvider>(MockBundleIdProvider());
-      });
+      setUp(() {});
 
       test('no legacy credentials', () async {
         stateMachine.dispatch(
@@ -388,24 +381,17 @@ void main() {
       });
 
       test('all', () async {
-        seedLegacyStorage(
-          legacyStorage,
-          userPoolKeys: legacyUserPoolKeys,
-          identityPoolKeys: legacyIdentityPoolKeys,
-          cognitoUserKeys: legacyCognitoUserKeys,
+        manager.addInstance<LegacyCredentialProvider>(
+          MockLegacyCredentialProvider(
+            initialData: CredentialStoreData(
+              identityId: identityId,
+              userPoolTokens: userPoolTokens,
+              awsCredentials: awsCredentials,
+            ),
+          ),
         );
 
         expect(await getVersion(secureStorage), CredentialStoreVersion.none);
-
-        expect(
-          await legacyStorageIsEmpty(
-            legacyStorage,
-            userPoolKeys: legacyUserPoolKeys,
-            identityPoolKeys: legacyIdentityPoolKeys,
-            cognitoUserKeys: legacyCognitoUserKeys,
-          ),
-          false,
-        );
 
         stateMachine.dispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
@@ -434,39 +420,23 @@ void main() {
         expect(result.data.userPoolTokens?.refreshToken, refreshToken);
         expect(result.data.userPoolTokens?.idToken, idToken);
 
-        expect(
-          await legacyStorageIsEmpty(
-            legacyStorage,
-            userPoolKeys: legacyUserPoolKeys,
-            identityPoolKeys: legacyIdentityPoolKeys,
-            cognitoUserKeys: legacyCognitoUserKeys,
-          ),
-          true,
-        );
-
         expect(await getVersion(secureStorage), CredentialStoreVersion.v1);
 
         await stateMachine.close();
       });
 
       test('partial', () async {
-        seedLegacyStorage(
-          legacyStorage,
-          userPoolKeys: legacyUserPoolKeys,
-          identityPoolKeys: legacyIdentityPoolKeys,
+        manager.addInstance<LegacyCredentialProvider>(
+          MockLegacyCredentialProvider(
+            initialData: CredentialStoreData(
+              identityId: identityId,
+              awsCredentials: awsCredentials,
+            ),
+          ),
         );
 
         expect(await getVersion(secureStorage), CredentialStoreVersion.none);
 
-        expect(
-          await legacyStorageIsEmpty(
-            legacyStorage,
-            userPoolKeys: legacyUserPoolKeys,
-            identityPoolKeys: legacyIdentityPoolKeys,
-            cognitoUserKeys: legacyCognitoUserKeys,
-          ),
-          false,
-        );
         stateMachine.dispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
@@ -494,29 +464,12 @@ void main() {
         expect(result.data.userPoolTokens?.refreshToken, isNull);
         expect(result.data.userPoolTokens?.idToken, isNull);
 
-        expect(
-          await legacyStorageIsEmpty(
-            legacyStorage,
-            userPoolKeys: legacyUserPoolKeys,
-            identityPoolKeys: legacyIdentityPoolKeys,
-            cognitoUserKeys: legacyCognitoUserKeys,
-          ),
-          true,
-        );
-
         expect(await getVersion(secureStorage), CredentialStoreVersion.v1);
 
         await stateMachine.close();
       });
 
       test('legacy credentials are ignored if already migrated', () async {
-        seedLegacyStorage(
-          legacyStorage,
-          userPoolKeys: legacyUserPoolKeys,
-          identityPoolKeys: legacyIdentityPoolKeys,
-          cognitoUserKeys: legacyCognitoUserKeys,
-        );
-
         seedStorage(secureStorage, version: CredentialStoreVersion.v1);
 
         stateMachine.dispatch(

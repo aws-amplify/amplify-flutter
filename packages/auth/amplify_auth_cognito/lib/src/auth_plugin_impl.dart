@@ -15,6 +15,9 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:amplify_auth_cognito/src/credentials/legacy_cognito_keys.dart';
+import 'package:amplify_auth_cognito/src/credentials/legacy_secure_storage_factory.dart';
+import 'package:amplify_auth_cognito/src/credentials/secure_storage_extension.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_stub.dart'
@@ -23,6 +26,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform
 import 'package:amplify_auth_cognito_dart/src/state/machines/hosted_ui_state_machine.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
@@ -105,9 +109,11 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
   }
 }
 
-class _NativeAmplifyAuthCognito implements NativeAuthPlugin, BundleIdProvider {
+class _NativeAmplifyAuthCognito
+    with LegacySecureStorageProvider
+    implements NativeAuthPlugin, LegacyCredentialProvider {
   _NativeAmplifyAuthCognito(this._basePlugin, this._stateMachine) {
-    _stateMachine.addInstance<BundleIdProvider>(this);
+    _stateMachine.addInstance<LegacyCredentialProvider>(this);
   }
 
   final AmplifyAuthCognito _basePlugin;
@@ -166,9 +172,155 @@ class _NativeAmplifyAuthCognito implements NativeAuthPlugin, BundleIdProvider {
     }
   }
 
-  @override
-  FutureOr<String> getBundleId() {
+  FutureOr<String> _getBundleId() {
     final bridge = _stateMachine.expect<NativeAuthBridge>();
     return bridge.getBundleId();
+  }
+
+  @override
+  Future<CredentialStoreData?> fetchLegacyCredentials({
+    CognitoUserPoolConfig? userPoolConfig,
+    CognitoIdentityCredentialsProvider? identityPoolConfig,
+    CognitoOAuthConfig? hostedUiConfig,
+  }) async {
+    // TODO(Jordan-Nelson): Add credentials migration support for Android
+    if (kIsWeb || !Platform.isIOS) return null;
+    final bundleId = await _getBundleId();
+    CognitoUserPoolTokens? userPoolTokens;
+    if (userPoolConfig != null) {
+      final userPoolStorage = getUserPoolStorage(bundleId);
+      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+      final currentUserId = await userPoolStorage.read(
+        key: cognitoUserKeys[LegacyCognitoKey.currentUser],
+      );
+      if (currentUserId != null) {
+        final userPoolKeys = LegacyCognitoUserPoolKeys(
+          currentUserId,
+          userPoolConfig,
+        );
+        final accessToken = await userPoolStorage.read(
+          key: userPoolKeys[LegacyCognitoUserPoolKey.accessToken],
+        );
+        final refreshToken = await userPoolStorage.read(
+          key: userPoolKeys[LegacyCognitoUserPoolKey.refreshToken],
+        );
+        final idToken = await userPoolStorage.read(
+          key: userPoolKeys[LegacyCognitoUserPoolKey.idToken],
+        );
+        if (accessToken != null && refreshToken != null && idToken != null) {
+          // TODO(Jordan-Nelson): fetch sign in method from keychain on iOS
+          final signInMethod = hostedUiConfig != null
+              ? CognitoSignInMethod.unknown
+              : CognitoSignInMethod.default$;
+          userPoolTokens = CognitoUserPoolTokens(
+            signInMethod: signInMethod,
+            accessToken: JsonWebToken.parse(accessToken),
+            refreshToken: refreshToken,
+            idToken: JsonWebToken.parse(idToken),
+          );
+        }
+      }
+    }
+
+    String? identityId;
+    AWSCredentials? awsCredentials;
+    final identityPoolId = identityPoolConfig?.poolId;
+    if (identityPoolId != null) {
+      final identityPoolStorage = getIdentityPoolStorage(
+        bundleId,
+        identityPoolId,
+      );
+      const identityPoolKeys = LegacyCognitoIdentityPoolKeys();
+      identityId = await identityPoolStorage.read(
+        key: identityPoolKeys[LegacyCognitoIdentityPoolKey.identityId],
+      );
+      final accessKeyId = await identityPoolStorage.read(
+        key: identityPoolKeys[LegacyCognitoIdentityPoolKey.accessKey],
+      );
+      final secretAccessKey = await identityPoolStorage.read(
+        key: identityPoolKeys[LegacyCognitoIdentityPoolKey.secretKey],
+      );
+      final sessionToken = await identityPoolStorage.read(
+        key: identityPoolKeys[LegacyCognitoIdentityPoolKey.sessionKey],
+      );
+      final expirationStr = await identityPoolStorage.read(
+        key: identityPoolKeys[LegacyCognitoIdentityPoolKey.expiration],
+      );
+      if (accessKeyId != null && secretAccessKey != null) {
+        DateTime? expiration;
+        if (expirationStr != null) {
+          final secondsSinceEpoch = double.tryParse(expirationStr)?.toInt();
+          if (secondsSinceEpoch != null) {
+            expiration = DateTime.fromMillisecondsSinceEpoch(
+              secondsSinceEpoch * 1000,
+              isUtc: true,
+            );
+          }
+        }
+        awsCredentials = AWSCredentials(
+          accessKeyId,
+          secretAccessKey,
+          sessionToken,
+          expiration,
+        );
+      }
+    }
+
+    if ((userPoolTokens ?? awsCredentials ?? identityId) != null) {
+      return CredentialStoreData(
+        userPoolTokens: userPoolTokens,
+        awsCredentials: awsCredentials,
+        identityId: identityId,
+      );
+    }
+    return null;
+  }
+
+  @override
+  Future<void> deleteLegacyCredentials({
+    CognitoUserPoolConfig? userPoolConfig,
+    CognitoIdentityCredentialsProvider? identityPoolConfig,
+    CognitoOAuthConfig? hostedUiConfig,
+  }) async {
+    // TODO(Jordan-Nelson): Add credentials migration support for Android
+    if (kIsWeb || !Platform.isIOS) return;
+    final bundleId = await _getBundleId();
+    if (userPoolConfig != null) {
+      final userPoolStorage = getUserPoolStorage(
+        bundleId,
+      );
+      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+      final currentUser = await userPoolStorage.read(
+        key: cognitoUserKeys[LegacyCognitoKey.currentUser],
+      );
+      if (currentUser != null) {
+        final userPoolKeys = LegacyCognitoUserPoolKeys(
+          currentUser,
+          userPoolConfig,
+        );
+        await userPoolStorage.deleteMany([
+          userPoolKeys[LegacyCognitoUserPoolKey.accessToken],
+          userPoolKeys[LegacyCognitoUserPoolKey.refreshToken],
+          userPoolKeys[LegacyCognitoUserPoolKey.idToken],
+          cognitoUserKeys[LegacyCognitoKey.currentUser],
+        ]);
+      }
+    }
+
+    final identityPoolId = identityPoolConfig?.poolId;
+    if (identityPoolId != null) {
+      final identityPoolStorage = getIdentityPoolStorage(
+        bundleId,
+        identityPoolId,
+      );
+      const identityPoolKeys = LegacyCognitoIdentityPoolKeys();
+      await identityPoolStorage.deleteMany([
+        identityPoolKeys[LegacyCognitoIdentityPoolKey.identityId],
+        identityPoolKeys[LegacyCognitoIdentityPoolKey.accessKey],
+        identityPoolKeys[LegacyCognitoIdentityPoolKey.secretKey],
+        identityPoolKeys[LegacyCognitoIdentityPoolKey.sessionKey],
+        identityPoolKeys[LegacyCognitoIdentityPoolKey.expiration],
+      ]);
+    }
   }
 }
