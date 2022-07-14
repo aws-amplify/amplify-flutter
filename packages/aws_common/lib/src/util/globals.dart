@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+export 'globals.dart.dart' if (dart.library.ui) 'globals.flutter.dart';
+
 /// Whether running in debug mode.
 const bool zDebugMode = !zProfileMode && !zReleaseMode;
 

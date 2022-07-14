@@ -108,9 +108,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         }
         worker = SrpInitWorker.create();
         worker.logs.listen(safePrint);
-        await worker.spawn(
-          jsEntrypoint: 'packages/amplify_auth_cognito/workers.dart.js',
-        );
+        await worker.spawn();
         addInstance<SrpInitWorker>(worker);
         return worker;
       });
@@ -124,9 +122,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         }
         worker = SrpPasswordVerifierWorker.create();
         worker.logs.listen(safePrint);
-        await worker.spawn(
-          jsEntrypoint: 'packages/amplify_auth_cognito/workers.dart.js',
-        );
+        await worker.spawn();
         addInstance<SrpPasswordVerifierWorker>(worker);
         return worker;
       });
@@ -140,9 +136,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         }
         worker = SrpDevicePasswordVerifierWorker.create();
         worker.logs.listen(safePrint);
-        await worker.spawn(
-          jsEntrypoint: 'packages/amplify_auth_cognito/workers.dart.js',
-        );
+        await worker.spawn();
         addInstance<SrpDevicePasswordVerifierWorker>(worker);
         return worker;
       });
@@ -156,9 +150,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         }
         worker = ConfirmDeviceWorker.create();
         worker.logs.listen(safePrint);
-        await worker.spawn(
-          jsEntrypoint: 'packages/amplify_auth_cognito/workers.dart.js',
-        );
+        await worker.spawn();
         addInstance<ConfirmDeviceWorker>(worker);
         return worker;
       });
@@ -186,7 +178,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       return password;
     }
 
-    authFlowType = event.authFlow ?? defaultAuthFlowType;
+    authFlowType = event.authFlowType ?? defaultAuthFlowType;
     switch (authFlowType) {
       case AuthFlowType.userSrpAuth:
         expectPassword();

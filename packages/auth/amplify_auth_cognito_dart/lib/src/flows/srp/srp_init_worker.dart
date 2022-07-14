@@ -42,9 +42,7 @@ abstract class SrpInitMessage
 /// {@template amplify_auth_cognito.srp_init_worker}
 /// Worker bee for handling the SRP initialization routine.
 /// {@endtemplate}
-@WorkerBee('packages/amplify_auth_cognito_dart/src/workers.dart.js', [
-  'packages/amplify_auth_cognito_dart/src/workers.js',
-])
+@WorkerBee('lib/src/workers/workers.dart')
 abstract class SrpInitWorker
     extends WorkerBeeBase<SrpInitMessage, SrpInitResult> {
   /// {@macro amplify_auth_cognito.srp_init_worker}

@@ -42,7 +42,7 @@ import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 
 // Create the signer instance with credentials from the environment.
-const AWSSigV4Signer signer = AWSSigV4Signer(
+const signer = AWSSigV4Signer(
   credentialsProvider: AWSCredentialsProvider.environment(),
 );
 
@@ -52,7 +52,7 @@ final scope = AWSCredentialScope(
   region: region,
   service: AWSService.cognitoIdentityProvider,
 );
-final AWSHttpRequest request = AWSHttpRequest(
+final request = AWSHttpRequest(
   method: AWSHttpMethod.post,
   uri: Uri.https('cognito-idp.$region.amazonaws.com', '/'),
   headers: const {
@@ -65,13 +65,13 @@ final AWSHttpRequest request = AWSHttpRequest(
 );
 
 // Sign and send the HTTP request
-final AWSSignedRequest signedRequest = await signer.sign(
+final signedRequest = await signer.sign(
   request,
   credentialScope: scope,
 );
-final AWSStreamedHttpResponse resp = await signedRequest.send();
-final String respBody = await resp.decodeBody();
-print(respBody);
+final resp = await signedRequest.send();
+final respBody = await resp.decodeBody();
+safePrint(respBody);
 ```
 
 For a full example, check out the [example](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/aws_signature_v4/example) project in the GitHub repo. 

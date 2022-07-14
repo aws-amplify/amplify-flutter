@@ -16,6 +16,7 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.sign_in_event_type}
@@ -41,13 +42,14 @@ enum SignInEventType {
 /// {@template amplify_auth_cognito.sign_in_event}
 /// Discrete events of an auth flow state machine.
 /// {@endtemplate}
-abstract class SignInEvent extends StateMachineEvent<SignInEventType> {
+abstract class SignInEvent
+    extends StateMachineEvent<SignInEventType, SignInStateType> {
   /// {@macro amplify_auth_cognito.sign_in_event}
   const SignInEvent._();
 
   /// {@macro amplify_auth_cognito.sign_in_initiate}
   const factory SignInEvent.initiate({
-    AuthFlowType? authFlow,
+    AuthFlowType? authFlowType,
     required SignInParameters parameters,
     Map<String, String>? clientMetadata,
   }) = SignInInitiate;
@@ -69,7 +71,7 @@ abstract class SignInEvent extends StateMachineEvent<SignInEventType> {
   const factory SignInEvent.failed(Exception exception) = SignInFailed;
 
   @override
-  String? checkPrecondition(SignInState currentState) => null;
+  PreconditionException? checkPrecondition(SignInState currentState) => null;
 
   @override
   String get runtimeTypeName => 'SignInEvent';
@@ -81,14 +83,14 @@ abstract class SignInEvent extends StateMachineEvent<SignInEventType> {
 class SignInInitiate extends SignInEvent {
   /// {@macro amplify_auth_cognito.sign_in_initiate}
   const SignInInitiate({
-    this.authFlow,
+    this.authFlowType,
     required this.parameters,
     Map<String, String>? clientMetadata,
   })  : clientMetadata = clientMetadata ?? const {},
         super._();
 
   /// Runtime override of the Authentication flow.
-  final AuthFlowType? authFlow;
+  final AuthFlowType? authFlowType;
 
   /// The flow-specific parameters.
   final SignInParameters parameters;
@@ -100,12 +102,14 @@ class SignInInitiate extends SignInEvent {
   SignInEventType get type => SignInEventType.initiate;
 
   @override
-  List<Object?> get props => [type, authFlow, clientMetadata, parameters];
+  List<Object?> get props => [type, authFlowType, clientMetadata, parameters];
 
   @override
-  String? checkPrecondition(SignInState currentState) {
+  PreconditionException? checkPrecondition(SignInState currentState) {
     if (currentState.type != SignInStateType.notStarted) {
-      return 'Auth flow has already been initiated';
+      return const AuthPreconditionException(
+        'Auth flow has already been initiated',
+      );
     }
     return null;
   }
@@ -145,9 +149,9 @@ class SignInRespondToChallenge extends SignInEvent {
       ];
 
   @override
-  String? checkPrecondition(SignInState currentState) {
+  PreconditionException? checkPrecondition(SignInState currentState) {
     if (currentState.type != SignInStateType.challenge) {
-      return 'There is no active challenge';
+      return const AuthPreconditionException('There is no active challenge');
     }
     return null;
   }
@@ -167,7 +171,7 @@ class SignInCancelled extends SignInEvent {
   List<Object?> get props => [type];
 
   @override
-  String? checkPrecondition(SignInState currentState) {
+  PreconditionException? checkPrecondition(SignInState currentState) {
     return null;
   }
 }
@@ -189,9 +193,9 @@ class SignInSucceeded extends SignInEvent {
   List<Object?> get props => [type, user];
 
   @override
-  String? checkPrecondition(SignInState currentState) {
+  PreconditionException? checkPrecondition(SignInState currentState) {
     if (currentState.type == SignInStateType.success) {
-      return 'Auth flow was already completed';
+      return const AuthPreconditionException('Auth flow was already completed');
     }
     return null;
   }
@@ -215,9 +219,12 @@ class SignInFailed extends SignInEvent with ErrorEvent {
   List<Object?> get props => [type, exception];
 
   @override
-  String? checkPrecondition(SignInState currentState) {
+  PreconditionException? checkPrecondition(SignInState currentState) {
     if (currentState.type == SignInStateType.failure) {
-      return 'Auth flow already completed with error';
+      return const AuthPreconditionException(
+        'Auth flow already completed with error',
+        shouldEmit: false,
+      );
     }
     return null;
   }

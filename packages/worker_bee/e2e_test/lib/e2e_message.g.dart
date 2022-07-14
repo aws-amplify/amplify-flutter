@@ -281,7 +281,7 @@ class _$CustomType extends CustomType {
 
   _$CustomType._({required this.customField}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        customField, 'CustomType', 'customField');
+        customField, r'CustomType', 'customField');
   }
 
   @override
@@ -304,7 +304,7 @@ class _$CustomType extends CustomType {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('CustomType')
+    return (newBuiltValueToStringHelper(r'CustomType')
           ..add('customField', customField))
         .toString();
   }
@@ -346,7 +346,7 @@ class CustomTypeBuilder implements Builder<CustomType, CustomTypeBuilder> {
     final _$result = _$v ??
         new _$CustomType._(
             customField: BuiltValueNullFieldError.checkNotNull(
-                customField, 'CustomType', 'customField'));
+                customField, r'CustomType', 'customField'));
     replace(_$result);
     return _$result;
   }
@@ -410,26 +410,27 @@ class _$E2EMessage extends E2EMessage {
       required this.string,
       required this.uri})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(bigInt, 'E2EMessage', 'bigInt');
-    BuiltValueNullFieldError.checkNotNull(bool_, 'E2EMessage', 'bool_');
-    BuiltValueNullFieldError.checkNotNull(builtList, 'E2EMessage', 'builtList');
+    BuiltValueNullFieldError.checkNotNull(bigInt, r'E2EMessage', 'bigInt');
+    BuiltValueNullFieldError.checkNotNull(bool_, r'E2EMessage', 'bool_');
     BuiltValueNullFieldError.checkNotNull(
-        builtListMultimap, 'E2EMessage', 'builtListMultimap');
-    BuiltValueNullFieldError.checkNotNull(builtMap, 'E2EMessage', 'builtMap');
-    BuiltValueNullFieldError.checkNotNull(builtSet, 'E2EMessage', 'builtSet');
+        builtList, r'E2EMessage', 'builtList');
     BuiltValueNullFieldError.checkNotNull(
-        builtSetMultimap, 'E2EMessage', 'builtSetMultimap');
-    BuiltValueNullFieldError.checkNotNull(dateTime, 'E2EMessage', 'dateTime');
-    BuiltValueNullFieldError.checkNotNull(double_, 'E2EMessage', 'double_');
-    BuiltValueNullFieldError.checkNotNull(duration, 'E2EMessage', 'duration');
-    BuiltValueNullFieldError.checkNotNull(int_, 'E2EMessage', 'int_');
-    BuiltValueNullFieldError.checkNotNull(int64, 'E2EMessage', 'int64');
+        builtListMultimap, r'E2EMessage', 'builtListMultimap');
+    BuiltValueNullFieldError.checkNotNull(builtMap, r'E2EMessage', 'builtMap');
+    BuiltValueNullFieldError.checkNotNull(builtSet, r'E2EMessage', 'builtSet');
     BuiltValueNullFieldError.checkNotNull(
-        jsonObject, 'E2EMessage', 'jsonObject');
-    BuiltValueNullFieldError.checkNotNull(num_, 'E2EMessage', 'num_');
-    BuiltValueNullFieldError.checkNotNull(regExp, 'E2EMessage', 'regExp');
-    BuiltValueNullFieldError.checkNotNull(string, 'E2EMessage', 'string');
-    BuiltValueNullFieldError.checkNotNull(uri, 'E2EMessage', 'uri');
+        builtSetMultimap, r'E2EMessage', 'builtSetMultimap');
+    BuiltValueNullFieldError.checkNotNull(dateTime, r'E2EMessage', 'dateTime');
+    BuiltValueNullFieldError.checkNotNull(double_, r'E2EMessage', 'double_');
+    BuiltValueNullFieldError.checkNotNull(duration, r'E2EMessage', 'duration');
+    BuiltValueNullFieldError.checkNotNull(int_, r'E2EMessage', 'int_');
+    BuiltValueNullFieldError.checkNotNull(int64, r'E2EMessage', 'int64');
+    BuiltValueNullFieldError.checkNotNull(
+        jsonObject, r'E2EMessage', 'jsonObject');
+    BuiltValueNullFieldError.checkNotNull(num_, r'E2EMessage', 'num_');
+    BuiltValueNullFieldError.checkNotNull(regExp, r'E2EMessage', 'regExp');
+    BuiltValueNullFieldError.checkNotNull(string, r'E2EMessage', 'string');
+    BuiltValueNullFieldError.checkNotNull(uri, r'E2EMessage', 'uri');
   }
 
   @override
@@ -507,7 +508,7 @@ class _$E2EMessage extends E2EMessage {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('E2EMessage')
+    return (newBuiltValueToStringHelper(r'E2EMessage')
           ..add('bigInt', bigInt)
           ..add('bool_', bool_)
           ..add('builtList', builtList)
@@ -657,32 +658,32 @@ class E2EMessageBuilder implements Builder<E2EMessage, E2EMessageBuilder> {
       _$result = _$v ??
           new _$E2EMessage._(
               bigInt: BuiltValueNullFieldError.checkNotNull(
-                  bigInt, 'E2EMessage', 'bigInt'),
+                  bigInt, r'E2EMessage', 'bigInt'),
               bool_: BuiltValueNullFieldError.checkNotNull(
-                  bool_, 'E2EMessage', 'bool_'),
+                  bool_, r'E2EMessage', 'bool_'),
               builtList: builtList.build(),
               builtListMultimap: builtListMultimap.build(),
               builtMap: builtMap.build(),
               builtSet: builtSet.build(),
               builtSetMultimap: builtSetMultimap.build(),
               dateTime: BuiltValueNullFieldError.checkNotNull(
-                  dateTime, 'E2EMessage', 'dateTime'),
+                  dateTime, r'E2EMessage', 'dateTime'),
               double_: BuiltValueNullFieldError.checkNotNull(
-                  double_, 'E2EMessage', 'double_'),
+                  double_, r'E2EMessage', 'double_'),
               duration: BuiltValueNullFieldError.checkNotNull(
-                  duration, 'E2EMessage', 'duration'),
+                  duration, r'E2EMessage', 'duration'),
               int_: BuiltValueNullFieldError.checkNotNull(
-                  int_, 'E2EMessage', 'int_'),
+                  int_, r'E2EMessage', 'int_'),
               int64: BuiltValueNullFieldError.checkNotNull(
-                  int64, 'E2EMessage', 'int64'),
+                  int64, r'E2EMessage', 'int64'),
               jsonObject: BuiltValueNullFieldError.checkNotNull(
-                  jsonObject, 'E2EMessage', 'jsonObject'),
+                  jsonObject, r'E2EMessage', 'jsonObject'),
               num_: BuiltValueNullFieldError.checkNotNull(
-                  num_, 'E2EMessage', 'num_'),
+                  num_, r'E2EMessage', 'num_'),
               regExp: BuiltValueNullFieldError.checkNotNull(
-                  regExp, 'E2EMessage', 'regExp'),
-              string: BuiltValueNullFieldError.checkNotNull(string, 'E2EMessage', 'string'),
-              uri: BuiltValueNullFieldError.checkNotNull(uri, 'E2EMessage', 'uri'));
+                  regExp, r'E2EMessage', 'regExp'),
+              string: BuiltValueNullFieldError.checkNotNull(string, r'E2EMessage', 'string'),
+              uri: BuiltValueNullFieldError.checkNotNull(uri, r'E2EMessage', 'uri'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -698,7 +699,7 @@ class E2EMessageBuilder implements Builder<E2EMessage, E2EMessageBuilder> {
         builtSetMultimap.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'E2EMessage', _$failedField, e.toString());
+            r'E2EMessage', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -715,7 +716,7 @@ class _$E2EResult extends E2EResult {
       (new E2EResultBuilder()..update(updates))._build();
 
   _$E2EResult._({required this.message}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(message, 'E2EResult', 'message');
+    BuiltValueNullFieldError.checkNotNull(message, r'E2EResult', 'message');
   }
 
   @override
@@ -738,7 +739,7 @@ class _$E2EResult extends E2EResult {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('E2EResult')..add('message', message))
+    return (newBuiltValueToStringHelper(r'E2EResult')..add('message', message))
         .toString();
   }
 }
@@ -786,7 +787,7 @@ class E2EResultBuilder implements Builder<E2EResult, E2EResultBuilder> {
         message.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'E2EResult', _$failedField, e.toString());
+            r'E2EResult', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -795,4 +796,4 @@ class E2EResultBuilder implements Builder<E2EResult, E2EResultBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

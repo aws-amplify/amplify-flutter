@@ -24,36 +24,73 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   /// {@macro amplify_auth_cognito.hosted_ui_platform}
   HostedUiPlatformImpl(super.dependencyManager) : super.protected();
 
-  static const _successHtml = '''
+  static String _html(String pageTitle, String title, String message) => '''
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Success!</title>
-    <style>
-        body {
-          font-family: -apple-system, 
-                      BlinkMacSystemFont, 
-                      "Segoe UI", 
-                      Roboto, 
-                      Oxygen,
-                      Ubuntu,
-                      Cantarell,
-                      "Fira Sans",
-                      "Droid Sans",
-                      "Helvetica Neue", 
-                      sans-serif;
-        }
-    </style>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>$pageTitle</title>
+      <style>
+          html,
+          body {
+              background-color: #f8f8f8;
+              color: #1d1d1d;
+              font-family:
+                  -apple-system,
+                  BlinkMacSystemFont,
+                  "Segoe UI",
+                  Roboto,
+                  Oxygen,
+                  Ubuntu,
+                  Cantarell,
+                  "Fira Sans",
+                  "Droid Sans",
+                  "Helvetica Neue",
+                  sans-serif;
+          }
+          /* Material style card with outline and minimal elevation */
+          .card {
+              background-color: white;
+              margin-top: 64px;
+              padding: 64px;
+              border: 1px solid #dddddd;
+              border-radius: 4px;
+              width: 500px;
+              box-shadow: 0 1px 0 rgb(0 0 0 / 25%);
+          }
+      </style>
   </head>
   <body>
-    <center>
-      <h2>Success! You can now close this window.</h2>
-    </center>
+      <center>
+          <div class="card">
+              <h1>$title</h1>
+              <p>$message</p>
+          </div>
+      </center>
   </body>
 </html>''';
+
+  String _htmlForParams(
+    Map<String, String> parameters, {
+    required bool signIn,
+  }) {
+    if (parameters.containsKey('error')) {
+      return _html(
+        'Authentication Error',
+        'Something went wrong.',
+        'An error occurred. Please return to the application for more info.',
+      );
+    }
+    final title = signIn ? 'Signed In' : 'Signed Out';
+    final inOut = signIn ? 'in' : 'out';
+    return _html(
+      title,
+      'You are signed $inOut.',
+      'You have successfully signed $inOut. You can now close this window.',
+    );
+  }
 
   Never _noSuitableRedirect({required bool signIn}) {
     final inOut = signIn ? 'in' : 'out';
@@ -97,16 +134,24 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
     }
 
     final arguments = Platform.isWindows ? ['start-process', '"$url"'] : [url];
-    final res = await Process.run(
-      command,
-      arguments,
-      stdoutEncoding: utf8,
-      stderrEncoding: utf8,
-    );
-    if (res.exitCode != 0) {
-      throw UnknownException(
-        '"$command ${arguments.join(' ')}" command failed',
-        underlyingException: '${res.stdout}\n${res.stderr}',
+    final couldNotLaunch = '"$command ${arguments.join(' ')}" command failed';
+    try {
+      final res = await Process.run(
+        command,
+        arguments,
+        stdoutEncoding: utf8,
+        stderrEncoding: utf8,
+      );
+      if (res.exitCode != 0) {
+        throw UrlLauncherException(
+          couldNotLaunch,
+          underlyingException: '${res.stdout}\n${res.stderr}',
+        );
+      }
+    } on Exception catch (e) {
+      throw UrlLauncherException(
+        couldNotLaunch,
+        underlyingException: e.toString(),
       );
     }
   }
@@ -129,7 +174,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
       }
     }
     if (server == null) {
-      throw UnknownException(
+      throw UrlLauncherException(
         'Could not bind to the registered localhost ports',
         underlyingException:
             'All ports were blocked: [${uris.map((uri) => uri.port).join(',')}]',
@@ -174,7 +219,6 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
       ).toString();
       await launchUrl(signInUrl);
 
-      late Map<String, String> queryParams;
       await for (final request in listenServer) {
         final method = request.method;
         if (method != 'GET') {
@@ -187,8 +231,9 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         }
         if (request.uri.path != signInRedirectUri.path) {
           await _respond(request, HttpStatus.notFound, 'Not found');
+          continue;
         }
-        queryParams = request.uri.queryParameters;
+        final queryParams = request.uri.queryParameters;
         if ((!queryParams.containsKey('code') &&
                 !queryParams.containsKey('error')) ||
             !queryParams.containsKey('state')) {
@@ -197,23 +242,23 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
             HttpStatus.badRequest,
             'Missing parameter',
           );
+          continue;
         }
+        dispatcher.dispatch(
+          HostedUiEvent.exchange(
+            OAuthParameters.fromJson(queryParams),
+          ),
+        );
         await _respond(
           request,
           HttpStatus.ok,
-          _successHtml,
+          _htmlForParams(queryParams, signIn: true),
           headers: {
             AWSHeaders.contentType: 'text/html',
           },
         );
         break;
       }
-
-      dispatcher.dispatch(
-        HostedUiEvent.exchange(
-          OAuthParameters.fromJson(queryParams),
-        ),
-      );
     } finally {
       unawaited(listenServer.close(force: true));
     }
@@ -250,11 +295,13 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         }
         if (request.uri.path != signOutRedirectUri.path) {
           await _respond(request, HttpStatus.notFound, 'Not found');
+          continue;
         }
+        final queryParams = request.uri.queryParameters;
         await _respond(
           request,
           HttpStatus.ok,
-          _successHtml,
+          _htmlForParams(queryParams, signIn: false),
           headers: {
             AWSHeaders.contentType: 'text/html',
           },

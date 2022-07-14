@@ -12,7 +12,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath 'com.android.tools.build:gradle:7.1.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'org.jlleitschuh.gradle:ktlint-gradle:10.2.1'
     }
@@ -73,16 +73,24 @@ android {
 dependencies {
     api amplifyFlutter
 
-    implementation "com.amplifyframework:aws-api:1.36.0-dev-preview.0"
-    implementation "com.amplifyframework:aws-api-appsync:1.36.0-dev-preview.0"
+    implementation "com.amplifyframework:aws-api:1.36.5-dev-preview.0"
+    implementation "com.amplifyframework:aws-api-appsync:1.36.5-dev-preview.0"
+
+    // Do not update before migration of plugin to Dart.
+    //noinspection GradleDependency
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:3.10.0'
-    testImplementation 'org.mockito:mockito-inline:3.10.0'
-    testImplementation "org.mockito.kotlin:mockito-kotlin:3.2.0"
+    testImplementation 'org.mockito:mockito-core:4.0.0'
+    testImplementation 'org.mockito:mockito-inline:3.11.2'
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
     testImplementation 'androidx.test:core:1.4.0'
     testImplementation 'androidx.test.ext:junit-ktx:1.1.3'
+    // Tests must be updated if bumped
+    //noinspection GradleDependency
     testImplementation 'org.robolectric:robolectric:4.3.1'
+
+    // Do not update before migration of plugin to Dart.
+    //noinspection GradleDependency
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9'
 }

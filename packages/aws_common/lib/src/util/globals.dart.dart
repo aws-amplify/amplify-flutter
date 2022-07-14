@@ -12,24 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
-
-import 'package:aft/aft.dart';
-import 'package:pub_semver/pub_semver.dart';
-import 'package:pubspec_parse/pubspec_parse.dart';
-
-part 'deps_check_command.dart';
-
-/// Command to manage dependencies across all Dart/Flutter packages in the repo.
-class DepsCommand extends AmplifyCommand {
-  DepsCommand() {
-    addSubcommand(_DepsCheckCommand());
-  }
-
-  @override
-  String get description =>
-      'Manage dependencies across all packages in the Amplify Flutter repo';
-
-  @override
-  String get name => 'deps';
-}
+/// Whether running in Flutter (as opposed to Dart-only).
+const zIsFlutter = false;

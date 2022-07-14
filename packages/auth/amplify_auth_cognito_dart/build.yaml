@@ -1,32 +1,46 @@
 targets:
   $default:
-    sources:
-      exclude:
-        - example/**
     builders:
+      build_web_compilers:dart2js_archive_extractor:
+        enabled: true
       build_web_compilers:entrypoint:
+        enabled: false
+  debug:
+    auto_apply_builders: false
+    builders:
+      build_web_compilers:dart2js_archive_extractor:
+        enabled: false
+      build_web_compilers:entrypoint:
+        enabled: true
         generate_for:
-          - lib/src/workers.dart
+          - lib/src/workers/*.debug.dart
         options:
           compiler: dart2js
-        dev_options:
           dart2js_args:
             - --no-minify
-        release_options:
+  release:
+    auto_apply_builders: false
+    builders:
+      build_web_compilers:dart2js_archive_extractor:
+        enabled: false
+      build_web_compilers:entrypoint:
+        enabled: true
+        generate_for:
+          - lib/src/workers/*.release.dart
+        options:
+          compiler: dart2js
           dart2js_args:
             - -O2
-      amplify_auth_cognito_dart:_workers_copy:
+  workers:
+    auto_apply_builders: false
+    builders:
+      worker_bee_builder:worker_copy_builder:
         enabled: true
-
-builders:
-  # Copies the output of the entrypoint generator to lib/
-  _workers_copy:
-    import: "tool/copy_builder.dart"
-    builder_factories:
-      - copyBuilder
-    build_extensions:
-      lib/src/workers.dart.js:
-        - lib/src/workers.js
-    auto_apply: none
-    build_to: source
-    required_inputs: [".dart.js"]
+        generate_for:
+          - lib/src/workers/*.debug.dart.js
+          - lib/src/workers/*.debug.dart.js.map
+          - lib/src/workers/*.release.dart.js
+          - lib/src/workers/*.release.dart.js.map
+    dependencies:
+      - amplify_auth_cognito_dart:debug
+      - amplify_auth_cognito_dart:release
