@@ -208,7 +208,8 @@ void main() {
               ),
             )
             ..dispatch(
-                const CredentialStoreEvent.migrateLegacyCredentialStore());
+              const CredentialStoreEvent.migrateLegacyCredentialStore(),
+            );
         });
 
         test('succeeds for user pool only requests', () {
