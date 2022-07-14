@@ -17,6 +17,8 @@ package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager.MATCH_ALL
+import android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
@@ -181,14 +183,17 @@ open class AuthCognito :
             addCategory(Intent.CATEGORY_BROWSABLE)
             data = Uri.fromParts("https", "", null)
         }
-        val defaultViewHandlerInfo = packageManager.resolveActivity(activityIntent, 0)
+        val defaultViewHandlerInfo = packageManager.resolveActivity(
+            activityIntent,
+            MATCH_DEFAULT_ONLY
+        )
         var defaultViewHandlerPackageName: String? = null
         if (defaultViewHandlerInfo != null) {
             defaultViewHandlerPackageName = defaultViewHandlerInfo.activityInfo.packageName
         }
 
         // Get all apps that can handle VIEW intents.
-        val resolvedActivityList = packageManager.queryIntentActivities(activityIntent, 0)
+        val resolvedActivityList = packageManager.queryIntentActivities(activityIntent, MATCH_ALL)
         val packagesSupportingCustomTabs = mutableListOf<String>()
         for (info in resolvedActivityList) {
             val serviceIntent = Intent()
@@ -222,7 +227,10 @@ open class AuthCognito :
         val intent = CustomTabsIntent.Builder().apply {
             setShareState(CustomTabsIntent.SHARE_STATE_OFF)
         }.build()
-        intent.intent.`package` = browserPackageName ?: this.browserPackageName
+        val useBrowserPackage = browserPackageName
+            ?: this.browserPackageName
+            ?: throw HostedUiException.NOBROWSER()
+        intent.intent.`package` = useBrowserPackage
         intent.intent.putExtra(
             Intent.EXTRA_REFERRER,
             Uri.parse("android-app://${mainActivity!!.packageName}")

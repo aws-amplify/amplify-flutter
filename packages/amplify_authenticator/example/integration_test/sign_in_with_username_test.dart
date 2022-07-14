@@ -54,9 +54,7 @@ void main() {
       );
     });
 
-    tearDownAll(() async {
-      await Amplify.Auth.signOut();
-    });
+    tearDown(signOut);
 
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
@@ -90,7 +88,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername();
 
-      // When I type my "username" with status "UNCONFIRMED"
+      // When I type my "username"
       await signInPage.enterUsername(username);
 
       // And I type my password
@@ -101,8 +99,6 @@ void main() {
 
       /// Then I see "Sign out"
       await signInPage.expectAuthenticated();
-
-      await signInPage.submitSignOut();
     });
 
     // Scenario: Sign in with confirmed credentials then sign out

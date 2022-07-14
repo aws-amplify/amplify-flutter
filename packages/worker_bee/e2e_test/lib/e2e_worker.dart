@@ -14,14 +14,23 @@
 
 import 'dart:async';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:worker_bee/worker_bee.dart';
 import 'e2e_message.dart';
 import 'e2e_worker.worker.dart';
 
-@WorkerBee()
+@WorkerBee('lib/workers.dart')
 abstract class E2EWorker extends WorkerBeeBase<E2EMessage, E2EResult> {
   E2EWorker() : super(serializers: serializers);
   factory E2EWorker.create() = E2EWorkerImpl;
+
+  @override
+  String get jsEntrypoint {
+    if (zDebugMode) {
+      return 'packages/e2e_test/workers.js';
+    }
+    return 'packages/e2e_test/workers.min.js';
+  }
 
   @override
   Future<E2EResult> run(

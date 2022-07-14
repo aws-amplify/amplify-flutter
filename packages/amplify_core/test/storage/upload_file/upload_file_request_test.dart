@@ -18,6 +18,7 @@
 import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:path/path.dart' as path;
 import 'package:test/test.dart';
 
 void main() {
@@ -28,7 +29,7 @@ void main() {
     var serializedResult = request.serializeAsMap();
     expect(serializedResult, {
       'uuid': request.uuid,
-      'path': '${Directory.current.path}/pathToFile',
+      'path': path.join(Directory.current.path, 'pathToFile'),
       'key': 'keyForFile'
     });
   });
@@ -44,7 +45,7 @@ void main() {
     var serializedResult = request.serializeAsMap();
     expect(serializedResult, {
       'uuid': request.uuid,
-      'path': '${Directory.current.path}/pathToFile',
+      'path': path.join(Directory.current.path, 'pathToFile'),
       'key': 'keyForFile',
       'options': {
         'accessLevel': 'protected',

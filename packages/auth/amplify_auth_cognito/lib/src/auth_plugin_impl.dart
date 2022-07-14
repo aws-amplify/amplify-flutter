@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: implementation_imports
-
 import 'dart:async';
 import 'dart:io';
 
@@ -27,28 +25,28 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/services.dart';
 
-
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
 /// The AWS Cognito implementation of the Amplify Auth category.
-/// To change the default behavior of credential storage,
-/// provide a [credentialStorage] value. If no value is provided,
-/// [AmplifySecureStorage] will be used with a `scope` of "auth".
-///
-/// **Warning:** Changing the credential provider, or customizing 
-/// the config value for [AmplifySecureStorage], will likely result in 
-/// end users having to re-authenticate then next time the app is opened.
 /// {@endtemplate}
 class AmplifyAuthCognito extends AmplifyAuthCognitoDart {
   /// {@macro amplify_auth_cognito.amplify_auth_cognito}
+  ///
+  /// To change the default behavior of credential storage,
+  /// provide a [credentialStorage] value. If no value is provided,
+  /// [AmplifySecureStorage] will be used with a `scope` of "auth".
+  ///
+  /// **NOTE**: Switching credential storage providers will likely result in
+  /// end-users needing to re-authenticate since no migrations are performed in
+  /// this case.
   AmplifyAuthCognito({
     SecureStorageInterface? credentialStorage,
-  })
-      : super(
-          credentialStorage: credentialStorage ?? AmplifySecureStorage(
-            config: AmplifySecureStorageConfig(
-              scope: 'auth',
-            ),
-          ),
+  }) : super(
+          credentialStorage: credentialStorage ??
+              AmplifySecureStorage(
+                config: AmplifySecureStorageConfig(
+                  scope: 'auth',
+                ),
+              ),
           hostedUiPlatformFactory: HostedUiPlatformImpl.new,
         );
 

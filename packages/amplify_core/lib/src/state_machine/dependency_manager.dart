@@ -22,12 +22,9 @@ typedef DependencyBuilder<T extends Object> = Function;
 /// {@endtemplate}
 class DependencyManager {
   /// {@macro amplify_core.dependency_manager}
-  factory DependencyManager([
+  DependencyManager([
     Map<Token, DependencyBuilder>? builders,
-  ]) =>
-      DependencyManager._(builders ?? {});
-
-  DependencyManager._(this._builders) {
+  ]) : _builders = builders ?? {} {
     addInstance<DependencyManager>(this);
   }
 
@@ -50,7 +47,7 @@ class DependencyManager {
   ]) {
     token ??= Token<T>();
     // Close the current instance, if any.
-    final currentInstance = _instances[token];
+    final currentInstance = get<T>(token);
     if (currentInstance != null && currentInstance is Closeable) {
       currentInstance.close();
     }
@@ -75,8 +72,7 @@ class DependencyManager {
   ///
   /// Throws a [StateError] if no instance or builder is found.
   T getOrCreate<T extends Object>([Token<T>? token]) {
-    token ??= Token<T>();
-    final instance = _instances[token] as T?;
+    final instance = get<T>(token);
     if (instance != null) {
       return instance;
     }
@@ -89,7 +85,7 @@ class DependencyManager {
   T create<T extends Object>([Token<T>? token]) {
     token ??= Token<T>();
     // Close the current instance, if any.
-    final currentInstance = _instances[token];
+    final currentInstance = get<T>(token);
     if (currentInstance != null && currentInstance is Closeable) {
       currentInstance.close();
     }

@@ -38,8 +38,13 @@ dev_dependencies:
   build: ^2.3.0
   build_runner: ^2.0.0
   build_web_compilers: ^3.2.3
-  built_value_generator: '>=8.3.0 <8.4.0'
+  built_value_generator: 8.3.3
   ffigen: ^5.0.0
   test: ^1.16.0
   worker_bee_builder:
     path: ../../worker_bee/worker_bee_builder
+
+flutter:
+  assets:
+  - lib/src/worker/workers.min.js
+  - lib/src/worker/workers.min.js.map

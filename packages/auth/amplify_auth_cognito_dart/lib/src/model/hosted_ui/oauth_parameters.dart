@@ -196,8 +196,17 @@ abstract class OAuthParameters
   OAuthParameters._();
 
   /// Parses [json] into an [OAuthParameters] object.
-  factory OAuthParameters.fromJson(Map<String, Object?> json) =>
-      oauthSerializers.deserializeWith(serializer, json) as OAuthParameters;
+  factory OAuthParameters.fromJson(Map<String, Object?> json) {
+    json = json.map((key, value) {
+      return MapEntry(
+        key,
+        // On some platforms, these are still encoded at this point.
+        value is String ? Uri.decodeQueryComponent(value) : '',
+      );
+    });
+    return oauthSerializers.deserializeWith(serializer, json)
+        as OAuthParameters;
+  }
 
   @BuiltValueHook(finalizeBuilder: true)
   static void _finalize(OAuthParametersBuilder b) {

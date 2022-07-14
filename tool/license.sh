@@ -63,4 +63,6 @@ addlicense -l apache -c "Amazon.com, Inc. or its affiliates. All Rights Reserved
     -ignore '**/GeneratedPluginRegistrant.swift' \
     -ignore '**/generated_plugin_registrant.*' \
     -ignore '**/Pods/**' \
+    -ignore '**/*.debug.dart' \
+    -ignore '**/*.release.dart' \
     $@ $PWD

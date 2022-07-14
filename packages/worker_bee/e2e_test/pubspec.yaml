@@ -7,7 +7,8 @@ environment:
   sdk: '>=2.17.0 <3.0.0'
 
 dependencies: 
-  aws_common: ^0.1.0
+  aws_common:
+    path: ../../aws_common
   built_collection: ^5.0.0
   built_value: ^8.0.0
   fixnum: ^1.0.0
@@ -17,6 +18,8 @@ dependencies:
     path: ../worker_bee
 
 dependency_overrides:
+  aws_common:
+    path: ../../aws_common
   worker_bee:
     path: ../worker_bee
 
@@ -25,6 +28,6 @@ dev_dependencies:
     path: ../../amplify_lints
   build_runner: ^2.0.0
   build_web_compilers: ^3.2.3
-  built_value_generator: '>=8.3.0 <8.4.0'
+  built_value_generator: 8.3.3
   worker_bee_builder:
     path: ../worker_bee_builder

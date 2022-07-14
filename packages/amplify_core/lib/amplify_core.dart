@@ -37,6 +37,9 @@ export 'src/config/auth/auth_config.dart';
 export 'src/config/config_map.dart';
 export 'src/config/storage/storage_config.dart';
 
+// HTTP
+export 'src/http/amplify_http_client.dart';
+
 // Hub
 export 'src/hub/amplify_hub.dart';
 export 'src/hub/hub_channel.dart';
@@ -53,6 +56,7 @@ export 'src/plugin/amplify_storage_plugin_interface.dart';
 // State Machine
 export 'src/state_machine/dependency_manager.dart';
 export 'src/state_machine/event.dart';
+export 'src/state_machine/exception.dart';
 export 'src/state_machine/state.dart';
 export 'src/state_machine/state_machine.dart';
 export 'src/state_machine/token.dart';
@@ -75,6 +79,7 @@ export 'src/types/exception/amplify_already_configured_exception.dart';
 export 'src/types/exception/amplify_exception.dart';
 export 'src/types/exception/amplify_exception_messages.dart';
 export 'src/types/exception/codegen_exception.dart';
+export 'src/types/exception/url_launcher_exception.dart';
 
 /// Model-based types used in datastore and API
 export 'src/types/models/auth_rule.dart';

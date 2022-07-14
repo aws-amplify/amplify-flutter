@@ -12,6 +12,7 @@ dependencies:
   amplify_datastore_plugin_interface: 0.5.0
   amplify_flutter_android: 0.5.0
   amplify_flutter_ios: 0.5.0
+  amplify_secure_storage: 0.1.0
   aws_common: ^0.1.0
   collection: ^1.15.0
   flutter:
@@ -25,14 +26,13 @@ dev_dependencies:
   amplify_auth_cognito: 0.5.0
   amplify_datastore: 0.5.0
   amplify_lints: ^2.0.0
-  amplify_secure_storage: 0.1.0
   amplify_storage_s3: 0.5.0
   amplify_test:
     path: ../../amplify_test
   build_runner: ^2.0.0
   flutter_test:
     sdk: flutter
-  json_serializable: ^6.0.0
+  json_serializable: ^6.1.0
 
 flutter:
   plugin:
