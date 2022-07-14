@@ -21,6 +21,8 @@ import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/breakpoint.dart';
+
 class AuthenticatorScreen extends StatelessAuthenticatorComponent {
   const AuthenticatorScreen({
     Key? key,
@@ -62,19 +64,16 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
     AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
-    final Size screenSize = MediaQuery.of(context).size;
-    final bool isMobile =
-        screenSize.shortestSide < AuthenticatorContainerConstants.landScapeView;
     final double containerWidth;
-    final double containerPadding;
+    final breakpoint = Breakpoint.of(context);
+    final isMobile = breakpoint == Breakpoint.small;
+    final containerPadding = breakpoint.verticalPadding;
 
     if (isMobile) {
       double mobileWidth = MediaQuery.of(context).size.width;
       containerWidth = mobileWidth;
-      containerPadding = 0.0;
     } else {
       containerWidth = AuthenticatorContainerConstants.mediumWidth;
-      containerPadding = 100.0;
     }
 
     const signInUpTabs = [AuthenticatorStep.signIn, AuthenticatorStep.signUp];
