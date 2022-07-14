@@ -35,11 +35,9 @@ void main() {
     late DependencyManager manager;
     late CognitoAuthStateMachine stateMachine;
     late SecureStorageInterface secureStorage;
-    late SecureStorageInterface legacyStorage;
 
     setUp(() {
       secureStorage = MockSecureStorage();
-      legacyStorage = MockSecureStorage();
 
       manager = DependencyManager()
         ..addInstance(secureStorage)
