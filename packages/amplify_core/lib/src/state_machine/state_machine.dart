@@ -135,9 +135,11 @@ abstract class StateMachineManager<E extends StateMachineEvent>
 /// {@endtemplate}
 abstract class StateMachine<Event extends StateMachineEvent,
         State extends StateMachineState>
+    with AWSDebuggable, AmplifyLoggerMixin
     implements Emitter<State>, StateMachineManager {
   /// {@macro amplify_core.state_machine}
   StateMachine(this._manager) {
+    addBuilder<AmplifyLogger>(AmplifyLogger.new);
     _init();
   }
 
@@ -192,7 +194,8 @@ abstract class StateMachine<Event extends StateMachineEvent,
   }
 
   void _emitError(Object error, [StackTrace? st]) {
-    // TODO(dnys1): Log error
+    logger.error('Emitted error', error, st);
+
     final resolution = resolveError(error, st);
 
     // Add the error to the state stream if it cannot be resolved to a new
@@ -210,8 +213,7 @@ abstract class StateMachine<Event extends StateMachineEvent,
   bool _checkPrecondition(Event event) {
     final precondError = event.checkPrecondition(currentState);
     if (precondError != null) {
-      // TODO(dnys1): Log
-      safePrint(
+      logger.info(
         'Precondition not met for event ($event):\n'
         '${precondError.precondition}',
       );
@@ -261,6 +263,11 @@ abstract class StateMachine<Event extends StateMachineEvent,
   /// If the error cannot be resolved, return `null` and the error will be
   /// rethrown.
   State? resolveError(Object error, [StackTrace? st]);
+
+  /// Logger for the state machine.
+  @override
+  AmplifyLogger get logger =>
+      getOrCreate<AmplifyLogger>().createChild(runtimeTypeName);
 
   /// The stream of state machine states.
   @override

@@ -123,6 +123,9 @@ class MyStateMachine extends StateMachine<MyEvent, MyState> {
   MyState? resolveError(Object error, [StackTrace? st]) {
     return const MyState(MyType.error);
   }
+
+  @override
+  String get runtimeTypeName => 'MyStateMachine';
 }
 
 enum WorkType { initial, doWork, success, error }
@@ -189,6 +192,9 @@ class WorkerMachine extends StateMachine<WorkerEvent, WorkerState> {
   WorkerState? resolveError(Object error, [StackTrace? st]) {
     return const WorkerState(WorkType.error);
   }
+
+  @override
+  String get runtimeTypeName => 'WorkerMachine';
 }
 
 class MyStateMachineManager extends StateMachineManager {
