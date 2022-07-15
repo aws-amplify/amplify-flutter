@@ -38,7 +38,6 @@ void main() {
 
     setUp(() {
       secureStorage = MockSecureStorage();
-
       manager = DependencyManager()
         ..addInstance(secureStorage)
         ..addInstance(mockConfig)
@@ -72,6 +71,7 @@ void main() {
         secureStorage,
         userPoolKeys: userPoolKeys,
         identityPoolKeys: identityPoolKeys,
+        version: CredentialStoreVersion.v1,
       );
       stateMachine.dispatch(
         const CredentialStoreEvent.migrateLegacyCredentialStore(),
@@ -167,6 +167,7 @@ void main() {
           secureStorage,
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
+          version: CredentialStoreVersion.v1,
         );
         stateMachine.dispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
@@ -219,6 +220,7 @@ void main() {
           secureStorage,
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
+          version: CredentialStoreVersion.v1,
         );
         stateMachine.dispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
@@ -274,6 +276,7 @@ void main() {
           secureStorage,
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
+          version: CredentialStoreVersion.v1,
         );
         stateMachine.dispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
@@ -316,6 +319,7 @@ void main() {
           secureStorage,
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
+          version: CredentialStoreVersion.v1,
         );
         stateMachine.dispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
@@ -357,9 +361,10 @@ void main() {
     });
 
     group('migrateCredentials', () {
-      setUp(() {});
-
       test('no legacy credentials', () async {
+        // verify credential store version is null.
+        expect(await getVersion(secureStorage), isNull);
+
         stateMachine.dispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
@@ -375,10 +380,14 @@ void main() {
           ]),
         );
 
+        // verify credential store version has been updated.
+        expect(await getVersion(secureStorage), CredentialStoreVersion.v1);
+
         await stateMachine.close();
       });
 
       test('all', () async {
+        // seed legacy credentials.
         manager.addInstance<LegacyCredentialProvider>(
           MockLegacyCredentialProvider(
             initialData: CredentialStoreData(
@@ -389,7 +398,8 @@ void main() {
           ),
         );
 
-        expect(await getVersion(secureStorage), CredentialStoreVersion.none);
+        // verify credential store version is null.
+        expect(await getVersion(secureStorage), isNull);
 
         stateMachine.dispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
@@ -406,6 +416,7 @@ void main() {
           ]),
         );
 
+        // verify credentials have been migrated.
         final result = await sm.getCredentialsResult();
         expect(result.data.awsCredentials, isNotNull);
         expect(result.data.awsCredentials?.accessKeyId, accessKeyId);
@@ -418,12 +429,14 @@ void main() {
         expect(result.data.userPoolTokens?.refreshToken, refreshToken);
         expect(result.data.userPoolTokens?.idToken, idToken);
 
+        // verify credential store version has been updated.
         expect(await getVersion(secureStorage), CredentialStoreVersion.v1);
 
         await stateMachine.close();
       });
 
       test('partial', () async {
+        // seed legacy credentials.
         manager.addInstance<LegacyCredentialProvider>(
           MockLegacyCredentialProvider(
             initialData: CredentialStoreData(
@@ -433,7 +446,8 @@ void main() {
           ),
         );
 
-        expect(await getVersion(secureStorage), CredentialStoreVersion.none);
+        // verify credential store version is null.
+        expect(await getVersion(secureStorage), isNull);
 
         stateMachine.dispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
@@ -450,6 +464,7 @@ void main() {
           ]),
         );
 
+        // verify credentials have been migrated.
         final result = await sm.getCredentialsResult();
         expect(result.data.awsCredentials, isNotNull);
         expect(result.data.awsCredentials?.accessKeyId, accessKeyId);
@@ -462,12 +477,25 @@ void main() {
         expect(result.data.userPoolTokens?.refreshToken, isNull);
         expect(result.data.userPoolTokens?.idToken, isNull);
 
+        // verify credential store version has been updated.
         expect(await getVersion(secureStorage), CredentialStoreVersion.v1);
 
         await stateMachine.close();
       });
 
-      test('legacy credentials are ignored if already migrated', () async {
+      test('already migrated', () async {
+        // seed legacy credentials.
+        manager.addInstance<LegacyCredentialProvider>(
+          MockLegacyCredentialProvider(
+            initialData: CredentialStoreData(
+              identityId: identityId,
+              userPoolTokens: userPoolTokens,
+              awsCredentials: awsCredentials,
+            ),
+          ),
+        );
+
+        // seed version to v1.
         seedStorage(secureStorage, version: CredentialStoreVersion.v1);
 
         stateMachine.dispatch(
@@ -485,6 +513,7 @@ void main() {
           ]),
         );
 
+        // verify legacy credentials are not migrated.
         final result = await sm.getCredentialsResult();
         expect(result.data.awsCredentials, isNull);
         expect(result.data.awsCredentials?.accessKeyId, isNull);

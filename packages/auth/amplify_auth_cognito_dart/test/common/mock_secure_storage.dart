@@ -104,13 +104,11 @@ void seedStorage(
   }
 }
 
-Future<CredentialStoreVersion> getVersion(
+Future<CredentialStoreVersion?> getVersion(
   SecureStorageInterface secureStorage,
 ) async {
   final version = await secureStorage.read(
     key: CredentialStoreKey.version.name,
   );
-  return CredentialStoreVersion.values.byName(
-    version ?? CredentialStoreVersion.none.name,
-  );
+  return version == null ? null : CredentialStoreVersion.values.byName(version);
 }
