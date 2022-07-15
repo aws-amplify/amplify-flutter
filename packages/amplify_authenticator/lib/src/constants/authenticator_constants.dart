@@ -25,9 +25,6 @@ class AuthenticatorContainerConstants {
   // tablet breakpoint
   static const double mediumView = 672;
 
-  // larger than tablet breakpoint
-  static const double largeView = 900;
-
   static const gap = 24.0;
 
   static const BorderRadius borderRadius =

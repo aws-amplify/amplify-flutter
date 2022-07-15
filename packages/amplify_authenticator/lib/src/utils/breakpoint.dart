@@ -16,9 +16,14 @@ enum Breakpoint {
   final double maxScreenSize;
   final double verticalPadding;
 
+  static const maxMobileWidth = 480;
+  static const maxMobileHeight = 960;
+
   static Breakpoint of(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    if (size.shortestSide < medium.maxScreenSize) {
+    final isMobile = size.width < maxMobileWidth ||
+        (size.width < maxMobileHeight && size.height < maxMobileWidth);
+    if (size.shortestSide < medium.maxScreenSize && isMobile) {
       return small;
     } else {
       return medium;
