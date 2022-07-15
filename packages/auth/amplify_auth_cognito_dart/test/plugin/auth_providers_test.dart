@@ -52,9 +52,8 @@ void main() {
         config: mockConfig,
         authProviderRepo: testAuthRepo,
       );
-      final authProvider =
-          testAuthRepo.getAuthProvider<AWSCredentialsAmplifyAuthProvider>(
-        APIAuthorizationType.iam.name,
+      final authProvider = testAuthRepo.getAuthProvider(
+        APIAuthorizationType.iam.authProviderToken!,
       );
       expect(authProvider, isA<AWSIamAuthProvider>());
     });
