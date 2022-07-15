@@ -26,6 +26,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform
 import 'package:amplify_auth_cognito_dart/src/state/machines/hosted_ui_state_machine.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+import 'package:async/async.dart';
 import 'package:flutter/services.dart';
 
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
@@ -118,6 +119,8 @@ class _NativeAmplifyAuthCognito
   final AmplifyAuthCognito _basePlugin;
   final CognitoAuthStateMachine _stateMachine;
 
+  final _bundleIdMemoizer = AsyncMemoizer<String>();
+
   @override
   Future<NativeAuthSession> fetchAuthSession(
     bool getAwsCredentials,
@@ -172,8 +175,10 @@ class _NativeAmplifyAuthCognito
   }
 
   FutureOr<String> _getBundleId() {
-    final bridge = _stateMachine.expect<NativeAuthBridge>();
-    return bridge.getBundleId();
+    return _bundleIdMemoizer.runOnce(() {
+      final bridge = _stateMachine.expect<NativeAuthBridge>();
+      return bridge.getBundleId();
+    });
   }
 
   @override
