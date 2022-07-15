@@ -215,8 +215,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     if (hostedUiConfig != null) {
       final keys = HostedUiKeys(hostedUiConfig);
       if (userPoolTokens != null &&
-          (userPoolTokens.signInMethod == CognitoSignInMethod.hostedUi ||
-              userPoolTokens.signInMethod == CognitoSignInMethod.unknown)) {
+          (userPoolTokens.signInMethod == CognitoSignInMethod.hostedUi)) {
         items.addAll({
           keys[HostedUiKey.accessToken]: userPoolTokens.accessToken.raw,
           keys[HostedUiKey.refreshToken]: userPoolTokens.refreshToken,

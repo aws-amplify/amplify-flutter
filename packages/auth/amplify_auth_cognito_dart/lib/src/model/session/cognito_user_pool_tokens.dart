@@ -122,12 +122,6 @@ class CognitoSignInMethod extends EnumClass with AWSSerializable<String> {
   /// Hosted UI
   static const CognitoSignInMethod hostedUi = _$hostedUi;
 
-  /// The sign in method is unknown.
-  ///
-  /// The credentials have been migrated from a legacy store
-  /// that did not contain the sign in method.
-  static const CognitoSignInMethod unknown = _$unknown;
-
   /// All values of [CognitoSignInMethod].
   static BuiltSet<CognitoSignInMethod> get values =>
       _$CognitoSignInMethodValues;

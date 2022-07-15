@@ -854,8 +854,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
 
     try {
       // Sign out via Hosted UI, if configured.
-      if (tokens.signInMethod == CognitoSignInMethod.hostedUi ||
-          tokens.signInMethod == CognitoSignInMethod.unknown) {
+      if (tokens.signInMethod == CognitoSignInMethod.hostedUi) {
         _stateMachine.dispatch(const HostedUiEvent.signOut());
         final hostedUiResult = await _stateMachine.stream
             .where(

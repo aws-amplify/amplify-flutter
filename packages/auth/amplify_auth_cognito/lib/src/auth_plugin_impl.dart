@@ -214,7 +214,7 @@ class _NativeAmplifyAuthCognito
         if (accessToken != null && refreshToken != null && idToken != null) {
           // TODO(Jordan-Nelson): fetch sign in method from keychain on iOS
           final signInMethod = hostedUiConfig != null
-              ? CognitoSignInMethod.unknown
+              ? CognitoSignInMethod.hostedUi
               : CognitoSignInMethod.default$;
           userPoolTokens = CognitoUserPoolTokens(
             signInMethod: signInMethod,

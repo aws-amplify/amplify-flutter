@@ -353,10 +353,6 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         case CognitoSignInMethod.hostedUi:
           keys = HostedUiKeys(expect());
           break;
-        case CognitoSignInMethod.unknown:
-          final hostedUiKeys = HostedUiKeys(expect());
-          final userPoolKeys = CognitoUserPoolKeys(_userPoolConfig);
-          keys = [...hostedUiKeys, ...userPoolKeys];
       }
       final identityPoolConfig = _identityPoolConfig;
       dispatch(

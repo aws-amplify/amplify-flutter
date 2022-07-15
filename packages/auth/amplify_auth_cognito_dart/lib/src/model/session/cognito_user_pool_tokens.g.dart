@@ -8,7 +8,6 @@ part of 'cognito_user_pool_tokens.dart';
 
 const CognitoSignInMethod _$default$ = const CognitoSignInMethod._('default\$');
 const CognitoSignInMethod _$hostedUi = const CognitoSignInMethod._('hostedUi');
-const CognitoSignInMethod _$unknown = const CognitoSignInMethod._('unknown');
 
 CognitoSignInMethod _$CognitoSignInMethodValueOf(String name) {
   switch (name) {
@@ -16,8 +15,6 @@ CognitoSignInMethod _$CognitoSignInMethodValueOf(String name) {
       return _$default$;
     case 'hostedUi':
       return _$hostedUi;
-    case 'unknown':
-      return _$unknown;
     default:
       throw new ArgumentError(name);
   }
@@ -27,7 +24,6 @@ final BuiltSet<CognitoSignInMethod> _$CognitoSignInMethodValues =
     new BuiltSet<CognitoSignInMethod>(const <CognitoSignInMethod>[
   _$default$,
   _$hostedUi,
-  _$unknown,
 ]);
 
 class _$CognitoUserPoolTokens extends CognitoUserPoolTokens {
