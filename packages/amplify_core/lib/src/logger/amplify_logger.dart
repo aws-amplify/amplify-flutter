@@ -14,24 +14,40 @@
 
 import 'dart:async';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/logger/level_extension.dart';
+import 'package:amplify_core/src/logger/logging_ext.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 
+/// {@template amplify_core.logger.amplify_logger}
+/// A logging utility providing the ability to emit log entries, configure the
+/// level at which entries are emitted, and register plugins which can handle
+/// log entries as they're emitted.
+/// {@endtemplate}
+///
+/// Plugins are created by implementing [AmplifyLoggerPlugin] and calling
+/// [AmplifyLogger.registerPlugin] on an [AmplifyLogger] instance.
+///
+/// By default, a [SimplePrinter] is registered on the root [AmplifyLogger]
+/// which impacts all category and child loggers.
 class AmplifyLogger {
-  static const loggerNamespace = 'AWS.Amplify';
+  /// The root namespace for all [AmplifyLogger] instances.
+  static const rootNamespace = 'AWS.Amplify';
 
   static final Map<AmplifyLoggerPlugin, StreamSubscription<LogRecord>>
       _subscriptions = {};
   final Logger _logger;
 
   /// Creates a top-level [AmplifyLogger].
-  factory AmplifyLogger([String namespace = loggerNamespace]) =>
+  ///
+  /// {@macro amplify_core.logger.amplify_logger}
+  factory AmplifyLogger([String namespace = rootNamespace]) =>
       AmplifyLogger._(Logger(namespace));
 
-  /// Creates a [AmplifyLogger] for the Amplify [Category].
+  /// Creates a [AmplifyLogger] for the Amplify [category].
+  ///
+  /// {@macro amplify_core.logger.amplify_logger}
   factory AmplifyLogger.category(Category category) =>
-      AmplifyLogger._(Logger('$loggerNamespace.${category.name}'));
+      AmplifyLogger._(Logger('$rootNamespace.${category.name}'));
 
   AmplifyLogger._(this._logger) {
     hierarchicalLoggingEnabled = true;
@@ -41,15 +57,16 @@ class AmplifyLogger {
   AmplifyLogger createChild(String name) =>
       AmplifyLogger('${_logger.fullName}.$name');
 
-  /// Register a [AmplifyLoggerPlugin] that will handle the logs emitted by this
-  /// [AmplifyLogger] instance.
+  /// Registers an [AmplifyLoggerPlugin] to handle logs emitted by this logger
+  /// instance.
   void registerPlugin(AmplifyLoggerPlugin plugin) {
     unregisterPlugin(plugin);
-    _subscriptions[plugin] = _logger.onRecord.listen(plugin._handleLogRecord);
+    _subscriptions[plugin] = _logger.onRecord.listen(
+      (record) => plugin.handleLogEntry(record.toLogEntry()),
+    );
   }
 
-  /// Unregister the [AmplifyLoggerPlugin] that will handle the logs emitted by
-  /// this [AmplifyLogger] instance.
+  /// Unregisters [plugin] from this logger instance.
   void unregisterPlugin(AmplifyLoggerPlugin plugin) {
     final currentSubscription = _subscriptions.remove(plugin);
     if (currentSubscription != null) {
@@ -57,8 +74,7 @@ class AmplifyLogger {
     }
   }
 
-  /// Unregister all [AmplifyLoggerPlugin]s that were handling logs emitted by
-  /// this [AmplifyLogger] instance.
+  /// Unregisters all [AmplifyLoggerPlugin]s on this logger instance.
   void unregisterAllPlugins() {
     for (final plugin in List.of(_subscriptions.keys)) {
       unregisterPlugin(plugin);
@@ -72,43 +88,42 @@ class AmplifyLogger {
     _logger.level = logLevel.level;
   }
 
-  /// Log a message with level [LogLevel.verbose].
+  /// Logs a message with level [LogLevel.verbose].
   void verbose(String message, [Object? error, StackTrace? stackTrace]) {
     _logger.finer(message, error, stackTrace);
   }
 
-  /// Log a message with level [LogLevel.debug].
+  /// Logs a message with level [LogLevel.debug].
   void debug(String message, [Object? error, StackTrace? stackTrace]) {
     _logger.fine(message, error, stackTrace);
   }
 
-  /// Log a message with level [LogLevel.info].
+  /// Logs a message with level [LogLevel.info].
   void info(String message, [Object? error, StackTrace? stackTrace]) {
     _logger.info(message, error, stackTrace);
   }
 
-  /// Log a message with level [LogLevel.warn].
+  /// Logs a message with level [LogLevel.warn].
   void warn(String message, [Object? error, StackTrace? stackTrace]) {
     _logger.warning(message, error, stackTrace);
   }
 
-  /// Log a message with level [LogLevel.error].
+  /// Logs a message with level [LogLevel.error].
   void error(String message, [Object? error, StackTrace? stackTrace]) {
     _logger.severe(message, error, stackTrace);
   }
 }
 
+/// A plugin to an [AmplifyLogger] which handles log entries emitted at the
+/// [LogLevel] of the logger instance.
 abstract class AmplifyLoggerPlugin {
-  void _handleLogRecord(LogRecord record) =>
-      handleLogEntry(LogEntry.fromLogRecord(record));
-
-  /// Handle a LogEntry emitted by the [AmplifyLogger]
+  /// Handles a log entry emitted by the [AmplifyLogger].
   void handleLogEntry(LogEntry logEntry);
 }
 
 /// Mixin providing an [AmplifyLogger] to Amplify classes.
 mixin AmplifyLoggerMixin on AWSDebuggable {
-  /// Logger for this class.
+  /// The logger for this class.
   @protected
   AmplifyLogger get logger => AmplifyLogger().createChild(runtimeTypeName);
 }

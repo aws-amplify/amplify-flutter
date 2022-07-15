@@ -53,171 +53,193 @@ void callLogger(AmplifyLogger amplifyLogger) {
 }
 
 void main() {
-  test('LoggerPlugin called with proper LogRecord', () async {
-    Completer completer = Completer();
-    Map<LogLevel, LogEntry> targetLogRecords = {
-      LogLevel.verbose:
-          LogEntry(LogLevel.verbose, 'Verbose Message', 'AWS.Amplify'),
-      LogLevel.debug: LogEntry(LogLevel.debug, 'Debug Message', 'AWS.Amplify'),
-      LogLevel.info: LogEntry(LogLevel.info, 'Info Message', 'AWS.Amplify'),
-      LogLevel.warn: LogEntry(LogLevel.warn, 'Warn Message', 'AWS.Amplify'),
-      LogLevel.error: LogEntry(LogLevel.error, 'Error Message', 'AWS.Amplify'),
-    };
+  group('AmplifyLogger', () {
+    test('LoggerPlugin called with proper LogRecord', () async {
+      Completer completer = Completer();
+      Map<LogLevel, LogEntry> targetLogRecords = {
+        LogLevel.verbose: LogEntry(
+          level: LogLevel.verbose,
+          message: 'Verbose Message',
+          loggerName: AmplifyLogger.rootNamespace,
+        ),
+        LogLevel.debug: LogEntry(
+          level: LogLevel.debug,
+          message: 'Debug Message',
+          loggerName: AmplifyLogger.rootNamespace,
+        ),
+        LogLevel.info: LogEntry(
+          level: LogLevel.info,
+          message: 'Info Message',
+          loggerName: AmplifyLogger.rootNamespace,
+        ),
+        LogLevel.warn: LogEntry(
+          level: LogLevel.warn,
+          message: 'Warn Message',
+          loggerName: AmplifyLogger.rootNamespace,
+        ),
+        LogLevel.error: LogEntry(
+          level: LogLevel.error,
+          message: 'Error Message',
+          loggerName: AmplifyLogger.rootNamespace,
+        ),
+      };
 
-    var loggerPlugin = CallbackLoggerPlugin((LogEntry logEntry) {
-      expect(targetLogRecords.containsKey(logEntry.level), true);
-      expect(targetLogRecords[logEntry.level].toString(), logEntry.toString());
+      var loggerPlugin = CallbackLoggerPlugin((LogEntry logEntry) {
+        expect(targetLogRecords.containsKey(logEntry.level), true);
+        expect(
+            targetLogRecords[logEntry.level].toString(), logEntry.toString());
 
-      targetLogRecords.remove(logEntry.level);
-      if (targetLogRecords.isEmpty) completer.complete();
+        targetLogRecords.remove(logEntry.level);
+        if (targetLogRecords.isEmpty) completer.complete();
+      });
+
+      var amplifyLogger = AmplifyLogger()
+        ..registerPlugin(loggerPlugin)
+        ..logLevel = LogLevel.verbose;
+      callLogger(amplifyLogger);
+      amplifyLogger.unregisterPlugin(loggerPlugin);
+
+      await completer.future;
     });
 
-    var amplifyLogger = AmplifyLogger()
-      ..registerPlugin(loggerPlugin)
-      ..logLevel = LogLevel.verbose;
-    callLogger(amplifyLogger);
-    amplifyLogger.unregisterPlugin(loggerPlugin);
+    test('Unregistered plugin is not called', () async {
+      var loggerPlugin = CountCallsLoggerPlugin();
+      var amplifyLogger = AmplifyLogger()
+        ..registerPlugin(loggerPlugin)
+        ..logLevel = LogLevel.verbose;
+      callLogger(amplifyLogger);
 
-    await completer.future;
-  });
+      expect(loggerPlugin.getTimesCalled(), 5);
 
-  test('Unregistered plugin is not called', () async {
-    var loggerPlugin = CountCallsLoggerPlugin();
-    var amplifyLogger = AmplifyLogger()
-      ..registerPlugin(loggerPlugin)
-      ..logLevel = LogLevel.verbose;
-    callLogger(amplifyLogger);
+      amplifyLogger.unregisterPlugin(loggerPlugin);
 
-    expect(loggerPlugin.getTimesCalled(), 5);
+      callLogger(amplifyLogger);
 
-    amplifyLogger.unregisterPlugin(loggerPlugin);
+      expect(loggerPlugin.getTimesCalled(), 5);
+    });
 
-    callLogger(amplifyLogger);
+    test('Multiple LoggerPlugins register and unregister properly', () async {
+      var loggerPlugin1 = CountCallsLoggerPlugin();
+      var loggerPlugin2 = CountCallsLoggerPlugin();
+      var amplifyLogger = AmplifyLogger()
+        ..registerPlugin(loggerPlugin1)
+        ..registerPlugin(loggerPlugin2)
+        ..logLevel = LogLevel.verbose;
+      callLogger(amplifyLogger);
 
-    expect(loggerPlugin.getTimesCalled(), 5);
-  });
+      expect(loggerPlugin1.getTimesCalled(), 5);
+      expect(loggerPlugin2.getTimesCalled(), 5);
 
-  test('Multiple LoggerPlugins register and unregister properly', () async {
-    var loggerPlugin1 = CountCallsLoggerPlugin();
-    var loggerPlugin2 = CountCallsLoggerPlugin();
-    var amplifyLogger = AmplifyLogger()
-      ..registerPlugin(loggerPlugin1)
-      ..registerPlugin(loggerPlugin2)
-      ..logLevel = LogLevel.verbose;
-    callLogger(amplifyLogger);
+      amplifyLogger.unregisterPlugin(loggerPlugin1);
+      callLogger(amplifyLogger);
+      expect(loggerPlugin1.getTimesCalled(), 5);
+      expect(loggerPlugin2.getTimesCalled(), 10);
 
-    expect(loggerPlugin1.getTimesCalled(), 5);
-    expect(loggerPlugin2.getTimesCalled(), 5);
+      amplifyLogger.unregisterPlugin(loggerPlugin2);
+      callLogger(amplifyLogger);
+      expect(loggerPlugin1.getTimesCalled(), 5);
+      expect(loggerPlugin2.getTimesCalled(), 10);
+    });
 
-    amplifyLogger.unregisterPlugin(loggerPlugin1);
-    callLogger(amplifyLogger);
-    expect(loggerPlugin1.getTimesCalled(), 5);
-    expect(loggerPlugin2.getTimesCalled(), 10);
+    test('Default logger respects global log level', () async {
+      var loggerPlugin = CountCallsLoggerPlugin();
 
-    amplifyLogger.unregisterPlugin(loggerPlugin2);
-    callLogger(amplifyLogger);
-    expect(loggerPlugin1.getTimesCalled(), 5);
-    expect(loggerPlugin2.getTimesCalled(), 10);
-  });
+      var amplifyLogger = AmplifyLogger()
+        ..registerPlugin(loggerPlugin)
+        ..logLevel = LogLevel.warn;
+      callLogger(amplifyLogger);
 
-  test('Default logger respects global log level', () async {
-    var loggerPlugin = CountCallsLoggerPlugin();
+      expect(loggerPlugin.getTimesCalled(), 2);
 
-    var amplifyLogger = AmplifyLogger()
-      ..registerPlugin(loggerPlugin)
-      ..logLevel = LogLevel.warn;
-    callLogger(amplifyLogger);
+      amplifyLogger.unregisterPlugin(loggerPlugin);
+    });
 
-    expect(loggerPlugin.getTimesCalled(), 2);
+    test('Category logger respects global log level', () async {
+      var loggerPlugin = CountCallsLoggerPlugin();
 
-    amplifyLogger.unregisterPlugin(loggerPlugin);
-  });
+      var amplifyLogger = AmplifyLogger()..logLevel = LogLevel.warn;
 
-  test('Category logger respects global log level', () async {
-    var loggerPlugin = CountCallsLoggerPlugin();
+      var categoryLogger = AmplifyLogger.category(Category.analytics)
+        ..registerPlugin(loggerPlugin);
 
-    var amplifyLogger = AmplifyLogger()..logLevel = LogLevel.warn;
+      callLogger(amplifyLogger);
+      callLogger(categoryLogger);
 
-    var categoryLogger = AmplifyLogger.category(Category.analytics)
-      ..registerPlugin(loggerPlugin);
+      expect(loggerPlugin.getTimesCalled(), 2);
 
-    callLogger(amplifyLogger);
-    callLogger(categoryLogger);
+      amplifyLogger.unregisterPlugin(loggerPlugin);
+    });
 
-    expect(loggerPlugin.getTimesCalled(), 2);
+    test('Category logger with local logLevel overrides global log level',
+        () async {
+      var loggerPlugin = CountCallsLoggerPlugin();
 
-    amplifyLogger.unregisterPlugin(loggerPlugin);
-  });
+      var amplifyLogger = AmplifyLogger()..logLevel = LogLevel.none;
 
-  test('Category logger with local logLevel overrides global log level',
-      () async {
-    var loggerPlugin = CountCallsLoggerPlugin();
+      var categoryLogger = AmplifyLogger.category(Category.analytics)
+        ..registerPlugin(loggerPlugin)
+        ..logLevel = LogLevel.verbose;
 
-    var amplifyLogger = AmplifyLogger()..logLevel = LogLevel.none;
+      callLogger(amplifyLogger);
+      callLogger(categoryLogger);
 
-    var categoryLogger = AmplifyLogger.category(Category.analytics)
-      ..registerPlugin(loggerPlugin)
-      ..logLevel = LogLevel.verbose;
+      expect(loggerPlugin.getTimesCalled(), 5);
 
-    callLogger(amplifyLogger);
-    callLogger(categoryLogger);
+      amplifyLogger.unregisterPlugin(loggerPlugin);
+    });
 
-    expect(loggerPlugin.getTimesCalled(), 5);
+    test('Category logger with local logLevel does not affect other loggers',
+        () async {
+      var loggerPlugin = CountCallsLoggerPlugin();
 
-    amplifyLogger.unregisterPlugin(loggerPlugin);
-  });
+      var amplifyLogger = AmplifyLogger()..logLevel = LogLevel.info;
 
-  test('Category logger with local logLevel does not affect other loggers',
-      () async {
-    var loggerPlugin = CountCallsLoggerPlugin();
+      var categoryLogger = AmplifyLogger.category(Category.analytics)
+        ..registerPlugin(loggerPlugin);
 
-    var amplifyLogger = AmplifyLogger()..logLevel = LogLevel.info;
+      callLogger(amplifyLogger);
+      callLogger(categoryLogger);
 
-    var categoryLogger = AmplifyLogger.category(Category.analytics)
-      ..registerPlugin(loggerPlugin);
+      expect(loggerPlugin.getTimesCalled(), 5);
 
-    callLogger(amplifyLogger);
-    callLogger(categoryLogger);
+      amplifyLogger.unregisterPlugin(loggerPlugin);
+    });
 
-    expect(loggerPlugin.getTimesCalled(), 5);
+    test('Logger factory constructors return the same instance', () async {
+      var loggerPlugin = CountCallsLoggerPlugin();
 
-    amplifyLogger.unregisterPlugin(loggerPlugin);
-  });
+      var amplifyLogger = AmplifyLogger()
+        ..registerPlugin(loggerPlugin)
+        ..logLevel = LogLevel.none;
 
-  test('Logger factory constructors return the same instance', () async {
-    var loggerPlugin = CountCallsLoggerPlugin();
+      callLogger(amplifyLogger);
+      expect(loggerPlugin.getTimesCalled(), 0);
 
-    var amplifyLogger = AmplifyLogger()
-      ..registerPlugin(loggerPlugin)
-      ..logLevel = LogLevel.none;
+      AmplifyLogger().logLevel = LogLevel.verbose;
 
-    callLogger(amplifyLogger);
-    expect(loggerPlugin.getTimesCalled(), 0);
+      callLogger(amplifyLogger);
+      expect(loggerPlugin.getTimesCalled(), 5);
 
-    AmplifyLogger().logLevel = LogLevel.verbose;
+      amplifyLogger.unregisterPlugin(loggerPlugin);
+    });
 
-    callLogger(amplifyLogger);
-    expect(loggerPlugin.getTimesCalled(), 5);
+    test('Logger category factory constructors return the same instance',
+        () async {
+      var loggerPlugin = CountCallsLoggerPlugin();
 
-    amplifyLogger.unregisterPlugin(loggerPlugin);
-  });
+      var amplifyLogger = AmplifyLogger.category(Category.analytics)
+        ..registerPlugin(loggerPlugin)
+        ..logLevel = LogLevel.none;
 
-  test('Logger category factory constructors return the same instance',
-      () async {
-    var loggerPlugin = CountCallsLoggerPlugin();
+      callLogger(amplifyLogger);
+      expect(loggerPlugin.getTimesCalled(), 0);
 
-    var amplifyLogger = AmplifyLogger.category(Category.analytics)
-      ..registerPlugin(loggerPlugin)
-      ..logLevel = LogLevel.none;
+      AmplifyLogger.category(Category.analytics).logLevel = LogLevel.verbose;
 
-    callLogger(amplifyLogger);
-    expect(loggerPlugin.getTimesCalled(), 0);
+      callLogger(amplifyLogger);
+      expect(loggerPlugin.getTimesCalled(), 5);
 
-    AmplifyLogger.category(Category.analytics).logLevel = LogLevel.verbose;
-
-    callLogger(amplifyLogger);
-    expect(loggerPlugin.getTimesCalled(), 5);
-
-    amplifyLogger.unregisterPlugin(loggerPlugin);
+      amplifyLogger.unregisterPlugin(loggerPlugin);
+    });
   });
 }

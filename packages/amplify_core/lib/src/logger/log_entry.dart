@@ -1,35 +1,50 @@
-import 'package:logging/logging.dart';
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
-import 'level_extension.dart';
-import 'log_level.dart';
+import 'package:amplify_core/amplify_core.dart';
 
+/// {@template amplify_core.logger.log_entry}
+/// A discrete log event emitted by an [AmplifyLogger].
+/// {@endtemplate}
 class LogEntry {
+  /// {@macro amplify_core.logger.log_entry}
+  LogEntry({
+    required this.level,
+    required this.message,
+    required this.loggerName,
+    DateTime? time,
+    this.error,
+    this.stackTrace,
+  }) : time = time ?? DateTime.now();
+
+  /// The level at which this entry was logged.
   final LogLevel level;
+
+  /// The log's message, intended for displaying.
   final String message;
 
-  /// Logger where this record is stored.
+  /// The name of the logger which emitted this entry.
   final String loggerName;
 
-  /// Time when this record was created.
+  /// The time when this entry was emitted.
   final DateTime time;
 
-  /// Associated error (if any) when recording errors messages.
+  /// The associated error, if any.
   final Object? error;
 
-  /// Associated stackTrace (if any) when recording errors messages.
+  /// The associated stack trace, if any.
   final StackTrace? stackTrace;
-
-  LogEntry(this.level, this.message, this.loggerName,
-      [this.error, this.stackTrace])
-      : time = DateTime.now();
-
-  LogEntry.fromLogRecord(LogRecord logRecord)
-      : level = logRecord.level.logLevel,
-        message = logRecord.message,
-        loggerName = logRecord.loggerName,
-        error = logRecord.error,
-        stackTrace = logRecord.stackTrace,
-        time = logRecord.time;
 
   @override
   String toString() => '[${level.name}] $loggerName: $message';
