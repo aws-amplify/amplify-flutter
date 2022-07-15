@@ -12,29 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:logging/logging.dart';
-
 /// An enumeration of the different levels of logging.
 /// The levels are progressive, with lower-value items being lower priority
 enum LogLevel implements Comparable<LogLevel> {
-  /// Logs for showing behavior of particular components/flows
-  /// Not suitable for production as they may contain sensitive information
+  /// Logs for showing behavior of particular components/flows.
+  ///
+  /// **Note**: May contain information inappropriate for emission into
+  /// production environments.
   verbose,
 
-  /// Logs for understanding system behavior
-  /// May contain information inappropriate for emission into production environments
+  /// Logs for understanding system behavior.
+  ///
+  /// **Note**: May contain information inappropriate for emission into
+  /// production environments.
   debug,
 
-  /// Logs providing terse info about general operation and flow of software
+  /// Logs providing terse info about general operation and flow of software.
   info,
 
-  /// Logs indicating potential issues
+  /// Logs indicating potential issues.
   warn,
 
-  /// Logs when system is not operating as expected
+  /// Logs when system is not operating as expected.
   error,
 
-  /// Highest priority log to use as threshold value to prevent any logs from being emitted
+  /// Prevents any logs from being emitted.
   none;
 
   @override
@@ -46,23 +48,6 @@ enum LogLevel implements Comparable<LogLevel> {
   bool operator >=(LogLevel value) => index >= value.index;
   bool operator <(LogLevel value) => index < value.index;
   bool operator <=(LogLevel value) => index <= value.index;
-
-  Level get level {
-    switch (this) {
-      case LogLevel.verbose:
-        return Level.FINEST;
-      case LogLevel.debug:
-        return Level.FINE;
-      case LogLevel.info:
-        return Level.CONFIG;
-      case LogLevel.warn:
-        return Level.WARNING;
-      case LogLevel.error:
-        return Level.SEVERE;
-      case LogLevel.none:
-        return Level.OFF;
-    }
-  }
 
   @override
   String toString() => name;

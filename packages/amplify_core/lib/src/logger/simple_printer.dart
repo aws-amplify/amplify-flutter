@@ -13,12 +13,18 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:collection/collection.dart';
 
-class SimplePrinter extends AmplifyLoggerPlugin {
-  SimplePrinter();
+/// {@template amplify_core.logger.simple_printer}
+/// An [AmplifyLoggerPlugin] which prints log messages to the console when
+/// running in debug mode.
+/// {@endtemplate}
+class SimplePrinter implements AmplifyLoggerPlugin {
+  /// {@macro amplify_core.logger.simple_printer}
+  const SimplePrinter();
 
-  @override
-  void handleLogEntry(LogEntry logEntry) {
+  /// Formats [logEntry] using level, namespace, and message components.
+  static String formatLogEntry(LogEntry logEntry) {
     final buffer = StringBuffer();
 
     // Log Level
@@ -27,13 +33,8 @@ class SimplePrinter extends AmplifyLoggerPlugin {
     // Log Namespace
     buffer.write(' | ');
 
-    var namespace = logEntry.loggerName;
-    if (namespace.contains(AmplifyLogger.loggerNamespace)) {
-      namespace = namespace.substring(AmplifyLogger.loggerNamespace.length);
-
-      if (namespace.startsWith('.')) namespace = namespace.substring(1);
-    }
-    if (namespace.isNotEmpty) {
+    final namespace = logEntry.loggerName.split('.').lastOrNull;
+    if (namespace != null && namespace.isNotEmpty) {
       buffer.write(namespace.padRight(10));
       buffer.write(' | ');
     }
@@ -41,6 +42,11 @@ class SimplePrinter extends AmplifyLoggerPlugin {
     // Log Message
     buffer.write(logEntry.message);
 
-    safePrint(buffer.toString());
+    return buffer.toString();
+  }
+
+  @override
+  void handleLogEntry(LogEntry logEntry) {
+    safePrint(formatLogEntry(logEntry));
   }
 }
