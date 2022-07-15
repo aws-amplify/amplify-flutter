@@ -42,6 +42,23 @@ class SecondTestAuthProvider extends AmplifyAuthProvider {
   }
 }
 
+class TestAWSCredentialsAuthProvider extends AWSCredentialsAmplifyAuthProvider {
+  @override
+  Future<AWSCredentials> retrieve() async {
+    return const AWSCredentials(
+        'fake-access-key-123', 'fake-secret-access-key-456');
+  }
+
+  @override
+  Future<http.BaseRequest> authorizeRequest(
+    http.BaseRequest request, {
+    covariant IamAuthProviderOptions? options,
+  }) async {
+    request.headers.putIfAbsent(_testAuthKey, () => 'foo');
+    return request;
+  }
+}
+
 class TestTokenProvider extends TokenAmplifyAuthProvider {
   @override
   Future<String> getLatestAuthToken() async {
@@ -77,7 +94,7 @@ void main() {
     test('can register a valid auth provider and use to retrieve', () async {
       final authRepo = AmplifyAuthProviderRepository();
 
-      const providerKey = 'superAuth';
+      const providerKey = AmplifyAuthProviderToken();
       authRepo.registerAuthProvider(providerKey, authProvider);
       final inputRequest =
           http.Request('GET', Uri.parse('https://www.amazon.com'));
@@ -87,10 +104,22 @@ void main() {
       expect(authorizedRequest.headers[_testAuthKey], 'foo');
     });
 
+    test('will correctly type the retrieved auth provider', () async {
+      final authRepo = AmplifyAuthProviderRepository();
+
+      final credentialAuthProvider = TestAWSCredentialsAuthProvider();
+      const providerKey =
+          AmplifyAuthProviderToken<AWSCredentialsAmplifyAuthProvider>();
+      authRepo.registerAuthProvider(providerKey, credentialAuthProvider);
+      AWSCredentialsAmplifyAuthProvider? actualAuthProvider =
+          authRepo.getAuthProvider(providerKey);
+      expect(actualAuthProvider, isA<AWSCredentialsAmplifyAuthProvider>());
+    });
+
     test('will overwrite previous provider in same key', () async {
       final authRepo = AmplifyAuthProviderRepository();
 
-      const providerKey = 'superAuth';
+      const providerKey = AmplifyAuthProviderToken();
       authRepo.registerAuthProvider(providerKey, authProvider);
       authRepo.registerAuthProvider(providerKey, SecondTestAuthProvider());
       final inputRequest =

@@ -17,10 +17,17 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:http/http.dart' as http;
 
+/// An identifier to use as a key in an [AmplifyAuthProviderRepository] so that
+/// a retrieved auth provider can be typed more accurately.
+class AmplifyAuthProviderToken<T extends AmplifyAuthProvider> extends Token<T> {
+  const AmplifyAuthProviderToken();
+}
+
 abstract class AuthProviderOptions {
   const AuthProviderOptions();
 }
 
+/// Options required by IAM to sign any given request at runtime.
 class IamAuthProviderOptions extends AuthProviderOptions {
   final String region;
   final AWSService service;
@@ -53,14 +60,15 @@ abstract class TokenAmplifyAuthProvider extends AmplifyAuthProvider {
 }
 
 class AmplifyAuthProviderRepository {
-  final Map<String, AmplifyAuthProvider> _authProviders = {};
+  final Map<AmplifyAuthProviderToken, AmplifyAuthProvider> _authProviders = {};
 
-  T? getAuthProvider<T extends AmplifyAuthProvider>(String authorizationType) {
-    return _authProviders[authorizationType] as T?;
+  T? getAuthProvider<T extends AmplifyAuthProvider>(
+      AmplifyAuthProviderToken<T> token) {
+    return _authProviders[token] as T?;
   }
 
-  void registerAuthProvider(
-      String authorizationType, AmplifyAuthProvider authProvider) {
-    _authProviders[authorizationType] = authProvider;
+  void registerAuthProvider<T extends AmplifyAuthProvider>(
+      AmplifyAuthProviderToken<T> token, AmplifyAuthProvider authProvider) {
+    _authProviders[token] = authProvider;
   }
 }

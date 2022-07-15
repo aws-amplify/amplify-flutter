@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/src/types/common/amplify_auth_provider.dart';
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -24,7 +25,7 @@ part 'api_authorization_type.g.dart';
 /// See also:
 /// - [AppSync Security](https://docs.aws.amazon.com/appsync/latest/devguide/security.html)
 @JsonEnum(alwaysCreate: true)
-enum APIAuthorizationType {
+enum APIAuthorizationType<T extends AmplifyAuthProviderToken> {
   /// For public APIs.
   @JsonValue('NONE')
   none,
@@ -42,7 +43,7 @@ enum APIAuthorizationType {
   /// - [IAM Authorization](https://docs.aws.amazon.com/appsync/latest/devguide/security.html#aws-iam-authorization)
   /// - [IAM Introduction](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
   @JsonValue('AWS_IAM')
-  iam,
+  iam(AmplifyAuthProviderToken<AWSCredentialsAmplifyAuthProvider>()),
 
   /// OpenID Connect is a simple identity layer on top of OAuth2.0.
   ///
@@ -64,7 +65,10 @@ enum APIAuthorizationType {
   /// See also:
   /// - [Introducing Lambda authorization for AWS AppSync GraphQL APIs](https://aws.amazon.com/blogs/mobile/appsync-lambda-auth/)
   @JsonValue('AWS_LAMBDA')
-  function
+  function;
+
+  const APIAuthorizationType([this.authProviderToken]);
+  final T? authProviderToken;
 }
 
 /// Helper methods for [APIAuthorizationType].
