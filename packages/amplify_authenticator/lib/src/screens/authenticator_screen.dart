@@ -119,12 +119,17 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
 
       child = Center(
         child: SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: containerWidth),
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: containerPadding),
-              child: Card(child: SafeArea(child: child)),
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: containerWidth),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: containerPadding),
+                  child: Card(child: SafeArea(child: child)),
+                ),
+              ),
+            ],
           ),
         ),
       );
