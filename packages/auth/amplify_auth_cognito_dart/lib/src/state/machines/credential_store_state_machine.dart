@@ -56,6 +56,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     return credentialsState as CredentialStoreSuccess;
   }
 
+  /// Fetches the current credential store version.
   Future<CredentialStoreVersion> _getVersion() async {
     final version = await _secureStorage.read(
       key: CredentialStoreKey.version.name,
@@ -65,6 +66,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     );
   }
 
+  /// Updates the current credential store version.
   FutureOr<void> _updateVersion(CredentialStoreVersion version) {
     return _secureStorage.write(
       key: CredentialStoreKey.version.name,
