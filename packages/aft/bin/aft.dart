@@ -17,6 +17,12 @@ import 'package:args/command_runner.dart';
 
 Future<void> main(List<String> args) async {
   final runner = CommandRunner<void>('aft', 'Amplify Flutter repo tools')
+    ..argParser.addFlag(
+      'verbose',
+      abbr: 'v',
+      help: 'Prints verbose logs',
+      defaultsTo: false,
+    )
     ..addCommand(GenerateSdkCommand())
     ..addCommand(ListPackagesCommand())
     ..addCommand(DepsCommand());

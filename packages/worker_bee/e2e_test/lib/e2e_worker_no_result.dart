@@ -18,7 +18,7 @@ import 'package:worker_bee/worker_bee.dart';
 import 'e2e_message.dart';
 import 'e2e_worker_no_result.worker.dart';
 
-@WorkerBee()
+@WorkerBee('lib/workers.dart')
 abstract class E2EWorkerNoResult extends WorkerBeeBase<E2EMessage, E2EResult> {
   E2EWorkerNoResult() : super(serializers: serializers);
   factory E2EWorkerNoResult.create() = E2EWorkerNoResultImpl;

@@ -1,15 +1,42 @@
 builders:
   worker_bee_builder:
-    import: "package:worker_bee_builder/worker_bee_builder.dart"
-    builder_factories: ["workerBeeBuilder"]
-    build_extensions: { ".dart": [".worker.vm.dart", ".worker.js.dart"] }
+    import: package:worker_bee_builder/worker_bee_builder.dart
+    builder_factories:
+      - workerBeeBuilder
+    build_extensions:
+      .dart: 
+        - .worker.vm.dart
+        - .worker.js.dart
     auto_apply: dependents
     build_to: source
-    applies_builders: ["source_gen:combining_builder"]
+    applies_builders:
+      - source_gen:combining_builder
   worker_hive_builder:
-    import: "package:worker_bee_builder/worker_bee_builder.dart"
-    builder_factories: ["workerHiveBuilder"]
-    build_extensions: { ".dart": [".g.part"] }
+    import: package:worker_bee_builder/worker_bee_builder.dart
+    builder_factories: 
+      - workerHiveBuilder
+    build_extensions:
+      .dart: 
+        - .debug.dart
+        - .release.dart
     auto_apply: dependents
-    build_to: cache
-    applies_builders: ["source_gen:combining_builder"]
+    build_to: source
+    runs_before:
+      - build_web_compilers:entrypoint
+  worker_copy_builder:
+    import: package:worker_bee_builder/worker_bee_builder.dart
+    builder_factories:
+      - workerCopyBuilder
+    build_extensions:
+      .debug.dart.js:
+        - .js
+      .debug.dart.js.map:
+        - .js.map
+      .release.dart.js:
+        - .min.js
+      .release.dart.js.map:
+        - .min.js.map
+    auto_apply: none
+    build_to: source
+    required_inputs:
+      - .dart.js

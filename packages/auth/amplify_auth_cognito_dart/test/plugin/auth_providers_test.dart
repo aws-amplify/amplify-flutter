@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide InternalErrorException;
@@ -20,6 +21,7 @@ import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
 
 import '../common/mock_config.dart';
+import '../common/mock_secure_storage.dart';
 
 /// Returns dummy AWS credentials.
 class TestAmplifyAuth extends AmplifyAuthCognitoDart {
@@ -35,61 +37,68 @@ class TestAmplifyAuth extends AmplifyAuthCognitoDart {
 }
 
 void main() {
-  late AmplifyAuthCognitoDart plugin;
-  final testAuthRepo = AmplifyAuthProviderRepository();
-
   group(
       'AmplifyAuthCognitoDart plugin registers auth providers during configuration',
       () {
+    late AmplifyAuthCognitoDart plugin;
+
     setUp(() async {
-      plugin = TestAmplifyAuth();
+      plugin = AmplifyAuthCognitoDart(credentialStorage: MockSecureStorage());
     });
 
-    test('registers AWSIAMAuthProvider', () async {
+    test('registers AWSIamAuthProvider', () async {
+      final testAuthRepo = AmplifyAuthProviderRepository();
       await plugin.configure(
         config: mockConfig,
         authProviderRepo: testAuthRepo,
       );
       final authProvider =
-          testAuthRepo.getAuthProvider(APIAuthorizationType.iam.name);
-      expect(authProvider, isA<AWSIAMAuthProvider>());
+          testAuthRepo.getAuthProvider<AWSCredentialsAmplifyAuthProvider>(
+        APIAuthorizationType.iam.name,
+      );
+      expect(authProvider, isA<AWSIamAuthProvider>());
     });
   });
 
-  group('AWSIAMAuthProvider', () {
+  group('AWSIamAuthProvider', () {
     setUpAll(() async {
       await Amplify.addPlugin(TestAmplifyAuth());
     });
 
     test('gets AWS credentials from Amplify.Auth.fetchAuthSession', () async {
-      final authProvider = AWSIAMAuthProvider();
-      final creds = await authProvider.getCredentials();
-      expect(creds?.accessKeyId, isA<String>());
-      expect(creds?.secretAccessKey, isA<String>());
+      final authProvider = AWSIamAuthProvider();
+      final credentials = await authProvider.retrieve();
+      expect(credentials.accessKeyId, isA<String>());
+      expect(credentials.secretAccessKey, isA<String>());
     });
 
     test('signs a request when calling authorizeRequest', () async {
-      final authProvider = AWSIAMAuthProvider();
+      final authProvider = AWSIamAuthProvider();
       final inputRequest =
           http.Request('GET', Uri.parse('https://www.amazon.com'));
       final authorizedRequest = await authProvider.authorizeRequest(
         inputRequest,
-        options: IAMAuthProviderOptions(
+        options: const IamAuthProviderOptions(
           region: 'us-east-1',
           service: AWSService.appSync,
         ),
       );
       // Note: not intended to be complete test of sigv4 algorithm.
       expect(authorizedRequest.headers[AWSHeaders.authorization], isNotEmpty);
+      var userAgentHeader = AWSHeaders.userAgent;
+      if (zIsWeb) {
+        userAgentHeader = AWSHeaders.amzUserAgent;
+      } else {
+        expect(authorizedRequest.headers[AWSHeaders.host], isNotEmpty);
+      }
       expect(
-        authorizedRequest.headers[AWSHeaders.userAgent],
+        authorizedRequest.headers[userAgentHeader],
         startsWith('aws-sigv4'),
       );
-      expect(authorizedRequest.headers[AWSHeaders.host], isNotEmpty);
     });
 
     test('throws when no options provided', () async {
-      final authProvider = AWSIAMAuthProvider();
+      final authProvider = AWSIamAuthProvider();
       final inputRequest =
           http.Request('GET', Uri.parse('https://www.amazon.com'));
       await expectLater(

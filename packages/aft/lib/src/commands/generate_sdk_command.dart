@@ -12,16 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:convert';
+import 'dart:async';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:args/args.dart';
 import 'package:checked_yaml/checked_yaml.dart';
-import 'package:path/path.dart' as path;
+import 'package:collection/collection.dart';
+import 'package:git/git.dart';
+import 'package:path/path.dart' as p;
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 /// Command for generating the AWS SDK for a given package and `sdk.yaml` file.
 class GenerateSdkCommand extends AmplifyCommand {
@@ -45,7 +48,6 @@ class GenerateSdkCommand extends AmplifyCommand {
         'models',
         abbr: 'm',
         help: 'The path to the AWS SDK models',
-        mandatory: true,
       )
       ..addOption(
         'output',
@@ -60,36 +62,71 @@ class GenerateSdkCommand extends AmplifyCommand {
       );
   }
 
+  /// Downloads AWS models from GitHub into a temporary directory.
+  Future<Directory> _downloadModels() async {
+    final cloneDir = await Directory.systemTemp.createTemp('models');
+    logger.trace('Cloning models to ${cloneDir.path}');
+    await runGit([
+      'clone',
+      'https://github.com/aws/aws-models.git',
+      cloneDir.path,
+    ]);
+    logger.trace('Successfully cloned models');
+    final modelsDir = await Directory.systemTemp.createTemp('models');
+    logger.trace('Organizing models in ${modelsDir.path}');
+    final services = cloneDir.list(followLinks: false).whereType<Directory>();
+    await for (final serviceDir in services) {
+      final serviceName = p.basename(serviceDir.path);
+      final artifacts = await serviceDir.list().whereType<Directory>().toList();
+      final smithyDir = artifacts.firstWhereOrNull(
+        (dir) => p.basename(dir.path) == 'smithy',
+      );
+      if (smithyDir == null) {
+        continue;
+      }
+      final smithyModel = File(p.join(smithyDir.path, 'model.json'));
+      final copyToPath = p.join(modelsDir.path, '$serviceName.json');
+      logger.trace('Copying $serviceName.json to $copyToPath');
+      await smithyModel.copy(copyToPath);
+    }
+    return modelsDir;
+  }
+
   @override
   Future<void> run() async {
     final args = argResults!;
     final configFilepath = args['config'] as String;
     final configFile = File(configFilepath);
-    if (!configFile.existsSync()) {
+    if (!await configFile.exists()) {
       exitError('Config file ($configFilepath) does not exist');
     }
 
-    final modelsPath = args['models'] as String;
-    final modelsDir = Directory(modelsPath);
-    if (!modelsDir.existsSync()) {
-      exitError('Model directory ($modelsDir) does not exist');
+    final modelsPath = args['models'] as String?;
+    final Directory modelsDir;
+    if (modelsPath != null) {
+      modelsDir = Directory(modelsPath);
+      if (!await modelsDir.exists()) {
+        exitError('Model directory ($modelsDir) does not exist');
+      }
+    } else {
+      modelsDir = await _downloadModels();
     }
 
     final outputPath = args['output'] as String;
-    final outputDir = Directory(path.join('lib', outputPath));
-    if (!outputDir.existsSync()) {
+    final outputDir = Directory(p.join('lib', outputPath));
+    if (!await outputDir.exists()) {
       await outputDir.create(recursive: true);
     }
 
     final configYaml = await configFile.readAsString();
     final config = checkedYamlDecode(configYaml, SdkConfig.fromJson);
-    stdout.writeln('Got config: $config');
+    logger.stdout('Got config: $config');
 
     final smithyModel = SmithyAstBuilder();
 
-    final models = modelsDir.listSync().whereType<File>();
-    for (final model in models) {
-      final serviceName = path.basenameWithoutExtension(model.path);
+    final models = modelsDir.list().whereType<File>();
+    await for (final model in models) {
+      final serviceName = p.basenameWithoutExtension(model.path);
       if (!config.apis.keys.contains(serviceName)) {
         continue;
       }
@@ -123,7 +160,7 @@ class GenerateSdkCommand extends AmplifyCommand {
     final dependencies = <String>{};
     for (final library in libraries) {
       final smithyLibrary = library.smithyLibrary;
-      final outPath = path.join(
+      final outPath = p.join(
         'lib',
         smithyLibrary.libRelativePath,
       );
@@ -144,24 +181,20 @@ class GenerateSdkCommand extends AmplifyCommand {
         '--delete-conflicting-outputs',
       ],
     );
-    buildRunnerCmd.stdout
-        .transform(utf8.decoder)
-        .transform(const LineSplitter())
-        .listen(stdout.writeln);
-    buildRunnerCmd.stderr
-        .transform(utf8.decoder)
-        .transform(const LineSplitter())
-        .listen(stderr.writeln);
+    if (verbose) {
+      unawaited(buildRunnerCmd.stdout.pipe(stdout));
+      unawaited(buildRunnerCmd.stderr.pipe(stderr));
+    }
     final exitCode = await buildRunnerCmd.exitCode;
     if (exitCode != 0) {
       exitError('`dart run build_runner build` failed: $exitCode.');
     }
 
-    stdout
-      ..writeln('Successfully generated SDK')
-      ..writeln('Make sure to add the following dependencies:');
+    logger
+      ..stdout('Successfully generated SDK')
+      ..trace('Make sure to add the following dependencies:');
     for (final dep in dependencies.toList()..sort()) {
-      stdout.writeln('- $dep');
+      logger.trace('- $dep');
     }
   }
 }

@@ -19,7 +19,7 @@ import 'package:worker_bee/worker_bee.dart';
 import 'e2e_message.dart';
 import 'e2e_worker_void_result.worker.dart';
 
-@WorkerBee()
+@WorkerBee('lib/workers.dart')
 abstract class E2EWorkerVoidResult extends WorkerBeeBase<E2EMessage, void> {
   E2EWorkerVoidResult() : super(serializers: serializers);
   factory E2EWorkerVoidResult.create() = E2EWorkerVoidResultImpl;

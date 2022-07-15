@@ -16,6 +16,7 @@ import 'dart:convert';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
+import 'package:flutter/material.dart';
 
 /// {@template amplify_flutter.amplify_hybrid_impl}
 /// A hybrid implementation of [AmplifyClass] which uses method channels for
@@ -24,8 +25,6 @@ import 'package:amplify_flutter/src/amplify_impl.dart';
 class AmplifyHybridImpl extends AmplifyClassImpl {
   /// {@macro amplify_flutter.amplify_hybrid_impl}
   AmplifyHybridImpl() : super.protected();
-  final AmplifyAuthProviderRepository _authProviderRepo =
-      AmplifyAuthProviderRepository();
 
   final _methodChannelAmplify = MethodChannelAmplify();
 
@@ -39,7 +38,7 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
         ...API.plugins,
         ...Auth.plugins,
       ].map((p) => p.configure(
-          config: amplifyConfig, authProviderRepo: _authProviderRepo)),
+          config: amplifyConfig, authProviderRepo: authProviderRepo)),
       eagerError: true,
     );
     await _methodChannelAmplify.configurePlatform(config);

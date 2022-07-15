@@ -30,6 +30,9 @@ abstract class DartTypes {
   /// `dart:async` types.
   static const async = _Async();
 
+  /// `package:aws_common` types.
+  static const awsCommon = _AwsCommon();
+
   /// `dart:isolate` types.
   static const isolate = _Isolate();
 
@@ -51,6 +54,13 @@ class _Core {
           ..types.addAll([
             if (ref != null) ref,
           ]),
+      );
+
+  /// Creates a [core.Map] reference.
+  Reference map(Reference key, Reference value) => TypeReference(
+        (t) => t
+          ..symbol = 'Map'
+          ..types.addAll([key, value]),
       );
 
   /// Creates an [core.Object] reference.
@@ -83,6 +93,22 @@ class _Async {
   Reference get unawaited => const Reference('unawaited', _url);
 }
 
+/// `package:aws_common` types
+class _AwsCommon {
+  const _AwsCommon();
+
+  static const _url = 'package:aws_common/aws_common.dart';
+
+  /// Creates a [zDebugMode] reference.
+  Reference get zDebugMode => const Reference('zDebugMode', _url);
+
+  /// Creates a [zReleaseMode] reference.
+  Reference get zReleaseMode => const Reference('zReleaseMode', _url);
+
+  /// Creates a [zIsFlutter] reference.
+  Reference get zIsFlutter => const Reference('zIsFlutter', _url);
+}
+
 /// `dart:isolate` types
 class _Isolate {
   const _Isolate();
@@ -112,11 +138,17 @@ class _WorkerBee {
   /// Creates a [worker_bee.LogMessage] reference.
   Reference get logMessage => const Reference('LogMessage', _url);
 
+  /// Creates a [worker_bee.runHive] reference.
+  Reference get runHive => const Reference('runHive', _url);
+
   /// Creates a [worker_bee.SendPorts] reference.
   Reference get sendPorts => const Reference('SendPorts', _url);
 
   /// Creates a [worker_bee.VmEntrypoint] reference.
   Reference get vmEntrypoint => const Reference('VmEntrypoint', _url);
+
+  /// Creates a [worker_bee.WorkerBeeBuilder] reference.
+  Reference get workerBeeBuilder => const Reference('WorkerBeeBuilder', _url);
 }
 
 /// Helpers for [Reference] types.

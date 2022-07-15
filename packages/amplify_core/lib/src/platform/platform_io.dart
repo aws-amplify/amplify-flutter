@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_secure_storage_dart/src/worker/secure_storage_worker.dart';
-import 'package:worker_bee/worker_bee.dart';
+import 'dart:io';
 
-part 'workers.g.dart';
+final RegExp _versionRegex = RegExp(r'[\d\.]+');
 
-@WorkerHive([
-  SecureStorageWorker,
-])
-void main() {
-  runHive(workers);
+/// {@macro amplify_core.platform.os_identifier}
+String get osIdentifier {
+  final os = Platform.operatingSystem;
+  final osVersion =
+      _versionRegex.firstMatch(Platform.operatingSystemVersion)?.group(0) ??
+          'Unknown';
+  return '$os/$osVersion';
 }

@@ -31,7 +31,7 @@ void main() {
       expect(currentState.type, equals(MyType.initial));
 
       stateMachine.dispatch(const MyEvent(MyType.initial));
-      expectLater(
+      expect(
         stateMachine.stream,
         neverEmits(anything),
       );
@@ -41,7 +41,7 @@ void main() {
 
     test('dispatches correctly', () {
       stateMachine.dispatch(const MyEvent(MyType.doWork));
-      expectLater(
+      expect(
         stateMachine.stream,
         emitsThrough(const MyState(MyType.success)),
       );
@@ -49,10 +49,49 @@ void main() {
 
     test('handles errors', () {
       stateMachine.dispatch(const MyEvent(MyType.tryWork));
-      expectLater(
+      expect(
         stateMachine.stream,
         emitsThrough(const MyState(MyType.error)),
       );
+    });
+
+    group('subscribeTo', () {
+      test('can listen to other machines', () {
+        stateMachine.dispatch(const MyEvent(MyType.delegateWork));
+        expect(
+          stateMachine.stream,
+          emitsInOrder([
+            const MyState(MyType.delegateWork),
+            const WorkerState(WorkType.doWork),
+            const WorkerState(WorkType.success),
+            const MyState(MyType.success),
+          ]),
+        );
+      });
+
+      test('can listen multiple times to other machines', () async {
+        stateMachine.dispatch(const MyEvent(MyType.delegateWork));
+        await expectLater(
+          stateMachine.stream,
+          emitsInOrder([
+            const MyState(MyType.delegateWork),
+            const WorkerState(WorkType.doWork),
+            const WorkerState(WorkType.success),
+            const MyState(MyType.success),
+          ]),
+        );
+
+        stateMachine.dispatch(const MyEvent(MyType.delegateWork));
+        await expectLater(
+          stateMachine.stream,
+          emitsInOrder([
+            const MyState(MyType.delegateWork),
+            const WorkerState(WorkType.doWork),
+            const WorkerState(WorkType.success),
+            const MyState(MyType.success),
+          ]),
+        );
+      });
     });
   });
 }

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 /// Bridging extensions between Cognito SDK and Amplify Flutter types.
+@internal
 library amplify_auth_cognito.sdk.sdk_bridge;
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
@@ -20,9 +21,17 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
-import 'package:amplify_core/amplify_core.dart' show AuthenticationFlowType;
+import 'package:amplify_core/amplify_core.dart'
+    show AuthenticationFlowType, DependencyManager, Token;
 import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'package:http/http.dart' as http;
+import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
+
+/// Dependency token for Smithy HTTP clients.
+const zSmithyHttpClientToken = Token<HttpClient>([
+  Token<http.Client>(),
+]);
 
 /// Bridging helpers for [ChallengeNameType].
 extension ChallengeNameTypeBridge on ChallengeNameType {
@@ -105,11 +114,14 @@ class WrappedCognitoIdentityClient implements CognitoIdentityClient {
   WrappedCognitoIdentityClient({
     required String region,
     required AWSCredentialsProvider credentialsProvider,
-  }) : _base = CognitoIdentityClient(
+    required DependencyManager dependencyManager,
+  })  : _base = CognitoIdentityClient(
           region: region,
           credentialsProvider: credentialsProvider,
-        );
+        ),
+        _dependencyManager = dependencyManager;
 
+  final DependencyManager _dependencyManager;
   final CognitoIdentityClient _base;
 
   @override
@@ -118,7 +130,11 @@ class WrappedCognitoIdentityClient implements CognitoIdentityClient {
     HttpClient? client,
   }) async {
     try {
-      return await _base.getCredentialsForIdentity(input, client: client);
+      return await _base.getCredentialsForIdentity(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -133,7 +149,11 @@ class WrappedCognitoIdentityClient implements CognitoIdentityClient {
     HttpClient? client,
   }) async {
     try {
-      return await _base.getId(input, client: client);
+      return await _base.getId(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -153,11 +173,14 @@ class WrappedCognitoIdentityProviderClient
   WrappedCognitoIdentityProviderClient({
     required String region,
     required AWSCredentialsProvider credentialsProvider,
-  }) : _base = CognitoIdentityProviderClient(
+    required DependencyManager dependencyManager,
+  })  : _base = CognitoIdentityProviderClient(
           region: region,
           credentialsProvider: credentialsProvider,
-        );
+        ),
+        _dependencyManager = dependencyManager;
 
+  final DependencyManager _dependencyManager;
   final CognitoIdentityProviderClient _base;
 
   @override
@@ -166,7 +189,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.associateSoftwareToken(input, client: client);
+      return await _base.associateSoftwareToken(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -181,7 +208,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.changePassword(input, client: client);
+      return await _base.changePassword(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -196,7 +227,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.confirmDevice(input, client: client);
+      return await _base.confirmDevice(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -211,7 +246,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.confirmForgotPassword(input, client: client);
+      return await _base.confirmForgotPassword(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -226,7 +265,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.confirmSignUp(input, client: client);
+      return await _base.confirmSignUp(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -241,7 +284,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.deleteUser(input, client: client);
+      return await _base.deleteUser(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -256,7 +303,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.forgetDevice(input, client: client);
+      return await _base.forgetDevice(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -271,7 +322,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.forgotPassword(input, client: client);
+      return await _base.forgotPassword(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -286,7 +341,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.getDevice(input, client: client);
+      return await _base.getDevice(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -301,7 +360,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.getUser(input, client: client);
+      return await _base.getUser(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -319,7 +382,8 @@ class WrappedCognitoIdentityProviderClient
     try {
       return await _base.getUserAttributeVerificationCode(
         input,
-        client: client,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
       );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
@@ -335,7 +399,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.globalSignOut(input, client: client);
+      return await _base.globalSignOut(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -350,7 +418,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.initiateAuth(input, client: client);
+      return await _base.initiateAuth(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -365,7 +437,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.listDevices(input, client: client);
+      return await _base.listDevices(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -380,7 +456,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.resendConfirmationCode(input, client: client);
+      return await _base.resendConfirmationCode(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -395,7 +475,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.respondToAuthChallenge(input, client: client);
+      return await _base.respondToAuthChallenge(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -410,7 +494,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.revokeToken(input, client: client);
+      return await _base.revokeToken(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -425,7 +513,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.signUp(input, client: client);
+      return await _base.signUp(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -440,7 +532,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.updateDeviceStatus(input, client: client);
+      return await _base.updateDeviceStatus(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -455,7 +551,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.updateUserAttributes(input, client: client);
+      return await _base.updateUserAttributes(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -470,7 +570,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.verifySoftwareToken(input, client: client);
+      return await _base.verifySoftwareToken(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),
@@ -485,7 +589,11 @@ class WrappedCognitoIdentityProviderClient
     HttpClient? client,
   }) async {
     try {
-      return await _base.verifyUserAttribute(input, client: client);
+      return await _base.verifyUserAttribute(
+        input,
+        client:
+            client ?? _dependencyManager.getOrCreate(zSmithyHttpClientToken),
+      );
     } on Exception catch (e, st) {
       Error.throwWithStackTrace(
         transformSdkException(e),

@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@internal
-library amplify_auth_cognito.util.authorization_providers;
-
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
@@ -26,21 +23,27 @@ import 'package:meta/meta.dart';
 /// [AmplifyAuthProvider] implementation that signs a request using AWS credentials
 /// from `Amplify.Auth.fetchAuthSession()` or allows getting credentials directly.
 @internal
-class AWSIAMAuthProvider extends AWSCredentialsAmplifyAuthProvider {
+class AWSIamAuthProvider extends AWSCredentialsAmplifyAuthProvider {
   /// AWS credentials from Auth category.
   @override
-  Future<AWSCredentials?> getCredentials() async {
+  Future<AWSCredentials> retrieve() async {
     final authSession = await Amplify.Auth.fetchAuthSession(
       options: const CognitoSessionOptions(getAWSCredentials: true),
     ) as CognitoAuthSession;
-    return authSession.credentials;
+    final credentials = authSession.credentials;
+    if (credentials == null) {
+      throw const InvalidCredentialsException(
+        'Unable to authorize request with IAM. No AWS credentials.',
+      );
+    }
+    return credentials;
   }
 
   /// Signs request with AWSSigV4Signer and AWS credentials from `.getCredentials()`.
   @override
   Future<http.BaseRequest> authorizeRequest(
     http.BaseRequest request, {
-    IAMAuthProviderOptions? options,
+    IamAuthProviderOptions? options,
   }) async {
     if (options == null) {
       throw const AuthException(
@@ -48,13 +51,7 @@ class AWSIAMAuthProvider extends AWSCredentialsAmplifyAuthProvider {
       );
     }
 
-    final credentials = await getCredentials();
-    if (credentials == null) {
-      throw const InvalidCredentialsException(
-        'Unable to authorize request with IAM. No AWS credentials.',
-      );
-    }
-
+    final credentials = await retrieve();
     final signedRequest = await _generateAWSSignedRequest(
       request,
       region: options.region,
