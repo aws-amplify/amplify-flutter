@@ -69,22 +69,21 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
     final isMobile = breakpoint == Breakpoint.small;
     final containerPadding = breakpoint.verticalPadding;
 
-    if (isMobile) {
-      double mobileWidth = MediaQuery.of(context).size.width;
-      containerWidth = mobileWidth;
-    } else {
-      containerWidth = AuthenticatorContainerConstants.mediumWidth;
-    }
-
     const signInUpTabs = [AuthenticatorStep.signIn, AuthenticatorStep.signUp];
-    final Widget child;
+
+    Widget child;
     switch (step) {
       case AuthenticatorStep.onboarding:
       case AuthenticatorStep.signIn:
-        child = const AuthenticatorTabView(tabs: signInUpTabs, initialIndex: 0);
-        break;
       case AuthenticatorStep.signUp:
-        child = const AuthenticatorTabView(tabs: signInUpTabs, initialIndex: 1);
+        child = AnimatedSize(
+          alignment: Alignment.topCenter,
+          child: AuthenticatorTabView(
+            tabs: signInUpTabs,
+            initialIndex: step == AuthenticatorStep.signUp ? 1 : 0,
+          ),
+          duration: const Duration(milliseconds: 200),
+        );
         break;
       case AuthenticatorStep.confirmSignUp:
       case AuthenticatorStep.confirmSignInCustomAuth:
@@ -100,17 +99,38 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
         throw StateError('Invalid step: $this');
     }
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.all(containerPadding),
+    if (isMobile) {
+      double mobileWidth = MediaQuery.of(context).size.width;
+      containerWidth = mobileWidth;
+
+      child = SingleChildScrollView(
         child: Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: containerWidth),
-            child: SafeArea(child: isMobile ? child : Card(child: child)),
+          child: Padding(
+            padding: EdgeInsets.all(containerPadding),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: containerWidth),
+              child: SafeArea(child: child),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      containerWidth = AuthenticatorContainerConstants.mediumWidth;
+
+      child = Center(
+        child: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: containerWidth),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: containerPadding),
+              child: Card(child: SafeArea(child: child)),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return child;
   }
 
   @override

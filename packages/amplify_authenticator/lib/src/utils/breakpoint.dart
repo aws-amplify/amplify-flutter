@@ -6,10 +6,7 @@ enum Breakpoint {
   small(maxScreenSize: 0, verticalPadding: 0),
   medium(
       maxScreenSize: AuthenticatorContainerConstants.mediumView,
-      verticalPadding: 64),
-  large(
-      maxScreenSize: AuthenticatorContainerConstants.largeView,
-      verticalPadding: 96);
+      verticalPadding: 16);
 
   const Breakpoint({
     required this.maxScreenSize,
@@ -23,10 +20,8 @@ enum Breakpoint {
     final size = MediaQuery.of(context).size;
     if (size.shortestSide < medium.maxScreenSize) {
       return small;
-    } else if (size.shortestSide < large.maxScreenSize) {
-      return medium;
     } else {
-      return large;
+      return medium;
     }
   }
 }
