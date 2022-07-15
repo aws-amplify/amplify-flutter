@@ -27,7 +27,7 @@ mixin LegacySecureStorageProvider {
   /// repository name on Android.
   SecureStorageInterface _get(String namespace) {
     return _instances[namespace] ??= AmplifySecureStorageDart(
-      config: AmplifySecureStorageConfig.legacy(namespace: namespace),
+      config: AmplifySecureStorageConfig.byNamespace(namespace: namespace),
     );
   }
 

@@ -47,8 +47,8 @@ abstract class AmplifySecureStorageConfig
     );
   }
 
-  /// Configuration options for accessing legacy data.
-  factory AmplifySecureStorageConfig.legacy({
+  /// Configuration options for overriding the default namespace.
+  factory AmplifySecureStorageConfig.byNamespace({
     required String namespace,
   }) {
     return _$AmplifySecureStorageConfig._(
