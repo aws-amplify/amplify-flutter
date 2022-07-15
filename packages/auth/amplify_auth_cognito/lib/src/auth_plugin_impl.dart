@@ -26,7 +26,6 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform
 import 'package:amplify_auth_cognito_dart/src/state/machines/hosted_ui_state_machine.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
@@ -184,7 +183,7 @@ class _NativeAmplifyAuthCognito
     CognitoOAuthConfig? hostedUiConfig,
   }) async {
     // TODO(Jordan-Nelson): Add credentials migration support for Android
-    if (kIsWeb || !Platform.isIOS) return null;
+    if (zIsWeb || !Platform.isIOS) return null;
     final bundleId = await _getBundleId();
     CognitoUserPoolTokens? userPoolTokens;
     if (userPoolConfig != null) {
@@ -283,7 +282,7 @@ class _NativeAmplifyAuthCognito
     CognitoOAuthConfig? hostedUiConfig,
   }) async {
     // TODO(Jordan-Nelson): Add credentials migration support for Android
-    if (kIsWeb || !Platform.isIOS) return;
+    if (zIsWeb || !Platform.isIOS) return;
     final bundleId = await _getBundleId();
     if (userPoolConfig != null) {
       final userPoolStorage = getUserPoolStorage(
