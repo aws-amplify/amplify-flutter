@@ -53,8 +53,7 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
   }
 
   Future<http.BaseRequest> _authorizeRequest(http.BaseRequest request) async {
-    if (!request.headers.containsKey(AWSHeaders.authorization) &&
-        endpointConfig.authorizationType != APIAuthorizationType.none) {
+    if (!request.headers.containsKey(AWSHeaders.authorization)) {
       final authType = endpointConfig.authorizationType;
 
       // TODO(ragingsquirrel3): Use auth providers from core to transform the request.
@@ -68,24 +67,39 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
         request.headers.putIfAbsent(_xApiKey, () => apiKey);
         return request;
       }
+      switch (authType) {
+        case APIAuthorizationType.iam:
+          var authProvider = _authProviderRepo
+              .getAuthProvider(APIAuthorizationType.iam.authProviderToken!);
+          authProvider = _validateAuthProvider(authProvider, authType);
+          final service = endpointConfig.endpointType == EndpointType.graphQL
+              ? AWSService.appSync
+              : AWSService.apiGatewayManagementApi;
 
-      // Look for auth provider and use to decorate request.
-      final authProvider = _authProviderRepo.getAuthProvider(authType.name);
-      if (authProvider == null) {
-        throw ApiException(
-            'No auth provider found for auth mode ${authType.name}.',
-            recoverySuggestion: 'Ensure auth plugin correctly configured.');
+          return authProvider.authorizeRequest(
+            request,
+            options: IamAuthProviderOptions(
+                region: endpointConfig.region, service: service),
+          );
+        case APIAuthorizationType.apiKey:
+        case APIAuthorizationType.function:
+        case APIAuthorizationType.oidc:
+        case APIAuthorizationType.userPools:
+          throw UnimplementedError('${authType.name} not implemented.');
+        case APIAuthorizationType.none:
+          break;
       }
-      final service = endpointConfig.endpointType == EndpointType.graphQL
-          ? AWSService.appSync
-          : AWSService.apiGatewayManagementApi;
-      return authProvider.authorizeRequest(
-        request,
-        options: IAMAuthProviderOptions(
-            region: endpointConfig.region, service: service),
-      );
     }
 
     return request;
   }
+}
+
+T _validateAuthProvider<T extends AmplifyAuthProvider>(
+    T? authProvider, APIAuthorizationType authType) {
+  if (authProvider == null) {
+    throw ApiException('No auth provider found for auth mode ${authType.name}.',
+        recoverySuggestion: 'Ensure auth plugin correctly configured.');
+  }
+  return authProvider;
 }

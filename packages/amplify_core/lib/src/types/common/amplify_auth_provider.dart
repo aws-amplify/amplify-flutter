@@ -43,7 +43,13 @@ abstract class AmplifyAuthProvider {
 }
 
 abstract class AWSCredentialsAmplifyAuthProvider extends AmplifyAuthProvider
-    implements AWSCredentialsProvider {}
+    implements AWSCredentialsProvider {
+  @override
+  Future<http.BaseRequest> authorizeRequest(
+    http.BaseRequest request, {
+    covariant IamAuthProviderOptions options,
+  });
+}
 
 abstract class TokenAmplifyAuthProvider extends AmplifyAuthProvider {
   Future<String> getLatestAuthToken();
