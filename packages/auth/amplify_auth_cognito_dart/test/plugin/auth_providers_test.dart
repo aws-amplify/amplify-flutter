@@ -88,15 +88,16 @@ void main() {
       );
       // Note: not intended to be complete test of sigv4 algorithm.
       expect(authorizedRequest.headers[AWSHeaders.authorization], isNotEmpty);
-      var userAgentHeader = AWSHeaders.userAgent;
-      if (zIsWeb) {
-        userAgentHeader = AWSHeaders.amzUserAgent;
-      } else {
-        expect(authorizedRequest.headers[AWSHeaders.host], isNotEmpty);
-      }
+      const userAgentHeader =
+          zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
+      expect(
+        authorizedRequest.headers[AWSHeaders.host],
+        isNotEmpty,
+        skip: zIsWeb,
+      );
       expect(
         authorizedRequest.headers[userAgentHeader],
-        startsWith('aws-sigv4'),
+        contains('aws-sigv4'),
       );
     });
 

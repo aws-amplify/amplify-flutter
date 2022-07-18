@@ -175,7 +175,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     }
 
     // Register auth providers to provide auth functionality to other plugins
-    // without calling them `Amplify.Auth...` directly.
+    // without calling `Amplify.Auth...` directly.
     authProviderRepo.registerAuthProvider(
       APIAuthorizationType.iam.authProviderToken,
       CognitoIamAuthProvider(),
