@@ -33,49 +33,27 @@ const hostedUiConfig = CognitoOAuthConfig(
   webDomain: webDomain,
 );
 
-const userPoolOnlyConfig = AmplifyConfig(
-  auth: AuthConfig(
-    plugins: {
-      CognitoPluginConfig.pluginKey: CognitoPluginConfig(
-        cognitoUserPool: AWSConfigMap(
-          {
-            'Default': CognitoUserPoolConfig(
-              poolId: testUserPoolId,
-              appClientId: testAppClientId,
-              region: testRegion,
-            ),
-          },
-        ),
-      ),
-    },
+final userPoolOnlyConfig = AmplifyConfig(
+  auth: AuthConfig.cognito(
+    userPoolConfig: const CognitoUserPoolConfig(
+      poolId: testUserPoolId,
+      appClientId: testAppClientId,
+      region: testRegion,
+    ),
   ),
 );
-const mockConfig = AmplifyConfig(
-  auth: AuthConfig(
-    plugins: {
-      CognitoPluginConfig.pluginKey: CognitoPluginConfig(
-        auth: AWSConfigMap({
-          'Default': CognitoAuthConfig(
-            oAuth: hostedUiConfig,
-          ),
-        }),
-        cognitoUserPool: AWSConfigMap({
-          'Default': CognitoUserPoolConfig(
-            poolId: testUserPoolId,
-            appClientId: testAppClientId,
-            region: testRegion,
-          ),
-        }),
-        credentialsProvider: CredentialsProviders({
-          'CognitoIdentity': AWSConfigMap({
-            'Default': CognitoIdentityCredentialsProvider(
-              poolId: testIdentityPoolId,
-              region: testRegion,
-            ),
-          }),
-        }),
-      ),
-    },
+final mockConfig = AmplifyConfig(
+  auth: AuthConfig.cognito(
+    userPoolConfig: const CognitoUserPoolConfig(
+      poolId: testUserPoolId,
+      appClientId: testAppClientId,
+      region: testRegion,
+    ),
+    identityPoolConfig: const CognitoIdentityPoolConfig(
+      poolId: testIdentityPoolId,
+      region: testRegion,
+    ),
+    hostedUiConfig: hostedUiConfig,
   ),
 );
 

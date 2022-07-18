@@ -17,6 +17,8 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'credentials_provider.g.dart';
 
+typedef CognitoIdentityPoolConfig = CognitoIdentityCredentialsProvider;
+
 class CredentialsProviders extends AWSConfigMap {
   const CredentialsProviders(
     Map<String, AWSSerializable> providers,
@@ -31,7 +33,7 @@ class CredentialsProviders extends AWSConfigMap {
           '${value.runtimeType} is not a Map',
         );
       }
-      if (key == 'CognitoIdentity') {
+      if (key == CognitoIdentityCredentialsProvider.configKey) {
         final configs = AWSConfigMap.fromJson(
           value,
           (json) =>
@@ -56,6 +58,8 @@ class CredentialsProviders extends AWSConfigMap {
 @zAwsSerializable
 class CognitoIdentityCredentialsProvider
     with AWSEquatable<CognitoIdentityCredentialsProvider>, AWSSerializable {
+  static const configKey = 'CognitoIdentity';
+
   final String poolId;
   final String region;
 
