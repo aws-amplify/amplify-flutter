@@ -21,8 +21,8 @@ const bool zDebugMode = !zProfileMode && !zReleaseMode;
 ///
 /// This differs from [zDebugMode] in that it's not enabled in `dart2js` unless
 /// explicitly done so with the `--enable-asserts` flag but otherwise requires
-/// no extra flags to be passed to build commands (which may be helpful in pure
-/// Dart applications).
+/// that no extra flags be passed to build commands (which may be helpful in
+/// pure Dart applications).
 final bool zAssertsEnabled = () {
   var assertsEnabled = false;
   // ignore: prefer_asserts_with_message

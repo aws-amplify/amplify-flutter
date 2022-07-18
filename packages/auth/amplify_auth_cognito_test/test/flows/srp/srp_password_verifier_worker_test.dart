@@ -57,7 +57,7 @@ void main() {
 
       const expectedSignature = 'QwHbbUqF6DSSepJh2QqTWDCb1XjmqaxnnW5kDn5dz7E=';
 
-      await expectLater(
+      expect(
         worker.stream,
         emits(
           isA<RespondToAuthChallengeRequest>().having(

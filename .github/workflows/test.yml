@@ -95,7 +95,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_2-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_3-test_0"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0
@@ -129,7 +129,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_2-test_0-test_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_3-test_0-test_3"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0
@@ -256,14 +256,14 @@ jobs:
     needs:
       - job_001
   job_007:
-    name: "unit_test; linux; Dart dev; PKG: packages/auth/amplify_auth_cognito_test; `dart --version`, `dart test`, `dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox`"
+    name: "unit_test; linux; Dart dev; PKG: packages/auth/amplify_auth_cognito_test; `dart --version`, `dart test`, `dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox`, `dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/auth/amplify_auth_cognito_test;commands:command_0-test_0-command_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/auth/amplify_auth_cognito_test;commands:command_0-test_0-command_1-command_2"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/auth/amplify_auth_cognito_test
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -287,6 +287,10 @@ jobs:
         if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
         working-directory: packages/auth/amplify_auth_cognito_test
         run: dart test
+      - name: "packages/auth/amplify_auth_cognito_test; dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: "dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
       - name: "packages/auth/amplify_auth_cognito_test; dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
         if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
         working-directory: packages/auth/amplify_auth_cognito_test
@@ -335,7 +339,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_2-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_3-test_0"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -369,7 +373,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_2-test_0-test_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_3-test_0-test_3"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -494,7 +498,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_2"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/secure_storage/amplify_secure_storage_test
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -524,7 +528,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_4"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/secure_storage/amplify_secure_storage_test
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -554,7 +558,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/worker_bee/e2e_test;commands:command_4"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/worker_bee/e2e_test;commands:command_5"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/worker_bee/e2e_test
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -584,7 +588,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/worker_bee/e2e_test;commands:command_5"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/worker_bee/e2e_test;commands:command_6"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/worker_bee/e2e_test
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -712,14 +716,14 @@ jobs:
     needs:
       - job_001
   job_019:
-    name: "unit_test; linux; Dart stable; PKG: packages/auth/amplify_auth_cognito_test; `dart --version`, `dart test`, `dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox`"
+    name: "unit_test; linux; Dart stable; PKG: packages/auth/amplify_auth_cognito_test; `dart --version`, `dart test`, `dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox`, `dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito_test;commands:command_0-test_0-command_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito_test;commands:command_0-test_0-command_1-command_2"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito_test
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -743,6 +747,10 @@ jobs:
         if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
         working-directory: packages/auth/amplify_auth_cognito_test
         run: dart test
+      - name: "packages/auth/amplify_auth_cognito_test; dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: "dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
       - name: "packages/auth/amplify_auth_cognito_test; dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
         if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
         working-directory: packages/auth/amplify_auth_cognito_test
@@ -791,7 +799,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_2-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_3-test_0"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -825,7 +833,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_2-test_0-test_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_3-test_0-test_3"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -950,7 +958,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_2"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/secure_storage/amplify_secure_storage_test
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -980,7 +988,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_4"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/secure_storage/amplify_secure_storage_test
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -1010,7 +1018,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_test;commands:command_4"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_test;commands:command_5"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_test
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -1040,7 +1048,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_test;commands:command_5"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_test;commands:command_6"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_test
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -1100,7 +1108,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_3"
+          key: "os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_4"
           restore-keys: |
             os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/secure_storage/amplify_secure_storage_test
             os:macos-latest;pub-cache-hosted;sdk:dev
@@ -1160,7 +1168,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_3"
+          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_4"
           restore-keys: |
             os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/secure_storage/amplify_secure_storage_test
             os:macos-latest;pub-cache-hosted;sdk:stable

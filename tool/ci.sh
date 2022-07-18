@@ -88,22 +88,26 @@ for PKG in ${PKGS}; do
         dart --version || EXIT_CODE=$?
         ;;
       command_1)
+        echo 'dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox'
+        dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox || EXIT_CODE=$?
+        ;;
+      command_2)
         echo 'dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox'
         dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox || EXIT_CODE=$?
         ;;
-      command_2)
+      command_3)
         echo 'git submodule update --init'
         git submodule update --init || EXIT_CODE=$?
         ;;
-      command_3)
+      command_4)
         echo 'tool/test-desktop.sh'
         tool/test-desktop.sh || EXIT_CODE=$?
         ;;
-      command_4)
+      command_5)
         echo 'dart run build_runner test -- -p chrome,firefox'
         dart run build_runner test -- -p chrome,firefox || EXIT_CODE=$?
         ;;
-      command_5)
+      command_6)
         echo 'dart run build_runner test --release -- -p chrome,firefox'
         dart run build_runner test --release -- -p chrome,firefox || EXIT_CODE=$?
         ;;
