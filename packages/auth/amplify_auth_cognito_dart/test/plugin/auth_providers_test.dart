@@ -96,7 +96,7 @@ void main() {
       }
       expect(
         authorizedRequest.headers[userAgentHeader],
-        startsWith('aws-sigv4'),
+        contains('aws-sigv4'),
       );
     });
 
