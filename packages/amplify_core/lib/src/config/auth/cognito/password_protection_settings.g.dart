@@ -33,7 +33,7 @@ Map<String, dynamic> _$PasswordProtectionSettingsToJson(
       const _PasswordPolicyMinLengthConverter()
           .toJson(instance.passwordPolicyMinLength));
   val['passwordPolicyCharacters'] = instance.passwordPolicyCharacters
-      .map((e) => _$PasswordPolicyCharactersEnumMap[e])
+      .map((e) => _$PasswordPolicyCharactersEnumMap[e]!)
       .toList();
   return val;
 }

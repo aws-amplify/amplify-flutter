@@ -15,8 +15,11 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-class AuthNextSignInStep extends AuthNextStep
-    with AWSEquatable<AuthNextSignInStep>, AWSDebuggable {
+part 'auth_next_sign_in_step.g.dart';
+
+@zAmplifyGenericSerializable
+class AuthNextSignInStep<Key extends UserAttributeKey> extends AuthNextStep
+    with AWSEquatable<AuthNextSignInStep<UserAttributeKey>>, AWSDebuggable {
   const AuthNextSignInStep({
     super.additionalInfo,
     super.codeDeliveryDetails,
@@ -24,6 +27,15 @@ class AuthNextSignInStep extends AuthNextStep
     this.challengeParameters,
     this.missingAttributes = const [],
   });
+
+  factory AuthNextSignInStep.fromJson(
+    Map<String, Object?> json,
+    Key Function(String) fromJsonKey,
+  ) =>
+      _$AuthNextSignInStepFromJson<Key>(
+        json,
+        (key) => fromJsonKey(key as String),
+      );
 
   final String signInStep;
   final Map<String, String>? challengeParameters;
@@ -33,7 +45,7 @@ class AuthNextSignInStep extends AuthNextStep
   ///
   /// Values for these attributes should be passed to the next
   /// `Amplify.Auth.confirmSignIn` call.
-  final List<UserAttributeKey> missingAttributes;
+  final List<Key> missingAttributes;
 
   @override
   List<Object?> get props => [
@@ -44,4 +56,10 @@ class AuthNextSignInStep extends AuthNextStep
 
   @override
   String get runtimeTypeName => 'AuthNextSignInStep';
+
+  @override
+  Map<String, Object?> toJson() => _$AuthNextSignInStepToJson(
+        this,
+        (Key key) => key.toJson(),
+      );
 }

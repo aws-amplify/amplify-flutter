@@ -22,7 +22,7 @@ part 'api_config.g.dart';
 /// {@template amplify_core.api_config}
 /// The API category configuration.
 /// {@endtemplate}
-@amplifySerializable
+@zAmplifySerializable
 class ApiConfig extends AmplifyPluginConfigMap {
   /// {@macro amplify_core.api_config}
   const ApiConfig({

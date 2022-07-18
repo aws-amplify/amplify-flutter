@@ -36,6 +36,9 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
   static const type = StateMachineToken<CredentialStoreEvent,
       CredentialStoreState, CredentialStoreStateMachine>();
 
+  @override
+  String get runtimeTypeName => 'CredentialStoreStateMachine';
+
   SecureStorageInterface get _secureStorage => getOrCreate();
 
   /// Gets the current credentials result.

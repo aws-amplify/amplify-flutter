@@ -17,11 +17,11 @@ AWSApiConfig _$AWSApiConfigFromJson(Map<String, dynamic> json) => AWSApiConfig(
 
 Map<String, dynamic> _$AWSApiConfigToJson(AWSApiConfig instance) {
   final val = <String, dynamic>{
-    'endpointType': _$EndpointTypeEnumMap[instance.endpointType],
+    'endpointType': _$EndpointTypeEnumMap[instance.endpointType]!,
     'endpoint': instance.endpoint,
     'region': instance.region,
     'authorizationType':
-        _$APIAuthorizationTypeEnumMap[instance.authorizationType],
+        _$APIAuthorizationTypeEnumMap[instance.authorizationType]!,
   };
 
   void writeNotNull(String key, dynamic value) {

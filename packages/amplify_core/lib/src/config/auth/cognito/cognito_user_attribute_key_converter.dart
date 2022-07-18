@@ -14,9 +14,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
 
-@internal
 class CognitoUserAttributeKeyConverter
     extends JsonConverter<CognitoUserAttributeKey, String> {
   const CognitoUserAttributeKeyConverter();

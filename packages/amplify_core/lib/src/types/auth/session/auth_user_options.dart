@@ -12,10 +12,11 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-class AuthUserOptions {
+import 'package:amplify_core/amplify_core.dart';
+
+abstract class AuthUserOptions with AWSSerializable<Map<String, Object?>> {
   const AuthUserOptions();
-  Map<String, Object?> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on AuthUserOptions.');
-  }
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 }

@@ -15,18 +15,31 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-class SignUpResult with AWSSerializable {
-  final bool isSignUpComplete;
-  final AuthNextSignUpStep nextStep;
+part 'sign_up_result.g.dart';
 
+@zAmplifySerializable
+class SignUpResult
+    with
+        AWSEquatable<SignUpResult>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   const SignUpResult({
     required this.isSignUpComplete,
     required this.nextStep,
   });
 
+  factory SignUpResult.fromJson(Map<String, Object?> json) =>
+      _$SignUpResultFromJson(json);
+
+  final bool isSignUpComplete;
+  final AuthNextSignUpStep nextStep;
+
   @override
-  Map<String, Object?> toJson() => {
-        'isSignUpComplete': isSignUpComplete,
-        'nextStep': nextStep,
-      };
+  List<Object?> get props => [isSignUpComplete, nextStep];
+
+  @override
+  String get runtimeTypeName => 'SignUpResult';
+
+  @override
+  Map<String, Object?> toJson() => _$SignUpResultToJson(this);
 }

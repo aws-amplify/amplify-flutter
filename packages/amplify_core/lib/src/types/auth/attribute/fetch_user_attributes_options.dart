@@ -13,13 +13,16 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/amplify_core.dart';
+
 /// {@template amplify_core.fetch_user_attributes_options}
 /// The shared fetch user attributes options among all Auth plugins.
 /// {@endtemplate}
-class FetchUserAttributesOptions {
+abstract class FetchUserAttributesOptions
+    with AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.fetch_user_attributes_options}
   const FetchUserAttributesOptions();
 
-  /// Serialize the object to a map
-  Map<String, Object?> serializeAsMap() => {};
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 }

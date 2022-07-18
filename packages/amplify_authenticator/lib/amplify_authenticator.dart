@@ -44,6 +44,7 @@ import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 
 export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
@@ -456,6 +457,7 @@ class Authenticator extends StatefulWidget {
 
 class _AuthenticatorState extends State<Authenticator> {
   static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+  static final _logger = AmplifyLogger().createChild('Authenticator');
 
   final AuthService _authService = AmplifyAuthService();
   late final StateMachineBloc _stateMachineBloc;
@@ -491,8 +493,7 @@ class _AuthenticatorState extends State<Authenticator> {
       if (onException != null) {
         onException(exception);
       } else {
-        // TODO(dnys1): Log
-        safePrint('[ERROR]: $exception');
+        _logger.error('Error in AuthBloc', exception);
       }
       if (mounted && exception.showBanner) {
         _showExceptionBanner(
@@ -506,13 +507,16 @@ class _AuthenticatorState extends State<Authenticator> {
   void _subscribeToInfoMessages() {
     final resolver = widget.stringResolver.messages;
     _infoSub = _stateMachineBloc.infoMessages.listen((key) {
-      // TODO(dnys1): Log
       final context = scaffoldMessengerKey.currentContext;
       if (mounted && context != null) {
+        final message = resolver.resolve(context, key);
+        _logger.info(message);
         _showExceptionBanner(
           type: StatusType.info,
-          content: Text(resolver.resolve(context, key)),
+          content: Text(message),
         );
+      } else {
+        _logger.info('Could not show banner for key: $key');
       }
     });
   }

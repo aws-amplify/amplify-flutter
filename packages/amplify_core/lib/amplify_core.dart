@@ -37,10 +37,19 @@ export 'src/config/auth/auth_config.dart';
 export 'src/config/config_map.dart';
 export 'src/config/storage/storage_config.dart';
 
+// HTTP
+export 'src/http/amplify_http_client.dart';
+
 // Hub
 export 'src/hub/amplify_hub.dart';
 export 'src/hub/hub_channel.dart';
 export 'src/hub/hub_event.dart';
+
+// Logger
+export 'src/logger/amplify_logger.dart';
+export 'src/logger/log_entry.dart';
+export 'src/logger/log_level.dart';
+export 'src/logger/simple_printer.dart';
 
 /// Plugin
 export 'src/plugin/amplify_analytics_plugin_interface.dart';

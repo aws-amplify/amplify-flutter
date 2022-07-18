@@ -14,13 +14,56 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class SignInWithWebUIRequest {
-  AuthProvider? provider;
-  SignInWithWebUIOptions? options;
-  SignInWithWebUIRequest({this.provider, this.options});
-  Map<String, Object?> serializeAsMap() => {
-        if (provider != null) 'authProvider': provider!.name,
-        if (options != null) 'options': options!.serializeAsMap(),
-      };
+part 'sign_in_with_web_ui_request.g.dart';
+
+@zAmplifyGenericSerializable
+class SignInWithWebUIRequest<Options extends SignInWithWebUIOptions>
+    with
+        AWSEquatable<SignInWithWebUIRequest<SignInWithWebUIOptions>>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  const SignInWithWebUIRequest({this.provider, this.options});
+
+  factory SignInWithWebUIRequest.fromJson(
+    Map<String, Object?> json,
+    Options Function(Map<String, Object?>) fromJsonOptions,
+  ) =>
+      _$SignInWithWebUIRequestFromJson(
+        json,
+        (json) => fromJsonOptions((json as Map).cast()),
+      );
+
+  @JsonKey(toJson: _authProviderToJson, fromJson: _authProviderFromJson)
+  final AuthProvider? provider;
+
+  final Options? options;
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
+
+  @override
+  List<Object?> get props => [provider, options];
+
+  @override
+  String get runtimeTypeName => 'SignInWithWebUIRequest';
+
+  @override
+  Map<String, Object?> toJson() => _$SignInWithWebUIRequestToJson(
+        this,
+        (Options options) => options.toJson(),
+      );
+}
+
+String? _authProviderToJson(AuthProvider? provider) => provider?.name;
+
+AuthProvider? _authProviderFromJson(String? json) {
+  if (json == null) {
+    return null;
+  }
+  return AuthProvider.values.firstWhere(
+    (provider) => provider.name == json,
+    orElse: () => AuthProvider.custom(json),
+  );
 }

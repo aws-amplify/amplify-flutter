@@ -18,7 +18,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'password_protection_settings.g.dart';
 
-@amplifySerializable
+@zAmplifySerializable
 @_PasswordPolicyMinLengthConverter()
 class PasswordProtectionSettings
     with AWSEquatable<PasswordProtectionSettings>, AWSSerializable {

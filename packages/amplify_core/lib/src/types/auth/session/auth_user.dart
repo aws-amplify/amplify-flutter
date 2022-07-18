@@ -17,7 +17,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'auth_user.g.dart';
 
-@amplifySerializable
+@zAmplifySerializable
 class AuthUser
     with
         AWSEquatable<AuthUser>,

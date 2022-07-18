@@ -13,13 +13,15 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/amplify_core.dart';
+
 /// {@template amplify_core.reset_password_options}
 /// The shared reset password options among all Auth plugins.
 /// {@endtemplate}
-abstract class ResetPasswordOptions {
+abstract class ResetPasswordOptions with AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.reset_password_options}
   const ResetPasswordOptions();
 
-  /// Serialize the object to a map.
-  Map<String, Object?> serializeAsMap();
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 }

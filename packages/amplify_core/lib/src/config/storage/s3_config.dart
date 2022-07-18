@@ -14,7 +14,6 @@
 //
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 part 's3_config.g.dart';
@@ -39,7 +38,7 @@ class S3PluginConfigFactory extends AmplifyPluginConfigFactory<S3PluginConfig> {
 /// {@template amplify_core.s3_plugin_config}
 /// The AWS S3 plugin configuration.
 /// {@endtemplate}
-@amplifySerializable
+@zAmplifySerializable
 class S3PluginConfig
     with AWSEquatable<S3PluginConfig>, AWSSerializable
     implements AmplifyPluginConfig {

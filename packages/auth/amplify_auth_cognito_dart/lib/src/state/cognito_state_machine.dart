@@ -16,9 +16,11 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credentials_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
+import 'package:smithy/smithy.dart';
 
 import 'state.dart';
 
@@ -33,12 +35,17 @@ final stateMachineBuilders = <StateMachineToken, StateMachineBuilder>{
   SignInStateMachine.type: SignInStateMachine.new,
 };
 
+HttpClient _makeSmithyHttpClient(http.Client baseClient) => HttpClient.v1(
+      baseClient: AmplifyHttpClient(baseClient: baseClient),
+    );
+
 /// Default defaultDependencies for [CognitoAuthStateMachine].
 @visibleForTesting
 final defaultDependencies = <Token, DependencyBuilder>{
   HostedUiPlatform.token: HostedUiPlatform.new,
   const Token<http.Client>(): http.Client.new,
   AuthPluginCredentialsProvider.token: AuthPluginCredentialsProviderImpl.new,
+  zSmithyHttpClientToken: _makeSmithyHttpClient,
 };
 
 /// {@template amplify_auth_cognito.cognito_auth_state_machine}

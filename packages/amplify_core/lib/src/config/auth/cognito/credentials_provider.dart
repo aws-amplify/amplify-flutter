@@ -53,7 +53,7 @@ class CredentialsProviders extends AWSConfigMap {
       ?.default$;
 }
 
-@awsSerializable
+@zAwsSerializable
 class CognitoIdentityCredentialsProvider
     with AWSEquatable<CognitoIdentityCredentialsProvider>, AWSSerializable {
   final String poolId;

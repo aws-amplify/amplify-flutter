@@ -14,32 +14,49 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:meta/meta.dart';
+
+part 'auth_user_attribute.g.dart';
 
 /// {@template amplify_core.auth.auth_user_attribute}
 /// The key and value for a user attribute.
 /// {@endtemplate}
-@immutable
-class AuthUserAttribute with AWSEquatable<AuthUserAttribute>, AWSDebuggable {
+@zAmplifyGenericSerializable
+class AuthUserAttribute<Key extends UserAttributeKey>
+    with
+        AWSEquatable<AuthUserAttribute<UserAttributeKey>>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   /// {@macro amplify_core.auth.auth_user_attribute}
   const AuthUserAttribute({
     required this.userAttributeKey,
     required this.value,
   });
 
-  final UserAttributeKey userAttributeKey;
+  /// {@macro amplify_core.auth.auth_user_attribute}
+  factory AuthUserAttribute.fromJson(
+    Map<String, Object?> json,
+    Key Function(Object?) fromJsonKey,
+  ) =>
+      _$AuthUserAttributeFromJson(
+        json,
+        (key) => fromJsonKey(key as String),
+      );
+
+  final Key userAttributeKey;
   final String value;
 
   @override
   List<Object> get props => [userAttributeKey, value];
 
-  Map<String, Object?> serializeAsMap() {
-    final Map<String, Object?> pendingRequest = <String, dynamic>{};
-    pendingRequest['userAttributeKey'] = userAttributeKey.key;
-    pendingRequest['value'] = value;
-    return pendingRequest;
-  }
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 
   @override
   String get runtimeTypeName => 'AuthUserAttribute';
+
+  @override
+  Map<String, Object?> toJson() => _$AuthUserAttributeToJson(
+        this,
+        (Key key) => key.toJson(),
+      );
 }

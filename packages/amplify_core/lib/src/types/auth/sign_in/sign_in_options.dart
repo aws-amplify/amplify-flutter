@@ -12,7 +12,11 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-abstract class SignInOptions {
+import 'package:amplify_core/amplify_core.dart';
+
+abstract class SignInOptions with AWSSerializable<Map<String, Object?>> {
   const SignInOptions();
-  Map<String, Object?> serializeAsMap();
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 }

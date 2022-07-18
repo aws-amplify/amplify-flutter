@@ -59,7 +59,9 @@ import 'package:meta/meta.dart';
 /// {@template amplify_auth_cognito_dart.amplify_auth_cognito_dart}
 /// The AWS Cognito implementation of the Amplify Auth category.
 /// {@endtemplate}
-class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
+class AmplifyAuthCognitoDart extends AuthPluginInterface
+    with AWSDebuggable, AmplifyLoggerMixin
+    implements Closeable {
   /// {@macro amplify_auth_cognito_dart.amplify_auth_cognito_dart}
   AmplifyAuthCognitoDart({
     SecureStorageInterface? credentialStorage,
@@ -129,7 +131,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
             scope: 'auth',
           ),
         );
-    _stateMachine.addInstance<SecureStorageInterface>(credentialStorage);
+    _stateMachine
+      ..addInstance<SecureStorageInterface>(credentialStorage)
+      ..addInstance<AmplifyLogger>(logger);
     if (_hostedUiPlatformFactory != null) {
       _stateMachine.addBuilder(
         _hostedUiPlatformFactory!,
@@ -872,8 +876,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
         // Try to refresh AWS credentials since Cognito requests will require
         // them.
         await fetchAuthSession(
-          request: AuthSessionRequest(
-            options: const CognitoSessionOptions(getAWSCredentials: true),
+          request: const AuthSessionRequest(
+            options: CognitoSessionOptions(getAWSCredentials: true),
           ),
         );
         if (options.globalSignOut) {
@@ -924,8 +928,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   @visibleForTesting
   Future<CognitoUserPoolTokens> getUserPoolTokens() async {
     final credentials = await fetchAuthSession(
-      request: AuthSessionRequest(
-        options: const CognitoSessionOptions(getAWSCredentials: false),
+      request: const AuthSessionRequest(
+        options: CognitoSessionOptions(getAWSCredentials: false),
       ),
     ) as CognitoAuthSession;
     final userPoolTokens = credentials.userPoolTokens;
@@ -934,4 +938,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     }
     return userPoolTokens;
   }
+
+  @override
+  String get runtimeTypeName => 'AmplifyAuthCognitoDart';
 }

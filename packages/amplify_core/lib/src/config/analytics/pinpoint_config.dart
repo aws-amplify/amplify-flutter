@@ -39,7 +39,7 @@ class PinpointPluginConfigFactory
 /// {@template amplify_core.pinpoint_plugin_config}
 /// The AWS Pinpoint plugin configuration.
 /// {@endtemplate}
-@amplifySerializable
+@zAmplifySerializable
 class PinpointPluginConfig
     with AWSEquatable<PinpointPluginConfig>, AWSSerializable
     implements AmplifyPluginConfig {
@@ -78,7 +78,7 @@ class PinpointPluginConfig
   String get name => pluginKey;
 }
 
-@amplifySerializable
+@zAmplifySerializable
 class PinpointAnalytics with AWSEquatable<PinpointAnalytics>, AWSSerializable {
   const PinpointAnalytics({
     required this.appId,
@@ -108,7 +108,7 @@ class PinpointAnalytics with AWSEquatable<PinpointAnalytics>, AWSSerializable {
   Map<String, Object?> toJson() => _$PinpointAnalyticsToJson(this);
 }
 
-@amplifySerializable
+@zAmplifySerializable
 class PinpointTargeting with AWSEquatable<PinpointTargeting>, AWSSerializable {
   const PinpointTargeting({
     required this.region,

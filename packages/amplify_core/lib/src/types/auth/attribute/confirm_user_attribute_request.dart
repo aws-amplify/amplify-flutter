@@ -13,28 +13,54 @@
  * permissions and limitations under the License.
  */
 
-import 'user_attribute_key.dart';
+import 'package:amplify_core/amplify_core.dart';
+
+part 'confirm_user_attribute_request.g.dart';
 
 /// {@template amplify_core.confirm_user_attribute_request}
 /// Encapsulates parameters for a request to confirm a user attribute update.
 /// {@endtemplate}
-class ConfirmUserAttributeRequest {
-  /// The key of the user attribute to update
-  final UserAttributeKey userAttributeKey;
-
-  /// The confirmation code the user received after starting the user attribute operation
-  final String confirmationCode;
-
+@zAmplifyGenericSerializable
+class ConfirmUserAttributeRequest<Key extends UserAttributeKey>
+    with
+        AWSEquatable<ConfirmUserAttributeRequest<UserAttributeKey>>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   /// {@macro amplify_core.confirm_user_attribute_request}
   const ConfirmUserAttributeRequest({
     required this.userAttributeKey,
     required this.confirmationCode,
   });
 
-  Map<String, Object?> serializeAsMap() {
-    final Map<String, Object?> pendingRequest = <String, dynamic>{};
-    pendingRequest['userAttributeKey'] = userAttributeKey.key;
-    pendingRequest['confirmationCode'] = confirmationCode;
-    return pendingRequest;
-  }
+  /// {@macro amplify_core.confirm_user_attribute_request}
+  factory ConfirmUserAttributeRequest.fromJson(
+    Map<String, Object?> json,
+    Key Function(String) fromJsonKey,
+  ) =>
+      _$ConfirmUserAttributeRequestFromJson(
+        json,
+        (json) => fromJsonKey(json as String),
+      );
+
+  /// The key of the user attribute to update.
+  final Key userAttributeKey;
+
+  /// The confirmation code the user received after starting the user attribute
+  /// operation.
+  final String confirmationCode;
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
+
+  @override
+  List<Object?> get props => [userAttributeKey, confirmationCode];
+
+  @override
+  String get runtimeTypeName => 'ConfirmUserAttributeRequest';
+
+  @override
+  Map<String, Object?> toJson() => _$ConfirmUserAttributeRequestToJson(
+        this,
+        (Key key) => key.toJson(),
+      );
 }

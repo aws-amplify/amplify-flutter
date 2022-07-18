@@ -22,7 +22,7 @@ part 'cognito_auth_session.g.dart';
 /// The current Cognito auth session, with AWS credentials and User Pool tokens
 /// of the active user.
 /// {@endtemplate}
-@amplifySerializable
+@zAmplifySerializable
 class CognitoAuthSession extends AuthSession
     with
         AWSEquatable<CognitoAuthSession>,
