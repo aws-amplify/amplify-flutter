@@ -92,6 +92,10 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
         ]
     }
     
+    public func getBundleIdWithError(_ error: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> String? {
+        return Bundle.main.bundleIdentifier;
+    }
+    
     public let key: PluginKey = "awsCognitoAuthPlugin"
     
     public func configure(using configuration: Any?) throws {}

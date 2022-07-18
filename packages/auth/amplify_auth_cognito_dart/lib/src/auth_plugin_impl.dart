@@ -759,14 +759,14 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   @override
   Future<void> rememberDevice() async {
     // Use credentials state machine since we need device info as well.
-    final credentials = await _stateMachine
+    final result = await _stateMachine
         .expect(CredentialStoreStateMachine.type)
         .getCredentialsResult();
-    final deviceKey = credentials.deviceSecrets?.deviceKey;
+    final deviceKey = result.data.deviceSecrets?.deviceKey;
     if (deviceKey == null) {
       throw const DeviceNotTrackedException();
     }
-    final accessToken = credentials.userPoolTokens?.accessToken;
+    final accessToken = result.data.userPoolTokens?.accessToken;
     if (accessToken == null) {
       throw const SignedOutException('No user is currently signed in');
     }
@@ -782,16 +782,16 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   @override
   Future<void> forgetDevice([AuthDevice? device]) async {
     // Use credentials state machine since we need device info as well.
-    final credentials = await _stateMachine
+    final result = await _stateMachine
         .expect(CredentialStoreStateMachine.type)
         .getCredentialsResult();
-    final deviceKey = device?.id ?? credentials.deviceSecrets?.deviceKey;
+    final deviceKey = device?.id ?? result.data.deviceSecrets?.deviceKey;
     if (deviceKey == null) {
       throw const DeviceNotTrackedException();
     }
     await _cognitoIdp.forgetDevice(
       cognito.ForgetDeviceRequest(
-        accessToken: credentials.userPoolTokens?.accessToken.raw,
+        accessToken: result.data.userPoolTokens?.accessToken.raw,
         deviceKey: deviceKey,
       ),
     );

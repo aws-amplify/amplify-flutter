@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
 import 'mock_config.dart';
@@ -36,6 +37,7 @@ void seedStorage(
   CognitoUserPoolKeys? userPoolKeys,
   CognitoIdentityPoolKeys? identityPoolKeys,
   HostedUiKeys? hostedUiKeys,
+  CredentialStoreVersion? version,
 }) {
   if (userPoolKeys != null) {
     secureStorage
@@ -93,5 +95,11 @@ void seedStorage(
         key: hostedUiKeys[HostedUiKey.idToken],
         value: idToken.raw,
       );
+  }
+  if (version != null) {
+    secureStorage.write(
+      key: CredentialStoreKey.version.name,
+      value: version.name,
+    );
   }
 }

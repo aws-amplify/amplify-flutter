@@ -161,17 +161,17 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
   Future<void> onFetchAuthSession(
     FetchAuthSessionFetch event,
   ) async {
-    final credentialsState = await getOrCreate(CredentialStoreStateMachine.type)
+    final result = await getOrCreate(CredentialStoreStateMachine.type)
         .getCredentialsResult();
 
-    final userPoolTokens = credentialsState.userPoolTokens;
+    final userPoolTokens = result.data.userPoolTokens;
     final userPoolTokensExpiration = userPoolTokens?.expirationTime;
     final refreshUserPoolTokens = userPoolTokensExpiration != null
         ? _isExpired(userPoolTokensExpiration)
         : false;
 
     final hasIdentityPool = _identityPoolConfig != null;
-    final awsCredentials = credentialsState.awsCredentials;
+    final awsCredentials = result.data.awsCredentials;
     final awsCredentialsExpiration = awsCredentials?.expiration;
     final refreshAwsCredentials = awsCredentialsExpiration != null
         ? _isExpired(awsCredentialsExpiration)
@@ -207,7 +207,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
           userPoolTokens: userPoolTokens,
           credentials: awsCredentials,
           userSub: userPoolTokens?.idToken.userId,
-          identityId: credentialsState.identityId,
+          identityId: result.data.identityId,
         ),
       ),
     );
@@ -215,12 +215,12 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
   @override
   Future<void> onRefresh(FetchAuthSessionRefresh event) async {
-    final credentialsState = await getOrCreate(CredentialStoreStateMachine.type)
+    final result = await getOrCreate(CredentialStoreStateMachine.type)
         .getCredentialsResult();
 
-    var userPoolTokens = credentialsState.userPoolTokens;
-    var identityId = credentialsState.identityId;
-    var awsCredentials = credentialsState.awsCredentials;
+    var userPoolTokens = result.data.userPoolTokens;
+    var identityId = result.data.identityId;
+    var awsCredentials = result.data.awsCredentials;
     if (event.refreshUserPoolTokens) {
       if (userPoolTokens == null) {
         dispatch(
@@ -234,7 +234,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       }
       userPoolTokens = await _refreshUserPoolTokens(
         userPoolTokens: userPoolTokens,
-        deviceSecrets: credentialsState.deviceSecrets,
+        deviceSecrets: result.data.deviceSecrets,
       );
     }
     if (event.refreshAwsCredentials) {
@@ -277,8 +277,10 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
       dispatch(
         CredentialStoreEvent.storeCredentials(
-          awsCredentials: awsCredentials,
-          identityId: identityId,
+          CredentialStoreData(
+            awsCredentials: awsCredentials,
+            identityId: identityId,
+          ),
         ),
       );
 
@@ -338,7 +340,9 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
       dispatch(
         CredentialStoreEvent.storeCredentials(
-          userPoolTokens: newTokens,
+          CredentialStoreData(
+            userPoolTokens: newTokens,
+          ),
         ),
       );
 

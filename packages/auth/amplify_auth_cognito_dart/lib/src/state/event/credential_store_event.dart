@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
@@ -57,12 +55,9 @@ abstract class CredentialStoreEvent extends StateMachineEvent<
       CredentialStoreMigrateLegacyCredentialStore;
 
   /// {@macro amplify_auth_cognito.store_credentials}
-  const factory CredentialStoreEvent.storeCredentials({
-    String? identityId,
-    AWSCredentials? awsCredentials,
-    CognitoUserPoolTokens? userPoolTokens,
-    CognitoDeviceSecrets? deviceSecrets,
-  }) = CredentialStoreStoreCredentials;
+  const factory CredentialStoreEvent.storeCredentials(
+    CredentialStoreData data,
+  ) = CredentialStoreStoreCredentials;
 
   /// {@macro amplify_auth_cognito.clear_credentials}
   const factory CredentialStoreEvent.clearCredentials([
@@ -70,12 +65,8 @@ abstract class CredentialStoreEvent extends StateMachineEvent<
   ]) = CredentialStoreClearCredentials;
 
   /// {@macro amplify_auth_cognito.credential_store_succeeded}
-  const factory CredentialStoreEvent.succeeded({
-    String? identityId,
-    AWSCredentials? awsCredentials,
-    CognitoUserPoolTokens? userPoolTokens,
-    CognitoDeviceSecrets? deviceSecrets,
-  }) = CredentialStoreSucceeded;
+  const factory CredentialStoreEvent.succeeded(CredentialStoreData data) =
+      CredentialStoreSucceeded;
 
   /// {@macro amplify_auth_cognito.credential_store_failed}
   const factory CredentialStoreEvent.failed(Exception exception) =
@@ -92,7 +83,7 @@ abstract class CredentialStoreEvent extends StateMachineEvent<
 }
 
 /// {@template amplify_auth_cognito.credential_store_load}
-/// Initates loading of previously-stored credentials.
+/// Initiates loading of previously-stored credentials.
 /// {@endtemplate}
 class CredentialStoreLoadCredentialStore extends CredentialStoreEvent {
   /// {@macro amplify_auth_cognito.credential_store_load}
@@ -109,7 +100,7 @@ class CredentialStoreLoadCredentialStore extends CredentialStoreEvent {
   PreconditionException? checkPrecondition(
     CredentialStoreState currentState,
   ) {
-    if (currentState.type != CredentialStoreStateType.notConfigured &&
+    if (currentState.type != CredentialStoreStateType.migratingLegacyStore &&
         currentState.type != CredentialStoreStateType.failure) {
       return const AuthPreconditionException(
         'Credential store already configured',
@@ -139,8 +130,7 @@ class CredentialStoreMigrateLegacyCredentialStore extends CredentialStoreEvent {
   PreconditionException? checkPrecondition(
     CredentialStoreState currentState,
   ) {
-    if (currentState.type !=
-        CredentialStoreStateType.loadingStoredCredentials) {
+    if (currentState.type != CredentialStoreStateType.notConfigured) {
       return const AuthPreconditionException(
         'Credential store cannot be migrated in current state',
       );
@@ -154,24 +144,10 @@ class CredentialStoreMigrateLegacyCredentialStore extends CredentialStoreEvent {
 /// {@endtemplate}
 class CredentialStoreStoreCredentials extends CredentialStoreEvent {
   /// {@macro amplify_auth_cognito.store_credentials}
-  const CredentialStoreStoreCredentials({
-    this.identityId,
-    this.awsCredentials,
-    this.userPoolTokens,
-    this.deviceSecrets,
-  }) : super._();
+  const CredentialStoreStoreCredentials(this.data) : super._();
 
-  /// AWS Identity ID
-  final String? identityId;
-
-  /// AWS Identity Pool credentials
-  final AWSCredentials? awsCredentials;
-
-  /// Cognito User Pool tokens
-  final CognitoUserPoolTokens? userPoolTokens;
-
-  /// Registered device secrets
-  final CognitoDeviceSecrets? deviceSecrets;
+  /// {@macro amplify_auth_cognito_dart.credential_store_state.credential_store_data}
+  final CredentialStoreData data;
 
   @override
   CredentialStoreEventType get type =>
@@ -180,10 +156,7 @@ class CredentialStoreStoreCredentials extends CredentialStoreEvent {
   @override
   List<Object?> get props => [
         type,
-        identityId,
-        awsCredentials,
-        userPoolTokens,
-        deviceSecrets,
+        data,
       ];
 
   @override
@@ -251,24 +224,10 @@ class CredentialStoreClearCredentials extends CredentialStoreEvent {
 /// {@endtemplate}
 class CredentialStoreSucceeded extends CredentialStoreEvent {
   /// {@macro amplify_auth_cognito.credential_store_succeeded}
-  const CredentialStoreSucceeded({
-    this.identityId,
-    this.awsCredentials,
-    this.userPoolTokens,
-    this.deviceSecrets,
-  }) : super._();
+  const CredentialStoreSucceeded(this.data) : super._();
 
-  /// AWS Identity ID
-  final String? identityId;
-
-  /// AWS Identity Pool credentials
-  final AWSCredentials? awsCredentials;
-
-  /// Cognito User Pool tokens
-  final CognitoUserPoolTokens? userPoolTokens;
-
-  /// Registered device secrets
-  final CognitoDeviceSecrets? deviceSecrets;
+  /// {@macro amplify_auth_cognito_dart.credential_store_state.credential_store_data}
+  final CredentialStoreData data;
 
   @override
   CredentialStoreEventType get type => CredentialStoreEventType.succeeded;
@@ -276,10 +235,7 @@ class CredentialStoreSucceeded extends CredentialStoreEvent {
   @override
   List<Object?> get props => [
         type,
-        identityId,
-        awsCredentials,
-        userPoolTokens,
-        deviceSecrets,
+        data,
       ];
 
   @override

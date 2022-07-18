@@ -577,7 +577,9 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
     dispatch(
       CredentialStoreEvent.storeCredentials(
-        userPoolTokens: user.userPoolTokens.build(),
+        CredentialStoreData(
+          userPoolTokens: user.userPoolTokens.build(),
+        ),
       ),
     );
 
@@ -610,9 +612,9 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
     // Collect current user info which may influence SRP flow.
     try {
-      final credentials =
+      final result =
           await expect(CredentialStoreStateMachine.type).getCredentialsResult();
-      final deviceSecrets = credentials.deviceSecrets;
+      final deviceSecrets = result.data.deviceSecrets;
       if (deviceSecrets != null) {
         user.deviceSecrets.replace(deviceSecrets);
       }
@@ -714,7 +716,9 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
         dispatch(
           CredentialStoreEvent.storeCredentials(
-            deviceSecrets: user.deviceSecrets.build(),
+            CredentialStoreData(
+              deviceSecrets: user.deviceSecrets.build(),
+            ),
           ),
         );
       }

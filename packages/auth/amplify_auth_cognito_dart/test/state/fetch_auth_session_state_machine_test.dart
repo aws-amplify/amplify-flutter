@@ -97,7 +97,7 @@ void main() {
     group('fetch', () {
       test('(isSignedIn=false)', () async {
         stateMachine
-          ..dispatch(const CredentialStoreEvent.loadCredentialStore())
+          ..dispatch(const CredentialStoreEvent.migrateLegacyCredentialStore())
           ..dispatch(const FetchAuthSessionEvent.fetch());
 
         final sm = stateMachine.getOrCreate(FetchAuthSessionStateMachine.type);
@@ -121,7 +121,7 @@ void main() {
           userPoolKeys: userPoolKeys,
         );
         stateMachine
-          ..dispatch(const CredentialStoreEvent.loadCredentialStore())
+          ..dispatch(const CredentialStoreEvent.migrateLegacyCredentialStore())
           ..dispatch(
             const FetchAuthSessionEvent.fetch(
               CognitoSessionOptions(getAWSCredentials: false),
@@ -207,7 +207,9 @@ void main() {
                 userPoolOnlyConfig.auth!.awsPlugin!,
               ),
             )
-            ..dispatch(const CredentialStoreEvent.loadCredentialStore());
+            ..dispatch(
+              const CredentialStoreEvent.migrateLegacyCredentialStore(),
+            );
         });
 
         test('succeeds for user pool only requests', () {

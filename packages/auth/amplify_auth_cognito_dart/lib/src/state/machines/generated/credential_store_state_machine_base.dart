@@ -56,14 +56,7 @@ abstract class CredentialStoreStateMachineBase
         return;
       case CredentialStoreEventType.succeeded:
         event as CredentialStoreSucceeded;
-        emit(
-          CredentialStoreState.success(
-            userPoolTokens: event.userPoolTokens,
-            identityId: event.identityId,
-            awsCredentials: event.awsCredentials,
-            deviceSecrets: event.deviceSecrets,
-          ),
-        );
+        emit(CredentialStoreState.success(event.data));
         return;
       case CredentialStoreEventType.failed:
         event as CredentialStoreFailed;
