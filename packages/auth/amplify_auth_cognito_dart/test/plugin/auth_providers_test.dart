@@ -15,7 +15,7 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide InternalErrorException;
-import 'package:amplify_auth_cognito_dart/src/util/aws_iam_auth_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/util/cognito_iam_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
@@ -52,33 +52,33 @@ void main() {
       plugin = AmplifyAuthCognitoDart(credentialStorage: MockSecureStorage());
     });
 
-    test('registers AWSIamAuthProvider', () async {
+    test('registers CognitoIamAuthProvider', () async {
       final testAuthRepo = AmplifyAuthProviderRepository();
       await plugin.configure(
         config: mockConfig,
         authProviderRepo: testAuthRepo,
       );
       final authProvider = testAuthRepo.getAuthProvider(
-        APIAuthorizationType.iam.authProviderToken!,
+        APIAuthorizationType.iam.authProviderToken,
       );
-      expect(authProvider, isA<AWSIamAuthProvider>());
+      expect(authProvider, isA<CognitoIamAuthProvider>());
     });
   });
 
-  group('AWSIamAuthProvider', () {
+  group('CognitoIamAuthProvider', () {
     setUpAll(() async {
       await Amplify.addPlugin(TestAmplifyAuth());
     });
 
     test('gets AWS credentials from Amplify.Auth.fetchAuthSession', () async {
-      final authProvider = AWSIamAuthProvider();
+      final authProvider = CognitoIamAuthProvider();
       final credentials = await authProvider.retrieve();
       expect(credentials.accessKeyId, isA<String>());
       expect(credentials.secretAccessKey, isA<String>());
     });
 
     test('signs a request when calling authorizeRequest', () async {
-      final authProvider = AWSIamAuthProvider();
+      final authProvider = CognitoIamAuthProvider();
       final authorizedRequest = await authProvider.authorizeRequest(
         _generateTestRequest(),
         options: const IamAuthProviderOptions(
@@ -101,7 +101,7 @@ void main() {
     });
 
     test('throws when no options provided', () async {
-      final authProvider = AWSIamAuthProvider();
+      final authProvider = CognitoIamAuthProvider();
       await expectLater(
         authProvider.authorizeRequest(_generateTestRequest()),
         throwsA(isA<AuthException>()),

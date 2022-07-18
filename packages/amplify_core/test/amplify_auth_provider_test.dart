@@ -49,7 +49,7 @@ class SecondTestAuthProvider extends AmplifyAuthProvider {
   }
 }
 
-class TestAWSCredentialsAuthProvider extends AWSCredentialsAmplifyAuthProvider {
+class TestAWSCredentialsAuthProvider extends AWSIamAmplifyAuthProvider {
   @override
   Future<AWSCredentials> retrieve() async {
     return const AWSCredentials(
@@ -109,12 +109,11 @@ void main() {
       final authRepo = AmplifyAuthProviderRepository();
 
       final credentialAuthProvider = TestAWSCredentialsAuthProvider();
-      const providerKey =
-          AmplifyAuthProviderToken<AWSCredentialsAmplifyAuthProvider>();
+      const providerKey = AmplifyAuthProviderToken<AWSIamAmplifyAuthProvider>();
       authRepo.registerAuthProvider(providerKey, credentialAuthProvider);
-      AWSCredentialsAmplifyAuthProvider? actualAuthProvider =
+      AWSIamAmplifyAuthProvider? actualAuthProvider =
           authRepo.getAuthProvider(providerKey);
-      expect(actualAuthProvider, isA<AWSCredentialsAmplifyAuthProvider>());
+      expect(actualAuthProvider, isA<AWSIamAmplifyAuthProvider>());
     });
 
     test('will overwrite previous provider in same key', () async {

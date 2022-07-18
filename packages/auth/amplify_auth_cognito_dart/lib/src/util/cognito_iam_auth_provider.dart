@@ -22,7 +22,7 @@ import 'package:meta/meta.dart';
 /// [AmplifyAuthProvider] implementation that signs a request using AWS credentials
 /// from `Amplify.Auth.fetchAuthSession()` or allows getting credentials directly.
 @internal
-class AWSIamAuthProvider extends AWSCredentialsAmplifyAuthProvider {
+class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
   /// AWS credentials from Auth category.
   @override
   Future<AWSCredentials> retrieve() async {
@@ -50,18 +50,16 @@ class AWSIamAuthProvider extends AWSCredentialsAmplifyAuthProvider {
       );
     }
 
-    final credentials = await retrieve();
-    final signedRequest = await _generateAWSSignedRequest(
+    return _signRequest(
       request,
       region: options.region,
       service: options.service,
-      credentials: credentials,
+      credentials: await retrieve(),
     );
-    return signedRequest;
   }
 
   /// Takes input [request] as canonical request and generates a signed version.
-  Future<AWSSignedRequest> _generateAWSSignedRequest(
+  Future<AWSSignedRequest> _signRequest(
     AWSBaseHttpRequest request, {
     required String region,
     required AWSService service,
