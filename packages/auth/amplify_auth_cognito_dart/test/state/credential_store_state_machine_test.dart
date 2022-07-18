@@ -362,14 +362,15 @@ void main() {
 
     group('migrateCredentials', () {
       test('no legacy credentials', () async {
-        // verify credential store version is null.
-        expect(await getVersion(secureStorage), isNull);
+        final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
+
+        // verify credential store is not migrated.
+        expect(await sm.getVersion(), CredentialStoreVersion.none);
 
         stateMachine.dispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
 
-        final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
@@ -381,7 +382,7 @@ void main() {
         );
 
         // verify credential store version has been updated.
-        expect(await getVersion(secureStorage), CredentialStoreVersion.v1);
+        expect(await sm.getVersion(), CredentialStoreVersion.v1);
 
         await stateMachine.close();
       });
@@ -398,14 +399,15 @@ void main() {
           ),
         );
 
-        // verify credential store version is null.
-        expect(await getVersion(secureStorage), isNull);
+        final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
+
+        // verify credential store is not migrated.
+        expect(await sm.getVersion(), CredentialStoreVersion.none);
 
         stateMachine.dispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
 
-        final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
@@ -430,7 +432,7 @@ void main() {
         expect(result.data.userPoolTokens?.idToken, idToken);
 
         // verify credential store version has been updated.
-        expect(await getVersion(secureStorage), CredentialStoreVersion.v1);
+        expect(await sm.getVersion(), CredentialStoreVersion.v1);
 
         await stateMachine.close();
       });
@@ -446,14 +448,15 @@ void main() {
           ),
         );
 
-        // verify credential store version is null.
-        expect(await getVersion(secureStorage), isNull);
+        final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
+
+        // verify credential store is not migrated.
+        expect(await sm.getVersion(), CredentialStoreVersion.none);
 
         stateMachine.dispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
 
-        final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
@@ -478,7 +481,7 @@ void main() {
         expect(result.data.userPoolTokens?.idToken, isNull);
 
         // verify credential store version has been updated.
-        expect(await getVersion(secureStorage), CredentialStoreVersion.v1);
+        expect(await sm.getVersion(), CredentialStoreVersion.v1);
 
         await stateMachine.close();
       });

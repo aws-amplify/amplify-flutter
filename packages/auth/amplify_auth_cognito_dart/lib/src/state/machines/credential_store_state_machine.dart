@@ -23,6 +23,7 @@ import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart'
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/credential_store_state_machine_base.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 /// {@template amplify_auth_cognito.auth_store_state_machine}
@@ -60,7 +61,8 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
   }
 
   /// Fetches the current credential store version.
-  Future<CredentialStoreVersion> _getVersion() async {
+  @visibleForTesting
+  Future<CredentialStoreVersion> getVersion() async {
     final version = await _secureStorage.read(
       key: CredentialStoreKey.version.name,
     );
@@ -263,7 +265,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
   Future<void> onMigrateLegacyCredentialStore(
     CredentialStoreMigrateLegacyCredentialStore event,
   ) async {
-    final version = await _getVersion();
+    final version = await getVersion();
     if (version == CredentialStoreVersion.none) {
       final legacyCredentialProvider = get<LegacyCredentialProvider>();
       if (legacyCredentialProvider != null) {

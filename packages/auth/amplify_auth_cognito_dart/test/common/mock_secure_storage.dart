@@ -103,12 +103,3 @@ void seedStorage(
     );
   }
 }
-
-Future<CredentialStoreVersion?> getVersion(
-  SecureStorageInterface secureStorage,
-) async {
-  final version = await secureStorage.read(
-    key: CredentialStoreKey.version.name,
-  );
-  return version == null ? null : CredentialStoreVersion.values.byName(version);
-}
