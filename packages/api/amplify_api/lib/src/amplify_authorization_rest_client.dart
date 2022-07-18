@@ -18,7 +18,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
-const _xApiKey = 'X-Api-Key';
+import 'decorators/authorize_http_request.dart';
 
 /// Implementation of http [http.Client] that authorizes HTTP requests with
 /// Amplify.
@@ -39,97 +39,20 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
     http.Client? baseClient,
   })  : _authProviderRepo = authRepo,
         _useDefaultBaseClient = baseClient == null,
-        _baseClient = baseClient ?? http.Client();
+        _baseClient = baseClient ?? AmplifyHttpClient();
 
   /// Implementation of [send] that authorizes any request without "Authorization"
   /// header already set.
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async =>
-      _baseClient.send(await _authorizeRequest(request));
+      _baseClient.send(await authorizeHttpRequest(
+        request,
+        endpointConfig: endpointConfig,
+        authProviderRepo: _authProviderRepo,
+      ));
 
   @override
   void close() {
     if (_useDefaultBaseClient) _baseClient.close();
-  }
-
-  Future<http.BaseRequest> _authorizeRequest(http.BaseRequest request) async {
-    if (!request.headers.containsKey(AWSHeaders.authorization)) {
-      final authType = endpointConfig.authorizationType;
-
-      // TODO(ragingsquirrel3): Use auth providers from core to transform the request.
-      final apiKey = endpointConfig.apiKey;
-      if (authType == APIAuthorizationType.apiKey) {
-        if (apiKey == null) {
-          throw const ApiException(
-              'Auth mode is API Key, but no API Key was found in config.');
-        }
-
-        request.headers.putIfAbsent(_xApiKey, () => apiKey);
-        return request;
-      }
-      switch (authType) {
-        case APIAuthorizationType.iam:
-          var authProvider = _authProviderRepo
-              .getAuthProvider(APIAuthorizationType.iam.authProviderToken!);
-          authProvider = _validateAuthProvider(authProvider, authType);
-          final service = endpointConfig.endpointType == EndpointType.graphQL
-              ? AWSService.appSync
-              : AWSService.apiGatewayManagementApi;
-
-          final signed = await authProvider.authorizeRequest(
-            _httpToAWSRequest(request),
-            options: IamAuthProviderOptions(
-                region: endpointConfig.region, service: service),
-          );
-          return signed.httpRequest;
-        case APIAuthorizationType.apiKey:
-        case APIAuthorizationType.function:
-        case APIAuthorizationType.oidc:
-        case APIAuthorizationType.userPools:
-          throw UnimplementedError('${authType.name} not implemented.');
-        case APIAuthorizationType.none:
-          break;
-      }
-    }
-
-    return request;
-  }
-}
-
-T _validateAuthProvider<T extends AmplifyAuthProvider>(
-    T? authProvider, APIAuthorizationType authType) {
-  if (authProvider == null) {
-    throw ApiException('No auth provider found for auth mode ${authType.name}.',
-        recoverySuggestion: 'Ensure auth plugin correctly configured.');
-  }
-  return authProvider;
-}
-
-AWSBaseHttpRequest _httpToAWSRequest(http.BaseRequest request) {
-  final method = AWSHttpMethod.fromString(request.method);
-  if (request is http.Request) {
-    return AWSHttpRequest(
-      method: method,
-      uri: request.url,
-      headers: {
-        AWSHeaders.contentType: 'application/x-amz-json-1.1',
-        ...request.headers,
-      },
-      body: request.bodyBytes,
-    );
-  } else if (request is http.StreamedRequest) {
-    return AWSStreamedHttpRequest(
-      method: method,
-      uri: request.url,
-      headers: {
-        AWSHeaders.contentType: 'application/x-amz-json-1.1',
-        ...request.headers,
-      },
-      body: request.finalize(),
-    );
-  } else {
-    throw UnimplementedError(
-      'Multipart HTTP requests are not supported.',
-    );
   }
 }

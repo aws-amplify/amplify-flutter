@@ -26,6 +26,7 @@ import 'package:meta/meta.dart';
 
 import 'amplify_api_config.dart';
 import 'amplify_authorization_rest_client.dart';
+import 'graphql/app_sync_api_key_auth_provider.dart';
 import 'graphql/send_graphql_request.dart';
 import 'util.dart';
 
@@ -67,6 +68,18 @@ class AmplifyAPIDart extends AmplifyAPI {
     }
     _apiConfig = apiConfig;
     _authProviderRepo = authProviderRepo;
+    _registerApiKeyAuthMode();
+  }
+
+  /// If an endpoint has an API key, ensure valid auth provider registered.
+  void _registerApiKeyAuthMode() {
+    _apiConfig.endpoints.forEach((key, value) {
+      if (value.authorizationType == APIAuthorizationType.apiKey) {
+        _authProviderRepo.registerAuthProvider(
+            value.authorizationType.authProviderToken,
+            AppSyncApiKeyAuthProvider());
+      }
+    });
   }
 
   @override
