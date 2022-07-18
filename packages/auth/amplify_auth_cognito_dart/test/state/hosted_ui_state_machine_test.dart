@@ -281,9 +281,13 @@ void main() {
           stateMachine.stream.whereType<CredentialStoreState>(),
           emitsThrough(
             isA<CredentialStoreSuccess>()
-                .having((state) => state.userPoolTokens, 'tokens', isNotNull)
                 .having(
-                  (state) => state.userPoolTokens!.signInMethod,
+                  (state) => state.data.userPoolTokens,
+                  'tokens',
+                  isNotNull,
+                )
+                .having(
+                  (state) => state.data.userPoolTokens!.signInMethod,
                   'signInMethod',
                   CognitoSignInMethod.hostedUi,
                 ),

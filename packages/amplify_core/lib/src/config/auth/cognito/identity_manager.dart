@@ -17,7 +17,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'identity_manager.g.dart';
 
-@awsSerializable
+@zAwsSerializable
 class CognitoIdentityManager
     with AWSEquatable<CognitoIdentityManager>, AWSSerializable {
   const CognitoIdentityManager();

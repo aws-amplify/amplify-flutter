@@ -35,6 +35,9 @@ class AuthStateMachine extends AuthStateMachineBase {
   static const type =
       StateMachineToken<AuthEvent, AuthState, AuthStateMachine>();
 
+  @override
+  String get runtimeTypeName => 'AuthStateMachine';
+
   /// The credentials provider for SDK calls.
   AuthPluginCredentialsProvider get _credentialsProvider => getOrCreate(
         AuthPluginCredentialsProvider.token,
@@ -59,6 +62,7 @@ class AuthStateMachine extends AuthStateMachineBase {
         WrappedCognitoIdentityProviderClient(
           region: userPoolConfig.region,
           credentialsProvider: _credentialsProvider,
+          dependencyManager: this,
         ),
       );
     }
@@ -92,11 +96,12 @@ class AuthStateMachine extends AuthStateMachineBase {
         WrappedCognitoIdentityClient(
           region: identityPoolConfig.region,
           credentialsProvider: _credentialsProvider,
+          dependencyManager: this,
         ),
       );
     }
 
-    dispatch(const CredentialStoreEvent.loadCredentialStore());
+    dispatch(const CredentialStoreEvent.migrateLegacyCredentialStore());
 
     final credentialStoreConfigured = Completer<void>.sync();
     subscribeTo(CredentialStoreStateMachine.type, (state) {

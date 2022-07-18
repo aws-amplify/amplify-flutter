@@ -13,10 +13,13 @@
  * permissions and limitations under the License.
  */
 
-abstract class SignUpOptions {
+import 'package:amplify_core/amplify_core.dart';
+
+abstract class SignUpOptions with AWSSerializable<Map<String, Object?>> {
   final Map<String, String> userAttributes;
 
   const SignUpOptions({required this.userAttributes});
 
-  Map<String, Object?> serializeAsMap();
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 }

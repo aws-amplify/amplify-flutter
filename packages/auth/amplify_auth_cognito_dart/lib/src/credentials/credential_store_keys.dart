@@ -12,24 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
+/// Keys used to store info about the credential store.
+enum CredentialStoreKey {
+  /// The current version of the credential store.
+  version,
+}
 
-import 'package:aft/aft.dart';
-import 'package:pub_semver/pub_semver.dart';
-import 'package:pubspec_parse/pubspec_parse.dart';
+/// The credential store version.
+enum CredentialStoreVersion {
+  /// No credential store version is present.
+  ///
+  /// Either the credential store has never been initialized on this device, or
+  /// the credentials are stored in a legacy format.
+  none,
 
-part 'deps_check_command.dart';
-
-/// Command to manage dependencies across all Dart/Flutter packages in the repo.
-class DepsCommand extends AmplifyCommand {
-  DepsCommand() {
-    addSubcommand(_DepsCheckCommand());
-  }
-
-  @override
-  String get description =>
-      'Manage dependencies across all packages in the Amplify Flutter repo';
-
-  @override
-  String get name => 'deps';
+  /// The initial implementation of Credential in Amplify Flutter Auth.
+  v1,
 }

@@ -22,7 +22,7 @@ part 'cognito_sign_out_with_web_ui_options.g.dart';
 /// {@endtemplate}
 @JsonSerializable(includeIfNull: false)
 class CognitoSignOutWithWebUIOptions extends SignOutOptions
-    with AWSSerializable, AWSDebuggable {
+    with AWSEquatable<CognitoSignOutWithWebUIOptions>, AWSDebuggable {
   /// {@macro amplify_auth_cognito.model.cognito_sign_out_with_web_ui_options}
   const CognitoSignOutWithWebUIOptions({
     this.isPreferPrivateSession = false,
@@ -44,8 +44,11 @@ class CognitoSignOutWithWebUIOptions extends SignOutOptions
   Map<String, Object?> serializeAsMap() => toJson();
 
   @override
-  Map<String, Object?> toJson() => _$CognitoSignOutWithWebUIOptionsToJson(this);
+  List<Object?> get props => throw UnimplementedError();
 
   @override
   String get runtimeTypeName => 'CognitoSignOutWithWebUIOptions';
+
+  @override
+  Map<String, Object?> toJson() => _$CognitoSignOutWithWebUIOptionsToJson(this);
 }

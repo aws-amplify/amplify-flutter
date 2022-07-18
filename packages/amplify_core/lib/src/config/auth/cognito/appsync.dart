@@ -14,11 +14,10 @@
 //
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'appsync.g.dart';
 
-@awsSerializable
+@zAwsSerializable
 class CognitoAppSyncConfig
     with AWSEquatable<CognitoAppSyncConfig>, AWSSerializable {
   const CognitoAppSyncConfig({

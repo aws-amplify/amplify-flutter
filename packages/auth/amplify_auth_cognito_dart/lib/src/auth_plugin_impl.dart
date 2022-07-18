@@ -55,12 +55,13 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
-import 'package:stream_transform/stream_transform.dart';
 
 /// {@template amplify_auth_cognito_dart.amplify_auth_cognito_dart}
 /// The AWS Cognito implementation of the Amplify Auth category.
 /// {@endtemplate}
-class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
+class AmplifyAuthCognitoDart extends AuthPluginInterface
+    with AWSDebuggable, AmplifyLoggerMixin
+    implements Closeable {
   /// {@macro amplify_auth_cognito_dart.amplify_auth_cognito_dart}
   AmplifyAuthCognitoDart({
     SecureStorageInterface? credentialStorage,
@@ -130,7 +131,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
             scope: 'auth',
           ),
         );
-    _stateMachine.addInstance<SecureStorageInterface>(credentialStorage);
+    _stateMachine
+      ..addInstance<SecureStorageInterface>(credentialStorage)
+      ..addInstance<AmplifyLogger>(logger);
     if (_hostedUiPlatformFactory != null) {
       _stateMachine.addBuilder(
         _hostedUiPlatformFactory!,
@@ -159,6 +162,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
           _hubEventController.add(hubEvent);
         }
       },
+      cancelOnError: false,
       onDone: _hubEventController.close,
     );
     Amplify.Hub.addChannel(HubChannel.Auth, _hubEventController.stream);
@@ -181,7 +185,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     await _init();
     _stateMachine.dispatch(AuthEvent.configure(config));
 
-    await for (final state in _stateMachine.stream.whereType<AuthState>()) {
+    await for (final state
+        in _stateMachine.expect(AuthStateMachine.type).stream) {
       switch (state.type) {
         case AuthStateType.notConfigured:
         case AuthStateType.configuring:
@@ -219,7 +224,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     _stateMachine.dispatch(FetchAuthSessionEvent.fetch(options));
 
     await for (final state
-        in _stateMachine.stream.whereType<FetchAuthSessionState>()) {
+        in _stateMachine.expect(FetchAuthSessionStateMachine.type).stream) {
       switch (state.type) {
         case FetchAuthSessionStateType.idle:
         case FetchAuthSessionStateType.fetching:
@@ -251,7 +256,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
       ),
     );
 
-    await for (final state in _stateMachine.stream.whereType<HostedUiState>()) {
+    await for (final state
+        in _stateMachine.expect(HostedUiStateMachine.type).stream) {
       switch (state.type) {
         case HostedUiStateType.notConfigured:
         case HostedUiStateType.configuring:
@@ -297,7 +303,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
       ),
     );
 
-    await for (final state in _stateMachine.stream.whereType<SignUpState>()) {
+    await for (final state
+        in _stateMachine.expect(SignUpStateMachine.type).stream) {
       switch (state.type) {
         case SignUpStateType.notStarted:
         case SignUpStateType.initiating:
@@ -342,7 +349,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
       ),
     );
 
-    await for (final state in _stateMachine.stream.whereType<SignUpState>()) {
+    await for (final state
+        in _stateMachine.expect(SignUpStateMachine.type).stream) {
       switch (state.type) {
         case SignUpStateType.notStarted:
         case SignUpStateType.initiating:
@@ -419,7 +427,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     final stream = _stateMachine.create(SignInStateMachine.type).stream;
     _stateMachine.dispatch(
       SignInEvent.initiate(
-        authFlow: options.authFlow?.sdkValue,
+        authFlowType: options.authFlowType?.sdkValue,
         parameters: SignInParameters(
           (p) => p
             ..username = request.username
@@ -751,14 +759,14 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   @override
   Future<void> rememberDevice() async {
     // Use credentials state machine since we need device info as well.
-    final credentials = await _stateMachine
+    final result = await _stateMachine
         .expect(CredentialStoreStateMachine.type)
         .getCredentialsResult();
-    final deviceKey = credentials.deviceSecrets?.deviceKey;
+    final deviceKey = result.data.deviceSecrets?.deviceKey;
     if (deviceKey == null) {
       throw const DeviceNotTrackedException();
     }
-    final accessToken = credentials.userPoolTokens?.accessToken;
+    final accessToken = result.data.userPoolTokens?.accessToken;
     if (accessToken == null) {
       throw const SignedOutException('No user is currently signed in');
     }
@@ -774,16 +782,16 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   @override
   Future<void> forgetDevice([AuthDevice? device]) async {
     // Use credentials state machine since we need device info as well.
-    final credentials = await _stateMachine
+    final result = await _stateMachine
         .expect(CredentialStoreStateMachine.type)
         .getCredentialsResult();
-    final deviceKey = device?.id ?? credentials.deviceSecrets?.deviceKey;
+    final deviceKey = device?.id ?? result.data.deviceSecrets?.deviceKey;
     if (deviceKey == null) {
       throw const DeviceNotTrackedException();
     }
     await _cognitoIdp.forgetDevice(
       cognito.ForgetDeviceRequest(
-        accessToken: credentials.userPoolTokens?.accessToken.raw,
+        accessToken: result.data.userPoolTokens?.accessToken.raw,
         deviceKey: deviceKey,
       ),
     );
@@ -868,8 +876,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
         // Try to refresh AWS credentials since Cognito requests will require
         // them.
         await fetchAuthSession(
-          request: AuthSessionRequest(
-            options: const CognitoSessionOptions(getAWSCredentials: true),
+          request: const AuthSessionRequest(
+            options: CognitoSessionOptions(getAWSCredentials: true),
           ),
         );
         if (options.globalSignOut) {
@@ -920,8 +928,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
   @visibleForTesting
   Future<CognitoUserPoolTokens> getUserPoolTokens() async {
     final credentials = await fetchAuthSession(
-      request: AuthSessionRequest(
-        options: const CognitoSessionOptions(getAWSCredentials: false),
+      request: const AuthSessionRequest(
+        options: CognitoSessionOptions(getAWSCredentials: false),
       ),
     ) as CognitoAuthSession;
     final userPoolTokens = credentials.userPoolTokens;
@@ -930,4 +938,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface implements Closeable {
     }
     return userPoolTokens;
   }
+
+  @override
+  String get runtimeTypeName => 'AmplifyAuthCognitoDart';
 }

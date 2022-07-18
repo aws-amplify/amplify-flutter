@@ -15,28 +15,38 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+part 'resend_user_attribute_confirmation_code_result.g.dart';
+
 /// {@template amplify_core.resend_user_attribute_confirmation_code_result}
 /// Wraps the result of a resend user confirmation code operation.
 /// {@endtemplate}
-class ResendUserAttributeConfirmationCodeResult {
+@zAmplifySerializable
+class ResendUserAttributeConfirmationCodeResult
+    with
+        AWSEquatable<ResendUserAttributeConfirmationCodeResult>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  /// {@macro amplify_core.resend_user_attribute_confirmation_code_result}
+  const ResendUserAttributeConfirmationCodeResult({
+    required this.codeDeliveryDetails,
+  });
+
+  factory ResendUserAttributeConfirmationCodeResult.fromJson(
+    Map<String, Object?> json,
+  ) =>
+      _$ResendUserAttributeConfirmationCodeResultFromJson(json);
+
   /// Contains the delivery details of the confirmation code that was sent to
   /// the user.
   final AuthCodeDeliveryDetails codeDeliveryDetails;
 
-  /// {@macro amplify_core.resend_user_attribute_confirmation_code_result}
-  ResendUserAttributeConfirmationCodeResult({
-    required this.codeDeliveryDetails,
-  });
+  @override
+  List<Object?> get props => [codeDeliveryDetails];
 
-  ResendUserAttributeConfirmationCodeResult.fromMap({
-    required Map<String, String> codeDeliveryDetails,
-  }) : codeDeliveryDetails = AuthCodeDeliveryDetails(
-          attributeName: codeDeliveryDetails['attributeName'],
-          deliveryMedium: codeDeliveryDetails['deliveryMedium'],
-          destination: codeDeliveryDetails['destination'],
-        );
+  @override
+  String get runtimeTypeName => 'ResendUserAttributeConfirmationCodeResult';
 
-  ResendUserAttributeConfirmationCodeResult.fromCodeDeliveryDetails({
-    required this.codeDeliveryDetails,
-  });
+  @override
+  Map<String, Object?> toJson() =>
+      _$ResendUserAttributeConfirmationCodeResultToJson(this);
 }

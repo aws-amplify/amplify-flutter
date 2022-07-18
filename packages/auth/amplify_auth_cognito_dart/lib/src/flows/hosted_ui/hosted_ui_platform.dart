@@ -16,7 +16,6 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/crypto/oauth.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_config.dart';
-import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';

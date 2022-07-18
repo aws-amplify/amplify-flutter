@@ -16,7 +16,6 @@
 import Flutter
 import UIKit
 import Amplify
-import AmplifyPlugins
 import AWSPluginsCore
 import amplify_flutter_ios
 
@@ -91,6 +90,10 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
             "cognito:bundleVersion": bundleVersion ?? "",
             "cognito:bundleShortV": bundleShortVersion ?? ""
         ]
+    }
+    
+    public func getBundleIdWithError(_ error: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> String? {
+        return Bundle.main.bundleIdentifier;
     }
     
     public let key: PluginKey = "awsCognitoAuthPlugin"

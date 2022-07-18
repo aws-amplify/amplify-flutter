@@ -66,12 +66,8 @@ abstract class CredentialStoreState
       CredentialStoreClearingCredentials;
 
   /// {@macro amplify_auth_cognito.credential_store_success}
-  const factory CredentialStoreState.success({
-    String? identityId,
-    AWSCredentials? awsCredentials,
-    CognitoUserPoolTokens? userPoolTokens,
-    CognitoDeviceSecrets? deviceSecrets,
-  }) = CredentialStoreSuccess;
+  const factory CredentialStoreState.success(CredentialStoreData data) =
+      CredentialStoreSuccess;
 
   /// {@macro amplify_auth_cognito.credential_store_failure}
   const factory CredentialStoreState.failure(Exception exception) =
@@ -160,24 +156,10 @@ class CredentialStoreClearingCredentials extends CredentialStoreState {
 /// {@endtemplate}
 class CredentialStoreSuccess extends CredentialStoreState {
   /// {@macro amplify_auth_cognito.credential_store_success}
-  const CredentialStoreSuccess({
-    this.identityId,
-    this.awsCredentials,
-    this.userPoolTokens,
-    this.deviceSecrets,
-  }) : super._();
+  const CredentialStoreSuccess(this.data) : super._();
 
-  /// AWS Identity ID
-  final String? identityId;
-
-  /// AWS Identity Pool credentials
-  final AWSCredentials? awsCredentials;
-
-  /// Cognito User Pool tokens
-  final CognitoUserPoolTokens? userPoolTokens;
-
-  /// Registered device secrets
-  final CognitoDeviceSecrets? deviceSecrets;
+  /// {@macro amplify_auth_cognito_dart.credential_store_state.credential_store_data}
+  final CredentialStoreData data;
 
   @override
   CredentialStoreStateType get type => CredentialStoreStateType.success;
@@ -185,10 +167,7 @@ class CredentialStoreSuccess extends CredentialStoreState {
   @override
   List<Object?> get props => [
         type,
-        identityId,
-        awsCredentials,
-        userPoolTokens,
-        deviceSecrets,
+        data,
       ];
 }
 
@@ -208,4 +187,37 @@ class CredentialStoreFailure extends CredentialStoreState with ErrorState {
 
   @override
   List<Object?> get props => [type, exception];
+}
+
+/// {@template amplify_auth_cognito_dart.credential_store_state.credential_store_data}
+/// Data stored by the Credential Store.
+/// {@endtemplate}
+class CredentialStoreData with AWSEquatable<CredentialStoreData> {
+  /// {@macro amplify_auth_cognito_dart.credential_store_state.credential_store_data}
+  const CredentialStoreData({
+    this.identityId,
+    this.awsCredentials,
+    this.userPoolTokens,
+    this.deviceSecrets,
+  });
+
+  /// AWS Identity ID
+  final String? identityId;
+
+  /// AWS Identity Pool credentials
+  final AWSCredentials? awsCredentials;
+
+  /// Cognito User Pool tokens
+  final CognitoUserPoolTokens? userPoolTokens;
+
+  /// Registered device secrets
+  final CognitoDeviceSecrets? deviceSecrets;
+
+  @override
+  List<Object?> get props => [
+        identityId,
+        awsCredentials,
+        userPoolTokens,
+        deviceSecrets,
+      ];
 }

@@ -16,12 +16,14 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
-import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/secure_storage_extension.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/credential_store_state_machine_base.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 /// {@template amplify_auth_cognito.auth_store_state_machine}
@@ -34,6 +36,9 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
   /// The [CredentialStoreStateMachine] type.
   static const type = StateMachineToken<CredentialStoreEvent,
       CredentialStoreState, CredentialStoreStateMachine>();
+
+  @override
+  String get runtimeTypeName => 'CredentialStoreStateMachine';
 
   SecureStorageInterface get _secureStorage => getOrCreate();
 
@@ -55,8 +60,27 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     return credentialsState as CredentialStoreSuccess;
   }
 
-  /// Loads the credential store from storage and emits the resulting values.
-  Future<void> _loadCredentialStore() async {
+  /// Fetches the current credential store version.
+  @visibleForTesting
+  Future<CredentialStoreVersion> getVersion() async {
+    final version = await _secureStorage.read(
+      key: CredentialStoreKey.version.name,
+    );
+    return CredentialStoreVersion.values.byName(
+      version ?? CredentialStoreVersion.none.name,
+    );
+  }
+
+  /// Updates the current credential store version.
+  FutureOr<void> _updateVersion(CredentialStoreVersion version) {
+    return _secureStorage.write(
+      key: CredentialStoreKey.version.name,
+      value: version.name,
+    );
+  }
+
+  /// Loads the credential store from storage and returns the data.
+  Future<CredentialStoreData> _loadCredentialStore() async {
     final authConfig = expect<AuthConfiguration>();
 
     CognitoUserPoolTokens? userPoolTokens;
@@ -153,141 +177,144 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       }
     }
 
-    emit(
-      CredentialStoreState.success(
-        userPoolTokens: userPoolTokens,
-        identityId: identityId,
-        awsCredentials: awsCredentials,
-        deviceSecrets: deviceSecrets,
-      ),
+    return CredentialStoreData(
+      userPoolTokens: userPoolTokens,
+      identityId: identityId,
+      awsCredentials: awsCredentials,
+      deviceSecrets: deviceSecrets,
     );
   }
 
-  @override
-  Future<void> onLoadCredentialStore(
-    CredentialStoreLoadCredentialStore event,
-  ) async {
-    await _loadCredentialStore();
-  }
-
-  @override
-  Future<void> onMigrateLegacyCredentialStore(
-    CredentialStoreMigrateLegacyCredentialStore event,
-  ) async {
-    // TODO(Jordan-Nelson): Implement migration flow
-    emit(const CredentialStoreState.success());
-  }
-
-  @override
-  Future<void> onStoreCredentials(
-    CredentialStoreStoreCredentials event,
-  ) async {
+  /// Stores the data to storage.
+  Future<void> _storeCredentials(CredentialStoreData data) async {
+    final userPoolTokens = data.userPoolTokens;
+    final deviceSecrets = data.deviceSecrets;
+    final identityId = data.identityId;
+    final awsCredentials = data.awsCredentials;
     final authConfig = expect<AuthConfiguration>();
+
+    final items = <String, String>{};
+    final deletions = <String>[];
 
     final userPoolConfig = authConfig.userPoolConfig;
     if (userPoolConfig != null) {
       final keys = CognitoUserPoolKeys(userPoolConfig);
-      final userPoolTokens = event.userPoolTokens;
       if (userPoolTokens != null &&
           userPoolTokens.signInMethod == CognitoSignInMethod.default$) {
-        _secureStorage
-          ..write(
-            key: keys[CognitoUserPoolKey.accessToken],
-            value: userPoolTokens.accessToken.raw,
-          )
-          ..write(
-            key: keys[CognitoUserPoolKey.refreshToken],
-            value: userPoolTokens.refreshToken,
-          )
-          ..write(
-            key: keys[CognitoUserPoolKey.idToken],
-            value: userPoolTokens.idToken.raw,
-          );
+        items.addAll({
+          keys[CognitoUserPoolKey.accessToken]: userPoolTokens.accessToken.raw,
+          keys[CognitoUserPoolKey.refreshToken]: userPoolTokens.refreshToken,
+          keys[CognitoUserPoolKey.idToken]: userPoolTokens.idToken.raw,
+        });
       }
 
-      final deviceSecrets = event.deviceSecrets;
       if (deviceSecrets != null) {
-        _secureStorage
-          ..write(
-            key: keys[CognitoUserPoolKey.deviceKey],
-            value: deviceSecrets.deviceKey,
-          )
-          ..write(
-            key: keys[CognitoUserPoolKey.deviceGroupKey],
-            value: deviceSecrets.deviceGroupKey,
-          );
+        items.addAll({
+          keys[CognitoUserPoolKey.deviceKey]: deviceSecrets.deviceKey,
+          keys[CognitoUserPoolKey.deviceGroupKey]: deviceSecrets.deviceGroupKey,
+        });
       }
     }
 
     final hostedUiConfig = authConfig.hostedUiConfig;
     if (hostedUiConfig != null) {
       final keys = HostedUiKeys(hostedUiConfig);
-      final userPoolTokens = event.userPoolTokens;
       if (userPoolTokens != null &&
-          userPoolTokens.signInMethod == CognitoSignInMethod.hostedUi) {
-        _secureStorage
-          ..write(
-            key: keys[HostedUiKey.accessToken],
-            value: userPoolTokens.accessToken.raw,
-          )
-          ..write(
-            key: keys[HostedUiKey.refreshToken],
-            value: userPoolTokens.refreshToken,
-          )
-          ..write(
-            key: keys[HostedUiKey.idToken],
-            value: userPoolTokens.idToken.raw,
-          );
+          (userPoolTokens.signInMethod == CognitoSignInMethod.hostedUi)) {
+        items.addAll({
+          keys[HostedUiKey.accessToken]: userPoolTokens.accessToken.raw,
+          keys[HostedUiKey.refreshToken]: userPoolTokens.refreshToken,
+          keys[HostedUiKey.idToken]: userPoolTokens.idToken.raw,
+        });
       }
     }
 
     final identityPoolConfig = authConfig.identityPoolConfig;
     if (identityPoolConfig != null) {
       final keys = CognitoIdentityPoolKeys(identityPoolConfig);
-      final identityId = event.identityId;
       if (identityId != null) {
-        _secureStorage.write(
-          key: keys[CognitoIdentityPoolKey.identityId],
-          value: identityId,
-        );
+        items[keys[CognitoIdentityPoolKey.identityId]] = identityId;
       }
-      final awsCredentials = event.awsCredentials;
       if (awsCredentials != null) {
-        _secureStorage
-          ..write(
-            key: keys[CognitoIdentityPoolKey.accessKeyId],
-            value: awsCredentials.accessKeyId,
-          )
-          ..write(
-            key: keys[CognitoIdentityPoolKey.secretAccessKey],
-            value: awsCredentials.secretAccessKey,
-          );
+        items.addAll({
+          keys[CognitoIdentityPoolKey.accessKeyId]: awsCredentials.accessKeyId,
+          keys[CognitoIdentityPoolKey.secretAccessKey]:
+              awsCredentials.secretAccessKey,
+        });
+
         final sessionToken = awsCredentials.sessionToken;
         if (sessionToken != null) {
-          _secureStorage.write(
-            key: keys[CognitoIdentityPoolKey.sessionToken],
-            value: sessionToken,
-          );
+          items[keys[CognitoIdentityPoolKey.sessionToken]] = sessionToken;
         } else {
-          _secureStorage.delete(
-            key: keys[CognitoIdentityPoolKey.sessionToken],
-          );
+          deletions.add(keys[CognitoIdentityPoolKey.sessionToken]);
         }
         final expiration = awsCredentials.expiration;
         if (expiration != null) {
-          _secureStorage.write(
-            key: keys[CognitoIdentityPoolKey.expiration],
-            value: expiration.toIso8601String(),
-          );
+          items[keys[CognitoIdentityPoolKey.expiration]] =
+              expiration.toIso8601String();
         } else {
-          _secureStorage.delete(
-            key: keys[CognitoIdentityPoolKey.expiration],
-          );
+          deletions.add(keys[CognitoIdentityPoolKey.expiration]);
         }
       }
     }
+    await _secureStorage.writeMany(items);
+    await _secureStorage.deleteMany(deletions);
+  }
 
-    await _loadCredentialStore();
+  @override
+  Future<void> onMigrateLegacyCredentialStore(
+    CredentialStoreMigrateLegacyCredentialStore event,
+  ) async {
+    final version = await getVersion();
+    if (version == CredentialStoreVersion.none) {
+      final legacyCredentialProvider = get<LegacyCredentialProvider>();
+      if (legacyCredentialProvider != null) {
+        final authConfig = expect<AuthConfiguration>();
+        try {
+          final legacyData =
+              await legacyCredentialProvider.fetchLegacyCredentials(
+            userPoolConfig: authConfig.userPoolConfig,
+            identityPoolConfig: authConfig.identityPoolConfig,
+            hostedUiConfig: authConfig.hostedUiConfig,
+          );
+          if (legacyData != null) {
+            await _storeCredentials(legacyData);
+          }
+        } on Object catch (e, s) {
+          logger.error('Error migrating legacy credentials', e, s);
+        } finally {
+          try {
+            await legacyCredentialProvider.deleteLegacyCredentials(
+              userPoolConfig: authConfig.userPoolConfig,
+              identityPoolConfig: authConfig.identityPoolConfig,
+              hostedUiConfig: authConfig.hostedUiConfig,
+            );
+          } on Object catch (e, s) {
+            logger.error('Error clearing legacy credentials', e, s);
+          }
+        }
+      }
+
+      await _updateVersion(CredentialStoreVersion.v1);
+    }
+    dispatch(const CredentialStoreEvent.loadCredentialStore());
+  }
+
+  @override
+  Future<void> onLoadCredentialStore(
+    CredentialStoreLoadCredentialStore event,
+  ) async {
+    final data = await _loadCredentialStore();
+    dispatch(CredentialStoreEvent.succeeded(data));
+  }
+
+  @override
+  Future<void> onStoreCredentials(
+    CredentialStoreStoreCredentials event,
+  ) async {
+    await _storeCredentials(event.data);
+    final data = await _loadCredentialStore();
+    dispatch(CredentialStoreEvent.succeeded(data));
   }
 
   @override
@@ -297,6 +324,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     final authConfig = expect<AuthConfiguration>();
 
     final clearKeys = event.keys;
+    final deletions = <String>[];
     bool shouldDelete(String key) =>
         clearKeys.isEmpty || clearKeys.contains(key);
 
@@ -305,7 +333,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
       for (final key in userPoolKeys) {
         if (shouldDelete(key)) {
-          _secureStorage.delete(key: key);
+          deletions.add(key);
         }
       }
     }
@@ -315,7 +343,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       final hostedUiKeys = HostedUiKeys(hostedUiConfig);
       for (final key in hostedUiKeys) {
         if (shouldDelete(key)) {
-          _secureStorage.delete(key: key);
+          deletions.add(key);
         }
       }
     }
@@ -325,11 +353,13 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
       for (final key in identityPoolKeys) {
         if (shouldDelete(key)) {
-          _secureStorage.delete(key: key);
+          deletions.add(key);
         }
       }
     }
 
-    await _loadCredentialStore();
+    await _secureStorage.deleteMany(deletions);
+    final data = await _loadCredentialStore();
+    dispatch(CredentialStoreEvent.succeeded(data));
   }
 }

@@ -18,7 +18,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.reset_password_result}
 /// The result of a password reset request.
 /// {@endtemplate}
-class ResetPasswordResult with AWSEquatable<ResetPasswordResult> {
+abstract class ResetPasswordResult with AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.reset_password_result}
   const ResetPasswordResult({
     required this.isPasswordReset,
@@ -27,7 +27,4 @@ class ResetPasswordResult with AWSEquatable<ResetPasswordResult> {
 
   final bool isPasswordReset;
   final ResetPasswordStep nextStep;
-
-  @override
-  List<Object?> get props => [isPasswordReset, nextStep];
 }

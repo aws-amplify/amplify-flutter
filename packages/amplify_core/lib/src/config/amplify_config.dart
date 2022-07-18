@@ -21,7 +21,7 @@ part 'amplify_config.g.dart';
 /// {@template amplify_core.amplify_config}
 /// The configuration for Amplify libraries.
 /// {@endtemplate}
-@amplifySerializable
+@zAmplifySerializable
 class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
   @JsonKey(name: 'UserAgent')
   final String userAgent;

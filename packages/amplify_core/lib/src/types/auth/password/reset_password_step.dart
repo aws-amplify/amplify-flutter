@@ -20,7 +20,7 @@ part 'reset_password_step.g.dart';
 /// {@template amplify_core.reset_password_step}
 /// The next step required for resetting a user's password.
 /// {@endtemplate}
-@amplifySerializable
+@zAmplifySerializable
 class ResetPasswordStep extends AuthNextStep
     with
         AWSEquatable<ResetPasswordStep>,

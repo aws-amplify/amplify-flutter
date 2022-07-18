@@ -17,7 +17,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'user_pool.g.dart';
 
-@awsSerializable
+@zAwsSerializable
 class CognitoUserPoolConfig
     with AWSEquatable<CognitoUserPoolConfig>, AWSSerializable {
   final String poolId;

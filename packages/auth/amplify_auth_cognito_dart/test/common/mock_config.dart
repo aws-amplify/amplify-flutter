@@ -15,6 +15,7 @@
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
+import 'package:amplify_auth_cognito_dart/src/model/session/cognito_user_pool_tokens.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 const testUserPoolId = 'us-east-1_userPoolId';
@@ -113,3 +114,14 @@ final userPoolConfig = authConfig.userPoolConfig!;
 final identityPoolConfig = authConfig.identityPoolConfig!;
 final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
 final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
+final userPoolTokens = CognitoUserPoolTokens(
+  accessToken: accessToken,
+  idToken: idToken,
+  refreshToken: refreshToken,
+);
+final awsCredentials = AWSCredentials(
+  accessKeyId,
+  secretAccessKey,
+  sessionToken,
+  expiration,
+);

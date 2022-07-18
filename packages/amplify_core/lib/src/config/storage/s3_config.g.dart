@@ -20,7 +20,7 @@ Map<String, dynamic> _$S3PluginConfigToJson(S3PluginConfig instance) =>
       'bucket': instance.bucket,
       'region': instance.region,
       'defaultAccessLevel':
-          _$StorageAccessLevelEnumMap[instance.defaultAccessLevel],
+          _$StorageAccessLevelEnumMap[instance.defaultAccessLevel]!,
     };
 
 const _$StorageAccessLevelEnumMap = {

@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
-
 import 'package:aft/aft.dart';
 
 /// Command to list all Dart/Flutter packages in the repo.
@@ -27,7 +25,7 @@ class ListPackagesCommand extends AmplifyCommand {
   @override
   Future<void> run() async {
     for (final package in await allPackages) {
-      stdout.writeln(package.name);
+      logger.stdout(package.name);
     }
   }
 }

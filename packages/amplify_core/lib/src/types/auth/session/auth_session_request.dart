@@ -13,12 +13,41 @@
  * permissions and limitations under the License.
  */
 
-import 'auth_session_options.dart';
+import 'package:amplify_core/amplify_core.dart';
 
-class AuthSessionRequest {
-  AuthSessionOptions? options;
-  AuthSessionRequest({this.options});
-  Map<String, Object?> serializeAsMap() => {
-        if (options != null) 'options': options!.serializeAsMap(),
-      };
+part 'auth_session_request.g.dart';
+
+@zAmplifyGenericSerializable
+class AuthSessionRequest<Options extends AuthSessionOptions>
+    with
+        AWSEquatable<AuthSessionRequest<AuthSessionOptions>>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  const AuthSessionRequest({this.options});
+
+  factory AuthSessionRequest.fromJson(
+    Map<String, Object?> json,
+    Options Function(Map<String, Object?>) fromJsonOptions,
+  ) =>
+      _$AuthSessionRequestFromJson(
+        json,
+        (json) => fromJsonOptions((json as Map).cast()),
+      );
+
+  final Options? options;
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
+
+  @override
+  List<Object?> get props => [options];
+
+  @override
+  String get runtimeTypeName => 'AuthSessionRequest';
+
+  @override
+  Map<String, Object?> toJson() => _$AuthSessionRequestToJson(
+        this,
+        (Options options) => options.toJson(),
+      );
 }

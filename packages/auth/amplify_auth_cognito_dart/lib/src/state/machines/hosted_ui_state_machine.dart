@@ -17,14 +17,11 @@ import 'dart:convert';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
-import 'package:amplify_auth_cognito_dart/src/credentials/credentials.dart';
-import 'package:amplify_auth_cognito_dart/src/http/credentialed_client.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/hosted_ui_state_machine_base.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:http/http.dart' as http;
 
 /// {@template amplify_auth_cognito.hosted_ui_state_machine}
 /// Manages the Hosted UI lifecycle and OIDC flow.
@@ -37,19 +34,21 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
   static const type =
       StateMachineToken<HostedUiEvent, HostedUiState, HostedUiStateMachine>();
 
+  @override
+  String get runtimeTypeName => 'HostedUiStateMachine';
+
   CognitoOAuthConfig get _config => expect();
   HostedUiKeys get _keys => HostedUiKeys(_config);
   SecureStorageInterface get _secureStorage => getOrCreate();
-  http.Client get _httpClient => getOrCreate();
 
   /// The platform-specific behavior.
   late final HostedUiPlatform _platform = getOrCreate(HostedUiPlatform.token);
 
   @override
   Future<void> onConfigure(HostedUiConfigure event) async {
-    final credentials = await getOrCreate(CredentialStoreStateMachine.type)
+    final result = await getOrCreate(CredentialStoreStateMachine.type)
         .getCredentialsResult();
-    final userPoolTokens = credentials.userPoolTokens;
+    final userPoolTokens = result.data.userPoolTokens;
     if (userPoolTokens != null) {
       emit(HostedUiState.signedIn(userPoolTokens.authUser));
       return;
@@ -114,17 +113,6 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
   Future<void> onExchange(HostedUiExchange event) async {
     try {
       final tokens = await _platform.exchange(event.parameters);
-      addInstance(
-        CredentialedClient(
-          credentials: Credentials.fromUserPoolTokens(
-            tokens,
-            config: _config,
-            secureStorage: _secureStorage,
-            httpClient: _httpClient,
-          ),
-          clientId: _config.appClientId,
-        ),
-      );
       dispatch(HostedUiEvent.succeeded(tokens));
     } on Exception catch (e) {
       dispatch(HostedUiEvent.failed(e));
@@ -140,7 +128,7 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
       final options = optionsJson == null
           ? const CognitoSignOutWithWebUIOptions()
           : CognitoSignOutWithWebUIOptions.fromJson(
-              (jsonDecode(optionsJson) as Map<Object?, Object?>).cast(),
+              jsonDecode(optionsJson) as Map<String, Object?>,
             );
       // Clear credentials before dispatching to platform since the platform
       // may redirect and only for the intention of clearing cookies. That is,
@@ -162,7 +150,9 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
   Future<void> onSucceeded(HostedUiSucceeded event) async {
     dispatch(
       CredentialStoreEvent.storeCredentials(
-        userPoolTokens: event.tokens,
+        CredentialStoreData(
+          userPoolTokens: event.tokens,
+        ),
       ),
     );
   }

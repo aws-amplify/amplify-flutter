@@ -20,7 +20,7 @@ import 'package:meta/meta.dart';
 /// Common interface for devices tracked by an authentication provider.
 /// {@endtemplate}
 @immutable
-abstract class AuthDevice with AWSSerializable {
+abstract class AuthDevice with AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_auth_cognito.auth_device}
   const AuthDevice();
 

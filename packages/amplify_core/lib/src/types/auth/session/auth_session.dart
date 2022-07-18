@@ -13,10 +13,12 @@
  * permissions and limitations under the License.
  */
 
-class AuthSession {
-  final bool isSignedIn;
+import 'package:amplify_core/amplify_core.dart';
 
+abstract class AuthSession with AWSSerializable<Map<String, Object?>> {
   const AuthSession({
     required this.isSignedIn,
   });
+
+  final bool isSignedIn;
 }

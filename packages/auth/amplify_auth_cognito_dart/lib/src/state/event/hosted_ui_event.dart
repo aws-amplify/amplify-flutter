@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// Discrete event types of the hosted UI state machine.
@@ -43,7 +44,8 @@ enum HostedUiEventType {
 }
 
 /// Discrete events of the hosted UI state machine.
-abstract class HostedUiEvent extends StateMachineEvent<HostedUiEventType> {
+abstract class HostedUiEvent
+    extends StateMachineEvent<HostedUiEventType, HostedUiStateType> {
   const HostedUiEvent._();
 
   /// {@macro amplify_auth_cognito.hosted_ui_configure}
@@ -169,9 +171,11 @@ class HostedUiCancelSignIn extends HostedUiEvent {
   HostedUiEventType get type => HostedUiEventType.cancelSignIn;
 
   @override
-  String? checkPrecondition(HostedUiState currentState) {
+  PreconditionException? checkPrecondition(HostedUiState currentState) {
     if (currentState.type != HostedUiStateType.signingIn) {
-      return 'There is no active sign-in session';
+      return const AuthPreconditionException(
+        'There is no active sign-in session',
+      );
     }
     return null;
   }
@@ -208,18 +212,23 @@ class HostedUiSignOut extends HostedUiEvent {
   HostedUiEventType get type => HostedUiEventType.signOut;
 
   @override
-  String? checkPrecondition(HostedUiState currentState) {
+  PreconditionException? checkPrecondition(HostedUiState currentState) {
     switch (currentState.type) {
       case HostedUiStateType.notConfigured:
-        return 'Hosted UI is not configured';
+        return const AuthPreconditionException('Hosted UI is not configured');
       case HostedUiStateType.configuring:
-        return 'Hosted UI is configuring';
+        return const AuthPreconditionException('Hosted UI is configuring');
       case HostedUiStateType.signingIn:
-        return 'Hosted UI is signing in';
+        return const AuthPreconditionException('Hosted UI is signing in');
       case HostedUiStateType.signedOut:
-        return 'Hosted UI is already signed out';
+        return const AuthPreconditionException(
+          'Hosted UI is already signed out',
+          shouldEmit: false,
+        );
       case HostedUiStateType.signingOut:
-        return 'Hosted UI is already signing out';
+        return const AuthPreconditionException(
+          'Hosted UI is already signing out',
+        );
       case HostedUiStateType.signedIn:
       case HostedUiStateType.failure:
         return null;
@@ -262,9 +271,12 @@ class HostedUiFailed extends HostedUiEvent with ErrorEvent {
   HostedUiEventType get type => HostedUiEventType.failed;
 
   @override
-  String? checkPrecondition(HostedUiState currentState) {
+  PreconditionException? checkPrecondition(HostedUiState currentState) {
     if (currentState.type == HostedUiStateType.failure) {
-      return 'The state machine is already in a failure state.';
+      return const AuthPreconditionException(
+        'The state machine is already in a failure state.',
+        shouldEmit: false,
+      );
     }
     return null;
   }

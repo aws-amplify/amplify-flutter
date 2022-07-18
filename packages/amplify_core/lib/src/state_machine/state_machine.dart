@@ -135,9 +135,11 @@ abstract class StateMachineManager<E extends StateMachineEvent>
 /// {@endtemplate}
 abstract class StateMachine<Event extends StateMachineEvent,
         State extends StateMachineState>
+    with AWSDebuggable, AmplifyLoggerMixin
     implements Emitter<State>, StateMachineManager {
   /// {@macro amplify_core.state_machine}
   StateMachine(this._manager) {
+    addBuilder<AmplifyLogger>(AmplifyLogger.new);
     _init();
   }
 
@@ -160,24 +162,15 @@ abstract class StateMachine<Event extends StateMachineEvent,
   Future<void> _listenForEvents() async {
     await for (final event in _eventStream) {
       try {
+        _currentEvent = event;
         if (!_checkPrecondition(event)) {
           continue;
         }
-        _currentEvent = event;
         // Resolve in the next event loop since `emit` is synchronous and may
         // fire before listeners are registered.
         await Future.delayed(Duration.zero, () => resolve(event));
       } on Object catch (error, st) {
-        final resolution = resolveError(error, st);
-
-        // Add the error to the state stream if it cannot be resolved to a new
-        // state internally.
-        if (resolution == null) {
-          _stateController.addError(error, st);
-          continue;
-        }
-
-        emit(resolution);
+        _emitError(error, st);
       }
     }
   }
@@ -200,13 +193,33 @@ abstract class StateMachine<Event extends StateMachineEvent,
     _currentState = state;
   }
 
+  void _emitError(Object error, [StackTrace? st]) {
+    logger.error('Emitted error', error, st);
+
+    final resolution = resolveError(error, st);
+
+    // Add the error to the state stream if it cannot be resolved to a new
+    // state internally.
+    if (resolution == null) {
+      _stateController.addError(error, st);
+      return;
+    }
+
+    emit(resolution);
+  }
+
   /// Checks the precondition on [event] given [currentState]. If it fails,
   /// return `false` to skip the event.
   bool _checkPrecondition(Event event) {
     final precondError = event.checkPrecondition(currentState);
     if (precondError != null) {
-      // TODO(dnys1): Log
-      safePrint('Precondition not met for event: $event ($precondError)');
+      logger.info(
+        'Precondition not met for event ($event):\n'
+        '${precondError.precondition}',
+      );
+      if (precondError.shouldEmit) {
+        _emitError(precondError);
+      }
       return false;
     }
 
@@ -250,6 +263,11 @@ abstract class StateMachine<Event extends StateMachineEvent,
   /// If the error cannot be resolved, return `null` and the error will be
   /// rethrown.
   State? resolveError(Object error, [StackTrace? st]);
+
+  /// Logger for the state machine.
+  @override
+  AmplifyLogger get logger =>
+      getOrCreate<AmplifyLogger>().createChild(runtimeTypeName);
 
   /// The stream of state machine states.
   @override

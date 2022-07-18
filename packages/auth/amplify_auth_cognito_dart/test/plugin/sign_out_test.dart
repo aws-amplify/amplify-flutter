@@ -123,14 +123,18 @@ void main() {
         await expectLater(plugin.signOut(), completes);
         expect(hubEvents, emitsSignOutEvent);
 
-        final credentials = await stateMachine
+        final result = await stateMachine
             .getOrCreate(CredentialStoreStateMachine.type)
             .getCredentialsResult();
         expect(
-          credentials,
+          result,
           isA<CredentialStoreSuccess>()
-              .having((creds) => creds.userPoolTokens, 'tokens', isNull)
-              .having((creds) => creds.awsCredentials, 'awsCreds', isNotNull),
+              .having((result) => result.data.userPoolTokens, 'tokens', isNull)
+              .having(
+                (result) => result.data.awsCredentials,
+                'awsCreds',
+                isNotNull,
+              ),
         );
       });
 
@@ -173,8 +177,8 @@ void main() {
         await expectLater(plugin.getUserPoolTokens(), completes);
         await expectLater(
           plugin.signOut(
-            request: SignOutRequest(
-              options: const SignOutOptions(globalSignOut: true),
+            request: const SignOutRequest(
+              options: SignOutOptions(globalSignOut: true),
             ),
           ),
           throwsA(isA<Exception>()),
@@ -201,8 +205,8 @@ void main() {
         await expectLater(plugin.getUserPoolTokens(), completes);
         await expectLater(
           plugin.signOut(
-            request: SignOutRequest(
-              options: const SignOutOptions(globalSignOut: true),
+            request: const SignOutRequest(
+              options: SignOutOptions(globalSignOut: true),
             ),
           ),
           throwsA(isA<Exception>()),
@@ -258,8 +262,8 @@ void main() {
           await expectLater(plugin.getUserPoolTokens(), completes);
           await expectLater(
             plugin.signOut(
-              request: SignOutRequest(
-                options: const SignOutOptions(globalSignOut: true),
+              request: const SignOutRequest(
+                options: SignOutOptions(globalSignOut: true),
               ),
             ),
             throwsA(isA<Exception>()),
@@ -286,8 +290,8 @@ void main() {
           await expectLater(plugin.getUserPoolTokens(), completes);
           await expectLater(
             plugin.signOut(
-              request: SignOutRequest(
-                options: const SignOutOptions(globalSignOut: true),
+              request: const SignOutRequest(
+                options: SignOutOptions(globalSignOut: true),
               ),
             ),
             throwsA(isA<Exception>()),

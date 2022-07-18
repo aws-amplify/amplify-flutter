@@ -30,6 +30,8 @@ class AmplifyHubImpl extends AmplifyHub {
   /// {@macro amplify_core.hub.amplify_hub_impl}
   AmplifyHubImpl() : super.protected();
 
+  static final AmplifyLogger _logger = AmplifyLogger.category(Category.hub);
+
   final Map<HubChannel, StreamCompleter<HubEvent>> _streamCompleters = {};
   final Map<HubChannel, StreamGroup<HubEvent>> _availableStreams = {};
   final Map<HubChannel, List<StreamSubscription>> _subscriptions = {};
@@ -63,8 +65,8 @@ class AmplifyHubImpl extends AmplifyHub {
     final subscription = _initChannel(channel).stream.listen(
           listener,
           onError: onError ??
-              (Object? _, StackTrace __) {
-                // TODO(dnys1): Log
+              (Object? e, StackTrace st) {
+                _logger.error('Error in channel $channel', e, st);
               },
           cancelOnError: true,
         );

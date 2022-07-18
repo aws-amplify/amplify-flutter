@@ -13,13 +13,16 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/amplify_core.dart';
+
 /// {@template amplify_core.confirm_reset_password_options}
 /// The shared confirm reset password options among all Auth plugins.
 /// {@endtemplate}
-abstract class ConfirmResetPasswordOptions {
+abstract class ConfirmResetPasswordOptions
+    with AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.confirm_reset_password_options}
   const ConfirmResetPasswordOptions();
 
-  /// Serialize the object to a map.
-  Map<String, Object?> serializeAsMap();
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 }

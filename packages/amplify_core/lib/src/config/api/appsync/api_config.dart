@@ -14,11 +14,10 @@
 //
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'api_config.g.dart';
 
-@amplifySerializable
+@zAmplifySerializable
 class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
   final EndpointType endpointType;
   final String endpoint;

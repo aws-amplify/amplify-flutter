@@ -47,6 +47,20 @@ abstract class AmplifySecureStorageConfig
     );
   }
 
+  /// Configuration options for overriding the default namespace.
+  factory AmplifySecureStorageConfig.byNamespace({
+    required String namespace,
+  }) {
+    return _$AmplifySecureStorageConfig._(
+      namespace: namespace,
+      webOptions: WebSecureStorageOptions(),
+      windowsOptions: WindowsSecureStorageOptions(),
+      linuxOptions: LinuxSecureStorageOptions(),
+      macOSOptions: MacOSSecureStorageOptions(),
+      iOSOptions: IOSSecureStorageOptions(),
+    );
+  }
+
   const AmplifySecureStorageConfig._();
 
   /// The default namespace for keys-value pairs.
@@ -58,7 +72,9 @@ abstract class AmplifySecureStorageConfig
   /// - Windows: the prefix for the target name of each secret
   /// - Linux: the SecretSchema schema name
   /// - Web: the Indexed DB Database name
-  String get defaultNamespace => 'com.amplify.$scope';
+  String get defaultNamespace => namespace ?? 'com.amplify.$scope';
+
+  String? get namespace;
 
   /// The scope of the secrets to be stored.
   ///
@@ -67,7 +83,7 @@ abstract class AmplifySecureStorageConfig
   /// This value will be used to create a namespace for the secret.
   ///
   /// See also: [defaultNamespace]
-  String get scope;
+  String? get scope;
 
   /// Options that are specific to the Web platform.
   WebSecureStorageOptions get webOptions;

@@ -37,6 +37,7 @@ import 'package:amplify_core/amplify_core.dart'
 import 'package:async/async.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:meta/meta.dart';
+import 'package:worker_bee/worker_bee.dart';
 
 /// {@template amplify_auth_cognito.sign_in_state_machine}
 /// Base class for state machines which perform some auth flow. These all follow
@@ -50,6 +51,9 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   /// The [SignInStateMachine] type.
   static const type =
       StateMachineToken<SignInEvent, SignInState, SignInStateMachine>();
+
+  @override
+  String get runtimeTypeName => 'SignInStateMachine';
 
   @override
   SignInState get initialState => const SignInState.notStarted();
@@ -107,6 +111,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           return worker;
         }
         worker = SrpInitWorker.create();
+        // TODO(dnys1): Log
         worker.logs.listen(safePrint);
         await worker.spawn();
         addInstance<SrpInitWorker>(worker);
@@ -121,6 +126,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           return worker;
         }
         worker = SrpPasswordVerifierWorker.create();
+        // TODO(dnys1): Log
         worker.logs.listen(safePrint);
         await worker.spawn();
         addInstance<SrpPasswordVerifierWorker>(worker);
@@ -135,6 +141,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           return worker;
         }
         worker = SrpDevicePasswordVerifierWorker.create();
+        // TODO(dnys1): Log
         worker.logs.listen(safePrint);
         await worker.spawn();
         addInstance<SrpDevicePasswordVerifierWorker>(worker);
@@ -149,6 +156,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           return worker;
         }
         worker = ConfirmDeviceWorker.create();
+        // TODO(dnys1): Log
         worker.logs.listen(safePrint);
         await worker.spawn();
         addInstance<ConfirmDeviceWorker>(worker);
@@ -178,7 +186,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       return password;
     }
 
-    authFlowType = event.authFlow ?? defaultAuthFlowType;
+    authFlowType = event.authFlowType ?? defaultAuthFlowType;
     switch (authFlowType) {
       case AuthFlowType.userSrpAuth:
         expectPassword();
@@ -569,7 +577,9 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
     dispatch(
       CredentialStoreEvent.storeCredentials(
-        userPoolTokens: user.userPoolTokens.build(),
+        CredentialStoreData(
+          userPoolTokens: user.userPoolTokens.build(),
+        ),
       ),
     );
 
@@ -602,14 +612,14 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
     // Collect current user info which may influence SRP flow.
     try {
-      final credentials =
+      final result =
           await expect(CredentialStoreStateMachine.type).getCredentialsResult();
-      final deviceSecrets = credentials.deviceSecrets;
+      final deviceSecrets = result.data.deviceSecrets;
       if (deviceSecrets != null) {
         user.deviceSecrets.replace(deviceSecrets);
       }
-    } on Exception {
-      // TODO(dnys1): Log
+    } on Exception catch (e, st) {
+      logger.debug('Could not retrieve credentials', e, st);
     }
 
     final initRequest = await initiate(event);
@@ -706,7 +716,9 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
         dispatch(
           CredentialStoreEvent.storeCredentials(
-            deviceSecrets: user.deviceSecrets.build(),
+            CredentialStoreData(
+              deviceSecrets: user.deviceSecrets.build(),
+            ),
           ),
         );
       }

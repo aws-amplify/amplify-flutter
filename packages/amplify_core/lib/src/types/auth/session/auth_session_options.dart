@@ -13,11 +13,11 @@
  * permissions and limitations under the License.
  */
 
-class AuthSessionOptions {
+import 'package:amplify_core/amplify_core.dart';
+
+abstract class AuthSessionOptions with AWSSerializable<Map<String, Object?>> {
   const AuthSessionOptions();
 
-  Map<String, Object?> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on AuthSessionOptions.');
-  }
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 }

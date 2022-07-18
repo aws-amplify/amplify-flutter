@@ -23,9 +23,9 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.kotlin.argumentCaptor
+import org.mockito.kotlin.atLeastOnce
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 
 internal class AmplifyHostedUiPluginTest {
@@ -46,7 +46,7 @@ internal class AmplifyHostedUiPluginTest {
         val handler = argumentCaptor<BinaryMessenger.BinaryMessageHandler>()
         verify(
             binaryMessenger,
-            times(4)
+            atLeastOnce()
         ).setMessageHandler(anyString(), handler.capture())
 
         val codec = NativeAuthPluginBindings.NativeAuthBridge.getCodec()
@@ -84,7 +84,7 @@ internal class AmplifyHostedUiPluginTest {
         val handler = argumentCaptor<BinaryMessenger.BinaryMessageHandler>()
         verify(
             binaryMessenger,
-            times(4)
+            atLeastOnce()
         ).setMessageHandler(anyString(), handler.capture())
 
         val codec = NativeAuthPluginBindings.NativeAuthBridge.getCodec()

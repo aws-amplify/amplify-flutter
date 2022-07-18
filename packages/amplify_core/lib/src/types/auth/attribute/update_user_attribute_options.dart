@@ -13,13 +13,16 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/amplify_core.dart';
+
 /// {@template amplify_core.update_user_attribute_options}
 /// The shared update user attribute options among all Auth plugins.
 /// {@endtemplate}
-abstract class UpdateUserAttributeOptions {
+abstract class UpdateUserAttributeOptions
+    with AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.update_user_attribute_options}
   const UpdateUserAttributeOptions();
 
-  /// Serialize the object to a map
-  Map<String, Object?> serializeAsMap();
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
 }
