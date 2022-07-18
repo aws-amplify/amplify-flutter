@@ -14,16 +14,23 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:http/http.dart' as http;
+import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:test/test.dart';
 
 const _testAuthKey = 'TestAuthKey';
 const _testToken = 'abc123-fake-token';
 
+AWSHttpRequest _generateTestRequest() {
+  return AWSHttpRequest(
+    method: AWSHttpMethod.get,
+    uri: Uri.parse('https://www.amazon.com'),
+  );
+}
+
 class TestAuthProvider extends AmplifyAuthProvider {
   @override
-  Future<http.BaseRequest> authorizeRequest(
-    http.BaseRequest request, {
+  Future<AWSBaseHttpRequest> authorizeRequest(
+    AWSBaseHttpRequest request, {
     covariant AuthProviderOptions? options,
   }) async {
     request.headers.putIfAbsent(_testAuthKey, () => 'foo');
@@ -33,8 +40,8 @@ class TestAuthProvider extends AmplifyAuthProvider {
 
 class SecondTestAuthProvider extends AmplifyAuthProvider {
   @override
-  Future<http.BaseRequest> authorizeRequest(
-    http.BaseRequest request, {
+  Future<AWSBaseHttpRequest> authorizeRequest(
+    AWSBaseHttpRequest request, {
     covariant AuthProviderOptions? options,
   }) async {
     request.headers.putIfAbsent(_testAuthKey, () => 'bar');
@@ -50,12 +57,12 @@ class TestAWSCredentialsAuthProvider extends AWSCredentialsAmplifyAuthProvider {
   }
 
   @override
-  Future<http.BaseRequest> authorizeRequest(
-    http.BaseRequest request, {
+  Future<AWSSignedRequest> authorizeRequest(
+    AWSBaseHttpRequest request, {
     covariant IamAuthProviderOptions? options,
   }) async {
     request.headers.putIfAbsent(_testAuthKey, () => 'foo');
-    return request;
+    return request as AWSSignedRequest;
   }
 }
 
@@ -71,10 +78,8 @@ void main() {
 
   group('AmplifyAuthProvider', () {
     test('can authorize an HTTP request', () async {
-      final inputRequest =
-          http.Request('GET', Uri.parse('https://www.amazon.com'));
       final authorizedRequest =
-          await authProvider.authorizeRequest(inputRequest);
+          await authProvider.authorizeRequest(_generateTestRequest());
       expect(authorizedRequest.headers[_testAuthKey], 'foo');
     });
   });
@@ -82,10 +87,8 @@ void main() {
   group('TokenAmplifyAuthProvider', () {
     test('will assign the token to the "Authorization" header', () async {
       final tokenAuthProvider = TestTokenProvider();
-      final inputRequest =
-          http.Request('GET', Uri.parse('https://www.amazon.com'));
       final authorizedRequest =
-          await tokenAuthProvider.authorizeRequest(inputRequest);
+          await tokenAuthProvider.authorizeRequest(_generateTestRequest());
       expect(authorizedRequest.headers[AWSHeaders.authorization], _testToken);
     });
   });
@@ -96,11 +99,9 @@ void main() {
 
       const providerKey = AmplifyAuthProviderToken();
       authRepo.registerAuthProvider(providerKey, authProvider);
-      final inputRequest =
-          http.Request('GET', Uri.parse('https://www.amazon.com'));
       final actualAuthProvider = authRepo.getAuthProvider(providerKey);
       final authorizedRequest =
-          await actualAuthProvider!.authorizeRequest(inputRequest);
+          await actualAuthProvider!.authorizeRequest(_generateTestRequest());
       expect(authorizedRequest.headers[_testAuthKey], 'foo');
     });
 
@@ -122,12 +123,10 @@ void main() {
       const providerKey = AmplifyAuthProviderToken();
       authRepo.registerAuthProvider(providerKey, authProvider);
       authRepo.registerAuthProvider(providerKey, SecondTestAuthProvider());
-      final inputRequest =
-          http.Request('GET', Uri.parse('https://www.amazon.com'));
       final actualAuthProvider = authRepo.getAuthProvider(providerKey);
 
       final authorizedRequest =
-          await actualAuthProvider!.authorizeRequest(inputRequest);
+          await actualAuthProvider!.authorizeRequest(_generateTestRequest());
       expect(authorizedRequest.headers[_testAuthKey], 'bar');
     });
   });

@@ -17,11 +17,17 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide InternalErrorException;
 import 'package:amplify_auth_cognito_dart/src/util/aws_iam_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
 
 import '../common/mock_config.dart';
 import '../common/mock_secure_storage.dart';
+
+AWSHttpRequest _generateTestRequest() {
+  return AWSHttpRequest(
+    method: AWSHttpMethod.get,
+    uri: Uri.parse('https://www.amazon.com'),
+  );
+}
 
 /// Returns dummy AWS credentials.
 class TestAmplifyAuth extends AmplifyAuthCognitoDart {
@@ -73,10 +79,8 @@ void main() {
 
     test('signs a request when calling authorizeRequest', () async {
       final authProvider = AWSIamAuthProvider();
-      final inputRequest =
-          http.Request('GET', Uri.parse('https://www.amazon.com'));
       final authorizedRequest = await authProvider.authorizeRequest(
-        inputRequest,
+        _generateTestRequest(),
         options: const IamAuthProviderOptions(
           region: 'us-east-1',
           service: AWSService.appSync,
@@ -98,10 +102,8 @@ void main() {
 
     test('throws when no options provided', () async {
       final authProvider = AWSIamAuthProvider();
-      final inputRequest =
-          http.Request('GET', Uri.parse('https://www.amazon.com'));
       await expectLater(
-        authProvider.authorizeRequest(inputRequest),
+        authProvider.authorizeRequest(_generateTestRequest()),
         throwsA(isA<AuthException>()),
       );
     });

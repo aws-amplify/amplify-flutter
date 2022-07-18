@@ -15,7 +15,6 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
-import 'package:http/http.dart' as http;
 
 /// An identifier to use as a key in an [AmplifyAuthProviderRepository] so that
 /// a retrieved auth provider can be typed more accurately.
@@ -36,21 +35,27 @@ class IamAuthProviderOptions extends AuthProviderOptions {
 }
 
 abstract class AmplifyAuthProvider {
-  Future<http.BaseRequest> authorizeRequest(
-    http.BaseRequest request, {
+  Future<AWSBaseHttpRequest> authorizeRequest(
+    AWSBaseHttpRequest request, {
     covariant AuthProviderOptions? options,
   });
 }
 
 abstract class AWSCredentialsAmplifyAuthProvider extends AmplifyAuthProvider
-    implements AWSCredentialsProvider {}
+    implements AWSCredentialsProvider {
+  @override
+  Future<AWSSignedRequest> authorizeRequest(
+    AWSBaseHttpRequest request, {
+    covariant IamAuthProviderOptions options,
+  });
+}
 
 abstract class TokenAmplifyAuthProvider extends AmplifyAuthProvider {
   Future<String> getLatestAuthToken();
 
   @override
-  Future<http.BaseRequest> authorizeRequest(
-    http.BaseRequest request, {
+  Future<AWSBaseHttpRequest> authorizeRequest(
+    AWSBaseHttpRequest request, {
     covariant AuthProviderOptions? options,
   }) async {
     final token = await getLatestAuthToken();
