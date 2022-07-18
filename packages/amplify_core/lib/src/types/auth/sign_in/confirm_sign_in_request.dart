@@ -20,7 +20,7 @@ part 'confirm_sign_in_request.g.dart';
 @zAmplifyGenericSerializable
 class ConfirmSignInRequest<Options extends ConfirmSignInOptions>
     with
-        AWSEquatable<ConfirmSignInRequest<Options>>,
+        AWSEquatable<ConfirmSignInRequest<ConfirmSignInOptions>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   const ConfirmSignInRequest({required this.confirmationValue, this.options});

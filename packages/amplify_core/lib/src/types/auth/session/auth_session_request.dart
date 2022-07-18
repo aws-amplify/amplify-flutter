@@ -20,7 +20,7 @@ part 'auth_session_request.g.dart';
 @zAmplifyGenericSerializable
 class AuthSessionRequest<Options extends AuthSessionOptions>
     with
-        AWSEquatable<AuthSessionRequest<Options>>,
+        AWSEquatable<AuthSessionRequest<AuthSessionOptions>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   const AuthSessionRequest({this.options});

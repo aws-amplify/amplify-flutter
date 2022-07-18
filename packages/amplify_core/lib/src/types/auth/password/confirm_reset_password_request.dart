@@ -23,7 +23,7 @@ part 'confirm_reset_password_request.g.dart';
 @zAmplifyGenericSerializable
 class ConfirmResetPasswordRequest<Options extends ConfirmResetPasswordOptions>
     with
-        AWSEquatable<ConfirmResetPasswordRequest<Options>>,
+        AWSEquatable<ConfirmResetPasswordRequest<ConfirmResetPasswordOptions>>,
         AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.confirm_reset_password_request}
   const ConfirmResetPasswordRequest({

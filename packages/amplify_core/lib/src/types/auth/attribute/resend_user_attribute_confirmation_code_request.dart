@@ -25,7 +25,9 @@ part 'resend_user_attribute_confirmation_code_request.g.dart';
 class ResendUserAttributeConfirmationCodeRequest<Key extends UserAttributeKey,
         Options extends ResendUserAttributeConfirmationCodeOptions>
     with
-        AWSEquatable<ResendUserAttributeConfirmationCodeRequest<Key, Options>>,
+        AWSEquatable<
+            ResendUserAttributeConfirmationCodeRequest<UserAttributeKey,
+                ResendUserAttributeConfirmationCodeOptions>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.resend_user_attribute_confirmation_code_request}
