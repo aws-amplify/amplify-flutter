@@ -23,7 +23,7 @@ part 'update_password_request.g.dart';
 @zAmplifyGenericSerializable
 class UpdatePasswordRequest<Options extends UpdatePasswordOptions>
     with
-        AWSEquatable<UpdatePasswordRequest<Options>>,
+        AWSEquatable<UpdatePasswordRequest<UpdatePasswordOptions>>,
         AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.update_password_request}
   const UpdatePasswordRequest({

@@ -24,7 +24,9 @@ part 'update_user_attributes_request.g.dart';
 class UpdateUserAttributesRequest<Key extends UserAttributeKey,
         Options extends UpdateUserAttributesOptions>
     with
-        AWSEquatable<UpdateUserAttributesRequest<Key, Options>>,
+        AWSEquatable<
+            UpdateUserAttributesRequest<UserAttributeKey,
+                UpdateUserAttributesOptions>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.update_user_attributes_request}

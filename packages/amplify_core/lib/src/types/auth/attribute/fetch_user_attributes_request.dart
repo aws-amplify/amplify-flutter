@@ -23,7 +23,7 @@ part 'fetch_user_attributes_request.g.dart';
 @zAmplifyGenericSerializable
 class FetchUserAttributesRequest<Options extends FetchUserAttributesOptions>
     with
-        AWSEquatable<FetchUserAttributesRequest<Options>>,
+        AWSEquatable<FetchUserAttributesRequest<FetchUserAttributesOptions>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.fetch_user_attribute_request}

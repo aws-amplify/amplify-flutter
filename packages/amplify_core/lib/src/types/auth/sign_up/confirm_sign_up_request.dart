@@ -20,7 +20,7 @@ part 'confirm_sign_up_request.g.dart';
 @zAmplifyGenericSerializable
 class ConfirmSignUpRequest<Options extends ConfirmSignUpOptions>
     with
-        AWSEquatable<ConfirmSignUpRequest<Options>>,
+        AWSEquatable<ConfirmSignUpRequest<ConfirmSignUpOptions>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   const ConfirmSignUpRequest({
