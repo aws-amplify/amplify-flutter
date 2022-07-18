@@ -41,7 +41,7 @@ abstract class AmplifyAuthProvider {
   });
 }
 
-abstract class AWSCredentialsAmplifyAuthProvider extends AmplifyAuthProvider
+abstract class AWSIamAmplifyAuthProvider extends AmplifyAuthProvider
     implements AWSCredentialsProvider {
   @override
   Future<AWSSignedRequest> authorizeRequest(
