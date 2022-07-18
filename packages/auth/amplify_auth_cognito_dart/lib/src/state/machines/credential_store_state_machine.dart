@@ -278,9 +278,8 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
           if (legacyData != null) {
             await _storeCredentials(legacyData);
           }
-        } on Object catch (_) {
-          // TODO(Jordan-Nelson): log when logger exists.
-          // logger.error('migrating legacy credentials failed.');
+        } on Object catch (e, s) {
+          logger.error('Error migrating legacy credentials', e, s);
         } finally {
           try {
             await legacyCredentialProvider.deleteLegacyCredentials(
@@ -288,9 +287,8 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
               identityPoolConfig: authConfig.identityPoolConfig,
               hostedUiConfig: authConfig.hostedUiConfig,
             );
-          } on Object catch (_) {
-            // TODO(Jordan-Nelson): log when logger exists.
-            // logger.error('clearing legacy credentials failed.');
+          } on Object catch (e, s) {
+            logger.error('Error clearing legacy credentials', e, s);
           }
         }
       }
