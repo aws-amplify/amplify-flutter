@@ -76,11 +76,12 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
               ? AWSService.appSync
               : AWSService.apiGatewayManagementApi;
 
-          return authProvider.authorizeRequest(
-            request,
+          final signed = await authProvider.authorizeRequest(
+            _httpToAWSRequest(request),
             options: IamAuthProviderOptions(
                 region: endpointConfig.region, service: service),
           );
+          return signed.httpRequest;
         case APIAuthorizationType.apiKey:
         case APIAuthorizationType.function:
         case APIAuthorizationType.oidc:
@@ -102,4 +103,33 @@ T _validateAuthProvider<T extends AmplifyAuthProvider>(
         recoverySuggestion: 'Ensure auth plugin correctly configured.');
   }
   return authProvider;
+}
+
+AWSBaseHttpRequest _httpToAWSRequest(http.BaseRequest request) {
+  final method = AWSHttpMethod.fromString(request.method);
+  if (request is http.Request) {
+    return AWSHttpRequest(
+      method: method,
+      uri: request.url,
+      headers: {
+        AWSHeaders.contentType: 'application/x-amz-json-1.1',
+        ...request.headers,
+      },
+      body: request.bodyBytes,
+    );
+  } else if (request is http.StreamedRequest) {
+    return AWSStreamedHttpRequest(
+      method: method,
+      uri: request.url,
+      headers: {
+        AWSHeaders.contentType: 'application/x-amz-json-1.1',
+        ...request.headers,
+      },
+      body: request.finalize(),
+    );
+  } else {
+    throw UnimplementedError(
+      'Multipart HTTP requests are not supported.',
+    );
+  }
 }
