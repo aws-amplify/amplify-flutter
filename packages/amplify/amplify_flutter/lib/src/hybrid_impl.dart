@@ -36,7 +36,8 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
       [
         ...API.plugins,
         ...Auth.plugins,
-      ].map((p) => p.configure(config: amplifyConfig)),
+      ].map((p) => p.configure(
+          config: amplifyConfig, authProviderRepo: authProviderRepo)),
       eagerError: true,
     );
     await _methodChannelAmplify.configurePlatform(config);
