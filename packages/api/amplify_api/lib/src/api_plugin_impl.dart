@@ -74,7 +74,9 @@ class AmplifyAPIDart extends AmplifyAPI {
   /// If an endpoint has an API key, ensure valid auth provider registered.
   void _registerApiPluginAuthProviders() {
     _apiConfig.endpoints.forEach((key, value) {
-      if (value.authorizationType == APIAuthorizationType.apiKey) {
+      // Check the presence of apiKey (not auth type) because other modes might
+      // have a key if not the primary auth mode.
+      if (value.apiKey != null) {
         _authProviderRepo.registerAuthProvider(
             value.authorizationType.authProviderToken,
             AppSyncApiKeyAuthProvider());
