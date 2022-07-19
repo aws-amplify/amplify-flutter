@@ -17,7 +17,8 @@ import 'dart:async';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-const _xApiKey = 'X-Api-Key';
+/// "X-Api-Key", key used for API key header in API key auth mode.
+const xApiKey = 'X-Api-Key';
 
 /// [AmplifyAuthProvider] implementation that puts an API key in the header.
 @internal
@@ -31,7 +32,7 @@ class AppSyncApiKeyAuthProvider extends ApiKeyAmplifyAuthProvider {
       throw const ApiException(
           'Called API key auth provider without passing a valid API key.');
     }
-    request.headers.putIfAbsent(_xApiKey, () => options.apiKey);
+    request.headers.putIfAbsent(xApiKey, () => options.apiKey);
     return request;
   }
 }

@@ -116,7 +116,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     return _clientPool[endpoint.name] ??= AmplifyAuthorizationRestClient(
       endpointConfig: endpoint.config,
       baseClient: _baseHttpClient,
-      authRepo: _authProviderRepo,
+      authProviderRepo: _authProviderRepo,
     );
   }
 
@@ -132,7 +132,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     return _clientPool[endpoint.name] ??= AmplifyAuthorizationRestClient(
       endpointConfig: endpoint.config,
       baseClient: _baseHttpClient,
-      authRepo: _authProviderRepo,
+      authProviderRepo: _authProviderRepo,
     );
   }
 

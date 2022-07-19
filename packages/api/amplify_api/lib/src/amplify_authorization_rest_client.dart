@@ -25,20 +25,22 @@ import 'decorators/authorize_http_request.dart';
 @internal
 class AmplifyAuthorizationRestClient extends http.BaseClient
     implements Closeable {
+  /// [AmplifyAuthProviderRepository] for any auth modes this client may use.
+  final AmplifyAuthProviderRepository authProviderRepo;
+
   /// Determines how requests with this client are authorized.
   final AWSApiConfig endpointConfig;
+
   final http.Client _baseClient;
   final bool _useDefaultBaseClient;
-  final AmplifyAuthProviderRepository _authProviderRepo;
 
   /// Provide an [AWSApiConfig] which will determine how requests from this
   /// client are authorized.
   AmplifyAuthorizationRestClient({
     required this.endpointConfig,
-    required AmplifyAuthProviderRepository authRepo,
+    required this.authProviderRepo,
     http.Client? baseClient,
-  })  : _authProviderRepo = authRepo,
-        _useDefaultBaseClient = baseClient == null,
+  })  : _useDefaultBaseClient = baseClient == null,
         _baseClient = baseClient ?? AmplifyHttpClient();
 
   /// Implementation of [send] that authorizes any request without "Authorization"
@@ -48,7 +50,7 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
       _baseClient.send(await authorizeHttpRequest(
         request,
         endpointConfig: endpointConfig,
-        authProviderRepo: _authProviderRepo,
+        authProviderRepo: authProviderRepo,
       ));
 
   @override

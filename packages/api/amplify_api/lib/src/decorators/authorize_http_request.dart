@@ -50,7 +50,7 @@ Future<http.BaseRequest> authorizeHttpRequest(http.BaseRequest request,
             authType);
         final service = endpointConfig.endpointType == EndpointType.graphQL
             ? AWSService.appSync
-            : AWSService.apiGatewayManagementApi;
+            : AWSService.apiGatewayManagementApi; // resolves to "execute-api"
 
         final authorizedRequest = await authProvider.authorizeRequest(
           _httpToAWSRequest(request),

@@ -1,0 +1,190 @@
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+//  http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+
+import 'package:amplify_api/src/decorators/authorize_http_request.dart';
+import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+
+const _region = 'us-east-1';
+const _gqlEndpoint =
+    'https://abc123.appsync-api.$_region.amazonaws.com/graphql';
+const _restEndpoint = 'https://xyz456.execute-api.$_region.amazonaws.com/test';
+
+http.Request _generateTestRequest(String url) {
+  return http.Request('GET', Uri.parse(url));
+}
+
+class TestIamAuthProvider extends AWSIamAmplifyAuthProvider {
+  @override
+  Future<AWSCredentials> retrieve() async {
+    return const AWSCredentials(
+        'fake-access-key-123', 'fake-secret-access-key-456');
+  }
+
+  @override
+  Future<AWSSignedRequest> authorizeRequest(
+    AWSBaseHttpRequest request, {
+    IamAuthProviderOptions? options,
+  }) async {
+    final signer = AWSSigV4Signer(
+      credentialsProvider: AWSCredentialsProvider(await retrieve()),
+    );
+    final scope = AWSCredentialScope(
+      region: _region,
+      service: AWSService.appSync,
+    );
+    return signer.sign(
+      request,
+      credentialScope: scope,
+    );
+  }
+}
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  final authProviderRepo = AmplifyAuthProviderRepository();
+
+  setUpAll(() {
+    authProviderRepo.registerAuthProvider(
+        APIAuthorizationType.apiKey.authProviderToken,
+        AppSyncApiKeyAuthProvider());
+    authProviderRepo.registerAuthProvider(
+        APIAuthorizationType.iam.authProviderToken, TestIamAuthProvider());
+  });
+
+  group('authorizeHttpRequest', () {
+    test('no-op for auth mode NONE', () async {
+      const endpointConfig = AWSApiConfig(
+          authorizationType: APIAuthorizationType.none,
+          endpoint: _restEndpoint,
+          endpointType: EndpointType.rest,
+          region: _region);
+      final inputRequest = _generateTestRequest(endpointConfig.endpoint);
+
+      final authorizedRequest = await authorizeHttpRequest(
+        inputRequest,
+        endpointConfig: endpointConfig,
+        authProviderRepo: authProviderRepo,
+      );
+      expect(authorizedRequest.headers.containsKey(AWSHeaders.authorization),
+          isFalse);
+      expect(authorizedRequest, inputRequest);
+    });
+
+    test('no-op for request with Authorization header already set', () async {
+      const endpointConfig = AWSApiConfig(
+          authorizationType: APIAuthorizationType.userPools,
+          endpoint: _restEndpoint,
+          endpointType: EndpointType.rest,
+          region: _region);
+      final inputRequest = _generateTestRequest(endpointConfig.endpoint);
+      const testAuthValue = 'foo';
+      inputRequest.headers
+          .putIfAbsent(AWSHeaders.authorization, () => testAuthValue);
+
+      final authorizedRequest = await authorizeHttpRequest(
+        inputRequest,
+        endpointConfig: endpointConfig,
+        authProviderRepo: authProviderRepo,
+      );
+      expect(
+          authorizedRequest.headers[AWSHeaders.authorization], testAuthValue);
+      expect(authorizedRequest, inputRequest);
+    });
+
+    test('authorizes request with IAM auth provider', () async {
+      const endpointConfig = AWSApiConfig(
+          authorizationType: APIAuthorizationType.iam,
+          endpoint: _gqlEndpoint,
+          endpointType: EndpointType.graphQL,
+          region: _region);
+      final inputRequest = _generateTestRequest(endpointConfig.endpoint);
+      final authorizedRequest = await authorizeHttpRequest(
+        inputRequest,
+        endpointConfig: endpointConfig,
+        authProviderRepo: authProviderRepo,
+      );
+      const userAgentHeader =
+          zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
+      expect(
+        authorizedRequest.headers[userAgentHeader],
+        contains('aws-sigv4'),
+      );
+    });
+
+    test('authorizes request with API key', () async {
+      const testApiKey = 'abc-123-fake-key';
+      const endpointConfig = AWSApiConfig(
+          authorizationType: APIAuthorizationType.apiKey,
+          apiKey: testApiKey,
+          endpoint: _gqlEndpoint,
+          endpointType: EndpointType.graphQL,
+          region: _region);
+      final inputRequest = _generateTestRequest(endpointConfig.endpoint);
+      final authorizedRequest = await authorizeHttpRequest(
+        inputRequest,
+        endpointConfig: endpointConfig,
+        authProviderRepo: authProviderRepo,
+      );
+      expect(
+        authorizedRequest.headers[xApiKey],
+        testApiKey,
+      );
+    });
+
+    test('throws when API key not in config', () async {
+      const endpointConfig = AWSApiConfig(
+          authorizationType: APIAuthorizationType.apiKey,
+          // no apiKey value provided
+          endpoint: _gqlEndpoint,
+          endpointType: EndpointType.graphQL,
+          region: _region);
+      final inputRequest = _generateTestRequest(endpointConfig.endpoint);
+      expectLater(
+          authorizeHttpRequest(
+            inputRequest,
+            endpointConfig: endpointConfig,
+            authProviderRepo: authProviderRepo,
+          ),
+          throwsA(isA<ApiException>()));
+    });
+
+    test('authorizes with Cognito User Pools auth mode', () {}, skip: true);
+
+    test('authorizes with OIDC auth mode', () {}, skip: true);
+
+    test('authorizes with lambda auth mode', () {}, skip: true);
+
+    test('throws when no auth provider found', () async {
+      final emptyAuthRepo = AmplifyAuthProviderRepository();
+      const endpointConfig = AWSApiConfig(
+          authorizationType: APIAuthorizationType.apiKey,
+          apiKey: 'abc-123-fake-key',
+          endpoint: _gqlEndpoint,
+          endpointType: EndpointType.graphQL,
+          region: _region);
+      final inputRequest = _generateTestRequest(endpointConfig.endpoint);
+      expectLater(
+          authorizeHttpRequest(
+            inputRequest,
+            endpointConfig: endpointConfig,
+            authProviderRepo: emptyAuthRepo,
+          ),
+          throwsA(isA<ApiException>()));
+    });
+  });
+}
