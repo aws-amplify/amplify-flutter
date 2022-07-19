@@ -24,9 +24,10 @@ import 'utils/setup_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  late String username;
-  late String password;
   group('signIn', () {
+    late String username;
+    late String password;
+
     setUp(() async {
       await configureAuth();
 
@@ -99,6 +100,9 @@ void main() {
     });
 
     testWidgets('should sign a user out', (WidgetTester tester) async {
+      final username = generateUsername();
+      final password = generatePassword();
+
       await adminCreateUser(
         username,
         password,
