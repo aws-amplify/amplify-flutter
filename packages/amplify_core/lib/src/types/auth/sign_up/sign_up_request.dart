@@ -20,7 +20,8 @@ part 'sign_up_request.g.dart';
 @zAmplifyGenericSerializable
 class SignUpRequest<Options extends SignUpOptions>
     with
-        AWSEquatable<SignUpRequest<SignUpOptions>>,
+        // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
+        AWSEquatable<SignUpRequest<Options>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   const SignUpRequest({

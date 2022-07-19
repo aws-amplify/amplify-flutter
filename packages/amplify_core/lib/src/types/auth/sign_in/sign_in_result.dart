@@ -27,6 +27,7 @@ part 'sign_in_result.g.dart';
 )
 class SignInResult<Key extends UserAttributeKey>
     with
+        // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
         AWSEquatable<SignInResult<Key>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {

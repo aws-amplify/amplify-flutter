@@ -20,7 +20,8 @@ part 'sign_in_request.g.dart';
 @zAmplifyGenericSerializable
 class SignInRequest<Options extends SignInOptions>
     with
-        AWSEquatable<SignInRequest<SignInOptions>>,
+        // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
+        AWSEquatable<SignInRequest<Options>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   const SignInRequest({this.username, this.password, this.options});

@@ -23,7 +23,8 @@ part 'auth_user_attribute.g.dart';
 @zAmplifyGenericSerializable
 class AuthUserAttribute<Key extends UserAttributeKey>
     with
-        AWSEquatable<AuthUserAttribute<UserAttributeKey>>,
+        // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
+        AWSEquatable<AuthUserAttribute<Key>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.auth_user_attribute}

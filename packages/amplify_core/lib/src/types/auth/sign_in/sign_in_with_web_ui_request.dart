@@ -21,7 +21,8 @@ part 'sign_in_with_web_ui_request.g.dart';
 @zAmplifyGenericSerializable
 class SignInWithWebUIRequest<Options extends SignInWithWebUIOptions>
     with
-        AWSEquatable<SignInWithWebUIRequest<SignInWithWebUIOptions>>,
+        // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
+        AWSEquatable<SignInWithWebUIRequest<Options>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   const SignInWithWebUIRequest({this.provider, this.options});

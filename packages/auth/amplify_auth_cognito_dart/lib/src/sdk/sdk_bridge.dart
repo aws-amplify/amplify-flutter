@@ -81,7 +81,7 @@ extension AuthUserAttributeBridge on AuthUserAttribute {
 /// Bridging helpers for [AttributeType].
 extension AttributeTypeBridge on AttributeType {
   /// This attribute as an [AuthUserAttribute].
-  AuthUserAttribute get asAuthUserAttribute {
+  AuthUserAttribute<CognitoUserAttributeKey> get asAuthUserAttribute {
     final key = CognitoUserAttributeKey.parse(name);
     return AuthUserAttribute(
       userAttributeKey: key,

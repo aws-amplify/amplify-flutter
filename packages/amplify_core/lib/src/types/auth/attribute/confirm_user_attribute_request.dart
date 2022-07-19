@@ -23,7 +23,8 @@ part 'confirm_user_attribute_request.g.dart';
 @zAmplifyGenericSerializable
 class ConfirmUserAttributeRequest<Key extends UserAttributeKey>
     with
-        AWSEquatable<ConfirmUserAttributeRequest<UserAttributeKey>>,
+        // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
+        AWSEquatable<ConfirmUserAttributeRequest<Key>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.confirm_user_attribute_request}

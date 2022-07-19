@@ -539,7 +539,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
   @override
-  Future<List<AuthUserAttribute>> fetchUserAttributes({
+  Future<List<AuthUserAttribute<CognitoUserAttributeKey>>> fetchUserAttributes({
     FetchUserAttributesRequest? request,
   }) async {
     final userPoolTokens = await getUserPoolTokens();

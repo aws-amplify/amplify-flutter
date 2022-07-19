@@ -23,7 +23,8 @@ part 'resend_sign_up_code_request.g.dart';
 @zAmplifyGenericSerializable
 class ResendSignUpCodeRequest<Options extends ResendSignUpCodeOptions>
     with
-        AWSEquatable<ResendSignUpCodeRequest<ResendSignUpCodeOptions>>,
+        // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
+        AWSEquatable<ResendSignUpCodeRequest<Options>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.resend_sign_up_code_request}
