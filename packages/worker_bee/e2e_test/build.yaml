@@ -5,3 +5,4 @@ targets:
         release_options:
           dart2js_args:
             - --define=dart.vm.product=true
+            - --enable-asserts
