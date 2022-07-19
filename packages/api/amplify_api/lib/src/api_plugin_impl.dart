@@ -54,7 +54,10 @@ class AmplifyAPIDart extends AmplifyAPI {
   }
 
   @override
-  Future<void> configure({AmplifyConfig? config}) async {
+  Future<void> configure({
+    AmplifyConfig? config,
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
     final apiConfig = config?.api?.awsPlugin;
     if (apiConfig == null) {
       throw const ApiException('No AWS API config found',
