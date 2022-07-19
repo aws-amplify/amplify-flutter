@@ -14,8 +14,8 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
 
 class TestIamAuthProvider extends AWSIamAmplifyAuthProvider {
   @override
