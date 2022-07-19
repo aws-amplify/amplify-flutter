@@ -212,9 +212,6 @@ class CredentialStoreClearCredentials extends CredentialStoreEvent {
         'Credential store has error. Re-load before continuing.',
       );
     }
-    if (currentState.type != CredentialStoreStateType.success) {
-      return const AuthPreconditionException('Credential store is busy');
-    }
     return null;
   }
 }
