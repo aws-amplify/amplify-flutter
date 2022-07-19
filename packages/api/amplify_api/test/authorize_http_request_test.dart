@@ -14,9 +14,9 @@
 import 'package:amplify_api/src/decorators/authorize_http_request.dart';
 import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'util.dart';
 
 const _region = 'us-east-1';
 const _gqlEndpoint =
@@ -25,32 +25,6 @@ const _restEndpoint = 'https://xyz456.execute-api.$_region.amazonaws.com/test';
 
 http.Request _generateTestRequest(String url) {
   return http.Request('GET', Uri.parse(url));
-}
-
-class TestIamAuthProvider extends AWSIamAmplifyAuthProvider {
-  @override
-  Future<AWSCredentials> retrieve() async {
-    return const AWSCredentials(
-        'fake-access-key-123', 'fake-secret-access-key-456');
-  }
-
-  @override
-  Future<AWSSignedRequest> authorizeRequest(
-    AWSBaseHttpRequest request, {
-    IamAuthProviderOptions? options,
-  }) async {
-    final signer = AWSSigV4Signer(
-      credentialsProvider: AWSCredentialsProvider(await retrieve()),
-    );
-    final scope = AWSCredentialScope(
-      region: _region,
-      service: AWSService.appSync,
-    );
-    return signer.sign(
-      request,
-      credentialScope: scope,
-    );
-  }
 }
 
 void main() {
@@ -118,12 +92,7 @@ void main() {
         endpointConfig: endpointConfig,
         authProviderRepo: authProviderRepo,
       );
-      const userAgentHeader =
-          zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
-      expect(
-        authorizedRequest.headers[userAgentHeader],
-        contains('aws-sigv4'),
-      );
+      validateSignedRequest(authorizedRequest);
     });
 
     test('authorizes request with API key', () async {

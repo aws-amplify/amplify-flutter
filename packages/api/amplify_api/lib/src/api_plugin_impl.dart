@@ -40,7 +40,7 @@ class AmplifyAPIDart extends AmplifyAPI {
 
   /// A map of the keys from the Amplify API config to HTTP clients to use for
   /// requests to that endpoint.
-  final Map<String, AmplifyAuthorizationRestClient> _clientPool = {};
+  final Map<String, http.Client> _clientPool = {};
 
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
@@ -68,11 +68,11 @@ class AmplifyAPIDart extends AmplifyAPI {
     }
     _apiConfig = apiConfig;
     _authProviderRepo = authProviderRepo;
-    _registerApiKeyAuthMode();
+    _registerApiPluginAuthProviders();
   }
 
   /// If an endpoint has an API key, ensure valid auth provider registered.
-  void _registerApiKeyAuthMode() {
+  void _registerApiPluginAuthProviders() {
     _apiConfig.endpoints.forEach((key, value) {
       if (value.authorizationType == APIAuthorizationType.apiKey) {
         _authProviderRepo.registerAuthProvider(
@@ -113,11 +113,12 @@ class AmplifyAPIDart extends AmplifyAPI {
       type: EndpointType.graphQL,
       apiName: apiName,
     );
-    return _clientPool[endpoint.name] ??= AmplifyAuthorizationRestClient(
+    return _clientPool[endpoint.name] ??= AmplifyHttpClient(
+        baseClient: AmplifyAuthorizationRestClient(
       endpointConfig: endpoint.config,
       baseClient: _baseHttpClient,
       authProviderRepo: _authProviderRepo,
-    );
+    ));
   }
 
   /// Returns the HTTP client to be used for REST operations.
@@ -129,11 +130,12 @@ class AmplifyAPIDart extends AmplifyAPI {
       type: EndpointType.rest,
       apiName: apiName,
     );
-    return _clientPool[endpoint.name] ??= AmplifyAuthorizationRestClient(
+    return _clientPool[endpoint.name] ??= AmplifyHttpClient(
+        baseClient: AmplifyAuthorizationRestClient(
       endpointConfig: endpoint.config,
       baseClient: _baseHttpClient,
       authProviderRepo: _authProviderRepo,
-    );
+    ));
   }
 
   Uri _getGraphQLUri(String? apiName) {

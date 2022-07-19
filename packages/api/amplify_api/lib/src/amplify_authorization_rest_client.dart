@@ -41,7 +41,7 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
     required this.authProviderRepo,
     http.Client? baseClient,
   })  : _useDefaultBaseClient = baseClient == null,
-        _baseClient = baseClient ?? AmplifyHttpClient();
+        _baseClient = baseClient ?? http.Client();
 
   /// Implementation of [send] that authorizes any request without "Authorization"
   /// header already set.
