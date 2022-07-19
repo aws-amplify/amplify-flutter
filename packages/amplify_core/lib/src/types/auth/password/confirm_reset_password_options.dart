@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_core.confirm_reset_password_options}
 /// The shared confirm reset password options among all Auth plugins.

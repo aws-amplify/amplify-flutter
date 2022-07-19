@@ -13,7 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/auth/password/confirm_reset_password_options.dart';
+import 'package:amplify_core/src/util/serializable.dart';
+import 'package:aws_common/aws_common.dart';
 
 part 'confirm_reset_password_request.g.dart';
 

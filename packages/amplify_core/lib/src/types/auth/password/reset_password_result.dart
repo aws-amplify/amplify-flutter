@@ -13,7 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/auth/password/reset_password_step.dart';
+import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_core.reset_password_result}
 /// The result of a password reset request.

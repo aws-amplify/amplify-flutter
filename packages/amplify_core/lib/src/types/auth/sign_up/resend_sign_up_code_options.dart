@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_core.auth.resend_sign_up_code_options}
 /// The shared resend sign up code options among all Auth plugins.

@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/auth/attribute/user_attribute_key.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
 /// User attributes available for configuring via `Amplify.Auth.signUp`,

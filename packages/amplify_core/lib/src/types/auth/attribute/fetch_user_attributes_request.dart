@@ -13,7 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/auth/attribute/fetch_user_attributes_options.dart';
+import 'package:amplify_core/src/util/serializable.dart';
+import 'package:aws_common/aws_common.dart';
 
 part 'fetch_user_attributes_request.g.dart';
 

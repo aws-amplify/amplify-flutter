@@ -13,7 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/hub/hub_event.dart';
+import 'package:amplify_core/src/types/auth/session/auth_user.dart';
+import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_common.hub.auth_hub_event_type}
 /// Hub Event types for the Auth category.

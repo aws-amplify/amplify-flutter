@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_core.resend_user_attribute_confirmation_code_options}
 /// The shared resend user attribute confirmation code options among all Auth

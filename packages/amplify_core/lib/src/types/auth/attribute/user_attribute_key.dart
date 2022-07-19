@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_core.user_attribute_key}

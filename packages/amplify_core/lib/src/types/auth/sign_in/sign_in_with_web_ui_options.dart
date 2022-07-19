@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 
 abstract class SignInWithWebUIOptions
     with AWSSerializable<Map<String, Object?>> {

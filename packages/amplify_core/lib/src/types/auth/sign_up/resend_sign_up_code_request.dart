@@ -13,7 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/auth/sign_up/resend_sign_up_code_options.dart';
+import 'package:amplify_core/src/util/serializable.dart';
+import 'package:aws_common/aws_common.dart';
 
 part 'resend_sign_up_code_request.g.dart';
 

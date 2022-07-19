@@ -12,7 +12,8 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import 'package:amplify_core/amplify_core.dart';
+
+import 'package:aws_common/aws_common.dart';
 
 abstract class SignInOptions with AWSSerializable<Map<String, Object?>> {
   const SignInOptions();

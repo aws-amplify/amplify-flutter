@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_core.update_user_attributes_options}
 /// The shared update user attributes options among all Auth plugins.

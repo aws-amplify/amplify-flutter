@@ -13,7 +13,10 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/auth/sign_in/auth_provider.dart';
+import 'package:amplify_core/src/types/auth/sign_in/sign_in_with_web_ui_options.dart';
+import 'package:amplify_core/src/util/serializable.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'sign_in_with_web_ui_request.g.dart';

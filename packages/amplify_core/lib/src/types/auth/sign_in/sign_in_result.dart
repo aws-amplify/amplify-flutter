@@ -13,7 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/auth/attribute/user_attribute_key.dart';
+import 'package:amplify_core/src/types/auth/sign_in/auth_next_sign_in_step.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'sign_in_result.g.dart';

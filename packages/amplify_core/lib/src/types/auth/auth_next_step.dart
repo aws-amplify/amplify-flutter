@@ -13,7 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/auth/auth_code_delivery_details.dart';
+import 'package:aws_common/aws_common.dart';
 
 abstract class AuthNextStep with AWSSerializable<Map<String, Object?>> {
   const AuthNextStep({this.codeDeliveryDetails, this.additionalInfo});
