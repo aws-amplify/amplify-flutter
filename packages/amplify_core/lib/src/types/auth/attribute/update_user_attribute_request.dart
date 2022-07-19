@@ -30,6 +30,7 @@ part 'update_user_attribute_request.g.dart';
 class UpdateUserAttributeRequest<Key extends UserAttributeKey,
         Options extends UpdateUserAttributeOptions>
     with
+        // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
         AWSEquatable<UpdateUserAttributeRequest<Key, Options>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
