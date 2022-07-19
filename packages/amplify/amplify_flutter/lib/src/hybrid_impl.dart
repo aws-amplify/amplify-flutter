@@ -16,7 +16,6 @@ import 'dart:convert';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
-import 'package:flutter/material.dart';
 
 /// {@template amplify_flutter.amplify_hybrid_impl}
 /// A hybrid implementation of [AmplifyClass] which uses method channels for
