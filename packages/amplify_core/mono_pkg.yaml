@@ -8,6 +8,7 @@ stages:
           - format
           - analyze: --fatal-infos .
   - unit_test:
+    - command: dart --version
     - test:
       os:
         - windows

@@ -84,16 +84,16 @@ for PKG in ${PKGS}; do
         dart analyze --fatal-infos lib test || EXIT_CODE=$?
         ;;
       command_0)
+        echo 'dart --version'
+        dart --version || EXIT_CODE=$?
+        ;;
+      command_1)
         echo 'dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox'
         dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox || EXIT_CODE=$?
         ;;
-      command_1)
+      command_2)
         echo 'dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox'
         dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox || EXIT_CODE=$?
-        ;;
-      command_2)
-        echo 'dart --version'
-        dart --version || EXIT_CODE=$?
         ;;
       command_3)
         echo 'git submodule update --init'
@@ -102,14 +102,6 @@ for PKG in ${PKGS}; do
       command_4)
         echo 'tool/test-desktop.sh'
         tool/test-desktop.sh || EXIT_CODE=$?
-        ;;
-      command_5)
-        echo 'dart run build_runner test -- -p chrome,firefox'
-        dart run build_runner test -- -p chrome,firefox || EXIT_CODE=$?
-        ;;
-      command_6)
-        echo 'dart run build_runner test --release -- -p chrome,firefox'
-        dart run build_runner test --release -- -p chrome,firefox || EXIT_CODE=$?
         ;;
       format)
         echo 'dart format --output=none --set-exit-if-changed .'

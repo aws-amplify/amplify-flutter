@@ -160,16 +160,64 @@ jobs:
     needs:
       - job_001
   job_005:
-    name: "unit_test; linux; Dart dev; PKG: packages/amplify_core; `dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox`"
+    name: "unit_test; linux; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/secure_storage/amplify_secure_storage_test; `dart --version`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core;commands:command_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/secure_storage/amplify_secure_storage_test;commands:command_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/secure_storage/amplify_secure_storage_test
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: dev
+      - id: checkout
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_amplify_core_pub_upgrade
+        name: packages/amplify_core; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/amplify_core
+        run: dart pub upgrade
+      - name: "packages/amplify_core; dart --version"
+        if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/amplify_core
+        run: dart --version
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: "packages/auth/amplify_auth_cognito_test; dart --version"
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart --version
+      - id: packages_secure_storage_amplify_secure_storage_test_pub_upgrade
+        name: packages/secure_storage/amplify_secure_storage_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_test
+        run: dart pub upgrade
+      - name: "packages/secure_storage/amplify_secure_storage_test; dart --version"
+        if: "always() && steps.packages_secure_storage_amplify_secure_storage_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_test
+        run: dart --version
+    needs:
+      - job_001
+  job_006:
+    name: "unit_test; linux; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/worker_bee/e2e_test; `dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/worker_bee/e2e_test;commands:command_1"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/worker_bee/e2e_test
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -187,19 +235,37 @@ jobs:
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
         run: "dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: "packages/auth/amplify_auth_cognito_test; dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: "dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
+      - id: packages_worker_bee_e2e_test_pub_upgrade
+        name: packages/worker_bee/e2e_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart pub upgrade
+      - name: "packages/worker_bee/e2e_test; dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
+        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: "dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
     needs:
       - job_001
-  job_006:
-    name: "unit_test; linux; Dart dev; PKGS: packages/amplify_core, packages/secure_storage/amplify_secure_storage_test; `dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox`"
+  job_007:
+    name: "unit_test; linux; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/secure_storage/amplify_secure_storage_test, packages/worker_bee/e2e_test; `dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/secure_storage/amplify_secure_storage_test;commands:command_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/secure_storage/amplify_secure_storage_test-packages/worker_bee/e2e_test;commands:command_2"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/secure_storage/amplify_secure_storage_test
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/secure_storage/amplify_secure_storage_test-packages/worker_bee/e2e_test
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -217,6 +283,15 @@ jobs:
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
         run: "dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: "packages/auth/amplify_auth_cognito_test; dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: "dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
       - id: packages_secure_storage_amplify_secure_storage_test_pub_upgrade
         name: packages/secure_storage/amplify_secure_storage_test; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -226,19 +301,28 @@ jobs:
         if: "always() && steps.packages_secure_storage_amplify_secure_storage_test_pub_upgrade.conclusion == 'success'"
         working-directory: packages/secure_storage/amplify_secure_storage_test
         run: "dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
+      - id: packages_worker_bee_e2e_test_pub_upgrade
+        name: packages/worker_bee/e2e_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart pub upgrade
+      - name: "packages/worker_bee/e2e_test; dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
+        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: "dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
     needs:
       - job_001
-  job_007:
-    name: "unit_test; linux; Dart dev; PKGS: packages/amplify_core, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/worker_bee/e2e_test; `dart test`"
+  job_008:
+    name: "unit_test; linux; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/worker_bee/e2e_test; `dart test`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/worker_bee/e2e_test;commands:test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/worker_bee/e2e_test;commands:test_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/worker_bee/e2e_test
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/worker_bee/e2e_test
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -255,6 +339,15 @@ jobs:
       - name: packages/amplify_core; dart test
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
+        run: dart test
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: packages/auth/amplify_auth_cognito_test; dart test
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
         run: dart test
       - id: packages_smithy_smithy_pub_upgrade
         name: packages/smithy/smithy; dart pub upgrade
@@ -292,48 +385,6 @@ jobs:
         if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
         working-directory: packages/worker_bee/e2e_test
         run: dart test
-    needs:
-      - job_001
-  job_008:
-    name: "unit_test; linux; Dart dev; PKG: packages/auth/amplify_auth_cognito_test; `dart --version`, `dart test`, `dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox`, `dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/auth/amplify_auth_cognito_test;commands:command_2-test_0-command_0-command_1"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/auth/amplify_auth_cognito_test
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
-        with:
-          sdk: dev
-      - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
-      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
-        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito_test
-        run: dart pub upgrade
-      - name: "packages/auth/amplify_auth_cognito_test; dart --version"
-        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito_test
-        run: dart --version
-      - name: packages/auth/amplify_auth_cognito_test; dart test
-        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito_test
-        run: dart test
-      - name: "packages/auth/amplify_auth_cognito_test; dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
-        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito_test
-        run: "dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
-      - name: "packages/auth/amplify_auth_cognito_test; dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
-        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito_test
-        run: "dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
     needs:
       - job_001
   job_009:
@@ -500,36 +551,6 @@ jobs:
     needs:
       - job_001
   job_013:
-    name: "unit_test; linux; Dart dev; PKG: packages/secure_storage/amplify_secure_storage_test; `dart --version`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_2"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/secure_storage/amplify_secure_storage_test
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
-        with:
-          sdk: dev
-      - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
-      - id: packages_secure_storage_amplify_secure_storage_test_pub_upgrade
-        name: packages/secure_storage/amplify_secure_storage_test; dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/secure_storage/amplify_secure_storage_test
-        run: dart pub upgrade
-      - name: "packages/secure_storage/amplify_secure_storage_test; dart --version"
-        if: "always() && steps.packages_secure_storage_amplify_secure_storage_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/secure_storage/amplify_secure_storage_test
-        run: dart --version
-    needs:
-      - job_001
-  job_014:
     name: "unit_test; linux; Dart dev; PKG: packages/secure_storage/amplify_secure_storage_test; `tool/test-desktop.sh`"
     runs-on: ubuntu-latest
     steps:
@@ -559,77 +580,17 @@ jobs:
         run: tool/test-desktop.sh
     needs:
       - job_001
-  job_015:
-    name: "unit_test; linux; Dart dev; PKG: packages/worker_bee/e2e_test; `dart run build_runner test -- -p chrome,firefox`"
+  job_014:
+    name: "unit_test; linux; Dart stable; PKGS: packages/aft, packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/worker_bee/e2e_test; `dart test`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/worker_bee/e2e_test;commands:command_5"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/worker_bee/e2e_test;commands:test_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/worker_bee/e2e_test
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
-        with:
-          sdk: dev
-      - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
-      - id: packages_worker_bee_e2e_test_pub_upgrade
-        name: packages/worker_bee/e2e_test; dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/worker_bee/e2e_test
-        run: dart pub upgrade
-      - name: "packages/worker_bee/e2e_test; dart run build_runner test -- -p chrome,firefox"
-        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/worker_bee/e2e_test
-        run: "dart run build_runner test -- -p chrome,firefox"
-    needs:
-      - job_001
-  job_016:
-    name: "unit_test; linux; Dart dev; PKG: packages/worker_bee/e2e_test; `dart run build_runner test --release -- -p chrome,firefox`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/worker_bee/e2e_test;commands:command_6"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/worker_bee/e2e_test
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
-        with:
-          sdk: dev
-      - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
-      - id: packages_worker_bee_e2e_test_pub_upgrade
-        name: packages/worker_bee/e2e_test; dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/worker_bee/e2e_test
-        run: dart pub upgrade
-      - name: "packages/worker_bee/e2e_test; dart run build_runner test --release -- -p chrome,firefox"
-        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/worker_bee/e2e_test
-        run: "dart run build_runner test --release -- -p chrome,firefox"
-    needs:
-      - job_001
-  job_017:
-    name: "unit_test; linux; Dart stable; PKGS: packages/aft, packages/amplify_core, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/worker_bee/e2e_test; `dart test`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/worker_bee/e2e_test;commands:test_0"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/worker_bee/e2e_test
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/worker_bee/e2e_test
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -655,6 +616,15 @@ jobs:
       - name: packages/amplify_core; dart test
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
+        run: dart test
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: packages/auth/amplify_auth_cognito_test; dart test
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
         run: dart test
       - id: packages_smithy_smithy_pub_upgrade
         name: packages/smithy/smithy; dart pub upgrade
@@ -694,17 +664,65 @@ jobs:
         run: dart test
     needs:
       - job_001
-  job_018:
-    name: "unit_test; linux; Dart stable; PKG: packages/amplify_core; `dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox`"
+  job_015:
+    name: "unit_test; linux; Dart stable; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/secure_storage/amplify_secure_storage_test; `dart --version`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core;commands:command_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/secure_storage/amplify_secure_storage_test;commands:command_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/secure_storage/amplify_secure_storage_test
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: stable
+      - id: checkout
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_amplify_core_pub_upgrade
+        name: packages/amplify_core; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/amplify_core
+        run: dart pub upgrade
+      - name: "packages/amplify_core; dart --version"
+        if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/amplify_core
+        run: dart --version
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: "packages/auth/amplify_auth_cognito_test; dart --version"
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart --version
+      - id: packages_secure_storage_amplify_secure_storage_test_pub_upgrade
+        name: packages/secure_storage/amplify_secure_storage_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_test
+        run: dart pub upgrade
+      - name: "packages/secure_storage/amplify_secure_storage_test; dart --version"
+        if: "always() && steps.packages_secure_storage_amplify_secure_storage_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_test
+        run: dart --version
+    needs:
+      - job_001
+  job_016:
+    name: "unit_test; linux; Dart stable; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/worker_bee/e2e_test; `dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/worker_bee/e2e_test;commands:command_1"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/worker_bee/e2e_test
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -722,19 +740,37 @@ jobs:
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
         run: "dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: "packages/auth/amplify_auth_cognito_test; dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: "dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
+      - id: packages_worker_bee_e2e_test_pub_upgrade
+        name: packages/worker_bee/e2e_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart pub upgrade
+      - name: "packages/worker_bee/e2e_test; dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
+        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: "dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
     needs:
       - job_001
-  job_019:
-    name: "unit_test; linux; Dart stable; PKGS: packages/amplify_core, packages/secure_storage/amplify_secure_storage_test; `dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox`"
+  job_017:
+    name: "unit_test; linux; Dart stable; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/secure_storage/amplify_secure_storage_test, packages/worker_bee/e2e_test; `dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/secure_storage/amplify_secure_storage_test;commands:command_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/secure_storage/amplify_secure_storage_test-packages/worker_bee/e2e_test;commands:command_2"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/secure_storage/amplify_secure_storage_test
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/secure_storage/amplify_secure_storage_test-packages/worker_bee/e2e_test
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -752,6 +788,15 @@ jobs:
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
         run: "dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: "packages/auth/amplify_auth_cognito_test; dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: "dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
       - id: packages_secure_storage_amplify_secure_storage_test_pub_upgrade
         name: packages/secure_storage/amplify_secure_storage_test; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -761,51 +806,18 @@ jobs:
         if: "always() && steps.packages_secure_storage_amplify_secure_storage_test_pub_upgrade.conclusion == 'success'"
         working-directory: packages/secure_storage/amplify_secure_storage_test
         run: "dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
-    needs:
-      - job_001
-  job_020:
-    name: "unit_test; linux; Dart stable; PKG: packages/auth/amplify_auth_cognito_test; `dart --version`, `dart test`, `dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox`, `dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito_test;commands:command_2-test_0-command_0-command_1"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito_test
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
-        with:
-          sdk: stable
-      - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
-      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
-        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+      - id: packages_worker_bee_e2e_test_pub_upgrade
+        name: packages/worker_bee/e2e_test; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito_test
+        working-directory: packages/worker_bee/e2e_test
         run: dart pub upgrade
-      - name: "packages/auth/amplify_auth_cognito_test; dart --version"
-        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito_test
-        run: dart --version
-      - name: packages/auth/amplify_auth_cognito_test; dart test
-        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito_test
-        run: dart test
-      - name: "packages/auth/amplify_auth_cognito_test; dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
-        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito_test
-        run: "dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox"
-      - name: "packages/auth/amplify_auth_cognito_test; dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
-        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/auth/amplify_auth_cognito_test
+      - name: "packages/worker_bee/e2e_test; dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
+        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
         run: "dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
     needs:
       - job_001
-  job_021:
+  job_018:
     name: "unit_test; linux; Dart stable; PKG: packages/aws_common; `dart test`, `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
@@ -839,7 +851,7 @@ jobs:
         run: dart test -p chrome
     needs:
       - job_001
-  job_022:
+  job_019:
     name: "unit_test; linux; Dart stable; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`"
     runs-on: ubuntu-latest
     steps:
@@ -873,7 +885,7 @@ jobs:
         run: dart test
     needs:
       - job_001
-  job_023:
+  job_020:
     name: "unit_test; linux; Dart stable; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`, `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
@@ -911,7 +923,7 @@ jobs:
         run: dart test -p chrome
     needs:
       - job_001
-  job_024:
+  job_021:
     name: "unit_test; linux; Dart stable; PKGS: packages/example_common, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
@@ -968,37 +980,7 @@ jobs:
         run: dart test -p chrome
     needs:
       - job_001
-  job_025:
-    name: "unit_test; linux; Dart stable; PKG: packages/secure_storage/amplify_secure_storage_test; `dart --version`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/secure_storage/amplify_secure_storage_test;commands:command_2"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/secure_storage/amplify_secure_storage_test
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
-        with:
-          sdk: stable
-      - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
-      - id: packages_secure_storage_amplify_secure_storage_test_pub_upgrade
-        name: packages/secure_storage/amplify_secure_storage_test; dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/secure_storage/amplify_secure_storage_test
-        run: dart pub upgrade
-      - name: "packages/secure_storage/amplify_secure_storage_test; dart --version"
-        if: "always() && steps.packages_secure_storage_amplify_secure_storage_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/secure_storage/amplify_secure_storage_test
-        run: dart --version
-    needs:
-      - job_001
-  job_026:
+  job_022:
     name: "unit_test; linux; Dart stable; PKG: packages/secure_storage/amplify_secure_storage_test; `tool/test-desktop.sh`"
     runs-on: ubuntu-latest
     steps:
@@ -1028,77 +1010,17 @@ jobs:
         run: tool/test-desktop.sh
     needs:
       - job_001
-  job_027:
-    name: "unit_test; linux; Dart stable; PKG: packages/worker_bee/e2e_test; `dart run build_runner test -- -p chrome,firefox`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_test;commands:command_5"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_test
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
-        with:
-          sdk: stable
-      - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
-      - id: packages_worker_bee_e2e_test_pub_upgrade
-        name: packages/worker_bee/e2e_test; dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/worker_bee/e2e_test
-        run: dart pub upgrade
-      - name: "packages/worker_bee/e2e_test; dart run build_runner test -- -p chrome,firefox"
-        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/worker_bee/e2e_test
-        run: "dart run build_runner test -- -p chrome,firefox"
-    needs:
-      - job_001
-  job_028:
-    name: "unit_test; linux; Dart stable; PKG: packages/worker_bee/e2e_test; `dart run build_runner test --release -- -p chrome,firefox`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_test;commands:command_6"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/worker_bee/e2e_test
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
-        with:
-          sdk: stable
-      - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
-      - id: packages_worker_bee_e2e_test_pub_upgrade
-        name: packages/worker_bee/e2e_test; dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/worker_bee/e2e_test
-        run: dart pub upgrade
-      - name: "packages/worker_bee/e2e_test; dart run build_runner test --release -- -p chrome,firefox"
-        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/worker_bee/e2e_test
-        run: "dart run build_runner test --release -- -p chrome,firefox"
-    needs:
-      - job_001
-  job_029:
-    name: "unit_test; macos; Dart dev; PKG: packages/amplify_core; `dart test`"
+  job_023:
+    name: "unit_test; macos; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/worker_bee/e2e_test; `dart test`"
     runs-on: macos-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core;commands:test_0"
+          key: "os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/worker_bee/e2e_test;commands:test_0"
           restore-keys: |
-            os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core
+            os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/worker_bee/e2e_test
             os:macos-latest;pub-cache-hosted;sdk:dev
             os:macos-latest;pub-cache-hosted
             os:macos-latest
@@ -1116,9 +1038,27 @@ jobs:
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
         run: dart test
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: packages/auth/amplify_auth_cognito_test; dart test
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart test
+      - id: packages_worker_bee_e2e_test_pub_upgrade
+        name: packages/worker_bee/e2e_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart pub upgrade
+      - name: packages/worker_bee/e2e_test; dart test
+        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart test
     needs:
       - job_001
-  job_030:
+  job_024:
     name: "unit_test; macos; Dart dev; PKG: packages/secure_storage/amplify_secure_storage_test; `tool/test-desktop.sh`"
     runs-on: macos-latest
     steps:
@@ -1148,17 +1088,17 @@ jobs:
         run: tool/test-desktop.sh
     needs:
       - job_001
-  job_031:
-    name: "unit_test; macos; Dart stable; PKG: packages/amplify_core; `dart test`"
+  job_025:
+    name: "unit_test; macos; Dart stable; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/worker_bee/e2e_test; `dart test`"
     runs-on: macos-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core;commands:test_0"
+          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/worker_bee/e2e_test;commands:test_0"
           restore-keys: |
-            os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core
+            os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/worker_bee/e2e_test
             os:macos-latest;pub-cache-hosted;sdk:stable
             os:macos-latest;pub-cache-hosted
             os:macos-latest
@@ -1176,9 +1116,27 @@ jobs:
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
         run: dart test
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: packages/auth/amplify_auth_cognito_test; dart test
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart test
+      - id: packages_worker_bee_e2e_test_pub_upgrade
+        name: packages/worker_bee/e2e_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart pub upgrade
+      - name: packages/worker_bee/e2e_test; dart test
+        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart test
     needs:
       - job_001
-  job_032:
+  job_026:
     name: "unit_test; macos; Dart stable; PKG: packages/secure_storage/amplify_secure_storage_test; `tool/test-desktop.sh`"
     runs-on: macos-latest
     steps:
@@ -1208,8 +1166,8 @@ jobs:
         run: tool/test-desktop.sh
     needs:
       - job_001
-  job_033:
-    name: "unit_test; windows; Dart dev; PKG: packages/amplify_core; `dart test`"
+  job_027:
+    name: "unit_test; windows; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/worker_bee/e2e_test; `dart test`"
     runs-on: windows-latest
     steps:
       - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
@@ -1226,9 +1184,27 @@ jobs:
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
         run: dart test
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: packages/auth/amplify_auth_cognito_test; dart test
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart test
+      - id: packages_worker_bee_e2e_test_pub_upgrade
+        name: packages/worker_bee/e2e_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart pub upgrade
+      - name: packages/worker_bee/e2e_test; dart test
+        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart test
     needs:
       - job_001
-  job_034:
+  job_028:
     name: "unit_test; windows; Dart dev; PKG: packages/secure_storage/amplify_secure_storage_test; `tool/test-desktop.sh`"
     runs-on: windows-latest
     steps:
@@ -1248,8 +1224,8 @@ jobs:
         run: tool/test-desktop.sh
     needs:
       - job_001
-  job_035:
-    name: "unit_test; windows; Dart stable; PKG: packages/amplify_core; `dart test`"
+  job_029:
+    name: "unit_test; windows; Dart stable; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/worker_bee/e2e_test; `dart test`"
     runs-on: windows-latest
     steps:
       - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
@@ -1266,9 +1242,27 @@ jobs:
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
         run: dart test
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: packages/auth/amplify_auth_cognito_test; dart test
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart test
+      - id: packages_worker_bee_e2e_test_pub_upgrade
+        name: packages/worker_bee/e2e_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart pub upgrade
+      - name: packages/worker_bee/e2e_test; dart test
+        if: "always() && steps.packages_worker_bee_e2e_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e_test
+        run: dart test
     needs:
       - job_001
-  job_036:
+  job_030:
     name: "unit_test; windows; Dart stable; PKG: packages/secure_storage/amplify_secure_storage_test; `tool/test-desktop.sh`"
     runs-on: windows-latest
     steps:

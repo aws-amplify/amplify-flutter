@@ -9,5 +9,9 @@ stages:
           - analyze: --fatal-infos .
   - unit_test:
       - test:
-      - command: dart run build_runner test -- -p chrome,firefox
-      - command: dart run build_runner test --release -- -p chrome,firefox
+        os:
+          - windows
+          - macos
+          - linux
+      - command: dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox
+      - command: dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox
