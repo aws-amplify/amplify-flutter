@@ -126,7 +126,7 @@ class AuthenticatorInputLocalizationsEn
   }
 
   @override
-  String passwordRequirementsAtLeast(int numCharacters, String characterType) {
+  String passwordRequirementsAtLeast(num numCharacters, String characterType) {
     final String pluralString = intl.Intl.pluralLogic(
       numCharacters,
       locale: localeName,

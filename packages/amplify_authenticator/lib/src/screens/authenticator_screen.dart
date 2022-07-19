@@ -21,6 +21,8 @@ import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/breakpoint.dart';
+
 class AuthenticatorScreen extends StatelessAuthenticatorComponent {
   const AuthenticatorScreen({
     Key? key,
@@ -62,26 +64,26 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
     AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
-    final Size screenSize = MediaQuery.of(context).size;
-    final bool isDesktop =
-        screenSize.width > AuthenticatorContainerConstants.landScapeView;
     final double containerWidth;
-
-    if (isDesktop) {
-      containerWidth = AuthenticatorContainerConstants.mediumWidth;
-    } else {
-      containerWidth = AuthenticatorContainerConstants.smallWidth;
-    }
+    final breakpoint = Breakpoint.of(context);
+    final isMobile = breakpoint == Breakpoint.small;
+    final containerPadding = breakpoint.verticalPadding;
 
     const signInUpTabs = [AuthenticatorStep.signIn, AuthenticatorStep.signUp];
-    final Widget child;
+
+    Widget child;
     switch (step) {
       case AuthenticatorStep.onboarding:
       case AuthenticatorStep.signIn:
-        child = const AuthenticatorTabView(tabs: signInUpTabs, initialIndex: 0);
-        break;
       case AuthenticatorStep.signUp:
-        child = const AuthenticatorTabView(tabs: signInUpTabs, initialIndex: 1);
+        child = AnimatedSize(
+          alignment: Alignment.topCenter,
+          child: AuthenticatorTabView(
+            tabs: signInUpTabs,
+            initialIndex: step == AuthenticatorStep.signUp ? 1 : 0,
+          ),
+          duration: const Duration(milliseconds: 200),
+        );
         break;
       case AuthenticatorStep.confirmSignUp:
       case AuthenticatorStep.confirmSignInCustomAuth:
@@ -97,10 +99,43 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
         throw StateError('Invalid step: $this');
     }
 
-    return Container(
-      constraints: BoxConstraints(maxWidth: containerWidth),
-      child: SafeArea(child: child),
-    );
+    if (isMobile) {
+      double mobileWidth = MediaQuery.of(context).size.width;
+      containerWidth = mobileWidth;
+
+      child = SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(containerPadding),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: containerWidth),
+              child: SafeArea(child: child),
+            ),
+          ),
+        ),
+      );
+    } else {
+      containerWidth = AuthenticatorContainerConstants.mediumWidth;
+
+      child = Center(
+        child: SingleChildScrollView(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: containerWidth),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: containerPadding),
+                  child: Card(child: SafeArea(child: child)),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return child;
   }
 
   @override
@@ -128,21 +163,29 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
     final form = InheritedForms.of(context)[step];
     final padding = InheritedConfig.of(context).padding;
 
-    return Padding(
-      padding: padding,
-      child: Column(
-        children: <Widget>[
-          Text(
-            titleResolver.resolve(context, step),
-            style: Theme.of(context).textTheme.headline6,
-          ),
-          const SizedBox(
-            height: AuthenticatorContainerConstants.gap,
-          ),
-          form,
-        ],
-      ),
-    );
+    final Widget layout;
+    switch (step) {
+      case AuthenticatorStep.signIn:
+      case AuthenticatorStep.signUp:
+        layout = form;
+        break;
+      default:
+        layout = Column(
+          children: <Widget>[
+            Text(
+              titleResolver.resolve(context, step),
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            const SizedBox(
+              height: AuthenticatorContainerConstants.gap,
+            ),
+            form,
+          ],
+        );
+        break;
+    }
+
+    return Padding(padding: padding, child: layout);
   }
 
   @override

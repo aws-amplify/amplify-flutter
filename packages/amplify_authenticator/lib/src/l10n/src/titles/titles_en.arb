@@ -1,14 +1,6 @@
 {
     "@@locale": "en",
     "@@context": "amplify_authenticator:titles",
-    "signIn": "Sign in to your account",
-    "@signIn": {
-        "description": "Title of the Sign In step and form"
-    },
-    "signUp": "Create your account",
-    "@signUp": {
-        "description": "Title of the Sign Up step and form"
-    },
     "confirmSignUp": "Enter your confirmation code",
     "@confirmSignUp": {
         "description": "Title of the Confirm Sign Up step and form"

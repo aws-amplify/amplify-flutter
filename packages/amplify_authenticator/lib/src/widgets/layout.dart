@@ -32,7 +32,7 @@ class AdaptiveFlex extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
     final bool isDesktop =
-        screenSize.width > AuthenticatorContainerConstants.landScapeView;
+        screenSize.width > AuthenticatorContainerConstants.mediumView;
 
     final Axis axis;
     final MainAxisAlignment mainAlignment;

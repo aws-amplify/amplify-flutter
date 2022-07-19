@@ -21,12 +21,6 @@ class AuthenticatorTitleLocalizationsEn
   AuthenticatorTitleLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get signIn => 'Sign in to your account';
-
-  @override
-  String get signUp => 'Create your account';
-
-  @override
   String get confirmSignUp => 'Enter your confirmation code';
 
   @override

@@ -103,52 +103,55 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
           builder: (context, setState) {
             return Dialog(
               key: keyCountryDialog,
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Text(
-                      _countriesResolver.resolve(
-                        context,
-                        CountryResolverKey.selectDialCode,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 400.0),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Text(
+                        _countriesResolver.resolve(
+                          context,
+                          CountryResolverKey.selectDialCode,
+                        ),
+                        style: DialogTheme.of(context).titleTextStyle ??
+                            Theme.of(context).textTheme.headline6!,
                       ),
-                      style: DialogTheme.of(context).titleTextStyle ??
-                          Theme.of(context).textTheme.headline6!,
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: TextField(
-                      key: keyCountrySearchField,
-                      decoration: const InputDecoration(
-                        suffixIcon: Icon(Icons.search),
-                        isDense: true,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: TextField(
+                        key: keyCountrySearchField,
+                        decoration: const InputDecoration(
+                          suffixIcon: Icon(Icons.search),
+                          isDense: true,
+                        ),
+                        onChanged: (String searchVal) {
+                          setState(() {
+                            _searchVal = searchVal;
+                          });
+                        },
                       ),
-                      onChanged: (String searchVal) {
-                        setState(() {
-                          _searchVal = searchVal;
-                        });
-                      },
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        Country current = filteredCountries[index];
-                        return SimpleDialogOption(
-                          onPressed: () => Navigator.of(context).pop(current),
-                          child: Text(
-                            '${_countriesResolver.resolve(context, current.key)} '
-                            '(+${current.value})',
-                          ),
-                        );
-                      },
-                      itemCount: filteredCountries.length,
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          Country current = filteredCountries[index];
+                          return SimpleDialogOption(
+                            onPressed: () => Navigator.of(context).pop(current),
+                            child: Text(
+                              '${_countriesResolver.resolve(context, current.key)} '
+                              '(+${current.value})',
+                            ),
+                          );
+                        },
+                        itemCount: filteredCountries.length,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                ],
+                    const SizedBox(height: 10),
+                  ],
+                ),
               ),
             );
           },
