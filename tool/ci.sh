@@ -84,16 +84,16 @@ for PKG in ${PKGS}; do
         dart analyze --fatal-infos lib test || EXIT_CODE=$?
         ;;
       command_0)
-        echo 'dart --version'
-        dart --version || EXIT_CODE=$?
-        ;;
-      command_1)
         echo 'dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox'
         dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox || EXIT_CODE=$?
         ;;
-      command_2)
+      command_1)
         echo 'dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox'
         dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox || EXIT_CODE=$?
+        ;;
+      command_2)
+        echo 'dart --version'
+        dart --version || EXIT_CODE=$?
         ;;
       command_3)
         echo 'git submodule update --init'
@@ -120,18 +120,14 @@ for PKG in ${PKGS}; do
         dart test || EXIT_CODE=$?
         ;;
       test_1)
-        echo 'dart test -p chrome,firefox'
-        dart test -p chrome,firefox || EXIT_CODE=$?
-        ;;
-      test_2)
         echo 'dart test --tags=build'
         dart test --tags=build || EXIT_CODE=$?
         ;;
-      test_3)
+      test_2)
         echo 'dart test -p chrome'
         dart test -p chrome || EXIT_CODE=$?
         ;;
-      test_4)
+      test_3)
         echo 'dart test -p firefox'
         dart test -p firefox || EXIT_CODE=$?
         ;;
