@@ -77,6 +77,9 @@ export 'src/types/api/api_types.dart';
 /// Auth
 export 'src/types/auth/auth_types.dart';
 
+/// Auth providers
+export 'src/types/common/amplify_auth_provider.dart';
+
 /// Datastore
 export 'src/types/datastore/datastore_types.dart' hide DateTimeParse;
 
