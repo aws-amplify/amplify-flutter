@@ -28,6 +28,8 @@ class ConfirmSignInPage extends AuthenticatorPage {
 
   Finder get newPasswordField =>
       find.byKey(keyNewPasswordConfirmSignInFormField);
+  Finder get confirmNewPasswordField =>
+      find.byKey(keyConfirmNewPasswordConfirmSignInFormField);
   Finder get verificationField => find.byKey(keyCodeConfirmSignInFormField);
   Finder get confirmSignInButton => find.byKey(keyConfirmSignInButton);
   Finder get backToSignIn => find.byKey(keyBackToSignInButton);
@@ -64,16 +66,18 @@ class ConfirmSignInPage extends AuthenticatorPage {
 
   /// When I enter a new password
   Future<void> enterNewPassword(String password) async {
+    await tester.tap(newPasswordField);
     await tester.enterText(
-      find.byKey(keyNewPasswordConfirmSignInFormField),
+      newPasswordField,
       password,
     );
   }
 
   /// When I confirm a new password
   Future<void> enterPasswordConfirmation(String password) async {
+    await tester.tap(confirmNewPasswordField);
     await tester.enterText(
-      find.byKey(keyConfirmNewPasswordConfirmSignInFormField),
+      confirmNewPasswordField,
       password,
     );
   }
