@@ -104,7 +104,57 @@ class PublishCommand extends AmplifyCommand {
         : null;
   }
 
+  /// Runs pre-publish operations for [package], most importantly any necessary
+  /// `build_runner` tasks.
+  Future<void> _prePublish(PackageInfo package) async {
+    if (!package.needsBuildRunner) {
+      return;
+    }
+    final progress =
+        logger.progress('Running pre-publish checks for ${package.name}...');
+    final buildRunnerCmd = await Process.start(
+      package.flavor.entrypoint,
+      [
+        if (package.flavor == PackageFlavor.flutter) 'pub',
+        'run',
+        'build_runner',
+        'build',
+        if (verbose) '--verbose',
+      ],
+      workingDirectory: package.path,
+    );
+    final output = StringBuffer();
+    buildRunnerCmd
+      ..captureStdout(sink: output.writeln)
+      ..captureStderr(sink: output.writeln);
+    if (verbose) {
+      buildRunnerCmd
+        ..captureStdout()
+        ..captureStderr();
+    }
+    if (await buildRunnerCmd.exitCode != 0) {
+      progress.cancel();
+      logger.stderr('Failed to run `build_runner` for ${package.name}: ');
+      if (!verbose) {
+        logger.stderr(output.toString());
+      }
+      exit(1);
+    }
+    progress.finish(message: 'Success!');
+  }
+
+  static final _validationStartRegex = RegExp(
+    r'Package validation found the following',
+  );
+  static final _validationConstraintRegex = RegExp(
+    r'\* Your dependency on ".+" should allow more than one version.',
+  );
+  static final _validationErrorRegex = RegExp(r'^\s*\*');
+
+  /// Publishes the package using `pub`.
   Future<void> _publish(PackageInfo package) async {
+    final progress = logger
+        .progress('Publishing ${package.name}${dryRun ? ' (dry run)' : ''}...');
     final publishCmd = await Process.start(
       package.flavor.entrypoint,
       [
@@ -114,18 +164,38 @@ class PublishCommand extends AmplifyCommand {
       ],
       workingDirectory: package.path,
     );
+    final output = StringBuffer();
+    publishCmd
+      ..captureStdout(sink: output.writeln)
+      ..captureStderr(sink: output.writeln);
     if (verbose) {
       publishCmd
         ..captureStdout()
         ..captureStderr();
     }
-    if (force) {
-      publishCmd.stdin.writeln('y');
-    }
+    publishCmd.stdin.writeln('y');
 
-    if (await publishCmd.exitCode != 0) {
-      exitError('Failed to publish package ${package.name}');
+    final exitCode = await publishCmd.exitCode;
+    if (exitCode != 0) {
+      // Find any error lines which are not dependency constraint-related.
+      final failures = output
+          .toString()
+          .split('\n')
+          .skipWhile((line) => !_validationStartRegex.hasMatch(line))
+          .where(_validationErrorRegex.hasMatch)
+          .where((line) => !_validationConstraintRegex.hasMatch(line));
+      if (failures.isNotEmpty) {
+        progress.cancel();
+        logger
+          ..stderr(
+            'Failed to publish package ${package.name} '
+            'due to the following errors: ',
+          )
+          ..stderr(failures.join('\n'));
+        exit(1);
+      }
     }
+    progress.finish(message: 'Success!');
   }
 
   @override
@@ -137,6 +207,11 @@ class PublishCommand extends AmplifyCommand {
     ]))
         .whereType<PackageInfo>()
         .toList();
+
+    if (publishablePackages.isEmpty) {
+      logger.stdout('No packages need publishing!');
+      return;
+    }
 
     try {
       sortPackagesTopologically<PackageInfo>(
@@ -150,7 +225,7 @@ class PublishCommand extends AmplifyCommand {
     }
 
     stdout
-      ..writeln('Preparing to publish: ')
+      ..writeln('Preparing to publish${dryRun ? ' (dry run)' : ''}: ')
       ..writeln(
         publishablePackages
             .map((pkg) => '${pkg.pubspecInfo.pubspec.version} ${pkg.name}')
@@ -164,6 +239,14 @@ class PublishCommand extends AmplifyCommand {
       }
     }
 
+    // Run pre-publish checks before publishing any packages.
+    if (!force) {
+      for (final package in publishablePackages) {
+        await _prePublish(package);
+      }
+    }
+
+    // Publish each package sequentially.
     for (final package in publishablePackages) {
       await _publish(package);
     }
