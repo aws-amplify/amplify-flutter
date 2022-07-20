@@ -27,22 +27,30 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
       UploadFileOptions? options}) {
     final UploadFileRequest request =
         UploadFileRequest(local: local, key: key, options: options);
-    return plugins[0].uploadFile(request: request, onProgress: onProgress);
+    return plugins.length == 1
+        ? plugins[0].uploadFile(request: request, onProgress: onProgress)
+        : throw _pluginNotAddedException('Storage');
   }
 
   Future<GetUrlResult> getUrl({required String key, GetUrlOptions? options}) {
     final GetUrlRequest request = GetUrlRequest(key: key, options: options);
-    return plugins[0].getUrl(request: request);
+    return plugins.length == 1
+        ? plugins[0].getUrl(request: request)
+        : throw _pluginNotAddedException('Storage');
   }
 
   Future<RemoveResult> remove({required String key, RemoveOptions? options}) {
     final RemoveRequest request = RemoveRequest(key: key, options: options);
-    return plugins[0].remove(request: request);
+    return plugins.length == 1
+        ? plugins[0].remove(request: request)
+        : throw _pluginNotAddedException('Storage');
   }
 
   Future<ListResult> list({String? path, ListOptions? options}) {
     final ListRequest request = ListRequest(path: path, options: options);
-    return plugins[0].list(request: request);
+    return plugins.length == 1
+        ? plugins[0].list(request: request)
+        : throw _pluginNotAddedException('Storage');
   }
 
   Future<DownloadFileResult> downloadFile(
@@ -52,6 +60,8 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
       DownloadFileOptions? options}) {
     final DownloadFileRequest request =
         DownloadFileRequest(key: key, local: local, options: options);
-    return plugins[0].downloadFile(request: request, onProgress: onProgress);
+    return plugins.length == 1
+        ? plugins[0].downloadFile(request: request, onProgress: onProgress)
+        : throw _pluginNotAddedException('Storage');
   }
 }

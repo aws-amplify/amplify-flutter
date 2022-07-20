@@ -56,7 +56,7 @@ void main() async {
     }
 
     setUpAll(() async {
-      Amplify.addPlugins([AmplifyAuthCognito(), AmplifyStorageS3()]);
+      await Amplify.addPlugins([AmplifyAuthCognito(), AmplifyStorageS3()]);
       await Amplify.configure(amplifyconfig);
 
       await deleteAllGuestFiles();
