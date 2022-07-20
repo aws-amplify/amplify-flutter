@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ struct FlutterModelSyncedEvent: FlutterHubEvent {
     var added: Int
     var updated: Int
     var deleted: Int
-    
+
     init(payload: HubPayload) throws {
         guard let modelSynced = payload.data as? ModelSyncedEvent else {
                   throw FlutterDataStoreError.hubEventCast
@@ -38,16 +38,16 @@ struct FlutterModelSyncedEvent: FlutterHubEvent {
         self.updated = modelSynced.updated
         self.deleted = modelSynced.deleted
     }
-    
-    func toValueMap() -> Dictionary<String, Any> {
+
+    func toValueMap() -> [String: Any] {
         return [
-            "eventName": self.eventName,
-            "model": self.modelName,
-            "isFullSync": self.isFullSync,
-            "isDeltaSync": self.isDeltaSync,
-            "added": self.added,
-            "updated": self.updated,
-            "deleted": self.deleted
+            "eventName": eventName,
+            "model": modelName,
+            "isFullSync": isFullSync,
+            "isDeltaSync": isDeltaSync,
+            "added": added,
+            "updated": updated,
+            "deleted": deleted
         ]
     }
 }

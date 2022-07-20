@@ -1,31 +1,28 @@
 /*
-* Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-*
-* Licensed under the Apache License, Version 2.0 (the "License").
-* You may not use this file except in compliance with the License.
-* A copy of the License is located at
-*
-*  http://aws.amazon.com/apache2.0
-*
-* or in the "license" file accompanying this file. This file is distributed
-* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-* express or implied. See the License for the specific language governing
-* permissions and limitations under the License.
-*/
-
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
 
 import Foundation
 import Amplify
 import amplify_core
 
 public struct FlutterModelFieldType {
-    public let fieldType : String
-    public let ofModelName : String?
+    public let fieldType: String
+    public let ofModelName: String?
     public let ofCustomTypeName: String?
-    
-    
+
     init(serializedData: [String: Any]) throws {
-        
         guard let fieldType = serializedData["fieldType"] as? String
         else {
             throw ModelSchemaError.parse(
@@ -34,13 +31,12 @@ public struct FlutterModelFieldType {
                 desiredType: "String")
         }
         self.fieldType = fieldType
-        
+
         self.ofModelName = serializedData["ofModelName"] as? String
         self.ofCustomTypeName = serializedData["ofCustomTypeName"] as? String
     }
-    
+
     public func convertToNativeModelField(customTypeSchemaRegistry: FlutterSchemaRegistry) throws -> ModelFieldType {
-        
         switch fieldType {
             case "string":
                 return ModelFieldType.string
@@ -69,7 +65,7 @@ public struct FlutterModelFieldType {
                         desiredType: "String")
                 }
                 return ModelFieldType.model(name: ofModelName)
-            case "collection" :
+            case "collection":
                 guard let ofModelName = ofModelName
                 else {
                     throw ModelSchemaError.parse(
@@ -84,7 +80,7 @@ public struct FlutterModelFieldType {
                     return ModelFieldType.collection(of: ofModelName)
                 }
             case "embedded":
-                guard let customTypeName = self.ofCustomTypeName else {
+                guard let customTypeName = ofCustomTypeName else {
                     throw FlutterDataStoreError.acquireSchemaForHub
                 }
                 // For embedded CustomType, link its schema to the FieldType
@@ -96,7 +92,7 @@ public struct FlutterModelFieldType {
                     )
                 )
             case "embeddedCollection":
-                guard let customTypeName = self.ofCustomTypeName else {
+                guard let customTypeName = ofCustomTypeName else {
                     throw FlutterDataStoreError.acquireSchemaForHub
                 }
                 // For embedded CustomType, link its schema to the FieldType

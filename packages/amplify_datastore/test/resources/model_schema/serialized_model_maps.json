@@ -1,6 +1,5 @@
 {
   "BlogSerializedMap" : {
-    "id" : "999",
     "modelName" : "Blog",
     "serializedData" : {
       "id" : "999",
@@ -8,7 +7,6 @@
     }
   },
   "CommentSerializedMap" : {
-    "id" : "999",
     "modelName" : "Comment",
     "serializedData" : {
       "id" : "999",
@@ -19,7 +17,6 @@
     }
   },
   "PostSerializedMap" : {
-    "id" : "999",
     "modelName" : "Post",
     "serializedData" : {
       "id" : "999",
@@ -31,7 +28,6 @@
     }
   },
   "AllTypeModelSerializedMap" : {
-    "id" : "999",
     "modelName" : "AllTypeModel",
     "serializedData" : {
       "id" : "999",
@@ -47,7 +43,6 @@
     }
   },
   "PersonModelSerializedMap": {
-    "id": "123",
     "modelName": "Person",
     "serializedData": {
       "id": "123",

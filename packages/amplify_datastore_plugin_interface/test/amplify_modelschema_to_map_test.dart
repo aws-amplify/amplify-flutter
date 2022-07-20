@@ -16,7 +16,7 @@
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'testData/ModelProvider.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 
 void main() {
   test('Blog codegen model generates modelschema with proper fields', () async {
@@ -26,6 +26,12 @@ void main() {
     expect(map, {
       'name': "Blog",
       'pluralName': "Blogs",
+      'indexes': [
+        {
+          'name': null,
+          'fields': ['id']
+        }
+      ],
       'fields': {
         'id': {
           'name': "id",
@@ -40,6 +46,23 @@ void main() {
           'isRequired': true,
           'isArray': false,
           'isReadOnly': false,
+        },
+        'file': {
+          'name': 'file',
+          'type': {'fieldType': 'embedded', 'ofCustomTypeName': 'S3Object'},
+          'isRequired': false,
+          'isArray': false,
+          'isReadOnly': false
+        },
+        'files': {
+          'name': 'files',
+          'type': {
+            'fieldType': 'embeddedCollection',
+            'ofCustomTypeName': 'S3Object'
+          },
+          'isRequired': false,
+          'isArray': true,
+          'isReadOnly': false
         },
         'posts': {
           'name': "posts",
@@ -58,7 +81,8 @@ void main() {
           'type': {'fieldType': 'dateTime'},
           'isRequired': false,
           'isArray': false,
-          'isReadOnly': true
+          // Note that the testing overrides the readonly field createdAt
+          'isReadOnly': false
         },
         'updatedAt': {
           'name': 'updatedAt',
@@ -79,6 +103,12 @@ void main() {
     expect(map, {
       'name': 'Comment',
       'pluralName': 'Comments',
+      'indexes': [
+        {
+          'name': 'byPost',
+          'fields': ['postID', 'content']
+        }
+      ],
       'fields': {
         'id': {
           'name': 'id',
@@ -131,6 +161,12 @@ void main() {
     expect(map, {
       'name': 'Post',
       'pluralName': 'Posts',
+      'indexes': [
+        {
+          'name': 'byBlog',
+          'fields': ['blogID']
+        }
+      ],
       'fields': {
         'id': {
           'name': 'id',
@@ -211,17 +247,18 @@ void main() {
 
   test('PostAuthComplex codegen model generates modelschema with proper fields',
       () async {
-    ModelSchema postAuthComplexSchema = PostAuthComplex.schema;
+    ModelSchema postAuthComplexSchema = PostWithAuthRules.schema;
     Map<String, dynamic> map = postAuthComplexSchema.toMap();
 
     expect(map, {
-      'name': 'PostAuthComplex',
-      'pluralName': 'PostAuthComplexes',
+      'name': 'PostWithAuthRules',
+      'pluralName': 'PostWithAuthRules',
       'authRules': [
         {
           'authStrategy': 'OWNER',
           'ownerField': 'owner',
           'identityClaim': 'cognito:username',
+          'provider': 'USERPOOLS',
           'operations': ['CREATE', 'UPDATE', 'DELETE', 'READ']
         }
       ],

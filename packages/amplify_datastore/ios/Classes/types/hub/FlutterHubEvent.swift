@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ import Foundation
 
 protocol FlutterHubEvent {
     var eventName: String { get set }
-    func toValueMap() -> Dictionary<String, Any>
+    func toValueMap() -> [String: Any]
 }
 
 func shortEventName(eventName: String) -> String {

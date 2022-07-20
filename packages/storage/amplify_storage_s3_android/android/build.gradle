@@ -62,5 +62,5 @@ android {
 dependencies {
     api amplifyCore
 
-    implementation 'com.amplifyframework:aws-storage-s3:1.36.1'
+    implementation 'com.amplifyframework:aws-storage-s3:v1.37.0-cpkey-preview.2'
 }

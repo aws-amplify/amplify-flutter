@@ -157,7 +157,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                         ExceptionMessages.missingExceptionMessage,
                         ExceptionMessages.missingRecoverySuggestion,
                         "Received invalid request from Dart, modelSchemas and/or modelProviderVersion" +
-                            " are not available. Request: " + request.toString()
+                                " are not available. Request: " + request.toString()
                     )
                 )
             }
@@ -301,8 +301,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
         val instance = SerializedModel.builder()
-            .serializedData(serializedModelData)
             .modelSchema(schema)
+            .serializedData(serializedModelData)
             .build()
 
         plugin.delete(
@@ -357,8 +357,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
         val serializedModel = SerializedModel.builder()
-            .serializedData(serializedModelData)
             .modelSchema(schema)
+            .serializedData(serializedModelData)
             .build()
 
         plugin.save(
@@ -420,7 +420,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     dataStoreObserveEventStreamHandler.sendEvent(
                         FlutterSubscriptionEvent(
                             serializedModel = event.item() as SerializedModel,
-                            eventType = event.type().name.toLowerCase(Locale.getDefault())
+                            eventType = event.type().name.lowercase(Locale.getDefault())
                         ).toMap()
                     )
                 }
@@ -569,8 +569,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 // ignore field if the field doesn't have valid schema in ModelProvider
                 val fieldModelSchema = modelProvider.modelSchemas()[field.targetType] ?: continue
                 result[key] = SerializedModel.builder()
-                    .serializedData(deserializeNestedModel(fieldSerializedData as Map<String, Any?>, fieldModelSchema))
                     .modelSchema(fieldModelSchema)
+                    .serializedData(deserializeNestedModel(fieldSerializedData as Map<String, Any?>, fieldModelSchema))
                     .build()
             } else if (field.isCustomType) {
                 // ignore field if the field doesn't have valid schema in ModelProvider
@@ -712,7 +712,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private fun createConflictHandler(request: Map<String, Any>): DataStoreConflictHandler {
         return if (request["hasConflictHandler"] as? Boolean? == true) {
             DataStoreConflictHandler { conflictData,
-                onDecision ->
+                                       onDecision ->
 
                 val modelName = conflictData.local.modelName
                 val args = mapOf(
@@ -739,10 +739,14 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                                         ResolutionStrategy.RETRY_LOCAL -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retryLocal())
                                         ResolutionStrategy.RETRY -> {
                                             val serializedModel = SerializedModel.builder()
-                                                .serializedData((resultMap["customModel"] as Map<*, *>).cast())
                                                 .modelSchema(modelProvider.modelSchemas().getValue(modelName))
+                                                .serializedData((resultMap["customModel"] as Map<*, *>).cast())
                                                 .build()
-                                            onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retry(serializedModel))
+                                            onDecision.accept(
+                                                DataStoreConflictHandler.ConflictResolutionDecision.retry(
+                                                    serializedModel
+                                                )
+                                            )
                                         }
                                     }
                                 } catch (e: Exception) {
@@ -766,7 +770,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             }
         } else {
             DataStoreConflictHandler { _,
-                onDecision ->
+                                       onDecision ->
                 onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
             }
         }

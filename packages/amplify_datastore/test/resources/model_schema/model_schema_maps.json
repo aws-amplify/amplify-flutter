@@ -115,6 +115,12 @@
   "PostSchema": {
     "name": "Post",
     "pluralName": "Posts",
+    "indexes": [
+      {
+        "name": "byBlog",
+        "fields": ["blogID"]
+      }
+    ],
     "fields": {
       "id": {
         "name": "id",
@@ -530,6 +536,59 @@
         "isRequired": false,
         "isArray": false,
         "isReadOnly": true
+      }
+    }
+  },
+  "InventoryModelSchema": {
+    "pluralName": "Inventories",
+    "name": "Inventory",
+    "indexes": [
+      {
+        "name": null,
+        "fields": [
+          "productID",
+          "name",
+          "warehouseID",
+          "region"
+        ]
+      }
+    ],
+    "fields": {
+      "productID": {
+        "name": "productID",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false,
+        "isReadOnly": false
+      },
+      "name": {
+        "name": "name",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false,
+        "isReadOnly": false
+      },
+      "warehouseID": {
+        "name": "warehouseID",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false,
+        "isReadOnly": false
+      },
+      "region": {
+        "name": "region",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false,
+        "isReadOnly": false
       }
     }
   }

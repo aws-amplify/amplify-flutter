@@ -216,3 +216,104 @@ type MultiRelatedRegistration @model {
   attendeeId: ID @index(name: "byAttendee", sortKeyFields: ["meetingId"])
   attendee: MultiRelatedAttendee! @belongsTo(fields: ["attendeeId"])
 }
+
+type CPKInventory @model {
+  productId: ID! @primaryKey(sortKeyFields: ["productName", "warehouseId"])
+  productName: String!
+  warehouseId: String!
+  description: String
+}
+
+# type CPKHasOneParent @model {
+#   id: ID! @primaryKey(sortKeyFields: ["name"])
+#   name: String!
+#   implicitChild: CPKHasOneChild @hasOne
+#   explicitChildId: ID
+#   explicitChildName: String
+#   explicitChild: CPKHasOneChild
+#     @hasOne(fields: ["explicitChildId", "explicitChildName"])
+# }
+
+# type CPKHasOneChild @model {
+#   id: ID! @primaryKey(sortKeyFields: ["name"])
+#   name: String!
+# }
+
+# type CPKBelongsToParent @model {
+#   id: ID! @primaryKey(sortKeyFields: ["name"])
+#   name: String!
+#   implicitChild: CPKBelongsToChildImplicit @hasOne
+#   explicitChild: CPKBelongsToChildExplicit @hasOne
+# }
+
+# type CPKBelongsToChildImplicit @model {
+#   id: ID! @primaryKey(sortKeyFields: ["name"])
+#   name: String!
+#   parent: CPKHasOneParent @belongsTo
+# }
+
+# type CPKBelongsToChildExplicit @model {
+#   id: ID! @primaryKey(sortKeyFields: ["name"])
+#   name: String!
+#   parentId: ID!
+#   parentName: String!
+#   parent: CPKHasOneParent @belongsTo(fields: ["projectId", "projectName"])
+# }
+
+# type CPKHasManyParent @model {
+#   id: ID! @primaryKey(sortKeyFields: ["title"])
+#   title: String!
+#   implicitChildren: [CPKHasManyChildImplicit] @hasMany
+#   explicitChildren: [CPKHasManyChildExplicit]
+#     @hasMany(indexName: "byCPKHasManyParent", fields: ["id"])
+# }
+
+# type CPKHasManyChildImplicit @model {
+#   id: ID! @primaryKey(sortKeyFields: ["content"])
+#   content: String!
+# }
+
+# type CPKHasManyChildExplicit @model {
+#   id: ID! @primaryKey(sortKeyFields: ["content"])
+#   content: String!
+#   hasManyParentId: ID
+#     @index(name: "byCPKHasManyParent", sortKeyFields: ["content"])
+# }
+
+# type CPKHasManyParentBidirectionalImplicit @model {
+#   id: ID! @primaryKey(sortKeyFields: ["title"])
+#   title: String!
+#   cpkHasManyImplicitChildren: [CPKHasManyChildImplicit] @hasMany
+# }
+
+# type CPKHasManyChildImplicit @model {
+#   id: ID! @primaryKey(sortKeyFields: ["content"])
+#   content: String!
+#   hasManyParent: CPKHasManyParentBidirectionalImplicit @belongsTo
+# }
+
+# type CPKHasManyParentBidirectionalExplicit @model {
+#   id: ID! @primaryKey(sortKeyFields: ["title"])
+#   title: String!
+#   cpkHasManyExplicitChildren: [CPKHasManyChildExplicit] @hasMany
+# }
+
+# type CPKHasManyChildExplicit @model {
+#   id: ID! @primaryKey(sortKeyFields: ["content"])
+#   content: String!
+#   hasManyParentId: ID @index(name: "byCPKHasManyParentBidirectionalExplicit", sortKeyFields: ["content"])
+#   hasManyParent: CPKHasManyParentBidirectionalImplicit @belongsTo(fields: ["hasManyParentID"])
+# }
+
+# type CPKManyToManyPost @model {
+#   id: ID!
+#   title: String!
+#   content: String
+#   tags: [CPKManyToManyTag] @manyToMany(relationName: "CPKPostTags")
+# }
+
+# type CPKManyToManyTag @model {
+#   id: ID! @primaryKey(sortKeyFields: ["label"])
+#   label: String!
+#   posts: [CPKManyToManyPost] @manyToMany(relationName: "CPKPostTags")
+# }
