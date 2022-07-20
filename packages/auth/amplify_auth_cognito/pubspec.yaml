@@ -12,7 +12,6 @@ environment:
 dependencies:
   amplify_auth_cognito_android: 0.6.4-rc.1
   amplify_auth_cognito_ios: 0.6.4-rc.1
-  amplify_auth_plugin_interface: 0.6.4-rc.1
   amplify_core: 0.6.4-rc.1
   aws_common: ^0.1.0
   collection: ^1.15.0
