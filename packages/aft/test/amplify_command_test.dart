@@ -40,7 +40,7 @@ void main() {
     });
 
     test('globalDependencyConfig', () async {
-      final config = await command.globalDependencyConfig;
+      final config = await command.aftConfig;
       expect(config.dependencies, contains('uuid'));
     });
   });

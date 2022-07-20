@@ -11,3 +11,7 @@ dependencies:
   json_annotation: ^4.4.0
   json_serializable: ^6.1.0
   uuid: 3.0.6
+
+# Packages to ignore in all repo operations
+ignore:
+  - synthetic_package

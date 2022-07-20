@@ -27,10 +27,7 @@ import 'package:path/path.dart' as p;
 import 'package:pub/pub.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-const _ignorePackages = [
-  'synthetic_package',
-];
-
+/// Base class for all commands in this package providing common functionality.
 abstract class AmplifyCommand extends Command<void> implements Closeable {
   /// Whether verbose logging is enabled.
   late final bool verbose = globalResults!['verbose'] as bool;
@@ -80,6 +77,7 @@ abstract class AmplifyCommand extends Command<void> implements Closeable {
         final allDirs = (await rootDir)
             .list(recursive: true, followLinks: false)
             .whereType<Directory>();
+        final aftConfig = await this.aftConfig;
 
         final allPackages = <PackageInfo>[];
         await for (final dir in allDirs) {
@@ -88,7 +86,7 @@ abstract class AmplifyCommand extends Command<void> implements Closeable {
             continue;
           }
           final pubspec = pubspecInfo.pubspec;
-          if (_ignorePackages.contains(pubspec.name)) {
+          if (aftConfig.ignore.contains(pubspec.name)) {
             continue;
           }
           allPackages.add(
@@ -106,16 +104,15 @@ abstract class AmplifyCommand extends Command<void> implements Closeable {
         });
       });
 
-  final _globalDependencyConfigMemo = AsyncMemoizer<GlobalDependencyConfig>();
+  final _aftConfigMemo = AsyncMemoizer<AftConfig>();
 
-  /// The global dependency configuration for the repo.
-  Future<GlobalDependencyConfig> get globalDependencyConfig =>
-      _globalDependencyConfigMemo.runOnce(() async {
+  /// The global `aft` configuration for the repo.
+  Future<AftConfig> get aftConfig => _aftConfigMemo.runOnce(() async {
         final rootDir = await this.rootDir;
-        final depsFile = File(p.join(rootDir.path, 'deps.yaml'));
-        assert(depsFile.existsSync(), 'Could not find deps.yaml');
-        final depsYaml = depsFile.readAsStringSync();
-        return checkedYamlDecode(depsYaml, GlobalDependencyConfig.fromJson);
+        final configFile = File(p.join(rootDir.path, 'aft.yaml'));
+        assert(configFile.existsSync(), 'Could not find aft.yaml');
+        final configYaml = configFile.readAsStringSync();
+        return checkedYamlDecode(configYaml, AftConfig.fromJson);
       });
 
   /// A command runner for `pub`.

@@ -65,6 +65,14 @@ class PackageInfo
   /// The package flavor, e.g. Dart or Flutter.
   final PackageFlavor flavor;
 
+  /// Whether the package needs `build_runner` to be run.
+  ///
+  /// Used as a pre-publish check to ensure that generated code is
+  /// up-to-date before publishing.
+  bool get needsBuildRunner {
+    return pubspecInfo.pubspec.devDependencies.containsKey('build_runner');
+  }
+
   @override
   List<Object?> get props => [
         name,
@@ -149,31 +157,32 @@ extension PubspecX on Pubspec {
   }
 }
 
-/// The typed representation of the `deps.yaml` file.
-@JsonSerializable(
+const yamlSerializable = JsonSerializable(
   anyMap: true,
   checked: true,
-  createToJson: false,
   disallowUnrecognizedKeys: true,
-)
+);
+
+/// The typed representation of the `aft.yaml` file.
+@yamlSerializable
 @_VersionConstraintConverter()
-class GlobalDependencyConfig {
-  const GlobalDependencyConfig({
-    required this.dependencies,
+class AftConfig {
+  const AftConfig({
+    this.dependencies = const {},
+    this.ignore = const [],
   });
 
-  factory GlobalDependencyConfig.fromJson(Map<Object?, Object?>? json) =>
-      _$GlobalDependencyConfigFromJson(json ?? const {});
+  factory AftConfig.fromJson(Map<Object?, Object?>? json) =>
+      _$AftConfigFromJson(json ?? const {});
 
   final Map<String, VersionConstraint> dependencies;
+  final List<String> ignore;
+
+  Map<String, Object?> toJson() => _$AftConfigToJson(this);
 }
 
 /// Typed representation of the `sdk.yaml` file.
-@JsonSerializable(
-  anyMap: true,
-  checked: true,
-  disallowUnrecognizedKeys: true,
-)
+@yamlSerializable
 @ShapeIdConverter()
 class SdkConfig with AWSSerializable, AWSEquatable<SdkConfig> {
   const SdkConfig({
