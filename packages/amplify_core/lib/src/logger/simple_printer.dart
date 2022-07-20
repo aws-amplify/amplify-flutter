@@ -41,6 +41,16 @@ class SimplePrinter implements AmplifyLoggerPlugin {
 
     // Log Message
     buffer.write(logEntry.message);
+    final error = logEntry.error;
+    if (error != null) {
+      buffer
+        ..write(': ')
+        ..writeln(error);
+    }
+    final stackTrace = logEntry.stackTrace;
+    if (stackTrace != null) {
+      buffer.writeln(stackTrace);
+    }
 
     return buffer.toString();
   }
