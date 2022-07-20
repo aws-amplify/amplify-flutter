@@ -37,16 +37,19 @@ class SignUpPage extends AuthenticatorPage {
 
   /// When I type a new "username"
   Future<void> enterUsername(String username) async {
+    await tester.tap(usernameField);
     await tester.enterText(usernameField, username);
   }
 
   /// When I type my password
   Future<void> enterPassword(String password) async {
+    await tester.tap(passwordField);
     await tester.enterText(passwordField, password);
   }
 
   /// When I type my password confirmation
   Future<void> enterPasswordConfirmation(String password) async {
+    await tester.tap(confirmPasswordField);
     await tester.enterText(confirmPasswordField, password);
   }
 
