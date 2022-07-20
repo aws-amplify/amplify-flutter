@@ -1,3 +1,9 @@
+## 0.6.4-rc.1 (2022-07-20)
+
+- feat(datastore): support of custom primary key
+- chore: bump amplify-ios to 1.27.1-cpk.1
+- chore: bump amplify-android to v1.37.0-cpkey-preview.2
+
 ## 0.5.0 (2022-05-17)
 
 ### Features
