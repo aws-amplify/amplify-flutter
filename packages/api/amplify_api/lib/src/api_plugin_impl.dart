@@ -26,6 +26,7 @@ import 'package:meta/meta.dart';
 
 import 'amplify_api_config.dart';
 import 'amplify_authorization_rest_client.dart';
+import 'graphql/app_sync_api_key_auth_provider.dart';
 import 'graphql/send_graphql_request.dart';
 import 'util.dart';
 
@@ -35,10 +36,11 @@ import 'util.dart';
 class AmplifyAPIDart extends AmplifyAPI {
   late final AWSApiPluginConfig _apiConfig;
   final http.Client? _baseHttpClient;
+  late final AmplifyAuthProviderRepository _authProviderRepo;
 
   /// A map of the keys from the Amplify API config to HTTP clients to use for
   /// requests to that endpoint.
-  final Map<String, AmplifyAuthorizationRestClient> _clientPool = {};
+  final Map<String, http.Client> _clientPool = {};
 
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
@@ -65,6 +67,21 @@ class AmplifyAPIDart extends AmplifyAPI {
               'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api');
     }
     _apiConfig = apiConfig;
+    _authProviderRepo = authProviderRepo;
+    _registerApiPluginAuthProviders();
+  }
+
+  /// If an endpoint has an API key, ensure valid auth provider registered.
+  void _registerApiPluginAuthProviders() {
+    _apiConfig.endpoints.forEach((key, value) {
+      // Check the presence of apiKey (not auth type) because other modes might
+      // have a key if not the primary auth mode.
+      if (value.apiKey != null) {
+        _authProviderRepo.registerAuthProvider(
+            value.authorizationType.authProviderToken,
+            AppSyncApiKeyAuthProvider());
+      }
+    });
   }
 
   @override
@@ -89,32 +106,21 @@ class AmplifyAPIDart extends AmplifyAPI {
     }
   }
 
-  /// Returns the HTTP client to be used for GraphQL operations.
+  /// Returns the HTTP client to be used for REST/GraphQL operations.
   ///
-  /// Use [apiName] if there are multiple GraphQL endpoints.
+  /// Use [apiName] if there are multiple endpoints of the same type.
   @visibleForTesting
-  http.Client getGraphQLClient({String? apiName}) {
+  http.Client getHttpClient(EndpointType type, {String? apiName}) {
     final endpoint = _apiConfig.getEndpoint(
-      type: EndpointType.graphQL,
+      type: type,
       apiName: apiName,
     );
-    return _clientPool[endpoint.name] ??= AmplifyAuthorizationRestClient(
-        endpointConfig: endpoint.config, baseClient: _baseHttpClient);
-  }
-
-  /// Returns the HTTP client to be used for REST operations.
-  ///
-  /// Use [apiName] if there are multiple REST endpoints.
-  @visibleForTesting
-  http.Client getRestClient({String? apiName}) {
-    final endpoint = _apiConfig.getEndpoint(
-      type: EndpointType.rest,
-      apiName: apiName,
-    );
-    return _clientPool[endpoint.name] ??= AmplifyAuthorizationRestClient(
+    return _clientPool[endpoint.name] ??= AmplifyHttpClient(
+        baseClient: AmplifyAuthorizationRestClient(
       endpointConfig: endpoint.config,
       baseClient: _baseHttpClient,
-    );
+      authProviderRepo: _authProviderRepo,
+    ));
   }
 
   Uri _getGraphQLUri(String? apiName) {
@@ -160,7 +166,8 @@ class AmplifyAPIDart extends AmplifyAPI {
   @override
   CancelableOperation<GraphQLResponse<T>> query<T>(
       {required GraphQLRequest<T> request}) {
-    final graphQLClient = getGraphQLClient(apiName: request.apiName);
+    final graphQLClient =
+        getHttpClient(EndpointType.graphQL, apiName: request.apiName);
     final uri = _getGraphQLUri(request.apiName);
 
     final responseFuture = sendGraphQLRequest<T>(
@@ -171,7 +178,8 @@ class AmplifyAPIDart extends AmplifyAPI {
   @override
   CancelableOperation<GraphQLResponse<T>> mutate<T>(
       {required GraphQLRequest<T> request}) {
-    final graphQLClient = getGraphQLClient(apiName: request.apiName);
+    final graphQLClient =
+        getHttpClient(EndpointType.graphQL, apiName: request.apiName);
     final uri = _getGraphQLUri(request.apiName);
 
     final responseFuture = sendGraphQLRequest<T>(
@@ -190,7 +198,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getRestClient(apiName: apiName);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return _prepareRestResponse(AWSStreamedHttpRequest.delete(
       uri,
       body: body ?? HttpPayload.empty(),
@@ -206,7 +214,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getRestClient(apiName: apiName);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return _prepareRestResponse(
       AWSHttpRequest.get(
         uri,
@@ -223,7 +231,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getRestClient(apiName: apiName);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return _prepareRestResponse(
       AWSHttpRequest.head(
         uri,
@@ -241,7 +249,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getRestClient(apiName: apiName);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return _prepareRestResponse(
       AWSStreamedHttpRequest.patch(
         uri,
@@ -260,7 +268,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getRestClient(apiName: apiName);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return _prepareRestResponse(
       AWSStreamedHttpRequest.post(
         uri,
@@ -279,7 +287,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getRestClient(apiName: apiName);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return _prepareRestResponse(
       AWSStreamedHttpRequest.put(
         uri,
