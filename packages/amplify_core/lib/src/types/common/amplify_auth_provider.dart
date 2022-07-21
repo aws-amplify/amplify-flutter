@@ -60,7 +60,7 @@ abstract class ApiKeyAmplifyAuthProvider extends AmplifyAuthProvider {
   @override
   Future<AWSBaseHttpRequest> authorizeRequest(
     AWSBaseHttpRequest request, {
-    covariant ApiKeyAuthProviderOptions options,
+    covariant ApiKeyAuthProviderOptions? options,
   });
 }
 
