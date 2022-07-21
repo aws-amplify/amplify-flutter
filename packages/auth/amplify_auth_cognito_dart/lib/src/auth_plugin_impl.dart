@@ -676,7 +676,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   Future<CognitoResetPasswordResult> resetPassword({
     required ResetPasswordRequest request,
   }) async {
-    final options = request.options as CognitoResendSignUpCodeOptions?;
+    final options = request.options as CognitoResetPasswordOptions?;
     final result = await _cognitoIdp.forgotPassword(
       cognito.ForgotPasswordRequest.build((b) {
         b
