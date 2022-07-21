@@ -35,7 +35,7 @@ enum APIAuthorizationType<T extends AmplifyAuthProvider> {
   /// See also:
   /// - [API Key Authorization](https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#api-key-authorization)
   @JsonValue('API_KEY')
-  apiKey(AmplifyAuthProviderToken<AmplifyAuthProvider>()),
+  apiKey(AmplifyAuthProviderToken<ApiKeyAmplifyAuthProvider>()),
 
   /// Use an IAM access/secret key credential pair to authorize access to an API.
   ///
