@@ -11,8 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -28,7 +26,8 @@ const _pathThatShouldFail = 'notHere';
 
 class MockAmplifyAPI extends AmplifyAPIDart {
   @override
-  http.Client getRestClient({String? apiName}) => MockClient((request) async {
+  http.Client getHttpClient(EndpointType type, {String? apiName}) =>
+      MockClient((request) async {
         if (request.body.isNotEmpty) {
           expect(request.headers['Content-Type'], 'application/json');
         }
