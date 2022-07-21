@@ -18,15 +18,19 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
-const _xApiKey = 'X-Api-Key';
+import 'decorators/authorize_http_request.dart';
 
 /// Implementation of http [http.Client] that authorizes HTTP requests with
 /// Amplify.
 @internal
 class AmplifyAuthorizationRestClient extends http.BaseClient
     implements Closeable {
+  /// [AmplifyAuthProviderRepository] for any auth modes this client may use.
+  final AmplifyAuthProviderRepository authProviderRepo;
+
   /// Determines how requests with this client are authorized.
   final AWSApiConfig endpointConfig;
+
   final http.Client _baseClient;
   final bool _useDefaultBaseClient;
 
@@ -34,6 +38,7 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
   /// client are authorized.
   AmplifyAuthorizationRestClient({
     required this.endpointConfig,
+    required this.authProviderRepo,
     http.Client? baseClient,
   })  : _useDefaultBaseClient = baseClient == null,
         _baseClient = baseClient ?? http.Client();
@@ -42,27 +47,14 @@ class AmplifyAuthorizationRestClient extends http.BaseClient
   /// header already set.
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async =>
-      _baseClient.send(_authorizeRequest(request));
+      _baseClient.send(await authorizeHttpRequest(
+        request,
+        endpointConfig: endpointConfig,
+        authProviderRepo: authProviderRepo,
+      ));
 
   @override
   void close() {
     if (_useDefaultBaseClient) _baseClient.close();
-  }
-
-  http.BaseRequest _authorizeRequest(http.BaseRequest request) {
-    if (!request.headers.containsKey(AWSHeaders.authorization) &&
-        endpointConfig.authorizationType != APIAuthorizationType.none) {
-      // TODO(ragingsquirrel3): Use auth providers from core to transform the request.
-      final apiKey = endpointConfig.apiKey;
-      if (endpointConfig.authorizationType == APIAuthorizationType.apiKey) {
-        if (apiKey == null) {
-          throw const ApiException(
-              'Auth mode is API Key, but no API Key was found in config.');
-        }
-
-        request.headers.putIfAbsent(_xApiKey, () => apiKey);
-      }
-    }
-    return request;
   }
 }
