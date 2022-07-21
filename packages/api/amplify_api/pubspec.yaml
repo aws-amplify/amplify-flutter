@@ -21,6 +21,8 @@ dependencies:
   http: ^0.13.4
   meta: ^1.7.0
   plugin_platform_interface: ^2.0.0
+  web_socket_channel: ^2.2.0
+
 
 dev_dependencies:
   amplify_lints: 
