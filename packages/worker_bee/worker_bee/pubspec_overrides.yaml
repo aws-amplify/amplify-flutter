@@ -1,0 +1,3 @@
+dependency_overrides:
+  aws_common:
+    path: ../../aws_common

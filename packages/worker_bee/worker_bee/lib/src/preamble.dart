@@ -32,7 +32,7 @@ class WorkerAssignment {
   final String role;
 
   /// The log channel to communicate over.
-  final StreamChannel<LogMessage> logsChannel;
+  final StreamChannel<LogEntry> logsChannel;
 }
 
 /// Factory for a worker bee.

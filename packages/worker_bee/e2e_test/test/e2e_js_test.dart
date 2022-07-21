@@ -14,10 +14,13 @@
 
 @TestOn('browser')
 
+import 'package:aws_common/aws_common.dart';
 import 'package:e2e_test/common.dart';
 import 'package:test/test.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
+
   group('WorkerBee', () {
     group('', () {
       test(

@@ -50,7 +50,7 @@ class VmGenerator extends ImplGenerator {
           ..modifier = MethodModifier.async
           ..body = Code.scope((allocate) => '''
 final channel = ${allocate(DartTypes.streamChannel.isolateChannel)}<${allocate(DartTypes.core.object)}?>.connectSend(ports.messagePort);
-final logsChannel = ${allocate(DartTypes.streamChannel.isolateChannel)}<${allocate(DartTypes.workerBee.logMessage)}>.connectSend(ports.logPort);
+final logsChannel = ${allocate(DartTypes.streamChannel.isolateChannel)}<${allocate(DartTypes.workerBee.logEntry)}>.connectSend(ports.logPort);
 final worker = $workerImplName();
 await worker.connect(logsChannel: logsChannel);
 ${responseType.isVoid ? '' : 'final result ='} await worker.run(
@@ -58,7 +58,7 @@ ${responseType.isVoid ? '' : 'final result ='} await worker.run(
   channel.sink.cast(),
 );
 // ignore: invalid_use_of_protected_member
-worker.logger.finest('Finished');
+worker.logger.verbose('Finished');
 ${allocate(DartTypes.async.unawaited)}(worker.close());
 ${allocate(DartTypes.isolate.isolate)}.exit(ports.donePort${responseType.isVoid ? '' : ', result'});
             '''),

@@ -67,7 +67,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
 
   @override
   Future<void> spawn({String? jsEntrypoint}) async {
-    logger.finest('Starting worker');
+    logger.debug('Starting worker');
     final receivePort = ReceivePort(name);
 
     _controller = StreamController<Response>(sync: true);
@@ -77,12 +77,12 @@ mixin WorkerBeeImpl<Request extends Object, Response>
     sink = channel.sink.cast();
 
     channel.stream.listen((message) {
-      logger.finest('Got message: $message');
+      logger.verbose('Got message: $message');
       _controller?.add(message as Response);
     });
 
     final logPort = ReceivePort('${name}_logs');
-    final logChannel = IsolateChannel<LogMessage>.connectReceive(logPort);
+    final logChannel = IsolateChannel<LogEntry>.connectReceive(logPort);
     logChannel.stream.listen((log) {
       if (logsController.isClosed) return;
       logsController.add(log);
@@ -147,6 +147,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
     _controller = null;
     await super.close(force: force);
     await logsController.close();
+    logger.close();
     _isolate?.kill();
     _isolate = null;
   }
