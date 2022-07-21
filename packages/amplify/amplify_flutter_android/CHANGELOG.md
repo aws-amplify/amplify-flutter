@@ -1,3 +1,5 @@
+## 0.6.3 (2022-07-21)
+
 ## 0.6.2 (2022-07-14)
 
 - chore: upgrade amplify-android to 1.36.1 ([#1841](https://github.com/aws-amplify/amplify-flutter/pull/1841))
