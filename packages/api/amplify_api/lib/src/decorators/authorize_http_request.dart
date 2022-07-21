@@ -64,8 +64,14 @@ Future<http.BaseRequest> authorizeHttpRequest(http.BaseRequest request,
       return authorizedRequest.httpRequest;
     case APIAuthorizationType.function:
     case APIAuthorizationType.oidc:
-    case APIAuthorizationType.userPools:
       throw UnimplementedError('${authType.name} not implemented.');
+    case APIAuthorizationType.userPools:
+      final authProvider = _validateAuthProvider(
+          authProviderRepo.getAuthProvider(authType.authProviderToken),
+          authType) as TokenAmplifyAuthProvider;
+      final authorizedRequest =
+          await authProvider.authorizeRequest(_httpToAWSRequest(request));
+      return authorizedRequest.httpRequest;
     case APIAuthorizationType.none:
       return request;
   }

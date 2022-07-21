@@ -33,11 +33,17 @@ void main() {
   final authProviderRepo = AmplifyAuthProviderRepository();
 
   setUpAll(() {
-    authProviderRepo.registerAuthProvider(
-        APIAuthorizationType.apiKey.authProviderToken,
-        AppSyncApiKeyAuthProvider());
-    authProviderRepo.registerAuthProvider(
-        APIAuthorizationType.iam.authProviderToken, TestIamAuthProvider());
+    authProviderRepo
+      ..registerAuthProvider(APIAuthorizationType.apiKey.authProviderToken,
+          AppSyncApiKeyAuthProvider())
+      ..registerAuthProvider(
+        APIAuthorizationType.iam.authProviderToken,
+        TestIamAuthProvider(),
+      )
+      ..registerAuthProvider(
+        APIAuthorizationType.userPools.authProviderToken,
+        TestTokenAuthProvider(),
+      );
   });
 
   group('authorizeHttpRequest', () {
@@ -132,7 +138,21 @@ void main() {
           throwsA(isA<ApiException>()));
     });
 
-    test('authorizes with Cognito User Pools auth mode', () {}, skip: true);
+    test('authorizes with Cognito User Pools auth mode', () async {
+      const endpointConfig = AWSApiConfig(
+          authorizationType: APIAuthorizationType.userPools,
+          endpoint: _gqlEndpoint,
+          endpointType: EndpointType.graphQL,
+          region: _region);
+      final inputRequest = _generateTestRequest(endpointConfig.endpoint);
+      final authorizedRequest = await authorizeHttpRequest(
+        inputRequest,
+        endpointConfig: endpointConfig,
+        authProviderRepo: authProviderRepo,
+      );
+      expect(
+          authorizedRequest.headers[AWSHeaders.authorization], testAccessToken);
+    });
 
     test('authorizes with OIDC auth mode', () {}, skip: true);
 
