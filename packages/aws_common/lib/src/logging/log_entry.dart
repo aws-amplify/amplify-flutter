@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 
-/// {@template amplify_core.logger.log_entry}
-/// A discrete log event emitted by an [AmplifyLogger].
+/// {@template aws_common.logging.log_entry}
+/// A discrete log event emitted by an [AWSLogger].
 /// {@endtemplate}
 class LogEntry {
-  /// {@macro amplify_core.logger.log_entry}
+  /// {@macro aws_common.logging.log_entry}
   LogEntry({
     required this.level,
     required this.message,

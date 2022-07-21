@@ -27,6 +27,12 @@ export 'src/http/aws_http_method.dart';
 export 'src/http/aws_http_request.dart';
 export 'src/http/aws_http_response.dart';
 
+// Logging
+export 'src/logging/aws_logger.dart';
+export 'src/logging/log_entry.dart';
+export 'src/logging/log_level.dart';
+export 'src/logging/simple_log_printer.dart';
+
 // Utils
 export 'src/util/closeable.dart';
 export 'src/util/debuggable.dart';

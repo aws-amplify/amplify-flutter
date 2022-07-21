@@ -12,34 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 
-/// {@template amplify_core.logger.simple_printer}
-/// An [AmplifyLoggerPlugin] which prints log messages to the console when
+/// {@template aws_common.logging.simple_log_printer}
+/// An [AWSLoggerPlugin] which prints log messages to the console when
 /// running in debug mode.
 /// {@endtemplate}
-class SimplePrinter implements AmplifyLoggerPlugin {
-  /// {@macro amplify_core.logger.simple_printer}
-  const SimplePrinter();
+class SimpleLogPrinter implements AWSLoggerPlugin {
+  /// {@macro aws_common.logging.simple_log_printer}
+  const SimpleLogPrinter();
 
   /// Formats [logEntry] using level, namespace, and message components.
   static String formatLogEntry(LogEntry logEntry) {
-    final buffer = StringBuffer();
-
-    // Log Level
-    buffer.write(logEntry.level.toString().toUpperCase().padRight(5));
-
-    // Log Namespace
-    buffer.write(' | ');
+    final buffer = StringBuffer()
+      ..write(logEntry.level.name.toUpperCase().padRight(5))
+      ..write(' | ');
 
     final namespace = logEntry.loggerName.split('.').lastOrNull;
     if (namespace != null && namespace.isNotEmpty) {
-      buffer.write(namespace.padRight(10));
-      buffer.write(' | ');
+      buffer
+        ..write(namespace.padRight(10))
+        ..write(' | ');
     }
 
-    // Log Message
     buffer.write(logEntry.message);
     final error = logEntry.error;
     if (error != null) {
