@@ -14,14 +14,14 @@
 
 /// Bridge methods for `package:logging` types.
 @internal
-library amplify_core.logger.logging_ext;
+library aws_common.logging.logging_ext;
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 
 /// Helper for conversion of log level types.
-extension AmplifyLevelConversion on Level {
+extension LevelConversion on Level {
   /// The [LogLevel] corresponding to `this`.
   LogLevel get logLevel {
     if (value >= Level.OFF.value) {
@@ -42,8 +42,8 @@ extension AmplifyLevelConversion on Level {
 }
 
 /// Helper for conversion of log level types.
-extension AmplifyLogLevelConversion on LogLevel {
-  /// The `package:logging` [Level] ]corresponding to `this`.
+extension LogLevelConversion on LogLevel {
+  /// The `package:logging` [Level] corresponding to `this`.
   Level get level {
     switch (this) {
       case LogLevel.verbose:
@@ -63,8 +63,8 @@ extension AmplifyLogLevelConversion on LogLevel {
 }
 
 /// Helper for conversion of log record types.
-extension AmplifyLogRecordConversion on LogRecord {
-  /// Converts `this` to an Amplify [LogEntry].
+extension LogRecordConversion on LogRecord {
+  /// Converts `this` to an AWS [LogEntry].
   LogEntry toLogEntry() {
     return LogEntry(
       level: level.logLevel,

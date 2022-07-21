@@ -12,8 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// An enumeration of the different levels of logging.
-/// The levels are progressive, with lower-value items being lower priority
+// ignore_for_file: public_member_api_docs
+
+/// The different levels of logging.
 enum LogLevel implements Comparable<LogLevel> {
   /// Logs for showing behavior of particular components/flows.
   ///
