@@ -1,3 +1,5 @@
+## 0.6.3 (2022-07-21)
+
 ## 0.6.2 (2022-07-14)
 
 - feat(auth): runtime authFlow attribute ([#1687](https://github.com/aws-amplify/amplify-flutter/pull/1687))

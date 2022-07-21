@@ -1,3 +1,5 @@
+## 0.6.3 (2022-07-21)
+
 ## 0.6.2 (2022-07-14)
 
 - fix(authenticator): fixes configure call in custom auth test and removes redundant test ([#1878](https://github.com/aws-amplify/amplify-flutter/pull/1878))

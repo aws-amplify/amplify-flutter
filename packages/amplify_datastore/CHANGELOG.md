@@ -1,3 +1,5 @@
+## 0.6.3 (2022-07-21)
+
 ## 0.6.2 (2022-07-14)
 
 - fix(datastore): delete test fix ([#1880](https://github.com/aws-amplify/amplify-flutter/pull/1880))
