@@ -67,8 +67,9 @@ Future<http.BaseRequest> authorizeHttpRequest(http.BaseRequest request,
       throw UnimplementedError('${authType.name} not implemented.');
     case APIAuthorizationType.userPools:
       final authProvider = _validateAuthProvider(
-          authProviderRepo.getAuthProvider(authType.authProviderToken),
-          authType) as TokenAmplifyAuthProvider;
+        authProviderRepo.getAuthProvider(authType.authProviderToken),
+        authType,
+      );
       final authorizedRequest =
           await authProvider.authorizeRequest(_httpToAWSRequest(request));
       return authorizedRequest.httpRequest;

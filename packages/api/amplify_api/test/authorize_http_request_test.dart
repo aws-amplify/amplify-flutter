@@ -34,8 +34,10 @@ void main() {
 
   setUpAll(() {
     authProviderRepo
-      ..registerAuthProvider(APIAuthorizationType.apiKey.authProviderToken,
-          AppSyncApiKeyAuthProvider())
+      ..registerAuthProvider(
+        APIAuthorizationType.apiKey.authProviderToken,
+        AppSyncApiKeyAuthProvider(),
+      )
       ..registerAuthProvider(
         APIAuthorizationType.iam.authProviderToken,
         TestIamAuthProvider(),
@@ -151,7 +153,9 @@ void main() {
         authProviderRepo: authProviderRepo,
       );
       expect(
-          authorizedRequest.headers[AWSHeaders.authorization], testAccessToken);
+        authorizedRequest.headers[AWSHeaders.authorization],
+        testAccessToken,
+      );
     });
 
     test('authorizes with OIDC auth mode', () {}, skip: true);
