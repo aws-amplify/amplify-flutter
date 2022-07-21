@@ -37,6 +37,12 @@ class IamAuthProviderOptions extends AuthProviderOptions {
   final AWSService service;
 }
 
+class ApiKeyAuthProviderOptions extends AuthProviderOptions {
+  final String apiKey;
+
+  const ApiKeyAuthProviderOptions(this.apiKey);
+}
+
 abstract class AmplifyAuthProvider {
   const AmplifyAuthProvider();
 
@@ -54,6 +60,14 @@ abstract class AWSIamAmplifyAuthProvider extends AmplifyAuthProvider
   Future<AWSSignedRequest> authorizeRequest(
     AWSBaseHttpRequest request, {
     covariant IamAuthProviderOptions options,
+  });
+}
+
+abstract class ApiKeyAmplifyAuthProvider extends AmplifyAuthProvider {
+  @override
+  Future<AWSBaseHttpRequest> authorizeRequest(
+    AWSBaseHttpRequest request, {
+    covariant ApiKeyAuthProviderOptions? options,
   });
 }
 
