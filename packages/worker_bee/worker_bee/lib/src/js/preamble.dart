@@ -60,7 +60,7 @@ Future<WorkerAssignment> getWorkerAssignment() async {
               assignmentCompleter.complete(
                 WorkerAssignment(
                   message,
-                  MessagePortChannel<LogMessage>(messagePort),
+                  MessagePortChannel<LogEntry>(messagePort),
                 ),
               );
             } else {

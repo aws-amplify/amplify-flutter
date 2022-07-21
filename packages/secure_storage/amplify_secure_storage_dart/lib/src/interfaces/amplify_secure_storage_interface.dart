@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/src/interfaces/secure_storage_interface.dart';
 import 'package:amplify_secure_storage_dart/src/types/amplify_secure_storage_config.dart';
+import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_interface}
 /// An extension of [SecureStorageInterface] which adds Amplify specific options.
 /// {@endtemplate}
-abstract class AmplifySecureStorageInterface extends SecureStorageInterface {
+abstract class AmplifySecureStorageInterface extends SecureStorageInterface
+    with AWSDebuggable, AWSLoggerMixin {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_interface}
   const AmplifySecureStorageInterface({
     required this.config,
@@ -28,5 +29,6 @@ abstract class AmplifySecureStorageInterface extends SecureStorageInterface {
   /// Configuration options for Secure Storage.
   final AmplifySecureStorageConfig config;
 
-  AmplifyLogger get logger => AmplifyLogger().createChild('SecureStorage');
+  @override
+  String get runtimeTypeName => 'SecureStorage';
 }

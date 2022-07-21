@@ -24,11 +24,12 @@ import 'package:worker_bee/src/vm/impl.dart'
     if (dart.library.js) 'package:worker_bee/src/js/impl.dart';
 
 export 'package:async/async.dart';
-export 'package:logging/logging.dart';
+export 'package:aws_common/aws_common.dart'
+    show AWSLogger, LogEntry, LogLevel, AWSLoggerPlugin;
 export 'package:stream_transform/stream_transform.dart';
 export 'package:worker_bee/src/exception/worker_bee_exception.dart'
     show WorkerBeeException;
-export 'package:worker_bee/src/logger/log_message.dart';
+export 'package:worker_bee/src/logging/worker_log_entry.dart';
 export 'package:worker_bee/src/preamble.dart' hide runTraced;
 export 'package:worker_bee/src/worker_bee_vm.dart'
     if (dart.library.js) 'package:worker_bee/src/worker_bee_js.dart';

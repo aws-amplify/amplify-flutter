@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aws_common/aws_common.dart';
 import 'package:e2e_test/e2e_message.dart';
 import 'package:e2e_test/e2e_worker.dart';
 import 'package:e2e_test/e2e_worker_no_result.dart';
@@ -53,7 +52,6 @@ Future<void> testWorker({String? jsEntrypoint}) async {
   final message = createMessage();
 
   final worker = E2EWorker.create();
-  worker.logs.listen(safePrint);
   await worker.spawn(jsEntrypoint: jsEntrypoint);
   worker.sink.add(message);
 
@@ -71,7 +69,6 @@ Future<void> testWorkerThrows({String? jsEntrypoint}) async {
   final message = createMessage();
 
   final worker = E2EWorkerThrows.create();
-  worker.logs.listen(safePrint);
   await worker.spawn(jsEntrypoint: jsEntrypoint);
   worker.sink.add(message);
 
@@ -85,7 +82,6 @@ Future<void> testWorkerNoResult({String? jsEntrypoint}) async {
   final message = createMessage();
 
   final worker = E2EWorkerNoResult.create();
-  worker.logs.listen(safePrint);
   await worker.spawn(jsEntrypoint: jsEntrypoint);
   worker.sink.add(message);
 
@@ -102,7 +98,6 @@ Future<void> testWorkerNullResult({String? jsEntrypoint}) async {
   final message = createMessage();
 
   final worker = E2EWorkerNullResult.create();
-  worker.logs.listen(safePrint);
   await worker.spawn(jsEntrypoint: jsEntrypoint);
   worker.sink.add(message);
 
@@ -118,7 +113,6 @@ Future<void> testWorkerVoidResult({String? jsEntrypoint}) async {
   final message = createMessage();
 
   final worker = E2EWorkerVoidResult.create();
-  worker.logs.listen(safePrint);
   await worker.spawn(jsEntrypoint: jsEntrypoint);
   worker.sink.add(message);
 

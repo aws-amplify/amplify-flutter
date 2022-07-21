@@ -8,7 +8,7 @@ import 'package:worker_bee/worker_bee.dart';
 
 Future<void> _run(SendPorts ports) async {
   final channel = IsolateChannel<Object?>.connectSend(ports.messagePort);
-  final logsChannel = IsolateChannel<LogMessage>.connectSend(ports.logPort);
+  final logsChannel = IsolateChannel<LogEntry>.connectSend(ports.logPort);
   final worker = E2EWorkerImpl();
   await worker.connect(logsChannel: logsChannel);
   final result = await worker.run(
@@ -16,7 +16,7 @@ Future<void> _run(SendPorts ports) async {
     channel.sink.cast(),
   );
 // ignore: invalid_use_of_protected_member
-  worker.logger.finest('Finished');
+  worker.logger.verbose('Finished');
   unawaited(worker.close());
   Isolate.exit(ports.donePort, result);
 }
