@@ -106,30 +106,13 @@ class AmplifyAPIDart extends AmplifyAPI {
     }
   }
 
-  /// Returns the HTTP client to be used for GraphQL operations.
+  /// Returns the HTTP client to be used for REST/GraphQL operations.
   ///
-  /// Use [apiName] if there are multiple GraphQL endpoints.
+  /// Use [apiName] if there are multiple endpoints of the same type.
   @visibleForTesting
-  http.Client getGraphQLClient({String? apiName}) {
+  http.Client getHttpClient(EndpointType type, {String? apiName}) {
     final endpoint = _apiConfig.getEndpoint(
-      type: EndpointType.graphQL,
-      apiName: apiName,
-    );
-    return _clientPool[endpoint.name] ??= AmplifyHttpClient(
-        baseClient: AmplifyAuthorizationRestClient(
-      endpointConfig: endpoint.config,
-      baseClient: _baseHttpClient,
-      authProviderRepo: _authProviderRepo,
-    ));
-  }
-
-  /// Returns the HTTP client to be used for REST operations.
-  ///
-  /// Use [apiName] if there are multiple REST endpoints.
-  @visibleForTesting
-  http.Client getRestClient({String? apiName}) {
-    final endpoint = _apiConfig.getEndpoint(
-      type: EndpointType.rest,
+      type: type,
       apiName: apiName,
     );
     return _clientPool[endpoint.name] ??= AmplifyHttpClient(
@@ -183,7 +166,8 @@ class AmplifyAPIDart extends AmplifyAPI {
   @override
   CancelableOperation<GraphQLResponse<T>> query<T>(
       {required GraphQLRequest<T> request}) {
-    final graphQLClient = getGraphQLClient(apiName: request.apiName);
+    final graphQLClient =
+        getHttpClient(EndpointType.graphQL, apiName: request.apiName);
     final uri = _getGraphQLUri(request.apiName);
 
     final responseFuture = sendGraphQLRequest<T>(
@@ -194,7 +178,8 @@ class AmplifyAPIDart extends AmplifyAPI {
   @override
   CancelableOperation<GraphQLResponse<T>> mutate<T>(
       {required GraphQLRequest<T> request}) {
-    final graphQLClient = getGraphQLClient(apiName: request.apiName);
+    final graphQLClient =
+        getHttpClient(EndpointType.graphQL, apiName: request.apiName);
     final uri = _getGraphQLUri(request.apiName);
 
     final responseFuture = sendGraphQLRequest<T>(
@@ -213,7 +198,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getRestClient(apiName: apiName);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return _prepareRestResponse(AWSStreamedHttpRequest.delete(
       uri,
       body: body ?? HttpPayload.empty(),
@@ -229,7 +214,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getRestClient(apiName: apiName);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return _prepareRestResponse(
       AWSHttpRequest.get(
         uri,
@@ -246,7 +231,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getRestClient(apiName: apiName);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return _prepareRestResponse(
       AWSHttpRequest.head(
         uri,
@@ -264,7 +249,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getRestClient(apiName: apiName);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return _prepareRestResponse(
       AWSStreamedHttpRequest.patch(
         uri,
@@ -283,7 +268,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getRestClient(apiName: apiName);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return _prepareRestResponse(
       AWSStreamedHttpRequest.post(
         uri,
@@ -302,7 +287,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     String? apiName,
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getRestClient(apiName: apiName);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return _prepareRestResponse(
       AWSStreamedHttpRequest.put(
         uri,

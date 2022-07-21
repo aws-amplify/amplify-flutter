@@ -24,52 +24,51 @@ import 'package:meta/meta.dart';
 Future<http.BaseRequest> authorizeHttpRequest(http.BaseRequest request,
     {required AWSApiConfig endpointConfig,
     required AmplifyAuthProviderRepository authProviderRepo}) async {
-  if (!request.headers.containsKey(AWSHeaders.authorization)) {
-    final authType = endpointConfig.authorizationType;
-
-    switch (authType) {
-      case APIAuthorizationType.apiKey:
-        final authProvider = _validateAuthProvider(
-            authProviderRepo
-                .getAuthProvider(APIAuthorizationType.apiKey.authProviderToken),
-            authType);
-        final apiKey = endpointConfig.apiKey;
-        if (apiKey == null) {
-          throw const ApiException(
-              'Auth mode is API Key, but no API Key was found in config.');
-        }
-
-        final authorizedRequest = await authProvider.authorizeRequest(
-            _httpToAWSRequest(request),
-            options: ApiKeyAuthProviderOptions(apiKey: apiKey));
-        return authorizedRequest.httpRequest;
-      case APIAuthorizationType.iam:
-        final authProvider = _validateAuthProvider(
-            authProviderRepo
-                .getAuthProvider(APIAuthorizationType.iam.authProviderToken),
-            authType);
-        final service = endpointConfig.endpointType == EndpointType.graphQL
-            ? AWSService.appSync
-            : AWSService.apiGatewayManagementApi; // resolves to "execute-api"
-
-        final authorizedRequest = await authProvider.authorizeRequest(
-          _httpToAWSRequest(request),
-          options: IamAuthProviderOptions(
-            region: endpointConfig.region,
-            service: service,
-          ),
-        );
-        return authorizedRequest.httpRequest;
-      case APIAuthorizationType.function:
-      case APIAuthorizationType.oidc:
-      case APIAuthorizationType.userPools:
-        throw UnimplementedError('${authType.name} not implemented.');
-      case APIAuthorizationType.none:
-        break;
-    }
+  if (request.headers.containsKey(AWSHeaders.authorization)) {
+    return request;
   }
+  final authType = endpointConfig.authorizationType;
 
-  return request;
+  switch (authType) {
+    case APIAuthorizationType.apiKey:
+      final authProvider = _validateAuthProvider(
+          authProviderRepo
+              .getAuthProvider(APIAuthorizationType.apiKey.authProviderToken),
+          authType);
+      final apiKey = endpointConfig.apiKey;
+      if (apiKey == null) {
+        throw const ApiException(
+            'Auth mode is API Key, but no API Key was found in config.');
+      }
+
+      final authorizedRequest = await authProvider.authorizeRequest(
+          _httpToAWSRequest(request),
+          options: ApiKeyAuthProviderOptions(apiKey));
+      return authorizedRequest.httpRequest;
+    case APIAuthorizationType.iam:
+      final authProvider = _validateAuthProvider(
+          authProviderRepo
+              .getAuthProvider(APIAuthorizationType.iam.authProviderToken),
+          authType);
+      final service = endpointConfig.endpointType == EndpointType.graphQL
+          ? AWSService.appSync
+          : AWSService.apiGatewayManagementApi; // resolves to "execute-api"
+
+      final authorizedRequest = await authProvider.authorizeRequest(
+        _httpToAWSRequest(request),
+        options: IamAuthProviderOptions(
+          region: endpointConfig.region,
+          service: service,
+        ),
+      );
+      return authorizedRequest.httpRequest;
+    case APIAuthorizationType.function:
+    case APIAuthorizationType.oidc:
+    case APIAuthorizationType.userPools:
+      throw UnimplementedError('${authType.name} not implemented.');
+    case APIAuthorizationType.none:
+      return request;
+  }
 }
 
 T _validateAuthProvider<T extends AmplifyAuthProvider>(

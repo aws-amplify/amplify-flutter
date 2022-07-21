@@ -26,7 +26,8 @@ const _pathThatShouldFail = 'notHere';
 
 class MockAmplifyAPI extends AmplifyAPIDart {
   @override
-  http.Client getRestClient({String? apiName}) => MockClient((request) async {
+  http.Client getHttpClient(EndpointType type, {String? apiName}) =>
+      MockClient((request) async {
         if (request.body.isNotEmpty) {
           expect(request.headers['Content-Type'], 'application/json');
         }

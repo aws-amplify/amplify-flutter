@@ -91,7 +91,7 @@ class MockAmplifyAPI extends AmplifyAPIDart {
   }) : super(modelProvider: modelProvider);
 
   @override
-  http.Client getGraphQLClient({String? apiName}) =>
+  http.Client getHttpClient(EndpointType type, {String? apiName}) =>
       MockClient((request) async {
         if (request.body.contains('getBlog')) {
           return http.Response(json.encode(_expectedModelQueryResult), 200);
