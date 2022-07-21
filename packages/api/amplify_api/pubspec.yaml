@@ -29,6 +29,7 @@ dev_dependencies:
     path: ../../amplify_lints
   amplify_test:
     path: ../../amplify_test
+  aws_signature_v4: ^0.1.0 
   build_runner: ^2.0.0
   flutter_test:
     sdk: flutter
