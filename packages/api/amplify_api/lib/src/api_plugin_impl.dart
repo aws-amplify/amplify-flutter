@@ -132,7 +132,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   ///
   /// Use [apiName] if there are multiple endpoints.
   @visibleForTesting
-  WebSocketConnection getWebsocketConnection({String? apiName}) {
+  WebSocketConnection getWebSocketConnection({String? apiName}) {
     final endpoint = _apiConfig.getEndpoint(
       type: EndpointType.graphQL,
       apiName: apiName,
@@ -210,7 +210,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     GraphQLRequest<T> request, {
     void Function()? onEstablished,
   }) {
-    return getWebsocketConnection(apiName: request.apiName)
+    return getWebSocketConnection(apiName: request.apiName)
         .subscribe(request, onEstablished);
   }
 
