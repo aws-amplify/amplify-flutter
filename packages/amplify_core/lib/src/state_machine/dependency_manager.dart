@@ -20,7 +20,7 @@ typedef DependencyBuilder<T extends Object> = Function;
 /// {@template amplify_core.dependency_manager}
 /// Service locator for state machine dependencies.
 /// {@endtemplate}
-class DependencyManager {
+class DependencyManager implements Closeable {
   /// {@macro amplify_core.dependency_manager}
   DependencyManager([
     Map<Token, DependencyBuilder>? builders,
@@ -30,6 +30,16 @@ class DependencyManager {
 
   final Map<Token, DependencyBuilder> _builders;
   final Map<Token, Object> _instances = {};
+
+  /// Closes instances of [Closeable] which are not `this`.
+  void _closeIfPossible(Object? instance) {
+    if (instance != null &&
+        instance is Closeable &&
+        // Required check since `this` maintains a reference to itself.
+        !identical(this, instance)) {
+      instance.close();
+    }
+  }
 
   /// Adds a builder to the service locator.
   void addBuilder<T extends Object>(
@@ -48,9 +58,7 @@ class DependencyManager {
     token ??= Token<T>();
     // Close the current instance, if any.
     final currentInstance = get<T>(token);
-    if (currentInstance != null && currentInstance is Closeable) {
-      currentInstance.close();
-    }
+    _closeIfPossible(currentInstance);
     _instances[token] = instance;
   }
 
@@ -86,9 +94,7 @@ class DependencyManager {
     token ??= Token<T>();
     // Close the current instance, if any.
     final currentInstance = get<T>(token);
-    if (currentInstance != null && currentInstance is Closeable) {
-      currentInstance.close();
-    }
+    _closeIfPossible(currentInstance);
 
     final builder = _builders[token];
     if (builder == null) {
@@ -97,5 +103,13 @@ class DependencyManager {
     return _instances[token] = Function.apply(builder, <Object>[
       for (final dependency in token.dependencies) getOrCreate(dependency),
     ]) as T;
+  }
+
+  @override
+  void close() {
+    for (final instance in _instances.values) {
+      _closeIfPossible(instance);
+    }
+    _instances.clear();
   }
 }
