@@ -598,7 +598,7 @@ class _AuthenticatorState extends State<Authenticator> {
     _exceptionSub.cancel();
     _infoSub.cancel();
     _successSub.cancel();
-    _stateMachineBloc.dispose();
+    _stateMachineBloc.close();
     _hubSubscription?.cancel();
     super.dispose();
   }
