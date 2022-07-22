@@ -83,8 +83,7 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
     }
   }
 
-  @override
-  Future<void> onSignIn(HostedUiSignIn event) async {
+  Future<void> _handleSignIn(HostedUiSignIn event) async {
     try {
       _secureStorage.write(
         key: _keys[HostedUiKey.options],
@@ -100,7 +99,13 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
   }
 
   @override
+  Future<void> onSignIn(HostedUiSignIn event) async {
+    unawaited(_handleSignIn(event));
+  }
+
+  @override
   Future<void> onCancelSignIn(HostedUiCancelSignIn event) async {
+    await _platform.cancelSignIn();
     await dispatch(CredentialStoreEvent.clearCredentials(_keys));
     dispatch(
       const HostedUiEvent.failed(
@@ -159,4 +164,10 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
 
   @override
   Future<void> onFailed(HostedUiFailed event) async {}
+
+  @override
+  Future<void> close() async {
+    await _platform.close();
+    return super.close();
+  }
 }

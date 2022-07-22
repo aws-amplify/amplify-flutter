@@ -73,7 +73,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   </body>
 </html>''';
 
-  String _htmlForParams(
+  static String _htmlForParams(
     Map<String, String> parameters, {
     required bool signIn,
   }) {
@@ -220,16 +220,19 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
       _noSuitableRedirect(signIn: true);
     }
 
-    final localServer = await _localConnect(signInUris);
-    final listenServer = localServer.server;
+    _localServer = await localConnect(signInUris);
     try {
       final signInUrl = getSignInUri(
         provider: provider,
-        redirectUri: localServer.uri,
+        redirectUri: _localServer!.uri,
       ).toString();
       await launchUrl(signInUrl);
 
-      await for (final request in listenServer) {
+      final server = _localServer?.server;
+      if (server == null) {
+        return;
+      }
+      await for (final request in server) {
         final method = request.method;
         if (method != 'GET') {
           await _respond(
@@ -270,9 +273,12 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         break;
       }
     } finally {
-      unawaited(listenServer.close(force: true));
+      unawaited(close());
     }
   }
+
+  @override
+  Future<void> cancelSignIn() => close();
 
   @override
   Future<void> signOut({
@@ -287,13 +293,17 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
       _noSuitableRedirect(signIn: false);
     }
 
-    final localServer = await _localConnect(signOutUris);
-    final listenServer = localServer.server;
+    _localServer = await localConnect(signOutUris);
     try {
-      final signOutUri = getSignOutUri(redirectUri: localServer.uri).toString();
+      final signOutUri =
+          getSignOutUri(redirectUri: _localServer!.uri).toString();
       await launchUrl(signOutUri);
 
-      await for (final request in listenServer) {
+      final server = _localServer?.server;
+      if (server == null) {
+        return;
+      }
+      await for (final request in server) {
         final method = request.method;
         if (method != 'GET') {
           await _respond(
@@ -319,8 +329,15 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         break;
       }
     } finally {
-      unawaited(listenServer.close(force: true));
+      unawaited(close());
     }
+  }
+
+  /// Closes the open server, if any.
+  @override
+  Future<void> close() async {
+    await _localServer?.server.close(force: true);
+    _localServer = null;
   }
 }
 
