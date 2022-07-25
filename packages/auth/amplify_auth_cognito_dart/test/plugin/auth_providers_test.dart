@@ -30,7 +30,7 @@ AWSHttpRequest _generateTestRequest() {
   );
 }
 
-/// Returns dummy AWS credentials.
+/// Returns dummy AWS credentials and access token.
 class TestAmplifyAuth extends AmplifyAuthCognitoDart {
   @override
   Future<AuthSession> fetchAuthSession({
@@ -39,6 +39,32 @@ class TestAmplifyAuth extends AmplifyAuthCognitoDart {
     return CognitoAuthSession(
       isSignedIn: true,
       credentials: const AWSCredentials('fakeKeyId', 'fakeSecret'),
+      userPoolTokens: CognitoUserPoolTokens(
+        accessToken: accessToken,
+        idToken: idToken,
+        refreshToken: refreshToken,
+      ),
+    );
+  }
+}
+
+/// Mock implementation of user pool only error when trying to get credentials.
+class TestAmplifyAuthUserPoolOnly extends AmplifyAuthCognitoDart {
+  @override
+  Future<AuthSession> fetchAuthSession({
+    required AuthSessionRequest request,
+  }) async {
+    final options = request.options as CognitoSessionOptions?;
+    final getAWSCredentials = options?.getAWSCredentials;
+    if (getAWSCredentials != null && getAWSCredentials) {
+      throw const InvalidAccountTypeException.noIdentityPool(
+        recoverySuggestion:
+            'Register an identity pool using the CLI or set getAWSCredentials '
+            'to false',
+      );
+    }
+    return CognitoAuthSession(
+      isSignedIn: true,
       userPoolTokens: CognitoUserPoolTokens(
         accessToken: accessToken,
         idToken: idToken,
@@ -79,8 +105,35 @@ void main() {
     });
   });
 
+  group('no auth plugin added', () {
+    test('CognitoIamAuthProvider throws when trying to authorize a request',
+        () async {
+      final authProvider = CognitoIamAuthProvider();
+      await expectLater(
+        authProvider.authorizeRequest(
+          _generateTestRequest(),
+          options: const IamAuthProviderOptions(
+            region: 'us-east-1',
+            service: AWSService.appSync,
+          ),
+        ),
+        throwsA(isA<AmplifyException>()),
+      );
+    });
+
+    test('CognitoUserPoolsAuthProvider throws when trying to authorize request',
+        () async {
+      final authProvider = CognitoUserPoolsAuthProvider();
+      await expectLater(
+        authProvider.authorizeRequest(_generateTestRequest()),
+        throwsA(isA<AmplifyException>()),
+      );
+    });
+  });
+
   group('auth providers defined in auth plugin', () {
     setUpAll(() async {
+      await Amplify.reset();
       await Amplify.addPlugin(TestAmplifyAuth());
     });
 
@@ -133,6 +186,37 @@ void main() {
         expect(token, accessToken.raw);
       });
 
+      test('adds access token to header when calling authorizeRequest',
+          () async {
+        final authProvider = CognitoUserPoolsAuthProvider();
+        final authorizedRequest = await authProvider.authorizeRequest(
+          _generateTestRequest(),
+        );
+        expect(
+          authorizedRequest.headers[AWSHeaders.authorization],
+          accessToken.raw,
+        );
+      });
+    });
+  });
+
+  group('auth providers with user pool-only configuration', () {
+    setUpAll(() async {
+      await Amplify.reset();
+      await Amplify.addPlugin(TestAmplifyAuthUserPoolOnly());
+    });
+
+    group('CognitoIamAuthProvider', () {
+      test('throws when trying to retrieve credentials', () async {
+        final authProvider = CognitoIamAuthProvider();
+        await expectLater(
+          authProvider.retrieve(),
+          throwsA(isA<InvalidAccountTypeException>()),
+        );
+      });
+    });
+
+    group('CognitoUserPoolsAuthProvider', () {
       test('adds access token to header when calling authorizeRequest',
           () async {
         final authProvider = CognitoUserPoolsAuthProvider();

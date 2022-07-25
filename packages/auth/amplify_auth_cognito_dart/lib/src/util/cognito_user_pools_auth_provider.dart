@@ -24,9 +24,8 @@ class CognitoUserPoolsAuthProvider extends TokenAmplifyAuthProvider {
   /// Get access token from `Amplify.Auth.fetchAuthSession()`.
   @override
   Future<String> getLatestAuthToken() async {
-    final authSession = await Amplify.Auth.fetchAuthSession(
-      options: const CognitoSessionOptions(getAWSCredentials: true),
-    ) as CognitoAuthSession;
+    final authSession =
+        await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
     final token = authSession.userPoolTokens?.accessToken.raw;
     if (token == null) {
       throw const AuthException(
