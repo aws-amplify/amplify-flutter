@@ -16,7 +16,6 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/crypto/oauth.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_config.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:http/http.dart' as http;
@@ -47,15 +46,6 @@ abstract class HostedUiPlatform {
 
   /// The dependency token for [HostedUiPlatform].
   static const token = Token<HostedUiPlatform>([Token<DependencyManager>()]);
-
-  /// Used to match errors returned from Hosted UI exchanges for errors
-  /// originating in user-defined Lambda triggers.
-  ///
-  /// This is the only way to check for these currently since Cognito does not
-  /// send back any special code to distinguish these from other, more general
-  /// errors.
-  static final RegExp _lambdaErrorRegex =
-      RegExp(r'^\w+ failed with error (.*)\. $');
 
   /// The Hosted UI configuration.
   @protected
@@ -230,9 +220,8 @@ abstract class HostedUiPlatform {
       final errorDesc = parameters.errorDescription ?? error.description;
 
       // Handle Lambda exceptions
-      final lambdaMessage = _lambdaErrorRegex.firstMatch(errorDesc)?.group(1);
-      if (lambdaMessage != null) {
-        throw UnexpectedLambdaException(message: lambdaMessage);
+      if (LambdaException.isLambdaException(errorDesc)) {
+        throw LambdaException(errorDesc);
       }
 
       final errorUri = parameters.errorUri;

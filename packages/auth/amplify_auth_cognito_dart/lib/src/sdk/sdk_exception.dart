@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: deprecated_member_use_from_same_package
-
 /// Exception types bridged from generated SDKs to their legacy counterparts.
 library amplify_auth_cognito_dart.sdk.sdk_exception;
 
@@ -83,49 +81,41 @@ export 'cognito_identity_provider.dart'
 /// service SDKs.
 @internal
 Exception transformSdkException(Exception e) {
+  if (e is! SmithyException) {
+    return e;
+  }
+  final message = e.message ?? e.toString();
+  // Some exceptions are returned as non-Lambda exceptions even though they
+  // orginated in user-defined lambdas.
+  if (LambdaException.isLambdaException(message) ||
+      e is cognito_idp.InvalidLambdaResponseException ||
+      e is cognito_idp.UnexpectedLambdaException ||
+      e is cognito_idp.UserLambdaValidationException) {
+    return LambdaException(message, underlyingException: e.toString());
+  }
   if (e is cognito_identity.LimitExceededException ||
       e is cognito_idp.LimitExceededException) {
-    return LimitExceededException(
-      (e as SmithyException).message ?? e.toString(),
-    );
+    return LimitExceededException(message);
   }
   if (e is cognito_identity.InvalidParameterException ||
       e is cognito_idp.InvalidParameterException) {
-    return InvalidParameterException(
-      (e as SmithyException).message ?? e.toString(),
-    );
+    return InvalidParameterException(message);
   }
   if (e is cognito_identity.InternalErrorException ||
       e is cognito_idp.InternalErrorException) {
-    return InternalErrorException(
-      (e as SmithyException).message ?? e.toString(),
-    );
+    return InternalErrorException(message);
   }
   if (e is cognito_identity.TooManyRequestsException ||
       e is cognito_idp.TooManyRequestsException) {
-    return TooManyRequestsException(
-      (e as SmithyException).message ?? e.toString(),
-    );
+    return TooManyRequestsException(message);
   }
   if (e is cognito_identity.NotAuthorizedException ||
       e is cognito_idp.NotAuthorizedException) {
-    return NotAuthorizedException(
-      (e as SmithyException).message ?? e.toString(),
-    );
+    return NotAuthorizedException(message);
   }
   if (e is cognito_identity.ResourceNotFoundException ||
       e is cognito_idp.ResourceNotFoundException) {
-    return ResourceNotFoundException(
-      (e as SmithyException).message ?? e.toString(),
-    );
-  }
-  if (e is cognito_idp.InvalidLambdaResponseException ||
-      e is cognito_idp.UnexpectedLambdaException ||
-      e is cognito_idp.UserLambdaValidationException) {
-    return LambdaException(
-      (e as SmithyException).message ?? e.toString(),
-      underlyingException: e.toString(),
-    );
+    return ResourceNotFoundException(message);
   }
   return e;
 }
@@ -154,23 +144,45 @@ class InvalidParameterException extends core.AmplifyException
   String get runtimeTypeName => 'InvalidParameterException';
 }
 
-const _lamdaDeprecationNotes = '''
-This type wraps the following exceptions and should be replaced by one of them:
-InvalidLambdaResponseException
-UnexpectedLambdaException
-UserLambdaValidationException''';
-
 /// {@template amplify_auth_cognito_dart.sdk.lambda_exception}
 /// Exception thrown when an error from the AWS Lambda service is encountered.
 /// {@endtemplate}
-@Deprecated(_lamdaDeprecationNotes)
 class LambdaException extends core.AmplifyException with core.AWSDebuggable {
   /// {@macro amplify_auth_cognito_dart.sdk.lambda_exception}
-  @Deprecated(_lamdaDeprecationNotes)
-  const LambdaException(
+  factory LambdaException(String message, {String? underlyingException}) {
+    final match = _errorRegex.firstMatch(message);
+    final lambdaName = match?.group(1);
+    final parsedMessage = match?.group(2);
+    if (parsedMessage != null) {
+      message = parsedMessage;
+    }
+    return LambdaException._(
+      message,
+      lambdaName: lambdaName,
+      underlyingException: underlyingException,
+    );
+  }
+
+  const LambdaException._(
     super.message, {
+    this.lambdaName,
     super.underlyingException,
   });
+
+  /// Whether [exception] originated in a user Lambda.
+  static bool isLambdaException(String exception) =>
+      _errorRegex.hasMatch(exception);
+
+  /// Used to match errors returned from Cognito for errors originating in
+  /// user-defined Lambda triggers.
+  ///
+  /// This is the only way to check for these currently since Cognito does not
+  /// send back any special code to distinguish these from other, more general
+  /// errors.
+  static final RegExp _errorRegex = RegExp(r'(\w+) failed with error (.*)\.');
+
+  /// The name of the lambda which triggered this exception.
+  final String? lambdaName;
 
   @override
   String get runtimeTypeName => 'LambdaException';
