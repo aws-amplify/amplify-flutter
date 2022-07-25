@@ -91,7 +91,7 @@ Exception transformSdkException(Exception e) {
       e is cognito_idp.InvalidLambdaResponseException ||
       e is cognito_idp.UnexpectedLambdaException ||
       e is cognito_idp.UserLambdaValidationException) {
-    return LambdaException(message, underlyingException: e.toString());
+    return LambdaException(message, underlyingException: e);
   }
   if (e is cognito_identity.LimitExceededException ||
       e is cognito_idp.LimitExceededException) {
@@ -149,7 +149,7 @@ class InvalidParameterException extends core.AmplifyException
 /// {@endtemplate}
 class LambdaException extends core.AmplifyException with core.AWSDebuggable {
   /// {@macro amplify_auth_cognito_dart.sdk.lambda_exception}
-  factory LambdaException(String message, {String? underlyingException}) {
+  factory LambdaException(String message, {Object? underlyingException}) {
     final match = _errorRegex.firstMatch(message);
     final lambdaName = match?.group(1);
     final parsedMessage = match?.group(2);
