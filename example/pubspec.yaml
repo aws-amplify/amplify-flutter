@@ -24,7 +24,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  file_picker: ^4.0.0
+  file_picker: ^5.0.0
   amplify_flutter: 0.6.4-rc.1
   amplify_analytics_pinpoint: 0.6.4-rc.1
   amplify_auth_cognito: 0.6.4-rc.1
