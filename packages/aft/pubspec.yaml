@@ -18,12 +18,8 @@ dependencies:
   path: any
   pub_semver: ^2.1.1
   pubspec_parse: ^1.2.0
-  smithy:
-    hosted: https://pub.dillonnys.com
-    version: ^0.5.0
-  smithy_codegen:
-    hosted: https://pub.dillonnys.com
-    version: ^0.5.0
+  smithy: ^0.1.0
+  smithy_codegen: ^0.1.0
   stream_transform: ^2.0.0
   yaml: ^3.1.0
   yaml_edit: ^2.0.3

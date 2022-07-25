@@ -135,6 +135,10 @@ for PKG in ${PKGS}; do
         echo 'dart test --tags=build'
         dart test --tags=build || EXIT_CODE=$?
         ;;
+      test_5)
+        echo 'dart test -p firefox'
+        dart test -p firefox || EXIT_CODE=$?
+        ;;
       *)
         echo -e "\033[31mUnknown TASK '${TASK}' - TERMINATING JOB\033[0m"
         exit 64

@@ -20,9 +20,7 @@ dependencies:
     sdk: flutter
   intl: ^0.17.0
   meta: ^1.7.0
-  smithy:
-    hosted: https://pub.dillonnys.com
-    version: ^0.5.0
+  smithy: ^0.1.0
 
 dev_dependencies:
   amplify_lints:

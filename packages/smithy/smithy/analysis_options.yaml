@@ -1,0 +1,9 @@
+include: package:amplify_lints/library_core.yaml
+
+analyzer:
+  errors:
+    # TODO(dnys1): Remove before publishing
+    public_member_api_docs: ignore
+    avoid_unused_constructor_parameters: ignore
+  exclude:
+    - "**/*.g.dart"

@@ -1,0 +1,33 @@
+name: goldens
+description: Golden files for smithy-dart
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=2.14.4 <3.0.0"
+
+dependencies:
+  smithy:
+    path: ../smithy
+
+dependency_overrides: 
+  aws_common:
+    path: ../../aws_common
+  aws_signature_v4:
+    path: ../../aws_signature_v4
+  smithy:
+    path: ../smithy
+  smithy_aws:
+    path: ../smithy_aws
+  smithy_codegen:
+    path: ../smithy_codegen
+
+dev_dependencies:
+  file: ^6.1.2
+  glob: ^2.0.2
+  lints: ^2.0.0
+  path: any
+  pubspec_parse: ^1.2.0
+  smithy_codegen:
+    path: ../smithy_codegen
+  test: ^1.16.0
