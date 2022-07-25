@@ -9,9 +9,10 @@ stages:
           - analyze: --fatal-infos .
   - unit_test:
       - test:
+      - test: -p chrome
+  - unit_test_native:
+      - test:
         os:
-          - linux
           - macos
           - windows
-      - test: -p chrome
       - test: -p firefox

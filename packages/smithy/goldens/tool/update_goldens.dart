@@ -58,31 +58,36 @@ Future<void> _generateFor(FileSystemEntity modelEnt) async {
 
   stdout.writeln('Generating AST for $modelPath');
 
-  // TOOO: Improve performance with isolates
-  final result = await Process.run(
-    'docker',
-    [
-      'run',
-      '--rm',
-      '-v',
-      '$modelsPath:/home/$modelsDir',
-      'smithy',
-      'ast',
-      '-d',
-      '/smithy/lib/traits',
-      '/home/$modelsDir/shared',
-      '/home/$modelPath',
-    ],
-    stdoutEncoding: utf8,
-    stderrEncoding: utf8,
-  );
-  if (result.exitCode != 0) {
-    stderr.write('Could not generate model for $modelPath: ');
-    stderr.writeln(result.stdout);
-    stderr.writeln(result.stderr);
-    exit(result.exitCode);
+  final String astJson;
+  final isCI = Platform.environment['CI']?.isNotEmpty ?? false;
+  if (isCI) {
+    astJson = File('${modelEnt.path}.json').readAsStringSync();
+  } else {
+    final result = await Process.run(
+      'docker',
+      [
+        'run',
+        '--rm',
+        '-v',
+        '$modelsPath:/home/$modelsDir',
+        'smithy',
+        'ast',
+        '-d',
+        '/smithy/lib/traits',
+        '/home/$modelsDir/shared',
+        '/home/$modelPath',
+      ],
+      stdoutEncoding: utf8,
+      stderrEncoding: utf8,
+    );
+    if (result.exitCode != 0) {
+      stderr.write('Could not generate model for $modelPath: ');
+      stderr.writeln(result.stdout);
+      stderr.writeln(result.stderr);
+      exit(result.exitCode);
+    }
+    astJson = result.stdout as String;
   }
-  final astJson = result.stdout as String;
 
   final packageName = protocolName.snakeCase;
   final ast = parseAstJson(astJson);

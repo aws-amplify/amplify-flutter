@@ -1,5 +1,5 @@
 #!/bin/bash
-# Created with package:mono_repo v6.3.0
+# Created with package:mono_repo v6.4.0-dev
 
 # Support built in commands on windows out of the box.
 # When it is a flutter repo (check the pubspec.yaml for "sdk: flutter")
@@ -79,6 +79,10 @@ for PKG in ${PKGS}; do
         echo 'dart analyze --fatal-infos lib test'
         dart analyze --fatal-infos lib test || EXIT_CODE=$?
         ;;
+      analyze_3)
+        echo 'dart analyze --fatal-infos lib'
+        dart analyze --fatal-infos lib || EXIT_CODE=$?
+        ;;
       command_0)
         echo 'dart --version'
         dart --version || EXIT_CODE=$?
@@ -100,22 +104,38 @@ for PKG in ${PKGS}; do
         tool/test-web.sh -p firefox || EXIT_CODE=$?
         ;;
       command_5)
+        echo 'dart tool/update_goldens.dart'
+        dart tool/update_goldens.dart || EXIT_CODE=$?
+        ;;
+      command_6)
         echo 'dart run build_runner build --delete-conflicting-outputs'
         dart run build_runner build --delete-conflicting-outputs || EXIT_CODE=$?
         ;;
-      command_6)
+      command_7)
         echo 'tool/test.sh -p chrome'
         tool/test.sh -p chrome || EXIT_CODE=$?
         ;;
-      command_7)
+      command_8)
         echo 'tool/test.sh -p firefox'
         tool/test.sh -p firefox || EXIT_CODE=$?
         ;;
-      format)
+      format_0)
         echo 'dart format --output=none --set-exit-if-changed .'
         dart format --output=none --set-exit-if-changed . || EXIT_CODE=$?
         ;;
-      test_0)
+      format_1)
+        echo 'dart format --set-exit-if-changed lib'
+        dart format --set-exit-if-changed lib || EXIT_CODE=$?
+        ;;
+      github_action)
+        echo './packages/smithy/goldens'
+        ./packages/smithy/goldens || EXIT_CODE=$?
+        ;;
+      github_action)
+        echo 'dart test -p chrome'
+        dart test -p chrome || EXIT_CODE=$?
+        ;;
+      github_action)
         echo 'dart test'
         dart test || EXIT_CODE=$?
         ;;
@@ -126,10 +146,6 @@ for PKG in ${PKGS}; do
       test_2)
         echo 'dart test --exclude-tags=build'
         dart test --exclude-tags=build || EXIT_CODE=$?
-        ;;
-      test_3)
-        echo 'dart test -p chrome'
-        dart test -p chrome || EXIT_CODE=$?
         ;;
       test_4)
         echo 'dart test --tags=build'

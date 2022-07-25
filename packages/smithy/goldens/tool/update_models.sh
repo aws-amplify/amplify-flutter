@@ -15,25 +15,39 @@
 
 set -e
 
-if [[ ! -d models ]]; then
+if [[ -n "$CI" ]]; then
+    cd packages/smithy/goldens
+fi
+
+if [[ ! -e smithy ]]; then
     echo "Must be run from goldens/ root" >&2
     exit 1
 fi
 
-TMP=$(mktemp -d)
-PROTOCOLS="awsJson1_0 awsJson1_1 restJson1 restXml restXmlWithNamespace"
+if [[ -z "$CI" ]]; then
+    git submodule update --init
+fi
 
-pushd $TMP
-git clone --depth=1 https://github.com/awslabs/smithy.git
-popd
+PROTOCOLS="awsJson1_0 awsJson1_1 restJson1 restXml restXmlWithNamespace"
 
 for PROTOCOL in $PROTOCOLS; do
     DIR=models/$PROTOCOL
     rm -rf $DIR
     mkdir -p $DIR
-    cp -R $TMP/smithy/smithy-aws-protocol-tests/model/$PROTOCOL/* $DIR
+    cp -R smithy/smithy-aws-protocol-tests/model/$PROTOCOL/* $DIR
 done
 
 # Shared types
-cp $TMP/smithy/smithy-aws-protocol-tests/model/aws-config.smithy models/shared/
-cp $TMP/smithy/smithy-aws-protocol-tests/model/shared-types.smithy models/shared/
+mkdir -p models/shared
+cp smithy/smithy-aws-protocol-tests/model/aws-config.smithy models/shared/
+cp smithy/smithy-aws-protocol-tests/model/shared-types.smithy models/shared/
+
+# Generate AST if running in CI
+if [[ -n "$CI" ]]; then
+    for PROTOCOL in $PROTOCOLS; do
+        /smithy/bin/smithy ast -d \
+            /smithy/lib/traits \
+            models/shared \
+            models/$PROTOCOL > models/${PROTOCOL}.json
+    done
+fi

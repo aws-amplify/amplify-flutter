@@ -1,0 +1,54 @@
+sdk:
+  - stable
+
+stages:
+  - golden_test:
+      - group:
+        - command: git submodule update --init
+        - github_action:
+            name: 'Generate AST'
+            uses: ./packages/smithy/goldens
+            continue-on-error: false
+        - command: dart tool/update_goldens.dart
+        - format: --set-exit-if-changed lib
+        - analyze: --fatal-infos lib
+        - github_action:
+            name: awsJson1_0 (VM)
+            run: dart test
+            working-directory: lib/awsJson1_0
+        - github_action:
+            name: awsJson1_1 (VM)
+            run: dart test
+            working-directory: lib/awsJson1_1
+        - github_action:
+            name: restJson1 (VM)
+            run: dart test
+            working-directory: lib/restJson1
+        - github_action:
+            name: restXml (VM)
+            run: dart test
+            working-directory: lib/restXml
+        - github_action:
+            name: restXmlWithNamespace (VM)
+            run: dart test
+            working-directory: lib/restXmlWithNamespace
+        - github_action:
+            name: awsJson1_0 (Browser)
+            run: dart test -p chrome
+            working-directory: lib/awsJson1_0
+        - github_action:
+            name: awsJson1_1 (Browser)
+            run: dart test -p chrome
+            working-directory: lib/awsJson1_1
+        - github_action:
+            name: restJson1 (Browser)
+            run: dart test -p chrome
+            working-directory: lib/restJson1
+        - github_action:
+            name: restXml (Browser)
+            run: dart test -p chrome
+            working-directory: lib/restXml
+        - github_action:
+            name: restXmlWithNamespace (Browser)
+            run: dart test -p chrome
+            working-directory: lib/restXmlWithNamespace
