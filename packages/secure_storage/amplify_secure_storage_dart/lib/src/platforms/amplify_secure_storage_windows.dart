@@ -119,7 +119,7 @@ class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
   SecureStorageException _getExceptionFromErrorCode(int errorCode) {
     final underlying = WindowsException(
       HRESULT_FROM_WIN32(errorCode),
-    ).toString();
+    );
     return UnknownException(
       'An unknown exception occurred.',
       recoverySuggestion: SecureStorageException.missingRecovery,

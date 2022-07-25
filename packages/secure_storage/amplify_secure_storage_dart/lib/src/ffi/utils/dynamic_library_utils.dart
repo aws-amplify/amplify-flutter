@@ -28,13 +28,13 @@ DynamicLibrary openDynamicLibrary(String name, {String fileExtension = '.so'}) {
       recoverySuggestion:
           'For local development on Debian based linux distributions such as Ubuntu, '
           'this can be installed by running "sudo apt-get update && sudo apt-get install $name-dev"',
-      underlyingException: e.toString(),
+      underlyingException: e,
     );
   } on Object catch (e) {
     throw UnknownException(
       'An unknown exception occurred while trying to open $name.',
       recoverySuggestion: SecureStorageException.missingRecovery,
-      underlyingException: e.toString(),
+      underlyingException: e,
     );
   }
 }
