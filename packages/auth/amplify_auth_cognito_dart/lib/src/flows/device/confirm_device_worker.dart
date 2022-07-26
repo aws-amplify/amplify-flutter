@@ -40,7 +40,7 @@ abstract class ConfirmDeviceMessage
   /// The logged-in user's access token.
   String get accessToken;
 
-  /// The logged-in user's access token.
+  /// The logged-in user's password.
   String get password;
 
   /// The device metadata issued by Cognito.
@@ -72,10 +72,13 @@ abstract class ConfirmDeviceWorker
     await for (final message in listen) {
       final deviceGroupKey = message.newDeviceMetadata.deviceGroupKey;
       final deviceKey = message.newDeviceMetadata.deviceKey;
+      if (deviceGroupKey == null || deviceKey == null) {
+        throw InvalidParameterException(message: 'Missing device metadata');
+      }
 
       final deviceKeyHash = computeSecretHash(
-        deviceGroupKey!,
-        deviceKey!,
+        deviceGroupKey,
+        deviceKey,
         message.password,
       );
 
