@@ -1,3 +1,7 @@
+## 0.6.4 (2022-07-25)
+
+- chore: bump amplify-android dep to 1.36.4 ([#1918](https://github.com/aws-amplify/amplify-flutter/pull/1918))
+
 ## 0.6.3 (2022-07-21)
 
 - fix(storage): throw pluginNotAddedException when storage plugin not c... ([#1903](https://github.com/aws-amplify/amplify-flutter/pull/1903))

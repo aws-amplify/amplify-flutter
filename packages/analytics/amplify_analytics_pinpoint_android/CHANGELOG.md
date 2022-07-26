@@ -1,3 +1,7 @@
+## 0.6.4 (2022-07-25)
+
+- chore: bump amplify-android dep to 1.36.4 ([#1918](https://github.com/aws-amplify/amplify-flutter/pull/1918))
+
 ## 0.6.3 (2022-07-21)
 
 - chore: bump amplify-android dep to 1.36.3 ([#1911](https://github.com/aws-amplify/amplify-flutter/pull/1911))
