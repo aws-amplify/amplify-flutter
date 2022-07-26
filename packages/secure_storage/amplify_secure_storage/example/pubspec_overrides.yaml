@@ -4,6 +4,8 @@
 # It may cause issues with publishing until https://github.com/dart-lang/pub/pull/3419
 # is released in stable.
 dependency_overrides:
+  amplify_core:
+    path: ../../../amplify_core
   amplify_secure_storage_dart:
     path: ../../amplify_secure_storage_dart
   aws_common:
