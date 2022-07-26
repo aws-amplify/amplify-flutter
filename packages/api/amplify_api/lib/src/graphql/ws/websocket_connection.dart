@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_api/src/decorators/authorize_websocket_message.dart';
+import 'package:amplify_api/src/decorators/websocket_auth_utils.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class WebSocketConnection implements Closeable {
   late final StreamSubscription<WebSocketMessage> _subscription;
   late final RestartableTimer _timeoutTimer;
 
-  // Add connection error variable to throw in `init`.
+  // TODO: Add connection error variable to throw in `init`.
 
   Future<void>? _initFuture;
   final Completer<void> _connectionReady = Completer<void>();
@@ -42,6 +42,7 @@ class WebSocketConnection implements Closeable {
   /// {@macro websocket_connection}
   WebSocketConnection(this._config, this.authProviderRepo);
 
+  /// Connects stream to _onData handler.
   @visibleForTesting
   StreamSubscription<WebSocketMessage> getStreamSubscription(
       Stream<dynamic> stream) {
@@ -73,9 +74,8 @@ class WebSocketConnection implements Closeable {
   }
 
   Future<void> _init() async {
-    // Generate a URI for the connection and all subscriptions.
-    // See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#handshake-details-to-establish-the-websocket-connection
-    final connectionUri = await _getConnectionUri(_config, authProviderRepo);
+    final connectionUri =
+        await generateConnectionUri(_config, authProviderRepo);
     await connect(connectionUri);
 
     if (_connectionReady.isCompleted) return;
@@ -92,17 +92,22 @@ class WebSocketConnection implements Closeable {
     if (!_connectionReady.isCompleted) {
       init();
     }
-    final subRegistration = WebSocketSubscriptionRegistrationMessage(
-      payload:
-          SubscriptionRegistrationPayload(request: request, config: _config),
-    );
-    final subscriptionId = subRegistration.id!;
+
+    final subscriptionId = uuid();
     return _messageStream
         .where((msg) => msg.id == subscriptionId)
         .transform(
             WebSocketSubscriptionStreamTransformer(request, onEstablished))
         .asBroadcastStream(
-          onListen: (_) => send(subRegistration),
+          onListen: (_) async {
+            final subscriptionRegistrationMessage =
+                await generateSubscriptionRegistrationMessage(_config,
+                    id: subscriptionId,
+                    authRepo: authProviderRepo,
+                    request: request);
+
+            send(subscriptionRegistrationMessage);
+          },
           onCancel: (_) => _cancel(subscriptionId),
         );
   }
@@ -113,18 +118,13 @@ class WebSocketConnection implements Closeable {
       id: subscriptionId,
       messageType: MessageType.stop,
     ));
-    // TODO(equartey): if this is the only susbscription, close the connection.
+    // TODO(equartey): if this is the only subscription, close the connection.
   }
 
   /// Sends a structured message over the WebSocket.
   @visibleForTesting
-  Future<void> send(WebSocketMessage message) async {
-    var authorizedMessage = message;
-    if (message is WebSocketSubscriptionRegistrationMessage) {
-      authorizedMessage =
-          await authorizeWebSocketMessage(message, _config, authProviderRepo);
-    }
-    final msgJson = json.encode(authorizedMessage.toJson());
+  void send(WebSocketMessage message) {
+    final msgJson = json.encode(message.toJson());
     _channel.sink.add(msgJson);
   }
 
@@ -181,20 +181,4 @@ class WebSocketConnection implements Closeable {
     // Re-broadcast unhandled messages
     _rebroadcastController.add(message);
   }
-}
-
-Future<Uri> _getConnectionUri(
-    AWSApiConfig config, AmplifyAuthProviderRepository authRepo) async {
-  const body = '{}';
-  final authorizationHeaders = await generateAuthorizationHeaders(config,
-      authRepo: authRepo, body: body);
-  final encodedAuthHeaders =
-      base64.encode(json.encode(authorizationHeaders).codeUnits);
-  final endpointUri = Uri.parse(
-      config.endpoint.replaceFirst('appsync-api', 'appsync-realtime-api'));
-  return Uri(scheme: 'wss', host: endpointUri.host, path: 'graphql')
-      .replace(queryParameters: <String, String>{
-    'header': encodedAuthHeaders,
-    'payload': base64.encode(utf8.encode(body)) // always payload of '{}'
-  });
 }

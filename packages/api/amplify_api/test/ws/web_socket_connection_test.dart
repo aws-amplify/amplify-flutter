@@ -78,10 +78,10 @@ class MockWebSocketConnection extends WebSocketConnection {
     getStreamSubscription(broadcast);
   }
 
+  /// Pushes message in sentMessages and adds to stream (to support mocking result).
   @override
-  Future<void> send(WebSocketMessage message) async {
+  void send(WebSocketMessage message) {
     sentMessages.add(message);
-
     final messageStr = json.encode(message.toJson());
     messageStream.add(messageStr);
   }
@@ -148,7 +148,7 @@ void main() {
     });
 
     test(
-        'subscribe() should send SubscriptionRegistrationMessage with authorized payload',
+        'subscribe() should send SubscriptionRegistrationMessage with authorized payload correctly serialized',
         () async {
       connection.init();
       await connection.ready;
@@ -161,11 +161,19 @@ void main() {
       final lastMessage = connection.lastSentMessage;
       expect(lastMessage?.messageType, MessageType.start);
       final payloadJson = lastMessage?.payload?.toJson();
-      print(payloadJson);
-
-      // TODO assert payload authorized
+      final apiKeyFromPayload =
+          payloadJson?['extensions']['authorization'][xApiKey];
+      expect(apiKeyFromPayload, apiKey);
     });
 
-    test('subscribe() should return a subscription stream', () {});
+    // test('subscribe() should return a subscription stream', () async {
+    //   connection.init();
+    //   await connection.ready;
+    //   Completer<void> establishedCompleter = Completer();
+    //   final subscription = connection.subscribe(subscriptionRequest, () {
+    //     establishedCompleter.complete();
+    //   }).listen((event) {});
+    //   await establishedCompleter.future;
+    // });
   });
 }

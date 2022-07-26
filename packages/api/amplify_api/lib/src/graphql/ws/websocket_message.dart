@@ -77,11 +77,12 @@ class ConnectionAckMessagePayload extends WebSocketMessagePayload {
 class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
   final GraphQLRequest request;
   final AWSApiConfig config;
-  Map<String, dynamic> authorizationHeaders = {};
+  final Map<String, dynamic> authorizationHeaders;
 
   SubscriptionRegistrationPayload({
     required this.request,
     required this.config,
+    required this.authorizationHeaders,
   });
 
   @override
@@ -186,6 +187,6 @@ class WebSocketConnectionInitMessage extends WebSocketMessage {
 
 class WebSocketSubscriptionRegistrationMessage extends WebSocketMessage {
   WebSocketSubscriptionRegistrationMessage(
-      {required SubscriptionRegistrationPayload payload})
-      : super(messageType: MessageType.start, payload: payload);
+      {required String id, required SubscriptionRegistrationPayload payload})
+      : super(messageType: MessageType.start, payload: payload, id: id);
 }
