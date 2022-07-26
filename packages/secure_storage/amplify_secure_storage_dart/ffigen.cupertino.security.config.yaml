@@ -1,7 +1,5 @@
 # ffigen config for Apple's Security Framework
-# to regenerate, run: dart run ffigen --config ffigen.cupertino.security.config.yaml
-#
-# The output depends on ffi bindings generated for the CoreFoundation Framework.
+# To regenerate, run: `make ffi_bindings_macos`
 # 
 # This should be run on a Mac with XCode installed.
 #
