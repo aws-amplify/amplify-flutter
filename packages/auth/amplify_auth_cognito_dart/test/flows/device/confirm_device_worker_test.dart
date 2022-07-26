@@ -33,7 +33,6 @@ void main() {
       final message = ConfirmDeviceMessage(
         (b) => b
           ..accessToken = accessToken.raw
-          ..password = 'password'
           ..newDeviceMetadata.deviceKey = 'deviceKey'
           ..newDeviceMetadata.deviceGroupKey = 'deviceGroupKey',
       );
@@ -51,9 +50,8 @@ void main() {
       worker.logs.listen(safePrint);
       await worker.spawn();
       final message = ConfirmDeviceMessage(
-        (b) => b
-          ..accessToken = accessToken.raw
-          ..password = 'password',
+        // Missing device params
+        (b) => b..accessToken = accessToken.raw,
       );
       worker.add(message);
 
