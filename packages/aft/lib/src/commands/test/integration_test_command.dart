@@ -148,13 +148,20 @@ class IntegrationTestCommand extends AmplifyCommand {
     final passRegex = RegExp(r'([\+][0-9]+)');
     final skipRegex = RegExp(r'([~][0-9]+)');
     final failRegex = RegExp(r'([-][0-9]+)');
+
+    final exceptionRegex = RegExp(
+      r'(?<=══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════)'
+      '(.*)'
+      '(?=════════════════════════════════════════════════════════════════════════════════════════════════════)',
+      multiLine: false,
+      dotAll: true,
+      caseSensitive: false,
+    );
     await _executeTests(
       selectedPackages,
       (result, package, fileName) {
         final testReport = TestReportScored(package, p.basename(fileName));
         folio.testReports.add(testReport);
-
-        // TODO(dnnoyes): Create regex to extract test failures and append to report
 
         final lastResult = result.substring(result.lastIndexOf('+'));
         final passed = int.parse(passRegex.stringMatch(lastResult) ?? '0');
@@ -167,6 +174,13 @@ class IntegrationTestCommand extends AmplifyCommand {
           skipped: skipped,
           failed: failed,
         );
+
+        final matches = exceptionRegex.allMatches(result);
+
+        for (final m in matches) {
+          final match = m[0]!;
+          testReport.failures.add(match);
+        }
       },
       device: device,
     );
@@ -182,12 +196,27 @@ class IntegrationTestCommand extends AmplifyCommand {
     } on Exception catch (e) {
       stderr.writeln('chromedriver failed to start: ${e.toString()}');
     }
+
+    final exceptionRegex = RegExp(
+      r'(?<=══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞═════════════════)'
+      '(.*)'
+      '(?=═════════════════════════════════════════════════════════════════)',
+      multiLine: false,
+      dotAll: true,
+      caseSensitive: false,
+    );
     await _executeTests(
       selectedPackages,
       (result, package, fileName) {
         final testReport = TestReportPassFail(package, p.basename(fileName));
         folio.testReports.add(testReport);
         testReport.allPassed = result.contains(testsPassed);
+        final matches = exceptionRegex.allMatches(result);
+
+        for (final m in matches) {
+          final match = m[0]!;
+          testReport.failures.add(match);
+        }
       },
     );
     process?.kill();
