@@ -41,9 +41,6 @@ abstract class ConfirmDeviceMessage
   /// The logged-in user's access token.
   String get accessToken;
 
-  /// The logged-in user's password.
-  String get password;
-
   /// The device metadata issued by Cognito.
   NewDeviceMetadataType get newDeviceMetadata;
 
@@ -77,10 +74,13 @@ abstract class ConfirmDeviceWorker
         throw InvalidParameterException(message: 'Missing device metadata');
       }
 
+      // Generate a random password of 40 bytes per
+      // https://aws.amazon.com/premiumsupport/knowledge-center/cognito-user-pool-remembered-devices/
+      final password = base64Encode(getRandomBytes(40));
       final deviceKeyHash = computeSecretHash(
         deviceGroupKey,
         deviceKey,
-        message.password,
+        password,
       );
 
       // Generate a random BigInt
