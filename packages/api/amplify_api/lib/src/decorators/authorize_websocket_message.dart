@@ -22,24 +22,21 @@ import 'authorize_http_request.dart';
 /// Takes input websocket message (connection or subscription establisher) and
 /// adds authorization headers from auth repo.
 @internal
-Future<WebSocketMessage> authorizeWebSocketMessage(
-  WebSocketMessage inputMessage,
+Future<WebSocketSubscriptionRegistrationMessage> authorizeWebSocketMessage(
+  WebSocketSubscriptionRegistrationMessage inputMessage,
   AWSApiConfig config,
   AmplifyAuthProviderRepository authRepo,
 ) async {
   final body = inputMessage.payload?.toJson()['data'];
-  if (inputMessage is WebSocketConnectionInitMessage) {
-    inputMessage.authorizationHeaders =
-        await _generateAuthorizationHeaders(config, authRepo: authRepo);
-  } else if (body is String) {
-    inputMessage.payload?.authorizationHeaders =
-        await _generateAuthorizationHeaders(config,
-            authRepo: authRepo, body: body);
-  }
-  return Future.value(inputMessage);
+
+  final payload = inputMessage.payload as SubscriptionRegistrationPayload?;
+  payload?.authorizationHeaders = await generateAuthorizationHeaders(config,
+      authRepo: authRepo, body: body as String);
+  return inputMessage;
 }
 
-Future<Map<String, dynamic>> _generateAuthorizationHeaders(
+@internal
+Future<Map<String, String>> generateAuthorizationHeaders(
   AWSApiConfig config, {
   required AmplifyAuthProviderRepository authRepo,
   String body = '{}',

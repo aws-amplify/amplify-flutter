@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:amplify_api/src/decorators/authorize_websocket_message.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
+import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'websocket_message.dart';
@@ -41,23 +42,22 @@ class WebSocketConnection implements Closeable {
   /// {@macro websocket_connection}
   WebSocketConnection(this._config, this.authProviderRepo);
 
-  /// Connects to the real time WebSocket.
-  Future<void> _connect() async {
-    // Generate a URI for the connection and all subscriptions.
-    // See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#handshake-details-to-establish-the-websocket-connection
-    final connectionMessage = WebSocketConnectionInitMessage(_config);
-    final authorizedConnectionMessage = await authorizeWebSocketMessage(
-            connectionMessage, _config, authProviderRepo)
-        as WebSocketConnectionInitMessage;
-    final connectionUri = authorizedConnectionMessage.getConnectionUri();
+  @visibleForTesting
+  StreamSubscription<WebSocketMessage> getStreamSubscription(
+      Stream<dynamic> stream) {
+    return stream
+        .transform(const WebSocketMessageStreamTransformer())
+        .listen(_onData);
+  }
 
+  /// Connects to the real time WebSocket.
+  @visibleForTesting
+  Future<void> connect(Uri connectionUri) async {
     _channel = WebSocketChannel.connect(
       connectionUri,
       protocols: webSocketProtocols,
     );
-    _subscription = _channel.stream
-        .transform(const WebSocketMessageStreamTransformer())
-        .listen(_onData);
+    _subscription = getStreamSubscription(_channel.stream);
   }
 
   /// Closes the WebSocket connection.
@@ -73,9 +73,13 @@ class WebSocketConnection implements Closeable {
   }
 
   Future<void> _init() async {
-    await _connect();
+    // Generate a URI for the connection and all subscriptions.
+    // See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#handshake-details-to-establish-the-websocket-connection
+    final connectionUri = await _getConnectionUri(_config, authProviderRepo);
+    await connect(connectionUri);
+
     if (_connectionReady.isCompleted) return;
-    send(MessageType.connectionInit);
+    send(WebSocketConnectionInitMessage());
     return ready;
   }
 
@@ -88,8 +92,7 @@ class WebSocketConnection implements Closeable {
     if (!_connectionReady.isCompleted) {
       init();
     }
-    final subRegistration = WebSocketMessage(
-      messageType: MessageType.start,
+    final subRegistration = WebSocketSubscriptionRegistrationMessage(
       payload:
           SubscriptionRegistrationPayload(request: request, config: _config),
     );
@@ -99,14 +102,14 @@ class WebSocketConnection implements Closeable {
         .transform(
             WebSocketSubscriptionStreamTransformer(request, onEstablished))
         .asBroadcastStream(
-          onListen: (_) => _send(subRegistration),
+          onListen: (_) => send(subRegistration),
           onCancel: (_) => _cancel(subscriptionId),
         );
   }
 
   /// Cancels a subscription.
   void _cancel(String subscriptionId) {
-    _send(WebSocketMessage(
+    send(WebSocketMessage(
       id: subscriptionId,
       messageType: MessageType.stop,
     ));
@@ -114,18 +117,14 @@ class WebSocketConnection implements Closeable {
   }
 
   /// Sends a structured message over the WebSocket.
-  void send(MessageType type, {WebSocketMessagePayload? payload}) {
-    final message = WebSocketMessage(messageType: type, payload: payload);
-    _send(message);
-  }
-
-  /// Sends a structured message over the WebSocket.
-  Future<void> _send(WebSocketMessage message) async {
-    final authorizedMessage =
-        await authorizeWebSocketMessage(message, _config, authProviderRepo);
-    final authorizedJson = authorizedMessage.toJson();
-    final msgJson = json.encode(authorizedJson);
-    // print('Sent: $msgJson');
+  @visibleForTesting
+  Future<void> send(WebSocketMessage message) async {
+    var authorizedMessage = message;
+    if (message is WebSocketSubscriptionRegistrationMessage) {
+      authorizedMessage =
+          await authorizeWebSocketMessage(message, _config, authProviderRepo);
+    }
+    final msgJson = json.encode(authorizedMessage.toJson());
     _channel.sink.add(msgJson);
   }
 
@@ -141,7 +140,6 @@ class WebSocketConnection implements Closeable {
 
   /// Handles incoming data on the WebSocket.
   void _onData(WebSocketMessage message) {
-    // print('Received: message $message');
     switch (message.messageType) {
       case MessageType.connectionAck:
         final messageAck = message.payload as ConnectionAckMessagePayload;
@@ -183,4 +181,20 @@ class WebSocketConnection implements Closeable {
     // Re-broadcast unhandled messages
     _rebroadcastController.add(message);
   }
+}
+
+Future<Uri> _getConnectionUri(
+    AWSApiConfig config, AmplifyAuthProviderRepository authRepo) async {
+  const body = '{}';
+  final authorizationHeaders = await generateAuthorizationHeaders(config,
+      authRepo: authRepo, body: body);
+  final encodedAuthHeaders =
+      base64.encode(json.encode(authorizationHeaders).codeUnits);
+  final endpointUri = Uri.parse(
+      config.endpoint.replaceFirst('appsync-api', 'appsync-realtime-api'));
+  return Uri(scheme: 'wss', host: endpointUri.host, path: 'graphql')
+      .replace(queryParameters: <String, String>{
+    'header': encodedAuthHeaders,
+    'payload': base64.encode(utf8.encode(body)) // always payload of '{}'
+  });
 }

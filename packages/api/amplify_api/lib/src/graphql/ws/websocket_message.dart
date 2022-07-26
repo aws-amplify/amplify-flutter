@@ -39,8 +39,6 @@ class MessageType {
 }
 
 abstract class WebSocketMessagePayload {
-  Map<String, dynamic> authorizationHeaders = {};
-
   WebSocketMessagePayload();
 
   static const Map<MessageType, WebSocketMessagePayload Function(Map)>
@@ -79,6 +77,7 @@ class ConnectionAckMessagePayload extends WebSocketMessagePayload {
 class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
   final GraphQLRequest request;
   final AWSApiConfig config;
+  Map<String, dynamic> authorizationHeaders = {};
 
   SubscriptionRegistrationPayload({
     required this.request,
@@ -142,7 +141,7 @@ class WebSocketMessage {
     String? id,
     required this.messageType,
     this.payload,
-  }) : id = id ?? UUID.getUUID();
+  }) : id = id ?? uuid();
 
   WebSocketMessage._({
     this.id,
@@ -181,22 +180,12 @@ class WebSocketMessage {
 }
 
 class WebSocketConnectionInitMessage extends WebSocketMessage {
-  final AWSApiConfig config;
-  Map<String, dynamic> authorizationHeaders = {};
-
-  WebSocketConnectionInitMessage(this.config)
+  WebSocketConnectionInitMessage()
       : super(messageType: MessageType.connectionInit);
+}
 
-  Uri getConnectionUri() {
-    final encodedAuthHeaders =
-        base64.encode(json.encode(authorizationHeaders).codeUnits);
-    final endpointUri = Uri.parse(
-        config.endpoint.replaceFirst('appsync-api', 'appsync-realtime-api'));
-    return Uri(scheme: 'wss', host: endpointUri.host, path: 'graphql')
-        .replace(queryParameters: <String, String>{
-      'header': encodedAuthHeaders,
-      'payload':
-          base64.encode(utf8.encode(json.encode({}))) // always payload of '{}'
-    });
-  }
+class WebSocketSubscriptionRegistrationMessage extends WebSocketMessage {
+  WebSocketSubscriptionRegistrationMessage(
+      {required SubscriptionRegistrationPayload payload})
+      : super(messageType: MessageType.start, payload: payload);
 }
