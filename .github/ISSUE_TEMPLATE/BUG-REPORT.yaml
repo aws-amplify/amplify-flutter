@@ -120,19 +120,44 @@ body:
       placeholder: "iOS 15.1, Android 11"
     validations:
       required: true
+  - type: dropdown
+    id: deployment-method
+    attributes:
+      label: Deployment Method
+      description: "How do you currently deploy your backend?"
+      multiple: false
+      options:
+        - Amplify CLI
+        - Amplify CLI + Custom Pipeline
+        - Custom Pipeline
+    validations:
+      required: true
   - type: input
     id: cli-version
     attributes:
       label: CLI Version
       description: "Which version of the Amplify CLI are you running? (`amplify -v`)"
       placeholder: "7.6.21"
-    validations:
-      required: true
   - type: textarea
     id: additional-context
     attributes:
       label: Additional Context
-      description: Please add any other context about the problem here.
+      description: > 
+        Please add any other context about the problem here. If you are currently using a custom deployment
+        pipeline, it is helpful to understand how your cloud resources might differ from those provisioned by
+        the Amplify CLI, for example.
       placeholder: "No additional context provided"
     validations:
       required: false
+  - type: textarea
+    id: amplify-config
+    attributes:
+      label: Amplify Config
+      description: Please provide a sanitized version of your Amplify config.
+      placeholder: |
+        {
+          "UserAgent": "aws-amplify-cli/2.0",
+          "Version": "1.0"
+        }
+    validations:
+      required: true
