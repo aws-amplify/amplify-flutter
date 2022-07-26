@@ -1,5 +1,5 @@
-# ffigen config for Apple's CoreFoundation Framework
-# to regenerate, run: dart run ffigen --config ffigen.cupertino.coreFoundation.config.yaml
+# ffigen config for Apple's CoreFoundation Framework.
+# To regenerate, run: `make ffi_bindings_macos`
 # 
 # This should be run on a Mac with XCode installed.
 #
