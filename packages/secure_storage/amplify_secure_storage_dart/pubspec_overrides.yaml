@@ -5,7 +5,7 @@
 # is released in stable.
 dependency_overrides:
   amplify_core:
-    path: ../../../amplify_core
+    path: ../../amplify_core
   aws_common:
     path: ../../aws_common
   worker_bee:
