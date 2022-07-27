@@ -105,4 +105,15 @@ abstract class SecureStorageRequest
   /// The [SecureStorageRequest] serializer.
   static Serializer<SecureStorageRequest> get serializer =>
       _$secureStorageRequestSerializer;
+
+  /// toString override that excludes the value.
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'SecureStorageRequest')
+          ..add('id', id)
+          ..add('action', action)
+          ..add('config', config)
+          ..add('key', key))
+        .toString();
+  }
 }
