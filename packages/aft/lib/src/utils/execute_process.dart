@@ -18,7 +18,7 @@ import 'dart:io';
 
 import 'package:aft/aft.dart';
 
-/// Runs the `flutter` command from the root of [package], using the provided [args],
+/// Runs the `flutter` or 'dart' command from the root of [package], using the provided [args],
 /// and returns the decoded output.
 ///
 /// If [printStream] is `true`, the output of the command will be piped to [stdout].
