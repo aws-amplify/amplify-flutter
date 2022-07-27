@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:io';
-
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
@@ -116,15 +114,7 @@ abstract class AuthenticatorPage {
 
   /// Then I see Invalid verification code
   Future<void> expectInvalidVerificationCode() async {
-    if (Platform.isAndroid) {
-      await expectError('Confirmation code entered is not correct.');
-    } else if (Platform.isIOS) {
-      await expectError(
-        'Invalid verification code provided, please try again.',
-      );
-    } else {
-      throw Exception('Unsupprted platform');
-    }
+    await expectError('Invalid verification code provided, please try again.');
   }
 
   Future<void> selectCountryCode({

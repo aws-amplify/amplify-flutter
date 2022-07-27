@@ -162,6 +162,8 @@ void main() {
 
       // Then I see "Sign in"
       signInPage.expectUsername(label: 'Phone Number');
+
+      await deleteUser(phoneNumber.toE164());
     });
 
     // Scenario: Sign in with force change password credentials
@@ -194,6 +196,8 @@ void main() {
       /// Then I see "Change Password"
       await confirmSignInPage.expectConfirmSignInNewPasswordIsPresent();
       confirmSignInPage.expectNewPasswordIsPresent();
+
+      await deleteUser(phoneNumber.toE164());
     });
   });
 }
