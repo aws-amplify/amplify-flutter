@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,12 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:integration_test/integration_test.dart';
+import 'package:integration_test/integration_test_driver.dart';
 
-import 'config_test.dart' as config;
-
-void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
-  config.main();
-}
+// Required for running integration tests in the browser:
+// https://docs.flutter.dev/cookbook/testing/integration/introduction#5b-web
+Future<void> main() => integrationDriver();
