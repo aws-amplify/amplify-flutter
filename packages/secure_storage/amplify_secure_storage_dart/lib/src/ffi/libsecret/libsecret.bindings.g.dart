@@ -27,7 +27,7 @@ class Libsecret {
     ffi.Pointer<pkg_ffi.Utf8> collection,
     ffi.Pointer<pkg_ffi.Utf8> label,
     ffi.Pointer<pkg_ffi.Utf8> password,
-    ffi.Pointer<ffi.Int> cancellable,
+    ffi.Pointer<glib.GCancellable> cancellable,
     ffi.Pointer<ffi.Pointer<glib.GError>> error,
   ) {
     return _secret_password_storev_sync(
@@ -49,7 +49,7 @@ class Libsecret {
                   ffi.Pointer<pkg_ffi.Utf8>,
                   ffi.Pointer<pkg_ffi.Utf8>,
                   ffi.Pointer<pkg_ffi.Utf8>,
-                  ffi.Pointer<ffi.Int>,
+                  ffi.Pointer<glib.GCancellable>,
                   ffi.Pointer<ffi.Pointer<glib.GError>>)>>(
       'secret_password_storev_sync');
   late final _secret_password_storev_sync =
@@ -60,13 +60,13 @@ class Libsecret {
               ffi.Pointer<pkg_ffi.Utf8>,
               ffi.Pointer<pkg_ffi.Utf8>,
               ffi.Pointer<pkg_ffi.Utf8>,
-              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<glib.GCancellable>,
               ffi.Pointer<ffi.Pointer<glib.GError>>)>();
 
   ffi.Pointer<pkg_ffi.Utf8> secret_password_lookupv_sync(
     ffi.Pointer<SecretSchema> schema,
     ffi.Pointer<glib.GHashTable> attributes,
-    ffi.Pointer<ffi.Int> cancellable,
+    ffi.Pointer<glib.GCancellable> cancellable,
     ffi.Pointer<ffi.Pointer<glib.GError>> error,
   ) {
     return _secret_password_lookupv_sync(
@@ -82,7 +82,7 @@ class Libsecret {
               ffi.Pointer<pkg_ffi.Utf8> Function(
                   ffi.Pointer<SecretSchema>,
                   ffi.Pointer<glib.GHashTable>,
-                  ffi.Pointer<ffi.Int>,
+                  ffi.Pointer<glib.GCancellable>,
                   ffi.Pointer<ffi.Pointer<glib.GError>>)>>(
       'secret_password_lookupv_sync');
   late final _secret_password_lookupv_sync =
@@ -90,13 +90,13 @@ class Libsecret {
           ffi.Pointer<pkg_ffi.Utf8> Function(
               ffi.Pointer<SecretSchema>,
               ffi.Pointer<glib.GHashTable>,
-              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<glib.GCancellable>,
               ffi.Pointer<ffi.Pointer<glib.GError>>)>();
 
   int secret_password_clearv_sync(
     ffi.Pointer<SecretSchema> schema,
     ffi.Pointer<glib.GHashTable> attributes,
-    ffi.Pointer<ffi.Int> cancellable,
+    ffi.Pointer<glib.GCancellable> cancellable,
     ffi.Pointer<ffi.Pointer<glib.GError>> error,
   ) {
     return _secret_password_clearv_sync(
@@ -112,13 +112,16 @@ class Libsecret {
               glib.gboolean Function(
                   ffi.Pointer<SecretSchema>,
                   ffi.Pointer<glib.GHashTable>,
-                  ffi.Pointer<ffi.Int>,
+                  ffi.Pointer<glib.GCancellable>,
                   ffi.Pointer<ffi.Pointer<glib.GError>>)>>(
       'secret_password_clearv_sync');
   late final _secret_password_clearv_sync =
       _secret_password_clearv_syncPtr.asFunction<
-          int Function(ffi.Pointer<SecretSchema>, ffi.Pointer<glib.GHashTable>,
-              ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Pointer<glib.GError>>)>();
+          int Function(
+              ffi.Pointer<SecretSchema>,
+              ffi.Pointer<glib.GHashTable>,
+              ffi.Pointer<glib.GCancellable>,
+              ffi.Pointer<ffi.Pointer<glib.GError>>)>();
 
   void secret_password_free(
     ffi.Pointer<pkg_ffi.Utf8> password,
