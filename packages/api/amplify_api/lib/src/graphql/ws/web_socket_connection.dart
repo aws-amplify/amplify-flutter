@@ -1,30 +1,58 @@
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_api/src/decorators/websocket_auth_utils.dart';
+import 'package:amplify_api/src/decorators/web_socket_auth_utils.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
-import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import 'websocket_message.dart';
-import 'websocket_message_stream_transformer.dart';
+import 'web_socket_message_stream_transformer.dart';
+import 'web_socket_types.dart';
 
-/// {@template websocket_connection}
+/// {@template amplify_api.web_socket_connection}
 /// Manages connection with an AppSync backend and subscription routing.
 /// {@endtemplate}
+@internal
 class WebSocketConnection implements Closeable {
+  /// Allowed protocols for this connection.
   static const webSocketProtocols = ['graphql-ws'];
 
-  final AmplifyAuthProviderRepository authProviderRepo;
-
+  // Config and auth repo together determine how to authorize connection URLs
+  // and subscription registration messages.
+  final AmplifyAuthProviderRepository _authProviderRepo;
   final AWSApiConfig _config;
+
+  // Manages all incoming messages from server. Primarily handles messages related
+  // to the entire connection. E.g. connection_ack, connection_error, ka, error.
+  // Other events (for single subscriptions) rebroadcast to _rebroadcastController.
   late final WebSocketChannel _channel;
   late final StreamSubscription<WebSocketMessage> _subscription;
   late final RestartableTimer _timeoutTimer;
 
+  // Re-broadcasts incoming messages for child streams (single GraphQL subscriptions).
+  // start_ack, data, error
+  final StreamController<WebSocketMessage> _rebroadcastController =
+      StreamController<WebSocketMessage>.broadcast();
+  Stream<WebSocketMessage> get _messageStream => _rebroadcastController.stream;
+
   // TODO: Add connection error variable to throw in `init`.
 
+  // Futures to manage initial connection state.
   Future<void>? _initFuture;
   final Completer<void> _connectionReady = Completer<void>();
 
@@ -32,17 +60,10 @@ class WebSocketConnection implements Closeable {
   /// after the first `connection_ack` message.
   Future<void> get ready => _connectionReady.future;
 
-  /// Re-broadcasts messages for child streams.
-  final StreamController<WebSocketMessage> _rebroadcastController =
-      StreamController<WebSocketMessage>.broadcast();
+  /// {@macro amplify_api.web_socket_connection}
+  WebSocketConnection(this._config, this._authProviderRepo);
 
-  /// Incoming message stream for all events.
-  Stream<WebSocketMessage> get _messageStream => _rebroadcastController.stream;
-
-  /// {@macro websocket_connection}
-  WebSocketConnection(this._config, this.authProviderRepo);
-
-  /// Connects stream to _onData handler.
+  /// Connects _subscription stream to _onData handler.
   @visibleForTesting
   StreamSubscription<WebSocketMessage> getStreamSubscription(
       Stream<dynamic> stream) {
@@ -51,7 +72,8 @@ class WebSocketConnection implements Closeable {
         .listen(_onData);
   }
 
-  /// Connects to the real time WebSocket.
+  /// Connects WebSocket channel to _subscription stream but does not send connection
+  /// init message.
   @visibleForTesting
   Future<void> connect(Uri connectionUri) async {
     _channel = WebSocketChannel.connect(
@@ -69,13 +91,16 @@ class WebSocketConnection implements Closeable {
   }
 
   /// Initializes the connection.
+  ///
+  /// Connects to WebSocket, sends connection message and resolves future once
+  /// connection_ack message received from server.
   Future<void> init() {
     return _initFuture ??= _init();
   }
 
   Future<void> _init() async {
     final connectionUri =
-        await generateConnectionUri(_config, authProviderRepo);
+        await generateConnectionUri(_config, _authProviderRepo);
     await connect(connectionUri);
 
     if (_connectionReady.isCompleted) return;
@@ -100,10 +125,11 @@ class WebSocketConnection implements Closeable {
             WebSocketSubscriptionStreamTransformer(request, onEstablished))
         .asBroadcastStream(
           onListen: (_) async {
+            // Callout: need to reconsider sending start message onListen.
             final subscriptionRegistrationMessage =
                 await generateSubscriptionRegistrationMessage(_config,
                     id: subscriptionId,
-                    authRepo: authProviderRepo,
+                    authRepo: _authProviderRepo,
                     request: request);
 
             send(subscriptionRegistrationMessage);
@@ -114,14 +140,11 @@ class WebSocketConnection implements Closeable {
 
   /// Cancels a subscription.
   void _cancel(String subscriptionId) {
-    send(WebSocketMessage(
-      id: subscriptionId,
-      messageType: MessageType.stop,
-    ));
+    send(WebSocketStopMessage(id: subscriptionId));
     // TODO(equartey): if this is the only subscription, close the connection.
   }
 
-  /// Sends a structured message over the WebSocket.
+  /// Serializes a message as JSON string and sends over WebSocket channel.
   @visibleForTesting
   void send(WebSocketMessage message) {
     final msgJson = json.encode(message.toJson());
@@ -139,6 +162,9 @@ class WebSocketConnection implements Closeable {
   }
 
   /// Handles incoming data on the WebSocket.
+  ///
+  /// Here, handle connection-wide messages and pass subscription events to
+  /// `_rebroadcastController`.
   void _onData(WebSocketMessage message) {
     switch (message.messageType) {
       case MessageType.connectionAck:
@@ -178,7 +204,7 @@ class WebSocketConnection implements Closeable {
         break;
     }
 
-    // Re-broadcast unhandled messages
+    // Re-broadcast other message types related to single subscriptions.
     _rebroadcastController.add(message);
   }
 }

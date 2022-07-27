@@ -17,7 +17,7 @@ import 'dart:convert';
 
 import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/ws/websocket_message.dart';
+import 'package:amplify_api/src/graphql/ws/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,7 +25,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../util.dart';
 
-import 'package:amplify_api/src/graphql/ws/websocket_connection.dart';
+import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 
 /// Extension of [WebSocketConnection] that stores messages internally instead
 /// of sending them.
@@ -59,7 +59,7 @@ class MockWebSocketConnection extends WebSocketConnection {
       if (messageFromEvent.messageType == MessageType.connectionInit) {
         mockAckMsg = WebSocketMessage(
           messageType: MessageType.connectionAck,
-          payload: ConnectionAckMessagePayload(10000),
+          payload: const ConnectionAckMessagePayload(10000),
         );
         // start, respond with start_ack
       } else if (messageFromEvent.messageType == MessageType.start) {

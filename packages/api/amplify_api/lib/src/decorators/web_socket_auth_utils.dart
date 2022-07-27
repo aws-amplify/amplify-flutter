@@ -18,7 +18,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
-import '../graphql/ws/websocket_message.dart';
+import '../graphql/ws/web_socket_types.dart';
 import 'authorize_http_request.dart';
 
 /// Generate a URI for the connection and all subscriptions.
@@ -82,7 +82,7 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   required String body,
 }) async {
   final endpointHost = Uri.parse(config.endpoint).host;
-  // Create canonical HTTP request to authorize.
+  // Create canonical HTTP request to authorize but never send.
   //
   // The canonical request URL is a little different depending on if connection_init
   // or start (subscription registration).

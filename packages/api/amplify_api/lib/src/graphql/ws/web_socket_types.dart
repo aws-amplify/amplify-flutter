@@ -1,7 +1,25 @@
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// ignore_for_file: public_member_api_docs
+
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:meta/meta.dart';
 
+@internal
 class MessageType {
   final String type;
 
@@ -38,8 +56,9 @@ class MessageType {
   String toString() => type;
 }
 
+@internal
 abstract class WebSocketMessagePayload {
-  WebSocketMessagePayload();
+  const WebSocketMessagePayload();
 
   static const Map<MessageType, WebSocketMessagePayload Function(Map)>
       _factories = {
@@ -58,10 +77,11 @@ abstract class WebSocketMessagePayload {
   String toString() => prettyPrintJson(toJson());
 }
 
+@internal
 class ConnectionAckMessagePayload extends WebSocketMessagePayload {
   final int connectionTimeoutMs;
 
-  ConnectionAckMessagePayload(this.connectionTimeoutMs);
+  const ConnectionAckMessagePayload(this.connectionTimeoutMs);
 
   static ConnectionAckMessagePayload fromJson(Map json) {
     final connectionTimeoutMs = json['connectionTimeoutMs'] as int;
@@ -74,27 +94,31 @@ class ConnectionAckMessagePayload extends WebSocketMessagePayload {
       };
 }
 
+@internal
 class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
   final GraphQLRequest request;
   final AWSApiConfig config;
-  final Map<String, dynamic> authorizationHeaders;
+  final Map<String, String> authorizationHeaders;
 
-  SubscriptionRegistrationPayload({
+  const SubscriptionRegistrationPayload({
     required this.request,
     required this.config,
     required this.authorizationHeaders,
   });
 
   @override
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
+  Map<String, Object> toJson() {
+    return <String, Object>{
       'data': jsonEncode(
           {'variables': request.variables, 'query': request.document}),
-      'extensions': <String, dynamic>{'authorization': authorizationHeaders}
+      'extensions': <String, Map<String, String>>{
+        'authorization': authorizationHeaders
+      }
     };
   }
 }
 
+@internal
 class SubscriptionDataPayload extends WebSocketMessagePayload {
   final Map<String, dynamic>? data;
   final Map<String, dynamic>? errors;
@@ -117,6 +141,7 @@ class SubscriptionDataPayload extends WebSocketMessagePayload {
       };
 }
 
+@internal
 class WebSocketError extends WebSocketMessagePayload implements Exception {
   final List<Map> errors;
 
@@ -133,6 +158,7 @@ class WebSocketError extends WebSocketMessagePayload implements Exception {
       };
 }
 
+@internal
 class WebSocketMessage {
   final String? id;
   final MessageType messageType;
@@ -180,13 +206,22 @@ class WebSocketMessage {
   }
 }
 
+@internal
 class WebSocketConnectionInitMessage extends WebSocketMessage {
   WebSocketConnectionInitMessage()
       : super(messageType: MessageType.connectionInit);
 }
 
+@internal
 class WebSocketSubscriptionRegistrationMessage extends WebSocketMessage {
-  WebSocketSubscriptionRegistrationMessage(
-      {required String id, required SubscriptionRegistrationPayload payload})
-      : super(messageType: MessageType.start, payload: payload, id: id);
+  WebSocketSubscriptionRegistrationMessage({
+    required String id,
+    required SubscriptionRegistrationPayload payload,
+  }) : super(messageType: MessageType.start, payload: payload, id: id);
+}
+
+@internal
+class WebSocketStopMessage extends WebSocketMessage {
+  WebSocketStopMessage({required String id})
+      : super(messageType: MessageType.stop, id: id);
 }
