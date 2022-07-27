@@ -165,7 +165,9 @@ class IntegrationTestCommand extends AmplifyCommand {
 
         final lastResult = result.substring(result.lastIndexOf('+'));
         final passed = int.parse(passRegex.stringMatch(lastResult) ?? '0');
-        final skipped = int.parse(skipRegex.stringMatch(lastResult) ?? '0');
+        final skipped = int.parse(
+          skipRegex.stringMatch(lastResult)?.replaceFirst('~', '') ?? '0',
+        );
         final failed = int.parse(
           failRegex.stringMatch(lastResult)?.replaceFirst('-', '') ?? '0',
         );
