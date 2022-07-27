@@ -31,6 +31,7 @@ Future<String> executeProcess(
   final output = <int>[];
   final completer = Completer<int>();
   final process = await Process.start(
+    runInShell: true,
     flavor.name.toLowerCase(),
     args,
     workingDirectory: package?.path ?? Directory.current.path,
