@@ -12,7 +12,6 @@ github:
       stages:
         - unit_test
         - build_test
-        - golden_test
     native_test:
       name: Native Test
       stages:
@@ -22,6 +21,11 @@ github:
     #   name: Integration Test
     #   stages:
     #     - integration_test
+    # TODO(dnys1): Re-enable when mono_repo 6.4.0 is released
+    # goldens:
+    #   name: Goldens
+    #   stages:
+    #     - golden_test
 
   stages:
     - name: unit_test_native
@@ -33,7 +37,8 @@ merge_stages:
   - analyze_and_format
   - unit_test
   - unit_test_native
-  - golden_test
+  # TODO(dnys1): Re-enable when mono_repo 6.4.0 is released
+  # - golden_test
   # TODO(dnys1): Re-enable when mono_repo 6.3.0 is released
   # - integration_test
   - build_test
