@@ -19,7 +19,7 @@ import 'package:aft/src/test_reports/test_report_pass_fail.dart';
 import 'package:aft/src/test_reports/test_report_scored.dart';
 import 'package:aft/src/utils/emphasize_text.dart';
 
-void printResults(TestReportFolio folio, bool verbose) {
+void printResults(TestReportFolio folio, {required bool verbose}) {
   stdout.writeln(formatSuccess('\nTest Results:'));
 
   for (final package in folio.availablePackages()) {

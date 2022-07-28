@@ -106,7 +106,10 @@ class IntegrationTestCommand extends AmplifyCommand {
         );
         exit(1);
     }
-    printResults(folio, verbose);
+    printResults(
+      folio,
+      verbose: verbose,
+    );
   }
 
   Future<ActiveDevice?> _selectDevice() async {

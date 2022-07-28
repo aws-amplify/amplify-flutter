@@ -70,7 +70,10 @@ class UnitTestCommand extends AmplifyCommand {
 
       await _executeTest(package, folio);
     }
-    printResults(folio, verbose);
+    printResults(
+      folio,
+      verbose: verbose,
+    );
   }
 
   Future<void> _executeTest(
