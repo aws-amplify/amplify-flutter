@@ -23,7 +23,7 @@ class GraphQLRequest<T> {
   final String? apiName;
 
   /// A map of Strings to dynamically use for custom headers in the http request.
-  final Map<String, String>? customHeaders;
+  final Map<String, String>? headers;
 
   /// The body of the request, starting with the operation type and operation name.
   ///
@@ -60,14 +60,14 @@ class GraphQLRequest<T> {
       {this.apiName,
       required this.document,
       this.variables = const <String, dynamic>{},
-      this.customHeaders,
+      this.headers,
       this.decodePath,
       this.modelType});
 
   Map<String, dynamic> serializeAsMap() => <String, dynamic>{
         'document': document,
         'variables': variables,
-        'customHeaders': customHeaders,
+        'headers': headers,
         'cancelToken': id,
         if (apiName != null) 'apiName': apiName,
       };
