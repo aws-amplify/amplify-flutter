@@ -43,20 +43,18 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   static String _escapeLabel(String label) =>
       Uri.encodeQueryComponent(label).replaceAll('+', '%20');
 
-  /// Expands labels in [template] using [labelFor].
-  static String expandLabels(
-    String template,
-    String Function(String) labelFor,
-  ) {
+  /// Expands labels in [template] using [input].
+  static String expandLabels(String template, HasLabel input) {
     final pattern = UriPattern.parse(template);
     return pattern.segments.map((segment) {
       switch (segment.type) {
         case SegmentType.literal:
           return segment.content;
         case SegmentType.label:
-          return _escapeLabel(labelFor(segment.content));
+          return _escapeLabel(input.labelFor(segment.content));
         case SegmentType.greedyLabel:
-          return labelFor(segment.content)
+          return input
+              .labelFor(segment.content)
               .split('/')
               .map(_escapeLabel)
               .join('/');
@@ -64,13 +62,10 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     }).join('/');
   }
 
-  static String expandHostLabel(
-    String template,
-    String Function(String) labelFor,
-  ) {
+  static String expandHostLabel(String template, HasLabel input) {
     return template.replaceAllMapped(_labelRegex, (match) {
       final key = match.group(1)!;
-      return _escapeLabel(labelFor(key));
+      return _escapeLabel(input.labelFor(key));
     });
   }
 
@@ -126,53 +121,72 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
           );
   }
 
+  /// Generates the hostname for [request], given the [input] and whether the
+  /// operation has a host prefix which needs expanding.
+  String _hostForRequest(HttpRequest request, Input input, Uri baseUri) {
+    final host = baseUri.host;
+    var prefix = request.hostPrefix;
+    if (!endpoint.isHostnameImmutable && prefix != null) {
+      if (input is HasLabel) {
+        prefix = expandHostLabel(prefix, input);
+      }
+      return '$prefix$host';
+    }
+    return host;
+  }
+
   @visibleForTesting
   Future<AWSStreamedHttpRequest> createRequest(
     HttpRequest request,
     HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
     Input input,
   ) async {
-    var uri = baseUri;
+    final uri = baseUri;
     var path = request.path;
+
+    // Expand `path` if it includes labels
     final pattern = UriPattern.parse(path);
-    if (input is! HasLabel) {
-      if (pattern.labels.isNotEmpty) {
-        throw MissingLabelException(input, pattern.labels.first.toString());
-      }
-    } else {
-      path = expandLabels(path, input.labelFor);
+    if (input is HasLabel) {
+      path = expandLabels(path, input);
+    } else if (pattern.labels.isNotEmpty) {
+      throw MissingLabelException(input, pattern.labels.join(', '));
     }
-    var needsTrailingSlash = request.path.split('?').first.endsWith('/');
+
+    // Prevent duplicate `/` characters when joining with `basePath`.
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
+
+    // Calculate `path` relative to `baseUri`.
+    final String basePath;
+    if (uri.path.startsWith('/')) {
+      basePath = uri.path.substring(1);
+    } else {
+      basePath = uri.path;
+    }
+    path = '$basePath/$path';
+
+    // Correct for trailing slashes which may be necessary for signing, for ex,
+    // but were removed due to [Uri] normalization.
+    final needsTrailingSlash = request.path.split('?').first.endsWith('/');
+    if (needsTrailingSlash && !path.endsWith('/')) {
+      path += '/';
+    }
+
+    // Calculate remaining request parameters
+    final host = _hostForRequest(request, input, uri);
     final headers = {
       ...protocol.headers,
       ...request.headers.asMap(),
     };
-    final Map<String, Iterable<String>> queryParameters = {
+    final queryParameters = {
       for (final literal in pattern.queryLiterals.entries)
         literal.key: [literal.value],
       ...request.queryParameters.asMap(),
+      ...uri.queryParametersAll,
     };
     final body = protocol.serialize(input, specifiedType: FullType(Input));
-    var host = uri.host;
-    if (!endpoint.isHostnameImmutable && request.hostPrefix != null) {
-      var prefix = request.hostPrefix!;
-      if (input is HasLabel) {
-        prefix = expandHostLabel(prefix, input.labelFor);
-      }
-      host = '$prefix$host';
-    }
-    var basePath = uri.path;
-    if (basePath.startsWith('/')) {
-      basePath = basePath.substring(1);
-    }
-    path = '$basePath/$path';
-    if (needsTrailingSlash && !path.endsWith('/')) {
-      path += '/';
-    }
-    uri = uri.replace(host: host).resolve(path);
+
     var awsRequest = AWSStreamedHttpRequest.raw(
       method: AWSHttpMethod.fromString(request.method),
       scheme: uri.scheme,
@@ -180,18 +194,17 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       port: uri.port,
       path: path,
       body: body,
-      queryParameters: {
-        ...queryParameters,
-        ...uri.queryParametersAll,
-      },
+      queryParameters: queryParameters,
       headers: headers,
     );
-    final interceptors = [
-      ...protocol.requestInterceptors,
-    ]..sort((a, b) => a.order.compareTo(b.order));
+
+    // Transform request using the interceptors
+    // TODO(dnys1): Move to a subclass of AWSHttpClient
+    final interceptors = List.of(protocol.requestInterceptors)
+      ..sort((a, b) => a.order.compareTo(b.order));
     for (final interceptor in interceptors) {
       final interception = interceptor.intercept(awsRequest);
-      if (interception is Future) {
+      if (interception is Future<AWSStreamedHttpRequest>) {
         awsRequest = await interception;
       } else {
         awsRequest = interception;
