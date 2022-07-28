@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/src/interfaces/secure_storage_interface.dart';
 import 'package:amplify_secure_storage_dart/src/types/amplify_secure_storage_config.dart';
 
@@ -26,4 +27,6 @@ abstract class AmplifySecureStorageInterface extends SecureStorageInterface {
 
   /// Configuration options for Secure Storage.
   final AmplifySecureStorageConfig config;
+
+  AmplifyLogger get logger => AmplifyLogger().createChild('SecureStorage');
 }

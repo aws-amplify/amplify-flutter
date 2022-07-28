@@ -6,9 +6,7 @@
 dependency_overrides:
   amplify_core:
     path: ../../../amplify_core
-  amplify_secure_storage_dart:
-    path: ../../amplify_secure_storage_dart
   aws_common:
     path: ../../../aws_common
   worker_bee:
-    path: ../../../worker_bee/worker_bee
+    path: ../../../worker_bee/worker_bee 
