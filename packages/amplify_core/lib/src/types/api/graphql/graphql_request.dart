@@ -22,6 +22,9 @@ class GraphQLRequest<T> {
   /// Only required if your backend has multiple GraphQL endpoints in the amplifyconfiguration.dart file. This parameter is then needed to specify which one to use for this request.
   final String? apiName;
 
+  /// A map of Strings to dynamically use for custom headers in the http request.
+  final Map<String, String>? customHeaders;
+
   /// The body of the request, starting with the operation type and operation name.
   ///
   /// See https://graphql.org/learn/queries/#operation-name for examples and more information.
@@ -57,12 +60,14 @@ class GraphQLRequest<T> {
       {this.apiName,
       required this.document,
       this.variables = const <String, dynamic>{},
+      this.customHeaders,
       this.decodePath,
       this.modelType});
 
   Map<String, dynamic> serializeAsMap() => <String, dynamic>{
         'document': document,
         'variables': variables,
+        'customHeaders': customHeaders,
         'cancelToken': id,
         if (apiName != null) 'apiName': apiName,
       };
