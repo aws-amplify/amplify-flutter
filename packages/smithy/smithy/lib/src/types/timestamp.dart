@@ -24,7 +24,8 @@ import 'package:intl/intl.dart';
 import 'package:smithy/ast.dart';
 
 /// {@template aws.smithy.timestamp}
-///
+/// A [DateTime] wrapper which provides custom formatting and parsing options
+/// for use with Smithy services.
 /// @{endtemplate}
 class Timestamp {
   /// {@macro aws.smithy.timestamp}
@@ -72,7 +73,7 @@ class Timestamp {
     throw ArgumentError('Invalid timestamp: $timestamp (format=$format)');
   }
 
-  DateTime _timestamp;
+  final DateTime _timestamp;
 
   DateTime get asDateTime => _timestamp;
 
