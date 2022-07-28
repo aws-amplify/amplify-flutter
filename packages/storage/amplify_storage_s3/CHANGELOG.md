@@ -1,3 +1,9 @@
+## 0.6.5 (2022-07-28)
+
+- chore: bump amplify-android dep to 1.36.5
+- fix(storage): Amplify transfer service is running ([#1916](https://github.com/aws-amplify/amplify-flutter/issues/1916))
+- fix(storage): ForegroundServiceDidNotStartInTimeException ([#1935](https://github.com/aws-amplify/amplify-flutter/issues/1935))
+
 ## 0.6.4 (2022-07-25)
 
 - This release resolves an [issue](https://github.com/aws-amplify/amplify-flutter/issues/1916) in which storage operations were causing a persistent notification reading 'Amplify transfer service is running'. The underlying amplify-android library will now dismiss this notification once the transfer service finishes.

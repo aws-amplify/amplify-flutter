@@ -1,6 +1,6 @@
 name: amplify_core
 description: The base package containing common types and utilities that are shared across the Amplify Flutter packages.
-version: 0.6.4
+version: 0.6.5
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
