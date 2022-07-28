@@ -16,12 +16,10 @@ import 'package:aft/aft.dart';
 import 'package:args/command_runner.dart';
 import 'package:cli_util/cli_logging.dart';
 import 'package:cli_util/cli_util.dart';
-import 'package:flutter_tools/src/base/io.dart';
 import 'package:flutter_tools/src/base/template.dart';
 import 'package:flutter_tools/src/cache.dart';
 import 'package:flutter_tools/src/commands/packages.dart';
 import 'package:flutter_tools/src/context_runner.dart' as flutter;
-import 'package:flutter_tools/src/dart/pub.dart';
 import 'package:flutter_tools/src/isolated/mustache_template.dart';
 import 'package:flutter_tools/src/runner/flutter_command_runner.dart';
 import 'package:path/path.dart' as path;
@@ -69,69 +67,6 @@ Future<void> runDartPub(
   }
 }
 
-/// Stub for [Pub] runner, used internally in `flutter_tools` to execute `pub`
-/// commands.
-///
-/// The default runner spawns a new process, but we speed things up by embedding
-/// the `pub` tool in [runDartPub].
-class _FlutterPub implements Pub {
-  _FlutterPub({
-    required this.package,
-    required this.verbose,
-    required this.pubRunner,
-  });
-
-  final PackageInfo package;
-  final bool verbose;
-  final PubCommandRunner pubRunner;
-
-  @override
-  Future<void> batch(
-    List<String> arguments, {
-    required PubContext context,
-    String? directory,
-    MessageFilter? filter,
-    String failureMessage = 'pub failed',
-    required bool retry,
-    bool? showTraceForErrors,
-  }) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> get({
-    required PubContext context,
-    String? directory,
-    bool skipIfAbsent = false,
-    bool upgrade = false,
-    bool offline = false,
-    bool generateSyntheticPackage = false,
-    String? flutterRootOverride,
-    bool checkUpToDate = false,
-    bool shouldSkipThirdPartyGenerator = true,
-    bool printProgress = true,
-  }) {
-    return runDartPub(
-      upgrade ? PubAction.upgrade : PubAction.get,
-      package.name,
-      package.path,
-      verbose: verbose,
-      pubRunner: pubRunner,
-    );
-  }
-
-  @override
-  Future<void> interactively(
-    List<String> arguments, {
-    String? directory,
-    required Stdio stdio,
-    bool touchesPackageConfig = false,
-    bool generateSyntheticPackage = false,
-  }) {
-    throw UnimplementedError();
-  }
-}
-
 /// Runs `pub` for a Flutter package.
 ///
 /// We embed the `flutter pub` logic from `flutter_tools` to improve the speed
@@ -157,11 +92,15 @@ Future<void> runFlutterPub(
       await runner.run([action.name, package.path]);
     },
     overrides: {
-      Pub: () => _FlutterPub(
-            package: package,
-            verbose: verbose,
-            pubRunner: pubRunner,
-          ),
+      // Do not try to run `flutter pub` using normal pub since `PUB_CACHE`
+      // will be wrong and can only be set via an environment variable and
+      // thus an external process.
+      //
+      // Pub: () => _FlutterPub(
+      //       package: package,
+      //       verbose: verbose,
+      //       pubRunner: pubRunner,
+      //     ),
       // Needed by `flutter_tools` but not automatically provided
       TemplateRenderer: () => const MustacheTemplateRenderer(),
     },

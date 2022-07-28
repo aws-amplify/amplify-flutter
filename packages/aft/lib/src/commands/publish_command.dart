@@ -120,6 +120,7 @@ class PublishCommand extends AmplifyCommand {
         'build_runner',
         'build',
         if (verbose) '--verbose',
+        '--delete-conflicting-outputs',
       ],
       workingDirectory: package.path,
     );
@@ -192,7 +193,7 @@ class PublishCommand extends AmplifyCommand {
             'due to the following errors: ',
           )
           ..stderr(failures.join('\n'));
-        exit(1);
+        exit(exitCode);
       }
     }
     progress.finish(message: 'Success!');
@@ -200,13 +201,21 @@ class PublishCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
+    final allPackages = await this.allPackages;
+
     // Gather packages which can be published.
     final publishablePackages = (await Future.wait([
-      for (final package in (await allPackages).values)
-        _checkPublishable(package),
+      for (final package in allPackages.values) _checkPublishable(package),
     ]))
         .whereType<PackageInfo>()
         .toList();
+
+    // Non-example packages which are being held back
+    final unpublishablePackages = allPackages.values.where(
+      (pkg) =>
+          pkg.pubspecInfo.pubspec.publishTo == null &&
+          !publishablePackages.contains(pkg),
+    );
 
     if (publishablePackages.isEmpty) {
       logger.stdout('No packages need publishing!');
@@ -228,6 +237,13 @@ class PublishCommand extends AmplifyCommand {
       ..writeln('Preparing to publish${dryRun ? ' (dry run)' : ''}: ')
       ..writeln(
         publishablePackages
+            .map((pkg) => '${pkg.pubspecInfo.pubspec.version} ${pkg.name}')
+            .join('\n'),
+      )
+      ..writeln()
+      ..writeln('The following packages will not be published: ')
+      ..writeln(
+        unpublishablePackages
             .map((pkg) => '${pkg.pubspecInfo.pubspec.version} ${pkg.name}')
             .join('\n'),
       );
