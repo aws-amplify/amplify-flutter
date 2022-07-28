@@ -33,7 +33,6 @@ dependencies:
   smithy: ^0.1.0
   smithy_aws: ^0.1.0
   tuple: ^2.0.0
-  uuid: 3.0.6
   xml: 6.1.0
   yaml_edit: ^2.0.1
 

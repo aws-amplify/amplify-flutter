@@ -21,7 +21,6 @@ import 'package:http/testing.dart';
 import 'package:smithy/smithy.dart';
 import 'package:smithy_aws/smithy_aws.dart';
 import 'package:test/test.dart';
-import 'package:uuid/uuid.dart';
 
 import 'dummy_operation.dart';
 
@@ -81,7 +80,7 @@ void main() {
       () => op.run(const Unit(), client: httpClient),
       zoneValues: {
         #retryable: true,
-        AWSHeaders.sdkInvocationId: const Uuid().v4(),
+        AWSHeaders.sdkInvocationId: uuid(),
       },
     );
     expect(headers, hasLength(2));

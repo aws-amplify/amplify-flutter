@@ -21,10 +21,12 @@ import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
 /// The retry attempt for the current request.
-const $retryAttempt = #awsSdkRetryAttempt;
+@internal
+const zRetryAttempt = #awsSdkRetryAttempt;
 
 /// The maximum number of attempts for the current request.
-const $maxAttempts = #awsSdkMaxAttempts;
+@internal
+const zMaxAttempts = #awsSdkMaxAttempts;
 
 class AWSRetryer implements Retryer {
   AWSRetryer({
@@ -171,8 +173,8 @@ class AWSRetryer implements Retryer {
     while (true) {
       try {
         final result = await runZoned(f, zoneValues: {
-          $retryAttempt: attempts,
-          $maxAttempts: _maxAttempts,
+          zRetryAttempt: attempts,
+          zMaxAttempts: _maxAttempts,
         });
         if (retryToken == null) {
           _returnRetryToken(_noRetryIncrement);

@@ -25,7 +25,7 @@ export 'src/endpoint/partition.dart';
 export 'src/http/interceptors/with_sdk_invocation.dart';
 export 'src/http/interceptors/with_sdk_request.dart';
 export 'src/http/interceptors/with_sig_v4.dart';
-export 'src/http/retry/aws_retryer.dart';
+export 'src/http/retry/aws_retryer.dart' hide zMaxAttempts, zRetryAttempt;
 
 // AWS Protocols
 export 'src/protocol/aws_json_1_0.dart';
