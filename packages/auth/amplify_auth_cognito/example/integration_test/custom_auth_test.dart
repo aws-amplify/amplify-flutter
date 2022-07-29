@@ -60,14 +60,14 @@ void main() {
             res.isSignedIn,
             false,
           );
-          expect(
-            res.nextStep?.signInStep,
-            'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
-          );
           // additionalInfo key values defined in lambda code
           expect(
             res.nextStep!.additionalInfo?['test-key'],
             'test-value',
+          );
+          expect(
+            res.nextStep?.signInStep,
+            'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
           );
         },
       );

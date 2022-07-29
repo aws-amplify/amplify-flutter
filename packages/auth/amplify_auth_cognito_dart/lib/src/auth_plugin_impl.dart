@@ -56,6 +56,8 @@ import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
+import 'sdk/src/cognito_identity_provider/model/challenge_name_type.dart';
+
 /// {@template amplify_auth_cognito_dart.amplify_auth_cognito_dart}
 /// The AWS Cognito implementation of the Amplify Auth category.
 /// {@endtemplate}
@@ -447,17 +449,34 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
           continue;
         case SignInStateType.challenge:
           state as SignInChallenge;
-          return SignInResult(
-            isSignedIn: false,
-            nextStep: AuthNextSignInStep(
-              signInStep: state.challengeName.signInStep.value,
-              codeDeliveryDetails: _getChallengeDeliveryDetails(
-                state.challengeParameters,
-              ),
-              challengeParameters: state.challengeParameters,
-              missingAttributes: state.requiredAttributes,
-            ),
-          );
+
+          switch (state.challengeName) {
+            case ChallengeNameType.customChallenge:
+              return SignInResult(
+                isSignedIn: false,
+                nextStep: AuthNextSignInStep(
+                  signInStep: state.challengeName.signInStep.value,
+                  codeDeliveryDetails: _getChallengeDeliveryDetails(
+                    state.challengeParameters,
+                  ),
+                  additionalInfo: state.challengeParameters,
+                  missingAttributes: state.requiredAttributes,
+                ),
+              );
+            default:
+              return SignInResult(
+                isSignedIn: false,
+                nextStep: AuthNextSignInStep(
+                  signInStep: state.challengeName.signInStep.value,
+                  codeDeliveryDetails: _getChallengeDeliveryDetails(
+                    state.challengeParameters,
+                  ),
+                  challengeParameters: state.challengeParameters,
+                  missingAttributes: state.requiredAttributes,
+                ),
+              );
+          }
+
         case SignInStateType.success:
           return SignInResult(
             isSignedIn: true,
