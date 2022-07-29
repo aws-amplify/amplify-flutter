@@ -12,6 +12,7 @@ analyzer:
 linter:
   rules:
     - always_declare_return_types                      # To ensure that functions do not implicitly return dynamic.
+    - always_use_package_imports                       # To ensure consistency and prevent issues when combining with relative imports.
     - avoid_catches_without_on_clauses                 # To encourage thoughtfulness when introducing catch clauses and to avoid catching Errors unless specifically required.
     - avoid_classes_with_only_static_members           # To embrace Dart idioms and prefer top-level functions.
     - avoid_dynamic_calls                              # To prevent unintentional dynamic dispatch which can lead to preventable runtime errors.
