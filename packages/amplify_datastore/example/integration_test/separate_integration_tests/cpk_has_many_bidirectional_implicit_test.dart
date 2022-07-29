@@ -47,15 +47,27 @@ void main() {
         hasManyParent: rootModels.first,
       ),
     );
+    var associatedModelQueryPredicates = associatedModels
+        .map(
+          (associatedModel) => CpkHasManyChildBidirectionalImplicit.NAME
+              .eq(associatedModel.name),
+        )
+        .toList();
 
     testRootAndAssociatedModelsRelationship(
       modelProvider: ModelProvider.instance,
       rootModelType: CpkHasManyParentBidirectionalImplicit.classType,
       rootModels: rootModels,
+      rootModelQueryIdentifier:
+          CpkHasManyParentBidirectionalImplicit.MODEL_IDENTIFIER,
       associatedModelType: CpkHasManyChildBidirectionalImplicit.classType,
       associatedModels: associatedModels,
+      associatedModelQueryIdentifier:
+          CpkHasManyChildBidirectionalImplicit.MODEL_IDENTIFIER,
+      associatedModelQueryPredicates: associatedModelQueryPredicates,
       supportCascadeDelete: true,
       enableCloudSync: enableCloudSync,
+      verifyBelongsToPopulating: true,
     );
   });
 }

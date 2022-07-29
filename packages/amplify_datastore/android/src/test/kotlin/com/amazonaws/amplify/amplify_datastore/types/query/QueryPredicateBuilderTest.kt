@@ -32,12 +32,12 @@ class QueryPredicateBuilderTest {
     private val title: QueryField = QueryField.field("title")
     private val rating: QueryField = QueryField.field("rating")
     private val created: QueryField = QueryField.field("created")
-    private val blogID: QueryField = QueryField.field("blogID")
+    private val blogID: QueryField = QueryField.field("Post", "blogID")
     private val inventoryProductID = QueryField.field("productID")
     private val inventoryName = QueryField.field("name")
     private val inventoryWarehouseID = QueryField.field("warehouseID")
     private val inventoryRegion = QueryField.field("region")
-    private val cpkBlogForeignKeyField = QueryField.field("@@blogForeignKey")
+    private val cpkBlogForeignKeyField = QueryField.field("Post","@@blogForeignKey")
 
     @Test
     fun test_when_id_not_equals() {

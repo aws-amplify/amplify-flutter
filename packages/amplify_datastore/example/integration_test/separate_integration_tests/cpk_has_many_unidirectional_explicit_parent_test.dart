@@ -57,8 +57,11 @@ void main() {
       modelProvider: ModelProvider.instance,
       rootModelType: CpkHasManyUnidirectionalParent.classType,
       rootModels: rootModels,
+      rootModelQueryIdentifier: CpkHasManyUnidirectionalParent.MODEL_IDENTIFIER,
       associatedModelType: CpkHasManyUnidirectionalChildExplicit.classType,
       associatedModels: associatedModels,
+      associatedModelQueryIdentifier:
+          CpkHasManyUnidirectionalChildExplicit.MODEL_IDENTIFIER,
       enableCloudSync: enableCloudSync,
     );
   });
