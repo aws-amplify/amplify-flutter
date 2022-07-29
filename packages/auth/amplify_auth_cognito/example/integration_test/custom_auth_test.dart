@@ -14,10 +14,10 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_test/amplify_test.dart';
-import 'package:integration_test/integration_test.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_test/amplify_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
@@ -52,20 +52,22 @@ void main() {
       testWidgets(
         'signIn should return data from the auth challenge lambda',
         (WidgetTester tester) async {
-          final res =
-              await Amplify.Auth.signIn(username: username, password: password);
+          final res = await Amplify.Auth.signIn(
+            username: username,
+            options: options,
+          );
           expect(
             res.isSignedIn,
             false,
+          );
+          expect(
+            res.nextStep?.signInStep,
+            'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
           );
           // additionalInfo key values defined in lambda code
           expect(
             res.nextStep!.additionalInfo?['test-key'],
             'test-value',
-          );
-          expect(
-            res.nextStep?.signInStep,
-            'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
           );
         },
       );
@@ -101,6 +103,42 @@ void main() {
             throwsA(
               isA<NotAuthorizedException>(),
             ),
+          );
+        },
+      );
+
+      testWidgets(
+        'if a password is provided but is incorrect, throw NotAuthorizedException',
+        (WidgetTester tester) async {
+          // '123' is the arbitrary challenge answer defined in lambda code
+          expect(
+            Amplify.Auth.signIn(
+              username: username,
+              password: 'wrong',
+              options: options,
+            ),
+            throwsA(
+              isA<NotAuthorizedException>(),
+            ),
+          );
+        },
+      );
+
+      testWidgets(
+        'a correct password and correct challenge reply should sign in the user in',
+        (WidgetTester tester) async {
+          await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+            options: options,
+          );
+          // '123' is the arbitrary challenge answer defined in lambda code
+          final res = await Amplify.Auth.confirmSignIn(
+            confirmationValue: '123',
+          );
+          expect(
+            res.isSignedIn,
+            true,
           );
         },
       );

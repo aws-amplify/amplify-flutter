@@ -81,16 +81,6 @@ void main() {
         throwsA(isA<UserNotFoundException>()),
       );
     });
-
-    testWidgets(
-        'should throw an InvalidStateException if a user is already signed in',
-        (WidgetTester tester) async {
-      await Amplify.Auth.signIn(username: username, password: password);
-      expect(
-        Amplify.Auth.signIn(username: username, password: password),
-        throwsA(isA<InvalidStateException>()),
-      );
-    });
   });
 
   group('signOut', () {
