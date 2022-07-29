@@ -56,8 +56,6 @@ import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
-import 'sdk/src/cognito_identity_provider/model/challenge_name_type.dart';
-
 /// {@template amplify_auth_cognito_dart.amplify_auth_cognito_dart}
 /// The AWS Cognito implementation of the Amplify Auth category.
 /// {@endtemplate}
