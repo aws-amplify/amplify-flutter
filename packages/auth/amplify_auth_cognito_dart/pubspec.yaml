@@ -24,12 +24,8 @@ dependencies:
   meta: ^1.7.0
   oauth2: ^2.0.0
   path: ^1.8.0
-  smithy:
-    hosted: https://pub.dillonnys.com
-    version: ^0.5.0
-  smithy_aws:
-    hosted: https://pub.dillonnys.com
-    version: ^0.5.0
+  smithy: ^0.1.0
+  smithy_aws: ^0.1.0
   stream_transform: ^2.0.0
   uuid: 3.0.6
   worker_bee: ^0.1.0

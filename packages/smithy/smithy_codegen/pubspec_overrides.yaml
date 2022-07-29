@@ -1,0 +1,14 @@
+# Generated with `aft`. Do not modify by hand or check into source control.
+dependency_overrides: 
+  aws_common:
+    path: ../../aws_common
+  aws_signature_v4:
+    path: ../../aws_signature_v4
+  smithy:
+    path: ../smithy
+  smithy_aws:
+    path: ../smithy_aws
+  amplify_lints:
+    path: ../../amplify_lints
+  smithy_test:
+    path: ../smithy_test

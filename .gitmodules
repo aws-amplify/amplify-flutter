@@ -7,3 +7,6 @@
 [submodule "packages/secure_storage/amplify_secure_storage_dart/external/libsecret"]
 	path = packages/secure_storage/amplify_secure_storage_dart/external/libsecret
 	url = https://gitlab.gnome.org/GNOME/libsecret.git
+[submodule "packages/smithy/goldens/smithy"]
+	path = packages/smithy/goldens/smithy
+	url = https://github.com/awslabs/smithy.git

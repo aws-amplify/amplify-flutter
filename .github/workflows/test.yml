@@ -145,16 +145,16 @@ jobs:
         working-directory: packages/amplify_core
         run: "dart test -p chrome,firefox"
   job_005:
-    name: "unit_test; linux; Dart dev; PKG: packages/amplify_core; `dart test`"
+    name: "unit_test; linux; Dart dev; PKGS: packages/amplify_core, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core;commands:test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -171,6 +171,33 @@ jobs:
       - name: packages/amplify_core; dart test
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
+        run: dart test
+      - id: packages_smithy_smithy_pub_upgrade
+        name: packages/smithy/smithy; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart pub upgrade
+      - name: packages/smithy/smithy; dart test
+        if: "always() && steps.packages_smithy_smithy_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart test
+      - id: packages_smithy_smithy_aws_pub_upgrade
+        name: packages/smithy/smithy_aws; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart pub upgrade
+      - name: packages/smithy/smithy_aws; dart test
+        if: "always() && steps.packages_smithy_smithy_aws_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart test
+      - id: packages_smithy_smithy_codegen_pub_upgrade
+        name: packages/smithy/smithy_codegen; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart pub upgrade
+      - name: packages/smithy/smithy_codegen; dart test
+        if: "always() && steps.packages_smithy_smithy_codegen_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
         run: dart test
   job_006:
     name: "unit_test; linux; Dart dev; PKG: packages/auth/amplify_auth_cognito_dart; `dart --version`, `dart test --exclude-tags=build`, `dart test -p chrome`"
@@ -309,16 +336,16 @@ jobs:
         working-directory: packages/aws_signature_v4
         run: dart test -p chrome
   job_010:
-    name: "unit_test; linux; Dart dev; PKG: packages/example_common; `dart test -p chrome`"
+    name: "unit_test; linux; Dart dev; PKGS: packages/example_common, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/example_common;commands:test_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/example_common-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_3"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/example_common
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/example_common-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -335,6 +362,33 @@ jobs:
       - name: "packages/example_common; dart test -p chrome"
         if: "always() && steps.packages_example_common_pub_upgrade.conclusion == 'success'"
         working-directory: packages/example_common
+        run: dart test -p chrome
+      - id: packages_smithy_smithy_pub_upgrade
+        name: packages/smithy/smithy; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart pub upgrade
+      - name: "packages/smithy/smithy; dart test -p chrome"
+        if: "always() && steps.packages_smithy_smithy_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart test -p chrome
+      - id: packages_smithy_smithy_aws_pub_upgrade
+        name: packages/smithy/smithy_aws; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart pub upgrade
+      - name: "packages/smithy/smithy_aws; dart test -p chrome"
+        if: "always() && steps.packages_smithy_smithy_aws_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart test -p chrome
+      - id: packages_smithy_smithy_codegen_pub_upgrade
+        name: packages/smithy/smithy_codegen; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart pub upgrade
+      - name: "packages/smithy/smithy_codegen; dart test -p chrome"
+        if: "always() && steps.packages_smithy_smithy_codegen_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
         run: dart test -p chrome
   job_011:
     name: "unit_test; linux; Dart dev; PKG: packages/secure_storage/amplify_secure_storage_dart; `tool/test-desktop.sh`"
@@ -509,16 +563,16 @@ jobs:
         working-directory: packages/worker_bee/e2e_test
         run: tool/test.sh -p firefox
   job_017:
-    name: "unit_test; linux; Dart stable; PKGS: packages/aft, packages/amplify_core; `dart test`"
+    name: "unit_test; linux; Dart stable; PKGS: packages/aft, packages/amplify_core, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core;commands:test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -544,6 +598,33 @@ jobs:
       - name: packages/amplify_core; dart test
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
+        run: dart test
+      - id: packages_smithy_smithy_pub_upgrade
+        name: packages/smithy/smithy; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart pub upgrade
+      - name: packages/smithy/smithy; dart test
+        if: "always() && steps.packages_smithy_smithy_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart test
+      - id: packages_smithy_smithy_aws_pub_upgrade
+        name: packages/smithy/smithy_aws; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart pub upgrade
+      - name: packages/smithy/smithy_aws; dart test
+        if: "always() && steps.packages_smithy_smithy_aws_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart test
+      - id: packages_smithy_smithy_codegen_pub_upgrade
+        name: packages/smithy/smithy_codegen; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart pub upgrade
+      - name: packages/smithy/smithy_codegen; dart test
+        if: "always() && steps.packages_smithy_smithy_codegen_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
         run: dart test
   job_018:
     name: "unit_test; linux; Dart stable; PKG: packages/amplify_core; `dart test -p chrome,firefox`"
@@ -710,16 +791,16 @@ jobs:
         working-directory: packages/aws_signature_v4
         run: dart test -p chrome
   job_023:
-    name: "unit_test; linux; Dart stable; PKG: packages/example_common; `dart test -p chrome`"
+    name: "unit_test; linux; Dart stable; PKGS: packages/example_common, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/example_common;commands:test_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/example_common-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_3"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/example_common
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/example_common-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -736,6 +817,33 @@ jobs:
       - name: "packages/example_common; dart test -p chrome"
         if: "always() && steps.packages_example_common_pub_upgrade.conclusion == 'success'"
         working-directory: packages/example_common
+        run: dart test -p chrome
+      - id: packages_smithy_smithy_pub_upgrade
+        name: packages/smithy/smithy; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart pub upgrade
+      - name: "packages/smithy/smithy; dart test -p chrome"
+        if: "always() && steps.packages_smithy_smithy_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart test -p chrome
+      - id: packages_smithy_smithy_aws_pub_upgrade
+        name: packages/smithy/smithy_aws; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart pub upgrade
+      - name: "packages/smithy/smithy_aws; dart test -p chrome"
+        if: "always() && steps.packages_smithy_smithy_aws_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart test -p chrome
+      - id: packages_smithy_smithy_codegen_pub_upgrade
+        name: packages/smithy/smithy_codegen; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart pub upgrade
+      - name: "packages/smithy/smithy_codegen; dart test -p chrome"
+        if: "always() && steps.packages_smithy_smithy_codegen_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
         run: dart test -p chrome
   job_024:
     name: "unit_test; linux; Dart stable; PKG: packages/secure_storage/amplify_secure_storage_dart; `tool/test-desktop.sh`"

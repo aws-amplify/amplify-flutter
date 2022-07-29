@@ -1,0 +1,11 @@
+dependency_overrides:
+  aws_common:
+    path: ../aws_common
+  aws_signature_v4:
+    path: ../aws_signature_v4
+  smithy:
+    path: ../smithy/smithy
+  smithy_aws:
+    path: ../smithy/smithy_aws
+  smithy_codegen:
+    path: ../smithy/smithy_codegen
