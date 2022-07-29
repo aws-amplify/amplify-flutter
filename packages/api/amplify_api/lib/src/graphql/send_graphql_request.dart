@@ -31,7 +31,8 @@ Future<GraphQLResponse<T>> sendGraphQLRequest<T>({
 }) async {
   try {
     final body = {'variables': request.variables, 'query': request.document};
-    final graphQLResponse = await client.post(uri, body: json.encode(body));
+    final graphQLResponse = await client.post(uri,
+        body: json.encode(body), headers: request.headers);
 
     final responseBody = json.decode(graphQLResponse.body);
 
