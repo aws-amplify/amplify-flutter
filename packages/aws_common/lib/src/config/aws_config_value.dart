@@ -14,9 +14,9 @@
 
 import 'dart:async';
 
+import 'package:aws_common/src/config/aws_config_stub.dart'
+    if (dart.library.io) 'package:aws_common/src/config/aws_config_io.dart';
 import 'package:meta/meta.dart';
-
-import 'aws_config_stub.dart' if (dart.library.io) 'aws_config_io.dart';
 
 T _identity<T extends Object>(String o) => o as T;
 
