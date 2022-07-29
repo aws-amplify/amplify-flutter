@@ -125,7 +125,7 @@ void main() {
       );
 
       testWidgets(
-        'a correct password and correct challenge reply should sign in the user in',
+        'a correct password and correct challenge reply should sign in the user',
         (WidgetTester tester) async {
           await Amplify.Auth.signIn(
             username: username,
