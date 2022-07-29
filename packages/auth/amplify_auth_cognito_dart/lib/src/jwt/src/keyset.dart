@@ -12,11 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_auth_cognito_dart/src/jwt/src/key.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/prefs.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
-
-import 'key.dart';
-import 'prefs.dart';
 
 part 'keyset.g.dart';
 

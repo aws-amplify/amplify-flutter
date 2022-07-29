@@ -15,12 +15,11 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_helper.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_worker.worker.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:worker_bee/worker_bee.dart';
-
-import 'srp_init_result.dart';
-import 'srp_init_worker.worker.dart';
 
 part 'srp_init_worker.g.dart';
 

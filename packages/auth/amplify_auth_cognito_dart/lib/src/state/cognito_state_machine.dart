@@ -17,12 +17,11 @@ import 'dart:async';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credentials_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
-
-import 'state.dart';
 
 /// Default state machine builders for [CognitoAuthStateMachine].
 @visibleForTesting

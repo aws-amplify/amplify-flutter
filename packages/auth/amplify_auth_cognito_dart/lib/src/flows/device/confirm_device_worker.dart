@@ -16,14 +16,13 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_auth_cognito_dart/src/crypto/crypto.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/device/confirm_device_worker.worker.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_helper.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:worker_bee/worker_bee.dart';
-
-import 'confirm_device_worker.worker.dart';
 
 part 'confirm_device_worker.g.dart';
 
