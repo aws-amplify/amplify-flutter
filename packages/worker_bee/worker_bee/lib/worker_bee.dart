@@ -19,17 +19,19 @@ import 'dart:async';
 
 import 'package:async/async.dart';
 import 'package:worker_bee/src/common.dart';
-
-import 'src/preamble.dart';
-import 'src/vm/impl.dart' if (dart.library.js) 'src/js/impl.dart';
+import 'package:worker_bee/src/preamble.dart';
+import 'package:worker_bee/src/vm/impl.dart'
+    if (dart.library.js) 'package:worker_bee/src/js/impl.dart';
 
 export 'package:async/async.dart';
 export 'package:logging/logging.dart';
 export 'package:stream_transform/stream_transform.dart';
-export 'src/exception/worker_bee_exception.dart' show WorkerBeeException;
-export 'src/logger/log_message.dart';
-export 'src/preamble.dart' hide runTraced;
-export 'src/worker_bee_vm.dart' if (dart.library.js) 'src/worker_bee_js.dart';
+export 'package:worker_bee/src/exception/worker_bee_exception.dart'
+    show WorkerBeeException;
+export 'package:worker_bee/src/logger/log_message.dart';
+export 'package:worker_bee/src/preamble.dart' hide runTraced;
+export 'package:worker_bee/src/worker_bee_vm.dart'
+    if (dart.library.js) 'package:worker_bee/src/worker_bee_js.dart';
 
 /// {@template worker_bee.worker_bee}
 /// Annotation class for marking worker bees.

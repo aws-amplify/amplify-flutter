@@ -17,11 +17,10 @@ import 'dart:async';
 import 'package:built_value/serializer.dart';
 import 'package:collection/collection.dart';
 import 'package:worker_bee/src/js/interop/common.dart';
+import 'package:worker_bee/src/js/message_port_channel.dart';
 import 'package:worker_bee/src/preamble.dart';
 import 'package:worker_bee/src/serializers/serializers.dart';
 import 'package:worker_bee/worker_bee.dart';
-
-import 'message_port_channel.dart';
 
 /// {@macro worker_bee.is_web_worker}
 bool get isWebWorker {
