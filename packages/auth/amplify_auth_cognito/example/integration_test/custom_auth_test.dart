@@ -66,6 +66,10 @@ void main() {
             'test-value',
           );
           expect(
+            res.nextStep!.additionalInfo?.length,
+            1,
+          );
+          expect(
             res.nextStep?.signInStep,
             'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
           );

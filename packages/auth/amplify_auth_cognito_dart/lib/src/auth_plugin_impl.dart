@@ -218,6 +218,16 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     );
   }
 
+  /// Retrieves the challenge parameters that are not part of standard Cognito InitiateAuth flow.
+  Map<String, String>? _getAdditionalInfo(
+    Map<String, String> challengeParameters,
+  ) {
+    final additionalInfo = {...challengeParameters}..removeWhere(
+        (key, value) => CognitoConstants.staticChallenges.contains(key),
+      );
+    return additionalInfo.isNotEmpty ? additionalInfo : null;
+  }
+
   @override
   Future<AuthSession> fetchAuthSession({
     required AuthSessionRequest request,
@@ -450,32 +460,19 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
         case SignInStateType.challenge:
           state as SignInChallenge;
 
-          switch (state.challengeName) {
-            case ChallengeNameType.customChallenge:
-              return SignInResult(
-                isSignedIn: false,
-                nextStep: AuthNextSignInStep(
-                  signInStep: state.challengeName.signInStep.value,
-                  codeDeliveryDetails: _getChallengeDeliveryDetails(
-                    state.challengeParameters,
-                  ),
-                  additionalInfo: state.challengeParameters,
-                  missingAttributes: state.requiredAttributes,
-                ),
-              );
-            default:
-              return SignInResult(
-                isSignedIn: false,
-                nextStep: AuthNextSignInStep(
-                  signInStep: state.challengeName.signInStep.value,
-                  codeDeliveryDetails: _getChallengeDeliveryDetails(
-                    state.challengeParameters,
-                  ),
-                  challengeParameters: state.challengeParameters,
-                  missingAttributes: state.requiredAttributes,
-                ),
-              );
-          }
+          return SignInResult(
+            isSignedIn: false,
+            nextStep: AuthNextSignInStep(
+              signInStep: state.challengeName.signInStep.value,
+              codeDeliveryDetails: _getChallengeDeliveryDetails(
+                state.challengeParameters,
+              ),
+              additionalInfo: _getAdditionalInfo(
+                state.challengeParameters,
+              ),
+              missingAttributes: state.requiredAttributes,
+            ),
+          );
 
         case SignInStateType.success:
           return SignInResult(

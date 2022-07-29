@@ -91,4 +91,31 @@ abstract class CognitoConstants {
 
   /// The `REFRESH_TOKEN` parameter
   static const refreshToken = 'REFRESH_TOKEN';
+
+  /// Returns all expected challenge parameters returned from the Cognito sdk as part of the InitiateAuth flow.
+  static List<String> staticChallenges = [
+    challengeParamUsername,
+    challengeParamSrpA,
+    challengeParamSrpB,
+    challengeParamChallengeName,
+    challengeParamSecretHash,
+    challengeParamDeviceKey,
+    challengeParamSecretBlock,
+    challengeParamSalt,
+    challengeParamUserIdForSrp,
+    challengeParamRefreshToken,
+    challengeParamPasswordSecretBlock,
+    challengeParamPasswordSignature,
+    challengeParamTimestamp,
+    challengeParamDeliveryDest,
+    challengeParamDeliveryMedium,
+    challengeParamSmsMfaCode,
+    challengeParamSoftwareTokenMfaCode,
+    challengeParamUserAttributes,
+    challengeParamRequiredAttributes,
+    challengeParamUserAttributesPrefix,
+    challengeParamPassword,
+    challengeParamNewPassword,
+    challengeParamAnswer,
+  ];
 }

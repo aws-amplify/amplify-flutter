@@ -81,6 +81,12 @@ void main() {
         throwsA(isA<UserNotFoundException>()),
       );
     });
+
+    testWidgets('additionalInfo should be null', (WidgetTester tester) async {
+      final result =
+          await Amplify.Auth.signIn(username: username, password: password);
+      expect(result.nextStep?.additionalInfo, isNull);
+    });
   });
 
   group('signOut', () {
