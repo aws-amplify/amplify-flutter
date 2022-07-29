@@ -14,19 +14,18 @@
 
 import 'dart:async';
 
+import 'package:amplify_auth_cognito_dart/src/jwt/src/alg.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/elliptic_curve.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/exception.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/key_ops.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/key_type.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/key_use.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/keyset.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/prefs.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-
-import 'alg.dart';
-import 'elliptic_curve.dart';
-import 'exception.dart';
-import 'key_ops.dart';
-import 'key_type.dart';
-import 'key_use.dart';
-import 'keyset.dart';
-import 'prefs.dart';
-import 'util.dart';
 
 part 'key.g.dart';
 

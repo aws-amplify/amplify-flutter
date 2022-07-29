@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'key.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/key.dart';
 
 /// Valid key operations, as defined by
 /// [RFC 7517](https://datatracker.ietf.org/doc/html/rfc7517#section-4.3).

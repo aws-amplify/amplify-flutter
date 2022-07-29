@@ -14,15 +14,14 @@
 
 import 'dart:convert';
 
+import 'package:amplify_auth_cognito_dart/src/jwt/src/alg.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/key.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/keyset.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/prefs.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-
-import 'alg.dart';
-import 'key.dart';
-import 'keyset.dart';
-import 'prefs.dart';
-import 'util.dart';
 
 part 'header.g.dart';
 
