@@ -457,7 +457,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
           continue;
         case SignInStateType.challenge:
           state as SignInChallenge;
-
           return SignInResult(
             isSignedIn: false,
             nextStep: AuthNextSignInStep(
@@ -471,7 +470,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
               missingAttributes: state.requiredAttributes,
             ),
           );
-
         case SignInStateType.success:
           return SignInResult(
             isSignedIn: true,
