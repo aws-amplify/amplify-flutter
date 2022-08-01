@@ -1,5 +1,3 @@
-external
-
 # Ensures generated JS outputs are published even if not tracked
-!lib/src/worker/*.js
-!lib/src/worker/*.js.map
+!lib/src/workers/*.js
+!lib/src/workers/*.js.map
