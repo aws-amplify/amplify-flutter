@@ -12,6 +12,7 @@ dependencies:
   async: ^2.8.2
   collection: ^1.15.0
   http: ^0.13.4
+  js: ^0.6.4
   logging: ^1.0.0
   meta: ^1.7.0
   stream_transform: ^2.0.0
