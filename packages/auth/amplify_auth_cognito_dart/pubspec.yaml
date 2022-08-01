@@ -23,7 +23,7 @@ dependencies:
   http: ^0.13.4
   intl: ^0.17.0
   js: ^0.6.4
-  json_annotation: ^4.4.0
+  json_annotation: ^4.6.0
   meta: ^1.7.0
   oauth2: ^2.0.0
   path: ^1.8.0
@@ -40,8 +40,8 @@ dev_dependencies:
   build_runner: ^2.0.0
   build_verify: ^3.0.0
   build_web_compilers: ^3.2.2
-  built_value_generator: 8.3.3
-  json_serializable: ^6.1.0
+  built_value_generator: 8.4.0
+  json_serializable: ^6.3.0
   mockito: ^5.0.0
   test: ^1.16.0
   worker_bee_builder:

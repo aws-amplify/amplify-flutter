@@ -14,7 +14,7 @@ dependencies:
   cli_util: ^0.3.5
   collection: ^1.16.0
   git: ^2.0.0
-  json_annotation: ^4.4.0
+  json_annotation: ^4.6.0
   path: any
   pub_semver: ^2.1.1
   pubspec_parse: ^1.2.0
@@ -28,7 +28,7 @@ dev_dependencies:
   amplify_lints:
     path: ../amplify_lints
   build_runner: ^2.0.0
-  json_serializable: ^6.1.0
+  json_serializable: ^6.3.0
   test: ^1.16.0
 
 executables:

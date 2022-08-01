@@ -15,7 +15,7 @@ dependencies:
   collection: ^1.15.0
   http: ^0.13.0
   intl: ^0.17.0
-  json_annotation: ^4.4.0
+  json_annotation: ^4.6.0
   logging: ^1.0.0
   meta: ^1.7.0
   uuid: 3.0.6
@@ -24,6 +24,6 @@ dev_dependencies:
   amplify_lints:
     path: ../amplify_lints
   build_runner: ^2.0.0
-  json_serializable: ^6.1.0
+  json_serializable: ^6.3.0
   path: any
   test: ^1.17.0
