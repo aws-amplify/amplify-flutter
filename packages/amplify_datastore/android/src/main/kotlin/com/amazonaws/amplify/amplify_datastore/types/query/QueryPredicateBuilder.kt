@@ -63,8 +63,7 @@ class QueryPredicateBuilder {
                 // This is based on the current assumption: amplify-flutter doesn't support cross models nested
                 // predicate e.g. query comments by post.id
                 // This part should be reviewed when introducing nested predicate functionality
-                val queryField: QueryField = if (field.startsWith("@@")) QueryField.field(field) else QueryField
-                    .field(modelSchema?.name, field)
+                val queryField: QueryField = QueryField.field(modelSchema?.name, field)
                 val queryFieldOperatorMap: Map<String, Any> =
                     queryPredicateOperationMap["fieldOperator"].safeCastToMap()!!
                 val operand: Any? = queryFieldOperatorMap["value"]
