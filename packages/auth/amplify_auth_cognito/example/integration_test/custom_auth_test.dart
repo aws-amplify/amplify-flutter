@@ -26,6 +26,8 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   late String username;
   late String password;
+  CognitoSignInOptions options = const CognitoSignInOptions(
+      authFlowType: AuthenticationFlowType.customAuth);
   group(
     'custom auth passwordless signIn',
     () {
@@ -34,9 +36,7 @@ void main() {
       });
 
       setUpAll(() async {
-        await configureAuth(
-          customAuth: true,
-        );
+        await configureAuth();
         // create new user for each test
         username = generateUsername();
         password = generatePassword();
@@ -50,35 +50,11 @@ void main() {
       });
 
       testWidgets(
-        'Unconfirmed user sign in throws UserNotConfirmedException (even when password not verified)',
-        (WidgetTester tester) async {
-          var unconfirmedUsername = '${generateUsername()}unconfirmedUSer';
-          await Amplify.Auth.signUp(
-            username: unconfirmedUsername,
-            password: password,
-            options: CognitoSignUpOptions(
-              userAttributes: {
-                CognitoUserAttributeKey.email: 'test@test.com',
-                CognitoUserAttributeKey.phoneNumber: '+15555555555',
-              },
-            ),
-          );
-
-          expect(
-            Amplify.Auth.signIn(username: unconfirmedUsername, password: null),
-            throwsA(
-              isA<UserNotConfirmedException>(),
-            ),
-          );
-        },
-      );
-
-      testWidgets(
-        'signIn should return data from the auth challenge lambda',
+        'signIn should return data from the auth challenge lambda (passwordless)',
         (WidgetTester tester) async {
           final res = await Amplify.Auth.signIn(
             username: username,
-            password: null,
+            options: options,
           );
           expect(
             res.isSignedIn,
@@ -88,6 +64,14 @@ void main() {
           expect(
             res.nextStep!.additionalInfo?['test-key'],
             'test-value',
+          );
+          expect(
+            res.nextStep!.additionalInfo?['USERNAME'],
+            isNotNull,
+          );
+          expect(
+            res.nextStep!.additionalInfo?.length,
+            2,
           );
           expect(
             res.nextStep?.signInStep,
@@ -101,7 +85,7 @@ void main() {
         (WidgetTester tester) async {
           await Amplify.Auth.signIn(
             username: username,
-            password: null,
+            options: options,
           );
           // '123' is the arbitrary challenge answer defined in lambda code
           final res = await Amplify.Auth.confirmSignIn(
@@ -117,13 +101,80 @@ void main() {
       testWidgets(
         'an incorrect challenge reply should throw a NotAuthorizedException',
         (WidgetTester tester) async {
-          await Amplify.Auth.signIn(username: username, password: null);
+          await Amplify.Auth.signIn(
+            username: username,
+            options: options,
+          );
           // '123' is the arbitrary challenge answer defined in lambda code
           expect(
             Amplify.Auth.confirmSignIn(confirmationValue: 'wrong'),
             throwsA(
               isA<NotAuthorizedException>(),
             ),
+          );
+        },
+      );
+
+      testWidgets(
+        'if a password is provided but is incorrect, throw NotAuthorizedException',
+        (WidgetTester tester) async {
+          // '123' is the arbitrary challenge answer defined in lambda code
+          expect(
+            Amplify.Auth.signIn(
+              username: username,
+              password: 'wrong',
+              options: options,
+            ),
+            throwsA(
+              isA<NotAuthorizedException>(),
+            ),
+          );
+        },
+      );
+
+      testWidgets(
+        'a correct password and correct challenge reply should sign in the user',
+        (WidgetTester tester) async {
+          await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+            options: options,
+          );
+          // '123' is the arbitrary challenge answer defined in lambda code
+          final res = await Amplify.Auth.confirmSignIn(
+            confirmationValue: '123',
+          );
+          expect(
+            res.isSignedIn,
+            true,
+          );
+        },
+      );
+
+      testWidgets(
+        'signIn should return data from the auth challenge lambda (with password)',
+        (WidgetTester tester) async {
+          final res = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+            options: options,
+          );
+          expect(
+            res.isSignedIn,
+            false,
+          );
+          // additionalInfo key values defined in lambda code
+          expect(
+            res.nextStep!.additionalInfo?['test-key'],
+            'test-value',
+          );
+          expect(
+            res.nextStep!.additionalInfo?.length,
+            1,
+          );
+          expect(
+            res.nextStep?.signInStep,
+            'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
           );
         },
       );

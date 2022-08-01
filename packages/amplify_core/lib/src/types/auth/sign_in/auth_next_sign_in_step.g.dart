@@ -21,10 +21,6 @@ AuthNextSignInStep<Key>
               : AuthCodeDeliveryDetails.fromJson(
                   json['codeDeliveryDetails'] as Map<String, dynamic>),
           signInStep: json['signInStep'] as String,
-          challengeParameters:
-              (json['challengeParameters'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, e as String),
-          ),
           missingAttributes: (json['missingAttributes'] as List<dynamic>?)
                   ?.map(fromJsonKey)
                   .toList() ??
@@ -46,7 +42,6 @@ Map<String, dynamic> _$AuthNextSignInStepToJson<Key extends UserAttributeKey>(
   writeNotNull('additionalInfo', instance.additionalInfo);
   writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
   val['signInStep'] = instance.signInStep;
-  writeNotNull('challengeParameters', instance.challengeParameters);
   val['missingAttributes'] = instance.missingAttributes.map(toJsonKey).toList();
   return val;
 }

@@ -454,7 +454,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
               codeDeliveryDetails: _getChallengeDeliveryDetails(
                 state.challengeParameters,
               ),
-              challengeParameters: state.challengeParameters,
+              additionalInfo: state.challengeParameters,
               missingAttributes: state.requiredAttributes,
             ),
           );
@@ -519,7 +519,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
               codeDeliveryDetails: _getChallengeDeliveryDetails(
                 state.challengeParameters,
               ),
-              challengeParameters: state.challengeParameters,
+              additionalInfo: state.challengeParameters,
               missingAttributes: state.requiredAttributes,
             ),
           );
