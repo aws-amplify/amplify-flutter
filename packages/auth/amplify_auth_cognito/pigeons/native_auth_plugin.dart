@@ -83,6 +83,17 @@ abstract class NativeAuthBridge {
   Map<String, String> getValidationData();
 
   String getBundleId();
+
+  /// Fetch legacy credentials stored by native SDKs.
+  @async
+  LegacyCredentialStoreData? getLegacyCredentials(
+    String userPoolId,
+    String appClientId,
+  );
+
+  /// Clears the legacy credential store data.
+  @async
+  void clearLegacyCredentials(String appClientId);
 }
 
 class NativeAuthSession {
@@ -106,4 +117,15 @@ class NativeAWSCredentials {
   late String secretAccessKey;
   String? sessionToken;
   String? expirationIso8601Utc;
+}
+
+class LegacyCredentialStoreData {
+  /// AWS Identity ID
+  late String? identityId;
+
+  /// AWS Identity Pool credentials
+  late NativeAWSCredentials? awsCredentials;
+
+  /// Cognito User Pool tokens
+  late NativeUserPoolTokens? userPoolTokens;
 }

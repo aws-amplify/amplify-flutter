@@ -60,6 +60,11 @@ static id GetNullableObjectAtIndex(NSArray* array, NSInteger key) {
 + (nullable NativeAWSCredentials *)nullableFromMap:(NSDictionary *)dict;
 - (NSDictionary *)toMap;
 @end
+@interface LegacyCredentialStoreData ()
++ (LegacyCredentialStoreData *)fromMap:(NSDictionary *)dict;
++ (nullable LegacyCredentialStoreData *)nullableFromMap:(NSDictionary *)dict;
+- (NSDictionary *)toMap;
+@end
 
 @implementation NativeAuthSession
 + (instancetype)makeWithIsSignedIn:(NSNumber *)isSignedIn
@@ -156,6 +161,33 @@ static id GetNullableObjectAtIndex(NSArray* array, NSInteger key) {
     @"secretAccessKey" : (self.secretAccessKey ?: [NSNull null]),
     @"sessionToken" : (self.sessionToken ?: [NSNull null]),
     @"expirationIso8601Utc" : (self.expirationIso8601Utc ?: [NSNull null]),
+  };
+}
+@end
+
+@implementation LegacyCredentialStoreData
++ (instancetype)makeWithIdentityId:(nullable NSString *)identityId
+    awsCredentials:(nullable NativeAWSCredentials *)awsCredentials
+    userPoolTokens:(nullable NativeUserPoolTokens *)userPoolTokens {
+  LegacyCredentialStoreData* pigeonResult = [[LegacyCredentialStoreData alloc] init];
+  pigeonResult.identityId = identityId;
+  pigeonResult.awsCredentials = awsCredentials;
+  pigeonResult.userPoolTokens = userPoolTokens;
+  return pigeonResult;
+}
++ (LegacyCredentialStoreData *)fromMap:(NSDictionary *)dict {
+  LegacyCredentialStoreData *pigeonResult = [[LegacyCredentialStoreData alloc] init];
+  pigeonResult.identityId = GetNullableObject(dict, @"identityId");
+  pigeonResult.awsCredentials = [NativeAWSCredentials nullableFromMap:GetNullableObject(dict, @"awsCredentials")];
+  pigeonResult.userPoolTokens = [NativeUserPoolTokens nullableFromMap:GetNullableObject(dict, @"userPoolTokens")];
+  return pigeonResult;
+}
++ (nullable LegacyCredentialStoreData *)nullableFromMap:(NSDictionary *)dict { return (dict) ? [LegacyCredentialStoreData fromMap:dict] : nil; }
+- (NSDictionary *)toMap {
+  return @{
+    @"identityId" : (self.identityId ?: [NSNull null]),
+    @"awsCredentials" : (self.awsCredentials ? [self.awsCredentials toMap] : [NSNull null]),
+    @"userPoolTokens" : (self.userPoolTokens ? [self.userPoolTokens toMap] : [NSNull null]),
   };
 }
 @end
@@ -265,11 +297,46 @@ NSObject<FlutterMessageCodec> *NativeAuthPluginGetCodec() {
 @interface NativeAuthBridgeCodecReader : FlutterStandardReader
 @end
 @implementation NativeAuthBridgeCodecReader
+- (nullable id)readValueOfType:(UInt8)type 
+{
+  switch (type) {
+    case 128:     
+      return [LegacyCredentialStoreData fromMap:[self readValue]];
+    
+    case 129:     
+      return [NativeAWSCredentials fromMap:[self readValue]];
+    
+    case 130:     
+      return [NativeUserPoolTokens fromMap:[self readValue]];
+    
+    default:    
+      return [super readValueOfType:type];
+    
+  }
+}
 @end
 
 @interface NativeAuthBridgeCodecWriter : FlutterStandardWriter
 @end
 @implementation NativeAuthBridgeCodecWriter
+- (void)writeValue:(id)value 
+{
+  if ([value isKindOfClass:[LegacyCredentialStoreData class]]) {
+    [self writeByte:128];
+    [self writeValue:[value toMap]];
+  } else 
+  if ([value isKindOfClass:[NativeAWSCredentials class]]) {
+    [self writeByte:129];
+    [self writeValue:[value toMap]];
+  } else 
+  if ([value isKindOfClass:[NativeUserPoolTokens class]]) {
+    [self writeByte:130];
+    [self writeValue:[value toMap]];
+  } else 
+{
+    [super writeValue:value];
+  }
+}
 @end
 
 @interface NativeAuthBridgeCodecReaderWriter : FlutterStandardReaderWriter
@@ -389,6 +456,47 @@ void NativeAuthBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<
         FlutterError *error;
         NSString *output = [api getBundleIdWithError:&error];
         callback(wrapResult(output, error));
+      }];
+    }
+    else {
+      [channel setMessageHandler:nil];
+    }
+  }
+  {
+    FlutterBasicMessageChannel *channel =
+      [[FlutterBasicMessageChannel alloc]
+        initWithName:@"dev.flutter.pigeon.NativeAuthBridge.getLegacyCredentials"
+        binaryMessenger:binaryMessenger
+        codec:NativeAuthBridgeGetCodec()        ];
+    if (api) {
+      NSCAssert([api respondsToSelector:@selector(getLegacyCredentialsUserPoolId:appClientId:completion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(getLegacyCredentialsUserPoolId:appClientId:completion:)", api);
+      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
+        NSArray *args = message;
+        NSString *arg_userPoolId = GetNullableObjectAtIndex(args, 0);
+        NSString *arg_appClientId = GetNullableObjectAtIndex(args, 1);
+        [api getLegacyCredentialsUserPoolId:arg_userPoolId appClientId:arg_appClientId completion:^(LegacyCredentialStoreData *_Nullable output, FlutterError *_Nullable error) {
+          callback(wrapResult(output, error));
+        }];
+      }];
+    }
+    else {
+      [channel setMessageHandler:nil];
+    }
+  }
+  {
+    FlutterBasicMessageChannel *channel =
+      [[FlutterBasicMessageChannel alloc]
+        initWithName:@"dev.flutter.pigeon.NativeAuthBridge.clearLegacyCredentials"
+        binaryMessenger:binaryMessenger
+        codec:NativeAuthBridgeGetCodec()        ];
+    if (api) {
+      NSCAssert([api respondsToSelector:@selector(clearLegacyCredentialsAppClientId:completion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(clearLegacyCredentialsAppClientId:completion:)", api);
+      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
+        NSArray *args = message;
+        NSString *arg_appClientId = GetNullableObjectAtIndex(args, 0);
+        [api clearLegacyCredentialsAppClientId:arg_appClientId completion:^(FlutterError *_Nullable error) {
+          callback(wrapResult(nil, error));
+        }];
       }];
     }
     else {

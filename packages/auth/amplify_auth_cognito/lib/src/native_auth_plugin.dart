@@ -124,6 +124,39 @@ class NativeAWSCredentials {
   }
 }
 
+class LegacyCredentialStoreData {
+  LegacyCredentialStoreData({
+    this.identityId,
+    this.awsCredentials,
+    this.userPoolTokens,
+  });
+
+  String? identityId;
+  NativeAWSCredentials? awsCredentials;
+  NativeUserPoolTokens? userPoolTokens;
+
+  Object encode() {
+    final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
+    pigeonMap['identityId'] = identityId;
+    pigeonMap['awsCredentials'] = awsCredentials?.encode();
+    pigeonMap['userPoolTokens'] = userPoolTokens?.encode();
+    return pigeonMap;
+  }
+
+  static LegacyCredentialStoreData decode(Object message) {
+    final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
+    return LegacyCredentialStoreData(
+      identityId: pigeonMap['identityId'] as String?,
+      awsCredentials: pigeonMap['awsCredentials'] != null
+          ? NativeAWSCredentials.decode(pigeonMap['awsCredentials']!)
+          : null,
+      userPoolTokens: pigeonMap['userPoolTokens'] != null
+          ? NativeUserPoolTokens.decode(pigeonMap['userPoolTokens']!)
+          : null,
+    );
+  }
+}
+
 class _NativeAuthPluginCodec extends StandardMessageCodec {
   const _NativeAuthPluginCodec();
   @override
@@ -211,6 +244,38 @@ abstract class NativeAuthPlugin {
 
 class _NativeAuthBridgeCodec extends StandardMessageCodec {
   const _NativeAuthBridgeCodec();
+  @override
+  void writeValue(WriteBuffer buffer, Object? value) {
+    if (value is LegacyCredentialStoreData) {
+      buffer.putUint8(128);
+      writeValue(buffer, value.encode());
+    } else if (value is NativeAWSCredentials) {
+      buffer.putUint8(129);
+      writeValue(buffer, value.encode());
+    } else if (value is NativeUserPoolTokens) {
+      buffer.putUint8(130);
+      writeValue(buffer, value.encode());
+    } else {
+      super.writeValue(buffer, value);
+    }
+  }
+
+  @override
+  Object? readValueOfType(int type, ReadBuffer buffer) {
+    switch (type) {
+      case 128:
+        return LegacyCredentialStoreData.decode(readValue(buffer)!);
+
+      case 129:
+        return NativeAWSCredentials.decode(readValue(buffer)!);
+
+      case 130:
+        return NativeUserPoolTokens.decode(readValue(buffer)!);
+
+      default:
+        return super.readValueOfType(type, buffer);
+    }
+  }
 }
 
 class NativeAuthBridge {
@@ -371,6 +436,56 @@ class NativeAuthBridge {
       );
     } else {
       return (replyMap['result'] as String?)!;
+    }
+  }
+
+  Future<LegacyCredentialStoreData?> getLegacyCredentials(
+      String arg_userPoolId, String arg_appClientId) async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.NativeAuthBridge.getLegacyCredentials', codec,
+        binaryMessenger: _binaryMessenger);
+    final Map<Object?, Object?>? replyMap =
+        await channel.send(<Object?>[arg_userPoolId, arg_appClientId])
+            as Map<Object?, Object?>?;
+    if (replyMap == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+      );
+    } else if (replyMap['error'] != null) {
+      final Map<Object?, Object?> error =
+          (replyMap['error'] as Map<Object?, Object?>?)!;
+      throw PlatformException(
+        code: (error['code'] as String?)!,
+        message: error['message'] as String?,
+        details: error['details'],
+      );
+    } else {
+      return (replyMap['result'] as LegacyCredentialStoreData?);
+    }
+  }
+
+  Future<void> clearLegacyCredentials(String arg_appClientId) async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.NativeAuthBridge.clearLegacyCredentials', codec,
+        binaryMessenger: _binaryMessenger);
+    final Map<Object?, Object?>? replyMap = await channel
+        .send(<Object?>[arg_appClientId]) as Map<Object?, Object?>?;
+    if (replyMap == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+      );
+    } else if (replyMap['error'] != null) {
+      final Map<Object?, Object?> error =
+          (replyMap['error'] as Map<Object?, Object?>?)!;
+      throw PlatformException(
+        code: (error['code'] as String?)!,
+        message: error['message'] as String?,
+        details: error['details'],
+      );
+    } else {
+      return;
     }
   }
 }

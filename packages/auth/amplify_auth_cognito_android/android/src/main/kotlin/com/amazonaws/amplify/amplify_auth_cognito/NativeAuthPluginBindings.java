@@ -294,6 +294,69 @@ public class NativeAuthPluginBindings {
     }
   }
 
+  /** Generated class from Pigeon that represents data sent in messages. */
+  public static class LegacyCredentialStoreData {
+    private @Nullable String identityId;
+    public @Nullable String getIdentityId() { return identityId; }
+    public void setIdentityId(@Nullable String setterArg) {
+      this.identityId = setterArg;
+    }
+
+    private @Nullable NativeAWSCredentials awsCredentials;
+    public @Nullable NativeAWSCredentials getAwsCredentials() { return awsCredentials; }
+    public void setAwsCredentials(@Nullable NativeAWSCredentials setterArg) {
+      this.awsCredentials = setterArg;
+    }
+
+    private @Nullable NativeUserPoolTokens userPoolTokens;
+    public @Nullable NativeUserPoolTokens getUserPoolTokens() { return userPoolTokens; }
+    public void setUserPoolTokens(@Nullable NativeUserPoolTokens setterArg) {
+      this.userPoolTokens = setterArg;
+    }
+
+    public static final class Builder {
+      private @Nullable String identityId;
+      public @NonNull Builder setIdentityId(@Nullable String setterArg) {
+        this.identityId = setterArg;
+        return this;
+      }
+      private @Nullable NativeAWSCredentials awsCredentials;
+      public @NonNull Builder setAwsCredentials(@Nullable NativeAWSCredentials setterArg) {
+        this.awsCredentials = setterArg;
+        return this;
+      }
+      private @Nullable NativeUserPoolTokens userPoolTokens;
+      public @NonNull Builder setUserPoolTokens(@Nullable NativeUserPoolTokens setterArg) {
+        this.userPoolTokens = setterArg;
+        return this;
+      }
+      public @NonNull LegacyCredentialStoreData build() {
+        LegacyCredentialStoreData pigeonReturn = new LegacyCredentialStoreData();
+        pigeonReturn.setIdentityId(identityId);
+        pigeonReturn.setAwsCredentials(awsCredentials);
+        pigeonReturn.setUserPoolTokens(userPoolTokens);
+        return pigeonReturn;
+      }
+    }
+    @NonNull Map<String, Object> toMap() {
+      Map<String, Object> toMapResult = new HashMap<>();
+      toMapResult.put("identityId", identityId);
+      toMapResult.put("awsCredentials", (awsCredentials == null) ? null : awsCredentials.toMap());
+      toMapResult.put("userPoolTokens", (userPoolTokens == null) ? null : userPoolTokens.toMap());
+      return toMapResult;
+    }
+    static @NonNull LegacyCredentialStoreData fromMap(@NonNull Map<String, Object> map) {
+      LegacyCredentialStoreData pigeonResult = new LegacyCredentialStoreData();
+      Object identityId = map.get("identityId");
+      pigeonResult.setIdentityId((String)identityId);
+      Object awsCredentials = map.get("awsCredentials");
+      pigeonResult.setAwsCredentials((awsCredentials == null) ? null : NativeAWSCredentials.fromMap((Map)awsCredentials));
+      Object userPoolTokens = map.get("userPoolTokens");
+      pigeonResult.setUserPoolTokens((userPoolTokens == null) ? null : NativeUserPoolTokens.fromMap((Map)userPoolTokens));
+      return pigeonResult;
+    }
+  }
+
   public interface Result<T> {
     void success(T result);
     void error(Throwable error);
@@ -371,6 +434,41 @@ public class NativeAuthPluginBindings {
   private static class NativeAuthBridgeCodec extends StandardMessageCodec {
     public static final NativeAuthBridgeCodec INSTANCE = new NativeAuthBridgeCodec();
     private NativeAuthBridgeCodec() {}
+    @Override
+    protected Object readValueOfType(byte type, ByteBuffer buffer) {
+      switch (type) {
+        case (byte)128:         
+          return LegacyCredentialStoreData.fromMap((Map<String, Object>) readValue(buffer));
+        
+        case (byte)129:         
+          return NativeAWSCredentials.fromMap((Map<String, Object>) readValue(buffer));
+        
+        case (byte)130:         
+          return NativeUserPoolTokens.fromMap((Map<String, Object>) readValue(buffer));
+        
+        default:        
+          return super.readValueOfType(type, buffer);
+        
+      }
+    }
+    @Override
+    protected void writeValue(ByteArrayOutputStream stream, Object value)     {
+      if (value instanceof LegacyCredentialStoreData) {
+        stream.write(128);
+        writeValue(stream, ((LegacyCredentialStoreData) value).toMap());
+      } else 
+      if (value instanceof NativeAWSCredentials) {
+        stream.write(129);
+        writeValue(stream, ((NativeAWSCredentials) value).toMap());
+      } else 
+      if (value instanceof NativeUserPoolTokens) {
+        stream.write(130);
+        writeValue(stream, ((NativeUserPoolTokens) value).toMap());
+      } else 
+{
+        super.writeValue(stream, value);
+      }
+    }
   }
 
   /** Generated interface from Pigeon that represents a handler of messages from Flutter.*/
@@ -380,6 +478,8 @@ public class NativeAuthPluginBindings {
     void signOutWithUrl(@NonNull String url, @NonNull String callbackUrlScheme, @NonNull Boolean preferPrivateSession, @Nullable String browserPackageName, Result<Void> result);
     @NonNull Map<String, String> getValidationData();
     @NonNull String getBundleId();
+    void getLegacyCredentials(@NonNull String userPoolId, @NonNull String appClientId, Result<LegacyCredentialStoreData> result);
+    void clearLegacyCredentials(@NonNull String appClientId, Result<Void> result);
 
     /** The codec used by NativeAuthBridge. */
     static MessageCodec<Object> getCodec() {
@@ -536,6 +636,78 @@ public class NativeAuthPluginBindings {
               wrapped.put("error", wrapError(exception));
             }
             reply.reply(wrapped);
+          });
+        } else {
+          channel.setMessageHandler(null);
+        }
+      }
+      {
+        BasicMessageChannel<Object> channel =
+            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.NativeAuthBridge.getLegacyCredentials", getCodec());
+        if (api != null) {
+          channel.setMessageHandler((message, reply) -> {
+            Map<String, Object> wrapped = new HashMap<>();
+            try {
+              ArrayList<Object> args = (ArrayList<Object>)message;
+              String userPoolIdArg = (String)args.get(0);
+              if (userPoolIdArg == null) {
+                throw new NullPointerException("userPoolIdArg unexpectedly null.");
+              }
+              String appClientIdArg = (String)args.get(1);
+              if (appClientIdArg == null) {
+                throw new NullPointerException("appClientIdArg unexpectedly null.");
+              }
+              Result<LegacyCredentialStoreData> resultCallback = new Result<LegacyCredentialStoreData>() {
+                public void success(LegacyCredentialStoreData result) {
+                  wrapped.put("result", result);
+                  reply.reply(wrapped);
+                }
+                public void error(Throwable error) {
+                  wrapped.put("error", wrapError(error));
+                  reply.reply(wrapped);
+                }
+              };
+
+              api.getLegacyCredentials(userPoolIdArg, appClientIdArg, resultCallback);
+            }
+            catch (Error | RuntimeException exception) {
+              wrapped.put("error", wrapError(exception));
+              reply.reply(wrapped);
+            }
+          });
+        } else {
+          channel.setMessageHandler(null);
+        }
+      }
+      {
+        BasicMessageChannel<Object> channel =
+            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.NativeAuthBridge.clearLegacyCredentials", getCodec());
+        if (api != null) {
+          channel.setMessageHandler((message, reply) -> {
+            Map<String, Object> wrapped = new HashMap<>();
+            try {
+              ArrayList<Object> args = (ArrayList<Object>)message;
+              String appClientIdArg = (String)args.get(0);
+              if (appClientIdArg == null) {
+                throw new NullPointerException("appClientIdArg unexpectedly null.");
+              }
+              Result<Void> resultCallback = new Result<Void>() {
+                public void success(Void result) {
+                  wrapped.put("result", null);
+                  reply.reply(wrapped);
+                }
+                public void error(Throwable error) {
+                  wrapped.put("error", wrapError(error));
+                  reply.reply(wrapped);
+                }
+              };
+
+              api.clearLegacyCredentials(appClientIdArg, resultCallback);
+            }
+            catch (Error | RuntimeException exception) {
+              wrapped.put("error", wrapError(exception));
+              reply.reply(wrapped);
+            }
           });
         } else {
           channel.setMessageHandler(null);

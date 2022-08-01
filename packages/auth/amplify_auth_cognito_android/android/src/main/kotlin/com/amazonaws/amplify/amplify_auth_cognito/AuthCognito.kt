@@ -165,6 +165,68 @@ open class AuthCognito :
         return applicationContext!!.packageName
     }
 
+    override fun getLegacyCredentials(userPoolId: String, appClientId: String, result: NativeAuthPluginBindings.Result<NativeAuthPluginBindings.LegacyCredentialStoreData>) {
+
+        val legacyUserPoolStore = LegacyKeyValueStore(applicationContext!!, "CognitoIdentityProviderCache")
+
+        val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
+        val accessToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.accessToken"]
+        val refreshToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.refreshToken"]
+        val idToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.idToken"]
+
+        val legacyAuthStore = LegacyKeyValueStore(applicationContext!!, "com.amazonaws.android.auth")
+
+        val accessKey = legacyAuthStore["$userPoolId.accessKey"]
+        val secretKey = legacyAuthStore["$userPoolId.secretKey"]
+        val sessionKey = legacyAuthStore["$userPoolId.sessionToken"]
+        val expiration = legacyAuthStore["$userPoolId.expirationDate"]
+        val identityId = legacyAuthStore["$userPoolId.identityId"]
+
+        val awsCredentials = if (accessKey != null && secretKey != null) {
+            NativeAuthPluginBindings.NativeAWSCredentials.Builder()
+                .setAccessKeyId(accessKey)
+                .setSecretAccessKey(secretKey)
+                .setSessionToken(sessionKey)
+                .setExpirationIso8601Utc(expiration)
+                .build()
+        } else {
+            null
+        }
+
+        val userPoolTokens = if (accessToken != null && refreshToken != null && idToken != null) {
+            NativeAuthPluginBindings.NativeUserPoolTokens.Builder()
+                .setAccessToken(accessToken)
+                .setRefreshToken(refreshToken)
+                .setIdToken(idToken)
+                .build()
+        } else {
+            null
+        }
+
+        val data = if (awsCredentials != null || userPoolTokens != null || identityId != null) {
+            NativeAuthPluginBindings.LegacyCredentialStoreData.Builder()
+                .setAwsCredentials(awsCredentials)
+                .setUserPoolTokens(userPoolTokens)
+                .setIdentityId(identityId)
+                .build()
+        } else {
+            null
+        }
+
+        result.success(data)
+    }
+
+    override fun clearLegacyCredentials(appClientId: String, result: NativeAuthPluginBindings.Result<Void>) {
+        val legacyUserPoolStore = LegacyKeyValueStore(applicationContext!!, "CognitoIdentityProviderCache")
+        val legacyAuthStore = LegacyKeyValueStore(applicationContext!!, "com.amazonaws.android.auth")
+        // TODO: Clear store
+//        legacyUserPoolStore.clear()
+//        legacyAuthStore.clear()
+        result.success(null)
+    }
+
+
+
     /**
      * Handles the result of a sign in redirect.
      */

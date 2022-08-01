@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class NativeAuthSession;
 @class NativeUserPoolTokens;
 @class NativeAWSCredentials;
+@class LegacyCredentialStoreData;
 
 @interface NativeAuthSession : NSObject
 /// `init` unavailable to enforce nonnull fields, see the `make` class method.
@@ -65,6 +66,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString * expirationIso8601Utc;
 @end
 
+@interface LegacyCredentialStoreData : NSObject
++ (instancetype)makeWithIdentityId:(nullable NSString *)identityId
+    awsCredentials:(nullable NativeAWSCredentials *)awsCredentials
+    userPoolTokens:(nullable NativeUserPoolTokens *)userPoolTokens;
+@property(nonatomic, copy, nullable) NSString * identityId;
+@property(nonatomic, strong, nullable) NativeAWSCredentials * awsCredentials;
+@property(nonatomic, strong, nullable) NativeUserPoolTokens * userPoolTokens;
+@end
+
 /// The codec used by NativeAuthPlugin.
 NSObject<FlutterMessageCodec> *NativeAuthPluginGetCodec(void);
 
@@ -84,6 +94,8 @@ NSObject<FlutterMessageCodec> *NativeAuthBridgeGetCodec(void);
 - (nullable NSDictionary<NSString *, NSString *> *)getValidationDataWithError:(FlutterError *_Nullable *_Nonnull)error;
 /// @return `nil` only when `error != nil`.
 - (nullable NSString *)getBundleIdWithError:(FlutterError *_Nullable *_Nonnull)error;
+- (void)getLegacyCredentialsUserPoolId:(NSString *)userPoolId appClientId:(NSString *)appClientId completion:(void(^)(LegacyCredentialStoreData *_Nullable, FlutterError *_Nullable))completion;
+- (void)clearLegacyCredentialsAppClientId:(NSString *)appClientId completion:(void(^)(FlutterError *_Nullable))completion;
 @end
 
 extern void NativeAuthBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<NativeAuthBridge> *_Nullable api);
