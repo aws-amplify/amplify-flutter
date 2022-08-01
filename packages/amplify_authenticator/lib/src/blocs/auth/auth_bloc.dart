@@ -142,9 +142,8 @@ class StateMachineBloc
     logger.debug('Handling hub event: ${event.type}');
     switch (event.type) {
       case AuthHubEventType.signedIn:
-        if (_currentState is! AuthenticatedState) {
-          return const AuthenticatedState();
-        }
+        // TODO(Jordan-Nelson): Display app after sign in hub event.
+        // Need requirements for how this impacts verify user.
         break;
       case AuthHubEventType.signedOut:
       case AuthHubEventType.sessionExpired:
