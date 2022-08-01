@@ -22,11 +22,10 @@ import 'package:built_value/serializer.dart';
 import 'package:http/http.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy/smithy.dart';
+import 'package:smithy_test/src/http/serializers.dart';
 import 'package:smithy_test/src/xml/equatable.dart';
 import 'package:test/test.dart';
 import 'package:xml/xml.dart';
-
-import 'serializers.dart';
 
 /// Performs an HTTP request test for [operation] for a test case from an
 /// [HttpRequestTestsTrait].
