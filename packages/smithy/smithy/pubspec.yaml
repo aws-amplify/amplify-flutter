@@ -1,7 +1,9 @@
 name: smithy
-description: Smithy client runtime for Dart
+description: Smithy client runtime for Dart with common utilities for I/O and serialization.
 version: 0.1.0
+homepage: https://github.com/aws-amplify/amplify-flutter/tree/next
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/smithy/smithy
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
   sdk: ">=2.17.0 <3.0.0"

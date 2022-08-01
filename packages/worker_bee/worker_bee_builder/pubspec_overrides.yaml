@@ -4,5 +4,7 @@
 # It may cause issues with publishing until https://github.com/dart-lang/pub/pull/3419
 # is released in stable.
 dependency_overrides:
+  aws_common:
+    path: ../../aws_common
   worker_bee:
     path: ../worker_bee

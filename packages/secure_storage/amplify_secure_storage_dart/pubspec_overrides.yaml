@@ -6,5 +6,7 @@
 dependency_overrides:
   aws_common:
     path: ../../aws_common
+  aws_signature_v4:
+    path: ../../aws_signature_v4
   worker_bee:
     path: ../../worker_bee/worker_bee 

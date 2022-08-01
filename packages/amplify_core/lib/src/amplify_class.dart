@@ -123,7 +123,7 @@ abstract class AmplifyClass {
   static AmplifyClass? instance;
 
   /// The library version.
-  String get version => '0.5.0';
+  String get version => '1.0.0-next.0';
 
   /// Resets the Amplify implementation, removing all traces of Amplify from
   /// the device.
