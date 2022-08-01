@@ -6,6 +6,7 @@
       "predicates": [
         {
           "queryPredicateOperation": {
+            "modelName": "Post",
             "field": "id",
             "fieldOperator": { "operatorName": "equal", "value": "123" }
           }
@@ -16,6 +17,7 @@
             "predicates": [
               {
                 "queryPredicateOperation": {
+                  "modelName": "Post",
                   "field": "rating",
                   "fieldOperator": {
                     "operatorName": "greater_or_equal",
@@ -29,6 +31,7 @@
                   "predicates": [
                     {
                       "queryPredicateOperation": {
+                        "modelName": "Post",
                         "field": "created",
                         "fieldOperator": {
                           "operatorName": "equal",
