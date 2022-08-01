@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.operation.global_sign_out_operation;
+library amplify_auth_cognito_dart.cognito_identity_provider.operation.global_sign_out_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i16;
 
@@ -45,13 +45,13 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i5;
 
-/// Signs out users from all devices. It also invalidates all refresh tokens issued to a user. The user's current access and Id tokens remain valid until their expiry. Access and Id tokens expire one hour after they are issued.
+/// Signs out users from all devices. It also invalidates all refresh tokens that Amazon Cognito has issued to a user. The user's current access and ID tokens remain valid until their expiry. By default, access and ID tokens expire one hour after Amazon Cognito issues them. A user can still use a hosted UI cookie to retrieve new tokens for the duration of the cookie validity period of 1 hour.
 class GlobalSignOutOperation extends _i1.HttpOperation<
     _i2.GlobalSignOutRequest,
     _i2.GlobalSignOutRequest,
     _i3.GlobalSignOutResponse,
     _i3.GlobalSignOutResponse> {
-  /// Signs out users from all devices. It also invalidates all refresh tokens issued to a user. The user's current access and Id tokens remain valid until their expiry. Access and Id tokens expire one hour after they are issued.
+  /// Signs out users from all devices. It also invalidates all refresh tokens that Amazon Cognito has issued to a user. The user's current access and ID tokens remain valid until their expiry. By default, access and ID tokens expire one hour after Amazon Cognito issues them. A user can still use a hosted UI cookie to retrieve new tokens for the duration of the cookie validity period of 1 hour.
   GlobalSignOutOperation(
       {required String region,
       Uri? baseUri,
@@ -69,6 +69,7 @@ class GlobalSignOutOperation extends _i1.HttpOperation<
         serializers: _i6.serializers,
         builderFactories: _i6.builderFactories,
         requestInterceptors: [
+          const _i1.WithHost(),
           const _i1.WithContentLength(),
           const _i1.WithHeader('X-Amz-Target',
               'AWSCognitoIdentityProviderService.GlobalSignOut'),
@@ -76,6 +77,7 @@ class GlobalSignOutOperation extends _i1.HttpOperation<
               region: _region,
               service: _i7.AWSService.cognitoIdentityProvider,
               credentialsProvider: _credentialsProvider),
+          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
           const _i5.WithSdkInvocationId(),
           const _i5.WithSdkRequest()
         ],

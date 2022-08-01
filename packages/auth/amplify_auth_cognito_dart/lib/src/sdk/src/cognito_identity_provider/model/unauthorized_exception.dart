@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.unauthorized_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.unauthorized_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,18 +23,18 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'unauthorized_exception.g.dart';
 
-/// This exception is thrown when the request is not authorized. This can happen due to an invalid access token in the request.
+/// Exception that is thrown when the request isn't authorized. This can happen due to an invalid access token in the request.
 abstract class UnauthorizedException
     with _i1.AWSEquatable<UnauthorizedException>
     implements
         Built<UnauthorizedException, UnauthorizedExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// This exception is thrown when the request is not authorized. This can happen due to an invalid access token in the request.
+  /// Exception that is thrown when the request isn't authorized. This can happen due to an invalid access token in the request.
   factory UnauthorizedException({String? message}) {
     return _$UnauthorizedException._(message: message);
   }
 
-  /// This exception is thrown when the request is not authorized. This can happen due to an invalid access token in the request.
+  /// Exception that is thrown when the request isn't authorized. This can happen due to an invalid access token in the request.
   factory UnauthorizedException.build(
           [void Function(UnauthorizedExceptionBuilder) updates]) =
       _$UnauthorizedException;
@@ -49,7 +49,7 @@ abstract class UnauthorizedException
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _UnauthorizedExceptionAwsJson11Serializer()
+    UnauthorizedExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -80,9 +80,9 @@ abstract class UnauthorizedException
   }
 }
 
-class _UnauthorizedExceptionAwsJson11Serializer
+class UnauthorizedExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UnauthorizedException> {
-  const _UnauthorizedExceptionAwsJson11Serializer()
+  const UnauthorizedExceptionAwsJson11Serializer()
       : super('UnauthorizedException');
 
   @override

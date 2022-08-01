@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.associate_software_token_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.associate_software_token_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -48,16 +48,16 @@ abstract class AssociateSoftwareTokenResponse
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
-    _AssociateSoftwareTokenResponseAwsJson11Serializer()
+    AssociateSoftwareTokenResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AssociateSoftwareTokenResponseBuilder b) {}
 
-  /// A unique generated shared secret code that is used in the TOTP algorithm to generate a one time code.
+  /// A unique generated shared secret code that is used in the time-based one-time password (TOTP) algorithm to generate a one-time code.
   String? get secretCode;
 
-  /// The session which should be passed both ways in challenge-response calls to the service. This allows authentication of the user as part of the MFA setup process.
+  /// The session that should be passed both ways in challenge-response calls to the service. This allows authentication of the user as part of the MFA setup process.
   String? get session;
   @override
   List<Object?> get props => [secretCode, session];
@@ -71,9 +71,9 @@ abstract class AssociateSoftwareTokenResponse
   }
 }
 
-class _AssociateSoftwareTokenResponseAwsJson11Serializer
+class AssociateSoftwareTokenResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<AssociateSoftwareTokenResponse> {
-  const _AssociateSoftwareTokenResponseAwsJson11Serializer()
+  const AssociateSoftwareTokenResponseAwsJson11Serializer()
       : super('AssociateSoftwareTokenResponse');
 
   @override

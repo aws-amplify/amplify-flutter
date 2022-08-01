@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.confirm_device_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_device_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/device_secret_verifier_config_type.dart'
     as _i3;
@@ -57,13 +57,13 @@ abstract class ConfirmDeviceRequest
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _ConfirmDeviceRequestAwsJson11Serializer()
+    ConfirmDeviceRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfirmDeviceRequestBuilder b) {}
 
-  /// The access token.
+  /// A valid access token that Amazon Cognito issued to the user whose device you want to confirm.
   String get accessToken;
 
   /// The device key.
@@ -90,9 +90,9 @@ abstract class ConfirmDeviceRequest
   }
 }
 
-class _ConfirmDeviceRequestAwsJson11Serializer
+class ConfirmDeviceRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<ConfirmDeviceRequest> {
-  const _ConfirmDeviceRequestAwsJson11Serializer()
+  const ConfirmDeviceRequestAwsJson11Serializer()
       : super('ConfirmDeviceRequest');
 
   @override

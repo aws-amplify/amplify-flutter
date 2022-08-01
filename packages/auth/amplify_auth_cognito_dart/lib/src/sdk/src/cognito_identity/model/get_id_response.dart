@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity.model.get_id_response;
+library amplify_auth_cognito_dart.cognito_identity.model.get_id_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -44,7 +44,7 @@ abstract class GetIdResponse
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
-    _GetIdResponseAwsJson11Serializer()
+    GetIdResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -62,9 +62,9 @@ abstract class GetIdResponse
   }
 }
 
-class _GetIdResponseAwsJson11Serializer
+class GetIdResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<GetIdResponse> {
-  const _GetIdResponseAwsJson11Serializer() : super('GetIdResponse');
+  const GetIdResponseAwsJson11Serializer() : super('GetIdResponse');
 
   @override
   Iterable<Type> get types => const [GetIdResponse, _$GetIdResponse];

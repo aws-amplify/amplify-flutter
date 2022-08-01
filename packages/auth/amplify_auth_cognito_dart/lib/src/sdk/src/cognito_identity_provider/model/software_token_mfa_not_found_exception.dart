@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.software_token_mfa_not_found_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.software_token_mfa_not_found_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,7 +23,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'software_token_mfa_not_found_exception.g.dart';
 
-/// This exception is thrown when the software token TOTP multi-factor authentication (MFA) is not enabled for the user pool.
+/// This exception is thrown when the software token time-based one-time password (TOTP) multi-factor authentication (MFA) isn't activated for the user pool.
 abstract class SoftwareTokenMfaNotFoundException
     with
         _i1.AWSEquatable<SoftwareTokenMfaNotFoundException>
@@ -31,12 +31,12 @@ abstract class SoftwareTokenMfaNotFoundException
         Built<SoftwareTokenMfaNotFoundException,
             SoftwareTokenMfaNotFoundExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// This exception is thrown when the software token TOTP multi-factor authentication (MFA) is not enabled for the user pool.
+  /// This exception is thrown when the software token time-based one-time password (TOTP) multi-factor authentication (MFA) isn't activated for the user pool.
   factory SoftwareTokenMfaNotFoundException({String? message}) {
     return _$SoftwareTokenMfaNotFoundException._(message: message);
   }
 
-  /// This exception is thrown when the software token TOTP multi-factor authentication (MFA) is not enabled for the user pool.
+  /// This exception is thrown when the software token time-based one-time password (TOTP) multi-factor authentication (MFA) isn't activated for the user pool.
   factory SoftwareTokenMfaNotFoundException.build(
           [void Function(SoftwareTokenMfaNotFoundExceptionBuilder) updates]) =
       _$SoftwareTokenMfaNotFoundException;
@@ -52,7 +52,7 @@ abstract class SoftwareTokenMfaNotFoundException
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _SoftwareTokenMfaNotFoundExceptionAwsJson11Serializer()
+    SoftwareTokenMfaNotFoundExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -84,9 +84,9 @@ abstract class SoftwareTokenMfaNotFoundException
   }
 }
 
-class _SoftwareTokenMfaNotFoundExceptionAwsJson11Serializer
+class SoftwareTokenMfaNotFoundExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<SoftwareTokenMfaNotFoundException> {
-  const _SoftwareTokenMfaNotFoundExceptionAwsJson11Serializer()
+  const SoftwareTokenMfaNotFoundExceptionAwsJson11Serializer()
       : super('SoftwareTokenMfaNotFoundException');
 
   @override

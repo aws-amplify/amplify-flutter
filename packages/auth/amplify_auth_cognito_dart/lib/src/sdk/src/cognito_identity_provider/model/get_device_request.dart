@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.get_device_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.get_device_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -44,13 +44,13 @@ abstract class GetDeviceRequest
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _GetDeviceRequestAwsJson11Serializer()
+    GetDeviceRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetDeviceRequestBuilder b) {}
 
-  /// The access token.
+  /// A valid access token that Amazon Cognito issued to the user whose device information you want to request.
   String? get accessToken;
 
   /// The device key.
@@ -68,9 +68,9 @@ abstract class GetDeviceRequest
   }
 }
 
-class _GetDeviceRequestAwsJson11Serializer
+class GetDeviceRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<GetDeviceRequest> {
-  const _GetDeviceRequestAwsJson11Serializer() : super('GetDeviceRequest');
+  const GetDeviceRequestAwsJson11Serializer() : super('GetDeviceRequest');
 
   @override
   Iterable<Type> get types => const [GetDeviceRequest, _$GetDeviceRequest];

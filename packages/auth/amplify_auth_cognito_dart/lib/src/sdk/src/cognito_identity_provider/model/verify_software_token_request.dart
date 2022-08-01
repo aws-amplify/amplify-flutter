@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.verify_software_token_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.verify_software_token_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -53,22 +53,22 @@ abstract class VerifySoftwareTokenRequest
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _VerifySoftwareTokenRequestAwsJson11Serializer()
+    VerifySoftwareTokenRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(VerifySoftwareTokenRequestBuilder b) {}
 
-  /// The access token.
+  /// A valid access token that Amazon Cognito issued to the user whose software token you want to verify.
   String? get accessToken;
 
   /// The friendly device name.
   String? get friendlyDeviceName;
 
-  /// The session which should be passed both ways in challenge-response calls to the service.
+  /// The session that should be passed both ways in challenge-response calls to the service.
   String? get session;
 
-  /// The one time password computed using the secret code returned by [AssociateSoftwareToken"](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html).
+  /// The one- time password computed using the secret code returned by [AssociateSoftwareToken](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html).
   String get userCode;
   @override
   VerifySoftwareTokenRequest getPayload() => this;
@@ -86,9 +86,9 @@ abstract class VerifySoftwareTokenRequest
   }
 }
 
-class _VerifySoftwareTokenRequestAwsJson11Serializer
+class VerifySoftwareTokenRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<VerifySoftwareTokenRequest> {
-  const _VerifySoftwareTokenRequestAwsJson11Serializer()
+  const VerifySoftwareTokenRequestAwsJson11Serializer()
       : super('VerifySoftwareTokenRequest');
 
   @override

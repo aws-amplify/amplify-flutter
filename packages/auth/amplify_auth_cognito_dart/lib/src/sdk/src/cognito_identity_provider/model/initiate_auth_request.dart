@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.initiate_auth_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.initiate_auth_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart'
     as _i3;
@@ -66,22 +66,22 @@ abstract class InitiateAuthRequest
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _InitiateAuthRequestAwsJson11Serializer()
+    InitiateAuthRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InitiateAuthRequestBuilder b) {}
 
-  /// The Amazon Pinpoint analytics metadata for collecting metrics for `InitiateAuth` calls.
+  /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `InitiateAuth` calls.
   _i3.AnalyticsMetadataType? get analyticsMetadata;
 
-  /// The authentication flow for this call to execute. The API action will depend on this value. For example:
+  /// The authentication flow for this call to run. The API action will depend on this value. For example:
   ///
-  /// *   `REFRESH\_TOKEN\_AUTH` will take in a valid refresh token and return new tokens.
+  /// *   `REFRESH\_TOKEN\_AUTH` takes in a valid refresh token and returns new tokens.
   ///
-  /// *   `USER\_SRP\_AUTH` will take in `USERNAME` and `SRP_A` and return the SRP variables to be used for next challenge execution.
+  /// *   `USER\_SRP\_AUTH` takes in `USERNAME` and `SRP_A` and returns the SRP variables to be used for next challenge execution.
   ///
-  /// *   `USER\_PASSWORD\_AUTH` will take in `USERNAME` and `PASSWORD` and return the next challenge or tokens.
+  /// *   `USER\_PASSWORD\_AUTH` takes in `USERNAME` and `PASSWORD` and returns the next challenge or tokens.
   ///
   ///
   /// Valid values include:
@@ -92,15 +92,13 @@ abstract class InitiateAuthRequest
   ///
   /// *   `CUSTOM_AUTH`: Custom authentication flow.
   ///
-  /// *   `USER\_PASSWORD\_AUTH`: Non-SRP authentication flow; USERNAME and PASSWORD are passed directly. If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if the USERNAME is not found in the user pool.
-  ///
-  /// *   `ADMIN\_USER\_PASSWORD_AUTH`: Admin-based user password authentication. This replaces the `ADMIN\_NO\_SRP_AUTH` authentication flow. In this flow, Cognito receives the password in the request instead of using the SRP process to verify passwords.
+  /// *   `USER\_PASSWORD\_AUTH`: Non-SRP authentication flow; user name and password are passed directly. If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't find the user name in the user pool.
   ///
   ///
-  /// `ADMIN\_NO\_SRP_AUTH` is not a valid value.
+  /// `ADMIN\_NO\_SRP_AUTH` isn't a valid value.
   _i4.AuthFlowType get authFlow;
 
-  /// The authentication parameters. These are inputs corresponding to the `AuthFlow` that you are invoking. The required values depend on the value of `AuthFlow`:
+  /// The authentication parameters. These are inputs corresponding to the `AuthFlow` that you're invoking. The required values depend on the value of `AuthFlow`:
   ///
   /// *   For `USER\_SRP\_AUTH`: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
   ///
@@ -125,7 +123,7 @@ abstract class InitiateAuthRequest
   ///
   /// When Amazon Cognito invokes the functions for these triggers, it passes a JSON payload, which the function receives as input. This payload contains a `validationData` attribute, which provides the data that you assigned to the ClientMetadata parameter in your InitiateAuth request. In your function code in Lambda, you can process the `validationData` value to enhance your workflow for your specific needs.
   ///
-  /// When you use the InitiateAuth API action, Amazon Cognito also invokes the functions for the following triggers, but it does not provide the ClientMetadata value as input:
+  /// When you use the InitiateAuth API action, Amazon Cognito also invokes the functions for the following triggers, but it doesn't provide the ClientMetadata value as input:
   ///
   /// *   Post authentication
   ///
@@ -140,18 +138,18 @@ abstract class InitiateAuthRequest
   /// *   Verify auth challenge
   ///
   ///
-  /// For more information, see [Customizing User Pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
+  /// For more information, see [Customizing user pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
   ///
-  /// Take the following limitations into consideration when you use the ClientMetadata parameter:
+  /// When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
   ///
-  /// *   Amazon Cognito does not store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration does not include triggers, the ClientMetadata parameter serves no purpose.
+  /// *   Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata parameter serves no purpose.
   ///
-  /// *   Amazon Cognito does not validate the ClientMetadata value.
+  /// *   Validate the ClientMetadata value.
   ///
-  /// *   Amazon Cognito does not encrypt the the ClientMetadata value, so don't use it to provide sensitive information.
+  /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
   _i5.BuiltMap<String, String>? get clientMetadata;
 
-  /// Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+  /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
   _i6.UserContextDataType? get userContextData;
   @override
   InitiateAuthRequest getPayload() => this;
@@ -177,10 +175,9 @@ abstract class InitiateAuthRequest
   }
 }
 
-class _InitiateAuthRequestAwsJson11Serializer
+class InitiateAuthRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<InitiateAuthRequest> {
-  const _InitiateAuthRequestAwsJson11Serializer()
-      : super('InitiateAuthRequest');
+  const InitiateAuthRequestAwsJson11Serializer() : super('InitiateAuthRequest');
 
   @override
   Iterable<Type> get types =>

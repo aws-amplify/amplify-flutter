@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.attribute_type;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.attribute_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -39,7 +39,7 @@ abstract class AttributeType
   const AttributeType._();
 
   static const List<_i2.SmithySerializer> serializers = [
-    _AttributeTypeAwsJson11Serializer()
+    AttributeTypeAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -61,9 +61,9 @@ abstract class AttributeType
   }
 }
 
-class _AttributeTypeAwsJson11Serializer
+class AttributeTypeAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<AttributeType> {
-  const _AttributeTypeAwsJson11Serializer() : super('AttributeType');
+  const AttributeTypeAwsJson11Serializer() : super('AttributeType');
 
   @override
   Iterable<Type> get types => const [AttributeType, _$AttributeType];

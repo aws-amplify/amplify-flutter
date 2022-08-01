@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 /// # Amazon Cognito Identity
 ///
@@ -25,7 +25,7 @@
 /// For a description of the authentication flow from the Amazon Cognito Developer Guide see [Authentication Flow](https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html).
 ///
 /// For more information see [Amazon Cognito Federated Identities](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).
-library amplify_auth_cognito.cognito_identity;
+library amplify_auth_cognito_dart.cognito_identity;
 
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/cognito_identity_client.dart';
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/model/credentials.dart';

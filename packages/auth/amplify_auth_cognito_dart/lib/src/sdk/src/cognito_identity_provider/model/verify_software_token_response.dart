@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.verify_software_token_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.verify_software_token_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_software_token_response_type.dart'
     as _i2;
@@ -47,13 +47,13 @@ abstract class VerifySoftwareTokenResponse
       payload;
 
   static const List<_i3.SmithySerializer> serializers = [
-    _VerifySoftwareTokenResponseAwsJson11Serializer()
+    VerifySoftwareTokenResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(VerifySoftwareTokenResponseBuilder b) {}
 
-  /// The session which should be passed both ways in challenge-response calls to the service.
+  /// The session that should be passed both ways in challenge-response calls to the service.
   String? get session;
 
   /// The status of the verify software token.
@@ -69,9 +69,9 @@ abstract class VerifySoftwareTokenResponse
   }
 }
 
-class _VerifySoftwareTokenResponseAwsJson11Serializer
+class VerifySoftwareTokenResponseAwsJson11Serializer
     extends _i3.StructuredSmithySerializer<VerifySoftwareTokenResponse> {
-  const _VerifySoftwareTokenResponseAwsJson11Serializer()
+  const VerifySoftwareTokenResponseAwsJson11Serializer()
       : super('VerifySoftwareTokenResponse');
 
   @override

@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.device_secret_verifier_config_type;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.device_secret_verifier_config_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,21 +23,21 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'device_secret_verifier_config_type.g.dart';
 
-/// The device verifier against which it will be authenticated.
+/// The device verifier against which it is authenticated.
 abstract class DeviceSecretVerifierConfigType
     with
         _i1.AWSEquatable<DeviceSecretVerifierConfigType>
     implements
         Built<DeviceSecretVerifierConfigType,
             DeviceSecretVerifierConfigTypeBuilder> {
-  /// The device verifier against which it will be authenticated.
+  /// The device verifier against which it is authenticated.
   factory DeviceSecretVerifierConfigType(
       {String? passwordVerifier, String? salt}) {
     return _$DeviceSecretVerifierConfigType._(
         passwordVerifier: passwordVerifier, salt: salt);
   }
 
-  /// The device verifier against which it will be authenticated.
+  /// The device verifier against which it is authenticated.
   factory DeviceSecretVerifierConfigType.build(
           [void Function(DeviceSecretVerifierConfigTypeBuilder) updates]) =
       _$DeviceSecretVerifierConfigType;
@@ -45,7 +45,7 @@ abstract class DeviceSecretVerifierConfigType
   const DeviceSecretVerifierConfigType._();
 
   static const List<_i2.SmithySerializer> serializers = [
-    _DeviceSecretVerifierConfigTypeAwsJson11Serializer()
+    DeviceSecretVerifierConfigTypeAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -54,7 +54,7 @@ abstract class DeviceSecretVerifierConfigType
   /// The password verifier.
   String? get passwordVerifier;
 
-  /// The salt.
+  /// The [salt](https://en.wikipedia.org/wiki/Salt_(cryptography))
   String? get salt;
   @override
   List<Object?> get props => [passwordVerifier, salt];
@@ -68,9 +68,9 @@ abstract class DeviceSecretVerifierConfigType
   }
 }
 
-class _DeviceSecretVerifierConfigTypeAwsJson11Serializer
+class DeviceSecretVerifierConfigTypeAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<DeviceSecretVerifierConfigType> {
-  const _DeviceSecretVerifierConfigTypeAwsJson11Serializer()
+  const DeviceSecretVerifierConfigTypeAwsJson11Serializer()
       : super('DeviceSecretVerifierConfigType');
 
   @override

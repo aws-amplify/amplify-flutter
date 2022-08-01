@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.invalid_lambda_response_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.invalid_lambda_response_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,7 +23,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'invalid_lambda_response_exception.g.dart';
 
-/// This exception is thrown when the Amazon Cognito service encounters an invalid Lambda response.
+/// This exception is thrown when Amazon Cognito encounters an invalid Lambda response.
 abstract class InvalidLambdaResponseException
     with
         _i1.AWSEquatable<InvalidLambdaResponseException>
@@ -31,12 +31,12 @@ abstract class InvalidLambdaResponseException
         Built<InvalidLambdaResponseException,
             InvalidLambdaResponseExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// This exception is thrown when the Amazon Cognito service encounters an invalid Lambda response.
+  /// This exception is thrown when Amazon Cognito encounters an invalid Lambda response.
   factory InvalidLambdaResponseException({String? message}) {
     return _$InvalidLambdaResponseException._(message: message);
   }
 
-  /// This exception is thrown when the Amazon Cognito service encounters an invalid Lambda response.
+  /// This exception is thrown when Amazon Cognito encounters an invalid Lambda response.
   factory InvalidLambdaResponseException.build(
           [void Function(InvalidLambdaResponseExceptionBuilder) updates]) =
       _$InvalidLambdaResponseException;
@@ -52,13 +52,13 @@ abstract class InvalidLambdaResponseException
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _InvalidLambdaResponseExceptionAwsJson11Serializer()
+    InvalidLambdaResponseExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidLambdaResponseExceptionBuilder b) {}
 
-  /// The message returned when the Amazon Cognito service throws an invalid Lambda response exception.
+  /// The message returned when Amazon Cognito throws an invalid Lambda response exception.
   @override
   String? get message;
   @override
@@ -86,9 +86,9 @@ abstract class InvalidLambdaResponseException
   }
 }
 
-class _InvalidLambdaResponseExceptionAwsJson11Serializer
+class InvalidLambdaResponseExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<InvalidLambdaResponseException> {
-  const _InvalidLambdaResponseExceptionAwsJson11Serializer()
+  const InvalidLambdaResponseExceptionAwsJson11Serializer()
       : super('InvalidLambdaResponseException');
 
   @override

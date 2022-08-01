@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.user_context_data_type;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.user_context_data_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,16 +23,17 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'user_context_data_type.g.dart';
 
-/// Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+/// Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
 abstract class UserContextDataType
     with _i1.AWSEquatable<UserContextDataType>
     implements Built<UserContextDataType, UserContextDataTypeBuilder> {
-  /// Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
-  factory UserContextDataType({String? encodedData}) {
-    return _$UserContextDataType._(encodedData: encodedData);
+  /// Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+  factory UserContextDataType({String? encodedData, String? ipAddress}) {
+    return _$UserContextDataType._(
+        encodedData: encodedData, ipAddress: ipAddress);
   }
 
-  /// Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+  /// Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
   factory UserContextDataType.build(
           [void Function(UserContextDataTypeBuilder) updates]) =
       _$UserContextDataType;
@@ -40,28 +41,31 @@ abstract class UserContextDataType
   const UserContextDataType._();
 
   static const List<_i2.SmithySerializer> serializers = [
-    _UserContextDataTypeAwsJson11Serializer()
+    UserContextDataTypeAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UserContextDataTypeBuilder b) {}
 
-  /// Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+  /// Encoded device-fingerprint details that your app collected with the Amazon Cognito context data collection library. For more information, see [Adding user device and session data to API requests](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint).
   String? get encodedData;
+
+  /// The source IP address of your user's device.
+  String? get ipAddress;
   @override
-  List<Object?> get props => [encodedData];
+  List<Object?> get props => [encodedData, ipAddress];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UserContextDataType');
     helper.add('encodedData', encodedData);
+    helper.add('ipAddress', ipAddress);
     return helper.toString();
   }
 }
 
-class _UserContextDataTypeAwsJson11Serializer
+class UserContextDataTypeAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UserContextDataType> {
-  const _UserContextDataTypeAwsJson11Serializer()
-      : super('UserContextDataType');
+  const UserContextDataTypeAwsJson11Serializer() : super('UserContextDataType');
 
   @override
   Iterable<Type> get types =>
@@ -86,6 +90,12 @@ class _UserContextDataTypeAwsJson11Serializer
                 specifiedType: const FullType(String)) as String);
           }
           break;
+        case 'IpAddress':
+          if (value != null) {
+            result.ipAddress = (serializers.deserialize(value,
+                specifiedType: const FullType(String)) as String);
+          }
+          break;
       }
     }
 
@@ -101,6 +111,12 @@ class _UserContextDataTypeAwsJson11Serializer
       result
         ..add('EncodedData')
         ..add(serializers.serialize(payload.encodedData!,
+            specifiedType: const FullType(String)));
+    }
+    if (payload.ipAddress != null) {
+      result
+        ..add('IpAddress')
+        ..add(serializers.serialize(payload.ipAddress!,
             specifiedType: const FullType(String)));
     }
     return result;

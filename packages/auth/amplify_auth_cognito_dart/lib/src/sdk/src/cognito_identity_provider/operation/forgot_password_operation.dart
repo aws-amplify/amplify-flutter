@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.operation.forgot_password_operation;
+library amplify_auth_cognito_dart.cognito_identity_provider.operation.forgot_password_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i24;
+import 'dart:async' as _i23;
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/common/endpoint_resolver.dart'
     as _i8;
@@ -52,10 +52,8 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
     as _i20;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_lambda_validation_exception.dart'
     as _i21;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_not_confirmed_exception.dart'
-    as _i22;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_not_found_exception.dart'
-    as _i23;
+    as _i22;
 import 'package:aws_common/aws_common.dart' as _i7;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
@@ -63,9 +61,9 @@ import 'package:smithy_aws/smithy_aws.dart' as _i5;
 
 /// Calling this API causes a message to be sent to the end user with a confirmation code that is required to change the user's password. For the `Username` parameter, you can use the username or user alias. The method used to send the confirmation code is sent according to the specified AccountRecoverySetting. For more information, see [Recovering User Accounts](https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-recover-a-user-account.html) in the _Amazon Cognito Developer Guide_. If neither a verified phone number nor a verified email exists, an `InvalidParameterException` is thrown. To use the confirmation code for resetting the password, call [ConfirmForgotPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmForgotPassword.html).
 ///
-/// This action might generate an SMS text message. Starting June 1, 2021, U.S. telecom carriers require that you register an origination phone number before you can send SMS messages to U.S. phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Cognito will use the the registered number automatically. Otherwise, Cognito users that must receive SMS messages might be unable to sign up, activate their accounts, or sign in.
+/// This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Amazon Cognito uses the registered number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up, activate their accounts, or sign in.
 ///
-/// If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon SNS might place your account in SMS sandbox. In _[sandbox mode](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html)_ , you’ll have limitations, such as sending messages to only verified phone numbers. After testing in the sandbox environment, you can move out of the SMS sandbox and into production. For more information, see [SMS message settings for Cognito User Pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html) in the _Amazon Cognito Developer Guide_.
+/// If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon Simple Notification Service might place your account in the SMS sandbox. In _[sandbox mode](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html)_ , you can send messages only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the sandbox and into production. For more information, see [SMS message settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html) in the _Amazon Cognito Developer Guide_.
 class ForgotPasswordOperation extends _i1.HttpOperation<
     _i2.ForgotPasswordRequest,
     _i2.ForgotPasswordRequest,
@@ -73,9 +71,9 @@ class ForgotPasswordOperation extends _i1.HttpOperation<
     _i3.ForgotPasswordResponse> {
   /// Calling this API causes a message to be sent to the end user with a confirmation code that is required to change the user's password. For the `Username` parameter, you can use the username or user alias. The method used to send the confirmation code is sent according to the specified AccountRecoverySetting. For more information, see [Recovering User Accounts](https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-recover-a-user-account.html) in the _Amazon Cognito Developer Guide_. If neither a verified phone number nor a verified email exists, an `InvalidParameterException` is thrown. To use the confirmation code for resetting the password, call [ConfirmForgotPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmForgotPassword.html).
   ///
-  /// This action might generate an SMS text message. Starting June 1, 2021, U.S. telecom carriers require that you register an origination phone number before you can send SMS messages to U.S. phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Cognito will use the the registered number automatically. Otherwise, Cognito users that must receive SMS messages might be unable to sign up, activate their accounts, or sign in.
+  /// This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Amazon Cognito uses the registered number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up, activate their accounts, or sign in.
   ///
-  /// If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon SNS might place your account in SMS sandbox. In _[sandbox mode](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html)_ , you’ll have limitations, such as sending messages to only verified phone numbers. After testing in the sandbox environment, you can move out of the SMS sandbox and into production. For more information, see [SMS message settings for Cognito User Pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html) in the _Amazon Cognito Developer Guide_.
+  /// If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon Simple Notification Service might place your account in the SMS sandbox. In _[sandbox mode](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html)_ , you can send messages only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the sandbox and into production. For more information, see [SMS message settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html) in the _Amazon Cognito Developer Guide_.
   ForgotPasswordOperation(
       {required String region,
       Uri? baseUri,
@@ -93,6 +91,7 @@ class ForgotPasswordOperation extends _i1.HttpOperation<
         serializers: _i6.serializers,
         builderFactories: _i6.builderFactories,
         requestInterceptors: [
+          const _i1.WithHost(),
           const _i1.WithContentLength(),
           const _i1.WithHeader('X-Amz-Target',
               'AWSCognitoIdentityProviderService.ForgotPassword'),
@@ -101,6 +100,7 @@ class ForgotPasswordOperation extends _i1.HttpOperation<
               service: _i7.AWSService.cognitoIdentityProvider,
               credentialsProvider: _credentialsProvider,
               isOptional: true),
+          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
           const _i5.WithSdkInvocationId(),
           const _i5.WithSdkRequest()
         ],
@@ -237,19 +237,11 @@ class ForgotPasswordOperation extends _i1.HttpOperation<
         _i1.SmithyError(
             _i1.ShapeId(
                 namespace: 'com.amazonaws.cognitoidentityprovider',
-                shape: 'UserNotConfirmedException'),
-            _i1.ErrorKind.client,
-            _i22.UserNotConfirmedException,
-            statusCode: 400,
-            builder: _i22.UserNotConfirmedException.fromResponse),
-        _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.cognitoidentityprovider',
                 shape: 'UserNotFoundException'),
             _i1.ErrorKind.client,
-            _i23.UserNotFoundException,
+            _i22.UserNotFoundException,
             statusCode: 404,
-            builder: _i23.UserNotFoundException.fromResponse)
+            builder: _i22.UserNotFoundException.fromResponse)
       ];
   @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
@@ -258,9 +250,9 @@ class ForgotPasswordOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i24.Future<_i3.ForgotPasswordResponse> run(_i2.ForgotPasswordRequest input,
+  _i23.Future<_i3.ForgotPasswordResponse> run(_i2.ForgotPasswordRequest input,
       {_i1.HttpClient? client, _i1.ShapeId? useProtocol}) {
-    return _i24.runZoned(
+    return _i23.runZoned(
         () => super.run(input, client: client, useProtocol: useProtocol),
         zoneValues: {
           ...?_awsEndpoint.credentialScope?.zoneValues,
