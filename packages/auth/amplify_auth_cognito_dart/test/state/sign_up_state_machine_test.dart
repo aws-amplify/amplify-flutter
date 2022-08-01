@@ -89,7 +89,7 @@ void main() {
           userConfirmed: true,
         ),
       );
-      stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+      stateMachine.dispatch(AuthEvent.configure(mockConfig));
       await stateMachine.stream.whereType<AuthConfigured>().first;
 
       stateMachine
@@ -113,7 +113,7 @@ void main() {
         ),
         confirmSignUp: (input) async => ConfirmSignUpResponse(),
       );
-      stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+      stateMachine.dispatch(AuthEvent.configure(mockConfig));
       await stateMachine.stream.whereType<AuthConfigured>().first;
 
       stateMachine
@@ -147,7 +147,7 @@ void main() {
       var client = MockCognitoIdentityProviderClient(
         signUp: (input) async => throw _SignUpException(),
       );
-      stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+      stateMachine.dispatch(AuthEvent.configure(mockConfig));
       await stateMachine.stream.whereType<AuthConfigured>().first;
 
       stateMachine

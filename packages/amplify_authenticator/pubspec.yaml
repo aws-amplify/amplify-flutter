@@ -12,6 +12,7 @@ dependencies:
   amplify_auth_cognito: ">=0.3.0 <0.6.0"
   amplify_core: ">=0.3.0 <0.6.0"
   amplify_flutter: ">=0.3.0 <0.6.0"
+  async: ^2.8.0
   aws_common: ^0.1.0
   collection: ^1.15.0
   flutter:
@@ -21,6 +22,7 @@ dependencies:
   intl: ^0.17.0
   meta: ^1.7.0
   smithy: ^0.1.0
+  stream_transform: ^2.0.0
 
 dev_dependencies:
   amplify_lints:

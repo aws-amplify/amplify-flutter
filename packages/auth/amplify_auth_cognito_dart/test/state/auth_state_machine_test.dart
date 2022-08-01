@@ -38,7 +38,7 @@ void main() {
     test('configure succeeds', () async {
       final authStateMachine = stateMachine.getOrCreate(AuthStateMachine.type);
 
-      stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+      stateMachine.dispatch(AuthEvent.configure(mockConfig));
       await expectLater(
         authStateMachine.stream.startWith(authStateMachine.currentState),
         emitsInOrder(<Matcher>[
@@ -80,7 +80,7 @@ void main() {
         ]),
       );
 
-      stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+      stateMachine.dispatch(AuthEvent.configure(mockConfig));
       await expectLater(
         authStateMachine.stream.startWith(authStateMachine.currentState),
         emitsInOrder(<Matcher>[
@@ -96,7 +96,7 @@ void main() {
     test('multiple configures are ignored', () async {
       final authStateMachine = stateMachine.getOrCreate(AuthStateMachine.type);
 
-      stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+      stateMachine.dispatch(AuthEvent.configure(mockConfig));
       await expectLater(
         authStateMachine.stream.startWith(authStateMachine.currentState),
         emitsInOrder(<Matcher>[
@@ -106,7 +106,7 @@ void main() {
         ]),
       );
 
-      stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+      stateMachine.dispatch(AuthEvent.configure(mockConfig));
       expect(
         authStateMachine.stream,
         emitsDone,

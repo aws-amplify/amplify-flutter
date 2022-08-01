@@ -152,7 +152,7 @@ void main() {
           secureStorage,
           userPoolKeys: userPoolKeys,
         );
-        stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+        stateMachine.dispatch(AuthEvent.configure(mockConfig));
         await stateMachine.stream.whereType<AuthConfigured>().first;
 
         stateMachine
@@ -251,7 +251,7 @@ void main() {
             key: identityPoolKeys[CognitoIdentityPoolKey.expiration],
             value: DateTime.now().toIso8601String(),
           );
-          stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+          stateMachine.dispatch(AuthEvent.configure(mockConfig));
           await stateMachine.stream.whereType<AuthConfigured>().first;
 
           const newIdentityId = 'newIdentityId';
@@ -314,7 +314,7 @@ void main() {
             key: identityPoolKeys[CognitoIdentityPoolKey.expiration],
             value: DateTime.now().toIso8601String(),
           );
-          stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+          stateMachine.dispatch(AuthEvent.configure(mockConfig));
           await stateMachine.stream.whereType<AuthConfigured>().first;
 
           stateMachine
@@ -363,7 +363,7 @@ void main() {
               expiration: Duration.zero,
             ).raw,
           );
-          stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+          stateMachine.dispatch(AuthEvent.configure(mockConfig));
           await stateMachine.stream.whereType<AuthConfigured>().first;
 
           stateMachine
@@ -417,7 +417,7 @@ void main() {
               expiration: Duration.zero,
             ).raw,
           );
-          stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+          stateMachine.dispatch(AuthEvent.configure(mockConfig));
           await stateMachine.stream.whereType<AuthConfigured>().first;
 
           stateMachine
@@ -460,7 +460,7 @@ void main() {
           secureStorage,
           userPoolKeys: userPoolKeys,
         );
-        stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+        stateMachine.dispatch(AuthEvent.configure(mockConfig));
         await stateMachine.stream.whereType<AuthConfigured>().first;
 
         stateMachine

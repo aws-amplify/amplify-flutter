@@ -21,6 +21,8 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:async/async.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 part 'auth_event.dart';
 
@@ -28,10 +30,15 @@ part 'auth_event.dart';
 /// Internal state machine for the authenticator. Listens to authentication events
 /// and maps them to appropriate state transitions.
 /// {@endtemplate}
-class StateMachineBloc {
+class StateMachineBloc
+    with AWSDebuggable, AmplifyLoggerMixin
+    implements Closeable {
   final AuthService _authService;
   final bool preferPrivateSession;
   final AuthenticatorStep initialStep;
+
+  @override
+  String get runtimeTypeName => 'StateMachineBloc';
 
   /// State controller.
   final StreamController<AuthState> _authStateController =
@@ -63,16 +70,26 @@ class StateMachineBloc {
     required this.preferPrivateSession,
     this.initialStep = AuthenticatorStep.signIn,
   }) : _authService = authService {
-    _subscription =
-        _authEventStream.asyncExpand(_eventTransformer).listen((state) {
-      _controllerSink.add(state);
-      _currentState = state;
-    });
+    final blocStream = _authEventStream.asyncExpand(_eventTransformer);
+    final hubStream =
+        _authService.hubEvents.map(_mapHubEvent).whereType<AuthState>();
+    final mergedStream = StreamGroup<AuthState>()
+      ..add(blocStream)
+      ..add(hubStream)
+      ..close();
+    _subscription = mergedStream.stream.listen(_emit);
   }
 
   /// Adds an event to the Bloc.
   void add(AuthEvent event) {
     _authEventController.add(event);
+  }
+
+  /// Emits a new state to the bloc.
+  void _emit(AuthState state) {
+    logger.debug('Emitting next state: $state');
+    _controllerSink.add(state);
+    _currentState = state;
   }
 
   /// Manages exception events separate from the bloc's state.
@@ -117,6 +134,27 @@ class StateMachineBloc {
     } else if (event is AuthResendSignUpCode) {
       yield* _resendSignUpCode(event.username);
     }
+  }
+
+  /// Listens for asynchronous events which occurred outside the control of the
+  /// [Authenticator] and [StateMachineBloc].
+  AuthState? _mapHubEvent(AuthHubEvent event) {
+    logger.debug('Handling hub event: ${event.type}');
+    switch (event.type) {
+      case AuthHubEventType.signedIn:
+        if (_currentState is! AuthenticatedState) {
+          return const AuthenticatedState();
+        }
+        break;
+      case AuthHubEventType.signedOut:
+      case AuthHubEventType.sessionExpired:
+      case AuthHubEventType.userDeleted:
+        if (_currentState is AuthenticatedState) {
+          return UnauthenticatedState(step: initialStep);
+        }
+        break;
+    }
+    return null;
   }
 
   Stream<AuthState> _authLoad() async* {
@@ -246,6 +284,45 @@ class StateMachineBloc {
     _infoMessageController.add(MessageResolverKey.codeSent(destination));
   }
 
+  Future<void> _processSignInResult(
+    SignInResult result, {
+    required bool isSocialSignIn,
+  }) async {
+    switch (result.nextStep!.signInStep) {
+      case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
+        _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);
+        _emit(UnauthenticatedState.confirmSignInMfa);
+        break;
+      case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
+        _emit(ConfirmSignInCustom(
+          publicParameters:
+              result.nextStep?.additionalInfo ?? <String, String>{},
+        ));
+        break;
+      case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
+        _emit(UnauthenticatedState.confirmSignInNewPassword);
+        break;
+      case 'RESET_PASSWORD':
+        _emit(UnauthenticatedState.confirmResetPassword);
+        break;
+      case 'CONFIRM_SIGN_UP':
+        _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);
+        _emit(UnauthenticatedState.confirmSignUp);
+        break;
+      case 'DONE':
+        if (isSocialSignIn) {
+          _emit(const AuthenticatedState());
+        } else {
+          await for (final state in _checkUserVerification()) {
+            _emit(state);
+          }
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
   Stream<AuthState> _signIn(AuthSignInData data) async* {
     try {
       // Make sure no user is signed in before calling the sign in method
@@ -253,54 +330,30 @@ class StateMachineBloc {
         await _authService.signOut();
       }
 
-      final SignInResult result;
-
-      final bool isSocialSignIn = data is AuthSocialSignInData;
-
       if (data is AuthUsernamePasswordSignInData) {
-        result = await _authService.signIn(
+        final result = await _authService.signIn(
           data.username,
           data.password,
         );
+        await _processSignInResult(result, isSocialSignIn: false);
       } else if (data is AuthSocialSignInData) {
-        result = await _authService.signInWithProvider(
-          data.provider,
-          preferPrivateSession: preferPrivateSession,
-        );
+        // Do not await a social sign-in since multiple sign-in attempts
+        // can occur.
+        _authService
+            .signInWithProvider(
+              data.provider,
+              preferPrivateSession: preferPrivateSession,
+            )
+            .then(
+              (result) => _processSignInResult(result, isSocialSignIn: true),
+            )
+            .onError<Exception>((error, stackTrace) {
+          final log =
+              error is UserCancelledException ? logger.info : logger.error;
+          log('Error signing in', error, stackTrace);
+        });
       } else {
         throw StateError('Bad sign in data: $data');
-      }
-
-      switch (result.nextStep!.signInStep) {
-        case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
-          _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);
-          yield UnauthenticatedState.confirmSignInMfa;
-          break;
-        case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
-          yield ConfirmSignInCustom(
-            publicParameters:
-                result.nextStep?.additionalInfo ?? <String, String>{},
-          );
-          break;
-        case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
-          yield UnauthenticatedState.confirmSignInNewPassword;
-          break;
-        case 'RESET_PASSWORD':
-          yield UnauthenticatedState.confirmResetPassword;
-          break;
-        case 'CONFIRM_SIGN_UP':
-          _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);
-          yield UnauthenticatedState.confirmSignUp;
-          break;
-        case 'DONE':
-          if (isSocialSignIn) {
-            yield const AuthenticatedState();
-          } else {
-            yield* _checkUserVerification();
-          }
-          break;
-        default:
-          break;
       }
     } on UserNotConfirmedException catch (e) {
       _exceptionController.add(AuthenticatorException(
@@ -446,7 +499,8 @@ class StateMachineBloc {
     yield* const Stream.empty();
   }
 
-  Future<void> dispose() {
+  @override
+  Future<void> close() {
     return Future.wait<void>([
       _subscription.cancel(),
       _authStateController.close(),

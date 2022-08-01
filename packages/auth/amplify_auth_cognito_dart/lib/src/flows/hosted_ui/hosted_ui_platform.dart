@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/crypto/oauth.dart';
@@ -33,7 +35,7 @@ typedef HostedUiPlatformFactory = HostedUiPlatform Function(
 /// {@template amplify_auth_cognito.hosted_ui_platform}
 /// Platform-specific behavior for the Hosted UI flow.
 /// {@endtemplate}
-abstract class HostedUiPlatform {
+abstract class HostedUiPlatform implements Closeable {
   /// {@macro amplify_auth_cognito.hosted_ui_platform}
   factory HostedUiPlatform(DependencyManager dependencyManager) =
       HostedUiPlatformImpl;
@@ -285,8 +287,14 @@ abstract class HostedUiPlatform {
     AuthProvider? provider,
   });
 
+  /// Cancels the active sign in.
+  Future<void> cancelSignIn() async {}
+
   /// Sign out the current user.
   Future<void> signOut({
     required CognitoSignOutWithWebUIOptions options,
   });
+
+  @override
+  FutureOr<void> close() {}
 }

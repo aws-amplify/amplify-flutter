@@ -132,7 +132,7 @@ void main() {
 
     group('onFoundState', () {
       test('nothing in storage', () {
-        stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+        stateMachine.dispatch(AuthEvent.configure(mockConfig));
 
         final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
         expect(
@@ -151,7 +151,7 @@ void main() {
             value: codeVerifier,
           );
 
-        stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+        stateMachine.dispatch(AuthEvent.configure(mockConfig));
 
         final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
         await expectLater(
@@ -170,7 +170,7 @@ void main() {
     group('onConfigure', () {
       test('logged in', () async {
         seedStorage(secureStorage, hostedUiKeys: keys);
-        stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+        stateMachine.dispatch(AuthEvent.configure(mockConfig));
 
         final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
         await expectLater(
@@ -185,7 +185,7 @@ void main() {
 
     group('onSignIn', () {
       test('no provider', () async {
-        stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+        stateMachine.dispatch(AuthEvent.configure(mockConfig));
 
         final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
         await expectLater(
@@ -201,7 +201,7 @@ void main() {
       });
 
       test('w/ provider', () async {
-        stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+        stateMachine.dispatch(AuthEvent.configure(mockConfig));
 
         final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
         await expectLater(
@@ -226,7 +226,7 @@ void main() {
             FailingHostedUiPlatform.new,
             HostedUiPlatform.token,
           )
-          ..dispatch(const AuthEvent.configure(mockConfig));
+          ..dispatch(AuthEvent.configure(mockConfig));
 
         final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
         await expectLater(
@@ -254,7 +254,7 @@ void main() {
 
     group('onExchange', () {
       test('no provider', () async {
-        stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+        stateMachine.dispatch(AuthEvent.configure(mockConfig));
 
         final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
         await expectLater(
@@ -296,7 +296,7 @@ void main() {
       });
 
       test('fails with remote error', () async {
-        stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+        stateMachine.dispatch(AuthEvent.configure(mockConfig));
 
         final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
         await expectLater(
@@ -331,7 +331,7 @@ void main() {
       });
 
       test('fails with bad code', () async {
-        stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+        stateMachine.dispatch(AuthEvent.configure(mockConfig));
 
         final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
         await expectLater(
@@ -367,7 +367,7 @@ void main() {
     group('onSignOut', () {
       test('succeeds', () async {
         seedStorage(secureStorage, hostedUiKeys: keys);
-        stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+        stateMachine.dispatch(AuthEvent.configure(mockConfig));
         await expectLater(
           stateMachine.stream.whereType<HostedUiState>(),
           emitsInOrder(<Matcher>[
@@ -388,7 +388,7 @@ void main() {
 
       test('multiple events are ignored', () async {
         seedStorage(secureStorage, hostedUiKeys: keys);
-        stateMachine.dispatch(const AuthEvent.configure(mockConfig));
+        stateMachine.dispatch(AuthEvent.configure(mockConfig));
         await expectLater(
           stateMachine.stream.whereType<HostedUiState>(),
           emitsInOrder(<Matcher>[
@@ -416,7 +416,7 @@ void main() {
             FailingHostedUiPlatform.new,
             HostedUiPlatform.token,
           )
-          ..dispatch(const AuthEvent.configure(mockConfig));
+          ..dispatch(AuthEvent.configure(mockConfig));
         await expectLater(
           stateMachine.stream.whereType<HostedUiState>(),
           emitsInOrder(<Matcher>[
@@ -454,7 +454,7 @@ void main() {
             ),
             HostedUiPlatform.token,
           )
-          ..dispatch(const AuthEvent.configure(mockConfig));
+          ..dispatch(AuthEvent.configure(mockConfig));
 
         await expectLater(
           stateMachine.stream.whereType<HostedUiState>(),

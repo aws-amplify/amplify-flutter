@@ -248,7 +248,12 @@ void main() {
 
 class MockAuthViewModel extends Mock implements AuthenticatorState {}
 
-class MockBloc implements StateMachineBloc {
+class MockBloc
+    with AWSDebuggable, AmplifyLoggerMixin
+    implements StateMachineBloc {
+  @override
+  String get runtimeTypeName => 'MockBloc';
+
   @override
   void add(AuthEvent event) {}
 
@@ -256,7 +261,7 @@ class MockBloc implements StateMachineBloc {
   AuthState get currentState => UnauthenticatedState.signIn;
 
   @override
-  Future<void> dispose() async {}
+  Future<void> close() async {}
 
   @override
   Stream<AuthenticatorException> get exceptions => const Stream.empty();
