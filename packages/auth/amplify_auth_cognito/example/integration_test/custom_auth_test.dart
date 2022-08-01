@@ -50,7 +50,7 @@ void main() {
       });
 
       testWidgets(
-        'signIn should return data from the auth challenge lambda',
+        'signIn should return data from the auth challenge lambda (passwordless)',
         (WidgetTester tester) async {
           final res = await Amplify.Auth.signIn(
             username: username,
@@ -66,8 +66,12 @@ void main() {
             'test-value',
           );
           expect(
+            res.nextStep!.additionalInfo?['USERNAME'],
+            isNotNull,
+          );
+          expect(
             res.nextStep!.additionalInfo?.length,
-            1,
+            2,
           );
           expect(
             res.nextStep?.signInStep,
@@ -143,6 +147,34 @@ void main() {
           expect(
             res.isSignedIn,
             true,
+          );
+        },
+      );
+
+      testWidgets(
+        'signIn should return data from the auth challenge lambda (with password)',
+        (WidgetTester tester) async {
+          final res = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+            options: options,
+          );
+          expect(
+            res.isSignedIn,
+            false,
+          );
+          // additionalInfo key values defined in lambda code
+          expect(
+            res.nextStep!.additionalInfo?['test-key'],
+            'test-value',
+          );
+          expect(
+            res.nextStep!.additionalInfo?.length,
+            1,
+          );
+          expect(
+            res.nextStep?.signInStep,
+            'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
           );
         },
       );

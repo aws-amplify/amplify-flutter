@@ -216,16 +216,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     );
   }
 
-  /// Retrieves the challenge parameters that are not part of standard Cognito InitiateAuth flow.
-  Map<String, String>? _getAdditionalInfo(
-    Map<String, String> challengeParameters,
-  ) {
-    final additionalInfo = {...challengeParameters}..removeWhere(
-        (key, value) => CognitoConstants.staticChallenges.contains(key),
-      );
-    return additionalInfo.isNotEmpty ? additionalInfo : null;
-  }
-
   @override
   Future<AuthSession> fetchAuthSession({
     required AuthSessionRequest request,
@@ -464,9 +454,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
               codeDeliveryDetails: _getChallengeDeliveryDetails(
                 state.challengeParameters,
               ),
-              additionalInfo: _getAdditionalInfo(
-                state.challengeParameters,
-              ),
+              additionalInfo: state.challengeParameters,
               missingAttributes: state.requiredAttributes,
             ),
           );
@@ -531,9 +519,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
               codeDeliveryDetails: _getChallengeDeliveryDetails(
                 state.challengeParameters,
               ),
-              additionalInfo: _getAdditionalInfo(
-                state.challengeParameters,
-              ),
+              additionalInfo: state.challengeParameters,
               missingAttributes: state.requiredAttributes,
             ),
           );
