@@ -16,6 +16,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_auth_cognito/src/credentials/legacy_cognito_keys.dart';
+import 'package:amplify_auth_cognito/src/credentials/legacy_credential_store_data_extension.dart';
 import 'package:amplify_auth_cognito/src/credentials/legacy_secure_storage_factory.dart';
 import 'package:amplify_auth_cognito/src/credentials/secure_storage_extension.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
@@ -189,8 +190,16 @@ class _NativeAmplifyAuthCognito
     CognitoIdentityCredentialsProvider? identityPoolConfig,
     CognitoOAuthConfig? hostedUiConfig,
   }) async {
-    // TODO(Jordan-Nelson): Add credentials migration support for Android
-    if (zIsWeb || !Platform.isIOS) return null;
+    if (zIsWeb || !(Platform.isIOS || Platform.isAndroid)) return null;
+    if (Platform.isAndroid) {
+      final bridge = _stateMachine.expect<NativeAuthBridge>();
+      final userPoolConfig = _stateMachine.expect<CognitoUserPoolConfig>();
+      final legacyCredentials = await bridge.getLegacyCredentials(
+        userPoolConfig.poolId,
+        userPoolConfig.appClientId,
+      );
+      return legacyCredentials?.toCredentialStoreData();
+    }
     final bundleId = await _getBundleId();
     CognitoUserPoolTokens? userPoolTokens;
     if (userPoolConfig != null) {
@@ -288,8 +297,12 @@ class _NativeAmplifyAuthCognito
     CognitoIdentityCredentialsProvider? identityPoolConfig,
     CognitoOAuthConfig? hostedUiConfig,
   }) async {
-    // TODO(Jordan-Nelson): Add credentials migration support for Android
-    if (zIsWeb || !Platform.isIOS) return;
+    if (zIsWeb || !(Platform.isIOS || Platform.isAndroid)) return;
+    if (Platform.isAndroid) {
+      final bridge = _stateMachine.expect<NativeAuthBridge>();
+      final userPoolConfig = _stateMachine.expect<CognitoUserPoolConfig>();
+      return bridge.clearLegacyCredentials(userPoolConfig.appClientId);
+    }
     final bundleId = await _getBundleId();
     if (userPoolConfig != null) {
       final userPoolStorage = getUserPoolStorage(
