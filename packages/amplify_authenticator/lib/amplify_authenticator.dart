@@ -55,7 +55,8 @@ export 'package:amplify_flutter/amplify_flutter.dart'
 export 'src/enums/enums.dart' show AuthenticatorStep, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
-export 'src/models/username_input.dart' show UsernameType, UsernameInput;
+export 'src/models/username_input.dart'
+    show UsernameType, UsernameInput, UsernameSelection;
 export 'src/state/authenticator_state.dart';
 export 'src/widgets/button.dart'
     show
@@ -613,7 +614,7 @@ class _AuthenticatorState extends State<Authenticator> {
       missingValues.add('usernameAttributes');
     }
     if (cognitoPlugin.signupAttributes == null) {
-      missingValues.add('signUpAttributes');
+      missingValues.add('signupAttributes');
     }
     if (cognitoPlugin.passwordProtectionSettings == null) {
       missingValues.add('passwordProtectionSettings');

@@ -30,15 +30,14 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
     )
 
     // ignored fields
-    private val id: String = serializedModel.id
-    private val modelName: String = parseModelName(serializedModel.modelName) // ModelSchema -> SerializedModel should always have a name
+    private val modelName: String =
+        parseModelName(serializedModel.modelName) // ModelSchema -> SerializedModel should always have a name
 
     fun toMap(): Map<String, Any> {
 
         val cleanedSerializedData: Map<String, Any?> = serializedData.filterValues { it != null }
 
         return mapOf(
-            "id" to id,
             "serializedData" to cleanedSerializedData,
             "modelName" to modelName
         )

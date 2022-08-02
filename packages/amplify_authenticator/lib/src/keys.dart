@@ -122,6 +122,8 @@ const keyForgotPasswordButton = Key('forgotPasswordButton');
 const keySkipVerifyUserButton = Key('skipVerifyUserButton');
 const keySubmitVerifyUserButton = Key('submitVerifyUserButton');
 const keySubmitConfirmVerifyUserButton = Key('submitConfirmVerifyUserButton');
+const keyEmailUsernameToggleButton = Key('emailUsernameToggleButton');
+const keyPhoneUsernameToggleButton = Key('phoneUsernameToggleButton');
 
 // Checkboxes keys
 

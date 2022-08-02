@@ -1,3 +1,9 @@
+## 0.6.4-rc.1 (2022-07-20)
+
+### Features
+
+- feat(datastore): support of custom primary key
+
 ## 0.5.0 (2022-05-17)
 
 ### Breaking Changes

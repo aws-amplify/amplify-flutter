@@ -696,6 +696,19 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    func test_signInOptions() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata, "authFlowType": "customAuth"]
+        let rawData: NSMutableDictionary = [
+            "username": _username,
+            "options": rawOptions
+        ]
+        let request = FlutterSignInRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAuthSignInOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
+        XCTAssertEqual(AuthFlowType.custom, options.authFlowType)
+    }
+    
     func test_signInSuccessNewPassword() {
         
         class SignInMock: AuthCognitoBridge {
@@ -2053,6 +2066,18 @@ class amplify_auth_cognito_tests: XCTestCase {
                 XCTFail()
             }
         })
+    }
+    
+    func test_decode_and_encode_of_device() throws {
+        let deviceJson = [
+            "id": "123"
+        ]
+        let data = try JSONSerialization.data(withJSONObject: deviceJson)
+        let device = try DeviceHandler.decoder.decode(AWSAuthDevice.self, from: data)
+        XCTAssertEqual(device.id, "123")
+        let encodedDeviceData = try DeviceHandler.encoder.encode(device)
+        let encodedDevice = try JSONSerialization.jsonObject(with: encodedDeviceData) as? [String: String?]
+        XCTAssertEqual(encodedDevice?["id"], "123")
     }
     
 }

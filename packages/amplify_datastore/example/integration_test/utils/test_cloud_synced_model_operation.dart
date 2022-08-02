@@ -65,7 +65,7 @@ Future<void> testCloudSyncedModelOperation<R extends Model, A extends Model>({
             var model = event.element.model;
 
             if (model is R) {
-              return model.getId() == rootModel.getId() &&
+              return model.modelIdentifier == rootModel.modelIdentifier &&
                   event.element.version == expectedRootModelVersion;
             }
 
@@ -82,7 +82,7 @@ Future<void> testCloudSyncedModelOperation<R extends Model, A extends Model>({
           var model = event.element.model;
 
           if (model is A) {
-            return model.getId() == associatedModel.getId() &&
+            return model.modelIdentifier == associatedModel.modelIdentifier &&
                 event.element.version == expectedRootModelVersion;
           }
 
@@ -124,7 +124,7 @@ Future<List<SubscriptionEvent<T>>> createObservedEventsGetter<T extends Model>(
         .where((event) => event.eventType == eventType)
         .distinct((prev, next) =>
             prev.eventType == next.eventType &&
-            prev.item.getId() == next.item.getId())
+            prev.item.modelIdentifier == next.item.modelIdentifier)
         .take(take)
         .toList();
 

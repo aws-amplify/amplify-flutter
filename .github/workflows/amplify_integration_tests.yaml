@@ -1,0 +1,100 @@
+name: Amplify Integration Tests
+on:
+  push:
+    branches: [main, next, stable, feat/*]
+  schedule:
+    # 6am pacific time daily, only runs on default branch
+    - cron:  '0 13 * * *'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    runs-on: macos-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        scope: ["amplify_api_example", "amplify_storage_s3_example"] # , "amplify_auth_cognito_example"]
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+        with:
+          persist-credentials: false
+
+      # Flutter requires Java 11 to build android apps with Gradle.
+      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
+        with:
+          distribution: 'corretto' # Amazon Corretto Build of OpenJDK
+          java-version: '11'
+      
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+
+      - name: Fetch Amplify backend configurations
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: ${{ matrix.scope }}
+          api-app-id: ${{ secrets.API_APP_ID }}
+          auth-app-id: ${{ secrets.AUTH_APP_ID }}
+          datastore-app-id: ${{ secrets.DATASTORE_APP_ID }}
+          storage-app-id: ${{ secrets.STORAGE_APP_ID }}
+
+      - name: Build example app with integration tests
+        run: |
+          melos exec --scope=${{ matrix.scope }} --file-exists="integration_test/main_test.dart" --fail-fast flutter build apk --verbose
+
+      - name: Run Android integration tests
+        uses: reactivecircus/android-emulator-runner@e790971012b979513b4e2fe70d4079bc0ca8a1ae # 2.24.0
+        timeout-minutes: 25
+        with:
+          # API levels 30+ too slow https://github.com/ReactiveCircus/android-emulator-runner/issues/222
+          api-level: 29
+          script: melos exec -c 1 --scope ${{ matrix.scope }} -- "deviceId=emulator-5554 retries=1 \$MELOS_ROOT_PATH/build-support/integ_test_android.sh"
+
+  ios:
+    runs-on: macos-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        scope: ["amplify_api_example", "amplify_storage_s3_example"] # "amplify_auth_cognito_example"]
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # 2.4.0
+        with:
+          persist-credentials: false
+      
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+
+      - name: Boot iOS Simulator
+        run: |
+          xcrun simctl boot "iPhone 13"
+
+      - name: Fetch Amplify backend configurations
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: ${{ matrix.scope }}
+          api-app-id: ${{ secrets.API_APP_ID }}
+          auth-app-id: ${{ secrets.AUTH_APP_ID }}
+          datastore-app-id: ${{ secrets.DATASTORE_APP_ID }}
+          storage-app-id: ${{ secrets.STORAGE_APP_ID }}
+
+      - name: Build example app with integration tests
+        run: |
+          melos exec --scope=${{ matrix.scope }} flutter build ios --simulator
+
+      - name: Run integration tests
+        run: |
+          melos exec -c 1 --scope ${{ matrix.scope }} -- "retries=1 \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh"

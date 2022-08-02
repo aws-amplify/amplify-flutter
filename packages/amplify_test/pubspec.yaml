@@ -11,16 +11,17 @@ environment:
   flutter: ">=2.10.0"
 
 dependencies:
-  amplify_api: 0.5.0
-  amplify_auth_cognito: 0.5.0
-  amplify_core: 0.5.0
-  amplify_flutter: 0.5.0
+  amplify_api: 0.6.4-rc.1
+  amplify_auth_cognito: 0.6.4-rc.1
+  amplify_core: 0.6.4-rc.1
+  amplify_flutter: 0.6.4-rc.1
   aws_common: ^0.1.0
   collection: ^1.15.0
   flutter:
     sdk: flutter
   flutter_test:
     sdk: flutter
+  graphql: 5.1.1
   stream_transform: ^2.0.0
 
 dev_dependencies:
