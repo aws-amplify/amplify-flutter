@@ -215,7 +215,7 @@ class QueryPredicateBuilder {
                 val operandEntry = it.entries.first()
                 when {
                     isEqualOperator -> QueryField.field(modelName, operandEntry.key).eq(operandEntry.value)
-                    else -> QueryField.field(operandEntry.key).ne(operandEntry.value)
+                    else -> QueryField.field(modelName, operandEntry.key).ne(operandEntry.value)
                 }
             }
 
