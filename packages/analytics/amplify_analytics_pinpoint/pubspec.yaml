@@ -1,18 +1,19 @@
 name: amplify_analytics_pinpoint
 description: The Amplify Flutter Analytics category plugin using the AWS Pinpoint provider.
-version: 0.5.0
-homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/analytics/amplify_analytics_pinpoint
+version: 1.0.0-next.0
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/analytics/amplify_analytics_pinpoint
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
   flutter: ">=3.0.0"
 
 dependencies:
-  amplify_analytics_pinpoint_android: 0.5.0
-  amplify_analytics_pinpoint_ios: 0.5.0
-  amplify_analytics_plugin_interface: 0.5.0
-  amplify_core: 0.5.0
-  aws_common: ^0.1.0
+  amplify_analytics_pinpoint_android: 1.0.0-next.0
+  amplify_analytics_pinpoint_ios: 1.0.0-next.0
+  amplify_core: 1.0.0-next.0
+  aws_common: ^0.2.0
   flutter:
     sdk: flutter
   meta: ^1.7.0

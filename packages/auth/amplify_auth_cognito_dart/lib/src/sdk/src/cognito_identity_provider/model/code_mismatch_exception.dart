@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.code_mismatch_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.code_mismatch_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,18 +23,18 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'code_mismatch_exception.g.dart';
 
-/// This exception is thrown if the provided code does not match what the server was expecting.
+/// This exception is thrown if the provided code doesn't match what the server was expecting.
 abstract class CodeMismatchException
     with _i1.AWSEquatable<CodeMismatchException>
     implements
         Built<CodeMismatchException, CodeMismatchExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// This exception is thrown if the provided code does not match what the server was expecting.
+  /// This exception is thrown if the provided code doesn't match what the server was expecting.
   factory CodeMismatchException({String? message}) {
     return _$CodeMismatchException._(message: message);
   }
 
-  /// This exception is thrown if the provided code does not match what the server was expecting.
+  /// This exception is thrown if the provided code doesn't match what the server was expecting.
   factory CodeMismatchException.build(
           [void Function(CodeMismatchExceptionBuilder) updates]) =
       _$CodeMismatchException;
@@ -49,7 +49,7 @@ abstract class CodeMismatchException
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _CodeMismatchExceptionAwsJson11Serializer()
+    CodeMismatchExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -82,9 +82,9 @@ abstract class CodeMismatchException
   }
 }
 
-class _CodeMismatchExceptionAwsJson11Serializer
+class CodeMismatchExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<CodeMismatchException> {
-  const _CodeMismatchExceptionAwsJson11Serializer()
+  const CodeMismatchExceptionAwsJson11Serializer()
       : super('CodeMismatchException');
 
   @override

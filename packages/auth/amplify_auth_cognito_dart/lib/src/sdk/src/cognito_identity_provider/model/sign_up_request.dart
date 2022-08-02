@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.sign_up_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.sign_up_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart'
     as _i3;
@@ -69,13 +69,13 @@ abstract class SignUpRequest
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _SignUpRequestAwsJson11Serializer()
+    SignUpRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SignUpRequestBuilder b) {}
 
-  /// The Amazon Pinpoint analytics metadata for collecting metrics for `SignUp` calls.
+  /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `SignUp` calls.
   _i3.AnalyticsMetadataType? get analyticsMetadata;
 
   /// The ID of the client associated with the user pool.
@@ -85,18 +85,18 @@ abstract class SignUpRequest
   ///
   /// You create custom workflows by assigning Lambda functions to user pool triggers. When you use the SignUp API action, Amazon Cognito invokes any functions that are assigned to the following triggers: _pre sign-up_, _custom message_, and _post confirmation_. When Amazon Cognito invokes any of these functions, it passes a JSON payload, which the function receives as input. This payload contains a `clientMetadata` attribute, which provides the data that you assigned to the ClientMetadata parameter in your SignUp request. In your function code in Lambda, you can process the `clientMetadata` value to enhance your workflow for your specific needs.
   ///
-  /// For more information, see [Customizing User Pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
+  /// For more information, see [Customizing user pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
   ///
-  /// Take the following limitations into consideration when you use the ClientMetadata parameter:
+  /// When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
   ///
-  /// *   Amazon Cognito does not store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration does not include triggers, the ClientMetadata parameter serves no purpose.
+  /// *   Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata parameter serves no purpose.
   ///
-  /// *   Amazon Cognito does not validate the ClientMetadata value.
+  /// *   Validate the ClientMetadata value.
   ///
-  /// *   Amazon Cognito does not encrypt the the ClientMetadata value, so don't use it to provide sensitive information.
+  /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
   _i4.BuiltMap<String, String>? get clientMetadata;
 
-  /// The password of the user you wish to register.
+  /// The password of the user you want to register.
   String get password;
 
   /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message.
@@ -107,10 +107,10 @@ abstract class SignUpRequest
   /// For custom attributes, you must prepend the `custom:` prefix to the attribute name.
   _i4.BuiltList<_i5.AttributeType>? get userAttributes;
 
-  /// Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+  /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
   _i6.UserContextDataType? get userContextData;
 
-  /// The user name of the user you wish to register.
+  /// The user name of the user you want to register.
   String get username;
 
   /// The validation data in the request to register a user.
@@ -145,9 +145,9 @@ abstract class SignUpRequest
   }
 }
 
-class _SignUpRequestAwsJson11Serializer
+class SignUpRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<SignUpRequest> {
-  const _SignUpRequestAwsJson11Serializer() : super('SignUpRequest');
+  const SignUpRequestAwsJson11Serializer() : super('SignUpRequest');
 
   @override
   Iterable<Type> get types => const [SignUpRequest, _$SignUpRequest];

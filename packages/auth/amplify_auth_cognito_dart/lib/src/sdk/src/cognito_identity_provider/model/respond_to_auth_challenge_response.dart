@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.respond_to_auth_challenge_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.respond_to_auth_challenge_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/authentication_result_type.dart'
     as _i2;
@@ -62,7 +62,7 @@ abstract class RespondToAuthChallengeResponse
       payload;
 
   static const List<_i5.SmithySerializer> serializers = [
-    _RespondToAuthChallengeResponseAwsJson11Serializer()
+    RespondToAuthChallengeResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -77,7 +77,7 @@ abstract class RespondToAuthChallengeResponse
   /// The challenge parameters. For more information, see [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html).
   _i4.BuiltMap<String, String>? get challengeParameters;
 
-  /// The session which should be passed both ways in challenge-response calls to the service. If the caller needs to go through another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
+  /// The session that should be passed both ways in challenge-response calls to the service. If the caller must pass another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
   String? get session;
   @override
   List<Object?> get props =>
@@ -94,9 +94,9 @@ abstract class RespondToAuthChallengeResponse
   }
 }
 
-class _RespondToAuthChallengeResponseAwsJson11Serializer
+class RespondToAuthChallengeResponseAwsJson11Serializer
     extends _i5.StructuredSmithySerializer<RespondToAuthChallengeResponse> {
-  const _RespondToAuthChallengeResponseAwsJson11Serializer()
+  const RespondToAuthChallengeResponseAwsJson11Serializer()
       : super('RespondToAuthChallengeResponse');
 
   @override

@@ -6,5 +6,9 @@
 dependency_overrides:
   amplify_secure_storage_dart:
     path: ../amplify_secure_storage_dart
+  aws_common:
+    path: ../../aws_common
+  aws_signature_v4:
+    path: ../../aws_signature_v4
   worker_bee:
     path: ../../worker_bee/worker_bee

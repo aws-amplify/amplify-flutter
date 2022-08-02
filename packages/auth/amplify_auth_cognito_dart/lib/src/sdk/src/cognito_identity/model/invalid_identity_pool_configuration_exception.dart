@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity.model.invalid_identity_pool_configuration_exception;
+library amplify_auth_cognito_dart.cognito_identity.model.invalid_identity_pool_configuration_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -52,7 +52,7 @@ abstract class InvalidIdentityPoolConfigurationException
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _InvalidIdentityPoolConfigurationExceptionAwsJson11Serializer()
+    InvalidIdentityPoolConfigurationExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -86,9 +86,9 @@ abstract class InvalidIdentityPoolConfigurationException
   }
 }
 
-class _InvalidIdentityPoolConfigurationExceptionAwsJson11Serializer extends _i2
+class InvalidIdentityPoolConfigurationExceptionAwsJson11Serializer extends _i2
     .StructuredSmithySerializer<InvalidIdentityPoolConfigurationException> {
-  const _InvalidIdentityPoolConfigurationExceptionAwsJson11Serializer()
+  const InvalidIdentityPoolConfigurationExceptionAwsJson11Serializer()
       : super('InvalidIdentityPoolConfigurationException');
 
   @override

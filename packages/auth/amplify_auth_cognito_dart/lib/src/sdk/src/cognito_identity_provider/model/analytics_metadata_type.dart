@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.analytics_metadata_type;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.analytics_metadata_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -25,26 +25,20 @@ part 'analytics_metadata_type.g.dart';
 
 /// An Amazon Pinpoint analytics endpoint.
 ///
-/// An endpoint uniquely identifies a mobile device, email address, or phone number that can receive messages from Amazon Pinpoint analytics.
-///
-/// Cognito User Pools only supports sending events to Amazon Pinpoint projects in the US East (N. Virginia) us-east-1 Region, regardless of the region in which the user pool resides.
+/// An endpoint uniquely identifies a mobile device, email address, or phone number that can receive messages from Amazon Pinpoint analytics. For more information about Amazon Web Services Regions that can contain Amazon Pinpoint resources for use with Amazon Cognito user pools, see [Using Amazon Pinpoint analytics with Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-pinpoint-integration.html).
 abstract class AnalyticsMetadataType
     with _i1.AWSEquatable<AnalyticsMetadataType>
     implements Built<AnalyticsMetadataType, AnalyticsMetadataTypeBuilder> {
   /// An Amazon Pinpoint analytics endpoint.
   ///
-  /// An endpoint uniquely identifies a mobile device, email address, or phone number that can receive messages from Amazon Pinpoint analytics.
-  ///
-  /// Cognito User Pools only supports sending events to Amazon Pinpoint projects in the US East (N. Virginia) us-east-1 Region, regardless of the region in which the user pool resides.
+  /// An endpoint uniquely identifies a mobile device, email address, or phone number that can receive messages from Amazon Pinpoint analytics. For more information about Amazon Web Services Regions that can contain Amazon Pinpoint resources for use with Amazon Cognito user pools, see [Using Amazon Pinpoint analytics with Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-pinpoint-integration.html).
   factory AnalyticsMetadataType({String? analyticsEndpointId}) {
     return _$AnalyticsMetadataType._(analyticsEndpointId: analyticsEndpointId);
   }
 
   /// An Amazon Pinpoint analytics endpoint.
   ///
-  /// An endpoint uniquely identifies a mobile device, email address, or phone number that can receive messages from Amazon Pinpoint analytics.
-  ///
-  /// Cognito User Pools only supports sending events to Amazon Pinpoint projects in the US East (N. Virginia) us-east-1 Region, regardless of the region in which the user pool resides.
+  /// An endpoint uniquely identifies a mobile device, email address, or phone number that can receive messages from Amazon Pinpoint analytics. For more information about Amazon Web Services Regions that can contain Amazon Pinpoint resources for use with Amazon Cognito user pools, see [Using Amazon Pinpoint analytics with Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-pinpoint-integration.html).
   factory AnalyticsMetadataType.build(
           [void Function(AnalyticsMetadataTypeBuilder) updates]) =
       _$AnalyticsMetadataType;
@@ -52,7 +46,7 @@ abstract class AnalyticsMetadataType
   const AnalyticsMetadataType._();
 
   static const List<_i2.SmithySerializer> serializers = [
-    _AnalyticsMetadataTypeAwsJson11Serializer()
+    AnalyticsMetadataTypeAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -70,9 +64,9 @@ abstract class AnalyticsMetadataType
   }
 }
 
-class _AnalyticsMetadataTypeAwsJson11Serializer
+class AnalyticsMetadataTypeAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<AnalyticsMetadataType> {
-  const _AnalyticsMetadataTypeAwsJson11Serializer()
+  const AnalyticsMetadataTypeAwsJson11Serializer()
       : super('AnalyticsMetadataType');
 
   @override

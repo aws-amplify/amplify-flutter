@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.unsupported_token_type_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.unsupported_token_type_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,7 +23,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'unsupported_token_type_exception.g.dart';
 
-/// This exception is thrown when an unsupported token is passed to an operation.
+/// Exception that is thrown when an unsupported token is passed to an operation.
 abstract class UnsupportedTokenTypeException
     with
         _i1.AWSEquatable<UnsupportedTokenTypeException>
@@ -31,12 +31,12 @@ abstract class UnsupportedTokenTypeException
         Built<UnsupportedTokenTypeException,
             UnsupportedTokenTypeExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// This exception is thrown when an unsupported token is passed to an operation.
+  /// Exception that is thrown when an unsupported token is passed to an operation.
   factory UnsupportedTokenTypeException({String? message}) {
     return _$UnsupportedTokenTypeException._(message: message);
   }
 
-  /// This exception is thrown when an unsupported token is passed to an operation.
+  /// Exception that is thrown when an unsupported token is passed to an operation.
   factory UnsupportedTokenTypeException.build(
           [void Function(UnsupportedTokenTypeExceptionBuilder) updates]) =
       _$UnsupportedTokenTypeException;
@@ -52,7 +52,7 @@ abstract class UnsupportedTokenTypeException
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _UnsupportedTokenTypeExceptionAwsJson11Serializer()
+    UnsupportedTokenTypeExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -83,9 +83,9 @@ abstract class UnsupportedTokenTypeException
   }
 }
 
-class _UnsupportedTokenTypeExceptionAwsJson11Serializer
+class UnsupportedTokenTypeExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UnsupportedTokenTypeException> {
-  const _UnsupportedTokenTypeExceptionAwsJson11Serializer()
+  const UnsupportedTokenTypeExceptionAwsJson11Serializer()
       : super('UnsupportedTokenTypeException');
 
   @override

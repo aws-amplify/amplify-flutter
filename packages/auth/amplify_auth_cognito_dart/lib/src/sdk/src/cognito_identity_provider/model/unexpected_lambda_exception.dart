@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.unexpected_lambda_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.unexpected_lambda_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,18 +23,18 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'unexpected_lambda_exception.g.dart';
 
-/// This exception is thrown when the Amazon Cognito service encounters an unexpected exception with the Lambda service.
+/// This exception is thrown when Amazon Cognito encounters an unexpected exception with Lambda.
 abstract class UnexpectedLambdaException
     with _i1.AWSEquatable<UnexpectedLambdaException>
     implements
         Built<UnexpectedLambdaException, UnexpectedLambdaExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// This exception is thrown when the Amazon Cognito service encounters an unexpected exception with the Lambda service.
+  /// This exception is thrown when Amazon Cognito encounters an unexpected exception with Lambda.
   factory UnexpectedLambdaException({String? message}) {
     return _$UnexpectedLambdaException._(message: message);
   }
 
-  /// This exception is thrown when the Amazon Cognito service encounters an unexpected exception with the Lambda service.
+  /// This exception is thrown when Amazon Cognito encounters an unexpected exception with Lambda.
   factory UnexpectedLambdaException.build(
           [void Function(UnexpectedLambdaExceptionBuilder) updates]) =
       _$UnexpectedLambdaException;
@@ -50,13 +50,13 @@ abstract class UnexpectedLambdaException
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _UnexpectedLambdaExceptionAwsJson11Serializer()
+    UnexpectedLambdaExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UnexpectedLambdaExceptionBuilder b) {}
 
-  /// The message returned when the Amazon Cognito service returns an unexpected Lambda exception.
+  /// The message returned when Amazon Cognito returns an unexpected Lambda exception.
   @override
   String? get message;
   @override
@@ -83,9 +83,9 @@ abstract class UnexpectedLambdaException
   }
 }
 
-class _UnexpectedLambdaExceptionAwsJson11Serializer
+class UnexpectedLambdaExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UnexpectedLambdaException> {
-  const _UnexpectedLambdaExceptionAwsJson11Serializer()
+  const UnexpectedLambdaExceptionAwsJson11Serializer()
       : super('UnexpectedLambdaException');
 
   @override

@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.resend_confirmation_code_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.resend_confirmation_code_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/code_delivery_details_type.dart'
     as _i2;
@@ -25,21 +25,21 @@ import 'package:smithy/smithy.dart' as _i3;
 
 part 'resend_confirmation_code_response.g.dart';
 
-/// The response from the server when the Amazon Cognito Your User Pools service makes the request to resend a confirmation code.
+/// The response from the server when Amazon Cognito makes the request to resend a confirmation code.
 abstract class ResendConfirmationCodeResponse
     with
         _i1.AWSEquatable<ResendConfirmationCodeResponse>
     implements
         Built<ResendConfirmationCodeResponse,
             ResendConfirmationCodeResponseBuilder> {
-  /// The response from the server when the Amazon Cognito Your User Pools service makes the request to resend a confirmation code.
+  /// The response from the server when Amazon Cognito makes the request to resend a confirmation code.
   factory ResendConfirmationCodeResponse(
       {_i2.CodeDeliveryDetailsType? codeDeliveryDetails}) {
     return _$ResendConfirmationCodeResponse._(
         codeDeliveryDetails: codeDeliveryDetails);
   }
 
-  /// The response from the server when the Amazon Cognito Your User Pools service makes the request to resend a confirmation code.
+  /// The response from the server when Amazon Cognito makes the request to resend a confirmation code.
   factory ResendConfirmationCodeResponse.build(
           [void Function(ResendConfirmationCodeResponseBuilder) updates]) =
       _$ResendConfirmationCodeResponse;
@@ -53,7 +53,7 @@ abstract class ResendConfirmationCodeResponse
       payload;
 
   static const List<_i3.SmithySerializer> serializers = [
-    _ResendConfirmationCodeResponseAwsJson11Serializer()
+    ResendConfirmationCodeResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -72,9 +72,9 @@ abstract class ResendConfirmationCodeResponse
   }
 }
 
-class _ResendConfirmationCodeResponseAwsJson11Serializer
+class ResendConfirmationCodeResponseAwsJson11Serializer
     extends _i3.StructuredSmithySerializer<ResendConfirmationCodeResponse> {
-  const _ResendConfirmationCodeResponseAwsJson11Serializer()
+  const ResendConfirmationCodeResponseAwsJson11Serializer()
       : super('ResendConfirmationCodeResponse');
 
   @override

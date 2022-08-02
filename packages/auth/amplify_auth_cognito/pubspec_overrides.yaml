@@ -4,12 +4,22 @@
 # It may cause issues with publishing until https://github.com/dart-lang/pub/pull/3419
 # is released in stable.
 dependency_overrides:
+  amplify_auth_cognito_android:
+    path: ../amplify_auth_cognito_android
   amplify_auth_cognito_dart:
     path: ../amplify_auth_cognito_dart
+  amplify_auth_cognito_ios:
+    path: ../amplify_auth_cognito_ios
   amplify_core:
     path: ../../amplify_core
+  amplify_datastore_plugin_interface:
+    path: ../../amplify_datastore_plugin_interface
+  amplify_flutter_android:
+    path: ../../amplify/amplify_flutter_android
   amplify_flutter:
     path: ../../amplify/amplify_flutter
+  amplify_flutter_ios:
+    path: ../../amplify/amplify_flutter_ios
   amplify_secure_storage:
     path: ../../secure_storage/amplify_secure_storage
   amplify_secure_storage_dart:
