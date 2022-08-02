@@ -498,8 +498,7 @@ class _AuthenticatorState extends State<Authenticator> {
       if (mounted && exception.showBanner) {
         _showExceptionBanner(
           type: StatusType.error,
-          content:
-              Text(exception.message.trimRight(), textAlign: TextAlign.center),
+          message: exception.message,
         );
       }
     });
@@ -514,7 +513,7 @@ class _AuthenticatorState extends State<Authenticator> {
         _logger.info(message);
         _showExceptionBanner(
           type: StatusType.info,
-          content: Text(message.trimRight(), textAlign: TextAlign.center),
+          message: message,
         );
       } else {
         _logger.info('Could not show banner for key: $key');
@@ -524,7 +523,7 @@ class _AuthenticatorState extends State<Authenticator> {
 
   void _showExceptionBanner({
     required StatusType type,
-    required Widget content,
+    required String message,
   }) {
     final scaffoldMessengerState = scaffoldMessengerKey.currentState;
     final scaffoldMessengerContext = scaffoldMessengerKey.currentContext;
@@ -549,13 +548,8 @@ class _AuthenticatorState extends State<Authenticator> {
         ..showMaterialBanner(createMaterialBanner(
           scaffoldMessengerContext,
           type: type,
-          content: content,
-          actions: [
-            IconButton(
-              onPressed: scaffoldMessengerState.clearMaterialBanners,
-              icon: const Icon(Icons.close),
-            ),
-          ],
+          message: message,
+          actionCallback: scaffoldMessengerState.clearMaterialBanners,
         ));
     } else {
       scaffoldMessengerState
@@ -563,7 +557,7 @@ class _AuthenticatorState extends State<Authenticator> {
         ..showSnackBar(createSnackBar(
           scaffoldMessengerContext,
           type: type,
-          content: content,
+          message: message,
         ));
     }
   }

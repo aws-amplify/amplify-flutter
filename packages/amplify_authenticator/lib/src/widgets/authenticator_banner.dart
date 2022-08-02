@@ -21,36 +21,75 @@ import 'package:flutter/material.dart';
 MaterialBanner createMaterialBanner(
   BuildContext context, {
   required StatusType type,
-  required Widget content,
-  required List<Widget> actions,
+  required String message,
+  required Function() actionCallback,
 }) {
-  final margin = MediaQuery.of(context).viewPadding.top;
+  final theme = Theme.of(context);
+
+  // foreground and background colors are based on material standards for text legibility
+  // if they are not provided by the theme. See https://material.io/design/color/text-legibility.html#text-backgrounds
+
+  // fallback on default color based on type.
+  final backgroundColor = theme.bannerTheme.backgroundColor ?? type.color;
+
+  // If there is no background color provided by the theme,
+  // use on Colors.black87 (High-emphasis) as fallback, otherwise
+  // set it to null to let flutter control the foreground.
+  final hasCustomBackground = theme.bannerTheme.backgroundColor != null;
+  final foregroundColorFallBack = hasCustomBackground ? null : Colors.black87;
+
+  // use contentTextStyle color if available, otherwise use fallback as defined above.
+  final foregroundColor =
+      theme.bannerTheme.contentTextStyle?.color ?? foregroundColorFallBack;
 
   return MaterialBanner(
     key: keyAuthenticatorBanner,
     leading: Icon(
       type.icon,
+      color: foregroundColor,
     ),
-    backgroundColor: type.color,
-    content: Center(child: content),
-    actions: actions,
+    backgroundColor: backgroundColor,
+    content: Center(
+        child: Text(
+      message.trimRight(),
+      textAlign: TextAlign.center,
+      style: TextStyle(color: foregroundColor),
+    )),
+    actions: [
+      IconButton(
+        onPressed: actionCallback,
+        icon: Icon(Icons.close, color: foregroundColor),
+      ),
+    ],
   );
 }
 
 SnackBar createSnackBar(
   BuildContext context, {
   required StatusType type,
-  required Widget content,
+  required String message,
 }) {
   final theme = Theme.of(context);
 
-  // if contentTextStyle is null, colorScheme.surface is used as a fallback
-  // since SnackBarThemeData.backgroundColor uses colorScheme.onSurface as a fall back
+  // foreground and background colors are based on material standards for text legibility
+  // if they are not provided by the theme. See https://material.io/design/color/text-legibility.html#text-backgrounds
+
+  // fallback on default color based on type.
+  final backgroundColor = theme.snackBarTheme.backgroundColor ?? type.color;
+
+  // If there is no background color provided by the theme,
+  // use on Colors.black87 (High-emphasis) as fallback, otherwise
+  // set it to null to let flutter control the foreground.
+  final hasCustomBackground = theme.snackBarTheme.backgroundColor != null;
+  final foregroundColorFallBack = hasCustomBackground ? null : Colors.black87;
+
+  // use contentTextStyle color if available, otherwise use fallback as defined above.
   final foregroundColor =
-      theme.snackBarTheme.contentTextStyle?.color ?? theme.colorScheme.surface;
+      theme.snackBarTheme.contentTextStyle?.color ?? foregroundColorFallBack;
 
   return SnackBar(
     key: keyAuthenticatorBanner,
+    backgroundColor: backgroundColor,
     content: Row(
       children: [
         Icon(
@@ -58,7 +97,11 @@ SnackBar createSnackBar(
           color: foregroundColor,
         ),
         const SizedBox(width: 16),
-        Expanded(child: content),
+        Expanded(
+          child: Text(message.trimRight(),
+              textAlign: TextAlign.center,
+              style: TextStyle(color: foregroundColor)),
+        )
       ],
     ),
   );
@@ -82,12 +125,10 @@ extension on StatusType {
     switch (this) {
       case StatusType.info:
         return Colors.blue;
-      case StatusType.success:
-        return Colors.green;
-      case StatusType.warning:
-        return Colors.orange;
       case StatusType.error:
         return Colors.red;
+      default:
+        return Colors.blue;
     }
   }
 }
