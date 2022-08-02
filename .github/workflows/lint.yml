@@ -90,7 +90,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:format-analyze_2"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:format-analyze_3"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0
@@ -147,16 +147,16 @@ jobs:
         working-directory: packages/auth/amplify_auth_cognito
         run: flutter analyze --fatal-infos lib
   job_005:
-    name: "analyze_and_format; Dart dev; PKGS: packages/amplify_core, packages/aws_common, packages/aws_signature_v4/example, packages/example_common, packages/secure_storage/amplify_secure_storage_dart/example, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/smithy/smithy_test, packages/worker_bee/e2e_test, packages/worker_bee/worker_bee, packages/worker_bee/worker_bee_builder; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
+    name: "analyze_and_format; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/aws_common, packages/aws_signature_v4/example, packages/example_common, packages/secure_storage/amplify_secure_storage_dart/example, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/smithy/smithy_test, packages/worker_bee/e2e, packages/worker_bee/e2e_test, packages/worker_bee/worker_bee, packages/worker_bee/worker_bee_builder; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/smithy/smithy_test-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder;commands:format-analyze_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/smithy/smithy_test-packages/worker_bee/e2e-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder;commands:format-analyze_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/smithy/smithy_test-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/smithy/smithy_test-packages/worker_bee/e2e-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -177,6 +177,19 @@ jobs:
       - name: "packages/amplify_core; dart analyze --fatal-infos ."
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
+        run: dart analyze --fatal-infos .
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: "packages/auth/amplify_auth_cognito_test; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/auth/amplify_auth_cognito_test; dart analyze --fatal-infos ."
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
         run: dart analyze --fatal-infos .
       - id: packages_aws_common_pub_upgrade
         name: packages/aws_common; dart pub upgrade
@@ -281,6 +294,19 @@ jobs:
       - name: "packages/smithy/smithy_test; dart analyze --fatal-infos ."
         if: "always() && steps.packages_smithy_smithy_test_pub_upgrade.conclusion == 'success'"
         working-directory: packages/smithy/smithy_test
+        run: dart analyze --fatal-infos .
+      - id: packages_worker_bee_e2e_pub_upgrade
+        name: packages/worker_bee/e2e; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e
+        run: dart pub upgrade
+      - name: "packages/worker_bee/e2e; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_worker_bee_e2e_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/worker_bee/e2e; dart analyze --fatal-infos ."
+        if: "always() && steps.packages_worker_bee_e2e_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e
         run: dart analyze --fatal-infos .
       - id: packages_worker_bee_e2e_test_pub_upgrade
         name: packages/worker_bee/e2e_test; dart pub upgrade
@@ -322,16 +348,16 @@ jobs:
         working-directory: packages/worker_bee/worker_bee_builder
         run: dart analyze --fatal-infos .
   job_006:
-    name: "analyze_and_format; Dart dev; PKGS: packages/auth/amplify_auth_cognito_dart, packages/aws_signature_v4, packages/secure_storage/amplify_secure_storage_dart; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
+    name: "analyze_and_format; Dart dev; PKGS: packages/auth/amplify_auth_cognito_dart, packages/secure_storage/amplify_secure_storage_dart; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/auth/amplify_auth_cognito_dart-packages/aws_signature_v4-packages/secure_storage/amplify_secure_storage_dart;commands:format-analyze_2"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/auth/amplify_auth_cognito_dart-packages/secure_storage/amplify_secure_storage_dart;commands:format-analyze_2"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/auth/amplify_auth_cognito_dart-packages/aws_signature_v4-packages/secure_storage/amplify_secure_storage_dart
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/auth/amplify_auth_cognito_dart-packages/secure_storage/amplify_secure_storage_dart
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -349,10 +375,42 @@ jobs:
         if: "always() && steps.packages_auth_amplify_auth_cognito_dart_pub_upgrade.conclusion == 'success'"
         working-directory: packages/auth/amplify_auth_cognito_dart
         run: "dart format --output=none --set-exit-if-changed ."
-      - name: "packages/auth/amplify_auth_cognito_dart; dart analyze --fatal-infos lib test"
+      - name: "packages/auth/amplify_auth_cognito_dart; dart analyze --fatal-infos lib"
         if: "always() && steps.packages_auth_amplify_auth_cognito_dart_pub_upgrade.conclusion == 'success'"
         working-directory: packages/auth/amplify_auth_cognito_dart
-        run: dart analyze --fatal-infos lib test
+        run: dart analyze --fatal-infos lib
+      - id: packages_secure_storage_amplify_secure_storage_dart_pub_upgrade
+        name: packages/secure_storage/amplify_secure_storage_dart; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_dart
+        run: dart pub upgrade
+      - name: "packages/secure_storage/amplify_secure_storage_dart; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_secure_storage_amplify_secure_storage_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_dart
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/secure_storage/amplify_secure_storage_dart; dart analyze --fatal-infos lib"
+        if: "always() && steps.packages_secure_storage_amplify_secure_storage_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_dart
+        run: dart analyze --fatal-infos lib
+  job_007:
+    name: "analyze_and_format; Dart dev; PKGS: packages/aws_signature_v4, packages/secure_storage/amplify_secure_storage_test; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4-packages/secure_storage/amplify_secure_storage_test;commands:format-analyze_3"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4-packages/secure_storage/amplify_secure_storage_test
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: dev
+      - id: checkout
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -366,30 +424,30 @@ jobs:
         if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
         run: dart analyze --fatal-infos lib test
-      - id: packages_secure_storage_amplify_secure_storage_dart_pub_upgrade
-        name: packages/secure_storage/amplify_secure_storage_dart; dart pub upgrade
+      - id: packages_secure_storage_amplify_secure_storage_test_pub_upgrade
+        name: packages/secure_storage/amplify_secure_storage_test; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/secure_storage/amplify_secure_storage_dart
+        working-directory: packages/secure_storage/amplify_secure_storage_test
         run: dart pub upgrade
-      - name: "packages/secure_storage/amplify_secure_storage_dart; dart format --output=none --set-exit-if-changed ."
-        if: "always() && steps.packages_secure_storage_amplify_secure_storage_dart_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/secure_storage/amplify_secure_storage_dart
+      - name: "packages/secure_storage/amplify_secure_storage_test; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_secure_storage_amplify_secure_storage_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_test
         run: "dart format --output=none --set-exit-if-changed ."
-      - name: "packages/secure_storage/amplify_secure_storage_dart; dart analyze --fatal-infos lib test"
-        if: "always() && steps.packages_secure_storage_amplify_secure_storage_dart_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/secure_storage/amplify_secure_storage_dart
+      - name: "packages/secure_storage/amplify_secure_storage_test; dart analyze --fatal-infos lib test"
+        if: "always() && steps.packages_secure_storage_amplify_secure_storage_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_test
         run: dart analyze --fatal-infos lib test
-  job_007:
-    name: "analyze_and_format; Dart stable; PKGS: packages/aft, packages/amplify_core, packages/aws_common, packages/aws_signature_v4/example, packages/example_common, packages/secure_storage/amplify_secure_storage_dart/example, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/smithy/smithy_test, packages/worker_bee/e2e_test, packages/worker_bee/worker_bee, packages/worker_bee/worker_bee_builder; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
+  job_008:
+    name: "analyze_and_format; Dart stable; PKGS: packages/aft, packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/aws_common, packages/aws_signature_v4/example, packages/example_common, packages/secure_storage/amplify_secure_storage_dart/example, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/smithy/smithy_test, packages/worker_bee/e2e, packages/worker_bee/e2e_test, packages/worker_bee/worker_bee, packages/worker_bee/worker_bee_builder; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/smithy/smithy_test-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder;commands:format-analyze_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/smithy/smithy_test-packages/worker_bee/e2e-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worke-!!too_long!!-524-479941180"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/smithy/smithy_test-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen-packages/smithy/smithy_test-packages/worker_bee/e2e-packages/worker_bee/e2e_test-packages/worker_bee/worker_bee-packages/worker_bee/worker_bee_builder
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -423,6 +481,19 @@ jobs:
       - name: "packages/amplify_core; dart analyze --fatal-infos ."
         if: "always() && steps.packages_amplify_core_pub_upgrade.conclusion == 'success'"
         working-directory: packages/amplify_core
+        run: dart analyze --fatal-infos .
+      - id: packages_auth_amplify_auth_cognito_test_pub_upgrade
+        name: packages/auth/amplify_auth_cognito_test; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: dart pub upgrade
+      - name: "packages/auth/amplify_auth_cognito_test; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/auth/amplify_auth_cognito_test; dart analyze --fatal-infos ."
+        if: "always() && steps.packages_auth_amplify_auth_cognito_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/auth/amplify_auth_cognito_test
         run: dart analyze --fatal-infos .
       - id: packages_aws_common_pub_upgrade
         name: packages/aws_common; dart pub upgrade
@@ -528,6 +599,19 @@ jobs:
         if: "always() && steps.packages_smithy_smithy_test_pub_upgrade.conclusion == 'success'"
         working-directory: packages/smithy/smithy_test
         run: dart analyze --fatal-infos .
+      - id: packages_worker_bee_e2e_pub_upgrade
+        name: packages/worker_bee/e2e; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e
+        run: dart pub upgrade
+      - name: "packages/worker_bee/e2e; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_worker_bee_e2e_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/worker_bee/e2e; dart analyze --fatal-infos ."
+        if: "always() && steps.packages_worker_bee_e2e_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/worker_bee/e2e
+        run: dart analyze --fatal-infos .
       - id: packages_worker_bee_e2e_test_pub_upgrade
         name: packages/worker_bee/e2e_test; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -567,7 +651,7 @@ jobs:
         if: "always() && steps.packages_worker_bee_worker_bee_builder_pub_upgrade.conclusion == 'success'"
         working-directory: packages/worker_bee/worker_bee_builder
         run: dart analyze --fatal-infos .
-  job_008:
+  job_009:
     name: "analyze_and_format; Flutter stable; PKG: packages/auth/amplify_auth_cognito; `dart format --output=none --set-exit-if-changed .`, `flutter analyze --fatal-infos lib`"
     runs-on: ubuntu-latest
     steps:
@@ -599,17 +683,17 @@ jobs:
         if: "always() && steps.packages_auth_amplify_auth_cognito_pub_upgrade.conclusion == 'success'"
         working-directory: packages/auth/amplify_auth_cognito
         run: flutter analyze --fatal-infos lib
-  job_009:
-    name: "analyze_and_format; Dart stable; PKGS: packages/auth/amplify_auth_cognito_dart, packages/aws_signature_v4, packages/secure_storage/amplify_secure_storage_dart; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
+  job_010:
+    name: "analyze_and_format; Dart stable; PKGS: packages/auth/amplify_auth_cognito_dart, packages/secure_storage/amplify_secure_storage_dart; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito_dart-packages/aws_signature_v4-packages/secure_storage/amplify_secure_storage_dart;commands:format-analyze_2"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito_dart-packages/secure_storage/amplify_secure_storage_dart;commands:format-analyze_2"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito_dart-packages/aws_signature_v4-packages/secure_storage/amplify_secure_storage_dart
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/auth/amplify_auth_cognito_dart-packages/secure_storage/amplify_secure_storage_dart
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -627,10 +711,42 @@ jobs:
         if: "always() && steps.packages_auth_amplify_auth_cognito_dart_pub_upgrade.conclusion == 'success'"
         working-directory: packages/auth/amplify_auth_cognito_dart
         run: "dart format --output=none --set-exit-if-changed ."
-      - name: "packages/auth/amplify_auth_cognito_dart; dart analyze --fatal-infos lib test"
+      - name: "packages/auth/amplify_auth_cognito_dart; dart analyze --fatal-infos lib"
         if: "always() && steps.packages_auth_amplify_auth_cognito_dart_pub_upgrade.conclusion == 'success'"
         working-directory: packages/auth/amplify_auth_cognito_dart
-        run: dart analyze --fatal-infos lib test
+        run: dart analyze --fatal-infos lib
+      - id: packages_secure_storage_amplify_secure_storage_dart_pub_upgrade
+        name: packages/secure_storage/amplify_secure_storage_dart; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_dart
+        run: dart pub upgrade
+      - name: "packages/secure_storage/amplify_secure_storage_dart; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_secure_storage_amplify_secure_storage_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_dart
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/secure_storage/amplify_secure_storage_dart; dart analyze --fatal-infos lib"
+        if: "always() && steps.packages_secure_storage_amplify_secure_storage_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_dart
+        run: dart analyze --fatal-infos lib
+  job_011:
+    name: "analyze_and_format; Dart stable; PKGS: packages/aws_signature_v4, packages/secure_storage/amplify_secure_storage_test; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4-packages/secure_storage/amplify_secure_storage_test;commands:format-analyze_3"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4-packages/secure_storage/amplify_secure_storage_test
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: stable
+      - id: checkout
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -644,16 +760,16 @@ jobs:
         if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
         run: dart analyze --fatal-infos lib test
-      - id: packages_secure_storage_amplify_secure_storage_dart_pub_upgrade
-        name: packages/secure_storage/amplify_secure_storage_dart; dart pub upgrade
+      - id: packages_secure_storage_amplify_secure_storage_test_pub_upgrade
+        name: packages/secure_storage/amplify_secure_storage_test; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/secure_storage/amplify_secure_storage_dart
+        working-directory: packages/secure_storage/amplify_secure_storage_test
         run: dart pub upgrade
-      - name: "packages/secure_storage/amplify_secure_storage_dart; dart format --output=none --set-exit-if-changed ."
-        if: "always() && steps.packages_secure_storage_amplify_secure_storage_dart_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/secure_storage/amplify_secure_storage_dart
+      - name: "packages/secure_storage/amplify_secure_storage_test; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_secure_storage_amplify_secure_storage_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_test
         run: "dart format --output=none --set-exit-if-changed ."
-      - name: "packages/secure_storage/amplify_secure_storage_dart; dart analyze --fatal-infos lib test"
-        if: "always() && steps.packages_secure_storage_amplify_secure_storage_dart_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/secure_storage/amplify_secure_storage_dart
+      - name: "packages/secure_storage/amplify_secure_storage_test; dart analyze --fatal-infos lib test"
+        if: "always() && steps.packages_secure_storage_amplify_secure_storage_test_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/secure_storage/amplify_secure_storage_test
         run: dart analyze --fatal-infos lib test

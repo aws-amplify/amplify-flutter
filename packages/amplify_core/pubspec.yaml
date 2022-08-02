@@ -24,6 +24,8 @@ dev_dependencies:
   amplify_lints:
     path: ../amplify_lints
   build_runner: ^2.0.0
+  build_test: ^2.1.5
+  build_web_compilers: ^3.2.4
   json_serializable: ^6.3.0
   path: any
   test: ^1.17.0
