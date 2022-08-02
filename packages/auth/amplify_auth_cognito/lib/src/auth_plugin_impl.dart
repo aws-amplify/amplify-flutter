@@ -194,11 +194,13 @@ class _NativeAmplifyAuthCognito
     if (Platform.isAndroid) {
       final bridge = _stateMachine.expect<NativeAuthBridge>();
       final userPoolConfig = _stateMachine.expect<CognitoUserPoolConfig>();
+      final identityPoolConfig =
+          _stateMachine.expect<CognitoIdentityPoolConfig>();
       final legacyCredentials = await bridge.getLegacyCredentials(
-        userPoolConfig.poolId,
+        identityPoolConfig.poolId,
         userPoolConfig.appClientId,
       );
-      return legacyCredentials?.toCredentialStoreData();
+      return legacyCredentials.toCredentialStoreData();
     }
     final bundleId = await _getBundleId();
     CognitoUserPoolTokens? userPoolTokens;
@@ -300,8 +302,7 @@ class _NativeAmplifyAuthCognito
     if (zIsWeb || !(Platform.isIOS || Platform.isAndroid)) return;
     if (Platform.isAndroid) {
       final bridge = _stateMachine.expect<NativeAuthBridge>();
-      final userPoolConfig = _stateMachine.expect<CognitoUserPoolConfig>();
-      return bridge.clearLegacyCredentials(userPoolConfig.appClientId);
+      return bridge.clearLegacyCredentials();
     }
     final bundleId = await _getBundleId();
     if (userPoolConfig != null) {

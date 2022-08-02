@@ -302,16 +302,46 @@ public class NativeAuthPluginBindings {
       this.identityId = setterArg;
     }
 
-    private @Nullable NativeAWSCredentials awsCredentials;
-    public @Nullable NativeAWSCredentials getAwsCredentials() { return awsCredentials; }
-    public void setAwsCredentials(@Nullable NativeAWSCredentials setterArg) {
-      this.awsCredentials = setterArg;
+    private @Nullable String accessKeyId;
+    public @Nullable String getAccessKeyId() { return accessKeyId; }
+    public void setAccessKeyId(@Nullable String setterArg) {
+      this.accessKeyId = setterArg;
     }
 
-    private @Nullable NativeUserPoolTokens userPoolTokens;
-    public @Nullable NativeUserPoolTokens getUserPoolTokens() { return userPoolTokens; }
-    public void setUserPoolTokens(@Nullable NativeUserPoolTokens setterArg) {
-      this.userPoolTokens = setterArg;
+    private @Nullable String secretAccessKey;
+    public @Nullable String getSecretAccessKey() { return secretAccessKey; }
+    public void setSecretAccessKey(@Nullable String setterArg) {
+      this.secretAccessKey = setterArg;
+    }
+
+    private @Nullable String sessionToken;
+    public @Nullable String getSessionToken() { return sessionToken; }
+    public void setSessionToken(@Nullable String setterArg) {
+      this.sessionToken = setterArg;
+    }
+
+    private @Nullable Long expirationMsSinceEpoch;
+    public @Nullable Long getExpirationMsSinceEpoch() { return expirationMsSinceEpoch; }
+    public void setExpirationMsSinceEpoch(@Nullable Long setterArg) {
+      this.expirationMsSinceEpoch = setterArg;
+    }
+
+    private @Nullable String accessToken;
+    public @Nullable String getAccessToken() { return accessToken; }
+    public void setAccessToken(@Nullable String setterArg) {
+      this.accessToken = setterArg;
+    }
+
+    private @Nullable String refreshToken;
+    public @Nullable String getRefreshToken() { return refreshToken; }
+    public void setRefreshToken(@Nullable String setterArg) {
+      this.refreshToken = setterArg;
+    }
+
+    private @Nullable String idToken;
+    public @Nullable String getIdToken() { return idToken; }
+    public void setIdToken(@Nullable String setterArg) {
+      this.idToken = setterArg;
     }
 
     public static final class Builder {
@@ -320,39 +350,84 @@ public class NativeAuthPluginBindings {
         this.identityId = setterArg;
         return this;
       }
-      private @Nullable NativeAWSCredentials awsCredentials;
-      public @NonNull Builder setAwsCredentials(@Nullable NativeAWSCredentials setterArg) {
-        this.awsCredentials = setterArg;
+      private @Nullable String accessKeyId;
+      public @NonNull Builder setAccessKeyId(@Nullable String setterArg) {
+        this.accessKeyId = setterArg;
         return this;
       }
-      private @Nullable NativeUserPoolTokens userPoolTokens;
-      public @NonNull Builder setUserPoolTokens(@Nullable NativeUserPoolTokens setterArg) {
-        this.userPoolTokens = setterArg;
+      private @Nullable String secretAccessKey;
+      public @NonNull Builder setSecretAccessKey(@Nullable String setterArg) {
+        this.secretAccessKey = setterArg;
+        return this;
+      }
+      private @Nullable String sessionToken;
+      public @NonNull Builder setSessionToken(@Nullable String setterArg) {
+        this.sessionToken = setterArg;
+        return this;
+      }
+      private @Nullable Long expirationMsSinceEpoch;
+      public @NonNull Builder setExpirationMsSinceEpoch(@Nullable Long setterArg) {
+        this.expirationMsSinceEpoch = setterArg;
+        return this;
+      }
+      private @Nullable String accessToken;
+      public @NonNull Builder setAccessToken(@Nullable String setterArg) {
+        this.accessToken = setterArg;
+        return this;
+      }
+      private @Nullable String refreshToken;
+      public @NonNull Builder setRefreshToken(@Nullable String setterArg) {
+        this.refreshToken = setterArg;
+        return this;
+      }
+      private @Nullable String idToken;
+      public @NonNull Builder setIdToken(@Nullable String setterArg) {
+        this.idToken = setterArg;
         return this;
       }
       public @NonNull LegacyCredentialStoreData build() {
         LegacyCredentialStoreData pigeonReturn = new LegacyCredentialStoreData();
         pigeonReturn.setIdentityId(identityId);
-        pigeonReturn.setAwsCredentials(awsCredentials);
-        pigeonReturn.setUserPoolTokens(userPoolTokens);
+        pigeonReturn.setAccessKeyId(accessKeyId);
+        pigeonReturn.setSecretAccessKey(secretAccessKey);
+        pigeonReturn.setSessionToken(sessionToken);
+        pigeonReturn.setExpirationMsSinceEpoch(expirationMsSinceEpoch);
+        pigeonReturn.setAccessToken(accessToken);
+        pigeonReturn.setRefreshToken(refreshToken);
+        pigeonReturn.setIdToken(idToken);
         return pigeonReturn;
       }
     }
     @NonNull Map<String, Object> toMap() {
       Map<String, Object> toMapResult = new HashMap<>();
       toMapResult.put("identityId", identityId);
-      toMapResult.put("awsCredentials", (awsCredentials == null) ? null : awsCredentials.toMap());
-      toMapResult.put("userPoolTokens", (userPoolTokens == null) ? null : userPoolTokens.toMap());
+      toMapResult.put("accessKeyId", accessKeyId);
+      toMapResult.put("secretAccessKey", secretAccessKey);
+      toMapResult.put("sessionToken", sessionToken);
+      toMapResult.put("expirationMsSinceEpoch", expirationMsSinceEpoch);
+      toMapResult.put("accessToken", accessToken);
+      toMapResult.put("refreshToken", refreshToken);
+      toMapResult.put("idToken", idToken);
       return toMapResult;
     }
     static @NonNull LegacyCredentialStoreData fromMap(@NonNull Map<String, Object> map) {
       LegacyCredentialStoreData pigeonResult = new LegacyCredentialStoreData();
       Object identityId = map.get("identityId");
       pigeonResult.setIdentityId((String)identityId);
-      Object awsCredentials = map.get("awsCredentials");
-      pigeonResult.setAwsCredentials((awsCredentials == null) ? null : NativeAWSCredentials.fromMap((Map)awsCredentials));
-      Object userPoolTokens = map.get("userPoolTokens");
-      pigeonResult.setUserPoolTokens((userPoolTokens == null) ? null : NativeUserPoolTokens.fromMap((Map)userPoolTokens));
+      Object accessKeyId = map.get("accessKeyId");
+      pigeonResult.setAccessKeyId((String)accessKeyId);
+      Object secretAccessKey = map.get("secretAccessKey");
+      pigeonResult.setSecretAccessKey((String)secretAccessKey);
+      Object sessionToken = map.get("sessionToken");
+      pigeonResult.setSessionToken((String)sessionToken);
+      Object expirationMsSinceEpoch = map.get("expirationMsSinceEpoch");
+      pigeonResult.setExpirationMsSinceEpoch((expirationMsSinceEpoch == null) ? null : ((expirationMsSinceEpoch instanceof Integer) ? (Integer)expirationMsSinceEpoch : (Long)expirationMsSinceEpoch));
+      Object accessToken = map.get("accessToken");
+      pigeonResult.setAccessToken((String)accessToken);
+      Object refreshToken = map.get("refreshToken");
+      pigeonResult.setRefreshToken((String)refreshToken);
+      Object idToken = map.get("idToken");
+      pigeonResult.setIdToken((String)idToken);
       return pigeonResult;
     }
   }
@@ -440,12 +515,6 @@ public class NativeAuthPluginBindings {
         case (byte)128:         
           return LegacyCredentialStoreData.fromMap((Map<String, Object>) readValue(buffer));
         
-        case (byte)129:         
-          return NativeAWSCredentials.fromMap((Map<String, Object>) readValue(buffer));
-        
-        case (byte)130:         
-          return NativeUserPoolTokens.fromMap((Map<String, Object>) readValue(buffer));
-        
         default:        
           return super.readValueOfType(type, buffer);
         
@@ -456,14 +525,6 @@ public class NativeAuthPluginBindings {
       if (value instanceof LegacyCredentialStoreData) {
         stream.write(128);
         writeValue(stream, ((LegacyCredentialStoreData) value).toMap());
-      } else 
-      if (value instanceof NativeAWSCredentials) {
-        stream.write(129);
-        writeValue(stream, ((NativeAWSCredentials) value).toMap());
-      } else 
-      if (value instanceof NativeUserPoolTokens) {
-        stream.write(130);
-        writeValue(stream, ((NativeUserPoolTokens) value).toMap());
       } else 
 {
         super.writeValue(stream, value);
@@ -478,8 +539,8 @@ public class NativeAuthPluginBindings {
     void signOutWithUrl(@NonNull String url, @NonNull String callbackUrlScheme, @NonNull Boolean preferPrivateSession, @Nullable String browserPackageName, Result<Void> result);
     @NonNull Map<String, String> getValidationData();
     @NonNull String getBundleId();
-    void getLegacyCredentials(@NonNull String userPoolId, @NonNull String appClientId, Result<LegacyCredentialStoreData> result);
-    void clearLegacyCredentials(@NonNull String appClientId, Result<Void> result);
+    void getLegacyCredentials(@NonNull String identityPoolId, @NonNull String appClientId, Result<LegacyCredentialStoreData> result);
+    void clearLegacyCredentials(Result<Void> result);
 
     /** The codec used by NativeAuthBridge. */
     static MessageCodec<Object> getCodec() {
@@ -649,9 +710,9 @@ public class NativeAuthPluginBindings {
             Map<String, Object> wrapped = new HashMap<>();
             try {
               ArrayList<Object> args = (ArrayList<Object>)message;
-              String userPoolIdArg = (String)args.get(0);
-              if (userPoolIdArg == null) {
-                throw new NullPointerException("userPoolIdArg unexpectedly null.");
+              String identityPoolIdArg = (String)args.get(0);
+              if (identityPoolIdArg == null) {
+                throw new NullPointerException("identityPoolIdArg unexpectedly null.");
               }
               String appClientIdArg = (String)args.get(1);
               if (appClientIdArg == null) {
@@ -668,7 +729,7 @@ public class NativeAuthPluginBindings {
                 }
               };
 
-              api.getLegacyCredentials(userPoolIdArg, appClientIdArg, resultCallback);
+              api.getLegacyCredentials(identityPoolIdArg, appClientIdArg, resultCallback);
             }
             catch (Error | RuntimeException exception) {
               wrapped.put("error", wrapError(exception));
@@ -686,11 +747,6 @@ public class NativeAuthPluginBindings {
           channel.setMessageHandler((message, reply) -> {
             Map<String, Object> wrapped = new HashMap<>();
             try {
-              ArrayList<Object> args = (ArrayList<Object>)message;
-              String appClientIdArg = (String)args.get(0);
-              if (appClientIdArg == null) {
-                throw new NullPointerException("appClientIdArg unexpectedly null.");
-              }
               Result<Void> resultCallback = new Result<Void>() {
                 public void success(Void result) {
                   wrapped.put("result", null);
@@ -702,7 +758,7 @@ public class NativeAuthPluginBindings {
                 }
               };
 
-              api.clearLegacyCredentials(appClientIdArg, resultCallback);
+              api.clearLegacyCredentials(resultCallback);
             }
             catch (Error | RuntimeException exception) {
               wrapped.put("error", wrapError(exception));

@@ -43,10 +43,6 @@ class LegacyKeyValueStore(
 
     private var keyProvider: LegacyKeyProvider = LegacyKeyProvider()
 
-    fun getAll(): Map<String, Any?> {
-        return sharedPreferencesForData.all
-    }
-
     /**
      * Retrieve the value for the given key from the key-value store.
      *

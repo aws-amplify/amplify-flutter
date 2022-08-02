@@ -68,11 +68,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LegacyCredentialStoreData : NSObject
 + (instancetype)makeWithIdentityId:(nullable NSString *)identityId
-    awsCredentials:(nullable NativeAWSCredentials *)awsCredentials
-    userPoolTokens:(nullable NativeUserPoolTokens *)userPoolTokens;
+    accessKeyId:(nullable NSString *)accessKeyId
+    secretAccessKey:(nullable NSString *)secretAccessKey
+    sessionToken:(nullable NSString *)sessionToken
+    expirationMsSinceEpoch:(nullable NSNumber *)expirationMsSinceEpoch
+    accessToken:(nullable NSString *)accessToken
+    refreshToken:(nullable NSString *)refreshToken
+    idToken:(nullable NSString *)idToken;
 @property(nonatomic, copy, nullable) NSString * identityId;
-@property(nonatomic, strong, nullable) NativeAWSCredentials * awsCredentials;
-@property(nonatomic, strong, nullable) NativeUserPoolTokens * userPoolTokens;
+@property(nonatomic, copy, nullable) NSString * accessKeyId;
+@property(nonatomic, copy, nullable) NSString * secretAccessKey;
+@property(nonatomic, copy, nullable) NSString * sessionToken;
+@property(nonatomic, strong, nullable) NSNumber * expirationMsSinceEpoch;
+@property(nonatomic, copy, nullable) NSString * accessToken;
+@property(nonatomic, copy, nullable) NSString * refreshToken;
+@property(nonatomic, copy, nullable) NSString * idToken;
 @end
 
 /// The codec used by NativeAuthPlugin.
@@ -94,8 +104,8 @@ NSObject<FlutterMessageCodec> *NativeAuthBridgeGetCodec(void);
 - (nullable NSDictionary<NSString *, NSString *> *)getValidationDataWithError:(FlutterError *_Nullable *_Nonnull)error;
 /// @return `nil` only when `error != nil`.
 - (nullable NSString *)getBundleIdWithError:(FlutterError *_Nullable *_Nonnull)error;
-- (void)getLegacyCredentialsUserPoolId:(NSString *)userPoolId appClientId:(NSString *)appClientId completion:(void(^)(LegacyCredentialStoreData *_Nullable, FlutterError *_Nullable))completion;
-- (void)clearLegacyCredentialsAppClientId:(NSString *)appClientId completion:(void(^)(FlutterError *_Nullable))completion;
+- (void)getLegacyCredentialsIdentityPoolId:(NSString *)identityPoolId appClientId:(NSString *)appClientId completion:(void(^)(LegacyCredentialStoreData *_Nullable, FlutterError *_Nullable))completion;
+- (void)clearLegacyCredentialsWithCompletion:(void(^)(FlutterError *_Nullable))completion;
 @end
 
 extern void NativeAuthBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<NativeAuthBridge> *_Nullable api);

@@ -127,19 +127,34 @@ class NativeAWSCredentials {
 class LegacyCredentialStoreData {
   LegacyCredentialStoreData({
     this.identityId,
-    this.awsCredentials,
-    this.userPoolTokens,
+    this.accessKeyId,
+    this.secretAccessKey,
+    this.sessionToken,
+    this.expirationMsSinceEpoch,
+    this.accessToken,
+    this.refreshToken,
+    this.idToken,
   });
 
   String? identityId;
-  NativeAWSCredentials? awsCredentials;
-  NativeUserPoolTokens? userPoolTokens;
+  String? accessKeyId;
+  String? secretAccessKey;
+  String? sessionToken;
+  int? expirationMsSinceEpoch;
+  String? accessToken;
+  String? refreshToken;
+  String? idToken;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
     pigeonMap['identityId'] = identityId;
-    pigeonMap['awsCredentials'] = awsCredentials?.encode();
-    pigeonMap['userPoolTokens'] = userPoolTokens?.encode();
+    pigeonMap['accessKeyId'] = accessKeyId;
+    pigeonMap['secretAccessKey'] = secretAccessKey;
+    pigeonMap['sessionToken'] = sessionToken;
+    pigeonMap['expirationMsSinceEpoch'] = expirationMsSinceEpoch;
+    pigeonMap['accessToken'] = accessToken;
+    pigeonMap['refreshToken'] = refreshToken;
+    pigeonMap['idToken'] = idToken;
     return pigeonMap;
   }
 
@@ -147,12 +162,13 @@ class LegacyCredentialStoreData {
     final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
     return LegacyCredentialStoreData(
       identityId: pigeonMap['identityId'] as String?,
-      awsCredentials: pigeonMap['awsCredentials'] != null
-          ? NativeAWSCredentials.decode(pigeonMap['awsCredentials']!)
-          : null,
-      userPoolTokens: pigeonMap['userPoolTokens'] != null
-          ? NativeUserPoolTokens.decode(pigeonMap['userPoolTokens']!)
-          : null,
+      accessKeyId: pigeonMap['accessKeyId'] as String?,
+      secretAccessKey: pigeonMap['secretAccessKey'] as String?,
+      sessionToken: pigeonMap['sessionToken'] as String?,
+      expirationMsSinceEpoch: pigeonMap['expirationMsSinceEpoch'] as int?,
+      accessToken: pigeonMap['accessToken'] as String?,
+      refreshToken: pigeonMap['refreshToken'] as String?,
+      idToken: pigeonMap['idToken'] as String?,
     );
   }
 }
@@ -249,12 +265,6 @@ class _NativeAuthBridgeCodec extends StandardMessageCodec {
     if (value is LegacyCredentialStoreData) {
       buffer.putUint8(128);
       writeValue(buffer, value.encode());
-    } else if (value is NativeAWSCredentials) {
-      buffer.putUint8(129);
-      writeValue(buffer, value.encode());
-    } else if (value is NativeUserPoolTokens) {
-      buffer.putUint8(130);
-      writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
     }
@@ -265,12 +275,6 @@ class _NativeAuthBridgeCodec extends StandardMessageCodec {
     switch (type) {
       case 128:
         return LegacyCredentialStoreData.decode(readValue(buffer)!);
-
-      case 129:
-        return NativeAWSCredentials.decode(readValue(buffer)!);
-
-      case 130:
-        return NativeUserPoolTokens.decode(readValue(buffer)!);
 
       default:
         return super.readValueOfType(type, buffer);
@@ -439,13 +443,13 @@ class NativeAuthBridge {
     }
   }
 
-  Future<LegacyCredentialStoreData?> getLegacyCredentials(
-      String arg_userPoolId, String arg_appClientId) async {
+  Future<LegacyCredentialStoreData> getLegacyCredentials(
+      String arg_identityPoolId, String arg_appClientId) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.NativeAuthBridge.getLegacyCredentials', codec,
         binaryMessenger: _binaryMessenger);
     final Map<Object?, Object?>? replyMap =
-        await channel.send(<Object?>[arg_userPoolId, arg_appClientId])
+        await channel.send(<Object?>[arg_identityPoolId, arg_appClientId])
             as Map<Object?, Object?>?;
     if (replyMap == null) {
       throw PlatformException(
@@ -460,17 +464,22 @@ class NativeAuthBridge {
         message: error['message'] as String?,
         details: error['details'],
       );
+    } else if (replyMap['result'] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
     } else {
-      return (replyMap['result'] as LegacyCredentialStoreData?);
+      return (replyMap['result'] as LegacyCredentialStoreData?)!;
     }
   }
 
-  Future<void> clearLegacyCredentials(String arg_appClientId) async {
+  Future<void> clearLegacyCredentials() async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.NativeAuthBridge.clearLegacyCredentials', codec,
         binaryMessenger: _binaryMessenger);
-    final Map<Object?, Object?>? replyMap = await channel
-        .send(<Object?>[arg_appClientId]) as Map<Object?, Object?>?;
+    final Map<Object?, Object?>? replyMap =
+        await channel.send(null) as Map<Object?, Object?>?;
     if (replyMap == null) {
       throw PlatformException(
         code: 'channel-error',

@@ -6,25 +6,24 @@ import 'package:amplify_core/amplify_core.dart';
 extension LegacyCredentialStoreDataX on LegacyCredentialStoreData {
   /// Converts [LegacyCredentialStoreData] to [CredentialStoreData].
   CredentialStoreData toCredentialStoreData() {
-    final sessionToken = awsCredentials?.sessionToken;
-    final expirationIso8601Utc = awsCredentials?.expirationIso8601Utc;
-    final awsCredentialsData = awsCredentials != null
+    final awsCredentialsData = accessKeyId != null && secretAccessKey != null
         ? AWSCredentials(
-            awsCredentials!.accessKeyId,
-            awsCredentials!.secretAccessKey,
+            accessKeyId!,
+            secretAccessKey!,
             sessionToken,
-            expirationIso8601Utc != null
-                ? DateTime.parse(expirationIso8601Utc)
+            expirationMsSinceEpoch != null
+                ? DateTime.fromMillisecondsSinceEpoch(expirationMsSinceEpoch!)
                 : null,
           )
         : null;
-    final userPoolTokensData = userPoolTokens != null
-        ? CognitoUserPoolTokens(
-            accessToken: JsonWebToken.parse(userPoolTokens!.accessToken),
-            refreshToken: userPoolTokens!.refreshToken,
-            idToken: JsonWebToken.parse(userPoolTokens!.idToken),
-          )
-        : null;
+    final userPoolTokensData =
+        accessToken != null && refreshToken != null && idToken != null
+            ? CognitoUserPoolTokens(
+                accessToken: JsonWebToken.parse(accessToken!),
+                refreshToken: refreshToken!,
+                idToken: JsonWebToken.parse(idToken!),
+              )
+            : null;
     return CredentialStoreData(
       identityId: identityId,
       awsCredentials: awsCredentialsData,

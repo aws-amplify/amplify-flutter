@@ -167,27 +167,47 @@ static id GetNullableObjectAtIndex(NSArray* array, NSInteger key) {
 
 @implementation LegacyCredentialStoreData
 + (instancetype)makeWithIdentityId:(nullable NSString *)identityId
-    awsCredentials:(nullable NativeAWSCredentials *)awsCredentials
-    userPoolTokens:(nullable NativeUserPoolTokens *)userPoolTokens {
+    accessKeyId:(nullable NSString *)accessKeyId
+    secretAccessKey:(nullable NSString *)secretAccessKey
+    sessionToken:(nullable NSString *)sessionToken
+    expirationMsSinceEpoch:(nullable NSNumber *)expirationMsSinceEpoch
+    accessToken:(nullable NSString *)accessToken
+    refreshToken:(nullable NSString *)refreshToken
+    idToken:(nullable NSString *)idToken {
   LegacyCredentialStoreData* pigeonResult = [[LegacyCredentialStoreData alloc] init];
   pigeonResult.identityId = identityId;
-  pigeonResult.awsCredentials = awsCredentials;
-  pigeonResult.userPoolTokens = userPoolTokens;
+  pigeonResult.accessKeyId = accessKeyId;
+  pigeonResult.secretAccessKey = secretAccessKey;
+  pigeonResult.sessionToken = sessionToken;
+  pigeonResult.expirationMsSinceEpoch = expirationMsSinceEpoch;
+  pigeonResult.accessToken = accessToken;
+  pigeonResult.refreshToken = refreshToken;
+  pigeonResult.idToken = idToken;
   return pigeonResult;
 }
 + (LegacyCredentialStoreData *)fromMap:(NSDictionary *)dict {
   LegacyCredentialStoreData *pigeonResult = [[LegacyCredentialStoreData alloc] init];
   pigeonResult.identityId = GetNullableObject(dict, @"identityId");
-  pigeonResult.awsCredentials = [NativeAWSCredentials nullableFromMap:GetNullableObject(dict, @"awsCredentials")];
-  pigeonResult.userPoolTokens = [NativeUserPoolTokens nullableFromMap:GetNullableObject(dict, @"userPoolTokens")];
+  pigeonResult.accessKeyId = GetNullableObject(dict, @"accessKeyId");
+  pigeonResult.secretAccessKey = GetNullableObject(dict, @"secretAccessKey");
+  pigeonResult.sessionToken = GetNullableObject(dict, @"sessionToken");
+  pigeonResult.expirationMsSinceEpoch = GetNullableObject(dict, @"expirationMsSinceEpoch");
+  pigeonResult.accessToken = GetNullableObject(dict, @"accessToken");
+  pigeonResult.refreshToken = GetNullableObject(dict, @"refreshToken");
+  pigeonResult.idToken = GetNullableObject(dict, @"idToken");
   return pigeonResult;
 }
 + (nullable LegacyCredentialStoreData *)nullableFromMap:(NSDictionary *)dict { return (dict) ? [LegacyCredentialStoreData fromMap:dict] : nil; }
 - (NSDictionary *)toMap {
   return @{
     @"identityId" : (self.identityId ?: [NSNull null]),
-    @"awsCredentials" : (self.awsCredentials ? [self.awsCredentials toMap] : [NSNull null]),
-    @"userPoolTokens" : (self.userPoolTokens ? [self.userPoolTokens toMap] : [NSNull null]),
+    @"accessKeyId" : (self.accessKeyId ?: [NSNull null]),
+    @"secretAccessKey" : (self.secretAccessKey ?: [NSNull null]),
+    @"sessionToken" : (self.sessionToken ?: [NSNull null]),
+    @"expirationMsSinceEpoch" : (self.expirationMsSinceEpoch ?: [NSNull null]),
+    @"accessToken" : (self.accessToken ?: [NSNull null]),
+    @"refreshToken" : (self.refreshToken ?: [NSNull null]),
+    @"idToken" : (self.idToken ?: [NSNull null]),
   };
 }
 @end
@@ -303,12 +323,6 @@ NSObject<FlutterMessageCodec> *NativeAuthPluginGetCodec() {
     case 128:     
       return [LegacyCredentialStoreData fromMap:[self readValue]];
     
-    case 129:     
-      return [NativeAWSCredentials fromMap:[self readValue]];
-    
-    case 130:     
-      return [NativeUserPoolTokens fromMap:[self readValue]];
-    
     default:    
       return [super readValueOfType:type];
     
@@ -323,14 +337,6 @@ NSObject<FlutterMessageCodec> *NativeAuthPluginGetCodec() {
 {
   if ([value isKindOfClass:[LegacyCredentialStoreData class]]) {
     [self writeByte:128];
-    [self writeValue:[value toMap]];
-  } else 
-  if ([value isKindOfClass:[NativeAWSCredentials class]]) {
-    [self writeByte:129];
-    [self writeValue:[value toMap]];
-  } else 
-  if ([value isKindOfClass:[NativeUserPoolTokens class]]) {
-    [self writeByte:130];
     [self writeValue:[value toMap]];
   } else 
 {
@@ -469,12 +475,12 @@ void NativeAuthBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<
         binaryMessenger:binaryMessenger
         codec:NativeAuthBridgeGetCodec()        ];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(getLegacyCredentialsUserPoolId:appClientId:completion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(getLegacyCredentialsUserPoolId:appClientId:completion:)", api);
+      NSCAssert([api respondsToSelector:@selector(getLegacyCredentialsIdentityPoolId:appClientId:completion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(getLegacyCredentialsIdentityPoolId:appClientId:completion:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
         NSArray *args = message;
-        NSString *arg_userPoolId = GetNullableObjectAtIndex(args, 0);
+        NSString *arg_identityPoolId = GetNullableObjectAtIndex(args, 0);
         NSString *arg_appClientId = GetNullableObjectAtIndex(args, 1);
-        [api getLegacyCredentialsUserPoolId:arg_userPoolId appClientId:arg_appClientId completion:^(LegacyCredentialStoreData *_Nullable output, FlutterError *_Nullable error) {
+        [api getLegacyCredentialsIdentityPoolId:arg_identityPoolId appClientId:arg_appClientId completion:^(LegacyCredentialStoreData *_Nullable output, FlutterError *_Nullable error) {
           callback(wrapResult(output, error));
         }];
       }];
@@ -490,11 +496,9 @@ void NativeAuthBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<
         binaryMessenger:binaryMessenger
         codec:NativeAuthBridgeGetCodec()        ];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(clearLegacyCredentialsAppClientId:completion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(clearLegacyCredentialsAppClientId:completion:)", api);
+      NSCAssert([api respondsToSelector:@selector(clearLegacyCredentialsWithCompletion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(clearLegacyCredentialsWithCompletion:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
-        NSArray *args = message;
-        NSString *arg_appClientId = GetNullableObjectAtIndex(args, 0);
-        [api clearLegacyCredentialsAppClientId:arg_appClientId completion:^(FlutterError *_Nullable error) {
+        [api clearLegacyCredentialsWithCompletion:^(FlutterError *_Nullable error) {
           callback(wrapResult(nil, error));
         }];
       }];
