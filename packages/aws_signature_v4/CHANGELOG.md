@@ -1,3 +1,7 @@
+## 0.2.1
+
+- Fix package analysis issues
+
 ## 0.2.0
 
 - Bump minimum Dart SDK to 2.17
