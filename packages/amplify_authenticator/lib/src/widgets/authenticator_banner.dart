@@ -28,13 +28,11 @@ MaterialBanner createMaterialBanner(
 
   return MaterialBanner(
     key: keyAuthenticatorBanner,
-    leading: Icon(type.icon),
-    padding: EdgeInsetsDirectional.only(
-      start: 16.0,
-      top: 2.0 + margin,
-      bottom: 4.0,
+    leading: Icon(
+      type.icon,
     ),
-    content: content,
+    backgroundColor: type.color,
+    content: Center(child: content),
     actions: actions,
   );
 }
@@ -70,13 +68,26 @@ extension on StatusType {
   IconData get icon {
     switch (this) {
       case StatusType.info:
-        return Icons.info;
+        return Icons.circle_notifications;
       case StatusType.success:
         return Icons.check_circle;
       case StatusType.warning:
         return Icons.warning;
       case StatusType.error:
         return Icons.error;
+    }
+  }
+
+  ColorSwatch<int> get color {
+    switch (this) {
+      case StatusType.info:
+        return Colors.blue;
+      case StatusType.success:
+        return Colors.green;
+      case StatusType.warning:
+        return Colors.orange;
+      case StatusType.error:
+        return Colors.red;
     }
   }
 }

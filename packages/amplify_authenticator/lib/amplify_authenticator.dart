@@ -498,7 +498,8 @@ class _AuthenticatorState extends State<Authenticator> {
       if (mounted && exception.showBanner) {
         _showExceptionBanner(
           type: StatusType.error,
-          content: Text(exception.message),
+          content:
+              Text(exception.message.trimRight(), textAlign: TextAlign.center),
         );
       }
     });
@@ -513,7 +514,7 @@ class _AuthenticatorState extends State<Authenticator> {
         _logger.info(message);
         _showExceptionBanner(
           type: StatusType.info,
-          content: Text(message),
+          content: Text(message.trimRight(), textAlign: TextAlign.center),
         );
       } else {
         _logger.info('Could not show banner for key: $key');
