@@ -1,5 +1,7 @@
 # Generated with `aft`. Do not modify by hand or check into source control.
 dependency_overrides: 
+  amplify_lints:
+    path: ../../amplify_lints
   aws_common:
     path: ../../aws_common
   aws_signature_v4:
@@ -8,7 +10,5 @@ dependency_overrides:
     path: ../smithy
   smithy_aws:
     path: ../smithy_aws
-  amplify_lints:
-    path: ../../amplify_lints
   smithy_test:
     path: ../smithy_test
