@@ -30,9 +30,6 @@ class _$ConfirmDeviceMessageSerializer
       'accessToken',
       serializers.serialize(object.accessToken,
           specifiedType: const FullType(String)),
-      'password',
-      serializers.serialize(object.password,
-          specifiedType: const FullType(String)),
       'newDeviceMetadata',
       serializers.serialize(object.newDeviceMetadata,
           specifiedType: const FullType(NewDeviceMetadataType)),
@@ -57,10 +54,6 @@ class _$ConfirmDeviceMessageSerializer
           result.accessToken = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'password':
-          result.password = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
         case 'newDeviceMetadata':
           result.newDeviceMetadata.replace(serializers.deserialize(value,
                   specifiedType: const FullType(NewDeviceMetadataType))!
@@ -77,8 +70,6 @@ class _$ConfirmDeviceMessage extends ConfirmDeviceMessage {
   @override
   final String accessToken;
   @override
-  final String password;
-  @override
   final NewDeviceMetadataType newDeviceMetadata;
 
   factory _$ConfirmDeviceMessage(
@@ -86,14 +77,10 @@ class _$ConfirmDeviceMessage extends ConfirmDeviceMessage {
       (new ConfirmDeviceMessageBuilder()..update(updates))._build();
 
   _$ConfirmDeviceMessage._(
-      {required this.accessToken,
-      required this.password,
-      required this.newDeviceMetadata})
+      {required this.accessToken, required this.newDeviceMetadata})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         accessToken, r'ConfirmDeviceMessage', 'accessToken');
-    BuiltValueNullFieldError.checkNotNull(
-        password, r'ConfirmDeviceMessage', 'password');
     BuiltValueNullFieldError.checkNotNull(
         newDeviceMetadata, r'ConfirmDeviceMessage', 'newDeviceMetadata');
   }
@@ -112,21 +99,18 @@ class _$ConfirmDeviceMessage extends ConfirmDeviceMessage {
     if (identical(other, this)) return true;
     return other is ConfirmDeviceMessage &&
         accessToken == other.accessToken &&
-        password == other.password &&
         newDeviceMetadata == other.newDeviceMetadata;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, accessToken.hashCode), password.hashCode),
-        newDeviceMetadata.hashCode));
+    return $jf($jc($jc(0, accessToken.hashCode), newDeviceMetadata.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'ConfirmDeviceMessage')
           ..add('accessToken', accessToken)
-          ..add('password', password)
           ..add('newDeviceMetadata', newDeviceMetadata))
         .toString();
   }
@@ -140,10 +124,6 @@ class ConfirmDeviceMessageBuilder
   String? get accessToken => _$this._accessToken;
   set accessToken(String? accessToken) => _$this._accessToken = accessToken;
 
-  String? _password;
-  String? get password => _$this._password;
-  set password(String? password) => _$this._password = password;
-
   NewDeviceMetadataTypeBuilder? _newDeviceMetadata;
   NewDeviceMetadataTypeBuilder get newDeviceMetadata =>
       _$this._newDeviceMetadata ??= new NewDeviceMetadataTypeBuilder();
@@ -156,7 +136,6 @@ class ConfirmDeviceMessageBuilder
     final $v = _$v;
     if ($v != null) {
       _accessToken = $v.accessToken;
-      _password = $v.password;
       _newDeviceMetadata = $v.newDeviceMetadata.toBuilder();
       _$v = null;
     }
@@ -184,8 +163,6 @@ class ConfirmDeviceMessageBuilder
           new _$ConfirmDeviceMessage._(
               accessToken: BuiltValueNullFieldError.checkNotNull(
                   accessToken, r'ConfirmDeviceMessage', 'accessToken'),
-              password: BuiltValueNullFieldError.checkNotNull(
-                  password, r'ConfirmDeviceMessage', 'password'),
               newDeviceMetadata: newDeviceMetadata.build());
     } catch (_) {
       late String _$failedField;

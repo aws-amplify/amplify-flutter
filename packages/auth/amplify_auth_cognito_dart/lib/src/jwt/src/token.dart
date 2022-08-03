@@ -12,13 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_auth_cognito_dart/src/jwt/src/claims.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/header.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-
-import 'claims.dart';
-import 'header.dart';
-import 'util.dart';
 
 /// {@template amplify_auth_cognito.json_web_token}
 /// A JSON Web Token (JWT) is a compact, URL-safe means of representing claims

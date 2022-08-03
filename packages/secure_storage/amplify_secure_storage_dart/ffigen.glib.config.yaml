@@ -1,21 +1,16 @@
-# ffigen config for glib
-# to regenerate, run: dart run ffigen --config ffigen.glib.config.yaml
-# 
-# The entry-points values assumes that glib is in the same parent 
-# dir as amplify-dart. Either clone glib into the same dir, or update
-# the file paths as needed.
-# 
-# glib source code: https://github.com/GNOME/glib
+# ffigen config for glib bindings.
+#
+# To regenerate, run: `make ffi_bindings_linux`
 
 output: 'lib/src/ffi/glib/glib.bindings.g.dart'
 name: 'Glib'
 description: 'Bindings to glib'
 headers:
   entry-points:
-    - '../../../../glib/glib/ghash.h'
-    - '../../../../glib/glib/gtypes.h'
-    - '../../../../glib/glib/glist.h'
-    - '../../../../glib/glib/gerror.h'
+    - 'external/glib/glib/glib.h'
+    - 'external/glib/gio/gio.h'
+compiler-opts:
+- '-I./external/glib/'
 functions:
   include:
     - g_hash_table_new
@@ -24,8 +19,10 @@ functions:
 structs:
   include:
     - _GError
+    - _GCancellable
   rename:
     '_GError': 'GError'
+    '_GCancellable': 'GCancellable'
 enums:
   include:
     - NONE

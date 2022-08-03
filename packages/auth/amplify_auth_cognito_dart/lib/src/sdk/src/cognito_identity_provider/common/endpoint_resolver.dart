@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.common.endpoint_resolver;
+library amplify_auth_cognito_dart.cognito_identity_provider.common.endpoint_resolver; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:meta/meta.dart' as _i2;
 import 'package:smithy_aws/smithy_aws.dart' as _i1;

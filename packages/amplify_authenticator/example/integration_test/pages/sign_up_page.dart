@@ -37,34 +37,37 @@ class SignUpPage extends AuthenticatorPage {
 
   /// When I type a new "username"
   Future<void> enterUsername(String username) async {
-    await tester.tap(usernameField);
+    await tester.ensureVisible(usernameField);
     await tester.enterText(usernameField, username);
   }
 
   /// When I type my password
   Future<void> enterPassword(String password) async {
-    await tester.tap(passwordField);
+    await tester.ensureVisible(passwordField);
     await tester.enterText(passwordField, password);
   }
 
   /// When I type my password confirmation
   Future<void> enterPasswordConfirmation(String password) async {
-    await tester.tap(confirmPasswordField);
+    await tester.ensureVisible(confirmPasswordField);
     await tester.enterText(confirmPasswordField, password);
   }
 
   /// When I type my "email" with status "UNCONFIRMED"
   Future<void> enterEmail(String email) async {
+    await tester.ensureVisible(emailField);
     await tester.enterText(emailField, email);
   }
 
   /// When I type my "PhoneNumber"
   Future<void> enterPhoneNumber(String value) async {
+    await tester.ensureVisible(phoneField);
     await tester.enterText(phoneField, value);
   }
 
   /// When I type a new "preferred username"
   Future<void> enterPreferredUsername(String username) async {
+    await tester.ensureVisible(preferredUsernameField);
     await tester.enterText(preferredUsernameField, username);
   }
 

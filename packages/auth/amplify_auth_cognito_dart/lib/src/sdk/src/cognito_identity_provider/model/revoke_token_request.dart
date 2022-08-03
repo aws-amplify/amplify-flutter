@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.revoke_token_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.revoke_token_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -44,7 +44,7 @@ abstract class RevokeTokenRequest
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _RevokeTokenRequestAwsJson11Serializer()
+    RevokeTokenRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -56,7 +56,7 @@ abstract class RevokeTokenRequest
   /// The secret for the client ID. This is required only if the client ID has a secret.
   String? get clientSecret;
 
-  /// The token that you want to revoke.
+  /// The refresh token that you want to revoke.
   String get token;
   @override
   RevokeTokenRequest getPayload() => this;
@@ -72,9 +72,9 @@ abstract class RevokeTokenRequest
   }
 }
 
-class _RevokeTokenRequestAwsJson11Serializer
+class RevokeTokenRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<RevokeTokenRequest> {
-  const _RevokeTokenRequestAwsJson11Serializer() : super('RevokeTokenRequest');
+  const RevokeTokenRequestAwsJson11Serializer() : super('RevokeTokenRequest');
 
   @override
   Iterable<Type> get types => const [RevokeTokenRequest, _$RevokeTokenRequest];

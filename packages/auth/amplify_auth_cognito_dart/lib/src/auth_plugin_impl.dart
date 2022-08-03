@@ -101,7 +101,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
   @visibleForTesting
   set stateMachine(CognitoAuthStateMachine stateMachine) {
-    if (!zDebugMode) throw StateError('Can only be called in tests');
+    if (!zAssertsEnabled) throw StateError('Can only be called in tests');
     _stateMachine = stateMachine;
   }
 
@@ -249,15 +249,18 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }) async {
     final options = request?.options as CognitoSignInWithWebUIOptions? ??
         const CognitoSignInWithWebUIOptions();
-    await _stateMachine.dispatch(
-      HostedUiEvent.signIn(
-        options: options,
-        provider: request?.provider,
-      ),
-    );
 
-    await for (final state
-        in _stateMachine.expect(HostedUiStateMachine.type).stream) {
+    // Create a new state machine which will close the previous one and cancel
+    // any pending sign-ins.
+    final stateMachine = _stateMachine.create(HostedUiStateMachine.type)
+      ..dispatch(
+        HostedUiEvent.signIn(
+          options: options,
+          provider: request?.provider,
+        ),
+      );
+
+    await for (final state in stateMachine.stream) {
       switch (state.type) {
         case HostedUiStateType.notConfigured:
         case HostedUiStateType.configuring:
@@ -281,8 +284,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       }
     }
 
-    // This should never happen.
-    throw const UnknownException('signInWithWebUI could not be completed');
+    throw const UserCancelledException('The user cancelled the sign-in flow');
   }
 
   @override
@@ -452,7 +454,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
               codeDeliveryDetails: _getChallengeDeliveryDetails(
                 state.challengeParameters,
               ),
-              challengeParameters: state.challengeParameters,
+              additionalInfo: state.challengeParameters,
               missingAttributes: state.requiredAttributes,
             ),
           );
@@ -484,8 +486,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       }
     }
 
-    // This should never happen.
-    throw const UnknownException('Sign in could not be completed');
+    throw const UserCancelledException('The user cancelled the sign-in flow');
   }
 
   @override
@@ -518,7 +519,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
               codeDeliveryDetails: _getChallengeDeliveryDetails(
                 state.challengeParameters,
               ),
-              challengeParameters: state.challengeParameters,
+              additionalInfo: state.challengeParameters,
               missingAttributes: state.requiredAttributes,
             ),
           );
@@ -676,7 +677,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   Future<CognitoResetPasswordResult> resetPassword({
     required ResetPasswordRequest request,
   }) async {
-    final options = request.options as CognitoResendSignUpCodeOptions?;
+    final options = request.options as CognitoResetPasswordOptions?;
     final result = await _cognitoIdp.forgotPassword(
       cognito.ForgotPasswordRequest.build((b) {
         b

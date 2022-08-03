@@ -14,10 +14,9 @@
 
 import 'dart:ffi';
 
+import 'package:amplify_secure_storage_dart/src/ffi/cupertino/core_foundation.bindings.g.dart';
+import 'package:amplify_secure_storage_dart/src/ffi/cupertino/security.bindings.g.dart';
 import 'package:ffi/ffi.dart';
-
-import 'core_foundation.bindings.g.dart';
-import 'security.bindings.g.dart';
 
 export 'core_foundation.bindings.g.dart' hide CoreFoundation;
 export 'security.bindings.g.dart' hide Security;

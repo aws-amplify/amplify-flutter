@@ -15,10 +15,9 @@
 import 'dart:ffi';
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:amplify_secure_storage_dart/src/ffi/glib/glib.dart';
+import 'package:amplify_secure_storage_dart/src/ffi/libsecret/libsecret.dart';
 import 'package:ffi/ffi.dart';
-
-import '../ffi/glib/glib.dart';
-import '../ffi/libsecret/libsecret.dart';
 
 /// The Linux implementation of [SecureStorageInterface].
 class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {

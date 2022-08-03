@@ -1,6 +1,6 @@
 # amplify_secure_storage
 
-The Android implementation of amplify_secure_storage.
+A package for storing secrets, intended for use in Amplify libraries.
 
 ## Pigeon
 

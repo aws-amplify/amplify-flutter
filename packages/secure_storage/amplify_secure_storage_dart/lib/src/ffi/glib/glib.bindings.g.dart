@@ -69,20 +69,6 @@ class Glib {
       .asFunction<int Function(ffi.Pointer<GHashTable>, gpointer, gpointer)>();
 }
 
-typedef GHashTable = _GHashTable;
-
-class _GHashTable extends ffi.Opaque {}
-
-typedef GHashFunc
-    = ffi.Pointer<ffi.NativeFunction<guint Function(gconstpointer)>>;
-typedef guint = ffi.UnsignedInt;
-typedef gconstpointer = ffi.Pointer<ffi.Void>;
-typedef GEqualFunc = ffi.Pointer<
-    ffi.NativeFunction<gboolean Function(gconstpointer, gconstpointer)>>;
-typedef gboolean = gint;
-typedef gint = ffi.Int;
-typedef gpointer = ffi.Pointer<ffi.Void>;
-
 class GError extends ffi.Struct {
   @GQuark()
   external int domain;
@@ -94,4 +80,28 @@ class GError extends ffi.Struct {
 }
 
 typedef GQuark = ffi.Int;
+typedef gint = ffi.Int;
 typedef gchar = ffi.Char;
+typedef GHashTable = _GHashTable;
+
+class _GHashTable extends ffi.Opaque {}
+
+typedef GHashFunc
+    = ffi.Pointer<ffi.NativeFunction<guint Function(gconstpointer)>>;
+typedef guint = ffi.UnsignedInt;
+typedef gconstpointer = ffi.Pointer<ffi.Void>;
+typedef GEqualFunc = ffi.Pointer<
+    ffi.NativeFunction<gboolean Function(gconstpointer, gconstpointer)>>;
+typedef gboolean = gint;
+typedef gpointer = ffi.Pointer<ffi.Void>;
+
+class GCancellable extends ffi.Struct {
+  @ffi.Int()
+  external int parent_instance;
+
+  external ffi.Pointer<GCancellablePrivate> priv;
+}
+
+typedef GCancellablePrivate = _GCancellablePrivate;
+
+class _GCancellablePrivate extends ffi.Opaque {}

@@ -31,6 +31,34 @@ class AuthConfig extends AmplifyPluginConfigMap {
   factory AuthConfig.fromJson(Map<String, Object?> json) =>
       _$AuthConfigFromJson(json);
 
+  /// Creates an [AuthConfig] with the given Cognito configurations.
+  factory AuthConfig.cognito({
+    CognitoUserPoolConfig? userPoolConfig,
+    CognitoIdentityPoolConfig? identityPoolConfig,
+    CognitoOAuthConfig? hostedUiConfig,
+  }) =>
+      AuthConfig(
+        plugins: {
+          CognitoPluginConfig.pluginKey: CognitoPluginConfig(
+            auth: hostedUiConfig == null
+                ? null
+                : AWSConfigMap.withDefault(
+                    CognitoAuthConfig(oAuth: hostedUiConfig)),
+            cognitoUserPool: userPoolConfig == null
+                ? null
+                : AWSConfigMap.withDefault(userPoolConfig),
+            credentialsProvider: identityPoolConfig == null
+                ? null
+                : CredentialsProviders(
+                    AWSConfigMap({
+                      CognitoIdentityCredentialsProvider.configKey:
+                          AWSConfigMap.withDefault(identityPoolConfig),
+                    }),
+                  ),
+          ),
+        },
+      );
+
   /// The AWS Cognito plugin configuration, if available.
   @override
   CognitoPluginConfig? get awsPlugin =>

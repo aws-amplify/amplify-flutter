@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.sign_up_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.sign_up_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/code_delivery_details_type.dart'
     as _i2;
@@ -52,7 +52,7 @@ abstract class SignUpResponse
       payload;
 
   static const List<_i3.SmithySerializer> serializers = [
-    _SignUpResponseAwsJson11Serializer()
+    SignUpResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -64,7 +64,7 @@ abstract class SignUpResponse
   /// A response from the server indicating that a user registration has been confirmed.
   bool get userConfirmed;
 
-  /// The UUID of the authenticated user. This is not the same as `username`.
+  /// The UUID of the authenticated user. This isn't the same as `username`.
   String get userSub;
   @override
   List<Object?> get props => [codeDeliveryDetails, userConfirmed, userSub];
@@ -78,9 +78,9 @@ abstract class SignUpResponse
   }
 }
 
-class _SignUpResponseAwsJson11Serializer
+class SignUpResponseAwsJson11Serializer
     extends _i3.StructuredSmithySerializer<SignUpResponse> {
-  const _SignUpResponseAwsJson11Serializer() : super('SignUpResponse');
+  const SignUpResponseAwsJson11Serializer() : super('SignUpResponse');
 
   @override
   Iterable<Type> get types => const [SignUpResponse, _$SignUpResponse];

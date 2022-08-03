@@ -16,14 +16,13 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_auth_cognito_dart/src/crypto/crypto.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/device/confirm_device_worker.worker.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_helper.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:worker_bee/worker_bee.dart';
-
-import 'confirm_device_worker.worker.dart';
 
 part 'confirm_device_worker.g.dart';
 
@@ -40,9 +39,6 @@ abstract class ConfirmDeviceMessage
 
   /// The logged-in user's access token.
   String get accessToken;
-
-  /// The logged-in user's access token.
-  String get password;
 
   /// The device metadata issued by Cognito.
   NewDeviceMetadataType get newDeviceMetadata;
@@ -73,11 +69,17 @@ abstract class ConfirmDeviceWorker
     await for (final message in listen) {
       final deviceGroupKey = message.newDeviceMetadata.deviceGroupKey;
       final deviceKey = message.newDeviceMetadata.deviceKey;
+      if (deviceGroupKey == null || deviceKey == null) {
+        throw InvalidParameterException(message: 'Missing device metadata');
+      }
 
+      // Generate a random password of 40 bytes per
+      // https://aws.amazon.com/premiumsupport/knowledge-center/cognito-user-pool-remembered-devices/
+      final password = base64Encode(getRandomBytes(40));
       final deviceKeyHash = computeSecretHash(
-        deviceGroupKey!,
-        deviceKey!,
-        message.password,
+        deviceGroupKey,
+        deviceKey,
+        password,
       );
 
       // Generate a random BigInt

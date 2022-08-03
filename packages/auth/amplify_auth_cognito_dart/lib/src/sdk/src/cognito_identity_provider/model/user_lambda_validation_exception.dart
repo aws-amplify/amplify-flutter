@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.user_lambda_validation_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.user_lambda_validation_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -52,7 +52,7 @@ abstract class UserLambdaValidationException
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _UserLambdaValidationExceptionAwsJson11Serializer()
+    UserLambdaValidationExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -85,9 +85,9 @@ abstract class UserLambdaValidationException
   }
 }
 
-class _UserLambdaValidationExceptionAwsJson11Serializer
+class UserLambdaValidationExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UserLambdaValidationException> {
-  const _UserLambdaValidationExceptionAwsJson11Serializer()
+  const UserLambdaValidationExceptionAwsJson11Serializer()
       : super('UserLambdaValidationException');
 
   @override

@@ -213,7 +213,7 @@ abstract class StateMachine<Event extends StateMachineEvent,
   bool _checkPrecondition(Event event) {
     final precondError = event.checkPrecondition(currentState);
     if (precondError != null) {
-      logger.info(
+      logger.debug(
         'Precondition not met for event ($event):\n'
         '${precondError.precondition}',
       );

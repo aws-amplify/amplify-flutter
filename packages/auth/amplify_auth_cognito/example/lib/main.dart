@@ -29,7 +29,10 @@ import 'package:go_router/go_router.dart';
 
 import 'amplifyconfiguration.dart';
 
+final AmplifyLogger _logger = AmplifyLogger('MyApp');
+
 void main() {
+  AmplifyLogger().logLevel = LogLevel.debug;
   runApp(const MyApp());
 }
 
@@ -91,23 +94,28 @@ class _MyAppState extends State<MyApp> {
         await Amplify.addPlugin(AmplifyAPI());
       }
       await Amplify.addPlugin(AmplifyAuthCognito());
-      // Uncomment this block, and comment out the one above, in order to persist credentials
-      // await Amplify.addPlugin(AmplifyAuthCognito(credentialStorage: AmplifySecureStorage(
+      // Uncomment this block, and comment out the one above to change how
+      // credentials are persisted.
+      // await Amplify.addPlugin(
+      //   AmplifyAuthCognito(
+      //     credentialStorage: AmplifySecureStorage(
       //       config: AmplifySecureStorageConfig(
       //         scope: 'authtest',
       //         webOptions: WebSecureStorageOptions(
       //           persistenceOption: WebPersistenceOption.inMemory,
       //         ),
       //       ),
-      //     )));
+      //     ),
+      //   ),
+      // );
       await Amplify.configure(amplifyconfig);
-      safePrint('Successfully configured Amplify');
+      _logger.debug('Successfully configured Amplify');
 
       Amplify.Hub.listen(HubChannel.Auth, (event) {
-        safePrint('Auth Event: $event');
+        _logger.info('Auth Event: $event');
       });
-    } on Exception catch (e) {
-      safePrint('Configuring Amplify failed: $e');
+    } on Exception catch (e, st) {
+      _logger.error('Configuring Amplify failed', e, st);
     }
   }
 
@@ -157,7 +165,9 @@ class _HomeScreenState extends State<HomeScreen> {
     final authSession = await Amplify.Auth.fetchAuthSession(
       options: const CognitoSessionOptions(getAWSCredentials: true),
     ) as CognitoAuthSession;
-    safePrint(authSession);
+    _logger.info(
+      prettyPrintJson(authSession.toJson()),
+    );
   }
 
   Future<void> _requestGreeting() async {

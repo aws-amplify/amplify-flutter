@@ -14,23 +14,26 @@
 
 @TestOn('browser')
 
-import 'package:e2e_test/common.dart';
+import 'package:aws_common/aws_common.dart';
+import 'package:e2e/common.dart';
 import 'package:test/test.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
+
   group('WorkerBee', () {
     group('', () {
       test(
         'dart2Js',
         () => testWorker(
-          jsEntrypoint: 'packages/e2e_test/workers.js',
+          jsEntrypoint: 'packages/e2e/workers.js',
         ),
       );
 
       test(
         'dart2Js (m, O4)',
         () => testWorker(
-          jsEntrypoint: 'packages/e2e_test/workers.min.js',
+          jsEntrypoint: 'packages/e2e/workers.min.js',
         ),
       );
     });
@@ -39,14 +42,14 @@ void main() {
       test(
         'dart2Js',
         () => testWorkerNoResult(
-          jsEntrypoint: 'packages/e2e_test/workers.js',
+          jsEntrypoint: 'packages/e2e/workers.js',
         ),
       );
 
       test(
         'dart2Js (m, O4)',
         () => testWorkerNoResult(
-          jsEntrypoint: 'packages/e2e_test/workers.min.js',
+          jsEntrypoint: 'packages/e2e/workers.min.js',
         ),
       );
     });
@@ -55,14 +58,14 @@ void main() {
       test(
         'dart2Js',
         () => testWorkerVoidResult(
-          jsEntrypoint: 'packages/e2e_test/workers.js',
+          jsEntrypoint: 'packages/e2e/workers.js',
         ),
       );
 
       test(
         'dart2Js (m, O4)',
         () => testWorkerVoidResult(
-          jsEntrypoint: 'packages/e2e_test/workers.min.js',
+          jsEntrypoint: 'packages/e2e/workers.min.js',
         ),
       );
     });
@@ -71,14 +74,14 @@ void main() {
       test(
         'dart2Js',
         () => testWorkerNullResult(
-          jsEntrypoint: 'packages/e2e_test/workers.js',
+          jsEntrypoint: 'packages/e2e/workers.js',
         ),
       );
 
       test(
         'dart2Js (m, O4)',
         () => testWorkerNullResult(
-          jsEntrypoint: 'packages/e2e_test/workers.min.js',
+          jsEntrypoint: 'packages/e2e/workers.min.js',
         ),
       );
     });
@@ -87,14 +90,14 @@ void main() {
       test(
         'dart2Js',
         () => testWorkerThrows(
-          jsEntrypoint: 'packages/e2e_test/workers.js',
+          jsEntrypoint: 'packages/e2e/workers.js',
         ),
       );
 
       test(
         'dart2Js (m, O4)',
         () => testWorkerThrows(
-          jsEntrypoint: 'packages/e2e_test/workers.min.js',
+          jsEntrypoint: 'packages/e2e/workers.min.js',
         ),
       );
     });

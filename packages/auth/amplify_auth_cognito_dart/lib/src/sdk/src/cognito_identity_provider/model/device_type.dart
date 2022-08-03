@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.device_type;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.device_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/attribute_type.dart'
     as _i3;
@@ -52,7 +52,7 @@ abstract class DeviceType
   const DeviceType._();
 
   static const List<_i4.SmithySerializer> serializers = [
-    _DeviceTypeAwsJson11Serializer()
+    DeviceTypeAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -67,7 +67,7 @@ abstract class DeviceType
   /// The device key.
   String? get deviceKey;
 
-  /// The date in which the device was last authenticated.
+  /// The date when the device was last authenticated.
   DateTime? get deviceLastAuthenticatedDate;
 
   /// The last modified date of the device.
@@ -92,9 +92,9 @@ abstract class DeviceType
   }
 }
 
-class _DeviceTypeAwsJson11Serializer
+class DeviceTypeAwsJson11Serializer
     extends _i4.StructuredSmithySerializer<DeviceType> {
-  const _DeviceTypeAwsJson11Serializer() : super('DeviceType');
+  const DeviceTypeAwsJson11Serializer() : super('DeviceType');
 
   @override
   Iterable<Type> get types => const [DeviceType, _$DeviceType];

@@ -16,17 +16,12 @@ import 'dart:async';
 
 import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';
 import 'package:amplify_secure_storage_dart/src/interfaces/secure_storage_interface.dart';
-import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_in_memory.dart';
 import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_web.dart';
-import 'package:amplify_secure_storage_dart/src/types/web_secure_storage_options.dart';
 
 /// [AmplifySecureStorageDartMixin] that will be used on the web
 mixin AmplifySecureStorageDartMixin on AmplifySecureStorageInterface
     implements SecureStorageInterface {
-  late final _instance =
-      config.webOptions.persistenceOption == WebPersistenceOption.inMemory
-          ? const AmplifySecureStorageInMemory()
-          : AmplifySecureStorageWeb(config: config);
+  late final _instance = AmplifySecureStorageWeb(config: config);
 
   @override
   FutureOr<void> write({required String key, required String value}) {

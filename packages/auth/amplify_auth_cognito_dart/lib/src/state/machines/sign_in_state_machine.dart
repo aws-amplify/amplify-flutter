@@ -37,7 +37,6 @@ import 'package:amplify_core/amplify_core.dart'
 import 'package:async/async.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:meta/meta.dart';
-import 'package:worker_bee/worker_bee.dart';
 
 /// {@template amplify_auth_cognito.sign_in_state_machine}
 /// Base class for state machines which perform some auth flow. These all follow
@@ -88,12 +87,6 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   /// The user built via the auth flow process.
   final CognitoUserBuilder user = CognitoUserBuilder();
 
-  /// The user's password when performing SRP sign-in.
-  ///
-  /// Needed for post-login device creation in user pools with device tracking
-  /// enabled.
-  late final String _password;
-
   // Lazy initializers for worker types.
   final AsyncMemoizer<SrpInitWorker> _initWorkerMemoizer = AsyncMemoizer();
   final AsyncMemoizer<SrpPasswordVerifierWorker>
@@ -103,6 +96,15 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   final AsyncMemoizer<ConfirmDeviceWorker> _confirmDeviceWorkerMemoizer =
       AsyncMemoizer();
 
+  void _logWorkerBeeMessage(AWSLogger logger, LogEntry logEntry) {
+    logger.log(
+      logEntry.level,
+      logEntry.message,
+      logEntry.error,
+      logEntry.stackTrace,
+    );
+  }
+
   /// The SRP init worker.
   Future<SrpInitWorker> get initWorker async =>
       _initWorkerMemoizer.runOnce(() async {
@@ -111,8 +113,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           return worker;
         }
         worker = SrpInitWorker.create();
-        // TODO(dnys1): Log
-        worker.logs.listen(safePrint);
+        final logger = this.logger.createChild(worker.name);
+        worker.logs.listen((entry) => _logWorkerBeeMessage(logger, entry));
         await worker.spawn();
         addInstance<SrpInitWorker>(worker);
         return worker;
@@ -126,8 +128,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           return worker;
         }
         worker = SrpPasswordVerifierWorker.create();
-        // TODO(dnys1): Log
-        worker.logs.listen(safePrint);
+        final logger = this.logger.createChild(worker.name);
+        worker.logs.listen((entry) => _logWorkerBeeMessage(logger, entry));
         await worker.spawn();
         addInstance<SrpPasswordVerifierWorker>(worker);
         return worker;
@@ -141,8 +143,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           return worker;
         }
         worker = SrpDevicePasswordVerifierWorker.create();
-        // TODO(dnys1): Log
-        worker.logs.listen(safePrint);
+        final logger = this.logger.createChild(worker.name);
+        worker.logs.listen((entry) => _logWorkerBeeMessage(logger, entry));
         await worker.spawn();
         addInstance<SrpDevicePasswordVerifierWorker>(worker);
         return worker;
@@ -156,8 +158,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           return worker;
         }
         worker = ConfirmDeviceWorker.create();
-        // TODO(dnys1): Log
-        worker.logs.listen(safePrint);
+        final logger = this.logger.createChild(worker.name);
+        worker.logs.listen((entry) => _logWorkerBeeMessage(logger, entry));
         await worker.spawn();
         addInstance<ConfirmDeviceWorker>(worker);
         return worker;
@@ -173,13 +175,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
   /// Creates the `InitiateAuth` request.
   Future<InitiateAuthRequest> initiate(SignInInitiate event) async {
-    // Save password for device flow
-    final password = parameters.password;
-    if (password != null) {
-      _password = password;
-    }
-
     String expectPassword() {
+      final password = parameters.password;
       if (password == null) {
         throw const InvalidParameterException('No password was provided');
       }
@@ -650,8 +647,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       ConfirmDeviceMessage(
         (b) => b
           ..accessToken = accessToken
-          ..newDeviceMetadata.replace(newDeviceMetadata)
-          ..password = _password,
+          ..newDeviceMetadata.replace(newDeviceMetadata),
       ),
     );
     final request = await worker.stream.first;

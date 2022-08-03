@@ -13,20 +13,16 @@
 // permissions and limitations under the License.
 //
 
-import 'dart:convert';
-
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
 Future<void> configureAuth(
-    {List<AmplifyPluginInterface> additionalPlugins = const [],
-    bool customAuth = false}) async {
+    {List<AmplifyPluginInterface> additionalPlugins = const []}) async {
   if (!Amplify.isConfigured) {
     final authPlugin = AmplifyAuthCognito();
-    String config = _createConfig(amplifyconfig, customAuth: customAuth);
     await Amplify.addPlugins([authPlugin, ...additionalPlugins]);
-    await Amplify.configure(config);
+    await Amplify.configure(amplifyconfig);
   }
 }
 
@@ -37,16 +33,4 @@ Future<void> signOutUser() async {
   } on AuthException {
     // Ignore a signOut error because we only care when someone signed in.
   }
-}
-
-// parse json, and switch auth mode if required by test
-String _createConfig(String amplifyconfig, {bool customAuth = false}) {
-  String config = amplifyconfig;
-  if (customAuth) {
-    var configString = jsonDecode(amplifyconfig);
-    configString['auth']['plugins']['awsCognitoAuthPlugin']['Auth']['Default']
-        ['authenticationFlowType'] = 'CUSTOM_AUTH';
-    config = jsonEncode(configString);
-  }
-  return config;
 }

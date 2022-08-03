@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.mfa_option_type;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.mfa_option_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/delivery_medium_type.dart'
     as _i2;
@@ -25,25 +25,25 @@ import 'package:smithy/smithy.dart' as _i3;
 
 part 'mfa_option_type.g.dart';
 
-/// _This data type is no longer supported._ You can use it only for SMS MFA configurations. You can't use it for TOTP software token MFA configurations.
+/// _This data type is no longer supported._ Applies only to SMS multi-factor authentication (MFA) configurations. Does not apply to time-based one-time password (TOTP) software token MFA configurations.
 abstract class MfaOptionType
     with _i1.AWSEquatable<MfaOptionType>
     implements Built<MfaOptionType, MfaOptionTypeBuilder> {
-  /// _This data type is no longer supported._ You can use it only for SMS MFA configurations. You can't use it for TOTP software token MFA configurations.
+  /// _This data type is no longer supported._ Applies only to SMS multi-factor authentication (MFA) configurations. Does not apply to time-based one-time password (TOTP) software token MFA configurations.
   factory MfaOptionType(
       {String? attributeName, _i2.DeliveryMediumType? deliveryMedium}) {
     return _$MfaOptionType._(
         attributeName: attributeName, deliveryMedium: deliveryMedium);
   }
 
-  /// _This data type is no longer supported._ You can use it only for SMS MFA configurations. You can't use it for TOTP software token MFA configurations.
+  /// _This data type is no longer supported._ Applies only to SMS multi-factor authentication (MFA) configurations. Does not apply to time-based one-time password (TOTP) software token MFA configurations.
   factory MfaOptionType.build([void Function(MfaOptionTypeBuilder) updates]) =
       _$MfaOptionType;
 
   const MfaOptionType._();
 
   static const List<_i3.SmithySerializer> serializers = [
-    _MfaOptionTypeAwsJson11Serializer()
+    MfaOptionTypeAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -65,9 +65,9 @@ abstract class MfaOptionType
   }
 }
 
-class _MfaOptionTypeAwsJson11Serializer
+class MfaOptionTypeAwsJson11Serializer
     extends _i3.StructuredSmithySerializer<MfaOptionType> {
-  const _MfaOptionTypeAwsJson11Serializer() : super('MfaOptionType');
+  const MfaOptionTypeAwsJson11Serializer() : super('MfaOptionType');
 
   @override
   Iterable<Type> get types => const [MfaOptionType, _$MfaOptionType];

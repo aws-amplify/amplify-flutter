@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.new_device_metadata_type;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.new_device_metadata_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -41,7 +41,7 @@ abstract class NewDeviceMetadataType
   const NewDeviceMetadataType._();
 
   static const List<_i2.SmithySerializer> serializers = [
-    _NewDeviceMetadataTypeAwsJson11Serializer()
+    NewDeviceMetadataTypeAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -63,9 +63,9 @@ abstract class NewDeviceMetadataType
   }
 }
 
-class _NewDeviceMetadataTypeAwsJson11Serializer
+class NewDeviceMetadataTypeAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<NewDeviceMetadataType> {
-  const _NewDeviceMetadataTypeAwsJson11Serializer()
+  const NewDeviceMetadataTypeAwsJson11Serializer()
       : super('NewDeviceMetadataType');
 
   @override

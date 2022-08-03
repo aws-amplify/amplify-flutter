@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.get_user_attribute_verification_code_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.get_user_attribute_verification_code_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i3;
@@ -57,13 +57,13 @@ abstract class GetUserAttributeVerificationCodeRequest
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _GetUserAttributeVerificationCodeRequestAwsJson11Serializer()
+    GetUserAttributeVerificationCodeRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetUserAttributeVerificationCodeRequestBuilder b) {}
 
-  /// The access token returned by the server response to get the user attribute verification code.
+  /// A non-expired access token for the user whose attribute verification code you want to generate.
   String get accessToken;
 
   /// The attribute name returned by the server response to get the user attribute verification code.
@@ -73,15 +73,15 @@ abstract class GetUserAttributeVerificationCodeRequest
   ///
   /// You create custom workflows by assigning Lambda functions to user pool triggers. When you use the GetUserAttributeVerificationCode API action, Amazon Cognito invokes the function that is assigned to the _custom message_ trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the function receives as input. This payload contains a `clientMetadata` attribute, which provides the data that you assigned to the ClientMetadata parameter in your GetUserAttributeVerificationCode request. In your function code in Lambda, you can process the `clientMetadata` value to enhance your workflow for your specific needs.
   ///
-  /// For more information, see [Customizing User Pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
+  /// For more information, see [Customizing user pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
   ///
-  /// Take the following limitations into consideration when you use the ClientMetadata parameter:
+  /// When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
   ///
-  /// *   Amazon Cognito does not store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration does not include triggers, the ClientMetadata parameter serves no purpose.
+  /// *   Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata parameter serves no purpose.
   ///
-  /// *   Amazon Cognito does not validate the ClientMetadata value.
+  /// *   Validate the ClientMetadata value.
   ///
-  /// *   Amazon Cognito does not encrypt the the ClientMetadata value, so don't use it to provide sensitive information.
+  /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
   _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   GetUserAttributeVerificationCodeRequest getPayload() => this;
@@ -98,9 +98,9 @@ abstract class GetUserAttributeVerificationCodeRequest
   }
 }
 
-class _GetUserAttributeVerificationCodeRequestAwsJson11Serializer extends _i1
+class GetUserAttributeVerificationCodeRequestAwsJson11Serializer extends _i1
     .StructuredSmithySerializer<GetUserAttributeVerificationCodeRequest> {
-  const _GetUserAttributeVerificationCodeRequestAwsJson11Serializer()
+  const GetUserAttributeVerificationCodeRequestAwsJson11Serializer()
       : super('GetUserAttributeVerificationCodeRequest');
 
   @override

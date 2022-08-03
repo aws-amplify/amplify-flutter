@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.global_sign_out_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.global_sign_out_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -47,13 +47,13 @@ abstract class GlobalSignOutRequest
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _GlobalSignOutRequestAwsJson11Serializer()
+    GlobalSignOutRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GlobalSignOutRequestBuilder b) {}
 
-  /// The access token.
+  /// A valid access token that Amazon Cognito issued to the user who you want to sign out.
   String get accessToken;
   @override
   GlobalSignOutRequest getPayload() => this;
@@ -67,9 +67,9 @@ abstract class GlobalSignOutRequest
   }
 }
 
-class _GlobalSignOutRequestAwsJson11Serializer
+class GlobalSignOutRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<GlobalSignOutRequest> {
-  const _GlobalSignOutRequestAwsJson11Serializer()
+  const GlobalSignOutRequestAwsJson11Serializer()
       : super('GlobalSignOutRequest');
 
   @override

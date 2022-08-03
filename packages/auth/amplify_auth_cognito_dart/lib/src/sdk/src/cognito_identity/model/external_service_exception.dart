@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity.model.external_service_exception;
+library amplify_auth_cognito_dart.cognito_identity.model.external_service_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -49,7 +49,7 @@ abstract class ExternalServiceException
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _ExternalServiceExceptionAwsJson11Serializer()
+    ExternalServiceExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -82,9 +82,9 @@ abstract class ExternalServiceException
   }
 }
 
-class _ExternalServiceExceptionAwsJson11Serializer
+class ExternalServiceExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ExternalServiceException> {
-  const _ExternalServiceExceptionAwsJson11Serializer()
+  const ExternalServiceExceptionAwsJson11Serializer()
       : super('ExternalServiceException');
 
   @override

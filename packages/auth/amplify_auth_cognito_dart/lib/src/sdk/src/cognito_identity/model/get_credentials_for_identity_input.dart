@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity.model.get_credentials_for_identity_input;
+library amplify_auth_cognito_dart.cognito_identity.model.get_credentials_for_identity_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i3;
@@ -55,7 +55,7 @@ abstract class GetCredentialsForIdentityInput
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _GetCredentialsForIdentityInputAwsJson11Serializer()
+    GetCredentialsForIdentityInputAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -88,9 +88,9 @@ abstract class GetCredentialsForIdentityInput
   }
 }
 
-class _GetCredentialsForIdentityInputAwsJson11Serializer
+class GetCredentialsForIdentityInputAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<GetCredentialsForIdentityInput> {
-  const _GetCredentialsForIdentityInputAwsJson11Serializer()
+  const GetCredentialsForIdentityInputAwsJson11Serializer()
       : super('GetCredentialsForIdentityInput');
 
   @override

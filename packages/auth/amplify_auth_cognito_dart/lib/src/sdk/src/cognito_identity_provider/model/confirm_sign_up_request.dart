@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.confirm_sign_up_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_sign_up_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart'
     as _i3;
@@ -68,7 +68,7 @@ abstract class ConfirmSignUpRequest
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _ConfirmSignUpRequestAwsJson11Serializer()
+    ConfirmSignUpRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -84,15 +84,15 @@ abstract class ConfirmSignUpRequest
   ///
   /// You create custom workflows by assigning Lambda functions to user pool triggers. When you use the ConfirmSignUp API action, Amazon Cognito invokes the function that is assigned to the _post confirmation_ trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the function receives as input. This payload contains a `clientMetadata` attribute, which provides the data that you assigned to the ClientMetadata parameter in your ConfirmSignUp request. In your function code in Lambda, you can process the `clientMetadata` value to enhance your workflow for your specific needs.
   ///
-  /// For more information, see [Customizing User Pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
+  /// For more information, see [Customizing user pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
   ///
-  /// Take the following limitations into consideration when you use the ClientMetadata parameter:
+  /// When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
   ///
-  /// *   Amazon Cognito does not store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration does not include triggers, the ClientMetadata parameter serves no purpose.
+  /// *   Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata parameter serves no purpose.
   ///
-  /// *   Amazon Cognito does not validate the ClientMetadata value.
+  /// *   Validate the ClientMetadata value.
   ///
-  /// *   Amazon Cognito does not encrypt the the ClientMetadata value, so don't use it to provide sensitive information.
+  /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
   _i4.BuiltMap<String, String>? get clientMetadata;
 
   /// The confirmation code sent by a user's request to confirm registration.
@@ -104,10 +104,10 @@ abstract class ConfirmSignUpRequest
   /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message.
   String? get secretHash;
 
-  /// Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+  /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
   _i5.UserContextDataType? get userContextData;
 
-  /// The user name of the user whose registration you wish to confirm.
+  /// The user name of the user whose registration you want to confirm.
   String get username;
   @override
   ConfirmSignUpRequest getPayload() => this;
@@ -137,9 +137,9 @@ abstract class ConfirmSignUpRequest
   }
 }
 
-class _ConfirmSignUpRequestAwsJson11Serializer
+class ConfirmSignUpRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<ConfirmSignUpRequest> {
-  const _ConfirmSignUpRequestAwsJson11Serializer()
+  const ConfirmSignUpRequestAwsJson11Serializer()
       : super('ConfirmSignUpRequest');
 
   @override

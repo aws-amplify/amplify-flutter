@@ -1,0 +1,6 @@
+name: Goldens
+description: Generates and tests Smithy Dart goldens
+runs:
+  using: docker
+  image: smithy/Dockerfile
+  entrypoint: packages/smithy/goldens/tool/update_models.sh

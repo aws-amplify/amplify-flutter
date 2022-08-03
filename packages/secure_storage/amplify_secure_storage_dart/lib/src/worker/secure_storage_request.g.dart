@@ -151,17 +151,6 @@ class _$SecureStorageRequest extends SecureStorageRequest {
             key.hashCode),
         value.hashCode));
   }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'SecureStorageRequest')
-          ..add('id', id)
-          ..add('action', action)
-          ..add('config', config)
-          ..add('key', key)
-          ..add('value', value))
-        .toString();
-  }
 }
 
 class SecureStorageRequestBuilder

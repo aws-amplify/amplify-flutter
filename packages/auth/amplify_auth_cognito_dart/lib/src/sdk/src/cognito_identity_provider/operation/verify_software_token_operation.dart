@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.operation.verify_software_token_operation;
+library amplify_auth_cognito_dart.cognito_identity_provider.operation.verify_software_token_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i21;
 
@@ -55,13 +55,13 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i5;
 
-/// Use this API to register a user's entered TOTP code and mark the user's software token MFA status as "verified" if successful. The request takes an access token or a session string, but not both.
+/// Use this API to register a user's entered time-based one-time password (TOTP) code and mark the user's software token MFA status as "verified" if successful. The request takes an access token or a session string, but not both.
 class VerifySoftwareTokenOperation extends _i1.HttpOperation<
     _i2.VerifySoftwareTokenRequest,
     _i2.VerifySoftwareTokenRequest,
     _i3.VerifySoftwareTokenResponse,
     _i3.VerifySoftwareTokenResponse> {
-  /// Use this API to register a user's entered TOTP code and mark the user's software token MFA status as "verified" if successful. The request takes an access token or a session string, but not both.
+  /// Use this API to register a user's entered time-based one-time password (TOTP) code and mark the user's software token MFA status as "verified" if successful. The request takes an access token or a session string, but not both.
   VerifySoftwareTokenOperation(
       {required String region,
       Uri? baseUri,
@@ -82,6 +82,7 @@ class VerifySoftwareTokenOperation extends _i1.HttpOperation<
         serializers: _i6.serializers,
         builderFactories: _i6.builderFactories,
         requestInterceptors: [
+          const _i1.WithHost(),
           const _i1.WithContentLength(),
           const _i1.WithHeader('X-Amz-Target',
               'AWSCognitoIdentityProviderService.VerifySoftwareToken'),
@@ -89,6 +90,7 @@ class VerifySoftwareTokenOperation extends _i1.HttpOperation<
               region: _region,
               service: _i7.AWSService.cognitoIdentityProvider,
               credentialsProvider: _credentialsProvider),
+          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
           const _i5.WithSdkInvocationId(),
           const _i5.WithSdkRequest()
         ],

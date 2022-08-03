@@ -14,15 +14,65 @@
 
 import 'dart:async';
 
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/exception/not_available_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
-import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';
-import 'package:amplify_secure_storage_dart/src/interfaces/secure_storage_interface.dart';
 import 'package:amplify_secure_storage_dart/src/js/indexed_db.dart';
+import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_in_memory.dart';
 
 /// The web implementation of [SecureStorageInterface].
 class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
   AmplifySecureStorageWeb({required super.config});
+
+  /// The [SecureStorageInterface] instance to use.
+  late final Future<SecureStorageInterface> _instance = () async {
+    if (config.webOptions.persistenceOption == WebPersistenceOption.inMemory) {
+      return const AmplifySecureStorageInMemory();
+    }
+    if (indexedDB == null) {
+      logger.warn(
+        'IndexedDB is not available. '
+        'Falling back to in-memory storage.',
+      );
+      return const AmplifySecureStorageInMemory();
+    }
+    // indexedDB will be non-null in Firefox private browsing,
+    // but will fail to open.
+    try {
+      final openRequest = indexedDB!.open('test', 1);
+      await openRequest.future;
+      return _IndexedDBStorage(config: config);
+    } on Object {
+      logger.warn(
+        'Could not open IndexedDB database. '
+        'It may not be supported by the current browser. '
+        'Falling back to in-memory storage.',
+      );
+      return const AmplifySecureStorageInMemory();
+    }
+  }();
+
+  @override
+  Future<void> write({required String key, required String value}) async {
+    final instance = await _instance;
+    return instance.write(key: key, value: value);
+  }
+
+  @override
+  Future<String?> read({required String key}) async {
+    final instance = await _instance;
+    return instance.read(key: key);
+  }
+
+  @override
+  Future<void> delete({required String key}) async {
+    final instance = await _instance;
+    return instance.delete(key: key);
+  }
+}
+
+class _IndexedDBStorage extends AmplifySecureStorageInterface {
+  _IndexedDBStorage({required super.config});
 
   /// The name of the database
   ///
@@ -40,9 +90,9 @@ class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
 
   late final IDBDatabase _database;
 
-  /// Opens the database and returns it as a future.
+  /// Checks for IDB availability and attempts to open the database.
   ///
-  /// Will throw a [NotAvailableException] if IndexedDB is not supported.
+  /// Will throw a [NotAvailableException] if IndexedDB is not available.
   Future<void> _openDatabase() async {
     if (indexedDB == null) {
       throw const NotAvailableException(

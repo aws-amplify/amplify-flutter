@@ -1,0 +1,280 @@
+# Created with package:mono_repo v6.3.0
+name: Native Test
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 0"
+defaults:
+  run:
+    shell: bash
+env:
+  PUB_ENVIRONMENT: bot.github
+permissions: read-all
+
+jobs:
+  job_001:
+    name: "unit_test_native; linux; Dart dev; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p firefox`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_3"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: dev
+      - id: checkout
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_smithy_smithy_pub_upgrade
+        name: packages/smithy/smithy; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart pub upgrade
+      - name: "packages/smithy/smithy; dart test -p firefox"
+        if: "always() && steps.packages_smithy_smithy_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart test -p firefox
+      - id: packages_smithy_smithy_aws_pub_upgrade
+        name: packages/smithy/smithy_aws; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart pub upgrade
+      - name: "packages/smithy/smithy_aws; dart test -p firefox"
+        if: "always() && steps.packages_smithy_smithy_aws_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart test -p firefox
+      - id: packages_smithy_smithy_codegen_pub_upgrade
+        name: packages/smithy/smithy_codegen; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart pub upgrade
+      - name: "packages/smithy/smithy_codegen; dart test -p firefox"
+        if: "always() && steps.packages_smithy_smithy_codegen_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart test -p firefox
+    if: "${{ github.event_name == 'push' }}"
+  job_002:
+    name: "unit_test_native; linux; Dart stable; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p firefox`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_3"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: stable
+      - id: checkout
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_smithy_smithy_pub_upgrade
+        name: packages/smithy/smithy; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart pub upgrade
+      - name: "packages/smithy/smithy; dart test -p firefox"
+        if: "always() && steps.packages_smithy_smithy_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart test -p firefox
+      - id: packages_smithy_smithy_aws_pub_upgrade
+        name: packages/smithy/smithy_aws; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart pub upgrade
+      - name: "packages/smithy/smithy_aws; dart test -p firefox"
+        if: "always() && steps.packages_smithy_smithy_aws_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart test -p firefox
+      - id: packages_smithy_smithy_codegen_pub_upgrade
+        name: packages/smithy/smithy_codegen; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart pub upgrade
+      - name: "packages/smithy/smithy_codegen; dart test -p firefox"
+        if: "always() && steps.packages_smithy_smithy_codegen_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart test -p firefox
+    if: "${{ github.event_name == 'push' }}"
+  job_003:
+    name: "unit_test_native; macos; Dart dev; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
+    runs-on: macos-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_0"
+          restore-keys: |
+            os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
+            os:macos-latest;pub-cache-hosted;sdk:dev
+            os:macos-latest;pub-cache-hosted
+            os:macos-latest
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: dev
+      - id: checkout
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_smithy_smithy_pub_upgrade
+        name: packages/smithy/smithy; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart pub upgrade
+      - name: packages/smithy/smithy; dart test
+        if: "always() && steps.packages_smithy_smithy_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart test
+      - id: packages_smithy_smithy_aws_pub_upgrade
+        name: packages/smithy/smithy_aws; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart pub upgrade
+      - name: packages/smithy/smithy_aws; dart test
+        if: "always() && steps.packages_smithy_smithy_aws_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart test
+      - id: packages_smithy_smithy_codegen_pub_upgrade
+        name: packages/smithy/smithy_codegen; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart pub upgrade
+      - name: packages/smithy/smithy_codegen; dart test
+        if: "always() && steps.packages_smithy_smithy_codegen_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart test
+    if: "${{ github.event_name == 'push' }}"
+  job_004:
+    name: "unit_test_native; macos; Dart stable; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
+    runs-on: macos-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_0"
+          restore-keys: |
+            os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
+            os:macos-latest;pub-cache-hosted;sdk:stable
+            os:macos-latest;pub-cache-hosted
+            os:macos-latest
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: stable
+      - id: checkout
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_smithy_smithy_pub_upgrade
+        name: packages/smithy/smithy; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart pub upgrade
+      - name: packages/smithy/smithy; dart test
+        if: "always() && steps.packages_smithy_smithy_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart test
+      - id: packages_smithy_smithy_aws_pub_upgrade
+        name: packages/smithy/smithy_aws; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart pub upgrade
+      - name: packages/smithy/smithy_aws; dart test
+        if: "always() && steps.packages_smithy_smithy_aws_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart test
+      - id: packages_smithy_smithy_codegen_pub_upgrade
+        name: packages/smithy/smithy_codegen; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart pub upgrade
+      - name: packages/smithy/smithy_codegen; dart test
+        if: "always() && steps.packages_smithy_smithy_codegen_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart test
+    if: "${{ github.event_name == 'push' }}"
+  job_005:
+    name: "unit_test_native; windows; Dart dev; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
+    runs-on: windows-latest
+    steps:
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: dev
+      - id: checkout
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_smithy_smithy_pub_upgrade
+        name: packages/smithy/smithy; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart pub upgrade
+      - name: packages/smithy/smithy; dart test
+        if: "always() && steps.packages_smithy_smithy_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart test
+      - id: packages_smithy_smithy_aws_pub_upgrade
+        name: packages/smithy/smithy_aws; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart pub upgrade
+      - name: packages/smithy/smithy_aws; dart test
+        if: "always() && steps.packages_smithy_smithy_aws_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart test
+      - id: packages_smithy_smithy_codegen_pub_upgrade
+        name: packages/smithy/smithy_codegen; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart pub upgrade
+      - name: packages/smithy/smithy_codegen; dart test
+        if: "always() && steps.packages_smithy_smithy_codegen_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart test
+    if: "${{ github.event_name == 'push' }}"
+  job_006:
+    name: "unit_test_native; windows; Dart stable; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
+    runs-on: windows-latest
+    steps:
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: stable
+      - id: checkout
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_smithy_smithy_pub_upgrade
+        name: packages/smithy/smithy; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart pub upgrade
+      - name: packages/smithy/smithy; dart test
+        if: "always() && steps.packages_smithy_smithy_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy
+        run: dart test
+      - id: packages_smithy_smithy_aws_pub_upgrade
+        name: packages/smithy/smithy_aws; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart pub upgrade
+      - name: packages/smithy/smithy_aws; dart test
+        if: "always() && steps.packages_smithy_smithy_aws_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_aws
+        run: dart test
+      - id: packages_smithy_smithy_codegen_pub_upgrade
+        name: packages/smithy/smithy_codegen; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart pub upgrade
+      - name: packages/smithy/smithy_codegen; dart test
+        if: "always() && steps.packages_smithy_smithy_codegen_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/smithy_codegen
+        run: dart test
+    if: "${{ github.event_name == 'push' }}"

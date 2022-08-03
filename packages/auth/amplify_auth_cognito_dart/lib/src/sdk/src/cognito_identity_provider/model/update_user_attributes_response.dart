@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.update_user_attributes_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.update_user_attributes_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/code_delivery_details_type.dart'
     as _i3;
@@ -54,7 +54,7 @@ abstract class UpdateUserAttributesResponse
       payload;
 
   static const List<_i4.SmithySerializer> serializers = [
-    _UpdateUserAttributesResponseAwsJson11Serializer()
+    UpdateUserAttributesResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -72,9 +72,9 @@ abstract class UpdateUserAttributesResponse
   }
 }
 
-class _UpdateUserAttributesResponseAwsJson11Serializer
+class UpdateUserAttributesResponseAwsJson11Serializer
     extends _i4.StructuredSmithySerializer<UpdateUserAttributesResponse> {
-  const _UpdateUserAttributesResponseAwsJson11Serializer()
+  const UpdateUserAttributesResponseAwsJson11Serializer()
       : super('UpdateUserAttributesResponse');
 
   @override

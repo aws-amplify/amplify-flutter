@@ -16,6 +16,7 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_device_password_verifier_worker.worker.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_helper.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
@@ -26,8 +27,6 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:intl/intl.dart';
 import 'package:worker_bee/worker_bee.dart';
-
-import 'srp_device_password_verifier_worker.worker.dart';
 
 part 'srp_device_password_verifier_worker.g.dart';
 
