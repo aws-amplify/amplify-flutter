@@ -4,27 +4,27 @@ dependency_overrides:
     path: ../amplify_auth_cognito_android
   amplify_auth_cognito_dart:
     path: ../amplify_auth_cognito_dart
-  amplify_core:
-    path: ../../amplify_core
-  aws_common:
-    path: ../../aws_common
-  aws_signature_v4:
-    path: ../../aws_signature_v4
-  amplify_secure_storage_dart:
-    path: ../../secure_storage/amplify_secure_storage_dart
-  worker_bee:
-    path: ../../worker_bee/worker_bee
   amplify_auth_cognito_ios:
     path: ../amplify_auth_cognito_ios
-  amplify_flutter:
-    path: ../../amplify/amplify_flutter
+  amplify_core:
+    path: ../../amplify_core
   amplify_datastore_plugin_interface:
     path: ../../amplify_datastore_plugin_interface
+  amplify_flutter:
+    path: ../../amplify/amplify_flutter
   amplify_flutter_android:
     path: ../../amplify/amplify_flutter_android
   amplify_flutter_ios:
     path: ../../amplify/amplify_flutter_ios
-  amplify_secure_storage:
-    path: ../../secure_storage/amplify_secure_storage
   amplify_lints:
     path: ../../amplify_lints
+  amplify_secure_storage:
+    path: ../../secure_storage/amplify_secure_storage
+  amplify_secure_storage_dart:
+    path: ../../secure_storage/amplify_secure_storage_dart
+  aws_common:
+    path: ../../aws_common
+  aws_signature_v4:
+    path: ../../aws_signature_v4
+  worker_bee:
+    path: ../../worker_bee/worker_bee

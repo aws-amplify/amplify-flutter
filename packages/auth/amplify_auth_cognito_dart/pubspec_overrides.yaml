@@ -2,15 +2,15 @@
 dependency_overrides: 
   amplify_core:
     path: ../../amplify_core
+  amplify_lints:
+    path: ../../amplify_lints
+  amplify_secure_storage_dart:
+    path: ../../secure_storage/amplify_secure_storage_dart
   aws_common:
     path: ../../aws_common
   aws_signature_v4:
     path: ../../aws_signature_v4
-  amplify_secure_storage_dart:
-    path: ../../secure_storage/amplify_secure_storage_dart
   worker_bee:
     path: ../../worker_bee/worker_bee
-  amplify_lints:
-    path: ../../amplify_lints
   worker_bee_builder:
     path: ../../worker_bee/worker_bee_builder
