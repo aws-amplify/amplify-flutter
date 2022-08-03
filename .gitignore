@@ -16,6 +16,7 @@ Podfile.lock
 .last_build_id
 .fvm/
 .packages
+pubspec_overrides.yaml
 
 # IDEs
 .idea/
