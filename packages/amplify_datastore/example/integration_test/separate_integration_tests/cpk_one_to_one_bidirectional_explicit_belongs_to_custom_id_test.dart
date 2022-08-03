@@ -60,8 +60,12 @@ void main() {
       modelProvider: ModelProvider.instance,
       rootModelType: CpkOneToOneBidirectionalParentCD.classType,
       rootModels: rootModels,
+      rootModelQueryIdentifier:
+          CpkOneToOneBidirectionalParentCD.MODEL_IDENTIFIER,
       associatedModelType: CpkOneToOneBidirectionalChildExplicitCD.classType,
       associatedModels: associatedModels,
+      associatedModelQueryIdentifier:
+          CpkOneToOneBidirectionalChildExplicitCD.MODEL_IDENTIFIER,
       supportCascadeDelete: true,
       enableCloudSync: enableCloudSync,
     );
