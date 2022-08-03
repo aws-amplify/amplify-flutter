@@ -74,8 +74,6 @@ Future<void> runDartPub(
 Future<void> runFlutterPub(
   PubAction action,
   PackageInfo package, {
-  required bool verbose,
-  required PubCommandRunner pubRunner,
   Logger? logger,
 }) async {
   // Assumes using Dart SDK from Flutter

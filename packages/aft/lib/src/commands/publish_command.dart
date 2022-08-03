@@ -17,6 +17,7 @@ import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/util.dart';
+import 'package:cli_util/cli_logging.dart';
 import 'package:graphs/graphs.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
@@ -107,40 +108,9 @@ class PublishCommand extends AmplifyCommand {
   /// Runs pre-publish operations for [package], most importantly any necessary
   /// `build_runner` tasks.
   Future<void> _prePublish(PackageInfo package) async {
-    if (!package.needsBuildRunner) {
-      return;
-    }
     final progress =
         logger.progress('Running pre-publish checks for ${package.name}...');
-    final buildRunnerCmd = await Process.start(
-      package.flavor.entrypoint,
-      [
-        if (package.flavor == PackageFlavor.flutter) 'pub',
-        'run',
-        'build_runner',
-        'build',
-        if (verbose) '--verbose',
-        '--delete-conflicting-outputs',
-      ],
-      workingDirectory: package.path,
-    );
-    final output = StringBuffer();
-    buildRunnerCmd
-      ..captureStdout(sink: output.writeln)
-      ..captureStderr(sink: output.writeln);
-    if (verbose) {
-      buildRunnerCmd
-        ..captureStdout()
-        ..captureStderr();
-    }
-    if (await buildRunnerCmd.exitCode != 0) {
-      progress.cancel();
-      logger.stderr('Failed to run `build_runner` for ${package.name}: ');
-      if (!verbose) {
-        logger.stderr(output.toString());
-      }
-      exit(1);
-    }
+    await runBuildRunner(package, logger: logger, verbose: verbose);
     progress.finish(message: 'Success!');
   }
 
@@ -270,6 +240,46 @@ class PublishCommand extends AmplifyCommand {
           ? 'All packages passed pre-publish checks'
           : 'All packages were successfully published',
     );
+  }
+}
+
+/// Runs `build_runner` for [package].
+Future<void> runBuildRunner(
+  PackageInfo package, {
+  required Logger logger,
+  required bool verbose,
+}) async {
+  if (!package.needsBuildRunner) {
+    return;
+  }
+  logger.stdout('Running build_runner for ${package.name}...');
+  final buildRunnerCmd = await Process.start(
+    package.flavor.entrypoint,
+    [
+      if (package.flavor == PackageFlavor.flutter) 'pub',
+      'run',
+      'build_runner',
+      'build',
+      if (verbose) '--verbose',
+      '--delete-conflicting-outputs',
+    ],
+    workingDirectory: package.path,
+  );
+  final output = StringBuffer();
+  buildRunnerCmd
+    ..captureStdout(sink: output.writeln)
+    ..captureStderr(sink: output.writeln);
+  if (verbose) {
+    buildRunnerCmd
+      ..captureStdout()
+      ..captureStderr();
+  }
+  if (await buildRunnerCmd.exitCode != 0) {
+    logger.stderr('Failed to run `build_runner` for ${package.name}: ');
+    if (!verbose) {
+      logger.stderr(output.toString());
+    }
+    exit(1);
   }
 }
 

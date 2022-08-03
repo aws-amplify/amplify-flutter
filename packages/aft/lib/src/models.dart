@@ -24,6 +24,10 @@ import 'package:yaml_edit/yaml_edit.dart';
 
 part 'models.g.dart';
 
+/// Packages which report as an example app, but should be considered as
+/// publishable for some purposes.
+const falsePositiveExamples = ['aft'];
+
 /// The flavor of a package, e.g. Dart/Flutter.
 enum PackageFlavor {
   flutter('Flutter', 'flutter'),
@@ -70,7 +74,10 @@ class PackageInfo
   /// Used as a pre-publish check to ensure that generated code is
   /// up-to-date before publishing.
   bool get needsBuildRunner {
-    return pubspecInfo.pubspec.devDependencies.containsKey('build_runner');
+    return pubspecInfo.pubspec.devDependencies.containsKey('build_runner') &&
+        // aft should not be used to run `build_runner` in example projects
+        (pubspecInfo.pubspec.publishTo != 'none' ||
+            falsePositiveExamples.contains(name));
   }
 
   @override

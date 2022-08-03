@@ -13,13 +13,11 @@
 // limitations under the License.
 
 import 'dart:async';
-import 'dart:collection';
 
 import 'package:aft/aft.dart';
 import 'package:async/async.dart';
 import 'package:cli_util/cli_logging.dart';
 import 'package:http/http.dart' as http;
-import 'package:path/path.dart' as path;
 import 'package:pub/src/http.dart' as pub_http;
 
 enum PubAction {
@@ -55,7 +53,14 @@ class PubCommand extends AmplifyCommand {
 }
 
 class PubSubcommand extends AmplifyCommand {
-  PubSubcommand(this.action);
+  PubSubcommand(this.action) {
+    argParser.addFlag(
+      'build',
+      help: 'Runs build_runner for packages which need it',
+      negatable: false,
+      defaultsTo: false,
+    );
+  }
 
   final PubAction action;
 
@@ -65,16 +70,24 @@ class PubSubcommand extends AmplifyCommand {
   @override
   String get name => action.name;
 
+  late final bool build = argResults!['build'] as bool;
+
   @override
   Future<void> run() async {
+    final allPackages = await this.allPackages;
     await pubAction(
       action: action,
-      allPackages: await allPackages,
+      allPackages: allPackages,
       verbose: verbose,
       logger: logger,
       createPubRunner: createPubRunner,
       httpClient: httpClient,
     );
+    if (build) {
+      for (final package in allPackages.values) {
+        await runBuildRunner(package, logger: logger, verbose: verbose);
+      }
+    }
   }
 }
 
@@ -89,21 +102,6 @@ Future<void> pubAction({
   // Set the internal HTTP client to one that can be reused multiple times.
   pub_http.innerHttpClient = httpClient;
 
-  allPackages = SplayTreeMap.of(allPackages, (a, b) {
-    final pkgA = allPackages[a]!;
-    final pkgB = allPackages[b]!;
-    // Sort examples first so that `pub get` is run in them first. Seems to be
-    // a bug when embedding the flutter tooling that running `pub get` in the
-    // main package first doesn't work.
-    if (path.basename(pkgB.path) == 'example') {
-      return 1;
-    }
-    if (path.basename(pkgA.path) == 'example') {
-      return -1;
-    }
-    return pkgA.compareTo(pkgB);
-  });
-
   final progress =
       logger?.progress('Running `pub ${action.name}` in all packages');
   final results = <String, Result<void>>{};
@@ -115,8 +113,6 @@ Future<void> pubAction({
           runFlutterPub(
             action,
             package,
-            verbose: verbose,
-            pubRunner: createPubRunner(),
             logger: logger,
           ),
         );

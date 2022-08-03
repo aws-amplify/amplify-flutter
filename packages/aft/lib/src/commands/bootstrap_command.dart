@@ -20,12 +20,19 @@ import 'package:path/path.dart' as path;
 /// Command to bootstrap/link Dart/Flutter packages in the repo.
 class BootstrapCommand extends AmplifyCommand {
   BootstrapCommand() {
-    argParser.addFlag(
-      'upgrade',
-      abbr: 'u',
-      help: 'Runs `pub upgrade` instead of `pub get`',
-      negatable: false,
-    );
+    argParser
+      ..addFlag(
+        'upgrade',
+        abbr: 'u',
+        help: 'Runs `pub upgrade` instead of `pub get`',
+        negatable: false,
+      )
+      ..addFlag(
+        'build',
+        help: 'Runs build_runner for packages which need it',
+        negatable: true,
+        defaultsTo: true,
+      );
   }
 
   @override
@@ -39,15 +46,13 @@ class BootstrapCommand extends AmplifyCommand {
   List<String> get aliases => ['bs'];
 
   late final bool upgrade = argResults!['upgrade'] as bool;
+  late final bool build = argResults!['build'] as bool;
 
   /// Creates an empty `amplifyconfiguration.dart` file.
   Future<void> _createEmptyConfig(PackageInfo package) async {
     // Only create for example apps.
-    if (package.pubspecInfo.pubspec.publishTo == null) {
-      return;
-    }
-    // Exceptions
-    if (const ['aft'].contains(package.name)) {
+    if (package.pubspecInfo.pubspec.publishTo == null ||
+        falsePositiveExamples.contains(package.name)) {
       return;
     }
     final file = File(
@@ -83,6 +88,11 @@ const amplifyconfig = \'\'\'{
     await Future.wait([
       for (final package in allPackages.values) _createEmptyConfig(package)
     ]);
+    if (build) {
+      for (final package in allPackages.values) {
+        await runBuildRunner(package, logger: logger, verbose: verbose);
+      }
+    }
 
     stdout.writeln('Repo successfully bootstrapped!');
   }
