@@ -24,7 +24,7 @@ dependency_overrides:
     path: ../aws_common
 
 dev_dependencies:
-  amplify_lints: ^1.0.0
+  amplify_lints: ">=1.0.0 <3.0.0"
   args: ^2.2.0
   build_runner: ^2.0.0
   build_verify: 3.0.0
