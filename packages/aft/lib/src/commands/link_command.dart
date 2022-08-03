@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:collection';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
@@ -76,48 +77,47 @@ Future<void> _createPubspecOverride(
   // To be merged in
   Map<String, Dependency> existingDependencyOverrides,
 ) async {
+  final mergedOverrides = SplayTreeMap.of({
+    // Merge in existing dependency overrides since `pub` will only use the
+    // pubspec_overrides file if it exists.
+    ...existingDependencyOverrides.map((k, v) {
+      if (v is HostedDependency) {
+        final details = v.hosted;
+        if (details == null) {
+          return MapEntry(k, v.version.toString());
+        }
+        return MapEntry(k, {
+          'hosted': details.url!.toString(),
+          'version': v.version.toString(),
+        });
+      }
+      if (v is GitDependency) {
+        final ref = v.ref;
+        final path = v.path;
+        return MapEntry(k, {
+          'git': {
+            'url': v.url.toString(),
+            if (ref != null) 'ref': ref,
+            if (path != null) 'path': path,
+          }
+        });
+      }
+      if (v is PathDependency) {
+        return MapEntry(k, {
+          'path': v.path,
+        });
+      }
+      throw StateError('Unknown dependency type: $v');
+    }),
+    ...dependencyPaths.map((name, path) => MapEntry(name, {'path': path})),
+  });
   final yaml = YamlEditor(
     '''
 # Generated with `aft`. Do not modify by hand or check into source control.
 dependency_overrides:
 ''',
-  )..update(
-      ['dependency_overrides'],
-      {
-        // Merge in existing dependency overrides since `pub` will only use the
-        // pubspec_overrides file if it exists.
-        ...existingDependencyOverrides.map((k, v) {
-          if (v is HostedDependency) {
-            final details = v.hosted;
-            if (details == null) {
-              return MapEntry(k, v.version.toString());
-            }
-            return MapEntry(k, {
-              'hosted': details.url!.toString(),
-              'version': v.version.toString(),
-            });
-          }
-          if (v is GitDependency) {
-            final ref = v.ref;
-            final path = v.path;
-            return MapEntry(k, {
-              'git': {
-                'url': v.url.toString(),
-                if (ref != null) 'ref': ref,
-                if (path != null) 'path': path,
-              }
-            });
-          }
-          if (v is PathDependency) {
-            return MapEntry(k, {
-              'path': v.path,
-            });
-          }
-          throw StateError('Unknown dependency type: $v');
-        }),
-        ...dependencyPaths.map((name, path) => MapEntry(name, {'path': path})),
-      },
-    );
+  )..update(['dependency_overrides'], mergedOverrides);
+
   await File(path.join(package.path, 'pubspec_overrides.yaml'))
       .writeAsString(yaml.toString());
 }
