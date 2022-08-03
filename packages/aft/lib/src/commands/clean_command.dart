@@ -16,12 +16,7 @@ import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/util.dart';
-import 'package:async/async.dart';
 import 'package:path/path.dart' as p;
-
-const _deletePaths = [
-  'pubspec_overrides.yaml',
-];
 
 /// Command to clean all temporary files in the repo.
 class CleanCommand extends AmplifyCommand {
@@ -31,13 +26,6 @@ class CleanCommand extends AmplifyCommand {
 
   @override
   String get name => 'clean';
-
-  Future<void> _deleteIfPresent(String path) async {
-    final file = File(path);
-    if (await file.exists()) {
-      await file.delete(recursive: true);
-    }
-  }
 
   Future<void> _cleanBuildFolder(PackageInfo package) async {
     final buildDir = Directory(p.join(package.path, 'build'));
@@ -67,15 +55,10 @@ class CleanCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
-    final futures = FutureGroup<void>();
-    for (final package in (await allPackages).values) {
-      for (final path in _deletePaths) {
-        futures.add(_deleteIfPresent(p.join(package.path, path)));
-      }
-      futures.add(_cleanBuildFolder(package));
-    }
-    futures.close();
-    await futures.future;
+    await Future.wait([
+      for (final package in (await allPackages).values)
+        _cleanBuildFolder(package)
+    ]);
 
     stdout.writeln('Project successfully cleaned');
   }
