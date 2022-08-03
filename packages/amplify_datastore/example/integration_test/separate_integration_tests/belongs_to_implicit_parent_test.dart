@@ -49,8 +49,10 @@ void main() {
       modelProvider: ModelProvider.instance,
       rootModelType: BelongsToParent.classType,
       rootModels: rootModels,
+      rootModelQueryIdentifier: BelongsToParent.MODEL_IDENTIFIER,
       associatedModelType: BelongsToChildImplicit.classType,
       associatedModels: associatedModels,
+      associatedModelQueryIdentifier: BelongsToChildImplicit.MODEL_IDENTIFIER,
       supportCascadeDelete: true,
       enableCloudSync: enableCloudSync,
     );

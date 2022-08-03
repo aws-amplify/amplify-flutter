@@ -305,10 +305,10 @@ class AmplifyDataStorePluginTest {
     fun test_query_with_predicates_success_zero_result() {
         val queryOptions =
             Where.matches(
-                field("id").eq("123").or(
-                    field("rating").ge(4).and(
+                field("Post","id").eq("123").or(
+                    field("Post","rating").ge(4).and(
                         not(
-                            field("created").eq("2020-02-20T20:20:20-08:00")
+                            field("Post","created").eq("2020-02-20T20:20:20-08:00")
                         )
                     )
                 )
