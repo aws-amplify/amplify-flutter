@@ -25,6 +25,6 @@ dependencies:
   stream_transform: ^2.0.0
 
 dev_dependencies:
-  amplify_lints: ^1.0.0
+  amplify_lints: ^2.0.1
   integration_test:
     sdk: flutter
