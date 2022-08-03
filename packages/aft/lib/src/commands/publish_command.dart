@@ -256,10 +256,8 @@ class PublishCommand extends AmplifyCommand {
     }
 
     // Run pre-publish checks before publishing any packages.
-    if (!force) {
-      for (final package in publishablePackages) {
-        await _prePublish(package);
-      }
+    for (final package in publishablePackages) {
+      await _prePublish(package);
     }
 
     // Publish each package sequentially.
