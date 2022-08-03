@@ -74,7 +74,7 @@ android {
 dependencies {
     api amplifyCore
 
-    implementation 'com.amplifyframework:aws-auth-cognito:v1.37.0-cpkey-preview.2'
+    implementation 'com.amplifyframework:aws-auth-cognito:v1.37.0-cpkey-preview.3'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.10.0'
