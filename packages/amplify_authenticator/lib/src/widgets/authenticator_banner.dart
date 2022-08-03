@@ -22,43 +22,40 @@ MaterialBanner createMaterialBanner(
   BuildContext context, {
   required StatusType type,
   required String message,
-  required Function() actionCallback,
+  required void Function() actionCallback,
 }) {
   final theme = Theme.of(context);
 
-  // foreground and background colors are based on material standards for text legibility
-  // if they are not provided by the theme. See https://material.io/design/color/text-legibility.html#text-backgrounds
-
-  // fallback on default color based on type.
-  final backgroundColor = theme.bannerTheme.backgroundColor ?? type.color;
-
-  // If there is no background color provided by the theme,
-  // use on Colors.black87 (High-emphasis) as fallback, otherwise
-  // set it to null to let flutter control the foreground.
-  final hasCustomBackground = theme.bannerTheme.backgroundColor != null;
-  final foregroundColorFallBack = hasCustomBackground ? null : Colors.black87;
-
-  // use contentTextStyle color if available, otherwise use fallback as defined above.
-  final foregroundColor =
-      theme.bannerTheme.contentTextStyle?.color ?? foregroundColorFallBack;
+  final colorsChoices = getColors(theme.bannerTheme.backgroundColor,
+      theme.bannerTheme.contentTextStyle?.color, type, theme);
 
   return MaterialBanner(
     key: keyAuthenticatorBanner,
-    leading: Icon(
-      type.icon,
-      color: foregroundColor,
-    ),
-    backgroundColor: backgroundColor,
+    backgroundColor: colorsChoices.background,
+    leading: Icon(type.icon, color: colorsChoices.foreground),
     content: Center(
-        child: Text(
-      message.trimRight(),
-      textAlign: TextAlign.center,
-      style: TextStyle(color: foregroundColor),
-    )),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Text(
+              message.trimRight(),
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: colorsChoices.foreground,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
     actions: [
       IconButton(
         onPressed: actionCallback,
-        icon: Icon(Icons.close, color: foregroundColor),
+        icon: Icon(
+          Icons.close,
+          color: colorsChoices.foreground,
+        ),
       ),
     ],
   );
@@ -71,40 +68,70 @@ SnackBar createSnackBar(
 }) {
   final theme = Theme.of(context);
 
-  // foreground and background colors are based on material standards for text legibility
-  // if they are not provided by the theme. See https://material.io/design/color/text-legibility.html#text-backgrounds
+  final colorsChoices = getColors(theme.snackBarTheme.backgroundColor,
+      theme.snackBarTheme.contentTextStyle?.color, type, theme);
 
-  // fallback on default color based on type.
-  final backgroundColor = theme.snackBarTheme.backgroundColor ?? type.color;
-
-  // If there is no background color provided by the theme,
-  // use on Colors.black87 (High-emphasis) as fallback, otherwise
-  // set it to null to let flutter control the foreground.
-  final hasCustomBackground = theme.snackBarTheme.backgroundColor != null;
-  final foregroundColorFallBack = hasCustomBackground ? null : Colors.black87;
-
-  // use contentTextStyle color if available, otherwise use fallback as defined above.
-  final foregroundColor =
-      theme.snackBarTheme.contentTextStyle?.color ?? foregroundColorFallBack;
+  // if contentTextStyle is null, colorScheme.surface is used as a fallback
+  // since SnackBarThemeData.backgroundColor uses colorScheme.onSurface as a fall back
+  // this is only used for dark/light mode for the icon color
+  final fallbackIconColor =
+      theme.snackBarTheme.contentTextStyle?.color ?? theme.colorScheme.surface;
 
   return SnackBar(
     key: keyAuthenticatorBanner,
-    backgroundColor: backgroundColor,
+    backgroundColor: colorsChoices.background,
     content: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(
-          type.icon,
-          color: foregroundColor,
+        Icon(type.icon, color: fallbackIconColor),
+        const SizedBox(
+          width: 16,
         ),
-        const SizedBox(width: 16),
         Expanded(
-          child: Text(message.trimRight(),
-              textAlign: TextAlign.center,
-              style: TextStyle(color: foregroundColor)),
+          child: Text(
+            message.trimRight(),
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: colorsChoices.foreground,
+            ),
+          ),
         )
       ],
     ),
   );
+}
+
+class BannerColors {
+  Color? background;
+  Color? foreground;
+
+  BannerColors(this.background, this.foreground);
+}
+
+BannerColors getColors(Color? customBackgroundColor,
+    Color? customForegroundColor, StatusType type, ThemeData theme) {
+  // foreground and background colors are based on material standards for text legibility
+  // if they are not provided by the theme. See https://material.io/design/color/text-legibility.html#text-backgrounds
+
+  // we want to defualt to the provided theme, unless type is `error`
+  final isError = type == StatusType.error;
+
+  // fallback on default color based on type.
+  final backgroundColorByType = isError ? theme.errorColor : null;
+  final backgroundColor = backgroundColorByType ?? customBackgroundColor;
+
+  // If there is no background color provided by the theme,
+  // and StatusType is `error` use Colors.white (High-emphasis), otherwise
+  // set it to null to let flutter control the foreground.
+  final hasCustomBackground = customBackgroundColor != null;
+  final foregroundColorByType = isError ? Colors.white : null;
+  final foregroundColorFallBack =
+      hasCustomBackground ? null : foregroundColorByType;
+
+  // use contentTextStyle color if available, otherwise use fallback as defined above.
+  final foregroundColor = customForegroundColor ?? foregroundColorFallBack;
+
+  return BannerColors(backgroundColor, foregroundColor);
 }
 
 extension on StatusType {
@@ -112,23 +139,8 @@ extension on StatusType {
     switch (this) {
       case StatusType.info:
         return Icons.circle_notifications;
-      case StatusType.success:
-        return Icons.check_circle;
-      case StatusType.warning:
-        return Icons.warning;
       case StatusType.error:
         return Icons.error;
-    }
-  }
-
-  ColorSwatch<int> get color {
-    switch (this) {
-      case StatusType.info:
-        return Colors.blue;
-      case StatusType.error:
-        return Colors.red;
-      default:
-        return Colors.blue;
     }
   }
 }

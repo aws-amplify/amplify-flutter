@@ -18,10 +18,14 @@ import 'package:flutter/material.dart';
 class AuthenticatorContainerConstants {
   const AuthenticatorContainerConstants._();
 
+  // container constraints
   static const double smallWidth = 320;
 
   static const double mediumWidth = 460;
 
+  // mobile breakpoint
+  static const double smallView = 480;
+  static const double smallViewHeight = 960;
   // tablet breakpoint
   static const double mediumView = 672;
 

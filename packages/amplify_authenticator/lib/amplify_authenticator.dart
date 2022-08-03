@@ -537,7 +537,7 @@ class _AuthenticatorState extends State<Authenticator> {
     if (location == ExceptionBannerLocation.auto) {
       final Size screenSize = MediaQuery.of(scaffoldMessengerContext).size;
       final bool isDesktop =
-          screenSize.width > AuthenticatorContainerConstants.mediumView;
+          screenSize.width > AuthenticatorContainerConstants.smallView;
       location = isDesktop
           ? ExceptionBannerLocation.top
           : ExceptionBannerLocation.bottom;
