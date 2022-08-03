@@ -55,8 +55,12 @@ void main() {
       modelProvider: ModelProvider.instance,
       rootModelType: CpkHasManyParentBidirectionalExplicit.classType,
       rootModels: rootModels,
+      rootModelQueryIdentifier:
+          CpkHasManyParentBidirectionalExplicit.MODEL_IDENTIFIER,
       associatedModelType: CpkHasManyChildBidirectionalExplicit.classType,
       associatedModels: associatedModels,
+      associatedModelQueryIdentifier:
+          CpkHasManyChildBidirectionalExplicit.MODEL_IDENTIFIER,
       supportCascadeDelete: true,
       enableCloudSync: enableCloudSync,
     );

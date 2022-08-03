@@ -58,7 +58,12 @@ class QueryPredicateBuilder {
                     }
                 }
 
-                val queryField: QueryField = QueryField.field(field)
+                // Here we are using query root model name to create QueryField to let amplify-android
+                // generate correct SQL command.
+                // This is based on the current assumption: amplify-flutter doesn't support cross models nested
+                // predicate e.g. query comments by post.id
+                // This part should be reviewed when introducing nested predicate functionality
+                val queryField: QueryField = QueryField.field(modelSchema?.name, field)
                 val queryFieldOperatorMap: Map<String, Any> =
                     queryPredicateOperationMap["fieldOperator"].safeCastToMap()!!
                 val operand: Any? = queryFieldOperatorMap["value"]
@@ -175,8 +180,18 @@ class QueryPredicateBuilder {
                 }
 
                 return when (queryByIdentifierOperation["operatorName"]) {
-                    "equal" -> convertQueryByIdentifierOperationToPredicate(operands.cast(), true)
-                    "not_equal" -> convertQueryByIdentifierOperationToPredicate(operands.cast(), false)
+                    // In the query model identifier use case, we can only query by the fields on the query root mode
+                    // Hence, passing modelName from the root model schema to create the native QueryField is safe
+                    "equal" -> convertQueryByIdentifierOperationToPredicate(
+                        modelSchema?.name,
+                        operands.cast(),
+                        true
+                    )
+                    "not_equal" -> convertQueryByIdentifierOperationToPredicate(
+                        modelSchema?.name,
+                        operands.cast(),
+                        false
+                    )
                     else -> throw IllegalArgumentException(
                         "Operator cannot be equal for a queryByIdentifierOperation"
                     )
@@ -192,13 +207,15 @@ class QueryPredicateBuilder {
         }
 
         @JvmStatic
-        fun convertQueryByIdentifierOperationToPredicate(operands: List<Map<String, Any>>, isEqualOperator: Boolean):
+        fun convertQueryByIdentifierOperationToPredicate(modelName: String?, operands: List<Map<String, Any>>,
+                                                         isEqualOperator:
+        Boolean):
                 QueryPredicate {
             var predicates = operands.map {
                 val operandEntry = it.entries.first()
                 when {
-                    isEqualOperator -> QueryField.field(operandEntry.key).eq(operandEntry.value)
-                    else -> QueryField.field(operandEntry.key).ne(operandEntry.value)
+                    isEqualOperator -> QueryField.field(modelName, operandEntry.key).eq(operandEntry.value)
+                    else -> QueryField.field(modelName, operandEntry.key).ne(operandEntry.value)
                 }
             }
 
