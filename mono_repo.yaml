@@ -11,11 +11,14 @@ github:
       name: Test
       stages:
         - unit_test
-        - build_test
     native_test:
       name: Native Test
       stages:
         - unit_test_native
+    build:
+      name: Build
+      stages:
+        - build_test
     # TODO(dnys1): Re-enable when mono_repo 6.3.0 is released
     # integration_test:
     #   name: Integration Test
