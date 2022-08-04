@@ -20,7 +20,23 @@ class E2EWorkerNoResultImpl extends E2EWorkerNoResult {
   }
 
   @override
-  List<String> get fallbackUrls => zDebugMode
-      ? const ['packages/e2e/workers.debug.dart.js']
-      : const ['packages/e2e/workers.release.dart.js'];
+  List<String> get fallbackUrls {
+    // When running in a test, we need to find the `packages` directory which
+    // is symlinked in the root `test/` directory.
+    final baseUri = Uri.base;
+    final basePath = baseUri.pathSegments
+        .takeWhile((segment) => segment != 'test')
+        .map(Uri.encodeComponent)
+        .join('/');
+    final testDir = Uri(
+      scheme: baseUri.scheme,
+      host: baseUri.host,
+      port: baseUri.port,
+      path: '$basePath/test',
+    );
+    const relativePath = zDebugMode
+        ? 'packages/e2e/workers.debug.dart.js'
+        : 'packages/e2e/workers.release.dart.js';
+    return [relativePath, testDir.resolve(relativePath).toString()];
+  }
 }
