@@ -96,6 +96,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
         return Bundle.main.bundleIdentifier;
     }
     
+    public func legacyCredentialsIdentityPoolId(_ identityPoolId: String, appClientId: String) async -> (LegacyCredentialStoreData?, FlutterError?) {
+        preconditionFailure("fetching legacy credentials via method channel is not supported in iOS")
+    }
+    
+    public func clearLegacyCredentials(completion: @escaping (FlutterError?) -> Void) {
+        preconditionFailure("clearing legacy credentials via method channel is not supported in iOS")
+    }
+    
     public let key: PluginKey = "awsCognitoAuthPlugin"
     
     public func configure(using configuration: Any?) throws {}
