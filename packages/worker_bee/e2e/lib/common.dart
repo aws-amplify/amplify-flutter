@@ -21,6 +21,17 @@ import 'package:e2e/e2e_worker_void_result.dart';
 import 'package:test/test.dart';
 import 'package:worker_bee/worker_bee.dart';
 
+final _logger = AWSLogger();
+
+void _logMessage(AWSLogger logger, LogEntry entry) {
+  logger.log(
+    entry.level,
+    entry.message,
+    entry.error,
+    entry.stackTrace,
+  );
+}
+
 E2EMessage createMessage() => message;
 
 void _expectMessage(E2EMessage workerMessage) {
@@ -52,6 +63,8 @@ Future<void> testWorker({String? jsEntrypoint}) async {
   final message = createMessage();
 
   final worker = E2EWorker.create();
+  final logger = _logger.createChild(worker.name);
+  worker.logs.listen((entry) => _logMessage(logger, entry));
   await worker.spawn(jsEntrypoint: jsEntrypoint);
   worker.sink.add(message);
 
@@ -69,6 +82,8 @@ Future<void> testWorkerThrows({String? jsEntrypoint}) async {
   final message = createMessage();
 
   final worker = E2EWorkerThrows.create();
+  final logger = _logger.createChild(worker.name);
+  worker.logs.listen((entry) => _logMessage(logger, entry));
   await worker.spawn(jsEntrypoint: jsEntrypoint);
   worker.sink.add(message);
 
@@ -82,6 +97,8 @@ Future<void> testWorkerNoResult({String? jsEntrypoint}) async {
   final message = createMessage();
 
   final worker = E2EWorkerNoResult.create();
+  final logger = _logger.createChild(worker.name);
+  worker.logs.listen((entry) => _logMessage(logger, entry));
   await worker.spawn(jsEntrypoint: jsEntrypoint);
   worker.sink.add(message);
 
@@ -98,6 +115,8 @@ Future<void> testWorkerNullResult({String? jsEntrypoint}) async {
   final message = createMessage();
 
   final worker = E2EWorkerNullResult.create();
+  final logger = _logger.createChild(worker.name);
+  worker.logs.listen((entry) => _logMessage(logger, entry));
   await worker.spawn(jsEntrypoint: jsEntrypoint);
   worker.sink.add(message);
 
@@ -113,6 +132,8 @@ Future<void> testWorkerVoidResult({String? jsEntrypoint}) async {
   final message = createMessage();
 
   final worker = E2EWorkerVoidResult.create();
+  final logger = _logger.createChild(worker.name);
+  worker.logs.listen((entry) => _logMessage(logger, entry));
   await worker.spawn(jsEntrypoint: jsEntrypoint);
   worker.sink.add(message);
 
