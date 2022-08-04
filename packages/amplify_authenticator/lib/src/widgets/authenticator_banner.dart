@@ -39,8 +39,7 @@ MaterialBanner createMaterialBanner(
         children: [
           Expanded(
             child: Text(
-              message.trimRight(),
-              textAlign: TextAlign.left,
+              message.trim(),
               style: TextStyle(
                 color: colorsChoices.foreground,
               ),
@@ -89,13 +88,12 @@ SnackBar createSnackBar(
         ),
         Expanded(
           child: Text(
-            message.trimRight(),
-            textAlign: TextAlign.left,
+            message.trim(),
             style: TextStyle(
               color: colorsChoices.foreground,
             ),
           ),
-        )
+        ),
       ],
     ),
   );
