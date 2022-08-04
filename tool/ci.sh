@@ -103,6 +103,14 @@ for PKG in ${PKGS}; do
         echo 'tool/test-desktop.sh'
         tool/test-desktop.sh || EXIT_CODE=$?
         ;;
+      command_5)
+        echo 'dart run build_runner test --delete-conflicting-outputs --verbose -- -p chrome,firefox'
+        dart run build_runner test --delete-conflicting-outputs --verbose -- -p chrome,firefox || EXIT_CODE=$?
+        ;;
+      command_6)
+        echo 'dart run build_runner test --release --delete-conflicting-outputs --verbose -- -p chrome,firefox'
+        dart run build_runner test --release --delete-conflicting-outputs --verbose -- -p chrome,firefox || EXIT_CODE=$?
+        ;;
       format)
         echo 'dart format --output=none --set-exit-if-changed .'
         dart format --output=none --set-exit-if-changed . || EXIT_CODE=$?

@@ -13,5 +13,5 @@ stages:
           - windows
           - macos
           - linux
-      - command: dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox
-      - command: dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox
+      - command: dart run build_runner test --delete-conflicting-outputs --verbose -- -p chrome,firefox
+      - command: dart run build_runner test --release --delete-conflicting-outputs --verbose -- -p chrome,firefox
