@@ -16,8 +16,9 @@ enum Breakpoint {
   final double maxScreenSize;
   final double verticalPadding;
 
-  static const maxMobileWidth = 480;
-  static const maxMobileHeight = 960;
+  static const maxMobileWidth = AuthenticatorContainerConstants.smallView;
+  static const maxMobileHeight =
+      AuthenticatorContainerConstants.smallViewHeight;
 
   static Breakpoint of(BuildContext context) {
     final size = MediaQuery.of(context).size;
