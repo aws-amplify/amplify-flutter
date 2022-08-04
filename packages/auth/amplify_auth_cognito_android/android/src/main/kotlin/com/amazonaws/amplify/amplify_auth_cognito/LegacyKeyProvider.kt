@@ -25,6 +25,12 @@ private const val AES_KEY_ALGORITHM = "AES"
 private const val CIPHER_AES_GCM_NO_PADDING_KEY_LENGTH_IN_BITS = 256
 private const val ANDROID_KEY_STORE_NAME = "AndroidKeyStore"
 
+/**
+ * Provider generates a AES 256-bit key using AndroidKeyStore.
+ *
+ * Based on KeyProvider23 from the Android SDK.
+ * Reference: https://github.com/aws-amplify/aws-sdk-android/blob/8f6f2281acf40297a078219a0fd97ae8cbc079c1/aws-android-sdk-core/src/main/java/com/amazonaws/internal/keyvaluestore/KeyProvider23.java
+ */
 class LegacyKeyProvider {
 
     @Synchronized

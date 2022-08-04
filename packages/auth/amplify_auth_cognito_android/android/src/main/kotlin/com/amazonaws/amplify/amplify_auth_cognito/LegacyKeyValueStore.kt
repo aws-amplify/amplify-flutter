@@ -31,6 +31,12 @@ private const val SHARED_PREFERENCES_IV_SUFFIX = ".iv"
 private const val SHARED_PREFERENCES_STORE_VERSION_SUFFIX = ".keyvaluestoreversion"
 private const val AWS_KEY_VALUE_STORE_VERSION = 1
 
+/**
+ * A wrapper around Keystore and SharedPreferences.
+ *
+ * Based on AWSKeyValueStore from the Android SDK.
+ * Reference: https://github.com/aws-amplify/aws-sdk-android/blob/8f6f2281acf40297a078219a0fd97ae8cbc079c1/aws-android-sdk-core/src/main/java/com/amazonaws/internal/keyvaluestore/AWSKeyValueStore.java
+ */
 class LegacyKeyValueStore(
     context: Context,
     private val sharedPreferencesName: String
