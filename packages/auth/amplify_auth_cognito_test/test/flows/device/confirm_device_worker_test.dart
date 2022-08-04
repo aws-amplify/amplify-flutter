@@ -23,6 +23,8 @@ import 'package:worker_bee/worker_bee.dart';
 import '../../common/mock_config.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
+
   group('ConfirmDeviceWorker', () {
     test('success', () async {
       final worker = ConfirmDeviceWorker.create();

@@ -43,6 +43,8 @@ class MockCognitoIdentityProviderClient extends Fake
 }
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
+
   group('SignInStateMachine', () {
     late CognitoAuthStateMachine stateMachine;
 
