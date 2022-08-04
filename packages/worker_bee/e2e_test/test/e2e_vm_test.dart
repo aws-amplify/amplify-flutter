@@ -14,7 +14,7 @@
 
 @TestOn('vm')
 
-import 'package:e2e_test/common.dart';
+import 'package:e2e/common.dart';
 import 'package:test/test.dart';
 import 'package:worker_bee/worker_bee.dart';
 

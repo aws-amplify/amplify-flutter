@@ -14,6 +14,7 @@
 
 import 'dart:async';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'credential_scope.g.dart';
@@ -22,7 +23,7 @@ part 'credential_scope.g.dart';
 /// Signature version 4 credential scope information
 /// {@endtemplate}
 @JsonSerializable()
-class CredentialScope {
+class CredentialScope with AWSSerializable<Map<String, Object?>> {
   /// {@macro smithy_aws.credential_scope}
   const CredentialScope({
     this.region,
@@ -43,4 +44,7 @@ class CredentialScope {
         #sigV4Region: region,
         #sigV4Service: service,
       };
+
+  @override
+  Map<String, Object?> toJson() => _$CredentialScopeToJson(this);
 }

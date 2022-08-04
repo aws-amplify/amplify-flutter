@@ -1,5 +1,8 @@
 targets:
   $default:
+    sources:
+      exclude:
+        - example/**
     builders:
       build_web_compilers:dart2js_archive_extractor:
         enabled: true
@@ -31,6 +34,7 @@ targets:
           compiler: dart2js
           dart2js_args:
             - -O2
+            - --define=dart.vm.product=true
   workers:
     auto_apply_builders: false
     builders:

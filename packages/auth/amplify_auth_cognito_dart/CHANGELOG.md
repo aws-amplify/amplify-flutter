@@ -1,3 +1,7 @@
+## 0.1.1
+
+- Fix package analysis issues
+
 ## 0.1.0 (2022-08-02)
 
 Initial developer preview release for all platforms.

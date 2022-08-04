@@ -6,12 +6,4 @@ stages:
   - analyze_and_format:
       - group:
           - format
-          - analyze: --fatal-infos lib test
-  - unit_test:
-      - command: tool/test-desktop.sh
-        os:
-          - windows
-          - macos
-          - linux
-      - command: tool/test-web.sh -p chrome
-      - command: tool/test-web.sh -p firefox
+          - analyze: --fatal-infos lib
