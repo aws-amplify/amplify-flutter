@@ -17,6 +17,72 @@ permissions: read-all
 
 jobs:
   job_001:
+    name: "unit_test_native; linux; Dart 2.17.0; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_3-test_0"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: "2.17.0"
+      - id: checkout
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_aws_signature_v4_pub_upgrade
+        name: packages/aws_signature_v4; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
+        run: dart pub upgrade
+      - name: "packages/aws_signature_v4; git submodule update --init"
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
+        run: git submodule update --init
+      - name: packages/aws_signature_v4; dart test
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
+        run: dart test
+    if: "${{ github.event_name == 'push' }}"
+  job_002:
+    name: "unit_test_native; linux; Dart dev; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_3-test_0"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: dev
+      - id: checkout
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_aws_signature_v4_pub_upgrade
+        name: packages/aws_signature_v4; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
+        run: dart pub upgrade
+      - name: "packages/aws_signature_v4; git submodule update --init"
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
+        run: git submodule update --init
+      - name: packages/aws_signature_v4; dart test
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
+        run: dart test
+    if: "${{ github.event_name == 'push' }}"
+  job_003:
     name: "unit_test_native; linux; Dart dev; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p firefox`"
     runs-on: ubuntu-latest
     steps:
@@ -24,7 +90,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_4"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -63,7 +129,40 @@ jobs:
         working-directory: packages/smithy/smithy_codegen
         run: dart test -p firefox
     if: "${{ github.event_name == 'push' }}"
-  job_002:
+  job_004:
+    name: "unit_test_native; linux; Dart stable; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_3-test_0"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: stable
+      - id: checkout
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_aws_signature_v4_pub_upgrade
+        name: packages/aws_signature_v4; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
+        run: dart pub upgrade
+      - name: "packages/aws_signature_v4; git submodule update --init"
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
+        run: git submodule update --init
+      - name: packages/aws_signature_v4; dart test
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
+        run: dart test
+    if: "${{ github.event_name == 'push' }}"
+  job_005:
     name: "unit_test_native; linux; Dart stable; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p firefox`"
     runs-on: ubuntu-latest
     steps:
@@ -71,7 +170,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_4"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -110,7 +209,7 @@ jobs:
         working-directory: packages/smithy/smithy_codegen
         run: dart test -p firefox
     if: "${{ github.event_name == 'push' }}"
-  job_003:
+  job_006:
     name: "unit_test_native; macos; Dart dev; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
     runs-on: macos-latest
     steps:
@@ -157,7 +256,7 @@ jobs:
         working-directory: packages/smithy/smithy_codegen
         run: dart test
     if: "${{ github.event_name == 'push' }}"
-  job_004:
+  job_007:
     name: "unit_test_native; macos; Dart stable; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
     runs-on: macos-latest
     steps:
@@ -204,7 +303,7 @@ jobs:
         working-directory: packages/smithy/smithy_codegen
         run: dart test
     if: "${{ github.event_name == 'push' }}"
-  job_005:
+  job_008:
     name: "unit_test_native; windows; Dart dev; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
     runs-on: windows-latest
     steps:
@@ -241,7 +340,7 @@ jobs:
         working-directory: packages/smithy/smithy_codegen
         run: dart test
     if: "${{ github.event_name == 'push' }}"
-  job_006:
+  job_009:
     name: "unit_test_native; windows; Dart stable; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
     runs-on: windows-latest
     steps:

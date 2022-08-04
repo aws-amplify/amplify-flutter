@@ -15,7 +15,8 @@ stages:
             sdk:
               - stable
           - test:
-          - test: -p chrome
+          - test: -p chrome,firefox
+  - unit_test_native:
       - group:
           - command: git submodule update --init
           - test:
