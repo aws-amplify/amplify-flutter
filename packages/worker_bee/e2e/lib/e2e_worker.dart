@@ -27,9 +27,9 @@ abstract class E2EWorker extends WorkerBeeBase<E2EMessage, E2EResult> {
   @override
   String get jsEntrypoint {
     if (zDebugMode) {
-      return 'packages/e2e_test/workers.js';
+      return 'packages/e2e/workers.js';
     }
-    return 'packages/e2e_test/workers.min.js';
+    return 'packages/e2e/workers.min.js';
   }
 
   @override
