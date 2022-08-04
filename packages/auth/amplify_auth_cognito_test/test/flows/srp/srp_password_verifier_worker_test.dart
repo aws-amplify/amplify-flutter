@@ -12,10 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@OnPlatform({
-  'chrome': Skip('TODO(dnys1): Failing in CI'),
-})
-
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
@@ -31,6 +27,8 @@ import '../../common/mock_config.dart' hide username;
 import 'srp_helper_test.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
+
   group('SrpPasswordVerifierWorker', () {
     test('success', () async {
       final worker = SrpPasswordVerifierWorker.create();

@@ -18,6 +18,8 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
+
   group('SrpInitWorkerTest', () {
     test('success', () async {
       final worker = SrpInitWorker.create();
