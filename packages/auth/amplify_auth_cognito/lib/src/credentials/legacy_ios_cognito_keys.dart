@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/// Keys used by the legacy iOS SDK
+/// Reference: https://github.com/aws-amplify/aws-sdk-ios
 @internal
-library amplify_auth_cognito.credentials.cognito_keys;
+library amplify_auth_cognito.credentials.legacy_ios_cognito_keys;
 
 import 'dart:collection';
 
@@ -63,7 +65,7 @@ enum LegacyCognitoIdentityPoolKey {
 /// Enumerates and iterates over the keys stored in secure storage by
 /// legacy Cognito Identity Pool operations.
 /// {@endtemplate}
-class LegacyCognitoUserKeys extends CognitoKeys<LegacyCognitoKey> {
+class LegacyCognitoUserKeys extends LegacyIOSCognitoKeys<LegacyCognitoKey> {
   /// {@macro amplify_auth_cognito.legacy_cognito_identity_pool_keys}
   const LegacyCognitoUserKeys(this.config);
 
@@ -83,7 +85,7 @@ class LegacyCognitoUserKeys extends CognitoKeys<LegacyCognitoKey> {
 /// legacy Cognito Identity Pool operations.
 /// {@endtemplate}
 class LegacyCognitoIdentityPoolKeys
-    extends CognitoKeys<LegacyCognitoIdentityPoolKey> {
+    extends LegacyIOSCognitoKeys<LegacyCognitoIdentityPoolKey> {
   /// {@macro amplify_auth_cognito.legacy_cognito_identity_pool_keys}
   const LegacyCognitoIdentityPoolKeys();
 
@@ -99,7 +101,8 @@ class LegacyCognitoIdentityPoolKeys
 /// Enumerates and iterates over the keys stored in secure storage by
 /// legacy Cognito User Pool operations.
 /// {@endtemplate}
-class LegacyCognitoUserPoolKeys extends CognitoKeys<LegacyCognitoUserPoolKey> {
+class LegacyCognitoUserPoolKeys
+    extends LegacyIOSCognitoKeys<LegacyCognitoUserPoolKey> {
   /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
   const LegacyCognitoUserPoolKeys(this.currentUserId, this.config);
 
@@ -120,9 +123,10 @@ class LegacyCognitoUserPoolKeys extends CognitoKeys<LegacyCognitoUserPoolKey> {
 /// {@template amplify_auth_cognito.cognito_keys}
 /// Iterable secure storage keys.
 /// {@endtemplate}
-abstract class CognitoKeys<Key extends Enum> extends IterableBase<String> {
+abstract class LegacyIOSCognitoKeys<Key extends Enum>
+    extends IterableBase<String> {
   /// {@macro amplify_auth_cognito.cognito_keys}
-  const CognitoKeys();
+  const LegacyIOSCognitoKeys();
 
   /// Enum values of the key type.
   List<Key> get _values;
@@ -135,13 +139,14 @@ abstract class CognitoKeys<Key extends Enum> extends IterableBase<String> {
       prefix == null ? key.name : '$prefix.${key.name}';
 
   @override
-  Iterator<String> get iterator => _CognitoKeysIterator(this);
+  Iterator<String> get iterator => _LegacyIOSCognitoKeysIterator(this);
 }
 
-class _CognitoKeysIterator<Key extends Enum> implements Iterator<String> {
-  _CognitoKeysIterator(this._keys);
+class _LegacyIOSCognitoKeysIterator<Key extends Enum>
+    implements Iterator<String> {
+  _LegacyIOSCognitoKeysIterator(this._keys);
 
-  final CognitoKeys<Key> _keys;
+  final LegacyIOSCognitoKeys<Key> _keys;
 
   /// Current index of iteration.
   int _currentIndex = -1;

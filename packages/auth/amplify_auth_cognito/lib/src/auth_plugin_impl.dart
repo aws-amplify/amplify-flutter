@@ -15,9 +15,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:amplify_auth_cognito/src/credentials/legacy_cognito_keys.dart';
 import 'package:amplify_auth_cognito/src/credentials/legacy_credential_store_data_extension.dart';
-import 'package:amplify_auth_cognito/src/credentials/legacy_secure_storage_factory.dart';
+import 'package:amplify_auth_cognito/src/credentials/legacy_ios_cognito_keys.dart';
+import 'package:amplify_auth_cognito/src/credentials/legacy_ios_secure_storage_factory.dart';
 import 'package:amplify_auth_cognito/src/credentials/secure_storage_extension.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
@@ -114,7 +114,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
 }
 
 class _NativeAmplifyAuthCognito
-    with LegacySecureStorageProvider, AWSDebuggable, AmplifyLoggerMixin
+    with LegacyIOSSecureStorageProvider, AWSDebuggable, AmplifyLoggerMixin
     implements NativeAuthPlugin, LegacyCredentialProvider {
   _NativeAmplifyAuthCognito(this._basePlugin, this._stateMachine) {
     _stateMachine.addInstance<LegacyCredentialProvider>(this);
