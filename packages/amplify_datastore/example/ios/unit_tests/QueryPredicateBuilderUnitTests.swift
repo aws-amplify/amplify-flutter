@@ -152,7 +152,7 @@ class QueryPredicateBuilderUnitTests: XCTestCase {
     func test_when_query_associated_model_identifier_used() throws {
         XCTAssertEqual(
             hasManyParent.eq(
-                FlutterSerializedModel.Identifier.make(
+                FlutterSerializedModel.IdentifierProtocol.make(
                     fields: [
                         (name: "id", value: "parent-id"),
                         (name: "name", value: "parent-name")

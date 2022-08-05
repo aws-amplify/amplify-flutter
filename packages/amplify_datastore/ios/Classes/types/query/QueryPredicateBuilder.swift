@@ -160,7 +160,7 @@ public enum QueryPredicateBuilder {
 
     static func convertIdentifierFieldOperatorToPredicate(operands: [[String: Any]], field: QueryField, isEqualOperator: Bool) throws -> QueryPredicate {
         let identifierFields = try convertToModelIdentifierFields(values: operands)
-        let operand = FlutterSerializedModel.Identifier.make(fields: identifierFields).stringValue
+        let operand = FlutterSerializedModel.IdentifierProtocol.make(fields: identifierFields).stringValue
 
         return isEqualOperator ? field.eq(operand) : field.ne(operand)
     }
