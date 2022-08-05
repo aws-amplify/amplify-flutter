@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@Tags(['no-ddc'])
+
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
@@ -29,10 +31,7 @@ import 'srp_helper_test.dart';
 void main() {
   AWSLogger().logLevel = LogLevel.verbose;
 
-  // TODO(dnys1): This will skip tests on DDC where they're currently failing.
-  final skipTests = !zAssertsEnabled;
-
-  group('SrpPasswordVerifierWorker', skip: skipTests, () {
+  group('SrpPasswordVerifierWorker', () {
     test('success', () async {
       final worker = SrpPasswordVerifierWorker.create();
       addTearDown(worker.close);

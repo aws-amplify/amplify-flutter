@@ -6,3 +6,7 @@ on_platform:
   # Tests with workers seems to be really slow on browsers
   browser:
     timeout: 2x
+tags:
+  # Tests to skip on DDC
+  no-ddc:
+    test_on: browser
