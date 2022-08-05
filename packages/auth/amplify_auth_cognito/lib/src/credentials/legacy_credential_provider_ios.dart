@@ -15,7 +15,6 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito/src/credentials/legacy_ios_cognito_keys.dart';
-import 'package:amplify_auth_cognito/src/credentials/legacy_ios_secure_storage_factory.dart';
 import 'package:amplify_auth_cognito/src/credentials/secure_storage_extension.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
@@ -26,15 +25,11 @@ import 'package:async/async.dart';
 /// The implementation of [LegacyCredentialProvider] for migrating
 /// credentials from the legacy iOS SDK.
 /// {@endtemplate}
-class LegacyCredentialProviderIOS
-    with LegacyIOSSecureStorageProvider
-    implements LegacyCredentialProvider {
+class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
   /// {@macro amplify_auth_cognito.legacy_ios_credential_provider}
   LegacyCredentialProviderIOS(CognitoAuthStateMachine stateMachine)
       : _stateMachine = stateMachine;
   final CognitoAuthStateMachine _stateMachine;
-
-  final _bundleIdMemoizer = AsyncMemoizer<String>();
 
   @override
   Future<CredentialStoreData?> fetchLegacyCredentials({
@@ -42,10 +37,9 @@ class LegacyCredentialProviderIOS
     CognitoIdentityCredentialsProvider? identityPoolConfig,
     CognitoOAuthConfig? hostedUiConfig,
   }) async {
-    final bundleId = await _getBundleId();
     CognitoUserPoolTokens? userPoolTokens;
     if (userPoolConfig != null) {
-      final userPoolStorage = getUserPoolStorage(bundleId);
+      final userPoolStorage = await _getUserPoolStorage();
       final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
       final currentUserId = await userPoolStorage.read(
         key: cognitoUserKeys[LegacyCognitoKey.currentUser],
@@ -83,8 +77,7 @@ class LegacyCredentialProviderIOS
     AWSCredentials? awsCredentials;
     final identityPoolId = identityPoolConfig?.poolId;
     if (identityPoolId != null) {
-      final identityPoolStorage = getIdentityPoolStorage(
-        bundleId,
+      final identityPoolStorage = await _getIdentityPoolStorage(
         identityPoolId,
       );
       const identityPoolKeys = LegacyCognitoIdentityPoolKeys();
@@ -138,11 +131,8 @@ class LegacyCredentialProviderIOS
     CognitoIdentityCredentialsProvider? identityPoolConfig,
     CognitoOAuthConfig? hostedUiConfig,
   }) async {
-    final bundleId = await _getBundleId();
     if (userPoolConfig != null) {
-      final userPoolStorage = getUserPoolStorage(
-        bundleId,
-      );
+      final userPoolStorage = await _getUserPoolStorage();
       final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
       final currentUser = await userPoolStorage.read(
         key: cognitoUserKeys[LegacyCognitoKey.currentUser],
@@ -163,10 +153,7 @@ class LegacyCredentialProviderIOS
 
     final identityPoolId = identityPoolConfig?.poolId;
     if (identityPoolId != null) {
-      final identityPoolStorage = getIdentityPoolStorage(
-        bundleId,
-        identityPoolId,
-      );
+      final identityPoolStorage = await _getIdentityPoolStorage(identityPoolId);
       const identityPoolKeys = LegacyCognitoIdentityPoolKeys();
       await identityPoolStorage.deleteMany([
         identityPoolKeys[LegacyCognitoIdentityPoolKey.identityId],
@@ -178,10 +165,45 @@ class LegacyCredentialProviderIOS
     }
   }
 
+  final _bundleIdMemoizer = AsyncMemoizer<String>();
+
+  /// Gets the bundle ID.
   FutureOr<String> _getBundleId() {
     return _bundleIdMemoizer.runOnce(() {
       final bridge = _stateMachine.expect<NativeAuthBridge>();
       return bridge.getBundleId();
     });
+  }
+
+  /// Cache of secure storage instances.
+  final Map<String, SecureStorageInterface> _secureStorageInstances = {};
+
+  /// Creates a legacy secure storage instance given a namespace,
+  /// or returns it if it already exists.
+  ///
+  /// The namespace is used as the "service" on iOS and the key-value
+  /// repository name on Android.
+  SecureStorageInterface _getSecureStorageInstance(String namespace) {
+    return _secureStorageInstances[namespace] ??= AmplifySecureStorageDart(
+      config: AmplifySecureStorageConfig.byNamespace(namespace: namespace),
+    );
+  }
+
+  /// Returns a Secure Storage instance for accessing legacy User Pool
+  /// keys from the iOS SDK.
+  Future<SecureStorageInterface> _getUserPoolStorage() async {
+    final bundleId = await _getBundleId();
+    return _getSecureStorageInstance('$bundleId.AWSCognitoIdentityUserPool');
+  }
+
+  /// Returns a Secure Storage instance for accessing legacy Identity Pool
+  /// keys from the iOS SDK.
+  Future<SecureStorageInterface> _getIdentityPoolStorage(
+    String identityPoolId,
+  ) async {
+    final bundleId = await _getBundleId();
+    return _getSecureStorageInstance(
+      '$bundleId.AWSCognitoCredentialsProvider.$identityPoolId',
+    );
   }
 }
