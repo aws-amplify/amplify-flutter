@@ -8,11 +8,17 @@ stages:
           - format
           - analyze: --fatal-infos .
   - unit_test:
+    - group:
       - command: dart --version
       - test:
         os:
           - windows
           - macos
           - linux
+    - group:
+      - command: dart --version
       - command: dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox
+  - unit_test_native:
+    - group:
+      - command: dart --version
       - command: dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox --exclude-tags=no-ddc

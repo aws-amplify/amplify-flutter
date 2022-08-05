@@ -8,16 +8,22 @@ stages:
           - format
           - analyze: --fatal-infos lib test
   - unit_test:
+    - group:
       - command: dart --version
       - command: tool/test-desktop.sh
         os:
           - windows
           - macos
           - linux
+    - group:
+      - command: dart --version
+      - command: dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox
+  - unit_test_native:
+    - group:
+      - command: dart --version
       - command: dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox
         sdk:
           # TODO(dnys1): There are currently issues using interop types defined in another package.
           # They are fixed in `dev` but not currently available in `stable`.
           # - stable
           - dev
-      - command: dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox
