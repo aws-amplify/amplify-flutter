@@ -1,3 +1,7 @@
+## 1.0.0-next.0+2
+
+- Fix package analysis issues
+
 ## 1.0.0-next.0+1
 
 - Fix package analysis issues
