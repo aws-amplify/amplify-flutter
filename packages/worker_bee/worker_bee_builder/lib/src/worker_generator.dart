@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
@@ -52,7 +53,7 @@ class WorkerBeeGenerator extends GeneratorForAnnotation<WorkerBee> {
 
     // Get generic arguments
     final supertype = element.supertype;
-    if (supertype == null || (supertype.element.name != 'WorkerBeeBase')) {
+    if (supertype == null || (supertype.element2.name != 'WorkerBeeBase')) {
       throw ArgumentError(
           '@WorkerBee classes must extends WorkerBeeBase<M, R>.');
     }
@@ -63,7 +64,8 @@ class WorkerBeeGenerator extends GeneratorForAnnotation<WorkerBee> {
 
     // Look up message type to generate JS/VM implementations.
     final requestType = typeArgs[0];
-    final requestTypeEl = requestType.element;
+    final requestTypeEl =
+        requestType is InterfaceType ? requestType.element2 : null;
     if (requestTypeEl == null || requestTypeEl is! ClassElement) {
       final requestTypeName =
           requestType.getDisplayString(withNullability: true);
@@ -71,7 +73,8 @@ class WorkerBeeGenerator extends GeneratorForAnnotation<WorkerBee> {
     }
 
     final responseType = typeArgs[1];
-    final responseTypeEl = responseType.element;
+    final responseTypeEl =
+        responseType is InterfaceType ? responseType.element2 : null;
 
     final declaresJsEntrypoint = element.fields.any(
       (el) => el.name == 'jsEntrypoint' && !el.isAbstract,

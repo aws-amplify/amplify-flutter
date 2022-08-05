@@ -39,8 +39,8 @@ class SymbolVisitor implements TypeVisitor<Reference> {
     return TypeReference((t) {
       t
         ..isNullable = type.nullabilitySuffix != NullabilitySuffix.none
-        ..symbol = type.element.name
-        ..url = type.element.librarySource.uri.toString()
+        ..symbol = type.element2.name
+        ..url = type.element2.librarySource.uri.toString()
         ..types.addAll([
           for (final typeArg in type.typeArguments) typeArg.accept(this),
         ]);
