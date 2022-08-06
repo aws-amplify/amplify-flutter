@@ -333,12 +333,13 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     final clearKeys = event.keys;
     final deletions = <String>[];
     bool shouldDelete(CognitoKey key) =>
-        (clearKeys.isEmpty && key.shouldClear) || clearKeys.contains(key);
+        (clearKeys.isEmpty || clearKeys.contains(key)) &&
+        (key.shouldClear || event.force);
 
     final userPoolConfig = authConfig.userPoolConfig;
     if (userPoolConfig != null) {
       final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
-      for (final key in userPoolKeys.values) {
+      for (final key in userPoolKeys) {
         if (shouldDelete(key)) {
           deletions.add(userPoolKeys[key]);
         }
@@ -348,7 +349,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     final hostedUiConfig = authConfig.hostedUiConfig;
     if (hostedUiConfig != null) {
       final hostedUiKeys = HostedUiKeys(hostedUiConfig);
-      for (final key in hostedUiKeys.values) {
+      for (final key in hostedUiKeys) {
         if (shouldDelete(key)) {
           deletions.add(hostedUiKeys[key]);
         }
@@ -358,7 +359,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     final identityPoolConfig = authConfig.identityPoolConfig;
     if (identityPoolConfig != null) {
       final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
-      for (final key in identityPoolKeys.values) {
+      for (final key in identityPoolKeys) {
         if (shouldDelete(key)) {
           deletions.add(identityPoolKeys[key]);
         }

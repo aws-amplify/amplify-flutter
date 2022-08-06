@@ -586,7 +586,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     if (hasIdentityPool) {
       dispatch(
         CredentialStoreEvent.clearCredentials(
-          CognitoIdentityPoolKeys(identityPoolConfig!).values,
+          keys: CognitoIdentityPoolKeys(identityPoolConfig!),
         ),
       );
 

@@ -117,7 +117,7 @@ class CognitoIdentityPoolKeys extends CognitoKeys<CognitoIdentityPoolKey> {
   final CognitoIdentityCredentialsProvider config;
 
   @override
-  List<CognitoIdentityPoolKey> get values => CognitoIdentityPoolKey.values;
+  List<CognitoIdentityPoolKey> get _values => CognitoIdentityPoolKey.values;
 
   @override
   String get prefix => config.poolId;
@@ -135,10 +135,10 @@ class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
   final CognitoUserPoolConfig config;
 
   @override
-  List<CognitoUserPoolKey> get values => CognitoUserPoolKey.values;
+  List<CognitoUserPoolKey> get _values => CognitoUserPoolKey.values;
 
   /// The [CognitoKey] values specific to device tracking.
-  List<CognitoUserPoolKey> get deviceValues => [
+  List<CognitoUserPoolKey> get deviceKeys => [
         CognitoUserPoolKey.deviceKey,
         CognitoUserPoolKey.deviceGroupKey,
         CognitoUserPoolKey.devicePassword,
@@ -160,7 +160,7 @@ class HostedUiKeys extends CognitoKeys<HostedUiKey> {
   final CognitoOAuthConfig config;
 
   @override
-  List<HostedUiKey> get values => HostedUiKey.values;
+  List<HostedUiKey> get _values => HostedUiKey.values;
 
   @override
   String get prefix => '${config.appClientId}.hostedUi';
@@ -169,13 +169,12 @@ class HostedUiKeys extends CognitoKeys<HostedUiKey> {
 /// {@template amplify_auth_cognito.cognito_keys}
 /// Iterable secure storage keys.
 /// {@endtemplate}
-abstract class CognitoKeys<Key extends CognitoKey>
-    extends IterableBase<String> {
+abstract class CognitoKeys<Key extends CognitoKey> extends IterableBase<Key> {
   /// {@macro amplify_auth_cognito.cognito_keys}
   const CognitoKeys();
 
   /// Enum values of the key type.
-  List<Key> get values;
+  List<Key> get _values;
 
   /// The prefix to use for keys.
   String get prefix;
@@ -184,10 +183,10 @@ abstract class CognitoKeys<Key extends CognitoKey>
   String operator [](Key key) => '$prefix.${key.name}';
 
   @override
-  Iterator<String> get iterator => _CognitoKeysIterator(this);
+  Iterator<Key> get iterator => _CognitoKeysIterator(this);
 }
 
-class _CognitoKeysIterator<Key extends CognitoKey> implements Iterator<String> {
+class _CognitoKeysIterator<Key extends CognitoKey> implements Iterator<Key> {
   _CognitoKeysIterator(this._keys);
 
   final CognitoKeys<Key> _keys;
@@ -196,14 +195,13 @@ class _CognitoKeysIterator<Key extends CognitoKey> implements Iterator<String> {
   int _currentIndex = -1;
 
   @override
-  String get current {
+  Key get current {
     if (_currentIndex < 0) {
       throw StateError('Must call moveNext first');
     }
-    final currentKey = _keys.values[_currentIndex];
-    return _keys[currentKey];
+    return _keys._values[_currentIndex];
   }
 
   @override
-  bool moveNext() => ++_currentIndex < _keys.values.length;
+  bool moveNext() => ++_currentIndex < _keys._values.length;
 }

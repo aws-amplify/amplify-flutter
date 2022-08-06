@@ -801,7 +801,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     } finally {
       _stateMachine.dispatch(
         CredentialStoreEvent.clearCredentials(
-          CognitoUserPoolKeys(_userPoolConfig).deviceValues,
+          keys: CognitoUserPoolKeys(_userPoolConfig).deviceKeys,
+          force: true,
         ),
       );
     }
