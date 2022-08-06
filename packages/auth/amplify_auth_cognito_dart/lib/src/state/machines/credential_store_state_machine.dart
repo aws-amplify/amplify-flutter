@@ -112,11 +112,17 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       final deviceGroupKey = await _secureStorage.read(
         key: keys[CognitoUserPoolKey.deviceGroupKey],
       );
-      if (deviceKey != null && deviceGroupKey != null) {
+      final devicePassword = await _secureStorage.read(
+        key: keys[CognitoUserPoolKey.devicePassword],
+      );
+      if (deviceKey != null &&
+          deviceGroupKey != null &&
+          devicePassword != null) {
         deviceSecrets = CognitoDeviceSecrets(
           (b) => b
             ..deviceKey = deviceKey
-            ..deviceGroupKey = deviceGroupKey,
+            ..deviceGroupKey = deviceGroupKey
+            ..devicePassword = devicePassword,
         );
       }
     }
@@ -212,6 +218,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
         items.addAll({
           keys[CognitoUserPoolKey.deviceKey]: deviceSecrets.deviceKey,
           keys[CognitoUserPoolKey.deviceGroupKey]: deviceSecrets.deviceGroupKey,
+          keys[CognitoUserPoolKey.devicePassword]: deviceSecrets.devicePassword,
         });
       }
     }
@@ -325,15 +332,15 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
 
     final clearKeys = event.keys;
     final deletions = <String>[];
-    bool shouldDelete(String key) =>
-        clearKeys.isEmpty || clearKeys.contains(key);
+    bool shouldDelete(CognitoKey key) =>
+        (clearKeys.isEmpty && key.shouldClear) || clearKeys.contains(key);
 
     final userPoolConfig = authConfig.userPoolConfig;
     if (userPoolConfig != null) {
       final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
-      for (final key in userPoolKeys) {
+      for (final key in userPoolKeys.values) {
         if (shouldDelete(key)) {
-          deletions.add(key);
+          deletions.add(userPoolKeys[key]);
         }
       }
     }
@@ -341,9 +348,9 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     final hostedUiConfig = authConfig.hostedUiConfig;
     if (hostedUiConfig != null) {
       final hostedUiKeys = HostedUiKeys(hostedUiConfig);
-      for (final key in hostedUiKeys) {
+      for (final key in hostedUiKeys.values) {
         if (shouldDelete(key)) {
-          deletions.add(key);
+          deletions.add(hostedUiKeys[key]);
         }
       }
     }
@@ -351,9 +358,9 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     final identityPoolConfig = authConfig.identityPoolConfig;
     if (identityPoolConfig != null) {
       final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
-      for (final key in identityPoolKeys) {
+      for (final key in identityPoolKeys.values) {
         if (shouldDelete(key)) {
-          deletions.add(key);
+          deletions.add(identityPoolKeys[key]);
         }
       }
     }

@@ -292,7 +292,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       // access and we should prevent further attempts at refreshing.
       dispatch(
         CredentialStoreEvent.clearCredentials(
-          CognitoIdentityPoolKeys(identityPoolConfig),
+          CognitoIdentityPoolKeys(identityPoolConfig).values,
         ),
       );
       rethrow;
@@ -347,13 +347,13 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
       return newTokens;
     } on NotAuthorizedException {
-      late Iterable<String> keys;
+      late Iterable<CognitoKey> keys;
       switch (userPoolTokens.signInMethod) {
         case CognitoSignInMethod.default$:
-          keys = CognitoUserPoolKeys(_userPoolConfig);
+          keys = CognitoUserPoolKeys(_userPoolConfig).values;
           break;
         case CognitoSignInMethod.hostedUi:
-          keys = HostedUiKeys(expect());
+          keys = HostedUiKeys(expect()).values;
           break;
       }
       final identityPoolConfig = _identityPoolConfig;
@@ -362,7 +362,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
           ...keys,
           if (identityPoolConfig != null)
             // Clear associated AWS credentials
-            ...CognitoIdentityPoolKeys(identityPoolConfig),
+            ...CognitoIdentityPoolKeys(identityPoolConfig).values,
         ]),
       );
       rethrow;

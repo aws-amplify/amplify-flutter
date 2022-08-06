@@ -248,7 +248,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         ..clientId = config.appClientId
         ..clientSecret = config.appClientSecret
         ..poolId = config.poolId
-        ..deviceKey = user.device?.id
+        ..deviceKey = user.deviceSecrets.deviceKey
         ..challengeParameters = challengeParameters
         ..parameters = SignInParameters(
           (b) => b
@@ -273,7 +273,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         ..challengeName = ChallengeNameType.deviceSrpAuth
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: user.username!,
-          CognitoConstants.challengeParamDeviceKey: user.device!.id,
+          CognitoConstants.challengeParamDeviceKey:
+              user.deviceSecrets.deviceKey!,
           CognitoConstants.challengeParamSrpA:
               initResult.publicA.toRadixString(16),
         });
@@ -434,7 +435,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         );
       }
 
-      final deviceKey = user.device?.id;
+      final deviceKey = user.deviceSecrets.deviceKey;
       if (deviceKey != null) {
         b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
       }
@@ -466,7 +467,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         );
       }
 
-      final deviceKey = user.device?.id;
+      final deviceKey = user.deviceSecrets.deviceKey;
       if (deviceKey != null) {
         b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
       }
@@ -507,7 +508,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         );
       }
 
-      final deviceKey = user.device?.id;
+      final deviceKey = user.deviceSecrets.deviceKey;
       if (deviceKey != null) {
         b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
       }
@@ -585,7 +586,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     if (hasIdentityPool) {
       dispatch(
         CredentialStoreEvent.clearCredentials(
-          CognitoIdentityPoolKeys(identityPoolConfig!),
+          CognitoIdentityPoolKeys(identityPoolConfig!).values,
         ),
       );
 
@@ -650,9 +651,10 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           ..newDeviceMetadata.replace(newDeviceMetadata),
       ),
     );
-    final request = await worker.stream.first;
+    final response = await worker.stream.first;
+    user.deviceSecrets.devicePassword = response.devicePassword;
 
-    await cognitoIdentityProvider.confirmDevice(request);
+    await cognitoIdentityProvider.confirmDevice(response.request);
   }
 
   /// Update any user attributes which could not be sent in the

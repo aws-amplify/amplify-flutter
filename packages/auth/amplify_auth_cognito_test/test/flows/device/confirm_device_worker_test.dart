@@ -42,7 +42,7 @@ void main() {
 
       expect(
         worker.stream,
-        emits(isA<ConfirmDeviceRequest>()),
+        emits(isA<ConfirmDeviceResponse>()),
       );
     });
 

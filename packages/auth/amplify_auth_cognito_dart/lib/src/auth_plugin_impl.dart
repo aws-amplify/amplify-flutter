@@ -15,6 +15,7 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_stub.dart'
@@ -790,12 +791,20 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     if (deviceKey == null) {
       throw const DeviceNotTrackedException();
     }
-    await _cognitoIdp.forgetDevice(
-      cognito.ForgetDeviceRequest(
-        accessToken: result.data.userPoolTokens?.accessToken.raw,
-        deviceKey: deviceKey,
-      ),
-    );
+    try {
+      await _cognitoIdp.forgetDevice(
+        cognito.ForgetDeviceRequest(
+          accessToken: result.data.userPoolTokens?.accessToken.raw,
+          deviceKey: deviceKey,
+        ),
+      );
+    } finally {
+      _stateMachine.dispatch(
+        CredentialStoreEvent.clearCredentials(
+          CognitoUserPoolKeys(_userPoolConfig).deviceValues,
+        ),
+      );
+    }
   }
 
   @override

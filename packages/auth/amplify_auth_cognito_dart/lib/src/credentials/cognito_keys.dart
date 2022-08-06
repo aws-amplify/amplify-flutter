@@ -21,8 +21,19 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+/// Common key configuration for [CognitoKeys].
+mixin CognitoKey on Enum {
+  /// Whether the credential should be cleared by default.
+  ///
+  /// This is useful to disambiguate credentials which should be persisted
+  /// across sessions, e.g. device secrets.
+  bool get shouldClear => true;
+}
+
+/// {@template amplify_auth_cognito_dart.cognito_user_pool_key}
 /// Discrete keys stored for Cognito User Pool operations in secure storage.
-enum CognitoUserPoolKey {
+/// {@endtemplate}
+enum CognitoUserPoolKey with CognitoKey {
   /// The access token, serialized as a JWT.
   accessToken,
 
@@ -36,14 +47,23 @@ enum CognitoUserPoolKey {
   userSub,
 
   /// The device key.
-  deviceKey,
+  deviceKey(shouldClear: false),
 
   /// The device group key.
-  deviceGroupKey,
+  deviceGroupKey(shouldClear: false),
+
+  /// The device password
+  devicePassword(shouldClear: false);
+
+  /// {@macro amplify_auth_cognito_dart.cognito_user_pool_key}
+  const CognitoUserPoolKey({this.shouldClear = true});
+
+  @override
+  final bool shouldClear;
 }
 
 /// Discrete keys stored for Cognito Identity Pool operations in secure storage.
-enum CognitoIdentityPoolKey {
+enum CognitoIdentityPoolKey with CognitoKey {
   /// AWS Access Key ID
   accessKeyId,
 
@@ -61,7 +81,7 @@ enum CognitoIdentityPoolKey {
 }
 
 /// Discrete keys stored for Hosted UI operations in secure storage.
-enum HostedUiKey {
+enum HostedUiKey with CognitoKey {
   /// The access token, serialized as a JWT.
   accessToken,
 
@@ -97,7 +117,7 @@ class CognitoIdentityPoolKeys extends CognitoKeys<CognitoIdentityPoolKey> {
   final CognitoIdentityCredentialsProvider config;
 
   @override
-  List<CognitoIdentityPoolKey> get _values => CognitoIdentityPoolKey.values;
+  List<CognitoIdentityPoolKey> get values => CognitoIdentityPoolKey.values;
 
   @override
   String get prefix => config.poolId;
@@ -115,7 +135,14 @@ class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
   final CognitoUserPoolConfig config;
 
   @override
-  List<CognitoUserPoolKey> get _values => CognitoUserPoolKey.values;
+  List<CognitoUserPoolKey> get values => CognitoUserPoolKey.values;
+
+  /// The [CognitoKey] values specific to device tracking.
+  List<CognitoUserPoolKey> get deviceValues => [
+        CognitoUserPoolKey.deviceKey,
+        CognitoUserPoolKey.deviceGroupKey,
+        CognitoUserPoolKey.devicePassword,
+      ];
 
   @override
   String get prefix => config.appClientId;
@@ -133,7 +160,7 @@ class HostedUiKeys extends CognitoKeys<HostedUiKey> {
   final CognitoOAuthConfig config;
 
   @override
-  List<HostedUiKey> get _values => HostedUiKey.values;
+  List<HostedUiKey> get values => HostedUiKey.values;
 
   @override
   String get prefix => '${config.appClientId}.hostedUi';
@@ -142,12 +169,13 @@ class HostedUiKeys extends CognitoKeys<HostedUiKey> {
 /// {@template amplify_auth_cognito.cognito_keys}
 /// Iterable secure storage keys.
 /// {@endtemplate}
-abstract class CognitoKeys<Key extends Enum> extends IterableBase<String> {
+abstract class CognitoKeys<Key extends CognitoKey>
+    extends IterableBase<String> {
   /// {@macro amplify_auth_cognito.cognito_keys}
   const CognitoKeys();
 
   /// Enum values of the key type.
-  List<Key> get _values;
+  List<Key> get values;
 
   /// The prefix to use for keys.
   String get prefix;
@@ -159,7 +187,7 @@ abstract class CognitoKeys<Key extends Enum> extends IterableBase<String> {
   Iterator<String> get iterator => _CognitoKeysIterator(this);
 }
 
-class _CognitoKeysIterator<Key extends Enum> implements Iterator<String> {
+class _CognitoKeysIterator<Key extends CognitoKey> implements Iterator<String> {
   _CognitoKeysIterator(this._keys);
 
   final CognitoKeys<Key> _keys;
@@ -172,10 +200,10 @@ class _CognitoKeysIterator<Key extends Enum> implements Iterator<String> {
     if (_currentIndex < 0) {
       throw StateError('Must call moveNext first');
     }
-    final currentKey = _keys._values[_currentIndex];
+    final currentKey = _keys.values[_currentIndex];
     return _keys[currentKey];
   }
 
   @override
-  bool moveNext() => ++_currentIndex < _keys._values.length;
+  bool moveNext() => ++_currentIndex < _keys.values.length;
 }

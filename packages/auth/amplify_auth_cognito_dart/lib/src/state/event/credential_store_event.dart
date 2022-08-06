@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
@@ -61,7 +62,7 @@ abstract class CredentialStoreEvent extends StateMachineEvent<
 
   /// {@macro amplify_auth_cognito.clear_credentials}
   const factory CredentialStoreEvent.clearCredentials([
-    Iterable<String> keys,
+    Iterable<CognitoKey> keys,
   ]) = CredentialStoreClearCredentials;
 
   /// {@macro amplify_auth_cognito.credential_store_succeeded}
@@ -189,7 +190,7 @@ class CredentialStoreClearCredentials extends CredentialStoreEvent {
 
   /// When set, only these keys will be cleared from the store. Otherwise,
   /// all keys are cleared.
-  final Iterable<String> keys;
+  final Iterable<CognitoKey> keys;
 
   @override
   CredentialStoreEventType get type =>

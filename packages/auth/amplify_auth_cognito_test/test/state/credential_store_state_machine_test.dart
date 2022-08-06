@@ -338,7 +338,7 @@ void main() {
 
         stateMachine.dispatch(
           CredentialStoreEvent.clearCredentials(
-            identityPoolKeys,
+            identityPoolKeys.values,
           ),
         );
 
