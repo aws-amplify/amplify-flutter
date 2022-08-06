@@ -299,7 +299,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     final authConfig = expect<AuthConfiguration>();
 
     final clearKeys = event.keys;
-    final deletions = Set.of(clearKeys);
+    final deletions = <String>[];
     bool shouldDelete(String key) =>
         clearKeys.isEmpty || clearKeys.contains(key);
 

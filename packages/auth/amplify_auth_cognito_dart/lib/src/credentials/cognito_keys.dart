@@ -21,19 +21,10 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-/// Common key configuration for [CognitoKeys].
-mixin CognitoKey on Enum {
-  /// Whether the credential should be cleared by default.
-  ///
-  /// This is useful to disambiguate credentials which should be persisted
-  /// across sessions, e.g. device secrets.
-  bool get shouldClear => true;
-}
-
 /// {@template amplify_auth_cognito_dart.cognito_user_pool_key}
 /// Discrete keys stored for Cognito User Pool operations in secure storage.
 /// {@endtemplate}
-enum CognitoUserPoolKey with CognitoKey {
+enum CognitoUserPoolKey {
   /// The access token, serialized as a JWT.
   accessToken,
 
@@ -49,7 +40,7 @@ enum CognitoUserPoolKey with CognitoKey {
 
 /// Discrete keys stored for Cognito User Pool device tracking operations in
 /// secure storage.
-enum CognitoDeviceKey with CognitoKey {
+enum CognitoDeviceKey {
   /// The device key.
   deviceKey,
 
@@ -57,14 +48,11 @@ enum CognitoDeviceKey with CognitoKey {
   deviceGroupKey,
 
   /// The device password.
-  devicePassword;
-
-  @override
-  bool get shouldClear => false;
+  devicePassword
 }
 
 /// Discrete keys stored for Cognito Identity Pool operations in secure storage.
-enum CognitoIdentityPoolKey with CognitoKey {
+enum CognitoIdentityPoolKey {
   /// AWS Access Key ID
   accessKeyId,
 
@@ -82,7 +70,7 @@ enum CognitoIdentityPoolKey with CognitoKey {
 }
 
 /// Discrete keys stored for Hosted UI operations in secure storage.
-enum HostedUiKey with CognitoKey {
+enum HostedUiKey {
   /// The access token, serialized as a JWT.
   accessToken,
 
@@ -184,8 +172,7 @@ class HostedUiKeys extends CognitoKeys<HostedUiKey> {
 /// {@template amplify_auth_cognito.cognito_keys}
 /// Iterable secure storage keys.
 /// {@endtemplate}
-abstract class CognitoKeys<Key extends CognitoKey>
-    extends IterableBase<String> {
+abstract class CognitoKeys<Key extends Enum> extends IterableBase<String> {
   /// {@macro amplify_auth_cognito.cognito_keys}
   const CognitoKeys();
 
@@ -202,7 +189,7 @@ abstract class CognitoKeys<Key extends CognitoKey>
   Iterator<String> get iterator => _CognitoKeysIterator(this);
 }
 
-class _CognitoKeysIterator<Key extends CognitoKey> implements Iterator<String> {
+class _CognitoKeysIterator<Key extends Enum> implements Iterator<String> {
   _CognitoKeysIterator(this._keys);
 
   final CognitoKeys<Key> _keys;
