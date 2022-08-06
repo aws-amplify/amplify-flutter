@@ -83,6 +83,9 @@ abstract class NativeAuthBridge {
   Map<String, String> getValidationData();
 
   String getBundleId();
+
+  /// Updates the native cache of the current user.
+  void updateCurrentUser(NativeAuthUser? user);
 }
 
 class NativeAuthSession {
@@ -93,6 +96,11 @@ class NativeAuthSession {
 
   String? identityId;
   NativeAWSCredentials? awsCredentials;
+}
+
+class NativeAuthUser {
+  late String userId;
+  late String username;
 }
 
 class NativeUserPoolTokens {
