@@ -86,6 +86,7 @@ const secretAccessKey = 'secretAccessKey';
 const sessionToken = 'sessionToken';
 final expiration = DateTime.utc(2100, 1, 1);
 const identityId = 'identityId';
+const deviceKey = 'deviceKey';
 
 final authConfig = AuthConfiguration.fromConfig(mockConfig.auth!.awsPlugin!);
 final userPoolConfig = authConfig.userPoolConfig!;

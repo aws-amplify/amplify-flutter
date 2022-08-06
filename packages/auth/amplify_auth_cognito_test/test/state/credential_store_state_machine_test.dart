@@ -358,6 +358,83 @@ void main() {
 
         await stateMachine.close();
       });
+
+      test('force', () async {
+        seedStorage(
+          secureStorage,
+          userPoolKeys: userPoolKeys,
+          deviceKeys: userPoolKeys.deviceKeys,
+          version: CredentialStoreVersion.v1,
+        );
+        stateMachine.dispatch(
+          const CredentialStoreEvent.migrateLegacyCredentialStore(),
+        );
+
+        final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
+        await expectLater(
+          sm.stream.startWith(sm.currentState),
+          emitsInOrder(<Matcher>[
+            isA<CredentialStoreNotConfigured>(),
+            isA<CredentialStoreMigratingLegacyStore>(),
+            isA<CredentialStoreLoadingStoredCredentials>(),
+            isA<CredentialStoreSuccess>(),
+          ]),
+        );
+
+        var result = await sm.getCredentialsResult();
+
+        expect(result.data.userPoolTokens, isNotNull);
+        expect(result.data.deviceSecrets?.deviceKey, deviceKey);
+        expect(result.data.deviceSecrets?.deviceGroupKey, deviceKey);
+        expect(result.data.deviceSecrets?.devicePassword, deviceKey);
+
+        stateMachine.dispatch(
+          CredentialStoreEvent.clearCredentials(
+            keys: userPoolKeys,
+          ),
+        );
+
+        await expectLater(
+          sm.stream.startWith(sm.currentState),
+          emitsInOrder(<Matcher>[
+            isA<CredentialStoreSuccess>(),
+            isA<CredentialStoreClearingCredentials>(),
+            isA<CredentialStoreSuccess>(),
+          ]),
+        );
+
+        result = await sm.getCredentialsResult();
+
+        expect(result.data.userPoolTokens, isNull);
+        expect(result.data.deviceSecrets?.deviceKey, deviceKey);
+        expect(result.data.deviceSecrets?.deviceGroupKey, deviceKey);
+        expect(result.data.deviceSecrets?.devicePassword, deviceKey);
+
+        stateMachine.dispatch(
+          CredentialStoreEvent.clearCredentials(
+            keys: userPoolKeys,
+            force: true,
+          ),
+        );
+
+        await expectLater(
+          sm.stream.startWith(sm.currentState),
+          emitsInOrder(<Matcher>[
+            isA<CredentialStoreSuccess>(),
+            isA<CredentialStoreClearingCredentials>(),
+            isA<CredentialStoreSuccess>(),
+          ]),
+        );
+
+        result = await sm.getCredentialsResult();
+
+        expect(result.data.userPoolTokens, isNull);
+        expect(result.data.deviceSecrets?.deviceKey, isNull);
+        expect(result.data.deviceSecrets?.deviceGroupKey, isNull);
+        expect(result.data.deviceSecrets?.devicePassword, isNull);
+
+        await stateMachine.close();
+      });
     });
 
     group('migrateCredentials', () {
