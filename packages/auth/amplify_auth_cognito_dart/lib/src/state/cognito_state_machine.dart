@@ -16,6 +16,7 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credentials_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -45,6 +46,7 @@ final defaultDependencies = <Token, DependencyBuilder>{
   const Token<http.Client>(): http.Client.new,
   AuthPluginCredentialsProvider.token: AuthPluginCredentialsProviderImpl.new,
   zSmithyHttpClientToken: _makeSmithyHttpClient,
+  DeviceMetadataRepository.token: DeviceMetadataRepository.new,
 };
 
 /// {@template amplify_auth_cognito.cognito_auth_state_machine}

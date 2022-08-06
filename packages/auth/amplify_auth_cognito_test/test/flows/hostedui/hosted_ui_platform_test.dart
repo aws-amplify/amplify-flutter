@@ -67,7 +67,7 @@ void main() {
 
       tearDown(() {
         for (final key in keys) {
-          secureStorage.delete(key: keys[key]);
+          secureStorage.delete(key: key);
         }
       });
 

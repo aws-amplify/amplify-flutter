@@ -45,21 +45,22 @@ enum CognitoUserPoolKey with CognitoKey {
 
   /// The user ID.
   userSub,
+}
 
+/// Discrete keys stored for Cognito User Pool device tracking operations in
+/// secure storage.
+enum CognitoDeviceKey with CognitoKey {
   /// The device key.
-  deviceKey(shouldClear: false),
+  deviceKey,
 
   /// The device group key.
-  deviceGroupKey(shouldClear: false),
+  deviceGroupKey,
 
-  /// The device password
-  devicePassword(shouldClear: false);
-
-  /// {@macro amplify_auth_cognito_dart.cognito_user_pool_key}
-  const CognitoUserPoolKey({this.shouldClear = true});
+  /// The device password.
+  devicePassword;
 
   @override
-  final bool shouldClear;
+  bool get shouldClear => false;
 }
 
 /// Discrete keys stored for Cognito Identity Pool operations in secure storage.
@@ -137,15 +138,29 @@ class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
   @override
   List<CognitoUserPoolKey> get _values => CognitoUserPoolKey.values;
 
-  /// The [CognitoKey] values specific to device tracking.
-  List<CognitoUserPoolKey> get deviceKeys => [
-        CognitoUserPoolKey.deviceKey,
-        CognitoUserPoolKey.deviceGroupKey,
-        CognitoUserPoolKey.devicePassword,
-      ];
-
   @override
   String get prefix => config.appClientId;
+}
+
+/// {@template amplify_auth_cognito.cognito_user_pool_keys}
+/// Enumerates and iterates over the keys stored in secure storage by
+/// Cognito User Pool device tracking operations.
+/// {@endtemplate}
+class CognitoDeviceKeys extends CognitoKeys<CognitoDeviceKey> {
+  /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
+  const CognitoDeviceKeys(this.config, this.username);
+
+  /// The Cognito user pool configuration, used to determine the key prefixes.
+  final CognitoUserPoolConfig config;
+
+  /// Device keys are tracked by username.
+  final String username;
+
+  @override
+  List<CognitoDeviceKey> get _values => CognitoDeviceKey.values;
+
+  @override
+  String get prefix => '${config.appClientId}.$username';
 }
 
 /// {@template amplify_auth_cognito.hosted_ui_keys}
@@ -169,7 +184,8 @@ class HostedUiKeys extends CognitoKeys<HostedUiKey> {
 /// {@template amplify_auth_cognito.cognito_keys}
 /// Iterable secure storage keys.
 /// {@endtemplate}
-abstract class CognitoKeys<Key extends CognitoKey> extends IterableBase<Key> {
+abstract class CognitoKeys<Key extends CognitoKey>
+    extends IterableBase<String> {
   /// {@macro amplify_auth_cognito.cognito_keys}
   const CognitoKeys();
 
@@ -183,10 +199,10 @@ abstract class CognitoKeys<Key extends CognitoKey> extends IterableBase<Key> {
   String operator [](Key key) => '$prefix.${key.name}';
 
   @override
-  Iterator<Key> get iterator => _CognitoKeysIterator(this);
+  Iterator<String> get iterator => _CognitoKeysIterator(this);
 }
 
-class _CognitoKeysIterator<Key extends CognitoKey> implements Iterator<Key> {
+class _CognitoKeysIterator<Key extends CognitoKey> implements Iterator<String> {
   _CognitoKeysIterator(this._keys);
 
   final CognitoKeys<Key> _keys;
@@ -195,11 +211,12 @@ class _CognitoKeysIterator<Key extends CognitoKey> implements Iterator<Key> {
   int _currentIndex = -1;
 
   @override
-  Key get current {
+  String get current {
     if (_currentIndex < 0) {
       throw StateError('Must call moveNext first');
     }
-    return _keys._values[_currentIndex];
+    final currentKey = _keys._values[_currentIndex];
+    return _keys[currentKey];
   }
 
   @override

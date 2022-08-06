@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
@@ -61,10 +60,9 @@ abstract class CredentialStoreEvent extends StateMachineEvent<
   ) = CredentialStoreStoreCredentials;
 
   /// {@macro amplify_auth_cognito.clear_credentials}
-  const factory CredentialStoreEvent.clearCredentials({
-    Iterable<CognitoKey> keys,
-    bool force,
-  }) = CredentialStoreClearCredentials;
+  const factory CredentialStoreEvent.clearCredentials([
+    Iterable<String> keys,
+  ]) = CredentialStoreClearCredentials;
 
   /// {@macro amplify_auth_cognito.credential_store_succeeded}
   const factory CredentialStoreEvent.succeeded(CredentialStoreData data) =
@@ -187,18 +185,13 @@ class CredentialStoreStoreCredentials extends CredentialStoreEvent {
 /// {@endtemplate}
 class CredentialStoreClearCredentials extends CredentialStoreEvent {
   /// {@macro amplify_auth_cognito.clear_credentials}
-  const CredentialStoreClearCredentials({
+  const CredentialStoreClearCredentials([
     this.keys = const [],
-    this.force = false,
-  }) : super._();
+  ]) : super._();
 
   /// When set, only these keys will be cleared from the store. Otherwise,
   /// all keys are cleared.
-  final Iterable<CognitoKey> keys;
-
-  /// When `true`, all [keys] will be cleared, regardless if they specify
-  /// `shouldClear = false`.
-  final bool force;
+  final Iterable<String> keys;
 
   @override
   CredentialStoreEventType get type =>

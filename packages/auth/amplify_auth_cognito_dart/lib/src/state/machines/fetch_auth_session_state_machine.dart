@@ -17,9 +17,10 @@ import 'dart:async';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credentials_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
-import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
+import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
     hide NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
@@ -231,10 +232,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         );
         return;
       }
-      userPoolTokens = await _refreshUserPoolTokens(
-        userPoolTokens: userPoolTokens,
-        deviceSecrets: result.data.deviceSecrets,
-      );
+      userPoolTokens = await _refreshUserPoolTokens(userPoolTokens);
     }
     if (event.refreshAwsCredentials) {
       final awsCredentialsResult = await _retrieveAwsCredentials(
@@ -292,17 +290,18 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       // access and we should prevent further attempts at refreshing.
       dispatch(
         CredentialStoreEvent.clearCredentials(
-          keys: CognitoIdentityPoolKeys(identityPoolConfig),
+          CognitoIdentityPoolKeys(identityPoolConfig),
         ),
       );
       rethrow;
     }
   }
 
-  Future<CognitoUserPoolTokens> _refreshUserPoolTokens({
-    required CognitoUserPoolTokens userPoolTokens,
-    CognitoDeviceSecrets? deviceSecrets,
-  }) async {
+  Future<CognitoUserPoolTokens> _refreshUserPoolTokens(
+    CognitoUserPoolTokens userPoolTokens,
+  ) async {
+    final deviceSecrets = await getOrCreate(DeviceMetadataRepository.token)
+        .get(userPoolTokens.authUser.username);
     final refreshRequest = cognito_idp.InitiateAuthRequest.build((b) {
       b
         ..authFlow = cognito_idp.AuthFlowType.refreshTokenAuth
@@ -347,7 +346,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
       return newTokens;
     } on NotAuthorizedException {
-      late Iterable<CognitoKey> keys;
+      late Iterable<String> keys;
       switch (userPoolTokens.signInMethod) {
         case CognitoSignInMethod.default$:
           keys = CognitoUserPoolKeys(_userPoolConfig);
@@ -358,14 +357,12 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       }
       final identityPoolConfig = _identityPoolConfig;
       dispatch(
-        CredentialStoreEvent.clearCredentials(
-          keys: [
-            ...keys,
-            if (identityPoolConfig != null)
-              // Clear associated AWS credentials
-              ...CognitoIdentityPoolKeys(identityPoolConfig),
-          ],
-        ),
+        CredentialStoreEvent.clearCredentials([
+          ...keys,
+          if (identityPoolConfig != null)
+            // Clear associated AWS credentials
+            ...CognitoIdentityPoolKeys(identityPoolConfig),
+        ]),
       );
       rethrow;
     }

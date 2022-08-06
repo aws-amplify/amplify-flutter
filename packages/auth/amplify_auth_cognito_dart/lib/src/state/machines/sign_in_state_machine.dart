@@ -18,6 +18,7 @@ import 'dart:convert';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide UpdateUserAttributesRequest;
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/device/confirm_device_worker.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
@@ -586,7 +587,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     if (hasIdentityPool) {
       dispatch(
         CredentialStoreEvent.clearCredentials(
-          keys: CognitoIdentityPoolKeys(identityPoolConfig!),
+          CognitoIdentityPoolKeys(identityPoolConfig!),
         ),
       );
 
@@ -610,9 +611,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
     // Collect current user info which may influence SRP flow.
     try {
-      final result =
-          await expect(CredentialStoreStateMachine.type).getCredentialsResult();
-      final deviceSecrets = result.data.deviceSecrets;
+      final deviceSecrets = await getOrCreate(DeviceMetadataRepository.token)
+          .get(event.parameters.username);
       if (deviceSecrets != null) {
         user.deviceSecrets.replace(deviceSecrets);
       }
@@ -639,7 +639,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   /// If device tracking is set to opt-in, a second call to `rememberDevice` is
   /// needed to remember the device. If device tracking is set to always, then
   /// the device is remembered as part of this call.
-  Future<void> _createDevice(
+  Future<String> _createDevice(
     String accessToken,
     NewDeviceMetadataType newDeviceMetadata,
   ) async {
@@ -652,9 +652,9 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       ),
     );
     final response = await worker.stream.first;
-    user.deviceSecrets.devicePassword = response.devicePassword;
-
     await cognitoIdentityProvider.confirmDevice(response.request);
+
+    return response.devicePassword;
   }
 
   /// Update any user attributes which could not be sent in the
@@ -705,19 +705,15 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           hasIdentityPool) {
         user.deviceSecrets
           ..deviceGroupKey = newDeviceMetadata.deviceGroupKey
-          ..deviceKey = newDeviceMetadata.deviceKey;
+          ..deviceKey = newDeviceMetadata.deviceKey
+          ..devicePassword = await _createDevice(
+            accessToken,
+            newDeviceMetadata,
+          );
 
-        await _createDevice(
-          accessToken,
-          newDeviceMetadata,
-        );
-
-        dispatch(
-          CredentialStoreEvent.storeCredentials(
-            CredentialStoreData(
-              deviceSecrets: user.deviceSecrets.build(),
-            ),
-          ),
+        await getOrCreate(DeviceMetadataRepository.token).put(
+          user.username!,
+          user.deviceSecrets.build(),
         );
       }
 

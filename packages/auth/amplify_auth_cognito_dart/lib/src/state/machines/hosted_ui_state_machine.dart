@@ -107,7 +107,7 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
   Future<void> onCancelSignIn(HostedUiCancelSignIn event) async {
     await _platform.cancelSignIn();
     await dispatch(
-      CredentialStoreEvent.clearCredentials(keys: _keys),
+      CredentialStoreEvent.clearCredentials(_keys),
     );
     dispatch(
       const HostedUiEvent.failed(
@@ -142,7 +142,7 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
       // credentials should be cleared regardless of how the platform handles
       // the sign out.
       dispatch(
-        CredentialStoreEvent.clearCredentials(keys: _keys),
+        CredentialStoreEvent.clearCredentials(_keys),
       );
       await expect(CredentialStoreStateMachine.type).getCredentialsResult();
 
