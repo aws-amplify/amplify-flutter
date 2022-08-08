@@ -15,6 +15,7 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide InternalErrorException;
+import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_iam_auth_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_user_pools_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -28,24 +29,6 @@ AWSHttpRequest _generateTestRequest() {
     method: AWSHttpMethod.get,
     uri: Uri.parse('https://www.amazon.com'),
   );
-}
-
-/// Returns dummy AWS credentials and access token.
-class TestAmplifyAuth extends AmplifyAuthCognitoDart {
-  @override
-  Future<AuthSession> fetchAuthSession({
-    required AuthSessionRequest request,
-  }) async {
-    return CognitoAuthSession(
-      isSignedIn: true,
-      credentials: const AWSCredentials('fakeKeyId', 'fakeSecret'),
-      userPoolTokens: CognitoUserPoolTokens(
-        accessToken: accessToken,
-        idToken: idToken,
-        refreshToken: refreshToken,
-      ),
-    );
-  }
 }
 
 /// Mock implementation of user pool only error when trying to get credentials.
@@ -75,21 +58,31 @@ class TestAmplifyAuthUserPoolOnly extends AmplifyAuthCognitoDart {
 }
 
 void main() {
+  late AmplifyAuthCognitoDart plugin;
+  late AmplifyAuthProviderRepository testAuthRepo;
+
+  setUpAll(() async {
+    testAuthRepo = AmplifyAuthProviderRepository();
+    final secureStorage = MockSecureStorage();
+    final stateMachine = CognitoAuthStateMachine()..addInstance(secureStorage);
+    plugin = AmplifyAuthCognitoDart(credentialStorage: secureStorage)
+      ..stateMachine = stateMachine;
+
+    seedStorage(
+      secureStorage,
+      userPoolKeys: CognitoUserPoolKeys(userPoolConfig),
+      identityPoolKeys: CognitoIdentityPoolKeys(identityPoolConfig),
+    );
+
+    await plugin.configure(
+      config: mockConfig,
+      authProviderRepo: testAuthRepo,
+    );
+  });
+
   group(
       'AmplifyAuthCognitoDart plugin registers auth providers during configuration',
       () {
-    late AmplifyAuthCognitoDart plugin;
-    late AmplifyAuthProviderRepository testAuthRepo;
-
-    setUp(() async {
-      plugin = AmplifyAuthCognitoDart(credentialStorage: MockSecureStorage());
-      testAuthRepo = AmplifyAuthProviderRepository();
-      await plugin.configure(
-        config: mockConfig,
-        authProviderRepo: testAuthRepo,
-      );
-    });
-
     test('registers CognitoIamAuthProvider', () async {
       final authProvider = testAuthRepo.getAuthProvider(
         APIAuthorizationType.iam.authProviderToken,
@@ -134,7 +127,7 @@ void main() {
   group('auth providers defined in auth plugin', () {
     setUpAll(() async {
       await Amplify.reset();
-      await Amplify.addPlugin(TestAmplifyAuth());
+      await Amplify.addPlugin(plugin);
     });
 
     group('CognitoIamAuthProvider', () {
