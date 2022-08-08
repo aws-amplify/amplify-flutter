@@ -37,22 +37,27 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
         let instance = SwiftAuthCognito(nativeAuthPlugin: nativeAuthPlugin)
         NativeAuthBridgeSetup(registrar.messenger(), instance)
     }
-
+    
     public func signIn(
         withUrlUrl url: String,
         callbackUrlScheme: String,
         preferPrivateSession: NSNumber,
-        browserPackageName: String?
-    ) async -> ([String : String]?, FlutterError?) {
-        do {
-            let queryParameters = try await hostedUIFlow.launchUrl(
-                url,
-                callbackURLScheme: callbackUrlScheme,
-                preferPrivateSession: preferPrivateSession.boolValue
-            )
-            return (queryParameters, nil)
-        } catch {
-            return (nil, error.flutterError)
+        browserPackageName: String?,
+        completion: @escaping ([String : String]?, FlutterError?) -> Void
+    ) {
+        hostedUIFlow.launchUrl(
+            url,
+            callbackURLScheme: callbackUrlScheme,
+            preferPrivateSession: preferPrivateSession.boolValue
+        ) { result in
+            switch result {
+            case let .success(queryParams):
+                completion(queryParams, nil)
+                return
+            case let .failure(error):
+                completion(nil, error.flutterError)
+                return
+            }
         }
     }
     
@@ -60,17 +65,22 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
         withUrlUrl url: String,
         callbackUrlScheme: String,
         preferPrivateSession: NSNumber,
-        browserPackageName: String?
-    ) async -> FlutterError? {
-        do {
-            _ = try await hostedUIFlow.launchUrl(
-                url,
-                callbackURLScheme: callbackUrlScheme,
-                preferPrivateSession: preferPrivateSession.boolValue
-            )
-            return nil
-        } catch {
-            return error.flutterError
+        browserPackageName: String?,
+        completion: @escaping (FlutterError?) -> Void
+    ) {
+        hostedUIFlow.launchUrl(
+            url,
+            callbackURLScheme: callbackUrlScheme,
+            preferPrivateSession: preferPrivateSession.boolValue
+        ) { result in
+            switch result {
+            case .success:
+                completion(nil)
+                return
+            case let .failure(error):
+                completion(error.flutterError)
+                return
+            }
         }
     }
     
