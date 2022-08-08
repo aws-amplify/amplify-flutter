@@ -13,7 +13,10 @@
 // limitations under the License.
 
 /// Keys used by the legacy iOS SDK
-/// Reference: https://github.com/aws-amplify/aws-sdk-ios
+/// References:
+/// - https://github.com/aws-amplify/aws-sdk-ios/blob/main/AWSCognitoAuth/AWSCognitoAuth.m
+/// - https://github.com/aws-amplify/aws-sdk-ios/blob/main/AWSCognitoIdentityProvider/AWSCognitoIdentityUserPool.m
+/// - https://github.com/aws-amplify/aws-sdk-ios/blob/main/AWSCore/Authentication/AWSCredentialsProvider.m
 @internal
 library amplify_auth_cognito.credentials.legacy_ios_cognito_keys;
 
