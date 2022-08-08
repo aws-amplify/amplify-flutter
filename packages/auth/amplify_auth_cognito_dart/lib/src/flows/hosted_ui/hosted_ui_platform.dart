@@ -93,10 +93,12 @@ abstract class HostedUiPlatform implements Closeable {
 
   /// The default redirect URI for sign in.
   @protected
+  @visibleForTesting
   Uri get signInRedirectUri;
 
   /// The default redirect URI for sign out.
   @protected
+  @visibleForTesting
   Uri get signOutRedirectUri;
 
   /// Gets the authrorization URL for presenting to the user.
