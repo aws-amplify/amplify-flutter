@@ -93,7 +93,30 @@ open class AuthCognito :
      */
     private var initialParameters: Map<String, String>? = null
 
-    private val legacyKeyValueStores: MutableMap<String, LegacyKeyValueStore> = mutableMapOf()
+    /**
+     * Legacy User Pool Key-Value Storage.
+     *
+     * Reference: https://github.com/aws-amplify/aws-sdk-android/blob/8f6f2281acf40297a078219a0fd97ae8cbc079c1/aws-android-sdk-cognitoauth/src/main/java/com/amazonaws/mobileconnectors/cognitoauth/util/ClientConstants.java#L27
+     */
+    private val legacyUserPoolStore: LegacyKeyValueStore by lazy {
+        LegacyKeyValueStore(
+            applicationContext!!,
+            "CognitoIdentityProviderCache"
+        )
+    }
+
+    /**
+     * Legacy Identity Store Key-Value Storage.
+     *
+     * Reference: https://github.com/aws-amplify/aws-sdk-android/blob/8f6f2281acf40297a078219a0fd97ae8cbc079c1/aws-android-sdk-auth-core/src/main/java/com/amazonaws/mobile/auth/core/IdentityManager.java#L143
+     */
+    private val legacyIdentityStore: LegacyKeyValueStore by lazy {
+        LegacyKeyValueStore(
+            applicationContext!!,
+            "com.amazonaws.android.auth"
+        )
+    }
+
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         applicationContext = binding.applicationContext
@@ -175,8 +198,6 @@ open class AuthCognito :
      *  - https://github.com/aws-amplify/aws-sdk-android/blob/main/aws-android-sdk-cognitoauth/src/main/java/com/amazonaws/mobileconnectors/cognitoauth/util/ClientConstants.java
      */
     override fun getLegacyCredentials(identityPoolId: String, appClientId: String, result: NativeAuthPluginBindings.Result<NativeAuthPluginBindings.LegacyCredentialStoreData>) {
-        val legacyUserPoolStore = getLegacyKeyValueStore("CognitoIdentityProviderCache")
-        val legacyIdentityStore = getLegacyKeyValueStore("com.amazonaws.android.auth")
         val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
         val accessToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.accessToken"]
         val refreshToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.refreshToken"]
@@ -203,23 +224,9 @@ open class AuthCognito :
      * Clears the legacy credentials set by the Android SDK
      */
     override fun clearLegacyCredentials(result: NativeAuthPluginBindings.Result<Void>) {
-        val legacyUserPoolStore = getLegacyKeyValueStore("CognitoIdentityProviderCache")
-        val legacyIdentityStore = getLegacyKeyValueStore("com.amazonaws.android.auth")
         legacyUserPoolStore.clear()
         legacyIdentityStore.clear()
         result.success(null)
-    }
-
-    /**
-     * Gets or creates the LegacyKeyValueStore
-     */
-    private fun getLegacyKeyValueStore(name: String): LegacyKeyValueStore {
-        return legacyKeyValueStores.getOrPut(name) {
-            LegacyKeyValueStore(
-                applicationContext!!,
-                name
-            )
-        }
     }
 
     /**
