@@ -17,6 +17,8 @@ import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 
+const testAccessToken = 'test-access-token-123';
+
 class TestIamAuthProvider extends AWSIamAmplifyAuthProvider {
   @override
   Future<AWSCredentials> retrieve() async {
@@ -40,6 +42,13 @@ class TestIamAuthProvider extends AWSIamAmplifyAuthProvider {
       request,
       credentialScope: scope,
     );
+  }
+}
+
+class TestTokenAuthProvider extends TokenAmplifyAuthProvider {
+  @override
+  Future<String> getLatestAuthToken() async {
+    return testAccessToken;
   }
 }
 
