@@ -168,7 +168,11 @@ open class AuthCognito :
     }
 
     /**
-     * Fetches the legacy credentials set by the Android SDK
+     * Fetches the legacy credentials set by the Android SDK.
+     *
+     * References:
+     *  - https://github.com/aws-amplify/aws-sdk-android/blob/main/aws-android-sdk-core/src/main/java/com/amazonaws/auth/CognitoCachingCredentialsProvider.java
+     *  - https://github.com/aws-amplify/aws-sdk-android/blob/main/aws-android-sdk-cognitoauth/src/main/java/com/amazonaws/mobileconnectors/cognitoauth/util/ClientConstants.java
      */
     override fun getLegacyCredentials(identityPoolId: String, appClientId: String, result: NativeAuthPluginBindings.Result<NativeAuthPluginBindings.LegacyCredentialStoreData>) {
         val legacyUserPoolStore = getLegacyKeyValueStore("CognitoIdentityProviderCache")
