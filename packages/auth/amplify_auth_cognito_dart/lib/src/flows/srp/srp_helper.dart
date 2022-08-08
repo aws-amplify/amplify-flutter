@@ -67,22 +67,26 @@ class SrpHelper {
   }
 
   /// Generates the claim for authenticating the user via the SRP protocol.
-  static String authenticateUser(
-    String userId,
-    SignInParameters parameters,
-    SrpInitResult initResult,
-    String poolName,
-    BigInt salt,
-    BigInt publicB,
-    String encodedSecretBlock,
-    String formattedTimestamp,
-  ) {
+  static String authenticateUser({
+    required String userId,
+    required SignInParameters parameters,
+    required SrpInitResult initResult,
+    required String poolName,
+    required BigInt salt,
+    required BigInt publicB,
+    required String encodedSecretBlock,
+    required String formattedTimestamp,
+  }) {
     final secretBlock = base64Decode(encodedSecretBlock);
     final passwordAuthKey = getAuthenticationKey(
-      initResult,
-      publicB,
-      salt,
-      privateKeyIdentifier(poolName, userId, parameters.password!),
+      initResult: initResult,
+      publicB: publicB,
+      salt: salt,
+      privateKeyIdentifier: privateKeyIdentifier(
+        poolName,
+        userId,
+        parameters.password!,
+      ),
     );
 
     final hmac = Hmac(sha256, passwordAuthKey);
@@ -101,7 +105,6 @@ class SrpHelper {
     required String deviceKey,
     required String deviceGroup,
     required String devicePassword,
-    required String username,
     required SrpInitResult initResult,
     required BigInt salt,
     required BigInt publicB,
@@ -110,10 +113,14 @@ class SrpHelper {
   }) {
     final secretBlock = base64Decode(encodedSecretBlock);
     final passwordAuthKey = getAuthenticationKey(
-      initResult,
-      publicB,
-      salt,
-      privateKeyIdentifier(deviceGroup, deviceKey, devicePassword),
+      initResult: initResult,
+      publicB: publicB,
+      salt: salt,
+      privateKeyIdentifier: privateKeyIdentifier(
+        deviceGroup,
+        deviceKey,
+        devicePassword,
+      ),
     );
 
     final hmac = Hmac(sha256, passwordAuthKey);
@@ -144,12 +151,12 @@ class SrpHelper {
   }
 
   /// Creates the password authentication key for the SRP flow.
-  static List<int> getAuthenticationKey(
-    SrpInitResult initResult,
-    BigInt publicB,
-    BigInt salt,
-    List<int> privateKeyIdentifier,
-  ) {
+  static List<int> getAuthenticationKey({
+    required SrpInitResult initResult,
+    required BigInt publicB,
+    required BigInt salt,
+    required List<int> privateKeyIdentifier,
+  }) {
     // u = H(A, B)
     final contentDigest = DigestSink();
     sha256.startChunkedConversion(contentDigest)
@@ -218,7 +225,6 @@ class SrpHelper {
       deviceKey: deviceKey,
       deviceGroup: deviceSecrets.deviceGroupKey,
       devicePassword: deviceSecrets.devicePassword,
-      username: username,
       initResult: initResult,
       salt: salt,
       publicB: publicB,
@@ -228,16 +234,16 @@ class SrpHelper {
   }
 
   /// Creates the password verifier claim, or signature, for the SRP flow.
-  static String createPasswordClaim(
-    String userId,
-    SignInParameters parameters,
-    SrpInitResult initResult,
-    String encodedSalt,
-    String encodedB,
-    String poolName,
-    String secretBlock,
-    String formattedTimestamp,
-  ) {
+  static String createPasswordClaim({
+    required String userId,
+    required SignInParameters parameters,
+    required SrpInitResult initResult,
+    required String encodedSalt,
+    required String encodedB,
+    required String poolName,
+    required String secretBlock,
+    required String formattedTimestamp,
+  }) {
     final salt = BigInt.parse(encodedSalt, radix: 16);
     final publicB = BigInt.parse(encodedB, radix: 16);
 
@@ -249,14 +255,14 @@ class SrpHelper {
     }
 
     return authenticateUser(
-      userId,
-      parameters,
-      initResult,
-      poolName,
-      salt,
-      publicB,
-      secretBlock,
-      formattedTimestamp,
+      userId: userId,
+      parameters: parameters,
+      initResult: initResult,
+      poolName: poolName,
+      salt: salt,
+      publicB: publicB,
+      encodedSecretBlock: secretBlock,
+      formattedTimestamp: formattedTimestamp,
     );
   }
 

@@ -755,7 +755,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }) async {
     final userPoolTokens = await getUserPoolTokens();
     final userId = userPoolTokens.idToken.userId;
-    final username = CognitoIdToken(userPoolTokens.idToken).username;
+    final username = userPoolTokens.username;
     return AuthUser(
       userId: userId,
       username: username,
@@ -765,7 +765,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   @override
   Future<void> rememberDevice() async {
     final tokens = await getUserPoolTokens();
-    final username = CognitoIdToken(tokens.idToken).username;
+    final username = tokens.username;
     final deviceSecrets = await _deviceRepo.get(username);
     final deviceKey = deviceSecrets?.deviceKey;
     if (deviceKey == null) {
@@ -783,22 +783,19 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   @override
   Future<void> forgetDevice([AuthDevice? device]) async {
     final tokens = await getUserPoolTokens();
-    final username = CognitoIdToken(tokens.idToken).username;
+    final username = tokens.username;
     final deviceSecrets = await _deviceRepo.get(username);
     final deviceKey = device?.id ?? deviceSecrets?.deviceKey;
     if (deviceKey == null) {
       throw const DeviceNotTrackedException();
     }
-    try {
-      await _cognitoIdp.forgetDevice(
-        cognito.ForgetDeviceRequest(
-          accessToken: tokens.accessToken.raw,
-          deviceKey: deviceKey,
-        ),
-      );
-    } finally {
-      await _deviceRepo.remove(username);
-    }
+    await _deviceRepo.remove(username);
+    await _cognitoIdp.forgetDevice(
+      cognito.ForgetDeviceRequest(
+        accessToken: tokens.accessToken.raw,
+        deviceKey: deviceKey,
+      ),
+    );
   }
 
   @override
@@ -921,7 +918,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     await _stateMachine.dispatch(
       const CredentialStoreEvent.clearCredentials(),
     );
-    await _deviceRepo.remove(CognitoIdToken(tokens.idToken).username);
+    await _deviceRepo.remove(tokens.username);
     _hubEventController
       ..add(AuthHubEvent.signedOut())
       ..add(AuthHubEvent.userDeleted());
