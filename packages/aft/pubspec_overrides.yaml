@@ -6,6 +6,7 @@ dependency_overrides:
     path: ../aws_common
   aws_signature_v4:
     path: ../aws_signature_v4
+  built_value: 8.3.3
   smithy:
     path: ../smithy/smithy
   smithy_aws:
