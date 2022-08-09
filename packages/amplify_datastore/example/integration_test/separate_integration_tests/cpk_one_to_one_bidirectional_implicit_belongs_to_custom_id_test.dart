@@ -57,6 +57,11 @@ void main() {
         associatedModels.first.name,
       ),
     ];
+    var associatedModelNeQueryPredicates = [
+      CpkOneToOneBidirectionalChildImplicitCD.NAME.ne(
+        associatedModels.first.name,
+      ),
+    ];
 
     testRootAndAssociatedModelsRelationship(
       modelProvider: ModelProvider.instance,
@@ -71,7 +76,9 @@ void main() {
       supportCascadeDelete: true,
       enableCloudSync: enableCloudSync,
       associatedModelQueryPredicates: associatedModelQueryPredicates,
+      associatedModelQueryNePredicates: associatedModelNeQueryPredicates,
       verifyBelongsToPopulating: true,
+      testNeOperationOnBelongsTo: true,
     );
   });
 }

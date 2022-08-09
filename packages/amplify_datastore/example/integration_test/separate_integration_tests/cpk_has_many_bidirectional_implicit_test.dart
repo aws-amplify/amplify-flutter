@@ -53,6 +53,14 @@ void main() {
               .eq(associatedModel.name),
         )
         .toList();
+    var associatedModelNeQueryPredicates = associatedModels
+        .map(
+          (associatedModel) =>
+              CpkHasManyChildBidirectionalImplicit.MODEL_IDENTIFIER.ne(
+            associatedModel.modelIdentifier,
+          ),
+        )
+        .toList();
 
     testRootAndAssociatedModelsRelationship(
       modelProvider: ModelProvider.instance,
@@ -65,9 +73,11 @@ void main() {
       associatedModelQueryIdentifier:
           CpkHasManyChildBidirectionalImplicit.MODEL_IDENTIFIER,
       associatedModelQueryPredicates: associatedModelQueryPredicates,
+      associatedModelQueryNePredicates: associatedModelNeQueryPredicates,
       supportCascadeDelete: true,
       enableCloudSync: enableCloudSync,
       verifyBelongsToPopulating: true,
+      testNeOperationOnBelongsTo: true,
     );
   });
 }
