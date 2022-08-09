@@ -180,9 +180,11 @@ void testRootAndAssociatedModelsRelationship<R extends Model, A extends Model>({
   required List<A> associatedModels,
   required QueryModelIdentifier associatedModelQueryIdentifier,
   List<QueryPredicate>? associatedModelQueryPredicates,
+  List<QueryPredicate>? associatedModelQueryNePredicates,
   bool enableCloudSync = false,
   bool supportCascadeDelete = false,
   bool verifyBelongsToPopulating = false,
+  bool testNeOperationOnBelongsTo = false,
 }) {
   late Future<List<SubscriptionEvent<R>>> observedRootModelsEvents;
   late Future<List<SubscriptionEvent<A>>> observedAssociatedModelsEvents;
@@ -271,6 +273,20 @@ void testRootAndAssociatedModelsRelationship<R extends Model, A extends Model>({
         );
         expectSync(expectedModels.length, 1);
         expectSync(expectedModels.first, associatedModel);
+      });
+    });
+  }
+
+  if (testNeOperationOnBelongsTo && associatedModelQueryNePredicates != null) {
+    testWidgets(
+        'query associated model with ne operator on model identifier should exclude the model from results',
+        (WidgetTester tester) async {
+      associatedModels.asMap().forEach((index, associatedModel) async {
+        final expectedModels = await Amplify.DataStore.query(
+          associatedModelType,
+          where: associatedModelQueryNePredicates[index],
+        );
+        expectSync(expectedModels, isNot(contains(associatedModel)));
       });
     });
   }
