@@ -36,6 +36,9 @@ abstract class CognitoDeviceSecrets
   /// The device key/ID.
   String get deviceKey;
 
+  /// The device password.
+  String get devicePassword;
+
   /// The [CognitoDeviceSecrets] serializer.
   static Serializer<CognitoDeviceSecrets> get serializer =>
       _$cognitoDeviceSecretsSerializer;

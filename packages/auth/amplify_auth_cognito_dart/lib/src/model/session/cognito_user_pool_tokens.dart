@@ -86,6 +86,12 @@ abstract class CognitoUserPoolTokens
   /// The issued at time of [accessToken].
   DateTime? get issuedTime => accessToken.claims.issuedAt;
 
+  /// The Cognito user's ID.
+  String get userId => idToken.userId;
+
+  /// The Cognito user's username.
+  String get username => CognitoIdToken(idToken).username;
+
   /// Validates the tokens against the client state.
   void validate({
     String? nonce,

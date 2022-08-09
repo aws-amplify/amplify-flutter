@@ -35,6 +35,7 @@ class MockSecureStorage implements SecureStorageInterface {
 void seedStorage(
   SecureStorageInterface secureStorage, {
   CognitoUserPoolKeys? userPoolKeys,
+  CognitoDeviceKeys? deviceKeys,
   CognitoIdentityPoolKeys? identityPoolKeys,
   HostedUiKeys? hostedUiKeys,
   CredentialStoreVersion? version,
@@ -56,6 +57,21 @@ void seedStorage(
       ..write(
         key: userPoolKeys[CognitoUserPoolKey.userSub],
         value: userSub,
+      );
+  }
+  if (deviceKeys != null) {
+    secureStorage
+      ..write(
+        key: deviceKeys[CognitoDeviceKey.deviceKey],
+        value: deviceKey,
+      )
+      ..write(
+        key: deviceKeys[CognitoDeviceKey.deviceGroupKey],
+        value: deviceGroupKey,
+      )
+      ..write(
+        key: deviceKeys[CognitoDeviceKey.devicePassword],
+        value: devicePassword,
       );
   }
   if (identityPoolKeys != null) {

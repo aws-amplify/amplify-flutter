@@ -336,7 +336,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   /// Closes the open server, if any.
   @override
   Future<void> close() async {
-    await _localServer?.server.close(force: true);
+    await _localServer?.server.close();
     _localServer = null;
   }
 }

@@ -38,8 +38,9 @@ abstract class CognitoUser implements Built<CognitoUser, CognitoUserBuilder> {
     b.username ??= b.userId!;
 
     // Assert that all device info is included if any is included.
-    if (b.device != null) {
-      ArgumentError.checkNotNull(b.device, 'device');
+    if (b.deviceSecrets.deviceKey != null ||
+        b.deviceSecrets.deviceGroupKey != null ||
+        b.deviceSecrets.devicePassword != null) {
       ArgumentError.checkNotNull(
         b.deviceSecrets.deviceGroupKey,
         'deviceGroupKey',
@@ -47,6 +48,10 @@ abstract class CognitoUser implements Built<CognitoUser, CognitoUserBuilder> {
       ArgumentError.checkNotNull(
         b.deviceSecrets.deviceKey,
         'deviceKey',
+      );
+      ArgumentError.checkNotNull(
+        b.deviceSecrets.devicePassword,
+        'devicePassword',
       );
     }
   }
@@ -59,9 +64,6 @@ abstract class CognitoUser implements Built<CognitoUser, CognitoUserBuilder> {
 
   /// Cognito User Pool tokens
   CognitoUserPoolTokens? get userPoolTokens;
-
-  /// Confirmed device
-  CognitoDevice? get device;
 
   /// Confirmed device secrets
   CognitoDeviceSecrets? get deviceSecrets;

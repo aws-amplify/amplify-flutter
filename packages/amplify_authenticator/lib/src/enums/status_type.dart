@@ -15,7 +15,5 @@
 
 enum StatusType {
   info,
-  success,
-  warning,
   error,
 }

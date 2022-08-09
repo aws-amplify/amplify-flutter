@@ -15,7 +15,6 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/src/flows/device/confirm_device_worker.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/confirm_device_request.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 import 'package:worker_bee/worker_bee.dart';
@@ -23,6 +22,8 @@ import 'package:worker_bee/worker_bee.dart';
 import '../../common/mock_config.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
+
   group('ConfirmDeviceWorker', () {
     test('success', () async {
       final worker = ConfirmDeviceWorker.create();
@@ -40,7 +41,7 @@ void main() {
 
       expect(
         worker.stream,
-        emits(isA<ConfirmDeviceRequest>()),
+        emits(isA<ConfirmDeviceResponse>()),
       );
     });
 

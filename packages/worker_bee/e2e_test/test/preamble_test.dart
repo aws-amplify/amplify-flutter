@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@Skip('TODO(dnys1): Failing on CI right now')
 @TestOn('browser')
 
 import 'dart:html';
@@ -46,11 +45,11 @@ void main() {
 
   group('preamble', () {
     test('bad assignment', () {
-      badAssignmentTest('packages/e2e/no_workers.js');
+      badAssignmentTest('packages/e2e/no_workers.debug.dart.js');
     });
 
     test('bad assignment (m, O4)', () {
-      badAssignmentTest('packages/e2e/no_workers.min.js');
+      badAssignmentTest('packages/e2e/no_workers.release.dart.js');
     });
   });
 }

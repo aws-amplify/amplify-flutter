@@ -19,7 +19,6 @@ import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/secure_storage_extension.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
-import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/credential_store_state_machine_base.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
@@ -84,7 +83,6 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     final authConfig = expect<AuthConfiguration>();
 
     CognitoUserPoolTokens? userPoolTokens;
-    CognitoDeviceSecrets? deviceSecrets;
     final userPoolConfig = authConfig.userPoolConfig;
     if (userPoolConfig != null) {
       final keys = CognitoUserPoolKeys(userPoolConfig);
@@ -103,20 +101,6 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
           accessToken: JsonWebToken.parse(accessToken),
           refreshToken: refreshToken,
           idToken: JsonWebToken.parse(idToken),
-        );
-      }
-
-      final deviceKey = await _secureStorage.read(
-        key: keys[CognitoUserPoolKey.deviceKey],
-      );
-      final deviceGroupKey = await _secureStorage.read(
-        key: keys[CognitoUserPoolKey.deviceGroupKey],
-      );
-      if (deviceKey != null && deviceGroupKey != null) {
-        deviceSecrets = CognitoDeviceSecrets(
-          (b) => b
-            ..deviceKey = deviceKey
-            ..deviceGroupKey = deviceGroupKey,
         );
       }
     }
@@ -181,14 +165,12 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       userPoolTokens: userPoolTokens,
       identityId: identityId,
       awsCredentials: awsCredentials,
-      deviceSecrets: deviceSecrets,
     );
   }
 
   /// Stores the data to storage.
   Future<void> _storeCredentials(CredentialStoreData data) async {
     final userPoolTokens = data.userPoolTokens;
-    final deviceSecrets = data.deviceSecrets;
     final identityId = data.identityId;
     final awsCredentials = data.awsCredentials;
     final authConfig = expect<AuthConfiguration>();
@@ -205,13 +187,6 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
           keys[CognitoUserPoolKey.accessToken]: userPoolTokens.accessToken.raw,
           keys[CognitoUserPoolKey.refreshToken]: userPoolTokens.refreshToken,
           keys[CognitoUserPoolKey.idToken]: userPoolTokens.idToken.raw,
-        });
-      }
-
-      if (deviceSecrets != null) {
-        items.addAll({
-          keys[CognitoUserPoolKey.deviceKey]: deviceSecrets.deviceKey,
-          keys[CognitoUserPoolKey.deviceGroupKey]: deviceSecrets.deviceGroupKey,
         });
       }
     }

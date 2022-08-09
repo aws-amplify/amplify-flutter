@@ -185,7 +185,9 @@ class CredentialStoreStoreCredentials extends CredentialStoreEvent {
 /// {@endtemplate}
 class CredentialStoreClearCredentials extends CredentialStoreEvent {
   /// {@macro amplify_auth_cognito.clear_credentials}
-  const CredentialStoreClearCredentials([this.keys = const []]) : super._();
+  const CredentialStoreClearCredentials([
+    this.keys = const [],
+  ]) : super._();
 
   /// When set, only these keys will be cleared from the store. Otherwise,
   /// all keys are cleared.

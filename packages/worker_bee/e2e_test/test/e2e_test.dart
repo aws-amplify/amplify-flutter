@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@TestOn('vm')
-
 import 'package:e2e/common.dart';
 import 'package:test/test.dart';
 import 'package:worker_bee/worker_bee.dart';
@@ -22,24 +20,14 @@ void main() {
   AWSLogger().logLevel = LogLevel.verbose;
 
   group('WorkerBee', () {
-    group('', () {
-      test('VM', testWorker);
-    });
+    test('', testWorker);
 
-    group('| no result', () {
-      test('VM', testWorkerNoResult);
-    });
+    test('| no result', testWorkerNoResult);
 
-    group('| void result', () {
-      test('VM', testWorkerVoidResult);
-    });
+    test('| void result', testWorkerVoidResult);
 
-    group('| null result', () {
-      test('VM', testWorkerNullResult);
-    });
+    test('| null result', testWorkerNullResult);
 
-    group('| throws', () {
-      test('VM', testWorkerThrows);
-    });
+    test('| throws', testWorkerThrows);
   });
 }

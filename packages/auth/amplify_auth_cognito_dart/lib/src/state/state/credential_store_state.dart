@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// Discrete state types of the credential store state machine.
@@ -198,7 +197,6 @@ class CredentialStoreData with AWSEquatable<CredentialStoreData> {
     this.identityId,
     this.awsCredentials,
     this.userPoolTokens,
-    this.deviceSecrets,
   });
 
   /// AWS Identity ID
@@ -210,14 +208,10 @@ class CredentialStoreData with AWSEquatable<CredentialStoreData> {
   /// Cognito User Pool tokens
   final CognitoUserPoolTokens? userPoolTokens;
 
-  /// Registered device secrets
-  final CognitoDeviceSecrets? deviceSecrets;
-
   @override
   List<Object?> get props => [
         identityId,
         awsCredentials,
         userPoolTokens,
-        deviceSecrets,
       ];
 }

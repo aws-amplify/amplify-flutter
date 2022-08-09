@@ -86,18 +86,18 @@ void main() {
     group('createPasswordClaim', () {
       test('authenticateUser', () {
         final claim = SrpHelper.createPasswordClaim(
-          username,
-          SignInParameters(
+          userId: username,
+          parameters: SignInParameters(
             (b) => b
               ..username = username
               ..password = password,
           ),
-          initResult,
-          salt,
-          publicB,
-          poolName,
-          secretBlock,
-          formattedTimestamp,
+          initResult: initResult,
+          encodedSalt: salt,
+          encodedB: publicB,
+          poolName: poolName,
+          secretBlock: secretBlock,
+          formattedTimestamp: formattedTimestamp,
         );
         const expectedClaim = 'QwHbbUqF6DSSepJh2QqTWDCb1XjmqaxnnW5kDn5dz7E=';
 
@@ -109,18 +109,18 @@ void main() {
 
         expect(
           () => SrpHelper.createPasswordClaim(
-            username,
-            SignInParameters(
+            userId: username,
+            parameters: SignInParameters(
               (b) => b
                 ..username = username
                 ..password = password,
             ),
-            initResult,
-            salt,
-            publicB,
-            poolName,
-            secretBlock,
-            formattedTimestamp,
+            initResult: initResult,
+            encodedSalt: salt,
+            encodedB: publicB,
+            poolName: poolName,
+            secretBlock: secretBlock,
+            formattedTimestamp: formattedTimestamp,
           ),
           throwsA(isA<SrpSignInCalculationException>()),
         );
@@ -131,18 +131,18 @@ void main() {
 
         expect(
           () => SrpHelper.createPasswordClaim(
-            username,
-            SignInParameters(
+            userId: username,
+            parameters: SignInParameters(
               (b) => b
                 ..username = username
                 ..password = password,
             ),
-            initResult,
-            salt,
-            publicB,
-            poolName,
-            secretBlock,
-            formattedTimestamp,
+            initResult: initResult,
+            encodedSalt: salt,
+            encodedB: publicB,
+            poolName: poolName,
+            secretBlock: secretBlock,
+            formattedTimestamp: formattedTimestamp,
           ),
           throwsA(isA<SrpSignInCalculationException>()),
         );
@@ -169,10 +169,14 @@ void main() {
       const salt = 'b704a27deb8cf5efec43a40eac5b60d2';
 
       final key = SrpHelper.getAuthenticationKey(
-        initResult,
-        BigInt.parse(publicB, radix: 16),
-        BigInt.parse(salt, radix: 16),
-        SrpHelper.privateKeyIdentifier(poolName, username, password),
+        initResult: initResult,
+        publicB: BigInt.parse(publicB, radix: 16),
+        salt: BigInt.parse(salt, radix: 16),
+        privateKeyIdentifier: SrpHelper.privateKeyIdentifier(
+          poolName,
+          username,
+          password,
+        ),
       );
       const expectedKey = 'LmbBsy/4chqMRYOhmtmCrA==';
 
