@@ -19,7 +19,7 @@ import Amplify
 
 public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder {
     public typealias IdentifierFormat = ModelIdentifierFormat.Custom
-    public typealias Identifier = ModelIdentifier<FlutterSerializedModel, ModelIdentifierFormat.Custom>
+    public typealias IdentifierProtocol = ModelIdentifier<FlutterSerializedModel, ModelIdentifierFormat.Custom>
 
     public var values: [String: JSONValue]
     var _modelName: String
