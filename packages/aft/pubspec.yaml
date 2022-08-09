@@ -16,7 +16,7 @@ dependencies:
   flutter_tools:
     git:
       url: https://github.com/flutter/flutter.git
-      ref: master
+      ref: f3d182f4b4e3c5e5cde322f5a14e49e9a50cc083
       path: packages/flutter_tools
   git: ^2.0.0
   graphs: ^2.1.0
@@ -27,7 +27,7 @@ dependencies:
   pub:
     git:
       url: https://github.com/dart-lang/pub.git
-      ref: master
+      ref: bc32a30ea5c86653e2a1899613c0a19d91b9a21c
   pub_semver: ^2.1.1
   pubspec_parse: ^1.2.0
   smithy: ^0.1.0
