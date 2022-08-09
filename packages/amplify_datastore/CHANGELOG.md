@@ -1,3 +1,19 @@
+## 0.6.6 (2022-08-11)
+
+- chore(datastore): improve custom primary key integration tests (#2000)
+- chore: bump amplify-ios dep to 1.28.0 (#2005)
+- chore: bump amplify-android dep to 1.37.0 (#2005)
+- fix(datastore): adapt amplify-ios CPK fix breaking change (#2005)
+- fix(datastore): missing query field model name cause ambigous column … (#1941)
+- chore(datastore): upgrade amplify-ios to cpk preview version (#1641)
+- chore(datastore): add custom primary key integration tests (#1641)
+- chore(datastore): update integration tests model schema (#1641)
+- feat(datastore): add targetNames support for codegen (#1641)
+- chore(datastore): unit tests for custom primary key native imp. (#1641)
+- chore(datastore): unit tests for custom primary key in Flutter (#1641)
+- feat(datastore): custom primary key Flutter native implementation (#1641)
+- chore(datastore): cleanup the codebase (#1641)
+
 ## 0.6.5 (2022-07-28)
 
 - chore: bump amplify-android dep to 1.36.5
