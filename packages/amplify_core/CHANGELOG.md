@@ -1,3 +1,9 @@
+## 0.6.6 (2022-08-11)
+
+- feat(core): custom primary key supporting interface changes
+- chore: bump amplify-ios dep to 1.28.0
+- chore: bump amplify-android dep to 1.37.0
+
 ## 0.6.5 (2022-07-28)
 
 - chore: bump amplify-android dep to 1.36.5
