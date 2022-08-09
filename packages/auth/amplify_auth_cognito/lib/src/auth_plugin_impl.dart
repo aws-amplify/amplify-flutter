@@ -85,6 +85,36 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   }
 
   @override
+  Future<void> configure({AmplifyConfig? config}) async {
+    await super.configure(config: config);
+
+    // Update the native cache for the current user on hub events.
+    final nativeBridge = stateMachine.get<NativeAuthBridge>();
+    if (nativeBridge != null) {
+      Future<void> updateCurrentUser(AuthUser? currentUser) async {
+        NativeAuthUser? nativeUser;
+        if (currentUser != null) {
+          nativeUser = NativeAuthUser(
+            userId: currentUser.userId,
+            username: currentUser.username,
+          );
+        }
+        await nativeBridge.updateCurrentUser(nativeUser);
+      }
+
+      try {
+        final currentUser = await getCurrentUser();
+        await updateCurrentUser(currentUser);
+      } on Exception {
+        await updateCurrentUser(null);
+      }
+      Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) {
+        updateCurrentUser(event.payload);
+      });
+    }
+  }
+
+  @override
   Future<SignUpResult> signUp({required SignUpRequest request}) async {
     Map<String, String>? validationData;
     if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
