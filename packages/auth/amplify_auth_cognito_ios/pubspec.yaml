@@ -1,6 +1,6 @@
 name: amplify_auth_cognito_ios
 description: The method channel implementation for amplify_auth_cognito on iOS
-version: 1.0.0-next.0
+version: 1.0.0-next.0+1
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/auth/amplify_auth_cognito_ios
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
