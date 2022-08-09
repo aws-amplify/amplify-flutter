@@ -1,3 +1,7 @@
+## 1.0.0-next.0+1
+
+- fix(auth): Multi-auth DataStore bindings ([#2012](https://github.com/aws-amplify/amplify-flutter/pull/2012))
+
 ## 1.0.0-next.0 (2022-08-02)
 
 Initial developer preview release for all platforms.
