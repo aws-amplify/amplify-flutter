@@ -21,7 +21,9 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+/// {@template amplify_auth_cognito_dart.cognito_user_pool_key}
 /// Discrete keys stored for Cognito User Pool operations in secure storage.
+/// {@endtemplate}
 enum CognitoUserPoolKey {
   /// The access token, serialized as a JWT.
   accessToken,
@@ -34,12 +36,19 @@ enum CognitoUserPoolKey {
 
   /// The user ID.
   userSub,
+}
 
+/// Discrete keys stored for Cognito User Pool device tracking operations in
+/// secure storage.
+enum CognitoDeviceKey {
   /// The device key.
   deviceKey,
 
   /// The device group key.
   deviceGroupKey,
+
+  /// The device password.
+  devicePassword
 }
 
 /// Discrete keys stored for Cognito Identity Pool operations in secure storage.
@@ -119,6 +128,27 @@ class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
 
   @override
   String get prefix => config.appClientId;
+}
+
+/// {@template amplify_auth_cognito.cognito_user_pool_keys}
+/// Enumerates and iterates over the keys stored in secure storage by
+/// Cognito User Pool device tracking operations.
+/// {@endtemplate}
+class CognitoDeviceKeys extends CognitoKeys<CognitoDeviceKey> {
+  /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
+  const CognitoDeviceKeys(this.config, this.username);
+
+  /// The Cognito user pool configuration, used to determine the key prefixes.
+  final CognitoUserPoolConfig config;
+
+  /// Device keys are tracked by username.
+  final String username;
+
+  @override
+  List<CognitoDeviceKey> get _values => CognitoDeviceKey.values;
+
+  @override
+  String get prefix => '${config.appClientId}.$username';
 }
 
 /// {@template amplify_auth_cognito.hosted_ui_keys}

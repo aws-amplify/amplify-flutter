@@ -86,11 +86,15 @@ const secretAccessKey = 'secretAccessKey';
 const sessionToken = 'sessionToken';
 final expiration = DateTime.utc(2100, 1, 1);
 const identityId = 'identityId';
+const deviceKey = 'deviceKey';
+const deviceGroupKey = 'deviceGroupKey';
+const devicePassword = 'devicePassword';
 
 final authConfig = AuthConfiguration.fromConfig(mockConfig.auth!.awsPlugin!);
 final userPoolConfig = authConfig.userPoolConfig!;
 final identityPoolConfig = authConfig.identityPoolConfig!;
 final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
+final deviceKeys = CognitoDeviceKeys(userPoolConfig, userSub);
 final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
 final userPoolTokens = CognitoUserPoolTokens(
   accessToken: accessToken,

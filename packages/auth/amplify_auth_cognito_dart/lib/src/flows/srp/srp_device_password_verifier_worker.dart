@@ -91,8 +91,6 @@ abstract class SrpDevicePasswordVerifierWorker extends WorkerBeeBase<
     await for (final message in listen) {
       final username =
           message.challengeParameters[CognitoConstants.challengeParamUsername]!;
-      final userId = message
-          .challengeParameters[CognitoConstants.challengeParamUserIdForSrp]!;
       final deviceKey = message
           .challengeParameters[CognitoConstants.challengeParamDeviceKey]!;
       final secretBlock = message
@@ -105,15 +103,14 @@ abstract class SrpDevicePasswordVerifierWorker extends WorkerBeeBase<
       final formattedTimestamp = _dateFormat.format(timestamp);
 
       final encodedClaim = SrpHelper.createDeviceClaim(
-        deviceKey,
-        message.deviceSecrets,
-        userId,
-        message.parameters,
-        message.initResult,
-        encodedSalt,
-        encodedB,
-        secretBlock,
-        formattedTimestamp,
+        deviceKey: deviceKey,
+        deviceSecrets: message.deviceSecrets,
+        username: username,
+        initResult: message.initResult,
+        encodedSalt: encodedSalt,
+        encodedB: encodedB,
+        secretBlock: secretBlock,
+        formattedTimestamp: formattedTimestamp,
       );
       final response = RespondToAuthChallengeRequest.build((b) {
         b
