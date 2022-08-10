@@ -1,3 +1,7 @@
+## 0.1.3
+
+- Bump `aws_common` dependency
+
 ## 0.1.2
 
 - fix(auth): Multi-auth DataStore bindings ([#2012](https://github.com/aws-amplify/amplify-flutter/pull/2012))
