@@ -1,3 +1,7 @@
+## 0.2.2
+
+- Add `zAssertsEnabled` flag
+
 ## 0.2.1
 
 - Fix package analysis issues

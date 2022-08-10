@@ -84,6 +84,9 @@ abstract class NativeAuthBridge {
 
   String getBundleId();
 
+  /// Updates the native cache of the current user.
+  void updateCurrentUser(NativeAuthUser? user);
+
   /// Fetch legacy credentials stored by native SDKs.
   @async
   LegacyCredentialStoreData getLegacyCredentials(
@@ -104,6 +107,11 @@ class NativeAuthSession {
 
   String? identityId;
   NativeAWSCredentials? awsCredentials;
+}
+
+class NativeAuthUser {
+  late String userId;
+  late String username;
 }
 
 class NativeUserPoolTokens {

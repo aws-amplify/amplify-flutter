@@ -19,6 +19,8 @@ import Amplify
 import AWSPluginsCore
 import amplify_flutter_ios
 
+extension NativeAuthUser: AuthUser { }
+
 public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, NativeAuthBridge {
     
     /// Shim for [AuthCategoryPlugin] to allow Dart Auth to fulfill the contract of the native Auth plugin in
@@ -26,6 +28,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
     /// of those categories, we bridge to the Dart plugin using a Flutter MethodChannel via `pigeon`.
     private let nativeAuthPlugin: NativeAuthPlugin
     private let hostedUIFlow = HostedUIFlow()
+    private var currentUser: AuthUser?
     
     init(nativeAuthPlugin: NativeAuthPlugin) {
         self.nativeAuthPlugin = nativeAuthPlugin
@@ -104,6 +107,10 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
     
     public func getBundleIdWithError(_ error: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> String? {
         return Bundle.main.bundleIdentifier;
+    }
+    
+    public func updateCurrentUserUser(_ user: NativeAuthUser?, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
+        currentUser = user
     }
     
     public func legacyCredentialsIdentityPoolId(_ identityPoolId: String, appClientId: String) async -> (LegacyCredentialStoreData?, FlutterError?) {
@@ -188,7 +195,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
     }
     
     public func getCurrentUser() -> AuthUser? {
-        preconditionFailure("getCurrentUser is not supported")
+        return currentUser
     }
     
     public func fetchDevices(

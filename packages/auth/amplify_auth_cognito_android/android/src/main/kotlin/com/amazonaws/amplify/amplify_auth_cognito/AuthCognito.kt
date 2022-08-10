@@ -23,6 +23,7 @@ import android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
+import com.amplifyframework.auth.AuthUser
 import com.amplifyframework.core.Amplify
 import io.flutter.Log
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -85,6 +86,11 @@ open class AuthCognito :
      * The plugin used to communicate with Dart.
      */
     private var nativePlugin: NativeAuthPluginBindings.NativeAuthPlugin? = null
+
+    /**
+     * The local cache of the current Dart user.
+     */
+    private var currentUser: AuthUser? = null
 
     /**
      * The initial route parameters used to launch the main activity, which can happen when using
@@ -188,6 +194,17 @@ open class AuthCognito :
 
     override fun getBundleId(): String {
         return applicationContext!!.packageName
+    }
+
+    /**
+     * Updates the local cache of the Dart user.
+     */
+    override fun updateCurrentUser(user: NativeAuthPluginBindings.NativeAuthUser?) {
+        currentUser = if (user != null) {
+            AuthUser(user.userId, user.username)
+        } else {
+            null
+        }
     }
 
     /**

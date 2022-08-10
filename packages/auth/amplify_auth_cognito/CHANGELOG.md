@@ -1,3 +1,14 @@
+## 1.0.0-next.0+4
+
+- Bump `amplify_auth_cognito_dart` dependency
+
+## 1.0.0-next.0+3
+
+- fix(auth): Multi-auth DataStore bindings ([#2012](https://github.com/aws-amplify/amplify-flutter/pull/2012))
+- fix(auth): Remember device metadata ([#2010](https://github.com/aws-amplify/amplify-flutter/pull/2010))
+- fix(auth): Hosted UI task continuation ([#2017](https://github.com/aws-amplify/amplify-flutter/pull/2017))
+- fix(auth): Hosted UI server contention ([#2002](https://github.com/aws-amplify/amplify-flutter/pull/2002))
+
 ## 1.0.0-next.0+2
 
 - Fix package analysis issues
