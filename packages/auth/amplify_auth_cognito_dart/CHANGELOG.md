@@ -1,6 +1,10 @@
+## 0.1.4
+
+- fix: Regenerate workers
+
 ## 0.1.3
 
-- Bump `aws_common` dependency
+- fix: Bump `aws_common` dependency
 
 ## 0.1.2
 
