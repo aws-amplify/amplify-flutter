@@ -539,7 +539,7 @@ public class NativeAuthPluginBindings {
     void signOutWithUrl(@NonNull String url, @NonNull String callbackUrlScheme, @NonNull Boolean preferPrivateSession, @Nullable String browserPackageName, Result<Void> result);
     @NonNull Map<String, String> getValidationData();
     @NonNull String getBundleId();
-    void getLegacyCredentials(@NonNull String identityPoolId, @NonNull String appClientId, Result<LegacyCredentialStoreData> result);
+    void getLegacyCredentials(@Nullable String identityPoolId, @Nullable String appClientId, Result<LegacyCredentialStoreData> result);
     void clearLegacyCredentials(Result<Void> result);
 
     /** The codec used by NativeAuthBridge. */
@@ -711,13 +711,7 @@ public class NativeAuthPluginBindings {
             try {
               ArrayList<Object> args = (ArrayList<Object>)message;
               String identityPoolIdArg = (String)args.get(0);
-              if (identityPoolIdArg == null) {
-                throw new NullPointerException("identityPoolIdArg unexpectedly null.");
-              }
               String appClientIdArg = (String)args.get(1);
-              if (appClientIdArg == null) {
-                throw new NullPointerException("appClientIdArg unexpectedly null.");
-              }
               Result<LegacyCredentialStoreData> resultCallback = new Result<LegacyCredentialStoreData>() {
                 public void success(LegacyCredentialStoreData result) {
                   wrapped.put("result", result);

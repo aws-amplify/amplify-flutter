@@ -87,8 +87,8 @@ abstract class NativeAuthBridge {
   /// Fetch legacy credentials stored by native SDKs.
   @async
   LegacyCredentialStoreData getLegacyCredentials(
-    String identityPoolId,
-    String appClientId,
+    String? identityPoolId,
+    String? appClientId,
   );
 
   /// Clears the legacy credential store data.

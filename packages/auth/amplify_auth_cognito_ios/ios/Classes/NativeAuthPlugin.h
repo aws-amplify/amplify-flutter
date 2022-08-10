@@ -104,7 +104,7 @@ NSObject<FlutterMessageCodec> *NativeAuthBridgeGetCodec(void);
 - (nullable NSDictionary<NSString *, NSString *> *)getValidationDataWithError:(FlutterError *_Nullable *_Nonnull)error;
 /// @return `nil` only when `error != nil`.
 - (nullable NSString *)getBundleIdWithError:(FlutterError *_Nullable *_Nonnull)error;
-- (void)getLegacyCredentialsIdentityPoolId:(NSString *)identityPoolId appClientId:(NSString *)appClientId completion:(void(^)(LegacyCredentialStoreData *_Nullable, FlutterError *_Nullable))completion;
+- (void)getLegacyCredentialsIdentityPoolId:(nullable NSString *)identityPoolId appClientId:(nullable NSString *)appClientId completion:(void(^)(LegacyCredentialStoreData *_Nullable, FlutterError *_Nullable))completion;
 - (void)clearLegacyCredentialsWithCompletion:(void(^)(FlutterError *_Nullable))completion;
 @end
 

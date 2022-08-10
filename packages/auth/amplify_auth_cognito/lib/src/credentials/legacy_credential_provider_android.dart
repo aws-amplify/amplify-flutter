@@ -36,12 +36,9 @@ class LegacyCredentialProviderAndroid implements LegacyCredentialProvider {
     CognitoOAuthConfig? hostedUiConfig,
   }) async {
     final bridge = _stateMachine.expect<NativeAuthBridge>();
-    final userPoolConfig = _stateMachine.expect<CognitoUserPoolConfig>();
-    final identityPoolConfig =
-        _stateMachine.expect<CognitoIdentityPoolConfig>();
     final legacyCredentials = await bridge.getLegacyCredentials(
-      identityPoolConfig.poolId,
-      userPoolConfig.appClientId,
+      identityPoolConfig?.poolId,
+      userPoolConfig?.appClientId,
     );
     return legacyCredentials.toCredentialStoreData();
   }

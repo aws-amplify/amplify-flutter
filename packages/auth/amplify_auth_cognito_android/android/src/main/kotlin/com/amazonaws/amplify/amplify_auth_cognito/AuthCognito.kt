@@ -197,27 +197,33 @@ open class AuthCognito :
      *  - https://github.com/aws-amplify/aws-sdk-android/blob/main/aws-android-sdk-core/src/main/java/com/amazonaws/auth/CognitoCachingCredentialsProvider.java
      *  - https://github.com/aws-amplify/aws-sdk-android/blob/main/aws-android-sdk-cognitoauth/src/main/java/com/amazonaws/mobileconnectors/cognitoauth/util/ClientConstants.java
      */
-    override fun getLegacyCredentials(identityPoolId: String, appClientId: String, result: NativeAuthPluginBindings.Result<NativeAuthPluginBindings.LegacyCredentialStoreData>) {
-        val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
-        val accessToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.accessToken"]
-        val refreshToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.refreshToken"]
-        val idToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.idToken"]
-        val accessKey = legacyIdentityStore["$identityPoolId.accessKey"]
-        val secretKey = legacyIdentityStore["$identityPoolId.secretKey"]
-        val sessionKey = legacyIdentityStore["$identityPoolId.sessionToken"]
-        val expiration = legacyIdentityStore["$identityPoolId.expirationDate"]
-        val identityId = legacyIdentityStore["$identityPoolId.identityId"]
-        val data = NativeAuthPluginBindings.LegacyCredentialStoreData.Builder()
-            .setIdentityId(identityId)
-            .setAccessKeyId(accessKey)
-            .setSecretAccessKey(secretKey)
-            .setSessionToken(sessionKey)
-            .setExpirationMsSinceEpoch(expiration?.toLong())
-            .setAccessToken(accessToken)
-            .setRefreshToken(refreshToken)
-            .setIdToken(idToken)
-            .build()
-        result.success(data)
+    override fun getLegacyCredentials(identityPoolId: String?, appClientId: String?, result: NativeAuthPluginBindings.Result<NativeAuthPluginBindings.LegacyCredentialStoreData>) {
+        var data = NativeAuthPluginBindings.LegacyCredentialStoreData.Builder()
+
+        if (appClientId != null) {
+            val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
+            val accessToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.accessToken"]
+            val refreshToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.refreshToken"]
+            val idToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.idToken"]
+            data = data.setAccessToken(accessToken)
+                .setRefreshToken(refreshToken)
+                .setIdToken(idToken)
+        }
+
+        if (identityPoolId != null) {
+            val accessKey =  legacyIdentityStore["$identityPoolId.accessKey"]
+            val secretKey = legacyIdentityStore["$identityPoolId.secretKey"]
+            val sessionKey = legacyIdentityStore["$identityPoolId.sessionToken"]
+            val expiration = legacyIdentityStore["$identityPoolId.expirationDate"]
+            val identityId = legacyIdentityStore["$identityPoolId.identityId"]
+            data = data.setIdentityId(identityId)
+                .setAccessKeyId(accessKey)
+                .setSecretAccessKey(secretKey)
+                .setSessionToken(sessionKey)
+                .setExpirationMsSinceEpoch(expiration?.toLong())
+        }
+
+        result.success(data.build())
     }
 
     /**

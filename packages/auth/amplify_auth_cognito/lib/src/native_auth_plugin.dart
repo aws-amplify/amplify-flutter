@@ -444,7 +444,7 @@ class NativeAuthBridge {
   }
 
   Future<LegacyCredentialStoreData> getLegacyCredentials(
-      String arg_identityPoolId, String arg_appClientId) async {
+      String? arg_identityPoolId, String? arg_appClientId) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.NativeAuthBridge.getLegacyCredentials', codec,
         binaryMessenger: _binaryMessenger);
