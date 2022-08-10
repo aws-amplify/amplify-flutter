@@ -38,6 +38,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   late final AWSApiPluginConfig _apiConfig;
   final http.Client? _baseHttpClient;
   late final AmplifyAuthProviderRepository _authProviderRepo;
+  final _logger = AmplifyLogger.category(Category.api);
 
   /// A map of the keys from the Amplify API config to HTTP clients to use for
   /// requests to that endpoint.
@@ -138,7 +139,10 @@ class AmplifyAPIDart extends AmplifyAPI {
       apiName: apiName,
     );
     return _webSocketConnectionPool[endpoint.name] ??=
-        WebSocketConnection(endpoint.config, _authProviderRepo);
+        WebSocketConnection(endpoint.config, _authProviderRepo,
+            logger: _logger.createChild(
+              'webSocketConnection${endpoint.name}',
+            ));
   }
 
   Uri _getGraphQLUri(String? apiName) {

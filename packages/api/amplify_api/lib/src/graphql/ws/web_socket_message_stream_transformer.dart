@@ -12,15 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: public_member_api_docs
+
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_api/src/util.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:meta/meta.dart';
 
 import '../graphql_response_decoder.dart';
 import 'web_socket_types.dart';
 
+@internal
 class WebSocketMessageStreamTransformer
     extends StreamTransformerBase<dynamic, WebSocketMessage> {
   const WebSocketMessageStreamTransformer();
@@ -33,13 +37,18 @@ class WebSocketMessageStreamTransformer
   }
 }
 
+@internal
 class WebSocketSubscriptionStreamTransformer<T>
     extends StreamTransformerBase<WebSocketMessage, GraphQLResponse<T>> {
   final GraphQLRequest<T> request;
+  final AmplifyLogger logger;
   final void Function()? onEstablished;
 
   const WebSocketSubscriptionStreamTransformer(
-      this.request, this.onEstablished);
+    this.request,
+    this.onEstablished, {
+    required this.logger,
+  });
 
   @override
   Stream<GraphQLResponse<T>> bind(Stream<WebSocketMessage> stream) async* {
@@ -52,15 +61,17 @@ class WebSocketSubscriptionStreamTransformer<T>
           final payload = event.payload as SubscriptionDataPayload;
           final errors = deserializeGraphQLResponseErrors(payload.toJson());
           yield GraphQLResponseDecoder.instance.decode<T>(
-              request: request,
-              data: json.encode(payload.data),
-              errors: errors);
+            request: request,
+            data: json.encode(payload.data),
+            errors: errors,
+          );
 
           break;
         case MessageType.error:
           final error = event.payload as WebSocketError;
           throw error;
         case MessageType.complete:
+          logger.info('Cancel succeeded for Operation: ${event.id}');
           return;
       }
     }

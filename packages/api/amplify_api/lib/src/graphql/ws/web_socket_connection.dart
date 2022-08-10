@@ -35,6 +35,7 @@ const _defaultCloseStatus = status.goingAway;
 class WebSocketConnection implements Closeable {
   /// Allowed protocols for this connection.
   static const webSocketProtocols = ['graphql-ws'];
+  final AmplifyLogger _logger;
 
   // Config and auth repo together determine how to authorize connection URLs
   // and subscription registration messages.
@@ -65,7 +66,9 @@ class WebSocketConnection implements Closeable {
   Future<void> get ready => _connectionReady.future;
 
   /// {@macro amplify_api.web_socket_connection}
-  WebSocketConnection(this._config, this._authProviderRepo);
+  WebSocketConnection(this._config, this._authProviderRepo,
+      {required AmplifyLogger logger})
+      : _logger = logger;
 
   /// Connects _subscription stream to _onData handler.
   @visibleForTesting
@@ -126,8 +129,8 @@ class WebSocketConnection implements Closeable {
       init();
     }
 
+    // Generate and send an authorized subscription registration message.
     final subscriptionId = uuid();
-
     generateSubscriptionRegistrationMessage(
       _config,
       id: subscriptionId,
@@ -135,15 +138,21 @@ class WebSocketConnection implements Closeable {
       request: request,
     ).then(send);
 
+    // Filter incoming messages that have the subscription ID and return as new
+    // stream with messages converted to GraphQLResponse<T>.
     return _messageStream
         .where((msg) => msg.id == subscriptionId)
-        .transform(
-            WebSocketSubscriptionStreamTransformer(request, onEstablished))
+        .transform(WebSocketSubscriptionStreamTransformer(
+          request,
+          onEstablished,
+          logger: _logger,
+        ))
         .asBroadcastStream(onCancel: (_) => _cancel(subscriptionId));
   }
 
   /// Cancels a subscription.
   void _cancel(String subscriptionId) {
+    _logger.info('Attempting to cancel Operation $subscriptionId');
     send(WebSocketStopMessage(id: subscriptionId));
     // TODO(equartey): if this is the only subscription, close the connection.
   }
@@ -170,6 +179,8 @@ class WebSocketConnection implements Closeable {
   /// Here, handle connection-wide messages and pass subscription events to
   /// `_rebroadcastController`.
   void _onData(WebSocketMessage message) {
+    _logger.verbose('websocket received message: $message');
+
     switch (message.messageType) {
       case MessageType.connectionAck:
         final messageAck = message.payload as ConnectionAckMessagePayload;
@@ -181,7 +192,7 @@ class WebSocketConnection implements Closeable {
           () => _timeout(timeoutDuration),
         );
         _connectionReady.complete();
-        // print('Registered timer');
+        _logger.verbose('Connection established. Registered timer');
         return;
       case MessageType.connectionError:
         final wsError = message.payload as WebSocketError?;
@@ -194,7 +205,7 @@ class WebSocketConnection implements Closeable {
         return;
       case MessageType.keepAlive:
         _timeoutTimer.reset();
-        // print('Reset timer');
+        _logger.verbose('Reset timer');
         return;
       case MessageType.error:
         // Only handle general messages, not subscription-specific ones
