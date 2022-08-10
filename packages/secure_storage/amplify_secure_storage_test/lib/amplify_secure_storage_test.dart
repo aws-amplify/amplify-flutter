@@ -264,7 +264,7 @@ void runScopeAndNamespaceTests(SecureStorageFactory storageFactory) {
           config: AmplifySecureStorageConfig(
             scope: 'default',
             linuxOptions: LinuxSecureStorageOptions(
-              schemaName: 'com.example.test',
+              accessGroup: 'testGroup',
             ),
             macOSOptions: macOSOptions,
           ),

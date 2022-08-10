@@ -70,7 +70,7 @@ abstract class AmplifySecureStorageConfig
   /// - iOS & macOS: the Keychain service name
   /// - Android: the EncryptedSharedPreferences file name
   /// - Windows: the prefix for the target name of each secret
-  /// - Linux: the SecretSchema schema name
+  /// - Linux: prefix for the SecretSchema schema name
   /// - Web: the Indexed DB Database name
   String get defaultNamespace => namespace ?? 'com.amplify.$scope';
 
