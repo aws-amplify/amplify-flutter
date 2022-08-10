@@ -56,6 +56,7 @@ class MessageType {
   String toString() => type;
 }
 
+@immutable
 @internal
 abstract class WebSocketMessagePayload {
   const WebSocketMessagePayload();
@@ -158,6 +159,7 @@ class WebSocketError extends WebSocketMessagePayload implements Exception {
       };
 }
 
+@immutable
 @internal
 class WebSocketMessage {
   final String? id;

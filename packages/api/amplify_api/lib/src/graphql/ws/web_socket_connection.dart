@@ -19,10 +19,14 @@ import 'package:amplify_api/src/decorators/web_socket_auth_utils.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:meta/meta.dart';
+import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'web_socket_message_stream_transformer.dart';
 import 'web_socket_types.dart';
+
+/// 1001, going away
+const _defaultCloseStatus = status.goingAway;
 
 /// {@template amplify_api.web_socket_connection}
 /// Manages connection with an AppSync backend and subscription routing.
@@ -53,7 +57,7 @@ class WebSocketConnection implements Closeable {
   // TODO: Add connection error variable to throw in `init`.
 
   // Futures to manage initial connection state.
-  Future<void>? _initFuture;
+  final _initMemo = AsyncMemoizer<void>();
   final Completer<void> _connectionReady = Completer<void>();
 
   /// Fires when the connection is ready to be listened to, i.e.
@@ -85,18 +89,21 @@ class WebSocketConnection implements Closeable {
 
   /// Closes the WebSocket connection.
   @override
-  void close() {
+  void close([int closeStatus = _defaultCloseStatus]) {
+    final reason =
+        closeStatus == _defaultCloseStatus ? 'client closed' : 'unknown';
     _subscription.cancel();
-    _channel.sink.close();
+    _channel.sink.close(closeStatus, reason);
+    _rebroadcastController.close();
+    _timeoutTimer.cancel();
   }
 
   /// Initializes the connection.
   ///
   /// Connects to WebSocket, sends connection message and resolves future once
-  /// connection_ack message received from server.
-  Future<void> init() {
-    return _initFuture ??= _init();
-  }
+  /// connection_ack message received from server. If the connection was previously
+  /// established then will return previously completed future.
+  Future<void> init() => _initMemo.runOnce(_init);
 
   Future<void> _init() async {
     final connectionUri =
@@ -105,6 +112,7 @@ class WebSocketConnection implements Closeable {
 
     if (_connectionReady.isCompleted) return;
     send(WebSocketConnectionInitMessage());
+
     return ready;
   }
 
@@ -119,23 +127,19 @@ class WebSocketConnection implements Closeable {
     }
 
     final subscriptionId = uuid();
+
+    generateSubscriptionRegistrationMessage(
+      _config,
+      id: subscriptionId,
+      authRepo: _authProviderRepo,
+      request: request,
+    ).then(send);
+
     return _messageStream
         .where((msg) => msg.id == subscriptionId)
         .transform(
             WebSocketSubscriptionStreamTransformer(request, onEstablished))
-        .asBroadcastStream(
-          onListen: (_) async {
-            // Callout: need to reconsider sending start message onListen.
-            final subscriptionRegistrationMessage =
-                await generateSubscriptionRegistrationMessage(_config,
-                    id: subscriptionId,
-                    authRepo: _authProviderRepo,
-                    request: request);
-
-            send(subscriptionRegistrationMessage);
-          },
-          onCancel: (_) => _cancel(subscriptionId),
-        );
+        .asBroadcastStream(onCancel: (_) => _cancel(subscriptionId));
   }
 
   /// Cancels a subscription.
