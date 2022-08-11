@@ -21,6 +21,7 @@ import android.content.Intent
 import android.content.pm.PackageManager.MATCH_ALL
 import android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
 import android.net.Uri
+import android.os.Build
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
 import com.amplifyframework.auth.AuthUser
@@ -265,6 +266,17 @@ open class AuthCognito :
             Uri.parse("android-app://${mainActivity!!.packageName}")
         )
         intent.intent.data = Uri.parse(url)
+
+        // Fixes an issue for older Android versions where the custom tab will background the app on
+        // redirect. Setting `FLAG_ACTIVITY_NEW_TASK` is the only fix since Flutter specifies
+        // `android:launchMode="singleInstance"` in the manifest.
+        //
+        // See: https://stackoverflow.com/questions/36084681/chrome-custom-tabs-redirect-to-android-app-will-close-the-app
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            intent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            intent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
         // Should be launched from the main activity and not the application context so that
         // FLAG_ACTIVITY_NEW_TASK does not have to be used which would always launch the tab
         // in a separate process instead of an embedded tab.
