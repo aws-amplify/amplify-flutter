@@ -113,7 +113,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
         currentUser = user
     }
     
-    public func legacyCredentialsIdentityPoolId(_ identityPoolId: String, appClientId: String) async -> (LegacyCredentialStoreData?, FlutterError?) {
+    public func legacyCredentialsIdentityPoolId(_ identityPoolId: String?, appClientId: String?) async -> (LegacyCredentialStoreData?, FlutterError?) {
         preconditionFailure("fetching legacy credentials via method channel is not supported in iOS")
     }
     
