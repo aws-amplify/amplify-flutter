@@ -15,8 +15,8 @@ The API module for Amplify Flutter.
   s.source           = { :git => 'https://github.com/aws-amplify/amplify-flutter.git' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'Amplify', '1.27.1-cpk.1'
-  s.dependency 'AmplifyPlugins/AWSAPIPlugin', '1.27.1-cpk.1'
+  s.dependency 'Amplify', '1.28.0'
+  s.dependency 'AmplifyPlugins/AWSAPIPlugin', '1.28.0'
   s.dependency 'amplify_core'
   s.platform = :ios, '11.0'
 

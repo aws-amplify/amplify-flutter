@@ -64,6 +64,14 @@ body:
           required: false
         - label: Android
           required: false
+        - label: Web
+          required: false
+        - label: macOS
+          required: false
+        - label: Windows
+          required: false
+        - label: Linux
+          required: false
   - type: dropdown
     id: androidAPILevel
     attributes:
@@ -109,7 +117,7 @@ body:
     attributes:
       label: Device
       description: "Which device(s) did you experience the issue on? (or `N/A` if not applicable)"
-      placeholder: "iPhone 12, Pixel 5"
+      placeholder: "iPhone 12, Pixel 5, MacBook"
     validations:
       required: true
   - type: input
@@ -117,7 +125,7 @@ body:
     attributes:
       label: OS
       description: "Which operating system(s) did you experience the issue on? (or `N/A` if not applicable)"
-      placeholder: "iOS 15.1, Android 11"
+      placeholder: "iOS 15.1, Android 11, macOS 12.1, Chrome 101"
     validations:
       required: true
   - type: dropdown
@@ -137,7 +145,7 @@ body:
     attributes:
       label: CLI Version
       description: "Which version of the Amplify CLI are you running? (`amplify -v`)"
-      placeholder: "7.6.21"
+      placeholder: "9.1.0"
   - type: textarea
     id: additional-context
     attributes:

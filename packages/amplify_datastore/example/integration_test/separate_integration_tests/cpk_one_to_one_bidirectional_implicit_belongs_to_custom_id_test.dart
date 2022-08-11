@@ -52,15 +52,33 @@ void main() {
         belongsToParent: rootModels.first,
       )
     ];
+    var associatedModelQueryPredicates = [
+      CpkOneToOneBidirectionalChildImplicitCD.NAME.eq(
+        associatedModels.first.name,
+      ),
+    ];
+    var associatedModelNeQueryPredicates = [
+      CpkOneToOneBidirectionalChildImplicitCD.NAME.ne(
+        associatedModels.first.name,
+      ),
+    ];
 
     testRootAndAssociatedModelsRelationship(
       modelProvider: ModelProvider.instance,
       rootModelType: CpkOneToOneBidirectionalParentCD.classType,
       rootModels: rootModels,
+      rootModelQueryIdentifier:
+          CpkOneToOneBidirectionalParentCD.MODEL_IDENTIFIER,
       associatedModelType: CpkOneToOneBidirectionalChildImplicitCD.classType,
       associatedModels: associatedModels,
+      associatedModelQueryIdentifier:
+          CpkOneToOneBidirectionalChildImplicitCD.MODEL_IDENTIFIER,
       supportCascadeDelete: true,
       enableCloudSync: enableCloudSync,
+      associatedModelQueryPredicates: associatedModelQueryPredicates,
+      associatedModelQueryNePredicates: associatedModelNeQueryPredicates,
+      verifyBelongsToPopulating: true,
+      testNeOperationOnBelongsTo: true,
     );
   });
 }
