@@ -21,6 +21,11 @@ import 'package:meta/meta.dart';
 import '../graphql/ws/web_socket_types.dart';
 import 'authorize_http_request.dart';
 
+// Constants for header values as noted in https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html.
+const _acceptHeaderValue = 'application/json, text/javascript';
+const _contentEncodingHeaderValue = 'amz-1.0';
+const _contentTypeHeaderValue = 'application/json; charset=UTF-8';
+
 /// Generate a URI for the connection and all subscriptions.
 ///
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#handshake-details-to-establish-the-websocket-connection=
@@ -90,9 +95,9 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   final canonicalHttpRequest =
       http.Request('POST', Uri.parse('${config.endpoint}$maybeConnect'));
   canonicalHttpRequest.headers.addAll({
-    AWSHeaders.accept: 'application/json, text/javascript',
-    AWSHeaders.contentEncoding: 'amz-1.0',
-    AWSHeaders.contentType: 'application/json; charset=UTF-8',
+    AWSHeaders.accept: _acceptHeaderValue,
+    AWSHeaders.contentEncoding: _contentEncodingHeaderValue,
+    AWSHeaders.contentType: _contentTypeHeaderValue,
   });
   canonicalHttpRequest.body = body;
   final authorizedHttpRequest = await authorizeHttpRequest(

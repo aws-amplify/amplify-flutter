@@ -28,7 +28,7 @@ import 'web_socket_types.dart';
 /// 1001, going away
 const _defaultCloseStatus = status.goingAway;
 
-/// {@template amplify_api.web_socket_connection}
+/// {@template amplify_api.ws.web_socket_connection}
 /// Manages connection with an AppSync backend and subscription routing.
 /// {@endtemplate}
 @internal
@@ -45,9 +45,9 @@ class WebSocketConnection implements Closeable {
   // Manages all incoming messages from server. Primarily handles messages related
   // to the entire connection. E.g. connection_ack, connection_error, ka, error.
   // Other events (for single subscriptions) rebroadcast to _rebroadcastController.
-  late final WebSocketChannel _channel;
-  late final StreamSubscription<WebSocketMessage> _subscription;
-  late final RestartableTimer _timeoutTimer;
+  WebSocketChannel? _channel;
+  StreamSubscription<WebSocketMessage>? _subscription;
+  RestartableTimer? _timeoutTimer;
 
   // Re-broadcasts incoming messages for child streams (single GraphQL subscriptions).
   // start_ack, data, error
@@ -55,17 +55,15 @@ class WebSocketConnection implements Closeable {
       StreamController<WebSocketMessage>.broadcast();
   Stream<WebSocketMessage> get _messageStream => _rebroadcastController.stream;
 
-  // TODO: Add connection error variable to throw in `init`.
+  // Manage initial connection state.
+  var _initMemo = AsyncMemoizer<void>();
+  Completer<void> _connectionReady = Completer<void>();
 
-  // Futures to manage initial connection state.
-  final _initMemo = AsyncMemoizer<void>();
-  final Completer<void> _connectionReady = Completer<void>();
-
-  /// Fires when the connection is ready to be listened to, i.e.
-  /// after the first `connection_ack` message.
+  /// Fires when the connection is ready to be listened to after the first
+  /// `connection_ack` message.
   Future<void> get ready => _connectionReady.future;
 
-  /// {@macro amplify_api.web_socket_connection}
+  /// {@macro amplify_api.ws.web_socket_connection}
   WebSocketConnection(this._config, this._authProviderRepo,
       {required AmplifyLogger logger})
       : _logger = logger;
@@ -76,7 +74,10 @@ class WebSocketConnection implements Closeable {
       Stream<dynamic> stream) {
     return stream
         .transform(const WebSocketMessageStreamTransformer())
-        .listen(_onData);
+        .listen(_onData, onError: (Object e) {
+      _connectionError(ApiException('Connection failed.',
+          underlyingException: e.toString()));
+    });
   }
 
   /// Connects WebSocket channel to _subscription stream but does not send connection
@@ -87,18 +88,26 @@ class WebSocketConnection implements Closeable {
       connectionUri,
       protocols: webSocketProtocols,
     );
-    _subscription = getStreamSubscription(_channel.stream);
+    _subscription = getStreamSubscription(_channel!.stream);
   }
 
-  /// Closes the WebSocket connection.
+  void _connectionError(ApiException exception) {
+    _connectionReady.completeError(_connectionError);
+    _channel?.sink.close();
+    // Reset connection init memo so it can be re-attempted.
+    _initMemo = AsyncMemoizer<void>();
+    _connectionReady = Completer<void>();
+  }
+
+  /// Closes the WebSocket connection and cleans up local variables.
   @override
   void close([int closeStatus = _defaultCloseStatus]) {
     final reason =
         closeStatus == _defaultCloseStatus ? 'client closed' : 'unknown';
-    _subscription.cancel();
-    _channel.sink.close(closeStatus, reason);
+    _subscription?.cancel();
+    _channel?.sink.close(closeStatus, reason);
     _rebroadcastController.close();
-    _timeoutTimer.cancel();
+    _timeoutTimer?.cancel();
   }
 
   /// Initializes the connection.
@@ -113,7 +122,6 @@ class WebSocketConnection implements Closeable {
         await generateConnectionUri(_config, _authProviderRepo);
     await connect(connectionUri);
 
-    if (_connectionReady.isCompleted) return;
     send(WebSocketConnectionInitMessage());
 
     return ready;
@@ -125,9 +133,7 @@ class WebSocketConnection implements Closeable {
     GraphQLRequest<T> request,
     void Function()? onEstablished,
   ) {
-    if (!_connectionReady.isCompleted) {
-      init();
-    }
+    init(); // no-op if already connected
 
     // Generate and send an authorized subscription registration message.
     final subscriptionId = uuid();
@@ -161,7 +167,7 @@ class WebSocketConnection implements Closeable {
   @visibleForTesting
   void send(WebSocketMessage message) {
     final msgJson = json.encode(message.toJson());
-    _channel.sink.add(msgJson);
+    _channel?.sink.add(msgJson);
   }
 
   /// Times out the connection (usually if a keep alive has not been received in time).
@@ -195,16 +201,11 @@ class WebSocketConnection implements Closeable {
         _logger.verbose('Connection established. Registered timer');
         return;
       case MessageType.connectionError:
-        final wsError = message.payload as WebSocketError?;
-        _connectionReady.completeError(
-          wsError ??
-              Exception(
-                'An unknown error occurred while connecting to the WebSocket',
-              ),
-        );
+        _connectionError(const ApiException(
+            'Error occurred while connecting to the websocket'));
         return;
       case MessageType.keepAlive:
-        _timeoutTimer.reset();
+        _timeoutTimer?.reset();
         _logger.verbose('Reset timer');
         return;
       case MessageType.error:
