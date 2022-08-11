@@ -1,3 +1,7 @@
+## 0.1.5
+
+- fix: CognitoDeviceSecrets attempts to build without secrets ([#2021](https://github.com/aws-amplify/amplify-flutter/pull/2021))
+
 ## 0.1.4
 
 - fix: Regenerate workers
