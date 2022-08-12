@@ -1,5 +1,7 @@
-## 0.6.6 (2022-08-11)
+## 0.6.6 (2022-08-16)
 
+- chore: bump amplify-android dep to 1.37.2 (#2036)
+- chore(datastore): update m-to-m integration tests models (#2036)
 - chore(datastore): improve custom primary key integration tests (#2000)
 - chore: bump amplify-ios dep to 1.28.0 (#2005)
 - chore: bump amplify-android dep to 1.37.0 (#2005)
