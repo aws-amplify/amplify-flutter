@@ -191,9 +191,9 @@ class CpkPostTags extends Model {
 
     modelSchemaDefinition.indexes = [
       ModelIndex(
-          fields: const ["cpkManyToManyPostID"], name: "byCpkManyToManyPost"),
+          fields: const ["cpkManyToManyPostId"], name: "byCpkManyToManyPost"),
       ModelIndex(
-          fields: const ["cpkManyToManyTagID", "cpkManyToManyTaglabel"],
+          fields: const ["cpkManyToManyTagId", "cpkManyToManyTaglabel"],
           name: "byCpkManyToManyTag")
     ];
 
@@ -202,13 +202,13 @@ class CpkPostTags extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: CpkPostTags.CPKMANYTOMANYPOST,
         isRequired: true,
-        targetNames: ["cpkManyToManyPostID"],
+        targetNames: ["cpkManyToManyPostId"],
         ofModelName: (CpkManyToManyPost).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: CpkPostTags.CPKMANYTOMANYTAG,
         isRequired: true,
-        targetNames: ["cpkManyToManyTagID", "cpkManyToManyTaglabel"],
+        targetNames: ["cpkManyToManyTagId", "cpkManyToManyTaglabel"],
         ofModelName: (CpkManyToManyTag).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
