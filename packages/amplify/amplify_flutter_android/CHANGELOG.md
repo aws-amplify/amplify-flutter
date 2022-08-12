@@ -1,5 +1,6 @@
-## 0.6.6 (2022-08-11)
+## 0.6.6 (2022-08-16)
 
+- chore: bump amplify-android dep to 1.37.2 (#2036)
 - chore: bump amplify-android dep to 1.37.0
 
 ## 0.6.5 (2022-07-28)
