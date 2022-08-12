@@ -172,8 +172,8 @@ class PostTags extends Model {
     modelSchemaDefinition.pluralName = "PostTags";
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["postID"], name: "byPost"),
-      ModelIndex(fields: const ["tagID"], name: "byTag")
+      ModelIndex(fields: const ["postId"], name: "byPost"),
+      ModelIndex(fields: const ["tagId"], name: "byTag")
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
@@ -181,13 +181,13 @@ class PostTags extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: PostTags.POST,
         isRequired: true,
-        targetNames: ["postID"],
+        targetNames: ["postId"],
         ofModelName: (Post).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: PostTags.TAG,
         isRequired: true,
-        targetNames: ["tagID"],
+        targetNames: ["tagId"],
         ofModelName: (Tag).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
