@@ -94,7 +94,11 @@ class WebSocketConnection implements Closeable {
   void _connectionError(ApiException exception) {
     _connectionReady.completeError(_connectionError);
     _channel?.sink.close();
-    // Reset connection init memo so it can be re-attempted.
+    _resetConnectionInit();
+  }
+
+  // Reset connection init variables so it can be re-attempted.
+  void _resetConnectionInit() {
     _initMemo = AsyncMemoizer<void>();
     _connectionReady = Completer<void>();
   }
@@ -102,12 +106,15 @@ class WebSocketConnection implements Closeable {
   /// Closes the WebSocket connection and cleans up local variables.
   @override
   void close([int closeStatus = _defaultCloseStatus]) {
+    _logger.verbose('Closing web socket connection.');
     final reason =
         closeStatus == _defaultCloseStatus ? 'client closed' : 'unknown';
     _subscription?.cancel();
+    _channel?.sink.done.whenComplete(() => _channel = null);
     _channel?.sink.close(closeStatus, reason);
     _rebroadcastController.close();
     _timeoutTimer?.cancel();
+    _resetConnectionInit();
   }
 
   /// Initializes the connection.
@@ -133,16 +140,18 @@ class WebSocketConnection implements Closeable {
     GraphQLRequest<T> request,
     void Function()? onEstablished,
   ) {
-    init(); // no-op if already connected
-
-    // Generate and send an authorized subscription registration message.
     final subscriptionId = uuid();
-    generateSubscriptionRegistrationMessage(
-      _config,
-      id: subscriptionId,
-      authRepo: _authProviderRepo,
-      request: request,
-    ).then(send);
+
+    // init is no-op if already connected
+    init().then((_) {
+      // Generate and send an authorized subscription registration message.
+      generateSubscriptionRegistrationMessage(
+        _config,
+        id: subscriptionId,
+        authRepo: _authProviderRepo,
+        request: request,
+      ).then(send);
+    });
 
     // Filter incoming messages that have the subscription ID and return as new
     // stream with messages converted to GraphQLResponse<T>.
@@ -167,7 +176,11 @@ class WebSocketConnection implements Closeable {
   @visibleForTesting
   void send(WebSocketMessage message) {
     final msgJson = json.encode(message.toJson());
-    _channel?.sink.add(msgJson);
+    if (_channel == null) {
+      throw ApiException(
+          'Web socket not connected. Cannot send message $message');
+    }
+    _channel!.sink.add(msgJson);
   }
 
   /// Times out the connection (usually if a keep alive has not been received in time).
@@ -185,7 +198,7 @@ class WebSocketConnection implements Closeable {
   /// Here, handle connection-wide messages and pass subscription events to
   /// `_rebroadcastController`.
   void _onData(WebSocketMessage message) {
-    _logger.verbose('websocket received message: $message');
+    _logger.verbose('websocket received message: ${prettyPrintJson(message)}');
 
     switch (message.messageType) {
       case MessageType.connectionAck:
@@ -221,6 +234,7 @@ class WebSocketConnection implements Closeable {
     }
 
     // Re-broadcast other message types related to single subscriptions.
-    _rebroadcastController.add(message);
+
+    if (!_rebroadcastController.isClosed) _rebroadcastController.add(message);
   }
 }

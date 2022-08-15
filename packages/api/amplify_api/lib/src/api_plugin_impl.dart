@@ -138,11 +138,13 @@ class AmplifyAPIDart extends AmplifyAPI {
       type: EndpointType.graphQL,
       apiName: apiName,
     );
-    return _webSocketConnectionPool[endpoint.name] ??=
-        WebSocketConnection(endpoint.config, _authProviderRepo,
-            logger: _logger.createChild(
-              'webSocketConnection${endpoint.name}',
-            ));
+    return _webSocketConnectionPool[endpoint.name] ??= WebSocketConnection(
+      endpoint.config,
+      _authProviderRepo,
+      logger: _logger.createChild(
+        'webSocketConnection${endpoint.name}',
+      ),
+    );
   }
 
   Uri _getGraphQLUri(String? apiName) {

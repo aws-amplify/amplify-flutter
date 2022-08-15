@@ -26,23 +26,29 @@ const _acceptHeaderValue = 'application/json, text/javascript';
 const _contentEncodingHeaderValue = 'amz-1.0';
 const _contentTypeHeaderValue = 'application/json; charset=UTF-8';
 
+// AppSync expects "{}" encoded in the URI as the payload during handshake.
+const _emptyBody = '{}';
+
 /// Generate a URI for the connection and all subscriptions.
 ///
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#handshake-details-to-establish-the-websocket-connection=
 @internal
 Future<Uri> generateConnectionUri(
     AWSApiConfig config, AmplifyAuthProviderRepository authRepo) async {
-  const body = '{}';
-  final authorizationHeaders = await _generateAuthorizationHeaders(config,
-      authRepo: authRepo, body: body);
+  final authorizationHeaders = await _generateAuthorizationHeaders(
+    config,
+    authRepo: authRepo,
+    body: _emptyBody,
+  );
   final encodedAuthHeaders =
       base64.encode(json.encode(authorizationHeaders).codeUnits);
   final endpointUri = Uri.parse(
-      config.endpoint.replaceFirst('appsync-api', 'appsync-realtime-api'));
+    config.endpoint.replaceFirst('appsync-api', 'appsync-realtime-api'),
+  );
   return Uri(scheme: 'wss', host: endpointUri.host, path: 'graphql')
       .replace(queryParameters: <String, String>{
     'header': encodedAuthHeaders,
-    'payload': base64.encode(utf8.encode(body)) // always payload of '{}'
+    'payload': base64.encode(utf8.encode(_emptyBody)),
   });
 }
 
@@ -91,7 +97,7 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   //
   // The canonical request URL is a little different depending on if connection_init
   // or start (subscription registration).
-  final maybeConnect = body != '{}' ? '' : '/connect';
+  final maybeConnect = body != _emptyBody ? '' : '/connect';
   final canonicalHttpRequest =
       http.Request('POST', Uri.parse('${config.endpoint}$maybeConnect'));
   canonicalHttpRequest.headers.addAll({

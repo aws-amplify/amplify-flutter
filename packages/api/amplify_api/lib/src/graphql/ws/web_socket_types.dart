@@ -124,7 +124,7 @@ class SubscriptionDataPayload extends WebSocketMessagePayload {
   final Map<String, dynamic>? data;
   final Map<String, dynamic>? errors;
 
-  SubscriptionDataPayload(this.data, this.errors);
+  const SubscriptionDataPayload(this.data, this.errors);
 
   static SubscriptionDataPayload fromJson(Map json) {
     final data = json['data'] as Map?;
@@ -146,7 +146,7 @@ class SubscriptionDataPayload extends WebSocketMessagePayload {
 class WebSocketError extends WebSocketMessagePayload implements Exception {
   final List<Map> errors;
 
-  WebSocketError(this.errors);
+  const WebSocketError(this.errors);
 
   static WebSocketError fromJson(Map json) {
     final errors = json['errors'] as List?;
@@ -172,7 +172,7 @@ class WebSocketMessage {
     this.payload,
   }) : id = id ?? uuid();
 
-  WebSocketMessage._({
+  const WebSocketMessage._({
     this.id,
     required this.messageType,
     this.payload,
