@@ -1,3 +1,15 @@
+## 0.1.5
+
+- fix: CognitoDeviceSecrets attempts to build without secrets ([#2021](https://github.com/aws-amplify/amplify-flutter/pull/2021))
+
+## 0.1.4
+
+- fix: Regenerate workers
+
+## 0.1.3
+
+- fix: Bump `aws_common` dependency
+
 ## 0.1.2
 
 - fix(auth): Multi-auth DataStore bindings ([#2012](https://github.com/aws-amplify/amplify-flutter/pull/2012))

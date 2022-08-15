@@ -1,3 +1,7 @@
+## 1.0.0-next.0+4
+
+- Bump `amplify_auth_cognito_dart` dependency
+
 ## 1.0.0-next.0+3
 
 - fix(auth): Multi-auth DataStore bindings ([#2012](https://github.com/aws-amplify/amplify-flutter/pull/2012))

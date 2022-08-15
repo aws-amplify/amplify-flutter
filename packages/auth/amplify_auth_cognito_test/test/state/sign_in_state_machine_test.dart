@@ -113,5 +113,46 @@ void main() {
         AuthFlowType.customAuth,
       );
     });
+
+    test('smoke test', () async {
+      stateMachine.dispatch(AuthEvent.configure(userPoolOnlyConfig));
+      await expectLater(
+        stateMachine.stream.whereType<AuthState>().firstWhere(
+              (event) => event is AuthConfigured || event is AuthFailure,
+            ),
+        completion(isA<AuthConfigured>()),
+      );
+
+      final mockClient = MockCognitoIdentityProviderClient(
+        initiateAuth: () async => InitiateAuthResponse(
+          authenticationResult: AuthenticationResultType(
+            accessToken: accessToken.raw,
+            refreshToken: refreshToken,
+            idToken: idToken.raw,
+          ),
+        ),
+      );
+      stateMachine
+        ..addInstance<CognitoIdentityProviderClient>(mockClient)
+        ..dispatch(
+          SignInEvent.initiate(
+            authFlowType: AuthFlowType.customAuth,
+            parameters: SignInParameters(
+              (p) => p
+                ..username = 'username'
+                ..password = 'password',
+            ),
+          ),
+        );
+
+      final signInStateMachine = stateMachine.expect(SignInStateMachine.type);
+      expect(
+        signInStateMachine.stream,
+        emitsInOrder([
+          isA<SignInInitiating>(),
+          isA<SignInSuccess>(),
+        ]),
+      );
+    });
   });
 }

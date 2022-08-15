@@ -27,6 +27,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_worker.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_password_verifier_worker.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
+import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
@@ -249,7 +250,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         ..clientId = config.appClientId
         ..clientSecret = config.appClientSecret
         ..poolId = config.poolId
-        ..deviceKey = user.deviceSecrets.deviceKey
+        ..deviceKey = user.deviceSecrets?.deviceKey
         ..challengeParameters = challengeParameters
         ..parameters = SignInParameters(
           (b) => b
@@ -275,7 +276,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: user.username!,
           CognitoConstants.challengeParamDeviceKey:
-              user.deviceSecrets.deviceKey!,
+              user.deviceSecrets!.deviceKey!,
           CognitoConstants.challengeParamSrpA:
               initResult.publicA.toRadixString(16),
         });
@@ -305,7 +306,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     final worker = await devicePasswordVerifierWorker;
     final workerMessage = SrpDevicePasswordVerifierMessage((b) {
       b
-        ..deviceSecrets = user.deviceSecrets.build()
+        ..deviceSecrets = user.deviceSecrets!.build()
         ..initResult = _initResult
         ..clientId = config.appClientId
         ..clientSecret = config.appClientSecret
@@ -436,7 +437,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         );
       }
 
-      final deviceKey = user.deviceSecrets.deviceKey;
+      final deviceKey = user.deviceSecrets?.deviceKey;
       if (deviceKey != null) {
         b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
       }
@@ -468,7 +469,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         );
       }
 
-      final deviceKey = user.deviceSecrets.deviceKey;
+      final deviceKey = user.deviceSecrets?.deviceKey;
       if (deviceKey != null) {
         b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
       }
@@ -509,7 +510,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         );
       }
 
-      final deviceKey = user.deviceSecrets.deviceKey;
+      final deviceKey = user.deviceSecrets?.deviceKey;
       if (deviceKey != null) {
         b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
       }
@@ -614,7 +615,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       final deviceSecrets = await getOrCreate(DeviceMetadataRepository.token)
           .get(event.parameters.username);
       if (deviceSecrets != null) {
-        user.deviceSecrets.replace(deviceSecrets);
+        user.deviceSecrets = deviceSecrets.toBuilder();
       }
     } on Exception catch (e, st) {
       logger.debug('Could not retrieve credentials', e, st);
@@ -703,7 +704,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       if (newDeviceMetadata != null &&
           // ConfirmDevice API requires an identity pool
           hasIdentityPool) {
-        user.deviceSecrets
+        user.deviceSecrets = CognitoDeviceSecretsBuilder()
           ..deviceGroupKey = newDeviceMetadata.deviceGroupKey
           ..deviceKey = newDeviceMetadata.deviceKey
           ..devicePassword = await _createDevice(
@@ -713,7 +714,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
         await getOrCreate(DeviceMetadataRepository.token).put(
           user.username!,
-          user.deviceSecrets.build(),
+          user.deviceSecrets!.build(),
         );
       }
 

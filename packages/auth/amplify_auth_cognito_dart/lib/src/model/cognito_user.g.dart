@@ -109,8 +109,7 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
       _$this._userPoolTokens = userPoolTokens;
 
   CognitoDeviceSecretsBuilder? _deviceSecrets;
-  CognitoDeviceSecretsBuilder get deviceSecrets =>
-      _$this._deviceSecrets ??= new CognitoDeviceSecretsBuilder();
+  CognitoDeviceSecretsBuilder? get deviceSecrets => _$this._deviceSecrets;
   set deviceSecrets(CognitoDeviceSecretsBuilder? deviceSecrets) =>
       _$this._deviceSecrets = deviceSecrets;
 
