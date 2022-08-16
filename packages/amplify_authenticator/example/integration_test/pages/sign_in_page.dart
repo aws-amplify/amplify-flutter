@@ -46,12 +46,14 @@ class SignInPage extends AuthenticatorPage {
 
   /// When I type a new "username"
   Future<void> enterUsername(String username) async {
+    await tester.ensureVisible(usernameField);
     await tester.enterText(usernameField, username);
     await tester.pumpAndSettle();
   }
 
   /// When I type my password
   Future<void> enterPassword(String password) async {
+    await tester.ensureVisible(passwordField);
     await tester.enterText(passwordField, password);
     await tester.pumpAndSettle();
   }

@@ -44,7 +44,6 @@ import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
@@ -498,7 +497,7 @@ class _AuthenticatorState extends State<Authenticator> {
       if (mounted && exception.showBanner) {
         _showExceptionBanner(
           type: StatusType.error,
-          content: Text(exception.message),
+          message: exception.message,
         );
       }
     });
@@ -513,7 +512,7 @@ class _AuthenticatorState extends State<Authenticator> {
         _logger.info(message);
         _showExceptionBanner(
           type: StatusType.info,
-          content: Text(message),
+          message: message,
         );
       } else {
         _logger.info('Could not show banner for key: $key');
@@ -523,7 +522,7 @@ class _AuthenticatorState extends State<Authenticator> {
 
   void _showExceptionBanner({
     required StatusType type,
-    required Widget content,
+    required String message,
   }) {
     final scaffoldMessengerState = scaffoldMessengerKey.currentState;
     final scaffoldMessengerContext = scaffoldMessengerKey.currentContext;
@@ -537,7 +536,7 @@ class _AuthenticatorState extends State<Authenticator> {
     if (location == ExceptionBannerLocation.auto) {
       final Size screenSize = MediaQuery.of(scaffoldMessengerContext).size;
       final bool isDesktop =
-          screenSize.width > AuthenticatorContainerConstants.mediumView;
+          screenSize.width > AuthenticatorContainerConstants.smallView;
       location = isDesktop
           ? ExceptionBannerLocation.top
           : ExceptionBannerLocation.bottom;
@@ -548,13 +547,8 @@ class _AuthenticatorState extends State<Authenticator> {
         ..showMaterialBanner(createMaterialBanner(
           scaffoldMessengerContext,
           type: type,
-          content: content,
-          actions: [
-            IconButton(
-              onPressed: scaffoldMessengerState.clearMaterialBanners,
-              icon: const Icon(Icons.close),
-            ),
-          ],
+          message: message,
+          actionCallback: scaffoldMessengerState.clearMaterialBanners,
         ));
     } else {
       scaffoldMessengerState
@@ -562,7 +556,7 @@ class _AuthenticatorState extends State<Authenticator> {
         ..showSnackBar(createSnackBar(
           scaffoldMessengerContext,
           type: type,
-          content: content,
+          message: message,
         ));
     }
   }
@@ -598,7 +592,7 @@ class _AuthenticatorState extends State<Authenticator> {
     _exceptionSub.cancel();
     _infoSub.cancel();
     _successSub.cancel();
-    _stateMachineBloc.dispose();
+    _stateMachineBloc.close();
     _hubSubscription?.cancel();
     super.dispose();
   }

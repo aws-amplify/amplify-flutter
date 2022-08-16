@@ -17,10 +17,9 @@ import 'dart:async';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_action.dart';
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_request.dart';
+import 'package:amplify_secure_storage_dart/src/worker/secure_storage_worker.worker.dart';
 import 'package:built_value/serializer.dart';
 import 'package:worker_bee/worker_bee.dart';
-
-import 'secure_storage_worker.worker.dart';
 
 part 'secure_storage_worker.g.dart';
 

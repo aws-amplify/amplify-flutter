@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.forget_device_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.forget_device_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -49,13 +49,13 @@ abstract class ForgetDeviceRequest
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _ForgetDeviceRequestAwsJson11Serializer()
+    ForgetDeviceRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ForgetDeviceRequestBuilder b) {}
 
-  /// The access token for the forgotten device request.
+  /// A valid access token that Amazon Cognito issued to the user whose registered device you want to forget.
   String? get accessToken;
 
   /// The device key.
@@ -73,10 +73,9 @@ abstract class ForgetDeviceRequest
   }
 }
 
-class _ForgetDeviceRequestAwsJson11Serializer
+class ForgetDeviceRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<ForgetDeviceRequest> {
-  const _ForgetDeviceRequestAwsJson11Serializer()
-      : super('ForgetDeviceRequest');
+  const ForgetDeviceRequestAwsJson11Serializer() : super('ForgetDeviceRequest');
 
   @override
   Iterable<Type> get types =>

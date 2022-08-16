@@ -82,14 +82,10 @@ void main() {
       );
     });
 
-    testWidgets(
-        'should throw an InvalidStateException if a user is already signed in',
-        (WidgetTester tester) async {
-      await Amplify.Auth.signIn(username: username, password: password);
-      expect(
-        Amplify.Auth.signIn(username: username, password: password),
-        throwsA(isA<InvalidStateException>()),
-      );
+    testWidgets('additionalInfo should be null', (WidgetTester tester) async {
+      final result =
+          await Amplify.Auth.signIn(username: username, password: password);
+      expect(result.nextStep?.additionalInfo, isNull);
     });
   });
 

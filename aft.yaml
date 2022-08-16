@@ -1,0 +1,17 @@
+# Global dependency versions for third-party dependencies of
+# Amplify Flutter projects. These represent the values which
+# have been vetted by manual review and should be used consistently 
+# across all packages.
+#
+# Application of these values can be verified/updated with the `aft` 
+# tool.
+dependencies:
+  built_value: ^8.0.0
+  built_value_generator: 8.3.3
+  json_annotation: ^4.4.0
+  json_serializable: ^6.1.0
+  uuid: 3.0.6
+
+# Packages to ignore in all repo operations
+ignore:
+  - synthetic_package

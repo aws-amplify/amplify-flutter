@@ -1,0 +1,104 @@
+# Created with package:mono_repo v6.4.0-dev
+name: Goldens
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 0"
+defaults:
+  run:
+    shell: bash
+env:
+  PUB_ENVIRONMENT: bot.github
+permissions: read-all
+
+jobs:
+  job_001:
+    name: "golden_test; `git submodule update --init`, `./packages/smithy/goldens`, `dart tool/update_goldens.dart`, `dart format --set-exit-if-changed lib`, `dart analyze --fatal-infos lib`, `dart test`, `dart test`, `dart test`, `dart test`, `dart test`, `dart test -p chrome`, `dart test -p chrome`, `dart test -p chrome`, `dart test -p chrome`, `dart test -p chrome`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/goldens;commands:command_1-github_action-command_5-format_1-analyze_3-github_action-github_action-github_action-github_action-github_action-github_action-github_action-github_action-github_action-github_action"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/goldens
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+        with:
+          sdk: stable
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_smithy_goldens_pub_upgrade
+        name: packages/smithy/goldens; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens
+      - name: "packages/smithy/goldens; git submodule update --init"
+        run: git submodule update --init
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens
+      - name: Generate AST
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        uses: ./packages/smithy/goldens
+        continue-on-error: false
+      - name: packages/smithy/goldens; dart tool/update_goldens.dart
+        run: dart tool/update_goldens.dart
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens
+      - name: "packages/smithy/goldens; dart format --set-exit-if-changed lib"
+        run: dart format --set-exit-if-changed lib
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens
+      - name: "packages/smithy/goldens; dart analyze --fatal-infos lib"
+        run: dart analyze --fatal-infos lib
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens
+      - name: awsJson1_0 (VM)
+        run: dart test
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+      - name: awsJson1_1 (VM)
+        run: dart test
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+      - name: restJson1 (VM)
+        run: dart test
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+      - name: restXml (VM)
+        run: dart test
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+      - name: restXmlWithNamespace (VM)
+        run: dart test
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+      - name: awsJson1_0 (Browser)
+        run: dart test -p chrome
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+      - name: awsJson1_1 (Browser)
+        run: dart test -p chrome
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+      - name: restJson1 (Browser)
+        run: dart test -p chrome
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+      - name: restXml (Browser)
+        run: dart test -p chrome
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+      - name: restXmlWithNamespace (Browser)
+        run: dart test -p chrome
+        if: "always() && steps.packages_smithy_goldens_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace

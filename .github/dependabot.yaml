@@ -84,10 +84,6 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/analytics/amplify_analytics_plugin_interface/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
     directory: "packages/api/amplify_api/"
     schedule:
       interval: "daily"

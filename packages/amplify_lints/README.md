@@ -11,6 +11,7 @@ The linter rules in this package are derived from the Dart team's [lints](https:
 Libraries will use the `package:lints` "recommended" ruleset plus the following:
 
 - [always_declare_return_types](https://dart.dev/tools/linter-rules#always_declare_return_types)
+- [always_use_package_imports](https://dart.dev/tools/linter-rules#always_use_package_imports)
 - [avoid_catches_without_on_clauses](https://dart.dev/tools/linter-rules#avoid_catches_without_on_clauses)
 - [avoid_classes_with_only_static_members](https://dart.dev/tools/linter-rules#avoid_classes_with_only_static_members)
 - [avoid_dynamic_calls](https://dart.dev/tools/linter-rules#avoid_dynamic_calls)

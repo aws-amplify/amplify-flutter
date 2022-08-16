@@ -17,27 +17,43 @@ import 'dart:io';
 import 'package:aft/aft.dart';
 import 'package:args/command_runner.dart';
 import 'package:async/async.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:checked_yaml/checked_yaml.dart';
 import 'package:cli_util/cli_logging.dart';
+import 'package:collection/collection.dart';
+import 'package:http/http.dart' as http;
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
+import 'package:pub/pub.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-const _ignorePackages = [
-  'synthetic_package',
-];
-
-abstract class AmplifyCommand extends Command<void> {
+/// Base class for all commands in this package providing common functionality.
+abstract class AmplifyCommand extends Command<void> implements Closeable {
   /// Whether verbose logging is enabled.
-  late final verbose = globalResults!['verbose'] as bool;
+  late final bool verbose = globalResults!['verbose'] as bool;
 
   /// The configured logger for the command.
   late final Logger logger = verbose ? Logger.verbose() : Logger.standard();
+
+  /// The current working directory.
+  late final Directory workingDirectory = () {
+    final directory = globalResults?['directory'] as String?;
+    if (directory == null) {
+      return Directory.current;
+    }
+    return Directory(directory);
+  }();
+
+  _PubHttpClient? _httpClient;
+
+  /// HTTP client for remote operations.
+  http.Client get httpClient => _httpClient ??= _PubHttpClient();
 
   final _rootDirMemo = AsyncMemoizer<Directory>();
 
   /// The root directory of the Amplify Flutter repo.
   Future<Directory> get rootDir => _rootDirMemo.runOnce(() async {
-        var dir = Directory.current;
+        var dir = workingDirectory;
         while (dir.parent != dir) {
           final files = dir.list(followLinks: false).whereType<File>();
           await for (final file in files) {
@@ -53,14 +69,15 @@ abstract class AmplifyCommand extends Command<void> {
         );
       });
 
-  final _allPackagesMemo = AsyncMemoizer<List<PackageInfo>>();
+  final _allPackagesMemo = AsyncMemoizer<Map<String, PackageInfo>>();
 
   /// All packages in the Amplify Flutter repo.
-  Future<List<PackageInfo>> get allPackages =>
+  Future<Map<String, PackageInfo>> get allPackages =>
       _allPackagesMemo.runOnce(() async {
         final allDirs = (await rootDir)
             .list(recursive: true, followLinks: false)
             .whereType<Directory>();
+        final aftConfig = await this.aftConfig;
 
         final allPackages = <PackageInfo>[];
         await for (final dir in allDirs) {
@@ -69,7 +86,7 @@ abstract class AmplifyCommand extends Command<void> {
             continue;
           }
           final pubspec = pubspecInfo.pubspec;
-          if (_ignorePackages.contains(pubspec.name)) {
+          if (aftConfig.ignore.contains(pubspec.name)) {
             continue;
           }
           allPackages.add(
@@ -82,18 +99,63 @@ abstract class AmplifyCommand extends Command<void> {
             ),
           );
         }
-        return allPackages..sort();
+        return UnmodifiableMapView({
+          for (final package in allPackages..sort()) package.name: package,
+        });
       });
 
-  final _globalDependencyConfigMemo = AsyncMemoizer<GlobalDependencyConfig>();
+  final _aftConfigMemo = AsyncMemoizer<AftConfig>();
 
-  /// The global dependency configuration for the repo.
-  Future<GlobalDependencyConfig> get globalDependencyConfig =>
-      _globalDependencyConfigMemo.runOnce(() async {
+  /// The global `aft` configuration for the repo.
+  Future<AftConfig> get aftConfig => _aftConfigMemo.runOnce(() async {
         final rootDir = await this.rootDir;
-        final depsFile = File(p.join(rootDir.path, 'deps.yaml'));
-        assert(depsFile.existsSync(), 'Could not find deps.yaml');
-        final depsYaml = depsFile.readAsStringSync();
-        return checkedYamlDecode(depsYaml, GlobalDependencyConfig.fromJson);
+        final configFile = File(p.join(rootDir.path, 'aft.yaml'));
+        assert(configFile.existsSync(), 'Could not find aft.yaml');
+        final configYaml = configFile.readAsStringSync();
+        return checkedYamlDecode(configYaml, AftConfig.fromJson);
       });
+
+  /// A command runner for `pub`.
+  PubCommandRunner createPubRunner() => PubCommandRunner(
+        pubCommand(isVerbose: () => verbose),
+      );
+
+  /// Displays a prompt to the user and waits for a response on stdin.
+  String prompt(String prompt) {
+    String? response;
+    while (response == null) {
+      stdout.write(prompt);
+      response = stdin.readLineSync();
+    }
+    return response;
+  }
+
+  @override
+  @mustCallSuper
+  void close() {
+    _httpClient?._close();
+  }
+}
+
+/// An HTTP client which can be used by processes which call `client.close()`
+/// outside our control, like `pub`.
+class _PubHttpClient extends http.BaseClient {
+  _PubHttpClient([http.Client? inner]) : _inner = inner ?? http.Client();
+
+  final http.Client _inner;
+
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) {
+    return _inner.send(request);
+  }
+
+  @override
+  void close() {
+    // Do nothing
+  }
+
+  // Actually close
+  void _close() {
+    _inner.close();
+  }
 }

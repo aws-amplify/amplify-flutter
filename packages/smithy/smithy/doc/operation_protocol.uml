@@ -1,0 +1,31 @@
+@startuml
+set namespaceSeparator ::
+
+abstract class "smithy::src::operation.dart::Operation" {
+}
+
+abstract class "smithy::src::operation.dart::PaginatedOperation" {
+}
+
+abstract class "smithy::src::protocol::protocol.dart::Protocol" {
+}
+
+"smithy::src::protocol::protocol.dart::FullSerializer" <|-- "smithy::src::protocol::protocol.dart::Protocol"
+
+abstract class "smithy::src::http::http_operation.dart::HttpOperation" {
+}
+
+"smithy::src::operation.dart::Operation" <|-- "smithy::src::http::http_operation.dart::HttpOperation"
+
+abstract class "smithy::src::http::http_operation.dart::PaginatedHttpOperation" {
+}
+
+"smithy::src::http::http_operation.dart::HttpOperation" <|-- "smithy::src::http::http_operation.dart::PaginatedHttpOperation"
+
+abstract class "smithy::src::http::http_protocol.dart::HttpProtocol" {
+}
+
+"smithy::src::protocol::protocol.dart::Protocol" <|-- "smithy::src::http::http_protocol.dart::HttpProtocol"
+
+
+@enduml

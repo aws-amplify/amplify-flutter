@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.update_device_status_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.update_device_status_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/device_remembered_status_type.dart'
     as _i3;
@@ -56,13 +56,13 @@ abstract class UpdateDeviceStatusRequest
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _UpdateDeviceStatusRequestAwsJson11Serializer()
+    UpdateDeviceStatusRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateDeviceStatusRequestBuilder b) {}
 
-  /// The access token.
+  /// A valid access token that Amazon Cognito issued to the user whose device status you want to update.
   String get accessToken;
 
   /// The device key.
@@ -84,9 +84,9 @@ abstract class UpdateDeviceStatusRequest
   }
 }
 
-class _UpdateDeviceStatusRequestAwsJson11Serializer
+class UpdateDeviceStatusRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<UpdateDeviceStatusRequest> {
-  const _UpdateDeviceStatusRequestAwsJson11Serializer()
+  const UpdateDeviceStatusRequestAwsJson11Serializer()
       : super('UpdateDeviceStatusRequest');
 
   @override

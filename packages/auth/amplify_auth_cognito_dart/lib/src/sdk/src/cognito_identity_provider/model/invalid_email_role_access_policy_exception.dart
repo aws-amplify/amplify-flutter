@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.invalid_email_role_access_policy_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.invalid_email_role_access_policy_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,7 +23,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'invalid_email_role_access_policy_exception.g.dart';
 
-/// This exception is thrown when Amazon Cognito is not allowed to use your email identity. HTTP status code: 400.
+/// This exception is thrown when Amazon Cognito isn't allowed to use your email identity. HTTP status code: 400.
 abstract class InvalidEmailRoleAccessPolicyException
     with
         _i1.AWSEquatable<InvalidEmailRoleAccessPolicyException>
@@ -31,12 +31,12 @@ abstract class InvalidEmailRoleAccessPolicyException
         Built<InvalidEmailRoleAccessPolicyException,
             InvalidEmailRoleAccessPolicyExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// This exception is thrown when Amazon Cognito is not allowed to use your email identity. HTTP status code: 400.
+  /// This exception is thrown when Amazon Cognito isn't allowed to use your email identity. HTTP status code: 400.
   factory InvalidEmailRoleAccessPolicyException({String? message}) {
     return _$InvalidEmailRoleAccessPolicyException._(message: message);
   }
 
-  /// This exception is thrown when Amazon Cognito is not allowed to use your email identity. HTTP status code: 400.
+  /// This exception is thrown when Amazon Cognito isn't allowed to use your email identity. HTTP status code: 400.
   factory InvalidEmailRoleAccessPolicyException.build(
       [void Function(InvalidEmailRoleAccessPolicyExceptionBuilder)
           updates]) = _$InvalidEmailRoleAccessPolicyException;
@@ -52,13 +52,13 @@ abstract class InvalidEmailRoleAccessPolicyException
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _InvalidEmailRoleAccessPolicyExceptionAwsJson11Serializer()
+    InvalidEmailRoleAccessPolicyExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidEmailRoleAccessPolicyExceptionBuilder b) {}
 
-  /// The message returned when you have an unverified email address or the identity policy is not set on an email address that Amazon Cognito can access.
+  /// The message returned when you have an unverified email address or the identity policy isn't set on an email address that Amazon Cognito can access.
   @override
   String? get message;
   @override
@@ -86,9 +86,9 @@ abstract class InvalidEmailRoleAccessPolicyException
   }
 }
 
-class _InvalidEmailRoleAccessPolicyExceptionAwsJson11Serializer extends _i2
+class InvalidEmailRoleAccessPolicyExceptionAwsJson11Serializer extends _i2
     .StructuredSmithySerializer<InvalidEmailRoleAccessPolicyException> {
-  const _InvalidEmailRoleAccessPolicyExceptionAwsJson11Serializer()
+  const InvalidEmailRoleAccessPolicyExceptionAwsJson11Serializer()
       : super('InvalidEmailRoleAccessPolicyException');
 
   @override

@@ -48,7 +48,7 @@ Map<String, dynamic> _$JsonWebKeyToJson(JsonWebKey instance) {
   writeNotNull('kty', KeyTypeX.toJson(instance.keyType));
   writeNotNull('use', PublicKeyUseX.toJson(instance.publicKeyUse));
   writeNotNull('key_ops',
-      instance.keyOperations?.map((e) => _$KeyOperationEnumMap[e]).toList());
+      instance.keyOperations?.map((e) => _$KeyOperationEnumMap[e]!).toList());
   writeNotNull('alg', AlgorithmX.toJson(instance.algorithm));
   writeNotNull('kid', instance.keyId);
   writeNotNull('x5u', instance.x509Url);

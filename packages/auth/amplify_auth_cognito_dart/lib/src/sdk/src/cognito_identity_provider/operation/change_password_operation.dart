@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.operation.change_password_operation;
+library amplify_auth_cognito_dart.cognito_identity_provider.operation.change_password_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i19;
 
@@ -75,6 +75,7 @@ class ChangePasswordOperation extends _i1.HttpOperation<
         serializers: _i6.serializers,
         builderFactories: _i6.builderFactories,
         requestInterceptors: [
+          const _i1.WithHost(),
           const _i1.WithContentLength(),
           const _i1.WithHeader('X-Amz-Target',
               'AWSCognitoIdentityProviderService.ChangePassword'),
@@ -83,6 +84,7 @@ class ChangePasswordOperation extends _i1.HttpOperation<
               service: _i7.AWSService.cognitoIdentityProvider,
               credentialsProvider: _credentialsProvider,
               isOptional: true),
+          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
           const _i5.WithSdkInvocationId(),
           const _i5.WithSdkRequest()
         ],

@@ -26,10 +26,6 @@ dependencies:
   example_common:
     path: ../../../example_common
 
-dependency_overrides:
-  worker_bee:
-    path: ../../../worker_bee/worker_bee
-
 dev_dependencies:
   amplify_lints:
     path: ../../../amplify_lints

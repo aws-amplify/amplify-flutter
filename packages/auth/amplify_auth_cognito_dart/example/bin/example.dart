@@ -22,6 +22,7 @@ import 'package:cognito_example/amplifyconfiguration.dart';
 import 'package:cognito_example/common.dart';
 
 Future<void> main() async {
+  AWSLogger().logLevel = LogLevel.debug;
   try {
     await Amplify.addPlugin(
       AmplifyAuthCognitoDart(

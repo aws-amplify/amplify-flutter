@@ -1,3 +1,7 @@
+## 2.0.1
+
+- Fix package analysis issues
+
 ## 2.0.0
 
 - Bumped min Dart SDK to 2.17
@@ -8,6 +12,7 @@
 - Ignores `implementation_imports` lint for `library.yaml` and `library_core.yaml`
 
 Introduced the following new lints to `library.yaml`:
+  - `always_use_package_imports`
   - `avoid_classes_with_only_static_members`
   - `avoid_dynamic_calls`
   - `avoid_field_initializers_in_const_classes`

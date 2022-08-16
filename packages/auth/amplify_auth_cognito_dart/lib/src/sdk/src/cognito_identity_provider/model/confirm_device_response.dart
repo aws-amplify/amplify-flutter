@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.confirm_device_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_device_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -46,13 +46,13 @@ abstract class ConfirmDeviceResponse
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
-    _ConfirmDeviceResponseAwsJson11Serializer()
+    ConfirmDeviceResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfirmDeviceResponseBuilder b) {}
 
-  /// Indicates whether the user confirmation is necessary to confirm the device response.
+  /// Indicates whether the user confirmation must confirm the device response.
   bool? get userConfirmationNecessary;
   @override
   List<Object?> get props => [userConfirmationNecessary];
@@ -64,9 +64,9 @@ abstract class ConfirmDeviceResponse
   }
 }
 
-class _ConfirmDeviceResponseAwsJson11Serializer
+class ConfirmDeviceResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ConfirmDeviceResponse> {
-  const _ConfirmDeviceResponseAwsJson11Serializer()
+  const ConfirmDeviceResponseAwsJson11Serializer()
       : super('ConfirmDeviceResponse');
 
   @override

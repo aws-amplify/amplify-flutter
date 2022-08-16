@@ -13,11 +13,10 @@
 // limitations under the License.
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:amplify_secure_storage_dart/src/worker/secure_storage_action.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-
-import 'secure_storage_action.dart';
 
 part 'secure_storage_request.g.dart';
 
@@ -105,4 +104,15 @@ abstract class SecureStorageRequest
   /// The [SecureStorageRequest] serializer.
   static Serializer<SecureStorageRequest> get serializer =>
       _$secureStorageRequestSerializer;
+
+  /// toString override that excludes the value.
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'SecureStorageRequest')
+          ..add('id', id)
+          ..add('action', action)
+          ..add('config', config)
+          ..add('key', key))
+        .toString();
+  }
 }

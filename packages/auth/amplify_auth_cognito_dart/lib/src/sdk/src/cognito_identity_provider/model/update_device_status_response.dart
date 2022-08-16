@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.update_device_status_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.update_device_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -48,7 +48,7 @@ abstract class UpdateDeviceStatusResponse
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
-    _UpdateDeviceStatusResponseAwsJson11Serializer()
+    UpdateDeviceStatusResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -62,9 +62,9 @@ abstract class UpdateDeviceStatusResponse
   }
 }
 
-class _UpdateDeviceStatusResponseAwsJson11Serializer
+class UpdateDeviceStatusResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UpdateDeviceStatusResponse> {
-  const _UpdateDeviceStatusResponseAwsJson11Serializer()
+  const UpdateDeviceStatusResponseAwsJson11Serializer()
       : super('UpdateDeviceStatusResponse');
 
   @override

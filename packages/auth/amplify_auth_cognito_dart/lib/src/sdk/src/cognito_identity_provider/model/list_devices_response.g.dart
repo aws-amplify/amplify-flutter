@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_auth_cognito.cognito_identity_provider.model.list_devices_response;
+part of amplify_auth_cognito_dart.cognito_identity_provider.model.list_devices_response;
 
 // **************************************************************************
 // BuiltValueGenerator

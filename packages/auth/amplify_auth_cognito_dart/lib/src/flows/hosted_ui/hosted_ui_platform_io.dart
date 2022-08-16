@@ -18,6 +18,7 @@ import 'dart:io';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:meta/meta.dart';
 
 /// {@macro amplify_auth_cognito.hosted_ui_platform}
 class HostedUiPlatformImpl extends HostedUiPlatform {
@@ -72,7 +73,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   </body>
 </html>''';
 
-  String _htmlForParams(
+  static String _htmlForParams(
     Map<String, String> parameters, {
     required bool signIn,
   }) {
@@ -120,6 +121,9 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         orElse: () => _noSuitableRedirect(signIn: false),
       );
 
+  /// The server being listened on for incoming authorization codes.
+  LocalServer? _localServer;
+
   /// Launches the given URL.
   Future<void> launchUrl(String url) async {
     final String command;
@@ -158,7 +162,13 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
   /// Connect to a local port by trying all the registered [uris], since some
   /// of the ports may be blocked.
-  Future<_LocalServer> _localConnect(Iterable<Uri> uris) async {
+  @visibleForTesting
+  Future<LocalServer> localConnect(Iterable<Uri> uris) async {
+    final localServer = _localServer;
+    if (localServer != null) {
+      return localServer;
+    }
+
     HttpServer? server;
     late Uri selectedUri;
     for (final uri in uris) {
@@ -180,7 +190,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
             'All ports were blocked: [${uris.map((uri) => uri.port).join(',')}]',
       );
     }
-    return _LocalServer(server, selectedUri);
+    return LocalServer(server, selectedUri);
   }
 
   Future<void> _respond(
@@ -210,16 +220,19 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
       _noSuitableRedirect(signIn: true);
     }
 
-    final localServer = await _localConnect(signInUris);
-    final listenServer = localServer.server;
+    _localServer = await localConnect(signInUris);
     try {
       final signInUrl = getSignInUri(
         provider: provider,
-        redirectUri: localServer.uri,
+        redirectUri: _localServer!.uri,
       ).toString();
       await launchUrl(signInUrl);
 
-      await for (final request in listenServer) {
+      final server = _localServer?.server;
+      if (server == null) {
+        return;
+      }
+      await for (final request in server) {
         final method = request.method;
         if (method != 'GET') {
           await _respond(
@@ -260,9 +273,12 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         break;
       }
     } finally {
-      unawaited(listenServer.close(force: true));
+      unawaited(close());
     }
   }
+
+  @override
+  Future<void> cancelSignIn() => close();
 
   @override
   Future<void> signOut({
@@ -277,13 +293,17 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
       _noSuitableRedirect(signIn: false);
     }
 
-    final localServer = await _localConnect(signOutUris);
-    final listenServer = localServer.server;
+    _localServer = await localConnect(signOutUris);
     try {
-      final signOutUri = getSignOutUri(redirectUri: localServer.uri).toString();
+      final signOutUri =
+          getSignOutUri(redirectUri: _localServer!.uri).toString();
       await launchUrl(signOutUri);
 
-      await for (final request in listenServer) {
+      final server = _localServer?.server;
+      if (server == null) {
+        return;
+      }
+      await for (final request in server) {
         final method = request.method;
         if (method != 'GET') {
           await _respond(
@@ -309,13 +329,25 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         break;
       }
     } finally {
-      unawaited(listenServer.close(force: true));
+      unawaited(close());
     }
+  }
+
+  /// Closes the open server, if any.
+  @override
+  Future<void> close() async {
+    await _localServer?.server.close();
+    _localServer = null;
   }
 }
 
-class _LocalServer {
-  _LocalServer(this.server, this.uri);
+/// {@template amplify_auth_cognito_dart.local_server}
+/// A local HTTP server and the port it's listening on.
+/// {@endtemplate}
+@visibleForTesting
+class LocalServer {
+  /// {@macro amplify_auth_cognito_dart.local_server}
+  LocalServer(this.server, this.uri);
 
   /// The HTTP server listening on the port defined by [uri].
   final HttpServer server;

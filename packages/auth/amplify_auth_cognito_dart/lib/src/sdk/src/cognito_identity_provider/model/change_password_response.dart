@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.change_password_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.change_password_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -47,7 +47,7 @@ abstract class ChangePasswordResponse
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
-    _ChangePasswordResponseAwsJson11Serializer()
+    ChangePasswordResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -61,9 +61,9 @@ abstract class ChangePasswordResponse
   }
 }
 
-class _ChangePasswordResponseAwsJson11Serializer
+class ChangePasswordResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ChangePasswordResponse> {
-  const _ChangePasswordResponseAwsJson11Serializer()
+  const ChangePasswordResponseAwsJson11Serializer()
       : super('ChangePasswordResponse');
 
   @override

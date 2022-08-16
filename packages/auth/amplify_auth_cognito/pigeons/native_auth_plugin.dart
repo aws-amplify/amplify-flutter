@@ -83,6 +83,20 @@ abstract class NativeAuthBridge {
   Map<String, String> getValidationData();
 
   String getBundleId();
+
+  /// Updates the native cache of the current user.
+  void updateCurrentUser(NativeAuthUser? user);
+
+  /// Fetch legacy credentials stored by native SDKs.
+  @async
+  LegacyCredentialStoreData getLegacyCredentials(
+    String? identityPoolId,
+    String? appClientId,
+  );
+
+  /// Clears the legacy credential store data.
+  @async
+  void clearLegacyCredentials();
 }
 
 class NativeAuthSession {
@@ -93,6 +107,11 @@ class NativeAuthSession {
 
   String? identityId;
   NativeAWSCredentials? awsCredentials;
+}
+
+class NativeAuthUser {
+  late String userId;
+  late String username;
 }
 
 class NativeUserPoolTokens {
@@ -106,4 +125,15 @@ class NativeAWSCredentials {
   late String secretAccessKey;
   String? sessionToken;
   String? expirationIso8601Utc;
+}
+
+class LegacyCredentialStoreData {
+  String? identityId;
+  String? accessKeyId;
+  String? secretAccessKey;
+  String? sessionToken;
+  int? expirationMsSinceEpoch;
+  String? accessToken;
+  String? refreshToken;
+  String? idToken;
 }

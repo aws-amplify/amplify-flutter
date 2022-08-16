@@ -36,19 +36,6 @@ abstract class CognitoUser implements Built<CognitoUser, CognitoUserBuilder> {
   @BuiltValueHook(finalizeBuilder: true)
   static void _finalize(CognitoUserBuilder b) {
     b.username ??= b.userId!;
-
-    // Assert that all device info is included if any is included.
-    if (b.device != null) {
-      ArgumentError.checkNotNull(b.device, 'device');
-      ArgumentError.checkNotNull(
-        b.deviceSecrets.deviceGroupKey,
-        'deviceGroupKey',
-      );
-      ArgumentError.checkNotNull(
-        b.deviceSecrets.deviceKey,
-        'deviceKey',
-      );
-    }
   }
 
   /// AWS Identity ID
@@ -60,10 +47,8 @@ abstract class CognitoUser implements Built<CognitoUser, CognitoUserBuilder> {
   /// Cognito User Pool tokens
   CognitoUserPoolTokens? get userPoolTokens;
 
-  /// Confirmed device
-  CognitoDevice? get device;
-
   /// Confirmed device secrets
+  @BuiltValueField(autoCreateNestedBuilder: false)
   CognitoDeviceSecrets? get deviceSecrets;
 
   /// Cognito user ID

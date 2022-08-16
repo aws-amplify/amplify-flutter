@@ -60,13 +60,13 @@ class ConfirmSignInPage extends AuthenticatorPage {
 
   /// When I enter a verification code
   Future<void> enterVerificationCode(String code) async {
-    await tester.tap(verificationField);
+    await tester.ensureVisible(verificationField);
     await tester.enterText(verificationField, code);
   }
 
   /// When I enter a new password
   Future<void> enterNewPassword(String password) async {
-    await tester.tap(newPasswordField);
+    await tester.ensureVisible(newPasswordField);
     await tester.enterText(
       newPasswordField,
       password,
@@ -75,7 +75,7 @@ class ConfirmSignInPage extends AuthenticatorPage {
 
   /// When I confirm a new password
   Future<void> enterPasswordConfirmation(String password) async {
-    await tester.tap(confirmNewPasswordField);
+    await tester.ensureVisible(confirmNewPasswordField);
     await tester.enterText(
       confirmNewPasswordField,
       password,

@@ -16,14 +16,12 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_auth_cognito_dart/src/crypto/crypto.dart';
-import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/device/confirm_device_worker.worker.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_helper.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:worker_bee/worker_bee.dart';
-
-import 'confirm_device_worker.worker.dart';
 
 part 'confirm_device_worker.g.dart';
 
@@ -41,9 +39,6 @@ abstract class ConfirmDeviceMessage
   /// The logged-in user's access token.
   String get accessToken;
 
-  /// The logged-in user's access token.
-  String get password;
-
   /// The device metadata issued by Cognito.
   NewDeviceMetadataType get newDeviceMetadata;
 
@@ -52,13 +47,35 @@ abstract class ConfirmDeviceMessage
       _$confirmDeviceMessageSerializer;
 }
 
+/// {@template amplify_auth_cognito.confirm_device_response}
+/// The response items of the [ConfirmDeviceWorker].
+/// {@endtemplate}
+abstract class ConfirmDeviceResponse
+    implements Built<ConfirmDeviceResponse, ConfirmDeviceResponseBuilder> {
+  /// {@macro amplify_auth_cognito.confirm_device_response}
+  factory ConfirmDeviceResponse([
+    void Function(ConfirmDeviceResponseBuilder) updates,
+  ]) = _$ConfirmDeviceResponse;
+  ConfirmDeviceResponse._();
+
+  /// The generated device password.
+  String get devicePassword;
+
+  /// The `ConfirmDevice` request.
+  ConfirmDeviceRequest get request;
+
+  /// The [ConfirmDeviceResponse] serializer.
+  static Serializer<ConfirmDeviceResponse> get serializer =>
+      _$confirmDeviceResponseSerializer;
+}
+
 /// {@template amplify_auth_cognito.confirm_device_worker}
 /// Worker bee for handling the device verifier computations needed to call
 /// `ConfirmDevice` with Cognito.
 /// {@endtemplate}
 @WorkerBee('lib/src/workers/workers.dart')
 abstract class ConfirmDeviceWorker
-    extends WorkerBeeBase<ConfirmDeviceMessage, ConfirmDeviceRequest> {
+    extends WorkerBeeBase<ConfirmDeviceMessage, ConfirmDeviceResponse> {
   /// {@macro amplify_auth_cognito.confirm_device_worker}
   ConfirmDeviceWorker() : super(serializers: _serializers);
 
@@ -66,26 +83,30 @@ abstract class ConfirmDeviceWorker
   factory ConfirmDeviceWorker.create() = ConfirmDeviceWorkerImpl;
 
   @override
-  Future<ConfirmDeviceRequest?> run(
+  Future<ConfirmDeviceResponse?> run(
     Stream<ConfirmDeviceMessage> listen,
-    StreamSink<ConfirmDeviceRequest> respond,
+    StreamSink<ConfirmDeviceResponse> respond,
   ) async {
     await for (final message in listen) {
       final deviceGroupKey = message.newDeviceMetadata.deviceGroupKey;
       final deviceKey = message.newDeviceMetadata.deviceKey;
+      if (deviceGroupKey == null || deviceKey == null) {
+        throw InvalidParameterException(message: 'Missing device metadata');
+      }
 
-      final deviceKeyHash = computeSecretHash(
-        deviceGroupKey!,
-        deviceKey!,
-        message.password,
+      // Generate a random password of 40 bytes per
+      // https://aws.amazon.com/premiumsupport/knowledge-center/cognito-user-pool-remembered-devices/
+      final devicePassword = base64Encode(getRandomBytes(40));
+      final deviceKeyHash = SrpHelper.privateKeyIdentifier(
+        deviceGroupKey,
+        deviceKey,
+        devicePassword,
       );
 
       // Generate a random BigInt
-      final saltBytes = getRandomBytes(16);
-      final salt = decodeBigInt(saltBytes);
-
+      final salt = encodeBigInt(decodeBigInt(getRandomBytes(16)));
       final verifier = SrpHelper.calculateDeviceVerifier(
-        saltBytes,
+        salt,
         deviceKeyHash,
       );
       final request = ConfirmDeviceRequest.build((b) {
@@ -94,9 +115,15 @@ abstract class ConfirmDeviceWorker
           ..deviceKey = deviceKey
           ..deviceSecretVerifierConfig.passwordVerifier =
               base64Encode(encodeBigInt(verifier))
-          ..deviceSecretVerifierConfig.salt = base64Encode(encodeBigInt(salt));
+          ..deviceSecretVerifierConfig.salt = base64Encode(salt);
       });
-      respond.add(request);
+      respond.add(
+        ConfirmDeviceResponse(
+          (b) => b
+            ..request.replace(request)
+            ..devicePassword = devicePassword,
+        ),
+      );
     }
 
     return null;
@@ -106,6 +133,7 @@ abstract class ConfirmDeviceWorker
 /// Serializers for the [ConfirmDeviceWorker] worker.
 @SerializersFor([
   ConfirmDeviceMessage,
+  ConfirmDeviceResponse,
 ])
 final Serializers _serializers = (_$_serializers.toBuilder()
       ..addAll(NewDeviceMetadataType.serializers)

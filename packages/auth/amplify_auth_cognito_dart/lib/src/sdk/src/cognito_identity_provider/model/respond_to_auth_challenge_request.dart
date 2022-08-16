@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.respond_to_auth_challenge_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.respond_to_auth_challenge_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart'
     as _i3;
@@ -70,37 +70,41 @@ abstract class RespondToAuthChallengeRequest
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _RespondToAuthChallengeRequestAwsJson11Serializer()
+    RespondToAuthChallengeRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RespondToAuthChallengeRequestBuilder b) {}
 
-  /// The Amazon Pinpoint analytics metadata for collecting metrics for `RespondToAuthChallenge` calls.
+  /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `RespondToAuthChallenge` calls.
   _i3.AnalyticsMetadataType? get analyticsMetadata;
 
   /// The challenge name. For more information, see [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html).
   ///
-  /// `ADMIN\_NO\_SRP_AUTH` is not a valid value.
+  /// `ADMIN\_NO\_SRP_AUTH` isn't a valid value.
   _i4.ChallengeNameType get challengeName;
 
   /// The challenge responses. These are inputs corresponding to the value of `ChallengeName`, for example:
   ///
-  /// `SECRET_HASH` (if app client is configured with client secret) applies to all inputs below (including `SOFTWARE\_TOKEN\_MFA`).
+  /// `SECRET_HASH` (if app client is configured with client secret) applies to all of the inputs that follow (including `SOFTWARE\_TOKEN\_MFA`).
   ///
   /// *   `SMS_MFA`: `SMS\_MFA\_CODE`, `USERNAME`.
   ///
   /// *   `PASSWORD_VERIFIER`: `PASSWORD\_CLAIM\_SIGNATURE`, `PASSWORD\_CLAIM\_SECRET_BLOCK`, `TIMESTAMP`, `USERNAME`.
   ///
-  /// *   `NEW\_PASSWORD\_REQUIRED`: `NEW_PASSWORD`, any other required attributes, `USERNAME`.
+  ///     `PASSWORD_VERIFIER` requires `DEVICE_KEY` when you sign in with a remembered device.
+  ///
+  /// *   `NEW\_PASSWORD\_REQUIRED`: `NEW_PASSWORD`, `USERNAME`, `SECRET_HASH` (if app client is configured with client secret). To set any required attributes that Amazon Cognito returned as `requiredAttributes` in the `InitiateAuth` response, add a `userAttributes._attributename_` parameter. This parameter can also set values for writable attributes that aren't required by your user pool.
+  ///
+  ///     In a `NEW\_PASSWORD\_REQUIRED` challenge response, you can't modify a required attribute that already has a value. In `RespondToAuthChallenge`, set a value for any keys that Amazon Cognito returned in the `requiredAttributes` parameter, then use the `UpdateUserAttributes` API operation to modify the value of any additional attributes.
   ///
   /// *   `SOFTWARE\_TOKEN\_MFA`: `USERNAME` and `SOFTWARE\_TOKEN\_MFA_CODE` are required attributes.
   ///
   /// *   `DEVICE\_SRP\_AUTH` requires `USERNAME`, `DEVICE_KEY`, `SRP_A` (and `SECRET_HASH`).
   ///
-  /// *   `DEVICE\_PASSWORD\_VERIFIER` requires everything that `PASSWORD_VERIFIER` requires plus `DEVICE_KEY`.
+  /// *   `DEVICE\_PASSWORD\_VERIFIER` requires everything that `PASSWORD_VERIFIER` requires, plus `DEVICE_KEY`.
   ///
-  /// *   `MFA_SETUP` requires `USERNAME`, plus you need to use the session value returned by `VerifySoftwareToken` in the `Session` parameter.
+  /// *   `MFA_SETUP` requires `USERNAME`, plus you must use the session value returned by `VerifySoftwareToken` in the `Session` parameter.
   _i5.BuiltMap<String, String>? get challengeResponses;
 
   /// The app client ID.
@@ -110,21 +114,21 @@ abstract class RespondToAuthChallengeRequest
   ///
   /// You create custom workflows by assigning Lambda functions to user pool triggers. When you use the RespondToAuthChallenge API action, Amazon Cognito invokes any functions that are assigned to the following triggers: _post authentication_, _pre token generation_, _define auth challenge_, _create auth challenge_, and _verify auth challenge_. When Amazon Cognito invokes any of these functions, it passes a JSON payload, which the function receives as input. This payload contains a `clientMetadata` attribute, which provides the data that you assigned to the ClientMetadata parameter in your RespondToAuthChallenge request. In your function code in Lambda, you can process the `clientMetadata` value to enhance your workflow for your specific needs.
   ///
-  /// For more information, see [Customizing User Pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
+  /// For more information, see [Customizing user pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
   ///
-  /// Take the following limitations into consideration when you use the ClientMetadata parameter:
+  /// When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
   ///
-  /// *   Amazon Cognito does not store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration does not include triggers, the ClientMetadata parameter serves no purpose.
+  /// *   Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata parameter serves no purpose.
   ///
-  /// *   Amazon Cognito does not validate the ClientMetadata value.
+  /// *   Validate the ClientMetadata value.
   ///
-  /// *   Amazon Cognito does not encrypt the the ClientMetadata value, so don't use it to provide sensitive information.
+  /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
   _i5.BuiltMap<String, String>? get clientMetadata;
 
-  /// The session which should be passed both ways in challenge-response calls to the service. If `InitiateAuth` or `RespondToAuthChallenge` API call determines that the caller needs to go through another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
+  /// The session that should be passed both ways in challenge-response calls to the service. If `InitiateAuth` or `RespondToAuthChallenge` API call determines that the caller must pass another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
   String? get session;
 
-  /// Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+  /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
   _i6.UserContextDataType? get userContextData;
   @override
   RespondToAuthChallengeRequest getPayload() => this;
@@ -152,9 +156,9 @@ abstract class RespondToAuthChallengeRequest
   }
 }
 
-class _RespondToAuthChallengeRequestAwsJson11Serializer
+class RespondToAuthChallengeRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<RespondToAuthChallengeRequest> {
-  const _RespondToAuthChallengeRequestAwsJson11Serializer()
+  const RespondToAuthChallengeRequestAwsJson11Serializer()
       : super('RespondToAuthChallengeRequest');
 
   @override

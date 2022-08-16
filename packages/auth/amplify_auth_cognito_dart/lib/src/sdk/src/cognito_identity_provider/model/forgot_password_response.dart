@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.forgot_password_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.forgot_password_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/code_delivery_details_type.dart'
     as _i2;
@@ -25,17 +25,17 @@ import 'package:smithy/smithy.dart' as _i3;
 
 part 'forgot_password_response.g.dart';
 
-/// Respresents the response from the server regarding the request to reset a password.
+/// The response from Amazon Cognito to a request to reset a password.
 abstract class ForgotPasswordResponse
     with _i1.AWSEquatable<ForgotPasswordResponse>
     implements Built<ForgotPasswordResponse, ForgotPasswordResponseBuilder> {
-  /// Respresents the response from the server regarding the request to reset a password.
+  /// The response from Amazon Cognito to a request to reset a password.
   factory ForgotPasswordResponse(
       {_i2.CodeDeliveryDetailsType? codeDeliveryDetails}) {
     return _$ForgotPasswordResponse._(codeDeliveryDetails: codeDeliveryDetails);
   }
 
-  /// Respresents the response from the server regarding the request to reset a password.
+  /// The response from Amazon Cognito to a request to reset a password.
   factory ForgotPasswordResponse.build(
           [void Function(ForgotPasswordResponseBuilder) updates]) =
       _$ForgotPasswordResponse;
@@ -48,7 +48,7 @@ abstract class ForgotPasswordResponse
       payload;
 
   static const List<_i3.SmithySerializer> serializers = [
-    _ForgotPasswordResponseAwsJson11Serializer()
+    ForgotPasswordResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -66,9 +66,9 @@ abstract class ForgotPasswordResponse
   }
 }
 
-class _ForgotPasswordResponseAwsJson11Serializer
+class ForgotPasswordResponseAwsJson11Serializer
     extends _i3.StructuredSmithySerializer<ForgotPasswordResponse> {
-  const _ForgotPasswordResponseAwsJson11Serializer()
+  const ForgotPasswordResponseAwsJson11Serializer()
       : super('ForgotPasswordResponse');
 
   @override

@@ -27,7 +27,6 @@ class AuthNextSignInStep<Key extends UserAttributeKey> extends AuthNextStep
     super.additionalInfo,
     super.codeDeliveryDetails,
     required this.signInStep,
-    this.challengeParameters,
     this.missingAttributes = const [],
   });
 
@@ -41,7 +40,6 @@ class AuthNextSignInStep<Key extends UserAttributeKey> extends AuthNextStep
       );
 
   final String signInStep;
-  final Map<String, String>? challengeParameters;
 
   /// Attributes which are required in your backend but have not yet been
   /// provided as part of the sign-in/sign-up flow for this user.
@@ -53,7 +51,6 @@ class AuthNextSignInStep<Key extends UserAttributeKey> extends AuthNextStep
   @override
   List<Object?> get props => [
         signInStep,
-        challengeParameters,
         missingAttributes,
       ];
 

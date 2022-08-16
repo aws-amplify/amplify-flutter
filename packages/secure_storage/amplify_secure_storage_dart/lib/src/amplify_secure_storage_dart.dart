@@ -18,7 +18,6 @@ import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storag
 import 'package:amplify_secure_storage_dart/src/mixins/amplify_secure_storage_mixin.dart';
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_request.dart';
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_worker.dart';
-import 'package:aws_common/aws_common.dart';
 import 'package:worker_bee/worker_bee.dart';
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_dart}
@@ -60,14 +59,22 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
   late final SecureStorageWorker _worker;
   final _workerMemo = AsyncMemoizer<void>();
 
+  void _logWorkerBeeMessage(LogEntry logEntry) {
+    logger.log(
+      logEntry.level,
+      logEntry.message,
+      logEntry.error,
+      logEntry.stackTrace,
+    );
+  }
+
   /// {@template amplify_secure_storage_dart.secure_storage_interface.init}
   /// Initializes the secure storage and performs any work which should be
   /// performed once before any secure storage operations.
   /// {@endtemplate}
   Future<void> _init() => _workerMemo.runOnce(() async {
         _worker = SecureStorageWorker.create();
-        // TODO(dnys1): Log
-        _worker.logs.listen(safePrint);
+        _worker.logs.listen(_logWorkerBeeMessage);
         await _worker.spawn();
         _worker.add(
           SecureStorageRequest.init(config: config),

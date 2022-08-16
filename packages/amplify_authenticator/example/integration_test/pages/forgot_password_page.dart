@@ -37,6 +37,7 @@ class ForgotPasswordPage extends AuthenticatorPage {
 
   /// When I type a new "username"
   Future<void> enterUsername(String username) async {
+    await tester.ensureVisible(usernameField);
     await tester.enterText(usernameField, username);
   }
 

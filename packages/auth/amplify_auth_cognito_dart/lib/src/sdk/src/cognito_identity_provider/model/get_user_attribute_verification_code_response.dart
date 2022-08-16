@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.get_user_attribute_verification_code_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.get_user_attribute_verification_code_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/code_delivery_details_type.dart'
     as _i2;
@@ -53,7 +53,7 @@ abstract class GetUserAttributeVerificationCodeResponse
       payload;
 
   static const List<_i3.SmithySerializer> serializers = [
-    _GetUserAttributeVerificationCodeResponseAwsJson11Serializer()
+    GetUserAttributeVerificationCodeResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -72,9 +72,9 @@ abstract class GetUserAttributeVerificationCodeResponse
   }
 }
 
-class _GetUserAttributeVerificationCodeResponseAwsJson11Serializer extends _i3
+class GetUserAttributeVerificationCodeResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<GetUserAttributeVerificationCodeResponse> {
-  const _GetUserAttributeVerificationCodeResponseAwsJson11Serializer()
+  const GetUserAttributeVerificationCodeResponseAwsJson11Serializer()
       : super('GetUserAttributeVerificationCodeResponse');
 
   @override

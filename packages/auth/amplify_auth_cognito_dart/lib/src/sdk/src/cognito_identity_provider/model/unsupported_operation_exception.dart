@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.unsupported_operation_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.unsupported_operation_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,7 +23,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'unsupported_operation_exception.g.dart';
 
-/// This exception is thrown when you attempt to perform an operation that is not enabled for the user pool client.
+/// Exception that is thrown when you attempt to perform an operation that isn't enabled for the user pool client.
 abstract class UnsupportedOperationException
     with
         _i1.AWSEquatable<UnsupportedOperationException>
@@ -31,12 +31,12 @@ abstract class UnsupportedOperationException
         Built<UnsupportedOperationException,
             UnsupportedOperationExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// This exception is thrown when you attempt to perform an operation that is not enabled for the user pool client.
+  /// Exception that is thrown when you attempt to perform an operation that isn't enabled for the user pool client.
   factory UnsupportedOperationException({String? message}) {
     return _$UnsupportedOperationException._(message: message);
   }
 
-  /// This exception is thrown when you attempt to perform an operation that is not enabled for the user pool client.
+  /// Exception that is thrown when you attempt to perform an operation that isn't enabled for the user pool client.
   factory UnsupportedOperationException.build(
           [void Function(UnsupportedOperationExceptionBuilder) updates]) =
       _$UnsupportedOperationException;
@@ -52,7 +52,7 @@ abstract class UnsupportedOperationException
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _UnsupportedOperationExceptionAwsJson11Serializer()
+    UnsupportedOperationExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -83,9 +83,9 @@ abstract class UnsupportedOperationException
   }
 }
 
-class _UnsupportedOperationExceptionAwsJson11Serializer
+class UnsupportedOperationExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UnsupportedOperationException> {
-  const _UnsupportedOperationExceptionAwsJson11Serializer()
+  const UnsupportedOperationExceptionAwsJson11Serializer()
       : super('UnsupportedOperationException');
 
   @override

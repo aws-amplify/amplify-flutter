@@ -45,11 +45,11 @@ void main() {
 
   group('preamble', () {
     test('bad assignment', () {
-      badAssignmentTest('packages/e2e_test/no_workers.js');
+      badAssignmentTest('packages/e2e/no_workers.debug.dart.js');
     });
 
     test('bad assignment (m, O4)', () {
-      badAssignmentTest('packages/e2e_test/no_workers.min.js');
+      badAssignmentTest('packages/e2e/no_workers.release.dart.js');
     });
   });
 }

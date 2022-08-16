@@ -135,8 +135,8 @@ class _WorkerBee {
 
   static const _url = 'package:worker_bee/worker_bee.dart';
 
-  /// Creates a [worker_bee.LogMessage] reference.
-  Reference get logMessage => const Reference('LogMessage', _url);
+  /// Creates a [worker_bee.LogEntry] reference.
+  Reference get logEntry => const Reference('LogEntry', _url);
 
   /// Creates a [worker_bee.runHive] reference.
   Reference get runHive => const Reference('runHive', _url);

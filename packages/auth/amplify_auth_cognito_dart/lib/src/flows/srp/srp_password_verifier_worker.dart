@@ -18,6 +18,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_helper.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_password_verifier_worker.worker.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:built_collection/built_collection.dart';
@@ -25,8 +26,6 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:intl/intl.dart';
 import 'package:worker_bee/worker_bee.dart';
-
-import 'srp_password_verifier_worker.worker.dart';
 
 part 'srp_password_verifier_worker.g.dart';
 
@@ -113,14 +112,14 @@ abstract class SrpPasswordVerifierWorker extends WorkerBeeBase<
       final formattedTimestamp = _dateFormat.format(timestamp);
 
       final encodedClaim = SrpHelper.createPasswordClaim(
-        userId,
-        message.parameters,
-        message.initResult,
-        encodedSalt,
-        encodedB,
-        poolName,
-        secretBlock,
-        formattedTimestamp,
+        userId: userId,
+        parameters: message.parameters,
+        initResult: message.initResult,
+        encodedSalt: encodedSalt,
+        encodedB: encodedB,
+        poolName: poolName,
+        secretBlock: secretBlock,
+        formattedTimestamp: formattedTimestamp,
       );
       final response = RespondToAuthChallengeRequest.build((b) {
         b

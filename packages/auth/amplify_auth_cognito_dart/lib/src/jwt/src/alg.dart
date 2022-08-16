@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'key_type.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/key_type.dart';
 
 /// Valid JWT algorthms, as defined by
 /// [RFC 7518](https://datatracker.ietf.org/doc/html/rfc7518#section-3.1).

@@ -1,0 +1,5 @@
+external
+
+# Ensures generated JS outputs are published even if not tracked
+!lib/src/worker/*.js
+!lib/src/worker/*.js.map

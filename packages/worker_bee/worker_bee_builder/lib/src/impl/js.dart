@@ -89,12 +89,37 @@ return ${allocate(DartTypes.awsCommon.zDebugMode)} ? '$_workersJsPath' : '$_mini
   }
 
   Code get _fallbackUrls {
-    return DartTypes.awsCommon.zDebugMode
-        .conditional(
-          literalConstList([_debugWorkersJsPath]),
-          literalConstList([_releaseWorkersJsPath]),
-        )
-        .code;
+    return Block.of([
+      const Code('''
+    // When running in a test, we need to find the `packages` directory which
+    // is symlinked in the root `test/` directory.
+    final baseUri = Uri.base;
+    final basePath = baseUri.pathSegments
+        .takeWhile((segment) => segment != 'test')
+        .map(Uri.encodeComponent)
+        .join('/');
+    final testDir = Uri(
+      scheme: baseUri.scheme,
+      host: baseUri.host,
+      port: baseUri.port,
+      path: '\$basePath/test',
+    );'''),
+      DartTypes.awsCommon.zDebugMode
+          .conditional(
+            literalString(_debugWorkersJsPath),
+            literalString(_releaseWorkersJsPath),
+          )
+          .assignConst('relativePath')
+          .statement,
+      literalList([
+        refer('relativePath'),
+        refer('testDir')
+            .property('resolve')
+            .call([refer('relativePath')])
+            .property('toString')
+            .call([]),
+      ]).returned.statement,
+    ]);
   }
 
   Class get _workerClass => Class(

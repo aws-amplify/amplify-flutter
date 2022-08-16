@@ -23,33 +23,35 @@ class HostedUIFlow: NSObject, ASWebAuthenticationPresentationContextProviding {
     /// Launches `url` in an `ASWebAuthenticationSession`.
     ///
     /// `url` is either the signin or signout URL.
-    @MainActor public func launchUrl(
+    public func launchUrl(
         _ url: String,
         callbackURLScheme: String,
-        preferPrivateSession: Bool
-    ) async throws -> [String: String] {
+        preferPrivateSession: Bool,
+        callback: @escaping (Result<[String: String], HostedUIError>) -> ()
+    ) {
         guard let uri = URL(string: url) else {
-            throw HostedUIError.unknown("Invalid URL: \(url)")
+            callback(.failure(HostedUIError.unknown("Invalid URL: \(url)")))
+            return
         }
-        return try await withCheckedThrowingContinuation { continutation in
-            let session = ASWebAuthenticationSession(url: uri, callbackURLScheme: callbackURLScheme) {
-                callbackURL, error in
-                if let error = error {
-                    continutation.resume(throwing: HostedUIError.fromError(error))
-                    return
-                }
-                guard let callbackURL = callbackURL else {
-                    continutation.resume(throwing: HostedUIError.unknown("Nil callback URL"))
-                    return
-                }
-                let queryParameters = HostedUIFlow.processParameters(callbackURL)
-                continutation.resume(returning: queryParameters)
+        let session = ASWebAuthenticationSession(url: uri, callbackURLScheme: callbackURLScheme) {
+            callbackURL, error in
+            if let error = error {
+                callback(.failure(HostedUIError.fromError(error)))
+                return
             }
+            guard let callbackURL = callbackURL else {
+                callback(.failure(HostedUIError.unknown("Nil callback URL")))
+                return
+            }
+            let queryParameters = HostedUIFlow.processParameters(callbackURL)
+            callback(.success(queryParameters))
+        }
 
-            session.presentationContextProvider = self
-            session.prefersEphemeralWebBrowserSession = preferPrivateSession
+        session.presentationContextProvider = self
+        session.prefersEphemeralWebBrowserSession = preferPrivateSession
+        DispatchQueue.main.async {
             guard session.start() else {
-                continutation.resume(throwing: HostedUIError.unknown("Could not start ASWebAuthenticationSession"))
+                callback(.failure(HostedUIError.unknown("Could not start ASWebAuthenticationSession")))
                 return
             }
         }

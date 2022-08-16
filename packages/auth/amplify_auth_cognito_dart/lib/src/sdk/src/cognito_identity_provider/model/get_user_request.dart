@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.get_user_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.get_user_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -44,13 +44,13 @@ abstract class GetUserRequest
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _GetUserRequestAwsJson11Serializer()
+    GetUserRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetUserRequestBuilder b) {}
 
-  /// The access token returned by the server response to get information about the user.
+  /// A non-expired access token for the user whose information you want to query.
   String get accessToken;
   @override
   GetUserRequest getPayload() => this;
@@ -64,9 +64,9 @@ abstract class GetUserRequest
   }
 }
 
-class _GetUserRequestAwsJson11Serializer
+class GetUserRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<GetUserRequest> {
-  const _GetUserRequestAwsJson11Serializer() : super('GetUserRequest');
+  const GetUserRequestAwsJson11Serializer() : super('GetUserRequest');
 
   @override
   Iterable<Type> get types => const [GetUserRequest, _$GetUserRequest];

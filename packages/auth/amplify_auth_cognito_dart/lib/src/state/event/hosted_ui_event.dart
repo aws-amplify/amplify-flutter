@@ -175,6 +175,7 @@ class HostedUiCancelSignIn extends HostedUiEvent {
     if (currentState.type != HostedUiStateType.signingIn) {
       return const AuthPreconditionException(
         'There is no active sign-in session',
+        shouldEmit: false,
       );
     }
     return null;

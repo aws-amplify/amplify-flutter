@@ -15,6 +15,7 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_stub.dart'
@@ -103,7 +104,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
   @visibleForTesting
   set stateMachine(CognitoAuthStateMachine stateMachine) {
-    if (!zDebugMode) throw StateError('Can only be called in tests');
+    if (!zAssertsEnabled) throw StateError('Can only be called in tests');
     _stateMachine = stateMachine;
   }
 
@@ -117,6 +118,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   /// The Cognito identity pool configuration.
   CognitoIdentityCredentialsProvider? get _identityPoolConfig =>
       _stateMachine.get();
+
+  /// The device metadata repository, used for handling device operations.
+  DeviceMetadataRepository get _deviceRepo =>
+      _stateMachine.getOrCreate(DeviceMetadataRepository.token);
 
   final StreamController<AuthHubEvent> _hubEventController =
       StreamController.broadcast();
@@ -267,15 +272,18 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }) async {
     final options = request?.options as CognitoSignInWithWebUIOptions? ??
         const CognitoSignInWithWebUIOptions();
-    await _stateMachine.dispatch(
-      HostedUiEvent.signIn(
-        options: options,
-        provider: request?.provider,
-      ),
-    );
 
-    await for (final state
-        in _stateMachine.expect(HostedUiStateMachine.type).stream) {
+    // Create a new state machine which will close the previous one and cancel
+    // any pending sign-ins.
+    final stateMachine = _stateMachine.create(HostedUiStateMachine.type)
+      ..dispatch(
+        HostedUiEvent.signIn(
+          options: options,
+          provider: request?.provider,
+        ),
+      );
+
+    await for (final state in stateMachine.stream) {
       switch (state.type) {
         case HostedUiStateType.notConfigured:
         case HostedUiStateType.configuring:
@@ -299,8 +307,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       }
     }
 
-    // This should never happen.
-    throw const UnknownException('signInWithWebUI could not be completed');
+    throw const UserCancelledException('The user cancelled the sign-in flow');
   }
 
   @override
@@ -470,7 +477,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
               codeDeliveryDetails: _getChallengeDeliveryDetails(
                 state.challengeParameters,
               ),
-              challengeParameters: state.challengeParameters,
+              additionalInfo: state.challengeParameters,
               missingAttributes: state.requiredAttributes,
             ),
           );
@@ -502,8 +509,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       }
     }
 
-    // This should never happen.
-    throw const UnknownException('Sign in could not be completed');
+    throw const UserCancelledException('The user cancelled the sign-in flow');
   }
 
   @override
@@ -536,7 +542,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
               codeDeliveryDetails: _getChallengeDeliveryDetails(
                 state.challengeParameters,
               ),
-              challengeParameters: state.challengeParameters,
+              additionalInfo: state.challengeParameters,
               missingAttributes: state.requiredAttributes,
             ),
           );
@@ -694,7 +700,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   Future<CognitoResetPasswordResult> resetPassword({
     required ResetPasswordRequest request,
   }) async {
-    final options = request.options as CognitoResendSignUpCodeOptions?;
+    final options = request.options as CognitoResetPasswordOptions?;
     final result = await _cognitoIdp.forgotPassword(
       cognito.ForgotPasswordRequest.build((b) {
         b
@@ -767,7 +773,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }) async {
     final userPoolTokens = await getUserPoolTokens();
     final userId = userPoolTokens.idToken.userId;
-    final username = CognitoIdToken(userPoolTokens.idToken).username;
+    final username = userPoolTokens.username;
     return AuthUser(
       userId: userId,
       username: username,
@@ -776,21 +782,16 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
   @override
   Future<void> rememberDevice() async {
-    // Use credentials state machine since we need device info as well.
-    final result = await _stateMachine
-        .expect(CredentialStoreStateMachine.type)
-        .getCredentialsResult();
-    final deviceKey = result.data.deviceSecrets?.deviceKey;
+    final tokens = await getUserPoolTokens();
+    final username = tokens.username;
+    final deviceSecrets = await _deviceRepo.get(username);
+    final deviceKey = deviceSecrets?.deviceKey;
     if (deviceKey == null) {
       throw const DeviceNotTrackedException();
     }
-    final accessToken = result.data.userPoolTokens?.accessToken;
-    if (accessToken == null) {
-      throw const SignedOutException('No user is currently signed in');
-    }
     await _cognitoIdp.updateDeviceStatus(
       cognito.UpdateDeviceStatusRequest(
-        accessToken: accessToken.raw,
+        accessToken: tokens.accessToken.raw,
         deviceKey: deviceKey,
         deviceRememberedStatus: cognito.DeviceRememberedStatusType.remembered,
       ),
@@ -799,17 +800,17 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
   @override
   Future<void> forgetDevice([AuthDevice? device]) async {
-    // Use credentials state machine since we need device info as well.
-    final result = await _stateMachine
-        .expect(CredentialStoreStateMachine.type)
-        .getCredentialsResult();
-    final deviceKey = device?.id ?? result.data.deviceSecrets?.deviceKey;
+    final tokens = await getUserPoolTokens();
+    final username = tokens.username;
+    final deviceSecrets = await _deviceRepo.get(username);
+    final deviceKey = device?.id ?? deviceSecrets?.deviceKey;
     if (deviceKey == null) {
       throw const DeviceNotTrackedException();
     }
+    await _deviceRepo.remove(username);
     await _cognitoIdp.forgetDevice(
       cognito.ForgetDeviceRequest(
-        accessToken: result.data.userPoolTokens?.accessToken.raw,
+        accessToken: tokens.accessToken.raw,
         deviceKey: deviceKey,
       ),
     );
@@ -935,6 +936,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     await _stateMachine.dispatch(
       const CredentialStoreEvent.clearCredentials(),
     );
+    await _deviceRepo.remove(tokens.username);
     _hubEventController
       ..add(AuthHubEvent.signedOut())
       ..add(AuthHubEvent.userDeleted());
