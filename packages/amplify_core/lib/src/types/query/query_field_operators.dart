@@ -79,6 +79,22 @@ abstract class QueryFieldOperator<T> {
     // TODO sanitize other types appropriately
     return value;
   }
+
+  /// Gets the correct field to use as a comparison for nested models.
+  ///
+  /// TODO: Remove when codegen supports a `toMap()` method.
+  Object? _getOtherField(Object? other, Object? value) {
+    // if `other` is type Map and `value` is type String, the
+    // only valid query predicate is for a nested model by ID.
+    //
+    // For example: `Comment.POST.eq('post-id-123')`
+    //
+    // Return the ID to use as the comparison field.
+    if (other is Map && value is String) {
+      return other['id'];
+    }
+    return other;
+  }
 }
 
 abstract class QueryFieldOperatorSingleValue<T> extends QueryFieldOperator<T> {
@@ -100,7 +116,8 @@ class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   @override
   bool evaluate(T? other) {
     dynamic serializedValue = serializeDynamicValue(value);
-    return other == serializedValue;
+    final otherField = _getOtherField(other, value);
+    return otherField == serializedValue;
   }
 }
 
@@ -126,7 +143,9 @@ class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
 
   @override
   bool evaluate(T? other) {
-    return other != value;
+    Object? serializedValue = serializeDynamicValue(value);
+    final otherField = _getOtherField(other, value);
+    return otherField != serializedValue;
   }
 }
 

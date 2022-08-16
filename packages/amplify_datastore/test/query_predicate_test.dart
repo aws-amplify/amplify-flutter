@@ -336,6 +336,28 @@ void main() {
         expect(testPredicate.evaluate(stringListTypeModel3), isFalse);
       });
     });
+
+    group('nested models', () {
+      final blog1 = Blog(name: 'Blog 1');
+      final blog2 = Blog(name: 'Blog 1');
+
+      final post1 = Post(title: 'post 1', rating: 1, blog: blog1);
+      final post2 = Post(title: 'post 2', rating: 1, blog: blog1);
+      final post3 = Post(title: 'post 3', rating: 1, blog: blog2);
+      test('equals', () {
+        final testPredicate = Post.BLOG.eq(blog1.id);
+        expect(testPredicate.evaluate(post1), isTrue);
+        expect(testPredicate.evaluate(post2), isTrue);
+        expect(testPredicate.evaluate(post3), isFalse);
+      });
+
+      test('not equals', () {
+        final testPredicate = Post.BLOG.ne(blog1.id);
+        expect(testPredicate.evaluate(post1), isFalse);
+        expect(testPredicate.evaluate(post2), isFalse);
+        expect(testPredicate.evaluate(post3), isTrue);
+      });
+    });
   });
 
   group("query by model identifier predicate", () {});
