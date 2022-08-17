@@ -146,7 +146,9 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
       ..insertAttribute(0, Attributes.key.name, arena: arena);
   }
 
-  /// Creates a [GHashTable] pointer containing the account name.
+  /// Creates a [GHashTable] pointer containing the key.
+  ///
+  /// If no key is provided, an empty [GHashTable] is returned.
   ///
   /// The hash table will be destroyed when the arena releases memory.
   Pointer<GHashTable> _getAttributes({
