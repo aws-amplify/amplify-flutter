@@ -1,4 +1,4 @@
-# ffigen config for glib bindings.
+# ffigen config for gio bindings.
 #
 # To regenerate, run: `make ffi_bindings_linux`
 
