@@ -25,15 +25,17 @@ void main() {
     testOn: 'linux',
     () async {
       // initialize storage and store a value
-      await AmplifySecureStorageDart(
+      final storage = AmplifySecureStorageDart(
         config: AmplifySecureStorageConfig(scope: 'test'),
-      ).write(key: 'key_1', value: 'value_1');
+      );
+      await storage.write(key: 'key_1', value: 'value_1');
 
       // assert value IS NOT cleared when initializing a new instance with an existing scope
-      final value = await AmplifySecureStorageDart(
+      final storage1 = AmplifySecureStorageDart(
         config: AmplifySecureStorageConfig(scope: 'test'),
-      ).read(key: 'key_1');
-      expect(value, isNotNull);
+      );
+      final value1 = await storage1.read(key: 'key_1');
+      expect(value1, isNotNull);
 
       // clear the scope from file storage, simulating an app uninstall on linux
       final appId = await getApplicationId();
@@ -45,10 +47,11 @@ void main() {
       fileStore.writeAll({});
 
       // assert value IS cleared when initializing a new instance with a new scope
-      final value2 = await AmplifySecureStorageDart(
+      final storage2 = AmplifySecureStorageDart(
         config: AmplifySecureStorageConfig(scope: 'test'),
-      ).read(key: 'key_1');
-      expect(value2, isNotNull);
+      );
+      final value2 = await storage2.read(key: 'key_1');
+      expect(value2, isNull);
     },
   );
 }
