@@ -118,9 +118,10 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   void _removeAll() {
     return using((Arena arena) {
       final schema = _getSchema(arena);
+      final attributes = _getAttributes(arena: arena);
       libsecret.secret_password_clearv_sync(
         schema,
-        nullptr,
+        attributes,
         nullptr,
         nullptr,
       );
@@ -149,16 +150,18 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   ///
   /// The hash table will be destroyed when the arena releases memory.
   Pointer<GHashTable> _getAttributes({
-    required String key,
+    String? key,
     required Arena arena,
   }) {
-    final gHashTable = glib.g_hash_table_new(gStrHashPointer, nullptr)
-      ..insertAll(
+    final gHashTable = glib.g_hash_table_new(gStrHashPointer, nullptr);
+    if (key != null) {
+      gHashTable.insertAll(
         {
           Attributes.key.name: key,
         },
         arena: arena,
       );
+    }
     arena.onReleaseAll(() {
       glib.g_hash_table_destroy(gHashTable);
     });
