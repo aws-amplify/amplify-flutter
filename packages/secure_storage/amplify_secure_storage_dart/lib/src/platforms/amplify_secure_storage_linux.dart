@@ -38,9 +38,16 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 
   /// The unique ID of the application.
   ///
-  /// Set during intialization.
+  /// Set during initialization.
   late final String _appId;
 
+  /// Initializes Secure Storage for the current scope.
+  ///
+  /// Checks for an initialization flag in file storage.
+  /// If the flag is not present storage will be cleared
+  /// and then the flag will be set.
+  ///
+  /// Intended to clear storage after an app uninstall & re-install.
   Future<void> _initialize() async {
     _appId = await getApplicationId();
     final appDirectory = await getApplicationSupportPath(_appId);
@@ -115,6 +122,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
     });
   }
 
+  /// Removes all key-value pairs for the current scope.
   void _removeAll() {
     return using((Arena arena) {
       final schema = _getSchema(arena);
@@ -128,12 +136,19 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
     });
   }
 
-  String get _schemaName {
-    final appNamespace = config.linuxOptions.accessGroup ?? _appId;
-    return '${config.defaultNamespace}.$appNamespace';
-  }
+  /// A namespace for the application.
+  ///
+  /// Uses the access group if it is set, otherwise uses
+  /// the App ID.
+  String get _appNameSpace => config.linuxOptions.accessGroup ?? _appId;
 
-  String _createLabel(String key) => '$_schemaName/$key';
+  /// The name of the [SecretSchema] schema.
+  String get _schemaName => '${config.defaultNamespace}.$_appNameSpace';
+
+  /// A label for the current key.
+  ///
+  /// This will be visible to the user in GUI applications.
+  String _createLabel(String key) => '$_appNameSpace/$key';
 
   /// Creates a [SecretSchema] pointer.
   ///
