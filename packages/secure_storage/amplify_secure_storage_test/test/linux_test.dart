@@ -14,6 +14,7 @@
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
+// ignore: invalid_use_of_internal_member
 import 'package:amplify_secure_storage_dart/src/ffi/utils/linux_utils.dart';
 
 import 'package:test/expect.dart';
