@@ -257,33 +257,6 @@ void runScopeAndNamespaceTests(SecureStorageFactory storageFactory) {
     );
 
     test(
-      'The same key with different schema names should not collide',
-      testOn: 'linux',
-      () async {
-        final storageLinux = storageFactory(
-          config: AmplifySecureStorageConfig(
-            scope: 'default',
-            linuxOptions: LinuxSecureStorageOptions(
-              accessGroup: 'testGroup',
-            ),
-            macOSOptions: macOSOptions,
-          ),
-        );
-        await storageLinux.delete(key: key1);
-
-        // write to both storage instances
-        await storage.write(key: key1, value: 'test_write_1');
-        await storageLinux.write(key: key1, value: 'test_write_2');
-
-        // confirm value was written to both storage instances
-        final value1 = await storage.read(key: key1);
-        expect(value1, 'test_write_1');
-        final value2 = await storageLinux.read(key: key1);
-        expect(value2, 'test_write_2');
-      },
-    );
-
-    test(
       'The same key with different schema target name prefixes should not collide',
       testOn: 'windows',
       () async {
