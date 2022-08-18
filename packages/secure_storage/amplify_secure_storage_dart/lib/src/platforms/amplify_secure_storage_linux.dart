@@ -21,14 +21,19 @@ import 'package:amplify_secure_storage_dart/src/ffi/libsecret/libsecret.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/utils/linux_utils.dart';
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
 import 'package:ffi/ffi.dart';
+import 'package:meta/meta.dart';
 
 /// The Linux implementation of [SecureStorageInterface].
 class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   AmplifySecureStorageLinux({
     required super.config,
+    @visibleForTesting String? appId,
   }) {
-    _initialize();
+    _initialize(appId);
   }
+
+  /// The file where the list of scopes will be stored.
+  static const scopeFileName = 'amplify_secure_storage_scopes.json';
 
   /// Initialization Completer.
   ///
@@ -48,18 +53,24 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   /// and then the flag will be set.
   ///
   /// Intended to clear storage after an app uninstall & re-install.
-  Future<void> _initialize() async {
-    _appId = await getApplicationId();
+  Future<void> _initialize(String? appId) async {
+    // if accessGroup is set, do not clear data on init
+    // since it may have been set by another application
+    if (config.linuxOptions.accessGroup != null) {
+      _initializationCompleter.complete();
+      return;
+    }
+    _appId = appId ?? await getApplicationId();
     final appDirectory = await getApplicationSupportPath(_appId);
     final fileStore = FileKeyValueStore(
       directory: appDirectory,
-      fileName: 'amplify_secure_storage_scopes.json',
+      fileName: scopeFileName,
     );
     final isInitialized = await fileStore.containsKey(
       key: config.defaultNamespace,
     );
     if (!isInitialized) {
-      _removeAll();
+      removeAll();
       await fileStore.writeKey(key: config.defaultNamespace, value: true);
     }
     _initializationCompleter.complete();
@@ -123,7 +134,8 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   }
 
   /// Removes all key-value pairs for the current scope.
-  void _removeAll() {
+  @visibleForTesting
+  void removeAll() {
     return using((Arena arena) {
       final schema = _getSchema(arena);
       final attributes = _getAttributes(arena: arena);
