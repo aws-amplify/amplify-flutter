@@ -14,9 +14,9 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/utils.dart';
-import 'package:amplify_api/src/method_channel_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
@@ -25,7 +25,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 final _deepEquals = const DeepCollectionEquality().equals;
 
-class MockAmplifyAPI extends AmplifyAPIMethodChannel {
+class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
     ModelProviderInterface? modelProvider,
   }) : super(modelProvider: modelProvider);
@@ -39,7 +39,6 @@ class MockAmplifyAPI extends AmplifyAPIMethodChannel {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  Amplify = MethodChannelAmplify();
 
   group('with ModelProvider', () {
     setUpAll(() async {
