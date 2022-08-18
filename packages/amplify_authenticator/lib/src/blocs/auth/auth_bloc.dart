@@ -145,9 +145,8 @@ class StateMachineBloc
         if (currentState is! UnauthenticatedState) {
           break;
         }
-        final state = currentState as UnauthenticatedState;
         // do not change state if there is a pending user verification.
-        if (state.pendingVerification) {
+        if (currentState is PendingVerificationCheckState) {
           break;
         }
         return const AuthenticatedState();
@@ -384,7 +383,7 @@ class StateMachineBloc
   Stream<AuthState> _checkUserVerification() async* {
     if (currentState is UnauthenticatedState) {
       final state = (currentState as UnauthenticatedState);
-      _emit(state.withPendingVerification());
+      _emit(PendingVerificationCheckState(step: state.step));
     }
     try {
       var attributeVerificationStatus =
