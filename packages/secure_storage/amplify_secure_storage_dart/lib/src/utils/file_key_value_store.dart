@@ -64,11 +64,11 @@ class FileKeyValueStore {
   Future<void> writeAll(
     Map<String, Object> data,
   ) async {
-    if (!file.existsSync()) {
-      file.createSync(recursive: true);
+    if (!await file.exists()) {
+      await file.create(recursive: true);
     }
     final stringMap = json.encode(data);
-    file.writeAsStringSync(stringMap);
+    await file.writeAsString(stringMap);
   }
 
   /// Reads a single key from storage.
@@ -89,8 +89,8 @@ class FileKeyValueStore {
 
   /// Reads all the key-value pairs from storage.
   Future<Map<String, Object>> readAll() async {
-    if (file.existsSync()) {
-      final stringMap = file.readAsStringSync();
+    if (await file.exists()) {
+      final stringMap = await file.readAsString();
       if (stringMap.isNotEmpty) {
         final Object? data = json.decode(stringMap);
         if (data is Map) {

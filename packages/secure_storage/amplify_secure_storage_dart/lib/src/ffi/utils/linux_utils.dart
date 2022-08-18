@@ -37,11 +37,9 @@ Future<String> getApplicationSupportPath(String appId) async {
       appId,
     ),
   );
-  if (directory.existsSync()) {
-    return directory.path;
+  if (!await directory.exists()) {
+    await directory.create(recursive: true);
   }
-
-  await directory.create(recursive: true);
   return directory.path;
 }
 
