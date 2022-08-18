@@ -381,6 +381,21 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(false);
   }
 
+  /// Sign in with [username], and [password] without a build in form
+  Future<void> customSignIn(String userName, String password) async {
+    if(userName.isEmpty || password.isEmpty) {
+      return;
+    }
+    _setIsBusy(true);
+    AuthSignInData signIn = AuthUsernamePasswordSignInData(
+      username: userName,
+      password: password,
+    );
+    _authBloc.add(AuthSignIn(signIn));
+    await nextBlocEvent();
+    _setIsBusy(false);
+  }
+
   /// Perform sicial sign in with the given provider
   Future<void> signInWithProvider(AuthProvider provider) async {
     _setIsBusy(true);
