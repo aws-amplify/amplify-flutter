@@ -318,10 +318,6 @@ class StateMachineBloc
         if (isSocialSignIn) {
           _emit(const AuthenticatedState());
         } else {
-          if (currentState is UnauthenticatedState) {
-            final state = (currentState as UnauthenticatedState);
-            _emit(state.withPendingVerification());
-          }
           await for (final state in _checkUserVerification()) {
             _emit(state);
           }
@@ -386,6 +382,10 @@ class StateMachineBloc
   }
 
   Stream<AuthState> _checkUserVerification() async* {
+    if (currentState is UnauthenticatedState) {
+      final state = (currentState as UnauthenticatedState);
+      _emit(state.withPendingVerification());
+    }
     try {
       var attributeVerificationStatus =
           await _authService.getAttributeVerificationStatus();
