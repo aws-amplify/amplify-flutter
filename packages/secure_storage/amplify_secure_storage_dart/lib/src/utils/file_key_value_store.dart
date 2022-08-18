@@ -26,7 +26,11 @@ import 'package:path/path.dart' as path;
 @internal
 class FileKeyValueStore {
   /// {@macro amplify_secure_storage_dart.file_key_value_store}
-  FileKeyValueStore({required this.directory, required this.fileName});
+  FileKeyValueStore({
+    required this.directory,
+    required this.fileName,
+    @visibleForTesting this.fs = const local_file.LocalFileSystem(),
+  });
 
   /// The directory of the file.
   final String directory;
@@ -36,14 +40,15 @@ class FileKeyValueStore {
   /// The file will be created if it does not yet exist.
   final String fileName;
 
+  @visibleForTesting
+  final pkg_file.FileSystem fs;
+
   late final File file = fs.file(
     path.join(
       directory,
       fileName,
     ),
   );
-
-  pkg_file.FileSystem fs = const local_file.LocalFileSystem();
 
   /// Writes a single key to storage.
   Future<void> writeKey({
