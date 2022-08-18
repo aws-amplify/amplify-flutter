@@ -62,7 +62,7 @@ void main() {
       Completer<void> establishedCompleter = Completer();
       connection.subscribe(subscriptionRequest, () {
         establishedCompleter.complete();
-      }).listen((event) {});
+      });
 
       expectLater(connection.ready, completes);
       expectLater(establishedCompleter.future, completes);
@@ -76,7 +76,7 @@ void main() {
       Completer<void> establishedCompleter = Completer();
       connection.subscribe(subscriptionRequest, () {
         establishedCompleter.complete();
-      }).listen((event) {});
+      });
       await establishedCompleter.future;
 
       final lastMessage = connection.lastSentMessage;
@@ -88,17 +88,15 @@ void main() {
     });
 
     test('subscribe() should return a subscription stream', () async {
-      Completer<void> establishedCompleter = Completer();
       Completer<String> dataCompleter = Completer();
       final subscription = connection.subscribe(
         subscriptionRequest,
-        () => establishedCompleter.complete(),
+        null,
       );
 
       final streamSub = subscription.listen(
         (event) => dataCompleter.complete(event.data),
       );
-      await expectLater(establishedCompleter.future, completes);
 
       final subscriptionData = await dataCompleter.future;
       expect(subscriptionData, json.encode(mockSubscriptionData));
@@ -106,12 +104,12 @@ void main() {
     });
 
     test('cancel() should send a stop message', () async {
-      Completer<void> establishedCompleter = Completer();
-      final subscription = connection.subscribe(subscriptionRequest, () {
-        establishedCompleter.complete();
-      });
-      final streamSub = subscription.listen((event) {});
-      await establishedCompleter.future;
+      Completer<String> dataCompleter = Completer();
+      final subscription = connection.subscribe(subscriptionRequest, null);
+      final streamSub = subscription.listen(
+        (event) => dataCompleter.complete(event.data),
+      );
+      await dataCompleter.future;
       streamSub.cancel();
       expect(connection.lastSentMessage?.messageType, MessageType.stop);
     });

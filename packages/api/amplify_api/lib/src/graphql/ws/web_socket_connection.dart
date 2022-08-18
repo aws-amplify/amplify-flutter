@@ -72,12 +72,15 @@ class WebSocketConnection implements Closeable {
   @visibleForTesting
   StreamSubscription<WebSocketMessage> getStreamSubscription(
       Stream<dynamic> stream) {
-    return stream
-        .transform(const WebSocketMessageStreamTransformer())
-        .listen(_onData, onError: (Object e) {
-      _connectionError(ApiException('Connection failed.',
-          underlyingException: e.toString()));
-    });
+    return stream.transform(const WebSocketMessageStreamTransformer()).listen(
+      _onData,
+      cancelOnError: true,
+      onError: (Object e) {
+        _connectionError(
+          ApiException('Connection failed.', underlyingException: e.toString()),
+        );
+      },
+    );
   }
 
   /// Connects WebSocket channel to _subscription stream but does not send connection
@@ -92,7 +95,7 @@ class WebSocketConnection implements Closeable {
   }
 
   void _connectionError(ApiException exception) {
-    _connectionReady.completeError(_connectionError);
+    _connectionReady.completeError(exception);
     _channel?.sink.close();
     _resetConnectionInit();
   }
@@ -134,35 +137,54 @@ class WebSocketConnection implements Closeable {
     return ready;
   }
 
+  Future<void> _sendSubscriptionRegistrationMessage<T>(
+      GraphQLRequest<T> request) async {
+    await init(); // no-op if already connected
+    final subscriptionRegistrationMessage =
+        await generateSubscriptionRegistrationMessage(
+      _config,
+      id: request.id,
+      authRepo: _authProviderRepo,
+      request: request,
+    );
+    send(subscriptionRegistrationMessage);
+  }
+
   /// Subscribes to the given GraphQL request. Returns the subscription object,
   /// or throws an [Exception] if there's an error.
   Stream<GraphQLResponse<T>> subscribe<T>(
     GraphQLRequest<T> request,
     void Function()? onEstablished,
   ) {
-    final subscriptionId = uuid();
-
-    // init is no-op if already connected
-    init().then((_) {
-      // Generate and send an authorized subscription registration message.
-      generateSubscriptionRegistrationMessage(
-        _config,
-        id: subscriptionId,
-        authRepo: _authProviderRepo,
-        request: request,
-      ).then(send);
-    });
+    // Create controller for this subscription so we can add errors.
+    late StreamController<GraphQLResponse<T>> controller;
+    controller = StreamController<GraphQLResponse<T>>.broadcast(
+      onCancel: () {
+        _cancel(request.id);
+        controller.close();
+      },
+    );
 
     // Filter incoming messages that have the subscription ID and return as new
     // stream with messages converted to GraphQLResponse<T>.
-    return _messageStream
-        .where((msg) => msg.id == subscriptionId)
+    _messageStream
+        .where((msg) => msg.id == request.id)
         .transform(WebSocketSubscriptionStreamTransformer(
           request,
           onEstablished,
           logger: _logger,
         ))
-        .asBroadcastStream(onCancel: (_) => _cancel(subscriptionId));
+        .listen(
+          controller.add,
+          onError: controller.addError,
+          onDone: controller.close,
+          cancelOnError: true,
+        );
+
+    _sendSubscriptionRegistrationMessage(request)
+        .catchError(controller.addError);
+
+    return controller.stream;
   }
 
   /// Cancels a subscription.
