@@ -142,9 +142,15 @@ class StateMachineBloc
     logger.debug('Handling hub event: ${event.type}');
     switch (event.type) {
       case AuthHubEventType.signedIn:
-        // TODO(Jordan-Nelson): Display app after sign in hub event.
-        // Need requirements for how this impacts verify user.
-        break;
+        if (currentState is! UnauthenticatedState) {
+          break;
+        }
+        final state = currentState as UnauthenticatedState;
+        // do not change state if there is a pending user verification.
+        if (state.pendingVerification) {
+          break;
+        }
+        return const AuthenticatedState();
       case AuthHubEventType.signedOut:
       case AuthHubEventType.sessionExpired:
       case AuthHubEventType.userDeleted:
@@ -312,6 +318,10 @@ class StateMachineBloc
         if (isSocialSignIn) {
           _emit(const AuthenticatedState());
         } else {
+          if (currentState is UnauthenticatedState) {
+            final state = (currentState as UnauthenticatedState);
+            _emit(state.withPendingVerification());
+          }
           await for (final state in _checkUserVerification()) {
             _emit(state);
           }

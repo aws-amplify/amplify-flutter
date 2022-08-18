@@ -34,7 +34,19 @@ class AuthenticatedState extends AuthState {
 @immutable
 class UnauthenticatedState extends AuthState {
   final AuthenticatorStep _step;
-  const UnauthenticatedState({required AuthenticatorStep step}) : _step = step;
+
+  /// A flag to indicate if the current state is pending user
+  /// verification.
+  ///
+  /// Indicates that either Sign In OR Confirm Sign In has completed,
+  /// but it is currently unknown if the user needs to be taken to
+  /// the `veryUser` step or to an authenticated state.
+  final bool pendingVerification;
+
+  const UnauthenticatedState({
+    required AuthenticatorStep step,
+    this.pendingVerification = false,
+  }) : _step = step;
 
   AuthenticatorStep get step => _step;
 
@@ -50,8 +62,19 @@ class UnauthenticatedState extends AuthState {
       UnauthenticatedState(step: AuthenticatorStep.resetPassword);
   static const confirmResetPassword =
       UnauthenticatedState(step: AuthenticatorStep.confirmResetPassword);
+
   static const verifyUser =
       UnauthenticatedState(step: AuthenticatorStep.verifyUser);
+
+  /// Returns the current state, with `pendingVerification` set to true.
+  ///
+  /// Should be used with signIn or confirmSignIn only.
+  UnauthenticatedState withPendingVerification() {
+    return UnauthenticatedState(
+      step: step,
+      pendingVerification: true,
+    );
+  }
 
   @override
   bool operator ==(Object other) =>
