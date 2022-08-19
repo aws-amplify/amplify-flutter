@@ -27,6 +27,9 @@ class _$MacOSSecureStorageOptionsSerializer
       'useDataProtection',
       serializers.serialize(object.useDataProtection,
           specifiedType: const FullType(bool)),
+      'accessible',
+      serializers.serialize(object.accessible,
+          specifiedType: const FullType(KeychainAttributeAccessible)),
     ];
     Object? value;
     value = object.accessGroup;
@@ -59,6 +62,11 @@ class _$MacOSSecureStorageOptionsSerializer
           result.accessGroup = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'accessible':
+          result.accessible = serializers.deserialize(value,
+                  specifiedType: const FullType(KeychainAttributeAccessible))!
+              as KeychainAttributeAccessible;
+          break;
       }
     }
 
@@ -71,16 +79,22 @@ class _$MacOSSecureStorageOptions extends MacOSSecureStorageOptions {
   final bool useDataProtection;
   @override
   final String? accessGroup;
+  @override
+  final KeychainAttributeAccessible accessible;
 
   factory _$MacOSSecureStorageOptions(
           [void Function(MacOSSecureStorageOptionsBuilder)? updates]) =>
       (new MacOSSecureStorageOptionsBuilder()..update(updates))._build();
 
   _$MacOSSecureStorageOptions._(
-      {required this.useDataProtection, this.accessGroup})
+      {required this.useDataProtection,
+      this.accessGroup,
+      required this.accessible})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         useDataProtection, r'MacOSSecureStorageOptions', 'useDataProtection');
+    BuiltValueNullFieldError.checkNotNull(
+        accessible, r'MacOSSecureStorageOptions', 'accessible');
   }
 
   @override
@@ -97,19 +111,23 @@ class _$MacOSSecureStorageOptions extends MacOSSecureStorageOptions {
     if (identical(other, this)) return true;
     return other is MacOSSecureStorageOptions &&
         useDataProtection == other.useDataProtection &&
-        accessGroup == other.accessGroup;
+        accessGroup == other.accessGroup &&
+        accessible == other.accessible;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, useDataProtection.hashCode), accessGroup.hashCode));
+    return $jf($jc(
+        $jc($jc(0, useDataProtection.hashCode), accessGroup.hashCode),
+        accessible.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'MacOSSecureStorageOptions')
           ..add('useDataProtection', useDataProtection)
-          ..add('accessGroup', accessGroup))
+          ..add('accessGroup', accessGroup)
+          ..add('accessible', accessible))
         .toString();
   }
 }
@@ -128,6 +146,11 @@ class MacOSSecureStorageOptionsBuilder
   String? get accessGroup => _$this._accessGroup;
   set accessGroup(String? accessGroup) => _$this._accessGroup = accessGroup;
 
+  KeychainAttributeAccessible? _accessible;
+  KeychainAttributeAccessible? get accessible => _$this._accessible;
+  set accessible(KeychainAttributeAccessible? accessible) =>
+      _$this._accessible = accessible;
+
   MacOSSecureStorageOptionsBuilder();
 
   MacOSSecureStorageOptionsBuilder get _$this {
@@ -135,6 +158,7 @@ class MacOSSecureStorageOptionsBuilder
     if ($v != null) {
       _useDataProtection = $v.useDataProtection;
       _accessGroup = $v.accessGroup;
+      _accessible = $v.accessible;
       _$v = null;
     }
     return this;
@@ -161,7 +185,9 @@ class MacOSSecureStorageOptionsBuilder
                 useDataProtection,
                 r'MacOSSecureStorageOptions',
                 'useDataProtection'),
-            accessGroup: accessGroup);
+            accessGroup: accessGroup,
+            accessible: BuiltValueNullFieldError.checkNotNull(
+                accessible, r'MacOSSecureStorageOptions', 'accessible'));
     replace(_$result);
     return _$result;
   }
