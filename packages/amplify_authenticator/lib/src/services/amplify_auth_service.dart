@@ -270,8 +270,15 @@ class AmplifyAuthService implements AuthService {
   }
 
   @override
-  Stream<AuthHubEvent> get hubEvents =>
-      Amplify.Hub.availableStreams[HubChannel.Auth]!.cast();
+  Stream<AuthHubEvent> get hubEvents async* {
+    // Auth channel will be null until configuration completes
+    await Amplify.asyncConfig;
+    await for (final event in Amplify.Hub.availableStreams[HubChannel.Auth]!) {
+      if (event is AuthHubEvent) {
+        yield event;
+      }
+    }
+  }
 }
 
 class GetAttributeVerificationStatusResult {
