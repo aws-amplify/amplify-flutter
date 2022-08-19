@@ -20,6 +20,8 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:async/async.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 part 'auth_event.dart';
 
@@ -62,16 +64,25 @@ class StateMachineBloc {
     required this.preferPrivateSession,
     this.initialStep = AuthenticatorStep.signIn,
   }) : _authService = authService {
-    _subscription =
-        _authEventStream.asyncExpand(_eventTransformer).listen((state) {
-      _controllerSink.add(state);
-      _currentState = state;
-    });
+    final blocStream = _authEventStream.asyncExpand(_eventTransformer);
+    final hubStream =
+        _authService.hubEvents.map(_mapHubEvent).whereType<AuthState>();
+    final mergedStream = StreamGroup<AuthState>()
+      ..add(blocStream)
+      ..add(hubStream)
+      ..close();
+    _subscription = mergedStream.stream.listen(_emit);
   }
 
   /// Adds an event to the Bloc.
   void add(AuthEvent event) {
     _authEventController.add(event);
+  }
+
+  /// Emits a new state to the bloc.
+  void _emit(AuthState state) {
+    _controllerSink.add(state);
+    _currentState = state;
   }
 
   /// Manages exception events separate from the bloc's state.
@@ -116,6 +127,30 @@ class StateMachineBloc {
     } else if (event is AuthResendSignUpCode) {
       yield* _resendSignUpCode(event.username);
     }
+  }
+
+  /// Listens for asynchronous events which occurred outside the control of the
+  /// [Authenticator] and [StateMachineBloc].
+  AuthState? _mapHubEvent(AuthHubEvent event) {
+    switch (event.eventName) {
+      case 'SIGNED_IN':
+        if (currentState is! UnauthenticatedState) {
+          break;
+        }
+        // do not change state if there is a pending user verification.
+        if (currentState is PendingVerificationCheckState) {
+          break;
+        }
+        return const AuthenticatedState();
+      case 'SIGNED_OUT':
+      case 'SESSION_EXPIRED':
+      case 'USER_DELETED':
+        if (_currentState is AuthenticatedState) {
+          return UnauthenticatedState(step: initialStep);
+        }
+        break;
+    }
+    return null;
   }
 
   Stream<AuthState> _authLoad() async* {
@@ -331,6 +366,10 @@ class StateMachineBloc {
   }
 
   Stream<AuthState> _checkUserVerification() async* {
+    if (currentState is UnauthenticatedState) {
+      final state = (currentState as UnauthenticatedState);
+      _emit(PendingVerificationCheckState(step: state.step));
+    }
     try {
       var attributeVerificationStatus =
           await _authService.getAttributeVerificationStatus();

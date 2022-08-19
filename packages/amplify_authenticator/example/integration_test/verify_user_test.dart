@@ -17,6 +17,7 @@
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/verify-user.feature
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +79,9 @@ void main() {
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
 
+      // Wait for verify user state
+      await verifyUserPage.expectState(UnauthenticatedState.verifyUser);
+
       // Then I see "Account recovery requires verified contact information"
       verifyUserPage.expectTitleIsVisible();
     });
@@ -101,6 +105,9 @@ void main() {
 
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
+
+      // Wait for verify user state
+      await verifyUserPage.expectState(UnauthenticatedState.verifyUser);
 
       // And I click the "Skip" button
       await verifyUserPage.tapSkipButton();
@@ -132,6 +139,9 @@ void main() {
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
 
+      // Wait for verify user state
+      await verifyUserPage.expectState(UnauthenticatedState.verifyUser);
+
       // And I see "Account recovery requires verified contact information"
       verifyUserPage.expectTitleIsVisible();
 
@@ -143,6 +153,25 @@ void main() {
 
       // Then I see "Code"
       confirmVerifyUserPage.expectCodeFieldIsPresent();
+    });
+
+    testWidgets('Auth.signIn does not redirect to "Verify" page',
+        (tester) async {
+      SignInPage signInPage = SignInPage(tester: tester);
+      await loadAuthenticator(tester: tester, authenticator: authenticator);
+
+      final username = generateEmail();
+      final password = generatePassword();
+
+      await adminCreateUser(username, password, autoConfirm: true);
+
+      // When I sign in with username and password.
+      await Amplify.Auth.signIn(username: username, password: password);
+
+      await tester.pumpAndSettle();
+
+      // Then I see "Sign out"
+      await signInPage.expectAuthenticated();
     });
   });
 }
