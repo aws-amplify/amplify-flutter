@@ -27,15 +27,11 @@ class ApiException extends AmplifyException {
 
   /// {@macro api_exception}
   const ApiException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
     this.httpStatusCode,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
+  });
 
   /// Constructor for down casting an AmplifyException to this exception
   ApiException._private(

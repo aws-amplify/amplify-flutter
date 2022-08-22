@@ -22,7 +22,7 @@ import 'package:smithy/smithy.dart';
 /// An exception originating within the Authenticator as part of the sign up/
 /// sign in flow.
 /// {@endtemplate}
-class AuthenticatorException implements Exception {
+class AuthenticatorException extends AmplifyException {
   /// {@macro amplify_authenticator.authenticator_exception}
   factory AuthenticatorException(
     Object exception, {
@@ -51,23 +51,15 @@ class AuthenticatorException implements Exception {
 
   /// {@macro amplify_authenticator.authenticator_exception}
   const AuthenticatorException._(
-    this.message, {
+    super.message, {
     this.showBanner = true,
     Object? underlyingException,
-  }) : underlyingException = underlyingException ?? message;
+  }) : super(underlyingException: underlyingException ?? message);
 
   static const _unknownMessage = 'An unknown error occurred';
 
-  /// A message passed from the server, or generated locally, which can be
-  /// presented to users.
-  final String message;
-
   /// Whether to show a banner for this exception.
   final bool showBanner;
-
-  /// The underlying exception which may not be sanitized for presentation to
-  /// users.
-  final Object underlyingException;
 
   const AuthenticatorException.customAuth()
       : this._(

@@ -323,7 +323,6 @@ class _SecurityFrameworkError {
 
   /// Maps the error to a [SecureStorageException].
   SecureStorageException toSecureStorageException() {
-    final underlyingException = toString();
     switch (code) {
       case errSecItemNotFound:
         // A missing recovery is used because this should be caught
@@ -331,7 +330,7 @@ class _SecurityFrameworkError {
         return ItemNotFoundException(
           'Them item was not found in the keychain.',
           recoverySuggestion: SecureStorageException.missingRecovery,
-          underlyingException: underlyingException,
+          underlyingException: this,
         );
       case errSecDuplicateItem:
         // A missing recovery is used because this should be caught
@@ -339,7 +338,7 @@ class _SecurityFrameworkError {
         return DuplicateItemException(
           'The item is already present in the keychain.',
           recoverySuggestion: SecureStorageException.missingRecovery,
-          underlyingException: underlyingException,
+          underlyingException: this,
         );
       case errSecUserCanceled:
       case errSecAuthFailed:
@@ -348,7 +347,7 @@ class _SecurityFrameworkError {
           'Could not access the items in the keychain.',
           recoverySuggestion:
               'Ensure that the keychain is available and unlocked.',
-          underlyingException: underlyingException,
+          underlyingException: this,
         );
       case errSecMissingEntitlement:
         // TODO(Jordan-Nelson): point to amplify documentation when available.
@@ -358,13 +357,13 @@ class _SecurityFrameworkError {
         return AccessDeniedException(
           'Could not access the items in the keychain due to a missing entitlement.',
           recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
+          underlyingException: this,
         );
       default:
         return UnknownException(
           'An unknown exception occurred.',
           recoverySuggestion: SecureStorageException.missingRecovery,
-          underlyingException: underlyingException,
+          underlyingException: this,
         );
     }
   }

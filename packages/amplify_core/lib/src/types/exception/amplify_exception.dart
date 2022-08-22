@@ -16,8 +16,10 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+/// {@template amplify_core.amplify_exception}
 /// Thrown from top level Amplify APIs from the amplify-flutter package.
 /// All other Amplify APIs throw subclasses of AmplifyException.
+/// {@endtemplate}
 @immutable
 class AmplifyException
     with AWSEquatable<AmplifyException>
@@ -29,15 +31,17 @@ class AmplifyException
   final String? recoverySuggestion;
 
   /// Underlying cause of this exception helpful for debugging.
-  // TODO(dnys1): Migrate to `Exception` type when DataStore codegen can be fixed.
-  final String? underlyingException;
+  final Object? underlyingException;
 
   @override
   List<Object?> get props => [message, recoverySuggestion, underlyingException];
 
-  /// Named constructor
-  const AmplifyException(this.message,
-      {this.recoverySuggestion, this.underlyingException});
+  /// {@macro amplify_core.amplify_exception}
+  const AmplifyException(
+    this.message, {
+    this.recoverySuggestion,
+    this.underlyingException,
+  });
 
   /// Instantiates and return a new `AmplifyException` from the
   /// serialized exception data

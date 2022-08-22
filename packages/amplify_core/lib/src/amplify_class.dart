@@ -99,7 +99,7 @@ abstract class AmplifyClass {
         'The provided configuration is not a valid json. Check underlyingException.',
         recoverySuggestion:
             'Inspect your amplifyconfiguration.dart and ensure that the string is proper json',
-        underlyingException: e.toString(),
+        underlyingException: e,
       );
     }
 

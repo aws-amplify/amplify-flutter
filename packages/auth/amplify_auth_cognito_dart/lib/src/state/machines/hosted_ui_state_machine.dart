@@ -49,7 +49,8 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
     final result = await getOrCreate(CredentialStoreStateMachine.type)
         .getCredentialsResult();
     final userPoolTokens = result.data.userPoolTokens;
-    if (userPoolTokens != null) {
+    if (userPoolTokens != null &&
+        userPoolTokens.signInMethod == CognitoSignInMethod.hostedUi) {
       emit(HostedUiState.signedIn(userPoolTokens.authUser));
       return;
     }
