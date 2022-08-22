@@ -11,15 +11,17 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide InternalErrorException;
+import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_iam_auth_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/util/cognito_user_pools_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
+import '../common/mock_config.dart';
 import '../common/mock_secure_storage.dart';
 
 AWSHttpRequest _generateTestRequest() {
@@ -29,78 +31,196 @@ AWSHttpRequest _generateTestRequest() {
   );
 }
 
-/// Returns dummy AWS credentials.
-class TestAmplifyAuth extends AmplifyAuthCognitoDart {
+/// Mock implementation of user pool only error when trying to get credentials.
+class TestAmplifyAuthUserPoolOnly extends AmplifyAuthCognitoDart {
   @override
   Future<CognitoAuthSession> fetchAuthSession({
     required AuthSessionRequest<AuthSessionOptions> request,
   }) async {
-    return const CognitoAuthSession(
+    final options = request.options as CognitoSessionOptions?;
+    final getAWSCredentials = options?.getAWSCredentials;
+    if (getAWSCredentials != null && getAWSCredentials) {
+      throw const InvalidAccountTypeException.noIdentityPool(
+        recoverySuggestion:
+            'Register an identity pool using the CLI or set getAWSCredentials '
+            'to false',
+      );
+    }
+    return CognitoAuthSession(
       isSignedIn: true,
-      credentials: AWSCredentials('fakeKeyId', 'fakeSecret'),
+      userPoolTokens: CognitoUserPoolTokens(
+        accessToken: accessToken,
+        idToken: idToken,
+        refreshToken: refreshToken,
+      ),
     );
   }
 }
 
 void main() {
-  test(
-    'AmplifyAuthCognitoDart plugin registers auth providers during addPlugin',
-    () async {
-      final plugin = AmplifyAuthCognitoDart(
-        credentialStorage: MockSecureStorage(),
-      );
+  late AmplifyAuthCognitoDart plugin;
+  late AmplifyAuthProviderRepository testAuthRepo;
 
-      final testAuthRepo = AmplifyAuthProviderRepository();
-      await plugin.addPlugin(authProviderRepo: testAuthRepo);
+  setUpAll(() async {
+    testAuthRepo = AmplifyAuthProviderRepository();
+    final secureStorage = MockSecureStorage();
+    final stateMachine = CognitoAuthStateMachine()..addInstance(secureStorage);
+    plugin = AmplifyAuthCognitoDart(credentialStorage: secureStorage)
+      ..stateMachine = stateMachine;
+
+    seedStorage(
+      secureStorage,
+      userPoolKeys: CognitoUserPoolKeys(userPoolConfig),
+      identityPoolKeys: CognitoIdentityPoolKeys(identityPoolConfig),
+    );
+
+    await plugin.configure(
+      config: mockConfig,
+      authProviderRepo: testAuthRepo,
+    );
+  });
+
+  group(
+      'AmplifyAuthCognitoDart plugin registers auth providers during configuration',
+      () {
+    test('registers CognitoIamAuthProvider', () async {
       final authProvider = testAuthRepo.getAuthProvider(
         APIAuthorizationType.iam.authProviderToken,
       );
       expect(authProvider, isA<CognitoIamAuthProvider>());
-    },
-  );
-
-  group('CognitoIamAuthProvider', () {
-    setUpAll(() async {
-      await Amplify.addPlugin(TestAmplifyAuth());
     });
 
-    test('gets AWS credentials from Amplify.Auth.fetchAuthSession', () async {
-      const authProvider = CognitoIamAuthProvider();
-      final credentials = await authProvider.retrieve();
-      expect(credentials.accessKeyId, isNotNull);
-      expect(credentials.secretAccessKey, isNotNull);
+    test('registers CognitoUserPoolsAuthProvider', () async {
+      final authProvider = testAuthRepo.getAuthProvider(
+        APIAuthorizationType.userPools.authProviderToken,
+      );
+      expect(authProvider, isA<CognitoUserPoolsAuthProvider>());
     });
+  });
 
-    test('signs a request when calling authorizeRequest', () async {
-      const authProvider = CognitoIamAuthProvider();
-      final authorizedRequest = await authProvider.authorizeRequest(
-        _generateTestRequest(),
-        options: const IamAuthProviderOptions(
-          region: 'us-east-1',
-          service: AWSService.appSync,
+  group('no auth plugin added', () {
+    test('CognitoIamAuthProvider throws when trying to authorize a request',
+        () async {
+      final authProvider = CognitoIamAuthProvider();
+      await expectLater(
+        authProvider.authorizeRequest(
+          _generateTestRequest(),
+          options: const IamAuthProviderOptions(
+            region: 'us-east-1',
+            service: AWSService.appSync,
+          ),
         ),
-      );
-      // Note: not intended to be complete test of sigv4 algorithm.
-      expect(authorizedRequest.headers[AWSHeaders.authorization], isNotEmpty);
-      const userAgentHeader =
-          zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
-      expect(
-        authorizedRequest.headers[AWSHeaders.host],
-        isNotEmpty,
-        skip: zIsWeb,
-      );
-      expect(
-        authorizedRequest.headers[userAgentHeader],
-        contains('aws-sigv4'),
+        throwsA(isA<AmplifyException>()),
       );
     });
 
-    test('throws when no options provided', () async {
-      const authProvider = CognitoIamAuthProvider();
+    test('CognitoUserPoolsAuthProvider throws when trying to authorize request',
+        () async {
+      final authProvider = CognitoUserPoolsAuthProvider();
       await expectLater(
         authProvider.authorizeRequest(_generateTestRequest()),
-        throwsA(isA<AuthException>()),
+        throwsA(isA<AmplifyException>()),
       );
+    });
+  });
+
+  group('auth providers defined in auth plugin', () {
+    setUpAll(() async {
+      await Amplify.reset();
+      await Amplify.addPlugin(plugin);
+    });
+
+    group('CognitoIamAuthProvider', () {
+      test('gets AWS credentials from Amplify.Auth.fetchAuthSession', () async {
+        final authProvider = CognitoIamAuthProvider();
+        final credentials = await authProvider.retrieve();
+        expect(credentials.accessKeyId, isA<String>());
+        expect(credentials.secretAccessKey, isA<String>());
+      });
+
+      test('signs a request when calling authorizeRequest', () async {
+        final authProvider = CognitoIamAuthProvider();
+        final authorizedRequest = await authProvider.authorizeRequest(
+          _generateTestRequest(),
+          options: const IamAuthProviderOptions(
+            region: 'us-east-1',
+            service: AWSService.appSync,
+          ),
+        );
+        // Note: not intended to be complete test of sigv4 algorithm.
+        expect(authorizedRequest.headers[AWSHeaders.authorization], isNotEmpty);
+        const userAgentHeader =
+            zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
+        expect(
+          authorizedRequest.headers[AWSHeaders.host],
+          isNotEmpty,
+          skip: zIsWeb,
+        );
+        expect(
+          authorizedRequest.headers[userAgentHeader],
+          contains('aws-sigv4'),
+        );
+      });
+
+      test('throws when no options provided', () async {
+        final authProvider = CognitoIamAuthProvider();
+        await expectLater(
+          authProvider.authorizeRequest(_generateTestRequest()),
+          throwsA(isA<AuthException>()),
+        );
+      });
+    });
+
+    group('CognitoUserPoolsAuthProvider', () {
+      test('gets raw access token from Amplify.Auth.fetchAuthSession',
+          () async {
+        final authProvider = CognitoUserPoolsAuthProvider();
+        final token = await authProvider.getLatestAuthToken();
+        expect(token, accessToken.raw);
+      });
+
+      test('adds access token to header when calling authorizeRequest',
+          () async {
+        final authProvider = CognitoUserPoolsAuthProvider();
+        final authorizedRequest = await authProvider.authorizeRequest(
+          _generateTestRequest(),
+        );
+        expect(
+          authorizedRequest.headers[AWSHeaders.authorization],
+          accessToken.raw,
+        );
+      });
+    });
+  });
+
+  group('auth providers with user pool-only configuration', () {
+    setUpAll(() async {
+      await Amplify.reset();
+      await Amplify.addPlugin(TestAmplifyAuthUserPoolOnly());
+    });
+
+    group('CognitoIamAuthProvider', () {
+      test('throws when trying to retrieve credentials', () async {
+        final authProvider = CognitoIamAuthProvider();
+        await expectLater(
+          authProvider.retrieve(),
+          throwsA(isA<InvalidAccountTypeException>()),
+        );
+      });
+    });
+
+    group('CognitoUserPoolsAuthProvider', () {
+      test('adds access token to header when calling authorizeRequest',
+          () async {
+        final authProvider = CognitoUserPoolsAuthProvider();
+        final authorizedRequest = await authProvider.authorizeRequest(
+          _generateTestRequest(),
+        );
+        expect(
+          authorizedRequest.headers[AWSHeaders.authorization],
+          accessToken.raw,
+        );
+      });
     });
   });
 }
