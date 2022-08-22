@@ -483,7 +483,6 @@ class _AuthenticatorState extends State<Authenticator> {
     _subscribeToInfoMessages();
     _subscribeToSuccessEvents();
     _waitForConfiguration();
-    _setUpHubSubscription();
   }
 
   void _subscribeToExceptions() {
@@ -566,23 +565,6 @@ class _AuthenticatorState extends State<Authenticator> {
     _successSub = _stateMachineBloc.stream.listen((state) {
       if (state is AuthenticatedState) {
         scaffoldMessengerKey.currentState?.removeCurrentMaterialBanner();
-      }
-    });
-  }
-
-  Future<void> _setUpHubSubscription() async {
-    // the stream does not exist until configuration is complete
-    await Amplify.asyncConfig;
-    _hubSubscription =
-        Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) {
-      switch (event.type) {
-        case AuthHubEventType.signedOut:
-          _stateMachineBloc.add(
-            const AuthChangeScreen(AuthenticatorStep.signIn),
-          );
-          break;
-        default:
-          break;
       }
     });
   }
