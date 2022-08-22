@@ -106,7 +106,7 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   //
   // The canonical request URL is a little different depending on if authorizing
   // connection URI or start message (subscription registration).
-  final maybeConnect = isConnectionInit ? '' : '/connect';
+  final maybeConnect = isConnectionInit ? '/connect' : '';
   final canonicalHttpRequest =
       http.Request('POST', Uri.parse('${config.endpoint}$maybeConnect'));
   canonicalHttpRequest.headers.addAll(_requiredHeaders);
