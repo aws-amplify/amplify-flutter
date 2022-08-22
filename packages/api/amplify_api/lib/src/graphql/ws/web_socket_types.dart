@@ -14,12 +14,14 @@
 
 // ignore_for_file: public_member_api_docs
 
+@internal
+library amplify_api.graphql.ws.web_socket_types;
+
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-@internal
 class MessageType {
   final String type;
 
@@ -57,7 +59,6 @@ class MessageType {
 }
 
 @immutable
-@internal
 abstract class WebSocketMessagePayload {
   const WebSocketMessagePayload();
 
@@ -95,7 +96,6 @@ class ConnectionAckMessagePayload extends WebSocketMessagePayload {
       };
 }
 
-@internal
 class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
   final GraphQLRequest request;
   final AWSApiConfig config;
@@ -119,7 +119,6 @@ class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
   }
 }
 
-@internal
 class SubscriptionDataPayload extends WebSocketMessagePayload {
   final Map<String, dynamic>? data;
   final Map<String, dynamic>? errors;
@@ -142,7 +141,6 @@ class SubscriptionDataPayload extends WebSocketMessagePayload {
       };
 }
 
-@internal
 class WebSocketError extends WebSocketMessagePayload implements Exception {
   final List<Map> errors;
 
@@ -160,7 +158,6 @@ class WebSocketError extends WebSocketMessagePayload implements Exception {
 }
 
 @immutable
-@internal
 class WebSocketMessage {
   final String? id;
   final MessageType messageType;
@@ -208,13 +205,11 @@ class WebSocketMessage {
   }
 }
 
-@internal
 class WebSocketConnectionInitMessage extends WebSocketMessage {
   WebSocketConnectionInitMessage()
       : super(messageType: MessageType.connectionInit);
 }
 
-@internal
 class WebSocketSubscriptionRegistrationMessage extends WebSocketMessage {
   WebSocketSubscriptionRegistrationMessage({
     required String id,
@@ -222,7 +217,6 @@ class WebSocketSubscriptionRegistrationMessage extends WebSocketMessage {
   }) : super(messageType: MessageType.start, payload: payload, id: id);
 }
 
-@internal
 class WebSocketStopMessage extends WebSocketMessage {
   WebSocketStopMessage({required String id})
       : super(messageType: MessageType.stop, id: id);

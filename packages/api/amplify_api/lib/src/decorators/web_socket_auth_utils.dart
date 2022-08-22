@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@internal
+library amplify_api.decorators.web_socket_auth_utils;
+
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -22,9 +25,11 @@ import '../graphql/ws/web_socket_types.dart';
 import 'authorize_http_request.dart';
 
 // Constants for header values as noted in https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html.
-const _acceptHeaderValue = 'application/json, text/javascript';
-const _contentEncodingHeaderValue = 'amz-1.0';
-const _contentTypeHeaderValue = 'application/json; charset=UTF-8';
+const _requiredHeaders = {
+  AWSHeaders.accept: 'application/json, text/javascript',
+  AWSHeaders.contentEncoding: 'amz-1.0',
+  AWSHeaders.contentType: 'application/json; charset=UTF-8',
+};
 
 // AppSync expects "{}" encoded in the URI as the payload during handshake.
 const _emptyBody = '{}';
@@ -32,11 +37,11 @@ const _emptyBody = '{}';
 /// Generate a URI for the connection and all subscriptions.
 ///
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#handshake-details-to-establish-the-websocket-connection=
-@internal
 Future<Uri> generateConnectionUri(
     AWSApiConfig config, AmplifyAuthProviderRepository authRepo) async {
   final authorizationHeaders = await _generateAuthorizationHeaders(
     config,
+    isConnectionInit: true,
     authRepo: authRepo,
     body: _emptyBody,
   );
@@ -55,7 +60,6 @@ Future<Uri> generateConnectionUri(
 /// Generate websocket message with authorized payload to register subscription.
 ///
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#subscription-registration-message
-@internal
 Future<WebSocketSubscriptionRegistrationMessage>
     generateSubscriptionRegistrationMessage(
   AWSApiConfig config, {
@@ -65,8 +69,12 @@ Future<WebSocketSubscriptionRegistrationMessage>
 }) async {
   final body =
       jsonEncode({'variables': request.variables, 'query': request.document});
-  final authorizationHeaders = await _generateAuthorizationHeaders(config,
-      authRepo: authRepo, body: body);
+  final authorizationHeaders = await _generateAuthorizationHeaders(
+    config,
+    isConnectionInit: false,
+    authRepo: authRepo,
+    body: body,
+  );
 
   return WebSocketSubscriptionRegistrationMessage(
     id: id,
@@ -82,29 +90,26 @@ Future<WebSocketSubscriptionRegistrationMessage>
 /// are formatted correctly to be either encoded into URI query params or subscription
 /// registration payload headers.
 ///
-/// If body is "{}" then headers are formatted like connection URI. Any other string
-/// for body will be formatted as subscription registration. This is done by creating
+/// If `isConnectionInit` true then headers are formatted like connection URI.
+/// Otherwise body will be formatted as subscription registration. This is done by creating
 /// a canonical HTTP request that is authorized but never sent. The headers from
 /// the HTTP request are reformatted and returned. This logic applies for all auth
 /// modes as determined by [authRepo] parameter.
 Future<Map<String, String>> _generateAuthorizationHeaders(
   AWSApiConfig config, {
+  required bool isConnectionInit,
   required AmplifyAuthProviderRepository authRepo,
   required String body,
 }) async {
   final endpointHost = Uri.parse(config.endpoint).host;
   // Create canonical HTTP request to authorize but never send.
   //
-  // The canonical request URL is a little different depending on if connection_init
-  // or start (subscription registration).
-  final maybeConnect = body != _emptyBody ? '' : '/connect';
+  // The canonical request URL is a little different depending on if authorizing
+  // connection URI or start message (subscription registration).
+  final maybeConnect = isConnectionInit ? '' : '/connect';
   final canonicalHttpRequest =
       http.Request('POST', Uri.parse('${config.endpoint}$maybeConnect'));
-  canonicalHttpRequest.headers.addAll({
-    AWSHeaders.accept: _acceptHeaderValue,
-    AWSHeaders.contentEncoding: _contentEncodingHeaderValue,
-    AWSHeaders.contentType: _contentTypeHeaderValue,
-  });
+  canonicalHttpRequest.headers.addAll(_requiredHeaders);
   canonicalHttpRequest.body = body;
   final authorizedHttpRequest = await authorizeHttpRequest(
     canonicalHttpRequest,
