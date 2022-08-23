@@ -81,7 +81,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
       }
       throw AmplifyException(
         e.message ?? 'An unknown error occurred',
-        underlyingException: e.toString(),
+        underlyingException: e,
       );
     }
   }

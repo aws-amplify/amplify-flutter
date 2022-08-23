@@ -155,7 +155,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
     } on Exception catch (e) {
       throw UrlLauncherException(
         couldNotLaunch,
-        underlyingException: e.toString(),
+        underlyingException: e,
       );
     }
   }

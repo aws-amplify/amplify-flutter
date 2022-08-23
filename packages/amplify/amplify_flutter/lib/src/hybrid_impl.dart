@@ -92,7 +92,7 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
       throw AmplifyException(
         'Amplify plugin ${plugin.runtimeType} was not added successfully.',
         recoverySuggestion: AmplifyExceptionMessages.missingRecoverySuggestion,
-        underlyingException: e.toString(),
+        underlyingException: e,
       );
     }
   }
