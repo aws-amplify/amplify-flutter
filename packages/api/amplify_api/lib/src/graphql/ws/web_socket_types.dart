@@ -20,42 +20,47 @@ library amplify_api.graphql.ws.web_socket_types;
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
-class MessageType {
+enum MessageType {
+  @JsonValue('connection_init')
+  connectionInit('connection_init'),
+
+  @JsonValue('connection_ack')
+  connectionAck('connection_ack'),
+
+  @JsonValue('connection_error')
+  connectionError('connection_error'),
+
+  @JsonValue('start')
+  start('start'),
+
+  @JsonValue('start_ack')
+  startAck('start_ack'),
+
+  @JsonValue('connection_error')
+  error('connection_error'),
+
+  @JsonValue('data')
+  data('data'),
+
+  @JsonValue('stop')
+  stop('stop'),
+
+  @JsonValue('ka')
+  keepAlive('ka'),
+
+  @JsonValue('complete')
+  complete('complete');
+
   final String type;
 
-  const MessageType._(this.type);
+  const MessageType(this.type);
 
-  factory MessageType.fromJson(dynamic json) =>
-      values.firstWhere((el) => json == el.type);
-
-  static const List<MessageType> values = [
-    connectionInit,
-    connectionAck,
-    connectionError,
-    start,
-    startAck,
-    error,
-    data,
-    stop,
-    keepAlive,
-    complete,
-  ];
-
-  static const connectionInit = MessageType._('connection_init');
-  static const connectionAck = MessageType._('connection_ack');
-  static const connectionError = MessageType._('connection_error');
-  static const error = MessageType._('error');
-  static const start = MessageType._('start');
-  static const startAck = MessageType._('start_ack');
-  static const data = MessageType._('data');
-  static const stop = MessageType._('stop');
-  static const keepAlive = MessageType._('ka');
-  static const complete = MessageType._('complete');
-
-  @override
-  String toString() => type;
+  factory MessageType.fromJson(dynamic json) {
+    return MessageType.values.firstWhere((el) => json == el.type);
+  }
 }
 
 @immutable

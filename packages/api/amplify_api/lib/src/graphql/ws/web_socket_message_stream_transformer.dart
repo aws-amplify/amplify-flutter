@@ -86,6 +86,8 @@ class WebSocketSubscriptionStreamTransformer<T>
         case MessageType.complete:
           logger.info('Cancel succeeded for Operation: ${event.id}');
           return;
+        default:
+          break;
       }
     }
   }
