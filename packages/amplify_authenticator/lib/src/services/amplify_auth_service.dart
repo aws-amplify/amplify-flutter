@@ -72,6 +72,8 @@ abstract class AuthService {
   Future<AmplifyConfig> waitForConfiguration();
 
   Future<void> rememberDevice();
+
+  Stream<AuthHubEvent> get hubEvents;
 }
 
 class AmplifyAuthService implements AuthService {
@@ -265,6 +267,17 @@ class AmplifyAuthService implements AuthService {
   @override
   Future<AmplifyConfig> waitForConfiguration() {
     return Amplify.asyncConfig;
+  }
+
+  @override
+  Stream<AuthHubEvent> get hubEvents async* {
+    // Auth channel will be null until configuration completes
+    await Amplify.asyncConfig;
+    await for (final event in Amplify.Hub.availableStreams[HubChannel.Auth]!) {
+      if (event is AuthHubEvent) {
+        yield event;
+      }
+    }
   }
 }
 

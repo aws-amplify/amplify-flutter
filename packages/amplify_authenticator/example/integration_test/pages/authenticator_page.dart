@@ -97,6 +97,15 @@ abstract class AuthenticatorPage {
     expect(inheritedBloc.authBloc.currentState, isA<AuthenticatedState>());
   }
 
+  Future<void> expectState(AuthState state) async {
+    final inheritedBloc =
+        tester.widget<InheritedAuthBloc>(find.byKey(keyInheritedAuthBloc));
+    if (inheritedBloc.authBloc.currentState != state) {
+      await nextBlocEvent(tester);
+    }
+    expect(inheritedBloc.authBloc.currentState, state);
+  }
+
   /// Then I see User not found banner
   Future<void> expectUserNotFound() async => expectError(
         Platform.isAndroid ? 'User not found' : 'User does not exist',
