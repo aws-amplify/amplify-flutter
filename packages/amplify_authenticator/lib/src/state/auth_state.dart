@@ -83,3 +83,21 @@ class ConfirmSignInCustom extends UnauthenticatedState {
     this.publicParameters = const <String, String>{},
   }) : super(step: AuthenticatorStep.confirmSignInCustomAuth);
 }
+
+/// A state that indicates that there is a check to
+/// determine the user's verification state in progress.
+///
+/// This indicates that either Sign In OR Confirm Sign In
+/// has completed, but it is currently unknown if the user needs
+/// to be taken to the `veryUser` step or to an authenticated state
+/// because the call to fetch user attributes is pending.
+class PendingVerificationCheckState extends UnauthenticatedState {
+  const PendingVerificationCheckState({
+    required AuthenticatorStep step,
+  })  : assert(
+          step == AuthenticatorStep.signIn ||
+              step == AuthenticatorStep.confirmSignUp,
+          'Invalid AuthenticatorStep type: $step',
+        ),
+        super(step: step);
+}
