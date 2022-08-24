@@ -16,8 +16,7 @@ import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/config/aws_config_value.dart';
-import 'package:http/http.dart';
-import 'package:http/testing.dart';
+import 'package:aws_common/testing.dart';
 import 'package:smithy/smithy.dart';
 import 'package:smithy_aws/smithy_aws.dart';
 import 'package:test/test.dart';
@@ -28,10 +27,14 @@ void main() {
   group('AWSRetryer', () {
     test('uses x-amz-retry-after header', () async {
       final httpClient = HttpClient.v1(
-        baseClient: MockClient((request) async {
-          return Response('{}', 500, headers: {
-            AWSHeaders.retryAfter: '500',
-          });
+        baseClient: MockAWSHttpClient((request) async {
+          return AWSStreamedHttpResponse(
+            statusCode: 500,
+            headers: {
+              AWSHeaders.retryAfter: '500',
+            },
+            body: HttpPayload.string('{}'),
+          );
         }),
       );
       final retryer = AWSRetryer(

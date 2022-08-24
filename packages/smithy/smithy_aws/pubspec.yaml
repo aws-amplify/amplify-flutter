@@ -15,7 +15,6 @@ dependencies:
   built_value: ^8.0.0
   collection: ^1.15.0
   crclib: ^3.0.0
-  http: ^0.13.4
   intl: ^0.17.0
   json_annotation: ^4.6.0
   meta: ^1.7.0
