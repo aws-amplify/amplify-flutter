@@ -21,14 +21,10 @@ import 'package:amplify_core/amplify_core.dart';
 class AuthException extends AmplifyException {
   /// {@macro amplify_core.auth.auth_exception}
   const AuthException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 
   /// {@template amplify_core.auth.exception_downcasting}
   /// Internal named constructor for downcasting an [AuthException] to this

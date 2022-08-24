@@ -30,7 +30,10 @@ class AmplifyHttpClient extends http.BaseClient {
   final http.Client _baseClient;
 
   late final String _userAgent = [
-    'amplify-flutter/${Amplify.version}',
+    if (zIsFlutter)
+      'amplify-flutter/${Amplify.version}'
+    else
+      'amplify-dart/${Amplify.version}',
     osIdentifier,
   ].join(' ');
 

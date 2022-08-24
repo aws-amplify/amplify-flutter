@@ -40,27 +40,22 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
         let instance = SwiftAuthCognito(nativeAuthPlugin: nativeAuthPlugin)
         NativeAuthBridgeSetup(registrar.messenger(), instance)
     }
-    
+
     public func signIn(
         withUrlUrl url: String,
         callbackUrlScheme: String,
         preferPrivateSession: NSNumber,
-        browserPackageName: String?,
-        completion: @escaping ([String : String]?, FlutterError?) -> Void
-    ) {
-        hostedUIFlow.launchUrl(
-            url,
-            callbackURLScheme: callbackUrlScheme,
-            preferPrivateSession: preferPrivateSession.boolValue
-        ) { result in
-            switch result {
-            case let .success(queryParams):
-                completion(queryParams, nil)
-                return
-            case let .failure(error):
-                completion(nil, error.flutterError)
-                return
-            }
+        browserPackageName: String?
+    ) async -> ([String : String]?, FlutterError?) {
+        do {
+            let queryParameters = try await hostedUIFlow.launchUrl(
+                url,
+                callbackURLScheme: callbackUrlScheme,
+                preferPrivateSession: preferPrivateSession.boolValue
+            )
+            return (queryParameters, nil)
+        } catch {
+            return (nil, error.flutterError)
         }
     }
     
@@ -68,22 +63,17 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
         withUrlUrl url: String,
         callbackUrlScheme: String,
         preferPrivateSession: NSNumber,
-        browserPackageName: String?,
-        completion: @escaping (FlutterError?) -> Void
-    ) {
-        hostedUIFlow.launchUrl(
-            url,
-            callbackURLScheme: callbackUrlScheme,
-            preferPrivateSession: preferPrivateSession.boolValue
-        ) { result in
-            switch result {
-            case .success:
-                completion(nil)
-                return
-            case let .failure(error):
-                completion(error.flutterError)
-                return
-            }
+        browserPackageName: String?
+    ) async -> FlutterError? {
+        do {
+            _ = try await hostedUIFlow.launchUrl(
+                url,
+                callbackURLScheme: callbackUrlScheme,
+                preferPrivateSession: preferPrivateSession.boolValue
+            )
+            return nil
+        } catch {
+            return error.flutterError
         }
     }
     
@@ -111,6 +101,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
     
     public func updateCurrentUserUser(_ user: NativeAuthUser?, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
         currentUser = user
+    }
+    
+    public func legacyCredentialsIdentityPoolId(_ identityPoolId: String?, appClientId: String?) async -> (LegacyCredentialStoreData?, FlutterError?) {
+        preconditionFailure("fetching legacy credentials via method channel is not supported in iOS")
+    }
+    
+    public func clearLegacyCredentials(completion: @escaping (FlutterError?) -> Void) {
+        preconditionFailure("clearing legacy credentials via method channel is not supported in iOS")
     }
     
     public let key: PluginKey = "awsCognitoAuthPlugin"

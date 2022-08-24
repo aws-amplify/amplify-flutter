@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_secure_storage_dart/src/types/keychain_attribute_accessible.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -23,16 +24,28 @@ part 'ios_secure_storage_options.g.dart';
 abstract class IOSSecureStorageOptions
     implements Built<IOSSecureStorageOptions, IOSSecureStorageOptionsBuilder> {
   /// {@macro amplify_secure_storage_dart.ios_secure_storage_options}
+  ///
+  /// {@macro amplify_secure_storage_dart.macos_secure_storage_options.accessible}
+  ///
+  /// {@macro amplify_secure_storage_dart.macos_secure_storage_options.accessGroup}
   factory IOSSecureStorageOptions({
+    KeychainAttributeAccessible accessible =
+        KeychainAttributeAccessible.accessibleAfterFirstUnlockThisDeviceOnly,
     String? accessGroup,
-  }) = _$IOSSecureStorageOptions._;
+  }) {
+    return _$IOSSecureStorageOptions._(
+      accessible: accessible,
+      accessGroup: accessGroup,
+    );
+  }
 
   const IOSSecureStorageOptions._();
 
-  /// Sets the `kSecAttrAccessGroup` attribute for all Keychain operations.
-  ///
-  /// Reference: [kSecAttrAccessGroup](https://developer.apple.com/documentation/security/ksecattraccessgroup?language=objc)
+  /// {@macro amplify_secure_storage_dart.macos_secure_storage_options.accessGroup}
   String? get accessGroup;
+
+  /// {@macro amplify_secure_storage_dart.macos_secure_storage_options.accessible}
+  KeychainAttributeAccessible get accessible;
 
   /// The [IOSSecureStorageOptions] serializer.
   static Serializer<IOSSecureStorageOptions> get serializer =>

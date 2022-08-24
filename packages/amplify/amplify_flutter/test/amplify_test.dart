@@ -48,15 +48,13 @@ void main() {
           recoverySuggestion:
               'Check if Amplify is already configured using Amplify.isConfigured.');
 
-  AmplifyException multiplePluginsForStorageException = AmplifyException(
-    'Amplify plugin AmplifyStorageS3MethodChannel was not added successfully.',
-    recoverySuggestion:
-        "We currently don't have a recovery suggestion for this exception.",
-    underlyingException: const AmplifyException(
-            'Storage plugin has already been added, multiple '
-            'plugins for Storage category are currently not supported.')
-        .toString(),
-  );
+  const multiplePluginsForStorageException = AmplifyException(
+      'Amplify plugin AmplifyStorageS3MethodChannel was not added successfully.',
+      recoverySuggestion:
+          "We currently don't have a recovery suggestion for this exception.",
+      underlyingException:
+          AmplifyException('Storage plugin has already been added, multiple '
+              'plugins for Storage category are currently not supported.'));
 
   const pluginNotAddedException = AmplifyException(
       'Auth plugin has not been added to Amplify',
@@ -120,25 +118,17 @@ void main() {
   test(
       'configure should result in AmplifyException when invalid value is passed',
       () async {
-    FormatException? formatException;
-    // Setup the expected exception
-    try {
-      jsonDecode(invalidConfiguration);
-    } on FormatException catch (e) {
-      formatException = e;
-    } catch (e) {
-      expect(e, isA<FormatException>());
-    }
-
-    AmplifyException invalidConfigurationException = AmplifyException(
-        'The provided configuration is not a valid json. Check underlyingException.',
-        recoverySuggestion:
-            'Inspect your amplifyconfiguration.dart and ensure that the string is proper json',
-        underlyingException: formatException.toString());
-    amplify
-        .configure(invalidConfiguration)
-        .catchError((Object e) => expect(e, invalidConfigurationException));
-    expect(amplify.isConfigured, false);
+    await expectLater(
+      amplify.configure(invalidConfiguration),
+      throwsA(
+        isA<AmplifyException>().having(
+          (e) => e.underlyingException,
+          'underlyingException',
+          isA<FormatException>(),
+        ),
+      ),
+    );
+    expect(amplify.isConfigured, isFalse);
   });
 
   test('calling configure twice results in an exception', () async {
@@ -172,14 +162,16 @@ void main() {
   test('adding multiple plugins from same Storage category throws exception',
       () async {
     await amplify.addPlugin(AmplifyStorageS3MethodChannel());
-    try {
-      await amplify.addPlugin(AmplifyStorageS3MethodChannel());
-    } catch (e) {
-      expect(e, multiplePluginsForStorageException);
-      expect(amplify.isConfigured, false);
-      return;
-    }
-    fail('an exception should have been thrown');
+    expect(
+      amplify.addPlugin(AmplifyStorageS3MethodChannel()),
+      throwsA(
+        isA<AmplifyException>().having(
+          (e) => e.toString(),
+          'toString',
+          contains('Storage plugin has already been added'),
+        ),
+      ),
+    );
   });
 
   test('adding plugins after configure throws an exception', () async {

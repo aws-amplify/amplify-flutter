@@ -33,7 +33,7 @@ class SecureStorageException implements Exception {
   final String? recoverySuggestion;
 
   /// Underlying cause of this exception helpful for debugging (Optional)
-  final String? underlyingException;
+  final Object? underlyingException;
 
   static const String missingRecovery = 'An unknown exception occurred. \n'
       'Please take a look at https://github.com/aws-amplify/amplify-flutter/issues '

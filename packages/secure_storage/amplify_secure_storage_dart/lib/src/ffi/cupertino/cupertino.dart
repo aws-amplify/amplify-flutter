@@ -14,8 +14,11 @@
 
 import 'dart:ffi';
 
+import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
+import 'package:amplify_secure_storage_dart/src/exception/unknown_exception.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/cupertino/core_foundation.bindings.g.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/cupertino/security.bindings.g.dart';
+import 'package:amplify_secure_storage_dart/src/types/keychain_attribute_accessible.dart';
 import 'package:ffi/ffi.dart';
 
 export 'core_foundation.bindings.g.dart' hide CoreFoundation;
@@ -46,5 +49,28 @@ extension CFStringPointerX on Pointer<CFString> {
     );
     if (cStringPtr == nullptr) return null;
     return cStringPtr.cast<Utf8>().toDartString();
+  }
+}
+
+extension KeychainAttributeAccessibleX on KeychainAttributeAccessible {
+  /// Converts [KeychainAttributeAccessible] to the associated pointer constant.
+  CFStringRef toCFStringRef() {
+    switch (this) {
+      case KeychainAttributeAccessible.accessibleAfterFirstUnlock:
+        return security.kSecAttrAccessibleWhenUnlocked;
+      case KeychainAttributeAccessible.accessibleAfterFirstUnlockThisDeviceOnly:
+        return security.kSecAttrAccessibleWhenUnlockedThisDeviceOnly;
+      case KeychainAttributeAccessible.accessibleWhenPasscodeSetThisDeviceOnly:
+        return security.kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly;
+      case KeychainAttributeAccessible.accessibleWhenUnlocked:
+        return security.kSecAttrAccessibleWhenUnlocked;
+      case KeychainAttributeAccessible.accessibleWhenUnlockedThisDeviceOnly:
+        return security.kSecAttrAccessibleWhenUnlockedThisDeviceOnly;
+      default:
+        throw const UnknownException(
+          'Could not convert KeychainAttributeAccessible to a native type.',
+          recoverySuggestion: SecureStorageException.missingRecovery,
+        );
+    }
   }
 }

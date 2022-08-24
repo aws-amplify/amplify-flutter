@@ -9,6 +9,7 @@ part of 'secure_storage_worker.dart';
 Serializers _$_serializers = (new Serializers().toBuilder()
       ..add(AmplifySecureStorageConfig.serializer)
       ..add(IOSSecureStorageOptions.serializer)
+      ..add(KeychainAttributeAccessible.serializer)
       ..add(LinuxSecureStorageOptions.serializer)
       ..add(MacOSSecureStorageOptions.serializer)
       ..add(SecureStorageAction.serializer)
