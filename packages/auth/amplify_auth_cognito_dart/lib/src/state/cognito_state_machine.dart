@@ -20,8 +20,8 @@ import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_reposi
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
+import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
 /// Default state machine builders for [CognitoAuthStateMachine].
