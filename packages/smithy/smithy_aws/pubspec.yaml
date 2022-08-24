@@ -26,10 +26,10 @@ dev_dependencies:
   amplify_lints:
     path: ../../amplify_lints
   build_runner: ^2.1.7
-  built_value_generator: 8.4.0
+  built_value_generator: 8.4.1
   file: ^6.1.2
   glob: ^2.0.2
-  json_serializable: ^6.3.0
+  json_serializable: 6.3.1
   pubspec_parse: ^1.2.0
   test: ^1.16.0
   yaml: ^3.1.0

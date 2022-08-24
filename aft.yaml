@@ -6,10 +6,11 @@
 # Application of these values can be verified/updated with the `aft` 
 # tool.
 dependencies:
+  async: ^2.8.0
   built_value: ^8.0.0
-  built_value_generator: 8.3.3
-  json_annotation: ^4.4.0
-  json_serializable: ^6.1.0
+  built_value_generator: 8.4.1
+  json_annotation: ^4.6.0
+  json_serializable: 6.3.1
   uuid: 3.0.6
 
 # Packages to ignore in all repo operations
