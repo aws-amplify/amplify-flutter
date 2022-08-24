@@ -27,7 +27,6 @@ export 'traits/aws/control_plane_trait.dart';
 export 'traits/aws/customizations/s3_unwrapped_xml_output_trait.dart';
 export 'traits/aws/data_trait.dart';
 export 'traits/aws/http_checksum_trait.dart';
-export 'traits/aws/protocols/alpn_protocol.dart';
 export 'traits/aws/protocols/aws_json_1_0_trait.dart';
 export 'traits/aws/protocols/aws_json_1_1_trait.dart';
 export 'traits/aws/protocols/aws_protocol_trait.dart';
