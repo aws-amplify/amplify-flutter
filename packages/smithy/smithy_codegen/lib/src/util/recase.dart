@@ -96,11 +96,6 @@ class ReCase {
 }
 
 extension StringReCase on String {
-  String get capitalized {
-    if (length < 2) return toUpperCase();
-    return this[0].toUpperCase() + substring(1).toLowerCase();
-  }
-
   String get camelCase => ReCase(this).camelCase;
 
   String get constantCase => ReCase(this).constantCase;
