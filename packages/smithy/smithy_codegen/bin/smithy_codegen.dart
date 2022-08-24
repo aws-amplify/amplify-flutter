@@ -15,6 +15,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 import 'package:grpc/grpc.dart';
 import 'package:path/path.dart' as path;
