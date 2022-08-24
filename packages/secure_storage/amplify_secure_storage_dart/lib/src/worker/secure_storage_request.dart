@@ -35,13 +35,13 @@ abstract class SecureStorageRequest
   /// {@macro amplify_secure_storage_dart.secure_storage_interface.init}
   factory SecureStorageRequest.init({
     required AmplifySecureStorageConfig config,
-    Future<String>? Function()? appDirectoryProvider,
+    Future<String>? Function()? appSupportPathProvider,
   }) {
     return SecureStorageRequest(
       (b) => b
         ..action = SecureStorageAction.init
         ..config.replace(config)
-        ..appDirectoryProvider = appDirectoryProvider,
+        ..appSupportPathProvider = appSupportPathProvider,
     );
   }
 
@@ -98,7 +98,7 @@ abstract class SecureStorageRequest
   AmplifySecureStorageConfig? get config;
 
   @BuiltValueField(serialize: false)
-  Future<String>? Function()? get appDirectoryProvider;
+  Future<String>? Function()? get appSupportPathProvider;
 
   /// The key targeted by [action].
   String? get key;

@@ -23,14 +23,14 @@ abstract class AmplifySecureStorageInterface extends SecureStorageInterface
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_interface}
   const AmplifySecureStorageInterface({
     required this.config,
-    this.appDirectoryProvider,
+    this.appSupportPathProvider,
   }) : super();
 
   /// Configuration options for Secure Storage.
   final AmplifySecureStorageConfig config;
 
   /// A method to fetch the Application Support Directory.
-  final Future<String>? Function()? appDirectoryProvider;
+  final Future<String>? Function()? appSupportPathProvider;
 
   @override
   String get runtimeTypeName => 'SecureStorage';

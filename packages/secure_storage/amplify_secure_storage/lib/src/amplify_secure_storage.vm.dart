@@ -35,11 +35,11 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
 
     return AmplifySecureStorageWorker(
       config: config,
-      appDirectoryProvider: _appDirectoryProvider,
+      appSupportPathProvider: _appSupportPathProvider,
     );
   }();
 
-  Future<String>? _appDirectoryProvider() async {
+  Future<String>? _appSupportPathProvider() async {
     final directory = await getApplicationSupportDirectory();
     return directory.path;
   }

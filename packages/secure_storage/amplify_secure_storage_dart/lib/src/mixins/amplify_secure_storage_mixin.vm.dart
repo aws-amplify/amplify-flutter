@@ -30,7 +30,7 @@ mixin AmplifySecureStorageDartMixin on AmplifySecureStorageInterface
     } else if (Platform.isLinux) {
       return AmplifySecureStorageLinux(
         config: config,
-        appDirectoryProvider: appDirectoryProvider,
+        appSupportPathProvider: appSupportPathProvider,
       );
     } else if (Platform.isMacOS || Platform.isIOS) {
       return AmplifySecureStorageCupertino(config: config);

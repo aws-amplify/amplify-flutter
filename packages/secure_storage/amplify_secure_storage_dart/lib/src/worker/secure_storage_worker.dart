@@ -46,10 +46,10 @@ abstract class SecureStorageWorker
       var response = request;
       if (request.action == SecureStorageAction.init) {
         final config = request.config!;
-        final appDirectoryProvider = request.appDirectoryProvider;
+        final appSupportPathProvider = request.appSupportPathProvider;
         _storage ??= AmplifySecureStorageDart(
           config: config,
-          appDirectoryProvider: appDirectoryProvider,
+          appSupportPathProvider: appSupportPathProvider,
         );
       }
       final storage = _storage;

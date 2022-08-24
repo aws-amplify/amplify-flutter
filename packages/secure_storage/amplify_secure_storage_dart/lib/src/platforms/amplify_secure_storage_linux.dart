@@ -27,7 +27,7 @@ import 'package:meta/meta.dart';
 class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   AmplifySecureStorageLinux({
     required super.config,
-    super.appDirectoryProvider,
+    super.appSupportPathProvider,
     @visibleForTesting String? appId,
   }) {
     _initialize(appId);
@@ -87,9 +87,9 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   }
 
   Future<String?> _getAppDirectoryPath() async {
-    return appDirectoryProvider == null
+    return appSupportPathProvider == null
         ? null
-        : (await appDirectoryProvider!());
+        : (await appSupportPathProvider!());
   }
 
   @override

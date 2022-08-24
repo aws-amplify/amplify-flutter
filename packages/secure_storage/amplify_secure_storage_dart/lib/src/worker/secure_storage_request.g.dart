@@ -104,7 +104,7 @@ class _$SecureStorageRequest extends SecureStorageRequest {
   @override
   final AmplifySecureStorageConfig? config;
   @override
-  final Future<String>? Function()? appDirectoryProvider;
+  final Future<String>? Function()? appSupportPathProvider;
   @override
   final String? key;
   @override
@@ -118,7 +118,7 @@ class _$SecureStorageRequest extends SecureStorageRequest {
       {required this.id,
       required this.action,
       this.config,
-      this.appDirectoryProvider,
+      this.appSupportPathProvider,
       this.key,
       this.value})
       : super._() {
@@ -144,7 +144,7 @@ class _$SecureStorageRequest extends SecureStorageRequest {
         id == other.id &&
         action == other.action &&
         config == other.config &&
-        appDirectoryProvider == _$dynamicOther.appDirectoryProvider &&
+        appSupportPathProvider == _$dynamicOther.appSupportPathProvider &&
         key == other.key &&
         value == other.value;
   }
@@ -154,7 +154,7 @@ class _$SecureStorageRequest extends SecureStorageRequest {
     return $jf($jc(
         $jc(
             $jc($jc($jc($jc(0, id.hashCode), action.hashCode), config.hashCode),
-                appDirectoryProvider.hashCode),
+                appSupportPathProvider.hashCode),
             key.hashCode),
         value.hashCode));
   }
@@ -178,11 +178,12 @@ class SecureStorageRequestBuilder
   set config(AmplifySecureStorageConfigBuilder? config) =>
       _$this._config = config;
 
-  Future<String>? Function()? _appDirectoryProvider;
-  Future<String>? Function()? get appDirectoryProvider =>
-      _$this._appDirectoryProvider;
-  set appDirectoryProvider(Future<String>? Function()? appDirectoryProvider) =>
-      _$this._appDirectoryProvider = appDirectoryProvider;
+  Future<String>? Function()? _appSupportPathProvider;
+  Future<String>? Function()? get appSupportPathProvider =>
+      _$this._appSupportPathProvider;
+  set appSupportPathProvider(
+          Future<String>? Function()? appSupportPathProvider) =>
+      _$this._appSupportPathProvider = appSupportPathProvider;
 
   String? _key;
   String? get key => _$this._key;
@@ -200,7 +201,7 @@ class SecureStorageRequestBuilder
       _id = $v.id;
       _action = $v.action;
       _config = $v.config?.toBuilder();
-      _appDirectoryProvider = $v.appDirectoryProvider;
+      _appSupportPathProvider = $v.appSupportPathProvider;
       _key = $v.key;
       _value = $v.value;
       _$v = null;
@@ -233,7 +234,7 @@ class SecureStorageRequestBuilder
               action: BuiltValueNullFieldError.checkNotNull(
                   action, r'SecureStorageRequest', 'action'),
               config: _config?.build(),
-              appDirectoryProvider: appDirectoryProvider,
+              appSupportPathProvider: appSupportPathProvider,
               key: key,
               value: value);
     } catch (_) {

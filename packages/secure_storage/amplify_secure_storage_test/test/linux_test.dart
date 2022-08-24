@@ -56,7 +56,7 @@ void main() {
         linuxOptions: linuxOptions,
       ),
       appId: appId,
-      appDirectoryProvider: () async => '/tmp/apps/$appId',
+      appSupportPathProvider: () async => '/tmp/apps/$appId',
     );
     storageInstances.add(instance);
     return instance;
