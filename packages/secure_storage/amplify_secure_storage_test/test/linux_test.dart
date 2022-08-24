@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
-
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_linux.dart';
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
@@ -58,7 +56,7 @@ void main() {
         linuxOptions: linuxOptions,
       ),
       appId: appId,
-      appDirectoryProvider: () async => Directory('/tmp/apps/$appId'),
+      appDirectoryProvider: () async => '/tmp/apps/$appId',
     );
     storageInstances.add(instance);
     return instance;

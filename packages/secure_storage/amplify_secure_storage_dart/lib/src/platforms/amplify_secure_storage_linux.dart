@@ -89,7 +89,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   Future<String?> _getAppDirectoryPath() async {
     return appDirectoryProvider == null
         ? null
-        : (await appDirectoryProvider!())?.path;
+        : (await appDirectoryProvider!());
   }
 
   @override

@@ -104,7 +104,7 @@ class _$SecureStorageRequest extends SecureStorageRequest {
   @override
   final AmplifySecureStorageConfig? config;
   @override
-  final Future<Directory>? Function()? appDirectoryProvider;
+  final Future<String>? Function()? appDirectoryProvider;
   @override
   final String? key;
   @override
@@ -178,11 +178,10 @@ class SecureStorageRequestBuilder
   set config(AmplifySecureStorageConfigBuilder? config) =>
       _$this._config = config;
 
-  Future<Directory>? Function()? _appDirectoryProvider;
-  Future<Directory>? Function()? get appDirectoryProvider =>
+  Future<String>? Function()? _appDirectoryProvider;
+  Future<String>? Function()? get appDirectoryProvider =>
       _$this._appDirectoryProvider;
-  set appDirectoryProvider(
-          Future<Directory>? Function()? appDirectoryProvider) =>
+  set appDirectoryProvider(Future<String>? Function()? appDirectoryProvider) =>
       _$this._appDirectoryProvider = appDirectoryProvider;
 
   String? _key;

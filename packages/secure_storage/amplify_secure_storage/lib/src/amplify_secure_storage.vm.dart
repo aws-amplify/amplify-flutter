@@ -32,11 +32,17 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
     if (Platform.isAndroid) {
       return AmplifySecureStorageAndroid(config: config);
     }
+
     return AmplifySecureStorageWorker(
       config: config,
-      appDirectoryProvider: getApplicationSupportDirectory,
+      appDirectoryProvider: _appDirectoryProvider,
     );
   }();
+
+  Future<String>? _appDirectoryProvider() async {
+    final directory = await getApplicationSupportDirectory();
+    return directory.path;
+  }
 
   @override
   FutureOr<void> delete({required String key}) {

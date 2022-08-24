@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
-
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:aws_common/aws_common.dart';
 
@@ -32,7 +30,7 @@ abstract class AmplifySecureStorageInterface extends SecureStorageInterface
   final AmplifySecureStorageConfig config;
 
   /// A method to fetch the Application Support Directory.
-  final Future<Directory>? Function()? appDirectoryProvider;
+  final Future<String>? Function()? appDirectoryProvider;
 
   @override
   String get runtimeTypeName => 'SecureStorage';
