@@ -15,12 +15,15 @@
 import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/testing.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
-import 'package:http/http.dart';
-import 'package:http/testing.dart';
 import 'package:test/test.dart';
 
 import 'common.dart';
+
+AWSHttpClient get mockClient => MockAWSHttpClient((req) {
+      return AWSHttpResponse(statusCode: 200);
+    });
 
 void main() {
   final uri = Uri.parse('https://example.com');
@@ -29,7 +32,6 @@ void main() {
     const signer = AWSSigV4Signer(
       credentialsProvider: AWSCredentialsProvider(dummyCredentials),
     );
-    final mockClient = MockHttpClient();
     Stream<List<int>> makeBody() => Stream.fromIterable([
           [0],
           [1],
@@ -51,7 +53,7 @@ void main() {
             service: 'service',
           ),
         );
-        await signedRequest.send(mockClient);
+        await signedRequest.send(mockClient).response;
 
         // Body is split twice, once to hash the payload, then again to read the
         // body which cannot be read from the original body stream.
@@ -71,7 +73,7 @@ void main() {
             service: 'service',
           ),
         );
-        await signedRequest.send(mockClient);
+        await signedRequest.send(mockClient).response;
 
         // Body is split thrice, once to hash the payload, once to get the
         // content length, then again to read the body which cannot be read from
@@ -98,7 +100,7 @@ void main() {
           ),
           serviceConfiguration: serviceConfiguration,
         );
-        await signedRequest.send(mockClient);
+        await signedRequest.send(mockClient).response;
 
         // Body is not split, and the original body stream is used.
         expect(request.debugNumSplits, equals(0));
@@ -118,7 +120,7 @@ void main() {
           ),
           serviceConfiguration: serviceConfiguration,
         );
-        await signedRequest.send(mockClient);
+        await signedRequest.send(mockClient).response;
 
         // Body is split twice, once to get the content length, then again to
         // read the body which cannot be read from the original body stream.
@@ -126,14 +128,4 @@ void main() {
       });
     });
   });
-}
-
-class MockHttpClient extends MockClient {
-  MockHttpClient() : super(_send);
-
-  static Future<Response> _send(Request request) async {
-    // Assert the request is finalized.
-    request.body;
-    return Response('', 200);
-  }
 }
