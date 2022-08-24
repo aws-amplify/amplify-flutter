@@ -13,12 +13,20 @@
 // limitations under the License.
 
 import 'package:aws_common/aws_common.dart';
-import 'package:http/http.dart' as http;
 import 'package:smithy/smithy.dart';
 
 abstract class HttpClient implements Client {
+  factory HttpClient({AWSHttpClient? baseClient}) = HttpClient.v2;
+
   /// Creates an HTTP/1.1 client.
-  factory HttpClient.v1({http.Client? baseClient}) = _Http1_1Client;
+  factory HttpClient.v1({AWSHttpClient? baseClient}) =>
+      _AWSHttpClientWrapper(baseClient: baseClient)
+        ..baseClient.supportedProtocols = SupportedProtocols.http1;
+
+  /// Creates an HTTP/2 client.
+  factory HttpClient.v2({AWSHttpClient? baseClient}) =>
+      _AWSHttpClientWrapper(baseClient: baseClient)
+        ..baseClient.supportedProtocols = SupportedProtocols.http2_3;
 
   Future<AWSStreamedHttpResponse> send(AWSStreamedHttpRequest request);
 
@@ -26,16 +34,16 @@ abstract class HttpClient implements Client {
   AlpnProtocol get protocol;
 }
 
-class _Http1_1Client implements HttpClient {
-  _Http1_1Client({
-    http.Client? baseClient,
-  }) : baseClient = baseClient ?? http.Client();
+class _AWSHttpClientWrapper implements HttpClient {
+  _AWSHttpClientWrapper({
+    AWSHttpClient? baseClient,
+  }) : baseClient = baseClient ?? AWSHttpClient();
 
-  final http.Client baseClient;
+  final AWSHttpClient baseClient;
 
   @override
   Future<AWSStreamedHttpResponse> send(AWSStreamedHttpRequest request) async {
-    final response = await request.send(baseClient);
+    final response = await request.send(baseClient).response;
     return AWSStreamedHttpResponse(
       statusCode: response.statusCode,
       headers: response.headers,
