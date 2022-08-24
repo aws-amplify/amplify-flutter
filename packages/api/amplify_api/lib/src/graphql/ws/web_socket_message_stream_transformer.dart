@@ -59,14 +59,10 @@ class WebSocketSubscriptionStreamTransformer<T>
           break;
         case MessageType.data:
           final payload = event.payload as SubscriptionDataPayload;
-          // TODO(ragingsquirrel3): refactor decoder
-          final errors = deserializeGraphQLResponseErrors(payload.toJson());
           yield GraphQLResponseDecoder.instance.decode<T>(
             request: request,
-            data: json.encode(payload.data),
-            errors: errors,
+            response: payload.toJson(),
           );
-
           break;
         case MessageType.error:
           final error = event.payload as WebSocketError;

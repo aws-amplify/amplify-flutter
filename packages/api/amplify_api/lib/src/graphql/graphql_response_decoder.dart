@@ -31,19 +31,23 @@ class GraphQLResponseDecoder {
 
   static GraphQLResponseDecoder get instance => _instance;
 
-  GraphQLResponse<T> decode<T>(
-      {required GraphQLRequest request,
-      String? data,
-      List<GraphQLResponseError>? errors}) {
-    if (data == null) {
-      return GraphQLResponse(data: null, errors: errors);
-    }
+  GraphQLResponse<T> decode<T>({
+    required GraphQLRequest request,
+    required Map<String, dynamic>? response,
+  }) {
+    final errors = _deserializeGraphQLResponseErrors(response);
+    final data = response?['data'];
+
     // If no modelType fallback to default (likely String).
     final modelType = request.modelType;
     if (modelType == null) {
       if (T == String || T == dynamic) {
+        // Preserve `null`. json.encode(null) returns "null" not `null`
+        final encodedData = data != null ? json.encode(data) : null;
         return GraphQLResponse(
-            data: data as T, errors: errors); // <T> is implied
+          data: encodedData as T?,
+          errors: errors,
+        ); // <T> is implied
       } else {
         throw const ApiException(
           'Decoding of the response type provided is currently unsupported',
@@ -64,7 +68,7 @@ class GraphQLResponseDecoder {
     // nested in a small JSON object in the `decodePath`. Its structure varies by
     // platform when null. Unpack the JSON object and null check the result along
     // the way. If null at any point, return null response.
-    Map<String, dynamic>? dataJson = json.decode(data) as Map<String, dynamic>?;
+    Map<String, dynamic>? dataJson = data as Map<String, dynamic>?;
     if (dataJson == null) {
       return GraphQLResponse(data: null, errors: errors);
     }
@@ -118,4 +122,19 @@ class GraphQLResponseDecoder {
     }
     return GraphQLResponse<T>(data: decodedData, errors: errors);
   }
+}
+
+List<GraphQLResponseError>? _deserializeGraphQLResponseErrors(
+  Map<String, dynamic>? response,
+) {
+  final errors = response?['errors'] as List?;
+  if (errors == null || errors.isEmpty) {
+    return null;
+  }
+  return errors
+      .cast<Map>()
+      .map((message) => GraphQLResponseError.fromJson(
+            message.cast<String, dynamic>(),
+          ))
+      .toList();
 }

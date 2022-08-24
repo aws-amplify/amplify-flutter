@@ -31,26 +31,20 @@ Future<GraphQLResponse<T>> sendGraphQLRequest<T>({
 }) async {
   try {
     final body = {'variables': request.variables, 'query': request.document};
-    final graphQLResponse = await client.post(uri,
-        body: json.encode(body), headers: request.headers);
-
+    final graphQLResponse = await client.post(
+      uri,
+      body: json.encode(body),
+      headers: request.headers,
+    );
     final responseBody = json.decode(graphQLResponse.body);
-
     if (responseBody is! Map<String, dynamic>) {
       throw ApiException(
           'unable to parse GraphQLResponse from server response which was not a JSON object.',
           underlyingException: graphQLResponse.body);
     }
 
-    final responseData = responseBody['data'];
-    // Preserve `null`. json.encode(null) returns "null" not `null`
-    final responseDataJson =
-        responseData != null ? json.encode(responseData) : null;
-
-    final errors = deserializeGraphQLResponseErrors(responseBody);
-
     return GraphQLResponseDecoder.instance
-        .decode<T>(request: request, data: responseDataJson, errors: errors);
+        .decode<T>(request: request, response: responseBody);
   } on Exception catch (e) {
     throw ApiException('unable to send GraphQLRequest to client.',
         underlyingException: e.toString());
