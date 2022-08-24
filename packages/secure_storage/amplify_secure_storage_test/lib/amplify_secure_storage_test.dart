@@ -25,6 +25,12 @@ typedef SecureStorageFactory = AmplifySecureStorageInterface Function({
   required AmplifySecureStorageConfig config,
 });
 
+/// A common set of integration-style tests that can be shared across
+/// amplify_secure_storage & amplify_secure_storage_dart.
+///
+/// These tests should not have any dependency on flutter, or test
+/// any functionality that depends on flutter, such as app uninstall &
+/// re-install on certain platforms.
 void runTests(SecureStorageFactory storageFactory) {
   group(
     'read, write, delete - ',

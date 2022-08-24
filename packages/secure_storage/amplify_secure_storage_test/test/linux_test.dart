@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('linux')
+
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_linux.dart';
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
@@ -64,7 +66,9 @@ void main() {
 
   tearDown(() async {
     // remove all keys for all storage instances created during the test
-    storageInstances.forEach((instance) => instance.removeAll());
+    for (final instance in storageInstances) {
+      instance.removeAll();
+    }
     storageInstances.clear();
 
     // uninstall test apps
@@ -72,7 +76,7 @@ void main() {
     await uninstall(appId2);
   });
 
-  group('linux', testOn: 'linux', () {
+  group('linux', () {
     test('Keys from two separate apps do not collide', () async {
       // initialize app 1 storage and store a value
       final appOneStorage = createStorageInstance(
