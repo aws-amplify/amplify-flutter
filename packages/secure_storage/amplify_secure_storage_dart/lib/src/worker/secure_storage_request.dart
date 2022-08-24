@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:io';
+
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_action.dart';
 import 'package:aws_common/aws_common.dart';
@@ -35,11 +37,13 @@ abstract class SecureStorageRequest
   /// {@macro amplify_secure_storage_dart.secure_storage_interface.init}
   factory SecureStorageRequest.init({
     required AmplifySecureStorageConfig config,
+    Future<Directory>? Function()? appDirectoryProvider,
   }) {
     return SecureStorageRequest(
       (b) => b
         ..action = SecureStorageAction.init
-        ..config.replace(config),
+        ..config.replace(config)
+        ..appDirectoryProvider = appDirectoryProvider,
     );
   }
 
@@ -94,6 +98,9 @@ abstract class SecureStorageRequest
   ///
   /// Valid only for [SecureStorageAction.init].
   AmplifySecureStorageConfig? get config;
+
+  @BuiltValueField(serialize: false)
+  Future<Directory>? Function()? get appDirectoryProvider;
 
   /// The key targeted by [action].
   String? get key;

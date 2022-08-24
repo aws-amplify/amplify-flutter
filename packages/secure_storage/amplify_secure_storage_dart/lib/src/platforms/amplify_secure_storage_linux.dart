@@ -27,6 +27,7 @@ import 'package:meta/meta.dart';
 class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   AmplifySecureStorageLinux({
     required super.config,
+    super.appDirectoryProvider,
     @visibleForTesting String? appId,
   }) {
     _initialize(appId);
@@ -41,39 +42,54 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   /// prior to initialization completing.
   final Completer<void> _initializationCompleter = Completer<void>();
 
-  /// The unique ID of the application.
-  ///
-  /// Set during initialization.
-  late final String _appId;
-
   /// Initializes Secure Storage for the current scope.
+  ///
+  /// Sets _appNameSpace and initializes the scope.
+  Future<void> _initialize(String? appId) async {
+    final accessGroup = config.linuxOptions.accessGroup;
+    _appNameSpace = accessGroup ?? appId ?? await getApplicationId();
+    await _initializeScope(
+      scope: config.defaultNamespace,
+      accessGroup: accessGroup,
+    );
+    _initializationCompleter.complete();
+  }
+
+  /// Clears all keys for the given scope if this scope
+  /// has not been initialized previously.
   ///
   /// Checks for an initialization flag in file storage.
   /// If the flag is not present storage will be cleared
   /// and then the flag will be set.
   ///
   /// Intended to clear storage after an app uninstall & re-install.
-  Future<void> _initialize(String? appId) async {
-    // if accessGroup is set, do not clear data on init
-    // since it may have been set by another application
-    if (config.linuxOptions.accessGroup != null) {
-      _initializationCompleter.complete();
-      return;
+  Future<void> _initializeScope({
+    required String scope,
+    required String? accessGroup,
+  }) async {
+    // if accessGroup is set, do not clear data on initialization
+    // since the data can be shared across applications.
+    if (accessGroup != null) return;
+    final path = await _getAppDirectoryPath();
+    if (path == null) {
+      logger.warn(
+        'Could not determine the application support directory. ',
+        'Data will persist across app installs.',
+      );
+    } else {
+      final fileStore = FileKeyValueStore(path: path, fileName: scopeFileName);
+      final isInitialized = await fileStore.containsKey(key: scope);
+      if (!isInitialized) {
+        removeAll();
+        await fileStore.writeKey(key: scope, value: true);
+      }
     }
-    _appId = appId ?? await getApplicationId();
-    final appDirectory = await getApplicationSupportPath(_appId);
-    final fileStore = FileKeyValueStore(
-      directory: appDirectory,
-      fileName: scopeFileName,
-    );
-    final isInitialized = await fileStore.containsKey(
-      key: config.defaultNamespace,
-    );
-    if (!isInitialized) {
-      removeAll();
-      await fileStore.writeKey(key: config.defaultNamespace, value: true);
-    }
-    _initializationCompleter.complete();
+  }
+
+  Future<String?> _getAppDirectoryPath() async {
+    return appDirectoryProvider == null
+        ? null
+        : (await appDirectoryProvider!())?.path;
   }
 
   @override
@@ -150,9 +166,11 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 
   /// A namespace for the application.
   ///
+  /// Set during initialization.
+  ///
   /// Uses the access group if it is set, otherwise uses
   /// the App ID.
-  String get _appNameSpace => config.linuxOptions.accessGroup ?? _appId;
+  late final String _appNameSpace;
 
   /// The name of the [SecretSchema] schema.
   String get _schemaName => '${config.defaultNamespace}.$_appNameSpace';

@@ -30,7 +30,6 @@ dependencies:
   path: ^1.8.0
   win32: ^2.4.1
   worker_bee: ^0.1.0
-  xdg_directories: ^0.2.0
 
 dev_dependencies:
   amplify_lints:

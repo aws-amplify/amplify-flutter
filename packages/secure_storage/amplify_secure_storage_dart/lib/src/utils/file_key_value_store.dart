@@ -18,7 +18,7 @@ import 'dart:io';
 import 'package:file/file.dart' as pkg_file;
 import 'package:file/local.dart' as local_file;
 import 'package:meta/meta.dart';
-import 'package:path/path.dart' as path;
+import 'package:path/path.dart' as pkg_path;
 
 /// {@template amplify_secure_storage_dart.file_key_value_store}
 /// A Key-Value Store that stores data in the provided file.
@@ -27,13 +27,13 @@ import 'package:path/path.dart' as path;
 class FileKeyValueStore {
   /// {@macro amplify_secure_storage_dart.file_key_value_store}
   FileKeyValueStore({
-    required this.directory,
+    required this.path,
     required this.fileName,
     @visibleForTesting this.fs = const local_file.LocalFileSystem(),
   });
 
   /// The directory of the file.
-  final String directory;
+  final String path;
 
   /// The name of the file.
   ///
@@ -44,8 +44,8 @@ class FileKeyValueStore {
   final pkg_file.FileSystem fs;
 
   late final File file = fs.file(
-    path.join(
-      directory,
+    pkg_path.join(
+      path,
       fileName,
     ),
   );

@@ -13,6 +13,7 @@ dependencies:
   amplify_secure_storage_dart: ^0.1.0
   flutter:
     sdk: flutter
+  path_provider: ^2.0.0
 
 dev_dependencies:
   amplify_lints:

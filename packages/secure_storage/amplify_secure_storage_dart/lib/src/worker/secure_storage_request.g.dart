@@ -104,6 +104,8 @@ class _$SecureStorageRequest extends SecureStorageRequest {
   @override
   final AmplifySecureStorageConfig? config;
   @override
+  final Future<Directory>? Function()? appDirectoryProvider;
+  @override
   final String? key;
   @override
   final String? value;
@@ -116,6 +118,7 @@ class _$SecureStorageRequest extends SecureStorageRequest {
       {required this.id,
       required this.action,
       this.config,
+      this.appDirectoryProvider,
       this.key,
       this.value})
       : super._() {
@@ -136,10 +139,12 @@ class _$SecureStorageRequest extends SecureStorageRequest {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
     return other is SecureStorageRequest &&
         id == other.id &&
         action == other.action &&
         config == other.config &&
+        appDirectoryProvider == _$dynamicOther.appDirectoryProvider &&
         key == other.key &&
         value == other.value;
   }
@@ -147,7 +152,9 @@ class _$SecureStorageRequest extends SecureStorageRequest {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, id.hashCode), action.hashCode), config.hashCode),
+        $jc(
+            $jc($jc($jc($jc(0, id.hashCode), action.hashCode), config.hashCode),
+                appDirectoryProvider.hashCode),
             key.hashCode),
         value.hashCode));
   }
@@ -171,6 +178,13 @@ class SecureStorageRequestBuilder
   set config(AmplifySecureStorageConfigBuilder? config) =>
       _$this._config = config;
 
+  Future<Directory>? Function()? _appDirectoryProvider;
+  Future<Directory>? Function()? get appDirectoryProvider =>
+      _$this._appDirectoryProvider;
+  set appDirectoryProvider(
+          Future<Directory>? Function()? appDirectoryProvider) =>
+      _$this._appDirectoryProvider = appDirectoryProvider;
+
   String? _key;
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
@@ -187,6 +201,7 @@ class SecureStorageRequestBuilder
       _id = $v.id;
       _action = $v.action;
       _config = $v.config?.toBuilder();
+      _appDirectoryProvider = $v.appDirectoryProvider;
       _key = $v.key;
       _value = $v.value;
       _$v = null;
@@ -219,6 +234,7 @@ class SecureStorageRequestBuilder
               action: BuiltValueNullFieldError.checkNotNull(
                   action, r'SecureStorageRequest', 'action'),
               config: _config?.build(),
+              appDirectoryProvider: appDirectoryProvider,
               key: key,
               value: value);
     } catch (_) {

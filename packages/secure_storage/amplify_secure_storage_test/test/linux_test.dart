@@ -12,17 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:io';
+
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_linux.dart';
-
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
-// ignore: invalid_use_of_internal_member
-import 'package:amplify_secure_storage_dart/src/ffi/utils/linux_utils.dart';
-
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
-const appId = 'com.example.test';
+const appId1 = 'com.example.test';
 const appId2 = 'com.example.test2';
 const testScope = 'test';
 const accessGroup = 'test.access.group';
@@ -31,12 +29,11 @@ const key1 = 'key_1';
 const value1 = 'value_1';
 const value2 = 'value_2';
 
-/// Deletes the scopes file for the given app,
-/// mimicing an uninstall on linux.
-Future<void> uninstall(appId) async {
-  final appDirectory = await getApplicationSupportPath(appId);
+/// Mimics an app uninstall on Linux by removing the
+/// scopes file for the given app
+Future<void> uninstall(String appId) async {
   final fileStore = FileKeyValueStore(
-    directory: appDirectory,
+    path: '/tmp/apps/$appId',
     fileName: AmplifySecureStorageLinux.scopeFileName,
   );
   await fileStore.removeFile();
@@ -61,6 +58,7 @@ void main() {
         linuxOptions: linuxOptions,
       ),
       appId: appId,
+      appDirectoryProvider: () async => Directory('/tmp/apps/$appId'),
     );
     storageInstances.add(instance);
     return instance;
@@ -72,7 +70,7 @@ void main() {
     storageInstances.clear();
 
     // uninstall test apps
-    await uninstall(appId);
+    await uninstall(appId1);
     await uninstall(appId2);
   });
 
@@ -81,7 +79,7 @@ void main() {
       // initialize app 1 storage and store a value
       final appOneStorage = createStorageInstance(
         scope: testScope,
-        appId: appId,
+        appId: appId1,
       );
       await appOneStorage.write(key: key1, value: value1);
 
@@ -109,7 +107,7 @@ void main() {
       final appOneStorage = createStorageInstance(
         scope: testScope,
         accessGroup: accessGroup,
-        appId: appId,
+        appId: appId1,
       );
       await appOneStorage.write(key: key1, value: value1);
 
@@ -138,7 +136,7 @@ void main() {
       final appOneStorage = createStorageInstance(
         scope: testScope,
         accessGroup: accessGroup,
-        appId: appId,
+        appId: appId1,
       );
       await appOneStorage.write(key: key1, value: value1);
 
@@ -166,24 +164,24 @@ void main() {
       // initialize storage and store a value
       final storage = createStorageInstance(
         scope: testScope,
-        appId: appId,
+        appId: appId1,
       );
       await storage.write(key: key1, value: value1);
 
       // assert value IS NOT cleared when initializing a new instance with an existing scope
       final storage1 = createStorageInstance(
         scope: testScope,
-        appId: appId,
+        appId: appId1,
       );
       expect(await storage1.read(key: key1), isNotNull);
 
       // uninstall app
-      await uninstall(appId);
+      await uninstall(appId1);
 
       // assert value IS cleared when initializing a new scope after an app uninstall
       final storage2 = createStorageInstance(
         scope: testScope,
-        appId: appId,
+        appId: appId1,
       );
       expect(await storage2.read(key: key1), isNull);
     });
@@ -194,18 +192,18 @@ void main() {
       final storage = createStorageInstance(
         scope: testScope,
         accessGroup: accessGroup,
-        appId: appId,
+        appId: appId1,
       );
       await storage.write(key: key1, value: value1);
 
       // uninstall app
-      await uninstall(appId);
+      await uninstall(appId1);
 
       // re-initialize storage
       final storage2 = createStorageInstance(
         scope: testScope,
         accessGroup: accessGroup,
-        appId: appId,
+        appId: appId1,
       );
 
       // assert value is NOT cleared

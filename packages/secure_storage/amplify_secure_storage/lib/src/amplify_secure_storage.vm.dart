@@ -17,6 +17,7 @@ import 'dart:io';
 
 import 'package:amplify_secure_storage/src/amplify_secure_storage.android.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:path_provider/path_provider.dart';
 
 /// {@template amplify_secure_storage.amplify_secure_storage}
 /// The default Secure Storage implementation used in Amplify packages.
@@ -31,7 +32,10 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
     if (Platform.isAndroid) {
       return AmplifySecureStorageAndroid(config: config);
     }
-    return AmplifySecureStorageWorker(config: config);
+    return AmplifySecureStorageWorker(
+      config: config,
+      appDirectoryProvider: getApplicationSupportDirectory,
+    );
   }();
 
   @override

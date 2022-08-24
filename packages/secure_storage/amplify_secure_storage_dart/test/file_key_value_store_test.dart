@@ -22,7 +22,7 @@ void main() {
   group('FileKeyValueStore', () {
     setUp(() {
       storage = FileKeyValueStore(
-        directory: 'directory',
+        path: 'path',
         fileName: 'file',
         fs: MemoryFileSystem(),
       );
