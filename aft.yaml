@@ -10,6 +10,7 @@ dependencies:
   built_value_generator: 8.3.3
   json_annotation: ^4.4.0
   json_serializable: ^6.1.0
+  mockito: 5.3.0
   uuid: 3.0.6
 
 # Packages to ignore in all repo operations
