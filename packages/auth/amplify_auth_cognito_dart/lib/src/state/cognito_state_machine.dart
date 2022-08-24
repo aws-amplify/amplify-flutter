@@ -20,8 +20,8 @@ import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_reposi
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
+import 'package:http/http.dart' as http;
 import 'package:smithy/smithy.dart';
 
 /// Default state machine builders for [CognitoAuthStateMachine].
@@ -35,7 +35,7 @@ final stateMachineBuilders = <StateMachineToken, StateMachineBuilder>{
   SignInStateMachine.type: SignInStateMachine.new,
 };
 
-HttpClient _makeSmithyHttpClient(http.Client baseClient) => HttpClient.v1(
+HttpClient _makeSmithyHttpClient(AWSHttpClient baseClient) => HttpClient.v1(
       baseClient: AmplifyHttpClient(baseClient: baseClient),
     );
 
@@ -44,6 +44,7 @@ HttpClient _makeSmithyHttpClient(http.Client baseClient) => HttpClient.v1(
 final defaultDependencies = <Token, DependencyBuilder>{
   HostedUiPlatform.token: HostedUiPlatform.new,
   const Token<http.Client>(): http.Client.new,
+  const Token<AWSHttpClient>(): AWSHttpClient.new,
   AuthPluginCredentialsProvider.token: AuthPluginCredentialsProviderImpl.new,
   zSmithyHttpClientToken: _makeSmithyHttpClient,
   DeviceMetadataRepository.token: DeviceMetadataRepository.new,
