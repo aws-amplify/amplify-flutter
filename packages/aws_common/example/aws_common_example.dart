@@ -12,17 +12,61 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: omit_local_variable_types
-
 import 'dart:convert';
 
 import 'package:aws_common/aws_common.dart';
 
+class LoggingClient extends AWSBaseHttpClient {
+  static final _logger = AWSLogger().createChild('HTTP');
+
+  Future<void> _logRequest(AWSBaseHttpRequest request) async {
+    final sb = StringBuffer()
+      ..write(request.method.value)
+      ..write(' ')
+      ..writeln(request.uri)
+      ..write(await utf8.decodeStream(request.split()));
+    _logger.debug(sb.toString());
+  }
+
+  Future<void> _logResponse(AWSBaseHttpResponse response) async {
+    final sb = StringBuffer()
+      ..writeln(response.statusCode)
+      ..write(await utf8.decodeStream(response.split()));
+    _logger.debug(sb.toString());
+  }
+
+  @override
+  Future<AWSBaseHttpRequest> transformRequest(
+    AWSBaseHttpRequest request,
+  ) async {
+    await _logRequest(request);
+    return request;
+  }
+
+  @override
+  Future<AWSBaseHttpResponse> transformResponse(
+    AWSBaseHttpResponse response,
+  ) async {
+    await _logResponse(response);
+    return response;
+  }
+}
+
+// Prints:
+// ```
+// DEBUG | HTTP       | POST https://httpstat.us/200?
+// Hello, world
+// DEBUG | HTTP       | 200
+// 200 OK
+// ```
 Future<void> main() async {
-  final AWSHttpRequest request = AWSHttpRequest.get(
+  AWSLogger().logLevel = LogLevel.debug;
+
+  final client = LoggingClient();
+  final request = AWSHttpRequest.post(
     Uri.parse('https://httpstat.us/200'),
+    body: 'Hello, world'.codeUnits,
   );
-  final AWSStreamedHttpResponse response = await request.send();
-  final String body = await utf8.decodeStream(response.body);
-  safePrint(body);
+  await client.send(request).response;
+  await client.close();
 }

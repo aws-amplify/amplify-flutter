@@ -24,7 +24,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_3-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_5-test_0"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0
@@ -57,7 +57,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_3-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_5-test_0"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -166,7 +166,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_3-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_5-test_0"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:stable

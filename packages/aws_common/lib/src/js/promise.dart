@@ -18,6 +18,7 @@ import 'dart:async';
 
 import 'package:js/js.dart';
 import 'package:js/js_util.dart' as js_util;
+import 'package:meta/meta.dart';
 
 /// A [Promise] executor callback.
 typedef Executor<T> = void Function(
@@ -33,7 +34,7 @@ typedef Executor<T> = void Function(
 @staticInterop
 class Promise<T> {
   /// Creates a JS Promise.
-  factory Promise(Executor<T> executor) => Promise._(allowInterop(executor));
+  factory Promise(Executor<T> executor) => createPromise(executor);
 
   external factory Promise._(Executor<T> executor);
 
@@ -46,18 +47,35 @@ class Promise<T> {
   factory Promise.fromFuture(
     Future<T> future, {
     bool captureError = false,
-  }) {
-    return Promise((resolve, reject) async {
-      try {
-        resolve(await future);
-      } on Object catch (e) {
-        reject(e);
-        if (!captureError) {
-          rethrow;
-        }
+  }) =>
+      createPromiseFromFuture(future, captureError: captureError);
+}
+
+/// Factory for [Promise].
+///
+// TODO(dnys1): Remove when fixed https://github.com/dart-lang/sdk/issues/49778.
+@internal
+Promise<T> createPromise<T>(Executor<T> executor) =>
+    Promise._(allowInterop(executor));
+
+/// Factory for [Promise.fromFuture].
+///
+// TODO(dnys1): Remove when fixed https://github.com/dart-lang/sdk/issues/49778.
+@internal
+Promise<T> createPromiseFromFuture<T>(
+  Future<T> future, {
+  bool captureError = false,
+}) {
+  return createPromise((resolve, reject) async {
+    try {
+      resolve(await future);
+    } on Object catch (e) {
+      reject(e);
+      if (!captureError) {
+        rethrow;
       }
-    });
-  }
+    }
+  });
 }
 
 /// {@macro aws_common.js.promise}

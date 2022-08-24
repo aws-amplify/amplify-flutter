@@ -23,7 +23,7 @@ import 'package:test/test.dart';
 void main() {
   ReadableStream createReadableStream() {
     return ReadableStream(
-      UnderlyingSource(
+      createUnderlyingSource(
         start: (controller) {
           controller
             ..enqueue(Uint8List.fromList([1, 2, 3, 4, 5]))
@@ -226,6 +226,8 @@ void main() {
       final stream1 = createReadableStream();
       final stream2 = createReadableStream();
 
+      expect(stream1.stream, stream1.stream);
+      expect(stream2.stream, stream2.stream);
       expect(stream1.stream, isNot(stream2.stream));
     });
   });

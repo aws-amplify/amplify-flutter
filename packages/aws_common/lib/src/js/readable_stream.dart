@@ -18,11 +18,11 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
+import 'package:aws_common/src/js/common.dart';
+import 'package:aws_common/src/js/promise.dart';
 import 'package:js/js.dart';
 import 'package:js/js_util.dart' as js_util;
-
-import 'common.dart';
-import 'promise.dart';
+import 'package:meta/meta.dart';
 
 /// {@template aws_common.js.readable_stream}
 /// An object containing methods and properties that define how the constructed
@@ -87,39 +87,12 @@ class UnderlyingSource {
     /// consumer can also use a default reader.
     int? autoAllocateChunkSize,
   }) {
-    final startFn = start == null
-        ? undefined
-        : start is Future<void> Function(ReadableStreamController)
-            ? allowInterop((ReadableStreamController controller) {
-                return Promise.fromFuture(start(controller));
-              })
-            : allowInterop(start);
-    final pullFn = pull == null
-        ? undefined
-        : pull is Future<void> Function(ReadableStreamController)
-            ? allowInterop((ReadableStreamController controller) {
-                return Promise.fromFuture(pull(controller));
-              })
-            : allowInterop(pull);
-    final cancelFn = cancel == null
-        ? undefined
-        : cancel is Future<void> Function([
-            String? reason,
-            ReadableStreamController? controller,
-          ])
-            ? allowInterop((
-                String? reason,
-                ReadableStreamController? controller,
-              ) {
-                return Promise.fromFuture(cancel(reason, controller));
-              })
-            : allowInterop(cancel);
-    return UnderlyingSource._(
-      start: startFn,
-      pull: pullFn,
-      cancel: cancelFn,
-      type: type.jsValue,
-      autoAllocateChunkSize: autoAllocateChunkSize ?? undefined,
+    return createUnderlyingSource(
+      start: start,
+      pull: pull,
+      cancel: cancel,
+      type: type,
+      autoAllocateChunkSize: autoAllocateChunkSize,
     );
   }
 
@@ -130,6 +103,57 @@ class UnderlyingSource {
     String? type,
     int? autoAllocateChunkSize,
   });
+}
+
+/// Factory for [UnderlyingSource].
+///
+// TODO(dnys1): Remove when fixed https://github.com/dart-lang/sdk/issues/49778.
+@internal
+UnderlyingSource createUnderlyingSource({
+  FutureOr<void> Function(ReadableStreamController controller)? start,
+  FutureOr<void> Function(ReadableStreamController controller)? pull,
+  FutureOr<void> Function([
+    String? reason,
+    ReadableStreamController? controller,
+  ])?
+      cancel,
+  ReadableStreamType type = ReadableStreamType.default$,
+  int? autoAllocateChunkSize,
+}) {
+  final startFn = start == null
+      ? undefined
+      : start is Future<void> Function(ReadableStreamController)
+          ? allowInterop((ReadableStreamController controller) {
+              return createPromiseFromFuture(start(controller));
+            })
+          : allowInterop(start);
+  final pullFn = pull == null
+      ? undefined
+      : pull is Future<void> Function(ReadableStreamController)
+          ? allowInterop((ReadableStreamController controller) {
+              return createPromiseFromFuture(pull(controller));
+            })
+          : allowInterop(pull);
+  final cancelFn = cancel == null
+      ? undefined
+      : cancel is Future<void> Function([
+          String? reason,
+          ReadableStreamController? controller,
+        ])
+          ? allowInterop((
+              String? reason,
+              ReadableStreamController? controller,
+            ) {
+              return Promise.fromFuture(cancel(reason, controller));
+            })
+          : allowInterop(cancel);
+  return UnderlyingSource._(
+    start: startFn,
+    pull: pullFn,
+    cancel: cancelFn,
+    type: type.jsValue,
+    autoAllocateChunkSize: autoAllocateChunkSize ?? undefined,
+  );
 }
 
 /// The type of [ReadableStream] and its associated [ReadableStreamController].
@@ -217,11 +241,11 @@ extension PropsReadableStream on ReadableStream {
       js_util.callMethod(this, 'getReader', [mode.jsValue]);
 
   /// Creates a Dart [Stream] from `this`.
-  Stream<List<int>> get stream =>
+  ReadableStreamView get stream =>
       _readableStreamViews[this] ??= ReadableStreamView(this);
 
   /// The progress (in bytes) of [stream].
-  Stream<int> get progress => (stream as ReadableStreamView).progress;
+  Stream<int> get progress => stream.progress;
 }
 
 /// {@template aws_common.js.readable_stream_reader}
@@ -329,6 +353,10 @@ class ReadableStreamView extends StreamView<List<int>> {
     );
   }
 
+  /// Creates an empty [ReadableStreamView] which emits a single `done` event.
+  const ReadableStreamView.empty()
+      : this._(const Stream.empty(), const Stream.empty());
+
   const ReadableStreamView._(super.stream, this.progress);
 
   /// The number of bytes read so far.
@@ -373,7 +401,7 @@ extension StreamToReadableStream on Stream<List<int>> {
   }) {
     final queue = StreamQueue(this);
     return ReadableStream(
-      UnderlyingSource(
+      createUnderlyingSource(
         pull: (controller) async {
           if (!await queue.hasNext) {
             await queue.cancel();

@@ -18,8 +18,8 @@ library amplify_secure_storage_dart.js.indexed_db;
 import 'dart:async';
 import 'dart:js_util' as js_util;
 
+import 'package:aws_common/src/js/common.dart';
 import 'package:js/js.dart';
-import 'common.dart';
 
 /// The global read-only [IDBFactory] instance.
 @JS()
