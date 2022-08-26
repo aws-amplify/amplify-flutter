@@ -148,8 +148,6 @@ void main() {
       expect(res.errors, equals(null));
     });
 
-<<<<<<< HEAD
-=======
     test('Query returns proper response.data with dynamic type', () async {
       String graphQLDocument = ''' query TestQuery {
           listBlogs {
@@ -174,7 +172,6 @@ void main() {
       expect(res.errors, equals(null));
     });
 
->>>>>>> feat/api-next
     test('Mutate returns proper response.data', () async {
       String graphQLDocument = ''' mutation TestMutate(\$name: String!) {
           createBlog(input: {name: \$name}) {
@@ -253,26 +250,11 @@ void main() {
 
     test('subscribe() should decode model data', () async {
       Completer<void> establishedCompleter = Completer();
-<<<<<<< HEAD
-      Completer<Post> dataCompleter = Completer();
-=======
->>>>>>> feat/api-next
       final subscriptionRequest = ModelSubscriptions.onCreate(Post.classType);
       final subscription = Amplify.API.subscribe(
         subscriptionRequest,
         onEstablished: () => establishedCompleter.complete(),
       );
-<<<<<<< HEAD
-
-      final streamSub = subscription.listen(
-        (event) => dataCompleter.complete(event.data),
-      );
-      await expectLater(establishedCompleter.future, completes);
-
-      final subscriptionData = await dataCompleter.future;
-      expect(subscriptionData, isA<Post>());
-      streamSub.cancel();
-=======
       await establishedCompleter.future;
 
       late StreamSubscription<GraphQLResponse<Post>> streamSub;
@@ -282,7 +264,6 @@ void main() {
           streamSub.cancel();
         }),
       );
->>>>>>> feat/api-next
     });
   });
 

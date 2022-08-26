@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api/src/method_channel_api.dart';
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:flutter/services.dart';
@@ -27,7 +27,7 @@ void main() {
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
 
   bool platformError = false;
-  final apiPlugin = AmplifyAPIMethodChannel();
+  final apiPlugin = AmplifyAPI();
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -80,7 +80,7 @@ void main() {
       fail('exception not thrown');
     } on AmplifyException catch (e) {
       expect(e.message,
-          'Amplify plugin AmplifyAPIMethodChannel was not added successfully.');
+          'Amplify plugin AmplifyAPIDart was not added successfully.');
     } on Exception catch (e) {
       expect(e, isA<AmplifyException>());
     }
