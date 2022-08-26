@@ -39,10 +39,14 @@ class MockAmplifyAPI extends AmplifyAPIDart {
 }
 
 GraphQLResponse<T> _decodeResponseData<T>(
-    GraphQLRequest<T> request, String data) {
+  GraphQLRequest<T> request,
+  String data,
+) {
   final serverResponse = {'data': json.decode(data)};
-  return GraphQLResponseDecoder.instance
-      .decode<T>(request: request, response: serverResponse);
+  return GraphQLResponseDecoder.instance.decode<T>(
+    request: request,
+    response: serverResponse,
+  );
 }
 
 void main() {
