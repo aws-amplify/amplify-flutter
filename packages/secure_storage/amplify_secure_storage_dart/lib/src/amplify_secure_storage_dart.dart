@@ -110,4 +110,12 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
     _worker.add(request);
     await _worker.stream.firstWhere((event) => event.id == request.id);
   }
+
+  @override
+  Future<void> removeAll() async {
+    await _init();
+    final request = SecureStorageRequest.removeAll();
+    _worker.add(request);
+    await _worker.stream.firstWhere((event) => event.id == request.id);
+  }
 }

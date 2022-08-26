@@ -38,6 +38,9 @@ class SecureStorageAction extends EnumClass {
   /// {@macro amplify_secure_storage_dart.secure_storage_interface.delete}
   static const SecureStorageAction delete = _$delete;
 
+  /// {@macro amplify_secure_storage_dart.amplify_secure_storage_interface.remove_all}
+  static const SecureStorageAction removeAll = _$removeAll;
+
   /// All values of [SecureStorageAction].
   static BuiltSet<SecureStorageAction> get values =>
       _$SecureStorageActionValues;

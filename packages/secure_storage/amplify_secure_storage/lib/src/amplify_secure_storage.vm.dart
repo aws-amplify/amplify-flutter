@@ -31,7 +31,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
     required super.config,
   });
 
-  late final SecureStorageInterface _instance = () {
+  late final AmplifySecureStorageInterface _instance = () {
     if (Platform.isAndroid) {
       return AmplifySecureStorageAndroid(config: config);
     }
@@ -87,7 +87,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
     final fileStore = FileKeyValueStore(path: path, fileName: scopeFileName);
     final isInitialized = await fileStore.containsKey(key: config.scope!);
     if (!isInitialized) {
-      await removeAll();
+      await _instance.removeAll();
       await fileStore.writeKey(key: config.scope!, value: true);
     }
   }

@@ -78,6 +78,17 @@ abstract class SecureStorageRequest
     );
   }
 
+    /// {@macro amplify_secure_storage_dart.amplify_secure_storage_interface.remove_all}
+  factory SecureStorageRequest.removeAll(
+    
+  ) {
+    return SecureStorageRequest(
+      (b) => b
+        ..action = SecureStorageAction.removeAll
+        
+    );
+  }
+
   @BuiltValueHook(finalizeBuilder: true)
   static void _init(SecureStorageRequestBuilder b) {
     b.id ??= uuid();

@@ -35,7 +35,7 @@ abstract class SecureStorageWorker
   /// {@macro amplify_secure_storage_dart.secure_storage_worker}
   factory SecureStorageWorker.create() = SecureStorageWorkerImpl;
 
-  SecureStorageInterface? _storage;
+  AmplifySecureStorageInterface? _storage;
 
   @override
   Future<SecureStorageRequest?> run(
@@ -71,6 +71,9 @@ abstract class SecureStorageWorker
           final key = request.key!;
           final value = request.value!;
           await storage.write(key: key, value: value);
+          break;
+        case SecureStorageAction.removeAll:
+          await storage.removeAll();
           break;
       }
       respond.add(response);

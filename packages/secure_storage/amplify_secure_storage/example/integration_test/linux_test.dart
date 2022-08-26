@@ -16,28 +16,14 @@
 
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:amplify_secure_storage/src/utils/file_key_value_store.dart';
-import 'package:amplify_secure_storage_test/amplify_secure_storage_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:path_provider/path_provider.dart';
 
-AmplifySecureStorage storageFactory({
-  required AmplifySecureStorageConfig config,
-}) {
-  return AmplifySecureStorage(config: config);
-}
-
-AmplifySecureStorageInterface remoteStorageFactory({
-  required AmplifySecureStorageConfig config,
-}) {
-  return AmplifySecureStorageWorker(config: config);
-}
-
-void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  group('local', () => runAppUninstallTests(storageFactory));
-  group('remote', () => runAppUninstallTests(remoteStorageFactory));
-}
+const accessGroup = 'test.access.group';
+const scope = 'test';
+const key1 = 'key_1';
+const value1 = 'value_1';
 
 /// Run app uninstall & re-install tests.
 ///
@@ -47,11 +33,8 @@ void main() {
 /// Note: Because these tests are not shared, they are located in
 /// amplify_secure_storage/integration_test rather than
 /// amplify_secure_storage_test.
-void runAppUninstallTests(SecureStorageFactory storageFactory) {
-  const accessGroup = 'test.access.group';
-  const scope = 'test';
-  const key1 = 'key_1';
-  const value1 = 'value_1';
+void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   group('linux app uninstall & re-install', () {
     /// Mimics an app uninstall on Linux by removing the
     /// scopes file for the given app
@@ -65,13 +48,13 @@ void runAppUninstallTests(SecureStorageFactory storageFactory) {
 
     test('Previous keys are cleared when a new scope is initialized', () async {
       // initialize storage and store a value
-      final storage = storageFactory(
+      final storage = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(scope: scope),
       );
       await storage.write(key: key1, value: value1);
 
       // assert value IS NOT cleared when initializing a new instance with an existing scope
-      final storage1 = storageFactory(
+      final storage1 = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(scope: scope),
       );
       expect(await storage1.read(key: key1), isNotNull);
@@ -80,7 +63,7 @@ void runAppUninstallTests(SecureStorageFactory storageFactory) {
       await uninstall();
 
       // assert value IS cleared when initializing a new scope after an app uninstall
-      final storage2 = storageFactory(
+      final storage2 = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(scope: scope),
       );
       expect(await storage2.read(key: key1), isNull);
@@ -89,7 +72,7 @@ void runAppUninstallTests(SecureStorageFactory storageFactory) {
     test('Previous keys are NOT cleared on init when using an accessGroup',
         () async {
       // initialize storage and store a value
-      final storage = storageFactory(
+      final storage = AmplifySecureStorage(
           config: AmplifySecureStorageConfig(
         scope: scope,
         linuxOptions: LinuxSecureStorageOptions(
@@ -102,7 +85,7 @@ void runAppUninstallTests(SecureStorageFactory storageFactory) {
       await uninstall();
 
       // re-initialize storage
-      final storage2 = storageFactory(
+      final storage2 = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(
           scope: scope,
           linuxOptions: LinuxSecureStorageOptions(

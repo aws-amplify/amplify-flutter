@@ -28,10 +28,13 @@ abstract class AmplifySecureStorageInterface extends SecureStorageInterface
   /// Configuration options for Secure Storage.
   final AmplifySecureStorageConfig config;
 
+
+  /// {@template amplify_secure_storage_dart.amplify_secure_storage_interface.remove_all}
   /// Removes all key-value pairs for the current scope.
   ///
   /// Only available on Linux and Windows Platforms. Will throw
   /// [UnimplementedError] on other platforms.
+  /// {@endtemplate}
   FutureOr<void> removeAll() => throw UnimplementedError(
         'removeAll is not implemented for this platform',
       );
