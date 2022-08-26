@@ -23,7 +23,10 @@ import 'package:path/path.dart' as pkg_path;
 /// {@template amplify_secure_storage_dart.file_key_value_store}
 /// A Key-Value Store that stores data in the provided file.
 /// {@endtemplate}
-@visibleForTesting
+//
+// Note: This is only used in the Flutter impl of secure storage,
+// but must be part of the dart package in order to be used in tests
+// without bringing in flutter as a dependency to the tests.
 class FileKeyValueStore {
   /// {@macro amplify_secure_storage_dart.file_key_value_store}
   FileKeyValueStore({

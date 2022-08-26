@@ -20,8 +20,6 @@ dependency_overrides:
 dev_dependencies:
   amplify_lints:
     path: ../../amplify_lints
-  amplify_secure_storage:
-    path: ../amplify_secure_storage
   build_runner: ^2.0.0
   build_test: ^2.0.0
   build_web_compilers: ^3.2.3
