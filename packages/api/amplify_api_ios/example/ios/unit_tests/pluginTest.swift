@@ -19,8 +19,6 @@ import Amplify
 @testable import AmplifyPlugins
 @testable import amplify_api_ios
 
-var eventSentExp: XCTestExpectation?
-
 class ApiPluginUnitTests: XCTestCase {
     typealias ResultType = String
     
