@@ -21,14 +21,10 @@ import 'package:amplify_core/amplify_core.dart';
 class ApiException extends AmplifyException {
   /// {@macro api_exception}
   const ApiException(
-    String message, {
-    String? recoverySuggestion,
-    String? underlyingException,
-  }) : super(
-          message,
-          recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
-        );
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 
   /// Constructor for down casting an AmplifyException to this exception
   ApiException._private(

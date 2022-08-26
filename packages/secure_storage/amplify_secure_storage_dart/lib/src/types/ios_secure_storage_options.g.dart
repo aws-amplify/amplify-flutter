@@ -23,7 +23,11 @@ class _$IOSSecureStorageOptionsSerializer
   Iterable<Object?> serialize(
       Serializers serializers, IOSSecureStorageOptions object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[];
+    final result = <Object?>[
+      'accessible',
+      serializers.serialize(object.accessible,
+          specifiedType: const FullType(KeychainAttributeAccessible)),
+    ];
     Object? value;
     value = object.accessGroup;
     if (value != null) {
@@ -51,6 +55,11 @@ class _$IOSSecureStorageOptionsSerializer
           result.accessGroup = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'accessible':
+          result.accessible = serializers.deserialize(value,
+                  specifiedType: const FullType(KeychainAttributeAccessible))!
+              as KeychainAttributeAccessible;
+          break;
       }
     }
 
@@ -61,12 +70,18 @@ class _$IOSSecureStorageOptionsSerializer
 class _$IOSSecureStorageOptions extends IOSSecureStorageOptions {
   @override
   final String? accessGroup;
+  @override
+  final KeychainAttributeAccessible accessible;
 
   factory _$IOSSecureStorageOptions(
           [void Function(IOSSecureStorageOptionsBuilder)? updates]) =>
       (new IOSSecureStorageOptionsBuilder()..update(updates))._build();
 
-  _$IOSSecureStorageOptions._({this.accessGroup}) : super._();
+  _$IOSSecureStorageOptions._({this.accessGroup, required this.accessible})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        accessible, r'IOSSecureStorageOptions', 'accessible');
+  }
 
   @override
   IOSSecureStorageOptions rebuild(
@@ -80,18 +95,21 @@ class _$IOSSecureStorageOptions extends IOSSecureStorageOptions {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is IOSSecureStorageOptions && accessGroup == other.accessGroup;
+    return other is IOSSecureStorageOptions &&
+        accessGroup == other.accessGroup &&
+        accessible == other.accessible;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, accessGroup.hashCode));
+    return $jf($jc($jc(0, accessGroup.hashCode), accessible.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'IOSSecureStorageOptions')
-          ..add('accessGroup', accessGroup))
+          ..add('accessGroup', accessGroup)
+          ..add('accessible', accessible))
         .toString();
   }
 }
@@ -105,12 +123,18 @@ class IOSSecureStorageOptionsBuilder
   String? get accessGroup => _$this._accessGroup;
   set accessGroup(String? accessGroup) => _$this._accessGroup = accessGroup;
 
+  KeychainAttributeAccessible? _accessible;
+  KeychainAttributeAccessible? get accessible => _$this._accessible;
+  set accessible(KeychainAttributeAccessible? accessible) =>
+      _$this._accessible = accessible;
+
   IOSSecureStorageOptionsBuilder();
 
   IOSSecureStorageOptionsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _accessGroup = $v.accessGroup;
+      _accessible = $v.accessible;
       _$v = null;
     }
     return this;
@@ -131,8 +155,11 @@ class IOSSecureStorageOptionsBuilder
   IOSSecureStorageOptions build() => _build();
 
   _$IOSSecureStorageOptions _build() {
-    final _$result =
-        _$v ?? new _$IOSSecureStorageOptions._(accessGroup: accessGroup);
+    final _$result = _$v ??
+        new _$IOSSecureStorageOptions._(
+            accessGroup: accessGroup,
+            accessible: BuiltValueNullFieldError.checkNotNull(
+                accessible, r'IOSSecureStorageOptions', 'accessible'));
     replace(_$result);
     return _$result;
   }

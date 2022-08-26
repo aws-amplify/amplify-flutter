@@ -148,6 +148,33 @@ void main() {
       expect(res.errors, equals(null));
     });
 
+<<<<<<< HEAD
+=======
+    test('Query returns proper response.data with dynamic type', () async {
+      String graphQLDocument = ''' query TestQuery {
+          listBlogs {
+            items {
+              id
+              name
+              createdAt
+            }
+          }
+        } ''';
+      final req = GraphQLRequest<dynamic>(
+        document: graphQLDocument,
+        variables: {},
+      );
+
+      final operation = Amplify.API.query(request: req);
+      final res = await operation.value;
+
+      final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
+
+      expect(res.data, equals(expected));
+      expect(res.errors, equals(null));
+    });
+
+>>>>>>> feat/api-next
     test('Mutate returns proper response.data', () async {
       String graphQLDocument = ''' mutation TestMutate(\$name: String!) {
           createBlog(input: {name: \$name}) {
@@ -226,12 +253,16 @@ void main() {
 
     test('subscribe() should decode model data', () async {
       Completer<void> establishedCompleter = Completer();
+<<<<<<< HEAD
       Completer<Post> dataCompleter = Completer();
+=======
+>>>>>>> feat/api-next
       final subscriptionRequest = ModelSubscriptions.onCreate(Post.classType);
       final subscription = Amplify.API.subscribe(
         subscriptionRequest,
         onEstablished: () => establishedCompleter.complete(),
       );
+<<<<<<< HEAD
 
       final streamSub = subscription.listen(
         (event) => dataCompleter.complete(event.data),
@@ -241,6 +272,17 @@ void main() {
       final subscriptionData = await dataCompleter.future;
       expect(subscriptionData, isA<Post>());
       streamSub.cancel();
+=======
+      await establishedCompleter.future;
+
+      late StreamSubscription<GraphQLResponse<Post>> streamSub;
+      streamSub = subscription.listen(
+        expectAsync1((event) {
+          expect(event.data, isA<Post>());
+          streamSub.cancel();
+        }),
+      );
+>>>>>>> feat/api-next
     });
   });
 

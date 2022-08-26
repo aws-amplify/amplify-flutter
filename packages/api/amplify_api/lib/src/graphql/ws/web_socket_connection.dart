@@ -198,10 +198,6 @@ class WebSocketConnection implements Closeable {
   @visibleForTesting
   void send(WebSocketMessage message) {
     final msgJson = json.encode(message.toJson());
-    if (_channel == null) {
-      throw ApiException(
-          'Web socket not connected. Cannot send message $message');
-    }
     _channel!.sink.add(msgJson);
   }
 
@@ -257,6 +253,6 @@ class WebSocketConnection implements Closeable {
 
     // Re-broadcast other message types related to single subscriptions.
 
-    if (!_rebroadcastController.isClosed) _rebroadcastController.add(message);
+    _rebroadcastController.add(message);
   }
 }

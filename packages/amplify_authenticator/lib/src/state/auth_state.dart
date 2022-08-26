@@ -34,6 +34,7 @@ class AuthenticatedState extends AuthState {
 @immutable
 class UnauthenticatedState extends AuthState {
   final AuthenticatorStep _step;
+
   const UnauthenticatedState({required AuthenticatorStep step}) : _step = step;
 
   AuthenticatorStep get step => _step;
@@ -50,6 +51,7 @@ class UnauthenticatedState extends AuthState {
       UnauthenticatedState(step: AuthenticatorStep.resetPassword);
   static const confirmResetPassword =
       UnauthenticatedState(step: AuthenticatorStep.confirmResetPassword);
+
   static const verifyUser =
       UnauthenticatedState(step: AuthenticatorStep.verifyUser);
 
@@ -82,4 +84,21 @@ class ConfirmSignInCustom extends UnauthenticatedState {
   const ConfirmSignInCustom({
     this.publicParameters = const <String, String>{},
   }) : super(step: AuthenticatorStep.confirmSignInCustomAuth);
+}
+
+/// A state that indicates that there is a check to
+/// determine the user's verification state in progress.
+///
+/// This indicates that either Sign In OR Confirm Sign In
+/// has completed, but it is currently unknown if the user needs
+/// to be taken to the `veryUser` step or to an authenticated state
+/// because the call to fetch user attributes is pending.
+class PendingVerificationCheckState extends UnauthenticatedState {
+  const PendingVerificationCheckState({
+    required super.step,
+  }) : assert(
+          step == AuthenticatorStep.signIn ||
+              step == AuthenticatorStep.confirmSignUp,
+          'Invalid AuthenticatorStep type: $step',
+        );
 }

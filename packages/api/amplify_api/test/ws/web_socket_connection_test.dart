@@ -59,13 +59,8 @@ void main() {
 
     test('subscribe() should initialize the connection and call onEstablished',
         () async {
-      Completer<void> establishedCompleter = Completer();
-      connection.subscribe(subscriptionRequest, () {
-        establishedCompleter.complete();
-      });
-
+      connection.subscribe(subscriptionRequest, expectAsync0(() {}));
       expectLater(connection.ready, completes);
-      expectLater(establishedCompleter.future, completes);
     });
 
     test(
@@ -88,19 +83,18 @@ void main() {
     });
 
     test('subscribe() should return a subscription stream', () async {
-      Completer<String> dataCompleter = Completer();
       final subscription = connection.subscribe(
         subscriptionRequest,
         null,
       );
 
-      final streamSub = subscription.listen(
-        (event) => dataCompleter.complete(event.data),
+      late StreamSubscription<GraphQLResponse<String>> streamSub;
+      streamSub = subscription.listen(
+        expectAsync1((event) {
+          expect(event.data, json.encode(mockSubscriptionData));
+          streamSub.cancel();
+        }),
       );
-
-      final subscriptionData = await dataCompleter.future;
-      expect(subscriptionData, json.encode(mockSubscriptionData));
-      streamSub.cancel();
     });
 
     test('cancel() should send a stop message', () async {

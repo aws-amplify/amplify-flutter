@@ -40,6 +40,12 @@ globals:
     - kSecValueData
     - kSecUseDataProtectionKeychain
     - kSecAttrAccessGroup
+    - kSecAttrAccessible
+    - kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly
+    - kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+    - kSecAttrAccessibleWhenUnlocked
+    - kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+    - kSecAttrAccessibleAfterFirstUnlock
 macros:
   include:
     - NONE
@@ -88,6 +94,3 @@ type-map:
       'lib': 'coreFoundation'
       'c-type': 'CFDictionaryRef'
       'dart-type': 'CFDictionaryRef'
-
-      
-      

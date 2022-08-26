@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:async/async.dart';
@@ -143,9 +144,6 @@ Future<void> pubAction({
         ..stderr(error.error.toString())
         ..stderr(error.stackTrace.toString());
     }
-    // TODO(dnys1): Should this be behind a flag?
-    /// Can add back when https://github.com/flutter/flutter/issues/107647 is
-    /// resolved.
-    // exitCode = 1;
+    exitCode = 1;
   }
 }

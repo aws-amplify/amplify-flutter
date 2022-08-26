@@ -142,9 +142,14 @@ class StateMachineBloc
     logger.debug('Handling hub event: ${event.type}');
     switch (event.type) {
       case AuthHubEventType.signedIn:
-        // TODO(Jordan-Nelson): Display app after sign in hub event.
-        // Need requirements for how this impacts verify user.
-        break;
+        if (currentState is! UnauthenticatedState) {
+          break;
+        }
+        // do not change state if there is a pending user verification.
+        if (currentState is PendingVerificationCheckState) {
+          break;
+        }
+        return const AuthenticatedState();
       case AuthHubEventType.signedOut:
       case AuthHubEventType.sessionExpired:
       case AuthHubEventType.userDeleted:
@@ -376,6 +381,10 @@ class StateMachineBloc
   }
 
   Stream<AuthState> _checkUserVerification() async* {
+    if (currentState is UnauthenticatedState) {
+      final state = (currentState as UnauthenticatedState);
+      _emit(PendingVerificationCheckState(step: state.step));
+    }
     try {
       var attributeVerificationStatus =
           await _authService.getAttributeVerificationStatus();

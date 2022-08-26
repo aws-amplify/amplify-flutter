@@ -18,11 +18,11 @@ import 'amplify_exception.dart';
 /// Exception thrown from codegen models
 class AmplifyCodeGenModelException extends AmplifyException {
   /// Named constructor
-  const AmplifyCodeGenModelException(String message,
-      {String? recoverySuggestion, String? underlyingException})
-      : super(message,
-            recoverySuggestion: recoverySuggestion,
-            underlyingException: underlyingException);
+  const AmplifyCodeGenModelException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 
   /// Constructor for down casting an AmplifyException to this exception
   AmplifyCodeGenModelException._private(AmplifyException exception)

@@ -60,6 +60,15 @@ class Security {
   set kSecClassGenericPassword(coreFoundation.CFStringRef value) =>
       _kSecClassGenericPassword.value = value;
 
+  late final ffi.Pointer<coreFoundation.CFStringRef> _kSecAttrAccessible =
+      _lookup<coreFoundation.CFStringRef>('kSecAttrAccessible');
+
+  coreFoundation.CFStringRef get kSecAttrAccessible =>
+      _kSecAttrAccessible.value;
+
+  set kSecAttrAccessible(coreFoundation.CFStringRef value) =>
+      _kSecAttrAccessible.value = value;
+
   late final ffi.Pointer<coreFoundation.CFStringRef> _kSecAttrAccessGroup =
       _lookup<coreFoundation.CFStringRef>('kSecAttrAccessGroup');
 
@@ -84,6 +93,64 @@ class Security {
 
   set kSecAttrService(coreFoundation.CFStringRef value) =>
       _kSecAttrService.value = value;
+
+  late final ffi.Pointer<coreFoundation.CFStringRef>
+      _kSecAttrAccessibleWhenUnlocked =
+      _lookup<coreFoundation.CFStringRef>('kSecAttrAccessibleWhenUnlocked');
+
+  coreFoundation.CFStringRef get kSecAttrAccessibleWhenUnlocked =>
+      _kSecAttrAccessibleWhenUnlocked.value;
+
+  set kSecAttrAccessibleWhenUnlocked(coreFoundation.CFStringRef value) =>
+      _kSecAttrAccessibleWhenUnlocked.value = value;
+
+  late final ffi.Pointer<coreFoundation.CFStringRef>
+      _kSecAttrAccessibleAfterFirstUnlock =
+      _lookup<coreFoundation.CFStringRef>('kSecAttrAccessibleAfterFirstUnlock');
+
+  coreFoundation.CFStringRef get kSecAttrAccessibleAfterFirstUnlock =>
+      _kSecAttrAccessibleAfterFirstUnlock.value;
+
+  set kSecAttrAccessibleAfterFirstUnlock(coreFoundation.CFStringRef value) =>
+      _kSecAttrAccessibleAfterFirstUnlock.value = value;
+
+  late final ffi.Pointer<coreFoundation.CFStringRef>
+      _kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly =
+      _lookup<coreFoundation.CFStringRef>(
+          'kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly');
+
+  coreFoundation.CFStringRef
+      get kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly =>
+          _kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly.value;
+
+  set kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly(
+          coreFoundation.CFStringRef value) =>
+      _kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly.value = value;
+
+  late final ffi.Pointer<coreFoundation.CFStringRef>
+      _kSecAttrAccessibleWhenUnlockedThisDeviceOnly =
+      _lookup<coreFoundation.CFStringRef>(
+          'kSecAttrAccessibleWhenUnlockedThisDeviceOnly');
+
+  coreFoundation.CFStringRef get kSecAttrAccessibleWhenUnlockedThisDeviceOnly =>
+      _kSecAttrAccessibleWhenUnlockedThisDeviceOnly.value;
+
+  set kSecAttrAccessibleWhenUnlockedThisDeviceOnly(
+          coreFoundation.CFStringRef value) =>
+      _kSecAttrAccessibleWhenUnlockedThisDeviceOnly.value = value;
+
+  late final ffi.Pointer<coreFoundation.CFStringRef>
+      _kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly =
+      _lookup<coreFoundation.CFStringRef>(
+          'kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly');
+
+  coreFoundation.CFStringRef
+      get kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly =>
+          _kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly.value;
+
+  set kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly(
+          coreFoundation.CFStringRef value) =>
+      _kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly.value = value;
 
   late final ffi.Pointer<coreFoundation.CFStringRef> _kSecMatchLimit =
       _lookup<coreFoundation.CFStringRef>('kSecMatchLimit');

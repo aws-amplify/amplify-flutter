@@ -18,11 +18,11 @@ import 'package:amplify_core/amplify_core.dart';
 /// Exception thrown from Storage Category
 class StorageException extends AmplifyException {
   /// Named constructor
-  const StorageException(String message,
-      {String? recoverySuggestion, String? underlyingException})
-      : super(message,
-            recoverySuggestion: recoverySuggestion,
-            underlyingException: underlyingException);
+  const StorageException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 
   /// Constructor for down casting an AmplifyException to this exception
   StorageException._private(AmplifyException exception)

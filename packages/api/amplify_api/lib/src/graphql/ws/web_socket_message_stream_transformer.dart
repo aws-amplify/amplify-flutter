@@ -12,21 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: public_member_api_docs
+@internal
+library amplify_api.graphql.ws.web_socket_message_stream_transformer;
 
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_api/src/util.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 import '../graphql_response_decoder.dart';
 import 'web_socket_types.dart';
 
-@internal
+/// Top-level transformer.
 class WebSocketMessageStreamTransformer
     extends StreamTransformerBase<dynamic, WebSocketMessage> {
+  /// Transforms raw web socket response (String) to `WebSocketMessage` for all input
+  /// from channel.
   const WebSocketMessageStreamTransformer();
 
   @override
@@ -37,13 +39,22 @@ class WebSocketMessageStreamTransformer
   }
 }
 
-@internal
+/// Final level of transformation for converting `WebSocketMessage`s to stream
+/// of `GraphQLResponse` that is eventually passed to public API `Amplify.API.subscribe`.
 class WebSocketSubscriptionStreamTransformer<T>
     extends StreamTransformerBase<WebSocketMessage, GraphQLResponse<T>> {
+  /// request for this stream, needed to properly decode response events
   final GraphQLRequest<T> request;
+
+  /// logs complete messages to better provide visibility to cancels
   final AmplifyLogger logger;
+
+  /// executes when start_ack message received
   final void Function()? onEstablished;
 
+  /// [request] is used to properly decode response events
+  /// [onEstablished] is executed when start_ack message received
+  /// [logger] logs cancel messages when complete message received
   const WebSocketSubscriptionStreamTransformer(
     this.request,
     this.onEstablished, {
@@ -70,6 +81,8 @@ class WebSocketSubscriptionStreamTransformer<T>
         case MessageType.complete:
           logger.info('Cancel succeeded for Operation: ${event.id}');
           return;
+        default:
+          break;
       }
     }
   }
