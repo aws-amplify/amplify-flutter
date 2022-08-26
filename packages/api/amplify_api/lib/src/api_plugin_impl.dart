@@ -17,6 +17,7 @@ library amplify_api;
 import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_api/src/native_api_plugin.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
@@ -37,10 +38,15 @@ class AmplifyAPIDart extends AmplifyAPI {
   late final AWSApiPluginConfig _apiConfig;
   final http.Client? _baseHttpClient;
   late final AmplifyAuthProviderRepository _authProviderRepo;
+  final _logger = AmplifyLogger.category(Category.api);
 
   /// A map of the keys from the Amplify API config to HTTP clients to use for
   /// requests to that endpoint.
   final Map<String, http.Client> _clientPool = {};
+
+  /// A map of the keys from the Amplify API config websocket connections to use
+  /// for that endpoint.
+  final Map<String, WebSocketConnection> _webSocketConnectionPool = {};
 
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
@@ -123,6 +129,24 @@ class AmplifyAPIDart extends AmplifyAPI {
     ));
   }
 
+  /// Returns the websocket connection to use for a given endpoint.
+  ///
+  /// Use [apiName] if there are multiple endpoints.
+  @visibleForTesting
+  WebSocketConnection getWebSocketConnection({String? apiName}) {
+    final endpoint = _apiConfig.getEndpoint(
+      type: EndpointType.graphQL,
+      apiName: apiName,
+    );
+    return _webSocketConnectionPool[endpoint.name] ??= WebSocketConnection(
+      endpoint.config,
+      _authProviderRepo,
+      logger: _logger.createChild(
+        'webSocketConnection${endpoint.name}',
+      ),
+    );
+  }
+
   Uri _getGraphQLUri(String? apiName) {
     final endpoint = _apiConfig.getEndpoint(
       type: EndpointType.graphQL,
@@ -185,6 +209,15 @@ class AmplifyAPIDart extends AmplifyAPI {
     final responseFuture = sendGraphQLRequest<T>(
         request: request, client: graphQLClient, uri: uri);
     return _makeCancelable<GraphQLResponse<T>>(responseFuture);
+  }
+
+  @override
+  Stream<GraphQLResponse<T>> subscribe<T>(
+    GraphQLRequest<T> request, {
+    void Function()? onEstablished,
+  }) {
+    return getWebSocketConnection(apiName: request.apiName)
+        .subscribe(request, onEstablished);
   }
 
   // ====== REST =======
