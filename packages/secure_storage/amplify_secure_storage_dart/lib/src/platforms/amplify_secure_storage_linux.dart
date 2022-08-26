@@ -97,7 +97,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   }
 
   /// Removes all key-value pairs for the current scope.
-  @visibleForTesting
+  @override
   Future<void> removeAll() async {
     final schemaName = await _getSchemaName();
     return using((Arena arena) {
