@@ -45,13 +45,19 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
       onEstablished: () => print('Subscription established'),
     );
 
-    try {
-      await for (var event in operation) {
-        print('Subscription event data received: ${event.data}');
-      }
-    } on Exception catch (e) {
-      print('Error in subscription stream: $e');
-    }
+    final streamSubscription = operation.listen(
+      (event) {
+        final result = 'Subscription event data received: ${event.data}';
+        print(result);
+        setState(() {
+          _result = result;
+        });
+      },
+      onError: (Object error) => print(
+        'Error in GraphQL subscription: $error',
+      ),
+    );
+    _unsubscribe = streamSubscription.cancel;
   }
 
   Future<void> query() async {
