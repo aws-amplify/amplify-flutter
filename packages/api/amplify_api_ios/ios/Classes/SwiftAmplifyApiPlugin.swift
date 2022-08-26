@@ -31,7 +31,6 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
 
         registrar.addMethodCallDelegate(instance, channel: methodChannel)
         NativeApiBridgeSetup(registrar.messenger(), instance)
-        NativeApiBridgeSetup(registrar.messenger(), instance)
     }
    
     public func addPluginAuthProvidersList(_ authProvidersList: [String]) async -> FlutterError? {
