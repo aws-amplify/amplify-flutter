@@ -16,7 +16,7 @@
 
 import 'package:amplify_secure_storage/src/utils/file_key_value_store.dart';
 import 'package:file/memory.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 void main() {
   late FileKeyValueStore storage;

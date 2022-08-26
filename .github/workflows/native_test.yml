@@ -90,7 +90,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_5"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_4"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -199,7 +199,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_5"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_4"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
             os:ubuntu-latest;pub-cache-hosted;sdk:stable

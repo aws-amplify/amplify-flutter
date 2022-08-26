@@ -23,7 +23,7 @@ import 'package:path/path.dart' as pkg_path;
 /// {@template amplify_secure_storage_dart.file_key_value_store}
 /// A Key-Value Store that stores data in the provided file.
 /// {@endtemplate}
-@internal
+@visibleForTesting
 class FileKeyValueStore {
   /// {@macro amplify_secure_storage_dart.file_key_value_store}
   FileKeyValueStore({
