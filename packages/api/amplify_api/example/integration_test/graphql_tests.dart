@@ -529,136 +529,142 @@ void main() {
       });
     });
 
-    group('subscriptions', () {
-      // Some local helper methods to help with establishing subscriptions and such.
+    group(
+      'subscriptions',
+      () {
+        // Some local helper methods to help with establishing subscriptions and such.
 
-      // Wait for subscription established for given request.
-      Future<StreamSubscription<GraphQLResponse<T>>>
-          _getEstablishedSubscriptionOperation<T>(
-              GraphQLRequest<T> subscriptionRequest,
-              void Function(GraphQLResponse<T>) onData) async {
-        Completer<void> establishedCompleter = Completer();
-        final stream =
-            Amplify.API.subscribe<T>(subscriptionRequest, onEstablished: () {
-          establishedCompleter.complete();
+        // Wait for subscription established for given request.
+        Future<StreamSubscription<GraphQLResponse<T>>>
+            _getEstablishedSubscriptionOperation<T>(
+                GraphQLRequest<T> subscriptionRequest,
+                void Function(GraphQLResponse<T>) onData) async {
+          Completer<void> establishedCompleter = Completer();
+          final stream =
+              Amplify.API.subscribe<T>(subscriptionRequest, onEstablished: () {
+            establishedCompleter.complete();
+          });
+          final subscription = stream.listen(
+            onData,
+            onError: (Object e) => fail('Error in subscription stream: $e'),
+          );
+
+          await establishedCompleter.future
+              .timeout(const Duration(seconds: _subscriptionTimeoutInterval));
+          return subscription;
+        }
+
+        // Establish subscription for request, do the mutationFunction, then wait
+        // for the stream event, cancel the operation, return response from event.
+        Future<GraphQLResponse<T?>> _establishSubscriptionAndMutate<T>(
+            GraphQLRequest<T> subscriptionRequest,
+            Future<void> Function() mutationFunction) async {
+          Completer<GraphQLResponse<T?>> dataCompleter = Completer();
+          // With stream established, exec callback with stream events.
+          final subscription = await _getEstablishedSubscriptionOperation<T>(
+              subscriptionRequest, (event) {
+            if (event.hasErrors) {
+              fail('subscription errors: ${event.errors}');
+            }
+            dataCompleter.complete(event);
+          });
+          await mutationFunction();
+          final response = await dataCompleter.future
+              .timeout((const Duration(seconds: _subscriptionTimeoutInterval)));
+
+          await subscription.cancel();
+          return response;
+        }
+
+        testWidgets(
+            'should emit event when onCreate subscription made with model helper',
+            (WidgetTester tester) async {
+          String name =
+              'Integration Test Blog - subscription create ${UUID.getUUID()}';
+          final subscriptionRequest =
+              ModelSubscriptions.onCreate(Blog.classType);
+
+          final eventResponse = await _establishSubscriptionAndMutate(
+              subscriptionRequest, () => addBlog(name));
+          Blog? blogFromEvent = eventResponse.data;
+
+          expect(blogFromEvent?.name, equals(name));
         });
-        final subscription = stream.listen(
-          onData,
-          onError: (Object e) => fail('Error in subscription stream: $e'),
-        );
 
-        await establishedCompleter.future
-            .timeout(const Duration(seconds: _subscriptionTimeoutInterval));
-        return subscription;
-      }
+        testWidgets(
+            'should emit event when onUpdate subscription made with model helper',
+            (WidgetTester tester) async {
+          const originalName = 'Integration Test Blog - subscription update';
+          final updatedName =
+              'Integration Test Blog - subscription update, name now ${UUID.getUUID()}';
+          Blog blogToUpdate = await addBlog(originalName);
 
-      // Establish subscription for request, do the mutationFunction, then wait
-      // for the stream event, cancel the operation, return response from event.
-      Future<GraphQLResponse<T?>> _establishSubscriptionAndMutate<T>(
-          GraphQLRequest<T> subscriptionRequest,
-          Future<void> Function() mutationFunction) async {
-        Completer<GraphQLResponse<T?>> dataCompleter = Completer();
-        // With stream established, exec callback with stream events.
-        final subscription = await _getEstablishedSubscriptionOperation<T>(
-            subscriptionRequest, (event) {
-          if (event.hasErrors) {
-            fail('subscription errors: ${event.errors}');
-          }
-          dataCompleter.complete(event);
+          final subscriptionRequest =
+              ModelSubscriptions.onUpdate(Blog.classType);
+          final eventResponse =
+              await _establishSubscriptionAndMutate(subscriptionRequest, () {
+            blogToUpdate = blogToUpdate.copyWith(name: updatedName);
+            final updateReq = ModelMutations.update(blogToUpdate);
+            return Amplify.API.mutate(request: updateReq).response;
+          });
+          Blog? blogFromEvent = eventResponse.data;
+
+          expect(blogFromEvent?.name, equals(updatedName));
         });
-        await mutationFunction();
-        final response = await dataCompleter.future
-            .timeout((const Duration(seconds: _subscriptionTimeoutInterval)));
 
-        await subscription.cancel();
-        return response;
-      }
+        testWidgets(
+            'should emit event when onDelete subscription made with model helper',
+            (WidgetTester tester) async {
+          const name = 'Integration Test Blog - subscription delete';
+          Blog blogToDelete = await addBlog(name);
 
-      testWidgets(
-          'should emit event when onCreate subscription made with model helper',
-          (WidgetTester tester) async {
-        String name =
-            'Integration Test Blog - subscription create ${UUID.getUUID()}';
-        final subscriptionRequest = ModelSubscriptions.onCreate(Blog.classType);
+          final subscriptionRequest =
+              ModelSubscriptions.onDelete(Blog.classType);
+          final eventResponse =
+              await _establishSubscriptionAndMutate(subscriptionRequest, () {
+            final deleteReq =
+                ModelMutations.deleteById(Blog.classType, blogToDelete.id);
+            return Amplify.API.mutate(request: deleteReq).response;
+          });
+          Blog? blogFromEvent = eventResponse.data;
 
-        final eventResponse = await _establishSubscriptionAndMutate(
-            subscriptionRequest, () => addBlog(name));
-        Blog? blogFromEvent = eventResponse.data;
-
-        expect(blogFromEvent?.name, equals(name));
-      });
-
-      testWidgets(
-          'should emit event when onUpdate subscription made with model helper',
-          (WidgetTester tester) async {
-        const originalName = 'Integration Test Blog - subscription update';
-        final updatedName =
-            'Integration Test Blog - subscription update, name now ${UUID.getUUID()}';
-        Blog blogToUpdate = await addBlog(originalName);
-
-        final subscriptionRequest = ModelSubscriptions.onUpdate(Blog.classType);
-        final eventResponse =
-            await _establishSubscriptionAndMutate(subscriptionRequest, () {
-          blogToUpdate = blogToUpdate.copyWith(name: updatedName);
-          final updateReq = ModelMutations.update(blogToUpdate);
-          return Amplify.API.mutate(request: updateReq).response;
+          expect(blogFromEvent?.name, equals(name));
         });
-        Blog? blogFromEvent = eventResponse.data;
 
-        expect(blogFromEvent?.name, equals(updatedName));
-      });
+        testWidgets('should cancel subscription', (WidgetTester tester) async {
+          const name = 'Integration Test Blog - subscription to cancel';
+          Blog blogToDelete = await addBlog(name);
 
-      testWidgets(
-          'should emit event when onDelete subscription made with model helper',
-          (WidgetTester tester) async {
-        const name = 'Integration Test Blog - subscription delete';
-        Blog blogToDelete = await addBlog(name);
+          final subReq = ModelSubscriptions.onDelete(Blog.classType);
+          final subscription =
+              await _getEstablishedSubscriptionOperation<Blog>(subReq, (_) {
+            fail('Subscription event triggered. Should be canceled.');
+          });
+          await subscription.cancel();
 
-        final subscriptionRequest = ModelSubscriptions.onDelete(Blog.classType);
-        final eventResponse =
-            await _establishSubscriptionAndMutate(subscriptionRequest, () {
+          // delete the blog, wait for update
           final deleteReq =
               ModelMutations.deleteById(Blog.classType, blogToDelete.id);
-          return Amplify.API.mutate(request: deleteReq).response;
+          await Amplify.API.mutate(request: deleteReq).response;
+          await Future<dynamic>.delayed(const Duration(seconds: 5));
         });
-        Blog? blogFromEvent = eventResponse.data;
 
-        expect(blogFromEvent?.name, equals(name));
-      });
+        testWidgets(
+            'should emit event when onCreate subscription made with model helper for post (model with parent).',
+            (WidgetTester tester) async {
+          String title =
+              'Integration Test post - subscription create ${UUID.getUUID()}';
+          final subscriptionRequest =
+              ModelSubscriptions.onCreate(Post.classType);
 
-      testWidgets('should cancel subscription', (WidgetTester tester) async {
-        const name = 'Integration Test Blog - subscription to cancel';
-        Blog blogToDelete = await addBlog(name);
+          final eventResponse = await _establishSubscriptionAndMutate(
+              subscriptionRequest,
+              () => addPostAndBlogWithModelHelper(title, 0));
+          Post? postFromEvent = eventResponse.data;
 
-        final subReq = ModelSubscriptions.onDelete(Blog.classType);
-        final subscription =
-            await _getEstablishedSubscriptionOperation<Blog>(subReq, (_) {
-          fail('Subscription event triggered. Should be canceled.');
+          expect(postFromEvent?.title, equals(title));
         });
-        await subscription.cancel();
-
-        // delete the blog, wait for update
-        final deleteReq =
-            ModelMutations.deleteById(Blog.classType, blogToDelete.id);
-        await Amplify.API.mutate(request: deleteReq).response;
-        await Future<dynamic>.delayed(const Duration(seconds: 5));
-      });
-
-      testWidgets(
-          'should emit event when onCreate subscription made with model helper for post (model with parent).',
-          (WidgetTester tester) async {
-        String title =
-            'Integration Test post - subscription create ${UUID.getUUID()}';
-        final subscriptionRequest = ModelSubscriptions.onCreate(Post.classType);
-
-        final eventResponse = await _establishSubscriptionAndMutate(
-            subscriptionRequest, () => addPostAndBlogWithModelHelper(title, 0));
-        Post? postFromEvent = eventResponse.data;
-
-        expect(postFromEvent?.title, equals(title));
-      });
-    },
-        skip:
-            'TODO(ragingsquirrel3): re-enable tests once subscriptions are implemented.');
+      },
+    );
   });
 }
