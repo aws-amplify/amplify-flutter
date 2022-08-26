@@ -6,4 +6,4 @@ stages:
   - analyze_and_format:
       - group:
           - format
-          - analyze: --fatal-infos lib test
+          - analyze: --fatal-infos lib
