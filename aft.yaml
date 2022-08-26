@@ -14,6 +14,41 @@ dependencies:
   json_serializable: 6.5.4
   uuid: ">=3.0.6 <=3.0.7"
 
-# Packages to ignore in all repo operations
+# Packages to ignore in all repo operations.
 ignore:
   - synthetic_package
+
+# Branch names which map to pub.dev stable and prerelease tracks.
+branches:
+  stable: stable
+  prerelease: next
+
+# Strongly connected components which should have minor/major version bumps happen 
+# in unison, i.e. a version bump to one package cascades to all.
+components:
+  amplify:
+    - amplify_flutter
+    - amplify_flutter_ios
+    - amplify_flutter_android
+    - amplify_core
+    - amplify_datastore
+    - amplify_datastore_plugin_interface
+    - amplify_analytics_pinpoint
+    - amplify_analytics_pinpoint_android
+    - amplify_analytics_pinpoint_ios
+    - amplify_api
+    - amplify_api_android
+    - amplify_api_ios
+    - amplify_auth_cognito
+    - amplify_auth_cognito_android
+    - amplify_auth_cognito_ios
+    - amplify_storage_s3
+    - amplify_storage_s3_android
+    - amplify_storage_s3_ios
+  smithy:
+    - smithy
+    - smithy_aws
+    - smithy_codegen
+  worker_bee:
+    - worker_bee
+    - worker_bee_builder

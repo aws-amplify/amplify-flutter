@@ -15,23 +15,63 @@
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/repo.dart';
 import 'package:args/command_runner.dart';
 import 'package:aws_common/aws_common.dart';
-import 'package:checked_yaml/checked_yaml.dart';
-import 'package:cli_util/cli_logging.dart';
-import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub/pub.dart';
 
 /// Base class for all commands in this package providing common functionality.
-abstract class AmplifyCommand extends Command<void> implements Closeable {
-  /// Whether verbose logging is enabled.
-  late final bool verbose = globalResults!['verbose'] as bool;
+abstract class AmplifyCommand extends Command<void>
+    implements AWSLoggerPlugin, Closeable {
+  AmplifyCommand() {
+    init();
+  }
 
-  /// The configured logger for the command.
-  late final Logger logger = verbose ? Logger.verbose() : Logger.standard();
+  /// Initializer which runs when this command is instantiated.
+  ///
+  /// This can be overridden for setting additional flags or subcommands
+  /// via mixins or direct overrides.
+  @mustCallSuper
+  void init() {
+    AWSLogger()
+      ..unregisterAllPlugins()
+      ..registerPlugin(this);
+  }
+
+  late final AWSLogger logger = () {
+    final allCommands = <String>[];
+    for (Command<dynamic>? cmd = this; cmd != null; cmd = cmd.parent) {
+      allCommands.add(cmd.name);
+    }
+    return AWSLogger().createChild(allCommands.reversed.join('.'))
+      ..logLevel = verbose ? LogLevel.verbose : LogLevel.info;
+  }();
+
+  @override
+  void handleLogEntry(LogEntry logEntry) {
+    final message = verbose
+        ? '${logEntry.loggerName} | ${logEntry.message}'
+        : logEntry.message;
+    switch (logEntry.level) {
+      case LogLevel.verbose:
+      case LogLevel.debug:
+      case LogLevel.info:
+        stdout.writeln(message);
+        break;
+      case LogLevel.warn:
+      case LogLevel.error:
+        stderr.writeln(message);
+        break;
+      case LogLevel.none:
+        break;
+    }
+  }
+
+  /// Whether verbose logging is enabled.
+  bool get verbose => globalResults?['verbose'] as bool? ?? false;
 
   /// The current working directory.
   late final Directory workingDirectory = () {
@@ -65,52 +105,18 @@ abstract class AmplifyCommand extends Command<void> implements Closeable {
     );
   }();
 
-  late final Map<String, PackageInfo> allPackages = () {
-    final allDirs = rootDir
-        .listSync(recursive: true, followLinks: false)
-        .whereType<Directory>();
-    final allPackages = <PackageInfo>[];
-    for (final dir in allDirs) {
-      final pubspecInfo = dir.pubspec;
-      if (pubspecInfo == null) {
-        continue;
-      }
-      final pubspec = pubspecInfo.pubspec;
-      if (aftConfig.ignore.contains(pubspec.name)) {
-        continue;
-      }
-      allPackages.add(
-        PackageInfo(
-          name: pubspec.name,
-          path: dir.path,
-          usesMonoRepo: dir.usesMonoRepo,
-          pubspecInfo: pubspecInfo,
-          flavor: pubspec.flavor,
-        ),
-      );
-    }
-    return UnmodifiableMapView({
-      for (final package in allPackages..sort()) package.name: package,
-    });
-  }();
+  late final Repo repo = Repo(rootDir, logger: logger);
 
-  /// The absolute path to the `aft.yaml` document.
-  late final String aftConfigPath = () {
-    final rootDir = this.rootDir;
-    return p.join(rootDir.path, 'aft.yaml');
-  }();
+  Map<String, PackageInfo> get allPackages => repo.allPackages;
+
+  String get aftConfigPath => repo.aftConfigPath;
+  AftConfig get aftConfig => repo.aftConfig;
 
   /// The `aft.yaml` document.
   String get aftConfigYaml {
     final configFile = File(aftConfigPath);
     assert(configFile.existsSync(), 'Could not find aft.yaml');
     return configFile.readAsStringSync();
-  }
-
-  /// The global `aft` configuration for the repo.
-  AftConfig get aftConfig {
-    final configYaml = aftConfigYaml;
-    return checkedYamlDecode(configYaml, AftConfig.fromJson);
   }
 
   /// A command runner for `pub`.

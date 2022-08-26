@@ -12,14 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/util.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:cli_util/cli_logging.dart';
 import 'package:graphs/graphs.dart';
-import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 
 /// Command to publish all Dart/Flutter packages in the repo.
@@ -54,64 +53,42 @@ class PublishCommand extends AmplifyCommand {
   /// Checks if [package] can be published based on whether the local version
   /// is newer than the one published to `pub.dev`.
   Future<PackageInfo?> _checkPublishable(PackageInfo package) async {
-    final publishTo = package.pubspecInfo.pubspec.publishTo;
-    if (publishTo == 'none') {
-      return null;
-    }
-
     Never fail(String error) {
       logger
-        ..stderr('Could not retrieve package info for ${package.name}: ')
-        ..stderr(error)
-        ..stderr('Retry with `--force` to ignore this error');
+        ..error('Could not retrieve package info for ${package.name}: ')
+        ..error(error)
+        ..error('Retry with `--force` to ignore this error');
       exit(1);
     }
 
-    // Get the currently published version of the package.
-    final uri = Uri.parse(publishTo ?? 'https://pub.dev')
-        .replace(path: '/api/packages/${package.name}');
-    logger.trace('GET $uri');
-    final resp = await httpClient.get(
-      uri,
-      headers: {'Accept': 'application/vnd.pub.v2+json'},
-    );
+    try {
+      final versionInfo = await package.resolveVersionInfo(httpClient);
+      final latestVersion = versionInfo?.latestVersion;
+      if (latestVersion == null) {
+        if (force) {
+          return package;
+        } else {
+          fail('Could not determine latest version');
+        }
+      }
 
-    // Package is unpublished
-    if (resp.statusCode == 404) {
-      return package;
-    }
-    if (resp.statusCode != 200) {
+      return latestVersion < package.pubspecInfo.pubspec.version!
+          ? package
+          : null;
+    } on Exception catch (e) {
       if (force) {
-        return package;
+        return null;
       } else {
-        fail(resp.body);
+        fail(e.toString());
       }
     }
-
-    final respJson = jsonDecode(resp.body) as Map<String, Object?>;
-    final latestVersionStr =
-        (respJson['latest'] as Map?)?['version'] as String?;
-    if (latestVersionStr == null) {
-      if (force) {
-        return package;
-      } else {
-        fail('Could not determine latest version');
-      }
-    }
-
-    final latestVersion = Version.parse(latestVersionStr);
-    return latestVersion < package.pubspecInfo.pubspec.version!
-        ? package
-        : null;
   }
 
   /// Runs pre-publish operations for [package], most importantly any necessary
   /// `build_runner` tasks.
   Future<void> _prePublish(PackageInfo package) async {
-    final progress =
-        logger.progress('Running pre-publish checks for ${package.name}...');
+    logger.info('Running pre-publish checks for ${package.name}...');
     await runBuildRunner(package, logger: logger, verbose: verbose);
-    progress.finish(message: 'Success!');
   }
 
   static final _validationStartRegex = RegExp(
@@ -124,8 +101,7 @@ class PublishCommand extends AmplifyCommand {
 
   /// Publishes the package using `pub`.
   Future<void> _publish(PackageInfo package) async {
-    final progress = logger
-        .progress('Publishing ${package.name}${dryRun ? ' (dry run)' : ''}...');
+    logger.info('Publishing ${package.name}${dryRun ? ' (dry run)' : ''}...');
     final publishCmd = await Process.start(
       package.flavor.entrypoint,
       [
@@ -156,17 +132,15 @@ class PublishCommand extends AmplifyCommand {
           .where(_validationErrorRegex.hasMatch)
           .where((line) => !_validationConstraintRegex.hasMatch(line));
       if (failures.isNotEmpty) {
-        progress.cancel();
         logger
-          ..stderr(
+          ..error(
             'Failed to publish package ${package.name} '
             'due to the following errors: ',
           )
-          ..stderr(failures.join('\n'));
+          ..error(failures.join('\n'));
         exit(exitCode);
       }
     }
-    progress.finish(message: 'Success!');
   }
 
   @override
@@ -186,7 +160,7 @@ class PublishCommand extends AmplifyCommand {
     );
 
     if (publishablePackages.isEmpty) {
-      logger.stdout('No packages need publishing!');
+      logger.info('No packages need publishing!');
       return;
     }
 
@@ -244,13 +218,13 @@ class PublishCommand extends AmplifyCommand {
 /// Runs `build_runner` for [package].
 Future<void> runBuildRunner(
   PackageInfo package, {
-  required Logger logger,
+  required AWSLogger logger,
   required bool verbose,
 }) async {
   if (!package.needsBuildRunner) {
     return;
   }
-  logger.stdout('Running build_runner for ${package.name}...');
+  logger.info('Running build_runner for ${package.name}...');
   final buildRunnerCmd = await Process.start(
     package.flavor.entrypoint,
     [
@@ -273,9 +247,9 @@ Future<void> runBuildRunner(
       ..captureStderr();
   }
   if (await buildRunnerCmd.exitCode != 0) {
-    logger.stderr('Failed to run `build_runner` for ${package.name}: ');
+    logger.error('Failed to run `build_runner` for ${package.name}: ');
     if (!verbose) {
-      logger.stderr(output.toString());
+      logger.error(output.toString());
     }
     exit(1);
   }

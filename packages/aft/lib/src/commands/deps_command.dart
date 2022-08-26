@@ -148,11 +148,11 @@ class _DepsSubcommand extends AmplifyCommand {
     }
     if (_mismatchedDependencies.isNotEmpty) {
       for (final mismatched in _mismatchedDependencies) {
-        logger.stderr(mismatched);
+        logger.error(mismatched);
       }
       exit(1);
     }
-    logger.stdout(action.successMessage);
+    logger.info(action.successMessage);
   }
 
   @override

@@ -43,8 +43,8 @@ class CleanCommand extends AmplifyCommand {
         cleanCmd.captureStderr(sink: errors.writeln);
         if (await cleanCmd.exitCode != 0) {
           logger
-            ..stderr('Could not clean ${package.path}: ')
-            ..stderr(errors.toString());
+            ..error('Could not clean ${package.path}: ')
+            ..error(errors.toString());
         }
         break;
       case PackageFlavor.dart:

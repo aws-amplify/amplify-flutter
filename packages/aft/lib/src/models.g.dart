@@ -12,7 +12,12 @@ AftConfig _$AftConfigFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          allowedKeys: const ['dependencies', 'ignore'],
+          allowedKeys: const [
+            'dependencies',
+            'ignore',
+            'branches',
+            'components'
+          ],
         );
         final val = AftConfig(
           dependencies: $checkedConvert(
@@ -30,6 +35,22 @@ AftConfig _$AftConfigFromJson(Map json) => $checkedCreate(
               (v) =>
                   (v as List<dynamic>?)?.map((e) => e as String).toList() ??
                   const []),
+          branches: $checkedConvert(
+              'branches',
+              (v) =>
+                  (v as Map?)?.map(
+                    (k, e) => MapEntry(
+                        $enumDecode(_$PubTrackEnumMap, k), e as String),
+                  ) ??
+                  const {PubTrack.stable: 'main'}),
+          components: $checkedConvert(
+              'components',
+              (v) =>
+                  (v as Map?)?.map(
+                    (k, e) => MapEntry(k as String,
+                        (e as List<dynamic>).map((e) => e as String).toList()),
+                  ) ??
+                  const {}),
         );
         return val;
       },
@@ -39,7 +60,15 @@ Map<String, dynamic> _$AftConfigToJson(AftConfig instance) => <String, dynamic>{
       'dependencies': instance.dependencies.map(
           (k, e) => MapEntry(k, const _VersionConstraintConverter().toJson(e))),
       'ignore': instance.ignore,
+      'branches':
+          instance.branches.map((k, e) => MapEntry(_$PubTrackEnumMap[k]!, e)),
+      'components': instance.components,
     };
+
+const _$PubTrackEnumMap = {
+  PubTrack.stable: 'stable',
+  PubTrack.prerelease: 'prerelease',
+};
 
 SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate(
       'SdkConfig',
