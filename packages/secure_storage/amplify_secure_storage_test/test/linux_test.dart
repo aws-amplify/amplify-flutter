@@ -16,7 +16,6 @@
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_linux.dart';
-import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
@@ -28,16 +27,6 @@ const accessGroup2 = 'test.access.group2';
 const key1 = 'key_1';
 const value1 = 'value_1';
 const value2 = 'value_2';
-
-/// Mimics an app uninstall on Linux by removing the
-/// scopes file for the given app
-Future<void> uninstall(String appId) async {
-  final fileStore = FileKeyValueStore(
-    path: '/tmp/apps/$appId',
-    fileName: AmplifySecureStorageLinux.scopeFileName,
-  );
-  await fileStore.removeFile();
-}
 
 void main() {
   /// A list of storage instances created during the test.
@@ -51,29 +40,23 @@ void main() {
   }) {
     final linuxOptions = accessGroup != null
         ? LinuxSecureStorageOptions(accessGroup: accessGroup)
-        : null;
+        : LinuxSecureStorageOptions();
     final instance = AmplifySecureStorageLinux(
       config: AmplifySecureStorageConfig(
         scope: scope,
         linuxOptions: linuxOptions,
       ),
       appId: appId,
-      appSupportPathProvider: () async => '/tmp/apps/$appId',
     );
     storageInstances.add(instance);
     return instance;
   }
 
   tearDown(() async {
-    // remove all keys for all storage instances created during the test
     for (final instance in storageInstances) {
-      instance.removeAll();
+      await instance.removeAll();
     }
     storageInstances.clear();
-
-    // uninstall test apps
-    await uninstall(appId1);
-    await uninstall(appId2);
   });
 
   group('linux', () {
@@ -160,56 +143,6 @@ void main() {
 
       // assert value is NOT updated for app 1
       expect(await appOneStorage.read(key: key1), value1);
-    });
-
-    test('Previous keys are cleared when a new scope is initialized', () async {
-      // initialize storage and store a value
-      final storage = createStorageInstance(
-        scope: testScope,
-        appId: appId1,
-      );
-      await storage.write(key: key1, value: value1);
-
-      // assert value IS NOT cleared when initializing a new instance with an existing scope
-      final storage1 = createStorageInstance(
-        scope: testScope,
-        appId: appId1,
-      );
-      expect(await storage1.read(key: key1), isNotNull);
-
-      // uninstall app
-      await uninstall(appId1);
-
-      // assert value IS cleared when initializing a new scope after an app uninstall
-      final storage2 = createStorageInstance(
-        scope: testScope,
-        appId: appId1,
-      );
-      expect(await storage2.read(key: key1), isNull);
-    });
-
-    test('Previous keys are NOT cleared on init when using an accessGroup',
-        () async {
-      // initialize storage and store a value
-      final storage = createStorageInstance(
-        scope: testScope,
-        accessGroup: accessGroup,
-        appId: appId1,
-      );
-      await storage.write(key: key1, value: value1);
-
-      // uninstall app
-      await uninstall(appId1);
-
-      // re-initialize storage
-      final storage2 = createStorageInstance(
-        scope: testScope,
-        accessGroup: accessGroup,
-        appId: appId1,
-      );
-
-      // assert value is NOT cleared
-      expect(await storage2.read(key: key1), value1);
     });
   });
 }

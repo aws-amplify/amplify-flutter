@@ -12,10 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
+import 'package:amplify_secure_storage/src/utils/file_key_value_store.dart';
 import 'package:file/memory.dart';
-import 'package:test/expect.dart';
-import 'package:test/scaffolding.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   late FileKeyValueStore storage;

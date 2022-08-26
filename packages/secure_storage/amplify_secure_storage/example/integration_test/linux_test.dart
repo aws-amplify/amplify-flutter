@@ -15,8 +15,7 @@
 @TestOn('linux')
 
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
-import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_linux.dart';
-import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
+import 'package:amplify_secure_storage/src/utils/file_key_value_store.dart';
 import 'package:amplify_secure_storage_test/amplify_secure_storage_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -59,7 +58,7 @@ void runAppUninstallTests(SecureStorageFactory storageFactory) {
     Future<void> uninstall() async {
       final fileStore = FileKeyValueStore(
         path: (await getApplicationSupportDirectory()).path,
-        fileName: AmplifySecureStorageLinux.scopeFileName,
+        fileName: AmplifySecureStorage.scopeFileName,
       );
       await fileStore.removeFile();
     }

@@ -41,10 +41,7 @@ import 'package:worker_bee/worker_bee.dart';
 class AmplifySecureStorageDart extends AmplifySecureStorageInterface
     with AmplifySecureStorageDartMixin {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_dart}
-  AmplifySecureStorageDart({
-    required super.config,
-    super.appSupportPathProvider,
-  });
+  AmplifySecureStorageDart({required super.config});
 }
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_worker}
@@ -53,10 +50,7 @@ class AmplifySecureStorageDart extends AmplifySecureStorageInterface
 /// {@endtemplate}
 class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_worker}
-  AmplifySecureStorageWorker({
-    required super.config,
-    super.appSupportPathProvider,
-  });
+  AmplifySecureStorageWorker({required super.config});
 
   late final SecureStorageWorker _worker;
   final _workerMemo = AsyncMemoizer<void>();

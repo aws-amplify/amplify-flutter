@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:aws_common/aws_common.dart';
 
@@ -21,16 +23,18 @@ import 'package:aws_common/aws_common.dart';
 abstract class AmplifySecureStorageInterface extends SecureStorageInterface
     with AWSDebuggable, AWSLoggerMixin {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_interface}
-  const AmplifySecureStorageInterface({
-    required this.config,
-    this.appSupportPathProvider,
-  }) : super();
+  const AmplifySecureStorageInterface({required this.config}) : super();
 
   /// Configuration options for Secure Storage.
   final AmplifySecureStorageConfig config;
 
-  /// A method to fetch the Application Support Directory.
-  final Future<String>? Function()? appSupportPathProvider;
+  /// Removes all key-value pairs for the current scope.
+  ///
+  /// Only available on Linux and Windows Platforms. Will throw
+  /// [UnimplementedError] on other platforms.
+  FutureOr<void> removeAll() => throw UnimplementedError(
+        'removeAll is not implemented for this platform',
+      );
 
   @override
   String get runtimeTypeName => 'SecureStorage';

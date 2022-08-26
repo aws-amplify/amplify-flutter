@@ -20,6 +20,7 @@ platforms:
   # android:
 
 dependencies:
+  async: ^2.8.0
   aws_common: ^0.2.0
   built_collection: ^5.0.0
   built_value: ^8.0.0

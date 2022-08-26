@@ -7,5 +7,3 @@ stages:
       - group:
           - format
           - analyze: --fatal-infos lib test
-  - unit_test:
-      - test:

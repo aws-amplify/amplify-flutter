@@ -7,3 +7,5 @@ stages:
       - group:
           - format
           - analyze: --fatal-infos lib pigeons
+  - unit_test:
+      - test:

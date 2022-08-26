@@ -22,13 +22,6 @@ AmplifySecureStorageDart storageFactory({
   return AmplifySecureStorageDart(config: config);
 }
 
-AmplifySecureStorageInterface remoteStorageFactory({
-  required AmplifySecureStorageConfig config,
-}) {
-  return AmplifySecureStorageWorker(config: config);
-}
-
 void main() {
-  group('local', () => runTests(storageFactory));
-  group('remote', () => runTests(remoteStorageFactory));
+  group('Secure Storage', () => runTests(storageFactory));
 }
