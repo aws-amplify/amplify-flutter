@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('vm')
+
 import 'package:amplify_secure_storage/src/utils/file_key_value_store.dart';
 import 'package:file/memory.dart';
 import 'package:flutter_test/flutter_test.dart';
