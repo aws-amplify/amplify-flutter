@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/api_plugin_impl.dart';
+import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:collection/collection.dart';
@@ -24,6 +26,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
+import 'util.dart';
 
 final _deepEquals = const DeepCollectionEquality().equals;
 
@@ -107,6 +110,10 @@ class MockAmplifyAPI extends AmplifyAPIDart {
         return http.Response(
             json.encode(_expectedQuerySuccessResponseBody), 200);
       });
+
+  @override
+  WebSocketConnection getWebSocketConnection({String? apiName}) =>
+      MockWebSocketConnection(testApiKeyConfig, getTestAuthProviderRepo());
 }
 
 void main() {
@@ -127,7 +134,34 @@ void main() {
             }
           }
         } ''';
-      final req = GraphQLRequest(document: graphQLDocument, variables: {});
+      final req = GraphQLRequest<String>(
+        document: graphQLDocument,
+        variables: {},
+      );
+
+      final operation = Amplify.API.query(request: req);
+      final res = await operation.value;
+
+      final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
+
+      expect(res.data, equals(expected));
+      expect(res.errors, equals(null));
+    });
+
+    test('Query returns proper response.data with dynamic type', () async {
+      String graphQLDocument = ''' query TestQuery {
+          listBlogs {
+            items {
+              id
+              name
+              createdAt
+            }
+          }
+        } ''';
+      final req = GraphQLRequest<dynamic>(
+        document: graphQLDocument,
+        variables: {},
+      );
 
       final operation = Amplify.API.query(request: req);
       final res = await operation.value;
@@ -147,8 +181,10 @@ void main() {
           }
         } ''';
       final graphQLVariables = {'name': 'Test Blog 1'};
-      final req = GraphQLRequest(
-          document: graphQLDocument, variables: graphQLVariables);
+      final req = GraphQLRequest<String>(
+        document: graphQLDocument,
+        variables: graphQLVariables,
+      );
 
       final operation = Amplify.API.mutate(request: req);
       final res = await operation.value;
@@ -157,6 +193,33 @@ void main() {
 
       expect(res.data, equals(expected));
       expect(res.errors, equals(null));
+    });
+
+    test('subscribe() should return a subscription stream', () async {
+      Completer<void> establishedCompleter = Completer();
+      Completer<String> dataCompleter = Completer();
+      const graphQLDocument = '''subscription MySubscription {
+        onCreateBlog {
+          id
+          name
+          createdAt
+        }
+      }''';
+      final subscriptionRequest =
+          GraphQLRequest<String>(document: graphQLDocument);
+      final subscription = Amplify.API.subscribe(
+        subscriptionRequest,
+        onEstablished: () => establishedCompleter.complete(),
+      );
+
+      final streamSub = subscription.listen(
+        (event) => dataCompleter.complete(event.data),
+      );
+      await expectLater(establishedCompleter.future, completes);
+
+      final subscriptionData = await dataCompleter.future;
+      expect(subscriptionData, json.encode(mockSubscriptionData));
+      streamSub.cancel();
     });
   });
   group('Model Helpers', () {
@@ -184,12 +247,33 @@ void main() {
       expect(res.data?.id, _modelQueryId);
       expect(res.errors, equals(null));
     });
+
+    test('subscribe() should decode model data', () async {
+      Completer<void> establishedCompleter = Completer();
+      final subscriptionRequest = ModelSubscriptions.onCreate(Post.classType);
+      final subscription = Amplify.API.subscribe(
+        subscriptionRequest,
+        onEstablished: () => establishedCompleter.complete(),
+      );
+      await establishedCompleter.future;
+
+      late StreamSubscription<GraphQLResponse<Post>> streamSub;
+      streamSub = subscription.listen(
+        expectAsync1((event) {
+          expect(event.data, isA<Post>());
+          streamSub.cancel();
+        }),
+      );
+    });
   });
 
   group('Error Handling', () {
     test('response errors are decoded', () async {
       String graphQLDocument = ''' TestError ''';
-      final req = GraphQLRequest(document: graphQLDocument, variables: {});
+      final req = GraphQLRequest<String>(
+        document: graphQLDocument,
+        variables: {},
+      );
 
       final operation = Amplify.API.query(request: req);
       final res = await operation.value;
@@ -209,7 +293,7 @@ void main() {
     });
 
     test('canceled query request should never resolve', () async {
-      final req = GraphQLRequest(document: '', variables: {});
+      final req = GraphQLRequest<String>(document: '', variables: {});
       final operation = Amplify.API.query(request: req);
       operation.cancel();
       operation.then((p0) => fail('Request should have been cancelled.'));
@@ -218,7 +302,7 @@ void main() {
     });
 
     test('canceled mutation request should never resolve', () async {
-      final req = GraphQLRequest(document: '', variables: {});
+      final req = GraphQLRequest<String>(document: '', variables: {});
       final operation = Amplify.API.mutate(request: req);
       operation.cancel();
       operation.then((p0) => fail('Request should have been cancelled.'));
