@@ -110,7 +110,7 @@ void main() {
           return {
             'key': 'keyForFile',
           };
-        case 'addPlugin':
+        case 'configureStorage':
           return {};
         default:
           fail('Unknown method: ${methodCall.method}');
