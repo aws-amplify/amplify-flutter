@@ -38,15 +38,12 @@ class ChangelogCommand extends AmplifyCommand {
 
 abstract class _ChangelogBaseCommand extends AmplifyCommand
     with GitRefOptions, GlobOptions {
-  @override
-  String get baseRef => super.baseRef ?? repo.latestTag('amplify_flutter')!;
-
-  late final changes = repo.changes(baseRef, headRef);
-
   Future<void> _updateChangelogs({required bool preview}) async {
-    final publishablePackages =
-        allPackages.values.where((pkg) => !pkg.isExample);
-    for (final package in publishablePackages) {
+    for (final package in repo.publishablePackages) {
+      final baseRef = this.baseRef ??
+          repo.latestTag(package.name) ??
+          repo.latestTag('amplify_flutter')!;
+      final changes = repo.changes(baseRef, headRef);
       final commits =
           changes.commitsByPackage[package.name]?.toSet() ?? const {};
       final changelogUpdate = package.changelog.update(commits: commits);

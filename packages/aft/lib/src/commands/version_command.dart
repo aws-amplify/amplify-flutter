@@ -16,9 +16,11 @@ import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/changelog/changelog.dart';
+import 'package:aft/src/changelog/commit_message.dart';
 import 'package:aft/src/options/git_ref_options.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:aft/src/repo.dart';
+import 'package:aft/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
@@ -52,7 +54,7 @@ abstract class _VersionBaseCommand extends AmplifyCommand
     final baseRef = this.baseRef ?? repo.latestTag(package.name);
     if (baseRef == null) {
       exitError(
-        'No tag exists for package. '
+        'No tag exists for package (${package.name}). '
         'Supply a base ref manually using --base-ref',
       );
     }
@@ -126,19 +128,36 @@ Future<VersionChanges> bumpVersions({
   required Repo repo,
   required GitChanges Function(PackageInfo) changesForPackage,
 }) async {
-  final logger = AWSLogger('updateVersions');
-
   // Version updates, by component.
   final versionUpdates = <String, Version>{};
 
   // Changelog updates. by package.
   final changelogUpdates = <PackageInfo, ChangelogUpdate>{};
 
-  Version? bumpVersion(PackageInfo package, {required bool isBreakingChange}) {
-    final component =
-        repo.aftConfig.componentForPackage(package) ?? package.name;
+  /// Bumps the dependency for [package] in [dependent].
+  void bumpDependency(PackageInfo package, PackageInfo dependent) {
+    final component = repo.aftConfig.componentForPackage(package.name);
+    final newVersion = versionUpdates[component] ?? package.version;
+    if (dependent.pubspecInfo.pubspec.dependencies.containsKey(package.name)) {
+      dependent.pubspecInfo.pubspecYamlEditor.update(
+        ['dependencies', package.name],
+        newVersion.amplifyConstraint(minVersion: newVersion),
+      );
+    }
+  }
+
+  /// Bumps the version and changelog in [package] using [commit].
+  ///
+  /// Returns the new version.
+  Version bumpVersion(
+    PackageInfo package, {
+    bool propogate = false,
+    CommitMessage? commit,
+  }) {
+    final component = repo.aftConfig.componentForPackage(package.name);
     final currentVersion = package.version;
     final currentProposedVersion = versionUpdates[component] ?? currentVersion;
+    final isBreakingChange = commit?.isBreakingChange ?? false;
     final newProposedVersion = currentVersion.nextAmplifyVersion(
       isBreakingChange: isBreakingChange,
     );
@@ -146,67 +165,80 @@ Future<VersionChanges> bumpVersions({
       [currentProposedVersion, newProposedVersion],
       (version) => version,
     )!;
-    if (newVersion > currentProposedVersion) {
-      final currentChangelogUpdate = changelogUpdates[package];
-      changelogUpdates[package] = package.changelog.update(
-        commits: currentChangelogUpdate?.commits ?? const Iterable.empty(),
-        version: newVersion,
+
+    if (newVersion > currentVersion) {
+      repo.logger.debug(
+        'Bumping ${package.name} from $currentProposedVersion to $newVersion: '
+        '${commit?.summary}',
       );
-      return newVersion;
-    }
-    return null;
-  }
-
-  for (final package in repo.publishablePackages) {
-    final changes = changesForPackage(package);
-    final commits = changes.commitsByPackage[package.name]?.toSet() ?? const {};
-
-    var isBreakingChange = false;
-    final affectedPackages = <String>{};
-    for (final commit in commits) {
-      if (commit.isBreakingChange) {
-        isBreakingChange = true;
-      }
-      // Packages affected by the same commit.
-      affectedPackages.addAll(
-        changes.packagesByCommit[commit]?.where((pkg) => pkg != package.name) ??
-            const {},
-      );
-    }
-    final newVersion = bumpVersion(package, isBreakingChange: isBreakingChange);
-
-    final allAffectedPackages =
-        affectedPackages.map((packageName) => repo.allPackages[packageName]!);
-    for (final affectedPackage in allAffectedPackages) {
-      if (!affectedPackage.pubspecInfo.pubspec.dependencies
-          .containsKey(package.name)) {
-        continue;
-      }
-      affectedPackage.pubspecInfo.pubspecYamlEditor.update(
-        ['dependencies', package.name],
-        '^$newVersion',
-      );
-      // Do a patch bump of the affected package and update its changelog.
-      bumpVersion(affectedPackage, isBreakingChange: false);
-    }
-    changelogUpdates[package] = package.changelog.update(
-      commits: commits,
-      version: newVersion,
-    );
-  }
-
-  // Update pubspecs
-  for (final package in repo.publishablePackages) {
-    logger.info(package.name);
-    final newVersion = versionUpdates[package];
-    if (newVersion != null) {
       package.pubspecInfo.pubspecYamlEditor.update(
         ['version'],
         newVersion.toString(),
       );
-      logger
-        ..info('Version')
-        ..info('${package.version} --> $newVersion');
+      final currentChangelogUpdate = changelogUpdates[package];
+      changelogUpdates[package] = package.changelog.update(
+        commits: {
+          ...?currentChangelogUpdate?.commits,
+          if (commit != null) commit,
+        },
+        version: newVersion,
+      );
+
+      if (propogate) {
+        // Propogate to all dependent packages.
+        dfs<PackageInfo>(
+          repo.reversedPackageGraph,
+          root: package,
+          (dependent) {
+            if (!dependent.isExample) {
+              bumpVersion(dependent, commit: commit);
+              bumpDependency(package, dependent);
+            }
+          },
+        );
+
+        // Propogate to all component packages.
+        repo.components[component]?.forEach((componentPackage) {
+          bumpVersion(componentPackage, commit: commit);
+          dfs<PackageInfo>(
+            repo.reversedPackageGraph,
+            root: componentPackage,
+            (dependent) {
+              bumpDependency(componentPackage, dependent);
+            },
+          );
+        });
+      }
+    }
+
+    return newVersion;
+  }
+
+  final sortedPackages = repo.publishablePackages;
+  sortPackagesTopologically(
+    sortedPackages,
+    (PackageInfo pkg) => pkg.pubspecInfo.pubspec,
+  );
+  for (final package in sortedPackages) {
+    final changes = changesForPackage(package);
+    final commits = changes.commitsByPackage[package]?.toSet() ?? const {};
+    for (final commit in commits) {
+      // TODO(dnys1): Define full set of commit types which should be ignored
+      // when considering version changes.
+      if (commit.isVersionBump ||
+          commit.type == CommitType.merge && commit.taggedPr == null) {
+        continue;
+      }
+      bumpVersion(
+        package,
+        commit: commit,
+        propogate: commit.isBreakingChange,
+      );
+      // Propogate the version change to all packages affected by the same
+      // commit.
+      changes.packagesByCommit[commit]?.forEach((commitPackage) {
+        bumpDependency(package, commitPackage);
+      });
     }
   }
 

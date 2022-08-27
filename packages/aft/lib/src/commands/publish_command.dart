@@ -146,7 +146,7 @@ class PublishCommand extends AmplifyCommand {
   @override
   Future<void> run() async {
     // Gather packages which can be published.
-    final publishablePackages = (await Future.wait([
+    var publishablePackages = (await Future.wait([
       for (final package in allPackages.values) _checkPublishable(package),
     ]))
         .whereType<PackageInfo>()
@@ -165,7 +165,7 @@ class PublishCommand extends AmplifyCommand {
     }
 
     try {
-      sortPackagesTopologically<PackageInfo>(
+      publishablePackages = sortPackagesTopologically<PackageInfo>(
         publishablePackages,
         (pkg) => pkg.pubspecInfo.pubspec,
       );
@@ -260,8 +260,8 @@ Future<void> runBuildRunner(
 ///
 /// Packages with inter-dependencies cannot be topologically sorted and will
 /// throw a [CycleException].
-void sortPackagesTopologically<T>(
-  List<T> packages,
+List<T> sortPackagesTopologically<T>(
+  Iterable<T> packages,
   Pubspec Function(T) getPubspec,
 ) {
   final pubspecs = packages.map(getPubspec);
@@ -271,10 +271,11 @@ void sortPackagesTopologically<T>(
       package.name: package.dependencies.keys.where(packageNames.contains),
   };
   final ordered = topologicalSort(graph.keys, (key) => graph[key]!);
-  packages.sort((a, b) {
-    // `ordered` is in reverse ordering to our desired publish precedence.
-    return ordered
-        .indexOf(getPubspec(b).name)
-        .compareTo(ordered.indexOf(getPubspec(a).name));
-  });
+  return packages.toList()
+    ..sort((a, b) {
+      // `ordered` is in reverse ordering to our desired publish precedence.
+      return ordered
+          .indexOf(getPubspec(b).name)
+          .compareTo(ordered.indexOf(getPubspec(a).name));
+    });
 }

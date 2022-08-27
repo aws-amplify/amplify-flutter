@@ -28,7 +28,15 @@ class _MarkdownRenderer implements NodeVisitor {
   String get output => _builder.toString();
 
   @override
-  void visitElementAfter(Element element) {}
+  void visitElementAfter(Element element) {
+    switch (element.type) {
+      case ElementType.ul:
+        _builder.writeln();
+        break;
+      default:
+        break;
+    }
+  }
 
   @override
   bool visitElementBefore(Element element) {

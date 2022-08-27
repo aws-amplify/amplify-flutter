@@ -93,7 +93,7 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
     if (commits.isEmpty) {
       // If there are no commits worth including, add a generic message about
       // bug fixes/improvements.
-      nodes.add(Element.text('li', 'Minor bug fixes and improvements'));
+      nodes.add(Element.text('li', 'Minor bug fixes and improvements\n'));
     } else {
       for (final typedCommits in commitsByType.entries) {
         nodes.add(Element.text('h3', typedCommits.key.header));
@@ -116,16 +116,13 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
     required Iterable<CommitMessage> commits,
     Version? version,
   }) {
-    if (commits.isEmpty) {
-      return ChangelogUpdate(originalText, commits: commits);
-    }
     final nodes = makeVersionEntry(
       commits: commits,
       version: version,
     );
     // Replace the text in changelogMd so that the latest version matches
     // `version`, if given, else `NEXT`.
-    final String keepText;
+    String keepText;
     if (hasNextEntry || (version != null && latestVersion == version)) {
       // Update latest entry, either to `version` or as a new `NEXT` entry.
       keepText = LineSplitter.split(originalText)
@@ -137,6 +134,9 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
     } else {
       // No `NEXT` or `version` entry exists yet.
       keepText = originalText;
+    }
+    if (!keepText.endsWith('\n')) {
+      keepText = '$keepText\n';
     }
     return ChangelogUpdate(keepText, commits: commits, newText: render(nodes));
   }
@@ -161,5 +161,5 @@ class ChangelogUpdate {
   bool get hasUpdate => newText != null;
 
   @override
-  String toString() => newText == null ? keepText : '$newText\n\n$keepText';
+  String toString() => newText == null ? keepText : '$newText$keepText';
 }

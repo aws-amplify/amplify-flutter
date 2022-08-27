@@ -73,7 +73,7 @@ environment:
       if (dependencies != null && dependencies.isNotEmpty) {
         pubspec.writeln('dependencies:');
         for (final dependency in dependencies.entries) {
-          pubspec.writeln('${dependency.key}: ${dependency.value}');
+          pubspec.writeln('  ${dependency.key}: ${dependency.value}');
         }
       }
       final changelog = '''
@@ -272,7 +272,7 @@ Initial version.
           test(packageName, () {
             final package = repo.allPackages[packageName]!;
             final changes = changesForPackage(package);
-            final commits = changes.commitsByPackage[packageName]!;
+            final commits = changes.commitsByPackage[package]!;
             expect(commits, hasLength(check.value));
 
             // Bump changelogs to NEXT
@@ -280,7 +280,10 @@ Initial version.
               commits: commits,
             );
             expect(updateChangelog.hasUpdate, true);
-            expect(updateChangelog.newText, changelogs[packageName]);
+            expect(
+              updateChangelog.newText,
+              equalsIgnoringWhitespace(changelogs[packageName]!),
+            );
           });
         }
       });
@@ -306,15 +309,9 @@ Initial version.
           final packageName = check.key;
           test(packageName, () {
             final package = repo.allPackages[packageName]!;
-            final component = repo.aftConfig.componentForPackage(package);
-            if (component != null) {
-              expect(updates.updatedVersions[package.name], isNull);
-              final newVersion = updates.updatedVersions[component]!;
-              expect(newVersion.toString(), finalVersions[packageName]);
-            } else {
-              final newVersion = updates.updatedVersions[package.name]!;
-              expect(newVersion.toString(), finalVersions[packageName]);
-            }
+            final component = repo.aftConfig.componentForPackage(package.name);
+            final newVersion = updates.updatedVersions[component]!;
+            expect(newVersion.toString(), finalVersions[packageName]);
           });
         }
       });

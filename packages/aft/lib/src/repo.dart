@@ -83,6 +83,14 @@ class Repo {
     return checkedYamlDecode(configYaml, AftConfig.fromJson);
   }();
 
+  late final Map<String, List<PackageInfo>> components =
+      aftConfig.components.map((component, packages) {
+    return MapEntry(
+      component,
+      packages.map((name) => allPackages[name]!).toList(),
+    );
+  });
+
   /// The libgit repository.
   late final Repository repo = Repository.open(rootDir.path);
 
@@ -99,21 +107,43 @@ class Repo {
           if (packageRegex.hasMatch(tag)) {
             return true;
           }
-          final componentForPackage = aftConfig.components.entries
-              .singleWhereOrNull((entry) => entry.value.contains(packageName))
-              ?.key;
-          if (componentForPackage != null) {
-            final componentRegex =
-                RegExp('${componentForPackage}_v${semverRegex.pattern}');
-            return componentRegex.hasMatch(tag);
-          }
-          return false;
+          final componentForPackage =
+              aftConfig.componentForPackage(packageName);
+          final componentRegex =
+              RegExp('${componentForPackage}_v${semverRegex.pattern}');
+          return componentRegex.hasMatch(tag);
         }),
         (t) {
           final version = semverRegex.firstMatch(t)!.group(0)!;
           return Version.parse(version);
         },
       );
+
+  /// The directed graph of packages to the packages it depends on.
+  late final Map<PackageInfo, List<PackageInfo>> packageGraph = {
+    for (final package in allPackages.values)
+      package: package.pubspecInfo.pubspec.dependencies.keys
+          .map((packageName) => allPackages[packageName])
+          .whereType<PackageInfo>()
+          .toList(),
+  };
+
+  /// The reversed (transposed) [packageGraph].
+  ///
+  /// Provides a mapping from each packages to the packages which directly
+  /// depend on it.
+  late final Map<PackageInfo, List<PackageInfo>> reversedPackageGraph = () {
+    final packageGraph = this.packageGraph;
+    final reversedPackageGraph = <PackageInfo, List<PackageInfo>>{
+      for (final package in allPackages.values) package: [],
+    };
+    for (final entry in packageGraph.entries) {
+      for (final dep in entry.value) {
+        reversedPackageGraph[dep]!.add(entry.key);
+      }
+    }
+    return reversedPackageGraph;
+  }();
 
   /// The git diff between [baseRef] and [headRef].
   Diff diffRefs(String baseRef, String headRef) => diffTrees(
@@ -128,10 +158,24 @@ class Repo {
         newTree: newTree,
       );
 
+  final _changesCache = <_DiffMarker, GitChanges>{};
+
   /// Collect all the packages which have changed between [baseRef]..[headRef]
   /// and the commits which changed them.
   GitChanges changes(String baseRef, String headRef) {
-    final diff = diffRefs(baseRef, headRef);
+    final baseTree = RevParse.single(
+      repo: repo,
+      spec: '$baseRef^{tree}',
+    ) as Tree;
+    final headTree = RevParse.single(
+      repo: repo,
+      spec: '$headRef^{tree}',
+    ) as Tree;
+    final diffMarker = _DiffMarker(baseTree, headTree);
+    if (_changesCache.containsKey(diffMarker)) {
+      return _changesCache[diffMarker]!;
+    }
+    final diff = diffTrees(baseTree, headTree);
     final changedPaths = diff.deltas.expand(
       (delta) => [delta.oldFile.path, delta.newFile.path],
     );
@@ -146,17 +190,14 @@ class Repo {
       if (changedPackage != null &&
           // Do not track example packages for git ops
           !changedPackage.isExample) {
-        logger.verbose(
-          'Package ${changedPackage.name} changed by $changedPath',
-        );
         changedPackages.add(changedPackage);
       }
     }
 
     // For each package, gather all the commits between baseRef..headRef which
     // affected the package.
-    final commitsByPackage = SetMultimapBuilder<String, CommitMessage>();
-    final packagesByCommit = SetMultimapBuilder<CommitMessage, String>();
+    final commitsByPackage = SetMultimapBuilder<PackageInfo, CommitMessage>();
+    final packagesByCommit = SetMultimapBuilder<CommitMessage, PackageInfo>();
     for (final package in changedPackages) {
       final walker = RevWalk(repo)..pushRange('$baseRef..$headRef');
       for (final commit in walker.walk()) {
@@ -167,9 +208,10 @@ class Repo {
             (delta) => [delta.oldFile.path, delta.newFile.path],
           );
           final relativePath = p.relative(package.path, from: rootDir.path);
-          if (commitPaths.any(
+          final changedPath = commitPaths.firstWhereOrNull(
             (path) => path.contains('$relativePath/'),
-          )) {
+          );
+          if (changedPath != null) {
             final commitMessage = CommitMessage.parse(
               commit.oid.sha,
               commit.summary,
@@ -177,14 +219,18 @@ class Repo {
                 commit.time * 1000,
               ).toUtc(),
             );
-            commitsByPackage.add(package.name, commitMessage);
-            packagesByCommit.add(commitMessage, package.name);
+            logger.verbose(
+              'Package ${package.name} changed by $changedPath '
+              '(${commitMessage.summary})',
+            );
+            commitsByPackage.add(package, commitMessage);
+            packagesByCommit.add(commitMessage, package);
           }
         }
       }
     }
 
-    return GitChanges(
+    return _changesCache[diffMarker] = GitChanges(
       commitsByPackage: commitsByPackage.build(),
       packagesByCommit: packagesByCommit.build(),
     );
@@ -197,6 +243,16 @@ class GitChanges {
     required this.packagesByCommit,
   });
 
-  final BuiltSetMultimap<String, CommitMessage> commitsByPackage;
-  final BuiltSetMultimap<CommitMessage, String> packagesByCommit;
+  final BuiltSetMultimap<PackageInfo, CommitMessage> commitsByPackage;
+  final BuiltSetMultimap<CommitMessage, PackageInfo> packagesByCommit;
+}
+
+class _DiffMarker with AWSEquatable<_DiffMarker> {
+  const _DiffMarker(this.baseTree, this.headTree);
+
+  final Tree baseTree;
+  final Tree headTree;
+
+  @override
+  List<Object?> get props => [baseTree, headTree];
 }

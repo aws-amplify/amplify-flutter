@@ -47,3 +47,30 @@ extension ProcessUtil on Process {
         .listen((line) => sink('$prefix$line'));
   }
 }
+
+/// Performs a depth-first search on [graph] calling [visit] for every node.
+///
+/// If [root] is specified, the search is started there.
+void dfs<Node>(
+  Map<Node, List<Node>> graph,
+  void Function(Node) visit, {
+  Node? root,
+}) {
+  final visited = <Node>{};
+  void search(Node node, List<Node> edges) {
+    visited.add(node);
+    visit(node);
+    for (final edge in edges) {
+      if (!visited.contains(edge)) {
+        search(edge, graph[edge]!);
+      }
+    }
+  }
+
+  if (root != null) {
+    assert(graph.containsKey(root), 'Root is not in graph');
+    search(root, graph[root]!);
+  } else {
+    graph.forEach(search);
+  }
+}

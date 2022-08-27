@@ -194,22 +194,23 @@ class PubspecInfo {
 }
 
 extension AmplifyVersion on Version {
+  Version get nextPreRelease => Version(
+        major,
+        minor,
+        patch,
+        pre: preRelease.map((el) {
+          if (el is! int) return el;
+          return el + 1;
+        }).join('.'),
+      );
+
   /// The next version according to Amplify rules for incrementing.
   Version nextAmplifyVersion({bool isBreakingChange = false}) {
     if (preRelease.isEmpty) {
       return isBreakingChange ? nextMinor : nextPatch;
     }
     if (isBreakingChange) {
-      final newPrelease = preRelease.map((el) {
-        if (el is! int) return el;
-        return el + 1;
-      }).join('.');
-      return Version(
-        major,
-        minor,
-        patch,
-        pre: newPrelease,
-      );
+      return nextPreRelease;
     }
     final newBuild = (build.singleOrNull as int? ?? 0) + 1;
     return Version(
@@ -219,6 +220,26 @@ extension AmplifyVersion on Version {
       pre: preRelease.join('.'),
       build: '$newBuild',
     );
+  }
+
+  /// The constraint to use for this version in pubspecs.
+  String amplifyConstraint({Version? minVersion}) {
+    final Version maxVersion;
+    if (preRelease.isEmpty) {
+      final currentMinor = Version(major, minor, 0);
+      minVersion ??= currentMinor;
+      maxVersion = Version(major, minor + 1, 0);
+    } else {
+      final currentPreRelease = Version(
+        major,
+        minor,
+        patch,
+        pre: preRelease.join('.'),
+      );
+      minVersion ??= currentPreRelease;
+      maxVersion = nextPreRelease;
+    }
+    return '>=$minVersion <$maxVersion';
   }
 }
 
@@ -308,10 +329,11 @@ class AftConfig {
   final Map<String, List<String>> components;
 
   /// Retrieves the component for [package], if any.
-  String? componentForPackage(PackageInfo package) {
+  String componentForPackage(String package) {
     return components.entries.firstWhereOrNull((component) {
-      return component.value.contains(package.name);
-    })?.key;
+          return component.value.contains(package);
+        })?.key ??
+        package;
   }
 
   Map<String, Object?> toJson() => _$AftConfigToJson(this);
