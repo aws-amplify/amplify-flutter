@@ -18,6 +18,7 @@ library amplify_storage_plugin;
 import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3/src/s3_prefix_resolver/amplify_storage_s3_prefix_resolver.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
@@ -30,11 +31,11 @@ export './src/types.dart';
 /// {@endtemplate}
 abstract class AmplifyStorageS3 extends StoragePluginInterface {
   /// {@macro amplify_storage_s3.amplify_storage_s3}
-  factory AmplifyStorageS3() {
+  factory AmplifyStorageS3({StorageS3PrefixResolver? prefixResolver}) {
     if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
       throw UnsupportedError('This platform is not supported yet');
     }
-    return AmplifyStorageS3MethodChannel();
+    return AmplifyStorageS3MethodChannel(prefixResolver: prefixResolver);
   }
 
   /// Protected constructor for subclasses.
