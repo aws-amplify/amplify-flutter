@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:aft/aft.dart';
-import 'package:glob/glob.dart';
 
 /// Adds globbing options to a command.
 mixin GlobOptions on AmplifyCommand {
@@ -21,32 +20,41 @@ mixin GlobOptions on AmplifyCommand {
   void init() {
     super.init();
     argParser
-      ..addMultiOption('include', help: 'Glob of packages to include')
-      ..addMultiOption('exclude', help: 'Glob of packages to exclude');
+      ..addMultiOption(
+        'include',
+        help: 'Package or component names to include',
+      )
+      ..addMultiOption(
+        'exclude',
+        help: 'Package or component names to exclude',
+      );
   }
 
-  /// Globs of packages which should be included in versioning.
-  late final include = (argResults?['include'] as List<String>? ?? const [])
-      .map(Glob.new)
-      .toList();
+  /// List of packages or components which should be included in versioning.
+  late final include = argResults?['include'] as List<String>? ?? const [];
 
-  /// Globs of packages which should be excluded from versioning.
-  late final exclude = (argResults?['exclude'] as List<String>? ?? const [])
-      .map(Glob.new)
-      .toList();
+  /// List of packages or components which should be excluded from versioning.
+  late final exclude = argResults?['exclude'] as List<String>? ?? const [];
 
   @override
   Map<String, PackageInfo> get allPackages {
     return Map.fromEntries(
       super.allPackages.entries.where((entry) {
         final package = entry.value;
-        for (final glob in include) {
-          if (glob.matches(package.path)) {
-            return true;
+        if (include.isNotEmpty) {
+          for (final packageOrComponent in include) {
+            if (package.name == packageOrComponent ||
+                aftConfig.componentForPackage(package.name) ==
+                    packageOrComponent) {
+              return true;
+            }
           }
+          return false;
         }
-        for (final glob in exclude) {
-          if (glob.matches(package.path)) {
+        for (final packageOrComponent in exclude) {
+          if (package.name == packageOrComponent ||
+              aftConfig.componentForPackage(package.name) ==
+                  packageOrComponent) {
             return false;
           }
         }

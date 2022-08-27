@@ -38,14 +38,29 @@ class ChangelogCommand extends AmplifyCommand {
 
 abstract class _ChangelogBaseCommand extends AmplifyCommand
     with GitRefOptions, GlobOptions {
+  _ChangelogBaseCommand() {
+    argParser.addFlag(
+      'yes',
+      abbr: 'y',
+      help: 'Responds "yes" to all prompts',
+      defaultsTo: false,
+      negatable: false,
+    );
+  }
+
+  late final bool yes = argResults!['yes'] as bool;
+
   Future<void> _updateChangelogs({required bool preview}) async {
     for (final package in repo.publishablePackages) {
-      final baseRef = this.baseRef ??
-          repo.latestTag(package.name) ??
-          repo.latestTag('amplify_flutter')!;
+      final baseRef = this.baseRef ?? repo.latestTag(package.name);
+      if (baseRef == null) {
+        exitError(
+          'No tag exists for package (${package.name}). '
+          'Supply a base ref manually using --base-ref',
+        );
+      }
       final changes = repo.changes(baseRef, headRef);
-      final commits =
-          changes.commitsByPackage[package.name]?.toSet() ?? const {};
+      final commits = changes.commitsByPackage[package]?.toSet() ?? const {};
       final changelogUpdate = package.changelog.update(commits: commits);
       if (preview) {
         if (changelogUpdate.hasUpdate) {
@@ -83,6 +98,12 @@ class _ChangelogUpdateCommand extends _ChangelogBaseCommand {
 
   @override
   Future<void> run() async {
-    return _updateChangelogs(preview: false);
+    await _updateChangelogs(preview: false);
+
+    logger.info('Changelogs successfully updated');
+    if (yes || prompt('Commit changes? (y/N) ').toLowerCase() == 'y') {
+      await runGit(['add', '.']);
+      await runGit(['commit', '-m', 'chore(version): Update changelogs']);
+    }
   }
 }

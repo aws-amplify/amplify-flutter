@@ -15,6 +15,7 @@
 import 'package:aft/src/changelog/changelog.dart';
 import 'package:markdown/markdown.dart';
 
+/// Renders the [markdown] AST as a string.
 String render(Iterable<Node> markdown) {
   final renderer = _MarkdownRenderer();
   for (final node in markdown) {

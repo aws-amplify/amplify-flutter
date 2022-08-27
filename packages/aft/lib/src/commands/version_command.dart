@@ -15,16 +15,10 @@
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:aft/src/changelog/changelog.dart';
-import 'package:aft/src/changelog/commit_message.dart';
 import 'package:aft/src/options/git_ref_options.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:aft/src/repo.dart';
-import 'package:aft/src/util.dart';
-import 'package:aws_common/aws_common.dart';
-import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
-import 'package:pub_semver/pub_semver.dart';
 
 /// Command for bumping package versions across the repo.
 class VersionCommand extends AmplifyCommand {
@@ -43,12 +37,17 @@ class VersionCommand extends AmplifyCommand {
 
 abstract class _VersionBaseCommand extends AmplifyCommand
     with GitRefOptions, GlobOptions {
-  @override
-  Map<String, PackageInfo> get allPackages {
-    return Map.fromEntries(
-      super.allPackages.entries.where((entry) => !entry.value.isExample),
+  _VersionBaseCommand() {
+    argParser.addFlag(
+      'yes',
+      abbr: 'y',
+      help: 'Responds "yes" to all prompts',
+      defaultsTo: false,
+      negatable: false,
     );
   }
+
+  late final bool yes = argResults!['yes'] as bool;
 
   GitChanges _changesForPackage(PackageInfo package) {
     final baseRef = this.baseRef ?? repo.latestTag(package.name);
@@ -62,13 +61,12 @@ abstract class _VersionBaseCommand extends AmplifyCommand
   }
 
   Future<void> _updateVersions({required bool preview}) async {
-    final updates = await bumpVersions(
-      repo: repo,
+    repo.bumpAllVersions(
       changesForPackage: _changesForPackage,
     );
-    final changelogUpdates = updates.updatedChangelogs;
+    final changelogUpdates = repo.changelogUpdates;
 
-    for (final package in allPackages.values) {
+    for (final package in repo.publishablePackages) {
       final edits = package.pubspecInfo.pubspecYamlEditor.edits;
       if (edits.isNotEmpty) {
         if (preview) {
@@ -120,140 +118,17 @@ class _VersionUpdateCommand extends _VersionBaseCommand {
 
   @override
   Future<void> run() async {
-    return _updateVersions(preview: false);
-  }
-}
+    await _updateVersions(preview: false);
 
-Future<VersionChanges> bumpVersions({
-  required Repo repo,
-  required GitChanges Function(PackageInfo) changesForPackage,
-}) async {
-  // Version updates, by component.
-  final versionUpdates = <String, Version>{};
-
-  // Changelog updates. by package.
-  final changelogUpdates = <PackageInfo, ChangelogUpdate>{};
-
-  /// Bumps the dependency for [package] in [dependent].
-  void bumpDependency(PackageInfo package, PackageInfo dependent) {
-    final component = repo.aftConfig.componentForPackage(package.name);
-    final newVersion = versionUpdates[component] ?? package.version;
-    if (dependent.pubspecInfo.pubspec.dependencies.containsKey(package.name)) {
-      dependent.pubspecInfo.pubspecYamlEditor.update(
-        ['dependencies', package.name],
-        newVersion.amplifyConstraint(minVersion: newVersion),
-      );
+    logger.info('Version successfully bumped');
+    if (yes || prompt('Commit changes? (y/N) ').toLowerCase() == 'y') {
+      // Commit and tag changes
+      await runGit(['add', '.']);
+      await runGit(['commit', '-m', 'chore(version): Bump version']);
+      await Future.wait<void>([
+        for (final changeEntry in repo.versionChanges.entries)
+          runGit(['tag', '${changeEntry.key}_v${changeEntry.value}']),
+      ]);
     }
   }
-
-  /// Bumps the version and changelog in [package] using [commit].
-  ///
-  /// Returns the new version.
-  Version bumpVersion(
-    PackageInfo package, {
-    bool propogate = false,
-    CommitMessage? commit,
-  }) {
-    final component = repo.aftConfig.componentForPackage(package.name);
-    final currentVersion = package.version;
-    final currentProposedVersion = versionUpdates[component] ?? currentVersion;
-    final isBreakingChange = commit?.isBreakingChange ?? false;
-    final newProposedVersion = currentVersion.nextAmplifyVersion(
-      isBreakingChange: isBreakingChange,
-    );
-    final newVersion = versionUpdates[component] = maxBy(
-      [currentProposedVersion, newProposedVersion],
-      (version) => version,
-    )!;
-
-    if (newVersion > currentVersion) {
-      repo.logger.debug(
-        'Bumping ${package.name} from $currentProposedVersion to $newVersion: '
-        '${commit?.summary}',
-      );
-      package.pubspecInfo.pubspecYamlEditor.update(
-        ['version'],
-        newVersion.toString(),
-      );
-      final currentChangelogUpdate = changelogUpdates[package];
-      changelogUpdates[package] = package.changelog.update(
-        commits: {
-          ...?currentChangelogUpdate?.commits,
-          if (commit != null) commit,
-        },
-        version: newVersion,
-      );
-
-      if (propogate) {
-        // Propogate to all dependent packages.
-        dfs<PackageInfo>(
-          repo.reversedPackageGraph,
-          root: package,
-          (dependent) {
-            if (!dependent.isExample) {
-              bumpVersion(dependent, commit: commit);
-              bumpDependency(package, dependent);
-            }
-          },
-        );
-
-        // Propogate to all component packages.
-        repo.components[component]?.forEach((componentPackage) {
-          bumpVersion(componentPackage, commit: commit);
-          dfs<PackageInfo>(
-            repo.reversedPackageGraph,
-            root: componentPackage,
-            (dependent) {
-              bumpDependency(componentPackage, dependent);
-            },
-          );
-        });
-      }
-    }
-
-    return newVersion;
-  }
-
-  final sortedPackages = repo.publishablePackages;
-  sortPackagesTopologically(
-    sortedPackages,
-    (PackageInfo pkg) => pkg.pubspecInfo.pubspec,
-  );
-  for (final package in sortedPackages) {
-    final changes = changesForPackage(package);
-    final commits = changes.commitsByPackage[package]?.toSet() ?? const {};
-    for (final commit in commits) {
-      // TODO(dnys1): Define full set of commit types which should be ignored
-      // when considering version changes.
-      if (commit.isVersionBump ||
-          commit.type == CommitType.merge && commit.taggedPr == null) {
-        continue;
-      }
-      bumpVersion(
-        package,
-        commit: commit,
-        propogate: commit.isBreakingChange,
-      );
-      // Propogate the version change to all packages affected by the same
-      // commit.
-      changes.packagesByCommit[commit]?.forEach((commitPackage) {
-        bumpDependency(package, commitPackage);
-      });
-    }
-  }
-
-  return VersionChanges(
-    updatedChangelogs: changelogUpdates,
-    updatedVersions: versionUpdates,
-  );
-}
-
-class VersionChanges {
-  const VersionChanges({
-    required this.updatedChangelogs,
-    required this.updatedVersions,
-  });
-
-  final Map<String, Version> updatedVersions;
-  final Map<PackageInfo, ChangelogUpdate> updatedChangelogs;
 }

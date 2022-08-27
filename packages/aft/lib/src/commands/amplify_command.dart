@@ -12,12 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:collection';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/repo.dart';
 import 'package:args/command_runner.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:checked_yaml/checked_yaml.dart';
+import 'package:git/git.dart' as git;
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
@@ -105,12 +108,63 @@ abstract class AmplifyCommand extends Command<void>
     );
   }();
 
-  late final Repo repo = Repo(rootDir, logger: logger);
+  /// All packages in the Amplify Flutter repo.
+  late final Map<String, PackageInfo> allPackages = () {
+    final allDirs = rootDir
+        .listSync(recursive: true, followLinks: false)
+        .whereType<Directory>();
+    final allPackages = <PackageInfo>[];
+    for (final dir in allDirs) {
+      final pubspecInfo = dir.pubspec;
+      if (pubspecInfo == null) {
+        continue;
+      }
+      final pubspec = pubspecInfo.pubspec;
+      if (aftConfig.ignore.contains(pubspec.name)) {
+        continue;
+      }
+      allPackages.add(
+        PackageInfo(
+          name: pubspec.name,
+          path: dir.path,
+          usesMonoRepo: dir.usesMonoRepo,
+          pubspecInfo: pubspecInfo,
+          flavor: pubspec.flavor,
+        ),
+      );
+    }
+    return UnmodifiableMapView({
+      for (final package in allPackages..sort()) package.name: package,
+    });
+  }();
 
-  Map<String, PackageInfo> get allPackages => repo.allPackages;
+  /// The absolute path to the `aft.yaml` document.
+  late final String aftConfigPath = () {
+    final rootDir = this.rootDir;
+    return p.join(rootDir.path, 'aft.yaml');
+  }();
 
-  String get aftConfigPath => repo.aftConfigPath;
-  AftConfig get aftConfig => repo.aftConfig;
+  /// The global `aft` configuration for the repo.
+  late final AftConfig aftConfig = () {
+    final configFile = File(p.join(rootDir.path, 'aft.yaml'));
+    assert(configFile.existsSync(), 'Could not find aft.yaml');
+    final configYaml = configFile.readAsStringSync();
+    return checkedYamlDecode(configYaml, AftConfig.fromJson);
+  }();
+
+  late final Repo repo = Repo(
+    rootDir,
+    allPackages: allPackages,
+    aftConfig: aftConfig,
+    logger: logger,
+  );
+
+  /// Runs `git` with the given [args] from the repo's root directory.
+  Future<void> runGit(List<String> args) => git.runGit(
+        args,
+        processWorkingDir: rootDir.path,
+        throwOnError: true,
+      );
 
   /// The `aft.yaml` document.
   String get aftConfigYaml {

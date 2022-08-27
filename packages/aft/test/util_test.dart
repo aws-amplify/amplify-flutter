@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aft/aft.dart';
+import 'package:aft/src/util.dart';
 import 'package:graphs/graphs.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';

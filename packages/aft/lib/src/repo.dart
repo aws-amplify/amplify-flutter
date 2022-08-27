@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:collection';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/changelog/changelog.dart';
 import 'package:aft/src/changelog/commit_message.dart';
+import 'package:aft/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:checked_yaml/checked_yaml.dart';
 import 'package:collection/collection.dart';
 import 'package:libgit2dart/libgit2dart.dart';
 import 'package:path/path.dart' as p;
@@ -28,61 +29,27 @@ import 'package:pub_semver/pub_semver.dart';
 /// Encapsulates all repository functionality including package and Git
 /// management.
 class Repo {
-  Repo(this.rootDir, {AWSLogger? logger})
-      : logger = logger ?? AWSLogger('Repo');
+  Repo(
+    this.rootDir, {
+    required this.allPackages,
+    required this.aftConfig,
+    AWSLogger? logger,
+  }) : logger = logger ?? AWSLogger('Repo');
 
   /// The root directory of the repository.
   final Directory rootDir;
 
   final AWSLogger logger;
 
-  /// All packages in the Amplify Flutter repo.
-  late final Map<String, PackageInfo> allPackages = () {
-    final allDirs = rootDir
-        .listSync(recursive: true, followLinks: false)
-        .whereType<Directory>();
-    final allPackages = <PackageInfo>[];
-    for (final dir in allDirs) {
-      final pubspecInfo = dir.pubspec;
-      if (pubspecInfo == null) {
-        continue;
-      }
-      final pubspec = pubspecInfo.pubspec;
-      if (aftConfig.ignore.contains(pubspec.name)) {
-        continue;
-      }
-      allPackages.add(
-        PackageInfo(
-          name: pubspec.name,
-          path: dir.path,
-          usesMonoRepo: dir.usesMonoRepo,
-          pubspecInfo: pubspecInfo,
-          flavor: pubspec.flavor,
-        ),
-      );
-    }
-    return UnmodifiableMapView({
-      for (final package in allPackages..sort()) package.name: package,
-    });
-  }();
+  final Map<String, PackageInfo> allPackages;
 
-  late final List<PackageInfo> publishablePackages =
-      allPackages.values.where((pkg) => !pkg.isExample).toList();
+  final AftConfig aftConfig;
 
-  /// The absolute path to the `aft.yaml` document.
-  late final String aftConfigPath = () {
-    final rootDir = this.rootDir;
-    return p.join(rootDir.path, 'aft.yaml');
-  }();
+  late final List<PackageInfo> publishablePackages = UnmodifiableListView(
+    allPackages.values.where((pkg) => !pkg.isExample).toList(),
+  );
 
-  /// The global `aft` configuration for the repo.
-  late final AftConfig aftConfig = () {
-    final configFile = File(p.join(rootDir.path, 'aft.yaml'));
-    assert(configFile.existsSync(), 'Could not find aft.yaml');
-    final configYaml = configFile.readAsStringSync();
-    return checkedYamlDecode(configYaml, AftConfig.fromJson);
-  }();
-
+  /// The components of the
   late final Map<String, List<PackageInfo>> components =
       aftConfig.components.map((component, packages) {
     return MapEntry(
@@ -120,13 +87,14 @@ class Repo {
       );
 
   /// The directed graph of packages to the packages it depends on.
-  late final Map<PackageInfo, List<PackageInfo>> packageGraph = {
+  late final Map<PackageInfo, List<PackageInfo>> packageGraph =
+      UnmodifiableMapView({
     for (final package in allPackages.values)
       package: package.pubspecInfo.pubspec.dependencies.keys
           .map((packageName) => allPackages[packageName])
           .whereType<PackageInfo>()
           .toList(),
-  };
+  });
 
   /// The reversed (transposed) [packageGraph].
   ///
@@ -142,14 +110,8 @@ class Repo {
         reversedPackageGraph[dep]!.add(entry.key);
       }
     }
-    return reversedPackageGraph;
+    return UnmodifiableMapView(reversedPackageGraph);
   }();
-
-  /// The git diff between [baseRef] and [headRef].
-  Diff diffRefs(String baseRef, String headRef) => diffTrees(
-        RevParse.single(repo: repo, spec: '$baseRef^{tree}') as Tree,
-        RevParse.single(repo: repo, spec: '$headRef^{tree}') as Tree,
-      );
 
   /// The git diff between [oldTree] and [newTree].
   Diff diffTrees(Tree oldTree, Tree newTree) => Diff.treeToTree(
@@ -163,6 +125,8 @@ class Repo {
   /// Collect all the packages which have changed between [baseRef]..[headRef]
   /// and the commits which changed them.
   GitChanges changes(String baseRef, String headRef) {
+    // TODO(dnys1): Diff with index if headRef is null to include uncommitted
+    // changes?
     final baseTree = RevParse.single(
       repo: repo,
       spec: '$baseRef^{tree}',
@@ -235,6 +199,125 @@ class Repo {
       packagesByCommit: packagesByCommit.build(),
     );
   }
+
+  late final versionChanges = VersionChanges(this);
+
+  /// Changelog updates. by package.
+  final Map<PackageInfo, ChangelogUpdate> changelogUpdates = {};
+
+  /// Bumps the version for all packages in the repo.
+  void bumpAllVersions({
+    required GitChanges Function(PackageInfo) changesForPackage,
+  }) {
+    final sortedPackages = List.of(publishablePackages);
+    sortPackagesTopologically(
+      sortedPackages,
+      (PackageInfo pkg) => pkg.pubspecInfo.pubspec,
+    );
+    for (final package in sortedPackages) {
+      final changes = changesForPackage(package);
+      changes.commitsByPackage[package]?.forEach((commit) {
+        // TODO(dnys1): Define full set of commit types which should be ignored
+        // when considering version changes.
+        if (commit.isVersionBump ||
+            commit.type == CommitType.merge && commit.taggedPr == null) {
+          return;
+        }
+        bumpVersion(
+          package,
+          commit: commit,
+          propagate: commit.isBreakingChange,
+        );
+        // Propagate the version change to all packages affected by the same
+        // commit as if they were a component.
+        changes.packagesByCommit[commit]?.forEach((commitPackage) {
+          bumpDependency(package, commitPackage);
+        });
+      });
+    }
+  }
+
+  /// Bumps the version and changelog in [package] using [commit] and returns
+  /// the new version.
+  ///
+  /// If [propagate] is `true`, the version change is propagated to all packages
+  /// which depend on [package].
+  Version bumpVersion(
+    PackageInfo package, {
+    bool propagate = false,
+    CommitMessage? commit,
+  }) {
+    final component = aftConfig.componentForPackage(package.name);
+    final currentVersion = package.version;
+    final currentProposedVersion = versionChanges.newVersion(package);
+    final isBreakingChange = commit?.isBreakingChange ?? false;
+    final newProposedVersion = currentVersion.nextAmplifyVersion(
+      isBreakingChange: isBreakingChange,
+    );
+    final newVersion = maxBy(
+      [currentProposedVersion, newProposedVersion],
+      (version) => version,
+    )!;
+    versionChanges.updateVersion(package, newVersion);
+
+    if (newVersion > currentVersion) {
+      logger.debug(
+        'Bumping ${package.name} from $currentProposedVersion to $newVersion: '
+        '${commit?.summary}',
+      );
+      package.pubspecInfo.pubspecYamlEditor.update(
+        ['version'],
+        newVersion.toString(),
+      );
+      final currentChangelogUpdate = changelogUpdates[package];
+      changelogUpdates[package] = package.changelog.update(
+        commits: {
+          ...?currentChangelogUpdate?.commits,
+          if (commit != null) commit,
+        },
+        version: newVersion,
+      );
+
+      if (propagate) {
+        // Propagate to all dependent packages.
+        dfs<PackageInfo>(
+          reversedPackageGraph,
+          root: package,
+          (dependent) {
+            if (!dependent.isExample) {
+              bumpVersion(dependent, commit: commit);
+            }
+            bumpDependency(package, dependent);
+          },
+        );
+
+        // Propagate to all component packages.
+        components[component]?.forEach((componentPackage) {
+          bumpVersion(componentPackage, commit: commit);
+          dfs<PackageInfo>(
+            reversedPackageGraph,
+            root: componentPackage,
+            (dependent) {
+              bumpDependency(componentPackage, dependent);
+            },
+          );
+        });
+      }
+    }
+
+    return newVersion;
+  }
+
+  /// Bumps the dependency for [package] in [dependent].
+  void bumpDependency(PackageInfo package, PackageInfo dependent) {
+    final newVersion = versionChanges.newVersion(package);
+    if (dependent.pubspecInfo.pubspec.dependencies.containsKey(package.name)) {
+      dependent.pubspecInfo.pubspecYamlEditor.update(
+        ['dependencies', package.name],
+        newVersion.amplifyConstraint(minVersion: newVersion),
+      );
+    }
+  }
 }
 
 class GitChanges {
@@ -255,4 +338,36 @@ class _DiffMarker with AWSEquatable<_DiffMarker> {
 
   @override
   List<Object?> get props => [baseTree, headTree];
+}
+
+class VersionChanges extends MapBase<String, Version>
+    with UnmodifiableMapMixin<String, Version> {
+  VersionChanges(this._repo);
+
+  final Repo _repo;
+
+  /// Version updates, by component.
+  final Map<String, Version> _versionUpdates = {};
+
+  /// The latest proposed version for [package].
+  Version newVersion(PackageInfo package) {
+    final component = _repo.aftConfig.componentForPackage(package.name);
+    return _versionUpdates[component] ?? package.version;
+  }
+
+  /// Updates the proposed version for [package].
+  void updateVersion(PackageInfo package, Version version) {
+    final currentVersion = newVersion(package);
+    if (version <= currentVersion) {
+      return;
+    }
+    final component = _repo.aftConfig.componentForPackage(package.name);
+    _versionUpdates[component] = version;
+  }
+
+  @override
+  Version? operator [](Object? key) => _versionUpdates[key];
+
+  @override
+  Iterable<String> get keys => _versionUpdates.keys;
 }

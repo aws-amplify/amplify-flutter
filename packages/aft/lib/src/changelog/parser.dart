@@ -20,7 +20,7 @@ final RegExp semverRegex = RegExp(r'\d+\.\d+\.\d+[\d\w\.\+\-]*');
 class _ChangelogParser implements NodeVisitor {
   _ChangelogParser(this.logger);
 
-  final Logger? logger;
+  final AWSLogger? logger;
 
   final builder = ChangelogBuilder();
 
@@ -40,7 +40,7 @@ class _ChangelogParser implements NodeVisitor {
         }
         final versionMatch = semverRegex.firstMatch(versionText)?.group(0);
         if (versionMatch == null) {
-          logger?.trace('Could not parse version: $versionText');
+          logger?.debug('Could not parse version: $versionText');
           break;
         }
         _currentVersion = Version.parse(versionMatch);

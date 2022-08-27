@@ -16,9 +16,9 @@ import 'dart:convert';
 
 import 'package:aft/src/changelog/commit_message.dart';
 import 'package:aft/src/changelog/printer.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
-import 'package:cli_util/cli_logging.dart';
 import 'package:collection/collection.dart';
 import 'package:markdown/markdown.dart';
 import 'package:pub_semver/pub_semver.dart';
@@ -46,7 +46,7 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
   /// changelog.
   factory Changelog.parse(
     String changelogMd, {
-    Logger? logger,
+    AWSLogger? logger,
   }) {
     final parser = Document();
     final lines = LineSplitter.split(changelogMd).toList();
@@ -97,10 +97,24 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
     } else {
       for (final typedCommits in commitsByType.entries) {
         nodes.add(Element.text('h3', typedCommits.key.header));
+
+        // Transform PR #'s into links to the main repo
+        const baseUrl = 'https://github.com/aws-amplify/amplify-flutter';
+        final commits = typedCommits.value
+            .sortedBy((commit) => commit.summary)
+            .map((commit) {
+          final taggedPr = commit.taggedPr;
+          if (taggedPr == null) {
+            return commit.summary;
+          }
+          return commit.summary.replaceFirst(
+            '(#$taggedPr)',
+            '([#$taggedPr]($baseUrl/pull/$taggedPr))',
+          );
+        });
+
         final list = Element('ul', [
-          for (final commit
-              in typedCommits.value.sortedBy((commit) => commit.summary))
-            Element.text('li', commit.summary),
+          for (final commit in commits) Element.text('li', commit),
         ]);
         nodes.add(list);
       }

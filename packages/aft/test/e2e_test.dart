@@ -25,23 +25,15 @@ import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
 class MockRepo extends Repo {
-  MockRepo(super.rootDir, {required this.repo, super.logger});
+  MockRepo(
+    super.rootDir, {
+    required this.repo,
+    required super.aftConfig,
+    super.logger,
+  }) : super(allPackages: {});
 
   @override
   final Repository repo;
-
-  @override
-  final AftConfig aftConfig = const AftConfig(
-    components: {
-      'amplify': [
-        'amplify_auth_cognito',
-        'amplify_auth_cognito_ios',
-      ],
-    },
-  );
-
-  @override
-  final Map<String, PackageInfo> allPackages = {};
 }
 
 void main() {
@@ -51,7 +43,6 @@ void main() {
     Future<void> runGit(List<String> args) => git.runGit(
           args,
           processWorkingDir: repo.rootDir.path,
-          throwOnError: true,
         );
 
     PackageInfo createPackage(
@@ -120,6 +111,14 @@ Initial version.
       repo = MockRepo(
         gitDir,
         repo: Repository.init(path: gitDir.path),
+        aftConfig: const AftConfig(
+          components: {
+            'amplify': [
+              'amplify_auth_cognito',
+              'amplify_auth_cognito_ios',
+            ],
+          },
+        ),
       );
       await runGit(['commit', '--allow-empty', '-m', 'Initial commit']);
     });
@@ -297,10 +296,8 @@ Initial version.
           'amplify_auth_cognito_ios': '1.0.0-next.1',
         };
 
-        late VersionChanges updates;
         setUp(() async {
-          updates = await bumpVersions(
-            repo: repo,
+          repo.bumpAllVersions(
             changesForPackage: changesForPackage,
           );
         });
@@ -309,8 +306,7 @@ Initial version.
           final packageName = check.key;
           test(packageName, () {
             final package = repo.allPackages[packageName]!;
-            final component = repo.aftConfig.componentForPackage(package.name);
-            final newVersion = updates.updatedVersions[component]!;
+            final newVersion = repo.versionChanges.newVersion(package);
             expect(newVersion.toString(), finalVersions[packageName]);
           });
         }

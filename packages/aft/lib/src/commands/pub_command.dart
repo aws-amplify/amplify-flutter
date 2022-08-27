@@ -18,7 +18,6 @@ import 'dart:io';
 import 'package:aft/aft.dart';
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
-import 'package:cli_util/cli_logging.dart';
 import 'package:http/http.dart' as http;
 import 'package:pub/src/http.dart' as pub_http;
 

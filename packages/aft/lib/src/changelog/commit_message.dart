@@ -28,9 +28,9 @@ enum CommitTypeGroup {
   features('Features'),
   other('Other Changes');
 
-  final String header;
-
   const CommitTypeGroup(this.header);
+
+  final String header;
 }
 
 enum CommitType {
@@ -49,11 +49,11 @@ enum CommitType {
   style.other(),
   test.other();
 
-  final CommitTypeGroup group;
-
   const CommitType.fixes() : group = CommitTypeGroup.fixes;
   const CommitType.features() : group = CommitTypeGroup.features;
   const CommitType.other() : group = CommitTypeGroup.other;
+
+  final CommitTypeGroup group;
 }
 
 /// {@template aft.changelog.commit_message}

@@ -18,12 +18,7 @@ dependencies:
 ignore:
   - synthetic_package
 
-# Branch names which map to pub.dev stable and prerelease tracks.
-branches:
-  stable: stable
-  prerelease: next
-
-# Strongly connected components which should have minor/major version bumps happen 
+# Strongly connected components which should have major version bumps happen 
 # in unison, i.e. a version bump to one package cascades to all.
 components:
   amplify:

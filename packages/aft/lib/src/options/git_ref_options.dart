@@ -12,14 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:aft/src/changelog/changelog.dart';
-import 'package:aft/src/changelog/commit_message.dart';
-import 'package:aft/src/changelog/printer.dart';
-import 'package:pub_semver/pub_semver.dart';
 
 /// Adds git ref options and functionality to a command.
 mixin GitRefOptions on AmplifyCommand {

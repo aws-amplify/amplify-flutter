@@ -17,9 +17,7 @@ import 'dart:io';
 import 'package:aft/aft.dart';
 import 'package:aft/src/util.dart';
 import 'package:aws_common/aws_common.dart';
-import 'package:cli_util/cli_logging.dart';
 import 'package:graphs/graphs.dart';
-import 'package:pubspec_parse/pubspec_parse.dart';
 
 /// Command to publish all Dart/Flutter packages in the repo.
 class PublishCommand extends AmplifyCommand {
@@ -146,7 +144,7 @@ class PublishCommand extends AmplifyCommand {
   @override
   Future<void> run() async {
     // Gather packages which can be published.
-    var publishablePackages = (await Future.wait([
+    final publishablePackages = (await Future.wait([
       for (final package in allPackages.values) _checkPublishable(package),
     ]))
         .whereType<PackageInfo>()
@@ -165,7 +163,7 @@ class PublishCommand extends AmplifyCommand {
     }
 
     try {
-      publishablePackages = sortPackagesTopologically<PackageInfo>(
+      sortPackagesTopologically<PackageInfo>(
         publishablePackages,
         (pkg) => pkg.pubspecInfo.pubspec,
       );
@@ -253,29 +251,4 @@ Future<void> runBuildRunner(
     }
     exit(1);
   }
-}
-
-/// Sorts packages in topological order so they may be published in the order
-/// they're sorted.
-///
-/// Packages with inter-dependencies cannot be topologically sorted and will
-/// throw a [CycleException].
-List<T> sortPackagesTopologically<T>(
-  Iterable<T> packages,
-  Pubspec Function(T) getPubspec,
-) {
-  final pubspecs = packages.map(getPubspec);
-  final packageNames = pubspecs.map((el) => el.name).toList();
-  final graph = <String, Iterable<String>>{
-    for (var package in pubspecs)
-      package.name: package.dependencies.keys.where(packageNames.contains),
-  };
-  final ordered = topologicalSort(graph.keys, (key) => graph[key]!);
-  return packages.toList()
-    ..sort((a, b) {
-      // `ordered` is in reverse ordering to our desired publish precedence.
-      return ordered
-          .indexOf(getPubspec(b).name)
-          .compareTo(ordered.indexOf(getPubspec(a).name));
-    });
 }

@@ -297,8 +297,6 @@ const yamlSerializable = JsonSerializable(
   disallowUnrecognizedKeys: true,
 );
 
-enum PubTrack { stable, prerelease }
-
 /// The typed representation of the `aft.yaml` file.
 @yamlSerializable
 @_VersionConstraintConverter()
@@ -306,7 +304,6 @@ class AftConfig {
   const AftConfig({
     this.dependencies = const {},
     this.ignore = const [],
-    this.branches = const {PubTrack.stable: 'main'},
     this.components = const {},
   });
 
@@ -321,19 +318,18 @@ class AftConfig {
   /// Packages to ignore in all repo operations.
   final List<String> ignore;
 
-  /// Branch names which map to pub.dev stable and prerelease tracks.
-  final Map<PubTrack, String> branches;
-
   /// Strongly connected components which should have minor/major version bumps
   /// happen in unison, i.e. a version bump to one package cascades to all.
   final Map<String, List<String>> components;
 
-  /// Retrieves the component for [package], if any.
-  String componentForPackage(String package) {
-    return components.entries.firstWhereOrNull((component) {
-          return component.value.contains(package);
-        })?.key ??
-        package;
+  /// Retrieves the component for [packageName], if any.
+  String componentForPackage(String packageName) {
+    return components.entries
+            .firstWhereOrNull(
+              (component) => component.value.contains(packageName),
+            )
+            ?.key ??
+        packageName;
   }
 
   Map<String, Object?> toJson() => _$AftConfigToJson(this);
