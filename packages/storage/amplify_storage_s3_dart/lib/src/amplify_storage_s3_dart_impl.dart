@@ -14,6 +14,8 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:amplify_storage_s3_dart/src/prefix_resolver/storage_access_level_aware_prefix_resolver.dart';
+import 'package:meta/meta.dart';
 
 /// {@template amplify_storage_s3_dart.amplify_storage_s3_plugin_dart}
 /// The Dart S3 plugin the Amplify Storage Category.
@@ -22,21 +24,21 @@ class AmplifyStorageS3Dart extends StoragePluginInterface {
   /// {@macro amplify_storage_s3_dart.amplify_storage_s3_plugin_dart}
   AmplifyStorageS3Dart({
     String? delimiter,
-    S3StoragePrefixResolver? s3storagePrefixResolver,
+    StorageS3PrefixResolver? prefixResolver,
   })  : _delimiter = delimiter,
-        _s3storagePrefixResolver = s3storagePrefixResolver;
+        _prefixResolver = prefixResolver;
 
-  // TODO(HuiSF): remove ignore when using this field
-  // ignore: unused_field
   final String? _delimiter;
 
   // TODO(HuiSF): remove ignore when using this field
   // ignore: unused_field
-  final S3StoragePrefixResolver? _s3storagePrefixResolver;
-
-  // TODO(HuiSF): remove ignore when using this field
-  // ignore: unused_field
   late final S3PluginConfig _s3pluginConfig;
+
+  StorageS3PrefixResolver? _prefixResolver;
+
+  /// Gets prefix resolver
+  @visibleForTesting
+  StorageS3PrefixResolver? get prefixResolver => _prefixResolver;
 
   @override
   Future<void> configure({
@@ -50,6 +52,29 @@ class AmplifyStorageS3Dart extends StoragePluginInterface {
     }
 
     _s3pluginConfig = s3PluginConfig;
+
+    final identityProvider = authProviderRepo
+        .getAuthProvider(APIAuthorizationType.userPools.authProviderToken);
+
+    if (identityProvider == null) {
+      throw const StorageException(
+        'No Cognito User Pool provider found for Storage.',
+        recoverySuggestion:
+            'If you haven\'t already, please add amplify_auth_cognito plugin to your App.',
+      );
+    }
+
+    _prefixResolver ??= StorageAccessLevelAwarePrefixResolver(
+      delimiter: _delimiter,
+      identityProvider: identityProvider,
+    );
+
+    // TODO(HuiSF): create S3Client instance with
+    //  * credentialsProvider
+    //  * _prefixResolver
+    //  * other fields
+    // final credentialsProvider = authProviderRepo
+    //     .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
   }
 
   @override
