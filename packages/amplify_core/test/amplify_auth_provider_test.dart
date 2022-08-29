@@ -19,6 +19,7 @@ import 'package:test/test.dart';
 
 const _testAuthKey = 'TestAuthKey';
 const _testToken = 'abc123-fake-token';
+const _testIdentityId = 'identity-id-321';
 
 AWSHttpRequest _generateTestRequest() {
   return AWSHttpRequest(
@@ -73,6 +74,18 @@ class TestTokenProvider extends TokenAmplifyAuthProvider {
   }
 }
 
+class TestTokenIdentityProvider extends TokenIdentityAmplifyAuthProvider {
+  @override
+  Future<String> getLatestAuthToken() async {
+    return _testToken;
+  }
+
+  @override
+  Future<String> getIdentityId() async {
+    return _testIdentityId;
+  }
+}
+
 void main() {
   final authProvider = TestAuthProvider();
 
@@ -90,6 +103,20 @@ void main() {
       final authorizedRequest =
           await tokenAuthProvider.authorizeRequest(_generateTestRequest());
       expect(authorizedRequest.headers[AWSHeaders.authorization], _testToken);
+    });
+  });
+
+  group('TokenIdentityAmplifyAuthProvider', () {
+    test('will assign the token to the "Authorization" header', () async {
+      final tokenAuthProvider = TestTokenProvider();
+      final authorizedRequest =
+          await tokenAuthProvider.authorizeRequest(_generateTestRequest());
+      expect(authorizedRequest.headers[AWSHeaders.authorization], _testToken);
+    });
+
+    test('identityId() returns identityId', () async {
+      final identityId = await TestTokenIdentityProvider().getIdentityId();
+      expect(identityId, _testIdentityId);
     });
   });
 
