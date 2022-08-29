@@ -11,11 +11,26 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
-class AmplifyStorageS3 extends AmplifyStorageS3Dart {
-  AmplifyStorageS3({
-    super.delimiter,
-    super.prefixResolver,
+import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:test/test.dart';
+
+void main() {
+  group('PassThroughPrefixResolver', () {
+    final prefixResolver = PassThroughPrefixResolver();
+    for (final storageAccessLevel in [
+      StorageAccessLevel.guest,
+      StorageAccessLevel.private,
+      StorageAccessLevel.protected
+    ]) {
+      test('should resolve as empty string for $storageAccessLevel', () async {
+        final result = await prefixResolver.resolvePrefix(
+          storageAccessLevel: storageAccessLevel,
+        );
+
+        expect(result, isEmpty);
+      });
+    }
   });
 }

@@ -14,12 +14,17 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-// TODO(HuiSF): update the doc link.
-/// An asynchronous function resolves object prefix according to specified
-/// `storageAccessLevel` and optional `identityId`.
-/// Refer to [S3 Storage Access Level Customization](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/ios/#customization)
-/// to learn about the detail.
-typedef S3StoragePrefixResolver = Future<String> Function({
-  required StorageAccessLevel storageAccessLevel,
-  String? identityId,
-});
+const _testToken = 'abc123-fake-token';
+const _testIdentityId = 'identity-id-321';
+
+class TestTokenProvider extends TokenIdentityAmplifyAuthProvider {
+  @override
+  Future<String> getLatestAuthToken() async {
+    return _testToken;
+  }
+
+  @override
+  Future<String> getIdentityId() async {
+    return _testIdentityId;
+  }
+}

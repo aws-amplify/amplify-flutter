@@ -12,10 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Amplify Storage S3 for Dart
-library amplify_storage_s3_dart;
+import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
-export 'src/amplify_storage_s3_dart_impl.dart';
-
-export 'src/prefix_resolver/pass_through_prefix_resolver.dart';
-export 'src/prefix_resolver/storage_s3_prefix_resolver.dart';
+/// A S3 prefix resolver that doesn't add extra prefix.
+class PassThroughPrefixResolver implements StorageS3PrefixResolver {
+  @override
+  Future<String> resolvePrefix({
+    required StorageAccessLevel storageAccessLevel,
+    String? identityId,
+  }) async {
+    return '';
+  }
+}
