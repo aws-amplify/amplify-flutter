@@ -28,6 +28,7 @@ pubspec_overrides.yaml
 
 # amplify resources from example apps
 **/example/amplify/
+!packages/api/amplify_api/example/amplify/
 
 dist/
 node_modules/
