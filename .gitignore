@@ -28,7 +28,10 @@ pubspec_overrides.yaml
 
 # amplify resources from example apps
 **/example/amplify/
+# Allow `amplify init` with preconfigured backend
+# to provision lambdas not supported by headless CLI.
 !packages/api/amplify_api/example/amplify/
+packages/api/amplify_api/example/amplify/team-provider-info.json
 
 dist/
 node_modules/
