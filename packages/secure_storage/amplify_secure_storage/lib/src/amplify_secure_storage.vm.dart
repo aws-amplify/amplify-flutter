@@ -20,6 +20,7 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// {@template amplify_secure_storage.amplify_secure_storage}
@@ -31,19 +32,23 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
     required super.config,
   });
 
-  late final AmplifySecureStorageInterface _instance = () {
-    if (Platform.isAndroid) {
-      return AmplifySecureStorageAndroid(config: config);
-    }
-    return AmplifySecureStorageWorker(config: config);
-  }();
+  late final AmplifySecureStorageInterface _instance;
 
   final _initMemo = AsyncMemoizer();
 
   Future<void> _init() async {
+    if (Platform.isAndroid) {
+      _instance = AmplifySecureStorageAndroid(config: config);
+    } else {
+      final packageInfo = await PackageInfo.fromPlatform();
+      _instance = AmplifySecureStorageWorker(
+        config: config,
+        packageId: packageInfo.packageName,
+      );
+    }
     if (Platform.isLinux) {
       await _initMemo.runOnce(
-        () => _initialize(config.linuxOptions.accessGroup),
+        () => _initializeScope(config.linuxOptions.accessGroup),
       );
     }
   }
@@ -78,7 +83,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
   /// and then the flag will be set.
   ///
   /// Intended to clear storage after an app uninstall & re-install.
-  Future<void> _initialize(String? accessGroup) async {
+  Future<void> _initializeScope(String? accessGroup) async {
     // if accessGroup is set, do not clear data on initialization
     // since the data can be shared across applications.
     if (accessGroup != null) return;

@@ -35,11 +35,13 @@ abstract class SecureStorageRequest
   /// {@macro amplify_secure_storage_dart.secure_storage_interface.init}
   factory SecureStorageRequest.init({
     required AmplifySecureStorageConfig config,
+    String? packageId,
   }) {
     return SecureStorageRequest(
       (b) => b
         ..action = SecureStorageAction.init
-        ..config.replace(config),
+        ..config.replace(config)
+        ..packageId = packageId,
     );
   }
 
@@ -102,6 +104,8 @@ abstract class SecureStorageRequest
   /// Valid only for [SecureStorageAction.init].
   AmplifySecureStorageConfig? get config;
 
+  String? get packageId;
+
   /// The key targeted by [action].
   String? get key;
 
@@ -119,6 +123,7 @@ abstract class SecureStorageRequest
           ..add('id', id)
           ..add('action', action)
           ..add('config', config)
+          ..add('packageId', packageId)
           ..add('key', key))
         .toString();
   }

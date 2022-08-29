@@ -46,7 +46,7 @@ void main() {
         scope: scope,
         linuxOptions: linuxOptions,
       ),
-      appId: appId,
+      packageId: appId,
     );
     storageInstances.add(instance);
     return instance;
@@ -54,7 +54,7 @@ void main() {
 
   tearDown(() async {
     for (final instance in storageInstances) {
-      await instance.removeAll();
+      instance.removeAll();
     }
     storageInstances.clear();
   });
@@ -66,7 +66,7 @@ void main() {
         scope: testScope,
         appId: appId1,
       );
-      await appOneStorage.write(key: key1, value: value1);
+      appOneStorage.write(key: key1, value: value1);
 
       // initialize app 2 storage
       final appTwoStorage = createStorageInstance(
@@ -75,16 +75,16 @@ void main() {
       );
 
       // assert value is null for app 2
-      expect(await appTwoStorage.read(key: key1), isNull);
+      expect(appTwoStorage.read(key: key1), isNull);
 
       // write to app 2 storage
-      await appTwoStorage.write(key: key1, value: value2);
+      appTwoStorage.write(key: key1, value: value2);
 
       // assert value is updated for app 2
-      expect(await appTwoStorage.read(key: key1), value2);
+      expect(appTwoStorage.read(key: key1), value2);
 
       // assert value is NOT updated for app 1
-      expect(await appOneStorage.read(key: key1), value1);
+      expect(appOneStorage.read(key: key1), value1);
     });
 
     test('Keys are shared when using the same accessGroup', () async {
@@ -94,7 +94,7 @@ void main() {
         accessGroup: accessGroup,
         appId: appId1,
       );
-      await appOneStorage.write(key: key1, value: value1);
+      appOneStorage.write(key: key1, value: value1);
 
       // initialize app 2 storage
       final appTwoStorage = createStorageInstance(
@@ -104,16 +104,16 @@ void main() {
       );
 
       // assert value is shared from app 1
-      expect(await appTwoStorage.read(key: key1), value1);
+      expect(appTwoStorage.read(key: key1), value1);
 
       // write to app 2 storage
-      await appTwoStorage.write(key: key1, value: value2);
+      appTwoStorage.write(key: key1, value: value2);
 
       // assert value is updated for app 2
-      expect(await appTwoStorage.read(key: key1), value2);
+      expect(appTwoStorage.read(key: key1), value2);
 
       // assert value is updated for app 1
-      expect(await appOneStorage.read(key: key1), value2);
+      expect(appOneStorage.read(key: key1), value2);
     });
 
     test('Keys from two separate access groups do not collide', () async {
@@ -123,7 +123,7 @@ void main() {
         accessGroup: accessGroup,
         appId: appId1,
       );
-      await appOneStorage.write(key: key1, value: value1);
+      appOneStorage.write(key: key1, value: value1);
 
       // initialize app 2 storage
       final appTwoStorage = createStorageInstance(
@@ -133,16 +133,16 @@ void main() {
       );
 
       // assert value is null for app 2
-      expect(await appTwoStorage.read(key: key1), isNull);
+      expect(appTwoStorage.read(key: key1), isNull);
 
       // write to app 2 storage
-      await appTwoStorage.write(key: key1, value: value2);
+      appTwoStorage.write(key: key1, value: value2);
 
       // assert value is updated for app 2
-      expect(await appTwoStorage.read(key: key1), value2);
+      expect(appTwoStorage.read(key: key1), value2);
 
       // assert value is NOT updated for app 1
-      expect(await appOneStorage.read(key: key1), value1);
+      expect(appOneStorage.read(key: key1), value1);
     });
   });
 }

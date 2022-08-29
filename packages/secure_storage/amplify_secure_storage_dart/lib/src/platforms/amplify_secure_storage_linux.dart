@@ -12,14 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:async';
 import 'dart:ffi';
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/glib/glib.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/libsecret/libsecret.dart';
-import 'package:amplify_secure_storage_dart/src/ffi/utils/linux_utils.dart';
-import 'package:async/async.dart';
 import 'package:ffi/ffi.dart';
 import 'package:meta/meta.dart';
 
@@ -27,22 +24,13 @@ import 'package:meta/meta.dart';
 class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   AmplifySecureStorageLinux({
     required super.config,
-    @visibleForTesting String? appId,
-  }) : _appId = appId;
-
-  final String? _appId;
-
-  final _appIdMemo = AsyncMemoizer<String>();
-
-  Future<String> _getAppId() async {
-    if (_appId != null) return _appId!;
-    return _appIdMemo.runOnce(getApplicationId);
-  }
+    @visibleForTesting super.packageId,
+  });
 
   @override
-  Future<void> write({required String key, required String value}) async {
-    final schemaName = await _getSchemaName();
-    final labelName = await _createLabel(key);
+  void write({required String key, required String value}) {
+    final schemaName = _getSchemaName();
+    final labelName = _createLabel(key);
     return using((Arena arena) {
       final label = labelName.toNativeUtf8(allocator: arena);
       final secret = value.toNativeUtf8(allocator: arena);
@@ -61,8 +49,8 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   }
 
   @override
-  Future<String?> read({required String key}) async {
-    final schemaName = await _getSchemaName();
+  String? read({required String key}) {
+    final schemaName = _getSchemaName();
     return using((Arena arena) {
       final attributes = _getAttributes(key: key, arena: arena);
       final schema = _getSchema(schemaName, arena);
@@ -82,8 +70,8 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   }
 
   @override
-  Future<void> delete({required String key}) async {
-    final schemaName = await _getSchemaName();
+  void delete({required String key}) {
+    final schemaName = _getSchemaName();
     return using((Arena arena) {
       final attributes = _getAttributes(key: key, arena: arena);
       final schema = _getSchema(schemaName, arena);
@@ -98,8 +86,8 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 
   /// Removes all key-value pairs for the current scope.
   @override
-  Future<void> removeAll() async {
-    final schemaName = await _getSchemaName();
+  void removeAll() {
+    final schemaName = _getSchemaName();
     return using((Arena arena) {
       final schema = _getSchema(schemaName, arena);
       final attributes = _getAttributes(arena: arena);
@@ -118,24 +106,26 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   ///
   /// Uses the access group if it is set, otherwise uses
   /// the App ID.
-  Future<String> getAppNameSpace() async {
-    final accessGroup = config.linuxOptions.accessGroup;
-    if (accessGroup != null) return accessGroup;
-    return _getAppId();
-  }
+  String? getAppNameSpace() => config.linuxOptions.accessGroup ?? packageId;
 
   /// The name of the [SecretSchema] schema.
-  Future<String> _getSchemaName() async {
-    final appNameSpace = await getAppNameSpace();
-    return '${config.defaultNamespace}.$appNameSpace';
+  String _getSchemaName() {
+    final appNameSpace = getAppNameSpace();
+    if (appNameSpace != null) {
+      return '${config.defaultNamespace}.$appNameSpace';
+    }
+    return config.defaultNamespace;
   }
 
   /// A label for the current key.
   ///
   /// This will be visible to the user in GUI applications.
-  Future<String> _createLabel(String key) async {
-    final appNameSpace = await getAppNameSpace();
-    return '$appNameSpace/$key';
+  String _createLabel(String key) {
+    final appNameSpace = getAppNameSpace();
+    if (appNameSpace != null) {
+      return '$appNameSpace/$key';
+    }
+    return key;
   }
 
   /// Creates a [SecretSchema] pointer.

@@ -23,10 +23,18 @@ import 'package:aws_common/aws_common.dart';
 abstract class AmplifySecureStorageInterface extends SecureStorageInterface
     with AWSDebuggable, AWSLoggerMixin {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_interface}
-  const AmplifySecureStorageInterface({required this.config}) : super();
+  const AmplifySecureStorageInterface({
+    required this.config,
+    this.packageId,
+  }) : super();
 
   /// Configuration options for Secure Storage.
   final AmplifySecureStorageConfig config;
+
+  /// The ID of the package, such as "com.example.app".
+  ///
+  /// Used as a namespace on Linux and Windows.
+  final String? packageId;
 
   /// {@template amplify_secure_storage_dart.amplify_secure_storage_interface.remove_all}
   /// Removes all key-value pairs for the current scope.

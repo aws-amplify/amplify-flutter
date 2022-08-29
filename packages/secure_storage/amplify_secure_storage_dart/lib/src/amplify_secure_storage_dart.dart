@@ -43,6 +43,7 @@ class AmplifySecureStorageDart extends AmplifySecureStorageInterface
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_dart}
   AmplifySecureStorageDart({
     required super.config,
+    super.packageId,
   });
 }
 
@@ -54,6 +55,7 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_worker}
   AmplifySecureStorageWorker({
     required super.config,
+    super.packageId,
   });
 
   late final SecureStorageWorker _worker;
@@ -77,7 +79,10 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
         _worker.logs.listen(_logWorkerBeeMessage);
         await _worker.spawn();
         _worker.add(
-          SecureStorageRequest.init(config: config),
+          SecureStorageRequest.init(
+            config: config,
+            packageId: packageId,
+          ),
         );
         await _worker.stream.first;
       });
