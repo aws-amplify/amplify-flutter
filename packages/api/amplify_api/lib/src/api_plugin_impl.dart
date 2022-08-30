@@ -51,11 +51,15 @@ class AmplifyAPIDart extends AmplifyAPI {
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
 
+  /// Subscription options
+  final GraphQLSubscriptionOptions? subscriptionOptions;
+
   /// {@macro amplify_api.amplify_api_dart}
   AmplifyAPIDart({
     List<APIAuthProvider> authProviders = const [],
     http.Client? baseHttpClient,
     this.modelProvider,
+    this.subscriptionOptions,
   })  : _baseHttpClient = baseHttpClient,
         super.protected() {
     authProviders.forEach(registerAuthProvider);
@@ -102,7 +106,8 @@ class AmplifyAPIDart extends AmplifyAPI {
           _authProviders.keys.map((key) => key.rawValue).toList();
       await nativeBridge.addPlugin(authProvidersList);
     } on PlatformException catch (e) {
-      if (e.code == 'AmplifyAlreadyConfiguredException') {
+      if (e.code == 'AmplifyAlreadyConfiguredException' ||
+          e.code == 'AlreadyConfiguredException') {
         throw const AmplifyAlreadyConfiguredException(
             AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
             recoverySuggestion:
@@ -141,6 +146,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     return _webSocketConnectionPool[endpoint.name] ??= WebSocketConnection(
       endpoint.config,
       _authProviderRepo,
+      subscriptionOptions,
       logger: _logger.createChild(
         'webSocketConnection${endpoint.name}',
       ),

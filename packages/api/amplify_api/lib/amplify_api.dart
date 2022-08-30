@@ -30,11 +30,16 @@ export './model_subscriptions.dart';
 /// {@endtemplate}
 abstract class AmplifyAPI extends APIPluginInterface {
   /// {@macro amplify_api.amplify_api}
-  factory AmplifyAPI(
-          {List<APIAuthProvider> authProviders = const [],
-          ModelProviderInterface? modelProvider}) =>
+  factory AmplifyAPI({
+    List<APIAuthProvider> authProviders = const [],
+    ModelProviderInterface? modelProvider,
+    GraphQLSubscriptionOptions? subscriptionOptions,
+  }) =>
       AmplifyAPIDart(
-          authProviders: authProviders, modelProvider: modelProvider);
+        authProviders: authProviders,
+        modelProvider: modelProvider,
+        subscriptionOptions: subscriptionOptions,
+      );
 
   /// Protected constructor for subclasses.
   @protected

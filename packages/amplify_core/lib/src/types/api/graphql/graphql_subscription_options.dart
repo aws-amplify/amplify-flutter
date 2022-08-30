@@ -13,22 +13,19 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: constant_identifier_names
+import 'package:retry/retry.dart';
 
-import 'package:amplify_core/amplify_core.dart';
+/// Confiuration options for GraphQL Subscriptions and their websockets.
+class GraphQLSubscriptionOptions {
+  /// Configure the ping interval for AppSync polling for subscription connections.
+  final Duration? pingInterval;
 
-/// A channel which can be listened on via [AmplifyHub] (`Amplify.Hub`).
-enum HubChannel<HubEventPayload, E extends HubEvent<HubEventPayload>> {
-  /// Events of the Auth category.
-  ///
-  /// See also:
-  /// - [AuthHubEvent]
-  /// - [AuthHubEventType]
-  Auth<AuthUser, AuthHubEvent>(),
+  /// Configure the timeout period when trying to reconnect a web socket.
+  final Duration? retryTimeout;
 
-  /// Events of the DataStore category.
-  DataStore<DataStoreHubEventPayload, DataStoreHubEvent>(),
+  /// Configure the exponential retry strategy options
+  final RetryOptions? retryOptions;
 
-  /// Events of the API category
-  Api<ApiHubEventPayload, ApiHubEvent>();
+  const GraphQLSubscriptionOptions(
+      {this.pingInterval, this.retryTimeout, this.retryOptions});
 }
