@@ -8,12 +8,12 @@ This is a pre-configured backend for Amplify intended to test the API category f
 To set up in your own AWS account configured for Amplify, run:
 
 ```bash
-  amplify init
+$ amplify init
 ```
 
 or
 ```bash
-./tool/provision_integration_test_resources.sh
+$ ./tool/provision_integration_test_resources.sh
 ```
 
 Helpful resources:
