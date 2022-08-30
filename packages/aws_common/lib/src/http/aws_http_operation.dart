@@ -28,6 +28,7 @@ class AWSHttpOperation<ResponseType extends AWSBaseHttpResponse>
     super.operation, {
     required this.requestProgress,
     required this.responseProgress,
+    super.onCancel,
   });
 
   /// The result of [operation].

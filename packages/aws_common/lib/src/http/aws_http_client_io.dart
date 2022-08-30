@@ -36,6 +36,8 @@ class AWSHttpClientImpl extends AWSHttpClient {
 
   final _http2Connections = <String, ClientTransportConnection>{};
 
+  static final AWSLogger _logger = AWSLogger().createChild('AWSHttpClient');
+
   void _setBadCertificateCallback(
     HttpClient client,
     BadCertificateCallback callback,
@@ -72,18 +74,15 @@ class AWSHttpClientImpl extends AWSHttpClient {
     required StreamSink<int> responseProgress,
   }) async {
     void Function()? onCancel;
-    unawaited(cancelTrigger.then((_) => onCancel?.call()));
-    _inner ??= HttpClient()
-      ..connectionFactory = (url, proxyHost, proxyPort) async {
-        return _ConnectionTask(
-          await _createSocket(
-            url.scheme,
-            proxyHost ?? url.host,
-            proxyPort ?? url.port,
-          ),
-        );
-      };
+    unawaited(
+      cancelTrigger.then((_) {
+        logger.verbose('Canceling request');
+        onCancel?.call();
+      }),
+    );
+    _inner ??= HttpClient();
     _setBadCertificateCallback(_inner!, onBadCertificate);
+    if (completer.isCanceled) return;
     final ioRequest = (await _inner!.openUrl(request.method.value, request.uri))
       ..followRedirects = request.followRedirects
       ..maxRedirects = request.maxRedirects;
@@ -97,20 +96,36 @@ class AWSHttpClientImpl extends AWSHttpClient {
     var requestBytesRead = 0;
     request.headers.forEach(ioRequest.headers.set);
     final response = await request.body
-        .tap((chunk) {
+        .tap(onDone: requestProgress.close, (chunk) {
           requestBytesRead += chunk.length;
           requestProgress.add(requestBytesRead);
         })
         .takeUntil(cancelTrigger)
         .pipe(ioRequest) as HttpClientResponse;
-    unawaited(requestProgress.close());
 
     if (completer.isCanceled) return;
-    onCancel = () async {
+    final bodyController = StreamController<List<int>>(sync: true);
+    onCancel = () {
       logger.verbose('Detaching socket');
-      final socket = await response.detachSocket();
-      socket.destroy();
+      if (!bodyController.isClosed) {
+        bodyController
+          ..addError(const CancellationException())
+          ..close();
+      }
+      response.detachSocket().then((socket) {
+        socket.destroy();
+      });
     };
+    response.listen(
+      bodyController.add,
+      onError: bodyController.addError,
+      onDone: () {
+        // Allow `onCancel` to fire if this is the result of a cancellation
+        // before closing body controller.
+        Future.delayed(Duration.zero, bodyController.close);
+      },
+      cancelOnError: true,
+    );
 
     final headers = <String, String>{};
     response.headers.forEach((key, values) {
@@ -121,7 +136,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
     final streamedResponse = AWSStreamedHttpResponse(
       statusCode: response.statusCode,
       headers: headers,
-      body: response.tap(
+      body: bodyController.stream.tap(
         (chunk) {
           responseBytesRead += chunk.length;
           responseProgress.add(responseBytesRead);
@@ -186,7 +201,23 @@ class AWSHttpClientImpl extends AWSHttpClient {
     ) async {
       final transport = _http2Connections[uri.authority] ??=
           ClientTransportConnection.viaSocket(
-        await _createSocket(uri.scheme, uri.host, uri.port),
+        await SecureSocket.connect(
+          uri.host,
+          uri.port,
+          supportedProtocols: supportedProtocols.alpnValues,
+          onBadCertificate: (cert) {
+            final certificate = X509Certificate(
+              der: cert.der,
+              pem: cert.pem,
+              sha1: cert.sha1,
+              subject: cert.subject,
+              issuer: cert.issuer,
+              startValidity: cert.startValidity,
+              endValidity: cert.endValidity,
+            );
+            return onBadCertificate(certificate, uri.host, uri.port);
+          },
+        ),
       );
       final stream = transport.makeRequest(
         [
@@ -237,9 +268,8 @@ class AWSHttpClientImpl extends AWSHttpClient {
         _http2Connections.remove(uri.authority);
       };
 
-      var responseBytesRead = 0;
       final headers = CaseInsensitiveMap<String>({});
-      final bodyController = StreamController<List<int>>();
+      final bodyController = StreamController<List<int>>(sync: true);
 
       late final StreamSubscription<StreamMessage> subscription;
       subscription = stream.incomingMessages.listen(
@@ -264,8 +294,6 @@ class AWSHttpClientImpl extends AWSHttpClient {
             if (!gotHeaders.isCompleted) {
               gotHeaders.complete();
             }
-            responseBytesRead += message.bytes.length;
-            responseProgress.add(responseBytesRead);
             bodyController.add(message.bytes);
           }
         },
@@ -278,9 +306,11 @@ class AWSHttpClientImpl extends AWSHttpClient {
             );
             return;
           }
-          bodyController
-            ..addError(AWSHttpException(request, error), stackTrace)
-            ..close();
+          if (!bodyController.isClosed) {
+            bodyController
+              ..addError(AWSHttpException(request, error), stackTrace)
+              ..close();
+          }
         },
         onDone: () {
           logger.verbose('Stream done');
@@ -297,6 +327,11 @@ class AWSHttpClientImpl extends AWSHttpClient {
         subscription.cancel();
         transport.terminate();
         _http2Connections.remove(uri.authority);
+        if (!bodyController.isClosed) {
+          bodyController
+            ..addError(const CancellationException())
+            ..close();
+        }
       };
       if (completer.isCanceled) return null;
 
@@ -354,11 +389,15 @@ class AWSHttpClientImpl extends AWSHttpClient {
 
       unawaited(transport.finish());
       _http2Connections.remove(uri.authority);
+      var responseBytesRead = 0;
       return AWSStreamedHttpResponse(
         statusCode: statusCode,
         headers: headers,
         body: bodyController.stream.tap(
-          null,
+          (chunk) {
+            responseBytesRead += chunk.length;
+            responseProgress.add(responseBytesRead);
+          },
           onDone: () {
             onCancel = null;
             responseProgress.close();
@@ -377,57 +416,29 @@ class AWSHttpClientImpl extends AWSHttpClient {
     }
   }
 
-  final Map<Uri, Socket> _openSockets = {};
-
-  Future<Socket> _createSocket(String scheme, String host, int port) async {
-    Future<Socket> newSocket() {
-      if (scheme == 'http') {
-        return Socket.connect(host, port);
-      }
-      return SecureSocket.connect(
-        host,
-        port,
-        supportedProtocols: supportedProtocols.alpnValues,
-        onBadCertificate: (cert) {
-          final certificate = X509Certificate(
-            der: cert.der,
-            pem: cert.pem,
-            sha1: cert.sha1,
-            subject: cert.subject,
-            issuer: cert.issuer,
-            startValidity: cert.startValidity,
-            endValidity: cert.endValidity,
-          );
-          return onBadCertificate(certificate, host, port);
-        },
-      );
-    }
-
-    final uri = Uri(scheme: scheme, host: host, port: port);
-    return (_openSockets[uri] ??= await newSocket())
-      ..done.then((_) => _openSockets.remove(uri)).ignore();
-  }
-
   @override
   AWSHttpOperation send(
     AWSBaseHttpRequest request, {
     FutureOr<void> Function()? onCancel,
   }) {
-    Socket? socket;
     final requestProgressController = StreamController<int>();
     final responseProgressController = StreamController<int>();
     final cancelTrigger = Completer<void>();
+
+    FutureOr<void> wrappedOnCancel() {
+      _logger.verbose('onCancel triggered');
+      requestProgressController.close();
+      responseProgressController.close();
+      cancelTrigger.complete();
+      return onCancel?.call();
+    }
+
     final completer = CancelableCompleter<AWSBaseHttpResponse>(
-      onCancel: () {
-        socket?.close();
-        requestProgressController.close();
-        responseProgressController.close();
-        cancelTrigger.complete();
-        return onCancel?.call();
-      },
+      onCancel: wrappedOnCancel,
     );
     final operation = AWSHttpOperation(
       completer.operation,
+      onCancel: wrappedOnCancel,
       requestProgress: requestProgressController.stream,
       responseProgress: responseProgressController.stream,
     );
@@ -454,7 +465,6 @@ class AWSHttpClientImpl extends AWSHttpClient {
       }
     }).catchError((Object e, StackTrace st) {
       completer.completeError(AWSHttpException(request, e), st);
-      socket?.destroy();
     });
 
     return operation;
@@ -471,30 +481,8 @@ class AWSHttpClientImpl extends AWSHttpClient {
           if (force) connection.terminate() else connection.finish(),
       ]);
     } finally {
-      _openSockets.clear();
       _http2Connections.clear();
     }
-  }
-}
-
-/// Helper class to reuse socket in HTTP/1.1 requests.
-class _ConnectionTask implements ConnectionTask<Socket> {
-  _ConnectionTask(Socket this._socket);
-
-  Socket? _socket;
-
-  @override
-  void cancel() {
-    _socket?.destroy();
-    _socket = null;
-  }
-
-  @override
-  Future<Socket> get socket async {
-    if (_socket == null) {
-      throw const SocketException.closed();
-    }
-    return _socket!;
   }
 }
 
