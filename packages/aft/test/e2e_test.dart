@@ -295,6 +295,92 @@ Initial version.
           'amplify_auth_cognito': '1.0.0-next.1',
           'amplify_auth_cognito_ios': '1.0.0-next.1',
         };
+        final updatedChangelogs = {
+          'aws_common': '''
+## 0.1.1
+
+### Fixes
+- fix(aws_common): Fix type
+''',
+          'amplify_core': '''
+## 1.0.0-next.0+1
+
+### Features
+- feat(amplify_core): New hub events
+- feat(auth): New feature
+''',
+          'amplify_auth_cognito_dart': '''
+## 0.1.1
+
+### Features
+- feat(auth): New feature
+''',
+          'amplify_auth_cognito': '''
+## 1.0.0-next.1
+
+### Breaking Changes
+- fix(amplify_auth_cognito_ios)!: Change iOS dependency
+
+### Features
+- feat(auth): New feature
+''',
+          'amplify_auth_cognito_ios': '''
+## 1.0.0-next.1
+
+### Breaking Changes
+- fix(amplify_auth_cognito_ios)!: Change iOS dependency
+''',
+        };
+        final updatedPubspecs = {
+          'aws_common': '''
+name: aws_common
+version: 0.1.1
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+''',
+          'amplify_core': '''
+name: amplify_core
+version: 1.0.0-next.0+1
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+
+dependencies:
+  aws_common: ^0.1.0
+''',
+          'amplify_auth_cognito_dart': '''
+name: amplify_auth_cognito_dart
+version: 0.1.1
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+
+dependencies:
+  amplify_core: ">=1.0.0-next.0+1 <1.0.0-next.1"
+  aws_common: ^0.1.0
+''',
+          'amplify_auth_cognito': '''
+name: amplify_auth_cognito
+version: 1.0.0-next.1
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+
+dependencies:
+  amplify_auth_cognito_ios: ">=1.0.0-next.1 <1.0.0-next.2"
+  amplify_auth_cognito_dart: ">=0.1.1 <0.2.0"
+  amplify_core: ">=1.0.0-next.0+1 <1.0.0-next.1"
+  aws_common: ^0.1.0
+''',
+          'amplify_auth_cognito_ios': '''
+name: amplify_auth_cognito_ios
+version: 1.0.0-next.1
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+''',
+        };
 
         setUp(() async {
           repo.bumpAllVersions(
@@ -308,6 +394,18 @@ Initial version.
             final package = repo.allPackages[packageName]!;
             final newVersion = repo.versionChanges.newVersion(package);
             expect(newVersion.toString(), finalVersions[packageName]);
+
+            final changelog = repo.changelogUpdates[package]!.newText;
+            expect(
+              changelog,
+              equalsIgnoringWhitespace(updatedChangelogs[packageName]!),
+            );
+
+            final pubspec = package.pubspecInfo.pubspecYamlEditor.toString();
+            expect(
+              pubspec,
+              equalsIgnoringWhitespace(updatedPubspecs[packageName]!),
+            );
           });
         }
       });
