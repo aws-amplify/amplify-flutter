@@ -68,7 +68,8 @@ public class SwiftStorageS3: NSObject, FlutterPlugin {
                     ]
                 )
             } else{
-                print("Failed to add Amplify Storage Plugin \(error)")
+                SomeTestFile(someKey: "HYello I am a key")
+                print("Some change! Failed to add Amplify Storage Plugin \(error)")
                 result(false)
             }
         }
