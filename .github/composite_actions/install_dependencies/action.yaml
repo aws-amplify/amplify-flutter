@@ -15,8 +15,13 @@ runs:
         channel: 'stable'
         architecture: x64 # needed to prevent "Bad CPU type" error
 
-    - name: Run Melos bootstrap
+    - name: Run AFT
+      run: |
+        flutter pub global activate -spath packages/aft
+        aft bs
+      shell: bash
+
+    - name: Install Melos
       run: |
         flutter pub global activate melos 2.4.0
-        melos bootstrap
       shell: bash
