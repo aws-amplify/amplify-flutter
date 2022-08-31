@@ -322,9 +322,7 @@ scripts:
     description: Updates the iOS build dependencies for each project
     select-package:
       scope:
-        - amplify_analytics_pinpoint
-        - amplify_api
-        - amplify_flutter
+        - amplify_flutter_ios
         - amplify_core
 
   lint:pub: >
