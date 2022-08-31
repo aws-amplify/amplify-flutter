@@ -29,7 +29,6 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 
   @override
   void write({required String key, required String value}) {
-    final schemaName = _getSchemaName();
     final labelName = _createLabel(key);
     return using((Arena arena) {
       final label = labelName.toNativeUtf8(allocator: arena);
@@ -50,7 +49,6 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 
   @override
   String? read({required String key}) {
-    final schemaName = _getSchemaName();
     return using((Arena arena) {
       final attributes = _getAttributes(key: key, arena: arena);
       final schema = _getSchema(schemaName, arena);
@@ -71,7 +69,6 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 
   @override
   void delete({required String key}) {
-    final schemaName = _getSchemaName();
     return using((Arena arena) {
       final attributes = _getAttributes(key: key, arena: arena);
       final schema = _getSchema(schemaName, arena);
@@ -87,7 +84,6 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   /// Removes all key-value pairs for the current scope.
   @override
   void removeAll() {
-    final schemaName = _getSchemaName();
     return using((Arena arena) {
       final schema = _getSchema(schemaName, arena);
       final attributes = _getAttributes(arena: arena);
@@ -106,11 +102,10 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   ///
   /// Uses the access group if it is set, otherwise uses
   /// the App ID.
-  String? getAppNameSpace() => config.linuxOptions.accessGroup ?? packageId;
+  String? get appNameSpace => config.linuxOptions.accessGroup ?? packageId;
 
   /// The name of the [SecretSchema] schema.
-  String _getSchemaName() {
-    final appNameSpace = getAppNameSpace();
+  String get schemaName {
     if (appNameSpace != null) {
       return '${config.defaultNamespace}.$appNameSpace';
     }
@@ -121,7 +116,6 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   ///
   /// This will be visible to the user in GUI applications.
   String _createLabel(String key) {
-    final appNameSpace = getAppNameSpace();
     if (appNameSpace != null) {
       return '$appNameSpace/$key';
     }

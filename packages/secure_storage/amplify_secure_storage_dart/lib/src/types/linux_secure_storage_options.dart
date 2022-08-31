@@ -30,14 +30,11 @@ abstract class LinuxSecureStorageOptions
   /// {@template amplify_secure_storage_dart.linux_secure_storage_options.access_group}
   /// Used as a namespace for the keys, if provided.
   ///
-  /// If no value is provided, the application ID will be used.
-  ///
-  /// Can be used to share data across multiple apps.
-  ///
-  /// This value will be combined with [AmplifySecureStorageConfig.defaultNamespace]
-  /// to form the full schema name.
-  ///
-  /// Reference: [SecretSchema](https://developer-old.gnome.org/libsecret/unstable/libsecret-SecretSchema.html#SecretSchema)
+  /// If no value is provided, the application ID will be used. Can be
+  /// used to share data across multiple apps. This value will be combined
+  /// with [AmplifySecureStorageConfig.defaultNamespace] to form the full
+  /// [SecretSchema](https://developer-old.gnome.org/libsecret/unstable/libsecret-SecretSchema.html#SecretSchema)
+  /// schema name.
   /// {@endtemplate}
   factory LinuxSecureStorageOptions({
     String? accessGroup,
