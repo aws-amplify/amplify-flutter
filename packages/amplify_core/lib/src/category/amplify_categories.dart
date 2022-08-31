@@ -83,10 +83,14 @@ extension CategoryName on Category {
 abstract class AmplifyCategory<P extends AmplifyPluginInterface> {
   Category get category;
 
-  final List<P> plugins = [];
+  final List<P> _plugins = [];
 
-  @protected
-  T getPlugin<T extends P>() => plugins.whereType<T>().single;
+  /// The plugins registered for this category.
+  ///
+  /// By default, the category API uses the plugin which was first registered.
+  /// To use a specific plugin instead, call `getPlugin` with the associated
+  /// plugin key.
+  List<P> get plugins => UnmodifiableListView(_plugins);
 
   @protected
   P get defaultPlugin {
@@ -99,23 +103,22 @@ abstract class AmplifyCategory<P extends AmplifyPluginInterface> {
 
   /// Adds a plugin to the category.
   Future<void> addPlugin(P plugin) async {
-    //TODO: Allow for multiple plugins to work simultaneously
-    if (plugins.isEmpty) {
-      try {
-        await plugin.addPlugin();
-        plugins.add(plugin);
-      } on AmplifyAlreadyConfiguredException {
-        plugins.add(plugin);
-      } on AmplifyException {
-        rethrow;
-      } on Exception catch (e) {
-        throw AmplifyException(e.toString());
-      }
-    } else {
-      throw AmplifyException(
-        '${category.name} plugin has already been added, '
-        'multiple plugins for ${category.name} category are currently not supported.',
-      );
+    try {
+      await plugin.addPlugin();
+      _plugins.add(plugin);
+    } on AmplifyAlreadyConfiguredException {
+      _plugins.add(plugin);
+    } on AmplifyException {
+      rethrow;
+    } on Exception catch (e) {
+      throw AmplifyException(e.toString());
     }
+  }
+
+  /// Resets the category, clearing all registered plugins.
+  Future<void> reset() async {
+    // TODO(dnys1): Invert this so that the category calls [reset] on the
+    // plugins.
+    _plugins.clear();
   }
 }
