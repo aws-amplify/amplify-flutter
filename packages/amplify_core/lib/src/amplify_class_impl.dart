@@ -75,10 +75,10 @@ class AmplifyClassImpl extends AmplifyClass {
     //   eagerError: true,
     // );
 
-    Analytics.plugins.clear();
-    API.plugins.clear();
-    Auth.plugins.clear();
-    DataStore.plugins.clear();
-    Storage.plugins.clear();
+    Analytics.reset();
+    API.reset();
+    Auth.reset();
+    DataStore.reset();
+    Storage.reset();
   }
 }
