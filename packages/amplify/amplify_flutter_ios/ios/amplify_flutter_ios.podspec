@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.dependency 'AWSPluginsCore', '1.28.0'
   s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin', '1.28.0'
   s.dependency 'amplify_core'
-  s.dependency 'SwiftLint'
+  s.dependency 'SwiftLint', '0.48.0'
   s.dependency 'SwiftFormat/CLI'
   s.platform = :ios, '11.0'
 
