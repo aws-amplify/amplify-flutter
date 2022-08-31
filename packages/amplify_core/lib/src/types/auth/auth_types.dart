@@ -27,6 +27,7 @@ export '../exception/auth/user_cancelled_exception.dart';
 export 'attribute/auth_next_update_attribute_step.dart';
 export 'attribute/auth_user_attribute.dart';
 export 'attribute/cognito_user_attribute_key.dart';
+export 'attribute/confirm_user_attribute_options.dart';
 export 'attribute/confirm_user_attribute_request.dart';
 export 'attribute/confirm_user_attribute_result.dart';
 export 'attribute/fetch_user_attributes_options.dart';

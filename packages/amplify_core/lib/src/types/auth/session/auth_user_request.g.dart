@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sign_out_request.dart';
+part of 'auth_user_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SignOutRequest<Options>
-    _$SignOutRequestFromJson<Options extends SignOutOptions>(
+AuthUserRequest<Options>
+    _$AuthUserRequestFromJson<Options extends AuthUserOptions>(
   Map<String, dynamic> json,
   Options Function(Object? json) fromJsonOptions,
 ) =>
-        SignOutRequest<Options>(
+        AuthUserRequest<Options>(
           options: _$nullableGenericFromJson(json['options'], fromJsonOptions),
         );
 
-Map<String, dynamic> _$SignOutRequestToJson<Options extends SignOutOptions>(
-  SignOutRequest<Options> instance,
+Map<String, dynamic> _$AuthUserRequestToJson<Options extends AuthUserOptions>(
+  AuthUserRequest<Options> instance,
   Object? Function(Options value) toJsonOptions,
 ) {
   final val = <String, dynamic>{};
