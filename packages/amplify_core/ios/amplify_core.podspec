@@ -17,7 +17,7 @@ A base package shared across Amplify Flutter library.
   s.source = { :git => 'https://github.com/aws-amplify/amplify-flutter.git' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'SwiftLint'
+  s.dependency 'SwiftLint', '0.48.0'
   s.dependency 'SwiftFormat/CLI'
   s.platform = :ios, '11.0'
 

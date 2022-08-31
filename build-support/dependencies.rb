@@ -4,7 +4,7 @@ $swift_version = "5.0"
 def include_build_tools!
     # Pin to 0.44.17 until we resolve closing braces
     pod 'SwiftFormat/CLI', '0.44.17'
-    pod 'SwiftLint'
+    pod 'SwiftLint', '0.48.0'
 end
 
 $lint_script = <<-EOF
