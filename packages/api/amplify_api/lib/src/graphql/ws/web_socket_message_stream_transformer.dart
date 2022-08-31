@@ -57,7 +57,7 @@ class WebSocketSubscriptionStreamTransformer<T>
   /// [request] is used to properly decode response events
   /// [onEstablished] is executed when start_ack message received
   /// [logger] logs cancel messages when complete message received
-  const WebSocketSubscriptionStreamTransformer(
+  WebSocketSubscriptionStreamTransformer(
     this.request,
     this.onEstablished, {
     required this.logger,

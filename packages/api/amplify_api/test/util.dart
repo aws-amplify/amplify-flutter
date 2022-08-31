@@ -122,7 +122,7 @@ class MockWebSocketConnection extends WebSocketConnection {
 
   MockWebSocketConnection(
       AWSApiConfig config, AmplifyAuthProviderRepository authProviderRepo)
-      : super(config, authProviderRepo, logger: AmplifyLogger());
+      : super(config, authProviderRepo, null, logger: AmplifyLogger());
 
   WebSocketMessage? get lastSentMessage => sentMessages.lastOrNull;
 
