@@ -30,7 +30,9 @@ import 'utils.dart';
 enum TestConfig {
   email(emailConfig),
   emailOrPhone(emailOrPhoneConfig),
-  socialProvider(socialProviderConfig),
+  // TODO(Jordan-Nelson): Re-enable when fixed
+  // https://github.com/flutter/flutter/issues/110686
+  // socialProvider(socialProviderConfig),
   phoneNumber(phoneNumberConfig),
   usernameWithAttributes(usernameWithAttributesConfig);
 
