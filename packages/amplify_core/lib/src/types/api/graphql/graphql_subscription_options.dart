@@ -20,12 +20,8 @@ class GraphQLSubscriptionOptions {
   /// Configure the ping interval for AppSync polling for subscription connections.
   final Duration? pingInterval;
 
-  /// Configure the timeout period when trying to reconnect a web socket.
-  final Duration? retryTimeout;
-
   /// Configure the exponential retry strategy options
   final RetryOptions? retryOptions;
 
-  const GraphQLSubscriptionOptions(
-      {this.pingInterval, this.retryTimeout, this.retryOptions});
+  const GraphQLSubscriptionOptions({this.pingInterval, this.retryOptions});
 }

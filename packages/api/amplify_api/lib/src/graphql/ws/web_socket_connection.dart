@@ -223,9 +223,6 @@ class WebSocketConnection implements Closeable {
   /// Attempts to connect to the configured graphql endpoint.
   /// Upon successful ping, a new connection is initialized.
   Future<void> _retry() async {
-    final retryTimeout =
-        _subscriptionOptions?.retryTimeout ?? _defaultRetryTimeout;
-
     RetryOptions retryStrat =
         _subscriptionOptions?.retryOptions ?? const RetryOptions();
 
@@ -235,7 +232,7 @@ class WebSocketConnection implements Closeable {
 
       await retryStrat.retry(
           // Make a GET request
-          () => _getPollRequest().timeout(retryTimeout));
+          () => _getPollRequest().timeout(_defaultRetryTimeout));
 
       // we can reach AppSync, proceede with reconnect
       _init();
