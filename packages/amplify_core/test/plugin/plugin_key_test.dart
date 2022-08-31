@@ -48,7 +48,7 @@ class MockCategory<Value extends Object, P extends MockPluginInterface<Value>>
 
   MockCategory<GetValue, GetPlugin> getPlugin<GetValue extends Object,
           GetPlugin extends MockPluginInterface<GetValue>>(
-    AmplifyPluginKey<GetPlugin> pluginKey,
+    MockPluginKey<GetValue, GetPlugin> pluginKey,
   ) =>
       MockCategory(
         plugins.singleWhere(
@@ -60,14 +60,19 @@ class MockCategory<Value extends Object, P extends MockPluginInterface<Value>>
   Value getValue() => _plugin.getValue();
 }
 
-class IntMockPluginKey extends AmplifyPluginKey<IntMockPlugin> {
+abstract class MockPluginKey<Value extends Object,
+    P extends MockPluginInterface<Value>> extends AmplifyPluginKey<P> {
+  const MockPluginKey();
+}
+
+class IntMockPluginKey extends MockPluginKey<int, IntMockPlugin> {
   const IntMockPluginKey();
 
   @override
   String get runtimeTypeName => 'IntMockPlugin';
 }
 
-class StringMockPluginKey extends AmplifyPluginKey<StringMockPlugin> {
+class StringMockPluginKey extends MockPluginKey<String, StringMockPlugin> {
   const StringMockPluginKey();
 
   @override
@@ -102,13 +107,14 @@ void main() {
       await category.addPlugin(intPlugin);
       await category.addPlugin(stringPlugin);
 
-      final MockCategory<int, IntMockPlugin> getIntPlugin =
-          category.getPlugin(const IntMockPluginKey());
-      final MockCategory<String, StringMockPlugin> getStringPlugin =
-          category.getPlugin(const StringMockPluginKey());
+      final getIntPlugin = category.getPlugin(const IntMockPluginKey());
+      final getStringPlugin = category.getPlugin(const StringMockPluginKey());
 
-      expect(getIntPlugin.getValue(), 42);
-      expect(getStringPlugin.getValue(), '42');
+      final int intValue = getIntPlugin.getValue();
+      final String stringValue = getStringPlugin.getValue();
+
+      expect(intValue, 42);
+      expect(stringValue, '42');
     });
   });
 }

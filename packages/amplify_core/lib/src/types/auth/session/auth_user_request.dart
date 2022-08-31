@@ -12,12 +12,40 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import 'auth_user_options.dart';
+import 'package:amplify_core/amplify_core.dart';
 
-class AuthUserRequest {
+part 'auth_user_request.g.dart';
+
+/// {@template amplify_core.auth.auth_user_request}
+/// Encapsulates parameters for a request for the current user.
+/// {@endtemplate}
+@zAmplifyGenericSerializable
+class AuthUserRequest<Options extends AuthUserOptions>
+    with AWSEquatable<AuthUserRequest<Options>>, AWSSerializable {
+  /// {@macro amplify_core.auth.auth_user_request}
   const AuthUserRequest({this.options});
 
-  final AuthUserOptions? options;
+  factory AuthUserRequest.fromJson(
+    Map<String, Object?> json,
+    Options Function(Map<String, Object?>) fromJsonOptions,
+  ) =>
+      _$AuthUserRequestFromJson(
+        json,
+        (json) => fromJsonOptions((json as Map).cast()),
+      );
 
-  Map<String, Object?> serializeAsMap() => {};
+  /// Additional, plugin-specific options to the request.
+  final Options? options;
+
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
+
+  @override
+  List<Object?> get props => throw UnimplementedError();
+
+  @override
+  Map<String, Object?> toJson() => _$AuthUserRequestToJson(
+        this,
+        (Options options) => options.toJson(),
+      );
 }
