@@ -221,7 +221,7 @@ class WebSocketConnection implements Closeable {
   }
 
   /// Attempts to connect to the configured graphql endpoint.
-  /// Upon successful ping, a new connection is initialized.
+  /// Upon successful ping, a new websocket connection is initialized.
   Future<void> _retry() async {
     RetryOptions retryStrat =
         _subscriptionOptions?.retryOptions ?? const RetryOptions();
@@ -247,9 +247,10 @@ class WebSocketConnection implements Closeable {
     }
   }
 
+  /// [GET] request on the configured AppSync url via the `/ping` endpoint
   Future<Response> _getPollRequest() {
-    return http.Client()
-        .get(Uri.parse(_config.endpoint.replaceFirst('graphql', 'ping')));
+    final pingUri = Uri.parse(_config.endpoint).replace(path: 'ping');
+    return http.Client().get(pingUri);
   }
 
   /// Initializes the connection.
