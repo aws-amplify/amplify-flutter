@@ -12,4 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'src/amplify_storage_s3_impl.dart';
+import 'base/storage_operation_options.dart';
+
+/// {@template amplify_core.storage.remove_options}
+/// Configurable options to initiate a [StorageRemoveRequest].
+/// {@endtemplate}
+class StorageRemoveOptions extends StorageOperationOptions {
+  /// {@macro amplify_core.storage.remove_options}
+  const StorageRemoveOptions({
+    required super.storageAccessLevel,
+  });
+}

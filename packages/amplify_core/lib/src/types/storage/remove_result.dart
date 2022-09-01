@@ -12,4 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'src/amplify_storage_s3_impl.dart';
+import 'package:amplify_core/amplify_core.dart';
+
+/// {@template amplify_core.storage.remove_result}
+/// Presents the result of a [StorageRemoveOperation].
+/// {@endtemplate}
+class StorageRemoveResult<Item extends StorageItem> {
+  /// {@macro amplify_core.storage.remove_result}
+  const StorageRemoveResult({
+    required this.storageItem,
+  });
+
+  /// The removed object of the [StorageRemoveOperation].
+  final Item storageItem;
+}

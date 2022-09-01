@@ -12,4 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'src/amplify_storage_s3_impl.dart';
+import 'package:amplify_core/amplify_core.dart';
+
+/// {@template amplify_core.storage.move_result}
+/// Presents the result of a [StorageCopyOperation].
+/// {@endtemplate}
+class StorageMoveResult<Item extends StorageItem> {
+  /// {@macro amplify_core.storage.move_result}
+  const StorageMoveResult({
+    required this.storageItem,
+  });
+
+  /// The result object of the [StorageCopyOperation].
+  final Item storageItem;
+}

@@ -12,4 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'src/amplify_storage_s3_impl.dart';
+import 'package:amplify_core/amplify_core.dart';
+
+/// {@template amplify_core.storage.get_properties_result}
+/// Presents the result of a [StorageGetPropertiesOperation].
+/// {@endtemplate}
+class StorageGetPropertiesResult<Item extends StorageItem> {
+  /// {@macro amplify_core.storage.get_properties_result}
+  const StorageGetPropertiesResult({
+    required this.storageItem,
+  });
+
+  /// The result object containing the properties retrieved from the
+  /// [StorageCopyOperation].
+  final Item storageItem;
+}

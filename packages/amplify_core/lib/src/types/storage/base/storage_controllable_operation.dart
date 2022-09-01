@@ -12,4 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'src/amplify_storage_s3_impl.dart';
+abstract class StorageControllableOperation {
+  Future<void> cancel();
+  Future<void> pause();
+  Future<void> resume();
+}

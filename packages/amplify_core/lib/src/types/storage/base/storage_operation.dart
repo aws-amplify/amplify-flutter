@@ -12,4 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'src/amplify_storage_s3_impl.dart';
+import 'package:amplify_core/amplify_core.dart';
+
+abstract class StorageOperation<Request, Result> {
+  StorageOperation({
+    required this.request,
+    required this.result,
+  }) : operationId = uuid();
+
+  final Request request;
+  final String operationId;
+  final Future<Result> result;
+}

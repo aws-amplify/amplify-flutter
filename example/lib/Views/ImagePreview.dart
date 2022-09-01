@@ -14,7 +14,6 @@
 //
 
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/material.dart';
 
 class ImagePreview extends StatefulWidget {
@@ -39,13 +38,12 @@ class _ImagePreviewState extends State<ImagePreview> {
     try {
       print('In getUrl');
       String key = storageKey;
-      S3GetUrlOptions options = S3GetUrlOptions(
-          accessLevel: StorageAccessLevel.guest, expires: 10000);
-      GetUrlResult result =
-          await Amplify.Storage.getUrl(key: key, options: options);
+      // TODO(HuiSF): update example with correct code
+      StorageGetUrlOperation operation = await Amplify.Storage.getUrl(key: key);
+      StorageGetUrlResult result = await operation.result;
 
       setState(() {
-        _imageURL = result.url;
+        _imageURL = result.url.toString();
       });
 
       print('URL: ' + _imageURL);

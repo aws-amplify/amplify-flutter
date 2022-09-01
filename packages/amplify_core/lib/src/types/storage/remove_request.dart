@@ -12,4 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'src/amplify_storage_s3_impl.dart';
+import 'package:amplify_core/amplify_core.dart';
+
+/// {@template amplify_core.storage.remove_request}
+/// Presents a storage copy request.
+/// {@endtemplate}
+class StorageRemoveRequest<Options extends StorageRemoveOptions> {
+  /// {@macro amplify_core.storage.remove_request}
+  const StorageRemoveRequest({
+    required this.key,
+    this.options,
+  });
+
+  /// The object key to be removed.
+  final String key;
+
+  /// Configurable options of the [StorageRemoveRequest].
+  final Options? options;
+}
