@@ -19,7 +19,6 @@ import 'package:amplify_api_example/rest_api_view.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:retry/retry.dart';
 
 import 'amplifyconfiguration.dart';
 
@@ -45,16 +44,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _configureAmplify() async {
-    const retryStrat = RetryOptions(maxAttempts: 0);
-
-    const subscriptionOptions = GraphQLSubscriptionOptions(
-        pingInterval: Duration(seconds: 30), retryOptions: retryStrat);
-
     await Amplify.addPlugins([
       AmplifyAuthCognito(),
-      AmplifyAPI(
-        subscriptionOptions: subscriptionOptions,
-      ),
+      AmplifyAPI(),
     ]);
 
     try {
@@ -71,7 +63,7 @@ class _MyAppState extends State<MyApp> {
       HubChannel.Api,
       ((ApiHubEvent event) {
         if (event is SubscriptionHubEvent) {
-          print(event.toString());
+          safePrint(event.toString());
         }
       }),
     );

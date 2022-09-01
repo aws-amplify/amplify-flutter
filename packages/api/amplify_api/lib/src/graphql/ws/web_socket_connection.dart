@@ -56,6 +56,7 @@ class WebSocketConnection implements Closeable {
   StreamController<ApiHubEvent>? _hubEventsController;
   RestartableTimer? _timeoutTimer;
 
+  Client? _pingClient;
   Timer? _pingTimer;
   bool _hasNetwork = false;
   bool _hasConnectionBroken = false;
@@ -94,13 +95,15 @@ class WebSocketConnection implements Closeable {
     return stream.transform(const WebSocketMessageStreamTransformer()).listen(
       _onData,
       onDone: () {
-        print('stream says its done!');
-        _initMemo = AsyncMemoizer<void>();
+        _logger.verbose('Web socket connection done.');
+
+        _resetConnectionInit();
+        _resetConnectionVaribles();
       },
       onError: (Object e) {
         if (!_connectionReady.isCompleted) _connectionReady.completeError(e);
         _connectionError(
-          ApiException('Connection failed.', underlyingException: e.toString()),
+          ApiException('Connection failed.', underlyingException: e),
         );
         _hubEventsController?.add(SubscriptionHubEvent.failed());
 
@@ -170,17 +173,14 @@ class WebSocketConnection implements Closeable {
   void close([int closeStatus = _defaultCloseStatus]) {
     _logger.verbose('Closing web socket connection.');
     _hubEventsController?.add(SubscriptionHubEvent.disconnected());
-    final reason =
-        closeStatus == _defaultCloseStatus ? 'client closed' : 'unknown';
-    _subscription?.cancel();
-    _channel?.sink.done.whenComplete(() => _channel = null);
-    _channel?.sink.close(closeStatus, reason);
     _rebroadcastController.close();
-    _timeoutTimer?.cancel();
+
     _resetConnectionInit();
+    _resetConnectionVaribles(closeStatus);
+
     _subscriptionRequests.clear();
-    _network?.cancel();
     _hubEventsController?.close();
+    _hubEventsController = null;
   }
 
   /// Initiate polling
@@ -240,17 +240,39 @@ class WebSocketConnection implements Closeable {
       // no network, can't reconnect
       _hubEventsController?.add(SubscriptionHubEvent.disconnected());
       close();
-      throw Exception([
-        'Unable to recover network connection.',
-        'Web socket will closed.',
-      ]);
+      _connectionError(
+        ApiException(
+            'Unable to recover network connection, web socket will close.',
+            recoverySuggestion: 'Check internet connection.',
+            underlyingException: e),
+      );
     }
   }
 
   /// [GET] request on the configured AppSync url via the `/ping` endpoint
   Future<Response> _getPollRequest() {
     final pingUri = Uri.parse(_config.endpoint).replace(path: 'ping');
-    return http.Client().get(pingUri);
+    return _pingClient!.get(pingUri);
+  }
+
+  /// Clear varibles used to track subscriptions and other helper variables
+  /// related to web scoket connection.
+  void _resetConnectionVaribles([int closeStatus = _defaultCloseStatus]) {
+    final reason =
+        closeStatus == _defaultCloseStatus ? 'client closed' : 'unknown';
+
+    _channel?.sink.done.whenComplete(() => _channel = null);
+    _channel?.sink.close(closeStatus, reason);
+    _network?.cancel();
+    _pingClient?.close();
+    _subscription?.cancel();
+    _timeoutTimer?.cancel();
+
+    _channel = null;
+    _network = null;
+    _pingClient = null;
+    _subscription = null;
+    _timeoutTimer = null;
   }
 
   /// Initializes the connection.
@@ -263,10 +285,7 @@ class WebSocketConnection implements Closeable {
   Future<void> _init() async {
     // Prep new connection with a clean slate
     _connectionReady = Completer<void>();
-    _timeoutTimer?.cancel();
-    _subscription?.cancel();
-    _network?.cancel();
-    _channel?.sink.close(status.normalClosure);
+    _resetConnectionVaribles();
 
     // establish hub events controller
     if (_hubEventsController == null || _hubEventsController!.isClosed) {
@@ -282,6 +301,8 @@ class WebSocketConnection implements Closeable {
     send(WebSocketConnectionInitMessage());
 
     await ready;
+
+    _pingClient = http.Client();
 
     // connection ready, start polling
     _startPolling();
@@ -354,9 +375,7 @@ class WebSocketConnection implements Closeable {
   void _cancel(String subscriptionId) {
     _logger.info('Attempting to cancel Operation $subscriptionId');
     send(WebSocketStopMessage(id: subscriptionId));
-    final request =
-        _subscriptionRequests.firstWhere((r) => r.id == subscriptionId);
-    _subscriptionRequests.remove(request);
+    _subscriptionRequests.removeWhere((r) => r.id == subscriptionId);
     if (_subscriptionRequests.isEmpty) close(status.normalClosure);
   }
 

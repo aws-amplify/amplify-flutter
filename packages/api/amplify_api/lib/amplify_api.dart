@@ -20,6 +20,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 export 'package:amplify_core/src/types/api/api_types.dart';
+export 'package:retry/retry.dart';
 
 export './model_mutations.dart';
 export './model_queries.dart';

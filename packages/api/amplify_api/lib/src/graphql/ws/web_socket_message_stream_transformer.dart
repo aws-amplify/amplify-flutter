@@ -52,7 +52,7 @@ class WebSocketSubscriptionStreamTransformer<T>
 
   /// executes when start_ack message received
   final void Function()? onEstablished;
-  final Map<String, bool> _establishedRequests = {};
+  final Set<String> _establishedRequests = {};
 
   /// [request] is used to properly decode response events
   /// [onEstablished] is executed when start_ack message received
@@ -68,9 +68,9 @@ class WebSocketSubscriptionStreamTransformer<T>
     await for (var event in stream) {
       switch (event.messageType) {
         case MessageType.startAck:
-          if (_establishedRequests[request.id] != true) {
+          if (!_establishedRequests.contains(request.id)) {
             onEstablished?.call();
-            _establishedRequests[request.id] = true;
+            _establishedRequests.add(request.id);
           }
           break;
         case MessageType.data:

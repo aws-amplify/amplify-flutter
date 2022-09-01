@@ -30,7 +30,6 @@ dependencies:
 
   flutter:
     sdk: flutter
-  retry: ^3.1.0
 
 dev_dependencies:
   amplify_lints: 

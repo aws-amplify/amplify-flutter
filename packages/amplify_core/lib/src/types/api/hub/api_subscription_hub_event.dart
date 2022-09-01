@@ -20,19 +20,13 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 enum NetworkState {
   /// {@macro amplify_common.hub.api_network_state_connected}
-  connected('CONNECTED'),
+  connected,
 
   /// {@macro amplify_common.hub.api_network_state_disconnected}
-  disconnected('DISCONNECTED'),
+  disconnected,
 
   /// {@macro amplify_common.hub.api_network_state_failed}
-  failed('FAILED');
-
-  /// The event name.
-  final String state;
-
-  /// {@macro amplify_common.hub.api_network_state}
-  const NetworkState(this.state);
+  failed,
 }
 
 /// {@template amplify_common.hub.api_intended_state}
@@ -40,16 +34,10 @@ enum NetworkState {
 /// {@endtemplate}
 enum IntendedState {
   /// {@macro amplify_common.hub.api_intended_state_connected}
-  connected('CONNECTED'),
+  connected(),
 
   /// {@macro amplify_common.hub.api_intended_state_disconnected}
-  disconnected('DISCONNECTED');
-
-  /// The event name.
-  final String state;
-
-  /// {@macro amplify_common.hub.api_intended_state}
-  const IntendedState(this.state);
+  disconnected();
 }
 
 /// {@template amplify_common.hub.api_subscription_status}
@@ -58,28 +46,22 @@ enum IntendedState {
 /// {@endtemplate}
 enum SubscriptionStatus {
   /// {@macro amplify_common.hub.api_subscription_status_connected}
-  connected('CONNECTED'),
+  connected(),
 
   /// {@macro amplify_common.hub.api_subscription_status_disconnected}
-  disconnected('DISCONNECTED'),
+  disconnected(),
 
   /// {@macro amplify_common.hub.api_subscription_status_connected}
-  connecting('CONNECTING'),
+  connecting(),
 
   /// {@macro amplify_common.hub.api_subscription_status_disconnected}
-  pendingDisconnected('PENDING_DISCONNECTED'),
+  pendingDisconnected(),
 
   /// {@macro amplify_common.hub.api_subscription_status_failed}
-  failed('FAILED');
-
-  /// The event name.
-  final String status;
-
-  /// {@macro amplify_common.hub.api_subscription_status}
-  const SubscriptionStatus(this.status);
+  failed();
 }
 
-class SubscriptionDetails {
+class SubscriptionDetails with AWSEquatable<SubscriptionDetails> {
   /// {@macro amplify_common.hub.api_network_state}
   final NetworkState networkState;
 
@@ -87,10 +69,16 @@ class SubscriptionDetails {
   final IntendedState intendedState;
 
   SubscriptionDetails(this.networkState, this.intendedState);
+
+  @override
+  List<Object?> get props => [intendedState, networkState];
 }
 
 class SubscriptionHubEvent extends ApiHubEvent
-    with AWSEquatable<SubscriptionHubEvent> {
+    with
+        AWSEquatable<SubscriptionHubEvent>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   final SubscriptionDetails details;
 
   static const String _name = 'SubscriptionHubEvent';
@@ -163,17 +151,14 @@ class SubscriptionHubEvent extends ApiHubEvent
             NetworkState.failed, IntendedState.disconnected));
 
   @override
-  List<Object?> get props => [details, payload];
+  List<Object?> get props => [details, status];
 
   @override
-  String toString() {
-    return '''
-SubscriptionHubEvent: {
-  details: {
-    networkState: ${details.networkState}, 
-    intendedState: ${details.intendedState}, 
-  }
-  status: $status,
-}''';
-  }
+  String get runtimeTypeName => 'SubscriptionHubEvent';
+
+  @override
+  Map<String, Object?> toJson() => <String, dynamic>{
+        'status': status,
+        'details': details.toString(),
+      };
 }

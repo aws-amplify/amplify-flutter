@@ -14,6 +14,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
@@ -122,7 +123,8 @@ class MockWebSocketConnection extends WebSocketConnection {
 
   MockWebSocketConnection(
       AWSApiConfig config, AmplifyAuthProviderRepository authProviderRepo)
-      : super(config, authProviderRepo, null, logger: AmplifyLogger());
+      : super(config, authProviderRepo, const GraphQLSubscriptionOptions(),
+            logger: AmplifyLogger());
 
   WebSocketMessage? get lastSentMessage => sentMessages.lastOrNull;
 
