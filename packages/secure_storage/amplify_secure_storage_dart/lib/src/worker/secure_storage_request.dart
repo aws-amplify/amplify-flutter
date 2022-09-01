@@ -35,14 +35,12 @@ abstract class SecureStorageRequest
   /// {@macro amplify_secure_storage_dart.secure_storage_interface.init}
   factory SecureStorageRequest.init({
     required AmplifySecureStorageConfig config,
-    String? packageId,
     String? applicationDirectory,
   }) {
     return SecureStorageRequest(
       (b) => b
         ..action = SecureStorageAction.init
         ..config.replace(config)
-        ..packageId = packageId
         ..applicationDirectory = applicationDirectory,
     );
   }
@@ -106,11 +104,6 @@ abstract class SecureStorageRequest
   /// Valid only for [SecureStorageAction.init].
   AmplifySecureStorageConfig? get config;
 
-  /// The ID of the package, such as "com.example.app".
-  ///
-  /// Used as a namespace on Linux.
-  String? get packageId;
-
   /// Path to a directory where the application should
   /// place application support files.
   ///
@@ -134,7 +127,6 @@ abstract class SecureStorageRequest
           ..add('id', id)
           ..add('action', action)
           ..add('config', config)
-          ..add('packageId', packageId)
           ..add('applicationDirectory', applicationDirectory)
           ..add('key', key))
         .toString();

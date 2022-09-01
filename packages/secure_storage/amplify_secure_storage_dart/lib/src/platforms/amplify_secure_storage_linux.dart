@@ -17,18 +17,22 @@ import 'dart:ffi';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/glib/glib.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/libsecret/libsecret.dart';
+import 'package:amplify_secure_storage_dart/src/ffi/utils/linux_utils.dart';
+import 'package:async/async.dart';
 import 'package:ffi/ffi.dart';
+import 'package:meta/meta.dart';
 
 /// The Linux implementation of [SecureStorageInterface].
 class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   AmplifySecureStorageLinux({
     required super.config,
-    super.packageId,
-  });
+    @visibleForTesting String? packageId,
+  }) : _packageId = packageId;
 
   @override
-  void write({required String key, required String value}) {
-    final labelName = _createLabel(key);
+  Future<void> write({required String key, required String value}) async {
+    final labelName = await _createLabel(key);
+    final schemaName = await _getSchemaName();
     return using((Arena arena) {
       final label = labelName.toNativeUtf8(allocator: arena);
       final secret = value.toNativeUtf8(allocator: arena);
@@ -47,7 +51,8 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   }
 
   @override
-  String? read({required String key}) {
+  Future<String?> read({required String key}) async {
+    final schemaName = await _getSchemaName();
     return using((Arena arena) {
       final attributes = _getAttributes(key: key, arena: arena);
       final schema = _getSchema(schemaName, arena);
@@ -67,7 +72,8 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   }
 
   @override
-  void delete({required String key}) {
+  Future<void> delete({required String key}) async {
+    final schemaName = await _getSchemaName();
     return using((Arena arena) {
       final attributes = _getAttributes(key: key, arena: arena);
       final schema = _getSchema(schemaName, arena);
@@ -82,7 +88,8 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 
   /// Removes all key-value pairs for the current scope.
   @override
-  void removeAll() {
+  Future<void> removeAll() async {
+    final schemaName = await _getSchemaName();
     return using((Arena arena) {
       final schema = _getSchema(schemaName, arena);
       final attributes = _getAttributes(arena: arena);
@@ -95,16 +102,29 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
     });
   }
 
+  final String? _packageId;
+
+  final _packageIdMemo = AsyncMemoizer<String>();
+
+  /// The ID of the package, such as com.example.app
+  Future<String> _getPackageId() async {
+    if (_packageId != null) return _packageId!;
+    return _packageIdMemo.runOnce(getApplicationId);
+  }
+
   /// A namespace for the application.
   ///
   /// Set during initialization.
   ///
   /// Uses the access group if it is set, otherwise uses
   /// the App ID.
-  String? get appNameSpace => config.linuxOptions.accessGroup ?? packageId;
+  Future<String?> _getAppNameSpace() async {
+    return config.linuxOptions.accessGroup ?? await _getPackageId();
+  }
 
   /// The name of the [SecretSchema] schema.
-  String get schemaName {
+  Future<String> _getSchemaName() async {
+    final appNameSpace = await _getAppNameSpace();
     if (appNameSpace != null) {
       return '${config.defaultNamespace}.$appNameSpace';
     }
@@ -114,7 +134,8 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
   /// A label for the current key.
   ///
   /// This will be visible to the user in GUI applications.
-  String _createLabel(String key) {
+  Future<String> _createLabel(String key) async {
+    final appNameSpace = await _getAppNameSpace();
     if (appNameSpace != null) {
       return '$appNameSpace/$key';
     }

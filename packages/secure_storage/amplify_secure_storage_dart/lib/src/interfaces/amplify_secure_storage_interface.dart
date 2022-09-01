@@ -25,17 +25,11 @@ abstract class AmplifySecureStorageInterface extends SecureStorageInterface
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_interface}
   const AmplifySecureStorageInterface({
     required this.config,
-    this.packageId,
     this.applicationDirectory,
   }) : super();
 
   /// Configuration options for Secure Storage.
   final AmplifySecureStorageConfig config;
-
-  /// The ID of the package, such as "com.example.app".
-  ///
-  /// Used as a namespace on Linux.
-  final String? packageId;
 
   /// Path to a directory where the application should
   /// place application support files.

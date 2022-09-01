@@ -59,12 +59,13 @@ void main() {
         () async {
       // initialize storage and store a value
       final storage = AmplifySecureStorage(
-          config: AmplifySecureStorageConfig(
-        scope: scope,
-        linuxOptions: LinuxSecureStorageOptions(
-          accessGroup: accessGroup,
+        config: AmplifySecureStorageConfig(
+          scope: scope,
+          linuxOptions: LinuxSecureStorageOptions(
+            accessGroup: accessGroup,
+          ),
         ),
-      ));
+      );
       await storage.write(key: key1, value: value1);
 
       // uninstall app

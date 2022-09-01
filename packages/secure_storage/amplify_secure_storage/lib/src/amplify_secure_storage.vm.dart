@@ -20,7 +20,6 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// {@template amplify_secure_storage.amplify_secure_storage}
@@ -42,11 +41,9 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
         if (Platform.isAndroid) {
           _instance = AmplifySecureStorageAndroid(config: config);
         } else {
-          final packageInfo = await PackageInfo.fromPlatform();
           final applicationDirectory = await getApplicationSupportDirectory();
           _instance = AmplifySecureStorageWorker(
             config: config,
-            packageId: packageInfo.packageName,
             applicationDirectory: applicationDirectory.path,
           );
         }

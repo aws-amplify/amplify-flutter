@@ -43,7 +43,6 @@ class AmplifySecureStorageDart extends AmplifySecureStorageInterface
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_dart}
   AmplifySecureStorageDart({
     required super.config,
-    super.packageId,
     super.applicationDirectory,
   });
 }
@@ -56,7 +55,6 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_worker}
   AmplifySecureStorageWorker({
     required super.config,
-    super.packageId,
     super.applicationDirectory,
   });
 
@@ -83,7 +81,6 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
         _worker.add(
           SecureStorageRequest.init(
             config: config,
-            packageId: packageId,
             applicationDirectory: applicationDirectory,
           ),
         );
