@@ -106,9 +106,7 @@ class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
       encryptedPtr,
     );
     final encryptedBlob = encryptedPtr.ref;
-    arena
-      ..free(encryptedPtr)
-      ..free(blob);
+    LocalFree(encryptedPtr.ref.pbData.address);
     return encryptedBlob.pbData.asTypedList(encryptedBlob.cbData);
   }
 
@@ -131,9 +129,7 @@ class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
     final unencryptedBlob = unencryptedDataBlob.pbData.asTypedList(
       unencryptedDataBlob.cbData,
     );
-    arena
-      ..free(unencryptedPtr)
-      ..free(blob);
+    LocalFree(unencryptedPtr.ref.pbData.address);
     return utf8.decode(unencryptedBlob);
   }
 
