@@ -161,23 +161,33 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
   Future<void> onFetchAuthSession(
     FetchAuthSessionFetch event,
   ) async {
+    final options = event.options ?? const CognitoSessionOptions();
     final result = await getOrCreate(CredentialStoreStateMachine.type)
         .getCredentialsResult();
 
     final userPoolTokens = result.data.userPoolTokens;
     final userPoolTokensExpiration = userPoolTokens?.expirationTime;
-    final refreshUserPoolTokens = userPoolTokensExpiration != null
-        ? _isExpired(userPoolTokensExpiration)
-        : false;
+    // Only force refresh user pool tokens when we have tokens to refresh.
+    final forceRefreshUserPoolTokens =
+        userPoolTokens != null && options.forceRefresh;
+    final refreshUserPoolTokens = forceRefreshUserPoolTokens ||
+        (userPoolTokensExpiration != null
+            ? _isExpired(userPoolTokensExpiration)
+            : false);
 
     final hasIdentityPool = _identityPoolConfig != null;
     final awsCredentials = result.data.awsCredentials;
     final awsCredentialsExpiration = awsCredentials?.expiration;
-    final refreshAwsCredentials = awsCredentialsExpiration != null
-        ? _isExpired(awsCredentialsExpiration)
-        : false;
-    final getAwsCredentials = (event.options?.getAWSCredentials ?? false);
-    final retrieveAwsCredentials = awsCredentials == null && getAwsCredentials;
+    // Only force a refresh of AWS credentials if `getAwsCredentials` is also
+    // true in order to allow the case of just refreshing the user pool tokens.
+    final forceRefreshAwsCredentials =
+        options.getAWSCredentials && options.forceRefresh;
+    final refreshAwsCredentials = forceRefreshAwsCredentials ||
+        (awsCredentialsExpiration != null
+            ? _isExpired(awsCredentialsExpiration)
+            : false);
+    final retrieveAwsCredentials =
+        awsCredentials == null && options.getAWSCredentials;
     if ((refreshAwsCredentials || retrieveAwsCredentials) && !hasIdentityPool) {
       throw const InvalidAccountTypeException.noIdentityPool(
         recoverySuggestion:
