@@ -37,22 +37,24 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
   final _initMemo = AsyncMemoizer();
 
   Future<void> _init() async {
-    if (Platform.isAndroid) {
-      _instance = AmplifySecureStorageAndroid(config: config);
-    } else {
-      final packageInfo = await PackageInfo.fromPlatform();
-      final applicationDirectory = await getApplicationSupportDirectory();
-      _instance = AmplifySecureStorageWorker(
-        config: config,
-        packageId: packageInfo.packageName,
-        applicationDirectory: applicationDirectory.path,
-      );
-    }
-    if (Platform.isLinux) {
-      await _initMemo.runOnce(
-        () => _initializeScope(config.linuxOptions.accessGroup),
-      );
-    }
+    await _initMemo.runOnce(
+      () async {
+        if (Platform.isAndroid) {
+          _instance = AmplifySecureStorageAndroid(config: config);
+        } else {
+          final packageInfo = await PackageInfo.fromPlatform();
+          final applicationDirectory = await getApplicationSupportDirectory();
+          _instance = AmplifySecureStorageWorker(
+            config: config,
+            packageId: packageInfo.packageName,
+            applicationDirectory: applicationDirectory.path,
+          );
+        }
+        if (Platform.isLinux) {
+          await _initializeScope(config.linuxOptions.accessGroup);
+        }
+      },
+    );
   }
 
   @override

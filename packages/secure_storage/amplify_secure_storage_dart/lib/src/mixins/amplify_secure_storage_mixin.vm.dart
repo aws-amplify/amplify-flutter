@@ -26,9 +26,12 @@ mixin AmplifySecureStorageDartMixin on AmplifySecureStorageInterface
     implements SecureStorageInterface {
   late final AmplifySecureStorageInterface _instance = () {
     if (Platform.isWindows) {
-      return AmplifySecureStorageWindows(config: config);
+      return AmplifySecureStorageWindows(
+        config: config,
+        applicationDirectory: applicationDirectory,
+      );
     } else if (Platform.isLinux) {
-      return AmplifySecureStorageLinux(config: config);
+      return AmplifySecureStorageLinux(config: config, packageId: packageId);
     } else if (Platform.isMacOS || Platform.isIOS) {
       return AmplifySecureStorageCupertino(config: config);
     }

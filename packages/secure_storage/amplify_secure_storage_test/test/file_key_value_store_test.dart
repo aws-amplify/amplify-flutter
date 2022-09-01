@@ -42,6 +42,20 @@ void main() {
       expect(value2, 'value');
     });
 
+    test('removeKey', () async {
+      // seed storage & assert value is present
+      await storage.writeKey(key: 'key', value: 'value');
+      final value1 = await storage.readKey(key: 'key');
+      expect(value1, 'value');
+
+      // remove key
+      await storage.removeKey(key: 'key');
+
+      // assert key is removed
+      final value2 = await storage.readKey(key: 'key');
+      expect(value2, isNull);
+    });
+
     test('readAll', () async {
       // write key-value pairs
       await storage.writeKey(key: 'key1', value: 'value1');

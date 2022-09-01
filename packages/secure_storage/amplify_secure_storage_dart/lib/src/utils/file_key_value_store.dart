@@ -29,10 +29,10 @@ import 'package:path/path.dart' as pkg_path;
 // without bringing in flutter as a dependency to the tests.
 class FileKeyValueStore {
   /// {@macro amplify_secure_storage_dart.file_key_value_store}
-  FileKeyValueStore({
+  const FileKeyValueStore({
     required this.path,
     required this.fileName,
-    @visibleForTesting this.fs = const local_file.LocalFileSystem(),
+    this.fs = const local_file.LocalFileSystem(),
   });
 
   /// The directory of the file.
@@ -46,12 +46,12 @@ class FileKeyValueStore {
   @visibleForTesting
   final pkg_file.FileSystem fs;
 
-  late final File file = fs.file(
-    pkg_path.join(
-      path,
-      fileName,
-    ),
-  );
+  File get file => fs.file(
+        pkg_path.join(
+          path,
+          fileName,
+        ),
+      );
 
   /// Writes a single key to storage.
   Future<void> writeKey({
@@ -80,6 +80,15 @@ class FileKeyValueStore {
   }) async {
     final data = await readAll();
     return data[key];
+  }
+
+  /// Removes a single key from storage.
+  Future<void> removeKey({
+    required String key,
+  }) async {
+    final data = await readAll();
+    data.remove(key);
+    await writeAll(data);
   }
 
   /// Returns true if the key exists in storage

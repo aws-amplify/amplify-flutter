@@ -17,17 +17,6 @@ import 'dart:typed_data';
 
 import 'package:win32/win32.dart';
 
-/// A flag for cred* apis that uses default behavior.
-///
-/// CredReadA, CredWriteA, and CredDeleteA require a flags param. For
-/// read/delete this value must be 0. Write allows for one other option
-/// of [CRED_PRESERVE_CREDENTIAL_BLOB], which is used to preserve
-/// the credential blob when updating the credentials attributes.
-///
-/// Reference: https://docs.microsoft.com/en-us/windows/win32/api/wincred/nf-wincred-credwritea#parameters
-// ignore: constant_identifier_names
-const CRED_FLAG_DEFAULT = 0;
-
 extension Uint8ListBlobConversion on Uint8List {
   /// Alternative to [allocatePointer] from win32, which accepts an allocator
   Pointer<Uint8> allocatePointerWith(Allocator allocator) {
