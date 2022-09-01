@@ -23,7 +23,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
-import 'package:retry/retry.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -124,7 +123,6 @@ class WebSocketConnection implements Closeable {
     return Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult connectivityResult) async {
-      print('Connection: $connectivityResult');
       switch (connectivityResult) {
         case ConnectivityResult.ethernet:
         case ConnectivityResult.mobile:

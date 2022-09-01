@@ -13,6 +13,9 @@
  * permissions and limitations under the License.
  */
 
+// Packages
+export 'package:retry/retry.dart';
+
 // API Authorization
 export 'auth/api_auth_provider.dart';
 export 'auth/api_authorization_type.dart';
