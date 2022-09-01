@@ -45,6 +45,13 @@ class _$SecureStorageRequestSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.applicationDirectory;
+    if (value != null) {
+      result
+        ..add('applicationDirectory')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.key;
     if (value != null) {
       result
@@ -92,6 +99,10 @@ class _$SecureStorageRequestSerializer
           result.packageId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'applicationDirectory':
+          result.applicationDirectory = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'key':
           result.key = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -117,6 +128,8 @@ class _$SecureStorageRequest extends SecureStorageRequest {
   @override
   final String? packageId;
   @override
+  final String? applicationDirectory;
+  @override
   final String? key;
   @override
   final String? value;
@@ -130,6 +143,7 @@ class _$SecureStorageRequest extends SecureStorageRequest {
       required this.action,
       this.config,
       this.packageId,
+      this.applicationDirectory,
       this.key,
       this.value})
       : super._() {
@@ -155,6 +169,7 @@ class _$SecureStorageRequest extends SecureStorageRequest {
         action == other.action &&
         config == other.config &&
         packageId == other.packageId &&
+        applicationDirectory == other.applicationDirectory &&
         key == other.key &&
         value == other.value;
   }
@@ -163,8 +178,12 @@ class _$SecureStorageRequest extends SecureStorageRequest {
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc($jc(0, id.hashCode), action.hashCode), config.hashCode),
-                packageId.hashCode),
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, id.hashCode), action.hashCode),
+                        config.hashCode),
+                    packageId.hashCode),
+                applicationDirectory.hashCode),
             key.hashCode),
         value.hashCode));
   }
@@ -192,6 +211,11 @@ class SecureStorageRequestBuilder
   String? get packageId => _$this._packageId;
   set packageId(String? packageId) => _$this._packageId = packageId;
 
+  String? _applicationDirectory;
+  String? get applicationDirectory => _$this._applicationDirectory;
+  set applicationDirectory(String? applicationDirectory) =>
+      _$this._applicationDirectory = applicationDirectory;
+
   String? _key;
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
@@ -209,6 +233,7 @@ class SecureStorageRequestBuilder
       _action = $v.action;
       _config = $v.config?.toBuilder();
       _packageId = $v.packageId;
+      _applicationDirectory = $v.applicationDirectory;
       _key = $v.key;
       _value = $v.value;
       _$v = null;
@@ -242,6 +267,7 @@ class SecureStorageRequestBuilder
                   action, r'SecureStorageRequest', 'action'),
               config: _config?.build(),
               packageId: packageId,
+              applicationDirectory: applicationDirectory,
               key: key,
               value: value);
     } catch (_) {

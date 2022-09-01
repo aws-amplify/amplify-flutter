@@ -44,6 +44,7 @@ class AmplifySecureStorageDart extends AmplifySecureStorageInterface
   AmplifySecureStorageDart({
     required super.config,
     super.packageId,
+    super.applicationDirectory,
   });
 }
 
@@ -56,6 +57,7 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
   AmplifySecureStorageWorker({
     required super.config,
     super.packageId,
+    super.applicationDirectory,
   });
 
   late final SecureStorageWorker _worker;
@@ -82,6 +84,7 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
           SecureStorageRequest.init(
             config: config,
             packageId: packageId,
+            applicationDirectory: applicationDirectory,
           ),
         );
         await _worker.stream.first;

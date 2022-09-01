@@ -41,9 +41,11 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
       _instance = AmplifySecureStorageAndroid(config: config);
     } else {
       final packageInfo = await PackageInfo.fromPlatform();
+      final applicationDirectory = await getApplicationSupportDirectory();
       _instance = AmplifySecureStorageWorker(
         config: config,
         packageId: packageInfo.packageName,
+        applicationDirectory: applicationDirectory.path,
       );
     }
     if (Platform.isLinux) {
@@ -87,8 +89,8 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
     // if accessGroup is set, do not clear data on initialization
     // since the data can be shared across applications.
     if (accessGroup != null) return;
-    final directory = await getApplicationSupportDirectory();
-    final path = directory.path;
+    final path = _instance.applicationDirectory ??
+        (await getApplicationSupportDirectory()).path;
     final fileStore = FileKeyValueStore(path: path, fileName: scopeFileName);
     final isInitialized = await fileStore.containsKey(key: config.scope!);
     if (!isInitialized) {

@@ -26,6 +26,7 @@ abstract class AmplifySecureStorageInterface extends SecureStorageInterface
   const AmplifySecureStorageInterface({
     required this.config,
     this.packageId,
+    this.applicationDirectory,
   }) : super();
 
   /// Configuration options for Secure Storage.
@@ -33,8 +34,14 @@ abstract class AmplifySecureStorageInterface extends SecureStorageInterface
 
   /// The ID of the package, such as "com.example.app".
   ///
-  /// Used as a namespace on Linux and Windows.
+  /// Used as a namespace on Linux.
   final String? packageId;
+
+  /// Path to a directory where the application should
+  /// place application support files.
+  ///
+  /// Used to store encrypted data on Windows.
+  final String? applicationDirectory;
 
   /// {@template amplify_secure_storage_dart.amplify_secure_storage_interface.remove_all}
   /// Removes all key-value pairs for the current scope.

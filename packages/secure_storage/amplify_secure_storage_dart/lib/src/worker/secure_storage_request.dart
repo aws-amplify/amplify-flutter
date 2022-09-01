@@ -36,12 +36,14 @@ abstract class SecureStorageRequest
   factory SecureStorageRequest.init({
     required AmplifySecureStorageConfig config,
     String? packageId,
+    String? applicationDirectory,
   }) {
     return SecureStorageRequest(
       (b) => b
         ..action = SecureStorageAction.init
         ..config.replace(config)
-        ..packageId = packageId,
+        ..packageId = packageId
+        ..applicationDirectory = applicationDirectory,
     );
   }
 
@@ -104,7 +106,16 @@ abstract class SecureStorageRequest
   /// Valid only for [SecureStorageAction.init].
   AmplifySecureStorageConfig? get config;
 
+  /// The ID of the package, such as "com.example.app".
+  ///
+  /// Used as a namespace on Linux.
   String? get packageId;
+
+  /// Path to a directory where the application should
+  /// place application support files.
+  ///
+  /// Used to store encrypted data on Windows.
+  String? get applicationDirectory;
 
   /// The key targeted by [action].
   String? get key;
@@ -124,6 +135,7 @@ abstract class SecureStorageRequest
           ..add('action', action)
           ..add('config', config)
           ..add('packageId', packageId)
+          ..add('applicationDirectory', applicationDirectory)
           ..add('key', key))
         .toString();
   }
