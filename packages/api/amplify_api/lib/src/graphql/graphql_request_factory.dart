@@ -67,15 +67,18 @@ class GraphQLRequestFactory {
     }).toList(); // e.g. ["id", "name", "createdAt"]
 
     // If belongsTo, also add selection set of parent.
-    final belongsToAssociation = getBelongsToFieldFromModelSchema(schema);
-    String? belongsToModelName = belongsToAssociation?.type.ofModelName;
-    if (belongsToModelName != null && !ignoreParents) {
-      final parentSchema = getModelSchemaByModelName(belongsToModelName, null);
-      String parentSelectionSet = _getSelectionSetFromModelSchema(
-          parentSchema, GraphQLRequestOperation.get,
-          ignoreParents:
-              true); // always format like a get, stop traversing parents
-      _fields.add('${belongsToAssociation!.name} { $parentSelectionSet }');
+    final allBelongsTo = getBelongsToFieldsFromModelSchema(schema);
+    for (var belongsTo in allBelongsTo) {
+      String? belongsToModelName = belongsTo.type.ofModelName;
+      if (belongsToModelName != null && !ignoreParents) {
+        final parentSchema =
+            getModelSchemaByModelName(belongsToModelName, null);
+        String parentSelectionSet = _getSelectionSetFromModelSchema(
+            parentSchema, GraphQLRequestOperation.get,
+            ignoreParents:
+                true); // always format like a get, stop traversing parents
+        _fields.add('${belongsTo.name} { $parentSelectionSet }');
+      }
     }
 
     String fields = _fields.join(' '); // e.g. "id name createdAt"
@@ -269,14 +272,20 @@ class GraphQLRequestFactory {
     final modelJson = model.toJson();
 
     // If the model has a parent in the schema, get the ID of parent and field name.
-    String? belongsToModelName; // e.g. "blog"
-    String? belongsToKey; // e.g. "blogID"
-    String? belongsToValue; // the ID value to use from `post.blog.id`
-    final belongsToAssociation = getBelongsToFieldFromModelSchema(schema);
-    if (belongsToAssociation != null) {
-      belongsToModelName = belongsToAssociation.name;
-      belongsToKey = belongsToAssociation.association?.targetName;
-      belongsToValue = (modelJson[belongsToModelName] as Map?)?[idFieldName];
+    final allBelongsTo = getBelongsToFieldsFromModelSchema(schema);
+    for (var belongsTo in allBelongsTo) {
+      String belongsToModelName = belongsTo.name;
+      String? belongsToKey = belongsTo.association?.targetName;
+      String? belongsToValue =
+          (modelJson[belongsToModelName] as Map?)?[idFieldName];
+
+      // Assign the parent ID if the model has a parent.
+      if (belongsToKey != null) {
+        modelJson.remove(belongsToModelName);
+        if (belongsToValue != null) {
+          modelJson[belongsToKey] = belongsToValue;
+        }
+      }
     }
 
     // Remove any relational fields or readonly.
@@ -286,13 +295,6 @@ class GraphQLRequestFactory {
         .map((entry) => entry.key)
         .toSet();
     modelJson.removeWhere((key, dynamic value) => fieldsToRemove.contains(key));
-    // Assign the parent ID if the model has a parent.
-    if (belongsToKey != null && belongsToModelName != null) {
-      modelJson.remove(belongsToModelName);
-      if (belongsToValue != null) {
-        modelJson[belongsToKey] = belongsToValue;
-      }
-    }
 
     return modelJson;
   }
