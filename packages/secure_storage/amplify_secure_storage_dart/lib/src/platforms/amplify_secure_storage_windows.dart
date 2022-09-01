@@ -24,8 +24,9 @@ import 'package:amplify_secure_storage_dart/src/ffi/win32/utils.dart';
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
 import 'package:ffi/ffi.dart';
 import 'package:file/memory.dart';
-import 'package:meta/meta.dart';
 import 'package:win32/win32.dart';
+
+const _keyValueStoreFileName = 'secure_storage.json';
 
 /// The windows implementation of [SecureStorageInterface].
 class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
@@ -34,19 +35,16 @@ class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
     super.applicationDirectory,
   }) : keyValueStore = applicationDirectory == null
             ? FileKeyValueStore(
-                fileName: '${config.defaultNamespace}_$keyValueStoreFileName',
+                fileName: '${config.defaultNamespace}_$_keyValueStoreFileName',
                 path: 'tmp',
                 fs: MemoryFileSystem(),
               )
             : FileKeyValueStore(
-                fileName: '${config.defaultNamespace}_$keyValueStoreFileName',
+                fileName: '${config.defaultNamespace}_$_keyValueStoreFileName',
                 path: applicationDirectory,
               );
 
   final FileKeyValueStore keyValueStore;
-
-  @visibleForTesting
-  static const keyValueStoreFileName = 'secure_storage.json';
 
   @override
   Future<void> write({required String key, required String value}) async {
@@ -100,11 +98,11 @@ class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
     final encryptedPtr = arena<DATA_BLOB>();
     CryptProtectData(
       dataPtr,
-      nullptr,
-      nullptr,
-      nullptr,
-      nullptr,
-      0,
+      nullptr, // no label
+      nullptr, // no added entropy
+      nullptr, // reserved
+      nullptr, // no prompt
+      0, // default flag
       encryptedPtr,
     );
     final encryptedBlob = encryptedPtr.ref;
@@ -122,11 +120,11 @@ class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
     final unencryptedPtr = arena<DATA_BLOB>();
     CryptUnprotectData(
       dataPtr,
-      nullptr,
-      nullptr,
-      nullptr,
-      nullptr,
-      0,
+      nullptr, // no label
+      nullptr, // no added entropy
+      nullptr, // reserved
+      nullptr, // no prompt
+      0, // default flag
       unencryptedPtr,
     );
     final unencryptedDataBlob = unencryptedPtr.ref;

@@ -34,14 +34,15 @@ abstract class AmplifySecureStorageInterface extends SecureStorageInterface
   /// Path to a directory where the application should
   /// place application support files.
   ///
-  /// Used to store encrypted data on Windows.
+  /// Used to store encrypted data on Windows. If no value
+  /// is provided, data will be stored in memory on Windows.
   final String? applicationDirectory;
 
   /// {@template amplify_secure_storage_dart.amplify_secure_storage_interface.remove_all}
   /// Removes all key-value pairs for the current scope.
   ///
-  /// Only available on Linux and Windows Platforms. Will throw
-  /// [UnimplementedError] on other platforms.
+  /// Only available on Linux. Will throw [UnimplementedError]
+  /// on other platforms.
   /// {@endtemplate}
   FutureOr<void> removeAll() => throw UnimplementedError(
         'removeAll is not implemented for this platform',
