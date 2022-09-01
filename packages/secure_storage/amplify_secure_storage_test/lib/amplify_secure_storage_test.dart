@@ -261,32 +261,5 @@ void runScopeAndNamespaceTests(SecureStorageFactory storageFactory) {
         expect(value2, 'test_write_2');
       },
     );
-
-    test(
-      'The same key with different schema target name prefixes should not collide',
-      testOn: 'windows',
-      () async {
-        final storageWindows = storageFactory(
-          config: AmplifySecureStorageConfig(
-            scope: 'default',
-            windowsOptions: WindowsSecureStorageOptions(
-              targetNamePrefix: 'com.test',
-            ),
-            macOSOptions: macOSOptions,
-          ),
-        );
-        await storageWindows.delete(key: key1);
-
-        // write to both storage instances
-        await storage.write(key: key1, value: 'test_write_1');
-        await storageWindows.write(key: key1, value: 'test_write_2');
-
-        // confirm value was written to both storage instances
-        final value1 = await storage.read(key: key1);
-        expect(value1, 'test_write_1');
-        final value2 = await storageWindows.read(key: key1);
-        expect(value2, 'test_write_2');
-      },
-    );
   });
 }

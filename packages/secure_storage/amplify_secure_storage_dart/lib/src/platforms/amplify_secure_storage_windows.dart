@@ -33,18 +33,22 @@ class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
   AmplifySecureStorageWindows({
     required super.config,
     super.applicationDirectory,
-  }) : keyValueStore = applicationDirectory == null
-            ? FileKeyValueStore(
-                fileName: '${config.defaultNamespace}_$_keyValueStoreFileName',
-                path: 'tmp',
-                fs: MemoryFileSystem(),
-              )
-            : FileKeyValueStore(
-                fileName: '${config.defaultNamespace}_$_keyValueStoreFileName',
-                path: applicationDirectory,
-              );
+  });
 
-  final FileKeyValueStore keyValueStore;
+  late final FileKeyValueStore keyValueStore = () {
+    final directory = config.windowsOptions.storagePath ?? applicationDirectory;
+    if (directory != null) {
+      return FileKeyValueStore(
+        fileName: '${config.defaultNamespace}_$_keyValueStoreFileName',
+        path: directory,
+      );
+    }
+    return FileKeyValueStore(
+      fileName: '${config.defaultNamespace}_$_keyValueStoreFileName',
+      path: 'tmp',
+      fs: MemoryFileSystem(),
+    );
+  }();
 
   @override
   Future<void> write({required String key, required String value}) async {
