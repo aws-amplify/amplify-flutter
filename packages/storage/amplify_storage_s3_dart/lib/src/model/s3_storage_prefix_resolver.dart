@@ -12,4 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'src/amplify_storage_s3_impl.dart';
+import 'package:amplify_core/amplify_core.dart';
+
+// TODO(HuiSF): update the doc link.
+/// An asynchronous function resolves object prefix according to specified
+/// `storageAccessLevel` and optional `identityId`.
+/// Refer to [S3 Storage Access Level Customization](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/ios/#customization)
+/// to learn about the detail.
+typedef S3StoragePrefixResolver = Future<String> Function({
+  required StorageAccessLevel storageAccessLevel,
+  String? identityId,
+});

@@ -12,4 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'src/amplify_storage_s3_impl.dart';
+/// {@template amplify_core.storage.get_url_result}
+/// Presents the result of a [StorageGetUrlOperation].
+/// {@endtemplate}
+class StorageGetUrlResult {
+  /// {@macro amplify_core.storage.get_url_result}
+  const StorageGetUrlResult({
+    required this.url,
+  });
+
+  /// The result [Uri] of the [StorageGetUrlOperation].
+  final Uri url;
+}

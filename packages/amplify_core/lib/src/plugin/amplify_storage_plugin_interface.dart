@@ -15,36 +15,73 @@
 
 library amplify_storage_plugin_interface;
 
-import 'dart:async';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+/// Defines Amplify Storage plugin interface.
+///
+/// {@macro amplify_core.amplify_storage_category}
 abstract class StoragePluginInterface extends AmplifyPluginInterface {
   @override
   @nonVirtual
   Category get category => Category.storage;
 
-  Future<UploadFileResult> uploadFile(
-      {required UploadFileRequest request,
-      void Function(TransferProgress)? onProgress}) {
-    throw UnimplementedError('uploadFile() has not been implemented.');
-  }
-
-  Future<GetUrlResult> getUrl({required GetUrlRequest request}) {
-    throw UnimplementedError('getUrl() has not been implemented.');
-  }
-
-  Future<RemoveResult> remove({required RemoveRequest request}) {
-    throw UnimplementedError('remove() has not been implemented.');
-  }
-
-  Future<ListResult> list({required ListRequest request}) {
+  /// {@macro amplify_core.amplify_storage_category.list}
+  StorageListOperation list({
+    required StorageListRequest request,
+  }) {
     throw UnimplementedError('list() has not been implemented.');
   }
 
-  Future<DownloadFileResult> downloadFile(
-      {required DownloadFileRequest request,
-      void Function(TransferProgress)? onProgress}) {
-    throw UnimplementedError('downloadFile() has not been implemented.');
+  /// {@macro amplify_core.amplify_storage_category.get_properties}
+  StorageGetPropertiesOperation getProperties({
+    required StorageGetPropertiesRequest request,
+  }) {
+    throw UnimplementedError('stat() has not been implemented.');
   }
+
+  /// {@macro amplify_core.amplify_storage_category.get_url}
+  StorageGetUrlOperation getUrl({
+    required StorageGetUrlRequest request,
+  }) {
+    throw UnimplementedError('getUrl() has not been implemented.');
+  }
+
+  /// {@macro amplify_core.amplify_storage_category.upload_data}
+  StorageUploadDataOperation uploadData({
+    required StorageUploadDataRequest request,
+  }) {
+    throw UnimplementedError('uploadData() has not been implemented.');
+  }
+
+  /// {@macro amplify_core.amplify_storage_category.copy}
+  StorageCopyOperation copy({
+    required StorageCopyRequest request,
+  }) {
+    throw UnimplementedError('uploadFile() has not been implemented.');
+  }
+
+  /// {@macro amplify_core.amplify_storage_category.move}
+  StorageMoveOperation move({
+    required StorageMoveRequest request,
+  }) {
+    throw UnimplementedError('uploadFile() has not been implemented.');
+  }
+
+  /// {@macro amplify_core.amplify_storage_category.remove}
+  StorageRemoveOperation remove({
+    required StorageRemoveRequest request,
+  }) {
+    throw UnimplementedError('remove() has not been implemented.');
+  }
+
+  /// {@macro amplify_core.amplify_storage_category.remove_many}
+  StorageRemoveManyOperation removeMany({
+    required StorageRemoveManyRequest request,
+  }) {
+    throw UnimplementedError('removeMany() has not been implemented.');
+  }
+
+  // TODO(HuiSF): add interface for remaining APIs
+  //  uploadFile, downloadFile, downloadData
 }

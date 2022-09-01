@@ -16,7 +16,6 @@
 import 'package:amplify_analytics_pinpoint/method_channel_amplify.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
-import 'package:amplify_storage_s3/method_channel_storage_s3.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -133,7 +132,7 @@ void main() {
   test('adding multiple plugins using addPlugins method doesn\'t throw',
       () async {
     await amplify.addPlugins([
-      AmplifyStorageS3MethodChannel(),
+      AmplifyAnalyticsPinpointMethodChannel(),
       AmplifyAnalyticsPinpointMethodChannel(),
     ]);
     await amplify.configure(validJsonConfiguration);
@@ -141,22 +140,28 @@ void main() {
   });
 
   test('adding single plugins using addPlugin method doesn\'t throw', () async {
-    await amplify.addPlugin(AmplifyStorageS3MethodChannel());
+    await amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());
     await amplify.configure(validJsonConfiguration);
     expect(amplify.isConfigured, true);
   });
 
-  test('adding multiple plugins from same Storage category does not throw',
+  test('adding multiple plugins from same Analytic category throws exception',
       () async {
-    await amplify.addPlugin(AmplifyStorageS3MethodChannel());
+    await amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());
     expect(
-      amplify.addPlugin(AmplifyStorageS3MethodChannel()),
-      completes,
+      amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel()),
+      throwsA(
+        isA<AmplifyException>().having(
+          (e) => e.toString(),
+          'toString',
+          contains('Analytics plugin has already been added'),
+        ),
+      ),
     );
   });
 
   test('adding plugins after configure throws an exception', () async {
-    await amplify.addPlugin(AmplifyStorageS3MethodChannel());
+    await amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());
     await amplify.configure(validJsonConfiguration);
     try {
       await amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());

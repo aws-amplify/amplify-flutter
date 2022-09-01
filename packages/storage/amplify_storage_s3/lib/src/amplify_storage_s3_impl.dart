@@ -11,5 +11,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
-export 'src/amplify_storage_s3_impl.dart';
+class AmplifyStorageS3 extends AmplifyStorageS3Dart {
+  AmplifyStorageS3({
+    super.delimiter,
+    super.s3storagePrefixResolver,
+  });
+}

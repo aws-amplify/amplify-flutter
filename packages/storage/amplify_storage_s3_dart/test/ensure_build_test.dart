@@ -12,4 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'src/amplify_storage_s3_impl.dart';
+@TestOn('vm')
+@Tags(['build'])
+
+import 'package:build_verify/build_verify.dart';
+import 'package:test/test.dart';
+
+void main() {
+  test(
+    'Ensure Build',
+    () => expectBuildClean(
+      packageRelativeDirectory: 'packages/storage/amplify_storage_s3_dart',
+    ),
+    timeout: const Timeout(Duration(minutes: 5)),
+  );
+}

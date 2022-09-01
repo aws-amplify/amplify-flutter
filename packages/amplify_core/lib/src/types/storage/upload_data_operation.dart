@@ -12,4 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'src/amplify_storage_s3_impl.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'base/storage_operation.dart';
+
+/// {@template amplify_core.storage.upload_data_operation}
+/// Presents a storage upload data operation.
+/// {@endtemplate}
+class StorageUploadDataOperation<Request extends StorageUploadDataRequest,
+        Result extends StorageUploadDataResult>
+    extends StorageOperation<Request, Result> {
+  /// {@macro amplify_core.storage.upload_data_operation}
+  StorageUploadDataOperation({
+    required super.request,
+    required super.result,
+  });
+}

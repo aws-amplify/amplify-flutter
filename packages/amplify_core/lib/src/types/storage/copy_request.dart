@@ -12,4 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'src/amplify_storage_s3_impl.dart';
+import 'package:amplify_core/amplify_core.dart';
+
+/// {@template amplify_core.storage.copy_request}
+/// Presents a storage copy request.
+/// {@endtemplate}
+class StorageCopyRequest<Item extends StorageItemWithAccessLevel> {
+  /// {@macro amplify_core.storage.copy_request}
+  const StorageCopyRequest({
+    required this.source,
+    required this.destination,
+  });
+
+  /// Copy source.
+  final Item source;
+
+  /// Copy destination.
+  final Item destination;
+}

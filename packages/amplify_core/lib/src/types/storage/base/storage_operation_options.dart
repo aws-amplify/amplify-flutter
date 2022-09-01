@@ -12,4 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'src/amplify_storage_s3_impl.dart';
+import '../access_level.dart';
+
+abstract class StorageOperationOptions {
+  const StorageOperationOptions({
+    required this.storageAccessLevel,
+  });
+
+  final StorageAccessLevel storageAccessLevel;
+}
