@@ -15,7 +15,7 @@ dependencies:
   aws_common: ^0.2.2
   aws_signature_v4: ^0.2.0
   built_collection: ^5.0.0
-  built_value: ^8.0.0
+  built_value: ">=8.4.0 <8.5.0"
   collection: ^1.15.0
   convert: ^3.0.1
   crypto: ^3.0.1
