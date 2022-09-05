@@ -51,7 +51,7 @@ enum SupportedProtocols {
   /// Supports HTTP/2 and HTTP/3 servers.
   ///
   /// **Note**: Currently this only supports HTTP/3 on the Web via `fetch`.
-  /// HTTP/3 is not supoprted on VM.
+  /// HTTP/3 is not supported on VM.
   http2_3,
 
   /// Support HTTP/1.1, HTTP/2, and HTTP/3 servers.
