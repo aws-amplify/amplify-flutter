@@ -80,6 +80,22 @@ void main() {
       final req = AWSHttpRequest.get(uri);
       expect(req.bodyBytes, isEmpty);
     });
+
+    group('body', () {
+      test('can be listened to multiple times', () async {
+        final req = AWSHttpRequest.get(uri);
+        expect(req.body, emitsDone);
+        expect(req.body, emitsDone);
+      });
+    });
+
+    group('split', () {
+      test('can be called multiple times', () async {
+        final req = AWSHttpRequest.get(uri);
+        expect(req.split(), emitsDone);
+        expect(req.split(), emitsDone);
+      });
+    });
   });
 
   group('AWSStreamedHttpRequest', () {

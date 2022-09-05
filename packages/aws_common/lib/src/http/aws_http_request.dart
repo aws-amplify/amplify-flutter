@@ -305,7 +305,7 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
       bodyBytes.isEmpty ? const Stream.empty() : Stream.value(bodyBytes);
 
   @override
-  Stream<List<int>> split() => Stream.value(bodyBytes);
+  Stream<List<int>> split() => body;
 
   @override
   final int contentLength;
