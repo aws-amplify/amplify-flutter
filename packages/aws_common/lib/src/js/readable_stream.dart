@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@JS()
 library aws_common.js.readable_stream;
 
 import 'dart:async';
@@ -29,7 +30,6 @@ import 'package:meta/meta.dart';
 /// [ReadableStream] will behave.
 /// {@endtemplate}
 @JS()
-@staticInterop
 @anonymous
 class UnderlyingSource {
   /// {@macro aws_common.js.readable_stream}
@@ -172,11 +172,7 @@ enum ReadableStreamType with JSEnum {
 /// Similar to a Dart [StreamController].
 /// {@endtemplate}
 @JS()
-@staticInterop
-abstract class ReadableStreamController {}
-
-/// {@macro aws_common.js.readable_stream_controller}
-extension PropsReadableStreamController on ReadableStreamController {
+abstract class ReadableStreamController {
   /// The desired size required to fill the stream's internal queue.
   external int get desiredSize;
 
@@ -187,12 +183,17 @@ extension PropsReadableStreamController on ReadableStreamController {
   external void enqueue(Uint8List chunk);
 }
 
+/// {@macro aws_common.js.readable_stream_controller}
+extension PropsReadableStreamController on ReadableStreamController {
+  // TODO(dnys1): Move methods here when staticInterop is enabled.
+}
+
 /// {@template aws_common.js.readable_stream_default_controller}
 /// A default [ReadableStreamController], for [ReadableStream]s which are not
 /// byte streams.
 /// {@endtemplate}
 @JS()
-@staticInterop
+@anonymous
 class ReadableStreamDefaultController extends ReadableStreamController {}
 
 /// {@template aws_common.js.readable_byte_stream_controller}
@@ -200,14 +201,13 @@ class ReadableStreamDefaultController extends ReadableStreamController {}
 /// byte streams.
 /// {@endtemplate}
 @JS()
-@staticInterop
+@anonymous
 class ReadableByteStreamController extends ReadableStreamController {}
 
 /// {@template aws_common.js.readable_stream}
 /// Represents a readable stream of byte data.
 /// {@endtemplate}
 @JS()
-@staticInterop
 class ReadableStream {
   /// {@macro aws_common.js.readable_stream}
   external factory ReadableStream([UnderlyingSource? underlyingSource]);
@@ -252,7 +252,7 @@ extension PropsReadableStream on ReadableStream {
 /// Interface for reading data from a [ReadableStream].
 /// {@endtemplate}
 @JS()
-@staticInterop
+@anonymous
 abstract class ReadableStreamReader {}
 
 /// {@macro aws_common.js.readable_stream_reader}
@@ -285,7 +285,7 @@ extension PropsReadableStreamReader on ReadableStreamReader {
 /// delivered as an "anonymous" sequence of bytes, such as files.
 /// {@endtemplate}
 @JS()
-@staticInterop
+@anonymous
 class ReadableStreamBYOBReader extends ReadableStreamReader {}
 
 /// {@template aws_common.js.readable_stream_default_reader}
@@ -293,7 +293,7 @@ class ReadableStreamBYOBReader extends ReadableStreamReader {}
 /// network (such as a fetch request).
 /// {@endtemplate}
 @JS()
-@staticInterop
+@anonymous
 class ReadableStreamDefaultReader extends ReadableStreamReader {}
 
 /// {@macro aws_common.js.readable_stream_default_reader}
@@ -320,7 +320,6 @@ enum ReadableStreamReaderMode with JSEnum {
 /// [ReadableStreamReader].
 /// {@endtemplate}
 @JS()
-@staticInterop
 @anonymous
 abstract class ReadableStreamChunk {}
 
@@ -414,7 +413,13 @@ extension StreamToReadableStream on Stream<List<int>> {
           } on Object catch (e, st) {
             await queue.cancel();
             // Allow error to propogate before closing.
-            scheduleMicrotask(controller.close);
+            scheduleMicrotask(() {
+              try {
+                controller.close();
+              } on Object {
+                // ignore errors closing the controller
+              }
+            });
             if (onError == null) {
               rethrow;
             }
