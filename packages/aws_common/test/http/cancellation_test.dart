@@ -57,6 +57,27 @@ void main() {
           emitsThrough(emitsError(isA<CancellationException>())),
         );
       });
+
+      test(
+        'can cancel one of multiple concurrent requests without '
+        'affecting others',
+        () async {
+          final request1 = AWSHttpRequest.get(createUri('/headers'));
+          final operation1 = client().send(request1);
+          // Allow op1 to establish connection
+          await Future<void>.delayed(const Duration(milliseconds: 100));
+          final request2 = AWSHttpRequest.get(createUri('/full'));
+          final operation2 = client().send(request2);
+          // Allow op2 to establish connection using same transport as op1
+          await Future<void>.delayed(Duration.zero);
+          await operation1.cancel();
+
+          final response = await operation2.response;
+          expect(operation2.requestProgress, emitsThrough(emitsDone));
+          expect(operation2.responseProgress, emitsThrough(emitsDone));
+          expect(response.body, emits(equals([1, 2, 3, 4, 5])));
+        },
+      );
     },
   );
 }

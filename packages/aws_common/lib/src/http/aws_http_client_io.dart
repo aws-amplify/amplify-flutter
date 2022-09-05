@@ -89,17 +89,27 @@ class AWSHttpClientImpl extends AWSHttpClient {
     if (request.hasContentLength) {
       ioRequest.contentLength = request.contentLength as int;
     }
+    logger.verbose('Opened server connection');
 
     if (completer.isCanceled) return;
-    onCancel = ioRequest.abort;
+    onCancel = () {
+      logger.verbose('Aborting request');
+      ioRequest.abort();
+    };
 
     var requestBytesRead = 0;
     request.headers.forEach(ioRequest.headers.set);
     final response = await request.body
-        .tap(onDone: requestProgress.close, (chunk) {
-          requestBytesRead += chunk.length;
-          requestProgress.add(requestBytesRead);
-        })
+        .tap(
+          (chunk) {
+            requestBytesRead += chunk.length;
+            requestProgress.add(requestBytesRead);
+          },
+          onDone: () {
+            logger.verbose('Request sent');
+            requestProgress.close();
+          },
+        )
         .takeUntil(cancelTrigger)
         .pipe(ioRequest) as HttpClientResponse;
 
@@ -119,14 +129,11 @@ class AWSHttpClientImpl extends AWSHttpClient {
     response.listen(
       bodyController.add,
       onError: bodyController.addError,
-      onDone: () {
-        // Allow `onCancel` to fire if this is the result of a cancellation
-        // before closing body controller.
-        Future.delayed(Duration.zero, bodyController.close);
-      },
+      onDone: bodyController.close,
       cancelOnError: true,
     );
 
+    logger.verbose('Received headers');
     final headers = <String, String>{};
     response.headers.forEach((key, values) {
       headers[key] = values.join(', ');
@@ -142,6 +149,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
           responseProgress.add(responseBytesRead);
         },
         onDone: () {
+          logger.verbose('Response received');
           onCancel = null;
           responseProgress.close();
         },
@@ -192,7 +200,12 @@ class AWSHttpClientImpl extends AWSHttpClient {
     required StreamSink<int> responseProgress,
   }) async {
     void Function()? onCancel;
-    unawaited(cancelTrigger.then((_) => onCancel?.call()));
+    unawaited(
+      cancelTrigger.then((_) {
+        logger.verbose('Canceling request');
+        onCancel?.call();
+      }),
+    );
 
     final redirects = <_RedirectInfo>[];
     Future<AWSStreamedHttpResponse?> makeRequest(
@@ -218,7 +231,12 @@ class AWSHttpClientImpl extends AWSHttpClient {
             return onBadCertificate(certificate, uri.host, uri.port);
           },
         ),
-      );
+      )..onActiveStateChanged = (isActive) {
+              if (!isActive) {
+                _logger.verbose('Closing transport: ${uri.authority}');
+                _http2Connections.remove(uri.authority)?.finish();
+              }
+            };
       final stream = transport.makeRequest(
         [
           // Required pseudo-header fields as described here:
@@ -251,6 +269,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
           .listen(
             stream.outgoingMessages.add,
             onDone: () {
+              logger.verbose('Request sent');
               requestProgress.close();
               stream.outgoingMessages.close();
             },
@@ -258,7 +277,6 @@ class AWSHttpClientImpl extends AWSHttpClient {
 
       final gotHeaders = Completer<void>();
       onCancel = () {
-        logger.verbose('onCancel triggered');
         if (!gotHeaders.isCompleted) {
           gotHeaders.completeError(const CancellationException());
         }
@@ -315,7 +333,12 @@ class AWSHttpClientImpl extends AWSHttpClient {
         onDone: () {
           logger.verbose('Stream done');
           if (!gotHeaders.isCompleted) {
-            gotHeaders.completeError('No headers received');
+            gotHeaders.completeError(
+              HttpException(
+                'Connection closed before full header was received',
+                uri: request.uri,
+              ),
+            );
             return;
           }
           bodyController.close();
@@ -323,10 +346,8 @@ class AWSHttpClientImpl extends AWSHttpClient {
       );
       logger.verbose('Subscription established');
       onCancel = () {
-        logger.verbose('onCancel triggered');
+        logger.verbose('Terminating connection');
         subscription.cancel();
-        transport.terminate();
-        _http2Connections.remove(uri.authority);
         if (!bodyController.isClosed) {
           bodyController
             ..addError(const CancellationException())
@@ -340,13 +361,12 @@ class AWSHttpClientImpl extends AWSHttpClient {
       } on Object {
         logger.verbose('Never received headers');
         unawaited(subscription.cancel());
-        unawaited(transport.terminate());
-        _http2Connections.remove(uri.authority);
         if (!completer.isCanceled) {
           rethrow;
         }
       }
 
+      logger.verbose('Received headers');
       if (completer.isCanceled) return null;
 
       // This field MUST be included in all responses:
@@ -387,8 +407,6 @@ class AWSHttpClientImpl extends AWSHttpClient {
         return makeRequest(method, locationUri);
       }
 
-      unawaited(transport.finish());
-      _http2Connections.remove(uri.authority);
       var responseBytesRead = 0;
       return AWSStreamedHttpResponse(
         statusCode: statusCode,
@@ -399,6 +417,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
             responseProgress.add(responseBytesRead);
           },
           onDone: () {
+            logger.verbose('Response received');
             onCancel = null;
             responseProgress.close();
           },
@@ -476,10 +495,13 @@ class AWSHttpClientImpl extends AWSHttpClient {
     try {
       _inner?.close(force: force);
       _inner = null;
-      await Future.wait<void>([
-        for (final connection in _http2Connections.values)
-          if (force) connection.terminate() else connection.finish(),
-      ]);
+      for (final connection in _http2Connections.values) {
+        if (force) {
+          unawaited(connection.terminate());
+        } else {
+          unawaited(connection.finish());
+        }
+      }
     } finally {
       _http2Connections.clear();
     }

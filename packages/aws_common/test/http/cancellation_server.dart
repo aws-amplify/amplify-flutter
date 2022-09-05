@@ -39,12 +39,13 @@ Future<void> _handleH1(
   if (path == 'headers') {
     return channel.sink.done;
   }
+  request.response
+    ..contentLength = -1
+    ..add([1, 2, 3, 4, 5]);
   if (path == 'body') {
-    request.response
-      ..contentLength = -1
-      ..add([1, 2, 3, 4, 5]);
     return channel.sink.done;
   }
+  return request.response.close();
 }
 
 Future<void> _handleH2(
@@ -64,10 +65,11 @@ Future<void> _handleH2(
   if (path == 'headers') {
     return channel.sink.done;
   }
+  request.sendHeaders([Header.ascii(':status', '200')]);
   if (path == 'body') {
-    request
-      ..sendHeaders([Header.ascii(':status', '200')])
-      ..sendData([1, 2, 3, 4, 5]);
+    request.sendData([1, 2, 3, 4, 5]);
     return channel.sink.done;
+  } else {
+    request.sendData([1, 2, 3, 4, 5], endStream: true);
   }
 }
