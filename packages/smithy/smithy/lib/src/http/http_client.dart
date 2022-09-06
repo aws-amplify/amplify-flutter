@@ -29,9 +29,6 @@ abstract class HttpClient implements Client {
         ..baseClient.supportedProtocols = SupportedProtocols.http2_3;
 
   Future<AWSStreamedHttpResponse> send(AWSStreamedHttpRequest request);
-
-  /// The ALPN protocol for this client.
-  AlpnProtocol get protocol;
 }
 
 class _AWSHttpClientWrapper implements HttpClient {
@@ -50,9 +47,6 @@ class _AWSHttpClientWrapper implements HttpClient {
       body: response.body,
     );
   }
-
-  @override
-  AlpnProtocol get protocol => AlpnProtocol.http1_1;
 }
 
 // ignore_for_file: camel_case_types

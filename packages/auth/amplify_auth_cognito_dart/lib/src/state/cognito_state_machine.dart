@@ -39,12 +39,15 @@ HttpClient _makeSmithyHttpClient(AWSHttpClient baseClient) => HttpClient.v1(
       baseClient: AmplifyHttpClient(baseClient: baseClient),
     );
 
+AWSHttpClient _makeAwsHttpClient() =>
+    AWSHttpClient()..supportedProtocols = SupportedProtocols.http1;
+
 /// Default defaultDependencies for [CognitoAuthStateMachine].
 @visibleForTesting
 final defaultDependencies = <Token, DependencyBuilder>{
   HostedUiPlatform.token: HostedUiPlatform.new,
   const Token<http.Client>(): http.Client.new,
-  const Token<AWSHttpClient>(): AWSHttpClient.new,
+  const Token<AWSHttpClient>(): _makeAwsHttpClient,
   AuthPluginCredentialsProvider.token: AuthPluginCredentialsProviderImpl.new,
   zSmithyHttpClientToken: _makeSmithyHttpClient,
   DeviceMetadataRepository.token: DeviceMetadataRepository.new,
