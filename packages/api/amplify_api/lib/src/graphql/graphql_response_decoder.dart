@@ -33,10 +33,10 @@ class GraphQLResponseDecoder {
 
   GraphQLResponse<T> decode<T>({
     required GraphQLRequest request,
-    required Map<String, dynamic>? response,
+    required Map<String, dynamic> response,
   }) {
     final errors = _deserializeGraphQLResponseErrors(response);
-    final data = response?['data'];
+    final data = response['data'];
 
     // If no modelType fallback to default (likely String).
     final modelType = request.modelType;
