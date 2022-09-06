@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:amplify_secure_storage_test/data/key_value_pairs.dart';
 import 'package:test/test.dart';
 
 const key1 = 'key_1';
@@ -154,31 +155,26 @@ void runStandardTests(
     });
   });
 
-  group('write', () {
-    test('writes a new key-value pair to storage', () async {
-      // write value
-      await storage.write(key: key1, value: 'test_write');
+  group('read/write/delete can handle key value pairs of varying length', () {
+    for (var entry in keyValuePairs.entries) {
+      final key = entry.key;
+      final value = entry.value;
+      test('read/write/delete key starting with: ${key.substring(0, 10)}',
+          () async {
+        // write value
+        await storage.write(key: key, value: value);
+        // confirm value was written
+        final readValue = await storage.read(key: key);
+        expect(readValue, value);
 
-      // confirm value was written
-      final value1 = await storage.read(key: key1);
-      expect(value1, 'test_write');
-    });
+        // delete value
+        await storage.delete(key: key);
 
-    test('updates the value for an existing key', () async {
-      // write value
-      await storage.write(key: key1, value: 'test_write');
-
-      // confirm value was written
-      final value1 = await storage.read(key: key1);
-      expect(value1, 'test_write');
-
-      // write new value to the existing key
-      await storage.write(key: key1, value: 'test_update');
-
-      // confirm new value was written
-      final value2 = await storage.read(key: key1);
-      expect(value2, 'test_update');
-    });
+        // confirm value was removed
+        final readValue2 = await storage.read(key: key);
+        expect(readValue2, isNull);
+      });
+    }
   });
 }
 

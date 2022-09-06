@@ -14,6 +14,8 @@
 @TestOn('windows')
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:amplify_secure_storage_dart/src/ffi/win32/data_protection.dart';
+import 'package:amplify_secure_storage_test/data/key_value_pairs.dart';
 
 import 'package:test/test.dart';
 
@@ -82,5 +84,17 @@ void main() {
         expect(await storage2.read(key: key1), value2);
       },
     );
+  });
+  group(
+      'CryptProtect/CryptUnprotect can encrypt and decrypt keys of various lengths and chars',
+      () {
+    for (var value in keyValuePairs.values) {
+      test('encrypt / decrypt value starting with: ${value.substring(0, 50)}',
+          () {
+        final encrypted = encryptString(value);
+        final decrypted = decryptString(encrypted);
+        expect(decrypted, value);
+      });
+    }
   });
 }
