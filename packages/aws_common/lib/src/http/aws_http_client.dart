@@ -73,12 +73,26 @@ abstract class AWSCustomHttpClient extends AWSHttpClientImpl {}
 /// - To modify the request, override [transformRequest].
 /// - To modify the response, override [transformResponse].
 abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
-  AWSHttpClient? _baseClient;
-
-  /// Overriding this will channge the underlying [send] method without
+  /// Overriding this will change the underlying [send] method without
   /// interferring with transformations from [transformRequest] and
   /// [transformResponse].
-  AWSHttpClient get baseClient => _baseClient ??= AWSHttpClient();
+  AWSHttpClient get baseClient => this;
+
+  @override
+  BadCertificateCallback get onBadCertificate => baseClient.onBadCertificate;
+
+  @override
+  set onBadCertificate(BadCertificateCallback onBadCertificate) {
+    baseClient.onBadCertificate = onBadCertificate;
+  }
+
+  @override
+  SupportedProtocols get supportedProtocols => baseClient.supportedProtocols;
+
+  @override
+  set supportedProtocols(SupportedProtocols supportedProtocols) {
+    baseClient.supportedProtocols = supportedProtocols;
+  }
 
   /// Transforms a [request] before sending.
   @protected
@@ -154,7 +168,10 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
 
   @override
   Future<void> close({bool force = false}) {
-    _baseClient?.close(force: force);
-    return super.close(force: force);
+    return Future.wait<void>([
+      if (!identical(this, baseClient))
+        Future.value(baseClient.close(force: force)),
+      super.close(force: force),
+    ]);
   }
 }
