@@ -89,8 +89,8 @@ void main() {
       'CryptProtect/CryptUnprotect can encrypt and decrypt keys of various lengths and chars',
       () {
     for (var value in keyValuePairs.values) {
-      test('encrypt / decrypt value starting with: ${value.substring(0, 50)}',
-          () {
+      final testName = value.substring(0, 20);
+      test('encrypt / decrypt value starting with: $testName', () {
         final encrypted = encryptString(value);
         final decrypted = decryptString(encrypted);
         expect(decrypted, value);

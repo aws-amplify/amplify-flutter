@@ -19,8 +19,10 @@ import 'package:amplify_secure_storage/src/amplify_secure_storage.android.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
 import 'package:async/async.dart';
-import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+
+/// The file where the list of scopes will be stored on Linux.
+const _scopeFileName = 'amplify_secure_storage_scopes.json';
 
 /// {@template amplify_secure_storage.amplify_secure_storage}
 /// The default Secure Storage implementation used in Amplify packages.
@@ -72,10 +74,6 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
     return _instance.write(key: key, value: value);
   }
 
-  /// The file where the list of scopes will be stored on Linux and Windows.
-  @visibleForTesting
-  static const scopeFileName = 'amplify_secure_storage_scopes.json';
-
   /// Clears all keys for the given scope if this scope
   /// has not been initialized previously.
   ///
@@ -90,7 +88,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
     if (accessGroup != null) return;
     final path = _instance.applicationDirectory ??
         (await getApplicationSupportDirectory()).path;
-    final fileStore = FileKeyValueStore(path: path, fileName: scopeFileName);
+    final fileStore = FileKeyValueStore(path: path, fileName: _scopeFileName);
     final isInitialized = await fileStore.containsKey(key: config.scope!);
     if (!isInitialized) {
       await _instance.removeAll();

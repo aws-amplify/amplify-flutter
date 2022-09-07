@@ -159,8 +159,8 @@ void runStandardTests(
     for (var entry in keyValuePairs.entries) {
       final key = entry.key;
       final value = entry.value;
-      test('read/write/delete key starting with: ${key.substring(0, 10)}',
-          () async {
+      final testName = key.substring(0, 20);
+      test('read/write/delete key starting with: $testName', () async {
         // write value
         await storage.write(key: key, value: value);
         // confirm value was written

@@ -17,12 +17,8 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/unknown_exception.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/win32/data_protection.dart';
-import 'package:amplify_secure_storage_dart/src/ffi/win32/utils.dart';
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
 import 'package:file/memory.dart';
-import 'package:win32/win32.dart';
-
-const _keyValueStoreFileName = 'secure_storage.json';
 
 /// The windows implementation of [SecureStorageInterface].
 class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
@@ -34,26 +30,26 @@ class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
   late final FileKeyValueStore keyValueStore = () {
     final directory = config.windowsOptions.storagePath ?? applicationDirectory;
     if (directory != null) {
-      return FileKeyValueStore(
-        fileName: '${config.defaultNamespace}_$_keyValueStoreFileName',
-        path: directory,
-      );
+      return FileKeyValueStore(fileName: _fileName, path: directory);
     }
     return FileKeyValueStore(
-      fileName: '${config.defaultNamespace}_$_keyValueStoreFileName',
+      fileName: _fileName,
       path: 'tmp',
       fs: MemoryFileSystem(),
     );
   }();
 
+  /// The name of the file that will be used to store
+  /// encrypted data for this instance.
+  ///
+  /// Example: "com.amplify.auth.secure_storage.json" for
+  /// a scope of "auth".
+  String get _fileName => '${config.defaultNamespace}.secure_storage.json';
+
   @override
   Future<void> write({required String key, required String value}) async {
     final encrypted = encryptString(value);
     await keyValueStore.writeKey(key: key, value: encrypted);
-    final errorCode = GetLastError();
-    if (errorCode != ERROR_SUCCESS) {
-      throw getExceptionFromErrorCode(errorCode);
-    }
   }
 
   @override
@@ -73,10 +69,6 @@ class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
       );
     }
     final value = decryptString(encrypted);
-    final errorCode = GetLastError();
-    if (errorCode != ERROR_SUCCESS) {
-      throw getExceptionFromErrorCode(errorCode);
-    }
     return value;
   }
 

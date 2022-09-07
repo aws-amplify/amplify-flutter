@@ -112,14 +112,4 @@ class FileKeyValueStore {
     }
     return <String, Object>{};
   }
-
-  /// Remove the file.
-  ///
-  /// Used to mimic the behavior of an app uninstall for testing.
-  @visibleForTesting
-  Future<void> removeFile() async {
-    if (await file.exists()) {
-      await file.delete();
-    }
-  }
 }

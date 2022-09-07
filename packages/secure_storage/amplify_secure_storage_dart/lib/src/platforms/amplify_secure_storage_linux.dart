@@ -114,8 +114,6 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 
   /// A namespace for the application.
   ///
-  /// Set during initialization.
-  ///
   /// Uses the access group if it is set, otherwise uses
   /// the App ID.
   Future<String?> _getAppNameSpace() async {
