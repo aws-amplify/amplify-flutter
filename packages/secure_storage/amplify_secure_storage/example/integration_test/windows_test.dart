@@ -26,9 +26,9 @@ const value1 = 'value_1';
 
 /// Windows app uninstall & re-install tests.
 ///
-/// These tests are only relevant for amplify_secure_storage. They are
-/// (not amplify_secure_storage_dart) as they depend on path_provider
-/// for app uninstall behavior.
+/// These tests are only relevant for amplify_secure_storage
+/// (not amplify_secure_storage_dart) as they depend on
+/// path_provider for app uninstall behavior.
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   group('Windows app uninstall & re-install', () {
