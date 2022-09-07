@@ -18,8 +18,13 @@ package com.amazonaws.amplify.amplify_auth_cognito
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import aws.sdk.kotlin.runtime.auth.credentials.Credentials
+import aws.smithy.kotlin.runtime.auth.awscredentials.Credentials
 import aws.smithy.kotlin.runtime.time.Instant
+import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.mobile.client.AWSMobileClient
+import com.amazonaws.mobile.client.Callback
+import com.amazonaws.mobile.client.UserStateDetails
+import com.amazonaws.mobile.config.AWSConfiguration
 import com.amplifyframework.auth.AuthCodeDeliveryDetails
 import com.amplifyframework.auth.AuthDevice
 import com.amplifyframework.auth.AuthException
@@ -29,7 +34,6 @@ import com.amplifyframework.auth.AuthSession
 import com.amplifyframework.auth.AuthUser
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
-import com.amplifyframework.auth.cognito.AWSCognitoAuthServiceBehavior
 import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
 import com.amplifyframework.auth.cognito.BuildConfig
@@ -61,18 +65,39 @@ import org.json.JSONObject
  * other categories like API/Storage. For the subset of methods needed to fulfill the requirements
  * of those categories, we bridge to the Dart plugin using a Flutter MethodChannel via `pigeon`.
  */
+
 class NativeAuthPlugin(
     private val nativeAuthPlugin: () -> NativeAuthPluginBindings.NativeAuthPlugin?
-): AuthPlugin<AWSCognitoAuthServiceBehavior>() {
+): AuthPlugin<AWSMobileClient>() {
+
+    private val awsMobileClient: AWSMobileClient? = AWSMobileClient.getInstance()
 
     override fun getPluginKey(): String = "awsCognitoAuthPlugin"
 
-    override fun getEscapeHatch(): AWSCognitoAuthServiceBehavior? = null
+    override fun getEscapeHatch(): AWSMobileClient? = awsMobileClient;
 
     override fun getVersion(): String = BuildConfig.VERSION_NAME
 
     override fun configure(pluginConfiguration: JSONObject?, context: Context) {
-        // No-op
+
+        /* Initialize a bare version of AWSMobileClient
+         * This is to support other amplify-android plugins (i.e. Analytics)
+         * which may use the mobile client via the escape hatch.
+         * The UserStateDetails callbacks can be no-ops, as we only need the
+         * .getCredentials method to work.
+         */
+        this.awsMobileClient?.initialize(
+            context,
+            AWSConfiguration(pluginConfiguration),
+            object : Callback<UserStateDetails?> {
+                override fun onResult(result: UserStateDetails?) {
+                    print("no-op")
+                }
+                override fun onError(e: java.lang.Exception?) {
+                    print("no-op")
+                }
+            }
+        )
     }
 
     override fun fetchAuthSession(
@@ -113,7 +138,7 @@ class NativeAuthPlugin(
                             sessionCredentials.expirationIso8601Utc!!
                         ) else null,
                     )
-                    AuthSessionResult.success(credentials)
+                    AuthSessionResult.success(credentials as AWSCredentials)
                 } else {
                     AuthSessionResult.failure(couldNotFetchException)
                 }

@@ -63,5 +63,5 @@ android {
 dependencies {
     api amplifyFlutter
 
-    implementation 'com.amplifyframework:aws-storage-s3:1.36.5-dev-preview.0'
+    implementation 'com.amplifyframework:aws-storage-s3:1.37.3'
 }
