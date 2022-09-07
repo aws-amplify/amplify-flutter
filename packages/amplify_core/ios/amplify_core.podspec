@@ -19,7 +19,7 @@ A base package shared across Amplify Flutter library.
   s.dependency 'Flutter'
   s.dependency 'SwiftLint', '0.48.0'
   s.dependency 'SwiftFormat/CLI'
-  s.platform = :ios, '9.0'
+  s.platform = :ios, '11.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
