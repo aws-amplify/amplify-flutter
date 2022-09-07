@@ -1,6 +1,6 @@
 name: amplify_storage_s3_ios
 description: The method channel implementation for amplify_storage_s3 on iOS
-version: 0.6.6
+version: 0.6.7
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
