@@ -1,3 +1,7 @@
+## 0.6.7 (2022-09-07)
+
+- fix: Podspec deployment target ([#2099](https://github.com/aws-amplify/amplify-flutter/pull/2099))
+
 ## 0.6.6 (2022-08-16)
 
 - chore: bump amplify-android dep to 1.37.2 (#2036)
