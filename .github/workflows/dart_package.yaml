@@ -40,7 +40,7 @@ jobs:
     defaults:
       run:
         working-directory: ${{inputs.working_directory}}
-    runs-on: ${{ inputs.runs-on }}
+    runs-on: ${{ inputs.runs_on }}
     steps:
       - name: 📚 Git Checkout
         uses: actions/checkout@v2
