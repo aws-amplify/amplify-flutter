@@ -19,8 +19,9 @@ permissions: read-all
 
 jobs:
   test:
-    uses: ./.github/workflows/dart_package.yaml
-    with:
-      coverage_excludes: '*.g.dart'
-      dart_sdk: stable
-      working_directory: packages/amplify_core
+    runs-on: ubuntu-latest
+    steps:
+    - uses: ./.github/actions/dart_package
+      with:
+        sdk: stable
+        working-directory: packages/amplify_core
