@@ -21,6 +21,6 @@ jobs:
   test:
     uses: ./.github/workflows/dart_package.yaml
     with:
-      coverage-excludes: '*.g.dart lib/src/types/**'
+      coverage-excludes: 'lib/src/types/**'
       sdk: stable
       working-directory: packages/amplify_core

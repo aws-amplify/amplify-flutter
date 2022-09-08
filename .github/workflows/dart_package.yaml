@@ -1,4 +1,4 @@
-name: Dart Package Workflow
+name: Dart Package
 on:
   workflow_call:
     inputs:
@@ -17,7 +17,7 @@ on:
       min_coverage:
         required: false
         type: number
-        default: 100
+        default: 20
       analyze_directories:
         required: false
         type: string
@@ -29,6 +29,7 @@ on:
 
 jobs:
   test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
@@ -65,14 +66,17 @@ jobs:
       - name: Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v1
         with:
-          path: ${{inputs.working-directory}}/coverage/lcov.info
+          path: ${{ inputs.working-directory }}/coverage/lcov.info
           exclude: ${{ inputs.coverage-excludes }}
-  test_native:
-    if: ${{ github.event_name == 'pull_request' }}
+
+  native_test:
+    name: Native Test
     needs: test
+    if: ${{ github.event_name == 'pull_request' }}
     strategy:
       matrix:
         os:
+          # TODO: macos-latest currently points to macos-11
           - macos-12
           - windows-latest
     runs-on: ${{ matrix.os }}
