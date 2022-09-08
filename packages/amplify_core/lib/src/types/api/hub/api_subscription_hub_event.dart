@@ -34,10 +34,10 @@ enum NetworkState {
 /// {@endtemplate}
 enum IntendedState {
   /// {@macro amplify_common.hub.api_intended_state_connected}
-  connected(),
+  connected,
 
   /// {@macro amplify_common.hub.api_intended_state_disconnected}
-  disconnected();
+  disconnected;
 }
 
 /// {@template amplify_common.hub.api_subscription_status}
@@ -46,22 +46,26 @@ enum IntendedState {
 /// {@endtemplate}
 enum SubscriptionStatus {
   /// {@macro amplify_common.hub.api_subscription_status_connected}
-  connected(),
+  connected,
 
   /// {@macro amplify_common.hub.api_subscription_status_disconnected}
-  disconnected(),
+  disconnected,
 
   /// {@macro amplify_common.hub.api_subscription_status_connected}
-  connecting(),
+  connecting,
 
   /// {@macro amplify_common.hub.api_subscription_status_disconnected}
-  pendingDisconnected(),
+  pendingDisconnected,
 
   /// {@macro amplify_common.hub.api_subscription_status_failed}
-  failed();
+  failed;
 }
 
-class SubscriptionDetails with AWSEquatable<SubscriptionDetails> {
+class SubscriptionDetails
+    with
+        AWSEquatable<SubscriptionDetails>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   /// {@macro amplify_common.hub.api_network_state}
   final NetworkState networkState;
 
@@ -73,10 +77,14 @@ class SubscriptionDetails with AWSEquatable<SubscriptionDetails> {
   @override
   List<Object?> get props => [intendedState, networkState];
 
+  @override
   Map<String, String> toJson() => {
         'networkState': networkState.name,
         'intendedState': intendedState.name,
       };
+
+  @override
+  String get runtimeTypeName => 'SubscriptionDetails';
 }
 
 class SubscriptionHubEvent extends ApiHubEvent

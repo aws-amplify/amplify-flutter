@@ -52,7 +52,7 @@ class WebSocketSubscriptionStreamTransformer<T>
 
   /// executes when start_ack message received
   final void Function()? onEstablished;
-  final Set<String> _establishedRequests = {};
+  static const Set<String> _establishedRequests = {};
 
   /// [request] is used to properly decode response events
   /// [onEstablished] is executed when start_ack message received

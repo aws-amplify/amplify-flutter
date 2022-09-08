@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
       HubChannel.Api,
       ((ApiHubEvent event) {
         if (event is SubscriptionHubEvent) {
-          safePrint(event.toString());
+          safePrint(event);
         }
       }),
     );

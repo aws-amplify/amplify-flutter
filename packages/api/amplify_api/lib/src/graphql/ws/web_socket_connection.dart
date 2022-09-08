@@ -58,6 +58,7 @@ class WebSocketConnection implements Closeable {
 
   http.Client? _pingClient;
   Timer? _pingTimer;
+  late Uri? _pingUri;
   bool _hasNetwork = false;
   bool _hasConnectionBroken = false;
   final Set<GraphQLRequest<Object?>> _subscriptionRequests = HashSet(
@@ -105,12 +106,12 @@ class WebSocketConnection implements Closeable {
         _connectionError(
           ApiException('Connection failed.', underlyingException: e),
         );
-        _hubEventsController?.add(SubscriptionHubEvent.failed());
+        _hubEventsController!.add(SubscriptionHubEvent.failed());
 
-        if (_hasNetwork &&
-            _hasConnectionBroken &&
-            _subscriptionRequests.isNotEmpty) {
+        if (_hasNetwork && _subscriptionRequests.isNotEmpty) {
           _retry();
+        } else {
+          _hubEventsController?.add(SubscriptionHubEvent.failed());
         }
       },
       // Todo(equartey): investigate why this breaks onDone & onError when an error occurs.
@@ -135,7 +136,7 @@ class WebSocketConnection implements Closeable {
         case ConnectivityResult.none:
           _hasNetwork = false;
           _hasConnectionBroken = true;
-          _hubEventsController?.add(SubscriptionHubEvent.connecting());
+          _hubEventsController!.add(SubscriptionHubEvent.connecting());
           break;
         default:
           break;
@@ -171,14 +172,14 @@ class WebSocketConnection implements Closeable {
   @override
   void close([int closeStatus = _defaultCloseStatus]) {
     _logger.verbose('Closing web socket connection.');
-    _hubEventsController?.add(SubscriptionHubEvent.disconnected());
+    _hubEventsController!.add(SubscriptionHubEvent.disconnected());
     _rebroadcastController.close();
 
     _resetConnectionInit();
     _resetConnectionVariables(closeStatus);
 
     _subscriptionRequests.clear();
-    _hubEventsController?.close();
+    _hubEventsController!.close();
     _hubEventsController = null;
   }
 
@@ -198,13 +199,16 @@ class WebSocketConnection implements Closeable {
       if (_pingClient == null) return;
       final res = await _getPollRequest();
       if (res!.body != 'healthy') {
-        throw Exception([
-          'Subscription connection broken.',
-          'AppSync status check returned: ',
-          res.body
-        ]);
+        throw ApiException(
+          'Subscription connection broken. AppSync status check returned: ${res.body}',
+          recoverySuggestion:
+              'Unable to ping the configured AppSync URL. Check internet connection or the configured AppSync URL',
+        );
       }
     } on Exception catch (e) {
+      if (e is ApiException) {
+        _logger.error(e.message, e.recoverySuggestion);
+      }
       _pingTimer?.cancel();
       _timeoutTimer?.cancel();
 
@@ -215,7 +219,7 @@ class WebSocketConnection implements Closeable {
       if (_hasNetwork) {
         _retry();
       } else {
-        _hubEventsController?.add(SubscriptionHubEvent.connecting());
+        _hubEventsController!.add(SubscriptionHubEvent.connecting());
       }
     }
   }
@@ -230,7 +234,7 @@ class WebSocketConnection implements Closeable {
 
     try {
       _hasConnectionBroken = false;
-      _hubEventsController?.add(SubscriptionHubEvent.connecting());
+      _hubEventsController!.add(SubscriptionHubEvent.connecting());
 
       await retryStrategy.retry(
           // Make a GET request
@@ -240,7 +244,7 @@ class WebSocketConnection implements Closeable {
       _init();
     } on Exception catch (e) {
       // no network, can't reconnect
-      _hubEventsController?.add(SubscriptionHubEvent.disconnected());
+      _hubEventsController!.add(SubscriptionHubEvent.disconnected());
       close();
       _connectionError(
         ApiException(
@@ -254,8 +258,8 @@ class WebSocketConnection implements Closeable {
   /// [GET] request on the configured AppSync url via the `/ping` endpoint
   Future<http.Response>? _getPollRequest() {
     if (_pingClient == null) return null;
-    final pingUri = Uri.parse(_config.endpoint).replace(path: 'ping');
-    return _pingClient!.get(pingUri);
+    _pingUri ??= Uri.parse(_config.endpoint).replace(path: 'ping');
+    return _pingClient!.get(_pingUri!);
   }
 
   /// Clear variables used to track subscriptions and other helper variables
@@ -264,18 +268,19 @@ class WebSocketConnection implements Closeable {
     final reason =
         closeStatus == _defaultCloseStatus ? 'client closed' : 'unknown';
 
-    _channel?.sink.done.whenComplete(() => _channel = null);
-    _channel?.sink.close(closeStatus, reason);
-    _network?.cancel();
-    _pingClient?.close();
-    _subscription?.cancel();
-    _timeoutTimer?.cancel();
+    _channel?.sink.done.whenComplete(() {
+      _network?.cancel();
+      _pingClient?.close();
+      _subscription?.cancel();
+      _timeoutTimer?.cancel();
 
-    _channel = null;
-    _network = null;
-    _pingClient = null;
-    _subscription = null;
-    _timeoutTimer = null;
+      _channel = null;
+      _network = null;
+      _pingClient = null;
+      _subscription = null;
+      _timeoutTimer = null;
+    });
+    _channel?.sink.close(closeStatus, reason);
   }
 
   /// Initializes the connection.
@@ -295,7 +300,7 @@ class WebSocketConnection implements Closeable {
       _hubEventsController = StreamController<ApiHubEvent>.broadcast();
       Amplify.Hub.addChannel(HubChannel.Api, _hubEventsController!.stream);
     }
-    _hubEventsController?.add(SubscriptionHubEvent.connecting());
+    _hubEventsController!.add(SubscriptionHubEvent.connecting());
 
     final connectionUri =
         await generateConnectionUri(_config, _authProviderRepo);
@@ -318,7 +323,7 @@ class WebSocketConnection implements Closeable {
       send(subscriptionRegistrationMessage);
     }
 
-    _hubEventsController?.add(SubscriptionHubEvent.connected());
+    _hubEventsController!.add(SubscriptionHubEvent.connected());
   }
 
   Future<void> _sendSubscriptionRegistrationMessage<T>(
@@ -368,7 +373,7 @@ class WebSocketConnection implements Closeable {
 
     _sendSubscriptionRegistrationMessage(request).catchError((Object e) {
       controller.addError(e);
-      _hubEventsController?.add(SubscriptionHubEvent.failed());
+      _hubEventsController!.add(SubscriptionHubEvent.failed());
     });
 
     return controller.stream;
@@ -392,7 +397,7 @@ class WebSocketConnection implements Closeable {
   /// Times out the connection (usually if a keep alive has not been received in time).
   void _timeout(Duration timeoutDuration) {
     _timeoutTimer?.cancel();
-    _hubEventsController?.add(SubscriptionHubEvent.disconnected());
+    _hubEventsController!.add(SubscriptionHubEvent.disconnected());
     _rebroadcastController.addError(
       TimeoutException(
         'Connection timeout',
@@ -443,7 +448,6 @@ class WebSocketConnection implements Closeable {
     }
 
     // Re-broadcast other message types related to single subscriptions.
-
     _rebroadcastController.add(message);
   }
 }

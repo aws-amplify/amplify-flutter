@@ -14,7 +14,7 @@
  */
 
 // Packages
-export 'package:retry/retry.dart';
+export 'package:retry/retry.dart' show RetryOptions;
 
 // API Authorization
 export 'auth/api_auth_provider.dart';
