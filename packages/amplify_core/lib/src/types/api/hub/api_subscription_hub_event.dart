@@ -119,37 +119,37 @@ class SubscriptionHubEvent extends ApiHubEvent
     return SubscriptionStatus.disconnected;
   }
 
-  /// {@template amplify_common.hub.api_subscrption_connected}
-  /// Emitted when a GraphQL subscrption is connected.
+  /// {@template amplify_common.hub.api_subscription_connected}
+  /// Emitted when a GraphQL subscription is connected.
   /// {@endtemplate}
   SubscriptionHubEvent.connected()
       : this._(SubscriptionDetails(
             NetworkState.connected, IntendedState.connected));
 
-  /// {@template amplify_common.hub.api_subscrption_connected}
-  /// Emitted when a GraphQL subscrption is connecting/reconnecting.
+  /// {@template amplify_common.hub.api_subscription_connected}
+  /// Emitted when a GraphQL subscription is connecting/reconnecting.
   /// {@endtemplate}
   SubscriptionHubEvent.connecting()
       : this._(SubscriptionDetails(
             NetworkState.disconnected, IntendedState.connected));
 
-  /// {@template amplify_common.hub.api_subscrption_disconnected}
-  /// Emitted when a GraphQL subscrption connection has disconnected.
+  /// {@template amplify_common.hub.api_subscription_disconnected}
+  /// Emitted when a GraphQL subscription connection has disconnected.
   /// {@endtemplate}
   SubscriptionHubEvent.disconnected()
       : this._(SubscriptionDetails(
             NetworkState.disconnected, IntendedState.disconnected));
 
-  /// {@template amplify_common.hub.api_subscrption_pending_disconnect}
-  /// Emitted when a GraphQL subscrption connection is pending disconnect,
+  /// {@template amplify_common.hub.api_subscription_pending_disconnect}
+  /// Emitted when a GraphQL subscription connection is pending disconnect,
   /// but should exist.
   /// {@endtemplate}
   SubscriptionHubEvent.pendingDisconnect()
       : this._(SubscriptionDetails(
             NetworkState.connected, IntendedState.disconnected));
 
-  /// {@template amplify_common.hub.api_subscrption_failed}
-  /// Emitted when a GraphQL subscrption connection has failed.
+  /// {@template amplify_common.hub.api_subscription_failed}
+  /// Emitted when a GraphQL subscription connection has failed.
   /// {@endtemplate}
   SubscriptionHubEvent.failed()
       : this._(SubscriptionDetails(

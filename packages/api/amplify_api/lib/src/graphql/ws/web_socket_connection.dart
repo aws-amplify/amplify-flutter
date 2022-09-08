@@ -21,7 +21,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -31,6 +30,8 @@ import 'web_socket_types.dart';
 
 /// 1001, going away
 const _defaultCloseStatus = status.goingAway;
+const Duration _defaultPingInterval = Duration(seconds: 30);
+const Duration _defaultRetryTimeout = Duration(seconds: 5);
 
 /// {@template amplify_api.ws.web_socket_connection}
 /// Manages connection with an AppSync backend and subscription routing.
@@ -55,17 +56,17 @@ class WebSocketConnection implements Closeable {
   StreamController<ApiHubEvent>? _hubEventsController;
   RestartableTimer? _timeoutTimer;
 
-  Client? _pingClient;
+  http.Client? _pingClient;
   Timer? _pingTimer;
   bool _hasNetwork = false;
   bool _hasConnectionBroken = false;
   final Set<GraphQLRequest<Object?>> _subscriptionRequests = HashSet(
-      hashCode: ((p0) => p0.id.hashCode), equals: (x, y) => x.id == y.id);
+    hashCode: ((p0) => p0.id.hashCode),
+    equals: (x, y) => x.id == y.id,
+  );
 
   /// Subscription options
   final GraphQLSubscriptionOptions? _subscriptionOptions;
-  final Duration _defaultPingInterval = const Duration(seconds: 30);
-  final Duration _defaultRetryTimeout = const Duration(seconds: 5);
 
   // Re-broadcasts incoming messages for child streams (single GraphQL subscriptions).
   // start_ack, data, error
@@ -97,7 +98,7 @@ class WebSocketConnection implements Closeable {
         _logger.verbose('Web socket connection done.');
 
         _resetConnectionInit();
-        _resetConnectionVaribles();
+        _resetConnectionVariables();
       },
       onError: (Object e) {
         if (!_connectionReady.isCompleted) _connectionReady.completeError(e);
@@ -174,7 +175,7 @@ class WebSocketConnection implements Closeable {
     _rebroadcastController.close();
 
     _resetConnectionInit();
-    _resetConnectionVaribles(closeStatus);
+    _resetConnectionVariables(closeStatus);
 
     _subscriptionRequests.clear();
     _hubEventsController?.close();
@@ -224,18 +225,18 @@ class WebSocketConnection implements Closeable {
   Future<void> _retry() async {
     if (_pingClient == null) return;
 
-    RetryOptions retryStrat =
+    RetryOptions retryStrategy =
         _subscriptionOptions?.retryOptions ?? const RetryOptions();
 
     try {
       _hasConnectionBroken = false;
       _hubEventsController?.add(SubscriptionHubEvent.connecting());
 
-      await retryStrat.retry(
+      await retryStrategy.retry(
           // Make a GET request
           () => _getPollRequest()!.timeout(_defaultRetryTimeout));
 
-      // we can reach AppSync, proceede with reconnect
+      // we can reach AppSync, precede with reconnect
       _init();
     } on Exception catch (e) {
       // no network, can't reconnect
@@ -251,15 +252,15 @@ class WebSocketConnection implements Closeable {
   }
 
   /// [GET] request on the configured AppSync url via the `/ping` endpoint
-  Future<Response>? _getPollRequest() {
+  Future<http.Response>? _getPollRequest() {
     if (_pingClient == null) return null;
     final pingUri = Uri.parse(_config.endpoint).replace(path: 'ping');
     return _pingClient!.get(pingUri);
   }
 
-  /// Clear varibles used to track subscriptions and other helper variables
-  /// related to web scoket connection.
-  void _resetConnectionVaribles([int closeStatus = _defaultCloseStatus]) {
+  /// Clear variables used to track subscriptions and other helper variables
+  /// related to web socket connection.
+  void _resetConnectionVariables([int closeStatus = _defaultCloseStatus]) {
     final reason =
         closeStatus == _defaultCloseStatus ? 'client closed' : 'unknown';
 
@@ -287,7 +288,7 @@ class WebSocketConnection implements Closeable {
   Future<void> _init() async {
     // Prep new connection with a clean slate
     _connectionReady = Completer<void>();
-    _resetConnectionVaribles();
+    _resetConnectionVariables();
 
     // establish hub events controller
     if (_hubEventsController == null || _hubEventsController!.isClosed) {
