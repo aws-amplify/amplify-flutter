@@ -1,0 +1,73 @@
+name: Dart Package Workflow
+on:
+  workflow_call:
+    inputs:
+      concurrency:
+        required: false
+        type: number
+        default: 4
+      coverage_excludes:
+        required: false
+        type: string
+        default: ""
+      dart_sdk:
+        required: false
+        type: string
+        default: "stable"
+      working_directory:
+        required: false
+        type: string
+        default: "."
+      min_coverage:
+        required: false
+        type: number
+        default: 100
+      analyze_directories:
+        required: false
+        type: string
+        default: "lib test"
+      report_on:
+        required: false
+        type: string
+        default: "lib"
+      runs_on:
+        required: false
+        type: string
+        default: "ubuntu-latest"
+
+jobs:
+  test:
+    defaults:
+      run:
+        working-directory: ${{inputs.working_directory}}
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v2
+
+      - name: 🎯 Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{inputs.dart_sdk}}
+
+      - name: Bootstrap
+        run: |
+          dart pub global activate -spath packages/aft
+          aft boostrap
+      
+      - name: ✨ Check Formatting
+        run: dart format --set-exit-if-changed .
+
+      - name: 🕵️ Analyze
+        run: dart analyze --fatal-infos --fatal-warnings ${{inputs.analyze_directories}}
+
+      - name: 🧪 Run Tests
+        run: |
+          dart pub global activate coverage
+          dart test -j ${{inputs.concurrency}} --coverage=coverage && dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=${{inputs.report_on}}
+      
+      - name: 📊 Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v1
+        with:
+          path: ${{inputs.working_directory}}/coverage/lcov.info
+          exclude: ${{inputs.coverage_excludes}}

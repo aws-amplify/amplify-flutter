@@ -1,0 +1,26 @@
+name: amplify_core
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+    paths:
+      - 'packages/amplify_core/**.dart'
+  pull_request:
+    paths:
+      - 'packages/amplify_core/**.dart'
+  schedule:
+    - cron: "0 0 * * 0"
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./dart_package.yaml
+    with:
+      coverage_excludes: '*.g.dart'
+      dart_sdk: stable
+      working_directory: packages/amplify_core
