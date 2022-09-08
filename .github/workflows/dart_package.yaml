@@ -2,22 +2,18 @@ name: Dart Package Workflow
 on:
   workflow_call:
     inputs:
-      concurrency:
-        required: false
-        type: number
-        default: 4
-      coverage_excludes:
+      coverage-excludes:
         required: false
         type: string
         default: ""
-      dart_sdk:
+      sdk:
         required: false
         type: string
-        default: "stable"
-      working_directory:
+        default: stable
+      working-directory:
         required: false
         type: string
-        default: "."
+        default: .
       min_coverage:
         required: false
         type: number
@@ -30,19 +26,15 @@ on:
         required: false
         type: string
         default: "lib"
-      runs_on:
-        required: false
-        type: string
-        default: "ubuntu-latest"
 
 jobs:
   test:
-    runs-on: ${{ inputs.runs_on }}
+    runs-on: ubuntu-latest
     steps:
-      - name: 📚 Git Checkout
+      - name: Git Checkout
         uses: actions/checkout@v2
 
-      - name: 🎯 Setup Dart
+      - name: Setup Dart
         uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{inputs.dart_sdk}}
@@ -54,24 +46,63 @@ jobs:
 
       - name: Get Packages
         run: dart pub upgrade
-        working-directory: ${{inputs.working_directory}}
+        working-directory: ${{ inputs.working-directory }}
       
-      - name: ✨ Check Formatting
+      - name: Check Formatting
         run: dart format --set-exit-if-changed .
-        working-directory: ${{inputs.working_directory}}
+        working-directory: ${{ inputs.working-directory }}
 
-      - name: 🕵️ Analyze
+      - name: Analyze
         run: dart analyze --fatal-infos --fatal-warnings ${{inputs.analyze_directories}}
-        working-directory: ${{inputs.working_directory}}
+        working-directory: ${{ inputs.working-directory }}
 
-      - name: 🧪 Run Tests
+      - name: Run Tests
         run: |
           dart pub global activate coverage
-          dart test -j ${{inputs.concurrency}} --coverage=coverage && dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=${{inputs.report_on}}
-        working-directory: ${{inputs.working_directory}}
+          dart test -j 4 --coverage=coverage && dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=${{inputs.report_on}}
+        working-directory: ${{ inputs.working-directory }}
       
-      - name: 📊 Check Code Coverage
+      - name: Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v1
         with:
-          path: ${{inputs.working_directory}}/coverage/lcov.info
-          exclude: ${{inputs.coverage_excludes}}
+          path: ${{inputs.working-directory}}/coverage/lcov.info
+          exclude: ${{ inputs.coverage-excludes }}
+  test_native:
+    if: ${{ github.event_name == 'pull_request' && jobs.test.result == 'success' }}
+    strategy:
+      matrix:
+        os:
+          - macos-12
+          - windows-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{inputs.dart_sdk}}
+
+      - name: Bootstrap
+        run: |
+          dart pub global activate -spath packages/aft
+          aft link
+
+      - name: Get Packages
+        run: dart pub upgrade
+        working-directory: ${{ inputs.working-directory }}
+      
+      - name: Check Formatting
+        run: dart format --set-exit-if-changed .
+        working-directory: ${{ inputs.working-directory }}
+
+      - name: Analyze
+        run: dart analyze --fatal-infos --fatal-warnings ${{inputs.analyze_directories}}
+        working-directory: ${{ inputs.working-directory }}
+
+      - name: Run Tests
+        run: |
+          dart pub global activate coverage
+          dart test -j 4
+        working-directory: ${{ inputs.working-directory }}
