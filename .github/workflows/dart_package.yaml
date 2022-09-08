@@ -50,7 +50,11 @@ jobs:
       - name: Bootstrap
         run: |
           dart pub global activate -spath packages/aft
-          aft bootstrap
+          aft link
+
+      - name: Get Packages
+        run: dart pub upgrade
+        working-directory: ${{inputs.working_directory}}
       
       - name: ✨ Check Formatting
         run: dart format --set-exit-if-changed .

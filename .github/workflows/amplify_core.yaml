@@ -6,10 +6,10 @@ on:
       - stable
       - next
     paths:
-      - 'packages/amplify_core/**/*.dart'
+      - 'packages/amplify_core/**.dart'
   pull_request:
     paths:
-      - 'packages/amplify_core/**/*.dart'
+      - 'packages/amplify_core/**.dart'
   schedule:
     - cron: "0 0 * * 0"
 defaults:
@@ -19,9 +19,8 @@ permissions: read-all
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: ./.github/actions/dart_package
-      with:
-        sdk: stable
-        working-directory: packages/amplify_core
+    uses: ./.github/workflows/dart_package.yml
+    with:
+      coverage_excludes: '*.g.dart'
+      dart_sdk: stable
+      working_directory: packages/amplify_core
