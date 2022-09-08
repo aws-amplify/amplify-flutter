@@ -37,9 +37,6 @@ on:
 
 jobs:
   test:
-    defaults:
-      run:
-        working-directory: ${{inputs.working_directory}}
     runs-on: ${{ inputs.runs_on }}
     steps:
       - name: 📚 Git Checkout
@@ -57,14 +54,17 @@ jobs:
       
       - name: ✨ Check Formatting
         run: dart format --set-exit-if-changed .
+        working-directory: ${{inputs.working_directory}}
 
       - name: 🕵️ Analyze
         run: dart analyze --fatal-infos --fatal-warnings ${{inputs.analyze_directories}}
+        working-directory: ${{inputs.working_directory}}
 
       - name: 🧪 Run Tests
         run: |
           dart pub global activate coverage
           dart test -j ${{inputs.concurrency}} --coverage=coverage && dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=${{inputs.report_on}}
+        working-directory: ${{inputs.working_directory}}
       
       - name: 📊 Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v1
