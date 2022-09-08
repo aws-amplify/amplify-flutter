@@ -19,7 +19,7 @@ permissions: read-all
 
 jobs:
   test:
-    uses: ./.github/actions/dart_package.yaml
+    uses: ./.github/workflows/dart_package.yaml
     with:
       coverage_excludes: '*.g.dart'
       dart_sdk: stable
