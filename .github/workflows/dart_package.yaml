@@ -68,7 +68,8 @@ jobs:
           path: ${{inputs.working-directory}}/coverage/lcov.info
           exclude: ${{ inputs.coverage-excludes }}
   test_native:
-    if: ${{ github.event_name == 'pull_request' && jobs.test.result == 'success' }}
+    if: ${{ github.event_name == 'pull_request' }}
+    needs: test
     strategy:
       matrix:
         os:
