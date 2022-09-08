@@ -37,7 +37,7 @@ jobs:
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: ${{inputs.dart_sdk}}
+          sdk: ${{ inputs.sdk }}
 
       - name: Bootstrap
         run: |
@@ -83,7 +83,7 @@ jobs:
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: ${{inputs.dart_sdk}}
+          sdk: ${{ inputs.sdk }}
 
       - name: Bootstrap
         run: |
