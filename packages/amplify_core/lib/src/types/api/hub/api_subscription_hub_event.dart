@@ -26,7 +26,7 @@ enum NetworkState {
   disconnected,
 
   /// {@macro amplify_common.hub.api_network_state_failed}
-  failed,
+  failed;
 }
 
 /// {@template amplify_common.hub.api_intended_state}
@@ -72,6 +72,11 @@ class SubscriptionDetails with AWSEquatable<SubscriptionDetails> {
 
   @override
   List<Object?> get props => [intendedState, networkState];
+
+  Map<String, String> toJson() => {
+        'networkState': networkState.name,
+        'intendedState': intendedState.name,
+      };
 }
 
 class SubscriptionHubEvent extends ApiHubEvent
@@ -158,7 +163,7 @@ class SubscriptionHubEvent extends ApiHubEvent
 
   @override
   Map<String, Object?> toJson() => <String, dynamic>{
-        'status': status,
-        'details': details.toString(),
+        'status': status.name,
+        'details': details.toJson(),
       };
 }

@@ -194,8 +194,9 @@ class WebSocketConnection implements Closeable {
   /// reconnection through retry/back off.
   Future<void> _poll() async {
     try {
+      if (_pingClient == null) return;
       final res = await _getPollRequest();
-      if (res.body != 'healthy') {
+      if (res!.body != 'healthy') {
         throw Exception([
           'Subscription connection broken.',
           'AppSync status check returned: ',
@@ -221,6 +222,8 @@ class WebSocketConnection implements Closeable {
   /// Attempts to connect to the configured graphql endpoint.
   /// Upon successful ping, a new websocket connection is initialized.
   Future<void> _retry() async {
+    if (_pingClient == null) return;
+
     RetryOptions retryStrat =
         _subscriptionOptions?.retryOptions ?? const RetryOptions();
 
@@ -230,7 +233,7 @@ class WebSocketConnection implements Closeable {
 
       await retryStrat.retry(
           // Make a GET request
-          () => _getPollRequest().timeout(_defaultRetryTimeout));
+          () => _getPollRequest()!.timeout(_defaultRetryTimeout));
 
       // we can reach AppSync, proceede with reconnect
       _init();
@@ -248,7 +251,8 @@ class WebSocketConnection implements Closeable {
   }
 
   /// [GET] request on the configured AppSync url via the `/ping` endpoint
-  Future<Response> _getPollRequest() {
+  Future<Response>? _getPollRequest() {
+    if (_pingClient == null) return null;
     final pingUri = Uri.parse(_config.endpoint).replace(path: 'ping');
     return _pingClient!.get(pingUri);
   }
