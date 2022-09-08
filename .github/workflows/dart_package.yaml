@@ -68,6 +68,7 @@ jobs:
         with:
           path: ${{ inputs.working-directory }}/coverage/lcov.info
           exclude: ${{ inputs.coverage-excludes }}
+          min_coverage: ${{ inputs.min_coverage }}
 
   native_test:
     name: Native Test
@@ -81,6 +82,8 @@ jobs:
           - windows-latest
     runs-on: ${{ matrix.os }}
     steps:
+      - run: echo ${{ toJSON(inputs) }}
+
       - name: Git Checkout
         uses: actions/checkout@v2
 
