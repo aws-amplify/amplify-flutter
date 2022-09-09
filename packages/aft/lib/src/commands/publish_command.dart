@@ -249,8 +249,7 @@ Future<void> runBuildRunner(
   required Logger logger,
   required bool verbose,
 }) async {
-  final skipInCI = getEnv('CI') != null && getEnv('FLUTTER_ROOT') == null;
-  if (!package.needsBuildRunner || skipInCI) {
+  if (!package.needsBuildRunner || package.skipChecks) {
     return;
   }
   logger.stdout('Running build_runner for ${package.name}...');

@@ -14,6 +14,7 @@
 
 import 'dart:io';
 
+import 'package:aft/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
@@ -78,6 +79,14 @@ class PackageInfo
         // aft should not be used to run `build_runner` in example projects
         (pubspecInfo.pubspec.publishTo != 'none' ||
             falsePositiveExamples.contains(name));
+  }
+
+  bool get skipChecks {
+    final isCI =
+        getEnv('CI') != null && (getEnv('CI') == 'true' || getEnv('CI') == '1');
+    return isCI &&
+        getEnv('FLUTTER_ROOT') == null &&
+        flavor == PackageFlavor.flutter;
   }
 
   @override

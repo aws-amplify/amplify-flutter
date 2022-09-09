@@ -108,14 +108,12 @@ Future<void> pubAction({
       logger?.progress('Running `pub ${action.name}` in all packages');
   final results = <String, Result<void>>{};
   for (final package in allPackages.values) {
+    if (package.skipChecks) {
+      continue;
+    }
     final packageProgress = logger?.progress(package.name);
     switch (package.flavor) {
       case PackageFlavor.flutter:
-        // CI may run for Dart-only packages without looking at Flutter
-        // packages
-        if (getEnv('CI') != null && getEnv('FLUTTER_ROOT') == null) {
-          continue;
-        }
         results[package.name] = await Result.capture(
           runFlutterPub(
             action,

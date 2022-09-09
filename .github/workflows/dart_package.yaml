@@ -10,18 +10,10 @@ on:
         required: false
         type: string
         default: .
-      min_coverage:
-        required: false
-        type: number
-        default: 20
-      analyze_directories:
+      analyze-directories:
         required: false
         type: string
         default: "lib test"
-      report_on:
-        required: false
-        type: string
-        default: "lib"
 
 jobs:
   test:
@@ -75,7 +67,7 @@ jobs:
         working-directory: ${{ inputs.working-directory }}
 
       - name: Analyze
-        run: dart analyze --fatal-infos --fatal-warnings ${{inputs.analyze_directories}}
+        run: dart analyze --fatal-infos --fatal-warnings ${{inputs.analyze-directories}}
         working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests
@@ -84,17 +76,10 @@ jobs:
           dart test -j 4 --coverage=coverage && dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=${{inputs.report_on}}
         working-directory: ${{ inputs.working-directory }}
 
-      - name: Check Code Coverage
-        uses: VeryGoodOpenSource/very_good_coverage@ccb4ea4bcd8896d8ba4ca9fd885f3d3d72f63855
-        with:
-          path: ${{ inputs.working-directory }}/coverage/lcov.info
-          exclude: ${{ inputs.coverage-excludes }}
-          min_coverage: ${{ inputs.min_coverage }}
-
   native_test:
     name: Native Test
     needs: test
-    if: ${{ github.event_name == 'pull_request' }} # TODO: 'push'
+    if: ${{ github.event_name == 'pull_request' }}
     strategy:
       matrix:
         os:
@@ -127,7 +112,7 @@ jobs:
       - name: Setup Dart
         uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d
         with:
-          sdk: ${{ matrix.sdk }}
+          sdk: stable
 
       - name: Bootstrap
         run: |
@@ -143,7 +128,7 @@ jobs:
         working-directory: ${{ inputs.working-directory }}
 
       - name: Analyze
-        run: dart analyze --fatal-infos --fatal-warnings ${{inputs.analyze_directories}}
+        run: dart analyze --fatal-infos --fatal-warnings ${{inputs.analyze-directories}}
         working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests
