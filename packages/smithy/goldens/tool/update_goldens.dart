@@ -59,9 +59,9 @@ Future<void> _generateFor(FileSystemEntity modelEnt) async {
   stdout.writeln('Generating AST for $modelPath');
 
   final String astJson;
-  final isCI = Platform.environment['CI']?.isNotEmpty ?? false;
-  if (isCI) {
-    astJson = File('${modelEnt.path}.json').readAsStringSync();
+  final preCompiled = File('${modelEnt.path}.json');
+  if (preCompiled.existsSync()) {
+    astJson = preCompiled.readAsStringSync();
   } else {
     final result = await Process.run(
       'docker',
