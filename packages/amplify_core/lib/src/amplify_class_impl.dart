@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, invalid_use_of_visible_for_testing_member
 
 import 'dart:convert';
 
@@ -64,21 +64,12 @@ class AmplifyClassImpl extends AmplifyClass {
 
   @override
   Future<void> reset() async {
-    // TODO(dnys1): Implement reset within plugins
-    // await Future.wait(
-    //   [
-    //     ...Analytics.plugins,
-    //     ...Auth.plugins,
-    //     ...Storage.plugins,
-    //     // ignore: invalid_use_of_visible_for_testing_member
-    //   ].map((p) => p.reset()),
-    //   eagerError: true,
-    // );
-
-    Analytics.reset();
-    API.reset();
-    Auth.reset();
-    DataStore.reset();
-    Storage.reset();
+    await Future.wait([
+      Analytics.reset(),
+      API.reset(),
+      Auth.reset(),
+      DataStore.reset(),
+      Storage.reset(),
+    ]);
   }
 }
