@@ -53,7 +53,8 @@ class WebSocketConnection implements Closeable {
   WebSocketChannel? _channel;
   StreamSubscription<WebSocketMessage>? _subscription;
   StreamSubscription<ConnectivityResult>? _network;
-  StreamController<ApiHubEvent>? _hubEventsController;
+  final StreamController<ApiHubEvent> _hubEventsController =
+      StreamController<ApiHubEvent>.broadcast();
   RestartableTimer? _timeoutTimer;
 
   http.Client? _pingClient;
@@ -77,6 +78,7 @@ class WebSocketConnection implements Closeable {
 
   // Manage initial connection state.
   var _initMemo = AsyncMemoizer<void>();
+  var _hubMemo = AsyncMemoizer<void>();
   Completer<void> _connectionReady = Completer<void>();
 
   /// Fires when the connection is ready to be listened to after the first
@@ -102,11 +104,10 @@ class WebSocketConnection implements Closeable {
         _resetConnectionVariables();
       },
       onError: (Object e) {
-        if (!_connectionReady.isCompleted) _connectionReady.completeError(e);
+        _hubEventsController.add(SubscriptionHubEvent.failed());
         _connectionError(
           ApiException('Connection failed.', underlyingException: e),
         );
-        _hubEventsController!.add(SubscriptionHubEvent.failed());
 
         if (_hasNetwork && _subscriptionRequests.isNotEmpty) {
           _retry();
@@ -136,7 +137,7 @@ class WebSocketConnection implements Closeable {
         case ConnectivityResult.none:
           _hasNetwork = false;
           _hasConnectionBroken = true;
-          _hubEventsController!.add(SubscriptionHubEvent.connecting());
+          _hubEventsController.add(SubscriptionHubEvent.connecting());
           break;
         default:
           break;
@@ -157,7 +158,9 @@ class WebSocketConnection implements Closeable {
   }
 
   void _connectionError(ApiException exception) {
-    _connectionReady.completeError(exception);
+    if (!_connectionReady.isCompleted) {
+      _connectionReady.completeError(exception);
+    }
     _channel?.sink.close();
     _resetConnectionInit();
   }
@@ -172,15 +175,14 @@ class WebSocketConnection implements Closeable {
   @override
   void close([int closeStatus = _defaultCloseStatus]) {
     _logger.verbose('Closing web socket connection.');
-    _hubEventsController!.add(SubscriptionHubEvent.disconnected());
+    _hubEventsController.add(SubscriptionHubEvent.disconnected());
     _rebroadcastController.close();
 
     _resetConnectionInit();
     _resetConnectionVariables(closeStatus);
 
     _subscriptionRequests.clear();
-    _hubEventsController!.close();
-    _hubEventsController = null;
+    _hubEventsController.close();
   }
 
   /// Initiate polling
@@ -219,7 +221,7 @@ class WebSocketConnection implements Closeable {
       if (_hasNetwork) {
         _retry();
       } else {
-        _hubEventsController!.add(SubscriptionHubEvent.connecting());
+        _hubEventsController.add(SubscriptionHubEvent.connecting());
       }
     }
   }
@@ -234,7 +236,7 @@ class WebSocketConnection implements Closeable {
 
     try {
       _hasConnectionBroken = false;
-      _hubEventsController!.add(SubscriptionHubEvent.connecting());
+      _hubEventsController.add(SubscriptionHubEvent.connecting());
 
       await retryStrategy.retry(
           // Make a GET request
@@ -244,7 +246,7 @@ class WebSocketConnection implements Closeable {
       _init();
     } on Exception catch (e) {
       // no network, can't reconnect
-      _hubEventsController!.add(SubscriptionHubEvent.disconnected());
+      _hubEventsController.add(SubscriptionHubEvent.disconnected());
       close();
       _connectionError(
         ApiException(
@@ -256,8 +258,7 @@ class WebSocketConnection implements Closeable {
   }
 
   /// [GET] request on the configured AppSync url via the `/ping` endpoint
-  Future<http.Response>? _getPollRequest() {
-    if (_pingClient == null) return null;
+  Future<http.Response> _getPollRequest() {
     _pingUri ??= Uri.parse(_config.endpoint).replace(path: 'ping');
     return _pingClient!.get(_pingUri!);
   }
@@ -296,11 +297,10 @@ class WebSocketConnection implements Closeable {
     _resetConnectionVariables();
 
     // establish hub events controller
-    if (_hubEventsController == null || _hubEventsController!.isClosed) {
-      _hubEventsController = StreamController<ApiHubEvent>.broadcast();
-      Amplify.Hub.addChannel(HubChannel.Api, _hubEventsController!.stream);
-    }
-    _hubEventsController!.add(SubscriptionHubEvent.connecting());
+    _hubMemo.runOnce(() =>
+        Amplify.Hub.addChannel(HubChannel.Api, _hubEventsController.stream));
+
+    _hubEventsController.add(SubscriptionHubEvent.connecting());
 
     final connectionUri =
         await generateConnectionUri(_config, _authProviderRepo);
@@ -323,7 +323,7 @@ class WebSocketConnection implements Closeable {
       send(subscriptionRegistrationMessage);
     }
 
-    _hubEventsController!.add(SubscriptionHubEvent.connected());
+    _hubEventsController.add(SubscriptionHubEvent.connected());
   }
 
   Future<void> _sendSubscriptionRegistrationMessage<T>(
@@ -373,7 +373,7 @@ class WebSocketConnection implements Closeable {
 
     _sendSubscriptionRegistrationMessage(request).catchError((Object e) {
       controller.addError(e);
-      _hubEventsController!.add(SubscriptionHubEvent.failed());
+      _hubEventsController.add(SubscriptionHubEvent.failed());
     });
 
     return controller.stream;
@@ -397,7 +397,7 @@ class WebSocketConnection implements Closeable {
   /// Times out the connection (usually if a keep alive has not been received in time).
   void _timeout(Duration timeoutDuration) {
     _timeoutTimer?.cancel();
-    _hubEventsController!.add(SubscriptionHubEvent.disconnected());
+    _hubEventsController.add(SubscriptionHubEvent.disconnected());
     _rebroadcastController.addError(
       TimeoutException(
         'Connection timeout',

@@ -61,7 +61,7 @@ enum SubscriptionStatus {
   failed;
 }
 
-class SubscriptionDetails
+class SubscriptionDetails extends ApiHubEventPayload
     with
         AWSEquatable<SubscriptionDetails>,
         AWSSerializable<Map<String, Object?>>,
@@ -96,7 +96,7 @@ class SubscriptionHubEvent extends ApiHubEvent
 
   static const String _name = 'SubscriptionHubEvent';
 
-  SubscriptionHubEvent._(this.details) : super(_name);
+  SubscriptionHubEvent._(this.details) : super(_name, payload: details);
 
   /// {@template amplify_common.hub.api_subscription_status}
   /// An overall status for GraphQL subscription connection, determined by the
