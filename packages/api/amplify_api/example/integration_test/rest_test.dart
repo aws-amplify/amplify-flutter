@@ -24,8 +24,8 @@ const expectedResponseText = 'Hello from Lambda!';
 void main({bool useExistingTestUser = false}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  HttpPayload _generateTestPayload() => HttpPayload.json({'name': 'mow lawn'});
-  void _validateRestResponse(AWSHttpResponse response) {
+  HttpPayload generateTestPayload() => HttpPayload.json({'name': 'mow lawn'});
+  void validateRestResponse(AWSHttpResponse response) {
     final body = response.decodeBody();
     expect(response.statusCode, 200);
     expect(body, expectedResponseText);
@@ -53,11 +53,11 @@ void main({bool useExistingTestUser = false}) {
 
       testWidgets('should send GET request', (WidgetTester tester) async {
         final res = await Amplify.API.get(path).response;
-        _validateRestResponse(res);
+        validateRestResponse(res);
       });
 
       testWidgets('should get an error for POST', (WidgetTester tester) async {
-        final res = await Amplify.API.head(path).response;
+        final res = await Amplify.API.post(path).response;
         expect(res.statusCode, 403);
       });
     });
@@ -69,7 +69,7 @@ void main({bool useExistingTestUser = false}) {
 
       testWidgets('should send GET request', (WidgetTester tester) async {
         final res = await Amplify.API.get(path).response;
-        _validateRestResponse(res);
+        validateRestResponse(res);
       });
 
       testWidgets('should send HEAD request', (WidgetTester tester) async {
@@ -79,28 +79,27 @@ void main({bool useExistingTestUser = false}) {
 
       testWidgets('should send POST request', (WidgetTester tester) async {
         final res =
-            await Amplify.API.post(path, body: _generateTestPayload()).response;
-        _validateRestResponse(res);
+            await Amplify.API.post(path, body: generateTestPayload()).response;
+        validateRestResponse(res);
       });
 
       testWidgets('should send PUT request', (WidgetTester tester) async {
         final res =
-            await Amplify.API.put(path, body: _generateTestPayload()).response;
-        _validateRestResponse(res);
+            await Amplify.API.put(path, body: generateTestPayload()).response;
+        validateRestResponse(res);
       });
 
       testWidgets('should send PATCH request', (WidgetTester tester) async {
-        final res = await Amplify.API
-            .patch(path, body: _generateTestPayload())
-            .response;
-        _validateRestResponse(res);
+        final res =
+            await Amplify.API.patch(path, body: generateTestPayload()).response;
+        validateRestResponse(res);
       });
 
       testWidgets('should send DELETE request', (WidgetTester tester) async {
         final res = await Amplify.API
-            .delete(path, body: _generateTestPayload())
+            .delete(path, body: generateTestPayload())
             .response;
-        _validateRestResponse(res);
+        validateRestResponse(res);
       });
     });
   });
