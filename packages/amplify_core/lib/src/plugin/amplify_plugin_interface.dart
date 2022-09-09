@@ -30,7 +30,10 @@ abstract class AmplifyPluginInterface {
   Future<void> addPlugin() async {}
 
   /// Configures the plugin using the registered [config].
-  Future<void> configure({AmplifyConfig? config}) async {}
+  Future<void> configure({
+    AmplifyConfig? config,
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {}
 
   /// Resets the plugin by removing all traces of it from the device.
   @visibleForTesting

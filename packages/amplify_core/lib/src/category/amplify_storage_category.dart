@@ -15,46 +15,148 @@
 
 part of amplify_interface;
 
+/// {@template amplify_core.amplify_storage_category}
+/// The Amplify Storage category provides an interface for interacting with
+/// a storage plugin.
+///
+/// It comes with default, built-in support for Amazon S3 service
+/// leveraging Amplify Auth Category for authorization.
+///
+/// The Amplify CLI helps you to create and configure the storage category
+/// and auth category.
+/// {@endtemplate}
 class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   @override
   @nonVirtual
   Category get category => Category.storage;
 
-  Future<UploadFileResult> uploadFile({
-    // TODO(HuiSF): AWSFile
-    required dynamic /* File */ local,
-    required String key,
-    void Function(TransferProgress)? onProgress,
-    UploadFileOptions? options,
+  /// {@template amplify_core.amplify_storage_category.list}
+  /// Lists objects under specified `path` with [StorageListOptions]. Returned
+  /// result is paginated.
+  /// {@endtemplate}
+  StorageListOperation list({
+    String? path,
+    StorageListOptions? options,
   }) {
-    final UploadFileRequest request =
-        UploadFileRequest(local: local, key: key, options: options);
-    return plugins[0].uploadFile(request: request, onProgress: onProgress);
+    final request = StorageListRequest(
+      path: path,
+      options: options,
+    );
+    return defaultPlugin.list(request: request);
   }
 
-  Future<GetUrlResult> getUrl({required String key, GetUrlOptions? options}) {
-    final GetUrlRequest request = GetUrlRequest(key: key, options: options);
-    return plugins[0].getUrl(request: request);
+  /// {@template amplify_core.amplify_storage_category.get_properties}
+  /// Retrieves properties of the object specified by `key` with
+  /// [StorageGetPropertiesOptions]. The result may include the metadata
+  /// (if any) specified when the object was uploaded.
+  /// {@endtemplate}
+  StorageGetPropertiesOperation getProperties({
+    required String key,
+    StorageGetPropertiesOptions? options,
+  }) {
+    final request = StorageGetPropertiesRequest(
+      key: key,
+      options: options,
+    );
+    return defaultPlugin.getProperties(request: request);
   }
 
-  Future<RemoveResult> remove({required String key, RemoveOptions? options}) {
-    final RemoveRequest request = RemoveRequest(key: key, options: options);
-    return plugins[0].remove(request: request);
+  /// {@template amplify_core.amplify_storage_category.get_url}
+  /// Generates a downloadable url for the object specified by `key` with
+  /// [StorageGetUrlOptions]. The url is presigned by the aws_signature_v4.
+  /// {@endtemplate}
+  StorageGetUrlOperation getUrl({
+    required String key,
+    StorageGetUrlOptions? options,
+  }) {
+    final request = StorageGetUrlRequest(
+      key: key,
+      options: options,
+    );
+    return defaultPlugin.getUrl(request: request);
   }
 
-  Future<ListResult> list({String? path, ListOptions? options}) {
-    final ListRequest request = ListRequest(path: path, options: options);
-    return plugins[0].list(request: request);
+  /// {@template amplify_core.amplify_storage_category.upload_data}
+  /// Uploads data from a string `data` with [StorageUploadDataOptions].
+  ///
+  /// The string to be uploaded can be a plain string (uploaded as text/plain)
+  /// or a data url.
+  /// {@endtemplate}
+  StorageUploadDataOperation uploadData({
+    required String data,
+    required String key,
+    StorageUploadDataOptions? options,
+  }) {
+    final request = StorageUploadDataRequest(
+      data: data,
+      key: key,
+      options: options,
+    );
+    return defaultPlugin.uploadData(request: request);
   }
 
-  Future<DownloadFileResult> downloadFile(
-      {required String key,
-      // TODO(HuiSF): AWSFile
-      required dynamic /* File */ local,
-      void Function(TransferProgress)? onProgress,
-      DownloadFileOptions? options}) {
-    final DownloadFileRequest request =
-        DownloadFileRequest(key: key, local: local, options: options);
-    return plugins[0].downloadFile(request: request, onProgress: onProgress);
+  /// {@template amplify_core.amplify_storage_category.copy}
+  /// Makes a copy of the `source` to `destination` with [StorageCopyOptions].
+  /// {@endtemplate}
+  StorageCopyOperation copy({
+    required StorageItemWithAccessLevel source,
+    required StorageItemWithAccessLevel destination,
+  }) {
+    final request = StorageCopyRequest(
+      source: source,
+      destination: destination,
+    );
+    return defaultPlugin.copy(request: request);
   }
+
+  /// {@template amplify_core.amplify_storage_category.move}
+  /// Moves an object specified by `sourceKey` to a new object specified by
+  /// `destinationKey` with [StorageMoveOptions].
+  ///
+  /// This API performs two consecutive S3 service calls:
+  ///   1. copy the source object to destination objection
+  ///   2. delete the source object
+  /// {@endtemplate}
+  StorageMoveOperation move({
+    required StorageItemWithAccessLevel source,
+    required StorageItemWithAccessLevel destination,
+  }) {
+    final request = StorageMoveRequest(
+      source: source,
+      destination: destination,
+    );
+    return defaultPlugin.move(request: request);
+  }
+
+  /// {@template amplify_core.amplify_storage_category.remove}
+  /// Removes an object specified by `key` with [StorageRemoveOptions].
+  /// {@endtemplate}
+  StorageRemoveOperation remove({
+    required String key,
+    StorageRemoveOptions? options,
+  }) {
+    final request = StorageRemoveRequest(
+      key: key,
+      options: options,
+    );
+    return defaultPlugin.remove(request: request);
+  }
+
+  /// {@template amplify_core.amplify_storage_category.remove_many}
+  /// Removes multiple objects specified by a list of `keys` with
+  /// [StorageRemoveManyOptions].
+  /// {@endtemplate}
+  StorageRemoveManyOperation removeMany({
+    required List<String> keys,
+    StorageRemoveManyOptions? options,
+  }) {
+    final request = StorageRemoveManyRequest(
+      keys: keys,
+      options: options,
+    );
+    return defaultPlugin.removeMany(request: request);
+  }
+
+  // TODO(HuiSF): add interface for remaining APIs
+  //  uploadFile, downloadFile, downloadData
 }

@@ -9,15 +9,21 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
   flutter: ">=3.0.0"
 
+# Helps `pana` since we do not use Flutter plugins for most platforms
+platforms:
+  ios:
+  android:
+  macos:
+  windows:
+  linux:
+  web:
+
 dependencies:
-  amplify_storage_s3_android: 1.0.0-next.0
-  amplify_storage_s3_ios: 1.0.0-next.0
-  amplify_core: 1.0.0-next.0
-  aws_common: ^0.2.0
+  amplify_core: ^1.0.0-next.0
+  amplify_storage_s3_dart: ^0.1.0
   flutter:
     sdk: flutter
   meta: ^1.7.0
-  plugin_platform_interface: ^2.0.0
 
 dev_dependencies:
   amplify_lints: ^2.0.0
@@ -25,11 +31,3 @@ dev_dependencies:
     path: ../../amplify_test
   flutter_test:
     sdk: flutter
-
-flutter:
-  plugin:
-    platforms:
-      android:
-        default_package: amplify_storage_s3_android
-      ios:
-        default_package: amplify_storage_s3_ios
