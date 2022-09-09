@@ -60,10 +60,11 @@ void main() {
   group('authorizeHttpRequest', () {
     test('no-op for auth mode NONE', () async {
       const endpointConfig = AWSApiConfig(
-          authorizationType: APIAuthorizationType.none,
-          endpoint: _restEndpoint,
-          endpointType: EndpointType.rest,
-          region: _region);
+        authorizationType: APIAuthorizationType.none,
+        endpoint: _restEndpoint,
+        endpointType: EndpointType.rest,
+        region: _region,
+      );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
 
       final authorizedRequest = await authorizeHttpRequest(
@@ -78,10 +79,11 @@ void main() {
 
     test('no-op for request with Authorization header already set', () async {
       const endpointConfig = AWSApiConfig(
-          authorizationType: APIAuthorizationType.userPools,
-          endpoint: _restEndpoint,
-          endpointType: EndpointType.rest,
-          region: _region);
+        authorizationType: APIAuthorizationType.userPools,
+        endpoint: _restEndpoint,
+        endpointType: EndpointType.rest,
+        region: _region,
+      );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
       const testAuthValue = 'foo';
       inputRequest.headers
@@ -99,10 +101,11 @@ void main() {
 
     test('authorizes request with IAM auth provider', () async {
       const endpointConfig = AWSApiConfig(
-          authorizationType: APIAuthorizationType.iam,
-          endpoint: _gqlEndpoint,
-          endpointType: EndpointType.graphQL,
-          region: _region);
+        authorizationType: APIAuthorizationType.iam,
+        endpoint: _gqlEndpoint,
+        endpointType: EndpointType.graphQL,
+        region: _region,
+      );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
       final authorizedRequest = await authorizeHttpRequest(
         inputRequest,
@@ -115,11 +118,12 @@ void main() {
     test('authorizes request with API key', () async {
       const testApiKey = 'abc-123-fake-key';
       const endpointConfig = AWSApiConfig(
-          authorizationType: APIAuthorizationType.apiKey,
-          apiKey: testApiKey,
-          endpoint: _gqlEndpoint,
-          endpointType: EndpointType.graphQL,
-          region: _region);
+        authorizationType: APIAuthorizationType.apiKey,
+        apiKey: testApiKey,
+        endpoint: _gqlEndpoint,
+        endpointType: EndpointType.graphQL,
+        region: _region,
+      );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
       final authorizedRequest = await authorizeHttpRequest(
         inputRequest,
@@ -134,11 +138,12 @@ void main() {
 
     test('throws when API key not in config', () async {
       const endpointConfig = AWSApiConfig(
-          authorizationType: APIAuthorizationType.apiKey,
-          // no apiKey value provided
-          endpoint: _gqlEndpoint,
-          endpointType: EndpointType.graphQL,
-          region: _region);
+        authorizationType: APIAuthorizationType.apiKey,
+        // no apiKey value provided
+        endpoint: _gqlEndpoint,
+        endpointType: EndpointType.graphQL,
+        region: _region,
+      );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
       expectLater(
           authorizeHttpRequest(
@@ -151,10 +156,11 @@ void main() {
 
     test('authorizes with Cognito User Pools auth mode', () async {
       const endpointConfig = AWSApiConfig(
-          authorizationType: APIAuthorizationType.userPools,
-          endpoint: _gqlEndpoint,
-          endpointType: EndpointType.graphQL,
-          region: _region);
+        authorizationType: APIAuthorizationType.userPools,
+        endpoint: _gqlEndpoint,
+        endpointType: EndpointType.graphQL,
+        region: _region,
+      );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
       final authorizedRequest = await authorizeHttpRequest(
         inputRequest,
@@ -208,19 +214,21 @@ void main() {
     test('throws when no auth provider found', () async {
       final emptyAuthRepo = AmplifyAuthProviderRepository();
       const endpointConfig = AWSApiConfig(
-          authorizationType: APIAuthorizationType.apiKey,
-          apiKey: 'abc-123-fake-key',
-          endpoint: _gqlEndpoint,
-          endpointType: EndpointType.graphQL,
-          region: _region);
+        authorizationType: APIAuthorizationType.apiKey,
+        apiKey: 'abc-123-fake-key',
+        endpoint: _gqlEndpoint,
+        endpointType: EndpointType.graphQL,
+        region: _region,
+      );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
       expectLater(
-          authorizeHttpRequest(
-            inputRequest,
-            endpointConfig: endpointConfig,
-            authProviderRepo: emptyAuthRepo,
-          ),
-          throwsA(isA<ApiException>()));
+        authorizeHttpRequest(
+          inputRequest,
+          endpointConfig: endpointConfig,
+          authProviderRepo: emptyAuthRepo,
+        ),
+        throwsA(isA<ApiException>()),
+      );
     });
   });
 }

@@ -78,17 +78,31 @@ class AmplifyAPIDart extends AmplifyAPI {
     _registerApiPluginAuthProviders();
   }
 
+  /// Register AmplifyAuthProviders that are specific to API category (API key,
+  /// OIDC or Lambda).
+  ///
   /// If an endpoint has an API key, ensure valid auth provider registered.
+  ///
+  /// Register OIDC/Lambda set to _authProviders in constructor.
   void _registerApiPluginAuthProviders() {
     _apiConfig.endpoints.forEach((key, value) {
       // Check the presence of apiKey (not auth type) because other modes might
       // have a key if not the primary auth mode.
       if (value.apiKey != null) {
         _authProviderRepo.registerAuthProvider(
-            value.authorizationType.authProviderToken,
-            AppSyncApiKeyAuthProvider());
+          value.authorizationType.authProviderToken,
+          AppSyncApiKeyAuthProvider(),
+        );
       }
     });
+
+    // Register OIDC/Lambda auth providers.
+    for (var authProvider in _authProviders.values) {
+      _authProviderRepo.registerAuthProvider(
+        authProvider.type.authProviderToken,
+        OidcFunctionAuthProvider(authProvider),
+      );
+    }
   }
 
   @override
@@ -105,9 +119,10 @@ class AmplifyAPIDart extends AmplifyAPI {
     } on PlatformException catch (e) {
       if (e.code == 'AmplifyAlreadyConfiguredException') {
         throw const AmplifyAlreadyConfiguredException(
-            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-            recoverySuggestion:
-                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+          recoverySuggestion:
+              AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion,
+        );
       }
       throw AmplifyException.fromMap((e.details as Map).cast());
     }
@@ -183,10 +198,6 @@ class AmplifyAPIDart extends AmplifyAPI {
 
   @override
   void registerAuthProvider(APIAuthProvider authProvider) {
-    _authProviderRepo.registerAuthProvider(
-      authProvider.type.authProviderToken,
-      OidcFunctionAuthProvider(authProvider),
-    );
     _authProviders[authProvider.type] = authProvider;
   }
 
