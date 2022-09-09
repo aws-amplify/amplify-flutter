@@ -81,9 +81,11 @@ class PackageInfo
             falsePositiveExamples.contains(name));
   }
 
+  /// Skip package checks for Flutter packages when running in CI without
+  /// Flutter, which may happen when testing Dart-only packages or specific
+  /// Dart versions.
   bool get skipChecks {
-    final isCI =
-        getEnv('CI') != null && (getEnv('CI') == 'true' || getEnv('CI') == '1');
+    final isCI = getEnv('CI') == 'true' || getEnv('CI') == '1';
     return isCI &&
         getEnv('FLUTTER_ROOT') == null &&
         flavor == PackageFlavor.flutter;

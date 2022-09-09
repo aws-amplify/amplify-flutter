@@ -6,10 +6,10 @@ on:
       - stable
       - next
     paths:
-      - 'packages/amplify_core/**/*.dart'
+      - 'packages/aws_common/**/*.dart'
   pull_request:
     paths:
-      - 'packages/amplify_core/**/*.dart'
+      - 'packages/aws_common/**/*.dart'
   schedule:
     - cron: "0 0 * * 0"
 defaults:
@@ -21,5 +21,4 @@ jobs:
   test:
     uses: ./.github/workflows/dart_package.yaml
     with:
-      working-directory: packages/amplify_core
-      needs-build: true
+      working-directory: packages/aws_common

@@ -2,18 +2,15 @@ name: Dart Package
 on:
   workflow_call:
     inputs:
-      coverage-excludes:
+      needs-build:
+        description: Whether the packages needs `build_runner` to run before tests
         required: false
-        type: string
-        default: ""
+        type: boolean
+        default: false
       working-directory:
-        required: false
+        description: The working directory relative to the repo root
+        required: true
         type: string
-        default: .
-      analyze-directories:
-        required: false
-        type: string
-        default: "lib test"
 
 jobs:
   test:
@@ -53,27 +50,45 @@ jobs:
         with:
           sdk: ${{ matrix.sdk }}
 
-      - name: Bootstrap
+      - name: Link Packages
         run: |
           dart pub global activate -spath packages/aft
-          aft bootstrap
+          aft link
+
+      - name: Bootstrap
+        if: ${{ inputs.needs-build }}
+        run: |
+          aft bootstrap --upgrade
 
       - name: Get Packages
         run: dart pub upgrade
         working-directory: ${{ inputs.working-directory }}
-      
+
       - name: Check Formatting
         run: dart format --set-exit-if-changed .
         working-directory: ${{ inputs.working-directory }}
 
       - name: Analyze
-        run: dart analyze --fatal-infos --fatal-warnings ${{inputs.analyze-directories}}
+        run: dart analyze --fatal-infos --fatal-warnings lib test
         working-directory: ${{ inputs.working-directory }}
 
-      - name: Run Tests
-        run: |
-          dart pub global activate coverage
-          dart test -j 4 --coverage=coverage && dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=${{inputs.report_on}}
+      - name: Run Tests (VM)
+        run: dart test -j 4
+        working-directory: ${{ inputs.working-directory }}
+
+      - name: Run Tests (DDC)
+        if: ${{ inputs.needs-build }}
+        run: dart run build_runner test --delete-conflicting-outputs -- -j 4 -p chrome,firefox
+        working-directory: ${{ inputs.working-directory }}
+
+      - name: Run Tests (dart2js)
+        if: ${{ inputs.needs-build }}
+        run: dart run build_runner test --release --delete-conflicting-outputs -- -j 4 -p chrome,firefox
+        working-directory: ${{ inputs.working-directory }}
+
+      - name: Run Tests (dart2js)
+        if: ${{ !inputs.needs-build }}
+        run: dart test -j 4 -p chrome,firefox
         working-directory: ${{ inputs.working-directory }}
 
   native_test:
@@ -114,10 +129,15 @@ jobs:
         with:
           sdk: stable
 
-      - name: Bootstrap
+      - name: Link Packages
         run: |
           dart pub global activate -spath packages/aft
-          aft bootstrap
+          aft link
+
+      - name: Bootstrap
+        if: ${{ inputs.needs-build }}
+        run: |
+          aft bootstrap --upgrade
 
       - name: Get Packages
         run: dart pub upgrade
@@ -128,11 +148,9 @@ jobs:
         working-directory: ${{ inputs.working-directory }}
 
       - name: Analyze
-        run: dart analyze --fatal-infos --fatal-warnings ${{inputs.analyze-directories}}
+        run: dart analyze --fatal-infos --fatal-warnings lib test
         working-directory: ${{ inputs.working-directory }}
 
-      - name: Run Tests
-        run: |
-          dart pub global activate coverage
-          dart test -j 4
+      - name: Test (VM)
+        run: dart test -j 4
         working-directory: ${{ inputs.working-directory }}
