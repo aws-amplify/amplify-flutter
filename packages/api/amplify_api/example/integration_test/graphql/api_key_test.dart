@@ -51,6 +51,7 @@ void main({bool useExistingTestUser = false}) {
         );
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
+        throwIfError(res);
         expect(data?.items.length, greaterThanOrEqualTo(0));
       });
 

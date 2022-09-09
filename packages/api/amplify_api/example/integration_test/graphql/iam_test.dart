@@ -83,8 +83,9 @@ void main({bool useExistingTestUser = false}) {
 
         final operation = Amplify.API
             .query<String>(request: GraphQLRequest(document: graphQLDocument));
-        final response = await operation.response;
-        Map data = jsonDecode(response.data!) as Map;
+        final res = await operation.response;
+        Map data = jsonDecode(res.data!) as Map;
+        throwIfError(res);
         expect(data[listBlogs][items], hasLength(greaterThanOrEqualTo(0)));
       });
 
@@ -96,6 +97,7 @@ void main({bool useExistingTestUser = false}) {
         final req = ModelQueries.get(Blog.classType, blog.id);
         final res = await Amplify.API.query(request: req).response;
         Blog? data = res.data;
+        throwIfError(res);
         expect(data, equals(blog));
       });
 
@@ -112,6 +114,7 @@ void main({bool useExistingTestUser = false}) {
         final res = await operation.response;
         final data = res.data;
         final blogs = [blog1, blog2, blog3];
+        throwIfError(res);
         expect(data?.items, containsAll(blogs));
       });
 
@@ -146,6 +149,7 @@ void main({bool useExistingTestUser = false}) {
         final data = res.data;
         final blogs = [blog];
 
+        throwIfError(res);
         expect(data?.items.length, 1);
         expect(data?.items, containsAll(blogs));
       });
@@ -162,6 +166,7 @@ void main({bool useExistingTestUser = false}) {
         final res = await Amplify.API.query(request: req).response;
         final postFromResponse = res.data?.items[0];
 
+        throwIfError(res);
         expect(postFromResponse?.blog?.id, isNotNull);
         expect(postFromResponse?.blog?.id, createdPost.blog?.id);
       });
@@ -178,6 +183,7 @@ void main({bool useExistingTestUser = false}) {
         final res = await Amplify.API.query(request: req).response;
         final postFromResponse = res.data?.items[0];
 
+        throwIfError(res);
         expect(postFromResponse?.blog?.id, isNotNull);
         expect(postFromResponse?.blog?.id, createdPost.blog?.id);
         expect(postFromResponse?.title, title);
@@ -203,8 +209,9 @@ void main({bool useExistingTestUser = false}) {
           modelType: const PaginatedModelType(Blog.classType),
           decodePath: listBlogs,
         );
-        final response = await Amplify.API.query(request: request).response;
-        expect(response.data?.items.first, isA<Blog>());
+        final res = await Amplify.API.query(request: request).response;
+        throwIfError(res);
+        expect(res.data?.items.first, isA<Blog>());
       });
     });
 
@@ -218,6 +225,7 @@ void main({bool useExistingTestUser = false}) {
         final req = ModelQueries.list<Blog>(Blog.classType);
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
+        throwIfError(res);
         expect(data?.items.length, greaterThanOrEqualTo(0));
       });
 

@@ -100,7 +100,7 @@ Future<Blog> addBlog(String name) async {
   var r = Amplify.API.mutate(request: request);
 
   var response = await r.response;
-  _throwIfError(response);
+  throwIfError(response);
   final blog = response.data!;
   blogCache.add(blog);
   return blog;
@@ -119,7 +119,7 @@ Future<Post> addPostAndBlog(
   );
   final createPostRes =
       await Amplify.API.mutate(request: createPostReq).response;
-  _throwIfError(createPostRes);
+  throwIfError(createPostRes);
   Post? data = createPostRes.data;
   if (data == null) {
     throw Exception(
@@ -177,7 +177,7 @@ Future<Blog?> deleteBlog(String id) async {
     ModelMutations.deleteById(Blog.classType, id),
   );
   final response = await Amplify.API.mutate(request: request).response;
-  _throwIfError(response);
+  throwIfError(response);
   blogCache.removeWhere((blog) => blog.id == id);
   return response.data;
 }
@@ -187,7 +187,7 @@ Future<void> deletePost(String id) async {
     ModelMutations.deleteById(Post.classType, id),
   );
   final response = await Amplify.API.mutate(request: request).response;
-  _throwIfError(response);
+  throwIfError(response);
   postCache.removeWhere((post) => post.id == id);
 }
 
@@ -196,8 +196,9 @@ Future<void> deleteTestModels() async {
   await Future.wait(postCache.map((post) => deletePost(post.id)));
 }
 
-void _throwIfError(GraphQLResponse response) {
-  if (response.hasErrors) {
+/// Throws if response `.hasErrors` (any GraphQL errors from server).
+void throwIfError(GraphQLResponse response) {
+  if (response.hasErrors || response.data == null) {
     throw AmplifyException(
       'GraphQL error while running request: ${response.errors.toString()}',
     );
