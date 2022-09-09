@@ -60,6 +60,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     http.Client? baseHttpClient,
     this.modelProvider,
     this.subscriptionOptions,
+
   })  : _baseHttpClient = baseHttpClient,
         super.protected() {
     authProviders.forEach(registerAuthProvider);

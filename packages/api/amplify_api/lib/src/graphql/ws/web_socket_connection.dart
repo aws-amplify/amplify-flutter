@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'dart:async';
+
 import 'dart:collection';
 import 'dart:convert';
 
@@ -41,6 +42,7 @@ class WebSocketConnection implements Closeable {
   /// Allowed protocols for this connection.
   static const webSocketProtocols = ['graphql-ws'];
   late final AmplifyLogger _logger;
+  final AmplifyLogger _logger;
 
   // Config and auth repo together determine how to authorize connection URLs
   // and subscription registration messages.
@@ -69,7 +71,6 @@ class WebSocketConnection implements Closeable {
 
   /// Subscription options
   final GraphQLSubscriptionOptions? _subscriptionOptions;
-
   // Re-broadcasts incoming messages for child streams (single GraphQL subscriptions).
   // start_ack, data, error
   final StreamController<WebSocketMessage> _rebroadcastController =
@@ -158,6 +159,7 @@ class WebSocketConnection implements Closeable {
       protocols: webSocketProtocols,
     );
     _subscription = getStreamSubscription(_channel!.stream);
+
     _network = getStreamNetwork();
   }
 
@@ -366,7 +368,6 @@ class WebSocketConnection implements Closeable {
       controller.addError(e);
       _hubEventsController.add(SubscriptionHubEvent.failed());
     });
-
     return controller.stream;
   }
 
