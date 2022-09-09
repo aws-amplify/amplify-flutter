@@ -32,8 +32,8 @@ class AWSHttpClientImpl extends AWSHttpClient {
 
   Future<void> _send({
     required AWSBaseHttpRequest request,
-    required StreamSink<int> requestProgressController,
-    required StreamSink<int> responseProgressController,
+    required StreamController<int> requestProgressController,
+    required StreamController<int> responseProgressController,
     required AbortController abortController,
     required CancelableCompleter<AWSBaseHttpResponse> completer,
     required Future<void> cancelTrigger,
@@ -84,8 +84,16 @@ class AWSHttpClientImpl extends AWSHttpClient {
       final streamView = resp.body;
       final bodyController = StreamController<List<int>>(sync: true);
       streamView.progress.listen(
-        responseProgressController.add,
-        onError: responseProgressController.addError,
+        (event) {
+          if (!responseProgressController.isClosed) {
+            responseProgressController.add(event);
+          }
+        },
+        onError: (Object error, StackTrace stackTrace) {
+          if (!responseProgressController.isClosed) {
+            responseProgressController.addError(error, stackTrace);
+          }
+        },
         onDone: responseProgressController.close,
         cancelOnError: true,
       );

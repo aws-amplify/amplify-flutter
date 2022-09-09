@@ -37,7 +37,6 @@ void main() {
       test('can cancel before receiving headers', () async {
         final request = AWSHttpRequest.get(createUri('/headers'));
         final operation = client().send(request);
-        await Future<void>.delayed(const Duration(milliseconds: 500));
         await expectLater(operation.cancel(), completes);
         expect(operation.requestProgress, emitsDone);
         expect(operation.responseProgress, emitsDone);

@@ -37,13 +37,14 @@ Future<void> _handleH1(
     return request.response.close();
   }
   if (path == 'headers') {
-    return channel.sink.done;
+    await Future<void>.delayed(const Duration(milliseconds: 100));
+    return request.response.close();
   }
   request.response
     ..contentLength = -1
     ..add([1, 2, 3, 4, 5]);
   if (path == 'body') {
-    return channel.sink.done;
+    await Future<void>.delayed(const Duration(milliseconds: 100));
   }
   return request.response.close();
 }

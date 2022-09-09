@@ -14,7 +14,8 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
+import 'dart:io' hide X509Certificate;
+import 'dart:io' as io show X509Certificate;
 
 import 'package:aws_common/aws_common.dart';
 import 'package:http2/http2.dart';
@@ -33,6 +34,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
 
   /// The underlying `dart:io` HTTP/1.1 client.
   HttpClient? _inner;
+  bool get _innerIsClosed => _inner == null;
 
   final _http2Connections = <String, ClientTransportConnection>{};
 
@@ -43,22 +45,13 @@ class AWSHttpClientImpl extends AWSHttpClient {
     BadCertificateCallback callback,
   ) {
     client.badCertificateCallback = (cert, host, port) {
-      final certificate = X509Certificate(
-        der: cert.der,
-        pem: cert.pem,
-        sha1: cert.sha1,
-        subject: cert.subject,
-        issuer: cert.issuer,
-        startValidity: cert.startValidity,
-        endValidity: cert.endValidity,
-      );
-      return onBadCertificate(certificate, host, port);
+      return onBadCertificate(cert.asInternalCert(), host, port);
     };
   }
 
   @override
   set onBadCertificate(BadCertificateCallback callback) {
-    if (_inner != null) {
+    if (!_innerIsClosed) {
       _setBadCertificateCallback(_inner!, callback);
     }
     super.onBadCertificate = callback;
@@ -190,6 +183,31 @@ class AWSHttpClientImpl extends AWSHttpClient {
     return !nonRedirectHeaders.contains(headerKey.toLowerCase());
   }
 
+  /// Required HTTP/2 pseudo-header fields as described here:
+  /// https://www.rfc-editor.org/rfc/rfc7540#section-8.1.2.3
+  static List<Header> _requiredH2Headers(
+    AWSBaseHttpRequest request,
+    List<_RedirectInfo> redirects,
+    AWSHttpMethod method,
+    Uri uri,
+  ) =>
+      [
+        Header(':method'.codeUnits, utf8.encode(method.value)),
+        Header(
+          ':path'.codeUnits,
+          utf8.encode('${uri.path}${uri.hasQuery ? '?${uri.query}' : ''}'),
+        ),
+        Header(':scheme'.codeUnits, utf8.encode(uri.scheme)),
+        Header(
+          ':authority'.codeUnits,
+          utf8.encode('${uri.host}${uri.hasPort ? ':${uri.port}' : ''}'),
+        ),
+        for (final entry in request.headers.entries)
+          if (redirects.isEmpty ||
+              _shouldCopyHeaderOnRedirect(entry.key, request.uri, uri))
+            Header(utf8.encode(entry.key), utf8.encode(entry.value)),
+      ];
+
   /// Sends an HTTP/2 request using `package:http2`.
   Future<void> _sendH2({
     required AWSBaseHttpRequest request,
@@ -219,16 +237,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
           uri.port,
           supportedProtocols: supportedProtocols.alpnValues,
           onBadCertificate: (cert) {
-            final certificate = X509Certificate(
-              der: cert.der,
-              pem: cert.pem,
-              sha1: cert.sha1,
-              subject: cert.subject,
-              issuer: cert.issuer,
-              startValidity: cert.startValidity,
-              endValidity: cert.endValidity,
-            );
-            return onBadCertificate(certificate, uri.host, uri.port);
+            return onBadCertificate(cert.asInternalCert(), uri.host, uri.port);
           },
         ),
       )..onActiveStateChanged = (isActive) {
@@ -238,24 +247,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
               }
             };
       final stream = transport.makeRequest(
-        [
-          // Required pseudo-header fields as described here:
-          // https://www.rfc-editor.org/rfc/rfc7540#section-8.1.2.3
-          Header(':method'.codeUnits, utf8.encode(method.value)),
-          Header(
-            ':path'.codeUnits,
-            utf8.encode('${uri.path}${uri.hasQuery ? '?${uri.query}' : ''}'),
-          ),
-          Header(':scheme'.codeUnits, utf8.encode(uri.scheme)),
-          Header(
-            ':authority'.codeUnits,
-            utf8.encode('${uri.host}${uri.hasPort ? ':${uri.port}' : ''}'),
-          ),
-          for (final entry in request.headers.entries)
-            if (redirects.isEmpty ||
-                _shouldCopyHeaderOnRedirect(entry.key, request.uri, uri))
-              Header(utf8.encode(entry.key), utf8.encode(entry.value)),
-        ],
+        _requiredH2Headers(request, redirects, method, uri),
       );
 
       var requestBytesRead = 0;
@@ -283,7 +275,6 @@ class AWSHttpClientImpl extends AWSHttpClient {
       };
       stream.onTerminated = (code) {
         logger.debug('Stream terminated: $code');
-        _http2Connections.remove(uri.authority);
       };
 
       final headers = CaseInsensitiveMap<String>({});
@@ -519,4 +510,20 @@ class _RedirectInfo implements RedirectInfo {
 
   @override
   final int statusCode;
+}
+
+extension on io.X509Certificate {
+  /// Converts a `dart:io` X509Certificate to one which can be exported safely
+  /// for all platforms.
+  X509Certificate asInternalCert() {
+    return X509Certificate(
+      der: der,
+      pem: pem,
+      sha1: sha1,
+      subject: subject,
+      issuer: issuer,
+      startValidity: startValidity,
+      endValidity: endValidity,
+    );
+  }
 }

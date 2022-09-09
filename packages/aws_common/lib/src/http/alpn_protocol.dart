@@ -46,40 +46,36 @@ enum SupportedProtocols {
   ///
   /// This can be used as a fallback when the protocol switching logic is not
   /// behaving as expected.
-  http1,
+  http1._([AlpnProtocol.http1_1]),
 
   /// Supports HTTP/2 and HTTP/3 servers.
   ///
   /// **Note**: Currently this only supports HTTP/3 on the Web via `fetch`.
   /// HTTP/3 is not supported on VM.
-  http2_3,
+  http2_3._([AlpnProtocol.http2, AlpnProtocol.http3]),
 
   /// Support HTTP/1.1, HTTP/2, and HTTP/3 servers.
   ///
   /// **Note**: Currently this only supports HTTP/3 on the Web via `fetch`.
   /// HTTP/3 is not supported on VM.
-  http1_2_3;
+  http1_2_3._([
+    AlpnProtocol.http1_1,
+    AlpnProtocol.http2,
+    AlpnProtocol.http3,
+  ]);
 
-  /// Whether `this` supports the HTTP [protocol].
-  bool supports(AlpnProtocol protocol) {
-    switch (protocol) {
-      case AlpnProtocol.http1_1:
-        return this == SupportedProtocols.http1_2_3 ||
-            this == SupportedProtocols.http1;
-      case AlpnProtocol.http2:
-        return this == SupportedProtocols.http1_2_3 ||
-            this == SupportedProtocols.http2_3;
-      case AlpnProtocol.http3:
-        return this == SupportedProtocols.http1_2_3 ||
-            this == SupportedProtocols.http2_3;
-    }
-  }
+  const SupportedProtocols._(this.protocols);
+
+  /// The list of ALPN protocols supported by `this`.
+  final List<AlpnProtocol> protocols;
 
   /// The list of ALPN values supported by `this`, used when negotiating
   /// connection with a server.
-  List<String> get alpnValues => [
-        if (supports(AlpnProtocol.http1_1)) AlpnProtocol.http1_1.value,
-        if (supports(AlpnProtocol.http2)) AlpnProtocol.http2.value,
-        if (supports(AlpnProtocol.http3)) AlpnProtocol.http3.value,
-      ];
+  List<String> get alpnValues =>
+      protocols.map((protocol) => protocol.value).toList();
+
+  /// Whether `this` supports the HTTP [protocol].
+  bool supports(AlpnProtocol protocol) {
+    return protocols.contains(protocol);
+  }
 }

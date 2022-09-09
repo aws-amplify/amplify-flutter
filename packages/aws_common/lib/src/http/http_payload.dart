@@ -21,7 +21,11 @@ import 'package:async/async.dart';
 /// An HTTP request's payload.
 /// {@endtemplate}
 class HttpPayload extends StreamView<List<int>> {
-  /// {@macro aws_common.http.http_payload}
+  /// A constructor that wraps [HttpPayload.empty], [HttpPayload.string],
+  /// [HttpPayload.bytes], [HttpPayload.streaming], and [HttpPayload.formFields]
+  /// based on the body type.
+  ///
+  /// Use [HttpPayload.json] to automatically encode the body as a JSON string.
   factory HttpPayload([Object? body, String? contentType]) {
     if (body == null) {
       return HttpPayload.empty(contentType: contentType);

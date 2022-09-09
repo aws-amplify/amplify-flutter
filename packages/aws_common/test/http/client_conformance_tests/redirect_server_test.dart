@@ -61,7 +61,13 @@ void main() {
             isA<AWSHttpException>().having(
               (e) => e.toString(),
               'message',
-              contains(zIsWeb ? 'Failed to fetch' : 'Redirect limit exceeded'),
+              contains(
+                zIsWeb
+                    ?
+                    // Only cross-browser similarity
+                    'Error'
+                    : 'Redirect limit exceeded',
+              ),
             ),
           ),
         );
