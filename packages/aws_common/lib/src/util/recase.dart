@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:collection/collection.dart';
+
 /// Re-casing helpers for strings.
 extension StringRecase on String {
   /// The capitalized version of `this`, with the first letter upper-cased and
@@ -22,12 +24,22 @@ extension StringRecase on String {
   }
 
   /// The `camelCase` version of `this`.
-  String get camelCase =>
-      _groupIntoWords().map((word) => word.capitalized).join();
+  String get camelCase => groupIntoWords().mapIndexed((index, word) {
+        if (index == 0) return word.toLowerCase();
+        return word.capitalized;
+      }).join();
 
   /// The `param-case` version of `this`.
   String get paramCase =>
-      _groupIntoWords().map((word) => word.toLowerCase()).join('-');
+      groupIntoWords().map((word) => word.toLowerCase()).join('-');
+
+  /// The `PascalCase` version of `this`.
+  String get pascalCase =>
+      groupIntoWords().map((word) => word.capitalized).join();
+
+  /// The `snake_case` version of `this`.
+  String get snakeCase =>
+      groupIntoWords().map((word) => word.toLowerCase()).join('_');
 
   // "acm-success"-> "acm success"
   static final _nonAlphaNumericChars = RegExp(r'[^A-Za-z0-9+]');
@@ -49,7 +61,7 @@ extension StringRecase on String {
   static final _numInMiddleOrEnd = RegExp(r'([0-9])([a-zA-Z])');
 
   /// Splits `this` into words along word boundaries.
-  List<String> _groupIntoWords() {
+  List<String> groupIntoWords() {
     var result = this;
 
     // all non-alphanumeric characters: "acm-success"-> "acm success"
