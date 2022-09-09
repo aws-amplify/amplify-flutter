@@ -30,8 +30,9 @@ jobs:
     strategy:
       matrix:
         sdk:
+          - 2.17.0
           - stable
-          - master
+          - dev
     steps:
       - name: Cache Pub dependencies
         uses: actions/cache@b195c997a41f41d0dab6d9aafe79e437611b78db
@@ -44,15 +45,21 @@ jobs:
             os:ubuntu-latest;sdk:${{ matrix.sdk }};packages:${{ inputs.working-directory }}
             os:ubuntu-latest;sdk:${{ matrix.sdk }}
             os:ubuntu-latest
-            os:ubuntu-latest
 
       - name: Git Checkout
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
+      # - id: setup
+      #   name: Setup Dart
+      #   uses: subosito/flutter-action@45dd344cec959c99c9e3b1dbf3eac51907ffe1aa
+      #   with:
+      #     cache: true
+      #     channel: ${{ matrix.sdk }}
+
       - name: Setup Dart
-        uses: subosito/flutter-action@45dd344cec959c99c9e3b1dbf3eac51907ffe1aa
+        uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d
         with:
-          channel: ${{ matrix.sdk }}
+          sdk: ${{ matrix.sdk }}
 
       - name: Bootstrap
         run: |
@@ -112,10 +119,15 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
+      # - name: Setup Dart
+      #   uses: subosito/flutter-action@45dd344cec959c99c9e3b1dbf3eac51907ffe1aa
+      #   with:
+      #     channel: stable
+
       - name: Setup Dart
-        uses: subosito/flutter-action@45dd344cec959c99c9e3b1dbf3eac51907ffe1aa
+        uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d
         with:
-          channel: stable
+          sdk: ${{ matrix.sdk }}
 
       - name: Bootstrap
         run: |

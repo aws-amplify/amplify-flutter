@@ -16,7 +16,7 @@ dependencies:
   flutter_tools:
     git:
       url: https://github.com/flutter/flutter.git
-      ref: f3d182f4b4e3c5e5cde322f5a14e49e9a50cc083
+      ref: 244672cb7a3bf57a913eea210920a458da251798
       path: packages/flutter_tools
   git: ^2.0.0
   graphs: ^2.1.0
@@ -27,7 +27,7 @@ dependencies:
   pub:
     git:
       url: https://github.com/dart-lang/pub.git
-      ref: bc32a30ea5c86653e2a1899613c0a19d91b9a21c
+      ref: 7d30cf0bb2b1f1f03c3eb7d46509a6130a6c5468
   pub_semver: ^2.1.1
   pubspec_parse: ^1.2.0
   smithy: ^0.1.0
@@ -36,7 +36,6 @@ dependencies:
   yaml: ^3.1.0
   yaml_edit: ^2.0.3
 
-# These need to match `flutter_tools`
 dependency_overrides:
   built_value: 8.3.3
 

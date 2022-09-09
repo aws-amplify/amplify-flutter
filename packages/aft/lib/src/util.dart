@@ -17,6 +17,11 @@ import 'dart:io';
 
 import 'package:async/async.dart';
 
+String? getEnv(String envName) {
+  final value = Platform.environment[envName];
+  return value == null || value.isEmpty ? null : value;
+}
+
 typedef ProcessSink = void Function(String);
 
 /// Allows storing forwarding streams so we can listen to process outputs

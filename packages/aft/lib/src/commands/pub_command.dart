@@ -16,6 +16,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/util.dart';
 import 'package:async/async.dart';
 import 'package:cli_util/cli_logging.dart';
 import 'package:http/http.dart' as http;
@@ -110,6 +111,11 @@ Future<void> pubAction({
     final packageProgress = logger?.progress(package.name);
     switch (package.flavor) {
       case PackageFlavor.flutter:
+        // CI may run for Dart-only packages without looking at Flutter
+        // packages
+        if (getEnv('CI') != null && getEnv('FLUTTER_ROOT') == null) {
+          continue;
+        }
         results[package.name] = await Result.capture(
           runFlutterPub(
             action,
