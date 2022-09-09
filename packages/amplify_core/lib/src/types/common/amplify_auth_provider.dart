@@ -78,6 +78,10 @@ abstract class TokenAmplifyAuthProvider extends AmplifyAuthProvider {
   }
 }
 
+abstract class OidcAmplifyAuthProvider extends TokenAmplifyAuthProvider {}
+
+abstract class FunctionAmplifyAuthProvider extends TokenAmplifyAuthProvider {}
+
 class AmplifyAuthProviderRepository {
   final Map<AmplifyAuthProviderToken, AmplifyAuthProvider> _authProviders = {};
 

@@ -51,7 +51,7 @@ enum APIAuthorizationType<T extends AmplifyAuthProvider> {
   /// - [OpenID Connect Authorization](https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#openid-connect-authorization)
   /// - [OpenID Connect Specification](https://openid.net/specs/openid-connect-core-1_0.html)
   @JsonValue('OPENID_CONNECT')
-  oidc(AmplifyAuthProviderToken<TokenAmplifyAuthProvider>()),
+  oidc(AmplifyAuthProviderToken<OidcAmplifyAuthProvider>()),
 
   /// Control access to date by putting users into different permissions pools.
   ///
@@ -65,7 +65,7 @@ enum APIAuthorizationType<T extends AmplifyAuthProvider> {
   /// See also:
   /// - [Introducing Lambda authorization for AWS AppSync GraphQL APIs](https://aws.amazon.com/blogs/mobile/appsync-lambda-auth/)
   @JsonValue('AWS_LAMBDA')
-  function(AmplifyAuthProviderToken<TokenAmplifyAuthProvider>());
+  function(AmplifyAuthProviderToken<FunctionAmplifyAuthProvider>());
 
   const APIAuthorizationType(this.authProviderToken);
   final AmplifyAuthProviderToken<T> authProviderToken;

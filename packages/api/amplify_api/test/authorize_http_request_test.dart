@@ -13,6 +13,7 @@
 
 import 'package:amplify_api/src/decorators/authorize_http_request.dart';
 import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_api/src/oidc_function_api_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -45,6 +46,14 @@ void main() {
       ..registerAuthProvider(
         APIAuthorizationType.userPools.authProviderToken,
         TestTokenAuthProvider(),
+      )
+      ..registerAuthProvider(
+        APIAuthorizationType.oidc.authProviderToken,
+        OidcFunctionAuthProvider(const CustomOIDCProvider()),
+      )
+      ..registerAuthProvider(
+        APIAuthorizationType.function.authProviderToken,
+        OidcFunctionAuthProvider(const CustomFunctionProvider()),
       );
   });
 
@@ -158,9 +167,43 @@ void main() {
       );
     });
 
-    test('authorizes with OIDC auth mode', () {}, skip: true);
+    test('authorizes with OIDC auth mode', () async {
+      const endpointConfig = AWSApiConfig(
+        authorizationType: APIAuthorizationType.oidc,
+        endpoint: _gqlEndpoint,
+        endpointType: EndpointType.graphQL,
+        region: _region,
+      );
+      final inputRequest = _generateTestRequest(endpointConfig.endpoint);
+      final authorizedRequest = await authorizeHttpRequest(
+        inputRequest,
+        endpointConfig: endpointConfig,
+        authProviderRepo: authProviderRepo,
+      );
+      expect(
+        authorizedRequest.headers[AWSHeaders.authorization],
+        testOidcToken,
+      );
+    });
 
-    test('authorizes with lambda auth mode', () {}, skip: true);
+    test('authorizes with lambda (function) auth mode', () async {
+      const endpointConfig = AWSApiConfig(
+        authorizationType: APIAuthorizationType.function,
+        endpoint: _gqlEndpoint,
+        endpointType: EndpointType.graphQL,
+        region: _region,
+      );
+      final inputRequest = _generateTestRequest(endpointConfig.endpoint);
+      final authorizedRequest = await authorizeHttpRequest(
+        inputRequest,
+        endpointConfig: endpointConfig,
+        authProviderRepo: authProviderRepo,
+      );
+      expect(
+        authorizedRequest.headers[AWSHeaders.authorization],
+        testFunctionToken,
+      );
+    });
 
     test('throws when no auth provider found', () async {
       final emptyAuthRepo = AmplifyAuthProviderRepository();

@@ -19,6 +19,7 @@ import 'dart:io';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_api/src/native_api_plugin.dart';
+import 'package:amplify_api/src/oidc_function_api_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:flutter/services.dart';
@@ -182,6 +183,10 @@ class AmplifyAPIDart extends AmplifyAPI {
 
   @override
   void registerAuthProvider(APIAuthProvider authProvider) {
+    _authProviderRepo.registerAuthProvider(
+      authProvider.type.authProviderToken,
+      OidcFunctionAuthProvider(authProvider),
+    );
     _authProviders[authProvider.type] = authProvider;
   }
 
