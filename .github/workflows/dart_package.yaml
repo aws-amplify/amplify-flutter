@@ -82,8 +82,6 @@ jobs:
           - windows-latest
     runs-on: ${{ matrix.os }}
     steps:
-      - run: echo ${{ toJSON(inputs) }}
-
       - name: Git Checkout
         uses: actions/checkout@v2
 
