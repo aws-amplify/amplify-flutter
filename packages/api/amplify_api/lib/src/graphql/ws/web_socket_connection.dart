@@ -42,7 +42,6 @@ class WebSocketConnection implements Closeable {
   /// Allowed protocols for this connection.
   static const webSocketProtocols = ['graphql-ws'];
   late final AmplifyLogger _logger;
-  final AmplifyLogger _logger;
 
   // Config and auth repo together determine how to authorize connection URLs
   // and subscription registration messages.
