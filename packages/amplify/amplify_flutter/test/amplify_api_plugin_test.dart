@@ -46,7 +46,7 @@ void main() {
     });
 
     // Clear out plugins before each test for a fresh state.
-    Amplify.API.plugins.clear();
+    Amplify.API.reset();
   });
 
   tearDown(() {
@@ -73,16 +73,8 @@ void main() {
     expect(Amplify.API.plugins.length, 1);
   });
 
-  test('AmplifyException is thrown if addPlugin called twice', () async {
-    try {
-      await Amplify.addPlugin(apiPlugin);
-      await Amplify.addPlugin(apiPlugin);
-      fail('exception not thrown');
-    } on AmplifyException catch (e) {
-      expect(e.message,
-          'Amplify plugin AmplifyAPIMethodChannel was not added successfully.');
-    } on Exception catch (e) {
-      expect(e, isA<AmplifyException>());
-    }
+  test('AmplifyException is not thrown if addPlugin called twice', () async {
+    await Amplify.addPlugin(apiPlugin);
+    expect(Amplify.addPlugin(apiPlugin), completes);
   });
 }
