@@ -31,7 +31,7 @@ jobs:
       matrix:
         sdk:
           - stable
-          - dev
+          - master
     steps:
       - name: Cache Pub dependencies
         uses: actions/cache@b195c997a41f41d0dab6d9aafe79e437611b78db
