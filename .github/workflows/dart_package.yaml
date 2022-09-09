@@ -94,7 +94,7 @@ jobs:
   native_test:
     name: Native Test
     needs: test
-    if: ${{ github.event_name == 'pull_request' }}
+    if: ${{ github.event_name == 'pull_request' }} # TODO: 'push'
     strategy:
       matrix:
         os:
