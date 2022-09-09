@@ -40,7 +40,7 @@ const Duration _defaultRetryTimeout = Duration(seconds: 5);
 class WebSocketConnection implements Closeable {
   /// Allowed protocols for this connection.
   static const webSocketProtocols = ['graphql-ws'];
-  final AmplifyLogger _logger;
+  late final AmplifyLogger _logger;
 
   // Config and auth repo together determine how to authorize connection URLs
   // and subscription registration messages.
@@ -57,9 +57,9 @@ class WebSocketConnection implements Closeable {
       StreamController<ApiHubEvent>.broadcast();
   RestartableTimer? _timeoutTimer;
 
-  http.Client? _pingClient;
+  final http.Client _pingClient = http.Client();
   Timer? _pingTimer;
-  late Uri? _pingUri;
+  late Uri _pingUri;
   bool _hasNetwork = false;
   bool _hasConnectionBroken = false;
   final Set<GraphQLRequest<Object?>> _subscriptionRequests = HashSet(
@@ -78,7 +78,6 @@ class WebSocketConnection implements Closeable {
 
   // Manage initial connection state.
   var _initMemo = AsyncMemoizer<void>();
-  var _hubMemo = AsyncMemoizer<void>();
   Completer<void> _connectionReady = Completer<void>();
 
   /// Fires when the connection is ready to be listened to after the first
@@ -88,8 +87,13 @@ class WebSocketConnection implements Closeable {
   /// {@macro amplify_api.ws.web_socket_connection}
   WebSocketConnection(
       this._config, this._authProviderRepo, this._subscriptionOptions,
-      {required AmplifyLogger logger})
-      : _logger = logger;
+      {required AmplifyLogger logger}) {
+    _logger = logger;
+    _pingUri = Uri.parse(_config.endpoint).replace(path: 'ping');
+
+    // Establish HubEvents Stream
+    Amplify.Hub.addChannel(HubChannel.Api, _hubEventsController.stream);
+  }
 
   /// Connects _subscription stream to _onData handler.
   @visibleForTesting
@@ -112,7 +116,7 @@ class WebSocketConnection implements Closeable {
         if (_hasNetwork && _subscriptionRequests.isNotEmpty) {
           _retry();
         } else {
-          _hubEventsController?.add(SubscriptionHubEvent.failed());
+          _hubEventsController.add(SubscriptionHubEvent.failed());
         }
       },
       // Todo(equartey): investigate why this breaks onDone & onError when an error occurs.
@@ -176,13 +180,12 @@ class WebSocketConnection implements Closeable {
   void close([int closeStatus = _defaultCloseStatus]) {
     _logger.verbose('Closing web socket connection.');
     _hubEventsController.add(SubscriptionHubEvent.disconnected());
-    _rebroadcastController.close();
 
     _resetConnectionInit();
     _resetConnectionVariables(closeStatus);
 
     _subscriptionRequests.clear();
-    _hubEventsController.close();
+    _pingClient.close();
   }
 
   /// Initiate polling
@@ -198,9 +201,8 @@ class WebSocketConnection implements Closeable {
   /// reconnection through retry/back off.
   Future<void> _poll() async {
     try {
-      if (_pingClient == null) return;
       final res = await _getPollRequest();
-      if (res!.body != 'healthy') {
+      if (res.body != 'healthy') {
         throw ApiException(
           'Subscription connection broken. AppSync status check returned: ${res.body}',
           recoverySuggestion:
@@ -229,8 +231,6 @@ class WebSocketConnection implements Closeable {
   /// Attempts to connect to the configured graphql endpoint.
   /// Upon successful ping, a new websocket connection is initialized.
   Future<void> _retry() async {
-    if (_pingClient == null) return;
-
     RetryOptions retryStrategy =
         _subscriptionOptions?.retryOptions ?? const RetryOptions();
 
@@ -240,7 +240,7 @@ class WebSocketConnection implements Closeable {
 
       await retryStrategy.retry(
           // Make a GET request
-          () => _getPollRequest()!.timeout(_defaultRetryTimeout));
+          () => _getPollRequest().timeout(_defaultRetryTimeout));
 
       // we can reach AppSync, precede with reconnect
       _init();
@@ -259,8 +259,7 @@ class WebSocketConnection implements Closeable {
 
   /// [GET] request on the configured AppSync url via the `/ping` endpoint
   Future<http.Response> _getPollRequest() {
-    _pingUri ??= Uri.parse(_config.endpoint).replace(path: 'ping');
-    return _pingClient!.get(_pingUri!);
+    return _pingClient.get(_pingUri);
   }
 
   /// Clear variables used to track subscriptions and other helper variables
@@ -271,13 +270,11 @@ class WebSocketConnection implements Closeable {
 
     _channel?.sink.done.whenComplete(() {
       _network?.cancel();
-      _pingClient?.close();
       _subscription?.cancel();
       _timeoutTimer?.cancel();
 
       _channel = null;
       _network = null;
-      _pingClient = null;
       _subscription = null;
       _timeoutTimer = null;
     });
@@ -296,10 +293,6 @@ class WebSocketConnection implements Closeable {
     _connectionReady = Completer<void>();
     _resetConnectionVariables();
 
-    // establish hub events controller
-    _hubMemo.runOnce(() =>
-        Amplify.Hub.addChannel(HubChannel.Api, _hubEventsController.stream));
-
     _hubEventsController.add(SubscriptionHubEvent.connecting());
 
     final connectionUri =
@@ -309,8 +302,6 @@ class WebSocketConnection implements Closeable {
     send(WebSocketConnectionInitMessage());
 
     await ready;
-
-    _pingClient = http.Client();
 
     // connection ready, start polling
     _startPolling();
