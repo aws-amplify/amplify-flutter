@@ -6,10 +6,6 @@ on:
         required: false
         type: string
         default: ""
-      sdk:
-        required: false
-        type: string
-        default: stable
       working-directory:
         required: false
         type: string
@@ -31,19 +27,37 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        sdk:
+          - stable
+          - dev
     steps:
+      - name: Cache Pub dependencies
+        uses: actions/cache@b195c997a41f41d0dab6d9aafe79e437611b78db
+        with:
+          path: |
+            ~/.pub-cache/hosted
+            ~/.pub-cache/git
+          key: os:ubuntu-latest;sdk:${{ matrix.sdk }};packages:${{ inputs.working-directory }}
+          restore-keys: |
+            os:ubuntu-latest;sdk:${{ matrix.sdk }};packages:${{ inputs.working-directory }}
+            os:ubuntu-latest;sdk:${{ matrix.sdk }}
+            os:ubuntu-latest
+            os:ubuntu-latest
+
       - name: Git Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
+        uses: subosito/flutter-action@45dd344cec959c99c9e3b1dbf3eac51907ffe1aa
         with:
-          sdk: ${{ inputs.sdk }}
+          channel: ${{ matrix.sdk }}
 
       - name: Bootstrap
         run: |
           dart pub global activate -spath packages/aft
-          aft link
+          aft bootstrap
 
       - name: Get Packages
         run: dart pub upgrade
@@ -62,9 +76,9 @@ jobs:
           dart pub global activate coverage
           dart test -j 4 --coverage=coverage && dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=${{inputs.report_on}}
         working-directory: ${{ inputs.working-directory }}
-      
+
       - name: Check Code Coverage
-        uses: VeryGoodOpenSource/very_good_coverage@v1
+        uses: VeryGoodOpenSource/very_good_coverage@ccb4ea4bcd8896d8ba4ca9fd885f3d3d72f63855
         with:
           path: ${{ inputs.working-directory }}/coverage/lcov.info
           exclude: ${{ inputs.coverage-excludes }}
@@ -77,28 +91,41 @@ jobs:
     strategy:
       matrix:
         os:
-          # TODO: macos-latest currently points to macos-11
+          # macos-latest currently points to macos-11
+          # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
           - macos-12
           - windows-latest
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Cache Pub dependencies
+        uses: actions/cache@b195c997a41f41d0dab6d9aafe79e437611b78db
+        with:
+          path: |
+            ~/.pub-cache/hosted
+            ~/.pub-cache/git
+          key: os:${{ matrix.os }};sdk:stable;packages:${{ inputs.working-directory }}
+          restore-keys: |
+            os:${{ matrix.os }};sdk:stable;packages:${{ inputs.working-directory }}
+            os:${{ matrix.os }};sdk:stable
+            os:${{ matrix.os }}
+
       - name: Git Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
+        uses: subosito/flutter-action@45dd344cec959c99c9e3b1dbf3eac51907ffe1aa
         with:
-          sdk: ${{ inputs.sdk }}
+          channel: stable
 
       - name: Bootstrap
         run: |
           dart pub global activate -spath packages/aft
-          aft link
+          aft bootstrap
 
       - name: Get Packages
         run: dart pub upgrade
         working-directory: ${{ inputs.working-directory }}
-      
+
       - name: Check Formatting
         run: dart format --set-exit-if-changed .
         working-directory: ${{ inputs.working-directory }}
