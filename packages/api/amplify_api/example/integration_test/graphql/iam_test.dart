@@ -214,32 +214,9 @@ void main({bool useExistingTestUser = false}) {
         throwIfError(res);
         expect(res.data?.items.first, isA<Blog>());
       });
-    });
-
-    group('queries (guest access)', () {
-      setUpAll(() async {
-        await signOutTestUser();
-      });
-
-      testWidgets('should fetch model that allows guest access',
-          (WidgetTester tester) async {
-        final req = ModelQueries.list<Blog>(Blog.classType);
-        final res = await Amplify.API.query(request: req).response;
-        final data = res.data;
-        throwIfError(res);
-        expect(data?.items.length, greaterThanOrEqualTo(0));
-      });
-
-      testWidgets('should get error model that does not allow guest access',
-          (WidgetTester tester) async {
-        final req = ModelQueries.list<Comment>(Comment.classType);
-        final res = await Amplify.API.query(request: req).response;
-        expect(res.data, isNull);
-        expect(res.hasErrors, isTrue);
-      });
 
       testWidgets('should allow custom headers', (WidgetTester tester) async {
-        // Authorize w cognito user pools using a custom header (same as plugin)
+        // Authorize w cognito user pools using a custom header, same as plugin
         // would do if that was the auth mode.
         final authSession =
             await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
@@ -264,6 +241,29 @@ void main({bool useExistingTestUser = false}) {
             await Amplify.API.query(request: reqThatShouldWOrk).response;
         throwIfError(res);
         expect(res.data?.items.length, greaterThanOrEqualTo(0));
+      });
+    });
+
+    group('queries (guest access)', () {
+      setUpAll(() async {
+        await signOutTestUser();
+      });
+
+      testWidgets('should fetch model that allows guest access',
+          (WidgetTester tester) async {
+        final req = ModelQueries.list<Blog>(Blog.classType);
+        final res = await Amplify.API.query(request: req).response;
+        final data = res.data;
+        throwIfError(res);
+        expect(data?.items.length, greaterThanOrEqualTo(0));
+      });
+
+      testWidgets('should get error model that does not allow guest access',
+          (WidgetTester tester) async {
+        final req = ModelQueries.list<Comment>(Comment.classType);
+        final res = await Amplify.API.query(request: req).response;
+        expect(res.data, isNull);
+        expect(res.hasErrors, isTrue);
       });
 
       tearDownAll(() async {
