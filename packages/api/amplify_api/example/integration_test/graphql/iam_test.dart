@@ -16,6 +16,7 @@ import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/models/ModelProvider.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -235,6 +236,34 @@ void main({bool useExistingTestUser = false}) {
         final res = await Amplify.API.query(request: req).response;
         expect(res.data, isNull);
         expect(res.hasErrors, isTrue);
+      });
+
+      testWidgets('should allow custom headers', (WidgetTester tester) async {
+        // Authorize w cognito user pools using a custom header (same as plugin)
+        // would do if that was the auth mode.
+        final authSession =
+            await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+        final accessToken = authSession.userPoolTokens?.accessToken.raw;
+        if (accessToken == null) {
+          throw const AmplifyException(
+            'Could not get access token from cognito.',
+            recoverySuggestion: 'Ensure test user signed in.',
+          );
+        }
+        final headers = {AWSHeaders.authorization: accessToken};
+
+        final reqThatWouldFail = ModelQueries.list<Comment>(Comment.classType);
+        final reqThatShouldWOrk = GraphQLRequest<PaginatedResult<Comment>>(
+          document: reqThatWouldFail.document,
+          variables: reqThatWouldFail.variables,
+          modelType: reqThatWouldFail.modelType,
+          decodePath: reqThatWouldFail.decodePath,
+          headers: headers,
+        );
+        final res =
+            await Amplify.API.query(request: reqThatShouldWOrk).response;
+        throwIfError(res);
+        expect(res.data?.items.length, greaterThanOrEqualTo(0));
       });
 
       tearDownAll(() async {

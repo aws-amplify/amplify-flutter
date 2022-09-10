@@ -56,6 +56,20 @@ void main({bool useExistingTestUser = false}) {
         validateRestResponse(res);
       });
 
+      testWidgets(
+        'should send GET request with a custom header',
+        // Lambda looks for this header and only sets the body to expected string.
+        (WidgetTester tester) async {
+          final res = await Amplify.API.get(
+            path,
+            headers: {'test_header': 'test_value'},
+          ).response;
+          final body = res.decodeBody();
+          expect(res.statusCode, 200);
+          expect(body, 'test header set');
+        },
+      );
+
       testWidgets('should get an error for POST', (WidgetTester tester) async {
         final res = await Amplify.API.post(path).response;
         expect(res.statusCode, 403);
