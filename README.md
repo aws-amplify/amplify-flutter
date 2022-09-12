@@ -53,12 +53,22 @@ We are iterating and looking for feedback and collaboration, so please [**let us
   <img src="https://img.shields.io/pub/v/amplify_api.svg">
 </a>
 
+## Platform Support (Developer Preview)
+
+| Category       | Android   | iOS         | Windows                                           | MacoOS                                        | Linux |
+| -------------- | --------- | ----------- | ------------------------------------------------- | --------------------------------------------- | ----- |
+| Authentication | [x] item1 | in progress | <ul><li>- [x] item1</li><li>- [ ] item2</li></ul> |
+| Analytics      | > 5 hours |             | in progress                                       | <ul><li>[x] item1</li><li>[ ] item2</li></ul> |
+| Storage        | > 5 hours |             | in progress                                       | <ul><li>[x] item1</li><li>[ ] item2</li></ul> |
+| DataStore      | > 5 hours |             | in progress                                       | <ul><li>[x] item1</li><li>[ ] item2</li></ul> |
+| API (REST)     | > 5 hours |             | in progress                                       | <ul><li>[x] item1</li><li>[ ] item2</li></ul> |
+| API (GraphQL)  | > 5 hours |             | in progress                                       | <ul><li>[x] item1</li><li>[ ] item2</li></ul> |
+
 ### To Be Implemented
 
 - [ ] Predictions
+- [ ] Geo
 - [ ] Storage Hub Events (Listening to the Amplify Storage events)
-
-Amplify for Flutter currently supports **iOS** and **Android** platforms.
 
 ## Documentation
 
