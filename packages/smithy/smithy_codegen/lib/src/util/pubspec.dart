@@ -16,7 +16,6 @@ import 'package:aws_common/aws_common.dart';
 import 'package:path/path.dart' as path;
 import 'package:pubspec_parse/pubspec_parse.dart' hide Dependency;
 import 'package:smithy_codegen/src/generator/generator.dart';
-import 'package:smithy_codegen/src/util/recase.dart';
 
 enum DependencyType { aws, smithy }
 

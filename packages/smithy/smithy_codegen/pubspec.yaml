@@ -21,7 +21,6 @@ dependencies:
   fixnum: ^1.0.0
   grpc: ^3.0.2
   html2md: ^1.2.5
-  http: ^0.13.4
   jmespath: ^2.0.0
   json_annotation: ^4.6.0
   meta: ^1.7.0
@@ -44,8 +43,8 @@ dev_dependencies:
   build_runner: ^2.1.7
   build_verify: ^3.0.0
   build_version: ^2.1.0
-  built_value_generator: 8.4.0
-  json_serializable: ^6.3.0
+  built_value_generator: 8.4.1
+  json_serializable: 6.3.1
   smithy_test:
     path: ../smithy_test
   test: ^1.16.0

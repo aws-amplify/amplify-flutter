@@ -12,23 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: prefer_void_to_null, avoid_classes_with_only_static_members
-
-@JS()
-@internal
-library aws_http.js.common;
+// ignore_for_file: avoid_classes_with_only_static_members, prefer_void_to_null
 
 import 'dart:async';
 import 'dart:js_util' as js_util;
 
+import 'package:aws_common/src/util/recase.dart';
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
-import 'package:worker_bee/src/recase.dart';
 
 /// The JS `undefined`.
-///
-/// Marked as `dynamic` so that this can be used in place of `null` in
-/// strongly-typed APIs of type `T?`.
 @JS()
 external Null get undefined;
 
@@ -39,7 +31,7 @@ mixin JSEnum on Enum {
   /// Default values are represented as `undefined`, as opposed to `null` which
   /// can be interpreted incorrectly by DOM APIs. Non-default values are
   /// representated as the parameter-cased [name].
-  dynamic get jsValue {
+  String? get jsValue {
     switch (name) {
       case r'default$':
         return undefined;

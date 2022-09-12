@@ -26,4 +26,3 @@ export 'src/model/smithy_library.dart';
 export 'src/parse.dart';
 export 'src/service/codegen.pb.dart';
 export 'src/util/pubspec.dart';
-export 'src/util/recase.dart';

@@ -24,7 +24,7 @@ class CaseInsensitiveMap<V> extends DelegatingMap<String, V> {
   /// {@macro aws_common.case_insensitive_map}
   CaseInsensitiveMap(Map<String, V> base)
       : super(
-          HashMap(
+          LinkedHashMap(
             equals: equalsIgnoreAsciiCase,
             hashCode: hashIgnoreAsciiCase,
           )..addAll(base),
@@ -39,7 +39,7 @@ class CaseInsensitiveSet extends DelegatingSet<String> {
   /// {@macro aws_common.case_insensitive_set}
   CaseInsensitiveSet(Iterable<String> base)
       : super(
-          HashSet(
+          LinkedHashSet(
             equals: equalsIgnoreAsciiCase,
             hashCode: hashIgnoreAsciiCase,
           )..addAll(base),

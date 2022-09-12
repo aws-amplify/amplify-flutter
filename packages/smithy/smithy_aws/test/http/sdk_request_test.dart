@@ -16,8 +16,7 @@ import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/config/aws_config_value.dart';
-import 'package:http/http.dart';
-import 'package:http/testing.dart';
+import 'package:aws_common/testing.dart';
 import 'package:smithy/smithy.dart';
 import 'package:smithy_aws/smithy_aws.dart';
 import 'package:test/test.dart';
@@ -30,13 +29,13 @@ void main() {
       var attempt = 1;
       final headers = <Map<String, String>>[];
       final httpClient = HttpClient.v1(
-        baseClient: MockClient((request) async {
+        baseClient: MockAWSHttpClient((request) async {
           headers.add(request.headers);
           if (attempt > 1) {
-            return Response('{}', 200);
+            return AWSHttpResponse(statusCode: 200, body: '{}'.codeUnits);
           }
           attempt++;
-          return Response('{}', 500);
+          return AWSHttpResponse(statusCode: 500, body: '{}'.codeUnits);
         }),
       );
       final retryer = AWSRetryer();
@@ -65,13 +64,13 @@ void main() {
     var attempt = 1;
     final headers = <Map<String, String>>[];
     final httpClient = HttpClient.v1(
-      baseClient: MockClient((request) async {
+      baseClient: MockAWSHttpClient((request) async {
         headers.add(request.headers);
         if (attempt > 1) {
-          return Response('{}', 200);
+          return AWSHttpResponse(statusCode: 200, body: '{}'.codeUnits);
         }
         attempt++;
-        return Response('{}', 500);
+        return AWSHttpResponse(statusCode: 500, body: '{}'.codeUnits);
       }),
     );
     final retryer = AWSRetryer();

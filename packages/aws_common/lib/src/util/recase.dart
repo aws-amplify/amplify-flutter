@@ -12,36 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Extended from recase v4.0 (https://github.com/techniboogie-dart/recase) to
-// include changes related to acronym preservation.
-@internal
-library worker_bee.recase;
+import 'package:collection/collection.dart';
 
-import 'package:meta/meta.dart';
-
-/// An instance of text to be re-cased.
-class _ReCase {
-  _ReCase(String text)
-      : originalText = text,
-        _words = text.groupIntoWords();
-
-  final String originalText;
-  final List<String> _words;
-
-  /// param-case
-  String get paramCase => _getSnakeCase(separator: '-');
-
-  String _getSnakeCase({String separator = '_'}) {
-    final words = _words.map((word) => word.toLowerCase()).toList();
-
-    return words.join(separator);
+/// Re-casing helpers for strings.
+extension StringRecase on String {
+  /// The capitalized version of `this`, with the first letter upper-cased and
+  /// all others lower-cased.
+  String get capitalized {
+    if (length < 2) return toUpperCase();
+    return this[0].toUpperCase() + substring(1).toLowerCase();
   }
-}
 
-/// Recasing string helpers.
-extension StringReCase on String {
-  /// param-case
-  String get paramCase => _ReCase(this).paramCase;
+  /// The `camelCase` version of `this`.
+  String get camelCase => groupIntoWords().mapIndexed((index, word) {
+        if (index == 0) return word.toLowerCase();
+        return word.capitalized;
+      }).join();
+
+  /// The `param-case` version of `this`.
+  String get paramCase =>
+      groupIntoWords().map((word) => word.toLowerCase()).join('-');
+
+  /// The `PascalCase` version of `this`.
+  String get pascalCase =>
+      groupIntoWords().map((word) => word.capitalized).join();
+
+  /// The `snake_case` version of `this`.
+  String get snakeCase =>
+      groupIntoWords().map((word) => word.toLowerCase()).join('_');
 
   // "acm-success"-> "acm success"
   static final _nonAlphaNumericChars = RegExp(r'[^A-Za-z0-9+]');
@@ -53,8 +51,9 @@ extension StringReCase on String {
   static final _standaloneVUpper = RegExp(r'([^A-Z]{2,})V([0-9]+)');
 
   // "AcmSuccess" -> "Acm Success"
-  static final _camelCasedWords =
-      RegExp(r'(?<=[a-z])(?=[A-Z]([a-zA-Z]|[0-9]))');
+  // Workaround for lack of support for lookbehinds in Safari:
+  // https://caniuse.com/js-regexp-lookbehind
+  static final _camelCasedWords = RegExp(r'[a-z][A-Z]([a-zA-Z]|[0-9])');
 
   // "ACMSuccess" -> "ACM Success"
   static final _acronyms = RegExp(r'([A-Z]+)([A-Z][a-z])');
@@ -84,7 +83,19 @@ extension StringReCase on String {
         );
 
     // add a space between camelCased words: "AcmSuccess" -> "Acm Success"
-    result = result.split(_camelCasedWords).join(' ');
+    // Workaround for lack of support for lookbehinds in Safari:
+    // https://caniuse.com/js-regexp-lookbehind
+    var start = 0;
+    result = () sync* {
+      yield* _camelCasedWords.allMatches(result).map((match) {
+        final end = match.start + 1;
+        final substr = result.substring(start, end);
+        start = end;
+        return substr;
+      });
+      yield result.substring(start);
+    }()
+        .join(' ');
 
     // add a space after acronyms: "ACMSuccess" -> "ACM Success"
     result = result.replaceAllMapped(

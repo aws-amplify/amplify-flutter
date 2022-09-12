@@ -63,7 +63,7 @@ void main() {
     });
 
     testWidgets(
-        'fetchAuthSession should throw SignedOutException after user deletion',
+        'fetchAuthSession should throw NotAuthorizedException after user deletion',
         (WidgetTester tester) async {
       final username = generateUsername();
       final password = generatePassword();
@@ -86,12 +86,13 @@ void main() {
       // Delete the user
       await Amplify.Auth.deleteUser();
 
-      // Expect fetchAuthSession to throw a SignedOutException (the tokens have been cleared)
+      // Expect fetchAuthSession to throw a NotAuthorizedException
+      // (the tokens have been cleared and guest users are not allowed).
       expect(
         Amplify.Auth.fetchAuthSession(
           options: const CognitoSessionOptions(getAWSCredentials: true),
         ),
-        throwsA(isA<SignedOutException>()),
+        throwsA(isA<NotAuthorizedException>()),
       );
     });
   });

@@ -13,41 +13,17 @@
 // limitations under the License.
 
 @JS()
-@internal
 library amplify_secure_storage_dart.js.indexed_db;
 
 import 'dart:async';
 import 'dart:js_util' as js_util;
 
-import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
+import 'package:aws_common/src/js/common.dart';
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 /// The global read-only [IDBFactory] instance.
 @JS()
 external IDBFactory? get indexedDB;
-
-/// A function which handles DOM events.
-typedef EventHandler<T extends Event> = void Function(T event);
-
-/// {@template amplify_secure_storage_dart.event}
-/// The Event interface represents an event which takes place in the DOM.
-/// {@endtemplate}
-@JS()
-@staticInterop
-abstract class Event {}
-
-/// {@macro amplify_secure_storage_dart.event}
-extension PropsEvent on Event {
-  /// A reference to the object onto which this event was dispatched.
-  external EventTarget? get target;
-}
-
-/// The EventTarget interface is implemented by objects that can receive events
-/// and may have listeners for them.
-@JS()
-@staticInterop
-abstract class EventTarget {}
 
 /// {@template amplify_secure_storage_dart.dom_string_list}
 /// A type returned by some APIs which contains a list of DOMString (strings).
@@ -113,9 +89,7 @@ extension PropsIDBRequest<T> on IDBRequest<T> {
       completer.complete(result);
     };
     onerror = (_) {
-      completer.completeError(
-        const SecureStorageException('Could not complete IDBRequest'),
-      );
+      completer.completeError('Could not complete IDBRequest');
     };
     return completer.future;
   }
