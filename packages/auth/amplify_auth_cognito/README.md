@@ -8,7 +8,17 @@ The Amplify Flutter libraries are being rewritten in Dart. This version is part 
 
 For production use cases please use the latest, non-tagged versions of amplify-flutter packages from `pub.dev`. They offer a stable, production-ready experience for Android and iOS.
 
+## Category / Platform Support (Developer Preview)
+
+| Category       | Android | iOS | Web | Windows | MacOS | Linux |
+| -------------- | ------- | --- | --- | ------- | ----- | ----- |
+| Analytics      | [ ]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| API (REST)     | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| API (GraphQL)  | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| Authentication | [X]     | [X] | [X] | [X]     | [X]   | [X]   |
+| DataStore      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| Storage        | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+
 ## Getting Started
 
 Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
-
