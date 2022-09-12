@@ -32,7 +32,6 @@ class AmplifyHubImpl extends AmplifyHub {
 
   static final AmplifyLogger _logger = AmplifyLogger.category(Category.hub);
 
-  final Map<HubChannel, StreamCompleter<HubEvent>> _streamCompleters = {};
   final Map<HubChannel, StreamGroup<HubEvent>> _availableStreams = {};
   final Map<HubChannel, List<StreamSubscription>> _subscriptions = {};
 
@@ -47,12 +46,7 @@ class AmplifyHubImpl extends AmplifyHub {
       _initChannel<HubEventPayload, E extends HubEvent<HubEventPayload>>(
     HubChannel<HubEventPayload, E> channel,
   ) {
-    final streamCompleter = _streamCompleters[channel] ??= StreamCompleter<E>();
-    return _availableStreams[channel] ??= () {
-      final streamGroup = StreamGroup<E>.broadcast();
-      streamCompleter.setSourceStream(streamGroup.stream);
-      return streamGroup;
-    }();
+    return _availableStreams[channel] ??= StreamGroup<E>.broadcast();
   }
 
   @override
@@ -91,7 +85,6 @@ class AmplifyHubImpl extends AmplifyHub {
     Future.wait<void>([
       for (final stream in _availableStreams.values) stream.close(),
     ]).ignore();
-    _streamCompleters.clear();
     _availableStreams.clear();
     _subscriptions.clear();
   }
