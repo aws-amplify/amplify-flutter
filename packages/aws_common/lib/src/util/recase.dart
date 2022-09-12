@@ -51,8 +51,9 @@ extension StringRecase on String {
   static final _standaloneVUpper = RegExp(r'([^A-Z]{2,})V([0-9]+)');
 
   // "AcmSuccess" -> "Acm Success"
-  static final _camelCasedWords =
-      RegExp(r'(?<=[a-z])(?=[A-Z]([a-zA-Z]|[0-9]))');
+  // Workaround for lack of support for lookbehinds in Safari:
+  // https://caniuse.com/js-regexp-lookbehind
+  static final _camelCasedWords = RegExp(r'[a-z][A-Z]([a-zA-Z]|[0-9])');
 
   // "ACMSuccess" -> "ACM Success"
   static final _acronyms = RegExp(r'([A-Z]+)([A-Z][a-z])');
@@ -82,7 +83,19 @@ extension StringRecase on String {
         );
 
     // add a space between camelCased words: "AcmSuccess" -> "Acm Success"
-    result = result.split(_camelCasedWords).join(' ');
+    // Workaround for lack of support for lookbehinds in Safari:
+    // https://caniuse.com/js-regexp-lookbehind
+    var start = 0;
+    result = () sync* {
+      yield* _camelCasedWords.allMatches(result).map((match) {
+        final end = match.start + 1;
+        final substr = result.substring(start, end);
+        start = end;
+        return substr;
+      });
+      yield result.substring(start);
+    }()
+        .join(' ');
 
     // add a space after acronyms: "ACMSuccess" -> "ACM Success"
     result = result.replaceAllMapped(
