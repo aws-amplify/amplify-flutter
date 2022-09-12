@@ -91,6 +91,17 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     });
   }
 
+  @override
+  void removeAll() {
+    using((Arena arena) {
+      try {
+        _removeAll(arena: arena);
+      } on ItemNotFoundException {
+        // do nothing if no items are found
+      }
+    });
+  }
+
   /// Updates an item in the keychain.
   ///
   /// throws [ItemNotFoundException] if the item is not in the keychain.
@@ -154,6 +165,29 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     }
   }
 
+  /// Removes an item from the keychain.
+  ///
+  /// If no key is provided, all keys under the current
+  /// scope will be removed.
+  ///
+  /// throws [ItemNotFoundException] if the item is not in the keychain.
+  void _removeAll({
+    required Arena arena,
+  }) {
+    final baseQueryAttributes = _getBaseAttributes(arena: arena);
+    final query = _createCFDictionary(
+      map: {
+        ...baseQueryAttributes,
+        security.kSecMatchLimit: security.kSecMatchLimitAll,
+      },
+      arena: arena,
+    );
+    final status = security.SecItemDelete(query);
+    if (status != errSecSuccess) {
+      throw _getExceptionFromResultCode(status);
+    }
+  }
+
   /// Returns the value for a given key in the keychain.
   ///
   /// throws [ItemNotFoundException] if the item is not in the keychain.
@@ -190,16 +224,16 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
 
   /// Get the query attributes that are common to all queries.
   Map<Pointer<NativeType>, Pointer<NativeType>> _getBaseAttributes({
-    required String key,
+    String? key,
     required Arena arena,
   }) {
-    final account = _createCFString(value: key, arena: arena);
     final service = _createCFString(value: _serviceName, arena: arena);
     return {
       security.kSecClass: security.kSecClassGenericPassword,
-      security.kSecAttrAccount: account,
       security.kSecAttrService: service,
       security.kSecAttrAccessible: _accessible,
+      if (key != null)
+        security.kSecAttrAccount: _createCFString(value: key, arena: arena),
       if (_accessGroup != null)
         security.kSecAttrAccessGroup: _createCFString(
           value: _accessGroup!,
