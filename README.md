@@ -53,6 +53,19 @@ We are iterating and looking for feedback and collaboration, so please [**let us
   <img src="https://img.shields.io/pub/v/amplify_api.svg">
 </a>
 
+## Category / Platform Support
+
+| Category       | Android | iOS | Web | Windows | MacOS | Linux |
+| -------------- | ------- | --- | --- | ------- | ----- | ----- |
+| Analytics      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| API (REST)     | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| API (GraphQL)  | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| Authentication | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| DataStore      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| Storage        | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+
+See our Developer Preview for additional platform support.
+
 ### To Be Implemented
 
 - [ ] Predictions
