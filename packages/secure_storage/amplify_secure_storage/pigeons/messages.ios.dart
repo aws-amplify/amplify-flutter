@@ -18,27 +18,22 @@ import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
   PigeonOptions(
-    dartOut: 'lib/src/messages.g.dart',
-    javaOut:
-        'android/src/main/java/com/amazonaws/amplify/amplify_secure_storage/amplify_secure_storage/Messages.java',
-    javaOptions: JavaOptions(
-      package:
-          'com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage',
+    dartOut: 'lib/src/messages.cupertino.g.dart',
+    objcOptions: ObjcOptions(
+      header: 'Messages.h',
     ),
+    objcHeaderOut: '../amplify_secure_storage/ios/Classes/Messages.h',
+    objcSourceOut: '../amplify_secure_storage/ios/Classes/Messages.m',
     copyrightHeader: 'pigeons/copyright.txt',
   ),
 )
 @HostApi()
-abstract class AmplifySecureStorageApi {
+abstract class NSUserDefaultsAPI {
   @async
   @TaskQueue(type: TaskQueueType.serialBackgroundThread)
-  String? read(String namespace, String key);
+  void setBool(String key, bool value);
 
   @async
   @TaskQueue(type: TaskQueueType.serialBackgroundThread)
-  void write(String namespace, String key, String? value);
-
-  @async
-  @TaskQueue(type: TaskQueueType.serialBackgroundThread)
-  void delete(String namespace, String key);
+  bool boolFor(String key);
 }
