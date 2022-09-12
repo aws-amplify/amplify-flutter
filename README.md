@@ -55,14 +55,9 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 
 ## Platform Support (Developer Preview)
 
-| Category       | Android   | iOS         | Windows                                           | MacoOS                                        | Linux |
-| -------------- | --------- | ----------- | ------------------------------------------------- | --------------------------------------------- | ----- |
-| Authentication | [x] item1 | in progress | <ul><li>- [x] item1</li><li>- [ ] item2</li></ul> |
-| Analytics      | > 5 hours |             | in progress                                       | <ul><li>[x] item1</li><li>[ ] item2</li></ul> |
-| Storage        | > 5 hours |             | in progress                                       | <ul><li>[x] item1</li><li>[ ] item2</li></ul> |
-| DataStore      | > 5 hours |             | in progress                                       | <ul><li>[x] item1</li><li>[ ] item2</li></ul> |
-| API (REST)     | > 5 hours |             | in progress                                       | <ul><li>[x] item1</li><li>[ ] item2</li></ul> |
-| API (GraphQL)  | > 5 hours |             | in progress                                       | <ul><li>[x] item1</li><li>[ ] item2</li></ul> |
+| Category       | Android              | iOS                        | Web                        | Windows                    | MacoOS                     | Linux                      |
+| -------------- | -------------------- | -------------------------- | -------------------------- | -------------------------- | -------------------------- | -------------------------- |
+| Authentication | <ul><li>[x]</li><li> | <ul><li>[x] item1</li><li> | <ul><li>[x] item1</li><li> | <ul><li>[x] item1</li><li> | <ul><li>[x] item1</li><li> | <ul><li>[x] item1</li><li> |
 
 ### To Be Implemented
 
