@@ -55,9 +55,9 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 
 ## Platform Support (Developer Preview)
 
-| Category       | Android              | iOS                        | Web                        | Windows                    | MacoOS                     | Linux                      |
-| -------------- | -------------------- | -------------------------- | -------------------------- | -------------------------- | -------------------------- | -------------------------- |
-| Authentication | <ul><li>[x]</li><li> | <ul><li>[x] item1</li><li> | <ul><li>[x] item1</li><li> | <ul><li>[x] item1</li><li> | <ul><li>[x] item1</li><li> | <ul><li>[x] item1</li><li> |
+| Category       | Android               | iOS                        | Web                        | Windows                    | MacoOS                     | Linux                      |
+| -------------- | --------------------- | -------------------------- | -------------------------- | -------------------------- | -------------------------- | -------------------------- |
+| Authentication | <ul><li>[x] </li><li> | <ul><li>[x] item1</li><li> | <ul><li>[x] item1</li><li> | <ul><li>[x] item1</li><li> | <ul><li>[x] item1</li><li> | <ul><li>[x] item1</li><li> |
 
 ### To Be Implemented
 
