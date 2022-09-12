@@ -25,7 +25,8 @@ class BootstrapCommand extends AmplifyCommand {
         'upgrade',
         abbr: 'u',
         help: 'Runs `pub upgrade` instead of `pub get`',
-        negatable: false,
+        negatable: true,
+        defaultsTo: true,
       )
       ..addFlag(
         'build',

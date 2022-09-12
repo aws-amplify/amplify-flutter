@@ -21,12 +21,12 @@ void main() {
     final encs = ['AQAB', 'AA', null];
 
     for (var i = 0; i < bints.length; i++) {
-      test('encode ${bints[i].toString()}', () {
+      test('encode ${bints[i]}', () {
         final encoded = base64UrlUintEncode(bints[i]);
         expect(encoded, encs[i]);
       });
 
-      test('decode ${bints[i].toString()}', () {
+      test('decode ${bints[i]}', () {
         final decoded = base64UrlUintTryDecode(encs[i]);
         expect(decoded, bints[i]);
       });
