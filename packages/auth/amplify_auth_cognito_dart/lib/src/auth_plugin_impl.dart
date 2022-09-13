@@ -208,7 +208,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final credentialStorage = _credentialStorage ??
         AmplifySecureStorageWorker(
           config: AmplifySecureStorageConfig(
-            scope: 'auth',
+            scope: 'awsCognitoAuthPlugin',
           ),
         );
     _stateMachine

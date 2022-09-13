@@ -34,7 +34,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   ///
   /// To change the default behavior of credential storage,
   /// provide a [credentialStorage] value. If no value is provided,
-  /// [AmplifySecureStorage] will be used with a `scope` of "auth".
+  /// [AmplifySecureStorage] will be used with a `scope` of "awsCognitoAuthPlugin".
   ///
   /// **NOTE**: Switching credential storage providers will likely result in
   /// end-users needing to re-authenticate since no migrations are performed in
@@ -45,7 +45,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
           credentialStorage: credentialStorage ??
               AmplifySecureStorage(
                 config: AmplifySecureStorageConfig(
-                  scope: 'auth',
+                  scope: 'awsCognitoAuthPlugin',
                 ),
               ),
           hostedUiPlatformFactory: HostedUiPlatformImpl.new,
