@@ -23,8 +23,37 @@ class DownloadFileRequest {
   File local;
   DownloadFileOptions? options;
 
-  DownloadFileRequest({required this.key, required this.local, this.options}) {
-    uuid = UUID.getUUID();
+  factory DownloadFileRequest({
+    required String key,
+    required File local,
+    DownloadFileOptions? options,
+  }) {
+    return DownloadFileRequest._(
+      uuid: UUID.getUUID(),
+      key: key,
+      local: local,
+      options: options,
+    );
+  }
+
+  DownloadFileRequest._({
+    required this.uuid,
+    required this.key,
+    required this.local,
+    this.options,
+  });
+
+  DownloadFileRequest copyWith({
+    String? key,
+    File? local,
+    DownloadFileOptions? options,
+  }) {
+    return DownloadFileRequest._(
+      uuid: uuid,
+      key: key ?? this.key,
+      local: local ?? this.local,
+      options: options ?? this.options,
+    );
   }
 
   Map<String, Object?> serializeAsMap() => {
