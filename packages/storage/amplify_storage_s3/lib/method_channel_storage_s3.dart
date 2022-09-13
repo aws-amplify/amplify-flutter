@@ -14,10 +14,10 @@
  */
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
-import 'dart:io';
 
 import 'amplify_storage_s3.dart';
 
@@ -152,7 +152,12 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       if (onProgress != null) {
         _transferProgressionCallbackMap[request.uuid] = onProgress;
       }
-
+      // Delete the file if it already exists since iOS will only write to
+      // a non-existent file; it will not overwrite the contents of an existing
+      // one.
+      if (Platform.isIOS && await request.local.exists()) {
+        await request.local.delete();
+      }
       final Map<String, dynamic>? data =
           (await _channel.invokeMapMethod<String, dynamic>(
         'downloadFile',
