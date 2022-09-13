@@ -27,7 +27,7 @@ const value1 = 'value_1';
 
 // Enabling useDataProtection requires that the app is
 // added to at least one access group.
-final macOSOptions = MacOSSecureStorageOptions(useDataProtection: true);
+final macOSOptions = MacOSSecureStorageOptions(useDataProtection: false);
 
 /// MacOS & iOS app uninstall & re-install tests.
 ///
