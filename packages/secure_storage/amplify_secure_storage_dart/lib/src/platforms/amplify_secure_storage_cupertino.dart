@@ -176,10 +176,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   }) {
     final baseQueryAttributes = _getBaseAttributes(arena: arena);
     final query = _createCFDictionary(
-      map: {
-        ...baseQueryAttributes,
-        security.kSecMatchLimit: security.kSecMatchLimitAll,
-      },
+      map: baseQueryAttributes,
       arena: arena,
     );
     final status = security.SecItemDelete(query);

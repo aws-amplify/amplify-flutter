@@ -34,7 +34,6 @@ globals:
     - kCFBooleanTrue
     - kSecMatchLimit
     - kSecMatchLimitOne
-    - kSecMatchLimitAll
     - kSecClass
     - kSecClassGenericPassword
     - kSecAttrService
