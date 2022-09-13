@@ -6,14 +6,19 @@ part of 'sign_out_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SignOutRequest _$SignOutRequestFromJson(Map<String, dynamic> json) =>
-    SignOutRequest(
-      options: json['options'] == null
-          ? null
-          : SignOutOptions.fromJson(json['options'] as Map<String, dynamic>),
-    );
+SignOutRequest<Options>
+    _$SignOutRequestFromJson<Options extends SignOutOptions>(
+  Map<String, dynamic> json,
+  Options Function(Object? json) fromJsonOptions,
+) =>
+        SignOutRequest<Options>(
+          options: _$nullableGenericFromJson(json['options'], fromJsonOptions),
+        );
 
-Map<String, dynamic> _$SignOutRequestToJson(SignOutRequest instance) {
+Map<String, dynamic> _$SignOutRequestToJson<Options extends SignOutOptions>(
+  SignOutRequest<Options> instance,
+  Object? Function(Options value) toJsonOptions,
+) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -22,6 +27,19 @@ Map<String, dynamic> _$SignOutRequestToJson(SignOutRequest instance) {
     }
   }
 
-  writeNotNull('options', instance.options?.toJson());
+  writeNotNull(
+      'options', _$nullableGenericToJson(instance.options, toJsonOptions));
   return val;
 }
+
+T? _$nullableGenericFromJson<T>(
+  Object? input,
+  T Function(Object? json) fromJson,
+) =>
+    input == null ? null : fromJson(input);
+
+Object? _$nullableGenericToJson<T>(
+  T? input,
+  Object? Function(T value) toJson,
+) =>
+    input == null ? null : toJson(input);

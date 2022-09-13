@@ -7,6 +7,7 @@ fi
 
 DEFAULT_DEVICE_ID="sdk"
 DEFAULT_ENABLE_CLOUD_SYNC="true"
+DEFAULT_RETRIES=0
 
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -33,6 +34,7 @@ done
 
 deviceId=${deviceId:-$DEFAULT_DEVICE_ID}
 enableCloudSync=${enableCloudSync:-$DEFAULT_ENABLE_CLOUD_SYNC}
+retries=${retries:-$DEFAULT_RETRIES}
 
 declare -a testsList
 declare -a resultsList
@@ -44,14 +46,28 @@ if [ ! -e $TARGET ]; then
 fi
 
 testsList+=("$TARGET")
-if flutter test \
-    --no-pub \
-    -d $deviceId \
-    $TARGET; then
-    resultsList+=(0)
-else
-    resultsList+=(1)
-fi
+# Run tests with retry.
+n=0
+until [ "$n" -gt $retries ]
+do
+    if flutter test \
+        --no-pub \
+        -d $deviceId \
+        $TARGET;
+    then
+        resultsList+=(0)
+        break
+    else
+        n=$((n+1))
+        echo "Integration test failed on attempt: $n"
+        if [ "$n" -gt $retries ]
+        then
+            resultsList+=(1)
+        else
+            echo "Retrying..."
+        fi
+    fi
+done
 
 TEST_ENTRIES="integration_test/separate_integration_tests/*.dart"
 for ENTRY in $TEST_ENTRIES; do
@@ -65,15 +81,29 @@ for ENTRY in $TEST_ENTRIES; do
         echo "Run $ENTRY WITHOUT API Sync"
     fi
 
-    if flutter test \
-        --no-pub \
-        --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
-        -d $deviceId \
-        $ENTRY; then
-        resultsList+=(0)
-    else
-        resultsList+=(1)
-    fi
+    # Run tests with retry.
+    n=0
+    until [ "$n" -gt $retries ]
+    do
+        if flutter test \
+              --no-pub \
+              --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
+              -d $deviceId \
+              $ENTRY;
+        then
+            resultsList+=(0)
+            break
+        else
+            n=$((n+1))
+            echo "Integration test failed on attempt: $n"
+            if [ "$n" -gt $retries ]
+            then
+                resultsList+=(1)
+            else
+                echo "Retrying..."
+            fi
+        fi
+    done
 done
 
 testFailure=0

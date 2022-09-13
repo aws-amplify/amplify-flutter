@@ -169,6 +169,5 @@ abstract class AWSLoggerPlugin {
 /// Mixin providing an [AWSLogger] to AWS classes.
 mixin AWSLoggerMixin on AWSDebuggable {
   /// The logger for this class.
-  @protected
   AWSLogger get logger => AWSLogger().createChild(runtimeTypeName);
 }

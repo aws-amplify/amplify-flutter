@@ -22,9 +22,7 @@ part 'keychain_attribute_accessible.g.dart';
 ///
 /// Reference: https://developer.apple.com/documentation/security/ksecattraccessible
 class KeychainAttributeAccessible extends EnumClass {
-  // TODO(Jordan-Nelson): Remove when built_value supports super parameters.
-  // ignore: use_super_parameters
-  const KeychainAttributeAccessible._(String name) : super(name);
+  const KeychainAttributeAccessible._(super.name);
 
   /// The data in the keychain can only be accessed when the device is unlocked.
   ///

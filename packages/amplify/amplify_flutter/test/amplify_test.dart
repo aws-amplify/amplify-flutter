@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
-
 import 'package:amplify_analytics_pinpoint/method_channel_amplify.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
@@ -48,14 +46,6 @@ void main() {
           recoverySuggestion:
               'Check if Amplify is already configured using Amplify.isConfigured.');
 
-  const multiplePluginsForStorageException = AmplifyException(
-      'Amplify plugin AmplifyStorageS3MethodChannel was not added successfully.',
-      recoverySuggestion:
-          "We currently don't have a recovery suggestion for this exception.",
-      underlyingException:
-          AmplifyException('Storage plugin has already been added, multiple '
-              'plugins for Storage category are currently not supported.'));
-
   const pluginNotAddedException = AmplifyException(
       'Auth plugin has not been added to Amplify',
       recoverySuggestion:
@@ -85,8 +75,8 @@ void main() {
 
     // We only use Auth and Analytics category for testing this class.
     // Clear out their plugins before each test for a fresh state.
-    Amplify.Auth.plugins.clear();
-    Amplify.Analytics.plugins.clear();
+    Amplify.Auth.reset();
+    Amplify.Analytics.reset();
   });
 
   tearDown(() {
@@ -159,18 +149,12 @@ void main() {
     expect(amplify.isConfigured, true);
   });
 
-  test('adding multiple plugins from same Storage category throws exception',
+  test('adding multiple plugins from same Storage category does not throw',
       () async {
     await amplify.addPlugin(AmplifyStorageS3MethodChannel());
     expect(
       amplify.addPlugin(AmplifyStorageS3MethodChannel()),
-      throwsA(
-        isA<AmplifyException>().having(
-          (e) => e.toString(),
-          'toString',
-          contains('Storage plugin has already been added'),
-        ),
-      ),
+      completes,
     );
   });
 
