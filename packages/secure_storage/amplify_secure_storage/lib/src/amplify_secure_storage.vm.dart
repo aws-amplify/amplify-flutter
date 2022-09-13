@@ -20,12 +20,8 @@ import 'package:amplify_secure_storage/src/messages.cupertino.g.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
 import 'package:async/async.dart';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-
-/// A namespace for storing the list of registered scopes.
-///
-/// Used as the file name on Linux and a key prefix on iOS and MacOS.
-const _scopeStoragePrefix = 'amplify_secure_storage_scopes';
 
 /// {@template amplify_secure_storage.amplify_secure_storage}
 /// The default Secure Storage implementation used in Amplify packages.
@@ -37,6 +33,13 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
   });
 
   late final AmplifySecureStorageInterface _instance;
+
+  /// A namespace for storing the list of registered scopes.
+  ///
+  /// Used as the file name on Linux and a prefix for the
+  /// key in NSUserDefaults on iOS and MacOS.
+  @visibleForTesting
+  static const scopeStoragePrefix = 'amplify_secure_storage_scopes';
 
   final _initMemo = AsyncMemoizer();
 
@@ -100,8 +103,10 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
   Future<void> _initializeScope() async {
     if (Platform.isLinux) {
       final path = (await getApplicationSupportDirectory()).path;
-      final fileStore =
-          FileKeyValueStore(path: path, fileName: '$_scopeStoragePrefix.json');
+      final fileStore = FileKeyValueStore(
+        path: path,
+        fileName: '$scopeStoragePrefix.json',
+      );
       final isInitialized = await fileStore.containsKey(key: config.scope!);
       if (!isInitialized) {
         // removeAll is marked as internal to prevent use from outside
@@ -114,11 +119,10 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
 
     if (Platform.isIOS || Platform.isMacOS) {
       final userDefaults = NSUserDefaultsAPI();
-      final key = '$_scopeStoragePrefix.${config.scope}';
+      final key = '$scopeStoragePrefix.${config.scope}.isKeychainConfigured';
       final isInitialized = await userDefaults.boolFor(key);
       if (!isInitialized) {
-        // TODO(Jordan-Nelson): remove keys on init
-        // await _instance.removeAll();
+        await _instance.removeAll();
         await userDefaults.setBool(key, true);
       }
     }
