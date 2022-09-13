@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:collection/collection.dart';
-import 'package:http/http.dart';
 import 'package:test/test.dart';
 
 import 'context.dart';
@@ -282,15 +282,9 @@ class SignerTest {
         reason: 'Query parameters must be case-sensitive equal',
       );
 
-      final body = await ByteStream(signedRequest.body).toBytes();
+      final body = await collectBytes(signedRequest.split());
       final expectedRequest = testMethodData.signedRequest;
-      final Stream<List<int>> expectedBody;
-      if (expectedRequest is AWSStreamedHttpRequest) {
-        expectedBody = expectedRequest.split();
-      } else {
-        expectedBody = expectedRequest.body;
-      }
-      final expected = await ByteStream(expectedBody).toBytes();
+      final expected = await collectBytes(expectedRequest.split());
       expect(
         body,
         orderedEquals(expected),

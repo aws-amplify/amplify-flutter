@@ -13,12 +13,10 @@
 // limitations under the License.
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
 
@@ -32,7 +30,8 @@ import 'package:stream_transform/stream_transform.dart';
 /// See also:
 /// - [AWSHttpRequest]
 /// - [AWSStreamedHttpRequest]
-abstract class AWSBaseHttpRequest implements Closeable {
+abstract class AWSBaseHttpRequest
+    implements StreamSplitter<List<int>>, Closeable {
   AWSBaseHttpRequest._({
     required this.method,
     this.scheme = 'https',
@@ -41,8 +40,12 @@ abstract class AWSBaseHttpRequest implements Closeable {
     required this.path,
     Map<String, Object>? queryParameters,
     Map<String, String>? headers,
-  })  : _queryParameters = queryParameters ?? {},
-        headers = CaseInsensitiveMap(headers ?? {});
+    bool? followRedirects,
+    int? maxRedirects,
+  })  : _queryParameters = queryParameters,
+        headers = CaseInsensitiveMap(headers ?? {}),
+        followRedirects = followRedirects ?? true,
+        maxRedirects = maxRedirects ?? 5;
 
   /// The method of the request.
   final AWSHttpMethod method;
@@ -58,7 +61,7 @@ abstract class AWSBaseHttpRequest implements Closeable {
 
   /// The path of the request.
   final String path;
-  final Map<String, Object> _queryParameters;
+  final Map<String, Object>? _queryParameters;
 
   /// Query parameters for the request.
   ///
@@ -98,30 +101,36 @@ abstract class AWSBaseHttpRequest implements Closeable {
     queryParameters: _queryParameters,
   );
 
-  /// Creates a `package:http` request from this request.
-  http.StreamedRequest get httpRequest {
-    final request = http.StreamedRequest(method.value, uri);
-    request.headers.addAll(headers);
-    if (hasContentLength) {
-      request.contentLength = contentLength as int;
-    }
+  /// Whether to automatically follow redirects.
+  ///
+  /// Defaults to `true`. The behavior when `false` depends on the platform:
+  ///
+  /// - On Web, this will result in an empty [AWSStreamedHttpResponse] being
+  /// returned, with no headers or body available. This is due to the
+  /// [Fetch Standard](https://fetch.spec.whatwg.org/#concept-request-redirect-mode)
+  /// disallowing anything but transparent follows.
+  ///
+  // ignore: comment_references
+  /// - On VM, this follows the semantics of [HttpClientRequest.followRedirects]
+  /// from `dart:io`.
+  final bool followRedirects;
 
-    body.listen(
-      request.sink.add,
-      onError: request.sink.addError,
-      onDone: request.sink.close,
-      cancelOnError: true,
-    );
-
-    return request;
-  }
+  /// If [followRedirects] is `true`, sets the maximum number of redirects
+  /// before the request is terminated and an exception is thrown.
+  ///
+  /// If `followRedirects` is `false`, this has no effect. On Web, this has no
+  /// effect, except in the case `followRedirects = true` and `maxRedirects = 0`
+  /// which causes an error to be thrown if any redirect occurs.
+  final int maxRedirects;
 
   /// Sends the HTTP request.
   ///
   /// If [client] is not provided, a short-lived one is created for this
   /// request.
-  Future<AWSStreamedHttpResponse> send([http.Client? client]) async {
-    final useClient = client ?? http.Client();
+  AWSHttpOperation send([
+    AWSHttpClient? client,
+  ]) {
+    final useClient = client ?? AWSHttpClient();
 
     // Closes the HTTP client, but only if we created it.
     void closeClient() {
@@ -130,23 +139,27 @@ abstract class AWSBaseHttpRequest implements Closeable {
       }
     }
 
-    try {
-      final resp = await useClient.send(httpRequest);
-      return AWSStreamedHttpResponse(
-        headers: resp.headers,
-        statusCode: resp.statusCode,
-        body: resp.stream.tap(
-          null,
-          // Wait until the body has been read before closing the client,
-          // since chunked requests require that the client not be closed
-          // until they're complete.
-          onDone: closeClient,
-        ),
-      );
-    } on Object {
-      closeClient();
-      rethrow;
-    }
+    final awsOperation = useClient.send(this, onCancel: closeClient);
+    return AWSHttpOperation(
+      awsOperation.operation.then(
+        (resp) {
+          resp.body.tap(
+            null,
+            // Wait until the body has been read before closing the client,
+            // since chunked requests require that the client not be closed
+            // until they're complete.
+            onDone: closeClient,
+          );
+          return resp;
+        },
+        onError: (e, st) {
+          closeClient();
+          Error.throwWithStackTrace(e, st);
+        },
+      ),
+      requestProgress: awsOperation.requestProgress,
+      responseProgress: awsOperation.responseProgress,
+    );
   }
 
   @override
@@ -162,6 +175,8 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     required Uri uri,
     super.headers,
     List<int>? body,
+    super.followRedirects,
+    super.maxRedirects,
   })  : bodyBytes = body ?? const [],
         contentLength = body?.length ?? 0,
         super._(
@@ -169,7 +184,7 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
           host: uri.host,
           port: uri.hasPort ? uri.port : null,
           path: uri.path,
-          queryParameters: uri.queryParametersAll,
+          queryParameters: uri.hasQuery ? uri.queryParametersAll : null,
         );
 
   /// Creates a "raw", or unprocessed, HTTP request. Since the [Uri] constructor
@@ -187,24 +202,38 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     super.queryParameters,
     super.headers,
     List<int>? body,
+    super.followRedirects,
+    super.maxRedirects,
   })  : bodyBytes = body ?? const [],
         contentLength = body?.length ?? 0,
         super._();
 
   /// Creates a `GET` request for [uri].
-  AWSHttpRequest.get(Uri uri, {Map<String, String>? headers})
-      : this(
+  AWSHttpRequest.get(
+    Uri uri, {
+    Map<String, String>? headers,
+    bool? followRedirects,
+    int? maxRedirects,
+  }) : this(
           method: AWSHttpMethod.get,
           uri: uri,
           headers: headers,
+          followRedirects: followRedirects,
+          maxRedirects: maxRedirects,
         );
 
   /// Creates a `HEAD` request for [uri].
-  AWSHttpRequest.head(Uri uri, {Map<String, String>? headers})
-      : this(
+  AWSHttpRequest.head(
+    Uri uri, {
+    Map<String, String>? headers,
+    bool? followRedirects,
+    int? maxRedirects,
+  }) : this(
           method: AWSHttpMethod.head,
           uri: uri,
           headers: headers,
+          followRedirects: followRedirects,
+          maxRedirects: maxRedirects,
         );
 
   /// Creates a `PUT` request for [uri].
@@ -212,11 +241,15 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     Uri uri, {
     List<int>? body,
     Map<String, String>? headers,
+    bool? followRedirects,
+    int? maxRedirects,
   }) : this(
           method: AWSHttpMethod.put,
           uri: uri,
           body: body,
           headers: headers,
+          followRedirects: followRedirects,
+          maxRedirects: maxRedirects,
         );
 
   /// Creates a `POST` request for [uri].
@@ -224,11 +257,15 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     Uri uri, {
     List<int>? body,
     Map<String, String>? headers,
+    bool? followRedirects,
+    int? maxRedirects,
   }) : this(
           method: AWSHttpMethod.post,
           uri: uri,
           body: body,
           headers: headers,
+          followRedirects: followRedirects,
+          maxRedirects: maxRedirects,
         );
 
   /// Creates a `PATCH` request for [uri].
@@ -236,11 +273,15 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     Uri uri, {
     List<int>? body,
     Map<String, String>? headers,
+    bool? followRedirects,
+    int? maxRedirects,
   }) : this(
           method: AWSHttpMethod.patch,
           uri: uri,
           body: body,
           headers: headers,
+          followRedirects: followRedirects,
+          maxRedirects: maxRedirects,
         );
 
   /// Creates a `DELETE` request for [uri].
@@ -248,16 +289,23 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     Uri uri, {
     List<int>? body,
     Map<String, String>? headers,
+    bool? followRedirects,
+    int? maxRedirects,
   }) : this(
           method: AWSHttpMethod.delete,
           uri: uri,
           body: body,
           headers: headers,
+          followRedirects: followRedirects,
+          maxRedirects: maxRedirects,
         );
 
   @override
   Stream<List<int>> get body =>
       bodyBytes.isEmpty ? const Stream.empty() : Stream.value(bodyBytes);
+
+  @override
+  Stream<List<int>> split() => body;
 
   @override
   final int contentLength;
@@ -269,14 +317,13 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
   final List<int> bodyBytes;
 
   @override
-  void close() {}
+  Future<void> close() async {}
 }
 
 /// {@template aws_common.aws_http_streamed_request}
 /// A streaming HTTP request.
 /// {@endtemplate}
-class AWSStreamedHttpRequest extends AWSBaseHttpRequest
-    implements StreamSplitter<List<int>> {
+class AWSStreamedHttpRequest extends AWSBaseHttpRequest {
   /// @{macro aws_common.aws_http_streamed_request}
   ///
   /// {@template aws_common.aws_http_streamed_request_desc}
@@ -291,6 +338,8 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
     super.headers,
     Stream<List<int>>? body,
     int? contentLength,
+    super.followRedirects,
+    super.maxRedirects,
   })  : _body = body ?? const Stream.empty(),
         _contentLength = contentLength,
         super._(
@@ -298,8 +347,10 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
           host: uri.host,
           port: uri.hasPort ? uri.port : null,
           path: uri.path,
-          queryParameters: uri.queryParametersAll,
-        );
+          queryParameters: uri.hasQuery ? uri.queryParametersAll : null,
+        ) {
+    _setContentTypeIfProvided(body);
+  }
 
   /// Creates a "raw", or unprocessed, streaming HTTP request. Since the [Uri]
   /// constructor will normalize paths by default, this constructor provides an
@@ -320,26 +371,42 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
     super.headers,
     Stream<List<int>>? body,
     int? contentLength,
+    super.followRedirects,
+    super.maxRedirects,
   })  : _body = body ?? const Stream.empty(),
         _contentLength = contentLength,
-        super._();
+        super._() {
+    _setContentTypeIfProvided(body);
+  }
 
   /// Creates a `GET` request for [uri].
-  AWSStreamedHttpRequest.get(Uri uri, {Map<String, String>? headers})
-      : this(
+  AWSStreamedHttpRequest.get(
+    Uri uri, {
+    Map<String, String>? headers,
+    bool? followRedirects,
+    int? maxRedirects,
+  }) : this(
           method: AWSHttpMethod.get,
           uri: uri,
           headers: headers,
           contentLength: 0,
+          followRedirects: followRedirects,
+          maxRedirects: maxRedirects,
         );
 
   /// Creates a `HEAD` request for [uri].
-  AWSStreamedHttpRequest.head(Uri uri, {Map<String, String>? headers})
-      : this(
+  AWSStreamedHttpRequest.head(
+    Uri uri, {
+    Map<String, String>? headers,
+    bool? followRedirects,
+    int? maxRedirects,
+  }) : this(
           method: AWSHttpMethod.head,
           uri: uri,
           headers: headers,
           contentLength: 0,
+          followRedirects: followRedirects,
+          maxRedirects: maxRedirects,
         );
 
   /// Creates a `POST` request for [uri].
@@ -348,12 +415,16 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
     Stream<List<int>>? body,
     int? contentLength,
     Map<String, String>? headers,
+    bool? followRedirects,
+    int? maxRedirects,
   }) : this(
           method: AWSHttpMethod.post,
           uri: uri,
           headers: headers,
           body: body,
           contentLength: contentLength,
+          followRedirects: followRedirects,
+          maxRedirects: maxRedirects,
         );
 
   /// Creates a `PUT` request for [uri].
@@ -362,12 +433,16 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
     Stream<List<int>>? body,
     int? contentLength,
     Map<String, String>? headers,
+    bool? followRedirects,
+    int? maxRedirects,
   }) : this(
           method: AWSHttpMethod.put,
           uri: uri,
           headers: headers,
           body: body,
           contentLength: contentLength,
+          followRedirects: followRedirects,
+          maxRedirects: maxRedirects,
         );
 
   /// Creates a `PATCH` request for [uri].
@@ -376,12 +451,16 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
     Stream<List<int>>? body,
     int? contentLength,
     Map<String, String>? headers,
+    bool? followRedirects,
+    int? maxRedirects,
   }) : this(
           method: AWSHttpMethod.patch,
           uri: uri,
           headers: headers,
           body: body,
           contentLength: contentLength,
+          followRedirects: followRedirects,
+          maxRedirects: maxRedirects,
         );
 
   /// Creates a `DELETE` request for [uri].
@@ -390,13 +469,23 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
     Stream<List<int>>? body,
     int? contentLength,
     Map<String, String>? headers,
+    bool? followRedirects,
+    int? maxRedirects,
   }) : this(
           method: AWSHttpMethod.delete,
           uri: uri,
           headers: headers,
           body: body,
           contentLength: contentLength,
+          followRedirects: followRedirects,
+          maxRedirects: maxRedirects,
         );
+
+  void _setContentTypeIfProvided(Stream<List<int>>? body) {
+    if (body is HttpPayload && body.contentType != null) {
+      headers[AWSHeaders.contentType] = body.contentType!;
+    }
+  }
 
   /// Handles splitting [_body] into multiple single-subscription streams.
   StreamSplitter<List<int>>? _splitter;
@@ -408,18 +497,24 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest
   Stream<List<int>> get body => _splitter == null ? _body : split();
 
   @override
-  Future<Uint8List> get bodyBytes {
-    final completer = Completer<Uint8List>();
-    final sink = ByteConversionSink.withCallback(
-      (bytes) => completer.complete(Uint8List.fromList(bytes)),
-    );
-    split().listen(
-      sink.add,
-      onError: completer.completeError,
-      onDone: sink.close,
-      cancelOnError: true,
-    );
-    return completer.future;
+  Future<Uint8List> get bodyBytes => collectBytes(split());
+
+  /// Reads [body] fully and returns a flattened [AWSHttpRequest].
+  ///
+  /// `this` will no longer be usable after this completes.
+  Future<AWSHttpRequest> read() async {
+    try {
+      return AWSHttpRequest(
+        method: method,
+        uri: uri,
+        headers: headers,
+        body: await bodyBytes,
+        followRedirects: followRedirects,
+        maxRedirects: maxRedirects,
+      );
+    } finally {
+      unawaited(close());
+    }
   }
 
   /// The number of times the body stream has been split.

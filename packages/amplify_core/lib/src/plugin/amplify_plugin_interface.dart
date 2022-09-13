@@ -37,7 +37,5 @@ abstract class AmplifyPluginInterface {
 
   /// Resets the plugin by removing all traces of it from the device.
   @visibleForTesting
-  Future<void> reset() async {
-    throw UnimplementedError('reset() has not been implemented');
-  }
+  Future<void> reset() async {}
 }

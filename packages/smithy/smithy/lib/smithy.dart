@@ -16,10 +16,10 @@
 library smithy;
 
 // AST types
+export 'package:aws_common/aws_common.dart' show AlpnProtocol;
 export 'ast.dart'
     show
         AcceptorState,
-        AlpnProtocol,
         ChecksumAlgorithm,
         ErrorKind,
         ErrorTypeStatusCode,
