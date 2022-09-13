@@ -15,6 +15,7 @@
 import 'package:amplify_secure_storage_dart/src/types/keychain_attribute_accessible.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:meta/meta.dart';
 
 part 'macos_secure_storage_options.g.dart';
 
@@ -26,29 +27,32 @@ abstract class MacOSSecureStorageOptions
         Built<MacOSSecureStorageOptions, MacOSSecureStorageOptionsBuilder> {
   /// {@macro amplify_secure_storage_dart.macos_secure_storage_options}
   ///
+  /// #### [useDataProtection]
   /// {@template amplify_secure_storage_dart.macos_secure_storage_options.useDataProtection}
-  /// [useDataProtection] sets the [`kSecUseDataProtectionKeychain`](https://developer.apple.com/documentation/security/keychain_services/keychain_items/sharing_access_to_keychain_items_among_a_collection_of_apps)
+  /// Sets the [`kSecUseDataProtectionKeychain`](https://developer.apple.com/documentation/security/keychain_services/keychain_items/sharing_access_to_keychain_items_among_a_collection_of_apps)
   /// attribute for all Keychain operations. Set this to true to
   /// enforce that Keychain items behave like iOS Keychain items.
   /// {@endtemplate}
   ///
+  /// #### [accessible]
   /// {@template amplify_secure_storage_dart.macos_secure_storage_options.accessible}
-  /// [accessible] sets the [kSecAttrAccessible](https://developer.apple.com/documentation/security/ksecattraccessible)
+  /// Sets the [kSecAttrAccessible](https://developer.apple.com/documentation/security/ksecattraccessible)
   /// attribute for all Keychain operations.
   /// {@endtemplate}
   ///
+  /// #### [accessGroup]
   /// {@template amplify_secure_storage_dart.macos_secure_storage_options.accessGroup}
-  /// [accessGroup] sets the [kSecAttrAccessGroup](https://developer.apple.com/documentation/security/ksecattraccessgroup)
+  /// Sets the [kSecAttrAccessGroup](https://developer.apple.com/documentation/security/ksecattraccessgroup)
   /// attribute for all Keychain operations.
   /// {@endtemplate}
   ///
   /// **Note:** [useDataProtection] must be set to true when specifying an [accessGroup].
   ///
-  /// **Note:** When [useDataProtection] is set to true, the app must be added to one
+  /// **Note:** Unless [useDataProtection] is set to false, the app must be added to one
   /// or more Keychain Access Groups in Xcode. For more info, see the
   /// [Platform Setup docs](https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/).
   factory MacOSSecureStorageOptions({
-    bool useDataProtection = true,
+    @visibleForTesting bool useDataProtection = true,
     KeychainAttributeAccessible accessible =
         KeychainAttributeAccessible.accessibleAfterFirstUnlockThisDeviceOnly,
     String? accessGroup,
