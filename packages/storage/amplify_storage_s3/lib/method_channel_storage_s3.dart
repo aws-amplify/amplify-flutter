@@ -18,6 +18,8 @@ import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 
 import 'amplify_storage_s3.dart';
 
@@ -169,31 +171,36 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   Future<DownloadFileResult> downloadFile(
       {required DownloadFileRequest request,
       void Function(TransferProgress)? onProgress}) async {
+    // Download to a non-existent, empty file as required by iOS, then move
+    // the file into its correct position as determined by `request`.
+    final tempDir = await getTemporaryDirectory();
+    final tempFile = File(
+      path.join(tempDir.path, 'amplify_temp_${request.uuid}'),
+    );
     try {
       if (onProgress != null) {
         _transferProgressionCallbackMap[request.uuid] = onProgress;
       }
-      // Delete the file if it already exists since iOS will only write to
-      // a non-existent file; it will not overwrite the contents of an existing
-      // one.
-      if (Platform.isIOS && await request.local.exists()) {
-        await request.local.delete();
-      }
       final Map<String, dynamic>? data =
           (await _channel.invokeMapMethod<String, dynamic>(
         'downloadFile',
-        request.serializeAsMap(),
+        request.copyWith(local: tempFile).serializeAsMap(),
       ));
       if (data == null) {
         throw AmplifyException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       }
-      DownloadFileResult result = _formatDownloadFileResult(data);
-      return result;
+      if (await request.local.exists()) {
+        await request.local.delete();
+      }
+      return DownloadFileResult(
+        file: await tempFile.copy(request.local.path),
+      );
     } on PlatformException catch (e) {
       throw _convertToStorageException(e);
     } finally {
       _transferProgressionCallbackMap.remove(request.uuid);
+      tempFile.delete().ignore();
     }
   }
 
