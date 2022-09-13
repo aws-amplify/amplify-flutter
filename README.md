@@ -55,6 +55,8 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 
 ## Category / Platform Support
 
+### Stable Release
+
 | Category       | Android | iOS | Web | Windows | MacOS | Linux |
 | -------------- | ------- | --- | --- | ------- | ----- | ----- |
 | Analytics      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
@@ -64,7 +66,16 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 | DataStore      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
 | Storage        | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
 
-See our Developer Preview for additional platform support.
+### Developer Preview Release
+
+| Category       | Android | iOS | Web | Windows | MacOS | Linux |
+| -------------- | ------- | --- | --- | ------- | ----- | ----- |
+| Analytics      | [ ]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| API (REST)     | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| API (GraphQL)  | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| Authentication | [X]     | [X] | [X] | [X]     | [X]   | [X]   |
+| DataStore      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| Storage        | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
 
 ### To Be Implemented
 

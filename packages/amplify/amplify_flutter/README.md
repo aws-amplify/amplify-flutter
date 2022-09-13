@@ -4,6 +4,8 @@ The top level module for Amplify Flutter.
 
 ## Category / Platform Support
 
+### Stable Release
+
 | Category       | Android | iOS | Web | Windows | MacOS | Linux |
 | -------------- | ------- | --- | --- | ------- | ----- | ----- |
 | Analytics      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
@@ -13,7 +15,16 @@ The top level module for Amplify Flutter.
 | DataStore      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
 | Storage        | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
 
-See our Developer Preview for additional platform support.
+### Developer Preview Release
+
+| Category       | Android | iOS | Web | Windows | MacOS | Linux |
+| -------------- | ------- | --- | --- | ------- | ----- | ----- |
+| Analytics      | [ ]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| API (REST)     | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| API (GraphQL)  | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| Authentication | [X]     | [X] | [X] | [X]     | [X]   | [X]   |
+| DataStore      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| Storage        | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
 
 ## Getting Started
 
