@@ -27,7 +27,6 @@ export 'graphql/graphql_response.dart';
 export 'graphql/graphql_response_error.dart';
 export 'graphql/graphql_subscription_operation.dart';
 
-export 'rest/http_payload.dart';
 export 'rest/rest_exception.dart';
 export 'rest/rest_operation.dart';
 export 'rest/rest_options.dart';

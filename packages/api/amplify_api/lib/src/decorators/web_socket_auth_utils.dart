@@ -107,10 +107,11 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   // The canonical request URL is a little different depending on if authorizing
   // connection URI or start message (subscription registration).
   final maybeConnect = isConnectionInit ? '/connect' : '';
-  final canonicalHttpRequest =
-      http.Request('POST', Uri.parse('${config.endpoint}$maybeConnect'));
-  canonicalHttpRequest.headers.addAll(_requiredHeaders);
-  canonicalHttpRequest.body = body;
+  final canonicalHttpRequest = AWSStreamedHttpRequest.post(
+    Uri.parse('${config.endpoint}$maybeConnect'),
+    headers: _requiredHeaders,
+    body: HttpPayload.string(body),
+  );
   final authorizedHttpRequest = await authorizeHttpRequest(
     canonicalHttpRequest,
     endpointConfig: config,
