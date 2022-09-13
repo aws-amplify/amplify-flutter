@@ -15,6 +15,7 @@
 package com.amazonaws.amplify.amplify_api.auth
 
 import android.os.Looper
+import com.amazonaws.amplify.amplify_api.NativeApiPluginBindings
 import com.amazonaws.amplify.exception.ExceptionMessages
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.ApiAuthProviders
@@ -34,7 +35,8 @@ import kotlinx.coroutines.withTimeout
  * Manages the shared state of all [FlutterAuthProvider] instances.
  */
 class FlutterAuthProviders(
-    private val authProviders: List<AuthorizationType>
+    private val authProviders: List<AuthorizationType>,
+    private val nativeApiPlugin: NativeApiPluginBindings.NativeApiPlugin?
 ) {
     private companion object {
         /**
@@ -62,9 +64,9 @@ class FlutterAuthProviders(
     /**
      * Configures the method channel for API authorization.
      */
-    fun setMethodChannel(methodChannel: MethodChannel?) {
-        this.methodChannel = methodChannel
-    }
+//    fun setMethodChannel(methodChannel: MethodChannel?) {
+//        this.methodChannel = methodChannel
+//    }
 
     /**
      * A factory of [FlutterAuthProvider] instances.
@@ -125,11 +127,14 @@ class FlutterAuthProviders(
                     }
                 }
                 launch(Dispatchers.Main) {
-                    methodChannel!!.invokeMethod(
-                        "getLatestAuthToken",
-                        authType.name,
-                        result
-                    )
+//                    methodChannel!!.invokeMethod(
+//                        "getLatestAuthToken",
+//                        authType.name,
+//                        result
+//                    )
+                    nativeApiPlugin!!.getLatestAuthToken(authType.name) { resultToken ->
+                        result.success(resultToken)
+                    }
                 }
 
                 withTimeout(getTokenTimeoutMillis) {

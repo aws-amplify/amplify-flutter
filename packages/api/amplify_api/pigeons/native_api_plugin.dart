@@ -37,6 +37,12 @@ library native_api_plugin;
 
 import 'package:pigeon/pigeon.dart';
 
+@FlutterApi()
+abstract class NativeApiPlugin {
+  @async
+  String getLatestAuthToken(String providerName);
+}
+
 @HostApi()
 abstract class NativeApiBridge {
   @async
