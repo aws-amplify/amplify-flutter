@@ -17,9 +17,9 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:async/async.dart';
 import 'package:aws_signature_v4/src/signer/aws_signer.dart' show zSigningTest;
 import 'package:built_value/serializer.dart';
-import 'package:http/http.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy/smithy.dart';
 import 'package:smithy_test/src/http/serializers.dart';
@@ -149,7 +149,7 @@ Future<void> httpRequestTest<InputPayload, Input, OutputPayload, Output>({
       final expectedBody = testCase.body;
       if (expectedBody != null) {
         final contentType = testCase.bodyMediaType;
-        final bodyBytes = await ByteStream(request.body).toBytes();
+        final bodyBytes = await collectBytes(request.body);
         void expectBytes(List<int> expectedBodyBytes) => expect(
               bodyBytes,
               orderedEquals(expectedBodyBytes),

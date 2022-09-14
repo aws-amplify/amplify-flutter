@@ -46,7 +46,7 @@ void main() {
     });
 
     // Clear out plugins before each test for a fresh state.
-    Amplify.Storage.plugins.clear();
+    Amplify.Storage.reset();
   });
 
   tearDown(() {
@@ -73,16 +73,8 @@ void main() {
     expect(Amplify.Storage.plugins.length, 1);
   });
 
-  test('AmplifyException is thrown if addPlugin called twice', () async {
-    try {
-      await Amplify.addPlugin(AmplifyStorageS3MethodChannel());
-      await Amplify.addPlugin(AmplifyStorageS3MethodChannel());
-      fail('exception not thrown');
-    } on AmplifyException catch (e) {
-      expect(e.message,
-          'Amplify plugin AmplifyStorageS3MethodChannel was not added successfully.');
-    } on Exception catch (e) {
-      expect(e, isA<AmplifyException>());
-    }
+  test('AmplifyException does not thrown if addPlugin called twice', () async {
+    await Amplify.addPlugin(AmplifyStorageS3MethodChannel());
+    expect(Amplify.addPlugin(AmplifyStorageS3MethodChannel()), completes);
   });
 }

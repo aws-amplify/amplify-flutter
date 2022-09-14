@@ -8,6 +8,8 @@ The Amplify Flutter libraries are being rewritten in Dart. This version is part 
 
 For production use cases please use the latest, non-tagged versions of amplify-flutter packages from `pub.dev`. They offer a stable, production-ready experience for Android and iOS.
 
+Please note that the Analytics category is only available on iOS in the developer preview release.
+
 ## Getting Started
 
 ### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.

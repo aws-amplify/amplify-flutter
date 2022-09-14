@@ -17,8 +17,8 @@ import 'dart:async';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/exception/not_available_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
-import 'package:amplify_secure_storage_dart/src/js/indexed_db.dart';
 import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_in_memory.dart';
+import 'package:aws_common/src/js/indexed_db.dart';
 
 /// The web implementation of [SecureStorageInterface].
 class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
@@ -111,7 +111,11 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
     // TODO(Jordan-Nelson): update once https://github.com/dart-lang/sdk/issues/48835
     // is resolved in a stable version. setting _database instead of returning
     // it is a work around.
-    _database = await openRequest.future;
+    try {
+      _database = await openRequest.future;
+    } on Object catch (e) {
+      throw SecureStorageException(e.toString());
+    }
   }
 
   /// Returns a new [IDBObjectStore] instance after waiting for initialization
@@ -129,21 +133,33 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
   Future<void> write({required String key, required String value}) async {
     await _databaseOpenEvent;
     final store = _getObjectStore();
-    await store.put(value, key).future;
+    try {
+      await store.put(value, key).future;
+    } on Object catch (e) {
+      throw SecureStorageException(e.toString());
+    }
   }
 
   @override
   Future<String?> read({required String key}) async {
     await _databaseOpenEvent;
     final store = _getObjectStore();
-    final value = await store.getObject(key).future;
-    return value;
+    try {
+      final value = await store.getObject(key).future;
+      return value;
+    } on Object catch (e) {
+      throw SecureStorageException(e.toString());
+    }
   }
 
   @override
   Future<void> delete({required String key}) async {
     await _databaseOpenEvent;
     final store = _getObjectStore();
-    await store.delete(key).future;
+    try {
+      await store.delete(key).future;
+    } on Object catch (e) {
+      throw SecureStorageException(e.toString());
+    }
   }
 }

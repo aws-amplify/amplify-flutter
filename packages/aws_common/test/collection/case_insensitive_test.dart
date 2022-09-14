@@ -29,7 +29,9 @@ void main() {
       final ciMap = CaseInsensitiveMap(map);
 
       expect(map, hasLength(6));
+      expect(map.entries, hasLength(6));
       expect(ciMap, hasLength(3));
+      expect(ciMap.entries, hasLength(3));
       expect(ciMap['a'], equals(ciMap['A']));
       expect(ciMap['b'], equals(ciMap['B']));
       expect(ciMap['c'], equals(ciMap['C']));
@@ -39,15 +41,25 @@ void main() {
       final map = <String, String>{
         'ACCEPT': 'application/json',
         'Accept': 'application/xml',
-        'accept': 'text/plain',
         'CONTENT-LENGTH': '1',
         'Content-Length': '2',
-        'content-length': '3',
       };
       final ciMap = CaseInsensitiveMap(map);
 
-      expect(map, hasLength(6));
+      expect(map, hasLength(4));
+      expect(map.entries, hasLength(4));
       expect(ciMap, hasLength(2));
+      expect(ciMap.entries, hasLength(2));
+      expect(ciMap['ACCEPT'], equals('application/xml'));
+      expect(ciMap['Accept'], equals('application/xml'));
+      expect(ciMap['CONTENT-LENGTH'], equals('2'));
+      expect(ciMap['Content-Length'], equals('2'));
+
+      ciMap['accept'] = 'text/plain';
+      ciMap['content-length'] = '3';
+
+      expect(ciMap, hasLength(2));
+      expect(ciMap.entries, hasLength(2));
       expect(ciMap['ACCEPT'], equals('text/plain'));
       expect(ciMap['Accept'], equals('text/plain'));
       expect(ciMap['accept'], equals('text/plain'));

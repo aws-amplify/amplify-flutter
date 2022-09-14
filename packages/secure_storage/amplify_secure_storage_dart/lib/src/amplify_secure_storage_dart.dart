@@ -18,6 +18,7 @@ import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storag
 import 'package:amplify_secure_storage_dart/src/mixins/amplify_secure_storage_mixin.dart';
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_request.dart';
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_worker.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:worker_bee/worker_bee.dart';
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_dart}
@@ -50,7 +51,8 @@ class AmplifySecureStorageDart extends AmplifySecureStorageInterface
 /// A `package:worker_bee` variant of [AmplifySecureStorageDart] which runs
 /// storage operations in a background thread.
 /// {@endtemplate}
-class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
+class AmplifySecureStorageWorker extends AmplifySecureStorageInterface
+    with AWSDebuggable, AWSLoggerMixin {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_worker}
   AmplifySecureStorageWorker({
     required super.config,
@@ -112,6 +114,9 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
     _worker.add(request);
     await _worker.stream.firstWhere((event) => event.id == request.id);
   }
+
+  @override
+  String get runtimeTypeName => 'AmplifySecureStorageWorker';
 
   @override
   Future<void> removeAll() async {

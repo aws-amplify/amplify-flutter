@@ -18,12 +18,10 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'auth_providers_test.mocks.dart';
+class MockOIDCAuthProvider extends Mock implements OIDCAuthProvider {}
 
-@GenerateMocks([OIDCAuthProvider])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   Amplify = MethodChannelAmplify();
@@ -57,21 +55,20 @@ void main() {
         amplifyAPI = AmplifyAPIMethodChannel();
         amplifyAPI.setupAuthProviders();
         reset(provider);
-        when<APIAuthorizationType>(provider.type)
-            .thenReturn(APIAuthorizationType.oidc);
+        when(() => provider.type).thenReturn(APIAuthorizationType.oidc);
         amplifyAPI.registerAuthProvider(provider);
       });
 
       test('returns token', () async {
         const oidcToken = 'some_token';
-        when(provider.getLatestAuthToken()).thenAnswer((_) async => oidcToken);
+        when(provider.getLatestAuthToken).thenAnswer((_) async => oidcToken);
         final token = await invokeGetLatestAuthToken();
         expect(token, isA<String>());
         expect(token, equals(oidcToken));
       });
 
       test('returns error', () async {
-        when(provider.getLatestAuthToken())
+        when(provider.getLatestAuthToken)
             .thenAnswer((_) async => throw Exception());
         final token = await invokeGetLatestAuthToken();
         expect(token, isNull);

@@ -200,7 +200,7 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
   /// Internal method for completing with an error.
   @protected
   void completeError(Object error, [StackTrace? stackTrace]) {
-    logger.error('Error in worker', error, stackTrace);
+    logger.debug('Error in worker', error, stackTrace);
     if (!isCompleted) {
       _resultCompleter.complete(Result.error(error, stackTrace));
     }

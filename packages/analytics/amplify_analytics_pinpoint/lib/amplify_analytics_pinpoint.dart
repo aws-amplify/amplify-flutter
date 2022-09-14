@@ -30,7 +30,11 @@ export 'package:amplify_core/src/types/analytics/analytics_types.dart';
 abstract class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
   /// {@macro amplify_analytics_pinpoint.amplify_analytics_pinpoint}
   factory AmplifyAnalyticsPinpoint() {
-    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+    if (zIsWeb ||
+        Platform.isWindows ||
+        Platform.isMacOS ||
+        Platform.isLinux ||
+        Platform.isAndroid) {
       throw UnsupportedError('This platform is not supported yet');
     }
     return AmplifyAnalyticsPinpointMethodChannel();

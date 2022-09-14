@@ -16,7 +16,6 @@ import 'package:aws_common/aws_common.dart';
 import 'package:path/path.dart' as path;
 import 'package:pubspec_parse/pubspec_parse.dart' hide Dependency;
 import 'package:smithy_codegen/src/generator/generator.dart';
-import 'package:smithy_codegen/src/util/recase.dart';
 
 enum DependencyType { aws, smithy }
 
@@ -41,7 +40,7 @@ final dependencyVersions = {
   'smithy_codegen': const Dependency('^0.5.0', DependencyType.smithy),
   'aws_common': const Dependency('^0.2.0', DependencyType.aws),
   'aws_signature_v4': const Dependency('^0.2.0', DependencyType.aws),
-  'built_value': const Dependency('^8.0.0'),
+  'built_value': const Dependency('">=8.4.0 <8.5.0"'),
   'built_collection': const Dependency('^5.0.0'),
   'fixnum': const Dependency('^1.0.0'),
   'meta': const Dependency('^1.7.0'),

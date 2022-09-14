@@ -54,6 +54,7 @@ export 'src/plugin/amplify_api_plugin_interface.dart';
 export 'src/plugin/amplify_auth_plugin_interface.dart';
 export 'src/plugin/amplify_datastore_plugin_interface.dart';
 export 'src/plugin/amplify_plugin_interface.dart';
+export 'src/plugin/amplify_plugin_key.dart';
 export 'src/plugin/amplify_storage_plugin_interface.dart';
 
 // State Machine
