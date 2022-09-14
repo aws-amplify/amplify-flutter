@@ -74,8 +74,8 @@ void main() {
 
     // We only use Auth and Analytics category for testing this class.
     // Clear out their plugins before each test for a fresh state.
-    Amplify.Auth.plugins.clear();
-    Amplify.Analytics.plugins.clear();
+    Amplify.Auth.reset();
+    Amplify.Analytics.reset();
   });
 
   tearDown(() {
@@ -148,18 +148,12 @@ void main() {
     expect(amplify.isConfigured, true);
   });
 
-  test('adding multiple plugins from same Analytic category throws exception',
+  test('adding multiple plugins from same Analytic category does not throw',
       () async {
     await amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());
     expect(
       amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel()),
-      throwsA(
-        isA<AmplifyException>().having(
-          (e) => e.toString(),
-          'toString',
-          contains('Analytics plugin has already been added'),
-        ),
-      ),
+      completes,
     );
   });
 

@@ -1,0 +1,27 @@
+name: "Install Non-Platform Dependencies"
+description: "Installs non-platform dependencies: Amplify CLI, Flutter and runs melos bootstrap"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Amplify CLI
+      # retry once
+      run: |
+        yarn global add @aws-amplify/cli --network-timeout 100000 || yarn global add @aws-amplify/cli --network-timeout 100000
+      shell: bash
+
+    - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
+      with:
+        channel: 'stable'
+        architecture: x64 # needed to prevent "Bad CPU type" error
+
+    - name: Run AFT
+      run: |
+        flutter pub global activate -spath packages/aft
+        aft bs
+      shell: bash
+
+    - name: Install Melos
+      run: |
+        flutter pub global activate melos 2.4.0
+      shell: bash

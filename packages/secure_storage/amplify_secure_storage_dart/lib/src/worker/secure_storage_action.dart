@@ -22,9 +22,7 @@ part 'secure_storage_action.g.dart';
 /// Discrete actions which can be taken against a remote secure storage worker.
 /// {@endtemplate}
 class SecureStorageAction extends EnumClass {
-  // TODO(dnys1): `built_value` does not support super invocations.
-  // ignore: use_super_parameters
-  const SecureStorageAction._(String name) : super(name);
+  const SecureStorageAction._(super.name);
 
   /// {@macro amplify_secure_storage_dart.secure_storage_interface.init}
   static const SecureStorageAction init = _$init;

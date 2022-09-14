@@ -56,9 +56,7 @@ abstract class WebSecureStorageOptions
 /// How data is persisted on the Web platform.
 /// {@endtemplate}
 class WebPersistenceOption extends EnumClass {
-  // TODO(Jordan-Nelson): Remove when built_value supports super parameters.
-  // ignore: use_super_parameters
-  const WebPersistenceOption._(String name) : super(name);
+  const WebPersistenceOption._(super.name);
 
   /// **NOTE**: Hosted UI is not supported for this option, currently.
   ///

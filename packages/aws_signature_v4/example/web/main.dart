@@ -104,7 +104,7 @@ Future<void> upload(BucketUpload bucketUpload) async {
     credentialScope: scope,
     serviceConfiguration: serviceConfiguration,
   );
-  final uploadResponse = await signedUploadRequest.send();
+  final uploadResponse = await signedUploadRequest.send().response;
   final uploadStatus = uploadResponse.statusCode;
   safePrint('Upload File Response: $uploadStatus');
   if (uploadStatus != 200) {

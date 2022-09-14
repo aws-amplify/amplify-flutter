@@ -14,9 +14,9 @@
 
 import 'dart:async';
 
+import 'package:aws_common/src/js/common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:worker_bee/src/exception/worker_bee_exception.dart';
-import 'package:worker_bee/src/js/interop/common.dart';
 import 'package:worker_bee/src/serializers/serializers.dart';
 import 'package:worker_bee/worker_bee.dart';
 

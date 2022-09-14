@@ -14,8 +14,8 @@
 
 import 'dart:io';
 
+import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
-import 'package:http/http.dart';
 
 import 'context.dart';
 
@@ -139,7 +139,7 @@ class SignerRequestParser {
     final httpRequest = await nextRequest;
 
     // Capture the body bytes of the request.
-    final List<int> body = await ByteStream(httpRequest).toBytes();
+    final List<int> body = await collectBytes(httpRequest);
 
     // Close server connection.
     await httpRequest.response.close();
