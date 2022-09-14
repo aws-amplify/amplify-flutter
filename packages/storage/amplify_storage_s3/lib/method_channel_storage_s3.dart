@@ -34,10 +34,30 @@ var _transferProgressionCallbackMap =
 
 /// An implementation of [AmplifyPlatform] that uses method channels.
 class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
-  AmplifyStorageS3MethodChannel() : super.protected();
+  StorageS3PrefixResolver? prefixResolver;
+
+  AmplifyStorageS3MethodChannel({this.prefixResolver}) : super.protected();
+
+  Future<dynamic> _methodCallHandler(MethodCall call) async {
+    switch (call.method) {
+      case 'awsS3PluginPrefixResolver':
+        if (prefixResolver == null) {
+          throw StateError("Native calling nonexistent PrefixResolver in Dart");
+        }
+
+        Map<String, dynamic> arguments =
+            Map<String, dynamic>.from(call.arguments);
+
+        return _handlePrefix(arguments, prefixResolver!);
+
+      default:
+        throw UnimplementedError('${call.method} has not been implemented.');
+    }
+  }
 
   @override
   Future<void> addPlugin() async {
+    _channel.setMethodCallHandler(_methodCallHandler);
     try {
       _transferProgressEventChannel.receiveBroadcastStream(0).listen((event) {
         var eventData = (event as Map).cast<String, dynamic>();
@@ -53,7 +73,8 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         }
       });
 
-      return await _channel.invokeMethod('addPlugin');
+      return await _channel.invokeMethod('configureStorage',
+          <String, dynamic>{'hasPrefixResolver': prefixResolver != null});
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
         throw AmplifyAlreadyConfiguredException(
@@ -253,5 +274,45 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
 
   StorageException _convertToStorageException(PlatformException e) {
     return StorageException.fromMap(Map<String, String>.from(e.details));
+  }
+
+  Future<dynamic> _handlePrefix(Map<String, dynamic> arguments,
+      StorageS3PrefixResolver prefixResolver) async {
+    if (!arguments.containsKey('accessLevel')) {
+      throw StorageException(AmplifyExceptionMessages.missingExceptionMessage,
+          recoverySuggestion:
+              AmplifyExceptionMessages.missingRecoverySuggestion,
+          underlyingException: arguments.toString());
+    }
+
+    final accessLevelString = arguments['accessLevel'];
+    StorageAccessLevel accessLevel;
+    switch (accessLevelString) {
+      case 'guest':
+        accessLevel = StorageAccessLevel.guest;
+        break;
+      case 'protected':
+        accessLevel = StorageAccessLevel.protected;
+        break;
+      case 'private':
+        accessLevel = StorageAccessLevel.private;
+        break;
+      default:
+        throw StateError('Native sent invalid accessLevelString');
+    }
+    String? targetIdentity = arguments['targetIdentity'];
+
+    try {
+      String prefix = await prefixResolver.resolvePrefix(
+          storageAccessLevel: accessLevel, identityId: targetIdentity);
+      return {'isSuccess': true, 'prefix': prefix};
+      // Note: Amplify Native error callbacks expect StorageExceptions and not generic Exceptions
+    } on Exception catch (e) {
+      return {
+        'isSuccess': false,
+        'errorMessage': e.toString(),
+        'errorRecoverySuggestion': 'Custom PrefixResolver threw an exception'
+      };
+    }
   }
 }
