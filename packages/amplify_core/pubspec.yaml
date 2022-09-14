@@ -13,6 +13,7 @@ dependencies:
   aws_common: ^0.2.0
   aws_signature_v4: ^0.2.0
   collection: ^1.15.0
+  http: ^0.13.4
   intl: ^0.17.0
   json_annotation: ^4.6.0
   logging: ^1.0.0
