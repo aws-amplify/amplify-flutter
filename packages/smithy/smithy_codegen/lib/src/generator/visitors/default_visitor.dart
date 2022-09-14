@@ -106,4 +106,7 @@ class DefaultVisitor<T> implements ShapeVisitor<T?> {
 
   @override
   T? primitiveShortShape(PrimitiveShortShape shape, [Shape? parent]) => null;
+
+  @override
+  T? enumShape(EnumShape shape, [Shape? parent]) => null;
 }

@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.http_request_with_labels_and_timestamp_format_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.http_request_with_labels_and_timestamp_format_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -216,6 +216,9 @@ class HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
+    final payload = object is HttpRequestWithLabelsAndTimestampFormatInput
+        ? object.getPayload()
+        : (object as HttpRequestWithLabelsAndTimestampFormatInputPayload);
     final result = <Object?>[
       const _i1.XmlElementName('HttpRequestWithLabelsAndTimestampFormatInput')
     ];

@@ -11,7 +11,10 @@ stages:
       - test:
         os:
           - linux
+      - test: -p chrome
+  - unit_test_native:
+      - test:
+        os:
           - macos
           - windows
-      - test: -p chrome
       - test: -p firefox

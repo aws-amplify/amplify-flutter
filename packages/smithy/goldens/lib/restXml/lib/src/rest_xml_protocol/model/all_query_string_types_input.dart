@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.all_query_string_types_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.all_query_string_types_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i3;
@@ -8,7 +8,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i5;
 import 'package:meta/meta.dart' as _i6;
-import 'package:rest_xml/src/rest_xml_protocol/model/foo_enum.dart' as _i4;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/foo_enum.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'all_query_string_types_input.g.dart';
@@ -32,13 +32,13 @@ abstract class AllQueryStringTypesInput
       double? queryFloat,
       int? queryInteger,
       _i3.BuiltList<int>? queryIntegerList,
-      _i3.BuiltList<int>? queryIntegerSet,
+      _i3.BuiltSet<int>? queryIntegerSet,
       _i5.Int64? queryLong,
       _i3.BuiltMap<String, String>? queryParamsMapOfStrings,
       int? queryShort,
       String? queryString,
       _i3.BuiltList<String>? queryStringList,
-      _i3.BuiltList<String>? queryStringSet,
+      _i3.BuiltSet<String>? queryStringSet,
       DateTime? queryTimestamp,
       _i3.BuiltList<DateTime>? queryTimestampList}) {
     return _$AllQueryStringTypesInput._(
@@ -169,13 +169,13 @@ abstract class AllQueryStringTypesInput
   double? get queryFloat;
   int? get queryInteger;
   _i3.BuiltList<int>? get queryIntegerList;
-  _i3.BuiltList<int>? get queryIntegerSet;
+  _i3.BuiltSet<int>? get queryIntegerSet;
   _i5.Int64? get queryLong;
   _i3.BuiltMap<String, String>? get queryParamsMapOfStrings;
   int? get queryShort;
   String? get queryString;
   _i3.BuiltList<String>? get queryStringList;
-  _i3.BuiltList<String>? get queryStringSet;
+  _i3.BuiltSet<String>? get queryStringSet;
   DateTime? get queryTimestamp;
   _i3.BuiltList<DateTime>? get queryTimestampList;
   @override
@@ -280,6 +280,9 @@ class AllQueryStringTypesInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
+    final payload = object is AllQueryStringTypesInput
+        ? object.getPayload()
+        : (object as AllQueryStringTypesInputPayload);
     final result = <Object?>[
       const _i1.XmlElementName('AllQueryStringTypesInput')
     ];

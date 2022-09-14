@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.json_protocol.model.simple_struct; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.model.simple_struct; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';

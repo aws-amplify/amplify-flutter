@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.response_code_required_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.response_code_required_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -16,7 +16,8 @@ abstract class ResponseCodeRequiredOutput
         Built<ResponseCodeRequiredOutput, ResponseCodeRequiredOutputBuilder>,
         _i2.EmptyPayload,
         _i2.HasPayload<ResponseCodeRequiredOutputPayload> {
-  factory ResponseCodeRequiredOutput({required int responseCode}) {
+  factory ResponseCodeRequiredOutput({int? responseCode}) {
+    responseCode ??= 0;
     return _$ResponseCodeRequiredOutput._(responseCode: responseCode);
   }
 
@@ -39,7 +40,10 @@ abstract class ResponseCodeRequiredOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResponseCodeRequiredOutputBuilder b) {}
+  static void _init(ResponseCodeRequiredOutputBuilder b) {
+    b.responseCode = 0;
+  }
+
   int get responseCode;
   @override
   ResponseCodeRequiredOutputPayload getPayload() =>

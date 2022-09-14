@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_short_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_short_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -20,8 +20,9 @@ abstract class MalformedShortInput
   factory MalformedShortInput(
       {int? shortInBody,
       int? shortInHeader,
-      required int shortInPath,
+      int? shortInPath,
       int? shortInQuery}) {
+    shortInPath ??= 0;
     return _$MalformedShortInput._(
         shortInBody: shortInBody,
         shortInHeader: shortInHeader,
@@ -56,7 +57,10 @@ abstract class MalformedShortInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedShortInputBuilder b) {}
+  static void _init(MalformedShortInputBuilder b) {
+    b.shortInPath = 0;
+  }
+
   int? get shortInBody;
   int? get shortInHeader;
   int get shortInPath;

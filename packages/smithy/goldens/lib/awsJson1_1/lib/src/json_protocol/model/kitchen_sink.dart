@@ -1,13 +1,15 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.json_protocol.model.kitchen_sink; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.model.kitchen_sink; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:typed_data' as _i3;
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:aws_json1_1/src/json_protocol/model/empty_struct.dart' as _i4;
-import 'package:aws_json1_1/src/json_protocol/model/simple_struct.dart' as _i7;
-import 'package:aws_json1_1/src/json_protocol/model/struct_with_json_name.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/empty_struct.dart'
+    as _i4;
+import 'package:aws_json1_1_v1/src/json_protocol/model/simple_struct.dart'
+    as _i7;
+import 'package:aws_json1_1_v1/src/json_protocol/model/struct_with_json_name.dart'
     as _i9;
 import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';

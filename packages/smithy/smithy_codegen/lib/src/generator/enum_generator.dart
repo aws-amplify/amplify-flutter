@@ -23,9 +23,9 @@ import 'package:smithy_codegen/src/util/docs.dart';
 import 'package:smithy_codegen/src/util/shape_ext.dart';
 
 /// Generates enums for [StringShape] types.
-class EnumGenerator extends LibraryGenerator<StringShape> {
+class EnumGenerator extends LibraryGenerator<EnumShape> {
   EnumGenerator(
-    StringShape enumShape,
+    EnumShape enumShape,
     CodegenContext context, {
     SmithyLibrary? smithyLibrary,
   }) : super(
@@ -34,13 +34,14 @@ class EnumGenerator extends LibraryGenerator<StringShape> {
           smithyLibrary: smithyLibrary,
         );
 
-  late final EnumTrait enumTrait = shape.expectTrait<EnumTrait>();
+  late final List<MemberShape> sortedDefinitions = shape.enumValues.toList()
+    ..sort((a, b) {
+      return a.variantName.compareTo(b.variantName);
+    });
 
-  late final List<EnumDefinition> sortedDefinitions =
-      enumTrait.definitions.toList()
-        ..sort((a, b) {
-          return a.variantName.compareTo(b.variantName);
-        });
+  late final List<EnumValueTrait> sortedEnumValues = sortedDefinitions
+      .map((def) => def.expectTrait<EnumValueTrait>())
+      .toList();
 
   @override
   Library generate() {
@@ -123,8 +124,9 @@ class EnumGenerator extends LibraryGenerator<StringShape> {
   /// Enumerated value fields, as `static const` properties.
   Iterable<Field> get _variantFields =>
       sortedDefinitions.mapIndexed((index, definition) {
+        final enumValue = definition.expectTrait<EnumValueTrait>();
         return Field((f) {
-          final docs = definition.documentation;
+          final docs = definition.getTrait<DocumentationTrait>()?.value;
           if (docs != null) {
             f.docs.add(formatDocs(docs));
           }
@@ -134,8 +136,8 @@ class EnumGenerator extends LibraryGenerator<StringShape> {
             ..name = definition.variantName
             ..assignment = symbol.newInstanceNamed('_', [
               literalNum(index),
-              literalString(definition.name ?? definition.variantName),
-              literalString(definition.value),
+              literalString(definition.memberName),
+              literalString(enumValue.value),
             ]).code;
         });
       });
@@ -231,8 +233,7 @@ class EnumGenerator extends LibraryGenerator<StringShape> {
     ]));
 }
 
-extension EnumVariantName on EnumDefinition {
+extension EnumVariantName on MemberShape {
   /// The name of the enum variant.
-  String get variantName =>
-      (name ?? value).camelCase.nameEscaped(ShapeType.string);
+  String get variantName => memberName.camelCase.nameEscaped(ShapeType.enum_);
 }

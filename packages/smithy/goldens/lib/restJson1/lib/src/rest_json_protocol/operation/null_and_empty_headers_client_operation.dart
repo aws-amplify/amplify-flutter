@@ -1,15 +1,15 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.operation.null_and_empty_headers_client_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.operation.null_and_empty_headers_client_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i7;
 
 import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:rest_json1/src/rest_json_protocol/common/endpoint_resolver.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/common/endpoint_resolver.dart'
     as _i5;
-import 'package:rest_json1/src/rest_json_protocol/common/serializers.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/common/serializers.dart'
     as _i4;
-import 'package:rest_json1/src/rest_json_protocol/model/null_and_empty_headers_io.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/null_and_empty_headers_io.dart'
     as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml.rest_xml_protocol.model.xml_enums_input_output;
+part of rest_xml_v1.rest_xml_protocol.model.xml_enums_input_output;
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -18,7 +18,7 @@ class _$XmlEnumsInputOutput extends XmlEnumsInputOutput {
   @override
   final _i4.BuiltMap<String, _i3.FooEnum>? fooEnumMap;
   @override
-  final _i4.BuiltList<_i3.FooEnum>? fooEnumSet;
+  final _i4.BuiltSet<_i3.FooEnum>? fooEnumSet;
 
   factory _$XmlEnumsInputOutput(
           [void Function(XmlEnumsInputOutputBuilder)? updates]) =>
@@ -95,10 +95,10 @@ class XmlEnumsInputOutputBuilder
   set fooEnumMap(_i4.MapBuilder<String, _i3.FooEnum>? fooEnumMap) =>
       _$this._fooEnumMap = fooEnumMap;
 
-  _i4.ListBuilder<_i3.FooEnum>? _fooEnumSet;
-  _i4.ListBuilder<_i3.FooEnum> get fooEnumSet =>
-      _$this._fooEnumSet ??= new _i4.ListBuilder<_i3.FooEnum>();
-  set fooEnumSet(_i4.ListBuilder<_i3.FooEnum>? fooEnumSet) =>
+  _i4.SetBuilder<_i3.FooEnum>? _fooEnumSet;
+  _i4.SetBuilder<_i3.FooEnum> get fooEnumSet =>
+      _$this._fooEnumSet ??= new _i4.SetBuilder<_i3.FooEnum>();
+  set fooEnumSet(_i4.SetBuilder<_i3.FooEnum>? fooEnumSet) =>
       _$this._fooEnumSet = fooEnumSet;
 
   XmlEnumsInputOutputBuilder() {

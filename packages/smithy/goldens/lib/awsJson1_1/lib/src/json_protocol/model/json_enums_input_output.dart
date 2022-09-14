@@ -1,9 +1,9 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.json_protocol.model.json_enums_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.model.json_enums_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:aws_json1_1/src/json_protocol/model/foo_enum.dart' as _i3;
+import 'package:aws_json1_1_v1/src/json_protocol/model/foo_enum.dart' as _i3;
 import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -22,7 +22,7 @@ abstract class JsonEnumsInputOutput
       _i3.FooEnum? fooEnum3,
       _i4.BuiltList<_i3.FooEnum>? fooEnumList,
       _i4.BuiltMap<String, _i3.FooEnum>? fooEnumMap,
-      _i4.BuiltList<_i3.FooEnum>? fooEnumSet}) {
+      _i4.BuiltSet<_i3.FooEnum>? fooEnumSet}) {
     return _$JsonEnumsInputOutput._(
         fooEnum1: fooEnum1,
         fooEnum2: fooEnum2,
@@ -59,7 +59,7 @@ abstract class JsonEnumsInputOutput
   _i3.FooEnum? get fooEnum3;
   _i4.BuiltList<_i3.FooEnum>? get fooEnumList;
   _i4.BuiltMap<String, _i3.FooEnum>? get fooEnumMap;
-  _i4.BuiltList<_i3.FooEnum>? get fooEnumSet;
+  _i4.BuiltSet<_i3.FooEnum>? get fooEnumSet;
   @override
   JsonEnumsInputOutput getPayload() => this;
   @override
@@ -139,8 +139,8 @@ class JsonEnumsInputOutputAwsJson11Serializer
           if (value != null) {
             result.fooEnumSet.replace((serializers.deserialize(value,
                     specifiedType:
-                        const FullType(_i4.BuiltList, [FullType(_i3.FooEnum)]))
-                as _i4.BuiltList<_i3.FooEnum>));
+                        const FullType(_i4.BuiltSet, [FullType(_i3.FooEnum)]))
+                as _i4.BuiltSet<_i3.FooEnum>));
           }
           break;
       }
@@ -191,7 +191,7 @@ class JsonEnumsInputOutputAwsJson11Serializer
         ..add('fooEnumSet')
         ..add(serializers.serialize(payload.fooEnumSet!,
             specifiedType:
-                const FullType(_i4.BuiltList, [FullType(_i3.FooEnum)])));
+                const FullType(_i4.BuiltSet, [FullType(_i3.FooEnum)])));
     }
     return result;
   }

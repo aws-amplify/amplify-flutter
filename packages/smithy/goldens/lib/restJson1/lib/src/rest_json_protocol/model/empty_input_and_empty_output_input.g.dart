@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1.rest_json_protocol.model.empty_input_and_empty_output_input;
+part of rest_json1_v1.rest_json_protocol.model.empty_input_and_empty_output_input;
 
 // **************************************************************************
 // BuiltValueGenerator

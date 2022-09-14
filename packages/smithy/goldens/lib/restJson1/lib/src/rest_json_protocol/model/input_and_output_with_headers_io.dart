@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.input_and_output_with_headers_io; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.input_and_output_with_headers_io; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i3;
@@ -8,7 +8,8 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i5;
 import 'package:meta/meta.dart' as _i6;
-import 'package:rest_json1/src/rest_json_protocol/model/foo_enum.dart' as _i4;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/foo_enum.dart'
+    as _i4;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'input_and_output_with_headers_io.g.dart';
@@ -35,7 +36,7 @@ abstract class InputAndOutputWithHeadersIo
       int? headerShort,
       String? headerString,
       _i3.BuiltList<String>? headerStringList,
-      _i3.BuiltList<String>? headerStringSet,
+      _i3.BuiltSet<String>? headerStringSet,
       _i3.BuiltList<DateTime>? headerTimestampList,
       bool? headerTrueBool}) {
     return _$InputAndOutputWithHeadersIo._(
@@ -223,7 +224,7 @@ abstract class InputAndOutputWithHeadersIo
   int? get headerShort;
   String? get headerString;
   _i3.BuiltList<String>? get headerStringList;
-  _i3.BuiltList<String>? get headerStringSet;
+  _i3.BuiltSet<String>? get headerStringSet;
   _i3.BuiltList<DateTime>? get headerTimestampList;
   bool? get headerTrueBool;
   @override

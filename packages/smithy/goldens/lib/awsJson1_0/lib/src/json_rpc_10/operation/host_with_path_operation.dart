@@ -1,13 +1,13 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_0.json_rpc_10.operation.host_with_path_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_0_v1.json_rpc_10.operation.host_with_path_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i6;
 
 import 'package:aws_common/aws_common.dart' as _i5;
-import 'package:aws_json1_0/src/json_rpc_10/common/endpoint_resolver.dart'
+import 'package:aws_json1_0_v1/src/json_rpc_10/common/endpoint_resolver.dart'
     as _i4;
-import 'package:aws_json1_0/src/json_rpc_10/common/serializers.dart' as _i3;
+import 'package:aws_json1_0_v1/src/json_rpc_10/common/serializers.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 

@@ -1,5 +1,5 @@
-name: rest_xml
-description: Rest Xml client SDK
+name: rest_xml_v1
+description: Rest Xml V1 client SDK
 version: 0.1.0
 publish_to: none
 

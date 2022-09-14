@@ -1,12 +1,12 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library rest_json1.rest_json_protocol.test.json_timestamps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.test.json_timestamps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1/src/rest_json_protocol/model/json_timestamps_input_output.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/json_timestamps_input_output.dart'
     as _i5;
-import 'package:rest_json1/src/rest_json_protocol/operation/json_timestamps_operation.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/operation/json_timestamps_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_test/smithy_test.dart' as _i2;

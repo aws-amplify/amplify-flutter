@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_byte_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_byte_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -18,10 +18,8 @@ abstract class MalformedByteInput
         Built<MalformedByteInput, MalformedByteInputBuilder>,
         _i1.HasPayload<MalformedByteInputPayload> {
   factory MalformedByteInput(
-      {int? byteInBody,
-      int? byteInHeader,
-      required int byteInPath,
-      int? byteInQuery}) {
+      {int? byteInBody, int? byteInHeader, int? byteInPath, int? byteInQuery}) {
+    byteInPath ??= 0;
     return _$MalformedByteInput._(
         byteInBody: byteInBody,
         byteInHeader: byteInHeader,
@@ -56,7 +54,10 @@ abstract class MalformedByteInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedByteInputBuilder b) {}
+  static void _init(MalformedByteInputBuilder b) {
+    b.byteInPath = 0;
+  }
+
   int? get byteInBody;
   int? get byteInHeader;
   int get byteInPath;

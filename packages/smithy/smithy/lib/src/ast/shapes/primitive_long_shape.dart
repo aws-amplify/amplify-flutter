@@ -14,6 +14,7 @@
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:fixnum/fixnum.dart';
 import 'package:smithy/ast.dart';
 
 part 'primitive_long_shape.g.dart';
@@ -30,7 +31,9 @@ abstract class PrimitiveLongShape
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PrimitiveLongShapeBuilder b) {
     b.shapeId = id;
-    b.traits = TraitMap.empty();
+    b.traits = TraitMap.fromTraits(const [
+      DefaultTrait(Int64.ZERO),
+    ]);
   }
 
   static const id = ShapeId.core('PrimitiveLong');

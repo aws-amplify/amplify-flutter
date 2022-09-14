@@ -30,7 +30,9 @@ abstract class PrimitiveFloatShape
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PrimitiveFloatShapeBuilder b) {
     b.shapeId = id;
-    b.traits = TraitMap.empty();
+    b.traits = TraitMap.fromTraits(const [
+      DefaultTrait(0.0),
+    ]);
   }
 
   static const id = ShapeId.core('PrimitiveFloat');

@@ -1,20 +1,20 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_0.json_rpc_10.operation.greeting_with_errors_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_0_v1.json_rpc_10.operation.greeting_with_errors_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i11;
 
 import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_json1_0/src/json_rpc_10/common/endpoint_resolver.dart'
+import 'package:aws_json1_0_v1/src/json_rpc_10/common/endpoint_resolver.dart'
     as _i6;
-import 'package:aws_json1_0/src/json_rpc_10/common/serializers.dart' as _i5;
-import 'package:aws_json1_0/src/json_rpc_10/model/complex_error.dart' as _i8;
-import 'package:aws_json1_0/src/json_rpc_10/model/foo_error.dart' as _i9;
-import 'package:aws_json1_0/src/json_rpc_10/model/greeting_with_errors_input.dart'
+import 'package:aws_json1_0_v1/src/json_rpc_10/common/serializers.dart' as _i5;
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/complex_error.dart' as _i8;
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/foo_error.dart' as _i9;
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/greeting_with_errors_input.dart'
     as _i2;
-import 'package:aws_json1_0/src/json_rpc_10/model/greeting_with_errors_output.dart'
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/greeting_with_errors_output.dart'
     as _i3;
-import 'package:aws_json1_0/src/json_rpc_10/model/invalid_greeting.dart'
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/invalid_greeting.dart'
     as _i10;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i4;

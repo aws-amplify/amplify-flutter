@@ -1,17 +1,19 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.s3.s3_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.s3.s3_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i3;
 
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
-import 'package:rest_xml/src/s3/model/get_bucket_location_output.dart' as _i4;
-import 'package:rest_xml/src/s3/model/get_bucket_location_request.dart' as _i5;
-import 'package:rest_xml/src/s3/model/list_objects_v2_output.dart' as _i8;
-import 'package:rest_xml/src/s3/model/list_objects_v2_request.dart' as _i9;
-import 'package:rest_xml/src/s3/operation/get_bucket_location_operation.dart'
+import 'package:rest_xml_v1/src/s3/model/get_bucket_location_output.dart'
+    as _i4;
+import 'package:rest_xml_v1/src/s3/model/get_bucket_location_request.dart'
+    as _i5;
+import 'package:rest_xml_v1/src/s3/model/list_objects_v2_output.dart' as _i8;
+import 'package:rest_xml_v1/src/s3/model/list_objects_v2_request.dart' as _i9;
+import 'package:rest_xml_v1/src/s3/operation/get_bucket_location_operation.dart'
     as _i7;
-import 'package:rest_xml/src/s3/operation/list_objects_v2_operation.dart'
+import 'package:rest_xml_v1/src/s3/operation/list_objects_v2_operation.dart'
     as _i10;
 import 'package:smithy/smithy.dart' as _i6;
 import 'package:smithy_aws/smithy_aws.dart' as _i1;

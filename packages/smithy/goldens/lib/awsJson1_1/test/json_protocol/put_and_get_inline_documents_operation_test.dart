@@ -1,11 +1,11 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library aws_json1_1.json_protocol.test.put_and_get_inline_documents_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.test.put_and_get_inline_documents_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_json1_1/src/json_protocol/model/put_and_get_inline_documents_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/put_and_get_inline_documents_input_output.dart'
     as _i6;
-import 'package:aws_json1_1/src/json_protocol/operation/put_and_get_inline_documents_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/put_and_get_inline_documents_operation.dart'
     as _i3;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
 import 'package:built_value/json_object.dart' as _i7;

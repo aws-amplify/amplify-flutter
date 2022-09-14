@@ -1,16 +1,17 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.my_union; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.my_union; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:typed_data' as _i2;
 
 import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1/src/rest_json_protocol/model/foo_enum.dart' as _i3;
-import 'package:rest_json1/src/rest_json_protocol/model/greeting_struct.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/foo_enum.dart'
+    as _i3;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/greeting_struct.dart'
     as _i6;
-import 'package:rest_json1/src/rest_json_protocol/model/renamed_greeting.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/renamed_greeting.dart'
     as _i5;
 import 'package:smithy/smithy.dart' as _i1;
 

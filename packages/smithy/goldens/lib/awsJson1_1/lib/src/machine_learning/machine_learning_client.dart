@@ -1,14 +1,14 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.machine_learning.machine_learning_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.machine_learning.machine_learning_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i2;
 
-import 'package:aws_json1_1/src/machine_learning/model/predict_input.dart'
+import 'package:aws_json1_1_v1/src/machine_learning/model/predict_input.dart'
     as _i4;
-import 'package:aws_json1_1/src/machine_learning/model/predict_output.dart'
+import 'package:aws_json1_1_v1/src/machine_learning/model/predict_output.dart'
     as _i3;
-import 'package:aws_json1_1/src/machine_learning/operation/predict_operation.dart'
+import 'package:aws_json1_1_v1/src/machine_learning/operation/predict_operation.dart'
     as _i6;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i1;
 import 'package:smithy/smithy.dart' as _i5;

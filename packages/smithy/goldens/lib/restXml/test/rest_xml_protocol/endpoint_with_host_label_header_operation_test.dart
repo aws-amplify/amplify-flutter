@@ -1,12 +1,12 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library rest_xml.rest_xml_protocol.test.endpoint_with_host_label_header_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.test.endpoint_with_host_label_header_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml/src/rest_xml_protocol/model/host_label_header_input.dart'
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/host_label_header_input.dart'
     as _i5;
-import 'package:rest_xml/src/rest_xml_protocol/operation/endpoint_with_host_label_header_operation.dart'
+import 'package:rest_xml_v1/src/rest_xml_protocol/operation/endpoint_with_host_label_header_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_test/smithy_test.dart' as _i2;

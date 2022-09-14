@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.http_payload_traits_with_media_type_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.http_payload_traits_with_media_type_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:typed_data' as _i2;
 
@@ -73,7 +73,7 @@ abstract class HttpPayloadTraitsWithMediaTypeInputOutput
 }
 
 class HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer
-    extends _i1.PrimitiveSmithySerializer<Object> {
+    extends _i1.PrimitiveSmithySerializer<_i2.Uint8List> {
   const HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer()
       : super('HttpPayloadTraitsWithMediaTypeInputOutput');
 
@@ -95,9 +95,17 @@ class HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer
   @override
   Object serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
+    final payload = object is HttpPayloadTraitsWithMediaTypeInputOutput
+        ? object.getPayload()
+        : (object as _i2.Uint8List?);
     final result = <Object?>[
       const _i1.XmlElementName('HttpPayloadTraitsWithMediaTypeInputOutput')
     ];
+    if (payload == null) {
+      return result;
+    }
+    result.add(serializers.serialize(payload,
+        specifiedType: const FullType(_i2.Uint8List)));
     return result;
   }
 }

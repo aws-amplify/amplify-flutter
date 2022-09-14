@@ -1,36 +1,39 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.json_protocol.json_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.json_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i4;
 
-import 'package:aws_json1_1/src/json_protocol/common/serializers.dart' as _i3;
-import 'package:aws_json1_1/src/json_protocol/model/complex_error.dart' as _i16;
-import 'package:aws_json1_1/src/json_protocol/model/error_with_members.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/common/serializers.dart'
+    as _i3;
+import 'package:aws_json1_1_v1/src/json_protocol/model/complex_error.dart'
+    as _i16;
+import 'package:aws_json1_1_v1/src/json_protocol/model/error_with_members.dart'
     as _i19;
-import 'package:aws_json1_1/src/json_protocol/model/error_without_members.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/error_without_members.dart'
     as _i20;
-import 'package:aws_json1_1/src/json_protocol/model/foo_error.dart' as _i17;
-import 'package:aws_json1_1/src/json_protocol/model/greeting_with_errors_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/foo_error.dart' as _i17;
+import 'package:aws_json1_1_v1/src/json_protocol/model/greeting_with_errors_output.dart'
     as _i6;
-import 'package:aws_json1_1/src/json_protocol/model/host_label_input.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/host_label_input.dart'
     as _i5;
-import 'package:aws_json1_1/src/json_protocol/model/invalid_greeting.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/invalid_greeting.dart'
     as _i18;
-import 'package:aws_json1_1/src/json_protocol/model/json_enums_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/json_enums_input_output.dart'
     as _i7;
-import 'package:aws_json1_1/src/json_protocol/model/kitchen_sink.dart' as _i9;
-import 'package:aws_json1_1/src/json_protocol/model/null_operation_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/kitchen_sink.dart'
+    as _i9;
+import 'package:aws_json1_1_v1/src/json_protocol/model/null_operation_input_output.dart'
     as _i10;
-import 'package:aws_json1_1/src/json_protocol/model/operation_with_optional_input_output_input.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/operation_with_optional_input_output_input.dart'
     as _i12;
-import 'package:aws_json1_1/src/json_protocol/model/operation_with_optional_input_output_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/operation_with_optional_input_output_output.dart'
     as _i11;
-import 'package:aws_json1_1/src/json_protocol/model/put_and_get_inline_documents_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/put_and_get_inline_documents_input_output.dart'
     as _i13;
-import 'package:aws_json1_1/src/json_protocol/model/simple_scalar_properties_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/simple_scalar_properties_input_output.dart'
     as _i14;
-import 'package:aws_json1_1/src/json_protocol/model/union_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/union_input_output.dart'
     as _i8;
 import 'package:built_value/serializer.dart';
 import 'package:shelf/shelf.dart' as _i15;

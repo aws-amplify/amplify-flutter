@@ -32,6 +32,36 @@ abstract class StringShape
 
   static const id = ShapeId.core('String');
 
+  EnumShape? get asEnumShape {
+    final enumTrait = getTrait<EnumTrait>();
+    if (enumTrait == null) {
+      return null;
+    }
+    return EnumShape((b) {
+      b.shapeId = shapeId;
+      b.members = NamedMembersMap({});
+      b.traits = traits..remove(EnumTrait.id);
+      for (final definition in enumTrait.definitions) {
+        final memberName = definition.name ?? definition.value;
+        final deprecated = definition.deprecated ?? false;
+        final docs = definition.documentation;
+        final tags = definition.tags;
+        b.members![memberName] = MemberShape(
+          (b) => b
+            ..target = Shape.unit
+            ..memberName = memberName
+            ..shapeId = shapeId.replace(member: memberName)
+            ..traits = TraitMap.fromTraits([
+              if (deprecated) const DeprecatedTrait(),
+              if (docs != null) DocumentationTrait(docs),
+              if (tags.isNotEmpty) TagsTrait(tags),
+              EnumValueTrait(definition.value),
+            ]),
+        );
+      }
+    });
+  }
+
   @override
   ShapeType getType() => ShapeType.string;
 

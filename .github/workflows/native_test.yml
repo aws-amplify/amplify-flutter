@@ -83,16 +83,16 @@ jobs:
         run: dart test
     if: "${{ github.event_name == 'push' }}"
   job_003:
-    name: "unit_test_native; linux; Dart dev; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p firefox`"
+    name: "unit_test_native; linux; Dart dev; PKGS: packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p firefox`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_4"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNamespace-packages/smithy/smithy-pack-!!too_long!!-554-617134325"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNamespace-packages/smithy/smithy-pack-!!too_long!!-538-866660746
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -101,6 +101,96 @@ jobs:
           sdk: dev
       - id: checkout
         uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_smithy_goldens_lib_awsJson1_0_pub_upgrade
+        name: packages/smithy/goldens/lib/awsJson1_0; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib/awsJson1_0; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib_awsJson1_0_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib_awsJson1_1_pub_upgrade
+        name: packages/smithy/goldens/lib/awsJson1_1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib/awsJson1_1; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib_awsJson1_1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib_restJson1_pub_upgrade
+        name: packages/smithy/goldens/lib/restJson1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib/restJson1; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib_restJson1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib_restXml_pub_upgrade
+        name: packages/smithy/goldens/lib/restXml; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib/restXml; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib_restXml_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib_restXmlWithNamespace_pub_upgrade
+        name: packages/smithy/goldens/lib/restXmlWithNamespace; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib/restXmlWithNamespace; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib_restXmlWithNamespace_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib2_awsJson1_0_pub_upgrade
+        name: packages/smithy/goldens/lib2/awsJson1_0; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_0
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib2/awsJson1_0; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_0_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_0
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade
+        name: packages/smithy/goldens/lib2/awsJson1_1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib2/awsJson1_1; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib2_restJson1_pub_upgrade
+        name: packages/smithy/goldens/lib2/restJson1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restJson1
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib2/restJson1; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib2_restJson1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restJson1
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib2_restXml_pub_upgrade
+        name: packages/smithy/goldens/lib2/restXml; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXml
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib2/restXml; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib2_restXml_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXml
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib2_restXmlWithNamespace_pub_upgrade
+        name: packages/smithy/goldens/lib2/restXmlWithNamespace; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXmlWithNamespace
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib2/restXmlWithNamespace; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib2_restXmlWithNamespace_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXmlWithNamespace
+        run: dart test -p firefox
       - id: packages_smithy_smithy_pub_upgrade
         name: packages/smithy/smithy; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -192,16 +282,16 @@ jobs:
         run: dart test
     if: "${{ github.event_name == 'push' }}"
   job_006:
-    name: "unit_test_native; linux; Dart stable; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p firefox`"
+    name: "unit_test_native; linux; Dart stable; PKGS: packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p firefox`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_4"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNamespace-packages/smithy/smithy-p-!!too_long!!-557-662161886"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNamespace-packages/smithy/smithy-p-!!too_long!!-541-610008647
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -210,6 +300,96 @@ jobs:
           sdk: stable
       - id: checkout
         uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_smithy_goldens_lib_awsJson1_0_pub_upgrade
+        name: packages/smithy/goldens/lib/awsJson1_0; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib/awsJson1_0; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib_awsJson1_0_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib_awsJson1_1_pub_upgrade
+        name: packages/smithy/goldens/lib/awsJson1_1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib/awsJson1_1; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib_awsJson1_1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib_restJson1_pub_upgrade
+        name: packages/smithy/goldens/lib/restJson1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib/restJson1; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib_restJson1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib_restXml_pub_upgrade
+        name: packages/smithy/goldens/lib/restXml; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib/restXml; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib_restXml_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib_restXmlWithNamespace_pub_upgrade
+        name: packages/smithy/goldens/lib/restXmlWithNamespace; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib/restXmlWithNamespace; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib_restXmlWithNamespace_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib2_awsJson1_0_pub_upgrade
+        name: packages/smithy/goldens/lib2/awsJson1_0; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_0
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib2/awsJson1_0; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_0_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_0
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade
+        name: packages/smithy/goldens/lib2/awsJson1_1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib2/awsJson1_1; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib2_restJson1_pub_upgrade
+        name: packages/smithy/goldens/lib2/restJson1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restJson1
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib2/restJson1; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib2_restJson1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restJson1
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib2_restXml_pub_upgrade
+        name: packages/smithy/goldens/lib2/restXml; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXml
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib2/restXml; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib2_restXml_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXml
+        run: dart test -p firefox
+      - id: packages_smithy_goldens_lib2_restXmlWithNamespace_pub_upgrade
+        name: packages/smithy/goldens/lib2/restXmlWithNamespace; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXmlWithNamespace
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib2/restXmlWithNamespace; dart test -p firefox"
+        if: "always() && steps.packages_smithy_goldens_lib2_restXmlWithNamespace_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXmlWithNamespace
+        run: dart test -p firefox
       - id: packages_smithy_smithy_pub_upgrade
         name: packages/smithy/smithy; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -239,16 +419,16 @@ jobs:
         run: dart test -p firefox
     if: "${{ github.event_name == 'push' }}"
   job_007:
-    name: "unit_test_native; macos; Dart dev; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
+    name: "unit_test_native; macos; Dart dev; PKGS: packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
     runs-on: macos-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_0"
+          key: "os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNamespace-packages/smithy/smithy-packa-!!too_long!!-553-217509083"
           restore-keys: |
-            os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
+            os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNamespace-packages/smithy/smithy-packag-!!too_long!!-537-67561069
             os:macos-latest;pub-cache-hosted;sdk:dev
             os:macos-latest;pub-cache-hosted
             os:macos-latest
@@ -257,6 +437,96 @@ jobs:
           sdk: dev
       - id: checkout
         uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_smithy_goldens_lib_awsJson1_0_pub_upgrade
+        name: packages/smithy/goldens/lib/awsJson1_0; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/awsJson1_0; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_awsJson1_0_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+        run: dart test
+      - id: packages_smithy_goldens_lib_awsJson1_1_pub_upgrade
+        name: packages/smithy/goldens/lib/awsJson1_1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/awsJson1_1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_awsJson1_1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+        run: dart test
+      - id: packages_smithy_goldens_lib_restJson1_pub_upgrade
+        name: packages/smithy/goldens/lib/restJson1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/restJson1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_restJson1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+        run: dart test
+      - id: packages_smithy_goldens_lib_restXml_pub_upgrade
+        name: packages/smithy/goldens/lib/restXml; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/restXml; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_restXml_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+        run: dart test
+      - id: packages_smithy_goldens_lib_restXmlWithNamespace_pub_upgrade
+        name: packages/smithy/goldens/lib/restXmlWithNamespace; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/restXmlWithNamespace; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_restXmlWithNamespace_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+        run: dart test
+      - id: packages_smithy_goldens_lib2_awsJson1_0_pub_upgrade
+        name: packages/smithy/goldens/lib2/awsJson1_0; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_0
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/awsJson1_0; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_0_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_0
+        run: dart test
+      - id: packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade
+        name: packages/smithy/goldens/lib2/awsJson1_1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/awsJson1_1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart test
+      - id: packages_smithy_goldens_lib2_restJson1_pub_upgrade
+        name: packages/smithy/goldens/lib2/restJson1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restJson1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/restJson1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_restJson1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restJson1
+        run: dart test
+      - id: packages_smithy_goldens_lib2_restXml_pub_upgrade
+        name: packages/smithy/goldens/lib2/restXml; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXml
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/restXml; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_restXml_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXml
+        run: dart test
+      - id: packages_smithy_goldens_lib2_restXmlWithNamespace_pub_upgrade
+        name: packages/smithy/goldens/lib2/restXmlWithNamespace; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXmlWithNamespace
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/restXmlWithNamespace; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_restXmlWithNamespace_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXmlWithNamespace
+        run: dart test
       - id: packages_smithy_smithy_pub_upgrade
         name: packages/smithy/smithy; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -286,16 +556,16 @@ jobs:
         run: dart test
     if: "${{ github.event_name == 'push' }}"
   job_008:
-    name: "unit_test_native; macos; Dart stable; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
+    name: "unit_test_native; macos; Dart stable; PKGS: packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
     runs-on: macos-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen;commands:test_0"
+          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNamespace-packages/smithy/smithy-pa-!!too_long!!-556-930515438"
           restore-keys: |
-            os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/smithy-packages/smithy/smithy_aws-packages/smithy/smithy_codegen
+            os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNamespace-packages/smithy/smithy-pac-!!too_long!!-540-85843995
             os:macos-latest;pub-cache-hosted;sdk:stable
             os:macos-latest;pub-cache-hosted
             os:macos-latest
@@ -304,6 +574,96 @@ jobs:
           sdk: stable
       - id: checkout
         uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_smithy_goldens_lib_awsJson1_0_pub_upgrade
+        name: packages/smithy/goldens/lib/awsJson1_0; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/awsJson1_0; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_awsJson1_0_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+        run: dart test
+      - id: packages_smithy_goldens_lib_awsJson1_1_pub_upgrade
+        name: packages/smithy/goldens/lib/awsJson1_1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/awsJson1_1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_awsJson1_1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+        run: dart test
+      - id: packages_smithy_goldens_lib_restJson1_pub_upgrade
+        name: packages/smithy/goldens/lib/restJson1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/restJson1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_restJson1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+        run: dart test
+      - id: packages_smithy_goldens_lib_restXml_pub_upgrade
+        name: packages/smithy/goldens/lib/restXml; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/restXml; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_restXml_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+        run: dart test
+      - id: packages_smithy_goldens_lib_restXmlWithNamespace_pub_upgrade
+        name: packages/smithy/goldens/lib/restXmlWithNamespace; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/restXmlWithNamespace; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_restXmlWithNamespace_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+        run: dart test
+      - id: packages_smithy_goldens_lib2_awsJson1_0_pub_upgrade
+        name: packages/smithy/goldens/lib2/awsJson1_0; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_0
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/awsJson1_0; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_0_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_0
+        run: dart test
+      - id: packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade
+        name: packages/smithy/goldens/lib2/awsJson1_1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/awsJson1_1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart test
+      - id: packages_smithy_goldens_lib2_restJson1_pub_upgrade
+        name: packages/smithy/goldens/lib2/restJson1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restJson1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/restJson1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_restJson1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restJson1
+        run: dart test
+      - id: packages_smithy_goldens_lib2_restXml_pub_upgrade
+        name: packages/smithy/goldens/lib2/restXml; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXml
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/restXml; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_restXml_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXml
+        run: dart test
+      - id: packages_smithy_goldens_lib2_restXmlWithNamespace_pub_upgrade
+        name: packages/smithy/goldens/lib2/restXmlWithNamespace; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXmlWithNamespace
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/restXmlWithNamespace; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_restXmlWithNamespace_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXmlWithNamespace
+        run: dart test
       - id: packages_smithy_smithy_pub_upgrade
         name: packages/smithy/smithy; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -333,7 +693,7 @@ jobs:
         run: dart test
     if: "${{ github.event_name == 'push' }}"
   job_009:
-    name: "unit_test_native; windows; Dart dev; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
+    name: "unit_test_native; windows; Dart dev; PKGS: packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
     runs-on: windows-latest
     steps:
       - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
@@ -341,6 +701,96 @@ jobs:
           sdk: dev
       - id: checkout
         uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_smithy_goldens_lib_awsJson1_0_pub_upgrade
+        name: packages/smithy/goldens/lib/awsJson1_0; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/awsJson1_0; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_awsJson1_0_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+        run: dart test
+      - id: packages_smithy_goldens_lib_awsJson1_1_pub_upgrade
+        name: packages/smithy/goldens/lib/awsJson1_1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/awsJson1_1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_awsJson1_1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+        run: dart test
+      - id: packages_smithy_goldens_lib_restJson1_pub_upgrade
+        name: packages/smithy/goldens/lib/restJson1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/restJson1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_restJson1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+        run: dart test
+      - id: packages_smithy_goldens_lib_restXml_pub_upgrade
+        name: packages/smithy/goldens/lib/restXml; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/restXml; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_restXml_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+        run: dart test
+      - id: packages_smithy_goldens_lib_restXmlWithNamespace_pub_upgrade
+        name: packages/smithy/goldens/lib/restXmlWithNamespace; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/restXmlWithNamespace; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_restXmlWithNamespace_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+        run: dart test
+      - id: packages_smithy_goldens_lib2_awsJson1_0_pub_upgrade
+        name: packages/smithy/goldens/lib2/awsJson1_0; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_0
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/awsJson1_0; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_0_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_0
+        run: dart test
+      - id: packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade
+        name: packages/smithy/goldens/lib2/awsJson1_1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/awsJson1_1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart test
+      - id: packages_smithy_goldens_lib2_restJson1_pub_upgrade
+        name: packages/smithy/goldens/lib2/restJson1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restJson1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/restJson1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_restJson1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restJson1
+        run: dart test
+      - id: packages_smithy_goldens_lib2_restXml_pub_upgrade
+        name: packages/smithy/goldens/lib2/restXml; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXml
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/restXml; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_restXml_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXml
+        run: dart test
+      - id: packages_smithy_goldens_lib2_restXmlWithNamespace_pub_upgrade
+        name: packages/smithy/goldens/lib2/restXmlWithNamespace; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXmlWithNamespace
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/restXmlWithNamespace; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_restXmlWithNamespace_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXmlWithNamespace
+        run: dart test
       - id: packages_smithy_smithy_pub_upgrade
         name: packages/smithy/smithy; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -370,7 +820,7 @@ jobs:
         run: dart test
     if: "${{ github.event_name == 'push' }}"
   job_010:
-    name: "unit_test_native; windows; Dart stable; PKGS: packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
+    name: "unit_test_native; windows; Dart stable; PKGS: packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test`"
     runs-on: windows-latest
     steps:
       - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
@@ -378,6 +828,96 @@ jobs:
           sdk: stable
       - id: checkout
         uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+      - id: packages_smithy_goldens_lib_awsJson1_0_pub_upgrade
+        name: packages/smithy/goldens/lib/awsJson1_0; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/awsJson1_0; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_awsJson1_0_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_0
+        run: dart test
+      - id: packages_smithy_goldens_lib_awsJson1_1_pub_upgrade
+        name: packages/smithy/goldens/lib/awsJson1_1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/awsJson1_1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_awsJson1_1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/awsJson1_1
+        run: dart test
+      - id: packages_smithy_goldens_lib_restJson1_pub_upgrade
+        name: packages/smithy/goldens/lib/restJson1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/restJson1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_restJson1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restJson1
+        run: dart test
+      - id: packages_smithy_goldens_lib_restXml_pub_upgrade
+        name: packages/smithy/goldens/lib/restXml; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/restXml; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_restXml_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXml
+        run: dart test
+      - id: packages_smithy_goldens_lib_restXmlWithNamespace_pub_upgrade
+        name: packages/smithy/goldens/lib/restXmlWithNamespace; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib/restXmlWithNamespace; dart test
+        if: "always() && steps.packages_smithy_goldens_lib_restXmlWithNamespace_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+        run: dart test
+      - id: packages_smithy_goldens_lib2_awsJson1_0_pub_upgrade
+        name: packages/smithy/goldens/lib2/awsJson1_0; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_0
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/awsJson1_0; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_0_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_0
+        run: dart test
+      - id: packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade
+        name: packages/smithy/goldens/lib2/awsJson1_1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/awsJson1_1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart test
+      - id: packages_smithy_goldens_lib2_restJson1_pub_upgrade
+        name: packages/smithy/goldens/lib2/restJson1; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restJson1
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/restJson1; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_restJson1_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restJson1
+        run: dart test
+      - id: packages_smithy_goldens_lib2_restXml_pub_upgrade
+        name: packages/smithy/goldens/lib2/restXml; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXml
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/restXml; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_restXml_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXml
+        run: dart test
+      - id: packages_smithy_goldens_lib2_restXmlWithNamespace_pub_upgrade
+        name: packages/smithy/goldens/lib2/restXmlWithNamespace; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXmlWithNamespace
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/restXmlWithNamespace; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_restXmlWithNamespace_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/restXmlWithNamespace
+        run: dart test
       - id: packages_smithy_smithy_pub_upgrade
         name: packages/smithy/smithy; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
