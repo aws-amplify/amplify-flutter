@@ -1,11 +1,11 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library aws_json1_1.json_protocol.test.endpoint_with_host_label_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.test.endpoint_with_host_label_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_json1_1/src/json_protocol/model/host_label_input.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/host_label_input.dart'
     as _i6;
-import 'package:aws_json1_1/src/json_protocol/operation/endpoint_with_host_label_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/endpoint_with_host_label_operation.dart'
     as _i3;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
 import 'package:built_value/serializer.dart';

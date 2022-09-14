@@ -1,15 +1,16 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library rest_json1.rest_json_protocol.test.input_and_output_with_headers_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.test.input_and_output_with_headers_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i8;
-import 'package:rest_json1/src/rest_json_protocol/model/foo_enum.dart' as _i7;
-import 'package:rest_json1/src/rest_json_protocol/model/input_and_output_with_headers_io.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/foo_enum.dart'
+    as _i7;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/input_and_output_with_headers_io.dart'
     as _i5;
-import 'package:rest_json1/src/rest_json_protocol/operation/input_and_output_with_headers_operation.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/operation/input_and_output_with_headers_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_test/smithy_test.dart' as _i2;
@@ -771,8 +772,8 @@ class InputAndOutputWithHeadersIoRestJson1Serializer
           if (value != null) {
             result.headerStringSet.replace((serializers.deserialize(value,
                     specifiedType:
-                        const FullType(_i6.BuiltList, [FullType(String)]))
-                as _i6.BuiltList<String>));
+                        const FullType(_i6.BuiltSet, [FullType(String)]))
+                as _i6.BuiltSet<String>));
           }
           break;
         case 'headerTimestampList':

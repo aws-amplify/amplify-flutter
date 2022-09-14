@@ -51,7 +51,7 @@ class ShapeMapSerializer extends StructuredSerializer<ShapeMap> {
               StandardJsonPlugin()
                   .beforeDeserialize(value, const FullType(Shape)))!
           .rebuild((b) => b.shapeId = shapeId);
-      if (ShapeType.valueOf(type) == ShapeType.apply) {
+      if (ShapeType.deserialize(type) == ShapeType.apply) {
         applyTraits[shapeId] = shape;
       } else {
         // Update members before saving shape.
@@ -108,6 +108,28 @@ class ShapeMapSerializer extends StructuredSerializer<ShapeMap> {
           OutputTrait.id,
           () => const OutputTrait(),
         );
+      }
+    }
+
+    // Replace string shapes with enum shapes for more streamlined
+    // processing
+    for (final shape in shapeMap.values.whereType<StringShape>()) {
+      final enumShape = shape.asEnumShape;
+      if (enumShape != null) {
+        shapeMap[shape.shapeId] = enumShape;
+      }
+    }
+
+    // Convert uniqueItems lists to sets for easier processing.
+    for (final shape in shapeMap.values.whereType<ListShape>()) {
+      if (shape.hasTrait<UniqueItemsTrait>()) {
+        final asSet = SetShape(
+          (b) => b
+            ..shapeId = shape.shapeId
+            ..member.replace(shape.member)
+            ..traits = shape.traits,
+        );
+        shapeMap[shape.shapeId] = asSet;
       }
     }
 

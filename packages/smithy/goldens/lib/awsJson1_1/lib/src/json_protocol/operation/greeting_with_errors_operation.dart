@@ -1,18 +1,20 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.json_protocol.operation.greeting_with_errors_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.operation.greeting_with_errors_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i11;
 
 import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:aws_json1_1/src/json_protocol/common/endpoint_resolver.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/common/endpoint_resolver.dart'
     as _i7;
-import 'package:aws_json1_1/src/json_protocol/common/serializers.dart' as _i5;
-import 'package:aws_json1_1/src/json_protocol/model/complex_error.dart' as _i8;
-import 'package:aws_json1_1/src/json_protocol/model/foo_error.dart' as _i9;
-import 'package:aws_json1_1/src/json_protocol/model/greeting_with_errors_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/common/serializers.dart'
+    as _i5;
+import 'package:aws_json1_1_v1/src/json_protocol/model/complex_error.dart'
+    as _i8;
+import 'package:aws_json1_1_v1/src/json_protocol/model/foo_error.dart' as _i9;
+import 'package:aws_json1_1_v1/src/json_protocol/model/greeting_with_errors_output.dart'
     as _i2;
-import 'package:aws_json1_1/src/json_protocol/model/invalid_greeting.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/invalid_greeting.dart'
     as _i10;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;

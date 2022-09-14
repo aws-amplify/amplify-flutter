@@ -40,7 +40,10 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
   final Set<ShapeId> seen = {};
 
   GeneratedLibrary _buildLibrary(Shape shape, Library library) =>
-      GeneratedLibrary(shape.smithyLibrary(context), library);
+      GeneratedLibrary(
+        shape.smithyLibrary(context),
+        library,
+      );
 
   @override
   Iterable<GeneratedLibrary> operationShape(OperationShape shape,
@@ -172,16 +175,13 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
   }
 
   @override
-  Iterable<GeneratedLibrary> stringShape(StringShape shape,
-      [Shape? parent]) sync* {
+  Iterable<GeneratedLibrary> enumShape(EnumShape shape, [Shape? parent]) sync* {
     if (seen.contains(shape.shapeId)) {
       return;
     }
     seen.add(shape.shapeId);
 
-    if (shape.isEnum) {
-      yield _buildLibrary(shape, EnumGenerator(shape, context).generate());
-    }
+    yield _buildLibrary(shape, EnumGenerator(shape, context).generate());
   }
 
   @override

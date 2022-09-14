@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.streaming_traits_require_length_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.streaming_traits_require_length_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i2;
 
@@ -63,7 +63,7 @@ abstract class StreamingTraitsRequireLengthInput
 }
 
 class StreamingTraitsRequireLengthInputRestJson1Serializer
-    extends _i1.PrimitiveSmithySerializer<Object> {
+    extends _i1.PrimitiveSmithySerializer<_i2.Stream<List<int>>> {
   const StreamingTraitsRequireLengthInputRestJson1Serializer()
       : super('StreamingTraitsRequireLengthInput');
 

@@ -28,31 +28,29 @@ extension ShapeExt on Shape {
   ///
   /// Shapes which have default values are only considered boxed when
   /// explicitly marked with the boxed trait.
-  bool get hasDefaultValue {
-    switch (getType()) {
-      case ShapeType.boolean:
-      case ShapeType.byte:
-      case ShapeType.short:
-      case ShapeType.integer:
-      case ShapeType.long:
-      case ShapeType.float:
-      case ShapeType.double:
-        return true;
-      default:
-        return false;
-    }
-  }
+  bool get hasDefaultValue => hasTrait<DefaultTrait>();
 
   /// Whether `this` is boxed. This means the shape is optionally present and
   /// has no default value.
-  bool get isBoxed => hasTrait<BoxTrait>();
+  bool get isBoxed {
+    // V1
+    if (hasTrait<BoxTrait>()) {
+      return true;
+    }
+    // V2
+    if (hasTrait<DefaultTrait>()) {
+      return false;
+    }
+    return !hasTrait<RequiredTrait>() || hasTrait<ClientOptionalTrait>();
+  }
 
   /// Whether `this` is not boxed. This means the shape is required to be present
   /// with a value.
   bool get isNotBoxed => !isBoxed;
 
   /// Whether `this` is an enum.
-  bool get isEnum => this is StringShape && hasTrait<EnumTrait>();
+  bool get isEnum =>
+      (this is StringShape && hasTrait<EnumTrait>()) || this is EnumShape;
 
   /// Whether `this` is an idempotency token.
   bool get isIdempotencyToken => hasTrait<IdempotencyTokenTrait>();

@@ -19,7 +19,8 @@ import 'package:smithy_codegen/src/generator/visitors/library_visitor.dart';
 import 'package:smithy_codegen/src/version.dart';
 
 /// Header which prefixes all generated files.
-const header = '// Generated with smithy-dart $packageVersion. DO NOT MODIFY.';
+const String header =
+    '// Generated with smithy-dart $packageVersion. DO NOT MODIFY.';
 
 /// The default emitter for codegen operations.
 DartEmitter buildEmitter(Allocator allocator) => DartEmitter(

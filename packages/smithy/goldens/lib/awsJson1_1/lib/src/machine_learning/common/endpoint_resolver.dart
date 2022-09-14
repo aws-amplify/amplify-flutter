@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.machine_learning.common.endpoint_resolver; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.machine_learning.common.endpoint_resolver; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:meta/meta.dart' as _i2;
 import 'package:smithy_aws/smithy_aws.dart' as _i1;

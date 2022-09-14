@@ -1,15 +1,15 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library rest_json1.rest_json_protocol.test.json_maps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.test.json_maps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1/src/rest_json_protocol/model/greeting_struct.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/greeting_struct.dart'
     as _i7;
-import 'package:rest_json1/src/rest_json_protocol/model/json_maps_input_output.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/json_maps_input_output.dart'
     as _i5;
-import 'package:rest_json1/src/rest_json_protocol/operation/json_maps_operation.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/operation/json_maps_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_test/smithy_test.dart' as _i2;
@@ -546,10 +546,10 @@ class JsonMapsInputOutputRestJson1Serializer
         case 'denseSetMap':
           if (value != null) {
             result.denseSetMap.replace((serializers.deserialize(value,
-                specifiedType: const FullType(_i6.BuiltListMultimap, [
+                specifiedType: const FullType(_i6.BuiltSetMultimap, [
                   FullType(String),
                   FullType(String)
-                ])) as _i6.BuiltListMultimap<String, String>));
+                ])) as _i6.BuiltSetMultimap<String, String>));
           }
           break;
         case 'denseStringMap':
@@ -590,10 +590,10 @@ class JsonMapsInputOutputRestJson1Serializer
         case 'sparseSetMap':
           if (value != null) {
             result.sparseSetMap.replace((serializers.deserialize(value,
-                specifiedType: const FullType(_i6.BuiltListMultimap, [
+                specifiedType: const FullType(_i6.BuiltSetMultimap, [
                   FullType(String),
                   FullType(String)
-                ])) as _i6.BuiltListMultimap<String, String>));
+                ])) as _i6.BuiltSetMultimap<String, String>));
           }
           break;
         case 'sparseStringMap':

@@ -1,26 +1,26 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.glacier.operation.upload_multipart_part_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.glacier.operation.upload_multipart_part_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i2;
 
 import 'package:aws_common/aws_common.dart' as _i8;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i5;
-import 'package:rest_json1/src/glacier/common/endpoint_resolver.dart' as _i9;
-import 'package:rest_json1/src/glacier/common/serializers.dart' as _i7;
-import 'package:rest_json1/src/glacier/model/invalid_parameter_value_exception.dart'
+import 'package:rest_json1_v1/src/glacier/common/endpoint_resolver.dart' as _i9;
+import 'package:rest_json1_v1/src/glacier/common/serializers.dart' as _i7;
+import 'package:rest_json1_v1/src/glacier/model/invalid_parameter_value_exception.dart'
     as _i10;
-import 'package:rest_json1/src/glacier/model/missing_parameter_value_exception.dart'
+import 'package:rest_json1_v1/src/glacier/model/missing_parameter_value_exception.dart'
     as _i11;
-import 'package:rest_json1/src/glacier/model/request_timeout_exception.dart'
+import 'package:rest_json1_v1/src/glacier/model/request_timeout_exception.dart'
     as _i12;
-import 'package:rest_json1/src/glacier/model/resource_not_found_exception.dart'
+import 'package:rest_json1_v1/src/glacier/model/resource_not_found_exception.dart'
     as _i13;
-import 'package:rest_json1/src/glacier/model/service_unavailable_exception.dart'
+import 'package:rest_json1_v1/src/glacier/model/service_unavailable_exception.dart'
     as _i14;
-import 'package:rest_json1/src/glacier/model/upload_multipart_part_input.dart'
+import 'package:rest_json1_v1/src/glacier/model/upload_multipart_part_input.dart'
     as _i3;
-import 'package:rest_json1/src/glacier/model/upload_multipart_part_output.dart'
+import 'package:rest_json1_v1/src/glacier/model/upload_multipart_part_output.dart'
     as _i4;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i6;

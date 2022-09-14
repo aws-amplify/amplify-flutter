@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.s3.model.encoding_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.s3.model.encoding_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 

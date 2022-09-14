@@ -1,9 +1,9 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.machine_learning.model.prediction; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.machine_learning.model.prediction; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_json1_1/src/machine_learning/model/details_attributes.dart'
+import 'package:aws_json1_1_v1/src/machine_learning/model/details_attributes.dart'
     as _i3;
 import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';

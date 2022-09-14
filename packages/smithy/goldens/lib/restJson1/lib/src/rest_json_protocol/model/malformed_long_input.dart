@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_long_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_long_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -21,8 +21,9 @@ abstract class MalformedLongInput
   factory MalformedLongInput(
       {_i3.Int64? longInBody,
       _i3.Int64? longInHeader,
-      required _i3.Int64 longInPath,
+      _i3.Int64? longInPath,
       _i3.Int64? longInQuery}) {
+    longInPath ??= _i3.Int64.ZERO;
     return _$MalformedLongInput._(
         longInBody: longInBody,
         longInHeader: longInHeader,
@@ -58,7 +59,10 @@ abstract class MalformedLongInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedLongInputBuilder b) {}
+  static void _init(MalformedLongInputBuilder b) {
+    b.longInPath = _i3.Int64.ZERO;
+  }
+
   _i3.Int64? get longInBody;
   _i3.Int64? get longInHeader;
   _i3.Int64 get longInPath;

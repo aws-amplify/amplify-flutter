@@ -1,13 +1,13 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.xml_lists_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.xml_lists_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml/src/rest_xml_protocol/model/foo_enum.dart' as _i4;
-import 'package:rest_xml/src/rest_xml_protocol/model/structure_list_member.dart'
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/foo_enum.dart' as _i4;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/structure_list_member.dart'
     as _i5;
 import 'package:smithy/smithy.dart' as _i1;
 
@@ -30,7 +30,7 @@ abstract class XmlListsInputOutput
       _i3.BuiltList<_i3.BuiltList<String>>? nestedStringList,
       _i3.BuiltList<String>? renamedListMembers,
       _i3.BuiltList<String>? stringList,
-      _i3.BuiltList<String>? stringSet,
+      _i3.BuiltSet<String>? stringSet,
       _i3.BuiltList<_i5.StructureListMember>? structureList,
       _i3.BuiltList<DateTime>? timestampList}) {
     return _$XmlListsInputOutput._(
@@ -85,7 +85,7 @@ abstract class XmlListsInputOutput
   _i3.BuiltList<_i3.BuiltList<String>>? get nestedStringList;
   _i3.BuiltList<String>? get renamedListMembers;
   _i3.BuiltList<String>? get stringList;
-  _i3.BuiltList<String>? get stringSet;
+  _i3.BuiltSet<String>? get stringSet;
   _i3.BuiltList<_i5.StructureListMember>? get structureList;
   _i3.BuiltList<DateTime>? get timestampList;
   @override
@@ -241,11 +241,12 @@ class XmlListsInputOutputRestXmlSerializer
           break;
         case 'stringSet':
           if (value != null) {
-            result.stringSet.replace((const _i1.XmlBuiltListSerializer()
-                    .deserialize(serializers, (value as Iterable<Object?>),
+            result.stringSet.replace((const _i1.XmlBuiltSetSerializer()
+                    .deserialize(
+                        serializers, (value as Iterable<Object?>),
                         specifiedType:
-                            const FullType(_i3.BuiltList, [FullType(String)]))
-                as _i3.BuiltList<String>));
+                            const FullType(_i3.BuiltSet, [FullType(String)]))
+                as _i3.BuiltSet<String>));
           }
           break;
         case 'myStructureList':
@@ -366,10 +367,10 @@ class XmlListsInputOutputRestXmlSerializer
     if (payload.stringSet != null) {
       result
         ..add(const _i1.XmlElementName('stringSet'))
-        ..add(const _i1.XmlBuiltListSerializer().serialize(
+        ..add(const _i1.XmlBuiltSetSerializer().serialize(
             serializers, payload.stringSet!,
             specifiedType:
-                const FullType.nullable(_i3.BuiltList, [FullType(String)])));
+                const FullType.nullable(_i3.BuiltSet, [FullType(String)])));
     }
     if (payload.structureList != null) {
       result

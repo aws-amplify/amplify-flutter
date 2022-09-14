@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_float_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_float_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -20,8 +20,9 @@ abstract class MalformedFloatInput
   factory MalformedFloatInput(
       {double? floatInBody,
       double? floatInHeader,
-      required double floatInPath,
+      double? floatInPath,
       double? floatInQuery}) {
+    floatInPath ??= 0;
     return _$MalformedFloatInput._(
         floatInBody: floatInBody,
         floatInHeader: floatInHeader,
@@ -57,7 +58,10 @@ abstract class MalformedFloatInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedFloatInputBuilder b) {}
+  static void _init(MalformedFloatInputBuilder b) {
+    b.floatInPath = 0;
+  }
+
   double? get floatInBody;
   double? get floatInHeader;
   double get floatInPath;

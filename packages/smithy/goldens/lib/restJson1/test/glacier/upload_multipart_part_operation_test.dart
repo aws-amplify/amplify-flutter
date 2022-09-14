@@ -1,27 +1,27 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library rest_json1.glacier.test.upload_multipart_part_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.glacier.test.upload_multipart_part_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i7;
 
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1/src/glacier/model/invalid_parameter_value_exception.dart'
+import 'package:rest_json1_v1/src/glacier/model/invalid_parameter_value_exception.dart'
     as _i9;
-import 'package:rest_json1/src/glacier/model/missing_parameter_value_exception.dart'
+import 'package:rest_json1_v1/src/glacier/model/missing_parameter_value_exception.dart'
     as _i10;
-import 'package:rest_json1/src/glacier/model/request_timeout_exception.dart'
+import 'package:rest_json1_v1/src/glacier/model/request_timeout_exception.dart'
     as _i11;
-import 'package:rest_json1/src/glacier/model/resource_not_found_exception.dart'
+import 'package:rest_json1_v1/src/glacier/model/resource_not_found_exception.dart'
     as _i12;
-import 'package:rest_json1/src/glacier/model/service_unavailable_exception.dart'
+import 'package:rest_json1_v1/src/glacier/model/service_unavailable_exception.dart'
     as _i13;
-import 'package:rest_json1/src/glacier/model/upload_multipart_part_input.dart'
+import 'package:rest_json1_v1/src/glacier/model/upload_multipart_part_input.dart'
     as _i6;
-import 'package:rest_json1/src/glacier/model/upload_multipart_part_output.dart'
+import 'package:rest_json1_v1/src/glacier/model/upload_multipart_part_output.dart'
     as _i8;
-import 'package:rest_json1/src/glacier/operation/upload_multipart_part_operation.dart'
+import 'package:rest_json1_v1/src/glacier/operation/upload_multipart_part_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i5;
 import 'package:smithy_test/smithy_test.dart' as _i2;

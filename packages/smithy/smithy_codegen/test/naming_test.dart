@@ -134,22 +134,28 @@ void main() {
 
     group('Enum', () {
       test('valid name', () {
-        final shape = StringShape((b) => b
+        final shape = EnumShape((b) => b
           ..shapeId = ShapeId.parse('com.example#MyEnum')
-          ..traits = TraitMap.fromTraits([
-            const EnumTrait([EnumDefinition(value: 'test')])
-          ]));
+          ..members = NamedMembersMap({
+            'TEST': MemberShape((b) => b
+              ..memberName = 'TEST'
+              ..target = Shape.unit
+              ..traits = TraitMap.fromTraits(const [EnumValueTrait('test')])),
+          }));
         final context = createTestContext([shape]);
         final name = EnumGenerator(shape, context).className;
         expect(name, equals('MyEnum'));
       });
 
       test('conflict with builder of another class', () {
-        final myEnum = StringShape((b) => b
+        final myEnum = EnumShape((b) => b
           ..shapeId = ShapeId.parse('com.example#MyEnum')
-          ..traits = TraitMap.fromTraits([
-            const EnumTrait([EnumDefinition(value: 'test')])
-          ]));
+          ..members = NamedMembersMap({
+            'TEST': MemberShape((b) => b
+              ..memberName = 'TEST'
+              ..target = Shape.unit
+              ..traits = TraitMap.fromTraits(const [EnumValueTrait('test')])),
+          }));
         final myEnumBuilder = StringShape((b) => b
           ..shapeId = ShapeId.parse('com.example#MyEnumBuilder')
           ..traits = TraitMap.fromTraits([
@@ -162,12 +168,21 @@ void main() {
       });
 
       test('member names', () {
-        const trait = EnumTrait([
-          EnumDefinition(value: 'name'),
-          EnumDefinition(value: 'value'),
-          EnumDefinition(value: 'index'),
-        ]);
-        final memberNames = trait.definitions.map((def) => def.variantName);
+        final traits = <MemberShape>[
+          MemberShape((b) => b
+            ..memberName = 'NAME'
+            ..target = Shape.unit
+            ..traits = TraitMap.fromTraits(const [EnumValueTrait('name')])),
+          MemberShape((b) => b
+            ..memberName = 'VALUE'
+            ..target = Shape.unit
+            ..traits = TraitMap.fromTraits(const [EnumValueTrait('value')])),
+          MemberShape((b) => b
+            ..memberName = 'INDEX'
+            ..target = Shape.unit
+            ..traits = TraitMap.fromTraits(const [EnumValueTrait('index')])),
+        ];
+        final memberNames = traits.map((def) => def.variantName);
         expect(
           memberNames,
           unorderedEquals([

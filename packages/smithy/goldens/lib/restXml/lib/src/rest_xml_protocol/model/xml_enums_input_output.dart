@@ -1,12 +1,12 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.xml_enums_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.xml_enums_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml/src/rest_xml_protocol/model/foo_enum.dart' as _i3;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/foo_enum.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'xml_enums_input_output.g.dart';
@@ -22,7 +22,7 @@ abstract class XmlEnumsInputOutput
       _i3.FooEnum? fooEnum3,
       _i4.BuiltList<_i3.FooEnum>? fooEnumList,
       _i4.BuiltMap<String, _i3.FooEnum>? fooEnumMap,
-      _i4.BuiltList<_i3.FooEnum>? fooEnumSet}) {
+      _i4.BuiltSet<_i3.FooEnum>? fooEnumSet}) {
     return _$XmlEnumsInputOutput._(
         fooEnum1: fooEnum1,
         fooEnum2: fooEnum2,
@@ -59,7 +59,7 @@ abstract class XmlEnumsInputOutput
   _i3.FooEnum? get fooEnum3;
   _i4.BuiltList<_i3.FooEnum>? get fooEnumList;
   _i4.BuiltMap<String, _i3.FooEnum>? get fooEnumMap;
-  _i4.BuiltList<_i3.FooEnum>? get fooEnumSet;
+  _i4.BuiltSet<_i3.FooEnum>? get fooEnumSet;
   @override
   XmlEnumsInputOutput getPayload() => this;
   @override
@@ -137,11 +137,11 @@ class XmlEnumsInputOutputRestXmlSerializer
           break;
         case 'fooEnumSet':
           if (value != null) {
-            result.fooEnumSet.replace((const _i1.XmlBuiltListSerializer()
+            result.fooEnumSet.replace((const _i1.XmlBuiltSetSerializer()
                     .deserialize(serializers, (value as Iterable<Object?>),
                         specifiedType: const FullType(
-                            _i4.BuiltList, [FullType(_i3.FooEnum)]))
-                as _i4.BuiltList<_i3.FooEnum>));
+                            _i4.BuiltSet, [FullType(_i3.FooEnum)]))
+                as _i4.BuiltSet<_i3.FooEnum>));
           }
           break;
       }
@@ -192,10 +192,10 @@ class XmlEnumsInputOutputRestXmlSerializer
     if (payload.fooEnumSet != null) {
       result
         ..add(const _i1.XmlElementName('fooEnumSet'))
-        ..add(const _i1.XmlBuiltListSerializer().serialize(
+        ..add(const _i1.XmlBuiltSetSerializer().serialize(
             serializers, payload.fooEnumSet!,
             specifiedType: const FullType.nullable(
-                _i4.BuiltList, [FullType(_i3.FooEnum)])));
+                _i4.BuiltSet, [FullType(_i3.FooEnum)])));
     }
     return result;
   }

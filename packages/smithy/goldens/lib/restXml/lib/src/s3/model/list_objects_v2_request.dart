@@ -1,13 +1,13 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.s3.model.list_objects_v2_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.s3.model.list_objects_v2_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart' as _i5;
-import 'package:rest_xml/src/s3/model/encoding_type.dart' as _i3;
-import 'package:rest_xml/src/s3/model/request_payer.dart' as _i4;
+import 'package:rest_xml_v1/src/s3/model/encoding_type.dart' as _i3;
+import 'package:rest_xml_v1/src/s3/model/request_payer.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'list_objects_v2_request.g.dart';
@@ -193,6 +193,9 @@ class ListObjectsV2RequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
+    final payload = object is ListObjectsV2Request
+        ? object.getPayload()
+        : (object as ListObjectsV2RequestPayload);
     final result = <Object?>[
       const _i1.XmlElementName('ListObjectsV2Request',
           _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))

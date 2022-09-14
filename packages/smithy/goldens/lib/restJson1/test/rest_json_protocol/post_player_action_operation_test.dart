@@ -1,16 +1,16 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library rest_json1.rest_json_protocol.test.post_player_action_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.test.post_player_action_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1/src/rest_json_protocol/model/player_action.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/player_action.dart'
     as _i6;
-import 'package:rest_json1/src/rest_json_protocol/model/post_player_action_input.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/post_player_action_input.dart'
     as _i5;
-import 'package:rest_json1/src/rest_json_protocol/model/post_player_action_output.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/post_player_action_output.dart'
     as _i7;
-import 'package:rest_json1/src/rest_json_protocol/operation/post_player_action_operation.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/operation/post_player_action_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_test/smithy_test.dart' as _i2;

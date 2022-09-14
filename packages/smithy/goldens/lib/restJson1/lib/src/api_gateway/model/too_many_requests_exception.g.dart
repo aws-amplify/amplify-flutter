@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1.api_gateway.model.too_many_requests_exception;
+part of rest_json1_v1.api_gateway.model.too_many_requests_exception;
 
 // **************************************************************************
 // BuiltValueGenerator

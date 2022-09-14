@@ -1,13 +1,14 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.json_lists_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.json_lists_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1/src/rest_json_protocol/model/foo_enum.dart' as _i4;
-import 'package:rest_json1/src/rest_json_protocol/model/structure_list_member.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/foo_enum.dart'
+    as _i4;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/structure_list_member.dart'
     as _i5;
 import 'package:smithy/smithy.dart' as _i1;
 
@@ -25,7 +26,7 @@ abstract class JsonListsInputOutput
       _i3.BuiltList<_i3.BuiltList<String>>? nestedStringList,
       _i3.BuiltList<String?>? sparseStringList,
       _i3.BuiltList<String>? stringList,
-      _i3.BuiltList<String>? stringSet,
+      _i3.BuiltSet<String>? stringSet,
       _i3.BuiltList<_i5.StructureListMember>? structureList,
       _i3.BuiltList<DateTime>? timestampList}) {
     return _$JsonListsInputOutput._(
@@ -70,7 +71,7 @@ abstract class JsonListsInputOutput
   _i3.BuiltList<_i3.BuiltList<String>>? get nestedStringList;
   _i3.BuiltList<String?>? get sparseStringList;
   _i3.BuiltList<String>? get stringList;
-  _i3.BuiltList<String>? get stringSet;
+  _i3.BuiltSet<String>? get stringSet;
   _i3.BuiltList<_i5.StructureListMember>? get structureList;
   _i3.BuiltList<DateTime>? get timestampList;
   @override
@@ -177,8 +178,8 @@ class JsonListsInputOutputRestJson1Serializer
           if (value != null) {
             result.stringSet.replace((serializers.deserialize(value,
                     specifiedType:
-                        const FullType(_i3.BuiltList, [FullType(String)]))
-                as _i3.BuiltList<String>));
+                        const FullType(_i3.BuiltSet, [FullType(String)]))
+                as _i3.BuiltSet<String>));
           }
           break;
         case 'myStructureList':
@@ -252,7 +253,7 @@ class JsonListsInputOutputRestJson1Serializer
       result
         ..add('stringSet')
         ..add(serializers.serialize(payload.stringSet!,
-            specifiedType: const FullType(_i3.BuiltList, [FullType(String)])));
+            specifiedType: const FullType(_i3.BuiltSet, [FullType(String)])));
     }
     if (payload.structureList != null) {
       result

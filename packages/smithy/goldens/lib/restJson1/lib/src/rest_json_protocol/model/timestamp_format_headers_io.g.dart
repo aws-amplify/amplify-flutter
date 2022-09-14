@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1.rest_json_protocol.model.timestamp_format_headers_io;
+part of rest_json1_v1.rest_json_protocol.model.timestamp_format_headers_io;
 
 // **************************************************************************
 // BuiltValueGenerator

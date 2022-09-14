@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1.rest_json_protocol.model.aws_config;
+part of rest_json1_v1.rest_json_protocol.model.aws_config;
 
 // **************************************************************************
 // BuiltValueGenerator

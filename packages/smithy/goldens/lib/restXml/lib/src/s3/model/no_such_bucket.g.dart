@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml.s3.model.no_such_bucket;
+part of rest_xml_v1.s3.model.no_such_bucket;
 
 // **************************************************************************
 // BuiltValueGenerator

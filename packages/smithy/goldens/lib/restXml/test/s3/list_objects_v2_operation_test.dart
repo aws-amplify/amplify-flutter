@@ -1,31 +1,31 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library rest_xml.s3.test.list_objects_v2_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.s3.test.list_objects_v2_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i10;
 import 'package:built_collection/built_collection.dart' as _i15;
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml/src/s3/model/aws_config.dart' as _i8;
-import 'package:rest_xml/src/s3/model/client_config.dart' as _i21;
-import 'package:rest_xml/src/s3/model/common_prefix.dart' as _i16;
-import 'package:rest_xml/src/s3/model/encoding_type.dart' as _i2;
-import 'package:rest_xml/src/s3/model/environment_config.dart' as _i23;
-import 'package:rest_xml/src/s3/model/file_config_settings.dart' as _i22;
-import 'package:rest_xml/src/s3/model/list_objects_v2_output.dart' as _i14;
-import 'package:rest_xml/src/s3/model/list_objects_v2_request.dart' as _i13;
-import 'package:rest_xml/src/s3/model/no_such_bucket.dart' as _i19;
-import 'package:rest_xml/src/s3/model/object.dart' as _i17;
-import 'package:rest_xml/src/s3/model/object_storage_class.dart' as _i6;
-import 'package:rest_xml/src/s3/model/operation_config.dart' as _i24;
-import 'package:rest_xml/src/s3/model/owner.dart' as _i18;
-import 'package:rest_xml/src/s3/model/request_payer.dart' as _i3;
-import 'package:rest_xml/src/s3/model/retry_config.dart' as _i26;
-import 'package:rest_xml/src/s3/model/retry_mode.dart' as _i4;
-import 'package:rest_xml/src/s3/model/s3_addressing_style.dart' as _i5;
-import 'package:rest_xml/src/s3/model/s3_config.dart' as _i25;
-import 'package:rest_xml/src/s3/model/scoped_config.dart' as _i20;
-import 'package:rest_xml/src/s3/operation/list_objects_v2_operation.dart'
+import 'package:rest_xml_v1/src/s3/model/aws_config.dart' as _i8;
+import 'package:rest_xml_v1/src/s3/model/client_config.dart' as _i21;
+import 'package:rest_xml_v1/src/s3/model/common_prefix.dart' as _i16;
+import 'package:rest_xml_v1/src/s3/model/encoding_type.dart' as _i2;
+import 'package:rest_xml_v1/src/s3/model/environment_config.dart' as _i23;
+import 'package:rest_xml_v1/src/s3/model/file_config_settings.dart' as _i22;
+import 'package:rest_xml_v1/src/s3/model/list_objects_v2_output.dart' as _i14;
+import 'package:rest_xml_v1/src/s3/model/list_objects_v2_request.dart' as _i13;
+import 'package:rest_xml_v1/src/s3/model/no_such_bucket.dart' as _i19;
+import 'package:rest_xml_v1/src/s3/model/object.dart' as _i17;
+import 'package:rest_xml_v1/src/s3/model/object_storage_class.dart' as _i6;
+import 'package:rest_xml_v1/src/s3/model/operation_config.dart' as _i24;
+import 'package:rest_xml_v1/src/s3/model/owner.dart' as _i18;
+import 'package:rest_xml_v1/src/s3/model/request_payer.dart' as _i3;
+import 'package:rest_xml_v1/src/s3/model/retry_config.dart' as _i26;
+import 'package:rest_xml_v1/src/s3/model/retry_mode.dart' as _i4;
+import 'package:rest_xml_v1/src/s3/model/s3_addressing_style.dart' as _i5;
+import 'package:rest_xml_v1/src/s3/model/s3_config.dart' as _i25;
+import 'package:rest_xml_v1/src/s3/model/scoped_config.dart' as _i20;
+import 'package:rest_xml_v1/src/s3/operation/list_objects_v2_operation.dart'
     as _i11;
 import 'package:smithy/smithy.dart' as _i12;
 import 'package:smithy_aws/smithy_aws.dart' as _i9;

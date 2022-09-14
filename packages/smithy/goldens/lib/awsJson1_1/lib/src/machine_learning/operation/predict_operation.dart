@@ -1,27 +1,27 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.machine_learning.operation.predict_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.machine_learning.operation.predict_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i14;
 
 import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_json1_1/src/machine_learning/common/endpoint_resolver.dart'
+import 'package:aws_json1_1_v1/src/machine_learning/common/endpoint_resolver.dart'
     as _i8;
-import 'package:aws_json1_1/src/machine_learning/common/serializers.dart'
+import 'package:aws_json1_1_v1/src/machine_learning/common/serializers.dart'
     as _i6;
-import 'package:aws_json1_1/src/machine_learning/model/internal_server_exception.dart'
+import 'package:aws_json1_1_v1/src/machine_learning/model/internal_server_exception.dart'
     as _i9;
-import 'package:aws_json1_1/src/machine_learning/model/invalid_input_exception.dart'
+import 'package:aws_json1_1_v1/src/machine_learning/model/invalid_input_exception.dart'
     as _i10;
-import 'package:aws_json1_1/src/machine_learning/model/limit_exceeded_exception.dart'
+import 'package:aws_json1_1_v1/src/machine_learning/model/limit_exceeded_exception.dart'
     as _i11;
-import 'package:aws_json1_1/src/machine_learning/model/predict_input.dart'
+import 'package:aws_json1_1_v1/src/machine_learning/model/predict_input.dart'
     as _i2;
-import 'package:aws_json1_1/src/machine_learning/model/predict_output.dart'
+import 'package:aws_json1_1_v1/src/machine_learning/model/predict_output.dart'
     as _i3;
-import 'package:aws_json1_1/src/machine_learning/model/predictor_not_mounted_exception.dart'
+import 'package:aws_json1_1_v1/src/machine_learning/model/predictor_not_mounted_exception.dart'
     as _i12;
-import 'package:aws_json1_1/src/machine_learning/model/resource_not_found_exception.dart'
+import 'package:aws_json1_1_v1/src/machine_learning/model/resource_not_found_exception.dart'
     as _i13;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;

@@ -1,27 +1,27 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library rest_json1.api_gateway.test.get_rest_apis_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.api_gateway.test.get_rest_apis_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
 import 'package:built_collection/built_collection.dart' as _i8;
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1/src/api_gateway/model/api_key_source_type.dart'
+import 'package:rest_json1_v1/src/api_gateway/model/api_key_source_type.dart'
     as _i10;
-import 'package:rest_json1/src/api_gateway/model/bad_request_exception.dart'
+import 'package:rest_json1_v1/src/api_gateway/model/bad_request_exception.dart'
     as _i13;
-import 'package:rest_json1/src/api_gateway/model/endpoint_configuration.dart'
+import 'package:rest_json1_v1/src/api_gateway/model/endpoint_configuration.dart'
     as _i11;
-import 'package:rest_json1/src/api_gateway/model/endpoint_type.dart' as _i12;
-import 'package:rest_json1/src/api_gateway/model/get_rest_apis_request.dart'
+import 'package:rest_json1_v1/src/api_gateway/model/endpoint_type.dart' as _i12;
+import 'package:rest_json1_v1/src/api_gateway/model/get_rest_apis_request.dart'
     as _i6;
-import 'package:rest_json1/src/api_gateway/model/rest_api.dart' as _i9;
-import 'package:rest_json1/src/api_gateway/model/rest_apis.dart' as _i7;
-import 'package:rest_json1/src/api_gateway/model/too_many_requests_exception.dart'
+import 'package:rest_json1_v1/src/api_gateway/model/rest_api.dart' as _i9;
+import 'package:rest_json1_v1/src/api_gateway/model/rest_apis.dart' as _i7;
+import 'package:rest_json1_v1/src/api_gateway/model/too_many_requests_exception.dart'
     as _i14;
-import 'package:rest_json1/src/api_gateway/model/unauthorized_exception.dart'
+import 'package:rest_json1_v1/src/api_gateway/model/unauthorized_exception.dart'
     as _i15;
-import 'package:rest_json1/src/api_gateway/operation/get_rest_apis_operation.dart'
+import 'package:rest_json1_v1/src/api_gateway/operation/get_rest_apis_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i5;
 import 'package:smithy_test/smithy_test.dart' as _i2;

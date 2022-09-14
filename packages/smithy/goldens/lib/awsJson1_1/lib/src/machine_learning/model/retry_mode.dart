@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.machine_learning.model.retry_mode; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.machine_learning.model.retry_mode; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 

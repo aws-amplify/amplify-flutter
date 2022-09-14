@@ -1,12 +1,12 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.json_maps_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.json_maps_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1/src/rest_json_protocol/model/greeting_struct.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/greeting_struct.dart'
     as _i4;
 import 'package:smithy/smithy.dart' as _i1;
 
@@ -20,12 +20,12 @@ abstract class JsonMapsInputOutput
   factory JsonMapsInputOutput(
       {_i3.BuiltMap<String, bool>? denseBooleanMap,
       _i3.BuiltMap<String, int>? denseNumberMap,
-      _i3.BuiltListMultimap<String, String>? denseSetMap,
+      _i3.BuiltSetMultimap<String, String>? denseSetMap,
       _i3.BuiltMap<String, String>? denseStringMap,
       _i3.BuiltMap<String, _i4.GreetingStruct>? denseStructMap,
       _i3.BuiltMap<String, bool?>? sparseBooleanMap,
       _i3.BuiltMap<String, int?>? sparseNumberMap,
-      _i3.BuiltListMultimap<String, String>? sparseSetMap,
+      _i3.BuiltSetMultimap<String, String>? sparseSetMap,
       _i3.BuiltMap<String, String?>? sparseStringMap,
       _i3.BuiltMap<String, _i4.GreetingStruct?>? sparseStructMap}) {
     return _$JsonMapsInputOutput._(
@@ -65,12 +65,12 @@ abstract class JsonMapsInputOutput
   static void _init(JsonMapsInputOutputBuilder b) {}
   _i3.BuiltMap<String, bool>? get denseBooleanMap;
   _i3.BuiltMap<String, int>? get denseNumberMap;
-  _i3.BuiltListMultimap<String, String>? get denseSetMap;
+  _i3.BuiltSetMultimap<String, String>? get denseSetMap;
   _i3.BuiltMap<String, String>? get denseStringMap;
   _i3.BuiltMap<String, _i4.GreetingStruct>? get denseStructMap;
   _i3.BuiltMap<String, bool?>? get sparseBooleanMap;
   _i3.BuiltMap<String, int?>? get sparseNumberMap;
-  _i3.BuiltListMultimap<String, String>? get sparseSetMap;
+  _i3.BuiltSetMultimap<String, String>? get sparseSetMap;
   _i3.BuiltMap<String, String?>? get sparseStringMap;
   _i3.BuiltMap<String, _i4.GreetingStruct?>? get sparseStructMap;
   @override
@@ -145,10 +145,10 @@ class JsonMapsInputOutputRestJson1Serializer
         case 'denseSetMap':
           if (value != null) {
             result.denseSetMap.replace((serializers.deserialize(value,
-                specifiedType: const FullType(_i3.BuiltListMultimap, [
+                specifiedType: const FullType(_i3.BuiltSetMultimap, [
                   FullType(String),
                   FullType(String)
-                ])) as _i3.BuiltListMultimap<String, String>));
+                ])) as _i3.BuiltSetMultimap<String, String>));
           }
           break;
         case 'denseStringMap':
@@ -189,10 +189,10 @@ class JsonMapsInputOutputRestJson1Serializer
         case 'sparseSetMap':
           if (value != null) {
             result.sparseSetMap.replace((serializers.deserialize(value,
-                specifiedType: const FullType(_i3.BuiltListMultimap, [
+                specifiedType: const FullType(_i3.BuiltSetMultimap, [
                   FullType(String),
                   FullType(String)
-                ])) as _i3.BuiltListMultimap<String, String>));
+                ])) as _i3.BuiltSetMultimap<String, String>));
           }
           break;
         case 'sparseStringMap':
@@ -243,7 +243,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ..add('denseSetMap')
         ..add(serializers.serialize(payload.denseSetMap!,
             specifiedType: const FullType(
-                _i3.BuiltListMultimap, [FullType(String), FullType(String)])));
+                _i3.BuiltSetMultimap, [FullType(String), FullType(String)])));
     }
     if (payload.denseStringMap != null) {
       result
@@ -278,7 +278,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ..add('sparseSetMap')
         ..add(serializers.serialize(payload.sparseSetMap!,
             specifiedType: const FullType(
-                _i3.BuiltListMultimap, [FullType(String), FullType(String)])));
+                _i3.BuiltSetMultimap, [FullType(String), FullType(String)])));
     }
     if (payload.sparseStringMap != null) {
       result

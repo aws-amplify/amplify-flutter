@@ -1,5 +1,3 @@
-include: package:lints/recommended.yaml
-
 analyzer:
   errors:
     avoid_unused_constructor_parameters: ignore

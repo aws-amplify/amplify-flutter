@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1.rest_json_protocol.model.json_lists_input_output;
+part of rest_json1_v1.rest_json_protocol.model.json_lists_input_output;
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -20,7 +20,7 @@ class _$JsonListsInputOutput extends JsonListsInputOutput {
   @override
   final _i3.BuiltList<String>? stringList;
   @override
-  final _i3.BuiltList<String>? stringSet;
+  final _i3.BuiltSet<String>? stringSet;
   @override
   final _i3.BuiltList<_i5.StructureListMember>? structureList;
   @override
@@ -128,10 +128,10 @@ class JsonListsInputOutputBuilder
   set stringList(_i3.ListBuilder<String>? stringList) =>
       _$this._stringList = stringList;
 
-  _i3.ListBuilder<String>? _stringSet;
-  _i3.ListBuilder<String> get stringSet =>
-      _$this._stringSet ??= new _i3.ListBuilder<String>();
-  set stringSet(_i3.ListBuilder<String>? stringSet) =>
+  _i3.SetBuilder<String>? _stringSet;
+  _i3.SetBuilder<String> get stringSet =>
+      _$this._stringSet ??= new _i3.SetBuilder<String>();
+  set stringSet(_i3.SetBuilder<String>? stringSet) =>
       _$this._stringSet = stringSet;
 
   _i3.ListBuilder<_i5.StructureListMember>? _structureList;

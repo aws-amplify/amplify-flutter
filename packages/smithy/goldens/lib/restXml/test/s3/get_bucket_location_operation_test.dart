@@ -1,14 +1,17 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library rest_xml.s3.test.get_bucket_location_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.s3.test.get_bucket_location_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i5;
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml/src/s3/model/bucket_location_constraint.dart' as _i9;
-import 'package:rest_xml/src/s3/model/get_bucket_location_output.dart' as _i8;
-import 'package:rest_xml/src/s3/model/get_bucket_location_request.dart' as _i7;
-import 'package:rest_xml/src/s3/operation/get_bucket_location_operation.dart'
+import 'package:rest_xml_v1/src/s3/model/bucket_location_constraint.dart'
+    as _i9;
+import 'package:rest_xml_v1/src/s3/model/get_bucket_location_output.dart'
+    as _i8;
+import 'package:rest_xml_v1/src/s3/model/get_bucket_location_request.dart'
+    as _i7;
+import 'package:rest_xml_v1/src/s3/operation/get_bucket_location_operation.dart'
     as _i4;
 import 'package:smithy/smithy.dart' as _i6;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;

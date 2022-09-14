@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.s3.model.no_such_bucket; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.s3.model.no_such_bucket; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -81,6 +81,7 @@ class NoSuchBucketRestXmlSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
+    final payload = (object as NoSuchBucket);
     final result = <Object?>[
       const _i2.XmlElementName('NoSuchBucket',
           _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))

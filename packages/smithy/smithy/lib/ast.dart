@@ -31,6 +31,7 @@ export 'src/ast/shapes/collection_shape.dart';
 export 'src/ast/shapes/document_shape.dart';
 export 'src/ast/shapes/double_shape.dart';
 export 'src/ast/shapes/entity_shape.dart';
+export 'src/ast/shapes/enum_shape.dart';
 export 'src/ast/shapes/float_shape.dart';
 export 'src/ast/shapes/integer_shape.dart';
 export 'src/ast/shapes/list_shape.dart';

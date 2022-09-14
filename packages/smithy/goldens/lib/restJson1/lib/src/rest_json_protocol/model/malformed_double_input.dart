@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_double_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_double_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -20,8 +20,9 @@ abstract class MalformedDoubleInput
   factory MalformedDoubleInput(
       {double? doubleInBody,
       double? doubleInHeader,
-      required double doubleInPath,
+      double? doubleInPath,
       double? doubleInQuery}) {
+    doubleInPath ??= 0;
     return _$MalformedDoubleInput._(
         doubleInBody: doubleInBody,
         doubleInHeader: doubleInHeader,
@@ -57,7 +58,10 @@ abstract class MalformedDoubleInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedDoubleInputBuilder b) {}
+  static void _init(MalformedDoubleInputBuilder b) {
+    b.doubleInPath = 0;
+  }
+
   double? get doubleInBody;
   double? get doubleInHeader;
   double get doubleInPath;

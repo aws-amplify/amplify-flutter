@@ -1,12 +1,12 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library aws_json1_1.json_protocol.test.json_enums_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.test.json_enums_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_json1_1/src/json_protocol/model/foo_enum.dart' as _i7;
-import 'package:aws_json1_1/src/json_protocol/model/json_enums_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/foo_enum.dart' as _i7;
+import 'package:aws_json1_1_v1/src/json_protocol/model/json_enums_input_output.dart'
     as _i6;
-import 'package:aws_json1_1/src/json_protocol/operation/json_enums_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/json_enums_operation.dart'
     as _i3;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
 import 'package:built_collection/built_collection.dart' as _i8;
@@ -160,8 +160,8 @@ class JsonEnumsInputOutputAwsJson11Serializer
           if (value != null) {
             result.fooEnumSet.replace((serializers.deserialize(value,
                     specifiedType:
-                        const FullType(_i8.BuiltList, [FullType(_i7.FooEnum)]))
-                as _i8.BuiltList<_i7.FooEnum>));
+                        const FullType(_i8.BuiltSet, [FullType(_i7.FooEnum)]))
+                as _i8.BuiltSet<_i7.FooEnum>));
           }
           break;
       }

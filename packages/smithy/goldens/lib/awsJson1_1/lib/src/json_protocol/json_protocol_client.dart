@@ -1,51 +1,52 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.json_protocol.json_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.json_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i2;
 
-import 'package:aws_json1_1/src/json_protocol/model/greeting_with_errors_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/greeting_with_errors_output.dart'
     as _i8;
-import 'package:aws_json1_1/src/json_protocol/model/host_label_input.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/host_label_input.dart'
     as _i6;
-import 'package:aws_json1_1/src/json_protocol/model/json_enums_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/json_enums_input_output.dart'
     as _i11;
-import 'package:aws_json1_1/src/json_protocol/model/kitchen_sink.dart' as _i15;
-import 'package:aws_json1_1/src/json_protocol/model/null_operation_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/kitchen_sink.dart'
+    as _i15;
+import 'package:aws_json1_1_v1/src/json_protocol/model/null_operation_input_output.dart'
     as _i17;
-import 'package:aws_json1_1/src/json_protocol/model/operation_with_optional_input_output_input.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/operation_with_optional_input_output_input.dart'
     as _i20;
-import 'package:aws_json1_1/src/json_protocol/model/operation_with_optional_input_output_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/operation_with_optional_input_output_output.dart'
     as _i19;
-import 'package:aws_json1_1/src/json_protocol/model/put_and_get_inline_documents_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/put_and_get_inline_documents_input_output.dart'
     as _i22;
-import 'package:aws_json1_1/src/json_protocol/model/simple_scalar_properties_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/simple_scalar_properties_input_output.dart'
     as _i24;
-import 'package:aws_json1_1/src/json_protocol/model/union_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/union_input_output.dart'
     as _i13;
-import 'package:aws_json1_1/src/json_protocol/operation/empty_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/empty_operation.dart'
     as _i4;
-import 'package:aws_json1_1/src/json_protocol/operation/endpoint_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/endpoint_operation.dart'
     as _i5;
-import 'package:aws_json1_1/src/json_protocol/operation/endpoint_with_host_label_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/endpoint_with_host_label_operation.dart'
     as _i7;
-import 'package:aws_json1_1/src/json_protocol/operation/greeting_with_errors_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/greeting_with_errors_operation.dart'
     as _i9;
-import 'package:aws_json1_1/src/json_protocol/operation/host_with_path_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/host_with_path_operation.dart'
     as _i10;
-import 'package:aws_json1_1/src/json_protocol/operation/json_enums_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/json_enums_operation.dart'
     as _i12;
-import 'package:aws_json1_1/src/json_protocol/operation/json_unions_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/json_unions_operation.dart'
     as _i14;
-import 'package:aws_json1_1/src/json_protocol/operation/kitchen_sink_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/kitchen_sink_operation.dart'
     as _i16;
-import 'package:aws_json1_1/src/json_protocol/operation/null_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/null_operation.dart'
     as _i18;
-import 'package:aws_json1_1/src/json_protocol/operation/operation_with_optional_input_output_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/operation_with_optional_input_output_operation.dart'
     as _i21;
-import 'package:aws_json1_1/src/json_protocol/operation/put_and_get_inline_documents_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/put_and_get_inline_documents_operation.dart'
     as _i23;
-import 'package:aws_json1_1/src/json_protocol/operation/simple_scalar_properties_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/simple_scalar_properties_operation.dart'
     as _i25;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i1;
 import 'package:smithy/smithy.dart' as _i3;

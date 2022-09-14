@@ -1,20 +1,23 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library aws_json1_1.json_protocol.test.kitchen_sink_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.test.kitchen_sink_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:typed_data' as _i7;
 
-import 'package:aws_json1_1/src/json_protocol/model/empty_struct.dart' as _i8;
-import 'package:aws_json1_1/src/json_protocol/model/error_with_members.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/empty_struct.dart'
+    as _i8;
+import 'package:aws_json1_1_v1/src/json_protocol/model/error_with_members.dart'
     as _i14;
-import 'package:aws_json1_1/src/json_protocol/model/error_without_members.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/error_without_members.dart'
     as _i15;
-import 'package:aws_json1_1/src/json_protocol/model/kitchen_sink.dart' as _i6;
-import 'package:aws_json1_1/src/json_protocol/model/simple_struct.dart' as _i11;
-import 'package:aws_json1_1/src/json_protocol/model/struct_with_json_name.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/kitchen_sink.dart'
+    as _i6;
+import 'package:aws_json1_1_v1/src/json_protocol/model/simple_struct.dart'
+    as _i11;
+import 'package:aws_json1_1_v1/src/json_protocol/model/struct_with_json_name.dart'
     as _i13;
-import 'package:aws_json1_1/src/json_protocol/operation/kitchen_sink_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/kitchen_sink_operation.dart'
     as _i3;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
 import 'package:built_collection/built_collection.dart' as _i10;

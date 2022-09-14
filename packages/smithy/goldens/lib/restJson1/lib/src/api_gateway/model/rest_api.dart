@@ -1,14 +1,14 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.api_gateway.model.rest_api; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.api_gateway.model.rest_api; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1/src/api_gateway/model/api_key_source_type.dart'
+import 'package:rest_json1_v1/src/api_gateway/model/api_key_source_type.dart'
     as _i2;
-import 'package:rest_json1/src/api_gateway/model/endpoint_configuration.dart'
+import 'package:rest_json1_v1/src/api_gateway/model/endpoint_configuration.dart'
     as _i4;
 import 'package:smithy/smithy.dart' as _i5;
 

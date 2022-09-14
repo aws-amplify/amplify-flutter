@@ -1,12 +1,12 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library rest_xml.rest_xml_protocol.test.http_response_code_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.test.http_response_code_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml/src/rest_xml_protocol/model/http_response_code_output.dart'
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/http_response_code_output.dart'
     as _i5;
-import 'package:rest_xml/src/rest_xml_protocol/operation/http_response_code_operation.dart'
+import 'package:rest_xml_v1/src/rest_xml_protocol/operation/http_response_code_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_test/smithy_test.dart' as _i2;

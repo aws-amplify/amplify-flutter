@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.http_request_with_labels_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.http_request_with_labels_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -20,14 +20,20 @@ abstract class HttpRequestWithLabelsInput
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithLabelsInputPayload> {
   factory HttpRequestWithLabelsInput(
-      {required bool boolean,
-      required double double_,
-      required double float,
-      required int integer,
-      required _i3.Int64 long,
-      required int short,
+      {bool? boolean,
+      double? double_,
+      double? float,
+      int? integer,
+      _i3.Int64? long,
+      int? short,
       required String string,
       required DateTime timestamp}) {
+    boolean ??= false;
+    double_ ??= 0;
+    float ??= 0;
+    integer ??= 0;
+    long ??= _i3.Int64.ZERO;
+    short ??= 0;
     return _$HttpRequestWithLabelsInput._(
         boolean: boolean,
         double_: double_,
@@ -83,7 +89,14 @@ abstract class HttpRequestWithLabelsInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithLabelsInputBuilder b) {}
+  static void _init(HttpRequestWithLabelsInputBuilder b) {
+    b.boolean = false;
+    b.double_ = 0;
+    b.float = 0;
+    b.integer = 0;
+    b.long = _i3.Int64.ZERO;
+    b.short = 0;
+  }
 
   /// Serialized in the path as true or false.
   bool get boolean;

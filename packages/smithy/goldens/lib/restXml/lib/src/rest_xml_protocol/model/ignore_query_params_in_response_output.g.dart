@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml.rest_xml_protocol.model.ignore_query_params_in_response_output;
+part of rest_xml_v1.rest_xml_protocol.model.ignore_query_params_in_response_output;
 
 // **************************************************************************
 // BuiltValueGenerator

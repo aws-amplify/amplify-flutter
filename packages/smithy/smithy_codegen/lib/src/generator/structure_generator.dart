@@ -165,7 +165,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       for (final member in sortedMembers) {
         final propertyName = member.dartName(ShapeType.structure);
         memberNames.add(propertyName);
-        final defaultValue = _defaultValue(member);
+        final defaultValue = _defaultValueAssignment(member);
         if (defaultValue != null) {
           b.statements.add(defaultValue);
         }
@@ -218,22 +218,22 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
     final deprecatedAnnotation = member.deprecatedAnnotation ??
         context.shapeFor(member.target).deprecatedAnnotation;
     final symbol = memberSymbols[member]!;
-    // Factory constructors which redirect cannot have default values, so we
-    // must construct an instance in the body.
-    final defaultValue =
-        member.defaultValue ?? context.shapeFor(member.target).defaultValue;
+    final defaultValue = member.defaultValue(context) ??
+        context.shapeFor(member.target).defaultValue(context);
     final isNullable = symbol.typeRef.isNullable! ||
         defaultValue != null ||
-        _defaultValue(member) != null;
+        _defaultValueAssignment(member) != null;
 
-    return Parameter((p) => p
-      ..annotations.addAll([
-        if (deprecatedAnnotation != null) deprecatedAnnotation,
-      ])
-      ..required = !isNullable
-      ..name = member.dartName(ShapeType.structure)
-      ..named = true
-      ..type = symbol.typeRef.rebuild((t) => t.isNullable = isNullable));
+    return Parameter(
+      (p) => p
+        ..annotations.addAll([
+          if (deprecatedAnnotation != null) deprecatedAnnotation,
+        ])
+        ..required = !isNullable
+        ..name = member.dartName(ShapeType.structure)
+        ..named = true
+        ..type = symbol.typeRef.rebuild((t) => t.isNullable = isNullable),
+    );
   }
 
   /// The builder-based factory constructor.
@@ -356,7 +356,8 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
   }) {
     final block = Block((b) {
       for (var member in members) {
-        final defaultValue = _defaultValue(member, builder: refer('b'));
+        final defaultValue =
+            _defaultValueAssignment(member, builder: refer('b'));
         if (defaultValue != null) {
           b.statements.add(defaultValue);
         }
@@ -375,7 +376,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
     );
   }
 
-  Code? _defaultValue(
+  Code? _defaultValueAssignment(
     MemberShape member, {
     Reference? builder,
   }) {
@@ -402,7 +403,8 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       ]);
     }
     final targetShape = context.shapeFor(member.target);
-    final defaultValue = member.defaultValue ?? targetShape.defaultValue;
+    final defaultValue =
+        member.defaultValue(context) ?? targetShape.defaultValue(context);
     if (defaultValue == null) {
       return null;
     }

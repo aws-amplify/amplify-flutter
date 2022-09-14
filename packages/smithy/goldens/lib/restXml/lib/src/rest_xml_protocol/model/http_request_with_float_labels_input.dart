@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.http_request_with_float_labels_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.http_request_with_float_labels_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -19,8 +19,9 @@ abstract class HttpRequestWithFloatLabelsInput
             HttpRequestWithFloatLabelsInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithFloatLabelsInputPayload> {
-  factory HttpRequestWithFloatLabelsInput(
-      {required double double_, required double float}) {
+  factory HttpRequestWithFloatLabelsInput({double? double_, double? float}) {
+    double_ ??= 0;
+    float ??= 0;
     return _$HttpRequestWithFloatLabelsInput._(double_: double_, float: float);
   }
 
@@ -48,7 +49,11 @@ abstract class HttpRequestWithFloatLabelsInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithFloatLabelsInputBuilder b) {}
+  static void _init(HttpRequestWithFloatLabelsInputBuilder b) {
+    b.double_ = 0;
+    b.float = 0;
+  }
+
   double get double_;
   double get float;
   @override
@@ -128,6 +133,9 @@ class HttpRequestWithFloatLabelsInputRestXmlSerializer extends _i1
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
+    final payload = object is HttpRequestWithFloatLabelsInput
+        ? object.getPayload()
+        : (object as HttpRequestWithFloatLabelsInputPayload);
     final result = <Object?>[
       const _i1.XmlElementName('HttpRequestWithFloatLabelsInput')
     ];

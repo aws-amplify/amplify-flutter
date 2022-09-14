@@ -1,15 +1,15 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library rest_xml.rest_xml_protocol.test.all_query_string_types_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.test.all_query_string_types_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i8;
-import 'package:rest_xml/src/rest_xml_protocol/model/all_query_string_types_input.dart'
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/all_query_string_types_input.dart'
     as _i5;
-import 'package:rest_xml/src/rest_xml_protocol/model/foo_enum.dart' as _i7;
-import 'package:rest_xml/src/rest_xml_protocol/operation/all_query_string_types_operation.dart'
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/foo_enum.dart' as _i7;
+import 'package:rest_xml_v1/src/rest_xml_protocol/operation/all_query_string_types_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_test/smithy_test.dart' as _i2;
@@ -344,8 +344,8 @@ class AllQueryStringTypesInputRestXmlSerializer
           if (value != null) {
             result.queryIntegerSet.replace((serializers.deserialize(value,
                     specifiedType:
-                        const FullType(_i6.BuiltList, [FullType(int)]))
-                as _i6.BuiltList<int>));
+                        const FullType(_i6.BuiltSet, [FullType(int)]))
+                as _i6.BuiltSet<int>));
           }
           break;
         case 'queryLong':
@@ -387,8 +387,8 @@ class AllQueryStringTypesInputRestXmlSerializer
           if (value != null) {
             result.queryStringSet.replace((serializers.deserialize(value,
                     specifiedType:
-                        const FullType(_i6.BuiltList, [FullType(String)]))
-                as _i6.BuiltList<String>));
+                        const FullType(_i6.BuiltSet, [FullType(String)]))
+                as _i6.BuiltSet<String>));
           }
           break;
         case 'queryTimestamp':
