@@ -18,7 +18,6 @@ library amplify_api.decorators.web_socket_auth_utils;
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
 import '../graphql/ws/web_socket_types.dart';
@@ -28,11 +27,11 @@ import 'authorize_http_request.dart';
 const _requiredHeaders = {
   AWSHeaders.accept: 'application/json, text/javascript',
   AWSHeaders.contentEncoding: 'amz-1.0',
-  AWSHeaders.contentType: 'application/json; charset=UTF-8',
+  AWSHeaders.contentType: 'application/json; charset=utf-8',
 };
 
 // AppSync expects "{}" encoded in the URI as the payload during handshake.
-const _emptyBody = '{}';
+const _emptyBody = <String, dynamic>{};
 
 /// Generate a URI for the connection and all subscriptions.
 ///
@@ -53,7 +52,7 @@ Future<Uri> generateConnectionUri(
   return Uri(scheme: 'wss', host: endpointUri.host, path: 'graphql')
       .replace(queryParameters: <String, String>{
     'header': encodedAuthHeaders,
-    'payload': base64.encode(utf8.encode(_emptyBody)),
+    'payload': base64.encode(utf8.encode(json.encode(_emptyBody))),
   });
 }
 
@@ -67,8 +66,7 @@ Future<WebSocketSubscriptionRegistrationMessage>
   required AmplifyAuthProviderRepository authRepo,
   required GraphQLRequest request,
 }) async {
-  final body =
-      jsonEncode({'variables': request.variables, 'query': request.document});
+  final body = {'variables': request.variables, 'query': request.document};
   final authorizationHeaders = await _generateAuthorizationHeaders(
     config,
     isConnectionInit: false,
@@ -99,7 +97,7 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   AWSApiConfig config, {
   required bool isConnectionInit,
   required AmplifyAuthProviderRepository authRepo,
-  required String body,
+  required Map<String, dynamic> body,
 }) async {
   final endpointHost = Uri.parse(config.endpoint).host;
   // Create canonical HTTP request to authorize but never send.
@@ -107,10 +105,11 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   // The canonical request URL is a little different depending on if authorizing
   // connection URI or start message (subscription registration).
   final maybeConnect = isConnectionInit ? '/connect' : '';
-  final canonicalHttpRequest =
-      http.Request('POST', Uri.parse('${config.endpoint}$maybeConnect'));
-  canonicalHttpRequest.headers.addAll(_requiredHeaders);
-  canonicalHttpRequest.body = body;
+  final canonicalHttpRequest = AWSStreamedHttpRequest.post(
+    Uri.parse('${config.endpoint}$maybeConnect'),
+    headers: _requiredHeaders,
+    body: HttpPayload.json(body),
+  );
   final authorizedHttpRequest = await authorizeHttpRequest(
     canonicalHttpRequest,
     endpointConfig: config,

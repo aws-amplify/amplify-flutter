@@ -14,7 +14,6 @@
  */
 
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -52,7 +51,7 @@ void main() {
     await Amplify.addPlugin(api);
   });
 
-  Future<void> _assertResponse(AWSStreamedHttpResponse response) async {
+  Future<void> _assertResponse(AWSBaseHttpResponse response) async {
     final actualResponseBody = await response.decodeBody();
     expect(actualResponseBody, hello);
     expect(response.statusCode, statusOK);
@@ -80,7 +79,7 @@ void main() {
       headers: headers,
     );
 
-    final response = await restOperation.value;
+    final response = await restOperation.response;
     await _assertResponse(response);
   });
 
@@ -106,7 +105,7 @@ void main() {
       headers: headers,
     );
 
-    final response = await restOperation.value;
+    final response = await restOperation.response;
     await _assertResponse(response);
   });
 
@@ -130,7 +129,7 @@ void main() {
       headers: headers,
     );
 
-    final response = await restOperation.value;
+    final response = await restOperation.response;
     await _assertResponse(response);
   });
 
@@ -156,7 +155,7 @@ void main() {
       headers: headers,
     );
 
-    final response = await restOperation.value;
+    final response = await restOperation.response;
     await _assertResponse(response);
   });
 
@@ -171,7 +170,7 @@ void main() {
         expect(restOptions['path'], '/items');
         expect(restOptions['queryParameters'], queryParameters);
         expect(restOptions['headers'][AWSHeaders.contentType],
-            'application/x-www-form-urlencoded');
+            'application/x-www-form-urlencoded; charset=utf-8');
         expect(utf8.decode(restOptions['body'] as List<int>), 'foo=bar');
         return {
           'data': helloResponse,
@@ -188,7 +187,7 @@ void main() {
       queryParameters: queryParameters,
     );
 
-    final response = await restOperation.value;
+    final response = await restOperation.response;
     expect(response.headers['foo'], 'bar');
     await _assertResponse(response);
   });
@@ -203,8 +202,8 @@ void main() {
         expect(restOptions['apiName'], 'restapi');
         expect(restOptions['path'], '/items');
         expect(restOptions['queryParameters'], queryParameters);
-        expect(
-            restOptions['headers'][AWSHeaders.contentType], 'application/json');
+        expect(restOptions['headers'][AWSHeaders.contentType],
+            'application/json; charset=utf-8');
         expect(utf8.decode(restOptions['body'] as List<int>), '{"foo":"bar"}');
         return {
           'data': helloResponse,
@@ -221,7 +220,7 @@ void main() {
       queryParameters: queryParameters,
     );
 
-    final response = await restOperation.value;
+    final response = await restOperation.response;
     await _assertResponse(response);
   });
 
