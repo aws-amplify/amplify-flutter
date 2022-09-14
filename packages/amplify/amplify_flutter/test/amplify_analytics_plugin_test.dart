@@ -46,7 +46,7 @@ void main() {
     });
 
     // Clear out plugins before each test for a fresh state.
-    Amplify.Analytics.plugins.clear();
+    Amplify.Analytics.reset();
   });
 
   tearDown(() {
@@ -73,16 +73,11 @@ void main() {
     expect(Amplify.Analytics.plugins.length, 1);
   });
 
-  test('AmplifyException is thrown if addPlugin called twice', () async {
-    try {
-      await Amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());
-      await Amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());
-      fail('exception not thrown');
-    } on AmplifyException catch (e) {
-      expect(e.message,
-          'Amplify plugin AmplifyAnalyticsPinpointMethodChannel was not added successfully.');
-    } on Exception catch (e) {
-      expect(e, isA<AmplifyException>());
-    }
+  test('AmplifyException is not thrown if addPlugin called twice', () async {
+    await Amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());
+    expect(
+      Amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel()),
+      completes,
+    );
   });
 }

@@ -15,15 +15,16 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
 /// Transforms an HTTP request according to auth providers that match the endpoint
 /// configuration.
 @internal
-Future<http.BaseRequest> authorizeHttpRequest(http.BaseRequest request,
-    {required AWSApiConfig endpointConfig,
-    required AmplifyAuthProviderRepository authProviderRepo}) async {
+Future<AWSBaseHttpRequest> authorizeHttpRequest(
+  AWSBaseHttpRequest request, {
+  required AWSApiConfig endpointConfig,
+  required AmplifyAuthProviderRepository authProviderRepo,
+}) async {
   if (request.headers.containsKey(AWSHeaders.authorization)) {
     return request;
   }
@@ -32,9 +33,11 @@ Future<http.BaseRequest> authorizeHttpRequest(http.BaseRequest request,
   switch (authType) {
     case APIAuthorizationType.apiKey:
       final authProvider = _validateAuthProvider(
-          authProviderRepo
-              .getAuthProvider(APIAuthorizationType.apiKey.authProviderToken),
-          authType);
+        authProviderRepo.getAuthProvider(
+          APIAuthorizationType.apiKey.authProviderToken,
+        ),
+        authType,
+      );
       final apiKey = endpointConfig.apiKey;
       if (apiKey == null) {
         throw const ApiException(
@@ -42,9 +45,10 @@ Future<http.BaseRequest> authorizeHttpRequest(http.BaseRequest request,
       }
 
       final authorizedRequest = await authProvider.authorizeRequest(
-          _httpToAWSRequest(request),
-          options: ApiKeyAuthProviderOptions(apiKey));
-      return authorizedRequest.httpRequest;
+        request,
+        options: ApiKeyAuthProviderOptions(apiKey),
+      );
+      return authorizedRequest;
     case APIAuthorizationType.iam:
       final authProvider = _validateAuthProvider(
           authProviderRepo
@@ -55,13 +59,13 @@ Future<http.BaseRequest> authorizeHttpRequest(http.BaseRequest request,
           : AWSService.apiGatewayManagementApi; // resolves to "execute-api"
 
       final authorizedRequest = await authProvider.authorizeRequest(
-        _httpToAWSRequest(request),
+        request,
         options: IamAuthProviderOptions(
           region: endpointConfig.region,
           service: service,
         ),
       );
-      return authorizedRequest.httpRequest;
+      return authorizedRequest;
     case APIAuthorizationType.function:
     case APIAuthorizationType.oidc:
     case APIAuthorizationType.userPools:
@@ -69,9 +73,8 @@ Future<http.BaseRequest> authorizeHttpRequest(http.BaseRequest request,
         authProviderRepo.getAuthProvider(authType.authProviderToken),
         authType,
       );
-      final authorizedRequest =
-          await authProvider.authorizeRequest(_httpToAWSRequest(request));
-      return authorizedRequest.httpRequest;
+      final authorizedRequest = await authProvider.authorizeRequest(request);
+      return authorizedRequest;
     case APIAuthorizationType.none:
       return request;
   }
@@ -84,33 +87,4 @@ T _validateAuthProvider<T extends AmplifyAuthProvider>(
         recoverySuggestion: 'Ensure auth plugin correctly configured.');
   }
   return authProvider;
-}
-
-AWSBaseHttpRequest _httpToAWSRequest(http.BaseRequest request) {
-  final method = AWSHttpMethod.fromString(request.method);
-  if (request is http.Request) {
-    return AWSHttpRequest(
-      method: method,
-      uri: request.url,
-      headers: {
-        AWSHeaders.contentType: 'application/x-amz-json-1.1',
-        ...request.headers,
-      },
-      body: request.bodyBytes,
-    );
-  } else if (request is http.StreamedRequest) {
-    return AWSStreamedHttpRequest(
-      method: method,
-      uri: request.url,
-      headers: {
-        AWSHeaders.contentType: 'application/x-amz-json-1.1',
-        ...request.headers,
-      },
-      body: request.finalize(),
-    );
-  } else {
-    throw UnimplementedError(
-      'Multipart HTTP requests are not supported.',
-    );
-  }
 }

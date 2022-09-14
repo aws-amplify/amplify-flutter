@@ -14,6 +14,7 @@ Podfile.lock
 **/test-results/
 .test_coverage.dart
 .last_build_id
+temp/
 .fvm/
 .packages
 pubspec_overrides.yaml

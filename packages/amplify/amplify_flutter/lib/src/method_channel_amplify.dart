@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 part of 'amplify_impl.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/amplify');
@@ -115,10 +117,10 @@ class MethodChannelAmplify extends AmplifyClass {
 
   @override
   Future<void> reset() async {
-    Auth.plugins.clear();
-    Analytics.plugins.clear();
-    Storage.plugins.clear();
-    DataStore.plugins.clear();
-    API.plugins.clear();
+    Auth.reset();
+    Analytics.reset();
+    Storage.reset();
+    DataStore.reset();
+    API.reset();
   }
 }

@@ -51,6 +51,46 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
           hostedUiPlatformFactory: HostedUiPlatformImpl.new,
         );
 
+  /// A plugin key which can be used with `Amplify.Auth.getPlugin` to retrieve
+  /// a Cognito-specific Auth category interface.
+  static const AuthPluginKey<
+      AuthUser,
+      CognitoUserAttributeKey,
+      AuthUserAttribute<CognitoUserAttributeKey>,
+      CognitoDevice,
+      CognitoSignUpOptions,
+      CognitoSignUpResult,
+      CognitoConfirmSignUpOptions,
+      CognitoSignUpResult,
+      CognitoResendSignUpCodeOptions,
+      CognitoResendSignUpCodeResult,
+      CognitoSignInOptions,
+      CognitoSignInResult,
+      CognitoConfirmSignInOptions,
+      CognitoSignInResult,
+      SignOutOptions,
+      SignOutResult,
+      CognitoUpdatePasswordOptions,
+      UpdatePasswordResult,
+      CognitoResetPasswordOptions,
+      CognitoResetPasswordResult,
+      CognitoConfirmResetPasswordOptions,
+      UpdatePasswordResult,
+      AuthUserOptions,
+      FetchUserAttributesOptions,
+      CognitoSessionOptions,
+      CognitoAuthSession,
+      CognitoSignInWithWebUIOptions,
+      CognitoSignInResult,
+      CognitoUpdateUserAttributeOptions,
+      UpdateUserAttributeResult,
+      CognitoUpdateUserAttributesOptions,
+      ConfirmUserAttributeOptions,
+      ConfirmUserAttributeResult,
+      CognitoResendUserAttributeConfirmationCodeOptions,
+      ResendUserAttributeConfirmationCodeResult,
+      AmplifyAuthCognito> pluginKey = _AmplifyAuthCognitoPluginKey();
+
   @override
   Future<void> addPlugin() async {
     if (zIsWeb || !(Platform.isAndroid || Platform.isIOS)) {
@@ -120,7 +160,9 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   }
 
   @override
-  Future<SignUpResult> signUp({required SignUpRequest request}) async {
+  Future<CognitoSignUpResult> signUp({
+    required SignUpRequest request,
+  }) async {
     Map<String, String>? validationData;
     if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
       final nativeValidationData =
@@ -163,7 +205,7 @@ class _NativeAmplifyAuthCognito
         request: AuthSessionRequest(
           options: CognitoSessionOptions(getAWSCredentials: getAwsCredentials),
         ),
-      ) as CognitoAuthSession;
+      );
       final nativeAuthSession = NativeAuthSession(
         isSignedIn: authSession.isSignedIn,
         userSub: authSession.userSub,
@@ -208,4 +250,47 @@ class _NativeAmplifyAuthCognito
 
   @override
   String get runtimeTypeName => '_NativeAmplifyAuthCognito';
+}
+
+class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<
+    AuthUser,
+    CognitoUserAttributeKey,
+    AuthUserAttribute<CognitoUserAttributeKey>,
+    CognitoDevice,
+    CognitoSignUpOptions,
+    CognitoSignUpResult,
+    CognitoConfirmSignUpOptions,
+    CognitoSignUpResult,
+    CognitoResendSignUpCodeOptions,
+    CognitoResendSignUpCodeResult,
+    CognitoSignInOptions,
+    CognitoSignInResult,
+    CognitoConfirmSignInOptions,
+    CognitoSignInResult,
+    SignOutOptions,
+    SignOutResult,
+    CognitoUpdatePasswordOptions,
+    UpdatePasswordResult,
+    CognitoResetPasswordOptions,
+    CognitoResetPasswordResult,
+    CognitoConfirmResetPasswordOptions,
+    UpdatePasswordResult,
+    AuthUserOptions,
+    FetchUserAttributesOptions,
+    CognitoSessionOptions,
+    CognitoAuthSession,
+    CognitoSignInWithWebUIOptions,
+    CognitoSignInResult,
+    CognitoUpdateUserAttributeOptions,
+    UpdateUserAttributeResult,
+    CognitoUpdateUserAttributesOptions,
+    ConfirmUserAttributeOptions,
+    ConfirmUserAttributeResult,
+    CognitoResendUserAttributeConfirmationCodeOptions,
+    ResendUserAttributeConfirmationCodeResult,
+    AmplifyAuthCognito> {
+  const _AmplifyAuthCognitoPluginKey();
+
+  @override
+  String get runtimeTypeName => 'AmplifyAuthCognito';
 }

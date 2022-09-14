@@ -22,15 +22,14 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
 import 'package:amplify_core/amplify_core.dart'
-    show AuthenticationFlowType, DependencyManager, Token;
+    show AWSHttpClient, AuthenticationFlowType, DependencyManager, Token;
 import 'package:aws_signature_v4/aws_signature_v4.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
 /// Dependency token for Smithy HTTP clients.
 const zSmithyHttpClientToken = Token<HttpClient>([
-  Token<http.Client>(),
+  Token<AWSHttpClient>(),
 ]);
 
 /// Bridging helpers for [ChallengeNameType].

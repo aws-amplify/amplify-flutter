@@ -55,6 +55,9 @@ abstract class AWSHeaders {
   /// The `Host` header.
   static const host = 'Host';
 
+  /// The `Location` header.
+  static const location = 'Location';
+
   /// The `X-Amz-Region-Set` header.
   static const regionSet = 'X-Amz-Region-Set';
 

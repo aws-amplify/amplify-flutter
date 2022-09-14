@@ -9,7 +9,7 @@ dependencies:
   aws_common:
     path: ../../aws_common
   built_collection: ^5.0.0
-  built_value: ^8.0.0
+  built_value: ">=8.4.0 <8.5.0"
   fixnum: ^1.0.0
   meta: ^1.7.0
   test: ^1.19.0
@@ -28,6 +28,6 @@ dev_dependencies:
   build_runner: ^2.0.0
   build_verify: ^3.0.0
   build_web_compilers: ^3.2.3
-  built_value_generator: 8.3.3
+  built_value_generator: 8.4.1
   worker_bee_builder:
     path: ../worker_bee_builder

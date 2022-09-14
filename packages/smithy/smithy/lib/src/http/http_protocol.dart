@@ -14,9 +14,9 @@
 
 import 'dart:convert';
 
+import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
@@ -87,7 +87,7 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
       return response;
     }
 
-    final body = await http.ByteStream(response).toBytes();
+    final body = await collectBytes(response);
     if (specifiedType.root == OutputPayload) {
       if (OutputPayload == List<int>) {
         return body;

@@ -22,7 +22,7 @@ void main() {
     test('adds Content-Type header from payload', () {
       final resultHeaders = addContentTypeToHeaders(
           null, HttpPayload.json({'name': 'now the lawn'}));
-      expect(resultHeaders?['Content-Type'], 'application/json');
+      expect(resultHeaders?['Content-Type'], 'application/json; charset=utf-8');
     });
 
     test('no-op when payload null', () {
@@ -35,7 +35,7 @@ void main() {
       final inputHeaders = {'foo': 'bar'};
       final resultHeaders = addContentTypeToHeaders(
           inputHeaders, HttpPayload.json({'name': 'now the lawn'}));
-      expect(resultHeaders?['Content-Type'], 'application/json');
+      expect(resultHeaders?['Content-Type'], 'application/json; charset=utf-8');
       expect(inputHeaders['Content-Type'], isNull);
     });
   });

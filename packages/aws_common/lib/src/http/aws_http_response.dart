@@ -28,7 +28,8 @@ import 'package:meta/meta.dart';
 /// See also:
 /// - [AWSHttpResponse]
 /// - [AWSStreamedHttpResponse]
-abstract class AWSBaseHttpResponse implements Closeable {
+abstract class AWSBaseHttpResponse
+    implements StreamSplitter<List<int>>, Closeable {
   AWSBaseHttpResponse._({
     required this.statusCode,
     Map<String, String>? headers,
@@ -68,20 +69,22 @@ class AWSHttpResponse extends AWSBaseHttpResponse {
       bodyBytes.isEmpty ? const Stream.empty() : Stream.value(bodyBytes);
 
   @override
+  Stream<List<int>> split() => body;
+
+  @override
   final List<int> bodyBytes;
 
   @override
   String decodeBody({Encoding encoding = utf8}) => encoding.decode(bodyBytes);
 
   @override
-  void close() {}
+  Future<void> close() async {}
 }
 
 /// {@template aws_common.aws_http_streamed_response}
 /// A streaming HTTP response.
 /// {@endtemplate}
-class AWSStreamedHttpResponse extends AWSBaseHttpResponse
-    implements StreamSplitter<List<int>> {
+class AWSStreamedHttpResponse extends AWSBaseHttpResponse {
   /// @{macro aws_common.aws_http_streamed_response}
   AWSStreamedHttpResponse({
     required super.statusCode,
@@ -104,18 +107,21 @@ class AWSStreamedHttpResponse extends AWSBaseHttpResponse
       encoding.decodeStream(body);
 
   @override
-  Future<Uint8List> get bodyBytes {
-    final completer = Completer<Uint8List>();
-    final sink = ByteConversionSink.withCallback(
-      (bytes) => completer.complete(Uint8List.fromList(bytes)),
-    );
-    body.listen(
-      sink.add,
-      onError: completer.completeError,
-      onDone: sink.close,
-      cancelOnError: true,
-    );
-    return completer.future;
+  Future<Uint8List> get bodyBytes => collectBytes(body);
+
+  /// Reads [body] fully and returns a flattened [AWSHttpResponse].
+  ///
+  /// `this` will no longer be usable after this completes.
+  Future<AWSHttpResponse> read() async {
+    try {
+      return AWSHttpResponse(
+        statusCode: statusCode,
+        headers: headers,
+        body: await bodyBytes,
+      );
+    } finally {
+      unawaited(close());
+    }
   }
 
   /// The number of times the body stream has been split.

@@ -64,15 +64,15 @@ void main() {
       expect(isValidAWSCognitoUserPoolTokens(res.userPoolTokens), isTrue);
     });
 
-    testWidgets('should not return user credentials without getAWSCredentials',
+    testWidgets('should return user credentials without getAWSCredentials',
         (WidgetTester tester) async {
       var res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
 
       expect(res.isSignedIn, isTrue);
-      expect(res.userSub, isNull);
-      expect(res.identityId, isNull);
-      expect(res.credentials, isNull);
-      expect(res.userPoolTokens, isNull);
+      expect(isValidUserSub(res.userSub), isTrue);
+      expect(isValidIdentityId(res.identityId), isTrue);
+      expect(isValidAWSCredentials(res.credentials), isTrue);
+      expect(isValidAWSCognitoUserPoolTokens(res.userPoolTokens), isTrue);
     });
 
     testWidgets('should return isSignedIn as false if the user is signed out',
