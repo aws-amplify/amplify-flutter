@@ -170,7 +170,7 @@ void main() {
         expect(restOptions['path'], '/items');
         expect(restOptions['queryParameters'], queryParameters);
         expect(restOptions['headers'][AWSHeaders.contentType],
-            'application/x-www-form-urlencoded');
+            'application/x-www-form-urlencoded; charset=utf-8');
         expect(utf8.decode(restOptions['body'] as List<int>), 'foo=bar');
         return {
           'data': helloResponse,
@@ -202,8 +202,8 @@ void main() {
         expect(restOptions['apiName'], 'restapi');
         expect(restOptions['path'], '/items');
         expect(restOptions['queryParameters'], queryParameters);
-        expect(
-            restOptions['headers'][AWSHeaders.contentType], 'application/json');
+        expect(restOptions['headers'][AWSHeaders.contentType],
+            'application/json; charset=utf-8');
         expect(utf8.decode(restOptions['body'] as List<int>), '{"foo":"bar"}');
         return {
           'data': helloResponse,
