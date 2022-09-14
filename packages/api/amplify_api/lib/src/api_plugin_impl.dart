@@ -20,7 +20,6 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_api/src/native_api_plugin.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:async/async.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
@@ -121,11 +120,12 @@ class AmplifyAPIDart extends AmplifyAPI {
       apiName: apiName,
     );
     return _clientPool[endpoint.name] ??= AmplifyHttpClient(
-        baseClient: AmplifyAuthorizationRestClient(
-      endpointConfig: endpoint.config,
-      baseClient: _baseHttpClient,
-      authProviderRepo: _authProviderRepo,
-    ));
+      baseClient: AmplifyAuthorizationRestClient(
+        endpointConfig: endpoint.config,
+        baseClient: _baseHttpClient,
+        authProviderRepo: _authProviderRepo,
+      ),
+    )..supportedProtocols = SupportedProtocols.http1;
   }
 
   /// Returns the websocket connection to use for a given endpoint.

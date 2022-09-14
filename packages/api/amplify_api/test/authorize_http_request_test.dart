@@ -15,7 +15,6 @@ import 'package:amplify_api/src/decorators/authorize_http_request.dart';
 import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
 import 'util.dart';
 
 const _region = 'us-east-1';
@@ -23,8 +22,11 @@ const _gqlEndpoint =
     'https://abc123.appsync-api.$_region.amazonaws.com/graphql';
 const _restEndpoint = 'https://xyz456.execute-api.$_region.amazonaws.com/test';
 
-http.Request _generateTestRequest(String url) {
-  return http.Request('GET', Uri.parse(url));
+AWSHttpRequest _generateTestRequest(String url) {
+  return AWSHttpRequest(
+    method: AWSHttpMethod.get,
+    uri: Uri.parse(url),
+  );
 }
 
 void main() {

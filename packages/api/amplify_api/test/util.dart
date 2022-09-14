@@ -22,7 +22,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
 
 const testAccessToken = 'test-access-token-123';
 
@@ -59,7 +58,7 @@ class TestTokenAuthProvider extends TokenAmplifyAuthProvider {
   }
 }
 
-void validateSignedRequest(http.BaseRequest request) {
+void validateSignedRequest(AWSBaseHttpRequest request) {
   const userAgentHeader =
       zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
   expect(
