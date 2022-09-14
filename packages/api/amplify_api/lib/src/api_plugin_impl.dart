@@ -20,9 +20,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_api/src/native_api_plugin.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:async/async.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
 import 'amplify_api_config.dart';
@@ -36,13 +34,13 @@ import 'util.dart';
 /// {@endtemplate}
 class AmplifyAPIDart extends AmplifyAPI {
   late final AWSApiPluginConfig _apiConfig;
-  final http.Client? _baseHttpClient;
+  final AWSHttpClient? _baseHttpClient;
   late final AmplifyAuthProviderRepository _authProviderRepo;
   final _logger = AmplifyLogger.category(Category.api);
 
   /// A map of the keys from the Amplify API config to HTTP clients to use for
   /// requests to that endpoint.
-  final Map<String, http.Client> _clientPool = {};
+  final Map<String, AWSHttpClient> _clientPool = {};
 
   /// A map of the keys from the Amplify API config websocket connections to use
   /// for that endpoint.
@@ -54,7 +52,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   /// {@macro amplify_api.amplify_api_dart}
   AmplifyAPIDart({
     List<APIAuthProvider> authProviders = const [],
-    http.Client? baseHttpClient,
+    AWSHttpClient? baseHttpClient,
     this.modelProvider,
   })  : _baseHttpClient = baseHttpClient,
         super.protected() {
@@ -116,17 +114,18 @@ class AmplifyAPIDart extends AmplifyAPI {
   ///
   /// Use [apiName] if there are multiple endpoints of the same type.
   @visibleForTesting
-  http.Client getHttpClient(EndpointType type, {String? apiName}) {
+  AWSHttpClient getHttpClient(EndpointType type, {String? apiName}) {
     final endpoint = _apiConfig.getEndpoint(
       type: type,
       apiName: apiName,
     );
     return _clientPool[endpoint.name] ??= AmplifyHttpClient(
-        baseClient: AmplifyAuthorizationRestClient(
-      endpointConfig: endpoint.config,
-      baseClient: _baseHttpClient,
-      authProviderRepo: _authProviderRepo,
-    ));
+      baseClient: AmplifyAuthorizationRestClient(
+        endpointConfig: endpoint.config,
+        baseClient: _baseHttpClient,
+        authProviderRepo: _authProviderRepo,
+      ),
+    )..supportedProtocols = SupportedProtocols.http1;
   }
 
   /// Returns the websocket connection to use for a given endpoint.
@@ -164,19 +163,6 @@ class AmplifyAPIDart extends AmplifyAPI {
     return endpoint.getUri(path: path, queryParameters: queryParameters);
   }
 
-  /// NOTE: http does not support request abort https://github.com/dart-lang/http/issues/424.
-  /// For now, just make a [CancelableOperation] to cancel the future.
-  /// To actually abort calls at network layer, need to call in
-  /// dart:io/dart:html or other library with custom http default Client() implementation.
-  CancelableOperation<T> _makeCancelable<T>(Future<T> responseFuture) {
-    return CancelableOperation.fromFuture(responseFuture);
-  }
-
-  CancelableOperation<AWSStreamedHttpResponse> _prepareRestResponse(
-      Future<AWSStreamedHttpResponse> responseFuture) {
-    return _makeCancelable(responseFuture);
-  }
-
   @override
   final ModelProviderInterface? modelProvider;
 
@@ -194,9 +180,11 @@ class AmplifyAPIDart extends AmplifyAPI {
         getHttpClient(EndpointType.graphQL, apiName: request.apiName);
     final uri = _getGraphQLUri(request.apiName);
 
-    final responseFuture = sendGraphQLRequest<T>(
-        request: request, client: graphQLClient, uri: uri);
-    return _makeCancelable<GraphQLResponse<T>>(responseFuture);
+    return sendGraphQLRequest<T>(
+      request: request,
+      client: graphQLClient,
+      uri: uri,
+    );
   }
 
   @override
@@ -206,9 +194,11 @@ class AmplifyAPIDart extends AmplifyAPI {
         getHttpClient(EndpointType.graphQL, apiName: request.apiName);
     final uri = _getGraphQLUri(request.apiName);
 
-    final responseFuture = sendGraphQLRequest<T>(
-        request: request, client: graphQLClient, uri: uri);
-    return _makeCancelable<GraphQLResponse<T>>(responseFuture);
+    return sendGraphQLRequest<T>(
+      request: request,
+      client: graphQLClient,
+      uri: uri,
+    );
   }
 
   @override
@@ -223,7 +213,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   // ====== REST =======
 
   @override
-  CancelableOperation<AWSStreamedHttpResponse> delete(
+  AWSHttpOperation delete(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -232,15 +222,15 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return _prepareRestResponse(AWSStreamedHttpRequest.delete(
+    return AWSStreamedHttpRequest.delete(
       uri,
-      body: body ?? HttpPayload.empty(),
+      body: body,
       headers: addContentTypeToHeaders(headers, body),
-    ).send(client));
+    ).send(client);
   }
 
   @override
-  CancelableOperation<AWSStreamedHttpResponse> get(
+  AWSHttpOperation get(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -248,16 +238,14 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return _prepareRestResponse(
-      AWSHttpRequest.get(
-        uri,
-        headers: headers,
-      ).send(client),
-    );
+    return AWSHttpRequest.get(
+      uri,
+      headers: headers,
+    ).send(client);
   }
 
   @override
-  CancelableOperation<AWSStreamedHttpResponse> head(
+  AWSHttpOperation head(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -265,16 +253,14 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return _prepareRestResponse(
-      AWSHttpRequest.head(
-        uri,
-        headers: headers,
-      ).send(client),
-    );
+    return AWSHttpRequest.head(
+      uri,
+      headers: headers,
+    ).send(client);
   }
 
   @override
-  CancelableOperation<AWSStreamedHttpResponse> patch(
+  AWSHttpOperation patch(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -283,17 +269,15 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return _prepareRestResponse(
-      AWSStreamedHttpRequest.patch(
-        uri,
-        headers: addContentTypeToHeaders(headers, body),
-        body: body ?? HttpPayload.empty(),
-      ).send(client),
-    );
+    return AWSStreamedHttpRequest.patch(
+      uri,
+      headers: addContentTypeToHeaders(headers, body),
+      body: body ?? const HttpPayload.empty(),
+    ).send(client);
   }
 
   @override
-  CancelableOperation<AWSStreamedHttpResponse> post(
+  AWSHttpOperation post(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -302,17 +286,15 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return _prepareRestResponse(
-      AWSStreamedHttpRequest.post(
-        uri,
-        headers: addContentTypeToHeaders(headers, body),
-        body: body ?? HttpPayload.empty(),
-      ).send(client),
-    );
+    return AWSStreamedHttpRequest.post(
+      uri,
+      headers: addContentTypeToHeaders(headers, body),
+      body: body ?? const HttpPayload.empty(),
+    ).send(client);
   }
 
   @override
-  CancelableOperation<AWSStreamedHttpResponse> put(
+  AWSHttpOperation put(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -321,12 +303,10 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return _prepareRestResponse(
-      AWSStreamedHttpRequest.put(
-        uri,
-        headers: addContentTypeToHeaders(headers, body),
-        body: body ?? HttpPayload.empty(),
-      ).send(client),
-    );
+    return AWSStreamedHttpRequest.put(
+      uri,
+      headers: addContentTypeToHeaders(headers, body),
+      body: body ?? const HttpPayload.empty(),
+    ).send(client);
   }
 }
