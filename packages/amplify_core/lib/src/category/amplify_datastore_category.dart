@@ -35,9 +35,9 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
         await plugin.configureDataStore(
             modelProvider: plugin.modelProvider!,
             errorHandler: plugin.errorHandler);
-        plugins.add(plugin);
+        _plugins.add(plugin);
       } on AmplifyAlreadyConfiguredException {
-        plugins.add(plugin);
+        _plugins.add(plugin);
       } on Object catch (e) {
         try {
           throw AmplifyException.fromMap(
