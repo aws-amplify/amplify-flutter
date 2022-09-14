@@ -11,13 +11,13 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+import 'dart:convert';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:async/async.dart';
+import 'package:aws_common/testing.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/testing.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
 
@@ -26,15 +26,22 @@ const _pathThatShouldFail = 'notHere';
 
 class MockAmplifyAPI extends AmplifyAPIDart {
   @override
-  http.Client getHttpClient(EndpointType type, {String? apiName}) =>
-      MockClient((request) async {
-        if (request.body.isNotEmpty) {
-          expect(request.headers['Content-Type'], 'application/json');
+  AWSHttpClient getHttpClient(EndpointType type, {String? apiName}) =>
+      MockAWSHttpClient((request) async {
+        if (request.bodyBytes.isNotEmpty) {
+          expect(request.headers['Content-Type'],
+              'application/json; charset=utf-8');
         }
-        if (request.url.path.contains(_pathThatShouldFail)) {
-          return http.Response('Not found', 404);
+        if (request.host.contains(_pathThatShouldFail)) {
+          return AWSHttpResponse(
+            statusCode: 404,
+            body: utf8.encode('Not found'),
+          );
         }
-        return http.Response(_expectedRestResponseBody, 200);
+        return AWSHttpResponse(
+          statusCode: 200,
+          body: utf8.encode(_expectedRestResponseBody),
+        );
       });
 }
 
@@ -47,10 +54,10 @@ void main() {
   });
   group('REST API', () {
     Future<void> _verifyRestOperation(
-      CancelableOperation<AWSStreamedHttpResponse> operation,
+      AWSHttpOperation<AWSBaseHttpResponse> operation,
     ) async {
       final response =
-          await operation.value.timeout(const Duration(seconds: 3));
+          await operation.response.timeout(const Duration(seconds: 3));
       final body = await response.decodeBody();
       expect(body, _expectedRestResponseBody);
       expect(response.statusCode, 200);
@@ -63,7 +70,7 @@ void main() {
 
     test('head() should get 200', () async {
       final operation = Amplify.API.head('items');
-      final response = await operation.value;
+      final response = await operation.response;
       expect(response.statusCode, 200);
     });
 
@@ -94,9 +101,14 @@ void main() {
     test('canceled request should never resolve', () async {
       final operation = Amplify.API.get('items');
       operation.cancel();
-      operation.then((p0) => fail('Request should have been cancelled.'));
-      await operation.valueOrCancellation();
-      expect(operation.isCanceled, isTrue);
+      operation.operation
+          .then((p0) => fail('Request should have been cancelled.'));
+
+      await expectLater(
+        operation.response,
+        throwsA(isA<CancellationException>()),
+      );
+      expect(operation.operation.isCanceled, isTrue);
     });
   });
 }

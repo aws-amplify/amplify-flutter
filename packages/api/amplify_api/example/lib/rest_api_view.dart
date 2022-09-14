@@ -43,7 +43,7 @@ class _RestApiViewState extends State<RestApiView> {
         body: HttpPayload.json({'name': 'Mow the lawn'}),
       );
 
-      _lastRestOperation = restOperation;
+      _lastRestOperation = restOperation.operation;
       final response = await restOperation.response;
 
       print('Put SUCCESS');
@@ -61,7 +61,7 @@ class _RestApiViewState extends State<RestApiView> {
         body: HttpPayload.json({'name': 'Mow the lawn'}),
       );
 
-      _lastRestOperation = restOperation;
+      _lastRestOperation = restOperation.operation;
       final response = await restOperation.response;
 
       print('Post SUCCESS');
@@ -78,7 +78,7 @@ class _RestApiViewState extends State<RestApiView> {
         _apiPathController.text,
       );
 
-      _lastRestOperation = restOperation;
+      _lastRestOperation = restOperation.operation;
       final response = await restOperation.response;
 
       print('Get SUCCESS');
@@ -94,7 +94,7 @@ class _RestApiViewState extends State<RestApiView> {
       final restOperation = Amplify.API.delete(
         _apiPathController.text,
       );
-      _lastRestOperation = restOperation;
+      _lastRestOperation = restOperation.operation;
       final response = await restOperation.response;
 
       print('Delete SUCCESS');
@@ -120,7 +120,7 @@ class _RestApiViewState extends State<RestApiView> {
         _apiPathController.text,
       );
 
-      _lastRestOperation = restOperation;
+      _lastRestOperation = restOperation.operation;
       await restOperation.response;
 
       print('Head SUCCESS');
@@ -137,7 +137,7 @@ class _RestApiViewState extends State<RestApiView> {
         body: HttpPayload.json({'name': 'Mow the lawn'}),
       );
 
-      _lastRestOperation = restOperation;
+      _lastRestOperation = restOperation.operation;
       final response = await restOperation.response;
 
       print('Patch SUCCESS');
