@@ -21,70 +21,107 @@ import 'package:meta/meta.dart';
 /// A plugin for the Amplify Auth category.
 ///
 /// {@macro amplify_core.amplify_auth_category}
-abstract class AuthPluginInterface extends AmplifyPluginInterface {
+abstract class AuthPluginInterface<
+        PluginAuthUser extends AuthUser,
+        PluginUserAttributeKey extends UserAttributeKey,
+        PluginAuthUserAttribute extends AuthUserAttribute<PluginUserAttributeKey>,
+        PluginAuthDevice extends AuthDevice,
+        PluginSignUpOptions extends SignUpOptions,
+        PluginSignUpResult extends SignUpResult,
+        PluginConfirmSignUpOptions extends ConfirmSignUpOptions,
+        PluginConfirmSignupResult extends SignUpResult,
+        PluginResendSignUpCodeOptions extends ResendSignUpCodeOptions,
+        PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
+        PluginSignInOptions extends SignInOptions,
+        PluginSignInResult extends SignInResult<PluginUserAttributeKey>,
+        PluginConfirmSignInOptions extends ConfirmSignInOptions,
+        PluginConfirmSignInResult extends SignInResult<PluginUserAttributeKey>,
+        PluginSignOutOptions extends SignOutOptions,
+        PluginSignOutResult extends SignOutResult,
+        PluginUpdatePasswordOptions extends UpdatePasswordOptions,
+        PluginUpdatePasswordResult extends UpdatePasswordResult,
+        PluginResetPasswordOptions extends ResetPasswordOptions,
+        PluginResetPasswordResult extends ResetPasswordResult,
+        PluginConfirmResetPasswordOptions extends ConfirmResetPasswordOptions,
+        PluginConfirmResetPasswordResult extends UpdatePasswordResult,
+        PluginAuthUserOptions extends AuthUserOptions,
+        PluginFetchUserAttributeOptions extends FetchUserAttributesOptions,
+        PluginAuthSessionOptions extends AuthSessionOptions,
+        PluginAuthSession extends AuthSession,
+        PluginSignInWithWebUIOptions extends SignInWithWebUIOptions,
+        PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
+        PluginUpdateUserAttributeOptions extends UpdateUserAttributeOptions,
+        PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
+        PluginUpdateUserAttributesOptions extends UpdateUserAttributesOptions,
+        PluginConfirmUserAttributeOptions extends ConfirmUserAttributeOptions,
+        PluginConfirmUserAttributeResult extends ConfirmUserAttributeResult,
+        PluginResendUserAttributeConfirmationCodeOptions extends ResendUserAttributeConfirmationCodeOptions,
+        PluginResendUserAttributeConfirmationCodeResult extends ResendUserAttributeConfirmationCodeResult>
+    extends AmplifyPluginInterface {
   @override
   @nonVirtual
   Category get category => Category.auth;
 
   /// {@macro amplify_core.amplify_auth_category.sign_up}
-  Future<SignUpResult> signUp({
-    required SignUpRequest request,
+  Future<PluginSignUpResult> signUp({
+    required SignUpRequest<PluginSignUpOptions> request,
   }) {
     throw UnimplementedError('signUp() has not been implemented');
   }
 
   /// {@macro amplify_core.amplify_auth_category.confirm_sign_up}
-  Future<SignUpResult> confirmSignUp({
-    required ConfirmSignUpRequest request,
+  Future<PluginConfirmSignupResult> confirmSignUp({
+    required ConfirmSignUpRequest<PluginConfirmSignUpOptions> request,
   }) {
     throw UnimplementedError('confirmSignUp() has not been implemented');
   }
 
   /// {@macro amplify_core.amplify_auth_category.resend_sign_up_code}
-  Future<ResendSignUpCodeResult> resendSignUpCode({
-    required ResendSignUpCodeRequest request,
+  Future<PluginResendSignUpCodeResult> resendSignUpCode({
+    required ResendSignUpCodeRequest<PluginResendSignUpCodeOptions> request,
   }) {
     throw UnimplementedError('resendSignUpCode() has not been implemented');
   }
 
   /// {@macro amplify_core.amplify_auth_category.sign_in}
-  Future<SignInResult> signIn({
-    required SignInRequest request,
+  Future<PluginSignInResult> signIn({
+    required SignInRequest<PluginSignInOptions> request,
   }) {
     throw UnimplementedError('signIn() has not been implemented');
   }
 
   /// {@macro amplify_core.amplify_auth_category.confirm_sign_in}
-  Future<SignInResult> confirmSignIn({
-    required ConfirmSignInRequest request,
+  Future<PluginConfirmSignInResult> confirmSignIn({
+    required ConfirmSignInRequest<PluginConfirmSignInOptions> request,
   }) {
     throw UnimplementedError('confirmSignIn() has not been implemented');
   }
 
   /// {@macro amplify_core.amplify_auth_category.sign_out}
-  Future<SignOutResult> signOut({
-    SignOutRequest? request,
+  Future<PluginSignOutResult> signOut({
+    SignOutRequest<PluginSignOutOptions> request = const SignOutRequest(),
   }) {
     throw UnimplementedError('signOut() has not been implemented');
   }
 
   /// {@macro amplify_core.amplify_auth_category.update_password}
-  Future<UpdatePasswordResult> updatePassword({
-    required UpdatePasswordRequest request,
+  Future<PluginUpdatePasswordResult> updatePassword({
+    required UpdatePasswordRequest<PluginUpdatePasswordOptions> request,
   }) {
     throw UnimplementedError('updatePassword() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.reset_password}
-  Future<ResetPasswordResult> resetPassword({
-    required ResetPasswordRequest request,
+  Future<PluginResetPasswordResult> resetPassword({
+    required ResetPasswordRequest<PluginResetPasswordOptions> request,
   }) {
     throw UnimplementedError('resetPassword() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.confirm_reset_password}
-  Future<UpdatePasswordResult> confirmResetPassword({
-    required ConfirmResetPasswordRequest request,
+  Future<PluginConfirmResetPasswordResult> confirmResetPassword({
+    required ConfirmResetPasswordRequest<PluginConfirmResetPasswordOptions>
+        request,
   }) {
     throw UnimplementedError(
       'confirmResetPassword() has not been implemented.',
@@ -92,44 +129,50 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_auth_category.get_current_user}
-  Future<AuthUser> getCurrentUser({
-    AuthUserRequest? request,
+  Future<PluginAuthUser> getCurrentUser({
+    AuthUserRequest<PluginAuthUserOptions> request = const AuthUserRequest(),
   }) {
     throw UnimplementedError('getCurrentUser() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.fetch_user_attributes}
-  Future<List<AuthUserAttribute>> fetchUserAttributes({
-    FetchUserAttributesRequest? request,
+  Future<List<PluginAuthUserAttribute>> fetchUserAttributes({
+    FetchUserAttributesRequest<PluginFetchUserAttributeOptions> request =
+        const FetchUserAttributesRequest(),
   }) {
     throw UnimplementedError('fetchUserAttributes() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.fetch_auth_session}
-  Future<AuthSession> fetchAuthSession({
-    required AuthSessionRequest request,
+  Future<PluginAuthSession> fetchAuthSession({
+    required AuthSessionRequest<PluginAuthSessionOptions> request,
   }) {
     throw UnimplementedError('fetchAuthSession() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.sign_in_with_web_ui}
-  Future<SignInResult> signInWithWebUI({
-    SignInWithWebUIRequest? request,
+  Future<PluginSignInWithWebUIResult> signInWithWebUI({
+    SignInWithWebUIRequest<PluginSignInWithWebUIOptions> request =
+        const SignInWithWebUIRequest(),
   }) {
     throw UnimplementedError('signInWithWebUI() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.update_user_attribute}
-  Future<UpdateUserAttributeResult> updateUserAttribute({
-    required UpdateUserAttributeRequest request,
+  Future<PluginUpdateUserAttributeResult> updateUserAttribute({
+    required UpdateUserAttributeRequest<PluginUserAttributeKey,
+            PluginUpdateUserAttributeOptions>
+        request,
   }) {
     throw UnimplementedError('updateUserAttribute() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.update_user_attributes}
-  Future<Map<UserAttributeKey, UpdateUserAttributeResult>>
+  Future<Map<PluginUserAttributeKey, PluginUpdateUserAttributeResult>>
       updateUserAttributes({
-    required UpdateUserAttributesRequest request,
+    required UpdateUserAttributesRequest<PluginUserAttributeKey,
+            PluginUpdateUserAttributesOptions>
+        request,
   }) {
     throw UnimplementedError(
       'updateUserAttributes() has not been implemented.',
@@ -137,8 +180,10 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_auth_category.confirm_user_attribute}
-  Future<ConfirmUserAttributeResult> confirmUserAttribute({
-    required ConfirmUserAttributeRequest request,
+  Future<PluginConfirmUserAttributeResult> confirmUserAttribute({
+    required ConfirmUserAttributeRequest<PluginUserAttributeKey,
+            PluginConfirmUserAttributeOptions>
+        request,
   }) {
     throw UnimplementedError(
       'confirmUserAttribute() has not been implemented.',
@@ -146,9 +191,11 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_auth_category.resend_user_attribute_confirmation_code}
-  Future<ResendUserAttributeConfirmationCodeResult>
+  Future<PluginResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
-    required ResendUserAttributeConfirmationCodeRequest request,
+    required ResendUserAttributeConfirmationCodeRequest<PluginUserAttributeKey,
+            PluginResendUserAttributeConfirmationCodeOptions>
+        request,
   }) {
     throw UnimplementedError(
       'resendUserAttributeConfirmationCode() has not been implemented.',
@@ -161,12 +208,12 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_auth_category.forget_device}
-  Future<void> forgetDevice([AuthDevice? device]) {
+  Future<void> forgetDevice([PluginAuthDevice? device]) {
     throw UnimplementedError('forgetDevice() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.fetch_devices}
-  Future<List<AuthDevice>> fetchDevices() {
+  Future<List<PluginAuthDevice>> fetchDevices() {
     throw UnimplementedError('fetchDevices() has not been implemented.');
   }
 

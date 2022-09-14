@@ -14,11 +14,11 @@
 
 import 'dart:async';
 
+import 'package:aws_common/src/js/common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart';
 import 'package:worker_bee/src/common.dart';
 import 'package:worker_bee/src/exception/worker_bee_exception.dart';
-import 'package:worker_bee/src/js/interop/common.dart';
 import 'package:worker_bee/src/js/message_port_channel.dart';
 import 'package:worker_bee/src/preamble.dart';
 import 'package:worker_bee/worker_bee.dart';

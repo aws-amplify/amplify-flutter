@@ -34,7 +34,7 @@ AWSHttpRequest _generateTestRequest() {
 /// Mock implementation of user pool only error when trying to get credentials.
 class TestAmplifyAuthUserPoolOnly extends AmplifyAuthCognitoDart {
   @override
-  Future<AuthSession> fetchAuthSession({
+  Future<CognitoAuthSession> fetchAuthSession({
     required AuthSessionRequest request,
   }) async {
     final options = request.options as CognitoSessionOptions?;

@@ -96,18 +96,26 @@ for PKG in ${PKGS}; do
         dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox || EXIT_CODE=$?
         ;;
       command_3)
+        echo 'dart run build_runner test -- -p chrome,firefox'
+        dart run build_runner test -- -p chrome,firefox || EXIT_CODE=$?
+        ;;
+      command_4)
+        echo 'dart test -p chrome,firefox'
+        dart test -p chrome,firefox || EXIT_CODE=$?
+        ;;
+      command_5)
         echo 'git submodule update --init'
         git submodule update --init || EXIT_CODE=$?
         ;;
-      command_4)
+      command_6)
         echo 'tool/test-desktop.sh'
         tool/test-desktop.sh || EXIT_CODE=$?
         ;;
-      command_5)
+      command_7)
         echo 'dart run build_runner test --delete-conflicting-outputs --verbose -- -p chrome,firefox'
         dart run build_runner test --delete-conflicting-outputs --verbose -- -p chrome,firefox || EXIT_CODE=$?
         ;;
-      command_6)
+      command_8)
         echo 'dart run build_runner test --release --delete-conflicting-outputs --verbose -- -p chrome,firefox'
         dart run build_runner test --release --delete-conflicting-outputs --verbose -- -p chrome,firefox || EXIT_CODE=$?
         ;;
@@ -123,13 +131,9 @@ for PKG in ${PKGS}; do
         echo 'dart test --tags=build'
         dart test --tags=build || EXIT_CODE=$?
         ;;
-      test_2)
+      test_3)
         echo 'dart test -p chrome'
         dart test -p chrome || EXIT_CODE=$?
-        ;;
-      test_3)
-        echo 'dart test -p chrome,firefox'
-        dart test -p chrome,firefox || EXIT_CODE=$?
         ;;
       test_4)
         echo 'dart test -p firefox'

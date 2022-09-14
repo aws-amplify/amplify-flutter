@@ -15,8 +15,7 @@
 import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
-import 'package:http/http.dart';
-import 'package:http/testing.dart';
+import 'package:aws_common/testing.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -28,11 +27,11 @@ void main() {
     test('create and send request', () async {
       final uri =
           Uri.parse('ws://example.com:440/myPath?abc=123&abc=456&def=000');
-      final client = MockClient((request) async {
-        expect(request.url, equals(uri));
+      final client = MockAWSHttpClient((request) async {
+        expect(request.uri, equals(uri));
         expect(request.bodyBytes, orderedEquals(<int>[0, 1, 2]));
         expect(request.headers['content-length'], equals('3'));
-        return Response('', 200);
+        return AWSHttpResponse(statusCode: 200);
       });
       final request = AWSHttpRequest.post(uri, body: body);
 
@@ -55,7 +54,7 @@ void main() {
 
       request.headers[AWSHeaders.contentLength] =
           request.contentLength.toString();
-      await request.send(client);
+      await request.send(client).response;
     });
 
     test('factories', () async {
@@ -81,6 +80,22 @@ void main() {
       final req = AWSHttpRequest.get(uri);
       expect(req.bodyBytes, isEmpty);
     });
+
+    group('body', () {
+      test('can be listened to multiple times', () async {
+        final req = AWSHttpRequest.get(uri);
+        expect(req.body, emitsDone);
+        expect(req.body, emitsDone);
+      });
+    });
+
+    group('split', () {
+      test('can be called multiple times', () async {
+        final req = AWSHttpRequest.get(uri);
+        expect(req.split(), emitsDone);
+        expect(req.split(), emitsDone);
+      });
+    });
   });
 
   group('AWSStreamedHttpRequest', () {
@@ -99,11 +114,11 @@ void main() {
     test('create and send request', () async {
       final uri =
           Uri.parse('ws://example.com:440/myPath?abc=123&abc=456&def=000');
-      final client = MockClient((request) async {
-        expect(request.url, equals(uri));
+      final client = MockAWSHttpClient((request) async {
+        expect(request.uri, equals(uri));
         expect(request.bodyBytes, orderedEquals(<int>[0, 1, 2]));
         expect(request.headers['content-length'], equals('3'));
-        return Response('', 200);
+        return AWSHttpResponse(statusCode: 200);
       });
       final request = AWSStreamedHttpRequest.post(uri, body: makeBody());
 
@@ -129,7 +144,7 @@ void main() {
 
       request.headers[AWSHeaders.contentLength] =
           (await request.contentLength).toString();
-      await request.send(client);
+      await request.send(client).response;
     });
 
     test('factories', () async {

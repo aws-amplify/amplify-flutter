@@ -25,8 +25,6 @@ import 'package:built_value/json_object.dart' as built_value_json_object;
 import 'package:built_value/serializer.dart' as built_value_serializer;
 import 'package:code_builder/code_builder.dart';
 import 'package:fixnum/fixnum.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/testing.dart' as http_test;
 import 'package:meta/meta.dart' as meta;
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf_router/shelf_router.dart' as shelf_router;
@@ -58,9 +56,6 @@ abstract class DartTypes {
 
   /// `package:fixnum` types.
   static const fixNum = _FixNum();
-
-  /// `package:http` types.
-  static const http = _Http();
 
   /// `package:meta` types.
   static const meta = _Meta();
@@ -462,35 +457,6 @@ class _FixNum {
 
   /// Creates an [Int64] reference.
   Reference get int64 => const Reference('Int64', _url);
-}
-
-/// `package:http` types.
-class _Http {
-  const _Http();
-
-  static const _url = 'package:http/http.dart';
-  static const _testingUrl = 'package:http/testing.dart';
-
-  /// Creates an [http.ByteStream] reference.
-  Reference get byteStream => const Reference('ByteStream', _url);
-
-  /// Creates an [http.Client] reference.
-  Reference get client => const Reference('Client', _url);
-
-  /// Creates an [http_test.MockClient] reference.
-  Reference get mockClient => const Reference('MockClient', _testingUrl);
-
-  /// Creates an [http.Request] reference.
-  Reference get request => const Reference('Request', _url);
-
-  /// Creates an [http.Response] reference.
-  Reference get response => const Reference('Response', _url);
-
-  /// Creates an [http.StreamedRequest] reference.
-  Reference get streamedRequest => const Reference('StreamedRequest', _url);
-
-  /// Creates an [http.StreamedResponse] reference.
-  Reference get streamedResponse => const Reference('StreamedResponse', _url);
 }
 
 /// `package:meta` types.

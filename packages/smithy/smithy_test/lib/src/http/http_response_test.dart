@@ -17,15 +17,15 @@
 import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/testing.dart';
 import 'package:aws_signature_v4/src/signer/aws_signer.dart' show zSigningTest;
 import 'package:built_value/serializer.dart';
-import 'package:http/http.dart';
-import 'package:http/testing.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy/smithy.dart';
 import 'package:smithy_test/smithy_test.dart';
 
-final _dummyHttpRequest = AWSStreamedHttpRequest.get(Uri());
+AWSStreamedHttpRequest get _dummyHttpRequest =>
+    AWSStreamedHttpRequest.get(Uri());
 
 /// Performs an HTTP response test for [operation] for a test case from an
 /// [HttpResponseTestsTrait].
@@ -48,11 +48,11 @@ Future<void> httpResponseTest<InputPayload, Input, OutputPayload, Output>({
         specifiedType: FullType(Output),
       ) as Output;
 
-      final client = MockClient((request) async {
-        return Response(
-          testCase.body ?? '',
-          testCase.code,
+      final client = MockAWSHttpClient((request) async {
+        return AWSHttpResponse(
+          statusCode: testCase.code,
           headers: testCase.headers,
+          body: (testCase.body ?? '').codeUnits,
         );
       });
       // ignore: invalid_use_of_visible_for_overriding_member
@@ -119,11 +119,11 @@ Future<void> httpErrorResponseTest<InputPayload, Input, OutputPayload, Output,
         specifiedType: FullType(ExpectedError),
       ) as ExpectedError;
 
-      final client = MockClient((request) async {
-        return Response(
-          testCase.body ?? '',
-          testCase.code,
+      final client = MockAWSHttpClient((request) async {
+        return AWSHttpResponse(
+          statusCode: testCase.code,
           headers: testCase.headers,
+          body: (testCase.body ?? '').codeUnits,
         );
       });
       try {

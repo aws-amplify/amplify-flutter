@@ -16,7 +16,6 @@
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
 import '../util.dart';
@@ -24,29 +23,51 @@ import 'graphql_response_decoder.dart';
 
 /// Converts the [GraphQLRequest] to an HTTP POST request and sends with ///[client].
 @internal
-Future<GraphQLResponse<T>> sendGraphQLRequest<T>({
+CancelableOperation<GraphQLResponse<T>> sendGraphQLRequest<T>({
   required GraphQLRequest<T> request,
-  required http.Client client,
+  required AWSHttpClient client,
   required Uri uri,
-}) async {
-  try {
-    final body = {'variables': request.variables, 'query': request.document};
-    final graphQLResponse = await client.post(
-      uri,
-      body: json.encode(body),
-      headers: request.headers,
-    );
-    final responseBody = json.decode(graphQLResponse.body);
-    if (responseBody is! Map<String, dynamic>) {
-      throw ApiException(
-          'unable to parse GraphQLResponse from server response which was not a JSON object.',
-          underlyingException: graphQLResponse.body);
-    }
+}) {
+  final body = {'variables': request.variables, 'query': request.document};
+  final graphQLOperation = client.send(AWSStreamedHttpRequest.post(
+    uri,
+    body: HttpPayload.json(body),
+    headers: request.headers,
+  ));
 
-    return GraphQLResponseDecoder.instance
-        .decode<T>(request: request, response: responseBody);
-  } on Exception catch (e) {
-    throw ApiException('unable to send GraphQLRequest to client.',
-        underlyingException: e.toString());
-  }
+  return graphQLOperation.operation.then(
+    (response) async {
+      final responseJson = await response.decodeBody();
+      final responseBody = json.decode(responseJson);
+
+      if (responseBody is! Map<String, dynamic>) {
+        throw ApiException(
+          'unable to parse GraphQLResponse from server response which was '
+          'not a JSON object: $responseJson',
+        );
+      }
+
+      final responseData = responseBody['data'];
+      // Preserve `null`. json.encode(null) returns "null" not `null`
+      final responseDataJson =
+          responseData != null ? json.encode(responseData) : null;
+
+      final errors = deserializeGraphQLResponseErrors(responseBody);
+
+      return GraphQLResponseDecoder.instance.decode<T>(
+        request: request,
+        data: responseDataJson,
+        errors: errors,
+      );
+    },
+    onError: (error, stackTrace) {
+      Error.throwWithStackTrace(
+        ApiException(
+          'unable to send GraphQLRequest to client.',
+          underlyingException: error,
+        ),
+        stackTrace,
+      );
+    },
+  );
 }

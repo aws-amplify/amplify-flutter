@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:smithy/ast.dart';
 
@@ -33,17 +34,11 @@ abstract class AWSProtocolTrait implements ProtocolDefinitionTrait {
   final ShapeId shapeId;
 
   final List<AlpnProtocol> _http;
-
-  @JsonKey(unknownEnumValue: AlpnProtocol.unknown)
-  List<AlpnProtocol> get http =>
-      _http.where((el) => el != AlpnProtocol.unknown).toList();
+  List<AlpnProtocol> get http => _http.whereType<AlpnProtocol>().toList();
 
   final List<AlpnProtocol>? _eventStreamHttp;
-
-  @JsonKey(unknownEnumValue: AlpnProtocol.unknown)
   List<AlpnProtocol> get eventStreamHttp =>
-      _eventStreamHttp?.where((el) => el != AlpnProtocol.unknown).toList() ??
-      http;
+      _eventStreamHttp?.whereType<AlpnProtocol>().toList() ?? http;
 
   @JsonKey(ignore: true)
   final TimestampFormat timestampFormat;
