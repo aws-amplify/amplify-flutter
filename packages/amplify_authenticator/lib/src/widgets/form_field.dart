@@ -57,7 +57,8 @@ part 'form_fields/verify_user_form_field.dart';
 /// - [VerifyUserFormField]
 /// {@endtemplate}
 abstract class AuthenticatorFormField<FieldType, FieldValue>
-    extends AuthenticatorComponent {
+    extends AuthenticatorComponent<
+        AuthenticatorFormField<FieldType, FieldValue>> {
   /// {@macro amplify_authenticator.authenticator_form_field}
   const AuthenticatorFormField._({
     Key? key,
