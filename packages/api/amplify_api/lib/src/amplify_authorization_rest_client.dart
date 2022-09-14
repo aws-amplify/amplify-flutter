@@ -14,47 +14,39 @@
 
 import 'dart:async';
 
+import 'package:amplify_api/src/decorators/authorize_http_request.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
-
-import 'decorators/authorize_http_request.dart';
 
 /// Implementation of http [http.Client] that authorizes HTTP requests with
 /// Amplify.
 @internal
-class AmplifyAuthorizationRestClient extends http.BaseClient
-    implements Closeable {
+class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
   /// [AmplifyAuthProviderRepository] for any auth modes this client may use.
   final AmplifyAuthProviderRepository authProviderRepo;
 
   /// Determines how requests with this client are authorized.
   final AWSApiConfig endpointConfig;
 
-  final http.Client _baseClient;
-  final bool _useDefaultBaseClient;
-
   /// Provide an [AWSApiConfig] which will determine how requests from this
   /// client are authorized.
   AmplifyAuthorizationRestClient({
     required this.endpointConfig,
     required this.authProviderRepo,
-    http.Client? baseClient,
-  })  : _useDefaultBaseClient = baseClient == null,
-        _baseClient = baseClient ?? http.Client();
+    AWSHttpClient? baseClient,
+  }) : baseClient = baseClient ?? AWSHttpClient();
+
+  @override
+  final AWSHttpClient baseClient;
 
   /// Implementation of [send] that authorizes any request without "Authorization"
   /// header already set.
   @override
-  Future<http.StreamedResponse> send(http.BaseRequest request) async =>
-      _baseClient.send(await authorizeHttpRequest(
-        request,
-        endpointConfig: endpointConfig,
-        authProviderRepo: authProviderRepo,
-      ));
-
-  @override
-  void close() {
-    if (_useDefaultBaseClient) _baseClient.close();
+  Future<AWSBaseHttpRequest> transformRequest(AWSBaseHttpRequest request) {
+    return authorizeHttpRequest(
+      request,
+      endpointConfig: endpointConfig,
+      authProviderRepo: authProviderRepo,
+    );
   }
 }
