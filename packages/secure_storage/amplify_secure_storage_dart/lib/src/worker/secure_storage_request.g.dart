@@ -38,13 +38,6 @@ class _$SecureStorageRequestSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(AmplifySecureStorageConfig)));
     }
-    value = object.applicationDirectory;
-    if (value != null) {
-      result
-        ..add('applicationDirectory')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.key;
     if (value != null) {
       result
@@ -88,10 +81,6 @@ class _$SecureStorageRequestSerializer
                   specifiedType: const FullType(AmplifySecureStorageConfig))!
               as AmplifySecureStorageConfig);
           break;
-        case 'applicationDirectory':
-          result.applicationDirectory = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
         case 'key':
           result.key = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -115,8 +104,6 @@ class _$SecureStorageRequest extends SecureStorageRequest {
   @override
   final AmplifySecureStorageConfig? config;
   @override
-  final String? applicationDirectory;
-  @override
   final String? key;
   @override
   final String? value;
@@ -129,7 +116,6 @@ class _$SecureStorageRequest extends SecureStorageRequest {
       {required this.id,
       required this.action,
       this.config,
-      this.applicationDirectory,
       this.key,
       this.value})
       : super._() {
@@ -154,7 +140,6 @@ class _$SecureStorageRequest extends SecureStorageRequest {
         id == other.id &&
         action == other.action &&
         config == other.config &&
-        applicationDirectory == other.applicationDirectory &&
         key == other.key &&
         value == other.value;
   }
@@ -162,9 +147,7 @@ class _$SecureStorageRequest extends SecureStorageRequest {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc(
-            $jc($jc($jc($jc(0, id.hashCode), action.hashCode), config.hashCode),
-                applicationDirectory.hashCode),
+        $jc($jc($jc($jc(0, id.hashCode), action.hashCode), config.hashCode),
             key.hashCode),
         value.hashCode));
   }
@@ -188,11 +171,6 @@ class SecureStorageRequestBuilder
   set config(AmplifySecureStorageConfigBuilder? config) =>
       _$this._config = config;
 
-  String? _applicationDirectory;
-  String? get applicationDirectory => _$this._applicationDirectory;
-  set applicationDirectory(String? applicationDirectory) =>
-      _$this._applicationDirectory = applicationDirectory;
-
   String? _key;
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
@@ -209,7 +187,6 @@ class SecureStorageRequestBuilder
       _id = $v.id;
       _action = $v.action;
       _config = $v.config?.toBuilder();
-      _applicationDirectory = $v.applicationDirectory;
       _key = $v.key;
       _value = $v.value;
       _$v = null;
@@ -242,7 +219,6 @@ class SecureStorageRequestBuilder
               action: BuiltValueNullFieldError.checkNotNull(
                   action, r'SecureStorageRequest', 'action'),
               config: _config?.build(),
-              applicationDirectory: applicationDirectory,
               key: key,
               value: value);
     } catch (_) {

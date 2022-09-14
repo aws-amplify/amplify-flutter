@@ -24,11 +24,10 @@ import 'package:file/memory.dart';
 class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
   AmplifySecureStorageWindows({
     required super.config,
-    super.applicationDirectory,
   });
 
   late final FileKeyValueStore keyValueStore = () {
-    final directory = config.windowsOptions.storagePath ?? applicationDirectory;
+    final directory = config.windowsOptions.storagePath;
     if (directory != null) {
       return FileKeyValueStore(fileName: _fileName, path: directory);
     }
@@ -60,7 +59,7 @@ class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
     }
     final Uint8List encrypted;
     try {
-      encrypted = Uint8List.fromList(List<int>.from(rawData as List));
+      encrypted = Uint8List.fromList((rawData as List).cast());
     } on Object catch (e) {
       throw UnknownException(
         'The data was not in the expected format',

@@ -43,14 +43,21 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
         if (Platform.isAndroid) {
           _instance = AmplifySecureStorageAndroid(config: config);
         } else {
-          final applicationDirectory = await getApplicationSupportDirectory();
           _instance = AmplifySecureStorageWorker(
-            config: config,
-            applicationDirectory: applicationDirectory.path,
+            config: config.copyWith(
+              windowsOptions: config.windowsOptions.copyWith(
+                storagePath: config.windowsOptions.storagePath ??
+                    (await getApplicationSupportDirectory()).path,
+              ),
+            ),
           );
         }
         if (Platform.isLinux) {
-          await _initializeScope(config.linuxOptions.accessGroup);
+          // if accessGroup is set, do not clear data on initialization
+          // since the data can be shared across applications.
+          if (config.linuxOptions.accessGroup == null) {
+            await _initializeScope();
+          }
         }
       },
     );
@@ -82,15 +89,14 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
   /// and then the flag will be set.
   ///
   /// Intended to clear storage after an app uninstall & re-install.
-  Future<void> _initializeScope(String? accessGroup) async {
-    // if accessGroup is set, do not clear data on initialization
-    // since the data can be shared across applications.
-    if (accessGroup != null) return;
-    final path = _instance.applicationDirectory ??
-        (await getApplicationSupportDirectory()).path;
+  Future<void> _initializeScope() async {
+    final path = (await getApplicationSupportDirectory()).path;
     final fileStore = FileKeyValueStore(path: path, fileName: _scopeFileName);
     final isInitialized = await fileStore.containsKey(key: config.scope!);
     if (!isInitialized) {
+      // removeAll is marked as internal to prevent use from outside
+      // of secure_storage. Use in amplify_secure_storage is acceptable.
+      // ignore: invalid_use_of_internal_member
       await _instance.removeAll();
       await fileStore.writeKey(key: config.scope!, value: true);
     }

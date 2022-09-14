@@ -100,6 +100,24 @@ abstract class AmplifySecureStorageConfig
   /// Options that are specific to the iOS platform.
   IOSSecureStorageOptions get iOSOptions;
 
+  AmplifySecureStorageConfig copyWith({
+    String? scope,
+    WebSecureStorageOptions? webOptions,
+    WindowsSecureStorageOptions? windowsOptions,
+    LinuxSecureStorageOptions? linuxOptions,
+    MacOSSecureStorageOptions? macOSOptions,
+    IOSSecureStorageOptions? iOSOptions,
+  }) {
+    return _$AmplifySecureStorageConfig._(
+      scope: scope ?? this.scope,
+      webOptions: webOptions ?? this.webOptions,
+      windowsOptions: windowsOptions ?? this.windowsOptions,
+      linuxOptions: linuxOptions ?? this.linuxOptions,
+      macOSOptions: macOSOptions ?? this.macOSOptions,
+      iOSOptions: iOSOptions ?? this.iOSOptions,
+    );
+  }
+
   /// The [AmplifySecureStorageConfig] serializer.
   static Serializer<AmplifySecureStorageConfig> get serializer =>
       _$amplifySecureStorageConfigSerializer;

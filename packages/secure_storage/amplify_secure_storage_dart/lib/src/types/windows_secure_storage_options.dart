@@ -43,6 +43,12 @@ abstract class WindowsSecureStorageOptions
   /// {@macro amplify_secure_storage_dart.linux_secure_storage_options.storage_path}
   String? get storagePath;
 
+  WindowsSecureStorageOptions copyWith({String? storagePath}) {
+    return WindowsSecureStorageOptions(
+      storagePath: storagePath ?? this.storagePath,
+    );
+  }
+
   /// The [WindowsSecureStorageOptions] serializer.
   static Serializer<WindowsSecureStorageOptions> get serializer =>
       _$windowsSecureStorageOptionsSerializer;

@@ -16,6 +16,7 @@ import 'dart:async';
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:meta/meta.dart';
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_interface}
 /// An extension of [SecureStorageInterface] which adds Amplify specific options.
@@ -23,20 +24,10 @@ import 'package:aws_common/aws_common.dart';
 abstract class AmplifySecureStorageInterface extends SecureStorageInterface
     with AWSDebuggable, AWSLoggerMixin {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_interface}
-  const AmplifySecureStorageInterface({
-    required this.config,
-    this.applicationDirectory,
-  }) : super();
+  const AmplifySecureStorageInterface({required this.config}) : super();
 
   /// Configuration options for Secure Storage.
   final AmplifySecureStorageConfig config;
-
-  /// Path to a directory where the application should
-  /// place application support files.
-  ///
-  /// Used to store encrypted data on Windows. If no value
-  /// is provided, data will be stored in memory on Windows.
-  final String? applicationDirectory;
 
   /// {@template amplify_secure_storage_dart.amplify_secure_storage_interface.remove_all}
   /// Removes all key-value pairs for the current scope.
@@ -44,6 +35,7 @@ abstract class AmplifySecureStorageInterface extends SecureStorageInterface
   /// Only available on Linux. Will throw [UnimplementedError]
   /// on other platforms.
   /// {@endtemplate}
+  @internal
   FutureOr<void> removeAll() => throw UnimplementedError(
         'removeAll is not implemented for this platform',
       );

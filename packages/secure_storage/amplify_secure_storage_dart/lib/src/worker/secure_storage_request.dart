@@ -35,13 +35,11 @@ abstract class SecureStorageRequest
   /// {@macro amplify_secure_storage_dart.secure_storage_interface.init}
   factory SecureStorageRequest.init({
     required AmplifySecureStorageConfig config,
-    String? applicationDirectory,
   }) {
     return SecureStorageRequest(
       (b) => b
         ..action = SecureStorageAction.init
-        ..config.replace(config)
-        ..applicationDirectory = applicationDirectory,
+        ..config.replace(config),
     );
   }
 
@@ -104,12 +102,6 @@ abstract class SecureStorageRequest
   /// Valid only for [SecureStorageAction.init].
   AmplifySecureStorageConfig? get config;
 
-  /// Path to a directory where the application should
-  /// place application support files.
-  ///
-  /// Used to store encrypted data on Windows.
-  String? get applicationDirectory;
-
   /// The key targeted by [action].
   String? get key;
 
@@ -127,7 +119,6 @@ abstract class SecureStorageRequest
           ..add('id', id)
           ..add('action', action)
           ..add('config', config)
-          ..add('applicationDirectory', applicationDirectory)
           ..add('key', key))
         .toString();
   }

@@ -156,7 +156,7 @@ void runStandardTests(
   });
 
   group('read/write/delete can handle key value pairs of varying length', () {
-    for (var entry in keyValuePairs.entries) {
+    for (final entry in keyValuePairs.entries) {
       final key = entry.key;
       final value = entry.value;
       final testName = key.substring(0, 20);
