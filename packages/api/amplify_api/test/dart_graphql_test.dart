@@ -20,10 +20,9 @@ import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
+import 'package:aws_common/testing.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/testing.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
 import 'util.dart';
@@ -94,21 +93,32 @@ class MockAmplifyAPI extends AmplifyAPIDart {
   }) : super(modelProvider: modelProvider);
 
   @override
-  http.Client getHttpClient(EndpointType type, {String? apiName}) =>
-      MockClient((request) async {
-        if (request.body.contains('getBlog')) {
-          return http.Response(json.encode(_expectedModelQueryResult), 200);
+  AWSHttpClient getHttpClient(EndpointType type, {String? apiName}) =>
+      MockAWSHttpClient((request) async {
+        final body = await utf8.decodeStream(request.body);
+        if (body.contains('getBlog')) {
+          return AWSHttpResponse(
+            statusCode: 200,
+            body: utf8.encode(json.encode(_expectedModelQueryResult)),
+          );
         }
-        if (request.body.contains('TestMutate')) {
-          return http.Response(
-              json.encode(_expectedMutateSuccessResponseBody), 400);
+        if (body.contains('TestMutate')) {
+          return AWSHttpResponse(
+            statusCode: 400,
+            body: utf8.encode(json.encode(_expectedMutateSuccessResponseBody)),
+          );
         }
-        if (request.body.contains('TestError')) {
-          return http.Response(json.encode(_expectedErrorResponseBody), 400);
+        if (body.contains('TestError')) {
+          return AWSHttpResponse(
+            statusCode: 400,
+            body: utf8.encode(json.encode(_expectedErrorResponseBody)),
+          );
         }
 
-        return http.Response(
-            json.encode(_expectedQuerySuccessResponseBody), 200);
+        return AWSHttpResponse(
+          statusCode: 400,
+          body: utf8.encode((json.encode(_expectedQuerySuccessResponseBody))),
+        );
       });
 
   @override

@@ -16,9 +16,8 @@ import 'dart:convert';
 import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/testing.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/testing.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
 import 'util.dart';
@@ -38,21 +37,29 @@ const _expectedQuerySuccessResponseBody = {
 };
 
 /// Asserts user agent and API key present.
-final _mockGqlClient = MockClient((request) async {
+final _mockGqlClient = MockAWSHttpClient((request) async {
   const userAgentHeader =
       zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
   expect(request.headers[userAgentHeader], contains('amplify-flutter'));
   expect(request.headers[xApiKey], isA<String>());
-  return http.Response(json.encode(_expectedQuerySuccessResponseBody), 200);
+  return AWSHttpResponse(
+    statusCode: 200,
+    body: utf8.encode(
+      json.encode(_expectedQuerySuccessResponseBody),
+    ),
+  );
 });
 
 /// Asserts user agent and signed.
-final _mockRestClient = MockClient((request) async {
+final _mockRestClient = MockAWSHttpClient((request) async {
   const userAgentHeader =
       zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
   expect(request.headers[userAgentHeader], contains('amplify-flutter'));
   validateSignedRequest(request);
-  return http.Response('"Hello from Lambda!"', 200);
+  return AWSHttpResponse(
+    statusCode: 200,
+    body: utf8.encode('"Hello from Lambda!"'),
+  );
 });
 
 void main() {
@@ -105,7 +112,7 @@ void main() {
       await plugin.configure(
           authProviderRepo: authProviderRepo, config: config);
 
-      await plugin.get('/items').value;
+      await plugin.get('/items').response;
       // no assertion here because assertion implemented in mock HTTP client
     });
   });
