@@ -10,6 +10,6 @@ final _workers = <String, WorkerBeeBuilder>{
   'SrpInitWorker': SrpInitWorker.create,
   'SrpPasswordVerifierWorker': SrpPasswordVerifierWorker.create,
   'SrpDevicePasswordVerifierWorker': SrpDevicePasswordVerifierWorker.create,
-  'ConfirmDeviceWorker': ConfirmDeviceWorker.create
+  'ConfirmDeviceWorker': ConfirmDeviceWorker.create,
 };
 void main() => runHive(_workers);

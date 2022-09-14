@@ -37,6 +37,9 @@ class SecureStorageWorkerImpl extends SecureStorageWorker {
     const relativePath = zDebugMode
         ? 'packages/amplify_secure_storage_dart/src/worker/workers.debug.dart.js'
         : 'packages/amplify_secure_storage_dart/src/worker/workers.release.dart.js';
-    return [relativePath, testDir.resolve(relativePath).toString()];
+    return [
+      relativePath,
+      testDir.resolve(relativePath).toString(),
+    ];
   }
 }

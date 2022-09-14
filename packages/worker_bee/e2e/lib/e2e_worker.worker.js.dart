@@ -25,6 +25,9 @@ class E2EWorkerImpl extends E2EWorker {
     const relativePath = zDebugMode
         ? 'packages/e2e/workers.debug.dart.js'
         : 'packages/e2e/workers.release.dart.js';
-    return [relativePath, testDir.resolve(relativePath).toString()];
+    return [
+      relativePath,
+      testDir.resolve(relativePath).toString(),
+    ];
   }
 }

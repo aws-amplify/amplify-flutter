@@ -12,6 +12,6 @@ final _workers = <String, WorkerBeeBuilder>{
   'E2EWorkerNoResult': E2EWorkerNoResult.create,
   'E2EWorkerVoidResult': E2EWorkerVoidResult.create,
   'E2EWorkerNullResult': E2EWorkerNullResult.create,
-  'E2EWorkerThrows': E2EWorkerThrows.create
+  'E2EWorkerThrows': E2EWorkerThrows.create,
 };
 void main() => runHive(_workers);

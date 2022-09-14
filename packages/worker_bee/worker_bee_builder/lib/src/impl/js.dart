@@ -104,12 +104,13 @@ return ${allocate(DartTypes.awsCommon.zDebugMode)} ? '$_workersJsPath' : '$_mini
       port: baseUri.port,
       path: '\$basePath/test',
     );'''),
-      DartTypes.awsCommon.zDebugMode
-          .conditional(
-            literalString(_debugWorkersJsPath),
-            literalString(_releaseWorkersJsPath),
+      declareConst('relativePath')
+          .assign(
+            DartTypes.awsCommon.zDebugMode.conditional(
+              literalString(_debugWorkersJsPath),
+              literalString(_releaseWorkersJsPath),
+            ),
           )
-          .assignConst('relativePath')
           .statement,
       literalList([
         refer('relativePath'),
