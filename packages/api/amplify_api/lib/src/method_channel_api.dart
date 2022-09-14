@@ -336,106 +336,130 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }
 
   @override
-  CancelableOperation<AWSStreamedHttpResponse> get(
+  AWSHttpOperation get(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
     String? apiName,
   }) {
-    return _restFunctionHelper(
-      methodName: 'get',
-      path: path,
-      headers: headers,
-      queryParameters: queryParameters,
-      apiName: apiName,
+    return AWSHttpOperation(
+      _restFunctionHelper(
+        methodName: 'get',
+        path: path,
+        headers: headers,
+        queryParameters: queryParameters,
+        apiName: apiName,
+      ),
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
     );
   }
 
   @override
-  CancelableOperation<AWSStreamedHttpResponse> put(
+  AWSHttpOperation put(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
     String? apiName,
   }) {
-    return _restFunctionHelper(
-      methodName: 'put',
-      path: path,
-      body: body,
-      headers: headers,
-      queryParameters: queryParameters,
-      apiName: apiName,
+    return AWSHttpOperation(
+      _restFunctionHelper(
+        methodName: 'put',
+        path: path,
+        body: body,
+        headers: headers,
+        queryParameters: queryParameters,
+        apiName: apiName,
+      ),
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
     );
   }
 
   @override
-  CancelableOperation<AWSStreamedHttpResponse> post(
+  AWSHttpOperation post(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
     String? apiName,
   }) {
-    return _restFunctionHelper(
-      methodName: 'post',
-      path: path,
-      body: body,
-      headers: headers,
-      queryParameters: queryParameters,
-      apiName: apiName,
+    return AWSHttpOperation(
+      _restFunctionHelper(
+        methodName: 'post',
+        path: path,
+        body: body,
+        headers: headers,
+        queryParameters: queryParameters,
+        apiName: apiName,
+      ),
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
     );
   }
 
   @override
-  CancelableOperation<AWSStreamedHttpResponse> delete(
+  AWSHttpOperation delete(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
     String? apiName,
   }) {
-    return _restFunctionHelper(
-      methodName: 'delete',
-      path: path,
-      body: body,
-      headers: headers,
-      queryParameters: queryParameters,
-      apiName: apiName,
+    return AWSHttpOperation(
+      _restFunctionHelper(
+        methodName: 'delete',
+        path: path,
+        body: body,
+        headers: headers,
+        queryParameters: queryParameters,
+        apiName: apiName,
+      ),
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
     );
   }
 
   @override
-  CancelableOperation<AWSStreamedHttpResponse> head(
+  AWSHttpOperation head(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
     String? apiName,
   }) {
-    return _restFunctionHelper(
-      methodName: 'head',
-      path: path,
-      headers: headers,
-      queryParameters: queryParameters,
-      apiName: apiName,
+    return AWSHttpOperation(
+      _restFunctionHelper(
+        methodName: 'head',
+        path: path,
+        headers: headers,
+        queryParameters: queryParameters,
+        apiName: apiName,
+      ),
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
     );
   }
 
   @override
-  CancelableOperation<AWSStreamedHttpResponse> patch(
+  AWSHttpOperation patch(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
     String? apiName,
   }) {
-    return _restFunctionHelper(
-      methodName: 'patch',
-      path: path,
-      body: body,
-      headers: headers,
-      queryParameters: queryParameters,
-      apiName: apiName,
+    return AWSHttpOperation(
+      _restFunctionHelper(
+        methodName: 'patch',
+        path: path,
+        body: body,
+        headers: headers,
+        queryParameters: queryParameters,
+        apiName: apiName,
+      ),
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
     );
   }
 

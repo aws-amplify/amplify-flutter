@@ -180,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
             '/hello',
             body: HttpPayload.string(_controller.text),
           )
-          .value;
+          .response;
       final decodedBody = await response.decodeBody();
       setState(() {
         _greeting = decodedBody;

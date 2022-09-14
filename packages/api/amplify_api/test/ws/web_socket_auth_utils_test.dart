@@ -41,7 +41,7 @@ void main() {
       SubscriptionRegistrationPayload payload) {
     expect(
       payload.authorizationHeaders[AWSHeaders.contentType],
-      'application/json; charset=UTF-8',
+      'application/json; charset=utf-8',
     );
     expect(
       payload.authorizationHeaders[AWSHeaders.accept],
