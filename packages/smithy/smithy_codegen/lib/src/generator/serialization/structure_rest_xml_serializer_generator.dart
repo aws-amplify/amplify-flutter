@@ -176,29 +176,31 @@ class StructureRestXmlSerializerGenerator extends StructureSerializerGenerator {
     if (withPayloadVar) {
       if (hasPayload) {
         builder.addExpression(
-          object
-              .isA(symbol)
-              .conditional(
-                object.property('getPayload').call([]),
-                object.asA(payloadSymbol),
-              )
-              .assignFinal('payload'),
+          declareFinal('payload').assign(
+            object.isA(symbol).conditional(
+                  object.property('getPayload').call([]),
+                  object.asA(payloadSymbol),
+                ),
+          ),
         );
       } else {
-        builder.addExpression(object.asA(symbol).assignFinal('payload'));
+        builder.addExpression(
+          declareFinal('payload').assign(object.asA(symbol)),
+        );
       }
     }
 
     // Create a result object to store serialized members.
     final namespace = this.namespace;
     builder.addExpression(
-      literalList([
-        DartTypes.smithy.xmlElementName.constInstance([
-          literalString(payloadWireName),
-          if (namespace != null) namespace.constructedInstance
-        ])
-      ], DartTypes.core.object.boxed)
-          .assignFinal('result'),
+      declareFinal('result').assign(
+        literalList([
+          DartTypes.smithy.xmlElementName.constInstance([
+            literalString(payloadWireName),
+            if (namespace != null) namespace.constructedInstance
+          ])
+        ], DartTypes.core.object.boxed),
+      ),
     );
 
     // Check if payload is null at this point

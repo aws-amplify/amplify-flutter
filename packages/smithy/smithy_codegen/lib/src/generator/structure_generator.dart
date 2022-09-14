@@ -892,9 +892,10 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
     final builder = BlockBuilder();
     final helper = refer('helper');
     builder.addExpression(
-      DartTypes.builtValue.newBuiltValueToStringHelper.call([
-        literalString(isPayload ? payloadClassName! : className)
-      ]).assignFinal('helper'),
+      declareFinal('helper').assign(
+        DartTypes.builtValue.newBuiltValueToStringHelper
+            .call([literalString(isPayload ? payloadClassName! : className)]),
+      ),
     );
     final members = isPayload ? payloadMembers : sortedMembers;
     for (final member in members) {

@@ -153,10 +153,12 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
     if (protocolTraits.memberWireNames.isNotEmpty) {
       hasRenames = true;
       builder.addExpression(
-        literalConstMap({
-          for (final entry in protocolTraits.memberWireNames.entries)
-            entry.key.memberName: entry.value,
-        }).assignConst('renames'),
+        declareConst('renames').assign(
+          literalConstMap({
+            for (final entry in protocolTraits.memberWireNames.entries)
+              entry.key.memberName: entry.value,
+          }),
+        ),
       );
     }
     builder.statements.addAll([
