@@ -123,7 +123,11 @@ class MockAmplifyAPI extends AmplifyAPIDart {
 
   @override
   WebSocketConnection getWebSocketConnection({String? apiName}) =>
-      MockWebSocketConnection(testApiKeyConfig, getTestAuthProviderRepo());
+      MockWebSocketConnection(
+        testApiKeyConfig,
+        getTestAuthProviderRepo(),
+        logger: AmplifyLogger(),
+      );
 }
 
 void main() {

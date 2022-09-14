@@ -58,7 +58,6 @@ class AmplifyAPIDart extends AmplifyAPI {
     AWSHttpClient? baseHttpClient,
     this.modelProvider,
     this.subscriptionOptions,
-
   })  : _baseHttpClient = baseHttpClient,
         super.protected() {
     authProviders.forEach(registerAuthProvider);
@@ -146,7 +145,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     return _webSocketConnectionPool[endpoint.name] ??= WebSocketConnection(
       endpoint.config,
       _authProviderRepo,
-      subscriptionOptions,
+      subscriptionOptions: subscriptionOptions,
       logger: _logger.createChild(
         'webSocketConnection${endpoint.name}',
       ),
