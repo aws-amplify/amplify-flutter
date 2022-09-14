@@ -43,7 +43,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
 
   // ====== RestAPI ======
 
-  CancelableOperation<AWSStreamedHttpResponse> delete(
+  AWSHttpOperation delete(
     String path, {
     Map<String, String>? headers,
     HttpPayload? body,
@@ -57,7 +57,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
-  CancelableOperation<AWSStreamedHttpResponse> get(
+  AWSHttpOperation get(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -69,7 +69,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
-  CancelableOperation<AWSStreamedHttpResponse> head(
+  AWSHttpOperation head(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -81,7 +81,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
-  CancelableOperation<AWSStreamedHttpResponse> patch(
+  AWSHttpOperation patch(
     String path, {
     Map<String, String>? headers,
     HttpPayload? body,
@@ -95,7 +95,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
-  CancelableOperation<AWSStreamedHttpResponse> post(
+  AWSHttpOperation post(
     String path, {
     Map<String, String>? headers,
     HttpPayload? body,
@@ -109,7 +109,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
-  CancelableOperation<AWSStreamedHttpResponse> put(
+  AWSHttpOperation put(
     String path, {
     Map<String, String>? headers,
     HttpPayload? body,
