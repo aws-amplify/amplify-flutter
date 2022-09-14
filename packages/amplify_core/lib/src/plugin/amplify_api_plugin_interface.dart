@@ -53,7 +53,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   void registerAuthProvider(APIAuthProvider authProvider);
 
   // ====== RestAPI ======
-  CancelableOperation<AWSStreamedHttpResponse> delete(
+  AWSHttpOperation delete(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -66,7 +66,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   /// Uses Amplify configuration to authorize request to [path] and returns
   /// [CancelableOperation] which resolves to standard HTTP
   /// [Response](https://pub.dev/documentation/http/latest/http/Response-class.html).
-  CancelableOperation<AWSStreamedHttpResponse> get(
+  AWSHttpOperation get(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -75,7 +75,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('get() has not been implemented');
   }
 
-  CancelableOperation<AWSStreamedHttpResponse> head(
+  AWSHttpOperation head(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -84,7 +84,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('head() has not been implemented');
   }
 
-  CancelableOperation<AWSStreamedHttpResponse> patch(
+  AWSHttpOperation patch(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -94,7 +94,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('patch() has not been implemented');
   }
 
-  CancelableOperation<AWSStreamedHttpResponse> post(
+  AWSHttpOperation post(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -104,7 +104,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('post() has not been implemented');
   }
 
-  CancelableOperation<AWSStreamedHttpResponse> put(
+  AWSHttpOperation put(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
