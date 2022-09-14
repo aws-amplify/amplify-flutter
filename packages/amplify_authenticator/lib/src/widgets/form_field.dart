@@ -56,9 +56,8 @@ part 'form_fields/verify_user_form_field.dart';
 /// - [ConfirmSignUpFormField]
 /// - [VerifyUserFormField]
 /// {@endtemplate}
-abstract class AuthenticatorFormField<FieldType, FieldValue,
-        T extends AuthenticatorFormField<FieldType, FieldValue, T>>
-    extends AuthenticatorComponent<T> {
+abstract class AuthenticatorFormField<FieldType, FieldValue>
+    extends AuthenticatorComponent {
   /// {@macro amplify_authenticator.authenticator_form_field}
   const AuthenticatorFormField._({
     Key? key,
@@ -126,7 +125,7 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
 }
 
 abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
-        T extends AuthenticatorFormField<FieldType, FieldValue, T>>
+        T extends AuthenticatorFormField<FieldType, FieldValue>>
     extends AuthenticatorComponentState<T> {
   @nonVirtual
   Widget get visibilityToggle =>
