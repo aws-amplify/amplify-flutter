@@ -22,7 +22,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
 
 const testAccessToken = 'test-access-token-123';
 
@@ -59,7 +58,7 @@ class TestTokenAuthProvider extends TokenAmplifyAuthProvider {
   }
 }
 
-void validateSignedRequest(http.BaseRequest request) {
+void validateSignedRequest(AWSBaseHttpRequest request) {
   const userAgentHeader =
       zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
   expect(
@@ -77,7 +76,7 @@ const testApiKeyConfig = AWSApiConfig(
 );
 
 const expectedApiKeyWebSocketConnectionUrl =
-    'wss://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=eyJDb250ZW50LVR5cGUiOiJhcHBsaWNhdGlvbi9qc29uOyBjaGFyc2V0PVVURi04IiwiWC1BcGktS2V5IjoiYWJjLTEyMyIsIkFjY2VwdCI6ImFwcGxpY2F0aW9uL2pzb24sIHRleHQvamF2YXNjcmlwdCIsIkNvbnRlbnQtRW5jb2RpbmciOiJhbXotMS4wIiwiSG9zdCI6ImFiYzEyMy5hcHBzeW5jLWFwaS51cy1lYXN0LTEuYW1hem9uYXdzLmNvbSJ9&payload=e30%3D';
+    'wss://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=eyJBY2NlcHQiOiJhcHBsaWNhdGlvbi9qc29uLCB0ZXh0L2phdmFzY3JpcHQiLCJDb250ZW50LUVuY29kaW5nIjoiYW16LTEuMCIsIkNvbnRlbnQtVHlwZSI6ImFwcGxpY2F0aW9uL2pzb247IGNoYXJzZXQ9dXRmLTgiLCJYLUFwaS1LZXkiOiJhYmMtMTIzIiwiSG9zdCI6ImFiYzEyMy5hcHBzeW5jLWFwaS51cy1lYXN0LTEuYW1hem9uYXdzLmNvbSJ9&payload=e30%3D';
 
 AmplifyAuthProviderRepository getTestAuthProviderRepo() {
   final testAuthProviderRepo = AmplifyAuthProviderRepository();
