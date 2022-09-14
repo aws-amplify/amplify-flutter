@@ -40,7 +40,7 @@ import 'package:pigeon/pigeon.dart';
 @FlutterApi()
 abstract class NativeApiPlugin {
   @async
-  String getLatestAuthToken(String providerName);
+  String? getLatestAuthToken(String providerName);
 }
 
 @HostApi()

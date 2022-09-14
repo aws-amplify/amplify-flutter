@@ -36,7 +36,7 @@ import kotlinx.coroutines.withTimeout
  */
 class FlutterAuthProviders(
     private val authProviders: List<AuthorizationType>,
-    private val nativeApiPlugin: NativeApiPluginBindings.NativeApiPlugin?
+    private val nativeApiPlugin: NativeApiPluginBindings.NativeApiPlugin
 ) {
     private companion object {
         /**
@@ -54,19 +54,6 @@ class FlutterAuthProviders(
          */
         val coroutineName = CoroutineName(tag)
     }
-
-    /**
-     * The method channel used for Android -> Flutter communication. Should be cleared when the API
-     * plugin is detached from Flutter and set when it is reattached.
-     */
-    private var methodChannel: MethodChannel? = null
-
-    /**
-     * Configures the method channel for API authorization.
-     */
-//    fun setMethodChannel(methodChannel: MethodChannel?) {
-//        this.methodChannel = methodChannel
-//    }
 
     /**
      * A factory of [FlutterAuthProvider] instances.
@@ -92,10 +79,11 @@ class FlutterAuthProviders(
     fun getToken(authType: AuthorizationType): String? {
         // Not blocking the main thread is required for making platform channel calls without
         // deadlock.
-        if (Thread.currentThread() == Looper.getMainLooper().thread || methodChannel == null) {
+        if (Thread.currentThread() == Looper.getMainLooper().thread) {
             Log.e(tag, ExceptionMessages.createGithubIssueString)
             return null
         }
+
         try {
             return runBlocking(coroutineName) {
                 val completer = Job()
@@ -127,12 +115,8 @@ class FlutterAuthProviders(
                     }
                 }
                 launch(Dispatchers.Main) {
-//                    methodChannel!!.invokeMethod(
-//                        "getLatestAuthToken",
-//                        authType.name,
-//                        result
-//                    )
-                    nativeApiPlugin!!.getLatestAuthToken(authType.name) { resultToken ->
+
+                    nativeApiPlugin.getLatestAuthToken(authType.name) { resultToken ->
                         result.success(resultToken)
                     }
                 }

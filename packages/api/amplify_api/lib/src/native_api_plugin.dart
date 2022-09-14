@@ -28,7 +28,7 @@ class _NativeApiPluginCodec extends StandardMessageCodec {
 abstract class NativeApiPlugin {
   static const MessageCodec<Object?> codec = _NativeApiPluginCodec();
 
-  Future<String> getLatestAuthToken(String providerName);
+  Future<String?> getLatestAuthToken(String providerName);
   static void setup(NativeApiPlugin? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
@@ -44,7 +44,8 @@ abstract class NativeApiPlugin {
           final String? arg_providerName = (args[0] as String?);
           assert(arg_providerName != null,
               'Argument for dev.flutter.pigeon.NativeApiPlugin.getLatestAuthToken was null, expected non-null String.');
-          final String output = await api.getLatestAuthToken(arg_providerName!);
+          final String? output =
+              await api.getLatestAuthToken(arg_providerName!);
           return output;
         });
       }

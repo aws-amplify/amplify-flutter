@@ -96,6 +96,10 @@ class AmplifyAPIDart extends AmplifyAPI {
       return;
     }
 
+    // Configure this plugin to act as a native iOS/Android plugin.
+    final nativePlugin = _NativeAmplifyApi(_authProviders);
+    NativeApiPlugin.setup(nativePlugin);
+
     final nativeBridge = NativeApiBridge();
     try {
       final authProvidersList =
@@ -329,4 +333,32 @@ class AmplifyAPIDart extends AmplifyAPI {
       ).send(client),
     );
   }
+}
+
+class _NativeAmplifyApi
+    with AWSDebuggable, AmplifyLoggerMixin
+    implements NativeApiPlugin {
+  /// The registered [APIAuthProvider] instances.
+  final Map<APIAuthorizationType, APIAuthProvider> _authProviders;
+
+  _NativeAmplifyApi(this._authProviders);
+
+  @override
+  Future<String?> getLatestAuthToken(String providerName) {
+    final provider = APIAuthorizationTypeX.from(providerName);
+    if (provider == null) {
+      throw PlatformException(code: 'BAD_ARGUMENTS');
+    }
+    final authProvider = _authProviders[provider];
+    if (authProvider == null) {
+      throw PlatformException(
+        code: 'NO_PROVIDER',
+        message: 'No provider found for $authProvider',
+      );
+    }
+    return authProvider.getLatestAuthToken();
+  }
+
+  @override
+  String get runtimeTypeName => '_NativeAmplifyAApi';
 }

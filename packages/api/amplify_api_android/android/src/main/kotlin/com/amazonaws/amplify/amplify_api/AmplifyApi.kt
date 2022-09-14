@@ -70,7 +70,7 @@ class AmplifyApi : FlutterPlugin, NativeApiPluginBindings.NativeApiBridge {
         try {
             val authProviders = authProvidersList.map { AuthorizationType.valueOf(it) }
             if (flutterAuthProviders == null) {
-                flutterAuthProviders = FlutterAuthProviders(authProviders, nativePlugin)
+                flutterAuthProviders = FlutterAuthProviders(authProviders, nativePlugin!!)
             }
             Amplify.addPlugin(
                 AWSApiPlugin

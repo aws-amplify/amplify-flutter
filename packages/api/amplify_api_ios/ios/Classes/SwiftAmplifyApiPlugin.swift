@@ -21,16 +21,14 @@ import amplify_flutter_ios
 import AWSPluginsCore
 
 public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
-    static var methodChannel: FlutterMethodChannel!
-
+    /// Configured via `pigeon` and supports getting auth tokens from Dart when using OIDC/Lambda
+    /// auth modes with Datastore until Datastore implemented in Dart.
+    static var nativeApiPlugin: NativeApiPlugin!
+    
     public static func register(with registrar: FlutterPluginRegistrar) {
-        methodChannel = FlutterMethodChannel(
-            name: "com.amazonaws.amplify/api",
-            binaryMessenger: registrar.messenger())
+        nativeApiPlugin = NativeApiPlugin(binaryMessenger: registrar.messenger())
         let instance = SwiftAmplifyApiPlugin()
 
-        registrar.addMethodCallDelegate(instance, channel: methodChannel)
-        NativeApiBridgeSetup(registrar.messenger(), instance)
         NativeApiBridgeSetup(registrar.messenger(), instance)
     }
    
