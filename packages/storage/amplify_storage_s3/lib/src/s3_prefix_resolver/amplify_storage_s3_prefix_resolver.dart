@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,8 +13,14 @@
  * permissions and limitations under the License.
  */
 
-export 'S3UploadFile/S3UploadFileOptions.dart';
-export 'S3GetUrl/S3GetUrlOptions.dart';
-export 'S3List/S3ListOptions.dart';
-export 'S3DownloadFile/S3DownloadFileOptions.dart';
-export 's3_prefix_resolver/amplify_storage_s3_prefix_resolver.dart';
+import 'dart:async';
+
+import 'package:amplify_core/amplify_core.dart';
+
+abstract class StorageS3PrefixResolver {
+  /// Resolve prefix with given [StorageAccessLevel] and optional `identityId`.
+  Future<String> resolvePrefix({
+    required StorageAccessLevel storageAccessLevel,
+    String? identityId,
+  });
+}

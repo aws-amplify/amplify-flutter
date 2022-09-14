@@ -21,9 +21,11 @@ import android.util.Log
 import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_core.AtomicResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
+import com.amazonaws.amplify.amplify_storage_s3.types.FlutterPrefixResolver
 import com.amazonaws.amplify.amplify_storage_s3.types.TransferProgressStreamHandler
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin
+import com.amplifyframework.storage.s3.configuration.AWSS3StoragePluginConfiguration
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -44,14 +46,13 @@ class StorageS3 : FlutterPlugin, ActivityAware, MethodCallHandler {
     private val transferProgressStreamHandler: TransferProgressStreamHandler = TransferProgressStreamHandler()
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel =
-            MethodChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/storage_s3")
+        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/storage_s3")
         channel.setMethodCallHandler(this)
         context = flutterPluginBinding.applicationContext
 
         transferProgressEventChannel = EventChannel(
-            flutterPluginBinding.binaryMessenger,
-            "com.amazonaws.amplify/storage_transfer_progress_events"
+                flutterPluginBinding.binaryMessenger,
+                "com.amazonaws.amplify/storage_transfer_progress_events"
         )
         transferProgressEventChannel.setStreamHandler(transferProgressStreamHandler)
     }
@@ -59,9 +60,22 @@ class StorageS3 : FlutterPlugin, ActivityAware, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
         val result = AtomicResult(_result, call.method)
 
-        if (call.method == "addPlugin") {
+        val arguments = call.arguments as Map<String, *>
+
+        if (call.method == "configureStorage") {
             try {
-                Amplify.addPlugin(AWSS3StoragePlugin())
+                val hasPrefixResolver = arguments["hasPrefixResolver"] as? Boolean? == true
+                Amplify.addPlugin(
+                        AWSS3StoragePlugin(
+                                AWSS3StoragePluginConfiguration {
+                                    awsS3PluginPrefixResolver =
+                                            if (hasPrefixResolver)
+                                                FlutterPrefixResolver(methodChannel = channel)
+                                            else null
+                                }
+                        )
+                )
+
                 Log.i("AmplifyFlutter", "Added StorageS3 plugin")
                 result.success(null)
             } catch (e: Exception) {
@@ -73,21 +87,21 @@ class StorageS3 : FlutterPlugin, ActivityAware, MethodCallHandler {
         when (call.method) {
             "uploadFile" ->
                 AmplifyStorageOperations.uploadFile(
-                    result,
-                    call.arguments as Map<String, *>,
-                    transferProgressStreamHandler
+                        result,
+                        arguments,
+                        transferProgressStreamHandler
                 )
             "getUrl" ->
-                AmplifyStorageOperations.getUrl(result, call.arguments as Map<String, *>)
+                AmplifyStorageOperations.getUrl(result, arguments)
             "remove" ->
-                AmplifyStorageOperations.remove(result, call.arguments as Map<String, *>)
+                AmplifyStorageOperations.remove(result, arguments)
             "list" ->
-                AmplifyStorageOperations.list(result, call.arguments as Map<String, *>)
+                AmplifyStorageOperations.list(result, arguments)
             "downloadFile" ->
                 AmplifyStorageOperations.downloadFile(
-                    result,
-                    call.arguments as Map<String, *>,
-                    transferProgressStreamHandler
+                        result,
+                        arguments,
+                        transferProgressStreamHandler
                 )
             else -> result.notImplemented()
         }
