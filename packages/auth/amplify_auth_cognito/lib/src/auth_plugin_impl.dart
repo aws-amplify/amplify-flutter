@@ -161,7 +161,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
 
   @override
   Future<CognitoSignUpResult> signUp({
-    required SignUpRequest<CognitoSignUpOptions> request,
+    required SignUpRequest request,
   }) async {
     Map<String, String>? validationData;
     if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
@@ -169,7 +169,8 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
           await stateMachine.expect<NativeAuthBridge>().getValidationData();
       validationData = nativeValidationData.cast();
     }
-    var options = request.options ?? CognitoSignUpOptions();
+    var options =
+        request.options as CognitoSignUpOptions? ?? CognitoSignUpOptions();
     options = options.copyWith(
       validationData: {
         ...?validationData,
