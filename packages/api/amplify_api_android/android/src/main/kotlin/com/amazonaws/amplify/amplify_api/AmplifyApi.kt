@@ -85,46 +85,4 @@ class AmplifyApi : FlutterPlugin, NativeApiPluginBindings.NativeApiBridge {
             result.error(e)
         }
     }
-<<<<<<< HEAD
-=======
-
-    override fun onDetachedFromEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        flutterAuthProviders?.setMethodChannel(null)
-        channel?.setMethodCallHandler(null)
-        channel = null
-        eventchannel?.setStreamHandler(null)
-        eventchannel = null
-        graphqlSubscriptionStreamHandler?.close()
-        graphqlSubscriptionStreamHandler = null
-
-        NativeApiPluginBindings.NativeApiBridge.setup(
-            flutterPluginBinding.binaryMessenger,
-            null,
-        )
-    }
-
-    override fun addPlugin(
-        authProvidersList: MutableList<String>,
-        result: NativeApiPluginBindings.Result<Void>
-    ) {
-        try {
-            val authProviders = authProvidersList.map { AuthorizationType.valueOf(it) }
-            if (flutterAuthProviders == null) {
-                flutterAuthProviders = FlutterAuthProviders(authProviders)
-            }
-            flutterAuthProviders!!.setMethodChannel(channel)
-            Amplify.addPlugin(
-                AWSApiPlugin
-                    .builder()
-                    .apiAuthProviders(flutterAuthProviders!!.factory)
-                    .build()
-            )
-            logger.info("Added API plugin")
-            result.success(null)
-        } catch (e: Exception) {
-            logger.error(e.message)
-            result.error(e)
-        }
-    }
->>>>>>> feat/api-next
 }
