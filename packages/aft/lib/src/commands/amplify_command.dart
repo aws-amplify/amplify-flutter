@@ -188,6 +188,12 @@ abstract class AmplifyCommand extends Command<void>
     return response;
   }
 
+  /// Displays a yes/no prompt and returns whether the answer was positive.
+  bool promptYesNo(String message) {
+    final answer = prompt(message).toLowerCase();
+    return answer == 'y' || answer == 'yes';
+  }
+
   @override
   @mustCallSuper
   void close() {

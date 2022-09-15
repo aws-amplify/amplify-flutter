@@ -101,7 +101,7 @@ class _ChangelogUpdateCommand extends _ChangelogBaseCommand {
     await _updateChangelogs(preview: false);
 
     logger.info('Changelogs successfully updated');
-    if (yes || prompt('Commit changes? (y/N) ').toLowerCase() == 'y') {
+    if (yes || promptYesNo('Commit changes? (y/N) ')) {
       await runGit(['add', '.']);
       await runGit(['commit', '-m', 'chore(version): Update changelogs']);
     }
