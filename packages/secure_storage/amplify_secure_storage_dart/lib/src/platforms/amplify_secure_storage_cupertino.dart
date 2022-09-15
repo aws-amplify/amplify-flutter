@@ -176,7 +176,16 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   }) {
     final baseQueryAttributes = _getBaseAttributes(arena: arena);
     final query = _createCFDictionary(
-      map: baseQueryAttributes,
+      map: {
+        ...baseQueryAttributes,
+        // when useDataProtection (MacOS only) is disabled, SecItemDelete
+        // requires a match limit of kSecMatchLimitAll. However, SecItemDelete
+        // will return `errSecParam` when used on iOS with a match limit of kSecMatchLimitAll.
+        // When useDataProtection is true on MacOS, this match limit has no effect.
+        // This behavior is undocumented, and possibly a bug in keychain on iOS.
+        if (Platform.isMacOS && !config.macOSOptions.useDataProtection)
+          security.kSecMatchLimit: security.kSecMatchLimitAll,
+      },
       arena: arena,
     );
     final status = security.SecItemDelete(query);

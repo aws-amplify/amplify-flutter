@@ -30,8 +30,17 @@ abstract class MacOSSecureStorageOptions
   /// #### [useDataProtection]
   /// {@template amplify_secure_storage_dart.macos_secure_storage_options.useDataProtection}
   /// Sets the [`kSecUseDataProtectionKeychain`](https://developer.apple.com/documentation/security/keychain_services/keychain_items/sharing_access_to_keychain_items_among_a_collection_of_apps)
-  /// attribute for all Keychain operations. Set this to true to
-  /// enforce that Keychain items behave like iOS Keychain items.
+  /// attribute for all Keychain operations.
+  ///
+  /// This value defaults to true to enforce that
+  /// MacOS Keychain items behave like iOS Keychain items.
+  /// This prevents other applications from accessing
+  /// or modifying items created by the current application.
+  ///
+  /// **Warning:** This should not be disabled in production applications.
+  /// This value is only exposed for testing. Disabling it lowers
+  /// the security of your application and can cause secure storage
+  /// to have unexpected behaviors.
   /// {@endtemplate}
   ///
   /// #### [accessible]

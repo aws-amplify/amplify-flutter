@@ -23,7 +23,9 @@ import 'package:integration_test/integration_test.dart';
 
 const scope = 'test';
 const key1 = 'key_1';
+const key2 = 'key_2';
 const value1 = 'value_1';
+const value2 = 'value_2';
 
 // Enabling useDataProtection requires that the app is
 // added to at least one access group.
@@ -38,15 +40,22 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   group('${Platform.operatingSystem} app uninstall & re-install', () {
     final userDefaults = NSUserDefaultsAPI();
+    final storage = AmplifySecureStorage(
+      config: AmplifySecureStorageConfig(
+        scope: scope,
+        macOSOptions: macOSOptions,
+      ),
+    );
+
+    tearDown(() async {
+      await storage.delete(key: key1);
+      await storage.delete(key: key2);
+    });
     test('Previous keys are cleared when a new scope is initialized', () async {
       // initialize storage and store a value
-      final storage = AmplifySecureStorage(
-        config: AmplifySecureStorageConfig(
-          scope: scope,
-          macOSOptions: macOSOptions,
-        ),
-      );
+
       await storage.write(key: key1, value: value1);
+      await storage.write(key: key2, value: value2);
 
       // assert value IS NOT cleared when initializing a new instance with an existing scope
       final storage1 = AmplifySecureStorage(
@@ -56,6 +65,7 @@ void main() {
         ),
       );
       expect(await storage1.read(key: key1), isNotNull);
+      expect(await storage1.read(key: key2), isNotNull);
 
       // Sets the current scope to an uninitialized state, similar to
       // an app uninstall
@@ -72,6 +82,7 @@ void main() {
         ),
       );
       expect(await storage2.read(key: key1), isNull);
+      expect(await storage2.read(key: key2), isNull);
     });
   });
 }
