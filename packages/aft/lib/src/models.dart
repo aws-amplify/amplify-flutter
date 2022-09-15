@@ -28,10 +28,6 @@ import 'package:yaml_edit/yaml_edit.dart';
 
 part 'models.g.dart';
 
-/// Packages which report as an example app, but should be considered as
-/// publishable for some purposes.
-const falsePositiveExamples = ['aft', 'smithy_codegen'];
-
 /// The flavor of a package, e.g. Dart/Flutter.
 enum PackageFlavor {
   flutter('Flutter', 'flutter'),
@@ -95,10 +91,19 @@ class PackageInfo
         !isExample;
   }
 
+  /// Whether the package is used in development.
+  bool get isDevelopmentPackage => !isExample && !isTestPackage;
+
   /// Whether the package is an example package.
   bool get isExample {
-    return pubspecInfo.pubspec.publishTo == 'none' ||
-        falsePositiveExamples.contains(name);
+    return p.basename(path) == 'example';
+  }
+
+  /// Whether the package is a test package.
+  bool get isTestPackage {
+    return p.basename(path).endsWith('_test') ||
+        path.contains('goldens') ||
+        p.basename(path).contains('e2e');
   }
 
   /// The parsed `CHANGELOG.md`.
@@ -108,7 +113,9 @@ class PackageInfo
   }
 
   /// The current version in `pubspec.yaml`.
-  Version get version => pubspecInfo.pubspec.version!;
+  Version get version =>
+      pubspecInfo.pubspec.version ??
+      (throw StateError('No version for package: $name'));
 
   /// Resolves the latest version information from `pub.dev`.
   Future<PubVersionInfo?> resolveVersionInfo(http.Client client) async {

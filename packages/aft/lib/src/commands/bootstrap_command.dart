@@ -52,8 +52,7 @@ class BootstrapCommand extends AmplifyCommand {
   /// Creates an empty `amplifyconfiguration.dart` file.
   Future<void> _createEmptyConfig(PackageInfo package) async {
     // Only create for example apps.
-    if (package.pubspecInfo.pubspec.publishTo == null ||
-        falsePositiveExamples.contains(package.name)) {
+    if (!package.isExample) {
       return;
     }
     final file = File(

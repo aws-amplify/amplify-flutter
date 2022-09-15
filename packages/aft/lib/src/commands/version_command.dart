@@ -66,7 +66,7 @@ abstract class _VersionBaseCommand extends AmplifyCommand
     );
     final changelogUpdates = repo.changelogUpdates;
 
-    for (final package in repo.publishablePackages) {
+    for (final package in repo.developmentPackages) {
       final edits = package.pubspecInfo.pubspecYamlEditor.edits;
       if (edits.isNotEmpty) {
         if (preview) {

@@ -45,8 +45,8 @@ class Repo {
 
   final AftConfig aftConfig;
 
-  late final List<PackageInfo> publishablePackages = UnmodifiableListView(
-    allPackages.values.where((pkg) => !pkg.isExample).toList(),
+  late final List<PackageInfo> developmentPackages = UnmodifiableListView(
+    allPackages.values.where((pkg) => pkg.isDevelopmentPackage).toList(),
   );
 
   /// The components of the
@@ -153,7 +153,7 @@ class Repo {
       );
       if (changedPackage != null &&
           // Do not track example packages for git ops
-          !changedPackage.isExample) {
+          changedPackage.isDevelopmentPackage) {
         changedPackages.add(changedPackage);
       }
     }
@@ -209,7 +209,7 @@ class Repo {
   void bumpAllVersions({
     required GitChanges Function(PackageInfo) changesForPackage,
   }) {
-    final sortedPackages = List.of(publishablePackages);
+    final sortedPackages = List.of(developmentPackages);
     sortPackagesTopologically(
       sortedPackages,
       (PackageInfo pkg) => pkg.pubspecInfo.pubspec,
@@ -284,7 +284,7 @@ class Repo {
           reversedPackageGraph,
           root: package,
           (dependent) {
-            if (!dependent.isExample) {
+            if (dependent.isDevelopmentPackage) {
               bumpVersion(dependent, commit: commit);
             }
             bumpDependency(package, dependent);
