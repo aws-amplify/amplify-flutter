@@ -28,7 +28,6 @@ import 'amplify_api_config.dart';
 import 'amplify_authorization_rest_client.dart';
 import 'graphql/app_sync_api_key_auth_provider.dart';
 import 'graphql/send_graphql_request.dart';
-import 'util.dart';
 
 /// {@template amplify_api.amplify_api_dart}
 /// The AWS implementation of the Amplify API category.
@@ -244,7 +243,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     return AWSStreamedHttpRequest.delete(
       uri,
       body: body,
-      headers: addContentTypeToHeaders(headers, body),
+      headers: headers,
     ).send(client);
   }
 
@@ -290,7 +289,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return AWSStreamedHttpRequest.patch(
       uri,
-      headers: addContentTypeToHeaders(headers, body),
+      headers: headers,
       body: body ?? const HttpPayload.empty(),
     ).send(client);
   }
@@ -307,7 +306,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return AWSStreamedHttpRequest.post(
       uri,
-      headers: addContentTypeToHeaders(headers, body),
+      headers: headers,
       body: body ?? const HttpPayload.empty(),
     ).send(client);
   }
@@ -324,7 +323,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return AWSStreamedHttpRequest.put(
       uri,
-      headers: addContentTypeToHeaders(headers, body),
+      headers: headers,
       body: body ?? const HttpPayload.empty(),
     ).send(client);
   }
