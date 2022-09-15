@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 
 /// Allows callers to synchronously get unstreamed response with the decoded body.
