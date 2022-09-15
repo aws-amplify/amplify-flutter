@@ -37,7 +37,7 @@ dependencies:
   yaml_edit: ^2.0.3
 
 dependency_overrides:
-  built_value: 8.3.3
+  built_value: ">=8.4.0 <8.5.0"
 
 dev_dependencies:
   amplify_lints:

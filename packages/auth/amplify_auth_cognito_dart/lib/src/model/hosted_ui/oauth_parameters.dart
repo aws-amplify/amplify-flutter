@@ -28,9 +28,7 @@ part 'oauth_parameters.g.dart';
 /// - [OAuth 2.0 Error Codes](https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.2.1)
 /// - [OIDC Error Codes](https://openid.net/specs/openid-connect-core-1_0.html#AuthError)
 class OAuthErrorCode extends EnumClass {
-  // TODO(dnys1): Remove when built_value supports super parameters.
-  // ignore: use_super_parameters
-  const OAuthErrorCode._(String name) : super(name);
+  const OAuthErrorCode._(super.name);
 
   /// The request is missing a required parameter, includes an invalid parameter
   /// value, includes a parameter more than once, or is otherwise malformed.

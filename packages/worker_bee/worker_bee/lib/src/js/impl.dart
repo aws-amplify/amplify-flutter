@@ -294,7 +294,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
 
             return;
           } on Object catch (e, st) {
-            logger.error('Error initializing worker', e, st);
+            logger.debug('Error initializing worker', e, st);
             continue;
           }
         }
