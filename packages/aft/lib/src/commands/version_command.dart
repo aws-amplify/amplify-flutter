@@ -21,10 +21,22 @@ import 'package:aft/src/repo.dart';
 import 'package:path/path.dart' as p;
 
 /// Command for bumping package versions across the repo.
-class VersionCommand extends AmplifyCommand {
+class VersionCommand extends AmplifyCommand with GitRefOptions, GlobOptions {
   VersionCommand() {
-    addSubcommand(_VersionUpdateCommand());
-    addSubcommand(_VersionPreviewCommand());
+    argParser
+      ..addFlag(
+        'preview',
+        help: 'Preview version changes without applying',
+        defaultsTo: false,
+        negatable: false,
+      )
+      ..addFlag(
+        'yes',
+        abbr: 'y',
+        help: 'Responds "yes" to all prompts',
+        defaultsTo: false,
+        negatable: false,
+      );
   }
 
   @override
@@ -32,22 +44,11 @@ class VersionCommand extends AmplifyCommand {
       'Bump package versions automatically using git magic';
 
   @override
-  String get name => 'version';
-}
-
-abstract class _VersionBaseCommand extends AmplifyCommand
-    with GitRefOptions, GlobOptions {
-  _VersionBaseCommand() {
-    argParser.addFlag(
-      'yes',
-      abbr: 'y',
-      help: 'Responds "yes" to all prompts',
-      defaultsTo: false,
-      negatable: false,
-    );
-  }
+  String get name => 'version-bump';
 
   late final bool yes = argResults!['yes'] as bool;
+
+  late final bool preview = argResults!['preview'] as bool;
 
   GitChanges _changesForPackage(PackageInfo package) {
     final baseRef = this.baseRef ?? repo.latestTag(package.name);
@@ -60,7 +61,7 @@ abstract class _VersionBaseCommand extends AmplifyCommand
     return repo.changes(baseRef, headRef);
   }
 
-  Future<void> _updateVersions({required bool preview}) async {
+  Future<void> _updateVersions() async {
     repo.bumpAllVersions(
       changesForPackage: _changesForPackage,
     );
@@ -94,41 +95,22 @@ abstract class _VersionBaseCommand extends AmplifyCommand
       }
     }
   }
-}
-
-class _VersionPreviewCommand extends _VersionBaseCommand {
-  @override
-  String get description => 'Previews changes to package versions';
-
-  @override
-  String get name => 'preview';
 
   @override
   Future<void> run() async {
-    return _updateVersions(preview: true);
-  }
-}
+    await _updateVersions();
 
-class _VersionUpdateCommand extends _VersionBaseCommand {
-  @override
-  String get description => 'Updates package versions';
-
-  @override
-  String get name => 'update';
-
-  @override
-  Future<void> run() async {
-    await _updateVersions(preview: false);
-
-    logger.info('Version successfully bumped');
-    if (yes || prompt('Commit changes? (y/N) ').toLowerCase() == 'y') {
-      // Commit and tag changes
-      await runGit(['add', '.']);
-      await runGit(['commit', '-m', 'chore(version): Bump version']);
-      await Future.wait<void>([
-        for (final changeEntry in repo.versionChanges.entries)
-          runGit(['tag', '${changeEntry.key}_v${changeEntry.value}']),
-      ]);
+    if (!preview) {
+      logger.info('Version successfully bumped');
+      if (yes || prompt('Commit changes? (y/N) ').toLowerCase() == 'y') {
+        // Commit and tag changes
+        await runGit(['add', '.']);
+        await runGit(['commit', '-m', 'chore(version): Bump version']);
+        await Future.wait<void>([
+          for (final changeEntry in repo.versionChanges.entries)
+            runGit(['tag', '${changeEntry.key}_v${changeEntry.value}']),
+        ]);
+      }
     }
   }
 }

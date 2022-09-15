@@ -18,7 +18,7 @@ A CLI tool for managing the Amplify Flutter repository.
   - `get`: Runs `dart pub get`/`flutter pub get` for all packages
   - `upgrade`: Runs `dart pub upgrade`/`flutter pub upgrade` for all packages
   - `publish`: Runs `dart pub publish`/`flutter pub publish` for all packages which need publishing
-- `version`: Bumps version using git history
+- `version-bump`: Bumps version using git history
 
 ## Setup
 
