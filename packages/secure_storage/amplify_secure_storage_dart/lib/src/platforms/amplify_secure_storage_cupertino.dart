@@ -165,12 +165,9 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     }
   }
 
-  /// Removes an item from the keychain.
+  /// Removes all items from the keychain.
   ///
-  /// If no key is provided, all keys under the current
-  /// scope will be removed.
-  ///
-  /// throws [ItemNotFoundException] if the item is not in the keychain.
+  /// throws [ItemNotFoundException] if no items are found in the keychain.
   void _removeAll({
     required Arena arena,
   }) {
