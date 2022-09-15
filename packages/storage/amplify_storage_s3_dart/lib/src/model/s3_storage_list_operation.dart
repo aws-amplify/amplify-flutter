@@ -13,17 +13,16 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
-/// {@template amplify_storage_s3_dart.prefix_resolver}
-/// Defines the interface of a S3 prefix resolver.
+/// {@template storage.amplify_storage_s3.list_operation}
+/// An operation created by calling Storage S3 plugin `list` API.
 /// {@endtemplate}
-abstract class StorageS3PrefixResolver {
-  /// {@macro amplify_storage_s3_dart.prefix_resolver}
-  const StorageS3PrefixResolver();
-
-  /// Resolve prefix with given [StorageAccessLevel] and optional `identityId`.
-  Future<String> resolvePrefix({
-    required StorageAccessLevel storageAccessLevel,
-    String? identityId,
+class S3StorageListOperation extends StorageListOperation<
+    StorageListRequest<S3StorageListOptions>, S3StorageListResult> {
+  /// {@macro storage.amplify_storage_s3.list_operation}
+  S3StorageListOperation({
+    required super.request,
+    required super.result,
   });
 }

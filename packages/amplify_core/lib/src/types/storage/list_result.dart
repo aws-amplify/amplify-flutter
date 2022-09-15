@@ -32,7 +32,7 @@ class StorageListResult<Items extends List<StorageItem>> {
   final bool hasNext;
 
   /// Function to list the next page.
-  Future<StorageListResult<Items>> get next => _next();
+  Future<StorageListResult<Items>> next() => _next();
 
   final Future<StorageListResult<Items>> Function() _next;
 }

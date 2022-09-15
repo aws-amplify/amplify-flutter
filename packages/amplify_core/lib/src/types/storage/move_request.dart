@@ -17,7 +17,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.storage.move_request}
 /// Presents a storage copy request.
 /// {@endtemplate}
-class StorageMoveRequest<Item extends StorageItemWithAccessLevel> {
+class StorageMoveRequest<Item extends StorageItem> {
   /// {@macro amplify_core.storage.move_request}
   const StorageMoveRequest({
     required this.source,
@@ -25,8 +25,8 @@ class StorageMoveRequest<Item extends StorageItemWithAccessLevel> {
   });
 
   /// Move source object.
-  final Item source;
+  final StorageItemWithAccessLevel<Item> source;
 
   /// Move destination object.
-  final Item destination;
+  final StorageItemWithAccessLevel<Item> destination;
 }

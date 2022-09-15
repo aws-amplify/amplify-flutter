@@ -15,6 +15,7 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/prefix_resolver/storage_access_level_aware_prefix_resolver.dart';
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_storage_s3_dart.amplify_storage_s3_plugin_dart}
@@ -22,8 +23,8 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 class AmplifyStorageS3Dart extends StoragePluginInterface<
     // TODO(HuiSF): replace with Storage S3 types
-    StorageListOperation,
-    StorageListOptions,
+    S3StorageListOperation,
+    S3StorageListOptions,
     StorageGetPropertiesOperation,
     StorageGetPropertiesOptions,
     StorageGetUrlOperation,
@@ -36,20 +37,22 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     StorageRemoveOptions,
     StorageRemoveManyOperation,
     StorageRemoveManyOptions,
-    StorageItemWithAccessLevel> {
+    S3StorageItem> with AWSDebuggable, AWSLoggerMixin {
   /// {@macro amplify_storage_s3_dart.amplify_storage_s3_plugin_dart}
   AmplifyStorageS3Dart({
     String? delimiter,
-    StorageS3PrefixResolver? prefixResolver,
+    S3StoragePrefixResolver? prefixResolver,
+    @visibleForTesting DependencyManager? dependencyManagerOverride,
   })  : _delimiter = delimiter,
-        _prefixResolver = prefixResolver;
+        _prefixResolver = prefixResolver,
+        _dependencyManager = dependencyManagerOverride ?? DependencyManager();
 
   // TODO(HuiSF): replace with S3 specific types to the generic parameters
   /// A plugin key which can be used with `Amplify.Storage.getPlugin` to retrieve
   /// a S3-specific Storage category interface.
   static const StoragePluginKey<
-      StorageListOperation,
-      StorageListOptions,
+      S3StorageListOperation,
+      S3StorageListOptions,
       StorageGetPropertiesOperation,
       StorageGetPropertiesOptions,
       StorageGetUrlOperation,
@@ -62,20 +65,21 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
       StorageRemoveOptions,
       StorageRemoveManyOperation,
       StorageRemoveManyOptions,
-      StorageItemWithAccessLevel,
+      S3StorageItem,
       AmplifyStorageS3Dart> pluginKey = _AmplifyStorageS3DartPluginKey();
 
   final String? _delimiter;
+  final DependencyManager _dependencyManager;
 
-  // TODO(HuiSF): remove ignore when using this field
-  // ignore: unused_field
   late final S3PluginConfig _s3pluginConfig;
 
-  StorageS3PrefixResolver? _prefixResolver;
+  S3StoragePrefixResolver? _prefixResolver;
 
-  /// Gets prefix resolver
+  /// Gets prefix resolver for testing
   @visibleForTesting
-  StorageS3PrefixResolver? get prefixResolver => _prefixResolver;
+  S3StoragePrefixResolver? get prefixResolver => _prefixResolver;
+
+  StorageS3Service get _storageS3Service => _dependencyManager.expect();
 
   @override
   Future<void> configure({
@@ -106,19 +110,47 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
       identityProvider: identityProvider,
     );
 
-    // TODO(HuiSF): create S3Client instance with
-    //  * credentialsProvider
-    //  * _prefixResolver
-    //  * other fields
-    // final credentialsProvider = authProviderRepo
-    //     .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
+    final credentialsProvider = authProviderRepo
+        .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
+
+    if (credentialsProvider == null) {
+      throw const StorageException(
+        'No credential provider found for Storage.',
+        recoverySuggestion:
+            'If you haven\'t already, please add amplify_auth_cognito plugin to your App.',
+      );
+    }
+
+    _dependencyManager.addInstance<StorageS3Service>(
+      StorageS3Service(
+        credentialsProvider: credentialsProvider,
+        defaultBucket: _s3pluginConfig.bucket,
+        defaultRegion: _s3pluginConfig.region,
+        prefixResolver: _prefixResolver!,
+        logger: logger,
+      ),
+    );
   }
 
   @override
-  StorageListOperation list({
+  S3StorageListOperation list({
     required StorageListRequest request,
   }) {
-    throw UnimplementedError();
+    final s3Options = request.options as S3StorageListOptions?;
+
+    return S3StorageListOperation(
+      request: StorageListRequest(
+        path: request.path,
+        options: s3Options,
+      ),
+      result: _storageS3Service.list(
+        path: request.path,
+        options: s3Options ??
+            S3StorageListOptions(
+              storageAccessLevel: _s3pluginConfig.defaultAccessLevel,
+            ),
+      ),
+    );
   }
 
   @override
@@ -158,12 +190,15 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
 
   // TODO(HuiSF): add interface for remaining APIs
   //  uploadFile, downloadFile, downloadData
+
+  @override
+  String get runtimeTypeName => 'AmplifyStorageS3Dart';
 }
 
 // TODO(HuiSF): replace with S3 specific types to the generic parameters
 class _AmplifyStorageS3DartPluginKey extends StoragePluginKey<
-    StorageListOperation,
-    StorageListOptions,
+    S3StorageListOperation,
+    S3StorageListOptions,
     StorageGetPropertiesOperation,
     StorageGetPropertiesOptions,
     StorageGetUrlOperation,
@@ -176,7 +211,7 @@ class _AmplifyStorageS3DartPluginKey extends StoragePluginKey<
     StorageRemoveOptions,
     StorageRemoveManyOperation,
     StorageRemoveManyOptions,
-    StorageItemWithAccessLevel,
+    S3StorageItem,
     AmplifyStorageS3Dart> {
   const _AmplifyStorageS3DartPluginKey();
 

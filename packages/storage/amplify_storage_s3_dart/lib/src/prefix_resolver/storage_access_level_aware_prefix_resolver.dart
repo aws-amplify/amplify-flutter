@@ -24,7 +24,7 @@ import 'package:meta/meta.dart';
 /// * [StorageAccessLevel.protected] resolves `'protected/<userIdentityId>'`
 /// * [StorageAccessLevel.private] resolves `'private/<userIdentityId>'`
 /// {@endtemplate}
-class StorageAccessLevelAwarePrefixResolver implements StorageS3PrefixResolver {
+class StorageAccessLevelAwarePrefixResolver implements S3StoragePrefixResolver {
   /// {@macro amplify_storage_s3_dart.storage_access_level_aware_prefix_resolver}
   StorageAccessLevelAwarePrefixResolver({
     required TokenIdentityAmplifyAuthProvider identityProvider,

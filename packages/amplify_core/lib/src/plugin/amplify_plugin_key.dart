@@ -121,7 +121,7 @@ abstract class StoragePluginKey<
     PluginStorageRemoveOptions extends StorageRemoveOptions,
     PluginStorageRemoveManyOperation extends StorageRemoveManyOperation,
     PluginStorageRemoveManyOptions extends StorageRemoveManyOptions,
-    PluginStorageItemWithAccessLevel extends StorageItemWithAccessLevel,
+    PluginStorageItem extends StorageItem,
     P extends StoragePluginInterface<
         PluginStorageListOperation,
         PluginStorageListOptions,
@@ -137,6 +137,6 @@ abstract class StoragePluginKey<
         PluginStorageRemoveOptions,
         PluginStorageRemoveManyOperation,
         PluginStorageRemoveManyOptions,
-        PluginStorageItemWithAccessLevel>> extends AmplifyPluginKey<P> {
+        PluginStorageItem>> extends AmplifyPluginKey<P> {
   const StoragePluginKey();
 }

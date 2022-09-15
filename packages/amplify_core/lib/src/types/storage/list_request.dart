@@ -19,7 +19,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class StorageListRequest<Options extends StorageListOptions> {
   /// {@macro amplify_core.storage.list_request}
-  StorageListRequest({
+  const StorageListRequest({
     this.path,
     this.options,
   });
