@@ -19,6 +19,8 @@ import 'package:pigeon/pigeon.dart';
 @ConfigurePigeon(
   PigeonOptions(
     dartOut: 'lib/src/messages.cupertino.g.dart',
+    // TODO(Jordan-Nelson): Switch to use swift when it
+    // is no longer considered experimental.
     objcOptions: ObjcOptions(
       header: 'Messages.h',
     ),
