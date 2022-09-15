@@ -95,7 +95,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     });
 
     // Register OIDC/Lambda auth providers.
-    for (var authProvider in _authProviders.values) {
+    for (final authProvider in _authProviders.values) {
       _authProviderRepo.registerAuthProvider(
         authProvider.type.authProviderToken,
         OidcFunctionAuthProvider(authProvider),
