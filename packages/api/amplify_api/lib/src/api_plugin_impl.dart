@@ -19,6 +19,7 @@ import 'dart:io';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_api/src/native_api_plugin.dart';
+import 'package:amplify_api/src/oidc_function_api_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
@@ -75,17 +76,31 @@ class AmplifyAPIDart extends AmplifyAPI {
     _registerApiPluginAuthProviders();
   }
 
+  /// Register AmplifyAuthProviders that are specific to API category (API key,
+  /// OIDC or Lambda).
+  ///
   /// If an endpoint has an API key, ensure valid auth provider registered.
+  ///
+  /// Register OIDC/Lambda set to _authProviders in constructor.
   void _registerApiPluginAuthProviders() {
     _apiConfig.endpoints.forEach((key, value) {
       // Check the presence of apiKey (not auth type) because other modes might
       // have a key if not the primary auth mode.
       if (value.apiKey != null) {
         _authProviderRepo.registerAuthProvider(
-            value.authorizationType.authProviderToken,
-            AppSyncApiKeyAuthProvider());
+          value.authorizationType.authProviderToken,
+          AppSyncApiKeyAuthProvider(),
+        );
       }
     });
+
+    // Register OIDC/Lambda auth providers.
+    for (final authProvider in _authProviders.values) {
+      _authProviderRepo.registerAuthProvider(
+        authProvider.type.authProviderToken,
+        OidcFunctionAuthProvider(authProvider),
+      );
+    }
   }
 
   @override
