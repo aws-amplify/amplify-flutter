@@ -25,7 +25,7 @@ void main({bool useExistingTestUser = false}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   HttpPayload generateTestPayload() => HttpPayload.json({'name': 'mow lawn'});
-  void validateRestResponse(AWSHttpResponse response) {
+  void validateRestResponse(AWSBaseHttpResponse response) {
     final body = response.decodeBody();
     expect(response.statusCode, 200);
     expect(body, expectedResponseText);
