@@ -245,12 +245,12 @@ class Repo {
   Version bumpVersion(
     PackageInfo package, {
     bool propagate = false,
-    CommitMessage? commit,
+    required CommitMessage commit,
   }) {
     final component = aftConfig.componentForPackage(package.name);
     final currentVersion = package.version;
     final currentProposedVersion = versionChanges.newVersion(package);
-    final isBreakingChange = commit?.isBreakingChange ?? false;
+    final isBreakingChange = commit.isBreakingChange;
     final newProposedVersion = currentVersion.nextAmplifyVersion(
       isBreakingChange: isBreakingChange,
     );
@@ -263,7 +263,7 @@ class Repo {
     if (newVersion > currentVersion) {
       logger.debug(
         'Bumping ${package.name} from $currentProposedVersion to $newVersion: '
-        '${commit?.summary}',
+        '${commit.summary}',
       );
       package.pubspecInfo.pubspecYamlEditor.update(
         ['version'],
@@ -273,7 +273,7 @@ class Repo {
       changelogUpdates[package] = package.changelog.update(
         commits: {
           ...?currentChangelogUpdate?.commits,
-          if (commit != null) commit,
+          commit,
         },
         version: newVersion,
       );
