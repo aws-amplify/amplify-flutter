@@ -174,3 +174,22 @@ class MockWebSocketConnection extends WebSocketConnection {
     messageStream.add(messageStr);
   }
 }
+
+// From https://docs.amplify.aws/lib/graphqlapi/authz/q/platform/flutter/#oidc
+
+const testOidcToken = '[OPEN-ID-CONNECT-TOKEN]';
+const testFunctionToken = '[FUNCTION-CONNECT-TOKEN]';
+
+class CustomOIDCProvider extends OIDCAuthProvider {
+  const CustomOIDCProvider();
+
+  @override
+  Future<String?> getLatestAuthToken() async => testOidcToken;
+}
+
+class CustomFunctionProvider extends FunctionAuthProvider {
+  const CustomFunctionProvider();
+
+  @override
+  Future<String?> getLatestAuthToken() async => testFunctionToken;
+}

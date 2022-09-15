@@ -15,11 +15,18 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'package:meta/meta.dart';
 
 /// An identifier to use as a key in an [AmplifyAuthProviderRepository] so that
 /// a retrieved auth provider can be typed more accurately.
-class AmplifyAuthProviderToken<T extends AmplifyAuthProvider> extends Token<T> {
-  const AmplifyAuthProviderToken();
+///
+/// Does not extend [Token] because [Token] is equal to another [Token] of same
+/// type which has unintended consequences.
+@immutable
+class AmplifyAuthProviderToken<T extends AmplifyAuthProvider> {
+  final String name;
+
+  const AmplifyAuthProviderToken(this.name);
 }
 
 abstract class AuthProviderOptions {

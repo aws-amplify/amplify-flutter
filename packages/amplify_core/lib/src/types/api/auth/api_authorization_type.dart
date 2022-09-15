@@ -28,14 +28,14 @@ part 'api_authorization_type.g.dart';
 enum APIAuthorizationType<T extends AmplifyAuthProvider> {
   /// For public APIs.
   @JsonValue('NONE')
-  none(AmplifyAuthProviderToken<AmplifyAuthProvider>()),
+  none(AmplifyAuthProviderToken<AmplifyAuthProvider>('NONE')),
 
   /// A hardcoded key which can provide throttling for an unauthenticated API.
   ///
   /// See also:
   /// - [API Key Authorization](https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#api-key-authorization)
   @JsonValue('API_KEY')
-  apiKey(AmplifyAuthProviderToken<ApiKeyAmplifyAuthProvider>()),
+  apiKey(AmplifyAuthProviderToken<ApiKeyAmplifyAuthProvider>('API_KEY')),
 
   /// Use an IAM access/secret key credential pair to authorize access to an API.
   ///
@@ -43,7 +43,7 @@ enum APIAuthorizationType<T extends AmplifyAuthProvider> {
   /// - [IAM Authorization](https://docs.aws.amazon.com/appsync/latest/devguide/security.html#aws-iam-authorization)
   /// - [IAM Introduction](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
   @JsonValue('AWS_IAM')
-  iam(AmplifyAuthProviderToken<AWSIamAmplifyAuthProvider>()),
+  iam(AmplifyAuthProviderToken<AWSIamAmplifyAuthProvider>('AWS_IAM')),
 
   /// OpenID Connect is a simple identity layer on top of OAuth2.0.
   ///
@@ -51,21 +51,23 @@ enum APIAuthorizationType<T extends AmplifyAuthProvider> {
   /// - [OpenID Connect Authorization](https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#openid-connect-authorization)
   /// - [OpenID Connect Specification](https://openid.net/specs/openid-connect-core-1_0.html)
   @JsonValue('OPENID_CONNECT')
-  oidc(AmplifyAuthProviderToken<TokenAmplifyAuthProvider>()),
+  oidc(AmplifyAuthProviderToken<TokenAmplifyAuthProvider>('OPENID_CONNECT')),
 
   /// Control access to date by putting users into different permissions pools.
   ///
   /// See also:
   /// - [Amazon Cognito User Pools](https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#amazon-cognito-user-pools-authorization)
   @JsonValue('AMAZON_COGNITO_USER_POOLS')
-  userPools(AmplifyAuthProviderToken<TokenAmplifyAuthProvider>()),
+  userPools(AmplifyAuthProviderToken<TokenAmplifyAuthProvider>(
+    'AMAZON_COGNITO_USER_POOLS',
+  )),
 
   /// Control access by calling a lambda function.
   ///
   /// See also:
   /// - [Introducing Lambda authorization for AWS AppSync GraphQL APIs](https://aws.amazon.com/blogs/mobile/appsync-lambda-auth/)
   @JsonValue('AWS_LAMBDA')
-  function(AmplifyAuthProviderToken<TokenAmplifyAuthProvider>());
+  function(AmplifyAuthProviderToken<TokenAmplifyAuthProvider>('AWS_LAMBDA'));
 
   const APIAuthorizationType(this.authProviderToken);
   final AmplifyAuthProviderToken<T> authProviderToken;
