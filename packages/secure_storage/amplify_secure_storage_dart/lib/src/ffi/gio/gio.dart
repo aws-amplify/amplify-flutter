@@ -12,18 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_secure_storage/amplify_secure_storage.dart';
-import 'package:amplify_secure_storage_test/amplify_secure_storage_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
+import 'dart:ffi';
 
-AmplifySecureStorage storageFactory({
-  required AmplifySecureStorageConfig config,
-}) {
-  return AmplifySecureStorage(config: config);
-}
+import 'package:amplify_secure_storage_dart/src/ffi/gio/gio.bindings.g.dart';
+import 'package:amplify_secure_storage_dart/src/ffi/utils/dynamic_library_utils.dart';
 
-void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  group('Secure Storage', () => runTests(storageFactory));
-}
+export 'gio.bindings.g.dart' hide Gio;
+
+final DynamicLibrary glibDyLib = openDynamicLibrary('libgio-2.0');
+
+final Gio gio = Gio(glibDyLib);

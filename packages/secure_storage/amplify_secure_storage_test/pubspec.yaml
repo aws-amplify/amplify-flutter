@@ -16,7 +16,7 @@ dependency_overrides:
     path: ../../aws_common
   worker_bee:
     path: ../../worker_bee/worker_bee
-  
+
 dev_dependencies:
   amplify_lints:
     path: ../../amplify_lints

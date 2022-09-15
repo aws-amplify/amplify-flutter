@@ -69,8 +69,8 @@ abstract class AmplifySecureStorageConfig
   /// used in the following way on each platform:
   /// - iOS & macOS: the Keychain service name
   /// - Android: the EncryptedSharedPreferences file name
-  /// - Windows: the prefix for the target name of each secret
-  /// - Linux: the SecretSchema schema name
+  /// - Windows: the prefix for file name used to store encrypted data
+  /// - Linux: prefix for the SecretSchema schema name
   /// - Web: the Indexed DB Database name
   String get defaultNamespace => namespace ?? 'com.amplify.$scope';
 
@@ -99,6 +99,24 @@ abstract class AmplifySecureStorageConfig
 
   /// Options that are specific to the iOS platform.
   IOSSecureStorageOptions get iOSOptions;
+
+  AmplifySecureStorageConfig copyWith({
+    String? scope,
+    WebSecureStorageOptions? webOptions,
+    WindowsSecureStorageOptions? windowsOptions,
+    LinuxSecureStorageOptions? linuxOptions,
+    MacOSSecureStorageOptions? macOSOptions,
+    IOSSecureStorageOptions? iOSOptions,
+  }) {
+    return _$AmplifySecureStorageConfig._(
+      scope: scope ?? this.scope,
+      webOptions: webOptions ?? this.webOptions,
+      windowsOptions: windowsOptions ?? this.windowsOptions,
+      linuxOptions: linuxOptions ?? this.linuxOptions,
+      macOSOptions: macOSOptions ?? this.macOSOptions,
+      iOSOptions: iOSOptions ?? this.iOSOptions,
+    );
+  }
 
   /// The [AmplifySecureStorageConfig] serializer.
   static Serializer<AmplifySecureStorageConfig> get serializer =>

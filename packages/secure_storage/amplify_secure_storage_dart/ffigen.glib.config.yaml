@@ -2,15 +2,16 @@
 #
 # To regenerate, run: `make ffi_bindings_linux`
 
-output: 'lib/src/ffi/glib/glib.bindings.g.dart'
-name: 'Glib'
-description: 'Bindings to glib'
+output: "lib/src/ffi/glib/glib.bindings.g.dart"
+name: "Glib"
+description: "Bindings to glib"
 headers:
   entry-points:
-    - 'external/glib/glib/glib.h'
-    - 'external/glib/gio/gio.h'
+    - "external/glib/glib/glib.h"
+    - "external/glib/glib/glib-object.h"
+    - "external/glib/gio/gio.h"
 compiler-opts:
-- '-I./external/glib/'
+  - "-I./external/glib/"
 functions:
   include:
     - g_hash_table_new
@@ -20,9 +21,11 @@ structs:
   include:
     - _GError
     - _GCancellable
+    - _GObject
   rename:
-    '_GError': 'GError'
-    '_GCancellable': 'GCancellable'
+    "_GError": "GError"
+    "_GCancellable": "GCancellable"
+    "_GObject": "GObject"
 enums:
   include:
     - NONE
@@ -38,3 +41,4 @@ unions:
 unnamed-enums:
   include:
     - NONE
+comments: false

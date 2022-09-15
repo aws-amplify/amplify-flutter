@@ -83,6 +83,10 @@ for PKG in ${PKGS}; do
         echo 'dart analyze --fatal-infos lib test'
         dart analyze --fatal-infos lib test || EXIT_CODE=$?
         ;;
+      analyze_4)
+        echo 'flutter analyze --fatal-infos lib pigeons'
+        flutter analyze --fatal-infos lib pigeons || EXIT_CODE=$?
+        ;;
       command_0)
         echo 'dart --version'
         dart --version || EXIT_CODE=$?
