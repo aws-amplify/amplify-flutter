@@ -12,16 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:smithy/smithy.dart';
+import 'package:test/test.dart';
 
-/// A S3 prefix resolver that doesn't add extra prefix.
-class PassThroughPrefixResolver implements S3StoragePrefixResolver {
-  @override
-  Future<String> resolvePrefix({
-    required StorageAccessLevel storageAccessLevel,
-    String? identityId,
-  }) async {
-    return '';
-  }
+void main() {
+  group('StorageS3Exception', () {
+    test(
+        'should create StorageS3Exception.unknownServiceException on unrecognizable UnknownSmithyHttpException',
+        () {
+      const smithyException =
+          UnknownSmithyHttpException(statusCode: 500, body: 'some error');
+      final exception =
+          S3StorageException.fromUnknownSmithyHttpException(smithyException);
+
+      expect(exception.underlyingException, smithyException);
+      expect(
+        exception.message,
+        S3StorageException.unknownServiceException().message,
+      );
+    });
+  });
 }

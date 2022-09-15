@@ -38,12 +38,13 @@ typedef StorageItems<Item extends StorageItem> = List<Item>;
 /// {@template amplify_core.storage.storage_item_access_level}
 /// Presents a storage object with its access level information.
 /// {@endtemplate}
-class StorageItemWithAccessLevel extends StorageItem {
+class StorageItemWithAccessLevel<Item extends StorageItem> {
   /// {@macro amplify_core.storage.storage_item_access_level}
   const StorageItemWithAccessLevel({
-    required super.key,
+    required this.storageItem,
     required this.storageAccessLevel,
   });
 
+  final Item storageItem;
   final StorageAccessLevel storageAccessLevel;
 }

@@ -40,7 +40,7 @@ class StorageCategory<
     PluginStorageRemoveOptions extends StorageRemoveOptions,
     PluginStorageRemoveManyOperation extends StorageRemoveManyOperation,
     PluginStorageRemoveManyOptions extends StorageRemoveManyOptions,
-    PluginStorageItemWithAccessLevel extends StorageItemWithAccessLevel,
+    PluginStorageItem extends StorageItem,
     Plugin extends StoragePluginInterface<
         PluginStorageListOperation,
         PluginStorageListOptions,
@@ -56,11 +56,11 @@ class StorageCategory<
         PluginStorageRemoveOptions,
         PluginStorageRemoveManyOperation,
         PluginStorageRemoveManyOptions,
-        PluginStorageItemWithAccessLevel>> extends AmplifyCategory<Plugin> {
+        PluginStorageItem>> extends AmplifyCategory<Plugin> {
   StorageCategory([Plugin? plugin]) : _pluginOverride = plugin;
 
   final Plugin? _pluginOverride;
-  Plugin get _plugin => _pluginOverride ?? _plugin;
+  Plugin get _plugin => _pluginOverride ?? defaultPlugin;
 
   @override
   @nonVirtual
@@ -81,7 +81,7 @@ class StorageCategory<
       GetPluginStorageRemoveOptions,
       GetPluginStorageRemoveManyOperation,
       GetPluginStorageRemoveManyOptions,
-      GetPluginStorageItemWithAccessLevel,
+      GetPluginStorageItem,
       P> getPlugin<
           GetPluginStorageListOperation extends StorageListOperation,
           GetPluginStorageListOptions extends StorageListOptions,
@@ -97,7 +97,7 @@ class StorageCategory<
           GetPluginStorageRemoveOptions extends StorageRemoveOptions,
           GetPluginStorageRemoveManyOperation extends StorageRemoveManyOperation,
           GetPluginStorageRemoveManyOptions extends StorageRemoveManyOptions,
-          GetPluginStorageItemWithAccessLevel extends StorageItemWithAccessLevel,
+          GetPluginStorageItem extends StorageItem,
           P extends StoragePluginInterface<
               GetPluginStorageListOperation,
               GetPluginStorageListOptions,
@@ -113,7 +113,7 @@ class StorageCategory<
               GetPluginStorageRemoveOptions,
               GetPluginStorageRemoveManyOperation,
               GetPluginStorageRemoveManyOptions,
-              GetPluginStorageItemWithAccessLevel>>(
+              GetPluginStorageItem>>(
     StoragePluginKey<
             GetPluginStorageListOperation,
             GetPluginStorageListOptions,
@@ -129,7 +129,7 @@ class StorageCategory<
             GetPluginStorageRemoveOptions,
             GetPluginStorageRemoveManyOperation,
             GetPluginStorageRemoveManyOptions,
-            GetPluginStorageItemWithAccessLevel,
+            GetPluginStorageItem,
             P>
         pluginKey,
   ) =>
@@ -211,8 +211,8 @@ class StorageCategory<
   /// Makes a copy of the `source` to `destination` with [StorageCopyOptions].
   /// {@endtemplate}
   PluginStorageCopyOperation copy({
-    required PluginStorageItemWithAccessLevel source,
-    required PluginStorageItemWithAccessLevel destination,
+    required StorageItemWithAccessLevel<PluginStorageItem> source,
+    required StorageItemWithAccessLevel<PluginStorageItem> destination,
   }) {
     final request = StorageCopyRequest(
       source: source,
@@ -230,8 +230,8 @@ class StorageCategory<
   ///   2. delete the source object
   /// {@endtemplate}
   PluginStorageMoveOperation move({
-    required PluginStorageItemWithAccessLevel source,
-    required PluginStorageItemWithAccessLevel destination,
+    required StorageItemWithAccessLevel<PluginStorageItem> source,
+    required StorageItemWithAccessLevel<PluginStorageItem> destination,
   }) {
     final request = StorageMoveRequest(
       source: source,

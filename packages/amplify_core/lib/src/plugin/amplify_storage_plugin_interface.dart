@@ -22,22 +22,21 @@ import 'package:meta/meta.dart';
 ///
 /// {@macro amplify_core.amplify_storage_category}
 abstract class StoragePluginInterface<
-        PluginStorageListOperation extends StorageListOperation,
-        PluginStorageListOptions extends StorageListOptions,
-        PluginStorageGetPropertiesOperation extends StorageGetPropertiesOperation,
-        PluginStorageGetPropertiesOptions extends StorageGetPropertiesOptions,
-        PluginStorageGetUrlOperation extends StorageGetUrlOperation,
-        PluginStorageGetUrlOptions extends StorageGetUrlOptions,
-        PluginStorageUploadDataOperation extends StorageUploadDataOperation,
-        PluginStorageUploadDataOptions extends StorageUploadDataOptions,
-        PluginStorageCopyOperation extends StorageCopyOperation,
-        PluginStorageMoveOperation extends StorageMoveOperation,
-        PluginStorageRemoveOperation extends StorageRemoveOperation,
-        PluginStorageRemoveOptions extends StorageRemoveOptions,
-        PluginStorageRemoveManyOperation extends StorageRemoveManyOperation,
-        PluginStorageRemoveManyOptions extends StorageRemoveManyOptions,
-        PluginStorageItemWithAccessLevel extends StorageItemWithAccessLevel>
-    extends AmplifyPluginInterface {
+    PluginStorageListOperation extends StorageListOperation,
+    PluginStorageListOptions extends StorageListOptions,
+    PluginStorageGetPropertiesOperation extends StorageGetPropertiesOperation,
+    PluginStorageGetPropertiesOptions extends StorageGetPropertiesOptions,
+    PluginStorageGetUrlOperation extends StorageGetUrlOperation,
+    PluginStorageGetUrlOptions extends StorageGetUrlOptions,
+    PluginStorageUploadDataOperation extends StorageUploadDataOperation,
+    PluginStorageUploadDataOptions extends StorageUploadDataOptions,
+    PluginStorageCopyOperation extends StorageCopyOperation,
+    PluginStorageMoveOperation extends StorageMoveOperation,
+    PluginStorageRemoveOperation extends StorageRemoveOperation,
+    PluginStorageRemoveOptions extends StorageRemoveOptions,
+    PluginStorageRemoveManyOperation extends StorageRemoveManyOperation,
+    PluginStorageRemoveManyOptions extends StorageRemoveManyOptions,
+    PluginStorageItem extends StorageItem> extends AmplifyPluginInterface {
   @override
   @nonVirtual
   Category get category => Category.storage;
@@ -72,14 +71,14 @@ abstract class StoragePluginInterface<
 
   /// {@macro amplify_core.amplify_storage_category.copy}
   PluginStorageCopyOperation copy({
-    required StorageCopyRequest<PluginStorageItemWithAccessLevel> request,
+    required StorageCopyRequest<PluginStorageItem> request,
   }) {
     throw UnimplementedError('uploadFile() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.move}
   PluginStorageMoveOperation move({
-    required StorageMoveRequest<PluginStorageItemWithAccessLevel> request,
+    required StorageMoveRequest<PluginStorageItem> request,
   }) {
     throw UnimplementedError('uploadFile() has not been implemented.');
   }

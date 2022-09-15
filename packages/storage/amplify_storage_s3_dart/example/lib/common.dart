@@ -11,17 +11,26 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+import 'dart:convert';
 
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
-/// A S3 prefix resolver that doesn't add extra prefix.
-class PassThroughPrefixResolver implements S3StoragePrefixResolver {
-  @override
-  Future<String> resolvePrefix({
-    required StorageAccessLevel storageAccessLevel,
-    String? identityId,
-  }) async {
-    return '';
-  }
+import 'amplifyconfiguration.dart';
+
+Future<void> configureAmplify() async {
+  final secureStorage = AmplifySecureStorageDart(
+    config: AmplifySecureStorageConfig(
+      scope: 'auth',
+      macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+    ),
+  );
+
+  final auth = AmplifyAuthCognitoDart(credentialStorage: secureStorage);
+  final storage = AmplifyStorageS3Dart();
+
+  await Amplify.addPlugins([auth, storage]);
+  await Amplify.configure(amplifyconfig);
 }

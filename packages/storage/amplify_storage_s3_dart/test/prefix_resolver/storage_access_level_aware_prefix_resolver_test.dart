@@ -20,12 +20,12 @@ import '../utils/test_token_provider.dart';
 
 void main() {
   group('StorageAccessLevelAwarePrefixResolver', () {
-    final testTokenProvider = TestTokenProvider();
+    final testTokenIdentityProvider = TestTokenIdentityProvider();
 
     test('should resolve correct prefix for `StorageAccessLevel.guest`',
         () async {
       final prefixResolver = StorageAccessLevelAwarePrefixResolver(
-        identityProvider: testTokenProvider,
+        identityProvider: testTokenIdentityProvider,
       );
 
       final result = await prefixResolver.resolvePrefix(
@@ -41,7 +41,7 @@ void main() {
       const delimiter = '(fancySlash)';
       final prefixResolver = StorageAccessLevelAwarePrefixResolver(
         delimiter: delimiter,
-        identityProvider: testTokenProvider,
+        identityProvider: testTokenIdentityProvider,
       );
 
       final result = await prefixResolver.resolvePrefix(
@@ -50,7 +50,7 @@ void main() {
 
       expect(
         result,
-        '${StorageAccessLevel.protected.defaultPrefix}$delimiter${await testTokenProvider.getIdentityId()}$delimiter',
+        '${StorageAccessLevel.protected.defaultPrefix}$delimiter${await testTokenIdentityProvider.getIdentityId()}$delimiter',
       );
     });
 
@@ -59,7 +59,7 @@ void main() {
         () async {
       const testIdentityId = 'custom-id-123';
       final prefixResolver = StorageAccessLevelAwarePrefixResolver(
-        identityProvider: testTokenProvider,
+        identityProvider: testTokenIdentityProvider,
       );
 
       final result = await prefixResolver.resolvePrefix(
@@ -76,7 +76,7 @@ void main() {
     test('should resolve correct prefix for `StorageAccessLevel.private`',
         () async {
       final prefixResolver = StorageAccessLevelAwarePrefixResolver(
-        identityProvider: testTokenProvider,
+        identityProvider: testTokenIdentityProvider,
       );
 
       final result = await prefixResolver.resolvePrefix(
@@ -85,7 +85,7 @@ void main() {
 
       expect(
         result,
-        '${StorageAccessLevel.private.defaultPrefix}/${await testTokenProvider.getIdentityId()}/',
+        '${StorageAccessLevel.private.defaultPrefix}/${await testTokenIdentityProvider.getIdentityId()}/',
       );
     });
 
@@ -94,7 +94,7 @@ void main() {
         () async {
       const testIdentityId = 'custom-id-123';
       final prefixResolver = StorageAccessLevelAwarePrefixResolver(
-        identityProvider: testTokenProvider,
+        identityProvider: testTokenIdentityProvider,
       );
 
       final result = await prefixResolver.resolvePrefix(
