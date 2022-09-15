@@ -68,7 +68,6 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
       return authorizedRequest;
     case APIAuthorizationType.function:
     case APIAuthorizationType.oidc:
-      throw UnimplementedError('${authType.name} not implemented.');
     case APIAuthorizationType.userPools:
       final authProvider = _validateAuthProvider(
         authProviderRepo.getAuthProvider(authType.authProviderToken),
