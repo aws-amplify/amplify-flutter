@@ -122,6 +122,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
       final key = '$scopeStoragePrefix.${config.scope}.isKeychainConfigured';
       final isInitialized = await userDefaults.boolFor(key);
       if (!isInitialized) {
+        // ignore: invalid_use_of_internal_member
         await _instance.removeAll();
         await userDefaults.setBool(key, true);
       }
