@@ -247,10 +247,7 @@ Future<GraphQLResponse<T?>> establishSubscriptionAndMutate<T>(
   return response;
 }
 
-Matcher hasNoGraphQLErrors<T>(GraphQLResponse<T> response) {
-  return predicate(
-    (GraphQLResponse<T> response) =>
-        !response.hasErrors && response.data != null,
-    'Has no GraphQL Errors',
-  );
-}
+final hasNoGraphQLErrors = predicate<GraphQLResponse>(
+  (GraphQLResponse response) => !response.hasErrors && response.data != null,
+  'Has no GraphQL Errors',
+);
