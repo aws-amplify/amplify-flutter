@@ -354,5 +354,5 @@ class _NativeAmplifyApi
   }
 
   @override
-  String get runtimeTypeName => '_NativeAmplifyAApi';
+  String get runtimeTypeName => '_NativeAmplifyApi';
 }
