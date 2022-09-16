@@ -104,3 +104,39 @@ abstract class AuthPluginKey<
   /// {@macro amplify_core.plugin.auth_plugin_key}
   const AuthPluginKey();
 }
+
+// TODO(HuiSF): Define generic parameters for all API types
+abstract class StoragePluginKey<
+    PluginStorageListOperation extends StorageListOperation,
+    PluginStorageListOptions extends StorageListOptions,
+    PluginStorageGetPropertiesOperation extends StorageGetPropertiesOperation,
+    PluginStorageGetPropertiesOptions extends StorageGetPropertiesOptions,
+    PluginStorageGetUrlOperation extends StorageGetUrlOperation,
+    PluginStorageGetUrlOptions extends StorageGetUrlOptions,
+    PluginStorageUploadDataOperation extends StorageUploadDataOperation,
+    PluginStorageUploadDataOptions extends StorageUploadDataOptions,
+    PluginStorageCopyOperation extends StorageCopyOperation,
+    PluginStorageMoveOperation extends StorageMoveOperation,
+    PluginStorageRemoveOperation extends StorageRemoveOperation,
+    PluginStorageRemoveOptions extends StorageRemoveOptions,
+    PluginStorageRemoveManyOperation extends StorageRemoveManyOperation,
+    PluginStorageRemoveManyOptions extends StorageRemoveManyOptions,
+    PluginStorageItemWithAccessLevel extends StorageItemWithAccessLevel,
+    P extends StoragePluginInterface<
+        PluginStorageListOperation,
+        PluginStorageListOptions,
+        PluginStorageGetPropertiesOperation,
+        PluginStorageGetPropertiesOptions,
+        PluginStorageGetUrlOperation,
+        PluginStorageGetUrlOptions,
+        PluginStorageUploadDataOperation,
+        PluginStorageUploadDataOptions,
+        PluginStorageCopyOperation,
+        PluginStorageMoveOperation,
+        PluginStorageRemoveOperation,
+        PluginStorageRemoveOptions,
+        PluginStorageRemoveManyOperation,
+        PluginStorageRemoveManyOptions,
+        PluginStorageItemWithAccessLevel>> extends AmplifyPluginKey<P> {
+  const StoragePluginKey();
+}
