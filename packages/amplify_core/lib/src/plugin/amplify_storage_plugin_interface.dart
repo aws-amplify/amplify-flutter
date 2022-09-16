@@ -21,63 +21,79 @@ import 'package:meta/meta.dart';
 /// Defines Amplify Storage plugin interface.
 ///
 /// {@macro amplify_core.amplify_storage_category}
-abstract class StoragePluginInterface extends AmplifyPluginInterface {
+abstract class StoragePluginInterface<
+        PluginStorageListOperation extends StorageListOperation,
+        PluginStorageListOptions extends StorageListOptions,
+        PluginStorageGetPropertiesOperation extends StorageGetPropertiesOperation,
+        PluginStorageGetPropertiesOptions extends StorageGetPropertiesOptions,
+        PluginStorageGetUrlOperation extends StorageGetUrlOperation,
+        PluginStorageGetUrlOptions extends StorageGetUrlOptions,
+        PluginStorageUploadDataOperation extends StorageUploadDataOperation,
+        PluginStorageUploadDataOptions extends StorageUploadDataOptions,
+        PluginStorageCopyOperation extends StorageCopyOperation,
+        PluginStorageMoveOperation extends StorageMoveOperation,
+        PluginStorageRemoveOperation extends StorageRemoveOperation,
+        PluginStorageRemoveOptions extends StorageRemoveOptions,
+        PluginStorageRemoveManyOperation extends StorageRemoveManyOperation,
+        PluginStorageRemoveManyOptions extends StorageRemoveManyOptions,
+        PluginStorageItemWithAccessLevel extends StorageItemWithAccessLevel>
+    extends AmplifyPluginInterface {
   @override
   @nonVirtual
   Category get category => Category.storage;
 
   /// {@macro amplify_core.amplify_storage_category.list}
-  StorageListOperation list({
-    required StorageListRequest request,
+  PluginStorageListOperation list({
+    required StorageListRequest<PluginStorageListOptions> request,
   }) {
     throw UnimplementedError('list() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.get_properties}
-  StorageGetPropertiesOperation getProperties({
-    required StorageGetPropertiesRequest request,
+  PluginStorageGetPropertiesOperation getProperties({
+    required StorageGetPropertiesRequest<StorageGetPropertiesOptions> request,
   }) {
     throw UnimplementedError('stat() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.get_url}
-  StorageGetUrlOperation getUrl({
-    required StorageGetUrlRequest request,
+  PluginStorageGetUrlOperation getUrl({
+    required StorageGetUrlRequest<PluginStorageGetUrlOptions> request,
   }) {
     throw UnimplementedError('getUrl() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.upload_data}
-  StorageUploadDataOperation uploadData({
-    required StorageUploadDataRequest request,
+  PluginStorageUploadDataOperation uploadData({
+    required StorageUploadDataRequest<PluginStorageUploadDataOptions> request,
   }) {
     throw UnimplementedError('uploadData() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.copy}
-  StorageCopyOperation copy({
-    required StorageCopyRequest request,
+  PluginStorageCopyOperation copy({
+    required StorageCopyRequest<PluginStorageItemWithAccessLevel> request,
   }) {
     throw UnimplementedError('uploadFile() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.move}
-  StorageMoveOperation move({
-    required StorageMoveRequest request,
+  PluginStorageMoveOperation move({
+    required StorageMoveRequest<PluginStorageItemWithAccessLevel> request,
   }) {
     throw UnimplementedError('uploadFile() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.remove}
-  StorageRemoveOperation remove({
-    required StorageRemoveRequest request,
+  PluginStorageRemoveOperation remove({
+    required StorageRemoveRequest<PluginStorageRemoveOptions> request,
   }) {
     throw UnimplementedError('remove() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.remove_many}
-  StorageRemoveManyOperation removeMany({
-    required StorageRemoveManyRequest request,
+  PluginStorageRemoveManyOperation removeMany({
+    required StorageRemoveManyRequest<PluginStorageRemoveManyOptions> request,
   }) {
     throw UnimplementedError('removeMany() has not been implemented.');
   }

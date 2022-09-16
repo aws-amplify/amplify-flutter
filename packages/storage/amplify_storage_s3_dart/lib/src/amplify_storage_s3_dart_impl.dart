@@ -20,13 +20,50 @@ import 'package:meta/meta.dart';
 /// {@template amplify_storage_s3_dart.amplify_storage_s3_plugin_dart}
 /// The Dart S3 plugin the Amplify Storage Category.
 /// {@endtemplate}
-class AmplifyStorageS3Dart extends StoragePluginInterface {
+class AmplifyStorageS3Dart extends StoragePluginInterface<
+    // TODO(HuiSF): replace with Storage S3 types
+    StorageListOperation,
+    StorageListOptions,
+    StorageGetPropertiesOperation,
+    StorageGetPropertiesOptions,
+    StorageGetUrlOperation,
+    StorageGetUrlOptions,
+    StorageUploadDataOperation,
+    StorageUploadDataOptions,
+    StorageCopyOperation,
+    StorageMoveOperation,
+    StorageRemoveOperation,
+    StorageRemoveOptions,
+    StorageRemoveManyOperation,
+    StorageRemoveManyOptions,
+    StorageItemWithAccessLevel> {
   /// {@macro amplify_storage_s3_dart.amplify_storage_s3_plugin_dart}
   AmplifyStorageS3Dart({
     String? delimiter,
     StorageS3PrefixResolver? prefixResolver,
   })  : _delimiter = delimiter,
         _prefixResolver = prefixResolver;
+
+  // TODO(HuiSF): replace with S3 specific types to the generic parameters
+  /// A plugin key which can be used with `Amplify.Storage.getPlugin` to retrieve
+  /// a S3-specific Storage category interface.
+  static const StoragePluginKey<
+      StorageListOperation,
+      StorageListOptions,
+      StorageGetPropertiesOperation,
+      StorageGetPropertiesOptions,
+      StorageGetUrlOperation,
+      StorageGetUrlOptions,
+      StorageUploadDataOperation,
+      StorageUploadDataOptions,
+      StorageCopyOperation,
+      StorageMoveOperation,
+      StorageRemoveOperation,
+      StorageRemoveOptions,
+      StorageRemoveManyOperation,
+      StorageRemoveManyOptions,
+      StorageItemWithAccessLevel,
+      AmplifyStorageS3Dart> pluginKey = _AmplifyStorageS3DartPluginKey();
 
   final String? _delimiter;
 
@@ -121,4 +158,28 @@ class AmplifyStorageS3Dart extends StoragePluginInterface {
 
   // TODO(HuiSF): add interface for remaining APIs
   //  uploadFile, downloadFile, downloadData
+}
+
+// TODO(HuiSF): replace with S3 specific types to the generic parameters
+class _AmplifyStorageS3DartPluginKey extends StoragePluginKey<
+    StorageListOperation,
+    StorageListOptions,
+    StorageGetPropertiesOperation,
+    StorageGetPropertiesOptions,
+    StorageGetUrlOperation,
+    StorageGetUrlOptions,
+    StorageUploadDataOperation,
+    StorageUploadDataOptions,
+    StorageCopyOperation,
+    StorageMoveOperation,
+    StorageRemoveOperation,
+    StorageRemoveOptions,
+    StorageRemoveManyOperation,
+    StorageRemoveManyOptions,
+    StorageItemWithAccessLevel,
+    AmplifyStorageS3Dart> {
+  const _AmplifyStorageS3DartPluginKey();
+
+  @override
+  String get runtimeTypeName => 'AmplifyStorageS3DartPluginKey';
 }
