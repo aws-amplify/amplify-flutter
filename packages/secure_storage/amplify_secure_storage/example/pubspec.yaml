@@ -1,7 +1,7 @@
 name: amplify_secure_storage_example
 description: Demonstrates how to use the amplify_secure_storage plugin and houses the integration tests
 
-publish_to: 'none'
+publish_to: "none"
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -16,12 +16,17 @@ dependencies:
 dev_dependencies:
   amplify_lints:
     path: ../../../amplify_lints
+  amplify_secure_storage_dart:
+    path: ../../amplify_secure_storage_test
   amplify_secure_storage_test:
     path: ../../amplify_secure_storage_test
+  aws_common:
+    path: ../../../aws_common
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
+  path_provider: ^2.0.0
 
 flutter:
   uses-material-design: true

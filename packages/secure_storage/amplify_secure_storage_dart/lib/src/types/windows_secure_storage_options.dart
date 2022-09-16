@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -25,22 +24,30 @@ abstract class WindowsSecureStorageOptions
     implements
         Built<WindowsSecureStorageOptions, WindowsSecureStorageOptionsBuilder> {
   /// {@macro amplify_secure_storage_dart.windows_secure_storage_options}
+  ///
+  /// ### [storagePath]
+  /// {@template amplify_secure_storage_dart.linux_secure_storage_options.storage_path}
+  /// The location in the file system that will be used to store
+  /// encrypted data.
+  ///
+  /// If not provided, the application directory will be used in Flutter.
+  /// An in memory file system will be used when this value is not
+  /// provided in a non-flutter application.
+  /// {@endtemplate}
   factory WindowsSecureStorageOptions({
-    String? targetNamePrefix,
+    String? storagePath,
   }) = _$WindowsSecureStorageOptions._;
 
   const WindowsSecureStorageOptions._();
 
-  /// The prefix for the "TargetName", which is used to identify the
-  /// secret in Windows Credential Manager.
-  ///
-  /// This will also be used for the "Username".
-  ///
-  /// If no value is provided, [AmplifySecureStorageConfig.defaultNamespace]
-  /// will be used as the prefix.
-  ///
-  /// Reference: [Wincred](https://docs.microsoft.com/en-us/windows/win32/api/wincred/ns-wincred-credentiala)
-  String? get targetNamePrefix;
+  /// {@macro amplify_secure_storage_dart.linux_secure_storage_options.storage_path}
+  String? get storagePath;
+
+  WindowsSecureStorageOptions copyWith({String? storagePath}) {
+    return WindowsSecureStorageOptions(
+      storagePath: storagePath ?? this.storagePath,
+    );
+  }
 
   /// The [WindowsSecureStorageOptions] serializer.
   static Serializer<WindowsSecureStorageOptions> get serializer =>

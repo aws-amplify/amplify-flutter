@@ -20,7 +20,7 @@ import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 
 mixin AuthenticatorRadioField<FieldType, FieldValue,
-        T extends AuthenticatorFormField<FieldType, FieldValue, T>>
+        T extends AuthenticatorFormField<FieldType, FieldValue>>
     on AuthenticatorFormFieldState<FieldType, FieldValue, T>
     implements SelectableConfig<InputResolverKey, FieldValue> {
   @override

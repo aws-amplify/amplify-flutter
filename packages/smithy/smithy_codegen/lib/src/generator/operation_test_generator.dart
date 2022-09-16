@@ -386,73 +386,73 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
     if (testCase.vendorParamsShape != null) {
       final vendorParamsSymbol = context.symbolFor(testCase.vendorParamsShape!);
       initBlock.addExpression(
-        refer('vendorSerializers')
-            .property('deserialize')
-            .call([
-              literalMap(testCase.vendorParams)
-            ], {
-              'specifiedType': vendorParamsSymbol.fullType(),
-            })
-            .asA(vendorParamsSymbol)
-            .assignFinal('config'),
+        declareFinal('config')
+            .assign(refer('vendorSerializers').property('deserialize').call([
+          literalMap(testCase.vendorParams)
+        ], {
+          'specifiedType': vendorParamsSymbol.fullType(),
+        }).asA(vendorParamsSymbol)),
       );
     }
     if (context.service?.resolvedService?.sdkId == 'S3') {
       if (testCase.vendorParamsShape != null) {
         initBlock.addExpression(
-          DartTypes.smithyAws.s3ClientConfig.newInstance([], {
-            'useAcceleration': refer('config')
-                .property('scopedConfig')
-                .nullSafeProperty('operation')
-                .nullSafeProperty('s3')
-                .nullSafeProperty('useAccelerateEndpoint')
-                .ifNullThen(refer('config')
-                    .property('scopedConfig')
-                    .nullSafeProperty('client')
-                    .nullSafeProperty('s3')
-                    .nullSafeProperty('useAccelerateEndpoint'))
-                .ifNullThen(literalFalse),
-            'useDualStack': refer('config')
-                .property('scopedConfig')
-                .nullSafeProperty('operation')
-                .nullSafeProperty('s3')
-                .nullSafeProperty('useDualstackEndpoint')
-                .ifNullThen(refer('config')
-                    .property('scopedConfig')
-                    .nullSafeProperty('client')
-                    .nullSafeProperty('s3')
-                    .nullSafeProperty('useDualstackEndpoint'))
-                .ifNullThen(literalFalse),
-            'usePathStyle': CodeExpression(Block.of([
-              const Code('('),
-              refer('config')
+          declareFinal('s3ClientConfig').assign(
+            DartTypes.smithyAws.s3ClientConfig.newInstance([], {
+              'useAcceleration': refer('config')
                   .property('scopedConfig')
                   .nullSafeProperty('operation')
                   .nullSafeProperty('s3')
-                  .nullSafeProperty('addressingStyle')
+                  .nullSafeProperty('useAccelerateEndpoint')
                   .ifNullThen(refer('config')
                       .property('scopedConfig')
                       .nullSafeProperty('client')
                       .nullSafeProperty('s3')
-                      .nullSafeProperty('addressingStyle'))
-                  .code,
-              const Code(')'),
-            ])).equalTo(context
-                .symbolFor(const ShapeId(
-                    namespace: 'aws.protocoltests.config',
-                    shape: 'S3AddressingStyle'))
-                .property('path')),
-            'signerConfiguration':
-                DartTypes.awsSigV4.s3ServiceConfiguration.newInstance([], {
-              'signPayload': literalFalse,
-              'chunked': literalFalse,
-            })
-          }).assignFinal('s3ClientConfig'),
+                      .nullSafeProperty('useAccelerateEndpoint'))
+                  .ifNullThen(literalFalse),
+              'useDualStack': refer('config')
+                  .property('scopedConfig')
+                  .nullSafeProperty('operation')
+                  .nullSafeProperty('s3')
+                  .nullSafeProperty('useDualstackEndpoint')
+                  .ifNullThen(refer('config')
+                      .property('scopedConfig')
+                      .nullSafeProperty('client')
+                      .nullSafeProperty('s3')
+                      .nullSafeProperty('useDualstackEndpoint'))
+                  .ifNullThen(literalFalse),
+              'usePathStyle': CodeExpression(Block.of([
+                const Code('('),
+                refer('config')
+                    .property('scopedConfig')
+                    .nullSafeProperty('operation')
+                    .nullSafeProperty('s3')
+                    .nullSafeProperty('addressingStyle')
+                    .ifNullThen(refer('config')
+                        .property('scopedConfig')
+                        .nullSafeProperty('client')
+                        .nullSafeProperty('s3')
+                        .nullSafeProperty('addressingStyle'))
+                    .code,
+                const Code(')'),
+              ])).equalTo(context
+                  .symbolFor(const ShapeId(
+                      namespace: 'aws.protocoltests.config',
+                      shape: 'S3AddressingStyle'))
+                  .property('path')),
+              'signerConfiguration':
+                  DartTypes.awsSigV4.s3ServiceConfiguration.newInstance([], {
+                'signPayload': literalFalse,
+                'chunked': literalFalse,
+              })
+            }),
+          ),
         );
       } else {
         initBlock.addExpression(
-          DartTypes.smithyAws.s3ClientConfig
-              .constInstance([]).assignConst('s3ClientConfig'),
+          declareConst('s3ClientConfig').assign(
+            DartTypes.smithyAws.s3ClientConfig.constInstance([]),
+          ),
         );
       }
     }

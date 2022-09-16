@@ -19,8 +19,8 @@ part of authenticator.form_field;
 /// {@template amplify_authenticator.sign_up_form_field}
 /// A prebuilt form field widget for use on the Sign Up step.
 /// {@endtemplate}
-abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
-    SignUpField, FieldValue, SignUpFormField<FieldValue>> {
+abstract class SignUpFormField<FieldValue>
+    extends AuthenticatorFormField<SignUpField, FieldValue> {
   /// {@macro amplify_authenticator.sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.

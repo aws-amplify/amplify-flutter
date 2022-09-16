@@ -79,7 +79,9 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface
         _worker.logs.listen(_logWorkerBeeMessage);
         await _worker.spawn();
         _worker.add(
-          SecureStorageRequest.init(config: config),
+          SecureStorageRequest.init(
+            config: config,
+          ),
         );
         await _worker.stream.first;
       });
@@ -115,4 +117,12 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface
 
   @override
   String get runtimeTypeName => 'AmplifySecureStorageWorker';
+
+  @override
+  Future<void> removeAll() async {
+    await _init();
+    final request = SecureStorageRequest.removeAll();
+    _worker.add(request);
+    await _worker.stream.firstWhere((event) => event.id == request.id);
+  }
 }
