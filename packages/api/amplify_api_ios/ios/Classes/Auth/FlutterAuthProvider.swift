@@ -28,6 +28,7 @@ class FlutterAuthProviders: APIAuthProviderFactory {
 
     /// Retrieves the latest token for `type` by calling into Flutter via the plugin's method channel.
     static func getToken(for type: AWSAuthorizationType) -> Result<String, Error> {
+        
         let unknownError: Result<String, Error> = .failure(
             APIError.unknown("Token could not be retrieved",
                              "An unknown error occurred.",
@@ -44,15 +45,13 @@ class FlutterAuthProviders: APIAuthProviderFactory {
             let completer = DispatchSemaphore(value: 0)
 
             DispatchQueue.main.async {
-                SwiftAmplifyApiPlugin.methodChannel.invokeMethod(
-                    "getLatestAuthToken",
-                    arguments: type.rawValue
-                ) { result in
+                SwiftAmplifyApiPlugin.nativeApiPlugin.getLatestAuthTokenProviderName(type.rawValue) { resultToken, error in
                     defer { completer.signal() }
-                    if let result = result as? String {
-                        token = .success(result)
+                    
+                    if let resultToken = resultToken {
+                        token = .success(resultToken)
                     } else {
-                        let error = result as? FlutterError
+                        let error = error as? FlutterError
                         token = .failure(APIError.operationError(
                             "Unable to retrieve token for \(type)",
                             """
