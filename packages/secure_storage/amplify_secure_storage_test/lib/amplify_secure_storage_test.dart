@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:amplify_secure_storage_test/data/key_value_pairs.dart';
 import 'package:test/test.dart';
 
 const key1 = 'key_1';
@@ -25,6 +26,12 @@ typedef SecureStorageFactory = AmplifySecureStorageInterface Function({
   required AmplifySecureStorageConfig config,
 });
 
+/// A common set of integration-style tests that can be shared across
+/// amplify_secure_storage & amplify_secure_storage_dart.
+///
+/// These tests should not have any dependency on flutter, or test
+/// any functionality that depends on flutter, such as app uninstall &
+/// re-install on certain platforms.
 void runTests(SecureStorageFactory storageFactory) {
   group(
     'read, write, delete - ',
@@ -148,31 +155,26 @@ void runStandardTests(
     });
   });
 
-  group('write', () {
-    test('writes a new key-value pair to storage', () async {
-      // write value
-      await storage.write(key: key1, value: 'test_write');
+  group('read/write/delete can handle key value pairs of varying length', () {
+    for (final entry in keyValuePairs.entries) {
+      final key = entry.key;
+      final value = entry.value;
+      final testName = key.substring(0, 20);
+      test('read/write/delete key starting with: $testName', () async {
+        // write value
+        await storage.write(key: key, value: value);
+        // confirm value was written
+        final readValue = await storage.read(key: key);
+        expect(readValue, value);
 
-      // confirm value was written
-      final value1 = await storage.read(key: key1);
-      expect(value1, 'test_write');
-    });
+        // delete value
+        await storage.delete(key: key);
 
-    test('updates the value for an existing key', () async {
-      // write value
-      await storage.write(key: key1, value: 'test_write');
-
-      // confirm value was written
-      final value1 = await storage.read(key: key1);
-      expect(value1, 'test_write');
-
-      // write new value to the existing key
-      await storage.write(key: key1, value: 'test_update');
-
-      // confirm new value was written
-      final value2 = await storage.read(key: key1);
-      expect(value2, 'test_update');
-    });
+        // confirm value was removed
+        final readValue2 = await storage.read(key: key);
+        expect(readValue2, isNull);
+      });
+    }
   });
 }
 
@@ -252,60 +254,6 @@ void runScopeAndNamespaceTests(SecureStorageFactory storageFactory) {
         final value1 = await storage.read(key: key1);
         expect(value1, 'test_write_1');
         final value2 = await storageWeb.read(key: key1);
-        expect(value2, 'test_write_2');
-      },
-    );
-
-    test(
-      'The same key with different schema names should not collide',
-      testOn: 'linux',
-      () async {
-        final storageLinux = storageFactory(
-          config: AmplifySecureStorageConfig(
-            scope: 'default',
-            linuxOptions: LinuxSecureStorageOptions(
-              schemaName: 'com.example.test',
-            ),
-            macOSOptions: macOSOptions,
-          ),
-        );
-        await storageLinux.delete(key: key1);
-
-        // write to both storage instances
-        await storage.write(key: key1, value: 'test_write_1');
-        await storageLinux.write(key: key1, value: 'test_write_2');
-
-        // confirm value was written to both storage instances
-        final value1 = await storage.read(key: key1);
-        expect(value1, 'test_write_1');
-        final value2 = await storageLinux.read(key: key1);
-        expect(value2, 'test_write_2');
-      },
-    );
-
-    test(
-      'The same key with different schema target name prefixes should not collide',
-      testOn: 'windows',
-      () async {
-        final storageWindows = storageFactory(
-          config: AmplifySecureStorageConfig(
-            scope: 'default',
-            windowsOptions: WindowsSecureStorageOptions(
-              targetNamePrefix: 'com.test',
-            ),
-            macOSOptions: macOSOptions,
-          ),
-        );
-        await storageWindows.delete(key: key1);
-
-        // write to both storage instances
-        await storage.write(key: key1, value: 'test_write_1');
-        await storageWindows.write(key: key1, value: 'test_write_2');
-
-        // confirm value was written to both storage instances
-        final value1 = await storage.read(key: key1);
-        expect(value1, 'test_write_1');
-        final value2 = await storageWindows.read(key: key1);
         expect(value2, 'test_write_2');
       },
     );

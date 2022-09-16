@@ -25,10 +25,10 @@ class _$LinuxSecureStorageOptionsSerializer
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
-    value = object.schemaName;
+    value = object.accessGroup;
     if (value != null) {
       result
-        ..add('schemaName')
+        ..add('accessGroup')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -47,8 +47,8 @@ class _$LinuxSecureStorageOptionsSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'schemaName':
-          result.schemaName = serializers.deserialize(value,
+        case 'accessGroup':
+          result.accessGroup = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
       }
@@ -60,13 +60,13 @@ class _$LinuxSecureStorageOptionsSerializer
 
 class _$LinuxSecureStorageOptions extends LinuxSecureStorageOptions {
   @override
-  final String? schemaName;
+  final String? accessGroup;
 
   factory _$LinuxSecureStorageOptions(
           [void Function(LinuxSecureStorageOptionsBuilder)? updates]) =>
       (new LinuxSecureStorageOptionsBuilder()..update(updates))._build();
 
-  _$LinuxSecureStorageOptions._({this.schemaName}) : super._();
+  _$LinuxSecureStorageOptions._({this.accessGroup}) : super._();
 
   @override
   LinuxSecureStorageOptions rebuild(
@@ -80,18 +80,19 @@ class _$LinuxSecureStorageOptions extends LinuxSecureStorageOptions {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is LinuxSecureStorageOptions && schemaName == other.schemaName;
+    return other is LinuxSecureStorageOptions &&
+        accessGroup == other.accessGroup;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, schemaName.hashCode));
+    return $jf($jc(0, accessGroup.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'LinuxSecureStorageOptions')
-          ..add('schemaName', schemaName))
+          ..add('accessGroup', accessGroup))
         .toString();
   }
 }
@@ -101,16 +102,16 @@ class LinuxSecureStorageOptionsBuilder
         Builder<LinuxSecureStorageOptions, LinuxSecureStorageOptionsBuilder> {
   _$LinuxSecureStorageOptions? _$v;
 
-  String? _schemaName;
-  String? get schemaName => _$this._schemaName;
-  set schemaName(String? schemaName) => _$this._schemaName = schemaName;
+  String? _accessGroup;
+  String? get accessGroup => _$this._accessGroup;
+  set accessGroup(String? accessGroup) => _$this._accessGroup = accessGroup;
 
   LinuxSecureStorageOptionsBuilder();
 
   LinuxSecureStorageOptionsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _schemaName = $v.schemaName;
+      _accessGroup = $v.accessGroup;
       _$v = null;
     }
     return this;
@@ -132,7 +133,7 @@ class LinuxSecureStorageOptionsBuilder
 
   _$LinuxSecureStorageOptions _build() {
     final _$result =
-        _$v ?? new _$LinuxSecureStorageOptions._(schemaName: schemaName);
+        _$v ?? new _$LinuxSecureStorageOptions._(accessGroup: accessGroup);
     replace(_$result);
     return _$result;
   }

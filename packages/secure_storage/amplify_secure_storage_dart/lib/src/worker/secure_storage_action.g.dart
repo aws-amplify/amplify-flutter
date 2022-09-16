@@ -10,6 +10,8 @@ const SecureStorageAction _$init = const SecureStorageAction._('init');
 const SecureStorageAction _$read = const SecureStorageAction._('read');
 const SecureStorageAction _$write = const SecureStorageAction._('write');
 const SecureStorageAction _$delete = const SecureStorageAction._('delete');
+const SecureStorageAction _$removeAll =
+    const SecureStorageAction._('removeAll');
 
 SecureStorageAction _$SecureStorageActionValueOf(String name) {
   switch (name) {
@@ -21,6 +23,8 @@ SecureStorageAction _$SecureStorageActionValueOf(String name) {
       return _$write;
     case 'delete':
       return _$delete;
+    case 'removeAll':
+      return _$removeAll;
     default:
       throw new ArgumentError(name);
   }
@@ -32,6 +36,7 @@ final BuiltSet<SecureStorageAction> _$SecureStorageActionValues =
   _$read,
   _$write,
   _$delete,
+  _$removeAll,
 ]);
 
 Serializer<SecureStorageAction> _$secureStorageActionSerializer =

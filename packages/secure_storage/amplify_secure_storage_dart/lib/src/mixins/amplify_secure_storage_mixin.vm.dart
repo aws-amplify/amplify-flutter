@@ -24,7 +24,7 @@ import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage
 /// [AmplifySecureStorageDartMixin] that will be used on non-web platforms.
 mixin AmplifySecureStorageDartMixin on AmplifySecureStorageInterface
     implements SecureStorageInterface {
-  late final SecureStorageInterface _instance = () {
+  late final AmplifySecureStorageInterface _instance = () {
     if (Platform.isWindows) {
       return AmplifySecureStorageWindows(config: config);
     } else if (Platform.isLinux) {
@@ -50,5 +50,10 @@ mixin AmplifySecureStorageDartMixin on AmplifySecureStorageInterface
   @override
   FutureOr<void> delete({required String key}) {
     return _instance.delete(key: key);
+  }
+
+  @override
+  FutureOr<void> removeAll() {
+    return _instance.removeAll();
   }
 }
