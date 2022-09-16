@@ -103,14 +103,6 @@ for PKG in ${PKGS}; do
         echo 'git submodule update --init'
         git submodule update --init || EXIT_CODE=$?
         ;;
-      command_4)
-        echo 'dart test'
-        dart test || EXIT_CODE=$?
-        ;;
-      command_5)
-        echo 'dart test -p chrome,firefox'
-        dart test -p chrome,firefox || EXIT_CODE=$?
-        ;;
       command_6)
         echo 'tool/test-desktop.sh'
         tool/test-desktop.sh || EXIT_CODE=$?
@@ -127,9 +119,17 @@ for PKG in ${PKGS}; do
         echo 'dart format --output=none --set-exit-if-changed .'
         dart format --output=none --set-exit-if-changed . || EXIT_CODE=$?
         ;;
+      test_0)
+        echo 'dart test'
+        dart test || EXIT_CODE=$?
+        ;;
       test_1)
         echo 'dart test --tags=build'
         dart test --tags=build || EXIT_CODE=$?
+        ;;
+      test_2)
+        echo 'dart test -p chrome,firefox'
+        dart test -p chrome,firefox || EXIT_CODE=$?
         ;;
       test_3)
         echo 'dart test -p chrome'
