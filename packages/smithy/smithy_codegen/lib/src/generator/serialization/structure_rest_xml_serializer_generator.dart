@@ -179,18 +179,20 @@ class StructureRestXmlSerializerGenerator extends StructureSerializerGenerator {
 
     // Get the payload, since we handle serializing the input & payload types
     // in the same serializer.
+    final withPayloadVar =
+        serializedMembers.isNotEmpty || !isStructuredSerializer;
     final payloadSymbol = this.payloadSymbol;
-    if (hasPayload) {
+    if (withPayloadVar) {
       builder.addExpression(
         declareFinal('payload').assign(
-          object.isA(symbol).conditional(
-                object.property('getPayload').call([]),
-                object.asA(payloadSymbol),
-              ),
+          symbol == payloadSymbol
+              ? object.asA(symbol)
+              : object.isA(symbol).conditional(
+                    object.property('getPayload').call([]),
+                    object.asA(payloadSymbol),
+                  ),
         ),
       );
-    } else {
-      builder.addExpression(declareFinal('payload').assign(object.asA(symbol)));
     }
 
     // Create a result object to store serialized members.
@@ -207,10 +209,12 @@ class StructureRestXmlSerializerGenerator extends StructureSerializerGenerator {
     );
 
     // Check if payload is null at this point
-    if (payloadMember?.isNullable(context, shape) ?? false) {
-      builder.statements.add(
-        result.returned.wrapWithBlockIf(payload.equalTo(literalNull), true),
-      );
+    if (withPayloadVar) {
+      if (payloadMember?.isNullable(context, shape) ?? false) {
+        builder.statements.add(
+          result.returned.wrapWithBlockIf(payload.equalTo(literalNull), true),
+        );
+      }
     }
 
     Expression ref(MemberShape member) =>

@@ -132,9 +132,6 @@ class HttpPrefixHeadersInputOutputRestXmlSerializer extends _i1
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
-    final payload = object is HttpPrefixHeadersInputOutput
-        ? object.getPayload()
-        : (object as HttpPrefixHeadersInputOutputPayload);
     final result = <Object?>[
       const _i1.XmlElementName('HttpPrefixHeadersInputOutput')
     ];

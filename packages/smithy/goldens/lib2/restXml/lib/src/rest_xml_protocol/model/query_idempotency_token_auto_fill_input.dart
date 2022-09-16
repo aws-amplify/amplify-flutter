@@ -123,9 +123,6 @@ class QueryIdempotencyTokenAutoFillInputRestXmlSerializer extends _i1
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
-    final payload = object is QueryIdempotencyTokenAutoFillInput
-        ? object.getPayload()
-        : (object as QueryIdempotencyTokenAutoFillInputPayload);
     final result = <Object?>[
       const _i1.XmlElementName('QueryIdempotencyTokenAutoFillInput')
     ];

@@ -206,9 +206,6 @@ class HttpRequestWithLabelsInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
-    final payload = object is HttpRequestWithLabelsInput
-        ? object.getPayload()
-        : (object as HttpRequestWithLabelsInputPayload);
     final result = <Object?>[
       const _i1.XmlElementName('HttpRequestWithLabelsInput')
     ];

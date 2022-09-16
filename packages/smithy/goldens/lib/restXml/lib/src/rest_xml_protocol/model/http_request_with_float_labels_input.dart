@@ -133,9 +133,6 @@ class HttpRequestWithFloatLabelsInputRestXmlSerializer extends _i1
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
-    final payload = object is HttpRequestWithFloatLabelsInput
-        ? object.getPayload()
-        : (object as HttpRequestWithFloatLabelsInputPayload);
     final result = <Object?>[
       const _i1.XmlElementName('HttpRequestWithFloatLabelsInput')
     ];

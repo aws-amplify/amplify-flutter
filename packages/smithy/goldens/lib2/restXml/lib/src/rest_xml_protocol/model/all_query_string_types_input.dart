@@ -280,9 +280,6 @@ class AllQueryStringTypesInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
-    final payload = object is AllQueryStringTypesInput
-        ? object.getPayload()
-        : (object as AllQueryStringTypesInputPayload);
     final result = <Object?>[
       const _i1.XmlElementName('AllQueryStringTypesInput')
     ];

@@ -231,9 +231,6 @@ class TimestampFormatHeadersIoRestXmlSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
-    final payload = object is TimestampFormatHeadersIo
-        ? object.getPayload()
-        : (object as TimestampFormatHeadersIoPayload);
     final result = <Object?>[
       const _i1.XmlElementName('TimestampFormatHeadersIo')
     ];
