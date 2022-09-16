@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,18 +13,19 @@
  * permissions and limitations under the License.
  */
 
-part of 'method_channel_api.dart';
+import XCTest
+import Amplify
 
-extension on APIAuthProvider {
-  /// Retrieves the latest auth token for [type].
-  ///
-  /// Any [Exception] is caught and treated as a `null` token.
-  Future<String?> get authToken async {
-    String? token;
-    try {
-      token = await getLatestAuthToken();
-      // ignore:empty_catches
-    } on Exception {}
-    return token;
-  }
+@testable import AmplifyPlugins
+@testable import amplify_api_ios
+
+class ApiPluginUnitTests: XCTestCase {
+    typealias ResultType = String
+    
+    func test_add_plugin_no_error() async throws {
+        let pluginUnderTest = SwiftAmplifyApiPlugin()
+        let result = await pluginUnderTest.addPluginAuthProvidersList([])
+        XCTAssertNil(result)
+    }
 }
+
