@@ -216,9 +216,6 @@ class HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
-    final payload = object is HttpRequestWithLabelsAndTimestampFormatInput
-        ? object.getPayload()
-        : (object as HttpRequestWithLabelsAndTimestampFormatInputPayload);
     final result = <Object?>[
       const _i1.XmlElementName('HttpRequestWithLabelsAndTimestampFormatInput')
     ];

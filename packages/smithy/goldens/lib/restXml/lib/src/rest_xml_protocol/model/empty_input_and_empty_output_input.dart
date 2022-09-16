@@ -70,7 +70,6 @@ class EmptyInputAndEmptyOutputInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
-    final payload = (object as EmptyInputAndEmptyOutputInput);
     final result = <Object?>[
       const _i1.XmlElementName('EmptyInputAndEmptyOutputInput')
     ];

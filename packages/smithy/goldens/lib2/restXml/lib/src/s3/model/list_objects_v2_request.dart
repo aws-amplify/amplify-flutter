@@ -193,9 +193,6 @@ class ListObjectsV2RequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
-    final payload = object is ListObjectsV2Request
-        ? object.getPayload()
-        : (object as ListObjectsV2RequestPayload);
     final result = <Object?>[
       const _i1.XmlElementName('ListObjectsV2Request',
           _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))

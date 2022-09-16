@@ -112,9 +112,6 @@ class HostLabelHeaderInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
-    final payload = object is HostLabelHeaderInput
-        ? object.getPayload()
-        : (object as HostLabelHeaderInputPayload);
     final result = <Object?>[const _i1.XmlElementName('HostLabelHeaderInput')];
     return result;
   }

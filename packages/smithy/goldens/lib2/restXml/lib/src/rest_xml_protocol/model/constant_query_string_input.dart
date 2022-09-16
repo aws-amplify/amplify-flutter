@@ -118,9 +118,6 @@ class ConstantQueryStringInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, Object? object,
       {FullType specifiedType = FullType.unspecified}) {
-    final payload = object is ConstantQueryStringInput
-        ? object.getPayload()
-        : (object as ConstantQueryStringInputPayload);
     final result = <Object?>[
       const _i1.XmlElementName('ConstantQueryStringInput')
     ];

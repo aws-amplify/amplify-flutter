@@ -137,6 +137,8 @@ Future<void> _generateFor(
   // Create analysis options
   final analysisOptionsPath = path.join(outputPath, 'analysis_options.yaml');
   File(analysisOptionsPath).writeAsStringSync('''
+include: package:lints/recommended.yaml
+
 analyzer:
   errors:
     avoid_unused_constructor_parameters: ignore
