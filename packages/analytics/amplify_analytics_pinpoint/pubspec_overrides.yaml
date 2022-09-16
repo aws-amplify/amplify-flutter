@@ -1,0 +1,22 @@
+# This file is checked in until it can be easily generated locally
+# and in CI pipelines, e.g. with melos.
+#
+# It may cause issues with publishing until https://github.com/dart-lang/pub/pull/3419
+# is released in stable.
+dependency_overrides:
+  amplify_analytics_pinpoint_dart:
+    path: ../amplify_analytics_pinpoint_dart
+  amplify_core:
+    path: ../../amplify_core
+  amplify_flutter:
+    path: ../../amplify/amplify_flutter
+  amplify_secure_storage:
+    path: ../../secure_storage/amplify_secure_storage
+  amplify_secure_storage_dart:
+    path: ../../secure_storage/amplify_secure_storage_dart
+  aws_common:
+    path: ../../aws_common
+  aws_signature_v4:
+    path: ../../aws_signature_v4
+  worker_bee:
+    path: ../../worker_bee/worker_bee

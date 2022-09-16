@@ -1,0 +1,787 @@
+From 173f432f1c7916d2a591394eda35f044a6bcad08 Mon Sep 17 00:00:00 2001
+From: Dillon Nys <nydillon@amazon.com>
+Date: Mon, 18 Jul 2022 13:13:49 -0700
+Subject: [PATCH] Add user profile models
+
+---
+ pinpoint/smithy/model.json | 764 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 764 insertions(+)
+
+diff --git a/pinpoint/smithy/model.json b/pinpoint/smithy/model.json
+index 8b5b310e..d58d3ddc 100644
+--- a/pinpoint/smithy/model.json
++++ b/pinpoint/smithy/model.json
+@@ -18514,6 +18514,770 @@
+                 "smithy.api#documentation": "<p>Specifies the configuration, dimension, and other settings for a segment. A WriteSegmentRequest object can include a Dimensions object or a SegmentGroups object, but not both.</p>"
+             }
+         },
++        "com.amazonaws.pinpoint#ListOfEndpoint": {
++            "type": "list",
++            "member": {
++                "target": "com.amazonaws.pinpoint#PublicEndpoint"
++            }
++        },
++        "com.amazonaws.pinpoint#UserName": {
++            "type": "structure",
++            "members": {
++                "FirstName": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "LastName": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "MiddleName": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "Suffix": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "Title": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#PrimaryLocation": {
++            "type": "structure",
++            "members": {
++                "City": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "Country": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "Latitude": {
++                    "target": "com.amazonaws.pinpoint#__double"
++                },
++                "Longitude": {
++                    "target": "com.amazonaws.pinpoint#__double"
++                },
++                "PostalCode": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "Region": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#User": {
++            "type": "structure",
++            "members": {
++                "CreationDate": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "DateOfBirth": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "Gender": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "Name": {
++                    "target": "com.amazonaws.pinpoint#UserName"
++                },
++                "PrimaryLocation": {
++                    "target": "com.amazonaws.pinpoint#PrimaryLocation"
++                },
++                "UserAttributes": {
++                    "target": "com.amazonaws.pinpoint#MapOfListOf__string"
++                },
++                "UserMetrics": {
++                    "target": "com.amazonaws.pinpoint#MapOf__double"
++                },
++                "UserStatus": {
++                    "target": "com.amazonaws.pinpoint#UserStatus"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#EndpointCampaignEvent": {
++            "type": "structure",
++            "traits": {},
++            "members": {
++                "ActiveDate": {
++                    "target": "com.amazonaws.pinpoint#ListOf__string"
++                },
++                "CampaignId": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#ListOfEndpointCampaignEvent": {
++            "type": "list",
++            "member": {
++                "target": "com.amazonaws.pinpoint#EndpointCampaignEvent"
++            }
++        },
++        "com.amazonaws.pinpoint#EndpointInsightResponse": {
++            "type": "structure",
++            "traits": {},
++            "members": {
++                "ApplicationId": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "CampaignSend": {
++                    "target": "com.amazonaws.pinpoint#ListOfEndpointCampaignEvent"
++                },
++                "EffectiveDate": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "EndpointId": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "HistoricalEffectiveDays": {
++                    "target": "com.amazonaws.pinpoint#ListOf__string"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#ListOfEndpointInsightResponse": {
++            "type": "list",
++            "member": {
++                "target": "com.amazonaws.pinpoint#EndpointInsightResponse"
++            }
++        },
++        "com.amazonaws.pinpoint#UserEndpointInsightResponse": {
++            "type": "structure",
++            "traits": {},
++            "members": {
++                "Item": {
++                    "target": "com.amazonaws.pinpoint#ListOfEndpointInsightResponse",
++                    "traits": {
++                        "smithy.api#required": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UserEventsBatch": {
++            "type": "structure",
++            "members": {
++                "UserEvents": {
++                    "target": "com.amazonaws.pinpoint#MapOfEvent",
++                    "traits": {
++                        "smithy.api#required": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UserEventsItemResponse": {
++            "type": "structure",
++            "members": {
++                "UserEventsItemResponse": {
++                    "target": "com.amazonaws.pinpoint#MapOfEventItemResponse"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#MapOfUserEventsBatch": {
++            "type": "map",
++            "key": {
++                "target": "com.amazonaws.pinpoint#__string"
++            },
++            "value": {
++                "target": "com.amazonaws.pinpoint#UserEventsBatch"
++            }
++        },
++        "com.amazonaws.pinpoint#UserEventsRequest": {
++            "type": "structure",
++            "members": {
++                "UserEventsBatchItem": {
++                    "target": "com.amazonaws.pinpoint#MapOfUserEventsBatch",
++                    "traits": {
++                        "smithy.api#required": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#MapOfUserEventsItemResponse": {
++            "type": "map",
++            "key": {
++                "target": "com.amazonaws.pinpoint#__string"
++            },
++            "value": {
++                "target": "com.amazonaws.pinpoint#UserEventsItemResponse"
++            }
++        },
++        "com.amazonaws.pinpoint#UserEventsResponse": {
++            "type": "structure",
++            "members": {
++                "Results": {
++                    "target": "com.amazonaws.pinpoint#MapOfUserEventsItemResponse"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UserProfile": {
++            "type": "structure",
++            "traits": {},
++            "members": {
++                "Endpoints": {
++                    "target": "com.amazonaws.pinpoint#ListOfEndpoint"
++                },
++                "User": {
++                    "target": "com.amazonaws.pinpoint#User"
++                },
++                "UserId": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UserProfileResponse": {
++            "type": "structure",
++            "traits": {},
++            "members": {
++                "ApplicationId": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "Endpoints": {
++                    "target": "com.amazonaws.pinpoint#ListOfEndpoint"
++                },
++                "User": {
++                    "target": "com.amazonaws.pinpoint#User"
++                },
++                "UserId": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UserProfileUpdateRequest": {
++            "type": "structure",
++            "traits": {},
++            "members": {
++                "Endpoints": {
++                    "target": "com.amazonaws.pinpoint#ListOfEndpoint"
++                },
++                "User": {
++                    "target": "com.amazonaws.pinpoint#User"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UserProfileUpdateResponse": {
++            "type": "structure",
++            "traits": {},
++            "members": {
++                "Endpoints": {
++                    "target": "com.amazonaws.pinpoint#ListOfEndpoint"
++                },
++                "User": {
++                    "target": "com.amazonaws.pinpoint#User"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UserProfilesGetRequest": {
++            "type": "structure",
++            "traits": {},
++            "members": {
++                "UserIds": {
++                    "target": "com.amazonaws.pinpoint#ListOf__string"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UserBatchFailure": {
++            "type": "structure",
++            "members": {
++                "Message": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "Status": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                },
++                "UserId": {
++                    "target": "com.amazonaws.pinpoint#__string"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#ListOfUserBatchFailure": {
++            "type": "list",
++            "member": {
++                "target": "com.amazonaws.pinpoint#UserBatchFailure"
++            }
++        },
++        "com.amazonaws.pinpoint#ListOfUserProfile": {
++            "type": "list",
++            "member": {
++                "target": "com.amazonaws.pinpoint#UserProfile"
++            }
++        },
++        "com.amazonaws.pinpoint#UserProfilesResponse": {
++            "type": "structure",
++            "traits": {},
++            "members": {
++                "Failures": {
++                    "target": "com.amazonaws.pinpoint#ListOfUserBatchFailure"
++                },
++                "UserProfiles": {
++                    "target": "com.amazonaws.pinpoint#ListOfUserProfile"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UserProfilesUpdateRequest": {
++            "type": "structure",
++            "traits": {},
++            "members": {
++                "UserProfiles": {
++                    "target": "com.amazonaws.pinpoint#ListOfUserProfile"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UserProfilesUpdateResponse": {
++            "type": "structure",
++            "traits": {},
++            "members": {
++                "Failures": {
++                    "target": "com.amazonaws.pinpoint#ListOfUserBatchFailure"
++                },
++                "UserIds": {
++                    "target": "com.amazonaws.pinpoint#ListOf__string"
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UserStatus": {
++            "type": "string",
++            "traits": {
++                "smithy.api#enum": [
++                    {
++                        "name": "ACTIVE",
++                        "value": "ACTIVE"
++                    },
++                    {
++                        "name": "INACTIVE",
++                        "value": "INACTIVE"
++                    }
++                ]
++            }
++        },
++        "com.amazonaws.pinpoint#GetUserProfileRequest": {
++            "type": "structure",
++            "members": {
++                "ApplicationId": {
++                    "target": "com.amazonaws.pinpoint#__string",
++                    "traits": {
++                        "smithy.api#httpLabel": {},
++                        "smithy.api#required": {}
++                    }
++                },
++                "UserId": {
++                    "target": "com.amazonaws.pinpoint#__string",
++                    "traits": {
++                        "smithy.api#httpLabel": {},
++                        "smithy.api#required": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#GetUserProfileResponse": {
++            "type": "structure",
++            "members": {
++                "UserProfileResponse": {
++                    "target": "com.amazonaws.pinpoint#UserProfileResponse",
++                    "traits": {
++                        "smithy.api#httpPayload": {},
++                        "smithy.api#required": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#GetUserProfile": {
++            "type": "operation",
++            "traits": {
++                "smithy.api#http": {
++                    "method": "GET",
++                    "uri": "/v1/apps/{ApplicationId}/user-profiles/{UserId}",
++                    "code": 200
++                }
++            },
++            "input": {
++                "target": "com.amazonaws.pinpoint#GetUserProfileRequest"
++            },
++            "output": {
++                "target": "com.amazonaws.pinpoint#GetUserProfileResponse"
++            },
++            "errors": [
++                {
++                    "target": "com.amazonaws.pinpoint#BadRequestException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#InternalServerErrorException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#PayloadTooLargeException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#ForbiddenException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#NotFoundException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#MethodNotAllowedException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#TooManyRequestsException"
++                }
++            ]
++        },
++        "com.amazonaws.pinpoint#UpdateUserProfileRequest": {
++            "type": "structure",
++            "members": {
++                "ApplicationId": {
++                    "target": "com.amazonaws.pinpoint#__string",
++                    "traits": {
++                        "smithy.api#httpLabel": {},
++                        "smithy.api#required": {}
++                    }
++                },
++                "UserId": {
++                    "target": "com.amazonaws.pinpoint#__string",
++                    "traits": {
++                        "smithy.api#httpLabel": {},
++                        "smithy.api#required": {}
++                    }
++                },
++                "UserProfileUpdateRequest": {
++                    "target": "com.amazonaws.pinpoint#UserProfileUpdateRequest",
++                    "traits": {
++                        "smithy.api#httpPayload": {},
++                        "smithy.api#required": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UpdateUserProfileResponse": {
++            "type": "structure",
++            "members": {
++                "UserProfileUpdateResponse": {
++                    "target": "com.amazonaws.pinpoint#UserProfileUpdateResponse",
++                    "traits": {
++                        "smithy.api#httpPayload": {},
++                        "smithy.api#required": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UpdateUserProfile": {
++            "type": "operation",
++            "traits": {
++                "smithy.api#http": {
++                    "method": "PUT",
++                    "uri": "/v1/apps/{ApplicationId}/user-profiles/{UserId}",
++                    "code": 200
++                }
++            },
++            "input": {
++                "target": "com.amazonaws.pinpoint#UpdateUserProfileRequest"
++            },
++            "output": {
++                "target": "com.amazonaws.pinpoint#UpdateUserProfileResponse"
++            },
++            "errors": [
++                {
++                    "target": "com.amazonaws.pinpoint#BadRequestException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#InternalServerErrorException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#PayloadTooLargeException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#ForbiddenException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#NotFoundException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#MethodNotAllowedException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#TooManyRequestsException"
++                }
++            ]
++        },
++        "com.amazonaws.pinpoint#DeleteUserProfileRequest": {
++            "type": "structure",
++            "members": {
++                "ApplicationId": {
++                    "target": "com.amazonaws.pinpoint#__string",
++                    "traits": {
++                        "smithy.api#httpLabel": {},
++                        "smithy.api#required": {}
++                    }
++                },
++                "UserId": {
++                    "target": "com.amazonaws.pinpoint#__string",
++                    "traits": {
++                        "smithy.api#httpLabel": {},
++                        "smithy.api#required": {}
++                    }
++                },
++                "DeleteEndpoints": {
++                    "target": "com.amazonaws.pinpoint#__boolean",
++                    "traits": {
++                        "smithy.api#httpQuery": "delete-endpoints"
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#DeleteUserProfileResponse": {
++            "type": "structure",
++            "members": {
++                "UserProfileUpdateResponse": {
++                    "target": "com.amazonaws.pinpoint#UserProfileUpdateResponse",
++                    "traits": {
++                        "smithy.api#httpPayload": {},
++                        "smithy.api#required": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#DeleteUserProfile": {
++            "type": "operation",
++            "traits": {
++                "smithy.api#http": {
++                    "method": "DELETE",
++                    "uri": "/v1/apps/{ApplicationId}/user-profiles/{UserId}",
++                    "code": 200
++                }
++            },
++            "input": {
++                "target": "com.amazonaws.pinpoint#DeleteUserProfileRequest"
++            },
++            "output": {
++                "target": "com.amazonaws.pinpoint#DeleteUserProfileResponse"
++            },
++            "errors": [
++                {
++                    "target": "com.amazonaws.pinpoint#BadRequestException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#InternalServerErrorException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#PayloadTooLargeException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#ForbiddenException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#NotFoundException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#MethodNotAllowedException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#TooManyRequestsException"
++                }
++            ]
++        },
++        "com.amazonaws.pinpoint#GetUserProfilesBatchRequest": {
++            "type": "structure",
++            "members": {
++                "ApplicationId": {
++                    "target": "com.amazonaws.pinpoint#__string",
++                    "traits": {
++                        "smithy.api#httpLabel": {},
++                        "smithy.api#required": {}
++                    }
++                },
++                "UserProfilesGetRequest": {
++                    "target": "com.amazonaws.pinpoint#UserProfilesGetRequest",
++                    "traits": {
++                        "smithy.api#required": {},
++                        "smithy.api#httpPayload": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#GetUserProfilesBatchResponse": {
++            "type": "structure",
++            "members": {
++                "UserProfilesResponse": {
++                    "target": "com.amazonaws.pinpoint#UserProfilesResponse",
++                    "traits": {
++                        "smithy.api#httpPayload": {},
++                        "smithy.api#required": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#GetUserProfilesBatch": {
++            "type": "operation",
++            "traits": {
++                "smithy.api#http": {
++                    "method": "POST",
++                    "uri": "/v1/apps/{ApplicationId}/user-profiles/collection",
++                    "code": 200
++                }
++            },
++            "input": {
++                "target": "com.amazonaws.pinpoint#GetUserProfilesBatchRequest"
++            },
++            "output": {
++                "target": "com.amazonaws.pinpoint#GetUserProfilesBatchResponse"
++            },
++            "errors": [
++                {
++                    "target": "com.amazonaws.pinpoint#BadRequestException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#InternalServerErrorException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#PayloadTooLargeException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#ForbiddenException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#NotFoundException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#MethodNotAllowedException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#TooManyRequestsException"
++                }
++            ]
++        },
++        "com.amazonaws.pinpoint#UpdateUserProfilesBatchRequest": {
++            "type": "structure",
++            "members": {
++                "ApplicationId": {
++                    "target": "com.amazonaws.pinpoint#__string",
++                    "traits": {
++                        "smithy.api#httpLabel": {},
++                        "smithy.api#required": {}
++                    }
++                },
++                "UserProfilesUpdateRequest": {
++                    "target": "com.amazonaws.pinpoint#UserProfilesUpdateRequest",
++                    "traits": {
++                        "smithy.api#required": {},
++                        "smithy.api#httpPayload": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UpdateUserProfilesBatchResponse": {
++            "type": "structure",
++            "members": {
++                "UserProfilesUpdateResponse": {
++                    "target": "com.amazonaws.pinpoint#UserProfilesUpdateResponse",
++                    "traits": {
++                        "smithy.api#httpPayload": {},
++                        "smithy.api#required": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#UpdateUserProfilesBatch": {
++            "type": "operation",
++            "traits": {
++                "smithy.api#http": {
++                    "method": "POST",
++                    "uri": "/v1/apps/{ApplicationId}/user-profiles",
++                    "code": 200
++                }
++            },
++            "input": {
++                "target": "com.amazonaws.pinpoint#UpdateUserProfilesBatchRequest"
++            },
++            "output": {
++                "target": "com.amazonaws.pinpoint#UpdateUserProfilesBatchResponse"
++            },
++            "errors": [
++                {
++                    "target": "com.amazonaws.pinpoint#BadRequestException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#InternalServerErrorException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#PayloadTooLargeException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#ForbiddenException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#NotFoundException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#MethodNotAllowedException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#TooManyRequestsException"
++                }
++            ]
++        },
++        "com.amazonaws.pinpoint#PutUserEventsRequest": {
++            "type": "structure",
++            "members": {
++                "ApplicationId": {
++                    "target": "com.amazonaws.pinpoint#__string",
++                    "traits": {
++                        "smithy.api#httpLabel": {},
++                        "smithy.api#required": {}
++                    }
++                },
++                "UserEventsRequest": {
++                    "target": "com.amazonaws.pinpoint#UserEventsRequest",
++                    "traits": {
++                        "smithy.api#required": {},
++                        "smithy.api#httpPayload": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#PutUserEventsResponse": {
++            "type": "structure",
++            "members": {
++                "UserEventsResponse": {
++                    "target": "com.amazonaws.pinpoint#UserEventsResponse",
++                    "traits": {
++                        "smithy.api#httpPayload": {},
++                        "smithy.api#required": {}
++                    }
++                }
++            }
++        },
++        "com.amazonaws.pinpoint#PutUserEvents": {
++            "type": "operation",
++            "traits": {
++                "smithy.api#http": {
++                    "method": "POST",
++                    "uri": "/v1/apps/{ApplicationId}/user/events",
++                    "code": 202
++                }
++            },
++            "input": {
++                "target": "com.amazonaws.pinpoint#PutUserEventsRequest"
++            },
++            "output": {
++                "target": "com.amazonaws.pinpoint#PutUserEventsResponse"
++            },
++            "errors": [
++                {
++                    "target": "com.amazonaws.pinpoint#BadRequestException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#InternalServerErrorException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#PayloadTooLargeException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#ForbiddenException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#NotFoundException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#MethodNotAllowedException"
++                },
++                {
++                    "target": "com.amazonaws.pinpoint#TooManyRequestsException"
++                }
++            ]
++        },
+         "com.amazonaws.pinpoint#WriteTreatmentResource": {
+             "type": "structure",
+             "members": {
+-- 
+2.37.1
+

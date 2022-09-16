@@ -1,0 +1,92 @@
+import 'dart:collection';
+
+// ? better name - managing sub fields of events sent to Pinpoint
+class EventFieldManager {
+  // ? Why are attribute maps concurrent / thread safe in Android?
+
+  final Map<String, String> _globalAttributes = HashMap<String, String>();
+  final Map<String, double> _globalMetrics = HashMap<String, double>();
+
+  // ? String sessionId
+  // ? long sessionStartTime
+
+  /// Adds [attributeName] : [attributeValue] to all subsequently created events
+  void addGlobalAttribute(
+      {required String attributeName, required String attributeValue}) {
+    _globalAttributes[attributeName] = attributeValue;
+  }
+
+  /// Adds [metricName] : [metricValue] to all subsequently created events
+  void addGlobalMetric(
+      {required String metricName, required double metricValue}) {
+    _globalMetrics[metricName] = metricValue;
+  }
+
+  /// Removes [attributeName] from all subsequently created events
+  void removeGlobalAttribute({required String attributeName}) {
+    _globalAttributes.remove(attributeName);
+  }
+
+  /// Removes [metricName] from all subsequently created events
+  void removeGlobalMetric({required String metricName}) {
+    _globalMetrics.remove(metricName);
+  }
+}
+
+/*
+// Global Attributes by EventType
+  final Map<String, Map<String, String>> _globalAttributesByEventType =
+      HashMap<String, Map<String, String>>();
+
+  final Map<String, Map<String, double>> _globalMetricsByEventType =
+      HashMap<String, Map<String, double>>();
+
+  /// Adds [attributeName] : [attributeValue] to all subsequently created events of [eventType]
+  void addGlobalAttributeByEventType(
+      {required String eventType,
+      required String attributeName,
+      required String attributeValue}) {
+    Map<String, String>? eventTypeGlobalAttrs =
+        _globalAttributesByEventType[eventType];
+    if (eventTypeGlobalAttrs == null) {
+      eventTypeGlobalAttrs = HashMap<String, String>();
+      _globalAttributesByEventType[eventType] = eventTypeGlobalAttrs;
+    }
+    eventTypeGlobalAttrs[attributeName] = attributeValue;
+  }
+
+
+  /// Adds [metricName] : [metricValue] to all subsequently created events of [eventType]
+  void addGlobalMetricByEventType(
+      {required String eventType,
+      required String metricName,
+      required double metricValue}) {
+    Map<String, double>? eventTypeGlobalMetrics =
+        _globalMetricsByEventType[eventType];
+    if (eventTypeGlobalMetrics == null) {
+      eventTypeGlobalMetrics = HashMap<String, double>();
+      _globalMetricsByEventType[eventType] = eventTypeGlobalMetrics;
+    }
+    eventTypeGlobalMetrics[metricName] = metricValue;
+  }
+
+  /// Removes [attributeName] from all subsequently created events of [eventType]
+  void removeGlobalAttributeByEventType(
+      {required String eventType, required String attributeName}) {
+    final Map<String, String>? eventTypeGlobalAttrs =
+        _globalAttributesByEventType[eventType];
+    if (eventTypeGlobalAttrs != null) {
+      eventTypeGlobalAttrs.remove(attributeName);
+    }
+  }
+
+  /// Removes [metricName] from all subsequently created events of [eventType]
+  void removeGlobalMetricByEventType(
+      {required String eventType, required String metricName}) {
+    final Map<String, double>? eventTypeGlobalMetrics =
+        _globalMetricsByEventType[eventType];
+    if (eventTypeGlobalMetrics != null) {
+      eventTypeGlobalMetrics.remove(metricName);
+    }
+  }
+ */
