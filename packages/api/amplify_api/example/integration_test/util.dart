@@ -59,6 +59,7 @@ Future<void> signUpTestUser() async {
   }
 }
 
+/// No-op if already signed in.
 Future<void> signInTestUser() async {
   if (testUsername == null || testPassword == null) {
     throw const AmplifyException(
@@ -77,6 +78,7 @@ Future<void> signInTestUser() async {
   }
 }
 
+// No-op if not signed in.
 Future<void> signOutTestUser() async {
   final session = await Amplify.Auth.fetchAuthSession();
   if (!session.isSignedIn) return;
@@ -100,7 +102,7 @@ Future<Blog> addBlog(String name) async {
   var r = Amplify.API.mutate(request: request);
 
   var response = await r.response;
-  throwIfError(response);
+  expect(response, hasNoGraphQLErrors);
   final blog = response.data!;
   blogCache.add(blog);
   return blog;
@@ -119,7 +121,7 @@ Future<Post> addPostAndBlog(
   );
   final createPostRes =
       await Amplify.API.mutate(request: createPostReq).response;
-  throwIfError(createPostRes);
+  expect(createPostRes, hasNoGraphQLErrors);
   Post? data = createPostRes.data;
   if (data == null) {
     throw Exception(
@@ -176,18 +178,18 @@ Future<Blog?> deleteBlog(String id) async {
   final request = await authorizeRequestForUserPools(
     ModelMutations.deleteById(Blog.classType, id),
   );
-  final response = await Amplify.API.mutate(request: request).response;
-  throwIfError(response);
+  final res = await Amplify.API.mutate(request: request).response;
+  expect(res, hasNoGraphQLErrors);
   blogCache.removeWhere((blog) => blog.id == id);
-  return response.data;
+  return res.data;
 }
 
 Future<void> deletePost(String id) async {
   final request = await authorizeRequestForUserPools(
     ModelMutations.deleteById(Post.classType, id),
   );
-  final response = await Amplify.API.mutate(request: request).response;
-  throwIfError(response);
+  final res = await Amplify.API.mutate(request: request).response;
+  expect(res, hasNoGraphQLErrors);
   postCache.removeWhere((post) => post.id == id);
 }
 
@@ -196,16 +198,7 @@ Future<void> deleteTestModels() async {
   await Future.wait(postCache.map((post) => deletePost(post.id)));
 }
 
-/// Throws if response `.hasErrors` (any GraphQL errors from server).
-void throwIfError(GraphQLResponse response) {
-  if (response.hasErrors || response.data == null) {
-    throw AmplifyException(
-      'GraphQL error while running request: ${response.errors.toString()}',
-    );
-  }
-}
-
-// Wait for subscription established for given request.
+/// Wait for subscription established for given request.
 Future<StreamSubscription<GraphQLResponse<T>>>
     getEstablishedSubscriptionOperation<T>(
   GraphQLRequest<T> subscriptionRequest,
@@ -228,8 +221,8 @@ Future<StreamSubscription<GraphQLResponse<T>>>
   return subscription;
 }
 
-// Establish subscription for request, do the mutationFunction, then wait
-// for the stream event, cancel the operation, return response from event.
+/// Establish subscription for request, do the mutationFunction, then wait
+/// for the stream event, cancel the operation, return response from event.
 Future<GraphQLResponse<T?>> establishSubscriptionAndMutate<T>(
   GraphQLRequest<T> subscriptionRequest,
   Future<void> Function() mutationFunction,
@@ -252,4 +245,12 @@ Future<GraphQLResponse<T?>> establishSubscriptionAndMutate<T>(
 
   await subscription.cancel();
   return response;
+}
+
+Matcher hasNoGraphQLErrors<T>(GraphQLResponse<T> response) {
+  return predicate(
+    (GraphQLResponse<T> response) =>
+        !response.hasErrors && response.data != null,
+    'Has no GraphQL Errors',
+  );
 }

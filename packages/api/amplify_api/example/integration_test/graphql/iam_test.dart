@@ -44,10 +44,6 @@ void main({bool useExistingTestUser = false}) {
     });
 
     group('queries (authorized user)', () {
-      setUpAll(() async {
-        await signInTestUser();
-      });
-
       testWidgets('should fetch', (WidgetTester tester) async {
         const listBlogs = 'listBlogs';
         const items = 'items';
@@ -86,7 +82,7 @@ void main({bool useExistingTestUser = false}) {
             .query<String>(request: GraphQLRequest(document: graphQLDocument));
         final res = await operation.response;
         Map data = jsonDecode(res.data!) as Map;
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         expect(data[listBlogs][items], hasLength(greaterThanOrEqualTo(0)));
       });
 
@@ -98,7 +94,7 @@ void main({bool useExistingTestUser = false}) {
         final req = ModelQueries.get(Blog.classType, blog.id);
         final res = await Amplify.API.query(request: req).response;
         Blog? data = res.data;
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         expect(data, equals(blog));
       });
 
@@ -115,7 +111,7 @@ void main({bool useExistingTestUser = false}) {
         final res = await operation.response;
         final data = res.data;
         final blogs = [blog1, blog2, blog3];
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         expect(data?.items, containsAll(blogs));
       });
 
@@ -150,7 +146,7 @@ void main({bool useExistingTestUser = false}) {
         final data = res.data;
         final blogs = [blog];
 
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         expect(data?.items.length, 1);
         expect(data?.items, containsAll(blogs));
       });
@@ -167,7 +163,7 @@ void main({bool useExistingTestUser = false}) {
         final res = await Amplify.API.query(request: req).response;
         final postFromResponse = res.data?.items[0];
 
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         expect(postFromResponse?.blog?.id, isNotNull);
         expect(postFromResponse?.blog?.id, createdPost.blog?.id);
       });
@@ -184,7 +180,7 @@ void main({bool useExistingTestUser = false}) {
         final res = await Amplify.API.query(request: req).response;
         final postFromResponse = res.data?.items[0];
 
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         expect(postFromResponse?.blog?.id, isNotNull);
         expect(postFromResponse?.blog?.id, createdPost.blog?.id);
         expect(postFromResponse?.title, title);
@@ -211,7 +207,7 @@ void main({bool useExistingTestUser = false}) {
           decodePath: listBlogs,
         );
         final res = await Amplify.API.query(request: request).response;
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         expect(res.data?.items.first, isA<Blog>());
       });
 
@@ -239,7 +235,7 @@ void main({bool useExistingTestUser = false}) {
         );
         final res =
             await Amplify.API.query(request: reqThatShouldWOrk).response;
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         expect(res.data?.items.length, greaterThanOrEqualTo(0));
       });
     });
@@ -254,7 +250,7 @@ void main({bool useExistingTestUser = false}) {
         final req = ModelQueries.list<Blog>(Blog.classType);
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         expect(data?.items.length, greaterThanOrEqualTo(0));
       });
 

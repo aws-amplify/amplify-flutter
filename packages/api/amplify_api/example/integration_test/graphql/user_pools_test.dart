@@ -91,7 +91,7 @@ void main({bool useExistingTestUser = false}) {
             await Amplify.API.query(request: nestedGetBlogReq).response;
         final responseBlog = nestedResponse.data;
         final firstCommentFromResponse = responseBlog?.posts?[0].comments?[0];
-        throwIfError(nestedResponse);
+        expect(nestedResponse, hasNoGraphQLErrors);
         expect(firstCommentFromResponse?.id, createdComment.id);
         // clean up the comment
         final deleteCommentReq = await authorizeRequestForUserPools(
@@ -111,7 +111,7 @@ void main({bool useExistingTestUser = false}) {
           ModelMutations.create(blog),
         );
         final res = await Amplify.API.mutate(request: req).response;
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         Blog? data = res.data;
         if (data != null) blogCache.add(data);
 
@@ -141,7 +141,7 @@ void main({bool useExistingTestUser = false}) {
         );
         final res = await Amplify.API.mutate(request: req).response;
 
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         expect(res.data, equals(blog));
       });
 
@@ -158,7 +158,7 @@ void main({bool useExistingTestUser = false}) {
         );
         final updateRes = await Amplify.API.mutate(request: updateReq).response;
         Post? mutatedPost = updateRes.data;
-        throwIfError(updateRes);
+        expect(updateRes, hasNoGraphQLErrors);
         expect(mutatedPost?.title, equals(updatedTitle));
       });
 
@@ -199,7 +199,7 @@ void main({bool useExistingTestUser = false}) {
         // query again to ensure it still unchanged
         final getReq = ModelQueries.get(Blog.classType, blog.id);
         final res = await Amplify.API.query(request: getReq).response;
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         expect(res.data?.name, oldName);
       });
 
@@ -225,7 +225,7 @@ void main({bool useExistingTestUser = false}) {
           ModelMutations.deleteById(Post.classType, post.id),
         );
         final res = await Amplify.API.mutate(request: req).response;
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         Post? mutatedPost = res.data;
         expect(mutatedPost?.title, equals(title));
       });
@@ -245,7 +245,7 @@ void main({bool useExistingTestUser = false}) {
         // query again to ensure it still exists
         final getReq = ModelQueries.get(Blog.classType, blog.id);
         final res = await Amplify.API.query(request: getReq).response;
-        throwIfError(res);
+        expect(res, hasNoGraphQLErrors);
         expect(res.data?.name, name);
       });
     });
