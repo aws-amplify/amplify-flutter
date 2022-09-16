@@ -18,7 +18,6 @@ library amplify_api.graphql.ws.web_socket_message_stream_transformer;
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_api/src/util.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
@@ -71,14 +70,10 @@ class WebSocketSubscriptionStreamTransformer<T>
           break;
         case MessageType.data:
           final payload = event.payload as SubscriptionDataPayload;
-          // TODO(ragingsquirrel3): refactor decoder
-          final errors = deserializeGraphQLResponseErrors(payload.toJson());
           yield GraphQLResponseDecoder.instance.decode<T>(
             request: request,
-            data: json.encode(payload.data),
-            errors: errors,
+            response: payload.toJson(),
           );
-
           break;
         case MessageType.error:
           final error = event.payload as WebSocketError;

@@ -13,19 +13,20 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:convert';
+
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/utils.dart';
-import 'package:amplify_api/src/method_channel_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 final _deepEquals = const DeepCollectionEquality().equals;
 
-class MockAmplifyAPI extends AmplifyAPIMethodChannel {
+class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
     ModelProviderInterface? modelProvider,
   }) : super(modelProvider: modelProvider);
@@ -40,9 +41,19 @@ class MockAmplifyAPI extends AmplifyAPIMethodChannel {
   }) async {}
 }
 
+GraphQLResponse<T> _decodeResponseData<T>(
+  GraphQLRequest<T> request,
+  String data,
+) {
+  final serverResponse = {'data': json.decode(data)};
+  return GraphQLResponseDecoder.instance.decode<T>(
+    request: request,
+    response: serverResponse,
+  );
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  Amplify = MethodChannelAmplify();
 
   group('with ModelProvider', () {
     setUpAll(() async {
@@ -73,7 +84,6 @@ void main() {
           () async {
         String id = UUID.getUUID();
         GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
-        List<GraphQLResponseError> errors = [];
         String data = '''{
         "getBlog": {
             "createdAt": "2021-01-01T01:00:00.000000000Z",
@@ -82,8 +92,7 @@ void main() {
         }
     }''';
 
-        GraphQLResponse<Blog> response = GraphQLResponseDecoder.instance
-            .decode<Blog>(request: req, data: data, errors: errors);
+        GraphQLResponse<Blog> response = _decodeResponseData(req, data);
 
         expect(response.data, isA<Blog>());
         expect(response.data?.id, id);
@@ -127,7 +136,6 @@ void main() {
     }''';
         GraphQLRequest<String> req =
             GraphQLRequest(document: doc, variables: <String, String>{id: id});
-        List<GraphQLResponseError> errors = [];
         String data = '''{
         "getBlog": {
             "createdAt": "2021-01-01T01:00:00.000000000Z",
@@ -136,8 +144,7 @@ void main() {
         }
     }''';
 
-        GraphQLResponse<String> response = GraphQLResponseDecoder.instance
-            .decode<String>(request: req, data: data, errors: errors);
+        GraphQLResponse<String> response = _decodeResponseData(req, data);
 
         expect(response.data, isA<String>());
       });
@@ -148,7 +155,6 @@ void main() {
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: 2);
 
-        List<GraphQLResponseError> errors = [];
         String data = '''{
           "listBlogs": {
               "items": [
@@ -168,8 +174,7 @@ void main() {
         }''';
 
         GraphQLResponse<PaginatedResult<Blog>> response =
-            GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
-                request: req, data: data, errors: errors);
+            _decodeResponseData(req, data);
 
         expect(response.data, isA<PaginatedResult<Blog>>());
         expect(response.data?.items, isA<List<Blog?>>());
@@ -182,7 +187,6 @@ void main() {
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: 2);
 
-        List<GraphQLResponseError> errors = [];
         String data = '''{
           "listBlogs": {
               "items": [
@@ -198,8 +202,7 @@ void main() {
         }''';
 
         GraphQLResponse<PaginatedResult<Blog>> response =
-            GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
-                request: req, data: data, errors: errors);
+            _decodeResponseData(req, data);
 
         expect(response.data, isA<PaginatedResult<Blog>>());
         expect(response.data?.items, isA<List<Blog?>>());
@@ -214,7 +217,6 @@ void main() {
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: limit);
 
-        List<GraphQLResponseError> errors = [];
         String data = '''{
           "listBlogs": {
               "items": [
@@ -234,8 +236,7 @@ void main() {
         }''';
 
         GraphQLResponse<PaginatedResult<Blog>> response =
-            GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
-                request: req, data: data, errors: errors);
+            _decodeResponseData(req, data);
         expect(response.data?.hasNextResult, true);
         const expectedDocument =
             'query listBlogs(\$filter: ModelBlogFilterInput, \$limit: Int, \$nextToken: String) { listBlogs(filter: \$filter, limit: \$limit, nextToken: \$nextToken) { items { $blogSelectionSet } nextToken } }';
@@ -252,7 +253,6 @@ void main() {
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: limit);
 
-        List<GraphQLResponseError> errors = [];
         String data = '''{
           "listBlogs": {
               "items": [
@@ -271,8 +271,7 @@ void main() {
         }''';
 
         GraphQLResponse<PaginatedResult<Blog>> response =
-            GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
-                request: req, data: data, errors: errors);
+            _decodeResponseData(req, data);
         expect(response.data?.hasNextResult, false);
       });
 
@@ -310,7 +309,6 @@ void main() {
             Blog.classType,
             limit: limit,
             where: queryPredicate);
-        List<GraphQLResponseError> errors = [];
         String data = '''{
           "listBlogs": {
               "items": [
@@ -329,8 +327,7 @@ void main() {
             }
         }''';
         GraphQLResponse<PaginatedResult<Blog>> response =
-            GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
-                request: req, data: data, errors: errors);
+            _decodeResponseData(req, data);
         Map<String, dynamic> firstRequestFilter =
             req.variables['filter'] as Map<String, dynamic>;
         final resultRequest = response.data?.requestForNextResult!;
