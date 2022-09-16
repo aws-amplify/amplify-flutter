@@ -28,7 +28,6 @@ import 'amplify_api_config.dart';
 import 'amplify_authorization_rest_client.dart';
 import 'graphql/app_sync_api_key_auth_provider.dart';
 import 'graphql/send_graphql_request.dart';
-import 'util.dart';
 
 /// {@template amplify_api.amplify_api_dart}
 /// The AWS implementation of the Amplify API category.
@@ -108,6 +107,10 @@ class AmplifyAPIDart extends AmplifyAPI {
     if (zIsWeb || !(Platform.isAndroid || Platform.isIOS)) {
       return;
     }
+
+    // Configure this plugin to act as a native iOS/Android plugin.
+    final nativePlugin = _NativeAmplifyApi(_authProviders);
+    NativeApiPlugin.setup(nativePlugin);
 
     final nativeBridge = NativeApiBridge();
     try {
@@ -240,7 +243,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     return AWSStreamedHttpRequest.delete(
       uri,
       body: body,
-      headers: addContentTypeToHeaders(headers, body),
+      headers: headers,
     ).send(client);
   }
 
@@ -286,7 +289,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return AWSStreamedHttpRequest.patch(
       uri,
-      headers: addContentTypeToHeaders(headers, body),
+      headers: headers,
       body: body ?? const HttpPayload.empty(),
     ).send(client);
   }
@@ -303,7 +306,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return AWSStreamedHttpRequest.post(
       uri,
-      headers: addContentTypeToHeaders(headers, body),
+      headers: headers,
       body: body ?? const HttpPayload.empty(),
     ).send(client);
   }
@@ -320,8 +323,36 @@ class AmplifyAPIDart extends AmplifyAPI {
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
     return AWSStreamedHttpRequest.put(
       uri,
-      headers: addContentTypeToHeaders(headers, body),
+      headers: headers,
       body: body ?? const HttpPayload.empty(),
     ).send(client);
   }
+}
+
+class _NativeAmplifyApi
+    with AWSDebuggable, AmplifyLoggerMixin
+    implements NativeApiPlugin {
+  /// The registered [APIAuthProvider] instances.
+  final Map<APIAuthorizationType, APIAuthProvider> _authProviders;
+
+  _NativeAmplifyApi(this._authProviders);
+
+  @override
+  Future<String?> getLatestAuthToken(String providerName) {
+    final provider = APIAuthorizationTypeX.from(providerName);
+    if (provider == null) {
+      throw PlatformException(code: 'BAD_ARGUMENTS');
+    }
+    final authProvider = _authProviders[provider];
+    if (authProvider == null) {
+      throw PlatformException(
+        code: 'NO_PROVIDER',
+        message: 'No provider found for $authProvider',
+      );
+    }
+    return authProvider.getLatestAuthToken();
+  }
+
+  @override
+  String get runtimeTypeName => '_NativeAmplifyApi';
 }
