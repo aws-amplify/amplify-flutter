@@ -15,8 +15,8 @@
 
 part of '../form_field.dart';
 
-class AuthenticatorPhoneField<FieldType> extends AuthenticatorFormField<
-    FieldType, String, AuthenticatorPhoneField<FieldType>> {
+class AuthenticatorPhoneField<FieldType>
+    extends AuthenticatorFormField<FieldType, String> {
   const AuthenticatorPhoneField({
     Key? key,
     required FieldType field,
@@ -60,7 +60,10 @@ class AuthenticatorPhoneField<FieldType> extends AuthenticatorFormField<
 class _AuthenticatorPhoneFieldState<FieldType>
     extends AuthenticatorFormFieldState<FieldType, String,
         AuthenticatorPhoneField<FieldType>>
-    with AuthenticatorPhoneFieldMixin, AuthenticatorTextField {
+    with
+        AuthenticatorPhoneFieldMixin<FieldType,
+            AuthenticatorPhoneField<FieldType>>,
+        AuthenticatorTextField<FieldType, AuthenticatorPhoneField<FieldType>> {
   @override
   String? get initialValue {
     var initialValue = widget.initialValue ?? super.initialValue;

@@ -25,7 +25,7 @@ import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 
 mixin AuthenticatorUsernameField<FieldType,
-        T extends AuthenticatorFormField<FieldType, UsernameInput, T>>
+        T extends AuthenticatorFormField<FieldType, UsernameInput>>
     on AuthenticatorFormFieldState<FieldType, UsernameInput, T> {
   @override
   UsernameInput? get initialValue {

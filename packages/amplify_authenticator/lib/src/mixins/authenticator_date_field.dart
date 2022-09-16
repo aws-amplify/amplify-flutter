@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 mixin AuthenticatorDateField<FieldType,
-        T extends AuthenticatorFormField<FieldType, String, T>>
+        T extends AuthenticatorFormField<FieldType, String>>
     on AuthenticatorFormFieldState<FieldType, String, T> {
   static final DateFormat _formatter = DateFormat('yyyy-MM-dd');
 
