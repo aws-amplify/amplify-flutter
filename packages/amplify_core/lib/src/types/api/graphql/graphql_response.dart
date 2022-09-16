@@ -27,7 +27,7 @@ class GraphQLResponse<T> {
 
   const GraphQLResponse({
     this.data,
-    required this.errors,
+    this.errors,
   });
 
   static GraphQLResponse<String?> raw({
