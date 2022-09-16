@@ -1,0 +1,20 @@
+sdk:
+  - stable
+  - dev
+
+stages:
+  - analyze_and_format:
+      - group:
+          - format
+          - analyze: --fatal-infos .
+          - command: ../../../tool/license.sh -check
+  - unit_test:
+      - group:
+          - test: --coverage=coverage
+          - test: -p chrome --coverage=coverage
+          - command: ../../../tool/coverage.sh
+  - unit_test_native:
+      - test:
+        os:
+          - windows
+          - macos
