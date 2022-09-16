@@ -27,17 +27,6 @@ void main({bool useExistingTestUser = false}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('GraphQL API key', () {
-    // TODO(ragingsquirrel3): get apiKey from config until multiauth param
-    final amplifyConfig = AmplifyConfig.fromJson(
-      json.decode(amplifyconfig) as Map<String, dynamic>,
-    );
-    final gqlEndpoint = amplifyConfig.api!.awsPlugin!.entries
-        .firstWhere(
-          (element) => element.value.endpointType == EndpointType.graphQL,
-        )
-        .value;
-    final apiKey = gqlEndpoint.apiKey!;
-
     setUpAll(() async {
       await configureAmplify();
       await signOutTestUser();
@@ -45,10 +34,8 @@ void main({bool useExistingTestUser = false}) {
 
     group('queries', () {
       testWidgets('should query authorized model', (WidgetTester tester) async {
-        final req = authorizeRequestForApiKey(
-          ModelQueries.list<Blog>(Blog.classType),
-          apiKey,
-        );
+        final req =
+            authorizeRequestForApiKey(ModelQueries.list<Blog>(Blog.classType));
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
         throwIfError(res);
@@ -58,10 +45,8 @@ void main({bool useExistingTestUser = false}) {
       testWidgets('should get error for unauthorized model', (
         WidgetTester tester,
       ) async {
-        final req = authorizeRequestForApiKey(
-          ModelQueries.list<Post>(Post.classType),
-          apiKey,
-        );
+        final req =
+            authorizeRequestForApiKey(ModelQueries.list<Post>(Post.classType));
         final res = await Amplify.API.query(request: req).response;
         expect(res.hasErrors, true);
         expect(res.data, isNull);

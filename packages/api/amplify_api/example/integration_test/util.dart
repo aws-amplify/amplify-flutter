@@ -93,7 +93,7 @@ Future<void> deleteTestUser() async {
 
 // declare utility which creates blog with title as parameter
 Future<Blog> addBlog(String name) async {
-  final request = await authorizeRequestForUserPools(
+  final request = authorizeRequestForUserPools(
     ModelMutations.create(Blog(name: name)),
   );
 
@@ -114,7 +114,7 @@ Future<Post> addPostAndBlog(
   Blog createdBlog = await addBlog(name);
 
   Post post = Post(title: title, rating: rating, blog: createdBlog);
-  final createPostReq = await authorizeRequestForUserPools(
+  final createPostReq = authorizeRequestForUserPools(
     ModelMutations.create(post),
   );
   final createPostRes =
@@ -130,50 +130,28 @@ Future<Post> addPostAndBlog(
   return data;
 }
 
-Future<GraphQLRequest<T>> authorizeRequestForUserPools<T>(
-    GraphQLRequest<T> request) async {
-  // TODO(ragingsquirrel3): convert to authorizationType parameter when implemented.
-  final authSession =
-      await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-  final accessToken = authSession.userPoolTokens?.accessToken.raw;
-  if (accessToken == null) {
-    throw const AmplifyException(
-      'Could not get access token from cognito.',
-      recoverySuggestion: 'Ensure test user signed in.',
-    );
-  }
-  final headers = {AWSHeaders.authorization: accessToken};
-
+GraphQLRequest<T> authorizeRequestForUserPools<T>(GraphQLRequest<T> request) {
   return GraphQLRequest<T>(
     document: request.document,
     variables: request.variables,
     modelType: request.modelType,
     decodePath: request.decodePath,
-    headers: headers,
+    authorizationMode: APIAuthorizationType.userPools,
   );
 }
 
-GraphQLRequest<T> authorizeRequestForApiKey<T>(
-  GraphQLRequest<T> request,
-  String apiKey,
-) {
-  // TODO(ragingsquirrel3): convert to authorizationType parameter when implemented.
-  final headers = {
-    AWSHeaders.authorization: APIAuthorizationType.none.rawValue,
-    'X-Api-Key': apiKey
-  };
-
+GraphQLRequest<T> authorizeRequestForApiKey<T>(GraphQLRequest<T> request) {
   return GraphQLRequest<T>(
     document: request.document,
     variables: request.variables,
     modelType: request.modelType,
     decodePath: request.decodePath,
-    headers: headers,
+    authorizationMode: APIAuthorizationType.apiKey,
   );
 }
 
 Future<Blog?> deleteBlog(String id) async {
-  final request = await authorizeRequestForUserPools(
+  final request = authorizeRequestForUserPools(
     ModelMutations.deleteById(Blog.classType, id),
   );
   final response = await Amplify.API.mutate(request: request).response;
@@ -183,7 +161,7 @@ Future<Blog?> deleteBlog(String id) async {
 }
 
 Future<void> deletePost(String id) async {
-  final request = await authorizeRequestForUserPools(
+  final request = authorizeRequestForUserPools(
     ModelMutations.deleteById(Post.classType, id),
   );
   final response = await Amplify.API.mutate(request: request).response;

@@ -14,6 +14,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
@@ -24,11 +25,13 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
   AWSBaseHttpRequest request, {
   required AWSApiConfig endpointConfig,
   required AmplifyAuthProviderRepository authProviderRepo,
+  APIAuthorizationType? authorizationMode,
 }) async {
-  if (request.headers.containsKey(AWSHeaders.authorization)) {
+  if (request.headers.containsKey(AWSHeaders.authorization) ||
+      request.headers.containsKey(xApiKey)) {
     return request;
   }
-  final authType = endpointConfig.authorizationType;
+  final authType = authorizationMode ?? endpointConfig.authorizationType;
 
   switch (authType) {
     case APIAuthorizationType.apiKey:

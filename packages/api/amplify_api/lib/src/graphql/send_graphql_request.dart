@@ -15,6 +15,7 @@
 
 import 'dart:convert';
 
+import 'package:amplify_api/src/amplify_authorization_rest_client.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
@@ -25,15 +26,18 @@ import 'graphql_response_decoder.dart';
 @internal
 CancelableOperation<GraphQLResponse<T>> sendGraphQLRequest<T>({
   required GraphQLRequest<T> request,
-  required AWSHttpClient client,
+  required AmplifyAuthorizationRestClient client,
   required Uri uri,
 }) {
   final body = {'variables': request.variables, 'query': request.document};
-  final graphQLOperation = client.send(AWSStreamedHttpRequest.post(
+  final httpRequest = AWSStreamedHttpRequest.post(
     uri,
     body: HttpPayload.json(body),
     headers: request.headers,
-  ));
+  );
+  final graphQLOperation = client.send(
+    httpRequest,
+  );
 
   return graphQLOperation.operation.then(
     (response) async {

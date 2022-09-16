@@ -16,6 +16,7 @@ import 'dart:async';
 
 import 'package:amplify_api/src/decorators/authorize_http_request.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:async/async.dart';
 import 'package:meta/meta.dart';
 
 /// Implementation of http [http.Client] that authorizes HTTP requests with
@@ -47,6 +48,40 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
       request,
       endpointConfig: endpointConfig,
       authProviderRepo: authProviderRepo,
+    );
+  }
+
+  /// Allows overriding default auth mode of the API config.
+  ///
+  /// Authorizes the request with `authorizationMode` before deferring to `send()`.
+  AWSHttpOperation sendWithAuthorizationMode(
+    AWSBaseHttpRequest request, {
+    APIAuthorizationType? authorizationMode,
+  }) {
+    final completer = CancelableCompleter<AWSBaseHttpResponse>();
+    final requestProgressCompleter = StreamCompleter<int>();
+    final responseProgressCompleter = StreamCompleter<int>();
+    authorizeHttpRequest(
+      request,
+      endpointConfig: endpointConfig,
+      authProviderRepo: authProviderRepo,
+      authorizationMode: authorizationMode,
+    ).then(send).then((httpOperation) {
+      requestProgressCompleter.setSourceStream(httpOperation.requestProgress);
+      responseProgressCompleter.setSourceStream(httpOperation.responseProgress);
+      httpOperation.operation.then(
+        (resp) async {
+          resp = await transformResponse(resp);
+          completer.complete(resp);
+        },
+        onError: completer.completeError,
+        onCancel: completer.operation.cancel,
+      );
+    });
+    return AWSHttpOperation(
+      completer.operation,
+      requestProgress: responseProgressCompleter.stream,
+      responseProgress: responseProgressCompleter.stream,
     );
   }
 }

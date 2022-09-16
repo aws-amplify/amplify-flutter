@@ -49,7 +49,7 @@ void main({bool useExistingTestUser = false}) {
         final blogId = post.blog?.id;
         final inputComment =
             Comment(content: 'Lorem ipsum test comment', post: post);
-        final createCommentReq = await authorizeRequestForUserPools(
+        final createCommentReq = authorizeRequestForUserPools(
           ModelMutations.create(inputComment),
         );
         final createCommentRes =
@@ -79,7 +79,7 @@ void main({bool useExistingTestUser = false}) {
             }
         }
       }''';
-        final nestedGetBlogReq = await authorizeRequestForUserPools(
+        final nestedGetBlogReq = authorizeRequestForUserPools(
           GraphQLRequest<Blog>(
             document: graphQLDocument,
             modelType: Blog.classType,
@@ -94,7 +94,7 @@ void main({bool useExistingTestUser = false}) {
         throwIfError(nestedResponse);
         expect(firstCommentFromResponse?.id, createdComment.id);
         // clean up the comment
-        final deleteCommentReq = await authorizeRequestForUserPools(
+        final deleteCommentReq = authorizeRequestForUserPools(
           ModelMutations.deleteById(Comment.classType, createdComment.id),
         );
         await Amplify.API.mutate(request: deleteCommentReq).response;
@@ -107,7 +107,7 @@ void main({bool useExistingTestUser = false}) {
         String name = 'Integration Test Blog - create';
         Blog blog = Blog(name: name);
 
-        final req = await authorizeRequestForUserPools(
+        final req = authorizeRequestForUserPools(
           ModelMutations.create(blog),
         );
         final res = await Amplify.API.mutate(request: req).response;
@@ -136,7 +136,7 @@ void main({bool useExistingTestUser = false}) {
         Blog blog = await addBlog(oldName);
         blog = blog.copyWith(name: newName);
 
-        final req = await authorizeRequestForUserPools(
+        final req = authorizeRequestForUserPools(
           ModelMutations.update(blog),
         );
         final res = await Amplify.API.mutate(request: req).response;
@@ -153,7 +153,7 @@ void main({bool useExistingTestUser = false}) {
 
         final updatedTitle = 'Lorem Ipsum Test Post: (title updated) ${uuid()}';
         Post localUpdatedPost = originalPost.copyWith(title: updatedTitle);
-        final updateReq = await authorizeRequestForUserPools(
+        final updateReq = authorizeRequestForUserPools(
           ModelMutations.update(localUpdatedPost),
         );
         final updateRes = await Amplify.API.mutate(request: updateReq).response;
@@ -167,7 +167,7 @@ void main({bool useExistingTestUser = false}) {
           (WidgetTester tester) async {
         Post post =
             Post(title: 'Lorem ipsum, fail update', rating: 0, blog: null);
-        final createPostReq = await authorizeRequestForUserPools(
+        final createPostReq = authorizeRequestForUserPools(
           ModelMutations.create(post),
         );
         final createPostRes =
@@ -189,7 +189,7 @@ void main({bool useExistingTestUser = false}) {
         String newName = 'Integration Test Blog - updated';
         Blog blog = await addBlog(oldName);
         blog = blog.copyWith(name: newName);
-        final req = await authorizeRequestForUserPools(
+        final req = authorizeRequestForUserPools(
           ModelMutations.update(blog, where: Blog.NAME.eq('THATS_NOT_MY_NAME')),
         );
 
@@ -221,7 +221,7 @@ void main({bool useExistingTestUser = false}) {
         const rating = 0;
         Post post = await addPostAndBlog(title, rating);
 
-        final req = await authorizeRequestForUserPools(
+        final req = authorizeRequestForUserPools(
           ModelMutations.deleteById(Post.classType, post.id),
         );
         final res = await Amplify.API.mutate(request: req).response;
@@ -235,7 +235,7 @@ void main({bool useExistingTestUser = false}) {
           (WidgetTester tester) async {
         String name = 'Integration Test Blog - failed delete';
         Blog blog = await addBlog(name);
-        final req = await authorizeRequestForUserPools(
+        final req = authorizeRequestForUserPools(
           ModelMutations.delete(blog, where: Blog.NAME.eq('THATS_NOT_MY_NAME')),
         );
 
