@@ -221,12 +221,7 @@ void main({bool useExistingTestUser = false}) {
         const rating = 0;
         Post post = await addPostAndBlog(title, rating);
 
-        final req = await authorizeRequestForUserPools(
-          ModelMutations.deleteById(Post.classType, post.id),
-        );
-        final res = await Amplify.API.mutate(request: req).response;
-        expect(res, hasNoGraphQLErrors);
-        Post? mutatedPost = res.data;
+        Post? mutatedPost = await deletePost(post.id);
         expect(mutatedPost?.title, equals(title));
       });
 
