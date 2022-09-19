@@ -1,3 +1,10 @@
+## 0.6.8 (2022-09-19)
+
+- fix(storage): Download to existing file
+
+- chore(storage): Update dependencies
+- chore(storage): Download to temp file
+
 ## 0.6.7 (2022-09-07)
 
 ## 0.6.6 (2022-08-16)

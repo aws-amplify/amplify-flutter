@@ -1,3 +1,19 @@
+## 0.6.8 (2022-09-19)
+
+- feat(authenticator): listen to all auth hub events (#2053)
+
+- fix(core): Podspec deployment target (#2099)
+- fix(storage): Download to existing file
+- fix(datastore): cpk errors on a custom type (#2134)
+
+- chore(core): Export `safePrint` from amplify_core
+- chore(auth): enable integration tests in CI (#1886)
+- chore(repo): Update bug report to include deployment option (#1928)
+- chore(api): add field to schema in provision script (#1909)
+- chore(storage): Update dependencies
+- chore(storage): Download to temp file
+- chore: adds platform/category table (#2115)
+
 ## 0.6.7 (2022-09-07)
 
 - fix: Podspec deployment target ([#2099](https://github.com/aws-amplify/amplify-flutter/pull/2099))

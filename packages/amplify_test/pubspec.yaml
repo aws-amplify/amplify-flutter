@@ -11,10 +11,10 @@ environment:
   flutter: ">=2.10.0"
 
 dependencies:
-  amplify_api: 0.6.7
-  amplify_auth_cognito: 0.6.7
-  amplify_core: 0.6.7
-  amplify_flutter: 0.6.7
+  amplify_api: 0.6.8
+  amplify_auth_cognito: 0.6.8
+  amplify_core: 0.6.8
+  amplify_flutter: 0.6.8
   aws_common: ^0.1.1
   collection: ^1.15.0
   flutter:
