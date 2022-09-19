@@ -27,6 +27,7 @@ type Post @model {
   title: String!
   rating: Int!
   created: AWSDateTime
+  likeCount: Int
   blogID: ID! @index(name: "byBlog")
   blog: Blog @belongsTo(fields: ["blogID"])
   comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])

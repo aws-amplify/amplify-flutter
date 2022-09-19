@@ -22,24 +22,36 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
 
-const exampleFileName = 'example_file.txt';
-
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('amplify_storage_s3', () {
-    // options used for all tests
-    S3ListOptions listOptions =
-        S3ListOptions(accessLevel: StorageAccessLevel.guest);
-    late String? lastUploadedKey;
+    final listOptions = S3ListOptions(accessLevel: StorageAccessLevel.guest);
+    late String lastUploadedKey;
+
+    const exampleFileName = 'subdir/example_file.txt';
+    const exampleContents = 'Upload me to s3 to see if I work.';
+    const exampleDescription = 'A test file';
 
     // Returns a text file to use for testing, writing if it does not exist.
-    Future<File> getTemporaryFile() async {
-      final path = '${(await getTemporaryDirectory()).path}/$exampleFileName';
+    Future<File> getTemporaryFile({
+      String? contents,
+      bool create = true,
+    }) async {
+      final dir = await getTemporaryDirectory();
+      final path = '${dir.path}/$exampleFileName';
       final file = File(path);
-      if (!(await file.exists())) {
-        await file.writeAsString('Upload me to s3 to see if I work.');
+      if (create) {
+        file.createSync(recursive: true);
       }
+      if (contents != null) {
+        file.writeAsStringSync(contents);
+      }
+      addTearDown(() {
+        if (file.existsSync()) {
+          file.deleteSync();
+        }
+      });
       return file;
     }
 
@@ -66,65 +78,157 @@ void main() async {
       await deleteAllGuestFiles();
     });
 
-    testWidgets('should upload a file', (WidgetTester tester) async {
-      final file = await getTemporaryFile();
-      final initialCount = await getCountFromListFiles();
+    group('uploadFile', () {
+      testWidgets('should upload a file', (WidgetTester tester) async {
+        final file = await getTemporaryFile(contents: exampleContents);
+        final initialCount = await getCountFromListFiles();
 
-      final key = '$exampleFileName${new DateTime.now().toString()}';
-      Map<String, String> metadata = <String, String>{};
-      metadata['name'] = exampleFileName;
-      metadata['desc'] = 'A test file';
-      S3UploadFileOptions options = S3UploadFileOptions(
-          accessLevel: StorageAccessLevel.guest, metadata: metadata);
+        final key = '$exampleFileName${new DateTime.now().toString()}';
+        final metadata = <String, String>{
+          'name': exampleFileName,
+          'desc': exampleDescription,
+        };
+        final uploadOptions = S3UploadFileOptions(
+          accessLevel: StorageAccessLevel.guest,
+          metadata: metadata,
+        );
 
-      int fileLength = file.lengthSync();
-      int lastProgressBytes = 0;
-      int onProgressCalls = 0;
-      final result = await Amplify.Storage.uploadFile(
+        final fileLength = file.lengthSync();
+        var lastProgress = 0;
+        final result = await Amplify.Storage.uploadFile(
           key: key,
           local: file,
-          options: options,
-          onProgress: (progress) {
-            expect(
-                progress.currentBytes, greaterThanOrEqualTo(lastProgressBytes));
-            lastProgressBytes = progress.currentBytes;
+          options: uploadOptions,
+          onProgress: expectAsync1(
+            (progress) {
+              expect(
+                progress.currentBytes,
+                greaterThanOrEqualTo(lastProgress),
+              );
+              lastProgress = progress.currentBytes;
 
-            expect(progress.totalBytes, fileLength);
-            onProgressCalls++;
-          });
-      expect(onProgressCalls, greaterThan(0));
-      lastUploadedKey = result.key;
-      expect(lastUploadedKey, key);
+              expect(progress.totalBytes, fileLength);
+            },
+            max: -1,
+            reason: 'onProgress should be called one or more times',
+          ),
+        );
+        lastUploadedKey = result.key;
+        expect(lastUploadedKey, key);
 
-      final finalCount = await getCountFromListFiles();
-      expect(initialCount + 1, finalCount);
-    });
+        final finalCount = await getCountFromListFiles();
+        expect(finalCount, initialCount + 1);
+      });
 
-    testWidgets('should list files and get expected attributes',
+      testWidgets(
+        'should throw with auth mismatch',
         (WidgetTester tester) async {
-      if (lastUploadedKey == null) {
-        fail('No uploaded file to verify.');
-      }
-      final result = await Amplify.Storage.list(options: listOptions);
-      expect(result.items.length, greaterThan(0));
-      final uploadedStorageItem =
-          result.items.firstWhere((element) => element.key == lastUploadedKey);
-      expect(uploadedStorageItem.lastModified?.day,
-          new DateTime.now().day); // was uploaded today
-      expect(uploadedStorageItem.eTag?.isNotEmpty, true);
-      expect(uploadedStorageItem.size, greaterThan(0));
+          final file = await getTemporaryFile(contents: exampleContents);
+          await expectLater(
+            Amplify.Storage.uploadFile(
+              key: lastUploadedKey,
+              local: file,
+              options: UploadFileOptions(
+                accessLevel: StorageAccessLevel.private,
+              ),
+            ),
+            throwsA(isA<StorageException>()),
+          );
+        },
+      );
     });
 
-    testWidgets('should get the URL of an uploaded file',
-        (WidgetTester tester) async {
-      if (lastUploadedKey == null) {
-        fail('No uploaded file to verify.');
+    group('downloadFile', () {
+      Future<void> downloadTest({required bool create}) async {
+        final downloadedFile = await getTemporaryFile(create: create);
+
+        var lastProgress = 0;
+        late int totalProgress;
+        final downloadResult = await Amplify.Storage.downloadFile(
+          key: lastUploadedKey,
+          local: downloadedFile,
+          onProgress: expectAsync1(
+            (progress) {
+              expect(
+                progress.currentBytes,
+                greaterThanOrEqualTo(lastProgress),
+              );
+              lastProgress = progress.currentBytes;
+              totalProgress = progress.totalBytes;
+            },
+            max: -1,
+            reason: 'onProgress should be called one or more times',
+          ),
+        );
+        expect(lastProgress, totalProgress);
+        expect(downloadResult.file.path, downloadedFile.path);
+
+        expect(
+          downloadedFile.readAsStringSync(),
+          exampleContents,
+          reason: 'should be downloaded to ${downloadedFile.path}',
+        );
+        expect(downloadedFile.lengthSync(), totalProgress);
       }
-      final result = await Amplify.Storage.getUrl(key: lastUploadedKey!);
-      // assert valid and expected s3 URL
-      expect(Uri.parse(result.url).isAbsolute, true);
-      expect(result.url.contains('s3'), true);
+
+      testWidgets(
+        'should download to existing file',
+        (WidgetTester tester) {
+          return downloadTest(create: true);
+        },
+      );
+
+      testWidgets(
+        'should download to non-existent file',
+        (WidgetTester tester) {
+          return downloadTest(create: false);
+        },
+      );
+
+      testWidgets(
+        'should throw with auth mismatch',
+        (WidgetTester tester) async {
+          final downloadedFile = await getTemporaryFile();
+          await expectLater(
+            Amplify.Storage.downloadFile(
+              key: lastUploadedKey,
+              local: downloadedFile,
+              options: DownloadFileOptions(
+                accessLevel: StorageAccessLevel.private,
+              ),
+            ),
+            throwsA(isA<StorageException>()),
+          );
+        },
+      );
     });
+
+    testWidgets(
+      'should list files and get expected attributes',
+      (WidgetTester tester) async {
+        final result = await Amplify.Storage.list(options: listOptions);
+        expect(result.items.length, greaterThan(0));
+        final uploadedStorageItem = result.items.firstWhere(
+          (element) => element.key == lastUploadedKey,
+        );
+        expect(
+          uploadedStorageItem.lastModified?.toUtc().day,
+          new DateTime.now().toUtc().day,
+        ); // was uploaded today
+        expect(uploadedStorageItem.eTag?.isNotEmpty, true);
+        expect(uploadedStorageItem.size, greaterThan(0));
+      },
+    );
+
+    testWidgets(
+      'should get the URL of an uploaded file',
+      (WidgetTester tester) async {
+        final result = await Amplify.Storage.getUrl(key: lastUploadedKey);
+        // assert valid and expected s3 URL
+        expect(Uri.parse(result.url).isAbsolute, true);
+        expect(result.url.contains('s3'), true);
+      },
+    );
 
     testWidgets('should delete uploaded files', (WidgetTester tester) async {
       final initialCount = await getCountFromListFiles();

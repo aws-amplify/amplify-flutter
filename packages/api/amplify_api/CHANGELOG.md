@@ -1,3 +1,7 @@
+## 0.6.8 (2022-09-19)
+
+- chore(api): add field to schema in provision script (#1909)
+
 ## 0.6.7 (2022-09-07)
 
 ## 0.6.6 (2022-08-16)

@@ -1,3 +1,7 @@
+## 0.2.3 (2022-09-19)
+
+- feat(authenticator): listen to all auth hub events (#2053)
+
 ## 0.2.2 (2022-06-30)
 
 - chore(authenticator): Update versions on the README ([#1854](https://github.com/aws-amplify/amplify-flutter/pull/1854))

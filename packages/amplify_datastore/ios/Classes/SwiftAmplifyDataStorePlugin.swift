@@ -519,7 +519,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 )
             }
             if !customTypeSchemaDependenciesOrder.contains(schemaName) {
-                let schema: ModelSchema = try FlutterModelSchema.init(serializedData: serializedCustomTypeSchema)
+                let schema: ModelSchema = try FlutterModelSchema.init(serializedData: serializedCustomTypeSchema, isModelType: false)
                     .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemaRegistry)
                 customTypeSchemaRegistry.addModelSchema(modelName: schemaName, modelSchema: schema)
             }

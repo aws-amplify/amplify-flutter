@@ -1,3 +1,8 @@
+## 0.6.8 (2022-09-19)
+
+- chore(core): Export `safePrint` from amplify_core (#2114)
+- fix(core): Podspec deployment target (#2099)
+
 ## 0.6.7 (2022-09-07)
 
 - fix: Podspec deployment target ([#2099](https://github.com/aws-amplify/amplify-flutter/pull/2099))

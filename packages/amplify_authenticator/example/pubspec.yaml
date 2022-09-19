@@ -22,10 +22,10 @@ environment:
   flutter: ">=2.10.0"
 
 dependencies:
-  amplify_auth_cognito: 0.6.7
+  amplify_auth_cognito: 0.6.8
   amplify_authenticator:
     path: ../
-  amplify_flutter: 0.6.7
+  amplify_flutter: 0.6.8
 
   flutter:
     sdk: flutter
@@ -38,7 +38,7 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  amplify_api: 0.6.7
+  amplify_api: 0.6.8
   amplify_lints: ^1.0.0
   amplify_test:
     path: ../../amplify_test

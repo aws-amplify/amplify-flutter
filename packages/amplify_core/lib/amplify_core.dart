@@ -15,6 +15,9 @@
 
 library amplify_core;
 
+/// Common types
+export 'package:aws_common/aws_common.dart';
+
 /// Categories
 export 'src/category/amplify_categories.dart';
 
