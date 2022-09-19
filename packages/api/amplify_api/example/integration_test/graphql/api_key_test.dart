@@ -56,13 +56,36 @@ void main({bool useExistingTestUser = false}) {
     group(
       'subscriptions',
       () {
-        // TODO(ragingsquirrel3): auth workaround not working for subs
-        // when authType param added or headers passed to sub reqs, fix
+        setUpAll(() async {
+          if (!useExistingTestUser) {
+            await signUpTestUser();
+          }
+          await signInTestUser();
+        });
+
+        tearDownAll(() async {
+          await deleteTestModels();
+          if (!useExistingTestUser) {
+            await deleteTestUser();
+          }
+        });
+
         testWidgets(
-          'should emit event when onCreate subscription made with model helper',
-          (WidgetTester tester) async {},
-          skip: true,
-        );
+            'should emit event when onCreate subscription made with model helper',
+            (WidgetTester tester) async {
+          String name = 'Integration Test Blog - subscription create ${uuid()}';
+          final subscriptionRequest = authorizeRequestForApiKey(
+            ModelSubscriptions.onCreate(Blog.classType),
+          );
+
+          final eventResponse = await establishSubscriptionAndMutate(
+            subscriptionRequest,
+            () => addBlog(name),
+          );
+          Blog? blogFromEvent = eventResponse.data;
+
+          expect(blogFromEvent?.name, equals(name));
+        });
       },
     );
   });

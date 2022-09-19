@@ -16,7 +16,6 @@ import 'dart:async';
 
 import 'package:amplify_api/src/decorators/authorize_http_request.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:async/async.dart';
 import 'package:meta/meta.dart';
 
 /// Implementation of http [http.Client] that authorizes HTTP requests with
@@ -26,13 +25,17 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
   /// [AmplifyAuthProviderRepository] for any auth modes this client may use.
   final AmplifyAuthProviderRepository authProviderRepo;
 
-  /// Determines how requests with this client are authorized.
+  /// Determines the URL and API key (if applicable) to use for this client.
   final AWSApiConfig endpointConfig;
+
+  /// The authorization mode to use for requests with this client.
+  final APIAuthorizationType authorizationMode;
 
   /// Provide an [AWSApiConfig] which will determine how requests from this
   /// client are authorized.
   AmplifyAuthorizationRestClient({
     required this.endpointConfig,
+    required this.authorizationMode,
     required this.authProviderRepo,
     AWSHttpClient? baseClient,
   }) : baseClient = baseClient ?? AWSHttpClient();
@@ -40,48 +43,15 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
   @override
   final AWSHttpClient baseClient;
 
-  /// Implementation of [send] that authorizes any request without "Authorization"
-  /// header already set.
+  /// Implementation of [transformRequest] that authorizes any request without "Authorization"
+  /// or "X-Api-Key" header already set.
   @override
   Future<AWSBaseHttpRequest> transformRequest(AWSBaseHttpRequest request) {
     return authorizeHttpRequest(
       request,
       endpointConfig: endpointConfig,
       authProviderRepo: authProviderRepo,
-    );
-  }
-
-  /// Allows overriding default auth mode of the API config.
-  ///
-  /// Authorizes the request with `authorizationMode` before deferring to `send()`.
-  AWSHttpOperation sendWithAuthorizationMode(
-    AWSBaseHttpRequest request, {
-    APIAuthorizationType? authorizationMode,
-  }) {
-    final completer = CancelableCompleter<AWSBaseHttpResponse>();
-    final requestProgressCompleter = StreamCompleter<int>();
-    final responseProgressCompleter = StreamCompleter<int>();
-    authorizeHttpRequest(
-      request,
-      endpointConfig: endpointConfig,
-      authProviderRepo: authProviderRepo,
       authorizationMode: authorizationMode,
-    ).then(send).then((httpOperation) {
-      requestProgressCompleter.setSourceStream(httpOperation.requestProgress);
-      responseProgressCompleter.setSourceStream(httpOperation.responseProgress);
-      httpOperation.operation.then(
-        (resp) async {
-          resp = await transformResponse(resp);
-          completer.complete(resp);
-        },
-        onError: completer.completeError,
-        onCancel: completer.operation.cancel,
-      );
-    });
-    return AWSHttpOperation(
-      completer.operation,
-      requestProgress: responseProgressCompleter.stream,
-      responseProgress: responseProgressCompleter.stream,
     );
   }
 }

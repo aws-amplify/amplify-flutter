@@ -25,7 +25,7 @@ import 'graphql_response_decoder.dart';
 @internal
 CancelableOperation<GraphQLResponse<T>> sendGraphQLRequest<T>({
   required GraphQLRequest<T> request,
-  required AmplifyAuthorizationRestClient client,
+  required AWSHttpClient client,
   required Uri uri,
 }) {
   final body = {'variables': request.variables, 'query': request.document};
