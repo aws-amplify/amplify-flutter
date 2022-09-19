@@ -19,7 +19,6 @@ import 'package:amplify_api/src/amplify_authorization_rest_client.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-import '../util.dart';
 import 'graphql_response_decoder.dart';
 
 /// Converts the [GraphQLRequest] to an HTTP POST request and sends with ///[client].
@@ -51,17 +50,9 @@ CancelableOperation<GraphQLResponse<T>> sendGraphQLRequest<T>({
         );
       }
 
-      final responseData = responseBody['data'];
-      // Preserve `null`. json.encode(null) returns "null" not `null`
-      final responseDataJson =
-          responseData != null ? json.encode(responseData) : null;
-
-      final errors = deserializeGraphQLResponseErrors(responseBody);
-
       return GraphQLResponseDecoder.instance.decode<T>(
         request: request,
-        data: responseDataJson,
-        errors: errors,
+        response: responseBody,
       );
     },
     onError: (error, stackTrace) {

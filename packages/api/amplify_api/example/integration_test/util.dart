@@ -24,12 +24,63 @@ import 'package:flutter_test/flutter_test.dart';
 
 const _subscriptionTimeoutInterval = 5;
 
-String? testUsername;
-String? testPassword;
+TestUser? testUser;
 
 // Keep track of what is created here so it can be deleted.
 final blogCache = <Blog>[];
 final postCache = <Post>[];
+
+class TestUser {
+  TestUser({
+    String? username,
+    String? password,
+  })  : _username = 'testUser${uuid()}',
+        _password = uuid(secure: true);
+
+  final String _username;
+  final String _password;
+
+  Future<void> signUp() async {
+    await signOut();
+    final testEmail = '$_username@amazon.com';
+    final result = await Amplify.Auth.signUp(
+      username: _username,
+      password: _password,
+      options: CognitoSignUpOptions(
+        userAttributes: {CognitoUserAttributeKey.email: testEmail},
+      ),
+    );
+    if (!result.isSignUpComplete) {
+      throw const AmplifyException('Unable to sign up test user.');
+    }
+  }
+
+  Future<void> signOut() async {
+    final session = await Amplify.Auth.fetchAuthSession();
+    if (!session.isSignedIn) return;
+    await Amplify.Auth.signOut();
+  }
+
+  /// No-op if already signed in.
+  Future<void> signIn() async {
+    final session = await Amplify.Auth.fetchAuthSession();
+    if (session.isSignedIn) return;
+    final result = await Amplify.Auth.signIn(
+      username: _username,
+      password: _password,
+    );
+    if (!result.isSignedIn) {
+      throw const AmplifyException('Unable to sign in test user.');
+    }
+  }
+
+  Future<void> delete() async {
+    final session = await Amplify.Auth.fetchAuthSession();
+    if (!session.isSignedIn) await signInTestUser();
+    await Amplify.Auth.deleteUser();
+    testUser = null;
+  }
+}
 
 Future<void> configureAmplify() async {
   if (!Amplify.isConfigured) {
@@ -44,51 +95,34 @@ Future<void> configureAmplify() async {
 Future<void> signUpTestUser() async {
   await signOutTestUser();
 
-  testUsername = 'testUser${uuid()}';
-  testPassword = uuid(secure: true);
-  final testEmail = '$testUsername@amazon.com';
-  final result = await Amplify.Auth.signUp(
-    username: testUsername!,
-    password: testPassword!,
-    options: CognitoSignUpOptions(
-      userAttributes: {CognitoUserAttributeKey.email: testEmail},
-    ),
-  );
-  if (!result.isSignUpComplete) {
-    throw const AmplifyException('Unable to sign up test user.');
-  }
+  testUser = TestUser();
+  await testUser!.signUp();
 }
 
+/// No-op if already signed in.
 Future<void> signInTestUser() async {
-  if (testUsername == null || testPassword == null) {
+  if (testUser == null) {
     throw const AmplifyException(
-      'Test username or password not configured.',
-      recoverySuggestion: 'call signUpTestUser()',
+      'No test user to sign in.',
+      recoverySuggestion: 'Ensure test user signed up.',
     );
   }
-  final session = await Amplify.Auth.fetchAuthSession();
-  if (session.isSignedIn) return;
-  final result = await Amplify.Auth.signIn(
-    username: testUsername!,
-    password: testPassword!,
-  );
-  if (!result.isSignedIn) {
-    throw const AmplifyException('Unable to sign in test user.');
-  }
+  await testUser!.signIn();
 }
 
+// No-op if not signed in.
 Future<void> signOutTestUser() async {
-  final session = await Amplify.Auth.fetchAuthSession();
-  if (!session.isSignedIn) return;
-  await Amplify.Auth.signOut();
+  await testUser?.signOut();
 }
 
 Future<void> deleteTestUser() async {
-  final session = await Amplify.Auth.fetchAuthSession();
-  if (!session.isSignedIn) await signInTestUser();
-  await Amplify.Auth.deleteUser();
-  testUsername = null;
-  testPassword = null;
+  if (testUser == null) {
+    throw const AmplifyException(
+      'No test user to delete.',
+      recoverySuggestion: 'Ensure test user signed up.',
+    );
+  }
+  await testUser!.delete();
 }
 
 // declare utility which creates blog with title as parameter
@@ -100,7 +134,7 @@ Future<Blog> addBlog(String name) async {
   var r = Amplify.API.mutate(request: request);
 
   var response = await r.response;
-  throwIfError(response);
+  expect(response, hasNoGraphQLErrors);
   final blog = response.data!;
   blogCache.add(blog);
   return blog;
@@ -119,13 +153,14 @@ Future<Post> addPostAndBlog(
   );
   final createPostRes =
       await Amplify.API.mutate(request: createPostReq).response;
-  throwIfError(createPostRes);
+  expect(createPostRes, hasNoGraphQLErrors);
   Post? data = createPostRes.data;
   if (data == null) {
     throw Exception(
       'Null response while creating post. Response errors: ${createPostRes.errors}',
     );
   }
+  postCache.add(data);
 
   return data;
 }
@@ -154,19 +189,20 @@ Future<Blog?> deleteBlog(String id) async {
   final request = authorizeRequestForUserPools(
     ModelMutations.deleteById(Blog.classType, id),
   );
-  final response = await Amplify.API.mutate(request: request).response;
-  throwIfError(response);
+  final res = await Amplify.API.mutate(request: request).response;
+  expect(res, hasNoGraphQLErrors);
   blogCache.removeWhere((blog) => blog.id == id);
-  return response.data;
+  return res.data;
 }
 
-Future<void> deletePost(String id) async {
+Future<Post?> deletePost(String id) async {
   final request = authorizeRequestForUserPools(
     ModelMutations.deleteById(Post.classType, id),
   );
-  final response = await Amplify.API.mutate(request: request).response;
-  throwIfError(response);
+  final res = await Amplify.API.mutate(request: request).response;
+  expect(res, hasNoGraphQLErrors);
   postCache.removeWhere((post) => post.id == id);
+  return res.data;
 }
 
 Future<void> deleteTestModels() async {
@@ -174,16 +210,7 @@ Future<void> deleteTestModels() async {
   await Future.wait(postCache.map((post) => deletePost(post.id)));
 }
 
-/// Throws if response `.hasErrors` (any GraphQL errors from server).
-void throwIfError(GraphQLResponse response) {
-  if (response.hasErrors || response.data == null) {
-    throw AmplifyException(
-      'GraphQL error while running request: ${response.errors.toString()}',
-    );
-  }
-}
-
-// Wait for subscription established for given request.
+/// Wait for subscription established for given request.
 Future<StreamSubscription<GraphQLResponse<T>>>
     getEstablishedSubscriptionOperation<T>(
   GraphQLRequest<T> subscriptionRequest,
@@ -206,8 +233,8 @@ Future<StreamSubscription<GraphQLResponse<T>>>
   return subscription;
 }
 
-// Establish subscription for request, do the mutationFunction, then wait
-// for the stream event, cancel the operation, return response from event.
+/// Establish subscription for request, do the mutationFunction, then wait
+/// for the stream event, cancel the operation, return response from event.
 Future<GraphQLResponse<T?>> establishSubscriptionAndMutate<T>(
   GraphQLRequest<T> subscriptionRequest,
   Future<void> Function() mutationFunction,
@@ -231,3 +258,8 @@ Future<GraphQLResponse<T?>> establishSubscriptionAndMutate<T>(
   await subscription.cancel();
   return response;
 }
+
+final hasNoGraphQLErrors = predicate<GraphQLResponse>(
+  (GraphQLResponse response) => !response.hasErrors && response.data != null,
+  'Has no GraphQL Errors',
+);
