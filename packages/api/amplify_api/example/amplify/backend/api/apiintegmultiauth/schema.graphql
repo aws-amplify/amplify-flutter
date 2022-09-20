@@ -1,0 +1,36 @@
+type Blog @model @auth(rules: [
+  { allow: public, operations: [read], provider: apiKey},
+  { allow: public, operations: [read], provider: iam},
+  { allow: private, operations: [read], provider: iam},
+  { allow: private, operations: [read], provider: userPools},
+  { allow: owner, operations: [create, read, update, delete] }
+]) {
+  id: ID!
+  name: String!
+  posts: [Post] @hasMany(indexName: "byBlog", fields: ["id"])
+}
+
+type Post @model @auth(rules: [
+  { allow: public, operations: [read], provider: iam},
+  { allow: private, operations: [read], provider: iam},
+  { allow: private, operations: [read], provider: userPools},
+  { allow: owner, operations: [create, read, update, delete] }
+]) {
+  id: ID!
+  title: String!
+  rating: Int!
+  blogID: ID! @index(name: "byBlog")
+  blog: Blog @belongsTo(fields: ["blogID"])
+  comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
+}
+
+type Comment @model @auth(rules: [
+  { allow: private, operations: [read], provider: iam},
+  { allow: private, operations: [read], provider: userPools},
+  { allow: owner, operations: [create, read, update, delete] }
+]) {
+  id: ID!
+  postID: ID! @index(name: "byPost")
+  post: Post @belongsTo(fields: ["postID"])
+  content: String!
+}
