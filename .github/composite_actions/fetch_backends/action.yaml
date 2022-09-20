@@ -11,6 +11,9 @@ inputs:
   # Amplify app IDs for specific categories
   api-app-id:
     required: true
+  # TODO: remove before merging to main
+  next-api-app-id:
+    required: true
   auth-app-id:
     required: true
   datastore-app-id:
@@ -33,8 +36,10 @@ runs:
       shell: bash
 
     - name: Pull Amplify Configurations
+      # TODO: remove NEXT_API_APP_ID before merging to main
       run: |
         API_APP_ID=${{ inputs.api-app-id }} \
+        NEXT_API_APP_ID=${{ inputs.next-api-app-id }} \
         AUTH_APP_ID=${{ inputs.auth-app-id }} \
         DATASTORE_APP_ID=${{ inputs.datastore-app-id }} \
         STORAGE_APP_ID=${{ inputs.storage-app-id }} \
