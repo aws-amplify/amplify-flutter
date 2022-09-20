@@ -9,7 +9,7 @@ dependency_overrides:
   amplify_core:
     path: ../../amplify_core
   amplify_datastore_plugin_interface:
-    path: ../../amplify_datastore_plugin_interface
+    path: ../../datastore/amplify_datastore_plugin_interface
   amplify_flutter:
     path: ../../amplify/amplify_flutter
   amplify_flutter_android:

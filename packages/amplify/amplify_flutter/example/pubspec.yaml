@@ -13,7 +13,7 @@ dependencies:
   amplify_auth_cognito:
     path: ../../../auth/amplify_auth_cognito
   amplify_datastore:
-    path: ../../../amplify_datastore
+    path: ../../../datastore/amplify_datastore
   amplify_flutter:
     path: ../
   amplify_storage_s3:
