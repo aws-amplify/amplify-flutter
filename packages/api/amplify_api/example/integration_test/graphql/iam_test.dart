@@ -212,6 +212,15 @@ void main({bool useExistingTestUser = false}) {
       });
 
       testWidgets('should allow custom headers', (WidgetTester tester) async {
+        final testName = 'lorem ipsum ${uuid()}';
+        // First ensure that request will fail without custom headers.
+        final reqThatFails = ModelMutations.create(
+          Blog(name: testName),
+        );
+        final failRes = await Amplify.API.query(request: reqThatFails).response;
+        expect(failRes.data, isNull);
+        expect(failRes.hasErrors, isTrue);
+
         // Authorize w cognito user pools using a custom header, same as plugin
         // would do if that was the auth mode.
         final authSession =
@@ -224,19 +233,18 @@ void main({bool useExistingTestUser = false}) {
           );
         }
         final headers = {AWSHeaders.authorization: accessToken};
-
-        final reqThatWouldFail = ModelQueries.list<Comment>(Comment.classType);
-        final reqThatShouldWOrk = GraphQLRequest<PaginatedResult<Comment>>(
-          document: reqThatWouldFail.document,
-          variables: reqThatWouldFail.variables,
-          modelType: reqThatWouldFail.modelType,
-          decodePath: reqThatWouldFail.decodePath,
+        final reqThatShouldWork = GraphQLRequest<Blog>(
+          document: reqThatFails.document,
+          variables: reqThatFails.variables,
+          modelType: reqThatFails.modelType,
+          decodePath: reqThatFails.decodePath,
           headers: headers,
         );
         final res =
-            await Amplify.API.query(request: reqThatShouldWOrk).response;
+            await Amplify.API.query(request: reqThatShouldWork).response;
         expect(res, hasNoGraphQLErrors);
-        expect(res.data?.items.length, greaterThanOrEqualTo(0));
+        expect(res.data?.name, testName);
+        await deleteBlog(res.data!.id);
       });
     });
 
