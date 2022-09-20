@@ -53,7 +53,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
   CognitoIdentityClient get _cognitoIdentityClient => expect();
 
   /// The registered user pool config.
-  CognitoUserPoolConfig get _userPoolConfig => expect();
+  CognitoUserPoolConfig? get _userPoolConfig => get();
 
   /// The registered identity pool config
   CognitoIdentityCredentialsProvider? get _identityPoolConfig => get();
@@ -86,24 +86,34 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
   /// The logins map, used to associate the ID token to the Cognito identity
   /// when retrieving an authenticated identity.
-  Map<String, String> _logins(String? idToken) {
-    final userPoolKey = 'cognito-idp.${_userPoolConfig.region}.amazonaws.com/'
-        '${_userPoolConfig.poolId}';
-    return {
-      if (idToken != null) userPoolKey: idToken,
-    };
+  Map<String, String> _logins(_FederatedIdentity? federatedIdentity) {
+    if (federatedIdentity == null) {
+      return const {};
+    }
+    final logins = <String, String>{};
+    final userPoolConfig = _userPoolConfig;
+    if (userPoolConfig != null &&
+        federatedIdentity.provider == AuthProvider.cognito) {
+      final userPoolKey = 'cognito-idp.${userPoolConfig.region}.amazonaws.com/'
+          '${userPoolConfig.poolId}';
+      logins[userPoolKey] = federatedIdentity.token;
+    } else {
+      logins[federatedIdentity.provider.identityPoolProviderName] =
+          federatedIdentity.token;
+    }
+    return logins;
   }
 
   /// Gets the identity ID from the authorization state machine.
   Future<String> _getIdentityId({
     required CognitoIdentityCredentialsProvider config,
-    required String? idToken,
+    _FederatedIdentity? federatedIdentity,
   }) async {
     final resp = await _withZoneOverrides(
       () => _cognitoIdentityClient.getId(
         GetIdInput(
           identityPoolId: config.poolId,
-          logins: BuiltMap(_logins(idToken)),
+          logins: BuiltMap(_logins(federatedIdentity)),
         ),
       ),
     );
@@ -117,13 +127,13 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
   /// Gets AWS credentials from the authorization state machine.
   Future<AWSCredentials> _fetchAwsCredentials({
     required String identityId,
-    required String? idToken,
+    required _FederatedIdentity? federatedIdentity,
   }) async {
     final resp = await _withZoneOverrides(
       () => _cognitoIdentityClient.getCredentialsForIdentity(
         GetCredentialsForIdentityInput(
           identityId: identityId,
-          logins: BuiltMap(_logins(idToken)),
+          logins: BuiltMap(_logins(federatedIdentity)),
         ),
       ),
     );
@@ -167,9 +177,11 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
     final userPoolTokens = result.data.userPoolTokens;
     final userPoolTokensExpiration = userPoolTokens?.expirationTime;
-    // Only force refresh user pool tokens when we have tokens to refresh.
-    final forceRefreshUserPoolTokens =
-        userPoolTokens != null && options.forceRefresh;
+    // Only force refresh user pool tokens when we have tokens to refresh and
+    // we are not also refreshing AWS credentials.
+    final forceRefreshUserPoolTokens = userPoolTokens != null &&
+        options.forceRefresh &&
+        !options.getAWSCredentials;
     final refreshUserPoolTokens = forceRefreshUserPoolTokens ||
         (userPoolTokensExpiration != null
             ? _isExpired(userPoolTokensExpiration)
@@ -224,6 +236,40 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
   }
 
   @override
+  Future<void> onFederate(FetchAuthSessionFederate event) async {
+    final result = await getOrCreate(CredentialStoreStateMachine.type)
+        .getCredentialsResult();
+    final userPoolTokens = result.data.userPoolTokens;
+    if (userPoolTokens != null) {
+      throw const InvalidStateException(
+        'Cannot federate to identity pool with active user session.',
+        recoverySuggestion: 'Call Amplify.Auth.signOut before calling '
+            'Amplify.Auth.federateToIdentityPool.',
+      );
+    }
+
+    final awsCredentialsResult = await _retrieveAwsCredentials(
+      existingIdentityId: event.request.options?.developerProvidedIdentityId ??
+          result.data.identityId,
+      federatedIdentity: _FederatedIdentity(
+        event.request.provider,
+        event.request.token,
+      ),
+    );
+    dispatch(
+      FetchAuthSessionEvent.succeeded(
+        CognitoAuthSession(
+          isSignedIn: userPoolTokens != null,
+          userPoolTokens: userPoolTokens,
+          userSub: userPoolTokens?.userId,
+          identityId: awsCredentialsResult.identityId,
+          credentials: awsCredentialsResult.awsCredentials,
+        ),
+      ),
+    );
+  }
+
+  @override
   Future<void> onRefresh(FetchAuthSessionRefresh event) async {
     final result = await getOrCreate(CredentialStoreStateMachine.type)
         .getCredentialsResult();
@@ -245,12 +291,16 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       userPoolTokens = await _refreshUserPoolTokens(userPoolTokens);
     }
     if (event.refreshAwsCredentials) {
+      final idToken = userPoolTokens?.idToken.raw;
       final awsCredentialsResult = await _retrieveAwsCredentials(
-        userPoolTokens: userPoolTokens,
+        existingIdentityId: identityId,
+        federatedIdentity:
+            idToken == null ? null : _FederatedIdentity.cognito(idToken),
       );
       identityId = awsCredentialsResult.identityId;
       awsCredentials = awsCredentialsResult.awsCredentials;
     }
+
     dispatch(
       FetchAuthSessionEvent.succeeded(
         CognitoAuthSession(
@@ -265,21 +315,23 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
   }
 
   Future<_AwsCredentialsResult> _retrieveAwsCredentials({
-    CognitoUserPoolTokens? userPoolTokens,
+    String? existingIdentityId,
+    _FederatedIdentity? federatedIdentity,
   }) async {
     final identityPoolConfig = _identityPoolConfig;
     if (identityPoolConfig == null) {
       throw const InvalidAccountTypeException.noIdentityPool();
     }
     try {
-      final identityId = await _getIdentityId(
-        config: identityPoolConfig,
-        idToken: userPoolTokens?.idToken.raw,
-      );
+      final identityId = existingIdentityId ??
+          await _getIdentityId(
+            config: identityPoolConfig,
+            federatedIdentity: federatedIdentity,
+          );
 
       final awsCredentials = await _fetchAwsCredentials(
-        idToken: userPoolTokens?.idToken.raw,
         identityId: identityId,
+        federatedIdentity: federatedIdentity,
       );
 
       dispatch(
@@ -315,7 +367,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     final refreshRequest = cognito_idp.InitiateAuthRequest.build((b) {
       b
         ..authFlow = cognito_idp.AuthFlowType.refreshTokenAuth
-        ..clientId = _userPoolConfig.appClientId
+        ..clientId = _userPoolConfig!.appClientId
         ..authParameters.addAll({
           CognitoConstants.refreshToken: userPoolTokens.refreshToken,
         });
@@ -359,7 +411,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       late Iterable<String> keys;
       switch (userPoolTokens.signInMethod) {
         case CognitoSignInMethod.default$:
-          keys = CognitoUserPoolKeys(_userPoolConfig);
+          keys = CognitoUserPoolKeys(expect());
           break;
         case CognitoSignInMethod.hostedUi:
           keys = HostedUiKeys(expect());
@@ -377,6 +429,17 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       rethrow;
     }
   }
+}
+
+class _FederatedIdentity {
+  const _FederatedIdentity(this.provider, this.token);
+
+  const _FederatedIdentity.cognito(String idToken)
+      : provider = AuthProvider.cognito,
+        token = idToken;
+
+  final AuthProvider provider;
+  final String token;
 }
 
 class _AwsCredentialsResult {
