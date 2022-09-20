@@ -14,3 +14,4 @@ A CLI tool for managing the Amplify Flutter repository.
   - `get`: Runs `dart pub get`/`flutter pub get` for all packages
   - `upgrade`: Runs `dart pub upgrade`/`flutter pub upgrade` for all packages
   - `publish`: Runs `dart pub publish`/`flutter pub publish` for all packages which need publishing
+- `self-update`: Updates aft by running `dart pub global activate -spath <root>/packages/aft`

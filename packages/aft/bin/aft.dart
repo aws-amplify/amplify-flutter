@@ -15,6 +15,7 @@
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/commands/self_update_command.dart';
 import 'package:args/command_runner.dart';
 
 Future<void> main(List<String> args) async {
@@ -36,7 +37,8 @@ Future<void> main(List<String> args) async {
     ..addCommand(LinkCommand())
     ..addCommand(CleanCommand())
     ..addCommand(PubCommand())
-    ..addCommand(BootstrapCommand());
+    ..addCommand(BootstrapCommand())
+    ..addCommand(SelfUpdateCommand());
   try {
     await runner.run(args);
   } on UsageException catch (e) {
