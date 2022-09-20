@@ -1,0 +1,17 @@
+name: amplify_datastore_dart
+description: A Dart-only implementation of the Amplify DataStore plugin which works on browser, VM, and server.
+version: 0.1.0
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/datastore/amplify_datastore_dart
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  amplify_core: '>=1.0.0-next.0 <1.0.0-next.1'
+
+dev_dependencies:
+  amplify_lints:
+    path: ../../amplify_lints
+  test: ^1.16.0
