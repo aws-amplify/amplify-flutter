@@ -33,9 +33,9 @@ flutter:
         package: com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage
         pluginClass: AmplifySecureStoragePlugin
       ios:
-        default_package: amplify_secure_storage_dart
+        pluginClass: AmplifySecureStoragePlugin
       macos:
-        default_package: amplify_secure_storage_dart
+        pluginClass: AmplifySecureStoragePlugin
       windows:
         default_package: amplify_secure_storage_dart
       linux:

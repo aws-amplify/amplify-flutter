@@ -29,6 +29,9 @@ Future<void> main() async {
         credentialStorage: AmplifySecureStorageDart(
           config: AmplifySecureStorageConfig(
             scope: 'auth',
+            // enabling useDataProtection requires adding the app to an
+            // app group, which requires setting a development team
+            // ignore: invalid_use_of_visible_for_testing_member
             macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
           ),
         ),
