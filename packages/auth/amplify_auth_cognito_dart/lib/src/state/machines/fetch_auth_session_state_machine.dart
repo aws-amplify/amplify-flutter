@@ -334,7 +334,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         federatedIdentity: federatedIdentity,
       );
 
-      dispatch(
+      await dispatch(
         CredentialStoreEvent.storeCredentials(
           CredentialStoreData(
             awsCredentials: awsCredentials,
@@ -342,6 +342,8 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
           ),
         ),
       );
+      await getOrCreate(CredentialStoreStateMachine.type)
+          .getCredentialsResult();
 
       return _AwsCredentialsResult(awsCredentials, identityId);
     } on NotAuthorizedException {
@@ -398,13 +400,15 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
             : userPoolTokens.idToken,
       );
 
-      dispatch(
+      await dispatch(
         CredentialStoreEvent.storeCredentials(
           CredentialStoreData(
             userPoolTokens: newTokens,
           ),
         ),
       );
+      await getOrCreate(CredentialStoreStateMachine.type)
+          .getCredentialsResult();
 
       return newTokens;
     } on NotAuthorizedException {
