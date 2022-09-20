@@ -291,6 +291,9 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       case 'guest':
         accessLevel = StorageAccessLevel.guest;
         break;
+      case 'public':
+        accessLevel = StorageAccessLevel.guest;
+        break;
       case 'protected':
         accessLevel = StorageAccessLevel.protected;
         break;
