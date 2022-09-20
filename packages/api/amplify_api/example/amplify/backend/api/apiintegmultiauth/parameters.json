@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "apiintegmultiauth",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authapiintegmultiauth131fe55a131fe55a",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
