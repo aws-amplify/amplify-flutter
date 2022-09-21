@@ -96,45 +96,114 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i30.ClientConfig.serializers,
   ..._i31.OperationConfig.serializers,
   ..._i32.ScopedConfig.serializers,
-  ..._i33.AwsConfig.serializers
+  ..._i33.AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(_i34.BuiltList, [FullType(_i9.FooEnum)]):
-      _i34.ListBuilder<_i9.FooEnum>.new,
-  const FullType(_i34.BuiltMap, [FullType(String), FullType(_i9.FooEnum)]):
-      _i34.MapBuilder<String, _i9.FooEnum>.new,
-  const FullType(_i34.BuiltSet, [FullType(_i9.FooEnum)]):
-      _i34.SetBuilder<_i9.FooEnum>.new,
-  const FullType(_i34.BuiltList, [FullType(String)]):
-      _i34.ListBuilder<String>.new,
-  const FullType(_i34.BuiltMap, [FullType(String), FullType(String)]):
-      _i34.MapBuilder<String, String>.new,
-  const FullType(_i34.BuiltList, [
-    FullType(_i34.BuiltList, [FullType(String)])
-  ]): _i34.ListBuilder<_i34.BuiltList<String>>.new,
-  const FullType(_i34.BuiltList, [
-    FullType(_i34.BuiltMap, [FullType(String), FullType(String)])
-  ]): _i34.ListBuilder<_i34.BuiltMap<String, String>>.new,
-  const FullType(_i34.BuiltList, [FullType(_i15.SimpleStruct)]):
-      _i34.ListBuilder<_i15.SimpleStruct>.new,
-  const FullType(_i34.BuiltListMultimap, [FullType(String), FullType(String)]):
-      _i34.ListMultimapBuilder<String, String>.new,
-  const FullType(_i34.BuiltMap, [
-    FullType(String),
-    FullType(_i34.BuiltMap, [FullType(String), FullType(String)])
-  ]): _i34.MapBuilder<String, _i34.BuiltMap<String, String>>.new,
   const FullType(
-          _i34.BuiltMap, [FullType(String), FullType(_i15.SimpleStruct)]):
-      _i34.MapBuilder<String, _i15.SimpleStruct>.new,
-  const FullType(_i34.BuiltList, [FullType(_i13.KitchenSink)]):
-      _i34.ListBuilder<_i13.KitchenSink>.new,
-  const FullType(_i34.BuiltMap, [FullType(String), FullType(_i13.KitchenSink)]):
-      _i34.MapBuilder<String, _i13.KitchenSink>.new,
-  const FullType(_i34.BuiltList, [FullType.nullable(String)]):
-      _i34.ListBuilder<String?>.new,
-  const FullType(_i34.BuiltMap, [FullType(String), FullType.nullable(String)]):
-      _i34.MapBuilder<String, String?>.new,
+    _i34.BuiltList,
+    [FullType(_i9.FooEnum)],
+  ): _i34.ListBuilder<_i9.FooEnum>.new,
   const FullType(
-          _i34.BuiltMap, [FullType(String), FullType(_i28.FileConfigSettings)]):
-      _i34.MapBuilder<String, _i28.FileConfigSettings>.new
+    _i34.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i9.FooEnum),
+    ],
+  ): _i34.MapBuilder<String, _i9.FooEnum>.new,
+  const FullType(
+    _i34.BuiltSet,
+    [FullType(_i9.FooEnum)],
+  ): _i34.SetBuilder<_i9.FooEnum>.new,
+  const FullType(
+    _i34.BuiltList,
+    [FullType(String)],
+  ): _i34.ListBuilder<String>.new,
+  const FullType(
+    _i34.BuiltMap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i34.MapBuilder<String, String>.new,
+  const FullType(
+    _i34.BuiltList,
+    [
+      FullType(
+        _i34.BuiltList,
+        [FullType(String)],
+      )
+    ],
+  ): _i34.ListBuilder<_i34.BuiltList<String>>.new,
+  const FullType(
+    _i34.BuiltList,
+    [
+      FullType(
+        _i34.BuiltMap,
+        [
+          FullType(String),
+          FullType(String),
+        ],
+      )
+    ],
+  ): _i34.ListBuilder<_i34.BuiltMap<String, String>>.new,
+  const FullType(
+    _i34.BuiltList,
+    [FullType(_i15.SimpleStruct)],
+  ): _i34.ListBuilder<_i15.SimpleStruct>.new,
+  const FullType(
+    _i34.BuiltListMultimap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i34.ListMultimapBuilder<String, String>.new,
+  const FullType(
+    _i34.BuiltMap,
+    [
+      FullType(String),
+      FullType(
+        _i34.BuiltMap,
+        [
+          FullType(String),
+          FullType(String),
+        ],
+      ),
+    ],
+  ): _i34.MapBuilder<String, _i34.BuiltMap<String, String>>.new,
+  const FullType(
+    _i34.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i15.SimpleStruct),
+    ],
+  ): _i34.MapBuilder<String, _i15.SimpleStruct>.new,
+  const FullType(
+    _i34.BuiltList,
+    [FullType(_i13.KitchenSink)],
+  ): _i34.ListBuilder<_i13.KitchenSink>.new,
+  const FullType(
+    _i34.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i13.KitchenSink),
+    ],
+  ): _i34.MapBuilder<String, _i13.KitchenSink>.new,
+  const FullType(
+    _i34.BuiltList,
+    [FullType.nullable(String)],
+  ): _i34.ListBuilder<String?>.new,
+  const FullType(
+    _i34.BuiltMap,
+    [
+      FullType(String),
+      FullType.nullable(String),
+    ],
+  ): _i34.MapBuilder<String, String?>.new,
+  const FullType(
+    _i34.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i28.FileConfigSettings),
+    ],
+  ): _i34.MapBuilder<String, _i28.FileConfigSettings>.new,
 };

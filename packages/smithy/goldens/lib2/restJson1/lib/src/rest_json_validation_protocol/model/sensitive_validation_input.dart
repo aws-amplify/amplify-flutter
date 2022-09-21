@@ -26,8 +26,10 @@ abstract class SensitiveValidationInput
   const SensitiveValidationInput._();
 
   factory SensitiveValidationInput.fromRequest(
-          SensitiveValidationInput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    SensitiveValidationInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -44,7 +46,10 @@ abstract class SensitiveValidationInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SensitiveValidationInput');
-    helper.add('string', '***SENSITIVE***');
+    helper.add(
+      'string',
+      '***SENSITIVE***',
+    );
     return helper.toString();
   }
 }
@@ -55,15 +60,23 @@ class SensitiveValidationInputRestJson1Serializer
       : super('SensitiveValidationInput');
 
   @override
-  Iterable<Type> get types =>
-      const [SensitiveValidationInput, _$SensitiveValidationInput];
+  Iterable<Type> get types => const [
+        SensitiveValidationInput,
+        _$SensitiveValidationInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   SensitiveValidationInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = SensitiveValidationInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -73,8 +86,10 @@ class SensitiveValidationInputRestJson1Serializer
       switch (key) {
         case 'string':
           if (value != null) {
-            result.string = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.string = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -84,15 +99,20 @@ class SensitiveValidationInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as SensitiveValidationInput);
     final result = <Object?>[];
     if (payload.string != null) {
       result
         ..add('string')
-        ..add(serializers.serialize(payload.string!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.string!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

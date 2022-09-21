@@ -16,10 +16,14 @@ abstract class TooManyRequestsException
         Built<TooManyRequestsException, TooManyRequestsExceptionBuilder>,
         _i2.HasPayload<TooManyRequestsExceptionPayload>,
         _i2.SmithyHttpException {
-  factory TooManyRequestsException(
-      {String? message, String? retryAfterSeconds}) {
+  factory TooManyRequestsException({
+    String? message,
+    String? retryAfterSeconds,
+  }) {
     return _$TooManyRequestsException._(
-        message: message, retryAfterSeconds: retryAfterSeconds);
+      message: message,
+      retryAfterSeconds: retryAfterSeconds,
+    );
   }
 
   factory TooManyRequestsException.build(
@@ -30,8 +34,9 @@ abstract class TooManyRequestsException
 
   /// Constructs a [TooManyRequestsException] from a [payload] and [response].
   factory TooManyRequestsException.fromResponse(
-          TooManyRequestsExceptionPayload payload,
-          _i1.AWSBaseHttpResponse response) =>
+    TooManyRequestsExceptionPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       TooManyRequestsException.build((b) {
         b.message = payload.message;
         if (response.headers['Retry-After'] != null) {
@@ -56,7 +61,9 @@ abstract class TooManyRequestsException
       });
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.apigateway', shape: 'TooManyRequestsException');
+        namespace: 'com.amazonaws.apigateway',
+        shape: 'TooManyRequestsException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -68,12 +75,21 @@ abstract class TooManyRequestsException
   @override
   Exception? get underlyingException => null;
   @override
-  List<Object?> get props => [message, retryAfterSeconds];
+  List<Object?> get props => [
+        message,
+        retryAfterSeconds,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TooManyRequestsException');
-    helper.add('message', message);
-    helper.add('retryAfterSeconds', retryAfterSeconds);
+    helper.add(
+      'message',
+      message,
+    );
+    helper.add(
+      'retryAfterSeconds',
+      retryAfterSeconds,
+    );
     return helper.toString();
   }
 }
@@ -100,7 +116,10 @@ abstract class TooManyRequestsExceptionPayload
   String toString() {
     final helper =
         newBuiltValueToStringHelper('TooManyRequestsExceptionPayload');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
@@ -115,15 +134,21 @@ class TooManyRequestsExceptionRestJson1Serializer
         TooManyRequestsException,
         _$TooManyRequestsException,
         TooManyRequestsExceptionPayload,
-        _$TooManyRequestsExceptionPayload
+        _$TooManyRequestsExceptionPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   TooManyRequestsExceptionPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = TooManyRequestsExceptionPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -133,8 +158,10 @@ class TooManyRequestsExceptionRestJson1Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -144,8 +171,11 @@ class TooManyRequestsExceptionRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is TooManyRequestsException
         ? object.getPayload()
         : (object as TooManyRequestsExceptionPayload);
@@ -153,8 +183,10 @@ class TooManyRequestsExceptionRestJson1Serializer
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

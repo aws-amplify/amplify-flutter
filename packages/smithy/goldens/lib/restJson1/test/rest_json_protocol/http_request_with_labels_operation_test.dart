@@ -18,88 +18,100 @@ void main() {
     'RestJsonInputWithHeadersAndAllParams (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.HttpRequestWithLabelsOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonInputWithHeadersAndAllParams',
-              documentation: 'Sends a GET request that uses URI label bindings',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {
-                'string': 'string',
-                'short': 1,
-                'integer': 2,
-                'long': 3,
-                'float': 4.1,
-                'double': 5.1,
-                'boolean': true,
-                'timestamp': 1576540098
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'GET',
-              uri:
-                  '/HttpRequestWithLabels/string/1/2/3/4.1/5.1/true/2019-12-16T23%3A48%3A18Z',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            HttpRequestWithLabelsInputRestJson1Serializer()
-          ]);
+        operation: _i3.HttpRequestWithLabelsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonInputWithHeadersAndAllParams',
+          documentation: 'Sends a GET request that uses URI label bindings',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {
+            'string': 'string',
+            'short': 1,
+            'integer': 2,
+            'long': 3,
+            'float': 4.1,
+            'double': 5.1,
+            'boolean': true,
+            'timestamp': 1576540098,
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'GET',
+          uri:
+              '/HttpRequestWithLabels/string/1/2/3/4.1/5.1/true/2019-12-16T23%3A48%3A18Z',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          HttpRequestWithLabelsInputRestJson1Serializer()
+        ],
+      );
     },
   );
   _i1.test(
     'RestJsonHttpRequestLabelEscaping (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.HttpRequestWithLabelsOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonHttpRequestLabelEscaping',
-              documentation: 'Sends a GET request that uses URI label bindings',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {
-                'string': '%:/?#[]@!\$&\'()*+,;=😹',
-                'short': 1,
-                'integer': 2,
-                'long': 3,
-                'float': 4.1,
-                'double': 5.1,
-                'boolean': true,
-                'timestamp': 1576540098
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'GET',
-              uri:
-                  '/HttpRequestWithLabels/%25%3A%2F%3F%23%5B%5D%40%21%24%26%27%28%29%2A%2B%2C%3B%3D%F0%9F%98%B9/1/2/3/4.1/5.1/true/2019-12-16T23%3A48%3A18Z',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            HttpRequestWithLabelsInputRestJson1Serializer()
-          ]);
+        operation: _i3.HttpRequestWithLabelsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonHttpRequestLabelEscaping',
+          documentation: 'Sends a GET request that uses URI label bindings',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {
+            'string': '%:/?#[]@!\$&\'()*+,;=😹',
+            'short': 1,
+            'integer': 2,
+            'long': 3,
+            'float': 4.1,
+            'double': 5.1,
+            'boolean': true,
+            'timestamp': 1576540098,
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'GET',
+          uri:
+              '/HttpRequestWithLabels/%25%3A%2F%3F%23%5B%5D%40%21%24%26%27%28%29%2A%2B%2C%3B%3D%F0%9F%98%B9/1/2/3/4.1/5.1/true/2019-12-16T23%3A48%3A18Z',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          HttpRequestWithLabelsInputRestJson1Serializer()
+        ],
+      );
     },
   );
 }
@@ -112,12 +124,18 @@ class HttpRequestWithLabelsInputRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i5.HttpRequestWithLabelsInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.HttpRequestWithLabelsInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.HttpRequestWithLabelsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -126,36 +144,52 @@ class HttpRequestWithLabelsInputRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'boolean':
-          result.boolean = (serializers.deserialize(value!,
-              specifiedType: const FullType(bool)) as bool);
+          result.boolean = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'double':
-          result.double_ = (serializers.deserialize(value!,
-              specifiedType: const FullType(double)) as double);
+          result.double_ = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(double),
+          ) as double);
           break;
         case 'float':
-          result.float = (serializers.deserialize(value!,
-              specifiedType: const FullType(double)) as double);
+          result.float = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(double),
+          ) as double);
           break;
         case 'integer':
-          result.integer = (serializers.deserialize(value!,
-              specifiedType: const FullType(int)) as int);
+          result.integer = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'long':
-          result.long = (serializers.deserialize(value!,
-              specifiedType: const FullType(_i6.Int64)) as _i6.Int64);
+          result.long = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i6.Int64),
+          ) as _i6.Int64);
           break;
         case 'short':
-          result.short = (serializers.deserialize(value!,
-              specifiedType: const FullType(int)) as int);
+          result.short = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'string':
-          result.string = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.string = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'timestamp':
-          result.timestamp = _i4.TimestampSerializer.epochSeconds
-              .deserialize(serializers, value!);
+          result.timestamp = _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value!,
+          );
           break;
       }
     }
@@ -164,8 +198,11 @@ class HttpRequestWithLabelsInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

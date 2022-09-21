@@ -16,20 +16,22 @@ abstract class JsonEnumsInputOutput
         _i1.HttpInput<JsonEnumsInputOutput>,
         _i2.AWSEquatable<JsonEnumsInputOutput>
     implements Built<JsonEnumsInputOutput, JsonEnumsInputOutputBuilder> {
-  factory JsonEnumsInputOutput(
-      {_i3.FooEnum? fooEnum1,
-      _i3.FooEnum? fooEnum2,
-      _i3.FooEnum? fooEnum3,
-      _i4.BuiltList<_i3.FooEnum>? fooEnumList,
-      _i4.BuiltMap<String, _i3.FooEnum>? fooEnumMap,
-      _i4.BuiltSet<_i3.FooEnum>? fooEnumSet}) {
+  factory JsonEnumsInputOutput({
+    _i3.FooEnum? fooEnum1,
+    _i3.FooEnum? fooEnum2,
+    _i3.FooEnum? fooEnum3,
+    _i4.BuiltList<_i3.FooEnum>? fooEnumList,
+    _i4.BuiltMap<String, _i3.FooEnum>? fooEnumMap,
+    _i4.BuiltSet<_i3.FooEnum>? fooEnumSet,
+  }) {
     return _$JsonEnumsInputOutput._(
-        fooEnum1: fooEnum1,
-        fooEnum2: fooEnum2,
-        fooEnum3: fooEnum3,
-        fooEnumList: fooEnumList,
-        fooEnumMap: fooEnumMap,
-        fooEnumSet: fooEnumSet);
+      fooEnum1: fooEnum1,
+      fooEnum2: fooEnum2,
+      fooEnum3: fooEnum3,
+      fooEnumList: fooEnumList,
+      fooEnumMap: fooEnumMap,
+      fooEnumSet: fooEnumSet,
+    );
   }
 
   factory JsonEnumsInputOutput.build(
@@ -39,13 +41,17 @@ abstract class JsonEnumsInputOutput
   const JsonEnumsInputOutput._();
 
   factory JsonEnumsInputOutput.fromRequest(
-          JsonEnumsInputOutput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    JsonEnumsInputOutput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   /// Constructs a [JsonEnumsInputOutput] from a [payload] and [response].
   factory JsonEnumsInputOutput.fromResponse(
-          JsonEnumsInputOutput payload, _i2.AWSBaseHttpResponse response) =>
+    JsonEnumsInputOutput payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -63,17 +69,41 @@ abstract class JsonEnumsInputOutput
   @override
   JsonEnumsInputOutput getPayload() => this;
   @override
-  List<Object?> get props =>
-      [fooEnum1, fooEnum2, fooEnum3, fooEnumList, fooEnumMap, fooEnumSet];
+  List<Object?> get props => [
+        fooEnum1,
+        fooEnum2,
+        fooEnum3,
+        fooEnumList,
+        fooEnumMap,
+        fooEnumSet,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonEnumsInputOutput');
-    helper.add('fooEnum1', fooEnum1);
-    helper.add('fooEnum2', fooEnum2);
-    helper.add('fooEnum3', fooEnum3);
-    helper.add('fooEnumList', fooEnumList);
-    helper.add('fooEnumMap', fooEnumMap);
-    helper.add('fooEnumSet', fooEnumSet);
+    helper.add(
+      'fooEnum1',
+      fooEnum1,
+    );
+    helper.add(
+      'fooEnum2',
+      fooEnum2,
+    );
+    helper.add(
+      'fooEnum3',
+      fooEnum3,
+    );
+    helper.add(
+      'fooEnumList',
+      fooEnumList,
+    );
+    helper.add(
+      'fooEnumMap',
+      fooEnumMap,
+    );
+    helper.add(
+      'fooEnumSet',
+      fooEnumSet,
+    );
     return helper.toString();
   }
 }
@@ -84,15 +114,23 @@ class JsonEnumsInputOutputAwsJson11Serializer
       : super('JsonEnumsInputOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [JsonEnumsInputOutput, _$JsonEnumsInputOutput];
+  Iterable<Type> get types => const [
+        JsonEnumsInputOutput,
+        _$JsonEnumsInputOutput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   JsonEnumsInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = JsonEnumsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -102,45 +140,62 @@ class JsonEnumsInputOutputAwsJson11Serializer
       switch (key) {
         case 'fooEnum1':
           if (value != null) {
-            result.fooEnum1 = (serializers.deserialize(value,
-                specifiedType: const FullType(_i3.FooEnum)) as _i3.FooEnum);
+            result.fooEnum1 = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.FooEnum),
+            ) as _i3.FooEnum);
           }
           break;
         case 'fooEnum2':
           if (value != null) {
-            result.fooEnum2 = (serializers.deserialize(value,
-                specifiedType: const FullType(_i3.FooEnum)) as _i3.FooEnum);
+            result.fooEnum2 = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.FooEnum),
+            ) as _i3.FooEnum);
           }
           break;
         case 'fooEnum3':
           if (value != null) {
-            result.fooEnum3 = (serializers.deserialize(value,
-                specifiedType: const FullType(_i3.FooEnum)) as _i3.FooEnum);
+            result.fooEnum3 = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.FooEnum),
+            ) as _i3.FooEnum);
           }
           break;
         case 'fooEnumList':
           if (value != null) {
-            result.fooEnumList.replace((serializers.deserialize(value,
-                    specifiedType:
-                        const FullType(_i4.BuiltList, [FullType(_i3.FooEnum)]))
-                as _i4.BuiltList<_i3.FooEnum>));
+            result.fooEnumList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltList,
+                [FullType(_i3.FooEnum)],
+              ),
+            ) as _i4.BuiltList<_i3.FooEnum>));
           }
           break;
         case 'fooEnumMap':
           if (value != null) {
-            result.fooEnumMap.replace((serializers.deserialize(value,
-                specifiedType: const FullType(_i4.BuiltMap, [
+            result.fooEnumMap.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltMap,
+                [
                   FullType(String),
-                  FullType(_i3.FooEnum)
-                ])) as _i4.BuiltMap<String, _i3.FooEnum>));
+                  FullType(_i3.FooEnum),
+                ],
+              ),
+            ) as _i4.BuiltMap<String, _i3.FooEnum>));
           }
           break;
         case 'fooEnumSet':
           if (value != null) {
-            result.fooEnumSet.replace((serializers.deserialize(value,
-                    specifiedType:
-                        const FullType(_i4.BuiltSet, [FullType(_i3.FooEnum)]))
-                as _i4.BuiltSet<_i3.FooEnum>));
+            result.fooEnumSet.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltSet,
+                [FullType(_i3.FooEnum)],
+              ),
+            ) as _i4.BuiltSet<_i3.FooEnum>));
           }
           break;
       }
@@ -150,48 +205,72 @@ class JsonEnumsInputOutputAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as JsonEnumsInputOutput);
     final result = <Object?>[];
     if (payload.fooEnum1 != null) {
       result
         ..add('fooEnum1')
-        ..add(serializers.serialize(payload.fooEnum1!,
-            specifiedType: const FullType(_i3.FooEnum)));
+        ..add(serializers.serialize(
+          payload.fooEnum1!,
+          specifiedType: const FullType(_i3.FooEnum),
+        ));
     }
     if (payload.fooEnum2 != null) {
       result
         ..add('fooEnum2')
-        ..add(serializers.serialize(payload.fooEnum2!,
-            specifiedType: const FullType(_i3.FooEnum)));
+        ..add(serializers.serialize(
+          payload.fooEnum2!,
+          specifiedType: const FullType(_i3.FooEnum),
+        ));
     }
     if (payload.fooEnum3 != null) {
       result
         ..add('fooEnum3')
-        ..add(serializers.serialize(payload.fooEnum3!,
-            specifiedType: const FullType(_i3.FooEnum)));
+        ..add(serializers.serialize(
+          payload.fooEnum3!,
+          specifiedType: const FullType(_i3.FooEnum),
+        ));
     }
     if (payload.fooEnumList != null) {
       result
         ..add('fooEnumList')
-        ..add(serializers.serialize(payload.fooEnumList!,
-            specifiedType:
-                const FullType(_i4.BuiltList, [FullType(_i3.FooEnum)])));
+        ..add(serializers.serialize(
+          payload.fooEnumList!,
+          specifiedType: const FullType(
+            _i4.BuiltList,
+            [FullType(_i3.FooEnum)],
+          ),
+        ));
     }
     if (payload.fooEnumMap != null) {
       result
         ..add('fooEnumMap')
-        ..add(serializers.serialize(payload.fooEnumMap!,
-            specifiedType: const FullType(
-                _i4.BuiltMap, [FullType(String), FullType(_i3.FooEnum)])));
+        ..add(serializers.serialize(
+          payload.fooEnumMap!,
+          specifiedType: const FullType(
+            _i4.BuiltMap,
+            [
+              FullType(String),
+              FullType(_i3.FooEnum),
+            ],
+          ),
+        ));
     }
     if (payload.fooEnumSet != null) {
       result
         ..add('fooEnumSet')
-        ..add(serializers.serialize(payload.fooEnumSet!,
-            specifiedType:
-                const FullType(_i4.BuiltSet, [FullType(_i3.FooEnum)])));
+        ..add(serializers.serialize(
+          payload.fooEnumSet!,
+          specifiedType: const FullType(
+            _i4.BuiltSet,
+            [FullType(_i3.FooEnum)],
+          ),
+        ));
     }
     return result;
   }

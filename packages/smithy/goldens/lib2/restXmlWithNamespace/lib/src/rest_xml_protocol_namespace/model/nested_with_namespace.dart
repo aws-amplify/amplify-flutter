@@ -35,7 +35,10 @@ abstract class NestedWithNamespace
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedWithNamespace');
-    helper.add('attrField', attrField);
+    helper.add(
+      'attrField',
+      attrField,
+    );
     return helper.toString();
   }
 }
@@ -45,15 +48,23 @@ class NestedWithNamespaceRestXmlSerializer
   const NestedWithNamespaceRestXmlSerializer() : super('NestedWithNamespace');
 
   @override
-  Iterable<Type> get types =>
-      const [NestedWithNamespace, _$NestedWithNamespace];
+  Iterable<Type> get types => const [
+        NestedWithNamespace,
+        _$NestedWithNamespace,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   NestedWithNamespace deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = NestedWithNamespaceBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -63,8 +74,10 @@ class NestedWithNamespaceRestXmlSerializer
       switch (key as String) {
         case 'xsi:someName':
           if (value != null) {
-            result.attrField = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.attrField = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -74,18 +87,26 @@ class NestedWithNamespaceRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as NestedWithNamespace);
     final result = <Object?>[
       const _i2.XmlElementName(
-          'NestedWithNamespace', _i2.XmlNamespace('https://example.com'))
+        'NestedWithNamespace',
+        _i2.XmlNamespace('https://example.com'),
+      )
     ];
     if (payload.attrField != null) {
       result.add(_i3.XmlAttribute(
-          _i3.XmlName('xsi:someName'),
-          (serializers.serialize(payload.attrField!,
-              specifiedType: const FullType(String)) as String)));
+        _i3.XmlName('xsi:someName'),
+        (serializers.serialize(
+          payload.attrField!,
+          specifiedType: const FullType(String),
+        ) as String),
+      ));
     }
     return result;
   }

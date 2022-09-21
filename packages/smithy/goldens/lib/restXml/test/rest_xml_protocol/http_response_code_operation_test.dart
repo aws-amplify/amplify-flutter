@@ -17,27 +17,32 @@ void main() {
     'RestXmlHttpResponseCode (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.HttpResponseCodeOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'RestXmlHttpResponseCode',
-              documentation:
-                  'Binds the http response code to an output structure.',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: 'application/xml',
-              params: {'Status': 201},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/xml'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 201),
-          outputSerializers: const [HttpResponseCodeOutputRestXmlSerializer()]);
+        operation: _i3.HttpResponseCodeOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'RestXmlHttpResponseCode',
+          documentation: 'Binds the http response code to an output structure.',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: 'application/xml',
+          params: {'Status': 201},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/xml'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 201,
+        ),
+        outputSerializers: const [HttpResponseCodeOutputRestXmlSerializer()],
+      );
     },
   );
 }
@@ -50,12 +55,18 @@ class HttpResponseCodeOutputRestXmlSerializer
   @override
   Iterable<Type> get types => const [_i5.HttpResponseCodeOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i5.HttpResponseCodeOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.HttpResponseCodeOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -65,8 +76,10 @@ class HttpResponseCodeOutputRestXmlSerializer
       switch (key) {
         case 'Status':
           if (value != null) {
-            result.status = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.status = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -76,8 +89,11 @@ class HttpResponseCodeOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

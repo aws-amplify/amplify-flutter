@@ -17,17 +17,19 @@ abstract class MalformedFloatInput
     implements
         Built<MalformedFloatInput, MalformedFloatInputBuilder>,
         _i1.HasPayload<MalformedFloatInputPayload> {
-  factory MalformedFloatInput(
-      {double? floatInBody,
-      double? floatInHeader,
-      double? floatInPath,
-      double? floatInQuery}) {
+  factory MalformedFloatInput({
+    double? floatInBody,
+    double? floatInHeader,
+    double? floatInPath,
+    double? floatInQuery,
+  }) {
     floatInPath ??= 0;
     return _$MalformedFloatInput._(
-        floatInBody: floatInBody,
-        floatInHeader: floatInHeader,
-        floatInPath: floatInPath,
-        floatInQuery: floatInQuery);
+      floatInBody: floatInBody,
+      floatInHeader: floatInHeader,
+      floatInPath: floatInPath,
+      floatInQuery: floatInQuery,
+    );
   }
 
   factory MalformedFloatInput.build(
@@ -37,8 +39,10 @@ abstract class MalformedFloatInput
   const MalformedFloatInput._();
 
   factory MalformedFloatInput.fromRequest(
-          MalformedFloatInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedFloatInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedFloatInput.build((b) {
         b.floatInBody = payload.floatInBody;
         if (request.headers['floatInHeader'] != null) {
@@ -72,7 +76,10 @@ abstract class MalformedFloatInput
       case 'floatInPath':
         return floatInPath.toString();
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -80,15 +87,31 @@ abstract class MalformedFloatInput
         b.floatInBody = floatInBody;
       });
   @override
-  List<Object?> get props =>
-      [floatInBody, floatInHeader, floatInPath, floatInQuery];
+  List<Object?> get props => [
+        floatInBody,
+        floatInHeader,
+        floatInPath,
+        floatInQuery,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedFloatInput');
-    helper.add('floatInBody', floatInBody);
-    helper.add('floatInHeader', floatInHeader);
-    helper.add('floatInPath', floatInPath);
-    helper.add('floatInQuery', floatInQuery);
+    helper.add(
+      'floatInBody',
+      floatInBody,
+    );
+    helper.add(
+      'floatInHeader',
+      floatInHeader,
+    );
+    helper.add(
+      'floatInPath',
+      floatInPath,
+    );
+    helper.add(
+      'floatInQuery',
+      floatInQuery,
+    );
     return helper.toString();
   }
 }
@@ -112,7 +135,10 @@ abstract class MalformedFloatInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedFloatInputPayload');
-    helper.add('floatInBody', floatInBody);
+    helper.add(
+      'floatInBody',
+      floatInBody,
+    );
     return helper.toString();
   }
 }
@@ -126,15 +152,21 @@ class MalformedFloatInputRestJson1Serializer
         MalformedFloatInput,
         _$MalformedFloatInput,
         MalformedFloatInputPayload,
-        _$MalformedFloatInputPayload
+        _$MalformedFloatInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedFloatInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MalformedFloatInputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -144,8 +176,10 @@ class MalformedFloatInputRestJson1Serializer
       switch (key) {
         case 'floatInBody':
           if (value != null) {
-            result.floatInBody = (serializers.deserialize(value,
-                specifiedType: const FullType(double)) as double);
+            result.floatInBody = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
       }
@@ -155,8 +189,11 @@ class MalformedFloatInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is MalformedFloatInput
         ? object.getPayload()
         : (object as MalformedFloatInputPayload);
@@ -164,8 +201,10 @@ class MalformedFloatInputRestJson1Serializer
     if (payload.floatInBody != null) {
       result
         ..add('floatInBody')
-        ..add(serializers.serialize(payload.floatInBody!,
-            specifiedType: const FullType(double)));
+        ..add(serializers.serialize(
+          payload.floatInBody!,
+          specifiedType: const FullType(double),
+        ));
     }
     return result;
   }

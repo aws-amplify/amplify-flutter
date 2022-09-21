@@ -21,8 +21,10 @@ class JsonListsOperation extends _i1.HttpOperation<
     _i2.JsonListsInputOutput,
     _i2.JsonListsInputOutput> {
   /// This test case serializes JSON lists for the following cases for both input and output: 1. Normal JSON lists. 2. Normal JSON sets. 3. JSON lists of lists. 4. Lists of structures.
-  JsonListsOperation({required String region, Uri? baseUri})
-      : _region = region,
+  JsonListsOperation({
+    required String region,
+    Uri? baseUri,
+  })  : _region = region,
         _baseUri = baseUri;
 
   @override
@@ -30,20 +32,23 @@ class JsonListsOperation extends _i1.HttpOperation<
       _i1.HttpProtocol<_i2.JsonListsInputOutput, _i2.JsonListsInputOutput,
           _i2.JsonListsInputOutput, _i2.JsonListsInputOutput>> protocols = [
     _i3.RestJson1Protocol(
-        serializers: _i4.serializers,
-        builderFactories: _i4.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithContentLength(),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i3.WithSdkInvocationId(),
-          const _i3.WithSdkRequest()
-        ],
-        responseInterceptors: [])
+      serializers: _i4.serializers,
+      builderFactories: _i4.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithContentLength(),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i3.WithSdkInvocationId(),
+        const _i3.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+    )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint =
-      _i5.endpointResolver.resolve(_i5.sdkId, _region);
+  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
+    _i5.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -58,9 +63,14 @@ class JsonListsOperation extends _i1.HttpOperation<
   @override
   int successCode([_i2.JsonListsInputOutput? output]) => 200;
   @override
-  _i2.JsonListsInputOutput buildOutput(_i2.JsonListsInputOutput payload,
-          _i6.AWSStreamedHttpResponse response) =>
-      _i2.JsonListsInputOutput.fromResponse(payload, response);
+  _i2.JsonListsInputOutput buildOutput(
+    _i2.JsonListsInputOutput payload,
+    _i6.AWSStreamedHttpResponse response,
+  ) =>
+      _i2.JsonListsInputOutput.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
@@ -70,13 +80,21 @@ class JsonListsOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i7.Future<_i2.JsonListsInputOutput> run(_i2.JsonListsInputOutput input,
-      {_i1.HttpClient? client, _i1.ShapeId? useProtocol}) {
+  _i7.Future<_i2.JsonListsInputOutput> run(
+    _i2.JsonListsInputOutput input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i7.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+      },
+    );
   }
 }

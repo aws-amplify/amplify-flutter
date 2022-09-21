@@ -20,9 +20,14 @@ abstract class QueryParamsAsStringListMapInput
             QueryParamsAsStringListMapInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<QueryParamsAsStringListMapInputPayload> {
-  factory QueryParamsAsStringListMapInput(
-      {_i3.BuiltListMultimap<String, String>? foo, String? qux}) {
-    return _$QueryParamsAsStringListMapInput._(foo: foo, qux: qux);
+  factory QueryParamsAsStringListMapInput({
+    _i3.BuiltListMultimap<String, String>? foo,
+    String? qux,
+  }) {
+    return _$QueryParamsAsStringListMapInput._(
+      foo: foo,
+      qux: qux,
+    );
   }
 
   factory QueryParamsAsStringListMapInput.build(
@@ -32,9 +37,10 @@ abstract class QueryParamsAsStringListMapInput
   const QueryParamsAsStringListMapInput._();
 
   factory QueryParamsAsStringListMapInput.fromRequest(
-          QueryParamsAsStringListMapInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    QueryParamsAsStringListMapInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       QueryParamsAsStringListMapInput.build((b) {
         if (request.queryParameters['corge'] != null) {
           b.qux = request.queryParameters['corge']!;
@@ -53,13 +59,22 @@ abstract class QueryParamsAsStringListMapInput
   QueryParamsAsStringListMapInputPayload getPayload() =>
       QueryParamsAsStringListMapInputPayload();
   @override
-  List<Object?> get props => [foo, qux];
+  List<Object?> get props => [
+        foo,
+        qux,
+      ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('QueryParamsAsStringListMapInput');
-    helper.add('foo', foo);
-    helper.add('qux', qux);
+    helper.add(
+      'foo',
+      foo,
+    );
+    helper.add(
+      'qux',
+      qux,
+    );
     return helper.toString();
   }
 }
@@ -100,21 +115,30 @@ class QueryParamsAsStringListMapInputRestXmlSerializer extends _i1
         QueryParamsAsStringListMapInput,
         _$QueryParamsAsStringListMapInput,
         QueryParamsAsStringListMapInputPayload,
-        _$QueryParamsAsStringListMapInputPayload
+        _$QueryParamsAsStringListMapInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   QueryParamsAsStringListMapInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return QueryParamsAsStringListMapInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       const _i1.XmlElementName('QueryParamsAsStringListMapInput')
     ];

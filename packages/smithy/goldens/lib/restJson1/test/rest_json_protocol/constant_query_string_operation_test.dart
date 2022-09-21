@@ -17,34 +17,41 @@ void main() {
     'RestJsonConstantQueryString (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.ConstantQueryStringOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonConstantQueryString',
-              documentation: 'Includes constant query string parameters',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {'hello': 'hi'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'GET',
-              uri: '/ConstantQueryString/hi',
-              host: null,
-              resolvedHost: null,
-              queryParams: ['foo=bar', 'hello'],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            ConstantQueryStringInputRestJson1Serializer()
-          ]);
+        operation: _i3.ConstantQueryStringOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonConstantQueryString',
+          documentation: 'Includes constant query string parameters',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {'hello': 'hi'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'GET',
+          uri: '/ConstantQueryString/hi',
+          host: null,
+          resolvedHost: null,
+          queryParams: [
+            'foo=bar',
+            'hello',
+          ],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [ConstantQueryStringInputRestJson1Serializer()],
+      );
     },
   );
 }
@@ -57,12 +64,18 @@ class ConstantQueryStringInputRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i5.ConstantQueryStringInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.ConstantQueryStringInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.ConstantQueryStringInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -71,8 +84,10 @@ class ConstantQueryStringInputRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'hello':
-          result.hello = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.hello = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -81,8 +96,11 @@ class ConstantQueryStringInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

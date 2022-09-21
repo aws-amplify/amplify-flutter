@@ -27,8 +27,10 @@ abstract class MalformedUnionInput
   const MalformedUnionInput._();
 
   factory MalformedUnionInput.fromRequest(
-          MalformedUnionInput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedUnionInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -45,7 +47,10 @@ abstract class MalformedUnionInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedUnionInput');
-    helper.add('union', union);
+    helper.add(
+      'union',
+      union,
+    );
     return helper.toString();
   }
 }
@@ -55,15 +60,23 @@ class MalformedUnionInputRestJson1Serializer
   const MalformedUnionInputRestJson1Serializer() : super('MalformedUnionInput');
 
   @override
-  Iterable<Type> get types =>
-      const [MalformedUnionInput, _$MalformedUnionInput];
+  Iterable<Type> get types => const [
+        MalformedUnionInput,
+        _$MalformedUnionInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedUnionInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MalformedUnionInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -73,9 +86,10 @@ class MalformedUnionInputRestJson1Serializer
       switch (key) {
         case 'union':
           if (value != null) {
-            result.union = (serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.SimpleUnion))
-                as _i3.SimpleUnion);
+            result.union = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.SimpleUnion),
+            ) as _i3.SimpleUnion);
           }
           break;
       }
@@ -85,15 +99,20 @@ class MalformedUnionInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as MalformedUnionInput);
     final result = <Object?>[];
     if (payload.union != null) {
       result
         ..add('union')
-        ..add(serializers.serialize(payload.union!,
-            specifiedType: const FullType(_i3.SimpleUnion)));
+        ..add(serializers.serialize(
+          payload.union!,
+          specifiedType: const FullType(_i3.SimpleUnion),
+        ));
     }
     return result;
   }

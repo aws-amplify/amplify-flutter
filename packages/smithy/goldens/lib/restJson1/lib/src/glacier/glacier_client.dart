@@ -20,12 +20,12 @@ import 'package:rest_json1_v1/src/glacier/operation/upload_multipart_part_operat
 import 'package:smithy/smithy.dart' as _i1;
 
 class GlacierClient {
-  const GlacierClient(
-      {_i1.HttpClient? client,
-      required String region,
-      Uri? baseUri,
-      required _i2.AWSCredentialsProvider credentialsProvider})
-      : _client = client,
+  const GlacierClient({
+    _i1.HttpClient? client,
+    required String region,
+    Uri? baseUri,
+    required _i2.AWSCredentialsProvider credentialsProvider,
+  })  : _client = client,
         _region = region,
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
@@ -39,22 +39,30 @@ class GlacierClient {
   final _i2.AWSCredentialsProvider _credentialsProvider;
 
   _i3.Future<_i4.ArchiveCreationOutput> uploadArchive(
-      _i5.UploadArchiveInput input,
-      {_i1.HttpClient? client}) {
+    _i5.UploadArchiveInput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i6.UploadArchiveOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   _i3.Future<_i7.UploadMultipartPartOutput> uploadMultipartPart(
-      _i8.UploadMultipartPartInput input,
-      {_i1.HttpClient? client}) {
+    _i8.UploadMultipartPartInput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i9.UploadMultipartPartOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 }

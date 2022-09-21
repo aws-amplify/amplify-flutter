@@ -20,90 +20,108 @@ void main() {
     'XmlNamespaceSimpleScalarProperties (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.SimpleScalarPropertiesOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'XmlNamespaceSimpleScalarProperties',
-              documentation: 'Serializes simple scalar properties',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body:
-                  '<SimpleScalarPropertiesInputOutput xmlns="https://example.com">\n    <stringValue>string</stringValue>\n    <trueBooleanValue>true</trueBooleanValue>\n    <falseBooleanValue>false</falseBooleanValue>\n    <byteValue>1</byteValue>\n    <shortValue>2</shortValue>\n    <integerValue>3</integerValue>\n    <longValue>4</longValue>\n    <floatValue>5.5</floatValue>\n    <DoubleDribble>6.5</DoubleDribble>\n    <Nested xmlns:xsi="https://example.com" xsi:someName="nestedAttrValue"></Nested>\n</SimpleScalarPropertiesInputOutput>\n',
-              bodyMediaType: 'application/xml',
-              params: {
-                'foo': 'Foo',
-                'stringValue': 'string',
-                'trueBooleanValue': true,
-                'falseBooleanValue': false,
-                'byteValue': 1,
-                'shortValue': 2,
-                'integerValue': 3,
-                'longValue': 4,
-                'floatValue': 5.5,
-                'doubleValue': 6.5,
-                'Nested': {'attrField': 'nestedAttrValue'}
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/xml', 'X-Foo': 'Foo'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'PUT',
-              uri: '/SimpleScalarProperties',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            SimpleScalarPropertiesInputOutputRestXmlSerializer(),
-            NestedWithNamespaceRestXmlSerializer()
-          ]);
+        operation: _i3.SimpleScalarPropertiesOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'XmlNamespaceSimpleScalarProperties',
+          documentation: 'Serializes simple scalar properties',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body:
+              '<SimpleScalarPropertiesInputOutput xmlns="https://example.com">\n    <stringValue>string</stringValue>\n    <trueBooleanValue>true</trueBooleanValue>\n    <falseBooleanValue>false</falseBooleanValue>\n    <byteValue>1</byteValue>\n    <shortValue>2</shortValue>\n    <integerValue>3</integerValue>\n    <longValue>4</longValue>\n    <floatValue>5.5</floatValue>\n    <DoubleDribble>6.5</DoubleDribble>\n    <Nested xmlns:xsi="https://example.com" xsi:someName="nestedAttrValue"></Nested>\n</SimpleScalarPropertiesInputOutput>\n',
+          bodyMediaType: 'application/xml',
+          params: {
+            'foo': 'Foo',
+            'stringValue': 'string',
+            'trueBooleanValue': true,
+            'falseBooleanValue': false,
+            'byteValue': 1,
+            'shortValue': 2,
+            'integerValue': 3,
+            'longValue': 4,
+            'floatValue': 5.5,
+            'doubleValue': 6.5,
+            'Nested': {'attrField': 'nestedAttrValue'},
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {
+            'Content-Type': 'application/xml',
+            'X-Foo': 'Foo',
+          },
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'PUT',
+          uri: '/SimpleScalarProperties',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          SimpleScalarPropertiesInputOutputRestXmlSerializer(),
+          NestedWithNamespaceRestXmlSerializer(),
+        ],
+      );
     },
   );
   _i1.test(
     'XmlNamespaceSimpleScalarProperties (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.SimpleScalarPropertiesOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'XmlNamespaceSimpleScalarProperties',
-              documentation: 'Serializes simple scalar properties',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body:
-                  '<SimpleScalarPropertiesInputOutput xmlns="https://example.com">\n    <stringValue>string</stringValue>\n    <trueBooleanValue>true</trueBooleanValue>\n    <falseBooleanValue>false</falseBooleanValue>\n    <byteValue>1</byteValue>\n    <shortValue>2</shortValue>\n    <integerValue>3</integerValue>\n    <longValue>4</longValue>\n    <floatValue>5.5</floatValue>\n    <DoubleDribble>6.5</DoubleDribble>\n    <Nested xmlns:xsi="https://example.com" xsi:someName="nestedAttrValue"></Nested>\n</SimpleScalarPropertiesInputOutput>\n',
-              bodyMediaType: 'application/xml',
-              params: {
-                'foo': 'Foo',
-                'stringValue': 'string',
-                'trueBooleanValue': true,
-                'falseBooleanValue': false,
-                'byteValue': 1,
-                'shortValue': 2,
-                'integerValue': 3,
-                'longValue': 4,
-                'floatValue': 5.5,
-                'doubleValue': 6.5,
-                'Nested': {'attrField': 'nestedAttrValue'}
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/xml', 'X-Foo': 'Foo'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [
-            SimpleScalarPropertiesInputOutputRestXmlSerializer(),
-            NestedWithNamespaceRestXmlSerializer()
-          ]);
+        operation: _i3.SimpleScalarPropertiesOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'XmlNamespaceSimpleScalarProperties',
+          documentation: 'Serializes simple scalar properties',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body:
+              '<SimpleScalarPropertiesInputOutput xmlns="https://example.com">\n    <stringValue>string</stringValue>\n    <trueBooleanValue>true</trueBooleanValue>\n    <falseBooleanValue>false</falseBooleanValue>\n    <byteValue>1</byteValue>\n    <shortValue>2</shortValue>\n    <integerValue>3</integerValue>\n    <longValue>4</longValue>\n    <floatValue>5.5</floatValue>\n    <DoubleDribble>6.5</DoubleDribble>\n    <Nested xmlns:xsi="https://example.com" xsi:someName="nestedAttrValue"></Nested>\n</SimpleScalarPropertiesInputOutput>\n',
+          bodyMediaType: 'application/xml',
+          params: {
+            'foo': 'Foo',
+            'stringValue': 'string',
+            'trueBooleanValue': true,
+            'falseBooleanValue': false,
+            'byteValue': 1,
+            'shortValue': 2,
+            'integerValue': 3,
+            'longValue': 4,
+            'floatValue': 5.5,
+            'doubleValue': 6.5,
+            'Nested': {'attrField': 'nestedAttrValue'},
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {
+            'Content-Type': 'application/xml',
+            'X-Foo': 'Foo',
+          },
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          SimpleScalarPropertiesInputOutputRestXmlSerializer(),
+          NestedWithNamespaceRestXmlSerializer(),
+        ],
+      );
     },
   );
 }
@@ -116,12 +134,18 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
   @override
   Iterable<Type> get types => const [_i5.SimpleScalarPropertiesInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i5.SimpleScalarPropertiesInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.SimpleScalarPropertiesInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -131,69 +155,90 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
       switch (key) {
         case 'byteValue':
           if (value != null) {
-            result.byteValue = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.byteValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'doubleValue':
           if (value != null) {
-            result.doubleValue = (serializers.deserialize(value,
-                specifiedType: const FullType(double)) as double);
+            result.doubleValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
         case 'falseBooleanValue':
           if (value != null) {
-            result.falseBooleanValue = (serializers.deserialize(value,
-                specifiedType: const FullType(bool)) as bool);
+            result.falseBooleanValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
           }
           break;
         case 'floatValue':
           if (value != null) {
-            result.floatValue = (serializers.deserialize(value,
-                specifiedType: const FullType(double)) as double);
+            result.floatValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
         case 'foo':
           if (value != null) {
-            result.foo = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.foo = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'integerValue':
           if (value != null) {
-            result.integerValue = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.integerValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'longValue':
           if (value != null) {
-            result.longValue = (serializers.deserialize(value,
-                specifiedType: const FullType(_i6.Int64)) as _i6.Int64);
+            result.longValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.Int64),
+            ) as _i6.Int64);
           }
           break;
         case 'Nested':
           if (value != null) {
-            result.nested.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i7.NestedWithNamespace))
-                as _i7.NestedWithNamespace));
+            result.nested.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i7.NestedWithNamespace),
+            ) as _i7.NestedWithNamespace));
           }
           break;
         case 'shortValue':
           if (value != null) {
-            result.shortValue = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.shortValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'stringValue':
           if (value != null) {
-            result.stringValue = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.stringValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'trueBooleanValue':
           if (value != null) {
-            result.trueBooleanValue = (serializers.deserialize(value,
-                specifiedType: const FullType(bool)) as bool);
+            result.trueBooleanValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
           }
           break;
       }
@@ -203,8 +248,11 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }
@@ -216,12 +264,18 @@ class NestedWithNamespaceRestXmlSerializer
   @override
   Iterable<Type> get types => const [_i7.NestedWithNamespace];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i7.NestedWithNamespace deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i7.NestedWithNamespaceBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -231,8 +285,10 @@ class NestedWithNamespaceRestXmlSerializer
       switch (key) {
         case 'attrField':
           if (value != null) {
-            result.attrField = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.attrField = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -242,8 +298,11 @@ class NestedWithNamespaceRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

@@ -27,9 +27,10 @@ abstract class MalformedTimestampBodyDateTimeInput
   const MalformedTimestampBodyDateTimeInput._();
 
   factory MalformedTimestampBodyDateTimeInput.fromRequest(
-          MalformedTimestampBodyDateTimeInput payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedTimestampBodyDateTimeInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -47,7 +48,10 @@ abstract class MalformedTimestampBodyDateTimeInput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('MalformedTimestampBodyDateTimeInput');
-    helper.add('timestamp', timestamp);
+    helper.add(
+      'timestamp',
+      timestamp,
+    );
     return helper.toString();
   }
 }
@@ -60,15 +64,21 @@ class MalformedTimestampBodyDateTimeInputRestJson1Serializer extends _i1
   @override
   Iterable<Type> get types => const [
         MalformedTimestampBodyDateTimeInput,
-        _$MalformedTimestampBodyDateTimeInput
+        _$MalformedTimestampBodyDateTimeInput,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedTimestampBodyDateTimeInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MalformedTimestampBodyDateTimeInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -77,8 +87,10 @@ class MalformedTimestampBodyDateTimeInputRestJson1Serializer extends _i1
       final value = iterator.current;
       switch (key) {
         case 'timestamp':
-          result.timestamp =
-              _i1.TimestampSerializer.dateTime.deserialize(serializers, value!);
+          result.timestamp = _i1.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value!,
+          );
           break;
       }
     }
@@ -87,12 +99,18 @@ class MalformedTimestampBodyDateTimeInputRestJson1Serializer extends _i1
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as MalformedTimestampBodyDateTimeInput);
     final result = <Object?>[
       'timestamp',
-      _i1.TimestampSerializer.dateTime.serialize(serializers, payload.timestamp)
+      _i1.TimestampSerializer.dateTime.serialize(
+        serializers,
+        payload.timestamp,
+      ),
     ];
     return result;
   }

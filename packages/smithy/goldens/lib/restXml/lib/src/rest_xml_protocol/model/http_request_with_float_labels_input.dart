@@ -19,10 +19,16 @@ abstract class HttpRequestWithFloatLabelsInput
             HttpRequestWithFloatLabelsInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithFloatLabelsInputPayload> {
-  factory HttpRequestWithFloatLabelsInput({double? double_, double? float}) {
+  factory HttpRequestWithFloatLabelsInput({
+    double? double_,
+    double? float,
+  }) {
     double_ ??= 0;
     float ??= 0;
-    return _$HttpRequestWithFloatLabelsInput._(double_: double_, float: float);
+    return _$HttpRequestWithFloatLabelsInput._(
+      double_: double_,
+      float: float,
+    );
   }
 
   factory HttpRequestWithFloatLabelsInput.build(
@@ -32,9 +38,10 @@ abstract class HttpRequestWithFloatLabelsInput
   const HttpRequestWithFloatLabelsInput._();
 
   factory HttpRequestWithFloatLabelsInput.fromRequest(
-          HttpRequestWithFloatLabelsInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    HttpRequestWithFloatLabelsInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       HttpRequestWithFloatLabelsInput.build((b) {
         if (labels['float'] != null) {
           b.float = double.parse(labels['float']!);
@@ -64,20 +71,32 @@ abstract class HttpRequestWithFloatLabelsInput
       case 'double':
         return double_.toString();
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
   HttpRequestWithFloatLabelsInputPayload getPayload() =>
       HttpRequestWithFloatLabelsInputPayload();
   @override
-  List<Object?> get props => [double_, float];
+  List<Object?> get props => [
+        double_,
+        float,
+      ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('HttpRequestWithFloatLabelsInput');
-    helper.add('double_', double_);
-    helper.add('float', float);
+    helper.add(
+      'double_',
+      double_,
+    );
+    helper.add(
+      'float',
+      float,
+    );
     return helper.toString();
   }
 }
@@ -118,21 +137,30 @@ class HttpRequestWithFloatLabelsInputRestXmlSerializer extends _i1
         HttpRequestWithFloatLabelsInput,
         _$HttpRequestWithFloatLabelsInput,
         HttpRequestWithFloatLabelsInputPayload,
-        _$HttpRequestWithFloatLabelsInputPayload
+        _$HttpRequestWithFloatLabelsInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   HttpRequestWithFloatLabelsInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return HttpRequestWithFloatLabelsInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       const _i1.XmlElementName('HttpRequestWithFloatLabelsInput')
     ];

@@ -18,19 +18,21 @@ abstract class UploadArchiveInput
     implements
         Built<UploadArchiveInput, UploadArchiveInputBuilder>,
         _i1.HasPayload<_i2.Stream<List<int>>> {
-  factory UploadArchiveInput(
-      {required String accountId,
-      String? archiveDescription,
-      _i2.Stream<List<int>>? body,
-      String? checksum,
-      required String vaultName}) {
+  factory UploadArchiveInput({
+    required String accountId,
+    String? archiveDescription,
+    _i2.Stream<List<int>>? body,
+    String? checksum,
+    required String vaultName,
+  }) {
     body ??= const _i2.Stream.empty();
     return _$UploadArchiveInput._(
-        accountId: accountId,
-        archiveDescription: archiveDescription,
-        body: body,
-        checksum: checksum,
-        vaultName: vaultName);
+      accountId: accountId,
+      archiveDescription: archiveDescription,
+      body: body,
+      checksum: checksum,
+      vaultName: vaultName,
+    );
   }
 
   factory UploadArchiveInput.build(
@@ -40,8 +42,10 @@ abstract class UploadArchiveInput
   const UploadArchiveInput._();
 
   factory UploadArchiveInput.fromRequest(
-          _i2.Stream<List<int>>? payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.Stream<List<int>>? payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       UploadArchiveInput.build((b) {
         b.body = payload;
         if (request.headers['x-amz-archive-description'] != null) {
@@ -80,22 +84,45 @@ abstract class UploadArchiveInput
       case 'accountId':
         return accountId;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
   _i2.Stream<List<int>>? getPayload() => body;
   @override
-  List<Object?> get props =>
-      [accountId, archiveDescription, body, checksum, vaultName];
+  List<Object?> get props => [
+        accountId,
+        archiveDescription,
+        body,
+        checksum,
+        vaultName,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadArchiveInput');
-    helper.add('accountId', accountId);
-    helper.add('archiveDescription', archiveDescription);
-    helper.add('body', body);
-    helper.add('checksum', checksum);
-    helper.add('vaultName', vaultName);
+    helper.add(
+      'accountId',
+      accountId,
+    );
+    helper.add(
+      'archiveDescription',
+      archiveDescription,
+    );
+    helper.add(
+      'body',
+      body,
+    );
+    helper.add(
+      'checksum',
+      checksum,
+    );
+    helper.add(
+      'vaultName',
+      vaultName,
+    );
     return helper.toString();
   }
 }
@@ -105,28 +132,57 @@ class UploadArchiveInputRestJson1Serializer
   const UploadArchiveInputRestJson1Serializer() : super('UploadArchiveInput');
 
   @override
-  Iterable<Type> get types => const [UploadArchiveInput, _$UploadArchiveInput];
+  Iterable<Type> get types => const [
+        UploadArchiveInput,
+        _$UploadArchiveInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i2.Stream<List<int>> deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i2.Stream, [
-          FullType(List, [FullType(int)])
-        ])) as _i2.Stream<List<int>>);
+  _i2.Stream<List<int>> deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(
+        _i2.Stream,
+        [
+          FullType(
+            List,
+            [FullType(int)],
+          )
+        ],
+      ),
+    ) as _i2.Stream<List<int>>);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is UploadArchiveInput
         ? object.getPayload()
         : (object as _i2.Stream<List<int>>?);
-    return (serializers.serialize(payload!,
-        specifiedType: const FullType(_i2.Stream, [
-          FullType(List, [FullType(int)])
-        ])) as Object);
+    return (serializers.serialize(
+      payload!,
+      specifiedType: const FullType(
+        _i2.Stream,
+        [
+          FullType(
+            List,
+            [FullType(int)],
+          )
+        ],
+      ),
+    ) as Object);
   }
 }

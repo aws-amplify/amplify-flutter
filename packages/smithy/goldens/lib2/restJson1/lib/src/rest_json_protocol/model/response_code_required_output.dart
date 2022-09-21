@@ -29,8 +29,9 @@ abstract class ResponseCodeRequiredOutput
 
   /// Constructs a [ResponseCodeRequiredOutput] from a [payload] and [response].
   factory ResponseCodeRequiredOutput.fromResponse(
-          ResponseCodeRequiredOutputPayload payload,
-          _i1.AWSBaseHttpResponse response) =>
+    ResponseCodeRequiredOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       ResponseCodeRequiredOutput.build((b) {
         b.responseCode = response.statusCode;
       });
@@ -53,7 +54,10 @@ abstract class ResponseCodeRequiredOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResponseCodeRequiredOutput');
-    helper.add('responseCode', responseCode);
+    helper.add(
+      'responseCode',
+      responseCode,
+    );
     return helper.toString();
   }
 }
@@ -94,20 +98,29 @@ class ResponseCodeRequiredOutputRestJson1Serializer
         ResponseCodeRequiredOutput,
         _$ResponseCodeRequiredOutput,
         ResponseCodeRequiredOutputPayload,
-        _$ResponseCodeRequiredOutputPayload
+        _$ResponseCodeRequiredOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   ResponseCodeRequiredOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ResponseCodeRequiredOutputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

@@ -20,76 +20,88 @@ void main() {
     'XmlMapsXmlName (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.XmlMapsXmlNameOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'XmlMapsXmlName',
-              documentation: 'Serializes XML maps that have xmlName on members',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body:
-                  '<XmlMapsXmlNameInputOutput>\n    <myMap>\n        <entry>\n            <Attribute>foo</Attribute>\n            <Setting>\n                <hi>there</hi>\n            </Setting>\n        </entry>\n        <entry>\n            <Attribute>baz</Attribute>\n            <Setting>\n                <hi>bye</hi>\n            </Setting>\n        </entry>\n    </myMap>\n</XmlMapsXmlNameInputOutput>\n',
-              bodyMediaType: 'application/xml',
-              params: {
-                'myMap': {
-                  'foo': {'hi': 'there'},
-                  'baz': {'hi': 'bye'}
-                }
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/xml'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'POST',
-              uri: '/XmlMapsXmlName',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            XmlMapsXmlNameInputOutputRestXmlSerializer(),
-            GreetingStructRestXmlSerializer()
-          ]);
+        operation: _i3.XmlMapsXmlNameOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'XmlMapsXmlName',
+          documentation: 'Serializes XML maps that have xmlName on members',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body:
+              '<XmlMapsXmlNameInputOutput>\n    <myMap>\n        <entry>\n            <Attribute>foo</Attribute>\n            <Setting>\n                <hi>there</hi>\n            </Setting>\n        </entry>\n        <entry>\n            <Attribute>baz</Attribute>\n            <Setting>\n                <hi>bye</hi>\n            </Setting>\n        </entry>\n    </myMap>\n</XmlMapsXmlNameInputOutput>\n',
+          bodyMediaType: 'application/xml',
+          params: {
+            'myMap': {
+              'foo': {'hi': 'there'},
+              'baz': {'hi': 'bye'},
+            }
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/xml'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/XmlMapsXmlName',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          XmlMapsXmlNameInputOutputRestXmlSerializer(),
+          GreetingStructRestXmlSerializer(),
+        ],
+      );
     },
   );
   _i1.test(
     'XmlMapsXmlName (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.XmlMapsXmlNameOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'XmlMapsXmlName',
-              documentation: 'Serializes XML lists',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body:
-                  '<XmlMapsXmlNameInputOutput>\n    <myMap>\n        <entry>\n            <Attribute>foo</Attribute>\n            <Setting>\n                <hi>there</hi>\n            </Setting>\n        </entry>\n        <entry>\n            <Attribute>baz</Attribute>\n            <Setting>\n                <hi>bye</hi>\n            </Setting>\n        </entry>\n    </myMap>\n</XmlMapsXmlNameInputOutput>\n',
-              bodyMediaType: 'application/xml',
-              params: {
-                'myMap': {
-                  'foo': {'hi': 'there'},
-                  'baz': {'hi': 'bye'}
-                }
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/xml'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [
-            XmlMapsXmlNameInputOutputRestXmlSerializer(),
-            GreetingStructRestXmlSerializer()
-          ]);
+        operation: _i3.XmlMapsXmlNameOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'XmlMapsXmlName',
+          documentation: 'Serializes XML lists',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body:
+              '<XmlMapsXmlNameInputOutput>\n    <myMap>\n        <entry>\n            <Attribute>foo</Attribute>\n            <Setting>\n                <hi>there</hi>\n            </Setting>\n        </entry>\n        <entry>\n            <Attribute>baz</Attribute>\n            <Setting>\n                <hi>bye</hi>\n            </Setting>\n        </entry>\n    </myMap>\n</XmlMapsXmlNameInputOutput>\n',
+          bodyMediaType: 'application/xml',
+          params: {
+            'myMap': {
+              'foo': {'hi': 'there'},
+              'baz': {'hi': 'bye'},
+            }
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/xml'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          XmlMapsXmlNameInputOutputRestXmlSerializer(),
+          GreetingStructRestXmlSerializer(),
+        ],
+      );
     },
   );
 }
@@ -102,12 +114,18 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
   @override
   Iterable<Type> get types => const [_i5.XmlMapsXmlNameInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i5.XmlMapsXmlNameInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.XmlMapsXmlNameInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -117,11 +135,16 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
       switch (key) {
         case 'myMap':
           if (value != null) {
-            result.myMap.replace((serializers.deserialize(value,
-                specifiedType: const FullType(_i6.BuiltMap, [
+            result.myMap.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltMap,
+                [
                   FullType(String),
-                  FullType(_i7.GreetingStruct)
-                ])) as _i6.BuiltMap<String, _i7.GreetingStruct>));
+                  FullType(_i7.GreetingStruct),
+                ],
+              ),
+            ) as _i6.BuiltMap<String, _i7.GreetingStruct>));
           }
           break;
       }
@@ -131,8 +154,11 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }
@@ -144,12 +170,18 @@ class GreetingStructRestXmlSerializer
   @override
   Iterable<Type> get types => const [_i7.GreetingStruct];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i7.GreetingStruct deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i7.GreetingStructBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -159,8 +191,10 @@ class GreetingStructRestXmlSerializer
       switch (key) {
         case 'hi':
           if (value != null) {
-            result.hi = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.hi = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -170,8 +204,11 @@ class GreetingStructRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

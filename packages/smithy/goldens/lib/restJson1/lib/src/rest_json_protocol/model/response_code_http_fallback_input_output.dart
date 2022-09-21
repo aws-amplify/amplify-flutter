@@ -28,15 +28,17 @@ abstract class ResponseCodeHttpFallbackInputOutput
   const ResponseCodeHttpFallbackInputOutput._();
 
   factory ResponseCodeHttpFallbackInputOutput.fromRequest(
-          ResponseCodeHttpFallbackInputOutput payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    ResponseCodeHttpFallbackInputOutput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   /// Constructs a [ResponseCodeHttpFallbackInputOutput] from a [payload] and [response].
   factory ResponseCodeHttpFallbackInputOutput.fromResponse(
-          ResponseCodeHttpFallbackInputOutput payload,
-          _i2.AWSBaseHttpResponse response) =>
+    ResponseCodeHttpFallbackInputOutput payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -65,20 +67,29 @@ class ResponseCodeHttpFallbackInputOutputRestJson1Serializer extends _i1
   @override
   Iterable<Type> get types => const [
         ResponseCodeHttpFallbackInputOutput,
-        _$ResponseCodeHttpFallbackInputOutput
+        _$ResponseCodeHttpFallbackInputOutput,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   ResponseCodeHttpFallbackInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ResponseCodeHttpFallbackInputOutputBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

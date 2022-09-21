@@ -15,8 +15,10 @@ abstract class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
 
   const factory EnumUnion.second(_i2.EnumString second) = EnumUnionSecond;
 
-  const factory EnumUnion.sdkUnknown(String name, Object value) =
-      EnumUnionSdkUnknown;
+  const factory EnumUnion.sdkUnknown(
+    String name,
+    Object value,
+  ) = EnumUnionSdkUnknown;
 
   static const List<_i1.SmithySerializer<EnumUnion>> serializers = [
     EnumUnionRestJson1Serializer()
@@ -27,27 +29,41 @@ abstract class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
   @override
   Object get value => (first ?? second)!;
   @override
-  T? when<T>(
-      {T Function(_i2.EnumString)? first,
-      T Function(_i2.EnumString)? second,
-      T Function(String, Object)? sdkUnknown}) {
+  T? when<T>({
+    T Function(_i2.EnumString)? first,
+    T Function(_i2.EnumString)? second,
+    T Function(
+      String,
+      Object,
+    )?
+        sdkUnknown,
+  }) {
     if (this is EnumUnionFirst) {
       return first?.call((this as EnumUnionFirst).first);
     }
     if (this is EnumUnionSecond) {
       return second?.call((this as EnumUnionSecond).second);
     }
-    return sdkUnknown?.call(name, value);
+    return sdkUnknown?.call(
+      name,
+      value,
+    );
   }
 
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'EnumUnion');
     if (first != null) {
-      helper.add(r'first', first);
+      helper.add(
+        r'first',
+        first,
+      );
     }
     if (second != null) {
-      helper.add(r'second', second);
+      helper.add(
+        r'second',
+        second,
+      );
     }
     return helper.toString();
   }
@@ -74,7 +90,10 @@ class EnumUnionSecond extends EnumUnion {
 }
 
 class EnumUnionSdkUnknown extends EnumUnion {
-  const EnumUnionSdkUnknown(this.name, this.value) : super._();
+  const EnumUnionSdkUnknown(
+    this.name,
+    this.value,
+  ) : super._();
 
   @override
   final String name;
@@ -90,11 +109,18 @@ class EnumUnionRestJson1Serializer
   @override
   Iterable<Type> get types => const [EnumUnion];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  EnumUnion deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  EnumUnion deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final iterator = serialized.iterator;
     iterator.moveNext();
     final key = iterator.current as String;
@@ -102,27 +128,46 @@ class EnumUnionRestJson1Serializer
     final value = iterator.current as Object;
     switch (key) {
       case 'first':
-        return EnumUnion.first((serializers.deserialize(value,
-            specifiedType: const FullType(_i2.EnumString)) as _i2.EnumString));
+        return EnumUnion.first((serializers.deserialize(
+          value,
+          specifiedType: const FullType(_i2.EnumString),
+        ) as _i2.EnumString));
       case 'second':
-        return EnumUnion.second((serializers.deserialize(value,
-            specifiedType: const FullType(_i2.EnumString)) as _i2.EnumString));
+        return EnumUnion.second((serializers.deserialize(
+          value,
+          specifiedType: const FullType(_i2.EnumString),
+        ) as _i2.EnumString));
     }
-    return EnumUnion.sdkUnknown(key, value);
+    return EnumUnion.sdkUnknown(
+      key,
+      value,
+    );
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     (object as EnumUnion);
     return [
       object.name,
       object.when<Object?>(
-          first: (_i2.EnumString first) => serializers.serialize(first,
-              specifiedType: const FullType(_i2.EnumString)),
-          second: (_i2.EnumString second) => serializers.serialize(second,
-              specifiedType: const FullType(_i2.EnumString)),
-          sdkUnknown: (String _, Object sdkUnknown) => sdkUnknown)!
+        first: (_i2.EnumString first) => serializers.serialize(
+          first,
+          specifiedType: const FullType(_i2.EnumString),
+        ),
+        second: (_i2.EnumString second) => serializers.serialize(
+          second,
+          specifiedType: const FullType(_i2.EnumString),
+        ),
+        sdkUnknown: (
+          String _,
+          Object sdkUnknown,
+        ) =>
+            sdkUnknown,
+      )!,
     ];
   }
 }

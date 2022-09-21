@@ -29,8 +29,9 @@ abstract class GetBucketLocationOutput
 
   /// Constructs a [GetBucketLocationOutput] from a [payload] and [response].
   factory GetBucketLocationOutput.fromResponse(
-          _i3.BucketLocationConstraint? payload,
-          _i1.AWSBaseHttpResponse response) =>
+    _i3.BucketLocationConstraint? payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       GetBucketLocationOutput.build((b) {
         b.locationConstraint = payload;
       });
@@ -49,7 +50,10 @@ abstract class GetBucketLocationOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetBucketLocationOutput');
-    helper.add('locationConstraint', locationConstraint);
+    helper.add(
+      'locationConstraint',
+      locationConstraint,
+    );
     return helper.toString();
   }
 }
@@ -60,35 +64,51 @@ class GetBucketLocationOutputRestXmlSerializer
       : super('GetBucketLocationOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [GetBucketLocationOutput, _$GetBucketLocationOutput];
+  Iterable<Type> get types => const [
+        GetBucketLocationOutput,
+        _$GetBucketLocationOutput,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i3.BucketLocationConstraint deserialize(
-      Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-            specifiedType: const FullType(_i3.BucketLocationConstraint))
-        as _i3.BucketLocationConstraint);
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i3.BucketLocationConstraint),
+    ) as _i3.BucketLocationConstraint);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is GetBucketLocationOutput
         ? object.getPayload()
         : (object as _i3.BucketLocationConstraint?);
     final result = <Object?>[
-      const _i2.XmlElementName('LocationConstraint',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'LocationConstraint',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     if (payload == null) {
       return result;
     }
-    result.add(serializers.serialize(payload,
-        specifiedType: const FullType(_i3.BucketLocationConstraint)));
+    result.add(serializers.serialize(
+      payload,
+      specifiedType: const FullType(_i3.BucketLocationConstraint),
+    ));
     return result;
   }
 }

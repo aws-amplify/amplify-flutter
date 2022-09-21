@@ -17,12 +17,12 @@ import 'package:smithy_aws/smithy_aws.dart' as _i4;
 
 class EndpointWithHostLabelOperation extends _i1
     .HttpOperation<_i2.HostLabelInput, _i2.HostLabelInput, _i1.Unit, _i1.Unit> {
-  EndpointWithHostLabelOperation(
-      {required String region,
-      Uri? baseUri,
-      _i3.AWSCredentialsProvider credentialsProvider =
-          const _i3.AWSCredentialsProvider.environment()})
-      : _region = region,
+  EndpointWithHostLabelOperation({
+    required String region,
+    Uri? baseUri,
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.environment(),
+  })  : _region = region,
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
 
@@ -31,26 +31,32 @@ class EndpointWithHostLabelOperation extends _i1
       _i1.HttpProtocol<_i2.HostLabelInput, _i2.HostLabelInput, _i1.Unit,
           _i1.Unit>> protocols = [
     _i4.AwsJson1_1Protocol(
-        serializers: _i5.serializers,
-        builderFactories: _i5.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithContentLength(),
-          const _i1.WithHeader(
-              'X-Amz-Target', 'JsonProtocol.EndpointWithHostLabelOperation'),
-          _i4.WithSigV4(
-              region: _region,
-              service: _i6.AWSService.iam,
-              credentialsProvider: _credentialsProvider),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i4.WithSdkInvocationId(),
-          const _i4.WithSdkRequest()
-        ],
-        responseInterceptors: [])
+      serializers: _i5.serializers,
+      builderFactories: _i5.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithContentLength(),
+        const _i1.WithHeader(
+          'X-Amz-Target',
+          'JsonProtocol.EndpointWithHostLabelOperation',
+        ),
+        _i4.WithSigV4(
+          region: _region,
+          service: _i6.AWSService.iam,
+          credentialsProvider: _credentialsProvider,
+        ),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i4.WithSdkInvocationId(),
+        const _i4.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+    )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint =
-      _i7.endpointResolver.resolve(_i7.sdkId, _region);
+  late final _i4.AWSEndpoint _awsEndpoint = _i7.endpointResolver.resolve(
+    _i7.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -69,7 +75,9 @@ class EndpointWithHostLabelOperation extends _i1
   int successCode([_i1.Unit? output]) => 200;
   @override
   _i1.Unit buildOutput(
-          _i1.Unit payload, _i6.AWSStreamedHttpResponse response) =>
+    _i1.Unit payload,
+    _i6.AWSStreamedHttpResponse response,
+  ) =>
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -80,13 +88,21 @@ class EndpointWithHostLabelOperation extends _i1
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i8.Future<_i1.Unit> run(_i2.HostLabelInput input,
-      {_i1.HttpClient? client, _i1.ShapeId? useProtocol}) {
+  _i8.Future<_i1.Unit> run(
+    _i2.HostLabelInput input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i8.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+      },
+    );
   }
 }

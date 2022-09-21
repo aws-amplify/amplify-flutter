@@ -12,8 +12,14 @@ part 'structure_list_member.g.dart';
 abstract class StructureListMember
     with _i1.AWSEquatable<StructureListMember>
     implements Built<StructureListMember, StructureListMemberBuilder> {
-  factory StructureListMember({String? a, String? b}) {
-    return _$StructureListMember._(a: a, b: b);
+  factory StructureListMember({
+    String? a,
+    String? b,
+  }) {
+    return _$StructureListMember._(
+      a: a,
+      b: b,
+    );
   }
 
   factory StructureListMember.build(
@@ -31,12 +37,21 @@ abstract class StructureListMember
   String? get a;
   String? get b;
   @override
-  List<Object?> get props => [a, b];
+  List<Object?> get props => [
+        a,
+        b,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StructureListMember');
-    helper.add('a', a);
-    helper.add('b', b);
+    helper.add(
+      'a',
+      a,
+    );
+    helper.add(
+      'b',
+      b,
+    );
     return helper.toString();
   }
 }
@@ -46,15 +61,23 @@ class StructureListMemberRestXmlSerializer
   const StructureListMemberRestXmlSerializer() : super('StructureListMember');
 
   @override
-  Iterable<Type> get types =>
-      const [StructureListMember, _$StructureListMember];
+  Iterable<Type> get types => const [
+        StructureListMember,
+        _$StructureListMember,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   StructureListMember deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = StructureListMemberBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -64,14 +87,18 @@ class StructureListMemberRestXmlSerializer
       switch (key as String) {
         case 'value':
           if (value != null) {
-            result.a = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.a = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'other':
           if (value != null) {
-            result.b = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.b = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -81,21 +108,28 @@ class StructureListMemberRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as StructureListMember);
     final result = <Object?>[const _i2.XmlElementName('StructureListMember')];
     if (payload.a != null) {
       result
         ..add(const _i2.XmlElementName('value'))
-        ..add(serializers.serialize(payload.a!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.a!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.b != null) {
       result
         ..add(const _i2.XmlElementName('other'))
-        ..add(serializers.serialize(payload.b!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.b!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

@@ -32,8 +32,10 @@ abstract class MediaTypeHeaderInput
   const MediaTypeHeaderInput._();
 
   factory MediaTypeHeaderInput.fromRequest(
-          MediaTypeHeaderInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MediaTypeHeaderInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MediaTypeHeaderInput.build((b) {
         if (request.headers['X-Json'] != null) {
           b.json = _i3.JsonObject(_i4.jsonDecode(
@@ -55,7 +57,10 @@ abstract class MediaTypeHeaderInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MediaTypeHeaderInput');
-    helper.add('json', json);
+    helper.add(
+      'json',
+      json,
+    );
     return helper.toString();
   }
 }
@@ -93,20 +98,29 @@ class MediaTypeHeaderInputRestJson1Serializer
         MediaTypeHeaderInput,
         _$MediaTypeHeaderInput,
         MediaTypeHeaderInputPayload,
-        _$MediaTypeHeaderInputPayload
+        _$MediaTypeHeaderInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MediaTypeHeaderInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return MediaTypeHeaderInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

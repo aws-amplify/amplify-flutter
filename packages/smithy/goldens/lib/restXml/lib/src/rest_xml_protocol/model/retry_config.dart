@@ -15,8 +15,14 @@ abstract class RetryConfig
     with _i1.AWSEquatable<RetryConfig>
     implements Built<RetryConfig, RetryConfigBuilder> {
   /// Configuration specific to retries.
-  factory RetryConfig({int? maxAttempts, _i2.RetryMode? mode}) {
-    return _$RetryConfig._(maxAttempts: maxAttempts, mode: mode);
+  factory RetryConfig({
+    int? maxAttempts,
+    _i2.RetryMode? mode,
+  }) {
+    return _$RetryConfig._(
+      maxAttempts: maxAttempts,
+      mode: mode,
+    );
   }
 
   /// Configuration specific to retries.
@@ -36,12 +42,21 @@ abstract class RetryConfig
   /// Controls the strategy used for retries.
   _i2.RetryMode? get mode;
   @override
-  List<Object?> get props => [maxAttempts, mode];
+  List<Object?> get props => [
+        maxAttempts,
+        mode,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RetryConfig');
-    helper.add('maxAttempts', maxAttempts);
-    helper.add('mode', mode);
+    helper.add(
+      'maxAttempts',
+      maxAttempts,
+    );
+    helper.add(
+      'mode',
+      mode,
+    );
     return helper.toString();
   }
 }
@@ -51,13 +66,23 @@ class RetryConfigRestXmlSerializer
   const RetryConfigRestXmlSerializer() : super('RetryConfig');
 
   @override
-  Iterable<Type> get types => const [RetryConfig, _$RetryConfig];
+  Iterable<Type> get types => const [
+        RetryConfig,
+        _$RetryConfig,
+      ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
-  RetryConfig deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  RetryConfig deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = RetryConfigBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -67,14 +92,18 @@ class RetryConfigRestXmlSerializer
       switch (key as String) {
         case 'max_attempts':
           if (value != null) {
-            result.maxAttempts = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.maxAttempts = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'mode':
           if (value != null) {
-            result.mode = (serializers.deserialize(value,
-                specifiedType: const FullType(_i2.RetryMode)) as _i2.RetryMode);
+            result.mode = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.RetryMode),
+            ) as _i2.RetryMode);
           }
           break;
       }
@@ -84,21 +113,28 @@ class RetryConfigRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as RetryConfig);
     final result = <Object?>[const _i3.XmlElementName('RetryConfig')];
     if (payload.maxAttempts != null) {
       result
         ..add(const _i3.XmlElementName('max_attempts'))
-        ..add(serializers.serialize(payload.maxAttempts!,
-            specifiedType: const FullType.nullable(int)));
+        ..add(serializers.serialize(
+          payload.maxAttempts!,
+          specifiedType: const FullType.nullable(int),
+        ));
     }
     if (payload.mode != null) {
       result
         ..add(const _i3.XmlElementName('mode'))
-        ..add(serializers.serialize(payload.mode!,
-            specifiedType: const FullType.nullable(_i2.RetryMode)));
+        ..add(serializers.serialize(
+          payload.mode!,
+          specifiedType: const FullType.nullable(_i2.RetryMode),
+        ));
     }
     return result;
   }

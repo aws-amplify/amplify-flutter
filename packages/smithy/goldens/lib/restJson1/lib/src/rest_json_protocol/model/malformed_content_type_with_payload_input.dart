@@ -30,8 +30,10 @@ abstract class MalformedContentTypeWithPayloadInput
   const MalformedContentTypeWithPayloadInput._();
 
   factory MalformedContentTypeWithPayloadInput.fromRequest(
-          _i2.Uint8List? payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.Uint8List? payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedContentTypeWithPayloadInput.build((b) {
         b.payload = payload;
       });
@@ -51,7 +53,10 @@ abstract class MalformedContentTypeWithPayloadInput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('MalformedContentTypeWithPayloadInput');
-    helper.add('payload', payload);
+    helper.add(
+      'payload',
+      payload,
+    );
     return helper.toString();
   }
 }
@@ -64,25 +69,39 @@ class MalformedContentTypeWithPayloadInputRestJson1Serializer
   @override
   Iterable<Type> get types => const [
         MalformedContentTypeWithPayloadInput,
-        _$MalformedContentTypeWithPayloadInput
+        _$MalformedContentTypeWithPayloadInput,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i2.Uint8List deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i2.Uint8List)) as _i2.Uint8List);
+  _i2.Uint8List deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i2.Uint8List),
+    ) as _i2.Uint8List);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is MalformedContentTypeWithPayloadInput
         ? object.getPayload()
         : (object as _i2.Uint8List?);
-    return (serializers.serialize(payload!,
-        specifiedType: const FullType(_i2.Uint8List)) as Object);
+    return (serializers.serialize(
+      payload!,
+      specifiedType: const FullType(_i2.Uint8List),
+    ) as Object);
   }
 }

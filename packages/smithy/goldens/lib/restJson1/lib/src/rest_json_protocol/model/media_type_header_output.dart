@@ -31,8 +31,9 @@ abstract class MediaTypeHeaderOutput
 
   /// Constructs a [MediaTypeHeaderOutput] from a [payload] and [response].
   factory MediaTypeHeaderOutput.fromResponse(
-          MediaTypeHeaderOutputPayload payload,
-          _i1.AWSBaseHttpResponse response) =>
+    MediaTypeHeaderOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       MediaTypeHeaderOutput.build((b) {
         if (response.headers['X-Json'] != null) {
           b.json = _i3.JsonObject(_i4.jsonDecode(
@@ -54,7 +55,10 @@ abstract class MediaTypeHeaderOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MediaTypeHeaderOutput');
-    helper.add('json', json);
+    helper.add(
+      'json',
+      json,
+    );
     return helper.toString();
   }
 }
@@ -94,20 +98,29 @@ class MediaTypeHeaderOutputRestJson1Serializer
         MediaTypeHeaderOutput,
         _$MediaTypeHeaderOutput,
         MediaTypeHeaderOutputPayload,
-        _$MediaTypeHeaderOutputPayload
+        _$MediaTypeHeaderOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MediaTypeHeaderOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return MediaTypeHeaderOutputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

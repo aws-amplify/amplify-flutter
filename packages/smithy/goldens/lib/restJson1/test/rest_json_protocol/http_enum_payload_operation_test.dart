@@ -19,58 +19,70 @@ void main() {
     'EnumPayloadRequest (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.HttpEnumPayloadOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'EnumPayloadRequest',
-              documentation: null,
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: 'enumvalue',
-              bodyMediaType: null,
-              params: {'payload': 'enumvalue'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'POST',
-              uri: '/EnumPayload',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [EnumPayloadInputRestJson1Serializer()]);
+        operation: _i3.HttpEnumPayloadOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'EnumPayloadRequest',
+          documentation: null,
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: 'enumvalue',
+          bodyMediaType: null,
+          params: {'payload': 'enumvalue'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/EnumPayload',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [EnumPayloadInputRestJson1Serializer()],
+      );
     },
   );
   _i1.test(
     'EnumPayloadResponse (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.HttpEnumPayloadOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'EnumPayloadResponse',
-              documentation: null,
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: 'enumvalue',
-              bodyMediaType: null,
-              params: {'payload': 'enumvalue'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [EnumPayloadInputRestJson1Serializer()]);
+        operation: _i3.HttpEnumPayloadOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'EnumPayloadResponse',
+          documentation: null,
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: 'enumvalue',
+          bodyMediaType: null,
+          params: {'payload': 'enumvalue'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [EnumPayloadInputRestJson1Serializer()],
+      );
     },
   );
 }
@@ -82,12 +94,18 @@ class EnumPayloadInputRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i5.EnumPayloadInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.EnumPayloadInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.EnumPayloadInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -97,9 +115,10 @@ class EnumPayloadInputRestJson1Serializer
       switch (key) {
         case 'payload':
           if (value != null) {
-            result.payload = (serializers.deserialize(value,
-                    specifiedType: const FullType(_i6.StringEnum))
-                as _i6.StringEnum);
+            result.payload = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.StringEnum),
+            ) as _i6.StringEnum);
           }
           break;
       }
@@ -109,8 +128,11 @@ class EnumPayloadInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

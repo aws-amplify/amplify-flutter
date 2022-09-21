@@ -27,13 +27,17 @@ abstract class XmlMapsInputOutput
   const XmlMapsInputOutput._();
 
   factory XmlMapsInputOutput.fromRequest(
-          XmlMapsInputOutput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    XmlMapsInputOutput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   /// Constructs a [XmlMapsInputOutput] from a [payload] and [response].
   factory XmlMapsInputOutput.fromResponse(
-          XmlMapsInputOutput payload, _i2.AWSBaseHttpResponse response) =>
+    XmlMapsInputOutput payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -50,7 +54,10 @@ abstract class XmlMapsInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlMapsInputOutput');
-    helper.add('myMap', myMap);
+    helper.add(
+      'myMap',
+      myMap,
+    );
     return helper.toString();
   }
 }
@@ -60,14 +67,23 @@ class XmlMapsInputOutputRestXmlSerializer
   const XmlMapsInputOutputRestXmlSerializer() : super('XmlMapsInputOutput');
 
   @override
-  Iterable<Type> get types => const [XmlMapsInputOutput, _$XmlMapsInputOutput];
+  Iterable<Type> get types => const [
+        XmlMapsInputOutput,
+        _$XmlMapsInputOutput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   XmlMapsInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = XmlMapsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -78,9 +94,16 @@ class XmlMapsInputOutputRestXmlSerializer
         case 'myMap':
           if (value != null) {
             result.myMap.replace(const _i1.XmlBuiltMapSerializer().deserialize(
-                serializers, (value as Iterable<Object?>),
-                specifiedType: const FullType(_i3.BuiltMap,
-                    [FullType(String), FullType(_i4.GreetingStruct)])));
+              serializers,
+              (value as Iterable<Object?>),
+              specifiedType: const FullType(
+                _i3.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(_i4.GreetingStruct),
+                ],
+              ),
+            ));
           }
           break;
       }
@@ -90,17 +113,27 @@ class XmlMapsInputOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as XmlMapsInputOutput);
     final result = <Object?>[const _i1.XmlElementName('XmlMapsInputOutput')];
     if (payload.myMap != null) {
       result
         ..add(const _i1.XmlElementName('myMap'))
         ..add(const _i1.XmlBuiltMapSerializer().serialize(
-            serializers, payload.myMap!,
-            specifiedType: const FullType.nullable(_i3.BuiltMap,
-                [FullType(String), FullType(_i4.GreetingStruct)])));
+          serializers,
+          payload.myMap!,
+          specifiedType: const FullType.nullable(
+            _i3.BuiltMap,
+            [
+              FullType(String),
+              FullType(_i4.GreetingStruct),
+            ],
+          ),
+        ));
     }
     return result;
   }

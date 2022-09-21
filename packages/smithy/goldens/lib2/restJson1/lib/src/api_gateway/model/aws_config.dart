@@ -13,8 +13,14 @@ part 'aws_config.g.dart';
 abstract class AwsConfig
     with _i1.AWSEquatable<AwsConfig>
     implements Built<AwsConfig, AwsConfigBuilder> {
-  factory AwsConfig({DateTime? clockTime, _i2.ScopedConfig? scopedConfig}) {
-    return _$AwsConfig._(clockTime: clockTime, scopedConfig: scopedConfig);
+  factory AwsConfig({
+    DateTime? clockTime,
+    _i2.ScopedConfig? scopedConfig,
+  }) {
+    return _$AwsConfig._(
+      clockTime: clockTime,
+      scopedConfig: scopedConfig,
+    );
   }
 
   factory AwsConfig.build([void Function(AwsConfigBuilder) updates]) =
@@ -35,12 +41,21 @@ abstract class AwsConfig
   /// Config settings that are scoped to different sources, such as environment variables or the AWS config file.
   _i2.ScopedConfig? get scopedConfig;
   @override
-  List<Object?> get props => [clockTime, scopedConfig];
+  List<Object?> get props => [
+        clockTime,
+        scopedConfig,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AwsConfig');
-    helper.add('clockTime', clockTime);
-    helper.add('scopedConfig', scopedConfig);
+    helper.add(
+      'clockTime',
+      clockTime,
+    );
+    helper.add(
+      'scopedConfig',
+      scopedConfig,
+    );
     return helper.toString();
   }
 }
@@ -50,13 +65,23 @@ class AwsConfigRestJson1Serializer
   const AwsConfigRestJson1Serializer() : super('AwsConfig');
 
   @override
-  Iterable<Type> get types => const [AwsConfig, _$AwsConfig];
+  Iterable<Type> get types => const [
+        AwsConfig,
+        _$AwsConfig,
+      ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  AwsConfig deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  AwsConfig deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = AwsConfigBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -66,15 +91,18 @@ class AwsConfigRestJson1Serializer
       switch (key) {
         case 'clockTime':
           if (value != null) {
-            result.clockTime = (serializers.deserialize(value,
-                specifiedType: const FullType(DateTime)) as DateTime);
+            result.clockTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
           }
           break;
         case 'scopedConfig':
           if (value != null) {
-            result.scopedConfig.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i2.ScopedConfig))
-                as _i2.ScopedConfig));
+            result.scopedConfig.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.ScopedConfig),
+            ) as _i2.ScopedConfig));
           }
           break;
       }
@@ -84,21 +112,28 @@ class AwsConfigRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as AwsConfig);
     final result = <Object?>[];
     if (payload.clockTime != null) {
       result
         ..add('clockTime')
-        ..add(serializers.serialize(payload.clockTime!,
-            specifiedType: const FullType(DateTime)));
+        ..add(serializers.serialize(
+          payload.clockTime!,
+          specifiedType: const FullType(DateTime),
+        ));
     }
     if (payload.scopedConfig != null) {
       result
         ..add('scopedConfig')
-        ..add(serializers.serialize(payload.scopedConfig!,
-            specifiedType: const FullType(_i2.ScopedConfig)));
+        ..add(serializers.serialize(
+          payload.scopedConfig!,
+          specifiedType: const FullType(_i2.ScopedConfig),
+        ));
     }
     return result;
   }

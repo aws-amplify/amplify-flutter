@@ -25,15 +25,19 @@ abstract class StringPayloadInput
   const StringPayloadInput._();
 
   factory StringPayloadInput.fromRequest(
-          String? payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    String? payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       StringPayloadInput.build((b) {
         b.payload = payload;
       });
 
   /// Constructs a [StringPayloadInput] from a [payload] and [response].
   factory StringPayloadInput.fromResponse(
-          String? payload, _i2.AWSBaseHttpResponse response) =>
+    String? payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       StringPayloadInput.build((b) {
         b.payload = payload;
       });
@@ -52,7 +56,10 @@ abstract class StringPayloadInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StringPayloadInput');
-    helper.add('payload', payload);
+    helper.add(
+      'payload',
+      payload,
+    );
     return helper.toString();
   }
 }
@@ -62,24 +69,41 @@ class StringPayloadInputRestJson1Serializer
   const StringPayloadInputRestJson1Serializer() : super('StringPayloadInput');
 
   @override
-  Iterable<Type> get types => const [StringPayloadInput, _$StringPayloadInput];
+  Iterable<Type> get types => const [
+        StringPayloadInput,
+        _$StringPayloadInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  String deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(String)) as String);
+  String deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(String),
+    ) as String);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is StringPayloadInput
         ? object.getPayload()
         : (object as String?);
-    return (serializers.serialize(payload!,
-        specifiedType: const FullType(String)) as Object);
+    return (serializers.serialize(
+      payload!,
+      specifiedType: const FullType(String),
+    ) as Object);
   }
 }

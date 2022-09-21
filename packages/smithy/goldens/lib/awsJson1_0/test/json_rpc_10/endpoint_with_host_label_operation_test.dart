@@ -17,34 +17,41 @@ void main() {
     'AwsJson10EndpointTraitWithHostLabel (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.EndpointWithHostLabelOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'AwsJson10EndpointTraitWithHostLabel',
-              documentation:
-                  'Operations can prepend to the given host if they define the\nendpoint trait, and can use the host label trait to define\nfurther customization based on user input.',
-              protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
-              authScheme: null,
-              body: '{"label": "bar"}',
-              bodyMediaType: 'application/json',
-              params: {'label': 'bar'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'POST',
-              uri: '/',
-              host: 'example.com',
-              resolvedHost: 'foo.bar.example.com',
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            EndpointWithHostLabelOperationInputAwsJson10Serializer()
-          ]);
+        operation: _i3.EndpointWithHostLabelOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'AwsJson10EndpointTraitWithHostLabel',
+          documentation:
+              'Operations can prepend to the given host if they define the\nendpoint trait, and can use the host label trait to define\nfurther customization based on user input.',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'awsJson1_0',
+          ),
+          authScheme: null,
+          body: '{"label": "bar"}',
+          bodyMediaType: 'application/json',
+          params: {'label': 'bar'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/',
+          host: 'example.com',
+          resolvedHost: 'foo.bar.example.com',
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          EndpointWithHostLabelOperationInputAwsJson10Serializer()
+        ],
+      );
     },
   );
 }
@@ -57,12 +64,18 @@ class EndpointWithHostLabelOperationInputAwsJson10Serializer extends _i4
   @override
   Iterable<Type> get types => const [_i5.EndpointWithHostLabelOperationInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_0',
+        )
+      ];
   @override
   _i5.EndpointWithHostLabelOperationInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.EndpointWithHostLabelOperationInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -71,8 +84,10 @@ class EndpointWithHostLabelOperationInputAwsJson10Serializer extends _i4
       final value = iterator.current;
       switch (key) {
         case 'label':
-          result.label = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.label = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -81,8 +96,11 @@ class EndpointWithHostLabelOperationInputAwsJson10Serializer extends _i4
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

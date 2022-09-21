@@ -22,8 +22,10 @@ abstract class HostLabelInput
   const HostLabelInput._();
 
   factory HostLabelInput.fromRequest(
-          HostLabelInput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    HostLabelInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -39,7 +41,10 @@ abstract class HostLabelInput
       case 'label':
         return label;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -49,7 +54,10 @@ abstract class HostLabelInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HostLabelInput');
-    helper.add('label', label);
+    helper.add(
+      'label',
+      label,
+    );
     return helper.toString();
   }
 }
@@ -59,14 +67,23 @@ class HostLabelInputRestXmlSerializer
   const HostLabelInputRestXmlSerializer() : super('HostLabelInput');
 
   @override
-  Iterable<Type> get types => const [HostLabelInput, _$HostLabelInput];
+  Iterable<Type> get types => const [
+        HostLabelInput,
+        _$HostLabelInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   HostLabelInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = HostLabelInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -75,8 +92,10 @@ class HostLabelInputRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'label':
-          result.label = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.label = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -85,14 +104,19 @@ class HostLabelInputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as HostLabelInput);
     final result = <Object?>[const _i1.XmlElementName('HostLabelInput')];
     result
       ..add(const _i1.XmlElementName('label'))
-      ..add(serializers.serialize(payload.label,
-          specifiedType: const FullType(String)));
+      ..add(serializers.serialize(
+        payload.label,
+        specifiedType: const FullType(String),
+      ));
     return result;
   }
 }

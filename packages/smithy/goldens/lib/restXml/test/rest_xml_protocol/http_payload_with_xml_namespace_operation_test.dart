@@ -19,72 +19,84 @@ void main() {
     'HttpPayloadWithXmlNamespace (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.HttpPayloadWithXmlNamespaceOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'HttpPayloadWithXmlNamespace',
-              documentation:
-                  'Serializes a structure in the payload using a wrapper with an XML namespace',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body:
-                  '<PayloadWithXmlNamespace xmlns="http://foo.com">\n    <name>Phreddy</name>\n</PayloadWithXmlNamespace>',
-              bodyMediaType: 'application/xml',
-              params: {
-                'nested': {'name': 'Phreddy'}
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/xml'},
-              forbidHeaders: [],
-              requireHeaders: ['Content-Length'],
-              tags: [],
-              appliesTo: null,
-              method: 'PUT',
-              uri: '/HttpPayloadWithXmlNamespace',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer(),
-            PayloadWithXmlNamespaceRestXmlSerializer()
-          ]);
+        operation: _i3.HttpPayloadWithXmlNamespaceOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'HttpPayloadWithXmlNamespace',
+          documentation:
+              'Serializes a structure in the payload using a wrapper with an XML namespace',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body:
+              '<PayloadWithXmlNamespace xmlns="http://foo.com">\n    <name>Phreddy</name>\n</PayloadWithXmlNamespace>',
+          bodyMediaType: 'application/xml',
+          params: {
+            'nested': {'name': 'Phreddy'}
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/xml'},
+          forbidHeaders: [],
+          requireHeaders: ['Content-Length'],
+          tags: [],
+          appliesTo: null,
+          method: 'PUT',
+          uri: '/HttpPayloadWithXmlNamespace',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer(),
+          PayloadWithXmlNamespaceRestXmlSerializer(),
+        ],
+      );
     },
   );
   _i1.test(
     'HttpPayloadWithXmlNamespace (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.HttpPayloadWithXmlNamespaceOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'HttpPayloadWithXmlNamespace',
-              documentation:
-                  'Serializes a structure in the payload using a wrapper with an XML namespace',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body:
-                  '<PayloadWithXmlNamespace xmlns="http://foo.com">\n    <name>Phreddy</name>\n</PayloadWithXmlNamespace>',
-              bodyMediaType: 'application/xml',
-              params: {
-                'nested': {'name': 'Phreddy'}
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/xml'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [
-            HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer(),
-            PayloadWithXmlNamespaceRestXmlSerializer()
-          ]);
+        operation: _i3.HttpPayloadWithXmlNamespaceOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'HttpPayloadWithXmlNamespace',
+          documentation:
+              'Serializes a structure in the payload using a wrapper with an XML namespace',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body:
+              '<PayloadWithXmlNamespace xmlns="http://foo.com">\n    <name>Phreddy</name>\n</PayloadWithXmlNamespace>',
+          bodyMediaType: 'application/xml',
+          params: {
+            'nested': {'name': 'Phreddy'}
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/xml'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer(),
+          PayloadWithXmlNamespaceRestXmlSerializer(),
+        ],
+      );
     },
   );
 }
@@ -98,12 +110,18 @@ class HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer extends _i4
   Iterable<Type> get types =>
       const [_i5.HttpPayloadWithXmlNamespaceInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i5.HttpPayloadWithXmlNamespaceInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.HttpPayloadWithXmlNamespaceInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -113,9 +131,10 @@ class HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer extends _i4
       switch (key) {
         case 'nested':
           if (value != null) {
-            result.nested.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i6.PayloadWithXmlNamespace))
-                as _i6.PayloadWithXmlNamespace));
+            result.nested.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.PayloadWithXmlNamespace),
+            ) as _i6.PayloadWithXmlNamespace));
           }
           break;
       }
@@ -125,8 +144,11 @@ class HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer extends _i4
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }
@@ -139,12 +161,18 @@ class PayloadWithXmlNamespaceRestXmlSerializer
   @override
   Iterable<Type> get types => const [_i6.PayloadWithXmlNamespace];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i6.PayloadWithXmlNamespace deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i6.PayloadWithXmlNamespaceBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -154,8 +182,10 @@ class PayloadWithXmlNamespaceRestXmlSerializer
       switch (key) {
         case 'name':
           if (value != null) {
-            result.name = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.name = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -165,8 +195,11 @@ class PayloadWithXmlNamespaceRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

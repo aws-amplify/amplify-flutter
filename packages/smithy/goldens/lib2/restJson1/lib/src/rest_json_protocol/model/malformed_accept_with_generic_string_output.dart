@@ -28,7 +28,9 @@ abstract class MalformedAcceptWithGenericStringOutput
 
   /// Constructs a [MalformedAcceptWithGenericStringOutput] from a [payload] and [response].
   factory MalformedAcceptWithGenericStringOutput.fromResponse(
-          String? payload, _i1.AWSBaseHttpResponse response) =>
+    String? payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       MalformedAcceptWithGenericStringOutput.build((b) {
         b.payload = payload;
       });
@@ -48,7 +50,10 @@ abstract class MalformedAcceptWithGenericStringOutput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('MalformedAcceptWithGenericStringOutput');
-    helper.add('payload', payload);
+    helper.add(
+      'payload',
+      payload,
+    );
     return helper.toString();
   }
 }
@@ -61,25 +66,39 @@ class MalformedAcceptWithGenericStringOutputRestJson1Serializer
   @override
   Iterable<Type> get types => const [
         MalformedAcceptWithGenericStringOutput,
-        _$MalformedAcceptWithGenericStringOutput
+        _$MalformedAcceptWithGenericStringOutput,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  String deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(String)) as String);
+  String deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(String),
+    ) as String);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is MalformedAcceptWithGenericStringOutput
         ? object.getPayload()
         : (object as String?);
-    return (serializers.serialize(payload!,
-        specifiedType: const FullType(String)) as Object);
+    return (serializers.serialize(
+      payload!,
+      specifiedType: const FullType(String),
+    ) as Object);
   }
 }

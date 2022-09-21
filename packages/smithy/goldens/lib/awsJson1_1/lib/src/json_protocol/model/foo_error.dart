@@ -28,7 +28,9 @@ abstract class FooError
 
   /// Constructs a [FooError] from a [payload] and [response].
   factory FooError.fromResponse(
-          FooError payload, _i1.AWSBaseHttpResponse response) =>
+    FooError payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.statusCode = response.statusCode;
         b.headers = response.headers;
@@ -41,8 +43,10 @@ abstract class FooError
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FooErrorBuilder b) {}
   @override
-  _i2.ShapeId get shapeId =>
-      const _i2.ShapeId(namespace: 'aws.protocoltests.json', shape: 'FooError');
+  _i2.ShapeId get shapeId => const _i2.ShapeId(
+        namespace: 'aws.protocoltests.json',
+        shape: 'FooError',
+      );
   @override
   String? get message => null;
   @override
@@ -69,18 +73,31 @@ class FooErrorAwsJson11Serializer
   const FooErrorAwsJson11Serializer() : super('FooError');
 
   @override
-  Iterable<Type> get types => const [FooError, _$FooError];
+  Iterable<Type> get types => const [
+        FooError,
+        _$FooError,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
-  FooError deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  FooError deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return FooErrorBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

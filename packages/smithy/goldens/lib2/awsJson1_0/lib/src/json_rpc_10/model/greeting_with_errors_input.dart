@@ -25,8 +25,10 @@ abstract class GreetingWithErrorsInput
   const GreetingWithErrorsInput._();
 
   factory GreetingWithErrorsInput.fromRequest(
-          GreetingWithErrorsInput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    GreetingWithErrorsInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -43,7 +45,10 @@ abstract class GreetingWithErrorsInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GreetingWithErrorsInput');
-    helper.add('greeting', greeting);
+    helper.add(
+      'greeting',
+      greeting,
+    );
     return helper.toString();
   }
 }
@@ -54,15 +59,23 @@ class GreetingWithErrorsInputAwsJson10Serializer
       : super('GreetingWithErrorsInput');
 
   @override
-  Iterable<Type> get types =>
-      const [GreetingWithErrorsInput, _$GreetingWithErrorsInput];
+  Iterable<Type> get types => const [
+        GreetingWithErrorsInput,
+        _$GreetingWithErrorsInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_0',
+        )
+      ];
   @override
   GreetingWithErrorsInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = GreetingWithErrorsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -72,8 +85,10 @@ class GreetingWithErrorsInputAwsJson10Serializer
       switch (key) {
         case 'greeting':
           if (value != null) {
-            result.greeting = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.greeting = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -83,15 +98,20 @@ class GreetingWithErrorsInputAwsJson10Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as GreetingWithErrorsInput);
     final result = <Object?>[];
     if (payload.greeting != null) {
       result
         ..add('greeting')
-        ..add(serializers.serialize(payload.greeting!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.greeting!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

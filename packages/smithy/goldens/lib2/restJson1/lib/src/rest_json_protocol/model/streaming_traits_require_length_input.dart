@@ -19,10 +19,15 @@ abstract class StreamingTraitsRequireLengthInput
         Built<StreamingTraitsRequireLengthInput,
             StreamingTraitsRequireLengthInputBuilder>,
         _i1.HasPayload<_i2.Stream<List<int>>> {
-  factory StreamingTraitsRequireLengthInput(
-      {_i2.Stream<List<int>>? blob, String? foo}) {
+  factory StreamingTraitsRequireLengthInput({
+    _i2.Stream<List<int>>? blob,
+    String? foo,
+  }) {
     blob ??= const _i2.Stream.empty();
-    return _$StreamingTraitsRequireLengthInput._(blob: blob, foo: foo);
+    return _$StreamingTraitsRequireLengthInput._(
+      blob: blob,
+      foo: foo,
+    );
   }
 
   factory StreamingTraitsRequireLengthInput.build(
@@ -32,8 +37,10 @@ abstract class StreamingTraitsRequireLengthInput
   const StreamingTraitsRequireLengthInput._();
 
   factory StreamingTraitsRequireLengthInput.fromRequest(
-          _i2.Stream<List<int>>? payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.Stream<List<int>>? payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       StreamingTraitsRequireLengthInput.build((b) {
         b.blob = payload;
         if (request.headers['X-Foo'] != null) {
@@ -55,13 +62,22 @@ abstract class StreamingTraitsRequireLengthInput
   @override
   _i2.Stream<List<int>>? getPayload() => blob;
   @override
-  List<Object?> get props => [blob, foo];
+  List<Object?> get props => [
+        blob,
+        foo,
+      ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('StreamingTraitsRequireLengthInput');
-    helper.add('blob', blob);
-    helper.add('foo', foo);
+    helper.add(
+      'blob',
+      blob,
+    );
+    helper.add(
+      'foo',
+      foo,
+    );
     return helper.toString();
   }
 }
@@ -74,29 +90,55 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer
   @override
   Iterable<Type> get types => const [
         StreamingTraitsRequireLengthInput,
-        _$StreamingTraitsRequireLengthInput
+        _$StreamingTraitsRequireLengthInput,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i2.Stream<List<int>> deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i2.Stream, [
-          FullType(List, [FullType(int)])
-        ])) as _i2.Stream<List<int>>);
+  _i2.Stream<List<int>> deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(
+        _i2.Stream,
+        [
+          FullType(
+            List,
+            [FullType(int)],
+          )
+        ],
+      ),
+    ) as _i2.Stream<List<int>>);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is StreamingTraitsRequireLengthInput
         ? object.getPayload()
         : (object as _i2.Stream<List<int>>?);
-    return (serializers.serialize(payload!,
-        specifiedType: const FullType(_i2.Stream, [
-          FullType(List, [FullType(int)])
-        ])) as Object);
+    return (serializers.serialize(
+      payload!,
+      specifiedType: const FullType(
+        _i2.Stream,
+        [
+          FullType(
+            List,
+            [FullType(int)],
+          )
+        ],
+      ),
+    ) as Object);
   }
 }

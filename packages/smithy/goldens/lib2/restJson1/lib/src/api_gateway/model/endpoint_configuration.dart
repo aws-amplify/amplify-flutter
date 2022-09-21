@@ -14,11 +14,14 @@ part 'endpoint_configuration.g.dart';
 abstract class EndpointConfiguration
     with _i1.AWSEquatable<EndpointConfiguration>
     implements Built<EndpointConfiguration, EndpointConfigurationBuilder> {
-  factory EndpointConfiguration(
-      {_i2.BuiltList<_i3.EndpointType>? types,
-      _i2.BuiltList<String>? vpcEndpointIds}) {
+  factory EndpointConfiguration({
+    _i2.BuiltList<_i3.EndpointType>? types,
+    _i2.BuiltList<String>? vpcEndpointIds,
+  }) {
     return _$EndpointConfiguration._(
-        types: types, vpcEndpointIds: vpcEndpointIds);
+      types: types,
+      vpcEndpointIds: vpcEndpointIds,
+    );
   }
 
   factory EndpointConfiguration.build(
@@ -36,12 +39,21 @@ abstract class EndpointConfiguration
   _i2.BuiltList<_i3.EndpointType>? get types;
   _i2.BuiltList<String>? get vpcEndpointIds;
   @override
-  List<Object?> get props => [types, vpcEndpointIds];
+  List<Object?> get props => [
+        types,
+        vpcEndpointIds,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EndpointConfiguration');
-    helper.add('types', types);
-    helper.add('vpcEndpointIds', vpcEndpointIds);
+    helper.add(
+      'types',
+      types,
+    );
+    helper.add(
+      'vpcEndpointIds',
+      vpcEndpointIds,
+    );
     return helper.toString();
   }
 }
@@ -52,15 +64,23 @@ class EndpointConfigurationRestJson1Serializer
       : super('EndpointConfiguration');
 
   @override
-  Iterable<Type> get types =>
-      const [EndpointConfiguration, _$EndpointConfiguration];
+  Iterable<Type> get types => const [
+        EndpointConfiguration,
+        _$EndpointConfiguration,
+      ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   EndpointConfiguration deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = EndpointConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -70,18 +90,24 @@ class EndpointConfigurationRestJson1Serializer
       switch (key) {
         case 'types':
           if (value != null) {
-            result.types.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(
-                        _i2.BuiltList, [FullType(_i3.EndpointType)]))
-                as _i2.BuiltList<_i3.EndpointType>));
+            result.types.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i2.BuiltList,
+                [FullType(_i3.EndpointType)],
+              ),
+            ) as _i2.BuiltList<_i3.EndpointType>));
           }
           break;
         case 'vpcEndpointIds':
           if (value != null) {
-            result.vpcEndpointIds.replace((serializers.deserialize(value,
-                    specifiedType:
-                        const FullType(_i2.BuiltList, [FullType(String)]))
-                as _i2.BuiltList<String>));
+            result.vpcEndpointIds.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i2.BuiltList,
+                [FullType(String)],
+              ),
+            ) as _i2.BuiltList<String>));
           }
           break;
       }
@@ -91,22 +117,34 @@ class EndpointConfigurationRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as EndpointConfiguration);
     final result = <Object?>[];
     if (payload.types != null) {
       result
         ..add('types')
-        ..add(serializers.serialize(payload.types!,
-            specifiedType:
-                const FullType(_i2.BuiltList, [FullType(_i3.EndpointType)])));
+        ..add(serializers.serialize(
+          payload.types!,
+          specifiedType: const FullType(
+            _i2.BuiltList,
+            [FullType(_i3.EndpointType)],
+          ),
+        ));
     }
     if (payload.vpcEndpointIds != null) {
       result
         ..add('vpcEndpointIds')
-        ..add(serializers.serialize(payload.vpcEndpointIds!,
-            specifiedType: const FullType(_i2.BuiltList, [FullType(String)])));
+        ..add(serializers.serialize(
+          payload.vpcEndpointIds!,
+          specifiedType: const FullType(
+            _i2.BuiltList,
+            [FullType(String)],
+          ),
+        ));
     }
     return result;
   }

@@ -6,31 +6,55 @@ import 'package:smithy/smithy.dart' as _i1;
 
 /// Controls the strategy used for retries.
 class RetryMode extends _i1.SmithyEnum<RetryMode> {
-  const RetryMode._(int index, String name, String value)
-      : super(index, name, value);
+  const RetryMode._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const RetryMode._sdkUnknown(String value) : super.sdkUnknown(value);
 
-  static const adaptive = RetryMode._(0, 'ADAPTIVE', 'adaptive');
+  static const adaptive = RetryMode._(
+    0,
+    'ADAPTIVE',
+    'adaptive',
+  );
 
-  static const legacy = RetryMode._(1, 'LEGACY', 'legacy');
+  static const legacy = RetryMode._(
+    1,
+    'LEGACY',
+    'legacy',
+  );
 
-  static const standard = RetryMode._(2, 'STANDARD', 'standard');
+  static const standard = RetryMode._(
+    2,
+    'STANDARD',
+    'standard',
+  );
 
   /// All values of [RetryMode].
   static const values = <RetryMode>[
     RetryMode.adaptive,
     RetryMode.legacy,
-    RetryMode.standard
+    RetryMode.standard,
   ];
 
   static const List<_i1.SmithySerializer<RetryMode>> serializers = [
-    _i1.SmithyEnumSerializer('RetryMode',
-        values: values,
-        sdkUnknown: RetryMode._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0')
-        ])
+    _i1.SmithyEnumSerializer(
+      'RetryMode',
+      values: values,
+      sdkUnknown: RetryMode._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_0',
+        )
+      ],
+    )
   ];
 }
 

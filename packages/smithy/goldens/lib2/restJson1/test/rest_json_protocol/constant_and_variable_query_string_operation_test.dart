@@ -17,70 +17,90 @@ void main() {
     'RestJsonConstantAndVariableQueryStringMissingOneValue (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.ConstantAndVariableQueryStringOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonConstantAndVariableQueryStringMissingOneValue',
-              documentation:
-                  'Mixes constant and variable query string parameters',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {'baz': 'bam'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'GET',
-              uri: '/ConstantAndVariableQueryString',
-              host: null,
-              resolvedHost: null,
-              queryParams: ['foo=bar', 'baz=bam'],
-              forbidQueryParams: ['maybeSet'],
-              requireQueryParams: []),
-          inputSerializers: const [
-            ConstantAndVariableQueryStringInputRestJson1Serializer()
-          ]);
+        operation: _i3.ConstantAndVariableQueryStringOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonConstantAndVariableQueryStringMissingOneValue',
+          documentation: 'Mixes constant and variable query string parameters',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {'baz': 'bam'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'GET',
+          uri: '/ConstantAndVariableQueryString',
+          host: null,
+          resolvedHost: null,
+          queryParams: [
+            'foo=bar',
+            'baz=bam',
+          ],
+          forbidQueryParams: ['maybeSet'],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          ConstantAndVariableQueryStringInputRestJson1Serializer()
+        ],
+      );
     },
   );
   _i1.test(
     'RestJsonConstantAndVariableQueryStringAllValues (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.ConstantAndVariableQueryStringOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonConstantAndVariableQueryStringAllValues',
-              documentation:
-                  'Mixes constant and variable query string parameters',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {'baz': 'bam', 'maybeSet': 'yes'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'GET',
-              uri: '/ConstantAndVariableQueryString',
-              host: null,
-              resolvedHost: null,
-              queryParams: ['foo=bar', 'baz=bam', 'maybeSet=yes'],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            ConstantAndVariableQueryStringInputRestJson1Serializer()
-          ]);
+        operation: _i3.ConstantAndVariableQueryStringOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonConstantAndVariableQueryStringAllValues',
+          documentation: 'Mixes constant and variable query string parameters',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {
+            'baz': 'bam',
+            'maybeSet': 'yes',
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'GET',
+          uri: '/ConstantAndVariableQueryString',
+          host: null,
+          resolvedHost: null,
+          queryParams: [
+            'foo=bar',
+            'baz=bam',
+            'maybeSet=yes',
+          ],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          ConstantAndVariableQueryStringInputRestJson1Serializer()
+        ],
+      );
     },
   );
 }
@@ -93,12 +113,18 @@ class ConstantAndVariableQueryStringInputRestJson1Serializer extends _i4
   @override
   Iterable<Type> get types => const [_i5.ConstantAndVariableQueryStringInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.ConstantAndVariableQueryStringInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.ConstantAndVariableQueryStringInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -108,14 +134,18 @@ class ConstantAndVariableQueryStringInputRestJson1Serializer extends _i4
       switch (key) {
         case 'baz':
           if (value != null) {
-            result.baz = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.baz = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'maybeSet':
           if (value != null) {
-            result.maybeSet = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.maybeSet = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -125,8 +155,11 @@ class ConstantAndVariableQueryStringInputRestJson1Serializer extends _i4
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

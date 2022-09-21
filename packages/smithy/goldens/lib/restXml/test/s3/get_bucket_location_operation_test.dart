@@ -24,33 +24,40 @@ void main() {
     () async {
       const s3ClientConfig = _i2.S3ClientConfig();
       await _i3.httpResponseTest(
-          operation: _i4.GetBucketLocationOperation(
-              region: 'us-east-1',
-              baseUri: Uri.parse('https://example.com'),
-              s3ClientConfig: s3ClientConfig,
-              credentialsProvider: const _i5.AWSCredentialsProvider(
-                  _i5.AWSCredentials(
-                      'DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'))),
-          testCase: const _i3.HttpResponseTestCase(
-              id: 'GetBucketLocationUnwrappedOutput',
-              documentation:
-                  '    S3 clients should use the @s3UnwrappedXmlOutput trait to determine\n    that the response shape is not wrapped in a restxml operation-level XML node.\n',
-              protocol: _i6.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body: '<?xml version="1.0" encoding="UTF-8"?>\n<LocationConstraint xmlns="http://s3.amazonaws.com/doc/2006-03-01/">us-west-2</LocationConstraint>',
-              bodyMediaType: null,
-              params: {'LocationConstraint': 'us-west-2'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [
-            GetBucketLocationOutputRestXmlSerializer()
-          ]);
+        operation: _i4.GetBucketLocationOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+          s3ClientConfig: s3ClientConfig,
+          credentialsProvider:
+              const _i5.AWSCredentialsProvider(_i5.AWSCredentials(
+            'DUMMY-ACCESS-KEY-ID',
+            'DUMMY-SECRET-ACCESS-KEY',
+          )),
+        ),
+        testCase: const _i3.HttpResponseTestCase(
+          id: 'GetBucketLocationUnwrappedOutput',
+          documentation:
+              '    S3 clients should use the @s3UnwrappedXmlOutput trait to determine\n    that the response shape is not wrapped in a restxml operation-level XML node.\n',
+          protocol: _i6.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body:
+              '<?xml version="1.0" encoding="UTF-8"?>\n<LocationConstraint xmlns="http://s3.amazonaws.com/doc/2006-03-01/">us-west-2</LocationConstraint>',
+          bodyMediaType: null,
+          params: {'LocationConstraint': 'us-west-2'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [GetBucketLocationOutputRestXmlSerializer()],
+      );
     },
   );
 }
@@ -63,12 +70,18 @@ class GetBucketLocationRequestRestXmlSerializer
   @override
   Iterable<Type> get types => const [_i7.GetBucketLocationRequest];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols =>
-      const [_i6.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i6.ShapeId> get supportedProtocols => const [
+        _i6.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i7.GetBucketLocationRequest deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i7.GetBucketLocationRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -77,8 +90,10 @@ class GetBucketLocationRequestRestXmlSerializer
       final value = iterator.current;
       switch (key) {
         case 'Bucket':
-          result.bucket = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.bucket = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -87,8 +102,11 @@ class GetBucketLocationRequestRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }
@@ -101,12 +119,18 @@ class GetBucketLocationOutputRestXmlSerializer
   @override
   Iterable<Type> get types => const [_i8.GetBucketLocationOutput];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols =>
-      const [_i6.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i6.ShapeId> get supportedProtocols => const [
+        _i6.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i8.GetBucketLocationOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i8.GetBucketLocationOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -116,9 +140,10 @@ class GetBucketLocationOutputRestXmlSerializer
       switch (key) {
         case 'LocationConstraint':
           if (value != null) {
-            result.locationConstraint = (serializers.deserialize(value,
-                    specifiedType: const FullType(_i9.BucketLocationConstraint))
-                as _i9.BucketLocationConstraint);
+            result.locationConstraint = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i9.BucketLocationConstraint),
+            ) as _i9.BucketLocationConstraint);
           }
           break;
       }
@@ -128,8 +153,11 @@ class GetBucketLocationOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

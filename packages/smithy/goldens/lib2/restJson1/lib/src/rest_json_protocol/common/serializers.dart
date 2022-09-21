@@ -348,59 +348,144 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i112.ClientConfig.serializers,
   ..._i113.OperationConfig.serializers,
   ..._i114.ScopedConfig.serializers,
-  ..._i115.AwsConfig.serializers
+  ..._i115.AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(_i116.BuiltList, [FullType(bool)]):
-      _i116.ListBuilder<bool>.new,
-  const FullType(_i116.BuiltList, [FullType(double)]):
-      _i116.ListBuilder<double>.new,
-  const FullType(_i116.BuiltList, [FullType(_i3.FooEnum)]):
-      _i116.ListBuilder<_i3.FooEnum>.new,
-  const FullType(_i116.BuiltList, [FullType(int)]): _i116.ListBuilder<int>.new,
-  const FullType(_i116.BuiltSet, [FullType(int)]): _i116.SetBuilder<int>.new,
-  const FullType(_i116.BuiltListMultimap, [FullType(String), FullType(String)]):
-      _i116.ListMultimapBuilder<String, String>.new,
-  const FullType(_i116.BuiltList, [FullType(String)]):
-      _i116.ListBuilder<String>.new,
-  const FullType(_i116.BuiltSet, [FullType(String)]):
-      _i116.SetBuilder<String>.new,
-  const FullType(_i116.BuiltList, [FullType(DateTime)]):
-      _i116.ListBuilder<DateTime>.new,
-  const FullType(_i116.BuiltMap, [FullType(String), FullType(String)]):
-      _i116.MapBuilder<String, String>.new,
-  const FullType(_i116.BuiltMap, [FullType(String), FullType(_i3.FooEnum)]):
-      _i116.MapBuilder<String, _i3.FooEnum>.new,
-  const FullType(_i116.BuiltSet, [FullType(_i3.FooEnum)]):
-      _i116.SetBuilder<_i3.FooEnum>.new,
-  const FullType(_i116.BuiltList, [
-    FullType(_i116.BuiltList, [FullType(String)])
-  ]): _i116.ListBuilder<_i116.BuiltList<String>>.new,
-  const FullType(_i116.BuiltList, [FullType.nullable(String)]):
-      _i116.ListBuilder<String?>.new,
-  const FullType(_i116.BuiltList, [FullType(_i39.StructureListMember)]):
-      _i116.ListBuilder<_i39.StructureListMember>.new,
-  const FullType(_i116.BuiltMap, [FullType(String), FullType(bool)]):
-      _i116.MapBuilder<String, bool>.new,
-  const FullType(_i116.BuiltMap, [FullType(String), FullType(int)]):
-      _i116.MapBuilder<String, int>.new,
-  const FullType(_i116.BuiltSetMultimap, [FullType(String), FullType(String)]):
-      _i116.SetMultimapBuilder<String, String>.new,
   const FullType(
-          _i116.BuiltMap, [FullType(String), FullType(_i41.GreetingStruct)]):
-      _i116.MapBuilder<String, _i41.GreetingStruct>.new,
-  const FullType(_i116.BuiltMap, [FullType(String), FullType.nullable(bool)]):
-      _i116.MapBuilder<String, bool?>.new,
-  const FullType(_i116.BuiltMap, [FullType(String), FullType.nullable(int)]):
-      _i116.MapBuilder<String, int?>.new,
-  const FullType(_i116.BuiltMap, [FullType(String), FullType.nullable(String)]):
-      _i116.MapBuilder<String, String?>.new,
-  const FullType(_i116.BuiltMap, [
-    FullType(String),
-    FullType.nullable(_i41.GreetingStruct)
-  ]): _i116.MapBuilder<String, _i41.GreetingStruct?>.new,
-  const FullType(_i116.BuiltMap, [
-    FullType(String),
-    FullType(_i110.FileConfigSettings)
-  ]): _i116.MapBuilder<String, _i110.FileConfigSettings>.new
+    _i116.BuiltList,
+    [FullType(bool)],
+  ): _i116.ListBuilder<bool>.new,
+  const FullType(
+    _i116.BuiltList,
+    [FullType(double)],
+  ): _i116.ListBuilder<double>.new,
+  const FullType(
+    _i116.BuiltList,
+    [FullType(_i3.FooEnum)],
+  ): _i116.ListBuilder<_i3.FooEnum>.new,
+  const FullType(
+    _i116.BuiltList,
+    [FullType(int)],
+  ): _i116.ListBuilder<int>.new,
+  const FullType(
+    _i116.BuiltSet,
+    [FullType(int)],
+  ): _i116.SetBuilder<int>.new,
+  const FullType(
+    _i116.BuiltListMultimap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i116.ListMultimapBuilder<String, String>.new,
+  const FullType(
+    _i116.BuiltList,
+    [FullType(String)],
+  ): _i116.ListBuilder<String>.new,
+  const FullType(
+    _i116.BuiltSet,
+    [FullType(String)],
+  ): _i116.SetBuilder<String>.new,
+  const FullType(
+    _i116.BuiltList,
+    [FullType(DateTime)],
+  ): _i116.ListBuilder<DateTime>.new,
+  const FullType(
+    _i116.BuiltMap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i116.MapBuilder<String, String>.new,
+  const FullType(
+    _i116.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i3.FooEnum),
+    ],
+  ): _i116.MapBuilder<String, _i3.FooEnum>.new,
+  const FullType(
+    _i116.BuiltSet,
+    [FullType(_i3.FooEnum)],
+  ): _i116.SetBuilder<_i3.FooEnum>.new,
+  const FullType(
+    _i116.BuiltList,
+    [
+      FullType(
+        _i116.BuiltList,
+        [FullType(String)],
+      )
+    ],
+  ): _i116.ListBuilder<_i116.BuiltList<String>>.new,
+  const FullType(
+    _i116.BuiltList,
+    [FullType.nullable(String)],
+  ): _i116.ListBuilder<String?>.new,
+  const FullType(
+    _i116.BuiltList,
+    [FullType(_i39.StructureListMember)],
+  ): _i116.ListBuilder<_i39.StructureListMember>.new,
+  const FullType(
+    _i116.BuiltMap,
+    [
+      FullType(String),
+      FullType(bool),
+    ],
+  ): _i116.MapBuilder<String, bool>.new,
+  const FullType(
+    _i116.BuiltMap,
+    [
+      FullType(String),
+      FullType(int),
+    ],
+  ): _i116.MapBuilder<String, int>.new,
+  const FullType(
+    _i116.BuiltSetMultimap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i116.SetMultimapBuilder<String, String>.new,
+  const FullType(
+    _i116.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i41.GreetingStruct),
+    ],
+  ): _i116.MapBuilder<String, _i41.GreetingStruct>.new,
+  const FullType(
+    _i116.BuiltMap,
+    [
+      FullType(String),
+      FullType.nullable(bool),
+    ],
+  ): _i116.MapBuilder<String, bool?>.new,
+  const FullType(
+    _i116.BuiltMap,
+    [
+      FullType(String),
+      FullType.nullable(int),
+    ],
+  ): _i116.MapBuilder<String, int?>.new,
+  const FullType(
+    _i116.BuiltMap,
+    [
+      FullType(String),
+      FullType.nullable(String),
+    ],
+  ): _i116.MapBuilder<String, String?>.new,
+  const FullType(
+    _i116.BuiltMap,
+    [
+      FullType(String),
+      FullType.nullable(_i41.GreetingStruct),
+    ],
+  ): _i116.MapBuilder<String, _i41.GreetingStruct?>.new,
+  const FullType(
+    _i116.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i110.FileConfigSettings),
+    ],
+  ): _i116.MapBuilder<String, _i110.FileConfigSettings>.new,
 };

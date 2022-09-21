@@ -19,60 +19,72 @@ void main() {
     'MediaTypeHeaderInputBase64 (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.MediaTypeHeaderOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'MediaTypeHeaderInputBase64',
-              documentation:
-                  'Headers that target strings with a mediaType are base64 encoded',
-              protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {'json': 'true'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'X-Json': 'dHJ1ZQ=='},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'GET',
-              uri: '/MediaTypeHeader',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [MediaTypeHeaderInputRestJson1Serializer()]);
+        operation: _i3.MediaTypeHeaderOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'MediaTypeHeaderInputBase64',
+          documentation:
+              'Headers that target strings with a mediaType are base64 encoded',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {'json': 'true'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'X-Json': 'dHJ1ZQ=='},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'GET',
+          uri: '/MediaTypeHeader',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [MediaTypeHeaderInputRestJson1Serializer()],
+      );
     },
   );
   _i1.test(
     'MediaTypeHeaderOutputBase64 (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.MediaTypeHeaderOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'MediaTypeHeaderOutputBase64',
-              documentation:
-                  'Headers that target strings with a mediaType are base64 encoded',
-              protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: null,
-              bodyMediaType: null,
-              params: {'json': 'true'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'X-Json': 'dHJ1ZQ=='},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [
-            MediaTypeHeaderOutputRestJson1Serializer()
-          ]);
+        operation: _i3.MediaTypeHeaderOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'MediaTypeHeaderOutputBase64',
+          documentation:
+              'Headers that target strings with a mediaType are base64 encoded',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: null,
+          bodyMediaType: null,
+          params: {'json': 'true'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'X-Json': 'dHJ1ZQ=='},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [MediaTypeHeaderOutputRestJson1Serializer()],
+      );
     },
   );
 }
@@ -85,12 +97,18 @@ class MediaTypeHeaderInputRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i5.MediaTypeHeaderInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.MediaTypeHeaderInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.MediaTypeHeaderInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -100,8 +118,10 @@ class MediaTypeHeaderInputRestJson1Serializer
       switch (key) {
         case 'json':
           if (value != null) {
-            result.json = const _i4.EncodedJsonObjectSerializer()
-                .deserialize(serializers, value);
+            result.json = const _i4.EncodedJsonObjectSerializer().deserialize(
+              serializers,
+              value,
+            );
           }
           break;
       }
@@ -111,8 +131,11 @@ class MediaTypeHeaderInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }
@@ -125,12 +148,18 @@ class MediaTypeHeaderOutputRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i6.MediaTypeHeaderOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i6.MediaTypeHeaderOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i6.MediaTypeHeaderOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -140,8 +169,10 @@ class MediaTypeHeaderOutputRestJson1Serializer
       switch (key) {
         case 'json':
           if (value != null) {
-            result.json = const _i4.EncodedJsonObjectSerializer()
-                .deserialize(serializers, value);
+            result.json = const _i4.EncodedJsonObjectSerializer().deserialize(
+              serializers,
+              value,
+            );
           }
           break;
       }
@@ -151,8 +182,11 @@ class MediaTypeHeaderOutputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

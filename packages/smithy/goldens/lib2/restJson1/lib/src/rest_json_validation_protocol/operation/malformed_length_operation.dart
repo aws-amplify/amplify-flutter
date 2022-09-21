@@ -18,8 +18,10 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 class MalformedLengthOperation extends _i1.HttpOperation<
     _i2.MalformedLengthInput, _i2.MalformedLengthInput, _i1.Unit, _i1.Unit> {
-  MalformedLengthOperation({required String region, Uri? baseUri})
-      : _region = region,
+  MalformedLengthOperation({
+    required String region,
+    Uri? baseUri,
+  })  : _region = region,
         _baseUri = baseUri;
 
   @override
@@ -27,20 +29,23 @@ class MalformedLengthOperation extends _i1.HttpOperation<
       _i1.HttpProtocol<_i2.MalformedLengthInput, _i2.MalformedLengthInput,
           _i1.Unit, _i1.Unit>> protocols = [
     _i3.RestJson1Protocol(
-        serializers: _i4.serializers,
-        builderFactories: _i4.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithContentLength(),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i3.WithSdkInvocationId(),
-          const _i3.WithSdkRequest()
-        ],
-        responseInterceptors: [])
+      serializers: _i4.serializers,
+      builderFactories: _i4.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithContentLength(),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i3.WithSdkInvocationId(),
+        const _i3.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+    )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint =
-      _i5.endpointResolver.resolve(_i5.sdkId, _region);
+  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
+    _i5.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -56,16 +61,21 @@ class MalformedLengthOperation extends _i1.HttpOperation<
   int successCode([_i1.Unit? output]) => 200;
   @override
   _i1.Unit buildOutput(
-          _i1.Unit payload, _i6.AWSStreamedHttpResponse response) =>
+    _i1.Unit payload,
+    _i6.AWSStreamedHttpResponse response,
+  ) =>
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'smithy.framework', shape: 'ValidationException'),
-            _i1.ErrorKind.client,
-            _i7.ValidationException,
-            builder: _i7.ValidationException.fromResponse)
+          _i1.ShapeId(
+            namespace: 'smithy.framework',
+            shape: 'ValidationException',
+          ),
+          _i1.ErrorKind.client,
+          _i7.ValidationException,
+          builder: _i7.ValidationException.fromResponse,
+        )
       ];
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
@@ -74,13 +84,21 @@ class MalformedLengthOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i8.Future<_i1.Unit> run(_i2.MalformedLengthInput input,
-      {_i1.HttpClient? client, _i1.ShapeId? useProtocol}) {
+  _i8.Future<_i1.Unit> run(
+    _i2.MalformedLengthInput input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i8.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+      },
+    );
   }
 }

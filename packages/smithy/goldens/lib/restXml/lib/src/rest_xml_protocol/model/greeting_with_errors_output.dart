@@ -28,8 +28,9 @@ abstract class GreetingWithErrorsOutput
 
   /// Constructs a [GreetingWithErrorsOutput] from a [payload] and [response].
   factory GreetingWithErrorsOutput.fromResponse(
-          GreetingWithErrorsOutputPayload payload,
-          _i1.AWSBaseHttpResponse response) =>
+    GreetingWithErrorsOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       GreetingWithErrorsOutput.build((b) {
         if (response.headers['X-Greeting'] != null) {
           b.greeting = response.headers['X-Greeting']!;
@@ -51,7 +52,10 @@ abstract class GreetingWithErrorsOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GreetingWithErrorsOutput');
-    helper.add('greeting', greeting);
+    helper.add(
+      'greeting',
+      greeting,
+    );
     return helper.toString();
   }
 }
@@ -92,21 +96,30 @@ class GreetingWithErrorsOutputRestXmlSerializer
         GreetingWithErrorsOutput,
         _$GreetingWithErrorsOutput,
         GreetingWithErrorsOutputPayload,
-        _$GreetingWithErrorsOutputPayload
+        _$GreetingWithErrorsOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   GreetingWithErrorsOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return GreetingWithErrorsOutputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       const _i2.XmlElementName('GreetingWithErrorsOutput')
     ];

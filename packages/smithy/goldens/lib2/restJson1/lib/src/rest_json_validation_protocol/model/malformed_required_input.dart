@@ -17,14 +17,16 @@ abstract class MalformedRequiredInput
     implements
         Built<MalformedRequiredInput, MalformedRequiredInputBuilder>,
         _i1.HasPayload<MalformedRequiredInputPayload> {
-  factory MalformedRequiredInput(
-      {required String string,
-      required String stringInHeader,
-      required String stringInQuery}) {
+  factory MalformedRequiredInput({
+    required String string,
+    required String stringInHeader,
+    required String stringInQuery,
+  }) {
     return _$MalformedRequiredInput._(
-        string: string,
-        stringInHeader: stringInHeader,
-        stringInQuery: stringInQuery);
+      string: string,
+      stringInHeader: stringInHeader,
+      stringInQuery: stringInQuery,
+    );
   }
 
   factory MalformedRequiredInput.build(
@@ -34,8 +36,10 @@ abstract class MalformedRequiredInput
   const MalformedRequiredInput._();
 
   factory MalformedRequiredInput.fromRequest(
-          MalformedRequiredInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedRequiredInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedRequiredInput.build((b) {
         b.string = payload.string;
         if (request.headers['string-in-headers'] != null) {
@@ -61,13 +65,26 @@ abstract class MalformedRequiredInput
         b.string = string;
       });
   @override
-  List<Object?> get props => [string, stringInHeader, stringInQuery];
+  List<Object?> get props => [
+        string,
+        stringInHeader,
+        stringInQuery,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedRequiredInput');
-    helper.add('string', string);
-    helper.add('stringInHeader', stringInHeader);
-    helper.add('stringInQuery', stringInQuery);
+    helper.add(
+      'string',
+      string,
+    );
+    helper.add(
+      'stringInHeader',
+      stringInHeader,
+    );
+    helper.add(
+      'stringInQuery',
+      stringInQuery,
+    );
     return helper.toString();
   }
 }
@@ -93,7 +110,10 @@ abstract class MalformedRequiredInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedRequiredInputPayload');
-    helper.add('string', string);
+    helper.add(
+      'string',
+      string,
+    );
     return helper.toString();
   }
 }
@@ -108,15 +128,21 @@ class MalformedRequiredInputRestJson1Serializer
         MalformedRequiredInput,
         _$MalformedRequiredInput,
         MalformedRequiredInputPayload,
-        _$MalformedRequiredInputPayload
+        _$MalformedRequiredInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedRequiredInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MalformedRequiredInputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -125,8 +151,10 @@ class MalformedRequiredInputRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'string':
-          result.string = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.string = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -135,15 +163,20 @@ class MalformedRequiredInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is MalformedRequiredInput
         ? object.getPayload()
         : (object as MalformedRequiredInputPayload);
     final result = <Object?>[
       'string',
-      serializers.serialize(payload.string,
-          specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.string,
+        specifiedType: const FullType(String),
+      ),
     ];
     return result;
   }

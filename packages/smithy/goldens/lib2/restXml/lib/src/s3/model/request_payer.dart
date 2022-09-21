@@ -5,23 +5,39 @@ library rest_xml_v2.s3.model.request_payer; // ignore_for_file: no_leading_under
 import 'package:smithy/smithy.dart' as _i1;
 
 class RequestPayer extends _i1.SmithyEnum<RequestPayer> {
-  const RequestPayer._(int index, String name, String value)
-      : super(index, name, value);
+  const RequestPayer._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const RequestPayer._sdkUnknown(String value) : super.sdkUnknown(value);
 
-  static const requester = RequestPayer._(0, 'requester', 'requester');
+  static const requester = RequestPayer._(
+    0,
+    'requester',
+    'requester',
+  );
 
   /// All values of [RequestPayer].
   static const values = <RequestPayer>[RequestPayer.requester];
 
   static const List<_i1.SmithySerializer<RequestPayer>> serializers = [
-    _i1.SmithyEnumSerializer('RequestPayer',
-        values: values,
-        sdkUnknown: RequestPayer._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')
-        ])
+    _i1.SmithyEnumSerializer(
+      'RequestPayer',
+      values: values,
+      sdkUnknown: RequestPayer._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ],
+    )
   ];
 }
 

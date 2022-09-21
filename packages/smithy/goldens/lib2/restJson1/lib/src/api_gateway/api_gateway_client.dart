@@ -14,12 +14,12 @@ import 'package:rest_json1_v2/src/api_gateway/operation/get_rest_apis_operation.
 import 'package:smithy/smithy.dart' as _i1;
 
 class ApiGatewayClient {
-  const ApiGatewayClient(
-      {_i1.HttpClient? client,
-      required String region,
-      Uri? baseUri,
-      required _i2.AWSCredentialsProvider credentialsProvider})
-      : _client = client,
+  const ApiGatewayClient({
+    _i1.HttpClient? client,
+    required String region,
+    Uri? baseUri,
+    required _i2.AWSCredentialsProvider credentialsProvider,
+  })  : _client = client,
         _region = region,
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
@@ -33,12 +33,16 @@ class ApiGatewayClient {
   final _i2.AWSCredentialsProvider _credentialsProvider;
 
   _i3.Future<_i1.PaginatedResult<_i4.BuiltList<_i5.RestApi>, int>> getRestApis(
-      _i6.GetRestApisRequest input,
-      {_i1.HttpClient? client}) {
+    _i6.GetRestApisRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i7.GetRestApisOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .runPaginated(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).runPaginated(
+      input,
+      client: client ?? _client,
+    );
   }
 }

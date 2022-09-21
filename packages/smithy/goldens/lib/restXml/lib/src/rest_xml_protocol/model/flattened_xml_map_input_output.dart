@@ -29,14 +29,17 @@ abstract class FlattenedXmlMapInputOutput
   const FlattenedXmlMapInputOutput._();
 
   factory FlattenedXmlMapInputOutput.fromRequest(
-          FlattenedXmlMapInputOutput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    FlattenedXmlMapInputOutput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   /// Constructs a [FlattenedXmlMapInputOutput] from a [payload] and [response].
   factory FlattenedXmlMapInputOutput.fromResponse(
-          FlattenedXmlMapInputOutput payload,
-          _i2.AWSBaseHttpResponse response) =>
+    FlattenedXmlMapInputOutput payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -53,7 +56,10 @@ abstract class FlattenedXmlMapInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('FlattenedXmlMapInputOutput');
-    helper.add('myMap', myMap);
+    helper.add(
+      'myMap',
+      myMap,
+    );
     return helper.toString();
   }
 }
@@ -64,15 +70,23 @@ class FlattenedXmlMapInputOutputRestXmlSerializer
       : super('FlattenedXmlMapInputOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [FlattenedXmlMapInputOutput, _$FlattenedXmlMapInputOutput];
+  Iterable<Type> get types => const [
+        FlattenedXmlMapInputOutput,
+        _$FlattenedXmlMapInputOutput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   FlattenedXmlMapInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = FlattenedXmlMapInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -82,11 +96,19 @@ class FlattenedXmlMapInputOutputRestXmlSerializer
       switch (key as String) {
         case 'myMap':
           if (value != null) {
-            result.myMap.addAll(
-                const _i1.XmlBuiltMapSerializer(flattenedKey: 'myMap')
-                    .deserialize(serializers, (value as Iterable<Object?>),
-                        specifiedType: const FullType(_i3.BuiltMap,
-                            [FullType(String), FullType(_i4.FooEnum)]))
+            result.myMap
+                .addAll(const _i1.XmlBuiltMapSerializer(flattenedKey: 'myMap')
+                    .deserialize(
+                      serializers,
+                      (value as Iterable<Object?>),
+                      specifiedType: const FullType(
+                        _i3.BuiltMap,
+                        [
+                          FullType(String),
+                          FullType(_i4.FooEnum),
+                        ],
+                      ),
+                    )
                     .toMap()
                     .cast());
           }
@@ -98,17 +120,28 @@ class FlattenedXmlMapInputOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as FlattenedXmlMapInputOutput);
     final result = <Object?>[
       const _i1.XmlElementName('FlattenedXmlMapInputOutput')
     ];
     if (payload.myMap != null) {
-      result.addAll(const _i1.XmlBuiltMapSerializer(flattenedKey: 'myMap')
-          .serialize(serializers, payload.myMap!,
-              specifiedType: const FullType.nullable(
-                  _i3.BuiltMap, [FullType(String), FullType(_i4.FooEnum)])));
+      result.addAll(
+          const _i1.XmlBuiltMapSerializer(flattenedKey: 'myMap').serialize(
+        serializers,
+        payload.myMap!,
+        specifiedType: const FullType.nullable(
+          _i3.BuiltMap,
+          [
+            FullType(String),
+            FullType(_i4.FooEnum),
+          ],
+        ),
+      ));
     }
     return result;
   }

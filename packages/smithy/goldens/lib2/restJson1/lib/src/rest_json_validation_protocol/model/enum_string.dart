@@ -5,25 +5,48 @@ library rest_json1_v2.rest_json_validation_protocol.model.enum_string; // ignore
 import 'package:smithy/smithy.dart' as _i1;
 
 class EnumString extends _i1.SmithyEnum<EnumString> {
-  const EnumString._(int index, String name, String value)
-      : super(index, name, value);
+  const EnumString._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const EnumString._sdkUnknown(String value) : super.sdkUnknown(value);
 
-  static const abc = EnumString._(0, 'ABC', 'abc');
+  static const abc = EnumString._(
+    0,
+    'ABC',
+    'abc',
+  );
 
-  static const def = EnumString._(1, 'DEF', 'def');
+  static const def = EnumString._(
+    1,
+    'DEF',
+    'def',
+  );
 
   /// All values of [EnumString].
-  static const values = <EnumString>[EnumString.abc, EnumString.def];
+  static const values = <EnumString>[
+    EnumString.abc,
+    EnumString.def,
+  ];
 
   static const List<_i1.SmithySerializer<EnumString>> serializers = [
-    _i1.SmithyEnumSerializer('EnumString',
-        values: values,
-        sdkUnknown: EnumString._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')
-        ])
+    _i1.SmithyEnumSerializer(
+      'EnumString',
+      values: values,
+      sdkUnknown: EnumString._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ],
+    )
   ];
 }
 

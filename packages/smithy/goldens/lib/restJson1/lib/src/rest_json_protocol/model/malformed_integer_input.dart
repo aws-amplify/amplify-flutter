@@ -17,17 +17,19 @@ abstract class MalformedIntegerInput
     implements
         Built<MalformedIntegerInput, MalformedIntegerInputBuilder>,
         _i1.HasPayload<MalformedIntegerInputPayload> {
-  factory MalformedIntegerInput(
-      {int? integerInBody,
-      int? integerInHeader,
-      int? integerInPath,
-      int? integerInQuery}) {
+  factory MalformedIntegerInput({
+    int? integerInBody,
+    int? integerInHeader,
+    int? integerInPath,
+    int? integerInQuery,
+  }) {
     integerInPath ??= 0;
     return _$MalformedIntegerInput._(
-        integerInBody: integerInBody,
-        integerInHeader: integerInHeader,
-        integerInPath: integerInPath,
-        integerInQuery: integerInQuery);
+      integerInBody: integerInBody,
+      integerInHeader: integerInHeader,
+      integerInPath: integerInPath,
+      integerInQuery: integerInQuery,
+    );
   }
 
   factory MalformedIntegerInput.build(
@@ -37,8 +39,10 @@ abstract class MalformedIntegerInput
   const MalformedIntegerInput._();
 
   factory MalformedIntegerInput.fromRequest(
-          MalformedIntegerInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedIntegerInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedIntegerInput.build((b) {
         b.integerInBody = payload.integerInBody;
         if (request.headers['integerInHeader'] != null) {
@@ -72,7 +76,10 @@ abstract class MalformedIntegerInput
       case 'integerInPath':
         return integerInPath.toString();
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -81,15 +88,31 @@ abstract class MalformedIntegerInput
         b.integerInBody = integerInBody;
       });
   @override
-  List<Object?> get props =>
-      [integerInBody, integerInHeader, integerInPath, integerInQuery];
+  List<Object?> get props => [
+        integerInBody,
+        integerInHeader,
+        integerInPath,
+        integerInQuery,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedIntegerInput');
-    helper.add('integerInBody', integerInBody);
-    helper.add('integerInHeader', integerInHeader);
-    helper.add('integerInPath', integerInPath);
-    helper.add('integerInQuery', integerInQuery);
+    helper.add(
+      'integerInBody',
+      integerInBody,
+    );
+    helper.add(
+      'integerInHeader',
+      integerInHeader,
+    );
+    helper.add(
+      'integerInPath',
+      integerInPath,
+    );
+    helper.add(
+      'integerInQuery',
+      integerInQuery,
+    );
     return helper.toString();
   }
 }
@@ -115,7 +138,10 @@ abstract class MalformedIntegerInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedIntegerInputPayload');
-    helper.add('integerInBody', integerInBody);
+    helper.add(
+      'integerInBody',
+      integerInBody,
+    );
     return helper.toString();
   }
 }
@@ -130,15 +156,21 @@ class MalformedIntegerInputRestJson1Serializer
         MalformedIntegerInput,
         _$MalformedIntegerInput,
         MalformedIntegerInputPayload,
-        _$MalformedIntegerInputPayload
+        _$MalformedIntegerInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedIntegerInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MalformedIntegerInputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -148,8 +180,10 @@ class MalformedIntegerInputRestJson1Serializer
       switch (key) {
         case 'integerInBody':
           if (value != null) {
-            result.integerInBody = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.integerInBody = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -159,8 +193,11 @@ class MalformedIntegerInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is MalformedIntegerInput
         ? object.getPayload()
         : (object as MalformedIntegerInputPayload);
@@ -168,8 +205,10 @@ class MalformedIntegerInputRestJson1Serializer
     if (payload.integerInBody != null) {
       result
         ..add('integerInBody')
-        ..add(serializers.serialize(payload.integerInBody!,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(
+          payload.integerInBody!,
+          specifiedType: const FullType(int),
+        ));
     }
     return result;
   }

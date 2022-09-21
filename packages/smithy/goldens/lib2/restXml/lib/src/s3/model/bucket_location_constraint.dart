@@ -6,14 +6,24 @@ import 'package:smithy/smithy.dart' as _i1;
 
 class BucketLocationConstraint
     extends _i1.SmithyEnum<BucketLocationConstraint> {
-  const BucketLocationConstraint._(int index, String name, String value)
-      : super(index, name, value);
+  const BucketLocationConstraint._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const BucketLocationConstraint._sdkUnknown(String value)
       : super.sdkUnknown(value);
 
-  static const usWest2 =
-      BucketLocationConstraint._(0, 'us_west_2', 'us-west-2');
+  static const usWest2 = BucketLocationConstraint._(
+    0,
+    'us_west_2',
+    'us-west-2',
+  );
 
   /// All values of [BucketLocationConstraint].
   static const values = <BucketLocationConstraint>[
@@ -22,12 +32,17 @@ class BucketLocationConstraint
 
   static const List<_i1.SmithySerializer<BucketLocationConstraint>>
       serializers = [
-    _i1.SmithyEnumSerializer('BucketLocationConstraint',
-        values: values,
-        sdkUnknown: BucketLocationConstraint._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')
-        ])
+    _i1.SmithyEnumSerializer(
+      'BucketLocationConstraint',
+      values: values,
+      sdkUnknown: BucketLocationConstraint._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ],
+    )
   ];
 }
 

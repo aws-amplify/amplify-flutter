@@ -14,34 +14,38 @@ void main() {
     'RestJsonHostWithPath (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.HostWithPathOperation(
-              region: 'us-east-1',
-              baseUri: Uri.parse('https://example.com/custom')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonHostWithPath',
-              documentation:
-                  'Custom endpoints supplied by users can have paths',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: _i2.AppliesTo.client,
-              method: 'GET',
-              uri: '/custom/HostWithPathOperation',
-              host: 'example.com/custom',
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const []);
+        operation: _i3.HostWithPathOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com/custom'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonHostWithPath',
+          documentation: 'Custom endpoints supplied by users can have paths',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: _i2.AppliesTo.client,
+          method: 'GET',
+          uri: '/custom/HostWithPathOperation',
+          host: 'example.com/custom',
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [],
+      );
     },
   );
 }

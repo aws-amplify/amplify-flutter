@@ -17,22 +17,24 @@ abstract class ErrorWithMembers
     implements
         Built<ErrorWithMembers, ErrorWithMembersBuilder>,
         _i2.SmithyHttpException {
-  factory ErrorWithMembers(
-      {String? code,
-      _i3.KitchenSink? complexData,
-      int? integerField,
-      _i4.BuiltList<String>? listField,
-      _i4.BuiltMap<String, String>? mapField,
-      String? message,
-      String? stringField}) {
+  factory ErrorWithMembers({
+    String? code,
+    _i3.KitchenSink? complexData,
+    int? integerField,
+    _i4.BuiltList<String>? listField,
+    _i4.BuiltMap<String, String>? mapField,
+    String? message,
+    String? stringField,
+  }) {
     return _$ErrorWithMembers._(
-        code: code,
-        complexData: complexData,
-        integerField: integerField,
-        listField: listField,
-        mapField: mapField,
-        message: message,
-        stringField: stringField);
+      code: code,
+      complexData: complexData,
+      integerField: integerField,
+      listField: listField,
+      mapField: mapField,
+      message: message,
+      stringField: stringField,
+    );
   }
 
   factory ErrorWithMembers.build(
@@ -42,7 +44,9 @@ abstract class ErrorWithMembers
 
   /// Constructs a [ErrorWithMembers] from a [payload] and [response].
   factory ErrorWithMembers.fromResponse(
-          ErrorWithMembers payload, _i1.AWSBaseHttpResponse response) =>
+    ErrorWithMembers payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.statusCode = response.statusCode;
         b.headers = response.headers;
@@ -66,7 +70,9 @@ abstract class ErrorWithMembers
   String? get stringField;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'aws.protocoltests.json', shape: 'ErrorWithMembers');
+        namespace: 'aws.protocoltests.json',
+        shape: 'ErrorWithMembers',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -85,18 +91,39 @@ abstract class ErrorWithMembers
         listField,
         mapField,
         message,
-        stringField
+        stringField,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ErrorWithMembers');
-    helper.add('code', code);
-    helper.add('complexData', complexData);
-    helper.add('integerField', integerField);
-    helper.add('listField', listField);
-    helper.add('mapField', mapField);
-    helper.add('message', message);
-    helper.add('stringField', stringField);
+    helper.add(
+      'code',
+      code,
+    );
+    helper.add(
+      'complexData',
+      complexData,
+    );
+    helper.add(
+      'integerField',
+      integerField,
+    );
+    helper.add(
+      'listField',
+      listField,
+    );
+    helper.add(
+      'mapField',
+      mapField,
+    );
+    helper.add(
+      'message',
+      message,
+    );
+    helper.add(
+      'stringField',
+      stringField,
+    );
     return helper.toString();
   }
 }
@@ -106,14 +133,23 @@ class ErrorWithMembersAwsJson11Serializer
   const ErrorWithMembersAwsJson11Serializer() : super('ErrorWithMembers');
 
   @override
-  Iterable<Type> get types => const [ErrorWithMembers, _$ErrorWithMembers];
+  Iterable<Type> get types => const [
+        ErrorWithMembers,
+        _$ErrorWithMembers,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ErrorWithMembers deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ErrorWithMembersBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -123,49 +159,67 @@ class ErrorWithMembersAwsJson11Serializer
       switch (key) {
         case 'Code':
           if (value != null) {
-            result.code = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.code = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'ComplexData':
           if (value != null) {
-            result.complexData.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.KitchenSink))
-                as _i3.KitchenSink));
+            result.complexData.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.KitchenSink),
+            ) as _i3.KitchenSink));
           }
           break;
         case 'IntegerField':
           if (value != null) {
-            result.integerField = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.integerField = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'ListField':
           if (value != null) {
-            result.listField.replace((serializers.deserialize(value,
-                    specifiedType:
-                        const FullType(_i4.BuiltList, [FullType(String)]))
-                as _i4.BuiltList<String>));
+            result.listField.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltList,
+                [FullType(String)],
+              ),
+            ) as _i4.BuiltList<String>));
           }
           break;
         case 'MapField':
           if (value != null) {
-            result.mapField.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(
-                        _i4.BuiltMap, [FullType(String), FullType(String)]))
-                as _i4.BuiltMap<String, String>));
+            result.mapField.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i4.BuiltMap<String, String>));
           }
           break;
         case 'Message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'StringField':
           if (value != null) {
-            result.stringField = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.stringField = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -175,52 +229,77 @@ class ErrorWithMembersAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ErrorWithMembers);
     final result = <Object?>[];
     if (payload.code != null) {
       result
         ..add('Code')
-        ..add(serializers.serialize(payload.code!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.code!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.complexData != null) {
       result
         ..add('ComplexData')
-        ..add(serializers.serialize(payload.complexData!,
-            specifiedType: const FullType(_i3.KitchenSink)));
+        ..add(serializers.serialize(
+          payload.complexData!,
+          specifiedType: const FullType(_i3.KitchenSink),
+        ));
     }
     if (payload.integerField != null) {
       result
         ..add('IntegerField')
-        ..add(serializers.serialize(payload.integerField!,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(
+          payload.integerField!,
+          specifiedType: const FullType(int),
+        ));
     }
     if (payload.listField != null) {
       result
         ..add('ListField')
-        ..add(serializers.serialize(payload.listField!,
-            specifiedType: const FullType(_i4.BuiltList, [FullType(String)])));
+        ..add(serializers.serialize(
+          payload.listField!,
+          specifiedType: const FullType(
+            _i4.BuiltList,
+            [FullType(String)],
+          ),
+        ));
     }
     if (payload.mapField != null) {
       result
         ..add('MapField')
-        ..add(serializers.serialize(payload.mapField!,
-            specifiedType: const FullType(
-                _i4.BuiltMap, [FullType(String), FullType(String)])));
+        ..add(serializers.serialize(
+          payload.mapField!,
+          specifiedType: const FullType(
+            _i4.BuiltMap,
+            [
+              FullType(String),
+              FullType(String),
+            ],
+          ),
+        ));
     }
     if (payload.message != null) {
       result
         ..add('Message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.stringField != null) {
       result
         ..add('StringField')
-        ..add(serializers.serialize(payload.stringField!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.stringField!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

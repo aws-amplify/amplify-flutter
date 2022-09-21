@@ -223,43 +223,104 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i71.ClientConfig.serializers,
   ..._i72.OperationConfig.serializers,
   ..._i73.ScopedConfig.serializers,
-  ..._i74.AwsConfig.serializers
+  ..._i74.AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(_i75.BuiltList, [FullType(bool)]): _i75.ListBuilder<bool>.new,
-  const FullType(_i75.BuiltList, [FullType(double)]):
-      _i75.ListBuilder<double>.new,
-  const FullType(_i75.BuiltList, [FullType(_i3.FooEnum)]):
-      _i75.ListBuilder<_i3.FooEnum>.new,
-  const FullType(_i75.BuiltList, [FullType(int)]): _i75.ListBuilder<int>.new,
-  const FullType(_i75.BuiltSet, [FullType(int)]): _i75.SetBuilder<int>.new,
-  const FullType(_i75.BuiltMap, [FullType(String), FullType(String)]):
-      _i75.MapBuilder<String, String>.new,
-  const FullType(_i75.BuiltList, [FullType(String)]):
-      _i75.ListBuilder<String>.new,
-  const FullType(_i75.BuiltSet, [FullType(String)]):
-      _i75.SetBuilder<String>.new,
-  const FullType(_i75.BuiltList, [FullType(DateTime)]):
-      _i75.ListBuilder<DateTime>.new,
-  const FullType(_i75.BuiltMap, [FullType(String), FullType(_i3.FooEnum)]):
-      _i75.MapBuilder<String, _i3.FooEnum>.new,
-  const FullType(_i75.BuiltMap, [
-    FullType(String),
-    FullType(_i75.BuiltMap, [FullType(String), FullType(_i3.FooEnum)])
-  ]): _i75.MapBuilder<String, _i75.BuiltMap<String, _i3.FooEnum>>.new,
-  const FullType(_i75.BuiltListMultimap, [FullType(String), FullType(String)]):
-      _i75.ListMultimapBuilder<String, String>.new,
-  const FullType(_i75.BuiltList, [FullType(_i53.StructureListMember)]):
-      _i75.ListBuilder<_i53.StructureListMember>.new,
-  const FullType(_i75.BuiltList, [
-    FullType(_i75.BuiltList, [FullType(String)])
-  ]): _i75.ListBuilder<_i75.BuiltList<String>>.new,
   const FullType(
-          _i75.BuiltMap, [FullType(String), FullType(_i55.GreetingStruct)]):
-      _i75.MapBuilder<String, _i55.GreetingStruct>.new,
-  const FullType(_i75.BuiltSet, [FullType(_i3.FooEnum)]):
-      _i75.SetBuilder<_i3.FooEnum>.new,
+    _i75.BuiltList,
+    [FullType(bool)],
+  ): _i75.ListBuilder<bool>.new,
   const FullType(
-          _i75.BuiltMap, [FullType(String), FullType(_i69.FileConfigSettings)]):
-      _i75.MapBuilder<String, _i69.FileConfigSettings>.new
+    _i75.BuiltList,
+    [FullType(double)],
+  ): _i75.ListBuilder<double>.new,
+  const FullType(
+    _i75.BuiltList,
+    [FullType(_i3.FooEnum)],
+  ): _i75.ListBuilder<_i3.FooEnum>.new,
+  const FullType(
+    _i75.BuiltList,
+    [FullType(int)],
+  ): _i75.ListBuilder<int>.new,
+  const FullType(
+    _i75.BuiltSet,
+    [FullType(int)],
+  ): _i75.SetBuilder<int>.new,
+  const FullType(
+    _i75.BuiltMap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i75.MapBuilder<String, String>.new,
+  const FullType(
+    _i75.BuiltList,
+    [FullType(String)],
+  ): _i75.ListBuilder<String>.new,
+  const FullType(
+    _i75.BuiltSet,
+    [FullType(String)],
+  ): _i75.SetBuilder<String>.new,
+  const FullType(
+    _i75.BuiltList,
+    [FullType(DateTime)],
+  ): _i75.ListBuilder<DateTime>.new,
+  const FullType(
+    _i75.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i3.FooEnum),
+    ],
+  ): _i75.MapBuilder<String, _i3.FooEnum>.new,
+  const FullType(
+    _i75.BuiltMap,
+    [
+      FullType(String),
+      FullType(
+        _i75.BuiltMap,
+        [
+          FullType(String),
+          FullType(_i3.FooEnum),
+        ],
+      ),
+    ],
+  ): _i75.MapBuilder<String, _i75.BuiltMap<String, _i3.FooEnum>>.new,
+  const FullType(
+    _i75.BuiltListMultimap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i75.ListMultimapBuilder<String, String>.new,
+  const FullType(
+    _i75.BuiltList,
+    [FullType(_i53.StructureListMember)],
+  ): _i75.ListBuilder<_i53.StructureListMember>.new,
+  const FullType(
+    _i75.BuiltList,
+    [
+      FullType(
+        _i75.BuiltList,
+        [FullType(String)],
+      )
+    ],
+  ): _i75.ListBuilder<_i75.BuiltList<String>>.new,
+  const FullType(
+    _i75.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i55.GreetingStruct),
+    ],
+  ): _i75.MapBuilder<String, _i55.GreetingStruct>.new,
+  const FullType(
+    _i75.BuiltSet,
+    [FullType(_i3.FooEnum)],
+  ): _i75.SetBuilder<_i3.FooEnum>.new,
+  const FullType(
+    _i75.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i69.FileConfigSettings),
+    ],
+  ): _i75.MapBuilder<String, _i69.FileConfigSettings>.new,
 };

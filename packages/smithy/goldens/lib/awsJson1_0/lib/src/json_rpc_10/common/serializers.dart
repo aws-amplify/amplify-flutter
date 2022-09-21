@@ -79,14 +79,25 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i25.ClientConfig.serializers,
   ..._i26.OperationConfig.serializers,
   ..._i27.ScopedConfig.serializers,
-  ..._i28.AwsConfig.serializers
+  ..._i28.AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(_i29.BuiltList, [FullType(String)]):
-      _i29.ListBuilder<String>.new,
-  const FullType(_i29.BuiltMap, [FullType(String), FullType(String)]):
-      _i29.MapBuilder<String, String>.new,
   const FullType(
-          _i29.BuiltMap, [FullType(String), FullType(_i23.FileConfigSettings)]):
-      _i29.MapBuilder<String, _i23.FileConfigSettings>.new
+    _i29.BuiltList,
+    [FullType(String)],
+  ): _i29.ListBuilder<String>.new,
+  const FullType(
+    _i29.BuiltMap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i29.MapBuilder<String, String>.new,
+  const FullType(
+    _i29.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i23.FileConfigSettings),
+    ],
+  ): _i29.MapBuilder<String, _i23.FileConfigSettings>.new,
 };

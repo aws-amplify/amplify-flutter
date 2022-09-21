@@ -28,8 +28,9 @@ abstract class PredictorNotMountedException
 
   /// Constructs a [PredictorNotMountedException] from a [payload] and [response].
   factory PredictorNotMountedException.fromResponse(
-          PredictorNotMountedException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    PredictorNotMountedException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
@@ -44,8 +45,9 @@ abstract class PredictorNotMountedException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.machinelearning',
-      shape: 'PredictorNotMountedException');
+        namespace: 'com.amazonaws.machinelearning',
+        shape: 'PredictorNotMountedException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -61,7 +63,10 @@ abstract class PredictorNotMountedException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PredictorNotMountedException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
@@ -72,15 +77,23 @@ class PredictorNotMountedExceptionAwsJson11Serializer
       : super('PredictorNotMountedException');
 
   @override
-  Iterable<Type> get types =>
-      const [PredictorNotMountedException, _$PredictorNotMountedException];
+  Iterable<Type> get types => const [
+        PredictorNotMountedException,
+        _$PredictorNotMountedException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   PredictorNotMountedException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = PredictorNotMountedExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -90,8 +103,10 @@ class PredictorNotMountedExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -101,15 +116,20 @@ class PredictorNotMountedExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as PredictorNotMountedException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

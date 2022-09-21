@@ -54,18 +54,33 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i17.ClientConfig.serializers,
   ..._i18.OperationConfig.serializers,
   ..._i19.ScopedConfig.serializers,
-  ..._i20.AwsConfig.serializers
+  ..._i20.AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(_i21.BuiltList, [FullType(_i4.RestApi)]):
-      _i21.ListBuilder<_i4.RestApi>.new,
-  const FullType(_i21.BuiltList, [FullType(String)]):
-      _i21.ListBuilder<String>.new,
-  const FullType(_i21.BuiltMap, [FullType(String), FullType(String)]):
-      _i21.MapBuilder<String, String>.new,
-  const FullType(_i21.BuiltList, [FullType(_i10.EndpointType)]):
-      _i21.ListBuilder<_i10.EndpointType>.new,
   const FullType(
-          _i21.BuiltMap, [FullType(String), FullType(_i15.FileConfigSettings)]):
-      _i21.MapBuilder<String, _i15.FileConfigSettings>.new
+    _i21.BuiltList,
+    [FullType(_i4.RestApi)],
+  ): _i21.ListBuilder<_i4.RestApi>.new,
+  const FullType(
+    _i21.BuiltList,
+    [FullType(String)],
+  ): _i21.ListBuilder<String>.new,
+  const FullType(
+    _i21.BuiltMap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i21.MapBuilder<String, String>.new,
+  const FullType(
+    _i21.BuiltList,
+    [FullType(_i10.EndpointType)],
+  ): _i21.ListBuilder<_i10.EndpointType>.new,
+  const FullType(
+    _i21.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i15.FileConfigSettings),
+    ],
+  ): _i21.MapBuilder<String, _i15.FileConfigSettings>.new,
 };

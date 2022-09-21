@@ -14,33 +14,39 @@ void main() {
     'RestJsonEndpointTrait (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.EndpointOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonEndpointTrait',
-              documentation:
-                  'Operations can prepend to the given host if they define the\nendpoint trait.',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'POST',
-              uri: '/EndpointOperation',
-              host: 'example.com',
-              resolvedHost: 'foo.example.com',
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const []);
+        operation: _i3.EndpointOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonEndpointTrait',
+          documentation:
+              'Operations can prepend to the given host if they define the\nendpoint trait.',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/EndpointOperation',
+          host: 'example.com',
+          resolvedHost: 'foo.example.com',
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [],
+      );
     },
   );
 }

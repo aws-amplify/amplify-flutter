@@ -35,9 +35,10 @@ abstract class QueryIdempotencyTokenAutoFillInput
   const QueryIdempotencyTokenAutoFillInput._();
 
   factory QueryIdempotencyTokenAutoFillInput.fromRequest(
-          QueryIdempotencyTokenAutoFillInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    QueryIdempotencyTokenAutoFillInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       QueryIdempotencyTokenAutoFillInput.build((b) {
         if (request.queryParameters['token'] != null) {
           b.token = request.queryParameters['token']!;
@@ -67,7 +68,10 @@ abstract class QueryIdempotencyTokenAutoFillInput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('QueryIdempotencyTokenAutoFillInput');
-    helper.add('token', token);
+    helper.add(
+      'token',
+      token,
+    );
     return helper.toString();
   }
 }
@@ -108,21 +112,30 @@ class QueryIdempotencyTokenAutoFillInputRestXmlSerializer extends _i1
         QueryIdempotencyTokenAutoFillInput,
         _$QueryIdempotencyTokenAutoFillInput,
         QueryIdempotencyTokenAutoFillInputPayload,
-        _$QueryIdempotencyTokenAutoFillInputPayload
+        _$QueryIdempotencyTokenAutoFillInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   QueryIdempotencyTokenAutoFillInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return QueryIdempotencyTokenAutoFillInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       const _i1.XmlElementName('QueryIdempotencyTokenAutoFillInput')
     ];

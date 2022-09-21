@@ -30,7 +30,9 @@ abstract class MalformedAcceptWithPayloadOutput
 
   /// Constructs a [MalformedAcceptWithPayloadOutput] from a [payload] and [response].
   factory MalformedAcceptWithPayloadOutput.fromResponse(
-          _i3.Uint8List? payload, _i1.AWSBaseHttpResponse response) =>
+    _i3.Uint8List? payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       MalformedAcceptWithPayloadOutput.build((b) {
         b.payload = payload;
       });
@@ -50,7 +52,10 @@ abstract class MalformedAcceptWithPayloadOutput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('MalformedAcceptWithPayloadOutput');
-    helper.add('payload', payload);
+    helper.add(
+      'payload',
+      payload,
+    );
     return helper.toString();
   }
 }
@@ -63,25 +68,39 @@ class MalformedAcceptWithPayloadOutputRestJson1Serializer
   @override
   Iterable<Type> get types => const [
         MalformedAcceptWithPayloadOutput,
-        _$MalformedAcceptWithPayloadOutput
+        _$MalformedAcceptWithPayloadOutput,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i3.Uint8List deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i3.Uint8List)) as _i3.Uint8List);
+  _i3.Uint8List deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i3.Uint8List),
+    ) as _i3.Uint8List);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is MalformedAcceptWithPayloadOutput
         ? object.getPayload()
         : (object as _i3.Uint8List?);
-    return (serializers.serialize(payload!,
-        specifiedType: const FullType(_i3.Uint8List)) as Object);
+    return (serializers.serialize(
+      payload!,
+      specifiedType: const FullType(_i3.Uint8List),
+    ) as Object);
   }
 }
