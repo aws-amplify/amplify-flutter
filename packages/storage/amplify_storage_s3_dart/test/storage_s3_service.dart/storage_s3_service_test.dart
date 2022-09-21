@@ -16,6 +16,7 @@ import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
+import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:mocktail/mocktail.dart';
@@ -50,15 +51,15 @@ void main() {
     late S3Client s3Client;
     late StorageS3Service storageS3Service;
     late AWSLogger logger;
-
-    setUpAll(() {
-      registerFallbackValue(ListObjectsV2Request(bucket: 'fake bucket'));
-    });
+    late AWSSigV4Signer awsSigV4Signer;
 
     setUp(() {
       s3Client = MockS3Client();
       logger = MockAWSLogger();
-      dependencyManager = DependencyManager()..addInstance<S3Client>(s3Client);
+      awsSigV4Signer = MockAWSSigV4Signer();
+      dependencyManager = DependencyManager()
+        ..addInstance<S3Client>(s3Client)
+        ..addInstance<AWSSigV4Signer>(awsSigV4Signer);
       storageS3Service = StorageS3Service(
         defaultBucket: testBucket,
         defaultRegion: testRegion,
@@ -97,6 +98,10 @@ void main() {
       final testPrefixToDrop =
           '${testStorageAccessLevel.defaultPrefix}$testDelimiter';
       final testCommonPrefix = CommonPrefix(prefix: testPrefixToDrop);
+
+      setUpAll(() {
+        registerFallbackValue(ListObjectsV2Request(bucket: 'fake bucket'));
+      });
 
       test('should invoke S3Client.listObjectsV2 with expected parameters',
           () async {
@@ -143,7 +148,7 @@ void main() {
             any(),
           ),
         ).thenAnswer(
-          (_) => Future.value(testPaginatedResult),
+          (_) async => testPaginatedResult,
         );
 
         listResult = await storageS3Service.list(
@@ -163,7 +168,7 @@ void main() {
         expect(
           request.prefix,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testStorageAccessLevel,
+            storageAccessLevel: testOptions.storageAccessLevel,
             identityId: testTargetIdentityId,
           )}$testPath',
         );
@@ -183,7 +188,7 @@ void main() {
       });
 
       test(
-          'should throw StorageS3Exception when UnknownSmithHttpException is returned from service',
+          'should throw S3StorageException when UnknownSmithHttpException is returned from service',
           () async {
         final testOptions = S3StorageListOptions();
         const testUnknownException = UnknownSmithyHttpException(
@@ -203,6 +208,278 @@ void main() {
         } on Object catch (error) {
           expect(error is S3StorageException, isTrue);
         }
+      });
+    });
+
+    group('getProperties() API', () {
+      late S3StorageGetPropertiesResult getPropertiesResult;
+      const testKey = 'some-object';
+      const testMetadata = {
+        'filename': 'hello.jpg',
+        'uploader': '123',
+      };
+      const testSize = 1024;
+      const testETag = '12345';
+      final testLastModified = DateTime(2022, 9, 19);
+
+      setUpAll(() {
+        registerFallbackValue(
+          HeadObjectRequest(
+            bucket: 'fake bucket',
+            key: 'dummy key',
+          ),
+        );
+      });
+
+      test('should invoke S3Client.headObject with expected parameters',
+          () async {
+        const testTargetIdentityId = 'someone-else-id';
+        final testOptions = S3StorageGetPropertiesOptions.forIdentity(
+          testTargetIdentityId,
+        );
+        final testHeadObjectOutput = HeadObjectOutput(
+          eTag: testETag,
+          contentLength: Int64(testSize),
+          lastModified: testLastModified,
+          metadata: BuiltMap(testMetadata),
+        );
+
+        when(
+          () => s3Client.headObject(
+            any(),
+          ),
+        ).thenAnswer(
+          (_) async => testHeadObjectOutput,
+        );
+
+        getPropertiesResult = await storageS3Service.getProperties(
+          key: testKey,
+          options: testOptions,
+        );
+
+        final capturedRequest = verify(
+          () => s3Client.headObject(
+            captureAny<HeadObjectRequest>(),
+          ),
+        ).captured.last;
+        expect(capturedRequest is HeadObjectRequest, isTrue);
+
+        final request = capturedRequest as HeadObjectRequest;
+        expect(request.bucket, testBucket);
+        expect(
+          request.key,
+          '${await testPrefixResolver.resolvePrefix(
+            storageAccessLevel: testOptions.storageAccessLevel,
+            identityId: testTargetIdentityId,
+          )}$testKey',
+        );
+      });
+
+      test('should return correct S3StorageGetProperties result', () async {
+        final storageItem = getPropertiesResult.storageItem;
+        expect(storageItem.key, testKey);
+        expect(storageItem.metadata, testMetadata);
+        expect(storageItem.eTag, testETag);
+        expect(storageItem.size, testSize);
+      });
+
+      test(
+          'should throw S3StorageException when UnknownSmithHttpException is returned from service',
+          () async {
+        final testOptions = S3StorageGetPropertiesOptions();
+        const testUnknownException = UnknownSmithyHttpException(
+          statusCode: 404,
+          body: 'Nod found.',
+        );
+
+        when(
+          () => s3Client.headObject(
+            any(),
+          ),
+        ).thenThrow(testUnknownException);
+
+        try {
+          await storageS3Service.getProperties(
+            key: 'a key',
+            options: testOptions,
+          );
+        } on Object catch (error) {
+          expect(error is S3StorageException, isTrue);
+        }
+      });
+    });
+
+    group('getUrl() API', () {
+      late S3StorageGetUrlResult getUrlResult;
+      const testExpiresIn = Duration(days: 1);
+      const testKey = 'some-object';
+      final testUrl = Uri(
+        host: 's3.amazon.aws',
+        path: 'album/1.jpg',
+        scheme: 'https',
+      );
+
+      setUpAll(() {
+        registerFallbackValue(
+          AWSHttpRequest.get(testUrl),
+        );
+        registerFallbackValue(
+          AWSCredentialScope(region: testRegion, service: AWSService.s3),
+        );
+        registerFallbackValue(S3ServiceConfiguration());
+        registerFallbackValue(Duration.zero);
+        registerFallbackValue(
+          HeadObjectRequest(
+            bucket: 'fake bucket',
+            key: 'dummy key',
+          ),
+        );
+      });
+
+      test('should invoke AWSSigV4Signer.presign with correct parameters',
+          () async {
+        const testTargetIdentityId = 'someone-else-id';
+        final testOptions = S3StorageGetUrlOptions.forIdentity(
+          testTargetIdentityId,
+          expiresIn: testExpiresIn,
+        );
+
+        when(
+          () => awsSigV4Signer.presign(
+            any(),
+            credentialScope: any(named: 'credentialScope'),
+            serviceConfiguration: any(named: 'serviceConfiguration'),
+            expiresIn: any(named: 'expiresIn'),
+          ),
+        ).thenAnswer((_) async => testUrl);
+
+        getUrlResult = await storageS3Service.getUrl(
+          key: testKey,
+          options: testOptions,
+        );
+
+        final capturedParams = verify(
+          () => awsSigV4Signer.presign(
+            captureAny<AWSHttpRequest>(),
+            credentialScope:
+                captureAny<AWSCredentialScope>(named: 'credentialScope'),
+            expiresIn: captureAny<Duration>(named: 'expiresIn'),
+            serviceConfiguration: captureAny<S3ServiceConfiguration>(
+              named: 'serviceConfiguration',
+            ),
+          ),
+        ).captured;
+
+        expect(capturedParams.first is AWSHttpRequest, isTrue);
+        final requestParam = capturedParams.first as AWSHttpRequest;
+        expect(
+          requestParam.uri.toString(),
+          endsWith(
+            Uri.encodeComponent('${await testPrefixResolver.resolvePrefix(
+              storageAccessLevel: testOptions.storageAccessLevel,
+              identityId: testTargetIdentityId,
+            )}$testKey'),
+          ),
+        );
+
+        expect(capturedParams[1] is AWSCredentialScope, isTrue);
+        final credentialScopeParam = capturedParams[1] as AWSCredentialScope;
+        expect(credentialScopeParam.region, testRegion);
+        expect(credentialScopeParam.service, AWSService.s3.service);
+
+        expect(capturedParams[2] is S3ServiceConfiguration, isTrue);
+        final configParam = capturedParams[2] as S3ServiceConfiguration;
+        expect(configParam.signPayload, true);
+        expect(configParam.chunked, false);
+
+        expect(capturedParams.last, testExpiresIn);
+      });
+
+      test('should return correct url result', () {
+        expect(getUrlResult.url, testUrl);
+      });
+
+      test(
+          'should invoke s3Client.headObject when checkObjectExistence option is set to true',
+          () async {
+        final testOptions = S3StorageGetUrlOptions(
+          storageAccessLevel: StorageAccessLevel.private,
+          checkObjectExistence: true,
+        );
+        const testUnknownException = UnknownSmithyHttpException(
+          statusCode: 404,
+          body: 'Nod found.',
+        );
+
+        when(
+          () => s3Client.headObject(
+            any(),
+          ),
+        ).thenThrow(testUnknownException);
+
+        try {
+          await storageS3Service.getUrl(
+            key: testKey,
+            options: testOptions,
+          );
+        } on Object catch (error) {
+          expect(error is S3StorageException, isTrue);
+        }
+
+        final capturedRequest = verify(
+          () => s3Client.headObject(
+            captureAny<HeadObjectRequest>(),
+          ),
+        ).captured.last as HeadObjectRequest;
+
+        expect(
+          capturedRequest.key,
+          '${await testPrefixResolver.resolvePrefix(
+            storageAccessLevel: testOptions.storageAccessLevel,
+          )}$testKey',
+        );
+      });
+
+      test(
+          'should invoke s3Client.headObject when checkObjectExistence option is set to true and specified targetIdentityId',
+          () async {
+        const testTargetIdentityId = 'some-else-id';
+        final testOptions = S3StorageGetUrlOptions.forIdentity(
+          testTargetIdentityId,
+          checkObjectExistence: true,
+        );
+        const testUnknownException = UnknownSmithyHttpException(
+          statusCode: 404,
+          body: 'Nod found.',
+        );
+
+        when(
+          () => s3Client.headObject(
+            any(),
+          ),
+        ).thenThrow(testUnknownException);
+
+        try {
+          await storageS3Service.getUrl(
+            key: testKey,
+            options: testOptions,
+          );
+        } on Object catch (error) {
+          expect(error is S3StorageException, isTrue);
+        }
+
+        final capturedRequest = verify(
+          () => s3Client.headObject(
+            captureAny<HeadObjectRequest>(),
+          ),
+        ).captured.last as HeadObjectRequest;
+
+        expect(
+          capturedRequest.key,
+          '${await testPrefixResolver.resolvePrefix(
+            storageAccessLevel: testOptions.storageAccessLevel,
+          )}$testKey',
+        );
       });
     });
   });

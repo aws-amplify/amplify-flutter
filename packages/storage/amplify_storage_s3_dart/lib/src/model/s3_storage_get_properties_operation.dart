@@ -12,16 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 's3_storage_get_properties_operation.dart';
-export 's3_storage_get_properties_options.dart';
-export 's3_storage_get_properties_result.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
-export 's3_storage_get_url_operation.dart';
-export 's3_storage_get_url_options.dart';
-export 's3_storage_get_url_result.dart';
-
-export 's3_storage_item.dart';
-
-export 's3_storage_list_operation.dart';
-export 's3_storage_list_options.dart';
-export 's3_storage_list_result.dart';
+/// {@template storage.amplify_storage_s3.get_properties_operation}
+/// An operation created by calling Storage S3 plugin `getProperties` API.
+/// {@endtemplate}
+class S3StorageGetPropertiesOperation extends StorageGetPropertiesOperation<
+    StorageGetPropertiesRequest<S3StorageGetPropertiesOptions>,
+    S3StorageGetPropertiesResult> {
+  /// {@macro storage.amplify_storage_s3.get_properties_operation}
+  S3StorageGetPropertiesOperation({
+    required super.request,
+    required super.result,
+  });
+}

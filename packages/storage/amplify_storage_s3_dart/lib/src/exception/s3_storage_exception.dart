@@ -17,6 +17,8 @@ import 'package:smithy/smithy.dart';
 
 const _fileIssueMessage =
     'This exception is not expected. Please try again. If the exception persists, please file an issue at https://github.com/aws-amplify/amplify-flutter/issues';
+const _clientErrorRecoveryMessage =
+    'Please ensure that correct object key is provided, and/or correct `StorageAccessLevel` and `targetIdentityId` are included in the options.';
 
 /// {@template amplify_storage_s3_dart.s3_storage_exception}
 /// Represents exceptions that may be thrown calling Storage S3 plugin APIs.
@@ -38,8 +40,13 @@ class S3StorageException extends StorageException {
       case 403:
         return S3StorageException(
           'S3 access denied when making the API call.',
-          recoverySuggestion:
-              'Please ensure that correct `StorageAccessLevel` and `targetIdentityId` are included in the options.',
+          recoverySuggestion: _clientErrorRecoveryMessage,
+          underlyingException: exception,
+        );
+      case 404:
+        return S3StorageException(
+          'Object is not found in the bucket.',
+          recoverySuggestion: _clientErrorRecoveryMessage,
           underlyingException: exception,
         );
       default:

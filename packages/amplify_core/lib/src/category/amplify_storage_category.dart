@@ -175,7 +175,10 @@ class StorageCategory<
 
   /// {@template amplify_core.amplify_storage_category.get_url}
   /// Generates a downloadable url for the object specified by `key` with
-  /// [StorageGetUrlOptions]. The url is presigned by the aws_signature_v4.
+  /// [StorageGetUrlOptions].
+  ///
+  /// The url is presigned by the aws_signature_v4, and is enforced with scheme
+  /// `https`.
   /// {@endtemplate}
   PluginStorageGetUrlOperation getUrl({
     required String key,

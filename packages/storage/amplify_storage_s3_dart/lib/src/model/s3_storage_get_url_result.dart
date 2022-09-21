@@ -12,16 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 's3_storage_get_properties_operation.dart';
-export 's3_storage_get_properties_options.dart';
-export 's3_storage_get_properties_result.dart';
+import 'package:amplify_core/amplify_core.dart';
 
-export 's3_storage_get_url_operation.dart';
-export 's3_storage_get_url_options.dart';
-export 's3_storage_get_url_result.dart';
-
-export 's3_storage_item.dart';
-
-export 's3_storage_list_operation.dart';
-export 's3_storage_list_options.dart';
-export 's3_storage_list_result.dart';
+/// {@template storage.amplify_storage_s3.get_url_result}
+/// The result returned by Storage S3 plugin `getUrl` API.
+/// {@endtemplate}
+typedef S3StorageGetUrlResult = StorageGetUrlResult;

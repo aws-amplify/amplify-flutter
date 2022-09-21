@@ -178,5 +178,107 @@ void main() {
         );
       });
     });
+
+    group('getProperties()', () {
+      const testKey = 'some-object-key';
+      final testResult = S3StorageGetPropertiesResult(
+        storageItem: S3StorageItem(
+          key: testKey,
+          lastModified: DateTime(2022, 9, 19),
+          eTag: '12345',
+          size: 1024,
+          metadata: {
+            'filename': 'file.jpg',
+            'uploader': 'user-id',
+          },
+        ),
+      );
+
+      setUpAll(() {
+        registerFallbackValue(S3StorageGetPropertiesOptions());
+      });
+
+      test(
+          'should forward options with default StorageAccessLevel to StorageS3Service.getProperties() API',
+          () {
+        const testRequest =
+            StorageGetPropertiesRequest<S3StorageGetPropertiesOptions>(
+          key: testKey,
+        );
+
+        when(
+          () => storageS3Service.getProperties(
+            key: testKey,
+            options: any(named: 'options'),
+          ),
+        ).thenAnswer(
+          (_) async => testResult,
+        );
+
+        storageS3Plugin.getProperties(request: testRequest);
+
+        final capturedOptions = verify(
+          () => storageS3Service.getProperties(
+            key: testKey,
+            options:
+                captureAny<S3StorageGetPropertiesOptions>(named: 'options'),
+          ),
+        ).captured.last;
+
+        expect(capturedOptions is S3StorageGetPropertiesOptions, isTrue);
+        expect(
+          (capturedOptions as S3StorageGetPropertiesOptions).storageAccessLevel,
+          testDefaultStorageAccessLevel,
+        );
+      });
+    });
+
+    group('getUrl() API', () {
+      const testKey = 'some-object-key';
+      final testResult = S3StorageGetUrlResult(
+        url: Uri(
+          host: 's3.amazon.aws',
+          path: 'album/1.jpg',
+          scheme: 'https',
+        ),
+      );
+
+      setUpAll(() {
+        registerFallbackValue(S3StorageGetUrlOptions());
+      });
+
+      test(
+          'should forward options with default StorageAccessLevel to StorageS3Service.getUrl() API',
+          () async {
+        const testRequest = StorageGetUrlRequest(key: testKey);
+
+        when(
+          () => storageS3Service.getUrl(
+            key: testKey,
+            options: any(named: 'options'),
+          ),
+        ).thenAnswer(
+          (_) async => testResult,
+        );
+
+        final getUrlOperation = storageS3Plugin.getUrl(request: testRequest);
+
+        final capturedOptions = verify(
+          () => storageS3Service.getUrl(
+            key: testKey,
+            options: captureAny<S3StorageGetUrlOptions>(named: 'options'),
+          ),
+        ).captured.last;
+
+        expect(capturedOptions is S3StorageGetUrlOptions, isTrue);
+        expect(
+          (capturedOptions as S3StorageGetUrlOptions).storageAccessLevel,
+          testDefaultStorageAccessLevel,
+        );
+
+        final result = await getUrlOperation.result;
+        expect(result.url, testResult.url);
+      });
+    });
   });
 }

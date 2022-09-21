@@ -46,7 +46,10 @@ class S3StorageItem extends StorageItem {
       throw S3StorageException.unknownException();
     }
 
-    final keyDroppedPrefix = key.replaceRange(0, prefixToDrop.length, '');
+    final keyDroppedPrefix = dropPrefixFromKey(
+      prefixToDrop: prefixToDrop,
+      key: key,
+    );
 
     return S3StorageItem(
       key: keyDroppedPrefix,
@@ -54,6 +57,17 @@ class S3StorageItem extends StorageItem {
       lastModified: object.lastModified,
       eTag: object.eTag,
     );
+  }
+
+  /// Removes `prefixToDrop` from `key` string.
+  ///
+  /// This should only be used internally.
+  @internal
+  static String dropPrefixFromKey({
+    required String prefixToDrop,
+    required String key,
+  }) {
+    return key.replaceRange(0, prefixToDrop.length, '');
   }
 
   /// Metadata specified when the object was uploaded.
