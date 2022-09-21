@@ -61,8 +61,9 @@ class PublishCommand extends AmplifyCommand {
 
     try {
       final versionInfo = await package.resolveVersionInfo(httpClient);
-      final latestVersion = versionInfo?.latestVersion;
-      if (latestVersion == null) {
+      final publishedVersion =
+          versionInfo?.latestPrerelease ?? versionInfo?.latestVersion;
+      if (publishedVersion == null) {
         if (force) {
           return package;
         } else {
@@ -70,9 +71,8 @@ class PublishCommand extends AmplifyCommand {
         }
       }
 
-      return latestVersion < package.pubspecInfo.pubspec.version!
-          ? package
-          : null;
+      final currentVersion = package.pubspecInfo.pubspec.version!;
+      return currentVersion > publishedVersion ? package : null;
     } on Exception catch (e) {
       if (force) {
         return null;
@@ -93,7 +93,15 @@ class PublishCommand extends AmplifyCommand {
     r'Package validation found the following',
   );
   static final _validationConstraintRegex = RegExp(
-    r'\* Your dependency on ".+" should allow more than one version.',
+    r'\* Your dependency on ".+" should allow more than one version\.',
+  );
+  static final _validationCheckedInFilesRegex = RegExp(
+    r'\* \d+ checked-in files? (is|are) ignored by a `\.gitignore`\.',
+  );
+  // TODO(dnys1): Remove when we hit 1.0. For now this is appropriate since
+  // we have 0.x versions depending on 1.x-pre versions.
+  static final _validationPreReleaseRegex = RegExp(
+    r'\* Packages dependent on a pre-release of another package should themselves be published as a pre-release version\.',
   );
   static final _validationErrorRegex = RegExp(r'^\s*\*');
 
@@ -128,7 +136,9 @@ class PublishCommand extends AmplifyCommand {
           .split('\n')
           .skipWhile((line) => !_validationStartRegex.hasMatch(line))
           .where(_validationErrorRegex.hasMatch)
-          .where((line) => !_validationConstraintRegex.hasMatch(line));
+          .where((line) => !_validationConstraintRegex.hasMatch(line))
+          .where((line) => !_validationPreReleaseRegex.hasMatch(line))
+          .where((line) => !_validationCheckedInFilesRegex.hasMatch(line));
       if (failures.isNotEmpty) {
         logger
           ..error(
@@ -144,27 +154,29 @@ class PublishCommand extends AmplifyCommand {
   @override
   Future<void> run() async {
     // Gather packages which can be published.
-    final publishablePackages = (await Future.wait([
-      for (final package in allPackages.values) _checkPublishable(package),
+    final publishablePackages = repo.developmentPackages
+        .where((pkg) => pkg.pubspecInfo.pubspec.publishTo != 'none');
+
+    // Gather packages which need to be published.
+    final packagesNeedingPublish = (await Future.wait([
+      for (final package in publishablePackages) _checkPublishable(package),
     ]))
         .whereType<PackageInfo>()
         .toList();
 
-    // Non-example packages which are being held back
-    final unpublishablePackages = allPackages.values.where(
-      (pkg) =>
-          pkg.pubspecInfo.pubspec.publishTo == null &&
-          !publishablePackages.contains(pkg),
+    // Publishable packages which are being held back.
+    final unpublishablePackages = publishablePackages.where(
+      (pkg) => !packagesNeedingPublish.contains(pkg),
     );
 
-    if (publishablePackages.isEmpty) {
+    if (packagesNeedingPublish.isEmpty) {
       logger.info('No packages need publishing!');
       return;
     }
 
     try {
       sortPackagesTopologically<PackageInfo>(
-        publishablePackages,
+        packagesNeedingPublish,
         (pkg) => pkg.pubspecInfo.pubspec,
       );
     } on CycleException<dynamic> {
@@ -176,7 +188,7 @@ class PublishCommand extends AmplifyCommand {
     stdout
       ..writeln('Preparing to publish${dryRun ? ' (dry run)' : ''}: ')
       ..writeln(
-        publishablePackages
+        packagesNeedingPublish
             .map((pkg) => '${pkg.pubspecInfo.pubspec.version} ${pkg.name}')
             .join('\n'),
       )
@@ -196,12 +208,12 @@ class PublishCommand extends AmplifyCommand {
     }
 
     // Run pre-publish checks before publishing any packages.
-    for (final package in publishablePackages) {
+    for (final package in packagesNeedingPublish) {
       await _prePublish(package);
     }
 
     // Publish each package sequentially.
-    for (final package in publishablePackages) {
+    for (final package in packagesNeedingPublish) {
       await _publish(package);
     }
 
