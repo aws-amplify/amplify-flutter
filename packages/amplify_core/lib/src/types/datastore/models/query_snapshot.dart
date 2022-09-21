@@ -91,6 +91,8 @@ class QuerySnapshot<T extends Model> {
     T newItem = event.item;
     bool newItemMatchesPredicate = where == null || where!.evaluate(newItem);
     int currentItemIndex =
+        // TODO(HuiSF): remove the ignore when merging CPK feature commits
+        // ignore: deprecated_member_use_from_same_package
         sortedListCopy.indexWhere((item) => item.getId() == newItem.getId());
     T? currentItem =
         currentItemIndex == -1 ? null : sortedListCopy[currentItemIndex];
