@@ -1,3 +1,12 @@
+## 0.2.3
+
+### Fixes
+- fix(aws): Cancellation of concurrent requests
+- fix(aws_common): Case insentitive iteration
+
+### Features
+- feat(core): AWS HTTP
+
 ## 0.2.2
 
 - Add `zAssertsEnabled` flag
