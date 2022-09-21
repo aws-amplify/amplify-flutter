@@ -511,7 +511,7 @@ extension OperationShapeUtil on OperationShape {
       (p) => p
         ..type = DartTypes.smithy.httpClient.boxed
         ..name = 'client'
-        ..location = ParameterLocation.run,
+        ..location = ParameterLocation.all,
     );
 
     if (serviceShape.isAwsService) {
@@ -572,7 +572,7 @@ extension OperationShapeUtil on OperationShape {
   /// based off the traits attached to this shape's service.
   Iterable<Field> protocolFields(CodegenContext context) sync* {
     for (final parameter in operationParameters(context)
-        .where((p) => p.location.inConstructor)) {
+        .where((p) => p.location == ParameterLocation.constructor)) {
       yield Field(
         (f) => f
           ..modifier = FieldModifier.final$
@@ -592,7 +592,7 @@ extension OperationShapeUtil on OperationShape {
     bool Function(ConfigParameter) toThis = _defaultToThis,
   }) sync* {
     for (final parameter in operationParameters(context)
-        .where((p) => p.location.inConstructor)) {
+        .where((p) => p.location == ParameterLocation.constructor)) {
       yield Parameter((p) {
         final pToThis = toThis(parameter);
         p
