@@ -17,7 +17,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.storage.copy_request}
 /// Presents a storage copy request.
 /// {@endtemplate}
-class StorageCopyRequest<Item extends StorageItemWithAccessLevel> {
+class StorageCopyRequest<Item extends StorageItem> {
   /// {@macro amplify_core.storage.copy_request}
   const StorageCopyRequest({
     required this.source,
@@ -25,8 +25,8 @@ class StorageCopyRequest<Item extends StorageItemWithAccessLevel> {
   });
 
   /// Copy source.
-  final Item source;
+  final StorageItemWithAccessLevel<Item> source;
 
   /// Copy destination.
-  final Item destination;
+  final StorageItemWithAccessLevel<Item> destination;
 }

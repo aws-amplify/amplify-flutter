@@ -1,0 +1,25 @@
+name: storage_s3_example
+description: Amplify Storage S3 for Dart example.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=2.17.6 <3.0.0'
+
+dependencies:
+  amplify_auth_cognito_dart:
+    path: ../../../auth/amplify_auth_cognito_dart
+  amplify_core:
+    path: ../../../amplify_core
+  amplify_secure_storage_dart:
+    path: ../../../secure_storage/amplify_secure_storage_dart
+  amplify_storage_s3_dart:
+    path: ../
+  example_common:
+    path: ../../../example_common
+
+dev_dependencies:
+  amplify_lints:
+    path: ../../../amplify_lints
+  build_runner: ^2.1.4
+  build_web_compilers: ^3.2.1
