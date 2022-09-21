@@ -17,11 +17,10 @@ library amplify_api.decorators.web_socket_auth_utils;
 
 import 'dart:convert';
 
+import 'package:amplify_api/src/decorators/authorize_http_request.dart';
+import 'package:amplify_api/src/graphql/ws/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
-
-import '../graphql/ws/web_socket_types.dart';
-import 'authorize_http_request.dart';
 
 // Constants for header values as noted in https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html.
 const _requiredHeaders = {
@@ -37,7 +36,9 @@ const _emptyBody = <String, dynamic>{};
 ///
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#handshake-details-to-establish-the-websocket-connection=
 Future<Uri> generateConnectionUri(
-    AWSApiConfig config, AmplifyAuthProviderRepository authRepo) async {
+  AWSApiConfig config,
+  AmplifyAuthProviderRepository authRepo,
+) async {
   final authorizationHeaders = await _generateAuthorizationHeaders(
     config,
     isConnectionInit: true,
@@ -49,22 +50,23 @@ Future<Uri> generateConnectionUri(
   final endpointUri = Uri.parse(
     config.endpoint.replaceFirst('appsync-api', 'appsync-realtime-api'),
   );
-  return Uri(scheme: 'wss', host: endpointUri.host, path: 'graphql')
-      .replace(queryParameters: <String, String>{
-    'header': encodedAuthHeaders,
-    'payload': base64.encode(utf8.encode(json.encode(_emptyBody))),
-  });
+  return Uri(scheme: 'wss', host: endpointUri.host, path: 'graphql').replace(
+    queryParameters: <String, String>{
+      'header': encodedAuthHeaders,
+      'payload': base64.encode(utf8.encode(json.encode(_emptyBody))),
+    },
+  );
 }
 
 /// Generate websocket message with authorized payload to register subscription.
 ///
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#subscription-registration-message
 Future<WebSocketSubscriptionRegistrationMessage>
-    generateSubscriptionRegistrationMessage(
+    generateSubscriptionRegistrationMessage<T>(
   AWSApiConfig config, {
   required String id,
   required AmplifyAuthProviderRepository authRepo,
-  required GraphQLRequest request,
+  required GraphQLRequest<T> request,
 }) async {
   final body = {'variables': request.variables, 'query': request.document};
   final authorizationHeaders = await _generateAuthorizationHeaders(
@@ -73,6 +75,7 @@ Future<WebSocketSubscriptionRegistrationMessage>
     authRepo: authRepo,
     body: body,
     authorizationMode: request.authorizationMode,
+    customHeaders: request.headers,
   );
 
   return WebSocketSubscriptionRegistrationMessage(
@@ -100,6 +103,7 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   required AmplifyAuthProviderRepository authRepo,
   required Map<String, dynamic> body,
   APIAuthorizationType? authorizationMode,
+  Map<String, String>? customHeaders,
 }) async {
   final endpointHost = Uri.parse(config.endpoint).host;
   // Create canonical HTTP request to authorize but never send.
@@ -109,7 +113,10 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   final maybeConnect = isConnectionInit ? '/connect' : '';
   final canonicalHttpRequest = AWSStreamedHttpRequest.post(
     Uri.parse('${config.endpoint}$maybeConnect'),
-    headers: _requiredHeaders,
+    headers: {
+      ..._requiredHeaders,
+      ...(customHeaders ?? {}),
+    },
     body: HttpPayload.json(body),
   );
   final authorizedHttpRequest = await authorizeHttpRequest(

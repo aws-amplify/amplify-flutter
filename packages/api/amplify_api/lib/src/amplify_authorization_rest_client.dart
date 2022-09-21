@@ -18,21 +18,10 @@ import 'package:amplify_api/src/decorators/authorize_http_request.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-/// Implementation of http [http.Client] that authorizes HTTP requests with
+/// Implementation of [AWSHttpClient] that authorizes HTTP requests with
 /// Amplify.
 @internal
 class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
-  /// [AmplifyAuthProviderRepository] for any auth modes this client may use.
-  final AmplifyAuthProviderRepository authProviderRepo;
-
-  /// Determines how requests with this client are authorized.
-  final AWSApiConfig endpointConfig;
-
-  /// The authorization mode to use for requests with this client.
-  ///
-  /// If provided, will override the [authorizationType] of [endpointConfig].
-  final APIAuthorizationType? authorizationMode;
-
   /// Provide an [AWSApiConfig] which will determine how requests from this
   /// client are authorized.
   AmplifyAuthorizationRestClient({
@@ -42,13 +31,27 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
     AWSHttpClient? baseClient,
   }) : baseClient = baseClient ?? AWSHttpClient();
 
+  /// [AmplifyAuthProviderRepository] for any auth modes this client may use.
+  final AmplifyAuthProviderRepository authProviderRepo;
+
+  /// Determines how requests with this client are authorized.
+  final AWSApiConfig endpointConfig;
+
+  /// The authorization mode to use for requests with this client.
+  ///
+  /// If provided, will override the authorizationType of [endpointConfig].
+  final APIAuthorizationType? authorizationMode;
+
   @override
   final AWSHttpClient baseClient;
 
   /// Implementation of [transformRequest] that authorizes any request without "Authorization"
-  /// or "X-Api-Key" header already set.
+  /// or "X-Api-Key" header already set and enforces HTTPS.
   @override
   Future<AWSBaseHttpRequest> transformRequest(AWSBaseHttpRequest request) {
+    if (request.scheme != 'https') {
+      throw const ApiException('Non-HTTPS requests not supported.');
+    }
     return authorizeHttpRequest(
       request,
       endpointConfig: endpointConfig,

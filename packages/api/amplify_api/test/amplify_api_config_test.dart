@@ -29,11 +29,12 @@ void main() {
 
     setUpAll(() async {
       const config = AWSApiConfig(
-          endpointType: endpointType,
-          endpoint: endpoint,
-          region: region,
-          authorizationType: authorizationType,
-          apiKey: apiKey);
+        endpointType: endpointType,
+        endpoint: endpoint,
+        region: region,
+        authorizationType: authorizationType,
+        apiKey: apiKey,
+      );
 
       endpointConfig = const EndpointConfig('GraphQL', config);
     });
@@ -54,10 +55,11 @@ void main() {
 
     setUpAll(() async {
       const config = AWSApiConfig(
-          endpointType: endpointType,
-          endpoint: endpoint,
-          region: region,
-          authorizationType: authorizationType);
+        endpointType: endpointType,
+        endpoint: endpoint,
+        region: region,
+        authorizationType: authorizationType,
+      );
 
       endpointConfig = const EndpointConfig('REST', config);
     });
