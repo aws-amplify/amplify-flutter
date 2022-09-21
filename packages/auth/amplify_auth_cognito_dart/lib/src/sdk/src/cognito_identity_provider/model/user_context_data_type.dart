@@ -28,9 +28,14 @@ abstract class UserContextDataType
     with _i1.AWSEquatable<UserContextDataType>
     implements Built<UserContextDataType, UserContextDataTypeBuilder> {
   /// Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
-  factory UserContextDataType({String? encodedData, String? ipAddress}) {
+  factory UserContextDataType({
+    String? encodedData,
+    String? ipAddress,
+  }) {
     return _$UserContextDataType._(
-        encodedData: encodedData, ipAddress: ipAddress);
+      encodedData: encodedData,
+      ipAddress: ipAddress,
+    );
   }
 
   /// Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
@@ -53,12 +58,21 @@ abstract class UserContextDataType
   /// The source IP address of your user's device.
   String? get ipAddress;
   @override
-  List<Object?> get props => [encodedData, ipAddress];
+  List<Object?> get props => [
+        encodedData,
+        ipAddress,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UserContextDataType');
-    helper.add('encodedData', encodedData);
-    helper.add('ipAddress', ipAddress);
+    helper.add(
+      'encodedData',
+      encodedData,
+    );
+    helper.add(
+      'ipAddress',
+      ipAddress,
+    );
     return helper.toString();
   }
 }
@@ -68,15 +82,23 @@ class UserContextDataTypeAwsJson11Serializer
   const UserContextDataTypeAwsJson11Serializer() : super('UserContextDataType');
 
   @override
-  Iterable<Type> get types =>
-      const [UserContextDataType, _$UserContextDataType];
+  Iterable<Type> get types => const [
+        UserContextDataType,
+        _$UserContextDataType,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   UserContextDataType deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = UserContextDataTypeBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -86,14 +108,18 @@ class UserContextDataTypeAwsJson11Serializer
       switch (key) {
         case 'EncodedData':
           if (value != null) {
-            result.encodedData = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.encodedData = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'IpAddress':
           if (value != null) {
-            result.ipAddress = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.ipAddress = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -103,21 +129,28 @@ class UserContextDataTypeAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as UserContextDataType);
     final result = <Object?>[];
     if (payload.encodedData != null) {
       result
         ..add('EncodedData')
-        ..add(serializers.serialize(payload.encodedData!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.encodedData!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.ipAddress != null) {
       result
         ..add('IpAddress')
-        ..add(serializers.serialize(payload.ipAddress!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.ipAddress!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

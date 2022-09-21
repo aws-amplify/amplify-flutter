@@ -40,7 +40,9 @@ abstract class GetIdResponse
 
   /// Constructs a [GetIdResponse] from a [payload] and [response].
   factory GetIdResponse.fromResponse(
-          GetIdResponse payload, _i1.AWSBaseHttpResponse response) =>
+    GetIdResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -57,7 +59,10 @@ abstract class GetIdResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetIdResponse');
-    helper.add('identityId', identityId);
+    helper.add(
+      'identityId',
+      identityId,
+    );
     return helper.toString();
   }
 }
@@ -67,14 +72,23 @@ class GetIdResponseAwsJson11Serializer
   const GetIdResponseAwsJson11Serializer() : super('GetIdResponse');
 
   @override
-  Iterable<Type> get types => const [GetIdResponse, _$GetIdResponse];
+  Iterable<Type> get types => const [
+        GetIdResponse,
+        _$GetIdResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   GetIdResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = GetIdResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -84,8 +98,10 @@ class GetIdResponseAwsJson11Serializer
       switch (key) {
         case 'IdentityId':
           if (value != null) {
-            result.identityId = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.identityId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -95,15 +111,20 @@ class GetIdResponseAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as GetIdResponse);
     final result = <Object?>[];
     if (payload.identityId != null) {
       result
         ..add('IdentityId')
-        ..add(serializers.serialize(payload.identityId!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.identityId!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

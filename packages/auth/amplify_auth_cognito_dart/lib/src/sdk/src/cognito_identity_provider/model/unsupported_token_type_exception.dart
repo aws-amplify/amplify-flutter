@@ -45,8 +45,9 @@ abstract class UnsupportedTokenTypeException
 
   /// Constructs a [UnsupportedTokenTypeException] from a [payload] and [response].
   factory UnsupportedTokenTypeException.fromResponse(
-          UnsupportedTokenTypeException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    UnsupportedTokenTypeException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
@@ -61,8 +62,9 @@ abstract class UnsupportedTokenTypeException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'UnsupportedTokenTypeException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UnsupportedTokenTypeException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -78,7 +80,10 @@ abstract class UnsupportedTokenTypeException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UnsupportedTokenTypeException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
@@ -89,15 +94,23 @@ class UnsupportedTokenTypeExceptionAwsJson11Serializer
       : super('UnsupportedTokenTypeException');
 
   @override
-  Iterable<Type> get types =>
-      const [UnsupportedTokenTypeException, _$UnsupportedTokenTypeException];
+  Iterable<Type> get types => const [
+        UnsupportedTokenTypeException,
+        _$UnsupportedTokenTypeException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   UnsupportedTokenTypeException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = UnsupportedTokenTypeExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -107,8 +120,10 @@ class UnsupportedTokenTypeExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -118,15 +133,20 @@ class UnsupportedTokenTypeExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as UnsupportedTokenTypeException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

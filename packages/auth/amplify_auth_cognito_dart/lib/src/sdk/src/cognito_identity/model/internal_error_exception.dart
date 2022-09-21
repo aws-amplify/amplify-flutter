@@ -43,7 +43,9 @@ abstract class InternalErrorException
 
   /// Constructs a [InternalErrorException] from a [payload] and [response].
   factory InternalErrorException.fromResponse(
-          InternalErrorException payload, _i1.AWSBaseHttpResponse response) =>
+    InternalErrorException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.statusCode = response.statusCode;
         b.headers = response.headers;
@@ -61,8 +63,9 @@ abstract class InternalErrorException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentity',
-      shape: 'InternalErrorException');
+        namespace: 'com.amazonaws.cognitoidentity',
+        shape: 'InternalErrorException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -78,7 +81,10 @@ abstract class InternalErrorException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InternalErrorException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
@@ -89,15 +95,23 @@ class InternalErrorExceptionAwsJson11Serializer
       : super('InternalErrorException');
 
   @override
-  Iterable<Type> get types =>
-      const [InternalErrorException, _$InternalErrorException];
+  Iterable<Type> get types => const [
+        InternalErrorException,
+        _$InternalErrorException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   InternalErrorException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = InternalErrorExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -107,8 +121,10 @@ class InternalErrorExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -118,15 +134,20 @@ class InternalErrorExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as InternalErrorException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

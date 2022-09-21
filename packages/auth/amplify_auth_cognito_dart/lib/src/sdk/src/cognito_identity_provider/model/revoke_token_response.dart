@@ -40,7 +40,9 @@ abstract class RevokeTokenResponse
 
   /// Constructs a [RevokeTokenResponse] from a [payload] and [response].
   factory RevokeTokenResponse.fromResponse(
-          RevokeTokenResponse payload, _i1.AWSBaseHttpResponse response) =>
+    RevokeTokenResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -63,20 +65,31 @@ class RevokeTokenResponseAwsJson11Serializer
   const RevokeTokenResponseAwsJson11Serializer() : super('RevokeTokenResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [RevokeTokenResponse, _$RevokeTokenResponse];
+  Iterable<Type> get types => const [
+        RevokeTokenResponse,
+        _$RevokeTokenResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   RevokeTokenResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return RevokeTokenResponseBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

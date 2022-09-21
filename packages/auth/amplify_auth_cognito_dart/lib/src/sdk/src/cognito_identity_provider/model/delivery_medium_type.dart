@@ -19,28 +19,48 @@ library amplify_auth_cognito_dart.cognito_identity_provider.model.delivery_mediu
 import 'package:smithy/smithy.dart' as _i1;
 
 class DeliveryMediumType extends _i1.SmithyEnum<DeliveryMediumType> {
-  const DeliveryMediumType._(int index, String name, String value)
-      : super(index, name, value);
+  const DeliveryMediumType._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const DeliveryMediumType._sdkUnknown(String value) : super.sdkUnknown(value);
 
-  static const email = DeliveryMediumType._(0, 'EMAIL', 'EMAIL');
+  static const email = DeliveryMediumType._(
+    0,
+    'EMAIL',
+    'EMAIL',
+  );
 
-  static const sms = DeliveryMediumType._(1, 'SMS', 'SMS');
+  static const sms = DeliveryMediumType._(
+    1,
+    'SMS',
+    'SMS',
+  );
 
   /// All values of [DeliveryMediumType].
   static const values = <DeliveryMediumType>[
     DeliveryMediumType.email,
-    DeliveryMediumType.sms
+    DeliveryMediumType.sms,
   ];
 
   static const List<_i1.SmithySerializer<DeliveryMediumType>> serializers = [
-    _i1.SmithyEnumSerializer('DeliveryMediumType',
-        values: values,
-        sdkUnknown: DeliveryMediumType._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')
-        ])
+    _i1.SmithyEnumSerializer(
+      'DeliveryMediumType',
+      values: values,
+      sdkUnknown: DeliveryMediumType._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ],
+    )
   ];
 }
 

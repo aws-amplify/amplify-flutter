@@ -62,9 +62,14 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i12.TooManyRequestsException.serializers,
   ..._i13.GetIdInput.serializers,
   ..._i14.GetIdResponse.serializers,
-  ..._i15.LimitExceededException.serializers
+  ..._i15.LimitExceededException.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(_i16.BuiltMap, [FullType(String), FullType(String)]):
-      _i16.MapBuilder<String, String>.new
+  const FullType(
+    _i16.BuiltMap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i16.MapBuilder<String, String>.new
 };

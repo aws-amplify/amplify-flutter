@@ -43,7 +43,9 @@ abstract class UserNotFoundException
 
   /// Constructs a [UserNotFoundException] from a [payload] and [response].
   factory UserNotFoundException.fromResponse(
-          UserNotFoundException payload, _i1.AWSBaseHttpResponse response) =>
+    UserNotFoundException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
@@ -60,8 +62,9 @@ abstract class UserNotFoundException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'UserNotFoundException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UserNotFoundException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -77,7 +80,10 @@ abstract class UserNotFoundException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UserNotFoundException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
@@ -88,15 +94,23 @@ class UserNotFoundExceptionAwsJson11Serializer
       : super('UserNotFoundException');
 
   @override
-  Iterable<Type> get types =>
-      const [UserNotFoundException, _$UserNotFoundException];
+  Iterable<Type> get types => const [
+        UserNotFoundException,
+        _$UserNotFoundException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   UserNotFoundException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = UserNotFoundExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -106,8 +120,10 @@ class UserNotFoundExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -117,15 +133,20 @@ class UserNotFoundExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as UserNotFoundException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }
